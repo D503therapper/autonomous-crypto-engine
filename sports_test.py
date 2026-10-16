@@ -10792,6 +10792,473 @@ def test_early_unit_plays_show_in_their_sports_past_results():
     assert "(+112)" not in h                                  # not graded yet: not in the list
 
 
+def test_injury_line_names_the_players_who_play_first():
+    """10/16 injury audit (the owner's #1 priority): the 🚑 line and a card's 'outs' named the first four rows the
+    report listed - the 10/10 Minnesota Lock led with a backup QB, and a college availability report runs 10-16 names
+    (walk-ons, redshirts, backup linemen), so a starting back ruled out could sit in '+5 more'. The players our box
+    scores show PLAYING come first (the QB ahead of them), the rest keep the report's order; nothing is dropped. A team
+    with no box scores keeps the report's order."""
+    import sports_absences as A
+    keep = dict(A._TEAM)
+    rows = lambda gid, start: [
+        {"gid": gid, "start": start, "team": "135", "player": "Drake Lindsey", "stats": '{"completions/passingAttempts":"22/35"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Star Back", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Top Wideout", "stats": '{"receptions":"8"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Bench Guy", "stats": '{"totalTackles":"0"}'}]
+    A._TEAM["ncaaf"] = {"135": [("2026-10-03T19:00Z", "g1", rows("g1", "2026-10-03T19:00Z"))]}
+    try:
+        g = {"league": "ncaaf", "home": "135", "home_name": "Minnesota", "away": "2509", "away_name": "Purdue",
+             "start": "2026-10-10T19:00Z"}
+        rep = [("Michael Merdinger", "QB", "Out"), ("Walk On", "OL", "Out"), ("Red Shirt", "DL", "Out"),
+               ("Bench Guy", "LB", "Out"), ("Star Back", "RB", "Out"), ("D. Lindsey", "QB", "Questionable"),
+               ("Top Wideout", "WR", "Doubtful"), ("Another Lineman", "OL", "Out")]
+        inj = {"ncaaf": {"135": rep}}
+        line = sports.injury_line(g, "home", inj)
+        assert line.startswith("🚑 Minnesota out: RB Star Back, WR Top Wideout, QB Michael Merdinger, OL Walk On +3 more"), line
+        assert "questionable: QB D. Lindsey" in line, line                  # the starter's short name still matches
+        first = sports.who_plays_first(g, "home", sd.team_injuries(inj["ncaaf"], "135", "Minnesota"))
+        assert [r[0] for r in first][:3] == ["Star Back", "Top Wideout", "Michael Merdinger"], first
+        assert len(first) == 7 and first[-1][0] == "Another Lineman"            # nothing dropped, the rest in order
+        A._TEAM["ncaaf"] = {}                                   # no box scores: the QBs first, then the report's order
+        assert [r[0] for r in sports.who_plays_first(g, "home", rep)][:3] == ["Michael Merdinger", "D. Lindsey", "Walk On"]
+        nfl = {"league": "nfl", "home": "16", "home_name": "Vikings", "away": "18", "away_name": "Saints", "start": "2026-10-11T17:00Z"}
+        assert sports.who_plays_first(nfl, "home", [("A", "CB", "Out"), ("B", "QB", "Out")])[0][0] == "B"   # the QB first
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))' in src
+
+
+def test_official_reports_are_read_for_their_game_day_only_and_covers_names_land():
+    """10/16 injury audit of Saturday's slate: 61 of the 100 college teams on 10/17's priced games had an official
+    report in injuries_official.json from LAST Saturday (10/10) - those are never read as current (only the day
+    before / the day / the day after count), so a stale list can't say who's out this week. And every Covers school
+    name for the owner's teams (BYU, Boston College, Rutgers, FAU, Wisconsin, West Virginia, Old Dominion, Air Force,
+    Rice, Tennessee, Georgia Tech, Eastern Michigan) lands on its own ESPN team - never a neighbour (Tennessee Tech,
+    Tennessee State, Georgia Southern...)."""
+    import json as _j, tempfile as _t
+    keep = sd.OFFICIAL_PATH
+    try:
+        sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
+        _j.dump({"2026-10-10": {"ncaaf": {"2633": {"team": "Tennessee", "players": [["Old News", "RB", "Out"]]}}},
+                 "2026-10-16": {"ncaaf": {"264": {"team": "Washington", "players": [["D. Williams Jr.", "QB", "Questionable"]]}}},
+                 "2026-10-17": {"ncaaf": {"252": {"team": "BYU", "players": [["Fresh Report", "WR", "Out"]]}}}},
+                open(sd.OFFICIAL_PATH, "w"))
+        got = sd.official("ncaaf", day="2026-10-17")
+        assert "2633" not in got and got["252"] == [("Fresh Report", "WR", "Out")], got      # last week's list: not today's
+        assert "264" not in got and "264" in sd.official("ncaaf", day="2026-10-16")           # Friday's list is Friday's
+    finally:
+        sd.OFFICIAL_PATH = keep
+    names = {"252": "BYU", "103": "Boston College", "164": "Rutgers", "2226": "FAU", "275": "Wisconsin",
+             "277": "West Virginia", "295": "Old Dominion", "2005": "Air Force", "242": "Rice", "2633": "Tennessee",
+             "2635": "Tennessee Tech", "2634": "Tennessee St", "59": "Georgia Tech", "290": "GA Southern",
+             "2199": "E Michigan", "2117": "C Michigan", "2711": "W Michigan", "130": "Michigan", "127": "Michigan St"}
+    page = []
+    covers = [("BYU", "252"), ("Boston College", "103"), ("Rutgers", "164"), ("Florida Atlantic", "2226"),
+              ("Wisconsin", "275"), ("West Virginia", "277"), ("Old Dominion", "295"), ("Air Force", "2005"),
+              ("Rice", "242"), ("Tennessee", "2633"), ("Georgia Tech", "59"), ("Eastern Michigan", "2199"),
+              ("Tennessee Tech", "2635"), ("Tennessee State", "2634"), ("Georgia Southern", "290"),
+              ("Central Michigan", "2117"), ("Western Michigan", "2711"), ("Michigan", "130"), ("Michigan State", "127")]
+    for n, (school, tid) in enumerate(covers):
+        page += [f"C{n}", "`\">", school, "Mascot", "(1)", "Player", "POS", "Status", f"P{n}. Player", "WR", "Out - Knee",
+                 "(", "Sat, Oct 17)", "A note."]
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    for n, (school, tid) in enumerate(covers):
+        assert got.get(tid) == [(f"P{n}. Player", "WR", "Out")], (school, tid, got.get(tid))
+    assert len(got) == len(covers), sorted(got)
+def test_sizing_audit_10_16_a_dog_keeps_its_score_and_the_buckets_read_todays_rules():
+    """10/16 (the unit plays by size: 1-2u went 5-11 live): the posted Dog's leg carried dog_p but NOT the dog score its
+    units rode on - the audit had to back the score out of dog_p (8 of the 10 live hockey Dogs were the best-hockey-dog
+    fallback, score 1-5). A gated dog and the best hockey dog now keep "dog_score" on the leg. tools/sizing_by_bucket.py
+    (the replay re-sized under today's rules) sizes a row the way sports.units_for does: a thin Lock ½u, an NHL Dog flat
+    1u, a value play ½u, a non-hockey Dog by its edge between 1u and 2u."""
+    import sports_strength
+    import importlib.util
+    keep_weak, keep_score = sports_strength.weak, sports.dog_score
+    sports_strength.weak = lambda lg: False
+    try:
+        spotted = {"league": "nfl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
+                   "edge_own": 0.43 * 2.5 - 1, "reasons": ["r"], "dog_more": {"east_west": True, "last_margin": 3},
+                   "dog_ctx": {"opp_won": False}, "home": False, "side": "away", "start": "2026-10-04T20:00Z"}
+        assert sports.dog_gate(spotted) and spotted["dog_score"] == round(sports.dog_score(spotted), 2) >= sports.DOG_GATE
+        assert abs(spotted["dog_p"] - (0.40 + spotted["dog_score"] / 100)) < 1e-6    # dog_p = the price + the score
+        hd = {"league": "nhl", "market": "ml", "odds": 105, "dec": 2.05, "p": 0.47, "p_market": 1 / 2.05, "edge": 0.47 * 2.05 - 1,
+              "edge_own": 0.473 * 2.05 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away",
+              "start": "2026-10-04T20:00Z", "game_id": "jets", "team": "Jets", "opp": "x", "waiting": []}
+        sports.dog_score = lambda c: 1.5
+        best = sports.best_hockey_dog([dict(hd)])
+        assert best is not None and best["dog_score"] == 1.5 and best["dog_p"] == round(1 / 2.05 + 0.015, 4)
+    finally:
+        sports_strength.weak, sports.dog_score = keep_weak, keep_score
+    spec = importlib.util.spec_from_file_location("sizing_by_bucket", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                                     "tools", "sizing_by_bucket.py"))
+    sb = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sb)
+    row = {"date": "2025-02-01", "league": "nhl", "market": "ml", "team": "Sharks", "odds": 145, "dec": 2.45, "p": 0.40,
+           "p_market": 0.4082, "edge_own": -0.02, "dog_p": 0.4669, "w_p": None, "result": "lost", "lock_ok": True}
+    assert sb.units({**row, "kind": "dog"}) == 1.0 and sb.bucket(1.0) == "1-2u"            # an NHL Dog: flat 1u (10/10)
+    assert sb.units({**row, "kind": "dog", "league": "ncaaf", "odds": 250, "dec": 3.5, "dog_p": 0.3166}) == 1.0   # by edge, 1u floor
+    assert sb.units({**row, "kind": "dog", "league": "ncaaf", "odds": 250, "dec": 3.5, "dog_p": 0.40}) == 2.0     # ...2u cap
+    assert sb.units({**row, "kind": "play"}) == sports.PLAY_UNITS and sb.bucket(0.5) == "<1u"
+    thin = {**row, "kind": "lock", "odds": -149, "dec": 1.6711, "edge_own": 0.02, "dog_p": None}
+    assert sb.units(thin) == 0.5                                                             # own read under 3% over = ½u
+    fat = {**thin, "edge_own": 0.12}
+    assert sb.units(fat) >= 2 and sb.bucket(sb.units(fat)) == "2u+"                         # the big own edge = the big Lock
+    assert sb.units({**fat, "lock_ok": False}) == 0.5                                        # a backup Lock: ½u
+    assert abs(sb.pnl1({"dec": 2.45, "result": "won"}) - 1.45) < 1e-9 and sb.pnl1({"dec": 2.45, "result": "lost"}) == -1.0
+    assert sb.season("2025-02-01") == "2024-25" and sb.season("2025-09-01") == "2025-26"
+def test_college_qb_form_skips_fcs_games_the_sam_houston_case():
+    """10/16: 'Sam Houston has the better quarterback' stood on Landyn Locke's 322 yards / 4 TD against FCS Nicholls
+    (59-0); his FBS games were 316 / 195 / 138 yards. A college QB's form (the key edge and the card's form line) counts
+    his games against FBS teams only; FBS membership is read from the game files, walk-forward (no marker stored)."""
+    sp._FBS.clear()
+    fbs = [str(100 + i) for i in range(10)]                   # ten FBS teams, a 2025 round robin (9 priced games each)
+    games, k = {}, 0
+    for i, h in enumerate(fbs):
+        for a in fbs[i + 1:]:
+            k += 1
+            games[f"ncaaf:p{k}"] = {"id": f"ncaaf:p{k}", "league": "ncaaf", "status": "final", "stype": "2",
+                                    "start": f"2025-{9 + k % 3:02d}-{1 + k % 27:02d}T20:00Z", "home": h, "away": a,
+                                    "home_score": "28", "away_score": "21", "ml_home": "-150", "ml_away": "130"}
+    games["ncaaf:p0"] = {"id": "ncaaf:p0", "league": "ncaaf", "status": "final", "stype": "2", "start": "2025-09-06T20:00Z",
+                         "home": "100", "away": "2447", "home_score": "45", "away_score": "7", "ml_home": "-2000", "ml_away": "900"}
+    games["ncaaf:p00"] = {"id": "ncaaf:p00", "league": "ncaaf", "status": "final", "stype": "2", "start": "2025-10-04T20:00Z",
+                          "home": "2447", "away": "109", "home_score": "7", "away_score": "45", "ml_home": "900", "ml_away": "-2000"}
+    # 2026: Sam Houston (100) - three FBS games and the Nicholls (2447) blowout; Western KY (104) - four FBS games
+    sched = [("s1", "2026-09-06", "100", "101", 24, 20), ("s2", "2026-09-13", "100", "102", 17, 24),
+             ("s3", "2026-09-20", "100", "2447", 59, 0), ("s4", "2026-10-04", "103", "100", 31, 3),
+             ("w1", "2026-09-06", "104", "105", 21, 17), ("w2", "2026-09-13", "106", "104", 24, 27),
+             ("w3", "2026-09-20", "104", "107", 20, 14), ("w4", "2026-10-04", "104", "108", 28, 10)]
+    for gid, d, h, a, hs, as_ in sched:
+        games[f"ncaaf:{gid}"] = {"id": f"ncaaf:{gid}", "league": "ncaaf", "status": "final", "stype": "2", "start": f"{d}T20:00Z",
+                                 "home": h, "away": a, "home_score": str(hs), "away_score": str(as_), "ml_home": "-120", "ml_away": "100"}
+    games["ncaaf:sh"] = {"id": "ncaaf:sh", "league": "ncaaf", "status": "pre", "stype": "2", "start": "2026-10-14T23:30Z",
+                         "home": "100", "away": "104", "home_name": "Sam Houston", "away_name": "Western KY"}
+    members = sp.fbs_set(games, "2026-10-14T23:30Z")
+    assert members is not None and set(fbs) <= members and "2447" not in members, members
+
+    def qb(gid, d, team, name, att, yds, td, it):
+        return {"gid": f"ncaaf:{gid}", "start": f"{d}T20:00Z", "team": team, "player": name, "role": "QB",
+                "att": att, "cmp": att * 0.6, "yds": yds, "td": td, "int": it}
+    rows = [qb("s1", "2026-09-06", "100", "Landyn Locke", 35, 316, 1, 1), qb("s2", "2026-09-13", "100", "Landyn Locke", 30, 195, 1, 1),
+            qb("s3", "2026-09-20", "100", "Landyn Locke", 20, 322, 4, 0), qb("s4", "2026-10-04", "100", "Landyn Locke", 28, 138, 0, 1)]
+    rows += [qb(g, d, "104", "Brock Glenn", 32, 200, 1, 1) for g, d in (("w1", "2026-09-06"), ("w2", "2026-09-13"),
+                                                                         ("w3", "2026-09-20"), ("w4", "2026-10-04"))]
+    rows.sort(key=lambda r: (r["start"], r["gid"]))
+    edge = sp.key_edges(games, {"ncaaf": rows})["ncaaf:sh"]
+    assert edge < 0.4, f"the Nicholls game must not make Locke 'the better QB': edge {edge:.2f}"   # (with it: +0.88)
+    # the card's form line: the FCS game is out of the numbers AND the words say so
+    txt, mood = sp.form_line("ncaaf", "Landyn Locke", rows, "2026-10-14T23:30Z", games)
+    assert "against FBS teams" in txt and "649 yards" in txt and "2 TDs" in txt, txt
+    assert mood == "cold", (txt, mood)                       # (3 picks, 2 TDs in those 3 games)
+    old_txt, _ = sp.form_line("ncaaf", "Landyn Locke", rows, "2026-10-14T23:30Z")   # (no game files: as before)
+    assert "against FBS teams" not in old_txt and "655 yards" in old_txt, old_txt
+    assert sp.fbs_only("ncaaf", [], games, "2026-10-14T23:30Z") == []
+    # the NFL (and every other league) is untouched; a college season no FBS set can be built for filters nothing
+    nfl = [{**rows[0], "gid": "nfl:1"}]
+    assert sp.fbs_only("nfl", nfl, games, "2026-10-14T23:30Z") == nfl
+    sp._FBS.clear()
+    unpriced = {k: {kk: ("" if kk in ("ml_home", "ml_away") else vv) for kk, vv in g.items()} for k, g in games.items()}
+    assert sp.fbs_set(unpriced, "2026-10-14T23:30Z") is None
+    assert sp.fbs_only("ncaaf", rows, unpriced, "2026-10-14T23:30Z") == rows
+    sp._FBS.clear()
+def test_backup_lock_needs_the_weighed_read_to_beat_the_price():
+    """10/16 bug sweep: the backup Lock checked the engine's bare own read only (56%+, over the price) while its units
+    ride on the WEIGHED read (read_of: a favorite's w_p, moved by the dog across it). A -130 favorite with its own read
+    60% but weighed 55% went up as the backup Lock at ½u, failed the money check and was pulled by rule_check - no Lock
+    that day, while the next favorite down (own read 58%, nothing weighing on it) qualified. The backup Lock now needs
+    the read its units ride on to beat the price too (real_value), so it's never posted just to be pulled."""
+    c1 = {**_cand("c1", -130, 0.55, league="nfl"), "edge_own": 0.60 * sd.decimal(-130) - 1, "w_p": 0.55}
+    c2 = {**_cand("c2", -130, 0.55, league="nfl"), "edge_own": 0.58 * sd.decimal(-130) - 1}
+    assert not sports.real_value(c1) and sports.real_value(c2)
+    assert sports.backup_lock([c1, c2])["game_id"] == "c2"
+    assert sports.make_board([c1, c2])["lock"]["legs"][0]["game_id"] == "c2"
+    assert sports.backup_lock([c1]) is None                   # the weighed read says no value: no backup Lock, no pull
+    pk = {"date": "2026-10-16", "kind": "lock", "status": "open", "legs": [dict(c2)], "dec": c2["dec"], "american": -130,
+          "stake": 100, "p_hit": 0.58, "posted": "2026-10-16T15:00Z", "round": 1}
+    picks = [pk]
+    assert sports.rule_check(picks, [pk], "2026-10-16") == [] and picks == [pk]   # posted, and it stays
+    assert sports.units_for(pk) == 0.5                        # own read 58% vs 56.5% needed = a thin edge, ½u
+
+
+def test_dedupe_drops_the_stale_play_copy_of_an_upgraded_dog():
+    """10/16 bug sweep (the mirror of the 10/13 Kraken bug): upgrade_dog made a ½u play the Dog, but the save merged
+    with a run that still held that play as a plain play - the same team showed twice (play ½u AND Dog) and the unit
+    record counted it at the play's ½u, not the Dog's units. The stale play copy goes; the demoted old Dog (was_dog), the
+    upgraded Dog and any other play stay."""
+    leg_a = {**_cand("A", 140, 0.42, league="nhl"), "dog_p": 0.43}
+    leg_b = {**_cand("B", 150, 0.42, league="nhl"), "dog_p": 0.45}
+    leg_c = {**_cand("C", 120, 0.48, league="nhl"), "dog_p": 0.50}
+    mk = lambda kind, leg, **kw: {"date": "2026-10-16", "kind": kind, "status": "open", "legs": [dict(leg)], "dec": leg["dec"],   # noqa: E731
+                                  "round": 1, "posted": "2026-10-16T17:00Z", **kw}
+    out = sports.dedupe_picks([mk("play", leg_a, was_dog="2026-10-16T18:00Z"), mk("play", leg_b), mk("play", leg_c),
+                               mk("dog", leg_b, upgraded="2026-10-16T18:00Z")])
+    assert [(p["kind"], p["legs"][0]["game_id"]) for p in out] == [("play", "A"), ("play", "C"), ("dog", "B")]
+    for p in out:
+        p["status"] = p["legs"][0]["result"] = "won"
+        p["settled"] = "2026-10-17T03:00Z"
+    rows = sports.units_ledger(out)["rows"]
+    assert [(r[0]["kind"], r[0]["legs"][0]["game_id"], r[1]) for r in rows] == [("play", "A", 0.5), ("play", "C", 0.5), ("dog", "B", 1.0)]
+    # the 10/13 case still holds: the stale old Dog next to its demoted play copy goes
+    out2 = sports.dedupe_picks([mk("dog", leg_a), mk("play", leg_a, was_dog="x"), mk("dog", leg_b, upgraded="x")])
+    assert [(p["kind"], p["legs"][0]["game_id"]) for p in out2] == [("play", "A"), ("dog", "B")]
+    # a Dog that was never upgraded and a play on another game: nothing touched
+    out3 = sports.dedupe_picks([mk("dog", leg_a), mk("play", leg_b)])
+    assert len(out3) == 2
+
+
+def test_study_index_cache_holds_the_games_dict():
+    """10/16 bug sweep: the context / spots / explorer index cache was keyed by id(games) + the game count alone. The live
+    watcher reloads games every quick pass; a new dict at a freed address with the same count read the OLD index (the
+    same bug _sched had on 10/1). The cache now holds the dict itself and rebuilds for a different one."""
+    g1 = {}
+    i1 = sports._index(g1, "spots")
+    assert sports._index(g1, "spots") is i1                   # the same dict: built once
+    g2 = {}
+    sports._IDX[(id(g2), len(g2), "spots")] = (g1, i1)        # a new dict landing on the old key (the freed address)
+    i2 = sports._index(g2, "spots")
+    assert i2 is not i1 and sports._index(g2, "spots") is i2
+    assert sports._index(g2, "context").facts is not None     # the callers' use of the index is unchanged
+def test_truth_audit_10_16_full_squad_never_with_questionables():
+    """10/16 truth audit: 'Wild questionable: D Zach Bogosian, LW Marcus Foligno' and 'Wild have everybody available' sat
+    on the same card (the Canadiens' card too). A side with anyone questionable is never 'full squad'."""
+    import sports_breakdown_v24 as v24
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-01T23:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    inj = {"nhl": {"A": [("Zach Bogosian", "D", "Questionable"), ("Marcus Foligno", "LW", "Day-To-Day")], "B": []}}
+    bd = v24.breakdown(leg, games, elo, inj)
+    assert not any(x.startswith("✅") and x != bd[-1] for x in bd), bd       # (the ✅ bottom line is the last one)
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    bd = v24.breakdown(leg, games, elo, {"nhl": {"A": [], "B": []}})
+    assert any(x.startswith("✅") and x != bd[-1] for x in bd), bd            # nobody listed: the healthy line's fine
+    assert [r[0] for r in v24.team_unsure(inj["nhl"], "A", "A")] == ["Zach Bogosian", "Marcus Foligno"]
+
+
+def test_truth_audit_10_16_records_close_means_close():
+    """10/16 truth audit: 'Records are close (Guardians 85-77, Rays 98-64)' - 13 wins apart over 162 games is never
+    close. Close = a small win % gap AND a small win gap (2 in a short season, ~3% of the games later)."""
+    import sports_breakdown_v24 as v24
+    assert not v24.close_records("85-77", "98-64")
+    assert v24.close_records("85-77", "89-73")                 # 4 wins apart over 162: same kind of record
+    assert v24.close_records("2-3", "2-4") and v24.close_records("3-2", "3-3") and v24.close_records("4-1", "4-1")
+    assert not v24.close_records("5-0", "2-3")                 # 3 wins apart over 5 games: not the same kind of record
+    assert not v24.close_records("", "2-3")
+    hist = [("2026-09-06T17:00Z", "A", "C", 20, 24), ("2026-09-13T17:00Z", "D", "A", 10, 30), ("2026-09-20T17:00Z", "A", "E", 31, 7),
+            ("2026-09-06T17:00Z", "B", "E", 24, 20), ("2026-09-13T17:00Z", "B", "D", 30, 10), ("2026-09-20T17:00Z", "C", "B", 31, 7)]
+    leg, games, elo = _audit_fixture("nfl", hist, "2026-10-04T17:00Z", ratings={"A": 1505, "B": 1500}, hfa=0)
+    assert any(x.startswith("⚖️") for x in v24.breakdown(leg, games, elo, None))          # 2-1 vs 2-1, ratings even: close
+    hist2 = hist + [("2026-09-27T17:00Z", "A", "D", 30, 10), ("2026-09-27T17:00Z", "E", "B", 30, 10),
+                    ("2026-10-01T17:00Z", "A", "E", 30, 10), ("2026-10-01T17:00Z", "D", "B", 30, 10)]
+    leg, games, elo = _audit_fixture("nfl", hist2, "2026-10-04T17:00Z", ratings={"A": 1505, "B": 1500}, hfa=0)
+    assert not any(x.startswith("⚖️") for x in v24.breakdown(leg, games, elo, None))      # 4-1 vs 1-4: not close
+
+
+def test_truth_audit_10_16_drama_and_talk_name_the_right_team():
+    """10/16 truth audit: 'The Sabres dealing with some personal stuff: "Blackhawks' Bowen Byram to miss Buffalo return"'
+    (twice) - a Blackhawk's news ESPN tagged on the Sabres; 'The Broncos in the papers: "15 NFL players, coaches on the
+    hot seat entering Week 6"' and 'Out of the Seahawks's camp: "Seven things Solak thinks entering NFL Week 6"' - league
+    round-ups that never name the team. Another team's story is never this team's drama; camp talk names the camp."""
+    import sports_breakdown_v24 as v24
+    hist = [("2026-10-01T23:00Z", "A", "Blackhawks", 3, 2), ("2026-10-02T00:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z", reasons=["opponent drama: family/personal"])
+    leg["their_drama"] = [{"kind": "family/personal", "headline": "Blackhawks' Bowen Byram to miss B return", "date": "2026-10-05"}]
+    assert not any(x.startswith("🧯") for x in v24.breakdown(leg, games, elo, None))
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z", reasons=["opponent drama: family/personal"])
+    leg["their_drama"] = [{"kind": "family/personal", "headline": "B forward takes leave for a family matter", "date": "2026-10-05"}]
+    assert any(x.startswith("🧯") and "family matter" in x for x in v24.breakdown(leg, games, elo, None))
+    assert v24.someone_elses_story("Blackhawks' Bowen Byram to miss Buffalo return", "Sabres", games, "nhl")
+    assert not v24.someone_elses_story("Sabres' Tage Thompson to miss Blackhawks game", "Sabres", games, "nhl")
+    assert not v24.someone_elses_story("Thompson out two weeks", "Sabres", games, "nhl")          # no team named: ESPN's tag stands
+    assert v24.someone_elses_story("15 NFL players, coaches on the hot seat entering Week 6", "Broncos", games, "nfl", need_mine=True)
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    leg["talk_ours"] = [{"kind": "must-win", "headline": "Seven things Solak thinks entering Week 6", "date": "2026-10-05"}]
+    assert not any(x.startswith("📣") for x in v24.breakdown(leg, games, elo, None))
+    leg["talk_ours"] = [{"kind": "must-win", "headline": "A call Thursday a must-win", "date": "2026-10-05"}]
+    assert any(x.startswith("📣") and "must-win" in x for x in v24.breakdown(leg, games, elo, None))
+
+
+def test_truth_audit_10_16_period_line_must_add_up_to_the_final():
+    """10/16 truth audit: the Canadiens' review said 'It was tied 3-3 after two periods; Capitals won 5-4' on a game graded
+    Canadiens 3 @ Capitals 5 - the stored period line added up to 5-4. A flow that doesn't add up to the final is no fact."""
+    import sports_dashboard as sd2
+    bad = {"league": "nhl", "side": "away", "team": "Canadiens", "opp": "Capitals", "flow": {"h": "2,1,2", "a": "2,1,1"},
+           "score": "Canadiens 3 @ Capitals 5"}
+    assert sd2.periods(bad) == (None, None) and sd2.game_fact(bad) is None
+    good = dict(bad, flow={"h": "2,1,2", "a": "2,1,0"})
+    assert sd2.periods(good) == ([2, 1, 2], [2, 1, 0])
+    assert sd2.game_fact(good) == "It was tied 3-3 after two periods; Capitals won 5-3."
+    mlb = {"league": "mlb", "side": "home", "team": "Rays", "opp": "Guardians", "score": "Guardians 1 @ Rays 3",
+           "flow": {"h": "0,0,0,3,0,0,0,0", "a": "0,0,0,0,0,0,1,0,0"}}      # (the home team never batted in the 9th)
+    assert sd2.periods(mlb)[0] == [0, 0, 0, 3, 0, 0, 0, 0, 0]
+    assert sd2.periods({"league": "nhl", "flow": {"h": "1,1", "a": "0,2"}}) == ([1, 1], [0, 2])   # no score kept: as before
+
+
+def test_truth_audit_10_16_no_never_had_a_chance_when_they_led():
+    """10/16 truth audit: 'The Saints never had a chance. Saints led 7-6 at the half, then Vikings won 23-13.' A win where
+    the other side led (or it was tied) at the checkpoint never gets the 'never close' talk; a loss keeps its words."""
+    import sports_lingo
+    for seed in range(12):
+        txt = sports_lingo.review("fav", "won", f"s{seed}", set(), trailed=True, t="the Vikings", o="the Saints")
+        assert txt and not sports_lingo.DOMINANT_BAN.search(txt), txt
+        txt = sports_lingo.review("big", "won", f"b{seed}", set(), trailed=True, t="the Vikings", o="the Saints")
+        assert not sports_lingo.DOMINANT_BAN.search(txt), txt
+    assert any(sports_lingo.DOMINANT_BAN.search(sports_lingo.review("fav", "won", f"s{i}", set(), t="the Vikings", o="the Saints") or "")
+               for i in range(40))                          # (we led all the way: the words are still in the pool)
+    assert sports_lingo._ban(False) is None and sports_lingo._ban(True, True).search("never had a chance")
+    src = open("sports_dashboard.py").read()
+    assert 'cell["trailed"] = r == "won" and bool(cell["fact"]) and not cell["fact"].startswith(f\'{l.get("team")} led\')' in src
+    assert "trailed=c.get(\"trailed\", False)" in src
+
+
+def test_truth_audit_10_16_goalie_line_says_last_starter_when_tonights_is_unknown():
+    """10/16 truth audit: 'The Sharks' goalie Yaroslav Askarov can't keep the puck out lately' (Nedeljkovic started),
+    the same for Dobes (Fowler started) and Dostal (Husso). Until a starter is confirmed / likely, the card says who had
+    the net LAST, never 'their goalie' as if he's in tonight."""
+    import sports_breakdown_v24 as v24
+    import sports_goalies as _sg
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T00:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    rows = [{"gid": f"nhl:o{i}", "start": f"2026-10-0{i}T23:00Z", "team": "B", "player": "Cold Guy", "role": "G", "sa": "30", "ga": "5"}
+            for i in (1, 2, 3)]
+    keep, keep_rows = _sg.starter, sp.CACHE.get("nhl")
+    sp.CACHE["nhl"] = rows
+    try:
+        _sg.starter = lambda gid, side, now=None: None                            # nobody confirmed yet
+        bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("🥅")]
+        assert bd and "goalie Cold Guy" not in bd[0] and ("last time out" in bd[0] or "gets " in bd[0] or "last starter" in bd[0]), bd
+        _sg.starter = lambda gid, side, now=None: {"name": "Cold Guy", "status": "confirmed"}
+        leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+        bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("🥅")]
+        assert bd and "last time out" not in bd[0] and "last starter" not in bd[0], bd
+    finally:
+        _sg.starter = keep
+        if keep_rows is None:
+            sp.CACHE.pop("nhl", None)
+        else:
+            sp.CACHE["nhl"] = keep_rows
+
+
+def test_truth_audit_10_16_hotter_team_why_needs_a_heater():
+    """10/16 truth audit: 'The market's leaning the Texans ... we're on the Titans, they're the hotter team' - a 0-4 side
+    on a 4-game skid. The 'hotter team' because needs a winning streak on our side and none on theirs."""
+    import sports_breakdown_v24 as v24
+    cold = [("2026-09-28T23:00Z", "A", "C", 1, 4), ("2026-09-30T23:00Z", "D", "A", 4, 1), ("2026-10-02T23:00Z", "A", "E", 1, 4),
+            ("2026-09-28T23:00Z", "B", "E", 4, 1), ("2026-09-30T23:00Z", "B", "D", 4, 1)]
+    leg, games, elo = _audit_fixture("nhl", cold, "2026-10-05T23:30Z", reasons=["hotter recent form"])
+    games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
+    bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("💸")]
+    assert bd and "hotter team" not in bd[0], bd
+    hot = [("2026-09-28T23:00Z", "A", "C", 4, 1), ("2026-09-30T23:00Z", "D", "A", 1, 4), ("2026-10-02T23:00Z", "A", "E", 4, 1),
+           ("2026-09-28T23:00Z", "B", "E", 1, 4), ("2026-09-30T23:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nhl", hot, "2026-10-05T23:30Z", reasons=["hotter recent form"])
+    games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
+    bd = v24.breakdown(leg, games, elo, None)
+    assert any(x.startswith("💸") for x in bd), bd                   # (the fade line still prints; the why is free again)
+    assert v24._streak(sorted([g for g in games.values() if g["status"] == "final" and "A" in (g["home"], g["away"])],
+                              key=lambda g: g["start"]), "A") == "won 3 straight"
+
+
+def test_truth_audit_10_16_pitcher_hype_carries_his_numbers():
+    """10/16 truth audit: 'Say what you want, Freddy Peralta is HIM. He lives for spots like this.' was the card's whole
+    case for the arm - no fact. The hype line carries his last starts' numbers, or the card keeps the plain matchup line."""
+    import sports_breakdown_v24 as v24
+    hist = [("2026-09-28T23:00Z", "A", "C", 4, 1), ("2026-09-30T23:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("mlb", hist, "2026-10-05T23:30Z", reasons=["better starting pitcher"])
+    games[leg["game_id"]].update({"sp_home": "Our Arm", "sp_away": "Their Arm"})
+    keep_rows = sp.CACHE.get("mlb")
+    try:
+        sp.CACHE["mlb"] = []                                                     # no box scores: no hype, the matchup line
+        bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("⚾")]
+        assert bd and "Our Arm" in bd[0] and "Their Arm" in bd[0] and "HIM" not in bd[0], bd
+        sp.CACHE["mlb"] = [{"gid": f"mlb:o{i}", "start": f"2026-09-{10 + 6 * i}T23:00Z", "team": "A", "player": "Our Arm", "role": "SP",
+                            "ip": "6", "r": "3", "k": "6", "h": "5", "er": "3", "bb": "1"} for i in range(3)]   # 4.5 RA/9: no mood
+        leg, games, elo = _audit_fixture("mlb", hist, "2026-10-05T23:30Z", reasons=["better starting pitcher"])
+        games[leg["game_id"]].update({"sp_home": "Our Arm", "sp_away": "Their Arm"})
+        bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("⚾")]
+        assert bd and ("9 runs in 18 innings with 18 K's over his last 3 starts" in bd[0] or "Their Arm" in bd[0]), bd
+        assert not any("lives for spots like this." == x.split(" ", 1)[-1][-25:] for x in bd)
+    finally:
+        if keep_rows is None:
+            sp.CACHE.pop("mlb", None)
+        else:
+            sp.CACHE["mlb"] = keep_rows
+def test_nhl_checkup_10_16_unconfirmed_goalie_is_said_as_the_last_starter():
+    """10/16 NHL checkup: the 🥅 / 🧱 form lines named the LAST starter as 'the Sabres' goalie Colten Ellis' (10/12 -
+    Luukkonen played), 'the Hurricanes' goalie Brandon Bussi' (10/3 - Kochetkov played): 5 of the season's 7 goalie
+    lines named a goalie who didn't play. The last starter is tonight's starter 45% of the time (2023-26 box scores).
+    No confirmed / likely starter = the card says what is true (in net LAST time out); a known starter keeps the plain
+    wording. The weight itself is unchanged."""
+    import json
+    import sports_breakdown_v24 as v24
+    import sports_card_guard
+    import sports_goalies as sg
+    keep_path, keep_cache = sg.PATH, sp.CACHE
+    sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+    sg._CACHE.clear()
+    try:
+        hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T00:00Z", "B", "D", 1, 4)]
+        cold_rows = [{"gid": f"nhl:b{i}", "start": f"2026-09-{26 + i}T23:00Z", "team": "B", "player": "Cold Guy", "role": "G",
+                      "sa": "30", "ga": "5"} for i in range(3)]                  # .833 over 3 starts - cold
+        hot_rows = [{"gid": f"nhl:a{i}", "start": f"2026-09-{26 + i}T23:00Z", "team": "A", "player": "Hot Guy", "role": "G",
+                     "sa": "30", "ga": "1"} for i in range(3)]                   # .967 - hot
+        HEDGE = ("last time out", "last starter in net", "goes again")
+
+        def card(rows, reasons=()):                       # (one goalie line a card: the card's own no-repeat rule drops a
+            sp.CACHE = {"nhl": rows}                      #  second line that shares the 'save % over his last N starts' run)
+            leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z", reasons=list(reasons))
+            bd = v24.breakdown(leg, games, elo, None)
+            return bd, leg["why_line"]
+        # nobody confirmed: the card never calls the last starter the team's goalie tonight
+        bd, _ = card(cold_rows)
+        cold = [x for x in bd if x.startswith("🥅")]
+        assert cold and "Cold Guy" in cold[0] and "goalie Cold Guy" not in cold[0] and any(h in cold[0] for h in HEDGE), bd
+        bd, why = card(hot_rows, ["hotter goalie"])
+        hot = [x for x in bd if x.startswith("🧱")]
+        assert hot and "Hot Guy" in hot[0] and "goalie Hot Guy" not in hot[0] and any(h in hot[0] for h in HEDGE), bd
+        assert "brick wall in net for" not in why, why     # (the why-line's goalie pool shares the body line's run - the
+        assert all(not sports_card_guard.problem(x, "nhl") for x in cold + hot + [why])   # card says it once)
+        pools = v24.why_line({"league": "nhl", "side": "home", "reasons": ["hotter goalie"], "p": 0.6, "team": "A", "opp": "B"},
+                             v24.Voice("t"), {"id": "nhl:up", "home": "A", "away": "B", "start": "2026-10-05T23:30Z"},
+                             "A", "B", "the A", "the B", form={(True, "hot"): ("Hot Guy", "a 0.967 save %", False)})
+        assert any(h in pools for h in HEDGE) and "brick wall in net for" not in pools, pools   # the why-line on its own
+        # both starters confirmed / likely: the plain wording
+        seen = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        with open(sg.PATH, "w") as f:
+            json.dump({"seen": seen, "games": {"nhl:up": {"home": {"name": "Hot Guy", "status": "confirmed", "at": seen},
+                                                           "away": {"name": "Cold Guy", "status": "likely", "at": seen}}}}, f)
+        sg._CACHE.clear()
+        bd, _ = card(cold_rows)
+        cold = [x for x in bd if x.startswith("🥅")]
+        assert cold and "Cold Guy" in cold[0] and not any(h in cold[0] for h in HEDGE), bd
+        bd, why = card(hot_rows, ["hotter goalie"])
+        hot = [x for x in bd if x.startswith("🧱")]
+        assert hot and "Hot Guy" in hot[0] and not any(h in hot[0] for h in HEDGE), bd
+        assert not any(h in why for h in HEDGE), why
+    finally:
+        sg.PATH, sp.CACHE = keep_path, keep_cache
+        sg._CACHE.clear()
+def test_mlb_read_calibration_study_measures_the_engines_own_math():
+    """10/16 - the MLB own-read calibration study (tools/mlb_read_calibration_study.py). Its sizing is the engine's
+    quarter-Kelly, its 'calibrated read' keeps a fraction a of the read's disagreement with the market (a = 0 -> the
+    market, a = 1 -> the read as is), and the live Brewers +112 exam play reproduces: raw gap 8.7 points = in the
+    +8..12 band at 3u, the fitted 2026 shrink (a 0.075) leaves 0.7 points - no post."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import mlb_read_calibration_study as st
+    for p, o in ((0.5373, 112), (0.6172, -149), (0.52, 130), (0.40, 150)):
+        assert st.kelly(p, o) == sports.kelly_units(p, o), (p, o)
+    assert abs(st.shrink(0.5373, 0.4501, 0.0) - 0.4501) < 1e-9 and abs(st.shrink(0.5373, 0.4501, 1.0) - 0.5373) < 1e-9
+    cal = st.shrink(0.5373, 0.4501, 0.075)
+    assert 0.45 < cal < 0.46 and not (st.BAND[0] <= cal - 0.4501 < st.BAND[1])   # the Brewers: 8.7 -> ~0.7 points
+    assert st.BAND[0] <= 0.5373 - 0.4501 < st.BAND[1] and st.kelly(0.5373, 112) == 3.0   # the raw read: in, 3u
+    live = st.live_replay({"early": {"2026": 0.075}, "board": {"2026": -0.019}})
+    assert all(p["posts_raw"] and not p["posts_cal"] and p["units_cal"] == 0.0 for p in live), live
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

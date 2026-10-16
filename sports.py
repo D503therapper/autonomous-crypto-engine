@@ -345,12 +345,12 @@ _IDX = {}
 def _index(games, kind):
     """The context / spots / explorer indexes for this games dict (built once, only when needed)."""
     key = (id(games), len(games), kind)
-    if key not in _IDX:
-        for k in [k for k in _IDX if k[2] == kind]:
-            del _IDX[k]
-        _IDX[key] = {"context": sports_context.Index, "spots": sports_spots.index,
-                     "explorer": sports_explorer.index}[kind](games)
-    return _IDX[key]
+    if key not in _IDX or _IDX[key][0] is not games:     # (10/16 sweep: keyed by id() + len alone, a new games dict at
+        for k in [k for k in _IDX if k[2] == kind]:      #  a freed address with the same game count - the live watcher
+            del _IDX[k]                                  #  reloads games every quick pass - read the OLD index; hold the
+        _IDX[key] = (games, {"context": sports_context.Index, "spots": sports_spots.index,   # dict itself, like _sched)
+                             "explorer": sports_explorer.index}[kind](games))
+    return _IDX[key][1]
 
 
 def study_shift(games, g, market, facts=None):
@@ -726,13 +726,15 @@ def dog_gate(c):
     if lg in ("nfl", "nhl", "ncaaf", "nba"):
         sc = round(dog_score(c), 2)
         if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE, "nba": NBA_DOG_GATE}[lg]:
-            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
-            return True                                                                       # weighed read)
+            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the weighed read)
+            c["dog_score"] = sc                              # (10/16: the posted leg keeps the score its units rode on -
+            return True                                      #  the sizing audit had to back it out of dog_p)
         return False
     if lg == "ncaab" and NCAAB_DOG_RULE == "score":          # (10/10: the NBA-style gate, the owner's option)
         sc = round(dog_score(c), 2)
         if sc >= NCAAB_DOG_GATE:
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)
+            c["dog_score"] = sc
             return True
         return False
     if lg == "ncaab" and NCAAB_DOG_RULE == "own" and c.get("edge_own") is not None:
@@ -761,7 +763,8 @@ def best_hockey_dog(cands, taken=()):
             best = (sc, c, dp)
     if best:
         best[1]["dog_p"] = round(best[2], 4)
-        return best[1]
+        best[1]["dog_score"] = best[0]                       # (10/16: the posted leg keeps the score - the 10/16 sizing
+        return best[1]                                       #  audit found 8 of 10 live hockey Dogs were this fallback)
     return None
 
 
@@ -1866,10 +1869,15 @@ def save_lock_miss(iso, miss, path=None):
 def backup_lock(cands):
     """The owner (CLAUDE.md, again 10/1): "There's always a Lock." When nothing clears the full Lock test, the pick the
     engine's OWN read has winning 56%+ that still beats its price - the most value first - never past -150, never the
-    pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read)."""
+    pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read).
+    10/16 sweep: the read its units ride on (read_of - a weighed favorite's w_p) has to beat the price too (real_value):
+    a -130 favorite with its own read 60% but the dog across it carrying study points (weighed read 55%) went up as the
+    backup Lock at ½u, failed the money check and was pulled by rule_check - no Lock that day while the next favorite
+    down (own read 58%, nothing weighing on it) qualified."""
     pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
-            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
+            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
+            and real_value(c)]
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
 
 
@@ -2282,11 +2290,30 @@ def last_lock(cands, avoid=()):
     return {"legs": [{**c, "near_price": True}], "dec": c["dec"], "p_hit": c["p"]}
 
 
+def who_plays_first(g, side, rows):
+    """A side's injury rows with the players who actually PLAY first (sports_absences.regulars - the team's own box
+    scores), its key position (QB / goalie) ahead of them, backups / walk-ons / redshirts last; ties keep the report's
+    order. (10/16 injury audit: the card named the first four rows the report listed - the 10/10 Minnesota Lock led its
+    🚑 line with a backup QB, and a college report runs 10-16 names, so a starting back ruled out could sit in '+5
+    more' behind four linemen who never play.) Nothing is dropped - only the order changes."""
+    import sports_absences
+    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9") or set()
+    keys = sd.KEY_POS.get(g["league"])
+    keys = keys if isinstance(keys, set) else set()
+
+    def rank(r):
+        plays = bool(reg) and sports_absences.match(r[0], reg)
+        key = (r[1] or "") in keys
+        return 0 if plays and key else 1 if plays else 2 if key else 3
+    return sorted(rows, key=rank)
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
-    matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions."""
+    matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
+    the players who play first (who_plays_first)."""
     inj = (injuries or {}).get(g["league"])
-    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
     gone = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
             and "season" not in r[2].lower()]
     unsure = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
@@ -3071,8 +3098,8 @@ def post_board(games, model, picks, now, day, force=False):
             g = games[leg["game_id"]]
             other = "away" if leg["side"] == "home" else "home"
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
-                outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
-                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
+                outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))
+                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]   # (10/16: the ones who play first)
             elo = elo or sm.ratings(games, model)
             same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
@@ -3644,11 +3671,18 @@ def dedupe_picks(picks):
 def drop_stale_dogs(picks):
     """10/13: upgrade_dog turned the Kraken Dog into a ½u value play, but a save merged with a run that still held the
     old Dog - the board showed the Kraken twice (Dog 1u AND play ½u) next to the new Dog. A Dog whose day + game + side
-    is now a play marked was_dog is the stale copy: it goes."""
+    is now a play marked was_dog is the stale copy: it goes. 10/16 sweep - the mirror case: the merge kept the OLD copy of
+    the play that upgrade_dog made the Dog (kind play, no was_dog) next to the upgraded Dog - the same team showed twice
+    (play ½u AND Dog) and the unit record counted it at the play's ½u, not the Dog's units. A play (not was_dog) on the
+    same day + game + side as a Dog marked upgraded is the stale copy: it goes too."""
     demoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in picks
                if p.get("kind") == "play" and p.get("was_dog") for l in (p.get("legs") or [])[:1]}
-    return [p for p in picks if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")
-                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
+    promoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in picks
+                if p.get("kind") == "dog" and p.get("upgraded") for l in (p.get("legs") or [])[:1]}
+    key = lambda p: (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side"))   # noqa: E731
+    return [p for p in picks if not p.get("legs") or not (
+        (p.get("kind") == "dog" and not p.get("upgraded") and key(p) in demoted)
+        or (p.get("kind") == "play" and not p.get("was_dog") and key(p) in promoted))]
 
 
 def run(repick=False, fetch=True):

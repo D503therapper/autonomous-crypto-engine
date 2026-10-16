@@ -13,6 +13,326 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/16 - INJURY COVERAGE AUDIT, Saturday 10/17 college + the NFL / NHL weekend (the owner's #1 priority): every team on the slate has box scores, no stale report is read as current, ONE BUILT (the 🚑 line names the players who play first), the rest is the routine's Saturday job
+
+Checked from the repo's files only (the sandbox can't open ESPN / Covers / Rotowire - every one answers 403 through the proxy; the GitHub runner can, and the 10/15 board preview built on the runner showed 0 college teams "not in our data" on a 1-game college night).
+- **The slate:** college 107 games 10/17 PT, 50 priced (100 FBS teams); NFL 13 games 10/18-19 (26 teams); NHL 18 games 10/16-18 (16 priced). Box scores (sports_absences.regulars - the QB / 2 backs / 4 catchers / 11 tacklers from the last 3 games) exist for EVERY priced team in all three leagues; the only team without them is West Alabama (D2, unpriced) - so football's weighed-not-blocked rule runs on every priced game, and the hockey 2+ out rule has its "played lately" list.
+- **Who covers whom:** NFL / NHL - ESPN's pro feed, read every run (a team missing = nobody hurt; an EMPTY feed = unknown, every game waits - sd.fetch_injuries / covered, pinned by test_empty_pro_injury_feed_is_unknown). College - Covers' page (every FBS school, healthy ones too) + Rotowire + ESPN (~3 teams) every run, plus injuries_official.json (the 5:47 / 11:47 AM PT routine, filed by GAME DAY). A college team on none of them = UNKNOWN = no pick and no early play (sports.waiting_on "X injury report (not in our data)", sports_early covered check).
+- **injuries_official.json as of 10/16 10:34 UTC:** 0 of the 100 Saturday teams have a 10/17 entry (the routine fills them Saturday morning - by design); 61 of the 100 carry LAST Saturday's (10/9-10/10) list; 7 Friday-game teams carry 10/16 entries (Memphis 0 listed, Tulane 4, Washington 5 incl. QB D. Williams Jr. questionable, Purdue 1, App State 2 incl. QB M. Singleton out, Coastal 4, Penn 1). The owner's 12: BYU (10/9 entry - 4 players, from its Friday 10/9 game), Air Force (10/10, 2), Tennessee (10/10, 10), Georgia Tech (10/10, 8), E Michigan (10/10, 13) - all stale for 10/17; Boston College, Rutgers, FAU, Wisconsin, West Virginia, Rice - never in the file; Old Dominion - a 10/15 entry (3 players) for Thursday's game (ODU is NOT on Saturday's slate; its early play was pulled 10/14).
+- **Stale reports are NOT treated as current (checked):** sd.official reads only the day before / the day / the day after (Pacific), so a 10/10 list never says who's out on 10/17 - pinned by test_official_reports_are_read_for_their_game_day_only_and_covers_names_land. The day-before window is harmless in football (one game a week); it would be stale for a hockey / hoops team on a back-to-back IF the routine ever files pro entries (it doesn't - ESPN covers the pros). LEAD, not built: skip a day-before official entry when our games say that team already played that day.
+- **Name matching (checked):** all 19 Covers school slugs the routine has cited (Appalachian State, Florida International, Jacksonville State, Middle Tennessee, Georgia Southern, Western Kentucky, Sam Houston...) land on their own ESPN id through sd._wn / WEB_ALIAS / _DIR / _close - 19 of 19; the owner's 12 schools plus their look-alikes (Tennessee / Tennessee Tech / Tennessee State, Georgia Tech / Georgia Southern, Eastern / Central / Western Michigan / Michigan / Michigan State) all land right in the new test. Official-report short names ('D. Williams Jr.', 'C. Warren III') match the box-score regulars (sports_absences.match).
+- **BUILT - the 🚑 line and the card's 'outs' name the players who PLAY first (sports.who_plays_first):** the card named the first four rows the report listed. The 10/10 Minnesota Lock's 🚑 line led with "QB Michael Merdinger" (the backup - Drake Lindsey starts; key_seen rightly showed no starter out), Illinois 10/10 "out: RB Valentine, WR Perry, LB Paris, DL Smith +5 more" with no way to tell whether the five were starters. Now: box-score regulars first (the QB / goalie ahead), the rest in the report's order, nothing dropped; a team with no box scores keeps the report's order (QBs first). Test: test_injury_line_names_the_players_who_play_first. Not a rule change - the card already named who's out; it names the right ones first.
+- **What's needed to close the gaps (no paid APIs, no keys, no disguises):** (1) the routine's Saturday 5:47 / 11:47 runs - the SEC / ACC / Big Ten / Big 12 availability reports for the 10/17 conference games (Alabama-Tennessee, Missouri-Ole Miss, Georgia Tech-Virginia Tech, Kentucky-Oklahoma, Notre Dame-BYU is non-conference: Covers only) into injuries_official.json under "2026-10-17"; (2) Actions -> injury_report on Saturday morning to read "NCAAF - the feed lists N teams" (N should be ~130+ with Covers; under 20 = the page read broke and the file is the only coverage); (3) the MAC posts game-day reports ~3h before kickoff (E Michigan, Air Force's opponent UNLV is Mountain West - no official report, Covers only) - the 11:47 run catches the noon-ET ones only if it runs; (4) a Covers snapshot on the runner (tools/fetch_pages.py, URL already in WHOLE) so the reader can be tested against the real page each week - the only Covers samples in the repo predate the reader (samples-2026093*).
+## 10/16 - RECALIBRATING THE COLLEGE OWN READ (the root of the BYU 48% / market 24%): the read is NOT overconfident on its own - it is calibrated but blind to what the market knows; every honest recalibration = the market (trust 0). Nothing to wire in; OWNER'S CALL stands. Verdict: LEAD / owner's call, not built
+
+- **Where the read comes from:** sports_model.own_p - a logistic on Elo edge + form + rest + injuries + travel etc.
+  (sports_model.FEATURES), refit daily. The DAILY BOARD never shows it raw: sports.candidates uses sm.final_p, the
+  market moved toward the own read by the tune's "trust" (college: 0.0 today), so the board's college read is the
+  no-vig line. The EARLY SPOTS use the raw own read (sports_early.own_of -> sm.own_p, Tuesday-known inputs), capped at
+  5 points over the price since 10/15 (NCAAF_GAP_MAX). That raw read is what said BYU 48%.
+- **Walk-forward:** every July 1 the params (K, home edge, weights, trust) re-tuned on the games before it, the
+  season's reads from the ratings as they stood (sm.replay) - 6,009 priced college games 2018-26; fits on 2018-22
+  (3,325), graded blind 2023-26 (2,684). Four recalibrations fit on 2018-22: shrink toward the market
+  (logit p = logit(mkt) + a·(logit(own) - logit(mkt))), shrink + the market's own favorite bias, temperature (c + d·logit(own)),
+  isotonic (30 steps).
+- **The fits:** shrink a = 0.000 (Tuesday-known read: -0.008) - the market wants NONE of the own read; temperature
+  c = -0.017, d = 0.930 (a near no-op); shrink + bias a = 0.027, b = 0.058.
+- **Calibration table, blind (the raw read by its own bucket, every side):** said 24.9 won 23.8 · said 35.1 won 35.0 ·
+  said 45.1 won 47.7 · said 54.9 won 52.3 · said 64.9 won 65.0 · said 75.1 won 76.2 · said 84.7 won 84.9. Biggest miss
+  2.6 points. The read IS calibrated unconditionally - it just doesn't know what the market knows. Conditional on
+  disagreeing, the market is right (blind, the side the read likes more, by the gap): 0-2 pts won 56.5 (+7.8%, 345);
+  2-5 won 50.8 (read 51.8, market 48.4, -0.4%, 492); 5-10 won 39.4 (read 49.0, market 41.7, -26.7%, 624); 10-15 won
+  38.9 (50.4 / 38.0, -8.8%); 15-20 won 31.0 (49.1 / 31.8, -24.0%); 20-25 won 32.4 (54.1 / 31.7, -11.0%); 25+ won 24.0
+  (57.0 / 23.9, -19.9%, 292). Temperature and isotonic leave every one of those buckets where it was (they move a 48%
+  read to 47.7% / 51.4%): a calibration of the read ALONE cannot fix it - only the market can.
+- **Brier / log loss, blind (home side):** market 0.1649 / 0.4929; raw own 0.1885 / 0.5572; shrink (a=0) = the
+  market; shrink + bias 0.1648 / 0.4922; temperature 0.1886 / 0.5575; isotonic 0.1894 / 0.5603. The market beats the
+  raw read in EVERY season 2018-26 (2023 0.4699 vs 0.5425, 2024 0.5123 vs 0.5697, 2025 0.5006 vs 0.5389, 2026 0.4889
+  vs 0.5916). Grid of a: the best is 0.0 in train and blind; a = 0.10 costs 0.001-0.003 of log loss in 6 of 9 seasons
+  and gains ≤ 0.002 in three (2018 / 2021 / 2025) - noise around zero.
+- **Blind ROI at the close, the sides whose recalibrated read beats the price:** dogs +100..+300 - every side -2.3%
+  (1,364); raw read -0.4% (702, by season -7 / +3 / +9 / -9%); temperature +0.7% (737); isotonic +0.4% (680); shrink:
+  NO side ever beats the price (a = 0). Favorites -150..-101 - every side -7.1% (529); raw -0.4% (234); temperature
+  +1.7% (217); isotonic +0.3% (235) - but 2024 -12..-14% and 2026 -8..-13% on each, and the same rule lost -13.8% /
+  -14.3% / -15.4% IN-SAMPLE 2018-22: 2 of 4 blind seasons up, in-sample red = chance, not an edge. The owner's
+  middle-ground trusts (Tuesday read): a = 0.1 dogs 89-172 -5.3% / favorites 21-14 +7.8% (35); a = 0.2 dogs -7.0%
+  (452) / favorites +7.2% (101); a = 0.3 dogs -3.6% (550) / favorites +1.7% (158); the sides a shrunk read likes 1-5
+  points more than the market lose -8% to -24% at every a. Nothing clears the five checks.
+- **Against the open (opens exist only 2023-26, so in-sample):** shrink toward the open a = 0.058; a read 10+ points
+  over the open does see the close move its way (+1.4 pts; 10+ under: -1.7) - the read holds a little the OPEN
+  misses, but the CLOSE already holds it (log loss open 0.5033, close 0.4929, read 0.5572). That is the "hammered"
+  spot's honest form, already built.
+- **The BYU example:** ratings ND 1881 / BYU 1828 (5th / 9th) + home edge 100 = 57% raw Elo, the weights pull it to
+  48%; the market 24%. Shrink (a=0) says 24%; temperature 47.7%; isotonic 51.4%. Blind, a 20-25 point college gap won
+  32.4% (the market said 31.7%) - the read's number had no claim on it.
+- **Verdict:** NOT BUILT - no code changed. The only recalibration that is clearly better (shrink, a = 0) is the market
+  itself: wired into the early spots it zeroes the college gap weight and ends the "engine likes it" college spot and
+  every college gap-driven early play - that changes what gets posted, so it stays the OWNER'S CALL (10/15, call 1).
+  The 5-point cap (NCAAF_GAP_MAX) STAYS: with the raw read still feeding the spots, 5 is the most any blind bucket
+  earned (2-5: -0.4%); with a = 0 it would be moot, not wrong. Temperature / isotonic: DEAD (no-ops).
+- **PROPOSAL for the owner (numbers above):** (1) college early spots weigh the read at the tune's trust (a = 0 today):
+  the college gap counts 0, the spots stand on their own weights and fades (bye / blowout / hammered / east-west) -
+  BYU +300 and Old Dominion +145 would not have posted; the "engine" spot (own 8+ over a line that moved away) goes
+  dormant until a read earns trust > 0. (2) Or keep today's 5-point cap and judge the live record (the 10/10 +220..+300
+  band is new ground anyway). LEAD, the real fix: the read needs information the market lacks, not a better curve -
+  the FCS marker (10/15 lead), QB availability, the official injury reports - each one is a feature the tune can
+  then trust by itself.
+## 10/16 - THE UNIT PLAYS BY SIZE (live: 2u+ 5-0 +16.7u, 1-2u 5-11 -4.7u, under 1u 21-16 +2.1u): the 1-2u bucket IS the Dog of the Day and its live record is noise; the replay says the real sizing problem is the LOCK's Kelly size (the biggest Locks lose) and a Dog whose own read sits under the price (owner's calls); one data fix built
+The live ledger (sports.units_ledger over picks.json + early.json, 58 graded unit plays 9/27-10/15). The 16 plays at
+1-2u: 13 Dogs of the Day (10 hockey, 2 NFL, 1 college - 5-8, -1.7u), the Guardians -149 Lock at 1u (own edge 3.1% - just
+over THIN_EDGE, Kelly 1.17 -> 1u; lost), Western KY +110 1u (10/1, before the ½u play rule; lost), the Tulane +205 bye
+early play at 1u (lost). Not one of the 16 got its size from a big edge - the Dog is a FLAT size (NHL 1u by rule; the 10/10
+1u-2u-by-edge rule has sized one non-hockey Dog so far, Fresno St +250 at the 1u floor), so "why does 1-2u lose" =
+"why do the Dogs lose". 8 of the 10 live hockey Dogs were the best-hockey-dog fallback (score 1-5 - backed out of dog_p,
+the posted leg had no score; the fix below), 2 the 6+ gate (Flyers 6.2, Sharks 5.9->6); 7 of 13 Dogs had the engine's
+OWN read under the price (fighting() allows 3 points) and went 4-3; the 6 with the own read over the price went 1-5.
+**The replay (tools/sizing_by_bucket.py on results/value_play_replay_2023_26.jsonl - the 10/9 board replay, 2,270 rows,
+re-sized under TODAY's rules: Lock by own read ½u-10u, Dog 1u-2u by edge / NHL 1u / hoops ½u, plays ½u; 2023-24 vs
+blind 2025-26):**
+- By bucket at its size: **under 1u** 884-719 +6.9u on 802u (+0.9%; blind +3.5%); **1-2u** 197-184 +41.7u on 417u
+  (**+10.0%; blind +8.7%**, 3 of 5 seasons) - the Dog at 1u +8.6% (289) and hockey Dogs +10.0% on 297 (blind +11.2%);
+  **2u+** 148-127 **-59.9u on 869u (-6.9%; blind -2.1%)**, 1 of 5 seasons up - 257 of the 275 are Locks. The same bets
+  flat 1u: under 1u +0.9%, 1-2u +10.2%, 2u+ -4.9% (blind -5.3%, 0 of 3). So live is the mirror image of the record:
+  the bucket that wins in the replay lost live (13 Dogs, 5-8 - expected ~6 wins at these prices, well inside noise) and
+  the bucket that loses in the replay went 5-0 live (3 Locks at 2.5-5u + the two 3u Brewers early plays). VERDICT on
+  the question: 16-game NOISE on the Dogs, not a sizing bug - and the replay points at two real things instead:
+- **THE LOCK'S SIZE (a sizing problem, the owner's call):** the Lock flat 1u wins +18.4u (+2.7%, blind +3.6%); sized by
+  its own read (today) it LOSES -28.7u (-2.6%; blind +0.7%) because the big-edge Locks are the worst ones: Locks sized
+  under 1u (thin, ½u) +4.1% flat / blind +8.9% (3 of 3); 1-2u +15.9% / +4.0%; 2u+ -3.7% / -3.7% (0 of 3 blind); 5u+
+  17-17 -12.8%. By own edge over the price: under 3% +4.3% (265, 4 of 5), 3-8% +5.4% (261), 8-15% +1.3% (116), 15%+
+  14-19 -9.1% (0-6 at 25%+). Calibration: own read 60-65% won 64% (the market said 59%); 65%+ won 59.5% (market 58%) -
+  past 65% the read is no better than the price, and that is exactly where Kelly puts 3-10u. Same as 10/2 ("favorites
+  8%+ -4.3%") and 10/9 ("edge size says nothing") - now on the Lock itself. Options on the same 675 Locks: flat 1u
+  +18.4u; ½u thin / 1u otherwise +11.8u on 512u (+2.3%, 3 of 5); capped 2u +4.1u; capped 3u -3.7u; today -28.7u. Per
+  season today vs flat: 2022-23 -42.7u vs -2.3u, 2023-24 +8.5 vs +6.7, 2024-25 +3.1 vs +8.7, 2025-26 +16.3 vs +9.1,
+  2026-27 (3 months) -13.9 vs -3.8. Whole board (plays ½u): today's rules -11.4u on 2,088u (blind +13.3u); Lock flat
+  1u + Dog flat 1u +38.8u on 1,622u (+2.4%; blind +22.1u); Lock ½u-thin/1u + Dog flat +32.2u (blind +15.5u). The owner
+  chose "Locks keep sizing by edge" on 10/10 - PROPOSAL, not built: the Lock flat 1u (or ½u thin / 1u), the live 2u+
+  Locks 3-0 (+9u) are luck by these numbers. Caveats: the 10/2 snapshot had the Lock by read beating flat (-3.2% vs
+  -6.0%) - the Lock test changed since (own_agrees, the money check); only the model params are blind; 37 of 675 are
+  backup Locks (½u here).
+- **THE DOG WHOSE OWN READ SITS UNDER THE PRICE (a pick problem, the owner's call):** fighting() lets a Dog through with
+  the engine's own read up to 3 points under the price (the dog score carries it over). Those Dogs: 54-79, **-7.4% on
+  133 (blind -11.6% on 38, 0 of 2)**, 1 of 4 seasons up; the Dogs whose own read ALSO beats the price 124-130 **+11.7%
+  on 254 (blind +8.7% on 112)** - hockey +21.2% on 153 (3 of 3 seasons) vs -8.9% on 123. Same dogs, own-below at ½u:
+  +16.9u -> +22.6u (blind +5.5u -> +8.2u); own-below dropped and the rest flat 1u: +29.8u on 214u (+13.9%; blind
+  +12.0u, +11.6%). Live the 7 own-below Dogs went 4-3 (noise both ways at 13). It changes what gets posted (the Dog's
+  side of the owner's "never one the engine's own read is fighting") - PROPOSAL: the Dog of the Day only when the own
+  read beats the price too (or ½u when it doesn't). ~8 Dog cells tried; this one has the mechanism the owner wrote down.
+- Dog sizing (the 10/10 1u-2u rule vs flat): on the same 387 Dogs flat 1u +20.0u (+5.8%, 3 of 5) vs by edge +16.9u
+  (+4.6%) - the 18 Dogs the edge sizes 2u went 6-12, -22.6% (blind 5-9). The 10/2 finding again (flat best); too few 2u
+  Dogs to call, the owner's call stands - WATCH the 2u Dogs live. Dog by score: hockey 4-6 -15.1% on 88 (blind -13.1%,
+  0 of 2 - under the NHL 6 gate, so these are fallback best-hockey-dogs), 6-8 +1.1%, 8-12 +22.1% (3 of 3); the score
+  0-4 fallback 26-20 +36.7% on 46 (noise-sized). Price: +120..+150 +28.2% on 133 (4 of 5) vs +100..+120 -6.1% and
+  +150..+200 -8.6% - a LEAD at most (multiple testing). College hoops Dogs -0.4% / blind -26.8% (the 10/10 verdict).
+- **BUILT (sports.dog_gate / best_hockey_dog + test_sizing_audit_10_16_...):** the posted Dog's leg now keeps
+  "dog_score" (the points its units rode on) next to dog_p - data completeness, no pick or size changes. Kept:
+  tools/sizing_by_bucket.py (re-run after the football season: `python tools/sizing_by_bucket.py <replay.jsonl>`).
+- Early plays: not in the replay (no line history before 9/2026); live 2u+ = the two Brewers 3u (own-read Kelly, both
+  won), 1u = Tulane (bye spot, flat 1u by rule), ½u = the spots 3-7. Nothing to size there yet.
+## 10/16 - COLLEGE QB FORM COUNTED FCS GAMES AT FULL WEIGHT (the Sam Houston case): BUILT - FBS games only; the opponent-strength adjust DEAD
+- The case: the 10/14 Sam Houston +100 lean said "our QB's been playing better" off Landyn Locke's 322 yards / 4 TD
+  against FCS Nicholls (59-0); his FBS games were 316 / 195 / 138 yards, Sam Houston lost 3-16 and hadn't scored in six
+  quarters. sports_players.score took every start at full weight and the game files carry no FBS / FCS marker.
+- FBS membership from the games themselves (sports_players.fbs_members / fbs_set, walk-forward: finished games before
+  the month only): last season's set is sticky, this season's newcomers join once they have 8+ games whose opponents
+  are mostly FBS; the first priced season (2018) seeds on the many-game teams priced in 75%+ of their games. Checked
+  against the real lists: 130 teams 2018-21, 131 in 2022 (+James Madison), 133 in 2023 (+Sam Houston, Jax State),
+  134 in 2024 (+Kennesaw St), 136 in 2025 (+Delaware, Missouri St) - every change the real one; Nicholls, N Dakota St,
+  Idaho (dropped 2018) out. A plain price test can't do it: Delaware's CAA games were priced 11 of 13 in 2022, FIU's
+  C-USA games 0 of 12 in 2024. A new FBS member reads as FCS in its first season until it has 8 games (1-2 teams a year).
+- THE STUDY (4,234 priced college games 2021-26, each season graded with a weight fit on the seasons before it; the
+  edge added on top of the closing line's logit): the QB edge adds almost nothing the market lacks either way -
+  log loss 0.4929 (market) -> 0.4922 with every game (+7.0 bp), 0.4924 FBS only (+5.1 bp), 0.4927 FBS only + an
+  opponent pass-defense adjust (+2.7 bp). Not hurt, not helped - the read's accuracy is the same.
+- THE WRITE-UP LINE ('better QB play lately' = an edge of 0.4+ units): with every game 2,342 sides won 65.6% vs the
+  market's 64.1%; FBS only 2,135 sides won 67.0% vs 65.3% (+1.7 points over the market, up every season 2023-26:
+  68.1 / 66.5, 66.5 / 64.7, 67.5 / 64.2, 69.4 / 66.8). The 723 labels (2018-26) that stood on an FCS game went 59.2%
+  against a market expecting 59.8%, ROI -5.1% at the close - noise; the labels that stand without one beat the market
+  by about 2 points in all nine seasons (2021: 66.8 vs 64.2 ... 2025: 67.9 vs 65.1). The opponent adjust cut the labels
+  to 1,993 at 67.1 vs 65.8 - no better than dropping FCS games: DEAD, not built.
+- BUILT (sports_players.fbs_only, in key_edges and form_line; the breakdowns pass the game files): a college QB's form
+  is his starts against FBS teams; the card's numbers drop the FCS game and say "in his last 3 games against FBS teams".
+  Sam Houston-Western KY 10/14: the edge 1.09 -> 0.69 (Locke 316 / 195 / 138 still read better than Brock Glenn's
+  435 yards and 2 picks over 3 games - the label would still have printed, at a smaller weight). This season 240 of
+  488 college 'better QB' labels drop and 18 flip once FCS games are out. Test:
+  test_college_qb_form_skips_fcs_games_the_sam_houston_case. The key weight refits daily (model.json ncaaf 0.315).
+- THE SAME FCS INFLATION ELSEWHERE (report only - rule-level, the owner's call): (1) the Elo ratings and the
+  'form' feature count a win over an FCS team (rated 1500 on its first game) like a win over an average FBS team;
+  (2) the letdown flag (21+ win) and the ⏸️ paused 'blew somebody out' early spot (17+): 104 of 250 FBS blowout wins
+  this season and 108 of 460 in 2025 came against FCS teams - the spot's study counted them, so its +8 / +9% edge
+  includes them; (3) the breakdown's streaks ("won 4 straight") count FCS wins - true facts, left alone. LEAD: re-run
+  the blowout spot FBS-only before it is ever unpaused.
+## 10/16 - BUG SWEEP of the board-building path (sports.py candidates / read_of / weigh_favorites / dog_score / plays / viewer_leans / lock + backup_lock / units_for + units_ledger / rule_check / dedupe_picks; sports_early post / spot_gap / repost_ok / euro_unders; sports_live never_against_us / paused; grading; the dashboard records) - read rule by rule against CLAUDE.md, every suspect reproduced before a fix. Posted picks untouched.
+
+- **BUILT (fix + test_backup_lock_needs_the_weighed_read_to_beat_the_price): the backup Lock vs the weighed read.** sports.backup_lock passed a favorite on its bare own read (56%+, edge_own > 0) while its units ride on the WEIGHED read (read_of -> w_p, the favorite's read moved by the dog across it, weigh_favorites). Reproduced: a -130 favorite, own read 60%, weighed 55% (the price needs 56.5%) was the backup Lock -> units_for gave ½u -> rule_check pulled it ("units on a price its read doesn't beat") -> NO Lock that day, while the next favorite (own 58%, nothing weighing on it) qualified. backup_lock now needs real_value() too (the same test the main Lock path uses). Picks: 0 affected (the 12 posted Locks checked).
+- **BUILT (fix + test_dedupe_drops_the_stale_play_copy_of_an_upgraded_dog): the mirror of the 10/13 Kraken bug.** drop_stale_dogs dropped the stale old Dog next to its was_dog play copy, but not the stale PLAY copy of the play upgrade_dog made the Dog (the saves merge by git rebase -X theirs, hunk by hunk). Reproduced: the same team showed twice (play ½u AND Dog) and units_ledger counted it ONCE AT ½u - the Dog's units (1u-2u) lost from the record. A play (not was_dog) on the same day + game + side as a Dog marked upgraded is now the stale copy and goes. Picks: 0 affected today (no day holds two unit rows on one game).
+- **BUILT (fix + test_study_index_cache_holds_the_games_dict): the study-index cache keyed by id(games) + count.** sports._index (context / spots / explorer) could hand a NEW games dict the OLD index when it landed on a freed dict's address with the same game count - the live watcher reloads games every quick pass (the same bug _sched had on 10/1). It now holds the dict itself.
+- **CLEAN (checked, nothing wrong):** candidates' sign on absences / depth (the banged-up side's own read goes DOWN), the drift sign (+ = money ran away), dog_score's OWN_CAP / STUDY_CAP, weigh_favorites' one-factor-once (west trip), rule_check's -150 / puck line / one-pick-per-game / Dog cap / moneyline-only play / money check, units_ledger's one-row-per-pick + early rows counting apart (the owner's "Jaguars can be both"), day_pending / day_recap (PT dates, every unit play graded first), unit_record / by-sport = unit plays only, the 🟡 leans record, sports_early.post's have / repost_ok 12h / euro_unders' night-before window and quit rule, spot_gap's college 5-pt cap and the NFL / NBA trap, sports_live.never_against_us + locked_sides (board, early, live, tennis; the 🌍 under takes no side), grade_from_games, the live PAUSED set (MLB), grade / grade_leg / freeze_units (void after 4 days, units frozen). Real picks.json (87 picks): no day with two Locks / Dogs, no game with two unit rows, no both-sides pick, no lean with units.
+- **LEAD / the owner's call (not changed - unit sizes):** a 🏈 night pick or a one-game-day pick that is a VALUE DOG sizes by quarter-Kelly on the dog's weighed read up to 2u (units_for -> _sized("value"), DOG_SCORE_MAX_U), while the same dog as a daily value play is ½u (PLAY_UNITS - "they lost at every size"). Example: a +120 night dog with dog_p 50% = 2u as the night pick, ½u as a play. The sizing check accepts ½u-10u for night / solo. Proposal: night / solo value dogs at PLAY_UNITS unless the owner wants the night pick sized on its own.
+- **SUSPECTED, not reproducible from the repo (listed, not fixed):** (1) two engine runs at once posting two DIFFERENT Dogs (the 9/30 incident was the same Dog twice - dedupe_picks catches that one; different legs = both stay and both count); (2) sports_early.spot_scan's 3-day window runs from ready() (both teams' last game + 4h), not from the first fair number's time stamp - a college line that comes out Sunday has ~2 days, not 3; (3) ready() is None for both teams' season openers = no 3-day window at all on week 1; (4) sports_early.record() sums units as 1u a play (ignores units(p)) - dead code, used only by two tests; (5) _TOT_STATE keyed by id(games) (totals are unproven, never posted).
+## 10/16 - HOW THE LEANS ARE PICKED, round 2 (the 🟡 record 17-21; the goal: leans that WIN more often, not ROI): no rule wins more often than the current one except by picking pricier favorites - DEAD, nothing built
+Blind board replay 2023-01 to 2026-10-14 (tools/value_play_replay.Replay re-built every other board day the way the 8:35 AM post would - params re-tuned every July on the seasons before, the day's ratings / form / dog states from the games before it, closing prices; 687 board days, every lean-eligible side dumped with its reads; scratchpad leans2/lean_replay.py + analyze.py). Each rule picks the day's leans the board's way: one side a game, 2 a sport, into the day's room (5 minus the unit plays), never a game we're on, never past -150, never a trap / the pricey hockey favorite / a college favorite -150..-130. "Market-expected" = the no-vig win % of the sides a rule picked - what the price alone says they should hit.
+- TODAY'S RULE (who-wins: p 50%+ or an underpriced dog, importance first): 856-767, 52.7% hit vs 53.5% market-expected (-0.7). By year 54.9 / 48.4 / 53.3 / 55.5 (2024 the bad one, every rule's). Its spread leans 189-151, 55.6% vs 52.3% (+3.3 on 340 - the one piece that beats its price); its moneyline leans 667-616, 52.0% vs 53.8%; its dogs 30-32 (48.4% vs 40.7% expected); the FILL leans (the likeliest winner after the regular leans) 21-21 vs 55.7% expected blind, 1-7 live - the fill is the owner's five-picks rule, not changed.
+- THE MARKET FAVORITE (the biggest favorite under -150 - "any moron could do that"): 780-648, 54.6% vs 55.0% expected (-0.4), avg -135. It hits 1.9 points more often than today's rule ONLY because it picks pricier sides; against its own price it is no better. 3 of 4 years above today's rule, all within what the price buys.
+- THE ENGINE'S OWN MOST-CONFIDENT SIDE (own read, no line move): 772-669, 53.6% vs 54.4% (-0.8). The honest read p (market + ratings): 777-660, 54.1% vs 54.4% (-0.3). The blend (market + own)/2: 744-642, 53.7% vs 55.0% (-1.4).
+- MARKET AND ENGINE AGREE (both 50%+, not fighting), importance first: 633-561, 53.0% vs 54.2% (-1.1); ranked by p alone 52.3% (-2.0); ranked by the blend 52.8% (-1.4); own read AT OR OVER the market: 526-485, 52.0% (-1.5), NFL 14-25. Skipping the games the engine and market disagree on does not win more - it loses the spread leans and the dogs that do beat their price. Today's rule with the spreads dropped: 51.8% (-1.5).
+- Verdict: DEAD. Ten rules, none beats its market-expected hit rate by more than noise (best +0.0 to -0.4; SE ~1.3 points on 1,400 leans); the only way to raise the straight-up hit rate is to pick bigger favorites, which the price already says and the owner does not want. Today's rule is the one that keeps the spread leans and dogs that run above their price; it stays. For the viewers: a 53% lean hit rate IS what these prices say (avg -117); the live 17-21 (44.7%, SE 8 points) is noise around it, not a broken picker.
+- Not touched: viewer_leans (format, count, no units, the per-sport cap, the importance order, LEAN_NCAAF_FAV_BAND). PROPOSAL for the owner (not built - it changes what gets posted): if he wants leans that hit more often, the honest lever is the price - leans from favorites -120..-150 by the engine's p would hit ~55% blind (the market favorite rule above) at the cost of the dogs and spreads; or a 'no fill lean' day stays at 3-4 picks. His call.
+## 10/16 - WRITE-UP TRUTH AUDIT, 10/8-10/16 (the owner: "never false information - that will cost us money"; "never vague"): 36 cards (~230 lines), 16 early plays, 46 graded reviews checked against the game files, box scores and line history as of post time - 17 false, 5 vague, 8 generator fixes BUILT
+
+Every factual claim on the cards posted 10/8-10/16 (picks.json breakdown / why lines, early.json why) and every graded
+review on the dashboard, checked against what the repo held when it was posted (games csv, players box scores,
+line_history, deciders) - no look-ahead. Public-betting splits (30 lines) and the 🚑 names (22 lines) can't be checked
+back in time (no stored snapshots) and are left out of the tally.
+- Checked ~190 claims: records / home-road records / streaks / last games (~95: all true but 3), back-to-backs (6: 5
+  true), line moves - open -> now against line_history's first fair price after both teams' last games (24 of 24 true,
+  the Bucs' "+455 at the open" included), QB / goalie / pitcher numbers (9 of 9 right: Milivojevic 434 yds 0 TD 3 INT,
+  Brock Glenn 435 / 2 / 2, Misiorowski 2 runs in 12 IP 15 K, Askarov 12 on 88, Dobes 13 on 91, Dostal 8 on 64, Ellis,
+  Schmid), early plays' last-game scores and byes (7 of 7), travel miles (3 of 3), review half-time / period facts (36
+  of 37).
+- FALSE (17): 4 revenge lines on 2023-or-older meetings and the Western KY schedule line, the Golden Knights "short rest"
+  (46 hours), the Blue Jackets "on the record. That's just facts" - all 9 fixed on 10/15 (not redone); NEW: "The Sabres
+  dealing with some personal stuff: 'Blackhawks' Bowen Byram to miss Buffalo return'" (10/10 AND 10/12 - a Blackhawk's
+  news ESPN tagged on the Sabres); "Records are close (Guardians 85-77, Rays 98-64)" (13 wins apart); "we're on the
+  Titans, they're the hotter team" (0-4, four straight L's); "The Sharks' goalie Yaroslav Askarov ..." / "The
+  Canadiens' goalie Jakub Dobes" / "The Ducks' goalie Lukas Dostal" (right numbers, wrong goalie - Nedeljkovic, Fowler
+  and Husso started; the starter wasn't known at 8 AM); "Wild questionable: Bogosian, Foligno" + "Wild have everybody
+  available" on one card (the Canadiens' card too); the Canadiens review "tied 3-3 after two periods; Capitals won 5-4"
+  on a game graded 5-3 (the stored period line added to 5-4).
+- VAGUE (5): "Say what you want, Freddy Peralta is HIM. He lives for spots like this." (no fact); "The Broncos in the
+  papers: '15 NFL players, coaches on the hot seat entering Week 6'" and "Out of the Seahawks's camp: 'Seven things
+  Solak thinks entering NFL Week 6'" (league round-ups pinned on a team); "The Saints never had a chance. Saints led 7-6
+  at the half" (a review that contradicts its own fact); "we're on the Bills, they're the hotter team" (Bills off a loss).
+- BUILT (8 fixes, each with a test in sports_test.py, test_truth_audit_10_16_*): (1) sports_breakdown_v24.someone_elses_story
+  - a drama headline naming another team of the league and not ours is skipped; a 📣 camp-talk line needs the team's
+  name in the headline; (2) the ✅ healthy line never prints with anyone questionable (team_unsure); (3) close_records -
+  "same kind of record" needs a small win gap too (2 wins early, ~3% of the games later); (4) sports_dashboard.periods
+  refuses a period line that doesn't add up to the graded final (no half-time fact, no comeback / collapse read from it);
+  (5) sports_lingo.review(trailed=True) bans the "never had a chance / never close / going away" talk on a win where the
+  other side led or it was tied at the checkpoint (DOMINANT_BAN); (6) the 🥅 / 🧱 goalie line says "who had their net
+  last time out" / "if he gets the net again" until sports_goalies confirms a starter (goalie_known); (7) the 💸 fade
+  line's "they're the hotter team" needs a winning streak on our side and none on theirs; (8) the ⚾ hype line for the
+  better arm carries his last starts' numbers (a hot arm's 🔥 line already has them), else the plain matchup line.
+- Not fixable from here (noted): "Full squad for the Maple Leafs" (10/15) and "Blues have everybody available" (10/8)
+  sat next to a 3-name hurt list - the card text is built at 8 AM and the hurt list is refreshed every hour; the
+  injury feed isn't stored back in time, so which one was right can't be checked. The posted picks were not touched.
+## 10/16 - NHL CHECKUP: a walk-forward replay of TODAY's hockey engine (Lock / Dog / plays / leans) 2023-27, every weight graded on its own; the live picks audited. ONE FIX (the card's goalie line), TWO PROPOSALS, the weights stay
+The machinery: scratchpad nhl_replay.py on top of tools/value_play_replay.Replay - NHL games only, every board day 2023-10-10 ..
+2026-10-15 rebuilt as the 8:35 AM PT post would have built it (closing prices, later games gone, params re-tuned each July 1 on
+the seasons before, no injury reports, no Daily Faceoff page / public splits in history so the goalie-roles (+2) and sharp-dog (+1)
+weights never fire - same caveats as the 10/9 replay). 681 board days, 8,436 moneyline SIDES (every side on the slate, picked or
+not), each with the kind the board gave it and every dog-score / favorite weight that fired. Flat 1u. "pts" = win % minus the
+no-vig price (the same-price baseline is built in); the plain baseline is every NHL dog -4.2% / every favorite -4.8% (the vig).
+- **PICK KINDS (at the close, 1u):** Lock 137-87 +6.7% on 224 (3 of 3 seasons up: +3 / +3 / +9u; thin own edge <3% +10.1% on 138,
+  own edge 3%+ +1.3% on 86 - the 10/9 finding again). Dog 126-138 +8.8% on 264 (+12 / -6 / +15 / +3u): via the SCORE GATE 6+
+  75-71 +17.3% on 146 (pts +9.3, z 1.8; 3 of 4 up), via best_hockey_dog (score 0-6) 51-67 -1.6% on 118 (pts +1.8, z -0.1, 2 of 4
+  up) - the gate earns its keep, the "best dog over 0" fill is break-even at the close (live 'hockey dog score 0-6' 7-16 is the
+  same thing at the 8 AM price). Value plays 51-35 +7.8% on 86 (favorites +9.7% on 76, dogs 4-6; rank 1 +15.7%, rank 2+ -12.7% on
+  24 - noise-sized). Regular leans 299-288 +0.5%; FILL leans 112-115 -14.3% on 227 (z -2.5, 4 of 4 seasons down).
+- **DOG WEIGHTS - with the weight vs every other dog +100..+300, 2023-27 (z on ROI):** every one points the way the engine
+  weighs it. Shot share: ss_pos (+3) +8.0% on 900 vs -6.9% (z +2.0); ss_neg (-3) -10.1% on 1,639 vs +2.8% (z -3.4). Both lost
+  last (+3.5) +7.5% on 855 vs -6.5% (z +1.8). Puck luck: pdo_bad (+2) +3.0% on 1,139 vs -6.0%; pdo_good (-3) -8.0% on 832 vs
+  -1.7% (z -2.0). Money: drift_away (-4) -7.4% on 1,404 vs -0.4% (z -2.3); drift_in (+2) +5.5% on 571 vs -4.8%. Rest: the dog on
+  a back-to-back vs a rested favorite (-3) -12.5% on 533 vs -1.5% (z -2.4); rested vs a tired favorite (+3) -0.9% on 281 vs -3.3%
+  (pts +1.8 - the weakest, right sign). Hits top quarter (+2) +3.7% on 891 vs -5.4%. Price +200 and up (-2) -14.9% on 419 vs
+  -1.6% (z -2.1). Goalies - with the LAST STARTER as the guess (what the 8 AM board has; right 45% of the time): hot_key (-3)
+  -11.2% on 287 vs -2.4%; key_edge_lo (+1) +1.6% on 1,268 vs -5.8%; key_edge_hi (-2) -5.9% on 694 vs -2.5%; facing a slumping
+  goalie (-2) -9.2% on 569 vs -2.0% (z -1.8). The 10/8 40-shot weight, these are its blind seasons: outshot_me (-2) -20.6% on 182
+  vs -2.2% (z -2.3), the side facing it (+1) +36.2% on 87 vs -4.1% (z +2.9) - the live 0-3 'NHL side vs a team outshot 40+' is
+  three games. Fired coach (+1) +2.3% on 309 vs -3.7%. Playoff lost_last (+3): -11.2% on 97 vs -2.9% - the one weight with the
+  WRONG sign in 2023-26 (the 9/30 study's "NHL +28.7%" bounce; 97 games, z -1.0: a WATCH, not cut).
+- **FAVORITE weights (w_p):** weighed UP (facing a bad dog) -0.9% on 2,161 (pts +2.0) vs weighed DOWN -11.9% on 1,401 (pts -4.6,
+  z -5.4) - the live 'hockey fav weighed DOWN (fade)' 22-17 is a small sample of a real thing. w_p beats the price: +2.3% on
+  1,113 (pts +4.0); w_p under the price -8.6% on 2,451. third_in_four (+1.5 pts): +2.5% on 257 vs -5.8% (pts +4.2 vs -0.9) - it
+  holds blind here (the 10/15 "+0.2% blind" was the dog side's bet); keep. sv_slump (+1.5): -0.8% on 569 vs -6.0% - holds.
+  NHL_EARLY_FAV (-3 the first 2 weeks): early favorites -4.7% on 268 vs -5.2% for the rest - NO signal either way (the owner's
+  10/1 call; it only costs Locks in October). outshot_fav (-1): -32.4% on 87 - holds.
+- **Multiple testing:** ~22 weights x 2 sides = 44 cells; about 2 would show |z| 2 by luck. 10 cells clear |z| 2 and EVERY weight
+  but lost_last points its built direction - the dog score as a whole is real on these three seasons (the score >0 dogs +3.0%
+  on 797 vs score <=0 -8.6% on 2,223; 6+ +8.9% on 183; 9+ +20.2% on 52).
+- **Price bands for the Dog (posted):** +100..+129 +9.0% on 141, +130..+159 +16.6% on 72, +160..+199 +16.1% on 40, +200..+300
+  1-10 -70.9% on 11. Every gate-6 dog on the slate at +200..+300: 1-3. The 10/10 +300 limit is new ground here too.
+- **Caveat on the own read:** the July tune swings - trust 0.31 (2023) / 0.08 (2024) / 0.00 (2025) / 0.15 (2026), hdog -0.20 /
+  -0.03 / +0.31 / 0.00 - so 2024-25 had 17 Dogs (the own read hugged the market) and 2025-26's dogs' "own edge" was mostly the
+  home-dog term. The dog WEIGHTS carry the hockey Dog; the own read's edge over the price is tune noise season to season.
+- **THE LIVE PICKS (9/27-10/15, 34 hockey picks):** every last-game and back-to-back flag matches the real schedule (0 stale);
+  Dogs 4-8 -1.9u at the 8 AM price (11 of 12 were best_hockey_dog score 1-6, one cleared the gate), plays 3-1, leans 7-11; CLV
+  about even. The goalie-roles weight never fired at 8 AM (Daily Faceoff confirms later: 2 of 34 picks knew our goalie, 4 knew
+  theirs) - a weight that lives after noon. BUG (fixed): the 🥅 / 🧱 goalie form line named the LAST starter as "the Sabres' goalie
+  Colten Ellis" (10/12 - Luukkonen played), "the Hurricanes' goalie Brandon Bussi" (10/3 - Kochetkov), Askarov 10/8 (Nedeljkovic),
+  Dobes 10/8 (Fowler), Dostal 10/10 (Husso): 5 of 7 lines named a goalie who didn't play. The last starter is tonight's starter
+  45.5% of the time (3,930 of 8,628 team-games 2023-26). Now: no confirmed / likely starter = "X, in net last time out for the
+  Sabres, ..." (true); known = the plain wording (sports_breakdown_v24, test_nhl_checkup_10_16_unconfirmed_goalie_is_said_as_the_last_starter).
+  The weight itself (hot_key / key_edge on the last starter) stays - it earns its keep above even with the guess.
+  The 9/30 "No Trent Miner for Avalanche - that's their starting goalie" (a third-stringer on IR) was the 10/2 STARTER_OF fix.
+- **PROPOSALS (the owner's calls - they change what gets posted):** (1) NO HOCKEY FILL LEANS: the who-wins fill lean in hockey
+  (a favorite the engine has at 50%+, the weighed read allowed under its price) went 112-115 -14.3% on 227, down 4 of 4 seasons,
+  -15.9% when the weighed read is under the price and -12.4% when it isn't; the -150..-130 lean favorites -12.5% on 226 (the
+  regular leans +3.4%). No units on them, but they are the 🟡 record. (2) the "best hockey dog over 0" fill for the Dog of the
+  Day (sports.best_hockey_dog): -1.6% on 118 at the close, live 'hockey dog score 0-6' 7-16 -6.4u at the 8 AM price - keep it
+  (the owner wants a Dog) or raise NHL_BEST_DOG_MIN to 3 (score 3-6 dogs +3.8% on 503 vs 0-3 +4.8% - no real split; the gate-6
+  Dog is the money). Nothing changed on either.
+- Verdict: BUILT (the goalie line fix); the weights all LEAD-confirmed on 2023-27 except lost_last (WATCH) and NHL_EARLY_FAV (no
+  signal, the owner's rule); fill leans in hockey = PROPOSAL.
+## 10/16 - THE MLB OWN READ vs THE PRICE (the "~4 points optimistic" note of 10/15): CONFIRMED for the raw read the early exam / early scan use (+4.2 pts blind, every season), +1.1 for the board's read; the fitted fix is "trust the read 8%" = the market - it would have posted NONE of this month's MLB unit plays (live +7.1u). LEAD / OWNER'S CALL, nothing built
+
+tools/mlb_read_calibration_study.py -> results/mlb_read_calibration_study.json. 20,085 priced, decided MLB games 2018-26 (358
+postseason), every read WALK-FORWARD: params tuned on the games before each 3/1 and 7/1 cutoff only (18 tunes), the starter
+edge prior-starts-only; blind = 2023-26 (9,869 games). Two reads live in the engine and both were measured:
+RAW = sports_model.own_p (ratings + form + the starter's form, no line) - the early-price exam and the early scan use it,
+tuned on the last 3 seasons; BOARD = final_p with move_w 0 (the market moved toward the raw read by the tune's trust +
+its favorite / home-dog shifts) - what sports.run calls ph_own: own_agrees, the Lock test and every unit size ride on it.
+- **The optimism, blind (the side the read liked more than the market):** RAW read 51.2%, won 47.0%, market 47.1% - the read
+  +4.2 pts over what happened, the market +0.1. Every season: 2023 +4.6, 2024 +4.5, 2025 +4.9, 2026 +2.8; regular +4.2,
+  POSTSEASON +4.5 (163 sides). BOARD read +1.1 (0.9 / 1.9 / 1.3 / 0.3; postseason -0.8) - the tune's trust already takes
+  back three quarters of it. Log loss blind: market .6766, board .6775, raw .6814; any calibrated read .6766 = the market.
+- **By read bucket (home side, blind regular season):** the raw read's 55-60% bucket won 54.8% (market 56.8), 60-65 won
+  61.3 (said 62.2), 65-70 won 65.4 (said 67.0), 70+ won 71.6 (said 72.7); dogs the other way (30-35 said 32.3, won 35.5).
+  The board read's buckets sit on the market within a point except 55-60 (said 57.3, market 57.6, won 55.1).
+- **By the gap (RAW read, blind regular season, ROI at the close):** 0-2 pts won 48.4% (read 50.2, mkt 49.3) -5.7%; 2-4
+  47.9% (51.0 / 48.1) -4.4%; 4-6 47.4% (51.4 / 46.5) -1.9%; 6-8 45.6% (52.2 / 45.3) -3.4%; 8-12 42.9% (52.7 / 43.1) -5.5%;
+  12+ 40.8% (54.5 / 40.5) -3.6%. The market's number wins every bucket; favorites and dogs alike (dogs 8-12: read 48.9,
+  won 38.4, -7.4%; favorites 8-12: read 62.2, won 54.2, -0.8%). Postseason: 12 dogs in 8-12 won 6, noise. BOARD read:
+  2-4 pts -4.6% (1,867), 4-6 -9.4% (467), 6-8 -35% (16). Starter known / unknown: every finished game carries its actual
+  starter, so history can't split it - the live scan already refuses a game without both starters named.
+- **The fitted fix:** logit(cal) = logit(market) + a x (logit(read) - logit(market)), a fit on every priced game before
+  each season (blind): RAW a = .064 (2019) .215 .176 .185 .138 .113 .094 .091 (2026); the early scan's recent-seasons read
+  .075 in 2026; BOARD a = .079 (2023) .091 .004 -.019 (2026) - the board read has NO disagreement worth keeping. Keep ~8%
+  of the raw read's gap and a 9-point gap becomes 0.7.
+- **The bare Lock rule replayed (read 56%+, beats its price and the no-vig number, -150..+125, the most value a day,
+  quarter-Kelly):** BOARD read blind regular 70-69, -10.9% flat, -5.6% sized (139 Locks, avg 1.0u); postseason 8-11, -27%
+  (19, all 2018-22 - the board read found no postseason Lock 2023-26). RAW read blind 293-303, -9.1% flat, -185u sized at
+  avg 2.9u; postseason 20-21 all years, -11%. CALIBRATED read: no Lock at all after 2018 (the read = the market, nothing
+  clears the vig). Blind, the MLB Lock loses either way - calibration ends it rather than fixes it.
+- **The early exam band (+100..+149 dogs, raw read 8-12 over the OPEN's no-vig number, price not yet moved 15+ cents toward
+  them - sports_early BANDS), blind at the open:** 252 dogs 2023-26, 131-121 (52%), +16.7% flat; 2023 +23.8% (55), 2024
+  +25.6% (48), 2025 -3.0% (83), 2026 +29.0% (66); postseason 4-1 (5). Sized by the raw read (today's rule, avg 3.45u):
+  868u bet, +145u. Sized by the calibrated read: 0 of 252 still in the band, avg 0.15u. The band's own realized edge
+  (+16.7% on 252) supports ~3u by Kelly - the raw read's SIZE of the gap is wrong (+4 pts) but WHICH dogs it ranks at the
+  open is right in 3 of 4 seasons; at the CLOSE the same dogs lose (-5.5% for 8-12 above; the live exam's game-time row
+  -4.3% on 257). The value is the open -> close move, as the 10/1 / 10/6 studies said. CAVEAT not checkable from the
+  repo: the stored MLB open may predate the probable starter being named; the read knows the actual starter, the live
+  scan waits for both starters (sp_home / sp_away) - so the live record (now 2-0) is the real test of this band.
+- **The exam's pass flickers:** the MLB +8..12 band PASSED every exam 10/1-10/14 (151 dogs, +4.7% / +15.8% in its two
+  seasons - the Brewers posted 10/12 and 10/13 under it) and has FAILED since 10/15 04:24 (159 dogs, season 1 -6.4%):
+  the 10/15 key-form change (sports_players.recent_floor - this season's starts only) moved a few dogs in and out of the
+  band. A band that passes or fails on 2-8 dogs is a thin gate; its live record is the proof.
+- **The live MLB unit plays since 10/2 under a calibrated read (a from 2026):** Brewers +112 (own 53.7 / market 45.0, gap
+  8.7 -> 0.7): no post (was 3u, won +3.4u); Brewers +144 (48.5 / 39.2, 9.3 -> 0.7): no post (3u, won +4.3u); Guardians -149
+  Lock (own 61.7 / 57.2 -> 57.1): no Lock (1u, lost); Rays -132 Lock (57.9 / 54.4 -> 54.3): no Lock (½u, won +0.4u). Live
+  +7.1u on 7.5u; calibrated: nothing bet.
+- **Blind postseason board 2018-25 (bare rules):** Locks 8-11 (board read) / 20-21 (raw), exam-band dogs 4-1, the liked
+  side -0.8 pts (board) / +4.5 (raw) - 19-41 plays in eight Octobers, no verdict possible on the postseason alone.
+- **VERDICT: LEAD, nothing built - not a bug.** The raw read is a logistic fit on its own inputs: honest over all games
+  (its buckets are within 1-2 pts), optimistic exactly where it disagrees with a sharper market - the shrink the tune
+  already learns (trust) is the fix, and the board read already carries it. OWNER'S CALLS, with numbers: (1) apply the
+  shrink (a ~ 0.08) to the MLB early scan's read: the +8..12 exam band and every MLB early play ends (blind +16.7% on
+  252 at the open, live 2-0 +7.7u); (2) size an exam-band play by the band's own record instead of the raw read (flat
+  1u, or ½u until 30 live bets) - the 3u Brewers plays rode on a read 9 points over; (3) the MLB Lock (board read):
+  70-69, -10.9% blind, -27% postseason - a calibrated read would post none; today's rule keeps posting them. The 10/15
+  pattern holds in baseball as in college: the market's number beats the read in every gap bucket at the close.
+
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.
 - **The favorite flip (NFL + college, paid history 2020-26, first fair look -> last look):** 159 flips of 5,654 games. Opener's favorite (now the dog) +0.2% train -> -3.8% blind (band -7.6%), z 0.1; sign flips by sport and season; moves toward a pick'em without a flip -5.9% / -4.9%. 60 cells. DEAD - the market prices the flip.

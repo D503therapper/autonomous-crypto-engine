@@ -1,39 +1,39 @@
 {
  "all": {
-  "n": 67,
-  "beat": 21,
-  "same": 25,
-  "worse": 21,
-  "avg_pts": 0.07
+  "n": 72,
+  "beat": 23,
+  "same": 26,
+  "worse": 23,
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 29,
-  "beat": 8,
+  "n": 31,
+  "beat": 10,
   "same": 14,
   "worse": 7,
-  "avg_pts": 0.17
+  "avg_pts": 0.32
  },
  "by_kind": {
   "dog": {
-   "n": 12,
-   "beat": 3,
+   "n": 13,
+   "beat": 4,
    "same": 6,
    "worse": 3,
-   "avg_pts": -0.21
+   "avg_pts": 0.12
   },
   "lean": {
-   "n": 38,
+   "n": 41,
    "beat": 13,
-   "same": 11,
-   "worse": 14,
-   "avg_pts": -0.01
+   "same": 12,
+   "worse": 16,
+   "avg_pts": -0.09
   },
   "lock": {
-   "n": 9,
-   "beat": 3,
+   "n": 10,
+   "beat": 4,
    "same": 4,
    "worse": 2,
-   "avg_pts": 0.79
+   "avg_pts": 0.81
   },
   "play": {
    "n": 8,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 11,
+   "n": 12,
    "beat": 5,
    "same": 1,
-   "worse": 5,
-   "avg_pts": 0.09
+   "worse": 6,
+   "avg_pts": 0.0
   },
   "ncaaf": {
    "n": 15,
@@ -59,27 +59,27 @@
    "avg_pts": 0.25
   },
   "nfl": {
-   "n": 11,
-   "beat": 2,
+   "n": 12,
+   "beat": 3,
    "same": 5,
    "worse": 4,
-   "avg_pts": -0.24
+   "avg_pts": -0.13
   },
   "nhl": {
-   "n": 30,
-   "beat": 9,
-   "same": 13,
-   "worse": 8,
-   "avg_pts": 0.09
+   "n": 33,
+   "beat": 10,
+   "same": 14,
+   "worse": 9,
+   "avg_pts": 0.13
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 5,
-   "beat": 1,
+   "n": 6,
+   "beat": 2,
    "same": 3,
    "worse": 1,
-   "avg_pts": 0.2
+   "avg_pts": 0.33
   },
   "1-2u": {
    "n": 1,
@@ -1040,6 +1040,76 @@
    "close": -162,
    "pts": 4.4,
    "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": -115,
+   "pts": 4.0,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Guardians",
+   "market": "ml",
+   "line": null,
+   "odds": -127,
+   "close": -122,
+   "pts": -1.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -130,
+   "pts": -2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Maple Leafs",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -118,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Seahawks",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]

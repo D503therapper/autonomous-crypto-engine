@@ -12198,6 +12198,7 @@
      "them:trip1000"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12212,6 +12213,10 @@
     "edge_own": -0.032527004583325914,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,1",
+     "h": "0,1,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -12245,9 +12250,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Mammoth 4 @ Oilers 2",
+    "settled": "2026-10-16T03:34Z",
     "side": "away",
     "start": "2026-10-16T01:00Z",
     "stype": "2",
@@ -12264,12 +12271,14 @@
    }
   ],
   "p_hit": 0.4789,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T03:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -127,
@@ -12319,6 +12328,7 @@
      "them:dome_out"
     ],
     "dec": 1.7874015748031495,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12335,6 +12345,10 @@
     "edge_own": -0.046378709240774585,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,2,0,0,0,0,0",
+     "h": "0,1,0,0,2,0,0,0"
+    },
     "form_state": [
      -2.0,
      -1,
@@ -12382,9 +12396,11 @@
     "public": null,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Rays 2 @ Guardians 3",
+    "settled": "2026-10-15T20:09Z",
     "side": "home",
     "start": "2026-10-15T17:00Z",
     "stype": "3",
@@ -12407,12 +12423,14 @@
    }
   ],
   "p_hit": 0.5342,
-  "pnl": 0.0,
+  "pnl": 78.74,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-15T20:09Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
@@ -12459,6 +12477,11 @@
      "game:rival"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "7-1",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12472,6 +12495,10 @@
     "edge_own": -0.04811866424226163,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "1,4,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -12510,9 +12537,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Rangers 1 @ Devils 7",
+    "settled": "2026-10-16T02:36Z",
     "side": "home",
     "start": "2026-10-15T23:00Z",
     "stype": "2",
@@ -12530,12 +12559,14 @@
    }
   ],
   "p_hit": 0.5652,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
@@ -12578,6 +12609,15 @@
      "us:week3000"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Owen Power",
+     "s": "5-4",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12591,6 +12631,10 @@
     "edge_own": -0.05352803548843199,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2,1",
+     "h": "2,2,0,0"
+    },
     "form_state": null,
     "g_role_me": true,
     "g_role_opp": null,
@@ -12624,9 +12668,11 @@
     "public": "ride",
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sabres 5 @ Maple Leafs 4",
+    "settled": "2026-10-16T02:36Z",
     "side": "home",
     "start": "2026-10-15T23:00Z",
     "stype": "2",
@@ -12643,12 +12689,14 @@
    }
   ],
   "p_hit": 0.5131,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
@@ -12688,6 +12736,15 @@
      "us:trip1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "fg",
+     "n": 1,
+     "p": "Wil Lutz",
+     "s": "17-14",
+     "type": "ot",
+     "win": "home",
+     "y": 53
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12709,6 +12766,10 @@
     "edge_own": 0.026840774665216394,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,0,11,0",
+     "h": "0,14,0,0,3"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -12761,9 +12822,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Seahawks 14 @ Broncos 17",
+    "settled": "2026-10-16T03:33Z",
     "side": "away",
     "start": "2026-10-16T00:15Z",
     "stype": "2",
@@ -12791,11 +12854,382 @@
    }
   ],
   "p_hit": 0.5635,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-15T15:00Z",
+  "round": 1,
+  "settled": "2026-10-16T03:33Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "lock",
+  "units": 0.5
+ },
+ {
+  "american": -112,
+  "date": "2026-10-16",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "hot:2",
+     "better:3",
+     "latest:2",
+     "G_cold:0",
+     "road:3",
+     "healthy:0",
+     "sharp:3",
+     "splits:0",
+     "bottom_c:0",
+     "w_better:1"
+    ],
+    "breakdown": [
+     "\ud83e\uddf3 2-1 on the road for Bruins this year.",
+     "\ud83d\udd25 Bruins are rolling \u2014 3 wins in a row, 5-2 on the year.",
+     "\ud83e\udd45 The Ducks' goalie Lukas Dostal has been giving up a lot of goals \u2014 a 0.868 save % (9 goals on 68 shots) over his last 3 starts.",
+     "\ud83d\udcb0 +115 at the open, -112 now \u2014 the market's coming around to Bruins.",
+     "\ud83d\udcca Bets are split \u2014 55% on the Bruins, 45% on the Ducks (71% / 29% of the money). Nobody knows nothing on this one, except us.",
+     "\ud83d\udcc5 Most recent games: Bruins W 6-3 @ Sharks \u00b7 Ducks L 2-4 vs Flames.",
+     "\ud83d\udfe1 Bottom line: Bruins (-112). Close to 50-50 on our read. We tilt Bruins, no units."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "us:week3000"
+    ],
+    "dec": 1.8928571428571428,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": 0.0024,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": -0.0569,
+    "edge": -0.029537182261722084,
+    "edge_own": -0.031079486837746084,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892518",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.6516780710329073,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -112,
+    "opp": "Ducks",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5126973376730525,
+    "p_market": 0.5043297540699688,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-17T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Bruins",
+    "team_id": "1",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa 5-2 against 4-2: Bruins been the better team."
+   }
+  ],
+  "p_hit": 0.5127,
+  "pnl": 0.0,
+  "posted": "2026-10-16T15:00Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",
-  "tier": "lock"
+  "tier": "lean"
+ },
+ {
+  "american": -102,
+  "date": "2026-10-16",
+  "dec": 1.9804,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:3",
+     "h2h:2",
+     "talk_q:1",
+     "home:2",
+     "sharp:1",
+     "bottom_s:0",
+     "w_num:2"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Coastal questionable: TE Z. Courtney, WR G. Lawrence, WR K. Johnson +1 more.",
+     "\ud83d\udce3 App State in the papers: \"Why Week 7 has all the makings of an epic rivalry week\"",
+     "\ud83c\udfdf\ufe0f Coastal at home: 1-2 this season.",
+     "\ud83d\udccb Coastal rolling in at 2-4.",
+     "\ud83d\udcb0 Coastal went from +102 to -102 since the open. We were here first.",
+     "\ud83d\udfe1 Bottom line: Coastal (-102). This one's near a coin flip to us - Coastal is the side if you're playing it, no money from us."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 1.9803921568627452,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "conservative": false,
+     "fades": [],
+     "fast": false,
+     "last_margin": 6.0,
+     "last_pts": 27.0,
+     "neutral": false,
+     "win_pct": 0.333,
+     "win_streak": 1
+    },
+    "drift": -0.0087,
+    "edge": -0.007030311691394897,
+    "edge_own": 0.006053628031816638,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     6.0,
+     1,
+     164,
+     true,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401869844",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.1829731272176871,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -102,
+    "opp": "App State",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "M. Singleton (QB)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5014005356805827,
+    "p_market": 0.4826358742837298,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-17T00:00Z",
+    "stype": "2",
+    "talk_ours": [
+     {
+      "headline": "Why Week 7 has all the makings of an epic rivalry week",
+      "kind": "rivalry week"
+     }
+    ],
+    "talk_theirs": [
+     {
+      "headline": "Why Week 7 has all the makings of an epic rivalry week",
+      "kind": "rivalry week"
+     }
+    ],
+    "team": "Coastal",
+    "team_id": "324",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Our read likes Coastal more than the price does."
+   }
+  ],
+  "p_hit": 0.5014,
+  "pnl": 0.0,
+  "posted": "2026-10-16T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -112,
+  "date": "2026-10-16",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:3",
+     "road:0",
+     "bump:0",
+     "sharp:2",
+     "splits:0",
+     "bottom_c:1",
+     "w_num:0"
+    ],
+    "breakdown": [
+     "\ud83e\uddf3 Rays are 43-38 on the road this year.",
+     "\u26be On the bump: Nick Martinez for Rays, Shawn Armstrong for Guardians.",
+     "\ud83d\udccb Rays rolling in at 98-64.",
+     "\ud83d\udcca Bets are split \u2014 61% on the Rays, 39% on the Guardians (66% / 34% of the money). Nobody knows nothing on this one, except us.",
+     "\ud83d\udfe1 Bottom line: Rays (-112). This one's near a coin flip to us - Rays is the side if you're playing it, no money from us."
+    ],
+    "bv": 50,
+    "coach": [
+     12,
+     false
+    ],
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "us:dome_cold",
+     "us:dome_out"
+    ],
+    "dec": 1.8928571428571428,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "luck_gap": 0.0311,
+     "opp_won": false,
+     "rs_gap": 0.0213,
+     "won": false
+    },
+    "dog_more": {
+     "late_rally": false
+    },
+    "drift": -0.0043,
+    "edge": -0.03818288763084898,
+    "edge_own": -0.03438007296628631,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -1.0,
+     -1,
+     109,
+     false,
+     5
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "mlb:401908026",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.188931297709924,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "lost_last": true,
+    "market": "ml",
+    "odds": -112,
+    "opp": "Guardians",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Colin Holderman (RP)",
+     "Rhys Hoskins (1B)",
+     "Andrew Walters (RP)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Shane McClanahan (SP)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5081297952138911,
+    "p_market": 0.5043297540699688,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-17T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Rays",
+    "team_id": "30",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 We've got Rays close to a coin flip - a hair better, not enough for units."
+   }
+  ],
+  "p_hit": 0.5081,
+  "pnl": 0.0,
+  "posted": "2026-10-16T15:07Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
