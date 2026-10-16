@@ -1,13 +1,15 @@
 {
- "at": "2026-10-16T08:03Z",
+ "at": "2026-10-16T08:22Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Geerlings vs Grabher: no points for 615s"
+ ],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (41s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
@@ -17,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 43 min ago",
+  "engine ran 62 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-16T08:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Geerlings vs Grabher: no points for 615s"
+   ]
+  },
   {
    "at": "2026-10-16T08:03Z",
    "fixes": [],
@@ -484,11 +493,6 @@
   },
   {
    "at": "2026-10-13T23:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T23:27Z",
    "fixes": [],
    "problems": []
   }
