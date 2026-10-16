@@ -509,7 +509,7 @@ def engine_weights():
                              f"{sports.DOG_SCORE_MAX_U:g}u max",
                       "units": "only when the read beats the real price (the money check): the Lock sized by its own "
                                f"read (quarter-Kelly, ½u-{sports.UNIT_MAX}u, a Lock needs {round(sports.LOCK_P * 100)}%+), "
-                               f"the Dog {sports.DOG_UNITS:g}u-{sports.DOG_MAX_UNITS:g}u by its edge (hockey flat, hoops ½u), "
+                               f"the Dog by its edge up to {sports.UNIT_MAX:g}u, "
                                f"every value play {sports.PLAY_UNITS:g}u, moneyline only",
                       "leans": "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "
                                f"{sports.LEAN_NCAAF_FAV_BAND[0]}..{sports.LEAN_NCAAF_FAV_BAND[1]}"},   # (10/11 sweep: the

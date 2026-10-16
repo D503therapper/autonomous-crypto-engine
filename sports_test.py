@@ -4987,8 +4987,8 @@ def _units_and_the_open_bankroll():
                                                     "edge_own": own * (1 + 100 / -o) - 1}]}   # value per $1, as posted
     assert sports.units_for(lk(0.60, -125)) == 2.5 and sports.units_for(lk(0.52, -125)) == 0.0   # its OWN read, not p
     #   (10/1 bug check: a pick its own read says loses money gets NO units - it was ½u)
-    assert sports.units_for(lk(0.75, -125)) > sports.units_for(lk(0.65, -125)) > 2.5 and sports.UNIT_MAX == 10
-    assert sports.kelly_units(0.9, 200) == 10                                                   # the 10u max
+    assert sports.units_for(lk(0.62, -125)) > sports.units_for(lk(0.60, -125)) == 2.5 and sports.UNIT_MAX == 5 == sports.units_for(lk(0.75, -125))
+    assert sports.kelly_units(0.9, 200) == 5                                                    # the 5u max play (10/16)
     assert sports.units_for({"kind": "two", "legs": []}) == 0 == sports.units_for({"kind": "four", "legs": []})
     # a parlay has no units - each pick in it carries its own, as a straight bet (the owner, 9/30)
     two = {"date": "2026-09-30", "kind": "two", "status": "lost", "dec": 3.0, "legs": [
@@ -5006,8 +5006,9 @@ def _units_and_the_open_bankroll():
     assert sports.units_for({"kind": "solo", "lean": True, "legs": [{"p": 0.51}]}) == 0                   # just a lean
     # ⏰ early plays: the ENGINE's call - sized by how far its own read beats the price we got (the owner, 9/30)
     import sports_early as se
-    assert se.units({"odds": 124, "own": 0.5703}) == 5.5 and se.units({"odds": 170, "own": 0.40}) == 1 and se.units({"odds": 160, "own": 0.39}) == 0.5
-    assert se.units({"odds": 200, "own": 0.40}) == 2.5 and se.units({"odds": 200, "own": 0.9}) == 10
+    assert se.units({"odds": 124, "own": 0.5703}) == 5   # (the 5u max play, 10/16 - was 5.5)
+    assert True and se.units({"odds": 170, "own": 0.40}) == 1 and se.units({"odds": 160, "own": 0.39}) == 0.5
+    assert se.units({"odds": 200, "own": 0.40}) == 2.5 and se.units({"odds": 200, "own": 0.9}) == 5
     early = [{"game_id": "nfl:9", "side": "away", "team": "Jaguars", "odds": 124, "own": 0.5703, "start": "2026-10-04T17:00Z",
               "result": "won", "graded_at": "2026-10-04T20:00Z"}]
     lk_j = {"date": "2026-10-04", "kind": "lock", "status": "won", "dec": 1.8, "legs": [
@@ -5015,7 +5016,7 @@ def _units_and_the_open_bankroll():
     led = sports.units_ledger([lk_j], early)                 # on the board too: BOTH count, each with its units (the
     assert len(led["rows"]) == 2                              # owner, 10/4: "Jaguars can be both" - ½u early + 1u Dog)
     er = [r for r in led["rows"] if r[0]["units_tier"] == "early"][0]
-    assert er[1] == 5.5 and abs(er[2] - 5.5 * 1.24) < 1e-9
+    assert er[1] == 5 and abs(er[2] - 5 * 1.24) < 1e-9                  # (the 5u max play, 10/16)
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
     led = sports.units_ledger([day2, day1])
@@ -6069,7 +6070,7 @@ def test_nba_dog_of_the_day_half_unit():
         sports.dog_score = saved
     pk = lambda lg: {"date": "2026-10-20", "kind": "dog", "lean": False, "status": "open",
                      "legs": [{"league": lg, "odds": 140, "dec": 2.4, "dog_p": 0.45, "market": "ml"}]}
-    assert sports.units_for(pk("nba")) == 0.5 and sports.units_for(pk("nhl")) == sports.DOG_UNITS == 1.0   # (hockey Dogs stay flat 1u)
+    assert sports.units_for(pk("nba")) >= 0.5 and sports.units_for(pk("nhl")) >= sports.DOG_UNITS == 1.0   # (10/16: Dogs size by the read)
 
 
 def test_pick_logic_bug_check():
@@ -11002,7 +11003,9 @@ def test_dedupe_drops_the_stale_play_copy_of_an_upgraded_dog():
         p["status"] = p["legs"][0]["result"] = "won"
         p["settled"] = "2026-10-17T03:00Z"
     rows = sports.units_ledger(out)["rows"]
-    assert [(r[0]["kind"], r[0]["legs"][0]["game_id"], r[1]) for r in rows] == [("play", "A", 0.5), ("play", "C", 0.5), ("dog", "B", 1.0)]
+    assert [(r[0]["kind"], r[0]["legs"][0]["game_id"], r[1]) for r in rows] == \
+        [("play", "A", 0.5), ("play", "C", 0.5), ("dog", "B", sports.dog_units(out[2]))]   # (the Dog's own size, 10/16)
+    assert sports.dog_units(out[2]) >= 1.0
     # the 10/13 case still holds: the stale old Dog next to its demoted play copy goes
     out2 = sports.dedupe_picks([mk("dog", leg_a), mk("play", leg_a, was_dog="x"), mk("dog", leg_b, upgraded="x")])
     assert [(p["kind"], p["legs"][0]["game_id"]) for p in out2] == [("play", "A"), ("dog", "B")]
@@ -11367,6 +11370,55 @@ def test_audit_never_flags_the_dog_of_the_day_at_its_own_flat_size():
     assert not any("thin edge" in f for f in out["flags"]), out["flags"]
     play = {**pk, "kind": "lock", "legs": [{**leg, "odds": -120, "dec": 1.833}]}
     sports_audit.audit_day([play], {}, "2026-10-15")                  # (the Lock check still runs - no crash)
+
+
+def test_every_dog_and_lock_sizes_by_the_read_up_to_the_5u_max_play():
+    """The owner, 10/16: "Hockey dogs don't have to be specifically one unit ... two units or even three" / "That goes for
+    all sports ... Locks too" / "5 unit would be a max play." - before 10/16 the hockey Dog was flat 1u and the max 10u."""
+    import sports
+    def dog(day, p, lg="nhl", odds=150):
+        return {"date": day, "kind": "dog", "legs": [{"league": lg, "odds": odds, "dec": sports._dec(odds), "p": p,
+                                                       "w_p": p, "dog_p": p}]}
+    assert sports.UNIT_MAX == 5
+    assert sports.dog_units(dog("2026-10-15", 0.60)) == 1.0          # before: the 10/10 flat 1u (posted picks keep it)
+    assert sports.dog_units(dog("2026-10-16", 0.41)) == 1.0          # a small edge: the 1u floor
+    assert 2.0 <= sports.dog_units(dog("2026-10-16", 0.55)) <= 5.0    # a strong read: more units
+    for lg in ("nhl", "nfl", "ncaaf", "mlb"):
+        assert sports.dog_units(dog("2026-10-16", 0.90, lg)) == 5.0   # never past the 5u max play
+    assert sports.dog_units(dog("2026-10-16", 0.41, "nba")) == 0.5    # hoops keeps its ½u floor
+    assert sports.kelly_units(0.95, -120) == 5.0                     # a Lock's own-read size tops out at 5u too
+
+
+def test_college_dog_off_a_21_point_cover_is_weighed_down():
+    """10/16 study: a college dog that beat the closing spread by 21+ last game is overpriced (-22.6% train / -40.6%
+    blind, 0 of 8 seasons even) - a -2 weight on the dog score, never a trigger; tracked as a lead."""
+    import sports, sports_form, sports_leads
+    g = lambda i, st, h, a, hs, as_, sp: {"id": i, "league": "ncaaf", "start": st, "status": "final", "home": h, "away": a,
+                                          "home_score": str(hs), "away_score": str(as_), "spread_home": str(sp), "stype": "2"}
+    games = {"a": g("a", "2026-10-03T19:00Z", "1", "2", 45, 10, 7.0),      # home dog +7 won by 35: beat it by 42
+             "b": g("b", "2026-10-03T19:00Z", "3", "4", 24, 21, -3.0)}     # covered by 0 - a push, no big cover
+    sports_form.ats_states(games)
+    assert sports_form.big_cover("ncaaf", "1", "2026-10-10T19:00Z")
+    assert not sports_form.big_cover("ncaaf", "2", "2026-10-10T19:00Z")    # missed by 42 - not this weight
+    assert not sports_form.big_cover("ncaaf", "3", "2026-10-10T19:00Z")
+    assert not sports_form.big_cover("ncaaf", "1", "2026-12-20T19:00Z")    # a stale cover (30+ days) dies
+    assert not sports_form.big_cover("nfl", "1", "2026-10-10T19:00Z")
+    c = {"market": "ml", "league": "ncaaf", "odds": 160, "dec": 2.6, "p_market": 0.37, "edge": 0.0, "edge_own": 0.0,
+         "dog_more": {}, "reasons": []}
+    base = sports.dog_score(dict(c))
+    assert sports.dog_score({**c, "big_cover": True}) == base - 2
+    assert "college dog off a 21+ cover (fade)" in sports_leads.tags({**c, "big_cover": True}, sports)
+
+
+def test_big_gap_college_dogs_keep_a_live_score():
+    """The owner, 10/16 (Tulane +220, engine 49% vs the books 30%): "maybe we should lay off" - the 10+ gap college dogs
+    went 0-6 live - but every one keeps a live score on paper (the lead tracker), no units."""
+    import sports, sports_leads
+    c = {"market": "ml", "league": "ncaaf", "odds": 220, "dec": 3.2, "p_market": 0.30, "edge_own": 0.49 * 3.2 - 1,
+         "edge": 0.0, "dog_more": {}, "reasons": []}
+    assert "college dog, engine 10+ over the books" in sports_leads.tags(c, sports)
+    assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "edge_own": 0.36 * 3.2 - 1}, sports)
+    assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "league": "nfl"}, sports)
 
 if __name__ == "__main__":
     import sports_goalies as _sg

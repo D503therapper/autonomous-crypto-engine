@@ -72,12 +72,12 @@ every session:
   after the 8 AM board is up (sports_pings - it keeps checking the lines all day; one ping each, once the dashboard
   shows it - the owner, 10/1; leans and the 8 AM board never ping) - plus
   one-time announcements the owner asks for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
-- Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
+- Units (the engine decides, by its edge - quarter-Kelly, ½u-5u, 5u = the max play (the owner 10/16, was 10u); 1 unit = 1% of our bankroll, $1,000 start): early
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. From 10/2 every
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
   over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). THE UNIT SYSTEM
   (the 10/2 sizing replay, 712 board days - the owner: "wire it in when you figure out the sizing"): the Lock sized by
-  its own read (½u-10u; the backup Lock ½u), the Dog of the Day sized by its edge 1u-2u (the owner 10/10 - sports.dog_units / DOG_MAX_UNITS; hockey Dogs flat 1u, NBA and college hoops Dogs ½u - a dog score 4+, sports.NBA_DOG_GATE / NCAAB_DOG_RULE / DOG_UNITS_BY), every value play ½u
+  its own read (½u-5u since 10/16; the backup Lock ½u), the Dog of the Day sized by its edge 1u-2u (the owner 10/10 - sports.dog_units / DOG_MAX_UNITS; from 10/16 every sport's Dog sizes by the engine's read from its floor (1u; hoops ½u) up to the 5u max play (the owner 10/16: "if the engine has a strong read on a dog, it can be two units or even three units ... that goes for all sports ... Locks too ... 5 unit would be a max play") - a dog score 4+, sports.NBA_DOG_GATE / NCAAB_DOG_RULE / DOG_UNITS_BY), every value play ½u
   (sports.PLAY_UNITS - they lost at every size; sizing up on edge lost more). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.

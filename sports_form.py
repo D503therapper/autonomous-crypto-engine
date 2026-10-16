@@ -300,10 +300,17 @@ REVENGE = {}                               # 10/1 OFF: with the 2024-25 college 
 #                                            seasons (-1.3% vs -13.4%; 2024 and 2025 both worse). (Was {"ncaaf": 30}.)
 
 
+BIG_COVER = 21                              # 10/16 study: a college dog that beat the closing spread by 21+ last game
+LAST_COVER = {}                             # is OVERPRICED next game (-22.6% train / -40.6% blind, 0 of 8 seasons even)
+#                                             (league, team) -> (start, how much it beat / missed the spread by)
+
+
 def ats_states(games):
-    """({(league, team): cover streak (+ covered / - failed)}, {(league, team, opp): last meeting's margin})."""
+    """({(league, team): cover streak (+ covered / - failed)}, {(league, team, opp): last meeting's margin}); also fills
+    LAST_COVER (each team's last cover margin vs the closing spread)."""
     import sports_model as sm
     ats, meet, last = {}, {}, {}
+    LAST_COVER.clear()
     for lg in ATS_LEAGUES:
         for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
             if (g.get("stype") or "2") not in ("2", "3"):
@@ -318,7 +325,9 @@ def ats_states(games):
             except (KeyError, TypeError, ValueError):
                 continue
             if mg == 0:
+                LAST_COVER[(lg, g["home"])] = LAST_COVER[(lg, g["away"])] = (g["start"], 0.0)
                 continue
+            LAST_COVER[(lg, g["home"])], LAST_COVER[(lg, g["away"])] = (g["start"], mg), (g["start"], -mg)
             for t, cov in ((g["home"], mg > 0), (g["away"], mg < 0)):
                 k = ats.get((lg, t), 0)
                 if (lg, t) in last and _days(last[(lg, t)], g["start"]) > ATS_FRESH_D:
@@ -417,3 +426,9 @@ def _nhl_team_rows():
         return sports_roster.team_rows("nhl")
     except Exception:                                        # noqa: BLE001
         return []
+
+
+def big_cover(lg, team, start):
+    """10/16: this college team beat the closing spread by BIG_COVER+ in its last game (within ATS_FRESH_D days)."""
+    lc = LAST_COVER.get((lg, team))
+    return bool(lg == "ncaaf" and lc and lc[1] >= BIG_COVER and lc[0] < start and _days(lc[0], start) <= ATS_FRESH_D)
