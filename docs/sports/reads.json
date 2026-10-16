@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T16:44Z",
+ "updated": "2026-10-16T16:50Z",
  "games": [
   {
    "id": "ncaaf:401862801",
@@ -86,7 +86,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -197,
-    "p": 0.609,
+    "p": 0.608,
     "win_p": 0.491,
     "reasons": [
      "the stronger team"
@@ -833,7 +833,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.373,
+    "p": 0.361,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -845,14 +845,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Devils",
-    "opp": "Capitals",
+    "team": "Capitals",
+    "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.672,
-    "win_p": 0.453,
-    "reasons": []
+    "odds": -265,
+    "p": 0.731,
+    "win_p": 0.523,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1193,6 +1195,36 @@
    }
   },
   {
+   "id": "ncaaf:401868145",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Tennessee Tech",
+    "p": 0.777,
+    "tie": 0.024,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T18:30Z",
+   "away": "E Kentucky",
+   "home": "Tennessee Tech",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Tennessee Tech",
+    "opp": "E Kentucky",
+    "market": "spread",
+    "line": -14.0,
+    "odds": -113,
+    "p": 0.502,
+    "win_p": 0.837,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401866666",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1251,6 +1283,36 @@
    }
   },
   {
+   "id": "ncaaf:401868361",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Prairie View",
+    "p": 0.589,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:00Z",
+   "away": "Alcorn St",
+   "home": "Prairie View",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Prairie View",
+    "opp": "Alcorn St",
+    "market": "ml",
+    "line": null,
+    "odds": -195,
+    "p": 0.628,
+    "win_p": 0.628,
+    "reasons": [
+     "better QB play lately"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401868943",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1303,6 +1365,36 @@
     "odds": -113,
     "p": 0.501,
     "win_p": 0.81,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868189",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "UT Martin",
+    "p": 0.483,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:00Z",
+   "away": "Gardner-Webb",
+   "home": "UT Martin",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UT Martin",
+    "opp": "Gardner-Webb",
+    "market": "ml",
+    "line": null,
+    "odds": -101,
+    "p": 0.5,
+    "win_p": 0.5,
     "reasons": [
      "the stronger team"
     ]
@@ -1396,6 +1488,95 @@
     "p": 0.622,
     "win_p": 0.622,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaaf:401867993",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Lafayette",
+    "p": 0.578,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:00Z",
+   "away": "Lafayette",
+   "home": "Bucknell",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Lafayette",
+    "opp": "Bucknell",
+    "market": "ml",
+    "line": null,
+    "odds": -202,
+    "p": 0.554,
+    "win_p": 0.554,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaaf:401868181",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "E Illinois",
+    "p": 0.485,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:00Z",
+   "away": "Lindenwood",
+   "home": "E Illinois",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "E Illinois",
+    "opp": "Lindenwood",
+    "market": "ml",
+    "line": null,
+    "odds": -101,
+    "p": 0.502,
+    "win_p": 0.502,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868207",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "SE Missouri",
+    "p": 0.623,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:00Z",
+   "away": "W Illinois",
+   "home": "SE Missouri",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "SE Missouri",
+    "opp": "W Illinois",
+    "market": "ml",
+    "line": null,
+    "odds": -236,
+    "p": 0.667,
+    "win_p": 0.667,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1739,6 +1920,36 @@
    }
   },
   {
+   "id": "ncaaf:401866667",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Campbell",
+    "p": 0.742,
+    "tie": 0.027,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:30Z",
+   "away": "Towson",
+   "home": "Campbell",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Campbell",
+    "opp": "Towson",
+    "market": "spread",
+    "line": -12.5,
+    "odds": -113,
+    "p": 0.501,
+    "win_p": 0.8,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401864524",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1770,6 +1981,36 @@
    }
   },
   {
+   "id": "ncaaf:401868012",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Villanova",
+    "p": 0.67,
+    "tie": 0.03,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:30Z",
+   "away": "Villanova",
+   "home": "Fordham",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Villanova",
+    "opp": "Fordham",
+    "market": "spread",
+    "line": -7.5,
+    "odds": -110,
+    "p": 0.5,
+    "win_p": 0.661,
+    "reasons": [
+     "better QB play lately"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892521",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1784,20 +2025,109 @@
    "start": "2026-10-17T20:00Z",
    "away": "Canucks",
    "home": "Lightning",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Lightning",
     "opp": "Canucks",
     "market": "spread",
-    "line": -1.5,
-    "odds": -135,
+    "line": -2.5,
+    "odds": 110,
     "p": 0.609,
     "win_p": 0.793,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
     ]
+   }
+  },
+  {
+   "id": "ncaaf:401867849",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Illinois St",
+    "p": 0.648,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "Illinois St",
+   "home": "S Illinois",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Illinois St",
+    "opp": "S Illinois",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.636,
+    "win_p": 0.636,
+    "reasons": [
+     "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868310",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "SF Austin",
+    "p": 0.865,
+    "tie": 0.017,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "SF Austin",
+   "home": "Nicholls",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "SF Austin",
+    "opp": "Nicholls",
+    "market": "spread",
+    "line": -21.5,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.858,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868289",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "San Diego",
+    "p": 0.614,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "Valparaiso",
+   "home": "San Diego",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "San Diego",
+    "opp": "Valparaiso",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.657,
+    "win_p": 0.657,
+    "reasons": []
    }
   },
   {
@@ -1828,6 +2158,64 @@
     "reasons": [
      "sharp money moving this way"
     ]
+   }
+  },
+  {
+   "id": "ncaaf:401868319",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Lamar",
+    "p": 0.572,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T21:00Z",
+   "away": "Lamar",
+   "home": "SE Louisiana",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Lamar",
+    "opp": "SE Louisiana",
+    "market": "ml",
+    "line": null,
+    "odds": -195,
+    "p": 0.547,
+    "win_p": 0.547,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401867912",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Long Island",
+    "p": 0.606,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T21:00Z",
+   "away": "Long Island",
+   "home": "Wagner",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Long Island",
+    "opp": "Wagner",
+    "market": "ml",
+    "line": null,
+    "odds": -236,
+    "p": 0.588,
+    "win_p": 0.588,
+    "reasons": []
    }
   },
   {
@@ -1887,6 +2275,38 @@
     "win_p": 0.621,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401867897",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Youngstown St",
+    "p": 0.831,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T22:00Z",
+   "away": "Northern Iowa",
+   "home": "Youngstown St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Youngstown St",
+    "opp": "Northern Iowa",
+    "market": "spread",
+    "line": -18.5,
+    "odds": -113,
+    "p": 0.503,
+    "win_p": 0.888,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1978,6 +2398,36 @@
     "p": 0.599,
     "win_p": 0.599,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaaf:401869152",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Hou Christian",
+    "p": 0.542,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T23:00Z",
+   "away": "East Texas A&M",
+   "home": "Hou Christian",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hou Christian",
+    "opp": "East Texas A&M",
+    "market": "ml",
+    "line": null,
+    "odds": -151,
+    "p": 0.571,
+    "win_p": 0.571,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -2073,6 +2523,36 @@
    }
   },
   {
+   "id": "ncaaf:401868088",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Montana St",
+    "p": 0.833,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T23:00Z",
+   "away": "Montana St",
+   "home": "E Washington",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Montana St",
+    "opp": "E Washington",
+    "market": "spread",
+    "line": -19.5,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.83,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401864520",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2152,7 +2632,7 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.672,
     "win_p": 0.453,
     "reasons": []
