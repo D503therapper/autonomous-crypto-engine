@@ -1,11 +1,9 @@
 {
- "at": "2026-10-16T03:17Z",
+ "at": "2026-10-16T03:49Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:mlb:1029419134 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (37s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,17 +12,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
+  "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 43 min ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T03:49Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-16T03:17Z",
    "fixes": [],
@@ -489,13 +493,6 @@
    "at": "2026-10-13T19:28Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-13T17:57Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }
