@@ -275,6 +275,63 @@ no-vig price (the same-price baseline is built in); the plain baseline is every 
   Dog is the money). Nothing changed on either.
 - Verdict: BUILT (the goalie line fix); the weights all LEAD-confirmed on 2023-27 except lost_last (WATCH) and NHL_EARLY_FAV (no
   signal, the owner's rule); fill leans in hockey = PROPOSAL.
+## 10/16 - THE MLB OWN READ vs THE PRICE (the "~4 points optimistic" note of 10/15): CONFIRMED for the raw read the early exam / early scan use (+4.2 pts blind, every season), +1.1 for the board's read; the fitted fix is "trust the read 8%" = the market - it would have posted NONE of this month's MLB unit plays (live +7.1u). LEAD / OWNER'S CALL, nothing built
+
+tools/mlb_read_calibration_study.py -> results/mlb_read_calibration_study.json. 20,085 priced, decided MLB games 2018-26 (358
+postseason), every read WALK-FORWARD: params tuned on the games before each 3/1 and 7/1 cutoff only (18 tunes), the starter
+edge prior-starts-only; blind = 2023-26 (9,869 games). Two reads live in the engine and both were measured:
+RAW = sports_model.own_p (ratings + form + the starter's form, no line) - the early-price exam and the early scan use it,
+tuned on the last 3 seasons; BOARD = final_p with move_w 0 (the market moved toward the raw read by the tune's trust +
+its favorite / home-dog shifts) - what sports.run calls ph_own: own_agrees, the Lock test and every unit size ride on it.
+- **The optimism, blind (the side the read liked more than the market):** RAW read 51.2%, won 47.0%, market 47.1% - the read
+  +4.2 pts over what happened, the market +0.1. Every season: 2023 +4.6, 2024 +4.5, 2025 +4.9, 2026 +2.8; regular +4.2,
+  POSTSEASON +4.5 (163 sides). BOARD read +1.1 (0.9 / 1.9 / 1.3 / 0.3; postseason -0.8) - the tune's trust already takes
+  back three quarters of it. Log loss blind: market .6766, board .6775, raw .6814; any calibrated read .6766 = the market.
+- **By read bucket (home side, blind regular season):** the raw read's 55-60% bucket won 54.8% (market 56.8), 60-65 won
+  61.3 (said 62.2), 65-70 won 65.4 (said 67.0), 70+ won 71.6 (said 72.7); dogs the other way (30-35 said 32.3, won 35.5).
+  The board read's buckets sit on the market within a point except 55-60 (said 57.3, market 57.6, won 55.1).
+- **By the gap (RAW read, blind regular season, ROI at the close):** 0-2 pts won 48.4% (read 50.2, mkt 49.3) -5.7%; 2-4
+  47.9% (51.0 / 48.1) -4.4%; 4-6 47.4% (51.4 / 46.5) -1.9%; 6-8 45.6% (52.2 / 45.3) -3.4%; 8-12 42.9% (52.7 / 43.1) -5.5%;
+  12+ 40.8% (54.5 / 40.5) -3.6%. The market's number wins every bucket; favorites and dogs alike (dogs 8-12: read 48.9,
+  won 38.4, -7.4%; favorites 8-12: read 62.2, won 54.2, -0.8%). Postseason: 12 dogs in 8-12 won 6, noise. BOARD read:
+  2-4 pts -4.6% (1,867), 4-6 -9.4% (467), 6-8 -35% (16). Starter known / unknown: every finished game carries its actual
+  starter, so history can't split it - the live scan already refuses a game without both starters named.
+- **The fitted fix:** logit(cal) = logit(market) + a x (logit(read) - logit(market)), a fit on every priced game before
+  each season (blind): RAW a = .064 (2019) .215 .176 .185 .138 .113 .094 .091 (2026); the early scan's recent-seasons read
+  .075 in 2026; BOARD a = .079 (2023) .091 .004 -.019 (2026) - the board read has NO disagreement worth keeping. Keep ~8%
+  of the raw read's gap and a 9-point gap becomes 0.7.
+- **The bare Lock rule replayed (read 56%+, beats its price and the no-vig number, -150..+125, the most value a day,
+  quarter-Kelly):** BOARD read blind regular 70-69, -10.9% flat, -5.6% sized (139 Locks, avg 1.0u); postseason 8-11, -27%
+  (19, all 2018-22 - the board read found no postseason Lock 2023-26). RAW read blind 293-303, -9.1% flat, -185u sized at
+  avg 2.9u; postseason 20-21 all years, -11%. CALIBRATED read: no Lock at all after 2018 (the read = the market, nothing
+  clears the vig). Blind, the MLB Lock loses either way - calibration ends it rather than fixes it.
+- **The early exam band (+100..+149 dogs, raw read 8-12 over the OPEN's no-vig number, price not yet moved 15+ cents toward
+  them - sports_early BANDS), blind at the open:** 252 dogs 2023-26, 131-121 (52%), +16.7% flat; 2023 +23.8% (55), 2024
+  +25.6% (48), 2025 -3.0% (83), 2026 +29.0% (66); postseason 4-1 (5). Sized by the raw read (today's rule, avg 3.45u):
+  868u bet, +145u. Sized by the calibrated read: 0 of 252 still in the band, avg 0.15u. The band's own realized edge
+  (+16.7% on 252) supports ~3u by Kelly - the raw read's SIZE of the gap is wrong (+4 pts) but WHICH dogs it ranks at the
+  open is right in 3 of 4 seasons; at the CLOSE the same dogs lose (-5.5% for 8-12 above; the live exam's game-time row
+  -4.3% on 257). The value is the open -> close move, as the 10/1 / 10/6 studies said. CAVEAT not checkable from the
+  repo: the stored MLB open may predate the probable starter being named; the read knows the actual starter, the live
+  scan waits for both starters (sp_home / sp_away) - so the live record (now 2-0) is the real test of this band.
+- **The exam's pass flickers:** the MLB +8..12 band PASSED every exam 10/1-10/14 (151 dogs, +4.7% / +15.8% in its two
+  seasons - the Brewers posted 10/12 and 10/13 under it) and has FAILED since 10/15 04:24 (159 dogs, season 1 -6.4%):
+  the 10/15 key-form change (sports_players.recent_floor - this season's starts only) moved a few dogs in and out of the
+  band. A band that passes or fails on 2-8 dogs is a thin gate; its live record is the proof.
+- **The live MLB unit plays since 10/2 under a calibrated read (a from 2026):** Brewers +112 (own 53.7 / market 45.0, gap
+  8.7 -> 0.7): no post (was 3u, won +3.4u); Brewers +144 (48.5 / 39.2, 9.3 -> 0.7): no post (3u, won +4.3u); Guardians -149
+  Lock (own 61.7 / 57.2 -> 57.1): no Lock (1u, lost); Rays -132 Lock (57.9 / 54.4 -> 54.3): no Lock (½u, won +0.4u). Live
+  +7.1u on 7.5u; calibrated: nothing bet.
+- **Blind postseason board 2018-25 (bare rules):** Locks 8-11 (board read) / 20-21 (raw), exam-band dogs 4-1, the liked
+  side -0.8 pts (board) / +4.5 (raw) - 19-41 plays in eight Octobers, no verdict possible on the postseason alone.
+- **VERDICT: LEAD, nothing built - not a bug.** The raw read is a logistic fit on its own inputs: honest over all games
+  (its buckets are within 1-2 pts), optimistic exactly where it disagrees with a sharper market - the shrink the tune
+  already learns (trust) is the fix, and the board read already carries it. OWNER'S CALLS, with numbers: (1) apply the
+  shrink (a ~ 0.08) to the MLB early scan's read: the +8..12 exam band and every MLB early play ends (blind +16.7% on
+  252 at the open, live 2-0 +7.7u); (2) size an exam-band play by the band's own record instead of the raw read (flat
+  1u, or ½u until 30 live bets) - the 3u Brewers plays rode on a read 9 points over; (3) the MLB Lock (board read):
+  70-69, -10.9% blind, -27% postseason - a calibrated read would post none; today's rule keeps posting them. The 10/15
+  pattern holds in baseball as in college: the market's number beats the read in every gap bucket at the close.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.

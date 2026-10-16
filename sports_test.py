@@ -11241,6 +11241,21 @@ def test_nhl_checkup_10_16_unconfirmed_goalie_is_said_as_the_last_starter():
     finally:
         sg.PATH, sp.CACHE = keep_path, keep_cache
         sg._CACHE.clear()
+def test_mlb_read_calibration_study_measures_the_engines_own_math():
+    """10/16 - the MLB own-read calibration study (tools/mlb_read_calibration_study.py). Its sizing is the engine's
+    quarter-Kelly, its 'calibrated read' keeps a fraction a of the read's disagreement with the market (a = 0 -> the
+    market, a = 1 -> the read as is), and the live Brewers +112 exam play reproduces: raw gap 8.7 points = in the
+    +8..12 band at 3u, the fitted 2026 shrink (a 0.075) leaves 0.7 points - no post."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import mlb_read_calibration_study as st
+    for p, o in ((0.5373, 112), (0.6172, -149), (0.52, 130), (0.40, 150)):
+        assert st.kelly(p, o) == sports.kelly_units(p, o), (p, o)
+    assert abs(st.shrink(0.5373, 0.4501, 0.0) - 0.4501) < 1e-9 and abs(st.shrink(0.5373, 0.4501, 1.0) - 0.5373) < 1e-9
+    cal = st.shrink(0.5373, 0.4501, 0.075)
+    assert 0.45 < cal < 0.46 and not (st.BAND[0] <= cal - 0.4501 < st.BAND[1])   # the Brewers: 8.7 -> ~0.7 points
+    assert st.BAND[0] <= 0.5373 - 0.4501 < st.BAND[1] and st.kelly(0.5373, 112) == 3.0   # the raw read: in, 3u
+    live = st.live_replay({"early": {"2026": 0.075}, "board": {"2026": -0.019}})
+    assert all(p["posts_raw"] and not p["posts_cal"] and p["units_cal"] == 0.0 for p in live), live
 
 
 if __name__ == "__main__":
