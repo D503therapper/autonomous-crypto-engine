@@ -2282,11 +2282,30 @@ def last_lock(cands, avoid=()):
     return {"legs": [{**c, "near_price": True}], "dec": c["dec"], "p_hit": c["p"]}
 
 
+def who_plays_first(g, side, rows):
+    """A side's injury rows with the players who actually PLAY first (sports_absences.regulars - the team's own box
+    scores), its key position (QB / goalie) ahead of them, backups / walk-ons / redshirts last; ties keep the report's
+    order. (10/16 injury audit: the card named the first four rows the report listed - the 10/10 Minnesota Lock led its
+    🚑 line with a backup QB, and a college report runs 10-16 names, so a starting back ruled out could sit in '+5
+    more' behind four linemen who never play.) Nothing is dropped - only the order changes."""
+    import sports_absences
+    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9") or set()
+    keys = sd.KEY_POS.get(g["league"])
+    keys = keys if isinstance(keys, set) else set()
+
+    def rank(r):
+        plays = bool(reg) and sports_absences.match(r[0], reg)
+        key = (r[1] or "") in keys
+        return 0 if plays and key else 1 if plays else 2 if key else 3
+    return sorted(rows, key=rank)
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
-    matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions."""
+    matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
+    the players who play first (who_plays_first)."""
     inj = (injuries or {}).get(g["league"])
-    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
     gone = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
             and "season" not in r[2].lower()]
     unsure = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
@@ -3071,8 +3090,8 @@ def post_board(games, model, picks, now, day, force=False):
             g = games[leg["game_id"]]
             other = "away" if leg["side"] == "home" else "home"
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
-                outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
-                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
+                outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))
+                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]   # (10/16: the ones who play first)
             elo = elo or sm.ratings(games, model)
             same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)

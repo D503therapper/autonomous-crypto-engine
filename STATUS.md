@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/16 - injury coverage audit for Saturday 10/17 + the NFL / NHL weekend - SPORTS_FINDINGS.md 10/16
+- Every priced team on the slate (100 college, 26 NFL, 32 NHL) has box scores, so football's weighed rule and hockey's played-lately list run everywhere. College coverage on game day is Covers' page (every FBS school) + Rotowire + ESPN live, plus injuries_official.json - which holds NOTHING for 10/17 yet (61 of the 100 teams carry last Saturday's list, correctly NOT read as current; sd.official reads ±1 day only - now pinned by a test). The owner's 12 named teams: all have box scores; BYU / Air Force / Tennessee / Georgia Tech / E Michigan have stale 10/9-10/10 entries; BC / Rutgers / FAU / Wisconsin / WVU / Rice never had one; Old Dominion isn't on Saturday's slate (Thursday game, early play pulled 10/14).
+- FIXED (worktree, test_injury_line_names_the_players_who_play_first): the 🚑 line and a card's 'outs' listed the report's first four rows - the 10/10 Minnesota Lock led with the backup QB. Now the box-score regulars come first (QB / goalie ahead), nothing dropped (sports.who_plays_first).
+- SATURDAY CHECKLIST: the 5:47 / 11:47 routine files the SEC / ACC / Big Ten / Big 12 reports under "2026-10-17"; Actions -> injury_report Saturday morning should read "NCAAF - the feed lists 130+ teams" (under 20 = the Covers read broke). LEAD: skip a day-before official entry for a team that already played that day (matters only if pro entries ever get filed).
+
 ## 10/15 - the college own read vs the market (the BYU +300 early play) - SPORTS_FINDINGS.md 10/15
 - Fixed (worktree, test): a college read 12+ points over the price counts nothing in the early spots (sports_early.spot_gap / SPOT_TRAP), like the NFL / NBA - blind 2024-26 the market was right in every 10+ bucket (the read ~50%, the sides won 26-38%). BYU's and Old Dominion's posts would not have cleared the bar. The posted picks themselves were not touched.
 - OWNER'S CALLS: (1) shrink the college early read to the market by the tune's own trust (0.02) - the 5-10 bucket lost -22% blind too; (2) add ncaaf to sports.OWN_TRAP on the daily board (college dogs 44-80 this season).

@@ -10791,6 +10791,87 @@ def test_early_unit_plays_show_in_their_sports_past_results():
     assert "(+112)" not in h                                  # not graded yet: not in the list
 
 
+def test_injury_line_names_the_players_who_play_first():
+    """10/16 injury audit (the owner's #1 priority): the 🚑 line and a card's 'outs' named the first four rows the
+    report listed - the 10/10 Minnesota Lock led with a backup QB, and a college availability report runs 10-16 names
+    (walk-ons, redshirts, backup linemen), so a starting back ruled out could sit in '+5 more'. The players our box
+    scores show PLAYING come first (the QB ahead of them), the rest keep the report's order; nothing is dropped. A team
+    with no box scores keeps the report's order."""
+    import sports_absences as A
+    keep = dict(A._TEAM)
+    rows = lambda gid, start: [
+        {"gid": gid, "start": start, "team": "135", "player": "Drake Lindsey", "stats": '{"completions/passingAttempts":"22/35"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Star Back", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Top Wideout", "stats": '{"receptions":"8"}'},
+        {"gid": gid, "start": start, "team": "135", "player": "Bench Guy", "stats": '{"totalTackles":"0"}'}]
+    A._TEAM["ncaaf"] = {"135": [("2026-10-03T19:00Z", "g1", rows("g1", "2026-10-03T19:00Z"))]}
+    try:
+        g = {"league": "ncaaf", "home": "135", "home_name": "Minnesota", "away": "2509", "away_name": "Purdue",
+             "start": "2026-10-10T19:00Z"}
+        rep = [("Michael Merdinger", "QB", "Out"), ("Walk On", "OL", "Out"), ("Red Shirt", "DL", "Out"),
+               ("Bench Guy", "LB", "Out"), ("Star Back", "RB", "Out"), ("D. Lindsey", "QB", "Questionable"),
+               ("Top Wideout", "WR", "Doubtful"), ("Another Lineman", "OL", "Out")]
+        inj = {"ncaaf": {"135": rep}}
+        line = sports.injury_line(g, "home", inj)
+        assert line.startswith("🚑 Minnesota out: RB Star Back, WR Top Wideout, QB Michael Merdinger, OL Walk On +3 more"), line
+        assert "questionable: QB D. Lindsey" in line, line                  # the starter's short name still matches
+        first = sports.who_plays_first(g, "home", sd.team_injuries(inj["ncaaf"], "135", "Minnesota"))
+        assert [r[0] for r in first][:3] == ["Star Back", "Top Wideout", "Michael Merdinger"], first
+        assert len(first) == 7 and first[-1][0] == "Another Lineman"            # nothing dropped, the rest in order
+        A._TEAM["ncaaf"] = {}                                   # no box scores: the QBs first, then the report's order
+        assert [r[0] for r in sports.who_plays_first(g, "home", rep)][:3] == ["Michael Merdinger", "D. Lindsey", "Walk On"]
+        nfl = {"league": "nfl", "home": "16", "home_name": "Vikings", "away": "18", "away_name": "Saints", "start": "2026-10-11T17:00Z"}
+        assert sports.who_plays_first(nfl, "home", [("A", "CB", "Out"), ("B", "QB", "Out")])[0][0] == "B"   # the QB first
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))' in src
+
+
+def test_official_reports_are_read_for_their_game_day_only_and_covers_names_land():
+    """10/16 injury audit of Saturday's slate: 61 of the 100 college teams on 10/17's priced games had an official
+    report in injuries_official.json from LAST Saturday (10/10) - those are never read as current (only the day
+    before / the day / the day after count), so a stale list can't say who's out this week. And every Covers school
+    name for the owner's teams (BYU, Boston College, Rutgers, FAU, Wisconsin, West Virginia, Old Dominion, Air Force,
+    Rice, Tennessee, Georgia Tech, Eastern Michigan) lands on its own ESPN team - never a neighbour (Tennessee Tech,
+    Tennessee State, Georgia Southern...)."""
+    import json as _j, tempfile as _t
+    keep = sd.OFFICIAL_PATH
+    try:
+        sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
+        _j.dump({"2026-10-10": {"ncaaf": {"2633": {"team": "Tennessee", "players": [["Old News", "RB", "Out"]]}}},
+                 "2026-10-16": {"ncaaf": {"264": {"team": "Washington", "players": [["D. Williams Jr.", "QB", "Questionable"]]}}},
+                 "2026-10-17": {"ncaaf": {"252": {"team": "BYU", "players": [["Fresh Report", "WR", "Out"]]}}}},
+                open(sd.OFFICIAL_PATH, "w"))
+        got = sd.official("ncaaf", day="2026-10-17")
+        assert "2633" not in got and got["252"] == [("Fresh Report", "WR", "Out")], got      # last week's list: not today's
+        assert "264" not in got and "264" in sd.official("ncaaf", day="2026-10-16")           # Friday's list is Friday's
+    finally:
+        sd.OFFICIAL_PATH = keep
+    names = {"252": "BYU", "103": "Boston College", "164": "Rutgers", "2226": "FAU", "275": "Wisconsin",
+             "277": "West Virginia", "295": "Old Dominion", "2005": "Air Force", "242": "Rice", "2633": "Tennessee",
+             "2635": "Tennessee Tech", "2634": "Tennessee St", "59": "Georgia Tech", "290": "GA Southern",
+             "2199": "E Michigan", "2117": "C Michigan", "2711": "W Michigan", "130": "Michigan", "127": "Michigan St"}
+    page = []
+    covers = [("BYU", "252"), ("Boston College", "103"), ("Rutgers", "164"), ("Florida Atlantic", "2226"),
+              ("Wisconsin", "275"), ("West Virginia", "277"), ("Old Dominion", "295"), ("Air Force", "2005"),
+              ("Rice", "242"), ("Tennessee", "2633"), ("Georgia Tech", "59"), ("Eastern Michigan", "2199"),
+              ("Tennessee Tech", "2635"), ("Tennessee State", "2634"), ("Georgia Southern", "290"),
+              ("Central Michigan", "2117"), ("Western Michigan", "2711"), ("Michigan", "130"), ("Michigan State", "127")]
+    for n, (school, tid) in enumerate(covers):
+        page += [f"C{n}", "`\">", school, "Mascot", "(1)", "Player", "POS", "Status", f"P{n}. Player", "WR", "Out - Knee",
+                 "(", "Sat, Oct 17)", "A note."]
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    for n, (school, tid) in enumerate(covers):
+        assert got.get(tid) == [(f"P{n}. Player", "WR", "Out")], (school, tid, got.get(tid))
+    assert len(got) == len(covers), sorted(got)
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
