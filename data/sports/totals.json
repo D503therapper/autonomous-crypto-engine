@@ -651,13 +651,13 @@
   }
  },
  "nhl": {
-  "games": 9846,
+  "games": 9847,
   "grade": {
    "all": {
-    "hit": 0.4939,
-    "low80": 0.4827,
-    "n": 3282,
-    "roi": -0.0783
+    "hit": 0.4938,
+    "low80": 0.4826,
+    "n": 3283,
+    "roi": -0.0786
    },
    "top10": {
     "hit": 0.503,
@@ -672,31 +672,31 @@
     "roi": -0.1159
    },
    "top30": {
-    "hit": 0.4848,
-    "low80": 0.4643,
+    "hit": 0.4837,
+    "low80": 0.4633,
     "n": 984,
-    "roi": -0.1118
+    "roi": -0.1136
    }
   },
-  "hit_all": 0.4939,
-  "hit_top": 0.4848,
-  "intercept": -0.01219,
+  "hit_all": 0.4938,
+  "hit_top": 0.4837,
+  "intercept": -0.01198,
   "kept": [
    "form"
   ],
-  "ll_test_base": 0.69311,
-  "ll_test_kept": 0.69465,
+  "ll_test_base": 0.69312,
+  "ll_test_kept": 0.69466,
   "ll_val_base": 0.69317,
   "ll_val_kept": 0.69227,
   "n_top": 984,
   "norm": {
    "form": [
-    0.09256,
-    0.33484
+    0.09252,
+    0.33485
    ]
   },
   "proven": false,
-  "roi_top": -0.1118,
+  "roi_top": -0.1136,
   "screen": {
    "b2b": {
     "gain": -6e-05,
@@ -768,9 +768,9 @@
    }
   },
   "test_from": "2024-02-28",
-  "test_games": 3282,
+  "test_games": 3283,
   "weights": {
-   "form": 0.02214
+   "form": 0.0219
   }
  }
 }
