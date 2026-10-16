@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T17:18Z",
+ "updated": "2026-10-16T17:49Z",
  "games": [
   {
    "id": "ncaaf:401862801",
@@ -849,7 +849,7 @@
     "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
+    "odds": -250,
     "p": 0.69,
     "win_p": 0.472,
     "reasons": []
@@ -963,17 +963,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Monmouth",
-    "opp": "New Hampshire",
+    "team": "New Hampshire",
+    "opp": "Monmouth",
     "market": "spread",
-    "line": -7.5,
-    "odds": -113,
+    "line": 7.0,
+    "odds": -110,
     "p": 0.5,
-    "win_p": 0.644,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
+    "win_p": 0.296,
+    "reasons": []
    }
   },
   {
@@ -1724,7 +1721,7 @@
     "opp": "Georgia Tech",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.751,
     "reasons": [
@@ -2456,6 +2453,37 @@
    }
   },
   {
+   "id": "ncaaf:401868134",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Tarleton St",
+    "p": 0.817,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T23:00Z",
+   "away": "C Arkansas",
+   "home": "Tarleton St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Tarleton St",
+    "opp": "C Arkansas",
+    "market": "spread",
+    "line": -18.5,
+    "odds": -113,
+    "p": 0.503,
+    "win_p": 0.875,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401869152",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2790,7 +2818,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.379,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2799,7 +2827,7 @@
    "start": "2026-10-17T23:00Z",
    "away": "Sharks",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Sharks",
@@ -2807,8 +2835,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.66,
-    "win_p": 0.441,
+    "p": 0.672,
+    "win_p": 0.453,
     "reasons": [
      "opponent drama: trade drama"
     ]
@@ -2973,8 +3001,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.777,
-    "tie": 0.024,
+    "p": 0.771,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2988,10 +3016,10 @@
     "team": "Louisville",
     "opp": "Syracuse",
     "market": "spread",
-    "line": -15.5,
-    "odds": -110,
+    "line": -14.5,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.777,
+    "win_p": 0.77,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3114,7 +3142,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
+    "odds": -290,
     "p": 0.718,
     "win_p": 0.506,
     "reasons": []
@@ -3333,8 +3361,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.379,
-    "tie": 0.299,
+    "p": 0.384,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3349,9 +3377,9 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
-    "p": 0.66,
-    "win_p": 0.441,
+    "odds": -205,
+    "p": 0.652,
+    "win_p": 0.433,
     "reasons": []
    }
   },
