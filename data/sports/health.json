@@ -1,9 +1,9 @@
 {
- "at": "2026-10-16T01:11Z",
+ "at": "2026-10-16T01:21Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 32 min ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T01:21Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-16T01:11Z",
    "fixes": [],
@@ -496,20 +501,6 @@
     "live tennis scores: tennis Ivantsiv vs Maneiro: no points for 914s",
     "live tennis points check failed: The read operation timed out",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-13T15:40Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Andreeva vs Koevermans: no points for 2635s",
-    "live tennis scores: tennis Stefanini vs Mair: no points for 2635s",
-    "live tennis scores: tennis De Reales vs Feistel: no points for 2635s",
-    "live tennis scores: tennis Morvayova vs Burillo: no points for 2635s",
-    "live tennis scores: tennis Hercog vs Matias: no points for 2635s",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
