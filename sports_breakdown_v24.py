@@ -568,6 +568,15 @@ def breakdown(leg, games, elo, injuries, used=None):
             if role == "G":                                   # (10/15: the card talks about the goalie the WEIGHT used -
                 return sp.starter_for(rows, g, team_side)     #  the confirmed / likely starter, not whoever started last)
             return sp.last_starter(rows, tid_, g["start"])
+
+        def known(team_side):                                 # 10/16 NHL checkup: is tonight's goalie KNOWN (confirmed /
+            if role != "G":                                   # likely - sports_goalies)? The last starter is tonight's
+                return True                                   # starter only 45% of the time (2023-26 box scores), and 5 of
+            try:                                              # the season's 7 🥅 lines named a goalie who didn't play -
+                import sports_goalies                         # an unknown starter is said as what he is: in net LAST time
+                return sports_goalies.starter(g.get("id"), team_side) is not None
+            except Exception:                                 # noqa: BLE001
+                return False
         for team_side, t_id, ours_ in ((other, oid, False), (side, tid, True)):
             name = who(team_side, t_id)
             if not name:
@@ -575,7 +584,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             txt, mood = sp.form_line(lg, name, rows, g["start"], games)
             if not txt:
                 continue
-            FORM[(ours_, mood)] = (name, txt)                 # (the card's one-line "why" can use it)
+            kn = known(team_side)
+            FORM[(ours_, mood)] = (name, txt, kn)             # (the card's one-line "why" can use it)
             vet = role == "QB" and old_qb(name) and \
                 sum(r["player"] == name and r["start"] < g["start"] for r in rows) >= VET_STARTS["QB"]
             if not ours_ and mood == "cold" and vet:          # (the owner, 10/1: "this dude is washed - old, out of his
@@ -593,10 +603,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"💣 Hitters are teeing off on {name} — {txt}."],
                     "G": [f"🥅 {_poss(the_them)} goalie {name} has been giving up a lot of goals — {txt}.",
                           f"🥅 {_poss(the_them)} goalie {name} can't keep the puck out lately: {txt}.",
-                          f"🥅 Pucks keep getting past {_poss(the_them)} goalie, {name} — {txt}."] if goalie_known(g, team_side) else
-                         [f"🥅 {name}, who had {_poss(the_them)} net last time out, can't keep the puck out lately: {txt}.",
-                          f"🥅 If {name} gets {_poss(the_them)} net again: {txt}. Pucks keep getting past him.",
-                          f"🥅 {_poss(the_them)} last starter, {name}, has been giving up a lot of goals — {txt}."]}[role]))
+                          f"🥅 Pucks keep getting past {_poss(the_them)} goalie, {name} — {txt}."] if kn else
+                         [f"🥅 {name}, in net last time out for {the_them}, can't keep the puck out lately: {txt}.",
+                          f"🥅 {name} — {_poss(the_them)} last starter in net — has been giving up a lot of goals: {txt}.",
+                          f"🥅 Pucks keep getting past {name}, who was in net last time out for {the_them} — {txt}."]}[role]))
             elif ours_ and mood == "hot":
                 out.append(v.say(role + "_hot", {
                     "QB": [f"🎯 {name} has been cooking — {txt}.",
@@ -607,10 +617,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"🔥 Nobody's touching {name} lately — {txt}."],
                     "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",
                           f"🧱 {name} is standing on his head: {txt}.",
-                          f"🧱 Good luck scoring on {name} — {txt}."] if goalie_known(g, team_side) else
-                         [f"🧱 {name}, who had {_poss(the_us)} net last time out, has been a brick wall — {txt}.",
-                          f"🧱 If {name} gets the start again: {txt}. Good luck scoring on him.",
-                          f"🧱 {_poss(the_us)} last starter, {name}, is standing on his head: {txt}."]}[role]))
+                          f"🧱 Good luck scoring on {name} — {txt}."] if kn else
+                         [f"🧱 {name}, in net last time out for {the_us}, has been a brick wall — {txt}.",
+                          f"🧱 {name} — {_poss(the_us)} last starter in net — is standing on his head: {txt}.",
+                          f"🧱 Good luck scoring on {name} if he goes again for {the_us} — {txt}."]}[role]))
 
     # situational spots the engine learned from 10 seasons of games
     rsn = leg.get("reasons") or []
@@ -1099,6 +1109,11 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         elif r == "hotter goalie":                        # (10/1 audit: no numbers = no line - never vague)
             hot = form.get((True, "hot"))
             if not hot:
+                continue
+            if len(hot) > 2 and not hot[2]:               # (10/16: the starter isn't confirmed - he was in net LAST time)
+                pools.append(("w_goalie", [
+                    f"🧱 {hot[0]}, in net last time out for {us}, has been a brick wall — {hot[1]}.",
+                    f"🧱 {hot[0]} ({_pos(us)} last starter in net) has been a brick wall — {hot[1]}."]))
                 continue
             pools.append(("w_goalie", [
                 f"🧱 {hot[0]} has been a brick wall in net for {us} — {hot[1]}.",

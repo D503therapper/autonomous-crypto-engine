@@ -11186,6 +11186,61 @@ def test_truth_audit_10_16_pitcher_hype_carries_his_numbers():
             sp.CACHE.pop("mlb", None)
         else:
             sp.CACHE["mlb"] = keep_rows
+def test_nhl_checkup_10_16_unconfirmed_goalie_is_said_as_the_last_starter():
+    """10/16 NHL checkup: the 🥅 / 🧱 form lines named the LAST starter as 'the Sabres' goalie Colten Ellis' (10/12 -
+    Luukkonen played), 'the Hurricanes' goalie Brandon Bussi' (10/3 - Kochetkov played): 5 of the season's 7 goalie
+    lines named a goalie who didn't play. The last starter is tonight's starter 45% of the time (2023-26 box scores).
+    No confirmed / likely starter = the card says what is true (in net LAST time out); a known starter keeps the plain
+    wording. The weight itself is unchanged."""
+    import json
+    import sports_breakdown_v24 as v24
+    import sports_card_guard
+    import sports_goalies as sg
+    keep_path, keep_cache = sg.PATH, sp.CACHE
+    sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+    sg._CACHE.clear()
+    try:
+        hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T00:00Z", "B", "D", 1, 4)]
+        cold_rows = [{"gid": f"nhl:b{i}", "start": f"2026-09-{26 + i}T23:00Z", "team": "B", "player": "Cold Guy", "role": "G",
+                      "sa": "30", "ga": "5"} for i in range(3)]                  # .833 over 3 starts - cold
+        hot_rows = [{"gid": f"nhl:a{i}", "start": f"2026-09-{26 + i}T23:00Z", "team": "A", "player": "Hot Guy", "role": "G",
+                     "sa": "30", "ga": "1"} for i in range(3)]                   # .967 - hot
+        HEDGE = ("last time out", "last starter in net", "goes again")
+
+        def card(rows, reasons=()):                       # (one goalie line a card: the card's own no-repeat rule drops a
+            sp.CACHE = {"nhl": rows}                      #  second line that shares the 'save % over his last N starts' run)
+            leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z", reasons=list(reasons))
+            bd = v24.breakdown(leg, games, elo, None)
+            return bd, leg["why_line"]
+        # nobody confirmed: the card never calls the last starter the team's goalie tonight
+        bd, _ = card(cold_rows)
+        cold = [x for x in bd if x.startswith("🥅")]
+        assert cold and "Cold Guy" in cold[0] and "goalie Cold Guy" not in cold[0] and any(h in cold[0] for h in HEDGE), bd
+        bd, why = card(hot_rows, ["hotter goalie"])
+        hot = [x for x in bd if x.startswith("🧱")]
+        assert hot and "Hot Guy" in hot[0] and "goalie Hot Guy" not in hot[0] and any(h in hot[0] for h in HEDGE), bd
+        assert "brick wall in net for" not in why, why     # (the why-line's goalie pool shares the body line's run - the
+        assert all(not sports_card_guard.problem(x, "nhl") for x in cold + hot + [why])   # card says it once)
+        pools = v24.why_line({"league": "nhl", "side": "home", "reasons": ["hotter goalie"], "p": 0.6, "team": "A", "opp": "B"},
+                             v24.Voice("t"), {"id": "nhl:up", "home": "A", "away": "B", "start": "2026-10-05T23:30Z"},
+                             "A", "B", "the A", "the B", form={(True, "hot"): ("Hot Guy", "a 0.967 save %", False)})
+        assert any(h in pools for h in HEDGE) and "brick wall in net for" not in pools, pools   # the why-line on its own
+        # both starters confirmed / likely: the plain wording
+        seen = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        with open(sg.PATH, "w") as f:
+            json.dump({"seen": seen, "games": {"nhl:up": {"home": {"name": "Hot Guy", "status": "confirmed", "at": seen},
+                                                           "away": {"name": "Cold Guy", "status": "likely", "at": seen}}}}, f)
+        sg._CACHE.clear()
+        bd, _ = card(cold_rows)
+        cold = [x for x in bd if x.startswith("🥅")]
+        assert cold and "Cold Guy" in cold[0] and not any(h in cold[0] for h in HEDGE), bd
+        bd, why = card(hot_rows, ["hotter goalie"])
+        hot = [x for x in bd if x.startswith("🧱")]
+        assert hot and "Hot Guy" in hot[0] and not any(h in hot[0] for h in HEDGE), bd
+        assert not any(h in why for h in HEDGE), why
+    finally:
+        sg.PATH, sp.CACHE = keep_path, keep_cache
+        sg._CACHE.clear()
 
 
 if __name__ == "__main__":

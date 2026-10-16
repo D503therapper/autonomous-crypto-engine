@@ -33,6 +33,11 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   the hotter team" needs a real streak; the pitcher hype line carries his numbers or doesn't print.
 - WATCH: a card's text is built at 8 AM while the hurt list refreshes hourly - "Full squad for the Maple Leafs" sat next
   to a 3-name hurt list on 10/15. If it shows again, rebuild the 🚑 / ✅ lines on the hourly pass.
+## 10/16 - NHL checkup (walk-forward replay 2023-27 + the live picks audited) - SPORTS_FINDINGS.md 10/16
+- Replay at the close (681 board days, 8,436 sides): Lock +6.7% on 224 (3 of 3 seasons up), Dog via the score gate 6+ +17.3% on 146, Dog via best_hockey_dog (score 0-6) -1.6% on 118, value plays +7.8% on 86, regular leans +0.5%, FILL leans -14.3% on 227 (down 4 of 4). Every dog weight points its built way on 2023-27 (ss_pos / ss_neg, both lost, PDO, drift, b2b, +200, goalie form on the last starter, 40-shot, fired coach); third_in_four holds on the favorite (+2.5% vs -5.8%); NHL_EARLY_FAV shows no signal (the owner's rule, untouched); playoff lost_last (+3) is the one wrong-sign weight (97 games, WATCH).
+- Live 9/27-10/15: 0 stale flags on 34 hockey picks; 11 of 12 Dogs were best_hockey_dog (score 1-6); the goalie-roles weight never fires at 8 AM (Daily Faceoff confirms after noon).
+- FIXED (worktree, test): the 🥅 / 🧱 goalie line named the LAST starter as tonight's goalie - 5 of 7 lines this season named a goalie who didn't play (the last starter starts 45% of the time). Unknown starter = "X, in net last time out for the Sabres, ..."; confirmed / likely = the plain wording.
+- OWNER'S CALLS: (1) no hockey FILL leans (-14.3% on 227, 4 of 4 seasons down; the -150..-130 lean favorites -12.5% on 226); (2) keep or cut the "best hockey dog over 0" Dog fill (-1.6% at the close, live 7-16 at 8 AM) - the gate-6 Dog is the money.
 
 ## 10/15 - the college own read vs the market (the BYU +300 early play) - SPORTS_FINDINGS.md 10/15
 - Fixed (worktree, test): a college read 12+ points over the price counts nothing in the early spots (sports_early.spot_gap / SPOT_TRAP), like the NFL / NBA - blind 2024-26 the market was right in every 10+ bucket (the read ~50%, the sides won 26-38%). BYU's and Old Dominion's posts would not have cleared the bar. The posted picks themselves were not touched.

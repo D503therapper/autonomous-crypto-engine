@@ -217,6 +217,64 @@ back in time (no stored snapshots) and are left out of the tally.
 - Not fixable from here (noted): "Full squad for the Maple Leafs" (10/15) and "Blues have everybody available" (10/8)
   sat next to a 3-name hurt list - the card text is built at 8 AM and the hurt list is refreshed every hour; the
   injury feed isn't stored back in time, so which one was right can't be checked. The posted picks were not touched.
+## 10/16 - NHL CHECKUP: a walk-forward replay of TODAY's hockey engine (Lock / Dog / plays / leans) 2023-27, every weight graded on its own; the live picks audited. ONE FIX (the card's goalie line), TWO PROPOSALS, the weights stay
+The machinery: scratchpad nhl_replay.py on top of tools/value_play_replay.Replay - NHL games only, every board day 2023-10-10 ..
+2026-10-15 rebuilt as the 8:35 AM PT post would have built it (closing prices, later games gone, params re-tuned each July 1 on
+the seasons before, no injury reports, no Daily Faceoff page / public splits in history so the goalie-roles (+2) and sharp-dog (+1)
+weights never fire - same caveats as the 10/9 replay). 681 board days, 8,436 moneyline SIDES (every side on the slate, picked or
+not), each with the kind the board gave it and every dog-score / favorite weight that fired. Flat 1u. "pts" = win % minus the
+no-vig price (the same-price baseline is built in); the plain baseline is every NHL dog -4.2% / every favorite -4.8% (the vig).
+- **PICK KINDS (at the close, 1u):** Lock 137-87 +6.7% on 224 (3 of 3 seasons up: +3 / +3 / +9u; thin own edge <3% +10.1% on 138,
+  own edge 3%+ +1.3% on 86 - the 10/9 finding again). Dog 126-138 +8.8% on 264 (+12 / -6 / +15 / +3u): via the SCORE GATE 6+
+  75-71 +17.3% on 146 (pts +9.3, z 1.8; 3 of 4 up), via best_hockey_dog (score 0-6) 51-67 -1.6% on 118 (pts +1.8, z -0.1, 2 of 4
+  up) - the gate earns its keep, the "best dog over 0" fill is break-even at the close (live 'hockey dog score 0-6' 7-16 is the
+  same thing at the 8 AM price). Value plays 51-35 +7.8% on 86 (favorites +9.7% on 76, dogs 4-6; rank 1 +15.7%, rank 2+ -12.7% on
+  24 - noise-sized). Regular leans 299-288 +0.5%; FILL leans 112-115 -14.3% on 227 (z -2.5, 4 of 4 seasons down).
+- **DOG WEIGHTS - with the weight vs every other dog +100..+300, 2023-27 (z on ROI):** every one points the way the engine
+  weighs it. Shot share: ss_pos (+3) +8.0% on 900 vs -6.9% (z +2.0); ss_neg (-3) -10.1% on 1,639 vs +2.8% (z -3.4). Both lost
+  last (+3.5) +7.5% on 855 vs -6.5% (z +1.8). Puck luck: pdo_bad (+2) +3.0% on 1,139 vs -6.0%; pdo_good (-3) -8.0% on 832 vs
+  -1.7% (z -2.0). Money: drift_away (-4) -7.4% on 1,404 vs -0.4% (z -2.3); drift_in (+2) +5.5% on 571 vs -4.8%. Rest: the dog on
+  a back-to-back vs a rested favorite (-3) -12.5% on 533 vs -1.5% (z -2.4); rested vs a tired favorite (+3) -0.9% on 281 vs -3.3%
+  (pts +1.8 - the weakest, right sign). Hits top quarter (+2) +3.7% on 891 vs -5.4%. Price +200 and up (-2) -14.9% on 419 vs
+  -1.6% (z -2.1). Goalies - with the LAST STARTER as the guess (what the 8 AM board has; right 45% of the time): hot_key (-3)
+  -11.2% on 287 vs -2.4%; key_edge_lo (+1) +1.6% on 1,268 vs -5.8%; key_edge_hi (-2) -5.9% on 694 vs -2.5%; facing a slumping
+  goalie (-2) -9.2% on 569 vs -2.0% (z -1.8). The 10/8 40-shot weight, these are its blind seasons: outshot_me (-2) -20.6% on 182
+  vs -2.2% (z -2.3), the side facing it (+1) +36.2% on 87 vs -4.1% (z +2.9) - the live 0-3 'NHL side vs a team outshot 40+' is
+  three games. Fired coach (+1) +2.3% on 309 vs -3.7%. Playoff lost_last (+3): -11.2% on 97 vs -2.9% - the one weight with the
+  WRONG sign in 2023-26 (the 9/30 study's "NHL +28.7%" bounce; 97 games, z -1.0: a WATCH, not cut).
+- **FAVORITE weights (w_p):** weighed UP (facing a bad dog) -0.9% on 2,161 (pts +2.0) vs weighed DOWN -11.9% on 1,401 (pts -4.6,
+  z -5.4) - the live 'hockey fav weighed DOWN (fade)' 22-17 is a small sample of a real thing. w_p beats the price: +2.3% on
+  1,113 (pts +4.0); w_p under the price -8.6% on 2,451. third_in_four (+1.5 pts): +2.5% on 257 vs -5.8% (pts +4.2 vs -0.9) - it
+  holds blind here (the 10/15 "+0.2% blind" was the dog side's bet); keep. sv_slump (+1.5): -0.8% on 569 vs -6.0% - holds.
+  NHL_EARLY_FAV (-3 the first 2 weeks): early favorites -4.7% on 268 vs -5.2% for the rest - NO signal either way (the owner's
+  10/1 call; it only costs Locks in October). outshot_fav (-1): -32.4% on 87 - holds.
+- **Multiple testing:** ~22 weights x 2 sides = 44 cells; about 2 would show |z| 2 by luck. 10 cells clear |z| 2 and EVERY weight
+  but lost_last points its built direction - the dog score as a whole is real on these three seasons (the score >0 dogs +3.0%
+  on 797 vs score <=0 -8.6% on 2,223; 6+ +8.9% on 183; 9+ +20.2% on 52).
+- **Price bands for the Dog (posted):** +100..+129 +9.0% on 141, +130..+159 +16.6% on 72, +160..+199 +16.1% on 40, +200..+300
+  1-10 -70.9% on 11. Every gate-6 dog on the slate at +200..+300: 1-3. The 10/10 +300 limit is new ground here too.
+- **Caveat on the own read:** the July tune swings - trust 0.31 (2023) / 0.08 (2024) / 0.00 (2025) / 0.15 (2026), hdog -0.20 /
+  -0.03 / +0.31 / 0.00 - so 2024-25 had 17 Dogs (the own read hugged the market) and 2025-26's dogs' "own edge" was mostly the
+  home-dog term. The dog WEIGHTS carry the hockey Dog; the own read's edge over the price is tune noise season to season.
+- **THE LIVE PICKS (9/27-10/15, 34 hockey picks):** every last-game and back-to-back flag matches the real schedule (0 stale);
+  Dogs 4-8 -1.9u at the 8 AM price (11 of 12 were best_hockey_dog score 1-6, one cleared the gate), plays 3-1, leans 7-11; CLV
+  about even. The goalie-roles weight never fired at 8 AM (Daily Faceoff confirms later: 2 of 34 picks knew our goalie, 4 knew
+  theirs) - a weight that lives after noon. BUG (fixed): the 🥅 / 🧱 goalie form line named the LAST starter as "the Sabres' goalie
+  Colten Ellis" (10/12 - Luukkonen played), "the Hurricanes' goalie Brandon Bussi" (10/3 - Kochetkov), Askarov 10/8 (Nedeljkovic),
+  Dobes 10/8 (Fowler), Dostal 10/10 (Husso): 5 of 7 lines named a goalie who didn't play. The last starter is tonight's starter
+  45.5% of the time (3,930 of 8,628 team-games 2023-26). Now: no confirmed / likely starter = "X, in net last time out for the
+  Sabres, ..." (true); known = the plain wording (sports_breakdown_v24, test_nhl_checkup_10_16_unconfirmed_goalie_is_said_as_the_last_starter).
+  The weight itself (hot_key / key_edge on the last starter) stays - it earns its keep above even with the guess.
+  The 9/30 "No Trent Miner for Avalanche - that's their starting goalie" (a third-stringer on IR) was the 10/2 STARTER_OF fix.
+- **PROPOSALS (the owner's calls - they change what gets posted):** (1) NO HOCKEY FILL LEANS: the who-wins fill lean in hockey
+  (a favorite the engine has at 50%+, the weighed read allowed under its price) went 112-115 -14.3% on 227, down 4 of 4 seasons,
+  -15.9% when the weighed read is under the price and -12.4% when it isn't; the -150..-130 lean favorites -12.5% on 226 (the
+  regular leans +3.4%). No units on them, but they are the 🟡 record. (2) the "best hockey dog over 0" fill for the Dog of the
+  Day (sports.best_hockey_dog): -1.6% on 118 at the close, live 'hockey dog score 0-6' 7-16 -6.4u at the 8 AM price - keep it
+  (the owner wants a Dog) or raise NHL_BEST_DOG_MIN to 3 (score 3-6 dogs +3.8% on 503 vs 0-3 +4.8% - no real split; the gate-6
+  Dog is the money). Nothing changed on either.
+- Verdict: BUILT (the goalie line fix); the weights all LEAD-confirmed on 2023-27 except lost_last (WATCH) and NHL_EARLY_FAV (no
+  signal, the owner's rule); fill leans in hockey = PROPOSAL.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.
