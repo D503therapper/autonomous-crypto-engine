@@ -3,6 +3,10 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/16 (PT morning) - injury reports filled for Sat 10/17: 19 teams, all read from the pages
+- Official reports (SEC / Big Ten / ACC / Big 12 / Mountain West, Wed-Thu): Alabama, Tennessee, Michigan, Penn State, Ohio State, Indiana (Wed list only), Michigan St, Northwestern, Duke, North Carolina, Pitt, Louisville, Syracuse, Utah, Colorado, New Mexico, Hawai'i. Team news (Mon 10/12): Notre Dame, BYU. Friday-night and Saturday game-day reports will move statuses - the next routine refreshes them.
+- Still nothing (no named list found on a readable public page): Boston College (Pitt's side is in), Wake Forest / Cal, Fresno St / San Diego St, Navy / UTSA, UTEP / San José St, Ohio / Sacramento St, the MAC games, Rice / Tulsa, Sun Belt games, the FCS slate. Covers/Rotowire on game day carries FBS.
+
 ## 10/16 - injury coverage audit for Saturday 10/17 + the NFL / NHL weekend - SPORTS_FINDINGS.md 10/16
 - Every priced team on the slate (100 college, 26 NFL, 32 NHL) has box scores, so football's weighed rule and hockey's played-lately list run everywhere. College coverage on game day is Covers' page (every FBS school) + Rotowire + ESPN live, plus injuries_official.json - which holds NOTHING for 10/17 yet (61 of the 100 teams carry last Saturday's list, correctly NOT read as current; sd.official reads ±1 day only - now pinned by a test). The owner's 12 named teams: all have box scores; BYU / Air Force / Tennessee / Georgia Tech / E Michigan have stale 10/9-10/10 entries; BC / Rutgers / FAU / Wisconsin / WVU / Rice never had one; Old Dominion isn't on Saturday's slate (Thursday game, early play pulled 10/14).
 - FIXED (worktree, test_injury_line_names_the_players_who_play_first): the 🚑 line and a card's 'outs' listed the report's first four rows - the 10/10 Minnesota Lock led with the backup QB. Now the box-score regulars come first (QB / goalie ahead), nothing dropped (sports.who_plays_first).
