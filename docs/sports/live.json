@@ -1,26 +1,26 @@
 {
- "updated": 1792114437576,
+ "updated": 1792122630449,
  "plays": [],
  "record": {
   "won": 14,
   "lost": 16
  },
- "live_games": 17,
+ "live_games": 2,
  "tennis": {
-  "watching": 0,
-  "priced": 0,
+  "watching": 1,
+  "priced": 1,
   "stale": 0,
   "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "books": "1 live lines, 1 fresh (betrivers 1)"
  },
  "scores": {
   "nfl:401872995": {
    "away": "Seahawks",
    "home": "Broncos",
-   "a": 3,
-   "h": 14,
-   "clock": "01:07 - 2nd",
-   "live": true
+   "a": 14,
+   "h": 17,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401871067": {
    "away": "Delaware",
@@ -49,34 +49,26 @@
   "ncaaf:401862800": {
    "away": "East Carolina",
    "home": "UAB",
-   "a": 14,
-   "h": 3,
-   "clock": "13:01 - 3rd",
-   "live": true
+   "a": 17,
+   "h": 30,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401869950": {
    "away": "GA Southern",
    "home": "Old Dominion",
-   "a": 16,
-   "h": 7,
-   "clock": "Halftime",
-   "live": true
+   "a": 23,
+   "h": 15,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401860923": {
    "away": "Colorado St",
    "home": "Texas St",
-   "a": 14,
-   "h": 41,
-   "clock": "01:00 - 2nd",
-   "live": true
-  },
-  "mlb:401908033": {
-   "away": "Brewers",
-   "home": "Dodgers",
-   "a": 2,
-   "h": 4,
-   "clock": "Inning 5th",
-   "live": true
+   "a": 27,
+   "h": 66,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892504": {
    "away": "Canadiens",
@@ -98,96 +90,113 @@
    "away": "Canucks",
    "home": "Panthers",
    "a": 2,
-   "h": 1,
-   "clock": "02:50 - 3rd",
-   "live": true
+   "h": 3,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892506": {
    "away": "Sabres",
    "home": "Maple Leafs",
-   "a": 4,
+   "a": 5,
    "h": 4,
-   "clock": "05:58 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892511": {
    "away": "Rangers",
    "home": "Devils",
    "a": 1,
    "h": 7,
-   "clock": "04:28 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892507": {
    "away": "Islanders",
    "home": "Senators",
    "a": 1,
-   "h": 1,
-   "clock": "End of 3rd",
-   "live": true
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892509": {
    "away": "Kraken",
    "home": "Lightning",
-   "a": 2,
-   "h": 3,
-   "clock": "07:20 - 3rd",
-   "live": true
+   "a": 3,
+   "h": 4,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892508": {
    "away": "Flyers",
    "home": "Red Wings",
    "a": 1,
-   "h": 1,
-   "clock": "18:57 - 3rd",
-   "live": true
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892513": {
    "away": "Sharks",
    "home": "Predators",
-   "a": 1,
-   "h": 0,
-   "clock": "04:44 - 2nd",
-   "live": true
+   "a": 3,
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892514": {
    "away": "Blues",
    "home": "Wild",
-   "a": 2,
-   "h": 4,
-   "clock": "09:39 - 2nd",
-   "live": true
+   "a": 4,
+   "h": 5,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892512": {
    "away": "Jets",
    "home": "Blackhawks",
-   "a": 2,
-   "h": 3,
-   "clock": "05:07 - 2nd",
-   "live": true
+   "a": 3,
+   "h": 4,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892515": {
    "away": "Mammoth",
    "home": "Oilers",
-   "a": 1,
-   "h": 0,
-   "clock": "03:02 - 1st",
-   "live": true
-  },
-  "ncaaf:401871053": {
-   "away": "FIU",
-   "home": "Jax State",
-   "a": 24,
-   "h": 27,
+   "a": 4,
+   "h": 2,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
+  },
+  "nhl:401892516": {
+   "away": "Flames",
+   "home": "Golden Knights",
+   "a": 1,
+   "h": 3,
+   "clock": "2nd Intermission",
+   "live": true
   },
   "mlb:401908025": {
    "away": "Rays",
    "home": "Guardians",
    "a": 2,
    "h": 3,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "mlb:401908033": {
+   "away": "Brewers",
+   "home": "Dodgers",
+   "a": 6,
+   "h": 4,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaaf:401871053": {
+   "away": "FIU",
+   "home": "Jax State",
+   "a": 24,
+   "h": 27,
    "clock": "Final",
    "live": false,
    "src": "espn"
@@ -337,37 +346,50 @@
    "tennis": true,
    "live": false,
    "delayed": false
+  },
+  "tennis:wta:185372": {
+   "n": [
+    "Ostapenko",
+    "Shnaider"
+   ],
+   "sets": [
+    [
+     4,
+     5
+    ]
+   ],
+   "pts": [
+    "30",
+    "40"
+   ],
+   "srv": 0,
+   "done": 0,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
   }
  },
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:mlb": "ok 0",
-  "betrivers:nba": "ok 0",
   "betrivers:nhl": "ok 0",
-  "betrivers:nhl:1028409890": "ok 0",
-  "betrivers:nfl": "ok 0",
-  "betrivers:ncaaf": "ok 0",
-  "betrivers:tennis": "ok 0"
+  "betrivers:tennis": "ok 1"
  },
  "health": [
-  "only 0 of 17 live games have a sportsbook price we can bet on",
-  "11 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for mlb, nba, ncaaf, nfl, nhl"
+  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
+  "Bovada has no live lines for nhl"
  ],
  "priced": 0,
- "dk_only": 11,
+ "dk_only": 1,
  "min_p": 0.55,
- "espn_only": 2,
+ "espn_only": 3,
  "errors": [
   "git pull timed out"
  ],
  "books": {
-  "mlb": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nba": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "10 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nfl": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "ncaaf": "3 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 11.9
+ "took_s": 10.1
 }
