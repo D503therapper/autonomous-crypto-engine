@@ -1,17 +1,12 @@
 {
- "at": "2026-10-16T14:26Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-16T14:27Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Samson vs Garcia: no points for 2158s",
-  "live tennis scores: tennis Masarova vs Zidansek: no points for 1811s",
-  "live tennis scores: tennis Boskovic vs Salkova: no points for 2622s",
   "live tennis points: none of 3 live matches has points + server on the 1-second route",
   "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (43s)",
+  "live watcher fresh (115s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,11 +18,19 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "engine ran 45 min ago",
+  "engine ran 46 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-16T14:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 3 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-16T14:26Z",
    "fixes": [
@@ -516,11 +519,6 @@
   },
   {
    "at": "2026-10-14T08:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-14T07:30Z",
    "fixes": [],
    "problems": []
   }
