@@ -130,6 +130,39 @@ blind 2025-26):**
   tools/sizing_by_bucket.py (re-run after the football season: `python tools/sizing_by_bucket.py <replay.jsonl>`).
 - Early plays: not in the replay (no line history before 9/2026); live 2u+ = the two Brewers 3u (own-read Kelly, both
   won), 1u = Tulane (bye spot, flat 1u by rule), ½u = the spots 3-7. Nothing to size there yet.
+## 10/16 - COLLEGE QB FORM COUNTED FCS GAMES AT FULL WEIGHT (the Sam Houston case): BUILT - FBS games only; the opponent-strength adjust DEAD
+- The case: the 10/14 Sam Houston +100 lean said "our QB's been playing better" off Landyn Locke's 322 yards / 4 TD
+  against FCS Nicholls (59-0); his FBS games were 316 / 195 / 138 yards, Sam Houston lost 3-16 and hadn't scored in six
+  quarters. sports_players.score took every start at full weight and the game files carry no FBS / FCS marker.
+- FBS membership from the games themselves (sports_players.fbs_members / fbs_set, walk-forward: finished games before
+  the month only): last season's set is sticky, this season's newcomers join once they have 8+ games whose opponents
+  are mostly FBS; the first priced season (2018) seeds on the many-game teams priced in 75%+ of their games. Checked
+  against the real lists: 130 teams 2018-21, 131 in 2022 (+James Madison), 133 in 2023 (+Sam Houston, Jax State),
+  134 in 2024 (+Kennesaw St), 136 in 2025 (+Delaware, Missouri St) - every change the real one; Nicholls, N Dakota St,
+  Idaho (dropped 2018) out. A plain price test can't do it: Delaware's CAA games were priced 11 of 13 in 2022, FIU's
+  C-USA games 0 of 12 in 2024. A new FBS member reads as FCS in its first season until it has 8 games (1-2 teams a year).
+- THE STUDY (4,234 priced college games 2021-26, each season graded with a weight fit on the seasons before it; the
+  edge added on top of the closing line's logit): the QB edge adds almost nothing the market lacks either way -
+  log loss 0.4929 (market) -> 0.4922 with every game (+7.0 bp), 0.4924 FBS only (+5.1 bp), 0.4927 FBS only + an
+  opponent pass-defense adjust (+2.7 bp). Not hurt, not helped - the read's accuracy is the same.
+- THE WRITE-UP LINE ('better QB play lately' = an edge of 0.4+ units): with every game 2,342 sides won 65.6% vs the
+  market's 64.1%; FBS only 2,135 sides won 67.0% vs 65.3% (+1.7 points over the market, up every season 2023-26:
+  68.1 / 66.5, 66.5 / 64.7, 67.5 / 64.2, 69.4 / 66.8). The 723 labels (2018-26) that stood on an FCS game went 59.2%
+  against a market expecting 59.8%, ROI -5.1% at the close - noise; the labels that stand without one beat the market
+  by about 2 points in all nine seasons (2021: 66.8 vs 64.2 ... 2025: 67.9 vs 65.1). The opponent adjust cut the labels
+  to 1,993 at 67.1 vs 65.8 - no better than dropping FCS games: DEAD, not built.
+- BUILT (sports_players.fbs_only, in key_edges and form_line; the breakdowns pass the game files): a college QB's form
+  is his starts against FBS teams; the card's numbers drop the FCS game and say "in his last 3 games against FBS teams".
+  Sam Houston-Western KY 10/14: the edge 1.09 -> 0.69 (Locke 316 / 195 / 138 still read better than Brock Glenn's
+  435 yards and 2 picks over 3 games - the label would still have printed, at a smaller weight). This season 240 of
+  488 college 'better QB' labels drop and 18 flip once FCS games are out. Test:
+  test_college_qb_form_skips_fcs_games_the_sam_houston_case. The key weight refits daily (model.json ncaaf 0.315).
+- THE SAME FCS INFLATION ELSEWHERE (report only - rule-level, the owner's call): (1) the Elo ratings and the
+  'form' feature count a win over an FCS team (rated 1500 on its first game) like a win over an average FBS team;
+  (2) the letdown flag (21+ win) and the ⏸️ paused 'blew somebody out' early spot (17+): 104 of 250 FBS blowout wins
+  this season and 108 of 460 in 2025 came against FCS teams - the spot's study counted them, so its +8 / +9% edge
+  includes them; (3) the breakdown's streaks ("won 4 straight") count FCS wins - true facts, left alone. LEAD: re-run
+  the blowout spot FBS-only before it is ever unpaused.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.

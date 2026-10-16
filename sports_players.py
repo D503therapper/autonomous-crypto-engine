@@ -209,6 +209,109 @@ def sync(games, state, workers=8, budget_s=420):
     return got, len(jobs), sum(1 for _, r in results if r is None)
 
 
+# ---------------------------------------------------------------- college: FBS or not (the game files carry no marker)
+# 10/16 (the Sam Houston +100 lean, 10/14: "our QB's been playing better" stood on 322 yards / 4 TD against FCS
+# Nicholls, 59-0; the announcers then said Sam Houston hadn't scored in six quarters): a college quarterback's form
+# counts only his games against FBS teams. Blind 2018-26, the 723 'better QB' labels that stood on an FCS game went
+# 59.2% against a market expecting 59.8% (ROI -5.1%) - noise; the labels that stand on FBS games alone beat the market
+# by ~2 points every season (2021-26: 67.0% vs 65.3%). An opponent-strength adjust on top added nothing (not built).
+# FBS membership is read from the games themselves, walk-forward: last season's FBS set (membership is sticky), grown
+# by this season's teams with FBS_MIN_GAMES+ games whose opponents are mostly FBS (a new member's conference mates);
+# the first priced season seeds on the well-priced many-game teams. Checked against the real lists: 130 teams 2018-21,
+# 131 in 2022 (James Madison), 133 in 2023 (Sam Houston, Jax State), 134 in 2024 (Kennesaw St), 136 in 2025 (Delaware,
+# Missouri St) - every change the real one. A season no set can be built for (no prices yet) filters nothing.
+FBS_MIN_GAMES = 8        # a season's FBS member has played at least this many games in it (FCS sides we only hold
+#                          through their FBS games have 1-4; a full FCS schedule still fails the opponent test)
+FBS_SEED_PRICED = 0.75   # first priced season: a many-game team priced in 75%+ of its games seeds the set
+FBS_OPP_SHARE = 0.5      # a many-game team whose opponents are mostly (50%+) FBS joins the set
+_FBS = {}                # (season, month) -> frozenset of FBS team ids in force that month, or None
+_FIN = {}                # the finished college games of the games dict last seen (fbs_set)
+
+
+def _season(start):
+    y, m = int(start[:4]), int(start[5:7])
+    return y if m >= 7 else y - 1
+
+
+def fbs_members(fin, season, prev=None, min_games=FBS_MIN_GAMES, partial=False):
+    """The FBS teams of `season` judged from its finished regular-season games in `fin` (ncaaf finals). None when no
+    set can be built (no previous set and no prices in the season). partial: the season is still going - last season's
+    members all stay (few games in yet), newcomers join once they have min_games."""
+    from collections import defaultdict
+    import sports_model as sm
+    n, priced, opps = defaultdict(int), defaultdict(int), defaultdict(list)
+    for g in fin:
+        if _season(g["start"]) != season or (g.get("stype") or "2") != "2":
+            continue
+        p = sm.market_p(g) is not None or g.get("spread_home") not in (None, "")
+        for t, o in ((g["home"], g["away"]), (g["away"], g["home"])):
+            n[t] += 1
+            priced[t] += p
+            opps[t].append(o)
+    many = {t for t in n if n[t] >= min_games}
+    if prev is not None:
+        cur = set(prev) if partial else many & set(prev)
+    elif any(priced.values()):
+        cur = {t for t in many if priced[t] >= FBS_SEED_PRICED * n[t]}
+    else:
+        return None
+    for _ in range(10):
+        nxt = cur | {t for t in many if sum(o in cur for o in opps[t]) >= FBS_OPP_SHARE * len(opps[t])}
+        if nxt == cur:
+            break
+        cur = nxt
+    return frozenset(cur)
+
+
+def fbs_set(games, start):
+    """The FBS teams in force on `start` (walk-forward: finished college games before that month only), or None when
+    the files can't say (no priced season before it)."""
+    season = _season(start)
+    key = (season, start[:7])
+    if key in _FBS:
+        return _FBS[key]
+    import sports_model as sm
+    if _FIN.get("key") != (id(games), len(games)):            # (one pass over the games per run, not one per month)
+        _FIN["key"], _FIN["fin"] = (id(games), len(games)), sm.finals(games, "ncaaf")
+    fin = [g for g in _FIN["fin"] if g["start"] < start[:7]]
+    if not fin:
+        _FBS[key] = None
+        return None
+    first = _season(fin[0]["start"])
+    prev = None
+    for s in range(first, season):                           # the complete seasons before this one (every game held)
+        k = (s, "full")
+        if k not in _FBS:
+            _FBS[k] = fbs_members([g for g in fin if _season(g["start"]) == s], s, prev,
+                                  min_games=6 if s == 2020 else FBS_MIN_GAMES)   # (2020: the Covid season, 4-11 games)
+        prev = _FBS[k] if _FBS[k] is not None else prev
+    if prev is None:                                         # nothing to go on yet: no filter
+        _FBS[key] = None
+        return None
+    _FBS[key] = fbs_members(fin, season, prev, partial=True)   # last season's set + this season's newcomers
+    return _FBS[key]
+
+
+def fbs_only(league, rows, games, before):
+    """A college QB's starts against FBS teams only (every other league: the rows as they are). A start whose game
+    we don't hold, or a season the files can't judge, stays."""
+    if league != "ncaaf" or not rows or not games:
+        return rows
+    fbs = fbs_set(games, before)
+    if fbs is None:
+        return rows
+    out = []
+    for r in rows:
+        g = games.get(r["gid"])
+        if not g:
+            out.append(r)
+            continue
+        opp = g["away"] if str(r["team"]) == str(g["home"]) else g["home"]
+        if opp in fbs:
+            out.append(r)
+    return out
+
+
 # ---------------------------------------------------------------- form of one player / one team's starter
 def last_starter(rows, team, before):
     for r in reversed(rows):
@@ -292,8 +395,10 @@ def key_edges(games, players):
             if not names["home"] or not names["away"]:
                 continue
             lo = recent_floor(lg, start)
-            h = score(role, [r for r in by_player.get(names["home"], []) if lo <= r["start"] < start][-RECENT[role]:])
-            a = score(role, [r for r in by_player.get(names["away"], []) if lo <= r["start"] < start][-RECENT[role]:])
+            h = score(role, fbs_only(lg, [r for r in by_player.get(names["home"], []) if lo <= r["start"] < start],
+                                     games, start)[-RECENT[role]:])
+            a = score(role, fbs_only(lg, [r for r in by_player.get(names["away"], []) if lo <= r["start"] < start],
+                                     games, start)[-RECENT[role]:])
             out[g["id"]] = edge_units(role, h, a)
     return out
 
@@ -317,21 +422,27 @@ def recent_floor(league, start):
     return max(t - timedelta(days=KEY_DAYS), season0).strftime("%Y-%m-%d")
 
 
-def form_line(league, player, rows, before):
-    """Plain-talk recap of a player's last few starts, and whether that's good or bad: (text, 'hot'|'cold'|None)."""
+def form_line(league, player, rows, before, games=None):
+    """Plain-talk recap of a player's last few starts, and whether that's good or bad: (text, 'hot'|'cold'|None).
+    College (with `games`): his starts against FBS teams only - an FCS game neither counts nor prints (10/16)."""
     role = ROLE.get(league)
     try:                                                     # (10/1 audit: "lately" was last May's playoff starts -
         from datetime import datetime, timedelta             # a 45-day window, so "lately" means this season)
         lo = (datetime.strptime(before[:10], "%Y-%m-%d") - timedelta(days=45)).strftime("%Y-%m-%d")
     except (TypeError, ValueError):
         lo = ""
-    starts = [r for r in rows if r["player"] == player and lo <= r["start"] < before][-3:]
+    mine = [r for r in rows if r["player"] == player and lo <= r["start"] < before]
+    starts = fbs_only(league, mine, games, before)           # (`games` below is the wording, not the dict)
+    fcs_dropped = len(starts) < len(mine)
+    starts = starts[-3:]
     if not role or not starts:
         return None, None
     n = len(starts)
     MOOD_MIN = 2            # (10/15 truth audit: "Linus Ullmark has been a brick wall - ... over his last 1 start" -
     #                          one start is a night, not a hot or cold stretch: the facts still print, no verdict on them)
     games = f"his last {n} game{'s' if n > 1 else ''}" if role == "QB" else f"his last {n} start{'s' if n > 1 else ''}"
+    if fcs_dropped:          # (the words match the numbers: an FCS game is out of both)
+        games += " against FBS teams"
     if role == "QB":
         td, it = sum(_f(r["td"]) for r in starts), sum(_f(r["int"]) for r in starts)
         yds = sum(_f(r["yds"]) for r in starts)

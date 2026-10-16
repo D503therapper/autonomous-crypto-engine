@@ -510,7 +510,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             name = who(team_side, t_id)
             if not name:
                 continue
-            txt, mood = sp.form_line(lg, name, rows, g["start"])
+            txt, mood = sp.form_line(lg, name, rows, g["start"], games)
             if not txt:
                 continue
             FORM[(ours_, mood)] = (name, txt)                 # (the card's one-line "why" can use it)

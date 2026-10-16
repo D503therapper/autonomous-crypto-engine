@@ -10911,6 +10911,61 @@ def test_sizing_audit_10_16_a_dog_keeps_its_score_and_the_buckets_read_todays_ru
     assert sb.units({**fat, "lock_ok": False}) == 0.5                                        # a backup Lock: ½u
     assert abs(sb.pnl1({"dec": 2.45, "result": "won"}) - 1.45) < 1e-9 and sb.pnl1({"dec": 2.45, "result": "lost"}) == -1.0
     assert sb.season("2025-02-01") == "2024-25" and sb.season("2025-09-01") == "2025-26"
+def test_college_qb_form_skips_fcs_games_the_sam_houston_case():
+    """10/16: 'Sam Houston has the better quarterback' stood on Landyn Locke's 322 yards / 4 TD against FCS Nicholls
+    (59-0); his FBS games were 316 / 195 / 138 yards. A college QB's form (the key edge and the card's form line) counts
+    his games against FBS teams only; FBS membership is read from the game files, walk-forward (no marker stored)."""
+    sp._FBS.clear()
+    fbs = [str(100 + i) for i in range(10)]                   # ten FBS teams, a 2025 round robin (9 priced games each)
+    games, k = {}, 0
+    for i, h in enumerate(fbs):
+        for a in fbs[i + 1:]:
+            k += 1
+            games[f"ncaaf:p{k}"] = {"id": f"ncaaf:p{k}", "league": "ncaaf", "status": "final", "stype": "2",
+                                    "start": f"2025-{9 + k % 3:02d}-{1 + k % 27:02d}T20:00Z", "home": h, "away": a,
+                                    "home_score": "28", "away_score": "21", "ml_home": "-150", "ml_away": "130"}
+    games["ncaaf:p0"] = {"id": "ncaaf:p0", "league": "ncaaf", "status": "final", "stype": "2", "start": "2025-09-06T20:00Z",
+                         "home": "100", "away": "2447", "home_score": "45", "away_score": "7", "ml_home": "-2000", "ml_away": "900"}
+    games["ncaaf:p00"] = {"id": "ncaaf:p00", "league": "ncaaf", "status": "final", "stype": "2", "start": "2025-10-04T20:00Z",
+                          "home": "2447", "away": "109", "home_score": "7", "away_score": "45", "ml_home": "900", "ml_away": "-2000"}
+    # 2026: Sam Houston (100) - three FBS games and the Nicholls (2447) blowout; Western KY (104) - four FBS games
+    sched = [("s1", "2026-09-06", "100", "101", 24, 20), ("s2", "2026-09-13", "100", "102", 17, 24),
+             ("s3", "2026-09-20", "100", "2447", 59, 0), ("s4", "2026-10-04", "103", "100", 31, 3),
+             ("w1", "2026-09-06", "104", "105", 21, 17), ("w2", "2026-09-13", "106", "104", 24, 27),
+             ("w3", "2026-09-20", "104", "107", 20, 14), ("w4", "2026-10-04", "104", "108", 28, 10)]
+    for gid, d, h, a, hs, as_ in sched:
+        games[f"ncaaf:{gid}"] = {"id": f"ncaaf:{gid}", "league": "ncaaf", "status": "final", "stype": "2", "start": f"{d}T20:00Z",
+                                 "home": h, "away": a, "home_score": str(hs), "away_score": str(as_), "ml_home": "-120", "ml_away": "100"}
+    games["ncaaf:sh"] = {"id": "ncaaf:sh", "league": "ncaaf", "status": "pre", "stype": "2", "start": "2026-10-14T23:30Z",
+                         "home": "100", "away": "104", "home_name": "Sam Houston", "away_name": "Western KY"}
+    members = sp.fbs_set(games, "2026-10-14T23:30Z")
+    assert members is not None and set(fbs) <= members and "2447" not in members, members
+
+    def qb(gid, d, team, name, att, yds, td, it):
+        return {"gid": f"ncaaf:{gid}", "start": f"{d}T20:00Z", "team": team, "player": name, "role": "QB",
+                "att": att, "cmp": att * 0.6, "yds": yds, "td": td, "int": it}
+    rows = [qb("s1", "2026-09-06", "100", "Landyn Locke", 35, 316, 1, 1), qb("s2", "2026-09-13", "100", "Landyn Locke", 30, 195, 1, 1),
+            qb("s3", "2026-09-20", "100", "Landyn Locke", 20, 322, 4, 0), qb("s4", "2026-10-04", "100", "Landyn Locke", 28, 138, 0, 1)]
+    rows += [qb(g, d, "104", "Brock Glenn", 32, 200, 1, 1) for g, d in (("w1", "2026-09-06"), ("w2", "2026-09-13"),
+                                                                         ("w3", "2026-09-20"), ("w4", "2026-10-04"))]
+    rows.sort(key=lambda r: (r["start"], r["gid"]))
+    edge = sp.key_edges(games, {"ncaaf": rows})["ncaaf:sh"]
+    assert edge < 0.4, f"the Nicholls game must not make Locke 'the better QB': edge {edge:.2f}"   # (with it: +0.88)
+    # the card's form line: the FCS game is out of the numbers AND the words say so
+    txt, mood = sp.form_line("ncaaf", "Landyn Locke", rows, "2026-10-14T23:30Z", games)
+    assert "against FBS teams" in txt and "649 yards" in txt and "2 TDs" in txt, txt
+    assert mood == "cold", (txt, mood)                       # (3 picks, 2 TDs in those 3 games)
+    old_txt, _ = sp.form_line("ncaaf", "Landyn Locke", rows, "2026-10-14T23:30Z")   # (no game files: as before)
+    assert "against FBS teams" not in old_txt and "655 yards" in old_txt, old_txt
+    assert sp.fbs_only("ncaaf", [], games, "2026-10-14T23:30Z") == []
+    # the NFL (and every other league) is untouched; a college season no FBS set can be built for filters nothing
+    nfl = [{**rows[0], "gid": "nfl:1"}]
+    assert sp.fbs_only("nfl", nfl, games, "2026-10-14T23:30Z") == nfl
+    sp._FBS.clear()
+    unpriced = {k: {kk: ("" if kk in ("ml_home", "ml_away") else vv) for kk, vv in g.items()} for k, g in games.items()}
+    assert sp.fbs_set(unpriced, "2026-10-14T23:30Z") is None
+    assert sp.fbs_only("ncaaf", rows, unpriced, "2026-10-14T23:30Z") == rows
+    sp._FBS.clear()
 
 
 if __name__ == "__main__":
