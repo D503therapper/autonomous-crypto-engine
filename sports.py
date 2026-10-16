@@ -831,7 +831,11 @@ def one_side(cands):
     def rank(c):                     # value first - a popular favorite with no value never blocks the other side;
         g_ = good(c) and c["odds"] >= MAX_FAV   # (10/1 bug hunt: a -162 we can't post hid the +136 dog)
         #                              among real value plays: a lock / strong lean first; otherwise the bigger edge
-        return (c["odds"] >= MAX_FAV, g_, g_ and leg_tier(c) == "lock", g_ and c["p"] >= STRONG_LEAN_P, c["edge"])
+        u_ = g_ and real_value(c)   # (10/16 NBA readiness replay: the 76ers -123 - a 54% favorite whose OWN read was
+        #                              under its price, a lean at most - hid the gated Grizzlies +103 (dog score 4.3),
+        #                              so the Dog of the Day slot sat empty and the dog went up as a ½u play. A side
+        #                              that's a real UNIT play (its read beats the price) outranks one that can't carry units)
+        return (c["odds"] >= MAX_FAV, g_, u_, g_ and leg_tier(c) == "lock", g_ and c["p"] >= STRONG_LEAN_P, c["edge"])
     for c in sorted(cands, key=rank, reverse=True):
         (ou if c.get("market") == "total" else side).setdefault(c["game_id"], c["side"])   # one side / one total each
     return [c for c in cands if c["side"] == (ou if c.get("market") == "total" else side).get(c["game_id"])]
@@ -2592,6 +2596,14 @@ def data_gaps(games, cands, now):
     import sports_breakdown_v24 as v24
     _t = v24._t
     fin, out = {}, {}
+    stuck = {}                                               # (league, team) -> a priced real game of theirs from the last
+    lo, hi = now - timedelta(days=10), now - timedelta(hours=8)   # 10 days still 'pre' - found in ONE pass over the games
+    for x in games.values():                                 # (10/16 hoops readiness: one pass per SIDE over 200k games
+        if x.get("status") == "pre" and (x.get("stype") or "?") in sd.REAL and x.get("ml_home") not in ("", None) \
+                and lo < _t(x["start"]) < hi:                # was minutes on a 150-game college hoops day)
+            for s_ in ("home", "away"):                      # (10/1: an "if necessary" playoff game that never got played
+                stuck.setdefault((x.get("league"), x.get(s_)), x["start"][:10])   # never had a price - not a missing
+    #   result; 10/9: a preseason game the feed never finalized is never a gap - it never moves a read, never holds a board)
     for c in cands:
         g = games.get(c["game_id"]) or {}
         lg = c["league"]
@@ -2605,15 +2617,8 @@ def data_gaps(games, cands, now):
                 if not v24.seen_all(fin[lg], tid, _t(g["start"]), lg):
                     out[(lg, tid)] = f"{g.get(side + '_name')}: we don't hold all their games this season"
                     continue
-            for x in games.values():
-                if x.get("league") == lg and tid in (x.get("home"), x.get("away")) and x.get("status") == "pre" \
-                        and (x.get("stype") or "?") in sd.REAL \
-                        and now - timedelta(days=10) < _t(x["start"]) < now - timedelta(hours=8) \
-                        and x.get("ml_home") not in ("", None):      # (10/1: an "if necessary" playoff game that
-                    #   never got played never had a price - not a missing result; 10/9: a preseason game the feed
-                    #   never finalized is never a gap - it never moves a read, so it never holds a board)
-                    out[(lg, tid)] = f"{g.get(side + '_name')}: no result for their {x['start'][:10]} game"
-                    break
+            if (lg, tid) in stuck:
+                out[(lg, tid)] = f"{g.get(side + '_name')}: no result for their {stuck[(lg, tid)]} game"
     return out
 
 
