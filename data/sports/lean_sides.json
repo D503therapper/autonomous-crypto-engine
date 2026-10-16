@@ -1,17 +1,17 @@
 {
- "mlb:401907994": {
-  "market": "ml",
-  "own": 0.5555,
-  "side": "home",
-  "start": "2026-10-11T00:00Z",
-  "team": "Guardians"
- },
  "mlb:401908025": {
   "market": "ml",
   "own": 0.5367,
   "side": "home",
   "start": "2026-10-15T17:00Z",
   "team": "Guardians"
+ },
+ "mlb:401908026": {
+  "market": "ml",
+  "own": 0.5088,
+  "side": "away",
+  "start": "2026-10-17T00:00Z",
+  "team": "Rays"
  },
  "mlb:401908030": {
   "market": "ml",
@@ -34,6 +34,13 @@
   "start": "2026-10-17T19:30Z",
   "team": "Air Force"
  },
+ "ncaaf:401869844": {
+  "market": "ml",
+  "own": 0.508,
+  "side": "home",
+  "start": "2026-10-17T00:00Z",
+  "team": "Coastal"
+ },
  "ncaaf:401871067": {
   "market": "ml",
   "own": 0.5069,
@@ -48,62 +55,6 @@
   "start": "2026-10-15T00:00Z",
   "team": "Sam Houston"
  },
- "nfl:401872982": {
-  "market": "spread",
-  "own": 0.515,
-  "side": "home",
-  "start": "2026-10-11T17:00Z",
-  "team": "Dolphins"
- },
- "nfl:401872983": {
-  "market": "spread",
-  "own": 0.507,
-  "side": "home",
-  "start": "2026-10-11T17:00Z",
-  "team": "Jets"
- },
- "nfl:401872984": {
-  "market": "spread",
-  "own": 0.515,
-  "side": "home",
-  "start": "2026-10-11T17:00Z",
-  "team": "Titans"
- },
- "nfl:401872986": {
-  "market": "spread",
-  "own": 0.5094,
-  "side": "away",
-  "start": "2026-10-11T17:00Z",
-  "team": "Raiders"
- },
- "nfl:401872988": {
-  "market": "ml",
-  "own": 0.5206,
-  "side": "away",
-  "start": "2026-10-11T17:00Z",
-  "team": "Giants"
- },
- "nfl:401872989": {
-  "market": "spread",
-  "own": 0.5094,
-  "side": "home",
-  "start": "2026-10-11T20:05Z",
-  "team": "Chargers"
- },
- "nfl:401872990": {
-  "market": "spread",
-  "own": 0.5057,
-  "side": "away",
-  "start": "2026-10-11T17:00Z",
-  "team": "Bears"
- },
- "nfl:401872991": {
-  "market": "spread",
-  "own": 0.5113,
-  "side": "home",
-  "start": "2026-10-11T20:25Z",
-  "team": "Cardinals"
- },
  "nfl:401872993": {
   "market": "spread",
   "own": 0.5166,
@@ -117,13 +68,6 @@
   "side": "away",
   "start": "2026-10-13T00:15Z",
   "team": "Bills"
- },
- "nhl:401892481": {
-  "market": "ml",
-  "own": 0.4124,
-  "side": "away",
-  "start": "2026-10-11T02:00Z",
-  "team": "Kings"
  },
  "nhl:401892485": {
   "market": "ml",
@@ -236,5 +180,12 @@
   "side": "home",
   "start": "2026-10-16T00:00Z",
   "team": "Predators"
+ },
+ "nhl:401892518": {
+  "market": "ml",
+  "own": 0.5119,
+  "side": "away",
+  "start": "2026-10-17T02:00Z",
+  "team": "Bruins"
  }
 }
