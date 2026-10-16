@@ -1,13 +1,11 @@
 {
- "at": "2026-10-16T18:59Z",
+ "at": "2026-10-16T20:07Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "tennis slate due (8am PT) and not up - started sports.yml"
  ],
- "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (234s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,13 +17,20 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 7 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T20:07Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-16T18:59Z",
    "fixes": [
@@ -529,17 +534,6 @@
    "problems": [
     "live tennis scores: tennis Bronzetti vs Teichmann: no points for 96s",
     "live tennis scores: tennis Burillo vs Maneiro: no points for 2620s"
-   ]
-  },
-  {
-   "at": "2026-10-14T14:05Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Maneiro: no points for 1863s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
