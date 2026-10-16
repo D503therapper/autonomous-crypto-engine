@@ -1,29 +1,37 @@
 {
- "at": "2026-10-16T01:43Z",
+ "at": "2026-10-16T03:17Z",
  "fixes": [],
  "problems": [
-  "sources down (the backups took over): betrivers:nhl:1028409890 HTTP 404"
+  "sources down (the backups took over): betrivers:mlb:1029419134 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 17 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 13 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 43 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T03:17Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:mlb:1029419134 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-16T01:43Z",
    "fixes": [],
@@ -486,15 +494,6 @@
    "at": "2026-10-13T17:57Z",
    "fixes": [],
    "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-13T17:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kostovic vs Jacquemot: no points for 2636s",
-    "live tennis scores: tennis Ristic vs Andreescu: no points for 653s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
