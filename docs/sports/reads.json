@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T20:04Z",
+ "updated": "2026-10-17T20:13Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -335,8 +335,8 @@
    "away": "Rutgers",
    "home": "Maryland",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -350,8 +350,8 @@
    "away": "Bryant",
    "home": "Maine",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -380,8 +380,8 @@
    "away": "Dayton",
    "home": "Butler",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -410,8 +410,8 @@
    "away": "Georgetown",
    "home": "Colgate",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -425,8 +425,8 @@
    "away": "Holy Cross",
    "home": "Harvard",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -440,8 +440,8 @@
    "away": "Marist",
    "home": "Drake",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -470,8 +470,8 @@
    "away": "Merrimack",
    "home": "Dartmouth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -485,8 +485,8 @@
    "away": "Monmouth",
    "home": "New Hampshire",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -515,8 +515,8 @@
    "away": "The Citadel",
    "home": "Texas A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1086,33 +1086,90 @@
    "lean": null
   },
   {
+   "id": "nhl:401892521",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "Canucks",
+   "home": "Lightning",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401867849",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "Illinois St",
+   "home": "S Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868310",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "SF Austin",
+   "home": "Nicholls",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868289",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T20:00Z",
+   "away": "Valparaiso",
+   "home": "San Diego",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401862805",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Tulsa",
-    "p": 0.578,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-17T20:30Z",
    "away": "Tulsa",
    "home": "Rice",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Tulsa",
-    "opp": "Rice",
+    "team": "Rice",
+    "opp": "Tulsa",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": 164,
+    "p": 0.377,
+    "win_p": 0.377,
     "reasons": [
-     "sharp money moving this way"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
