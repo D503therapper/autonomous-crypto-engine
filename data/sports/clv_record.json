@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 76,
-  "beat": 24,
+  "n": 78,
+  "beat": 25,
   "same": 28,
-  "worse": 24,
-  "avg_pts": 0.11
+  "worse": 25,
+  "avg_pts": 0.13
  },
  "unit_plays": {
-  "n": 32,
-  "beat": 10,
+  "n": 34,
+  "beat": 11,
   "same": 15,
-  "worse": 7,
-  "avg_pts": 0.31
+  "worse": 8,
+  "avg_pts": 0.34
  },
  "by_kind": {
   "dog": {
-   "n": 13,
+   "n": 14,
    "beat": 4,
    "same": 6,
-   "worse": 3,
-   "avg_pts": 0.12
+   "worse": 4,
+   "avg_pts": 0.06
   },
   "lean": {
    "n": 44,
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 9,
-   "beat": 2,
+   "n": 10,
+   "beat": 3,
    "same": 5,
    "worse": 2,
-   "avg_pts": 0.04
+   "avg_pts": 0.24
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 17,
-   "beat": 6,
+   "n": 19,
+   "beat": 7,
    "same": 7,
-   "worse": 4,
-   "avg_pts": 0.35
+   "worse": 5,
+   "avg_pts": 0.39
   },
   "nfl": {
    "n": 12,
@@ -1156,6 +1156,20 @@
   },
   {
    "date": "2026-10-17",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Boston College",
+   "market": "ml",
+   "line": null,
+   "odds": 195,
+   "close": 200,
+   "pts": -0.6,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-17",
    "kind": "play",
    "lean": false,
    "league": "ncaaf",
@@ -1166,6 +1180,20 @@
    "close": 110,
    "pts": 0.0,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Indiana",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 120,
+   "pts": 2.0,
+   "units": 1.0,
    "result": "lost"
   }
  ]

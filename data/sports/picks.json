@@ -13297,6 +13297,7 @@
      "game:conf"
     ],
     "dec": 2.95,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13324,6 +13325,10 @@
     "elo_edge": -111.5,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "12,0,6,3",
+     "h": "7,7,7,6"
+    },
     "form_state": [
      -9.0,
      -2,
@@ -13369,9 +13374,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Pitt 21 @ Boston College 27",
+    "settled": "2026-10-17T19:51Z",
     "side": "home",
     "start": "2026-10-17T16:00Z",
     "stype": "2",
@@ -13388,12 +13395,14 @@
    }
   ],
   "p_hit": 0.3548,
-  "pnl": 0.0,
+  "pnl": 195.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T19:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 114,
@@ -13869,6 +13878,7 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13899,6 +13909,10 @@
     "elo_edge": 166.0,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,7,3,6",
+     "h": "0,7,0,8"
+    },
     "form_state": [
      3.0,
      22,
@@ -13945,9 +13959,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Ohio State 19 @ Indiana 15",
+    "settled": "2026-10-17T19:51Z",
     "side": "home",
     "start": "2026-10-17T16:00Z",
     "stype": "2",
@@ -13974,12 +13990,14 @@
    }
   ],
   "p_hit": 0.4384,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T19:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 210,
@@ -14690,6 +14708,7 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "side": "away",

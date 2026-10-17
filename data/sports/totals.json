@@ -381,13 +381,13 @@
   }
  },
  "ncaaf": {
-  "games": 5749,
+  "games": 5753,
   "grade": {
    "all": {
-    "hit": 0.5133,
-    "low80": 0.4987,
-    "n": 1917,
-    "roi": -0.0211
+    "hit": 0.5125,
+    "low80": 0.4979,
+    "n": 1918,
+    "roi": -0.0226
    },
    "top10": {
     "hit": 0.4346,
@@ -399,39 +399,39 @@
     "hit": 0.4595,
     "low80": 0.4269,
     "n": 383,
-    "roi": -0.1229
+    "roi": -0.123
    },
    "top30": {
-    "hit": 0.4922,
-    "low80": 0.4655,
+    "hit": 0.4887,
+    "low80": 0.462,
     "n": 575,
-    "roi": -0.062
+    "roi": -0.0687
    }
   },
-  "hit_all": 0.5133,
-  "hit_top": 0.4922,
-  "intercept": -0.01432,
+  "hit_all": 0.5125,
+  "hit_top": 0.4887,
+  "intercept": -0.01361,
   "kept": [
    "wind",
    "ou_home"
   ],
-  "ll_test_base": 0.69334,
-  "ll_test_kept": 0.6936,
-  "ll_val_base": 0.69493,
-  "ll_val_kept": 0.69396,
+  "ll_test_base": 0.69337,
+  "ll_test_kept": 0.69367,
+  "ll_val_base": 0.69489,
+  "ll_val_kept": 0.69393,
   "n_top": 575,
   "norm": {
    "ou_home": [
-    0.51911,
-    5.78825
+    0.52025,
+    5.7867
    ],
    "wind": [
-    9.85023,
-    4.51391
+    9.85382,
+    4.51454
    ]
   },
   "proven": false,
-  "roi_top": -0.062,
+  "roi_top": -0.0687,
   "screen": {
    "b2b": {
     "ll": null,
@@ -439,15 +439,15 @@
    },
    "cold": {
     "gain": -0.00013,
-    "ll": 0.69506
+    "ll": 0.69502
    },
    "drama": {
     "ll": null,
     "note": "no data"
    },
    "form": {
-    "gain": 8e-05,
-    "ll": 0.69485
+    "gain": 7e-05,
+    "ll": 0.69482
    },
    "inj": {
     "ll": null,
@@ -458,55 +458,55 @@
     "note": "no data"
    },
    "lg_trend": {
-    "gain": -9e-05,
-    "ll": 0.69502
+    "gain": -8e-05,
+    "ll": 0.69498
    },
    "ou_away": {
     "gain": -0.00084,
-    "ll": 0.69577
+    "ll": 0.69573
    },
    "ou_home": {
-    "gain": 0.00012,
-    "ll": 0.69481
+    "gain": 0.00011,
+    "ll": 0.69478
    },
    "park": {
-    "gain": -0.0007,
-    "ll": 0.69563
+    "gain": -0.00076,
+    "ll": 0.69565
    },
    "public": {
     "ll": null,
     "note": "no data"
    },
    "rain": {
-    "gain": -0.00109,
-    "ll": 0.69602
+    "gain": -0.0011,
+    "ll": 0.696
    },
    "rest": {
-    "gain": -0.00119,
-    "ll": 0.69612
+    "gain": -0.0012,
+    "ll": 0.6961
    },
    "starter": {
     "ll": null,
     "note": "no data"
    },
    "thin_air": {
-    "gain": -2e-05,
-    "ll": 0.69495
+    "gain": -8e-05,
+    "ll": 0.69497
    },
    "travel": {
-    "gain": -6e-05,
-    "ll": 0.69499
+    "gain": -4e-05,
+    "ll": 0.69494
    },
    "wind": {
-    "gain": 0.00085,
-    "ll": 0.69408
+    "gain": 0.00086,
+    "ll": 0.69404
    }
   },
   "test_from": "2023-11-18",
-  "test_games": 1917,
+  "test_games": 1918,
   "weights": {
-   "ou_home": -0.01661,
-   "wind": -0.03938
+   "ou_home": -0.01669,
+   "wind": -0.03823
   }
  },
  "nfl": {
@@ -651,13 +651,13 @@
   }
  },
  "nhl": {
-  "games": 9849,
+  "games": 9850,
   "grade": {
    "all": {
-    "hit": 0.495,
-    "low80": 0.4838,
-    "n": 3283,
-    "roi": -0.0762
+    "hit": 0.4951,
+    "low80": 0.4839,
+    "n": 3284,
+    "roi": -0.076
    },
    "top10": {
     "hit": 0.5,
@@ -672,31 +672,31 @@
     "roi": -0.1129
    },
    "top30": {
-    "hit": 0.4817,
-    "low80": 0.4613,
-    "n": 984,
-    "roi": -0.1175
+    "hit": 0.4812,
+    "low80": 0.4608,
+    "n": 985,
+    "roi": -0.1184
    }
   },
-  "hit_all": 0.495,
-  "hit_top": 0.4817,
-  "intercept": -0.01198,
+  "hit_all": 0.4951,
+  "hit_top": 0.4812,
+  "intercept": -0.01218,
   "kept": [
    "form"
   ],
   "ll_test_base": 0.69311,
-  "ll_test_kept": 0.69464,
+  "ll_test_kept": 0.69463,
   "ll_val_base": 0.69317,
   "ll_val_kept": 0.6923,
-  "n_top": 984,
+  "n_top": 985,
   "norm": {
    "form": [
-    0.09248,
-    0.33483
+    0.09246,
+    0.33482
    ]
   },
   "proven": false,
-  "roi_top": -0.1175,
+  "roi_top": -0.1184,
   "screen": {
    "b2b": {
     "gain": -7e-05,
@@ -768,9 +768,9 @@
    }
   },
   "test_from": "2024-02-28",
-  "test_games": 3283,
+  "test_games": 3284,
   "weights": {
-   "form": 0.02209
+   "form": 0.02222
   }
  }
 }
