@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 80,
-  "beat": 25,
+  "n": 81,
+  "beat": 26,
   "same": 29,
   "worse": 26,
-  "avg_pts": 0.1
+  "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 36,
-  "beat": 11,
+  "n": 37,
+  "beat": 12,
   "same": 16,
   "worse": 9,
-  "avg_pts": 0.26
+  "avg_pts": 0.29
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 12,
-   "beat": 3,
+   "n": 13,
+   "beat": 4,
    "same": 6,
    "worse": 3,
-   "avg_pts": 0.03
+   "avg_pts": 0.15
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 21,
-   "beat": 7,
+   "n": 22,
+   "beat": 8,
    "same": 8,
    "worse": 6,
-   "avg_pts": 0.26
+   "avg_pts": 0.31
   },
   "nfl": {
    "n": 12,
@@ -1180,6 +1180,20 @@
    "close": 110,
    "pts": 0.0,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Rice",
+   "market": "ml",
+   "line": null,
+   "odds": 164,
+   "close": 154,
+   "pts": 1.5,
+   "units": 1.0,
    "result": "lost"
   },
   {

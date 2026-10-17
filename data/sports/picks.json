@@ -13744,6 +13744,7 @@
      "us:hotseat"
     ],
     "dec": 2.6399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13772,6 +13773,10 @@
     "elo_edge": 85.4,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,21,3,14",
+     "h": "7,10,0,0"
+    },
     "form_state": [
      -16.0,
      -5,
@@ -13811,9 +13816,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Tulsa 38 @ Rice 17",
+    "settled": "2026-10-17T23:42Z",
     "side": "home",
     "start": "2026-10-17T20:30Z",
     "stype": "2",
@@ -13830,12 +13837,14 @@
    }
   ],
   "p_hit": 0.3768,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T23:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 130,
