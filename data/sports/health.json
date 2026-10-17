@@ -1,32 +1,32 @@
 {
- "at": "2026-10-17T11:12Z",
+ "at": "2026-10-17T11:48Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Samson vs Zidansek: no points for 514s",
-  "live tennis scores: tennis Salkova vs Kubka: no points for 290s",
-  "live tennis scores: tennis Galfi vs Gormaz: no points for 514s",
-  "live tennis scores: tennis Rakhimova vs Yastremska: no points for 514s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (18s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 6 live matches",
+  "live tennis points + server: 2 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 9 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 14 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 51 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T11:48Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-17T11:12Z",
    "fixes": [],
@@ -584,16 +584,6 @@
     "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
     "live tennis scores: tennis Burel vs Lollia: no points for 606s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T15:20Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
