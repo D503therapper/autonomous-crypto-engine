@@ -36,6 +36,8 @@ def tags(c, sports):
         t.append("NHL side vs a team outshot 40+")
     if c.get("fav_off_loss"):                                # 10/14 study (built as a weight): its own live record
         t.append("college favorite off a loss (fade)")
+    if c.get("fav_form_spot"):                               # 10/17 college lock hunt "rule A" (a weight): its live record
+        t.append("college fav off a win vs a team off a loss")
     dog = c.get("odds", 0) >= 100
     if dog and lg == "ncaaf" and c.get("edge_own") is not None and c.get("dec") and c.get("p_market") is not None \
             and (c["edge_own"] + 1) / c["dec"] - c["p_market"] >= 0.10:
