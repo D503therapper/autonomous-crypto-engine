@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T18:29Z",
+ "updated": "2026-10-17T18:39Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -118,7 +118,7 @@
    "h1": null,
    "why": "on_board",
    "done": false,
-   "board": "lock",
+   "board": "play",
    "lean": {
     "team": "FAU",
     "opp": "Army",
@@ -735,7 +735,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jackson St",
-    "p": 0.771,
+    "p": 0.772,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -750,9 +750,9 @@
     "team": "Jackson St",
     "opp": "Florida A&M",
     "market": "spread",
-    "line": -13.5,
-    "odds": -142,
-    "p": 0.501,
+    "line": -15.5,
+    "odds": -111,
+    "p": 0.502,
     "win_p": 0.831,
     "reasons": [
      "the stronger team",
@@ -993,7 +993,7 @@
     "opp": "Akron",
     "market": "spread",
     "line": -9.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.751,
     "reasons": [
@@ -2404,7 +2404,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.765,
+    "p": 0.76,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -2420,9 +2420,9 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": -14.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.502,
-    "win_p": 0.764,
+    "win_p": 0.758,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2509,7 +2509,7 @@
    "away": "Wisconsin",
    "home": "UCLA",
    "why": "on_board",
-   "board": "play",
+   "board": "lock",
    "lean": {
     "team": "UCLA",
     "opp": "Wisconsin",
@@ -2891,7 +2891,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Fresno St",
-    "p": 0.649,
+    "p": 0.639,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2900,17 +2900,20 @@
    "start": "2026-10-18T02:30Z",
    "away": "Fresno St",
    "home": "San Diego St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
-    "team": "San Diego St",
-    "opp": "Fresno St",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -105,
-    "p": 0.5,
-    "win_p": 0.303,
-    "reasons": []
+    "team": "Fresno St",
+    "opp": "San Diego St",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.626,
+    "win_p": 0.626,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately"
+    ]
    }
   },
   {
