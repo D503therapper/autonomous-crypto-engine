@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 78,
+  "n": 79,
   "beat": 25,
-  "same": 28,
+  "same": 29,
   "worse": 25,
-  "avg_pts": 0.13
+  "avg_pts": 0.12
  },
  "unit_plays": {
-  "n": 34,
+  "n": 35,
   "beat": 11,
-  "same": 15,
+  "same": 16,
   "worse": 8,
-  "avg_pts": 0.34
+  "avg_pts": 0.33
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 10,
+   "n": 11,
    "beat": 3,
-   "same": 5,
+   "same": 6,
    "worse": 2,
-   "avg_pts": 0.24
+   "avg_pts": 0.22
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 19,
+   "n": 20,
    "beat": 7,
-   "same": 7,
+   "same": 8,
    "worse": 5,
-   "avg_pts": 0.39
+   "avg_pts": 0.37
   },
   "nfl": {
    "n": 12,
@@ -1195,6 +1195,20 @@
    "pts": 2.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Air Force",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }
