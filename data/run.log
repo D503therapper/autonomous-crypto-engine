@@ -18447,3 +18447,33 @@ DEX: $986.54 (-13.46) · Scammed: 0
 [2026-10-17 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-17 06:06 UTC] crypto/hold_btc  equity $486.01 (-2.8%) 1 open  market UP
    social heat top: TIA 37 (37/0/0), SOL 35 (35/0/0), BTC 32 (32/0/0), INJ 29 (29/0/0), SEI 24 (24/0/0)
+   dex screen: REJECT PLAY@base liq $309,925 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT EURC@ethereum liq $3,120,848 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%
+   dex screen: REJECT ELON@solana liq $107,279 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT GTC@ethereum liq $231,172 - owner_percent 13%; top-10 holders 71%; lp locked 0% < 95%
+   dex screen: PASS ANTFUN@solana liq $12,766,879
+   dex screen: REJECT ADI@ethereum liq $3,022,268 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dex screen: REJECT KMNO@solana liq $2,023,792 - top-10 holders 53%
+   listings: binance failed (1x, retry in 30s): URLError: <urlopen error [Errno 104] Connection reset by peer>
+   dex screen: REJECT BEAM@ethereum liq $2,828,278 - is_mintable; owner_change_balance; top-10 holders 60%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: PASS STONK@solana liq $2,327,139
+   dex screen: REJECT ZEN@base liq $2,403,385 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS CATE@solana liq $3,083,605
+   dex screen: REJECT ZRO@base liq $179,865 - pool age unknown
+   dex screen: REJECT ELSA@base liq $425,383 - goplus partial data: cannot_sell_all unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex scanner: 3,006 pools (solana 2,143 / base 469 / ethereum 394), refresh cycle 124s (hot 119s), 3026 calls (108 feed, 429s 0, failed 0), 87,527 refreshed (10329 no pair), +46 added / -55 dropped (dead 12, stale 0, cap 43), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-17 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-17 07:06 UTC] crypto/mover     equity $288.28 (-42.3%) 2 open  market UP
+[2026-10-17 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 07:06 UTC] crypto/social_heat equity $439.03 (-12.2%) 2 open  market UP
+[2026-10-17 07:06 UTC] crypto/breakout10 equity $470.12 (-6.0%) 2 open  market UP
+[2026-10-17 07:06 UTC] crypto/momentum  equity $418.66 (-16.3%) 1 open  market UP
+[2026-10-17 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-17 07:06 UTC] crypto/hold_btc  equity $486.46 (-2.7%) 1 open  market UP
+   social heat top: TIA 37 (37/0/0), BTC 35 (35/0/0), PRL 32 (32/0/0), HYPE 29 (29/0/0), PONS 21 (21/0/0)
