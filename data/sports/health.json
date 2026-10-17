@@ -1,26 +1,42 @@
 {
- "at": "2026-10-17T10:10Z",
+ "at": "2026-10-17T10:17Z",
  "fixes": [],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Samson vs Zidansek: no points for 1721s",
+  "live tennis scores: tennis Galfi vs Gormaz: no points for 358s",
+  "live tennis scores: tennis Prozorova vs Sherif: no points for 2625s",
+  "live tennis scores: tennis Rakhimova vs Yastremska: no points for 450s"
  ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (202s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 4 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 18 min ago",
+  "engine ran 25 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T10:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Zidansek: no points for 1721s",
+    "live tennis scores: tennis Galfi vs Gormaz: no points for 358s",
+    "live tennis scores: tennis Prozorova vs Sherif: no points for 2625s",
+    "live tennis scores: tennis Rakhimova vs Yastremska: no points for 450s"
+   ]
+  },
   {
    "at": "2026-10-17T10:10Z",
    "fixes": [],
@@ -575,17 +591,6 @@
    "fixes": [],
    "problems": [
     "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-15T13:48Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Steur vs Zidansek: no points for 2646s",
-    "live tennis scores: tennis Jorge vs Galfi: no points for 2646s",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
