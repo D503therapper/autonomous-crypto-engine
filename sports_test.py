@@ -11564,6 +11564,22 @@ def test_early_exam_scan_posts_only_the_band_the_exam_graded():
     assert 'v24.seen_all(cfin, g["home"], start, lg) and v24.seen_all(cfin, g["away"], start, lg)' in scan
 
 
+
+def test_a_gap_play_is_never_upgraded_to_the_dog_and_cards_never_say_a_win_pct():
+    """10/17 preview: BYU +320, a 🔍 1u play on the RAW read, got promoted to Dog of the Day at 2.5u by upgrade_dog
+    (its raw value dwarfed the real Dog's); and a card said "Rice at 61%" (the owner, 10/7: no win % ever)."""
+    import sports, inspect, sports_breakdown_v24 as v24, sports_owner_lingo as ol
+    from datetime import datetime, timezone
+    now = datetime(2026, 10, 17, 15, 0, tzinfo=timezone.utc)
+    leg = lambda team, odds, own: {"game_id": team, "side": "home", "team": team, "market": "ml", "odds": odds,
+                                   "dec": sports._dec(odds), "edge_own": own * sports._dec(odds) - 1, "p": 0.3,
+                                   "start": "2026-10-17T23:30Z"}
+    dog = {"date": "2026-10-17", "kind": "dog", "status": "open", "lean": False, "legs": [leg("BC", 195, 0.36)]}
+    gap = {"date": "2026-10-17", "kind": "play", "gap": 0.17, "status": "open", "lean": False, "legs": [leg("BYU", 320, 0.41)]}
+    picks = [dog, gap]
+    assert sports.upgrade_dog(picks, "2026-10-17", now) is None and dog["kind"] == "dog" and gap["kind"] == "play"
+    assert ol.SHOW_PCT_OVER >= 100 and "_ol.SHOW_PCT_OVER / 100" in inspect.getsource(v24)
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

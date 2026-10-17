@@ -989,7 +989,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         _own = _sp.read_of(leg) or leg["p"]
     except Exception:                                                    # noqa: BLE001
         _own = leg["p"]
-    wp = f"{round(100 * _own)}%" if _own > 0.55 else ""                 # (10/1, the owner: "50 out of 100, the price
+    import sports_owner_lingo as _ol                                    # (10/17: Rice's card said "Rice at 61%" -
+    wp = f"{round(100 * _own)}%" if _own > _ol.SHOW_PCT_OVER / 100 else ""   # the owner 10/7: NO win % ever)                 # (10/1, the owner: "50 out of 100, the price
     pos = f" {us} at {wp}." if wp else ""                                # needs 48" is jargon - plain words: does our
     _fact = "Our read beats this price." if not _need or _own > _need else "The price is too steep for units."
     if leg.get("near_price"):                                            # the always-a-Lock backup (the owner, 10/1):
