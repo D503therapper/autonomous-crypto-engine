@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T02:46Z",
+ "updated": "2026-10-17T03:03Z",
  "games": [
   {
    "id": "nba:401914126",
@@ -302,6 +302,21 @@
    "start": "2026-10-17T02:00Z",
    "away": "Trail Blazers",
    "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898719",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-17T02:30Z",
+   "away": "Nuggets",
+   "home": "Lakers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2433,8 +2448,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.818,
-    "tie": 0.021,
+    "p": 0.814,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2449,13 +2464,13 @@
     "opp": "Washington St",
     "market": "spread",
     "line": -18.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.503,
-    "win_p": 0.876,
+    "win_p": 0.872,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
+     "better QB play lately",
+     "sharp money moving this way"
     ]
    }
   },
@@ -3364,7 +3379,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.447,
+    "p": 0.451,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -3380,11 +3395,10 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -208,
-    "p": 0.609,
-    "win_p": 0.492,
+    "odds": -188,
+    "p": 0.605,
+    "win_p": 0.487,
     "reasons": [
-     "sharp money moving this way",
      "the stronger team"
     ]
    }
@@ -3621,7 +3635,7 @@
     "opp": "San Diego St",
     "market": "spread",
     "line": -7.5,
-    "odds": -105,
+    "odds": -102,
     "p": 0.5,
     "win_p": 0.643,
     "reasons": [
