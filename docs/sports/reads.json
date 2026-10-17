@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T15:52Z",
+ "updated": "2026-10-17T16:03Z",
  "games": [
   {
    "id": "ncaaf:401862802",
@@ -214,7 +214,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.359,
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -223,7 +223,7 @@
    "start": "2026-10-17T17:00Z",
    "away": "Devils",
    "home": "Capitals",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Devils",
@@ -231,9 +231,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -270,
-    "p": 0.7,
-    "win_p": 0.483,
-    "reasons": []
+    "p": 0.71,
+    "win_p": 0.494,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -670,7 +672,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Prairie View",
-    "p": 0.666,
+    "p": 0.662,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -679,19 +681,19 @@
    "start": "2026-10-17T19:00Z",
    "away": "Alcorn St",
    "home": "Prairie View",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Alcorn St",
-    "opp": "Prairie View",
-    "market": "spread",
-    "line": 6.5,
-    "odds": 116,
-    "p": 0.5,
-    "win_p": 0.264,
+    "team": "Prairie View",
+    "opp": "Alcorn St",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.712,
+    "win_p": 0.712,
     "reasons": [
-     "rolling off a blowout win",
-     "the stronger team"
+     "sharp money moving this way",
+     "better QB play lately"
     ]
    }
   },
