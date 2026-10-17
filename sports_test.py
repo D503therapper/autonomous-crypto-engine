@@ -4330,7 +4330,7 @@ def test_dog_upgrade_to_best_value():
     assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # the Dog's game is underway: it stays
     picks = [pk("dog", "Flames", 195, 0.355), pk("play", "Predators", 140, 0.44)]
     assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # +4.7% vs +5.6%: not 3 points better
-    picks = [pk("dog", "Flames", 195, 0.3415), pk("play", "Rays", 320, 0.40)]
+    picks = [pk("dog", "Flames", 195, 0.3415), pk("play", "Rays", 380, 0.34)]
     assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # past +300: never the Dog (10/10 - was +220)
 
 
@@ -5993,7 +5993,7 @@ def _capped_spots(se, cs, mk, tue):
 def _six_early_spots_rest(se, G, now, agree, rams, got, escape):
     late = datetime(2026, 10, 9, 18, 0, tzinfo=timezone.utc)                  # the Bills' number went fair Sun 10/4
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, late, own_of=agree, hist_dir=tempfile.mkdtemp()))   # late
-    big = {**G, "n3": {**G["n3"], "ml_away": "320", "ml_home": "-420"}}       # never past +300 (the owner, 10/10)
+    big = {**G, "n3": {**G["n3"], "ml_away": "380", "ml_home": "-500"}}       # never past +300 (the owner, 10/10)
     assert not any(c["team"] == "Bills" for c in se.spot_scan(big, now, own_of=agree, hist_dir=tempfile.mkdtemp()))
     # the box: the spot's name on the row, each spot's own record
     st = {"picks": [{**rams, "result": "won", "graded_at": "2026-10-13T04:00Z"},
@@ -6146,10 +6146,10 @@ def _dog_gate_checks():
     assert sports.units_for({"kind": "dog", "legs": [spotted]}) > 0
     cold = {**spotted, "dog_more": {"east_west": True, "fades": ["ice cold"]}}
     assert not sports.dog_gate(cold)                           # a fade takes it back under - weighed, never one factor
-    assert not sports.dog_gate({**spotted, "odds": 320, "dec": 4.2})   # never past +300 / the Dog's cap
+    assert not sports.dog_gate({**spotted, "odds": 370, "dec": 4.7})   # never past +350 / the Dog's cap
     assert sports.dog_gate({**spotted, "league": "ncaaf"})       # college football: 4+ (10/1, a lead - UConn +210)
     assert not sports.dog_gate({**base, "league": "ncaaf"})      # its read alone (+3) isn't enough
-    far = {**_cand("far", 320, 0.30), "edge_own": 0.36 * sd.decimal(320) - 1}
+    far = {**_cand("far", 380, 0.25), "edge_own": 0.30 * sd.decimal(380) - 1}
     assert not sports.viewer_leans([far], ())                   # a lean dog past +300: never (10/10 - was +220)
     hoops = {**base, "league": "ncaab", "edge_own": 0.46 * 2.5 - 1}
     assert sports.dog_gate(hoops)                              # college hoops: its own read 6 points over the price
@@ -6171,7 +6171,7 @@ def test_hockey_dogs_by_the_whole_score():
     assert b["dog"] and b["dog"]["legs"][0]["game_id"] == "hawks"
     assert sports.units_for({"kind": "dog", "legs": b["dog"]["legs"]}) >= 0.5
     assert sports.make_board([fav, dict(base)])["dog"] is None        # score 0: nothing says it's worth the price
-    assert sports.best_hockey_dog([{**mild, "odds": 320, "dec": 4.2}]) is None   # never past +300
+    assert sports.best_hockey_dog([{**mild, "odds": 370, "dec": 4.7}]) is None   # never past +350
 
 
 def test_calibration_never_goes_under_the_line():
@@ -9076,7 +9076,7 @@ def test_board_audit_10_2():
     assert "len(slate_games) == 1 and" in src
     assert 'c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005' in src
     assert 'DOG_MIN <= c["odds"] <= DAILY_DOG_MAX' in src and 'DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX' in src
-    assert "a small-school game the books skip" in src and sports.DAILY_DOG_MAX == 300
+    assert "a small-school game the books skip" in src and sports.DAILY_DOG_MAX == 350
     c = {"market": "ml", "odds": -110, "dec": 1.909, "p": 0.545, "edge": 0.04, "edge_own": 0.04, "game_id": "n"}
     keep = (sports.good, sports.real_value, sports.leg_tier, sports.fighting)
     try:
@@ -9477,7 +9477,7 @@ def test_hockey_favorite_check_only_for_pairs_the_weighing_covers():
         G = {"g": {"league": "nhl", "status": "pre", "start": "2026-10-08T00:00Z", "home_name": "Panthers", "indoor": "1",
                    "odds_time": "2026-10-07T14:30Z", "ml_home": "-380", "ml_home_open": "-380"}}
         cs = [{**_cand("g", -380, 0.78, league="nhl"), "game_id": "g", "side": "home"},
-              {**_cand("g", 320, 0.22, league="nhl"), "game_id": "g", "side": "away"}]   # (past the +300 dog cap, 10/10)
+              {**_cand("g", 380, 0.19, league="nhl"), "game_id": "g", "side": "away"}]   # (past the +300 dog cap, 10/10)
         probs = sports.factor_check(G, cs, {"nhl": {"1": []}}, date(2026, 10, 7), now)
         assert not any("weren't weighed" in p for p in probs), probs
         cs[1]["odds"] = 190                                      # a dog the weighing covers and no w_p: still caught
@@ -10486,12 +10486,12 @@ def test_rule_check_enforces_the_owners_pick_rules():
         if kind == "dog":
             leg["dog_p"] = p + 0.08
         return {"kind": kind, "date": "2026-10-11", "status": "open", "lean": lean, "legs": [leg]}
-    new = [pk("play", -105, market="spread"), pk("play", 340), pk("lean", -142, league="ncaaf", lean=True, p=0.57),
+    new = [pk("play", -105, market="spread"), pk("play", 390), pk("lean", -142, league="ncaaf", lean=True, p=0.57),
            pk("play", 150), pk("lean", -125, league="ncaaf", lean=True, p=0.55), pk("dog", 220)]
     probs = sports.rule_check(list(new), new, "2026-10-11")
     kinds = [(p["kind"], p["legs"][0]["odds"]) for p in new]
     assert ("play", -105) not in kinds and any("off the moneyline" in x for x in probs)
-    assert ("play", 340) not in kinds and any("past +300" in x for x in probs)
+    assert ("play", 390) not in kinds and any("past +350" in x for x in probs)
     assert ("lean", -142) not in kinds and any("college favorite lean" in x for x in probs)
     assert ("play", 150) in kinds and ("lean", -125) in kinds and ("dog", 220) in kinds
 

@@ -991,8 +991,8 @@ TIERS = ("lean", "value", "lock")
 STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that = SLIGHT LEAN (a lean on the board = 🟡)
 
 
-DOG_DAY_MAX = 300            # the owner: no dog past +300 (10/10 - was +280)
-DAILY_DOG_MAX = 300          # ...and the every-day Dog (and the dog gate) +100..+300 (the owner, 10/10: "I want the new limit to be +300" - was +220; 10/1: "never no +400")
+DOG_DAY_MAX = 350            # the owner: no dog past +350 (10/17, BYU +320 vs Notre Dame: "I'm changing the rule to +350" - was +300 from 10/10, +280 before)
+DAILY_DOG_MAX = 350          # (10/17: +350) ...and the every-day Dog (and the dog gate) +100..+350 (the owner, 10/10: "I want the new limit to be +300" - was +220; 10/1: "never no +400")
 
 
 LAST_RAW = []
@@ -2212,13 +2212,13 @@ def plays(cands, avoid):
 
 
 GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
-GAP_MIN = 0.10            # 30%, won 31-17 after we pulled it): a college dog +100..+300 whose OWN read is 10+ points over
+GAP_MIN = 0.10            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 10+ points over
 GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
 GAP_LEAGUES = ("ncaaf",)  # (History says these lose - 1-6 live through 10/16 - the owner's call, 10/17.)
 
 
 def gap_plays(cands, avoid):
-    """🔍 Every college dog +100..+300 the engine's own read has 10+ points over the books (biggest gap first), one per
+    """🔍 Every college dog +100..+350 the engine's own read has 10+ points over the books (biggest gap first), one per
     game, never a game in `avoid`, never a trap."""
     pool = []
     for c in cands:
