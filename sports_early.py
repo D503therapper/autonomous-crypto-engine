@@ -214,6 +214,24 @@ def moved_toward(open_ml, now_ml):
     return open_ml - now_ml                          # +160 -> +140 = 20 cents toward the dog
 
 
+def exam_band_ok(bands_lg, own, odds, mkt, open_odds=None, opp_open=None):
+    """Is this dog in a PROVEN exam band - at the price now AND at the EARLY price the exam graded (the open)?
+    10/17: the exam grades every dog by how far the read beat its OPEN price, but the scan posted by the gap at the price
+    NOW - Tennessee +270 (10/16) read 15 points UNDER its +100 open (the band only opened once the market ran to +270),
+    San Diego St +245 read 8.7 over its +260 open (the +8+ band, which FAILED the exam) and slid into +4..8 as the price
+    came in. Blind 2024-26 (the exam's own walk-forward): the dogs in +4..8 at the close but NOT at the open ran -6.3%
+    on 41 (the 37 the market had moved away from: -2.8%); the exam's own 60 ran +7.4% at the open, +19.6% at the close.
+    The scan posts what the exam proved. No open on record = the price now is the early price."""
+    gap = own - mkt
+    if not any(lo <= gap < hi and omin <= odds <= omax for lo, hi, omin, omax in map(band, bands_lg)):
+        return False
+    if open_odds is None or opp_open is None:
+        return True
+    a, b = _imp(open_odds), _imp(opp_open)
+    gap_o = own - a / (a + b)
+    return any(lo <= gap_o < hi and omin <= open_odds <= omax for lo, hi, omin, omax in map(band, bands_lg))
+
+
 def scan(games, model, now=None, injuries=None, trap=None):
     """-> the NEW early value dogs right now (not yet posted), each {game_id, league, side, team, opp, odds, open,
     own, mkt, gap, start}."""
@@ -222,6 +240,7 @@ def scan(games, model, now=None, injuries=None, trap=None):
     model = {"params": {**(model.get("params") or {}), **{lg: p for lg, p in recent_params(games, now).items()}}}
     elo = sm.ratings(games, model)
     out = []
+    cfin = None
     for g in games.values():
         lg = g.get("league")
         if lg not in bands or g.get("status") != "pre" or (g.get("stype") or "?") not in sd.REAL:
@@ -244,15 +263,23 @@ def scan(games, model, now=None, injuries=None, trap=None):
         f = elo[lg].features(g)
         if f.get("known", 0) < 3:
             continue
+        if lg == "ncaaf":                            # (10/17) a college team whose games we don't all hold gets no
+            if cfin is None:                         # early play (CLAUDE.md: seen_all) - the spots checked, the exam
+                cfin = [x for x in games.values() if x.get("league") == "ncaaf" and x.get("status") == "final"
+                        and (x.get("stype") or "?") in sd.REAL and _t(x["start"]) < now]   # scan never did
+            import sports_breakdown_v24 as v24
+            if not (v24.seen_all(cfin, g["home"], start, lg) and v24.seen_all(cfin, g["away"], start, lg)):
+                continue
         own = sm.own_p(params, f)                    # the engine's OWN read (the model the exam graded)
         inj = (injuries or {}).get(lg)
         for side, o_mkt, o_own in (("home", mkt, own), ("away", 1 - mkt, 1 - own)):
+            other = "away" if side == "home" else "home"
             odds = _int(g.get(f"ml_{side}"))
             if odds is None or not DOG_MIN <= odds <= DOG_MAX:
                 continue
             gap = o_own - o_mkt
-            if not any(lo <= gap < hi and omin <= odds <= omax for lo, hi, omin, omax in map(band, bands[lg])):
-                continue
+            if not exam_band_ok(bands[lg], o_own, odds, o_mkt, _int(g.get(f"ml_{side}_open")), _int(g.get(f"ml_{other}_open"))):
+                continue                             # in a proven band now AND at the early price the exam graded
             if lg == "mlb" and not (g.get("sp_home") and g.get("sp_away")):
                 continue                             # baseball: both starting pitchers announced, or no read at all
             if moved_toward(_int(g.get(f"ml_{side}_open")), odds) > MOVED_MAX:
@@ -266,7 +293,6 @@ def scan(games, model, now=None, injuries=None, trap=None):
                                                      # good because the book's guessing he plays - then he's ruled out)
             if trap and trap(lg, odds, side == "home"):
                 continue
-            other = "away" if side == "home" else "home"
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"],
                         "opp": g[f"{other}_name"], "odds": odds, "opp_odds": _int(g.get(f"ml_{other}")), "sp": g.get(f"sp_{side}") or None, "open": _int(g.get(f"ml_{side}_open")),
                         "own": round(o_own, 4), "mkt": round(o_mkt, 4), "gap": round(gap, 4), "start": g["start"]})

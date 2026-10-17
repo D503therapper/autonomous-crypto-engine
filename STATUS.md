@@ -3,6 +3,12 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/17 - the six open early plays audited (the owner: "huge underdogs, upper 200s, at two units") - SPORTS_FINDINGS.md 10/17
+- The 2u plays (Tennessee +270, San Diego St +245) are the college EXAM BAND (sports_early.scan), sized by quarter-Kelly on the RAW own read - the rule as written, on the read the 10/15-10/16 studies showed the market beats. The band passed at the bare minimum (60 dogs / 20 / +2.8%) at 16:38Z on 10/16, three hours after failing (53 dogs -9.4%); one 2025-26 result flips it.
+- FIXED (worktree, test_early_exam_scan_posts_only_the_band_the_exam_graded): the scan posted by the gap at the price NOW while the exam grades the gap at the OPEN - the scan-only dogs ran -6.3% blind (41) vs +19.6% for the exam's own. Now the band must hold at the early price too (sports_early.exam_band_ok); the exam scan also asks college completeness (seen_all) like the spots. Would have blocked Tennessee (-14.8 at its +100 open) and San Diego St (+8.7 = the failed +8+ band). Posted picks untouched.
+- Ranking best to worst: Kentucky +195 1u, Boston College +215 1u, Marshall +114 1u, BYU +300 ½u, San Diego St +245 2u, Tennessee +270 2u (starting QB Faizon Brandon questionable on the Thursday SEC report, filed 19 minutes after the post).
+- OWNER'S CALLS: (1) exam-band plays flat 1u (on the band's own 60 dogs flat +7.4% vs Kelly +2.9%; the 2u-sized went 9-15); (2) whether a knife-edge band should carry 6u this week; (3) the NFL blowout spot is still ON in code (blind -12.5%, live 1-8).
+
 ## 10/16 (PT morning) - injury reports filled for Sat 10/17: 19 teams, all read from the pages
 - Official reports (SEC / Big Ten / ACC / Big 12 / Mountain West, Wed-Thu): Alabama, Tennessee, Michigan, Penn State, Ohio State, Indiana (Wed list only), Michigan St, Northwestern, Duke, North Carolina, Pitt, Louisville, Syracuse, Utah, Colorado, New Mexico, Hawai'i. Team news (Mon 10/12): Notre Dame, BYU. Friday-night and Saturday game-day reports will move statuses - the next routine refreshes them.
 - Still nothing (no named list found on a readable public page): Boston College (Pitt's side is in), Wake Forest / Cal, Fresno St / San Diego St, Navy / UTSA, UTEP / San José St, Ohio / Sacramento St, the MAC games, Rice / Tulsa, Sun Belt games, the FCS slate. Covers/Rotowire on game day carries FBS.
