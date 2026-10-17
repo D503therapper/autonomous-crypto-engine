@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T17:13Z",
+ "updated": "2026-10-17T17:23Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -386,6 +386,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892519",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-17T17:00Z",
+   "away": "Devils",
+   "home": "Capitals",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868002",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -708,7 +723,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama St",
-    "p": 0.505,
+    "p": 0.504,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -724,7 +739,7 @@
     "opp": "AR-Pine Bluff",
     "market": "ml",
     "line": null,
-    "odds": -150,
+    "odds": -149,
     "p": 0.504,
     "win_p": 0.504,
     "reasons": [
@@ -1257,7 +1272,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Wyoming",
-    "p": 0.671,
+    "p": 0.663,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1266,16 +1281,16 @@
    "start": "2026-10-17T19:30Z",
    "away": "N Illinois",
    "home": "Wyoming",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Wyoming",
     "opp": "N Illinois",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.722,
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
      "the stronger team"
     ]
@@ -2057,8 +2072,8 @@
     "team": "South Florida",
     "opp": "Kent State",
     "market": "spread",
-    "line": -20.5,
-    "odds": -112,
+    "line": -21.0,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.899,
     "reasons": [
@@ -3015,7 +3030,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Wake Forest",
-    "p": 0.687,
+    "p": 0.697,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -3030,14 +3045,14 @@
     "team": "Wake Forest",
     "opp": "California",
     "market": "spread",
-    "line": -10.0,
-    "odds": -112,
+    "line": -10.5,
+    "odds": -108,
     "p": 0.501,
-    "win_p": 0.68,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team",
      "better QB play lately",
-     "rolling off a blowout win"
+     "sharp money moving this way"
     ]
    }
   },
@@ -3428,7 +3443,7 @@
     "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -155,
+    "odds": -162,
     "p": 0.617,
     "win_p": 0.397,
     "reasons": [
