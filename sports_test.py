@@ -11040,11 +11040,11 @@ def test_two_boards_a_minute_apart_keep_one_pick_per_game():
     for out in (sports.dedupe_picks(first + second), merge_json.merge_picks(first, second, [])):
         got = sorted((p["kind"], p["legs"][0]["team"]) for p in out)
         assert got == sorted(want), got
-    # a graded Lock and the next round's Lock both stay; the day already posted (10/17) is left as it is
+    # a graded Lock and the next round's Lock both stay; days before the fix (10/16) are left as they are
     g = {**mk("lock", "w", "Wisconsin", "2026-10-18T15:00Z"), "status": "won"}
     g["legs"][0]["result"] = "won"
     assert len(sports.dedupe_picks([g, {**mk("lock", "q", "Q", "2026-10-18T19:00Z"), "round": 2}])) == 2
-    old = [{**p, "date": "2026-10-17"} for p in first + second]
+    old = [{**p, "date": "2026-10-16"} for p in first + second]
     assert len(sports.dedupe_picks(old)) == 6
 
 

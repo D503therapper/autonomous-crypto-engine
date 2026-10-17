@@ -3838,7 +3838,7 @@ def dedupe_picks(picks):
     return one_per_game(drop_stale_dogs(out))
 
 
-RACE_FROM = "2026-10-18"       # (10/17: the owner's call on the board already up)
+RACE_FROM = "2026-10-17"       # (10/17: the owner - "this needs fixed", the double-posted board too)
 
 
 def one_per_game(picks):
