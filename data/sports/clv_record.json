@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 73,
-  "beat": 23,
+  "n": 74,
+  "beat": 24,
   "same": 26,
   "worse": 24,
-  "avg_pts": 0.08
+  "avg_pts": 0.11
  },
  "unit_plays": {
   "n": 31,
@@ -22,11 +22,11 @@
    "avg_pts": 0.12
   },
   "lean": {
-   "n": 42,
-   "beat": 13,
+   "n": 43,
+   "beat": 14,
    "same": 12,
    "worse": 17,
-   "avg_pts": -0.09
+   "avg_pts": -0.04
   },
   "lock": {
    "n": 10,
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 15,
-   "beat": 5,
+   "n": 16,
+   "beat": 6,
    "same": 6,
    "worse": 4,
-   "avg_pts": 0.25
+   "avg_pts": 0.38
   },
   "nfl": {
    "n": 12,
@@ -1110,6 +1110,20 @@
    "close": -148,
    "pts": 1.0,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Coastal",
+   "market": "ml",
+   "line": null,
+   "odds": -102,
+   "close": -112,
+   "pts": 2.3,
+   "units": 0,
    "result": "lost"
   },
   {

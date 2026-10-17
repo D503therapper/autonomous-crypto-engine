@@ -13013,6 +13013,7 @@
      "game:conf"
     ],
     "dec": 1.9803921568627452,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13034,6 +13035,10 @@
     "edge_own": 0.006053628031816638,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,0,14,7",
+     "h": "7,17,0,8"
+    },
     "form_state": [
      6.0,
      1,
@@ -13073,9 +13078,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "App State 35 @ Coastal 32",
+    "settled": "2026-10-17T03:26Z",
     "side": "home",
     "start": "2026-10-17T00:00Z",
     "stype": "2",
@@ -13102,12 +13109,14 @@
    }
   ],
   "p_hit": 0.5014,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-16T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T03:26Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
