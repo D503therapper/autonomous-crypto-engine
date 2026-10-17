@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 75,
+  "n": 76,
   "beat": 24,
-  "same": 27,
+  "same": 28,
   "worse": 24,
   "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 31,
+  "n": 32,
   "beat": 10,
-  "same": 14,
+  "same": 15,
   "worse": 7,
-  "avg_pts": 0.32
+  "avg_pts": 0.31
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 8,
+   "n": 9,
    "beat": 2,
-   "same": 4,
+   "same": 5,
    "worse": 2,
-   "avg_pts": 0.05
+   "avg_pts": 0.04
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 16,
+   "n": 17,
    "beat": 6,
-   "same": 6,
+   "same": 7,
    "worse": 4,
-   "avg_pts": 0.38
+   "avg_pts": 0.35
   },
   "nfl": {
    "n": 12,
@@ -1153,6 +1153,20 @@
    "pts": -0.4,
    "units": 0,
    "result": "push"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "FAU",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 110,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }

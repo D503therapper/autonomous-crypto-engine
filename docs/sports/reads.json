@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T19:28Z",
+ "updated": "2026-10-17T19:47Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -190,8 +190,8 @@
    "away": "Kansas",
    "home": "Kansas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -836,6 +836,36 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401866478",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:30Z",
+   "away": "Akron",
+   "home": "Miami OH",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401867961",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:30Z",
+   "away": "Morehouse",
+   "home": "Howard",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401866444",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -861,6 +891,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401866667",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T19:30Z",
+   "away": "Towson",
+   "home": "Campbell",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401864524",
@@ -891,125 +936,19 @@
    }
   },
   {
-   "id": "nhl:401892521",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.506,
-    "tie": 0.278,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-17T20:00Z",
-   "away": "Canucks",
-   "home": "Lightning",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lightning",
-    "opp": "Canucks",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -162,
-    "p": 0.609,
-    "win_p": 0.793,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401867849",
+   "id": "ncaaf:401868012",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Illinois St",
-    "p": 0.579,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-17T20:00Z",
-   "away": "Illinois St",
-   "home": "S Illinois",
-   "why": "no_value",
+   "start": "2026-10-17T19:30Z",
+   "away": "Villanova",
+   "home": "Fordham",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Illinois St",
-    "opp": "S Illinois",
-    "market": "ml",
-    "line": null,
-    "odds": -225,
-    "p": 0.556,
-    "win_p": 0.556,
-    "reasons": [
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868310",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "SF Austin",
-    "p": 0.853,
-    "tie": 0.019,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-17T20:00Z",
-   "away": "SF Austin",
-   "home": "Nicholls",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "SF Austin",
-    "opp": "Nicholls",
-    "market": "spread",
-    "line": -22.5,
-    "odds": -113,
-    "p": 0.503,
-    "win_p": 0.848,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868289",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "San Diego",
-    "p": 0.644,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-17T20:00Z",
-   "away": "Valparaiso",
-   "home": "San Diego",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "San Diego",
-    "opp": "Valparaiso",
-    "market": "ml",
-    "line": null,
-    "odds": -269,
-    "p": 0.692,
-    "win_p": 0.692,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401862805",
@@ -1017,7 +956,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tulsa",
-    "p": 0.581,
+    "p": 0.579,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1034,8 +973,8 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.557,
-    "win_p": 0.557,
+    "p": 0.555,
+    "win_p": 0.555,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1077,7 +1016,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Long Island",
-    "p": 0.616,
+    "p": 0.614,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1094,8 +1033,8 @@
     "market": "ml",
     "line": null,
     "odds": -259,
-    "p": 0.599,
-    "win_p": 0.599,
+    "p": 0.597,
+    "win_p": 0.597,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1116,8 +1055,8 @@
    "start": "2026-10-17T21:00Z",
    "away": "Troy",
    "home": "Louisiana",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Louisiana",
     "opp": "Troy",
@@ -1168,8 +1107,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Youngstown St",
-    "p": 0.839,
-    "tie": 0.02,
+    "p": 0.775,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1186,7 +1125,7 @@
     "line": -20.5,
     "odds": -115,
     "p": 0.503,
-    "win_p": 0.896,
+    "win_p": 0.834,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1232,7 +1171,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Morgan St",
-    "p": 0.591,
+    "p": 0.59,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1249,8 +1188,8 @@
     "market": "ml",
     "line": null,
     "odds": -228,
-    "p": 0.57,
-    "win_p": 0.57,
+    "p": 0.569,
+    "win_p": 0.569,
     "reasons": [
      "the stronger team"
     ]
@@ -1262,7 +1201,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Abilene Chrstn",
-    "p": 0.517,
+    "p": 0.519,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1290,8 +1229,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Vanderbilt",
-    "p": 0.62,
-    "tie": 0.032,
+    "p": 0.566,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1299,7 +1238,7 @@
    "start": "2026-10-17T23:00Z",
    "away": "Arkansas",
    "home": "Vanderbilt",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Vanderbilt",
@@ -1307,8 +1246,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "the stronger team"
     ]
@@ -1337,8 +1276,8 @@
     "market": "ml",
     "line": null,
     "odds": -230,
-    "p": 0.575,
-    "win_p": 0.575,
+    "p": 0.574,
+    "win_p": 0.574,
     "reasons": []
    }
   },
@@ -1348,8 +1287,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tarleton St",
-    "p": 0.808,
-    "tie": 0.022,
+    "p": 0.744,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1366,7 +1305,7 @@
     "line": -19.5,
     "odds": -111,
     "p": 0.503,
-    "win_p": 0.866,
+    "win_p": 0.802,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1379,8 +1318,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Hou Christian",
-    "p": 0.542,
-    "tie": 0.033,
+    "p": 0.491,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1388,7 +1327,7 @@
    "start": "2026-10-17T23:00Z",
    "away": "East Texas A&M",
    "home": "Hou Christian",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Hou Christian",
@@ -1396,8 +1335,8 @@
     "market": "ml",
     "line": null,
     "odds": -151,
-    "p": 0.571,
-    "win_p": 0.571,
+    "p": 0.51,
+    "win_p": 0.51,
     "reasons": [
      "the stronger team"
     ]
@@ -1409,8 +1348,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Miami",
-    "p": 0.849,
-    "tie": 0.019,
+    "p": 0.784,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1427,7 +1366,7 @@
     "line": -19.5,
     "odds": -115,
     "p": 0.503,
-    "win_p": 0.904,
+    "win_p": 0.843,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1469,8 +1408,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Florida",
-    "p": 0.843,
-    "tie": 0.019,
+    "p": 0.779,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1487,7 +1426,7 @@
     "line": -21.0,
     "odds": -105,
     "p": 0.503,
-    "win_p": 0.899,
+    "win_p": 0.838,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1501,7 +1440,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Mercer",
-    "p": 0.739,
+    "p": 0.735,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1519,7 +1458,7 @@
     "line": -14.0,
     "odds": -118,
     "p": 0.501,
-    "win_p": 0.737,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1532,8 +1471,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana St",
-    "p": 0.81,
-    "tie": 0.022,
+    "p": 0.804,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1550,7 +1489,7 @@
     "line": -20.5,
     "odds": 104,
     "p": 0.503,
-    "win_p": 0.809,
+    "win_p": 0.802,
     "reasons": [
      "the stronger team"
     ]
@@ -1562,7 +1501,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "N Dakota St",
-    "p": 0.723,
+    "p": 0.717,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1580,7 +1519,7 @@
     "line": -14.5,
     "odds": -112,
     "p": 0.502,
-    "win_p": 0.78,
+    "win_p": 0.773,
     "reasons": [
      "the stronger team"
     ]
@@ -1592,8 +1531,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "N Arizona",
-    "p": 0.817,
-    "tie": 0.022,
+    "p": 0.753,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1610,7 +1549,7 @@
     "line": -17.5,
     "odds": -118,
     "p": 0.502,
-    "win_p": 0.875,
+    "win_p": 0.812,
     "reasons": [
      "the stronger team"
     ]
@@ -1770,7 +1709,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Baylor",
-    "p": 0.552,
+    "p": 0.549,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1787,8 +1726,8 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.584,
-    "win_p": 0.584,
+    "p": 0.58,
+    "win_p": 0.58,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1832,8 +1771,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Stanford",
-    "p": 0.931,
-    "tie": 0.01,
+    "p": 0.852,
+    "tie": 0.019,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1850,7 +1789,7 @@
     "line": -35.5,
     "odds": -110,
     "p": 0.506,
-    "win_p": 0.968,
+    "win_p": 0.907,
     "reasons": [
      "the stronger team"
     ]
@@ -1862,8 +1801,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma",
-    "p": 0.639,
-    "tie": 0.031,
+    "p": 0.587,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1871,7 +1810,7 @@
    "start": "2026-10-17T23:30Z",
    "away": "Kentucky",
    "home": "Oklahoma",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Oklahoma",
@@ -1879,8 +1818,8 @@
     "market": "ml",
     "line": null,
     "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
      "the stronger team"
     ]
@@ -1892,7 +1831,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.756,
+    "p": 0.751,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -1910,7 +1849,7 @@
     "line": -14.5,
     "odds": -105,
     "p": 0.502,
-    "win_p": 0.755,
+    "win_p": 0.749,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1924,7 +1863,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Notre Dame",
-    "p": 0.684,
+    "p": 0.682,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1942,7 +1881,7 @@
     "line": -10.5,
     "odds": -105,
     "p": 0.501,
-    "win_p": 0.677,
+    "win_p": 0.674,
     "reasons": [
      "rolling off a blowout win",
      "better QB play lately"
@@ -2077,8 +2016,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisiana Tech",
-    "p": 0.744,
-    "tie": 0.026,
+    "p": 0.74,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2095,7 +2034,7 @@
     "line": -13.5,
     "odds": -112,
     "p": 0.501,
-    "win_p": 0.742,
+    "win_p": 0.738,
     "reasons": [
      "the stronger team"
     ]
@@ -2107,8 +2046,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UTSA",
-    "p": 0.634,
-    "tie": 0.031,
+    "p": 0.58,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2116,7 +2055,7 @@
    "start": "2026-10-18T00:00Z",
    "away": "Navy",
    "home": "UTSA",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "UTSA",
@@ -2124,8 +2063,8 @@
     "market": "ml",
     "line": null,
     "odds": -245,
-    "p": 0.681,
-    "win_p": 0.681,
+    "p": 0.617,
+    "win_p": 0.617,
     "reasons": [
      "the stronger team"
     ]
@@ -2226,7 +2165,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "San Jos\u00e9 St",
-    "p": 0.624,
+    "p": 0.623,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2256,8 +2195,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ohio",
-    "p": 0.762,
-    "tie": 0.025,
+    "p": 0.758,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2274,7 +2213,7 @@
     "line": -15.5,
     "odds": -108,
     "p": 0.502,
-    "win_p": 0.761,
+    "win_p": 0.756,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2347,8 +2286,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.777,
-    "tie": 0.024,
+    "p": 0.771,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2365,7 +2304,7 @@
     "line": -14.5,
     "odds": -112,
     "p": 0.502,
-    "win_p": 0.776,
+    "win_p": 0.77,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -2379,7 +2318,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Fresno St",
-    "p": 0.637,
+    "p": 0.635,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2396,8 +2335,8 @@
     "market": "ml",
     "line": null,
     "odds": -290,
-    "p": 0.623,
-    "win_p": 0.623,
+    "p": 0.621,
+    "win_p": 0.621,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2410,7 +2349,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.751,
+    "p": 0.747,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -2428,7 +2367,7 @@
     "line": -14.5,
     "odds": -110,
     "p": 0.502,
-    "win_p": 0.749,
+    "win_p": 0.745,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -2442,7 +2381,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Wake Forest",
-    "p": 0.694,
+    "p": 0.689,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2460,7 +2399,7 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.688,
+    "win_p": 0.683,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -2474,7 +2413,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.534,
+    "p": 0.541,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2483,7 +2422,7 @@
    "start": "2026-10-18T03:00Z",
    "away": "Nebraska",
    "home": "Oregon",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Oregon",
@@ -2491,8 +2430,8 @@
     "market": "ml",
     "line": null,
     "odds": -258,
-    "p": 0.562,
-    "win_p": 0.562,
+    "p": 0.57,
+    "win_p": 0.57,
     "reasons": [
      "the stronger team"
     ]
@@ -2595,7 +2534,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Panthers",
-    "p": 0.561,
+    "p": 0.558,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2611,9 +2550,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately",
