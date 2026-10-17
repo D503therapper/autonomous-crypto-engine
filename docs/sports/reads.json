@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T01:10Z",
+ "updated": "2026-10-17T01:25Z",
  "games": [
   {
    "id": "nba:401914126",
@@ -172,7 +172,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "void"
    }
   },
   {
@@ -229,6 +229,21 @@
    "start": "2026-10-17T00:30Z",
    "away": "Columbia",
    "home": "Penn",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892517",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-17T01:00Z",
+   "away": "Penguins",
+   "home": "Avalanche",
    "h1": null,
    "why": "started",
    "done": false,
@@ -667,7 +682,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ohio State",
-    "p": 0.551,
+    "p": 0.529,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -683,9 +698,9 @@
     "opp": "Indiana",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.522,
-    "win_p": 0.522,
+    "odds": -148,
+    "p": 0.508,
+    "win_p": 0.508,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
@@ -3308,6 +3323,36 @@
     "odds": -258,
     "p": 0.691,
     "win_p": 0.691,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908027",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Rays",
+    "p": 0.462,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-18T00:00Z",
+   "away": "Rays",
+   "home": "Guardians",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Guardians",
+    "opp": "Rays",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -175,
+    "p": 0.593,
+    "win_p": 0.474,
     "reasons": [
      "the stronger team"
     ]

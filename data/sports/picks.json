@@ -13163,6 +13163,10 @@
     "edge_own": -0.03438007296628631,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "",
+     "h": ""
+    },
     "form_state": [
      -1.0,
      -1,
@@ -13206,9 +13210,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "void",
     "revenge": false,
     "road_opener": false,
+    "score": "Rays  @ Guardians ",
+    "settled": "2026-10-17T01:18Z",
     "side": "away",
     "start": "2026-10-17T00:00Z",
     "stype": "3",
@@ -13228,8 +13234,11 @@
   "pnl": 0.0,
   "posted": "2026-10-16T15:07Z",
   "round": 1,
+  "settled": "2026-10-17T01:18Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "push",
+  "tier": "lean",
+  "units": 0,
+  "void": true
  }
 ]
