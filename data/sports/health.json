@@ -1,30 +1,44 @@
 {
- "at": "2026-10-17T03:21Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+ "at": "2026-10-17T04:53Z",
+ "fixes": [],
+ "problems": [
+  "live tennis scores: tennis Grant vs Ito: no points for 2565s",
+  "live tennis scores: tennis Kobori vs Kraus: no points for 1990s",
+  "live tennis scores: tennis Sawashiro vs Liu: no points for 674s",
+  "live tennis scores: tennis Saigo vs Dart: no points for 362s"
  ],
- "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 7 of 7 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "slate check: all 8 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 14 min ago",
+  "studies ran 1h ago",
+  "simulator ran 7h ago",
+  "engine ran 8 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-17T04:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grant vs Ito: no points for 2565s",
+    "live tennis scores: tennis Kobori vs Kraus: no points for 1990s",
+    "live tennis scores: tennis Sawashiro vs Liu: no points for 674s",
+    "live tennis scores: tennis Saigo vs Dart: no points for 362s"
+   ]
+  },
   {
    "at": "2026-10-17T03:21Z",
    "fixes": [
@@ -546,11 +560,6 @@
   },
   {
    "at": "2026-10-15T06:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T04:42Z",
    "fixes": [],
    "problems": []
   }
