@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T15:37Z",
+ "updated": "2026-10-17T15:38Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -208,8 +208,8 @@
     "team": "Texas",
     "opp": "Florida",
     "market": "spread",
-    "line": -11.5,
-    "odds": -112,
+    "line": -12.5,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.787,
     "reasons": [
@@ -409,8 +409,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ohio State",
-    "p": 0.523,
-    "tie": 0.033,
+    "p": 0.514,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -425,12 +425,12 @@
     "opp": "Indiana",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.507,
-    "win_p": 0.507,
+    "odds": -142,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
-     "sharp money moving this way",
      "rolling off a blowout win",
+     "sharp money moving this way",
      "better QB play lately"
     ]
    }
@@ -776,7 +776,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Monmouth",
-    "p": 0.649,
+    "p": 0.632,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -785,17 +785,20 @@
    "start": "2026-10-17T17:00Z",
    "away": "Monmouth",
    "home": "New Hampshire",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "New Hampshire",
-    "opp": "Monmouth",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.303,
-    "reasons": []
+    "team": "Monmouth",
+    "opp": "New Hampshire",
+    "market": "ml",
+    "line": null,
+    "odds": -288,
+    "p": 0.617,
+    "win_p": 0.617,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately"
+    ]
    }
   },
   {
