@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 79,
+  "n": 80,
   "beat": 25,
   "same": 29,
-  "worse": 25,
-  "avg_pts": 0.12
+  "worse": 26,
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 35,
+  "n": 36,
   "beat": 11,
   "same": 16,
-  "worse": 8,
-  "avg_pts": 0.33
+  "worse": 9,
+  "avg_pts": 0.26
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 11,
+   "n": 12,
    "beat": 3,
    "same": 6,
-   "worse": 2,
-   "avg_pts": 0.22
+   "worse": 3,
+   "avg_pts": 0.03
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 20,
+   "n": 21,
    "beat": 7,
    "same": 8,
-   "worse": 5,
-   "avg_pts": 0.37
+   "worse": 6,
+   "avg_pts": 0.26
   },
   "nfl": {
    "n": 12,
@@ -1193,6 +1193,20 @@
    "odds": 130,
    "close": 120,
    "pts": 2.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "E Michigan",
+   "market": "ml",
+   "line": null,
+   "odds": 210,
+   "close": 230,
+   "pts": -2.0,
    "units": 1.0,
    "result": "lost"
   },
