@@ -11500,6 +11500,25 @@ def test_college_favorite_off_a_win_vs_a_team_off_a_loss_is_a_weight_not_a_trigg
         assert not b.get("fav_form_spot"), bad
     assert "college fav off a win vs a team off a loss" in sports_leads.tags(a, sports)
 
+
+def test_game_specific_sickness_news_goes_stale_once_the_team_has_played():
+    """10/17: the Packers card said "Sickness going around the Cowboys: 'Cowboys say sick Joey Porter Jr. won't face Bucs
+    on TNF'" - a 10/8 story about a game the Cowboys already played. A sickness story dated before the team's last game
+    is dropped; a suspension (lasts) stays."""
+    import sports
+    keep = dict(sports.LAST_STARTS)
+    try:
+        sports.LAST_STARTS[("nfl", "6")] = ["2026-10-09T00:15Z", "2026-10-12T17:00Z"]
+        sick = {"date": "2026-10-08", "kind": "illness", "headline": "Cowboys say sick Joey Porter Jr. won't face Bucs on 'TNF'"}
+        susp = {"date": "2026-10-08", "kind": "suspension", "headline": "X suspended 3 games"}
+        out = sports.fresh_drama([sick, susp], "nfl", "6", "2026-10-18T20:25Z")
+        assert out == [susp]
+        fresh = {**sick, "date": "2026-10-15"}
+        assert sports.fresh_drama([fresh], "nfl", "6", "2026-10-18T20:25Z") == [fresh]   # news since their last game
+        assert sports.fresh_drama([sick], "nfl", "99", "2026-10-18T20:25Z") == [sick]   # no schedule known: kept
+    finally:
+        sports.LAST_STARTS.clear(); sports.LAST_STARTS.update(keep)
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

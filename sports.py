@@ -415,6 +415,16 @@ COACH = {}                     # {(league, team): (coach's years, new with the t
 ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
 PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
 LAST_STARTS = {}               # {(league, team): [starts]} - the back-to-back check (sports_form)
+GAME_NEWS_KINDS = ("illness",)   # news about ONE game (who's sick for it) - stale once the team has played since
+
+
+def fresh_drama(events, lg, team, start):
+    """Drama still true for THIS game (10/17: the Packers card said "sickness going around the Cowboys" off a 10/8
+    headline - "sick Joey Porter Jr. won't face Bucs on TNF" - a game the Cowboys already played): a sickness story
+    dated before the team's last game is dropped; suspensions, holdouts and the rest stay their DRAMA_DAYS."""
+    prev = [s for k in ((lg, team), (lg, str(team))) for s in LAST_STARTS.get(k, []) if s < start]
+    last = max(prev)[:10] if prev else None
+    return [e for e in events if not (e.get("kind") in GAME_NEWS_KINDS and last and e.get("date", "") < last)]
 TEAM_STATE = {}                # {(league, team): (last margin, streak)} - the overreaction angle (sports_form)
 HOT_KEY = {}                   # {game id: 'home'/'away'} - that side's goalie (NHL) / stars (NBA) are much hotter
 HOT_W = 0.03                   # (sports_form: the books over-rate a hot key player - NHL 5 of 5 seasons, NBA 3 of 4):
@@ -486,7 +496,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
         waiting = waiting_on(g, injuries)
         hurt_ = {sd_: hurt(g, sd_, injuries) for sd_ in ("home", "away")}
         news = sports_news.load()
-        drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
+        drama = {side: fresh_drama(sports_news.drama(news, lg, g[side]), lg, g[side], g["start"]) for side in ("home", "away")}
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
         try:                                          # 🥅 hockey: is each side's known (confirmed / likely) starter
             g_roles = sports_goalies.roles(sp.CACHE.get("nhl") or [], g, now) if lg == "nhl" else {}   # its #1?
