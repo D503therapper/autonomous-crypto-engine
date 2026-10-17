@@ -11452,12 +11452,14 @@ def test_big_gap_college_dogs_post_as_their_own_unit_play_and_a_dog_can_be_the_l
         return {"game_id": gid, "league": lg, "market": "ml", "side": "home", "team": gid, "opp": "X", "odds": odds,
                 "dec": dec, "p": mkt, "p_market": mkt, "edge_own": own * dec - 1, "edge": mkt * dec - 1,
                 "start": "2026-10-17T19:00Z", "reasons": ["r"], "waiting": [], **kw}
-    tulane = cand("T", "ncaaf", 215, 0.30, 0.49)
+    tulane = cand("T", "ncaaf", 215, 0.30, 0.49, elo_edge=12.0)   # (the ratings back the dog - the owner's "A")
     small = cand("S", "ncaaf", 150, 0.38, 0.44)        # 6 points over - not a big gap
     nfl = cand("N", "nfl", 200, 0.31, 0.50)            # college only
     long_ = cand("L", "ncaaf", 450, 0.17, 0.40)        # past +300
     out = sports.gap_plays([small, nfl, long_, tulane], avoid=())
     assert [c["game_id"] for c in out] == ["T"] and abs(out[0]["gap"] - 0.19) < 0.005
+    assert sports.gap_plays([{**tulane, "elo_edge": -20.0}], avoid=()) == []   # a weights-only gap: never (10/17 A)
+    assert sports.gap_plays([{**tulane, "elo_edge": None}], avoid=()) == []
     assert sports.gap_plays([tulane], avoid={"T"}) == []                   # never a game we're already on
     pk = {"date": "2026-10-17", "kind": "play", "gap": out[0]["gap"], "status": "open", "lean": False,
           "legs": [{**out[0], "tier": "value"}], "tier": "value"}
@@ -11478,6 +11480,26 @@ def test_big_gap_college_dogs_post_as_their_own_unit_play_and_a_dog_can_be_the_l
     assert sports.DOG_LOCK is True and sports.DOG_LOCK_MIN_P == 0.45
     lk = {"date": "2026-10-17", "kind": "lock", "status": "open", "lean": False, "legs": [dict(cand("D", "nhl", 130, 0.42, 0.50))]}
     assert 0.5 <= sports.units_for(lk) <= sports.UNIT_MAX                  # an underdog Lock sizes on its read
+
+
+def test_college_favorite_off_a_win_vs_a_team_off_a_loss_is_a_weight_not_a_trigger():
+    """10/17 college lock hunt, rule A (the owner: units on it, "but I don't want an automatic rule"): an FBS favorite
+    -101..-150 off a win, its opponent off a loss, the better-rated team - its weighed read goes up 3 points (capped);
+    it only carries units when the whole read then beats the price."""
+    import sports, sports_leads
+    dec = sports._dec(-120)
+    c = {"league": "ncaaf", "market": "ml", "odds": -120, "dec": dec, "p": 0.545, "p_market": 0.545,
+         "edge_own": 0.53 * dec - 1, "edge": 0.0, "elo_edge": 40.0, "dog_ctx": {"won": True, "opp_won": False},
+         "reasons": [], "game_id": "g", "side": "home"}
+    a = dict(c); sports.weigh_ncaaf_fav_form_spot([a])
+    assert a["fav_form_spot"] and abs(a["w_p"] - 0.56) < 1e-6 and sports.beats_price(a)   # 53% + 3 = 56% beats -120
+    weak = {**c, "edge_own": 0.48 * dec - 1}; sports.weigh_ncaaf_fav_form_spot([weak])
+    assert not sports.beats_price(weak)                                   # the engine's read says no: still no units
+    for bad in ({"dog_ctx": {"won": False, "opp_won": False}}, {"dog_ctx": {"won": True, "opp_won": True}},
+                {"elo_edge": -5.0}, {"league": "nfl"}, {"odds": -160}):
+        b = {**c, **bad}; sports.weigh_ncaaf_fav_form_spot([b])
+        assert not b.get("fav_form_spot"), bad
+    assert "college fav off a win vs a team off a loss" in sports_leads.tags(a, sports)
 
 if __name__ == "__main__":
     import sports_goalies as _sg

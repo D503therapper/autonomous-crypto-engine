@@ -500,7 +500,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 #                                    a lean still fills the board - its card names who's out)
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
-                    "team_id": g[side],
+                    "team_id": g[side], "elo_edge": round(f["elo_pts"] * (1 if side == "home" else -1), 1),
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
@@ -610,6 +610,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_doubleheader_game2(games, out)
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaaf_fav_off_loss(out)
+    weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -2019,6 +2020,32 @@ def weigh_ncaaf_fav_off_loss(cands):
         c["reasons"] = c["reasons"] + ["college favorite off a loss - those lose to their price (8 of 9 seasons)"]
 
 
+NCAAF_FAV_SPOT_W = 0.03   # 10/17 college lock hunt ("rule A"): an FBS favorite -101..-150 off a WIN, its opponent off a
+#                           LOSS, and our ratings (Elo + home edge) have the favorite as the better team - 176 picks,
+#                           64.2% vs 53.2%, +15.7%, up 9 of 9 seasons, blind 60-29 +21.7%, 2026 10-3. The best of ~12k
+#                           mined cells, so a WEIGHT, never a trigger (the owner, 10/17: "put units on it - but a dog off
+#                           a loss doesn't always mean they're going to lose, I don't want an automatic rule"): it lifts
+#                           the favorite's weighed read 3 points, the whole lift capped at FAV_CAP; it only carries units
+#                           when the engine's FULL read then beats the price.
+
+
+def weigh_ncaaf_fav_form_spot(cands):
+    """Rule A as a weight: the favorite's weighed read goes UP by NCAAF_FAV_SPOT_W (capped at own + FAV_CAP)."""
+    for c in cands:
+        if c.get("league") != "ncaaf" or c.get("market") != "ml" or not (-150 <= c.get("odds", 0) <= -101):
+            continue
+        x = c.get("dog_ctx") or {}
+        if x.get("won") is not True or x.get("opp_won") is not False or (c.get("elo_edge") or 0) <= 0:
+            continue
+        if c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, min(own + FAV_CAP, base + NCAAF_FAV_SPOT_W))), 4)
+        c["fav_form_spot"] = True
+        c["reasons"] = c["reasons"] + ["off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"]
+
+
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
 #                          seasons (sports_form) - the books overreact. Was a ranking nudge only; now it moves the read
 #                          (the 10/1 wiring audit; the owner: "everything we studied has to be wired in")
@@ -2199,6 +2226,10 @@ def gap_plays(cands, avoid):
             continue
         if c.get("trap") or c.get("edge_own") is None or c.get("p_market") is None or not c.get("dec"):
             continue
+        if c.get("elo_edge") is None or c["elo_edge"] < 0:
+            continue                                         # (the owner, 10/17 "A": only a gap the RATINGS back - when
+            #                                                  Elo + home edge side with the favorite and the gap is all
+            #                                                  form / travel / rest weights: -15.7% blind, 8 of 9 seasons red)
         gap = (c["edge_own"] + 1) / c["dec"] - c["p_market"]
         if gap >= GAP_MIN:
             pool.append((gap, c))
