@@ -399,7 +399,7 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
-                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
+                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"), ("gap", "🔍 The engine sees something"),        # Dog of the Day is a value play)
                       ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
@@ -927,6 +927,8 @@ BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day st
 def _pick_card(kind, pk):
     import sports                                            # (the strong-lean bar lives there)
     label, c1, c2 = LOOK[kind]
+    if pk and pk.get("gap"):                                 # 🔍 the owner, 10/17: the big-gap college dogs, their own record
+        label = "🔍 THE ENGINE SEES SOMETHING"
     if pk and pk.get("lean") and pk.get("legs"):             # a LEAN is never titled Lock/Dog of the Day
         c1, c2 = "#ffc233", "#e8c77a"
         if len(pk["legs"]) == 1:

@@ -918,6 +918,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # today, and the board says so - never a fake one.
         lock = max(agree, key=lambda c: (round(rank_p(c), 3), lock_value(c))) if agree else None   # (the owner, 10/1:
         #   "the Lock should be the most confident win" - among the picks worth their price, the likeliest winner)
+        if DOG_LOCK:                                         # 🐺🔒 the owner, 10/16: "an underdog could be a lock" - a
+            dl = dog_lock(cands)                             # real-value dog the engine reads 45%+ whose value beats the
+            if dl is not None and (lock is None or dog_lock_value(dl) > lock_value(lock)):   # favorite Lock's is the Lock
+                lock = dl
         if lock is None:
             lock = backup_lock(cands)
         if lock is None and FORCE_LOCK:
@@ -1627,6 +1631,8 @@ def _sized(t, leg, legacy=False):
     """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
         dec = leg.get("dec") or _dec(leg.get("odds") or -110)
+        if (leg.get("odds") or 0) >= 100 and read_of(leg) is not None:   # (10/17: an underdog Lock sizes on its read)
+            return kelly_units(read_of(leg), leg["odds"], legacy)
         own = leg.get("w_p") or ((leg["edge_own"] + 1) / dec if leg.get("edge_own") is not None else leg.get("p"))   # edge_own is value per
         #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
         return kelly_units(own, leg.get("odds") or -110, legacy)
@@ -1690,7 +1696,7 @@ def units_for(pk):
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
-            return PLAY_UNITS                                # 7/2023 +10.5u vs today's sizing -57u overall
+            return GAP_UNITS if pk.get("gap") else PLAY_UNITS                               # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
         if not u or thin_edge(legs[0]):                      # only thing that doesn't get units is leans") - ½u
             return 0.5                                       # floor; a small edge is a small bet
@@ -1756,6 +1762,8 @@ def thin_edge(leg):
 def units_tier(pk, leg):
     """lock / value / strong / slight for one pick - the bankroll's rows (the owner, 9/30: the Dog of the Day is a value
     play; leans split strong and slight)."""
+    if pk.get("gap"):
+        return "gap"                                         # 🔍 the engine sees something - its own record
     if pk.get("kind") in PARLAY_KINDS:
         t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
     else:
@@ -1896,6 +1904,23 @@ def backup_lock(cands):
             and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
             and real_value(c)]
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
+
+
+DOG_LOCK = True          # the owner, 10/16-17 (Tulane +215 won 31-17): the Lock of the Day can be an underdog - the
+DOG_LOCK_MIN_P = 0.45    # engine's single best play. A dog qualifies when it's a real-value dog (good(): the dog score / a
+#                          proven angle), its read beats the price, it's +100..+300, and the read gives it 45%+ outright.
+
+
+def dog_lock_value(c):
+    """A dog's value on the read its units ride on (read_of), per $1."""
+    return (read_of(c) or 0) * c["dec"] - 1
+
+
+def dog_lock(cands):
+    """The best underdog Lock candidate (dog_value), or None."""
+    pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
+            and not c.get("trap") and good(c) and beats_price(c) and (read_of(c) or 0) >= DOG_LOCK_MIN_P]
+    return max(pool, key=dog_lock_value) if pool else None
 
 
 def lock_value(c):
@@ -2156,6 +2181,33 @@ def plays(cands, avoid):
         if c["game_id"] not in seen:
             seen.add(c["game_id"])
             out.append(c)
+    return out
+
+
+GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
+GAP_MIN = 0.10            # 30%, won 31-17 after we pulled it): a college dog +100..+300 whose OWN read is 10+ points over
+GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
+GAP_LEAGUES = ("ncaaf",)  # (History says these lose - 1-6 live through 10/16 - the owner's call, 10/17.)
+
+
+def gap_plays(cands, avoid):
+    """🔍 Every college dog +100..+300 the engine's own read has 10+ points over the books (biggest gap first), one per
+    game, never a game in `avoid`, never a trap."""
+    pool = []
+    for c in cands:
+        if c.get("market") != "ml" or c.get("league") not in GAP_LEAGUES or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+            continue
+        if c.get("trap") or c.get("edge_own") is None or c.get("p_market") is None or not c.get("dec"):
+            continue
+        gap = (c["edge_own"] + 1) / c["dec"] - c["p_market"]
+        if gap >= GAP_MIN:
+            pool.append((gap, c))
+    out, seen = [], set(avoid)
+    for gap, c in sorted(pool, key=lambda x: -x[0]):
+        if c["game_id"] not in seen:
+            seen.add(c["game_id"])
+            g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read)
+            out.append({**g_, "gap": round(gap, 4)})
     return out
 
 
@@ -2899,7 +2951,7 @@ def sizing_check(new):
         if pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, 10)
         elif k == "play":
-            want = (PLAY_UNITS, PLAY_UNITS)
+            want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog":
             want = (dog_units(pk),) * 2
         elif k == "lock" and l.get("near_price"):
@@ -3218,7 +3270,9 @@ def post_board(games, model, picks, now, day, force=False):
             print(f"lock miss not saved: {str(e)[:80]}")
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
-    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("lean", viewer_leans, MAX_LEANS)):
+    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("lean", viewer_leans, MAX_LEANS)):
+        if kind == "gap" and iso < GAP_FROM:
+            continue
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         room = cap - sum(p["kind"] == kind for p in today_)
         if kind == "lean":                                    # leans only fill the board up to BOARD_TARGET picks
@@ -3237,7 +3291,8 @@ def post_board(games, model, picks, now, day, force=False):
                 #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             dress(b)
-            pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
+            pk = {"date": iso, "kind": "play" if kind == "gap" else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+                  "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
             if kind == "lean" and confident_lean(c):
@@ -3247,6 +3302,8 @@ def post_board(games, model, picks, now, day, force=False):
             if pk["lean"]:
                 leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}lean{c['game_id']}")
             pk["tier"] = pick_tier({**pk, "tier": None})
+            if kind == "gap":                                # 🔍 its own kind of unit play, its own record
+                pk["gap"], leg["tier"], pk["tier"] = leg.get("gap"), "value", "value"
             picks.append(pk)
             new.append(pk)
             room -= 1
