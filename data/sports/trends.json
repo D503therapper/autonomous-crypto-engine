@@ -1241,15 +1241,33 @@
    "families": [
     "rate"
    ],
+   "league": "mlb",
+   "outcome": "fav_ml",
+   "price_said": 56.3,
+   "record": "58-21",
+   "season": 2026,
+   "side": 1,
+   "situation": "big favorite",
+   "streak": 0,
+   "strength": 0.41,
+   "trend": "favorites win",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
    "league": "ncaaf",
    "outcome": "fav_ml",
-   "price_said": 244.0,
-   "record": "247-64",
+   "price_said": 244.7,
+   "record": "247-65",
    "season": 2026,
    "side": 1,
    "situation": "home favorite",
    "streak": 0,
-   "strength": 0.44,
+   "strength": 0.34,
    "trend": "favorites win",
    "upcoming": [
     "ncaaf:401856720",
@@ -1383,24 +1401,6 @@
     "Houston @ Utah",
     "Iowa State @ Arizona"
    ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "mlb",
-   "outcome": "fav_ml",
-   "price_said": 56.3,
-   "record": "58-21",
-   "season": 2026,
-   "side": 1,
-   "situation": "big favorite",
-   "streak": 0,
-   "strength": 0.41,
-   "trend": "favorites win",
-   "upcoming": [],
-   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -2021,13 +2021,13 @@
    "hit": 0.6885,
    "hit_new": 0.6899,
    "hit_old": 0.6871,
-   "n": 230424,
-   "n_new": 115212,
-   "n_old": 115212,
+   "n": 230427,
+   "n_new": 115214,
+   "n_old": 115213,
    "said": 0.6794,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 10.07
+   "z": 10.06
   },
   "mlb|all": {
    "edge": 0.0043,
@@ -2526,36 +2526,36 @@
    "z": -1.03
   },
   "ncaaf|all": {
-   "edge": 0.0067,
-   "edge_new": 0.008,
+   "edge": 0.0066,
+   "edge_new": 0.0079,
    "edge_old": 0.0053,
    "from": "2018-08-31",
-   "hit": 0.7205,
-   "hit_new": 0.7166,
+   "hit": 0.7204,
+   "hit_new": 0.7165,
    "hit_old": 0.7244,
-   "n": 28964,
-   "n_new": 14482,
-   "n_old": 14482,
+   "n": 28967,
+   "n_new": 14484,
+   "n_old": 14483,
    "said": 0.7138,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 2.82
+   "z": 2.79
   },
   "ncaaf|rate": {
-   "edge": 0.0077,
-   "edge_new": 0.0079,
-   "edge_old": 0.0074,
+   "edge": 0.0076,
+   "edge_new": 0.0077,
+   "edge_old": 0.0075,
    "from": "2018-09-01",
    "hit": 0.7253,
-   "hit_new": 0.719,
-   "hit_old": 0.7316,
-   "n": 21740,
-   "n_new": 10870,
-   "n_old": 10870,
+   "hit_new": 0.7189,
+   "hit_old": 0.7317,
+   "n": 21742,
+   "n_new": 10871,
+   "n_old": 10871,
    "said": 0.7177,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 2.83
+   "z": 2.8
   },
   "ncaaf|rate|fav_cover": {
    "edge": 0.0094,
@@ -2574,20 +2574,20 @@
    "z": 0.43
   },
   "ncaaf|rate|fav_ml": {
-   "edge": 0.0046,
-   "edge_new": 0.0044,
+   "edge": 0.0045,
+   "edge_new": 0.0042,
    "edge_old": 0.0047,
    "from": "2018-09-01",
-   "hit": 0.7735,
-   "hit_new": 0.7652,
+   "hit": 0.7734,
+   "hit_new": 0.765,
    "hit_old": 0.7819,
-   "n": 14652,
-   "n_new": 7326,
-   "n_old": 7326,
+   "n": 14654,
+   "n_new": 7327,
+   "n_old": 7327,
    "said": 0.769,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 1.38
+   "z": 1.35
   },
   "ncaaf|rate|home": {
    "edge": 0.012,
@@ -2623,19 +2623,19 @@
   },
   "ncaaf|streak": {
    "edge": 0.0037,
-   "edge_new": 0.0121,
+   "edge_new": 0.012,
    "edge_old": -0.0046,
    "from": "2018-08-31",
-   "hit": 0.706,
-   "hit_new": 0.7151,
+   "hit": 0.7059,
+   "hit_new": 0.7149,
    "hit_old": 0.6968,
-   "n": 7224,
-   "n_new": 3612,
+   "n": 7225,
+   "n_new": 3613,
    "n_old": 3612,
    "said": 0.7022,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 0.77
+   "z": 0.75
   },
   "ncaaf|streak|fav_cover": {
    "edge": -0.0184,
@@ -2654,20 +2654,20 @@
    "z": -1.13
   },
   "ncaaf|streak|fav_ml": {
-   "edge": 0.01,
-   "edge_new": 0.0131,
-   "edge_old": 0.0068,
+   "edge": 0.0098,
+   "edge_new": 0.0128,
+   "edge_old": 0.0069,
    "from": "2018-08-31",
-   "hit": 0.7976,
-   "hit_new": 0.8011,
-   "hit_old": 0.7942,
-   "n": 4665,
+   "hit": 0.7975,
+   "hit_new": 0.8007,
+   "hit_old": 0.7943,
+   "n": 4666,
    "n_new": 2333,
-   "n_old": 2332,
-   "said": 0.7877,
+   "n_old": 2333,
+   "said": 0.7876,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 1.77
+   "z": 1.74
   },
   "ncaaf|streak|home": {
    "edge": 0.0027,
@@ -3024,18 +3024,18 @@
   "rate": {
    "edge": 0.0104,
    "edge_new": 0.0115,
-   "edge_old": 0.0092,
+   "edge_old": 0.0093,
    "from": "2018-03-31",
    "hit": 0.7101,
    "hit_new": 0.7122,
    "hit_old": 0.7079,
-   "n": 160777,
-   "n_new": 80389,
-   "n_old": 80388,
+   "n": 160779,
+   "n_new": 80390,
+   "n_old": 80389,
    "said": 0.6997,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 9.8
+   "z": 9.79
   },
   "rate|fav_cover": {
    "edge": -0.0092,
@@ -3061,13 +3061,13 @@
    "hit": 0.7377,
    "hit_new": 0.7392,
    "hit_old": 0.7363,
-   "n": 112928,
-   "n_new": 56464,
-   "n_old": 56464,
+   "n": 112930,
+   "n_new": 56465,
+   "n_old": 56465,
    "said": 0.7275,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 8.05
+   "z": 8.04
   },
   "rate|home": {
    "edge": 0.0116,
@@ -3104,18 +3104,18 @@
   "streak": {
    "edge": 0.0061,
    "edge_new": 0.0065,
-   "edge_old": 0.0057,
+   "edge_old": 0.0056,
    "from": "2018-04-06",
    "hit": 0.6387,
    "hit_new": 0.6396,
    "hit_old": 0.6377,
-   "n": 69647,
+   "n": 69648,
    "n_new": 34824,
-   "n_old": 34823,
+   "n_old": 34824,
    "said": 0.6326,
    "status": "watch only",
    "to": "2026-10-16",
-   "z": 3.56
+   "z": 3.55
   },
   "streak|fav_cover": {
    "edge": -0.0064,
@@ -3141,8 +3141,8 @@
    "hit": 0.7249,
    "hit_new": 0.7272,
    "hit_old": 0.7226,
-   "n": 36370,
-   "n_new": 18185,
+   "n": 36371,
+   "n_new": 18186,
    "n_old": 18185,
    "said": 0.715,
    "status": "watch only",
@@ -3186,7 +3186,7 @@
   "mlb": 16129,
   "nba": 33577,
   "ncaab": 135775,
-  "ncaaf": 28964,
+  "ncaaf": 28967,
   "nfl": 5654,
   "nhl": 10325
  },
@@ -3201,5 +3201,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-17T04:08Z"
+ "updated": "2026-10-17T04:20Z"
 }
