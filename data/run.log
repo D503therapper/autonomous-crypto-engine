@@ -18649,3 +18649,24 @@ DEX: $986.54 (-13.46) · Scammed: 0
 [2026-10-17 14:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-17 14:05 UTC] crypto/hold_btc  equity $485.75 (-2.9%) 1 open  market UP
    social heat top: BTC 40 (40/0/0), QNT 37 (37/0/0), INJ 35 (35/0/0), TAO 32 (32/0/0), PENGU 27 (27/0/0)
+   dex screen: REJECT $WIF@solana liq $151,536 - top-10 holders 44%; lp locked 0% < 95%
+   dex screen: PASS TEMO@ethereum liq $131,512
+   dex screen: REJECT SKHY@solana liq $2,299,262 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 92%
+   dex screen: REJECT MADE@solana liq $119,369 - lp holders unknown; rugcheck lp locked 78% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ERC20-USDT@solana liq $318,767,094 - top-10 holders 100%
+   dex screen: REJECT SPCXC@base liq $1,126,144 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 69%; lp locked 0% < 95%
+   dex screen: REJECT FLUID@ethereum liq $594,207 - 24h volume $52,879 < $100,000
+   dex screen: REJECT HOTBOT@solana liq $235,124 - lp holders unknown; rugcheck lp locked 39% < 95%
+   dex screen: REJECT APXUSD@ethereum liq $9,928,507 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%
+   dex scanner: 3,001 pools (solana 2,027 / base 569 / ethereum 405), refresh cycle 130s (hot 125s), 2898 calls (125 feed, 429s 1, failed 2), 83,154 refreshed (12238 no pair), +190 added / -189 dropped (dead 4, stale 0, cap 185), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-17 15:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-17 15:05 UTC] crypto/mover     equity $285.70 (-42.9%) 1 open  market UP
+[2026-10-17 15:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 15:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 15:05 UTC] crypto/social_heat equity $434.21 (-13.2%) 2 open  market UP
+[2026-10-17 15:05 UTC] crypto/breakout10 equity $464.33 (-7.1%) 2 open  market UP
+[2026-10-17 15:05 UTC] crypto/momentum  equity $418.58 (-16.3%) 1 open  market UP
+[2026-10-17 15:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-17 15:05 UTC] crypto/hold_btc  equity $486.12 (-2.8%) 1 open  market UP
+   social heat top: INJ 40 (40/0/0), PENGU 35 (35/0/0), PRL 32 (32/0/0), TIA 29 (29/0/0), STRK 27 (27/0/0)
