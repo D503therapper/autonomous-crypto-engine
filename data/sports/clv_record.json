@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 74,
+  "n": 75,
   "beat": 24,
-  "same": 26,
+  "same": 27,
   "worse": 24,
   "avg_pts": 0.11
  },
@@ -22,9 +22,9 @@
    "avg_pts": 0.12
   },
   "lean": {
-   "n": 43,
+   "n": 44,
    "beat": 14,
-   "same": 12,
+   "same": 13,
    "worse": 17,
    "avg_pts": -0.04
   },
@@ -66,9 +66,9 @@
    "avg_pts": -0.13
   },
   "nhl": {
-   "n": 33,
+   "n": 34,
    "beat": 10,
-   "same": 14,
+   "same": 15,
    "worse": 9,
    "avg_pts": 0.13
   }
@@ -1111,6 +1111,20 @@
    "pts": 1.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Bruins",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -112,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-16",
