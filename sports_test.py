@@ -11023,6 +11023,31 @@ def test_dedupe_drops_the_stale_play_copy_of_an_upgraded_dog():
     assert len(out3) == 2
 
 
+def test_two_boards_a_minute_apart_keep_one_pick_per_game():
+    """10/17: the 8 AM run (15:00Z) and the live watcher's quick pass (15:01Z) both posted the board; the merge kept
+    both - Wisconsin the Lock (+114) AND a play (+102), FAU a play AND a second Lock. One straight pick per game a day,
+    one Lock per round: the first posted stays - in the engine's load and in the git merge driver."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    leg = lambda gid, team: {"game_id": gid, "team": team, "side": "away", "market": "ml"}   # noqa: E731
+    mk = lambda kind, gid, team, at: {"date": "2026-10-18", "kind": kind, "status": "open", "round": 1,   # noqa: E731
+                                      "posted": at, "legs": [leg(gid, team)]}
+    first = [mk("lock", "w", "Wisconsin", "2026-10-18T15:00Z"), mk("play", "f", "FAU", "2026-10-18T15:00Z"),
+             mk("dog", "b", "BC", "2026-10-18T15:00Z")]
+    second = [mk("lock", "f", "FAU", "2026-10-18T15:01Z"), mk("play", "w", "Wisconsin", "2026-10-18T15:01Z"),
+              mk("dog", "b", "BC", "2026-10-18T15:01Z"), mk("lean", "x", "Bruins", "2026-10-18T15:01Z")]
+    want = [("lock", "Wisconsin"), ("play", "FAU"), ("dog", "BC"), ("lean", "Bruins")]
+    for out in (sports.dedupe_picks(first + second), merge_json.merge_picks(first, second, [])):
+        got = sorted((p["kind"], p["legs"][0]["team"]) for p in out)
+        assert got == sorted(want), got
+    # a graded Lock and the next round's Lock both stay; the day already posted (10/17) is left as it is
+    g = {**mk("lock", "w", "Wisconsin", "2026-10-18T15:00Z"), "status": "won"}
+    g["legs"][0]["result"] = "won"
+    assert len(sports.dedupe_picks([g, {**mk("lock", "q", "Q", "2026-10-18T19:00Z"), "round": 2}])) == 2
+    old = [{**p, "date": "2026-10-17"} for p in first + second]
+    assert len(sports.dedupe_picks(old)) == 6
+
+
 def test_study_index_cache_holds_the_games_dict():
     """10/16 bug sweep: the context / spots / explorer index cache was keyed by id(games) + the game count alone. The live
     watcher reloads games every quick pass; a new dict at a freed address with the same count read the OLD index (the
@@ -11420,14 +11445,51 @@ def test_college_dog_off_a_21_point_cover_is_weighed_down():
     assert "college dog off a 21+ cover (fade)" in sports_leads.tags({**c, "big_cover": True}, sports)
 
 
+def test_long_hockey_dogs_carry_a_penalty_weight():
+    """10/17 study: NHL dogs +220 and longer lost every season (-25.7% on 494 at +220..+260, 0 of 9 seasons) - a -3
+    weight on the dog score (never a block), with its own lead-tracker line. College / NFL long dogs are untouched."""
+    import sports, sports_leads
+    c = {"market": "ml", "league": "nhl", "odds": 240, "dec": 3.4, "p_market": 0.28, "edge": 0.0, "edge_own": 0.28 * 3.4 - 1,
+         "dog_more": {}, "reasons": []}
+    short = {**c, "odds": 210}
+    assert sports.dog_score(dict(c)) == sports.dog_score(dict(short)) - sports.NHL_LONG_DOG_W
+    assert "NHL dog +220 or longer (fade)" in sports_leads.tags(c, sports)
+    assert "NHL dog +220 or longer (fade)" not in sports_leads.tags(short, sports)
+    cf = {**c, "league": "ncaaf"}
+    assert sports.dog_score(dict(cf)) == sports.dog_score({**cf, "odds": 210})
+
+
+def test_unlucky_hockey_record_dog_gets_a_small_weight():
+    """10/17 study: an NHL team 5-20 games in with a win % 10+ points under its goals (Pythagorean) beat its price as
+    a dog (+34.5% blind, 4 of 4 seasons) - +2 on the dog score, a weight, with its own tracker line."""
+    import sports, sports_leads
+    games, gs = {}, []
+    for i in range(8):                                      # 3-5 but outscored them 26-16: unlucky
+        hs, as_ = ((2, 3) if i < 5 else (6, 1)) if i != 0 else (2, 3)
+        gid = f"g{i}"
+        games[gid] = {"id": gid, "league": "nhl", "start": f"2026-10-{i + 2:02d}T23:00Z", "status": "final", "stype": "2",
+                      "home": "A", "away": f"X{i}", "home_score": [1, 2, 3, 2, 1, 6, 6, 5][i],
+                      "away_score": [2, 3, 4, 3, 2, 1, 0, 1][i]}
+    g = {"id": "now", "league": "nhl", "start": "2026-10-20T23:00Z", "status": "pre", "stype": "2", "home": "A", "away": "B"}
+    games["now"] = g
+    luck = sports.pyth_luck(games, g, "home")
+    assert luck is not None and luck <= sports.PYTH_UNLUCKY, luck
+    assert sports.pyth_luck(games, g, "away") is None          # no games yet
+    c = {"market": "ml", "league": "nhl", "odds": 150, "dec": 2.5, "p_market": 0.38, "edge": 0.0, "edge_own": 0.38 * 2.5 - 1,
+         "dog_more": {}, "reasons": []}
+    assert sports.dog_score({**c, "pyth_luck": luck}) == sports.dog_score(dict(c)) + sports.PYTH_W
+    assert "NHL dog, record 10+ under its goals" in sports_leads.tags({**c, "pyth_luck": luck}, sports)
+
+
 def test_big_gap_college_dogs_keep_a_live_score():
     """The owner, 10/16 (Tulane +220, engine 49% vs the books 30%): "maybe we should lay off" - the 10+ gap college dogs
     went 0-6 live - but every one keeps a live score on paper (the lead tracker), no units."""
     import sports, sports_leads
-    c = {"market": "ml", "league": "ncaaf", "odds": 220, "dec": 3.2, "p_market": 0.30, "edge_own": 0.49 * 3.2 - 1,
-         "edge": 0.0, "dog_more": {}, "reasons": []}
+    c = {"market": "ml", "league": "ncaaf", "odds": 220, "dec": 3.2, "p_market": 0.30, "raw_own": 0.49,
+         "edge_own": 0.30 * 3.2 - 1, "edge": 0.0, "dog_more": {}, "reasons": []}
+    # (10/17: the college board's edge_own IS the market - the tag reads the RAW ratings read, raw_own)
     assert "college dog, engine 10+ over the books" in sports_leads.tags(c, sports)
-    assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "edge_own": 0.36 * 3.2 - 1}, sports)
+    assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "raw_own": 0.36}, sports)
     assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "league": "nfl"}, sports)
 
 

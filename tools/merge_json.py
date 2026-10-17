@@ -70,7 +70,33 @@ def merge_picks(ours, theirs, base=None):
                if p.get("kind") == "play" and p.get("was_dog") for l in (p.get("legs") or [])[:1]}   # value play: the old
     rows = [p for p in rows if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")   # Dog copy goes
                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
+    rows = one_per_game(rows)
     return sorted(rows, key=lambda p: (p.get("date") or "", p.get("posted") or "", p.get("kind") or ""))
+
+
+RACE_FROM = "2026-10-18"
+
+
+def _straight(p):
+    legs = p.get("legs") or []
+    return not (p.get("status") == "waiting" or len(legs) != 1 or (p.get("date") or "") < RACE_FROM
+                or p.get("upgraded") or p.get("was_dog") or legs[0].get("result"))
+
+
+def one_per_game(rows):
+    """10/17: two jobs posted the board a minute apart and both copies stayed (two Locks, Wisconsin twice). One
+    straight pick per game a day and one Lock / Dog per round: the first one posted stays (same as sports.one_per_game)."""
+    def keys(p):
+        ks = [(p.get("date"), "game", p["legs"][0].get("game_id"))]
+        if p.get("kind") in ("lock", "dog"):
+            ks.append((p.get("date"), p.get("kind"), p.get("round") or 1))
+        return ks
+    first = {}
+    for p in sorted(rows, key=lambda p: p.get("posted") or "9"):
+        if _straight(p):
+            for k in keys(p):
+                first.setdefault(k, id(p))
+    return [p for p in rows if not _straight(p) or all(first.get(k) == id(p) for k in keys(p))]
 
 
 def merge_log(ours, theirs):
