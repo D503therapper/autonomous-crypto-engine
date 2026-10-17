@@ -1,32 +1,35 @@
 {
- "at": "2026-10-17T07:58Z",
+ "at": "2026-10-17T07:59Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Inglis vs Tormo: no points for 2624s",
-  "live tennis scores: tennis Bondar vs Sasnovich: no points for 2624s",
-  "live tennis scores: tennis Korneeva vs Dong: no points for 2624s",
-  "live tennis scores: tennis Kalinina vs Waltert: no points for 2560s"
+  "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 16 min ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T07:59Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-17T07:58Z",
    "fixes": [],
@@ -572,13 +575,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Brancaccio vs Garcia: no points for 2623s"
-   ]
-  },
-  {
-   "at": "2026-10-15T08:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs Garcia: no points for 1168s"
    ]
   }
  ]
