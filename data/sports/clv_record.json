@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 72,
-  "beat": 23,
-  "same": 26,
-  "worse": 23,
-  "avg_pts": 0.09
+  "n": 75,
+  "beat": 24,
+  "same": 27,
+  "worse": 24,
+  "avg_pts": 0.11
  },
  "unit_plays": {
   "n": 31,
@@ -22,11 +22,11 @@
    "avg_pts": 0.12
   },
   "lean": {
-   "n": 41,
-   "beat": 13,
-   "same": 12,
-   "worse": 16,
-   "avg_pts": -0.09
+   "n": 44,
+   "beat": 14,
+   "same": 13,
+   "worse": 17,
+   "avg_pts": -0.04
   },
   "lock": {
    "n": 10,
@@ -45,18 +45,18 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 12,
+   "n": 13,
    "beat": 5,
    "same": 1,
-   "worse": 6,
-   "avg_pts": 0.0
+   "worse": 7,
+   "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 15,
-   "beat": 5,
+   "n": 16,
+   "beat": 6,
    "same": 6,
    "worse": 4,
-   "avg_pts": 0.25
+   "avg_pts": 0.38
   },
   "nfl": {
    "n": 12,
@@ -66,9 +66,9 @@
    "avg_pts": -0.13
   },
   "nhl": {
-   "n": 33,
+   "n": 34,
    "beat": 10,
-   "same": 14,
+   "same": 15,
    "worse": 9,
    "avg_pts": 0.13
   }
@@ -1111,6 +1111,48 @@
    "pts": 1.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Bruins",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -112,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Coastal",
+   "market": "ml",
+   "line": null,
+   "odds": -102,
+   "close": -112,
+   "pts": 2.3,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Rays",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -110,
+   "pts": -0.4,
+   "units": 0,
+   "result": "push"
   }
  ]
 }
