@@ -1,30 +1,40 @@
 {
- "at": "2026-10-17T08:08Z",
+ "at": "2026-10-17T08:18Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Inglis vs Tormo: no points for 563s",
-  "live tennis scores: tennis Kalinina vs Waltert: no points for 563s",
-  "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Curmi vs Geerlings: no points for 625s",
+  "live tennis scores: tennis Inglis vs Tormo: no points for 1155s",
+  "live tennis scores: tennis Kalinina vs Waltert: no points for 1155s"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "live tennis points + server: 3 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 27 min ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T08:18Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Curmi vs Geerlings: no points for 625s",
+    "live tennis scores: tennis Inglis vs Tormo: no points for 1155s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 1155s"
+   ]
+  },
   {
    "at": "2026-10-17T08:08Z",
    "fixes": [],
@@ -573,11 +583,6 @@
   },
   {
    "at": "2026-10-15T11:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T10:01Z",
    "fixes": [],
    "problems": []
   }
