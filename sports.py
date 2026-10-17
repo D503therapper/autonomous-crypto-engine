@@ -3413,6 +3413,7 @@ def upgrade_dog(picks, iso, now):
     if dog is None or dog_value(dog) is None:
         return None
     best = max((p for p in picks if p.get("kind") == "play" and open_(p) and p["legs"][0].get("market") == "ml"
+                and not p.get("gap")                         # (10/17: a 🔍 play rides the raw read - never the Dog)
                 and DOG_MIN <= (p["legs"][0].get("odds") or 0) <= DAILY_DOG_MAX and dog_value(p) is not None),
                key=dog_value, default=None)
     if best is None or dog_value(best) < dog_value(dog) + DOG_UPGRADE_GAP:
