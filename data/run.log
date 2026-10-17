@@ -18546,3 +18546,23 @@ DEX: $986.54 (-13.46) · Scammed: 0
 [2026-10-17 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-17 10:05 UTC] crypto/hold_btc  equity $486.13 (-2.8%) 1 open  market UP
    social heat top: TIA 40 (40/0/0), HYPE 32 (32/0/0), BTC 29 (29/0/0), PRL 29 (29/0/0), SUI 27 (27/0/0)
+   dex screen: REJECT STRK@ethereum liq $623,019 - is_mintable; top-10 holders 70%; lp locked 0% < 95%
+   dex screen: REJECT DOPE@solana liq $32,128,632 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DARK@solana liq $194,058 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: PASS DOPE@ethereum liq $275,140
+   dex screen: REJECT RLUSD@ethereum liq $50,119,024 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 66%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AERO@base liq $43,387,936 - is_mintable; top-10 holders 67%
+   dex scanner: 3,000 pools (solana 2,233 / base 415 / ethereum 352), refresh cycle 123s (hot 118s), 3047 calls (110 feed, 429s 0, failed 0), 88,108 refreshed (13864 no pair), +74 added / -74 dropped (dead 8, stale 0, cap 66), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT DJT@solana liq $564,454 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT DJT@solana liq $490,592 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+[2026-10-17 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-17 11:06 UTC] crypto/mover     equity $285.49 (-42.9%) 1 open  market UP
+[2026-10-17 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 11:06 UTC] crypto/social_heat equity $438.95 (-12.2%) 2 open  market UP
+[2026-10-17 11:06 UTC] crypto/breakout10 equity $474.95 (-5.0%) 2 open  market UP
+[2026-10-17 11:06 UTC] crypto/momentum  equity $418.71 (-16.3%) 1 open  market UP
+[2026-10-17 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-17 11:06 UTC] crypto/hold_btc  equity $486.71 (-2.7%) 1 open  market UP
+   social heat top: TIA 40 (40/0/0), ZRO 37 (37/0/0), SUI 35 (35/0/0), INJ 32 (32/0/0), PENGU 24 (24/0/0)
