@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T22:14Z",
+ "updated": "2026-10-17T22:29Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -740,8 +740,8 @@
    "away": "Gardner-Webb",
    "home": "UT Martin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -785,8 +785,8 @@
    "away": "Idaho St",
    "home": "Weber St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -800,8 +800,8 @@
    "away": "Lafayette",
    "home": "Bucknell",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -830,8 +830,8 @@
    "away": "W Illinois",
    "home": "SE Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -920,8 +920,8 @@
    "away": "Hurricanes",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1246,6 +1246,21 @@
    }
   },
   {
+   "id": "nhl:401892522",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-17T22:00Z",
+   "away": "Kraken",
+   "home": "Panthers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401867897",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1254,6 +1269,21 @@
    "start": "2026-10-17T22:00Z",
    "away": "Northern Iowa",
    "home": "Youngstown St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401860903",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-17T22:00Z",
+   "away": "Washington St",
+   "home": "Oregon St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1324,8 +1354,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arkansas St",
-    "p": 0.592,
-    "tie": 0.032,
+    "p": 0.581,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1340,9 +1370,9 @@
     "opp": "Southern Miss",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.575,
-    "win_p": 0.575,
+    "odds": -218,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": []
    }
   },
@@ -1505,8 +1535,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Mercer",
-    "p": 0.721,
-    "tie": 0.028,
+    "p": 0.73,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1521,9 +1551,9 @@
     "opp": "Samford",
     "market": "spread",
     "line": -14.0,
-    "odds": -110,
+    "odds": -113,
     "p": 0.501,
-    "win_p": 0.722,
+    "win_p": 0.731,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1774,7 +1804,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Baylor",
-    "p": 0.54,
+    "p": 0.527,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1790,9 +1820,9 @@
     "opp": "TCU",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -185,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1959,7 +1989,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Houston",
-    "p": 0.544,
+    "p": 0.537,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1975,9 +2005,9 @@
     "opp": "Oklahoma St",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.574,
-    "win_p": 0.574,
+    "odds": -185,
+    "p": 0.565,
+    "win_p": 0.565,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2874,8 +2904,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.425,
-    "tie": 0.294,
+    "p": 0.411,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2891,11 +2921,10 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.661,
-    "win_p": 0.661,
+    "p": 0.634,
+    "win_p": 0.634,
     "reasons": [
-     "the stronger team",
-     "better rested"
+     "the stronger team"
     ]
    }
   },
