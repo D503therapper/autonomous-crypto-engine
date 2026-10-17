@@ -396,6 +396,7 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 - 10/17 college lock hunt (4 Fable studies): favorites -101..-150 - no combination beats the price blind (DEAD); LEADS: Tuesday-read dog gap 5-8 at the first fair price (+17% pooled, ~1 a Saturday), and the Thursday flat-money dog +150..+300 with the engine 2+ over (+34% blind, 2026 2-4) - paper-track.
 - 10/17 the owner: yes to A (🔍 plays only when the ratings back the dog) and units on rule A as a WEIGHT, never automatic (sports.weigh_ncaaf_fav_form_spot, +3 pts, lead tag).
 - 10/17 the owner: the dog limit is +350 everywhere (Dog, plays, 🔍, early spots - DAILY_DOG_MAX / DOG_DAY_MAX / SPOT_DOG), was +300.
+- 10/17 the owner: NFL 0-2 dog +3 on the dog score (a weight); the 'blew somebody out' early spot OFF in the NFL (college keeps it). And: if a Fable audit finds an early play that should be removed, pull it without asking.
 - 10/16 still open (from the 10 Fable jobs): Dog only when its own read beats the price too; drop the hockey "best dog under score 6" fallback Dog; MLB early (exam) plays flat 1u instead of Kelly (Brewers 3u rode a read ~9 pts high); college hoops Locks small the first 2 weeks.
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.

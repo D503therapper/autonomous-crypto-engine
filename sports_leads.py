@@ -64,6 +64,8 @@ def tags(c, sports):
             t.append(".700 college dog")
         if lg == "ncaaf" and c.get("big_cover"):
             t.append("college dog off a 21+ cover (fade)")
+        if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
+            t.append("NFL 0-2 dog")
         if (mo.get("win_streak") or 0) >= 3 and lg == "nfl":
             t.append("NFL dog 3+ win streak")
         try:

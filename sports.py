@@ -1166,6 +1166,7 @@ def _dog_more(games, g, side, other, lg):
                     break
                 streak += 1
             out["win_streak"] = streak
+            out["record"] = (sum(res), len(res) - sum(res))      # this season's W-L (the 0-2 NFL dog, 10/17)
             out["neutral"] = str(g.get("neutral")) == "1"
             if lg == "nfl":
                 import sports_go4
@@ -1369,6 +1370,10 @@ def dog_spots(c):
             sc += 1.5              # a neutral-site dog the engine likes: +15.7% on 106 (5 of 6)
     if lg == "nfl" and (mo.get("win_streak") or 0) >= 3:
         sc += 1                    # an NFL dog on a 3+ game win streak: +6.7% (4 of 6)
+    if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
+        sc += 3                    # the 0-2 NFL team as a dog (+100..+350): train 14-14 +28%, blind 11-9 +76%, 2026 3-2;
+        #                            all winless 0-2+ 47-58 +28%, 8 of 9 seasons up, ATS 68% / 59% (10/17 NFL lock hunt -
+        #                            the owner: yes, a weight). 0-3+ mixed (2026 0-5) - 0-2 only.
     if lg == "nfl" and mo.get("go4_gap") is not None:
         import sports_go4          # the NFL style study's one lead (sports_go4): a dog whose coach goes for it on 4th
         if mo["go4_gap"] <= sports_go4.GAP_LO:   # down clearly less than the other coach - covered 48.4%, 0 of 9
