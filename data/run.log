@@ -18477,3 +18477,27 @@ DEX: $986.54 (-13.46) · Scammed: 0
 [2026-10-17 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-17 07:06 UTC] crypto/hold_btc  equity $486.46 (-2.7%) 1 open  market UP
    social heat top: TIA 37 (37/0/0), BTC 35 (35/0/0), PRL 32 (32/0/0), HYPE 29 (29/0/0), PONS 21 (21/0/0)
+   dex screen: REJECT ALIGN@base liq $102 - liquidity $102 < $100,000; 24h volume $30 < $100,000
+   dex screen: REJECT WHUF@base liq $260,364 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: REJECT ZEREBRO@solana liq $3,070,236 - top-10 holders 78%
+   dex screen: REJECT INDEX@ethereum liq $139,907 - top-10 holders 67%; lp locked 0% < 95%
+   dex screen: REJECT USDG@ethereum liq $3,575,252 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 84%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ZEN@base liq $2,659,769 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $3,341,213
+   dex scanner: 3,000 pools (solana 2,138 / base 469 / ethereum 393), refresh cycle 123s (hot 118s), 3044 calls (109 feed, 429s 0, failed 0), 88,050 refreshed (10627 no pair), +97 added / -103 dropped (dead 1, stale 0, cap 102), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT CRAWLER@base liq $295,721 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-17 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-17 08:06 UTC] crypto/mover     equity $288.01 (-42.4%) 2 open  market UP
+[2026-10-17 08:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-17 08:06 UTC] crypto/social_heat equity $438.81 (-12.2%) 2 open  market UP
+[2026-10-17 08:06 UTC] crypto/breakout10 equity $471.17 (-5.8%) 2 open  market UP
+[2026-10-17 08:06 UTC] crypto/momentum  equity $418.74 (-16.3%) 1 open  market UP
+[2026-10-17 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-17 08:06 UTC] crypto/hold_btc  equity $486.82 (-2.6%) 1 open  market UP
+   social heat top: TIA 37 (37/0/0), BTC 35 (35/0/0), PONS 34 (24/0/10), PRL 32 (32/0/0), INJ 21 (21/0/0)
