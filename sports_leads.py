@@ -39,8 +39,13 @@ def tags(c, sports):
     if c.get("fav_form_spot"):                               # 10/17 college lock hunt "rule A" (a weight): its live record
         t.append("college fav off a win vs a team off a loss")
     dog = c.get("odds", 0) >= 100
-    if dog and lg == "ncaaf" and c.get("edge_own") is not None and c.get("dec") and c.get("p_market") is not None \
-            and (c["edge_own"] + 1) / c["dec"] - c["p_market"] >= 0.10:
+    if dog and lg == "nhl" and (c.get("pyth_luck") or 0) <= sports.PYTH_UNLUCKY:   # 10/17 study (a weight)
+        t.append("NHL dog, record 10+ under its goals")
+    if lg == "nhl" and c.get("odds", 0) >= sports.NHL_LONG_DOG:   # 10/17 study (built as a weight): its live record
+        t.append("NHL dog +220 or longer (fade)")
+    if dog and lg == "ncaaf" and c.get("raw_own") is not None and c.get("p_market") is not None \
+            and c["raw_own"] - c["p_market"] >= 0.10:            # (10/17: the RAW ratings read - the college board's
+        #                                                      edge_own IS the market, so the old test never fired)
         t.append("college dog, engine 10+ over the books")   # the owner, 10/16 (Tulane): "lay off" - but keep its live
         #                                                      score (the posted / pulled ones went 0-6 through 10/16)
     if dog:

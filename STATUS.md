@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/17 - daily studies + yesterday's picks (SPORTS_FINDINGS.md 10/17 "TEN STUDIES")
+- BUG: the 8 AM board posted twice (8:00 sports run + 8:01 live-watcher pass); the merge kept both - Wisconsin Lock +114 AND a play +102, FAU a play AND a 2nd Lock +110. FIXED from 10/18 (one pick per game / one Lock per round, engine load + merge driver). TODAY'S extra 8:01 copies are still on the board - OWNER'S CALL to remove them (posted-pick rule).
+- Built (weights): NHL dogs +220 and longer -3; NHL dog whose record is 10+ under its goals (5-20 games in) +2. Fixed the tracker's 10+ gap college tag (raw read).
+- 10/16 review: leans 1-1 + void, no unit plays; Coastal beat the close and blew a 24-14 halftime lead.
+
 ## 10/17 - the six open early plays audited (the owner: "huge underdogs, upper 200s, at two units") - SPORTS_FINDINGS.md 10/17
 - The 2u plays (Tennessee +270, San Diego St +245) are the college EXAM BAND (sports_early.scan), sized by quarter-Kelly on the RAW own read - the rule as written, on the read the 10/15-10/16 studies showed the market beats. The band passed at the bare minimum (60 dogs / 20 / +2.8%) at 16:38Z on 10/16, three hours after failing (53 dogs -9.4%); one 2025-26 result flips it.
 - FIXED (worktree, test_early_exam_scan_posts_only_the_band_the_exam_graded): the scan posted by the gap at the price NOW while the exam grades the gap at the OPEN - the scan-only dogs ran -6.3% blind (41) vs +19.6% for the exam's own. Now the band must hold at the early price too (sports_early.exam_band_ok); the exam scan also asks college completeness (seen_all) like the spots. Would have blocked Tennessee (-14.8 at its +100 open) and San Diego St (+8.7 = the failed +8+ band). Posted picks untouched.

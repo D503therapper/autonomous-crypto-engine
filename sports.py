@@ -527,6 +527,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
+                    "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
                     "fired_on": FIRED.get((lg, str(g[side]))),
@@ -1062,6 +1063,11 @@ def dog_score(c):
         sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
+        if (c.get("pyth_luck") or 0) <= PYTH_UNLUCKY:   # unlucky record: its goals say it's better than its W-L
+            sc += PYTH_W
+        if c.get("odds", 0) >= NHL_LONG_DOG:             # (10/17 study: NHL dogs +220..+260 -25.7% on 494, 0 of 9
+            sc -= NHL_LONG_DOG_W                         # seasons up; +300..+350 blind 4-52 - the long hockey dog is
+            #                                              the money pit; college / NFL long dogs = just the vig)
         k = c.get("key_edge")
         if k is not None and not c.get("hot_key"):       # (10/2 study: 93% of hot_key dogs got this too - -5 stacked,
             #                                              the data says ~-2 in all: one or the other, never both)
@@ -1070,6 +1076,7 @@ def dog_score(c):
     #                                                             overweight these" - the angles overlap; their sum is capped)
 
 
+NHL_LONG_DOG, NHL_LONG_DOG_W = 220, 3   # hockey dogs +220 and longer: -3 on the dog score (a weight, 10/17)
 STUDY_CAP = 6     # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
 #                   overlapping spots (a rested bye-week dog off a blowout on Monday night...) never outweighs the read
 
@@ -1123,6 +1130,32 @@ def _cfb_style():
             out[tid] = (fo / n, pl / n)
     _STYLE["v"] = out
     return out
+
+
+PYTH_GAMES, PYTH_UNLUCKY, PYTH_W = (5, 20), -0.10, 2
+
+
+def pyth_luck(games, g, side):
+    """10/17 study (NHL, 2018-26): a team 5-20 games into the regular season whose win % sits 10+ points UNDER what its
+    goals say (goals for² / (for² + against²)) - as a dog it beat its price +20% train, +34.5% blind (4 of 4 seasons).
+    This season's regular-season games before this one only. None when outside 5-20 games."""
+    try:
+        sched, _ = _sched(games)
+        season0 = f"{int(g['start'][:4]) if int(g['start'][5:7]) >= 8 else int(g['start'][:4]) - 1}-08-01"
+        w = gf = ga = n = 0
+        for st_, x in sched.get((g.get("league"), g[side]), []):
+            if st_ >= g["start"]:
+                break
+            if st_ < season0 or x.get("status") != "final" or str(x.get("stype")) != "2":
+                continue
+            me, op = ("home", "away") if x["home"] == g[side] else ("away", "home")
+            a, b = float(x[f"{me}_score"]), float(x[f"{op}_score"])
+            n, gf, ga, w = n + 1, gf + a, ga + b, w + (a > b)
+    except (TypeError, ValueError, KeyError):
+        return None
+    if not PYTH_GAMES[0] <= n <= PYTH_GAMES[1] or gf + ga <= 0:
+        return None
+    return round(w / n - gf ** 2 / (gf ** 2 + ga ** 2), 3)
 
 
 def _dog_more(games, g, side, other, lg):
@@ -3802,7 +3835,38 @@ def dedupe_picks(picks):
             continue
         seen.add(k)
         out.append(p)
-    return drop_stale_dogs(out)
+    return one_per_game(drop_stale_dogs(out))
+
+
+RACE_FROM = "2026-10-18"       # (10/17: the owner's call on the board already up)
+
+
+def one_per_game(picks):
+    """10/17: the 8 AM run and the live watcher's quick pass both posted the board a minute apart - the merge kept
+    both: Wisconsin was the Lock AND a play, FAU a play AND a Lock (two Locks). One straight pick per game a day, and
+    one Lock / Dog per round: the first one posted stays. (An upgrade_dog pair is drop_stale_dogs' job.)"""
+    first, out = {}, []
+    for p in sorted(picks, key=lambda p: p.get("posted") or "9"):
+        legs = p.get("legs") or []
+        if p.get("status") == "waiting" or len(legs) != 1 or (p.get("date") or "") < RACE_FROM \
+                or p.get("upgraded") or p.get("was_dog") or legs[0].get("result"):
+            continue
+        for k in ((p.get("date"), "game", legs[0].get("game_id")),
+                  (p.get("date"), p.get("kind"), p.get("round") or 1) if p.get("kind") in ("lock", "dog") else None):
+            if k is not None:
+                first.setdefault(k, id(p))
+    drop = set()
+    for p in picks:
+        legs = p.get("legs") or []
+        if p.get("status") == "waiting" or len(legs) != 1 or (p.get("date") or "") < RACE_FROM \
+                or p.get("upgraded") or p.get("was_dog") or legs[0].get("result"):
+            continue
+        ks = [(p.get("date"), "game", legs[0].get("game_id"))]
+        if p.get("kind") in ("lock", "dog"):
+            ks.append((p.get("date"), p.get("kind"), p.get("round") or 1))
+        if any(first.get(k, id(p)) != id(p) for k in ks):
+            drop.add(id(p))
+    return [p for p in picks if id(p) not in drop]
 
 
 def drop_stale_dogs(picks):
