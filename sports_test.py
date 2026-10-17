@@ -11537,6 +11537,29 @@ def test_nfl_0_2_dog_weight_and_no_nfl_blowout_spot():
     assert sports.dog_score({**zero2, "league": "ncaaf"}) == sports.dog_score({**c, "league": "ncaaf"})
     assert "NFL 0-2 dog" in sports_leads.tags(zero2, sports)
     assert sports_early.SPOTS["blowout"][2] == ("ncaaf",)
+def test_early_exam_scan_posts_only_the_band_the_exam_graded():
+    """10/17 (the owner: "huge underdogs, upper 200s, at two units"): the college +4..8 exam band passed at 16:38Z on
+    10/16 (60 dogs, the bare minimum; it had FAILED at 13:47Z, 53 dogs -9.4%) and the scan posted four college dogs by
+    the gap at the price NOW. The exam grades every dog by the gap at its OPEN price. Tennessee +270 (2u) read 15 points
+    UNDER its +100 open - the band only opened once the market ran to +270 (the starting QB questionable); San Diego St
+    +245 (2u) read 8.7 over its +260 open - the +8+ band, which FAILED the exam (-14.6%) - and slid into +4..8 as the
+    price came in. Blind 2024-26 the scan-only dogs ran -6.3% (41) while the exam's own ran +19.6% at the close. The scan
+    now needs the band at the early price too; Kentucky +195 and Marshall +114 (posted at their opens) still clear.
+    And the exam scan never asked college completeness (seen_all) - the spots did; the rule covers every early play."""
+    import sports_early as se
+    b = [(0.04, 0.08, 100, 280)]
+    assert se.exam_band_ok(b, 0.3717, 195, 0.3250, 195, -238)            # Kentucky: +4.7 at the open and now
+    assert se.exam_band_ok(b, 0.4909, 114, 0.4470, 114, -137)            # Marshall: +4.4 at the open and now
+    assert not se.exam_band_ok(b, 0.3304, 270, 0.2591, 100, -120)        # Tennessee: -14.8 at its +100 open
+    assert not se.exam_band_ok(b, 0.3529, 245, 0.2779, 260, -330)        # San Diego St: +8.7 at its +260 open
+    assert se.exam_band_ok(b, 0.3529, 245, 0.2779, None, None)           # no open on record: the price now is the open
+    assert not se.exam_band_ok(b, 0.30, 245, 0.2779, 245, -305)          # +2.2 now: not in the band at all
+    assert not se.exam_band_ok(b, 0.40, 300, 0.26, 300, -380)            # +300: past the band's price range
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_early.py")).read()
+    scan = src[src.index("def scan("):src.index("BOOK_LEAGUES = ")]
+    assert 'exam_band_ok(bands[lg], o_own, odds, o_mkt, _int(g.get(f"ml_{side}_open")), _int(g.get(f"ml_{other}_open")))' in scan
+    assert 'v24.seen_all(cfin, g["home"], start, lg) and v24.seen_all(cfin, g["away"], start, lg)' in scan
+
 
 if __name__ == "__main__":
     import sports_goalies as _sg
