@@ -1,31 +1,58 @@
 {
- "at": "2026-10-17T04:54Z",
- "fixes": [
-  "live watch 39001387249 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+ "at": "2026-10-17T06:27Z",
+ "fixes": [],
+ "problems": [
+  "live tennis scores: tennis Kaji vs Preston: no points for 2102s",
+  "live tennis scores: tennis Jones vs Watson: no points for 1777s",
+  "live tennis scores: tennis Kenin vs Yamaguchi: no points for 376s",
+  "live tennis scores: tennis Putintseva vs Yihan: no points for 2618s",
+  "live tennis scores: tennis Vandromme vs Parks: no points for 2618s",
+  "live tennis scores: tennis Bondar vs Sasnovich: no points for 150s"
  ],
- "problems": [],
  "ok": [
+  "live watcher fresh (41s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 4 live matches",
+  "live tennis points + server: 6 of 6 live matches",
   "slate check: all 8 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 7h ago",
-  "engine ran 9 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-17T06:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kaji vs Preston: no points for 2102s",
+    "live tennis scores: tennis Jones vs Watson: no points for 1777s",
+    "live tennis scores: tennis Kenin vs Yamaguchi: no points for 376s",
+    "live tennis scores: tennis Putintseva vs Yihan: no points for 2618s",
+    "live tennis scores: tennis Vandromme vs Parks: no points for 2618s",
+    "live tennis scores: tennis Bondar vs Sasnovich: no points for 150s"
+   ]
+  },
+  {
+   "at": "2026-10-17T06:16Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kaji vs Preston: no points for 1424s",
+    "live tennis scores: tennis Jones vs Watson: no points for 1099s",
+    "live tennis scores: tennis Putintseva vs Yihan: no points for 1940s",
+    "live tennis scores: tennis Vandromme vs Parks: no points for 1940s"
+   ]
+  },
   {
    "at": "2026-10-17T04:54Z",
    "fixes": [
@@ -550,16 +577,6 @@
   },
   {
    "at": "2026-10-15T08:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T06:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T06:14Z",
    "fixes": [],
    "problems": []
   }

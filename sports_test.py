@@ -11454,8 +11454,11 @@ def test_big_gap_college_dogs_post_as_their_own_unit_play_and_a_dog_can_be_the_l
         dec = sports._dec(odds)
         return {"game_id": gid, "league": lg, "market": "ml", "side": "home", "team": gid, "opp": "X", "odds": odds,
                 "dec": dec, "p": mkt, "p_market": mkt, "edge_own": own * dec - 1, "edge": mkt * dec - 1,
-                "start": "2026-10-17T19:00Z", "reasons": ["r"], "waiting": [], **kw}
-    tulane = cand("T", "ncaaf", 215, 0.30, 0.49, elo_edge=12.0)   # (the ratings back the dog - the owner's "A")
+                "raw_own": own, "start": "2026-10-17T19:00Z", "reasons": ["r"], "waiting": [], **kw}
+    tulane = cand("T", "ncaaf", 215, 0.30, 0.49, elo_edge=12.0)
+    tul_board = {**tulane, "edge_own": 0.30 * tulane["dec"] - 1}            # (10/17: the board's college own read IS
+    assert [c["game_id"] for c in sports.gap_plays([tul_board], avoid=())] == ["T"]   # the market - the gap rides on
+    assert sports.beats_price(sports.gap_plays([tul_board], avoid=())[0])     #  the RAW ratings read, and so do its units   # (the ratings back the dog - the owner's "A")
     small = cand("S", "ncaaf", 150, 0.38, 0.44)        # 6 points over - not a big gap
     nfl = cand("N", "nfl", 200, 0.31, 0.50)            # college only
     long_ = cand("L", "ncaaf", 450, 0.17, 0.40)        # past +300
