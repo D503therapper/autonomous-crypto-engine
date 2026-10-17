@@ -478,6 +478,11 @@ def candidates(games, model, now=None, day=None, injuries=None):
                   for s_ in ("home", "away")}
         if absent["home"][0] or absent["away"][0]:
             ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
+        try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
+            raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
+            raw_h = min(0.99, max(0.01, raw_h - absent["home"][0] + absent["away"][0]))   # plays ride on (10/17)
+        except Exception:                            # noqa: BLE001
+            raw_h = None
         # 🚑 the more banged-up football side (regulars out beyond the opponent's): a small, capped weight on the OWN
         # read (10/4 - DEPTH_PTS), never a block; only when box scores say who plays (depth_weighed)
         weighed = {s_: depth_weighed(g, s_) for s_ in ("home", "away")}
@@ -511,6 +516,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "team_id": g[side], "elo_edge": round(f["elo_pts"] * (1 if side == "home" else -1), 1),
+                    "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
@@ -2239,21 +2245,21 @@ def gap_plays(cands, avoid):
     for c in cands:
         if c.get("market") != "ml" or c.get("league") not in GAP_LEAGUES or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
             continue
-        if c.get("trap") or c.get("edge_own") is None or c.get("p_market") is None or not c.get("dec"):
+        if c.get("trap") or c.get("raw_own") is None or c.get("p_market") is None or not c.get("dec"):
             continue
         if c.get("elo_edge") is None or c["elo_edge"] < 0:
             continue                                         # (the owner, 10/17 "A": only a gap the RATINGS back - when
             #                                                  Elo + home edge side with the favorite and the gap is all
             #                                                  form / travel / rest weights: -15.7% blind, 8 of 9 seasons red)
-        gap = (c["edge_own"] + 1) / c["dec"] - c["p_market"]
+        gap = c["raw_own"] - c["p_market"]
         if gap >= GAP_MIN:
             pool.append((gap, c))
     out, seen = [], set(avoid)
     for gap, c in sorted(pool, key=lambda x: -x[0]):
         if c["game_id"] not in seen:
             seen.add(c["game_id"])
-            g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read)
-            out.append({**g_, "gap": round(gap, 4)})
+            g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read -
+            out.append({**g_, "gap": round(gap, 4), "edge_own": round(c["raw_own"] * c["dec"] - 1, 4)})   # the raw one)
     return out
 
 
