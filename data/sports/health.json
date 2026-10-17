@@ -1,17 +1,19 @@
 {
- "at": "2026-10-17T08:18Z",
+ "at": "2026-10-17T08:28Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Curmi vs Geerlings: no points for 625s",
-  "live tennis scores: tennis Inglis vs Tormo: no points for 1155s",
-  "live tennis scores: tennis Kalinina vs Waltert: no points for 1155s"
+  "live tennis scores: tennis Curmi vs Geerlings: no points for 1228s",
+  "live tennis scores: tennis Inglis vs Tormo: no points for 1758s",
+  "live tennis scores: tennis Kalinina vs Waltert: no points for 1758s",
+  "live tennis scores: tennis Prozorova vs Sherif: no points for 662s",
+  "live tennis scores: tennis Frech vs Han: no points for 190s"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
@@ -20,12 +22,23 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 37 min ago",
+  "simulator ran 4h ago",
+  "engine ran 47 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T08:28Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Curmi vs Geerlings: no points for 1228s",
+    "live tennis scores: tennis Inglis vs Tormo: no points for 1758s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 1758s",
+    "live tennis scores: tennis Prozorova vs Sherif: no points for 662s",
+    "live tennis scores: tennis Frech vs Han: no points for 190s"
+   ]
+  },
   {
    "at": "2026-10-17T08:18Z",
    "fixes": [],
@@ -580,11 +593,6 @@
     "live tennis scores: tennis Hruncakova vs Salkova: no points for 937s",
     "live tennis scores: tennis Jorge vs Galfi: no points for 2300s"
    ]
-  },
-  {
-   "at": "2026-10-15T11:32Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
