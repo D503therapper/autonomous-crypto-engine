@@ -74,7 +74,7 @@ def merge_picks(ours, theirs, base=None):
     return sorted(rows, key=lambda p: (p.get("date") or "", p.get("posted") or "", p.get("kind") or ""))
 
 
-RACE_FROM = "2026-10-18"
+RACE_FROM = "2026-10-17"
 
 
 def _straight(p):
