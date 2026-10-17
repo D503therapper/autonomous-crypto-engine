@@ -1,14 +1,11 @@
 {
- "at": "2026-10-17T04:53Z",
- "fixes": [],
- "problems": [
-  "live tennis scores: tennis Grant vs Ito: no points for 2565s",
-  "live tennis scores: tennis Kobori vs Kraus: no points for 1990s",
-  "live tennis scores: tennis Sawashiro vs Liu: no points for 674s",
-  "live tennis scores: tennis Saigo vs Dart: no points for 362s"
+ "at": "2026-10-17T04:54Z",
+ "fixes": [
+  "live watch 39001387249 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
  ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,18 +14,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 7h ago",
-  "engine ran 8 min ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-17T04:54Z",
+   "fixes": [
+    "live watch 39001387249 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-17T04:53Z",
    "fixes": [],
@@ -555,11 +560,6 @@
   },
   {
    "at": "2026-10-15T06:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T06:13Z",
    "fixes": [],
    "problems": []
   }
