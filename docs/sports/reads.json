@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T03:38Z",
+ "updated": "2026-10-17T03:55Z",
  "games": [
   {
    "id": "nba:401914126",
@@ -200,8 +200,8 @@
    "away": "Washington",
    "home": "Purdue",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -245,8 +245,8 @@
    "away": "Penguins",
    "home": "Avalanche",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -604,7 +604,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas St",
-    "p": 0.501,
+    "p": 0.502,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -621,8 +621,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.522,
-    "win_p": 0.522,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
      "the stronger team"
     ]
@@ -695,7 +695,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Northwestern",
-    "p": 0.644,
+    "p": 0.645,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1180,7 +1180,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "W Michigan",
-    "p": 0.627,
+    "p": 0.628,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1242,7 +1242,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lehigh",
-    "p": 0.734,
+    "p": 0.733,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1322,7 +1322,7 @@
     "line": -14.0,
     "odds": -113,
     "p": 0.502,
-    "win_p": 0.749,
+    "win_p": 0.748,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
@@ -1676,8 +1676,8 @@
     "market": "ml",
     "line": null,
     "odds": -101,
-    "p": 0.502,
-    "win_p": 0.502,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
      "the stronger team"
     ]
@@ -1749,7 +1749,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama",
-    "p": 0.702,
+    "p": 0.701,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1984,8 +1984,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.515,
-    "win_p": 0.515,
+    "p": 0.516,
+    "win_p": 0.516,
     "reasons": [
      "the stronger team"
     ]
@@ -2149,8 +2149,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.507,
-    "tie": 0.277,
+    "p": 0.506,
+    "tie": 0.278,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2464,7 +2464,7 @@
     "opp": "Washington St",
     "market": "spread",
     "line": -18.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.503,
     "win_p": 0.872,
     "reasons": [
@@ -2780,7 +2780,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana St",
-    "p": 0.83,
+    "p": 0.829,
     "tie": 0.021,
     "name": "1st half"
    },
@@ -2870,7 +2870,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.374,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2887,7 +2887,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.672,
+    "p": 0.671,
     "win_p": 0.453,
     "reasons": []
    }
@@ -3556,8 +3556,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.435,
-    "tie": 0.293,
+    "p": 0.448,
+    "tie": 0.29,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3565,7 +3565,7 @@
    "start": "2026-10-18T02:00Z",
    "away": "Penguins",
    "home": "Golden Knights",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Golden Knights",
@@ -3573,11 +3573,12 @@
     "market": "ml",
     "line": null,
     "odds": -238,
-    "p": 0.674,
-    "win_p": 0.674,
+    "p": 0.699,
+    "win_p": 0.699,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -3714,7 +3715,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.522,
+    "p": 0.525,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3723,7 +3724,7 @@
    "start": "2026-10-18T03:00Z",
    "away": "Nebraska",
    "home": "Oregon",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Oregon",
@@ -3731,8 +3732,8 @@
     "market": "ml",
     "line": null,
     "odds": -258,
-    "p": 0.547,
-    "win_p": 0.547,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team"
     ]
