@@ -13297,6 +13297,7 @@
      "game:conf"
     ],
     "dec": 2.95,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13324,6 +13325,10 @@
     "elo_edge": -111.5,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "12,0,6,3",
+     "h": "7,7,7,6"
+    },
     "form_state": [
      -9.0,
      -2,
@@ -13369,9 +13374,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Pitt 21 @ Boston College 27",
+    "settled": "2026-10-17T19:51Z",
     "side": "home",
     "start": "2026-10-17T16:00Z",
     "stype": "2",
@@ -13388,12 +13395,14 @@
    }
   ],
   "p_hit": 0.3548,
-  "pnl": 0.0,
+  "pnl": 195.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T19:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 114,
@@ -13589,6 +13598,12 @@
      "us:trip1000"
     ],
     "dec": 2.1,
+    "decider": {
+     "h": "35-14",
+     "s": "56-24",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13616,6 +13631,10 @@
     "elo_edge": -182.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,0,3,7",
+     "h": "14,21,7,14"
+    },
     "form_state": [
      56.0,
      4,
@@ -13656,9 +13675,11 @@
      "better QB play lately"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "FAU 24 @ Army 56",
+    "settled": "2026-10-17T19:25Z",
     "side": "away",
     "start": "2026-10-17T16:00Z",
     "stype": "2",
@@ -13675,12 +13696,14 @@
    }
   ],
   "p_hit": 0.4642,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T19:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 164,
@@ -13855,6 +13878,7 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13885,6 +13909,10 @@
     "elo_edge": 166.0,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,7,3,6",
+     "h": "0,7,0,8"
+    },
     "form_state": [
      3.0,
      22,
@@ -13931,9 +13959,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Ohio State 19 @ Indiana 15",
+    "settled": "2026-10-17T19:51Z",
     "side": "home",
     "start": "2026-10-17T16:00Z",
     "stype": "2",
@@ -13960,12 +13990,14 @@
    }
   ],
   "p_hit": 0.4384,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T19:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 210,
@@ -14556,6 +14588,148 @@
   "p_hit": 0.3138,
   "pnl": 0.0,
   "posted": "2026-10-17T18:32Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 124,
+  "date": "2026-10-17",
+  "dec": 2.24,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:2",
+     "worse:2",
+     "latest:0",
+     "QB_cold:0",
+     "momentum:0",
+     "road:1",
+     "rest:5",
+     "sharp:1",
+     "splits_f:1",
+     "bottom_s:6",
+     "w_rolling:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Troy out: TE J. Worley \u00b7 questionable: TE F. Rogosch.",
+     "\ud83d\ude80 Troy just blew somebody out \u2014 teams like that keep rolling.",
+     "\ud83e\uddf3 Road game for Troy \u2014 0-2 away from home so far.",
+     "\ud83d\udcc5 Latest: Troy W 55-34 vs Southern Miss \u00b7 Louisiana L 31-32 @ Louisiana Tech.",
+     "\ud83d\udc3a Louisiana are 4-2, Troy 3-2. The record's in the price already.",
+     "\ud83d\udcb0 Troy went from +160 to +124 since the open. We were here first.",
+     "\ud83d\udccb 3-2 so far for Troy \u2014 the record don't cash tickets, the number does.",
+     "\ud83d\uddd1\ufe0f Lunch Winfield has been complete booty cheeks \u2014 2 TDs, 2 picks and 577 yards in his last 3 games against FBS teams.",
+     "\u2705 Bottom line: Troy (+124). The books undersold 'em."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.24,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": 21.0,
+     "last_pts": 55.0,
+     "neutral": false,
+     "record": [
+      3,
+      2
+     ],
+     "win_pct": 0.6,
+     "win_streak": 1
+    },
+    "dog_p": 0.4687,
+    "dog_score": 4.08,
+    "drift": -0.0589,
+    "edge": -0.02981484055861261,
+    "edge_own": -0.03960169362452204,
+    "elo_edge": -144.6,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     21.0,
+     1,
+     -410,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401869966",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.11539120502569933,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 124,
+    "opp": "Louisiana",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "D. Smith (RB)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "J. Worley (TE)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4331183747506193,
+    "p_market": 0.4279403644395362,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.2835,
+    "reasons": [
+     "sharp money moving this way",
+     "rolling off a blowout win"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-17T21:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Troy",
+    "team_id": "2653",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 They're rolling off a blowout \u2014 that's our edge today."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4331,
+  "pnl": 0.0,
+  "posted": "2026-10-17T19:33Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",
