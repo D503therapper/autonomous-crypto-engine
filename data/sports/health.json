@@ -1,27 +1,39 @@
 {
- "at": "2026-10-17T11:48Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-17T13:19Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
+ "problems": [
+  "studies last ran 9h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 51 min ago",
+  "simulator ran 8h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-17T13:19Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-17T11:48Z",
    "fixes": [],
@@ -574,15 +586,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Andreescu vs Ruzic: no points for 1008s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T16:04Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
-    "live tennis scores: tennis Burel vs Lollia: no points for 606s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
