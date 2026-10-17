@@ -1,29 +1,53 @@
 {
- "at": "2026-10-17T01:41Z",
+ "at": "2026-10-17T03:13Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Matsuda vs Stoiana: no points for 2028s",
+  "live tennis scores: tennis Day vs Koike: no points for 2013s",
+  "live tennis scores: tennis Avanesyan vs Ishii: no points for 1933s",
+  "live tennis scores: tennis Okamura vs Joint: no points for 1933s",
+  "live tennis scores: tennis Zakharova vs Starodubtseva: no points for 248s",
+  "live tennis scores: tennis Volynets vs Kawa: no points for 175s",
+  "live tennis scores: tennis Lin vs Snigur: no points for 268s"
+ ],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 7 of 7 live matches",
   "slate check: all 8 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 11 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-17T03:13Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Matsuda vs Stoiana: no points for 2028s",
+    "live tennis scores: tennis Day vs Koike: no points for 2013s",
+    "live tennis scores: tennis Avanesyan vs Ishii: no points for 1933s",
+    "live tennis scores: tennis Okamura vs Joint: no points for 1933s",
+    "live tennis scores: tennis Zakharova vs Starodubtseva: no points for 248s",
+    "live tennis scores: tennis Volynets vs Kawa: no points for 175s",
+    "live tennis scores: tennis Lin vs Snigur: no points for 268s"
+   ]
+  },
   {
    "at": "2026-10-17T01:41Z",
    "fixes": [
@@ -514,13 +538,6 @@
   {
    "at": "2026-10-15T01:39Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T00:58Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
    "problems": []
   }
  ]
