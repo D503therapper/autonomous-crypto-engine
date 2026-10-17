@@ -1,36 +1,154 @@
 {
- "at": "2026-10-17T06:27Z",
- "fixes": [],
- "problems": [
-  "live tennis scores: tennis Kaji vs Preston: no points for 2102s",
-  "live tennis scores: tennis Jones vs Watson: no points for 1777s",
-  "live tennis scores: tennis Kenin vs Yamaguchi: no points for 376s",
-  "live tennis scores: tennis Putintseva vs Yihan: no points for 2618s",
-  "live tennis scores: tennis Vandromme vs Parks: no points for 2618s",
-  "live tennis scores: tennis Bondar vs Sasnovich: no points for 150s"
+ "at": "2026-10-17T16:21Z",
+ "fixes": [
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 6 live matches",
-  "slate check: all 8 of today's games named, priced and looked at",
+  "slate check: all 122 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 41 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 3 min ago",
   "pacer running",
-  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-17T16:21Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T14:50Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-17T14:28Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Havlickova vs Andreescu: no points for 1389s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-17T13:19Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-17T11:48Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T11:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Zidansek: no points for 514s",
+    "live tennis scores: tennis Salkova vs Kubka: no points for 290s",
+    "live tennis scores: tennis Galfi vs Gormaz: no points for 514s",
+    "live tennis scores: tennis Rakhimova vs Yastremska: no points for 514s"
+   ]
+  },
+  {
+   "at": "2026-10-17T10:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Zidansek: no points for 1721s",
+    "live tennis scores: tennis Galfi vs Gormaz: no points for 358s",
+    "live tennis scores: tennis Prozorova vs Sherif: no points for 2625s",
+    "live tennis scores: tennis Rakhimova vs Yastremska: no points for 450s"
+   ]
+  },
+  {
+   "at": "2026-10-17T10:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-10-17T08:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Curmi vs Geerlings: no points for 1839s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 2368s",
+    "live tennis scores: tennis Prozorova vs Sherif: no points for 1273s",
+    "live tennis scores: tennis Frech vs Han: no points for 800s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-17T08:28Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Curmi vs Geerlings: no points for 1228s",
+    "live tennis scores: tennis Inglis vs Tormo: no points for 1758s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 1758s",
+    "live tennis scores: tennis Prozorova vs Sherif: no points for 662s",
+    "live tennis scores: tennis Frech vs Han: no points for 190s"
+   ]
+  },
+  {
+   "at": "2026-10-17T08:18Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Curmi vs Geerlings: no points for 625s",
+    "live tennis scores: tennis Inglis vs Tormo: no points for 1155s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 1155s"
+   ]
+  },
+  {
+   "at": "2026-10-17T08:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Inglis vs Tormo: no points for 563s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 563s",
+    "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-17T07:59Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-17T07:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Inglis vs Tormo: no points for 2624s",
+    "live tennis scores: tennis Bondar vs Sasnovich: no points for 2624s",
+    "live tennis scores: tennis Korneeva vs Dong: no points for 2624s",
+    "live tennis scores: tennis Kalinina vs Waltert: no points for 2560s"
+   ]
+  },
   {
    "at": "2026-10-17T06:27Z",
    "fixes": [],
@@ -472,113 +590,6 @@
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-10-15T17:36Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T17:35Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Ruzic: no points for 1661s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T17:24Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Ruzic: no points for 1008s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T16:04Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
-    "live tennis scores: tennis Burel vs Lollia: no points for 606s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-15T15:20Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-15T13:49Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-15T13:48Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Steur vs Zidansek: no points for 2646s",
-    "live tennis scores: tennis Jorge vs Galfi: no points for 2646s",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-15T12:16Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samson vs Tan: no points for 2618s",
-    "live tennis scores: tennis Hruncakova vs Salkova: no points for 1256s",
-    "live tennis scores: tennis Jorge vs Galfi: no points for 2618s"
-   ]
-  },
-  {
-   "at": "2026-10-15T12:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samson vs Tan: no points for 2300s",
-    "live tennis scores: tennis Hruncakova vs Salkova: no points for 937s",
-    "live tennis scores: tennis Jorge vs Galfi: no points for 2300s"
-   ]
-  },
-  {
-   "at": "2026-10-15T11:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T10:01Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T10:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs Garcia: no points for 2623s"
-   ]
-  },
-  {
-   "at": "2026-10-15T08:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs Garcia: no points for 1168s"
-   ]
-  },
-  {
-   "at": "2026-10-15T08:04Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
