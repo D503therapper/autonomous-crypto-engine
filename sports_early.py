@@ -549,7 +549,8 @@ SPOTS = {   # key: (label, units, leagues)
     "hammered":  ("🔨 Hammered early", 0.5, ("nfl", "ncaaf")),                  # in 4+ win-% pts since the first fair price
     "mnf":       ("🏈 Monday night dog", 0.5, ("nfl",)),                          # NFL +21%, 5 of 6
     "eastwest":  ("✈️ East Coast team flying West", 0.5, ("nfl",)),              # NFL +17%, 6 of 6
-    "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
+    "blowout":   ("💥 Blew somebody out last week", 0.5, ("ncaaf",)),           # (10/17 the owner: off in the NFL -
+    #                                                                              blind -12.5% on 94, live 1-8)      # +8 / +9%, both sports
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)

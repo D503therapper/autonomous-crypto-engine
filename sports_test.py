@@ -5903,8 +5903,10 @@ def _six_early_spots():
     se._COACH["exp"] = {}                                                   # (no coach history in the test)
     got = {(c["team"], c["spot"]): c for c in se.spot_scan(G, now, own_of=agree, hist_dir=tempfile.mkdtemp())}
     assert ("Bills", "bye") in got and se.units(got[("Bills", "bye")]) == 1.0
-    rams = [c for c in got.values() if c["team"] == "Rams"][0]
-    assert "mnf" in rams["spots"] and "blowout" in rams["spots"] and se.units(rams) == 0.5
+    assert not any(c["team"] == "Rams" for c in got.values())      # (10/17: the blowout spot is off in the NFL - the
+    #                                                                Rams' Monday spot + 2 pts no longer clears the bar)
+    rams = [c for c in se.spot_scan(G, now, own_of=own_by(0.04), hist_dir=tempfile.mkdtemp()) if c["team"] == "Rams"][0]
+    assert "mnf" in rams["spots"] and "blowout" not in rams["spots"] and se.units(rams) == 0.5
     assert not any(c["team"] in ("Jets", "Packers") for c in got.values())          # favorites: never these spots
     # 10/1, the owner: "the engine NEVER picks off one factor - it weighs everything." No engine read, or the engine's
     # read fighting the side: no play, whatever the spot. A spot with the engine just at the price: not enough alone.
@@ -5913,8 +5915,9 @@ def _six_early_spots():
     flat = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.0), hist_dir=tempfile.mkdtemp())}
     assert ("Bills", "bye") not in flat and ("Rams", "mnf") not in flat   # the bye alone (+4) < 5; Rams: Monday (+1.5,
     #                                                                     halved 10/1) + blowout (+2) = 3.5 < 5 too
-    lift = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.02), hist_dir=tempfile.mkdtemp())}
-    assert ("Rams", "mnf") in lift                                      # ...with the engine 2 pts over the price: in
+    lift = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.04), hist_dir=tempfile.mkdtemp())}
+    assert ("Rams", "mnf") in lift                                      # ...with the engine 4 pts over the price: in
+    #                                                                     (10/17: no NFL blowout +2 any more - was 2 pts)
     # not before last week's games are over (the 10/1 audit: an early price then 'knew' nothing the engine knew)
     early = datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc)                       # the Jets' game still on
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, early, own_of=agree, hist_dir=tempfile.mkdtemp()))
@@ -11518,6 +11521,21 @@ def test_game_specific_sickness_news_goes_stale_once_the_team_has_played():
         assert sports.fresh_drama([sick], "nfl", "99", "2026-10-18T20:25Z") == [sick]   # no schedule known: kept
     finally:
         sports.LAST_STARTS.clear(); sports.LAST_STARTS.update(keep)
+
+
+def test_nfl_0_2_dog_weight_and_no_nfl_blowout_spot():
+    """10/17 NFL lock hunt (the owner: "1 yes, 2 the numbers say turn it off - OK"): the 0-2 NFL team as a dog gets +3
+    on the dog score (a weight, never a trigger); the 'blew somebody out' early spot is off in the NFL (college keeps it)."""
+    import sports, sports_early, sports_leads
+    c = {"market": "ml", "league": "nfl", "odds": 160, "dec": 2.6, "p_market": 0.37, "edge": 0.0, "edge_own": 0.0,
+         "reasons": [], "dog_more": {"record": (1, 1)}}
+    base = sports.dog_score(dict(c))
+    zero2 = {**c, "dog_more": {"record": (0, 2)}}
+    assert sports.dog_score(zero2) == base + 3
+    assert sports.dog_score({**c, "dog_more": {"record": (0, 3)}}) == base            # 0-2 only
+    assert sports.dog_score({**zero2, "league": "ncaaf"}) == sports.dog_score({**c, "league": "ncaaf"})
+    assert "NFL 0-2 dog" in sports_leads.tags(zero2, sports)
+    assert sports_early.SPOTS["blowout"][2] == ("ncaaf",)
 
 if __name__ == "__main__":
     import sports_goalies as _sg
