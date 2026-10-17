@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T17:43Z",
+ "updated": "2026-10-17T17:54Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -1087,7 +1087,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.687,
+    "p": 0.694,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1105,7 +1105,7 @@
     "line": -9.5,
     "odds": -110,
     "p": 0.501,
-    "win_p": 0.741,
+    "win_p": 0.748,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1331,7 +1331,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Air Force",
-    "p": 0.492,
+    "p": 0.485,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1340,16 +1340,16 @@
    "start": "2026-10-17T19:30Z",
    "away": "UNLV",
    "home": "Air Force",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Air Force",
     "opp": "UNLV",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": 102,
+    "p": 0.502,
+    "win_p": 0.502,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win"
@@ -1362,8 +1362,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Villanova",
-    "p": 0.602,
-    "tie": 0.032,
+    "p": 0.652,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1371,16 +1371,16 @@
    "start": "2026-10-17T19:30Z",
    "away": "Villanova",
    "home": "Fordham",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Villanova",
     "opp": "Fordham",
-    "market": "ml",
-    "line": null,
-    "odds": -253,
-    "p": 0.583,
-    "win_p": 0.583,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -111,
+    "p": 0.5,
+    "win_p": 0.641,
     "reasons": [
      "better QB play lately"
     ]
@@ -1981,7 +1981,7 @@
     "opp": "Kent State",
     "market": "spread",
     "line": -21.0,
-    "odds": -108,
+    "odds": -105,
     "p": 0.503,
     "win_p": 0.899,
     "reasons": [
@@ -2843,8 +2843,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.779,
-    "tie": 0.024,
+    "p": 0.771,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2861,7 +2861,7 @@
     "line": -14.5,
     "odds": -112,
     "p": 0.502,
-    "win_p": 0.778,
+    "win_p": 0.77,
     "reasons": [
      "the stronger team",
      "better QB play lately",
