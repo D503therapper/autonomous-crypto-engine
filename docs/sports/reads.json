@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17T04:40Z",
+ "updated": "2026-10-17T04:57Z",
  "games": [
   {
    "id": "nba:401914126",
@@ -261,7 +261,7 @@
    "home": "Ducks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Bruins",
@@ -275,7 +275,7 @@
      "sharp money moving this way",
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -303,8 +303,8 @@
    "away": "Trail Blazers",
    "home": "Warriors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3440,8 +3440,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Kings",
-    "p": 0.373,
-    "tie": 0.299,
+    "p": 0.387,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3449,7 +3449,7 @@
    "start": "2026-10-18T01:00Z",
    "away": "Bruins",
    "home": "Kings",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Bruins",
@@ -3457,8 +3457,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.672,
-    "win_p": 0.453,
+    "p": 0.644,
+    "win_p": 0.425,
     "reasons": [
      "the stronger team"
     ]
