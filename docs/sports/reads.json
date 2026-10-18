@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T21:27Z",
+ "updated": "2026-10-18T21:40Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -210,38 +210,6 @@
    }
   },
   {
-   "id": "nhl:401892533",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.426,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-18T22:00Z",
-   "away": "Blue Jackets",
-   "home": "Wild",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Wild",
-    "opp": "Blue Jackets",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892534",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -277,8 +245,8 @@
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "Packers",
-    "p": 0.494,
+    "team": "Cowboys",
+    "p": 0.483,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -290,17 +258,17 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Packers",
-    "opp": "Cowboys",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.52,
-    "win_p": 0.52,
+    "team": "Cowboys",
+    "opp": "Packers",
+    "market": "spread",
+    "line": -1.5,
+    "odds": 102,
+    "p": 0.513,
+    "win_p": 0.503,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
+     "better rested",
+     "coming off a bye",
+     "opponent missing key players"
     ]
    }
   },
