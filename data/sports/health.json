@@ -1,27 +1,36 @@
 {
- "at": "2026-10-18T08:30Z",
+ "at": "2026-10-18T10:02Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 72s"
+ ],
  "ok": [
-  "live watcher fresh (197s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 39 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T10:02Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 72s"
+   ]
+  },
   {
    "at": "2026-10-18T08:30Z",
    "fixes": [],
@@ -613,16 +622,6 @@
   {
    "at": "2026-10-16T13:42Z",
    "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T13:41Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
    "problems": [
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "studies last ran 9h ago - restarted"
