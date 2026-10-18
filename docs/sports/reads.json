@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T16:07Z",
+ "updated": "2026-10-18T16:53Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -11,181 +11,23 @@
    "away": "Texans",
    "home": "Jaguars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nfl:401872999",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bears",
-    "p": 0.495,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Bears",
-   "home": "Falcons",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Bears",
-    "opp": "Falcons",
-    "market": "ml",
-    "line": null,
-    "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873001",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Patriots",
-    "p": 0.657,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Jets",
-   "home": "Patriots",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Jets",
-    "opp": "Patriots",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.512,
-    "win_p": 0.236,
-    "reasons": [
-     "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872998",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.55,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Panthers",
-   "home": "Eagles",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Panthers",
-    "opp": "Eagles",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "sharp money moving this way",
-     "better QB play lately",
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872997",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Ravens",
-    "p": 0.563,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Ravens",
-   "home": "Browns",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Ravens",
-    "opp": "Browns",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.61,
-    "win_p": 0.61,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873000",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Giants",
-    "p": 0.495,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Saints",
-   "home": "Giants",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Giants",
-    "opp": "Saints",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.522,
-    "win_p": 0.522,
-    "reasons": [
-     "the stronger team",
-     "revenge game",
-     "sharp money moving this way"
-    ]
-   }
   },
   {
    "id": "nfl:401873002",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Steelers",
-    "p": 0.528,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-18T17:00Z",
    "away": "Steelers",
    "home": "Buccaneers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Steelers",
@@ -193,45 +35,14 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.559,
-    "win_p": 0.559,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873003",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Colts",
-    "p": 0.628,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-18T17:00Z",
-   "away": "Titans",
-   "home": "Colts",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Colts",
-    "opp": "Titans",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.714,
-    "win_p": 0.714,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
      "opponent missing key players"
-    ]
+    ],
+    "result": null
    }
   },
   {
