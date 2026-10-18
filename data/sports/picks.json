@@ -15163,6 +15163,15 @@
      "game:nonconf"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "k": "td",
+     "n": 1,
+     "p": "Germie Bernard",
+     "s": "26-19",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15191,6 +15200,10 @@
     "elo_edge": 42.1,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,3,0,16,7",
+     "h": "3,10,3,3,0"
+    },
     "form_state": [
      12.0,
      1,
@@ -15239,9 +15252,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Steelers 26 @ Buccaneers 19",
+    "settled": "2026-10-18T20:44Z",
     "side": "away",
     "start": "2026-10-18T17:00Z",
     "stype": "2",
@@ -15264,11 +15279,13 @@
    }
   ],
   "p_hit": 0.5628,
-  "pnl": 0.0,
+  "pnl": 74.07,
   "posted": "2026-10-18T15:00Z",
   "round": 1,
+  "settled": "2026-10-18T20:44Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]
