@@ -1,36 +1,20 @@
 {
- "updated": "2026-10-18T13:04Z",
+ "updated": "2026-10-18T13:38Z",
  "games": [
   {
    "id": "nfl:401872996",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jaguars",
-    "p": 0.523,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-18T13:30Z",
    "away": "Texans",
    "home": "Jaguars",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Jaguars",
-    "opp": "Texans",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
-    "reasons": [
-     "the stronger team",
-     "revenge game"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401872999",
@@ -239,7 +223,7 @@
     "opp": "Colts",
     "market": "spread",
     "line": 6.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.513,
     "win_p": 0.272,
     "reasons": [
@@ -284,7 +268,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.632,
+    "p": 0.626,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -300,9 +284,9 @@
     "opp": "Raiders",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.707,
-    "win_p": 0.707,
+    "odds": -245,
+    "p": 0.698,
+    "win_p": 0.698,
     "reasons": [
      "the stronger team"
     ]
