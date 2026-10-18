@@ -14548,6 +14548,15 @@
      "game:conf"
     ],
     "dec": 3.35,
+    "decider": {
+     "c": "0:57",
+     "k": "fg",
+     "p": "Cooper DiLeva",
+     "s": "26-23",
+     "type": "late",
+     "win": "home",
+     "y": 53
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14576,6 +14585,10 @@
     "elo_edge": -81.0,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,10,7,6",
+     "h": "10,6,0,10"
+    },
     "form_state": [
      -52.0,
      -1,
@@ -14619,9 +14632,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Fresno St 23 @ San Diego St 26",
+    "settled": "2026-10-18T06:07Z",
     "side": "home",
     "start": "2026-10-18T02:30Z",
     "stype": "2",
@@ -14639,12 +14654,14 @@
   ],
   "midday": true,
   "p_hit": 0.3138,
-  "pnl": 0.0,
+  "pnl": 235.0,
   "posted": "2026-10-17T18:32Z",
   "round": 1,
+  "settled": "2026-10-18T06:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 124,
