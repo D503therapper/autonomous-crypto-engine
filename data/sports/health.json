@@ -1,9 +1,9 @@
 {
- "at": "2026-10-18T16:25Z",
+ "at": "2026-10-18T16:35Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 27 min ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T16:35Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T16:25Z",
    "fixes": [],
@@ -591,16 +596,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-16T21:38Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }
