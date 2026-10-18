@@ -1,16 +1,13 @@
 {
- "at": "2026-10-18T14:54Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
- "problems": [
-  "simulator last ran 10h ago - restarted"
- ],
+ "at": "2026-10-18T16:25Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
   "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "slate check: all 15 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
@@ -19,11 +16,18 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "engine ran 16 min ago",
+  "simulator ran 0h ago",
+  "engine ran 27 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T16:25Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T14:54Z",
    "fixes": [
@@ -597,13 +601,6 @@
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
-  },
-  {
-   "at": "2026-10-16T20:07Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": []
   }
  ]
 }
