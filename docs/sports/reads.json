@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T15:01Z",
+ "updated": "2026-10-18T15:20Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -22,7 +22,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.496,
+    "p": 0.495,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -39,8 +39,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "the stronger team"
     ]
@@ -176,7 +176,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Steelers",
-    "p": 0.531,
+    "p": 0.525,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -192,13 +192,13 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -130,
+    "p": 0.555,
+    "win_p": 0.555,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
+     "opponent missing key players",
+     "sharp money moving this way"
     ]
    }
   },
@@ -208,7 +208,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colts",
-    "p": 0.635,
+    "p": 0.628,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -217,18 +217,19 @@
    "start": "2026-10-18T17:00Z",
    "away": "Titans",
    "home": "Colts",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Titans",
-    "opp": "Colts",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -108,
-    "p": 0.513,
-    "win_p": 0.272,
+    "team": "Colts",
+    "opp": "Titans",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
-     "revenge game"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -345,8 +346,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -164,
-    "p": 0.574,
-    "win_p": 0.455,
+    "p": 0.575,
+    "win_p": 0.456,
     "reasons": []
    }
   },
