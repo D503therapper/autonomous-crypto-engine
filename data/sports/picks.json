@@ -14225,6 +14225,15 @@
      "them:west1000"
     ],
     "dec": 4.1,
+    "decider": {
+     "c": "1:47",
+     "k": "td",
+     "p": null,
+     "s": "28-24",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14255,6 +14264,10 @@
     "elo_edge": 47.3,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,7,6,8",
+     "h": "7,14,0,7"
+    },
     "form_state": [
      14.0,
      6,
@@ -14303,9 +14316,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Notre Dame 24 @ BYU 28",
+    "settled": "2026-10-18T03:19Z",
     "side": "home",
     "start": "2026-10-17T23:30Z",
     "stype": "2",
@@ -14332,12 +14347,14 @@
    }
   ],
   "p_hit": 0.261,
-  "pnl": 0.0,
+  "pnl": 310.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-18T03:19Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 102,
