@@ -3270,6 +3270,29 @@ def test_a_value_play_is_never_filed_as_a_lean_in_the_bankroll():
     assert "The engine sees something\")" not in src[src.index("def units_box"):src.index("def day_calls")]   # 3 rows only
 
 
+def test_nhl_overtime_and_shootout_endings_weigh_the_next_game():
+    """10/18 study: the NHL team off an OT LOSS loses to its price next game (-10.2% train, -12.6% blind, 7 of 8 seasons),
+    the OT winner beats it (+6.2% blind), a shootout winner as a dog loses (-18.9% / -13.6%). Weights on the dog score:
+    OT win +1, OT loss -2, shootout win -2, the opponent off an OT loss +2 - never a trigger."""
+    import sports_leads
+    g0 = {"id": "p", "league": "nhl", "start": "2026-10-20T23:00Z", "status": "final", "stype": "2", "home": "A",
+          "away": "B", "home_score": 3, "away_score": 2, "ls_home": "1,1,0,1", "ls_away": "0,1,1,0"}
+    g = {"id": "n", "league": "nhl", "start": "2026-10-22T23:00Z", "status": "pre", "stype": "2", "home": "B", "away": "A"}
+    games = {"p": g0, "n": g}
+    assert sports.ot_last(games, g, "away") == "ot_win" and sports.ot_last(games, g, "home") == "ot_loss"
+    so = {**g0, "ls_home": "1,1,0,0,1", "ls_away": "1,0,1,0,0"}
+    assert sports.ot_last({"p": so, "n": g}, g, "away") == "so_win"
+    reg = {**g0, "ls_home": "1,1,1", "ls_away": "0,1,1"}
+    assert sports.ot_last({"p": reg, "n": g}, g, "away") is None
+    c = {"market": "ml", "league": "nhl", "odds": 130, "dec": 2.3, "p_market": 0.42, "edge": 0.0, "edge_own": 0.42 * 2.3 - 1,
+         "dog_more": {}, "reasons": []}
+    base = sports.dog_score(dict(c))
+    assert sports.dog_score({**c, "ot_last": "ot_loss"}) == base - 2
+    assert sports.dog_score({**c, "ot_last": "ot_win"}) == base + 1
+    assert sports.dog_score({**c, "opp_ot_last": "ot_loss"}) == base + 2
+    assert "NHL side off an OT loss (fade)" in sports_leads.tags({**c, "ot_last": "ot_loss"}, sports)
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""

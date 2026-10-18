@@ -528,6 +528,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
+                    "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
+                    "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
                     "fired_on": FIRED.get((lg, str(g[side]))),
@@ -1063,6 +1065,8 @@ def dog_score(c):
         sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
+        sc += OT_W.get(c.get("ot_last"), 0)              # 10/18: how its last game ended in OT / a shootout
+        sc += 2 if c.get("opp_ot_last") == "ot_loss" else 0   # (the favorite off an OT loss: -9% / -16% blind)
         if (c.get("pyth_luck") or 0) <= PYTH_UNLUCKY:   # unlucky record: its goals say it's better than its W-L
             sc += PYTH_W
         if c.get("odds", 0) >= NHL_LONG_DOG:             # (10/17 study: NHL dogs +220..+260 -25.7% on 494, 0 of 9
@@ -1133,6 +1137,34 @@ def _cfb_style():
 
 
 PYTH_GAMES, PYTH_UNLUCKY, PYTH_W = (5, 20), -0.10, 2
+OT_DAYS = 7                     # the 10/18 study: the team's previous game, within a week
+OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog score (NHL); the opponent's OT loss +2
+
+
+def ot_last(games, g, side):
+    """10/18 study (NHL 2018-26, line scores - 4 periods = overtime, 5 = a shootout): how this team's LAST game ended,
+    'ot_win' / 'ot_loss' / 'so_win' / 'so_loss', or None (regulation, none within OT_DAYS, no line score). Next game:
+    the OT loser -10.2% train / -12.6% blind (7 of 8 seasons red), the OT winner +6.2% blind, a shootout winner as a
+    dog -18.9% / -13.6%."""
+    try:
+        sched, _ = _sched(games)
+        prev = None
+        for st_, x in sched.get((g.get("league"), g[side]), []):
+            if st_ >= g["start"]:
+                break
+            if x.get("status") == "final":
+                prev = x
+        if not prev or (datetime.strptime(g["start"][:10], "%Y-%m-%d")
+                        - datetime.strptime(prev["start"][:10], "%Y-%m-%d")).days > OT_DAYS:
+            return None
+        n = len([p for p in str(prev.get("ls_home") or "").split(",") if p.strip() != ""])
+        if n < 4:
+            return None
+        me, op = ("home", "away") if prev["home"] == g[side] else ("away", "home")
+        won = float(prev[f"{me}_score"]) > float(prev[f"{op}_score"])
+    except (TypeError, ValueError, KeyError):
+        return None
+    return ("so_" if n >= 5 else "ot_") + ("win" if won else "loss")
 
 
 def pyth_luck(games, g, side):
