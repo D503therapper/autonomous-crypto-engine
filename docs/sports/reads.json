@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T16:53Z",
+ "updated": "2026-10-18T17:20Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -13,6 +13,81 @@
    "h1": null,
    "why": "final",
    "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401872999",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Bears",
+   "home": "Falcons",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873001",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Jets",
+   "home": "Patriots",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401872998",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Panthers",
+   "home": "Eagles",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401872997",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Ravens",
+   "home": "Browns",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873000",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Saints",
+   "home": "Giants",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -46,6 +121,21 @@
    }
   },
   {
+   "id": "nfl:401873003",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-18T17:00Z",
+   "away": "Titans",
+   "home": "Colts",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873004",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -69,7 +159,7 @@
     "line": 12.5,
     "odds": -108,
     "p": 0.509,
-    "win_p": 0.143,
+    "win_p": 0.144,
     "reasons": [
      "revenge game",
      "opponent drama: suspension"
@@ -99,8 +189,8 @@
     "market": "ml",
     "line": null,
     "odds": -245,
-    "p": 0.7,
-    "win_p": 0.7,
+    "p": 0.699,
+    "win_p": 0.699,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -131,7 +221,7 @@
     "line": 7.5,
     "odds": -115,
     "p": 0.514,
-    "win_p": 0.21,
+    "win_p": 0.211,
     "reasons": []
    }
   },
@@ -232,7 +322,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.499,
+    "p": 0.498,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -264,8 +354,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.438,
-    "tie": 0.292,
+    "p": 0.425,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -280,9 +370,9 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -233,
-    "p": 0.686,
-    "win_p": 0.686,
+    "odds": -205,
+    "p": 0.661,
+    "win_p": 0.661,
     "reasons": [
      "the stronger team"
     ]
@@ -294,7 +384,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.358,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -310,9 +400,9 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.7,
-    "win_p": 0.483,
+    "odds": -218,
+    "p": 0.672,
+    "win_p": 0.454,
     "reasons": []
    }
   },
@@ -322,8 +412,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.379,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -331,17 +421,19 @@
    "start": "2026-10-19T23:30Z",
    "away": "Sharks",
    "home": "Maple Leafs",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Sharks",
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
-    "p": 0.632,
-    "win_p": 0.413,
-    "reasons": []
+    "odds": -198,
+    "p": 0.66,
+    "win_p": 0.441,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -368,7 +460,7 @@
     "line": 7.5,
     "odds": -110,
     "p": 0.514,
-    "win_p": 0.206,
+    "win_p": 0.207,
     "reasons": [
      "revenge game",
      "opponent drama: legal trouble"
@@ -381,8 +473,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.408,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -393,14 +485,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.632,
-    "win_p": 0.413,
-    "reasons": []
+    "team": "Mammoth",
+    "opp": "Penguins",
+    "market": "ml",
+    "line": null,
+    "odds": -185,
+    "p": 0.622,
+    "win_p": 0.622,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   }
  ]
