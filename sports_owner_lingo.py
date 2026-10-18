@@ -31,6 +31,18 @@ OWNER = {
     "washed": "an old, out-of-his-prime player who's cold now ('Aaron Rodgers is washed', 10/1) - only a long-time "
               "starter (sports_breakdown_v24.VET_STARTS) with his bad numbers right there",
     "booty cheeks": "the other side's been terrible",
+    # 10/18 night (the owner in chat): more ways to say the other side stinks - only with the losing record right there
+    "they ass": "the other side's been terrible",
+    "super trash": "the other side's been terrible",
+    "trash as fuck": "the other side's been terrible (strong - a real losing skid)",
+    "straight ass": "the other side (or their QB) has been terrible",
+    "straight cheeks": "the other side's been terrible",
+    "butt cheeks": "the other side's been terrible",
+    # one of OUR guys playing great (10/18: "Bryce Young can't miss lately", "dude is a beast", "filthy")
+    "can't miss lately": "our QB / player is hot - with his numbers right there",
+    "a beast": "our player is dominating - with his numbers right there",
+    "filthy": "our pitcher / goalie / QB has been nasty - with his numbers right there",
+    "levels to this": "a real quality gap, or a win that showed it",
     "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
     "like they stole something": "a blowout win's review (the owner loved it, 9/29 - keep it)",
     "somebody give this man his flowers": "one of OUR players went off in a win ('Trevor Lawrence went crazy. Somebody "

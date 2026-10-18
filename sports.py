@@ -1971,10 +1971,24 @@ def dog_lock_value(c):
     return (read_of(c) or 0) * c["dec"] - 1
 
 
+def own_beats(c):
+    """The engine's OWN read (its ratings - the weighed read for hockey) beats the REAL price we pay, juice in. (The 10/17
+    sweep: value plays / a dog Lock that got on the board only through the weighed dog read, the own read under the
+    price - FAU, Troy, Wisconsin, all lost - ran -7.4% / -11.6% blind; with the own read over the price +11.7%. The
+    owner, 10/18: "fix what Fable suggests".)"""
+    if not c.get("dec"):
+        return False
+    if c.get("w_p") is not None:
+        return c["w_p"] * c["dec"] > 1
+    return c.get("edge_own") is not None and c["edge_own"] > 0
+
+
 def dog_lock(cands):
-    """The best underdog Lock candidate (dog_value), or None."""
+    """The best underdog Lock candidate (dog_value), or None. Like the favorite Lock (own_agrees), the engine's own
+    read has to beat the price too (own_beats - 10/18)."""
     pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
-            and not c.get("trap") and good(c) and beats_price(c) and (read_of(c) or 0) >= DOG_LOCK_MIN_P]
+            and not c.get("trap") and good(c) and beats_price(c) and (read_of(c) or 0) >= DOG_LOCK_MIN_P
+            and own_beats(c)]
     return max(pool, key=dog_lock_value) if pool else None
 
 
@@ -2255,7 +2269,8 @@ def plays(cands, avoid):
     never one the engine's own read is fighting, never a trap; one per game, never a game in `avoid`; surest first
     (the order the parlay legs used: win % with the proven nudges, then value). PLAY_MARKETS says which markets qualify."""
     pool = sorted((c for c in cands if c["market"] in PLAY_MARKETS and good(c) and c["odds"] >= MAX_FAV
-                   and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)),
+                   and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)
+                   and (c["market"] != "ml" or own_beats(c))),   # (10/18: a moneyline's own read over the price too)
                   key=lambda c: (-rank_p(c), -c["edge"]))
     out, seen = [], set(avoid)
     for c in pool:
