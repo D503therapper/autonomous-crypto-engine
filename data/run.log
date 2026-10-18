@@ -19247,3 +19247,31 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-18 11:06 UTC] crypto/hold_btc  equity $488.66 (-2.3%) 1 open  market UP
    social heat top: NEAR 37 (37/0/0), PRL 29 (29/0/0), PONS 27 (19/0/8), ENA 24 (24/0/0), SUI 24 (24/0/0)
+   dex screen: REJECT ZEREBRO@solana liq $2,646,242 - top-10 holders 78%
+   dex screen: REJECT DJT@solana liq $458,348 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 54%; lp holders unknown
+   dex screen: REJECT PIN@ethereum liq $540,082 - is_whitelisted
+   dex screen: REJECT GULD@ethereum liq $92,997 - liquidity $92,997 < $100,000; 24h volume $1,373 < $100,000
+   dex screen: PASS CHATON@solana liq $100,016
+   dex screen: REJECT SOL@base liq $671,648 - pool age unknown
+   dex screen: REJECT IMD@ethereum liq $2,094,442 - goplus partial data: cannot_sell_all unknown; top-10 holders 60%
+   dex screen: REJECT AVA@ethereum liq $213,799 - transfer_pausable; is_mintable; top-10 holders 74%; lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $199,415 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS XTO@solana liq $244,432
+   dex screen: REJECT XTO@solana liq $2,561,513 - lp holders unknown; rugcheck score 54
+   dex screen: REJECT XTO@solana liq $2,820,998 - holders unknown; lp holders unknown; rugcheck score 53
+   dex screen: REJECT XTO@solana liq $261,436 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $495,833 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $345,587 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS TEMO@ethereum liq $100,770
+   dex screen: REJECT PAPER@base liq $10,152,260 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; creator_percent 100%; holders unknown; lp holders unknown
+   dex scanner: 2,907 pools (solana 1,902 / base 528 / ethereum 477), refresh cycle 120s (hot 115s), 3063 calls (110 feed, 429s 0, failed 0), 88,585 refreshed (11071 no pair), +74 added / -169 dropped (dead 137, stale 4, cap 28), movers 0 + warming 12 -> queued 4, screened 5 (passed 2), bought 0
+[2026-10-18 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-18 12:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-18 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 12:06 UTC] crypto/social_heat equity $428.20 (-14.4%) 2 open  market UP
+[2026-10-18 12:06 UTC] crypto/breakout10 equity $459.55 (-8.1%) 2 open  market UP
+[2026-10-18 12:06 UTC] crypto/momentum  equity $419.16 (-16.2%) 1 open  market UP
+[2026-10-18 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-18 12:06 UTC] crypto/hold_btc  equity $488.77 (-2.2%) 1 open  market UP
+   social heat top: PENGU 37 (37/0/0), TAO 37 (32/0/5), APT 29 (29/0/0), SOL 27 (27/0/0), PRL 19 (19/0/0)
