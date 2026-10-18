@@ -1961,8 +1961,11 @@ def backup_lock(cands):
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
 
 
-DOG_LOCK = True          # the owner, 10/16-17 (Tulane +215 won 31-17): the Lock of the Day can be an underdog - the
-DOG_LOCK_MIN_P = 0.45    # engine's single best play. A dog qualifies when it's a real-value dog (good(): the dog score / a
+DOG_LOCK = False         # OFF (the owner, 10/18: "2" - after Wisconsin +114 at a 50% read was the Lock and lost 17-7; the Lock
+#                          is favorites only again, value dogs go up as the Dog / value plays). Was: the owner, 10/16-17 (Tulane +215 won 31-17): the Lock of the Day can be an underdog - the
+DOG_LOCK_MIN_P = LOCK_P  # engine's single best play. (10/18, the owner: "the engine labeled a 50% win chance as a lock"
+#                          - Wisconsin +114 at 50%, lost 17-7. A Lock is a Lock: an underdog needs the same 56%+ as a
+#                          favorite - an underdog the engine has as the likelier winner - was 45%.) A dog qualifies when it's a real-value dog (good(): the dog score / a
 #                          proven angle), its read beats the price, it's +100..+300, and the read gives it 45%+ outright.
 
 

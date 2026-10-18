@@ -3210,6 +3210,15 @@ def test_value_plays_and_the_dog_lock_need_the_own_read_over_the_price():
     assert not sports.own_beats({**under, "w_p": 0.45})
 
 
+def test_a_lock_is_never_a_coin_flip_even_an_underdog_lock():
+    """10/18, the owner: "the problem is the engine labeled a 50% win chance as a lock" (Wisconsin +114, read 50%, lost
+    17-7). An underdog Lock needs the same 56%+ win chance as any Lock (and its own read over the price)."""
+    assert sports.DOG_LOCK_MIN_P == sports.LOCK_P >= 0.56
+    base = {**_cand("wis", 114, 0.50, league="ncaaf"), "dog_p": 0.504, "edge_own": 0.02,
+            "reasons": ["the stronger team", "proven spot: home dog after a loss"]}
+    assert sports.dog_lock([base]) is None
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""
@@ -4921,14 +4930,11 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     sports.good = lambda c: True                # ...among REAL-value dogs, the analysis picks: the White Sox, never the
     try:                                        # Penguins the money ran from (a trap score under 0 is never the Dog)
         wsox_v = {**wsox, "edge_own": 0.47 * wsox["dec"] - 1}   # (10/1 money check: a unit Dog's read beats its price)
-        b = sports.make_board([wsox_v, pens, kings])          # (10/17: a 45%+ real-value dog can be the LOCK - the
-        assert b["lock"] and b["lock"]["legs"][0]["team"] == "White Sox"   # owner; with that off it's the Dog)
-        sports.DOG_LOCK = False
-        b = sports.make_board([wsox_v, pens, kings])
+        b = sports.make_board([wsox_v, pens, kings])          # (10/18, the owner: a 47% dog is never the LOCK - a
+        assert not b["lock"] or b["lock"]["legs"][0]["team"] != "White Sox"   # Lock needs 56%+; it's the Dog)
         assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
     finally:
         sports.good = keep_good
-        sports.DOG_LOCK = True
     fav = lambda gid, team, p, lost: {**base, "league": "mlb", "game_id": gid, "side": "home", "team": team, "opp": "X",
                                       "odds": -140, "dec": sd.decimal(-140), "p": p, "p_market": p, "edge": 0.0,
                                       "edge_own": p * sd.decimal(-140) - 1, "lost_last": lost}
@@ -11579,13 +11585,13 @@ def test_big_gap_college_dogs_post_as_their_own_unit_play_and_a_dog_can_be_the_l
     try:
         sports.good = lambda c: True
         dog = cand("D", "nhl", 130, 0.42, 0.50)
-        weak = cand("W", "nhl", 140, 0.40, 0.44)       # read under 45%: never the Lock
-        assert sports.dog_lock([dog, weak]) is dog
-        assert sports.dog_lock([weak]) is None
+        weak = cand("W", "nhl", 140, 0.40, 0.44)       # (10/18: a 50% dog is never a Lock - 56%+ like any Lock)
+        assert sports.dog_lock([dog, weak]) is None
         assert sports.dog_lock_value(dog) > 0
+        assert sports.make_board([dog, weak])["lock"] is None   # the underdog Lock is OFF (the owner, 10/18: "2")
     finally:
         sports.good = saved
-    assert sports.DOG_LOCK is True and sports.DOG_LOCK_MIN_P == 0.45
+    assert sports.DOG_LOCK is False and sports.DOG_LOCK_MIN_P == sports.LOCK_P
     lk = {"date": "2026-10-17", "kind": "lock", "status": "open", "lean": False, "legs": [dict(cand("D", "nhl", 130, 0.42, 0.50))]}
     assert 0.5 <= sports.units_for(lk) <= sports.UNIT_MAX                  # an underdog Lock sizes on its read
 
