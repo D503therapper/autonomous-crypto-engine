@@ -234,6 +234,8 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
     "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater",
     "easy money": r"easy money", "facts": r"just facts", "homies": r"homies", "super value": r"super value",
+    "trash": r"super trash|trash as fuck", "straight ass": r"straight ass|they ass", "beast": r"a beast",
+    "filthy": r"filthy", "cant miss": r"can't miss",
     "nice": r"\bnice\b", "go off": r"go(ing)? off", "no answer": r"no answer", "watch": r"watch (him|her)|just watch",
     "problem": r"a problem", "different": r"different|built for|another level|ain't regular", "him": r"\bis (him|her)\b",
     "light": r"light work|easy work|handle .* light", "long day": r"long (day|night)", "ready": r"ain't ready",
@@ -590,7 +592,12 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🗑️ {them} are straight garbage right now ({rec}).",
             f"🗑️ Watching {them} lately hurts ({rec}).",
             f"🗑️ {them} are about to get their cheeks clapped. {rec} — they been complete ass.",
-            f"🗑️ {rec} lately. {them} are complete ass and it shows."]))
+            f"🗑️ {rec} lately. {them} are complete ass and it shows.",
+            f"🗑️ {them} are super trash right now ({rec}).",
+            f"🗑️ {them} been trash as fuck lately — {rec}.",
+            f"🗑️ {rec}. {them} been straight cheeks.",
+            f"🗑️ {them} are butt cheeks right now ({rec}).",
+            f"🗑️ {rec} lately — they ass. {them} straight ass right now."]))
 
     # last games: just the latest scores - and only when they back the pick (the owner, 9/30: "Kings L 1-5 vs Avalanche"
     # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
@@ -657,6 +664,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             elif not ours_ and mood == "cold":
                 out.append(v.say(role + "_cold", {
                     "QB": [f"🗑️ {name} has been complete booty cheeks — {txt}.",
+                           f"🗑️ {name} has been straight ass — {txt}.",
                            f"🗑️ {name} has been throwing it to the other team — {txt}.",
                            f"🗑️ {name} looks lost out there: {txt}."],
                     "SP": [f"💣 {name} has been getting shelled — {txt}.",
@@ -671,9 +679,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             elif ours_ and mood == "hot":
                 out.append(v.say(role + "_hot", {
                     "QB": [f"🎯 {name} has been cooking — {txt}.",
+                           f"🎯 {name} can't miss lately — {txt}.",
+                           f"🎯 {name} is a beast right now: {txt}.",
+                           f"🎯 {name} has been filthy — {txt}.",
                            f"🎯 {name} is locked in: {txt}.",
                            f"🎯 {name} is slinging it — {txt}."],
                     "SP": [f"🔥 {name} has been dealing — {txt}.",
+                           f"🔥 {name} has been filthy — {txt}.",
                            f"🔥 {name} is on a roll: {txt}.",
                            f"🔥 Nobody's touching {name} lately — {txt}."],
                     "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",

@@ -503,6 +503,7 @@ REVIEWS = {
         "{t} [cashed|won|got there] because {star} [went off|went crazy|took over|was on one]. Somebody give this man his flowers. [💐|💰]",
         "Somebody give this man his flowers: {star} [went off|went crazy|took over|was on one|put on a show]. [Cash it, baby.|Paid.|Cashed.] [💐|💰]",
         "{star} [balled out|showed out|showed up big|played out of his mind]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Let's eat.] [💐|💰]",
+        "{star} [is a beast|was a beast tonight|was filthy]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Levels to this.] [💐|💰]",
         "[Ticket cashed|We got paid|Green ticket] and {star} [balled out|went off|went crazy|took over]. Somebody give this man his flowers. [💐|💰]",
     )),
     ("big", "won"): (59, 3, T(
