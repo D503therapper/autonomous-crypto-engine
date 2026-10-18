@@ -1822,7 +1822,9 @@ def units_tier(pk, leg):
     if pk.get("kind") in PARLAY_KINDS:
         t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
     else:
-        t = "value" if pk.get("kind") == "dog" else pick_tier(pk)
+        t = {"dog": "value", "play": "value", "lock": "lock"}.get(pk.get("kind")) or pick_tier(pk)
+        #   (10/18, the owner: "wtf is this - leans have no units": the Flames +102 VALUE PLAY of 10/10 re-read its
+        #    leg's win % and landed in "🟡 Slight leans" in the bankroll. A play is a value play, a Lock a Lock - by kind.)
     if t in ("lock", "value"):
         return t
     return "strong" if (leg.get("p") or 0) >= STRONG_LEAN_P else "slight"
