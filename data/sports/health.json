@@ -1,26 +1,36 @@
 {
- "at": "2026-10-18T10:30Z",
+ "at": "2026-10-18T10:40Z",
  "fixes": [],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Gormaz vs Burel: no points for 1813s"
  ],
  "ok": [
   "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 2 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 32 min ago",
+  "simulator ran 6h ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T10:40Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Burel: no points for 1813s"
+   ]
+  },
   {
    "at": "2026-10-18T10:30Z",
    "fixes": [],
@@ -605,16 +615,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Teichmann vs Havlickova: no points for 1033s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T16:01Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Zidansek: no points for 182s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
