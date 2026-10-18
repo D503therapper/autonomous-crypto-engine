@@ -1,11 +1,9 @@
 {
- "at": "2026-10-18T20:38Z",
+ "at": "2026-10-18T20:39Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:nfl:1028823557 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (209s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +11,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 51 min ago",
+  "engine ran 52 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T20:39Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T20:38Z",
    "fixes": [],
@@ -576,13 +580,6 @@
   },
   {
    "at": "2026-10-17T01:21Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-17T01:11Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
