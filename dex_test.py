@@ -1116,6 +1116,12 @@ def test_rescreen_flags_held_token():
         run(h, t, 4)
     assert K in h.pf.positions and h.pf.positions[K]["flagged"] >= 2 and not h.pf.positions[K].get("exit")
     shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # a checker's empty answer is not a finding
+    h.p = {**h.p, "data_flag_exit": True}
+    h.src["honeypot"].fetch = fake_fetch({"IsHoneypot": (200, {})})
+    run(h, T0 + 1801_000, 4)
+    assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 1 and not h.pf.positions[K].get("exit")
+    shutil.rmtree(d)
     h, fetch, d, px = held()                                                # clean re-screen: keep holding, count it
     run(h, T0 + 1801_000, 4)
     assert K in h.pf.positions and h.pf.positions[K]["rescreened"] >= T0 + 1801_000 and h.pf.positions[K]["clean"] == 1
