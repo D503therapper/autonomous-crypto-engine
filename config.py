@@ -274,7 +274,10 @@ DEX = {
               # EXPERIMENT 12 (owner 2026-10-10 "new strategy"): buy SURVIVORS, not fresh pumps - pools 2-6 days old,
               # $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger).
               # The momentum rule above lost 41% over 67 live trades (10-10 post-mortem). Judge ~2026-10-31.
-              "mode": "survivor",
+              # Owner 2026-10-18 ("we're not doing shit ... play money, go to the moon"): survivor alone bought ~1 coin
+              # in 6 days and left $950 idle. "both" = survivor OR the momentum rule, with smaller bets (tiers below) so
+              # there are many more lottery tickets on runners; moon alerts still ping at 2x .. 100x.
+              "mode": "both",
               "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
@@ -282,9 +285,9 @@ DEX = {
         # EXPERIMENT 1 (2026-09-28, owner: experiment in the main account): 10 coins x ~10% instead of 5 x 20-25%.
         # More shots at the ~1 in 8 coins that double, half the damage per rug (consolidated study: max drawdown
         # -49% -> -20%, returns mixed). Judge vs the 5-slot history at the review ~2026-10-12.
-        "A": {"pct": 0.05},                                                                   # "new"
-        "B": {"pct": 0.0625, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # "proven"
-        "C": {"pct": 0.0625, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},          # "blue"
+        "A": {"pct": 0.025},                                                                  # "new" (10-18: was 5%)
+        "B": {"pct": 0.03, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # "proven"
+        "C": {"pct": 0.03, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},          # "blue"
     },
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
     "size": {"liq_pct": 0.005, "max_exposure": 1.0},     # 4 slots x 20-25% = fully invested
@@ -320,7 +323,7 @@ DEX = {
     # top 4 (4-8x); without them every stake size loses. 5% keeps most of the growth (+0.71% vs +0.85%/trade at 10%)
     # and halves the damage of a dry run (-0.81% vs -1.85%/trade); twice the coins = twice the shots at a runner.
     # Live season 2: 10 of 10 buys in $100-135k pools lost (5 rugged), -$508.
-    "slots": 20,
+    "slots": 40,          # 10-18: 40 x ~2.5% with the "both" entry mode (more, smaller lottery tickets)
     # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/).
     # Owner 2026-10-05: season 3 at $1,000 ("play money - we're learning; refresh the money"); season 2 archived in
     # data/dex/archive/2026-09-29/

@@ -1043,9 +1043,13 @@ class DexHunter:
     def _trig(self, c, now):
         """The live entry trigger: momentum (entry_trigger) or, with entry["mode"] == "survivor", survivor_trigger."""
         E = self.p["entry"]
-        if E.get("mode") == "survivor":
-            return survivor_trigger(c, self.uni.get(self._nk(self.key(c))), E["survivor"], now)
-        return entry_trigger(c, E)
+        mode = E.get("mode")
+        if mode in ("survivor", "both"):
+            if survivor_trigger(c, self.uni.get(self._nk(self.key(c))), E["survivor"], now):
+                return True
+            if mode == "survivor":
+                return False
+        return entry_trigger(c, E)          # "both" (owner 10-18: "we're not doing shit"): momentum buys as well
 
     # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----
     # Universe = up to scan.max_pools tokens on config.DEX["chains"], fed by every discovery source plus
