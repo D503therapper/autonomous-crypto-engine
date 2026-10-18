@@ -3257,6 +3257,19 @@ def test_the_6_compound_challenge_is_tracked_on_paper():
         sc.PATH = keep
 
 
+def test_a_value_play_is_never_filed_as_a_lean_in_the_bankroll():
+    """10/18, the owner (a screenshot of the bankroll: "🟡 Slight leans -$5.47 -100% ROI" - "wtf is this, leans have no
+    units"): the Flames +102 value play (10/10, ½u, lost) re-read its leg's win % and was filed as a slight lean. A play /
+    the Dog is a value play and a Lock is a Lock, by kind; the bankroll has no lean rows."""
+    leg = {"game_id": "f", "side": "home", "team": "Flames", "p": 0.49, "odds": 102, "dec": 2.02, "edge": 0.0,
+           "edge_own": -0.01, "market": "ml"}
+    assert sports.units_tier({"kind": "play", "legs": [leg]}, leg) == "value"
+    assert sports.units_tier({"kind": "dog", "legs": [leg]}, leg) == "value"
+    assert sports.units_tier({"kind": "lock", "legs": [leg]}, leg) == "lock"
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "Slight leans\")" not in src and "Strong leans\")" not in src
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""

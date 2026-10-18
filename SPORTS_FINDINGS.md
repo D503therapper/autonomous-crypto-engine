@@ -13,6 +13,9 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/18 - MEDIA EXPERT PICKS as a weight (the owner: should the engine look at everyone's predictions?): NOT BUILT - the owner's call ("the engine is its own entity")
+Untested on our data (the archive / CBS / ESPN / Pickwatch hosts are blocked from the cloud session). Published research: media experts don't beat the line (Boulier & Stekler 2003; Song, Boulier & Stekler 2007 - ~31,000 picks, 74 experts; Forrest & Simmons 2000; Spann & Skiera 2009), and our 10/6 Dr. Bob study found no lift from a capper agreeing with us. The owner, 10/18: no predictions in the engine - never re-propose.
+
 ## 10/17 night - THE SATURDAY SWEEP (13 unit plays, the most ever; the owner: "are we doing it the right way?"): ON TRACK - the edge is the early plays, the Dog and the big Locks; the leak is plays whose OWN read sits under the price. BUILT (the owner's OK, 10/18): sports.own_beats on value plays + the dog Lock
 - The day: board 3-6 +3.0u, early 3-0 +5.6u (BC, Kentucky, BYU - the 10/17 audit ranked Kentucky 1, BC 2). Early + the Dog +9.5u; everything else 2-6 -0.9u. Beat the close 4, same 3, worse 3.
 - Since 9/27: 23-22 +10.8u. Locks 8-5 +7.8u (the 2.5-5u Locks +9.0u; ½u Locks 5-4 -0.2u). Dog 6-10 +1.2u. ½u value plays 7-4 +1.3u. Gap 1-3. Early 8-9 +9.9u (MLB exam 2-0 +7.7u; NFL blowout spot 0-6, off).

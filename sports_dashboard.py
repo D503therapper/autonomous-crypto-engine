@@ -399,8 +399,8 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
-                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"), ("gap", "🔍 The engine sees something"),        # Dog of the Day is a value play)
-                      ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
+                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"),   # Dog of the Day is a value play)
+                      ("gap", "🔍 The engine sees something"))))    # (10/18, the owner: leans carry no units - never a bankroll row)
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
             f'<div class="unp">Started at ${start:,.0f}<br>1 unit = 1% of our bankroll = ${led["unit_today"]:,.2f}</div>'
