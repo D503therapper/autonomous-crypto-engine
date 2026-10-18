@@ -1,27 +1,126 @@
 {
- "at": "2026-10-18T08:30Z",
+ "at": "2026-10-18T16:46Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (197s)",
+  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
+  "slate check: all 15 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 39 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 47 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T16:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T16:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T16:25Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T14:54Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-18T13:49Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-18T13:48Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-18T12:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Salkova vs Andreescu: no points for 494s"
+   ]
+  },
+  {
+   "at": "2026-10-18T11:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T10:46Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-17 Otto Virtanen) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Burel: no points for 2083s"
+   ]
+  },
+  {
+   "at": "2026-10-18T10:40Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Burel: no points for 1813s"
+   ]
+  },
+  {
+   "at": "2026-10-18T10:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-10-18T10:20Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Burel: no points for 601s",
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1143s"
+   ]
+  },
+  {
+   "at": "2026-10-18T10:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 542s"
+   ]
+  },
+  {
+   "at": "2026-10-18T10:02Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 72s"
+   ]
+  },
   {
    "at": "2026-10-18T08:30Z",
    "fixes": [],
@@ -495,138 +594,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-16T21:44Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T21:38Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-16T20:07Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T18:59Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:58Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 2618s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:52Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 2343s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:42Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1742s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:32Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1141s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T17:00Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Teichmann vs Havlickova: no points for 1033s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T16:01Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Zidansek: no points for 182s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T14:27Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T14:26Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Samson vs Garcia: no points for 2158s",
-    "live tennis scores: tennis Masarova vs Zidansek: no points for 1811s",
-    "live tennis scores: tennis Boskovic vs Salkova: no points for 2622s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T13:42Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T13:41Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
   }
  ]
 }

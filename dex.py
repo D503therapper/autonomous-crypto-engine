@@ -492,8 +492,10 @@ def check_rugcheck(j, S):
 _LP_REASON = re.compile(r"^(lp locked|lp holders unknown|rugcheck lp locked|rugcheck: lp lock unknown|rugcheck danger: .*lp unlocked)", re.I)
 
 
-# Re-screen findings that come from flaky holder / LP data (not the contract): need a second strike to sell
-_DATA_FLAG = re.compile(r"holders|^lp |rugcheck lp|rugcheck: lp|rugcheck score|lp unlocked", re.I)
+# Re-screen findings that come from flaky holder / LP data (not the contract): need a second strike to sell.
+# "<source>: no data" is a checker's empty answer, not a finding (10-18: CLAUDIA sold on "honeypot.is: no data",
+# then rose 19%); a real honeypot / sell-block still reads "scam" and sells at once.
+_DATA_FLAG = re.compile(r"holders|^lp |rugcheck lp|rugcheck: lp|rugcheck score|lp unlocked|: no data$", re.I)
 
 
 def _mature(c, S):
