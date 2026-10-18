@@ -3220,6 +3220,43 @@ def test_a_lock_is_never_a_coin_flip_even_an_underdog_lock():
     assert sports.dog_lock([base]) is None
 
 
+def test_the_6_compound_challenge_is_tracked_on_paper():
+    """10/18, the owner: "the engine will give me a pick every day, its best pick closest to even money or plus money
+    value or a slight favorite ... our goal is to hit the 6-compound challenge. But we're going to track it." One pick a
+    game day from the posted board (-130..+150, the best shot to win), wins ride from $500, a loss resets, 6 = a hit."""
+    import sports_compound as sc, tempfile
+    leg = lambda gid, team, p, odds, res=None: {"game_id": gid, "side": "home", "team": team, "opp": "X",   # noqa: E731
+                                                "league": "nfl", "p": p, "odds": odds, "result": res}
+    pk = lambda kind, l, date="2026-10-19": {"date": date, "kind": kind, "status": "open", "american": l["odds"],   # noqa: E731
+                                             "legs": [l]}
+    board = [pk("lock", leg("a", "Big Fav", 0.66, -160)), pk("lean", leg("b", "Coin", 0.52, -110)),
+             pk("play", leg("c", "Dog", 0.47, 120)), pk("lean", leg("d", "Slight", 0.56, -125))]
+    c = sc.choose(board, "2026-10-19")
+    assert c["team"] == "Slight" and c["odds"] == -125          # -160 is past the band; the best shot inside it
+    assert sc.choose(board, "2026-10-20") is None
+    days = [{"odds": -110, "result": "won"}, {"odds": 100, "result": "won"}, {"odds": 120, "result": "push"},
+            {"odds": -110, "result": None}]
+    t = sc.tally(days)
+    assert t["streak"] == 2 and abs(t["bank"] - 500 * (1 + 100 / 110) * 2) < 0.01 and t["best"] == 2
+    t2 = sc.tally(days[:2] + [{"odds": 105, "result": "lost"}])
+    assert t2["streak"] == 0 and t2["bank"] == sc.START and t2["record"] == "2-1"
+    six = sc.tally([{"odds": 100, "result": "won"}] * 6)
+    assert six["hits"] == 1 and six["streak"] == 0
+    keep = sc.PATH
+    sc.PATH = os.path.join(tempfile.mkdtemp(), "compound.json")
+    try:                                                         # 9 AM PT on 10/19: names the pick once, grades it later
+        now = datetime(2026, 10, 19, 16, 0, tzinfo=timezone.utc)
+        st = sc.sync(board, now)
+        assert len(st["days"]) == 1 and st["days"][0]["team"] == "Slight"
+        assert len(sc.sync(board, now)["days"]) == 1
+        board[3]["legs"][0]["result"] = "won"
+        st = sc.sync(board, now)
+        assert st["days"][0]["result"] == "won" and st["now"]["streak"] == 1
+        assert sc.sync(board, datetime(2026, 10, 20, 14, 0, tzinfo=timezone.utc))["days"][-1]["date"] == "2026-10-19"   # 7 AM PT: not yet
+    finally:
+        sc.PATH = keep
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""

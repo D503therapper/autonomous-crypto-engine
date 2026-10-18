@@ -3833,6 +3833,8 @@ def quick(now=None):
             announce_pick(pk)                                   # added after the board was up: everybody gets a ping
     sd.save_games(games)
     _save("picks.json", picks)
+    import sports_compound                                      # 🎯 the 6-compound challenge, tracked (the owner, 10/18)
+    sports_compound.sync(picks, now)
     import sports_dashboard
     try:
         engine_reads(games, model, picks)
@@ -4097,6 +4099,8 @@ def run(repick=False, fetch=True):
     _save("state.json", state)
     _save("model.json", model)
     _save("picks.json", picks)
+    import sports_compound                                              # 🎯 the 6-compound challenge (tracking)
+    sports_compound.sync(picks, now)
     import sports_dashboard
     try:
         engine_reads(games, model, picks)
