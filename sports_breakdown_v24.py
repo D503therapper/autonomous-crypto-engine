@@ -233,6 +233,7 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
     "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater",
+    "easy money": r"easy money", "facts": r"just facts", "homies": r"homies", "super value": r"super value",
     "nice": r"\bnice\b", "go off": r"go(ing)? off", "no answer": r"no answer", "watch": r"watch (him|her)|just watch",
     "problem": r"a problem", "different": r"different|built for|another level|ain't regular", "him": r"\bis (him|her)\b",
     "light": r"light work|easy work|handle .* light", "long day": r"long (day|night)", "ready": r"ain't ready",
@@ -269,10 +270,44 @@ def dashboard_texts(skip=()):
     return out
 
 
-SHORT_L = ["Book it.", "Lock it in.", "Stamp it.", "Say less.", "Easy money.", "Trust the algorithm.", "We locked in.",
-           "All day.", "No doubt.", "Bank it.", "Cash it.", "Done deal."]
-SHORT_S = ["Tap in.", "Get in.", "We finna see.", "We gon' see.", "Right side.", "Smart side.", "Good number.", "Say less.",
-           "We like it.", "Ride it.", "Let it ride.", "Easy call."]
+SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", "We eating.", "Book it.", "Stamp it.",
+           "Say less.", "We locked in.", "All day.", "Bank it.", "Cash it."]
+SHORT_S = ["Tap in.", "Let's eat.", "Trust the algorithm.", "We finna see.", "We gon' see.", "Get in.", "Right side.",
+           "Good number.", "Say less.", "Ride it.", "Let it ride.", "Smart side."]
+
+
+def OWNER_LOCK(price, us, leg):
+    """The Lock's closer in the owner's own words (10/18, the owner: "it's not really the lingo I trained you with") -
+    one of his phrases per card, each family once a board (SLANG), a plain line only once they're all taken."""
+    out = [f"✅ Bottom line: {price}. The engine likes {us} more than the books do. Lock it in.",
+           f"✅ Bottom line: {price}. Best side on the board, at a price that pays. Lock it in.",
+           f"✅ Bottom line: {price}. The books got {us} priced wrong. Free money.",
+           f"✅ Bottom line: {price}. Our read beats this number. Free money, baby.",
+           f"✅ Bottom line: {price}. The side we trust most today. Easy money.",
+           f"✅ Bottom line: {price}. Right side, right price. Easy money.",
+           f"✅ Bottom line: {price}. Our top play today. Trust the algorithm.",
+           f"✅ Bottom line: {price}. {us} is the call. Trust the algorithm.",
+           f"✅ Bottom line: {price}. {us} on top today. We eating.",
+           f"✅ Bottom line: {price}. Our Lock - let's eat."]
+    if (leg.get("odds") or 0) > 0:                       # "super value" = a Lock at plus money (sports_owner_lingo)
+        out = [f"✅ Bottom line: {price}. A Lock at plus money - super value. Tap in.",
+               f"✅ Bottom line: {price}. Plus money on our Lock? Super value."] + out
+    return out
+
+
+def OWNER_PLAY(price, us):
+    """A value play's closer in the owner's words (10/18) - see OWNER_LOCK."""
+    return [f"✅ Bottom line: {price}. The books are sleeping on {us}. Tap in.",
+            f"✅ Bottom line: {price}. Our read beats the number. Tap in.",
+            f"✅ Bottom line: {price} pays more than it should. We eating.",
+            f"✅ Bottom line: {price}. Good number, right side - let's eat.",
+            f"✅ Bottom line: {price}. Our read's better than the price. Trust the algorithm.",
+            f"✅ Bottom line: {price}. The engine found this one. Trust the algorithm.",
+            f"✅ Bottom line: {price}. {us} are better than this price says - that's just facts.",
+            f"✅ Bottom line: {price}. The number's too big for what {us} bring - that's just facts.",
+            f"✅ Bottom line: {price}. Value on {us} - the homies riding with us.",
+            f"✅ Bottom line: {price}. The homies riding {us} at this price.",
+            f"✅ Bottom line: {price}. The books undersold {us}. We finna see."]
 
 
 def _short(v, price, lock, fact=""):
@@ -1017,7 +1052,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. We'd ride {us}, but not with money at this price.",
             f"✅ Bottom line: {us} is our side; {price} is too rich for units. Lean it."]) or _short(v, price, False, _fact))
     elif leg.get("tier") == "lock":                                      # a lock: our whole chest, never a hedge
-        out.append(v.say("bottom_l", [
+        out.append(v.say("bottom_lo", OWNER_LOCK(price, us, leg)) or v.say("bottom_l", [
             f"✅ Bottom line: {price}. The engine likes {us} more than the books do. Lock it in.",
             f"✅ Bottom line: {price} — this price is cheaper than it should be. We're all in.",
             f"✅ Bottom line: {price}. The books got this one priced wrong. Stamp it.",
@@ -1027,7 +1062,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. We'd lay this all day - the number's in our favor.",
             f"✅ Bottom line: {price}. The side we trust most today, at a price that pays. That's money."]) or _short(v, price, True, _fact))
     else:
-        out.append(v.say("bottom_s", [
+        out.append(v.say("bottom_so", OWNER_PLAY(price, us)) or v.say("bottom_s", [
             f"✅ Bottom line: {price}. The engine gives {us} a better shot than this price does. That's the bet.",
             f"✅ Bottom line: {price} pays more than it should. Tap in.",
             f"✅ Bottom line: {price}. The books are sleeping on {us}. We finna see.",

@@ -3169,6 +3169,30 @@ def test_bottom_lines_no_odds_talk_and_no_repeats_on_a_board():
     assert 'must=True))' not in src[src.index('v.say("splits_f"'):src.index("    # the public: fading them")]
 
 
+def test_bottom_lines_speak_the_owners_lingo():
+    """10/18, the owner: "the lingo on the dashboard has not really been our lingo ... ever so brief little slang". The
+    cards carried 0-4 of his phrases a day (20-70 lines). Every Lock / value play closer now comes from his own words
+    first (tap in, let's eat, trust the algorithm, lock it in, free money, easy money, that's just facts, the homies,
+    super value on a plus-money Lock), each phrase once a board, a plain line only when they're all used."""
+    import sports_breakdown_v24 as v24, sports_owner_lingo as ol
+    used = set()
+    got = []
+    for i in range(6):
+        v = v24.Voice(f"lingo{i}", used)
+        got.append(v.say("bottom_so", v24.OWNER_PLAY(f"T{i} (+150)", f"T{i}")))
+    assert all(got), got                                 # six value plays, six closers in his words
+    fams = [k for x in got for k, pat in v24.SLANG.items() if __import__("re").search(pat, x.lower())]
+    assert len(fams) == len(set(fams))                   # never the same phrase twice on a board
+    lock = v24.OWNER_LOCK("W (+114)", "W", {"odds": 114})
+    assert "super value" in lock[0].lower() and not any("super value" in x.lower()
+                                                         for x in v24.OWNER_LOCK("W (-130)", "W", {"odds": -130}))
+    for x in v24.OWNER_PLAY("T (+150)", "T") + lock:
+        low = x.lower()
+        assert any(p in low for p in ol.OWNER) or "finna see" in low
+        assert not any(n in low for n in ol.NEVER) and "%" not in x
+        assert "facts" not in low or not __import__("re").search(r"\d\s*-\s*that's just facts", low)
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""
