@@ -1,11 +1,9 @@
 {
- "at": "2026-10-17T23:31Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
- ],
+ "at": "2026-10-18T01:06Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (75s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,13 +15,19 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 8 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 27 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T01:06Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-17T23:31Z",
    "fixes": [
@@ -605,13 +609,6 @@
    "at": "2026-10-16T03:49Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-16T03:17Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:mlb:1029419134 HTTP 404"
-   ]
   }
  ]
 }
