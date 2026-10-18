@@ -1,9 +1,9 @@
 {
- "at": "2026-10-18T22:56Z",
+ "at": "2026-10-18T23:43Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (110s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +11,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 15 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 61 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T23:43Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T22:56Z",
    "fixes": [],
@@ -560,21 +565,6 @@
     "live tennis scores: tennis Zakharova vs Starodubtseva: no points for 322s",
     "live tennis scores: tennis Volynets vs Kawa: no points for 248s",
     "live tennis scores: tennis Lin vs Snigur: no points for 342s"
-   ]
-  },
-  {
-   "at": "2026-10-17T03:13Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Matsuda vs Stoiana: no points for 2028s",
-    "live tennis scores: tennis Day vs Koike: no points for 2013s",
-    "live tennis scores: tennis Avanesyan vs Ishii: no points for 1933s",
-    "live tennis scores: tennis Okamura vs Joint: no points for 1933s",
-    "live tennis scores: tennis Zakharova vs Starodubtseva: no points for 248s",
-    "live tennis scores: tennis Volynets vs Kawa: no points for 175s",
-    "live tennis scores: tennis Lin vs Snigur: no points for 268s"
    ]
   }
  ]
