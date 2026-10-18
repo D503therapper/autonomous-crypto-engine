@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T00:54Z",
+ "updated": "2026-10-18T01:20Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -1797,6 +1797,36 @@
    "lean": null
   },
   {
+   "id": "nhl:401892530",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-18T01:00Z",
+   "away": "Bruins",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401864523",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-18T01:00Z",
+   "away": "San Jos\u00e9 St",
+   "home": "UTEP",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401866445",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1817,8 +1847,8 @@
     "team": "Ohio",
     "opp": "Sacramento St",
     "market": "spread",
-    "line": -16.5,
-    "odds": -118,
+    "line": -17.5,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.768,
     "reasons": [
@@ -2004,9 +2034,9 @@
     "team": "Wake Forest",
     "opp": "California",
     "market": "spread",
-    "line": -10.5,
-    "odds": -110,
-    "p": 0.501,
+    "line": -10.0,
+    "odds": -112,
+    "p": 0.5,
     "win_p": 0.669,
     "reasons": [
      "the stronger team",
@@ -2021,7 +2051,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.555,
+    "p": 0.55,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2037,9 +2067,9 @@
     "opp": "Nebraska",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.587,
-    "win_p": 0.587,
+    "odds": -250,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": [
      "the stronger team"
     ]
@@ -2174,7 +2204,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.567,
+    "p": 0.56,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2190,9 +2220,9 @@
     "opp": "Browns",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.615,
-    "win_p": 0.615,
+    "odds": -166,
+    "p": 0.606,
+    "win_p": 0.606,
     "reasons": [
      "the stronger team"
     ]
@@ -2204,7 +2234,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.493,
+    "p": 0.495,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2220,12 +2250,13 @@
     "opp": "Saints",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.519,
-    "win_p": 0.519,
+    "odds": -112,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "the stronger team",
-     "revenge game"
+     "revenge game",
+     "sharp money moving this way"
     ]
    }
   },
@@ -2417,8 +2448,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.411,
-    "tie": 0.296,
+    "p": 0.418,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2433,11 +2464,12 @@
     "opp": "Flames",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.634,
-    "win_p": 0.634,
+    "odds": -218,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
