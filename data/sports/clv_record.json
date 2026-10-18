@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 84,
-  "beat": 27,
+  "n": 85,
+  "beat": 28,
   "same": 30,
   "worse": 27,
-  "avg_pts": 0.14
+  "avg_pts": 0.15
  },
  "unit_plays": {
-  "n": 40,
-  "beat": 13,
+  "n": 41,
+  "beat": 14,
   "same": 17,
   "worse": 10,
-  "avg_pts": 0.33
+  "avg_pts": 0.35
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.99
   },
   "play": {
-   "n": 15,
-   "beat": 4,
+   "n": 16,
+   "beat": 5,
    "same": 7,
    "worse": 4,
-   "avg_pts": 0.09
+   "avg_pts": 0.17
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 25,
-   "beat": 9,
+   "n": 26,
+   "beat": 10,
    "same": 9,
    "worse": 7,
-   "avg_pts": 0.36
+   "avg_pts": 0.4
   },
   "nfl": {
    "n": 12,
@@ -1263,6 +1263,20 @@
    "odds": 102,
    "close": 102,
    "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "San Diego St",
+   "market": "ml",
+   "line": null,
+   "odds": 235,
+   "close": 220,
+   "pts": 1.4,
    "units": 0.5,
    "result": "won"
   },
