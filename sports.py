@@ -1818,7 +1818,8 @@ def units_tier(pk, leg):
     """lock / value / strong / slight for one pick - the bankroll's rows (the owner, 9/30: the Dog of the Day is a value
     play; leans split strong and slight)."""
     if pk.get("gap"):
-        return "gap"                                         # 🔍 the engine sees something - its own record
+        return "value"                                       # 🔍 a value play in the bankroll (the owner, 10/18: "we don't
+        #                                                      need that - it's value or lock or early play")
     if pk.get("kind") in PARLAY_KINDS:
         t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
     else:

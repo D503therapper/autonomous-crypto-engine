@@ -3267,6 +3267,7 @@ def test_a_value_play_is_never_filed_as_a_lean_in_the_bankroll():
     assert sports.units_tier({"kind": "lock", "legs": [leg]}, leg) == "lock"
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "Slight leans\")" not in src and "Strong leans\")" not in src
+    assert "The engine sees something\")" not in src[src.index("def units_box"):src.index("def day_calls")]   # 3 rows only
 
 
 def test_tennis_bottom_lines_no_percent_talk():
@@ -11635,7 +11636,7 @@ def test_big_gap_college_dogs_post_as_their_own_unit_play_and_a_dog_can_be_the_l
     pk = {"date": "2026-10-17", "kind": "play", "gap": out[0]["gap"], "status": "open", "lean": False,
           "legs": [{**out[0], "tier": "value"}], "tier": "value"}
     assert sports.units_for(pk) == sports.GAP_UNITS == 1.0
-    assert sports.units_tier(pk, pk["legs"][0]) == "gap" and sports.beats_price(pk["legs"][0])
+    assert sports.units_tier(pk, pk["legs"][0]) == "value" and sports.beats_price(pk["legs"][0])   # (10/18: a value play)
     assert sports.sizing_check([pk]) == []
     # (2) the underdog Lock
     saved = sports.good
