@@ -19090,3 +19090,18 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-18 06:06 UTC] crypto/hold_btc  equity $487.25 (-2.6%) 1 open  market UP
    social heat top: PRL 37 (37/0/0), NEAR 35 (35/0/0), PONS 34 (32/0/2), SUI 24 (24/0/0), HYPE 21 (21/0/0)
+   dex screen: REJECT CLAW@solana liq $428,357 - creator holds 7%; top-10 holders 72%; lp holders unknown
+   dex screen: REJECT CBETH@base liq $2,908,935 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $10,857,201
+   dex screen: REJECT CRAWL@solana liq $187,116 - lp holders unknown; rugcheck lp locked 62% < 95%
+   dex screen: REJECT AMZNC@base liq $26,840 - liquidity $26,840 < $100,000; 24h volume $11,685 < $100,000
+   dex screen: REJECT ADI@ethereum liq $3,021,351 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BEAM@ethereum liq $2,737,685 - is_mintable; owner_change_balance; top-10 holders 59%
+   dex screen: REJECT GTC@ethereum liq $243,789 - owner_percent 13%; top-10 holders 73%; lp locked 0% < 95%
+   dex screen: REJECT ZEN@base liq $2,281,820 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
