@@ -1,11 +1,11 @@
 {
- "updated": 1792345081640,
+ "updated": 1792366931085,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 16
  },
- "live_games": 7,
+ "live_games": 2,
  "tennis": {
   "watching": 0,
   "priced": 0,
@@ -33,57 +33,89 @@
   "nfl:401872999": {
    "away": "Bears",
    "home": "Falcons",
-   "a": 14,
-   "h": 0,
-   "clock": "14:57 - 2nd",
-   "live": true
+   "a": 31,
+   "h": 23,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401872997": {
    "away": "Ravens",
    "home": "Browns",
    "a": 10,
-   "h": 0,
-   "clock": "01:05 - 1st",
-   "live": true
+   "h": 13,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873002": {
    "away": "Steelers",
    "home": "Buccaneers",
-   "a": 0,
-   "h": 3,
-   "clock": "02:33 - 1st",
-   "live": true
+   "a": 26,
+   "h": 19,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873001": {
    "away": "Jets",
    "home": "Patriots",
-   "a": 3,
-   "h": 7,
-   "clock": "03:15 - 1st",
-   "live": true
+   "a": 19,
+   "h": 26,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873000": {
    "away": "Saints",
    "home": "Giants",
-   "a": 0,
-   "h": 7,
-   "clock": "End of 1st",
-   "live": true
+   "a": 34,
+   "h": 27,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401872998": {
    "away": "Panthers",
    "home": "Eagles",
-   "a": 3,
-   "h": 0,
-   "clock": "03:53 - 1st",
-   "live": true
+   "a": 25,
+   "h": 14,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873003": {
    "away": "Titans",
    "home": "Colts",
-   "a": 0,
-   "h": 0,
-   "clock": "End of 1st",
+   "a": 26,
+   "h": 20,
+   "clock": "Final",
+   "live": false
+  },
+  "nfl:401873004": {
+   "away": "Cardinals",
+   "home": "Rams",
+   "a": 18,
+   "h": 16,
+   "clock": "Final",
+   "live": false
+  },
+  "nfl:401873005": {
+   "away": "Bills",
+   "home": "Raiders",
+   "a": 33,
+   "h": 30,
+   "clock": "Final",
+   "live": false
+  },
+  "nfl:401873006": {
+   "away": "Chargers",
+   "home": "Chiefs",
+   "a": 6,
+   "h": 22,
+   "clock": "Final",
+   "live": false
+  },
+  "mlb:401930515": {
+   "away": "Rays",
+   "home": "Guardians",
+   "a": 3,
+   "h": 1,
+   "clock": "Inning 9th",
    "live": true
   },
   "nhl:401892519": {
@@ -197,6 +229,14 @@
    "h": 6,
    "clock": "Final",
    "live": false
+  },
+  "nhl:401892533": {
+   "away": "Blue Jackets",
+   "home": "Wild",
+   "a": 1,
+   "h": 2,
+   "clock": "2nd Intermission",
+   "live": true
   },
   "tennis:atp:184956": {
    "n": [
@@ -506,23 +546,24 @@
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nfl": "ok 0",
+  "betrivers:mlb": "ok 0",
+  "betrivers:nhl": "ok 0",
   "betrivers:tennis": "ok 0"
  },
  "health": [
-  "only 0 of 7 live games have a sportsbook price we can bet on",
-  "7 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nfl"
+  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
+  "Bovada has no live lines for mlb, nhl"
  ],
  "priced": 0,
- "dk_only": 7,
+ "dk_only": 1,
  "min_p": 0.55,
  "espn_only": 0,
  "errors": [
   "git pull timed out"
  ],
  "books": {
-  "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+  "mlb": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 7.8
+ "took_s": 8.1
 }
