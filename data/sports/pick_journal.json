@@ -4267,6 +4267,61 @@
  },
  {
   "date": "2026-10-17",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401858494",
+  "team": "Wisconsin",
+  "opp": "UCLA",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 114,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.467,
+  "win_p": 0.4612027444052361,
+  "own_read": 0.504,
+  "weighed": null,
+  "dog_p": 0.5036,
+  "edge_own": -0.040083985493414964,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "bye": true,
+   "fades": [],
+   "last_margin": 28.0,
+   "last_pts": 31.0,
+   "neutral": false,
+   "record": [
+    4,
+    1
+   ],
+   "win_pct": 0.8,
+   "win_streak": 4
+  },
+  "injuries_seen": {
+   "Nico Iamaleava (UCLA QB)": "Out"
+  },
+  "ours_out": [],
+  "theirs_out": [
+   "Nico Iamaleava (QB)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 102,
+  "beat_close_pts": 2.8,
+  "result": "lost",
+  "score": "7-17",
+  "margin": -10.0,
+  "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-17",
   "kind": "play",
   "lean": false,
   "tier": "value",
@@ -4316,6 +4371,57 @@
   "score": "24-56",
   "margin": -32.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401862805",
+  "team": "Rice",
+  "opp": "Tulsa",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 164,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.379,
+  "win_p": 0.3767637483341956,
+  "own_read": 0.433,
+  "weighed": null,
+  "dog_p": 0.4331,
+  "edge_own": 0.6218,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "fades": [
+    "losing streak"
+   ],
+   "last_margin": -16.0,
+   "last_pts": 12.0,
+   "neutral": false,
+   "record": [
+    1,
+    5
+   ],
+   "win_pct": 0.167,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 154,
+  "beat_close_pts": 1.5,
+  "result": "lost",
+  "score": "17-38",
+  "margin": -21.0,
+  "pnl_units": -1.0
  },
  {
   "date": "2026-10-17",
@@ -4376,5 +4482,228 @@
   "score": "15-19",
   "margin": -4.0,
   "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401866444",
+  "team": "E Michigan",
+  "opp": "Toledo",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 210,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.323,
+  "win_p": 0.3234917317839477,
+  "own_read": 0.409,
+  "weighed": null,
+  "dog_p": 0.4092,
+  "edge_own": 0.5621,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": 2.0,
+   "last_pts": 25.0,
+   "neutral": false,
+   "record": [
+    4,
+    3
+   ],
+   "win_pct": 0.571,
+   "win_streak": 3
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "N. Devereaux (WR)"
+  ],
+  "theirs_out": [
+   "T. Kelleher (TE)",
+   "K. Gilbert Jr. (WR)",
+   "T. Jones (WR)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 230,
+  "beat_close_pts": -2.0,
+  "result": "lost",
+  "score": "14-34",
+  "margin": -20.0,
+  "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401856809",
+  "team": "BYU",
+  "opp": "Notre Dame",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 310,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.244,
+  "win_p": 0.26101501173420333,
+  "own_read": 0.319,
+  "weighed": null,
+  "dog_p": 0.3191,
+  "edge_own": 0.6994,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team",
+   "sharp money moving this way"
+  ],
+  "angles": {
+   "conservative": true,
+   "fades": [
+    "ice cold"
+   ],
+   "fast": false,
+   "last_margin": 14.0,
+   "last_pts": 24.0,
+   "neutral": false,
+   "record": [
+    5,
+    0
+   ],
+   "win_pct": 1.0,
+   "win_streak": 5
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "LJ Martin (RB)",
+   "Isaiah Glasker (LB)"
+  ],
+  "theirs_out": [
+   "Chaz Smith (CB)",
+   "Christopher Burgess Jr. (DL)",
+   "Tiki Hola (DL)",
+   "Charles Jagusah (OL)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 320,
+  "beat_close_pts": -0.6,
+  "result": "won",
+  "score": "28-24",
+  "margin": 4.0,
+  "pnl_units": 3.1
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401864524",
+  "team": "Air Force",
+  "opp": "UNLV",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 102,
+  "posted": "2026-10-17T17:47Z",
+  "price_says": 0.495,
+  "win_p": 0.50241426913962,
+  "own_read": 0.541,
+  "weighed": null,
+  "dog_p": 0.5408,
+  "edge_own": 0.021649804618951052,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": 21.0,
+   "last_pts": 28.0,
+   "neutral": false,
+   "record": [
+    4,
+    1
+   ],
+   "win_pct": 0.8,
+   "win_streak": 3
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "L. Szarka (QB)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": null,
+  "close": 102,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "41-31",
+  "margin": 10.0,
+  "pnl_units": 0.51
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401869966",
+  "team": "Troy",
+  "opp": "Louisiana",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 124,
+  "posted": "2026-10-17T19:33Z",
+  "price_says": 0.446,
+  "win_p": 0.4331183747506193,
+  "own_read": 0.469,
+  "weighed": null,
+  "dog_p": 0.4687,
+  "edge_own": -0.03960169362452204,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": 21.0,
+   "last_pts": 55.0,
+   "neutral": false,
+   "record": [
+    3,
+    2
+   ],
+   "win_pct": 0.6,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "J. Worley (TE)"
+  ],
+  "theirs_out": [
+   "D. Smith (RB)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 124,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "6-33",
+  "margin": -27.0,
+  "pnl_units": -0.5
  }
 ]

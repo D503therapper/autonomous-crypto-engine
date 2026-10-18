@@ -1,30 +1,123 @@
 {
- "at": "2026-10-17T19:43Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
- ],
+ "at": "2026-10-18T04:39Z",
+ "fixes": [],
  "problems": [
-  "sources down (the backups took over): betrivers:nhl:1028409972 HTTP 404, betrivers:ncaaf:1027508207 HTTP 404, betrivers:ncaaf:1028202615 HTTP 404"
+  "live tennis scores: tennis Day vs Joint: no points for 234s",
+  "live tennis scores: tennis Inglis vs Liu: no points for 234s",
+  "live tennis scores: tennis Putintseva vs Parks: no points for 234s"
  ],
  "ok": [
-  "live watcher fresh (62s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 3 live matches",
   "slate check: all 122 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 10 min ago",
+  "studies ran 0h ago",
+  "simulator ran 8h ago",
+  "engine ran 12 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-18T04:39Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Day vs Joint: no points for 234s",
+    "live tennis scores: tennis Inglis vs Liu: no points for 234s",
+    "live tennis scores: tennis Putintseva vs Parks: no points for 234s"
+   ]
+  },
+  {
+   "at": "2026-10-18T03:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Day vs Joint: no points for 217s",
+    "live tennis scores: tennis Jones vs Preston: no points for 217s",
+    "live tennis scores: tennis Ishii vs Stoiana: no points for 217s"
+   ]
+  },
+  {
+   "at": "2026-10-18T01:34Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T01:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T01:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T01:26Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T01:16Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-18T01:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T23:31Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T23:20Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T21:46Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T21:37Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T21:27Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-17T21:16Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-17T19:43Z",
    "fixes": [
@@ -529,80 +622,6 @@
    "problems": [
     "live tennis scores: tennis Geerlings vs Grabher: no points for 615s"
    ]
-  },
-  {
-   "at": "2026-10-16T08:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T06:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T06:07Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T06:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T05:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T03:50Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T03:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T03:17Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:mlb:1029419134 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-16T01:43Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:nhl:1028409890 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-16T01:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T01:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T01:01Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-16T00:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-15T23:20Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

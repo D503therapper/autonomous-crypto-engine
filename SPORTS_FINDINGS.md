@@ -25,6 +25,7 @@ Train 2018-22 (odds history 2020-22) / blind 2023-26, closing prices unless said
 - MLB postseason elimination splits: DEAD (facing elimination as a dog 14-25 -18%); WATCH: the team with the opponent on the brink, as a dog, 26-21 +27% (blind 7-8).
 - Spreads crossing 3 / 7: DEAD (NFL); college crossed-3 away-from side 25-17 ATS blind on 21 train games - watch only.
 - NHL early records (dog with the better points %): DEAD - the hot start fades (blind -12.8% on 145, 0/3).
+- (the owner's question, 10/17 night) NFL team the game after its defense gave up 35 / 40 / 45+: DEAD - 40+ was +17.9% ML 2018-22 (162) and -13.7% blind 2023-26 (99), ATS 41%; as a dog +26% -> -16%; 35+ and 45+ the same flip. The bounce-back is in the price.
 - Lead tracker: the split signals keep losing live (money 10+ over tickets 43-64 -15.5u, 70%+ of tickets 98-57 -14.5u) - neither is a weight (dead 10/7); the NHL sharp dog (a weight) 3-8 -4.4u on 11 - too few to cut. Fixed: "college dog, engine 10+ over the books" read the market and never fired (now the raw ratings read).
 
 ## 10/17 - THE SIX OPEN EARLY PLAYS AUDITED (the owner: "huge underdogs, upper 200s, at two units ... make sure the engine is using its weights correctly"): the 2u plays are the college EXAM BAND sized by raw Kelly on a read the market beats; the band passed at the bare minimum 3 hours after failing; the scan posted two dogs outside the band the exam graded (BUILT: the scan needs the band at the early price too); sizing = OWNER'S CALL

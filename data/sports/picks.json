@@ -13445,6 +13445,7 @@
      "us:west1000"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13472,6 +13473,10 @@
     "elo_edge": -193.0,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,7,0",
+     "h": "3,7,0,7"
+    },
     "form_state": [
      28.0,
      4,
@@ -13492,7 +13497,7 @@
     "key_edge": -0.046706124549665606,
     "key_out_me": false,
     "key_seen": {
-     "Nico Iamaleava (UCLA QB)": "out"
+     "Nico Iamaleava (UCLA QB)": "Out"
     },
     "league": "ncaaf",
     "line": null,
@@ -13518,9 +13523,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Wisconsin 7 @ UCLA 17",
+    "settled": "2026-10-18T03:05Z",
     "side": "away",
     "start": "2026-10-17T23:30Z",
     "stype": "2",
@@ -13547,12 +13554,14 @@
    }
   ],
   "p_hit": 0.4612,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-18T03:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 110,
@@ -13744,6 +13753,7 @@
      "us:hotseat"
     ],
     "dec": 2.6399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -13772,6 +13782,10 @@
     "elo_edge": 85.4,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,21,3,14",
+     "h": "7,10,0,0"
+    },
     "form_state": [
      -16.0,
      -5,
@@ -13811,9 +13825,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Tulsa 38 @ Rice 17",
+    "settled": "2026-10-17T23:42Z",
     "side": "home",
     "start": "2026-10-17T20:30Z",
     "stype": "2",
@@ -13830,12 +13846,14 @@
    }
   ],
   "p_hit": 0.3768,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T23:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 130,
@@ -14038,6 +14056,7 @@
      "game:conf"
     ],
     "dec": 3.1,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14064,6 +14083,10 @@
     "elo_edge": 83.1,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,21,3,0",
+     "h": "0,7,7,0"
+    },
     "form_state": [
      2.0,
      3,
@@ -14109,9 +14132,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Toledo 34 @ E Michigan 14",
+    "settled": "2026-10-17T23:15Z",
     "side": "home",
     "start": "2026-10-17T19:30Z",
     "stype": "2",
@@ -14138,12 +14163,14 @@
    }
   ],
   "p_hit": 0.3235,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-17T23:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 310,
@@ -14198,6 +14225,15 @@
      "them:west1000"
     ],
     "dec": 4.1,
+    "decider": {
+     "c": "1:47",
+     "k": "td",
+     "p": null,
+     "s": "28-24",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14228,6 +14264,10 @@
     "elo_edge": 47.3,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,7,6,8",
+     "h": "7,14,0,7"
+    },
     "form_state": [
      14.0,
      6,
@@ -14276,9 +14316,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Notre Dame 24 @ BYU 28",
+    "settled": "2026-10-18T03:19Z",
     "side": "home",
     "start": "2026-10-17T23:30Z",
     "stype": "2",
@@ -14305,12 +14347,14 @@
    }
   ],
   "p_hit": 0.261,
-  "pnl": 0.0,
+  "pnl": 310.0,
   "posted": "2026-10-17T15:00Z",
   "round": 1,
+  "settled": "2026-10-18T03:19Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 102,
@@ -14361,6 +14405,7 @@
      "them:dome_out"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14387,6 +14432,10 @@
     "elo_edge": 2.2,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,17,7,7",
+     "h": "3,10,7,21"
+    },
     "form_state": [
      21.0,
      3,
@@ -14429,9 +14478,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "UNLV 31 @ Air Force 41",
+    "settled": "2026-10-17T22:56Z",
     "side": "home",
     "start": "2026-10-17T19:30Z",
     "stype": "2",
@@ -14449,12 +14500,14 @@
   ],
   "midday": true,
   "p_hit": 0.5024,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-17T17:47Z",
   "round": 1,
+  "settled": "2026-10-17T22:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 235,
@@ -14638,6 +14691,7 @@
      "game:conf"
     ],
     "dec": 2.24,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -14664,6 +14718,10 @@
     "elo_edge": -144.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,6,0",
+     "h": "7,12,7,7"
+    },
     "form_state": [
      21.0,
      1,
@@ -14708,9 +14766,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Troy 6 @ Louisiana 33",
+    "settled": "2026-10-18T00:07Z",
     "side": "away",
     "start": "2026-10-17T21:00Z",
     "stype": "2",
@@ -14728,11 +14788,13 @@
   ],
   "midday": true,
   "p_hit": 0.4331,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-17T19:33Z",
   "round": 1,
+  "settled": "2026-10-18T00:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]

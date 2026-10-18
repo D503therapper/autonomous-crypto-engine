@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 78,
-  "beat": 25,
-  "same": 28,
-  "worse": 25,
-  "avg_pts": 0.13
+  "n": 84,
+  "beat": 27,
+  "same": 30,
+  "worse": 27,
+  "avg_pts": 0.14
  },
  "unit_plays": {
-  "n": 34,
-  "beat": 11,
-  "same": 15,
-  "worse": 8,
-  "avg_pts": 0.34
+  "n": 40,
+  "beat": 13,
+  "same": 17,
+  "worse": 10,
+  "avg_pts": 0.33
  },
  "by_kind": {
   "dog": {
@@ -29,18 +29,18 @@
    "avg_pts": -0.04
   },
   "lock": {
-   "n": 10,
-   "beat": 4,
+   "n": 11,
+   "beat": 5,
    "same": 4,
    "worse": 2,
-   "avg_pts": 0.81
+   "avg_pts": 0.99
   },
   "play": {
-   "n": 10,
-   "beat": 3,
-   "same": 5,
-   "worse": 2,
-   "avg_pts": 0.24
+   "n": 15,
+   "beat": 4,
+   "same": 7,
+   "worse": 4,
+   "avg_pts": 0.09
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 19,
-   "beat": 7,
-   "same": 7,
-   "worse": 5,
-   "avg_pts": 0.39
+   "n": 25,
+   "beat": 9,
+   "same": 9,
+   "worse": 7,
+   "avg_pts": 0.36
   },
   "nfl": {
    "n": 12,
@@ -75,11 +75,11 @@
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 6,
-   "beat": 2,
+   "n": 7,
+   "beat": 3,
    "same": 3,
    "worse": 1,
-   "avg_pts": 0.33
+   "avg_pts": 0.69
   },
   "1-2u": {
    "n": 1,
@@ -1170,6 +1170,20 @@
   },
   {
    "date": "2026-10-17",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Wisconsin",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 102,
+   "pts": 2.8,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
    "kind": "play",
    "lean": false,
    "league": "ncaaf",
@@ -1187,6 +1201,20 @@
    "kind": "play",
    "lean": false,
    "league": "ncaaf",
+   "team": "Rice",
+   "market": "ml",
+   "line": null,
+   "odds": 164,
+   "close": 154,
+   "pts": 1.5,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
    "team": "Indiana",
    "market": "ml",
    "line": null,
@@ -1194,6 +1222,62 @@
    "close": 120,
    "pts": 2.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "E Michigan",
+   "market": "ml",
+   "line": null,
+   "odds": 210,
+   "close": 230,
+   "pts": -2.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "BYU",
+   "market": "ml",
+   "line": null,
+   "odds": 310,
+   "close": 320,
+   "pts": -0.6,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Air Force",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Troy",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]
