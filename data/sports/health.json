@@ -1,30 +1,32 @@
 {
- "at": "2026-10-18T10:46Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-17 Otto Virtanen) - started sports.yml"
- ],
- "problems": [
-  "live tennis scores: tennis Gormaz vs Burel: no points for 2083s"
- ],
+ "at": "2026-10-18T11:46Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (15s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "live tennis points + server: 1 of 1 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 0 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T11:46Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T10:46Z",
    "fixes": [
@@ -605,16 +607,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Stefanini vs Andreescu: no points for 1742s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:32Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1141s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
