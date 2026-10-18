@@ -4,6 +4,7 @@ Kept up to date at the end of every working session, so a fresh chat knows what 
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
 ## 10/18 (night of 10/17) - the Saturday sweep + the owner's calls
+- The owner (10/18): the UNDERDOG LOCK is OFF ("2" - a 50% read labeled a Lock); DOG_LOCK = False, DOG_LOCK_MIN_P = LOCK_P.
 - Sweep: on track (SPORTS_FINDINGS 10/17 night). BUILT with the owner's OK: value plays + the underdog Lock need the engine's own read over the price (sports.own_beats). The 🔍 rule stays 1u, judged at 50 plays.
 - Lingo: card closers now in the owner's words first (bottom_so / bottom_lo); his new slang added (super trash, straight ass, they ass, butt / straight cheeks, can't miss lately, a beast, filthy).
 - 10/17 day ~+8.6u before San Diego St (+235 ½u, led 23-17 in the 4th).
