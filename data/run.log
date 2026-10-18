@@ -19551,3 +19551,34 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
 [2026-10-18 21:06 UTC] crypto/hold_btc  equity $483.23 (-3.4%) 1 open  market DOWN
    social heat top: PRL 27 (27/0/0), NEAR 24 (24/0/0), PONS 24 (16/0/8), PENGU 21 (21/0/0), INJ 19 (19/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   dex screen: REJECT SNDKC@base liq $967,323 - pool age unknown
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT NVDAC@base liq $1,578,392 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: PASS HELL@solana liq $272,175
+   dex screen: REJECT DGUY@base liq $142,282 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: PASS CYBERLEEK@solana liq $443,096
+   dex screen: REJECT HEX@ethereum liq $335,343 - pool age unknown
+   dex screen: REJECT CLAUS@ethereum liq $463,673 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex re-screen: FTR@solana:5x6QQvpR data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex outcome: emergency_exit CATSZN@solana:3zxtzoum tier A P/L $-23.82 (re-screen flagged: lp holders unknown; rugcheck danger: Low Liquidity)
+   >> dex/dex_hunter: SELL $0.05 of CATSZN@solana:3zxtzoum @ 2e-06, P/L $-23.82 (re-screen flagged: lp holders unknown; rugcheck danger: Low Liquidity)
+   dex screen: REJECT VEIL@solana liq $109,098 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT REI@base liq $189,426 - 24h volume $30,953 < $100,000
+   dex re-screen: FTR@solana:5x6QQvpR data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,001 pools (solana 2,072 / base 526 / ethereum 403), refresh cycle 128s (hot 123s), 2936 calls (108 feed, 429s 0, failed 0), 84,837 refreshed (7021 no pair), +94 added / -92 dropped (dead 11, stale 0, cap 81), movers 1 + warming 15 -> queued 2, screened 2 (passed 1), bought 0
+[2026-10-18 22:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-18 22:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-18 22:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 22:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 22:06 UTC] crypto/social_heat equity $421.38 (-15.7%) 1 open  market UP
+[2026-10-18 22:06 UTC] crypto/breakout10 equity $454.99 (-9.0%) 2 open  market UP
+[2026-10-18 22:06 UTC] crypto/momentum  equity $418.64 (-16.3%) 1 open  market UP
+[2026-10-18 22:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-18 22:06 UTC] crypto/hold_btc  equity $486.40 (-2.7%) 1 open  market UP
+   social heat top: PENGU 22 (13/0/8), NEAR 21 (21/0/0), PRL 19 (19/0/0), PUMP 16 (16/0/0), PONS 15 (3/0/13)
+   [alert] Today -54.43 | Total -110.41: Stocks: $481.10  today +0.00  total -18.90
+DEX: $908.49  today -54.43  total -91.51
+DEX: $908.49 (-91.51) · Scammed: 0
