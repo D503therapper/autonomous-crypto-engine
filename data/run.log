@@ -19218,3 +19218,32 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-18 10:05 UTC] crypto/hold_btc  equity $489.19 (-2.2%) 1 open  market UP
    social heat top: TAO 37 (37/0/0), HYPE 35 (35/0/0), NEAR 32 (32/0/0), PRL 27 (27/0/0), PONS 22 (8/0/14)
+   dex screen: REJECT ARC@solana liq $3,662,339 - top-10 holders 81%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     c693faf82e300c81e4941b976460a842d9a98ee4 -> main (cannot lock ref 'refs/heads/main': is at 3be53fb9de6597a61b9062f
+   dex screen: PASS USELESS@solana liq $3,989,839
+   dex screen: REJECT ICNT@base liq $100,263 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: PASS DOPE@ethereum liq $170,341
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AERO@base liq $41,906,202 - is_mintable; top-10 holders 67%
+   dex screen: PASS TROLL@solana liq $2,788,618
+   dex screen: REJECT CBUCKS@solana liq $100,372 - top-10 holders 43%; lp holders unknown
+   dex screen: REJECT EURC@ethereum liq $3,102,621 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%
+   dex screen: REJECT STRK@ethereum liq $549,133 - is_mintable; top-10 holders 69%; lp locked 0% < 95%
+   dex scanner: 3,002 pools (solana 1,901 / base 564 / ethereum 537), refresh cycle 122s (hot 117s), 3061 calls (110 feed, 429s 0, failed 0), 88,530 refreshed (10365 no pair), +85 added / -83 dropped (dead 19, stale 0, cap 64), movers 0 + warming 8 -> queued 3, screened 3 (passed 1), bought 0
+   >> dex/dex_hunter: BUY $23.57 of GLITCH@solana:8Xg89xT8 @ 0.001674 (dex tier A both 1h +14% 6h +50% buys/sells 77/55 impact 0.02%)
+[2026-10-18 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-18 11:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-18 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 11:06 UTC] crypto/social_heat equity $428.20 (-14.4%) 2 open  market UP
+[2026-10-18 11:06 UTC] crypto/breakout10 equity $461.42 (-7.7%) 2 open  market UP
+[2026-10-18 11:06 UTC] crypto/momentum  equity $419.13 (-16.2%) 1 open  market UP
+[2026-10-18 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-18 11:06 UTC] crypto/hold_btc  equity $488.66 (-2.3%) 1 open  market UP
+   social heat top: NEAR 37 (37/0/0), PRL 29 (29/0/0), PONS 27 (19/0/8), ENA 24 (24/0/0), SUI 24 (24/0/0)
