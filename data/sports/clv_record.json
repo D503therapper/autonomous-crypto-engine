@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 85,
+  "n": 86,
   "beat": 28,
-  "same": 30,
+  "same": 31,
   "worse": 27,
   "avg_pts": 0.15
  },
@@ -22,9 +22,9 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 44,
+   "n": 45,
    "beat": 14,
-   "same": 13,
+   "same": 14,
    "worse": 17,
    "avg_pts": -0.04
   },
@@ -59,11 +59,11 @@
    "avg_pts": 0.4
   },
   "nfl": {
-   "n": 12,
+   "n": 13,
    "beat": 3,
-   "same": 5,
+   "same": 6,
    "worse": 4,
-   "avg_pts": -0.13
+   "avg_pts": -0.12
   },
   "nhl": {
    "n": 34,
@@ -1293,6 +1293,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-18",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Steelers",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -135,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
   }
  ]
 }

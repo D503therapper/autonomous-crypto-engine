@@ -4760,5 +4760,66 @@
   "score": "6-33",
   "margin": -27.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-18",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873002",
+  "team": "Steelers",
+  "opp": "Buccaneers",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-18T15:00Z",
+  "price_says": 0.574,
+  "win_p": 0.5627891808892673,
+  "own_read": 0.572,
+  "weighed": 0.5721,
+  "dog_p": null,
+  "edge_own": 0.00463124681203908,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "sharp money moving this way",
+   "opponent missing key players"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [
+    "coach's first season"
+   ],
+   "go4_gap": -0.1477,
+   "last_margin": 12.0,
+   "last_pts": 34.0,
+   "neutral": false,
+   "record": [
+    3,
+    2
+   ],
+   "win_pct": 0.6,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Ben Skowronek (WR)"
+  ],
+  "theirs_out": [
+   "Antoine Winfield Jr. (S)",
+   "Baker Mayfield (QB)",
+   "Benjamin Morrison (CB)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -135,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "26-19",
+  "margin": 7.0,
+  "pnl_units": 0.0
  }
 ]
