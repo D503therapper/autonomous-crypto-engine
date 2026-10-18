@@ -1,8 +1,9 @@
 {
- "at": "2026-10-18T10:10Z",
+ "at": "2026-10-18T10:20Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 542s"
+  "live tennis scores: tennis Gormaz vs Burel: no points for 601s",
+  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1143s"
  ],
  "ok": [
   "live watcher fresh (8s)",
@@ -19,11 +20,19 @@
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 12 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T10:20Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Burel: no points for 601s",
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1143s"
+   ]
+  },
   {
    "at": "2026-10-18T10:10Z",
    "fixes": [],
@@ -609,19 +618,6 @@
    "at": "2026-10-16T14:27Z",
    "fixes": [],
    "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T14:26Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Samson vs Garcia: no points for 2158s",
-    "live tennis scores: tennis Masarova vs Zidansek: no points for 1811s",
-    "live tennis scores: tennis Boskovic vs Salkova: no points for 2622s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "simulator last ran 10h ago - restarted"
    ]
