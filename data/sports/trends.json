@@ -97,8 +97,6 @@
    "strength": 2.86,
    "trend": "over",
    "upcoming": [
-    "nfl:401872996",
-    "nfl:401873000",
     "nfl:401873001",
     "nfl:401873003",
     "nfl:401873004",
@@ -108,8 +106,6 @@
     "nfl:401873010"
    ],
    "upcoming_names": [
-    "Texans @ Jaguars",
-    "Saints @ Giants",
     "Jets @ Patriots",
     "Titans @ Colts",
     "Cardinals @ Rams",
@@ -141,15 +137,19 @@
     "ncaaf:401862807",
     "ncaaf:401858271",
     "ncaaf:401861965",
-    "ncaaf:401862808",
     "ncaaf:401856837",
     "ncaaf:401856838",
     "ncaaf:401858499",
+    "ncaaf:401856841",
+    "ncaaf:401858270",
     "ncaaf:401858274",
     "ncaaf:401858498",
     "ncaaf:401856727",
+    "ncaaf:401858273",
     "ncaaf:401856729",
     "ncaaf:401856732",
+    "ncaaf:401858275",
+    "ncaaf:401860906",
     "ncaaf:401864527"
    ],
    "upcoming_names": [
@@ -158,15 +158,19 @@
     "East Carolina @ Memphis",
     "Duke @ Virginia",
     "UMass @ UConn",
-    "Army @ Tulsa",
     "Houston @ Utah",
     "Iowa State @ Arizona",
     "Michigan St @ UCLA",
+    "West Virginia @ TCU",
+    "California @ SMU",
     "Pitt @ Miami",
     "Rutgers @ Northwestern",
     "Texas A&M @ Alabama",
+    "Boston College @ Georgia Tech",
     "Vanderbilt @ Kentucky",
     "Ole Miss @ Texas",
+    "Syracuse @ North Carolina",
+    "Utah State @ Texas St",
     "N Dakota St @ New Mexico"
    ],
    "verdict": "coin flip"
@@ -341,16 +345,22 @@
     "ncaaf:401871056",
     "ncaaf:401862807",
     "ncaaf:401861965",
+    "ncaaf:401864525",
     "ncaaf:401858272",
     "ncaaf:401856835",
     "ncaaf:401856838",
     "ncaaf:401856840",
     "ncaaf:401858499",
+    "ncaaf:401856841",
+    "ncaaf:401858270",
     "ncaaf:401858274",
     "ncaaf:401858496",
     "ncaaf:401858498",
     "ncaaf:401856727",
-    "ncaaf:401856729"
+    "ncaaf:401860907",
+    "ncaaf:401856729",
+    "ncaaf:401858275",
+    "ncaaf:401860906"
    ],
    "upcoming_names": [
     "MTSU @ FIU",
@@ -358,16 +368,22 @@
     "Liberty @ Kennesaw St",
     "East Carolina @ Memphis",
     "UMass @ UConn",
+    "Air Force @ Wyoming",
     "NC State @ Stanford",
     "BYU @ UCF",
     "Iowa State @ Arizona",
     "Texas Tech @ Cincinnati",
     "Michigan St @ UCLA",
+    "West Virginia @ TCU",
+    "California @ SMU",
     "Pitt @ Miami",
     "Indiana @ Michigan",
     "Rutgers @ Northwestern",
     "Texas A&M @ Alabama",
-    "Vanderbilt @ Kentucky"
+    "Boise St @ Washington St",
+    "Vanderbilt @ Kentucky",
+    "Syracuse @ North Carolina",
+    "Utah State @ Texas St"
    ],
    "verdict": "coin flip"
   },
@@ -422,7 +438,6 @@
    "strength": 0.9,
    "trend": "favorites win",
    "upcoming": [
-    "nfl:401872996",
     "nfl:401872997",
     "nfl:401872998",
     "nfl:401872999",
@@ -432,10 +447,10 @@
     "nfl:401873003",
     "nfl:401873004",
     "nfl:401873005",
-    "nfl:401873006"
+    "nfl:401873006",
+    "nfl:401873011"
    ],
    "upcoming_names": [
-    "Texans @ Jaguars",
     "Ravens @ Browns",
     "Panthers @ Eagles",
     "Bears @ Falcons",
@@ -445,7 +460,8 @@
     "Titans @ Colts",
     "Cardinals @ Rams",
     "Bills @ Raiders",
-    "Chargers @ Chiefs"
+    "Chargers @ Chiefs",
+    "Steelers @ Saints"
    ],
    "verdict": "coin flip"
   },
@@ -529,16 +545,22 @@
     "ncaaf:401871056",
     "ncaaf:401862807",
     "ncaaf:401861965",
+    "ncaaf:401864525",
     "ncaaf:401858272",
     "ncaaf:401856835",
     "ncaaf:401856838",
     "ncaaf:401856840",
     "ncaaf:401858499",
+    "ncaaf:401856841",
+    "ncaaf:401858270",
     "ncaaf:401858274",
     "ncaaf:401858496",
     "ncaaf:401858498",
     "ncaaf:401856727",
-    "ncaaf:401856729"
+    "ncaaf:401860907",
+    "ncaaf:401856729",
+    "ncaaf:401858275",
+    "ncaaf:401860906"
    ],
    "upcoming_names": [
     "MTSU @ FIU",
@@ -546,16 +568,22 @@
     "Liberty @ Kennesaw St",
     "East Carolina @ Memphis",
     "UMass @ UConn",
+    "Air Force @ Wyoming",
     "NC State @ Stanford",
     "BYU @ UCF",
     "Iowa State @ Arizona",
     "Texas Tech @ Cincinnati",
     "Michigan St @ UCLA",
+    "West Virginia @ TCU",
+    "California @ SMU",
     "Pitt @ Miami",
     "Indiana @ Michigan",
     "Rutgers @ Northwestern",
     "Texas A&M @ Alabama",
-    "Vanderbilt @ Kentucky"
+    "Boise St @ Washington St",
+    "Vanderbilt @ Kentucky",
+    "Syracuse @ North Carolina",
+    "Utah State @ Texas St"
    ],
    "verdict": "coin flip"
   },
@@ -629,7 +657,6 @@
     "nfl:401873001",
     "nfl:401873003",
     "nfl:401873004",
-    "nfl:401873005",
     "nfl:401873006",
     "nfl:401873008"
    ],
@@ -637,7 +664,6 @@
     "Jets @ Patriots",
     "Titans @ Colts",
     "Cardinals @ Rams",
-    "Bills @ Raiders",
     "Chargers @ Chiefs",
     "Commanders @ 49ers"
    ],
@@ -876,6 +902,7 @@
     "ncaaf:401871070",
     "ncaaf:401869845",
     "ncaaf:401871056",
+    "ncaaf:401862808",
     "ncaaf:401864525",
     "ncaaf:401858272",
     "ncaaf:401856835",
@@ -886,6 +913,8 @@
     "ncaaf:401858496",
     "ncaaf:401856730",
     "ncaaf:401856731",
+    "ncaaf:401860907",
+    "ncaaf:401860905",
     "ncaaf:401858500"
    ],
    "upcoming_names": [
@@ -893,6 +922,7 @@
     "New Mexico St @ Sam Houston",
     "James Madison @ App State",
     "Liberty @ Kennesaw St",
+    "Army @ Tulsa",
     "Air Force @ Wyoming",
     "NC State @ Stanford",
     "BYU @ UCF",
@@ -903,6 +933,8 @@
     "Indiana @ Michigan",
     "Oklahoma @ Mississippi St",
     "Tennessee @ South Carolina",
+    "Boise St @ Washington St",
+    "San Diego St @ Colorado St",
     "USC @ Wisconsin"
    ],
    "verdict": "coin flip"
@@ -2097,5 +2129,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-18T07:18Z"
+ "updated": "2026-10-18T13:53Z"
 }
