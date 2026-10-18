@@ -3193,6 +3193,23 @@ def test_bottom_lines_speak_the_owners_lingo():
         assert "facts" not in low or not __import__("re").search(r"\d\s*-\s*that's just facts", low)
 
 
+def test_value_plays_and_the_dog_lock_need_the_own_read_over_the_price():
+    """10/17 sweep (the owner, 10/18: "fix what Fable suggests"): FAU +110, Troy +124 and the Wisconsin dog Lock +114
+    got on the board only through the weighed dog read - the engine's OWN read was under the price (edge_own -4%) and
+    all three lost; blind, that kind ran -7.4% / -11.6% vs +11.7% with the own read over the price. A value play and
+    an underdog Lock now need own_beats too; one whose own read beats the price still posts."""
+    base = {**_cand("fau", 110, 0.46, league="ncaaf"), "dog_p": 0.50,
+            "reasons": ["the stronger team", "proven spot: home dog after a loss"]}
+    under = {**base, "edge_own": -0.04}
+    over = {**base, "game_id": "af", "team": "af", "edge_own": 0.03}
+    assert not sports.own_beats(under) and sports.own_beats(over)
+    got = [c["game_id"] for c in sports.plays([under, over], ())]
+    assert "fau" not in got
+    assert sports.dog_lock([under]) is None
+    assert sports.own_beats({**under, "w_p": 0.50})          # hockey: the weighed read
+    assert not sports.own_beats({**under, "w_p": 0.45})
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""

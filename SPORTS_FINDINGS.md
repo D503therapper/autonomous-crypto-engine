@@ -13,6 +13,14 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/17 night - THE SATURDAY SWEEP (13 unit plays, the most ever; the owner: "are we doing it the right way?"): ON TRACK - the edge is the early plays, the Dog and the big Locks; the leak is plays whose OWN read sits under the price. BUILT (the owner's OK, 10/18): sports.own_beats on value plays + the dog Lock
+- The day: board 3-6 +3.0u, early 3-0 +5.6u (BC, Kentucky, BYU - the 10/17 audit ranked Kentucky 1, BC 2). Early + the Dog +9.5u; everything else 2-6 -0.9u. Beat the close 4, same 3, worse 3.
+- Since 9/27: 23-22 +10.8u. Locks 8-5 +7.8u (the 2.5-5u Locks +9.0u; ½u Locks 5-4 -0.2u). Dog 6-10 +1.2u. ½u value plays 7-4 +1.3u. Gap 1-3. Early 8-9 +9.9u (MLB exam 2-0 +7.7u; NFL blowout spot 0-6, off).
+- The leak: FAU, Troy, Wisconsin (dog Lock) posted on the weighed dog read with the own read under the price (edge_own -4%) - all lost. Blind: that kind -7.4% / -11.6%; with the own read over the price +11.7%. The dog Lock had no own-read test (the favorite Lock needs own_agrees). Built: own_beats (moneyline value plays + the dog Lock). Cost: ~1-2 plays a Saturday.
+- Volume: Saturday college dogs are NOT correlated (real day sd 2-5u); 10 x 1u dogs sd ~4u, worst real Saturdays -8..-11u. Volume is fine.
+- Checked, not bugs: Indiana "+160 at the open" is this week's first fair price (line history 10/11 04:12Z +160 - the game file's +107 is the summer look-ahead line the cards skip on purpose); BC as the Dog over the 🔍 plays is by design (upgrade_dog skips gap plays - 10/17).
+- 🔍 gap rule: keep at 1u, judge at 50 plays, cut under -5% (blind +4% on 260, 2026 -4%).
+
 ## 10/17 - TEN STUDIES (daily run): moneyline vs spread mismatch, the game after a big upset, the exchange vs US books, the stale book, NFL primetime, NHL record vs goals, MLB elimination games, long dogs +220..+350, spreads through key numbers, NHL early records: TWO BUILT (weights), the rest DEAD / watch
 Train 2018-22 (odds history 2020-22) / blind 2023-26, closing prices unless said; ~600 cells tried in all, ~30 chance hits expected.
 - **BUILT - long hockey dogs (sports.NHL_LONG_DOG / NHL_LONG_DOG_W):** NHL dogs +220..+260 -25.7% on 494, 0 of 9 seasons up (z -2.9); +300..+350 blind 4-52. -3 on the dog score (a weight). College +300..+350 = the vig (-6% / -3% blind, no penalty); NFL -10..-15% but flips train/blind (none); MLB too few. Tracker: "NHL dog +220 or longer (fade)".

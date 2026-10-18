@@ -39,7 +39,7 @@ every session:
 - Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays - no cap, the owner 10/4: however many the engine finds; MONEYLINE only, the owner 10/9 - spread value plays lost every season, sports.PLAY_MARKETS),
   then leans for the viewers (sports.viewer_leans, no units, 🟡 in the record - who-wins calls; value-picked leans lost blind in all six versions tried 10/10, so the owner kept who-wins but NO college favorite lean at -150..-130, sports.LEAN_NCAAF_FAV_BAND) - and a "🧩 Build your own parlay from
   today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
-  is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
+  is never past -150, never one the engine's own read is fighting; a value play and an underdog Lock need the engine's OWN read over the price too (sports.own_beats - the owner, 10/18, after the 10/17 sweep). The Dog of the Day is a UNIT play like the Lock: only
   a real-value dog (the one the dog analysis, sports.dog_score, likes best) - none = no Dog, and the board says so. Never
   a lean Dog of the Day, never a forced one ("it takes our ROI down"). Dogs +100..+350 (the owner 10/17 - was +300 from 10/10, +220 before; sports.DAILY_DOG_MAX). The best value dog is the Dog (the owner, 10/8): a dog value play found after the 8 AM board with 3+ points more value than the posted Dog (neither game started) takes the Dog spot at 1u and the old Dog becomes a ½u value play (sports.upgrade_dog). Value (plus money that really beats the price) is
   the goal; what matters is the ROI on the unit plays. College football stays ON (the owner, 10/1 - sports_strength.OWNER_ON).
