@@ -18963,3 +18963,25 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 01:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-18 01:07 UTC] crypto/hold_btc  equity $486.22 (-2.8%) 1 open  market UP
    social heat top: PENGU 42 (35/0/8), BTC 40 (40/0/0), SOL 30 (29/0/1), INJ 27 (27/0/0), NEAR 24 (24/0/0)
+   dex screen: REJECT ONDO@ethereum liq $1,789,374 - transfer_pausable; top-10 holders 68%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS ANTFUN@solana liq $12,489,492
+   dex screen: REJECT DRV@base liq $1,256,881 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT TSLAC@base liq $971 - liquidity $971 < $100,000; 24h volume $37 < $100,000
+   dex screen: REJECT SPX@solana liq $2,087,918 - mint authority
+   dex screen: REJECT CVX@ethereum liq $5,941,403 - is_mintable; top-10 holders 71%
+   dex screen: REJECT AGENC@solana liq $192,857 - top-10 holders 62%; lp holders unknown
+   listings: binance failed (1x, retry in 30s): URLError: <urlopen error [Errno 104] Connection reset by peer>
+   dex screen: REJECT SIMULATOR@solana liq $156,781 - top-10 holders 44%; lp holders unknown
+   dex screen: REJECT MSFTC@base liq $1,246,620 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 83%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,935 / base 553 / ethereum 512), refresh cycle 124s (hot 119s), 3004 calls (106 feed, 429s 0, failed 0), 86,939 refreshed (14872 no pair), +69 added / -69 dropped (dead 15, stale 0, cap 54), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-18 02:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-18 02:07 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-18 02:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 02:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-18 02:07 UTC] crypto/social_heat equity $430.12 (-14.0%) 2 open  market UP
+[2026-10-18 02:07 UTC] crypto/breakout10 equity $459.05 (-8.2%) 2 open  market UP
+[2026-10-18 02:07 UTC] crypto/momentum  equity $418.80 (-16.2%) 1 open  market UP
+[2026-10-18 02:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-18 02:07 UTC] crypto/hold_btc  equity $487.12 (-2.6%) 1 open  market UP
+   social heat top: PRL 35 (35/0/0), INJ 32 (32/0/0), BTC 29 (29/0/0), SUI 24 (24/0/0), QNT 21 (21/0/0)
