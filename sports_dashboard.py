@@ -543,11 +543,14 @@ def engine_weights():
 def day_recap(picks, today=None, early=None, now=None):
     """📊 The day's units, up top once every pick with units that day is graded (the owner, 10/1: 'after the last
     game of the day' - never a half-day number), gone at midnight Pacific. The bankroll's own plays only: the Lock, the
-    Dog, value plays, early value plays (leans, parlays, live plus money, tennis keep their own records)."""
+    Dog, value plays, early value plays (leans, parlays, live plus money, tennis keep their own records). It stays up
+    till the next day's 8 AM board (the owner, 10/18 - it was midnight)."""
     import sports
     import sports_early
     now = now or datetime.now(sports.PT)
-    today = today or now.strftime("%Y-%m-%d")
+    if today is None:                                        # (10/18, the owner: "that's supposed to stay there all the
+        early_hours = now.astimezone(sports.PT).hour < sports.POST_FROM_HOUR_PT   # way until 8 AM when the picks go up")
+        today = (now - timedelta(days=1) if early_hours else now).astimezone(sports.PT).strftime("%Y-%m-%d")
     early = sports_early.load().get("picks") or [] if early is None else early
     rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today]
     if not rows or sports.day_pending(picks, early, today):
@@ -556,7 +559,8 @@ def day_recap(picks, today=None, early=None, now=None):
     w = sum(1 for r in rows if r[2] > 0)                     # the plays with units only (the owner, 10/1: "the ROI is
     l = sum(1 for r in rows if r[2] < 0)                     # the ROI" - leans carry no units, their cards say so)
     pu = sum(1 for r in rows if r[2] == 0)
-    midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
+    midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1,   # (named for the old
+                                                                                         hours=sports.POST_FROM_HOUR_PT)   # rule: now 8 AM)
     led = sports.units_ledger(picks, early)
     usd = net * (led["by_date"].get(today) or led["unit_today"])                 # the units in dollars (the owner, 10/1)
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")

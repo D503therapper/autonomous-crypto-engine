@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T05:33Z",
+ "updated": "2026-10-18T06:22Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -1881,8 +1881,8 @@
    "away": "Utah",
    "home": "Colorado",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1897,7 +1897,7 @@
    "home": "San Diego St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "San Diego St",
@@ -1910,7 +1910,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1923,8 +1923,8 @@
    "away": "New Mexico",
    "home": "Hawai'i",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1938,8 +1938,8 @@
    "away": "Wake Forest",
    "home": "California",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1964,8 +1964,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.536,
-    "tie": 0.038,
+    "p": 0.529,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -1980,9 +1980,9 @@
     "opp": "Texans",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "revenge game"
@@ -2025,7 +2025,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Patriots",
-    "p": 0.66,
+    "p": 0.662,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2042,8 +2042,8 @@
     "market": "spread",
     "line": 7.5,
     "odds": -112,
-    "p": 0.513,
-    "win_p": 0.233,
+    "p": 0.514,
+    "win_p": 0.23,
     "reasons": [
      "revenge game"
     ]
@@ -2377,8 +2377,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.648,
-    "win_p": 0.648,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"

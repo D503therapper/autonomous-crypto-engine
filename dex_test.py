@@ -712,6 +712,21 @@ def test_survivor_trigger():
     print("  survivor entry: 2-6 day old, growing pool near its high; history kept across restarts   ok")
 
 
+def test_both_mode_takes_either_rule():
+    """Owner 10-18: entry mode "both" buys on the survivor rule OR the momentum rule."""
+    h, fetch, d = make(table_evm())
+    E = {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2, "mode": "both",
+         "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}}
+    h.p = {**h.p, "entry": E}
+    mom = {"chain": "base", "addr": EVM, "h1": 0.2, "h6": 0.8, "b1": 200, "s1": 100, "price": 1.0, "liq": 300_000}
+    assert h._trig(mom, T0)                                            # momentum alone is enough in "both"
+    assert not h._trig(dict(mom, h1=0.01), T0)                         # neither rule
+    h.p = {**h.p, "entry": dict(E, mode="survivor")}
+    assert not h._trig(mom, T0)                                        # survivor-only ignores momentum
+    shutil.rmtree(d)
+    print("  entry mode both: survivor OR momentum   ok")
+
+
 def test_new_season_restarts_account():
     """A new params['season'] archives the account + outcomes (never deletes) and starts fresh at season_cash."""
     h, fetch, d, px = held()
@@ -926,24 +941,28 @@ def test_scam_coin_never_rebought():
     print("  a coin booked as a scam is never bought again (survives restarts / new seasons)   ok")
 
 
+OLD_TIERS = {k: {**v, "pct": 0.03} for k, v in dex.DEX["tiers"].items()}
+BIG_TIERS = {k: {**v, "pct": 0.05} for k, v in dex.DEX["tiers"].items()}
+
+
 def test_resize_old_small_position():
-    h, _, d = make(table_evm())
+    h, _, d = make(table_evm(), tiers=OLD_TIERS)
     screen(h, cand())
     pos = h.pf.positions[K]
     assert abs(pos["cost0"] - 15) < 0.1                                  # bought under the old 3% sizing
     pos.pop("resized", None)                                             # as for a position bought before _resize existed
-    h.p = dict(h.p, tiers=dex.DEX["tiers"], size=dex.DEX["size"])       # sizing raised later
+    h.p = dict(h.p, tiers=BIG_TIERS, size=dex.DEX["size"])              # sizing raised later
     h._housekeep(T0 + 60_000)
-    want = 500 * dex.DEX["tiers"]["A"]["pct"]                             # topped up once to the tier-A share of $500
+    want = 500 * BIG_TIERS["A"]["pct"]                             # topped up once to the tier-A share of $500
     assert want - 1 < pos["cost0"] < want + 1 and pos["resized"], pos["cost0"]
     n = len(h.pf.trades)
     h._housekeep(T0 + 120_000)
     assert len(h.pf.trades) == n                                          # only once
-    h2, _, d2 = make(table_evm())
+    h2, _, d2 = make(table_evm(), tiers=OLD_TIERS)
     screen(h2, cand())
     h2.pf.positions[K]["px"] *= 1.5                                       # already ran +50%: don't chase
     h2.pf.positions[K].pop("resized", None)
-    h2.p = dict(h2.p, tiers=dex.DEX["tiers"], size=dex.DEX["size"])
+    h2.p = dict(h2.p, tiers=BIG_TIERS, size=dex.DEX["size"])
     h2._housekeep(T0 + 60_000)
     assert abs(h2.pf.positions[K]["cost0"] - 15) < 0.1
     shutil.rmtree(d); shutil.rmtree(d2)
@@ -1627,6 +1646,7 @@ if __name__ == "__main__":
     test_crash_needs_a_second_reading()
     test_empty_dexscreener_prices_off_geckoterminal()
     test_survivor_trigger()
+    test_both_mode_takes_either_rule()
     test_void_bad_data_sales()
     test_new_season_restarts_account()
     test_trailing_stop()

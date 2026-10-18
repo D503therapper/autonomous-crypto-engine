@@ -1,17 +1,18 @@
 {
- "updated": 1792298158579,
+ "updated": 1792303941843,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 16
  },
- "live_games": 12,
+ "live_games": 4,
  "tennis": {
-  "watching": 4,
+  "watching": 3,
   "priced": 0,
   "stale": 0,
   "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "books": "6 live lines, 0 fresh",
+  "stale_line": 3
  },
  "scores": {
   "nfl:401872995": {
@@ -425,49 +426,49 @@
   "ncaaf:401866445": {
    "away": "Ohio",
    "home": "Sacramento St",
-   "a": 41,
-   "h": 0,
-   "clock": "00:45 - 3rd",
-   "live": true
+   "a": 48,
+   "h": 7,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401856833": {
    "away": "Utah",
    "home": "Colorado",
-   "a": 13,
-   "h": 7,
-   "clock": "13:20 - 3rd",
-   "live": true
+   "a": 27,
+   "h": 24,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401864521": {
    "away": "New Mexico",
    "home": "Hawai'i",
-   "a": 0,
+   "a": 21,
    "h": 10,
-   "clock": "12:44 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401860904": {
    "away": "Fresno St",
    "home": "San Diego St",
-   "a": 10,
-   "h": 16,
-   "clock": "10:11 - 3rd",
-   "live": true
+   "a": 23,
+   "h": 26,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401858269": {
    "away": "Wake Forest",
    "home": "California",
-   "a": 34,
-   "h": 0,
-   "clock": "Halftime",
-   "live": true
+   "a": 41,
+   "h": 7,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401858492": {
    "away": "Nebraska",
    "home": "Oregon",
-   "a": 0,
-   "h": 0,
-   "clock": "01:12 - 2nd",
+   "a": 14,
+   "h": 9,
+   "clock": "07:18 - 4th",
    "live": true
   },
   "nhl:401892517": {
@@ -587,16 +588,16 @@
    "home": "Mammoth",
    "a": 6,
    "h": 2,
-   "clock": "03:26 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892532": {
    "away": "Penguins",
    "home": "Golden Knights",
    "a": 2,
-   "h": 5,
-   "clock": "00:04 - 3rd",
-   "live": true
+   "h": 6,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401871053": {
    "away": "FIU",
@@ -648,15 +649,6 @@
    "home": "UL Monroe",
    "a": 24,
    "h": 0,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "mlb:401908027": {
-   "away": "Rays",
-   "home": "Guardians",
-   "a": 7,
-   "h": 3,
    "clock": "Final",
    "live": false,
    "src": "espn"
@@ -815,50 +807,47 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:186944": {
+  "tennis:wta:186945": {
    "n": [
-    "Day",
-    "Joint"
+    "Dart",
+    "Ito"
    ],
    "sets": [
-    [
-     3,
-     6
-    ],
     [
      6,
      3
     ],
     [
-     2,
-     3
+     4,
+     4
     ]
    ],
    "pts": null,
    "srv": 0,
-   "done": 2,
-   "first": 1,
+   "done": 1,
+   "first": 2,
    "tennis": true,
    "live": true,
-   "delayed": false
+   "delayed": false,
+   "src": "bovada"
   },
-  "tennis:wta:186940": {
+  "tennis:wta:186943": {
    "n": [
-    "Inglis",
-    "Liu"
+    "Kenin",
+    "Kraus"
    ],
    "sets": [
     [
-     4,
-     6
+     6,
+     7
     ],
     [
      1,
-     2
+     1
     ]
    ],
    "pts": null,
-   "srv": null,
+   "srv": 0,
    "done": 1,
    "first": 1,
    "tennis": true,
@@ -915,29 +904,6 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:186959": {
-   "n": [
-    "Kudermetova",
-    "Zakharova"
-   ],
-   "sets": [
-    [
-     6,
-     3
-    ],
-    [
-     5,
-     3
-    ]
-   ],
-   "pts": null,
-   "srv": 1,
-   "done": 1,
-   "first": 1,
-   "tennis": true,
-   "live": true,
-   "delayed": false
-  },
   "tennis:wta:186960": {
    "n": [
     "Putintseva",
@@ -945,8 +911,31 @@
    ],
    "sets": [
     [
-     1,
-     1
+     6,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:wta:186961": {
+   "n": [
+    "Korneeva",
+    "Han"
+   ],
+   "sets": [
+    [
+     2,
+     2
     ]
    ],
    "pts": null,
@@ -975,26 +964,23 @@
   }
  ],
  "sources": {
-  "betrivers:nhl": "ok 0",
   "betrivers:ncaaf": "ok 0",
-  "betrivers:nhl:1028409954": "ok 0",
+  "betrivers:ncaaf:1028202621": "ok 0",
   "betrivers:tennis": "ok 0"
  },
  "health": [
-  "only 0 of 8 live games have a sportsbook price we can bet on",
-  "3 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for ncaaf, nhl"
+  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
+  "Bovada has no live lines for ncaaf"
  ],
  "priced": 0,
- "dk_only": 3,
+ "dk_only": 1,
  "min_p": 0.55,
- "espn_only": 7,
+ "espn_only": 6,
  "errors": [
   "git pull timed out"
  ],
  "books": {
-  "ncaaf": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+  "ncaaf": "2 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 12.3
+ "took_s": 15.1
 }

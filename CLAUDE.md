@@ -87,7 +87,7 @@ every session:
 - Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the
   books now at plus money, with a 10%+ edge (sports_live.TENNIS_SUPER_PRE / TENNIS_MIN_EDGE).
 - 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): at the very top once every play with units
-  graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap): the units big, then dollars · ROI ·
+  graded (never a half-day number), up till the next day's 8 AM board (the owner, 10/18 - was midnight; sports_dashboard.day_recap): the units big, then dollars · ROI ·
   the record of the plays with units (the owner: "the ROI is the ROI" - leans carry no units, no note about it). The
   brain's day line counts every pick once, leans in (day_calls), never parlay cards.
 - NO win % on the dashboard, ever (the owner, 10/7: "we don't need to see win percentages ever" - was 'over 55% only'): a pick's win chance is always said in words (sports_owner_lingo.SHOW_PCT_OVER = 100, sports_dashboard.pct_ok, sports_early.no_pct). Records (W-L · %) are records and stay.
