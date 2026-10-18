@@ -5631,8 +5631,15 @@ def test_todays_damage_after_the_last_game():
     finally:
         sports.leg_units = keep
     until = int(re.search(r'data-until="(\d+)"', h).group(1))
-    assert datetime.fromtimestamp(until / 1000, sports.PT) == datetime(2026, 10, 2, 0, 0, tzinfo=sports.PT)   # midnight PT
-    assert "Date.now()>+d.dataset.until" in h
+    assert datetime.fromtimestamp(until / 1000, sports.PT) == datetime(2026, 10, 2, 8, 0, tzinfo=sports.PT)   # (10/18,
+    assert "Date.now()>+d.dataset.until" in h          # the owner: it stays up till the 8 AM board - was midnight)
+    sports.leg_units = lambda p, l: p.get("units", 0)
+    try:                                               # 12:30 AM the next morning: still yesterday's results, no date given
+        h2 = D.day_recap([lock, dog], None, [], datetime(2026, 10, 2, 0, 30, tzinfo=sports.PT))
+        assert "+0.5 UNITS" in h2
+        assert D.day_recap([lock, dog], None, [], datetime(2026, 10, 2, 8, 5, tzinfo=sports.PT)) == ""   # board day: gone
+    finally:
+        sports.leg_units = keep
     assert D.day_recap([], "2026-10-01", [], now) == ""                          # no plays with units: nothing
 
 
