@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T01:20Z",
+ "updated": "2026-10-18T02:19Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -1270,8 +1270,8 @@
    "away": "Northern Iowa",
    "home": "Youngstown St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1285,8 +1285,8 @@
    "away": "Washington St",
    "home": "Oregon St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1300,8 +1300,8 @@
    "away": "Morgan St",
    "home": "Tennessee St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1315,8 +1315,8 @@
    "away": "Abilene Chrstn",
    "home": "North Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1345,8 +1345,8 @@
    "away": "Arkansas St",
    "home": "Southern Miss",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1405,8 +1405,8 @@
    "away": "Islanders",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1435,8 +1435,8 @@
    "away": "Mercer",
    "home": "Samford",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1450,8 +1450,8 @@
    "away": "Montana St",
    "home": "E Washington",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1480,8 +1480,8 @@
    "away": "Portland St",
    "home": "N Arizona",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1495,8 +1495,8 @@
    "away": "Rangers",
    "home": "Blue Jackets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1510,8 +1510,8 @@
    "away": "Sabres",
    "home": "Canadiens",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1525,8 +1525,8 @@
    "away": "Senators",
    "home": "Flyers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1540,8 +1540,8 @@
    "away": "Sharks",
    "home": "Red Wings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1555,8 +1555,8 @@
    "away": "Stars",
    "home": "Blackhawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1830,219 +1830,72 @@
    "id": "ncaaf:401866445",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Ohio",
-    "p": 0.765,
-    "tie": 0.025,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-18T02:00Z",
    "away": "Ohio",
    "home": "Sacramento St",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Ohio",
-    "opp": "Sacramento St",
-    "market": "spread",
-    "line": -17.5,
-    "odds": -102,
-    "p": 0.502,
-    "win_p": 0.768,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892531",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.379,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-18T02:00Z",
    "away": "Oilers",
    "home": "Mammoth",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oilers",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.66,
-    "win_p": 0.441,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892532",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.432,
-    "tie": 0.293,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-18T02:00Z",
    "away": "Penguins",
    "home": "Golden Knights",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Penguins",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.67,
-    "win_p": 0.67,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401856833",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah",
-    "p": 0.76,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-18T02:15Z",
-   "away": "Utah",
-   "home": "Colorado",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah",
-    "opp": "Colorado",
-    "market": "spread",
-    "line": -15.5,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.762,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401860904",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Fresno St",
-    "p": 0.611,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-18T02:30Z",
    "away": "Fresno St",
    "home": "San Diego St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Fresno St",
-    "opp": "San Diego St",
+    "team": "San Diego St",
+    "opp": "Fresno St",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.597,
-    "win_p": 0.597,
+    "odds": 235,
+    "p": 0.314,
+    "win_p": 0.314,
     "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401864521",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "New Mexico",
-    "p": 0.742,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-18T02:30Z",
-   "away": "New Mexico",
-   "home": "Hawai'i",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "New Mexico",
-    "opp": "Hawai'i",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.744,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401858269",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Wake Forest",
-    "p": 0.674,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-18T02:30Z",
-   "away": "Wake Forest",
-   "home": "California",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Wake Forest",
-    "opp": "California",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.669,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -2417,8 +2270,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.412,
-    "tie": 0.296,
+    "p": 0.426,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2426,7 +2279,7 @@
    "start": "2026-10-18T22:00Z",
    "away": "Blue Jackets",
    "home": "Wild",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Wild",
@@ -2434,10 +2287,11 @@
     "market": "ml",
     "line": null,
     "odds": -192,
-    "p": 0.629,
-    "win_p": 0.629,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "the stronger team",
+     "opponent on a back-to-back",
      "sharp money moving this way"
     ]
    }
