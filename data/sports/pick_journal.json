@@ -4267,6 +4267,61 @@
  },
  {
   "date": "2026-10-17",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401858494",
+  "team": "Wisconsin",
+  "opp": "UCLA",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 114,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.467,
+  "win_p": 0.4612027444052361,
+  "own_read": 0.504,
+  "weighed": null,
+  "dog_p": 0.5036,
+  "edge_own": -0.040083985493414964,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "bye": true,
+   "fades": [],
+   "last_margin": 28.0,
+   "last_pts": 31.0,
+   "neutral": false,
+   "record": [
+    4,
+    1
+   ],
+   "win_pct": 0.8,
+   "win_streak": 4
+  },
+  "injuries_seen": {
+   "Nico Iamaleava (UCLA QB)": "Out"
+  },
+  "ours_out": [],
+  "theirs_out": [
+   "Nico Iamaleava (QB)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 102,
+  "beat_close_pts": 2.8,
+  "result": "lost",
+  "score": "7-17",
+  "margin": -10.0,
+  "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-17",
   "kind": "play",
   "lean": false,
   "tier": "value",
@@ -4482,6 +4537,68 @@
   "score": "14-34",
   "margin": -20.0,
   "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-17",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401856809",
+  "team": "BYU",
+  "opp": "Notre Dame",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 310,
+  "posted": "2026-10-17T15:00Z",
+  "price_says": 0.244,
+  "win_p": 0.26101501173420333,
+  "own_read": 0.319,
+  "weighed": null,
+  "dog_p": 0.3191,
+  "edge_own": 0.6994,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team",
+   "sharp money moving this way"
+  ],
+  "angles": {
+   "conservative": true,
+   "fades": [
+    "ice cold"
+   ],
+   "fast": false,
+   "last_margin": 14.0,
+   "last_pts": 24.0,
+   "neutral": false,
+   "record": [
+    5,
+    0
+   ],
+   "win_pct": 1.0,
+   "win_streak": 5
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "LJ Martin (RB)",
+   "Isaiah Glasker (LB)"
+  ],
+  "theirs_out": [
+   "Chaz Smith (CB)",
+   "Christopher Burgess Jr. (DL)",
+   "Tiki Hola (DL)",
+   "Charles Jagusah (OL)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 320,
+  "beat_close_pts": -0.6,
+  "result": "won",
+  "score": "28-24",
+  "margin": 4.0,
+  "pnl_units": 3.1
  },
  {
   "date": "2026-10-17",

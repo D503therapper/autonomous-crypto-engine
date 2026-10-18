@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 82,
-  "beat": 26,
+  "n": 84,
+  "beat": 27,
   "same": 30,
-  "worse": 26,
-  "avg_pts": 0.11
+  "worse": 27,
+  "avg_pts": 0.14
  },
  "unit_plays": {
-  "n": 38,
-  "beat": 12,
+  "n": 40,
+  "beat": 13,
   "same": 17,
-  "worse": 9,
-  "avg_pts": 0.29
+  "worse": 10,
+  "avg_pts": 0.33
  },
  "by_kind": {
   "dog": {
@@ -29,18 +29,18 @@
    "avg_pts": -0.04
   },
   "lock": {
-   "n": 10,
-   "beat": 4,
+   "n": 11,
+   "beat": 5,
    "same": 4,
    "worse": 2,
-   "avg_pts": 0.81
+   "avg_pts": 0.99
   },
   "play": {
-   "n": 14,
+   "n": 15,
    "beat": 4,
    "same": 7,
-   "worse": 3,
-   "avg_pts": 0.14
+   "worse": 4,
+   "avg_pts": 0.09
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 23,
-   "beat": 8,
+   "n": 25,
+   "beat": 9,
    "same": 9,
-   "worse": 6,
-   "avg_pts": 0.3
+   "worse": 7,
+   "avg_pts": 0.36
   },
   "nfl": {
    "n": 12,
@@ -75,11 +75,11 @@
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 6,
-   "beat": 2,
+   "n": 7,
+   "beat": 3,
    "same": 3,
    "worse": 1,
-   "avg_pts": 0.33
+   "avg_pts": 0.69
   },
   "1-2u": {
    "n": 1,
@@ -1170,6 +1170,20 @@
   },
   {
    "date": "2026-10-17",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Wisconsin",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 102,
+   "pts": 2.8,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
    "kind": "play",
    "lean": false,
    "league": "ncaaf",
@@ -1223,6 +1237,20 @@
    "pts": -2.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "BYU",
+   "market": "ml",
+   "line": null,
+   "odds": 310,
+   "close": 320,
+   "pts": -0.6,
+   "units": 1.0,
+   "result": "won"
   },
   {
    "date": "2026-10-17",

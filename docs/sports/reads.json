@@ -1964,7 +1964,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.523,
+    "p": 0.529,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1980,9 +1980,9 @@
     "opp": "Texans",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "revenge game"
@@ -2295,6 +2295,34 @@
    }
   },
   {
+   "id": "mlb:401930515",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Rays",
+    "p": 0.46,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-18T21:00Z",
+   "away": "Rays",
+   "home": "Guardians",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Guardians",
+    "opp": "Rays",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -186,
+    "p": 0.595,
+    "win_p": 0.476,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401892533",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2349,8 +2377,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.647,
-    "win_p": 0.647,
+    "p": 0.646,
+    "win_p": 0.646,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
