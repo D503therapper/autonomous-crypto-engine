@@ -1,12 +1,9 @@
 {
- "at": "2026-10-18T08:28Z",
+ "at": "2026-10-18T08:30Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Samson vs Geerlings: no points for 1214s",
-  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1477s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (125s)",
+  "live watcher fresh (197s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,11 +17,16 @@
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 38 min ago",
+  "engine ran 39 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T08:30Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-18T08:28Z",
    "fixes": [],
@@ -625,11 +627,6 @@
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-10-16T12:10Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
