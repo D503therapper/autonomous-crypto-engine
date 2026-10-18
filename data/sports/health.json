@@ -1,13 +1,15 @@
 {
- "at": "2026-10-18T11:46Z",
+ "at": "2026-10-18T12:17Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Salkova vs Andreescu: no points for 494s"
+ ],
  "ok": [
-  "live watcher fresh (15s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
+  "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
@@ -17,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 23 min ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T12:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Salkova vs Andreescu: no points for 494s"
+   ]
+  },
   {
    "at": "2026-10-18T11:46Z",
    "fixes": [],
@@ -597,16 +606,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Stefanini vs Andreescu: no points for 2343s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:42Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1742s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
