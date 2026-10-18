@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 81,
+  "n": 82,
   "beat": 26,
-  "same": 29,
+  "same": 30,
   "worse": 26,
   "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 37,
+  "n": 38,
   "beat": 12,
-  "same": 16,
+  "same": 17,
   "worse": 9,
   "avg_pts": 0.29
  },
@@ -36,11 +36,11 @@
    "avg_pts": 0.81
   },
   "play": {
-   "n": 13,
+   "n": 14,
    "beat": 4,
-   "same": 6,
+   "same": 7,
    "worse": 3,
-   "avg_pts": 0.15
+   "avg_pts": 0.14
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.03
   },
   "ncaaf": {
-   "n": 22,
+   "n": 23,
    "beat": 8,
-   "same": 8,
+   "same": 9,
    "worse": 6,
-   "avg_pts": 0.31
+   "avg_pts": 0.3
   },
   "nfl": {
    "n": 12,
@@ -1237,6 +1237,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-17",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Troy",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }
