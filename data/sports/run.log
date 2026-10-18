@@ -1,29 +1,3 @@
-   no units on Maple Leafs: missing John Tavares, Chris Tanev
-   no units on Islanders: missing Mathew Barzal, Alexander Romanov
-   no units on Red Wings: missing Simon Edvinsson, J.T. Compher, Marco Kasper
-   no units on Flyers: missing Cam York, Rasmus Ristolainen, Travis Konecny, Owen Tippett
-   no units on Rangers: missing 2 players out (0 for Blue Jackets)
-   no units on Stars: missing Oskar Back, Matt Duchene
-   no units on Blues: missing Ross Johnston, Dillon Dube, Alexey Toropchenko, Tyler Tucker
-   no units on Kings: missing Alex Turcotte, Mats Zuccarello
-   no units on Oilers: missing Jason Dickinson, Ryan Nugent-Hopkins, Colton Dach, Matt Savoie
-   no units on Penguins: missing Egor Chinakhov, Trevor van Riemsdyk
-DATA GAP (no pick on this game): North Carolina: we don't hold all their games this season
-DATA GAP (no pick on this game): TCU: we don't hold all their games this season
-tennis sync: 73363 matches stored, 18 calls, 0 failed
-tennis study ATP: 26055 rated matches, acc 0.6435 (surface ratings alone 0.6445), loss 0.6287 vs 0.6287, own weights [-0.005, 0.826, 0.073, 0.145, 0.425, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6287: experience 0.6293 (-0.60 mnats, z -0.6), age 0.6252 (+3.44 mnats, z 2.53), young_vs_aging 0.6282 (+0.52 mnats, z 1.3), last_match 0.6262 (+2.47 mnats, z 1.72), streaks 0.6293 (-0.59 mnats, z -0.58), first_set 0.6275 (+1.14 mnats, z 1.8), injury 0.6295 (-0.82 mnats, z -1.2), travel 0.6288 (-0.09 mnats, z -1.2) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30519 rated matches, acc 0.646 (surface ratings alone 0.6475), loss 0.623 vs 0.6228, own weights [0.003, 0.903, -0.0, -0.09, 0.301, 0.026, -0.205]
-tennis study WTA life factors vs current loss 0.623: experience 0.6197 (+3.35 mnats, z 1.95), age 0.6226 (+0.48 mnats, z 0.58), young_vs_aging 0.6229 (+0.12 mnats, z 0.7), last_match 0.6228 (+0.26 mnats, z 0.26), streaks 0.6232 (-0.15 mnats, z -0.3), first_set 0.6224 (+0.63 mnats, z 1.42), injury 0.6223 (+0.73 mnats, z 1.29), travel 0.6231 (-0.04 mnats, z -0.25) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 0 matches
-sync: 130957 games stored, 52 calls, 0 failed, 10s
-odds history: 0 games got odds, 55 calls, 0 failed, 4s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 115 games got weather, 0 new stadiums located, 240s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
 goalies: 14 games on the page, 14 matched, 15 confirmed
 beat the close: unit plays 10 of 31 better than the close, avg +0.3 pts
 public splits: 84 upcoming games
@@ -2982,6 +2956,32 @@ ACTIVE mlb saturday: favorites win 226-181 (prices said 230.8) (5 straight) -> c
 totals study: {'nfl': (0.5507, True), 'ncaaf': (0.4836, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4838, False)}
 public splits: 17 upcoming games
 🚑 injury alert: Angel Martínez (Guardians) is now not in the lineup — our pick: Rays ML
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (536 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (536 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+   no units on Wild: missing Olli Maatta, Jared Spurgeon, Nico Sturm, Marcus Foligno
+   no units on Hurricanes: missing Taylor Hall, Jordan Staal
+tennis sync: 73394 matches stored, 18 calls, 0 failed
+tennis study ATP: 26067 rated matches, acc 0.643 (surface ratings alone 0.644), loss 0.6285 vs 0.629, own weights [-0.005, 0.826, 0.073, 0.145, 0.422, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6285: experience 0.6292 (-0.65 mnats, z -0.65), age 0.6252 (+3.34 mnats, z 2.46), young_vs_aging 0.6281 (+0.45 mnats, z 1.11), last_match 0.6261 (+2.40 mnats, z 1.67), streaks 0.6292 (-0.65 mnats, z -0.64), first_set 0.6274 (+1.14 mnats, z 1.8), injury 0.6293 (-0.75 mnats, z -1.11), travel 0.6286 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30532 rated matches, acc 0.647 (surface ratings alone 0.6465), loss 0.623 vs 0.623, own weights [0.003, 0.903, 0.0, -0.088, 0.3, 0.025, -0.205]
+tennis study WTA life factors vs current loss 0.623: experience 0.6197 (+3.29 mnats, z 1.91), age 0.6225 (+0.53 mnats, z 0.65), young_vs_aging 0.6229 (+0.13 mnats, z 0.77), last_match 0.6228 (+0.26 mnats, z 0.27), streaks 0.6232 (-0.17 mnats, z -0.34), first_set 0.6224 (+0.66 mnats, z 1.47), injury 0.6222 (+0.81 mnats, z 1.43), travel 0.6231 (-0.04 mnats, z -0.25) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 12 matches
+sync: 130971 games stored, 52 calls, 0 failed, 20s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 95 games got weather, 0 new stadiums located, 246s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 2 games on the page, 2 matched, 3 confirmed
+PICK AUDIT FLAG 2026-10-17: play Indiana 130: the card says 6 straight wins, the games say 22: '🔥 Indiana are cooking — 6 straight W's, 6-0 overall.'
+beat the close: unit plays 14 of 41 better than the close, avg +0.3 pts
+public splits: 17 upcoming games
    ncaaf web injuries: only 5 rows - not used
    ncaaf injury page: 138 schools (536 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 5 rows - not used
