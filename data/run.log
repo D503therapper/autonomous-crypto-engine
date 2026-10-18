@@ -19453,3 +19453,29 @@ DEX: $962.92 (-37.08) · Scammed: 0
 [2026-10-18 18:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
 [2026-10-18 18:05 UTC] crypto/hold_btc  equity $484.39 (-3.1%) 1 open  market DOWN
    social heat top: PRL 35 (35/0/0), PONS 31 (21/0/10), PENGU 28 (24/0/4), BTC 27 (27/0/0), INJ 19 (19/0/0)
+   dex screen: REJECT MASK@solana liq $715,927 - transfer_fee_upgradable; top-10 holders 56%; lp holders unknown
+   dex screen: REJECT LMTS@base liq $136,337 - pool age unknown
+   dex screen: REJECT BSW@base liq $0 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; creator_percent 54%; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $887,160 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   listings: upbit_markets failed (10x, retry in 600s): URLError: <urlopen error timed out>
+   dex screen: PASS EXFIL@solana liq $105,478
+   dex screen: REJECT PAPER@base liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000
+   dex screen: REJECT BLUECHIP@base liq $122,221 - pool age unknown
+   dex screen: PASS SPX@ethereum liq $10,704,702
+   dex screen: REJECT ONBOARD@solana liq $104,773 - holders unknown; lp holders unknown; rugcheck lp locked 64% < 95%
+   dex screen: REJECT E/ACC@solana liq $132,648 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT SURPLUS@base liq $1,098,353 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable
+   dex screen: REJECT HIGGS@solana liq $142,322 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT BOAR@base liq $174,678 - goplus partial data: cannot_sell_all unknown; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: PASS ASTEROID@ethereum liq $863,100
+   dex scanner: 3,001 pools (solana 2,043 / base 502 / ethereum 456), refresh cycle 127s (hot 122s), 2935 calls (108 feed, 429s 0, failed 0), 84,809 refreshed (8519 no pair), +108 added / -107 dropped (dead 19, stale 0, cap 88), movers 2 + warming 11 -> queued 2, screened 3 (passed 0), bought 0
+[2026-10-18 19:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/social_heat equity $420.34 (-15.9%) 1 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/breakout10 equity $447.32 (-10.5%) 2 open  market UP
+[2026-10-18 19:05 UTC] crypto/momentum  equity $418.11 (-16.4%) 1 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
+[2026-10-18 19:05 UTC] crypto/hold_btc  equity $483.94 (-3.2%) 1 open  market DOWN
+   social heat top: PONS 29 (16/0/13), NEAR 27 (27/0/0), STRK 27 (27/0/0), INJ 24 (24/0/0), PENGU 21 (21/0/0)
