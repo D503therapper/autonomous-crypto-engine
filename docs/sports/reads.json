@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T02:34Z",
+ "updated": "2026-10-18T03:05Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -635,8 +635,8 @@
    "away": "West Alabama",
    "home": "West Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1390,8 +1390,8 @@
    "away": "Florida St",
    "home": "Miami",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1570,8 +1570,8 @@
    "away": "TCU",
    "home": "Baylor",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1600,8 +1600,8 @@
    "away": "Elon",
    "home": "Stanford",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1615,8 +1615,8 @@
    "away": "Kentucky",
    "home": "Oklahoma",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1689,7 +1689,7 @@
    "home": "UCLA",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "Wisconsin",
@@ -1703,7 +1703,7 @@
      "sharp money moving this way",
      "rolling off a blowout win"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1731,8 +1731,8 @@
    "away": "Cal Poly",
    "home": "N Colorado",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1791,8 +1791,8 @@
    "away": "UC Davis",
    "home": "Southern Utah",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1914,34 +1914,34 @@
    }
   },
   {
-   "id": "ncaaf:401858492",
+   "id": "ncaaf:401864521",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Oregon",
-    "p": 0.569,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-18T03:00Z",
-   "away": "Nebraska",
-   "home": "Oregon",
-   "why": "no_value",
+   "start": "2026-10-18T02:30Z",
+   "away": "New Mexico",
+   "home": "Hawai'i",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oregon",
-    "opp": "Nebraska",
-    "market": "ml",
-    "line": null,
-    "odds": -250,
-    "p": 0.604,
-    "win_p": 0.604,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858269",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-18T02:30Z",
+   "away": "Wake Forest",
+   "home": "California",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nfl:401872996",
