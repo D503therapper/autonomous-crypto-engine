@@ -1,29 +1,36 @@
 {
- "at": "2026-10-18T10:02Z",
+ "at": "2026-10-18T10:10Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 72s"
+  "live tennis scores: tennis Rakhimova vs Prozorova: no points for 542s"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 4 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T10:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 542s"
+   ]
+  },
   {
    "at": "2026-10-18T10:02Z",
    "fixes": [],
@@ -617,14 +624,6 @@
     "live tennis scores: tennis Boskovic vs Salkova: no points for 2622s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-16T13:42Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
