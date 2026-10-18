@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T00:31Z",
+ "updated": "2026-10-18T00:48Z",
  "games": [
   {
    "id": "ncaaf:401866441",
@@ -1212,8 +1212,8 @@
    "away": "South Dakota",
    "home": "Murray St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1255,8 +1255,8 @@
    "away": "Kraken",
    "home": "Panthers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1797,66 +1797,6 @@
    "lean": null
   },
   {
-   "id": "nhl:401892530",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kings",
-    "p": 0.388,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-18T01:00Z",
-   "away": "Bruins",
-   "home": "Kings",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Bruins",
-    "opp": "Kings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.644,
-    "win_p": 0.424,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401864523",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "San Jos\u00e9 St",
-    "p": 0.609,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-18T01:00Z",
-   "away": "San Jos\u00e9 St",
-   "home": "UTEP",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "San Jos\u00e9 St",
-    "opp": "UTEP",
-    "market": "ml",
-    "line": null,
-    "odds": -270,
-    "p": 0.595,
-    "win_p": 0.595,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401866445",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1986,7 +1926,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Fresno St",
-    "p": 0.624,
+    "p": 0.611,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2002,9 +1942,9 @@
     "opp": "San Diego St",
     "market": "ml",
     "line": null,
-    "odds": -290,
-    "p": 0.612,
-    "win_p": 0.612,
+    "odds": -270,
+    "p": 0.597,
+    "win_p": 0.597,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2017,8 +1957,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.733,
-    "tie": 0.027,
+    "p": 0.742,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2035,7 +1975,7 @@
     "line": -14.5,
     "odds": -112,
     "p": 0.501,
-    "win_p": 0.734,
+    "win_p": 0.744,
     "reasons": [
      "the stronger team",
      "better QB play lately",
