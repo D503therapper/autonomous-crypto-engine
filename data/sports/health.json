@@ -1,13 +1,11 @@
 {
- "at": "2026-10-18T13:48Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
- ],
+ "at": "2026-10-18T13:49Z",
+ "fixes": [],
  "problems": [
   "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (40s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +17,18 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "simulator ran 9h ago",
-  "engine ran 14 min ago",
+  "engine ran 15 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-18T13:49Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-18T13:48Z",
    "fixes": [
@@ -595,16 +600,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-16T18:58Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Andreescu: no points for 2618s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
