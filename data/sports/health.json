@@ -1,9 +1,9 @@
 {
- "at": "2026-10-19T05:48Z",
+ "at": "2026-10-19T06:30Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (18s)",
+  "live watcher fresh (39s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,19 +11,24 @@
   "slate check: all 15 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
+  "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 52 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T06:30Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T05:48Z",
    "fixes": [],
@@ -496,17 +501,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-17T08:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Curmi vs Geerlings: no points for 1839s",
-    "live tennis scores: tennis Kalinina vs Waltert: no points for 2368s",
-    "live tennis scores: tennis Prozorova vs Sherif: no points for 1273s",
-    "live tennis scores: tennis Frech vs Han: no points for 800s",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
