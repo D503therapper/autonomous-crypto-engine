@@ -3233,6 +3233,8 @@ def test_the_6_compound_challenge_is_tracked_on_paper():
     c = sc.choose(board, "2026-10-19")
     assert c["team"] == "Slight" and c["odds"] == -125          # -160 is past the band; the best shot inside it
     assert sc.choose(board, "2026-10-20") is None
+    sp = pk("lean", {**leg("s", "Spread Side", 0.60, -112), "market": "spread", "line": 1.5})   # (10/19: never a spread)
+    assert sc.choose(board + [sp], "2026-10-19")["team"] == "Slight"
     days = [{"odds": -110, "result": "won"}, {"odds": 100, "result": "won"}, {"odds": 120, "result": "push"},
             {"odds": -110, "result": None}]
     t = sc.tally(days)

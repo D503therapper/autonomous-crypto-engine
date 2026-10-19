@@ -13,6 +13,20 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/19 - TEN STUDIES (daily run): early long dogs at the first fair number, NHL goalie on back-to-back nights, NHL after scoring 6+, NFL after Monday night, college both off a bye, NFL the week before a Thursday game, college weekday (MACtion) games, NHL favorite on a losing streak, NFL division road favorites, NHL both teams on a back-to-back: ALL DEAD, a few WATCH lines; nothing built
+Closing lines unless said, train before 2023, blind 2023-26; ~330 cells, ~16 chance hits expected.
+- Early long dogs at the first fair number (+250..+299 / +300..+349, NFL + college 2020-26, 833 sides): the vig, not a money pit (-1.5% / -6.8%; train red, blind green - flips). The +350 limit is fine; no extra weight.
+- NHL night 2: the same goalie both nights is rare (~35 sides a season) - nothing beyond the built back-to-back weight. WATCH: the same-goalie b2b favorite (n 39).
+- NHL after scoring 6+, as a dog next game: -12.1% train / -13.0% blind vs band -7 / -4 (3 of 3 blind seasons red, pooled z ~-1.8) - WATCH as a fade, not built.
+- NFL after Monday night: DEAD. WATCH: the post-Monday home favorite (8 of 9 seasons, n 94, found at split 9).
+- College both teams off a bye: DEAD (home dogs only - a late split, WATCH).
+- NFL before a Thursday game: ML DEAD; the short-week favorite covers 44% (train doesn't hold) - WATCH.
+- College Tue/Wed games: DEAD (n 111 priced).
+- NHL favorite on a 4+ losing streak (home / road, and the dog facing it): DEAD (confirms 10/13).
+- NFL division road favorites -1..-3.5: DEAD (flips).
+- NHL both teams on a back-to-back: DEAD - the edge cancels; the built one-sided weight confirmed (the lone b2b dog -18.6% / -15.7%).
+- Fixed: the 6-compound challenge tracker named a SPREAD lean (Commanders) - moneylines only now (regression test).
+
 ## 10/18 - TEN STUDIES (daily run): college 3rd straight road game, NFL 2nd road game after a long trip, NHL 4+ days rest, NHL after OT / a shootout, college close-game heartbreak, NFL favorite off a bye, NFL facing a backup QB, NHL division games, college rating vs record, NFL desperate home team: ONE BUILT (NHL OT / shootout endings, a weight), two LEADS, the rest DEAD
 Closing lines, train before 2023, blind 2023-26; ~300 cells, ~15 chance hits expected.
 - **BUILT - NHL how the last game ended (sports.ot_last / OT_W):** the OT LOSER next game -10.2% on 818 train / -12.6% on 580 blind (as a favorite -9% / -16%, 7 of 8 seasons red); the OT WINNER +0.7% / +6.2% (8 of 8 at or above band); a SHOOTOUT winner as a dog -18.9% / -13.6% (8 of 9 red). Dog score: OT win +1, OT loss -2, shootout win -2, the opponent off an OT loss +2 (inside STUDY_CAP). Tracker: "NHL side off an OT win / OT loss (fade) / shootout win (fade)".
@@ -73,6 +87,7 @@ Train 2018-22 (odds history 2020-22) / blind 2023-26, closing prices unless said
 - The owner turned on (10/17) 🔍 big-gap college dog plays at 1u and the underdog Lock - the weights-only block above is the owner's call (it would drop part of the 🔍 plays).
 
 ## Yesterday's picks (the daily look-back, from 10/16)
+- 10/18: no unit plays (a leans-only Sunday); leans 3-0 (Packers -115 23-13 - the challenge's first pick, Steelers 26-19 at Tampa vs rookie Jalon Daniels, Rays 3-1). Lesson: none.
 - 10/17: unit plays 7-6, +9.8u (board 4-6 +4.2u: BC Dog 2u +195 W 27-21, BYU +310 W, Air Force W, San Diego St +235 W; Wisconsin dog Lock, FAU, Troy, Rice, Indiana, E Michigan lost - early plays 3-0 +5.6u: BC, Kentucky, BYU). Beat the close 4, same 3, worse 3. Lesson: the three losers whose OWN read sat under the price (FAU, Troy, the Wisconsin dog Lock at a 50% read) - built own_beats on value plays; the underdog Lock turned OFF (the owner); the 8 AM double post fixed. Leans: none.
 - 10/16: no unit plays (a lean-only Friday); leans 1-1 + 1 void (Bruins -112 won 4-2 at Anaheim, matched the close; Coastal -102 lost 35-32 to App State - led 24-14 at the half, outscored 21-8 after it - beat the close by 10 cents (closed -112): a fair bet, a blown lead, not a bad read; Rays rained out, void). Lesson / fix: none from the games. Found today: the 8 AM board posted twice (8:00 sports run + 8:01 live-watcher pass) - FIXED (one pick per game, one Lock per round, in the engine's load and the git merge, from 10/18); the lead tracker's 'college dog, engine 10+ over the books' never fired (read the market) - FIXED (raw ratings read).
 - 10/15: unit plays 1-1, +0.5u (Mammoth +102 Dog 1u won 4-2 at Edmonton; Seahawks -142 Lock ½u lost 17-14 at Denver); leans 2-1 (Guardians, Devils won; Maple Leafs lost 5-4). Beat the close on both unit plays (Mammoth closed -115, Seahawks -155) - the Seahawks was a fair bet that lost a 3-point game, not a bad read. Fixed: the pick audit's false "1u on a thin edge" flag on the Dog (the Dog has its own size).
