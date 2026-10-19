@@ -1,9 +1,9 @@
 {
- "at": "2026-10-19T01:22Z",
+ "at": "2026-10-19T01:32Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (110s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,13 +16,18 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 2 min ago",
+  "simulator ran 5h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T01:32Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T01:22Z",
    "fixes": [],
@@ -539,13 +544,6 @@
     "live tennis scores: tennis Sawashiro vs Liu: no points for 674s",
     "live tennis scores: tennis Saigo vs Dart: no points for 362s"
    ]
-  },
-  {
-   "at": "2026-10-17T03:21Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
