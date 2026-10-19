@@ -1,11 +1,11 @@
 {
- "updated": 1792366931085,
+ "updated": 1792369654457,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 16
  },
- "live_games": 2,
+ "live_games": 3,
  "tennis": {
   "watching": 0,
   "priced": 0,
@@ -110,12 +110,12 @@
    "clock": "Final",
    "live": false
   },
-  "mlb:401930515": {
-   "away": "Rays",
-   "home": "Guardians",
-   "a": 3,
-   "h": 1,
-   "clock": "Inning 9th",
+  "nfl:401873007": {
+   "away": "Cowboys",
+   "home": "Packers",
+   "a": 0,
+   "h": 0,
+   "clock": "12:02 - 1st",
    "live": true
   },
   "nhl:401892519": {
@@ -235,8 +235,25 @@
    "home": "Wild",
    "a": 1,
    "h": 2,
-   "clock": "2nd Intermission",
+   "clock": "00:05 - 3rd",
    "live": true
+  },
+  "nhl:401892534": {
+   "away": "Hurricanes",
+   "home": "Flames",
+   "a": 0,
+   "h": 0,
+   "clock": "07:25 - 1st",
+   "live": true
+  },
+  "mlb:401930515": {
+   "away": "Rays",
+   "home": "Guardians",
+   "a": 3,
+   "h": 1,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
   },
   "tennis:atp:184956": {
    "n": [
@@ -546,24 +563,26 @@
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:mlb": "ok 0",
+  "betrivers:nfl": "ok 0",
   "betrivers:nhl": "ok 0",
+  "betrivers:nhl:1028409844": "ok 0",
   "betrivers:tennis": "ok 0"
  },
  "health": [
-  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for mlb, nhl"
+  "only 0 of 3 live games have a sportsbook price we can bet on",
+  "2 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
+  "Bovada has no live lines for nfl, nhl"
  ],
  "priced": 0,
- "dk_only": 1,
+ "dk_only": 2,
  "min_p": 0.55,
- "espn_only": 0,
+ "espn_only": 1,
  "errors": [
   "git pull timed out"
  ],
  "books": {
-  "mlb": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 8.1
+ "took_s": 10.3
 }
