@@ -1,27 +1,32 @@
 {
- "at": "2026-10-19T08:46Z",
+ "at": "2026-10-19T10:17Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (45s)",
+  "live watcher fresh (46s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 3 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 36 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 60 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-19T10:17Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T08:46Z",
    "fixes": [],
@@ -477,15 +482,6 @@
     "live tennis scores: tennis Havlickova vs Andreescu: no points for 1389s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-17T13:19Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
