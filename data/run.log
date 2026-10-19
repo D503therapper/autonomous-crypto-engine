@@ -19818,3 +19818,18 @@ DEX: $908.49 (-91.51) · Scammed: 0
 [2026-10-19 06:58 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-19 06:58 UTC] crypto/hold_btc  equity $492.86 (-1.4%) 1 open  market UP
    social heat top: AERO 46 (37/0/9), PENGU 43 (29/0/14), STRK 40 (40/0/0), PRL 32 (32/0/0), SUI 27 (27/0/0)
+   scanner: 978 tickers, sample: {'i': 'BTC_USD', 'h': '82837.15', 'l': '80570.32', 'a': '82775.34', 'v': '3116.8800', 'vv': '254312680.52', 'c': '0.0141', 'b': '82775.34', 'k': '82775.35', 'oi': '0', 't': 1792393115581}
+   dex re-screen: MINTER@solana:3NxfWMHm unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex scanner: 3,002 pools (solana 2,125 / base 495 / ethereum 382), refresh cycle 44s (hot 44s), 80 calls (8 feed, 429s 0, failed 0), 2,146 refreshed (186 no pair), +65 added / -61 dropped (dead 15, stale 0, cap 46), movers 1 + warming 2 -> queued 2, screened 0 (passed 0), bought 0
+   dex screen: REJECT LSK@ethereum liq $420,926 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 77%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-19 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/social_heat equity $423.58 (-15.3%) 1 open  market UP
+[2026-10-19 07:06 UTC] crypto/breakout10 equity $470.41 (-5.9%) 2 open  market UP
+[2026-10-19 07:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 07:06 UTC] crypto/hold_btc  equity $493.10 (-1.4%) 1 open  market UP
+   social heat top: AERO 46 (37/0/9), PENGU 43 (29/0/14), STRK 40 (40/0/0), PRL 32 (32/0/0), SUI 27 (27/0/0)
