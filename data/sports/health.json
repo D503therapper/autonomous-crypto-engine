@@ -1,9 +1,9 @@
 {
- "at": "2026-10-19T01:32Z",
+ "at": "2026-10-19T01:42Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 12 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T01:42Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T01:32Z",
    "fixes": [],
@@ -534,16 +539,6 @@
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-17T04:53Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grant vs Ito: no points for 2565s",
-    "live tennis scores: tennis Kobori vs Kraus: no points for 1990s",
-    "live tennis scores: tennis Sawashiro vs Liu: no points for 674s",
-    "live tennis scores: tennis Saigo vs Dart: no points for 362s"
-   ]
   }
  ]
 }
