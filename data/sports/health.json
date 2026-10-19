@@ -1,14 +1,11 @@
 {
- "at": "2026-10-19T15:37Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-19T15:53Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Sakellaridis vs Kukushkin: no points for 2622s",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Sakellaridis vs Kukushkin: no points for 936s"
  ],
  "ok": [
-  "live watcher fresh (104s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +19,20 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 58 min ago",
+  "simulator ran 0h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T15:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Sakellaridis vs Kukushkin: no points for 936s"
+   ]
+  },
   {
    "at": "2026-10-19T15:37Z",
    "fixes": [
@@ -470,15 +475,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-17T19:43Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): betrivers:nhl:1028409972 HTTP 404, betrivers:ncaaf:1027508207 HTTP 404, betrivers:ncaaf:1028202615 HTTP 404"
-   ]
   }
  ]
 }
