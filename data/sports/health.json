@@ -1,27 +1,32 @@
 {
- "at": "2026-10-19T10:18Z",
+ "at": "2026-10-19T11:49Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (14s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 10 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 5 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 62 min ago",
+  "studies ran 7h ago",
+  "simulator ran 7h ago",
+  "engine ran 52 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-19T11:49Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T10:18Z",
    "fixes": [],
@@ -469,14 +474,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-17T14:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
