@@ -135,6 +135,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 12 | 2026-10-11 | DEX: buy SURVIVORS instead of fresh pumps - pools 2-6 days old, $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger) | ~2026-10-31 | 10-10 post-mortem: 67 live momentum buys -41%, a third lost 80%+; replay of the survivor rule: n 19, median +23%, 53% winners, 3 dumped; no 5x seen yet | pending |
 | 13 | 2026-10-14 ~08:30 | STOCKS: second official account "breakout52" next to rsi2 (official stocks = the average of the two, each a $500-size account; breakout52 started at the official balance of the day, $509.63, so the official number and its chart did not jump): 52-week-high breakouts, top 5, on the 84 high-beta names (config.STOCK_HIBETA): buy a close at a new 252-day high while SPY is above its 200-day average, best 6-month return first, 1/5 of the account each; sell a close below the 50-day average or 20% below the highest close since the buy. Owner OK 10-14. | ~2027-01-14 (vs rsi2 and hold QQQ / SPY) | moonshot2_study (results/moonshot2_study.txt, 2011-2026, fixed rules, signals at the close / fills next open, 0.10%/side): +44.8%/yr, both halves (+34.9% / +58.4%), max DD 48%, 46% winners, ~24 trades/yr; without the 10 hindsight winners +38.2% (+18.0% / +59.9%); 3x costs +42.3%; never lost half in any 6-month window (worst $546 of $1,000; median $1,207). rsi2 live: +1.9% since 09-28. | pending |
 | 14 | 2026-10-18 | DEX: entry mode "both" - buy a coin if EITHER the survivor rule OR the old momentum rule fires (warm-up allowed); bets cut to 2.5% (tier A) / 3% (B, C) of the account, up to 40 coins at once (was 5% / 6.25%, 20). Owner 10-18: "we're not doing shit ... play money ... go to the moon" - more, smaller lottery tickets instead of ~$950 sitting idle. | ~2026-11-01 (vs season-5 start and vs survivor-only) | survivor-only: ~1 buy in 6 days; momentum alone lost 41% over 67 buys (10-10 post-mortem) - this is a deliberate risk-on test at small size; every scam check still runs | pending |
+| 15 | 2026-10-19 | DEX exit: at 5x sell 80%, the last 20% rides with no clock (config exit tp1 (4.0, 0.8); was: no take-profit, 7-day hold, 2x+ rides a 40% trail) | ~2026-11-01 (with exp 14) | dex_lottery_study (156 scanner pools meeting the fresh-pump entry, 3 weeks): 13% touched 5x in 7d, 4% 10x, none 25x; hold 7d -44.7%/\$1 (halves -56 / -33), 80% at 5x -9.9% (-14.9 / -4.8), all at 5x -1.1% (-4.6 / +2.4). 20% kept for the moon goal. | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -634,3 +635,15 @@ margin / options; rolling windows overlap (n is not independent trials).
 The stock winner (+44.8%/yr) on ~60 Crypto.com alts, BTC > 200d filter, 2022-2026. At 0.2%/side: 52w top5 +5.0%/yr
 (+5.4 / +4.6 per half, DD 48%), top3 +2.0%, 50d-exit-only +8.2% (+19.0 / -1.6), 90-day-high versions -8% / -22%;
 5x in 6 months: 0% for every version. Hold BTC same span +40.7%/yr. The breakout edge does NOT carry over to alts.
+
+
+### 2026-10-19 DEX LOTTERY ODDS of the fresh-pump entry - dex_lottery_study.py, results/dex_lottery_study.txt
+Q (experiment 14): how often does a fresh-pump buy become a moonshot, and which exit keeps the most of it?
+METHOD: every scanner pool's first snapshot meeting the live momentum entry + prefilter floors (data/dex/scan, 09-26..10-19),
+price path 7 days; a peak counts only if it held 2 snapshots in a row with 30%+ of the entry liquidity (the feeds glitch
+to 1e6x); rug = liquidity pulled (below 50% of the sqrt-price level) or -98%; 0.3%/side. Halves by entry time.
+RESULT: n 156. Peaked 1.5x 41%, 2x 27%, 3x 21%, 5x 13%, 10x 3.8%, 25x 0; 56 rugged/dumped. Hold 7d -44.7% per $1
+(-56.2 / -33.3). Sell all at 2x -20.0, 3x -8.1, 5x -1.1 (-4.6 / +2.4), 10x -11.9. Sell 80% at 5x -9.9 (-14.9 / -4.8),
+75% -12.0, 50% -22.9. Top peaks AGENTCAT 16.8x, STREAM 16.2x, CLAUS 14.6x.
+DECISION: EXPERIMENT 15 - 80% at 5x, 20% rides (owner's moon goal). Still negative: the fresh-pump entry has no edge;
+the take-profit only stops giving back the 1-in-8 coins that do run. Next: entry filters on the 156 (liq, age, 6h).

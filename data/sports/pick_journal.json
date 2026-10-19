@@ -4760,5 +4760,187 @@
   "score": "6-33",
   "margin": -27.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-18",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401930515",
+  "team": "Rays",
+  "opp": "Guardians",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -133,
+  "posted": "2026-10-18T15:00Z",
+  "price_says": 0.571,
+  "win_p": 0.5393915404304689,
+  "own_read": 0.54,
+  "weighed": 0.5404,
+  "dog_p": null,
+  "edge_own": -0.04453652587081092,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better starting pitcher",
+   "hotter recent form",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:2",
+   "latest:0",
+   "h2h:1",
+   "SP_hot:2",
+   "road:3",
+   "bump:4",
+   "sharp:1",
+   "splits_w:0",
+   "bottom_c:0",
+   "w_arm:1"
+  ],
+  "injuries_seen": {
+   "Angel Mart\u00ednez (Guardians)": "Not in the lineup"
+  },
+  "ours_out": [
+   "Shane McClanahan (SP)"
+  ],
+  "theirs_out": [
+   "Colin Holderman (RP)",
+   "Rhys Hoskins (1B)",
+   "Andrew Walters (RP)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -122,
+  "beat_close_pts": -2.1,
+  "result": "won",
+  "score": "3-1",
+  "margin": 2.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-18",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873007",
+  "team": "Packers",
+  "opp": "Cowboys",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -115,
+  "posted": "2026-10-18T15:00Z",
+  "price_says": 0.535,
+  "win_p": 0.5271159961530942,
+  "own_read": 0.529,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.010603893336286863,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "sharp money moving this way",
+   "rolling off a blowout win",
+   "opponent drama: illness"
+  ],
+  "angles": {
+   "fades": [],
+   "go4_gap": -0.163,
+   "last_margin": 24.0,
+   "last_pts": 31.0,
+   "neutral": false,
+   "record": [
+    3,
+    2
+   ],
+   "win_pct": 0.6,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Benjamin St-Juste (CB)",
+   "Josh Jacobs (RB)",
+   "Jordon Riley (DT)",
+   "Micah Parsons (DE)"
+  ],
+  "theirs_out": [
+   "DeMarvion Overshown (LB)",
+   "Drew Shelton (OT)",
+   "Cobie Durant (CB)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": -105,
+  "beat_close_pts": -2.3,
+  "result": "won",
+  "score": "23-13",
+  "margin": 10.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-18",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873002",
+  "team": "Steelers",
+  "opp": "Buccaneers",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-18T15:00Z",
+  "price_says": 0.574,
+  "win_p": 0.5627891808892673,
+  "own_read": 0.572,
+  "weighed": 0.5721,
+  "dog_p": null,
+  "edge_own": 0.00463124681203908,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "sharp money moving this way",
+   "opponent missing key players"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [
+    "coach's first season"
+   ],
+   "go4_gap": -0.1477,
+   "last_margin": 12.0,
+   "last_pts": 34.0,
+   "neutral": false,
+   "record": [
+    3,
+    2
+   ],
+   "win_pct": 0.6,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Ben Skowronek (WR)"
+  ],
+  "theirs_out": [
+   "Antoine Winfield Jr. (S)",
+   "Baker Mayfield (QB)",
+   "Benjamin Morrison (CB)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -135,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "26-19",
+  "margin": 7.0,
+  "pnl_units": 0.0
  }
 ]
