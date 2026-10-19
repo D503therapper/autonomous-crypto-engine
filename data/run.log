@@ -20095,3 +20095,48 @@ DEX: $908.49 (-91.51) · Scammed: 0
    social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
    social: reddit/memecoins HTTP 403  (retry in 60 min)
    >> stocks/trend: SELL $147.58 of LLY @ 1239.61, P/L $+3.39 (stop hit (live check))
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-19 13:37 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/social_heat equity $423.98 (-15.2%) 1 open  market UP
+[2026-10-19 13:37 UTC] crypto/breakout10 equity $464.74 (-7.1%) 2 open  market UP
+[2026-10-19 13:37 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 13:37 UTC] crypto/hold_btc  equity $490.48 (-1.9%) 1 open  market UP
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: BITF"}}}
+$BITF: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF', 'NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-10-19 13:38 UTC] stocks/rsi2      equity $489.67 (-2.1%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 0 BUY, XLK 1 BUY, QQQ 1 BUY, EEM 1
+[2026-10-19 13:38 UTC] stocks/breakout52 equity $497.65 (-0.5%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-10-19 13:38 UTC] stocks/dual_momentum equity $481.31 (-3.7%) 2 open  market DOWN
+   >> stocks/trend_ensemble: SELL $78.61 of AMD @ 548.151, P/L $-11.39 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $85.55 of XLK @ 186.507, P/L $-4.45 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: SELL $92.14 of PLTR @ 190.954, P/L $+2.14 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: BUY $88.35 of XLE @ 68.1741 (trend_ensemble: entry 20%)
+   >> stocks/trend_ensemble: BUY $88.35 of AAPL @ 343.972 (trend_ensemble: entry 20%)
+   >> stocks/trend_ensemble: BUY $81.41 of LLY @ 1253.92 (trend_ensemble: entry 20%)
+[2026-10-19 13:38 UTC] stocks/trend_ensemble equity $490.70 (-1.9%) 5 open  market UP
+[2026-10-19 13:38 UTC] stocks/rotation10 equity $508.09 (+1.6%) 2 open  market UP
+   >> stocks/momentum: SELL $113.15 of AAPL @ 343.628, P/L $+0.65 (weekly rebalance: momentum gone)
+   >> stocks/momentum: SELL $106.88 of QQQ @ 719.72, P/L $-4.87 (weekly rebalance: momentum gone)
+[2026-10-19 13:38 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: SELL $144.90 of MSFT @ 531.629, P/L $+1.83 (trend reversed)
+   >> stocks/trend: BUY $143.72 of LLY @ 1253.92 (entry)
+   >> stocks/trend: BUY $143.72 of AAPL @ 343.972 (entry)
+[2026-10-19 13:38 UTC] stocks/trend     equity $478.91 (-4.2%) 3 open  market DOWN
+[2026-10-19 13:38 UTC] stocks/hold_spy  equity $499.32 (-0.1%) 1 open  market DOWN
+   social heat top: PRL 37 (37/0/0), ZRO 32 (32/0/0), TIA 29 (29/0/0), OSMO 27 (27/0/0), AERO 26 (24/0/2)
