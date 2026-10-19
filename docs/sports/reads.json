@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T23:42Z",
+ "updated": "2026-10-19T00:00Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -191,7 +191,7 @@
    "home": "Guardians",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Rays",
@@ -206,7 +206,7 @@
      "hotter recent form",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -228,31 +228,29 @@
    "id": "nfl:401873007",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Cowboys",
-    "p": 0.486,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-19T00:20Z",
    "away": "Cowboys",
    "home": "Packers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Cowboys",
-    "opp": "Packers",
-    "market": "spread",
-    "line": -1.5,
-    "odds": 102,
-    "p": 0.511,
-    "win_p": 0.507,
+    "team": "Packers",
+    "opp": "Cowboys",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.527,
+    "win_p": 0.527,
     "reasons": [
-     "better rested",
-     "coming off a bye"
-    ]
+     "the stronger team",
+     "sharp money moving this way",
+     "rolling off a blowout win"
+    ],
+    "result": null
    }
   },
   {

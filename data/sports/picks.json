@@ -14856,6 +14856,7 @@
      "us:dome_out"
     ],
     "dec": 1.7518796992481203,
+    "decider": {},
     "dh_game2": true,
     "dog_ctx": {
      "cw5": 0,
@@ -14872,6 +14873,10 @@
     "elo_edge": -11.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,1,0,0,0,0,0,0",
+     "h": "0,0,0,0,0,1,0,0,0"
+    },
     "form_state": [
      4.0,
      1,
@@ -14925,9 +14930,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Rays 3 @ Guardians 1",
+    "settled": "2026-10-18T23:59Z",
     "side": "away",
     "start": "2026-10-18T21:00Z",
     "stype": "3",
@@ -14945,12 +14952,14 @@
    }
   ],
   "p_hit": 0.5394,
-  "pnl": 0.0,
+  "pnl": 75.19,
   "posted": "2026-10-18T15:00Z",
   "round": 1,
+  "settled": "2026-10-18T23:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
