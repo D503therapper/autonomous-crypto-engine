@@ -3296,6 +3296,22 @@ def test_nhl_overtime_and_shootout_endings_weigh_the_next_game():
     assert "NHL side off an OT loss (fade)" in sports_leads.tags({**c, "ot_last": "ot_loss"}, sports)
 
 
+def test_dogs_whose_own_read_sits_under_the_price_keep_a_live_score():
+    """The owner, 10/19 (the Sharks +114 Dog: own ratings read 45%, weighed read 50%, the price needs 47%): "let's track
+    it" - every real-value dog that clears the price only on the weighed read gets its own lead-tracker line."""
+    import sports_leads
+    c = {**_cand("sj", 114, 0.453, league="nhl"), "dog_p": 0.498, "edge_own": 0.453 * sd.decimal(114) - 1,
+         "reasons": ["the stronger team", "proven spot: home dog after a loss"], "dog_more": {}}
+    keep = sports.good
+    sports.good = lambda c_: True
+    try:
+        tag = "dog: own read under the price, weighed read over it"
+        assert tag in sports_leads.tags(c, sports)
+        assert tag not in sports_leads.tags({**c, "edge_own": 0.48 * sd.decimal(114) - 1}, sports)   # own read over: no
+    finally:
+        sports.good = keep
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""
