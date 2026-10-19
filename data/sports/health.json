@@ -1,9 +1,13 @@
 {
- "at": "2026-10-19T12:34Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-19T14:05Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml"
+ ],
+ "problems": [
+  "studies last ran 10h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (43s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,13 +19,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 33 min ago",
+  "simulator ran 9h ago",
+  "engine ran 8 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-19T14:05Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-19T12:34Z",
    "fixes": [],
@@ -463,13 +475,6 @@
    "problems": [
     "sources down (the backups took over): betrivers:ncaaf:1027553074 HTTP 404, betrivers:ncaaf:1028202596 HTTP 404"
    ]
-  },
-  {
-   "at": "2026-10-17T17:52Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
