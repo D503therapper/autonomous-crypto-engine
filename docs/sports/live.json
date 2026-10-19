@@ -1,18 +1,17 @@
 {
- "updated": 1792380594522,
+ "updated": 1792388761458,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 16
  },
- "live_games": 4,
+ "live_games": 2,
  "tennis": {
-  "watching": 3,
+  "watching": 2,
   "priced": 2,
   "stale": 0,
   "suspended": 0,
-  "books": "3 live lines, 2 fresh (betrivers 2)",
-  "stale_line": 1
+  "books": "5 live lines, 2 fresh (betrivers 2)"
  },
  "scores": {
   "nfl:401872995": {
@@ -114,10 +113,10 @@
   "nfl:401873007": {
    "away": "Cowboys",
    "home": "Packers",
-   "a": 7,
+   "a": 13,
    "h": 23,
-   "clock": "04:49 - 4th",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892519": {
    "away": "Devils",
@@ -255,87 +254,6 @@
    "clock": "Final",
    "live": false,
    "src": "espn"
-  },
-  "tennis:atp:184956": {
-   "n": [
-    "Jodar",
-    "Ruud"
-   ],
-   "sets": [
-    [
-     4,
-     6
-    ],
-    [
-     6,
-     4
-    ],
-    [
-     6,
-     3
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 2,
-   "tennis": true,
-   "live": false,
-   "delayed": false
-  },
-  "tennis:atp:184957": {
-   "n": [
-    "Medvedev",
-    "Paul"
-   ],
-   "sets": [
-    [
-     6,
-     3
-    ],
-    [
-     1,
-     6
-    ],
-    [
-     6,
-     3
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 2,
-   "tennis": true,
-   "live": false,
-   "delayed": false
-  },
-  "tennis:atp:184947": {
-   "n": [
-    "Jodar",
-    "Fokina"
-   ],
-   "sets": [
-    [
-     6,
-     1
-    ],
-    [
-     6,
-     7
-    ],
-    [
-     4,
-     6
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
   },
   "tennis:atp:186983": {
    "n": [
@@ -487,33 +405,6 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185568": {
-   "n": [
-    "Quevedo",
-    "Tararudee"
-   ],
-   "sets": [
-    [
-     5,
-     7
-    ],
-    [
-     0,
-     1
-    ]
-   ],
-   "pts": [
-    "0",
-    "0"
-   ],
-   "srv": 0,
-   "done": 1,
-   "first": 1,
-   "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
-  },
   "tennis:wta:185577": {
    "n": [
     "Golubic",
@@ -525,40 +416,36 @@
      3
     ],
     [
-     1,
-     0
+     6,
+     1
     ]
    ],
-   "pts": [
-    "15",
-    "0"
-   ],
-   "srv": 1,
-   "done": 1,
+   "pts": null,
+   "srv": null,
+   "done": 2,
    "first": 2,
    "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
+   "live": false,
+   "delayed": false
   },
-  "tennis:wta:185574": {
+  "tennis:wta:185576": {
    "n": [
-    "Samsonova",
-    "Tagger"
+    "Dart",
+    "Gibson"
    ],
    "sets": [
     [
-     3,
-     6
+     5,
+     7
     ],
     [
-     1,
-     2
+     5,
+     4
     ]
    ],
    "pts": [
-    "0",
-    "0"
+    "30",
+    "15"
    ],
    "srv": 0,
    "done": 1,
@@ -640,17 +527,122 @@
    "tennis": true,
    "live": false,
    "delayed": false
+  },
+  "tennis:wta:185526": {
+   "n": [
+    "Fernandez",
+    "Mertens"
+   ],
+   "sets": [
+    [
+     2,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ],
+   "pts": [
+    "40",
+    "AD"
+   ],
+   "srv": 0,
+   "done": 1,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
+  "tennis:atp:184956": {
+   "n": [
+    "Jodar",
+    "Ruud"
+   ],
+   "sets": [
+    [
+     4,
+     6
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     3
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:atp:184957": {
+   "n": [
+    "Medvedev",
+    "Paul"
+   ],
+   "sets": [
+    [
+     6,
+     3
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     6,
+     3
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:atp:184947": {
+   "n": [
+    "Jodar",
+    "Fokina"
+   ],
+   "sets": [
+    [
+     6,
+     1
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     4,
+     6
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
   }
  },
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nfl": "ok 0",
-  "betrivers:tennis": "ok 3"
+  "betrivers:tennis": "ok 2"
  },
- "health": [
-  "Bovada has no live lines for nfl"
- ],
+ "health": [],
  "priced": 0,
  "dk_only": 0,
  "min_p": 0.55,
@@ -658,8 +650,6 @@
  "errors": [
   "git pull timed out"
  ],
- "books": {
-  "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 9.0
+ "books": {},
+ "took_s": 9.3
 }
