@@ -1,90 +1,71 @@
 {
- "updated": "2026-10-19T22:37Z",
+ "updated": "2026-10-19T23:18Z",
  "games": [
   {
    "id": "nhl:401892536",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.441,
-    "tie": 0.292,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-19T23:00Z",
    "away": "Avalanche",
    "home": "Flyers",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Flyers",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.69,
-    "win_p": 0.69,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892535",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.389,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-19T23:00Z",
    "away": "Ducks",
    "home": "Rangers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Ducks",
-    "opp": "Rangers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.642,
-    "win_p": 0.422,
-    "reasons": []
+    "team": "Rangers",
+    "opp": "Ducks",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.562,
+    "win_p": 0.562,
+    "reasons": [
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892537",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Maple Leafs",
-    "p": 0.373,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-19T23:30Z",
    "away": "Sharks",
    "home": "Maple Leafs",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
     "team": "Sharks",
     "opp": "Maple Leafs",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.672,
+    "market": "ml",
+    "line": null,
+    "odds": 114,
+    "p": 0.453,
     "win_p": 0.453,
-    "reasons": []
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -93,7 +74,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.528,
+    "p": 0.529,
     "tie": 0.116,
     "name": "first 5 innings"
    },
@@ -109,9 +90,9 @@
     "opp": "Guardians",
     "market": "ml",
     "line": null,
-    "odds": -158,
-    "p": 0.603,
-    "win_p": 0.603,
+    "odds": -152,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "the stronger team",
      "better starting pitcher",
@@ -145,8 +126,8 @@
     "p": 0.515,
     "win_p": 0.226,
     "reasons": [
-     "opponent missing key players",
      "revenge game",
+     "opponent missing key players",
      "opponent drama: legal trouble"
     ]
    }
@@ -256,17 +237,19 @@
    "start": "2026-10-20T23:00Z",
    "away": "Avalanche",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Devils",
-    "opp": "Avalanche",
+    "team": "Avalanche",
+    "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.697,
-    "win_p": 0.482,
-    "reasons": []
+    "odds": -265,
+    "p": 0.73,
+    "win_p": 0.52,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -275,8 +258,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.389,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -292,8 +275,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -175,
-    "p": 0.625,
-    "win_p": 0.405,
+    "p": 0.642,
+    "win_p": 0.422,
     "reasons": [
      "opponent drama: suspension"
     ]
@@ -511,8 +494,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.379,
-    "tie": 0.299,
+    "p": 0.383,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -527,9 +510,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.661,
-    "win_p": 0.441,
+    "odds": -205,
+    "p": 0.652,
+    "win_p": 0.433,
     "reasons": []
    }
   },
@@ -655,8 +638,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Lightning",
-    "p": 0.351,
+    "team": "Golden Knights",
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -672,9 +655,9 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.716,
-    "win_p": 0.501,
+    "odds": -258,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": []
    }
   }
