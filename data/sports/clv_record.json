@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 87,
+  "n": 88,
   "beat": 28,
   "same": 31,
-  "worse": 28,
-  "avg_pts": 0.12
+  "worse": 29,
+  "avg_pts": 0.1
  },
  "unit_plays": {
   "n": 41,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 46,
+   "n": 47,
    "beat": 14,
    "same": 14,
-   "worse": 18,
-   "avg_pts": -0.08
+   "worse": 19,
+   "avg_pts": -0.13
   },
   "lock": {
    "n": 11,
@@ -59,11 +59,11 @@
    "avg_pts": 0.4
   },
   "nfl": {
-   "n": 13,
+   "n": 14,
    "beat": 3,
    "same": 6,
-   "worse": 4,
-   "avg_pts": -0.12
+   "worse": 5,
+   "avg_pts": -0.28
   },
   "nhl": {
    "n": 34,
@@ -1305,6 +1305,20 @@
    "odds": -133,
    "close": -122,
    "pts": -2.1,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-18",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Packers",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -105,
+   "pts": -2.3,
    "units": 0,
    "result": "won"
   },

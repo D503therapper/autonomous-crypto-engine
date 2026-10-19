@@ -24,36 +24,14 @@
     "streak"
    ],
    "league": "nfl",
-   "outcome": "total",
-   "price_said": 2.5,
-   "record": "5-0",
-   "season": 2026,
-   "side": 1,
-   "situation": "sunday night",
-   "streak": 5,
-   "strength": 4.74,
-   "trend": "over",
-   "upcoming": [
-    "nfl:401873022"
-   ],
-   "upcoming_names": [
-    "Chiefs @ Seahawks"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "streak"
-   ],
-   "league": "nfl",
    "outcome": "fav_cover",
-   "price_said": 2.5,
-   "record": "5-0",
+   "price_said": 3.0,
+   "record": "6-0",
    "season": 2026,
    "side": 0,
    "situation": "sunday night",
-   "streak": 5,
-   "strength": 4.74,
+   "streak": 6,
+   "strength": 5.45,
    "trend": "underdogs cover",
    "upcoming": [
     "nfl:401873022"
@@ -1061,9 +1039,9 @@
    "hit": 0.6883,
    "hit_new": 0.6894,
    "hit_old": 0.6872,
-   "n": 231013,
-   "n_new": 115507,
-   "n_old": 115506,
+   "n": 231015,
+   "n_new": 115508,
+   "n_old": 115507,
    "said": 0.6793,
    "status": "watch only",
    "to": "2026-10-18",
@@ -1743,15 +1721,15 @@
   },
   "nfl|all": {
    "edge": -0.0035,
-   "edge_new": -0.0015,
-   "edge_old": -0.0055,
+   "edge_new": -0.0016,
+   "edge_old": -0.0054,
    "from": "2018-09-10",
    "hit": 0.6324,
-   "hit_new": 0.6346,
-   "hit_old": 0.6302,
-   "n": 5675,
-   "n_new": 2838,
-   "n_old": 2837,
+   "hit_new": 0.6344,
+   "hit_old": 0.6304,
+   "n": 5677,
+   "n_new": 2839,
+   "n_old": 2838,
    "said": 0.6359,
    "status": "watch only",
    "to": "2026-10-18",
@@ -1839,35 +1817,35 @@
   },
   "nfl|streak": {
    "edge": -0.0132,
-   "edge_new": -0.0017,
-   "edge_old": -0.0247,
+   "edge_new": -0.0011,
+   "edge_old": -0.0253,
    "from": "2018-09-17",
-   "hit": 0.5838,
-   "hit_new": 0.5834,
-   "hit_old": 0.5842,
-   "n": 1545,
-   "n_new": 773,
-   "n_old": 772,
-   "said": 0.597,
+   "hit": 0.5837,
+   "hit_new": 0.584,
+   "hit_old": 0.5834,
+   "n": 1547,
+   "n_new": 774,
+   "n_old": 773,
+   "said": 0.5969,
    "status": "watch only",
    "to": "2026-10-18",
    "z": -1.11
   },
   "nfl|streak|fav_cover": {
-   "edge": -0.004,
-   "edge_new": 0.0159,
+   "edge": -0.002,
+   "edge_new": 0.0197,
    "edge_old": -0.0238,
    "from": "2018-10-28",
-   "hit": 0.496,
-   "hit_new": 0.5159,
+   "hit": 0.498,
+   "hit_new": 0.5197,
    "hit_old": 0.4762,
-   "n": 252,
-   "n_new": 126,
+   "n": 253,
+   "n_new": 127,
    "n_old": 126,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-11",
-   "z": -0.13
+   "to": "2026-10-18",
+   "z": -0.06
   },
   "nfl|streak|fav_ml": {
    "edge": -0.0079,
@@ -1902,20 +1880,20 @@
    "z": 0.23
   },
   "nfl|streak|total": {
-   "edge": -0.048,
+   "edge": -0.0494,
    "edge_new": -0.0432,
-   "edge_old": -0.0528,
+   "edge_old": -0.0556,
    "from": "2018-09-23",
-   "hit": 0.452,
+   "hit": 0.4506,
    "hit_new": 0.4568,
-   "hit_old": 0.4472,
-   "n": 323,
+   "hit_old": 0.4444,
+   "n": 324,
    "n_new": 162,
-   "n_old": 161,
+   "n_old": 162,
    "said": 0.5,
    "status": "watch only",
    "to": "2026-10-18",
-   "z": -1.72
+   "z": -1.78
   },
   "nhl|all": {
    "edge": 0.0103,
@@ -2149,9 +2127,9 @@
    "hit": 0.6386,
    "hit_new": 0.6394,
    "hit_old": 0.6378,
-   "n": 69771,
-   "n_new": 34886,
-   "n_old": 34885,
+   "n": 69773,
+   "n_new": 34887,
+   "n_old": 34886,
    "said": 0.6324,
    "status": "watch only",
    "to": "2026-10-18",
@@ -2160,18 +2138,18 @@
   "streak|fav_cover": {
    "edge": -0.0049,
    "edge_new": 0.0037,
-   "edge_old": -0.0135,
+   "edge_old": -0.0134,
    "from": "2018-09-01",
    "hit": 0.4951,
    "hit_new": 0.5037,
-   "hit_old": 0.4865,
-   "n": 7825,
+   "hit_old": 0.4866,
+   "n": 7826,
    "n_new": 3913,
-   "n_old": 3912,
+   "n_old": 3913,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-17",
-   "z": -0.87
+   "to": "2026-10-18",
+   "z": -0.86
   },
   "streak|fav_ml": {
    "edge": 0.01,
@@ -2208,18 +2186,18 @@
   "streak|total": {
    "edge": 0.0016,
    "edge_new": 0.0019,
-   "edge_old": 0.0014,
+   "edge_old": 0.0013,
    "from": "2018-04-06",
    "hit": 0.5016,
    "hit_new": 0.5019,
-   "hit_old": 0.5014,
-   "n": 12463,
+   "hit_old": 0.5013,
+   "n": 12464,
    "n_new": 6232,
-   "n_old": 6231,
+   "n_old": 6232,
    "said": 0.5,
    "status": "watch only",
    "to": "2026-10-18",
-   "z": 0.37
+   "z": 0.36
   }
  },
  "follow_ups": {
@@ -2227,7 +2205,7 @@
   "nba": 33577,
   "ncaab": 135775,
   "ncaaf": 29505,
-  "nfl": 5675,
+  "nfl": 5677,
   "nhl": 10351
  },
  "proven": [
@@ -2241,5 +2219,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-19T03:37Z"
+ "updated": "2026-10-19T04:27Z"
 }
