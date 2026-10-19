@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T22:29Z",
+ "updated": "2026-10-19T22:33Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -125,8 +125,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.669,
-    "tie": 0.035,
+    "p": 0.673,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -143,7 +143,7 @@
     "line": 7.5,
     "odds": -118,
     "p": 0.515,
-    "win_p": 0.232,
+    "win_p": 0.226,
     "reasons": [
      "opponent missing key players",
      "revenge game",
@@ -256,19 +256,17 @@
    "start": "2026-10-20T23:00Z",
    "away": "Avalanche",
    "home": "Devils",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Avalanche",
-    "opp": "Devils",
+    "team": "Devils",
+    "opp": "Avalanche",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
-    "p": 0.73,
-    "win_p": 0.52,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -250,
+    "p": 0.697,
+    "win_p": 0.482,
+    "reasons": []
    }
   },
   {
@@ -277,8 +275,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.389,
-    "tie": 0.298,
+    "p": 0.397,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -294,8 +292,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -175,
-    "p": 0.642,
-    "win_p": 0.422,
+    "p": 0.625,
+    "win_p": 0.405,
     "reasons": [
      "opponent drama: suspension"
     ]
@@ -513,8 +511,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.383,
-    "tie": 0.298,
+    "p": 0.379,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -529,9 +527,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.652,
-    "win_p": 0.433,
+    "odds": -198,
+    "p": 0.661,
+    "win_p": 0.441,
     "reasons": []
    }
   },
@@ -657,8 +655,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Golden Knights",
-    "p": 0.353,
+    "team": "Lightning",
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -674,9 +672,9 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.71,
-    "win_p": 0.494,
+    "odds": -250,
+    "p": 0.716,
+    "win_p": 0.501,
     "reasons": []
    }
   }
