@@ -1,11 +1,11 @@
 {
- "at": "2026-10-19T04:14Z",
+ "at": "2026-10-19T04:15Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-18 Viktorija Golubic) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-10-18 Viktorija Golubic) - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (151s)",
+  "live watcher fresh (113s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 2 live matches",
@@ -19,12 +19,19 @@
   "baseball star list fresh (30 teams)",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T04:15Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-18 Viktorija Golubic) - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-19T04:14Z",
    "fixes": [
@@ -507,15 +514,6 @@
     "live tennis scores: tennis Kalinina vs Waltert: no points for 1758s",
     "live tennis scores: tennis Prozorova vs Sherif: no points for 662s",
     "live tennis scores: tennis Frech vs Han: no points for 190s"
-   ]
-  },
-  {
-   "at": "2026-10-17T08:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Curmi vs Geerlings: no points for 625s",
-    "live tennis scores: tennis Inglis vs Tormo: no points for 1155s",
-    "live tennis scores: tennis Kalinina vs Waltert: no points for 1155s"
    ]
   }
  ]
