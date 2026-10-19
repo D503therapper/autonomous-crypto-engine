@@ -103,6 +103,7 @@
     "ncaaf:401862807",
     "ncaaf:401858271",
     "ncaaf:401861965",
+    "ncaaf:401862808",
     "ncaaf:401856841",
     "ncaaf:401858270",
     "ncaaf:401858274",
@@ -111,6 +112,7 @@
     "ncaaf:401866450",
     "ncaaf:401866446",
     "ncaaf:401856727",
+    "ncaaf:401856731",
     "ncaaf:401858273",
     "ncaaf:401858499",
     "ncaaf:401866447",
@@ -135,6 +137,7 @@
     "East Carolina @ Memphis",
     "Duke @ Virginia",
     "UMass @ UConn",
+    "Army @ Tulsa",
     "West Virginia @ TCU",
     "California @ SMU",
     "Pitt @ Miami",
@@ -143,6 +146,7 @@
     "W Michigan @ Toledo",
     "Akron @ Kent State",
     "Texas A&M @ Alabama",
+    "Tennessee @ South Carolina",
     "Boston College @ Georgia Tech",
     "Michigan St @ UCLA",
     "Sacramento St @ Ball State",
@@ -267,6 +271,38 @@
    "families": [
     "rate"
    ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 18.3,
+   "record": "23-8",
+   "season": 2026,
+   "side": 1,
+   "situation": "back-to-back",
+   "streak": 2,
+   "strength": 1.73,
+   "trend": "favorites win",
+   "upcoming": [
+    "nhl:401892539",
+    "nhl:401892540",
+    "nhl:401892541",
+    "nhl:401892543",
+    "nhl:401892554",
+    "nhl:401892556"
+   ],
+   "upcoming_names": [
+    "Sharks @ Canadiens",
+    "Avalanche @ Devils",
+    "Ducks @ Islanders",
+    "Maple Leafs @ Blue Jackets",
+    "Sharks @ Senators",
+    "Panthers @ Penguins"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
    "league": "nfl",
    "outcome": "fav_cover",
    "price_said": 14.5,
@@ -288,38 +324,6 @@
     "Colts @ Vikings",
     "Giants @ Texans",
     "Rams @ Raiders"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "nhl",
-   "outcome": "fav_ml",
-   "price_said": 17.7,
-   "record": "22-8",
-   "season": 2026,
-   "side": 1,
-   "situation": "back-to-back",
-   "streak": 1,
-   "strength": 1.62,
-   "trend": "favorites win",
-   "upcoming": [
-    "nhl:401892539",
-    "nhl:401892540",
-    "nhl:401892541",
-    "nhl:401892543",
-    "nhl:401892554",
-    "nhl:401892556"
-   ],
-   "upcoming_names": [
-    "Sharks @ Canadiens",
-    "Avalanche @ Devils",
-    "Ducks @ Islanders",
-    "Maple Leafs @ Blue Jackets",
-    "Sharks @ Senators",
-    "Panthers @ Penguins"
    ],
    "verdict": "coin flip"
   },
@@ -489,13 +493,13 @@
    ],
    "league": "nhl",
    "outcome": "fav_ml",
-   "price_said": 4.9,
-   "record": "6-2",
+   "price_said": 5.5,
+   "record": "7-2",
    "season": 2026,
    "side": 1,
    "situation": "sunday",
-   "streak": 2,
-   "strength": 0.8,
+   "streak": 3,
+   "strength": 1.01,
    "trend": "favorites win",
    "upcoming": [],
    "upcoming_names": [],
@@ -998,7 +1002,6 @@
     "ncaaf:401871070",
     "ncaaf:401869845",
     "ncaaf:401871056",
-    "ncaaf:401862808",
     "ncaaf:401864525",
     "ncaaf:401858272",
     "ncaaf:401856728",
@@ -1008,7 +1011,6 @@
     "ncaaf:401866476",
     "ncaaf:401858495",
     "ncaaf:401856730",
-    "ncaaf:401856731",
     "ncaaf:401856835",
     "ncaaf:401858497",
     "ncaaf:401862810",
@@ -1026,7 +1028,6 @@
     "New Mexico St @ Sam Houston",
     "James Madison @ App State",
     "Liberty @ Kennesaw St",
-    "Army @ Tulsa",
     "Air Force @ Wyoming",
     "NC State @ Stanford",
     "LSU @ Auburn",
@@ -1036,7 +1037,6 @@
     "Miami OH @ C Michigan",
     "Oregon @ Illinois",
     "Oklahoma @ Mississippi St",
-    "Tennessee @ South Carolina",
     "BYU @ UCF",
     "Iowa @ Minnesota",
     "North Texas @ Navy",
@@ -1061,13 +1061,13 @@
    "hit": 0.6883,
    "hit_new": 0.6894,
    "hit_old": 0.6872,
-   "n": 231009,
-   "n_new": 115505,
-   "n_old": 115504,
+   "n": 231011,
+   "n_new": 115506,
+   "n_old": 115505,
    "said": 0.6793,
    "status": "watch only",
    "to": "2026-10-18",
-   "z": 10.02
+   "z": 10.03
   },
   "mlb|all": {
    "edge": 0.0042,
@@ -1918,52 +1918,52 @@
    "z": -1.72
   },
   "nhl|all": {
-   "edge": 0.0104,
-   "edge_new": 0.0121,
-   "edge_old": 0.0087,
+   "edge": 0.0105,
+   "edge_new": 0.0122,
+   "edge_old": 0.0088,
    "from": "2018-10-06",
-   "hit": 0.5928,
+   "hit": 0.5929,
    "hit_new": 0.5986,
-   "hit_old": 0.5871,
-   "n": 10347,
-   "n_new": 5174,
-   "n_old": 5173,
+   "hit_old": 0.5872,
+   "n": 10349,
+   "n_new": 5175,
+   "n_old": 5174,
    "said": 0.5824,
    "status": "watch only",
-   "to": "2026-10-17",
-   "z": 2.2
+   "to": "2026-10-18",
+   "z": 2.22
   },
   "nhl|rate": {
-   "edge": 0.0072,
-   "edge_new": 0.0134,
-   "edge_old": 0.001,
+   "edge": 0.0073,
+   "edge_new": 0.0138,
+   "edge_old": 0.0008,
    "from": "2018-10-06",
-   "hit": 0.6169,
-   "hit_new": 0.6308,
-   "hit_old": 0.603,
-   "n": 5254,
-   "n_new": 2627,
-   "n_old": 2627,
+   "hit": 0.617,
+   "hit_new": 0.6313,
+   "hit_old": 0.6027,
+   "n": 5256,
+   "n_new": 2628,
+   "n_old": 2628,
    "said": 0.6097,
    "status": "watch only",
-   "to": "2026-10-17",
-   "z": 1.1
+   "to": "2026-10-18",
+   "z": 1.12
   },
   "nhl|rate|fav_ml": {
-   "edge": 0.0146,
-   "edge_new": 0.0132,
-   "edge_old": 0.0159,
+   "edge": 0.0148,
+   "edge_new": 0.0133,
+   "edge_old": 0.0162,
    "from": "2018-10-06",
-   "hit": 0.6506,
-   "hit_new": 0.6586,
-   "hit_old": 0.6426,
-   "n": 3386,
-   "n_new": 1693,
-   "n_old": 1693,
+   "hit": 0.6508,
+   "hit_new": 0.6588,
+   "hit_old": 0.6429,
+   "n": 3388,
+   "n_new": 1694,
+   "n_old": 1694,
    "said": 0.6361,
    "status": "watch only",
-   "to": "2026-10-17",
-   "z": 1.79
+   "to": "2026-10-18",
+   "z": 1.82
   },
   "nhl|rate|home": {
    "edge": -0.0072,
@@ -2069,13 +2069,13 @@
    "hit": 0.7098,
    "hit_new": 0.7113,
    "hit_old": 0.7083,
-   "n": 161238,
-   "n_new": 80619,
-   "n_old": 80619,
+   "n": 161240,
+   "n_new": 80620,
+   "n_old": 80620,
    "said": 0.6996,
    "status": "watch only",
    "to": "2026-10-18",
-   "z": 9.68
+   "z": 9.69
   },
   "rate|fav_cover": {
    "edge": -0.0092,
@@ -2101,13 +2101,13 @@
    "hit": 0.7376,
    "hit_new": 0.7389,
    "hit_old": 0.7363,
-   "n": 113225,
-   "n_new": 56613,
-   "n_old": 56612,
+   "n": 113227,
+   "n_new": 56614,
+   "n_old": 56613,
    "said": 0.7275,
    "status": "watch only",
    "to": "2026-10-18",
-   "z": 7.93
+   "z": 7.94
   },
   "rate|home": {
    "edge": 0.0115,
@@ -2228,7 +2228,7 @@
   "ncaab": 135775,
   "ncaaf": 29505,
   "nfl": 5675,
-  "nhl": 10347
+  "nhl": 10349
  },
  "proven": [
   "ncaab|rate|fav_cover",
@@ -2241,5 +2241,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-19T00:25Z"
+ "updated": "2026-10-19T01:29Z"
 }
