@@ -769,6 +769,23 @@ def test_trailing_stop():
     print("  trailing stop 30% below peak (after sell simulation)   ok")
 
 
+def test_live_five_x_take_profit():
+    """EXPERIMENT 15 (10-19): the live exit sells 80% at 5x; the last 20% rides with no time limit."""
+    h, fetch, d, px = held()
+    h.p = dict(h.p, exit=dex.DEX["exit"])
+    q0 = h.pf.positions[K]["qty"]
+    t = poll(h, T0 + 6000, px, v=0.045)                                     # 4.5x: nothing yet
+    assert abs(h.pf.positions[K]["qty"] - q0) < 1e-12
+    t = poll(h, t, px, v=0.051)                                             # 5.1x: sell 80%
+    pos = h.pf.positions[K]
+    assert pos["tp1"] and abs(pos["qty"] - q0 * 0.2) < 1e-9, pos["qty"] / q0
+    assert "take-profit +400%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
+    poll(h, T0 + 9 * DAY, px, v=0.02)                                       # past the 7-day clock: still riding
+    assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * 0.2) < 1e-9
+    shutil.rmtree(d)
+    print("  live exit: 80% at 5x, the last 20% rides with no clock   ok")
+
+
 def test_evm_address_case():
     # GeckoTerminal sends lowercase EVM addresses, DexScreener checksummed mixed case: must still match
     m = dex.best_pairs([{"chain": "base", "addr": "0xAbC0000000000000000000000000000000000Def", "liq": 5.0}], "base")
@@ -1658,6 +1675,7 @@ if __name__ == "__main__":
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()
+    test_live_five_x_take_profit()
     test_stake_back_executes()
     test_entry_needs_a_run()
     test_far_off_tick_needs_15_minutes()

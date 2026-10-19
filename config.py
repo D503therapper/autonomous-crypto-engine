@@ -304,7 +304,10 @@ DEX = {
     # EXPERIMENT 5 (2026-09-30): no price stop inside the hold (was a 95% trail). That trail only ever fired at the very
     # bottom of a crash wick: SS sold at -95% then bounced +417%, BABYCALI +30% after, XPAD (bad tick). A real rug
     # still exits through the liquidity-pull check; runners past the limit keep their 40% trail.
-    "exit": {"trail": 1.0, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
+    # EXPERIMENT 15 (10-19): at 5x sell 80%, the last 20% rides with no clock (the moon ticket). dex_lottery_study,
+    # 156 scanner pools that met the fresh-pump entry: 13% touched 5x within 7 days but holding lost 45% per $1;
+    # 80% at 5x -9.9% (halves -14.9 / -4.8), sell all at 5x -1.1% - better than holding in both halves.
+    "exit": {"trail": 1.0, "tp1": (4.0, 0.8), "ladder": [], "trail_steps": [],
              # EXPERIMENT 4 (2026-09-29): 7-day hold (was 14). The account sat frozen with $8 cash and 4 coins
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock
