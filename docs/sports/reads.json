@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T00:02Z",
+ "updated": "2026-10-19T00:26Z",
  "games": [
   {
    "id": "nfl:401872996",
@@ -225,6 +225,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892534",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-19T00:00Z",
+   "away": "Hurricanes",
+   "home": "Flames",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873007",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -337,6 +352,36 @@
     "p": 0.66,
     "win_p": 0.441,
     "reasons": []
+   }
+  },
+  {
+   "id": "mlb:401908028",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Rays",
+    "p": 0.487,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-20T00:00Z",
+   "away": "Guardians",
+   "home": "Rays",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Guardians",
+    "opp": "Rays",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -218,
+    "p": 0.622,
+    "win_p": 0.437,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {

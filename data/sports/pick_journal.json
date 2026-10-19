@@ -4766,6 +4766,65 @@
   "kind": "lean",
   "lean": true,
   "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401930515",
+  "team": "Rays",
+  "opp": "Guardians",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -133,
+  "posted": "2026-10-18T15:00Z",
+  "price_says": 0.571,
+  "win_p": 0.5393915404304689,
+  "own_read": 0.54,
+  "weighed": 0.5404,
+  "dog_p": null,
+  "edge_own": -0.04453652587081092,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better starting pitcher",
+   "hotter recent form",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:2",
+   "latest:0",
+   "h2h:1",
+   "SP_hot:2",
+   "road:3",
+   "bump:4",
+   "sharp:1",
+   "splits_w:0",
+   "bottom_c:0",
+   "w_arm:1"
+  ],
+  "injuries_seen": {
+   "Angel Mart\u00ednez (Guardians)": "Not in the lineup"
+  },
+  "ours_out": [
+   "Shane McClanahan (SP)"
+  ],
+  "theirs_out": [
+   "Colin Holderman (RP)",
+   "Rhys Hoskins (1B)",
+   "Andrew Walters (RP)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -122,
+  "beat_close_pts": -2.1,
+  "result": "won",
+  "score": "3-1",
+  "margin": 2.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-18",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
   "league": "nfl",
   "game_id": "nfl:401873002",
   "team": "Steelers",

@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 86,
+  "n": 87,
   "beat": 28,
   "same": 31,
-  "worse": 27,
-  "avg_pts": 0.15
+  "worse": 28,
+  "avg_pts": 0.12
  },
  "unit_plays": {
   "n": 41,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 45,
+   "n": 46,
    "beat": 14,
    "same": 14,
-   "worse": 17,
-   "avg_pts": -0.04
+   "worse": 18,
+   "avg_pts": -0.08
   },
   "lock": {
    "n": 11,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 13,
+   "n": 14,
    "beat": 5,
    "same": 1,
-   "worse": 7,
-   "avg_pts": -0.03
+   "worse": 8,
+   "avg_pts": -0.18
   },
   "ncaaf": {
    "n": 26,
@@ -1293,6 +1293,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-18",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Rays",
+   "market": "ml",
+   "line": null,
+   "odds": -133,
+   "close": -122,
+   "pts": -2.1,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-18",
