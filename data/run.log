@@ -20475,3 +20475,34 @@ $BITF: No data found, symbol may be delisted
 [2026-10-19 19:26 UTC] stocks/trend     equity $478.33 (-4.3%) 3 open  market DOWN
 [2026-10-19 19:26 UTC] stocks/hold_spy  equity $499.67 (-0.1%) 1 open  market DOWN
    social heat top: PENGU 39 (32/0/7), PONS 39 (27/0/12), PRL 35 (35/0/0), AERO 28 (24/0/4), ZRO 22 (13/0/9)
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '83083.99', 'l': '80570.32', 'a': '81900.24', 'v': '4383.3274', 'vv': '359225505.30', 'c': '0.0113', 'b': '81900.26', 'k': '81900.27', 'oi': '0', 't': 1792437970710}
+   dex screen: REJECT PIPPIN@solana liq $3,892,608 - top-10 holders 71%
+   dex screen: REJECT BATON@solana liq $533,180 - lp holders unknown; rugcheck lp locked 31% < 95%
+   dex screen: PASS SPX@ethereum liq $10,730,323
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex re-screen: FTR@solana:5x6QQvpR data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #12 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT SPCX@solana liq $1,247,432,329 - top-10 holders 100%
+   dex screen: REJECT SPCX@solana liq $452,655,888 - top-10 holders 100%
+   dex screen: REJECT SPCX@solana liq $129,385,195 - top-10 holders 100%
+   dex screen: REJECT SPCX@solana liq $2,264,588 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex screen: REJECT IMD@ethereum liq $1,845,555 - goplus partial data: cannot_sell_all unknown; top-10 holders 60%
+   dex screen: REJECT USDG@ethereum liq $3,176,203 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 81%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT PUMP@solana liq $1,873,996 - transfer hook; top-10 holders 60%
+   dex screen: REJECT WPRL@ethereum liq $899,839 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex scanner: 2,597 pools (solana 1,821 / base 405 / ethereum 371), refresh cycle 115s (hot 110s), 1663 calls (71 feed, 429s 1, failed 2), 47,583 refreshed (7874 no pair), +85 added / -474 dropped (dead 461, stale 13, cap 0), movers 1 + warming 16 -> queued 3, screened 3 (passed 0), bought 0
+   dex screen: REJECT SIMULATOR@solana liq $119,353 - top-10 holders 44%; lp holders unknown
+[2026-10-19 20:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/social_heat equity $422.61 (-15.5%) 1 open  market UP
+[2026-10-19 20:06 UTC] crypto/breakout10 equity $460.85 (-7.8%) 2 open  market UP
+[2026-10-19 20:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 20:06 UTC] crypto/hold_btc  equity $487.80 (-2.4%) 1 open  market UP
+   social heat top: PENGU 42 (35/0/8), PONS 39 (27/0/13), PRL 32 (32/0/0), AERO 24 (24/0/0), NEAR 21 (21/0/0)
