@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T15:01Z",
+ "updated": "2026-10-19T15:38Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -93,8 +93,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.515,
-    "tie": 0.117,
+    "p": 0.527,
+    "tie": 0.116,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -102,17 +102,21 @@
    "start": "2026-10-20T00:00Z",
    "away": "Guardians",
    "home": "Rays",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Guardians",
-    "opp": "Rays",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -181,
-    "p": 0.591,
-    "win_p": 0.402,
-    "reasons": []
+    "team": "Rays",
+    "opp": "Guardians",
+    "market": "ml",
+    "line": null,
+    "odds": -157,
+    "p": 0.602,
+    "win_p": 0.602,
+    "reasons": [
+     "the stronger team",
+     "better starting pitcher",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -121,8 +125,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.673,
-    "tie": 0.034,
+    "p": 0.669,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -139,7 +143,7 @@
     "line": 7.5,
     "odds": -112,
     "p": 0.515,
-    "win_p": 0.225,
+    "win_p": 0.23,
     "reasons": [
      "revenge game",
      "opponent drama: legal trouble"
