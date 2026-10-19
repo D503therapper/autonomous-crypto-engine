@@ -1,17 +1,18 @@
 {
- "updated": 1792369654457,
+ "updated": 1792380594522,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 16
  },
- "live_games": 3,
+ "live_games": 4,
  "tennis": {
-  "watching": 0,
-  "priced": 0,
+  "watching": 3,
+  "priced": 2,
   "stale": 0,
   "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "books": "3 live lines, 2 fresh (betrivers 2)",
+  "stale_line": 1
  },
  "scores": {
   "nfl:401872995": {
@@ -113,9 +114,9 @@
   "nfl:401873007": {
    "away": "Cowboys",
    "home": "Packers",
-   "a": 0,
-   "h": 0,
-   "clock": "12:02 - 1st",
+   "a": 7,
+   "h": 23,
+   "clock": "04:49 - 4th",
    "live": true
   },
   "nhl:401892519": {
@@ -235,16 +236,16 @@
    "home": "Wild",
    "a": 1,
    "h": 2,
-   "clock": "00:05 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892534": {
    "away": "Hurricanes",
    "home": "Flames",
-   "a": 0,
-   "h": 0,
-   "clock": "07:25 - 1st",
-   "live": true
+   "a": 2,
+   "h": 3,
+   "clock": "Final",
+   "live": false
   },
   "mlb:401930515": {
    "away": "Rays",
@@ -486,6 +487,87 @@
    "live": false,
    "delayed": false
   },
+  "tennis:wta:185568": {
+   "n": [
+    "Quevedo",
+    "Tararudee"
+   ],
+   "sets": [
+    [
+     5,
+     7
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "pts": [
+    "0",
+    "0"
+   ],
+   "srv": 0,
+   "done": 1,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
+  "tennis:wta:185577": {
+   "n": [
+    "Golubic",
+    "Hontama"
+   ],
+   "sets": [
+    [
+     6,
+     3
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "pts": [
+    "15",
+    "0"
+   ],
+   "srv": 1,
+   "done": 1,
+   "first": 2,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
+  "tennis:wta:185574": {
+   "n": [
+    "Samsonova",
+    "Tagger"
+   ],
+   "sets": [
+    [
+     3,
+     6
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "pts": [
+    "0",
+    "0"
+   ],
+   "srv": 0,
+   "done": 1,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
   "tennis:wta:186953": {
    "n": [
     "Kalinina",
@@ -564,25 +646,20 @@
  "today": [],
  "sources": {
   "betrivers:nfl": "ok 0",
-  "betrivers:nhl": "ok 0",
-  "betrivers:nhl:1028409844": "ok 0",
-  "betrivers:tennis": "ok 0"
+  "betrivers:tennis": "ok 3"
  },
  "health": [
-  "only 0 of 3 live games have a sportsbook price we can bet on",
-  "2 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nfl, nhl"
+  "Bovada has no live lines for nfl"
  ],
  "priced": 0,
- "dk_only": 2,
+ "dk_only": 0,
  "min_p": 0.55,
  "espn_only": 1,
  "errors": [
   "git pull timed out"
  ],
  "books": {
-  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
   "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 10.3
+ "took_s": 9.0
 }
