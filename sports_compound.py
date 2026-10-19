@@ -50,6 +50,8 @@ def choose(picks, day):
         legs = p.get("legs") or []
         if p.get("date") != day or p.get("kind") not in KINDS or p.get("status") == "waiting" or len(legs) != 1:
             continue
+        if (legs[0].get("market") or "ml") != "ml":         # (10/19: the Commanders SPREAD lean got named - the
+            continue                                         # challenge is to WIN the game, moneylines only)
         odds = p.get("american") if p.get("american") is not None else legs[0].get("odds")
         if odds is None or not BAND_LO <= odds <= BAND_HI:
             continue
