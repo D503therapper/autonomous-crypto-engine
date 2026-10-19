@@ -1,15 +1,13 @@
 {
- "at": "2026-10-19T15:53Z",
+ "at": "2026-10-19T17:24Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Sakellaridis vs Kukushkin: no points for 936s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (16s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
+  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -18,14 +16,19 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 0h ago",
-  "engine ran 7 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 26 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T17:24Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T15:53Z",
    "fixes": [],
@@ -464,13 +467,6 @@
   },
   {
    "at": "2026-10-17T21:27Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-17T21:16Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
