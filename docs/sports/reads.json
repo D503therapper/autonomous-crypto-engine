@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T14:53Z",
+ "updated": "2026-10-19T15:01Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -46,8 +46,8 @@
    "start": "2026-10-19T23:00Z",
    "away": "Ducks",
    "home": "Rangers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Ducks",
     "opp": "Rangers",
@@ -74,8 +74,8 @@
    "start": "2026-10-19T23:30Z",
    "away": "Sharks",
    "home": "Maple Leafs",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Sharks",
     "opp": "Maple Leafs",
@@ -93,7 +93,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.509,
+    "p": 0.515,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -110,8 +110,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -181,
-    "p": 0.597,
-    "win_p": 0.409,
+    "p": 0.591,
+    "win_p": 0.402,
     "reasons": []
    }
   },
@@ -130,8 +130,8 @@
    "start": "2026-10-20T00:15Z",
    "away": "Commanders",
    "home": "49ers",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Commanders",
     "opp": "49ers",
@@ -270,7 +270,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.37,
+    "p": 0.369,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -328,8 +328,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "FIU",
-    "p": 0.704,
-    "tie": 0.028,
+    "p": 0.694,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -343,10 +343,10 @@
     "team": "FIU",
     "opp": "MTSU",
     "market": "spread",
-    "line": -10.5,
+    "line": -10.0,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.76,
+    "win_p": 0.748,
     "reasons": [
      "the stronger team"
     ]
@@ -418,7 +418,7 @@
    "h1": {
     "team": "Canadiens",
     "p": 0.405,
-    "tie": 0.296,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -447,7 +447,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Alabama",
-    "p": 0.5,
+    "p": 0.515,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -463,10 +463,11 @@
     "opp": "Marshall",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.52,
-    "win_p": 0.52,
+    "odds": -155,
+    "p": 0.539,
+    "win_p": 0.539,
     "reasons": [
+     "sharp money moving this way",
      "better QB play lately"
     ]
    }
@@ -494,8 +495,8 @@
     "market": "ml",
     "line": null,
     "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "p": 0.63,
+    "win_p": 0.63,
     "reasons": [
      "the stronger team"
     ]
