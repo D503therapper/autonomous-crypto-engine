@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T20:57Z",
+ "updated": "2026-10-19T21:39Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -141,7 +141,7 @@
     "opp": "49ers",
     "market": "spread",
     "line": 7.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.515,
     "win_p": 0.232,
     "reasons": [
@@ -256,17 +256,19 @@
    "start": "2026-10-20T23:00Z",
    "away": "Avalanche",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Devils",
-    "opp": "Avalanche",
+    "team": "Avalanche",
+    "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.697,
-    "win_p": 0.482,
-    "reasons": []
+    "odds": -265,
+    "p": 0.73,
+    "win_p": 0.52,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -275,8 +277,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.389,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -292,8 +294,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -175,
-    "p": 0.625,
-    "win_p": 0.405,
+    "p": 0.642,
+    "win_p": 0.422,
     "reasons": [
      "opponent drama: suspension"
     ]
@@ -511,8 +513,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.379,
-    "tie": 0.299,
+    "p": 0.383,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -527,9 +529,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.661,
-    "win_p": 0.441,
+    "odds": -205,
+    "p": 0.652,
+    "win_p": 0.433,
     "reasons": []
    }
   },
@@ -655,8 +657,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Lightning",
-    "p": 0.351,
+    "team": "Golden Knights",
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -672,9 +674,9 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.716,
-    "win_p": 0.501,
+    "odds": -258,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": []
    }
   }
