@@ -19871,3 +19871,40 @@ DEX: $908.49 (-91.51) · Scammed: 0
 [2026-10-19 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-19 08:06 UTC] crypto/hold_btc  equity $492.49 (-1.5%) 1 open  market UP
    social heat top: INJ 37 (37/0/0), SUI 35 (35/0/0), STRK 29 (29/0/0), PRL 27 (27/0/0), PENGU 26 (16/0/10)
+   dex re-screen: HELL@solana:A75Xx6Se unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex screen: REJECT JEUR@base liq $1,012,340 - 24h volume $24,402 < $100,000
+   dex screen: REJECT REUSD@ethereum liq $453,472 - 24h volume $18,333 < $100,000
+   dex screen: REJECT WHUF@base liq $255,778 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: REJECT USDAT@ethereum liq $4,187,075 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 99%
+   dex screen: REJECT LINK@ethereum liq $441,174 - lp locked 0% < 95%
+   dex screen: REJECT CRAWLER@base liq $302,371 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   dex screen: REJECT TKALSHI@solana liq $709,104 - freeze authority; mint authority; transfer_fee_upgradable; top-10 holders 91%; lp holders unknown
+   dex screen: REJECT SYRUPUSDC@base liq $461,273 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 108%; lp locked 0% < 95%
+   dex screen: REJECT APXUSD@ethereum liq $9,889,632 - 24h volume $25,351 < $100,000
+   dex screen: REJECT JELLYJELLY@solana liq $4,778,463 - top-10 holders 76%
+   listing: upbit_markets #CT 'New Upbit listing (CT)' -> ['CT']
+   listing: CT: upbit_markets notice "New Upbit listing (CT)" -> not on Crypto.com USD
+   dex screen: REJECT CT@solana liq $380,623,703 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT NVDAON@ethereum liq $141,732 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT ZC@ethereum liq $176,535 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $575,904 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT NPC@ethereum liq $4,681,410 - top-10 holders 41%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT CTM@ethereum liq $2,449,364 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: REJECT PROS@base liq $947,506 - pool age unknown
+   dex screen: REJECT CBETH@base liq $2,931,666 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex scanner: 3,005 pools (solana 2,078 / base 499 / ethereum 428), refresh cycle 125s (hot 120s), 2998 calls (108 feed, 429s 0, failed 0), 86,697 refreshed (7972 no pair), +146 added / -141 dropped (dead 13, stale 0, cap 128), movers 0 + warming 11 -> queued 2, screened 1 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-19 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/social_heat equity $423.38 (-15.3%) 1 open  market UP
+[2026-10-19 09:06 UTC] crypto/breakout10 equity $469.99 (-6.0%) 2 open  market UP
+[2026-10-19 09:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 09:06 UTC] crypto/hold_btc  equity $492.56 (-1.5%) 1 open  market UP
+   social heat top: PENGU 52 (37/0/15), PRL 40 (40/0/0), INJ 35 (35/0/0), STRK 32 (32/0/0), HYPE 27 (27/0/0)
