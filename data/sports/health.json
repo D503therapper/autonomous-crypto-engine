@@ -1,9 +1,9 @@
 {
- "at": "2026-10-19T01:15Z",
+ "at": "2026-10-19T01:22Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (110s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 60 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T01:22Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T01:15Z",
    "fixes": [],
@@ -541,21 +546,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-17T03:20Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Matsuda vs Stoiana: no points for 2372s",
-    "live tennis scores: tennis Day vs Koike: no points for 2357s",
-    "live tennis scores: tennis Avanesyan vs Ishii: no points for 2277s",
-    "live tennis scores: tennis Okamura vs Joint: no points for 2277s",
-    "live tennis scores: tennis Zakharova vs Starodubtseva: no points for 592s",
-    "live tennis scores: tennis Volynets vs Kawa: no points for 519s",
-    "live tennis scores: tennis Lin vs Snigur: no points for 612s"
-   ]
   }
  ]
 }
