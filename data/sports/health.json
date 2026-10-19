@@ -1,9 +1,9 @@
 {
- "at": "2026-10-19T06:30Z",
+ "at": "2026-10-19T06:31Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (39s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,19 +11,24 @@
   "slate check: all 15 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 29 min ago",
+  "engine ran 31 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-19T06:31Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-19T06:30Z",
    "fixes": [],
@@ -493,14 +498,6 @@
     "live tennis scores: tennis Galfi vs Gormaz: no points for 358s",
     "live tennis scores: tennis Prozorova vs Sherif: no points for 2625s",
     "live tennis scores: tennis Rakhimova vs Yastremska: no points for 450s"
-   ]
-  },
-  {
-   "at": "2026-10-17T10:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
