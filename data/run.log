@@ -20506,3 +20506,36 @@ $BITF: No data found, symbol may be delisted
 [2026-10-19 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-19 20:06 UTC] crypto/hold_btc  equity $487.80 (-2.4%) 1 open  market UP
    social heat top: PENGU 42 (35/0/8), PONS 39 (27/0/13), PRL 32 (32/0/0), AERO 24 (24/0/0), NEAR 21 (21/0/0)
+   dex screen: REJECT XDP@base liq $1,781,886 - top-10 holders 94%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex re-screen: FTR@solana:5x6QQvpR data flag #4 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #13 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT WPRL@ethereum liq $905,660 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $3,317,555
+   dex screen: REJECT CARDS@solana liq $4,265,363 - top-10 holders 73%
+   dex screen: REJECT WETH@solana liq $7,385,562 - mint authority; top-10 holders 77%
+   dex screen: PASS BAGSPAY@solana liq $155,079
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: geckoterminal_1h HTTP 0 0 pools (retry in 2 min)
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #14 (lp holders unknown; rugcheck lp locked 93% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HIMS@solana liq $244,864 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 66%; lp holders unknown
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     b8f48a42bb2b38846bcdb20d3a73183ca281eed6 -> main (cannot lock ref 'refs/heads/main': is at 52ef104f69c723aa19f635d
+   dex scanner: 2,574 pools (solana 1,809 / base 403 / ethereum 362), refresh cycle 115s (hot 111s), 2791 calls (108 feed, 429s 0, failed 1), 80,450 refreshed (13777 no pair), +63 added / -86 dropped (dead 67, stale 19, cap 0), movers 0 + warming 17 -> queued 2, screened 3 (passed 2), bought 0
+[2026-10-19 21:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/social_heat equity $423.06 (-15.4%) 1 open  market UP
+[2026-10-19 21:06 UTC] crypto/breakout10 equity $460.34 (-7.9%) 2 open  market UP
+[2026-10-19 21:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 21:06 UTC] crypto/hold_btc  equity $488.65 (-2.3%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), MON 29 (29/0/0), PENGU 27 (27/0/0), ENA 24 (24/0/0), PONS 24 (13/0/10)
