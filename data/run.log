@@ -19908,3 +19908,26 @@ DEX: $908.49 (-91.51) · Scammed: 0
 [2026-10-19 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-19 09:06 UTC] crypto/hold_btc  equity $492.56 (-1.5%) 1 open  market UP
    social heat top: PENGU 52 (37/0/15), PRL 40 (40/0/0), INJ 35 (35/0/0), STRK 32 (32/0/0), HYPE 27 (27/0/0)
+   dex re-screen: MINTER@solana:3NxfWMHm unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex screen: REJECT DRV@base liq $1,229,974 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: PASS ASTEROID@ethereum liq $931,893
+   dex screen: PASS ASTEROID@ethereum liq $935,171
+   dex screen: REJECT SEND@ethereum liq $237,467 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT PAXG@ethereum liq $2,188,341 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT TIBBIR@base liq $3,263,564 - 24h volume $69,237 < $100,000
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SOCIAL-APP@base liq $278,831 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT STONKEX@base liq $366,349 - lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,113 / base 493 / ethereum 394), refresh cycle 126s (hot 121s), 2966 calls (108 feed, 429s 0, failed 0), 85,738 refreshed (8091 no pair), +88 added / -93 dropped (dead 18, stale 0, cap 75), movers 0 + warming 11 -> queued 4, screened 4 (passed 2), bought 0
+[2026-10-19 10:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/social_heat equity $423.52 (-15.3%) 1 open  market UP
+[2026-10-19 10:06 UTC] crypto/breakout10 equity $469.57 (-6.1%) 2 open  market UP
+[2026-10-19 10:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 10:06 UTC] crypto/hold_btc  equity $492.71 (-1.5%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), WLD 37 (37/0/0), STRK 35 (35/0/0), QNT 32 (32/0/0), NEAR 29 (29/0/0)
