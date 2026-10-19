@@ -19611,3 +19611,32 @@ DEX: $908.49 (-91.51) · Scammed: 0
 [2026-10-18 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-18 23:06 UTC] crypto/hold_btc  equity $487.24 (-2.6%) 1 open  market UP
    social heat top: BTC 27 (27/0/0), NEAR 24 (24/0/0), PENGU 21 (21/0/0), PRL 16 (16/0/0), ALGO 16 (16/0/0)
+   dex screen: PASS DORONI@solana liq $658,883
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT NEAR@ethereum liq $909,244 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT WTAO@ethereum liq $154,349 - is_mintable; lp locked 0% < 95%
+   dex re-screen: GLITCH@solana:8Xg89xT8 unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex screen: UNREACHABLE TROLL@solana liq $2,717,706 - rugcheck unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: MINTER@solana:3NxfWMHm unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex re-screen: HELL@solana:A75Xx6Se unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex re-screen: FTR@solana:5x6QQvpR unreachable (lp holders unknown; rugcheck unreachable); holding
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT XAUT@ethereum liq $5,708,336 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 58%
+   dex re-screen: GLITCH@solana:8Xg89xT8 unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex scanner: 3,000 pools (solana 2,084 / base 521 / ethereum 395), refresh cycle 127s (hot 122s), 2935 calls (108 feed, 429s 0, failed 1), 84,776 refreshed (7803 no pair), +79 added / -79 dropped (dead 18, stale 0, cap 61), movers 1 + warming 21 -> queued 1, screened 1 (passed 0), bought 0
+   dex weekly: screened 1528, passed 219, trades 8, closed 2 (P/L $-24.73; by tier A $-24.73/2 B $+0.00/0 C $+0.00/0), scammed 0 (cost $+0.00), rejected-that-rugged 63/350, rejected-that-ran-up 35/350
+[2026-10-19 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/social_heat equity $423.22 (-15.4%) 1 open  market UP
+[2026-10-19 00:06 UTC] crypto/breakout10 equity $465.76 (-6.8%) 2 open  market UP
+   >> crypto/momentum: SELL $94.65 of BTC @ 81891, P/L $-6.05 (weekly rebalance: momentum gone)
+[2026-10-19 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 00:06 UTC] crypto/hold_btc  equity $488.82 (-2.2%) 1 open  market UP
+   social heat top: PENGU 27 (27/0/0), HYPE 24 (24/0/0), BTC 21 (21/0/0), AERO 21 (8/0/13), STRK 19 (19/0/0)
