@@ -786,6 +786,19 @@ def test_live_five_x_take_profit():
     print("  live exit: 80% at 5x, the last 20% rides with no clock   ok")
 
 
+def test_fresh_pump_skips_pump_fun():
+    """EXPERIMENT 16: the momentum rule passes on pump.fun launches; other chains / addresses unchanged."""
+    h, _, d = make(table_evm(), entry={**dex.DEX["entry"], "mode": "both"})
+    hot = {"h1": 0.2, "h6": 0.8, "b1": 200, "s1": 50, "price": 1.0, "liq": 300_000, "age_h": 10}
+    assert h._trig({**hot, "chain": "base", "addr": "0xabc"}, T0)
+    assert h._trig({**hot, "chain": "solana", "addr": "Abc123"}, T0)
+    assert not h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
+    h.p = dict(h.p, entry={**h.p["entry"], "skip_pump": False})
+    assert h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
+    shutil.rmtree(d)
+    print("  fresh-pump rule skips pump.fun launches (experiment 16)   ok")
+
+
 def test_evm_address_case():
     # GeckoTerminal sends lowercase EVM addresses, DexScreener checksummed mixed case: must still match
     m = dex.best_pairs([{"chain": "base", "addr": "0xAbC0000000000000000000000000000000000Def", "liq": 5.0}], "base")
@@ -1676,6 +1689,7 @@ if __name__ == "__main__":
     test_evm_address_case()
     test_take_profit_steps()
     test_live_five_x_take_profit()
+    test_fresh_pump_skips_pump_fun()
     test_stake_back_executes()
     test_entry_needs_a_run()
     test_far_off_tick_needs_15_minutes()

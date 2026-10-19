@@ -1,20 +1,40 @@
-pools that met the fresh-pump entry with 3+ days of follow-up: 156
-  peaked >=  1.5x within 7d:   64  (41.0%)
-  peaked >=    2x within 7d:   42  (26.9%)
-  peaked >=    3x within 7d:   32  (20.5%)
-  peaked >=    5x within 7d:   20  (12.8%)
+pools that met the fresh-pump entry with 3+ days of follow-up: 157
+  peaked >=  1.5x within 7d:   65  (41.4%)
+  peaked >=    2x within 7d:   43  (27.4%)
+  peaked >=    3x within 7d:   32  (20.4%)
+  peaked >=    5x within 7d:   20  (12.7%)
   peaked >=   10x within 7d:    6  (3.8%)
   peaked >=   25x within 7d:    0  (0.0%)
   rugged / dumped 98%: 56
-  hold 7d         mean per $1: all -0.447   first half -0.562   second half -0.333
-  sell all at 2x  mean per $1: all -0.200   first half -0.314   second half -0.085
-  sell all at 3x  mean per $1: all -0.081   first half -0.232   second half +0.070
-  sell all at 5x  mean per $1: all -0.011   first half -0.046   second half +0.024
-  sell all at 10x mean per $1: all -0.119   first half -0.159   second half -0.078
-  sell 50% at 3x, hold rest: all -0.264   first half -0.397   second half -0.131
-  sell 50% at 5x, hold rest: all -0.229   first half -0.304   second half -0.154
-  sell 75% at 5x, hold rest: all -0.120   first half -0.175   second half -0.065
-  sell 80% at 5x, hold rest: all -0.099   first half -0.149   second half -0.048
-  sell 34% at 3x, hold rest: all -0.323   first half -0.450   second half -0.196
-  sell 80% at 4x, hold rest: all -0.104   first half -0.203   second half -0.006
-  biggest peaks: AGENTCAT 16.8x, STREAM 16.2x, CLAUS 14.6x, TAUFA 11.2x, BABYCALI 10.9x, ZC 10.5x, AGL 8.6x, CRAWLER 8.4x, SWORDINU 8.4x, VRAX 8.0x
+  hold 7d         mean per $1: all -0.456   first half -0.562   second half -0.352
+  sell all at 2x  mean per $1: all -0.193   first half -0.314   second half -0.072
+  sell all at 3x  mean per $1: all -0.086   first half -0.232   second half +0.058
+  sell all at 5x  mean per $1: all -0.018   first half -0.046   second half +0.009
+  sell all at 10x mean per $1: all -0.129   first half -0.159   second half -0.100
+  sell 50% at 3x, hold rest: all -0.271   first half -0.397   second half -0.147
+  sell 50% at 5x, hold rest: all -0.237   first half -0.304   second half -0.171
+  sell 75% at 5x, hold rest: all -0.128   first half -0.175   second half -0.081
+  sell 80% at 5x, hold rest: all -0.106   first half -0.149   second half -0.063
+  sell 34% at 3x, hold rest: all -0.330   first half -0.450   second half -0.212
+  sell 80% at 4x, hold rest: all -0.111   first half -0.203   second half -0.020
+  biggest peaks: AGENTCAT 16.8x, STREAM 16.2x, CLAUS 14.6x, TAUFA 11.2x, BABYCALI 10.9x, ZC 10.5x, CRAWLER 8.6x, AGL 8.6x, SWORDINU 8.4x, VRAX 8.0x
+
+entry filters (live exit: 80% at 5x): n / rugged / 5x+ / mean per $1 (first half / second half)
+  chain solana           n  92  rug  37%  5x   6  mean -0.462  (-0.520 n49 / -0.396 n43)
+  chain not solana       n  65  rug  34%  5x  14  mean +0.398  (+0.477 n29 / +0.335 n36)
+  liq >= 250k            n  33  rug  36%  5x   0  mean -0.563  (-0.440 n19 / -0.731 n14)
+  liq < 250k             n 124  rug  35%  5x  20  mean +0.016  (-0.056 n59 / +0.081 n65)
+  age >= 24h             n  71  rug  10%  5x   2  mean -0.374  (-0.448 n42 / -0.267 n29)
+  age < 24h              n  86  rug  57%  5x  18  mean +0.116  (+0.199 n36 / +0.056 n50)
+  6h >= +150%            n  71  rug  46%  5x  16  mean +0.242  (+0.496 n27 / +0.086 n44)
+  6h < +150%             n  86  rug  27%  5x   4  mean -0.393  (-0.491 n51 / -0.250 n35)
+  1h >= +30%             n  86  rug  31%  5x   8  mean -0.279  (-0.341 n48 / -0.200 n38)
+  1h < +30%              n  71  rug  41%  5x  12  mean +0.103  (+0.157 n30 / +0.064 n41)
+  1h buys >= 2x sells    n  50  rug  60%  5x   5  mean -0.254  (-0.629 n15 / -0.093 n35)
+  1h buys < 2x sells     n 107  rug  24%  5x  15  mean -0.037  (-0.035 n63 / -0.039 n44)
+  vol24/liq >= 10        n  47  rug  38%  5x   7  mean -0.167  (-0.113 n27 / -0.239 n20)
+  vol24/liq < 10         n 110  rug  35%  5x  13  mean -0.080  (-0.169 n51 / -0.003 n59)
+  fdv/liq >= 10          n  89  rug  45%  5x  10  mean -0.200  (-0.107 n41 / -0.280 n48)
+  fdv/liq < 10           n  68  rug  24%  5x  10  mean +0.018  (-0.196 n37 / +0.273 n31)
+  pump.fun address       n  47  rug  60%  5x   4  mean -0.496  (-0.535 n23 / -0.458 n24)
+  not pump.fun           n 110  rug  25%  5x  16  mean +0.061  (+0.012 n55 / +0.110 n55)
