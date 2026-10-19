@@ -19730,3 +19730,23 @@ DEX: $908.49 (-91.51) · Scammed: 0
 [2026-10-19 03:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-19 03:07 UTC] crypto/hold_btc  equity $492.17 (-1.6%) 1 open  market UP
    social heat top: PENGU 44 (29/0/14), PRL 24 (24/0/0), CASHCAT 14 (0/0/14), BTC 13 (13/0/0), ETH 11 (11/0/0)
+   dex screen: PASS WOLF@ethereum liq $850,468
+   dex screen: REJECT LDO@ethereum liq $64,818 - liquidity $64,818 < $100,000; 24h volume $79,080 < $100,000
+   dex re-screen: MINTER@solana:3NxfWMHm unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex screen: REJECT GTR@solana liq $2,645,634 - top-10 holders 99%
+   dex screen: REJECT RAIL@ethereum liq $1,457,317 - is_mintable; top-10 holders 77%
+   dex screen: REJECT MUSK4@solana liq $610,096 - mint authority; top-10 holders 65%; lp holders unknown
+   dex screen: REJECT TTWO@solana liq $504,345 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BASECAT@base liq $521,221 - 24h volume $31,159 < $100,000
+   dex scanner: 3,000 pools (solana 2,143 / base 496 / ethereum 361), refresh cycle 127s (hot 123s), 2945 calls (107 feed, 429s 0, failed 0), 85,138 refreshed (9052 no pair), +83 added / -83 dropped (dead 22, stale 0, cap 61), movers 0 + warming 5 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-19 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/social_heat equity $423.13 (-15.4%) 1 open  market UP
+[2026-10-19 04:06 UTC] crypto/breakout10 equity $466.39 (-6.7%) 2 open  market UP
+[2026-10-19 04:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-19 04:06 UTC] crypto/hold_btc  equity $491.24 (-1.8%) 1 open  market UP
+   social heat top: PENGU 38 (27/0/11), PRL 29 (29/0/0), TAO 24 (24/0/0), BTC 21 (21/0/0), NEAR 19 (19/0/0)
