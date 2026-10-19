@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T15:38Z",
+ "updated": "2026-10-19T15:55Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -93,7 +93,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.527,
+    "p": 0.526,
     "tie": 0.116,
     "name": "first 5 innings"
    },
@@ -109,9 +109,9 @@
     "opp": "Guardians",
     "market": "ml",
     "line": null,
-    "odds": -157,
-    "p": 0.602,
-    "win_p": 0.602,
+    "odds": -156,
+    "p": 0.601,
+    "win_p": 0.601,
     "reasons": [
      "the stronger team",
      "better starting pitcher",
@@ -362,8 +362,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.369,
-    "tie": 0.299,
+    "p": 0.383,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -378,9 +378,9 @@
     "opp": "Blue Jackets",
     "market": "spread",
     "line": 1.5,
-    "odds": -233,
-    "p": 0.679,
-    "win_p": 0.461,
+    "odds": -205,
+    "p": 0.652,
+    "win_p": 0.433,
     "reasons": []
    }
   },
@@ -482,8 +482,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.412,
-    "tie": 0.296,
+    "p": 0.399,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -491,18 +491,18 @@
    "start": "2026-10-21T00:00Z",
    "away": "Bruins",
    "home": "Stars",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Stars",
-    "opp": "Bruins",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.63,
-    "win_p": 0.63,
+    "team": "Bruins",
+    "opp": "Stars",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -180,
+    "p": 0.622,
+    "win_p": 0.402,
     "reasons": [
-     "the stronger team"
+     "sharp money moving this way"
     ]
    }
   },
@@ -629,8 +629,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.441,
-    "tie": 0.292,
+    "p": 0.45,
+    "tie": 0.29,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -645,11 +645,12 @@
     "opp": "Canucks",
     "market": "ml",
     "line": null,
-    "odds": -244,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -278,
+    "p": 0.707,
+    "win_p": 0.707,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -658,8 +659,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Golden Knights",
-    "p": 0.364,
+    "team": "Lightning",
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -668,7 +669,7 @@
    "start": "2026-10-21T02:30Z",
    "away": "Lightning",
    "home": "Golden Knights",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Lightning",
@@ -676,9 +677,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -250,
-    "p": 0.69,
-    "win_p": 0.472,
-    "reasons": []
+    "p": 0.716,
+    "win_p": 0.501,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   }
  ]
