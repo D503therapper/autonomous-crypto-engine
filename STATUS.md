@@ -4,6 +4,7 @@ Kept up to date at the end of every working session, so a fresh chat knows what 
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
 ## 10/18 (night of 10/17) - the Saturday sweep + the owner's calls
+- The owner (10/19): TRACK (not a rule yet) the Dogs whose own ratings read sits under the price but the weighed read clears it (lead tag 'dog: own read under the price, weighed read over it'; the Sharks +114 Dog 10/19 was one). If they keep losing -> propose own_beats on the Dog.
 - The owner (10/18): NO expert / media predictions in the engine, ever ("the engine is its own entity") - don't re-propose.
 - 🎯 6-COMPOUND CHALLENGE, TRACKING ONLY (the owner, 10/18 - "not yet"): sports_compound.sync names one pick a game day from the posted board (-130..+150, best shot to win), $500 rides, a loss resets, 6 straight = a hit. data/sports/compound.json. Report the run in check-ins; not on the dashboard until he says.
 - The owner (10/18): the UNDERDOG LOCK is OFF ("2" - a 50% read labeled a Lock); DOG_LOCK = False, DOG_LOCK_MIN_P = LOCK_P.

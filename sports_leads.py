@@ -39,6 +39,9 @@ def tags(c, sports):
     if c.get("fav_form_spot"):                               # 10/17 college lock hunt "rule A" (a weight): its live record
         t.append("college fav off a win vs a team off a loss")
     dog = c.get("odds", 0) >= 100
+    if dog and c.get("dec") and not sports.own_beats(c) and sports.beats_price(c) and sports.good(c):
+        t.append("dog: own read under the price, weighed read over it")   # (the owner, 10/19 - the Sharks Dog: "let's
+        #   track it" - the Dogs that post only on the stacked weights; the 10/17 sweep had them -7..-12% blind)
     if lg == "nhl" and c.get("ot_last") in ("ot_win", "ot_loss", "so_win"):   # 10/18 study (a weight)
         t.append({"ot_win": "NHL side off an OT win", "ot_loss": "NHL side off an OT loss (fade)",
                   "so_win": "NHL side off a shootout win (fade)"}[c["ot_last"]])
