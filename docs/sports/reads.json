@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T20:34Z",
+ "updated": "2026-10-20T21:20Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -173,8 +173,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.402,
-    "tie": 0.297,
+    "p": 0.41,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -182,17 +182,21 @@
    "start": "2026-10-20T23:00Z",
    "away": "Maple Leafs",
    "home": "Blue Jackets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Maple Leafs",
-    "opp": "Blue Jackets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.614,
-    "win_p": 0.394,
-    "reasons": []
+    "team": "Blue Jackets",
+    "opp": "Maple Leafs",
+    "market": "ml",
+    "line": null,
+    "odds": -166,
+    "p": 0.627,
+    "win_p": 0.627,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -340,7 +344,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -225,
     "p": 0.672,
     "win_p": 0.453,
     "reasons": []
