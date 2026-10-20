@@ -1,11 +1,4 @@
 {
- "mlb:401908025": {
-  "market": "ml",
-  "own": 0.5367,
-  "side": "home",
-  "start": "2026-10-15T17:00Z",
-  "team": "Guardians"
- },
  "mlb:401908026": {
   "market": "ml",
   "own": 0.5088,
@@ -26,6 +19,13 @@
   "side": "away",
   "start": "2026-10-18T21:00Z",
   "team": "Rays"
+ },
+ "nba:401909090": {
+  "market": "ml",
+  "own": 0.5157,
+  "side": "home",
+  "start": "2026-10-21T01:30Z",
+  "team": "Spurs"
  },
  "ncaaf:401856723": {
   "market": "ml",
@@ -125,12 +125,12 @@
   "start": "2026-10-17T23:00Z",
   "team": "Southern Miss"
  },
- "ncaaf:401871068": {
+ "ncaaf:401871092": {
   "market": "ml",
-  "own": 0.5022,
+  "own": 0.4722,
   "side": "home",
-  "start": "2026-10-15T00:00Z",
-  "team": "Sam Houston"
+  "start": "2026-10-20T23:30Z",
+  "team": "Marshall"
  },
  "nfl:401872997": {
   "market": "spread",
@@ -215,34 +215,6 @@
   "side": "away",
   "start": "2026-10-20T00:15Z",
   "team": "Commanders"
- },
- "nhl:401892505": {
-  "market": "ml",
-  "own": 0.5489,
-  "side": "home",
-  "start": "2026-10-15T00:30Z",
-  "team": "Avalanche"
- },
- "nhl:401892506": {
-  "market": "ml",
-  "own": 0.5123,
-  "side": "home",
-  "start": "2026-10-15T23:00Z",
-  "team": "Maple Leafs"
- },
- "nhl:401892508": {
-  "market": "ml",
-  "own": 0.5785,
-  "side": "home",
-  "start": "2026-10-15T23:30Z",
-  "team": "Red Wings"
- },
- "nhl:401892511": {
-  "market": "ml",
-  "own": 0.5996,
-  "side": "home",
-  "start": "2026-10-15T23:00Z",
-  "team": "Devils"
  },
  "nhl:401892512": {
   "market": "ml",
@@ -334,5 +306,40 @@
   "side": "home",
   "start": "2026-10-19T23:00Z",
   "team": "Rangers"
+ },
+ "nhl:401892540": {
+  "market": "ml",
+  "own": 0.5249,
+  "side": "home",
+  "start": "2026-10-20T23:00Z",
+  "team": "Devils"
+ },
+ "nhl:401892544": {
+  "market": "ml",
+  "own": 0.5973,
+  "side": "home",
+  "start": "2026-10-21T00:00Z",
+  "team": "Blues"
+ },
+ "nhl:401892546": {
+  "market": "ml",
+  "own": 0.5443,
+  "side": "home",
+  "start": "2026-10-21T01:00Z",
+  "team": "Oilers"
+ },
+ "nhl:401892547": {
+  "market": "ml",
+  "own": 0.5063,
+  "side": "home",
+  "start": "2026-10-21T01:40Z",
+  "team": "Kraken"
+ },
+ "nhl:401892549": {
+  "market": "ml",
+  "own": 0.5061,
+  "side": "home",
+  "start": "2026-10-21T02:30Z",
+  "team": "Golden Knights"
  }
 }
