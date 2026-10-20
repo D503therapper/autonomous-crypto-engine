@@ -1,27 +1,35 @@
 {
- "at": "2026-10-20T09:09Z",
- "fixes": [],
+ "at": "2026-10-20T09:54Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-19 Jasmine Paolini) - started sports.yml"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (8s)",
-  "every finished pick graded",
+  "live watcher fresh (42s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 20 min ago",
+  "simulator ran 5h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-20T09:54Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-19 Jasmine Paolini) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-20T09:09Z",
    "fixes": [],
@@ -452,13 +460,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Gormaz vs Burel: no points for 2083s"
-   ]
-  },
-  {
-   "at": "2026-10-18T10:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Burel: no points for 1813s"
    ]
   }
  ]
