@@ -1051,6 +1051,10 @@ class DexHunter:
                 return True
             if mode == "survivor":
                 return False
+        # EXPERIMENT 16 (10-19): the fresh-pump rule skips pump.fun launches (Solana addresses ending "pump"):
+        # dex_lottery_study 47 pools, 60% rugged, -50% per $1 in both halves; live seasons 1-5: 39 trades -54%.
+        if E.get("skip_pump") and c.get("chain") == "solana" and str(c.get("addr") or "").endswith("pump"):
+            return False
         return entry_trigger(c, E)          # "both" (owner 10-18: "we're not doing shit"): momentum buys as well
 
     # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----

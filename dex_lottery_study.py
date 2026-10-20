@@ -36,10 +36,10 @@ for fn in sorted(glob.glob("data/dex/scan/*.csv.gz")):
         if k in entry:
             paths[k].append((t, p, f(r["liq"]) or 0))
         elif ok(r):
-            entry[k] = (t, p, r["sym"], f(r["liq"]))
+            entry[k] = (t, p, r["sym"], f(r["liq"]), dict(r))
 last_t = max(t for v in paths.values() for t, _, _ in v) if paths else 0
 R = []
-for k, (t0, p0, sym, l0) in entry.items():
+for k, (t0, p0, sym, l0, row) in entry.items():
     if last_t - t0 < 3 * 86400:                           # need 3+ days of follow-up
         continue
     pth = [(t, p, l) for t, p, l in paths[k] if t - t0 <= 7 * 86400]
@@ -51,7 +51,7 @@ for k, (t0, p0, sym, l0) in entry.items():
     if peak > 1000:                                       # still implausible in 7 days: bad data, drop the pool
         continue
     end = min(live[-1][1] / p0, peak) if live and rug is None else (0.0 if rug is not None else 1.0)
-    R.append(dict(sym=sym, t0=t0, peak=peak, end=end, path=[p / p0 for _, p, _ in live], rug=rug is not None))
+    R.append(dict(sym=sym, t0=t0, peak=peak, end=end, path=[p / p0 for _, p, _ in live], rug=rug is not None, row=row))
 R.sort(key=lambda r: r["t0"])
 n = len(R)
 print(f"pools that met the fresh-pump entry with 3+ days of follow-up: {n}")
@@ -82,3 +82,29 @@ for x, q in ((3, 0.5), (5, 0.5), (5, 0.75), (5, 0.8), (3, 0.34), (4, 0.8)):
     fn = lambda r, x=x, q=q: part(r, x, q)
     print(f"  sell {q:.0%} at {x}x, hold rest: all {half(R, fn):+.3f}   first half {half(R[:h], fn):+.3f}   second half {half(R[h:], fn):+.3f}")
 print("  biggest peaks:", ", ".join(f"{r['sym']} {r['peak']:.1f}x" for r in sorted(R, key=lambda r: -r['peak'])[:10]))
+
+
+# ---- entry filters: which fresh pumps dump? (live exit: 80% at 5x, the rest held) ----
+live_fn = lambda r: part(r, 5, 0.8)
+F = lambda r, k: f(r["row"].get(k))
+SPLITS = [("chain solana", lambda r: r["row"]["chain"] == "solana"), ("chain not solana", lambda r: r["row"]["chain"] != "solana"),
+          ("liq >= 250k", lambda r: F(r, "liq") >= 250_000), ("liq < 250k", lambda r: F(r, "liq") < 250_000),
+          ("age >= 24h", lambda r: (F(r, "age_h") or 0) >= 24), ("age < 24h", lambda r: (F(r, "age_h") or 0) < 24),
+          ("6h >= +150%", lambda r: (F(r, "h6") or 0) >= 1.5), ("6h < +150%", lambda r: (F(r, "h6") or 0) < 1.5),
+          ("1h >= +30%", lambda r: (F(r, "h1") or 0) >= 0.3), ("1h < +30%", lambda r: (F(r, "h1") or 0) < 0.3),
+          ("1h buys >= 2x sells", lambda r: (F(r, "b1") or 0) >= 2 * (F(r, "s1") or 0)),
+          ("1h buys < 2x sells", lambda r: (F(r, "b1") or 0) < 2 * (F(r, "s1") or 0)),
+          ("vol24/liq >= 10", lambda r: (F(r, "vol24") or 0) >= 10 * F(r, "liq")),
+          ("vol24/liq < 10", lambda r: (F(r, "vol24") or 0) < 10 * F(r, "liq")),
+          ("fdv/liq >= 10", lambda r: (F(r, "fdv") or 0) >= 10 * F(r, "liq")),
+          ("fdv/liq < 10", lambda r: (F(r, "fdv") or 0) < 10 * F(r, "liq")),
+          ("pump.fun address", lambda r: r["row"]["addr"].endswith("pump")),
+          ("not pump.fun", lambda r: not r["row"]["addr"].endswith("pump"))]
+print("\nentry filters (live exit: 80% at 5x): n / rugged / 5x+ / mean per $1 (first half / second half)")
+for name, cond in SPLITS:
+    a, b = [r for r in R[:h] if cond(r)], [r for r in R[h:] if cond(r)]
+    sub = a + b
+    if not sub:
+        continue
+    print(f"  {name:22} n{len(sub):4}  rug {sum(r['rug'] for r in sub) / len(sub):4.0%}  5x {sum(r['peak'] >= 5 for r in sub):3}"
+          f"  mean {half(sub, live_fn):+.3f}  ({half(a, live_fn):+.3f} n{len(a)} / {half(b, live_fn):+.3f} n{len(b)})")

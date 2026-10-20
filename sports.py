@@ -3296,9 +3296,12 @@ def post_board(games, model, picks, now, day, force=False):
                 ours.setdefault(l["game_id"], l["side"])
     try:                                                     # ⏰ ...or in a game we got in EARLY on (the owner, 9/30:
         import sports_early                                  # an early play can be a daily pick too - never against it)
+        early_gids = set()
         for gid, side in early_sides(sports_early.load().get("picks") or []).items():
             ours.setdefault(gid, side)
+            early_gids.add(gid)
     except Exception as e:                                   # noqa: BLE001
+        early_gids = set()
         print(f"early plays (board side check) failed: {e}")
     cands = [c for c in cands if ours.get(c["game_id"], c["side"]) == c["side"]]
     all_cands = [c for c in all_cands if ours.get(c["game_id"], c["side"]) == c["side"]]
@@ -3419,6 +3422,9 @@ def post_board(games, model, picks, now, day, force=False):
             room = 0                                          # (10/1: leans go up with the opening board only - the
         #                                                       record is the start-of-day board, never topped up later)
         used = {l["game_id"] for p in today_ for l in p["legs"]}
+        if kind == "lean":                                    # (10/20, the owner: "Marshall is a lean and we also have
+            used |= early_gids                                #  units on Marshall in an early play - this can't be": a
+            #                                                   game we're already in early never gets a no-units lean)
         for c in pool(all_cands if kind == "lean" else cands, used):
             if room <= 0:
                 break

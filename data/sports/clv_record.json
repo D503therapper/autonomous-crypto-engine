@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 88,
-  "beat": 28,
-  "same": 31,
+  "n": 91,
+  "beat": 30,
+  "same": 32,
   "worse": 29,
-  "avg_pts": 0.1
+  "avg_pts": 0.13
  },
  "unit_plays": {
-  "n": 41,
+  "n": 42,
   "beat": 14,
-  "same": 17,
+  "same": 18,
   "worse": 10,
   "avg_pts": 0.35
  },
  "by_kind": {
   "dog": {
-   "n": 14,
+   "n": 15,
    "beat": 4,
-   "same": 6,
+   "same": 7,
    "worse": 4,
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 47,
-   "beat": 14,
+   "n": 49,
+   "beat": 16,
    "same": 14,
    "worse": 19,
-   "avg_pts": -0.13
+   "avg_pts": -0.05
   },
   "lock": {
    "n": 11,
@@ -59,18 +59,18 @@
    "avg_pts": 0.4
   },
   "nfl": {
-   "n": 14,
-   "beat": 3,
+   "n": 15,
+   "beat": 4,
    "same": 6,
    "worse": 5,
-   "avg_pts": -0.28
+   "avg_pts": -0.17
   },
   "nhl": {
-   "n": 34,
-   "beat": 10,
-   "same": 15,
+   "n": 36,
+   "beat": 11,
+   "same": 16,
    "worse": 9,
-   "avg_pts": 0.13
+   "avg_pts": 0.18
   }
  },
  "lock_by_size": {
@@ -1333,6 +1333,48 @@
    "odds": -135,
    "close": -135,
    "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-19",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Sharks",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 1.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-19",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Commanders",
+   "market": "spread",
+   "line": 7.5,
+   "odds": -112,
+   "close": -118,
+   "pts": 1.3,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-19",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -155,
+   "pts": 2.1,
    "units": 0,
    "result": "won"
   }

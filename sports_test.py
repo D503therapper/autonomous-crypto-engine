@@ -7721,6 +7721,18 @@ def test_early_play_and_the_same_board_pick_both_count():
     assert se.label(p, 185) == se.label(p, 185, -170)             # no price given = the post-time one, as before
 
 
+def test_no_lean_on_a_game_we_already_have_an_early_play_on():
+    """10/20, the owner: "the engine says Marshall is a lean, and we also have units on Marshall in an early play - this
+    can't be." A lean (no units) on a game we got in early on is a contradiction on the card; the board's lean pool skips
+    every game with an open early play (Dog / Lock / plays may still take the same side - "Jaguars can be both")."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("def early_sides(")]
+    assert "early_gids.add(gid)" in pb
+    i = pb.index('if kind == "lean":                                    # (10/20')
+    assert "used |= early_gids" in pb[i:i + 300]
+    assert pb.index("used |= early_gids") < pb.index('for c in pool(all_cands if kind == "lean" else cands, used):')
+
+
 def test_early_line_never_says_the_market_moved_when_it_didnt():
     """10/4, the owner: the Jaguars card said 'The market corrected' - the line never moved off the +120 we got in at."""
     import sports_dashboard as sdb

@@ -15345,6 +15345,7 @@
      "us:road3in6"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15361,6 +15362,10 @@
     "elo_edge": -15.5,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "0,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": true,
@@ -15394,9 +15399,11 @@
     "raw_own": 0.4547,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sharks 1 @ Maple Leafs 3",
+    "settled": "2026-10-20T02:19Z",
     "side": "away",
     "start": "2026-10-19T23:30Z",
     "stype": "2",
@@ -15413,12 +15420,14 @@
    }
   ],
   "p_hit": 0.4533,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-19T15:00Z",
   "round": 1,
+  "settled": "2026-10-20T02:19Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 1.5
  },
  {
   "american": -112,
@@ -15469,6 +15478,7 @@
      "us:west1000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15495,6 +15505,10 @@
     "elo_edge": -273.1,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,7,7",
+     "h": "13,7,3,0"
+    },
     "form_state": [
      0.0,
      0,
@@ -15546,9 +15560,11 @@
      "opponent drama: legal trouble"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Commanders 17 @ 49ers 23",
+    "settled": "2026-10-20T03:50Z",
     "side": "away",
     "start": "2026-10-20T00:15Z",
     "stype": "2",
@@ -15576,12 +15592,14 @@
    }
   ],
   "p_hit": 0.5146,
-  "pnl": 0.0,
+  "pnl": 89.29,
   "posted": "2026-10-19T15:00Z",
   "round": 1,
+  "settled": "2026-10-20T03:50Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
@@ -15642,6 +15660,7 @@
      "them:week3000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15657,6 +15676,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,2",
+     "h": "1,3,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -15693,9 +15716,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Ducks 2 @ Rangers 5",
+    "settled": "2026-10-20T01:42Z",
     "side": "home",
     "start": "2026-10-19T23:00Z",
     "stype": "2",
@@ -15713,8 +15738,634 @@
    }
   ],
   "p_hit": 0.5622,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-19T15:00Z",
+  "round": 1,
+  "settled": "2026-10-20T01:42Z",
+  "stake": 100.0,
+  "status": "won",
+  "tier": "lean",
+  "units": 0
+ },
+ {
+  "american": -148,
+  "date": "2026-10-20",
+  "dec": 1.6757,
+  "kind": "lean",
+  "lean": true,
+  "lean_units": 0.5,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:3",
+     "cold:2",
+     "talk_q:0",
+     "home:3",
+     "sharp:2",
+     "splits_w:1",
+     "bottom_so:3",
+     "w_sharp:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca 69% of the bets on the Blues (36% of the money). We with the crowd on this one.",
+     "\ud83c\udfdf\ufe0f 1-1 at home for Blues this year.",
+     "\ud83e\uddca 2 straight losses for Jets. Not a good look.",
+     "\ud83d\udccb Blues rolling in at 3-5.",
+     "\ud83d\udce3 Out of the Jets's camp this week: \"Sources: At least 3 teams in mix for Jets goalie Connor Hellebuyck\"",
+     "\ud83d\udfe1 Bottom line: Blues (-148). We'd pick Blues to win; at that price it's not a bet we put money on."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 1.6756756756756757,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": 0.0223,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0602,
+    "edge": -0.0415266295887422,
+    "edge_own": -0.04911681704650761,
+    "elo_edge": 52.6,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892544",
+    "home": true,
+    "hot_key": false,
+    "hurt": [
+     "Ross Johnston",
+     "Dillon Dube",
+     "Alexey Toropchenko"
+    ],
+    "intl": false,
+    "key_edge": -1.116792986941828,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -148,
+    "opp": "Jets",
+    "opp_dog": -2.04,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Vladislav Namestnikov (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5719921726647829,
+    "p_market": 0.5720596355604638,
+    "pdo": null,
+    "public": "ride",
+    "pyth_luck": -0.107,
+    "raw_own": 0.6088,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-21T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [
+     {
+      "headline": "Sources: At least 3 teams in mix for Jets goalie Connor Hellebuyck",
+      "kind": "trash talk"
+     }
+    ],
+    "team": "Blues",
+    "team_id": "19",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5973,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 Blues' price keeps shortening since the open \u2014 the money's on them."
+   }
+  ],
+  "p_hit": 0.572,
+  "pnl": 0.0,
+  "posted": "2026-10-20T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -110,
+  "date": "2026-10-20",
+  "dec": 1.9091,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:4",
+     "worse:1",
+     "home:2",
+     "b2b:0",
+     "sharp:5",
+     "splits_f:3",
+     "bottom_so:9",
+     "w_rest:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udccb Devils got a 4-4 record walking in. We gon' see what they do with it.",
+     "\ud83d\udcca 72% of the tickets on the Avalanche. The books love that. We on the Devils.",
+     "\ud83d\udcb0 Everybody else is showing up late on Devils: -106 to -110.",
+     "\ud83d\ude34 Avalanche played yesterday \u2014 tired legs. Devils are fresh.",
+     "\ud83d\udc3a 5-4 vs 4-4 \u2014 Avalanche get the respect, we get the price on Devils.",
+     "\ud83d\udfe1 Bottom line: Devils (-110). Our read has it close to even, Devils a hair better. Lean only."
+    ],
+    "bv": 50,
+    "coach": [
+     4,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.9090909090909092,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": 0.0426,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0076,
+    "edge": 0.005253424969832388,
+    "edge_own": 0.002062963644603677,
+    "elo_edge": -62.8,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": false,
+    "game_id": "nhl:401892540",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.5804311774461057,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -110,
+    "opp": "Avalanche",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Zachary L'Heureux (LW)",
+     "Nicolas Roy (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5265613178413407,
+    "p_market": 0.5,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": 0.038,
+    "raw_own": 0.5144,
+    "reasons": [
+     "opponent on a back-to-back",
+     "better rested",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": true,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-20T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Devils",
+    "team_id": "11",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude2e\u200d\ud83d\udca8 Avalanche are running on fumes tonight. Devils are fresh."
+   }
+  ],
+  "p_hit": 0.5266,
+  "pnl": 0.0,
+  "posted": "2026-10-20T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -112,
+  "date": "2026-10-20",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "h2h:0",
+     "fade:4",
+     "bottom_c:3",
+     "w_num:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Spurs out: F Tobias Harris, F Jayden Quaintance.",
+     "\ud83d\udcb8 Everybody's jumping on the Thunder (+105 \u2192 -108). They're tweaking \u2014 we're riding the Spurs.",
+     "\ud83d\udfe1 Bottom line: Spurs (-112). Our read has it close to even, Spurs a hair better. Lean only."
+    ],
+    "bv": 50,
+    "coach": [
+     1,
+     false
+    ],
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 1.8928571428571428,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": null,
+     "won": null
+    },
+    "dog_more": {
+     "comeback": false,
+     "opp_comeback": false
+    },
+    "drift": 0.0281,
+    "edge": -0.05206050843516252,
+    "edge_own": -0.023838514373229036,
+    "elo_edge": 43.7,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909090",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -112,
+    "opp": "Thunder",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Nikola Topic (G)",
+     "Thomas Sorber (C)",
+     "Otega Oweh (G)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Tobias Harris (F)",
+     "Jayden Quaintance (F)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5007982219587821,
+    "p_market": 0.5043297540699689,
+    "pdo": null,
+    "public": "ride",
+    "pyth_luck": null,
+    "raw_own": 0.5614,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-21T01:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Spurs",
+    "team_id": "24",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 We've got Spurs close to a coin flip - a hair better, not enough for units."
+   }
+  ],
+  "p_hit": 0.5008,
+  "pnl": 0.0,
+  "posted": "2026-10-20T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": 124,
+  "date": "2026-10-20",
+  "dec": 2.24,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -3,
+    "bd_tags": [
+     "rec:0",
+     "home:0",
+     "fade:5",
+     "bottom_so:4",
+     "w_num:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udccb Marshall sitting at 3-3 on the year.",
+     "\ud83c\udfdf\ufe0f Marshall are 2-1 at home this year.",
+     "\ud83d\udcb8 The market's leaning South Alabama (-137 \u2192 -148). Somebody's about to learn a lesson \u2014 we're on Marshall.",
+     "\ud83d\udfe1 Bottom line: Marshall (+124). This one's near a coin flip to us - Marshall is the side if you're playing it, no money from us."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.24,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": -6.0,
+     "last_pts": 21.0,
+     "neutral": false,
+     "record": [
+      3,
+      3
+     ],
+     "win_pct": 0.5,
+     "win_streak": 0
+    },
+    "drift": 0.0191,
+    "edge": 0.056378033583946774,
+    "edge_own": 0.057695898087862574,
+    "elo_edge": 23.1,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -6.0,
+     -2,
+     -198,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401871092",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.5563352044907783,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 124,
+    "opp": "South Alabama",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "K. Marion (WR)",
+     "B. Barnes (WR)",
+     "M. Lynch (TE)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4715973364214047,
+    "p_market": 0.4279403644395361,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.4472,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-20T23:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Marshall",
+    "team_id": "276",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Our read likes Marshall more than the price does."
+   }
+  ],
+  "p_hit": 0.4716,
+  "pnl": 0.0,
+  "posted": "2026-10-20T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -115,
+  "date": "2026-10-20",
+  "dec": 1.8696,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:1",
+     "better:3",
+     "drama_trade_drama:1",
+     "home:2",
+     "splits_w:4",
+     "bottom_c:0",
+     "w_better:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\uddef The Red Wings got a guy wanting out: \"After offseason chaos, the Red Wings have an 'us against the world' mentality\"",
+     "\ud83c\udfdf\ufe0f Kraken at home: 1-1 this season.",
+     "\ud83d\udccb Record check: Kraken 5-4. We already did our homework.",
+     "\ud83d\udcca Everybody and they mama on the Kraken: 66% of the bets, 87% of the money. Same side as us.",
+     "\ud83d\udfe1 Bottom line: Kraken (-115). Our read has it close to even, Kraken a hair better. Lean only."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:trip1000",
+     "them:west1000",
+     "us:trip1000",
+     "us:trip2000",
+     "us:week3000",
+     "us:west1000"
+    ],
+    "dec": 1.8695652173913042,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "ss_gap": -0.0743,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": 0.0174,
+    "edge": -0.052737587183206425,
+    "edge_own": -0.05352279574236796,
+    "elo_edge": 17.9,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": false,
+    "game_id": "nhl:401892547",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -1.4051405140514062,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -115,
+    "opp": "Red Wings",
+    "opp_lost_last": false,
+    "opp_ot_last": "so_win",
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5066752440647966,
+    "p_market": 0.5108342361863489,
+    "pdo": null,
+    "public": "ride",
+    "pyth_luck": -0.005,
+    "raw_own": 0.5274,
+    "reasons": [
+     "the stronger team",
+     "opponent drama: trade drama"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-21T01:40Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kraken",
+    "team_id": "124292",
+    "their_drama": [
+     {
+      "date": "2026-10-15",
+      "headline": "After offseason chaos, the Red Wings have an 'us against the world' mentality",
+      "id": "50182865",
+      "kind": "trade drama"
+     }
+    ],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa 5-4 against 3-5: Kraken been the better team."
+   }
+  ],
+  "p_hit": 0.5067,
+  "pnl": 0.0,
+  "posted": "2026-10-20T15:13Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",

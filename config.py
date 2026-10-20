@@ -278,6 +278,7 @@ DEX = {
               # in 6 days and left $950 idle. "both" = survivor OR the momentum rule, with smaller bets (tiers below) so
               # there are many more lottery tickets on runners; moon alerts still ping at 2x .. 100x.
               "mode": "both",
+              "skip_pump": True,           # EXPERIMENT 16: the fresh-pump rule skips pump.fun launches (dex._trig)
               "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
@@ -307,7 +308,10 @@ DEX = {
     # EXPERIMENT 15 (10-19): at 5x sell 80%, the last 20% rides with no clock (the moon ticket). dex_lottery_study,
     # 156 scanner pools that met the fresh-pump entry: 13% touched 5x within 7 days but holding lost 45% per $1;
     # 80% at 5x -9.9% (halves -14.9 / -4.8), sell all at 5x -1.1% - better than holding in both halves.
-    "exit": {"trail": 1.0, "tp1": (4.0, 0.8), "ladder": [], "trail_steps": [],
+    # EXPERIMENT 17 (10-20, STARTUPSI 3.15x -> 0.09x): once a coin has reached 3x, sell it all on a 40% drop from its
+    # high. dex_lottery_study re-run (3.5 weeks, the 110 non-pump.fun fresh pumps, with 80% at 5x): +12.6% vs +6.4%
+    # per $1 (halves +0.9 / +24.2 vs +1.2 / +11.7); all 157: -0.9% vs -10.8% (-11.9 / +10.0 vs -14.9 / -6.8).
+    "exit": {"trail": 1.0, "tp1": (4.0, 0.8), "ladder": [], "trail_steps": [(3.0, 0.40)],
              # EXPERIMENT 4 (2026-09-29): 7-day hold (was 14). The account sat frozen with $8 cash and 4 coins
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock

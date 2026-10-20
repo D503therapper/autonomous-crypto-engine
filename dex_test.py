@@ -780,10 +780,33 @@ def test_live_five_x_take_profit():
     pos = h.pf.positions[K]
     assert pos["tp1"] and abs(pos["qty"] - q0 * 0.2) < 1e-9, pos["qty"] / q0
     assert "take-profit +400%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
-    poll(h, T0 + 9 * DAY, px, v=0.02)                                       # past the 7-day clock: still riding
+    poll(h, T0 + 9 * DAY, px, v=0.04)                                       # past the 7-day clock: still riding
     assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * 0.2) < 1e-9
     shutil.rmtree(d)
-    print("  live exit: 80% at 5x, the last 20% rides with no clock   ok")
+    h, fetch, d, px = held()                                                # EXPERIMENT 17: 3x then -40% -> out
+    h.p = dict(h.p, exit=dex.DEX["exit"])
+    t = poll(h, T0 + 6000, px, v=0.031)
+    t = poll(h, t, px, v=0.0315)
+    assert K in h.pf.positions
+    t = poll(h, t + 200_000, px, v=0.018)
+    t = poll(h, t + 200_000, px, v=0.018)
+    t = poll(h, t + 200_000, px, v=0.018)
+    assert K not in h.pf.positions and "trailing stop" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
+    shutil.rmtree(d)
+    print("  live exit: 80% at 5x, the last 20% rides with no clock; after 3x a 40% drop sells   ok")
+
+
+def test_fresh_pump_skips_pump_fun():
+    """EXPERIMENT 16: the momentum rule passes on pump.fun launches; other chains / addresses unchanged."""
+    h, _, d = make(table_evm(), entry={**dex.DEX["entry"], "mode": "both"})
+    hot = {"h1": 0.2, "h6": 0.8, "b1": 200, "s1": 50, "price": 1.0, "liq": 300_000, "age_h": 10}
+    assert h._trig({**hot, "chain": "base", "addr": "0xabc"}, T0)
+    assert h._trig({**hot, "chain": "solana", "addr": "Abc123"}, T0)
+    assert not h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
+    h.p = dict(h.p, entry={**h.p["entry"], "skip_pump": False})
+    assert h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
+    shutil.rmtree(d)
+    print("  fresh-pump rule skips pump.fun launches (experiment 16)   ok")
 
 
 def test_evm_address_case():
@@ -1676,6 +1699,7 @@ if __name__ == "__main__":
     test_evm_address_case()
     test_take_profit_steps()
     test_live_five_x_take_profit()
+    test_fresh_pump_skips_pump_fun()
     test_stake_back_executes()
     test_entry_needs_a_run()
     test_far_off_tick_needs_15_minutes()
