@@ -21465,3 +21465,31 @@ $BITF: No data found, symbol may be delisted
 [2026-10-20 19:20 UTC] stocks/trend     equity $480.15 (-4.0%) 3 open  market UP
 [2026-10-20 19:20 UTC] stocks/hold_spy  equity $499.77 (-0.0%) 1 open  market UP
    social heat top: PENGU 48 (37/0/10), AERO 34 (32/0/2), CARDS 32 (21/0/10), BTC 29 (29/0/0), VVV 28 (27/0/2)
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +5.0%, 2 volume hikes, 79% quiet hours @ 105.73
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '83377.04', 'l': '81091.41', 'a': '82429.62', 'v': '3373.1572', 'vv': '277353218.70', 'c': '0.0069', 'b': '82429.61', 'k': '82429.62', 'oi': '0', 't': 1792524046974}
+   dex screen: REJECT USDS@ethereum liq $50,003,008 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%
+   dex screen: REJECT XDP@solana liq $17,755,915 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT XDP@base liq $1,814,933 - top-10 holders 95%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT OVPP@base liq $220,811 - goplus partial data: cannot_sell_all unknown; top-10 holders 49%; lp locked 0% < 95%
+   dex screen: REJECT BATON@solana liq $570,062 - lp holders unknown; rugcheck lp locked 47% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS SPX@ethereum liq $11,244,125
+   dex screen: REJECT SPCX@solana liq $2,594,898 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #60 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex scanner: 2,999 pools (solana 2,263 / base 407 / ethereum 329), refresh cycle 126s (hot 123s), 1959 calls (94 feed, 429s 1, failed 1), 55,906 refreshed (2391 no pair), +238 added / -239 dropped (dead 13, stale 0, cap 226), movers 0 + warming 7 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT PUMP@solana liq $1,989,799 - transfer hook; top-10 holders 60%
+[2026-10-20 20:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 20:06 UTC] crypto/mover     equity $280.79 (-43.8%) 2 open  market UP
+[2026-10-20 20:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 20:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 20:06 UTC] crypto/social_heat equity $428.26 (-14.3%) 1 open  market UP
+[2026-10-20 20:06 UTC] crypto/breakout10 equity $464.26 (-7.1%) 2 open  market UP
+[2026-10-20 20:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 20:06 UTC] crypto/hold_btc  equity $491.38 (-1.7%) 1 open  market UP
+   social heat top: PENGU 44 (32/0/12), PEPE 35 (35/0/0), CARDS 31 (21/0/10), STRK 29 (29/0/0), VVV 27 (27/0/0)
