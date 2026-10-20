@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T16:17Z",
+ "updated": "2026-10-20T16:24Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -292,8 +292,8 @@
    "start": "2026-10-20T23:30Z",
    "away": "South Alabama",
    "home": "Marshall",
-   "why": "on_board",
-   "board": "lean",
+   "why": "coin_flip",
+   "board": null,
    "lean": {
     "team": "South Alabama",
     "opp": "Marshall",
@@ -500,8 +500,8 @@
    "start": "2026-10-21T02:30Z",
    "away": "Lightning",
    "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Lightning",
     "opp": "Golden Knights",
@@ -521,8 +521,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.528,
-    "tie": 0.037,
+    "p": 0.536,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -537,9 +537,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -205,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": []
    }
   },
@@ -683,14 +683,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Senators",
+    "team": "Senators",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.709,
-    "win_p": 0.494,
-    "reasons": []
+    "odds": -270,
+    "p": 0.718,
+    "win_p": 0.507,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
