@@ -1,22 +1,3 @@
-rate|fav_cover: following hit 49.1% vs 50.0% the price said over 1795 (edge +0.1% older, -1.9% newer, z -0.78) -> watch only
-rate|home: following hit 66.3% vs 65.2% the price said over 42263 (edge +1.0% older, +1.3% newer, z 5.79) -> watch only
-nfl|streak: following hit 58.4% vs 59.7% the price said over 1539 (edge -2.3% older, -0.5% newer, z -1.17) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4115 (edge +0.0% older, +0.1% newer, z 0.09) -> watch only
-ncaaf|streak: following hit 70.5% vs 70.0% the price said over 7298 (edge -0.2% older, +1.1% newer, z 0.9) -> watch only
-ncaaf|rate: following hit 72.4% vs 71.7% the price said over 22026 (edge +0.8% older, +0.5% newer, z 2.48) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9804 (edge -0.2% older, +0.1% newer, z -0.21) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23773 (edge -0.1% older, -0.3% newer, z -0.76) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10767 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.4% the price said over 5093 (edge +1.6% older, +1.1% newer, z 2.01) -> watch only
-nhl|rate: following hit 61.7% vs 61.0% the price said over 5241 (edge +0.1% older, +1.4% newer, z 1.12) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 11-1 (prices said 8.6) (11 straight) -> coin flip
-ACTIVE nhl saturday: favorites win 23-7 (prices said 17.8) (6 straight) -> coin flip · next: Bruins @ Kings, Oilers @ Mammoth, Penguins @ Golden Knights
-ACTIVE ncaaf big favorite: favorites win 279-56 (prices said 280.5) (10 straight) -> coin flip · next: San José St @ UTEP, Ohio @ Sacramento St, Utah @ Colorado
-ACTIVE nfl sunday night: over 5-0 (5 straight) -> coin flip · next: Cowboys @ Packers
 ACTIVE nfl sunday night: underdogs cover 5-0 (5 straight) -> coin flip · next: Cowboys @ Packers
 ACTIVE nhl saturday: under 20-10 (5 straight) -> coin flip · next: Bruins @ Kings, Oilers @ Mammoth, Penguins @ Golden Knights
 ACTIVE mlb saturday: under 211-183 (5 straight) -> coin flip
@@ -2993,6 +2974,25 @@ public splits: 69 upcoming games
 tennis sync: 73394 matches stored, 18 calls, 0 failed
 tennis study ATP: 26083 rated matches, acc 0.6435 (surface ratings alone 0.643), loss 0.6291 vs 0.6299, own weights [-0.006, 0.826, 0.072, 0.145, 0.422, 0.048, 0.05]
 tennis study ATP life factors vs current loss 0.6291: experience 0.6297 (-0.54 mnats, z -0.54), age 0.6258 (+3.30 mnats, z 2.41), young_vs_aging 0.6286 (+0.53 mnats, z 1.29), last_match 0.6271 (+2.03 mnats, z 1.4), streaks 0.6298 (-0.67 mnats, z -0.66), first_set 0.628 (+1.13 mnats, z 1.78), injury 0.63 (-0.88 mnats, z -1.3), travel 0.6292 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30555 rated matches, acc 0.649 (surface ratings alone 0.648), loss 0.6215 vs 0.6215, own weights [0.003, 0.903, 0.0, -0.088, 0.299, 0.025, -0.205]
+tennis study WTA life factors vs current loss 0.6215: experience 0.6184 (+3.11 mnats, z 1.81), age 0.621 (+0.55 mnats, z 0.68), young_vs_aging 0.6214 (+0.16 mnats, z 0.95), last_match 0.6213 (+0.22 mnats, z 0.22), streaks 0.6216 (-0.10 mnats, z -0.2), first_set 0.6209 (+0.65 mnats, z 1.47), injury 0.6208 (+0.78 mnats, z 1.37), travel 0.6216 (-0.08 mnats, z -0.52) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 23 matches
+sync: 131004 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 120 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 2 new drama tags
+goalies: 11 games on the page, 11 matched, 3 confirmed
+beat the close: unit plays 14 of 42 better than the close, avg +0.3 pts
+public splits: 69 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (572 players), 138 matched, 0 unmatched
+tennis sync: 73394 matches stored, 18 calls, 0 failed
+tennis study ATP: 26084 rated matches, acc 0.644 (surface ratings alone 0.643), loss 0.629 vs 0.6298, own weights [-0.005, 0.827, 0.072, 0.144, 0.422, 0.048, 0.05]
+tennis study ATP life factors vs current loss 0.629: experience 0.6296 (-0.53 mnats, z -0.53), age 0.6257 (+3.32 mnats, z 2.42), young_vs_aging 0.6285 (+0.53 mnats, z 1.28), last_match 0.627 (+2.03 mnats, z 1.41), streaks 0.6298 (-0.72 mnats, z -0.71), first_set 0.6279 (+1.13 mnats, z 1.79), injury 0.6299 (-0.89 mnats, z -1.32), travel 0.6291 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
 tennis study WTA: 30555 rated matches, acc 0.649 (surface ratings alone 0.648), loss 0.6215 vs 0.6215, own weights [0.003, 0.903, 0.0, -0.088, 0.299, 0.025, -0.205]
 tennis study WTA life factors vs current loss 0.6215: experience 0.6184 (+3.11 mnats, z 1.81), age 0.621 (+0.55 mnats, z 0.68), young_vs_aging 0.6214 (+0.16 mnats, z 0.95), last_match 0.6213 (+0.22 mnats, z 0.22), streaks 0.6216 (-0.10 mnats, z -0.2), first_set 0.6209 (+0.65 mnats, z 1.47), injury 0.6208 (+0.78 mnats, z 1.37), travel 0.6216 (-0.08 mnats, z -0.52) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
