@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T01:35Z",
+ "updated": "2026-10-20T01:42Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -27,7 +27,7 @@
    "home": "Rangers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Rangers",
@@ -40,7 +40,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -221,8 +221,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.389,
-    "tie": 0.298,
+    "p": 0.402,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -238,8 +238,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -175,
-    "p": 0.642,
-    "win_p": 0.422,
+    "p": 0.614,
+    "win_p": 0.394,
     "reasons": [
      "opponent drama: suspension"
     ]
