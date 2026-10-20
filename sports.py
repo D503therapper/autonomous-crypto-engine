@@ -472,6 +472,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
         # (proven on games it never saw), every read is shifted by it
         ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
+        ew = early_trust(games, g)                    # 🏀 opening weeks: last season's ratings know nothing of the summer
+        if ew < 1 and mkt is not None:                # (10/20 - the 76ers with LeBron read 26% off last year's team)
+            ph, ph_own = early_shrink(ph, mkt, ew), early_shrink(ph_own, mkt, ew)
         # 🚑 a missing key player moves the engine's OWN read (the 10/2 absence studies - sports_absences: NFL QB -8 /
         # RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5, NHL top scorer -6, NBA top scorer -9; MLB none)
         absent = {s_: sports_absences.penalty(games, g, s_, injuries, skip_qb=bool(key_out[s_])) if injuries else (0.0, [])
@@ -481,6 +484,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
         try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
             raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
             raw_h = min(0.99, max(0.01, raw_h - absent["home"][0] + absent["away"][0]))   # plays ride on (10/17)
+            if ew < 1 and mkt is not None:
+                raw_h = early_shrink(raw_h, mkt, ew)
         except Exception:                            # noqa: BLE001
             raw_h = None
         # 🚑 the more banged-up football side (regulars out beyond the opponent's): a small, capped weight on the OWN
@@ -1149,6 +1154,28 @@ OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog s
 
 
 NBA_HOME_DOG_GAMES, NBA_HOME_DOG_BAND, NBA_HOME_DOG_W = (6, 20), (100, 200), 2
+EARLY_TRUST_LEAGUES, EARLY_TRUST_GAMES = ("nba", "ncaab"), 10
+
+
+def early_trust(games, g):
+    """How much of the engine's own read to trust in a hoops season's opening weeks: 0 before either team has played,
+    1 once both have EARLY_TRUST_GAMES regular-season games. (10/20, NBA opening night: the ratings are last season's
+    results regressed 1/3 - no rosters - so the engine read the 76ers with LeBron at 26% vs the market's 38%, called
+    itself 'fighting' the line and passed on every team that got better over the summer. The 10/20 study: Elo never
+    beats the close in games 1-20.) Other sports: 1."""
+    if g.get("league") not in EARLY_TRUST_LEAGUES:
+        return 1.0
+    n = [season_games(games, g, s_) for s_ in ("home", "away")]
+    if any(x is None for x in n):
+        return 1.0
+    return min(1.0, min(n) / EARLY_TRUST_GAMES)
+
+
+def early_shrink(p, mkt, w):
+    """The read pulled toward the market: w = 0 -> the market, 1 -> the read as is (logit space)."""
+    if p is None or mkt is None or not 0 < mkt < 1 or not 0 < p < 1:
+        return p
+    return sm.sigmoid(sm.logit(mkt) + w * (sm.logit(p) - sm.logit(mkt)))
 
 
 def season_games(games, g, side):

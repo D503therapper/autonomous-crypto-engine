@@ -3331,6 +3331,34 @@ def test_nba_early_season_home_dog_weight():
     assert "NBA home dog, games 6-20" in sports_leads.tags({**c, "season_games": 7}, sports)
 
 
+def test_hoops_opening_weeks_trust_the_market_and_elo_regresses_once():
+    """10/20 audit (NBA opening night - the owner: "the engine is tripping", the 76ers +155 with LeBron): the NBA ratings
+    are last season's results (no rosters), so the engine read the 76ers 26% vs the market's 38% and called it 'fighting'
+    the line. (1) In a hoops season's opening weeks the own read is pulled to the market, fully at 0 games, none by 10.
+    (2) Elo.rating regressed AGAIN on every call to a cached Elo (148 -> 99 points on the second call) - once only now."""
+    import sports_model as sm
+    games = {"n": {"id": "n", "league": "nba", "start": "2026-10-20T23:00Z", "status": "pre", "stype": "2",
+                   "home": "A", "away": "B"}}
+    assert sports.early_trust(games, games["n"]) == 0.0
+    assert abs(sports.early_shrink(0.26, 0.38, 0.0) - 0.38) < 1e-9 and abs(sports.early_shrink(0.26, 0.38, 1.0) - 0.26) < 1e-9
+    assert 0.26 < sports.early_shrink(0.26, 0.38, 0.5) < 0.38
+    assert sports.early_trust({"n": {**games["n"], "league": "nhl"}}, {**games["n"], "league": "nhl"}) == 1.0
+    for i in range(10):
+        for tm in ("A", "B"):
+            games[f"{tm}{i}"] = {"id": f"{tm}{i}", "league": "nba", "start": f"2026-10-0{i}T23:00Z".replace("0-0", "0-1"),
+                                 "status": "final", "stype": "2", "home": tm, "away": "Z", "home_score": 1, "away_score": 0}
+    for k, v in list(games.items()):
+        if k != "n":
+            v["start"] = f"2026-10-{int(k[1:]) + 5:02d}T23:00Z"
+    sports._SCHED.clear()
+    assert sports.early_trust(games, games["n"]) == 1.0
+    e = sm.Elo(20, 40)
+    e.r["T"], e.last["T"] = 1700.0, 0.0
+    t = 200 * 86400
+    r1, r2 = e.rating("T", t), e.rating("T", t)
+    assert r1 == r2 == 1500 + 200 * (1 - sm.REGRESS)
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""
