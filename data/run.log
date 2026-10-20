@@ -20840,3 +20840,26 @@ DEX: $884.88 (-115.12) · Scammed: 0
 [2026-10-20 06:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-20 06:07 UTC] crypto/hold_btc  equity $486.73 (-2.7%) 1 open  market UP
    social heat top: CARDS 42 (29/0/13), PRL 37 (37/0/0), PUMP 35 (35/0/0), PENGU 32 (32/0/0), AERO 27 (27/0/0)
+   dex screen: REJECT EDEL@base liq $1,109,081 - goplus partial data: cannot_sell_all unknown; top-10 holders 48%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #33 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: STARTUPSI@solana:EKosQw4o data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT EDEL@base liq $1,115,892 - goplus partial data: cannot_sell_all unknown; top-10 holders 48%
+   dex screen: REJECT LMTS@base liq $143,544 - pool age unknown
+   dex screen: REJECT ADI@ethereum liq $3,004,311 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dex re-screen: CLAUDIA@ethereum:0xd58813 data flag #1 (honeypot.is: no data); holding (experiment 10)
+   dex screen: PASS ANTFUN@solana liq $12,767,598
+   dex screen: REJECT GTC@ethereum liq $273,246 - owner_percent 13%; top-10 holders 71%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #34 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,995 pools (solana 2,084 / base 551 / ethereum 360), refresh cycle 139s (hot 134s), 2700 calls (109 feed, 429s 1, failed 1), 77,729 refreshed (9707 no pair), +94 added / -99 dropped (dead 20, stale 0, cap 79), movers 0 + warming 20 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-20 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/social_heat equity $423.34 (-15.3%) 1 open  market UP
+[2026-10-20 07:06 UTC] crypto/breakout10 equity $455.62 (-8.9%) 2 open  market UP
+[2026-10-20 07:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 07:06 UTC] crypto/hold_btc  equity $487.52 (-2.5%) 1 open  market UP
+   social heat top: CARDS 49 (40/0/9), BTC 37 (37/0/0), PONS 31 (19/0/12), PUMP 27 (27/0/0), GRVT 24 (21/0/3)
