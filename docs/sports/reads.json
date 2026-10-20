@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T22:51Z",
+ "updated": "2026-10-20T23:38Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -13,6 +13,21 @@
    "h1": null,
    "why": "final",
    "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909089",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "76ers",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -46,34 +61,109 @@
    }
   },
   {
+   "id": "nhl:401892541",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "Ducks",
+   "home": "Islanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892542",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "Kings",
+   "home": "Capitals",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871055",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "MTSU",
+   "home": "FIU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892543",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "Maple Leafs",
+   "home": "Blue Jackets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871069",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "Missouri St",
+   "home": "Delaware",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892539",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-20T23:00Z",
+   "away": "Sharks",
+   "home": "Canadiens",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401871092",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "South Alabama",
-    "p": 0.49,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-20T23:30Z",
    "away": "South Alabama",
    "home": "Marshall",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "South Alabama",
-    "opp": "Marshall",
-    "market": "ml",
-    "line": null,
-    "odds": -135,
-    "p": 0.508,
-    "win_p": 0.508,
-    "reasons": [
-     "better QB play lately"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892545",
