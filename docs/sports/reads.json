@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T02:05Z",
+ "updated": "2026-10-20T02:19Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -54,7 +54,7 @@
    "home": "Maple Leafs",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Sharks",
@@ -65,7 +65,7 @@
     "p": 0.453,
     "win_p": 0.453,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -309,8 +309,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.394,
-    "tie": 0.298,
+    "p": 0.407,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -318,17 +318,21 @@
    "start": "2026-10-20T23:00Z",
    "away": "Maple Leafs",
    "home": "Blue Jackets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Maple Leafs",
-    "opp": "Blue Jackets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.632,
-    "win_p": 0.412,
-    "reasons": []
+    "team": "Blue Jackets",
+    "opp": "Maple Leafs",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.62,
+    "win_p": 0.62,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -368,8 +372,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.419,
-    "tie": 0.295,
+    "p": 0.433,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -377,7 +381,7 @@
    "start": "2026-10-20T23:00Z",
    "away": "Sharks",
    "home": "Canadiens",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Canadiens",
@@ -385,10 +389,12 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.644,
-    "win_p": 0.644,
+    "p": 0.671,
+    "win_p": 0.671,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back",
+     "better rested"
     ]
    }
   },
