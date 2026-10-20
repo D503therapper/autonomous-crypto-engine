@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T15:19Z",
+ "updated": "2026-10-20T16:00Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -67,7 +67,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.362,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -83,9 +83,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.693,
-    "win_p": 0.475,
+    "odds": -250,
+    "p": 0.672,
+    "win_p": 0.453,
     "reasons": [
      "the stronger team"
     ]
@@ -128,7 +128,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.394,
+    "p": 0.389,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -145,8 +145,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.631,
-    "win_p": 0.411,
+    "p": 0.641,
+    "win_p": 0.421,
     "reasons": [
      "opponent missing key players"
     ]
@@ -251,8 +251,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.433,
-    "tie": 0.293,
+    "p": 0.443,
+    "tie": 0.291,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -267,9 +267,9 @@
     "opp": "Sharks",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.671,
-    "win_p": 0.671,
+    "odds": -225,
+    "p": 0.689,
+    "win_p": 0.689,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -396,8 +396,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Thunder",
-    "p": 0.485,
+    "team": "Spurs",
+    "p": 0.482,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -409,15 +409,15 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Thunder",
-    "opp": "Spurs",
+    "team": "Spurs",
+    "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.503,
-    "win_p": 0.503,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -426,8 +426,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Kraken",
-    "p": 0.353,
+    "team": "Red Wings",
+    "p": 0.356,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -439,14 +439,17 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Red Wings",
-    "opp": "Kraken",
+    "team": "Kraken",
+    "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
-    "p": 0.709,
-    "win_p": 0.494,
-    "reasons": []
+    "odds": -258,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": [
+     "the stronger team",
+     "opponent drama: trade drama"
+    ]
    }
   },
   {
