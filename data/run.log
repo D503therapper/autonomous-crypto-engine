@@ -21167,3 +21167,72 @@ $BITF: No data found, symbol may be delisted
 [2026-10-20 14:08 UTC] stocks/trend     equity $481.53 (-3.7%) 3 open  market UP
 [2026-10-20 14:08 UTC] stocks/hold_spy  equity $499.78 (-0.0%) 1 open  market UP
    social heat top: PENGU 43 (29/0/14), WLD 27 (27/0/0), PONS 25 (19/0/6), BTC 24 (24/0/0), INJ 24 (24/0/0)
+   scanner: PEPE: +7.6% in 15 min on 27.5x volume @ 4.566e-06 spread 0.20%
+   take-off: BUY PEPE (scanner mover): PEPE: +7.6% in 15 min on 27.5x volume @ 4.566e-06 spread 0.20%
+   >> crypto/mover: BUY $127.19 of PEPE @ 5e-06 (scanner mover)
+   dex screen: REJECT LIT@ethereum liq $376,343 - top-10 holders 62%; lp locked 0% < 95%
+   dex screen: REJECT STLINK@ethereum liq $0 - no price; liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: PEPE: +6.7% in 15 min on 28.9x volume @ 4.527e-06 spread 0.20%
+   scanner: PEPE: +6.4% in 15 min on 29.6x volume @ 4.528e-06 spread 0.31%
+   dex screen: REJECT VVV@base liq $18,075,569 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT PEPE@solana liq $109,079 - mint authority; top-10 holders 49%; lp holders unknown
+   dex screen: REJECT ENA@ethereum liq $2,912,451 - is_mintable; top-10 holders 59%
+   scanner: PEPE: +6.8% in 15 min on 30.1x volume @ 4.541e-06 spread 0.20%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #49 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   scanner: PEPE: +6.2% in 15 min on 31.4x volume @ 4.527e-06 spread 0.20%
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT NEAR@ethereum liq $917,706 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: PEPE: +5.9% in 15 min on 30.9x volume @ 4.516e-06 spread 0.13%
+   scanner: CASHCAT: +5.3% in 15 min on 9.8x volume @ 0.11341 spread 0.26%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT AERO@base liq $39,277,495 - is_mintable; top-10 holders 67%
+   dex screen: REJECT BOT@solana liq $100,121 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 54%; lp holders unknown
+   dex screen: REJECT SCORE@ethereum liq $104,442 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $5,754,008 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%
+   dex screen: REJECT CVX@ethereum liq $6,475,433 - is_mintable; top-10 holders 71%
+   dex screen: REJECT DGUY@base liq $117,048 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT QNT@ethereum liq $817,491 - is_mintable; lp locked 0% < 95%
+   dex screen: REJECT ATH@ethereum liq $405,980 - is_mintable; is_whitelisted; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT ETHFI@ethereum liq $499,270 - top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT VEIL@solana liq $164,734 - lp holders unknown; rugcheck lp locked 62% < 95%
+   dex screen: REJECT ONDO@ethereum liq $1,853,678 - transfer_pausable; top-10 holders 68%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #50 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS ZCAT@solana liq $1,207,107
+   dex screen: REJECT ZAMA@ethereum liq $619,455 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: PASS FARTCOIN @solana liq $7,770,856
+   dex screen: REJECT BONK@solana liq $316,439 - lp holders unknown; rugcheck lp locked 16% < 95%
+   dex screen: PASS TROLL@solana liq $2,824,961
+   dex scanner: 3,000 pools (solana 2,244 / base 461 / ethereum 295), refresh cycle 143s (hot 140s), 2627 calls (104 feed, 429s 0, failed 0), 75,662 refreshed (2266 no pair), +51 added / -51 dropped (dead 15, stale 0, cap 36), movers 0 + warming 52 -> queued 18, screened 18 (passed 2), bought 0
+[2026-10-20 15:08 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 15:08 UTC] crypto/mover     equity $283.59 (-43.3%) 2 open  market UP
+[2026-10-20 15:08 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 15:08 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 15:08 UTC] crypto/social_heat equity $426.24 (-14.8%) 1 open  market UP
+[2026-10-20 15:08 UTC] crypto/breakout10 equity $472.64 (-5.5%) 2 open  market UP
+[2026-10-20 15:08 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 15:08 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 15:08 UTC] crypto/hold_btc  equity $494.54 (-1.1%) 1 open  market UP
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA', 'BITF']: No data found, symbol may be delisted
+[2026-10-20 15:08 UTC] stocks/rsi2      equity $501.31 (+0.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): META 8 BUY, XLI 14, MSTR 18 BUY, COIN 21
+[2026-10-20 15:08 UTC] stocks/breakout52 equity $491.98 (-1.6%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-10-20 15:08 UTC] stocks/dual_momentum equity $481.27 (-3.7%) 2 open  market UP
+[2026-10-20 15:08 UTC] stocks/trend_ensemble equity $493.07 (-1.4%) 5 open  market UP
+[2026-10-20 15:08 UTC] stocks/rotation10 equity $517.17 (+3.4%) 2 open  market UP
+[2026-10-20 15:08 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market UP
+[2026-10-20 15:08 UTC] stocks/trend     equity $483.26 (-3.3%) 3 open  market UP
+[2026-10-20 15:08 UTC] stocks/hold_spy  equity $501.33 (+0.3%) 1 open  market UP
+   social heat top: CARDS 35 (27/0/9), BTC 32 (32/0/0), VVV 31 (21/0/10), SUI 29 (29/0/0), WLD 24 (24/0/0)
