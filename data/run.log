@@ -21003,3 +21003,28 @@ DEX: $884.88 (-115.12) · Scammed: 0
 [2026-10-20 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-20 11:06 UTC] crypto/hold_btc  equity $486.44 (-2.7%) 1 open  market UP
    social heat top: PENGU 37 (37/0/0), BTC 35 (35/0/0), CARDS 28 (27/0/2), VVV 24 (24/0/0), GRASS 21 (21/0/0)
+   dex screen: REJECT PAID@solana liq $400,630 - lp holders unknown; rugcheck lp locked 60% < 95%
+   dex screen: REJECT SWORDCAT@solana liq $169,465 - lp holders unknown; rugcheck lp locked 48% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #43 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex screen: REJECT PYUSD@ethereum liq $100,179,493 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SOL@base liq $669,301 - pool age unknown
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #44 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex screen: REJECT PLAY@base liq $322,717 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT CLAUS@ethereum liq $475,446 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $455,168 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $304,650 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $2,514,373 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT XTO@solana liq $388,355 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,155 / base 523 / ethereum 322), refresh cycle 127s (hot 124s), 3027 calls (186 feed, 429s 0, failed 0), 85,222 refreshed (4487 no pair), +578 added / -578 dropped (dead 15, stale 0, cap 563), movers 0 + warming 17 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-20 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/mover     equity $280.81 (-43.8%) 1 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/social_heat equity $422.84 (-15.4%) 1 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/breakout10 equity $450.70 (-9.9%) 2 open  market UP
+[2026-10-20 12:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
+[2026-10-20 12:06 UTC] crypto/hold_btc  equity $485.96 (-2.8%) 1 open  market DOWN
+   social heat top: TIA 35 (35/0/0), ETH 32 (32/0/0), CARDS 31 (29/0/2), NEAR 30 (19/0/11), INJ 27 (27/0/0)
