@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T16:24Z",
+ "updated": "2026-10-20T16:32Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -188,8 +188,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.407,
-    "tie": 0.296,
+    "p": 0.402,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -197,21 +197,17 @@
    "start": "2026-10-20T23:00Z",
    "away": "Maple Leafs",
    "home": "Blue Jackets",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Blue Jackets",
-    "opp": "Maple Leafs",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.621,
-    "win_p": 0.621,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
+    "team": "Maple Leafs",
+    "opp": "Blue Jackets",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -192,
+    "p": 0.614,
+    "win_p": 0.394,
+    "reasons": []
    }
   },
   {
@@ -521,8 +517,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.536,
-    "tie": 0.036,
+    "p": 0.528,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -537,9 +533,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -198,
+    "p": 0.569,
+    "win_p": 0.569,
     "reasons": []
    }
   },
