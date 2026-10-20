@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19T23:39Z",
+ "updated": "2026-10-20T00:03Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -69,67 +69,30 @@
    }
   },
   {
-   "id": "mlb:401908028",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Rays",
-    "p": 0.529,
-    "tie": 0.116,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-20T00:00Z",
-   "away": "Guardians",
-   "home": "Rays",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rays",
-    "opp": "Guardians",
-    "market": "ml",
-    "line": null,
-    "odds": -152,
-    "p": 0.604,
-    "win_p": 0.604,
-    "reasons": [
-     "the stronger team",
-     "better starting pitcher",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
    "id": "nfl:401873008",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "49ers",
-    "p": 0.669,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-20T00:15Z",
    "away": "Commanders",
    "home": "49ers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Commanders",
     "opp": "49ers",
     "market": "spread",
     "line": 7.5,
-    "odds": -118,
+    "odds": -112,
     "p": 0.515,
-    "win_p": 0.231,
+    "win_p": 0.515,
     "reasons": [
-     "revenge game",
-     "opponent missing key players",
      "opponent drama: legal trouble"
-    ]
+    ],
+    "result": null
    }
   },
   {
