@@ -4942,5 +4942,59 @@
   "score": "26-19",
   "margin": 7.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-19",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892535",
+  "team": "Rangers",
+  "opp": "Ducks",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -142,
+  "posted": "2026-10-19T15:00Z",
+  "price_says": 0.587,
+  "win_p": 0.5621610134800156,
+  "own_read": 0.531,
+  "weighed": 0.5309,
+  "dog_p": null,
+  "edge_own": -0.04834979030612885,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": [
+   "rec:0",
+   "cold:3",
+   "better:3",
+   "G_hot:1",
+   "cx_trip:2",
+   "home:2",
+   "healthy:2",
+   "sharp:3",
+   "splits_w:2",
+   "bottom_c:0",
+   "w_better:1",
+   "k_trip:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -155,
+  "beat_close_pts": 2.1,
+  "result": "won",
+  "score": "5-2",
+  "margin": 3.0,
+  "pnl_units": 0.0
  }
 ]

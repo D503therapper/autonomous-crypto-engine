@@ -185,8 +185,14 @@
    "streak": 1,
    "strength": 1.99,
    "trend": "road team wins",
-   "upcoming": [],
-   "upcoming_names": [],
+   "upcoming": [
+    "nhl:401892564",
+    "nhl:401892565"
+   ],
+   "upcoming_names": [
+    "Canadiens @ Blackhawks",
+    "Lightning @ Avalanche"
+   ],
    "verdict": "coin flip"
   },
   {
@@ -243,14 +249,8 @@
    "streak": 5,
    "strength": 1.75,
    "trend": "underdogs win",
-   "upcoming": [
-    "mlb:401908028",
-    "mlb:401908036"
-   ],
-   "upcoming_names": [
-    "Guardians @ Rays",
-    "Dodgers @ Brewers"
-   ],
+   "upcoming": [],
+   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -268,16 +268,12 @@
    "strength": 1.67,
    "trend": "underdogs cover",
    "upcoming": [
-    "nfl:401873008",
     "nfl:401873014",
-    "nfl:401873016",
-    "nfl:401873021"
+    "nfl:401873016"
    ],
    "upcoming_names": [
-    "Commanders @ 49ers",
     "Colts @ Vikings",
-    "Giants @ Texans",
-    "Rams @ Raiders"
+    "Giants @ Texans"
    ],
    "verdict": "coin flip"
   },
@@ -394,20 +390,76 @@
    "strength": 1.47,
    "trend": "favorites win",
    "upcoming": [
-    "nhl:401892539",
     "nhl:401892540",
     "nhl:401892541",
-    "nhl:401892543",
     "nhl:401892554",
     "nhl:401892556"
    ],
    "upcoming_names": [
-    "Sharks @ Canadiens",
     "Avalanche @ Devils",
     "Ducks @ Islanders",
-    "Maple Leafs @ Blue Jackets",
     "Sharks @ Senators",
     "Panthers @ Penguins"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "total",
+   "price_said": 4.0,
+   "record": "6-2",
+   "season": 2026,
+   "side": 0,
+   "situation": "monday",
+   "streak": 1,
+   "strength": 1.41,
+   "trend": "under",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 54.3,
+   "record": "60-32",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 3,
+   "strength": 1.21,
+   "trend": "favorites win",
+   "upcoming": [
+    "nhl:401892539",
+    "nhl:401892541",
+    "nhl:401892542",
+    "nhl:401892543",
+    "nhl:401892544",
+    "nhl:401892545",
+    "nhl:401892546",
+    "nhl:401892547",
+    "nhl:401892549",
+    "nhl:401892550",
+    "nhl:401892551"
+   ],
+   "upcoming_names": [
+    "Sharks @ Canadiens",
+    "Ducks @ Islanders",
+    "Kings @ Capitals",
+    "Maple Leafs @ Blue Jackets",
+    "Jets @ Blues",
+    "Bruins @ Stars",
+    "Wild @ Oilers",
+    "Red Wings @ Kraken",
+    "Lightning @ Golden Knights",
+    "Flyers @ Sabres",
+    "Panthers @ Senators"
    ],
    "verdict": "coin flip"
   },
@@ -475,6 +527,24 @@
    "upcoming_names": [
     "Hurricanes @ Canucks"
    ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "home",
+   "price_said": 4.9,
+   "record": "6-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "monday",
+   "streak": 3,
+   "strength": 0.78,
+   "trend": "home team wins",
+   "upcoming": [],
+   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -576,6 +646,24 @@
    "situation": "sunday",
    "streak": 0,
    "strength": 0.53,
+   "trend": "favorites win",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 5.2,
+   "record": "6-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "monday",
+   "streak": 0,
+   "strength": 0.52,
    "trend": "favorites win",
    "upcoming": [],
    "upcoming_names": [],
@@ -960,16 +1048,12 @@
    "strength": -0.92,
    "trend": "favorites win",
    "upcoming": [
-    "nfl:401873008",
     "nfl:401873014",
-    "nfl:401873016",
-    "nfl:401873021"
+    "nfl:401873016"
    ],
    "upcoming_names": [
-    "Commanders @ 49ers",
     "Colts @ Vikings",
-    "Giants @ Texans",
-    "Rams @ Raiders"
+    "Giants @ Texans"
    ],
    "verdict": "coin flip"
   },
@@ -2231,5 +2315,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-19T22:21Z"
+ "updated": "2026-10-20T01:58Z"
 }
