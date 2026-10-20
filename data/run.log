@@ -21069,3 +21069,13 @@ DEX: $884.88 (-115.12) · Scammed: 0
 [2026-10-20 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
 [2026-10-20 13:06 UTC] crypto/hold_btc  equity $485.65 (-2.9%) 1 open  market DOWN
    social heat top: PENGU 47 (35/0/12), BTC 29 (29/0/0), CARDS 29 (19/0/10), WLD 27 (27/0/0), NEAR 21 (21/0/0)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #47 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex screen: REJECT NODF@solana liq $1,410,057 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: PASS CATE@solana liq $2,785,098
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT COMPOSE@base liq $438,797 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; lp locked 0% < 95%
+   dex screen: REJECT EURC@ethereum liq $3,061,117 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%
+   dex screen: REJECT BORDR@solana liq $152,545 - lp holders unknown; rugcheck lp locked 21% < 95%
+   dex screen: REJECT AMZNC@base liq $18,145 - liquidity $18,145 < $100,000; 24h volume $4,001 < $100,000
+   dex screen: REJECT CHEAT.SH@base liq $716,415 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT NVDAC@base liq $1,299,054 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 79%; lp locked 0% < 95%
