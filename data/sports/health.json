@@ -1,11 +1,11 @@
 {
- "at": "2026-10-20T04:35Z",
+ "at": "2026-10-20T04:36Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (49s)",
+  "live watcher fresh (87s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 2 live matches",
@@ -19,12 +19,19 @@
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 6h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T04:36Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-20T04:35Z",
    "fixes": [
@@ -464,15 +471,6 @@
    "problems": [
     "live tennis scores: tennis Samson vs Geerlings: no points for 1214s",
     "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1477s"
-   ]
-  },
-  {
-   "at": "2026-10-18T06:57Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Dart vs Ito: no points for 2622s",
-    "live tennis scores: tennis Korneeva vs Han: no points for 2622s",
-    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1460s"
    ]
   }
  ]
