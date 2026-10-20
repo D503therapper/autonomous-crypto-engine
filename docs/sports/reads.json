@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T21:30Z",
+ "updated": "2026-10-20T22:06Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -11,8 +11,8 @@
    "away": "Celtics",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -22,7 +22,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.56,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -38,9 +38,9 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team"
     ]
@@ -159,7 +159,7 @@
     "opp": "MTSU",
     "market": "spread",
     "line": -10.0,
-    "odds": -112,
+    "odds": -115,
     "p": 0.5,
     "win_p": 0.76,
     "reasons": [
@@ -384,7 +384,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.489,
+    "p": 0.494,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -400,9 +400,9 @@
     "opp": "Spurs",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -118,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -492,7 +492,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
+    "odds": -270,
     "p": 0.721,
     "win_p": 0.508,
     "reasons": [
@@ -669,14 +669,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Senators",
+    "team": "Senators",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.725,
-    "win_p": 0.512,
-    "reasons": []
+    "odds": -270,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -746,7 +748,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.5,
+    "p": 0.507,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -762,9 +764,9 @@
     "opp": "Sam Houston",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.52,
-    "win_p": 0.52,
+    "odds": -148,
+    "p": 0.529,
+    "win_p": 0.529,
     "reasons": [
      "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
