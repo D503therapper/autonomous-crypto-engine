@@ -308,7 +308,10 @@ DEX = {
     # EXPERIMENT 15 (10-19): at 5x sell 80%, the last 20% rides with no clock (the moon ticket). dex_lottery_study,
     # 156 scanner pools that met the fresh-pump entry: 13% touched 5x within 7 days but holding lost 45% per $1;
     # 80% at 5x -9.9% (halves -14.9 / -4.8), sell all at 5x -1.1% - better than holding in both halves.
-    "exit": {"trail": 1.0, "tp1": (4.0, 0.8), "ladder": [], "trail_steps": [],
+    # EXPERIMENT 17 (10-20, STARTUPSI 3.15x -> 0.09x): once a coin has reached 3x, sell it all on a 40% drop from its
+    # high. dex_lottery_study re-run (3.5 weeks, the 110 non-pump.fun fresh pumps, with 80% at 5x): +12.6% vs +6.4%
+    # per $1 (halves +0.9 / +24.2 vs +1.2 / +11.7); all 157: -0.9% vs -10.8% (-11.9 / +10.0 vs -14.9 / -6.8).
+    "exit": {"trail": 1.0, "tp1": (4.0, 0.8), "ladder": [], "trail_steps": [(3.0, 0.40)],
              # EXPERIMENT 4 (2026-09-29): 7-day hold (was 14). The account sat frozen with $8 cash and 4 coins
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock

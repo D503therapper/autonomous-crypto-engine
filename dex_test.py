@@ -780,10 +780,20 @@ def test_live_five_x_take_profit():
     pos = h.pf.positions[K]
     assert pos["tp1"] and abs(pos["qty"] - q0 * 0.2) < 1e-9, pos["qty"] / q0
     assert "take-profit +400%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
-    poll(h, T0 + 9 * DAY, px, v=0.02)                                       # past the 7-day clock: still riding
+    poll(h, T0 + 9 * DAY, px, v=0.04)                                       # past the 7-day clock: still riding
     assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * 0.2) < 1e-9
     shutil.rmtree(d)
-    print("  live exit: 80% at 5x, the last 20% rides with no clock   ok")
+    h, fetch, d, px = held()                                                # EXPERIMENT 17: 3x then -40% -> out
+    h.p = dict(h.p, exit=dex.DEX["exit"])
+    t = poll(h, T0 + 6000, px, v=0.031)
+    t = poll(h, t, px, v=0.0315)
+    assert K in h.pf.positions
+    t = poll(h, t + 200_000, px, v=0.018)
+    t = poll(h, t + 200_000, px, v=0.018)
+    t = poll(h, t + 200_000, px, v=0.018)
+    assert K not in h.pf.positions and "trailing stop" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
+    shutil.rmtree(d)
+    print("  live exit: 80% at 5x, the last 20% rides with no clock; after 3x a 40% drop sells   ok")
 
 
 def test_fresh_pump_skips_pump_fun():
