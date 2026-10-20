@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-20T06:32Z",
+ "updated": "2026-10-20T07:37Z",
  "games": [
-  {
-   "id": "tennis:atp:184997",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-20T08:00Z",
-   "away": "Aleksandar Kovacevic",
-   "home": "Stefanos Tsitsipas",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Aleksandar Kovacevic",
-    "opp": "Stefanos Tsitsipas",
-    "market": "spread",
-    "line": 3.5,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.225,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:185530",
    "league": "tennis",
@@ -50,6 +24,32 @@
     "reasons": [
      "on hard court",
      "BNB Ningbo Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184997",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-20T08:10Z",
+   "away": "Aleksandar Kovacevic",
+   "home": "Stefanos Tsitsipas",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Aleksandar Kovacevic",
+    "opp": "Stefanos Tsitsipas",
+    "market": "spread",
+    "line": 3.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.225,
+    "reasons": [
+     "on hard court",
+     "Almaty Open"
     ]
    }
   },
@@ -522,110 +522,6 @@
    }
   },
   {
-   "id": "tennis:atp:184993",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T04:00Z",
-   "away": "Adrian Mannarino",
-   "home": "Andrey Rublev",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Adrian Mannarino",
-    "opp": "Andrey Rublev",
-    "market": "spread",
-    "line": 4.5,
-    "odds": -145,
-    "p": 0.554,
-    "win_p": 0.214,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:184998",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T04:00Z",
-   "away": "Luciano Darderi",
-   "home": "James Duckworth",
-   "vs": true,
-   "why": "tight",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Luciano Darderi",
-    "opp": "James Duckworth",
-    "market": "ml",
-    "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:185006",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T04:00Z",
-   "away": "Nikoloz Basilashvili",
-   "home": "Facundo Diaz Acosta",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Nikoloz Basilashvili",
-    "opp": "Facundo Diaz Acosta",
-    "market": "ml",
-    "line": null,
-    "odds": -200,
-    "p": 0.639,
-    "win_p": 0.639,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:185009",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T04:00Z",
-   "away": "Mattia Bellucci",
-   "home": "Tomas Martin Etcheverry",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Mattia Bellucci",
-    "opp": "Tomas Martin Etcheverry",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
    "id": "tennis:atp:185040",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -804,6 +700,58 @@
     "reasons": [
      "on hard court",
      "Kinoshita Group Japan Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184998",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-21T06:30Z",
+   "away": "Luciano Darderi",
+   "home": "James Duckworth",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Luciano Darderi",
+    "opp": "James Duckworth",
+    "market": "ml",
+    "line": null,
+    "odds": -140,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "on hard court",
+     "Almaty Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185009",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-21T06:30Z",
+   "away": "Mattia Bellucci",
+   "home": "Tomas Martin Etcheverry",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Mattia Bellucci",
+    "opp": "Tomas Martin Etcheverry",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
+    "reasons": [
+     "on hard court",
+     "Almaty Open"
     ]
    }
   }
