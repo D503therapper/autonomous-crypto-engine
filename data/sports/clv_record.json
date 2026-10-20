@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 90,
-  "beat": 29,
+  "n": 91,
+  "beat": 30,
   "same": 32,
   "worse": 29,
-  "avg_pts": 0.12
+  "avg_pts": 0.13
  },
  "unit_plays": {
   "n": 42,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 48,
-   "beat": 15,
+   "n": 49,
+   "beat": 16,
    "same": 14,
    "worse": 19,
-   "avg_pts": -0.08
+   "avg_pts": -0.05
   },
   "lock": {
    "n": 11,
@@ -59,11 +59,11 @@
    "avg_pts": 0.4
   },
   "nfl": {
-   "n": 14,
-   "beat": 3,
+   "n": 15,
+   "beat": 4,
    "same": 6,
    "worse": 5,
-   "avg_pts": -0.28
+   "avg_pts": -0.17
   },
   "nhl": {
    "n": 36,
@@ -1349,6 +1349,20 @@
    "pts": 0.0,
    "units": 1.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-19",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Commanders",
+   "market": "spread",
+   "line": 7.5,
+   "odds": -112,
+   "close": -118,
+   "pts": 1.3,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-19",
