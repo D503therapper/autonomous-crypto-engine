@@ -1,30 +1,38 @@
 {
- "at": "2026-10-19T23:16Z",
+ "at": "2026-10-20T00:43Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (45s)",
+  "live watcher fresh (224s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "all 2 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 48 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T00:43Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-19T23:16Z",
    "fixes": [],
@@ -477,11 +485,6 @@
     "live tennis scores: tennis Jones vs Preston: no points for 217s",
     "live tennis scores: tennis Ishii vs Stoiana: no points for 217s"
    ]
-  },
-  {
-   "at": "2026-10-18T01:34Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
