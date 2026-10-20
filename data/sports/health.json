@@ -1,28 +1,32 @@
 {
- "at": "2026-10-20T09:55Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-19 Jasmine Paolini) - sports.yml already running"
- ],
+ "at": "2026-10-20T10:27Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (112s)",
+  "live watcher fresh (22s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
+  "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 2 min ago",
+  "engine ran 34 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-20T10:27Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-20T09:55Z",
    "fixes": [
@@ -454,11 +458,6 @@
    "problems": [
     "live tennis scores: tennis Salkova vs Andreescu: no points for 494s"
    ]
-  },
-  {
-   "at": "2026-10-18T11:46Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
