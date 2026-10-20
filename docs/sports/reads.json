@@ -1,6 +1,21 @@
 {
- "updated": "2026-10-20T19:02Z",
+ "updated": "2026-10-20T19:47Z",
  "games": [
+  {
+   "id": "nba:401909088",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-20T19:00Z",
+   "away": "Celtics",
+   "home": "Pistons",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "nba:401909089",
    "league": "nba",
@@ -488,7 +503,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.574,
+    "p": 0.535,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -505,8 +520,8 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
+    "p": 0.58,
+    "win_p": 0.58,
     "reasons": []
    }
   },
@@ -516,8 +531,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.53,
-    "tie": 0.036,
+    "p": 0.524,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -532,9 +547,9 @@
     "opp": "Hawks",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team"
     ]
@@ -608,8 +623,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nets",
-    "p": 0.53,
-    "tie": 0.036,
+    "p": 0.506,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -617,7 +632,7 @@
    "start": "2026-10-21T23:30Z",
    "away": "Hornets",
    "home": "Nets",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Nets",
@@ -625,8 +640,8 @@
     "market": "ml",
     "line": null,
     "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "p": 0.537,
+    "win_p": 0.537,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -668,7 +683,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.488,
+    "p": 0.493,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -685,9 +700,11 @@
     "market": "ml",
     "line": null,
     "odds": -118,
-    "p": 0.509,
-    "win_p": 0.509,
-    "reasons": []
+    "p": 0.517,
+    "win_p": 0.517,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -696,7 +713,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.488,
+    "p": 0.494,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -713,8 +730,8 @@
     "market": "ml",
     "line": null,
     "odds": -118,
-    "p": 0.509,
-    "win_p": 0.509,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -758,7 +775,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.544,
+    "p": 0.529,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -767,7 +784,7 @@
    "start": "2026-10-22T00:00Z",
    "away": "Pacers",
    "home": "Pelicans",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Pacers",
@@ -775,8 +792,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "p": 0.539,
+    "win_p": 0.539,
     "reasons": []
    }
   },
@@ -817,8 +834,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.548,
-    "tie": 0.036,
+    "p": 0.524,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -826,7 +843,7 @@
    "start": "2026-10-22T02:00Z",
    "away": "Suns",
    "home": "Trail Blazers",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Trail Blazers",
@@ -834,11 +851,9 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
-    "reasons": [
-     "the stronger team"
-    ]
+    "p": 0.564,
+    "win_p": 0.564,
+    "reasons": []
    }
   },
   {
@@ -878,7 +893,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clippers",
-    "p": 0.57,
+    "p": 0.575,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -895,8 +910,8 @@
     "market": "ml",
     "line": null,
     "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"

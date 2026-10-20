@@ -21417,3 +21417,51 @@ $BITF: No data found, symbol may be delisted
 [2026-10-20 19:08 UTC] stocks/trend     equity $479.88 (-4.0%) 3 open  market UP
 [2026-10-20 19:08 UTC] stocks/hold_spy  equity $500.04 (+0.0%) 1 open  market UP
    social heat top: PENGU 48 (37/0/10), CARDS 36 (27/0/10), AERO 35 (35/0/0), VVV 31 (29/0/2), WLD 30 (21/0/9)
+   footprint: XRP: footprint 3/4 (drift+quiet+hikes) 48h +5.1%, 2 volume hikes, 73% quiet hours @ 1.3227
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +5.0%, 2 volume hikes, 79% quiet hours @ 105.75
+   dex screen: PASS MONEYBIZ@solana liq $107,040
+   dex screen: PASS DARK@solana liq $143,263
+   dex re-screen: CLAUDIA@ethereum:0xd58813 data flag #1 (honeypot.is: no data); holding (experiment 10)
+   dex screen: REJECT GATO@ethereum liq $106,475 - honeypot (HONEYPOT DETECTED)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #59 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   >> dex/dex_hunter: BUY $19.89 of DARK@solana:7KEPApdb @ 0.001436 (dex tier A both 1h +27% 6h +50% buys/sells 279/229 impact 0.01%)
+   dex scanner: bought DARK@solana on a refresh (1h +27%, buys/sells 279/229)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 0 | dexscreener 200 | geckoterminal 200
+[2026-10-20 19:20 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 19:20 UTC] crypto/mover     equity $282.16 (-43.6%) 2 open  market UP
+[2026-10-20 19:20 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 19:20 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 19:20 UTC] crypto/social_heat equity $429.34 (-14.1%) 1 open  market UP
+[2026-10-20 19:20 UTC] crypto/breakout10 equity $462.66 (-7.5%) 2 open  market UP
+[2026-10-20 19:20 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 19:20 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 19:20 UTC] crypto/hold_btc  equity $491.37 (-1.7%) 1 open  market UP
+
+1 Failed download:
+['TLT']: OperationalError('database is locked')
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$BITF: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA', 'BITF']: No data found, symbol may be delisted
+[2026-10-20 19:20 UTC] stocks/rsi2      equity $496.03 (-0.8%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): META 8 BUY, XLI 14, MSTR 18, COIN 21
+[2026-10-20 19:20 UTC] stocks/breakout52 equity $499.75 (-0.1%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-10-20 19:20 UTC] stocks/dual_momentum equity $479.54 (-4.1%) 2 open  market UP
+[2026-10-20 19:20 UTC] stocks/trend_ensemble equity $492.21 (-1.6%) 5 open  market UP
+[2026-10-20 19:20 UTC] stocks/rotation10 equity $513.79 (+2.8%) 2 open  market UP
+[2026-10-20 19:20 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market UP
+[2026-10-20 19:20 UTC] stocks/trend     equity $480.15 (-4.0%) 3 open  market UP
+[2026-10-20 19:20 UTC] stocks/hold_spy  equity $499.77 (-0.0%) 1 open  market UP
+   social heat top: PENGU 48 (37/0/10), AERO 34 (32/0/2), CARDS 32 (21/0/10), BTC 29 (29/0/0), VVV 28 (27/0/2)
