@@ -5,26 +5,33 @@
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (87s)",
+  "live watcher fresh (117s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 2 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 6 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 6h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T04:36Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-20T04:36Z",
    "fixes": [
@@ -464,14 +471,6 @@
    "at": "2026-10-18T08:30Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-18T08:28Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samson vs Geerlings: no points for 1214s",
-    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1477s"
-   ]
   }
  ]
 }
