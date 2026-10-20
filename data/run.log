@@ -21236,3 +21236,52 @@ $BITF: No data found, symbol may be delisted
 [2026-10-20 15:08 UTC] stocks/trend     equity $483.26 (-3.3%) 3 open  market UP
 [2026-10-20 15:08 UTC] stocks/hold_spy  equity $501.33 (+0.3%) 1 open  market UP
    social heat top: CARDS 35 (27/0/9), BTC 32 (32/0/0), VVV 31 (21/0/10), SUI 29 (29/0/0), WLD 24 (24/0/0)
+   dex screen: REJECT SPX@solana liq $2,115,557 - mint authority
+   dex screen: PASS CYBERLEEK@solana liq $516,750
+   dex screen: REJECT DRV@base liq $1,254,002 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT MSETH@base liq $2,590,107 - 24h volume $4,787 < $100,000
+   dex screen: REJECT REUSD@ethereum liq $453,465 - 24h volume $9,383 < $100,000
+   dex screen: PASS TIBBIR@base liq $3,483,998
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #51 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex screen: REJECT ZC@ethereum liq $194,488 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT MSTRC@base liq $11,723 - liquidity $11,723 < $100,000; 24h volume $4,979 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT HOTBOT@solana liq $239,395 - lp holders unknown; rugcheck lp locked 39% < 95%
+   listings: coinbase failed (1x, retry in 30s): HTTPError: HTTP Error 503: Service Unavailable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: CLAUDIA@ethereum:0xd58813 data flag #1 (honeypot.is: no data); holding (experiment 10)
+   dex screen: REJECT $WIF@solana liq $154,414 - top-10 holders 44%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #52 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex screen: PASS USELESS@solana liq $4,058,069
+   dex scanner: 3,002 pools (solana 2,237 / base 452 / ethereum 313), refresh cycle 149s (hot 146s), 2508 calls (102 feed, 429s 0, failed 0), 72,176 refreshed (2397 no pair), +103 added / -101 dropped (dead 17, stale 0, cap 84), movers 0 + warming 15 -> queued 1, screened 1 (passed 0), bought 0
+   dex screen: REJECT CYBERLEEK@solana liq $779,156,373 - top-10 holders 100%; lp holders unknown
+[2026-10-20 16:09 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 16:09 UTC] crypto/mover     equity $279.62 (-44.1%) 2 open  market UP
+[2026-10-20 16:09 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 16:09 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 16:09 UTC] crypto/social_heat equity $424.65 (-15.1%) 1 open  market UP
+[2026-10-20 16:09 UTC] crypto/breakout10 equity $463.15 (-7.4%) 2 open  market UP
+[2026-10-20 16:09 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 16:09 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 16:09 UTC] crypto/hold_btc  equity $491.81 (-1.6%) 1 open  market UP
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA', 'BITF']: No data found, symbol may be delisted
+[2026-10-20 16:09 UTC] stocks/rsi2      equity $498.09 (-0.4%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): META 8 BUY, XLI 14, MSTR 18 BUY, COIN 21
+[2026-10-20 16:09 UTC] stocks/breakout52 equity $495.69 (-0.9%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-10-20 16:09 UTC] stocks/dual_momentum equity $480.26 (-3.9%) 2 open  market UP
+[2026-10-20 16:09 UTC] stocks/trend_ensemble equity $493.33 (-1.3%) 5 open  market UP
+[2026-10-20 16:09 UTC] stocks/rotation10 equity $516.41 (+3.3%) 2 open  market UP
+[2026-10-20 16:09 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market UP
+[2026-10-20 16:09 UTC] stocks/trend     equity $482.23 (-3.6%) 3 open  market UP
+[2026-10-20 16:09 UTC] stocks/hold_spy  equity $500.37 (+0.1%) 1 open  market UP
+   social heat top: AERO 42 (37/0/4), BTC 40 (32/0/8), CARDS 37 (27/0/10), WLD 35 (35/0/0), STONK 30 (16/0/14)
