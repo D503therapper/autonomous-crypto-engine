@@ -308,10 +308,20 @@ def waiting_on(g, injuries, maybe=True):
     for side in ("away", "home"):
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
                 for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=maybe)[:2]]
+    if g["league"] == "nba" and inj is not None and maybe:   # 🏀 (10/20) a rotation man still a game-time decision in
+        try:                                                 # the roster read: the unit play waits for news
+            cur = sports_nba_roster.cached()
+            for side in ("away", "home"):
+                for name in ((cur or {}).get("flags") or {}).get(str(g[side]), {}).get("game_time") or []:
+                    if not any(name in x for x in out):
+                        out.append(f"{name} game-time decision")
+        except Exception:                                    # noqa: BLE001
+            pass
     return out
 
 
 import sports_absences  # noqa: E402
+import sports_nba_roster  # noqa: E402   (🏀 the roster-aware NBA prior - the owner, 10/20)
 import sports_lines  # noqa: E402
 
 LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
@@ -455,6 +465,14 @@ def candidates(games, model, now=None, day=None, injuries=None):
         f = elo[lg].features(g)
         if f["known"] < MIN_KNOWN:
             continue
+        roster_read = False
+        if lg == "nba":                              # 🏀 the roster prior (10/20): tonight's men at last season's value,
+            try:                                     # blended into the carried Elo over the first 10 games
+                cur = sports_nba_roster.current(games, (injuries or {}).get("nba"), now)
+                f, roster_read = sports_nba_roster.adjust(f, g, elo[lg], cur, season_games(games, g, "home"),
+                                                          season_games(games, g, "away"))
+            except Exception as e:                   # noqa: BLE001 - never blocks the board: the Elo + the market pull
+                print(f"nba roster read failed: {str(e)[:80]}")
         mkt = sm.market_p(g)
         mkt_open = sm.market_p(g, open_line=True)
         if lg in STALE_OPEN:                         # (10/1 audit) a football "open" is the summer look-ahead line, so
@@ -472,7 +490,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
         # (proven on games it never saw), every read is shifted by it
         ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
-        ew = early_trust(games, g)                    # 🏀 opening weeks: last season's ratings know nothing of the summer
+        ew = early_trust(games, g, roster_read)       # 🏀 opening weeks: last season's ratings know nothing of the summer
         if ew < 1 and mkt is not None:                # (10/20 - the 76ers with LeBron read 26% off last year's team)
             ph, ph_own = early_shrink(ph, mkt, ew), early_shrink(ph_own, mkt, ew)
         # 🚑 a missing key player moves the engine's OWN read (the 10/2 absence studies - sports_absences: NFL QB -8 /
@@ -1155,20 +1173,25 @@ OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog s
 
 NBA_HOME_DOG_GAMES, NBA_HOME_DOG_BAND, NBA_HOME_DOG_W = (6, 20), (100, 200), 2
 EARLY_TRUST_LEAGUES, EARLY_TRUST_GAMES = ("nba", "ncaab"), 10
+EARLY_TRUST_ROSTER = 0.5       # with the roster prior in the read (NBA, 10/20) the pull is softer: half the own read
+#                                at game 0 (the prior read games 1-5 at 0.638 log loss vs the market's 0.630 - close,
+#                                not there), all of it by 10 games
 
 
-def early_trust(games, g):
+def early_trust(games, g, roster=False):
     """How much of the engine's own read to trust in a hoops season's opening weeks: 0 before either team has played,
     1 once both have EARLY_TRUST_GAMES regular-season games. (10/20, NBA opening night: the ratings are last season's
     results regressed 1/3 - no rosters - so the engine read the 76ers with LeBron at 26% vs the market's 38%, called
     itself 'fighting' the line and passed on every team that got better over the summer. The 10/20 study: Elo never
-    beats the close in games 1-20.) Other sports: 1."""
+    beats the close in games 1-20.) roster=True (the NBA roster prior is in the read, sports_nba_roster): the pull
+    starts at EARLY_TRUST_ROSTER instead of 0. Other sports: 1."""
     if g.get("league") not in EARLY_TRUST_LEAGUES:
         return 1.0
     n = [season_games(games, g, s_) for s_ in ("home", "away")]
     if any(x is None for x in n):
         return 1.0
-    return min(1.0, min(n) / EARLY_TRUST_GAMES)
+    w = min(1.0, min(n) / EARLY_TRUST_GAMES)
+    return EARLY_TRUST_ROSTER + (1 - EARLY_TRUST_ROSTER) * w if roster else w
 
 
 def early_shrink(p, mkt, w):
@@ -3382,6 +3405,13 @@ def post_board(games, model, picks, now, day, force=False):
             line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
             if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
                 leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
+            if leg["league"] == "nba":                              # 🏀 the roster read's facts (bench, depth, form,
+                try:                                                # a minutes limit) - the owner, 10/20
+                    rl = sports_nba_roster.card_line(g, leg["side"], sports_nba_roster.cached())
+                except Exception:                                   # noqa: BLE001
+                    rl = ""
+                if rl and not any(str(x).startswith("🏀 ") for x in leg.get("breakdown") or []):
+                    leg["breakdown"] = list(leg.get("breakdown") or []) + [rl]
             try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
                 net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or []) if GOALIE_CARD else ""
             except Exception:                                   # noqa: BLE001
@@ -4024,6 +4054,14 @@ def run(repick=False, fetch=True):
             sports_goalies.sync(games, now)              # Faceoff, a public page) - fails soft: unknown = no weight
         except Exception as e:                           # noqa: BLE001 - never blocks the board
             print(f"goalies failed: {str(e)[:60]}")
+        try:                                             # 🏀 every NBA roster, once a day (the owner, 10/20: "who's
+            ro = sports_nba_roster.refresh(games, now)   # playing, who the teams traded and who they got") - fails soft
+            mv = (ro or {}).get("moves") or []
+            print(f"nba rosters: {len((ro or {}).get('teams') or {})} teams as of {(ro or {}).get('day')}, "
+                  f"{(ro or {}).get('fails', 0)} failed, {len(mv)} moves" + (": " + "; ".join(
+                      f"{m['player']} {m['from']}->{m['to']}" for m in mv[:6]) if mv else ""))
+        except Exception as e:                           # noqa: BLE001 - never blocks the board
+            print(f"nba rosters failed: {str(e)[:60]}")
     else:
         games = sd.load_games()
     sp.CACHE = sp.load()

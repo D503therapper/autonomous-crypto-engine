@@ -11848,6 +11848,233 @@ def test_a_gap_play_is_never_upgraded_to_the_dog_and_cards_never_say_a_win_pct()
     assert sports.upgrade_dog(picks, "2026-10-17", now) is None and dog["kind"] == "dog" and gap["kind"] == "play"
     assert ol.SHOW_PCT_OVER >= 100 and "_ol.SHOW_PCT_OVER / 100" in inspect.getsource(v24)
 
+
+
+def _pname(t, i):
+    """A fixture player's name, letters only (the name normalizer drops digits): team 'A' man 0 -> 'Player Ab A'."""
+    return "Player " + "".join(chr(97 + int(c)) if c.isdigit() else c for c in str(t)) + "b " + "ABCDEFGHIJKL"[i]
+
+
+def _nba_box(gid, start, team, players, starters=5):
+    """Fixture box-score rows: players = [(pid, name, minutes, plus-minus)]."""
+    return [{"gid": gid, "start": start, "team": str(team), "pid": str(pid), "player": name, "pos": "G", "group": "",
+             "starter": "1" if i < starters else "0",
+             "stats": json.dumps({"minutes": str(m), "points": "10", "fieldGoalsMade-fieldGoalsAttempted": "4-9",
+                                  "rebounds": "4", "assists": "3", "plusMinus": f"{pm:+d}"})}
+            for i, (pid, name, m, pm) in enumerate(players)]
+
+
+def _nba_season_rows(team_pm):
+    """A fixture season: each team's 10 men play 20 games at fixed minutes; team_pm = {team: the stars' +/- a game}."""
+    rows = []
+    for t, pm in team_pm.items():
+        for k in range(20):
+            start = f"2025-11-{k + 1:02d}T00:00Z"
+            men = [(f"{t}{i}", _pname(t, i), [36, 34, 32, 30, 28, 20, 16, 14, 12, 8][i],
+                    [pm, pm, pm - 2, pm - 4, pm - 4, -pm // 2, -pm // 2, -2, -4, -6][i]) for i in range(10)]
+            rows += _nba_box(f"nba:{t}{k}", start, t, men)
+    return rows
+
+
+def test_nba_roster_prior_player_values_and_lineup_math():
+    """10/20 (the owner: "with LeBron, Embiid, Maxey, Edgecombe this don't make no sense" / "the BENCH matters"): the
+    roster prior's pieces. (1) A player's value = his plus-minus a minute over the replacement rate, at his minutes; a
+    man under 15 games gets no rate of his own. (2) A star out: his minutes go to the NEXT MEN UP at THEIR value - a deep
+    bench barely drops, a thin one drops a lot; flat subtraction is not what we do. (3) The injury status weighs him:
+    probable plays (0.95), questionable half, doubtful a quarter, out none; a 'questionable but expected to play' note =
+    playing; a minutes restriction caps him at 22. (4) Bench strength is the men 6-10's value a 48 minutes."""
+    import sports_nba_roster as nr
+    rows = _nba_season_rows({"A": 10, "B": 2})
+    rows += _nba_box("nba:R1", "2025-11-21T00:00Z", "A", [("rook", "Rook Ie", 30, 20)])   # one game: no rate of his own
+    vals = nr.player_values(rows)
+    assert vals["players"]["A0"]["games"] == 20 and abs(vals["players"]["A0"]["mpg"] - 36) < 1e-9
+    assert abs(vals["players"]["A0"]["rate"] - 10 / 36) < 1e-3 and vals["players"]["rook"]["rate"] is None
+    assert vals["players"]["A0"]["team"] == "A" and vals["repl"] <= vals["players"]["A0"]["rate"]
+    roster_a = [{"pid": f"A{i}", "name": _pname("A", i)} for i in range(10)]
+    healthy = nr.team_strength(roster_a, vals)
+    star = nr._nm(_pname("A", 0))
+    out = nr.team_strength(roster_a, vals, {star: (0.0, None)})
+    half = nr.team_strength(roster_a, vals, {star: (0.5, None)})
+    capped = nr.team_strength(roster_a, vals, {star: (1.0, 22.0)})
+    assert out < half < healthy and out < capped < healthy
+    # the bench: team A's next men up (negative plus-minus) vs a deep team whose 11th-12th men are solid
+    deep = roster_a + [{"pid": f"D{i}", "name": f"Deep {'ZY'[i]}"} for i in range(2)]
+    for i in range(2):
+        vals["players"][f"D{i}"] = {"name": f"Deep {'ZY'[i]}", "mpg": 10.0, "games": 20, "rate": vals["players"]["A2"]["rate"], "team": "A"}
+    thin = roster_a + [{"pid": f"T{i}", "name": f"Thin {'ZY'[i]}"} for i in range(2)]
+    for i in range(2):
+        vals["players"][f"T{i}"] = {"name": f"Thin {'ZY'[i]}", "mpg": 10.0, "games": 20, "rate": vals["repl"] - 0.3, "team": "A"}
+    drop_deep = nr.team_strength(deep, vals) - nr.team_strength(deep, vals, {star: (0.0, None)})
+    drop_thin = nr.team_strength(thin, vals) - nr.team_strength(thin, vals, {star: (0.0, None)})
+    assert drop_thin > drop_deep > 0, (drop_thin, drop_deep)
+    line = {n: m for n, m, _, _ in nr.lineup(deep, vals, {star: (0.0, None)})}
+    assert _pname("A", 0) not in line and line["Deep Y"] > 10.0 and line["Deep Y"] <= nr.NEXT_MAN_MAX + 1e-9   # next man up
+    assert nr.bench_strength(deep, vals) > nr.bench_strength(thin, vals) or nr.bench_strength(deep, vals) == nr.bench_strength(roster_a, vals)
+    assert nr.play_chance("Probable") == 0.95 and nr.play_chance("Questionable") == 0.5 and nr.play_chance("Doubtful") == 0.25
+    assert nr.play_chance("Out") == 0.0 and nr.play_chance("Game-Time Decision") == 0.5
+    assert nr.play_chance("Questionable", "questionable but expected to play") == 0.95
+    assert nr.restricted("He is on a minutes restriction") and not nr.restricted("sore knee")
+    inj = {"A": [(_pname("A", 0), "G", "Questionable"), (_pname("A", 1), "F", "Out")]}
+    notes = {nr._nm(_pname("A", 2)): {"status": "probable", "note": "on a minutes restriction (20-24)"}}
+    ch = nr.tonight(inj, "A", "Team A", roster_a, notes)
+    assert ch[star] == (0.5, None) and ch[nr._nm(_pname("A", 1))] == (0.0, None) and ch[nr._nm(_pname("A", 2))] == (0.95, 22.0)
+    fl = nr.flags(inj, "A", "Team A", roster_a, vals, notes)
+    assert fl["game_time"] == [_pname("A", 0)] and fl["out"] == [_pname("A", 1)] and fl["restricted"] == [_pname("A", 2)]
+
+
+def test_nba_roster_prior_form_scale_blend_and_coach_style():
+    """10/20: (1) a slumping star counts for less - last season's rate blended with his last 10 games (the prior worth
+    20 games), tagged 'slump' / 'hot' only with 100+ recent minutes; (2) strength -> Elo through a scale fitted on last
+    season (a flat read = 0 = no prior); (3) the roster prior carries 0.7 of the rating at game 0 and none by 10;
+    (4) the coach's style numbers: depth (men at 15+), starters' share, pace, rest on back-to-backs; depth sets how many
+    men the minutes spread over (8..11)."""
+    import sports_nba_roster as nr
+    rows = _nba_season_rows({"A": 10, "B": 2})
+    vals = nr.player_values(rows)
+    cold = _nba_box("nba:C1", "2026-10-25T00:00Z", "A", [("A0", _pname("A", 0), 36, -30)]) * 5     # five awful games
+    hot = [{**r, "pid": "B0", "player": _pname("B", 0), "stats": r["stats"].replace("-30", "+30")} for r in cold]
+    v2, form = nr.form_values(vals, cold + hot)
+    assert v2["players"]["A0"]["rate"] < vals["players"]["A0"]["rate"] and v2["players"]["B0"]["rate"] > vals["players"]["B0"]["rate"]
+    assert form["A0"]["tag"] == "slump" and form["B0"]["tag"] == "hot"
+    assert nr.form_values(vals, cold[:1])[1] == {} and nr.form_values(vals, cold[:1])[0]["players"]["A0"] == vals["players"]["A0"]  # 36 min: too little
+    assert nr.fit_scale({"A": 1.0, "B": 1.0, "C": 1.0, "D": 1.0, "E": 1.0}, {"A": 5, "B": 3, "C": 1, "D": -1, "E": -3}) == 0.0
+    sc = nr.fit_scale({"A": 2.0, "B": 1.0, "C": 0.0, "D": -1.0, "E": -2.0}, {"A": 4, "B": 2, "C": 0, "D": -2, "E": -4})
+    assert abs(sc - 2.0) < 1e-9
+    elo = nr.to_elo({"A": 2.0, "B": 0.0}, sc)
+    assert abs(elo["A"] - 1500 - nr.ELO_PER_PT * 2) < 1e-9 and abs(elo["B"] - 1500 + nr.ELO_PER_PT * 2) < 1e-9
+    assert nr.blend_weight(0) == 0.7 and nr.blend_weight(10) == 0.0 and abs(nr.blend(1600, 1500, 5) - 1535) < 1e-9
+    games = {f"nba:A{k}": {"id": f"nba:A{k}", "league": "nba", "home_score": 110 + k, "away_score": 100} for k in range(20)}
+    st = nr.coach_style(rows, games, "A", 2025)
+    assert st["games"] == 20 and st["depth"] == 7.0 and 0.6 < st["starters_share"] < 0.7 and st["pace"] == 219.5
+    assert st["rest_b2b"] == 0.0 and st["rest_other"] == 0.0 and nr.coach_style(rows, games, "Z", 2025) is None
+    assert nr.rotation_depth(st) == 8 and nr.rotation_depth(None) == 10 and nr.rotation_depth({"depth": 12}) == 11
+
+
+def test_nba_rosters_fetch_daily_diff_moves_and_fail_soft():
+    """10/20 (the owner: "a full updated roster on all NBA teams ... who the teams traded and who they got, at all
+    times"): ESPN's roster page parses; the refresh runs once a day, saves per season, records every player who changed
+    teams in nba_moves.json (never twice), keeps the last saved roster for a team whose page fails, and treats a page
+    with under 8 men as broken. The feed's notes (probable men, 'minutes restriction') are kept in sd.INJ_NOTES."""
+    import sports_nba_roster as nr
+    tmp = tempfile.mkdtemp()
+    keep = nr.DIR, nr.MOVES_PATH
+    nr.DIR, nr.MOVES_PATH = tmp, os.path.join(tmp, "nba_moves.json")
+    try:
+        games = {}
+        for t in range(1, 31):
+            games[f"nba:{t}"] = {"id": f"nba:{t}", "league": "nba", "start": "2026-10-21T23:00Z", "stype": "2",
+                                 "status": "pre", "home": str(t), "away": str(31 - t)}
+        assert len(nr.team_ids(games, 2026)) == 30
+        payload = {"athletes": [{"id": "1966", "displayName": "LeBron James", "position": {"abbreviation": "SF"},
+                                 "status": {"type": "active"}}] + [{"id": str(100 + i), "displayName": f"Guy {i}"} for i in range(9)]}
+        assert nr.parse_roster(payload)[0] == {"pid": "1966", "name": "LeBron James", "pos": "SF", "status": "active"}
+        assert nr.parse_roster({"athletes": [{"items": [{"id": "5", "fullName": "A B"}]}]})[0]["name"] == "A B"
+        assert nr.parse_roster({}) == [] and nr.parse_roster({"athletes": ["junk"]}) == []
+        day1 = datetime(2026, 10, 20, 15, 0, tzinfo=timezone.utc)
+
+        def fetch1(url):
+            tid = url.rsplit("/", 2)[-2]
+            if tid == "7":
+                raise OSError("403")
+            men = [{"id": f"{tid}-{i}", "displayName": f"P {tid}-{i}"} for i in range(12)]
+            if tid == "13":
+                men.append({"id": "1966", "displayName": "LeBron James"})       # LeBron a Laker (13) on day 1
+            return {"athletes": men}
+        out = nr.refresh(games, day1, fetch=fetch1)
+        assert out["day"] == "2026-10-20" and len(out["teams"]) == 29 and "7" not in out["teams"] and out["fails"] == 1
+        assert nr.load_rosters(2026)["teams"]["13"][-1]["name"] == "LeBron James" and out["moves"] == []
+        assert nr.refresh(games, day1, fetch=lambda u: 1 / 0) == nr.load_rosters(2026)     # once a day: no second fetch
+
+        def fetch2(url):
+            tid = url.rsplit("/", 2)[-2]
+            if tid == "20":
+                return {"athletes": [{"id": "x", "displayName": "Only Man"}]}                 # a broken page: 1 man
+            men = [{"id": f"{tid}-{i}", "displayName": f"P {tid}-{i}"} for i in range(12)]
+            if tid == "21":
+                men.append({"id": "1966", "displayName": "LeBron James"})       # LeBron to the 76ers (21) on day 2
+            return {"athletes": men}
+        day2 = day1 + timedelta(days=1)
+        out2 = nr.refresh(games, day2, fetch=fetch2)
+        assert out2["day"] == "2026-10-21" and out2["teams"]["20"] == out["teams"]["20"]      # broken page: last saved
+        assert "7" in out2["teams"] and len(out2["teams"]) == 30
+        assert out2["moves"] == [{"player": "LeBron James", "pid": "1966", "from": "13", "to": "21", "seen": "2026-10-21"}]
+        moves = json.load(open(nr.MOVES_PATH))
+        assert len(moves) == 1 and nr.record_moves(out2["moves"]) == 0 and len(json.load(open(nr.MOVES_PATH))) == 1
+        # the prior credits him to his NEW team right away: 76ers' strength up, Lakers' down
+        rows = _nba_season_rows({"13": 6, "21": 0})
+        rows += _nba_box("nba:LBJ", "2025-11-01T00:00Z", "13", [("1966", "LeBron James", 35, 12)]) * 20
+        vals = nr.player_values(rows)
+        teams_then = {"13": [{"pid": f"13{i}", "name": _pname("13", i)} for i in range(10)] + [{"pid": "1966", "name": "LeBron James"}],
+                      "21": [{"pid": f"21{i}", "name": _pname("21", i)} for i in range(10)]}
+        teams_now = {"13": teams_then["13"][:-1], "21": teams_then["21"] + [{"pid": "1966", "name": "LeBron James"}]}
+        assert nr.team_strength(teams_now["21"], vals) > nr.team_strength(teams_then["21"], vals)
+        assert nr.team_strength(teams_now["13"], vals) < nr.team_strength(teams_then["13"], vals)
+    finally:
+        nr.DIR, nr.MOVES_PATH = keep
+    feed = {"injuries": [{"id": "13", "displayName": "Los Angeles Lakers", "injuries": [
+        {"status": "Probable", "athlete": {"displayName": "Luka Doncic", "position": {"abbreviation": "G"}},
+         "longComment": "Doncic is probable but will be on a minutes restriction."},
+        {"status": "Out", "athlete": {"displayName": "Some Guy", "position": {"abbreviation": "C"}}, "shortComment": "knee"}]}]}
+    rows = sd.parse_injuries(feed, "nba")
+    assert [r[0] for r in rows["13"]] == ["Some Guy"]                       # the rows: out / doubtful / questionable only
+    assert sd.INJ_NOTES["nba"]["luka doncic"]["status"] == "probable" and "minutes restriction" in sd.INJ_NOTES["nba"]["luka doncic"]["note"]
+    ch = nr.tonight(rows, "13", "Lakers", [{"pid": "1", "name": "Luka Doncic"}, {"pid": "2", "name": "Some Guy"}], sd.INJ_NOTES["nba"])
+    assert ch["luka doncic"] == (0.95, 22.0) and ch["some guy"] == (0.0, None)
+    sd.INJ_NOTES.pop("nba", None)
+
+
+def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
+    """10/20: with the roster prior the NBA features carry the roster-blended rating (0.7 roster at game 0) and
+    early_trust's pull starts at half instead of the market; no rosters saved = the old full pull (college hoops keeps
+    it). A rotation man still a game-time decision holds a unit play (waiting_on); the card line only says facts with
+    numbers."""
+    import sports_nba_roster as nr
+    import sports_model as sm
+    nr._CUR.clear()
+    g = {"id": "n", "league": "nba", "start": "2026-10-21T23:00Z", "status": "pre", "stype": "2",
+         "home": "21", "away": "18", "home_name": "76ers", "away_name": "Knicks", "ml_home": 155, "ml_away": -185}
+    games = {"n": g}
+    sports._SCHED.clear()
+    assert sports.early_trust(games, g) == 0.0 and sports.early_trust(games, g, roster=True) == 0.5
+    assert sports.early_trust(games, {**g, "league": "ncaab"}, roster=True) == 0.5   # (the flag is only ever set for the NBA)
+    e = sm.Elo(10, 40, "nba")
+    e.r["21"], e.r["18"] = 1400.0, 1600.0
+    f = e.features(g)
+    cur = {"elo": {"21": 1650.0, "18": 1550.0}, "teams": {"21": [{"pid": "1966", "name": "LeBron James"}], "18": []},
+           "bench": {"21": 4.2, "18": 0.5}, "styles": {"21": {"depth": 8.4}, "18": None},
+           "form": {"1966": {"name": "LeBron James", "recent": 9.5, "usual": 3.1, "tag": "hot"}},
+           "flags": {"21": {"game_time": ["Joel Embiid"], "restricted": [], "out": []}, "18": {"game_time": [], "restricted": ["Jalen Brunson"], "out": []}}}
+    f2, ok = nr.adjust(f, g, e, cur, 0, 0)
+    assert ok and f2["p_elo"] > f["p_elo"] and abs(f2["elo_pts"] - (0.7 * 100 + 0.3 * -200 + 40)) < 1e-9
+    f3, ok3 = nr.adjust(f, g, e, cur, 10, 10)
+    assert ok3 and abs(f3["p_elo"] - f["p_elo"]) < 1e-9                   # by game 10 the Elo alone
+    assert nr.adjust(f, g, e, None, 0, 0) == (f, False) and nr.adjust(f, g, e, {"elo": {"21": 1}}, 0, 0) == (f, False)
+    assert nr.adjust(f, g, e, cur, None, 0) == (f, False)
+    nr._CUR[("k",)] = cur
+    try:
+        inj = {"nba": {"21": [], "18": []}}
+        w = sports.waiting_on(g, inj)
+        assert "Joel Embiid game-time decision" in w and sports.waiting_on(g, inj, maybe=False) == []
+        line = nr.card_line(g, "home", cur)
+        assert line.startswith("🏀 76ers:") and "+4.2 a 48 minutes" in line and "8 men 15+ minutes" in line
+        assert "LeBron James hot lately - +9.5 a 48 minutes" in line and "Joel Embiid a game-time decision" in line
+        away = nr.card_line(g, "away", cur)
+        assert "bench" not in away and "Jalen Brunson on a minutes limit" in away      # a 0.5 bench isn't worth a word
+        assert nr.card_line(g, "home", None) == "" and nr.card_line({**g, "home": "99"}, "home", cur) == ""
+    finally:
+        nr._CUR.clear()
+    # no rosters saved for the season = no prior = the engine falls back to the full market pull
+    tmp = tempfile.mkdtemp()
+    keep = nr.DIR
+    nr.DIR = tmp
+    try:
+        assert nr.prior(games, 2026) is None and nr.load_rosters(2026) is None
+        assert nr.current(games, {}, datetime(2026, 10, 21, 15, tzinfo=timezone.utc)) is None and nr.cached() is None
+    finally:
+        nr.DIR = keep
+        nr._CUR.clear()
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
