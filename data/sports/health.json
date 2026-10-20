@@ -1,30 +1,37 @@
 {
- "at": "2026-10-20T04:36Z",
+ "at": "2026-10-20T05:25Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - sports.yml already running"
+  "1 finished pick(s) not graded (tennis 2026-10-18 Katie Boulter) - started sports.yml"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (117s)",
+  "live watcher fresh (6s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 5 live lines, 5 fresh (bovada 5)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T05:25Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-18 Katie Boulter) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-20T04:36Z",
    "fixes": [
@@ -466,11 +473,6 @@
    "problems": [
     "live tennis scores: tennis Rakhimova vs Prozorova: no points for 72s"
    ]
-  },
-  {
-   "at": "2026-10-18T08:30Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
