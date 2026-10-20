@@ -20775,3 +20775,31 @@ DEX: $884.88 (-115.12) · Scammed: 0
 [2026-10-20 04:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-20 04:07 UTC] crypto/hold_btc  equity $489.29 (-2.1%) 1 open  market UP
    social heat top: PENGU 44 (32/0/12), PRL 37 (37/0/0), NEAR 29 (29/0/0), PONS 29 (24/0/5), CARDS 27 (21/0/6)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GEOD@solana liq $201,176 - mint authority; lp holders unknown
+   dex screen: REJECT ONDO@ethereum liq $1,796,106 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT LBTC@ethereum liq $874,780 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #29 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT AGENC@solana liq $162,009 - top-10 holders 62%; lp holders unknown
+   dex screen: REJECT TANG@solana liq $111,046 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: CLAUDIA@ethereum:0xd58813 data flag #1 (honeypot.is: no data); holding (experiment 10)
+   dex screen: REJECT VELVET@base liq $20,509 - liquidity $20,509 < $100,000; pool age unknown; 24h volume $63,038 < $100,000
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     1156f6ce2163fe68437abaa9bb55ca6fd2d97d20 -> main (cannot lock ref 'refs/heads/main': is at 896f1d090b33584175bf823
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #30 (top-10 holders 72%; lp holders unknown); holding (experiment 10)
+   dex screen: REJECT METAC@base liq $1,393,646 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 86%; lp locked 0% < 95%
+   dex scanner: 2,999 pools (solana 2,069 / base 535 / ethereum 395), refresh cycle 133s (hot 129s), 2831 calls (122 feed, 429s 0, failed 0), 81,267 refreshed (9842 no pair), +178 added / -179 dropped (dead 19, stale 0, cap 160), movers 1 + warming 18 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-20 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/social_heat equity $423.71 (-15.3%) 1 open  market UP
+[2026-10-20 05:06 UTC] crypto/breakout10 equity $457.17 (-8.6%) 2 open  market UP
+[2026-10-20 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 05:06 UTC] crypto/hold_btc  equity $488.88 (-2.2%) 1 open  market UP
+   social heat top: NEAR 40 (40/0/0), BTC 35 (35/0/0), PENGU 32 (32/0/0), PRL 29 (29/0/0), SUI 27 (27/0/0)
