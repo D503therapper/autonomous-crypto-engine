@@ -1,36 +1,3 @@
-nhl|rate: following hit 61.7% vs 61.0% the price said over 5249 (edge +0.1% older, +1.4% newer, z 1.13) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 11-1 (prices said 8.6) (11 straight) -> coin flip
-ACTIVE nfl sunday night: over 5-0 (5 straight) -> coin flip · next: Cowboys @ Packers
-ACTIVE nfl sunday night: underdogs cover 5-0 (5 straight) -> coin flip · next: Cowboys @ Packers
-ACTIVE nhl big favorite: home team wins 9-3 (prices said 7.8) (5 straight) -> coin flip
-ACTIVE nfl home favorite: over 24-25 (6 straight) -> coin flip · next: Texans @ Jaguars, Saints @ Giants, Jets @ Patriots
-ACTIVE mlb saturday: favorites win 226-181 (prices said 230.8) (5 straight) -> coin flip
-ACTIVE nhl friday: road team wins 8-3 (prices said 4.8) -> coin flip
-ACTIVE mlb wednesday: road team wins 178-208 (prices said 183.1) (5 straight) -> coin flip
-totals study: {'nfl': (0.5507, True), 'ncaaf': (0.4844, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4838, False)}
-public splits: 17 upcoming games
-self-check: 137 graded picks - we said 52%, they hit 55% (hitting at or above what we said)
-  market:ml: 128 graded, said 52%, hit 56% - hitting at or above what we said
-  drama:none: 119 graded, said 52%, hit 57% - hitting at or above what we said
-  source:pregame: 119 graded, said 51%, hit 55% - hitting at or above what we said
-  label:parlay leg: 89 graded, said 52%, hit 56% - hitting at or above what we said
-  price:-149..-101: 81 graded, said 55%, hit 58% - hitting at or above what we said
-  ctx:game:conf: 50 graded, said 50%, hit 52% - hitting at or above what we said (report only: forward-only tag)
-  price:+101..+179: 48 graded, said 49%, hit 52% - hitting at or above what we said
-  league:nhl: 43 graded, said 50%, hit 37% - hitting well below what we said - bar raised
-  ctx:game:div: 41 graded, said 53%, hit 44% - hitting well below what we said (report only: forward-only tag)
-  league:mlb: 31 graded, said 54%, hit 81% - only 31 graded - report only
-  league:ncaaf: 28 graded, said 48%, hit 46% - only 28 graded - report only
-  league:nfl: 25 graded, said 56%, hit 68% - only 25 graded - report only
-  ctx:game:rival: 22 graded, said 54%, hit 46% - only 22 graded - report only (report only: forward-only tag)
-  ctx:them:trip1000: 18 graded, said 52%, hit 83% - only 18 graded - report only (report only: forward-only tag)
-  label:live: 18 graded, said 57%, hit 56% - only 18 graded - report only
-  source:live: 18 graded, said 57%, hit 56% - only 18 graded - report only
-  label:dog: 16 graded, said 41%, hit 38% - only 16 graded - report only
-  ctx:us:trip1000: 15 graded, said 50%, hit 40% - only 15 graded - report only (report only: forward-only tag)
-  drama:theirs: 13 graded, said 52%, hit 31% - only 13 graded - report only
-  label:lock: 13 graded, said 56%, hit 62% - only 13 graded - report only
   ctx:game:nonconf: 12 graded, said 48%, hit 67% - only 12 graded - report only (report only: forward-only tag)
   ctx:them:east1000: 11 graded, said 54%, hit 82% - only 11 graded - report only (report only: forward-only tag)
   ctx:them:week3000: 11 graded, said 54%, hit 73% - only 11 graded - report only (report only: forward-only tag)
@@ -2998,3 +2965,36 @@ tennis study WTA life factors vs current loss 0.6214: experience 0.6183 (+3.16 m
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 17 matches
+sync: 131004 games stored, 52 calls, 0 failed, 7s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 77 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 2 new drama tags
+goalies: 11 games on the page, 11 matched, 13 confirmed
+beat the close: unit plays 14 of 42 better than the close, avg +0.3 pts
+public splits: 71 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (572 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (572 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+   no units on Avalanche: missing Zachary L'Heureux, Nicolas Roy
+   no units on Islanders: missing Calum Ritchie, Matias Maccelli, Alexander Romanov
+   no units on Capitals: missing Justin Sourdif, Pierre-Luc Dubois
+   no units on Maple Leafs: missing John Tavares, Chris Tanev
+   no units on Blues: missing Ross Johnston, Dillon Dube, Alexey Toropchenko
+   no units on Jets: missing Josh Morrissey, Vladislav Namestnikov
+   no units on Stars: missing Esa Lindell, Oskar Back
+   no units on Wild: missing Olli Maatta, Nico Sturm, Jared Spurgeon, Marcus Foligno
+   no units on Red Wings: missing J.T. Compher, Marco Kasper
+   no units on Hurricanes: missing Taylor Hall, Mark Jankowski, Jordan Staal
+tennis sync: 73394 matches stored, 18 calls, 0 failed
+tennis study ATP: 26094 rated matches, acc 0.645 (surface ratings alone 0.644), loss 0.629 vs 0.63, own weights [-0.005, 0.826, 0.072, 0.144, 0.422, 0.047, 0.05]
+tennis study ATP life factors vs current loss 0.629: experience 0.6294 (-0.33 mnats, z -0.34), age 0.6258 (+3.20 mnats, z 2.34), young_vs_aging 0.6285 (+0.50 mnats, z 1.2), last_match 0.6269 (+2.17 mnats, z 1.5), streaks 0.6297 (-0.69 mnats, z -0.68), first_set 0.6279 (+1.15 mnats, z 1.81), injury 0.63 (-0.93 mnats, z -1.38), travel 0.6291 (-0.10 mnats, z -1.27) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30557 rated matches, acc 0.6495 (surface ratings alone 0.6485), loss 0.6214 vs 0.6213, own weights [0.003, 0.903, 0.001, -0.089, 0.299, 0.025, -0.205]
+tennis study WTA life factors vs current loss 0.6214: experience 0.6183 (+3.16 mnats, z 1.83), age 0.6209 (+0.52 mnats, z 0.65), young_vs_aging 0.6213 (+0.16 mnats, z 0.95), last_match 0.6213 (+0.16 mnats, z 0.16), streaks 0.6216 (-0.12 mnats, z -0.26), first_set 0.6208 (+0.64 mnats, z 1.43), injury 0.6207 (+0.75 mnats, z 1.32), travel 0.6215 (-0.08 mnats, z -0.52) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 15 matches
