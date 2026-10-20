@@ -20750,3 +20750,28 @@ DEX: $884.88 (-115.12) · Scammed: 0
 [2026-10-20 03:22 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-20 03:22 UTC] crypto/hold_btc  equity $487.80 (-2.4%) 1 open  market UP
    social heat top: PENGU 44 (29/0/14), PRL 37 (37/0/0), VVV 35 (32/0/3), CARDS 31 (21/0/10), NEAR 29 (29/0/0)
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '83083.99', 'l': '81091.41', 'a': '81804.74', 'v': '3428.6082', 'vv': '281278503.94', 'c': '-0.0085', 'b': '81804.73', 'k': '81804.74', 'oi': '0', 't': 1792466557330}
+   dex screen: REJECT UN@solana liq $188,131 - holders unknown; lp holders unknown; rugcheck danger: Low Liquidity
+   dex screen: REJECT FTR@solana liq $313,611 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS MISTAKE@solana liq $169,887
+   dex re-screen: CLAUDIA@ethereum:0xd58813 data flag #1 (honeypot.is: no data); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #28 (lp holders unknown; rugcheck lp locked 92% < 95%); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT AZTEC@ethereum liq $14,593,788 - top-10 holders 100%
+   dex screen: PASS USELESS@solana liq $3,929,537
+   dex screen: REJECT TTWO@solana liq $876,124 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex scanner: 3,000 pools (solana 2,058 / base 499 / ethereum 443), refresh cycle 118s (hot 114s), 1984 calls (90 feed, 429s 0, failed 0), 56,797 refreshed (7017 no pair), +213 added / -149 dropped (dead 27, stale 0, cap 122), movers 1 + warming 19 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-20 04:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/mover     equity $283.84 (-43.2%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/social_heat equity $424.26 (-15.1%) 1 open  market UP
+[2026-10-20 04:07 UTC] crypto/breakout10 equity $460.07 (-8.0%) 2 open  market UP
+[2026-10-20 04:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-20 04:07 UTC] crypto/hold_btc  equity $489.29 (-2.1%) 1 open  market UP
+   social heat top: PENGU 44 (32/0/12), PRL 37 (37/0/0), NEAR 29 (29/0/0), PONS 29 (24/0/5), CARDS 27 (21/0/6)
