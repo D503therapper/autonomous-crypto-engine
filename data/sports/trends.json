@@ -282,6 +282,24 @@
     "rate"
    ],
    "league": "nhl",
+   "outcome": "total",
+   "price_said": 4.5,
+   "record": "7-2",
+   "season": 2026,
+   "side": 0,
+   "situation": "monday",
+   "streak": 2,
+   "strength": 1.67,
+   "trend": "under",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
    "outcome": "fav_ml",
    "price_said": 24.2,
    "record": "29-12",
@@ -390,14 +408,18 @@
    "strength": 1.47,
    "trend": "favorites win",
    "upcoming": [
+    "nhl:401892539",
     "nhl:401892540",
     "nhl:401892541",
+    "nhl:401892543",
     "nhl:401892554",
     "nhl:401892556"
    ],
    "upcoming_names": [
+    "Sharks @ Canadiens",
     "Avalanche @ Devils",
     "Ducks @ Islanders",
+    "Maple Leafs @ Blue Jackets",
     "Sharks @ Senators",
     "Panthers @ Penguins"
    ],
@@ -408,32 +430,14 @@
     "rate"
    ],
    "league": "nhl",
-   "outcome": "total",
-   "price_said": 4.0,
-   "record": "6-2",
-   "season": 2026,
-   "side": 0,
-   "situation": "monday",
-   "streak": 1,
-   "strength": 1.41,
-   "trend": "under",
-   "upcoming": [],
-   "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "nhl",
    "outcome": "fav_ml",
-   "price_said": 54.3,
-   "record": "60-32",
+   "price_said": 54.9,
+   "record": "61-32",
    "season": 2026,
    "side": 1,
    "situation": "home favorite",
-   "streak": 3,
-   "strength": 1.21,
+   "streak": 4,
+   "strength": 1.29,
    "trend": "favorites win",
    "upcoming": [
     "nhl:401892539",
@@ -535,14 +539,32 @@
    ],
    "league": "nhl",
    "outcome": "home",
-   "price_said": 4.9,
-   "record": "6-3",
+   "price_said": 5.4,
+   "record": "7-3",
    "season": 2026,
    "side": 1,
    "situation": "monday",
-   "streak": 3,
-   "strength": 0.78,
+   "streak": 4,
+   "strength": 1.02,
    "trend": "home team wins",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 5.8,
+   "record": "7-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "monday",
+   "streak": 1,
+   "strength": 0.77,
+   "trend": "favorites win",
    "upcoming": [],
    "upcoming_names": [],
    "verdict": "coin flip"
@@ -646,24 +668,6 @@
    "situation": "sunday",
    "streak": 0,
    "strength": 0.53,
-   "trend": "favorites win",
-   "upcoming": [],
-   "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "nhl",
-   "outcome": "fav_ml",
-   "price_said": 5.2,
-   "record": "6-3",
-   "season": 2026,
-   "side": 1,
-   "situation": "monday",
-   "streak": 0,
-   "strength": 0.52,
    "trend": "favorites win",
    "upcoming": [],
    "upcoming_names": [],
@@ -2315,5 +2319,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-20T01:58Z"
+ "updated": "2026-10-20T03:14Z"
 }
