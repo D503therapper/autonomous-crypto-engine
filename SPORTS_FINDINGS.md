@@ -13,6 +13,20 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/20 - NBA OPENING NIGHT AUDIT (the owner: "the engine is tripping - no picks, the 76ers +155 with LeBron is super value"): the engine didn't crash or break a rule - its NBA read was LAST SEASON'S TEAMS. BUILT: early-season trust ramp + an Elo bug fix
+- The NBA Elo is team results only (no rosters / trades). Opening night = last season's end rating regressed 1/3: Knicks 1678 vs 76ers 1530 (the Knicks swept them in round 2) - own read 76ers 25.9% vs the market 38.4% (with LeBron, Maxey, Edgecombe, Embiid). 12.5 points under the price = 'fighting the line' - the side forbidden. Same for every team that got better over the summer. Celtics @ Pistons: own read Pistons 56% but the price moved against them (money_against). Spurs: own 56% vs the market 50%, blended to a lean.
+- BUILT (sports.early_trust / early_shrink): in an NBA / college hoops season's first 10 games (the fewer games of the two teams), the own read, the board read and the raw read are pulled to the market - fully at 0 games, none by 10. The 10/20 study: Elo never beats the close in games 1-20 (log loss .657 vs the market .635).
+- BUG FIXED (sports_model.Elo.rating): the offseason regression ran on EVERY call to a cached Elo (148 -> 99 points on the second call) - once per offseason now.
+- Not built: NBA player / roster data for 2026-27 (box scores start with the season); the engine learns the new rosters game by game.
+
+## 10/20 - NBA OPENING NIGHT STUDIES (the owner: "we need to get on top of the NBA now"): ONE BUILT (early-season home dog, a weight), one LEAD, the rest DEAD
+9,525 priced regular-season games 2018-26, closing ML, train 2018-22 / blind 2023-26; ~96 cells, ~5 chance hits.
+- **BUILT - NBA home dog +100..+200 in a team's games 6-20 (sports.NBA_HOME_DOG_* / season_games):** train 124-140, 47.0% vs 40.2% implied, +13.6% on 264 (5 of 5 seasons); blind 69-80, 46.3% vs 40.1%, +10.1% on 149 (3 of 3). Games 1-5 and 21+ nothing; +200..+300 -8%. +2 on the dog score (a weight). Tracker: "NBA home dog, games 6-20".
+- The market is right early otherwise: dogs/favorites by game number = the vig; teams that changed a lot over the summer ('jumpers') +53% train -> -17.5% blind (DEAD); last year's playoff teams nothing.
+- Elo carry-over: never beats the close (log loss games 1-5: market .635 vs best Elo .657 at 50% regression; reset .683 the worst). As a weight only - carry 50% regression.
+- LEAD - a FAVORITE whose opponent is on its 5th+ road game or its first home game after a 4+ trip: +7.5 / +9.0 edge vs band (blind n 166, 2 of 3) - paper-track.
+- DEAD: 3-in-4 / 4-in-6 (the market has it), a dog ending a long road trip (-34% blind), cross-country with no rest (NBA never schedules it), every dog situation (home / road, off a win / loss, vs a streaking favorite, divisional).
+
 ## 10/19 - TEN STUDIES (daily run): early long dogs at the first fair number, NHL goalie on back-to-back nights, NHL after scoring 6+, NFL after Monday night, college both off a bye, NFL the week before a Thursday game, college weekday (MACtion) games, NHL favorite on a losing streak, NFL division road favorites, NHL both teams on a back-to-back: ALL DEAD, a few WATCH lines; nothing built
 Closing lines unless said, train before 2023, blind 2023-26; ~330 cells, ~16 chance hits expected.
 - Early long dogs at the first fair number (+250..+299 / +300..+349, NFL + college 2020-26, 833 sides): the vig, not a money pit (-1.5% / -6.8%; train red, blind green - flips). The +350 limit is fine; no extra weight.

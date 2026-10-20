@@ -108,9 +108,14 @@ class Elo:
     def rating(self, team, t):
         r = self.r.get(team, 1500.0)
         if team in self.last and t - self.last[team] > BREAK_DAYS * 86400:
-            r = 1500 + (r - 1500) * (1 - REGRESS)
-            self.r[team] = r
-            self.form[team] = []
+            done = getattr(self, "_regressed", None)
+            if done is None:
+                done = self._regressed = {}
+            if done.get(team) != self.last[team]:           # (10/20 audit: once per offseason - every features() call
+                done[team] = self.last[team]                 #  on a cached Elo regressed AGAIN: 148 -> 99 pts on call 2)
+                r = 1500 + (r - 1500) * (1 - REGRESS)
+                self.r[team] = r
+                self.form[team] = []
         return r
 
     def features(self, g):

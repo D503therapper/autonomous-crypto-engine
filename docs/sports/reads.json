@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T16:00Z",
+ "updated": "2026-10-20T16:24Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -292,8 +292,8 @@
    "start": "2026-10-20T23:30Z",
    "away": "South Alabama",
    "home": "Marshall",
-   "why": "on_board",
-   "board": "lean",
+   "why": "coin_flip",
+   "board": null,
    "lean": {
     "team": "South Alabama",
     "opp": "Marshall",
@@ -322,7 +322,7 @@
    "start": "2026-10-21T00:00Z",
    "away": "Bruins",
    "home": "Stars",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Bruins",
@@ -332,7 +332,9 @@
     "odds": -180,
     "p": 0.621,
     "win_p": 0.401,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -498,8 +500,8 @@
    "start": "2026-10-21T02:30Z",
    "away": "Lightning",
    "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Lightning",
     "opp": "Golden Knights",
@@ -519,8 +521,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.528,
-    "tie": 0.037,
+    "p": 0.536,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -535,9 +537,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -205,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": []
    }
   },
@@ -547,7 +549,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.503,
+    "p": 0.524,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -556,16 +558,16 @@
    "start": "2026-10-21T23:00Z",
    "away": "Hawks",
    "home": "Magic",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Magic",
     "opp": "Hawks",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team"
     ]
@@ -577,8 +579,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.673,
-    "tie": 0.033,
+    "p": 0.677,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -595,7 +597,7 @@
     "line": -9.5,
     "odds": -110,
     "p": 0.502,
-    "win_p": 0.772,
+    "win_p": 0.777,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -608,7 +610,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.413,
+    "p": 0.408,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -624,9 +626,9 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -681,14 +683,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Senators",
+    "team": "Senators",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.709,
-    "win_p": 0.494,
-    "reasons": []
+    "odds": -270,
+    "p": 0.718,
+    "win_p": 0.507,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -697,7 +701,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.482,
+    "p": 0.485,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -713,9 +717,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.5,
+    "odds": -118,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": []
    }
   },

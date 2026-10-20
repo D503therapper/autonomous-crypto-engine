@@ -472,6 +472,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
         # (proven on games it never saw), every read is shifted by it
         ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
+        ew = early_trust(games, g)                    # 🏀 opening weeks: last season's ratings know nothing of the summer
+        if ew < 1 and mkt is not None:                # (10/20 - the 76ers with LeBron read 26% off last year's team)
+            ph, ph_own = early_shrink(ph, mkt, ew), early_shrink(ph_own, mkt, ew)
         # 🚑 a missing key player moves the engine's OWN read (the 10/2 absence studies - sports_absences: NFL QB -8 /
         # RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5, NHL top scorer -6, NBA top scorer -9; MLB none)
         absent = {s_: sports_absences.penalty(games, g, s_, injuries, skip_qb=bool(key_out[s_])) if injuries else (0.0, [])
@@ -481,6 +484,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
         try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
             raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
             raw_h = min(0.99, max(0.01, raw_h - absent["home"][0] + absent["away"][0]))   # plays ride on (10/17)
+            if ew < 1 and mkt is not None:
+                raw_h = early_shrink(raw_h, mkt, ew)
         except Exception:                            # noqa: BLE001
             raw_h = None
         # 🚑 the more banged-up football side (regulars out beyond the opponent's): a small, capped weight on the OWN
@@ -529,6 +534,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
+                    "season_games": season_games(games, g, side) if lg == "nba" else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
@@ -1063,6 +1069,12 @@ def dog_score(c):
         #                                           (college +11.6%, NFL +7.9% vs -3.6% for every dog)
     if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
         sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
+    if c.get("league") == "nba" and c.get("home") and c.get("season_games") is not None \
+            and NBA_HOME_DOG_GAMES[0] <= c["season_games"] + 1 <= NBA_HOME_DOG_GAMES[1] \
+            and NBA_HOME_DOG_BAND[0] <= c.get("odds", 0) <= NBA_HOME_DOG_BAND[1]:
+        sc += NBA_HOME_DOG_W                             # (10/20 study: an NBA HOME dog +100..+200 in a team's games 6-20
+        #                                                  +13.6% train (5 of 5 seasons), +10.1% blind (3 of 3); fades by
+        #                                                  game 20 - the early-season market under-rates home dogs)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         sc += OT_W.get(c.get("ot_last"), 0)              # 10/18: how its last game ended in OT / a shootout
@@ -1139,6 +1151,42 @@ def _cfb_style():
 PYTH_GAMES, PYTH_UNLUCKY, PYTH_W = (5, 20), -0.10, 2
 OT_DAYS = 7                     # the 10/18 study: the team's previous game, within a week
 OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog score (NHL); the opponent's OT loss +2
+
+
+NBA_HOME_DOG_GAMES, NBA_HOME_DOG_BAND, NBA_HOME_DOG_W = (6, 20), (100, 200), 2
+EARLY_TRUST_LEAGUES, EARLY_TRUST_GAMES = ("nba", "ncaab"), 10
+
+
+def early_trust(games, g):
+    """How much of the engine's own read to trust in a hoops season's opening weeks: 0 before either team has played,
+    1 once both have EARLY_TRUST_GAMES regular-season games. (10/20, NBA opening night: the ratings are last season's
+    results regressed 1/3 - no rosters - so the engine read the 76ers with LeBron at 26% vs the market's 38%, called
+    itself 'fighting' the line and passed on every team that got better over the summer. The 10/20 study: Elo never
+    beats the close in games 1-20.) Other sports: 1."""
+    if g.get("league") not in EARLY_TRUST_LEAGUES:
+        return 1.0
+    n = [season_games(games, g, s_) for s_ in ("home", "away")]
+    if any(x is None for x in n):
+        return 1.0
+    return min(1.0, min(n) / EARLY_TRUST_GAMES)
+
+
+def early_shrink(p, mkt, w):
+    """The read pulled toward the market: w = 0 -> the market, 1 -> the read as is (logit space)."""
+    if p is None or mkt is None or not 0 < mkt < 1 or not 0 < p < 1:
+        return p
+    return sm.sigmoid(sm.logit(mkt) + w * (sm.logit(p) - sm.logit(mkt)))
+
+
+def season_games(games, g, side):
+    """How many regular-season games this team has played this season before this one (None on a read error)."""
+    try:
+        sched, _ = _sched(games)
+        season0 = f"{int(g['start'][:4]) if int(g['start'][5:7]) >= 7 else int(g['start'][:4]) - 1}-07-01"
+        return sum(1 for st_, x in sched.get((g.get("league"), g[side]), [])
+                   if season0 <= st_ < g["start"] and x.get("status") == "final" and str(x.get("stype")) == "2")
+    except (TypeError, ValueError, KeyError):
+        return None
 
 
 def ot_last(games, g, side):
