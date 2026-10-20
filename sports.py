@@ -529,6 +529,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
+                    "season_games": season_games(games, g, side) if lg == "nba" else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
@@ -1063,6 +1064,12 @@ def dog_score(c):
         #                                           (college +11.6%, NFL +7.9% vs -3.6% for every dog)
     if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
         sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
+    if c.get("league") == "nba" and c.get("home") and c.get("season_games") is not None \
+            and NBA_HOME_DOG_GAMES[0] <= c["season_games"] + 1 <= NBA_HOME_DOG_GAMES[1] \
+            and NBA_HOME_DOG_BAND[0] <= c.get("odds", 0) <= NBA_HOME_DOG_BAND[1]:
+        sc += NBA_HOME_DOG_W                             # (10/20 study: an NBA HOME dog +100..+200 in a team's games 6-20
+        #                                                  +13.6% train (5 of 5 seasons), +10.1% blind (3 of 3); fades by
+        #                                                  game 20 - the early-season market under-rates home dogs)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         sc += OT_W.get(c.get("ot_last"), 0)              # 10/18: how its last game ended in OT / a shootout
@@ -1139,6 +1146,20 @@ def _cfb_style():
 PYTH_GAMES, PYTH_UNLUCKY, PYTH_W = (5, 20), -0.10, 2
 OT_DAYS = 7                     # the 10/18 study: the team's previous game, within a week
 OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog score (NHL); the opponent's OT loss +2
+
+
+NBA_HOME_DOG_GAMES, NBA_HOME_DOG_BAND, NBA_HOME_DOG_W = (6, 20), (100, 200), 2
+
+
+def season_games(games, g, side):
+    """How many regular-season games this team has played this season before this one (None on a read error)."""
+    try:
+        sched, _ = _sched(games)
+        season0 = f"{int(g['start'][:4]) if int(g['start'][5:7]) >= 7 else int(g['start'][:4]) - 1}-07-01"
+        return sum(1 for st_, x in sched.get((g.get("league"), g[side]), [])
+                   if season0 <= st_ < g["start"] and x.get("status") == "final" and str(x.get("stype")) == "2")
+    except (TypeError, ValueError, KeyError):
+        return None
 
 
 def ot_last(games, g, side):

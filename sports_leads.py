@@ -42,6 +42,10 @@ def tags(c, sports):
     if dog and c.get("dec") and not sports.own_beats(c) and sports.beats_price(c) and sports.good(c):
         t.append("dog: own read under the price, weighed read over it")   # (the owner, 10/19 - the Sharks Dog: "let's
         #   track it" - the Dogs that post only on the stacked weights; the 10/17 sweep had them -7..-12% blind)
+    if lg == "nba" and c.get("home") and c.get("season_games") is not None \
+            and sports.NBA_HOME_DOG_GAMES[0] <= c["season_games"] + 1 <= sports.NBA_HOME_DOG_GAMES[1] \
+            and sports.NBA_HOME_DOG_BAND[0] <= c.get("odds", 0) <= sports.NBA_HOME_DOG_BAND[1]:
+        t.append("NBA home dog, games 6-20")                 # 10/20 study (a weight)
     if lg == "nhl" and c.get("ot_last") in ("ot_win", "ot_loss", "so_win"):   # 10/18 study (a weight)
         t.append({"ot_win": "NHL side off an OT win", "ot_loss": "NHL side off an OT loss (fade)",
                   "so_win": "NHL side off a shootout win (fade)"}[c["ot_last"]])

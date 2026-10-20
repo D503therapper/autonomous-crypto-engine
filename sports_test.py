@@ -3311,6 +3311,26 @@ def test_dogs_whose_own_read_sits_under_the_price_keep_a_live_score():
         sports.good = keep
 
 
+def test_nba_early_season_home_dog_weight():
+    """10/20 study (NBA opening night): a HOME dog +100..+200 in a team's games 6-20 beat its price +13.6% train (5 of 5
+    seasons), +10.1% blind (3 of 3); games 1-5 and 21+ nothing. +2 on the dog score, a weight with its own tracker line."""
+    import sports_leads
+    games = {}
+    for i in range(7):
+        games[f"p{i}"] = {"id": f"p{i}", "league": "nba", "start": f"2026-10-{20 + i:02d}T23:00Z", "status": "final",
+                          "stype": "2", "home": "A", "away": f"X{i}", "home_score": 100, "away_score": 99}
+    g = {"id": "n", "league": "nba", "start": "2026-10-28T23:00Z", "status": "pre", "stype": "2", "home": "A", "away": "B"}
+    games["n"] = g
+    assert sports.season_games(games, g, "home") == 7 and sports.season_games(games, g, "away") == 0
+    c = {"market": "ml", "league": "nba", "odds": 150, "dec": 2.5, "p_market": 0.39, "edge": 0.0, "edge_own": 0.39 * 2.5 - 1,
+         "dog_more": {}, "reasons": [], "home": True}
+    base = sports.dog_score({**c, "season_games": 2})                       # game 3: outside 6-20
+    assert sports.dog_score({**c, "season_games": 7}) == base + sports.NBA_HOME_DOG_W
+    assert sports.dog_score({**c, "season_games": 7, "home": False}) == base
+    assert sports.dog_score({**c, "season_games": 25}) == base
+    assert "NBA home dog, games 6-20" in sports_leads.tags({**c, "season_games": 7}, sports)
+
+
 def test_tennis_bottom_lines_no_percent_talk():
     """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
     before' always says what happened ('lost to him last time')."""
