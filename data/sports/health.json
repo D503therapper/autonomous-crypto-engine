@@ -1,31 +1,36 @@
 {
- "at": "2026-10-20T12:05Z",
+ "at": "2026-10-20T12:10Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Skatov vs Marozsan: no points for 2353s",
-  "live tennis scores: tennis Snigur vs Kawa: points frozen at 0-0 for 366s",
-  "live tennis scores: tennis Alexandrova vs Guo Hanyu: points frozen at 0-0 for 276s"
+  "live tennis scores: tennis Skatov vs Marozsan: no points for 2621s"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (95s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 5 live matches",
+  "live tennis points + server: 2 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 5 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 44 min ago",
+  "engine ran 49 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-20T12:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Skatov vs Marozsan: no points for 2621s"
+   ]
+  },
   {
    "at": "2026-10-20T12:05Z",
    "fixes": [],
@@ -454,13 +459,6 @@
    ],
    "problems": [
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-18T13:49Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 10h ago - restarted"
    ]
   }
  ]
