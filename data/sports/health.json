@@ -1,29 +1,37 @@
 {
- "at": "2026-10-20T03:03Z",
- "fixes": [],
+ "at": "2026-10-20T04:35Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - started sports.yml"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (181s)",
-  "every finished pick graded",
+  "live watcher fresh (49s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 1 fresh (betrivers 1)",
-  "all 5 backup sources answering",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 4 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T04:35Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-20T03:03Z",
    "fixes": [],
@@ -465,15 +473,6 @@
     "live tennis scores: tennis Dart vs Ito: no points for 2622s",
     "live tennis scores: tennis Korneeva vs Han: no points for 2622s",
     "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1460s"
-   ]
-  },
-  {
-   "at": "2026-10-18T06:51Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Dart vs Ito: no points for 2359s",
-    "live tennis scores: tennis Korneeva vs Han: no points for 2359s",
-    "live tennis scores: tennis Rakhimova vs Prozorova: no points for 1197s"
    ]
   }
  ]
