@@ -21533,3 +21533,24 @@ $BITF: No data found, symbol may be delisted
 [2026-10-20 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-20 21:06 UTC] crypto/hold_btc  equity $493.10 (-1.4%) 1 open  market UP
    social heat top: CARDS 42 (32/0/10), PENGU 37 (37/0/0), PEPE 35 (35/0/0), GRASS 29 (29/0/0), PYTH 27 (27/0/0)
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +4.5%, 2 volume hikes, 81% quiet hours @ 106.64
+   dex screen: REJECT KABUTO@solana liq $134,177 - top-10 holders 41%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   dex screen: REJECT FTR@solana liq $104,284 - lp holders unknown; rugcheck lp locked 56% < 95%
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS DACITY@ethereum liq $105,919
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS BAGSPAY@solana liq $145,405
+   dex screen: PASS DACITY@ethereum liq $104,470
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #63 (top-10 holders 71%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: NPC@solana:FrEL1gFK data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ORE@solana liq $307,082 - mint authority; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT OTC@solana liq $528,737 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT XTO@base liq $101,500 - goplus partial data: cannot_sell_all unknown; top-10 holders 57%; lp locked 0% < 95%
+   dex screen: REJECT CBZEC@base liq $297,715 - pool age unknown
