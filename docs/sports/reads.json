@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T15:14Z",
+ "updated": "2026-10-20T15:19Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -605,8 +605,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.386,
-    "tie": 0.298,
+    "p": 0.413,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -617,14 +617,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Flyers",
-    "opp": "Sabres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -213,
-    "p": 0.647,
-    "win_p": 0.428,
-    "reasons": []
+    "team": "Sabres",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -192,
+    "p": 0.631,
+    "win_p": 0.631,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -663,7 +666,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.354,
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -679,9 +682,9 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -286,
+    "odds": -250,
     "p": 0.709,
-    "win_p": 0.493,
+    "win_p": 0.494,
     "reasons": []
    }
   },
