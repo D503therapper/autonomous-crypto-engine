@@ -1,30 +1,38 @@
 {
- "at": "2026-10-20T00:48Z",
+ "at": "2026-10-20T02:19Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (30s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "all 5 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 10 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 25 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-20T02:19Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-20T00:48Z",
    "fixes": [],
@@ -472,16 +480,6 @@
     "live tennis scores: tennis Kenin vs Kraus: no points for 1581s",
     "live tennis scores: tennis Korneeva vs Han: no points for 1581s",
     "live tennis scores: tennis Rakhimova vs Prozorova: no points for 420s"
-   ]
-  },
-  {
-   "at": "2026-10-18T05:20Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Dart vs Ito: no points for 2203s",
-    "live tennis scores: tennis Kenin vs Kraus: no points for 961s",
-    "live tennis scores: tennis Putintseva vs Parks: no points for 2620s",
-    "live tennis scores: tennis Sasnovich vs Kalinina: no points for 1444s"
    ]
   }
  ]
