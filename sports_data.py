@@ -763,7 +763,7 @@ def _fetch_espn_injuries(league):
     for i in range(3):                               # the injury report matters too much to give up on one hiccup
         try:
             with urllib.request.urlopen(url, timeout=20) as r:
-                return parse_injuries(json.load(r))
+                return parse_injuries(json.load(r), league)
         except Exception as e:                       # noqa: BLE001
             print(f"   {league} injuries (try {i + 1}): {str(e)[:120]}")
             if i < 2:
@@ -771,20 +771,33 @@ def _fetch_espn_injuries(league):
     return None                                      # None = we DON'T KNOW who's hurt (the board waits on it)
 
 
-def parse_injuries(payload):
+INJ_NOTES = {}         # {league: {plain name: {"status", "note"}}} - EVERY man on ESPN's report, the probable ones too,
+#                        with the note the rows drop ('minutes restriction', 'expected to play') - the NBA roster read
+#                        (sports_nba_roster, the owner 10/20) weighs a player by his status, not just 'on the report'
+
+
+def parse_injuries(payload, league=None):
     out = {}
+    notes = {}
     for t in payload.get("injuries") or []:
         rows = []
         for i in t.get("injuries") or []:
             status = str(i.get("status") or (i.get("type") or {}).get("description") or "").lower()
+            a = i.get("athlete") or {}
+            if a.get("displayName"):
+                det = i.get("details") or {}
+                note = " ".join(str(x) for x in (i.get("longComment"), i.get("shortComment"), det.get("detail"),
+                                                 det.get("returnDate") and f"return {det.get('returnDate')}") if x)
+                notes[_plain(a.get("displayName"))] = {"status": status, "note": note}
             if not any(s in status for s in SHORT_TERM + UNSURE + LONG_OUT):
                 continue
-            a = i.get("athlete") or {}
             rows.append((a.get("displayName") or "?", (a.get("position") or {}).get("abbreviation") or "",
                          status.title().replace("-Il", "-IL").replace(" Il", " IL")))
         for key in (str(t.get("id") or ""), t.get("displayName") or ""):
             if key:
                 out[key] = rows
+    if league:
+        INJ_NOTES[league] = notes
     return out
 
 
