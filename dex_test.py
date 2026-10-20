@@ -117,7 +117,7 @@ LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_
                     "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "vol24": 0, "clean": 0, "cex": True}},
           "size": {"liq_pct": 0.005, "max_exposure": 0.60},
           "slots": 4,
-          "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2, "mode": "momentum"},
+          "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2, "mode": "momentum", "skip_pump": False, "fresh_skip_chains": ()},
           "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
                    "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
                    "liq_pull": 0.50, "rug_tax": 0.50, "stake_back": None, "pyramid": None}}
@@ -801,6 +801,10 @@ def test_fresh_pump_skips_pump_fun():
     h, _, d = make(table_evm(), entry={**dex.DEX["entry"], "mode": "both"})
     hot = {"h1": 0.2, "h6": 0.8, "b1": 200, "s1": 50, "price": 1.0, "liq": 300_000, "age_h": 10}
     assert h._trig({**hot, "chain": "base", "addr": "0xabc"}, T0)
+    assert not h._trig({**hot, "chain": "solana", "addr": "Abc123"}, T0)  # EXPERIMENT 18: no Solana fresh pumps
+    assert not h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
+    assert h._trig({**hot, "chain": "ethereum", "addr": "0xdef"}, T0)
+    h.p = dict(h.p, entry={**h.p["entry"], "fresh_skip_chains": ()})
     assert h._trig({**hot, "chain": "solana", "addr": "Abc123"}, T0)
     assert not h._trig({**hot, "chain": "solana", "addr": "Abc123pump"}, T0)
     h.p = dict(h.p, entry={**h.p["entry"], "skip_pump": False})
@@ -858,7 +862,7 @@ def test_take_profit_steps():
 def test_study_exit():
     """Live config (dex_exit_study + dex_legends_study): no stop for 14 days, time limit, a runner at the
     limit keeps riding on a 40% trail."""
-    live = {"entry": {**dex.DEX["entry"], "mode": "momentum"}, "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}
+    live = {"entry": {**dex.DEX["entry"], "mode": "momentum", "fresh_skip_chains": ()}, "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}
     def held(px_path, days_between=1, sb=True):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12, h6=60)), **live)
         screen(h, cand(h1=12, h6=60))
@@ -941,7 +945,7 @@ def test_entry_needs_a_run():
 def test_recycle_stale_for_stronger_coin():
     """EXPERIMENT 7: no cash for a coin that passed -> the weakest holding >= 24h old and below its buy price is sold."""
     h, fetch, d, px = held()
-    h.p = {**h.p, "exit": {**h.p["exit"], "recycle": {"min_hold_h": 24, "max_x": 1.0}}, "entry": {**dex.DEX["entry"], "mode": "momentum"}}
+    h.p = {**h.p, "exit": {**h.p["exit"], "recycle": {"min_hold_h": 24, "max_x": 1.0}}, "entry": {**dex.DEX["entry"], "mode": "momentum", "fresh_skip_chains": ()}}
     pos = h.pf.positions[K]
     h.pf.cash = 0.0
     new = dict(cand(chain="base", addr="0xabc0000000000000000000000000000000000002", sym="NEW", h1=30, h6=80,

@@ -1055,6 +1055,10 @@ class DexHunter:
         # dex_lottery_study 47 pools, 60% rugged, -50% per $1 in both halves; live seasons 1-5: 39 trades -54%.
         if E.get("skip_pump") and c.get("chain") == "solana" and str(c.get("addr") or "").endswith("pump"):
             return False
+        # EXPERIMENT 18 (10-20): ... and every Solana coin (dex_lottery_study: Solana non-pump.fun n 45, -32% per $1
+        # with the live exit, both halves negative; Base +119%, Ethereum -1%). Survivors on any chain still buy.
+        if c.get("chain") in E.get("fresh_skip_chains", ()):
+            return False
         return entry_trigger(c, E)          # "both" (owner 10-18: "we're not doing shit"): momentum buys as well
 
     # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----
