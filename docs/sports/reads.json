@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T00:03Z",
+ "updated": "2026-10-20T00:47Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -69,6 +69,21 @@
    }
   },
   {
+   "id": "mlb:401908028",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-20T00:00Z",
+   "away": "Guardians",
+   "home": "Rays",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873008",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -93,36 +108,6 @@
      "opponent drama: legal trouble"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892538",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.408,
-    "tie": 0.296,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-20T01:00Z",
-   "away": "Penguins",
-   "home": "Mammoth",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Mammoth",
-    "opp": "Penguins",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
-    "reasons": [
-     "the stronger team"
-    ]
    }
   },
   {
@@ -473,7 +458,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.652,
     "win_p": 0.433,
     "reasons": []
