@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T01:42Z",
+ "updated": "2026-10-20T01:44Z",
  "games": [
   {
    "id": "nhl:401892536",
@@ -11,8 +11,8 @@
    "away": "Avalanche",
    "home": "Flyers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -190,8 +190,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Avalanche",
-    "p": 0.359,
+    "team": "Devils",
+    "p": 0.357,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -200,7 +200,7 @@
    "start": "2026-10-20T23:00Z",
    "away": "Avalanche",
    "home": "Devils",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Avalanche",
@@ -208,8 +208,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -265,
-    "p": 0.73,
-    "win_p": 0.52,
+    "p": 0.703,
+    "win_p": 0.486,
     "reasons": [
      "the stronger team"
     ]
