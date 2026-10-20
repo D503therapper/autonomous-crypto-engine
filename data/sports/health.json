@@ -1,27 +1,32 @@
 {
- "at": "2026-10-20T07:38Z",
+ "at": "2026-10-20T09:09Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 5 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 4 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-20T09:09Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-20T07:38Z",
    "fixes": [],
@@ -454,14 +459,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Gormaz vs Burel: no points for 1813s"
-   ]
-  },
-  {
-   "at": "2026-10-18T10:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
