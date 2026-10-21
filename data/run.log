@@ -22098,3 +22098,43 @@ error: failed to push some refs to 'https://github.
 [2026-10-21 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-21 12:06 UTC] crypto/hold_btc  equity $496.65 (-0.7%) 1 open  market UP
    social heat top: PENGU 35 (35/0/0), BTC 27 (27/0/0), NEAR 24 (24/0/0), AERO 24 (13/0/10), PUMP 21 (8/0/13)
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +1.5%, 2 volume hikes, 83% quiet hours @ 106.77
+   dex screen: REJECT BMT@solana liq $378,749 - mint authority; top-10 holders 75%; lp holders unknown
+   dex screen: REJECT ARC@solana liq $4,181,263 - top-10 holders 81%
+   dex screen: REJECT DJT@solana liq $290,010 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 54%; lp holders unknown
+   dex screen: PASS GATO@solana liq $141,584
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #93 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT AGENCY@solana liq $130,646 - top-10 holders 41%; lp holders unknown
+   dex screen: REJECT BACKGROUNDMUSIC@base liq $379,738 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   [alert] 🚀 DACITY is up 2.0x: DACITY (ethereum) is up 2.0x since the engine bought it (paper value $43). Contract: 0x54ce4B27caABBA24926865f035D432dbDE2901f7
+   dex screen: REJECT BNKR@base liq $1,965,201 - top-10 holders 50%
+   dex screen: REJECT MONEYBIZ@solana liq $102,147 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #94 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT FONE@solana liq $461,943 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: REJECT ZRO@base liq $209,144 - pool age unknown
+   dex screen: REJECT USOE@solana liq $2,036,062 - lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: REJECT USOE@solana liq $159,291 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT USOE@base liq $8,881,827 - goplus partial data: cannot_sell_all unknown; transfer_pausable; buy tax unknown; sell tax unknown; creator_percent 16%; top-10 holders 96%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT MISTAKE@solana liq $135,279 - lp holders unknown; rugcheck lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CLAUDIA@solana liq $282,650 - holders unknown; lp holders unknown; rugcheck lp locked 38% < 95%
+   dex screen: REJECT DOPE@solana liq $32,129,150 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DOPE@solana liq $177,230 - lp holders unknown; rugcheck lp locked 41% < 95%
+   dex scanner: 2,997 pools (solana 2,031 / base 507 / ethereum 459), refresh cycle 126s (hot 122s), 3009 calls (147 feed, 429s 0, failed 0), 85,852 refreshed (8174 no pair), +320 added / -323 dropped (dead 36, stale 0, cap 287), movers 0 + warming 19 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-21 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-21 13:06 UTC] crypto/mover     equity $280.78 (-43.8%) 2 open  market UP
+[2026-10-21 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 13:06 UTC] crypto/social_heat equity $428.88 (-14.2%) 2 open  market UP
+[2026-10-21 13:06 UTC] crypto/breakout10 equity $484.23 (-3.2%) 2 open  market UP
+[2026-10-21 13:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-21 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-21 13:06 UTC] crypto/hold_btc  equity $497.41 (-0.5%) 1 open  market UP
+   social heat top: PENGU 35 (35/0/0), AERO 24 (21/0/3), DOOD 22 (13/0/8), ENA 19 (19/0/0), BTC 16 (16/0/0)
