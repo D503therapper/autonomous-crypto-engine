@@ -1,38 +1,12 @@
 {
- "updated": "2026-10-21T10:35Z",
+ "updated": "2026-10-21T11:39Z",
  "games": [
-  {
-   "id": "tennis:atp:185053",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T11:00Z",
-   "away": "Tallon Griekspoor",
-   "home": "Mariano Navone",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Tallon Griekspoor",
-    "opp": "Mariano Navone",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.602,
-    "win_p": 0.602,
-    "reasons": [
-     "on hard court",
-     "BNP Paribas Fortis European Open"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:185529",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-21T11:30Z",
+   "start": "2026-10-21T12:00Z",
    "away": "Marta Kostyuk",
    "home": "Ekaterina Alexandrova",
    "vs": true,
@@ -492,6 +466,58 @@
     "reasons": [
      "on hard court",
      "Almaty Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185535",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-22T11:00Z",
+   "away": "Polina Kudermetova",
+   "home": "Elena Rybakina",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Polina Kudermetova",
+    "opp": "Elena Rybakina",
+    "market": "spread",
+    "line": 5.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.136,
+    "reasons": [
+     "on hard court",
+     "BNB Ningbo Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185039",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-22T11:30Z",
+   "away": "Jiri Lehecka",
+   "home": "Raphael Collignon",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jiri Lehecka",
+    "opp": "Raphael Collignon",
+    "market": "spread",
+    "line": -3.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.762,
+    "reasons": [
+     "on hard court",
+     "BNP Paribas Fortis European Open"
     ]
    }
   }
