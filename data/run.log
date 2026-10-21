@@ -22138,3 +22138,60 @@ error: failed to push some refs to 'https://github.
 [2026-10-21 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-21 13:06 UTC] crypto/hold_btc  equity $497.41 (-0.5%) 1 open  market UP
    social heat top: PENGU 35 (35/0/0), AERO 24 (21/0/3), DOOD 22 (13/0/8), ENA 19 (19/0/0), BTC 16 (16/0/0)
+   footprint: HBAR: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.0%, 4 volume hikes, 75% quiet hours @ 0.085361
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h +4.8%, 2 volume hikes, 75% quiet hours @ 1.3635
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.0%, 2 volume hikes, 85% quiet hours @ 107.35
+   dex screen: REJECT PYUSD@ethereum liq $100,167,007 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 86%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #95 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: HELL@solana:A75Xx6Se data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT KOLO@solana liq $100,740 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $2,756,771
+   scanner: W: +5.1% in 18 min on 5.3x volume @ 0.014997 spread 0.01%
+   dex screen: REJECT EURC@ethereum liq $3,062,443 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%
+   dex screen: PASS BAGSPAY@solana liq $150,888
+   dex screen: REJECT NVDAC@base liq $1,314,723 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 80%; lp locked 0% < 95%
+   >> stocks/trend: SELL $144.66 of LLY @ 1262.17, P/L $+0.95 (stop hit (live check))
+   listing: kraken_pairs #NEXO 'New Kraken listing (NEXO)' -> ['NEXO']
+   listing: NEXO: kraken_pairs notice "New Kraken listing (NEXO)" -> not on Crypto.com USD
+   dex screen: REJECT GOOGLC@base liq $1,243,135 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: REJECT ZEREBRO@solana liq $2,993,673 - top-10 holders 78%
+   [alert] 🚀 JPMD is up 2.0x: JPMD (ethereum) is up 2.0x since the engine bought it (paper value $39). Contract: 0xA63a3E6914eA57fE88a1Dccd499183D9d6dd5253
+   dex screen: REJECT QNT@ethereum liq $798,169 - is_mintable; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #96 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT DEFERENCE@ethereum liq $101,122 - top-10 holders 104%
+   dex screen: REJECT SOCIAL-APP@base liq $260,652 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT ANSEM@solana liq $1,984,596 - top-10 holders 65%
+   dex scanner: 3,000 pools (solana 2,034 / base 510 / ethereum 456), refresh cycle 137s (hot 132s), 2745 calls (112 feed, 429s 1, failed 2), 78,958 refreshed (6874 no pair), +102 added / -99 dropped (dead 18, stale 0, cap 81), movers 0 + warming 16 -> queued 4, screened 4 (passed 1), bought 0
+[2026-10-21 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-21 14:06 UTC] crypto/mover     equity $279.64 (-44.1%) 2 open  market UP
+[2026-10-21 14:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 14:06 UTC] crypto/social_heat equity $428.71 (-14.3%) 2 open  market UP
+[2026-10-21 14:06 UTC] crypto/breakout10 equity $478.12 (-4.4%) 2 open  market UP
+[2026-10-21 14:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-21 14:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-21 14:06 UTC] crypto/hold_btc  equity $497.81 (-0.4%) 1 open  market UP
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA', 'BITF']: No data found, symbol may be delisted
+   >> stocks/rsi2: SELL $173.95 of MSTR @ 144.748, P/L $+12.90 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $167.82 of AAPL @ 341.165 (entry)
+[2026-10-21 14:06 UTC] stocks/rsi2      equity $503.37 (+0.7%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): META 4 BUY, NFLX 12, AAPL 14 BUY, UBER 14
+[2026-10-21 14:06 UTC] stocks/breakout52 equity $500.67 (+0.1%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+347% 6-mo), DOCU (+69% 6-mo)
+[2026-10-21 14:06 UTC] stocks/dual_momentum equity $480.62 (-3.9%) 2 open  market UP
+[2026-10-21 14:06 UTC] stocks/trend_ensemble equity $490.59 (-1.9%) 5 open  market UP
+[2026-10-21 14:06 UTC] stocks/rotation10 equity $509.55 (+1.9%) 2 open  market UP
+[2026-10-21 14:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market UP
+   >> stocks/trend: BUY $142.70 of LLY @ 1264.3 (entry)
+[2026-10-21 14:06 UTC] stocks/trend     equity $475.60 (-4.9%) 3 open  market UP
+[2026-10-21 14:06 UTC] stocks/hold_spy  equity $500.10 (+0.0%) 1 open  market UP
+   social heat top: PENGU 35 (35/0/0), AERO 35 (29/0/5), BTC 27 (27/0/0), VVV 21 (21/0/0), PONS 18 (5/0/13)
