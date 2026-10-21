@@ -662,28 +662,29 @@ def card_line(g, side, cur):
     tid = str(g[side])
     if tid not in (cur.get("teams") or {}):
         return ""
-    parts = []
+    parts = []                                           # (10/21, the owner: "men 6-10 ... a 48 minutes" was jargon)
+    nm = g[side + "_name"]
     b = (cur.get("bench") or {}).get(tid)
     if b is not None and abs(b) >= BENCH_SAY:
-        parts.append(f"the bench (men 6-10) was {b:+g} a 48 minutes on the floor last season"
-                     + (" - a deep team" if b > 0 else " - a thin team"))
+        parts.append(f"their bench outscored teams by {b:g} per 48 minutes last season - deep squad" if b > 0 else
+                     f"their bench got outscored by {-b:g} per 48 minutes last season - thin squad")
     st = (cur.get("styles") or {}).get(tid)
     if st and st.get("depth"):
-        parts.append(f"the coach gives {int(round(st['depth']))} men 15+ minutes a night")
+        parts.append(f"the coach plays {int(round(st['depth']))} guys real minutes")
     roster_pids = {p.get("pid") for p in cur["teams"][tid]}
     fm = cur.get("form") or {}
     for pid in [k for k in fm if k in roster_pids and fm[k]["tag"]][:2]:
         f = fm[pid]
-        parts.append(f"{f['name']} {'hot' if f['tag'] == 'hot' else 'in a slump'} lately - {f['recent']:+g} a 48 minutes on the floor, "
-                     f"{f['usual']:+g} last season")
+        parts.append(f"{f['name']} {'is cooking' if f['tag'] == 'hot' else 'is in a slump'} - the team's {f['recent']:+g} "
+                     f"per 48 with him on the floor lately, {f['usual']:+g} last season")
     fl = (cur.get("flags") or {}).get(tid) or {}
     if fl.get("restricted"):
-        parts.append(f"{', '.join(fl['restricted'][:2])} on a minutes limit (~{RESTRICTED_MIN:g} a night in our read)")
+        parts.append(f"{', '.join(fl['restricted'][:2])} on a minutes limit (about {RESTRICTED_MIN:g} tonight)")
     if fl.get("game_time"):
-        parts.append(f"{', '.join(fl['game_time'][:2])} a game-time decision (half a player in our read)")
+        parts.append(f"{', '.join(fl['game_time'][:2])} a game-time call")
     if not parts:
         return ""
-    return f"🏀 {g[side + '_name']}: {' · '.join(parts)}."
+    return f"🏀 {nm}: {' · '.join(parts)}."
 
 
 _SCALE = {}

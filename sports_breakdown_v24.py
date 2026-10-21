@@ -951,13 +951,13 @@ def breakdown(leg, games, elo, injuries, used=None):
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or []
                     if r in WHY and r not in said and (r != "hotter recent form" or hot_ok)), NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
-        out.append(_nowhy(v.say("fade", [
-            f"💸 Money's been coming in on {the_them}{move}, but whoever's betting it must be some clowns. We're on {the_us} — {why}.",
-            f"💸 Somebody's pushing {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
-            f"💸 Line's moving toward {the_them}{move}. Let 'em — we still like {the_us}, {why}.",
-            f"💸 Money's pouring in on {the_them}{move}. They must've lost their minds — we got {the_us}, {why}.",
-            f"💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
-            f"💸 The market's leaning {the_them}{move}. Somebody's about to learn a lesson — we're on {the_us}, {why}."])))
+        out.append(_nowhy(v.say("fade", [         # (10/21, the owner: "very vague" - the old pool
+            #                                         bragged about money going AGAINST us; it's a warning - say so)
+            f"💸 Heads up: the line moved toward {the_them}{move}. We still got {the_us} — {why}.",
+            f"💸 The money went {the_them}'s way{move}. The engine still has {the_us} — {why}.",
+            f"💸 {the_them} got bet up{move}. We're still on {the_us} — {why}.",
+            f"💸 Line's moving toward {the_them}{move}. Not our favorite sign, but we still like {the_us} — {why}.",
+            f"💸 Somebody's betting {the_them}{move}. The engine didn't budge off {the_us} — {why}."])))
 
     # who's betting who: the real splits (the same numbers Google shows)
     sp_ = public_split(leg)
@@ -972,34 +972,21 @@ def breakdown(leg, games, elo, injuries, used=None):
     if sp_:
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
+        # (10/21, the owner: the splits lines were filler - "public's usually wrong, not this time", "for once the
+        #  the crowd lines". The splits don't pick winners (the 10/7 study, dead), so the card just says who's on
+        #  who when it's lopsided - a 40-60 split says nothing and is dropped)
         if t <= 35:
             out.append(v.say("splits_f", [
-                f"📊 The whole world on {the_them} — {100 - t}% of the bets and {100 - m}% of the money on {mk}. "
-                f"We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
-                f"📊 {100 - t}% of the bets on {the_them} ({100 - m}% of the money). Sheep gon' be sheep — "
-                f"we on {the_us} with the other {t}%.",
-                f"📊 Public's hammering {the_them}: {100 - t}% of the bets, {100 - m}% of the money. "
-                f"We ain't following the herd — {the_us} all day.",
-                f"📊 {100 - t}% of the tickets on {the_them}. The books love that. We on {the_us}.",
-                f"📊 The casuals got {the_them} ({100 - t}% of the bets). We fading 'em — {the_us}.",
-                f"📊 Only {t}% of the bets on {the_us}. That's exactly where we want to be."]))
+                f"📊 {100 - t}% of the bets and {100 - m}% of the money on {the_them} on {mk}. We on the other side.",
+                f"📊 The public's on {the_them}: {100 - t}% of the bets, {100 - m}% of the money. Not us.",
+                f"📊 {the_them} got {100 - t}% of the tickets ({100 - m}% of the money). We got {the_us}.",
+                f"📊 Everybody and they mama on {the_them} ({100 - t}% of the bets). We riding {the_us} anyway."]))
         elif t >= 65:
             out.append(v.say("splits_w", [
-                f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
-                f"Sometimes the crowd gets it right.",
-                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd on this one.",
-                f"📊 The crowd's on {the_us} too — {t}% of the tickets, {m}% of the cash. Public's usually wrong — not this time.",
-                f"📊 {t}% of the bets and {m}% of the money on {the_us}. For once the casuals ain't wrong.",
-                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money. Same side as us.",
-                f"📊 {the_us} got {t}% of the bets ({m}% of the money). Popular pick, still the right one."]))
-        else:
-            out.append(v.say("splits", [
-                f"📊 Bets are split — {t}% on {the_us}, {100 - t}% on {the_them} ({m}% / {100 - m}% of the money). "
-                f"Nobody knows nothing on this one, except us.",
-                f"📊 Who's betting who: {t}% of the bets on {the_us}, {100 - t}% on {the_them}. Pretty split crowd.",
-                f"📊 {t}% on {the_us}, {100 - t}% on {the_them}. Crowd can't make up its mind — we already did.",
-                f"📊 The public's torn on this one ({t}% / {100 - t}%). The engine ain't.",
-                f"📊 Tickets are close to even — {t}% {the_us}, {100 - t}% {the_them}. We got our side."]))
+                f"📊 {t}% of the bets and {m}% of the money on {the_us}. Same side as the public on this one.",
+                f"📊 The public's with us: {t}% of the bets, {m}% of the money on {the_us}.",
+                f"📊 {the_us} got {t}% of the tickets ({m}% of the money). Popular side.",
+                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money."]))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)

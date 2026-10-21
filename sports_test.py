@@ -10312,6 +10312,21 @@ def test_by_sport_chip_shows_units_up_or_down():
     assert "{ut}</i>" in open("sports_dashboard.py").read()
 
 
+def test_cards_never_brag_about_money_going_against_us_and_splits_say_only_numbers():
+    """10/21, the owner: "the lingo still sucks ... very vague". A line move AGAINST our side is a warning, never "they
+    must've lost their minds"; the betting-splits lines state who's on who (the splits don't pick winners - no "public's
+    usually wrong, not this time"); a 40-60 split says nothing and is dropped; more lean bottom lines so a board of
+    five never repeats one."""
+    src = open("sports_breakdown_v24.py").read()
+    for bad in ("must've lost their minds", "Public's usually wrong", "casuals ain't wrong", "Nobody knows nothing",
+                "Sheep gon' be sheep", "That's how Vegas eats"):
+        assert bad not in src, bad
+    assert "Heads up: the line moved toward" in src
+    import sports_breakdown as sb
+    close = sb.lean_ends({"team": "Magic", "odds": -130, "p": 0.51, "market": "ml"})
+    assert len(set(close)) >= 8
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
@@ -12151,8 +12166,10 @@ def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
         w = sports.waiting_on(g, inj)
         assert "Joel Embiid game-time decision" in w and sports.waiting_on(g, inj, maybe=False) == []
         line = nr.card_line(g, "home", cur)
-        assert line.startswith("🏀 76ers:") and "+4.2 a 48 minutes" in line and "8 men 15+ minutes" in line
-        assert "LeBron James hot lately - +9.5 a 48 minutes" in line and "Joel Embiid a game-time decision" in line
+        # (10/21, the owner: "men 6-10 ... a 48 minutes" was jargon - plain words, same numbers)
+        assert line.startswith("🏀 76ers:") and "bench outscored teams by 4.2 per 48 minutes" in line \
+            and "plays 8 guys real minutes" in line and "men 6-10" not in line
+        assert "LeBron James is cooking - the team's +9.5 per 48" in line and "Joel Embiid a game-time call" in line
         away = nr.card_line(g, "away", cur)
         assert "bench" not in away and "Jalen Brunson on a minutes limit" in away      # a 0.5 bench isn't worth a word
         assert nr.card_line(g, "home", None) == "" and nr.card_line({**g, "home": "99"}, "home", cur) == ""
