@@ -653,3 +653,10 @@ the take-profit only stops giving back the 1-in-8 coins that do run. Next: entry
 ENTRY SPLITS (10-19 21:30, same 157 pools, live exit 80% at 5x): chain Solana -46% (both halves) vs other +40% (+48 / +34;
 +25% without the top 3); pump.fun -50% / not +6%; age < 24h +12% (57% rug) vs 24h+ -37%; 6h >= +150% +24% vs < -39%;
 liq >= $250k -56% (no 5x). Many splits = overfit risk; only pump.fun (biggest, both halves, live -54%) acted on (EXPERIMENT 16).
+
+### 2026-10-21 REGROUP (owner: "never seen anything good from it - regroup and do better")
+Scoreboard: DEX seasons 1-5 all lost (55 closed trades -$1,790 on $3,985; season 5 $761 of $1,000). Stocks official
+~$498 since 09-28 = exactly hold SPY ($499.77): no edge yet, no loss. Five DEX rule changes in 3 days (exp 14-18) =
+chasing; none can be judged. DECISION: DEX rules FROZEN until the 11-01 judge (bug fixes only); reviews report, they
+don't tweak. At 11-01: keep only what beat season-5's start; if the DEX is still losing, recommend to the owner moving
+its money to the stocks side (breakout52 - the only strategy with long-history evidence of big gains, +45%/yr 2011-2026).
