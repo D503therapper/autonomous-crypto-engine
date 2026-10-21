@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T02:40Z",
+ "updated": "2026-10-21T03:00Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -175,8 +175,8 @@
    "away": "Bruins",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -327,7 +327,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.518,
+    "p": 0.519,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -344,8 +344,8 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.554,
-    "win_p": 0.554,
+    "p": 0.556,
+    "win_p": 0.556,
     "reasons": []
    }
   },
@@ -447,7 +447,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nets",
-    "p": 0.502,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -464,8 +464,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.531,
-    "win_p": 0.531,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -505,7 +505,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.493,
+    "p": 0.496,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -521,9 +521,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "the stronger team"
     ]
@@ -535,7 +535,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.494,
+    "p": 0.496,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -551,9 +551,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.519,
-    "win_p": 0.519,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -583,8 +583,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.52,
-    "win_p": 0.52,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
      "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
@@ -597,7 +597,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.529,
+    "p": 0.53,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -614,8 +614,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.538,
-    "win_p": 0.538,
+    "p": 0.54,
+    "win_p": 0.54,
     "reasons": []
    }
   },
@@ -625,7 +625,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.662,
+    "p": 0.657,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -640,10 +640,10 @@
     "team": "Rockets",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -8.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.757,
+    "line": -9.5,
+    "odds": -105,
+    "p": 0.502,
+    "win_p": 0.751,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -656,7 +656,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.528,
+    "p": 0.5,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -665,16 +665,16 @@
    "start": "2026-10-22T02:00Z",
    "away": "Suns",
    "home": "Trail Blazers",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Trail Blazers",
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -142,
+    "p": 0.528,
+    "win_p": 0.528,
     "reasons": []
    }
   },
@@ -715,7 +715,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clippers",
-    "p": 0.575,
+    "p": 0.579,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -731,9 +731,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.639,
-    "win_p": 0.639,
+    "odds": -198,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
