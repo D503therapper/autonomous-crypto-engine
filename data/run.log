@@ -22620,3 +22620,42 @@ $BITF: No data found, symbol may be delisted
    [alert] Today +20.50 | Total -189.24: Stocks: $505.12  today +7.24  total +5.12
 DEX: $805.63  today +13.26  total -194.37
 DEX: $805.63 (-194.37) · Scammed: 0
+   footprint: XRP: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +5.8%, 4 volume hikes, 67% quiet hours @ 1.3787
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +2.6%, 2 volume hikes, 79% quiet hours @ 107.8
+   footprint: LINK: footprint 3/4 (drift+quiet+rising_lows) 48h +5.1%, 0 volume hikes, 81% quiet hours @ 12.639
+   dex screen: REJECT CLAW@solana liq $386,122 - creator holds 7%; top-10 holders 72%; lp holders unknown
+   dex screen: REJECT AVNT@base liq $711,324 - pool age unknown
+   dex screen: REJECT BALANCE@ethereum liq $168,022 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT ICP@ethereum liq $463,536 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT XBC@solana liq $238,240 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #113 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #9 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT DRV@base liq $1,259,646 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT METAC@base liq $1,079,520 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,190,323
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT HIMS@solana liq $185,261 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 66%; lp holders unknown
+   dex screen: REJECT PANGEA@solana liq $173,619 - mint authority; holders unknown; lp holders unknown
+   dex screen: REJECT PANGEA@ethereum liq $172,570 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT DACITY@solana liq $427,334 - lp holders unknown; rugcheck lp locked 27% < 95%
+   dex screen: REJECT PANGEA@base liq $157,314 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT GRVT@ethereum liq $471,234 - goplus partial data: cannot_sell_all unknown; top-10 holders 93%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #114 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: NPC@solana:FrEL1gFK data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #10 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 2,080 / base 491 / ethereum 429), refresh cycle 127s (hot 122s), 2951 calls (109 feed, 429s 0, failed 1), 85,207 refreshed (8405 no pair), +93 added / -90 dropped (dead 16, stale 0, cap 74), movers 1 + warming 12 -> queued 3, screened 4 (passed 0), bought 0
+[2026-10-21 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-21 23:06 UTC] crypto/mover     equity $280.70 (-43.9%) 2 open  market UP
+[2026-10-21 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 23:06 UTC] crypto/social_heat equity $428.29 (-14.3%) 3 open  market UP
+[2026-10-21 23:06 UTC] crypto/breakout10 equity $484.22 (-3.2%) 2 open  market UP
+[2026-10-21 23:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-21 23:06 UTC] crypto/breakout  equity $490.37 (-1.9%) 3 open  market UP
+[2026-10-21 23:06 UTC] crypto/hold_btc  equity $501.85 (+0.4%) 1 open  market UP
+   social heat top: AERO 45 (37/0/8), BTC 29 (29/0/0), NEAR 24 (24/0/0), VVV 21 (21/0/0), PONS 21 (8/0/13)
