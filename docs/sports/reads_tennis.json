@@ -1,58 +1,6 @@
 {
- "updated": "2026-10-21T08:56Z",
+ "updated": "2026-10-21T10:01Z",
  "games": [
-  {
-   "id": "tennis:atp:184993",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T09:30Z",
-   "away": "Andrey Rublev",
-   "home": "Adrian Mannarino",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Andrey Rublev",
-    "opp": "Adrian Mannarino",
-    "market": "spread",
-    "line": -3.5,
-    "odds": -125,
-    "p": 0.52,
-    "win_p": 0.745,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:185057",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T09:30Z",
-   "away": "Dino Prizmic",
-   "home": "Damir Dzumhur",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Dino Prizmic",
-    "opp": "Damir Dzumhur",
-    "market": "ml",
-    "line": null,
-    "odds": -260,
-    "p": 0.691,
-    "win_p": 0.691,
-    "reasons": [
-     "on hard court",
-     "BNP Paribas Fortis European Open"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:185053",
    "league": "tennis",
@@ -84,7 +32,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-21T11:00Z",
+   "start": "2026-10-21T11:30Z",
    "away": "Marta Kostyuk",
    "home": "Ekaterina Alexandrova",
    "vs": true,
@@ -418,110 +366,6 @@
    }
   },
   {
-   "id": "tennis:wta:185521",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-22T04:00Z",
-   "away": "Diana Shnaider",
-   "home": "Alexandra Eala",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Diana Shnaider",
-    "opp": "Alexandra Eala",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
-    "reasons": [
-     "on hard court",
-     "BNB Ningbo Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:185535",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-22T04:00Z",
-   "away": "Polina Kudermetova",
-   "home": "Elena Rybakina",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Polina Kudermetova",
-    "opp": "Elena Rybakina",
-    "market": "spread",
-    "line": 5.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.136,
-    "reasons": [
-     "on hard court",
-     "BNB Ningbo Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:185536",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-22T04:00Z",
-   "away": "Katarzyna Kawa",
-   "home": "Belinda Bencic",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Katarzyna Kawa",
-    "opp": "Belinda Bencic",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -130,
-    "p": 0.531,
-    "win_p": 0.132,
-    "reasons": [
-     "on hard court",
-     "BNB Ningbo Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:185537",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-22T04:00Z",
-   "away": "Iva Jovic",
-   "home": "Jasmine Paolini",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Iva Jovic",
-    "opp": "Jasmine Paolini",
-    "market": "ml",
-    "line": null,
-    "odds": -210,
-    "p": 0.647,
-    "win_p": 0.647,
-    "reasons": [
-     "on hard court",
-     "BNB Ningbo Open"
-    ]
-   }
-  },
-  {
    "id": "tennis:wta:185591",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -548,6 +392,32 @@
    }
   },
   {
+   "id": "tennis:wta:185537",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-22T05:00Z",
+   "away": "Iva Jovic",
+   "home": "Jasmine Paolini",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Iva Jovic",
+    "opp": "Jasmine Paolini",
+    "market": "ml",
+    "line": null,
+    "odds": -210,
+    "p": 0.647,
+    "win_p": 0.647,
+    "reasons": [
+     "on hard court",
+     "BNB Ningbo Open"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:185592",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -570,6 +440,84 @@
     "reasons": [
      "on hard court",
      "Kinoshita Group Japan Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185536",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-22T06:30Z",
+   "away": "Katarzyna Kawa",
+   "home": "Belinda Bencic",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Katarzyna Kawa",
+    "opp": "Belinda Bencic",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.132,
+    "reasons": [
+     "on hard court",
+     "BNB Ningbo Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185521",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-22T08:00Z",
+   "away": "Diana Shnaider",
+   "home": "Alexandra Eala",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Diana Shnaider",
+    "opp": "Alexandra Eala",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "on hard court",
+     "BNB Ningbo Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185014",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-22T09:30Z",
+   "away": "Daniil Medvedev",
+   "home": "Sho Shimabukuro",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Daniil Medvedev",
+    "opp": "Sho Shimabukuro",
+    "market": "spread",
+    "line": -5.0,
+    "odds": -135,
+    "p": 0.541,
+    "win_p": 0.899,
+    "reasons": [
+     "on hard court",
+     "Almaty Open"
     ]
    }
   }

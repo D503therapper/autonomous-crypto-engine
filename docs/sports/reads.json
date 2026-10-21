@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T09:30Z",
+ "updated": "2026-10-21T10:06Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.519,
+    "p": 0.513,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -16,16 +16,16 @@
    "start": "2026-10-21T23:00Z",
    "away": "Bucks",
    "home": "Wizards",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Wizards",
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": -175,
+    "p": 0.546,
+    "win_p": 0.546,
     "reasons": []
    }
   },
@@ -127,7 +127,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nets",
-    "p": 0.494,
+    "p": 0.489,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -143,9 +143,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -125,
+    "p": 0.512,
+    "win_p": 0.512,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -169,14 +169,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Senators",
+    "team": "Senators",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.725,
-    "win_p": 0.513,
-    "reasons": []
+    "odds": -285,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -185,7 +187,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.496,
+    "p": 0.499,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -201,9 +203,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
+    "odds": -122,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
      "the stronger team"
     ]
@@ -304,7 +306,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.657,
+    "p": 0.664,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -322,7 +324,7 @@
     "line": -9.5,
     "odds": -105,
     "p": 0.502,
-    "win_p": 0.751,
+    "win_p": 0.76,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -394,7 +396,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clippers",
-    "p": 0.578,
+    "p": 0.566,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -410,9 +412,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.643,
-    "win_p": 0.643,
+    "odds": -185,
+    "p": 0.626,
+    "win_p": 0.626,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -511,6 +513,36 @@
    }
   },
   {
+   "id": "nhl:401892553",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Maple Leafs",
+    "p": 0.354,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-22T23:00Z",
+   "away": "Rangers",
+   "home": "Maple Leafs",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Rangers",
+    "opp": "Maple Leafs",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -278,
+    "p": 0.709,
+    "win_p": 0.493,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401862807",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -570,6 +602,34 @@
      "sharp money moving this way",
      "revenge game"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892561",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Hurricanes",
+    "p": 0.352,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-23T01:00Z",
+   "away": "Hurricanes",
+   "home": "Oilers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Oilers",
+    "opp": "Hurricanes",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -286,
+    "p": 0.709,
+    "win_p": 0.496,
+    "reasons": []
    }
   },
   {
