@@ -3344,6 +3344,40 @@ def test_no_nba_lock_in_week_one_and_the_home_dog_weighs_most_in_games_6_to_10()
     assert sports.NBA_HOME_DOG_W_EARLY > sports.NBA_HOME_DOG_W
 
 
+def test_nba_underdog_score_weights_from_the_20_studies():
+    """10/21 - 20 NBA underdog studies (the owner: "wire weights"): each angle 2 points on the dog score, never a
+    trigger; the facts come from the schedule (last meeting, road trips, the opponent's last game), the total and the
+    spread. Score 2+ dogs blind +5.6%, -2 or less -21.0% (0 of 3)."""
+    import sports_leads
+    base = {"market": "ml", "league": "nba", "odds": 150, "dec": 2.5, "p_market": 0.39, "edge": 0.0,
+            "edge_own": 0.39 * 2.5 - 1, "reasons": [], "home": True, "season_games": 2}
+    assert sports.nba_dog_weights({**base, "dog_more": {}}) == 0
+    assert sports.nba_dog_weights({**base, "dog_more": {"total": 238, "meet_margin": -18}}) == 4
+    assert sports.nba_dog_weights({**base, "season_games": 40, "dog_more": {"total": 210}}) == -4
+    assert sports.nba_dog_weights({**base, "dog_more": {"last_margin": 16, "opp_last_margin": 22, "opp_trip_game": 4,
+                                                        "home_after_trip": 5, "spread_gap": 0.02}}) == -10
+    assert sports.nba_dog_weights({**base, "league": "nhl", "dog_more": {"total": 238}}) == 0
+    assert sports.nba_dog_weights({**base, "odds": -120, "dog_more": {"total": 238}}) == 0
+    s0 = sports.dog_score({**base, "dog_more": {}})
+    assert sports.dog_score({**base, "dog_more": {"total": 238}}) == s0 + 2
+    assert sports.dog_score({**base, "dog_more": {"last_margin": 16, "opp_last_margin": 22, "opp_trip_game": 4,
+                                                  "home_after_trip": 5, "spread_gap": 0.02}}) >= s0 - sports.STUDY_CAP
+    assert "NBA dog, 10/21 dog score -4 or less (fade)" in sports_leads.tags({**base, "season_games": 40,
+                                                                             "dog_more": {"total": 210}}, sports)
+    # the facts, from the schedule: B lost the last meeting by 20, A is on its 4th straight road game, the total 236
+    games = {}
+    for i, (h, a, hs, as_) in enumerate([("A", "B", 120, 100), ("C", "A", 90, 100), ("D", "A", 90, 100), ("E", "A", 99, 100)]):
+        games[f"g{i}"] = {"id": f"g{i}", "league": "nba", "start": f"2026-10-{21 + i}T23:00Z", "status": "final",
+                          "stype": "2", "home": h, "away": a, "home_score": hs, "away_score": as_}
+    g = {"id": "n", "league": "nba", "start": "2026-10-28T23:00Z", "status": "pre", "stype": "2", "home": "B", "away": "A",
+         "total": "236", "spread_home": "4.5", "ml_home": "160", "ml_away": "-190"}
+    games["n"] = g
+    sports._SCHED.clear()
+    mo = sports._dog_more(games, g, "home", "away", "nba")
+    assert mo["meet_margin"] == -20 and mo["opp_trip_game"] == 4 and mo["total"] == 236 and mo["opp_last_margin"] == 1
+    assert "spread_gap" in mo
+
+
 def test_hoops_opening_weeks_trust_the_market_and_elo_regresses_once():
     """10/20 audit (NBA opening night - the owner: "the engine is tripping", the 76ers +155 with LeBron): the NBA ratings
     are last season's results (no rosters), so the engine read the 76ers 26% vs the market's 38% and called it 'fighting'

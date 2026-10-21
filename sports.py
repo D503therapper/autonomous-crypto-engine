@@ -1095,6 +1095,7 @@ def dog_score(c):
         #                                                  (10/20 study: an NBA HOME dog +100..+200 in a team's games 6-20
         #                                                  +13.6% train (5 of 5 seasons), +10.1% blind (3 of 3); fades by
         #                                                  game 20 - the early-season market under-rates home dogs)
+    sc += nba_dog_weights(c)                             # 🏀 10/21: the 20 NBA underdog studies' score (weights)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         sc += OT_W.get(c.get("ot_last"), 0)              # 10/18: how its last game ended in OT / a shootout
@@ -1348,6 +1349,7 @@ def _dog_more(games, g, side, other, lg):
             fresh = lambda x: x and x.get("status") == "final" and (start - se._t(x["start"])).days <= 7   # noqa: E731
             out["comeback"] = bool(fresh(prev) and comeback_win(prev, g[side]))
             out["opp_comeback"] = bool(fresh(op_prev) and comeback_win(op_prev, g[other]))
+            out.update(_nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev))
         else:
             if str(g.get("stype")) == "3" and prev and margin is not None and margin <= -5 and \
                     g[other] in (prev.get("home"), prev.get("away")):
@@ -1358,6 +1360,96 @@ def _dog_more(games, g, side, other, lg):
         return out
     except Exception:                                   # noqa: BLE001 - extra facts never block the board
         return {}
+
+
+NBA_DOG_W = 2                   # 10/21 - 20 NBA underdog studies (the owner: "wire it in as weights"): each angle 2 points
+NBA_DOG_TOTAL_HI, NBA_DOG_TOTAL_LO = 235, 215   # high-total games: dogs +5.0% train; low: -6.3% / -13.2% blind
+NBA_DOG_HOME_FADE = (31, 60)    # a home dog in its team's games 31-60: -11.8% / -11.1% (0 of 5, 0 of 3 seasons)
+NBA_DOG_SPREAD_FIT = (9.947e-05, -3.403e-02, 5.2264e-01)   # the ML a dog's spread implies (quadratic, 2018-22 dogs)
+NBA_DOG_SPREAD_GAP = 0.015      # the ML 1.5+ points SHORTER than the spread says: -18.3% / -30.7% blind
+
+
+def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev):
+    """The 10/21 underdog study's facts for one NBA side: its last margin, the opponent's, this season's last meeting,
+    the opponent's road-trip game, a home game right after our own long trip, the total, the ML vs the spread."""
+    import sports_early as se
+    out = {"last_margin": margin}
+    if op_prev and op_prev.get("status") == "final" and (start - se._t(op_prev["start"])).days <= 21:
+        try:
+            m = float(op_prev["home_score"]) - float(op_prev["away_score"])
+            out["opp_last_margin"] = m if op_prev["home"] == g[other] else -m
+        except (TypeError, ValueError, KeyError):
+            pass
+    y = int(g["start"][:4]) if int(g["start"][5:7]) >= 9 else int(g["start"][:4]) - 1
+    s0 = f"{y}-09-01"
+
+    def season(team):
+        return [x for st_, x in sched.get((lg, team), []) if s0 <= st_ < g["start"] and x.get("status") == "final"
+                and str(x.get("stype") or "2") == "2"]
+
+    def away_run(team, lst):
+        n = 0
+        for x in reversed(lst):
+            if x.get("away") != team:
+                break
+            n += 1
+        return n
+    mine, theirs = season(g[side]), season(g[other])
+    for x in reversed(mine):
+        if g[other] in (x.get("home"), x.get("away")):
+            try:
+                m = float(x["home_score"]) - float(x["away_score"])
+                out["meet_margin"] = m if x["home"] == g[side] else -m
+            except (TypeError, ValueError, KeyError):
+                pass
+            break
+    if side == "home":
+        out["opp_trip_game"] = away_run(g[other], theirs) + 1      # tonight is their Nth straight road game
+        out["home_after_trip"] = away_run(g[side], mine)           # we just got home from N road games
+    try:
+        out["total"] = float(g.get("total"))
+    except (TypeError, ValueError):
+        pass
+    try:
+        sp = float(g["spread_home"]) * (1 if side == "home" else -1)
+        mh, ma = int(g["ml_home"]), int(g["ml_away"])
+        mp = sd.no_vig(mh, ma) if side == "home" else 1 - sd.no_vig(mh, ma)
+        a, b, c0 = NBA_DOG_SPREAD_FIT
+        out["spread_gap"] = round(mp - (a * sp * sp + b * sp + c0), 4)
+    except (TypeError, ValueError, KeyError):
+        pass
+    return out
+
+
+def nba_dog_weights(c):
+    """The 10/21 NBA underdog score (weights, never a trigger - the whole dog read decides): +2 a high total, +2 a dog
+    that lost this season's last meeting by 15+; -2 each: a home dog in games 31-60, a dog off a 15+ win, a low total,
+    the favorite on its 4th+ straight road game, our first home game after a 4+ trip, the favorite off a 20+ win, a
+    moneyline shorter than the spread says. Blind 2023-26: score 2+ dogs 38.9% vs 35.2% (+5.6%), -2 or less 31.7% vs
+    36.7% (-21.0%, 0 of 3 seasons; train -21.5%)."""
+    if c.get("league") != "nba" or c.get("market") != "ml" or c.get("odds", 0) < 100:
+        return 0
+    mo = c.get("dog_more") or {}
+    w, sc = NBA_DOG_W, 0
+    tot = mo.get("total")
+    if tot is not None:
+        sc += w if tot >= NBA_DOG_TOTAL_HI else -w if tot <= NBA_DOG_TOTAL_LO else 0
+    if (mo.get("meet_margin") if mo.get("meet_margin") is not None else 0) <= -15:
+        sc += w
+    n = c.get("season_games")
+    if c.get("home") and n is not None and NBA_DOG_HOME_FADE[0] <= n + 1 <= NBA_DOG_HOME_FADE[1]:
+        sc -= w
+    if (mo.get("last_margin") or 0) >= 15:
+        sc -= w
+    if (mo.get("opp_trip_game") or 0) >= 4:
+        sc -= w
+    if c.get("home") and (mo.get("home_after_trip") or 0) >= 4:
+        sc -= w
+    if (mo.get("opp_last_margin") or 0) >= 20:
+        sc -= w
+    if (mo.get("spread_gap") or 0) >= NBA_DOG_SPREAD_GAP:
+        sc -= w
+    return sc
 
 
 def _ls(x, team):
