@@ -15791,6 +15791,7 @@
      "game:div"
     ],
     "dec": 1.6756756756756757,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15805,6 +15806,10 @@
     "elo_edge": 52.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "1,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -15849,9 +15854,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jets 1 @ Blues 2",
+    "settled": "2026-10-21T02:38Z",
     "side": "home",
     "start": "2026-10-21T00:00Z",
     "stype": "2",
@@ -15874,12 +15881,14 @@
    }
   ],
   "p_hit": 0.572,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T02:38Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -110,

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T01:59Z",
+ "updated": "2026-10-21T02:40Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -26,8 +26,8 @@
    "away": "76ers",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -100,8 +100,8 @@
    "away": "MTSU",
    "home": "FIU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -130,8 +130,8 @@
    "away": "Missouri St",
    "home": "Delaware",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -191,7 +191,7 @@
    "home": "Blues",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blues",
@@ -206,7 +206,7 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -280,34 +280,45 @@
    }
   },
   {
+   "id": "nhl:401892548",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-21T02:00Z",
+   "away": "Hurricanes",
+   "home": "Canucks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892549",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.354,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-21T02:30Z",
+   "start": "2026-10-21T02:45Z",
    "away": "Lightning",
    "home": "Golden Knights",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Lightning",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.721,
-    "win_p": 0.508,
+    "team": "Golden Knights",
+    "opp": "Lightning",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.507,
+    "win_p": 0.507,
     "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
