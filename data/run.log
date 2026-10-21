@@ -21777,3 +21777,33 @@ DEX: $792.37 (-207.63) · Scammed: 0
 [2026-10-21 03:19 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-21 03:19 UTC] crypto/hold_btc  equity $492.62 (-1.5%) 1 open  market UP
    social heat top: CARDS 43 (40/0/3), NEAR 37 (37/0/0), PENGU 32 (32/0/0), VVV 29 (29/0/0), HYPE 27 (27/0/0)
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.8%, 2 volume hikes, 83% quiet hours @ 105.97
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '83377.04', 'l': '81207.05', 'a': '82657.00', 'v': '3702.9843', 'vv': '305481292.01', 'c': '0.0110', 'b': '82656.99', 'k': '82657.00', 'oi': '0', 't': 1792552789106}
+   dex screen: REJECT FORT@ethereum liq $184,268 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT FORT@ethereum liq $184,032 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     217dd88c97cf3c0db699fbd12d40cc7e02e79496 -> main (cannot lock ref 'refs/heads/main': is at 5333af3069dc57b851dc870
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #76 (top-10 holders 73%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT AZTEC@ethereum liq $14,720,357 - top-10 holders 100%
+   dex screen: REJECT ZBCN@solana liq $209,304 - top-10 holders 54%; lp holders unknown
+   dex screen: REJECT CRAWL@solana liq $144,540 - lp holders unknown; rugcheck lp locked 57% < 95%
+   dex scanner: 3,000 pools (solana 2,124 / base 446 / ethereum 430), refresh cycle 118s (hot 115s), 2127 calls (96 feed, 429s 0, failed 0), 60,913 refreshed (4888 no pair), +262 added / -262 dropped (dead 10, stale 0, cap 252), movers 0 + warming 16 -> queued 3, screened 3 (passed 0), bought 0
+   dex screen: PASS USELESS@solana liq $4,128,361
+   dex screen: REJECT MORPHO@ethereum liq $114,057 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT TTWO@solana liq $479,020 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+[2026-10-21 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-21 04:06 UTC] crypto/mover     equity $279.28 (-44.1%) 2 open  market UP
+[2026-10-21 04:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 04:06 UTC] crypto/social_heat equity $428.41 (-14.3%) 1 open  market UP
+[2026-10-21 04:06 UTC] crypto/breakout10 equity $472.55 (-5.5%) 2 open  market UP
+[2026-10-21 04:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-21 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-21 04:06 UTC] crypto/hold_btc  equity $492.60 (-1.5%) 1 open  market UP
+   social heat top: PENGU 40 (40/0/0), CARDS 38 (29/0/8), HYPE 35 (35/0/0), NEAR 24 (24/0/0), PUMP 23 (11/0/12)
