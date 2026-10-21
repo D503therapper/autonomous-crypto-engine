@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T15:01Z",
+ "updated": "2026-10-21T15:13Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -136,8 +136,8 @@
    "start": "2026-10-21T23:30Z",
    "away": "Hornets",
    "home": "Nets",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Hornets",
     "opp": "Nets",
@@ -226,8 +226,8 @@
    "start": "2026-10-22T00:00Z",
    "away": "Jazz",
    "home": "Grizzlies",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Grizzlies",
     "opp": "Jazz",
@@ -306,7 +306,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.681,
+    "p": 0.685,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -324,7 +324,7 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.503,
-    "win_p": 0.782,
+    "win_p": 0.787,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
