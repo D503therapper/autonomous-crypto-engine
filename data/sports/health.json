@@ -1,11 +1,9 @@
 {
- "at": "2026-10-21T20:57Z",
+ "at": "2026-10-21T20:58Z",
  "fixes": [],
- "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +11,23 @@
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 40 min ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-21T20:58Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-21T20:57Z",
    "fixes": [],
@@ -425,13 +429,6 @@
    "at": "2026-10-20T05:25Z",
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-10-18 Katie Boulter) - started sports.yml"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T04:36Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-19 Tereza Valentova) - sports.yml already running"
    ],
    "problems": []
   }
