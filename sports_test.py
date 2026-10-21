@@ -10303,6 +10303,16 @@ def test_by_sport_is_unit_plays_only():
     assert 'sports.units_ledger(picks, sports_early.load().get("picks") or [])["rows"]' in src
 
 
+def test_by_sport_chip_shows_units_up_or_down():
+    """10/21, the owner: "it should say percentage and then up how many units, because college football says our
+    percentage isn't very good, but we're definitely up units" - each sport's unit-play chip shows its net units."""
+    import sports_dashboard as D
+    assert "up 4.3u" in D.sport_units([2.0, -1.0, 3.3]) and "#22e39a" in D.sport_units([2.0, -1.0, 3.3])
+    assert "down 1.5u" in D.sport_units([-1.5]) and "#ff5a5a" in D.sport_units([-1.5])
+    assert "even" in D.sport_units([1.0, -1.0])
+    assert "{ut}</i>" in open("sports_dashboard.py").read()
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""

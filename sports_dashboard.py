@@ -134,6 +134,15 @@ def live_days(now_pt):
     return {d.isoformat()} | ({(d - timedelta(days=1)).isoformat()} if now_pt.hour < LIVE_KEEP_HOUR_PT else set())
 
 
+def sport_units(uu):
+    """A sport's unit plays, net units under its win % on the BY SPORT chip: green up, red down (the owner, 10/21)."""
+    u = round(sum(uu), 1)
+    col = "#22e39a" if u > 0 else "#ff5a5a" if u < 0 else "#fff"
+    word = "up" if u > 0 else "down" if u < 0 else "even"
+    return f'<small style="color:{col};text-align:right">{word} {abs(u):g}u</small>' if u else \
+        '<small style="color:#fff;text-align:right">even</small>'
+
+
 def _live_by_sport(entries):
     """The live plus money record, one line per sport (the owner, 9/29: see how the engine does in each sport - never
     one number for all of them). Busiest sport first."""
@@ -1832,9 +1841,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
             w_, n_ = sum(x > 0 for x in uu), sum(x != 0 for x in uu)
             hue = "#fff" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
             hs = f"{sd.LEAGUES[lgs[0]][3]} {sd.LEAGUES[lgs[0]][2]}"
+            ut = sport_units(uu) if n_ else ""               # (the owner, 10/21: "it should say percentage and then up
+            #                                                  how many units" - college football 48% but up units)
             chips.append(f'<div class="spc{" tap" if n_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
                          f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
-                         f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i>{"<em>▾</em>" if n_ else ""}</div>')
+                         f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}{ut}</i>{"<em>▾</em>" if n_ else ""}</div>')
             continue
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
