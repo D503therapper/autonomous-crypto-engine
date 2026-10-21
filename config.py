@@ -279,6 +279,7 @@ DEX = {
               # there are many more lottery tickets on runners; moon alerts still ping at 2x .. 100x.
               "mode": "both",
               "skip_pump": True,           # EXPERIMENT 16: the fresh-pump rule skips pump.fun launches (dex._trig)
+              "fresh_skip_chains": ("solana",),   # EXPERIMENT 18: ... and all Solana coins (survivors still buy)
               "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%

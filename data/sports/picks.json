@@ -15791,6 +15791,7 @@
      "game:div"
     ],
     "dec": 1.6756756756756757,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15805,6 +15806,10 @@
     "elo_edge": 52.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "1,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -15849,9 +15854,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jets 1 @ Blues 2",
+    "settled": "2026-10-21T02:38Z",
     "side": "home",
     "start": "2026-10-21T00:00Z",
     "stype": "2",
@@ -15874,12 +15881,14 @@
    }
   ],
   "p_hit": 0.572,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T02:38Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -110,
@@ -15920,6 +15929,7 @@
      "game:nonconf"
     ],
     "dec": 1.9090909090909092,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15934,6 +15944,10 @@
     "elo_edge": -62.8,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,2",
+     "h": "1,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -15974,9 +15988,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Avalanche 3 @ Devils 4",
+    "settled": "2026-10-21T01:37Z",
     "side": "home",
     "start": "2026-10-20T23:00Z",
     "stype": "2",
@@ -15993,12 +16009,14 @@
    }
   ],
   "p_hit": 0.5266,
-  "pnl": 0.0,
+  "pnl": 90.91,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T01:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
@@ -16032,6 +16050,7 @@
      "game:conf"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16048,6 +16067,10 @@
     "elo_edge": 43.7,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "34,31,28,23",
+     "h": "28,16,36,24"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16090,9 +16113,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Thunder 116 @ Spurs 104",
+    "settled": "2026-10-21T04:25Z",
     "side": "home",
     "start": "2026-10-21T01:30Z",
     "stype": "2",
@@ -16109,12 +16134,14 @@
    }
   ],
   "p_hit": 0.5008,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T04:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -16159,6 +16186,11 @@
      "us:west1000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {
+     "s": "4-3",
+     "type": "so",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16173,6 +16205,10 @@
     "elo_edge": 17.9,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,3,0,0",
+     "h": "1,2,0,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -16186,6 +16222,9 @@
     "key_seen": {},
     "league": "nhl",
     "line": null,
+    "line_alerts": [
+     "The money's running away from Kraken: -115 when we posted, +102 now. We still riding \u2014 your call."
+    ],
     "lost_last": false,
     "market": "ml",
     "odds": -115,
@@ -16209,9 +16248,11 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Red Wings 3 @ Kraken 4",
+    "settled": "2026-10-21T04:35Z",
     "side": "home",
     "start": "2026-10-21T01:40Z",
     "stype": "2",
@@ -16235,12 +16276,14 @@
    }
   ],
   "p_hit": 0.5067,
-  "pnl": 0.0,
+  "pnl": 86.96,
   "posted": "2026-10-20T15:13Z",
   "round": 1,
+  "settled": "2026-10-21T04:35Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -16291,6 +16334,11 @@
      "them:west1000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {
+     "s": "6-2",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16305,6 +16353,10 @@
     "elo_edge": 35.2,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,3,1",
+     "h": "2,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16342,9 +16394,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 6 @ Golden Knights 2",
+    "settled": "2026-10-21T05:42Z",
     "side": "home",
     "start": "2026-10-21T02:30Z",
     "stype": "2",
@@ -16361,11 +16415,13 @@
    }
   ],
   "p_hit": 0.5065,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-20T16:19Z",
   "round": 1,
+  "settled": "2026-10-21T05:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]

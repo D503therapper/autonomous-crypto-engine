@@ -438,3 +438,5 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 
 - 10/14 (the owner): the "blew somebody out" early spot (0-6 live, -3u) and the college "engine likes it" early spot are PAUSED (sports_early.SPOTS_OFF). Pulled before kickoff, never graded: Old Dominion +145, UAB +190, Tulane +220, Air Force +130, Rice +136, Tennessee +240, Georgia Tech +295, E Michigan +190. Still live this week: Boston College +215 (bye, 1u), BYU +300 (hammered, ½u), Brewers +144 (MLB exam, 3u). Turning a spot back on = the owner's call.
 - 10/15 (the owner): both early spots back ON (blowout + college engine) - "no risk no reward". The college read now counts at most 5 points in the early spots (NCAAF_GAP_MAX, the middle ground). The 8 plays pulled 10/14 stay pulled.
+
+- 10/21 the owner's call (B): a dog whose only case is the engine's read a little over the price (no proven angle, dog score under the gate - e.g. Sam Houston +114, read 49.5% vs 46.7% needed) stays OFF the board as a value play. Rule unchanged. Don't re-propose without new evidence.

@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 91,
-  "beat": 30,
+  "n": 96,
+  "beat": 31,
   "same": 32,
-  "worse": 29,
-  "avg_pts": 0.13
+  "worse": 33,
+  "avg_pts": 0.05
  },
  "unit_plays": {
   "n": 42,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 49,
-   "beat": 16,
+   "n": 54,
+   "beat": 17,
    "same": 14,
-   "worse": 19,
-   "avg_pts": -0.05
+   "worse": 23,
+   "avg_pts": -0.19
   },
   "lock": {
    "n": 11,
@@ -51,6 +51,13 @@
    "worse": 8,
    "avg_pts": -0.18
   },
+  "nba": {
+   "n": 1,
+   "beat": 0,
+   "same": 0,
+   "worse": 1,
+   "avg_pts": -2.3
+  },
   "ncaaf": {
    "n": 26,
    "beat": 10,
@@ -66,11 +73,11 @@
    "avg_pts": -0.17
   },
   "nhl": {
-   "n": 36,
-   "beat": 11,
+   "n": 40,
+   "beat": 12,
    "same": 16,
-   "worse": 9,
-   "avg_pts": 0.18
+   "worse": 12,
+   "avg_pts": 0.04
   }
  },
  "lock_by_size": {
@@ -1377,6 +1384,76 @@
    "pts": 2.1,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -135,
+   "pts": -2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -110,
+   "close": -120,
+   "pts": 2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Spurs",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -102,
+   "pts": -2.3,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Kraken",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": 102,
+   "pts": -4.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Golden Knights",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -110,
+   "pts": -1.1,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }

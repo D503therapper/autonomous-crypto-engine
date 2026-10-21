@@ -138,6 +138,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 15 | 2026-10-19 | DEX exit: at 5x sell 80%, the last 20% rides with no clock (config exit tp1 (4.0, 0.8); was: no take-profit, 7-day hold, 2x+ rides a 40% trail) | ~2026-11-01 (with exp 14) | dex_lottery_study (156 scanner pools meeting the fresh-pump entry, 3 weeks): 13% touched 5x in 7d, 4% 10x, none 25x; hold 7d -44.7%/\$1 (halves -56 / -33), 80% at 5x -9.9% (-14.9 / -4.8), all at 5x -1.1% (-4.6 / +2.4). 20% kept for the moon goal. | pending |
 | 16 | 2026-10-19 | DEX: the fresh-pump (momentum) rule skips pump.fun launches (Solana addresses ending "pump"; config entry skip_pump). Survivor rule unchanged. | ~2026-11-01 (with 14 / 15) | dex_lottery_study entry splits (n 157, live exit): pump.fun n 47, 60% rugged, -49.6% per $1 (-53.5 / -45.8); not pump.fun n 110, 25% rugged, +6.1% (+1.2 / +11.0). Live seasons 1-5: Solana pump.fun 39 trades -54% of cost (the worst bucket). Also seen, not acted on yet: Solana non-pump -42.6% (n 45, both halves negative) vs Base +118% (n 24) / Ethereum -6% (n 41). | pending |
 | 17 | 2026-10-20 | DEX exit: once a coin has reached 3x, sell all on a 40% drop from its high (config exit trail_steps [(3.0, 0.40)]); 80% at 5x stays | ~2026-11-01 (with 14-16) | STARTUPSI 3.15x -> 0.09x. dex_lottery_study re-run (3.5 weeks; fills at the lower of 2 snapshots): non-pump.fun fresh pumps n 110 +12.6% vs +6.4% per $1 (halves +0.9 / +24.2 vs +1.2 / +11.7); all 157 -0.9% vs -10.8% (-11.9 / +10.0 vs -14.9 / -6.8). The 10-08 study (10 days) failed the older half; now even/better in both. | pending |
+| 18 | 2026-10-20 | DEX: the fresh-pump rule skips ALL Solana coins (config entry fresh_skip_chains); fresh pumps only on Base / Ethereum; survivors on every chain | ~2026-11-01 (with 14-17) | dex_lottery_study with the live exit (80% at 5x, 3x/40% trail): Solana non-pump.fun n 45 -32.0% per $1 (-43.4 / -16.4), Base n 24 +118.7% (+150 / +100), Ethereum n 41 -1.1% (-8.6 / +6.0). Live seasons 1-5 Solana non-pump 10 trades -17%; exp 14 Solana buys YOKAI 0.64x, NPC 0.87x, DARK 0.83x. Buy rate will drop - watch it. | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -652,3 +653,10 @@ the take-profit only stops giving back the 1-in-8 coins that do run. Next: entry
 ENTRY SPLITS (10-19 21:30, same 157 pools, live exit 80% at 5x): chain Solana -46% (both halves) vs other +40% (+48 / +34;
 +25% without the top 3); pump.fun -50% / not +6%; age < 24h +12% (57% rug) vs 24h+ -37%; 6h >= +150% +24% vs < -39%;
 liq >= $250k -56% (no 5x). Many splits = overfit risk; only pump.fun (biggest, both halves, live -54%) acted on (EXPERIMENT 16).
+
+### 2026-10-21 REGROUP (owner: "never seen anything good from it - regroup and do better")
+Scoreboard: DEX seasons 1-5 all lost (55 closed trades -$1,790 on $3,985; season 5 $761 of $1,000). Stocks official
+~$498 since 09-28 = exactly hold SPY ($499.77): no edge yet, no loss. Five DEX rule changes in 3 days (exp 14-18) =
+chasing; none can be judged. DECISION: DEX rules FROZEN until the 11-01 judge (bug fixes only); reviews report, they
+don't tweak. At 11-01: keep only what beat season-5's start; if the DEX is still losing, recommend to the owner moving
+its money to the stocks side (breakout52 - the only strategy with long-history evidence of big gains, +45%/yr 2011-2026).
