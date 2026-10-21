@@ -1,28 +1,33 @@
 {
- "at": "2026-10-21T14:47Z",
+ "at": "2026-10-21T16:18Z",
  "fixes": [],
- "problems": [
-  "simulator last ran 10h ago - restarted"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "engine ran 8 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 53 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-21T16:18Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-21T14:47Z",
    "fixes": [],
@@ -437,14 +442,6 @@
   },
   {
    "at": "2026-10-19T23:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-19T23:01Z",
    "fixes": [],
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
