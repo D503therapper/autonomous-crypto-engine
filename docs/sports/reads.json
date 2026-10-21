@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T22:42Z",
+ "updated": "2026-10-21T23:13Z",
  "games": [
   {
    "id": "nba:401909834",
@@ -29,155 +29,57 @@
    }
   },
   {
-   "id": "nba:401909837",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Raptors",
-    "p": 0.689,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-21T23:30Z",
-   "away": "Bulls",
-   "home": "Raptors",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Raptors",
-    "opp": "Bulls",
-    "market": "spread",
-    "line": -10.5,
-    "odds": -112,
-    "p": 0.503,
-    "win_p": 0.791,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892550",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sabres",
-    "p": 0.42,
-    "tie": 0.295,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-21T23:30Z",
-   "away": "Flyers",
-   "home": "Sabres",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Sabres",
-    "opp": "Flyers",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.646,
-    "win_p": 0.646,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "nba:401909836",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Hornets",
-    "p": 0.507,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-21T23:30Z",
    "away": "Hornets",
    "home": "Nets",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Hornets",
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -118,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": [
      "the stronger team"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892551",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.354,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-21T23:30Z",
    "away": "Panthers",
    "home": "Senators",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Panthers",
     "opp": "Senators",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -278,
-    "p": 0.721,
-    "win_p": 0.508,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909091",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Heat",
-    "p": 0.493,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-21T23:30Z",
-   "away": "Timberwolves",
-   "home": "Heat",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Heat",
-    "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -112,
+    "p": 0.513,
+    "win_p": 0.513,
     "reasons": [
-     "the stronger team"
-    ]
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -290,9 +192,9 @@
     "team": "Rockets",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -9.5,
-    "odds": -118,
-    "p": 0.502,
+    "line": -10.5,
+    "odds": 100,
+    "p": 0.503,
     "win_p": 0.777,
     "reasons": [
      "the stronger team",

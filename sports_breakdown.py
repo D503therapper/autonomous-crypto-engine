@@ -266,15 +266,23 @@ def lean_ends(leg):
                 f"🟡 Bottom line: {price}. A live dog to us - not live enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
                 f"🟡 Bottom line: {price}. Underdog lean - we see a shot, not a bet we put money on."]
-    if own < LEAN_CLOSE:
+    if own < LEAN_CLOSE:                                      # (10/21, the owner: the same bottom line on 3 cards -
         return [f"🟡 Bottom line: {price}. We've got this game close to a coin flip - {team} by a hair, not enough to put money on.",
                 f"🟡 Bottom line: {price}. Close to 50-50 on our read. We tilt {team}, no units.",
-                f"🟡 Bottom line: {price}. This one's near a coin flip to us - {team} is the side if you're playing it, no money from us.",
-                f"🟡 Bottom line: {price}. Our read has it close to even, {team} a hair better. Lean only."]
+                f"🟡 Bottom line: {price}. Our read has it close to even, {team} a hair better. Lean only.",
+                f"🟡 Bottom line: {price}. Basically a coin flip - {team} by a nose. Fun to ride, not a money play.",
+                f"🟡 Bottom line: {price}. A coin flip game - if you're playing it, {team}'s the side. No units from us.",
+                f"🟡 Bottom line: {price}. It's close to even tonight, {team} slightly better. Just a lean.",
+                f"🟡 Bottom line: {price}. 50-50 type game. The engine leans {team} - no units on it.",
+                f"🟡 Bottom line: {price}. Not much between these two - close to even. {team} if you gotta pick one."]
     return [f"🟡 Bottom line: {price}. {team} should win more than they lose, but at that price there's no profit in it. Lean only.",
             f"🟡 Bottom line: {price}. {team} are the likelier winner - the price already accounts for that. No units.",
             f"🟡 Bottom line: {price}. Right side, but the price costs about what they're worth. A lean.",
-            f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price it's not a bet we put money on."]
+            f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price it's not a bet we put money on.",
+            f"🟡 Bottom line: {price}. {team} the better side - the books priced it right, so no units.",
+            f"🟡 Bottom line: {price}. {team} get the W on our read. Good parlay piece, not a unit play.",
+            f"🟡 Bottom line: {price}. We like {team} to win it. The price is too fair to bet - just a lean.",
+            f"🟡 Bottom line: {price}. {team} the pick to win. No value at this number, so no units."]
 
 
 def breakdown(leg, games, elo, injuries, used=None):
