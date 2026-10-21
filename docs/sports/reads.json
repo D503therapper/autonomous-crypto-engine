@@ -1,50 +1,18 @@
 {
- "updated": "2026-10-21T22:38Z",
+ "updated": "2026-10-21T22:42Z",
  "games": [
-  {
-   "id": "nba:401909835",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Wizards",
-    "p": 0.518,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-21T23:00Z",
-   "away": "Bucks",
-   "home": "Wizards",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Wizards",
-    "opp": "Bucks",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.554,
-    "win_p": 0.554,
-    "reasons": []
-   }
-  },
   {
    "id": "nba:401909834",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Magic",
-    "p": 0.51,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-21T23:00Z",
    "away": "Hawks",
    "home": "Magic",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Magic",
@@ -56,7 +24,8 @@
     "win_p": 0.543,
     "reasons": [
      "the stronger team"
-    ]
+    ],
+    "result": null
    }
   },
   {
