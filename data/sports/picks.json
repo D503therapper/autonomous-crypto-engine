@@ -16050,6 +16050,7 @@
      "game:conf"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16066,6 +16067,10 @@
     "elo_edge": 43.7,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "34,31,28,23",
+     "h": "28,16,36,24"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16108,9 +16113,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Thunder 116 @ Spurs 104",
+    "settled": "2026-10-21T04:25Z",
     "side": "home",
     "start": "2026-10-21T01:30Z",
     "stype": "2",
@@ -16127,12 +16134,14 @@
    }
   ],
   "p_hit": 0.5008,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T04:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
