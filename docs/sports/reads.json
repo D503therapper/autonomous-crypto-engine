@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T01:44Z",
+ "updated": "2026-10-21T01:46Z",
  "games": [
   {
    "id": "nba:401909088",
@@ -115,8 +115,8 @@
    "away": "Maple Leafs",
    "home": "Blue Jackets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -225,33 +225,6 @@
    "lean": null
   },
   {
-   "id": "nba:401909090",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-21T01:30Z",
-   "away": "Thunder",
-   "home": "Spurs",
-   "h1": null,
-   "why": "on_board",
-   "done": false,
-   "board": "lean",
-   "lean": {
-    "team": "Spurs",
-    "opp": "Thunder",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.501,
-    "reasons": [
-     "the stronger team"
-    ],
-    "result": null
-   }
-  },
-  {
    "id": "nhl:401892547",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -275,6 +248,33 @@
     "reasons": [
      "the stronger team",
      "opponent drama: trade drama"
+    ],
+    "result": null
+   }
+  },
+  {
+   "id": "nba:401909090",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-21T01:50Z",
+   "away": "Thunder",
+   "home": "Spurs",
+   "h1": null,
+   "why": "on_board",
+   "done": false,
+   "board": "lean",
+   "lean": {
+    "team": "Spurs",
+    "opp": "Thunder",
+    "market": "ml",
+    "line": null,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
     ],
     "result": null
    }
