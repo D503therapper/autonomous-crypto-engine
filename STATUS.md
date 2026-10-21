@@ -440,3 +440,5 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 - 10/15 (the owner): both early spots back ON (blowout + college engine) - "no risk no reward". The college read now counts at most 5 points in the early spots (NCAAF_GAP_MAX, the middle ground). The 8 plays pulled 10/14 stay pulled.
 
 - 10/21 the owner's call (B): a dog whose only case is the engine's read a little over the price (no proven angle, dog score under the gate - e.g. Sam Houston +114, read 49.5% vs 46.7% needed) stays OFF the board as a value play. Rule unchanged. Don't re-propose without new evidence.
+
+- 10/21 NBA (the owner's OK): no NBA Lock in a team's games 1-5; the home dog weighs 4 in games 6-10; 40 NBA underdog studies wired as dog-score WEIGHTS (sports.nba_dog_weights - totals and the ML/spread gap relative to the league's last 300 games). Watch the tracker tags "NBA dog, 10/21 dog score +4 or more" / "-4 or less (fade)".
