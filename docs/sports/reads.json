@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T20:14Z",
+ "updated": "2026-10-21T20:25Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -279,7 +279,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.524,
+    "p": 0.514,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -295,9 +295,9 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.538,
-    "win_p": 0.538,
+    "odds": -148,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": []
    }
   },
@@ -428,7 +428,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.493,
+    "p": 0.509,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -444,9 +444,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -155,
+    "p": 0.541,
+    "win_p": 0.541,
     "reasons": []
    }
   },
@@ -559,19 +559,18 @@
    "start": "2026-10-22T23:00Z",
    "away": "Panthers",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Penguins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.711,
-    "win_p": 0.495,
+    "team": "Penguins",
+    "opp": "Panthers",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.506,
+    "win_p": 0.506,
     "reasons": [
-     "better rested",
-     "opponent drama: illness"
+     "sharp money moving this way"
     ]
    }
   },
@@ -581,8 +580,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.389,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -598,8 +597,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.626,
-    "win_p": 0.406,
+    "p": 0.642,
+    "win_p": 0.423,
     "reasons": [
      "better rested"
     ]
@@ -611,7 +610,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.351,
+    "p": 0.356,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -628,8 +627,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -270,
-    "p": 0.712,
-    "win_p": 0.499,
+    "p": 0.702,
+    "win_p": 0.488,
     "reasons": []
    }
   },
@@ -716,7 +715,7 @@
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
+    "odds": -285,
     "p": 0.7,
     "win_p": 0.483,
     "reasons": [
@@ -746,7 +745,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -258,
     "p": 0.688,
     "win_p": 0.471,
     "reasons": [
@@ -822,7 +821,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.358,
+    "p": 0.361,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -838,9 +837,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.697,
-    "win_p": 0.482,
+    "odds": -250,
+    "p": 0.692,
+    "win_p": 0.475,
     "reasons": []
    }
   },
