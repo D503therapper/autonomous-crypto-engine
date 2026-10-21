@@ -3326,10 +3326,23 @@ def test_nba_early_season_home_dog_weight():
     c = {"market": "ml", "league": "nba", "odds": 150, "dec": 2.5, "p_market": 0.39, "edge": 0.0, "edge_own": 0.39 * 2.5 - 1,
          "dog_more": {}, "reasons": [], "home": True}
     base = sports.dog_score({**c, "season_games": 2})                       # game 3: outside 6-20
-    assert sports.dog_score({**c, "season_games": 7}) == base + sports.NBA_HOME_DOG_W
+    assert sports.dog_score({**c, "season_games": 7}) == base + sports.NBA_HOME_DOG_W_EARLY   # game 8: the 6-10 weight
+    assert sports.dog_score({**c, "season_games": 12}) == base + sports.NBA_HOME_DOG_W         # game 13: the smaller one
     assert sports.dog_score({**c, "season_games": 7, "home": False}) == base
     assert sports.dog_score({**c, "season_games": 25}) == base
     assert "NBA home dog, games 6-20" in sports_leads.tags({**c, "season_games": 7}, sports)
+
+
+def test_no_nba_lock_in_week_one_and_the_home_dog_weighs_most_in_games_6_to_10():
+    """10/21 five NBA studies, #3 (the owner: "wire it in, use for picks"): NBA favorites in a team's games 1-5 lost
+    -12.1% blind - no Lock (full or backup) in week one, a lean is fine; the home dog's edge lives in games 6-10."""
+    fav = {"market": "ml", "league": "nba", "odds": -130, "dec": 1.77, "p": 0.60, "p_market": 0.54, "edge": 0.06, "edge_own": 0.08,
+           "reasons": ["x"], "home": True}
+    assert not sports.lock_ok({**fav, "season_games": 2})
+    assert sports.lock_ok({**fav, "season_games": 5})                        # game 6: Locks are back
+    assert sports.lock_ok({**fav, "league": "nhl", "season_games": None})
+    assert sports.backup_lock([{**fav, "season_games": 0}]) is None
+    assert sports.NBA_HOME_DOG_W_EARLY > sports.NBA_HOME_DOG_W
 
 
 def test_hoops_opening_weeks_trust_the_market_and_elo_regresses_once():
