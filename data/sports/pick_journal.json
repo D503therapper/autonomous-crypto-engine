@@ -5106,5 +5106,60 @@
   "score": "5-2",
   "margin": 3.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-20",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892540",
+  "team": "Devils",
+  "opp": "Avalanche",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -110,
+  "posted": "2026-10-20T15:00Z",
+  "price_says": 0.524,
+  "win_p": 0.5265613178413407,
+  "own_read": 0.525,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": 0.002062963644603677,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent on a back-to-back",
+   "better rested",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:4",
+   "worse:1",
+   "home:2",
+   "b2b:0",
+   "sharp:5",
+   "splits_f:3",
+   "bottom_so:9",
+   "w_rest:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Zachary L'Heureux (LW)",
+   "Nicolas Roy (C)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": false
+  },
+  "public": "fade",
+  "close": -120,
+  "beat_close_pts": 2.2,
+  "result": "won",
+  "score": "4-3",
+  "margin": 1.0,
+  "pnl_units": 0.0
  }
 ]
