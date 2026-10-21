@@ -22581,3 +22581,42 @@ $BITF: No data found, symbol may be delisted
 [2026-10-21 21:06 UTC] crypto/breakout  equity $492.26 (-1.5%) 3 open  market UP
 [2026-10-21 21:06 UTC] crypto/hold_btc  equity $503.00 (+0.6%) 1 open  market UP
    social heat top: PENGU 43 (37/0/6), AERO 41 (35/0/6), PUMP 27 (19/0/8), NEAR 27 (27/0/0), CARDS 25 (16/0/9)
+   footprint: XRP: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.2%, 4 volume hikes, 67% quiet hours @ 1.383
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.2%, 2 volume hikes, 79% quiet hours @ 107.94
+   footprint: SUI: footprint 3/4 (drift+quiet+rising_lows) 48h +5.6%, 1 volume hikes, 88% quiet hours @ 1.04335
+   dex screen: PASS TROLL@solana liq $2,766,400
+   dex screen: REJECT GTA@solana liq $100,259 - lp holders unknown; rugcheck lp locked 73% < 95%
+   dex screen: REJECT CBXRP@base liq $641,027 - pool age unknown
+   dex screen: REJECT IMD@ethereum liq $2,090,160 - goplus partial data: cannot_sell_all unknown; top-10 holders 61%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #111 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #4 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #7 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT OTC@solana liq $533,666 - lp holders unknown; rugcheck lp locked 76% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BALANCE@ethereum liq $166,531 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT OVPP@base liq $215,409 - goplus partial data: cannot_sell_all unknown; top-10 holders 49%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: PASS SPX@ethereum liq $11,419,427
+   dex screen: PASS JPMD@ethereum liq $154,467
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #112 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #5 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #8 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT FWA@ethereum liq $817,814 - goplus partial data: cannot_sell_all unknown; top-10 holders 54%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,997 pools (solana 2,082 / base 489 / ethereum 426), refresh cycle 133s (hot 128s), 2823 calls (108 feed, 429s 0, failed 2), 81,387 refreshed (8278 no pair), +62 added / -71 dropped (dead 22, stale 0, cap 49), movers 0 + warming 11 -> queued 4, screened 4 (passed 1), bought 0
+[2026-10-21 22:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-21 22:06 UTC] crypto/mover     equity $282.55 (-43.5%) 2 open  market UP
+[2026-10-21 22:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 22:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-21 22:06 UTC] crypto/social_heat equity $429.92 (-14.0%) 3 open  market UP
+[2026-10-21 22:06 UTC] crypto/breakout10 equity $488.41 (-2.3%) 2 open  market UP
+[2026-10-21 22:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-21 22:06 UTC] crypto/breakout  equity $492.06 (-1.6%) 3 open  market UP
+[2026-10-21 22:06 UTC] crypto/hold_btc  equity $503.30 (+0.7%) 1 open  market UP
+   social heat top: AERO 37 (37/0/0), PENGU 36 (35/0/2), NEAR 27 (27/0/0), BTC 24 (24/0/0), SUI 19 (19/0/0)
+   [alert] Today +20.50 | Total -189.24: Stocks: $505.12  today +7.24  total +5.12
+DEX: $805.63  today +13.26  total -194.37
+DEX: $805.63 (-194.37) · Scammed: 0
