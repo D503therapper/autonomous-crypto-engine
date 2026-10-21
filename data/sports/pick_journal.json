@@ -5313,5 +5313,57 @@
   "score": "4-3",
   "margin": 1.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-20",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892549",
+  "team": "Golden Knights",
+  "opp": "Lightning",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -115,
+  "posted": "2026-10-20T16:19Z",
+  "price_says": 0.535,
+  "win_p": 0.5065285343863216,
+  "own_read": 0.506,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.05377982160361572,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": [
+   "hot:4",
+   "better:1",
+   "cx_trip:0",
+   "home:0",
+   "splits_w:0",
+   "bottom_c:2",
+   "w_better:3",
+   "k_trip:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Parker Wotherspoon (D)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -110,
+  "beat_close_pts": -1.1,
+  "result": "lost",
+  "score": "2-6",
+  "margin": -4.0,
+  "pnl_units": 0
  }
 ]

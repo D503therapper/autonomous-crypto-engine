@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 95,
+  "n": 96,
   "beat": 31,
   "same": 32,
-  "worse": 32,
-  "avg_pts": 0.06
+  "worse": 33,
+  "avg_pts": 0.05
  },
  "unit_plays": {
   "n": 42,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 53,
+   "n": 54,
    "beat": 17,
    "same": 14,
-   "worse": 22,
-   "avg_pts": -0.17
+   "worse": 23,
+   "avg_pts": -0.19
   },
   "lock": {
    "n": 11,
@@ -73,11 +73,11 @@
    "avg_pts": -0.17
   },
   "nhl": {
-   "n": 39,
+   "n": 40,
    "beat": 12,
    "same": 16,
-   "worse": 11,
-   "avg_pts": 0.06
+   "worse": 12,
+   "avg_pts": 0.04
   }
  },
  "lock_by_size": {
@@ -1440,6 +1440,20 @@
    "pts": -4.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-20",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Golden Knights",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -110,
+   "pts": -1.1,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }
