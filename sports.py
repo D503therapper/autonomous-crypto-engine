@@ -1090,7 +1090,9 @@ def dog_score(c):
     if c.get("league") == "nba" and c.get("home") and c.get("season_games") is not None \
             and NBA_HOME_DOG_GAMES[0] <= c["season_games"] + 1 <= NBA_HOME_DOG_GAMES[1] \
             and NBA_HOME_DOG_BAND[0] <= c.get("odds", 0) <= NBA_HOME_DOG_BAND[1]:
-        sc += NBA_HOME_DOG_W                             # (10/20 study: an NBA HOME dog +100..+200 in a team's games 6-20
+        sc += NBA_HOME_DOG_W_EARLY if c["season_games"] + 1 <= NBA_HOME_DOG_EARLY_TO else NBA_HOME_DOG_W   # (10/21: games
+        #                                                  6-10 carry it - +14.6% blind on 51, 3 of 3; the owner: "wire it in")
+        #                                                  (10/20 study: an NBA HOME dog +100..+200 in a team's games 6-20
         #                                                  +13.6% train (5 of 5 seasons), +10.1% blind (3 of 3); fades by
         #                                                  game 20 - the early-season market under-rates home dogs)
     if c.get("league") == "nhl":
@@ -1172,6 +1174,15 @@ OT_W = {"ot_win": 1, "ot_loss": -2, "so_win": -2}   # its own last game -> dog s
 
 
 NBA_HOME_DOG_GAMES, NBA_HOME_DOG_BAND, NBA_HOME_DOG_W = (6, 20), (100, 200), 2
+NBA_HOME_DOG_EARLY_TO, NBA_HOME_DOG_W_EARLY = 10, 4   # 10/21 five NBA studies (#3, the owner: "wire it in, use for picks"):
+#                          the home dog's edge lives in games 6-10 (+14.5% train / +14.6% blind), 11-20 thinner
+NBA_NO_LOCK_GAMES = 5      # 10/21 study #3: NBA favorites in a team's games 1-5 -4.5% train / -12.1% blind, the engine's
+#                          Lock-type read -31% on 39 - no NBA Lock in week one (leans still fine)
+
+
+def nba_week_one(c):
+    """An NBA side in its team's games 1-5 (no Lock then - the 10/21 study)."""
+    return c.get("league") == "nba" and c.get("season_games") is not None and c["season_games"] + 1 <= NBA_NO_LOCK_GAMES
 EARLY_TRUST_LEAGUES, EARLY_TRUST_GAMES = ("nba", "ncaab"), 10
 EARLY_TRUST_ROSTER = 0.5       # with the roster prior in the read (NBA, 10/20) the pull is softer: half the own read
 #                                at game 0 (the prior read games 1-5 at 0.638 log loss vs the market's 0.630 - close,
@@ -1646,7 +1657,7 @@ def own_agrees(c):
 
 def lock_ok(c):
     """A LOCK: a real play the engine gives 56%+ to win (the study: those hit ~56-60%), never plus money past +125."""
-    return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_P
+    return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_P and not nba_week_one(c)
 
 
 def leg_tier(c):
@@ -2062,7 +2073,7 @@ def backup_lock(cands):
     down (own read 58%, nothing weighing on it) qualified."""
     pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
-            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
+            and not hockey_fav_bad(c) and not nba_week_one(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
             and real_value(c)]
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
 
