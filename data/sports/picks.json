@@ -15920,6 +15920,7 @@
      "game:nonconf"
     ],
     "dec": 1.9090909090909092,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -15934,6 +15935,10 @@
     "elo_edge": -62.8,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,2",
+     "h": "1,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -15974,9 +15979,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Avalanche 3 @ Devils 4",
+    "settled": "2026-10-21T01:37Z",
     "side": "home",
     "start": "2026-10-20T23:00Z",
     "stype": "2",
@@ -15993,12 +16000,14 @@
    }
   ],
   "p_hit": 0.5266,
-  "pnl": 0.0,
+  "pnl": 90.91,
   "posted": "2026-10-20T15:00Z",
   "round": 1,
+  "settled": "2026-10-21T01:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
