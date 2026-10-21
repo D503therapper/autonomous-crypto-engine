@@ -22195,3 +22195,27 @@ $BITF: No data found, symbol may be delisted
 [2026-10-21 14:06 UTC] stocks/trend     equity $475.60 (-4.9%) 3 open  market UP
 [2026-10-21 14:06 UTC] stocks/hold_spy  equity $500.10 (+0.0%) 1 open  market UP
    social heat top: PENGU 35 (35/0/0), AERO 35 (29/0/5), BTC 27 (27/0/0), VVV 21 (21/0/0), PONS 18 (5/0/13)
+   footprint: HBAR: footprint 3/4 (quiet+hikes+rising_lows) 48h +2.7%, 4 volume hikes, 75% quiet hours @ 0.084728
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.9%, 2 volume hikes, 75% quiet hours @ 1.3547
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +1.7%, 2 volume hikes, 85% quiet hours @ 106.37
+   dex screen: REJECT PAID@solana liq $412,482 - lp holders unknown; rugcheck lp locked 67% < 95%
+   dex screen: PASS NPC@ethereum liq $4,716,761
+   dex screen: REJECT ESBUILD@base liq $302,584 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT TCG@solana liq $213,043 - top-10 holders 44%; lp holders unknown
+   dex screen: REJECT AMZNC@base liq $18,297 - liquidity $18,297 < $100,000; 24h volume $3,129 < $100,000
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #97 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT TSLAC@base liq $1,110 - liquidity $1,110 < $100,000; 24h volume $313 < $100,000
+   dex screen: REJECT INFLUXDB@base liq $457,275 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): HTTPError: HTTP Error 503: Service Unavailable
+   dex screen: REJECT CIRBTC@ethereum liq $5,783,601 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%
+   dex screen: REJECT COMPOSE@base liq $397,453 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; lp locked 0% < 95%
+   dex screen: REJECT AXIS@base liq $2,471,777 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT VEIL@solana liq $196,172 - lp holders unknown; rugcheck lp locked 68% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #98 (top-10 holders 75%; lp holders unknown); holding (experiment 10)
+   dex re-screen: HELL@solana:A75Xx6Se data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT USDE@ethereum liq $1,449,498 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 94%
+   dex screen: REJECT AEON@base liq $410,906 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; top-10 holders 43%; lp locked 0% < 95%
