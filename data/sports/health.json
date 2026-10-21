@@ -1,13 +1,11 @@
 {
- "at": "2026-10-21T14:46Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-21T14:47Z",
+ "fixes": [],
  "problems": [
   "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (51s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,16 +13,23 @@
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
-  "engine ran 7 min ago",
+  "engine ran 8 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-21T14:47Z",
+   "fixes": [],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-21T14:46Z",
    "fixes": [
@@ -440,14 +445,6 @@
   },
   {
    "at": "2026-10-19T23:01Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-19T22:51Z",
    "fixes": [],
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
