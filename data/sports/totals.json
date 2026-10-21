@@ -651,13 +651,13 @@
   }
  },
  "nhl": {
-  "games": 9876,
+  "games": 9877,
   "grade": {
    "all": {
-    "hit": 0.4939,
-    "low80": 0.4828,
-    "n": 3292,
-    "roi": -0.0785
+    "hit": 0.4941,
+    "low80": 0.4829,
+    "n": 3293,
+    "roi": -0.0781
    },
    "top10": {
     "hit": 0.4954,
@@ -678,21 +678,21 @@
     "roi": -0.115
    }
   },
-  "hit_all": 0.4939,
+  "hit_all": 0.4941,
   "hit_top": 0.4833,
-  "intercept": -0.01256,
+  "intercept": -0.01235,
   "kept": [
    "form"
   ],
   "ll_test_base": 0.69311,
-  "ll_test_kept": 0.69476,
+  "ll_test_kept": 0.69475,
   "ll_val_base": 0.69316,
   "ll_val_kept": 0.69214,
   "n_top": 987,
   "norm": {
    "form": [
-    0.09226,
-    0.33498
+    0.09227,
+    0.33497
    ]
   },
   "proven": false,
@@ -768,9 +768,9 @@
    }
   },
   "test_from": "2024-03-01",
-  "test_games": 3292,
+  "test_games": 3293,
   "weights": {
-   "form": 0.02265
+   "form": 0.02268
   }
  }
 }
