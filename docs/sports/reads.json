@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T13:53Z",
+ "updated": "2026-10-21T17:06Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wizards",
-    "p": 0.513,
+    "p": 0.518,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -16,7 +16,7 @@
    "start": "2026-10-21T23:00Z",
    "away": "Bucks",
    "home": "Wizards",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Wizards",
@@ -24,8 +24,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.546,
-    "win_p": 0.546,
+    "p": 0.554,
+    "win_p": 0.554,
     "reasons": []
    }
   },
@@ -44,8 +44,8 @@
    "start": "2026-10-21T23:00Z",
    "away": "Hawks",
    "home": "Magic",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Magic",
     "opp": "Hawks",
@@ -96,7 +96,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.409,
+    "p": 0.413,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -112,9 +112,9 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.624,
-    "win_p": 0.624,
+    "odds": -192,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -127,7 +127,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.502,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -136,16 +136,16 @@
    "start": "2026-10-21T23:30Z",
    "away": "Hornets",
    "home": "Nets",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Hornets",
     "opp": "Nets",
     "market": "ml",
     "line": null,
     "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
+    "p": 0.52,
+    "win_p": 0.52,
     "reasons": [
      "the stronger team"
     ]
@@ -157,7 +157,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Panthers",
-    "p": 0.356,
+    "p": 0.35,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -166,18 +166,18 @@
    "start": "2026-10-21T23:30Z",
    "away": "Panthers",
    "home": "Senators",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
-    "team": "Senators",
-    "opp": "Panthers",
+    "team": "Panthers",
+    "opp": "Senators",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.703,
-    "win_p": 0.488,
+    "p": 0.716,
+    "win_p": 0.5,
     "reasons": [
-     "the stronger team"
+     "opponent missing key players"
     ]
    }
   },
@@ -217,7 +217,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.503,
+    "p": 0.51,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -226,16 +226,16 @@
    "start": "2026-10-22T00:00Z",
    "away": "Jazz",
    "home": "Grizzlies",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Grizzlies",
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -248,7 +248,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.488,
+    "p": 0.505,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -264,10 +264,11 @@
     "opp": "Sam Houston",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.506,
-    "win_p": 0.506,
+    "odds": -148,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
+     "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
@@ -278,7 +279,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.522,
+    "p": 0.524,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -295,8 +296,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.532,
-    "win_p": 0.532,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": []
    }
   },
@@ -306,7 +307,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.685,
+    "p": 0.681,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -321,10 +322,10 @@
     "team": "Rockets",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -10.5,
-    "odds": -110,
-    "p": 0.503,
-    "win_p": 0.787,
+    "line": -9.5,
+    "odds": -115,
+    "p": 0.502,
+    "win_p": 0.782,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -337,7 +338,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.5,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -346,16 +347,16 @@
    "start": "2026-10-22T02:00Z",
    "away": "Suns",
    "home": "Trail Blazers",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Trail Blazers",
     "opp": "Suns",
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.528,
-    "win_p": 0.528,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": []
    }
   },
@@ -396,7 +397,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Clippers",
-    "p": 0.566,
+    "p": 0.571,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -413,8 +414,8 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.626,
-    "win_p": 0.626,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -427,7 +428,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.492,
+    "p": 0.493,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -444,8 +445,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.515,
-    "win_p": 0.515,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": []
    }
   },
@@ -455,8 +456,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.379,
-    "tie": 0.299,
+    "p": 0.408,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -467,14 +468,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Ducks",
-    "opp": "Devils",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -222,
-    "p": 0.66,
-    "win_p": 0.442,
-    "reasons": []
+    "team": "Devils",
+    "opp": "Ducks",
+    "market": "ml",
+    "line": null,
+    "odds": -185,
+    "p": 0.622,
+    "win_p": 0.622,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ]
    }
   },
   {
@@ -545,8 +549,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Panthers",
-    "p": 0.369,
+    "team": "Penguins",
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -558,14 +562,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Panthers",
+    "team": "Panthers",
+    "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.677,
-    "win_p": 0.459,
-    "reasons": []
+    "odds": -250,
+    "p": 0.711,
+    "win_p": 0.495,
+    "reasons": [
+     "better rested",
+     "opponent drama: illness"
+    ]
    }
   },
   {
@@ -574,8 +581,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.397,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -590,9 +597,9 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -200,
-    "p": 0.633,
-    "win_p": 0.414,
+    "odds": -170,
+    "p": 0.626,
+    "win_p": 0.406,
     "reasons": [
      "better rested"
     ]
@@ -603,8 +610,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Maple Leafs",
-    "p": 0.354,
+    "team": "Rangers",
+    "p": 0.356,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -613,19 +620,17 @@
    "start": "2026-10-22T23:00Z",
    "away": "Rangers",
    "home": "Maple Leafs",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Rangers",
-    "opp": "Maple Leafs",
+    "team": "Maple Leafs",
+    "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.709,
-    "win_p": 0.493,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -250,
+    "p": 0.702,
+    "win_p": 0.488,
+    "reasons": []
    }
   },
   {
@@ -634,8 +639,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.398,
-    "tie": 0.297,
+    "p": 0.38,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -643,17 +648,19 @@
    "start": "2026-10-22T23:00Z",
    "away": "Sharks",
    "home": "Senators",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Sharks",
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -182,
-    "p": 0.623,
-    "win_p": 0.404,
-    "reasons": []
+    "odds": -218,
+    "p": 0.659,
+    "win_p": 0.44,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -662,7 +669,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.692,
+    "p": 0.698,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -680,7 +687,7 @@
     "line": -10.0,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.747,
+    "win_p": 0.753,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -693,7 +700,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.37,
+    "p": 0.359,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -702,17 +709,19 @@
    "start": "2026-10-22T23:30Z",
    "away": "Kings",
    "home": "Islanders",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Kings",
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.678,
-    "win_p": 0.46,
-    "reasons": []
+    "odds": -258,
+    "p": 0.7,
+    "win_p": 0.483,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -721,8 +730,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.377,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -737,10 +746,12 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -200,
-    "p": 0.631,
-    "win_p": 0.409,
-    "reasons": []
+    "odds": -225,
+    "p": 0.661,
+    "win_p": 0.442,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -749,8 +760,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.419,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -761,14 +772,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Jets",
-    "opp": "Stars",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.625,
-    "win_p": 0.405,
-    "reasons": []
+    "team": "Stars",
+    "opp": "Jets",
+    "market": "ml",
+    "line": null,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -824,9 +838,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -286,
+    "odds": -258,
     "p": 0.709,
-    "win_p": 0.496,
+    "win_p": 0.495,
     "reasons": []
    }
   },
@@ -836,8 +850,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.392,
-    "tie": 0.298,
+    "p": 0.417,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -848,15 +862,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Flames",
-    "opp": "Wild",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -200,
-    "p": 0.631,
-    "win_p": 0.41,
+    "team": "Wild",
+    "opp": "Flames",
+    "market": "ml",
+    "line": null,
+    "odds": -192,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": [
-     "better rested"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -897,8 +912,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.374,
-    "tie": 0.299,
+    "p": 0.397,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -913,9 +928,9 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.667,
-    "win_p": 0.448,
+    "odds": -170,
+    "p": 0.621,
+    "win_p": 0.399,
     "reasons": []
    }
   },
@@ -925,8 +940,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.374,
-    "tie": 0.299,
+    "p": 0.404,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -937,15 +952,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Canucks",
-    "opp": "Red Wings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -244,
-    "p": 0.667,
-    "win_p": 0.448,
+    "team": "Red Wings",
+    "opp": "Canucks",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
-     "opponent drama: trade drama"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   }

@@ -1,58 +1,6 @@
 {
- "updated": "2026-10-21T13:47Z",
+ "updated": "2026-10-21T16:33Z",
  "games": [
-  {
-   "id": "tennis:atp:184995",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T14:30Z",
-   "away": "Mikhail Kukushkin",
-   "home": "Stefanos Tsitsipas",
-   "vs": true,
-   "why": "tight",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Mikhail Kukushkin",
-    "opp": "Stefanos Tsitsipas",
-    "market": "spread",
-    "line": 5.5,
-    "odds": -145,
-    "p": 0.554,
-    "win_p": 0.095,
-    "reasons": [
-     "on hard court",
-     "Almaty Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:185040",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-21T16:00Z",
-   "away": "Remy Bertola",
-   "home": "David Goffin",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Remy Bertola",
-    "opp": "David Goffin",
-    "market": "ml",
-    "line": null,
-    "odds": -200,
-    "p": 0.639,
-    "win_p": 0.639,
-    "reasons": [
-     "on hard court",
-     "BNP Paribas Fortis European Open"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:185060",
    "league": "tennis",
@@ -88,7 +36,7 @@
    "away": "Tommy Paul",
    "home": "Benjamin Bonzi",
    "vs": true,
-   "why": "tight",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -166,7 +114,7 @@
    "away": "Mary Stoiana",
    "home": "Moyuka Uchijima",
    "vs": true,
-   "why": "tight",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -440,6 +388,32 @@
     "reasons": [
      "on hard court",
      "Grand Prix Auvergne-Rh\u00f4ne-Alpes"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185002",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-22T14:30Z",
+   "away": "Alexander Bublik",
+   "home": "Fabian Marozsan",
+   "vs": true,
+   "why": "on_board",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alexander Bublik",
+    "opp": "Fabian Marozsan",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.706,
+    "win_p": 0.706,
+    "reasons": [
+     "on hard court",
+     "Almaty Open"
     ]
    }
   }
