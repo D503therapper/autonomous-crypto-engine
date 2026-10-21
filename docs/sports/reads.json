@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T19:29Z",
+ "updated": "2026-10-21T20:14Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -248,7 +248,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.513,
+    "p": 0.505,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -264,11 +264,12 @@
     "opp": "Sam Houston",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.537,
-    "win_p": 0.537,
+    "odds": -148,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
   },
@@ -558,18 +559,19 @@
    "start": "2026-10-22T23:00Z",
    "away": "Panthers",
    "home": "Penguins",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Panthers",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.506,
-    "win_p": 0.506,
+    "team": "Panthers",
+    "opp": "Penguins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -250,
+    "p": 0.711,
+    "win_p": 0.495,
     "reasons": [
-     "sharp money moving this way"
+     "better rested",
+     "opponent drama: illness"
     ]
    }
   },
@@ -579,8 +581,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.389,
-    "tie": 0.298,
+    "p": 0.397,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -596,8 +598,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.642,
-    "win_p": 0.423,
+    "p": 0.626,
+    "win_p": 0.406,
     "reasons": [
      "better rested"
     ]
@@ -609,7 +611,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.356,
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -626,8 +628,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -270,
-    "p": 0.702,
-    "win_p": 0.488,
+    "p": 0.712,
+    "win_p": 0.499,
     "reasons": []
    }
   },
@@ -714,7 +716,7 @@
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
+    "odds": -270,
     "p": 0.7,
     "win_p": 0.483,
     "reasons": [
@@ -744,7 +746,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -250,
     "p": 0.688,
     "win_p": 0.471,
     "reasons": [
