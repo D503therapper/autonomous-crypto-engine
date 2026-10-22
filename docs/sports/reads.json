@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T05:33Z",
+ "updated": "2026-10-22T06:13Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -276,7 +276,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.515,
+    "p": 0.502,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -285,16 +285,16 @@
    "start": "2026-10-22T23:00Z",
    "away": "Cavaliers",
    "home": "76ers",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -148,
+    "p": 0.531,
+    "win_p": 0.531,
     "reasons": []
    }
   },
@@ -729,8 +729,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.637,
-    "tie": 0.034,
+    "p": 0.649,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -738,16 +738,16 @@
    "start": "2026-10-23T01:30Z",
    "away": "Nuggets",
    "home": "Thunder",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Thunder",
     "opp": "Nuggets",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.724,
-    "win_p": 0.724,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.741,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
