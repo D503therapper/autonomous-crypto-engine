@@ -46,6 +46,12 @@ def tags(c, sports):
             and sports.NBA_HOME_DOG_GAMES[0] <= c["season_games"] + 1 <= sports.NBA_HOME_DOG_GAMES[1] \
             and sports.NBA_HOME_DOG_BAND[0] <= c.get("odds", 0) <= sports.NBA_HOME_DOG_BAND[1]:
         t.append("NBA home dog, games 6-20")                 # 10/20 study (a weight)
+    if lg == "nba" and c.get("nba_fav_w"):                   # 10/22 NBA favorite study (weights)
+        for k in c["nba_fav_w"]:
+            t.append({"star_back": "NBA fav, top-5 man back (fade)", "last_ot": "NBA fav off an OT game (fade)",
+                      "own_top2_out": "NBA fav missing a top-2 man (fade)", "opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)",
+                      "more_rest": "NBA fav 2+ more days rest (fade)", "off_blowout": "NBA fav off a 20+ win",
+                      "home_dog_mid": "NBA fav at a home dog, games 31-60"}[k])
     if lg == "nba":                                           # 10/21 underdog studies' score (weights)
         nw = sports.nba_dog_weights(c)
         if nw >= 2 * sports.NBA_DOG_W:

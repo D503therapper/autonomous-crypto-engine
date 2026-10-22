@@ -800,3 +800,44 @@ def scale_for(games, season, values, rows):
         strengths = {t: team_strength(played_roster(rows, season, t, first_n=82), values) for t in margins}
         _SCALE[season] = fit_scale(strengths, margins)
     return _SCALE[season]
+
+
+# ---------------------------------------------------------------- 5. who matters (the 10/22 favorite study)
+def top_men(cur, tid, k):
+    """The team's top-k men by minutes (last season's values, on tonight's roster): [(name, pid)]."""
+    if not cur or str(tid) not in (cur.get("teams") or {}) or not cur.get("values"):
+        return []
+    ranked = []
+    for p in cur["teams"][str(tid)]:
+        v = _lookup(cur["values"], p)
+        if v and (v.get("mpg") or 0) > 0:
+            ranked.append((v["mpg"], p.get("name"), str(p.get("pid") or "")))
+    return [(n, pid) for _, n, pid in sorted(ranked, reverse=True)[:k]]
+
+
+def top_out(cur, tid, k=2):
+    """Names of the team's top-k men out / doubtful tonight (the injury report through flags())."""
+    out = set((((cur or {}).get("flags") or {}).get(str(tid)) or {}).get("out") or [])
+    return [n for n, _ in top_men(cur, tid, k) if n in out]
+
+
+_RECENT = {}
+
+
+def returning(cur, tid, start, k=5, missed=2, rows=None):
+    """Names of the team's top-k men back tonight after missing its last `missed` games this season (not in those box
+    scores, not out tonight). [] when this season's box scores don't cover the team's last games."""
+    season = season_of(start)
+    if rows is None:
+        if season not in _RECENT:
+            _RECENT.clear()
+            _RECENT[season] = _rows(season)
+        rows = _RECENT[season]
+    games = sorted({(r["start"], r["gid"]) for r in rows if r["team"] == str(tid) and r["start"] < start})[-missed:]
+    if len(games) < missed:
+        return []
+    keep = {gid for _, gid in games}
+    played = {r["pid"] for r in rows if r["gid"] in keep and r["team"] == str(tid)}
+    named = {_nm(r["player"]) for r in rows if r["gid"] in keep and r["team"] == str(tid)}
+    out_now = set((((cur or {}).get("flags") or {}).get(str(tid)) or {}).get("out") or [])
+    return [n for n, pid in top_men(cur, tid, k) if n not in out_now and pid not in played and _nm(n) not in named]
