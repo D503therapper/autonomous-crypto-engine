@@ -665,6 +665,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_west_coast_road_fav(games, out)
     weigh_hoops_inside(games, out, now)
     mark_doubleheader_game2(games, out)
+    mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
@@ -2391,6 +2392,67 @@ def weigh_favorites(cands):
         lift = max(-FAV_CAP, min(FAV_CAP, -FAV_PER_PT * pts))
         fav["opp_dog_pts"] = round(pts, 2)
         fav["w_p"] = round(min(0.95, max(0.05, (fav["edge_own"] + 1) / fav["dec"] + lift)), 4)
+
+
+NBA_FAV_W = {             # 10/22 NBA favorite study (-150..-100 at the close, train 2018-22 / blind 2023-26; the band
+    "star_back": -0.03,   # itself -5.7% / -6.5%): its top-5 man back after 2+ missed -29.9% / -21.4% (0 of 3); played
+    "last_ot": -0.03,     # OT last game -18.7% / -35.5%; missing its own top-2 man -11.7% / -17.0% (0 of 3); the
+    "own_top2_out": -0.02,   # opponent missing ITS top-2 man -7.1% / -14.4% (0 of 3 - the books over-move); 2+ more days
+    "opp_top2_out": -0.02,   # rest -6.8% / -16.1%; off a 20+ win +7.5% / +14.4%; at a home dog in its games 31-60
+    "more_rest": -0.02,      # +2.8% / +5.7% (3 of 3). The study 10/21 #5: the NBA own read loses to the close every
+    "off_blowout": 0.02,     # season - so the NBA favorite's read starts from the books' no-vig price, these weights
+    "home_dog_mid": 0.02,    # move it (inside FAV_CAP). Weights, never a trigger (the owner: "wire everything as weights").
+}
+
+
+def nba_fav_facts(fav, dog):
+    """Which of the 10/22 NBA favorite weights apply: {key: weight}."""
+    mo = fav.get("dog_more") or {}
+    w = {}
+    if mo.get("last_ot"):
+        w["last_ot"] = NBA_FAV_W["last_ot"]
+    if mo.get("rest") is not None and mo.get("opp_rest") is not None and mo["rest"] - mo["opp_rest"] >= 2:
+        w["more_rest"] = NBA_FAV_W["more_rest"]
+    if (mo.get("last_margin") or 0) >= 20:
+        w["off_blowout"] = NBA_FAV_W["off_blowout"]
+    n = dog.get("season_games")
+    if dog.get("home") and n is not None and NBA_DOG_HOME_FADE[0] <= n + 1 <= NBA_DOG_HOME_FADE[1]:
+        w["home_dog_mid"] = NBA_FAV_W["home_dog_mid"]
+    for k in ("star_back", "own_top2_out", "opp_top2_out"):
+        if fav.get(k):
+            w[k] = NBA_FAV_W[k]
+    return w
+
+
+def mark_nba_favorites(cands):
+    """🏀 Every NBA moneyline favorite gets its WEIGHED read (w_p): the books' no-vig price (the 10/21 study: the NBA
+    own read loses to the close every season, worst in a team's first 10 games) moved by the 10/22 favorite weights
+    (NBA_FAV_W, capped FAV_CAP). Leans read it too (read_of), so an NBA lean follows the books plus the studies."""
+    ml = {}
+    for c in cands:
+        if c.get("league") == "nba" and c.get("market") == "ml":
+            ml.setdefault(c["game_id"], []).append(c)
+    try:
+        cur = sports_nba_roster.cached()
+    except Exception:                                        # noqa: BLE001
+        cur = None
+    for pair in ml.values():
+        if len(pair) != 2:
+            continue
+        fav, dog = sorted(pair, key=lambda c: c["odds"])
+        if fav["odds"] >= 0 or dog["odds"] < 100 or fav.get("p_market") is None:
+            continue
+        if cur:
+            try:
+                fav["own_top2_out"] = sports_nba_roster.top_out(cur, fav.get("team_id"), 2)
+                fav["opp_top2_out"] = sports_nba_roster.top_out(cur, dog.get("team_id"), 2)
+                fav["star_back"] = sports_nba_roster.returning(cur, fav.get("team_id"), fav.get("start") or "")
+            except Exception as e:                           # noqa: BLE001 - facts are extra, never block the board
+                print(f"nba favorite facts failed: {str(e)[:60]}")
+        w = nba_fav_facts(fav, dog)
+        lift = max(-FAV_CAP, min(FAV_CAP, sum(w.values())))
+        fav["nba_fav_w"] = w
+        fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift)), 4)
 
 
 NCAAF_FAV_OFF_LOSS = -0.03   # 10/14 study: a college moneyline favorite -101..-150 coming off a LOSS won 44.4% blind

@@ -10381,6 +10381,41 @@ def test_a_confirmed_starting_goalie_settles_a_questionable_goalie():
         sd.team_unsure, sd.covered, sg.starter = keep
 
 
+def test_nba_favorites_read_off_the_books_plus_the_favorite_weights():
+    """10/22 NBA favorite study (-150..-100): the NBA own read loses to the close (10/21 #5), so a favorite's weighed
+    read starts at the no-vig price, moved by: top-5 man back -3, off an OT game -3, missing its top-2 -2, the opponent
+    missing its top-2 -2, 2+ more days rest -2, off a 20+ win +2, at a home dog in games 31-60 +2 (capped FAV_CAP)."""
+    import sports_nba_roster as nr
+    fav = {"game_id": "n1", "league": "nba", "market": "ml", "odds": -130, "dec": 1.769, "p_market": 0.545,
+           "edge_own": 0.2, "team_id": "1", "start": "2026-11-20T00:00Z", "home": True,
+           "dog_more": {"last_margin": 22, "rest": 1, "opp_rest": 1}}
+    dog = {"game_id": "n1", "league": "nba", "market": "ml", "odds": 110, "dec": 2.1, "p_market": 0.455,
+           "team_id": "2", "home": False, "season_games": 10}
+    keep = nr.cached
+    try:
+        nr.cached = lambda: None
+        cands = [dict(fav), dict(dog)]
+        sports.mark_nba_favorites(cands)
+        f = cands[0]
+        assert f["w_p"] == round(0.545 + 0.02, 4) and f["nba_fav_w"] == {"off_blowout": 0.02}   # (not its own read)
+        cands = [dict(fav, dog_more={"last_ot": True, "rest": 3, "opp_rest": 1}, star_back=["X"]), dict(dog)]
+        sports.mark_nba_favorites(cands)
+        assert cands[0]["w_p"] == round(0.545 - sports.FAV_CAP, 4)                    # -8 capped at -4
+        assert sports.own_beats(cands[0]) is False
+    finally:
+        nr.cached = keep
+    import sports_leads
+    assert "NBA fav off a 20+ win" in sports_leads.tags({**fav, "nba_fav_w": {"off_blowout": 0.02}}, sports)
+    rows = [{"gid": "a", "start": "2026-11-01T00:00Z", "team": "1", "pid": "9", "player": "Bench Guy"},
+            {"gid": "b", "start": "2026-11-03T00:00Z", "team": "1", "pid": "9", "player": "Bench Guy"}]
+    cur = {"teams": {"1": [{"pid": "7", "name": "Star Man"}, {"pid": "9", "name": "Bench Guy"}]},
+           "values": {"players": {"7": {"name": "Star Man", "mpg": 35.0}, "9": {"name": "Bench Guy", "mpg": 10.0}}},
+           "flags": {"1": {"out": []}}}
+    assert nr.returning(cur, "1", "2026-11-05T00:00Z", rows=rows) == ["Star Man"]
+    cur["flags"]["1"]["out"] = ["Star Man"]
+    assert nr.returning(cur, "1", "2026-11-05T00:00Z", rows=rows) == [] and nr.top_out(cur, "1") == ["Star Man"]
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
