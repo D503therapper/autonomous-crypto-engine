@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T01:38Z",
+ "updated": "2026-10-22T01:44Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -11,8 +11,8 @@
    "away": "Bucks",
    "home": "Wizards",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -219,59 +219,25 @@
    "id": "nba:401909841",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Trail Blazers",
-    "p": 0.515,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-22T02:00Z",
    "away": "Suns",
    "home": "Trail Blazers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Trail Blazers",
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.55,
-    "win_p": 0.55,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909092",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.597,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-22T02:00Z",
-   "away": "Warriors",
-   "home": "Lakers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Warriors",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "odds": -142,
+    "p": 0.533,
+    "win_p": 0.533,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -297,8 +263,8 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.633,
-    "win_p": 0.633,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
