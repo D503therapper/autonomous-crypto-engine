@@ -23094,3 +23094,42 @@ error: failed to push some refs to 'https://github.
 [2026-10-22 12:06 UTC] crypto/breakout  equity $480.89 (-3.8%) 3 open  market DOWN
 [2026-10-22 12:06 UTC] crypto/hold_btc  equity $487.39 (-2.5%) 1 open  market DOWN
    social heat top: AERO 35 (35/0/0), BTC 32 (32/0/0), AXIS 25 (21/0/4), PENGU 24 (24/0/0), ENA 13 (13/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT MACCA@solana liq $118,395 - lp holders unknown; rugcheck lp locked 64% < 95%
+   dex screen: REJECT XMR@solana liq $518,970 - mint authority; top-10 holders 58%; lp holders unknown
+   dex screen: REJECT MORPHO@base liq $664,180 - pool age unknown
+   dex screen: REJECT XTO@solana liq $1,323,850 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT XTO@solana liq $273,117 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS GATO@solana liq $171,454
+   dex screen: REJECT DJT@solana liq $375,582 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 54%; lp holders unknown
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #141 (top-10 holders 78%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #37 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT AGENCY@solana liq $116,340 - top-10 holders 43%; lp holders unknown
+   dex screen: REJECT RLUSD@ethereum liq $50,050,350 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 68%
+   dex screen: REJECT KIMCHI@solana liq $100,267 - holders unknown; lp holders unknown; rugcheck danger: Top 10 holders high ownership; rugcheck danger: Single holder ownership; rugcheck danger: High ownership; rugcheck lp locked 0% < 95%; rugcheck score 60
+   dex screen: REJECT SEND@ethereum liq $222,883 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT FONE@solana liq $395,637 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #142 (top-10 holders 78%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #38 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT GTC@ethereum liq $250,990 - owner_percent 13%; top-10 holders 72%; lp locked 0% < 95%
+   dex screen: REJECT USOE@solana liq $222,187 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT USOE@solana liq $1,183,782 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT USOE@solana liq $263,906 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT USOE@solana liq $168,526 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex scanner: 2,507 pools (solana 1,836 / base 390 / ethereum 281), refresh cycle 108s (hot 104s), 2963 calls (108 feed, 429s 0, failed 0), 85,645 refreshed (10211 no pair), +83 added / -312 dropped (dead 296, stale 16, cap 0), movers 0 + warming 19 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-22 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/mover     equity $272.63 (-45.5%) 1 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/social_heat equity $397.20 (-20.6%) 4 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/breakout10 equity $462.19 (-7.6%) 2 open  market UP
+[2026-10-22 13:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/breakout  equity $480.70 (-3.9%) 3 open  market DOWN
+[2026-10-22 13:06 UTC] crypto/hold_btc  equity $486.94 (-2.6%) 1 open  market DOWN
+   social heat top: AERO 35 (35/0/0), PENGU 32 (32/0/0), AXIS 23 (11/0/13), STRK 19 (19/0/0), NEAR 16 (16/0/0)
