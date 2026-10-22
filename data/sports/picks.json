@@ -17141,16 +17141,6 @@
   "units": 0
  },
  {
-  "date": "2026-10-22",
-  "deadline": "2026-10-22T20:00Z",
-  "kind": "dog",
-  "legs": [],
-  "status": "waiting",
-  "waiting": [
-   "Linus Ullmark (G) questionable"
-  ]
- },
- {
   "american": 130,
   "date": "2026-10-22",
   "dec": 2.3,
@@ -17851,5 +17841,148 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": 120,
+  "date": "2026-10-22",
+  "dec": 2.2,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "worse:1",
+     "h2h:2",
+     "cx_trip:0",
+     "rest:3",
+     "w_rest:3",
+     "sharp:0",
+     "bottom_so:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udc3a 7-3 vs 3-5 \u2014 Bruins get the respect, we get the price on Predators.",
+     "\ud83d\udcb0 Predators opened +130, now +120. The market's catching up to what the engine already saw.",
+     "\ud83e\uddf3 The Bruins: 3rd road game in 6 days. That travel adds up.",
+     "\u2705 Bottom line: Predators (+120). Our read beats the number. Tap in."
+    ],
+    "bv": 51,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 0,
+      "road6": 3,
+      "who": "them",
+      "wk": 3140
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:road3in6",
+     "them:trip1000",
+     "them:week3000"
+    ],
+    "dec": 2.2,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": -0.0183,
+     "won": true
+    },
+    "dog_more": {},
+    "dog_p": 0.5021,
+    "dog_score": 6.56,
+    "drift": -0.0201,
+    "edge": -0.027327396467116127,
+    "edge_own": -0.027327396467116127,
+    "elo_edge": -77.7,
+    "fact": "The Predators had 3 more days off than the Bruins.",
+    "facts": [
+     [
+      "The Predators had 3 more days off than the Bruins.",
+      "3 extra days of rest for the Predators.",
+      "The Predators got 3 more days to rest than the Bruins did.",
+      "The Bruins had 3 fewer days off than the Predators."
+     ],
+     [
+      "The Predators are fresh off a 5-2 win over the Blues.",
+      "The Predators just beat the Blues 5-2.",
+      "Last time out the Predators took the Blues 5-2.",
+      "The Predators handled the Blues 5-2 last time out."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": false,
+    "game_id": "nhl:401892552",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.22759828107591917,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 120,
+    "opp": "Bruins",
+    "opp_lost_last": false,
+    "opp_ot_last": "ot_loss",
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4421239106967654,
+    "p_market": 0.4365079365079365,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": -0.104,
+    "raw_own": 0.3935,
+    "reasons": [
+     "better rested",
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": true,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-10-22T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Predators",
+    "team_id": "27",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udecc 3 extra days of rest for the Predators \u2014 the rest edge is ours."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4421,
+  "pnl": 0.0,
+  "posted": "2026-10-22T16:08Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]

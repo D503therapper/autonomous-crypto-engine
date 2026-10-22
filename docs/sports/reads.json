@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T15:24Z",
+ "updated": "2026-10-22T16:10Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -150,6 +150,7 @@
     "p": 0.683,
     "win_p": 0.465,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: illness"
     ]
    }
@@ -160,8 +161,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.383,
-    "tie": 0.298,
+    "p": 0.379,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -169,18 +170,19 @@
    "start": "2026-10-22T23:00Z",
    "away": "Predators",
    "home": "Bruins",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Predators",
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.652,
-    "win_p": 0.434,
+    "odds": -205,
+    "p": 0.661,
+    "win_p": 0.442,
     "reasons": [
-     "better rested"
+     "better rested",
+     "sharp money moving this way"
     ]
    }
   },
@@ -479,7 +481,7 @@
     "opp": "Nuggets",
     "market": "spread",
     "line": -8.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.502,
     "win_p": 0.741,
     "reasons": [
@@ -556,7 +558,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bucks",
-    "p": 0.49,
+    "p": 0.486,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -572,9 +574,9 @@
     "opp": "Bulls",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.513,
-    "win_p": 0.513,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.506,
     "reasons": [
      "the stronger team"
     ]
@@ -649,7 +651,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.499,
+    "p": 0.509,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -665,9 +667,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.514,
-    "win_p": 0.514,
+    "odds": -142,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": []
    }
   },
@@ -735,7 +737,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.593,
+    "p": 0.585,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -751,9 +753,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -185,
+    "p": 0.622,
+    "win_p": 0.622,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -766,7 +768,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.495,
+    "p": 0.486,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -782,9 +784,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -120,
+    "p": 0.504,
+    "win_p": 0.504,
     "reasons": []
    }
   },
@@ -1062,7 +1064,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.597,
+    "p": 0.612,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1078,9 +1080,9 @@
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team"
     ]
@@ -1107,9 +1109,9 @@
     "team": "Lakers",
     "opp": "Clippers",
     "market": "spread",
-    "line": -9.5,
-    "odds": -118,
-    "p": 0.503,
+    "line": -10.5,
+    "odds": -105,
+    "p": 0.504,
     "win_p": 0.745,
     "reasons": [
      "the stronger team"
