@@ -1,9 +1,9 @@
 {
  "all": {
-  "n": 96,
-  "beat": 31,
-  "same": 32,
-  "worse": 33,
+  "n": 100,
+  "beat": 32,
+  "same": 34,
+  "worse": 34,
   "avg_pts": 0.05
  },
  "unit_plays": {
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 54,
-   "beat": 17,
-   "same": 14,
-   "worse": 23,
-   "avg_pts": -0.19
+   "n": 58,
+   "beat": 18,
+   "same": 16,
+   "worse": 24,
+   "avg_pts": -0.16
   },
   "lock": {
    "n": 11,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 1,
-   "beat": 0,
-   "same": 0,
+   "n": 4,
+   "beat": 1,
+   "same": 2,
    "worse": 1,
-   "avg_pts": -2.3
+   "avg_pts": -0.22
   },
   "ncaaf": {
    "n": 26,
@@ -73,11 +73,11 @@
    "avg_pts": -0.17
   },
   "nhl": {
-   "n": 40,
+   "n": 41,
    "beat": 12,
    "same": 16,
-   "worse": 12,
-   "avg_pts": 0.04
+   "worse": 13,
+   "avg_pts": 0.02
   }
  },
  "lock_by_size": {
@@ -1454,6 +1454,62 @@
    "pts": -1.1,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Magic",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -110,
+   "pts": -0.4,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Hornets",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -125,
+   "pts": 1.4,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Grizzlies",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -125,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
   }
  ]
 }

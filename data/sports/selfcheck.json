@@ -5,24 +5,24 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.564,
-   "n": 149,
-   "said": 0.517,
+   "hit": 0.562,
+   "n": 153,
+   "said": 0.518,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.545,
-   "n": 55,
-   "said": 0.497,
+   "hit": 0.561,
+   "n": 57,
+   "said": 0.498,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 0.452,
-   "n": 42,
+   "hit": 0.432,
+   "n": 44,
    "said": 0.528,
-   "verdict": "a little below what we said - within noise (report only: forward-only tag)"
+   "verdict": "hitting well below what we said (report only: forward-only tag)"
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
@@ -47,10 +47,10 @@
   },
   "ctx:them:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.833,
-   "n": 12,
+   "hit": 0.846,
+   "n": 13,
    "said": 0.54,
-   "verdict": "only 12 graded - report only (report only: forward-only tag)"
+   "verdict": "only 13 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:hotseat": {
    "extra_edge": 0.0,
@@ -75,10 +75,10 @@
   },
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.81,
-   "n": 21,
-   "said": 0.518,
-   "verdict": "only 21 graded - report only (report only: forward-only tag)"
+   "hit": 0.818,
+   "n": 22,
+   "said": 0.519,
+   "verdict": "only 22 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:trip2000": {
    "extra_edge": 0.0,
@@ -110,10 +110,10 @@
   },
   "ctx:us:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.25,
-   "n": 8,
+   "hit": 0.222,
+   "n": 9,
    "said": 0.514,
-   "verdict": "only 8 graded - report only (report only: forward-only tag)"
+   "verdict": "only 9 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:hotseat": {
    "extra_edge": 0.0,
@@ -138,10 +138,10 @@
   },
   "ctx:us:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.471,
-   "n": 17,
-   "said": 0.498,
-   "verdict": "only 17 graded - report only (report only: forward-only tag)"
+   "hit": 0.444,
+   "n": 18,
+   "said": 0.499,
+   "verdict": "only 18 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:trip2000": {
    "extra_edge": 0.0,
@@ -166,9 +166,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.578,
-   "n": 128,
-   "said": 0.515,
+   "hit": 0.576,
+   "n": 132,
+   "said": 0.516,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -208,8 +208,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.59,
-   "n": 100,
+   "hit": 0.587,
+   "n": 104,
    "said": 0.52,
    "verdict": "hitting at or above what we said"
   },
@@ -229,10 +229,10 @@
   },
   "league:nba": {
    "extra_edge": 0.0,
-   "hit": 0.0,
-   "n": 1,
-   "said": 0.501,
-   "verdict": "only 1 graded - report only"
+   "hit": 0.5,
+   "n": 4,
+   "said": 0.524,
+   "verdict": "only 4 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -250,8 +250,8 @@
   },
   "league:nhl": {
    "extra_edge": 0.02,
-   "hit": 0.408,
-   "n": 49,
+   "hit": 0.4,
+   "n": 50,
    "said": 0.503,
    "verdict": "hitting well below what we said - bar raised"
   },
@@ -264,8 +264,8 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.576,
-   "n": 139,
+   "hit": 0.573,
+   "n": 143,
    "said": 0.517,
    "verdict": "hitting at or above what we said"
   },
@@ -292,9 +292,9 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.604,
-   "n": 91,
-   "said": 0.546,
+   "hit": 0.6,
+   "n": 95,
+   "said": 0.545,
    "verdict": "hitting at or above what we said"
   },
   "price:pick'em": {
@@ -313,9 +313,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.565,
-   "n": 131,
-   "said": 0.51,
+   "hit": 0.563,
+   "n": 135,
+   "said": 0.511,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:hot seat": {
@@ -383,5 +383,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-21T21:36Z"
+ "updated": "2026-10-22T02:50Z"
 }
