@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T22:14Z",
+ "updated": "2026-10-22T22:38Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -82,7 +82,7 @@
     "opp": "App State",
     "market": "spread",
     "line": -12.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.501,
     "win_p": 0.753,
     "reasons": [
@@ -113,8 +113,8 @@
     "team": "Liberty",
     "opp": "Kennesaw St",
     "market": "spread",
-    "line": -9.5,
-    "odds": -110,
+    "line": -8.5,
+    "odds": -108,
     "p": 0.5,
     "win_p": 0.714,
     "reasons": [
@@ -250,7 +250,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.713,
+    "p": 0.708,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -266,13 +266,12 @@
     "opp": "East Carolina",
     "market": "spread",
     "line": -10.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.5,
-    "win_p": 0.769,
+    "win_p": 0.763,
     "reasons": [
      "the stronger team",
-     "better QB play lately",
-     "sharp money moving this way"
+     "better QB play lately"
     ]
    }
   },
@@ -312,7 +311,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.373,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -329,8 +328,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.669,
-    "win_p": 0.45,
+    "p": 0.678,
+    "win_p": 0.46,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -738,7 +737,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.604,
+    "p": 0.615,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -754,9 +753,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.648,
-    "win_p": 0.648,
+    "odds": -218,
+    "p": 0.663,
+    "win_p": 0.663,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -885,8 +884,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Heat",
-    "p": 0.486,
+    "team": "Pistons",
+    "p": 0.492,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -898,14 +897,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Heat",
-    "opp": "Pistons",
+    "team": "Pistons",
+    "opp": "Heat",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.507,
-    "win_p": 0.507,
-    "reasons": []
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.508,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
