@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 100,
-  "beat": 32,
+  "n": 101,
+  "beat": 33,
   "same": 34,
   "worse": 34,
-  "avg_pts": 0.05
+  "avg_pts": 0.08
  },
  "unit_plays": {
   "n": 42,
@@ -22,11 +22,11 @@
    "avg_pts": 0.06
   },
   "lean": {
-   "n": 58,
-   "beat": 18,
+   "n": 59,
+   "beat": 19,
    "same": 16,
    "worse": 24,
-   "avg_pts": -0.16
+   "avg_pts": -0.12
   },
   "lock": {
    "n": 11,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 4,
-   "beat": 1,
+   "n": 5,
+   "beat": 2,
    "same": 2,
    "worse": 1,
-   "avg_pts": -0.22
+   "avg_pts": 0.24
   },
   "ncaaf": {
    "n": 26,
@@ -1454,6 +1454,20 @@
    "pts": -1.1,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Trail Blazers",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -155,
+   "pts": 2.1,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-21",

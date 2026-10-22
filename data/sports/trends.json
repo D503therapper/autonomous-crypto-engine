@@ -43,6 +43,44 @@
   },
   {
    "families": [
+    "streak",
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "fav_cover",
+   "price_said": 5.0,
+   "record": "8-2",
+   "season": 2026,
+   "side": 1,
+   "situation": "wednesday",
+   "streak": 7,
+   "strength": 5.4,
+   "trend": "favorites cover",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak",
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "fav_ml",
+   "price_said": 6.1,
+   "record": "8-2",
+   "season": 2026,
+   "side": 1,
+   "situation": "wednesday",
+   "streak": 7,
+   "strength": 4.75,
+   "trend": "favorites win",
+   "upcoming": [],
+   "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
     "streak"
    ],
    "league": "mlb",
@@ -55,25 +93,6 @@
    "streak": 5,
    "strength": 4.3,
    "trend": "over",
-   "upcoming": [],
-   "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "streak",
-    "rate"
-   ],
-   "league": "nba",
-   "outcome": "fav_cover",
-   "price_said": 4.0,
-   "record": "6-2",
-   "season": 2026,
-   "side": 1,
-   "situation": "wednesday",
-   "streak": 5,
-   "strength": 3.91,
-   "trend": "favorites cover",
    "upcoming": [],
    "upcoming_names": [],
    "verdict": "coin flip"
@@ -103,17 +122,60 @@
     "rate"
    ],
    "league": "nba",
-   "outcome": "fav_ml",
-   "price_said": 4.9,
-   "record": "6-2",
+   "outcome": "fav_cover",
+   "price_said": 4.5,
+   "record": "6-3",
    "season": 2026,
    "side": 1,
-   "situation": "wednesday",
+   "situation": "home favorite",
    "streak": 5,
-   "strength": 3.34,
+   "strength": 3.5,
+   "trend": "favorites cover",
+   "upcoming": [
+    "nba:401909093",
+    "nba:401909094",
+    "nba:401909095",
+    "nba:401909847",
+    "nba:401909096"
+   ],
+   "upcoming_names": [
+    "Cavaliers @ 76ers",
+    "Nuggets @ Thunder",
+    "Knicks @ Celtics",
+    "Pistons @ Heat",
+    "Rockets @ Spurs"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak",
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "fav_ml",
+   "price_said": 5.6,
+   "record": "6-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 5,
+   "strength": 2.75,
    "trend": "favorites win",
-   "upcoming": [],
-   "upcoming_names": [],
+   "upcoming": [
+    "nba:401909093",
+    "nba:401909094",
+    "nba:401909095",
+    "nba:401909847",
+    "nba:401909096"
+   ],
+   "upcoming_names": [
+    "Cavaliers @ 76ers",
+    "Nuggets @ Thunder",
+    "Knicks @ Celtics",
+    "Pistons @ Heat",
+    "Rockets @ Spurs"
+   ],
    "verdict": "coin flip"
   },
   {
@@ -453,6 +515,36 @@
     "Hurricanes @ Oilers",
     "Mammoth @ Kraken",
     "Red Wings @ Canucks"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "total",
+   "price_said": 4.5,
+   "record": "6-3",
+   "season": 2026,
+   "side": 0,
+   "situation": "home favorite",
+   "streak": 2,
+   "strength": 1.0,
+   "trend": "under",
+   "upcoming": [
+    "nba:401909093",
+    "nba:401909094",
+    "nba:401909095",
+    "nba:401909847",
+    "nba:401909096"
+   ],
+   "upcoming_names": [
+    "Cavaliers @ 76ers",
+    "Nuggets @ Thunder",
+    "Knicks @ Celtics",
+    "Pistons @ Heat",
+    "Rockets @ Spurs"
    ],
    "verdict": "coin flip"
   },
@@ -2334,5 +2426,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-22T04:25Z"
+ "updated": "2026-10-22T05:03Z"
 }
