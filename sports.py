@@ -32,7 +32,7 @@ import sports_weather
 
 DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
-START_BANKROLL = 1000.0
+START_BANKROLL = 100000.0     # the owner, 10/22: a sharp's roll - $100,000, 1 unit = $1,000 (was $1,000)
 STAKE = 100.0
 HOLD_DAYS = set()                   # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
@@ -1919,7 +1919,7 @@ def pick_tier(pk):
 UNIT_MAX = 5                   # 5u max play (the owner, 10/16: "5 unit would be a max play" - was 10u; nothing ever sized past 5u)
 PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay is for fun - no units on it; each PICK in it
                                                    # carries its own units, as a straight bet
-BANKROLL_START = 1000.0        # the owner, 9/30: an open bankroll - it starts at $1,000; a unit is 1% of it (grows with it)
+BANKROLL_START = 100000.0      # the owner, 10/22: a sharp's bankroll - $100,000 (was $1,000, 9/30); a unit is 1% of it (grows with it)
 UNIT_PCT = 0.01
 
 
