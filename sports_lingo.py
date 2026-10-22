@@ -690,8 +690,18 @@ def review(kind, result, seed, used, lean=False, trailed=False, **kw):
         opts = roll(templates, seed, (chars, sents), n, False, _ban(lean, trailed), **kw)
         line = fresh(opts, used, names, _clash=True if n == 30 else None)
         if line:
-            return line
+            return an(line)
     return ""
+
+
+def an(s):
+    """'a 11-point lead' -> 'an 11-point lead' (10/21: the Cardinals' review read "had a 11-point lead"): a number that
+    starts with an 8, or is 11 / 18 (or eleven / eighteen hundred), takes 'an'."""
+    def fix(m):
+        d = m.group(2)
+        vowel = d.startswith("8") or d in ("11", "18") or (len(d) == 4 and d[:2] in ("11", "18"))
+        return f"{m.group(1)}{'an' if vowel else 'a'} {d}"
+    return re.sub(r"(^|[\s(])a (\d+)", fix, str(s or ""))
 
 
 # ---- the live bets list on the dashboard (today's) -------------------------------------------------------------------
@@ -943,7 +953,7 @@ def review_how(how, result, seed, used, lean=False):
     cap, _, templates = LINES[f"rv:how_{result}"]
     opts = [o.strip() for o in roll(templates, seed, cap, 40, False, LEAN_BAN if lean else None, how=how)]
     opts = [o for o in opts if len(o) <= HOW_CAP] or [how]
-    return fresh(opts, used, [how]) or how
+    return an(fresh(opts, used, [how]) or how)
 
 def live_story(result, seed, used, ran=False, **kw):
     """(score, thought, end) of a live bet on the list - kw: an a hn h w us what best."""

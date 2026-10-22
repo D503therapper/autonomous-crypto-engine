@@ -2798,15 +2798,75 @@ def who_plays_first(g, side, rows):
     return sorted(rows, key=rank)
 
 
+MATTERS_MPG = 20       # a hoops man who played 20+ minutes a night last season is one who matters on the 🚑 line
+
+
+def who_matters(g, side, rows):
+    """{player: ' (tag)'} for the injured players the DATA says matter (10/21, the owner: the 🚑 line is a list - say
+    who matters, never call a man a star the data doesn't back): hoops - his minutes a night last season from the box
+    scores (sports_nba_roster values, 20+); football - a regular (the QB, the top ball carriers / catchers / tacklers
+    in the last 3 box scores, sports_absences.regulars). Nothing for anyone else."""
+    import sports_absences
+    out = {}
+    lg = g["league"]
+    if lg == "nba":
+        try:
+            import sports_nba_roster
+            cur = sports_nba_roster.cached()
+            vals = (cur or {}).get("values")
+            for r in rows:
+                v = sports_nba_roster._lookup(vals, {"name": r[0]}) if vals else None
+                if v and (v.get("mpg") or 0) >= MATTERS_MPG:
+                    out[r[0]] = f" ({int(round(v['mpg']))} min a night last year)"
+        except Exception:                                 # noqa: BLE001 - the plain list stands
+            return out
+    elif lg in ("nfl", "ncaaf"):
+        reg = sports_absences.regulars(None, lg, g[side], g.get("start") or "9") or set()
+        for r in rows:
+            if reg and sports_absences.match(r[0], reg):
+                out[r[0]] = " (starter)"
+    return out
+
+
+def card_extras(leg, g, injuries):
+    """The lines the card gets on top of the write-up (10/21: a rewrite dropped them - add_breakdowns only wrote the
+    breakdown): 🚑 who's out, 🏀 the roster read and last season's facts, 🥅 who's confirmed in net."""
+    try:
+        line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
+    except Exception:                                       # noqa: BLE001 - the extras never block a card
+        line = ""
+    if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
+        leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
+    if leg["league"] == "nba":                              # 🏀 the roster read's facts (bench, depth, form,
+        try:                                                # a minutes limit) - the owner, 10/20
+            rl = sports_nba_roster.card_line(g, leg["side"], sports_nba_roster.cached())
+        except Exception:                                   # noqa: BLE001
+            rl = ""
+        mark = f"🏀 {g[leg['side'] + '_name']}:"             # (the "🏀 Last season ..." fact line is a different line)
+        body = " ".join(str(x) for x in leg.get("breakdown") or [])
+        if rl and "bench" in body.lower():                  # (10/21: the card already said the bench numbers - once)
+            parts = [p for p in rl[len(mark):].strip(" .").split(" · ") if "bench" not in p]
+            rl = f"{mark} {' · '.join(parts)}." if parts else ""
+        if rl and not any(str(x).startswith(mark) for x in leg.get("breakdown") or []):
+            leg["breakdown"] = list(leg.get("breakdown") or []) + [rl]
+    try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
+        net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or []) if GOALIE_CARD else ""
+    except Exception:                                   # noqa: BLE001
+        net = ""
+    if net and not any(str(x).startswith("🥅 In net") for x in leg.get("breakdown") or []):   # (10/6 sweep: the
+        leg["breakdown"] = list(leg.get("breakdown") or []) + [net]   # slumping-goalie line starts with 🥅 too)
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
     matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
     the players who play first (who_plays_first)."""
     inj = (injuries or {}).get(g["league"])
     rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
-    gone = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
+    tag = who_matters(g, side, rows)                      # (10/21, the owner: say who MATTERS, when the data says so)
+    gone = [f"{r[1]} {r[0]}{tag.get(r[0], '')}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
             and "season" not in r[2].lower()]
-    unsure = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
+    unsure = [f"{r[1]} {r[0]}{tag.get(r[0], '')}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     if len(gone) + len(unsure) < 2 and not any("suspen" in r[2].lower() for r in rows):
         return ""
     gone += [f"{r[1]} {r[0]} (suspended)".strip() for r in rows if "suspen" in r[2].lower()]
@@ -3605,22 +3665,7 @@ def post_board(games, model, picks, now, day, force=False):
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
             leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
-            line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
-            if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
-                leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
-            if leg["league"] == "nba":                              # 🏀 the roster read's facts (bench, depth, form,
-                try:                                                # a minutes limit) - the owner, 10/20
-                    rl = sports_nba_roster.card_line(g, leg["side"], sports_nba_roster.cached())
-                except Exception:                                   # noqa: BLE001
-                    rl = ""
-                if rl and not any(str(x).startswith("🏀 ") for x in leg.get("breakdown") or []):
-                    leg["breakdown"] = list(leg.get("breakdown") or []) + [rl]
-            try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
-                net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or []) if GOALIE_CARD else ""
-            except Exception:                                   # noqa: BLE001
-                net = ""
-            if net and not any(str(x).startswith("🥅 In net") for x in leg.get("breakdown") or []):   # (10/6 sweep: the
-                leg["breakdown"] = list(leg.get("breakdown") or []) + [net]   # slumping-goalie line starts with 🥅 too)
+            card_extras(leg, g, injuries)                       # 🚑 who's out · 🏀 the roster read · 🥅 who's in net
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
 
@@ -4010,6 +4055,7 @@ def add_breakdowns(games, model, picks):
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             if id(leg) in leans:
                 leg["breakdown"] = sports_breakdown.lean_tone(leg["breakdown"], leg, leans[id(leg)])
+            card_extras(leg, games[leg["game_id"]], injuries)   # (10/21: the rewrite kept 🚑 / 🏀 / 🥅 - it dropped them)
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)

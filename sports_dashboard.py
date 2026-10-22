@@ -311,6 +311,14 @@ def game_fact(l):
     me, opp = l.get("team") or "", l.get("opp") or ""
     if not (me and opp):
         return None
+    if l.get("market") == "total":                       # (10/21: "Under 42.5 led 17-14 at the half" - a total's fact is
+        hx, ax = sum(h[:n]), sum(a[:n])                  #  the points: at the half and in all, against the number)
+        line = l.get("line")
+        try:
+            tot, ln = sum(h) + sum(a), float(line)
+            return f"{hx + ax} points {when} ({max(hx, ax)}-{min(hx, ax)}); {tot} in all against the {ln:g}."
+        except (TypeError, ValueError):
+            return f"{hx + ax} points {when} ({max(hx, ax)}-{min(hx, ax)}); {sum(h) + sum(a)} in all."
     x, y, fx, fy = sum(us[:n]), sum(them[:n]), sum(us), sum(them)
     lead = me if x > y else opp if y > x else None
     win = me if fx > fy else opp if fy > fx else None
@@ -658,9 +666,11 @@ LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class=
 
 
 WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason, still said our way
-    "the stronger team": "💪 {us} are just the better team tonight.",
-    "hotter recent form": "🔥 {us} are playing better ball than {opp} lately.",
-    "opponent missing key players": "🚑 {opp} are banged up — we pouncing.",
+    #   (10/21, the owner's never-vague rule: an OLD pick has no records / streaks / names on hand, so the line says
+    #    what's true - the engine's own read - never "just the better team" as if we'd shown it)
+    "the stronger team": "💪 The engine's ratings say {us} are the better team here.",
+    "hotter recent form": "🔥 The engine's form read has {us} playing better than {opp} lately.",
+    "opponent missing key players": "🚑 {opp} are missing players the engine weighs — that's in our read.",
     "sharp money moving this way": "💸 The market's catching up to {us} — the engine had it first.",
     "better rested": "🛌 {us} got the extra rest. Fresh legs.",
     "opponent on a back-to-back": "😮‍💨 {opp} played last night — tired legs.",
@@ -1363,7 +1373,9 @@ def _history(picks, early_rows=None):
         if e.get("result") not in ("won", "lost", "push") or not e.get("league") or not e.get("start"):   # 10/15: the
             continue                                         # Brewers counted 10-2 but weren't in the baseball list)
         d_ = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(sports.PT).strftime("%Y-%m-%d")
-        l = {**e, "market": e.get("market") or "ml"}
+        gx = (_GAMES_[0] or {}).get(e.get("game_id")) or {}   # (10/21: an early play's review carried no fact - "Nobody
+        l = {**e, "market": e.get("market") or "ml",           #  believed in Marshall but us" - the period scores we hold
+             "flow": e.get("flow") or {"a": gx.get("ls_away", ""), "h": gx.get("ls_home", "")}}   # give it the half + final
         by.setdefault(e["league"], []).append(
             (d_, e["result"], f'{bet(l)} ({_am(e["odds"])})', " · ⏰ Early value play" + (f' · {e["score"]}' if e.get("score") else ""),
              rev_leg(l, e["result"], d_)))

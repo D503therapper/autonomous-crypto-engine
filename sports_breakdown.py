@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 50          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 51          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -229,7 +229,7 @@ def lean_tone(lines, leg, seed=""):
         if keep and not (len(keep) == 1 and len(keep[0]) <= 3):
             out.append(" ".join(keep))
     team = leg.get("team", "")
-    ends = lean_ends(leg)
+    ends = lean_ends(leg, said=out)
     out.append(ends[sum(map(ord, str(seed) + team)) % len(ends)])
     return out
 
@@ -237,10 +237,11 @@ def lean_tone(lines, leg, seed=""):
 LEAN_CLOSE = 0.56          # a lean the engine has under this is close to a coin flip - the card says so, not "the price"
 
 
-def lean_ends(leg):
+def lean_ends(leg, said=()):
     """A lean's bottom line says WHY it's no unit play, with its price (the owner, 10/1: "we like the Kraken, just not at
     this price" on a -108 lean is vague and makes no sense - -108 isn't expensive; the real reason is the engine has the
-    game close to a coin flip). Steep favorites: the price is the reason. Never "the algorithm just leans" filler."""
+    game close to a coin flip). Steep favorites: the price is the reason. Never "the algorithm just leans" filler.
+    said = the card's other lines: a fact one of them already carries isn't repeated on the bottom line."""
     team = leg.get("team", "") or "They"
     o = leg.get("odds")
     bet = f"{team} {leg['line']:+g}" if leg.get("market") == "spread" and leg.get("line") is not None else team
@@ -250,6 +251,38 @@ def lean_ends(leg):
         own = _sp.read_of(leg) or leg.get("p") or 0.5
     except Exception:                                         # noqa: BLE001
         own = leg.get("p") or 0.5
+    # (10/21, the owner: "near a coin flip" alone is vague - the bottom line carries ONE concrete fact the card found
+    #  (sports_breakdown_v24.top_facts), the first one the line under the pick didn't already say; short, or none)
+    told = [str(leg.get("why_line") or "")] + [str(x) for x in said or ()]
+    groups = [[f] if isinstance(f, str) else list(f or []) for f in
+              (leg.get("facts") or ([leg["fact"]] if leg.get("fact") else []))]   # [[ways to say fact 1], [fact 2]...]
+    fresh = [g for g in groups if g and not any(_same_fact(g[0], t) for t in told)]
+    fact = ""
+    if fresh:                                                 # the fact's wording rolls by the pick (stable run to run)
+        ways = [w for w in fresh[0] if len(w) <= LEAN_FACT_MAX] or []
+        fact = ways[sum(map(ord, team + str(o))) % len(ways)] if ways else ""
+    pool = _lean_pool(leg, team, price, o, own)
+    return [f"{x} {fact}".strip() for x in pool]
+
+
+LEAN_FACT_MAX = 80     # the fact on a lean's bottom line stays short (never lengthen the write-ups)
+_STOP = {"the", "are", "and", "last", "time", "these", "two", "met", "took", "night", "didn", "with", "their", "them",
+         "they", "have", "has", "went", "season", "more", "days", "off", "than", "that", "one", "of", "a", "to", "is",
+         "on", "for", "in", "fresh", "just", "rolled", "coming", "spot", "win", "over", "loss", "straight", "without"}
+
+
+def _same_fact(fact, line):
+    """Does this card line already carry the fact? Its numbers (a record, a score, a count) all in the line, or - with
+    no numbers - most of its real words (the names) there."""
+    nums = re.findall(r"\d+(?:-\d+)?", fact)
+    low = str(line or "").lower()
+    if nums:
+        return all(n in low for n in nums) and any(w in low for w in re.findall(r"[a-z']{4,}", fact.lower()) if w not in _STOP)
+    words = [w for w in re.findall(r"[a-z']{3,}", fact.lower()) if w not in _STOP]
+    return bool(words) and sum(w in low for w in words) >= max(2, 0.6 * len(words))
+
+
+def _lean_pool(leg, team, price, o, own):
     if leg.get("market") == "spread" and leg.get("line") is not None:   # (10/2 audit: a spread lean's read is the
         ln = f"{leg['line']:+g}"                                         #  chance to COVER - never "win" / "underdog")
         if own < LEAN_CLOSE:
@@ -810,16 +843,12 @@ T = {
         "🔥 [Hottest|Hot|Rolling] team in the [building|matchup]: {us}, {cnt} {str8} and {rec}.",
     ],
     "rec": [
+        # (10/21, the owner: the record alone with a tag-line - "we already did our homework", "we gon' see what they
+        #  do with it" - is filler; the record is said plain, or with the price it's already in)
         "📋 {us} [sitting at|rolling in at|walking in at|come in at] {rec} {yr}.",
-        "📋 [Record check|Quick check|Resume check]: {us} {rec}. [We already did our homework.|The homework's done.|We did the digging already.|We know the rest.]",
-        "📋 {rec} {yr} for {us} — the record [don't|doesn't] [cash tickets|pay us|win bets], the number does.",
-        "📋 {us} got {a_rec} {rec} record [walking in|coming in|on the board]. [We gon' see what they do with it.|Now go prove it.|Let's see what it's worth.]",
-        "📋 {us} are {rec} {rn} — the rest [is|gets decided|gets settled] on the {field}.",
         "📋 {rec} {yr} for {us} — the record's in the price already. We bet the number.",
         "📋 [Where they stand|The resume|Standing|The record]: {us} at {rec} {yr}.",
-        "📋 {us} [sit at|stand at|check in at] {rec}. [Records don't cash tickets|The record's just background|The record ain't the bet] — the [price|number] is.",
-        "📋 [Resume|Track record|Report card] for {us}: {rec} {yr}. [Now the real part.|The {field} settles the rest.|Numbers did the rest.]",
-        "📋 {us} [bring|carry] {a_rec} {rec} mark [in|into this one|into tonight]. [We know what we're doing.|Homework's done.|We read it all.]",
+        "📋 {us} [bring|carry] {a_rec} {rec} mark [in|into this one|into tonight].",
     ],
     "cold": [
         "🧊 {them} are {rec} and {cold} — {cnt} straight {Ls}.",
