@@ -22928,3 +22928,32 @@ error: failed to push some refs to 'https://github.
 [2026-10-22 07:05 UTC] crypto/breakout  equity $484.26 (-3.1%) 3 open  market UP
 [2026-10-22 07:05 UTC] crypto/hold_btc  equity $491.36 (-1.7%) 1 open  market UP
    social heat top: AERO 49 (40/0/9), AXIS 45 (32/0/13), BTC 29 (29/0/0), SOL 22 (19/0/3), LINK 19 (19/0/0)
+   dex screen: REJECT B3@base liq $750,045 - pool age unknown
+   dex screen: PASS BERT@solana liq $1,013,727
+   dex screen: PASS NEET@solana liq $1,829,583
+   dex screen: PASS CYBERLEEK@solana liq $508,181
+   dex screen: REJECT POPCAT@solana liq $3,538,841 - top-10 holders 42%
+   dex screen: REJECT SPX@solana liq $2,107,581 - mint authority
+   dex screen: REJECT TRUE@base liq $632,055 - is_mintable; top-10 holders 58%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #131 (top-10 holders 80%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #5 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #27 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT METAC@base liq $617,018 - pool age unknown
+   dex screen: REJECT ELSA@base liq $454,565 - goplus partial data: cannot_sell_all unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT DIEM@base liq $212,291 - pool age unknown
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #132 (top-10 holders 80%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #6 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #28 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT AAVE@ethereum liq $168,443 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT ZEN@base liq $2,333,219 - is_mintable; top-10 holders 67%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,138 / base 479 / ethereum 383), refresh cycle 128s (hot 124s), 2921 calls (110 feed, 429s 0, failed 0), 84,330 refreshed (8464 no pair), +94 added / -95 dropped (dead 12, stale 0, cap 83), movers 0 + warming 14 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-22 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-22 08:05 UTC] crypto/mover     equity $274.65 (-45.1%) 2 open  market UP
+[2026-10-22 08:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-22 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-22 08:05 UTC] crypto/social_heat equity $415.92 (-16.8%) 4 open  market UP
+[2026-10-22 08:05 UTC] crypto/breakout10 equity $464.07 (-7.2%) 2 open  market UP
+[2026-10-22 08:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-22 08:05 UTC] crypto/breakout  equity $483.58 (-3.3%) 3 open  market UP
+[2026-10-22 08:05 UTC] crypto/hold_btc  equity $489.75 (-2.0%) 1 open  market UP
+   social heat top: AXIS 44 (35/0/10), AERO 43 (40/0/3), PENGU 29 (29/0/0), CARDS 27 (27/0/0), SUI 21 (21/0/0)
