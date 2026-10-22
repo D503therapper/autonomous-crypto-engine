@@ -1,247 +1,135 @@
 {
- "updated": "2026-10-22T22:38Z",
+ "updated": "2026-10-22T22:59Z",
  "games": [
   {
    "id": "nba:401909093",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "76ers",
-    "p": 0.498,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-22T23:00Z",
    "away": "Cavaliers",
    "home": "76ers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "76ers",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.525,
-    "win_p": 0.525,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892555",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Devils",
-    "p": 0.426,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-22T23:00Z",
-   "away": "Ducks",
-   "home": "Devils",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Devils",
-    "opp": "Ducks",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team"
-    ]
+    "odds": -148,
+    "p": 0.531,
+    "win_p": 0.531,
+    "reasons": [],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401869845",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "James Madison",
-    "p": 0.699,
-    "tie": 0.029,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-22T23:00Z",
    "away": "James Madison",
    "home": "App State",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "James Madison",
-    "opp": "App State",
-    "market": "spread",
-    "line": -12.5,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.753,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
+    "team": "App State",
+    "opp": "James Madison",
+    "market": "ml",
+    "line": null,
+    "odds": 350,
+    "p": 0.257,
+    "win_p": 0.257,
+    "reasons": [],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401871056",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Liberty",
-    "p": 0.664,
-    "tie": 0.03,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-22T23:00Z",
    "away": "Liberty",
    "home": "Kennesaw St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Liberty",
-    "opp": "Kennesaw St",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.714,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892556",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Penguins",
-    "p": 0.36,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-22T23:00Z",
-   "away": "Panthers",
-   "home": "Penguins",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Panthers",
-    "opp": "Penguins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -285,
-    "p": 0.697,
-    "win_p": 0.48,
-    "reasons": [
-     "opponent missing key players",
-     "opponent drama: illness"
-    ]
+    "team": "Kennesaw St",
+    "opp": "Liberty",
+    "market": "ml",
+    "line": null,
+    "odds": 300,
+    "p": 0.286,
+    "win_p": 0.286,
+    "reasons": [],
+    "result": null
    }
   },
   {
    "id": "nhl:401892552",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Bruins",
-    "p": 0.389,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-22T23:00Z",
    "away": "Predators",
    "home": "Bruins",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
     "team": "Predators",
     "opp": "Bruins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.642,
-    "win_p": 0.423,
+    "market": "ml",
+    "line": null,
+    "odds": 120,
+    "p": 0.442,
+    "win_p": 0.442,
     "reasons": [
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892553",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.356,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-22T23:00Z",
-   "away": "Rangers",
-   "home": "Maple Leafs",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Maple Leafs",
-    "opp": "Rangers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.702,
-    "win_p": 0.488,
-    "reasons": []
+     "better rested",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892554",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Senators",
-    "p": 0.359,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-22T23:00Z",
    "away": "Sharks",
    "home": "Senators",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Sharks",
     "opp": "Senators",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.699,
+    "market": "ml",
+    "line": null,
+    "odds": 114,
+    "p": 0.481,
     "win_p": 0.481,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -372,7 +260,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.518,
+    "p": 0.517,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -389,8 +277,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.555,
-    "win_p": 0.555,
+    "p": 0.554,
+    "win_p": 0.554,
     "reasons": [
      "sharp money moving this way",
      "revenge game"
@@ -481,7 +369,7 @@
     "opp": "Nuggets",
     "market": "spread",
     "line": -8.5,
-    "odds": -105,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.741,
     "reasons": [
