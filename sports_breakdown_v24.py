@@ -1056,7 +1056,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             #                                         bragged about money going AGAINST us; it's a warning - say so)
             lambda w: f"💸 Heads up: the line moved toward {the_them}{move}. We still got {the_us} — {w}.",
             lambda w: f"💸 The money went {the_them}'s way{move}. The engine still has {the_us} — {w}.",
-            lambda w: f"💸 {the_them} got bet up{move}. We're still on {the_us} — {w}.",
+            lambda w: f"💸 {_cap(the_them)} got bet up{move}. We're still on {the_us} — {w}.",
             lambda w: f"💸 Line's moving toward {the_them}{move}. Not our favorite sign, but we still like {the_us} — {w}.",
             lambda w: f"💸 Somebody's betting {the_them}{move}. The engine didn't budge off {the_us} — {w}."))))
 
@@ -1080,13 +1080,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("splits_f", [
                 f"📊 {100 - t}% of the bets and {100 - m}% of the money on {the_them} on {mk}. We on the other side.",
                 f"📊 The public's on {the_them}: {100 - t}% of the bets, {100 - m}% of the money. Not us.",
-                f"📊 {the_them} got {100 - t}% of the tickets ({100 - m}% of the money). We got {the_us}.",
+                f"📊 {_cap(the_them)} got {100 - t}% of the tickets ({100 - m}% of the money). We got {the_us}.",
                 f"📊 Everybody and they mama on {the_them} ({100 - t}% of the bets). We riding {the_us} anyway."]))
         elif t >= 65:
             out.append(v.say("splits_w", [
                 f"📊 {t}% of the bets and {m}% of the money on {the_us}. Same side as the public on this one.",
                 f"📊 The public's with us: {t}% of the bets, {m}% of the money on {the_us}.",
-                f"📊 {the_us} got {t}% of the tickets ({m}% of the money). Popular side.",
+                f"📊 {_cap(the_us)} got {t}% of the tickets ({m}% of the money). Popular side.",
                 f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money."]))
 
     # the public: fading them or riding with them

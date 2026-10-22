@@ -10334,6 +10334,13 @@ def test_cards_never_brag_about_money_going_against_us_and_splits_say_only_numbe
     assert len(set(close)) >= 8
 
 
+def test_card_lines_never_open_with_a_lowercase_the():
+    """10/22 check of the rewrite: "💸 the Suns got bet up" - a line opening with {the_them} needs a capital."""
+    src = open("sports_breakdown_v24.py").read()
+    import re
+    assert not re.search(r'f"[^\w"]{1,3} \{the_(them|us)\}', src)
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
