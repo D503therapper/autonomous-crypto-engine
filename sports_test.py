@@ -5298,12 +5298,12 @@ def _units_and_the_open_bankroll():
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
     led = sports.units_ledger([day2, day1])
-    assert led["by_date"] == {"2026-09-29": 10.0, "2026-09-30": 10.1}      # the unit grew with the bankroll
-    assert led["bankroll"] == round(1000 + 10.0 - 2 * 10.1, 2)
+    assert led["by_date"] == {"2026-09-29": 1000.0, "2026-09-30": 1010.0}   # the unit grew with the bankroll
+    assert led["bankroll"] == round(100000 + 1000.0 - 2 * 1010.0, 2)      # (10/22, the owner: a $100,000 roll, 1u = $1,000)
     import sports_dashboard as d
     assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
     box = d.units_box([day1, day2], "2026-09-30")          # the owner, 9/30: every ROI stat - overall, the day, the week
-    assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000"))
+    assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $100,000"))
     assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
     assert "Parlays" not in box
     assert "WE GAMBLIN" in d.LIVE_NO_UNITS and "var NOU=" in open(d.__file__).read()   # live plus money: no units, said so
