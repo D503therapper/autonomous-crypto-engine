@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T03:09Z",
+ "updated": "2026-10-22T03:56Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -180,8 +180,8 @@
    "away": "New Mexico St",
    "home": "Sam Houston",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -407,7 +407,7 @@
    "start": "2026-10-22T23:00Z",
    "away": "Panthers",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Penguins",
@@ -415,8 +415,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.55,
-    "win_p": 0.55,
+    "p": 0.549,
+    "win_p": 0.549,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
