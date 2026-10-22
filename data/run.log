@@ -23039,3 +23039,32 @@ error: failed to push some refs to 'https://github.
 [2026-10-22 10:06 UTC] crypto/breakout  equity $482.19 (-3.6%) 3 open  market UP
 [2026-10-22 10:06 UTC] crypto/hold_btc  equity $488.57 (-2.3%) 1 open  market UP
    social heat top: AXIS 44 (35/0/9), AERO 37 (37/0/0), BTC 29 (29/0/0), PENGU 24 (24/0/0), NEAR 16 (16/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS NPC@ethereum liq $4,503,322
+   dex screen: PASS ASTEROID@ethereum liq $883,697
+   dex screen: REJECT UBLOCK@base liq $245,849 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT PROS@base liq $916,786 - pool age unknown
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #137 (top-10 holders 80%; lp holders unknown); holding (experiment 10)
+   dex re-screen: NPC@solana:FrEL1gFK data flag #11 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #33 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT MASK@ethereum liq $590,182 - top-10 holders 60%; lp locked 0% < 95%
+   dex screen: REJECT MASK@ethereum liq $590,943 - top-10 holders 60%; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,014,573
+   dex screen: REJECT ONDO@ethereum liq $104,878 - transfer_pausable; top-10 holders 68%; lp locked 0% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #138 (top-10 holders 80%; lp holders unknown); holding (experiment 10)
+   dex re-screen: DARK@solana:7KEPApdb data flag #34 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT STOCKER@ethereum liq $103,282 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex scanner: 2,788 pools (solana 2,050 / base 422 / ethereum 316), refresh cycle 118s (hot 113s), 2987 calls (108 feed, 429s 0, failed 0), 86,368 refreshed (9870 no pair), +98 added / -131 dropped (dead 125, stale 6, cap 0), movers 0 + warming 19 -> queued 1, screened 2 (passed 0), bought 0
+[2026-10-22 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-22 11:06 UTC] crypto/mover     equity $273.15 (-45.4%) 1 open  market UP
+[2026-10-22 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-22 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-22 11:06 UTC] crypto/social_heat equity $399.81 (-20.0%) 4 open  market UP
+[2026-10-22 11:06 UTC] crypto/breakout10 equity $463.07 (-7.4%) 2 open  market UP
+[2026-10-22 11:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market UP
+[2026-10-22 11:06 UTC] crypto/breakout  equity $481.59 (-3.7%) 3 open  market UP
+[2026-10-22 11:06 UTC] crypto/hold_btc  equity $488.54 (-2.3%) 1 open  market UP
+   social heat top: AERO 35 (35/0/0), AXIS 27 (21/0/6), BTC 27 (27/0/0), PONS 20 (16/0/4), PENGU 19 (19/0/0)
