@@ -17022,6 +17022,7 @@
      "them:trip1000"
     ],
     "dec": 1.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -17047,6 +17048,10 @@
     "elo_edge": 45.6,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "31,20,28,24",
+     "h": "29,35,34,25"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -17088,10 +17093,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jazz 103 @ Grizzlies 123",
     "season_games": 0,
+    "settled": "2026-10-22T02:37Z",
     "side": "home",
     "start": "2026-10-22T00:00Z",
     "stype": "2",
@@ -17110,11 +17117,13 @@
    }
   ],
   "p_hit": 0.5325,
-  "pnl": 0.0,
+  "pnl": 80.0,
   "posted": "2026-10-21T15:08Z",
   "round": 1,
+  "settled": "2026-10-22T02:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]
