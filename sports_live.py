@@ -207,11 +207,16 @@ def substantial(rs, tied):
 ICON = {"nfl": "🏈", "ncaaf": "🏈", "nba": "🏀", "ncaab": "🏀", "nhl": "🏒", "mlb": "⚾"}
 
 
-def blurb(league, us, them, trail, margin_txt, rs, seed, used=None):
-    """The short line: why we see the value - in our lingo, rolled by the play's seed."""
+def blurb(league, us, them, trail, margin_txt, rs, seed, used=None, pre_odds=None):
+    """The short line: why we see the value - in our lingo, rolled by the play's seed. pre_odds: our side's pregame
+    price - a team that was already the plus-money DOG pregame and is tied / ahead gets the honest pool (lv:even_dog),
+    never "tied and still plus money, the book got it wrong" (10/21: Sam Houston +114 pregame, tied at +105)."""
     kinds = {kk for kk, _ in rs}
     used = set() if used is None else used
     kw = dict(i=ICON[league], us=us, them=them, m=margin_txt)
+    if not trail and pre_odds is not None and pre_odds >= 100:
+        return sports_lingo.say("lv:even_dog", seed, used, pre=f"+{pre_odds}",
+                                score_word="tied" if margin_txt == "0" else f"up {margin_txt}", **kw)
     if trail and "ball" in kinds:
         return sports_lingo.say("lv:ball", seed, used, **kw)
     if trail and "better" in kinds:
@@ -413,12 +418,12 @@ def _last_period(box):
     return int(p.get("home_points") or 0), int(p.get("away_points") or 0)
 
 
-def _team_words(league, us, them, trail, m, rs, pid):
+def _team_words(league, us, them, trail, m, rs, pid, pre_odds=None):
     """words(n) -> (line, breakdown) for a play. n=0: its own wording (seeded by its id); 1, 2, 3: other ways to say
     the same thing, for when a play already on the board says it that way (cycle picks n once and keeps it)."""
     def words(n=0):
         seed, used = (pid if not n else f"{pid}|{n}"), set()
-        return blurb(league, us, them, trail, m, rs, seed, used), full_breakdown(league, us, them, rs, seed, used=used)
+        return blurb(league, us, them, trail, m, rs, seed, used, pre_odds), full_breakdown(league, us, them, rs, seed, used=used)
     return words
 
 
@@ -508,7 +513,8 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         pid = f"{g['id']}:{side}"
         pro = league in ("nfl", "nba", "mlb", "nhl")
         the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
-        words = _team_words(league, the_us, the_them, my < their, f"{abs(my - their)}", rs, pid)
+        words = _team_words(league, the_us, the_them, my < their, f"{abs(my - their)}", rs, pid,
+                            sm._int(g.get(f"ml_{side}")))      # (its pregame price - the honest tied / ahead line)
         out.append({
             "id": pid, "league": league, "emoji": sd.LEAGUES[league][3], "sport": sd.LEAGUES[league][2],
             "team": us, "opp": them, "odds": ml, "edge": round(edge, 4), "p": round(p, 3),
