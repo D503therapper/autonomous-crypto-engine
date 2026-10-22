@@ -448,3 +448,5 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 - 10/21 the owner's call (B): a dog whose only case is the engine's read a little over the price (no proven angle, dog score under the gate - e.g. Sam Houston +114, read 49.5% vs 46.7% needed) stays OFF the board as a value play. Rule unchanged. Don't re-propose without new evidence.
 
 - 10/21 NBA (the owner's OK): no NBA Lock in a team's games 1-5; the home dog weighs 4 in games 6-10; 40 NBA underdog studies wired as dog-score WEIGHTS (sports.nba_dog_weights - totals and the ML/spread gap relative to the league's last 300 games). Watch the tracker tags "NBA dog, 10/21 dog score +4 or more" / "-4 or less (fade)".
+
+- 10/22 the owner posted the Sharks +114 at 1u by hand ('post it ... a full unit, I'm on it') - the engine held it all day on Ottawa's questionable goalie; its read had dropped to ~48% vs 46.7% needed (a ½u-size edge). Counts as a value play in the unit record.
