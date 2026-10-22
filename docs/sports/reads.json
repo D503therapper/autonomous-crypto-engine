@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T22:59Z",
+ "updated": "2026-10-22T23:42Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -25,6 +25,21 @@
     "reasons": [],
     "result": null
    }
+  },
+  {
+   "id": "nhl:401892555",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-22T23:00Z",
+   "away": "Ducks",
+   "home": "Devils",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401869845",
@@ -77,6 +92,21 @@
    }
   },
   {
+   "id": "nhl:401892556",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-22T23:00Z",
+   "away": "Panthers",
+   "home": "Penguins",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892552",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -103,6 +133,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nhl:401892553",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-22T23:00Z",
+   "away": "Rangers",
+   "home": "Maple Leafs",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892554",
@@ -136,123 +181,16 @@
    "id": "ncaaf:401862807",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Memphis",
-    "p": 0.708,
-    "tie": 0.028,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-22T23:30Z",
    "away": "East Carolina",
    "home": "Memphis",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Memphis",
-    "opp": "East Carolina",
-    "market": "spread",
-    "line": -10.5,
-    "odds": -105,
-    "p": 0.5,
-    "win_p": 0.763,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892557",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kings",
-    "p": 0.358,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-22T23:30Z",
-   "away": "Kings",
-   "home": "Islanders",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Islanders",
-    "opp": "Kings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -285,
-    "p": 0.697,
-    "win_p": 0.482,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892558",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.368,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-23T00:00Z",
-   "away": "Golden Knights",
-   "home": "Blues",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Blues",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -245,
-    "p": 0.678,
-    "win_p": 0.46,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892559",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.419,
-    "tie": 0.295,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-23T00:00Z",
-   "away": "Jets",
-   "home": "Stars",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Stars",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.645,
-    "win_p": 0.645,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873010",
@@ -277,8 +215,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.554,
-    "win_p": 0.554,
+    "p": 0.555,
+    "win_p": 0.555,
     "reasons": [
      "sharp money moving this way",
      "revenge game"
@@ -368,9 +306,9 @@
     "team": "Thunder",
     "opp": "Nuggets",
     "market": "spread",
-    "line": -8.5,
-    "odds": -102,
-    "p": 0.502,
+    "line": -7.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.741,
     "reasons": [
      "the stronger team",
@@ -1062,7 +1000,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -7.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.722,
     "reasons": [
