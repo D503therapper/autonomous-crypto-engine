@@ -10416,6 +10416,43 @@ def test_nba_favorites_read_off_the_books_plus_the_favorite_weights():
     assert nr.returning(cur, "1", "2026-11-05T00:00Z", rows=rows) == [] and nr.top_out(cur, "1") == ["Star Man"]
 
 
+def test_breakdowns_carry_facts_not_filler_10_22():
+    """10/22, the owner on the Predators Dog card: "these breakdowns suck ... vague". Gone: 'Bruins get the respect, we
+    get the price', 'the market's catching up to what the engine already saw', 'That travel adds up', 'Our read beats
+    the number' (a bottom line now says OUR price next to the book's), the price-only public guesses, and a home team
+    'on its 3rd road game'."""
+    import sports_breakdown_v24 as v
+    src = open("sports_breakdown_v24.py").read()
+    for bad in ("get the respect, we get the price", "catching up to what the engine already saw", "That travel adds up",
+                "Don't be a sheep", "the casuals will pile on", "We were here first", "Good thing we're already on it",
+                "teams like that keep rolling", "Tired legs, cold shooting", "Frequent flyer points"):
+        assert bad not in src, bad
+    assert v.fair_am(0.502) == "-101" and v.fair_am(0.45) == "+122" and v.fair_am(None) is None
+    lines = v.OWNER_PLAY("Predators (+120)", "Predators", v.fair_am(0.502), 120)
+    assert all("-101" in x and "+120" in x for x in lines)
+    lock = v.OWNER_LOCK("Bruins (-130)", "Bruins", {"odds": -130, "_read": 0.6})
+    assert any("-150" in x for x in lock)
+    import sports_dashboard as D
+    import html as _h
+    html = _h.unescape(D._units_line(2.0, "Predators", 120, leg={"odds": 120, "dog_p": 0.502, "dec": 2.2}))
+    assert "We make 'em -101, the book's at +120" in html and "Real value on a plus-money price" not in html
+
+
+def test_an_owner_posted_play_keeps_his_units_and_never_takes_the_dog_spot():
+    """10/22: the owner hand-posted the Sharks at 1u; the Dog upgrade made it the Dog of the Day and sized it 3.5u (and
+    dropped the Predators Dog to ½u) off a read taken without the injury report. His post keeps his units and kind."""
+    leg = {"game_id": "g1", "league": "nhl", "market": "ml", "odds": 114, "dec": 2.14, "p": 0.48, "dog_p": 0.5415,
+           "p_market": 0.4486, "edge_own": 0.03, "start": "2099-01-01T00:00Z"}
+    pk = {"date": "2026-10-22", "kind": "dog", "status": "open", "legs": [leg], "units": 1.0, "owner_post": "x"}
+    assert sports.units_for(pk) == 1.0
+    dogleg = {**leg, "game_id": "g2", "odds": 120, "dec": 2.2, "dog_p": 0.50}
+    picks = [{"date": "2026-10-22", "kind": "dog", "status": "open", "legs": [dogleg]},
+             {"date": "2026-10-22", "kind": "play", "status": "open", "legs": [dict(leg)], "units": 1.0, "owner_post": "x"}]
+    from datetime import datetime, timezone
+    assert sports.upgrade_dog(picks, "2026-10-22", datetime(2026, 10, 22, 18, tzinfo=timezone.utc)) is None
+    assert picks[0]["kind"] == "dog" and picks[1]["kind"] == "play"
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""

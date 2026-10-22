@@ -355,6 +355,16 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     order = [pool[(start + i) % len(pool)] for i in range(len(pool))]   # (never the same reason twice in a row)
     why = next((x for x in order if x not in WHY_USED), order[0]) if pool else ""
     WHY_USED.add(why)
+    try:                                                     # (10/22, the owner: "Real value on a plus-money price.
+        import sports as _s                                  #  Bigger bet." said nothing - the size line says OUR number
+        import sports_breakdown_v24 as _v                    #  next to the book's)
+        f = _v.fair_am(_s.read_of(leg)) if leg else None
+        if f and odds is not None:
+            o = f"+{odds}" if odds > 0 else str(odds)
+            size = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
+            why = f"We make 'em {f}, the book's at {o}. {size}"
+    except Exception:                                        # noqa: BLE001 - the old line stays
+        pass
     return (f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}'
             + (f'<span class="unw">{E(why)}</span>' if why else "") + '</div>')   # units only - everybody's unit is
     #                                                                              their own bankroll's (the owner, 9/30)

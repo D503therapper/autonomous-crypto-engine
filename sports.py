@@ -2051,6 +2051,9 @@ def units_for(pk):
         return 0
     if pk.get("units") is not None and pk.get("status") in ("won", "lost", "push", "void"):
         return pk["units"]                                   # graded: the units it was graded at, forever (10/1 audit)
+    if pk.get("owner_post") and pk.get("units") is not None:
+        return pk["units"]                                   # (10/22: a pick the owner posted by hand keeps HIS units -
+        #                                                      the Sharks at his 1u came out 3.5u once it became the Dog)
     if kind == "solo" and (pk.get("date") or "") >= SOLO_UNITS_FROM:   # (the owner, 10/1: "on a one-game day we always
         t_ = pick_tier({**pk, "lean": False})                #  put units on" - a Lock or a value play, never a lean)
         u_ = _sized("lock" if t_ == "lock" else "value", legs[0]) or 0.5
@@ -3908,6 +3911,7 @@ def upgrade_dog(picks, iso, now):
         return None
     best = max((p for p in picks if p.get("kind") == "play" and open_(p) and p["legs"][0].get("market") == "ml"
                 and not p.get("gap")                         # (10/17: a 🔍 play rides the raw read - never the Dog)
+                and not p.get("owner_post")                  # (10/22: the owner's hand-posted play stays as he posted it)
                 and DOG_MIN <= (p["legs"][0].get("odds") or 0) <= DAILY_DOG_MAX and dog_value(p) is not None),
                key=dog_value, default=None)
     if best is None or dog_value(best) < dog_value(dog) + DOG_UPGRADE_GAP:
