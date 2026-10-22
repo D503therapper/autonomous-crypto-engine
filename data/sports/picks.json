@@ -16742,6 +16742,11 @@
      "us:trip1000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {
+     "s": "5-1",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16756,6 +16761,10 @@
     "elo_edge": -46.8,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "1,2,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16795,10 +16804,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 1 @ Senators 5",
     "season_games": null,
+    "settled": "2026-10-22T02:26Z",
     "side": "away",
     "start": "2026-10-21T23:30Z",
     "stype": "2",
@@ -16815,12 +16826,14 @@
    }
   ],
   "p_hit": 0.513,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-21T15:00Z",
   "round": 1,
+  "settled": "2026-10-22T02:26Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
