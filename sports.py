@@ -1921,6 +1921,13 @@ PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay i
                                                    # carries its own units, as a straight bet
 BANKROLL_START = 100000.0      # the owner, 10/22: a sharp's bankroll - $100,000 (was $1,000, 9/30); a unit is 1% of it (grows with it)
 UNIT_PCT = 0.01
+UNIT_USD = 1000.0              # the owner, 10/22: "a unit should just be $1,000" - flat, never 1% of a moving bankroll;
+UNIT_STEP = 100000.0           # "when we get to 200,000, we can raise it to 2,000": $1,000 per full $100,000 (never under $1,000)
+
+
+def unit_usd(bank):
+    """The unit in dollars for a bankroll: $1,000 per full $100,000, $1,000 at least ($199,999 -> $1,000, $200,000 -> $2,000)."""
+    return max(UNIT_USD, UNIT_USD * int(bank // UNIT_STEP))
 
 
 def _dec(odds):
@@ -1983,13 +1990,13 @@ def units_ledger(picks, early=()):
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
     bank, rows, by_date = BANKROLL_START, [], {}
     for day in sorted({c[1]["date"] for c in rows_in}):
-        unit = round(bank * UNIT_PCT, 2)
+        unit = unit_usd(bank)                                # (the owner, 10/22: $1,000, a step up per $100,000 - was 1%)
         by_date[day] = unit
         for _, p, u, res, dec, _s in (c for c in rows_in if c[1]["date"] == day):
             net_u = u * (dec - 1) if res == "won" else -u if res == "lost" else 0.0
             rows.append((p, u, net_u, net_u * unit))
             bank += net_u * unit
-    return {"bankroll": round(bank, 2), "unit_today": round(bank * UNIT_PCT, 2), "by_date": by_date, "rows": rows}
+    return {"bankroll": round(bank, 2), "unit_today": unit_usd(bank), "by_date": by_date, "rows": rows}
 
 
 def kelly_units(p, odds, legacy=False):
