@@ -1,9 +1,9 @@
 {
- "at": "2026-10-22T00:16Z",
+ "at": "2026-10-22T00:26Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 58 min ago",
+  "simulator ran 3h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-22T00:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-22T00:16Z",
    "fixes": [],
@@ -418,13 +423,6 @@
   {
    "at": "2026-10-20T10:27Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T09:55Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-19 Jasmine Paolini) - sports.yml already running"
-   ],
    "problems": []
   }
  ]
