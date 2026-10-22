@@ -5298,8 +5298,10 @@ def _units_and_the_open_bankroll():
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
     led = sports.units_ledger([day2, day1])
-    assert led["by_date"] == {"2026-09-29": 1000.0, "2026-09-30": 1010.0}   # the unit grew with the bankroll
-    assert led["bankroll"] == round(100000 + 1000.0 - 2 * 1010.0, 2)      # (10/22, the owner: a $100,000 roll, 1u = $1,000)
+    assert led["by_date"] == {"2026-09-29": 1000.0, "2026-09-30": 1000.0}   # (10/22, the owner: a flat $1,000 unit -
+    assert led["bankroll"] == round(100000 + 1000.0 - 2 * 1000.0, 2)      #  "1% every time, that's awkward")
+    assert sports.unit_usd(123016) == 1000 and sports.unit_usd(200000) == 2000 and sports.unit_usd(299999) == 2000
+    assert sports.unit_usd(90000) == 1000                                  # ("at 200,000 we raise it to 2,000")
     import sports_dashboard as d
     assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
     box = d.units_box([day1, day2], "2026-09-30")          # the owner, 9/30: every ROI stat - overall, the day, the week
