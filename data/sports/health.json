@@ -1,27 +1,146 @@
 {
- "at": "2026-10-22T00:52Z",
+ "at": "2026-10-22T15:41Z",
  "fixes": [],
- "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (1s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "slate check: all 14 of today's games named, priced and looked at",
+  "live tennis points + server: 2 of 2 live matches",
+  "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 29 min ago",
+  "baseball star list fresh (30 teams)",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 27 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-22T15:41Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T15:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-22T15:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-22T14:38Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Michelsen vs Goffin: no points for 84s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-22T13:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T13:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T12:20Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T10:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T10:41Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T09:18Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T09:17Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T08:37Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T07:02Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T07:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T05:27Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T04:41Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-22T04:40Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T04:38Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T03:55Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-22T02:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-22T00:52Z",
    "fixes": [],
@@ -306,117 +425,6 @@
   },
   {
    "at": "2026-10-21T00:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T22:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T22:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T22:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T21:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T21:17Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T21:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T21:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T19:39Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T19:01Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T18:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T17:28Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T17:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T17:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T17:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T16:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T15:24Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T14:28Z",
-   "fixes": [],
-   "problems": [
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-20T14:26Z",
-   "fixes": [
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-20T13:42Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-19 Jan-Lennard Struff) - sports.yml already running",
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-20T12:11Z",
    "fixes": [],
    "problems": []
   }

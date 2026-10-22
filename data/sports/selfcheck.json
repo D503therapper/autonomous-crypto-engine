@@ -5,24 +5,24 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.564,
-   "n": 149,
-   "said": 0.517,
+   "hit": 0.561,
+   "n": 155,
+   "said": 0.518,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.545,
-   "n": 55,
-   "said": 0.497,
+   "hit": 0.569,
+   "n": 58,
+   "said": 0.499,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 0.452,
-   "n": 42,
+   "hit": 0.432,
+   "n": 44,
    "said": 0.528,
-   "verdict": "a little below what we said - within noise (report only: forward-only tag)"
+   "verdict": "hitting well below what we said (report only: forward-only tag)"
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
@@ -47,10 +47,10 @@
   },
   "ctx:them:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.833,
-   "n": 12,
+   "hit": 0.846,
+   "n": 13,
    "said": 0.54,
-   "verdict": "only 12 graded - report only (report only: forward-only tag)"
+   "verdict": "only 13 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:hotseat": {
    "extra_edge": 0.0,
@@ -75,10 +75,10 @@
   },
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.81,
-   "n": 21,
-   "said": 0.518,
-   "verdict": "only 21 graded - report only (report only: forward-only tag)"
+   "hit": 0.826,
+   "n": 23,
+   "said": 0.519,
+   "verdict": "only 23 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:trip2000": {
    "extra_edge": 0.0,
@@ -96,10 +96,10 @@
   },
   "ctx:them:west1000": {
    "extra_edge": 0.0,
-   "hit": 0.778,
-   "n": 9,
-   "said": 0.488,
-   "verdict": "only 9 graded - report only (report only: forward-only tag)"
+   "hit": 0.8,
+   "n": 10,
+   "said": 0.493,
+   "verdict": "only 10 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:dome_out": {
    "extra_edge": 0.0,
@@ -110,10 +110,10 @@
   },
   "ctx:us:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.25,
-   "n": 8,
+   "hit": 0.222,
+   "n": 9,
    "said": 0.514,
-   "verdict": "only 8 graded - report only (report only: forward-only tag)"
+   "verdict": "only 9 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:hotseat": {
    "extra_edge": 0.0,
@@ -138,10 +138,10 @@
   },
   "ctx:us:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.471,
-   "n": 17,
-   "said": 0.498,
-   "verdict": "only 17 graded - report only (report only: forward-only tag)"
+   "hit": 0.444,
+   "n": 18,
+   "said": 0.499,
+   "verdict": "only 18 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:trip2000": {
    "extra_edge": 0.0,
@@ -166,9 +166,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.578,
-   "n": 128,
-   "said": 0.515,
+   "hit": 0.575,
+   "n": 134,
+   "said": 0.516,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -194,10 +194,10 @@
   },
   "label:live": {
    "extra_edge": 0.0,
-   "hit": 0.556,
-   "n": 18,
-   "said": 0.569,
-   "verdict": "only 18 graded - report only"
+   "hit": 0.526,
+   "n": 19,
+   "said": 0.568,
+   "verdict": "only 19 graded - report only"
   },
   "label:lock": {
    "extra_edge": 0.0,
@@ -209,8 +209,8 @@
   "label:parlay leg": {
    "extra_edge": 0.0,
    "hit": 0.59,
-   "n": 100,
-   "said": 0.52,
+   "n": 105,
+   "said": 0.521,
    "verdict": "hitting at or above what we said"
   },
   "label:value": {
@@ -229,17 +229,17 @@
   },
   "league:nba": {
    "extra_edge": 0.0,
-   "hit": 0.0,
-   "n": 1,
-   "said": 0.501,
-   "verdict": "only 1 graded - report only"
+   "hit": 0.6,
+   "n": 5,
+   "said": 0.525,
+   "verdict": "only 5 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
-   "hit": 0.483,
-   "n": 29,
-   "said": 0.475,
-   "verdict": "only 29 graded - report only"
+   "hit": 0.467,
+   "n": 30,
+   "said": 0.477,
+   "verdict": "only 30 graded - report only"
   },
   "league:nfl": {
    "extra_edge": 0.0,
@@ -250,8 +250,8 @@
   },
   "league:nhl": {
    "extra_edge": 0.02,
-   "hit": 0.408,
-   "n": 49,
+   "hit": 0.4,
+   "n": 50,
    "said": 0.503,
    "verdict": "hitting well below what we said - bar raised"
   },
@@ -264,8 +264,8 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.576,
-   "n": 139,
+   "hit": 0.572,
+   "n": 145,
    "said": 0.517,
    "verdict": "hitting at or above what we said"
   },
@@ -278,9 +278,9 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.51,
-   "n": 49,
-   "said": 0.491,
+   "hit": 0.5,
+   "n": 50,
+   "said": 0.492,
    "verdict": "hitting at or above what we said"
   },
   "price:+180+": {
@@ -293,8 +293,8 @@
   "price:-149..-101": {
    "extra_edge": 0.0,
    "hit": 0.604,
-   "n": 91,
-   "said": 0.546,
+   "n": 96,
+   "said": 0.545,
    "verdict": "hitting at or above what we said"
   },
   "price:pick'em": {
@@ -306,16 +306,16 @@
   },
   "source:live": {
    "extra_edge": 0.0,
-   "hit": 0.556,
-   "n": 18,
-   "said": 0.569,
-   "verdict": "only 18 graded - report only"
+   "hit": 0.526,
+   "n": 19,
+   "said": 0.568,
+   "verdict": "only 19 graded - report only"
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.565,
-   "n": 131,
-   "said": 0.51,
+   "hit": 0.566,
+   "n": 136,
+   "said": 0.511,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:hot seat": {
@@ -383,5 +383,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-21T21:36Z"
+ "updated": "2026-10-22T14:43Z"
 }

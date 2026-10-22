@@ -290,6 +290,17 @@ def out_count(g, side, injuries):
     return len(rows)
 
 
+def goalie_known(g, side):
+    """Hockey: tonight's starting goalie for this side is confirmed / likely on Daily Faceoff (sports_goalies) - then a
+    questionable goalie on the injury report no longer leaves the game unknown: we know who's in net."""
+    try:
+        import sports_goalies
+        st = sports_goalies.starter(g["id"], side)
+        return bool(st and st.get("status") in ("confirmed", "likely"))
+    except Exception:                                    # noqa: BLE001 - unknown stays unknown
+        return False
+
+
 def waiting_on(g, injuries, maybe=True):
     """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status.
     maybe=False (a lean - no money on it; the owner, 10/2: "it's not a starting goalie ... it doesn't change the
@@ -306,8 +317,11 @@ def waiting_on(g, injuries, maybe=True):
             if not sd.covered(inj, g["league"], g[side], g[side + "_name"]):   # doesn't cover is UNKNOWN)
                 out.append(f"{g[side + '_name']} injury report (not in our data)")
     for side in ("away", "home"):
-        out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
-                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=maybe)[:2]]
+        unsure = sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=maybe)
+        if g["league"] == "nhl" and goalie_known(g, side):   # (10/22, the owner: the Sharks sat all day on "Ullmark
+            unsure = [u for u in unsure if (u[1] or "").upper() != "G"]   # (G) questionable" while Daily Faceoff
+            #                                                   already had Ottawa's starter - a known starter settles it)
+        out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable" for n, pos, _ in unsure[:2]]
     if g["league"] == "nba" and inj is not None and maybe:   # 🏀 (10/20) a rotation man still a game-time decision in
         try:                                                 # the roster read: the unit play waits for news
             cur = sports_nba_roster.cached()

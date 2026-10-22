@@ -10357,6 +10357,30 @@ def test_live_line_never_calls_a_pregame_dog_a_gift_for_being_plus_money_when_ti
     assert "+114" not in fav and fav
 
 
+def test_a_confirmed_starting_goalie_settles_a_questionable_goalie():
+    """10/22, the owner: "the Sharks line has not moved ... the engine liked the Sharks, and it's not on the dashboard".
+    The Sharks (dog score +9.3) sat all day 'waiting on Linus Ullmark (G) questionable' while Daily Faceoff had the
+    Senators' starter. A confirmed / likely starter on that side settles it; an unknown one still waits."""
+    import sports_goalies as sg
+    g = {"id": "nhl:1", "league": "nhl", "home": "14", "away": "18", "home_name": "Senators", "away_name": "Sharks"}
+    inj = {"nhl": {"14": [], "18": []}}
+    keep = (sd.team_unsure, sd.covered, sg.starter)
+    try:
+        sd.covered = lambda *a, **k: True
+        sd.team_unsure = lambda inj_, tid, name, lg, maybe=True: [("Linus Ullmark", "G", "questionable")] if tid == "14" else []
+        sg.starter = lambda gid, side, now=None: None
+        assert any("Ullmark" in x for x in sports.waiting_on(g, inj))
+        sg.starter = lambda gid, side, now=None: {"name": "Samuel Ersson", "status": "confirmed"} if side == "home" else None
+        assert sports.waiting_on(g, inj) == []
+        sg.starter = lambda gid, side, now=None: {"name": "Samuel Ersson", "status": "expected"} if side == "home" else None
+        assert any("Ullmark" in x for x in sports.waiting_on(g, inj))       # (expected isn't settled enough)
+        sd.team_unsure = lambda inj_, tid, name, lg, maybe=True: [("Brady Tkachuk", "LW", "questionable")] if tid == "14" else []
+        sg.starter = lambda gid, side, now=None: {"name": "Samuel Ersson", "status": "confirmed"}
+        assert any("Tkachuk" in x for x in sports.waiting_on(g, inj))       # a skater still waits
+    finally:
+        sd.team_unsure, sd.covered, sg.starter = keep
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
