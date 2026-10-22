@@ -19,9 +19,19 @@ JARGON = re.compile(r"\b\d{1,3}\s*(?:times\s+)?in\s+100\b|\bprice\s+(?:only\s+)?
 UNSET = re.compile(r"\bTBA\b|\bTBD\b")
 FILLER = re.compile(r"travel just fine|just the better team|they'?re just better|division rivals|no love lost|"
                     r"everything above tips|and it ain'?t close|our own reasons\.|different reasons\.|got there on our own|"
-                    r"the rest is on the field", re.I)
+                    r"the rest is on the field|"
+                    # (10/21, the owner: "the descriptions and the breakdowns just suck ... very vague" - the zero-fact
+                    #  verdict and record lines, so they can't come back)
+                    r"numbers did the talking|winning this one\. we riding|that'?s the engine talking|"
+                    r"already did our homework|gon'? see what they do with it|the homework'?s done|did the digging already|"
+                    r"we know the rest\.|now go prove it|see what it'?s worth|record don'?t cash tickets|"
+                    r"the more rested squad|well-rested and ready|extra days to get right|rest edge goes to|"
+                    r"sometimes the public gotta win|public'?s usually (wrong|on the wrong side)|for once the casuals|"
+                    r"crowd can'?t make up its mind|nobody knows nothing|"
+                    r"^\W*🧠\s*(the engine|our read|we'?ve got|we like|close to 50-50|the numbers)\b", re.I)
 #   (10/2: "we got our own reasons." with no reason after it is filler - the owner's never-vague rule; 10/5: "Guardians
-#   are 85-77 right now - the rest is on the field" just repeats the record the line above already said)
+#   are 85-77 right now - the rest is on the field" just repeats the record the line above already said; 10/21: a 🧠 line
+#   that opens with the verdict instead of a fact - "🧠 The engine's got Trail Blazers winning this one" - is filler)
 BROKEN = re.compile(r"\bNone\b|\bnan\b|[{}]")
 WRONG_POS = {   # words that can't belong to the sport
     "nfl": re.compile(r"\bwalking bucket\b|\bgoalie|\bgoaltend|\bpitcher\b|\bdefenseman\b", re.I),

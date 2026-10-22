@@ -6829,10 +6829,13 @@ def test_running_on_fumes_only_on_a_back_to_back():
     """10/2: the Jets card said 'Bruins are running on fumes tonight' - the Bruins had two nights off. 'Better rested'
     never says fumes or 'played last night'; only a real back-to-back does."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
-    i = src.index('pools.append(("w_rest"')
-    block = src[i:src.index("elif r ==", i)]
-    rested = block[block.index('if r != "better rested" else'):]
-    assert "fumes" not in rested and "last night" not in rested and "extra rest" in rested
+    i = src.index('elif r == "better rested":')
+    rested = src[i:src.index("elif r ==", i + 10)]       # (10/21: its own branch - the days off from why_map, or no line)
+    assert "fumes" not in rested and "last night" not in rested and 'whyf[r]' in rested
+    import sports_breakdown_v24 as v24
+    ways = v24.why_map("nhl", "Jets", "Bruins", "the Jets", "the Bruins", True, gap_d=2)["better rested"]
+    assert ways and all("2" in w and "fumes" not in w and "last night" not in w for w in ways), ways
+    assert "better rested" not in v24.why_map("nhl", "Jets", "Bruins", "the Jets", "the Bruins", True, gap_d=1)
 
 
 def test_board_always_has_lock_dog_three_leans_with_injuries_named():
@@ -7566,7 +7569,10 @@ def test_card_wording_kentucky_fixes():
     i = src.index("for key, who, mine, other_nm in ((\"talk_theirs\"")      # (10/15: the loop also knows whose camp)
     assert "and hl:" in src[i:i + 1100] and "talk_q" in src[i:i + 1100]
     assert "have been the better team" not in src and "We're on the better squad" not in src
-    assert 'if kind == "suspension" and any(' in src and 'startswith("💪")' in src
+    assert 'if kind == "suspension" and any(' in src
+    import sports_breakdown_v24 as v24                   # (10/21: the record-said-twice drop lives in SAME_STORY now -
+    assert ("💪", "💪") in v24.SAME_STORY and ("💪", "📋") in v24.SAME_STORY   # the headline's story leaves the body)
+    assert "if rec_u and rec_u in _wl:" in src
 
 
 def test_nba_on_and_injured_list_only_counts_players_who_play():
@@ -8907,7 +8913,8 @@ def test_never_trash_a_team_with_our_record():
     import sports_breakdown_v24 as v24
     src = open(v24.__file__).read()
     assert "better = e is None or e.r.get(tid, 1500.0) > rating_them" in src     # (the owner: a record doesn't
-    assert "if better and losing and ((w / len(r_theirs) < 0.35)" in src        # show who they played - ratings do;
+    assert "if better and losing and not _ours_worse and ((w / len(r_theirs) < 0.35)" in src   # show who they played -
+    #   ratings do; 10/21: and never from the side with the WORSE record (a 0-3 Texans card called the 1-2 Cowboys trash)
     assert "abs(gap) <= 15" in src and "tougher schedule" in src                 # 10/15: and a losing record too)
 
 
@@ -10328,6 +10335,13 @@ def test_cards_never_brag_about_money_going_against_us_and_splits_say_only_numbe
     assert len(set(close)) >= 8
 
 
+def test_card_lines_never_open_with_a_lowercase_the():
+    """10/22 check of the rewrite: "💸 the Suns got bet up" - a line opening with {the_them} needs a capital."""
+    src = open("sports_breakdown_v24.py").read()
+    import re
+    assert not re.search(r'f"[^\w"]{1,3} \{the_(them|us)\}', src)
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
@@ -10943,7 +10957,11 @@ def test_truth_audit_10_15_stale_meetings_never_revenge_or_h2h():
     recent = old + [("2026-01-04T18:00Z", "B", "A", 19, 17)]                 # last season's loss: a real revenge game
     leg, games, elo = _audit_fixture("nfl", recent, "2026-10-04T17:00Z", reasons=["revenge game", "the stronger team"])
     bd = v24.breakdown(leg, games, elo, None)
-    assert "revenge game" in leg["reasons"] and any(x.startswith("😤") for x in bd), bd
+    assert "revenge game" in leg["reasons"]
+    assert any(x.startswith("😤") for x in bd) or str(leg.get("why_line") or "").startswith("😤"), (bd, leg.get("why_line"))
+    #   (10/21: the line under the pick carries it with the score - "the A took a 19-17 loss to the B the last time these
+    #    two met" - and the body doesn't say it twice)
+    assert "19-17" in (str(leg.get("why_line") or "") + " ".join(bd))
     assert not any(x.startswith("🆚") and "of the last 3" in x for x in bd), bd    # (1 of 1 inside two years: no 'owning')
 
 
@@ -11140,8 +11158,9 @@ def test_injury_line_names_the_players_who_play_first():
                ("Top Wideout", "WR", "Doubtful"), ("Another Lineman", "OL", "Out")]
         inj = {"ncaaf": {"135": rep}}
         line = sports.injury_line(g, "home", inj)
-        assert line.startswith("🚑 Minnesota out: RB Star Back, WR Top Wideout, QB Michael Merdinger, OL Walk On +3 more"), line
-        assert "questionable: QB D. Lindsey" in line, line                  # the starter's short name still matches
+        assert line.startswith("🚑 Minnesota out: RB Star Back (starter), WR Top Wideout (starter), QB Michael Merdinger, "
+                               "OL Walk On +3 more"), line                   # (10/21: the regulars tagged - who matters)
+        assert "questionable: QB D. Lindsey (starter)" in line, line        # the starter's short name still matches
         first = sports.who_plays_first(g, "home", sd.team_injuries(inj["ncaaf"], "135", "Minnesota"))
         assert [r[0] for r in first][:3] == ["Star Back", "Top Wideout", "Michael Merdinger"], first
         assert len(first) == 7 and first[-1][0] == "Another Lineman"            # nothing dropped, the rest in order
@@ -12186,6 +12205,200 @@ def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
     finally:
         nr.DIR = keep
         nr._CUR.clear()
+
+
+def test_card_guard_drops_the_vague_verdict_and_record_lines():
+    """10/21, the owner: "the lingo still sucks on the dashboard. A lot is very vague ... the descriptions and the
+    breakdowns just suck." The exact lines he saw can't post again: a 🧠 verdict with no fact, a record with a tag-line,
+    the rest / public filler. A 🧠 line that opens with the fact passes."""
+    import sports_card_guard as g
+    for bad in ("🧠 The numbers did the talking on Magic — they're the side.",
+                "🧠 The engine's got Trail Blazers winning this one. We riding with it.",
+                "🧠 We've got Magic close to a coin flip - a hair better, not enough for units.",
+                "📋 Devils got a 4-4 record walking in. We gon' see what they do with it.",
+                "📋 Record check: Kraken 5-4. We already did our homework.",
+                "📋 3-5 so far for Blues — the record don't cash tickets, the number does.",
+                "🛌 Rays are the more rested squad.", "🛌 Rest edge goes to Rays.",
+                "🤝 Riding with the public on the Texans — sometimes the public gotta win.",
+                "📊 The crowd's on the Rangers too — 79% of the tickets. Public's usually wrong — not this time.",
+                "🧠 Magic to get it done. That's the engine talking, not a hunch."):
+        assert g.problem(bad, "nba"), bad
+    for good in ("🧠 The Stars played last night and the Predators didn't. That's value on Predators — tap in.",
+                 "🧠 Jax State are 3-2, Kennesaw St 1-3. We riding with Jax State.",
+                 "📋 Kraken 5-4, Red Wings 3-5.", "📋 Devils are 4-4 after a 3-1 win over the Flyers.",
+                 "🛌 Rays had 4 more days off than Yankees."):
+        assert not g.problem(good, "nhl"), good
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    for gone in ("did our homework", "gon' see what they do", "numbers did the talking", "the more rested squad",
+                 "That's the engine talking", "sometimes the public gotta win"):
+        assert gone not in src, gone
+
+
+def test_the_line_under_the_pick_opens_with_a_fact_or_says_nothing():
+    """10/21: the 🧠 line is the engine's top FACT first (the owner's lingo carrying it), never a bare verdict; with no
+    fact and no reason there's no line. A coin-flip lean still says so - after the fact (the 10/1 Kraken rule)."""
+    import sports_breakdown_v24 as v24
+    g = {"id": "nhl:1", "start": "2026-10-21T23:00Z", "home": "1", "away": "2", "ml_home": -112, "ml_away": 102}
+    base = {"team": "Spurs", "opp": "Thunder", "league": "nba", "side": "home", "p": 0.52, "dec": 1.893, "market": "ml",
+            "edge_own": 0.52 * 1.893 - 1, "reasons": [], "ctx": [], "game_id": "nhl:1"}
+    none = v24.why_line(base, v24.Voice("a", set()), g, "Spurs", "Thunder", "the Spurs", "the Thunder", whyf={}, fact="")
+    assert none == "", none
+    F = "The Thunder played last night and the Spurs didn't."
+    line = v24.why_line(base, v24.Voice("a", set()), g, "Spurs", "Thunder", "the Spurs", "the Thunder", whyf={}, fact=F)
+    assert line.startswith("🧠 " + F), line
+    assert "close to a coin flip - a hair better" in line or "close to 50-50" in line
+    strong = {**base, "p": 0.6, "edge_own": 0.6 * 1.893 - 1}
+    line = v24.why_line(strong, v24.Voice("b", set()), g, "Spurs", "Thunder", "the Spurs", "the Thunder", whyf={}, fact=F)
+    assert line.startswith("🧠 " + F) and "coin flip" not in line, line
+    import sports_card_guard as cg
+    assert not cg.problem(line, "nba")
+
+
+def test_every_because_on_a_card_is_a_fact_we_hold():
+    """10/21: why_map holds a reason only with the fact behind it - records with 3+ games each, the named player out,
+    the real back-to-back, the days off, the last meeting's score - never 'they're the better team' / 'banged up'."""
+    import sports_breakdown_v24 as v24
+    m = v24.why_map("nhl", "Kraken", "Red Wings", "the Kraken", "the Red Wings", True)
+    assert "the stronger team" not in m and "opponent missing key players" not in m and "better rested" not in m
+    m = v24.why_map("nhl", "Kraken", "Red Wings", "the Kraken", "the Red Wings", True, rec_u="1-0", rec_t="0-1")
+    assert "the stronger team" not in m                                  # (0-1 vs 1-0 says nothing)
+    m = v24.why_map("nhl", "Kraken", "Red Wings", "the Kraken", "the Red Wings", True, rec_u="5-4", rec_t="3-5",
+                    key_them=[("Dylan Larkin", "C", "Out")], b2b=True, gap_d=3, n_hot=3, n_cold=2)
+    assert m["the stronger team"][0] == "the Kraken are 5-4, the Red Wings 3-5" and len(m["the stronger team"]) >= 3
+    assert all("Dylan Larkin" in w and "center" in w for w in m["opponent missing key players"])
+    assert m["opponent on a back-to-back"][0].startswith("the Red Wings played last night")
+    assert all("3" in w for w in m["better rested"]) and all("3" in w for w in m["hotter recent form"]) \
+        and all("2" in w for w in m["cold opponent"])
+    facts = v24.top_facts(m, ["opponent on a back-to-back"])
+    assert facts[0][0] == "The Red Wings played last night and the Kraken didn't."   # the engine's reason first, every
+    assert len(facts[0]) >= 3 and len({frozenset(v24.re.findall(r"[a-z']+", w.lower())) for w in facts[0]}) >= 3   # wording
+    assert v24.top_facts({"coming off a bye": ["x"]}, []) == []                   # a spot the engine didn't flag isn't a fact
+    import sports_card_guard as cg
+    for f in (w for g in facts for w in g):
+        assert not cg.problem(f, "nhl"), f
+
+
+def test_nba_opening_week_card_says_last_season():
+    """10/21, the owner: the opening-week NBA cards were empty (every team 0-1). Last season's record and point gap for
+    both teams (the Cup final skipped - a finalist read 83 games) and the rotation man we added, from the box scores;
+    the line only when last season backs OUR side."""
+    import sports_nba_roster as r
+    games = {}
+    def add(i, day, home, away, hs, as_, neutral="0"):
+        games[f"nba:{i}"] = {"id": f"nba:{i}", "league": "nba", "status": "final", "stype": "2", "start": f"{day}T00:00Z",
+                             "home": home, "away": away, "home_name": {"1": "Hornets", "2": "Nets", "3": "Suns"}[home],
+                             "away_name": {"1": "Hornets", "2": "Nets", "3": "Suns"}[away], "home_score": str(hs),
+                             "away_score": str(as_), "neutral": neutral}
+    from datetime import date, timedelta
+    for i in range(62):
+        d = (date(2025, 10, 25) + timedelta(days=2 * i)).isoformat()   # every other day, Oct 25 - Feb 26
+        add(i, d, "1", "2", 110, 100) if i % 2 else add(i, d, "2", "1", 95, 105)
+    add(900, "2025-12-13", "1", "3", 100, 90, "1")              # the Cup semifinal counts
+    add(901, "2025-12-16", "3", "1", 120, 80, "1")              # the Cup final doesn't
+    add(902, "2025-10-25", "2", "1", 95, 105)                   # (game 0 again under a second id: counted once)
+    rec, diff = r.last_season(games, "1", "2026-10-21T00:00Z")
+    assert rec == "63-0" and diff == 10.0, (rec, diff)
+    assert r.last_season(games, "3", "2026-10-21T00:00Z") is None            # (not a full season on file)
+    cur = {"teams": {"1": [{"pid": "9", "name": "Grayson Allen"}, {"pid": "8", "name": "Kon Knueppel"}]},
+           "values": {"repl": 0, "players": {"9": {"name": "Grayson Allen", "mpg": 28.0, "team": "3", "rate": 0.1},
+                                             "8": {"name": "Kon Knueppel", "mpg": 31.0, "team": "1", "rate": 0.1}}}}
+    assert r.additions(cur, "1", {"3": "Suns"}) == [("Grayson Allen", 28, "Suns")]
+    g = {"id": "x", "start": "2026-10-21T23:00Z", "home": "1", "away": "2", "home_name": "Hornets", "away_name": "Nets"}
+    line = r.season_line(g, "home", cur, games)
+    assert line.startswith("🏀 Last season Hornets went 63-0") and "Nets went 0-62" in line and "Grayson Allen (28 minutes" in line
+    assert r.season_line(g, "away", cur, games) == ""                        # last season doesn't back the Nets
+    import sports_breakdown_v24 as v24
+    f = r.season_facts(g, "home", cur, games)
+    opts = v24.nba_lines("Hornets", "Nets", f, "")
+    assert len(opts) == 4 and all("63-0" in o and "0-62" in o for o in opts)
+    only_add = v24.nba_lines("Hornets", "Nets", f, "hornets went 63-0 last season, the nets 0-62")   # the record's said:
+    assert only_add[0] == "🏀 Hornets added Grayson Allen (28 minutes a night for the Suns last year)." and len(only_add) == 4
+    assert all("Grayson Allen" in o and "28" in o and "Suns" in o and "63-0" not in o for o in only_add)   # just the add
+    assert v24.nba_lines("Hornets", "Nets", f, "hornets went 63-0 ... added grayson allen") == []
+    import sports_card_guard as cg
+    assert not any(cg.problem(o, "nba") for o in opts + [line])
+
+
+def test_injury_line_says_who_matters():
+    """10/21, the owner: the 🚑 line is a list - say who matters when the DATA says so (a hoops man's minutes a night
+    last season, a football regular), never call a man a star the data doesn't back."""
+    import sports_nba_roster as r, sports_absences
+    keep = dict(r._CUR)
+    try:
+        r._CUR.clear()
+        r._CUR["t"] = {"values": {"repl": 0, "players": {"1": {"name": "Anthony Black", "mpg": 30.4, "team": "19", "rate": 0.1},
+                                                         "2": {"name": "Noah Penda", "mpg": 9.0, "team": "19", "rate": 0.0}}}}
+        g = {"league": "nba", "home": "19", "away": "1", "home_name": "Magic", "away_name": "Hawks", "start": "2026-10-21T23:00Z"}
+        tag = sports.who_matters(g, "home", [("Anthony Black", "G", "Out"), ("Noah Penda", "F", "Out"), ("Izaiyah Nelson", "F", "Out")])
+        assert tag == {"Anthony Black": " (30 min a night last year)"}, tag
+    finally:
+        r._CUR.clear()
+        r._CUR.update(keep)
+    k2 = (sports_absences.regulars, sports_absences.match)
+    try:
+        sports_absences.regulars = lambda *a: {"marcus mariota"}
+        sports_absences.match = lambda name, pool: name.lower() in pool
+        g = {"league": "nfl", "home": "28", "away": "25", "home_name": "Commanders", "away_name": "49ers", "start": "2026-10-19T20:00Z"}
+        tag = sports.who_matters(g, "home", [("Marcus Mariota", "QB", "Out"), ("Javontae Jean-Baptiste", "LB", "Out")])
+        assert tag == {"Marcus Mariota": " (starter)"}, tag
+    finally:
+        sports_absences.regulars, sports_absences.match = k2
+
+
+def test_a_lean_bottom_line_carries_one_fact_said_once():
+    """10/21: a lean's bottom line carries the card's one concrete fact - the first the line under the pick and the
+    body don't already say - short, or none. The 10/1 rules (coin flip words, the price only when steep) still hold."""
+    import sports_breakdown as sb, sports_card_guard as cg
+    leg = {"team": "Kraken", "odds": -108, "p": 0.50, "market": "ml",
+           "facts": ["The Kraken are 5-4, the Red Wings 3-5.", "The Red Wings are without their starting center Dylan Larkin."],
+           "why_line": "💪 Kraken are 5-4, Red Wings are 3-5. Better team, better price — that's just facts."}
+    ends = sb.lean_ends(leg, said=["🏟️ Kraken at home: 1-1 this season."])
+    assert all(x.endswith("The Red Wings are without their starting center Dylan Larkin.") for x in ends), ends
+    assert all("coin flip" in x or "50-50" in x or "close to even" in x for x in ends)
+    assert not any(cg.problem(x) for x in ends)
+    both = sb.lean_ends(leg, said=["🚑 The Red Wings are without their starting center Dylan Larkin tonight."])
+    assert not any("Larkin" in x or "5-4" in x for x in both), both      # every fact's already on the card: nothing added
+    assert sb._same_fact("The Kraken are 5-4, the Red Wings 3-5.", "📋 Kraken 5-4, Red Wings 3-5.")
+    assert not sb._same_fact("The Kraken are 5-4, the Red Wings 3-5.", "🏟️ Kraken at home: 5-4 this season.")
+
+
+def test_review_facts_read_right_for_totals_and_eleven():
+    """10/21: an early play's review carried no fact ("Nobody believed in Marshall but us") - the games file's period
+    scores give it the half + final; a TOTAL's fact is the points, never "Under 42.5 led 17-14"; and "a 11-point lead"
+    reads "an 11-point lead"."""
+    import sports_dashboard as sdb, sports_lingo as SL
+    assert SL.an("The Cardinals had a 11-point lead and shit the bed.") == "The Cardinals had an 11-point lead and shit the bed."
+    assert SL.an("Down a 7-point hole, up a 18-point lead, a 8-0 run") == "Down a 7-point hole, up an 18-point lead, an 8-0 run"
+    tot = {"league": "nfl", "market": "total", "side": "under", "team": "Under 42.5", "opp": "Texans @ Jaguars", "line": "42.5",
+           "flow": {"h": "7,7,10,7", "a": "7,10,7,10"}, "score": "Texans 34 @ Jaguars 31"}
+    fact = sdb.game_fact(tot)
+    assert fact == "31 points at the half (17-14); 65 in all against the 42.5.", fact
+    src = open(sdb.__file__).read()
+    assert '"flow": e.get("flow") or {"a": gx.get("ls_away", ""), "h": gx.get("ls_home", "")}' in src
+
+
+def test_a_rewrite_keeps_the_cards_extra_lines():
+    """10/21: add_breakdowns (a wording-version rewrite) wrote only the breakdown - the 🚑 who's-out line, the 🏀 roster
+    read and the 🥅 goalie line were lost. card_extras puts them back on both paths."""
+    import sports_breakdown as sb
+    leg = {"team": "Magic", "opp": "Hawks", "odds": -130, "p": 0.52, "dec": 1.769, "market": "ml", "side": "home",
+           "game_id": "g1", "league": "nba", "line": None}
+    picks = [{"date": "2026-10-21", "kind": "lean", "status": "open", "lean": True, "legs": [leg]}]
+    games = {"g1": {"status": "pre", "league": "nba", "home": "19", "away": "1", "home_name": "Magic", "away_name": "Hawks",
+                    "start": "2026-10-21T23:00Z", "id": "g1"}}
+    keep = (sports.sd.fetch_injuries, sb.breakdown, sb.public_side, sports.sm.ratings, sports.injury_line)
+    try:
+        sports.sd.fetch_injuries = lambda lg: {}
+        sb.breakdown = lambda *a, **k: ["🏀 Last season Magic went 45-37.", "✅ Bottom line: Magic (-130)."]
+        sb.public_side = lambda *a: None
+        sports.sm.ratings = lambda *a: {}
+        sports.injury_line = lambda g, side, inj: "🚑 Magic out: G Anthony Black (30 min a night last year), F Jonathan Isaac."
+        sports.add_breakdowns(games, {}, picks)
+    finally:
+        sports.sd.fetch_injuries, sb.breakdown, sb.public_side, sports.sm.ratings, sports.injury_line = keep
+    assert leg["breakdown"][0].startswith("🚑 Magic out") and leg["breakdown"][-1].startswith("🟡"), leg["breakdown"]
+    src = open(sports.__file__).read()
+    assert src.count("card_extras(leg, ") >= 2
 
 
 if __name__ == "__main__":

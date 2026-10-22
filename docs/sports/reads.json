@@ -1,6 +1,21 @@
 {
- "updated": "2026-10-21T23:13Z",
+ "updated": "2026-10-22T00:53Z",
  "games": [
+  {
+   "id": "nba:401909835",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-21T23:00Z",
+   "away": "Bucks",
+   "home": "Wizards",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "nba:401909834",
    "league": "nba",
@@ -27,6 +42,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nba:401909837",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-21T23:30Z",
+   "away": "Bulls",
+   "home": "Raptors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892550",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-21T23:30Z",
+   "away": "Flyers",
+   "home": "Sabres",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401909836",
@@ -83,21 +128,32 @@
    }
   },
   {
+   "id": "nba:401909091",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-21T23:30Z",
+   "away": "Timberwolves",
+   "home": "Heat",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909838",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Grizzlies",
-    "p": 0.503,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-22T00:00Z",
    "away": "Jazz",
    "home": "Grizzlies",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Grizzlies",
@@ -110,97 +166,54 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401871070",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "New Mexico St",
-    "p": 0.513,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-22T00:00Z",
    "away": "New Mexico St",
    "home": "Sam Houston",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "New Mexico St",
-    "opp": "Sam Houston",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.537,
-    "win_p": 0.537,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909839",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacers",
-    "p": 0.507,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-22T00:00Z",
    "away": "Pacers",
    "home": "Pelicans",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pacers",
-    "opp": "Pelicans",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.523,
-    "win_p": 0.523,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "nba:401909840",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.677,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-22T00:30Z",
    "away": "Mavericks",
    "home": "Rockets",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Mavericks",
-    "market": "spread",
-    "line": -10.5,
-    "odds": 100,
-    "p": 0.503,
-    "win_p": 0.777,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909841",
@@ -225,8 +238,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.533,
-    "win_p": 0.533,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": []
    }
   },

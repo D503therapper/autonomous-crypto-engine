@@ -687,6 +687,109 @@ def card_line(g, side, cur):
     return f"🏀 {nm}: {' · '.join(parts)}."
 
 
+FULL_SEASON = 60        # last season's record / point gap only off a full season on file (82 games; 60+ = we hold it)
+ADD_MPG = 20.0          # "they added X" only for a real rotation man: 20+ minutes a night last season
+
+
+def last_season(games, tid, before):
+    """(W-L, points a game better than the other team) for an NBA team LAST regular season (the season before the
+    one `before` falls in) - from the finals we hold, or None when we don't hold a full season. (10/21, the owner: the
+    opening-week cards were empty - every team 0-1 - and the one fact that's always true then is last season.)"""
+    want = season_of(before) - 1
+    w = l = n = 0
+    diff = 0.0
+    tid = str(tid)
+    mine = [g for g in games.values() if g.get("league") == "nba" and g.get("status") == "final"
+            and str(g.get("stype")) == "2" and tid in (str(g.get("home")), str(g.get("away")))
+            and season_of(g["start"]) == want]
+    # the NBA Cup final (a neutral-site game in December, after the neutral-site semifinal) doesn't count in the
+    # standings - ESPN files it as a regular-season game: a Cup finalist read 83 games (the Spurs "62-21"). The
+    # semifinal counts; the finalist's SECOND neutral December game is the final and is skipped.
+    cup = sorted((g for g in mine if str(g.get("neutral")) == "1" and g["start"][5:7] == "12"), key=lambda g: g["start"])
+    skip = {cup[-1]["id"]} if len(cup) >= 2 else set()
+    seen = set()
+    for g in mine:
+        if g["id"] in skip:
+            continue
+        key = (g["start"][:10], str(g.get("home")), str(g.get("away")))   # (the same game under two ids counts once)
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            hs, as_ = int(g["home_score"]), int(g["away_score"])
+        except (TypeError, ValueError, KeyError):
+            continue
+        us, them = (hs, as_) if str(g["home"]) == tid else (as_, hs)
+        n += 1
+        diff += us - them
+        w += us > them
+        l += us < them
+    if n < FULL_SEASON:
+        return None
+    return f"{w}-{l}", round(diff / n, 1)
+
+
+def additions(cur, tid, names):
+    """Who this team added since last season - rotation men (ADD_MPG+ minutes a night) whose box scores last season
+    were for another team: [(name, minutes a night, that team's name)]. Checkable from the box scores alone."""
+    if not cur or not cur.get("values"):
+        return []
+    tid = str(tid)
+    out = []
+    for p in (cur.get("teams") or {}).get(tid) or []:
+        v = _lookup(cur["values"], p)
+        if not v or (v.get("mpg") or 0) < ADD_MPG or not v.get("team") or str(v["team"]) == tid:
+            continue
+        frm = names.get(str(v["team"]))
+        if frm:
+            out.append((p.get("name") or v.get("name"), int(round(v["mpg"])), frm))
+    return sorted(out, key=lambda x: -x[1])
+
+
+def season_facts(g, side, cur, games):
+    """The opening-weeks facts for an NBA side, as a dict: {"us": (W-L, diff), "them": (W-L, diff), "added": [...]}
+    - last season's record and point gap for both teams, and who our side added. Empty values when we don't hold them."""
+    other = "away" if side == "home" else "home"
+    names = {}
+    for x in games.values():
+        if x.get("league") == "nba":
+            names[str(x["home"])], names[str(x["away"])] = x.get("home_name", ""), x.get("away_name", "")
+    return {"us": last_season(games, g[side], g["start"]), "them": last_season(games, g[other], g["start"]),
+            "added": additions(cur, g[side], names)}
+
+
+def _gap(d, k=0):
+    """The point gap in words - four phrasings (k), so two cards never share the same four-word run (the dashboard's
+    no-repeat memory blanks the numbers: 'outscored by _ a game' on every card would read as the same line)."""
+    if d == 0:
+        return "broke even on points"
+    a = abs(d)
+    up = [f"outscored teams by {a:g} a game", f"won by {a:g} points a night on average", f"beat teams by {a:g} per game",
+          f"finished +{a:g} in point margin", f"put up {a:g} more points than they gave up a game",
+          f"outscored the other side by {a:g} nightly", f"ran a +{a:g} scoring edge",
+          f"came out {a:g} ahead on the scoreboard most nights"]
+    dn = [f"got outscored by {a:g} a game", f"lost by {a:g} points a night on average", f"got beat by {a:g} per game",
+          f"finished -{a:g} in point margin", f"gave up {a:g} more points than they scored a game",
+          f"got outscored by the other side by {a:g} nightly", f"ran a -{a:g} scoring edge",
+          f"came out {a:g} behind on the scoreboard most nights"]
+    return (up if d > 0 else dn)[k % 8]
+
+
+def season_line(g, side, cur, games):
+    """🏀 Last season's facts on the card, early in the year - only when they back our side (our point gap better than
+    theirs), both records said, plus the biggest man we added: "" when they don't or we don't hold them."""
+    f = season_facts(g, side, cur, games)
+    us, them = g[side + "_name"], g[("away" if side == "home" else "home") + "_name"]
+    if not f["us"] or not f["them"] or f["us"][1] <= f["them"][1]:
+        return ""
+    (ru, du), (rt, dt) = f["us"], f["them"]
+    line = f"🏀 Last season {us} went {ru} and {_gap(du)}; {them} went {rt} and {_gap(dt)}."
+    if f["added"]:
+        nm, mpg, frm = f["added"][0]
+        line += f" {us} added {nm} ({mpg} minutes a night for the {frm} last year)."
+    return line
+
+
 _SCALE = {}
 
 
