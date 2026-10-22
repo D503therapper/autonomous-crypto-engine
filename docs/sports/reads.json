@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T07:09Z",
+ "updated": "2026-10-22T07:49Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -491,7 +491,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.397,
+    "p": 0.404,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -500,17 +500,20 @@
    "start": "2026-10-23T02:00Z",
    "away": "Mammoth",
    "home": "Kraken",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Kraken",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -180,
-    "p": 0.621,
-    "win_p": 0.399,
-    "reasons": []
+    "team": "Mammoth",
+    "opp": "Kraken",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.62,
+    "win_p": 0.62,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ]
    }
   },
   {
@@ -699,7 +702,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.567,
+    "p": 0.566,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1082,7 +1085,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.637,
+    "p": 0.642,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1098,9 +1101,9 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -111,
     "p": 0.503,
-    "win_p": 0.724,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team"
     ]
@@ -1142,7 +1145,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.62,
+    "p": 0.605,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1158,9 +1161,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -235,
+    "p": 0.673,
+    "win_p": 0.673,
     "reasons": [
      "the stronger team"
     ]
