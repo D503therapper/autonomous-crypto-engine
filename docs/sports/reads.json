@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T01:46Z",
+ "updated": "2026-10-22T02:24Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -27,7 +27,7 @@
    "home": "Magic",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Magic",
@@ -40,7 +40,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -68,8 +68,8 @@
    "away": "Flyers",
    "home": "Sabres",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -84,7 +84,7 @@
    "home": "Nets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Hornets",
@@ -97,7 +97,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -137,8 +137,8 @@
    "away": "Timberwolves",
    "home": "Heat",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -241,35 +241,19 @@
    }
   },
   {
-   "id": "nba:401909842",
+   "id": "nba:401909092",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Clippers",
-    "p": 0.571,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-10-22T02:30Z",
-   "away": "Kings",
-   "home": "Clippers",
-   "why": "tight",
+   "start": "2026-10-22T02:00Z",
+   "away": "Warriors",
+   "home": "Lakers",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Clippers",
-    "opp": "Kings",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.632,
-    "win_p": 0.632,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909093",

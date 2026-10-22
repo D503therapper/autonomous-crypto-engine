@@ -16594,6 +16594,7 @@
      "game:div"
     ],
     "dec": 1.7692307692307692,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16619,6 +16620,10 @@
     "elo_edge": 75.8,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "28,44,27,33",
+     "h": "33,29,38,25"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16662,10 +16667,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Hawks 132 @ Magic 125",
     "season_games": 0,
+    "settled": "2026-10-22T02:23Z",
     "side": "home",
     "start": "2026-10-21T23:00Z",
     "stype": "2",
@@ -16682,12 +16689,14 @@
    }
   ],
   "p_hit": 0.5427,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-21T15:00Z",
   "round": 1,
+  "settled": "2026-10-22T02:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
@@ -16847,6 +16856,7 @@
      "game:conf"
     ],
     "dec": 1.847457627118644,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16870,6 +16880,10 @@
     "elo_edge": 204.4,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "27,27,32,24",
+     "h": "23,25,33,22"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16916,10 +16930,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": true,
+    "score": "Hornets 110 @ Nets 103",
     "season_games": 0,
+    "settled": "2026-10-22T02:23Z",
     "side": "away",
     "start": "2026-10-21T23:30Z",
     "stype": "2",
@@ -16936,12 +16952,14 @@
    }
   ],
   "p_hit": 0.5186,
-  "pnl": 0.0,
+  "pnl": 84.75,
   "posted": "2026-10-21T15:08Z",
   "round": 1,
+  "settled": "2026-10-22T02:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -125,
