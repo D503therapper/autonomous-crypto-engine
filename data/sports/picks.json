@@ -17810,23 +17810,28 @@
   "american": 120,
   "date": "2026-10-22",
   "dec": 2.2,
-  "kind": "dog",
+  "kind": "play",
   "lean": false,
   "legs": [
    {
     "ats_run": 0,
     "bd_tags": [
-     "cx_trip_home:1",
-     "rest:0",
+     "worse:1",
+     "h2h:2",
+     "cx_trip:0",
+     "rest:3",
      "w_rest:3",
-     "bottom_so:0"
+     "sharp:0",
+     "bottom_so:1"
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83e\uddf3 The Bruins back home tonight after 3 road games in 6 days.",
-     "\u2705 Bottom line: Predators (+120). We make Predators -101 - the book's paying +120. Tap in."
+     "\ud83d\udc3a 7-3 vs 3-5 \u2014 Bruins get the respect, we get the price on Predators.",
+     "\ud83d\udcb0 Predators opened +130, now +120. The market's catching up to what the engine already saw.",
+     "\ud83e\uddf3 The Bruins: 3rd road game in 6 days. That travel adds up.",
+     "\u2705 Bottom line: Predators (+120). Our read beats the number. Tap in."
     ],
-    "bv": 52,
+    "bv": 51,
     "coach": [
      null,
      false
@@ -17943,7 +17948,141 @@
   "round": 1,
   "stake": 100.0,
   "status": "open",
-  "tier": "value"
+  "tier": "value",
+  "was_dog": "2026-10-22T19:10Z"
+ },
+ {
+  "american": 114,
+  "date": "2026-10-22",
+  "dec": 2.14,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "keyout:0",
+     "w_num:7",
+     "bottom_so:4"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Linus Ullmark is on IR \u2014 Senators are still on their backup goalie.",
+     "\u2705 Bottom line: Sharks (+114). Our read's better than the price. Trust the algorithm."
+    ],
+    "bv": 51,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "us:road3in6",
+     "us:week3000"
+    ],
+    "dec": 2.1399999999999997,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "ss_gap": 0.0158,
+     "won": true
+    },
+    "dog_more": {},
+    "dog_p": 0.5415,
+    "dog_score": 9.29,
+    "drift": -0.0487,
+    "edge": 0.030396173038659713,
+    "edge_own": 0.030396173038659713,
+    "elo_edge": -111.3,
+    "fact": "The Senators played last night and the Sharks didn't.",
+    "facts": [
+     [
+      "The Senators played last night and the Sharks didn't.",
+      "The Senators are on a back-to-back; the Sharks had the night off.",
+      "Second night in a row for the Senators, a night off for the Sharks.",
+      "The Senators played yesterday, the Sharks rested."
+     ],
+     [
+      "The Senators are without their starting goalie Linus Ullmark.",
+      "Linus Ullmark, the Senators' starting goalie, is out.",
+      "No Linus Ullmark for the Senators - that's their starting goalie.",
+      "The Senators' starting goalie Linus Ullmark isn't playing."
+     ],
+     [
+      "The Sharks had 2 more days off than the Senators.",
+      "2 extra days of rest for the Sharks.",
+      "The Sharks got 2 more days to rest than the Senators did.",
+      "The Senators had 2 fewer days off than the Sharks."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892554",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 114,
+    "opp": "Senators",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "ot_last": "ot_win",
+    "our_drama": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4814935388031121,
+    "p_market": 0.448558885283451,
+    "pdo": 973.3670584734414,
+    "public": "fade",
+    "pyth_luck": 0.127,
+    "raw_own": 0.4461,
+    "reasons": [
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ],
+    "rested_vs_b2b": true,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-10-22T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Sharks",
+    "team_id": "18",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Second night in a row for the Senators, a night off for the Sharks. Our read likes Sharks more than the price does."
+   }
+  ],
+  "midday": true,
+  "owner_post": "10/22 - the owner: 'post it ... a full unit, I am on it' (held all day on Ottawa's goalie; the line moves once Ersson is confirmed)",
+  "p_hit": 0.4815,
+  "pnl": 0.0,
+  "posted": "2026-10-22T18:15Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value",
+  "units": 1.0,
+  "upgraded": "2026-10-22T19:10Z"
  },
  {
   "american": 114,
