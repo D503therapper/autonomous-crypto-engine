@@ -22750,3 +22750,13 @@ error: failed to push some refs to 'https://github.
 [2026-10-22 02:06 UTC] crypto/breakout  equity $486.69 (-2.7%) 3 open  market UP
 [2026-10-22 02:06 UTC] crypto/hold_btc  equity $496.34 (-0.7%) 1 open  market UP
    social heat top: AERO 47 (40/0/7), PENGU 35 (35/0/0), NEAR 32 (32/0/0), CARDS 28 (27/0/2), PUMP 26 (16/0/10)
+   footprint: HBAR: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.4%, 5 volume hikes, 67% quiet hours @ 0.083363
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.5%, 4 volume hikes, 67% quiet hours @ 1.348
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +1.0%, 2 volume hikes, 79% quiet hours @ 106.02
+   dex screen: REJECT ORCA@solana liq $771,320 - mint authority; top-10 holders 60%; lp holders unknown
+   dex screen: REJECT SAPLING@solana liq $245,932 - lp holders unknown; rugcheck lp locked 80% < 95%
+   dex re-screen: MINTER@solana:3NxfWMHm data flag #121 (top-10 holders 80%; lp holders unknown); holding (experiment 10)
+   dex re-screen: GLITCH@solana:8Xg89xT8 data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CVX@ethereum liq $210,068 - 24h volume $63,102 < $100,000
+   dex re-screen: DARK@solana:7KEPApdb data flag #17 (lp holders unknown; rugcheck lp locked 94% < 95%); holding (experiment 10)
+   dex screen: REJECT JITOSOL@base liq $14,522,439 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
