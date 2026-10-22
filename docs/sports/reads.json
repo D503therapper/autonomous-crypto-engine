@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T02:52Z",
+ "updated": "2026-10-22T03:09Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -210,8 +210,8 @@
    "away": "Mavericks",
    "home": "Rockets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -398,7 +398,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.368,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -410,15 +410,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Penguins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.683,
-    "win_p": 0.465,
+    "team": "Penguins",
+    "opp": "Panthers",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.55,
+    "win_p": 0.55,
     "reasons": [
-     "opponent drama: illness"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -485,8 +486,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Senators",
-    "p": 0.359,
+    "team": "Sharks",
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -503,8 +504,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.699,
-    "win_p": 0.482,
+    "p": 0.716,
+    "win_p": 0.501,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
