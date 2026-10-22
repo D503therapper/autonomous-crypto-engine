@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T18:02Z",
+ "updated": "2026-10-22T18:25Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -81,9 +81,9 @@
     "team": "James Madison",
     "opp": "App State",
     "market": "spread",
-    "line": -11.5,
-    "odds": -110,
-    "p": 0.5,
+    "line": -12.5,
+    "odds": -108,
+    "p": 0.501,
     "win_p": 0.749,
     "reasons": [
      "the stronger team",
@@ -171,7 +171,7 @@
    "away": "Predators",
    "home": "Bruins",
    "why": "on_board",
-   "board": "dog",
+   "board": "play",
    "lean": {
     "team": "Predators",
     "opp": "Bruins",
@@ -229,8 +229,8 @@
    "start": "2026-10-22T23:00Z",
    "away": "Sharks",
    "home": "Senators",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Sharks",
     "opp": "Senators",
@@ -454,7 +454,8 @@
     "win_p": 0.659,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -870,7 +871,7 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.651,
     "win_p": 0.431,
     "reasons": [
@@ -884,7 +885,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.495,
+    "p": 0.491,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -900,9 +901,9 @@
     "opp": "Pistons",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.521,
-    "win_p": 0.521,
+    "odds": -125,
+    "p": 0.514,
+    "win_p": 0.514,
     "reasons": []
    }
   },
@@ -1019,7 +1020,7 @@
     "opp": "Avalanche",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -238,
     "p": 0.69,
     "win_p": 0.472,
     "reasons": [
@@ -1033,7 +1034,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jazz",
-    "p": 0.521,
+    "p": 0.516,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1049,9 +1050,9 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.56,
-    "win_p": 0.56,
+    "odds": -162,
+    "p": 0.552,
+    "win_p": 0.552,
     "reasons": [
      "altitude edge"
     ]
