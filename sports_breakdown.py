@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 51          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 52          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -294,8 +294,14 @@ def _lean_pool(leg, team, price, o, own):
                 f"🟡 Bottom line: {price}. {team} {ln} is the side we lean; the price already pays for it. No units.",
                 f"🟡 Bottom line: {price}. {team} should cover {ln}, just not by enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. We'd take {team} {ln}; at that price it's not a bet we put money on."]
+    try:
+        import sports_breakdown_v24 as _v
+        _f = _v.fair_am(own)                                   # (10/22, the owner: "vague" - our number on them, said)
+    except Exception:                                         # noqa: BLE001
+        _f = None
     if own < 0.47 and (o or 0) > 0:                           # an underdog lean: never "by a hair" on a team we
-        return [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
+        return ([f"🟡 Bottom line: {price}. We make {team} {_f} - close to the number, not enough for units. Lean only.",
+                 f"🟡 Bottom line: {price}. Our number's {_f} on {team}. A live dog, no units."] if _f else []) + [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
                 f"🟡 Bottom line: {price}. A live dog to us - not live enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
                 f"🟡 Bottom line: {price}. Underdog lean - we see a shot, not a bet we put money on."]
@@ -308,7 +314,9 @@ def _lean_pool(leg, team, price, o, own):
                 f"🟡 Bottom line: {price}. It's close to even tonight, {team} slightly better. Just a lean.",
                 f"🟡 Bottom line: {price}. 50-50 type game. The engine leans {team} - no units on it.",
                 f"🟡 Bottom line: {price}. Not much between these two - close to even. {team} if you gotta pick one."]
-    return [f"🟡 Bottom line: {price}. {team} should win more than they lose, but at that price there's no profit in it. Lean only.",
+    return ([f"🟡 Bottom line: {price}. We make {team} {_f} - the book wants {price.split('(')[-1].rstrip(')')}. No money in it, just a lean.",
+             f"🟡 Bottom line: {price}. {team} to win - our number's {_f}, so no units at this price."] if _f else []) + [
+            f"🟡 Bottom line: {price}. {team} should win more than they lose, but at that price there's no profit in it. Lean only.",
             f"🟡 Bottom line: {price}. {team} are the likelier winner - the price already accounts for that. No units.",
             f"🟡 Bottom line: {price}. Right side, but the price costs about what they're worth. A lean.",
             f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price it's not a bet we put money on.",
