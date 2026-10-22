@@ -1922,12 +1922,13 @@ PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay i
 BANKROLL_START = 100000.0      # the owner, 10/22: a sharp's bankroll - $100,000 (was $1,000, 9/30); a unit is 1% of it (grows with it)
 UNIT_PCT = 0.01
 UNIT_USD = 1000.0              # the owner, 10/22: "a unit should just be $1,000" - flat, never 1% of a moving bankroll;
-UNIT_STEP = 100000.0           # "when we get to 200,000, we can raise it to 2,000": $1,000 per full $100,000 (never under $1,000)
+UNIT_STEP = 50000.0            # "at 150,000 we raise a unit to 1,500 ... and so on, every 50,000": +$500 per full $50,000
 
 
 def unit_usd(bank):
-    """The unit in dollars for a bankroll: $1,000 per full $100,000, $1,000 at least ($199,999 -> $1,000, $200,000 -> $2,000)."""
-    return max(UNIT_USD, UNIT_USD * int(bank // UNIT_STEP))
+    """The unit in dollars for a bankroll: 1% of the last full $50,000 step, $1,000 at least ($149,999 -> $1,000,
+    $150,000 -> $1,500, $200,000 -> $2,000). A half unit is half of it ($750 at $150,000)."""
+    return max(UNIT_USD, UNIT_STEP * int(bank // UNIT_STEP) * UNIT_PCT)
 
 
 def _dec(odds):
