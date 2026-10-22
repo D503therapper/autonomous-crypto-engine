@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T03:59Z",
+ "updated": "2026-10-22T04:46Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -226,7 +226,7 @@
    "home": "Trail Blazers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Trail Blazers",
@@ -237,7 +237,7 @@
     "p": 0.533,
     "win_p": 0.533,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -250,8 +250,8 @@
    "away": "Warriors",
    "home": "Lakers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -276,7 +276,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.517,
+    "p": 0.515,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -293,8 +293,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.554,
-    "win_p": 0.554,
+    "p": 0.55,
+    "win_p": 0.55,
     "reasons": []
    }
   },
@@ -407,7 +407,7 @@
    "start": "2026-10-22T23:00Z",
    "away": "Panthers",
    "home": "Penguins",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Panthers",
@@ -504,7 +504,7 @@
     "line": 1.5,
     "odds": -218,
     "p": 0.699,
-    "win_p": 0.482,
+    "win_p": 0.481,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"

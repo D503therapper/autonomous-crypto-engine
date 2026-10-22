@@ -16461,6 +16461,12 @@
      "them:west1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "h": "72-39",
+     "s": "124-83",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -16488,6 +16494,10 @@
     "facts": [],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "12,27,27,17",
+     "h": "43,29,35,17"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -16527,10 +16537,12 @@
     "raw_own": 0.5368,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Suns 83 @ Trail Blazers 124",
     "season_games": 0,
+    "settled": "2026-10-22T04:45Z",
     "side": "home",
     "start": "2026-10-22T02:00Z",
     "stype": "2",
@@ -16551,12 +16563,14 @@
    }
   ],
   "p_hit": 0.5325,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-21T15:00Z",
   "round": 1,
+  "settled": "2026-10-22T04:45Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -130,
