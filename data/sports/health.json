@@ -1,27 +1,44 @@
 {
- "at": "2026-10-22T13:06Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-22T14:38Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Michelsen vs Goffin: no points for 84s",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
+ ],
  "ok": [
   "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 7 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 24 min ago",
+  "engine ran 43 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-22T14:38Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Michelsen vs Goffin: no points for 84s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-22T13:06Z",
    "fixes": [],
@@ -406,11 +423,6 @@
   },
   {
    "at": "2026-10-20T22:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-20T21:18Z",
    "fixes": [],
    "problems": []
   }
