@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T03:56Z",
+ "updated": "2026-10-22T03:59Z",
  "games": [
   {
    "id": "nba:401909835",
@@ -276,7 +276,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.509,
+    "p": 0.517,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -285,16 +285,16 @@
    "start": "2026-10-22T23:00Z",
    "away": "Cavaliers",
    "home": "76ers",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.541,
-    "win_p": 0.541,
+    "odds": -162,
+    "p": 0.554,
+    "win_p": 0.554,
     "reasons": []
    }
   },
@@ -335,7 +335,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "James Madison",
-    "p": 0.678,
+    "p": 0.68,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -350,10 +350,10 @@
     "team": "James Madison",
     "opp": "App State",
     "market": "spread",
-    "line": -10.5,
-    "odds": -110,
+    "line": -11.5,
+    "odds": -105,
     "p": 0.5,
-    "win_p": 0.731,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -366,7 +366,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Liberty",
-    "p": 0.668,
+    "p": 0.669,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -384,7 +384,7 @@
     "line": -9.5,
     "odds": -112,
     "p": 0.5,
-    "win_p": 0.719,
+    "win_p": 0.721,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -398,7 +398,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.373,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -410,16 +410,15 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Panthers",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.549,
-    "win_p": 0.549,
+    "team": "Panthers",
+    "opp": "Penguins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -250,
+    "p": 0.683,
+    "win_p": 0.465,
     "reasons": [
-     "sharp money moving this way",
-     "opponent on a back-to-back"
+     "opponent drama: illness"
     ]
    }
   },
@@ -486,8 +485,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Sharks",
-    "p": 0.351,
+    "team": "Senators",
+    "p": 0.359,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -504,8 +503,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.716,
-    "win_p": 0.501,
+    "p": 0.699,
+    "win_p": 0.482,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
@@ -536,7 +535,7 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.5,
-    "win_p": 0.764,
+    "win_p": 0.763,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -549,7 +548,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.359,
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -566,8 +565,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.7,
-    "win_p": 0.483,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": [
      "sharp money moving this way"
     ]
