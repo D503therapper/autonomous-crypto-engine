@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T23:42Z",
+ "updated": "2026-10-22T23:44Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -186,6 +186,21 @@
    "start": "2026-10-22T23:30Z",
    "away": "East Carolina",
    "home": "Memphis",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892557",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-22T23:30Z",
+   "away": "Kings",
+   "home": "Islanders",
    "h1": null,
    "why": "started",
    "done": false,
@@ -563,7 +578,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.615,
+    "p": 0.604,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -579,9 +594,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.663,
-    "win_p": 0.663,
+    "odds": -205,
+    "p": 0.648,
+    "win_p": 0.648,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -710,8 +725,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Pistons",
-    "p": 0.492,
+    "team": "Heat",
+    "p": 0.486,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -723,17 +738,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Pistons",
-    "opp": "Heat",
+    "team": "Heat",
+    "opp": "Pistons",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.508,
-    "win_p": 0.508,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "odds": -120,
+    "p": 0.507,
+    "win_p": 0.507,
+    "reasons": []
    }
   },
   {
@@ -894,7 +906,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.589,
+    "p": 0.597,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -903,16 +915,16 @@
    "start": "2026-10-24T01:30Z",
    "away": "Rockets",
    "home": "Spurs",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Spurs",
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
+    "odds": -230,
+    "p": 0.669,
+    "win_p": 0.669,
     "reasons": [
      "the stronger team"
     ]
@@ -940,7 +952,7 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -9.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.503,
     "win_p": 0.731,
     "reasons": [
