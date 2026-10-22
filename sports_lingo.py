@@ -1046,6 +1046,15 @@ LINES.update({
         "{i} {us} up {m}. %Price% says dog. We say [let's eat|tap in].",
         "{i} {them} %dn% {m} and somehow favored. We taking {us}.",
     )),
+    "lv:even_dog": ((90, 3), False, T(   # (10/21, the owner: "Sam Houston always been plus money" - a team that was
+        #                                      the DOG before the game is no gift at plus money when it's level; say why
+        #                                      the numbers like it, never that the book "got it wrong")
+        "{i} {us} were {pre} before the game and they're [hanging|hanging in|right there]. Our live numbers give 'em more than %pm% says.",
+        "{i} {us} opened {pre} and they're [keeping up|right there|hanging]. The live read likes 'em more than this price.",
+        "{i} Pregame dog at {pre}, {us} [ain't going nowhere|hanging around|still swinging]. Live numbers say %pm% is short.",
+        "{i} {us} were the {pre} dog, [now|and] {score_word}. The engine's live read has 'em worth more than %pm%.",
+        "{i} {us} came in at {pre} and they're {score_word}. %Pm% still undersells 'em on our live numbers.",
+    )),
     "lv:tied": ((79, 3), False, T(
         "{i} All tied up and {us} still %pm%. {Book} got this wrong — %go_%.",
         "{i} Dead even and the live line's got {us} as the dog. The numbers don't. %go%.",

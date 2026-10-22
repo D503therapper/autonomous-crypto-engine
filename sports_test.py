@@ -10342,6 +10342,21 @@ def test_card_lines_never_open_with_a_lowercase_the():
     assert not re.search(r'f"[^\w"]{1,3} \{the_(them|us)\}', src)
 
 
+def test_live_line_never_calls_a_pregame_dog_a_gift_for_being_plus_money_when_tied():
+    """10/21, the owner: "Sam Houston always been plus money" - the live card said "Tied game, Sam Houston at plus
+    money. That's a bargain." They were +114 BEFORE the game; tied at +105 is no mistake by the book. A pregame dog
+    tied / ahead gets the honest line (its pregame price, why the live read likes it); a pregame favorite keeps the
+    'still the dog?' lines."""
+    import sports_live as L
+    rs = [("pre", {}), ("better", {})]
+    line = L.blurb("ncaaf", "Sam Houston", "New Mexico St", False, "0", rs, "ncaaf:1:home", set(), 114)
+    assert "+114" in line and "bargain" not in line and "wrong" not in line.lower(), line
+    up = L.blurb("ncaaf", "Sam Houston", "New Mexico St", False, "3", rs, "ncaaf:1:home", set(), 114)
+    assert "+114" in up, up
+    fav = L.blurb("nhl", "the Devils", "the Kings", False, "0", rs, "nhl:1:home", set(), -180)
+    assert "+114" not in fav and fav
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
