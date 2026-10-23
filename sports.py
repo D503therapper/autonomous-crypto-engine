@@ -2115,12 +2115,18 @@ def dog_units(pk):
     day = pk.get("date") or ""
     k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
     if day >= DOG_BIG_FROM:                                  # (the owner, 10/16: every sport's Dog sizes by the read, its
-        return min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
+        u = min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
+        if day >= DOG_OWN_CAP_FROM and leg.get("edge_own") is not None and leg["edge_own"] <= 0:
+            u = min(u, DOG_UNITS_BY.get(lg, DOG_UNITS))     # (10/22, the owner: "do what you recommend" - a Dog whose OWN
+        return u                                            #  ratings read sits under the price stays at its floor, 1u)
     if lg in DOG_UNITS_BY or day < DOG_SIZED_FROM:
         return DOG_UNITS_BY.get(lg, DOG_UNITS)
     return min(DOG_MAX_UNITS, max(DOG_UNITS, k()))
 
 
+DOG_OWN_CAP_FROM = "2026-10-23"   # the Dog whose own read is under the price (the Sharks 10/19 1.5u, the Predators 10/22
+#                                  2u - that kind is 4-7 as the Dog; the 10/17 sweep: -7.4% / -11.6% blind): no size-up,
+#                                  the sport's floor (1u), tracked - looked at again at 30 graded (the owner, 10/22)
 DOG_UNITS = 1.0                # the Dog of the Day: flat 1u (the replay: sizing it by edge lost; flat +8.9%)
 PLAY_UNITS = 0.5               # a value play: ½u (they lost at every size: -6.7% flat, -10.5% sized up)
 THIN_FROM = "2026-10-02"         # the owner, 10/1 (Western KY +110 at 1u, its own read ~1 point over the price): "a small

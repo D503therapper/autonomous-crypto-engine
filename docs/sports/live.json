@@ -1,19 +1,27 @@
 {
- "updated": 1792641331199,
+ "updated": 1792731873300,
  "plays": [],
  "record": {
   "won": 15,
   "lost": 17
  },
- "live_games": 4,
+ "live_games": 0,
  "tennis": {
-  "watching": 1,
+  "watching": 0,
   "priced": 0,
   "stale": 0,
-  "suspended": 1,
+  "suspended": 0,
   "books": "2 live lines, 1 fresh (betrivers 1)"
  },
  "scores": {
+  "nfl:401873010": {
+   "away": "Patriots",
+   "home": "Bears",
+   "a": 24,
+   "h": 30,
+   "clock": "Final",
+   "live": false
+  },
   "ncaaf:401871055": {
    "away": "MTSU",
    "home": "FIU",
@@ -46,27 +54,19 @@
    "clock": "Final",
    "live": false
   },
-  "nba:401909088": {
-   "away": "Celtics",
-   "home": "Pistons",
-   "a": 113,
-   "h": 121,
+  "ncaaf:401871056": {
+   "away": "Liberty",
+   "home": "Kennesaw St",
+   "a": 34,
+   "h": 6,
    "clock": "Final",
    "live": false
   },
-  "nba:401909089": {
-   "away": "76ers",
-   "home": "Knicks",
-   "a": 106,
-   "h": 100,
-   "clock": "Final",
-   "live": false
-  },
-  "nba:401909090": {
-   "away": "Thunder",
-   "home": "Spurs",
-   "a": 116,
-   "h": 104,
+  "ncaaf:401862807": {
+   "away": "East Carolina",
+   "home": "Memphis",
+   "a": 34,
+   "h": 41,
    "clock": "Final",
    "live": false
   },
@@ -137,112 +137,40 @@
   "nba:401909092": {
    "away": "Warriors",
    "home": "Lakers",
-   "a": 59,
-   "h": 87,
-   "clock": "05:34 - 3rd",
-   "live": true
+   "a": 105,
+   "h": 127,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909841": {
    "away": "Suns",
    "home": "Trail Blazers",
-   "a": 62,
-   "h": 100,
-   "clock": "02:21 - 3rd",
-   "live": true
+   "a": 83,
+   "h": 124,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909842": {
    "away": "Kings",
    "home": "Clippers",
-   "a": 54,
-   "h": 61,
-   "clock": "Halftime",
-   "live": true
-  },
-  "nhl:401892541": {
-   "away": "Ducks",
-   "home": "Islanders",
-   "a": 2,
-   "h": 3,
+   "a": 96,
+   "h": 121,
    "clock": "Final",
    "live": false
   },
-  "nhl:401892539": {
-   "away": "Sharks",
-   "home": "Canadiens",
-   "a": 4,
-   "h": 3,
+  "nba:401909093": {
+   "away": "Cavaliers",
+   "home": "76ers",
+   "a": 106,
+   "h": 114,
    "clock": "Final",
    "live": false
   },
-  "nhl:401892543": {
-   "away": "Maple Leafs",
-   "home": "Blue Jackets",
-   "a": 6,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892542": {
-   "away": "Kings",
-   "home": "Capitals",
-   "a": 5,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892540": {
-   "away": "Avalanche",
-   "home": "Devils",
-   "a": 3,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892545": {
-   "away": "Bruins",
-   "home": "Stars",
-   "a": 2,
-   "h": 3,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892544": {
-   "away": "Jets",
-   "home": "Blues",
-   "a": 1,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892546": {
-   "away": "Wild",
-   "home": "Oilers",
-   "a": 3,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892547": {
-   "away": "Red Wings",
-   "home": "Kraken",
-   "a": 3,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892548": {
-   "away": "Hurricanes",
-   "home": "Canucks",
-   "a": 6,
-   "h": 3,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892549": {
-   "away": "Lightning",
-   "home": "Golden Knights",
-   "a": 6,
-   "h": 2,
+  "nba:401909094": {
+   "away": "Nuggets",
+   "home": "Thunder",
+   "a": 84,
+   "h": 96,
    "clock": "Final",
    "live": false
   },
@@ -261,6 +189,111 @@
    "h": 5,
    "clock": "Final",
    "live": false
+  },
+  "nhl:401892553": {
+   "away": "Rangers",
+   "home": "Maple Leafs",
+   "a": 4,
+   "h": 5,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892556": {
+   "away": "Panthers",
+   "home": "Penguins",
+   "a": 0,
+   "h": 4,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892552": {
+   "away": "Predators",
+   "home": "Bruins",
+   "a": 0,
+   "h": 6,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892555": {
+   "away": "Ducks",
+   "home": "Devils",
+   "a": 1,
+   "h": 4,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892554": {
+   "away": "Sharks",
+   "home": "Senators",
+   "a": 6,
+   "h": 2,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892557": {
+   "away": "Kings",
+   "home": "Islanders",
+   "a": 3,
+   "h": 2,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892558": {
+   "away": "Golden Knights",
+   "home": "Blues",
+   "a": 2,
+   "h": 6,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892559": {
+   "away": "Jets",
+   "home": "Stars",
+   "a": 2,
+   "h": 3,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892560": {
+   "away": "Wild",
+   "home": "Flames",
+   "a": 1,
+   "h": 2,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892561": {
+   "away": "Hurricanes",
+   "home": "Oilers",
+   "a": 5,
+   "h": 6,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892562": {
+   "away": "Mammoth",
+   "home": "Kraken",
+   "a": 3,
+   "h": 5,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892563": {
+   "away": "Red Wings",
+   "home": "Canucks",
+   "a": 5,
+   "h": 2,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaaf:401869845": {
+   "away": "James Madison",
+   "home": "App State",
+   "a": 31,
+   "h": 34,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
   },
   "tennis:atp:185038": {
    "n": [
@@ -358,6 +391,25 @@
    "live": false,
    "delayed": false
   },
+  "tennis:atp:185002": {
+   "n": [
+    "Bublik",
+    "Marozsan"
+   ],
+   "sets": [
+    [
+     0,
+     0
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 0,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
   "tennis:atp:185089": {
    "n": [
     "Berrettini",
@@ -431,29 +483,6 @@
    "srv": null,
    "done": 3,
    "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
-  },
-  "tennis:wta:185577": {
-   "n": [
-    "Golubic",
-    "Hontama"
-   ],
-   "sets": [
-    [
-     6,
-     3
-    ],
-    [
-     6,
-     1
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 2,
-   "first": 2,
    "tennis": true,
    "live": false,
    "delayed": false
@@ -539,29 +568,6 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185570": {
-   "n": [
-    "Boulter",
-    "Sakatsume"
-   ],
-   "sets": [
-    [
-     6,
-     3
-    ],
-    [
-     6,
-     1
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 2,
-   "first": 2,
-   "tennis": true,
-   "live": false,
-   "delayed": false
-  },
   "tennis:wta:185587": {
    "n": [
     "Krueger",
@@ -585,51 +591,28 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185584": {
+  "tennis:wta:185591": {
    "n": [
-    "Sonmez",
-    "Li"
+    "Stoiana",
+    "Uchijima"
    ],
    "sets": [
     [
-     3,
+     6,
+     2
+    ],
+    [
+     2,
      6
     ],
     [
-     1,
-     3
-    ]
-   ],
-   "pts": [
-    "30",
-    "40"
-   ],
-   "srv": 0,
-   "done": 1,
-   "first": 1,
-   "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
-  },
-  "tennis:wta:185533": {
-   "n": [
-    "Eala",
-    "Parry"
-   ],
-   "sets": [
-    [
      6,
      3
-    ],
-    [
-     6,
-     1
     ]
    ],
    "pts": null,
    "srv": null,
-   "done": 2,
+   "done": 3,
    "first": 2,
    "tennis": true,
    "live": false,
@@ -709,42 +692,19 @@
    "delayed": false
   }
  },
- "done": {
-  "ncaaf:401871070:home": "lost"
- },
- "today": [
-  {
-   "pid": "ncaaf:401871070:home",
-   "team": "Sam Houston",
-   "odds": 105,
-   "result": "lost",
-   "start": "2026-10-22T01:16Z",
-   "icon": "\ud83c\udfc8",
-   "sport": "College Football",
-   "dd": false,
-   "story": "In the 2nd quarter it read New Mexico St 7, Sam Houston 7. We said Sam Houston could take it \u2014 we were wrong. It happens."
-  }
- ],
+ "done": {},
+ "today": [],
  "sources": {
-  "betrivers:nba": "ok 0",
-  "betrivers:nba:1028754214": "ok 0",
-  "betrivers:nba:1028736321": "ok 0",
-  "betrivers:tennis": "ok 1"
+  "betrivers:tennis": "ok 2"
  },
- "health": [
-  "only 0 of 3 live games have a sportsbook price we can bet on",
-  "2 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nba"
- ],
+ "health": [],
  "priced": 0,
- "dk_only": 2,
+ "dk_only": 0,
  "min_p": 0.55,
- "espn_only": 0,
+ "espn_only": 1,
  "errors": [
   "git pull timed out"
  ],
- "books": {
-  "nba": "3 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 15.0
+ "books": {},
+ "took_s": 8.1
 }
