@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T01:15Z",
+ "updated": "2026-10-23T01:51Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -36,8 +36,8 @@
    "away": "Ducks",
    "home": "Devils",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -117,7 +117,7 @@
    "home": "Bruins",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Predators",
@@ -131,7 +131,7 @@
      "better rested",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -160,7 +160,7 @@
    "home": "Senators",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Sharks",
@@ -174,7 +174,7 @@
      "sharp money moving this way",
      "opponent on a back-to-back"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -306,68 +306,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nhl:401892562",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.41,
-    "tie": 0.296,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-23T02:00Z",
-   "away": "Mammoth",
-   "home": "Kraken",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Mammoth",
-    "opp": "Kraken",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.632,
-    "win_p": 0.632,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892563",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Red Wings",
-    "p": 0.404,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-23T02:00Z",
-   "away": "Red Wings",
-   "home": "Canucks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Red Wings",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.619,
-    "win_p": 0.619,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
   },
   {
    "id": "nba:401909848",
@@ -991,7 +929,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -7.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.722,
     "reasons": [

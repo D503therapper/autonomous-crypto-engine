@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 101,
+  "n": 103,
   "beat": 33,
-  "same": 34,
-  "worse": 34,
-  "avg_pts": 0.08
+  "same": 35,
+  "worse": 35,
+  "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 42,
+  "n": 44,
   "beat": 14,
-  "same": 18,
-  "worse": 10,
-  "avg_pts": 0.35
+  "same": 19,
+  "worse": 11,
+  "avg_pts": 0.28
  },
  "by_kind": {
   "dog": {
-   "n": 15,
+   "n": 16,
    "beat": 4,
    "same": 7,
-   "worse": 4,
-   "avg_pts": 0.06
+   "worse": 5,
+   "avg_pts": -0.07
   },
   "lean": {
    "n": 59,
@@ -36,11 +36,11 @@
    "avg_pts": 0.99
   },
   "play": {
-   "n": 16,
+   "n": 17,
    "beat": 5,
-   "same": 7,
+   "same": 8,
    "worse": 4,
-   "avg_pts": 0.17
+   "avg_pts": 0.16
   }
  },
  "by_sport": {
@@ -73,11 +73,11 @@
    "avg_pts": -0.17
   },
   "nhl": {
-   "n": 41,
+   "n": 43,
    "beat": 12,
-   "same": 16,
-   "worse": 13,
-   "avg_pts": 0.02
+   "same": 17,
+   "worse": 14,
+   "avg_pts": -0.02
   }
  },
  "lock_by_size": {
@@ -1523,6 +1523,34 @@
    "close": -125,
    "pts": 0.0,
    "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Predators",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 130,
+   "pts": -2.0,
+   "units": 2.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Sharks",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 1.0,
    "result": "won"
   }
  ]

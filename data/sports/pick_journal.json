@@ -5642,5 +5642,100 @@
   "score": "123-103",
   "margin": 20.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-22",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892552",
+  "team": "Predators",
+  "opp": "Bruins",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 120,
+  "posted": "2026-10-22T16:08Z",
+  "price_says": 0.455,
+  "win_p": 0.4421239106967654,
+  "own_read": 0.502,
+  "weighed": null,
+  "dog_p": 0.5021,
+  "edge_own": -0.027327396467116127,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [
+   "better rested",
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "cx_trip_home:1",
+   "rest:0",
+   "w_rest:3",
+   "bottom_so:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": false
+  },
+  "public": "fade",
+  "close": 130,
+  "beat_close_pts": -2.0,
+  "result": "lost",
+  "score": "0-6",
+  "margin": -6.0,
+  "pnl_units": -2.0
+ },
+ {
+  "date": "2026-10-22",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892554",
+  "team": "Sharks",
+  "opp": "Senators",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 114,
+  "posted": "2026-10-22T18:15Z",
+  "price_says": 0.467,
+  "win_p": 0.4814935388031121,
+  "own_read": 0.513,
+  "weighed": null,
+  "dog_p": 0.5126,
+  "edge_own": 0.030396173038659713,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "sharp money moving this way",
+   "opponent on a back-to-back"
+  ],
+  "angles": [
+   "keyout:0",
+   "w_num:7",
+   "bottom_so:2"
+  ],
+  "injuries_seen": {
+   "Linus Ullmark (Senators G)": "Injured Reserve"
+  },
+  "ours_out": null,
+  "theirs_out": null,
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 114,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "6-2",
+  "margin": 4.0,
+  "pnl_units": 1.14
  }
 ]
