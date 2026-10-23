@@ -13,6 +13,13 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/23 - NBA BENCHES (the owner: "a strong bench means a lot, especially with injuries"): DEAD as a weight - the market prices it
+11,078 sides 2021-25, bench = men 6-10 (and 6-12) by minutes over the last 15 games (10 / 25 checked), train 2021-22 / blind 2023-25, close + open; 143 cells, 5 positive both halves (~7 by chance), none survived a window change.
+- Strong bench alone: dogs -17.8% / -3.5%, favorites -9.9% / -2.4%; the bench weight after the price is zero or negative every season (2023 z -3.4) - if anything the books over-rate deep benches.
+- A top-5 man out + strong bench: -6.3% / +1.3% (no value); + weak bench: -2.1% / -4.1% (no fade). 2+ out + strong bench flips with the window. Fatigue x depth: b2b -20.4% / -2.6%, 3-in-4 -21.2% / +1.1%.
+- Bench terms in the blended read: worse log loss 2 of 3 seasons; in the opening-line model ~0 weight, better in 1 of 3. Wire nothing new.
+- How benches already count (validated 10/20): a missing man's minutes go to the next men up at THEIR value in the roster prior (sports_nba_roster.lineup); bench strength is a card fact at +/-3.
+
 ## 10/23 - NBA HOT STREAKS (the owner: "bet the hot streak, especially dogs on a hot streak"): DEAD - the books price it
 9,518 games 2018-25 at the close (train 2018-22 / blind 2023-25), opens 2023-25; 130 cells, flat 1u. Scripts: scratchpad streaks1023 (study.out, extra.out).
 - Win streaks 2+/3+/4+/5+ win what the price says (3+: 60.3% vs 60.2% blind, -4%); same for ATS streaks, last-5/10 records and margins, hot-vs-cold, blowout streaks, road streaks.
