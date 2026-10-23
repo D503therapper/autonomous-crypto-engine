@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T18:43Z",
+ "updated": "2026-10-23T18:49Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -1230,7 +1230,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas",
-    "p": 0.499,
+    "p": 0.506,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1246,10 +1246,12 @@
     "opp": "Baylor",
     "market": "ml",
     "line": null,
-    "odds": 102,
-    "p": 0.52,
-    "win_p": 0.52,
-    "reasons": []
+    "odds": -102,
+    "p": 0.528,
+    "win_p": 0.528,
+    "reasons": [
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+    ]
    }
   },
   {
@@ -3012,7 +3014,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.708,
+    "p": 0.714,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -3028,9 +3030,9 @@
     "opp": "Washington St",
     "market": "spread",
     "line": -13.5,
-    "odds": -105,
+    "odds": -112,
     "p": 0.501,
-    "win_p": 0.764,
+    "win_p": 0.77,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -3125,6 +3127,36 @@
     "win_p": 0.534,
     "reasons": [
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868067",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Austin Peay",
+    "p": 0.705,
+    "tie": 0.028,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-24T23:00Z",
+   "away": "Austin Peay",
+   "home": "North Alabama",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Austin Peay",
+    "opp": "North Alabama",
+    "market": "spread",
+    "line": -11.5,
+    "odds": -112,
+    "p": 0.5,
+    "win_p": 0.761,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
