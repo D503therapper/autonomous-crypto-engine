@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T01:51Z",
+ "updated": "2026-10-23T02:00Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -12,7 +12,7 @@
    "home": "76ers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "76ers",
@@ -23,7 +23,7 @@
     "p": 0.531,
     "win_p": 0.531,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -101,8 +101,8 @@
    "away": "Panthers",
    "home": "Penguins",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -144,8 +144,8 @@
    "away": "Rangers",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -301,6 +301,21 @@
    "start": "2026-10-23T01:00Z",
    "away": "Wild",
    "home": "Flames",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909094",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-23T01:30Z",
+   "away": "Nuggets",
+   "home": "Thunder",
    "h1": null,
    "why": "started",
    "done": false,

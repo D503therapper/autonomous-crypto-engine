@@ -17328,6 +17328,12 @@
      "game:conf"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "d": 29,
+     "s": "114-106",
+     "type": "comeback",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -17366,6 +17372,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "35,34,21,16",
+     "h": "18,27,37,32"
+    },
     "form_state": [
      6.0,
      1,
@@ -17412,10 +17422,12 @@
     "raw_own": 0.4879,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Cavaliers 106 @ 76ers 114",
     "season_games": 1,
+    "settled": "2026-10-23T02:00Z",
     "side": "home",
     "start": "2026-10-22T23:00Z",
     "stype": "2",
@@ -17435,12 +17447,14 @@
    }
   ],
   "p_hit": 0.5311,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-22T15:00Z",
   "round": 1,
+  "settled": "2026-10-23T02:00Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
