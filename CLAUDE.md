@@ -14,6 +14,9 @@ every session:
   (sports.STUDY_CAP), a favorite's weighed read moves at most 4 (sports.FAV_CAP).
 - **Everything in his lingo** (`sports_owner_lingo.py`). Never repetitive across the board or day to day, never robotic,
   no marketing tone. Plain words ("goalie", not "G"), no confusing sayings. Never "real talk" or "chalk" (see `NEVER`).
+  Cussing is IN (the owner, 10/23: "I want the engine to throw out cuss words and use our lingo" - "the public on Air Force,
+  they're about to get their cheeks clapped"); no slurs. The one-liner under a pick is a fact-first line in his voice and
+  NEVER talks line movement (10/23: "when the line moves it doesn't really matter").
 - **When the owner uses new slang in chat, add it to `sports_owner_lingo.py` and into the write-up pools where it fits.**
   Use it the way he does ("that's just facts" after a claim, never after a number).
 - **Never vague** (the owner, 10/1): every line in a write-up or review says something specific - a name, a number, a
