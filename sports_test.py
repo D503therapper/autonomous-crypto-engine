@@ -15,6 +15,8 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import sports
+import tempfile as _tf0
+sports.SHARP_FIRED_PATH = os.path.join(_tf0.mkdtemp(), "sharp_fired.json")   # (tests never touch the real list)
 
 import sports_comeback as sc
 import sports_data as sd
@@ -10492,6 +10494,36 @@ def test_owner_posts_build_his_ok_d_pick_with_his_units_and_it_stays_his():
     assert dog["kind"] == "dog" and play["kind"] == "play"
     real = sports.owner_posts("2026-10-23")
     assert all(r["units"] <= 5 for r in real)                         # (5u = the max play)
+
+
+def test_sharp_money_reason_has_a_buffer_not_a_knife_edge():
+    """10/23, the owner on Wyoming (+190 open, +170 last night = the reason on and a 2u Dog; +180 this morning = the
+    reason gone and no Dog): "that doesn't make sense". The reason turns on at a 0.08 move from the open and, once on,
+    stays on down to 0.04 - a 10-cent wobble no longer flips a pick. Never on below 0.04, never on a game it never fired."""
+    import sports_model as _sm
+    keep = (_sm.line_move, dict(sports._SHARP), sports.SHARP_FIRED_PATH)
+    sports.SHARP_FIRED_PATH = os.path.join(tempfile.mkdtemp(), "sharp.json")
+    sports._SHARP.update({"fired": None, "dirty": False})
+    f = {"elo_pts": 0, "form": 0, "rest": 0, "b2b": 0, "inj": 0}
+    g = {"id": "ncaaf:1"}
+    try:
+        def at(mv):
+            _sm.line_move = lambda g_: mv
+            return "sharp money moving this way" in [r for r in sports._reasons("home", f, g, "ncaaf", {})]
+        assert not at(0.05)                                   # never fired: 0.05 is not enough
+        assert at(0.106)                                      # +190 -> +170: on
+        assert at(0.051)                                      # +170 -> +180: stays on (the buffer)
+        assert not at(0.03)                                   # a real reversal: off
+        g["id"] = "ncaaf:2"
+        assert not at(0.06)                                   # another game never fired: off
+        sports.save_sharp_fired()
+        sports._SHARP.update({"fired": None, "dirty": False})   # (a fresh run reads what the last one saw)
+        g["id"] = "ncaaf:1"
+        assert at(0.051)
+    finally:
+        _sm.line_move = keep[0]
+        sports._SHARP.clear(); sports._SHARP.update(keep[1])
+        sports.SHARP_FIRED_PATH = keep[2]
 
 
 def test_board_preview_names_the_10_23_own_read_dog_rule():

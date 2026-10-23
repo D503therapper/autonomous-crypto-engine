@@ -143,6 +143,42 @@ def leg_label(leg):
 
 
 # ---------------------------------------------------------------- candidates
+SHARP_ON, SHARP_KEEP = 0.08, 0.04   # 💸 the "sharp money moving this way" reason: on at a 0.08 move from the open, and once
+#                                     on it stays on until the move drops under 0.04 (10/23, the owner on Wyoming: +190 open
+#                                     -> +170 had it, a +170 -> +180 wobble killed it and the 2u Dog with it - "that doesn't
+#                                     make sense"). The replay (2023-26) kept the named-reason rule: gated dogs with NO
+#                                     reason went 84-132, -7.9% - only the knife-edge goes. The 0.04-0.08 band ran flat.
+SHARP_FIRED_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sports", "sharp_fired.json")
+_SHARP = {"fired": None, "dirty": False}
+
+
+def sharp_fired(gid, side, mark=False):
+    """Has this game's side had the sharp-money reason on an earlier run? mark=True records that it has."""
+    if _SHARP["fired"] is None:
+        try:
+            with open(SHARP_FIRED_PATH) as f:
+                _SHARP["fired"] = set(json.load(f))
+        except (OSError, ValueError):
+            _SHARP["fired"] = set()
+    key = f"{gid}|{side}"
+    if mark and gid and key not in _SHARP["fired"]:
+        _SHARP["fired"].add(key)
+        _SHARP["dirty"] = True
+    return key in _SHARP["fired"]
+
+
+def save_sharp_fired():
+    """Write the fired list (real runs only - the engine's run and the live job's quick pass; never a test / preview)."""
+    if not _SHARP["dirty"]:
+        return
+    try:
+        with open(SHARP_FIRED_PATH, "w") as f:
+            json.dump(sorted(_SHARP["fired"])[-3000:], f)
+        _SHARP["dirty"] = False
+    except OSError as e:
+        print(f"sharp list not saved: {e}")
+
+
 def _reasons(side, f, g, league, params):
     """Short plain-English reasons the engine likes this side, strongest first."""
     s = 1 if side == "home" else -1
@@ -165,8 +201,11 @@ def _reasons(side, f, g, league, params):
         out.append((0.8, "opponent on a back-to-back"))
     if f["inj"] * 5 * s >= 1 and counts("inj"):
         out.append((f["inj"] * 5 * s / 3, "opponent missing key players"))
-    if sm.line_move(g) * s >= 0.08:
-        out.append((sm.line_move(g) * s * 5, "sharp money moving this way"))
+    mv = sm.line_move(g) * s
+    if mv >= SHARP_ON or (mv >= SHARP_KEEP and sharp_fired(g.get("id"), side)):   # (10/23: a buffer, never a knife-edge)
+        out.append((mv * 5, "sharp money moving this way"))
+        if mv >= SHARP_ON:
+            sharp_fired(g.get("id"), side, mark=True)
     # situational patterns: only when 10 seasons of results say the pattern helps this side
     for name, label in (("revenge", "revenge game"), ("letdown", "letdown spot for the opponent"),
                         ("bye", "coming off a bye"), ("short", "opponent on a short week")):
@@ -4369,6 +4408,7 @@ def quick(now=None):
     add_breakdowns(games, model, picks)
     had = {p["kind"] for p in picks if p["date"] == day.isoformat()}
     posted = post_board(games, model, picks, now, day)          # replaces any graded play (this pass or earlier)
+    save_sharp_fired()
     for pk in posted:
         print(f"posted {pk['kind']} (replacement) for {day}")
         if had:
@@ -4625,6 +4665,7 @@ def run(repick=False, fetch=True):
         had = {p["kind"] for p in picks if p["date"] == d.isoformat()}
         try:
             new = post_board(games, model, picks, now, d, force=post_now and d == day)
+            save_sharp_fired()
         except Exception as e:                                          # noqa: BLE001 - (10/3 sweep) a crash in the board
             import traceback                                            # builder never loses the hour's grades, saves,
             traceback.print_exc()                                       # tennis slate and dashboard: it's logged loudly,
