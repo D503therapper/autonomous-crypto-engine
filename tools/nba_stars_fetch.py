@@ -42,7 +42,7 @@ def tables(page):
     """{table id: table html} for every <table> on a page."""
     out = {}
     for m in re.finditer(r'<table[^>]*\bid="([^"]+)"[^>]*>(.*?)</table>', page or "", re.S):
-        out[m.group(1)] = m.group(2)
+        out[m.group(1)] = re.sub(r"<thead.*?</thead>", "", m.group(2), flags=re.S)   # header rows aren't players
     return out
 
 
@@ -60,7 +60,7 @@ def cells(row):
 
 def players(row):
     """The player names linked in a row, in order."""
-    return [clean(n) for n in re.findall(r'<a[^>]*href="/players/[^"]+"[^>]*>(.*?)</a>', row, re.S)]
+    return [clean(n) for n in re.findall(r'<a[^>]*href=["\']/players/[^"\']+["\'][^>]*>(.*?)</a>', row, re.S)]
 
 
 def clean(s):
@@ -81,13 +81,11 @@ def parse_teams_page(page):
     10/23: read by cell TEXT, not column names - the site's own data-stat names for the season / team columns
     aren't what we guessed, and the first live pull read 0 rows. The season is the cell like '2024-25', the team
     the cell that says 1st / 2nd / 3rd, the league the cell that says NBA / ABA / BAA (none = NBA)."""
-    out, sample = {}, None
+    out = {}
     for tid, t in tables(page).items():
         for r in rows(t):
             c = cells(r)
             vals = [v for v in c.values() if v]
-            if sample is None and len(vals) > 3:
-                sample = c
             y = next((end_year(v) for v in vals if re.fullmatch(r"\d{4}-\d{2}", v)), None)
             lg = next((v for v in vals if v in ("NBA", "ABA", "BAA")), "NBA")
             kind = next((v.lower() for v in vals if re.fullmatch(r"(?i)(1st|2nd|3rd)", v)), "")
@@ -97,8 +95,9 @@ def parse_teams_page(page):
             names = players(r)
             if k and names:
                 out.setdefault(y, {})[k] = names
-    if not out and sample is not None:
-        print(f"  teams page read 0 rows - a row looks like: {dict(list(sample.items())[:8])}")
+    if not out:
+        raw = [r for t in tables(page).values() for r in rows(t)][:3]
+        print(f"  teams page read 0 rows ({len(tables(page))} tables) - first rows: {[x[:700] for x in raw]}")
     return out
 
 

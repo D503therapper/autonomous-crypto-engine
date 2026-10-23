@@ -12426,6 +12426,8 @@ def test_nba_stars_fetch_parses_the_source_tables_and_merges_whole_seasons_only(
     # 10/23 live pull read 0 rows: the site's column names aren't ours - read by the cells' text, whatever the names
     odd = page.replace('data-stat="type"', 'data-stat="all_team"').replace('data-stat="season"', 'data-stat="yr"')
     assert nf.parse_teams_page(odd) == teams
+    # ... and the live page writes its links with single quotes (href='/players/...') - the first fix still read 0
+    assert nf.parse_teams_page(odd.replace('href="/players/', "href='/players/").replace('.html"', ".html'")) == teams
     allstar = ('<!--<table id="West"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr>'
                '<tr><td data-stat="player"><a href="/players/d/duranke01.html">Kevin Durant</a></td></tr></table>-->'
                '<table id="East"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr></table>')
@@ -12433,6 +12435,9 @@ def test_nba_stars_fetch_parses_the_source_tables_and_merges_whole_seasons_only(
     mvp = ('<table id="mvp"><tr><th data-stat="rank">1</th><td data-stat="player"><a href="/players/a">A One</a></td></tr>'
            + "".join(f'<tr><th data-stat="rank">{i}</th><td data-stat="player">P {i}</td></tr>' for i in range(2, 8)) + "</table>")
     assert nf.parse_mvp(mvp) == ["A One", "P 2", "P 3", "P 4", "P 5"]
+    # 10/23 live pull: the header row ('Rank' / 'Player') came back as the MVP - header rows are never players
+    assert nf.parse_mvp(mvp.replace('<table id="mvp">', '<table id="mvp"><thead><tr><th data-stat="rank">Rank</th>'
+                                    '<th data-stat="player">Player</th></tr></thead>')) == ["A One", "P 2", "P 3", "P 4", "P 5"]
     draft = '<table id="stats">' + "".join(
         f'<tr><td data-stat="pick_overall">{i}</td><td data-stat="player"><a href="/players/p{i}">Pick {i}</a></td></tr>' for i in range(1, 13)) + "</table>"
     assert nf.parse_draft(draft) == [f"Pick {i}" for i in range(1, 11)]
