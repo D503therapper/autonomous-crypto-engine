@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T00:47Z",
+ "updated": "2026-10-23T01:15Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -293,35 +293,19 @@
    }
   },
   {
-   "id": "nba:401909094",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.649,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "NBA",
+   "id": "nhl:401892560",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-23T01:30Z",
-   "away": "Nuggets",
-   "home": "Thunder",
-   "why": "coin_flip",
+   "start": "2026-10-23T01:00Z",
+   "away": "Wild",
+   "home": "Flames",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Nuggets",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -118,
-    "p": 0.501,
-    "win_p": 0.741,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892562",
@@ -1007,7 +991,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -7.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.722,
     "reasons": [
