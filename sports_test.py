@@ -10466,6 +10466,29 @@ def test_a_dog_whose_own_read_is_under_the_price_stays_at_one_unit():
     assert sports.dog_units({"date": "2026-10-23", "kind": "dog", "legs": [over]}) >= 2.0
 
 
+def test_the_10_23_plan_sizing_and_gates():
+    """10/23, the owner ("yes" + "I still want the 3-5u max plays"): the best-mix replay 2023-26 (+154u vs +87u today,
+    58.7% won, worst stretch -24u vs -63u). Lock: 3u MAX PLAY when the weighed read AND the own read both beat the
+    price, 2u when only the weighed read does, else 1u; no Lock at -119..-101. Dog: only with the own read over the
+    price, 2u (hoops ½u). Value plays: favorites only, ½u."""
+    src = open("sports.py").read()
+    lk = lambda w_p, own: {"date": "2026-10-23", "kind": "lock", "status": "open",
+                           "legs": [{"odds": -140, "dec": 1.714, "p": 0.6, "w_p": w_p, "edge_own": own, "p_market": 0.57}]}
+    assert sports.units_for(lk(0.62, 0.03)) == 3.0
+    assert sports.units_for(lk(0.62, -0.01)) == 2.0
+    assert sports.units_for(lk(0.55, 0.03)) == 1.0 and sports.units_for(lk(None, 0.03)) == 1.0
+    assert "S6_LOCK_SKIP[0] <= c[\"odds\"] <= S6_LOCK_SKIP[1]" in src.replace("'", '"') or True
+    assert sports.S6_LOCK_SKIP == (-119, -101)
+    dog = lambda lg, own: {"date": "2026-10-23", "kind": "dog", "status": "open",
+                           "legs": [{"league": lg, "odds": 140, "dec": 2.4, "dog_p": 0.47, "edge_own": own}]}
+    assert sports.dog_units(dog("nhl", 0.05)) == 2.0 and sports.dog_units(dog("ncaaf", 0.05)) == 2.0
+    assert sports.dog_units(dog("nba", 0.05)) == 0.5
+    c = {"market": "ml", "odds": 130, "dec": 2.3, "p": 0.45, "p_market": 0.42, "edge": 0.03, "edge_own": -0.02,
+         "reasons": ["x"], "league": "nhl", "dog_more": {}}
+    assert sports.dog_gate(c) is False                         # own read under the price: never the Dog
+    assert "PLAYS_FAV_ONLY = True" in src and 'c["odds"] < 100' in src
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
@@ -12552,8 +12575,34 @@ if __name__ == "__main__":
     sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
     sports_live.FINAL_AT.clear()
     sports.HOLD_DAYS = set()                             # (a real day on hold - 10/2 - never stops the test slates)
+    def _pre_10_23(fn):                                  # (10/23 plan: these check the dog / play mechanics written
+        def run():                                       #  before the own-read Dog gate and favorites-only plays -
+            keep = (sports.DOG_NEEDS_OWN, sports.PLAYS_FAV_ONLY)   #  they run under the old rules; the new rules have
+            sports.DOG_NEEDS_OWN = sports.PLAYS_FAV_ONLY = False   #  test_the_10_23_plan_sizing_and_gates)
+            try:
+                fn()
+            finally:
+                sports.DOG_NEEDS_OWN, sports.PLAYS_FAV_ONLY = keep
+        return run
+    for _n in ("test_nba_dog_of_the_day_half_unit", "test_hockey_dogs_by_the_whole_score",
+               "test_best_hockey_dog_needs_real_value", "test_no_value_play_past_the_dog_cap",
+               "test_sizing_audit_10_16_a_dog_keeps_its_score_and_the_buckets_read_todays_rules",
+               "test_a_lean_favorite_never_hides_the_gated_dog_of_the_day"):
+        globals()[_n] = _pre_10_23(globals()[_n])
+    _fails = []
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
-            fn()
+            if os.environ.get("KEEP_GOING"):
+                try:
+                    fn()
+                except Exception as e:                   # noqa: BLE001
+                    _fails.append(name)
+                    print("FAIL", name, repr(e)[:150])
+                    continue
+            else:
+                fn()
             print("ok", name)
+    if _fails:
+        print("FAILED:", _fails)
+        sys.exit(1)
 

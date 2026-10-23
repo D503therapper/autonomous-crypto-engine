@@ -779,8 +779,11 @@ NCAAB_DOG_GATE = 4.0
 
 
 def dog_gate(c):
-    """A dog the engine's WEIGHED read says is underpriced (never one factor alone - the whole dog score)."""
+    """A dog the engine's WEIGHED read says is underpriced (never one factor alone - the whole dog score). 10/23 plan: and
+    its OWN ratings read beats the price too (own over +12% / +8.7% blind, under -8% / -11.6%)."""
     if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
+        return False
+    if DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0:
         return False
     lg = c.get("league")
     if lg in ("nfl", "nhl", "ncaaf", "nba"):
@@ -815,6 +818,8 @@ def best_hockey_dog(cands, taken=()):
         if c.get("league") != "nhl" or c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX \
                 or c["game_id"] in taken or c.get("trap") or c.get("waiting") or fighting(c):
             continue
+        if DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0:
+            continue                                         # (the 10/23 plan: hockey own-over +22% / own-under -9.6%)
         sc = round(dog_score(c), 2)
         dp = min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100)
         if sc > NHL_BEST_DOG_MIN and dp * c["dec"] - 1 >= MIN_EDGE and (best is None or sc > best[0]):   # (10/3 sweep:
@@ -963,7 +968,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # every sport, moneyline or spread, favorite or dog - as long as a moneyline is no shorter than -135
         # ...and it has to be a LOCK: 52%+, no longer than +125 (the owner, 9/28: a +156 at 40% is no lock of anything)
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
-                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c)]
+                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c)
+                 and not (c["market"] == "ml" and S6_LOCK_SKIP[0] <= c["odds"] <= S6_LOCK_SKIP[1])]   # (10/23 plan: the
+    #                                                   Lock of the Day never at -119..-101 - those went 46% in the replay)
         # the owner, 9/30: "any moron could take the biggest favorite closest to -150." The Lock has to be a pick the
         # engine's OWN read (its ratings, not the line) says is worth its price; among those, the one whose win % holds
         # up best (p is already corrected by the engine's real record in that sport). 1,808 days, 2020-25, one Lock a
@@ -2011,6 +2018,20 @@ def kelly_units(p, odds, legacy=False):
     return min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))
 
 
+def lock_units(leg):
+    """The 10/23 plan's Lock: 2u when its WEIGHED read (the ratings + every study weight - w_p) beats the price (those Locks
+    won 61% / 64% blind), else 1u (the read alone: -0.3% / -4.2%). Kelly on the read lost - its biggest edges were its
+    worst."""
+    dec = leg.get("dec") or _dec(leg.get("odds") or -110)
+    if leg.get("w_p") is None or leg["w_p"] * dec <= 1:
+        return 1.0
+    if leg.get("edge_own") is not None and leg["edge_own"] > 0:
+        return LOCK_MAX_UNITS                                # 🔥 the MAX PLAY (the owner: "I still want 3-5u max plays"):
+    return 2.0                                               # both reads over the price - 315 Locks 61.3%, +5.4%, blind
+    #                                                          63% +8.0%, up 4 of 5 seasons; 3u keeps the worst stretch
+    #                                                          -24u (4u -31, 5u -37 - past the line)
+
+
 def _sized(t, leg, legacy=False):
     """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
@@ -2079,6 +2100,8 @@ def units_for(pk):
             return 0.5                                       #  flat in the replay; the sizing check caught it at more)
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
+    if kind == "lock" and (pk.get("date") or "") >= S6_FROM:
+        return lock_units(legs[0])                           # (the 10/23 plan - never Kelly on the read again)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
@@ -2116,6 +2139,9 @@ def dog_units(pk):
     k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
     if day >= DOG_BIG_FROM:                                  # (the owner, 10/16: every sport's Dog sizes by the read, its
         u = min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
+        if day >= S6_FROM:                                  # (the 10/23 plan: 2u - only an own-read-over Dog gets posted)
+            return DOG_UNITS_BY[lg] if lg in ("nba", "ncaab") else (S6_DOG_UNITS if (leg.get("edge_own") or 0) > 0
+                                                                     else DOG_UNITS_BY.get(lg, DOG_UNITS))
         if day >= DOG_OWN_CAP_FROM and leg.get("edge_own") is not None and leg["edge_own"] <= 0:
             u = min(u, DOG_UNITS_BY.get(lg, DOG_UNITS))     # (10/22, the owner: "do what you recommend" - a Dog whose OWN
         return u                                            #  ratings read sits under the price stays at its floor, 1u)
@@ -2124,6 +2150,15 @@ def dog_units(pk):
     return min(DOG_MAX_UNITS, max(DOG_UNITS, k()))
 
 
+S6_FROM = "2026-10-23"       # 💰 THE 10/23 PLAN (the owner: "yes" - the best-mix replay 2023-26: +137u vs +87u today,
+#                              58% won, 58% winning days, worst stretch -20u vs -63u): Lock 2u when its weighed read beats
+#                              the price, else 1u, none at -119..-101; Dog 2u only with the OWN read over the price (no
+#                              Dog otherwise; hoops ½u); value plays ½u favorites only
+LOCK_MAX_UNITS = 3.0         # the Max Play Lock
+S6_LOCK_SKIP = (-119, -101)  # Locks in this band went 46% in the replay
+PLAYS_FAV_ONLY = True        # value plays: favorites only (59% won, +3.8% / +4.9%)
+DOG_NEEDS_OWN = True         # (the 10/23 plan: no own-read-under Dog - "no Dog" beats the leak)
+S6_DOG_UNITS = 2.0           # the own-read-over Dog: 49% won at +100..+150, +27.8u / +11.7u blind
 DOG_OWN_CAP_FROM = "2026-10-23"   # the Dog whose own read is under the price (the Sharks 10/19 1.5u, the Predators 10/22
 #                                  2u - that kind is 4-7 as the Dog; the 10/17 sweep: -7.4% / -11.6% blind): no size-up,
 #                                  the sport's floor (1u), tracked - looked at again at 30 graded (the owner, 10/22)
@@ -2675,7 +2710,8 @@ def plays(cands, avoid):
     (the order the parlay legs used: win % with the proven nudges, then value). PLAY_MARKETS says which markets qualify."""
     pool = sorted((c for c in cands if c["market"] in PLAY_MARKETS and good(c) and c["odds"] >= MAX_FAV
                    and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)
-                   and (c["market"] != "ml" or own_beats(c))),   # (10/18: a moneyline's own read over the price too)
+                   and (c["market"] != "ml" or own_beats(c))   # (10/18: a moneyline's own read over the price too)
+                   and (not PLAYS_FAV_ONLY or c["odds"] < 100)),   # (10/23 plan: dog value plays lost -5% / -17.6%)
                   key=lambda c: (-rank_p(c), -c["edge"]))
     out, seen = [], set(avoid)
     for c in pool:

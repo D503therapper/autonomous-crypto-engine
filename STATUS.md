@@ -450,3 +450,5 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 - 10/21 NBA (the owner's OK): no NBA Lock in a team's games 1-5; the home dog weighs 4 in games 6-10; 40 NBA underdog studies wired as dog-score WEIGHTS (sports.nba_dog_weights - totals and the ML/spread gap relative to the league's last 300 games). Watch the tracker tags "NBA dog, 10/21 dog score +4 or more" / "-4 or less (fade)".
 
 - 10/22 the owner posted the Sharks +114 at 1u by hand ('post it ... a full unit, I'm on it') - the engine held it all day on Ottawa's questionable goalie; its read had dropped to ~48% vs 46.7% needed (a ½u-size edge). Counts as a value play in the unit record.
+
+- 10/23 the owner approved THE 10/23 PLAN (sizing + gates, see CLAUDE.md) from three Fable sweeps (scratchpad sweep1023 / best1023 / nba1023). NBA: the "best side a night at the OPENING line" early play (+13.4% on 334 bets 2023-25, +44.7u, up all 3 seasons, open-only - a LEAD) and the home dog games 6-10 ½u are NEXT to build (not yet live). Capper social-media study running for the AI-sharp character (owner home in a few weeks; the platform AI toggle on, no other disclaimers - his call).
