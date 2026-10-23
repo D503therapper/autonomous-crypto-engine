@@ -6218,7 +6218,8 @@ def _six_early_spots():
     # (10/1 audit) no NFL injury report at all = we can't see who's out: never post blind
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"mlb": {}}, agree, hist_dir=tempfile.mkdtemp()))
     src = open(sports.__file__).read()
-    assert '| {"nfl", "ncaaf"}' in src                       # the run fetches football's report for the early plays
+    assert '| {"nfl", "ncaaf", "nba"}' in src                # the run fetches football's report for the early plays
+    #                                                          (and the NBA's, for the 🏀 opening-line play - 10/23)
     # hammered early: the first fair price we recorded vs now (the line history)
     d = tempfile.mkdtemp()
     with open(os.path.join(d, "2026-10.jsonl"), "w") as f:
@@ -12548,6 +12549,169 @@ def test_a_rewrite_keeps_the_cards_extra_lines():
     assert src.count("card_extras(leg, ") >= 2
 
 
+def _nba_open_games(seasons, n_games=420, teams=10, seed=1):
+    """Made-up NBA seasons for the 🏀 opening-line tests: 10 teams, 5 games a night from 11/1, random prices, every
+    game final. -> {gid: game}"""
+    rnd = random.Random(seed)
+    G = {}
+    for s in seasons:
+        d0 = datetime(s, 11, 1, 0, 0, tzinfo=timezone.utc)                 # 7 PM ET
+        for i in range(n_games):
+            h, a = rnd.sample(range(teams), 2)
+            mh = rnd.choice([-200, -160, -130, -110, 115, 140, 170])
+            ma = {-200: 170, -160: 140, -130: 115, -110: -110, 115: -130, 140: -160, 170: -200}[mh]
+            ph = 0.62 if mh < -150 else 0.56 if mh < 0 else 0.42
+            win = rnd.random() < ph
+            hs = rnd.randint(100, 125)
+            as_ = hs - rnd.randint(1, 20) if win else hs + rnd.randint(1, 20)
+            gid = f"nba:{s}{i:04d}"
+            G[gid] = {"id": gid, "league": "nba", "stype": "2", "status": "final", "home": f"t{h}", "away": f"t{a}",
+                      "home_name": f"Team{h}", "away_name": f"Team{a}", "ml_home": str(mh), "ml_away": str(ma),
+                      "ml_home_open": "", "ml_away_open": "", "home_score": str(hs), "away_score": str(as_),
+                      "start": (d0 + timedelta(days=i // 5, minutes=(i % 5) * 30)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "tzo": "-5.0", "elev": "100", "neutral": "0"}
+    return G
+
+
+def test_nba_open_model_fits_on_prior_seasons_only():
+    """10/23 (the owner OK'd the 🏀 opening-line play): the model for a season is fit on the seasons BEFORE it only - the
+    season's own games change nothing (no look-ahead), one prior season isn't enough, the fit is saved and reused all
+    season, and a new season refits on everything before it. The schedule facts come from the games before only."""
+    import sports_nba_open as no
+    G = _nba_open_games((2023, 2024, 2025))
+    tmp = os.path.join(tempfile.mkdtemp(), "nba_open_model.json")
+    m = no.fit(G, 2025, path=tmp)
+    assert m and m["train_seasons"] == [2023, 2024] and m["rows"] == 2 * 840 and len(m["w"]) == len(no.FEATURES) + 1
+    prior_only = {k: g for k, g in G.items() if no.season_of(g["start"]) < 2025}
+    assert no.fit(prior_only, 2025, path=False)["w"] == m["w"]                  # the 2025 games never touched it
+    assert no.fit(G, 2024, path=False) is None                                 # one prior season = no model
+    assert no.load(tmp)["season"] == 2025
+    assert no.current(G, datetime(2026, 1, 10, tzinfo=timezone.utc), path=tmp)["fitted_at"] == m["fitted_at"]   # reused
+    m26 = no.current(G, datetime(2026, 11, 1, tzinfo=timezone.utc), path=tmp)   # a new season: refit on 2023-25
+    assert m26["season"] == 2026 and m26["train_seasons"] == [2023, 2024, 2025] and no.load(tmp)["season"] == 2026
+    # the schedule facts: a back-to-back, games played this season, the record - from the games BEFORE the game
+    H = {k: dict(g) for k, g in G.items() if no.season_of(g["start"]) == 2023}
+    tab = no.table(H)
+    rows = sorted((r for r in tab.values() if "t0" in (r["home"], r["away"])), key=lambda r: r["start"])
+    for i, r in enumerate(rows):
+        t = r["h"] if r["home"] == "t0" else r["a"]
+        assert t["n_season"] == i and (t["wp_season"] is None if i == 0 else 0 <= t["wp_season"] <= 1)
+        if i and (no._us_date(r["start"]) - no._us_date(rows[i - 1]["start"])).days <= 1:
+            assert t["b2b"] == 1.0
+    assert all(abs(f) < 10 for f in no.features(rows[-1], "home", 0.5))        # every input bounded (clipped / scaled)
+    assert no.season_of("2020-10-11T00:00Z") == 2019 and no.season_of("2026-01-15T00:00Z") == 2025
+
+
+def _nba_open_slate(score_home=0.3):
+    """A made-up 2025-26 season (100 finals from 11/1) plus three games tomorrow night (11/22 PT), and a hand-set model
+    whose read = the price plus `score_home` on every home side. -> (games, model, now)"""
+    import sports_nba_open as no
+    G = _nba_open_games((2023, 2024), n_games=420)
+    G.update(_nba_open_games((2025,), n_games=100, seed=7))
+    now = datetime(2025, 11, 21, 18, 0, tzinfo=timezone.utc)                   # Friday 11/21, 10 AM PT
+
+    def pre(gid, h, a, mh, ma, start="2025-11-23T00:00Z"):                     # 7 PM ET Saturday 11/22 = PT 11/22
+        G[gid] = {"id": gid, "league": "nba", "stype": "2", "status": "pre", "home": f"t{h}", "away": f"t{a}",
+                  "home_name": f"Team{h}", "away_name": f"Team{a}", "ml_home": str(mh), "ml_away": str(ma),
+                  "ml_home_open": str(mh), "ml_away_open": str(ma), "home_score": "", "away_score": "", "start": start,
+                  "tzo": "-5.0", "elev": "100", "neutral": "0"}
+    pre("p1", 0, 1, -110, -110)        # home read +7.4 pts at -110: the night's best
+    pre("p2", 2, 3, -140, 120)         # home read +7.2 at -140: #2
+    pre("p3", 4, 5, -220, 180)         # home -220: out of the band, whatever its read
+    model = {"season": 2025, "features": no.FEATURES, "mu": [0.0] * len(no.FEATURES), "sd": [1.0] * len(no.FEATURES),
+             "w": [0.0] + [1.0 if f == "logit_mp" else score_home if f == "is_home" else 0.0 for f in no.FEATURES]}
+    return G, model, now
+
+
+def test_nba_open_best_tonight_is_one_side_in_the_band_over_the_bar():
+    """The 🏀 play is the ONE best side a night (the #2 side a night loses in the study), its opening price -150..+300,
+    its open score 4+ points, both teams 11+ games into the season - else None."""
+    import sports_nba_open as no
+    G, model, now = _nba_open_slate()
+    c = no.best_tonight(G, "2025-11-22", model)
+    assert c and c["game_id"] == "p1" and c["side"] == "home" and c["team"] == "Team0" and c["odds"] == -110
+    assert 0.07 < c["score"] < 0.08 and abs(c["mkt"] - 0.5) < 1e-6 and c["date"] == "2025-11-22"
+    G2, m2, _ = _nba_open_slate(score_home=2.0)                                 # p3's home -220 would score biggest...
+    assert no.best_tonight(G2, "2025-11-22", m2)["game_id"] == "p1"             # ...never past -150: the band holds
+    G3, m3, _ = _nba_open_slate(score_home=0.1)                                 # +2.5 pts: under the 4-point bar
+    assert no.best_tonight(G3, "2025-11-22", m3) is None
+    assert no.best_tonight(G, "2025-11-22", model, min_team_games=200) is None  # teams not 11+ games in: no play
+    assert no.best_tonight(G, "2025-11-23", model) is None                      # no games that night
+    assert no.best_tonight(G, "2025-11-22", None) is None                       # no model = no play
+    assert no.SCORE_MIN == 0.04 and no.PRICE_BAND == (-150, 300) and no.MIN_TEAM_GAMES == 11
+
+
+def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
+    """The 🏀 opening-line play is an early spot (the owner, 10/23): posted the hour the first price shows, ½u, its own
+    record in the ⏰ box, one a night; never on game day; never the #2 when the night's #1 isn't bettable yet (its team
+    plays tonight - no fair price); never against a pick we hold; never a banged-up side or one with no injury report;
+    the card's line says the records, never a win %."""
+    import sports_early as se
+    import sports_nba_open as no
+    from html import escape
+    G, model, now = _nba_open_slate()
+    keep = (no.current, se.passed, se.BOARD_PATH, sports.hurt)
+    no.current = lambda games, now=None, path=None, tab=None: model
+    se.passed = lambda path=None: {}
+    se.BOARD_PATH = os.path.join(tempfile.mkdtemp(), "picks.json")
+    path = os.path.join(tempfile.mkdtemp(), "early.json")
+    was_on = se.ON
+    se.ON = True
+    try:
+        new = se.post(G, {"params": {}}, now, {"nba": {}}, path=path, lines=lambda lg: [])
+        assert [c["spot"] for c in new] == ["nba_open"] and new[0]["team"] == "Team0" and new[0]["odds"] == -110
+        p = se.load(path)["picks"][0]
+        assert p["league"] == "nba" and se.units(p) == 0.5 and p["result"] is None and p["posted"] == "2025-11-21T18:00Z"
+        assert "%" not in p["why"] and "Team0 are " in p["why"] and "Team1 " in p["why"]       # the records, no win %
+        assert any(k in p["why"] for k in ("opening line", "first number", "The open sells"))
+        assert se.no_pct(p) == p["why"]
+        assert se.post(G, {"params": {}}, now + timedelta(hours=1), {"nba": {}}, path=path, lines=lambda lg: []) == []   # one a night
+        page = se.html(se.load(path), escape, now, show_units=lambda u, t, o: f"<units>{u}</units>")
+        assert "Team0" in page and "<units>0.5</units>" in page and "Team1" in page   # in the ⏰ box, ½u
+        G["p1"].update(status="final", home_score="110", away_score="100")
+        st = se.load(path)
+        se.grade(st, G, now + timedelta(days=1))
+        assert st["picks"][0]["result"] == "won"
+        w_, l_, u_ = se.spot_record(st)["nba_open"]
+        assert (w_, l_) == (1, 0) and abs(u_ - 0.5 * 100 / 110) < 1e-9         # ½u at -110 won = +0.45u
+        assert "🏀 NBA opening line 1-0 (+0.45u)" in se.html(st, escape, now)   # its own record in the box
+        G["p1"].update(status="pre", home_score="", away_score="")
+        # never on game day (the early rule): Saturday noon PT, the slate is today
+        assert se.nba_open_scan(G, {"picks": []}, datetime(2025, 11, 22, 20, 0, tzinfo=timezone.utc), {"nba": {}}, model=model) == []
+        # the night's #1 (Team0) plays TONIGHT: no fair price yet - nothing posts for that night, never the #2 (p2)
+        G2 = dict(G)
+        G2["p0"] = {**G["p1"], "id": "p0", "away": "t6", "away_name": "Team6", "start": "2025-11-22T00:00Z"}
+        assert se.nba_open_scan(G2, {"picks": []}, now, {"nba": {}}, model=model) == []
+        # never against a pick we hold on that game; the same side is fine
+        with open(se.BOARD_PATH, "w") as f:
+            json.dump([{"kind": "lean", "date": "2025-11-22", "status": "pending", "legs": [{"game_id": "p1", "side": "away"}]}], f)
+        assert se.nba_open_scan(G, {"picks": []}, now, {"nba": {}}, model=model) == []
+        with open(se.BOARD_PATH, "w") as f:
+            json.dump([{"kind": "lean", "date": "2025-11-22", "status": "pending", "legs": [{"game_id": "p1", "side": "home"}]}], f)
+        assert [c["team"] for c in se.nba_open_scan(G, {"picks": []}, now, {"nba": {}}, model=model)] == ["Team0"]
+        os.remove(se.BOARD_PATH)
+        # a banged-up side (the hoops 2+ out / 4+ questionable rule) or no NBA report at all: no play
+        sports.hurt = lambda g, side, injuries: ["A", "B"] if g.get(f"{side}_name") == "Team0" else []
+        assert se.nba_open_scan(G, {"picks": []}, now, {"nba": {}}, model=model) == []
+        sports.hurt = keep[3]
+        assert se.nba_open_scan(G, {"picks": []}, now, {"nba": None}, model=model) == []
+        # the money already took the open's value (+150 open -> +120 now): no play
+        G3, m3, _ = _nba_open_slate()
+        G3["p1"].update(ml_home="120", ml_away="-140", ml_home_open="150", ml_away_open="-170")
+        m3["w"][1 + no.FEATURES.index("is_home")] = 0.6                        # the home dog scores best...
+        assert no.best_tonight(G3, "2025-11-22", m3)["game_id"] == "p1"
+        assert se.nba_open_scan(G3, {"picks": []}, now, {"nba": {}}, model=m3) == []   # ...but the price ran 30 cents
+        # a pulled night stays quiet
+        assert se.nba_open_scan(G, {"picks": [], "pulled": [{"spot": "nba_open", "game_id": "p9", "start": "2025-11-23T00:00Z",
+                                                            "pulled_at": now.strftime("%Y-%m-%dT%H:%MZ")}]}, now, {"nba": {}}, model=model) == []
+    finally:
+        no.current, se.passed, se.BOARD_PATH, sports.hurt = keep
+        se.ON = was_on
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '{"nfl", "ncaaf", "nba"}' in src                                    # the hourly run fetches the NBA report for it
+    assert se.SPOTS["nba_open"] == ("🏀 NBA opening line", 0.5, ("nba",))
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
@@ -12573,6 +12737,9 @@ if __name__ == "__main__":
     sports_leads.PATH = os.path.join(tempfile.mkdtemp(), "lead_tracker.json")
     sports_leads.RECORD = os.path.join(tempfile.mkdtemp(), "lead_record.json")
     sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
+    sports_early.BOARD_PATH = os.path.join(tempfile.mkdtemp(), "picks.json")               # (nor the board's picks)
+    import sports_nba_open
+    sports_nba_open.MODEL_PATH = os.path.join(tempfile.mkdtemp(), "nba_open_model.json")   # (nor the 🏀 open model)
     sports_live.FINAL_AT.clear()
     sports.HOLD_DAYS = set()                             # (a real day on hold - 10/2 - never stops the test slates)
     def _pre_10_23(fn):                                  # (10/23 plan: these check the dog / play mechanics written

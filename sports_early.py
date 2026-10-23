@@ -412,7 +412,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         room = 10 ** 6 if SPOT_MAX_WEEK is None else SPOT_MAX_WEEK - sum(
             1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
-                min_one(games, st, now, injuries, own_of, have):
+                min_one(games, st, now, injuries, own_of, have) + nba_open_scan(games, st, now, injuries, have):
             if c["game_id"] in have:
                 continue
             if room <= 0:
@@ -580,6 +580,9 @@ SPOTS = {   # key: (label, units, leagues)
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
+    "nba_open":  ("🏀 NBA opening line", 0.5, ("nba",)),                       # the owner OK'd 10/23: the whole-model read
+    #                                                                              at the first price, best side a night -
+    #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
 }
 SPOTS_OFF = set()                        # ⏸️ spots paused by the owner (none now). 10/14 he paused "blowout" (0-6 live) and
 #                                         "engine"; 10/15 he turned both back on ("no risk no reward - if the test looked
@@ -1074,6 +1077,107 @@ def min_one(games, st, now, injuries, own_of, have=()):
     for c in out:                                           # the normal bar too ("one minimum, two max")
         c["spot"] = "best"                                  # (10/1 audit: a backup pick skipped the spots' own window -
     return out                                              # it counts as the engine's best dog, never in a spot's record)
+
+
+# ---------------------------------------------------------------- 🏀 THE NBA OPENING-LINE PLAY (the owner OK'd it 10/23)
+BOARD_PATH = os.path.join(sd.DATA, "picks.json")
+NBA_OPEN_READS = (
+    "🧠 Our numbers at the opening line like {t} more than {pr} does.",
+    "🧠 {t} at {pr} on the first number - our read at the open beats it.",
+    "🧠 The open sells {t} short at {pr}: our whole read says more.",
+)
+
+
+def board_sides(path=None):
+    """{game id: side} of every pick on the board (Lock / Dog / plays / leans / night picks), any day - an early play never
+    takes the other side of a pick we have (sports_live.never_against_us's rule, the owner 10/8). The 🌍 under takes no
+    side, so a total never locks a game."""
+    out = {}
+    try:
+        with open(path or BOARD_PATH) as f:
+            for pk in json.load(f):
+                if pk.get("status") == "void":
+                    continue
+                for leg in pk.get("legs") or []:
+                    if leg.get("market") != "total" and leg.get("game_id") and leg.get("side") in ("home", "away"):
+                        out.setdefault(leg["game_id"], leg["side"])
+    except (OSError, ValueError, TypeError):
+        pass
+    return out
+
+
+def nba_open_why(c, fx):
+    """The card's one line, every piece a fact (the owner: never vague): the read at the open, then the records, the last
+    game's margin, the rest. No win % (10/7). -> the wordings (pick_wording takes one no open card is using)."""
+    me, pr = c["team"], (f"+{c['odds']}" if c["odds"] > 0 else str(c["odds"]))
+    bits = []
+    if fx.get("rec") and fx.get("opp_rec"):
+        bits.append(f"{me} are {fx['rec']}, {c['opp']} {fx['opp_rec']}")
+    if fx.get("last"):
+        bits.append(f"{me} {fx['last']}")
+    if fx.get("rest") is not None and fx.get("opp_rest") is not None and fx["rest"] != fx["opp_rest"]:
+        bits.append(f"{fx['rest']} day{'s' if fx['rest'] != 1 else ''} off to {c['opp']}'s {fx['opp_rest']}")
+    fact = ("; ".join(bits) + ".") if bits else ""
+    return [(r.format(t=me, pr=pr) + (" " + fact if fact else "")).strip() for r in NBA_OPEN_READS]
+
+
+def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model=None):
+    """🏀 -> the NBA opening-line candidates right now (sports_nba_open.best_tonight): for every slate date AFTER today
+    (never game day - the early rule) within AHEAD_D, the ONE side the model likes best at the price now - the first
+    price we hold (ESPN posts the NBA 2-4 days out; sd.record_lines keeps every hour's). It posts only when: both
+    teams' last games are over (ready - a fair price), the price hasn't already run MOVED_MAX+ toward us, the side has
+    no injury hole (sports.hurt - no report = UNKNOWN = no play), we hold no pick on the other side (board_sides / an
+    open early play), and that slate has no 🏀 play yet (one a night, the #2 side loses). When the night's #1 side isn't
+    bettable yet (its team plays tonight), nothing posts for that night - never the #2."""
+    now = now or datetime.now(timezone.utc)
+    if "nba_open" in SPOTS_OFF:
+        return []
+    today = now.astimezone(PT).date()
+    up = [g for g in games.values() if g.get("league") == "nba" and g.get("status") == "pre" and str(g.get("stype")) == "2"
+          and g.get("tbd") != "1" and str(g.get("ml_home", "")) != "" and str(g.get("ml_away", "")) != "" and g.get("start")]
+    up = [g for g in up if today < _t(g["start"]).astimezone(PT).date() <= today + timedelta(days=AHEAD_D)]
+    if not up:
+        return []
+    import sports_nba_open as no
+    import sports
+    tab = no.table(games)
+    model = model or no.current(games, now, tab=tab)
+    if not model:
+        return []
+    taken = {p.get("date") or no._us_date(p["start"]).isoformat() for p in st.get("picks", []) if p.get("spot") == "nba_open"}
+    taken |= {p.get("date") or no._us_date(p["start"]).isoformat() for p in st.get("pulled") or []
+              if p.get("spot") == "nba_open" and p.get("start") and not repost_ok(p, now)}   # (a pulled night stays
+    #                                                                                            quiet - never the #2)
+    board = board_sides() if board is None else board
+    sched = _schedule(games)
+    inj = (injuries or {}).get("nba")
+    out = []
+    for d in sorted({tab[g["id"]]["date"] for g in up if g["id"] in tab}):   # the slate nights (the table's US dates)
+        if d in taken:
+            continue
+        c = no.best_tonight(games, d, model, tab=tab)
+        if not c:
+            continue
+        g = games.get(c["game_id"])
+        if not g or c["game_id"] in have or _t(g["start"]) < now + timedelta(hours=LEAD_H):
+            continue
+        r = ready(sched, g)
+        if r and now < r:
+            continue                                         # a team plays before this: not a fair price yet (no #2)
+        if board.get(c["game_id"], c["side"]) != c["side"]:
+            continue                                         # never against a pick we hold
+        if moved_toward(_int(g.get(f"ml_{c['side']}_open")), c["odds"]) > MOVED_MAX:
+            continue                                         # the money already took the open's value
+        if injuries is not None and inj is None:
+            continue                                         # no NBA injury report = UNKNOWN, never a play
+        if inj is not None and (not sd.covered(inj, "nba", g[c["side"]], c["team"]) or sports.hurt(g, c["side"], {"nba": inj})):
+            continue                                         # a banged-up side (the hoops 2+ out / 4+ questionable rule)
+        fx = no.facts(tab[c["game_id"]], c["side"])
+        whys = nba_open_why(c, fx)
+        c.update(league="nba", spot="nba_open", spots=["nba_open"], fades=[], why=whys[0], whys=whys,
+                 fair_at=r.strftime("%Y-%m-%dT%H:%MZ") if r else None, open=_int(g.get(f"ml_{c['side']}_open")))
+        out.append(c)
+    return out
 
 
 def spot_record(st):
