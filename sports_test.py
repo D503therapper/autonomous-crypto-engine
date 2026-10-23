@@ -3870,8 +3870,8 @@ def test_our_own_engine_never_a_sharp_follower():
            "reasons": ["sharp money moving this way", "hotter recent form"]}
     line = v24.why_line(leg, v24.Voice("s", set()), g, "Yankees", "Red Sox", "the Yankees", "the Red Sox", n_hot=3)
     assert line.startswith("🔥")                                         # the engine's own reason leads
-    assert "catching up" in sdb._why_fallback({"team": "Yankees", "opp": "Red Sox",
-                                               "reasons": ["sharp money moving this way"]})
+    assert sdb._why_fallback({"team": "Yankees", "opp": "Red Sox",           # (10/23, the owner: a line move is never
+                              "reasons": ["sharp money moving this way"]}) == ""   # the one-liner)
     wf = open(".github/workflows/sports_studies.yml").read()
     assert wf.count("- cron:") == 3 and 'dispatch(wf, f"{name} overdue' in open("tools/health.py").read()
 
@@ -5585,13 +5585,20 @@ def test_early_play_on_the_daily_board_says_we_got_in_early():
     import inspect
     import sports_dashboard as d
     d.EARLY_IN.clear()
+    d.EARLY_LINE_ON = True                               # (10/23: the line is OFF on cards - its wording still tested)
     d.EARLY_IN[("nhl:1", "home")] = 136
     leg = {"game_id": "nhl:1", "side": "home", "market": "ml", "team": "Flyers", "odds": 110}
-    assert "We got in early at +136" in d.E(d._early_line(leg)).replace("&amp;", "&") or "+136" in d._early_line(leg)
-    assert "still" in d._early_line(leg)                               # the line moved against us: still worth it
-    assert any(w in d._early_line({**leg, "odds": 150}) for w in ("better", "even more"))   # the price got better
+    assert "+136" in d._early_line(leg)
+    assert "the money followed us down to +110. We got the better number." in d._early_line(leg)   # (10/23: it moved
+    assert "an even better number" in d._early_line({**leg, "odds": 150})                      #  OUR way - never a knock)
+    for x in ("+110", "+150", "+136"):
+        assert "Early bettors" not in d._early_line({**leg, "odds": int(x)}) and "still a play" not in d._early_line({**leg, "odds": int(x)})
+    d.EARLY_WHEN[("nhl:1", "home")] = "2026-10-19T19:47Z"
+    assert "since Monday 10/19" in d._early_line(leg)
+    d.EARLY_WHEN.clear()
     assert d._early_line({**leg, "side": "away"}) == "" and d._early_line({**leg, "market": "spread"}) == ""
     d.EARLY_IN.clear()
+    d.EARLY_LINE_ON = False
     assert "sports_early.load().get(\"picks\")" in inspect.getsource(sports.post_board)   # never the other side of it
 
 
@@ -6076,7 +6083,7 @@ def test_sharp_money_line_never_claims_we_were_first():
     src = inspect.getsource(b)
     for bad in ("before the number moved", "saw it first", "were already here"):
         assert bad not in src.replace("never \"the engine had", ""), bad
-    assert "The money's been coming in on {us} since the open." in src
+    assert "The money's been coming in on {us} since the open." not in src   # (10/23: no line-move one-liner at all)
 
 
 def test_odds_history_pull():
@@ -7882,15 +7889,16 @@ def test_early_line_never_says_the_market_moved_when_it_didnt():
     """10/4, the owner: the Jaguars card said 'The market corrected' - the line never moved off the +120 we got in at."""
     import sports_dashboard as sdb
     sdb.EARLY_IN.clear()
+    sdb.EARLY_LINE_ON = True
     sdb.EARLY_IN[("nfl:1", "away")] = 120
     leg = {"game_id": "nfl:1", "side": "away", "market": "ml", "odds": 120, "team": "Jaguars"}
     out = sdb._early_line(leg)
-    assert "hasn't moved" in out or "same number" in out, out
+    assert "hasn&#x27;t budged" in out, out
     assert "corrected" not in out and "moved, but" not in out
-    assert "corrected" in sdb._early_line({**leg, "odds": 110}) or "line moved" in sdb._early_line({**leg, "odds": 110}) \
-        or "after the move" in sdb._early_line({**leg, "odds": 110})
-    assert "better now" in sdb._early_line({**leg, "odds": 130}) or "even more" in sdb._early_line({**leg, "odds": 130})
+    assert "the money followed us down to +110" in sdb._early_line({**leg, "odds": 110})
+    assert "even better number" in sdb._early_line({**leg, "odds": 130})
     sdb.EARLY_IN.clear()
+    sdb.EARLY_LINE_ON = False
 
 
 def test_live_mlb_paused_and_draftkings_alone_never_posts():
@@ -10525,6 +10533,30 @@ def test_sharp_money_reason_has_a_buffer_not_a_knife_edge():
         _sm.line_move = keep[0]
         sports._SHARP.clear(); sports._SHARP.update(keep[1])
         sports.SHARP_FIRED_PATH = keep[2]
+
+
+def test_one_liners_never_talk_line_movement_and_close_records_are_never_the_better_team():
+    """10/23, the owner: "we don't need to talk about the line moving ... the one-liner talking about the line movement
+    is retarded" (Wyoming: 'we grabbed this at +200, it's +180 now'; Army: 'early bettors got +100'), and on Army 4-2
+    vs Tulsa 4-3: "look at the records ... we know which side we want - they both have 4 wins". The sharp move stays a
+    WEIGHT; it never writes the line under the pick, and a one-game record gap is never "the better team"."""
+    import sports_breakdown_v24 as v24
+    import sports_dashboard as d
+    g = {}
+    base = {"league": "ncaaf", "team": "Army", "opp": "Tulsa", "side": "away", "odds": 100, "dec": 2.0,
+            "raw_own": 0.5818, "p": 0.479, "ctx": [], "dog_more": {"win_streak": 2, "last_margin": 32.0}}
+    say = lambda leg, **k: v24.why_line(leg, v24.Voice("s", set()), g, "Army", "Tulsa", "Army", "Tulsa", **k)
+    line = say({**base, "reasons": ["the stronger team"]}, rec_u="4-2", rec_t="4-3", whyf={}, fact="")
+    assert "we know which side" not in line.lower() and "better team" not in line.lower(), line
+    assert "2 straight" in line or "2 in a row" in line, line
+    assert "32" in line, line
+    sharp = say({**base, "reasons": ["sharp money moving this way"]}, rec_u="4-2", rec_t="4-3", whyf={}, fact="")
+    for bad in ("since the open", "Smart money", "shortening", "money's"):
+        assert bad not in sharp, sharp
+    assert "sharp money moving this way" not in d.WHY_TAG
+    d.EARLY_IN.clear(); d.EARLY_IN[("ncaaf:1", "home")] = 200
+    assert d._early_line({"game_id": "ncaaf:1", "side": "home", "market": "ml", "odds": 180, "team": "Wyoming"}) == ""
+    d.EARLY_IN.clear()
 
 
 def test_board_preview_names_the_10_23_own_read_dog_rule():

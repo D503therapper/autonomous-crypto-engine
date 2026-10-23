@@ -681,7 +681,6 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
     "the stronger team": "💪 The engine's ratings say {us} are the better team here.",
     "hotter recent form": "🔥 The engine's form read has {us} playing better than {opp} lately.",
     "opponent missing key players": "🚑 {opp} are missing players the engine weighs — that's in our read.",
-    "sharp money moving this way": "💸 The market's catching up to {us} — the engine had it first.",
     "better rested": "🛌 {us} got the extra rest. Fresh legs.",
     "opponent on a back-to-back": "😮‍💨 {opp} played last night — tired legs.",
     "better starting pitcher": "⚾ We got the better arm on the mound.",
@@ -700,24 +699,34 @@ def _why_fallback(leg):
 
 
 EARLY_IN = {}                    # {(game id, side): the price we got in at} - early value plays (set in render)
-EARLY_WHY = {   # (the owner, 9/30: an early play on the daily board says we got in early - and why it's still a play)
-    "worse": ("⏰ We got in early at {o}. The market corrected, and it's still worth it at this price.",
-              "⏰ Early bettors got {o}. The line moved, but the value's still here.",
-              "⏰ We grabbed this at {o} early. Even after the move, it's still worth a bet."),
-    "better": ("⏰ We got in early at {o} — and the price is even better now.",
-               "⏰ Early bettors got {o}. It's paying even more now — still a play."),
-    "same": ("⏰ We got in early at {o}, and the line hasn't moved. Still worth it at this price.",   # (10/4: the Jaguars
-             "⏰ Early bettors got {o} — same number now. The value's still here.")}                  #  never moved)
+EARLY_LINE_ON = False            # 10/23, the owner: "we don't need to talk about the line moving" - the ⏰ line under a
+#                                  daily pick that's also an early play is OFF (the 🎯 WE GOT IN EARLY box shows the play)
+EARLY_WHEN = {}                  # {(game id, side): when we posted it} - early value plays (set in render)
 
 
 def _early_line(leg):
-    """The 'we got in early' line for a daily pick that's also one of our early value plays ('' otherwise)."""
+    """The line for a daily pick that's also one of our early value plays ('' otherwise). 10/23, the owner on Army
+    ("Early bettors got +100 - same line we're here ... what kind of one-liner is that?"): it says WE are already on it,
+    since WHEN, at what number, and what the number did since - never "early bettors", never a filler 'still a play'."""
     o = EARLY_IN.get((leg.get("game_id"), leg.get("side")))
-    if o is None or leg.get("market") != "ml":
+    if o is None or leg.get("market") != "ml" or not EARLY_LINE_ON:
         return ""
-    now_d, then_d = sd.decimal(leg["odds"]), sd.decimal(o)       # (10/4, the owner: "it said market correction but
-    pool = EARLY_WHY["same" if now_d == then_d else "better" if now_d > then_d else "worse"]   # the line never changed")
-    return f'<div class="why">{E(pool[sum(map(ord, leg.get("team", ""))) % len(pool)].format(o=_am(o)))}</div>'
+    team, now = leg.get("team", ""), leg["odds"]
+    when = EARLY_WHEN.get((leg.get("game_id"), leg.get("side")))
+    since = ""
+    try:
+        t = datetime.strptime(when[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT)
+        since = f" since {t:%A} {t.month}/{t.day}"
+    except (TypeError, ValueError):
+        pass
+    now_d, then_d = sd.decimal(now), sd.decimal(o)
+    if now_d == then_d:                                      # (10/4, the owner: never "the market corrected" when the
+        line = f"⏰ We been on {team} at {_am(o)}{since} — the number hasn't budged, so we're adding to it."   # line never moved)
+    elif now_d > then_d:                                     # (the price got longer: same side, more money back)
+        line = f"⏰ We been on {team} at {_am(o)}{since} — it's {_am(now)} now, an even better number to add on."
+    else:                                                    # (10/23, the owner on Wyoming +200 -> +180: "it moved in our
+        line = f"⏰ We been on {team} at {_am(o)}{since} — the money followed us down to {_am(now)}. We got the better number."   # favor")
+    return f'<div class="why">{E(line)}</div>'
 
 
 def _leg(leg, tagged=False, review="", units=None):
@@ -1606,8 +1615,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     try:                                                     # ⏰ which of today's picks we already got in early on
         import sports_early
         EARLY_IN.clear()
-        EARLY_IN.update({(e["game_id"], e["side"]): e["odds"] for e in sports_early.load().get("picks") or []
-                         if e.get("odds") and e.get("result") is None})
+        _ep = [e for e in sports_early.load().get("picks") or [] if e.get("odds") and e.get("result") is None]
+        EARLY_IN.update({(e["game_id"], e["side"]): e["odds"] for e in _ep})
+        EARLY_WHEN.clear()
+        EARLY_WHEN.update({(e["game_id"], e["side"]): e.get("posted") for e in _ep})
     except Exception as e:                                   # noqa: BLE001
         print(f"early-in map failed: {e}")
     now = datetime.now(PT)
@@ -2509,7 +2520,7 @@ function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handl
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
 var WHYL={{"the stronger team":"💪 {{u}} are just the better team tonight.","hotter recent form":"🔥 {{u}} are playing better ball lately.",
- "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.","sharp money moving this way":"💸 The market's catching up to {{u}} — the engine had it first.",
+ "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.",
  "better rested":"🛌 {{u}} got the extra rest. Fresh legs.","opponent on a back-to-back":"😮‍💨 {{o}} played last night — tired legs.",
  "better starting pitcher":"⚾ {{u}} got the better arm on the mound.","hotter goalie":"🧱 {{u}} got the hotter goalie.",
  "better QB play lately":"🎯 {{u}} got the better QB play lately.","revenge game":"😤 {{u}} owe these guys one."}};
