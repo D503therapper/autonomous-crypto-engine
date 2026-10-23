@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22T23:44Z",
+ "updated": "2026-10-23T00:30Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -208,34 +208,61 @@
    "lean": null
   },
   {
+   "id": "nhl:401892558",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-23T00:00Z",
+   "away": "Golden Knights",
+   "home": "Blues",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892559",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-23T00:00Z",
+   "away": "Jets",
+   "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873010",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bears",
-    "p": 0.517,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-23T00:15Z",
    "away": "Patriots",
    "home": "Bears",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Bears",
-    "opp": "Patriots",
+    "team": "Patriots",
+    "opp": "Bears",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": 130,
+    "p": 0.428,
+    "win_p": 0.428,
     "reasons": [
-     "sharp money moving this way",
-     "revenge game"
-    ]
+     "the stronger team",
+     "opponent drama: suspension"
+    ],
+    "result": null
    }
   },
   {
@@ -274,8 +301,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.424,
-    "tie": 0.294,
+    "p": 0.431,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -290,9 +317,9 @@
     "opp": "Flames",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.659,
-    "win_p": 0.659,
+    "odds": -218,
+    "p": 0.672,
+    "win_p": 0.672,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -337,8 +364,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.404,
-    "tie": 0.297,
+    "p": 0.41,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -353,9 +380,9 @@
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.62,
-    "win_p": 0.62,
+    "odds": -180,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
