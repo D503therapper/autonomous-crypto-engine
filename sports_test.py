@@ -12361,8 +12361,8 @@ def test_nba_star_power_values_team_score_and_the_card_fact_line():
                      "18": [{"name": "Jalen Brunson"}, {"name": "Josh Hart"}]},
            "flags": {"20": {"out": ["Joel Embiid"]}, "18": {"out": []}}}
     line = ns.card_line(g, "away", cur, d)
-    assert line == "🌟 76ers: 1 All-Star on the floor tonight - LeBron James (All-NBA 2025) · Joel Embiid is out.", line
-    assert ns.card_line(g, "home", cur, d) == "🌟 Knicks: 1 All-Star on the floor tonight - Jalen Brunson (All-NBA 2026, top-5 MVP)."
+    assert line == "🌟 76ers: 1 star on the floor tonight - LeBron James (All-NBA 2025) · Joel Embiid is out.", line
+    assert ns.card_line(g, "home", cur, d) == "🌟 Knicks: 1 star on the floor tonight - Jalen Brunson (All-NBA 2026, top-5 MVP)."
     assert ns.card_line(g, "home", None, d) == "" and ns.card_line({**g, "home": "99"}, "home", cur, d) == ""
     dk = ns.load(_star_file("claude-knowledge"))         # the compiled list: a study input, never a card fact
     assert ns.covered(2026, dk) and not ns.verified(2026, dk) and ns.card_line(g, "away", cur, dk) == ""
@@ -12449,6 +12449,15 @@ def test_nba_stars_fetch_parses_the_source_tables_and_merges_whole_seasons_only(
     assert m["seasons"]["2025"]["source"] == "bbref" and len(m["seasons"]["2025"]["mvp_top5"]) == 5
     assert "2026" not in m["seasons"] and m["draft"] == {"2024": ["x"] * 10, "2025": ["p"] * 10}
     assert old["seasons"]["2025"]["source"] == "claude-knowledge"       # (the merge never edits the old dict in place)
+    # 10/23 live pull: 2023's teams were 'Giannis' / 'LeBron' (the old name filter skipped 'LeBron'); 2025 / 2026's
+    # page holds only the final's two teams (~15 men) - read, kept as the source's, marked partial
+    asg = ('<table id="line_score"><tr><td data-stat="x"><a href="/players/z">Not A Player</a></td></tr></table>'
+           '<table id="Giannis"><tr><td><a href=\'/players/g\'>Giannis Antetokounmpo</a></td></tr></table>'
+           '<table id="LeBron"><tr><td><a href=\'/players/l\'>LeBron James</a></td></tr></table>')
+    assert nf.parse_allstar(asg) == ["Giannis Antetokounmpo", "LeBron James"]
+    short = nf.merge(None, {"seasons": {2026: {**whole, "all_star": [f"s{i}" for i in range(15)]}}}, "2026-10-23")
+    assert short["seasons"]["2026"]["source"] == "bbref" and short["seasons"]["2026"]["all_star_partial"] is True
+    assert "all_star_partial" not in m["seasons"]["2025"]
 
 
 def test_nba_box_scores_keep_threes_steals_blocks_turnovers_and_the_backfill_replaces_old_rows():

@@ -106,7 +106,7 @@ def parse_allstar(page):
     replacements are all listed), or [] when the page holds nothing."""
     names = []
     for tid, t in tables(page).items():
-        if "roster" in tid.lower() or tid.lower() in ("east", "west") or "team" in tid.lower() or re.match(r"^[A-Z][a-z]+$", tid):
+        if "line_score" not in tid.lower():                  # every team's box (10/23: 'LeBron' was skipped in 2023)
             for r in rows(t):
                 names += players(r)
     if not names:                                            # (a format we don't know: take every player link on the page)
@@ -118,6 +118,8 @@ def parse_allstar(page):
         if n and n not in seen:
             seen.add(n)
             out.append(n)
+    if len(out) < 24:                                        # a game format we don't read whole yet - show its tables
+        print(f"  all-star page: {len(out)} read - tables {[(tid, len(set(sum((players(r) for r in rows(t)), [])))) for tid, t in tables(page).items()]}")
     return out
 
 
@@ -150,7 +152,7 @@ def parse_draft(page, top=10):
 # ------------------------------------------------------------------ the merge
 def merge(old, got, day):
     """Fetched pieces into the file: a season is rewritten only when all four lists came back whole (All-NBA 15 men,
-    20+ All-Stars, 5 MVP names, 5 All-Rookie); a draft year when its 10 picks did. Everything else stays as it was."""
+    20+ All-Stars - or 10+ when the page holds only the final's box, marked all_star_partial - 5 MVP names, 5 All-Rookie); a draft year when its 10 picks did. Everything else stays as it was."""
     out = json.loads(json.dumps(old or {"v": 1, "seasons": {}, "draft": {}}))
     out.setdefault("seasons", {})
     out.setdefault("draft", {})
@@ -158,9 +160,15 @@ def merge(old, got, day):
         an = s.get("all_nba") or {}
         whole = (sum(len(v) for v in an.values()) >= 15 and len(s.get("all_star") or []) >= 20
                  and len(s.get("mvp_top5") or []) >= 5 and len(s.get("all_rookie_1") or []) >= 5)
-        if whole:
+        # 2025 / 2026: the All-Star page's box shows only the final's two teams (~15 men) - every name on it is
+        # still read from the source, so the season counts as read; the card says "stars", never an All-Star count
+        partial = (not whole and sum(len(v) for v in an.values()) >= 15 and 10 <= len(s.get("all_star") or []) < 20
+                   and len(s.get("mvp_top5") or []) >= 5 and len(s.get("all_rookie_1") or []) >= 5)
+        if whole or partial:
             out["seasons"][str(y)] = {"all_nba": an, "all_star": s["all_star"], "mvp_top5": s["mvp_top5"][:5],
                                       "all_rookie_1": s["all_rookie_1"], "source": "bbref", "fetched": day}
+            if partial:
+                out["seasons"][str(y)]["all_star_partial"] = True
         else:
             print(f"  {y}: incomplete ({sum(len(v) for v in an.values())} All-NBA, {len(s.get('all_star') or [])} All-Stars, "
                   f"{len(s.get('mvp_top5') or [])} MVP, {len(s.get('all_rookie_1') or [])} All-Rookie) - kept what the file had")
