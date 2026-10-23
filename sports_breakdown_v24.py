@@ -527,6 +527,17 @@ def lean_tone(lines, leg, seed=""):
     return out
 
 
+def _stale(games, lg, team, name, before):
+    """A football key player who sat the team's last 2 games (the box scores say so) - old news, never a fresh edge."""
+    if lg not in ("nfl", "ncaaf"):
+        return False
+    try:
+        import sports_absences as _sa
+        return _sa.missed_lately(games, lg, team, name, before)
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
 def breakdown(leg, games, elo, injuries, used=None):
     """A plain-talk case for one leg: a list of short bullets ending with the bottom line."""
     g = games[leg["game_id"]]
@@ -627,12 +638,17 @@ def breakdown(leg, games, elo, injuries, used=None):
             if gap > 15 and _w(_ru) > _w(_rt):           # the records do)
                 _nt = lambda r: (lambda a: a[0] - a[1])([int(x) for x in r.split("-")[:2]])
                 big = _nt(_ru) - _nt(_rt) >= REC_GAP     # (10/23: the trash talk needs a real gap - 4-2 vs 4-3 is none)
-                out.append(v.say("better", [f"💪 {us} ({_ru}) vs {them} ({_rt}) — the better team is on our side.",
+                out.append(v.say("better", ([f"💪 {us} ({_ru}) vs {them} ({_rt}) — the better team is on our side.",
                                              f"💪 {_ru} against {_rt}: {us} been the better team.",
                                              f"💪 Records say it: {us} {_ru}, {them} {_rt}.",
-                                             f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side."] + ([
+                                             f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side.",
                                              f"💪 {us} {_ru} against {_pos(them)} {_rt}. Levels to this shit.",
-                                             f"💪 {_ru} to {_rt}. {them} about to get their ass beat."] if big else [])))
+                                             f"💪 {_ru} to {_rt}. {them} about to get their ass beat."] if big else [
+                                             f"💪 {us} {_ru}, {them} {_rt} — close on paper, but our ratings have {us} ahead.",
+                                             f"💪 Records are tight ({_ru} / {_rt}); the ratings like {us}.",
+                                             f"💪 {_ru} vs {_rt} looks even. Who they've played says {us}."])))
+                #   (10/23, the owner on Army 4-2 vs Tulsa 4-3: "they both have 4 wins" - a 'better team' claim needs
+                #    a 3+ game record gap; close records say close, and the ratings carry it)
             elif gap < -15 and _w(_rt) > _w(_ru):
                 pass                                     # (10/22, the owner: the old 'their record's better, we get the
                 #                                          price' line said nothing - a record against us is no reason)
@@ -977,6 +993,12 @@ def breakdown(leg, games, elo, injuries, used=None):
                 f"🚑 {nm} is on IR — {them} are still on their backup {pos}.",
                 f"🚑 {them} are still without {nm} (IR) — the backup {pos} keeps the job.",
                 f"🚑 Still no {nm} for {them} — he's on IR, the backup {pos} goes again."]))
+        elif key_them and not both and _stale(games, lg, oid, key_them[0][0], leg["start"]):
+            pos, nm = _posname(key_them[0][1], lg), key_them[0][0]   # (10/23: sat their last 2 - old news, not an edge)
+            out.append(v.say("keyout", [
+                f"🚑 {them} still don't have {nm} — the backup {pos} has started their last 2.",
+                f"🚑 No {nm} again for {them}; the backup {pos} gets another start.",
+                f"🚑 {nm} has missed {_pos(them)} last 2 — the backup {pos} keeps going."]))
         elif key_them and not both:
             pos, nm = _posname(key_them[0][1], lg), key_them[0][0]
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
@@ -1003,7 +1025,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     # every "because" on the card is a FACT (10/21, the owner: "very vague and not our lingo" - "they're the better
     # team" / "they're banged up" said nothing): the reasons mapped to what we can show, and the one top fact the
     # card's one-liner and a lean's bottom line hang on
-    _kt = sd.team_key_out(inj, oid, them, lg) if inj else []
+    _kt = [r for r in (sd.team_key_out(inj, oid, them, lg) if inj else [])   # (10/23: a key man who sat their last 2
+           if not _stale(games, lg, oid, r[0], leg["start"])]                   #  games is never the one-liner's edge)
     _ku = sd.team_key_out(inj, tid, us, lg) if inj else []
     _b2b = bool(ours and theirs) and (start - _t(theirs[-1]["start"])).total_seconds() / 3600 <= B2B_HOURS \
         < (start - _t(ours[-1]["start"])).total_seconds() / 3600
@@ -1641,7 +1664,6 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
             m["public fade"] = [f"{n}% of the bets are on {T}",    # board of fades never reads the same twice)
                                 f"the public's got {n}% of the tickets on {T}",
                                 f"{n}% of tickets are on {T}",
-                                f"{n} in every 100 bets on {T}",
                                 f"{n}% of the crowd is on {T}",
                                 f"{T} are holding {n}% of the action",
                                 f"the public side is {T}, {n}% of all bets",
@@ -1650,11 +1672,8 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
                                 f"the public is all over {T}, {n}% of bets"] + \
                                ([f"everybody and they mama on {T} with {100 - mo}% of the money",
                                  f"{100 - mo}% of the cash is on {T}"] if mo is not None else [])
-        elif t >= PUBLIC_HEAVY:
-            m["public ride"] = [f"{t}% of the bets are on {U}", f"the public's got {t}% of the tickets on {U}",
-                                f"{t}% of tickets are on {U} - same side as us", f"{t} in every 100 bets on {U}, same as us",
-                                f"the public side is {U}, {t}% of all bets"] + \
-                               ([f"{mo}% of the cash is on {U} with us"] if mo is not None else [])
+        #   (10/23: the public WITH us is never the line under the pick - "71% of the cash is on the Avalanche with
+        #    us" said nothing; only a fade of the public is a fact worth leading with)
     if site and site[1] >= MIN_REC_GAMES and site[2] / site[1] >= SITE_GOOD:   # ('home'/'road', games, wins, '3-0')
         where, rec = site[0], site[3]
         at = "at home" if where == "home" else "on the road"

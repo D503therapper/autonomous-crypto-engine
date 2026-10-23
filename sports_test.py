@@ -10594,6 +10594,32 @@ def test_one_liners_never_talk_line_movement_and_close_records_are_never_the_bet
     d.EARLY_IN.clear()
 
 
+def test_a_key_man_who_sat_the_last_two_is_old_news_and_the_ride_public_never_leads():
+    """10/23: Air Force's QB L. Szarka (out since 10/10 - Evan Medders started and won the last 2) would have read as
+    'Air Force are down their starting QB' - old news, priced for two weeks. A football key player absent from the
+    team's last 2 box scores is never the one-liner's edge (the 🚑 line says the backup keeps going). And the public
+    WITH us ('71% of the cash is on the Avalanche with us') never leads a card."""
+    import sports_absences as A
+    import sports_breakdown_v24 as v24
+    keep = dict(A._TEAM)
+    try:
+        rows = lambda *names: [{"player": n} for n in names]
+        A._TEAM["ncaaf"] = {"2005": [("2026-10-03T16:00Z", "g1", rows("Liam Szarka", "Owen Allen")),
+                                     ("2026-10-10T23:30Z", "g2", rows("Evan Medders", "Owen Allen")),
+                                     ("2026-10-17T19:30Z", "g3", rows("Evan Medders", "Owen Allen"))]}
+        assert A.missed_lately({}, "ncaaf", "2005", "L. Szarka", "2026-10-24T01:00Z")
+        assert not A.missed_lately({}, "ncaaf", "2005", "O. Allen", "2026-10-24T01:00Z")
+        assert not A.missed_lately({}, "ncaaf", "2005", "L. Szarka", "2026-10-11T00:00Z")   # (sat only 1 by then)
+        assert v24._stale({}, "ncaaf", "2005", "L. Szarka", "2026-10-24T01:00Z")
+        assert not v24._stale({}, "nhl", "2005", "L. Szarka", "2026-10-24T01:00Z")
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    src = open(v24.__file__).read()
+    assert "of the cash is on {U} with us" not in src and 'm["public ride"]' not in src
+    assert "in every 100 bets" not in src                       # (plain words - never 'N in 100')
+    assert "close on paper, but our ratings have" in src       # (4-2 vs 4-3: close records say close)
+
+
 def test_board_preview_names_the_10_23_own_read_dog_rule():
     """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
