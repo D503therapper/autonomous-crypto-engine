@@ -26,7 +26,10 @@ LEAGUES = ("nfl", "ncaaf", "nba", "ncaab", "nhl", "mlb")
 SUMMARY = "https://site.api.espn.com/apis/site/v2/sports/{path}/summary?event={eid}"
 # the few numbers per stat group that say how much a player mattered (ESPN's own key names; unknown keys are skipped)
 KEEP = {
-    "nba": ("minutes", "points", "rebounds", "assists", "plusMinus", "fieldGoalsMade-fieldGoalsAttempted"),
+    "nba": ("minutes", "points", "rebounds", "assists", "plusMinus", "fieldGoalsMade-fieldGoalsAttempted",
+            # 10/23: the full box (the player-rating study died on 6 stats); tools/nba_box_backfill.py fills the past
+            "threePointFieldGoalsMade-threePointFieldGoalsAttempted", "freeThrowsMade-freeThrowsAttempted",
+            "offensiveRebounds", "defensiveRebounds", "steals", "blocks", "turnovers", "fouls"),
     "ncaab": ("minutes", "points", "rebounds", "assists", "fieldGoalsMade-fieldGoalsAttempted"),
     "nfl": ("completions/passingAttempts", "passingYards", "passingTouchdowns", "interceptions", "rushingAttempts",
             "rushingYards", "rushingTouchdowns", "receptions", "receivingYards", "receivingTouchdowns",

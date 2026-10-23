@@ -12318,6 +12318,170 @@ def test_nba_player_rating_study_keeps_raw_plus_minus_prior():
     assert not hasattr(sports, "TALENT_DOG_W") and not hasattr(sports, "talent_dog")
 
 
+def _star_file(source="bbref"):
+    """A small honors file: end year 2026 = last season for a 2026-27 game."""
+    p = os.path.join(tempfile.mkdtemp(), "nba_stars.json")
+    with open(p, "w") as f:
+        json.dump({"v": 1, "seasons": {
+            "2024": {"all_nba": {"1": ["Joel Embiid"], "2": [], "3": []}, "all_star": ["Joel Embiid", "Tyrese Maxey"],
+                     "mvp_top5": ["Joel Embiid"], "all_rookie_1": ["Victor Wembanyama"], "source": source},
+            "2025": {"all_nba": {"1": [], "2": ["LeBron James"], "3": []}, "all_star": ["LeBron James", "Jalen Brunson"],
+                     "mvp_top5": [], "all_rookie_1": ["Stephon Castle"], "source": source},
+            "2026": {"all_nba": {"1": ["Jalen Brunson"], "2": [], "3": []}, "all_star": ["Jalen Brunson", "LeBron James"],
+                     "mvp_top5": ["Jalen Brunson"], "all_rookie_1": ["Cooper Flagg"], "source": source}},
+            "draft": {"2025": ["Cooper Flagg", "Dylan Harper", "VJ Edgecombe", "Kon Knueppel", "Ace Bailey", "Tre Johnson",
+                               "Jeremiah Fears", "Egor Demin", "Collin Murray-Boyles", "Khaman Maluach"]}}, f)
+    return p
+
+
+def test_nba_star_power_values_team_score_and_the_card_fact_line():
+    """10/23 (the owner: "look at the squad - Jaylen Brown, Maxey, Edgecombe, Embiid, LeBron James ... the engine needs
+    to know that too"): sports_nba_stars gives every man a star value from the honors of the seasons BEFORE (All-NBA
+    first team 4, second / third 3, All-Star 2, +1 top-5 MVP; last season 1, two ago 0.7, three ago 0.5; a top-5 pick
+    1 in his first three seasons, a top-10 pick 0.5; All-Rookie first team 1.5), a team = the sum, a 'star' = 2+. The
+    🌟 card line names the stars on the floor and who's out - ONLY from honors fetched from the source (bbref), never
+    the list compiled from memory, and only with the saved rosters (never a fact we can't fully see)."""
+    import sports_nba_stars as ns
+    d = ns.load(_star_file())
+    assert ns.value("Jalen Brunson", 2026, d) == (5.0, "All-NBA 2026, top-5 MVP")      # 4 + 1, last season
+    assert ns.value("LeBron James", 2026, d) == (2.1, "All-NBA 2025")                  # max(2 x 1, 3 x 0.7)
+    assert ns.value("Joel Embiid", 2026, d) == (2.5, "All-NBA 2024, top-5 MVP")        # 5 x 0.5
+    assert ns.value("Tyrese Maxey", 2026, d) == (1.0, "2024 All-Star")                 # 2 x 0.5 - not a 'star' now
+    assert ns.value("VJ Edgecombe", 2026, d) == (1.0, "the #3 pick in 2025")           # rookie season
+    assert ns.value("Khaman Maluach", 2026, d) == (0.5, "the #10 pick in 2025")
+    assert ns.value("Edgecombe, VJ", 2029, d) == (0.0, "")                            # unknown man / past his 3 seasons
+    assert ns.value("Cooper Flagg", 2026, d) == (1.5, "All-Rookie first team 2026")    # beats the #1 pick's 1
+    assert ns.value("Stephon Castle", 2027, d) == (0.0, "")                           # two seasons on: gone
+    t = ns.team(["LeBron James", "Joel Embiid", "Tyrese Maxey", "VJ Edgecombe", "Nobody Special"], 2026, d)
+    assert t["score"] == 6.6 and t["n"] == 2 and [x[0] for x in t["stars"]] == ["Joel Embiid", "LeBron James"]
+    assert ns.covered(2026, d) and ns.verified(2026, d) and not ns.covered(2027, d)
+    g = {"home": "18", "away": "20", "home_name": "Knicks", "away_name": "76ers", "start": "2026-10-20T23:00Z"}
+    cur = {"teams": {"20": [{"name": "LeBron James"}, {"name": "Joel Embiid"}, {"name": "Tyrese Maxey"}, {"name": "VJ Edgecombe"}],
+                     "18": [{"name": "Jalen Brunson"}, {"name": "Josh Hart"}]},
+           "flags": {"20": {"out": ["Joel Embiid"]}, "18": {"out": []}}}
+    line = ns.card_line(g, "away", cur, d)
+    assert line == "🌟 76ers: 1 All-Star on the floor tonight - LeBron James (All-NBA 2025) · Joel Embiid is out.", line
+    assert ns.card_line(g, "home", cur, d) == "🌟 Knicks: 1 All-Star on the floor tonight - Jalen Brunson (All-NBA 2026, top-5 MVP)."
+    assert ns.card_line(g, "home", None, d) == "" and ns.card_line({**g, "home": "99"}, "home", cur, d) == ""
+    dk = ns.load(_star_file("claude-knowledge"))         # the compiled list: a study input, never a card fact
+    assert ns.covered(2026, dk) and not ns.verified(2026, dk) and ns.card_line(g, "away", cur, dk) == ""
+    assert ns.load(os.path.join(tempfile.mkdtemp(), "none.json")) is None   # no file = no read anywhere
+    # the real file: compiled seasons 2014-2025 only (2026 waits on the fetch), so today's cards stay quiet on stars
+    real = ns.load()
+    assert real and real["seasons"] == list(range(2014, 2026)) and not ns.verified(2026, real)
+    assert ns.value("Shai Gilgeous-Alexander", 2026, real)[0] == 3.5                  # All-NBA 1st + MVP top-5 2025, x 0.7
+    # the card hook: card_extras adds the 🌟 line once, after the 🏀 roster line, and never breaks a card
+    import sports_nba_roster as nr
+    old_cached, old_load = nr.cached, ns.load
+    nr.cached = lambda: cur
+    ns.load = lambda path=None: d
+    try:
+        leg = {"league": "nba", "side": "away", "breakdown": ["Levels to this."]}
+        sports.card_extras(leg, {**g, "id": "nba:1", "league": "nba"}, {})
+        sports.card_extras(leg, {**g, "id": "nba:1", "league": "nba"}, {})
+        assert [x for x in leg["breakdown"] if x.startswith("🌟")] == [line]
+    finally:
+        nr.cached, ns.load = old_cached, old_load
+
+
+def test_nba_star_power_is_a_fact_line_never_a_weight():
+    """10/23 - the star-power study (SPORTS_FINDINGS 10/23): dogs with as many / more stars than the favorite do NOT
+    beat the close (gap 2+: -7.8% train / -1.0% blind, +8 / -23 / +20 by season; the market prices the stars within
+    2 points in every bucket), and the opening-line edge that looked big (+18%) was the favorite's stars SITTING -
+    game-day news the open can't know; the honest roster gap is +3.6% on 361 (1 of 3 seasons). So no star weight sits
+    in the dog score, the favorite read or the open model - the stars are a card fact only. Guards that."""
+    import inspect
+    import sports_nba_open as no
+    import sports_nba_stars as ns
+    for mod, names in ((sports, ("NBA_STAR_W", "STAR_DOG_W", "star_dog", "nba_star_weight")), (no, ("star_gap",))):
+        for n in names:
+            assert not hasattr(mod, n), n
+    src = inspect.getsource(sports.nba_dog_weights) + inspect.getsource(sports.mark_nba_favorites) + inspect.getsource(sports.dog_score)
+    for term in ("sports_nba_stars", "star_gap", "n_stars", "star_score", "all_star", "all_nba"):
+        assert term not in src.lower(), term            # (fav["star_back"] - the 10/22 top-5-man-returning fact - is not this)
+    assert "star" not in " ".join(no.FEATURES)
+    src_open = inspect.getsource(no)
+    assert "sports_nba_stars" not in src_open
+    base = {"league": "nba", "market": "ml", "odds": 155, "dog_more": {"star_gap": 9, "n_stars": 3}}
+    assert sports.nba_dog_weights(base) == 0
+    assert ns.STAR == 2.0 and ns.DECAY == (1.0, 0.7, 0.5)
+
+
+def test_nba_stars_fetch_parses_the_source_tables_and_merges_whole_seasons_only():
+    """10/23: tools/nba_stars_fetch.py reads Basketball-Reference's tables (All-NBA / All-Rookie by season and team,
+    an All-Star game's rosters, the MVP vote's top 5, a draft's picks) and rewrites a season in the file only when all
+    four lists came back whole - a half-read season keeps what the file had (the compiled list), a draft needs its 10."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import nba_stars_fetch as nf
+    page = ('<table id="awards_all_league"><tr><th data-stat="season">2024-25</th><td data-stat="lg_id">NBA</td>'
+            '<td data-stat="type">1st</td><td data-stat="1"><a href="/players/g/gilgesh01.html">Shai Gilgeous-Alexander</a> G</td>'
+            '<td data-stat="2"><a href="/players/j/jokicni01.html">Nikola Joki&#263;</a> C</td></tr>'
+            '<tr><th data-stat="season">2024-25</th><td data-stat="lg_id">NBA</td><td data-stat="type">2nd</td>'
+            '<td data-stat="1"><a href="/players/j/jamesle01.html">LeBron James</a> F</td></tr>'
+            '<tr><th data-stat="season">2023-24</th><td data-stat="lg_id">ABA</td><td data-stat="type">1st</td>'
+            '<td data-stat="1"><a href="/players/x/x.html">Not Nba</a></td></tr></table>')
+    teams = nf.parse_teams_page(page)
+    assert teams == {2025: {"1": ["Shai Gilgeous-Alexander", "Nikola Jokić"], "2": ["LeBron James"]}}
+    allstar = ('<!--<table id="West"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr>'
+               '<tr><td data-stat="player"><a href="/players/d/duranke01.html">Kevin Durant</a></td></tr></table>-->'
+               '<table id="East"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr></table>')
+    assert nf.parse_allstar(allstar.replace("<!--", "").replace("-->", "")) == ["LeBron James", "Kevin Durant"]
+    mvp = ('<table id="mvp"><tr><th data-stat="rank">1</th><td data-stat="player"><a href="/players/a">A One</a></td></tr>'
+           + "".join(f'<tr><th data-stat="rank">{i}</th><td data-stat="player">P {i}</td></tr>' for i in range(2, 8)) + "</table>")
+    assert nf.parse_mvp(mvp) == ["A One", "P 2", "P 3", "P 4", "P 5"]
+    draft = '<table id="stats">' + "".join(
+        f'<tr><td data-stat="pick_overall">{i}</td><td data-stat="player"><a href="/players/p{i}">Pick {i}</a></td></tr>' for i in range(1, 13)) + "</table>"
+    assert nf.parse_draft(draft) == [f"Pick {i}" for i in range(1, 11)]
+    old = {"v": 1, "seasons": {"2025": {"all_star": ["Old List"], "source": "claude-knowledge"}}, "draft": {"2024": ["x"] * 10}}
+    whole = {"all_nba": {"1": ["a"] * 5, "2": ["b"] * 5, "3": ["c"] * 5}, "all_star": [f"s{i}" for i in range(24)],
+             "mvp_top5": ["m"] * 6, "all_rookie_1": ["r"] * 5}
+    got = {"seasons": {2025: whole, 2026: {**whole, "all_star": []}}, "draft": {2025: ["p"] * 10, 2026: ["q"] * 3}}
+    m = nf.merge(old, got, "2026-10-24")
+    assert m["seasons"]["2025"]["source"] == "bbref" and len(m["seasons"]["2025"]["mvp_top5"]) == 5
+    assert "2026" not in m["seasons"] and m["draft"] == {"2024": ["x"] * 10, "2025": ["p"] * 10}
+    assert old["seasons"]["2025"]["source"] == "claude-knowledge"       # (the merge never edits the old dict in place)
+
+
+def test_nba_box_scores_keep_threes_steals_blocks_turnovers_and_the_backfill_replaces_old_rows():
+    """10/23 (the 10/23 player-rating study: "the box holds no threes / steals / blocks / turnovers - 6 stats only"):
+    sports_roster.KEEP['nba'] keeps the full ESPN box line from now on; the plus-minus value math is untouched; the
+    backfill tool knows a stored game saved with the old 6 stats and REPLACES its rows (sports_roster.add alone would
+    keep the old copy)."""
+    import sports_roster as sr
+    import sports_nba_roster as nr
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import nba_box_backfill as bb
+    keys = ["minutes", "fieldGoalsMade-fieldGoalsAttempted", "threePointFieldGoalsMade-threePointFieldGoalsAttempted",
+            "freeThrowsMade-freeThrowsAttempted", "offensiveRebounds", "defensiveRebounds", "rebounds", "assists",
+            "steals", "blocks", "turnovers", "fouls", "plusMinus", "points"]
+    vals = ["34", "9-16", "3-7", "2-2", "1", "7", "8", "9", "2", "1", "4", "3", "+12", "23"]
+    payload = {"boxscore": {"players": [{"team": {"id": "20"}, "statistics": [{"keys": keys, "athletes": [
+        {"athlete": {"id": "1966", "displayName": "LeBron James", "position": {"abbreviation": "F"}}, "starter": True, "stats": vals}]}]}]}}
+    rows = sr.parse("nba", "nba:1", "2026-10-20T23:00Z", payload)
+    st = json.loads(rows[0]["stats"])
+    assert st["steals"] == "2" and st["blocks"] == "1" and st["turnovers"] == "4" and st["fouls"] == "3"
+    assert st["threePointFieldGoalsMade-threePointFieldGoalsAttempted"] == "3-7" and st["offensiveRebounds"] == "1"
+    assert nr.production(st) == (34.0, 12.0)                         # the value math reads plus-minus, as before
+    assert all(k in sr.KEEP["nba"] for k in ("steals", "blocks", "turnovers")) and "steals" not in sr.KEEP["ncaab"]
+    old_dir = sr.DIR
+    sr.DIR = tempfile.mkdtemp()
+    try:
+        old_rows = _nba_box("nba:1", "2026-10-20T23:00Z", "20", [("1966", "LeBron James", 34, 12)])
+        sr.add("nba", old_rows)
+        assert bb.stored_keys() == {"nba:1": False}                   # saved with the 6 stats: needs the fetch again
+        bb.replace("nba", rows, {"nba:1"})
+        got = sr.load("nba")
+        assert len(got) == 1 and "steals" in json.loads(got[0]["stats"]) and bb.stored_keys() == {"nba:1": True}
+        G = {"nba:1": {"id": "nba:1", "league": "nba", "start": "2026-10-20T23:00Z", "status": "final", "home": "18", "away": "20",
+                       "home_score": "100", "away_score": "106", "stype": "2"},
+             "nba:0": {"id": "nba:0", "league": "nba", "start": "2019-11-20T23:00Z", "status": "final", "home": "18", "away": "20",
+                       "home_score": "100", "away_score": "106", "stype": "2"}}
+        assert [g for g, _ in bb.jobs_for(G, bb.stored_keys(), set(), 2026)] == ["nba:0"]      # 2019: never stored
+        assert bb.jobs_for(G, {"nba:1": False, "nba:0": True}, set(), 2026)[0][0] == "nba:1"   # this season's old rows first
+    finally:
+        sr.DIR = old_dir
+
+
 def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
     """10/20: with the roster prior the NBA features carry the roster-blended rating (0.7 roster at game 0) and
     early_trust's pull starts at half instead of the market; no rosters saved = the old full pull (college hoops keeps

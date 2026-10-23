@@ -1,0 +1,30 @@
+# 🏀 The full NBA box score (threes, steals, blocks, turnovers ...) for every season back to 2016-17: tools/nba_box_backfill.py
+# ~36 minutes a run, once a day (never near the 8 AM board or the 3-hourly rosters job) until it's caught up, then a
+# quick "nothing to do". ESPN's public summary endpoint, no paid API.
+name: nba_box_backfill
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "11 20 * * *"    # 20:11 UTC daily
+permissions:
+  contents: write
+concurrency:
+  group: rosters             # (shares the rosters job's lock - both write data/sports/roster)
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: mkdir -p results && timeout 40m python -u tools/nba_box_backfill.py 36 | tee results/nba_box_backfill.txt
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/roster results/nba_box_backfill.txt 2>/dev/null || git add data/sports/roster
+          git commit -qm "nba box backfill $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null || true; sleep 7; done
+          [ -n "$ok" ] || { echo "push failed - this run's box scores never reached main"; exit 1; }

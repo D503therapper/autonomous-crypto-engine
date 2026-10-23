@@ -1,0 +1,37 @@
+# 🌟 NBA honors (All-Star, All-NBA, MVP top-5, All-Rookie, the draft) from Basketball-Reference's public pages ->
+# data/sports/nba_stars.json (tools/nba_stars_fetch.py). Claude's sandbox can't reach the site; GitHub's servers can.
+# Plain requests, ~4 s apart. Runs on dispatch and once a week in season (the honors change twice a year).
+name: nba_stars
+on:
+  workflow_dispatch:
+    inputs:
+      first:
+        description: "first season END year (default 2014)"
+        type: string
+        default: "2014"
+  schedule:
+    - cron: "17 11 * * 2"    # Tuesdays 11:17 UTC
+permissions:
+  contents: write
+concurrency:
+  group: nba_stars
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: mkdir -p results && timeout 25m python -u tools/nba_stars_fetch.py "${FIRST:-2014}" | tee results/nba_stars_fetch.txt
+        env:
+          FIRST: ${{ github.event.inputs.first }}
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/nba_stars.json results/nba_stars_fetch.txt 2>/dev/null || true
+          git commit -qm "nba stars $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null || true; sleep 7; done
+          [ -n "$ok" ] || { echo "push failed - this run's file never reached main"; exit 1; }
