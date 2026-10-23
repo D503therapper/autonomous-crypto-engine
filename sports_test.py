@@ -10467,6 +10467,13 @@ def test_a_dog_whose_own_read_is_under_the_price_stays_at_one_unit():
     assert sports.dog_units({"date": "2026-10-23", "kind": "dog", "legs": [over]}) >= 2.0
 
 
+def test_board_preview_names_the_10_23_own_read_dog_rule():
+    """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
+    3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "board_preview.py")).read()
+    assert "sports.DOG_NEEDS_OWN" in src and "not over the price, so no Dog (10/23 plan)" in src
+
+
 def test_the_10_23_plan_sizing_and_gates():
     """10/23, the owner ("yes" + "I still want the 3-5u max plays"): the best-mix replay 2023-26 (+154u vs +87u today,
     58.7% won, worst stretch -24u vs -63u). Lock: 3u MAX PLAY when the weighed read AND the own read both beat the

@@ -86,6 +86,8 @@ def main(day_iso=None):
                 why.append("hurt: " + ", ".join(c["hurt"])[:50])
             if sports.fighting(c):
                 why.append("own read under the price")
+            elif sports.DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0:
+                why.append(f"own read {(c['edge_own'] + 1) / c['dec']:.1%} - not over the price, so no Dog (10/23 plan)")
             try:
                 why.append(f"dog score {sports.dog_score(c):+.1f}")
             except Exception:                                            # noqa: BLE001
