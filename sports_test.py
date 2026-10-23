@@ -12366,10 +12366,12 @@ def test_nba_star_power_values_team_score_and_the_card_fact_line():
     dk = ns.load(_star_file("claude-knowledge"))         # the compiled list: a study input, never a card fact
     assert ns.covered(2026, dk) and not ns.verified(2026, dk) and ns.card_line(g, "away", cur, dk) == ""
     assert ns.load(os.path.join(tempfile.mkdtemp(), "none.json")) is None   # no file = no read anywhere
-    # the real file: compiled seasons 2014-2025 only (2026 waits on the fetch), so today's cards stay quiet on stars
+    # the real file: every season from 2014 held, each either fetched or compiled - never a test on WHICH (10/23: this
+    # once pinned 'compiled 2014-2025 only', the weekly fetch rewrote the file and the live engine's test step broke)
     real = ns.load()
-    assert real and real["seasons"] == list(range(2014, 2026)) and not ns.verified(2026, real)
-    assert ns.value("Shai Gilgeous-Alexander", 2026, real)[0] == 3.5                  # All-NBA 1st + MVP top-5 2025, x 0.7
+    assert real and set(range(2014, 2026)) <= set(real["seasons"])
+    assert all(v in ("bbref", "claude-knowledge") for v in real["sources"].values()), real["sources"]
+    assert ns.value("Shai Gilgeous-Alexander", 2026, real)[0] >= 3.5                  # All-NBA 1st + MVP top-5
     # the card hook: card_extras adds the 🌟 line once, after the 🏀 roster line, and never breaks a card
     import sports_nba_roster as nr
     old_cached, old_load = nr.cached, ns.load
