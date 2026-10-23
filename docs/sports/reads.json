@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T13:44Z",
+ "updated": "2026-10-23T14:11Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -128,8 +128,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.53,
-    "tie": 0.036,
+    "p": 0.496,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -137,19 +137,17 @@
    "start": "2026-10-23T23:00Z",
    "away": "Knicks",
    "home": "Celtics",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Celtics",
     "opp": "Knicks",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "odds": -130,
+    "p": 0.522,
+    "win_p": 0.522,
+    "reasons": []
    }
   },
   {
@@ -188,7 +186,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.675,
+    "p": 0.682,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -206,7 +204,7 @@
     "line": -8.5,
     "odds": -112,
     "p": 0.502,
-    "win_p": 0.741,
+    "win_p": 0.75,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -218,8 +216,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Timberwolves",
-    "p": 0.504,
+    "team": "Magic",
+    "p": 0.488,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -231,14 +229,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Timberwolves",
-    "opp": "Magic",
+    "team": "Magic",
+    "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.518,
-    "win_p": 0.518,
-    "reasons": []
+    "odds": -112,
+    "p": 0.51,
+    "win_p": 0.51,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ]
    }
   },
   {
@@ -369,7 +370,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.558,
+    "p": 0.559,
     "tie": 0.114,
     "name": "first 5 innings"
    },
@@ -386,8 +387,8 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.638,
-    "win_p": 0.638,
+    "p": 0.639,
+    "win_p": 0.639,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -491,7 +492,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.5,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -507,9 +508,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -110,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -581,7 +582,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.551,
+    "p": 0.56,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -597,11 +598,12 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.604,
-    "win_p": 0.604,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
