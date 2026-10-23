@@ -60,7 +60,7 @@ def cells(row):
 
 def players(row):
     """The player names linked in a row, in order."""
-    return [clean(n) for n in re.findall(r'<a[^>]*href="/players/[^"]+"[^>]*>(.*?)</a>', row, re.S)]
+    return [clean(n) for n in re.findall(r'<a[^>]*href=["\']/players/[^"\']+["\'][^>]*>(.*?)</a>', row, re.S)]
 
 
 def clean(s):

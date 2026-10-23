@@ -12425,6 +12425,8 @@ def test_nba_stars_fetch_parses_the_source_tables_and_merges_whole_seasons_only(
     # 10/23 live pull read 0 rows: the site's column names aren't ours - read by the cells' text, whatever the names
     odd = page.replace('data-stat="type"', 'data-stat="all_team"').replace('data-stat="season"', 'data-stat="yr"')
     assert nf.parse_teams_page(odd) == teams
+    # ... and the live page writes its links with single quotes (href='/players/...') - the first fix still read 0
+    assert nf.parse_teams_page(odd.replace('href="/players/', "href='/players/").replace('.html"', ".html'")) == teams
     allstar = ('<!--<table id="West"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr>'
                '<tr><td data-stat="player"><a href="/players/d/duranke01.html">Kevin Durant</a></td></tr></table>-->'
                '<table id="East"><tr><td data-stat="player"><a href="/players/j/jamesle01.html">LeBron James</a></td></tr></table>')
