@@ -118,6 +118,8 @@ def parse_allstar(page):
         if n and n not in seen:
             seen.add(n)
             out.append(n)
+    if len(out) < 24:                                        # a game format we don't read whole yet - show its tables
+        print(f"  all-star page: {len(out)} read - tables {[(tid, len(set(sum((players(r) for r in rows(t)), [])))) for tid, t in tables(page).items()]}")
     return out
 
 
