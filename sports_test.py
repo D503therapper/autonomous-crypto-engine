@@ -10341,10 +10341,46 @@ def test_cards_never_brag_about_money_going_against_us_and_splits_say_only_numbe
     for bad in ("must've lost their minds", "Public's usually wrong", "casuals ain't wrong", "Nobody knows nothing",
                 "Sheep gon' be sheep", "That's how Vegas eats"):
         assert bad not in src, bad
-    assert "Heads up: the line moved toward" in src
+    assert "Heads up: the line moved toward" not in src     # (10/23, the owner: no line-move talk at all - the 💸 warning
+    #                                                        and the 💰 'money's coming in' lines are gone from the write-up)
     import sports_breakdown as sb
     close = sb.lean_ends({"team": "Magic", "odds": -130, "p": 0.51, "market": "ml"})
     assert len(set(close)) >= 8
+
+
+def test_the_write_up_never_talks_line_movement_and_talks_shit_only_with_a_fact():
+    """10/23, the owner: "we don't need to talk about the line moving" (the 💰 'been getting bet: +200 → +180' line goes
+    too), "we're trying to avoid repetition here and use our lingo, cussing, and talk about these breakdowns how we want
+    to", "only call a team trash / straight ass when a fact backs it". A card whose price moved both ways says nothing
+    about it; the trash talk carries the record; a side with the better record never gets called trash."""
+    import sports_breakdown_v24 as v24
+    import sports_owner_lingo as ol
+    src = open(v24.__file__).read()
+    shown = "\n".join(m.group(2) for m in re.finditer(r'(?<![a-zA-Z])(f?)"([^"\n]*)"', src)
+                      if not re.search(r'r"$', src[max(0, m.start() - 1):m.start() + 1]))   # the display strings - not the
+    #                                                                              comments, not LINE_MOVE's own r"" regex
+    for gone in ("money's coming in on 'em", "been getting bet", "since the open", "rocking with the sharps",
+                 "The line already moved for it", "Somebody's betting {the_them}", "→ {_am(now)}"):
+        assert gone not in shown, gone
+    assert "rocking with the sharps" not in ol.OWNER
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T23:00Z", "B", "D", 1, 4), ("2026-10-03T23:00Z", "A", "D", 4, 1),
+            ("2026-10-03T23:30Z", "B", "C", 0, 3), ("2026-10-04T23:30Z", "B", "E", 1, 2)]
+    for op in ("-160", "-105"):                                               # the price moved both ways since the open
+        leg, games, elo = _audit_fixture("nhl", hist, "2026-10-06T23:30Z", reasons=["the stronger team"],
+                                         ratings={"A": 1600, "B": 1400})
+        games[leg["game_id"]].update({"ml_home_open": op, "ml_away_open": "140" if op == "-160" else "-115"})
+        bd = v24.breakdown(leg, games, elo, None)
+        for x in bd + [leg.get("why_line") or ""]:
+            assert not v24.LINE_MOVE.search(x), x
+            assert not any(n in x.lower() for n in ol.NEVER), x
+        trash = [x for x in bd if x.startswith(("🗑️", "🧊"))]
+        assert trash and all(any(ch.isdigit() for ch in x) for x in trash), bd      # the trash talk carries the record
+    # the better-record side is never called trash (B is 0-3, A 2-0: from B's card, no 🗑️ line)
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-06T23:30Z", side="away", reasons=[], ratings={"A": 1400, "B": 1600})
+    bd = v24.breakdown(leg, games, elo, None)
+    assert not any(x.startswith("🗑️") for x in bd), bd
+    for w in ("trash ass team", "fin to", "talking shit", "spank"):
+        assert w in src, w
 
 
 def test_card_lines_never_open_with_a_lowercase_the():
@@ -11775,14 +11811,17 @@ def test_truth_audit_10_16_hotter_team_why_needs_a_heater():
             ("2026-09-28T23:00Z", "B", "E", 4, 1), ("2026-09-30T23:00Z", "B", "D", 4, 1)]
     leg, games, elo = _audit_fixture("nhl", cold, "2026-10-05T23:30Z", reasons=["hotter recent form"])
     games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
-    bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("💸")]
-    assert bd and "hotter team" not in bd[0], bd
+    bd = v24.breakdown(leg, games, elo, None) + [leg.get("why_line") or ""]
+    import re as _re                                                  # (10/23: the 💸 fade line is gone - no card line, body
+    for x in bd:                                                      #  or one-liner, calls the cold side hot)
+        assert not _re.search(r"hotter team|heater|straight W|won \d+ straight|\d+ straight for", x), x
+        assert not v24.LINE_MOVE.search(x), x
     hot = [("2026-09-28T23:00Z", "A", "C", 4, 1), ("2026-09-30T23:00Z", "D", "A", 1, 4), ("2026-10-02T23:00Z", "A", "E", 4, 1),
            ("2026-09-28T23:00Z", "B", "E", 1, 4), ("2026-09-30T23:00Z", "B", "D", 1, 4)]
     leg, games, elo = _audit_fixture("nhl", hot, "2026-10-05T23:30Z", reasons=["hotter recent form"])
     games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
-    bd = v24.breakdown(leg, games, elo, None)
-    assert any(x.startswith("💸") for x in bd), bd                   # (the fade line still prints; the why is free again)
+    bd = v24.breakdown(leg, games, elo, None) + [leg.get("why_line") or ""]
+    assert any("3" in x and _re.search(r"straight|in a row|heater", x) for x in bd), bd   # the real heater is said
     assert v24._streak(sorted([g for g in games.values() if g["status"] == "final" and "A" in (g["home"], g["away"])],
                               key=lambda g: g["start"]), "A") == "won 3 straight"
 
@@ -11919,12 +11958,11 @@ def test_fade_line_never_shows_a_price_that_did_not_move():
                       "ml_away_open": "1600", "spread_home": "-22.5"}}
     leg = {"game_id": "g", "league": "ncaab", "side": "away", "team": "Morehead St", "opp": "Wake Forest", "market": "spread",
            "line": 22.5, "odds": -110, "dec": 1.909, "p": 0.55, "edge_own": 0.55 * 1.909 - 1, "tier": "lean", "reasons": []}
-    bd = v24.breakdown(dict(leg), G(-4500, -4500), {}, {}, set())
-    fade = [x for x in bd if x.startswith("💸")]
-    assert fade and "-4500 → -4500" not in fade[0] and "Morehead St +1600 → +2500" in fade[0], bd
-    bd = v24.breakdown(dict(leg), G(-4500, -3000), {}, {}, set())
-    fade = [x for x in bd if x.startswith("💸")]
-    assert fade and "(-4500 → -3000)" in fade[0], bd
+    for now_home in (-4500, -3000):                       # (10/23, the owner: no line-move talk at all - a move that
+        bd = v24.breakdown(dict(leg), G(-4500, now_home), {}, {}, set())   # happened or a non-move, neither prints)
+        assert bd and not any(x.startswith("💸") for x in bd), bd
+        for x in bd:
+            assert "→" not in x and not v24.LINE_MOVE.search(x), x
 
 
 def test_data_gaps_scale_to_a_full_college_hoops_day():

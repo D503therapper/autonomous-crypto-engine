@@ -586,7 +586,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                   f"🔥 {us} are rolling — {n_hot} wins in a row, {rec_u} on the year.",
                                   f"🔥 {us} can't stop winning: {n_hot} straight, {rec_u} overall.",
             f"🔥 {us} are cooking — {n_hot} straight W's, {rec_u} overall.",
-            f"🔥 Heat check: {us} have won {n_hot} in a row ({rec_u})."]))
+            f"🔥 Heat check: {us} have won {n_hot} in a row ({rec_u}).",
+            f"🔥 {n_hot} straight for {us} ({rec_u}). {them} fin to catch that heat.",
+            f"🔥 {us} ({rec_u}) won {n_hot} in a row and they ain't done. Say less."]))
     rec_line = bool(rec_u) and n_hot < 2 and len(r_ours) >= MIN_REC_GAMES   # (10/21, the owner: a record with a tag-line
     #                                                  after it says nothing - the record line waits to see if the
     #                                                  records get compared below; if not, it says the record WITH
@@ -607,7 +609,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                                        f"🧊 {n_cold} straight losses for {them}. Not a good look.",
                                        f"🧊 {them} ({rec_t}) keep taking L's — {n_cold} straight.",
             f"🧊 {them} ({rec_t}) are in a slump — {n_cold} straight.",
-            f"🧊 {them} forgot how to win: {n_cold} straight L's."]))
+            f"🧊 {them} forgot how to win: {n_cold} straight L's.",
+            f"🧊 {them} dropped {n_cold} in a row ({rec_t}). They fin to make it {n_cold + 1}.",   # (10/23: his lingo,
+            f"🧊 {n_cold} straight L's for {them}. That's a shit stretch, and {us} ain't the cure.",   #  the skid is the fact)
+            f"🧊 {them} ({rec_t}) lost {n_cold} straight — {us} fin to spank 'em."]))
 
     # strength
     e = elo.get(lg)
@@ -620,10 +625,14 @@ def breakdown(leg, games, elo, injuries, used=None):
         if _ru and _rt:                                  # (10/1, the owner: "they're just better" says nothing -
             _w = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
             if gap > 15 and _w(_ru) > _w(_rt):           # the records do)
+                _nt = lambda r: (lambda a: a[0] - a[1])([int(x) for x in r.split("-")[:2]])
+                big = _nt(_ru) - _nt(_rt) >= REC_GAP     # (10/23: the trash talk needs a real gap - 4-2 vs 4-3 is none)
                 out.append(v.say("better", [f"💪 {us} ({_ru}) vs {them} ({_rt}) — the better team is on our side.",
                                              f"💪 {_ru} against {_rt}: {us} been the better team.",
                                              f"💪 Records say it: {us} {_ru}, {them} {_rt}.",
-                                             f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side."]))
+                                             f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side."] + ([
+                                             f"💪 {us} {_ru} against {_pos(them)} {_rt}. Levels to this shit.",
+                                             f"💪 {_ru} to {_rt}. {them} about to get their ass beat."] if big else [])))
             elif gap < -15 and _w(_rt) > _w(_ru):
                 pass                                     # (10/22, the owner: the old 'their record's better, we get the
                 #                                          price' line said nothing - a record against us is no reason)
@@ -704,7 +713,11 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🗑️ {them} been trash as fuck lately — {rec}.",
             f"🗑️ {rec}. {them} been straight cheeks.",
             f"🗑️ {them} are butt cheeks right now ({rec}).",
-            f"🗑️ {rec} lately — they ass. {them} straight ass right now."]))
+            f"🗑️ {rec} lately — they ass. {them} straight ass right now.",
+            f"🗑️ {them} are a trash ass team right now ({rec}). We talking shit, but the record says it.",   # (10/23: "we're
+            f"🗑️ {rec}. {them} fin to get spanked.",                                                   #  just talking shit
+            f"🗑️ A {rec} team. {them} about to get their ass beat.",                                   #  here" - with the
+            f"🗑️ {them} ({rec}) fin to get their cheeks clapped."]))                                   #  record right there)
 
     # last games: just the latest scores - and only when they back the pick (the owner, 9/30: "Kings L 1-5 vs Avalanche"
     # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
@@ -1048,7 +1061,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             must=True))
     elif key_us and key_them2:                            # both teams down a starter: one plain line, not two
         pos, nm, nm2 = _posname(key_us[0][1], lg), key_us[0][0], key_them2[0][0]
-        mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
+        mv = ""                                           # (10/23, the owner: no line-move talk in the write-up)
         out.append(v.say("keyout_both", [
             f"🚑 Both teams are down their starting {pos} — {nm} is out for {the_us}, {nm2} for {the_them}.{mv} We still riding with the algorithm.",
             f"🚑 Backups on both sides tonight: no {nm} for {the_us}, no {nm2} for {the_them}.{mv} The numbers still say this the side.",
@@ -1065,7 +1078,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             must=True))
     elif key_us:
         pos, nm = _posname(key_us[0][1], lg), key_us[0][0]
-        mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
+        mv = ""                                           # (10/23, the owner: no line-move talk in the write-up)
         pts = leg.get("line") if leg.get("market") == "spread" else None
         need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
             if pts and pts > 0 and pts != int(pts) else ""
@@ -1074,41 +1087,10 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
             f"🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}"],
             must=True))
-    if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
-        # the price moving our way: the market catching up to US - never "we're with the sharps" (the owner, 9/29: we're
-        # our own engine, not a sharp-money follower)
-        out.append(v.say("sharp", [f"💰 {us} opened {_am(op)}, now {_am(now)} — money's coming in on 'em.",   # (10/22:
-                                    f"💰 {us} went from {_am(op)} to {_am(now)} since the open.",          #  the move,
-                                    f"💰 The line moved toward {us}: {_am(op)} → {_am(now)}.",             #  no claims
-                                    f"💰 {_am(op)} at the open, {_am(now)} now. The money's on {us} too.",  #  about it)
-            f"💰 {us} been getting bet: {_am(op)} → {_am(now)}.",
-            f"💰 {us} moved {_am(op)} → {_am(now)}. We rocking with the sharps on this one."]))
-
-    # sharp money going the other way and we still like our side: say it our way, with a quick reason
-    op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
-    if lg in ("nfl", "ncaaf"):
-        op_o = op_o_fb
-    if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
-        if op_o is not None and now_o is not None and op_o != now_o:
-            move = f" ({_am(op_o)} → {_am(now_o)})"
-        else:                                             # (10/16 hoops readiness: Wake Forest "-4500 → -4500" - the
-            move = f" ({us} {_am(op)} → {_am(now)})"       # book's cap never moved; the move that fired is OUR side's
-        #                                                   price, so that's the one the card shows - never a non-move)
-        hot_ok = _streak(s_ours, tid).startswith("won") and not _streak(s_theirs, oid).startswith("won")
-        #   (10/16 truth audit: "we're on the Titans, they're the hotter team" - a 0-4 side on a 4-game skid; the
-        #    'hotter team' why needs a winning streak on our side and none on theirs, or it's another reason / none)
-        why_r = next((r for r in leg.get("reasons") or []
-                      if r in whyf and r not in said and (r != "hotter recent form" or hot_ok)), None)
-        whys = _lst(whyf[why_r]) if why_r else [NO_WHY]
-        if why_r:
-            said.add(why_r)
-        out.append(_nowhy(v.say("fade", _fx(whys,   # (10/21, the owner: "very vague" - the old pool
-            #                                         bragged about money going AGAINST us; it's a warning - say so)
-            lambda w: f"💸 Heads up: the line moved toward {the_them}{move}. We still got {the_us} — {w}.",
-            lambda w: f"💸 The money went toward {the_them}{move}. The engine still has {the_us} — {w}.",
-            lambda w: f"💸 {_cap(the_them)} got bet up{move}. We're still on {the_us} — {w}.",
-            lambda w: f"💸 Line's moving toward {the_them}{move}. Not our favorite sign, but we still like {the_us} — {w}.",
-            lambda w: f"💸 Somebody's betting {the_them}{move}. The engine didn't budge off {the_us} — {w}."))))
+    # (10/23, the owner: "we don't need to talk about the line moving. We've proved that when the line moves, it doesn't
+    #  even really matter." The 💰 money lines ('+200 → +180') and the 💸 'the line moved toward them' warning are GONE
+    #  from the write-up - the move stays a weight in the engine, the card never talks about it.
+    #  The 💸 LINE ALERT on a posted card (sports.py) is a separate warning and stays.)
 
     # who's betting who: the real splits (the same numbers Google shows) - unless the one-liner already said them
     sp_ = None if ("public fade" in said or "public ride" in said) else public_split(leg)

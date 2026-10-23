@@ -51,7 +51,8 @@ OWNER = {
     "a beast": "our player is dominating - with his numbers right there",
     "filthy": "our pitcher / goalie / QB has been nasty - with his numbers right there",
     "levels to this": "a real quality gap, or a win that showed it",
-    "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
+    # ("rocking with the sharps" came off 10/23 - the owner: "we don't need to talk about the line moving" - the cards never
+    #  mention a price move now)
     "like they stole something": "a blowout win's review (the owner loved it, 9/29 - keep it)",
     "somebody give this man his flowers": "one of OUR players went off in a win ('Trevor Lawrence went crazy. Somebody "
                                            "give this man his flowers. Cash it, baby.') - always HIS flowers (9/30)",
