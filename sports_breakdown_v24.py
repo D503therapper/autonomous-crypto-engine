@@ -98,6 +98,9 @@ def _last_parts(g, tid, pro=True):
 
 
 NBA_EARLY_GAMES = 5    # the first weeks of hoops: last season's facts carry the card until this many games are in
+REC_GAP = 3            # 10/23, the owner: "Army 4-2, Tulsa 4-3 ... we know which side we want - they both have 4 wins":
+#                        a record is a 'better team' line only 3+ games better (wins minus losses: 4-2 vs 4-3 is 1;
+#                        93-68 vs 87-75 is 13)
 MIN_REC_GAMES = 3      # a record line / a record "because" needs this many games (0-1 vs 0-1 says nothing - 10/21)
 
 
@@ -303,6 +306,14 @@ SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", 
            "Say less.", "We locked in.", "All day.", "Bank it.", "Cash it."]
 SHORT_S = ["Tap in.", "Let's eat.", "Trust the algorithm.", "We finna see.", "We gon' see.", "Get in.", "Right side.",
            "Good number.", "Say less.", "Ride it.", "Let it ride.", "Smart side."]
+
+
+def _read(leg):
+    """The read a leg's own number comes from: the weighed read (Lock / plays), the dog read, else the own read."""
+    for k in ("w_p", "dog_p", "raw_own", "p"):
+        if leg.get(k) is not None:
+            return leg[k]
+    return None
 
 
 def fair_am(p):
@@ -1253,7 +1264,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         if r == "the stronger team":
             _wr = lambda r_: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r_.split("-")[:2]])
             _ng = lambda r_: sum(int(x) for x in str(r_).split("-")[:2])
-            if rec_u and rec_t and _wr(rec_u) > _wr(rec_t) and min(_ng(rec_u), _ng(rec_t)) >= MIN_REC_GAMES:
+            _net = lambda r_: (lambda a: a[0] - a[1])([int(x) for x in str(r_).split("-")[:2]])
+            if rec_u and rec_t and _net(rec_u) - _net(rec_t) >= REC_GAP and min(_ng(rec_u), _ng(rec_t)) >= MIN_REC_GAMES:
                 #                                             (10/1 audit + the owner's never-vague rule: "just the
                 pools.append(("w_better", [                     # better team" with no fact is gone - the records say it,
                     f"💪 {us} are {rec_u}, {them} are {rec_t}. Better team, better price — that's just facts.",   # or no line)
@@ -1265,6 +1277,20 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             #   (10/15: the last wording used to end "...on the record" + the 'facts' tag - the owner's lingo rule: 'facts'
             #   follows a claim, never a number. 10/21: its own wordings, none shared with the body's 💪 pool - an earlier
             #   card's body line used to eat the headline's words and the pick went up with no line under it)
+            elif rec_u and rec_t and min(_ng(rec_u), _ng(rec_t)) >= MIN_REC_GAMES and lg != "nba" \
+                    and fair_am(_read(leg)) and _read(leg) * (leg.get("dec") or 0) > 1:
+                dm = leg.get("dog_more") or {}                # (10/23, the owner on Army 4-2 vs Tulsa 4-3 "we know which
+                ws, mg = dm.get("win_streak") or 0, dm.get("last_margin") or 0   # side we want": the same 4 wins - a
+                if ws >= 2 and mg >= 14:                      #  close record is never "the better team"; say what
+                    pools.append(("w_close_rec", [            #  separates them, or our number)
+                        f"🧠 The records look even ({us} {rec_u}, {them} {rec_t}), but {us} have won {ws} straight — the last one by {int(mg)}.",
+                        f"🧠 {rec_u} vs {rec_t} on paper. {us} have won {ws} in a row, the last by {int(mg)} — they're rolling.",
+                        f"🧠 Don't let {rec_u} vs {rec_t} fool you — {us} have won {ws} straight, the last by {int(mg)}."]))
+                else:
+                    fa = fair_am(_read(leg))
+                    pools.append(("w_close_rec", [
+                        f"🧠 The records look even ({us} {rec_u}, {them} {rec_t}); our ratings make {us} {fa} — the book's at {_am(leg['odds'])}.",
+                        f"🧠 {rec_u} vs {rec_t} on paper, but we price {us} at {fa} and the book hangs {_am(leg['odds'])}."]))
             elif nba_f and nba_f.get("us") and nba_f.get("them") and nba_f["us"][1] > nba_f["them"][1]:
                 (ru, du), (rt, dt) = nba_f["us"], nba_f["them"]     # (10/21: opening week - last season's facts)
                 import sports_nba_roster as _nr               # (who they added: the 🏀 body line says it; its own key -
@@ -1294,11 +1320,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 f"🚑 No {nm} for {them}. Short-handed teams get got.",
                 f"🚑 {them} gotta play this one without {nm}, and we're taking advantage.",
                 f"🚑 {_cap(nm)} is out for {them}. That changes the whole game — our way."]))
-        elif r == "sharp money moving this way":             # (never the headline when the engine has its own reason)
-            pools.append(("w_sharp", [
-                f"💸 The money's been coming in on {us} since the open.",          # (9/30: never "the engine had
-                f"💸 {_pos(us)} price keeps shortening since the open — the money's on them.",   # them first" - we
-                f"💸 Smart money's been moving toward {us} all day."]))           # posted AFTER the move)
+        elif r == "sharp money moving this way":             # 10/23, the owner: "we don't need to talk about the line
+            continue                                          # moving ... the one-liner talking about line movement is
+            #                                                   retarded" - the move stays a weight, never the one-liner
         elif r == "better starting pitcher" and sp_us:
             hot = form.get((True, "hot"))
             pools.append(("w_arm", [
