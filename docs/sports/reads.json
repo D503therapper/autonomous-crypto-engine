@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T23:39Z",
+ "updated": "2026-10-23T23:41Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -177,52 +177,17 @@
    "lean": null
   },
   {
-   "id": "nhl:401892564",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Canadiens",
-    "p": 0.403,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-24T00:00Z",
-   "away": "Canadiens",
-   "home": "Blackhawks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Canadiens",
-    "opp": "Blackhawks",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.617,
-    "win_p": 0.617,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "nba:401909847",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pistons",
-    "p": 0.514,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-24T00:00Z",
    "away": "Pistons",
    "home": "Heat",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Pistons",
@@ -235,39 +200,8 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "mlb:401908042",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Brewers",
-    "p": 0.559,
-    "tie": 0.114,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-24T00:00Z",
-   "away": "Rays",
-   "home": "Brewers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Brewers",
-    "opp": "Rays",
-    "market": "ml",
-    "line": null,
-    "odds": -186,
-    "p": 0.639,
-    "win_p": 0.639,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better starting pitcher"
-    ]
+    ],
+    "result": null
    }
   },
   {
