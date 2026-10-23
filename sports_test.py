@@ -10466,6 +10466,34 @@ def test_a_dog_whose_own_read_is_under_the_price_stays_at_one_unit():
     assert sports.dog_units({"date": "2026-10-23", "kind": "dog", "legs": [over]}) >= 2.0
 
 
+def test_owner_posts_build_his_ok_d_pick_with_his_units_and_it_stays_his():
+    """10/23, the owner: "post it 2 units" (Wyoming +180 - the engine's read beat the price, dog score 7.1, kept off the
+    Dog spot only by a 10-cent wobble). data/sports/owner_posts.json holds his OK'd calls; post_board builds the pick
+    like any board pick, keeps HIS units, and upgrade_dog never demotes his Dog."""
+    import json as _j
+    p = os.path.join(tempfile.mkdtemp(), "owner_posts.json")
+    rows = [{"date": "2026-10-23", "game_id": "ncaaf:1", "side": "home", "kind": "dog", "units": 2, "note": "ok"},
+            {"date": "2026-10-23", "game_id": "ncaaf:2", "side": "middle", "kind": "dog", "units": 2, "note": "bad side"},
+            {"date": "2026-10-23", "game_id": "ncaaf:3", "side": "away", "kind": "parlay", "units": 2, "note": "bad kind"},
+            {"date": "2026-10-22", "game_id": "ncaaf:4", "side": "away", "kind": "dog", "units": 2, "note": "other day"}]
+    with open(p, "w") as f:
+        _j.dump(rows, f)
+    assert [r["note"] for r in sports.owner_posts("2026-10-23", p)] == ["ok"]
+    assert sports.owner_posts("2026-10-23", os.path.join(tempfile.mkdtemp(), "none.json")) == []
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "for req in owner_posts(iso):" in src
+    leg = {"game_id": "ncaaf:1", "side": "home", "market": "ml", "odds": 180, "dec": 2.8, "edge_own": 0.1, "p": 0.39,
+           "league": "ncaaf", "start": "2099-01-01T01:00Z", "team": "Wyoming"}
+    dog = {"date": "2099-01-01", "kind": "dog", "status": "open", "legs": [dict(leg)], "owner_post": "ok", "units": 2.0}
+    assert sports.units_for(dog) == 2.0
+    play = {"date": "2099-01-01", "kind": "play", "status": "open", "legs": [{**leg, "game_id": "ncaaf:9", "edge_own": 0.5}]}
+    picks = [dog, play]
+    sports.upgrade_dog(picks, "2099-01-01", datetime(2098, 12, 31, tzinfo=timezone.utc))
+    assert dog["kind"] == "dog" and play["kind"] == "play"
+    real = sports.owner_posts("2026-10-23")
+    assert all(r["units"] <= 5 for r in real)                         # (5u = the max play)
+
+
 def test_board_preview_names_the_10_23_own_read_dog_rule():
     """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""

@@ -2066,6 +2066,20 @@ SOLO_UNITS_FROM = "2026-10-02"   # one-game days: the pick always carries units 
 MONEY_CHECK_FROM = "2026-10-01"   # picks posted from here on (a posted, graded pick's units never change after the fact)
 
 
+OWNER_POSTS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sports", "owner_posts.json")
+
+
+def owner_posts(iso, path=None):
+    """The owner's OK'd calls for a day: [{"date", "game_id", "side", "kind", "units", "note"}] (a bad file = none)."""
+    try:
+        with open(path or OWNER_POSTS_PATH) as f:
+            rows = json.load(f)
+    except (OSError, ValueError):
+        return []
+    return [r for r in rows if isinstance(r, dict) and r.get("date") == iso and r.get("game_id") and r.get("side")
+            in ("home", "away") and r.get("kind") in ("dog", "play", "lock") and r.get("units") and r.get("note")]
+
+
 def beats_price(c):
     """💰 THE MONEY CHECK (the owner, 10/1 - after the Steelers ½u at -148): a pick only carries units when its read
     beats the REAL price we pay (the juice in). Every unit pick - Lock, Dog, plays, leans - passes it or goes 0."""
@@ -3871,6 +3885,29 @@ def post_board(games, model, picks, now, day, force=False):
                 save_lock_miss(iso, miss)
         except Exception as e:                               # noqa: BLE001 - never blocks the board
             print(f"lock miss not saved: {str(e)[:80]}")
+    # 👑 THE OWNER'S CALLS (data/sports/owner_posts.json - 10/23, the owner: "post it 2 units" on Wyoming, kept off the
+    # Dog spot by a 10-cent wobble): a pick he OK'd in chat, by game + side + kind + units, built and dressed like any
+    # board pick (its read, its card, who's out) - once, only before its game starts, never against a side we're on.
+    for req in owner_posts(iso):
+        if any(p["date"] == iso and p.get("owner_post") == req["note"] for p in picks):
+            continue
+        c = next((c for c in raw_cands if c["game_id"] == req["game_id"] and c["side"] == req["side"]
+                  and c.get("market") == req.get("market", "ml")), None)
+        if c is None or _start(c) <= now or ours.get(c["game_id"], c["side"]) != c["side"]:
+            continue
+        if req["kind"] == "dog":
+            dog_gate(c)                                      # (its dog read + score ride on the leg, like a gated Dog)
+        b = {"legs": [c], "dec": c["dec"], "p_hit": c.get("dog_p") or c["p"]}
+        dress(b)
+        pk = {"date": iso, "kind": req["kind"], "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
+              "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
+              "stake": STAKE, "status": "open", "pnl": 0.0, "lean": False, "midday": started,
+              "owner_post": req["note"], "units": float(req["units"])}
+        c["tier"] = "lock" if req["kind"] == "lock" else leg_tier(c)
+        pk["tier"] = pick_tier({**pk, "tier": None})
+        picks.append(pk)
+        posted[req["kind"]] = pk
+        new.append(pk)
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("lean", viewer_leans, MAX_LEANS)):
@@ -3964,7 +4001,7 @@ def upgrade_dog(picks, iso, now):
     open_ = lambda p: p.get("date") == iso and p.get("status") == "open" and not p.get("lean") \
         and len(p.get("legs") or []) == 1 and now < _start(p["legs"][0])
     dog = next((p for p in picks if p.get("kind") == "dog" and open_(p)), None)
-    if dog is None or dog_value(dog) is None:
+    if dog is None or dog_value(dog) is None or dog.get("owner_post"):   # (10/23: the owner's Dog stays his Dog)
         return None
     best = max((p for p in picks if p.get("kind") == "play" and open_(p) and p["legs"][0].get("market") == "ml"
                 and not p.get("gap")                         # (10/17: a 🔍 play rides the raw read - never the Dog)
