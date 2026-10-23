@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T16:28Z",
+ "updated": "2026-10-23T17:14Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -128,7 +128,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.497,
+    "p": 0.516,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -144,9 +144,9 @@
     "opp": "Knicks",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": []
    }
   },
@@ -186,7 +186,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.68,
+    "p": 0.687,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -204,7 +204,7 @@
     "line": -8.5,
     "odds": -115,
     "p": 0.502,
-    "win_p": 0.749,
+    "win_p": 0.757,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -226,8 +226,8 @@
    "start": "2026-10-23T23:00Z",
    "away": "Timberwolves",
    "home": "Magic",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Magic",
     "opp": "Timberwolves",
@@ -248,7 +248,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UConn",
-    "p": 0.742,
+    "p": 0.736,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -266,7 +266,7 @@
     "line": -13.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.8,
+    "win_p": 0.794,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -494,7 +494,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.501,
+    "p": 0.498,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -510,9 +510,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.516,
-    "win_p": 0.516,
+    "odds": -108,
+    "p": 0.514,
+    "win_p": 0.514,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -584,7 +584,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.56,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -600,12 +600,11 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -646,7 +645,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "NC State",
-    "p": 0.623,
+    "p": 0.627,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -655,17 +654,19 @@
    "start": "2026-10-24T02:30Z",
    "away": "NC State",
    "home": "Stanford",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "NC State",
     "opp": "Stanford",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.668,
-    "win_p": 0.668,
-    "reasons": []
+    "market": "spread",
+    "line": -7.5,
+    "odds": -110,
+    "p": 0.5,
+    "win_p": 0.672,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {

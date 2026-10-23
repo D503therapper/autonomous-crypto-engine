@@ -18777,5 +18777,157 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "american": -112,
+  "date": "2026-10-23",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "h2h:0",
+     "w_sharp:1",
+     "sharp:0",
+     "splits_f:2",
+     "bottom_c:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Magic out: G Anthony Black (30 min a night last year), F Jonathan Isaac, F Noah Penda, F Izaiyah Nelson.",
+     "\ud83d\udcb0 Magic opened +105, now -112 \u2014 money's coming in on 'em.",
+     "\ud83d\udcca The Timberwolves got 89% of the tickets (94% of the money). We got the Magic.",
+     "\ud83c\udfc0 Magic: their bench outscored teams by 7.2 per 48 minutes last season - deep squad \u00b7 the coach plays 8 guys real minutes.",
+     "\ud83d\udfe1 Bottom line: Magic (-112). 50-50 type game. The engine leans Magic - no units on it."
+    ],
+    "bv": 52,
+    "coach": [
+     null,
+     true
+    ],
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.8928571428571428,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 1,
+     "home_after_trip": 0,
+     "last_margin": -7.0,
+     "last_ot": false,
+     "last_pts": 125.0,
+     "last_year_wp": 0.549,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_last_margin": 25.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 131.0,
+     "opp_rest": 1,
+     "opp_trip_game": 2,
+     "rest": 2,
+     "spread_gap": -0.0881,
+     "total": 235.5,
+     "total_vs_league": 5.0,
+     "win_streak": 0
+    },
+    "drift": -0.0368,
+    "edge": -0.027562986184719307,
+    "edge_own": -0.02405533433359852,
+    "elo_edge": 51.3,
+    "fact": "The Magic's bench was +7.2 per 48 minutes last season, the Timberwolves' +2.8.",
+    "facts": [
+     [
+      "The Magic's bench was +7.2 per 48 minutes last season, the Timberwolves' +2.8.",
+      "Last season the Magic's bench ran +7.2 a 48 minutes, the Timberwolves' +2.8.",
+      "Bench numbers from last year: the Magic +7.2 per 48, the Timberwolves +2.8."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -7.0,
+     -4,
+     -135,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909845",
+    "home": true,
+    "hot_key": true,
+    "hurt": [],
+    "intl": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -112,
+    "opp": "Timberwolves",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Donte DiVincenzo (G)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Anthony Black (G)",
+     "Jonathan Isaac (F)",
+     "Noah Penda (F)",
+     "Izaiyah Nelson (F)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5137403091854313,
+    "p_market": 0.5043297540699689,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.5649,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 1,
+    "side": "home",
+    "start": "2026-10-23T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Magic",
+    "team_id": "19",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 Magic's price keeps shortening since the open \u2014 the money's on them."
+   }
+  ],
+  "p_hit": 0.5137,
+  "pnl": 0.0,
+  "posted": "2026-10-23T17:12Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
