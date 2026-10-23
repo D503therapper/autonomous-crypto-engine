@@ -3850,6 +3850,7 @@ def post_board(games, model, picks, now, day, force=False):
                 leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
                 leg["why_line"] = same.get("why_line", "")
             else:
+                leg["is_lean"] = bool(b.get("lean"))     # (10/23: a lean's one-liner keeps its no-units tone)
                 leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
@@ -4265,6 +4266,7 @@ def add_breakdowns(games, model, picks):
             leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
             leg["why_line"] = same.get("why_line", "")
         else:
+            leg["is_lean"] = id(leg) in leans            # (10/23: a lean's one-liner keeps its no-units tone)
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             if id(leg) in leans:
                 leg["breakdown"] = sports_breakdown.lean_tone(leg["breakdown"], leg, leans[id(leg)])
