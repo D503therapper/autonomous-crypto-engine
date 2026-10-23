@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 103,
+  "n": 105,
   "beat": 33,
-  "same": 35,
-  "worse": 35,
-  "avg_pts": 0.05
+  "same": 36,
+  "worse": 36,
+  "avg_pts": 0.04
  },
  "unit_plays": {
   "n": 44,
@@ -22,11 +22,11 @@
    "avg_pts": -0.07
   },
   "lean": {
-   "n": 59,
+   "n": 61,
    "beat": 19,
-   "same": 16,
-   "worse": 24,
-   "avg_pts": -0.12
+   "same": 17,
+   "worse": 25,
+   "avg_pts": -0.13
   },
   "lock": {
    "n": 11,
@@ -52,18 +52,18 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 5,
+   "n": 6,
    "beat": 2,
    "same": 2,
-   "worse": 1,
-   "avg_pts": 0.24
+   "worse": 2,
+   "avg_pts": 0.03
   },
   "ncaaf": {
-   "n": 26,
+   "n": 27,
    "beat": 10,
-   "same": 9,
+   "same": 10,
    "worse": 7,
-   "avg_pts": 0.4
+   "avg_pts": 0.39
   },
   "nfl": {
    "n": 15,
@@ -1524,6 +1524,34 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "76ers",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -142,
+   "pts": -1.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Kennesaw St",
+   "market": "ml",
+   "line": null,
+   "odds": 300,
+   "close": 300,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   },
   {
    "date": "2026-10-22",
