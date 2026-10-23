@@ -145,7 +145,7 @@ def season_of(start):
 
 def card_line(g, side, cur, data=None):
     """🌟 The card's star-power FACT line for an NBA side (info, never a weight - the 10/23 study: the close prices
-    the stars): "🌟 76ers: 2 All-Stars on the floor tonight - LeBron James (All-NBA 2026), Joel Embiid (2026 All-Star) ·
+    the stars): "🌟 76ers: 2 stars on the floor tonight - LeBron James (All-NBA 2026), Joel Embiid (2026 All-Star) ·
     Paul George is out." Quiet unless the saved rosters are there AND last season's honors were fetched from the
     source (never the compiled list). "" = nothing to say."""
     data = data if data is not None else load()
@@ -164,7 +164,8 @@ def card_line(g, side, cur, data=None):
     sat = team([n for n in names if _nm(n) in out], season, data)["stars"]
     parts = []
     if on["n"]:
-        parts.append(f"{on['n']} All-Star{'s' if on['n'] > 1 else ''} on the floor tonight - "
+        # "stars", never a count of All-Stars: the 2025 / 2026 All-Star lists are the final's box only (10/23)
+        parts.append(f"{on['n']} star{'s' if on['n'] > 1 else ''} on the floor tonight - "
                      + ", ".join(f"{n} ({lab})" for n, _, lab in on["stars"][:4]))
     if sat:
         parts.append(", ".join(n for n, _, _ in sat[:2]) + (" is out" if len(sat) == 1 else " are out"))
