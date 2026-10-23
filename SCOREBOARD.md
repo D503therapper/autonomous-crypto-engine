@@ -1,8 +1,8 @@
 # Scoreboard (pretend money)
 
-**Stocks: $476.65**  (-23.35)  
-**DEX: $815.33 (-184.67)** · Scammed: 0  
+**Stocks: $482.01**  (-17.99)  
+**DEX: $814.87 (-185.13)** · Scammed: 0  
 
-**Total: $1,291.99** of $1,500  (-208.01)
+**Total: $1,296.88** of $1,500  (-203.12)
 
-Updated 2026-10-23 13:29 UTC
+Updated 2026-10-23 17:08 UTC
