@@ -1,0 +1,317 @@
+sides 12346 seasons [2021, 2022, 2023, 2024, 2025, 2026]
+
+=== DOGS +100..+350 at the close, flat 1u (the baseline = every dog in the band) ===
+  all dogs
+     train n 1921 683-1238 35.6% (price said 35.9%) ROI  -4.6% -88.7u
+     blind n 2648 923-1725 34.9% (price said 35.2%) ROI  -5.5% -145.7u   2023: 892 -8% | 2024: 874 -1% | 2025: 869 -7% | 2026: 13 -49%
+  band +100..+150
+     train n  856 356-500 41.6% (price said 42.9%) ROI  -7.3% -62.5u
+     blind n 1064 455-609 42.8% (price said 42.9%) ROI  -4.7% -49.7u   2023: 386 -5% | 2024: 318 -7% | 2025: 351 -2% | 2026: 9 -26%
+  band +150..+250
+     train n  792 260-532 32.8% (price said 32.8%) ROI  -4.9% -38.7u
+     blind n 1138 365-773 32.1% (price said 33.1%) ROI  -8.0% -90.6u   2023: 356 -5% | 2024: 407 -9% | 2025: 373 -9% | 2026: 2 -100%
+  band +250..+350
+     train n  328 88-240 26.8% (price said 24.5%) ROI  +4.9% +16.0u
+     blind n  538 126-412 23.4% (price said 24.4%) ROI  -6.9% -36.9u   2023: 176 -27% | 2024: 176 +22% | 2025: 184 -14% | 2026: 2 -100%
+
+--- star gap (dog's score on the floor tonight minus the favorite's) ---
+  gap >= 0
+     train n  602 213-389 35.4% (price said 38.2%) ROI -11.6% -69.6u
+     blind n  787 298-489 37.9% (price said 38.0%) ROI  -5.4% -42.2u   2023: 245 +4% | 2024: 276 -14% | 2025: 260 -4% | 2026: 6 -59%
+  gap >= 2
+     train n  210 78-132 37.1% (price said 38.8%) ROI  -7.8% -16.5u
+     blind n  219 90-129 41.1% (price said 39.7%) ROI  -1.0% -2.1u   2023: 76 +8% | 2024: 85 -23% | 2025: 58 +20%
+  gap >= 4
+     train n   39 17-22 43.6% (price said 41.9%) ROI  -0.9% -0.4u
+     blind n   55 26-29 47.3% (price said 42.1%) ROI  +7.5% +4.2u   2023: 24 +44% | 2024: 18 -23% | 2025: 13 -17%
+  gap >= 6
+     train n    6 3-3 50.0% (price said 44.3%) ROI  +4.5% +0.3u
+     blind n    3 1-2 33.3% (price said 45.0%) ROI -32.7% -1.0u   2023: 1 -100% | 2025: 2 +1%
+  gap >= 8
+     train n 0
+     blind n    1 0-1  0.0% (price said 40.1%) ROI -100.0% -1.0u   2023: 1 -100%
+  gap <= -4 (the favorite has the stars - the fade?)
+     train n  373 127-246 34.0% (price said 33.0%) ROI  -1.0% -3.9u
+     blind n  572 190-382 33.2% (price said 32.2%) ROI  +1.4% +8.2u   2023: 214 -12% | 2024: 202 +10% | 2025: 156 +9%
+  gap <= -8
+     train n   18 3-15 16.7% (price said 32.1%) ROI -39.3% -7.1u
+     blind n   35 15-20 42.9% (price said 32.2%) ROI +33.4% +11.7u   2023: 20 +7% | 2024: 5 +33% | 2025: 10 +86%
+
+--- star COUNT gap (All-Star-level men, value 2+) ---
+  as many or more stars by 0+ (n_gap >= 0)
+     train n  976 348-628 35.7% (price said 37.0%) ROI  -6.4% -62.4u
+     blind n 1395 487-908 34.9% (price said 36.6%) ROI  -9.6% -134.0u   2023: 417 -6% | 2024: 459 -8% | 2025: 509 -13% | 2026: 10 -58%
+  as many or more stars by 1+ (n_gap >= 1)
+     train n  249 90-159 36.1% (price said 39.6%) ROI -11.4% -28.5u
+     blind n  311 112-199 36.0% (price said 38.9%) ROI -11.7% -36.3u   2023: 90 -5% | 2024: 122 -21% | 2025: 98 -5% | 2026: 1 -100%
+  as many or more stars by 2+ (n_gap >= 2)
+     train n   42 17-25 40.5% (price said 40.8%) ROI  -7.9% -3.3u
+     blind n   34 12-22 35.3% (price said 42.0%) ROI -21.6% -7.3u   2023: 4 +16% | 2024: 17 -48% | 2025: 12 +10% | 2026: 1 -100%
+  dog has 2+ stars, the favorite none
+     train n   35 15-20 42.9% (price said 41.3%) ROI  -1.4% -0.5u
+     blind n   29 11-18 37.9% (price said 42.0%) ROI -16.2% -4.7u   2023: 4 +16% | 2024: 16 -45% | 2025: 9 +20%
+  dog has 3+ stars on the floor
+     train n   15 4-11 26.7% (price said 39.9%) ROI -40.9% -6.1u
+     blind n   11 2-9 18.2% (price said 41.6%) ROI -59.1% -6.5u   2023: 3 -29% | 2024: 2 -100% | 2025: 5 -53% | 2026: 1 -100%
+
+--- the whole roster so far (men out tonight count too - no 'who played' look-ahead) ---
+  roster gap >= 0
+     train n  681 245-436 36.0% (price said 37.0%) ROI  -6.5% -44.1u
+     blind n  932 357-575 38.3% (price said 37.0%) ROI  -0.4% -3.4u   2023: 298 +12% | 2024: 311 -11% | 2025: 317 -1% | 2026: 6 -59%
+  roster gap >= 2
+     train n  319 125-194 39.2% (price said 37.4%) ROI  +2.3% +7.2u
+     blind n  393 150-243 38.2% (price said 37.5%) ROI  -1.6% -6.3u   2023: 121 +14% | 2024: 144 -15% | 2025: 128 -1%
+  roster gap >= 4
+     train n  106 38-68 35.8% (price said 37.0%) ROI  -0.2% -0.2u
+     blind n  115 42-73 36.5% (price said 37.5%) ROI  -7.4% -8.5u   2023: 27 +15% | 2024: 52 -14% | 2025: 36 -14%
+
+--- a dog that ADDED stars in the offseason (value-2+ men not on last season's team) ---
+  added >= 1
+     train n  126 46-80 36.5% (price said 38.0%) ROI  -8.0% -10.1u
+     blind n  188 60-128 31.9% (price said 36.8%) ROI -17.4% -32.7u   2023: 56 -13% | 2024: 105 -18% | 2025: 26 -31% | 2026: 1 +145%
+  added >= 2
+     train n 0
+     blind n 0   
+  added >= 2 AND gap >= 0
+     train n 0
+     blind n 0   
+
+--- early season (team games 1-20) vs the rest ---
+  games 1-20, gap >= 0
+     train n  149 56-93 37.6% (price said 39.7%) ROI  -8.2% -12.2u
+     blind n  182 71-111 39.0% (price said 39.2%) ROI  -6.6% -12.0u   2023: 63 +6% | 2024: 58 -27% | 2025: 55 +7% | 2026: 6 -59%
+  games 21+, gap >= 0
+     train n  453 157-296 34.7% (price said 37.7%) ROI -12.7% -57.4u
+     blind n  605 227-378 37.5% (price said 37.7%) ROI  -5.0% -30.2u   2023: 182 +3% | 2024: 218 -11% | 2025: 205 -6%
+  games 1-20, gap >= 2
+     train n   44 22-22 50.0% (price said 41.6%) ROI +18.6% +8.2u
+     blind n   46 18-28 39.1% (price said 40.5%) ROI -10.8% -4.9u   2023: 17 -10% | 2024: 14 -30% | 2025: 15 +7%
+  games 21+, gap >= 2
+     train n  166 56-110 33.7% (price said 38.1%) ROI -14.9% -24.7u
+     blind n  173 72-101 41.6% (price said 39.6%) ROI  +1.6% +2.8u   2023: 59 +13% | 2024: 71 -22% | 2025: 43 +25%
+  games 1-20, gap >= 4
+     train n    7 4-3 57.1% (price said 45.2%) ROI +20.6% +1.4u
+     blind n   13 5-8 38.5% (price said 43.3%) ROI -15.8% -2.1u   2023: 8 +11% | 2024: 3 -32% | 2025: 2 -100%
+  games 21+, gap >= 4
+     train n   32 13-19 40.6% (price said 41.2%) ROI  -5.6% -1.8u
+     blind n   42 21-21 50.0% (price said 41.7%) ROI +14.8% +6.2u   2023: 16 +60% | 2024: 15 -21% | 2025: 11 -1%
+  games 1-10, gap >= 2
+     train n   18 8-10 44.4% (price said 41.3%) ROI  -2.7% -0.5u
+     blind n   26 11-15 42.3% (price said 41.7%) ROI  -2.0% -0.5u   2023: 11 +0% | 2024: 8 -5% | 2025: 7 -3%
+  games 1-20, added >= 2
+     train n 0
+     blind n 0   
+
+--- by price band, gap >= 2 ---
+  +100..+150 gap >= 2
+     train n  127 48-79 37.8% (price said 43.8%) ROI -18.8% -23.9u
+     blind n  141 64-77 45.4% (price said 43.5%) ROI  -0.7% -1.0u   2023: 51 +8% | 2024: 50 -17% | 2025: 40 +9%
+  +150..+250 gap >= 2
+     train n   71 27-44 38.0% (price said 32.8%) ROI +11.2% +7.9u
+     blind n   73 25-48 34.2% (price said 34.3%) ROI  -4.2% -3.1u   2023: 25 +1% | 2024: 32 -38% | 2025: 16 +55%
+  +250..+350 gap >= 2
+     train n   16 3-13 18.8% (price said 24.2%) ROI -28.1% -4.5u
+     blind n   12 3-9 25.0% (price said 25.3%) ROI  -0.7% -0.1u   2023: 3 +33% | 2024: 6 -31% | 2025: 3 +26%
+
+=== AT THE OPENING LINE (2023-25 hold an open; the side a dog +100..+350 at the open) ===
+  all open dogs
+     train n 0
+     blind n 2657 917-1740 34.5% (price said 35.6%) ROI  -7.1% -188.2u   2023: 866 -14% | 2024: 893 -4% | 2025: 882 -3% | 2026: 16 -31%
+  (gap = who PLAYED tonight: the open can't know who sits - a LEAK of game-day news; roster gap = every man on the roster so far, out or not - the honest open read)
+  open, gap >= 0 (leaky)
+     train n 0
+     blind n  819 333-486 40.7% (price said 38.0%) ROI  +3.8% +31.0u   2023: 253 +9% | 2024: 284 -2% | 2025: 273 +6% | 2026: 9 -25%
+  open, ROSTER gap >= 0 (honest)
+     train n 0
+     blind n  899 350-549 38.9% (price said 37.4%) ROI  +1.0% +9.3u   2023: 275 +10% | 2024: 307 -9% | 2025: 308 +4% | 2026: 9 -25%
+     ...the same sides graded at the CLOSE: n  741 278-463 37.5% (price said 35.9%) ROI  +1.5% +10.9u
+     ...their open no-vig 37.4% -> close 37.4%
+  open, gap >= 2 (leaky)
+     train n 0
+     blind n  266 128-138 48.1% (price said 39.2%) ROI +18.5% +49.1u   2023: 98 +17% | 2024: 92 +7% | 2025: 75 +33% | 2026: 1 +120%
+  open, ROSTER gap >= 2 (honest)
+     train n 0
+     blind n  361 145-216 40.2% (price said 38.2%) ROI  +3.6% +13.0u   2023: 114 +18% | 2024: 136 -4% | 2025: 110 -2% | 2026: 1 +120%
+     ...the same sides graded at the CLOSE: n  289 109-180 37.7% (price said 35.9%) ROI  +1.7% +5.0u
+     ...their open no-vig 38.2% -> close 38.5%
+  open, gap >= 4 (leaky)
+     train n 0
+     blind n   74 41-33 55.4% (price said 39.9%) ROI +36.7% +27.1u   2023: 31 +52% | 2024: 27 +32% | 2025: 16 +14%
+  open, ROSTER gap >= 4 (honest)
+     train n 0
+     blind n  108 47-61 43.5% (price said 38.6%) ROI +11.1% +12.0u   2023: 28 +34% | 2024: 52 +16% | 2025: 28 -22%
+     ...the same sides graded at the CLOSE: n   82 29-53 35.4% (price said 35.8%) ROI  -4.8% -3.9u
+     ...their open no-vig 38.6% -> close 40.2%
+  open, ROSTER gap >= 2, games 1-20
+     train n 0
+     blind n   63 28-35 44.4% (price said 39.8%) ROI  +9.1% +5.7u   2023: 21 +11% | 2024: 22 +14% | 2025: 19 -4% | 2026: 1 +120%
+  open, ROSTER gap >= 2, games 21+
+     train n 0
+     blind n  298 117-181 39.3% (price said 37.8%) ROI  +2.4% +7.3u   2023: 93 +19% | 2024: 114 -8% | 2025: 91 -2%
+  open, ROSTER gap <= -4 (the favorite's stars)
+     train n 0
+     blind n  547 185-362 33.8% (price said 33.7%) ROI  -4.7% -25.6u   2023: 177 -21% | 2024: 211 +3% | 2025: 159 +3%
+  open, ROSTER gap >= 2 by open price band:
+     +100..+150
+     train n 0
+     blind n  199 87-112 43.7% (price said 43.5%) ROI  -3.5% -6.9u   2023: 70 +7% | 2024: 68 -8% | 2025: 60 -12% | 2026: 1 +120%
+     +150..+250
+     train n 0
+     blind n  141 49-92 34.8% (price said 33.8%) ROI  +0.7% +0.9u   2023: 40 +28% | 2024: 55 -19% | 2025: 46 +1%
+     +250..+350
+     train n 0
+     blind n   35 13-22 37.1% (price said 24.6%) ROI +48.6% +17.0u   2023: 6 +93% | 2024: 21 +53% | 2025: 8 +2%
+  open favorites -150..-100, all
+     train n 0
+     blind n 1264 681-583 53.9% (price said 52.5%) ROI  -1.8% -22.2u   2023: 519 -1% | 2024: 375 -1% | 2025: 364 -3% | 2026: 6 -41%
+  open favorites -150..-100, ROSTER gap >= 4
+     train n 0
+     blind n  150 81-69 54.0% (price said 53.3%) ROI  -2.8% -4.3u   2023: 58 +7% | 2024: 52 -10% | 2025: 40 -7%
+  open favorites -150..-100, ROSTER gap <= -2
+     train n 0
+     blind n  294 153-141 52.0% (price said 51.6%) ROI  -3.5% -10.3u   2023: 124 -9% | 2024: 94 +4% | 2025: 75 -4% | 2026: 1 -100%
+
+=== FAVORITES -150..-100 with the star edge ===
+  all favorites -150..-100
+     train n  780 411-369 52.7% (price said 53.1%) ROI  -5.0% -38.9u
+     blind n  996 519-477 52.1% (price said 52.9%) ROI  -5.6% -56.0u   2023: 359 -7% | 2024: 303 -1% | 2025: 324 -9% | 2026: 10 +9%
+  favorite gap >= 4
+     train n   89 44-45 49.4% (price said 53.7%) ROI -12.2% -10.8u
+     blind n   84 51-33 60.7% (price said 53.4%) ROI  +9.3% +7.8u   2023: 42 +6% | 2024: 14 +42% | 2025: 28 -2%
+  favorite gap >= 6
+     train n   23 10-13 43.5% (price said 53.5%) ROI -24.1% -5.5u
+     blind n   15 8-7 53.3% (price said 53.8%) ROI  -5.0% -0.7u   2023: 10 +6% | 2024: 1 -100% | 2025: 4 -9%
+  favorite gap >= 8
+     train n    2 1-1 50.0% (price said 53.7%) ROI  -6.1% -0.1u
+     blind n    4 2-2 50.0% (price said 53.4%) ROI  -9.5% -0.4u   2023: 4 -10%
+  favorite n_gap >= 2
+     train n   86 35-51 40.7% (price said 53.8%) ROI -28.4% -24.4u
+     blind n   63 39-24 61.9% (price said 53.9%) ROI +10.5% +6.6u   2023: 20 +6% | 2024: 18 +29% | 2025: 24 -3% | 2026: 1 +85%
+  favorite gap <= -2 (the dog has more stars)
+     train n  175 94-81 53.7% (price said 52.2%) ROI  -1.6% -2.8u
+     blind n  188 87-101 46.3% (price said 52.5%) ROI -15.7% -29.5u   2023: 70 -14% | 2024: 59 -14% | 2025: 59 -20%
+  favorites past -150, gap >= 6
+     train n  171 132-39 77.2% (price said 76.3%) ROI  -2.0% -3.5u
+     blind n  362 281-81 77.6% (price said 79.1%) ROI  -6.3% -22.9u   2023: 151 -1% | 2024: 125 -9% | 2025: 86 -11%
+
+=== win % minus the price, all sides, by star gap bucket (does the market price the stars?) ===
+  gap [-99, -8) train: n    20 won 10.0% price 30.2% diff -20.2
+  gap [-99, -8) blind: n    66 won 31.8% price 20.8% diff +11.0
+  gap [ -8, -4) train: n   527 won 33.6% price 30.0% diff +3.6
+  gap [ -8, -4) blind: n   911 won 26.3% price 26.6% diff -0.3
+  gap [ -4, -1) train: n  1269 won 39.9% price 40.1% diff -0.2
+  gap [ -4, -1) blind: n  1723 won 34.9% price 36.8% diff -1.9
+  gap [ -1,  1) train: n  1153 won 50.0% price 49.1% diff +0.8
+  gap [ -1,  1) blind: n  1739 won 49.3% price 49.5% diff -0.2
+  gap [  1,  4) train: n  1329 won 58.5% price 59.2% diff -0.7
+  gap [  1,  4) blind: n  1862 won 62.6% price 61.1% diff +1.5
+  gap [  4,  8) train: n   591 won 66.3% price 69.4% diff -3.1
+  gap [  4,  8) blind: n  1029 won 74.1% price 73.0% diff +1.0
+  gap [  8, 99) train: n    35 won 88.6% price 73.1% diff +15.4
+  gap [  8, 99) blind: n    92 won 70.7% price 78.2% diff -7.5
+
+=== THE OWNER (10/23 later): (1) STAR COUNT MATCHUPS - 'a team with no All-Stars can't be expected to upset a team of All-Stars' ===
+  dog with 0 stars vs a favorite with 2+ (the dog)
+     train n  277 96-181 34.7% (price said 33.3%) ROI  +1.2% +3.2u
+     blind n  356 116-240 32.6% (price said 32.4%) ROI  +0.4% +1.4u   2023: 128 -16% | 2024: 124 +13% | 2025: 104 +5%
+  ...the same games, the FAVORITE (any price)
+     train n  443 309-134 69.8% (price said 71.8%) ROI  -7.6% -33.8u
+     blind n  637 475-162 74.6% (price said 74.5%) ROI  -3.2% -20.1u   2023: 240 +1% | 2024: 207 -6% | 2025: 189 -5% | 2026: 1 +85%
+  ...the favorite at -150..-100
+     train n   69 29-40 42.0% (price said 53.9%) ROI -25.9% -17.9u
+     blind n   56 37-19 66.1% (price said 53.8%) ROI +17.8% +10.0u   2023: 17 +25% | 2024: 18 +29% | 2025: 20 -1% | 2026: 1 +85%
+  ...the favorite at -300..-151
+     train n  142 101-41 71.1% (price said 65.5%) ROI  +3.6% +5.1u
+     blind n  199 130-69 65.3% (price said 65.5%) ROI  -3.7% -7.4u   2023: 66 +3% | 2024: 77 -10% | 2025: 56 -2%
+  dog with 0 stars vs a favorite with 1+
+     train n  730 254-476 34.8% (price said 34.0%) ROI  -1.7% -12.3u
+     blind n  940 308-632 32.8% (price said 32.9%) ROI  -3.7% -34.7u   2023: 313 -18% | 2024: 323 +7% | 2025: 303 +0% | 2026: 1 -100%
+  dog with 0 stars, any favorite
+     train n 1170 412-758 35.2% (price said 34.5%) ROI  -2.1% -25.0u
+     blind n 1577 520-1057 33.0% (price said 34.0%) ROI  -7.0% -110.0u   2023: 444 -16% | 2024: 522 +3% | 2025: 603 -8% | 2026: 8 -73%
+  dog with 1+ stars vs a favorite with 0
+     train n  130 57-73 43.8% (price said 39.6%) ROI  +6.5% +8.5u
+     blind n  185 67-118 36.2% (price said 39.2%) ROI -12.1% -22.5u   2023: 41 +11% | 2024: 69 -39% | 2025: 75 +0%
+  dog with 2+ stars vs a favorite with 2+
+     train n   78 24-54 30.8% (price said 38.7%) ROI -21.9% -17.0u
+     blind n  110 32-78 29.1% (price said 38.3%) ROI -30.1% -33.1u   2023: 53 -8% | 2024: 36 -60% | 2025: 21 -35%
+  0 stars vs 0 stars (the dog)
+     train n  440 158-282 35.9% (price said 35.5%) ROI  -2.9% -12.7u
+     blind n  637 212-425 33.3% (price said 35.6%) ROI -11.8% -75.3u   2023: 131 -12% | 2024: 199 -4% | 2025: 300 -15% | 2026: 7 -69%
+  does a team with NO stars win less than its price says, whoever it plays?
+     0-star teams, all prices   train: n  2318 won 41.4% price 41.1% diff +0.3  ROI  -1.9%
+     0-star teams, all prices   blind: n  3488 won 39.7% price 40.0% diff -0.2  ROI  -8.3%
+     0-star vs 2+ stars         train: n   479 won 32.2% price 30.5% diff +1.6  ROI  +3.0%
+     0-star vs 2+ stars         blind: n   666 won 27.0% price 26.9% diff +0.1  ROI  -1.8%
+     2+ stars vs 0-star         train: n   479 won 67.8% price 69.5% diff -1.6  ROI  -4.0%
+     2+ stars vs 0-star         blind: n   666 won 73.0% price 73.1% diff -0.1  ROI  -3.7%
+     3+ stars on the floor      train: n   165 won 62.4% price 65.9% diff -3.5  ROI  -4.3%
+     3+ stars on the floor      blind: n   112 won 63.4% price 69.3% diff -5.9  ROI -12.7%
+
+=== (2) STAR FORM - a star's last 5 games' points a minute vs his own baseline (+/-20% = hot / cold; sports_form's HOT_W found the books OVER-rate a hot key man) ===
+  dog with a HOT star
+     train n  135 52-83 38.5% (price said 36.9%) ROI  +1.7% +2.3u
+     blind n  127 45-82 35.4% (price said 35.3%) ROI  -6.6% -8.4u   2023: 45 +28% | 2024: 49 -8% | 2025: 33 -52%
+  dog with a COLD star
+     train n   56 20-36 35.7% (price said 39.1%) ROI -14.6% -8.2u
+     blind n  113 42-71 37.2% (price said 37.2%) ROI  -4.7% -5.3u   2023: 37 -5% | 2024: 60 -12% | 2025: 16 +24%
+  dog vs a favorite with a HOT star
+     train n  210 84-126 40.0% (price said 36.0%) ROI  +6.6% +13.9u
+     blind n  217 94-123 43.3% (price said 35.7%) ROI +18.9% +41.1u   2023: 84 +8% | 2024: 78 +39% | 2025: 55 +6%
+  dog vs a favorite with a COLD star
+     train n  145 51-94 35.2% (price said 36.3%) ROI  -5.9% -8.6u
+     blind n  207 68-139 32.9% (price said 33.8%) ROI  -4.4% -9.1u   2023: 90 +0% | 2024: 75 -5% | 2025: 42 -13%
+  favorite -150..-100 with a HOT star
+     train n   84 45-39 53.6% (price said 53.9%) ROI  -4.3% -3.6u
+     blind n   80 42-38 52.5% (price said 53.0%) ROI  -5.0% -4.0u   2023: 31 -7% | 2024: 29 +6% | 2025: 20 -18%
+  favorite -150..-100 with a COLD star
+     train n   51 22-29 43.1% (price said 54.0%) ROI -23.6% -12.0u
+     blind n   52 30-22 57.7% (price said 52.7%) ROI  +4.7% +2.5u   2023: 27 +8% | 2024: 13 +22% | 2025: 12 -22%
+  favorite -150..-100 vs a dog with a HOT star
+     train n   61 28-33 45.9% (price said 52.9%) ROI -16.4% -10.0u
+     blind n   59 24-35 40.7% (price said 52.2%) ROI -25.9% -15.3u   2023: 21 -48% | 2024: 24 -16% | 2025: 14 -10%
+  all prices, win % minus the price:
+     side with a hot star       train: n   418 won 54.8% price 56.4% diff -1.6  ROI  -5.7%
+     side with a hot star       blind: n   483 won 55.1% price 59.0% diff -4.0  ROI -10.9%
+     side with a cold star      train: n   250 won 60.0% price 60.5% diff -0.5  ROI  -0.7%
+     side with a cold star      blind: n   442 won 60.0% price 59.5% diff +0.4  ROI  -5.1%
+     stars, none hot or cold    train: n  1967 won 58.1% price 58.0% diff +0.1  ROI  -4.6%
+     stars, none hot or cold    blind: n  3029 won 59.7% price 58.8% diff +0.9  ROI  -2.6%
+
+=== (3) A STAR OUT TONIGHT (a value-2+ man who played for them this season, not in tonight's box) ===
+  dog missing a star
+     train n  517 180-337 34.8% (price said 35.2%) ROI  -4.6% -23.6u
+     blind n  692 244-448 35.3% (price said 34.8%) ROI  -0.9% -6.3u   2023: 226 +6% | 2024: 208 -7% | 2025: 258 -2%
+  dog vs a favorite missing a star
+     train n  379 141-238 37.2% (price said 36.8%) ROI  -4.4% -16.7u
+     blind n  507 176-331 34.7% (price said 35.7%) ROI  -8.7% -43.9u   2023: 132 -10% | 2024: 176 +2% | 2025: 199 -17%
+  dog vs a favorite missing a star, the dog has all its stars
+     train n  275 103-172 37.5% (price said 36.7%) ROI  -3.7% -10.3u
+     blind n  371 123-248 33.2% (price said 35.5%) ROI -12.3% -45.8u   2023: 96 -19% | 2024: 129 +2% | 2025: 146 -21%
+  favorite -150..-100 missing a star
+     train n  162 86-76 53.1% (price said 52.7%) ROI  -3.3% -5.3u
+     blind n  225 110-115 48.9% (price said 52.7%) ROI -11.2% -25.1u   2023: 68 -6% | 2024: 72 -7% | 2025: 85 -18%
+  favorite -150..-100 vs a dog missing a star
+     train n  181 91-90 50.3% (price said 53.2%) ROI  -9.7% -17.6u
+     blind n  258 139-119 53.9% (price said 53.1%) ROI  -2.7% -6.8u   2023: 87 -11% | 2024: 66 +4% | 2025: 105 +0%
+  favorite past -150 vs a dog missing a star
+     train n  515 370-145 71.8% (price said 71.3%) ROI  -3.2% -16.4u
+     blind n  770 557-213 72.3% (price said 73.5%) ROI  -5.3% -40.9u   2023: 240 -8% | 2024: 229 -5% | 2025: 301 -4%
+  all prices, win % minus the price:
+     side missing a star        train: n  1140 won 46.0% price 46.2% diff -0.2  ROI  -3.1%
+     side missing a star        blind: n  1708 won 47.6% price 46.8% diff +0.8  ROI  -1.5%
+     side facing a missing star train: n  1140 won 54.0% price 53.8% diff +0.2  ROI  -2.3%
+     side facing a missing star blind: n  1708 won 52.4% price 53.2% diff -0.8  ROI  -7.0%
+     side missing 2+ stars      train: n   177 won 43.5% price 41.6% diff +1.9  ROI  -1.3%
+     side missing 2+ stars      blind: n   172 won 36.6% price 41.7% diff -5.1  ROI -26.7%
+
+=== THE OWNER'S THREE GAMES (2026-27; honors through 2025 only - the 2025-26 All-Stars / All-NBA wait on the fetch) ===
+  2026-10-20 76ers +145 (open 154) at/vs Knicks: star score gap +1.9 (stars 1 vs 2), roster gap +1.9, added 1, WON
+     theirs: ['LeBron James']
+     other side: ['Karl-Anthony Towns', 'Jalen Brunson']
+  2026-10-21 Spurs -102 (open -125) at/vs Thunder: star score gap -1.7 (stars 0 vs 2), roster gap -1.7, added 0, lost
+     theirs: []
+     other side: ['Shai Gilgeous-Alexander', 'Jalen Williams']
+  2026-10-22 Mavericks +330 (open 245) at/vs Rockets: star score gap +0.0 (stars 0 vs 0), roster gap +0.0, added 0, lost
+     theirs: []
+     other side: []

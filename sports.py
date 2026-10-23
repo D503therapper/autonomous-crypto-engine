@@ -336,6 +336,7 @@ def waiting_on(g, injuries, maybe=True):
 
 import sports_absences  # noqa: E402
 import sports_nba_roster  # noqa: E402   (🏀 the roster-aware NBA prior - the owner, 10/20)
+import sports_nba_stars  # noqa: E402    (🌟 star power on the card - the owner, 10/23; a fact line, never a weight)
 import sports_lines  # noqa: E402
 
 LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
@@ -2978,6 +2979,12 @@ def card_extras(leg, g, injuries):
             rl = f"{mark} {' · '.join(parts)}." if parts else ""
         if rl and not any(str(x).startswith(mark) for x in leg.get("breakdown") or []):
             leg["breakdown"] = list(leg.get("breakdown") or []) + [rl]
+        try:                                                # 🌟 10/23: the stars on the floor (verified honors only;
+            sl = sports_nba_stars.card_line(g, leg["side"], sports_nba_roster.cached())   # a fact, never a weight)
+        except Exception:                                   # noqa: BLE001
+            sl = ""
+        if sl and not any(str(x).startswith("🌟") for x in leg.get("breakdown") or []):
+            leg["breakdown"] = list(leg.get("breakdown") or []) + [sl]
     try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
         net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or []) if GOALIE_CARD else ""
     except Exception:                                   # noqa: BLE001
