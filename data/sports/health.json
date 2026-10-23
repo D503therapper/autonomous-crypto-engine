@@ -1,34 +1,33 @@
 {
- "at": "2026-10-23T17:12Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
- ],
- "problems": [
-  "workflow failed: sports 2026-10-23T17:08 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39992630904",
-  "workflow failed: sports 2026-10-23T17:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39991974334",
-  "workflow failed: sports 2026-10-23T16:58 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39991242697",
-  "workflow failed: sports 2026-10-23T16:53 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39990531418",
-  "workflow failed: sports 2026-10-23T16:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39989816889"
- ],
+ "at": "2026-10-23T18:45Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (232s)",
+  "live watcher fresh (1s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 1 of 1 live matches",
+  "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (bovada 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 4 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-23T18:45Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-23T17:12Z",
    "fixes": [
@@ -450,13 +449,6 @@
   },
   {
    "at": "2026-10-21T20:57Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-21T20:55Z",
    "fixes": [],
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
