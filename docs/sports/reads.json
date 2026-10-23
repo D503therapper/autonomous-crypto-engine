@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T00:30Z",
+ "updated": "2026-10-23T00:47Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -269,62 +269,27 @@
    "id": "nhl:401892561",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.377,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-23T01:00Z",
    "away": "Hurricanes",
    "home": "Oilers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Oilers",
-    "opp": "Hurricanes",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.661,
-    "win_p": 0.441,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892560",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.431,
-    "tie": 0.293,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-23T01:00Z",
-   "away": "Wild",
-   "home": "Flames",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Wild",
-    "opp": "Flames",
+    "team": "Hurricanes",
+    "opp": "Oilers",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.672,
-    "win_p": 0.672,
+    "odds": -118,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
@@ -547,7 +512,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.5,
+    "p": 0.524,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -556,16 +521,16 @@
    "start": "2026-10-23T23:00Z",
    "away": "Knicks",
    "home": "Celtics",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Celtics",
     "opp": "Knicks",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.528,
-    "win_p": 0.528,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": []
    }
   },
@@ -605,7 +570,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.604,
+    "p": 0.615,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -621,9 +586,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.648,
-    "win_p": 0.648,
+    "odds": -218,
+    "p": 0.663,
+    "win_p": 0.663,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -752,8 +717,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Heat",
-    "p": 0.486,
+    "team": "Pistons",
+    "p": 0.492,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -765,14 +730,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Heat",
-    "opp": "Pistons",
+    "team": "Pistons",
+    "opp": "Heat",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.507,
-    "win_p": 0.507,
-    "reasons": []
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.508,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -933,7 +901,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.597,
+    "p": 0.589,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -942,16 +910,16 @@
    "start": "2026-10-24T01:30Z",
    "away": "Rockets",
    "home": "Spurs",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Spurs",
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "the stronger team"
     ]
@@ -979,7 +947,7 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -9.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.731,
     "reasons": [
