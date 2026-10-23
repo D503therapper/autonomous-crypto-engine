@@ -1,27 +1,32 @@
 {
- "at": "2026-10-23T11:53Z",
+ "at": "2026-10-23T12:37Z",
  "fixes": [],
- "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (42s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
+  "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 28 min ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-23T12:37Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-23T11:53Z",
    "fixes": [],
@@ -410,13 +415,6 @@
    "at": "2026-10-21T17:04Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-21T17:03Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
