@@ -77,18 +77,28 @@ def end_year(season_text):
 
 
 def parse_teams_page(page):
-    """all_league / all_rookie -> {end year: {"1": [names], "2": [...], "3": [...]}}."""
-    out = {}
+    """all_league / all_rookie -> {end year: {"1": [names], "2": [...], "3": [...]}}.
+    10/23: read by cell TEXT, not column names - the site's own data-stat names for the season / team columns
+    aren't what we guessed, and the first live pull read 0 rows. The season is the cell like '2024-25', the team
+    the cell that says 1st / 2nd / 3rd, the league the cell that says NBA / ABA / BAA (none = NBA)."""
+    out, sample = {}, None
     for tid, t in tables(page).items():
         for r in rows(t):
             c = cells(r)
-            y, kind = end_year(c.get("season", "")), (c.get("type") or "").lower()
-            if not y or "nba" not in (c.get("lg_id") or "nba").lower():
+            vals = [v for v in c.values() if v]
+            if sample is None and len(vals) > 3:
+                sample = c
+            y = next((end_year(v) for v in vals if re.fullmatch(r"\d{4}-\d{2}", v)), None)
+            lg = next((v for v in vals if v in ("NBA", "ABA", "BAA")), "NBA")
+            kind = next((v.lower() for v in vals if re.fullmatch(r"(?i)(1st|2nd|3rd)", v)), "")
+            if not y or lg != "NBA":
                 continue
-            k = {"1st": "1", "2nd": "2", "3rd": "3"}.get(kind[:3])
+            k = {"1st": "1", "2nd": "2", "3rd": "3"}.get(kind)
             names = players(r)
             if k and names:
                 out.setdefault(y, {})[k] = names
+    if not out and sample is not None:
+        print(f"  teams page read 0 rows - a row looks like: {dict(list(sample.items())[:8])}")
     return out
 
 
