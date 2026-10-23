@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T02:00Z",
+ "updated": "2026-10-23T02:15Z",
  "games": [
   {
    "id": "nba:401909093",
@@ -77,7 +77,7 @@
    "home": "Kennesaw St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Kennesaw St",
@@ -88,7 +88,7 @@
     "p": 0.286,
     "win_p": 0.286,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -316,6 +316,36 @@
    "start": "2026-10-23T01:30Z",
    "away": "Nuggets",
    "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892562",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-23T02:00Z",
+   "away": "Mammoth",
+   "home": "Kraken",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892563",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-23T02:00Z",
+   "away": "Red Wings",
+   "home": "Canucks",
    "h1": null,
    "why": "started",
    "done": false,
