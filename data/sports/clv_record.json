@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 105,
+  "n": 107,
   "beat": 33,
-  "same": 36,
-  "worse": 36,
-  "avg_pts": 0.04
+  "same": 37,
+  "worse": 37,
+  "avg_pts": 0.03
  },
  "unit_plays": {
   "n": 44,
@@ -22,11 +22,11 @@
    "avg_pts": -0.07
   },
   "lean": {
-   "n": 61,
+   "n": 63,
    "beat": 19,
-   "same": 17,
-   "worse": 25,
-   "avg_pts": -0.13
+   "same": 18,
+   "worse": 26,
+   "avg_pts": -0.14
   },
   "lock": {
    "n": 11,
@@ -59,18 +59,18 @@
    "avg_pts": 0.03
   },
   "ncaaf": {
-   "n": 27,
+   "n": 28,
    "beat": 10,
    "same": 10,
-   "worse": 7,
-   "avg_pts": 0.39
+   "worse": 8,
+   "avg_pts": 0.34
   },
   "nfl": {
-   "n": 15,
+   "n": 16,
    "beat": 4,
-   "same": 6,
+   "same": 7,
    "worse": 5,
-   "avg_pts": -0.17
+   "avg_pts": -0.16
   },
   "nhl": {
    "n": 43,
@@ -1529,6 +1529,20 @@
    "date": "2026-10-22",
    "kind": "lean",
    "lean": true,
+   "league": "nfl",
+   "team": "Patriots",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "lean",
+   "lean": true,
    "league": "nba",
    "team": "76ers",
    "market": "ml",
@@ -1552,6 +1566,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "App State",
+   "market": "ml",
+   "line": null,
+   "odds": 350,
+   "close": 370,
+   "pts": -0.9,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-22",

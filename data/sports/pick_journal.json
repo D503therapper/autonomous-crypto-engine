@@ -5648,6 +5648,67 @@
   "kind": "lean",
   "lean": true,
   "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873010",
+  "team": "Patriots",
+  "opp": "Bears",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 130,
+  "posted": "2026-10-22T15:00Z",
+  "price_says": 0.435,
+  "win_p": 0.4284879579655595,
+  "own_read": 0.468,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": 0.07630188191646003,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "opponent drama: suspension"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [],
+   "go4_gap": -0.0225,
+   "last_margin": 7.0,
+   "last_pts": 26.0,
+   "neutral": false,
+   "record": [
+    4,
+    2
+   ],
+   "win_pct": 0.667,
+   "win_streak": 3
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Channing Canada (CB)",
+   "Karon Prunty (CB)",
+   "Ben Brown (C)",
+   "Alijah Vera-Tucker (G)"
+  ],
+  "theirs_out": [
+   "T.J. Edwards (LB)",
+   "Kyle Monangai (RB)",
+   "Jack Sanborn (LB)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 130,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "24-30",
+  "margin": -6.0,
+  "pnl_units": 0
+ },
+ {
+  "date": "2026-10-22",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
   "league": "nba",
   "game_id": "nba:401909093",
   "team": "76ers",
@@ -5752,6 +5813,57 @@
   "score": "6-34",
   "margin": -28.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-22",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401869845",
+  "team": "App State",
+  "opp": "James Madison",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 350,
+  "posted": "2026-10-22T15:00Z",
+  "price_says": 0.222,
+  "win_p": 0.2565760366969207,
+  "own_read": 0.257,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": 0.15754286901669134,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [],
+  "angles": {
+   "fades": [
+    "ice cold"
+   ],
+   "last_margin": 3.0,
+   "last_pts": 35.0,
+   "neutral": false,
+   "record": [
+    4,
+    2
+   ],
+   "win_pct": 0.667,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "M. Singleton (QB)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 370,
+  "beat_close_pts": -0.9,
+  "result": "won",
+  "score": "34-31",
+  "margin": 3.0,
+  "pnl_units": 0.0
  },
  {
   "date": "2026-10-22",
