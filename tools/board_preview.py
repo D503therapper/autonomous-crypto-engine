@@ -17,6 +17,26 @@ import sports_model as sm       # noqa: E402
 UNIT_KINDS = ("lock", "dog", "solo", "play", "night")
 
 
+
+def dog_blockers(c):
+    """10/23 (the owner: "what happened to the Wyoming 2 unit play?"): every Dog of the Day check a dog fails, by name -
+    the same checks make_board's Dog pool runs (good / beats_price / the dog gate / not a trap / dog score over 0)."""
+    out = []
+    try:
+        if not c.get("reasons"):
+            out.append("no named reason")
+        if sports.money_against(c):
+            out.append("money running away from it")
+        if not sports.beats_price(c):
+            out.append("read doesn't beat the price")
+        if not sports.dog_gate(dict(c)):
+            out.append("misses the dog gate")
+        if not sports.good(dict(c)):
+            out.append("not a real play (good)")
+    except Exception as e:                                   # noqa: BLE001
+        out.append(f"check failed: {str(e)[:40]}")
+    return ["kept off: " + ", ".join(out)] if out else ["passes every Dog check"]
+
 def main(day_iso=None):
     now_real = datetime.now(timezone.utc)
     hh, mm = 8, 35                         # 8:35 AM PT on that day (past the slate check's last try - the board always builds)
@@ -71,6 +91,12 @@ def main(day_iso=None):
     # one needs, and what kept it off. Every moneyline dog (10/11, the owner wanted a read on the Eagles at +330): past
     # our +300 limit they're listed with that note - a read, never a pick.
     dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and c.get("odds", 0) >= 100]
+    try:                                                     # (10/23: the Dog spot only fills before the day's first game)
+        first = sports.first_start(games, day)
+        if first is not None and now_real >= first and any(p["date"] == day.isoformat() and p["status"] != "waiting" for p in picks):
+            out.append(f"\n(the day's first game started {first:%H:%M} UTC - no new Dog of the Day after that)")
+    except Exception as e:                                   # noqa: BLE001
+        out.append(f"\n(first game check failed: {str(e)[:60]})")
     if dogs:
         out.append("\nEVERY DOG (moneyline): price needs -> the engine's read")
         for c in sorted(dogs, key=lambda c: -((sports.read_of(c) or 0) - 1 / c["dec"])):
@@ -92,6 +118,7 @@ def main(day_iso=None):
                 why.append(f"dog score {sports.dog_score(c):+.1f}")
             except Exception:                                            # noqa: BLE001
                 pass
+            why += dog_blockers(c)
             out.append(f"  {c['team']} +{c['odds']} vs {c.get('opp')} ({c['league'].upper()}) - needs {need:.1%}, "
                        f"read {rd:.1%} ({rd - need:+.1%})" + (f" - {'; '.join(why)}" if why else ""))
             extra = [str(r) for r in (c.get("reasons") or [])] + [str(t) for t in (c.get("dog_more") or [])][:6]

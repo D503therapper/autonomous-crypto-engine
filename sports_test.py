@@ -10471,6 +10471,11 @@ def test_board_preview_names_the_10_23_own_read_dog_rule():
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "board_preview.py")).read()
     assert "sports.DOG_NEEDS_OWN" in src and "not over the price, so no Dog (10/23 plan)" in src
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import board_preview as bp                          # ...and every other Dog check it fails, by name
+    got = bp.dog_blockers({"market": "ml", "odds": 180, "dec": 2.8, "edge": 0.1, "edge_own": 0.05, "p": 0.39,
+                           "league": "ncaaf", "reasons": [], "game_id": "x", "side": "home"})
+    assert got[0].startswith("kept off: ") and "no named reason" in got[0], got
 
 
 def test_the_10_23_plan_sizing_and_gates():
