@@ -145,7 +145,7 @@ def season_of(start):
 
 def card_line(g, side, cur, data=None):
     """🌟 The card's star-power FACT line for an NBA side (info, never a weight - the 10/23 study: the close prices
-    the stars): "🌟 76ers: 2 stars on the floor tonight - LeBron James (All-NBA 2026), Joel Embiid (2026 All-Star) ·
+    the stars): "🌟 76ers: LeBron James (All-NBA 2026) and Joel Embiid (2026 All-Star) are in the lineup tonight ·
     Paul George is out." Quiet unless the saved rosters are there AND last season's honors were fetched from the
     source (never the compiled list). "" = nothing to say."""
     data = data if data is not None else load()
@@ -164,9 +164,11 @@ def card_line(g, side, cur, data=None):
     sat = team([n for n in names if _nm(n) in out], season, data)["stars"]
     parts = []
     if on["n"]:
-        # "stars", never a count of All-Stars: the 2025 / 2026 All-Star lists are the final's box only (10/23)
-        parts.append(f"{on['n']} star{'s' if on['n'] > 1 else ''} on the floor tonight - "
-                     + ", ".join(f"{n} ({lab})" for n, _, lab in on["stars"][:4]))
+        # the stars BY NAME, never a count (10/23, the owner: "1 star on the floor tonight - Jayson Tatum ... that sounds
+        # bad" - a count reads like a weakness; and the 2025 / 2026 All-Star lists are the final's box only)
+        named = [f"{n} ({lab})" for n, _, lab in on["stars"][:4]]
+        parts.append((named[0] if len(named) == 1 else ", ".join(named[:-1]) + " and " + named[-1])
+                     + (" is" if len(named) == 1 else " are") + " in the lineup tonight")
     if sat:
         parts.append(", ".join(n for n, _, _ in sat[:2]) + (" is out" if len(sat) == 1 else " are out"))
     return f"🌟 {g[side + '_name']}: {' · '.join(parts)}." if parts else ""

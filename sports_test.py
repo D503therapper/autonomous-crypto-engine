@@ -12401,8 +12401,8 @@ def test_nba_star_power_values_team_score_and_the_card_fact_line():
                      "18": [{"name": "Jalen Brunson"}, {"name": "Josh Hart"}]},
            "flags": {"20": {"out": ["Joel Embiid"]}, "18": {"out": []}}}
     line = ns.card_line(g, "away", cur, d)
-    assert line == "🌟 76ers: 1 star on the floor tonight - LeBron James (All-NBA 2025) · Joel Embiid is out.", line
-    assert ns.card_line(g, "home", cur, d) == "🌟 Knicks: 1 star on the floor tonight - Jalen Brunson (All-NBA 2026, top-5 MVP)."
+    assert line == "🌟 76ers: LeBron James (All-NBA 2025) is in the lineup tonight · Joel Embiid is out.", line
+    assert ns.card_line(g, "home", cur, d) == "🌟 Knicks: Jalen Brunson (All-NBA 2026, top-5 MVP) is in the lineup tonight."
     assert ns.card_line(g, "home", None, d) == "" and ns.card_line({**g, "home": "99"}, "home", cur, d) == ""
     dk = ns.load(_star_file("claude-knowledge"))         # the compiled list: a study input, never a card fact
     assert ns.covered(2026, dk) and not ns.verified(2026, dk) and ns.card_line(g, "away", cur, dk) == ""
