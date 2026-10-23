@@ -12300,6 +12300,24 @@ def test_nba_rosters_fetch_daily_diff_moves_and_fail_soft():
     sd.INJ_NOTES.pop("nba", None)
 
 
+def test_nba_player_rating_study_keeps_raw_plus_minus_prior():
+    """10/23 (the owner: "the engine needs to know who these players are, how they play"): the player-rating study
+    (SPORTS_FINDINGS 10/23) tried a box-score composite, 3-season decayed plus-minus, a next-season predictor and
+    blends - every one within .005 log loss of the raw plus-minus prior in games 1-20, up some seasons and down others,
+    the market .02-.03 better than all. So the prior STAYS raw last-season plus-minus (METRIC pm), 0.7 at game 0 fading
+    by game 10, and no 'talent' rating or talent-dog weight is wired. This guards that nobody wires one back without a
+    new validation: the metric, the blend, and the value of a box line = its plus-minus, not the game score."""
+    import sports_nba_roster as nr
+    assert nr.METRIC == ["pm"] and nr.W0 == 0.7 and nr.BLEND_GAMES == 10
+    mins, pr = nr.production({"minutes": "30", "points": "40", "fieldGoalsMade-fieldGoalsAttempted": "15-20",
+                              "rebounds": "10", "assists": "8", "plusMinus": "-7"})
+    assert (mins, pr) == (30.0, -7.0)           # a 40-point night on a -7 floor is worth -7, not the game score
+    for dead in ("talent", "talent_elo", "box_value", "decayed_value", "next_season_value", "talent_dog"):
+        assert not hasattr(nr, dead), dead
+    import sports
+    assert not hasattr(sports, "TALENT_DOG_W") and not hasattr(sports, "talent_dog")
+
+
 def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
     """10/20: with the roster prior the NBA features carry the roster-blended rating (0.7 roster at game 0) and
     early_trust's pull starts at half instead of the market; no rosters saved = the old full pull (college hoops keeps
