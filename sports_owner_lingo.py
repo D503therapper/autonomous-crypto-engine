@@ -19,7 +19,15 @@ OWNER = {
     "that's just facts": "after a claim ('just the better team')",
     # the other side getting beat
     "cheeks clapped": "a beatdown (tennis straight sets, a blowout) - either side: 'New Mexico State got their cheeks "
-                      "clapped' (10/7, our early play lost 22-3) is a blowout LOSS review",
+                      "clapped' (10/7, our early play lost 22-3) is a blowout LOSS review; 10/23: a side we see getting "
+                      "beat ('Air Force - they're about to get their cheeks clapped') - one wording of many, never every card",
+    # 10/23 (the owner: "throw out cuss words and use our lingo ... talk about the team itself getting their cheeks
+    # clapped or spanked ... we're just talking shit here, and the engine needs to know how to talk shit")
+    "spank": "the other side's about to lose ('they fin to get spanked', 'Army's about to spank 'em') - with the fact behind it",
+    "get their ass beat": "the other side's about to lose - a real gap (records, a key man out, a heavy public we're fading)",
+    "trash ass team": "the other side's been bad - ONLY with the fact right there (a losing record, a skid, a blowout loss)",
+    "fin to": "about to ('they fin to get spanked')",
+    "talking shit": "what the one-liners do about the other side - always with a fact behind it",
     "beat the brakes off": "a mismatch we see coming ('the Bears are about to beat the brakes off the Eagles')",
     "smack that ass": "a blowout we see coming",
     "smacked": "a WIN - our bet smacked ('+200 moneyline, we smacked'), or our team smacked (9/30); also the other "
@@ -43,7 +51,8 @@ OWNER = {
     "a beast": "our player is dominating - with his numbers right there",
     "filthy": "our pitcher / goalie / QB has been nasty - with his numbers right there",
     "levels to this": "a real quality gap, or a win that showed it",
-    "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
+    # ("rocking with the sharps" came off 10/23 - the owner: "we don't need to talk about the line moving" - the cards never
+    #  mention a price move now)
     "like they stole something": "a blowout win's review (the owner loved it, 9/29 - keep it)",
     "somebody give this man his flowers": "one of OUR players went off in a win ('Trevor Lawrence went crazy. Somebody "
                                            "give this man his flowers. Cash it, baby.') - always HIS flowers (9/30)",
@@ -60,6 +69,10 @@ OWNER = {
               "- 'Ohtani is the goat' just means he's great). Only after a real result, never before a game, never on "
               "a lean",
 }
+
+# cussing is WANTED (the owner, 10/23: "I want the engine to throw out cuss words") - these are fine in a one-liner or
+# a write-up. Never a slur, never a word about anyone's identity. The NEVER list below still holds.
+CUSS_OK = ("fuck", "shit", "ass", "cheeks clapped", "get their ass beat", "trash as fuck", "trash ass team", "spanked")
 
 # words he's said NOT to use (the dashboard never says these)
 SHOW_PCT_OVER = 100   # the owner, 10/7: "we don't need to see win percentages ever" (was 55 - 9/30); a pick's win

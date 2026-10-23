@@ -101,6 +101,16 @@ def played_lately(games, league, team, before):
 NBA_ROTATION = 3                                         # hoops: played in 3+ of the team's last 10 games
 
 
+def missed_lately(games, league, team, name, before, n=2):
+    """10/23 (Air Force's QB L. Szarka, out since 10/10 - the backup started and won the last 2): a key player who sat
+    the team's last `n` games is old news, never sold on a card as a fresh edge. False when we hold fewer box scores."""
+    real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
+            if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
+    if len(real) < n:
+        return False
+    return not any(match(name, {_nm(r["player"]) for r in rs}) for _, _, rs in real[-n:])
+
+
 def match(name, pool):
     """Is this player in `pool` (normalized names from the box scores / the report)? The exact name, else the ONE pool
     name with the same last name whose first name starts the same way ('Mike Hughes' ~ 'Michael Hughes', "Brenton

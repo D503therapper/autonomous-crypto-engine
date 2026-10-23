@@ -2795,8 +2795,8 @@ def test_breakdown_variety():
     import sports_breakdown_v24 as v24                     # (the main board's voice since 9/29)
     said, orig, orig24 = [], sb.Voice.say, v24.Voice.say
     def spy_of(fn):
-        def spy(self, key, options, must=False, names=()):  # what Voice itself compares: the line's runs, facts blanked
-            out = fn(self, key, options, must, names)
+        def spy(self, key, options, must=False, names=(), **kw):  # what Voice itself compares: the line's runs, facts blanked
+            out = fn(self, key, options, must, names, **kw)
             said.append((self.seed, out, sb.grams(out, tuple(names) + tuple(self.names)) if out else set()))
             return out
         return spy
@@ -10342,10 +10342,46 @@ def test_cards_never_brag_about_money_going_against_us_and_splits_say_only_numbe
     for bad in ("must've lost their minds", "Public's usually wrong", "casuals ain't wrong", "Nobody knows nothing",
                 "Sheep gon' be sheep", "That's how Vegas eats"):
         assert bad not in src, bad
-    assert "Heads up: the line moved toward" in src
+    assert "Heads up: the line moved toward" not in src     # (10/23, the owner: no line-move talk at all - the 💸 warning
+    #                                                        and the 💰 'money's coming in' lines are gone from the write-up)
     import sports_breakdown as sb
     close = sb.lean_ends({"team": "Magic", "odds": -130, "p": 0.51, "market": "ml"})
     assert len(set(close)) >= 8
+
+
+def test_the_write_up_never_talks_line_movement_and_talks_shit_only_with_a_fact():
+    """10/23, the owner: "we don't need to talk about the line moving" (the 💰 'been getting bet: +200 → +180' line goes
+    too), "we're trying to avoid repetition here and use our lingo, cussing, and talk about these breakdowns how we want
+    to", "only call a team trash / straight ass when a fact backs it". A card whose price moved both ways says nothing
+    about it; the trash talk carries the record; a side with the better record never gets called trash."""
+    import sports_breakdown_v24 as v24
+    import sports_owner_lingo as ol
+    src = open(v24.__file__).read()
+    shown = "\n".join(m.group(2) for m in re.finditer(r'(?<![a-zA-Z])(f?)"([^"\n]*)"', src)
+                      if not re.search(r'r"$', src[max(0, m.start() - 1):m.start() + 1]))   # the display strings - not the
+    #                                                                              comments, not LINE_MOVE's own r"" regex
+    for gone in ("money's coming in on 'em", "been getting bet", "since the open", "rocking with the sharps",
+                 "The line already moved for it", "Somebody's betting {the_them}", "→ {_am(now)}"):
+        assert gone not in shown, gone
+    assert "rocking with the sharps" not in ol.OWNER
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T23:00Z", "B", "D", 1, 4), ("2026-10-03T23:00Z", "A", "D", 4, 1),
+            ("2026-10-03T23:30Z", "B", "C", 0, 3), ("2026-10-04T23:30Z", "B", "E", 1, 2)]
+    for op in ("-160", "-105"):                                               # the price moved both ways since the open
+        leg, games, elo = _audit_fixture("nhl", hist, "2026-10-06T23:30Z", reasons=["the stronger team"],
+                                         ratings={"A": 1600, "B": 1400})
+        games[leg["game_id"]].update({"ml_home_open": op, "ml_away_open": "140" if op == "-160" else "-115"})
+        bd = v24.breakdown(leg, games, elo, None)
+        for x in bd + [leg.get("why_line") or ""]:
+            assert not v24.LINE_MOVE.search(x), x
+            assert not any(n in x.lower() for n in ol.NEVER), x
+        trash = [x for x in bd if x.startswith(("🗑️", "🧊"))]
+        assert trash and all(any(ch.isdigit() for ch in x) for x in trash), bd      # the trash talk carries the record
+    # the better-record side is never called trash (B is 0-3, A 2-0: from B's card, no 🗑️ line)
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-06T23:30Z", side="away", reasons=[], ratings={"A": 1400, "B": 1600})
+    bd = v24.breakdown(leg, games, elo, None)
+    assert not any(x.startswith("🗑️") for x in bd), bd
+    for w in ("trash ass team", "fin to", "talking shit", "spank"):
+        assert w in src, w
 
 
 def test_card_lines_never_open_with_a_lowercase_the():
@@ -10557,6 +10593,32 @@ def test_one_liners_never_talk_line_movement_and_close_records_are_never_the_bet
     d.EARLY_IN.clear(); d.EARLY_IN[("ncaaf:1", "home")] = 200
     assert d._early_line({"game_id": "ncaaf:1", "side": "home", "market": "ml", "odds": 180, "team": "Wyoming"}) == ""
     d.EARLY_IN.clear()
+
+
+def test_a_key_man_who_sat_the_last_two_is_old_news_and_the_ride_public_never_leads():
+    """10/23: Air Force's QB L. Szarka (out since 10/10 - Evan Medders started and won the last 2) would have read as
+    'Air Force are down their starting QB' - old news, priced for two weeks. A football key player absent from the
+    team's last 2 box scores is never the one-liner's edge (the 🚑 line says the backup keeps going). And the public
+    WITH us ('71% of the cash is on the Avalanche with us') never leads a card."""
+    import sports_absences as A
+    import sports_breakdown_v24 as v24
+    keep = dict(A._TEAM)
+    try:
+        rows = lambda *names: [{"player": n} for n in names]
+        A._TEAM["ncaaf"] = {"2005": [("2026-10-03T16:00Z", "g1", rows("Liam Szarka", "Owen Allen")),
+                                     ("2026-10-10T23:30Z", "g2", rows("Evan Medders", "Owen Allen")),
+                                     ("2026-10-17T19:30Z", "g3", rows("Evan Medders", "Owen Allen"))]}
+        assert A.missed_lately({}, "ncaaf", "2005", "L. Szarka", "2026-10-24T01:00Z")
+        assert not A.missed_lately({}, "ncaaf", "2005", "O. Allen", "2026-10-24T01:00Z")
+        assert not A.missed_lately({}, "ncaaf", "2005", "L. Szarka", "2026-10-11T00:00Z")   # (sat only 1 by then)
+        assert v24._stale({}, "ncaaf", "2005", "L. Szarka", "2026-10-24T01:00Z")
+        assert not v24._stale({}, "nhl", "2005", "L. Szarka", "2026-10-24T01:00Z")
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    src = open(v24.__file__).read()
+    assert "of the cash is on {U} with us" not in src and 'm["public ride"]' not in src
+    assert "in every 100 bets" not in src                       # (plain words - never 'N in 100')
+    assert "close on paper, but our ratings have" in src       # (4-2 vs 4-3: close records say close)
 
 
 def test_board_preview_names_the_10_23_own_read_dog_rule():
@@ -11190,7 +11252,8 @@ def test_truth_audit_10_15_rest_by_the_clock():
     hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-04T23:00Z", "B", "D", 1, 4)]     # B played 24.5 h before
     leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
     bd = v24.breakdown(leg, games, elo, None)
-    assert any(x.startswith("😴") for x in bd), bd
+    assert any(x.startswith("😴") for x in bd) or str(leg.get("why_line") or "").startswith("😮‍💨"), (bd, leg.get("why_line"))
+    #   (10/23: the back-to-back is the card's top fact - said once, under the pick; the 😴 body line then stays off)
     assert v24.B2B_HOURS < 36
 
 
@@ -11775,14 +11838,17 @@ def test_truth_audit_10_16_hotter_team_why_needs_a_heater():
             ("2026-09-28T23:00Z", "B", "E", 4, 1), ("2026-09-30T23:00Z", "B", "D", 4, 1)]
     leg, games, elo = _audit_fixture("nhl", cold, "2026-10-05T23:30Z", reasons=["hotter recent form"])
     games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
-    bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("💸")]
-    assert bd and "hotter team" not in bd[0], bd
+    bd = v24.breakdown(leg, games, elo, None) + [leg.get("why_line") or ""]
+    import re as _re                                                  # (10/23: the 💸 fade line is gone - no card line, body
+    for x in bd:                                                      #  or one-liner, calls the cold side hot)
+        assert not _re.search(r"hotter team|heater|straight W|won \d+ straight|\d+ straight for", x), x
+        assert not v24.LINE_MOVE.search(x), x
     hot = [("2026-09-28T23:00Z", "A", "C", 4, 1), ("2026-09-30T23:00Z", "D", "A", 1, 4), ("2026-10-02T23:00Z", "A", "E", 4, 1),
            ("2026-09-28T23:00Z", "B", "E", 1, 4), ("2026-09-30T23:00Z", "B", "D", 1, 4)]
     leg, games, elo = _audit_fixture("nhl", hot, "2026-10-05T23:30Z", reasons=["hotter recent form"])
     games[leg["game_id"]].update({"ml_home_open": "-170", "ml_home": "-120", "ml_away_open": "145", "ml_away": "100"})
-    bd = v24.breakdown(leg, games, elo, None)
-    assert any(x.startswith("💸") for x in bd), bd                   # (the fade line still prints; the why is free again)
+    bd = v24.breakdown(leg, games, elo, None) + [leg.get("why_line") or ""]
+    assert any("3" in x and _re.search(r"straight|in a row|heater", x) for x in bd), bd   # the real heater is said
     assert v24._streak(sorted([g for g in games.values() if g["status"] == "final" and "A" in (g["home"], g["away"])],
                               key=lambda g: g["start"]), "A") == "won 3 straight"
 
@@ -11919,12 +11985,11 @@ def test_fade_line_never_shows_a_price_that_did_not_move():
                       "ml_away_open": "1600", "spread_home": "-22.5"}}
     leg = {"game_id": "g", "league": "ncaab", "side": "away", "team": "Morehead St", "opp": "Wake Forest", "market": "spread",
            "line": 22.5, "odds": -110, "dec": 1.909, "p": 0.55, "edge_own": 0.55 * 1.909 - 1, "tier": "lean", "reasons": []}
-    bd = v24.breakdown(dict(leg), G(-4500, -4500), {}, {}, set())
-    fade = [x for x in bd if x.startswith("💸")]
-    assert fade and "-4500 → -4500" not in fade[0] and "Morehead St +1600 → +2500" in fade[0], bd
-    bd = v24.breakdown(dict(leg), G(-4500, -3000), {}, {}, set())
-    fade = [x for x in bd if x.startswith("💸")]
-    assert fade and "(-4500 → -3000)" in fade[0], bd
+    for now_home in (-4500, -3000):                       # (10/23, the owner: no line-move talk at all - a move that
+        bd = v24.breakdown(dict(leg), G(-4500, now_home), {}, {}, set())   # happened or a non-move, neither prints)
+        assert bd and not any(x.startswith("💸") for x in bd), bd
+        for x in bd:
+            assert "→" not in x and not v24.LINE_MOVE.search(x), x
 
 
 def test_data_gaps_scale_to_a_full_college_hoops_day():
@@ -13015,6 +13080,180 @@ def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert '{"nfl", "ncaaf", "nba"}' in src                                    # the hourly run fetches the NBA report for it
     assert se.SPOTS["nba_open"] == ("🏀 NBA opening line", 0.5, ("nba",))
+
+
+def _ol_leg(**kw):
+    base = {"league": "ncaaf", "team": "Army", "opp": "Tulsa", "side": "away", "odds": 100, "dec": 2.0, "raw_own": 0.5818,
+            "p": 0.479, "ctx": [], "dog_more": {}, "reasons": [], "game_id": "ncaaf:x", "market": "ml", "is_lean": False}
+    base.update(kw)
+    return base
+
+
+def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move():
+    """10/23, the owner: "these one-liners are terrible ... solid one-liner breakdowns in our lingo", "we don't need to
+    talk about the line moving", "throw out cuss words and use our lingo". Every one-liner opens with a fact we hold
+    (a score, a streak, who's out by name, the public split, a home record, the rest) - a number or a name in every one
+    (v24._has_fact), never the open / the move / the money coming in (v24.LINE_MOVE), never longer than today's
+    (LINE_MAX), cussing allowed, the NEVER words still out, no win %."""
+    import re
+    import sports_breakdown_v24 as v24
+    import sports_card_guard as cg
+    import sports_owner_lingo as ol
+    g = {"id": "ncaaf:x", "start": "2026-10-24T00:30Z", "home": "1", "away": "2"}
+    say = lambda leg, **k: v24.why_line(leg, v24.Voice("s", set()), g, leg["team"], leg["opp"], leg["team"], leg["opp"], **k)
+    wm = lambda **k: v24.why_map("ncaaf", "Army", "Tulsa", "Army", "Tulsa", False, **k)
+    lines = [
+        say(_ol_leg(reasons=["the stronger team"]), rec_u="6-1", rec_t="2-5", whyf=wm(rec_u="6-1", rec_t="2-5"), fact=""),
+        say(_ol_leg(reasons=["the stronger team"], dog_more={"win_streak": 2, "last_margin": 32.0}), rec_u="4-2", rec_t="4-3",
+            whyf=wm(rec_u="4-2", rec_t="4-3"), fact=""),
+        say(_ol_leg(reasons=["hotter recent form"]), n_hot=4, rec_u="5-1", whyf=wm(n_hot=4, rec_u="5-1"), fact=""),
+        say(_ol_leg(reasons=["opponent missing key players"]), key_them=[("Liam Szarka", "QB", "Out")],
+            whyf=wm(key_them=[("Liam Szarka", "QB", "Out")]), fact=""),
+        say(_ol_leg(), whyf=wm(pub=(12, 35)), fact=""),
+        say(_ol_leg(), whyf=wm(n_cold=3), fact=""),
+        say(_ol_leg(), whyf={"their last loss": ["Tulsa just lost to Navy 38-10", "Navy hung 38 on Tulsa last time out"]}, fact=""),
+        say(_ol_leg(), whyf={"home record": ["Army are 3-0 at home this year", "3-0 at home for Army this season"]}, fact=""),
+        say(_ol_leg(), whyf={"opponent on a back-to-back": ["Tulsa played last night and Army didn't"]}, fact=""),
+        say(_ol_leg(is_lean=True, tier="lean", reasons=["the stronger team"]), rec_u="6-1", rec_t="2-5",
+            whyf=wm(rec_u="6-1", rec_t="2-5"), fact=""),
+    ]
+    assert all(lines), lines
+    for x in lines:
+        assert not v24.LINE_MOVE.search(x), x
+        assert v24._has_fact(x, ("Liam Szarka",)), x
+        assert len(x) <= v24.LINE_MAX, x
+        assert not re.search(r"\d+% (to|chance|win)", x) and "%" not in x.replace("% of", ""), x   # no win % ever
+        assert not any(n in x.lower() for n in ol.NEVER), x
+        assert not cg.problem(x, "ncaaf"), (cg.problem(x, "ncaaf"), x)
+        for vague in ("we know which side", "the better team on paper", "trust the algorithm", "they're just better"):
+            assert vague not in x.lower(), x
+    assert "Liam Szarka" in lines[3] and "38" in lines[6] and "3-0" in lines[7] and "last night" in lines[8]
+    # the sharp move alone writes nothing; a one-liner never says the open, the move or the money
+    assert say(_ol_leg(reasons=["sharp money moving this way"]), whyf={}, fact="") == ""
+    for bad in ("Wyoming opened +200, now +180", "money's coming in on 'em", "the line moved toward Army",
+                "Army's price keeps shortening since the open", "Wyoming been getting bet: +200 → +180"):
+        assert v24.LINE_MOVE.search(bad), bad
+    # cussing is allowed; the NEVER list still bans
+    assert cg.one("📊 88% of the tickets are on Air Force. Air Force about to get their cheeks clapped.", "ncaaf")
+    assert cg.one("🥊 Tulsa gave up 38 to Navy last time out. Tulsa a trash ass team right now.", "ncaaf")
+    assert not cg.one("Real talk, Army all day.", "ncaaf") and not cg.one("Army is chalk here.", "ncaaf")
+    for w in ("spank", "trash ass team", "fin to", "talking shit", "get their ass beat", "cheeks clapped"):
+        assert w in ol.OWNER, w
+    assert "fuck" in ol.CUSS_OK and "shit" in ol.CUSS_OK
+    src = open(v24.__file__).read()
+    for w in ("fin to get spanked", "trash ass team", "cheeks clapped", "ass beat", "talking shit"):
+        assert w in src, w
+    # a lean keeps its no-units tone: no hype on its one-liner
+    import sports_breakdown as sb
+    assert not sb.HYPE.search(lines[9]), lines[9]
+    # a unit play never repeats the units line's number (our number vs the book is on the 💰 line already)
+    close = say(_ol_leg(reasons=["the stronger team"]), rec_u="4-2", rec_t="4-3", whyf=wm(rec_u="4-2", rec_t="4-3"), fact="")
+    assert not re.search(r"we make|our number|we price|on our sheet", close.lower()), close
+
+
+def test_public_fade_one_liner_uses_real_splits_only_and_cheeks_clapped_is_one_of_many():
+    """10/23, the owner: "we need to get back to the public on Air Force - they're about to get their cheeks clapped"
+    - then: "we don't need to say that every time we're going against the public" and "we don't need to always talk
+    about the public angle either". The public line uses the REAL split (never the price standing in for the public),
+    only when the public is heavy (70%+), it's one fact among many, and across ten fades on one board plus the next
+    day's five, 'cheeks clapped' shows at most twice and no wording repeats (a fact's own words can't come back the
+    next day - the 4-word-run memory - so the fade fact carries a dozen wordings)."""
+    import re
+    import sports_breakdown as sb
+    import sports_breakdown_v24 as v24
+    import sports_public
+    g = {"id": "ncaaf:x", "start": "2026-10-24T01:00Z", "home": "1", "away": "2", "ml_home": 180, "ml_away": -220}
+    leg = _ol_leg(team="Wyoming", opp="Air Force", side="home", odds=180, dec=2.8, raw_own=0.4522, p=0.394, public="fade")
+    keep = sports_public.splits_for
+    try:
+        sports_public.splits_for = lambda gid, live=None, hist=None: None      # no real split: the price says 'fade' -
+        none = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")   # no public line
+        assert "% of" not in none and "📊" not in none, none
+        sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 12, "ml_home_m": 35, "ml_away_t": 88, "ml_away_m": 65}
+        line = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
+        assert "88" in line and "Air Force" in line and line.startswith("📊"), line
+        sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 40, "ml_home_m": 50, "ml_away_t": 60, "ml_away_m": 50}
+        mild = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
+        assert "% of" not in mild, mild                                       # 60-40 says nothing
+    finally:
+        sports_public.splits_for = keep
+    assert "public fade" not in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(40, 50))
+    assert "public fade" in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(30, 50))
+    # the public is one fact among many: a key man out leads it, and a side the ratings like for its record isn't
+    # a 'public' card by default (the fact order)
+    assert v24.FACT_ORDER.index("opponent missing key players") < v24.FACT_ORDER.index("public fade")
+    assert v24.FACT_ORDER.index("public ride") > v24.FACT_ORDER.index("the stronger team")
+    # five fades on one board, then five more the next day with the first day's memory (ten fades in all)
+    def board(day, used):
+        out = []
+        for i in range(5):
+            us, them = f"Team{day}{i}", f"Opp{day}{i}"
+            lg = _ol_leg(team=us, opp=them, side="home", odds=180, dec=2.8, raw_own=0.45, p=0.4, game_id=f"ncaaf:{day}{i}")
+            v = v24.Voice(f"d{day}-{i}", used)
+            v.names = (us, them)
+            whyf = v24.why_map("ncaaf", us, them, us, them, False, pub=(12, 35))
+            out.append((v24.why_line(lg, v, g, us, them, us, them, whyf=whyf, fact=""), (us, them)))
+        return out
+    used = set()
+    day1 = board(1, used)
+    used2 = sb.recent_grams([(t, n) for t, n in day1])     # the next day: yesterday's 4-word runs, nothing else
+    mem = set(used2)                                        # (the Voice adds to the set it's handed)
+    day2 = board(2, used2)
+    for brd in (day1, day2):
+        texts = [t for t, _ in brd]
+        assert all(texts), texts                                              # every fade gets a line
+        assert len(set(texts)) == len(texts), texts                          # no wording twice on a board
+        grams = [sb.grams(t, n) for t, n in brd]
+        for i in range(len(grams)):
+            for j in range(i + 1, len(grams)):
+                assert not (grams[i] & grams[j]), (texts[i], texts[j])        # no shared 4-word run on a board
+        tails = [re.sub(r"\b(Team|Opp)\d+\b", "_", re.split(r"[.—,]", t.strip().rstrip("."))[-1]).strip().lower() for t in texts]
+        assert len(set(tails)) == len(tails), tails                           # no kicker twice on a board
+    alltext = " ".join(t for t, _ in day1 + day2).lower()
+    assert alltext.count("cheeks clapped") <= 2, alltext
+    assert alltext.count("about to get their") <= 3, alltext
+    for t, n in day2:                                                         # nothing from day 1 said the same way
+        assert not (sb.grams(t, n) & mem), t
+
+
+def test_a_board_of_one_liners_shares_no_four_word_run_and_no_kicker():
+    """10/23, the owner: "we're trying to avoid being super repetitive." A full board of eight picks with the same kind
+    of facts (a record gap, a streak, the other side's last loss, a home record): every one-liner lands, no two share a
+    4-word run or a kicker, and the shape varies - not every line is 'Team fact. Kicker.'"""
+    import re
+    import sports_breakdown as sb
+    import sports_breakdown_v24 as v24
+    g = {"id": "x", "start": "2026-10-24T00:30Z", "home": "1", "away": "2"}
+    used = set()
+    out = []
+    for i in range(8):
+        us, them = f"Team{i}", f"Opp{i}"
+        pro = i % 2 == 0
+        U, T = (f"the {us}", f"the {them}") if pro else (us, them)
+        lg = _ol_leg(team=us, opp=them, league="nfl" if pro else "ncaaf", reasons=["the stronger team", "hotter recent form"],
+                     game_id=f"g{i}", is_lean=(i == 7), tier="lean" if i == 7 else "value")
+        whyf = v24.why_map(lg["league"], us, them, U, T, pro, rec_u="6-1", rec_t="2-5", n_hot=3,
+                           pub=(12, 35) if i % 3 == 0 else None)
+        whyf["their last loss"] = [f"{T} just lost to Navy 38-10", f"{T} gave up 38 to Navy last time out",
+                                   f"{T} are coming off a 38-10 loss to Navy", f"Navy beat {T} 38-10 last time out"]
+        whyf["home record"] = [f"{U} are 3-0 at home this year", f"3-0 at home for {U} this season"]
+        v = v24.Voice(f"b{i}", used)
+        v.names = (us, them)
+        out.append((v24.why_line(lg, v, g, us, them, U, T, rec_u="6-1", rec_t="2-5", n_hot=3, whyf=whyf, fact=""), (us, them)))
+    texts = [t for t, _ in out]
+    assert all(texts), texts
+    grams = [sb.grams(t, n) for t, n in out]
+    for i in range(len(grams)):
+        for j in range(i + 1, len(grams)):
+            assert not (grams[i] & grams[j]), (texts[i], texts[j])
+    tails = [re.sub(r"\b(Team|Opp)\d+\b", "_", re.split(r"[.—,]", t.strip().rstrip("."))[-1]).strip().lower() for t in texts]
+    assert len(set(tails)) == len(tails), tails
+    starts = [re.sub(r"^\W+", "", t).split(" ")[0] for t in texts]
+    assert len(set(starts)) >= 3, starts                                      # the shape varies
+    for t in texts:
+        assert not v24.LINE_MOVE.search(t) and v24._has_fact(t), t
+    import sports_breakdown as _sb
+    assert not _sb.HYPE.search(texts[7]), texts[7]                            # the lean kept its tone
 
 
 if __name__ == "__main__":

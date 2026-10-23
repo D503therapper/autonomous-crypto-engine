@@ -82,6 +82,9 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
     "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater",
+    "trash": r"super trash|trash as fuck|trash ass team", "straight ass": r"straight ass|they ass",
+    "spank": r"spank", "ass beat": r"ass beat|beat the brakes off", "fin to": r"\bfin to\b", "talking shit": r"talking shit",
+    "shit spot": r"shit spot", "say less": r"say less", "all day": r"all day", "facts": r"just facts",
     "nice": r"\bnice\b", "go off": r"go(ing)? off", "no answer": r"no answer", "watch": r"watch (him|her)|just watch",
     "problem": r"a problem", "different": r"different|built for|another level|ain't regular", "him": r"\bis (him|her)\b",
     "light": r"light work|easy work|handle .* light", "long day": r"long (day|night)", "ready": r"ain't ready",
@@ -256,7 +259,8 @@ def lean_ends(leg, said=()):
     told = [str(leg.get("why_line") or "")] + [str(x) for x in said or ()]
     groups = [[f] if isinstance(f, str) else list(f or []) for f in
               (leg.get("facts") or ([leg["fact"]] if leg.get("fact") else []))]   # [[ways to say fact 1], [fact 2]...]
-    fresh = [g for g in groups if g and not any(_same_fact(g[0], t) for t in told)]
+    fresh = [g for g in groups if g and not any(_same_fact(w, t) for w in g for t in told)]   # (10/23: ANY wording of
+    #                                                     the fact on the card = said - "71% of the cash" vs "72% of the bets")
     fact = ""
     if fresh:                                                 # the fact's wording rolls by the pick (stable run to run)
         ways = [w for w in fresh[0] if len(w) <= LEAN_FACT_MAX] or []
