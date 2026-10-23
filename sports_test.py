@@ -10454,6 +10454,17 @@ def test_an_owner_posted_play_keeps_his_units_and_never_takes_the_dog_spot():
     assert picks[0]["kind"] == "dog" and picks[1]["kind"] == "play"
 
 
+def test_a_dog_whose_own_read_is_under_the_price_stays_at_one_unit():
+    """10/22, the owner ("the 2 units on the Predators fucked us" - "do what you recommend"): a Dog of the Day whose OWN
+    ratings read sits under the price (the Sharks 10/19 1.5u, the Predators 10/22 2u; that kind 4-7 as the Dog) gets
+    no size-up - 1u - from 10/23; one whose own read beats the price (Wyoming +170) still sizes by its read."""
+    under = {"league": "nhl", "market": "ml", "odds": 120, "dec": 2.2, "dog_p": 0.5021, "edge_own": -0.027}
+    over = {"league": "ncaaf", "market": "ml", "odds": 170, "dec": 2.7, "dog_p": 0.426, "edge_own": 0.097}
+    assert sports.dog_units({"date": "2026-10-23", "kind": "dog", "legs": [under]}) == 1.0
+    assert sports.dog_units({"date": "2026-10-22", "kind": "dog", "legs": [under]}) == 2.0      # (posted picks keep theirs)
+    assert sports.dog_units({"date": "2026-10-23", "kind": "dog", "legs": [over]}) >= 2.0
+
+
 def test_no_win_percentages_ever():
     """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
     board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
