@@ -10623,6 +10623,21 @@ def test_a_key_man_who_sat_the_last_two_is_old_news_and_the_ride_public_never_le
     assert "close on paper, but our ratings have" in src       # (4-2 vs 4-3: close records say close)
 
 
+def test_a_thin_edge_lock_or_dog_is_half_a_unit_never_the_max_play():
+    """10/23, the owner on the Mammoth Lock (3u, 'THIN'): "the whole thin edge thing is sketchy ... those seem to lose a
+    lot - you need to fix this." Live: thin-edge unit plays 16-18 -4.4u, real edges 11-6 +18.6u. From 10/24 a Lock or
+    Dog whose own read beats the price by under THIN_EDGE is ½u; a real edge keeps the 10/23 plan's sizing."""
+    thin = {"odds": -142, "dec": 1.7042, "edge_own": 0.01, "w_p": 0.595, "p": 0.59, "league": "nhl", "market": "ml"}
+    real = {**thin, "edge_own": 0.08, "w_p": 0.63}
+    lock = lambda leg, d="2026-10-24": {"date": d, "kind": "lock", "status": "open", "legs": [dict(leg)]}
+    assert sports.thin_edge(thin) and not sports.thin_edge(real)
+    assert sports.units_for(lock(thin)) == 0.5
+    assert sports.units_for(lock(real)) == sports.lock_units(real) == 3.0
+    assert sports.units_for(lock(thin, "2026-10-23")) == sports.lock_units(thin)        # (posted picks keep theirs)
+    dog = {"odds": 150, "dec": 2.5, "edge_own": 0.01, "dog_p": 0.405, "p": 0.40, "league": "ncaaf", "market": "ml"}
+    assert sports.units_for({"date": "2026-10-24", "kind": "dog", "status": "open", "legs": [dog]}) == 0.5
+
+
 def test_board_preview_names_the_10_23_own_read_dog_rule():
     """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
