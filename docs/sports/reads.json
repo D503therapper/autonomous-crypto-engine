@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T14:27Z",
+ "updated": "2026-10-24T15:02Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -377,8 +377,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.686,
-    "tie": 0.029,
+    "p": 0.677,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -395,11 +395,10 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.74,
+    "win_p": 0.729,
     "reasons": [
      "the stronger team",
-     "rolling off a blowout win",
-     "sharp money moving this way"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -779,8 +778,8 @@
    "start": "2026-10-24T17:00Z",
    "away": "Miami OH",
    "home": "C Michigan",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Miami OH",
     "opp": "C Michigan",
@@ -1012,7 +1011,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "S Illinois",
-    "p": 0.573,
+    "p": 0.538,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1028,11 +1027,10 @@
     "opp": "Northern Iowa",
     "market": "ml",
     "line": null,
-    "odds": -184,
-    "p": 0.608,
-    "win_p": 0.608,
+    "odds": -151,
+    "p": 0.566,
+    "win_p": 0.566,
     "reasons": [
-     "sharp money moving this way",
      "better QB play lately"
     ]
    }
@@ -1043,7 +1041,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Furman",
-    "p": 0.68,
+    "p": 0.673,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1058,10 +1056,10 @@
     "team": "Furman",
     "opp": "Samford",
     "market": "spread",
-    "line": -9.5,
-    "odds": -112,
+    "line": -8.5,
+    "odds": -111,
     "p": 0.5,
-    "win_p": 0.733,
+    "win_p": 0.725,
     "reasons": [
      "the stronger team"
     ]
@@ -1104,8 +1102,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Stony Brook",
-    "p": 0.508,
-    "tie": 0.034,
+    "p": 0.532,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1113,17 +1111,19 @@
    "start": "2026-10-24T18:00Z",
    "away": "Stony Brook",
    "home": "Bryant",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Stony Brook",
     "opp": "Bryant",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.531,
-    "win_p": 0.531,
-    "reasons": []
+    "odds": -184,
+    "p": 0.559,
+    "win_p": 0.559,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1147,9 +1147,9 @@
     "team": "Tarleton St",
     "opp": "West Georgia",
     "market": "spread",
-    "line": -21.0,
-    "odds": -113,
-    "p": 0.501,
+    "line": -22.5,
+    "odds": -112,
+    "p": 0.502,
     "win_p": 0.885,
     "reasons": [
      "the stronger team",
@@ -1163,8 +1163,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tennessee Tech",
-    "p": 0.799,
-    "tie": 0.023,
+    "p": 0.769,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1178,10 +1178,10 @@
     "team": "Tennessee Tech",
     "opp": "The Citadel",
     "market": "spread",
-    "line": -19.5,
-    "odds": -113,
+    "line": -18.5,
+    "odds": -103,
     "p": 0.501,
-    "win_p": 0.858,
+    "win_p": 0.828,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1385,8 +1385,8 @@
    "start": "2026-10-24T19:00Z",
    "away": "Oregon",
    "home": "Illinois",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Oregon",
     "opp": "Illinois",
@@ -1905,7 +1905,7 @@
     "opp": "Sacramento St",
     "market": "spread",
     "line": -14.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.501,
     "win_p": 0.808,
     "reasons": [
@@ -1930,8 +1930,8 @@
    "start": "2026-10-24T19:30Z",
    "away": "Tennessee",
    "home": "South Carolina",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "South Carolina",
     "opp": "Tennessee",
@@ -2574,8 +2574,8 @@
    "start": "2026-10-24T23:00Z",
    "away": "Georgia St",
    "home": "Arkansas St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Arkansas St",
     "opp": "Georgia St",
@@ -2595,8 +2595,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.377,
-    "tie": 0.299,
+    "p": 0.382,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2612,8 +2612,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.662,
-    "win_p": 0.443,
+    "p": 0.651,
+    "win_p": 0.431,
     "reasons": [
      "better rested"
     ]
@@ -2782,7 +2782,7 @@
    "start": "2026-10-24T23:00Z",
    "away": "Rangers",
    "home": "Senators",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Rangers",
@@ -2792,7 +2792,9 @@
     "odds": -245,
     "p": 0.69,
     "win_p": 0.472,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -2852,7 +2854,8 @@
     "win_p": 0.631,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -2997,8 +3000,8 @@
    "start": "2026-10-24T23:30Z",
    "away": "Ole Miss",
    "home": "Texas",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Texas",
     "opp": "Ole Miss",
@@ -3142,7 +3145,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.469,
+    "p": 0.472,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -3158,12 +3161,13 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -220,
-    "p": 0.648,
-    "win_p": 0.534,
+    "odds": -221,
+    "p": 0.651,
+    "win_p": 0.538,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -3251,8 +3255,8 @@
     "market": "ml",
     "line": null,
     "odds": -118,
-    "p": 0.525,
-    "win_p": 0.525,
+    "p": 0.524,
+    "win_p": 0.524,
     "reasons": [
      "the stronger team"
     ]
@@ -3264,7 +3268,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.489,
+    "p": 0.493,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3280,11 +3284,12 @@
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -118,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
-     "rolling off a blowout win"
+     "rolling off a blowout win",
+     "sharp money moving this way"
     ]
    }
   },
@@ -3303,8 +3308,8 @@
    "start": "2026-10-25T01:00Z",
    "away": "Lightning",
    "home": "Mammoth",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Lightning",
     "opp": "Mammoth",
@@ -3418,7 +3423,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.669,
+    "p": 0.668,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3436,7 +3441,7 @@
     "line": -9.5,
     "odds": -108,
     "p": 0.503,
-    "win_p": 0.767,
+    "win_p": 0.766,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -3573,7 +3578,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.507,
+    "p": 0.511,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -3589,9 +3594,9 @@
     "opp": "Ravens",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.533,
-    "win_p": 0.533,
+    "odds": -118,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": [
      "sharp money moving this way",
      "better rested",
@@ -3761,7 +3766,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Panthers",
-    "p": 0.411,
+    "p": 0.41,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -3777,9 +3782,9 @@
     "opp": "Blackhawks",
     "market": "ml",
     "line": null,
-    "odds": -182,
-    "p": 0.633,
-    "win_p": 0.633,
+    "odds": -180,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "the stronger team"
     ]
