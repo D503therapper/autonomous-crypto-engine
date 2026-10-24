@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T18:18Z",
+ "updated": "2026-10-24T18:34Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -771,7 +771,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.662,
+    "p": 0.667,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -786,10 +786,10 @@
     "team": "Oregon",
     "opp": "Illinois",
     "market": "spread",
-    "line": -10.0,
+    "line": -10.5,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.712,
+    "win_p": 0.718,
     "reasons": [
      "the stronger team"
     ]
@@ -924,7 +924,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "BYU",
-    "p": 0.614,
+    "p": 0.622,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -933,16 +933,16 @@
    "start": "2026-10-24T19:30Z",
    "away": "BYU",
    "home": "UCF",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "BYU",
     "opp": "UCF",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.657,
-    "win_p": 0.657,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -112,
+    "p": 0.5,
+    "win_p": 0.666,
     "reasons": [
      "the stronger team"
     ]
@@ -1225,7 +1225,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.506,
+    "p": 0.498,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1241,12 +1241,13 @@
     "opp": "Navy",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.528,
-    "win_p": 0.528,
+    "odds": -148,
+    "p": 0.518,
+    "win_p": 0.518,
     "reasons": [
      "sharp money moving this way",
-     "rolling off a blowout win"
+     "rolling off a blowout win",
+     "off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"
     ]
    }
   },
@@ -1366,7 +1367,7 @@
     "opp": "Texas A&M",
     "market": "spread",
     "line": -13.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.802,
     "reasons": [
@@ -1842,8 +1843,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SF Austin",
-    "p": 0.819,
-    "tie": 0.021,
+    "p": 0.814,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1857,10 +1858,10 @@
     "team": "SF Austin",
     "opp": "SE Louisiana",
     "market": "spread",
-    "line": -20.5,
-    "odds": -108,
+    "line": -17.5,
+    "odds": -113,
     "p": 0.501,
-    "win_p": 0.877,
+    "win_p": 0.873,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -2564,7 +2565,7 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -220,
+    "odds": -222,
     "p": 0.651,
     "win_p": 0.538,
     "reasons": [
@@ -2580,8 +2581,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.742,
-    "tie": 0.029,
+    "p": 0.758,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2595,10 +2596,10 @@
     "team": "Spurs",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -13.5,
-    "odds": -110,
-    "p": 0.507,
-    "win_p": 0.832,
+    "line": -14.5,
+    "odds": -105,
+    "p": 0.508,
+    "win_p": 0.847,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2672,7 +2673,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.489,
+    "p": 0.482,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2688,12 +2689,11 @@
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -110,
+    "p": 0.5,
+    "win_p": 0.5,
     "reasons": [
-     "rolling off a blowout win",
-     "sharp money moving this way"
+     "rolling off a blowout win"
     ]
    }
   },
