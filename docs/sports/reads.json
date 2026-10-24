@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T22:24Z",
+ "updated": "2026-10-24T22:33Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -668,8 +668,8 @@
    "away": "Howard",
    "home": "Morgan St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1823,7 +1823,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas",
-    "p": 0.54,
+    "p": 0.548,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1839,12 +1839,10 @@
     "opp": "Ole Miss",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.569,
-    "win_p": 0.569,
-    "reasons": [
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
+    "odds": -155,
+    "p": 0.579,
+    "win_p": 0.579,
+    "reasons": []
    }
   },
   {
@@ -1995,7 +1993,7 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -224,
+    "odds": -221,
     "p": 0.651,
     "win_p": 0.538,
     "reasons": [
