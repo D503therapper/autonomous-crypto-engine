@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T04:04Z",
+ "updated": "2026-10-24T04:43Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -245,7 +245,7 @@
    "home": "Tulsa",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Army",
@@ -258,7 +258,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -272,7 +272,7 @@
    "home": "Wyoming",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Wyoming",
@@ -283,7 +283,7 @@
     "p": 0.394,
     "win_p": 0.394,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -323,8 +323,8 @@
    "away": "Pelicans",
    "home": "Jazz",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -338,8 +338,8 @@
    "away": "Rockets",
    "home": "Spurs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -353,8 +353,8 @@
    "away": "Clippers",
    "home": "Lakers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -383,8 +383,8 @@
    "away": "Trail Blazers",
    "home": "Kings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2151,7 +2151,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -180,
-    "p": 0.625,
+    "p": 0.624,
     "win_p": 0.405,
     "reasons": []
    }
@@ -2379,7 +2379,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arizona St",
-    "p": 0.483,
+    "p": 0.507,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2395,9 +2395,9 @@
     "opp": "Kansas St",
     "market": "ml",
     "line": null,
-    "odds": 114,
-    "p": 0.5,
-    "win_p": 0.5,
+    "odds": 100,
+    "p": 0.529,
+    "win_p": 0.529,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
@@ -2658,7 +2658,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Idaho",
-    "p": 0.554,
+    "p": 0.544,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2674,9 +2674,9 @@
     "opp": "Southern Utah",
     "market": "ml",
     "line": null,
-    "odds": -165,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -156,
+    "p": 0.573,
+    "win_p": 0.573,
     "reasons": [
      "the stronger team"
     ]
@@ -2796,8 +2796,8 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.538,
-    "win_p": 0.538,
+    "p": 0.541,
+    "win_p": 0.541,
     "reasons": []
    }
   },
@@ -3157,7 +3157,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.672,
+    "p": 0.671,
     "win_p": 0.453,
     "reasons": []
    }
@@ -3185,7 +3185,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.696,
+    "p": 0.695,
     "win_p": 0.478,
     "reasons": []
    }
@@ -3243,8 +3243,8 @@
     "market": "ml",
     "line": null,
     "odds": -192,
-    "p": 0.63,
-    "win_p": 0.63,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3566,7 +3566,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.706,
+    "p": 0.702,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3586,9 +3586,7 @@
     "p": 0.505,
     "win_p": 0.791,
     "reasons": [
-     "the stronger team",
-     "better rested",
-     "opponent on a back-to-back"
+     "the stronger team"
     ]
    }
   },
@@ -3628,7 +3626,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bulls",
-    "p": 0.489,
+    "p": 0.49,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3645,8 +3643,8 @@
     "market": "ml",
     "line": null,
     "odds": -110,
-    "p": 0.511,
-    "win_p": 0.511,
+    "p": 0.512,
+    "win_p": 0.512,
     "reasons": [
      "the stronger team"
     ]
@@ -3658,7 +3656,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.487,
+    "p": 0.496,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3675,8 +3673,8 @@
     "market": "ml",
     "line": null,
     "odds": -120,
-    "p": 0.509,
-    "win_p": 0.509,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3688,7 +3686,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.393,
+    "p": 0.394,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -3739,6 +3737,7 @@
     "win_p": 0.796,
     "reasons": [
      "the stronger team",
+     "opponent on a back-to-back",
      "altitude edge"
     ]
    }
@@ -3870,7 +3869,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.63,
+    "p": 0.634,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3886,9 +3885,9 @@
     "opp": "Houston",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -258,
+    "p": 0.68,
+    "win_p": 0.68,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"

@@ -18695,6 +18695,15 @@
      "us:west1000"
     ],
     "dec": 2.0,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Dawson Jones",
+     "s": "38-35",
+     "type": "late",
+     "win": "away",
+     "y": 50
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -18738,6 +18747,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,10,8,10",
+     "h": "7,7,14,7"
+    },
     "form_state": [
      32.0,
      2,
@@ -18782,10 +18795,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Army 38 @ Tulsa 35",
     "season_games": null,
+    "settled": "2026-10-24T04:42Z",
     "side": "away",
     "start": "2026-10-24T00:30Z",
     "stype": "2",
@@ -18802,12 +18817,14 @@
    }
   ],
   "p_hit": 0.4792,
-  "pnl": 0.0,
+  "pnl": 100.0,
   "posted": "2026-10-23T15:41Z",
   "round": 1,
+  "settled": "2026-10-24T04:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -112,
@@ -19007,6 +19024,7 @@
      "game:conf"
     ],
     "dec": 2.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19035,6 +19053,10 @@
     "facts": [],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,6,8,0",
+     "h": "7,14,0,7"
+    },
     "form_state": [
      18.0,
      2,
@@ -19080,10 +19102,12 @@
     "raw_own": 0.4522,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Air Force 14 @ Wyoming 28",
     "season_games": null,
+    "settled": "2026-10-24T04:42Z",
     "side": "home",
     "start": "2026-10-24T01:00Z",
     "stype": "2",
@@ -19102,11 +19126,12 @@
   "midday": true,
   "owner_post": "10/23 - the owner: 'post it 2 units' (Wyoming read 39% vs the 36% +180 needs, dog score 7.1 - kept off the 8 AM Dog spot only because a +170 -> +180 wobble dropped its smart-money reason)",
   "p_hit": 0.4137,
-  "pnl": 0.0,
+  "pnl": 180.0,
   "posted": "2026-10-23T18:09Z",
   "round": 1,
+  "settled": "2026-10-24T04:42Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "lean",
   "units": 2.0
  }
