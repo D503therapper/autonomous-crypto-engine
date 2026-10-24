@@ -18385,6 +18385,7 @@
      "us:trip1000"
     ],
     "dec": 1.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -18437,6 +18438,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "41,24,38,25",
+     "h": "26,27,27,31"
+    },
     "form_state": [
      8.0,
      1,
@@ -18482,10 +18487,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Pistons 128 @ Heat 111",
     "season_games": 1,
+    "settled": "2026-10-24T02:50Z",
     "side": "away",
     "star_back": [],
     "start": "2026-10-24T00:00Z",
@@ -18509,12 +18516,14 @@
    }
   ],
   "p_hit": 0.5325,
-  "pnl": 0.0,
+  "pnl": 80.0,
   "posted": "2026-10-23T15:41Z",
   "round": 1,
+  "settled": "2026-10-24T02:50Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -125,

@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 109,
-  "beat": 35,
-  "same": 37,
+  "n": 111,
+  "beat": 36,
+  "same": 38,
   "worse": 37,
-  "avg_pts": 0.08
+  "avg_pts": 0.09
  },
  "unit_plays": {
   "n": 44,
@@ -22,11 +22,11 @@
    "avg_pts": -0.07
   },
   "lean": {
-   "n": 65,
-   "beat": 21,
-   "same": 18,
+   "n": 67,
+   "beat": 22,
+   "same": 19,
    "worse": 26,
-   "avg_pts": -0.06
+   "avg_pts": -0.03
   },
   "lock": {
    "n": 11,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 7,
-   "beat": 3,
-   "same": 2,
+   "n": 9,
+   "beat": 4,
+   "same": 3,
    "worse": 2,
-   "avg_pts": 0.21
+   "avg_pts": 0.41
   },
   "ncaaf": {
    "n": 28,
@@ -1621,6 +1621,34 @@
    "close": 114,
    "pts": 0.0,
    "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-23",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Celtics",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -142,
+   "pts": 2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-23",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Pistons",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -125,
+   "pts": 0.0,
+   "units": 0,
    "result": "won"
   },
   {
