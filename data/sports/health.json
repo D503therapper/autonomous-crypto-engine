@@ -1,34 +1,34 @@
 {
- "at": "2026-10-24T14:08Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
- "problems": [
-  "live tennis scores: tennis Kostovic vs Yihan: no points for 1549s",
-  "live tennis scores: tennis Zhang Ruien vs Zakharova: no points for 1549s",
-  "live tennis scores: tennis Valentova vs Liang: no points for 1549s",
-  "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up",
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
- ],
+ "at": "2026-10-24T15:42Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 1 of 2 live matches",
+  "slate check: all 118 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "engine ran 3 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 62 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-24T15:42Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-24T14:08Z",
    "fixes": [
@@ -502,18 +502,6 @@
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-22T14:38Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Michelsen vs Goffin: no points for 84s",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
