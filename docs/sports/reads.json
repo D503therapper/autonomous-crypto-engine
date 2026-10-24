@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T16:49Z",
+ "updated": "2026-10-24T16:52Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -926,16 +926,31 @@
    "id": "ncaaf:401868972",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Texas Southern",
+    "p": 0.504,
+    "tie": 0.034,
+    "name": "1st half"
+   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-24T19:00Z",
    "away": "Southern",
    "home": "Texas Southern",
-   "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "coin_flip",
    "board": null,
-   "lean": null
+   "lean": {
+    "team": "Texas Southern",
+    "opp": "Southern",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.526,
+    "win_p": 0.526,
+    "reasons": [
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+    ]
+   }
   },
   {
    "id": "ncaaf:401868121",
@@ -1066,7 +1081,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Charleston So",
-    "p": 0.508,
+    "p": 0.518,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1082,9 +1097,9 @@
     "opp": "Tennessee St",
     "market": "ml",
     "line": null,
-    "odds": -161,
-    "p": 0.53,
-    "win_p": 0.53,
+    "odds": -170,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": []
    }
   },
@@ -2611,7 +2626,7 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
+    "odds": -223,
     "p": 0.651,
     "win_p": 0.538,
     "reasons": [
@@ -2766,7 +2781,7 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
+    "odds": -198,
     "p": 0.632,
     "win_p": 0.412,
     "reasons": [
@@ -3062,7 +3077,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Browns",
-    "p": 0.537,
+    "p": 0.543,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -3078,9 +3093,9 @@
     "opp": "Titans",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -135,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -3158,8 +3173,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jets",
-    "p": 0.583,
-    "tie": 0.038,
+    "p": 0.587,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -3174,9 +3189,9 @@
     "opp": "Dolphins",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.65,
-    "win_p": 0.65,
+    "odds": -230,
+    "p": 0.656,
+    "win_p": 0.656,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3400,8 +3415,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.431,
-    "tie": 0.293,
+    "p": 0.437,
+    "tie": 0.292,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3416,9 +3431,9 @@
     "opp": "Predators",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.672,
-    "win_p": 0.672,
+    "odds": -230,
+    "p": 0.683,
+    "win_p": 0.683,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
