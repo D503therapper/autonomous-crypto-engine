@@ -19844,6 +19844,15 @@
      "game:conf"
     ],
     "dec": 2.4,
+    "decider": {
+     "c": "1:41",
+     "k": "td",
+     "p": null,
+     "s": "28-27",
+     "type": "late",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19885,6 +19894,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,7,7,7",
+     "h": "3,7,14,3"
+    },
     "form_state": [
      -7.0,
      -2,
@@ -19935,10 +19948,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Miami OH 28 @ C Michigan 27",
     "season_games": null,
+    "settled": "2026-10-24T20:41Z",
     "side": "home",
     "start": "2026-10-24T17:00Z",
     "stype": "2",
@@ -19955,12 +19970,14 @@
    }
   ],
   "p_hit": 0.4552,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-24T20:41Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 130,
