@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 115,
+  "n": 116,
   "beat": 37,
-  "same": 38,
+  "same": 39,
   "worse": 40,
   "avg_pts": 0.06
  },
  "unit_plays": {
-  "n": 47,
+  "n": 48,
   "beat": 15,
-  "same": 19,
+  "same": 20,
   "worse": 13,
-  "avg_pts": 0.2
+  "avg_pts": 0.19
  },
  "by_kind": {
   "dog": {
-   "n": 17,
+   "n": 18,
    "beat": 4,
-   "same": 7,
+   "same": 8,
    "worse": 6,
-   "avg_pts": -0.27
+   "avg_pts": -0.26
   },
   "lean": {
    "n": 68,
@@ -59,11 +59,11 @@
    "avg_pts": 0.41
   },
   "ncaaf": {
-   "n": 31,
+   "n": 32,
    "beat": 11,
-   "same": 10,
+   "same": 11,
    "worse": 10,
-   "avg_pts": 0.21
+   "avg_pts": 0.2
   },
   "nfl": {
    "n": 16,
@@ -1704,6 +1704,20 @@
    "odds": 180,
    "close": 210,
    "pts": -3.5,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": 310,
+   "close": 310,
+   "pts": 0.0,
    "units": 2.0,
    "result": "won"
   },
