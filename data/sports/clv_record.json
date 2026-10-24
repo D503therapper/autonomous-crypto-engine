@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 116,
+  "n": 119,
   "beat": 37,
-  "same": 39,
+  "same": 42,
   "worse": 40,
   "avg_pts": 0.06
  },
  "unit_plays": {
-  "n": 48,
+  "n": 51,
   "beat": 15,
-  "same": 20,
+  "same": 23,
   "worse": 13,
-  "avg_pts": 0.19
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 0.99
   },
   "play": {
-   "n": 19,
+   "n": 22,
    "beat": 6,
-   "same": 8,
+   "same": 11,
    "worse": 5,
-   "avg_pts": 0.16
+   "avg_pts": 0.14
   }
  },
  "by_sport": {
@@ -59,11 +59,11 @@
    "avg_pts": 0.41
   },
   "ncaaf": {
-   "n": 32,
+   "n": 35,
    "beat": 11,
-   "same": 11,
+   "same": 14,
    "worse": 10,
-   "avg_pts": 0.2
+   "avg_pts": 0.18
   },
   "nfl": {
    "n": 16,
@@ -1726,6 +1726,20 @@
    "kind": "play",
    "lean": false,
    "league": "ncaaf",
+   "team": "Tennessee",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
    "team": "C Michigan",
    "market": "ml",
    "line": null,
@@ -1733,6 +1747,34 @@
    "close": 145,
    "pts": -0.9,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Mississippi St",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "N Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]
