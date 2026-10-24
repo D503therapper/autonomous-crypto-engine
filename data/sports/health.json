@@ -1,32 +1,35 @@
 {
- "at": "2026-10-24T09:50Z",
+ "at": "2026-10-24T10:06Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Jones vs Wong: no points for 1762s",
-  "live tennis scores: tennis Inglis vs Garland: no points for 1049s",
-  "live tennis scores: tennis Putintseva vs Kinoshita: no points for 1762s",
-  "live tennis scores: tennis Kasatkina vs Ma YeXin: no points for 1533s"
+  "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 5 live matches",
+  "live tennis points + server: 6 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 55 min ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-24T10:06Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-24T09:50Z",
    "fixes": [],
@@ -479,11 +482,6 @@
   },
   {
    "at": "2026-10-22T10:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T09:18Z",
    "fixes": [],
    "problems": []
   }
