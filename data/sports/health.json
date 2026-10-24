@@ -1,8 +1,8 @@
 {
- "at": "2026-10-24T17:39Z",
+ "at": "2026-10-24T17:40Z",
  "fixes": [
-  "live watch 40109603150 froze (9 min) - cancelled",
-  "live board 9 min stale with games on - sports-live.yml already running"
+  "live watch 40113287215 froze (10 min) - cancelled",
+  "live board 10 min stale with games on - sports-live.yml already running"
  ],
  "problems": [],
  "ok": [
@@ -20,12 +20,20 @@
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 5 min ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-24T17:40Z",
+   "fixes": [
+    "live watch 40113287215 froze (10 min) - cancelled",
+    "live board 10 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-24T17:39Z",
    "fixes": [
@@ -496,13 +504,6 @@
    "at": "2026-10-22T17:32Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-22T17:22Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
