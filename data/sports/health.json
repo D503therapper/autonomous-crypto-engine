@@ -1,13 +1,17 @@
 {
- "at": "2026-10-24T13:09Z",
+ "at": "2026-10-24T13:10Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 64s",
+  "live tennis scores: tennis Kostovic vs Yihan: no points for 64s",
+  "live tennis scores: tennis Zhang Shuai vs Day: no points for 64s"
+ ],
  "ok": [
-  "live watcher fresh (1s)",
+  "live watcher fresh (54s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 5 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
@@ -17,11 +21,20 @@
   "baseball star list fresh (30 teams)",
   "studies ran 9h ago",
   "simulator ran 8h ago",
-  "engine ran 10 min ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-24T13:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 64s",
+    "live tennis scores: tennis Kostovic vs Yihan: no points for 64s",
+    "live tennis scores: tennis Zhang Shuai vs Day: no points for 64s"
+   ]
+  },
   {
    "at": "2026-10-24T13:09Z",
    "fixes": [],
@@ -487,11 +500,6 @@
   },
   {
    "at": "2026-10-22T13:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T13:04Z",
    "fixes": [],
    "problems": []
   }
