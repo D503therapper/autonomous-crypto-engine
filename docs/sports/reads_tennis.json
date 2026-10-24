@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T18:12Z",
+ "updated": "2026-10-24T19:14Z",
  "games": [
   {
    "id": "tennis:wta:187127",
@@ -244,7 +244,7 @@
    "away": "Tatiana Prozorova",
    "home": "Joanna Garland",
    "vs": true,
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "h1": null,
    "lean": {
@@ -252,12 +252,38 @@
     "opp": "Joanna Garland",
     "market": "ml",
     "line": null,
-    "odds": -210,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "on hard court",
      "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:187125",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-25T06:00Z",
+   "away": "Tereza Valentova",
+   "home": "Zhang Shuai",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Tereza Valentova",
+    "opp": "Zhang Shuai",
+    "market": "ml",
+    "line": null,
+    "odds": -240,
+    "p": 0.676,
+    "win_p": 0.676,
+    "reasons": [
+     "on hard court",
+     "Toray Pan Pacific Open Tennis"
     ]
    }
   },
@@ -267,20 +293,46 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
    "start": "2026-10-25T06:30Z",
-   "away": "Mei Yamaguchi",
-   "home": "Harriet Dart",
+   "away": "Harriet Dart",
+   "home": "Mei Yamaguchi",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Mei Yamaguchi",
-    "opp": "Harriet Dart",
+    "team": "Harriet Dart",
+    "opp": "Mei Yamaguchi",
     "market": "spread",
-    "line": 5.5,
+    "line": -5.5,
     "odds": -120,
     "p": 0.51,
-    "win_p": 0.191,
+    "win_p": 0.818,
+    "reasons": [
+     "on hard court",
+     "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:187145",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-25T07:00Z",
+   "away": "Anastasia Zakharova",
+   "home": "Teodora Kostovic",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Anastasia Zakharova",
+    "opp": "Teodora Kostovic",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "on hard court",
      "Guangzhou Open"
@@ -336,6 +388,162 @@
     "reasons": [
      "on hard court",
      "Almaty Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187223",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T11:00Z",
+   "away": "Yannick Hanfmann",
+   "home": "Rinky Hijikata",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Yannick Hanfmann",
+    "opp": "Rinky Hijikata",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187157",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T12:00Z",
+   "away": "Titouan Droguet",
+   "home": "Lukas Neumayer",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Titouan Droguet",
+    "opp": "Lukas Neumayer",
+    "market": "ml",
+    "line": null,
+    "odds": -260,
+    "p": 0.691,
+    "win_p": 0.691,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187158",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T12:00Z",
+   "away": "Jacob Fearnley",
+   "home": "Lorenzo Sonego",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jacob Fearnley",
+    "opp": "Lorenzo Sonego",
+    "market": "ml",
+    "line": null,
+    "odds": -145,
+    "p": 0.566,
+    "win_p": 0.566,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187221",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T12:00Z",
+   "away": "Juan Manuel Cerundolo",
+   "home": "Daniel Altmaier",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Juan Manuel Cerundolo",
+    "opp": "Daniel Altmaier",
+    "market": "spread",
+    "line": 0.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.5,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187222",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T12:30Z",
+   "away": "Aleksandar Kovacevic",
+   "home": "Giovanni Mpetshi Perricard",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Aleksandar Kovacevic",
+    "opp": "Giovanni Mpetshi Perricard",
+    "market": "ml",
+    "line": null,
+    "odds": -150,
+    "p": 0.574,
+    "win_p": 0.574,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187155",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-25T13:30Z",
+   "away": "Tomas Machac",
+   "home": "Fabian Marozsan",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Tomas Machac",
+    "opp": "Fabian Marozsan",
+    "market": "ml",
+    "line": null,
+    "odds": -220,
+    "p": 0.658,
+    "win_p": 0.658,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
     ]
    }
   }
