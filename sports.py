@@ -2793,6 +2793,26 @@ def plays(cands, avoid):
     return out
 
 
+DOG_PLAY_FROM = "2026-10-24"   # 🐶 the owner, 10/24 (Mississippi St +114 passed every Dog check, the Dog spot went to
+#                                Illinois +310, and it sat off the board): "if it's the best dog, then it should at least be
+#                                a value play." Every dog that clears the FULL Dog of the Day check (the dog gate - its
+#                                score and its own read over the price - real value, the money check, not a trap) but isn't
+#                                the Dog goes up as a ½u value play (PLAY_UNITS), one per game. Tracked on its own tag.
+
+
+def dog_plays(cands, avoid):
+    """Every dog that would qualify as the Dog of the Day (make_board's own Dog pool + the dog gate), best dog score
+    first - one per game, never a game in `avoid`."""
+    pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
+            and not c.get("trap") and good(c) and beats_price(c) and dog_score(c) > 0 and dog_gate(dict(c))]
+    out, seen = [], set(avoid)
+    for c in sorted(pool, key=lambda c: (-dog_score(c), -c["edge"])):
+        if c["game_id"] not in seen:
+            seen.add(c["game_id"])
+            out.append(c)
+    return out
+
+
 GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
 GAP_MIN = 0.10            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 10+ points over
 GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
@@ -3981,8 +4001,9 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
-    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("lean", viewer_leans, MAX_LEANS)):
-        if kind == "gap" and iso < GAP_FROM:
+    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, MAX_PLAYS),
+                            ("lean", viewer_leans, MAX_LEANS)):
+        if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM:
             continue
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         room = cap - sum(p["kind"] == kind for p in today_)
@@ -4005,7 +4026,7 @@ def post_board(games, model, picks, now, day, force=False):
                 #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             dress(b)
-            pk = {"date": iso, "kind": "play" if kind == "gap" else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
@@ -4018,6 +4039,8 @@ def post_board(games, model, picks, now, day, force=False):
             pk["tier"] = pick_tier({**pk, "tier": None})
             if kind == "gap":                                # 🔍 its own kind of unit play, its own record
                 pk["gap"], leg["tier"], pk["tier"] = leg.get("gap"), "value", "value"
+            if kind == "dogplay":                            # 🐶 a Dog-of-the-Day-grade dog that isn't the Dog: ½u value
+                pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"
             picks.append(pk)
             new.append(pk)
             room -= 1

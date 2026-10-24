@@ -10667,6 +10667,31 @@ def test_a_thin_edge_lock_or_dog_is_half_a_unit_never_the_max_play():
     assert sports.units_for({"date": "2026-10-24", "kind": "dog", "status": "open", "legs": [dog]}) == 0.5
 
 
+def test_every_dog_that_passes_the_dog_check_is_at_least_a_half_unit_play():
+    """10/24, the owner (Mississippi St +114 passed every Dog check, the Dog spot went to Illinois +310, and it sat off
+    the board): "if it's the best dog, then it should at least be a value play." dog_plays = every dog that clears the
+    full Dog check, best dog score first, one per game, never a game we're already on; posted as a ½u play."""
+    keep = (sports.good, sports.beats_price, sports.dog_score, sports.dog_gate)
+    ok = {"ms", "il"}
+    try:
+        sports.good = lambda c: c["k"] in ok
+        sports.beats_price = lambda c: True
+        sports.dog_score = lambda c: {"ms": 7.4, "il": 4.4, "x": 9.0}[c["k"]]
+        sports.dog_gate = lambda c: c["k"] in ok
+        mk = lambda k, gid, odds: {"k": k, "game_id": gid, "market": "ml", "odds": odds, "edge": 0.05}
+        cands = [mk("il", "g1", 310), mk("ms", "g2", 114), mk("x", "g3", 150), mk("ms", "g4", 400),
+                 {**mk("ms", "g5", 120), "market": "spread"}, {**mk("ms", "g6", 130), "trap": True}]
+        got = sports.dog_plays(cands, {"g1"})                  # (g1 = the Dog's game - never twice)
+        assert [c["game_id"] for c in got] == ["g2"], got     # (x fails the gate; +400 past the cap; spread; trap)
+    finally:
+        sports.good, sports.beats_price, sports.dog_score, sports.dog_gate = keep
+    pk = {"date": "2026-10-24", "kind": "play", "status": "open", "dog_play": True,
+          "legs": [{"odds": 114, "dec": 2.14, "edge_own": 0.1, "p": 0.52, "league": "ncaaf", "market": "ml"}]}
+    assert sports.units_for(pk) == sports.PLAY_UNITS == 0.5
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '("dogplay", dog_plays, MAX_PLAYS)' in src
+
+
 def test_board_preview_names_the_10_23_own_read_dog_rule():
     """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
