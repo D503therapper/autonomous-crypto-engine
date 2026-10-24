@@ -6129,6 +6129,107 @@
   "kind": "lean",
   "lean": true,
   "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892565",
+  "team": "Avalanche",
+  "opp": "Lightning",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -125,
+  "posted": "2026-10-23T15:41Z",
+  "price_says": 0.556,
+  "win_p": 0.5299843909255434,
+  "own_read": 0.505,
+  "weighed": 0.5053,
+  "dog_p": null,
+  "edge_own": -0.04942391892077025,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": [
+   "rec:2",
+   "home:1",
+   "bottom_c:3"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Nicolas Roy (C)",
+   "Zachary L'Heureux (LW)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -122,
+  "beat_close_pts": -0.6,
+  "result": "won",
+  "score": "6-3",
+  "margin": 3.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-23",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401862808",
+  "team": "Army",
+  "opp": "Tulsa",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 100,
+  "posted": "2026-10-23T15:41Z",
+  "price_says": 0.5,
+  "win_p": 0.47918823623004625,
+  "own_read": 0.542,
+  "weighed": null,
+  "dog_p": 0.5418,
+  "edge_own": 0.1636,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "conservative": false,
+   "fades": [],
+   "fast": false,
+   "last_margin": 32.0,
+   "last_pts": 56.0,
+   "neutral": false,
+   "record": [
+    4,
+    2
+   ],
+   "win_pct": 0.667,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "B. Mott (WR)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": null,
+  "public": null,
+  "close": -105,
+  "beat_close_pts": 1.2,
+  "result": "won",
+  "score": "38-35",
+  "margin": 3.0,
+  "pnl_units": 1.0
+ },
+ {
+  "date": "2026-10-23",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
   "league": "nba",
   "game_id": "nba:401909845",
   "team": "Magic",
@@ -6190,5 +6291,58 @@
   "score": "93-115",
   "margin": -22.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-23",
+  "kind": "dog",
+  "lean": false,
+  "tier": "lean",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401864525",
+  "team": "Wyoming",
+  "opp": "Air Force",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 180,
+  "posted": "2026-10-23T18:09Z",
+  "price_says": 0.357,
+  "win_p": 0.3940495062667437,
+  "own_read": 0.414,
+  "weighed": null,
+  "dog_p": 0.4137,
+  "edge_own": 0.10229135478230522,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [],
+  "angles": {
+   "fades": [],
+   "last_margin": 18.0,
+   "last_pts": 41.0,
+   "neutral": false,
+   "record": [
+    4,
+    3
+   ],
+   "win_pct": 0.571,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "T. Hasselbeck (QB)",
+   "D. Hubbard (RB)",
+   "T. Nystrom (WR)"
+  ],
+  "theirs_out": [
+   "L. Szarka (QB)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 210,
+  "beat_close_pts": -3.5,
+  "result": "won",
+  "score": "28-14",
+  "margin": 14.0,
+  "pnl_units": 3.6
  }
 ]
