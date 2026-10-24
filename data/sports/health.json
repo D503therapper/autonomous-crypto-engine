@@ -1,27 +1,111 @@
 {
- "at": "2026-10-24T08:35Z",
+ "at": "2026-10-24T16:01Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (284s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 6 live matches",
+  "live tennis points + server: 2 of 2 live matches",
+  "slate check: all 118 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
+  "tennis live prices: 8 live lines, 2 fresh (betrivers 2)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 44 min ago",
+  "studies ran 0h ago",
+  "simulator ran 2h ago",
+  "engine ran 16 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-24T16:01Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T16:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T15:42Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T14:08Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Kostovic vs Yihan: no points for 1549s",
+    "live tennis scores: tennis Zhang Ruien vs Zakharova: no points for 1549s",
+    "live tennis scores: tennis Valentova vs Liang: no points for 1549s",
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-24T13:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 64s",
+    "live tennis scores: tennis Kostovic vs Yihan: no points for 64s",
+    "live tennis scores: tennis Zhang Shuai vs Day: no points for 64s"
+   ]
+  },
+  {
+   "at": "2026-10-24T13:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T13:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
+    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2623s",
+    "live tennis scores: tennis Kostovic vs Yihan: no points for 327s",
+    "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s"
+   ]
+  },
+  {
+   "at": "2026-10-24T11:37Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
+    "live tennis scores: tennis Shek vs Dart: no points for 2623s",
+    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
+    "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
+    "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
+   ]
+  },
+  {
+   "at": "2026-10-24T10:06Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-24T09:50Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Jones vs Wong: no points for 1762s",
+    "live tennis scores: tennis Inglis vs Garland: no points for 1049s",
+    "live tennis scores: tennis Putintseva vs Kinoshita: no points for 1762s",
+    "live tennis scores: tennis Kasatkina vs Ma YeXin: no points for 1533s"
+   ]
+  },
   {
    "at": "2026-10-24T08:35Z",
    "fixes": [],
@@ -412,68 +496,6 @@
   },
   {
    "at": "2026-10-22T15:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T15:22Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-22T15:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-22T14:38Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Michelsen vs Goffin: no points for 84s",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-22T13:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T13:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T12:20Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T10:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T10:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T09:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T09:17Z",
    "fixes": [],
    "problems": []
   }
