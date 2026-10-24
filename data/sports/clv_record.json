@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 108,
-  "beat": 34,
+  "n": 109,
+  "beat": 35,
   "same": 37,
   "worse": 37,
-  "avg_pts": 0.06
+  "avg_pts": 0.08
  },
  "unit_plays": {
   "n": 44,
@@ -22,11 +22,11 @@
    "avg_pts": -0.07
   },
   "lean": {
-   "n": 64,
-   "beat": 20,
+   "n": 65,
+   "beat": 21,
    "same": 18,
    "worse": 26,
-   "avg_pts": -0.09
+   "avg_pts": -0.06
   },
   "lock": {
    "n": 11,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 6,
-   "beat": 2,
+   "n": 7,
+   "beat": 3,
    "same": 2,
    "worse": 2,
-   "avg_pts": 0.03
+   "avg_pts": 0.21
   },
   "ncaaf": {
    "n": 28,
@@ -1622,6 +1622,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-23",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Magic",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -118,
+   "pts": 1.3,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }

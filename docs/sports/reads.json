@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T01:39Z",
+ "updated": "2026-10-24T01:55Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -113,8 +113,8 @@
    "away": "Raptors",
    "home": "Wizards",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -314,95 +314,19 @@
    }
   },
   {
-   "id": "nba:401909851",
+   "id": "nba:401909849",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.627,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-10-24T02:00Z",
-   "away": "Clippers",
-   "home": "Lakers",
-   "why": "coin_flip",
+   "start": "2026-10-24T01:30Z",
+   "away": "Pelicans",
+   "home": "Jazz",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Clippers",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -112,
-    "p": 0.502,
-    "win_p": 0.711,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909850",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Warriors",
-    "p": 0.544,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-24T02:00Z",
-   "away": "Grizzlies",
-   "home": "Warriors",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Warriors",
-    "opp": "Grizzlies",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909852",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Trail Blazers",
-    "p": 0.714,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-24T02:00Z",
-   "away": "Trail Blazers",
-   "home": "Kings",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Trail Blazers",
-    "opp": "Kings",
-    "market": "spread",
-    "line": -9.5,
-    "odds": -110,
-    "p": 0.503,
-    "win_p": 0.791,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401858272",
@@ -995,7 +919,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas",
-    "p": 0.507,
+    "p": 0.513,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1011,9 +935,9 @@
     "opp": "Baylor",
     "market": "ml",
     "line": null,
-    "odds": -102,
-    "p": 0.529,
-    "win_p": 0.529,
+    "odds": -105,
+    "p": 0.536,
+    "win_p": 0.536,
     "reasons": [
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
@@ -2285,7 +2209,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma",
-    "p": 0.496,
+    "p": 0.486,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2301,11 +2225,10 @@
     "opp": "Mississippi St",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -135,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": [
-     "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
@@ -2411,7 +2334,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas St",
-    "p": 0.494,
+    "p": 0.484,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2427,9 +2350,9 @@
     "opp": "Arizona St",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.513,
-    "win_p": 0.513,
+    "odds": -135,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": []
    }
   },
