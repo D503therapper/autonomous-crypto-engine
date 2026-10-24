@@ -18213,6 +18213,7 @@
      "game:rival"
     ],
     "dec": 1.7692307692307692,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -18256,6 +18257,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "27,22,24,30",
+     "h": "26,24,33,24"
+    },
     "form_state": [
      -8.0,
      -4,
@@ -18302,10 +18307,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Knicks 103 @ Celtics 107",
     "season_games": 1,
+    "settled": "2026-10-24T02:23Z",
     "side": "home",
     "star_back": [],
     "start": "2026-10-23T23:00Z",
@@ -18329,12 +18336,14 @@
    }
   ],
   "p_hit": 0.5427,
-  "pnl": 0.0,
+  "pnl": 76.92,
   "posted": "2026-10-23T15:41Z",
   "round": 1,
+  "settled": "2026-10-24T02:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -125,

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T01:55Z",
+ "updated": "2026-10-24T02:24Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -41,8 +41,8 @@
    "away": "Duke",
    "home": "Virginia",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -72,7 +72,7 @@
    "home": "Celtics",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Celtics",
@@ -85,7 +85,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -98,8 +98,8 @@
    "away": "Mavericks",
    "home": "Pacers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -156,8 +156,8 @@
    "away": "UMass",
    "home": "UConn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -329,34 +329,64 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401858272",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "NC State",
-    "p": 0.626,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
+   "id": "nba:401909096",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
    "season": "regular season",
-   "start": "2026-10-24T02:30Z",
-   "away": "NC State",
-   "home": "Stanford",
-   "why": "coin_flip",
+   "start": "2026-10-24T01:30Z",
+   "away": "Rockets",
+   "home": "Spurs",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "NC State",
-    "opp": "Stanford",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.671,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nba:401909851",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-24T02:00Z",
+   "away": "Clippers",
+   "home": "Lakers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909850",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-24T02:00Z",
+   "away": "Grizzlies",
+   "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909852",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-24T02:00Z",
+   "away": "Trail Blazers",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401858270",
