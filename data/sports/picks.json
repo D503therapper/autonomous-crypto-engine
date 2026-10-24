@@ -19184,6 +19184,7 @@
      "them:trip1000"
     ],
     "dec": 4.1,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19235,6 +19236,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,3,0,0",
+     "h": "0,7,7,7"
+    },
     "form_state": [
      1.0,
      1,
@@ -19288,10 +19293,12 @@
      "opponent drama: legal trouble"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Oregon 10 @ Illinois 21",
     "season_games": null,
+    "settled": "2026-10-24T22:23Z",
     "side": "home",
     "start": "2026-10-24T19:00Z",
     "stype": "2",
@@ -19315,12 +19322,14 @@
    }
   ],
   "p_hit": 0.2882,
-  "pnl": 0.0,
+  "pnl": 310.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-24T22:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": -142,
