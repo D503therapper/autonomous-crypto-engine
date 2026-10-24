@@ -1,23 +1,3 @@
-tennis study ATP life factors vs current loss 0.6284: experience 0.6287 (-0.35 mnats, z -0.36), age 0.6255 (+2.88 mnats, z 2.11), young_vs_aging 0.6279 (+0.44 mnats, z 1.06), last_match 0.6263 (+2.10 mnats, z 1.45), streaks 0.6291 (-0.70 mnats, z -0.69), first_set 0.6273 (+1.09 mnats, z 1.71), injury 0.6292 (-0.80 mnats, z -1.2), travel 0.6283 (+0.01 mnats, z 0.21) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30565 rated matches, acc 0.65 (surface ratings alone 0.6485), loss 0.6219 vs 0.6218, own weights [0.004, 0.903, 0.001, -0.088, 0.299, 0.025, -0.205]
-tennis study WTA life factors vs current loss 0.6219: experience 0.6189 (+3.01 mnats, z 1.74), age 0.6213 (+0.64 mnats, z 0.79), young_vs_aging 0.6218 (+0.16 mnats, z 0.95), last_match 0.6218 (+0.18 mnats, z 0.18), streaks 0.6221 (-0.10 mnats, z -0.22), first_set 0.6214 (+0.60 mnats, z 1.35), injury 0.6212 (+0.70 mnats, z 1.24), travel 0.622 (-0.08 mnats, z -0.52) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 14 matches
-sync: 131045 games stored, 52 calls, 0 failed, 13s
-odds history: 2 games got odds, 55 calls, 0 failed, 5s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 84 games got weather, 0 new stadiums located, 261s
-4th-down rates: 32 NFL teams
-news: 1 new drama tags
-goalies: 12 games on the page, 12 matched, 0 confirmed
-nba rosters: 30 teams as of 2026-10-21, 0 failed, 0 moves
-beat the close: unit plays 14 of 42 better than the close, avg +0.3 pts
-tuned in 152s: mlb trust 33% acc 58.7%, nba trust 17% acc 69.6%, ncaab trust 5% acc 67.4%, ncaaf trust 0% acc 71.7%, nfl trust 14% acc 65.6%, nhl trust 12% acc 56.1%
-cover study: nba big favorites covered 50% of 3602 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3540 (adjust +0.00); nfl big favorites covered 47% of 516 (adjust +0.02)
-comeback study: nfl 2294 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.470; ncaaf 6117 games s=1.2 w=1.25 m=+0.0 loss 0.367->0.365; nba 10241 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19853 games s=1.0 w=1.00 m=+0.0 loss 0.458->0.458; nhl 10200 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
-halves study: nfl 2303 games: 1st half gets 51% of the edge (sd 10.26), 2nd 39%; 1st half leader wins 78%, tied 7%; ncaaf 6118 games: 1st half gets 61% of the edge (sd 11.84), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10241 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20087 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10200 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
-lines study: nhl 20400 team-games, loss 0.607->0.584; mlb 40176 team-games, loss 0.654->0.636
 spread/moneyline study: {'nfl': (0.5333, True), 'ncaaf': (0.4823, False), 'nba': (0.4516, False), 'ncaab': (0.482, False)}
 hockey study: ['b2b', 'rest'] 0.66567 vs line 0.666
 all: following hit 68.8% vs 67.9% the price said over 231055 (edge +0.8% older, +1.0% newer, z 10.01) -> watch only
@@ -2995,6 +2975,26 @@ tennis study ATP: 26142 rated matches, acc 0.647 (surface ratings alone 0.646), 
 tennis study ATP life factors vs current loss 0.6273: experience 0.6276 (-0.29 mnats, z -0.3), age 0.6246 (+2.72 mnats, z 1.99), young_vs_aging 0.6269 (+0.42 mnats, z 1.02), last_match 0.6254 (+1.90 mnats, z 1.32), streaks 0.6282 (-0.85 mnats, z -0.83), first_set 0.6265 (+0.84 mnats, z 1.3), injury 0.628 (-0.72 mnats, z -1.11), travel 0.6273 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis study WTA: 30598 rated matches, acc 0.653 (surface ratings alone 0.652), loss 0.6213 vs 0.621, own weights [0.004, 0.903, -0.0, -0.086, 0.299, 0.025, -0.206]
 tennis study WTA life factors vs current loss 0.6213: experience 0.6183 (+2.98 mnats, z 1.72), age 0.6205 (+0.78 mnats, z 0.97), young_vs_aging 0.6212 (+0.17 mnats, z 0.98), last_match 0.6214 (-0.07 mnats, z -0.07), streaks 0.6214 (-0.06 mnats, z -0.12), first_set 0.6207 (+0.60 mnats, z 1.35), injury 0.6205 (+0.78 mnats, z 1.36), travel 0.6214 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches
+sync: 131189 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 219 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 1 new drama tags
+goalies: 12 games on the page, 12 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-10-24, 0 failed, 0 moves
+beat the close: unit plays 15 of 46 better than the close, avg +0.2 pts
+public splits: 81 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73578 matches stored, 18 calls, 0 failed
+tennis study ATP: 26142 rated matches, acc 0.647 (surface ratings alone 0.646), loss 0.6273 vs 0.6278, own weights [-0.005, 0.825, 0.073, 0.146, 0.424, 0.048, 0.05]
+tennis study ATP life factors vs current loss 0.6273: experience 0.6276 (-0.29 mnats, z -0.3), age 0.6246 (+2.72 mnats, z 1.99), young_vs_aging 0.6269 (+0.42 mnats, z 1.02), last_match 0.6254 (+1.90 mnats, z 1.32), streaks 0.6282 (-0.85 mnats, z -0.83), first_set 0.6265 (+0.84 mnats, z 1.3), injury 0.628 (-0.72 mnats, z -1.11), travel 0.6273 (+0.02 mnats, z 0.43) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30599 rated matches, acc 0.6525 (surface ratings alone 0.6525), loss 0.6211 vs 0.6208, own weights [0.004, 0.903, -0.001, -0.087, 0.3, 0.025, -0.206]
+tennis study WTA life factors vs current loss 0.6211: experience 0.6181 (+3.06 mnats, z 1.78), age 0.6203 (+0.77 mnats, z 0.96), young_vs_aging 0.6209 (+0.17 mnats, z 0.98), last_match 0.6212 (-0.06 mnats, z -0.06), streaks 0.6212 (-0.07 mnats, z -0.15), first_set 0.6205 (+0.60 mnats, z 1.35), injury 0.6203 (+0.77 mnats, z 1.36), travel 0.6212 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 1 matches
