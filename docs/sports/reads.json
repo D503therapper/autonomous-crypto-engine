@@ -1,6 +1,21 @@
 {
- "updated": "2026-10-24T15:54Z",
+ "updated": "2026-10-24T16:04Z",
  "games": [
+  {
+   "id": "ncaaf:401867902",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-24T16:00Z",
+   "away": "New Haven",
+   "home": "C Connecticut",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaaf:401866446",
    "league": "ncaaf",
@@ -129,7 +144,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Campbell",
-    "p": 0.648,
+    "p": 0.638,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -145,9 +160,9 @@
     "opp": "Maine",
     "market": "spread",
     "line": -10.0,
-    "odds": -119,
+    "odds": -104,
     "p": 0.5,
-    "win_p": 0.696,
+    "win_p": 0.684,
     "reasons": [
      "the stronger team"
     ]
@@ -872,7 +887,7 @@
     "opp": "Illinois",
     "market": "spread",
     "line": -10.0,
-    "odds": -108,
+    "odds": -110,
     "p": 0.5,
     "win_p": 0.712,
     "reasons": [
@@ -945,31 +960,16 @@
    "id": "ncaaf:401868972",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texas Southern",
-    "p": 0.504,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-24T19:00Z",
    "away": "Southern",
    "home": "Texas Southern",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Texas Southern",
-    "opp": "Southern",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.526,
-    "win_p": 0.526,
-    "reasons": [
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401868121",
@@ -2076,8 +2076,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.382,
-    "tie": 0.298,
+    "p": 0.377,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2093,8 +2093,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.651,
-    "win_p": 0.431,
+    "p": 0.662,
+    "win_p": 0.443,
     "reasons": [
      "better rested"
     ]
@@ -2226,7 +2226,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.38,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2235,7 +2235,7 @@
    "start": "2026-10-24T23:00Z",
    "away": "Predators",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Predators",
@@ -2243,8 +2243,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.66,
-    "win_p": 0.441,
+    "p": 0.671,
+    "win_p": 0.453,
     "reasons": [
      "opponent missing key players"
     ]
@@ -2645,7 +2645,7 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -223,
+    "odds": -222,
     "p": 0.651,
     "win_p": 0.538,
     "reasons": [
@@ -2753,7 +2753,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.493,
+    "p": 0.489,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2769,9 +2769,9 @@
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
      "rolling off a blowout win",
      "sharp money moving this way"
