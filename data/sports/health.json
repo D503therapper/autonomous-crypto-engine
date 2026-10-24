@@ -1,9 +1,13 @@
 {
- "at": "2026-10-24T05:30Z",
+ "at": "2026-10-24T07:01Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Lee vs Vandromme: no points for 2622s",
+  "live tennis scores: tennis Hontama vs Oliynykova: no points for 2622s",
+  "live tennis scores: tennis Golubic vs Joint: no points for 1186s"
+ ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +15,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 32 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 59 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-24T07:01Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lee vs Vandromme: no points for 2622s",
+    "live tennis scores: tennis Hontama vs Oliynykova: no points for 2622s",
+    "live tennis scores: tennis Golubic vs Joint: no points for 1186s"
+   ]
+  },
   {
    "at": "2026-10-24T05:30Z",
    "fixes": [],
@@ -462,11 +474,6 @@
   },
   {
    "at": "2026-10-22T07:00Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T05:27Z",
    "fixes": [],
    "problems": []
   }
