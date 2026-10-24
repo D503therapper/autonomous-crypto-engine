@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T04:03Z",
+ "updated": "2026-10-24T04:04Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -2207,8 +2207,8 @@
     "team": "UCLA",
     "opp": "Michigan St",
     "market": "spread",
-    "line": -14.5,
-    "odds": -112,
+    "line": -15.5,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.826,
     "reasons": [
@@ -2779,8 +2779,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.518,
-    "tie": 0.037,
+    "p": 0.528,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2795,9 +2795,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.53,
-    "win_p": 0.53,
+    "odds": -155,
+    "p": 0.538,
+    "win_p": 0.538,
     "reasons": []
    }
   },
@@ -3050,8 +3050,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.408,
-    "tie": 0.296,
+    "p": 0.405,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3066,9 +3066,9 @@
     "opp": "Maple Leafs",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team"
     ]
@@ -3426,7 +3426,7 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": -9.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.5,
     "win_p": 0.731,
     "reasons": [
@@ -3531,12 +3531,42 @@
    }
   },
   {
+   "id": "mlb:401908043",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Brewers",
+    "p": 0.472,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-25T00:00Z",
+   "away": "Rays",
+   "home": "Brewers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Rays",
+    "opp": "Brewers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.638,
+    "win_p": 0.456,
+    "reasons": [
+     "better starting pitcher"
+    ]
+   }
+  },
+  {
    "id": "nba:401909858",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.709,
+    "p": 0.706,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3554,7 +3584,7 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.795,
+    "win_p": 0.791,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -3628,7 +3658,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.492,
+    "p": 0.487,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3644,9 +3674,9 @@
     "opp": "Rockets",
     "market": "ml",
     "line": null,
-    "odds": -124,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -120,
+    "p": 0.509,
+    "win_p": 0.509,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3688,8 +3718,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.699,
-    "tie": 0.031,
+    "p": 0.692,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -3706,7 +3736,7 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.804,
+    "win_p": 0.796,
     "reasons": [
      "the stronger team",
      "altitude edge"
@@ -3781,7 +3811,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.588,
+    "p": 0.596,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -3797,11 +3827,12 @@
     "opp": "Warriors",
     "market": "ml",
     "line": null,
-    "odds": -215,
-    "p": 0.656,
-    "win_p": 0.656,
+    "odds": -230,
+    "p": 0.669,
+    "win_p": 0.669,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
