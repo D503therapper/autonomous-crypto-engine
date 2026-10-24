@@ -20385,6 +20385,12 @@
      "us:hotseat"
     ],
     "dec": 2.24,
+    "decider": {
+     "h": "35-14",
+     "s": "56-21",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -20443,6 +20449,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,21,14,7",
+     "h": "7,7,0,7"
+    },
     "form_state": [
      -18.0,
      -8,
@@ -20491,10 +20501,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Hawai'i 56 @ N Illinois 21",
     "season_games": null,
+    "settled": "2026-10-24T22:39Z",
     "side": "home",
     "start": "2026-10-24T19:30Z",
     "stype": "2",
@@ -20512,11 +20524,13 @@
   ],
   "midday": true,
   "p_hit": 0.4844,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T18:12Z",
   "round": 1,
+  "settled": "2026-10-24T22:39Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
