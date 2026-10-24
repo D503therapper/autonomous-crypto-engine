@@ -1,28 +1,44 @@
 {
- "at": "2026-10-24T10:06Z",
+ "at": "2026-10-24T11:37Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
+  "live tennis scores: tennis Shek vs Dart: no points for 2623s",
+  "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
+  "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
+  "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
  ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (79s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 6 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 7 min ago",
+  "studies ran 7h ago",
+  "simulator ran 7h ago",
+  "engine ran 53 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-24T11:37Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
+    "live tennis scores: tennis Shek vs Dart: no points for 2623s",
+    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
+    "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
+    "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
+   ]
+  },
   {
    "at": "2026-10-24T10:06Z",
    "fixes": [],
@@ -477,11 +493,6 @@
   },
   {
    "at": "2026-10-22T10:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T10:41Z",
    "fixes": [],
    "problems": []
   }
