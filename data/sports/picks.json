@@ -18817,6 +18817,7 @@
      "game:nonconf"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -18859,6 +18860,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "26,31,29,29",
+     "h": "20,25,15,33"
+    },
     "form_state": [
      -7.0,
      -4,
@@ -18908,10 +18913,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Timberwolves 115 @ Magic 93",
     "season_games": 1,
+    "settled": "2026-10-24T01:37Z",
     "side": "home",
     "start": "2026-10-23T23:00Z",
     "stype": "2",
@@ -18928,12 +18935,14 @@
    }
   ],
   "p_hit": 0.5137,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-23T17:12Z",
   "round": 1,
+  "settled": "2026-10-24T01:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 180,

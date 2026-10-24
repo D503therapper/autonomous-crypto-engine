@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T01:05Z",
+ "updated": "2026-10-24T01:39Z",
  "games": [
   {
    "id": "nba:401909848",
@@ -56,8 +56,8 @@
    "away": "Hawks",
    "home": "Hornets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -129,7 +129,7 @@
    "home": "Magic",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Magic",
@@ -143,7 +143,7 @@
      "the stronger team",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -311,66 +311,6 @@
      "the stronger team"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nba:401909849",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pelicans",
-    "p": 0.498,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-24T01:30Z",
-   "away": "Pelicans",
-   "home": "Jazz",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Pelicans",
-    "opp": "Jazz",
-    "market": "ml",
-    "line": null,
-    "odds": -108,
-    "p": 0.513,
-    "win_p": 0.513,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909096",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.542,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-24T01:30Z",
-   "away": "Rockets",
-   "home": "Spurs",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Spurs",
-    "opp": "Rockets",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.59,
-    "win_p": 0.59,
-    "reasons": [
-     "the stronger team"
-    ]
    }
   },
   {
