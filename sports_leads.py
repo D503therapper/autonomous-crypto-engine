@@ -52,6 +52,9 @@ def tags(c, sports):
                       "own_top2_out": "NBA fav missing a top-2 man (fade)", "opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)",
                       "more_rest": "NBA fav 2+ more days rest (fade)", "off_blowout": "NBA fav off a 20+ win",
                       "home_dog_mid": "NBA fav at a home dog, games 31-60"}[k])
+    if dog and lg == "nba" and mo.get("last_upset") and c.get("odds", 0) >= sports.NBA_UPSET_DOG_MIN:
+        t.append("NBA dog off an upset win, still +180 or longer")   # 10/24 dog-eye study: a LEAD (train +7.2% on 538,
+        #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
     if lg == "nba":                                           # 10/21 underdog studies' score (weights)
         nw = sports.nba_dog_weights(c)
         if nw >= 2 * sports.NBA_DOG_W:

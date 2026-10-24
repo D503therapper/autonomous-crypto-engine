@@ -1433,6 +1433,11 @@ NBA_DOG_SPREAD_FIT = (9.947e-05, -3.403e-02, 5.2264e-01)   # the ML a dog's spre
 NBA_DOG_SPREAD_GAP = -0.015     # the ML 1.5+ points LONGER than its spread says (vs the league's recent gap - it drifts):
 #                                 +14.3% train / +25.9% blind (2 of 3); the short side was flat in train - not weighed
 NBA_NORM_GAMES = 300            # the league's recent games the medians come from
+NBA_UPSET_DOG_MIN = 180         # 10/24 dog-eye study: a dog off an UPSET win (won last game as a dog), still +180 or
+#                                 longer - train +7.2% on 538 (4 of 7 seasons), holdout +1.1% on 73: one cell of 49
+#                                 (~2.5 chance hits), a LEAD for the tracker (sports_leads), NEVER a weight. Every other
+#                                 'line looks way off' eye (roster talent, stars, beat a good team, last season's record,
+#                                 the Elo gap, rest, a combined fair line) is priced at the close - and at the open
 _NORMS = {}
 
 
@@ -1514,6 +1519,12 @@ def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev, games=None
             out[pre + "last_ot"] = len(h) > 4
             out[pre + "blew_lead"] = sum(h[:2]) - sum(a[:2]) >= 10 and sum(h) < sum(a)
         out[pre + "rest"] = (start - se._t(x["start"])).days
+        try:                                             # (10/24 dog-eye study, a LEAD for the tracker only - never a
+            ml_ = int(x["ml_home"] if x["home"] == team else x["ml_away"])   # weight): it won its last game as a dog
+            opp_pts = float(x["away_score"] if x["home"] == team else x["home_score"])
+            out[pre + "last_upset"] = ml_ > 0 and pts > opp_pts
+        except (TypeError, ValueError, KeyError):
+            pass
     last_facts(mine[-1] if mine else None, g[side], "")
     last_facts(theirs[-1] if theirs else None, g[other], "opp_")
     k = 0

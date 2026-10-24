@@ -1,0 +1,23 @@
+OPEN baseline: dogs +100..+350 at the open                   TRAIN n= 1727 win  34.0% vs  35.6% ROI   -8.9% z-2.8 (0/2 up) | HOLD  867  35.6% vs  35.7% ROI   -2.6% | now n=25 -24.4%
+open: Elo read 5+ over the open                              TRAIN n=  454 win  33.9% vs  36.1% ROI   -8.0% z-1.3 (1/2 up) | HOLD  255  39.2% vs  36.7% ROI   +5.2% | now n=8 -46.9%
+open: Elo read 8+ over the open                              TRAIN n=  323 win  35.0% vs  35.7% ROI   -3.4% z-0.5 (1/2 up) | HOLD  180  38.3% vs  37.1% ROI   -2.2% | now n=6 -29.2%
+open: Elo read 10+ over the open                             TRAIN n=  244 win  35.2% vs  36.0% ROI   -3.2% z-0.4 (1/2 up) | HOLD  152  36.2% vs  37.1% ROI   -9.0% | now n=5 -15.0%
+open: talent read 5+ over the open (roster so far)           TRAIN n= 1179 win  33.1% vs  34.3% ROI   -8.2% z-2.1 (0/2 up) | HOLD  555  36.0% vs  35.0% ROI   +0.1% | now n=7 +13.1%
+open: talent read 8+ over the open (roster so far)           TRAIN n= 1017 win  33.0% vs  34.0% ROI   -7.8% z-1.8 (0/2 up) | HOLD  489  34.4% vs  34.8% ROI   -3.8% | now n=5 -5.0%
+open: talent read 10+ over the open (roster so far)          TRAIN n=  902 win  32.9% vs  33.7% ROI   -7.2% z-1.6 (0/2 up) | HOLD  438  34.0% vs  34.8% ROI   -4.8% | now n=5 -5.0%
+open: dog's roster talent >= the favorite's                  TRAIN n=  476 win  37.6% vs  38.3% ROI   -5.4% z-0.9 (1/2 up) | HOLD  280  35.0% vs  37.9% ROI  -12.6% | now n=5 -5.0%
+open: dog 1+ more star points (rotation)                     TRAIN n=  416 win  41.6% vs  37.5% ROI   +8.1% z+1.2 (2/2 up) | HOLD  182  39.0% vs  37.9% ROI   -1.9% | now n=2 +2.5%
+open: dog 2+ more star points                                TRAIN n=  284 win  40.5% vs  37.8% ROI   +3.7% z+0.5 (1/2 up) | HOLD  102  36.3% vs  38.8% ROI  -10.3% | now n=1 +105.0%
+open: dog 4+ more star points                                TRAIN n=  111 win  43.2% vs  38.6% ROI   +6.4% z+0.5 (1/2 up) | HOLD   27  40.7% vs  40.0% ROI   +3.0% | 
+open: won last game as a dog                                 TRAIN n=  300 win  33.0% vs  35.3% ROI  -11.8% z-1.6 (0/2 up) | HOLD  142  38.0% vs  35.8% ROI   +7.5% | now n=4 -48.8%
+open: upset last game, opened +180 or longer                 TRAIN n=  129 win  22.5% vs  28.3% ROI  -24.0% z-1.9 (0/2 up) | HOLD   64  34.4% vs  29.0% ROI  +21.9% | now n=1 -100.0%
+open: beat an Elo 1560+ team last game                       TRAIN n=  187 win  34.2% vs  37.2% ROI  -11.1% z-1.2 (0/2 up) | HOLD   96  33.3% vs  36.6% ROI   -8.6% | now n=4 -48.8%
+open: g1-15 dog 10+ better last season                       TRAIN n=   17 win  47.1% vs  38.0% ROI  +32.3% z+0.9 (1/2 up) | HOLD   26  26.9% vs  39.5% ROI  -37.2% | now n=2 +2.5%
+open: rested dog vs fav on a b2b                             TRAIN n=  296 win  37.8% vs  35.9% ROI   +1.2% z+0.2 (1/2 up) | HOLD  132  40.2% vs  36.0% ROI  +12.2% | now n=3 -100.0%
+open: eye score 1+                                           TRAIN n= 1520 win  34.3% vs  35.4% ROI   -7.3% z-2.1 (0/2 up) | HOLD  711  35.3% vs  35.5% ROI   -3.1% | now n=9 -12.0%
+open: eye score 2+                                           TRAIN n=  849 win  36.4% vs  35.9% ROI   -1.9% z-0.4 (1/2 up) | HOLD  406  40.6% vs  36.5% ROI   +9.7% | now n=4 -48.8%
+open: eye score 3+                                           TRAIN n=  224 win  35.7% vs  36.3% ROI   -3.1% z-0.3 (1/2 up) | HOLD  134  35.8% vs  36.8% ROI   -4.4% | now n=3 -31.7%
+
+CELLS tried: 18 (~0.9 chance hits)
+  up both: open: dog 4+ more star points: train n=111 +6.4% 1/2 | hold n=27 +3.0%
+  up both: open: rested dog vs fav on a b2b: train n=296 +1.2% 1/2 | hold n=132 +12.2%

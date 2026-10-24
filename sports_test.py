@@ -3420,6 +3420,36 @@ def test_nba_underdog_second_batch_weights():
     assert mo["rest"] == 3 and mo["opp_rest"] == 2 and mo["games_in"] == 3
 
 
+def test_dog_eye_study_wires_no_weight_and_tracks_the_upset_dog_lead():
+    """10/24 - the owner's 'line looks way off' eye (roster talent, stars, beat a good team, last season's record, the
+    Elo gap, rest, a combined fair line, a favorite missing starters): every detector is priced at the close AND at the
+    open (results/studies/dog_eye_1024/), so NOTHING new weighs the dog read. The one lead - a dog off an UPSET win,
+    still +180 or longer (train +7.2% on 538, holdout +1.1%) - is a tracker tag only: the fact comes from the schedule
+    (it won its last game at a plus price), and the dog score doesn't move on it."""
+    import sports_leads
+    base = {"market": "ml", "league": "nba", "odds": 190, "dec": 2.9, "p_market": 0.34, "edge": 0.0,
+            "edge_own": 0.34 * 2.9 - 1, "reasons": [], "home": False, "season_games": 20, "elo_edge": -100}
+    assert sports.nba_dog_weights({**base, "dog_more": {"last_upset": True}}) == 0
+    assert sports.dog_score({**base, "dog_more": {"last_upset": True}}) == sports.dog_score({**base, "dog_more": {}})
+    tag = "NBA dog off an upset win, still +180 or longer"
+    assert tag in sports_leads.tags({**base, "dog_more": {"last_upset": True}}, sports)
+    assert tag not in sports_leads.tags({**base, "odds": 150, "dec": 2.5, "dog_more": {"last_upset": True}}, sports)   # +180 and up
+    assert tag not in sports_leads.tags({**base, "dog_more": {"last_upset": False}}, sports)
+    assert tag not in sports_leads.tags({**base, "league": "nhl", "dog_more": {"last_upset": True}}, sports)
+    # the fact from the schedule: A won its last game as a +160 dog; B won its last as a -200 favorite
+    games = {"g0": {"id": "g0", "league": "nba", "start": "2026-10-24T23:00Z", "status": "final", "stype": "2",
+                    "home": "X", "away": "A", "home_score": 100, "away_score": 104, "ml_home": "-180", "ml_away": "160"},
+             "g1": {"id": "g1", "league": "nba", "start": "2026-10-24T23:30Z", "status": "final", "stype": "2",
+                    "home": "B", "away": "Y", "home_score": 110, "away_score": 99, "ml_home": "-200", "ml_away": "170"}}
+    g = {"id": "n", "league": "nba", "start": "2026-10-26T23:00Z", "status": "pre", "stype": "2", "home": "B", "away": "A",
+         "ml_home": "-230", "ml_away": "190"}
+    games["n"] = g
+    sports._SCHED.clear()
+    mo = sports._dog_more(games, g, "away", "home", "nba")
+    assert mo["last_upset"] is True and mo["opp_last_upset"] is False
+    sports._SCHED.clear()
+
+
 def test_hoops_opening_weeks_trust_the_market_and_elo_regresses_once():
     """10/20 audit (NBA opening night - the owner: "the engine is tripping", the 76ers +155 with LeBron): the NBA ratings
     are last season's results (no rosters), so the engine read the 76ers 26% vs the market's 38% and called it 'fighting'
