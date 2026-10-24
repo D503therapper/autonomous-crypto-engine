@@ -3046,6 +3046,17 @@ def card_extras(leg, g, injuries):
         leg["breakdown"] = list(leg.get("breakdown") or []) + [net]   # slumping-goalie line starts with 🥅 too)
 
 
+def _sat_lately(g, side, name):
+    """A football player absent from the team's last 2 box scores (sports_absences.missed_lately) - old news."""
+    if g.get("league") not in ("nfl", "ncaaf"):
+        return False
+    try:
+        import sports_absences
+        return sports_absences.missed_lately({}, g["league"], g[side], name, g["start"])
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
     matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
@@ -3054,7 +3065,9 @@ def injury_line(g, side, injuries):
     rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
     tag = who_matters(g, side, rows)                      # (10/21, the owner: say who MATTERS, when the data says so)
     gone = [f"{r[1]} {r[0]}{tag.get(r[0], '')}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
-            and "season" not in r[2].lower()]
+            and "season" not in r[2].lower() and not _sat_lately(g, side, r[0])]
+    #   (10/23, the owner: "this breakdown is ass and doesn't even sound good for Wyoming" - it led with "Wyoming out:
+    #    QB T. Hasselbeck"; Tyler Hughes has started their last 4. A football player who sat the last 2 isn't news)
     unsure = [f"{r[1]} {r[0]}{tag.get(r[0], '')}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     if len(gone) + len(unsure) < 2 and not any("suspen" in r[2].lower() for r in rows):
         return ""
