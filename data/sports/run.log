@@ -1,23 +1,3 @@
-lines study: nhl 20400 team-games, loss 0.607->0.584; mlb 40176 team-games, loss 0.654->0.636
-spread/moneyline study: {'nfl': (0.5333, True), 'ncaaf': (0.4823, False), 'nba': (0.4522, False), 'ncaab': (0.482, False)}
-hockey study: ['b2b', 'rest'] 0.66567 vs line 0.666
-all: following hit 68.8% vs 67.9% the price said over 231055 (edge +0.8% older, +1.0% newer, z 10.01) -> watch only
-streak: following hit 63.9% vs 63.2% the price said over 69787 (edge +0.6% older, +0.7% newer, z 3.63) -> watch only
-rate: following hit 71.0% vs 70.0% the price said over 161268 (edge +0.9% older, +1.1% newer, z 9.67) -> watch only
-streak|total: following hit 50.2% vs 50.0% the price said over 12464 (edge +0.1% older, +0.2% newer, z 0.36) -> watch only
-streak|fav_ml: following hit 72.5% vs 71.5% the price said over 36385 (edge +0.9% older, +1.0% newer, z 4.43) -> watch only
-streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7826 (edge -1.3% older, +0.4% newer, z -0.86) -> watch only
-streak|home: following hit 61.5% vs 60.8% the price said over 13112 (edge +0.9% older, +0.4% newer, z 1.8) -> watch only
-rate|total: following hit 51.1% vs 50.0% the price said over 3903 (edge +1.3% older, +0.9% newer, z 1.33) -> watch only
-rate|fav_ml: following hit 73.8% vs 72.8% the price said over 113251 (edge +0.9% older, +1.1% newer, z 7.92) -> watch only
-rate|fav_cover: following hit 49.1% vs 50.0% the price said over 1796 (edge +0.1% older, -1.9% newer, z -0.76) -> watch only
-rate|home: following hit 66.3% vs 65.2% the price said over 42318 (edge +1.0% older, +1.3% newer, z 5.8) -> watch only
-nfl|streak: following hit 58.4% vs 59.7% the price said over 1547 (edge -2.5% older, -0.1% newer, z -1.11) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4132 (edge +0.1% older, -0.0% newer, z 0.04) -> watch only
-ncaaf|streak: following hit 70.4% vs 69.9% the price said over 7342 (edge -0.3% older, +1.3% newer, z 1.03) -> watch only
-ncaaf|rate: following hit 72.3% vs 71.7% the price said over 22171 (edge +0.7% older, +0.7% newer, z 2.49) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9804 (edge -0.2% older, +0.1% newer, z -0.21) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23773 (edge -0.1% older, -0.3% newer, z -0.76) -> watch only
 ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
 ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
 mlb|streak: following hit 53.7% vs 53.6% the price said over 10769 (edge +0.6% older, -0.5% newer, z 0.14) -> watch only
@@ -2998,3 +2978,23 @@ tennis study WTA life factors vs current loss 0.6222: experience 0.6191 (+3.15 m
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 4 matches
+sync: 131189 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 221 games got weather, 0 new stadiums located, 71s
+4th-down rates: 32 NFL teams
+news: 2 new drama tags
+goalies: 12 games on the page, 12 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-10-24, 0 failed, 0 moves
+beat the close: unit plays 15 of 46 better than the close, avg +0.2 pts
+public splits: 81 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73578 matches stored, 18 calls, 0 failed
+tennis study ATP: 26136 rated matches, acc 0.6485 (surface ratings alone 0.6475), loss 0.6263 vs 0.6267, own weights [-0.005, 0.825, 0.072, 0.145, 0.424, 0.048, 0.05]
+tennis study ATP life factors vs current loss 0.6263: experience 0.6265 (-0.16 mnats, z -0.16), age 0.6237 (+2.66 mnats, z 1.94), young_vs_aging 0.6259 (+0.42 mnats, z 1.03), last_match 0.6245 (+1.83 mnats, z 1.27), streaks 0.6272 (-0.83 mnats, z -0.81), first_set 0.6255 (+0.82 mnats, z 1.27), injury 0.627 (-0.73 mnats, z -1.12), travel 0.6263 (+0.02 mnats, z 0.39) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30592 rated matches, acc 0.652 (surface ratings alone 0.6515), loss 0.6217 vs 0.6213, own weights [0.004, 0.903, -0.001, -0.088, 0.299, 0.025, -0.206]
+tennis study WTA life factors vs current loss 0.6217: experience 0.6185 (+3.19 mnats, z 1.85), age 0.621 (+0.69 mnats, z 0.86), young_vs_aging 0.6215 (+0.17 mnats, z 1.0), last_match 0.6218 (-0.08 mnats, z -0.08), streaks 0.6218 (-0.10 mnats, z -0.22), first_set 0.6211 (+0.63 mnats, z 1.41), injury 0.621 (+0.72 mnats, z 1.27), travel 0.6218 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches
