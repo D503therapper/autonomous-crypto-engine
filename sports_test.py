@@ -10613,6 +10613,8 @@ def test_a_key_man_who_sat_the_last_two_is_old_news_and_the_ride_public_never_le
         assert not A.missed_lately({}, "ncaaf", "2005", "L. Szarka", "2026-10-11T00:00Z")   # (sat only 1 by then)
         assert v24._stale({}, "ncaaf", "2005", "L. Szarka", "2026-10-24T01:00Z")
         assert not v24._stale({}, "nhl", "2005", "L. Szarka", "2026-10-24T01:00Z")
+        g = {"league": "ncaaf", "home": "2005", "home_name": "Air Force", "start": "2026-10-24T01:00Z"}
+        assert sports._sat_lately(g, "home", "L. Szarka") and not sports._sat_lately(g, "home", "O. Allen")
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
     src = open(v24.__file__).read()
