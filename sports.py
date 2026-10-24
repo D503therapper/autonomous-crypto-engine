@@ -2154,6 +2154,12 @@ def units_for(pk):
             return 0.5                                       #  flat in the replay; the sizing check caught it at more)
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
+    if kind in ("lock", "dog") and (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(legs[0]):
+        return 0.5                                           # (10/23, the owner: "the whole thin edge thing is sketchy -
+        #                                                      those seem to lose a lot ... you need to fix this": live,
+        #                                                      thin-edge unit plays 16-18 -4.4u vs real edges 11-6 +18.6u;
+        #                                                      the 10/23 plan had a thin Lock at the 3u max - a small edge
+        #                                                      is a small bet again, Lock and Dog)
     if kind == "lock" and (pk.get("date") or "") >= S6_FROM:
         return lock_units(legs[0])                           # (the 10/23 plan - never Kelly on the read again)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
@@ -2173,6 +2179,7 @@ def units_for(pk):
     return u
 
 
+THIN_HALF_FROM = "2026-10-24"  # a thin-edge Lock / Dog (own read under THIN_EDGE over the price) is ½u - never the 3u max
 SIZING_FROM = "2026-10-02"     # the unit system below, from the 10/2 board on (posted picks keep their units)
 DOG_MAX_UNITS = 2.0            # the owner, 10/10: "if there's major value it should be more units" - the Dog of the Day
 DOG_BIG_FROM = "2026-10-16"     # the owner, 10/16: "Hockey dogs don't have to be specifically one unit ... it can be two
