@@ -1,9 +1,14 @@
 {
- "at": "2026-10-24T03:56Z",
+ "at": "2026-10-24T05:06Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Ibragimova vs Saigo: no points for 1397s",
+  "live tennis scores: tennis Shubladze vs Iatcenko: no points for 1397s",
+  "live tennis scores: tennis Parks vs Shibahara: no points for 1397s",
+  "live tennis scores: tennis Watson vs Samsonova: no points for 1397s"
+ ],
  "ok": [
-  "live watcher fresh (252s)",
+  "live watcher fresh (181s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +16,28 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 4 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 8 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-24T05:06Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ibragimova vs Saigo: no points for 1397s",
+    "live tennis scores: tennis Shubladze vs Iatcenko: no points for 1397s",
+    "live tennis scores: tennis Parks vs Shibahara: no points for 1397s",
+    "live tennis scores: tennis Watson vs Samsonova: no points for 1397s"
+   ]
+  },
   {
    "at": "2026-10-24T03:56Z",
    "fixes": [],
@@ -455,11 +470,6 @@
   },
   {
    "at": "2026-10-22T04:40Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T04:38Z",
    "fixes": [],
    "problems": []
   }
