@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-25T06:24Z",
+ "checked": "2026-10-25T16:38Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -234,7 +234,14 @@
    "rating": null,
    "result": null,
    "seen": "2026-10-24T03:55Z",
-   "side": "home"
+   "side": "home",
+   "us": {
+    "kind": "lean",
+    "lean": true,
+    "same": false,
+    "side": "away",
+    "status": "open"
+   }
   },
   "2026-10-25|Kansas City Chiefs|Seattle Seahawks|home": {
    "away": "Kansas City Chiefs",
@@ -245,7 +252,14 @@
    "rating": null,
    "result": null,
    "seen": "2026-10-23T20:54Z",
-   "side": "home"
+   "side": "home",
+   "us": {
+    "kind": "lean",
+    "lean": true,
+    "same": true,
+    "side": "home",
+    "status": "open"
+   }
   },
   "2026-10-25|Tampa Bay Buccaneers|Carolina Panthers|away": {
    "away": "Tampa Bay Buccaneers",
@@ -274,9 +288,23 @@
    "result": null,
    "seen": "2026-10-23T20:54Z",
    "side": "under"
+  },
+  "2026-10-26|Dallas Cowboys|Philadelphia Eagles|away": {
+   "away": "Dallas Cowboys",
+   "date": "2026-10-26",
+   "home": "Philadelphia Eagles",
+   "line": -4.5,
+   "price": null,
+   "rating": [
+    "away",
+    6.4
+   ],
+   "result": null,
+   "seen": "2026-10-25T10:00Z",
+   "side": "away"
   }
  },
- "read": "2026-10-25T03:30Z",
+ "read": "2026-10-25T14:00Z",
  "record": {
   "against_us": {
    "lost": 1,

@@ -1,0 +1,117 @@
+rows 19122 home-and-home 2nd games (sides) 274 mini-series 2nd 543
+
+#### baselines
+BASE dog +100..+350
+   TRAIN: n=6253 35.7% vs 35.6% exp z+0.1 ROI -3.7% up 0/7 [18:-4(900) 19:-3(804) 20:-0(862) 21:-4(942) 22:-6(979) 23:-8(892) 24:-1(874)]
+   HOLD: n=869 34.6% vs 35.2% exp z-0.3 ROI -6.7% up 0/1 [25:-7(869)]
+   CUR: n=24 33.3% vs 38.0% exp z-0.5 ROI -19.8% up 0/1 [26:-20(24)]
+BASE fav -150..-100
+   TRAIN: n=2445 52.6% vs 53.2% exp z-0.5 ROI -5.1% up 0/7 [18:-9(344) 19:-6(313) 20:-2(346) 21:-4(359) 22:-6(421) 23:-7(359) 24:-1(303)]
+   HOLD: n=324 50.3% vs 52.9% exp z-0.9 ROI -8.8% up 0/1 [25:-9(324)]
+   CUR: n=22 59.1% vs 52.1% exp z+0.7 ROI +8.2% up 1/1 [26:+8(22)]
+
+#### S4 SECOND GAME vs the SAME OPPONENT  [10 cells]
+S4 dog: home-and-home, game-1 LOSER
+   TRAIN: n=57 38.6% vs 33.3% exp z+0.9 ROI +7.9% up 5/7 [18:+7(9) 19:+88(9) 20:-100(3) 21:-41(13) 22:+0(8) 23:+3(8) 24:+58(7)]
+   HOLD: n=5 40.0% vs 36.2% exp z+0.2 ROI -1.6% up 0/1 [25:-2(5)]
+   CUR: n=0
+   S4 dog: home-and-home, game-1 LOSER ATS | TRAIN 33-22 60.0% ROI +14.5% | HOLD 3-2 60.0% ROI +14.5%
+S4 fav: home-and-home, game-1 LOSER
+   TRAIN: n=14 50.0% vs 53.3% exp z-0.2 ROI -11.0% up 2/5 [18:-5(4) 19:-100(2) 21:-100(3) 22:+75(3) 24:+71(2)]
+   HOLD: n=2 100.0% vs 53.8% exp z+1.3 ROI +77.6% up 1/1 [25:+78(2)]
+   CUR: n=0
+   S4 fav: home-and-home, game-1 LOSER ATS | TRAIN 7-7 50.0% ROI -4.5% | HOLD 2-0 100.0% ROI +90.9%
+S4 dog: home-and-home, game-1 WINNER
+   TRAIN: n=36 30.6% vs 35.6% exp z-0.6 ROI -12.2% up 3/7 [18:-78(10) 19:+107(3) 20:-100(1) 21:+39(3) 22:-100(5) 23:-53(5) 24:+85(9)]
+   HOLD: n=9 33.3% vs 31.6% exp z+0.1 ROI +1.6% up 1/1 [25:+2(9)]
+   CUR: n=0
+   S4 dog: home-and-home, game-1 WINNER ATS | TRAIN 16-19 45.7% ROI -12.7% | HOLD 4-5 44.4% ROI -15.2%
+S4 fav: home-and-home, game-1 WINNER
+   TRAIN: n=13 46.2% vs 52.9% exp z-0.5 ROI -14.4% up 1/5 [18:-52(4) 19:+95(1) 21:-4(4) 23:-16(2) 24:-13(2)]
+   HOLD: n=2 0.0% vs 52.8% exp z-1.5 ROI -100.0% up 0/1 [25:-100(2)]
+   CUR: n=0
+   S4 fav: home-and-home, game-1 WINNER ATS | TRAIN 5-8 38.5% ROI -26.6% | HOLD 0-2 0.0% ROI -100.0%
+S4 dog: home-and-home, tonight HOME
+   TRAIN: n=43 44.2% vs 35.8% exp z+1.2 ROI +27.1% up 3/7 [18:-18(6) 19:+40(7) 20:-100(2) 21:+27(5) 22:-42(5) 23:-8(6) 24:+110(12)]
+   HOLD: n=3 33.3% vs 36.7% exp z-0.1 ROI -26.0% up 0/1 [25:-26(3)]
+   CUR: n=0
+   S4 dog: home-and-home, tonight HOME ATS | TRAIN 23-18 56.1% ROI +7.1% | HOLD 2-1 66.7% ROI +27.3%
+S4 fav: home-and-home, tonight HOME
+   TRAIN: n=14 28.6% vs 53.2% exp z-1.8 ROI -49.1% up 2/6 [18:-61(5) 19:-100(2) 21:-100(3) 22:+72(2) 23:-100(1) 24:+74(1)]
+   HOLD: n=2 100.0% vs 53.8% exp z+1.3 ROI +77.6% up 1/1 [25:+78(2)]
+   CUR: n=0
+   S4 fav: home-and-home, tonight HOME ATS | TRAIN 3-11 21.4% ROI -59.1% | HOLD 2-0 100.0% ROI +90.9%
+S4 dog: home-and-home, game-1 loser by 15+
+   TRAIN: n=17 58.8% vs 32.6% exp z+2.3 ROI +72.1% up 5/6 [18:+20(2) 19:+69(4) 21:+12(5) 22:-100(1) 23:+174(3) 24:+214(2)]
+   HOLD: n=1 0.0% vs 27.8% exp z-0.6 ROI -100.0% up 0/1 [25:-100(1)]
+   CUR: n=0
+   S4 dog: home-and-home, game-1 loser by 15+ ATS | TRAIN 14-3 82.4% ROI +57.2% | HOLD 1-0 100.0% ROI +90.9%
+S4 dog: mini-series (same floor), game-1 LOSER
+   TRAIN: n=110 36.4% vs 34.4% exp z+0.4 ROI +0.6% up 3/5 [20:-10(45) 21:+33(11) 22:-46(23) 23:+48(18) 24:+25(13)]
+   HOLD: n=13 30.8% vs 35.3% exp z-0.3 ROI -7.9% up 0/1 [25:-8(13)]
+   CUR: n=0
+   S4 dog: mini-series (same floor), game-1 LOSER ATS | TRAIN 54-53 50.5% ROI -3.7% | HOLD 5-8 38.5% ROI -26.6%
+S4 fav: mini-series (same floor), game-1 LOSER
+   TRAIN: n=43 53.5% vs 53.2% exp z+0.0 ROI -3.6% up 2/5 [20:+47(16) 21:+11(5) 22:-30(10) 23:-74(7) 24:-29(5)]
+   HOLD: n=4 0.0% vs 53.7% exp z-2.2 ROI -100.0% up 0/1 [25:-100(4)]
+   CUR: n=0
+   S4 fav: mini-series (same floor), game-1 LOSER ATS | TRAIN 22-20 52.4% ROI +0.0% | HOLD 0-4 0.0% ROI -100.0%
+S4 dog: mini-series, game-1 loser by 15+
+   TRAIN: n=34 23.5% vs 31.1% exp z-1.0 ROI -28.6% up 1/5 [20:-31(13) 21:+77(2) 22:-100(5) 23:-23(6) 24:-11(8)]
+   HOLD: n=7 14.3% vs 35.5% exp z-1.2 ROI -50.7% up 0/1 [25:-51(7)]
+   CUR: n=0
+   S4 dog: mini-series, game-1 loser by 15+ ATS | TRAIN 10-23 30.3% ROI -42.1% | HOLD 2-5 28.6% ROI -45.5%
+
+#### S5 FIRST GAME AFTER A 5+ GAME HOMESTAND (first road game)  [8 cells]
+S5 dog: first road game after 5+ home
+   TRAIN: n=125 36.8% vs 35.8% exp z+0.2 ROI +2.9% up 2/7 [18:-4(10) 19:-40(11) 20:-18(17) 21:-2(18) 22:+44(21) 23:+23(29) 24:-23(19)]
+   HOLD: n=12 8.3% vs 34.4% exp z-1.9 ROI -78.8% up 0/1 [25:-79(12)]
+   CUR: n=0
+   S5 dog: first road game after 5+ home ATS | TRAIN 60-64 48.4% ROI -7.6% | HOLD 4-8 33.3% ROI -36.4%
+S5 fav: first road game after 5+ home
+   TRAIN: n=46 41.3% vs 53.6% exp z-1.7 ROI -25.7% up 3/7 [18:+19(6) 19:+35(4) 20:-65(10) 21:-100(5) 22:-0(7) 23:+18(8) 24:-71(6)]
+   HOLD: n=9 44.4% vs 52.3% exp z-0.5 ROI -19.9% up 0/1 [25:-20(9)]
+   CUR: n=0
+   S5 fav: first road game after 5+ home ATS | TRAIN 18-28 39.1% ROI -25.3% | HOLD 3-6 33.3% ROI -36.4%
+S5 all: first road game after 5+ home
+   TRAIN: n=287 40.4% vs 43.9% exp z-1.3 ROI -7.1% up 2/7 [18:-29(29) 19:-9(21) 20:-34(41) 21:+2(43) 22:+41(48) 23:-3(52) 24:-29(53)]
+   HOLD: n=42 40.5% vs 46.8% exp z-0.9 ROI +0.9% up 1/1 [25:+1(42)]
+   CUR: n=0
+   S5 all: first road game after 5+ home ATS | TRAIN 128-156 45.1% ROI -14.0% | HOLD 19-23 45.2% ROI -13.6%
+S5 dog: first road game after 6+ home
+   TRAIN: n=54 37.0% vs 36.0% exp z+0.2 ROI +3.6% up 3/7 [18:-41(4) 19:-42(4) 20:-37(7) 21:+39(8) 22:+74(9) 23:+12(15) 24:-54(7)]
+   HOLD: n=5 0.0% vs 33.6% exp z-1.6 ROI -100.0% up 0/1 [25:-100(5)]
+   CUR: n=0
+   S5 dog: first road game after 6+ home ATS | TRAIN 25-29 46.3% ROI -11.6% | HOLD 1-4 20.0% ROI -61.8%
+S5 fav: first road game after 6+ home
+   TRAIN: n=25 44.0% vs 53.7% exp z-1.0 ROI -20.4% up 2/6 [18:+35(4) 20:-100(2) 21:-100(3) 22:-12(6) 23:+6(7) 24:-41(3)]
+   HOLD: n=1 0.0% vs 48.8% exp z-1.0 ROI -100.0% up 0/1 [25:-100(1)]
+   CUR: n=0
+   S5 fav: first road game after 6+ home ATS | TRAIN 11-14 44.0% ROI -16.0% | HOLD 0-1 0.0% ROI -100.0%
+S5 home dog vs a team off a 5+ homestand
+   TRAIN: n=94 46.8% vs 37.1% exp z+2.0 ROI +19.2% up 5/7 [18:+35(11) 19:-50(4) 20:+40(16) 21:+5(15) 22:-8(17) 23:+51(11) 24:+24(20)]
+   HOLD: n=15 33.3% vs 35.4% exp z-0.2 ROI -5.9% up 0/1 [25:-6(15)]
+   CUR: n=0
+S5 home fav vs a team off a 5+ homestand
+   TRAIN: n=45 60.0% vs 53.4% exp z+0.9 ROI +8.3% up 4/7 [18:-42(3) 19:-14(8) 20:+7(7) 21:+51(5) 22:+18(6) 23:-11(12) 24:+83(4)]
+   HOLD: n=6 83.3% vs 51.5% exp z+1.6 ROI +53.9% up 1/1 [25:+54(6)]
+   CUR: n=0
+S5 control: off 5+ homestand AND on a b2b
+   TRAIN: n=38 34.2% vs 35.8% exp z-0.2 ROI -11.6% up 3/7 [18:+68(4) 19:+78(5) 20:-100(2) 21:-100(5) 22:-49(10) 23:+47(7) 24:-48(5)]
+   HOLD: n=3 0.0% vs 49.0% exp z-2.0 ROI -100.0% up 0/1 [25:-100(3)]
+   CUR: n=0
+S5 control: off 5+ homestand, rested
+   TRAIN: n=249 41.4% vs 45.2% exp z-1.3 ROI -6.4% up 2/7 [18:-44(25) 19:-36(16) 20:-30(39) 21:+15(38) 22:+65(38) 23:-11(45) 24:-27(48)]
+   HOLD: n=39 43.6% vs 46.6% exp z-0.4 ROI +8.7% up 1/1 [25:+9(39)]
+   CUR: n=0
+
+#### S5 follow-up: the HOME side facing a team off a 5+ homestand, any price; ATS by season
+S5 home side (any price) vs a team off a 5+ homestand
+   TRAIN: n=287 59.6% vs 56.1% exp z+1.3 ROI +4.5% up 4/7 [18:+5(29) 19:-13(21) 20:+16(41) 21:+1(43) 22:-3(48) 23:-2(52) 24:+20(53)]
+   HOLD: n=42 59.5% vs 53.2% exp z+0.9 ROI +10.8% up 1/1 [25:+11(42)]
+   CUR: n=0
+S5 home side -250..+350 vs a team off a 5+ homestand
+   TRAIN: n=195 55.4% vs 48.4% exp z+2.0 ROI +11.4% up 5/7 [18:+4(19) 19:-11(15) 20:+23(33) 21:+15(28) 22:-2(31) 23:+2(36) 24:+35(33)]
+   HOLD: n=26 53.8% vs 44.3% exp z+1.0 ROI +13.5% up 1/1 [25:+13(26)]
+   CUR: n=0
+   road team off 5+ homestand ATS by season (W-L): 18:13-15 19:10-11 20:20-21 21:19-24 22:23-25 23:24-27 24:19-33 25:19-23
