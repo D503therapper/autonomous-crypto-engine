@@ -4026,9 +4026,10 @@ def test_graded_card_stays_3_hours_then_results():
     now = datetime(2026, 9, 30, 5, 0, tzinfo=timezone.utc)
     assert sdb.still_up({"status": "open"}, now)
     assert sdb.still_up({"status": "won", "settled": "2026-09-30T03:17Z"}, now)        # graded 1h43m ago: up
-    assert not sdb.still_up({"status": "lost", "settled": "2026-09-30T02:45Z"}, now)   # 2h15m ago: results only
+    assert sdb.still_up({"status": "lost", "settled": "2026-09-30T02:45Z"}, now)       # 2h15m ago: still up (10/25 - all day)
+    assert not sdb.still_up({"status": "lost", "settled": "2026-09-29T03:00Z"}, now)   # a day ago: results only
     assert not sdb.still_up({"status": "won"}, now)                                    # no time kept: long gone
-    assert sdb.SHOW_GRADED_H == 2                       # (the owner, 10/5: 2 hours, was 3)
+    assert sdb.SHOW_GRADED_H == 24                      # (the owner, 10/25: all day - was 2 hours, 3 before)
 
 
 def test_strengths_by_sport_and_no_puck_or_run_lines():
@@ -5886,9 +5887,12 @@ def test_todays_damage_after_the_last_game():
     keep = sports.leg_units
     sports.leg_units = lambda p, l: p.get("units", 0)
     try:
-        assert D.day_recap([lock, dog], "2026-10-01", [], now) == ""                 # the Kings still going: nothing yet
+        so_far = D.day_recap([lock, dog], "2026-10-01", [], now)                     # the Kings still going: the
+        assert "RESULTS SO FAR" in so_far and "+1.5 UNITS" in so_far                 # 2u at -130 so far
+        assert "SO FAR" in so_far and "1-0" in so_far                                # graded so far (the owner, 10/25)
         dog["legs"][0]["result"], dog["status"] = "lost", "lost"
         h = D.day_recap([lock, dog], "2026-10-01", [], now)
+        assert "SO FAR" not in h                                                   # all in: just the results
         assert "TODAY" in h and "RESULTS" in h and "DAMAGE" not in h and "1-1" in h and "ROI +18%" in h
         assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
         assert "+$" in h and "Leans count" not in h                       # dollars too; no note (the owner, 10/1)
