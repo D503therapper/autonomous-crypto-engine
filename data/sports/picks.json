@@ -19708,6 +19708,7 @@
      "game:conf"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19764,6 +19765,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,14,7,11",
+     "h": "7,7,14,10"
+    },
     "form_state": [
      10.0,
      1,
@@ -19809,10 +19814,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Georgia St 32 @ Arkansas St 38",
     "season_games": null,
+    "settled": "2026-10-25T02:26Z",
     "side": "home",
     "start": "2026-10-24T23:00Z",
     "stype": "2",
@@ -19829,12 +19836,14 @@
    }
   ],
   "p_hit": 0.5021,
-  "pnl": 0.0,
+  "pnl": 114.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T02:26Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 140,

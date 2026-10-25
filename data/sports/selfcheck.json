@@ -5,15 +5,15 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.564,
-   "n": 172,
+   "hit": 0.557,
+   "n": 174,
    "said": 0.512,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.582,
-   "n": 67,
+   "hit": 0.565,
+   "n": 69,
    "said": 0.487,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
@@ -166,17 +166,17 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.577,
-   "n": 149,
+   "hit": 0.573,
+   "n": 150,
    "said": 0.512,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
    "extra_edge": 0.0,
-   "hit": 0.714,
-   "n": 7,
-   "said": 0.558,
-   "verdict": "only 7 graded - report only"
+   "hit": 0.625,
+   "n": 8,
+   "said": 0.544,
+   "verdict": "only 8 graded - report only"
   },
   "drama:theirs": {
    "extra_edge": 0.0,
@@ -208,8 +208,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.585,
-   "n": 118,
+   "hit": 0.575,
+   "n": 120,
    "said": 0.514,
    "verdict": "hitting at or above what we said"
   },
@@ -236,10 +236,10 @@
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
-   "hit": 0.5,
-   "n": 38,
-   "said": 0.463,
-   "verdict": "only 38 graded - report only"
+   "hit": 0.475,
+   "n": 40,
+   "said": 0.465,
+   "verdict": "hitting at or above what we said"
   },
   "league:nfl": {
    "extra_edge": 0.0,
@@ -264,8 +264,8 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.574,
-   "n": 162,
+   "hit": 0.567,
+   "n": 164,
    "said": 0.511,
    "verdict": "hitting at or above what we said"
   },
@@ -278,8 +278,8 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.482,
-   "n": 56,
+   "hit": 0.466,
+   "n": 58,
    "said": 0.492,
    "verdict": "a little below what we said - within noise"
   },
@@ -313,8 +313,8 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.566,
-   "n": 152,
+   "hit": 0.558,
+   "n": 154,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -397,5 +397,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-24T23:51Z"
+ "updated": "2026-10-25T02:36Z"
 }
