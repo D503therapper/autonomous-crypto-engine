@@ -430,7 +430,7 @@ def units_box(picks, today=None):
     #   (10/18, the owner: three rows only - "it's value or lock or early play": no leans row, the 🔍 plays are value plays)
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
-            f'<div class="unp">Started at ${start:,.0f}<br>1 unit = ${led["unit_today"]:,.0f} (roughly 1% of the bankroll)</div>'
+            f'<div class="unp">Started at ${start:,.0f}<br>1 unit = ${led["unit_today"]:,.0f} (flat - up $500 for every $50,000 the bankroll grows)</div>'
             f'{out}</div>')
 
 

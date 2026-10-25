@@ -438,6 +438,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             new.append(c)
     except Exception as e:                                   # noqa: BLE001 - never breaks the engine
         print(f"   europe under failed: {str(e)[:120]}")
+    for c in new:
+        stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
     watch(st, games, injuries)
     grade(st, games, now)
     save(st, path)
@@ -524,6 +526,7 @@ def grade(st, games, now=None):
             p["result"] = "won" if us > them else "lost" if us < them else "push"
         p["graded_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         p["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
+        stamp_units(p)                                       # (10/25 sweep: graded at these units, forever)
 
 
 def record(st):
@@ -560,10 +563,20 @@ def units(p):
     (a quarter of the Kelly stake, 1u = 1% of the bankroll), ½u to 10u. The sizing study (5 seasons it never saw): at the
     opening price a bigger engine edge won more AND moved the line more (NFL: the biggest edges moved our way 80% of the
     time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
+    if p.get("units") is not None:                           # (10/25 sweep: a posted play keeps the units it posted at -
+        return float(p["units"])                             #  a spot's size changing later never re-sizes the record)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
         return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
     import sports
     return sports.kelly_units(p.get("own"), p["odds"])
+
+
+def stamp_units(c):
+    """Freeze an early play's units on it (at post, and at grading for the older rows without one) - the record reads the
+    frozen size, like the board's picks (sports.units_for: graded = the units it was graded at, forever)."""
+    if c.get("units") is None:
+        c["units"] = units(c)
+    return c
 
 
 # ---------------------------------------------------------------- 🧪 THE SIX EARLY SPOTS (the owner, 10/1: "there's only
