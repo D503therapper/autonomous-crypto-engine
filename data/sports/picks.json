@@ -20595,195 +20595,6 @@
   "units": 0.5
  },
  {
-  "american": -142,
-  "date": "2026-10-25",
-  "dec": 1.7042,
-  "kind": "lock",
-  "lean": false,
-  "legs": [
-   {
-    "absent": [
-     "WR Mike Evans"
-    ],
-    "ats_run": -1,
-    "bd_tags": [
-     "hot:6",
-     "better:1",
-     "trash:6",
-     "h2h1:2",
-     "drama_illness:1",
-     "road:3",
-     "w_better:7",
-     "bottom_so:6"
-    ],
-    "big_cover": false,
-    "breakdown": [
-     "\ud83d\ude91 49ers out: WR Deebo Samuel Sr. (starter), WR Mike Evans (starter), LB Luke Gifford \u00b7 questionable: CB Upton Stout (starter), S Siran Neal.",
-     "\ud83d\udd25 6 straight for 49ers (6-0). Falcons fin to catch that heat.",
-     "\ud83e\udd12 The Falcons got guys under the weather: \"Falcons' Kendal Daniels hurts neck on tackle vs. Bears, hospitalized\"",
-     "\ud83e\uddf3 2-0 on the road for 49ers this year.",
-     "\ud83d\uddd1\ufe0f Falcons are straight garbage right now (2-4).",
-     "\u2705 Bottom line: 49ers (-142). We got 49ers at -164, the book says -142. We finna see."
-    ],
-    "bv": 54,
-    "coach": [
-     9,
-     false
-    ],
-    "country": "USA",
-    "ctx": [],
-    "ctx_tags": [
-     "game:conf",
-     "us:east1000",
-     "us:out_dome",
-     "us:trip1000",
-     "us:trip2000"
-    ],
-    "dec": 1.704225352112676,
-    "depth_pts": 0.5,
-    "dog_ctx": {
-     "cw5": 0,
-     "hits_top": false,
-     "opp_won": false,
-     "won": true
-    },
-    "dog_more": {
-     "east_west": false,
-     "fades": [],
-     "go4_gap": -0.0101,
-     "last_margin": 6.0,
-     "last_pts": 23.0,
-     "neutral": false,
-     "record": [
-      6,
-      0
-     ],
-     "win_pct": 1.0,
-     "win_streak": 6
-    },
-    "drift": 0.0812,
-    "edge": 0.025278840492451105,
-    "edge_own": 0.006562364600993353,
-    "elo_edge": 165.5,
-    "fact": "The 49ers are 6-0, the Falcons 2-4.",
-    "facts": [
-     [
-      "The 49ers are 6-0, the Falcons 2-4.",
-      "The 49ers 6-0 on the year, the Falcons 2-4.",
-      "It's 6-0 (the 49ers) against 2-4 (the Falcons).",
-      "The 49ers sit 6-0; the Falcons sit 2-4."
-     ],
-     [
-      "The 49ers have won 6 straight.",
-      "6 straight wins for the 49ers.",
-      "The 49ers are on a 6-game winning streak.",
-      "The 49ers haven't lost in 6."
-     ],
-     [
-      "The Falcons have lost 2 straight.",
-      "2 straight losses for the Falcons.",
-      "The Falcons are on a 2-game skid.",
-      "The Falcons haven't won in 2."
-     ]
-    ],
-    "fired_on": null,
-    "first_timer": false,
-    "form_state": [
-     6.0,
-     6,
-     -395,
-     true,
-     1
-    ],
-    "g_role_me": null,
-    "g_role_opp": null,
-    "game_id": "nfl:401873017",
-    "home": false,
-    "hot_key": false,
-    "hurt": [],
-    "intl": false,
-    "is_lean": false,
-    "key_edge": 0.11423751686909567,
-    "key_out_me": false,
-    "key_seen": {},
-    "league": "nfl",
-    "line": null,
-    "lost_last": false,
-    "market": "ml",
-    "odds": -142,
-    "opp": "Falcons",
-    "opp_dog_pts": -6.0,
-    "opp_lost_last": false,
-    "opp_ot_last": null,
-    "opp_outs": [
-     "Divine Deablo (LB)",
-     "Brian Robinson Jr. (RB)",
-     "Billy Bowman Jr. (CB)"
-    ],
-    "ot_last": null,
-    "our_drama": [
-     {
-      "date": "2026-10-21",
-      "headline": "Raheem Morris is back in Atlanta -- and he's bringing his surging 49ers defense",
-      "id": "50238009",
-      "kind": "coach fired"
-     }
-    ],
-    "outs": [
-     "Marques Sigle (S)",
-     "Deebo Samuel Sr. (WR)",
-     "Mike Evans (WR)",
-     "Garret Wallow (LB)"
-    ],
-    "outshot_me": false,
-    "outshot_opp": false,
-    "p": 0.6016098981401986,
-    "p_market": 0.5634920634920635,
-    "pdo": null,
-    "public": "ride",
-    "pyth_luck": null,
-    "raw_own": 0.6955,
-    "reasons": [
-     "the stronger team",
-     "opponent drama: illness",
-     "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
-    ],
-    "rested_vs_b2b": false,
-    "revenge": false,
-    "road_opener": false,
-    "season_games": null,
-    "side": "away",
-    "start": "2026-10-25T17:00Z",
-    "stype": "2",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "49ers",
-    "team_id": "25",
-    "their_drama": [
-     {
-      "date": "2026-10-18",
-      "headline": "Falcons' Kendal Daniels hurts neck on tackle vs. Bears, hospitalized",
-      "id": "50212250",
-      "kind": "illness"
-     }
-    ],
-    "tier": "lock",
-    "tired_vs_rested": false,
-    "trap": false,
-    "w_p": 0.6206,
-    "waiting": [],
-    "why_line": "\ud83d\udcaa A 6-0 team against a 2-4 team. 49ers all day."
-   }
-  ],
-  "p_hit": 0.6016,
-  "pnl": 0.0,
-  "posted": "2026-10-25T15:00Z",
-  "round": 1,
-  "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
- },
- {
   "american": 160,
   "date": "2026-10-25",
   "dec": 2.6,
@@ -20932,173 +20743,6 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
- },
- {
-  "american": -130,
-  "date": "2026-10-25",
-  "dec": 1.7692,
-  "kind": "play",
-  "lean": false,
-  "legs": [
-   {
-    "ats_run": 1,
-    "bd_tags": [
-     "better:3",
-     "trash:2",
-     "QB_cold:3",
-     "revenge:3",
-     "talk_q:1",
-     "road:1",
-     "w_better:3",
-     "splits_w:0",
-     "bottom_so:2"
-    ],
-    "big_cover": false,
-    "breakdown": [
-     "\ud83d\ude91 Browns questionable: LB Quincy Williams (starter), CB Denzel Ward (starter).",
-     "\ud83d\uddd1\ufe0f Titans can't get out of their own way (1-5).",
-     "\ud83d\udcca 85% of the bets and 86% of the money on the Browns. Same side as the public on this one.",
-     "\ud83e\uddf3 Road game for Browns \u2014 1-2 away from home so far.",
-     "\ud83d\uddd1\ufe0f Cam Ward looks lost out there: 2 TDs, 3 picks and 494 yards in his last 3 games.",
-     "\ud83d\udce3 The Browns in the papers: \"Browns DT Maliek Collins lands 2-year extension worth $30 million, agent says\"",
-     "\u2705 Bottom line: Browns (-130). We'd play Browns down to -142. At -130, let's eat."
-    ],
-    "bv": 54,
-    "coach": [
-     0,
-     false
-    ],
-    "country": "USA",
-    "ctx": [],
-    "ctx_tags": [
-     "game:conf"
-    ],
-    "dec": 1.7692307692307692,
-    "dog_ctx": {
-     "cw5": 0,
-     "hits_top": false,
-     "opp_won": true,
-     "won": true
-    },
-    "dog_more": {
-     "east_west": false,
-     "fades": [],
-     "go4_gap": 0.116,
-     "last_margin": 3.0,
-     "last_pts": 13.0,
-     "neutral": false,
-     "record": [
-      4,
-      2
-     ],
-     "win_pct": 0.667,
-     "win_streak": 1
-    },
-    "drift": -0.0167,
-    "edge": 0.01128132281896077,
-    "edge_own": 0.028995786759522746,
-    "elo_edge": 92.3,
-    "fact": "The Browns are 4-2, the Titans 1-5.",
-    "facts": [
-     [
-      "The Browns are 4-2, the Titans 1-5.",
-      "The Browns 4-2 on the year, the Titans 1-5.",
-      "It's 4-2 (the Browns) against 1-5 (the Titans).",
-      "The Browns sit 4-2; the Titans sit 1-5."
-     ],
-     [
-      "The Browns took a 31-29 loss to the Titans the last time these two met.",
-      "The Titans beat the Browns 31-29 last time out.",
-      "Last meeting: the Titans 31-29 over the Browns.",
-      "The Browns dropped the last one to the Titans, 31-29."
-     ],
-     [
-      "The Titans are 0-3 at home this year.",
-      "0-3 at home for the Titans this season.",
-      "The Titans haven't won at home this year (0-3).",
-      "The Titans at home this season: 0-3."
-     ]
-    ],
-    "fired_on": null,
-    "first_timer": false,
-    "form_state": [
-     3.0,
-     1,
-     142,
-     true,
-     0
-    ],
-    "g_role_me": null,
-    "g_role_opp": null,
-    "game_id": "nfl:401873013",
-    "home": false,
-    "hot_key": false,
-    "hurt": [],
-    "intl": false,
-    "is_lean": false,
-    "key_edge": 0.5597681719391452,
-    "key_out_me": false,
-    "key_seen": {},
-    "league": "nfl",
-    "line": null,
-    "lost_last": false,
-    "market": "ml",
-    "odds": -130,
-    "opp": "Titans",
-    "opp_dog_pts": -1.0,
-    "opp_lost_last": false,
-    "opp_ot_last": null,
-    "opp_outs": [],
-    "ot_last": null,
-    "our_drama": [],
-    "outs": [
-     "Mike Hall Jr. (DT)"
-    ],
-    "outshot_me": false,
-    "outshot_opp": false,
-    "p": 0.571593791158543,
-    "p_market": 0.5427435387673956,
-    "pdo": null,
-    "public": "ride",
-    "pyth_luck": null,
-    "raw_own": 0.6876,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "revenge game"
-    ],
-    "rested_vs_b2b": false,
-    "revenge": false,
-    "road_opener": false,
-    "season_games": null,
-    "side": "away",
-    "start": "2026-10-25T17:00Z",
-    "stype": "2",
-    "talk_ours": [
-     {
-      "headline": "Browns DT Maliek Collins lands 2-year extension worth $30 million, agent says",
-      "kind": "trash talk"
-     }
-    ],
-    "talk_theirs": [],
-    "team": "Browns",
-    "team_id": "5",
-    "their_drama": [],
-    "tier": "lock",
-    "tired_vs_rested": false,
-    "trap": false,
-    "w_p": 0.5866,
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Browns 4-2, Titans 1-5. Titans about to get their ass beat."
-   }
-  ],
-  "p_hit": 0.5716,
-  "pnl": 0.0,
-  "posted": "2026-10-25T15:00Z",
-  "round": 1,
-  "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
  },
  {
   "american": -148,
@@ -21420,5 +21064,361 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": -142,
+  "date": "2026-10-25",
+  "dec": 1.7042,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "absent": [
+     "WR Mike Evans"
+    ],
+    "ats_run": -1,
+    "bd_tags": [
+     "hot:6",
+     "better:1",
+     "trash:6",
+     "h2h1:2",
+     "drama_illness:1",
+     "road:3",
+     "w_better:7",
+     "bottom_so:6"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 49ers out: WR Deebo Samuel Sr. (starter), WR Mike Evans (starter), LB Luke Gifford \u00b7 questionable: CB Upton Stout (starter), S Siran Neal.",
+     "\ud83d\udd25 6 straight for 49ers (6-0). Falcons fin to catch that heat.",
+     "\ud83e\udd12 The Falcons got guys under the weather: \"Falcons' Kendal Daniels hurts neck on tackle vs. Bears, hospitalized\"",
+     "\ud83e\uddf3 2-0 on the road for 49ers this year.",
+     "\ud83d\uddd1\ufe0f Falcons are straight garbage right now (2-4).",
+     "\u2705 Bottom line: 49ers (-142). We got 49ers at -164, the book says -142. We finna see."
+    ],
+    "bv": 54,
+    "coach": [
+     9,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "us:east1000",
+     "us:out_dome",
+     "us:trip1000",
+     "us:trip2000"
+    ],
+    "dec": 1.704225352112676,
+    "depth_pts": 0.5,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": -0.0101,
+     "last_margin": 6.0,
+     "last_pts": 23.0,
+     "neutral": false,
+     "record": [
+      6,
+      0
+     ],
+     "win_pct": 1.0,
+     "win_streak": 6
+    },
+    "drift": 0.0812,
+    "edge": 0.025278840492451105,
+    "edge_own": 0.006562364600993353,
+    "elo_edge": 165.5,
+    "fact": "The 49ers are 6-0, the Falcons 2-4.",
+    "facts": [
+     [
+      "The 49ers are 6-0, the Falcons 2-4.",
+      "The 49ers 6-0 on the year, the Falcons 2-4.",
+      "It's 6-0 (the 49ers) against 2-4 (the Falcons).",
+      "The 49ers sit 6-0; the Falcons sit 2-4."
+     ],
+     [
+      "The 49ers have won 6 straight.",
+      "6 straight wins for the 49ers.",
+      "The 49ers are on a 6-game winning streak.",
+      "The 49ers haven't lost in 6."
+     ],
+     [
+      "The Falcons have lost 2 straight.",
+      "2 straight losses for the Falcons.",
+      "The Falcons are on a 2-game skid.",
+      "The Falcons haven't won in 2."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     6.0,
+     6,
+     -395,
+     true,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873017",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.11423751686909567,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Falcons",
+    "opp_dog_pts": -6.0,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Divine Deablo (LB)",
+     "Brian Robinson Jr. (RB)",
+     "Billy Bowman Jr. (CB)"
+    ],
+    "ot_last": null,
+    "our_drama": [
+     {
+      "date": "2026-10-21",
+      "headline": "Raheem Morris is back in Atlanta -- and he's bringing his surging 49ers defense",
+      "id": "50238009",
+      "kind": "coach fired"
+     }
+    ],
+    "outs": [
+     "Marques Sigle (S)",
+     "Deebo Samuel Sr. (WR)",
+     "Mike Evans (WR)",
+     "Garret Wallow (LB)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.6016098981401986,
+    "p_market": 0.5634920634920635,
+    "pdo": null,
+    "public": "ride",
+    "pyth_luck": null,
+    "raw_own": 0.6955,
+    "reasons": [
+     "the stronger team",
+     "opponent drama: illness",
+     "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-10-25T17:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "49ers",
+    "team_id": "25",
+    "their_drama": [
+     {
+      "date": "2026-10-18",
+      "headline": "Falcons' Kendal Daniels hurts neck on tackle vs. Bears, hospitalized",
+      "id": "50212250",
+      "kind": "illness"
+     }
+    ],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.6206,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa A 6-0 team against a 2-4 team. 49ers all day."
+   }
+  ],
+  "p_hit": 0.6016,
+  "pnl": 0.0,
+  "posted": "2026-10-25T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": -130,
+  "date": "2026-10-25",
+  "dec": 1.7692,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "better:3",
+     "trash:2",
+     "QB_cold:3",
+     "revenge:3",
+     "talk_q:1",
+     "road:1",
+     "w_better:3",
+     "splits_w:0",
+     "bottom_so:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Browns questionable: LB Quincy Williams (starter), CB Denzel Ward (starter).",
+     "\ud83d\uddd1\ufe0f Titans can't get out of their own way (1-5).",
+     "\ud83d\udcca 85% of the bets and 86% of the money on the Browns. Same side as the public on this one.",
+     "\ud83e\uddf3 Road game for Browns \u2014 1-2 away from home so far.",
+     "\ud83d\uddd1\ufe0f Cam Ward looks lost out there: 2 TDs, 3 picks and 494 yards in his last 3 games.",
+     "\ud83d\udce3 The Browns in the papers: \"Browns DT Maliek Collins lands 2-year extension worth $30 million, agent says\"",
+     "\u2705 Bottom line: Browns (-130). We'd play Browns down to -142. At -130, let's eat."
+    ],
+    "bv": 54,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 1.7692307692307692,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": 0.116,
+     "last_margin": 3.0,
+     "last_pts": 13.0,
+     "neutral": false,
+     "record": [
+      4,
+      2
+     ],
+     "win_pct": 0.667,
+     "win_streak": 1
+    },
+    "drift": -0.0167,
+    "edge": 0.01128132281896077,
+    "edge_own": 0.028995786759522746,
+    "elo_edge": 92.3,
+    "fact": "The Browns are 4-2, the Titans 1-5.",
+    "facts": [
+     [
+      "The Browns are 4-2, the Titans 1-5.",
+      "The Browns 4-2 on the year, the Titans 1-5.",
+      "It's 4-2 (the Browns) against 1-5 (the Titans).",
+      "The Browns sit 4-2; the Titans sit 1-5."
+     ],
+     [
+      "The Browns took a 31-29 loss to the Titans the last time these two met.",
+      "The Titans beat the Browns 31-29 last time out.",
+      "Last meeting: the Titans 31-29 over the Browns.",
+      "The Browns dropped the last one to the Titans, 31-29."
+     ],
+     [
+      "The Titans are 0-3 at home this year.",
+      "0-3 at home for the Titans this season.",
+      "The Titans haven't won at home this year (0-3).",
+      "The Titans at home this season: 0-3."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     3.0,
+     1,
+     142,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873013",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.5597681719391452,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -130,
+    "opp": "Titans",
+    "opp_dog_pts": -1.0,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Mike Hall Jr. (DT)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.571593791158543,
+    "p_market": 0.5427435387673956,
+    "pdo": null,
+    "public": "ride",
+    "pyth_luck": null,
+    "raw_own": 0.6876,
+    "reasons": [
+     "the stronger team",
+     "better QB play lately",
+     "revenge game"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-10-25T17:00Z",
+    "stype": "2",
+    "talk_ours": [
+     {
+      "headline": "Browns DT Maliek Collins lands 2-year extension worth $30 million, agent says",
+      "kind": "trash talk"
+     }
+    ],
+    "talk_theirs": [],
+    "team": "Browns",
+    "team_id": "5",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5866,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Browns 4-2, Titans 1-5. Titans about to get their ass beat."
+   }
+  ],
+  "p_hit": 0.5716,
+  "pnl": 0.0,
+  "posted": "2026-10-25T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
  }
 ]
