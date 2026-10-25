@@ -1,31 +1,118 @@
 {
- "at": "2026-10-24T17:40Z",
- "fixes": [
-  "live watch 40113287215 froze (10 min) - cancelled",
-  "live board 10 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-10-25T03:44Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (113s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "slate check: all 118 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
-  "all 3 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 6 min ago",
+  "studies ran 7h ago",
+  "simulator ran 7h ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T03:44Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-25T03:42Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Pridankina vs Lee: no points for 2007s",
+    "live tennis scores: tennis Iatcenko vs Ibragimova: no points for 2135s",
+    "live tennis scores: tennis Rakhimova vs Sasnovich: no points for 2626s"
+   ]
+  },
+  {
+   "at": "2026-10-25T02:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-25T02:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-25T00:36Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027553202 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-24T23:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T23:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T22:44Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027553089 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-24T21:37Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T21:36Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T21:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T21:22Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T19:51Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027553182 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-24T19:17Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T19:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-24T19:12Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-24T17:40Z",
    "fixes": [
@@ -418,90 +505,6 @@
   },
   {
    "at": "2026-10-23T02:00Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T00:28Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T00:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T00:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T22:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T21:26Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T21:25Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T21:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T21:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T19:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T19:33Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T19:29Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T19:19Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-22T19:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T17:39Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T17:37Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-22T17:32Z",
    "fixes": [],
    "problems": []
   }

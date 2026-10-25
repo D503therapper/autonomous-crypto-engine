@@ -584,10 +584,25 @@ SPOTS = {   # key: (label, units, leagues)
     #                                                                              at the first price, best side a night -
     #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
 }
-SPOTS_OFF = set()                        # ⏸️ spots paused by the owner (none now). 10/14 he paused "blowout" (0-6 live) and
-#                                         "engine"; 10/15 he turned both back on ("no risk no reward - if the test looked
-#                                         good we keep it"), the college read now counting at most 5 points (NCAAF_GAP_MAX).
-#                                         The 8 plays pulled 10/14 can come back if they clear the bar again (repost_ok).
+SPOTS_OFF = {"engine"}                   # ⏸️ paused spots. 10/14 the owner paused "blowout" (0-6 live) and "engine"; 10/15 he
+#                                         turned both back on ("no risk no reward - if the test looked good we keep it"), the
+#                                         college read counting at most 5 points (NCAAF_GAP_MAX). 10/24 AUDIT (the owner:
+#                                         "don't even ask me, just fix everything accordingly"): "engine" PAUSED again - live
+#                                         3-6 (-1.2u, -27%; six of them on 10/24 alone, 2-4), and the history under it is
+#                                         gone: the spot is the college own read 4+ over the market plus "the line moved
+#                                         away 2+" - the 10/15-16 recalibration found the college read holds NOTHING the
+#                                         market lacks (fitted shrink 0.000 on 6,009 games; the 5-10 point gap bucket -7.1%
+#                                         train / -24% 2026 at the close, -10.1% / -55.7% at the first fair price), and the
+#                                         10/7 study found the side the money runs from loses in every sport at the close
+#                                         (college's first look a coin flip). Its game-day twin, the 🔍 gap play, stays
+#                                         (15+ points, rating-backed) - one bet on that read, not two. "blowout" stays ON,
+#                                         FBS wins only (BLOWOUT_FBS_ONLY). Turning "engine" back on = the owner's call.
+#                                         A paused spot's pulled plays can come back once it's on (repost_ok).
+BLOWOUT_FBS_ONLY = True                  # 💥 the blowout spot counts a college team's blowout only over an FBS team (the
+#                                         10/16 finding: 104 of 250 FBS blowout wins this season were vs FCS tune-ups - a
+#                                         52-0 over an FCS school says nothing the books missed; the 10/1 study's +4.4% on
+#                                         610 was the spot WITH the engine liking it). The FBS set is the one the QB-form fix
+#                                         reads (sports_players.fbs_set, walk-forward); no set on file = no filter.
 EURO_QUIT = (15, 0.5)                    # the owner, 10/4: "half unit with the quit rule" - under 50% after 15 = it's off
 EURO_FROM_PT = 18                        # posted the night before (6 PM PT on): the line's set, nobody moves it overnight
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
@@ -841,6 +856,21 @@ def _fades(sched, g, side, lg, et):
     #               years; college 72, all over the place. Noise - every game gets read on its own)
 
 
+def blowout_counts(games, lg, prev, team):
+    """💥 Does the team's blowout win in `prev` count for the spot? College: only over an FBS team (BLOWOUT_FBS_ONLY -
+    the 10/16 finding; sports_players.fbs_set, walk-forward from the game files). No FBS set on file = can't tell = it
+    counts (the files before 2018 and the test slates). Every other league: yes."""
+    if lg != "ncaaf" or not BLOWOUT_FBS_ONLY:
+        return True
+    opp = prev["away"] if prev.get("home") == team else prev.get("home")
+    try:
+        import sports_players as sp
+        fbs = sp.fbs_set(games, prev["start"])
+    except Exception:                                        # noqa: BLE001 - the files can't say: no filter
+        return True
+    return fbs is None or opp in fbs
+
+
 def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_dog=False):
     """-> the six spots' new candidates right now: {game_id, league, side, team, opp, odds, opp_odds, start, spot,
     spots, own}. Fair prices only, never game day, never a side with a key player out / questionable."""
@@ -916,7 +946,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                 try:
                     m = float(me_prev["home_score"]) - float(me_prev["away_score"])
                     m = m if me_prev["home"] == g[side] else -m
-                    if m >= BLOWOUT:
+                    if m >= BLOWOUT and blowout_counts(games, lg, me_prev, g[side]):
                         hit.append("blowout")
                 except (KeyError, ValueError, TypeError):
                     pass

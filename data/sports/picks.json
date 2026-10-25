@@ -19184,6 +19184,7 @@
      "them:trip1000"
     ],
     "dec": 4.1,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19235,6 +19236,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,3,0,0",
+     "h": "0,7,7,7"
+    },
     "form_state": [
      1.0,
      1,
@@ -19288,10 +19293,12 @@
      "opponent drama: legal trouble"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Oregon 10 @ Illinois 21",
     "season_games": null,
+    "settled": "2026-10-24T22:23Z",
     "side": "home",
     "start": "2026-10-24T19:00Z",
     "stype": "2",
@@ -19315,12 +19322,14 @@
    }
   ],
   "p_hit": 0.2882,
-  "pnl": 0.0,
+  "pnl": 310.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-24T22:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": -142,
@@ -19369,6 +19378,15 @@
      "them:road3in6"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Dmitri Simashev",
+     "s": "5-4",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -19406,6 +19424,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,1,0,0",
+     "h": "2,2,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -19444,10 +19466,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 4 @ Mammoth 5",
     "season_games": null,
+    "settled": "2026-10-25T04:29Z",
     "side": "home",
     "start": "2026-10-25T01:00Z",
     "stype": "2",
@@ -19465,12 +19489,14 @@
    }
   ],
   "p_hit": 0.5928,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T04:29Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 114,
@@ -19508,6 +19534,15 @@
      "game:conf"
     ],
     "dec": 2.1399999999999997,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Malik Orsan",
+     "s": "27-24",
+     "type": "late",
+     "win": "home",
+     "y": 48
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19561,6 +19596,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,21,0,3",
+     "h": "14,3,0,10"
+    },
     "form_state": [
      16.0,
      3,
@@ -19619,10 +19658,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Tennessee 24 @ South Carolina 27",
     "season_games": null,
+    "settled": "2026-10-24T23:42Z",
     "side": "away",
     "start": "2026-10-24T19:30Z",
     "stype": "2",
@@ -19639,12 +19680,14 @@
    }
   ],
   "p_hit": 0.4508,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-24T23:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 114,
@@ -19682,6 +19725,7 @@
      "game:conf"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19738,6 +19782,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,14,7,11",
+     "h": "7,7,14,10"
+    },
     "form_state": [
      10.0,
      1,
@@ -19783,10 +19831,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Georgia St 32 @ Arkansas St 38",
     "season_games": null,
+    "settled": "2026-10-25T02:26Z",
     "side": "home",
     "start": "2026-10-24T23:00Z",
     "stype": "2",
@@ -19803,12 +19853,14 @@
    }
   ],
   "p_hit": 0.5021,
-  "pnl": 0.0,
+  "pnl": 114.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T02:26Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 140,
@@ -19844,6 +19896,15 @@
      "game:conf"
     ],
     "dec": 2.4,
+    "decider": {
+     "c": "1:41",
+     "k": "td",
+     "p": null,
+     "s": "28-27",
+     "type": "late",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -19885,6 +19946,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,7,7,7",
+     "h": "3,7,14,3"
+    },
     "form_state": [
      -7.0,
      -2,
@@ -19935,10 +20000,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Miami OH 28 @ C Michigan 27",
     "season_games": null,
+    "settled": "2026-10-24T20:41Z",
     "side": "home",
     "start": "2026-10-24T17:00Z",
     "stype": "2",
@@ -19955,12 +20022,14 @@
    }
   ],
   "p_hit": 0.4552,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-24T20:41Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 130,
@@ -20000,6 +20069,7 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -20051,6 +20121,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,14,10",
+     "h": "10,14,0,10"
+    },
     "form_state": [
      28.0,
      2,
@@ -20104,10 +20178,12 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Ole Miss 27 @ Texas 34",
     "season_games": null,
+    "settled": "2026-10-25T03:34Z",
     "side": "away",
     "start": "2026-10-24T23:30Z",
     "stype": "2",
@@ -20124,11 +20200,398 @@
    }
   ],
   "p_hit": 0.4233,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T03:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
+ },
+ {
+  "american": 102,
+  "date": "2026-10-24",
+  "dec": 2.02,
+  "dog_play": true,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -2,
+    "bd_tags": [
+     "better:2",
+     "QB_cold:1",
+     "home:2",
+     "w_public:24",
+     "bottom_so:3"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Mississippi St questionable: QB K. Taylor (starter), WR A. Williams (starter), RB F. Bothwell (starter) +1 more.",
+     "\ud83c\udfdf\ufe0f Mississippi St at home: 2-1 this season.",
+     "\ud83d\udcaa 4-2 vs 3-3 looks even. Who they've played says Mississippi St.",
+     "\ud83d\uddd1\ufe0f John Mateer has been straight ass \u2014 3 TDs, 4 picks and 656 yards in his last 3 games.",
+     "\u2705 Bottom line: Mississippi St (+102). -120 on our sheet, +102 at the book. Trust the algorithm."
+    ],
+    "bv": 54,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.02,
+    "decider": {},
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [
+      "ice cold"
+     ],
+     "last_margin": -31.0,
+     "last_pts": 0.0,
+     "neutral": false,
+     "record": [
+      4,
+      2
+     ],
+     "win_pct": 0.667,
+     "win_streak": 0
+    },
+    "dog_p": 0.5463,
+    "dog_score": 7.24,
+    "drift": -0.0102,
+    "edge": 0.06332653093726748,
+    "edge_own": 0.06309562670229063,
+    "elo_edge": 52.6,
+    "fact": "Mississippi St are 4-2, Oklahoma 3-3.",
+    "facts": [
+     [
+      "Mississippi St are 4-2, Oklahoma 3-3.",
+      "Mississippi St 4-2 on the year, Oklahoma 3-3.",
+      "It's 4-2 (Mississippi St) against 3-3 (Oklahoma).",
+      "Mississippi St sit 4-2; Oklahoma sit 3-3."
+     ],
+     [
+      "71% of the bets are on Oklahoma.",
+      "The public's got 71% of the tickets on Oklahoma.",
+      "71% of tickets are on Oklahoma.",
+      "71% of the crowd is on Oklahoma.",
+      "Oklahoma are holding 71% of the action.",
+      "The public side is Oklahoma, 71% of all bets.",
+      "Only 29% of the public is on Mississippi St.",
+      "Oklahoma is the public's team tonight, 71% of bets.",
+      "The public is all over Oklahoma, 71% of bets.",
+      "Everybody and they mama on Oklahoma with 47% of the money.",
+      "47% of the cash is on Oklahoma."
+     ],
+     [
+      "Oklahoma just lost to Kentucky 21-13.",
+      "Oklahoma gave up 21 to Kentucky last time out.",
+      "Oklahoma are coming off a 21-13 loss to Kentucky.",
+      "Kentucky beat Oklahoma 21-13 last time out.",
+      "Last time out Oklahoma took a 21-13 L to Kentucky.",
+      "Kentucky hung 21 on Oklahoma last time out."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "flow": {
+     "a": "3,7,10,3",
+     "h": "0,0,7,8"
+    },
+    "form_state": [
+     -31.0,
+     -2,
+     625,
+     false,
+     5
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401856730",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.31394385641969613,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 102,
+    "opp": "Oklahoma",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "T. Harris (WR)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "T. Williams (DL)",
+     "B. Mitchell (WR)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5263992727412216,
+    "p_market": 0.47391341473828025,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.5474,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": "lost",
+    "revenge": false,
+    "road_opener": false,
+    "score": "Oklahoma 23 @ Mississippi St 15",
+    "season_games": null,
+    "settled": "2026-10-24T23:42Z",
+    "side": "home",
+    "start": "2026-10-24T19:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Mississippi St",
+    "team_id": "344",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcca The public's got 71% of the tickets on Oklahoma. We eating."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.5264,
+  "pnl": -100.0,
+  "posted": "2026-10-24T18:12Z",
+  "round": 1,
+  "settled": "2026-10-24T23:42Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
+ },
+ {
+  "american": 124,
+  "date": "2026-10-24",
+  "dec": 2.24,
+  "dog_play": true,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -3,
+    "bd_tags": [
+     "sched:0",
+     "cx_trip:2",
+     "cx_hotseat:1",
+     "home:0",
+     "w_public:44",
+     "k_trip:0",
+     "bottom_so:4"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 N Illinois questionable: TE G. Weber, RB D. Howard.",
+     "\ud83e\uddf3 Hawai'i put in the miles to get here (4,190-mile trip east).",
+     "\u2696\ufe0f N Illinois 0-6, Hawai'i 1-6 \u2014 but N Illinois' L's came against Iowa, Illinois St, Arizona, Georgia St, Air Force and Wyoming.",
+     "\ud83d\udd25 4 losses in a row for Hawai'i. Coaching staff feeling the heat.",
+     "\ud83c\udfdf\ufe0f N Illinois are 0-2 at home this year.",
+     "\u2705 Bottom line: N Illinois (+124). We price N Illinois at +112 - +124 is extra money. That's just facts."
+    ],
+    "bv": 54,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 4191,
+      "road6": 1,
+      "who": "them",
+      "wk": 4191
+     },
+     {
+      "k": "hotseat",
+      "n": 4,
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:east1000",
+     "them:hotseat",
+     "them:trip1000",
+     "them:trip2000",
+     "them:week3000",
+     "us:hotseat"
+    ],
+    "dec": 2.24,
+    "decider": {
+     "h": "35-14",
+     "s": "56-21",
+     "type": "blowout",
+     "win": "away"
+    },
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [
+      "losing streak"
+     ],
+     "last_margin": -18.0,
+     "last_pts": 23.0,
+     "neutral": false,
+     "record": [
+      0,
+      6
+     ],
+     "win_pct": 0.0,
+     "win_streak": 0
+    },
+    "dog_p": 0.4728,
+    "dog_score": 4.49,
+    "drift": -0.1281,
+    "edge": 0.08516145951305076,
+    "edge_own": 0.08166756142748399,
+    "elo_edge": 17.5,
+    "fact": "89% of the bets are on Hawai'i.",
+    "facts": [
+     [
+      "89% of the bets are on Hawai'i.",
+      "The public's got 89% of the tickets on Hawai'i.",
+      "89% of tickets are on Hawai'i.",
+      "89% of the crowd is on Hawai'i.",
+      "Hawai'i are holding 89% of the action.",
+      "The public side is Hawai'i, 89% of all bets.",
+      "Only 11% of the public is on N Illinois.",
+      "Hawai'i is the public's team tonight, 89% of bets.",
+      "The public is all over Hawai'i, 89% of bets.",
+      "Everybody and they mama on Hawai'i with 67% of the money.",
+      "67% of the cash is on Hawai'i."
+     ],
+     [
+      "Hawai'i have lost 4 straight.",
+      "4 straight losses for Hawai'i.",
+      "Hawai'i are on a 4-game skid.",
+      "Hawai'i haven't won in 4."
+     ],
+     [
+      "Hawai'i just lost to New Mexico 21-10.",
+      "Hawai'i gave up 21 to New Mexico last time out.",
+      "Hawai'i are coming off a 21-10 loss to New Mexico.",
+      "New Mexico beat Hawai'i 21-10 last time out.",
+      "Last time out Hawai'i took a 21-10 L to New Mexico.",
+      "New Mexico hung 21 on Hawai'i last time out."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "flow": {
+     "a": "14,21,14,7",
+     "h": "7,7,0,7"
+    },
+    "form_state": [
+     -18.0,
+     -8,
+     235,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401864526",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.21540033270649506,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 124,
+    "opp": "Hawai'i",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "I. Jaramilla-Phe (QB)",
+     "O. Salave'a (TE)",
+     "D. Heimuli (WR)",
+     "A. Hickman (TE)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.48444708013975474,
+    "p_market": 0.4279403644395361,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.3747,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": "lost",
+    "revenge": false,
+    "road_opener": false,
+    "score": "Hawai'i 56 @ N Illinois 21",
+    "season_games": null,
+    "settled": "2026-10-24T22:39Z",
+    "side": "home",
+    "start": "2026-10-24T19:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "N Illinois",
+    "team_id": "2459",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcca 89% of tickets are on Hawai'i, tap in. Plus Hawai'i flew 4,190 miles for this."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4844,
+  "pnl": -100.0,
+  "posted": "2026-10-24T18:12Z",
+  "round": 1,
+  "settled": "2026-10-24T22:39Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]

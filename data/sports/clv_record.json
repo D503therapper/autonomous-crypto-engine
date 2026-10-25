@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 114,
-  "beat": 37,
-  "same": 38,
-  "worse": 39,
-  "avg_pts": 0.07
+  "n": 122,
+  "beat": 38,
+  "same": 44,
+  "worse": 40,
+  "avg_pts": 0.06
  },
  "unit_plays": {
-  "n": 46,
-  "beat": 15,
-  "same": 19,
-  "worse": 12,
-  "avg_pts": 0.22
+  "n": 54,
+  "beat": 16,
+  "same": 25,
+  "worse": 13,
+  "avg_pts": 0.19
  },
  "by_kind": {
   "dog": {
-   "n": 17,
+   "n": 18,
    "beat": 4,
-   "same": 7,
+   "same": 8,
    "worse": 6,
-   "avg_pts": -0.27
+   "avg_pts": -0.26
   },
   "lean": {
    "n": 68,
@@ -29,18 +29,18 @@
    "avg_pts": -0.04
   },
   "lock": {
-   "n": 11,
-   "beat": 5,
+   "n": 12,
+   "beat": 6,
    "same": 4,
    "worse": 2,
    "avg_pts": 0.99
   },
   "play": {
-   "n": 18,
+   "n": 24,
    "beat": 6,
-   "same": 8,
-   "worse": 4,
-   "avg_pts": 0.22
+   "same": 13,
+   "worse": 5,
+   "avg_pts": 0.12
   }
  },
  "by_sport": {
@@ -59,11 +59,11 @@
    "avg_pts": 0.41
   },
   "ncaaf": {
-   "n": 30,
+   "n": 37,
    "beat": 11,
-   "same": 10,
-   "worse": 9,
-   "avg_pts": 0.24
+   "same": 16,
+   "worse": 10,
+   "avg_pts": 0.17
   },
   "nfl": {
    "n": 16,
@@ -73,20 +73,20 @@
    "avg_pts": -0.16
   },
   "nhl": {
-   "n": 45,
-   "beat": 13,
+   "n": 46,
+   "beat": 14,
    "same": 17,
    "worse": 15,
-   "avg_pts": 0.04
+   "avg_pts": 0.06
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 7,
-   "beat": 3,
+   "n": 8,
+   "beat": 4,
    "same": 3,
    "worse": 1,
-   "avg_pts": 0.69
+   "avg_pts": 0.72
   },
   "1-2u": {
    "n": 1,
@@ -1706,6 +1706,118 @@
    "pts": -3.5,
    "units": 2.0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": 310,
+   "close": 310,
+   "pts": 0.0,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "lock",
+   "lean": false,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Tennessee",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Arkansas St",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "C Michigan",
+   "market": "ml",
+   "line": null,
+   "odds": 140,
+   "close": 145,
+   "pts": -0.9,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Ole Miss",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Mississippi St",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "N Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }
