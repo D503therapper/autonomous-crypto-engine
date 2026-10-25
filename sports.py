@@ -1001,8 +1001,11 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         one = _combo([solo]) if solo else None
         kind = "solo"
         if solo and solo["market"] in ("ml", "spread") and good(solo) and lock_ok(solo) and \
-                (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo):
-            kind = "lock"
+                (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo) \
+                and not (solo["market"] == "ml" and S6_LOCK_SKIP[0] <= solo["odds"] <= S6_LOCK_SKIP[1]):   # (10/25 sweep:
+            kind = "lock"                                    #  the 10/23 plan's "no Lock of the Day at -119..-101" held on
+            #                                                  the board's Lock pool and the backup, not the one-game day's
+            #                                                  title - it stays the game's pick, with units, never a Lock)
         elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX and \
                 not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo) and dog_own_ok(solo):   # (10/1 audit: a Dog that fails
             kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
@@ -3678,6 +3681,9 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = f"a {pk['kind']} with no units"
         elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DAILY_DOG_MAX:   # (10/2 audit: +220, the owner's 10/1
             why = "a Dog past its cap"
+        elif pk.get("kind") == "lock" and not pk.get("lean") and not pk.get("owner_post") and l.get("market") == "ml" \
+                and S6_LOCK_SKIP[0] <= (l.get("odds") or 0) <= S6_LOCK_SKIP[1] and (pk.get("date") or "") >= S6_FROM:
+            why = "a Lock of the Day at -119..-101"          # (10/25 sweep: the 10/23 plan's band, checked at the gate too)
         elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") not in PLAY_MARKETS:
             why = "a value play off the moneyline"          # (the owner, 10/9: value plays are MONEYLINE only)
         elif pk.get("kind") in ("play", "dog", "solo", "night") and not pk.get("lean") \
@@ -3717,7 +3723,7 @@ def sizing_check(new):
         l, u, k = pk["legs"][0], units_for(pk), pk.get("kind")
         want = None
         if pk.get("lean"):
-            want = (0, 0) if k != "solo" else (0.5, 10)
+            want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
             want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog":
@@ -3725,9 +3731,9 @@ def sizing_check(new):
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
         elif k == "lock":
-            want = (0.5, 0.5) if thin_edge(l) else (0.5, 10)
+            want = (0.5, 0.5) if thin_edge(l) else (0.5, LOCK_MAX_UNITS if (pk.get("date") or "") >= S6_FROM else UNIT_MAX)
         elif k in ("solo", "night"):
-            want = (0.5, 10) if not pk.get("lean") else (0, 0)
+            want = (0.5, UNIT_MAX) if not pk.get("lean") else (0, 0)   # (10/25 sweep: the 5u max play, was 10)
         if want and not want[0] <= u <= want[1]:
             out.append(f"sizing: {k} {l.get('team')} {l.get('odds')} at {u:g}u - the unit system says "
                        f"{want[0]:g}u" + (f"-{want[1]:g}u" if want[1] != want[0] else ""))
@@ -4206,7 +4212,9 @@ def night_pick(pool):
     """The engine's pick for one Monday / Thursday game: its best real play (value, likeliest first); none clears the
     bar - the likeliest side it isn't fighting, as a LEAN. Moneyline or spread, never past -150, never a trap."""
     pool = [c for c in pool if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and not c.get("trap")]
-    real = [c for c in pool if good(c) and real_value(c) and leg_tier(c) in ("lock", "value") and not c.get("hurt")]   # (10/2 audit: a strong
+    real = [c for c in pool if good(c) and real_value(c) and leg_tier(c) in ("lock", "value") and not c.get("hurt")
+            and (c["market"] != "ml" or own_beats(c))]   # (10/25 sweep: a night UNIT pick is a value play - the owner's
+    #   10/18 rule, its OWN read over the price; a favorite carried by the weighed read alone was a unit pick here) (10/2 audit: a strong
     #   lean posted as a ½u unit play labeled LEAN) (10/1 bug hunt: the Steelers at -148 - 0.4 short of the
     if real:                                                 # price - went up labeled LOCK with 0 units)
         c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))

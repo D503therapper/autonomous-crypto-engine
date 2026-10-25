@@ -13479,6 +13479,90 @@ def test_audit_1024_hockey_dog_two_units_like_football_and_the_nba_open_spot_tak
     assert no.PRICE_BAND == (-150, 300)
 
 
+def test_sweep_1025_early_plays_keep_the_units_they_posted_at():
+    """10/25 sweep: a graded early play had no units written on it - the record re-read SPOTS every time, so a spot's size
+    changing later would re-size every graded row (the board's picks freeze theirs - sports.units_for). Now post() and
+    grade() stamp the units on, and units() reads the stamp first."""
+    import sports_early as se
+    p = {"game_id": "g", "league": "nfl", "side": "away", "team": "T", "opp": "O", "odds": 150,
+         "start": "2026-10-25T17:00Z", "spot": "bye", "result": None}
+    assert se.units(p) == 1.0
+    keep = dict(se.SPOTS)
+    try:
+        se.SPOTS["bye"] = ("x", 0.5, ("nfl", "ncaaf"))
+        assert se.units({**p, "units": 1.0}) == 1.0           # the stamp wins over today's size
+        assert se.units(p) == 0.5                             # (an unstamped row still follows SPOTS - the old rows)
+    finally:
+        se.SPOTS.clear()
+        se.SPOTS.update(keep)
+    games = {"g": {"status": "final", "home_score": "20", "away_score": "27", "home_name": "O", "away_name": "T"}}
+    st = {"picks": [dict(p)]}
+    se.grade(st, games, now=datetime(2026, 10, 25, 22, tzinfo=timezone.utc))
+    assert st["picks"][0]["result"] == "won" and st["picks"][0]["units"] == 1.0
+    assert se.stamp_units({**p, "units": 0.5})["units"] == 0.5
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_early.py")).read()
+    assert "for c in new:\n        stamp_units(c)" in src
+
+
+def test_sweep_1025_one_game_day_never_titles_a_lock_at_minus_119_to_101():
+    """10/25 sweep: the 10/23 plan's "no Lock of the Day at -119..-101" (46% in the replay) lived on the board's Lock pool
+    and the backup Lock, not on a one-game day's title - a -110 favorite could be the Lock of the Day on a Monday /
+    Thursday night. It stays the game's pick (units and all), never titled Lock; the rule check pulls a Lock in the band
+    too (never the owner's own post)."""
+    c = _cand("only", -110, 0.60, league="nfl")
+    b = sports.make_board([dict(c)])
+    assert b["lock"] is None and b["solo"] and b["solo"]["legs"][0]["game_id"] == "only"
+    c2 = _cand("only2", -130, 0.60, league="nfl")
+    b2 = sports.make_board([dict(c2)])
+    assert b2["lock"] and b2["lock"]["legs"][0]["game_id"] == "only2" and b2["solo"] is None
+    pk = {"date": "2026-10-25", "kind": "lock", "status": "open", "legs": [dict(c)], "dec": c["dec"], "american": -110,
+          "stake": 100, "p_hit": 0.6, "posted": "2026-10-25T15:00Z", "round": 1}
+    new = [pk]
+    probs = sports.rule_check([pk], new, "2026-10-25")
+    assert any("-119..-101" in x for x in probs) and new == []
+    his = {**pk, "owner_post": "his call", "units": 1.0}
+    new = [his]
+    assert not any("-119..-101" in x for x in sports.rule_check([his], new, "2026-10-25")) and new == [his]
+    old = {**pk, "date": "2026-10-20"}
+    new = [old]
+    assert not any("-119..-101" in x for x in sports.rule_check([old], new, "2026-10-20"))
+
+
+def test_sweep_1025_night_unit_pick_needs_the_own_read_over_the_price():
+    """10/25 sweep: the Monday / Thursday night UNIT pick took a favorite whose WEIGHED read (w_p) beat the price while its
+    own read sat under it - the same hole own_beats closed on the value plays (the Bengals -148). A night unit pick is a
+    value play: the owner's 10/18 rule, the OWN read over the price - else it's the game's lean."""
+    c = {**_cand("n1", -140, 0.60, league="nfl"), "edge_own": 0.56 * sd.decimal(-140) - 1, "w_p": 0.63}   # own 56% - the
+    assert sports.real_value(c) and sports.leg_tier(c) == "lock" and not sports.own_beats(c)          # price needs 58.3%
+    b = sports.night_pick([dict(c)])
+    assert b and b.get("lean"), "the weighed read alone never makes a night unit pick"
+    ok = {**c, "edge_own": 0.62 * sd.decimal(-140) - 1}
+    b2 = sports.night_pick([dict(ok)])
+    assert b2 and not b2.get("lean") and b2["legs"][0]["game_id"] == "n1"
+
+
+def test_sweep_1025_sizing_check_knows_the_5u_max_play_and_the_bankroll_box_says_the_flat_unit():
+    """10/25 sweep: the sizing check still allowed a Lock / night / one-game pick up to 10u (the owner's max play is 5u since
+    10/16, the Lock 3u since 10/23) - a bad size would have passed the report. And the bankroll box said a unit is
+    'roughly 1% of the bankroll' - the owner's 10/22 rule is $1,000 flat, up $500 per full $50,000."""
+    keep = sports.units_for
+    try:
+        sports.units_for = lambda pk: 6.0
+        leg = {**_cand("s", -130, 0.62, league="nfl"), "edge_own": 0.62 * sd.decimal(-130) - 1}
+        lock = {"date": "2026-10-25", "kind": "lock", "status": "open", "legs": [leg]}
+        night = {"date": "2026-10-25", "kind": "night", "status": "open", "legs": [leg]}
+        assert sports.sizing_check([lock]) and sports.sizing_check([night])
+        sports.units_for = lambda pk: 3.0
+        assert sports.sizing_check([lock]) == [] and sports.sizing_check([night]) == []
+        sports.units_for = lambda pk: 4.0
+        assert sports.sizing_check([lock]) and sports.sizing_check([night]) == []   # the Lock's max is 3u, the plan
+    finally:
+        sports.units_for = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "roughly 1% of the bankroll" not in src and "up $500 for every $50,000" in src
+    assert sports.unit_usd(100000) == 1000 and sports.unit_usd(149999) == 1000 and sports.unit_usd(150000) == 1500
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
