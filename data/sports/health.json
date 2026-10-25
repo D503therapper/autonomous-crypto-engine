@@ -1,13 +1,14 @@
 {
- "at": "2026-10-25T16:32Z",
+ "at": "2026-10-25T16:38Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Melleiro vs Bonardi: no points for 2366s",
-  "live tennis scores: tennis Bernardes vs Labrana: no points for 2366s",
-  "live tennis scores: tennis Chiesa vs Morderger: no points for 2366s"
+  "live tennis scores: tennis Melleiro vs Bonardi: no points for 2621s",
+  "live tennis scores: tennis Bernardes vs Labrana: no points for 2621s",
+  "live tennis scores: tennis Chiesa vs Morderger: no points for 2621s",
+  "sources down (the backups took over): betrivers:nfl:1028823697 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (47s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,18 +17,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
+  "studies ran 1h ago",
   "simulator ran 2h ago",
-  "engine ran 22 min ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T16:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Melleiro vs Bonardi: no points for 2621s",
+    "live tennis scores: tennis Bernardes vs Labrana: no points for 2621s",
+    "live tennis scores: tennis Chiesa vs Morderger: no points for 2621s",
+    "sources down (the backups took over): betrivers:nfl:1028823697 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-25T16:32Z",
    "fixes": [],
@@ -530,13 +540,6 @@
    "at": "2026-10-23T21:03Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-23T19:28Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
