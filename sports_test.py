@@ -4169,7 +4169,7 @@ def test_graded_card_comes_down_on_time_without_a_rebuild():
     once they're all down, the 8 AM note shows."""
     import sports_dashboard as D
     p = {"kind": "lock", "status": "won", "settled": "2026-09-30T03:17Z"}
-    assert D.gone_ms(p) == int(datetime(2026, 9, 30, 5, 17, tzinfo=timezone.utc).timestamp() * 1000)   # 2 hours (10/5)
+    assert D.gone_ms(p) == int(datetime(2026, 10, 1, 3, 17, tzinfo=timezone.utc).timestamp() * 1000)   # all day (10/25 - was 2 hours)
     assert D.gone_ms({"status": "open"}) is None and D.gone_ms({"status": "won", "settled": None}) is None
     html = D._cards("2026-09-29", [], [("lock", "<section class='pk'>L</section>"), ("two", "<section class='pk'>2</section>")],
                     {"lock": D.gone_ms(p), "two": None})
