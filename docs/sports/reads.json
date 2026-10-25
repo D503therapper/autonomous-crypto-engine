@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T22:12Z",
+ "updated": "2026-10-25T22:48Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -265,135 +265,12 @@
    "lean": null
   },
   {
-   "id": "nhl:401891807",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Canadiens",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-25T23:00Z",
-   "away": "Canadiens",
-   "home": "Jets",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Jets",
-    "opp": "Canadiens",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.693,
-    "win_p": 0.477,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909865",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.788,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T23:00Z",
-   "away": "Clippers",
-   "home": "Thunder",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Clippers",
-    "market": "spread",
-    "line": -16.5,
-    "odds": -112,
-    "p": 0.509,
-    "win_p": 0.899,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909863",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Knicks",
-    "p": 0.619,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T23:00Z",
-   "away": "Magic",
-   "home": "Knicks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Knicks",
-    "opp": "Magic",
-    "market": "ml",
-    "line": null,
-    "odds": -270,
-    "p": 0.7,
-    "win_p": 0.7,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909864",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Timberwolves",
-    "p": 0.537,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T23:00Z",
-   "away": "Raptors",
-   "home": "Timberwolves",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Timberwolves",
-    "opp": "Raptors",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
    "id": "nba:401909866",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.536,
+    "p": 0.528,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -402,16 +279,16 @@
    "start": "2026-10-25T23:30Z",
    "away": "Pistons",
    "home": "76ers",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Pistons",
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -125,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
