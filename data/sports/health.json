@@ -1,9 +1,11 @@
 {
- "at": "2026-10-24T23:10Z",
+ "at": "2026-10-25T00:36Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:ncaaf:1027553202 HTTP 404"
+ ],
  "ok": [
-  "live watcher fresh (104s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +13,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 37 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 56 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T00:36Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027553202 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-24T23:10Z",
    "fixes": [],
@@ -494,11 +501,6 @@
   },
   {
    "at": "2026-10-22T22:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-22T21:26Z",
    "fixes": [],
    "problems": []
   }
