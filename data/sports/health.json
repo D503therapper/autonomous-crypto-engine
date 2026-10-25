@@ -1,17 +1,11 @@
 {
- "at": "2026-10-25T14:21Z",
- "fixes": [
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-10-25T14:22Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Gulin vs Ayala: no points for 638s",
-  "live tennis scores: tennis Dourado vs Cinalli: no points for 690s",
-  "live tennis scores: tennis Maduzzi vs Matuella: no points for 493s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
   "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (54s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,16 +13,24 @@
   "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "engine ran 23 min ago",
+  "engine ran 25 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T14:22Z",
+   "fixes": [],
+   "problems": [
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-25T14:21Z",
    "fixes": [
@@ -536,22 +538,6 @@
     "workflow failed: sports 2026-10-23T15:26 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39978212064",
     "workflow failed: sports 2026-10-23T15:22 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39977707015",
     "workflow failed: sports 2026-10-23T15:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39976950725"
-   ]
-  },
-  {
-   "at": "2026-10-23T15:22Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running",
-    "main board not up at 8:22 AM PT with 22 games today - sports.yml already running"
-   ],
-   "problems": [
-    "workflow failed: sports 2026-10-23T15:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39976950725",
-    "workflow failed: sports 2026-10-23T15:11 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39976189622",
-    "workflow failed: sports 2026-10-23T15:04 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39975073153",
-    "workflow failed: sports 2026-10-23T15:00 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39974476518",
-    "workflow failed: sports 2026-10-23T14:40 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39971677706",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
