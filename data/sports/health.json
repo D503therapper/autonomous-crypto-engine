@@ -1,26 +1,37 @@
 {
- "at": "2026-10-25T07:33Z",
+ "at": "2026-10-25T08:17Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Kostovic vs Zakharova: no points for 2620s",
+  "live tennis scores: tennis Zhang Shuai vs Valentova: no points for 79s"
+ ],
  "ok": [
-  "live watcher fresh (179s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 50 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 30 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T08:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kostovic vs Zakharova: no points for 2620s",
+    "live tennis scores: tennis Zhang Shuai vs Valentova: no points for 79s"
+   ]
+  },
   {
    "at": "2026-10-25T07:33Z",
    "fixes": [],
@@ -511,11 +522,6 @@
   },
   {
    "at": "2026-10-23T06:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T05:04Z",
    "fixes": [],
    "problems": []
   }
