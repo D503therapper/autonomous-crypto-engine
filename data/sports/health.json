@@ -1,28 +1,33 @@
 {
- "at": "2026-10-25T23:05Z",
+ "at": "2026-10-25T23:15Z",
  "fixes": [],
- "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 4 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
+  "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 26 min ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T23:15Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-25T23:05Z",
    "fixes": [],
@@ -520,11 +525,6 @@
     "live tennis scores: tennis Parks vs Shibahara: no points for 1397s",
     "live tennis scores: tennis Watson vs Samsonova: no points for 1397s"
    ]
-  },
-  {
-   "at": "2026-10-24T03:56Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
