@@ -1,13 +1,13 @@
 {
- "at": "2026-10-25T16:08Z",
+ "at": "2026-10-25T16:12Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Melleiro vs Bonardi: no points for 883s",
-  "live tennis scores: tennis Bernardes vs Labrana: no points for 883s",
-  "live tennis scores: tennis Chiesa vs Morderger: no points for 883s"
+  "live tennis scores: tennis Melleiro vs Bonardi: no points for 1152s",
+  "live tennis scores: tennis Bernardes vs Labrana: no points for 1152s",
+  "live tennis scores: tennis Chiesa vs Morderger: no points for 1152s"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +22,21 @@
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 62 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T16:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Melleiro vs Bonardi: no points for 1152s",
+    "live tennis scores: tennis Bernardes vs Labrana: no points for 1152s",
+    "live tennis scores: tennis Chiesa vs Morderger: no points for 1152s"
+   ]
+  },
   {
    "at": "2026-10-25T16:08Z",
    "fixes": [],
@@ -520,19 +529,6 @@
    "at": "2026-10-23T18:45Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-23T17:12Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "workflow failed: sports 2026-10-23T17:08 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39992630904",
-    "workflow failed: sports 2026-10-23T17:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39991974334",
-    "workflow failed: sports 2026-10-23T16:58 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39991242697",
-    "workflow failed: sports 2026-10-23T16:53 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39990531418",
-    "workflow failed: sports 2026-10-23T16:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39989816889"
-   ]
   }
  ]
 }
