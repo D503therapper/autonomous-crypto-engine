@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T23:55Z",
+ "updated": "2026-10-25T00:41Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -1169,8 +1169,8 @@
    "away": "Louisiana",
    "home": "Southern Miss",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1184,8 +1184,8 @@
    "away": "McNeese",
    "home": "Incarnate Word",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1199,8 +1199,8 @@
    "away": "Old Dominion",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1214,8 +1214,8 @@
    "away": "San Jos\u00e9 St",
    "home": "Nevada",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1229,8 +1229,8 @@
    "away": "Southern Utah",
    "home": "Idaho",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1244,8 +1244,8 @@
    "away": "UT Rio Grande",
    "home": "C Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1259,8 +1259,8 @@
    "away": "Utah Tech",
    "home": "Cal Poly",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1289,8 +1289,8 @@
    "away": "Heat",
    "home": "Hornets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1680,96 +1680,91 @@
    "lean": null
   },
   {
-   "id": "nba:401909856",
+   "id": "mlb:401908043",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-25T00:00Z",
+   "away": "Rays",
+   "home": "Brewers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909858",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.482,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-10-25T00:30Z",
-   "away": "Rockets",
-   "home": "Hawks",
-   "why": "coin_flip",
+   "start": "2026-10-25T00:00Z",
+   "away": "Spurs",
+   "home": "Mavericks",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Hawks",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.501,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401862811",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-25T00:00Z",
+   "away": "UTSA",
+   "home": "Tulane",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909857",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T00:00Z",
+   "away": "Wizards",
+   "home": "Bulls",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892575",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.397,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-25T01:00Z",
    "away": "Lightning",
    "home": "Mammoth",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
-    "team": "Lightning",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.625,
-    "win_p": 0.405,
+    "team": "Mammoth",
+    "opp": "Lightning",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909859",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Nuggets",
-    "p": 0.692,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T01:00Z",
-   "away": "Pelicans",
-   "home": "Nuggets",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Nuggets",
-    "opp": "Pelicans",
-    "market": "spread",
-    "line": -11.5,
-    "odds": -105,
-    "p": 0.505,
-    "win_p": 0.796,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "altitude edge"
-    ]
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ],
+    "result": null
    }
   },
   {
@@ -1841,7 +1836,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.676,
+    "p": 0.681,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1857,9 +1852,9 @@
     "opp": "Warriors",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.503,
-    "win_p": 0.776,
+    "win_p": 0.782,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -1904,7 +1899,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.625,
+    "p": 0.623,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1921,8 +1916,8 @@
     "market": "ml",
     "line": null,
     "odds": -238,
-    "p": 0.67,
-    "win_p": 0.67,
+    "p": 0.667,
+    "win_p": 0.667,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
