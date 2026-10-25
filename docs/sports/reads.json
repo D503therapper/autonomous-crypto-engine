@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:46Z",
+ "updated": "2026-10-25T17:46Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -46,6 +46,21 @@
    }
   },
   {
+   "id": "nfl:401873012",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Bengals",
+   "home": "Ravens",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873013",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -75,6 +90,21 @@
    }
   },
   {
+   "id": "nfl:401873018",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Buccaneers",
+   "home": "Panthers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873014",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -98,6 +128,36 @@
     "reasons": [],
     "result": null
    }
+  },
+  {
+   "id": "nfl:401873015",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Dolphins",
+   "home": "Jets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873016",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Giants",
+   "home": "Texans",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892578",
@@ -136,8 +196,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.618,
-    "tie": 0.037,
+    "p": 0.622,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -152,9 +212,9 @@
     "opp": "Cardinals",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.687,
-    "win_p": 0.687,
+    "odds": -245,
+    "p": 0.692,
+    "win_p": 0.692,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -353,7 +413,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.782,
+    "p": 0.788,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -369,9 +429,9 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -16.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.509,
-    "win_p": 0.893,
+    "win_p": 0.899,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -384,7 +444,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.632,
+    "p": 0.626,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -400,9 +460,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -298,
-    "p": 0.718,
-    "win_p": 0.718,
+    "odds": -285,
+    "p": 0.71,
+    "win_p": 0.71,
     "reasons": [
      "the stronger team"
     ]
@@ -445,7 +505,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.499,
+    "p": 0.504,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -461,12 +521,12 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -112,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "opponent on a back-to-back"
     ]
    }
@@ -601,7 +661,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.373,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -618,8 +678,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.671,
-    "win_p": 0.453,
+    "p": 0.66,
+    "win_p": 0.441,
     "reasons": []
    }
   },
@@ -645,9 +705,9 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -216,
-    "p": 0.628,
-    "win_p": 0.512,
+    "odds": -215,
+    "p": 0.627,
+    "win_p": 0.511,
     "reasons": []
    }
   },
