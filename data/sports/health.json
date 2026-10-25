@@ -1,13 +1,13 @@
 {
- "at": "2026-10-25T16:22Z",
+ "at": "2026-10-25T16:32Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Melleiro vs Bonardi: no points for 1753s",
-  "live tennis scores: tennis Bernardes vs Labrana: no points for 1753s",
-  "live tennis scores: tennis Chiesa vs Morderger: no points for 1753s"
+  "live tennis scores: tennis Melleiro vs Bonardi: no points for 2366s",
+  "live tennis scores: tennis Bernardes vs Labrana: no points for 2366s",
+  "live tennis scores: tennis Chiesa vs Morderger: no points for 2366s"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +22,21 @@
   "baseball star list fresh (30 teams)",
   "studies ran 0h ago",
   "simulator ran 2h ago",
-  "engine ran 12 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T16:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Melleiro vs Bonardi: no points for 2366s",
+    "live tennis scores: tennis Bernardes vs Labrana: no points for 2366s",
+    "live tennis scores: tennis Chiesa vs Morderger: no points for 2366s"
+   ]
+  },
   {
    "at": "2026-10-25T16:22Z",
    "fixes": [],
@@ -528,11 +537,6 @@
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
-  },
-  {
-   "at": "2026-10-23T19:27Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
