@@ -21123,6 +21123,7 @@
      "us:trip2000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -21171,6 +21172,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,7,0,6",
+     "h": "3,9,7,10"
+    },
     "form_state": [
      6.0,
      6,
@@ -21232,10 +21237,12 @@
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "49ers 20 @ Falcons 29",
     "season_games": null,
+    "settled": "2026-10-25T20:39Z",
     "side": "away",
     "start": "2026-10-25T17:00Z",
     "stype": "2",
@@ -21260,12 +21267,14 @@
    }
   ],
   "p_hit": 0.6016,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-25T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T20:39Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": -130,
@@ -21308,6 +21317,15 @@
      "game:conf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Andre Szmyt",
+     "s": "27-24",
+     "type": "late",
+     "win": "away",
+     "y": 32
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -21355,6 +21373,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,10,0,10",
+     "h": "14,0,0,10"
+    },
     "form_state": [
      3.0,
      1,
@@ -21402,10 +21424,12 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Browns 27 @ Titans 24",
     "season_games": null,
+    "settled": "2026-10-25T20:39Z",
     "side": "away",
     "start": "2026-10-25T17:00Z",
     "stype": "2",
@@ -21428,11 +21452,13 @@
    }
   ],
   "p_hit": 0.5716,
-  "pnl": 0.0,
+  "pnl": 76.92,
   "posted": "2026-10-25T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T20:39Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  }
 ]

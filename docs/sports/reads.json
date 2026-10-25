@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T19:56Z",
+ "updated": "2026-10-25T20:41Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -27,7 +27,7 @@
    "home": "Falcons",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "49ers",
@@ -42,7 +42,7 @@
      "opponent drama: illness",
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -55,8 +55,8 @@
    "away": "Bengals",
    "home": "Ravens",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -71,7 +71,7 @@
    "home": "Titans",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Browns",
@@ -86,7 +86,7 @@
      "better QB play lately",
      "revenge game"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -139,8 +139,8 @@
    "away": "Dolphins",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -154,8 +154,8 @@
    "away": "Giants",
    "home": "Texans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -175,97 +175,49 @@
    "lean": null
   },
   {
+   "id": "nfl:401873019",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T20:05Z",
+   "away": "Broncos",
+   "home": "Cardinals",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873020",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.57,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T20:25Z",
    "away": "Packers",
    "home": "Lions",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Lions",
-    "opp": "Packers",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.632,
-    "win_p": 0.632,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "better QB play lately"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873021",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rams",
-    "p": 0.558,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T20:25Z",
    "away": "Rams",
    "home": "Raiders",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rams",
-    "opp": "Raiders",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.604,
-    "win_p": 0.604,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909861",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.613,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T21:00Z",
-   "away": "Lakers",
-   "home": "Jazz",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Jazz",
-    "market": "ml",
-    "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892579",
@@ -305,7 +257,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.606,
+    "p": 0.601,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -321,9 +273,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.681,
-    "win_p": 0.681,
+    "odds": -238,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "opponent on a back-to-back"
     ]
@@ -381,7 +333,7 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -16.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.509,
     "win_p": 0.899,
     "reasons": [
@@ -521,8 +473,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.536,
-    "tie": 0.038,
+    "p": 0.529,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -537,9 +489,9 @@
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "better rested",
