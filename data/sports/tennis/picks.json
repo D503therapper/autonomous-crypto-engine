@@ -4523,5 +4523,132 @@
    "atp": null,
    "wta": null
   }
+ },
+ {
+  "date": "2026-10-25",
+  "posted": "2026-10-25T15:00Z",
+  "picks": [
+   {
+    "id": "atp:185175:1",
+    "match": "atp:185175",
+    "side": 1,
+    "player": "Learner Tien",
+    "opp": "Luca Van Assche",
+    "tour": "atp",
+    "odds": -300,
+    "p": 0.7183098591549295,
+    "edge": -0.04225352112676073,
+    "start": "2026-10-26T04:00Z",
+    "tourney": "Erste Bank Open",
+    "market": "ml",
+    "hcp": null,
+    "ml": -300,
+    "round": "Round 1",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.7183098591549295,
+    "own": 0.7742114682919229,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Tien, no hesitation. He's about to smack that ass.",
+     "\ud83d\udcc8 Ranking gap: #18 vs #48. Van Assche is punching up.",
+     "\ud83d\udfeb Hard court is his playground.",
+     "\ud83d\ude2e\u200d\ud83d\udca8 Van Assche hasn't had an easy match in days. Legs on empty.",
+     "\u2705 The bet: Tien ML (-300), 72% in our numbers, same story as the price."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mf:71",
+     "t_rank:14",
+     "t_surf:2",
+     "t_tired:4",
+     "t_bl:6"
+    ]
+   },
+   {
+    "id": "atp:185182:2",
+    "match": "atp:185182",
+    "side": 2,
+    "player": "Matteo Berrettini",
+    "opp": "Tomas Martin Etcheverry",
+    "tour": "atp",
+    "odds": -210,
+    "p": 0.6465222348916762,
+    "edge": -0.04561003420752563,
+    "start": "2026-10-26T04:00Z",
+    "tourney": "Erste Bank Open",
+    "market": "ml",
+    "hcp": null,
+    "ml": -210,
+    "round": "Round 1",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.6465222348916762,
+    "own": 0.6189605210051592,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Give me Berrettini. He punches the ticket.",
+     "\u2705 Bottom line: Berrettini ML (-210). 65% to cash \u2014 done deal."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mf:72",
+     "t_bl:9"
+    ]
+   },
+   {
+    "id": "atp:185186:1",
+    "match": "atp:185186",
+    "side": 1,
+    "player": "Francisco Cerundolo",
+    "opp": "Cameron Norrie",
+    "tour": "atp",
+    "odds": -165,
+    "p": 0.5940252776713904,
+    "edge": -0.04595940252776709,
+    "start": "2026-10-26T04:00Z",
+    "tourney": "Erste Bank Open",
+    "market": "ml",
+    "hcp": null,
+    "ml": -165,
+    "round": "Round 1",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.5940252776713904,
+    "own": 0.6213719568738169,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Favorite for a reason: Cerundolo. He should outlast Norrie.",
+     "\ud83c\udd9a Head to head leans Cerundolo. Matchups matter.",
+     "\u2705 The math: Cerundolo ML (-165). No fighting Vegas here, 59% to cash."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mf:74",
+     "t_h2h:3",
+     "t_bl:18"
+    ]
+   }
+  ],
+  "parlays": {
+   "atp": {
+    "legs": [
+     "atp:185175:1",
+     "atp:185182:2",
+     "atp:185186:1"
+    ],
+    "dec": 3.1611,
+    "american": 216,
+    "status": "open",
+    "tour": "atp"
+   },
+   "wta": null
+  }
  }
 ]

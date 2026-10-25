@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T14:23Z",
+ "updated": "2026-10-25T15:01Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -22,7 +22,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.55,
+    "p": 0.543,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -31,16 +31,16 @@
    "start": "2026-10-25T17:00Z",
    "away": "49ers",
    "home": "Falcons",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "49ers",
     "opp": "Falcons",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.612,
-    "win_p": 0.612,
+    "odds": -142,
+    "p": 0.602,
+    "win_p": 0.602,
     "reasons": [
      "the stronger team",
      "opponent drama: illness",
@@ -54,7 +54,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.547,
+    "p": 0.548,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -71,12 +71,12 @@
     "market": "ml",
     "line": null,
     "odds": -148,
-    "p": 0.587,
-    "win_p": 0.587,
+    "p": 0.589,
+    "win_p": 0.589,
     "reasons": [
      "sharp money moving this way",
      "better rested",
-     "coming off a bye"
+     "opponent missing key players"
     ]
    }
   },
@@ -86,7 +86,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Browns",
-    "p": 0.537,
+    "p": 0.536,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -95,8 +95,8 @@
    "start": "2026-10-25T17:00Z",
    "away": "Browns",
    "home": "Titans",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Browns",
     "opp": "Titans",
@@ -118,7 +118,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Panthers",
-    "p": 0.554,
+    "p": 0.555,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -135,12 +135,12 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.608,
-    "win_p": 0.608,
+    "p": 0.61,
+    "win_p": 0.61,
     "reasons": [
      "the stronger team",
      "better QB play lately",
-     "revenge game"
+     "opponent missing key players"
     ]
    }
   },
@@ -150,8 +150,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Vikings",
-    "p": 0.647,
-    "tie": 0.036,
+    "p": 0.654,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -159,16 +159,16 @@
    "start": "2026-10-25T17:00Z",
    "away": "Colts",
    "home": "Vikings",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Colts",
     "opp": "Vikings",
     "market": "spread",
-    "line": 6.5,
-    "odds": -105,
+    "line": 7.0,
+    "odds": -115,
     "p": 0.515,
-    "win_p": 0.252,
+    "win_p": 0.243,
     "reasons": [
      "revenge game"
     ]
@@ -230,8 +230,10 @@
     "line": 10.5,
     "odds": -112,
     "p": 0.509,
-    "win_p": 0.188,
-    "reasons": []
+    "win_p": 0.189,
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -260,7 +262,8 @@
     "p": 0.632,
     "win_p": 0.632,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -270,7 +273,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.616,
+    "p": 0.614,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -286,11 +289,12 @@
     "opp": "Cardinals",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -230,
+    "p": 0.681,
+    "win_p": 0.681,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "better rested"
     ]
    }
@@ -318,8 +322,8 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "p": 0.617,
+    "win_p": 0.617,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -350,8 +354,8 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.605,
-    "win_p": 0.605,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "the stronger team"
     ]
@@ -414,7 +418,8 @@
     "win_p": 0.637,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -424,7 +429,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.623,
+    "p": 0.624,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -474,7 +479,9 @@
     "odds": -250,
     "p": 0.685,
     "win_p": 0.468,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -575,7 +582,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.516,
+    "p": 0.515,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -648,8 +655,8 @@
    "start": "2026-10-26T00:20Z",
    "away": "Chiefs",
    "home": "Seahawks",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Seahawks",
     "opp": "Chiefs",
@@ -710,8 +717,8 @@
    "start": "2026-10-26T02:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Wild",
     "opp": "Canucks",
