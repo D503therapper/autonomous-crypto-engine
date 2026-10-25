@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T04:38Z",
+ "updated": "2026-10-25T04:40Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -1807,8 +1807,8 @@
    "away": "Red Wings",
    "home": "Flames",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1837,8 +1837,8 @@
    "away": "Wild",
    "home": "Kraken",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2584,8 +2584,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.41,
-    "tie": 0.296,
+    "p": 0.394,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2593,18 +2593,19 @@
    "start": "2026-10-26T02:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Wild",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.631,
-    "win_p": 0.631,
+    "team": "Canucks",
+    "opp": "Wild",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -155,
+    "p": 0.627,
+    "win_p": 0.406,
     "reasons": [
-     "the stronger team"
+     "opponent on a back-to-back",
+     "better rested"
     ]
    }
   }
