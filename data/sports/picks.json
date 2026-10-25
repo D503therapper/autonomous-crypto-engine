@@ -19378,6 +19378,15 @@
      "them:road3in6"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Dmitri Simashev",
+     "s": "5-4",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -19415,6 +19424,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,1,0,0",
+     "h": "2,2,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -19453,10 +19466,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 4 @ Mammoth 5",
     "season_games": null,
+    "settled": "2026-10-25T04:29Z",
     "side": "home",
     "start": "2026-10-25T01:00Z",
     "stype": "2",
@@ -19474,12 +19489,14 @@
    }
   ],
   "p_hit": 0.5928,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T04:29Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 114,
