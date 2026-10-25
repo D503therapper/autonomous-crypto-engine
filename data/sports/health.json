@@ -1,28 +1,35 @@
 {
- "at": "2026-10-25T11:43Z",
+ "at": "2026-10-25T11:49Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Senica vs Morderger: no points for 1410s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Senica vs Morderger: no points for 1750s"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 33 min ago",
+  "simulator ran 7h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T11:49Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Senica vs Morderger: no points for 1750s"
+   ]
+  },
   {
    "at": "2026-10-25T11:43Z",
    "fixes": [],
@@ -521,11 +528,6 @@
   },
   {
    "at": "2026-10-23T10:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T10:21Z",
    "fixes": [],
    "problems": []
   }
