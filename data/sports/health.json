@@ -1,31 +1,47 @@
 {
- "at": "2026-10-25T13:36Z",
+ "at": "2026-10-25T14:21Z",
  "fixes": [
-  "studies overdue (9h) - started sports_studies.yml"
+  "simulator overdue (9h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Senica vs Morderger: no points for 2627s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "studies last ran 9h ago - restarted"
+  "live tennis scores: tennis Gulin vs Ayala: no points for 638s",
+  "live tennis scores: tennis Dourado vs Cinalli: no points for 690s",
+  "live tennis scores: tennis Maduzzi vs Matuella: no points for 493s",
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (119s)",
+  "live watcher fresh (54s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 4 live matches",
+  "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 5 fresh (bovada 5)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 8h ago",
-  "engine ran 44 min ago",
+  "studies ran 1h ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T14:21Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Gulin vs Ayala: no points for 638s",
+    "live tennis scores: tennis Dourado vs Cinalli: no points for 690s",
+    "live tennis scores: tennis Maduzzi vs Matuella: no points for 493s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-25T13:36Z",
    "fixes": [
@@ -536,15 +552,6 @@
     "workflow failed: sports 2026-10-23T15:00 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39974476518",
     "workflow failed: sports 2026-10-23T14:40 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39971677706",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-23T13:51Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
