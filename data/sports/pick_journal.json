@@ -6410,6 +6410,56 @@
  },
  {
   "date": "2026-10-24",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "nhl",
+  "game_id": "nhl:401892575",
+  "team": "Mammoth",
+  "opp": "Lightning",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -142,
+  "posted": "2026-10-24T15:00Z",
+  "price_says": 0.587,
+  "win_p": 0.5928310444388283,
+  "own_read": 0.608,
+  "weighed": 0.6081,
+  "dog_p": null,
+  "edge_own": 0.0017965686915242252,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "opponent on a back-to-back"
+  ],
+  "angles": [
+   "rec:0",
+   "G_cold:2",
+   "cx_trip:2",
+   "home:0",
+   "b2b:0",
+   "w_rest:66",
+   "bottom_so:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -148,
+  "beat_close_pts": 1.0,
+  "result": "won",
+  "score": "5-4",
+  "margin": 1.0,
+  "pnl_units": 0.35
+ },
+ {
+  "date": "2026-10-24",
   "kind": "play",
   "lean": false,
   "tier": "value",
@@ -6574,6 +6624,67 @@
   "result": "lost",
   "score": "27-28",
   "margin": -1.0,
+  "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-24",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401856732",
+  "team": "Ole Miss",
+  "opp": "Texas",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 130,
+  "posted": "2026-10-24T15:00Z",
+  "price_says": 0.435,
+  "win_p": 0.4233301910197902,
+  "own_read": 0.552,
+  "weighed": null,
+  "dog_p": 0.552,
+  "edge_own": 0.2958,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "sharp money moving this way",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "conservative": true,
+   "fades": [],
+   "fast": false,
+   "last_margin": 28.0,
+   "last_pts": 31.0,
+   "neutral": false,
+   "record": [
+    5,
+    1
+   ],
+   "win_pct": 0.833,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "E. Joseph (S)",
+   "I. Hartrup (WR)",
+   "MJ Preston (S)",
+   "K. Johnson Jr. (WR)"
+  ],
+  "theirs_out": [
+   "C. Simmons (EDGE)",
+   "R. Wesley (EDGE)",
+   "H. Smothers (RB)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 130,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "27-34",
+  "margin": -7.0,
   "pnl_units": -1.0
  },
  {
