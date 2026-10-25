@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T21:25Z",
+ "updated": "2026-10-25T21:51Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -169,8 +169,8 @@
    "away": "Panthers",
    "home": "Blackhawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -235,67 +235,6 @@
    "lean": null
   },
   {
-   "id": "nhl:401892579",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.408,
-    "tie": 0.296,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-25T22:00Z",
-   "away": "Islanders",
-   "home": "Stars",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Stars",
-    "opp": "Islanders",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909862",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacers",
-    "p": 0.601,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-25T22:00Z",
-   "away": "Pacers",
-   "home": "Nets",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Pacers",
-    "opp": "Nets",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.675,
-    "win_p": 0.675,
-    "reasons": [
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
    "id": "nhl:401891807",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -317,7 +256,7 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -270,
     "p": 0.693,
     "win_p": 0.477,
     "reasons": [
@@ -362,8 +301,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.626,
-    "tie": 0.034,
+    "p": 0.619,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -378,9 +317,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.71,
-    "win_p": 0.71,
+    "odds": -270,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "the stronger team"
     ]
@@ -423,8 +362,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.522,
-    "tie": 0.037,
+    "p": 0.536,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -432,16 +371,16 @@
    "start": "2026-10-25T23:30Z",
    "away": "Pistons",
    "home": "76ers",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Pistons",
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.539,
-    "win_p": 0.539,
+    "odds": -130,
+    "p": 0.556,
+    "win_p": 0.556,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -519,7 +458,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.549,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -535,9 +474,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -162,
+    "p": 0.567,
+    "win_p": 0.567,
     "reasons": [
      "the stronger team"
     ]
