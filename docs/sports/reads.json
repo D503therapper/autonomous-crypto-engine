@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T19:03Z",
+ "updated": "2026-10-25T19:31Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -160,6 +160,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892578",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-25T19:00Z",
+   "away": "Panthers",
+   "home": "Blackhawks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873019",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -196,7 +211,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.57,
+    "p": 0.574,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -212,9 +227,9 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -198,
+    "p": 0.637,
+    "win_p": 0.637,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -228,7 +243,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.562,
+    "p": 0.559,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -244,11 +259,12 @@
     "opp": "Raiders",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -180,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
