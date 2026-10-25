@@ -3208,8 +3208,9 @@ def test_value_plays_and_the_dog_lock_need_the_own_read_over_the_price():
     got = [c["game_id"] for c in sports.plays([under, over], ())]
     assert "fau" not in got
     assert sports.dog_lock([under]) is None
-    assert sports.own_beats({**under, "w_p": 0.50})          # hockey: the weighed read
-    assert not sports.own_beats({**under, "w_p": 0.45})
+    assert sports.own_beats({**under, "w_p": 0.50, "league": "nhl"})   # hockey: the weighed read (10/25: ONLY
+    assert not sports.own_beats({**under, "w_p": 0.45, "league": "nhl"})   # hockey / NBA - never college or the NFL)
+    assert not sports.own_beats({**under, "w_p": 0.50})
 
 
 def test_a_lock_is_never_a_coin_flip_even_an_underdog_lock():
@@ -10692,6 +10693,18 @@ def test_every_dog_that_passes_the_dog_check_is_at_least_a_half_unit_play():
     assert sports.units_for(pk) == sports.PLAY_UNITS == 0.5
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert '("dogplay", dog_plays, DOG_PLAY_MAX)' in src       # (10/24 audit: the one best runner-up a day)
+
+
+def test_own_beats_uses_the_own_read_outside_hockey():
+    """10/25: the Bengals -148 value play posted with its OWN read 1.2% under the price - own_beats took the weighed read
+    (w_p) in every sport. The owner's rule (10/18): a value play needs the engine's OWN read over the price; the weighed
+    read stands in only for hockey (and when there's no own read at all)."""
+    leg = {"league": "nfl", "dec": 1.6757, "w_p": 0.61, "edge_own": -0.012}
+    assert not sports.own_beats(leg)
+    assert sports.own_beats({**leg, "edge_own": 0.02})
+    assert sports.own_beats({**leg, "league": "nhl"}) and sports.own_beats({**leg, "league": "nba"})   # hockey / NBA
+    assert sports.own_beats({**leg, "edge_own": None})                      # no own read: the weighed one
+    assert not sports.own_beats({**leg, "edge_own": None, "w_p": 0.5})
 
 
 def test_board_preview_names_the_10_23_own_read_dog_rule():

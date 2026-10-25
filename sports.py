@@ -2456,9 +2456,13 @@ def own_beats(c):
     owner, 10/18: "fix what Fable suggests".)"""
     if not c.get("dec"):
         return False
-    if c.get("w_p") is not None:
+    if c.get("w_p") is not None and c.get("league") in ("nhl", "nba"):   # (NBA: its favorite read starts from the books - 10/22)
         return c["w_p"] * c["dec"] > 1
-    return c.get("edge_own") is not None and c["edge_own"] > 0
+    if c.get("edge_own") is None:                            # (no own read at all: the weighed read is all there is)
+        return c.get("w_p") is not None and c["w_p"] * c["dec"] > 1
+    return c["edge_own"] > 0
+    #   (10/25 sweep: the Bengals -148 value play went up on the weighed read (w_p) with its OWN read 1.2% under the
+    #    price - the weighed read stood in for every sport, the owner's rule: hockey (and the NBA favorite read off the books) only)
 
 
 def dog_lock(cands):
