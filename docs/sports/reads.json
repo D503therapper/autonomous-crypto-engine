@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T03:39Z",
+ "updated": "2026-10-25T03:40Z",
  "games": [
   {
    "id": "ncaaf:401858270",
@@ -2100,7 +2100,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.701,
+    "p": 0.694,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2116,9 +2116,9 @@
     "opp": "Texans",
     "market": "spread",
     "line": 10.0,
-    "odds": -105,
-    "p": 0.513,
-    "win_p": 0.192,
+    "odds": -108,
+    "p": 0.509,
+    "win_p": 0.2,
     "reasons": []
    }
   },
@@ -2251,7 +2251,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.612,
+    "p": 0.603,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2267,9 +2267,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -238,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "the stronger team"
     ]
@@ -2312,8 +2312,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.608,
-    "tie": 0.035,
+    "p": 0.628,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2328,11 +2328,12 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -278,
+    "p": 0.705,
+    "win_p": 0.705,
     "reasons": [
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "sharp money moving this way"
     ]
    }
   },
@@ -2430,7 +2431,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.51,
+    "p": 0.489,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2446,13 +2447,41 @@
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
     ]
+   }
+  },
+  {
+   "id": "nba:401909866",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "76ers",
+    "p": 0.491,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T23:30Z",
+   "away": "Pistons",
+   "home": "76ers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "76ers",
+    "opp": "Pistons",
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.513,
+    "win_p": 0.513,
+    "reasons": []
    }
   },
   {
@@ -2525,7 +2554,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.543,
+    "p": 0.553,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2541,9 +2570,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.565,
-    "win_p": 0.565,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "the stronger team"
     ]
