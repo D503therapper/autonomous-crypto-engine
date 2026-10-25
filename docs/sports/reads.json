@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T19:31Z",
+ "updated": "2026-10-25T19:49Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -115,7 +115,7 @@
    "home": "Vikings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Colts",
@@ -126,7 +126,7 @@
     "p": 0.515,
     "win_p": 0.515,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -173,37 +173,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nfl:401873019",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Broncos",
-    "p": 0.616,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-25T20:05Z",
-   "away": "Broncos",
-   "home": "Cardinals",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Broncos",
-    "opp": "Cardinals",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.685,
-    "win_p": 0.685,
-    "reasons": [
-     "the stronger team",
-     "better rested"
-    ]
-   }
   },
   {
    "id": "nfl:401873020",
@@ -552,8 +521,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.529,
-    "tie": 0.039,
+    "p": 0.537,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -568,9 +537,9 @@
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team",
      "better rested",

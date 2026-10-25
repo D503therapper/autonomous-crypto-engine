@@ -20962,6 +20962,7 @@
      "game:nonconf"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -20990,6 +20991,10 @@
     "facts": [],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,3,0,0",
+     "h": "0,6,0,10"
+    },
     "form_state": [
      -6.0,
      -2,
@@ -21042,10 +21047,12 @@
     "raw_own": 0.1739,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Colts 10 @ Vikings 16",
     "season_games": null,
+    "settled": "2026-10-25T19:47Z",
     "side": "away",
     "start": "2026-10-25T17:00Z",
     "stype": "2",
@@ -21061,12 +21068,14 @@
    }
   ],
   "p_hit": 0.515,
-  "pnl": 0.0,
+  "pnl": 86.96,
   "posted": "2026-10-25T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T19:47Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
