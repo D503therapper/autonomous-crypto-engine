@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T22:58Z",
+ "updated": "2026-10-25T23:45Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -184,8 +184,8 @@
    "away": "Broncos",
    "home": "Cardinals",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -199,8 +199,8 @@
    "away": "Packers",
    "home": "Lions",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -214,8 +214,8 @@
    "away": "Rams",
    "home": "Raiders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -229,8 +229,8 @@
    "away": "Lakers",
    "home": "Jazz",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -265,68 +265,79 @@
    "lean": null
   },
   {
+   "id": "nhl:401891807",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-25T23:00Z",
+   "away": "Canadiens",
+   "home": "Jets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909865",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T23:00Z",
+   "away": "Clippers",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909863",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T23:00Z",
+   "away": "Magic",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909864",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T23:00Z",
+   "away": "Raptors",
+   "home": "Timberwolves",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909866",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pistons",
-    "p": 0.528,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T23:30Z",
    "away": "Pistons",
    "home": "76ers",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pistons",
-    "opp": "76ers",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.544,
-    "win_p": 0.544,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892580",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.448,
-    "tie": 0.29,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-26T00:00Z",
-   "away": "Avalanche",
-   "home": "Predators",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Predators",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.703,
-    "win_p": 0.703,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873022",
@@ -366,7 +377,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.544,
+    "p": 0.543,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -426,7 +437,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.373,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -443,8 +454,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.671,
-    "win_p": 0.453,
+    "p": 0.66,
+    "win_p": 0.441,
     "reasons": []
    }
   },
