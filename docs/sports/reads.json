@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T22:11Z",
+ "updated": "2026-10-25T22:12Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -235,6 +235,36 @@
    "lean": null
   },
   {
+   "id": "nhl:401892579",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-25T22:00Z",
+   "away": "Islanders",
+   "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909862",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-25T22:00Z",
+   "away": "Pacers",
+   "home": "Nets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401891807",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -331,8 +361,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.489,
-    "tie": 0.037,
+    "p": 0.537,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -340,18 +370,19 @@
    "start": "2026-10-25T23:00Z",
    "away": "Raptors",
    "home": "Timberwolves",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Timberwolves",
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
