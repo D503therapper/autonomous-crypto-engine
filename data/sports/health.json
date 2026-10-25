@@ -1,28 +1,36 @@
 {
- "at": "2026-10-25T22:59Z",
+ "at": "2026-10-25T23:05Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
+ ],
  "ok": [
-  "live watcher fresh (39s)",
+  "live watcher fresh (34s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 21 min ago",
+  "engine ran 26 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T23:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-25T22:59Z",
    "fixes": [],
@@ -517,15 +525,6 @@
    "at": "2026-10-24T03:56Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-24T03:55Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ibragimova vs Saigo: no points for 2620s",
-    "live tennis scores: tennis Shubladze vs Iatcenko: no points for 2620s",
-    "live tennis scores: tennis Parks vs Shibahara: no points for 1803s"
-   ]
   }
  ]
 }
