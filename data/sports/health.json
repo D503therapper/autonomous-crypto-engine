@@ -1,11 +1,13 @@
 {
- "at": "2026-10-25T14:22Z",
+ "at": "2026-10-25T14:35Z",
  "fixes": [],
  "problems": [
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Gulin vs Ayala: no points for 794s",
+  "live tennis scores: tennis Dourado vs Cinalli: no points for 794s",
+  "live tennis scores: tennis Maduzzi vs Matuella: no points for 794s"
  ],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +21,21 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "engine ran 25 min ago",
+  "simulator ran 0h ago",
+  "engine ran 38 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T14:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gulin vs Ayala: no points for 794s",
+    "live tennis scores: tennis Dourado vs Cinalli: no points for 794s",
+    "live tennis scores: tennis Maduzzi vs Matuella: no points for 794s"
+   ]
+  },
   {
    "at": "2026-10-25T14:22Z",
    "fixes": [],
@@ -517,20 +529,6 @@
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running",
     "main board not up at 8:41 AM PT with 22 games today - sports.yml already running"
-   ],
-   "problems": [
-    "workflow failed: sports 2026-10-23T15:34 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39979417284",
-    "workflow failed: sports 2026-10-23T15:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39978970369",
-    "workflow failed: sports 2026-10-23T15:26 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39978212064",
-    "workflow failed: sports 2026-10-23T15:22 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39977707015",
-    "workflow failed: sports 2026-10-23T15:17 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39976950725"
-   ]
-  },
-  {
-   "at": "2026-10-23T15:39Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running",
-    "main board not up at 8:39 AM PT with 22 games today - sports.yml already running"
    ],
    "problems": [
     "workflow failed: sports 2026-10-23T15:34 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/39979417284",
