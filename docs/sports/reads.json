@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:17Z",
+ "updated": "2026-10-25T16:41Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -11,8 +11,8 @@
    "away": "Steelers",
    "home": "Saints",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -20,18 +20,14 @@
    "id": "nfl:401873017",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "49ers",
-    "p": 0.55,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T17:00Z",
    "away": "49ers",
    "home": "Falcons",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
     "team": "49ers",
@@ -45,57 +41,22 @@
      "the stronger team",
      "opponent drama: illness",
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873012",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bengals",
-    "p": 0.547,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-25T17:00Z",
-   "away": "Bengals",
-   "home": "Ravens",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Bengals",
-    "opp": "Ravens",
-    "market": "ml",
-    "line": null,
-    "odds": -148,
-    "p": 0.587,
-    "win_p": 0.587,
-    "reasons": [
-     "sharp money moving this way",
-     "better rested",
-     "coming off a bye"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401873013",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Browns",
-    "p": 0.543,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T17:00Z",
    "away": "Browns",
    "home": "Titans",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Browns",
@@ -109,129 +70,33 @@
      "the stronger team",
      "better QB play lately",
      "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873018",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.553,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-25T17:00Z",
-   "away": "Buccaneers",
-   "home": "Panthers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Panthers",
-    "opp": "Buccaneers",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.607,
-    "win_p": 0.607,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "revenge game"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401873014",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Vikings",
-    "p": 0.647,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T17:00Z",
    "away": "Colts",
    "home": "Vikings",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Colts",
     "opp": "Vikings",
     "market": "spread",
-    "line": 6.5,
-    "odds": 100,
+    "line": 7.0,
+    "odds": -115,
     "p": 0.515,
-    "win_p": 0.251,
-    "reasons": [
-     "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873015",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jets",
-    "p": 0.579,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-25T17:00Z",
-   "away": "Dolphins",
-   "home": "Jets",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Jets",
-    "opp": "Dolphins",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.644,
-    "win_p": 0.644,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873016",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texans",
-    "p": 0.701,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-25T17:00Z",
-   "away": "Giants",
-   "home": "Texans",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Giants",
-    "opp": "Texans",
-    "market": "spread",
-    "line": 10.0,
-    "odds": -108,
-    "p": 0.513,
-    "win_p": 0.192,
-    "reasons": []
+    "win_p": 0.515,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -271,7 +136,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.614,
+    "p": 0.618,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -287,9 +152,9 @@
     "opp": "Cardinals",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.681,
-    "win_p": 0.681,
+    "odds": -238,
+    "p": 0.687,
+    "win_p": 0.687,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -365,7 +230,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.609,
+    "p": 0.618,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -381,9 +246,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.681,
-    "win_p": 0.681,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team"
     ]
