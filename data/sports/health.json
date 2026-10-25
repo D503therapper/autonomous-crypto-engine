@@ -1,11 +1,14 @@
 {
- "at": "2026-10-25T05:16Z",
+ "at": "2026-10-25T05:23Z",
  "fixes": [],
  "problems": [
+  "live tennis scores: tennis Garland vs Prozorova: no points for 409s",
+  "live tennis scores: tennis Yastremska vs Jones: no points for 409s",
+  "live tennis scores: tennis Kasatkina vs Birrell: no points for 409s",
   "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (270s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,13 +20,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
-  "simulator ran 8h ago",
-  "engine ran 10 min ago",
+  "simulator ran 0h ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-25T05:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Garland vs Prozorova: no points for 409s",
+    "live tennis scores: tennis Yastremska vs Jones: no points for 409s",
+    "live tennis scores: tennis Kasatkina vs Birrell: no points for 409s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-25T05:16Z",
    "fixes": [],
@@ -503,11 +516,6 @@
   },
   {
    "at": "2026-10-23T02:46Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-23T02:45Z",
    "fixes": [],
    "problems": []
   }
