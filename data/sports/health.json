@@ -1,28 +1,42 @@
 {
- "at": "2026-10-25T12:05Z",
- "fixes": [],
+ "at": "2026-10-25T13:36Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
  "problems": [
+  "live tennis scores: tennis Senica vs Morderger: no points for 2627s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (115s)",
+  "live watcher fresh (119s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "no failed workflows",
   "alerts: engine key works",
-  "all 1 backup sources answering",
+  "tennis live prices: 5 live lines, 5 fresh (bovada 5)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 18 min ago",
+  "simulator ran 8h ago",
+  "engine ran 44 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-25T13:36Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Senica vs Morderger: no points for 2627s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-25T12:05Z",
    "fixes": [],
@@ -532,11 +546,6 @@
    "problems": [
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-10-23T12:39Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
