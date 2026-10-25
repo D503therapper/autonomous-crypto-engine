@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 122,
-  "beat": 38,
-  "same": 44,
+  "n": 124,
+  "beat": 39,
+  "same": 45,
   "worse": 40,
-  "avg_pts": 0.06
+  "avg_pts": 0.08
  },
  "unit_plays": {
-  "n": 54,
-  "beat": 16,
-  "same": 25,
+  "n": 56,
+  "beat": 17,
+  "same": 26,
   "worse": 13,
-  "avg_pts": 0.19
+  "avg_pts": 0.22
  },
  "by_kind": {
   "dog": {
@@ -29,16 +29,16 @@
    "avg_pts": -0.04
   },
   "lock": {
-   "n": 12,
-   "beat": 6,
+   "n": 13,
+   "beat": 7,
    "same": 4,
    "worse": 2,
-   "avg_pts": 0.99
+   "avg_pts": 1.08
   },
   "play": {
-   "n": 24,
+   "n": 25,
    "beat": 6,
-   "same": 13,
+   "same": 14,
    "worse": 5,
    "avg_pts": 0.12
   }
@@ -66,11 +66,11 @@
    "avg_pts": 0.17
   },
   "nfl": {
-   "n": 16,
-   "beat": 4,
-   "same": 7,
+   "n": 18,
+   "beat": 5,
+   "same": 8,
    "worse": 5,
-   "avg_pts": -0.16
+   "avg_pts": -0.03
   },
   "nhl": {
    "n": 46,
@@ -82,11 +82,11 @@
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 8,
-   "beat": 4,
+   "n": 9,
+   "beat": 5,
    "same": 3,
    "worse": 1,
-   "avg_pts": 0.72
+   "avg_pts": 0.88
   },
   "1-2u": {
    "n": 1,
@@ -1818,6 +1818,34 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-25",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "49ers",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -155,
+   "pts": 2.1,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-25",
+   "kind": "play",
+   "lean": false,
+   "league": "nfl",
+   "team": "Browns",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }
