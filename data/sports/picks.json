@@ -20052,6 +20052,7 @@
      "game:conf"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -20103,6 +20104,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,14,10",
+     "h": "10,14,0,10"
+    },
     "form_state": [
      28.0,
      2,
@@ -20156,10 +20161,12 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Ole Miss 27 @ Texas 34",
     "season_games": null,
+    "settled": "2026-10-25T03:34Z",
     "side": "away",
     "start": "2026-10-24T23:30Z",
     "stype": "2",
@@ -20176,12 +20183,14 @@
    }
   ],
   "p_hit": 0.4233,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-24T15:00Z",
   "round": 1,
+  "settled": "2026-10-25T03:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 102,
