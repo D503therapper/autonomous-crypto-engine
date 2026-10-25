@@ -6524,12 +6524,14 @@ def test_there_is_always_a_lock():
     """The owner (CLAUDE.md; 10/1: "we need a Lock of the Day - how many times I gotta tell you"). Nothing clears the
     full Lock test = the pick the engine's own read has winning 56%+ that still beats its price, as a unit Lock; never
     the pricey hockey favorite, never past -150, never one its read is fighting."""
-    nt = {**_cand("unt", -112, 0.519, league="ncaaf"), "edge_own": 0.588 * sd.decimal(-112) - 1, "p_market": 0.504}
+    nt = {**_cand("unt", -125, 0.535, league="ncaaf"), "edge_own": 0.588 * sd.decimal(-125) - 1, "p_market": 0.541}
     wild = {**_cand("wild", -142, 0.576, league="nhl"), "edge_own": 0.571 * sd.decimal(-142) - 1, "p_market": 0.563}
     coin = {**_cand("coin", -108, 0.50, league="nhl"), "edge_own": 0.50 * sd.decimal(-108) - 1}
     b = sports.make_board([nt, wild, coin])
     assert b["lock"] and b["lock"]["legs"][0]["game_id"] == "unt"
     assert sports.units_for({"kind": "lock", "legs": b["lock"]["legs"]}) > 0
+    at_112 = {**nt, "odds": -112, "dec": sd.decimal(-112), "p_market": 0.504}   # (10/24 audit: the 10/23 plan's "no Lock
+    assert sports.make_board([at_112, wild, coin])["lock"] is None               #  at -119..-101" holds for the backup too)
     assert sports.make_board([wild, coin])["lock"] is None         # only a near -150 hockey favorite: never that
 
 
@@ -10678,7 +10680,7 @@ def test_every_dog_that_passes_the_dog_check_is_at_least_a_half_unit_play():
         sports.beats_price = lambda c: True
         sports.dog_score = lambda c: {"ms": 7.4, "il": 4.4, "x": 9.0}[c["k"]]
         sports.dog_gate = lambda c: c["k"] in ok
-        mk = lambda k, gid, odds: {"k": k, "game_id": gid, "market": "ml", "odds": odds, "edge": 0.05}
+        mk = lambda k, gid, odds: {"k": k, "game_id": gid, "market": "ml", "odds": odds, "edge": 0.05, "league": "ncaaf"}
         cands = [mk("il", "g1", 310), mk("ms", "g2", 114), mk("x", "g3", 150), mk("ms", "g4", 400),
                  {**mk("ms", "g5", 120), "market": "spread"}, {**mk("ms", "g6", 130), "trap": True}]
         got = sports.dog_plays(cands, {"g1"})                  # (g1 = the Dog's game - never twice)
@@ -10689,7 +10691,7 @@ def test_every_dog_that_passes_the_dog_check_is_at_least_a_half_unit_play():
           "legs": [{"odds": 114, "dec": 2.14, "edge_own": 0.1, "p": 0.52, "league": "ncaaf", "market": "ml"}]}
     assert sports.units_for(pk) == sports.PLAY_UNITS == 0.5
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
-    assert '("dogplay", dog_plays, MAX_PLAYS)' in src
+    assert '("dogplay", dog_plays, DOG_PLAY_MAX)' in src       # (10/24 audit: the one best runner-up a day)
 
 
 def test_board_preview_names_the_10_23_own_read_dog_rule():
@@ -11253,7 +11255,8 @@ def test_paused_spots_never_post():
     """10/14, the owner: "pull what you gotta pull - I feel like most of these lose." The blow-out spot (0-6 live) and the
     college engine spot are paused: a candidate from either never posts; the others still do."""
     import sports_early as se, tempfile, os, json as _j
-    assert "bye" not in se.SPOTS_OFF and not {"blowout", "engine"} & se.SPOTS_OFF   # (10/15: the owner turned both back on)
+    assert "bye" not in se.SPOTS_OFF and "blowout" not in se.SPOTS_OFF   # (10/15: the owner turned both back on;
+    assert "engine" in se.SPOTS_OFF                                       #  10/24 audit: "engine" paused again)
     keep = (se.scan, se.with_book_lines, se.ON, set(se.SPOTS_OFF))
     try:
         se.SPOTS_OFF.clear(); se.SPOTS_OFF.update({"blowout", "engine"})        # the pause mechanism itself still works
@@ -13325,6 +13328,141 @@ def test_a_board_of_one_liners_shares_no_four_word_run_and_no_kicker():
         assert not v24.LINE_MOVE.search(t) and v24._has_fact(t), t
     import sports_breakdown as _sb
     assert not _sb.HYPE.search(texts[7]), texts[7]                            # the lean kept its tone
+
+
+def test_audit_1024_backup_lock_is_half_a_unit_and_skips_the_dead_band():
+    """10/24 audit (the owner: "don't even ask me, just fix everything accordingly"): the backup Lock (sports.backup_lock -
+    the own read 56%+ beating the price while the blended win % sits under 56%) is ½u, the rule CLAUDE.md has carried
+    since 10/2 - the code sized it like a full Lock (UNLV 10/3 went up 2.5u). And the 10/23 plan's "no Lock at -119..-101"
+    holds for the backup path too (46% in the replay). Posted picks keep their units."""
+    c = {**_cand("c", -140, 0.55, league="nfl"), "edge_own": 0.62 * sd.decimal(-140) - 1, "w_p": 0.63}   # (p 55%: not
+    assert not sports.lock_ok(c)                              #  the full Lock test - the backup path's territory)
+    got = sports.backup_lock([dict(c)])
+    assert got and got["game_id"] == "c" and got.get("backup_lock") is True
+    pk = {"date": "2026-10-25", "kind": "lock", "status": "open", "legs": [got], "dec": c["dec"], "american": -140,
+          "stake": 100, "p_hit": 0.62, "posted": "2026-10-25T15:00Z", "round": 1}
+    assert sports.lock_units(got) == 3.0                     # a full Lock with both reads over the price = the 3u max play...
+    assert sports.units_for(pk) == 0.5                       # ...the backup Lock is ½u whatever its read says
+    assert sports.sizing_check([pk]) == []
+    assert sports.units_for({**pk, "date": "2026-10-24"}) == 3.0   # (a pick posted before the fix keeps its units)
+    dead = {**_cand("d", -110, 0.55, league="nfl"), "edge_own": 0.62 * sd.decimal(-110) - 1, "w_p": 0.63}
+    assert sports.backup_lock([dict(dead)]) is None          # -119..-101: never, backup or not
+    assert sports.backup_lock([dict(dead), dict(c)])["game_id"] == "c"
+    b = sports.make_board([dict(dead), dict(c)])
+    assert b["lock"]["legs"][0]["game_id"] == "c" and b["lock"]["legs"][0].get("backup_lock")
+
+
+def test_audit_1024_a_proven_angle_dog_needs_its_own_read_over_the_price_too():
+    """10/24 audit: the 10/23 plan's "Dog of the Day only with the OWN read over the price" lived inside dog_gate, so a
+    dog carried by a PROVEN angle (good() through proven()) could be the Dog with its own read under the price - the
+    leak the plan closed (own under: -8% / -11.6% blind on 133). Now every path to the Dog - the board's, the one-game
+    day's, a dog_play - asks dog_own_ok."""
+    keep = (sports.DOG_NEEDS_OWN, sports.PLAYS_FAV_ONLY, sports.dog_score)
+    sports.DOG_NEEDS_OWN, sports.PLAYS_FAV_ONLY = True, True
+    sports.dog_score = lambda c: 5.0
+    try:
+        pr = lambda c: {**c, "reasons": c["reasons"] + ["proven spot: home dog after a loss"]}
+        over = pr(_cand("d", 150, 0.45, league="nfl"))             # own read 45% at +150 (needs 40%) - over
+        under = {**over, "edge_own": 0.38 * over["dec"] - 1}        # own read 38% - under the price
+        assert sports.proven(under) and sports.good(under) and not sports.dog_own_ok(under) and sports.dog_own_ok(over)
+        assert sports.make_board([dict(over)])["dog"]["legs"][0]["game_id"] == "d"
+        assert sports.make_board([dict(under)])["dog"] is None
+        assert sports.dog_plays([dict(under)], avoid=()) == []
+        assert sports.dog_own_ok({**under, "edge_own": None})     # no own read at all = nothing to fight (unchanged)
+    finally:
+        sports.DOG_NEEDS_OWN, sports.PLAYS_FAV_ONLY, sports.dog_score = keep
+
+
+def test_audit_1024_dog_plays_is_the_one_best_runner_up_a_day_and_never_college_hoops():
+    """10/24 audit: the 10/24 rule as first built - EVERY dog that clears the Dog check as a ½u play - lost in the 2023-26
+    replay (69-118, -9.7% flat; +100..+150 -14.9% on 136) and went 0-2 live on its first day. The ONE best runner-up a
+    day by dog score ran flat (-1.6% on 81) and +20.6% on 43 without college hoops (ncaab runner-ups 36-64, -20.6%,
+    0 of 3 seasons up). So: one dog_play a day, the best dog score, no college hoops."""
+    assert sports.DOG_PLAY_MAX == 1 and "ncaab" not in sports.DOG_PLAY_LEAGUES and "ncaaf" in sports.DOG_PLAY_LEAGUES
+    keep = (sports.good, sports.beats_price, sports.dog_score, sports.dog_gate)
+    try:
+        sports.good = sports.dog_gate = lambda c: True
+        sports.beats_price = lambda c: True
+        sports.dog_score = lambda c: c["sc"]
+        mk = lambda gid, lg, sc, odds=130: {"game_id": gid, "league": lg, "market": "ml", "odds": odds, "edge": 0.05, "sc": sc}
+        cands = [mk("g1", "ncaaf", 7.4), mk("g2", "ncaab", 12.0), mk("g3", "nhl", 9.0), mk("g4", "nfl", 8.0)]
+        assert [c["game_id"] for c in sports.dog_plays(cands, set())] == ["g3"]        # the best score, hoops never
+        assert [c["game_id"] for c in sports.dog_plays(cands, {"g3"})] == ["g4"]       # the Dog's game taken: the next
+        assert sports.dog_plays([mk("g2", "ncaab", 12.0)], set()) == []
+    finally:
+        sports.good, sports.beats_price, sports.dog_score, sports.dog_gate = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '("dogplay", dog_plays, DOG_PLAY_MAX)' in src        # post_board counts the day's dog_plays against the cap...
+    assert 'room = cap - sum(posted_kind(p) == kind for p in today_)' in src   # ...by the tag a posted one carries
+    assert sports.posted_kind({"kind": "play", "dog_play": True}) == "dogplay"   # (saved as kind "play" - the old count
+    assert sports.posted_kind({"kind": "play", "gap": 0.16}) == "gap"            #  by kind never saw one, so the cap
+    assert sports.posted_kind({"kind": "play"}) == "play" and sports.posted_kind({"kind": "dog"}) == "dog"   # never bit)
+
+
+def test_audit_1024_gap_plays_need_a_15_point_rating_backed_gap():
+    """10/24 audit: the 🔍 gap play needs 15+ points (was 10+). The 10/17 college gap study (2,944 dogs, walk-forward):
+    the 10-15 point gap loses in train (-8.8%), blind (-13.0%) and 2026 (-16.8%) at the close and worse at the first fair
+    price; 15+ runs +7.0% / -0.5% / +7.2%. Live through 10/24: 3-6. The rating-backed rule (10/17 'A') and 1u stay."""
+    assert sports.GAP_MIN == 0.15 and sports.GAP_UNITS == 1.0
+    def cand(gid, odds, mkt, own, elo=10.0):
+        dec = sports._dec(odds)
+        return {"game_id": gid, "league": "ncaaf", "market": "ml", "side": "home", "team": gid, "opp": "X", "odds": odds,
+                "dec": dec, "p": mkt, "p_market": mkt, "edge_own": mkt * dec - 1, "edge": mkt * dec - 1, "raw_own": own,
+                "start": "2026-10-31T19:00Z", "reasons": ["r"], "waiting": [], "elo_edge": elo}
+    twelve = cand("A", 130, 0.417, 0.537)                        # 12 points over: the band that loses - no play
+    sixteen = cand("B", 114, 0.449, 0.609)                       # 16 over, the ratings back it - a play
+    assert [c["game_id"] for c in sports.gap_plays([twelve, sixteen], avoid=())] == ["B"]
+    assert sports.gap_plays([{**sixteen, "elo_edge": -5.0}], avoid=()) == []
+
+
+def test_audit_1024_engine_spot_paused_and_the_blowout_spot_counts_fbs_wins_only():
+    """10/24 audit: the college "engine likes it, the line moved away" early spot is PAUSED (live 3-6 -27%; its read holds
+    nothing the market lacks - the 10/15-16 recalibration; the money-left half loses - 10/7; its game-day twin the 🔍 play
+    stays). The blowout spot stays ON but a college blowout counts only over an FBS team (10/16: 104 of 250 FBS blowout
+    wins this season were FCS tune-ups). bye / hammered / mnf / eastwest / euro / nba_open untouched."""
+    import sports_early as se, sports_players as sp
+    assert "engine" in se.SPOTS_OFF and not {"bye", "blowout", "hammered", "mnf", "eastwest", "euro_under", "nba_open"} & se.SPOTS_OFF
+    assert se.BLOWOUT_FBS_ONLY
+    prev = {"id": "p", "league": "ncaaf", "start": "2026-10-17T19:00Z", "home": "T", "away": "F", "home_score": "52", "away_score": "0"}
+    keep = sp.fbs_set
+    try:
+        sp.fbs_set = lambda games, start: frozenset({"T", "A"})
+        assert not se.blowout_counts({}, "ncaaf", prev, "T")               # a 52-0 over an FCS school: not a blowout spot
+        assert se.blowout_counts({}, "ncaaf", {**prev, "away": "A"}, "T")  # over an FBS team: counts
+        assert se.blowout_counts({}, "nfl", prev, "T")                     # the NFL never asks (the spot is off there anyway)
+        sp.fbs_set = lambda games, start: None
+        assert se.blowout_counts({}, "ncaaf", prev, "T")                   # no FBS set on file = can't tell = counts
+    finally:
+        sp.fbs_set = keep
+    # a paused spot never posts (the 10/14 mechanism, now holding "engine")
+    keep2 = (se.scan, se.with_book_lines, se.ON)
+    try:
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        mk = lambda gid, spot: {"game_id": gid, "league": "ncaaf", "side": "away", "team": gid, "opp": "X", "odds": 150,
+                                "opp_odds": -170, "start": "2026-10-31T19:30Z", "spot": spot, "spots": [spot], "own": 0.45}
+        se.scan = lambda *a, **k: [mk("ncaaf:1", "engine"), mk("ncaaf:2", "bye")]
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "early.json")
+            json.dump({"picks": []}, open(path, "w"))
+            new = se.post({}, {}, now=datetime(2026, 10, 27, 15, tzinfo=timezone.utc), injuries={}, path=path, ping=lambda *a: None)
+        assert [c["game_id"] for c in new] == ["ncaaf:2"], [c["game_id"] for c in new]
+    finally:
+        se.scan, se.with_book_lines, se.ON = keep2
+
+
+def test_audit_1024_hockey_dog_two_units_like_football_and_the_nba_open_spot_takes_either_side():
+    """10/24 audit - two 'mismatches' checked and KEPT as the code has them, now written down: (1) a hockey Dog whose own
+    read beats the price is 2u like football under the 10/23 plan (the owner lifted the 10/10 flat 1u on 10/16; the hockey
+    own-over Dog is the replay's best cell, 88-81 +19.9% on 169, blind +30.5%); (2) the 🏀 NBA opening-line early play
+    takes either side in -150..+300 (the owner OK'd the band 10/23; favorites-only +19.2% blind, 3 of 3 seasons, dogs-only
+    +5.7%) - the 'dogs only' early rule is the six football spots'."""
+    import sports_nba_open as no
+    dog = lambda lg, own: {"date": "2026-10-25", "kind": "dog", "status": "open",
+                           "legs": [{"league": lg, "odds": 140, "dec": 2.4, "dog_p": 0.47, "edge_own": own}]}
+    assert sports.dog_units(dog("nhl", 0.05)) == sports.dog_units(dog("ncaaf", 0.05)) == 2.0
+    assert sports.dog_units(dog("nba", 0.05)) == 0.5
+    assert no.PRICE_BAND == (-150, 300)
 
 
 if __name__ == "__main__":

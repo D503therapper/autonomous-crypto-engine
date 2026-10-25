@@ -801,7 +801,12 @@ NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100
 NBA_DOG_GATE = 4.0             # the owner, 10/9 ("nba gets a dog"): the 10/9 NBA replay - no NBA dog could ever be the
 #                                Dog (dog_gate had no NBA branch); a dog score 4+ (chosen on 2023-24) went 15-12, +11.5u
 #                                on 27 blind 2024-26 - a LEAD, so the NBA Dog is ½u (DOG_UNITS_BY) with its own record
-DOG_UNITS_BY = {"nba": 0.5, "ncaab": 0.5, "nhl": 1.0}   # (nhl: the owner 10/10 - "the engine's been ass with hockey dogs": live 4-6, closing at worse prices - no size-up)   # (ncaab: the owner 10/10, the same ½u lead treatment)    # the Dog of the Day's units by sport (everything else DOG_UNITS)
+DOG_UNITS_BY = {"nba": 0.5, "ncaab": 0.5, "nhl": 1.0}   # the Dog of the Day's FLOOR by sport (everything else DOG_UNITS).
+#   nhl 1.0 was the owner's 10/10 flat size ("the engine's been ass with hockey dogs"); he lifted it 10/16 ("hockey dogs
+#   don't have to be specifically one unit ... two units or even three") and the 10/23 plan sizes every hockey Dog whose
+#   OWN read beats the price at S6_DOG_UNITS (2u) like football - the hockey own-over Dog is the replay's best cell
+#   (88-81, +19.9% on 169, blind +30.5%, 3 of 4 seasons up). So 1.0 here is only the pre-10/23 floor (dog_units).
+#   (ncaab: the owner 10/10, the ½u lead treatment; nba: 10/9, ½u.)
 NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backtest, the live read + every spot and fade):
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
@@ -818,12 +823,19 @@ NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball d
 NCAAB_DOG_GATE = 4.0
 
 
+def dog_own_ok(c):
+    """The 10/23 plan's own-read rule for EVERY path to the Dog of the Day (and a dog_play): a dog whose OWN ratings read
+    sits under the price is never the Dog (own over +12% / +8.7% blind on 254; under -8% / -11.6% on 133). 10/24 audit: the
+    rule lived inside dog_gate only - a dog carried by a PROVEN angle (good() through proven(c)) walked past it."""
+    return not (DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0)
+
+
 def dog_gate(c):
     """A dog the engine's WEIGHED read says is underpriced (never one factor alone - the whole dog score). 10/23 plan: and
     its OWN ratings read beats the price too (own over +12% / +8.7% blind, under -8% / -11.6%)."""
     if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
         return False
-    if DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0:
+    if not dog_own_ok(c):
         return False
     lg = c.get("league")
     if lg in ("nfl", "nhl", "ncaaf", "nba"):
@@ -992,7 +1004,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo):
             kind = "lock"
         elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX and \
-                not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo):   # (10/1 audit: a Dog that fails
+                not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo) and dog_own_ok(solo):   # (10/1 audit: a Dog that fails
             kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
             #                                                  Thursday game with no pick - it stays the game's pick)
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None, "solo": None, kind: one}
@@ -1043,7 +1055,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # proven reason behind it), the one the dog analysis (dog_score: the studies' spots and fades) likes best - and
         # never one the analysis flags as a trap (score under 0). None = no Dog of the Day, and the board says so.
         dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DAILY_DOG_MAX
-                and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0]
+                and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0 and dog_own_ok(c)]   # (10/24 audit:
+        #                                                  the own-read rule holds for a proven-angle dog too - it only lived in dog_gate)
         regular = [c for c in dogs if c["odds"] < BIG_DOG]
         dog = max(regular, key=lambda c: (dog_score(c), c["edge"])) if regular else None
         big = [c for c in dogs if c["odds"] >= BIG_DOG and c["p"] >= BIG_DOG_MIN_P
@@ -2165,6 +2178,11 @@ def units_for(pk):
             return 0.5                                       #  flat in the replay; the sizing check caught it at more)
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
+    if kind == "lock" and legs[0].get("backup_lock") and (pk.get("date") or "") >= BACKUP_HALF_FROM:
+        return 0.5                                           # (10/24 audit: the backup Lock - the own read 56%+ beating the
+        #                                                      price while the blended win % sits under 56% - is ½u, the
+        #                                                      rule the owner has had since 10/2; it never carried the plan's
+        #                                                      2u / 3u: 16 of them in the 2023-26 replay, 9-7, flat)
     if kind in ("lock", "dog") and (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(legs[0]):
         return 0.5                                           # (10/23, the owner: "the whole thin edge thing is sketchy -
         #                                                      those seem to lose a lot ... you need to fix this": live,
@@ -2191,6 +2209,9 @@ def units_for(pk):
 
 
 THIN_HALF_FROM = "2026-10-24"  # a thin-edge Lock / Dog (own read under THIN_EDGE over the price) is ½u - never the 3u max
+BACKUP_HALF_FROM = "2026-10-25"   # the backup Lock (sports.backup_lock) is ½u (the 10/24 audit - the owner: "don't even ask
+#                                   me, just fix everything accordingly"; CLAUDE.md had said ½u since 10/2, the code sized it
+#                                   like a full Lock). Posted picks keep their units.
 SIZING_FROM = "2026-10-02"     # the unit system below, from the 10/2 board on (posted picks keep their units)
 DOG_MAX_UNITS = 2.0            # the owner, 10/10: "if there's major value it should be more units" - the Dog of the Day
 DOG_BIG_FROM = "2026-10-16"     # the owner, 10/16: "Hockey dogs don't have to be specifically one unit ... it can be two
@@ -2405,8 +2426,14 @@ def backup_lock(cands):
     pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
             and not hockey_fav_bad(c) and not nba_week_one(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
-            and real_value(c)]
-    return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
+            and real_value(c)
+            and not (S6_LOCK_SKIP[0] <= c["odds"] <= S6_LOCK_SKIP[1])]   # (10/24 audit: the 10/23 plan's "no Lock at
+    #                                                                      -119..-101" skipped the backup path - 46% in the replay)
+    if not pool:
+        return None
+    best = max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"]))
+    best["backup_lock"] = True                               # (10/24 audit: the backup Lock is ½u - CLAUDE.md's rule since
+    return best                                              #  10/2; the code had it sized like a full Lock, UNLV 10/3 went 2.5u)
 
 
 DOG_LOCK = False         # OFF (the owner, 10/18: "2" - after Wisconsin +114 at a 50% read was the Lock and lost 17-7; the Lock
@@ -2795,28 +2822,53 @@ def plays(cands, avoid):
 
 DOG_PLAY_FROM = "2026-10-24"   # 🐶 the owner, 10/24 (Mississippi St +114 passed every Dog check, the Dog spot went to
 #                                Illinois +310, and it sat off the board): "if it's the best dog, then it should at least be
-#                                a value play." Every dog that clears the FULL Dog of the Day check (the dog gate - its
+#                                a value play." A dog that clears the FULL Dog of the Day check (the dog gate - its
 #                                score and its own read over the price - real value, the money check, not a trap) but isn't
 #                                the Dog goes up as a ½u value play (PLAY_UNITS), one per game. Tracked on its own tag.
+DOG_PLAY_MAX = 1               # ...the ONE best runner-up a day (the 10/24 audit - the owner: "don't even ask me, just fix
+#                                everything accordingly"): EVERY gated runner-up lost in the 2023-26 replay (69-118, -9.7%
+#                                flat, 2 of 5 seasons up; +100..+150 -14.9% on 136) and went 0-2 live on 10/24. The one
+#                                best runner-up a day by dog score ran flat (33-48, -1.6%) - and +20.6% on 43 (blind
+#                                +30.2% on 28) without college hoops. "The best dog" is the one he asked for.
+DOG_PLAY_LEAGUES = ("nfl", "ncaaf", "nhl", "nba")   # no college hoops dog_plays: 36-64, -20.6% on 100, 0 of 3 seasons up
+#                                (their Dog of the Day runs -9.2% on 97 in the same replay - the owner's ½u lead, untouched)
+
+
+def posted_kind(p):
+    """The rule a posted pick came from, for the per-day caps: a 🔍 gap play and a dog_play are saved as kind "play" with
+    their tag (the record reads them as value plays), so the cap counts them by the tag."""
+    if p.get("kind") == "play" and p.get("gap") is not None:
+        return "gap"
+    if p.get("kind") == "play" and p.get("dog_play"):
+        return "dogplay"
+    return p.get("kind")
 
 
 def dog_plays(cands, avoid):
-    """Every dog that would qualify as the Dog of the Day (make_board's own Dog pool + the dog gate), best dog score
-    first - one per game, never a game in `avoid`."""
+    """The best dog that would qualify as the Dog of the Day (make_board's own Dog pool + the dog gate) but isn't it -
+    at most DOG_PLAY_MAX a day (post_board counts the day's), DOG_PLAY_LEAGUES only, best dog score first, one per game,
+    never a game in `avoid`."""
     pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
+            and c.get("league") in DOG_PLAY_LEAGUES
             and not c.get("trap") and good(c) and beats_price(c) and dog_score(c) > 0 and dog_gate(dict(c))]
     out, seen = [], set(avoid)
     for c in sorted(pool, key=lambda c: (-dog_score(c), -c["edge"])):
         if c["game_id"] not in seen:
             seen.add(c["game_id"])
             out.append(c)
-    return out
+    return out[:DOG_PLAY_MAX]
 
 
 GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
-GAP_MIN = 0.10            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 10+ points over
+GAP_MIN = 0.15            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 15+ points over
 GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
 GAP_LEAGUES = ("ncaaf",)  # (History says these lose - 1-6 live through 10/16 - the owner's call, 10/17.)
+#   GAP_MIN was 0.10 from 10/17; 0.15 from the 10/24 audit (the owner: "don't even ask me, just fix everything
+#   accordingly"): the 10/17 college gap study (walk-forward 2018-26, 2,944 college dogs +100..+300) has the 10-15 point
+#   gap LOSING everywhere - train -8.8% (169), blind -13.0% (132), 2026 -16.8% (30) at the close; -11.7 / -17.4 / -23.1% at
+#   the first fair price - while 15+ runs +7.0% train (377) / -0.5% blind (280) / +7.2% 2026 (53), and every robust cell
+#   that passed (fav not hot, dog not cold, rating-backed) sat on the 15+ band. Live through 10/24: 3-6, -0.8u (the 10-15
+#   plays 1-1). Judge at 50 plays, cut under -5% (the owner's 10/17 bar).
 
 
 def gap_plays(cands, avoid):
@@ -4001,12 +4053,13 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
-    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, MAX_PLAYS),
-                            ("lean", viewer_leans, MAX_LEANS)):
+    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
+                            ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM:
             continue
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
-        room = cap - sum(p["kind"] == kind for p in today_)
+        room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"
+        #                                                        with its tag - counted by the tag, or the cap never bit)
         if kind == "lean":                                    # leans only fill the board up to BOARD_TARGET picks
             room = min(room, BOARD_TARGET - sum(p["kind"] in STRAIGHT_KINDS for p in today_))
         if kind == "lean" and started:
