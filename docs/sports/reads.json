@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T02:35Z",
+ "updated": "2026-10-26T02:37Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -455,13 +455,44 @@
    }
   },
   {
+   "id": "nba:401909869",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Cavaliers",
+    "p": 0.551,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:00Z",
+   "away": "Timberwolves",
+   "home": "Cavaliers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Cavaliers",
+    "opp": "Timberwolves",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back"
+    ]
+   }
+  },
+  {
    "id": "nba:401909868",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.538,
-    "tie": 0.036,
+    "p": 0.519,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -476,9 +507,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -130,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
      "the stronger team"
     ]
@@ -520,7 +551,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.629,
+    "p": 0.637,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -529,16 +560,16 @@
    "start": "2026-10-26T23:30Z",
    "away": "Mavericks",
    "home": "Heat",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Heat",
     "opp": "Mavericks",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.714,
-    "win_p": 0.714,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.726,
     "reasons": [
      "the stronger team"
     ]
@@ -566,10 +597,70 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -211,
+    "odds": -212,
     "p": 0.627,
     "win_p": 0.511,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909872",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pacers",
+    "p": 0.541,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-27T00:00Z",
+   "away": "Pacers",
+   "home": "Bucks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Pacers",
+    "opp": "Bucks",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.563,
+    "win_p": 0.563,
+    "reasons": [
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909873",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Thunder",
+    "p": 0.658,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-27T00:00Z",
+   "away": "Suns",
+   "home": "Thunder",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Thunder",
+    "opp": "Suns",
+    "market": "spread",
+    "line": -8.5,
+    "odds": -115,
+    "p": 0.501,
+    "win_p": 0.753,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -698,7 +789,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.629,
+    "p": 0.628,
     "tie": 0.034,
     "name": "1st half"
    },
