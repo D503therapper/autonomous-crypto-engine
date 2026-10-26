@@ -1,21 +1,13 @@
 {
- "at": "2026-10-26T18:03Z",
+ "at": "2026-10-26T18:05Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Ortenzi vs Bosio: no points for 2616s",
-  "live tennis scores: tennis Ayala vs Fullana: no points for 1644s",
-  "live tennis scores: tennis Aksu vs Zaar: no points for 2616s",
-  "live tennis scores: tennis Maduzzi vs Li Zongyu: no points for 2616s",
-  "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 2616s",
-  "live tennis scores: tennis Oliva vs Murcia: no points for 2616s",
-  "live tennis scores: tennis Salazar vs Hu: no points for 2616s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (71s)",
+  "live watcher fresh (20s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 8 live matches",
+  "live tennis points + server: 1 of 7 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -26,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 3h ago",
-  "engine ran 63 min ago",
+  "engine ran 64 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T18:05Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-26T18:03Z",
    "fixes": [],
@@ -503,13 +500,6 @@
    "at": "2026-10-25T02:10Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-25T00:36Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553202 HTTP 404"
-   ]
   }
  ]
 }
