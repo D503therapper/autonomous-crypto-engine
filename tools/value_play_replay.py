@@ -32,6 +32,23 @@ TUNE_MONTH_DAY = "07-01"        # params re-tuned every July 1 on everything bef
 PARAMS_DIR = os.environ.get("REPLAY_PARAMS_DIR")   # set it to cache the tuned params (parallel chunks share a cutoff)
 
 
+def with_hockey(params, before):
+    """The replay's NHL read = the LIVE one: the line plus the hockey study's kept factors (b2b / rest), fitted blind on
+    the games before the cutoff - sports_model.tune_all does this live from data/sports/hockey.json; sm.tune alone leaves
+    'hockey' unset, so every replay before 10/25 read the NHL with the generic blend (trust 0.31 / a home-dog term of
+    -0.20 in 2023-24 and +0.31 in 2025-26 - all its NHL Dogs road teams one season, home teams the next; the 'hockey
+    own-over Dog 88-81 +19.9%' cell was that artifact). Returns True when it set the weights."""
+    import sports_hockey
+    p = params.get("nhl")
+    if not p or p.get("hockey") is not None:
+        return False
+    try:
+        p["hockey"] = sports_hockey.blind_weights(before)
+    except Exception:          # noqa: BLE001 - too few goalie rows: the line alone, like the live engine without a study
+        p["hockey"] = {}
+    return True
+
+
 def _pt_date(iso):
     return datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).date()
 
@@ -93,16 +110,21 @@ class Replay:
         """Blind params: every league tuned on the finals before `cutoff` (a date)."""
         cut_iso = cutoff.isoformat()
         store = os.path.join(PARAMS_DIR, f"params_{cut_iso}.json") if PARAMS_DIR else None
+        before = {k: g for k, g in self.all.items() if g.get("start", "")[:10] < cut_iso and g.get("status") == "final"}
         if store and os.path.exists(store):
             with open(store) as f:
                 self.model["params"] = json.load(f)
+            if with_hockey(self.model["params"], before):      # a cached set from before the 10/25 fix: add the NHL read
+                with open(store + ".tmp", "w") as f:
+                    json.dump(self.model["params"], f)
+                os.replace(store + ".tmp", store)
         else:
-            before = {k: g for k, g in self.all.items() if g.get("start", "")[:10] < cut_iso and g.get("status") == "final"}
             cache = self.cache_before(cut_iso)
             sm.KEY_EDGE = sp.key_edges(before, cache)
             for lg in sd.LEAGUES:
                 p = sm.tune(before, lg, self.model["params"].get(lg))
                 self.model["params"][lg] = p or sm.default_params(lg)
+            with_hockey(self.model["params"], before)
             if store:
                 with open(store + ".tmp", "w") as f:
                     json.dump(self.model["params"], f)

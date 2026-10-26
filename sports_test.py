@@ -13472,8 +13472,9 @@ def test_audit_1024_engine_spot_paused_and_the_blowout_spot_counts_fbs_wins_only
 
 def test_audit_1024_hockey_dog_two_units_like_football_and_the_nba_open_spot_takes_either_side():
     """10/24 audit - two 'mismatches' checked and KEPT as the code has them, now written down: (1) a hockey Dog whose own
-    read beats the price is 2u like football under the 10/23 plan (the owner lifted the 10/10 flat 1u on 10/16; the hockey
-    own-over Dog is the replay's best cell, 88-81 +19.9% on 169, blind +30.5%); (2) the 🏀 NBA opening-line early play
+    read beats the price is 2u like football under the 10/23 plan (the owner lifted the 10/10 flat 1u on 10/16; the
+    replay's "88-81 +19.9%" hockey cell was a replay bug - 10/25 night sweep - the honest live-read numbers are +3.0%
+    train / +15.1% hold, +12.4% / +43% with a 3%+ edge); (2) the 🏀 NBA opening-line early play
     takes either side in -150..+300 (the owner OK'd the band 10/23; favorites-only +19.2% blind, 3 of 3 seasons, dogs-only
     +5.7%) - the 'dogs only' early rule is the six football spots'."""
     import sports_nba_open as no
@@ -13658,6 +13659,91 @@ def test_full_breakdown_is_thorough_10_25():
     v = v24.Voice("x", used={f"f_last:{i}" for i in range(6)})
     assert v.say("f_last", ["a 1", "b 2", "c 3", "d 4", "e 5", "f 6"]) != ""
     assert v24.Voice("x", used={"talk_q:0", "talk_q:1"}).say("talk_q", ["a", "b"]) == ""   # (an opinion line still drops)
+
+def test_sweep_1025_night_the_board_replay_reads_hockey_the_way_the_engine_does():
+    """10/25 night sweep: the board replay (tools/value_play_replay) tuned every league with sm.tune alone, which never
+    sets params['hockey'] - live, tune_all adds the hockey study's kept factors (b2b / rest) and final_p reads the NHL
+    as the line + those alone. So the replay's NHL read was the generic blend with a home-dog term that flipped sign by
+    season (-0.20 in 2023-24, +0.31 in 2025-26): every one of its NHL Dogs was a road team in 2023-24 and a home team in
+    2025-26, and the 'hockey own-over Dog 88-81 +19.9%' cell was that artifact. Now with_hockey() gives the replay the
+    live read, fitted blind on the games before the cutoff, and sports_hockey.fit() never writes a file."""
+    import sports_hockey
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import value_play_replay as vpr
+    keep = sports_hockey.fit
+    sports_hockey.fit = lambda games: {"kept": ["b2b", "rest"], "weights": {"b2b": 0.11, "rest": 0.01, "goalie": 0.5}}
+    try:
+        params = {"nhl": {"k": 9, "hfa": 20, "trust": 0.31, "hdog": -0.2, "move_w": 0.0, "cal": 0.0, "w": [0.0] * 16},
+                  "nfl": {"k": 20, "hfa": 40}}
+        assert vpr.with_hockey(params, {}) is True
+        assert params["nhl"]["hockey"] == {"b2b": 0.11, "rest": 0.01}          # the kept factors only, like tune_all
+        assert "hockey" not in params["nfl"]
+        assert vpr.with_hockey(params, {}) is False                             # already set: left alone
+        g = {"ml_home": -140, "ml_away": 120, "neutral": "0"}                   # the read is the line + b2b / rest -
+        f = {"b2b": 0.0, "rest": 0.0}                                           # the home-dog / trust terms never touch it
+        assert abs(sm.final_p(params["nhl"], f, g) - sm.market_p(g)) < 1e-9
+        f = {"b2b": 1.0, "rest": 0.0}
+        assert sm.final_p(params["nhl"], f, g) > sm.market_p(g)
+    finally:
+        sports_hockey.fit = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_hockey.py")).read()
+    fit_body = src.split("def fit(")[1]
+    assert "os.replace" not in fit_body and "open(" not in fit_body             # fit() is read-only; study() saves
+
+
+def test_sweep_1025_night_cold_dog_is_a_weight_in_football_and_the_nba_never_hockey():
+    """10/25 night sweep (the Canucks 1-10 on a 6-game skid were the ½u Dog, pulled by the owner): a dog the engine likes
+    that is COLD this season loses against its price in football and the NBA (college under .300 after 4+ games 3-10 /
+    5-13 in 2025 / 2026, a 3+ skid 2-15 / 1-7; NBA under .300 after 8+ or a 5+ skid 9-43, -31%, 3 of 4 seasons down) -
+    so it is a -2 WEIGHT on the dog score (sports.cold_dog / COLD_DOG_PTS), never a gate (the owner: findings are
+    weights). NOT hockey: the live NHL read's cold dogs WON (5+ skid +8.3% on 38, under .300 +10.1% on 67; 2025 +18% /
+    +88%) - the market prices the bad hockey team. The NBA dog facts now carry this season's record and losing streak."""
+    assert sports.COLD_DOG_PTS == 2
+    assert sports.cold_dog("nba", {"record": (2, 7), "lose_streak": 2}) is True        # under .300 after 9
+    assert sports.cold_dog("nba", {"record": (3, 7), "lose_streak": 5}) is True        # a 5-game skid
+    assert sports.cold_dog("nba", {"record": (3, 7), "lose_streak": 4}) is False
+    assert sports.cold_dog("nba", {"record": (1, 5), "lose_streak": 3}) is False       # 6 games in: too soon
+    assert sports.cold_dog("ncaaf", {"record": (1, 4)}) is True                       # 1-4 college team
+    assert sports.cold_dog("ncaaf", {"record": (1, 2)}) is False                       # 3 games: too soon
+    assert sports.cold_dog("ncaaf", {"record": (2, 4)}) is False                       # .333 is not cold
+    assert sports.cold_dog("nhl", {"record": (1, 10), "lose_streak": 6}) is False      # hockey: never
+    assert sports.cold_dog("ncaab", {"record": (1, 10), "lose_streak": 6}) is False    # no evidence there: no weight
+    base = {"league": "nba", "odds": 150, "dec": 2.5, "dog_ctx": {}, "dog_more": {"record": (5, 5), "lose_streak": 1}}
+    cold = {**base, "dog_more": {"record": (2, 8), "lose_streak": 5}}
+    assert sports.dog_spots(cold) == sports.dog_spots(base) - 2
+    hk = {"league": "nhl", "odds": 160, "dec": 2.6, "dog_ctx": {}, "dog_more": {"record": (1, 10), "lose_streak": 6}}
+    assert sports.dog_spots(hk) == sports.dog_spots({**hk, "dog_more": {}})
+    assert sports.STUDY_CAP == 6                                                        # still inside the owner's cap
+    # the NBA facts carry the record + skid
+    g = {"id": "nba:1", "league": "nba", "start": "2026-11-20T00:00Z", "home": "A", "away": "B", "ml_home": 150, "ml_away": -170,
+         "spread_home": 3.5, "status": "pre"}
+    prior = [{"id": f"nba:p{i}", "league": "nba", "start": f"2026-11-{10 + i:02d}T00:00Z", "home": "A", "away": f"X{i}",
+              "home_score": 90, "away_score": 100, "status": "final", "stype": "2"} for i in range(5)]
+    sched = {("nba", "A"): sorted((x["start"], x) for x in prior)}
+    from datetime import datetime as _dt, timezone as _tz
+    out = sports._nba_dog_facts(sched, g, "home", "away", "nba", _dt(2026, 11, 20, tzinfo=_tz.utc), None, None, None)
+    assert out["record"] == (0, 5) and out["lose_streak"] == 5
+
+
+def test_sweep_1025_night_a_pulled_pick_is_void_out_of_every_record_and_its_game_stays_taken():
+    """10/25 night sweep: the Canucks +160 Dog was pulled before puck drop (the owner's call) - status 'void', 0 units,
+    a 'pulled' note. It must count nowhere (the 💰 unit record, the day's results, the ledger), never be graded as a
+    loss, and its game stays taken on the board (no re-post of either side that day)."""
+    void = {"date": "2026-10-25", "kind": "dog", "status": "void", "units": 0.0, "dec": 2.6, "american": 160,
+            "pulled": "10/25 - the owner: pulled before puck drop",
+            "legs": [{"league": "nhl", "team": "Canucks", "odds": 160, "dec": 2.6, "market": "ml", "game_id": "nhl:1",
+                      "side": "home", "result": "void", "units": 0.0}]}
+    won = {"date": "2026-10-25", "kind": "play", "status": "won", "units": 0.5, "dec": 1.7692, "american": -130,
+           "legs": [{"league": "nfl", "team": "Browns", "odds": -130, "dec": 1.7692, "market": "ml", "game_id": "nfl:1",
+                     "side": "away", "result": "won", "units": 0.5}]}
+    led = sports.units_ledger([void, won], [])
+    assert [r[0]["legs"][0]["team"] for r in led["rows"]] == ["Browns"]        # the void pick is not a row at all
+    assert sports.units_for(void) == 0.0
+    assert sports.day_pending([void, won], [], "2026-10-25") == 0              # nothing pending on it either
+    assert "nhl:1" in sports._straight_games([void, won], "2026-10-25")        # ...but its game is taken for the day
+    import sports_dashboard
+    html = sports_dashboard.day_recap([void, won], today="2026-10-25", early=[])
+    assert "1-0" in html and "+0.4 UNITS" in html                               # the day reads the Browns alone
 
 
 if __name__ == "__main__":
