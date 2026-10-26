@@ -1,17 +1,17 @@
 {
- "updated": 1792963498779,
+ "updated": 1792991092856,
  "plays": [],
  "record": {
   "won": 16,
   "lost": 17
  },
- "live_games": 5,
+ "live_games": 1,
  "tennis": {
-  "watching": 0,
-  "priced": 0,
+  "watching": 1,
+  "priced": 1,
   "stale": 0,
   "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "books": "1 live lines, 1 fresh (betrivers 1)"
  },
  "scores": {
   "nfl:401873010": {
@@ -89,26 +89,34 @@
   "nfl:401873019": {
    "away": "Broncos",
    "home": "Cardinals",
-   "a": 13,
-   "h": 6,
-   "clock": "03:43 - 2nd",
-   "live": true
+   "a": 30,
+   "h": 16,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873020": {
    "away": "Packers",
    "home": "Lions",
-   "a": 7,
-   "h": 10,
-   "clock": "06:48 - 2nd",
-   "live": true
+   "a": 17,
+   "h": 20,
+   "clock": "Final",
+   "live": false
   },
   "nfl:401873021": {
    "away": "Rams",
    "home": "Raiders",
-   "a": 14,
-   "h": 3,
-   "clock": "07:52 - 2nd",
-   "live": true
+   "a": 35,
+   "h": 21,
+   "clock": "Final",
+   "live": false
+  },
+  "nfl:401873022": {
+   "away": "Chiefs",
+   "home": "Seahawks",
+   "a": 3,
+   "h": 20,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909853": {
    "away": "Heat",
@@ -177,10 +185,58 @@
   "nba:401909861": {
    "away": "Lakers",
    "home": "Jazz",
-   "a": 9,
-   "h": 19,
-   "clock": "06:30 - 1st",
-   "live": true
+   "a": 132,
+   "h": 123,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909862": {
+   "away": "Pacers",
+   "home": "Nets",
+   "a": 136,
+   "h": 109,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909864": {
+   "away": "Raptors",
+   "home": "Timberwolves",
+   "a": 94,
+   "h": 117,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909863": {
+   "away": "Magic",
+   "home": "Knicks",
+   "a": 111,
+   "h": 102,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909865": {
+   "away": "Clippers",
+   "home": "Thunder",
+   "a": 101,
+   "h": 108,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909866": {
+   "away": "Pistons",
+   "home": "76ers",
+   "a": 106,
+   "h": 93,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909867": {
+   "away": "Grizzlies",
+   "home": "Kings",
+   "a": 123,
+   "h": 112,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892566": {
    "away": "Ducks",
@@ -281,64 +337,42 @@
   "nhl:401892578": {
    "away": "Panthers",
    "home": "Blackhawks",
-   "a": 2,
+   "a": 3,
    "h": 2,
-   "clock": "13:33 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
-  "tennis:atp:185020": {
-   "n": [
-    "Tsitsipas",
-    "Basilashvili"
-   ],
-   "sets": [
-    [
-     4,
-     6
-    ],
-    [
-     7,
-     6
-    ],
-    [
-     3,
-     6
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
+  "nhl:401892579": {
+   "away": "Islanders",
+   "home": "Stars",
+   "a": 3,
+   "h": 6,
+   "clock": "Final",
+   "live": false
   },
-  "tennis:atp:185108": {
-   "n": [
-    "Musetti",
-    "Van Assche"
-   ],
-   "sets": [
-    [
-     7,
-     6
-    ],
-    [
-     6,
-     7
-    ],
-    [
-     6,
-     4
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
+  "nhl:401891807": {
+   "away": "Canadiens",
+   "home": "Jets",
+   "a": 2,
+   "h": 1,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892580": {
+   "away": "Avalanche",
+   "home": "Predators",
+   "a": 2,
+   "h": 6,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892581": {
+   "away": "Wild",
+   "home": "Canucks",
+   "a": 4,
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "tennis:wta:185611": {
    "n": [
@@ -459,6 +493,29 @@
    "live": false,
    "delayed": false
   },
+  "tennis:wta:185707": {
+   "n": [
+    "Bondar",
+    "Snigur"
+   ],
+   "sets": [
+    [
+     0,
+     0
+    ]
+   ],
+   "pts": [
+    "40",
+    "40"
+   ],
+   "srv": 0,
+   "done": 0,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
   "tennis:wta:187111": {
    "n": [
     "Valentova",
@@ -485,32 +542,75 @@
    "tennis": true,
    "live": false,
    "delayed": false
+  },
+  "tennis:atp:185020": {
+   "n": [
+    "Tsitsipas",
+    "Basilashvili"
+   ],
+   "sets": [
+    [
+     4,
+     6
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     3,
+     6
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:atp:185108": {
+   "n": [
+    "Musetti",
+    "Van Assche"
+   ],
+   "sets": [
+    [
+     7,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     6,
+     4
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
   }
  },
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nhl": "ok 0",
-  "betrivers:nfl": "ok 0",
-  "betrivers:nba": "ok 0",
-  "betrivers:tennis": "ok 0"
+  "betrivers:tennis": "ok 1"
  },
- "health": [
-  "only 0 of 5 live games have a sportsbook price we can bet on",
-  "5 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nba, nfl, nhl"
- ],
+ "health": [],
  "priced": 0,
- "dk_only": 5,
+ "dk_only": 0,
  "min_p": 0.55,
  "espn_only": 0,
  "errors": [
   "git pull timed out"
  ],
- "books": {
-  "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nba": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 8.2
+ "books": {},
+ "took_s": 7.8
 }

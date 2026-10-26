@@ -1,30 +1,72 @@
 {
- "at": "2026-10-26T03:25Z",
+ "at": "2026-10-26T08:09Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 2 live matches",
-  "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 60 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 26 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-26T08:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T08:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T08:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T07:23Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T05:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T05:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T05:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T03:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T03:32Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-26T03:25Z",
    "fixes": [],
@@ -437,76 +479,6 @@
     "live board 9 min stale with games on - sports-live.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-24T17:34Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T16:01Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T16:00Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T15:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T14:08Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Kostovic vs Yihan: no points for 1549s",
-    "live tennis scores: tennis Zhang Ruien vs Zakharova: no points for 1549s",
-    "live tennis scores: tennis Valentova vs Liang: no points for 1549s",
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-24T13:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 64s",
-    "live tennis scores: tennis Kostovic vs Yihan: no points for 64s",
-    "live tennis scores: tennis Zhang Shuai vs Day: no points for 64s"
-   ]
-  },
-  {
-   "at": "2026-10-24T13:09Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T13:08Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
-    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2623s",
-    "live tennis scores: tennis Kostovic vs Yihan: no points for 327s",
-    "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s"
-   ]
-  },
-  {
-   "at": "2026-10-24T11:37Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis You Xiaodi vs Yastremska: no points for 2623s",
-    "live tennis scores: tennis Shek vs Dart: no points for 2623s",
-    "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
-    "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
-    "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
-   ]
   }
  ]
 }

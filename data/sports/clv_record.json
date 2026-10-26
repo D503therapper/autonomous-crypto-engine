@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 124,
-  "beat": 39,
+  "n": 125,
+  "beat": 40,
   "same": 45,
   "worse": 40,
-  "avg_pts": 0.08
+  "avg_pts": 0.1
  },
  "unit_plays": {
   "n": 56,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 68,
-   "beat": 22,
+   "n": 69,
+   "beat": 23,
    "same": 19,
    "worse": 27,
-   "avg_pts": -0.04
+   "avg_pts": -0.01
   },
   "lock": {
    "n": 13,
@@ -66,11 +66,11 @@
    "avg_pts": 0.17
   },
   "nfl": {
-   "n": 18,
-   "beat": 5,
+   "n": 19,
+   "beat": 6,
    "same": 8,
    "worse": 5,
-   "avg_pts": -0.03
+   "avg_pts": 0.09
   },
   "nhl": {
    "n": 46,
@@ -1818,6 +1818,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-25",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Seahawks",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -162,
+   "pts": 2.2,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-25",
