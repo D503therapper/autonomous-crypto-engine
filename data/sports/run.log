@@ -1,28 +1,3 @@
-  ctx:them:hotseat: 2 graded, said 57%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:road3in6: 2 graded, said 49%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:dome_out: 2 graded, said 56%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:hotseat: 2 graded, said 33%, hit 0% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:out_dome: 2 graded, said 52%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  price:pick'em: 2 graded, said 54%, hit 50% - only 2 graded - report only
-  talk:ours:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  talk:ours:trash talk: 1 graded, said 53%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:unhappy: 1 graded, said 57%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: league:nhl +2%
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
-DATA GAP (no pick on this game): NC State: we don't hold all their games this season
-tennis sync: 73578 matches stored, 18 calls, 0 failed
-tennis study ATP: 26136 rated matches, acc 0.6485 (surface ratings alone 0.6475), loss 0.6263 vs 0.6267, own weights [-0.005, 0.825, 0.072, 0.145, 0.424, 0.048, 0.05]
-tennis study ATP life factors vs current loss 0.6263: experience 0.6265 (-0.16 mnats, z -0.16), age 0.6237 (+2.66 mnats, z 1.94), young_vs_aging 0.6259 (+0.42 mnats, z 1.03), last_match 0.6245 (+1.83 mnats, z 1.27), streaks 0.6272 (-0.83 mnats, z -0.81), first_set 0.6255 (+0.82 mnats, z 1.27), injury 0.627 (-0.73 mnats, z -1.12), travel 0.6263 (+0.02 mnats, z 0.39) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30578 rated matches, acc 0.652 (surface ratings alone 0.6505), loss 0.6219 vs 0.6217, own weights [0.004, 0.903, -0.001, -0.088, 0.299, 0.025, -0.206]
-tennis study WTA life factors vs current loss 0.6219: experience 0.6188 (+3.04 mnats, z 1.76), age 0.6211 (+0.75 mnats, z 0.93), young_vs_aging 0.6217 (+0.17 mnats, z 1.0), last_match 0.6219 (-0.02 mnats, z -0.02), streaks 0.622 (-0.15 mnats, z -0.3), first_set 0.6212 (+0.67 mnats, z 1.5), injury 0.6212 (+0.68 mnats, z 1.18), travel 0.622 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 23 matches
@@ -2983,6 +2958,31 @@ ACTIVE nfl home favorite: underdogs cover 37-23 (5 straight) -> coin flip · nex
 ACTIVE mlb monday: over 145-116 (5 straight) -> coin flip · next: Brewers @ Rays
 totals study: {'nfl': (0.5371, False), 'ncaaf': (0.4837, False), 'nba': (0.5064, False), 'ncaab': (0.5271, True), 'mlb': (0.4862, False), 'nhl': (0.4788, False)}
 public splits: 33 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+   no units on Kings: missing Dylan Cardwell, Maxime Raynaud
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26162 rated matches, acc 0.646 (surface ratings alone 0.6445), loss 0.6286 vs 0.6292, own weights [-0.005, 0.825, 0.074, 0.146, 0.424, 0.049, 0.051]
+tennis study ATP life factors vs current loss 0.6286: experience 0.6287 (-0.14 mnats, z -0.15), age 0.6263 (+2.28 mnats, z 1.65), young_vs_aging 0.6282 (+0.34 mnats, z 0.83), last_match 0.6267 (+1.88 mnats, z 1.31), streaks 0.6293 (-0.78 mnats, z -0.76), first_set 0.6277 (+0.87 mnats, z 1.36), injury 0.6293 (-0.70 mnats, z -1.07), travel 0.6285 (+0.03 mnats, z 0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30616 rated matches, acc 0.6515 (surface ratings alone 0.652), loss 0.6207 vs 0.6205, own weights [0.004, 0.903, -0.001, -0.085, 0.3, 0.024, -0.207]
+tennis study WTA life factors vs current loss 0.6207: experience 0.6177 (+3.00 mnats, z 1.74), age 0.62 (+0.69 mnats, z 0.85), young_vs_aging 0.6205 (+0.19 mnats, z 1.12), last_match 0.6208 (-0.07 mnats, z -0.07), streaks 0.6208 (-0.14 mnats, z -0.3), first_set 0.6203 (+0.44 mnats, z 0.97), injury 0.6198 (+0.86 mnats, z 1.53), travel 0.6208 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 8 matches
+sync: 131223 games stored, 58 calls, 0 failed, 13s
+odds history: 1 games got odds, 59 calls, 0 failed, 7s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 71 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 1 new drama tags
+goalies: 5 games on the page, 4 matched, 7 confirmed
+nba rosters: 30 teams as of 2026-10-25, 0 failed, 0 moves
+beat the close: unit plays 17 of 56 better than the close, avg +0.2 pts
+public splits: 69 upcoming games
    ncaaf web injuries: only 5 rows - not used
    ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 5 rows - not used

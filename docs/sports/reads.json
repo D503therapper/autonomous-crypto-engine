@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T23:57Z",
+ "updated": "2026-10-26T00:06Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -343,32 +343,29 @@
    "id": "nfl:401873022",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Seahawks",
-    "p": 0.536,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-26T00:20Z",
    "away": "Chiefs",
    "home": "Seahawks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Seahawks",
     "opp": "Chiefs",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "better rested",
      "coming off a bye"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -416,8 +413,8 @@
    "start": "2026-10-26T02:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "on_board",
-   "board": "dog",
+   "why": "no_value",
+   "board": null,
    "lean": {
     "team": "Wild",
     "opp": "Canucks",
@@ -484,6 +481,66 @@
     "odds": -142,
     "p": 0.583,
     "win_p": 0.583,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909870",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Celtics",
+    "p": 0.742,
+    "tie": 0.029,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:30Z",
+   "away": "Bulls",
+   "home": "Celtics",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Celtics",
+    "opp": "Bulls",
+    "market": "spread",
+    "line": -13.5,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.852,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909871",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Heat",
+    "p": 0.628,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:30Z",
+   "away": "Mavericks",
+   "home": "Heat",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Heat",
+    "opp": "Mavericks",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
      "the stronger team"
     ]
