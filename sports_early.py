@@ -413,8 +413,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
                 min_one(games, st, now, injuries, own_of, have) + nba_open_scan(games, st, now, injuries, have):
-            if c["game_id"] in have:
-                continue
+            if c["game_id"] in have or c.get("spot") in SPOTS_OFF:
+                continue                                     # (10/26: a paused spot never posts on this path either)
             if room <= 0:
                 break                                        # (10/1 audit: never past 2 a week, both paths together)
             room -= 1
@@ -978,7 +978,9 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                         hit.append("engine")
             if not hit:
                 continue
-            hit = [h for h in hit if lg in SPOTS[h][2]]
+            hit = [h for h in hit if lg in SPOTS[h][2] and h not in SPOTS_OFF]   # (10/26 daily: a paused spot
+            #   never counts here either - only the scan() path checked SPOTS_OFF, so the "engine" spot paused 10/24
+            #   still posted Old Dominion +120, UL Monroe +130, South Alabama +180 on 10/25-26)
             if any_dog and dog and not hit:
                 hit = ["best"]                               # the minimum-one week: the engine's best weighed dog
             if not hit or not dog:

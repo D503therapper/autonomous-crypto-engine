@@ -111,6 +111,9 @@ def tags(c, sports):
             pass
         if c.get("dh_game2"):
             t.append("MLB doubleheader game-2 dog")
+        if lg == "nba" and not c.get("home") and c.get("odds", 0) <= 350 and nba_early_west(c):
+            t.append("NBA West road dog, early tip in the East (fade)")   # 10/26 daily study: 10-36 -40.9% train
+            #   (1 of 7 seasons up), 0-8 in 2025, ATS 16-28 / 1-7 - a LEAD on 54 games, tracked only, never a weight
         if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
             t.append("NFL dog scored 10 or fewer last game")
         if c.get("opp_sv_slump"):
@@ -135,7 +138,33 @@ def tags(c, sports):
             t.append("hoops fav wins inside")
         if any("12+ innings" in r for r in c.get("reasons") or []):
             t.append("MLB scoring-drought fav")
+        if lg == "nfl" and c.get("odds", 0) <= -151 and shootout_win(mo):
+            t.append("NFL big fav off a 30-30 shootout win")         # 10/26 daily study: -151..-400 favorites that
+            #   won a game both teams scored 30+ in: +20.2% on 62 (train 7 of 7 up, 2025 -11% on 8, early price +17%);
+            #   college 35+ the same sign (+8.8% on 78) but not at 31+ / 42+; the bettable -101..-150 band doesn't
+            #   hold - tracked only, never a weight
     return t + sharp
+
+
+NBA_WEST = {"Lakers", "Clippers", "Warriors", "Kings", "Suns", "Trail Blazers", "Jazz", "Nuggets", "Thunder",
+            "Timberwolves", "Mavericks", "Rockets", "Spurs", "Grizzlies", "Pelicans"}
+
+
+def nba_early_west(c):
+    """A West team on the road in the East with a tip before 5 PM ET (the 10/26 body-clock study)."""
+    from datetime import datetime, timezone
+    from zoneinfo import ZoneInfo
+    try:
+        et = datetime.strptime(c["start"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc).astimezone(ZoneInfo("America/New_York"))
+    except (KeyError, TypeError, ValueError):
+        return False
+    return et.hour < 17 and c.get("team") in NBA_WEST and c.get("opp") not in NBA_WEST and bool(c.get("opp"))
+
+
+def shootout_win(mo):
+    """Won its last game with both teams scoring 30+ (dog_more's last_pts / last_margin - the 10/26 study)."""
+    pts, mar = (mo or {}).get("last_pts"), (mo or {}).get("last_margin")
+    return pts is not None and mar is not None and mar > 0 and pts >= 30 and pts - mar >= 30
 
 
 def load():

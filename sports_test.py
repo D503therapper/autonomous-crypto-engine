@@ -6286,11 +6286,18 @@ def _six_early_spots():
     d3 = tempfile.mkdtemp()
     with open(os.path.join(d3, "2026-10.jsonl"), "w") as f:
         f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-115", "a": "-105"}) + "\n")
-    got = se.spot_scan(C, now, own_of=own, hist_dir=d3)
-    assert [(c["team"], c["spot"]) for c in got] == [("Utah", "engine")]
-    with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:              # moved further: TCU now "hammered" too - the
-        f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
-    assert [c["team"] for c in se.spot_scan(C, now, own_of=own, hist_dir=d2)] == ["Utah"]   # TCU got hammered, but
+    paused = set(se.SPOTS_OFF)                   # (10/26: the engine spot is paused and spot_scan honors it now -
+    try:                                          #  the spot's mechanism is checked here with the pause lifted)
+        if "engine" in paused:
+            assert se.spot_scan(C, now, own_of=own, hist_dir=d3) == []   # paused: no engine play
+        se.SPOTS_OFF.discard("engine")
+        got = se.spot_scan(C, now, own_of=own, hist_dir=d3)
+        assert [(c["team"], c["spot"]) for c in got] == [("Utah", "engine")]
+        with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:          # moved further: TCU now "hammered" too - the
+            f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
+        assert [c["team"] for c in se.spot_scan(C, now, own_of=own, hist_dir=d2)] == ["Utah"]   # TCU got hammered, but
+    finally:
+        se.SPOTS_OFF.clear(); se.SPOTS_OFF.update(paused)
     #   the engine's read is against TCU - it never takes a side it's fighting
     # the best 3 a week (the owner, 10/1), the most believed spots first; they wait for Tuesday's full slate
     tue = datetime(2026, 10, 6, 14, 0, tzinfo=timezone.utc)                   # Tuesday 7 AM PT
@@ -13793,6 +13800,66 @@ def test_brain_day_line_counts_early_plays_10_25():
     assert list(calls.values()).count("won") == 4 and list(calls.values()).count("lost") == 1 and not pending, calls
     early[0]["result"] = None
     assert D.day_calls(day, "2026-10-25", early=early)[1]
+
+
+def test_daily_1026_a_paused_spot_never_posts_through_the_spot_scan_path():
+    """10/26 daily run: the college "engine" early spot was PAUSED by the 10/24 audit (SPOTS_OFF), but only the scan()
+    path checked SPOTS_OFF - the spot_scan path still posted Old Dominion +120, UL Monroe +130 and South Alabama +180 as
+    "engine" plays on 10/25-26. A paused spot never counts in spot_scan's hits, and post() drops a paused-spot candidate
+    on that path too."""
+    import sports_early as se, sports_breakdown_v24 as v24, tempfile, os, json as _j
+    keep = (se.first_fair, v24.seen_all, set(se.SPOTS_OFF), se.spot_scan, se.with_book_lines, se.ON, se.scan)
+    try:
+        se.first_fair = lambda gid, since, hist_dir=None: (-150, 125)   # the dog's first fair +125, now +150: moved away
+        v24.seen_all = lambda *a, **k: True
+        g = {"id": "ncaaf:9", "league": "ncaaf", "status": "pre", "stype": "2", "start": "2026-10-31T19:00Z", "home": "H",
+             "away": "A", "home_name": "Homers", "away_name": "Aways", "ml_home": "150", "ml_away": "-180"}
+        now = datetime(2026, 10, 26, 13, tzinfo=timezone.utc)
+        own = lambda g_, side: 0.55 if side == "home" else 0.45      # own read 10+ over the market: an "engine" hit
+        se.SPOTS_OFF.clear()
+        assert [c["spot"] for c in se.spot_scan({"ncaaf:9": g}, now, None, own)] == ["engine"]   # the spot itself works
+        se.SPOTS_OFF.update({"engine"})
+        assert se.spot_scan({"ncaaf:9": g}, now, None, own) == []      # paused: no hit, no candidate
+        # post(): a paused-spot candidate handed in by the spot path never posts
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        se.scan = lambda *a, **k: []
+        se.spot_scan = lambda *a, **k: [{"game_id": "ncaaf:9", "league": "ncaaf", "side": "home", "team": "Homers",
+                                         "opp": "Aways", "odds": 150, "opp_odds": -180, "start": "2026-10-31T19:00Z",
+                                         "spot": "engine", "spots": ["engine"], "fades": [], "score": 0.06, "own": 0.55}]
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "early.json")
+            _j.dump({"picks": []}, open(path, "w"))
+            new = se.post({}, {}, now=now, injuries={}, path=path, ping=None)
+        assert new == [], new
+    finally:
+        se.first_fair, v24.seen_all = keep[:2]
+        se.SPOTS_OFF.clear(); se.SPOTS_OFF.update(keep[2])
+        se.spot_scan, se.with_book_lines, se.ON, se.scan = keep[3:]
+
+
+def test_daily_1026_two_tracker_leads_tag_the_right_sides_and_never_touch_a_read():
+    """10/26 daily studies (results/studies/daily_1026/): two LEADs go to the tracker only - an NBA West team on the
+    road in the East as a dog with a tip before 5 PM ET (fade; 10-36 train, 0-8 in 2025), and an NFL favorite -151 or
+    shorter off a win where both teams scored 30+ (+20.2% on 62, not in the bettable band). Tags only - no weight."""
+    import sports_leads as sl
+    west = {"market": "ml", "league": "nba", "side": "away", "home": False, "team": "Nuggets", "opp": "Knicks",
+            "odds": 160, "start": "2026-11-01T19:30Z"}                    # 2:30 PM ET
+    name = "NBA West road dog, early tip in the East (fade)"
+    assert name in sl.tags(west, sports)
+    assert name not in sl.tags({**west, "start": "2026-11-02T00:30Z"}, sports)       # 7:30 PM ET
+    assert name not in sl.tags({**west, "opp": "Lakers"}, sports)                     # West vs West
+    assert name not in sl.tags({**west, "team": "Knicks", "opp": "Nuggets"}, sports)  # an East team
+    assert name not in sl.tags({**west, "odds": -130}, sports)                        # a favorite
+    fav = {"market": "ml", "league": "nfl", "side": "home", "home": True, "team": "Bills", "opp": "Jets", "odds": -240,
+           "dog_more": {"last_pts": 34.0, "last_margin": 3.0}}            # won 34-31
+    sname = "NFL big fav off a 30-30 shootout win"
+    assert sname in sl.tags(fav, sports)
+    assert sname not in sl.tags({**fav, "odds": -140}, sports)                        # the bettable band: not the lead
+    assert sname not in sl.tags({**fav, "dog_more": {"last_pts": 34.0, "last_margin": 7.0}}, sports)   # 34-27
+    assert sname not in sl.tags({**fav, "dog_more": {"last_pts": 31.0, "last_margin": -3.0}}, sports)  # lost 31-34
+    assert sname not in sl.tags({**fav, "league": "ncaaf"}, sports)
+    assert not hasattr(sports, "SHOOTOUT_W") and not hasattr(sports, "EARLY_TIP_W")   # tracked, never weighed
 
 
 if __name__ == "__main__":
