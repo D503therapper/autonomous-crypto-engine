@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T00:30Z",
+ "updated": "2026-10-26T00:33Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -621,6 +621,36 @@
    }
   },
   {
+   "id": "nba:401909874",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Rockets",
+    "p": 0.588,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-27T00:30Z",
+   "away": "Hawks",
+   "home": "Rockets",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Rockets",
+    "opp": "Hawks",
+    "market": "ml",
+    "line": null,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892583",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -676,6 +706,37 @@
     "reasons": [
      "the stronger team",
      "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909876",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Nuggets",
+    "p": 0.628,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-27T02:00Z",
+   "away": "Warriors",
+   "home": "Nuggets",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Nuggets",
+    "opp": "Warriors",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
+    "reasons": [
+     "the stronger team",
+     "altitude edge"
     ]
    }
   }
