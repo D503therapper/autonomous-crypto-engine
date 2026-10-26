@@ -1,13 +1,14 @@
 {
- "at": "2026-10-26T08:09Z",
+ "at": "2026-10-26T17:18Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 9 live matches",
+  "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
@@ -16,12 +17,96 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 26 min ago",
+  "simulator ran 2h ago",
+  "engine ran 18 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T17:18Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T15:47Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T15:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Silva vs Gormaz: no points for 1138s",
+    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 2617s",
+    "live tennis scores: tennis Olivares vs Herea: no points for 338s",
+    "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 375s"
+   ]
+  },
+  {
+   "at": "2026-10-26T15:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gomes vs Rivera: no points for 1704s",
+    "live tennis scores: tennis Silva vs Gormaz: no points for 225s",
+    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 1704s"
+   ]
+  },
+  {
+   "at": "2026-10-26T15:01Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cerundolo vs Altmaier: points frozen at 0-0 for 207s",
+    "live tennis scores: tennis Tubello vs Samson: no points for 2618s",
+    "live tennis scores: tennis Gomes vs Rivera: no points for 2618s",
+    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 744s",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-26T13:30Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-26T11:59Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T11:58Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T11:57Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T10:23Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-26T10:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T09:40Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-26T08:09Z",
    "fixes": [],
@@ -408,76 +493,6 @@
   {
    "at": "2026-10-24T23:10Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T23:09Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T22:44Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553089 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-24T21:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T21:36Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T21:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T21:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T19:51Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553182 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-24T19:17Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T19:15Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T19:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T17:40Z",
-   "fixes": [
-    "live watch 40113287215 froze (10 min) - cancelled",
-    "live board 10 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T17:39Z",
-   "fixes": [
-    "live watch 40109603150 froze (9 min) - cancelled",
-    "live board 9 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
