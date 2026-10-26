@@ -1,11 +1,11 @@
 {
- "at": "2026-10-26T03:23Z",
+ "at": "2026-10-26T03:25Z",
  "fixes": [],
  "problems": [
   "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,18 +13,25 @@
   "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 58 min ago",
+  "engine ran 60 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T03:25Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-26T03:23Z",
    "fixes": [],
@@ -499,13 +506,6 @@
     "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
     "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
     "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
-   ]
-  },
-  {
-   "at": "2026-10-24T10:06Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
