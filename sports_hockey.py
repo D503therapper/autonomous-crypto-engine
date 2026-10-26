@@ -96,6 +96,25 @@ def _fit(rs, keys, steps=300, lr=0.5):
 
 
 def study(games, path=PATH):
+    """The fit, saved to data/sports/hockey.json (the live engine's NHL read reads it from there)."""
+    res = fit(games)
+    with open(path + ".tmp", "w") as f:
+        json.dump(res, f, indent=1)
+    os.replace(path + ".tmp", path)
+    return res
+
+
+def blind_weights(games):
+    """{factor: weight} for the NHL read, fitted on `games` alone - the kept factors (b2b / rest today) the way
+    sports_model.tune_all wires them live. For a replay: pass only the games before its cutoff (10/25 night sweep -
+    the board replay had no hockey weights at all, so its NHL read was the generic blend with a home-dog term that
+    flipped sign by season: every replay NHL Dog was a road team in 2023-24 and a home team in 2025-26)."""
+    res = fit(games)
+    return {k: v for k, v in (res.get("weights") or {}).items() if k in ("b2b", "rest")}
+
+
+def fit(games):
+    """Fit the hockey factors on top of the line (first 2/3 of the games), graded on the last 1/3 - no file written."""
     rs = rows(games)
     cut = len(rs) * 2 // 3
     train, test = rs[:cut], rs[cut:]
@@ -117,9 +136,6 @@ def study(games, path=PATH):
                     "weights": {k: round(v, 4) for k, v in _fit(rs, tuple(keep)).items()} if ll < base else {}})
     else:
         res.update({"kept": [], "weights": {}})
-    with open(path + ".tmp", "w") as f:
-        json.dump(res, f, indent=1)
-    os.replace(path + ".tmp", path)
     return res
 
 

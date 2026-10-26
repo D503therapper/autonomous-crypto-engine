@@ -1513,6 +1513,15 @@ def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev, games=None
             n += 1
         return n
     mine, theirs = season(g[side]), season(g[other])
+    res_ = []                                                  # this season's W-L and losing streak (the 10/25 night
+    for x in mine:                                             # sweep's cold-dog weight - sports.cold_dog)
+        try:
+            m_ = float(x["home_score"]) - float(x["away_score"])
+        except (TypeError, ValueError, KeyError):
+            continue
+        res_.append((m_ if x["home"] == g[side] else -m_) > 0)
+    out["record"] = (sum(res_), len(res_) - sum(res_))
+    out["lose_streak"] = next((i for i, w in enumerate(reversed(res_)) if w), len(res_))
     for x in reversed(mine):
         if g[other] in (x.get("home"), x.get("away")):
             try:
@@ -1832,7 +1841,32 @@ def dog_spots(c):
         sc -= 2                    # ...and the dog off one is overpriced the same way (10/2 momentum study - a lead)
     if lg == "mlb" and mo.get("late_rally") and 100 <= odds <= 220:
         sc += 1.5                  # lost, but won the last 3 innings by 4+: +12% vs -4.7% (10/2 - a lead, baseball only)
+    if cold_dog(lg, mo):
+        sc -= COLD_DOG_PTS         # 10/25 night sweep: a dog the engine likes that is COLD this season loses against its
+        #                            price in football and the NBA (college under .300 after 4+: 3-10 / 5-13 the two seasons
+        #                            with reads, a 3+ skid 2-15 / 1-7; NBA under .300 after 8+ or a 5+ skid 9-43, -31%,
+        #                            3 of 4 seasons down). A weight, never a gate. NOT hockey: cold NHL dogs the live read
+        #                            likes WON (+8% / +10% on 38 / 67, hold +18% / +88%) - the Canucks pull was the owner's.
     return sc
+
+
+COLD_DOG_PTS = 2                   # the cold-dog weight (10/25 night sweep): NBA / college football only
+COLD_DOG = {"nba": (8, 0.30, 5), "ncaaf": (4, 0.30, None)}   # league -> (games in, under this win %, or a skid this long)
+
+
+def cold_dog(lg, mo):
+    """A dog that is cold this season: under .300 after enough games, or (NBA) on a 5+ game losing streak. From the
+    dog facts (record / lose_streak in sports._dog_more / _nba_dog_facts). Hockey is never cold here - the market
+    prices the bad hockey team and the engine's cold NHL dogs won (the 10/25 night sweep)."""
+    rule = COLD_DOG.get(lg)
+    if not rule or not mo:
+        return False
+    games_in, under, skid = rule
+    rec = mo.get("record") or ()
+    n = sum(rec) if len(rec) == 2 else 0
+    if n >= games_in and rec[0] / n < under:
+        return True
+    return bool(skid and (mo.get("lose_streak") or 0) >= skid)
 
 
 OWN_CAP = 12                       # 10/1 study 11 (walk-forward, 43k dogs): big own reads are traps - the score counts
