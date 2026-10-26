@@ -4847,7 +4847,7 @@ def test_graded_early_row_comes_down_on_the_page():
         p = {"game_id": "i", "league": "ncaaf", "side": "away", "team": "Iowa", "opp": "Washington", "odds": 120,
              "start": "2026-10-10T01:00Z", "result": "won", "graded_at": "2026-10-10T04:59Z"}
         row = se.gameday_html({"picks": [p]}, {}, lambda x: x, now)
-        want = int((datetime(2026, 10, 10, 4, 59, tzinfo=timezone.utc).timestamp() + 2 * 3600) * 1000)
+        want = int((datetime(2026, 10, 10, 4, 59, tzinfo=timezone.utc).timestamp() + se.GRADED_STAYS_H * 3600) * 1000)
         assert f'class="egr gn" data-gone="{want}"' in row, row
         p.update(result=None, graded_at=None)
         assert 'data-gone' not in se.gameday_html({"picks": [p]}, {}, lambda x: x, now)
@@ -4953,7 +4953,9 @@ def test_we_got_in_early_box():
         st["picks"][0].update(result="won", graded_at=(now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%MZ"))
         assert "✅" in se.gameday_html(st, games, lambda x: x, now)
         st["picks"][0]["graded_at"] = (now - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%MZ")
-        assert "Teama" not in se.gameday_html(st, games, lambda x: x, now)     # 3 hours up: gone
+        assert "Teama" in se.gameday_html(st, games, lambda x: x, now)         # (10/25: a graded row stays all day)
+        st["picks"][0]["graded_at"] = (now - timedelta(hours=25)).strftime("%Y-%m-%dT%H:%MZ")
+        assert "Teama" not in se.gameday_html(st, games, lambda x: x, now)
         # the owner, 9/30: our starting QB ruled out after we posted -> the price blows up; never "better price now"
         games["b"].update(home="1", home_name="Teamb")
         saved_ko = sd.team_key_out
@@ -13744,6 +13746,34 @@ def test_sweep_1025_night_a_pulled_pick_is_void_out_of_every_record_and_its_game
     import sports_dashboard
     html = sports_dashboard.day_recap([void, won], today="2026-10-25", early=[])
     assert "1-0" in html and "+0.4 UNITS" in html                               # the day reads the Browns alone
+
+
+def test_board_shows_only_its_own_day_and_early_hits_stay_all_day_10_25():
+    """10/25, the owner: "Ole Miss is up, shouldn't be there and the early plays hits are not up" - once graded cards
+    stayed 24 hours, Saturday's graded Ole Miss value play rode onto Sunday's board; and the 🎯 WE GOT IN EARLY rows
+    still came down 2 hours after their grade (Bengals, Dolphins, the Paris under all hit and vanished). The board shows
+    only its own day's picks, and a graded early row stays with its board day."""
+    import sports_dashboard as sdb, sports_early as se
+    now = datetime(2026, 10, 26, 0, 24, tzinfo=timezone.utc)                     # Sunday 5:24 PM PT
+    picks = [{"date": "2026-10-24", "kind": "play", "status": "lost", "settled": "2026-10-25T03:40Z"},
+             {"date": "2026-10-25", "kind": "lock", "status": "lost", "settled": "2026-10-25T23:30Z"},
+             {"date": "2026-10-25", "kind": "lean", "status": "open"},
+             {"date": "2026-10-26", "kind": "lean", "status": "waiting"}]
+    up = sdb.board_cards(picks, "2026-10-25", now)
+    assert [p["date"] for p in up] == ["2026-10-25", "2026-10-25"], up
+    assert se.GRADED_STAYS_H == 24
+    saved = se.ON
+    se.ON = True
+    try:
+        p = {"game_id": "b", "league": "nfl", "side": "away", "team": "Bengals", "opp": "Steelers", "odds": 150,
+             "start": "2026-10-25T17:00Z", "result": "won", "graded_at": "2026-10-25T20:10Z"}
+        assert "Bengals" in se.gameday_html({"picks": [p]}, {}, lambda x: x, now)              # 4 hours later: still up
+        late = now + timedelta(hours=8)                                          # 1:24 AM PT Monday, the board day still 10/25
+        assert "Bengals" in se.gameday_html({"picks": [p]}, {}, lambda x: x, late, day="2026-10-25")
+        assert "Bengals" not in se.gameday_html({"picks": [p]}, {}, lambda x: x, late, day="2026-10-26")
+    finally:
+        se.ON = saved
+    assert "day=today" in open(sdb.__file__).read()
 
 
 if __name__ == "__main__":

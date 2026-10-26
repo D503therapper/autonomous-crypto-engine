@@ -877,6 +877,15 @@ def still_up(p, now_utc):
     return (now_utc - t).total_seconds() < SHOW_GRADED_H * 3600
 
 
+def board_cards(picks, day, now_utc):
+    """The cards on the board: the board day's own picks still up - never another day's (10/25, the owner: "Ole Miss is
+    up, shouldn't be there" - Saturday's graded value play sat on Sunday's board once graded cards stayed 24 hours)."""
+    order = list(LOOK)
+    return [p for p in sorted((p for p in picks if p["date"] == day),
+                              key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
+            if still_up(p, now_utc)]
+
+
 def board_day(now_pt, picks):
     """The date whose board is up right now: yesterday's till 1 AM PT, or till its last game is graded (before the next
     8 AM board); otherwise today's."""
@@ -1639,10 +1648,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # the owner, 9/29: every card stays up till it's graded, then 3 more hours with CASHED/MISSED and its review; then
     # it's in the results only. Nothing left up: the "picks drop 8 AM PT" note shows right away (the results live below)
     now_utc = datetime.now(timezone.utc)
-    recent = {(now.date() - timedelta(days=1)).isoformat(), now.date().isoformat(), today}
-    todays = [p for p in sorted((p for p in picks if p["date"] in recent),
-                                key=lambda p: (p["date"], order.index(p["kind"]) if p["kind"] in order else 99,
-                                               p.get("posted") or "")) if still_up(p, now_utc)]
+    # only the board day's own picks (10/25, the owner: "Ole Miss is up, shouldn't be there" - Saturday's graded cards sat
+    # on Sunday's board once graded cards stayed 24 hours; the day's board comes down at the end of ITS day, board_day)
+    todays = board_cards(picks, today, now_utc)
     todays = sorted(todays, key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p["date"]))   # Lock on top
     if todays:
         today = max(p["date"] for p in todays)
@@ -1668,7 +1676,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         import sports_early
         eu = lambda u, k="", o=None: _units_line(u, k, o, early=True)
         early = sports_early.html(sports_early.load(), E, show_units=eu, games=games)
-        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=eu)
+        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=eu, day=today)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""
