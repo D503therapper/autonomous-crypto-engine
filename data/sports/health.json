@@ -1,28 +1,45 @@
 {
- "at": "2026-10-26T22:36Z",
+ "at": "2026-10-26T22:41Z",
  "fixes": [],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Papamichail vs Da Silva: no points for 1270s",
+  "live tennis scores: tennis Gomez vs Rodriguez: no points for 2629s",
+  "live tennis scores: tennis Plekhanova vs Hu: no points for 1888s",
+  "live tennis scores: tennis Van Impe vs Strakhova: no points for 171s",
+  "live tennis points: none of 4 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (50s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
+  "studies ran 0h ago",
   "simulator ran 4h ago",
-  "engine ran 21 min ago",
+  "engine ran 26 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T22:41Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Papamichail vs Da Silva: no points for 1270s",
+    "live tennis scores: tennis Gomez vs Rodriguez: no points for 2629s",
+    "live tennis scores: tennis Plekhanova vs Hu: no points for 1888s",
+    "live tennis scores: tennis Van Impe vs Strakhova: no points for 171s",
+    "live tennis points: none of 4 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-26T22:36Z",
    "fixes": [],
@@ -509,13 +526,6 @@
    "at": "2026-10-25T07:33Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-25T06:01Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
