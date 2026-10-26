@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T02:48Z",
+ "updated": "2026-10-26T03:33Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -365,7 +365,7 @@
    "home": "Seahawks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Seahawks",
@@ -380,7 +380,7 @@
      "better rested",
      "coming off a bye"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -393,8 +393,8 @@
    "away": "Grizzlies",
    "home": "Kings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -491,8 +491,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.519,
-    "tie": 0.037,
+    "p": 0.537,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -507,9 +507,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.557,
-    "win_p": 0.557,
+    "odds": -142,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team"
     ]
@@ -551,7 +551,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.637,
+    "p": 0.628,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -560,16 +560,16 @@
    "start": "2026-10-26T23:30Z",
    "away": "Mavericks",
    "home": "Heat",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Heat",
     "opp": "Mavericks",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.726,
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
      "the stronger team"
     ]
