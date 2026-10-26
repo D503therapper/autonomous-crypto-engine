@@ -21666,6 +21666,7 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": null,
@@ -21812,11 +21813,16 @@
      "Coby White",
      "Grant Williams"
     ],
+    "injury_alerts": [
+     "Naz Reid (Hornets C) is now day-to-day \u2014 our pick: Hornets ML"
+    ],
     "intl": false,
     "is_lean": true,
     "key_edge": null,
     "key_out_me": false,
-    "key_seen": {},
+    "key_seen": {
+     "Naz Reid (Hornets C)": "Day-To-Day"
+    },
     "league": "nba",
     "line": null,
     "lost_last": false,
@@ -21857,6 +21863,7 @@
      "the stronger team"
     ],
     "rested_vs_b2b": true,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": 3,
@@ -22054,6 +22061,7 @@
      "the stronger team"
     ],
     "rested_vs_b2b": true,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": 2,
@@ -22220,6 +22228,7 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": null,
@@ -22242,6 +22251,189 @@
   "p_hit": 0.5507,
   "pnl": 0.0,
   "posted": "2026-10-26T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -112,
+  "date": "2026-10-26",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 3,
+    "bd_tags": [
+     "hot:5",
+     "trash:5",
+     "latest:5",
+     "h2h:1",
+     "road:0",
+     "w_their_loss:16",
+     "nba_last:2",
+     "f_site:0",
+     "f_rest:0",
+     "f_outs:2",
+     "f_pts:2",
+     "bottom_c:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\uddd1\ufe0f Jazz been looking like a JV squad (1-2).",
+     "\ud83d\ude91 Jazz are missing Trey Alexander (G), Jusuf Nurkic (C).",
+     "\ud83c\udfdf\ufe0f Jazz are 1-1 at home this year.",
+     "\ud83d\udd25 Heat check: Grizzlies have won 3 in a row (3-0).",
+     "\ud83d\udcc5 Previous game: Grizzlies W 123-112 @ Kings \u00b7 Jazz L 123-132 vs Lakers.",
+     "\ud83e\uddf3 Grizzlies are 2-0 on the road this year.",
+     "\ud83c\udfc0 A year ago it was Grizzlies 25-57, Jazz 22-60 \u2014 Grizzlies got outscored by the other side by 6 nightly, Jazz ran a -8.4 scoring edge. Jerami Grant came over from the Trail Blazers, where he averaged 29 minutes.",
+     "\ud83d\udcca Scoreboard lately - Grizzlies: 119 scored, 108 allowed a game (last 3). Jazz: 115 and 125.",
+     "\u23f3 Even rest: both teams are on 1 day off.",
+     "\ud83c\udfc0 Grizzlies: the coach plays 9 guys real minutes.",
+     "\ud83d\udfe1 Bottom line: Grizzlies (-112). 50-50 type game. The engine leans Grizzlies - no units on it. The Grizzlies are 3-0, the Jazz 1-2."
+    ],
+    "bv": 55,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "us:road3in6"
+    ],
+    "dec": 1.8928571428571428,
+    "dog_ctx": {
+     "cw5": 1,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 3,
+     "last_margin": 11.0,
+     "last_ot": false,
+     "last_pts": 123.0,
+     "last_upset": false,
+     "last_year_wp": 0.305,
+     "lose_streak": 0,
+     "meet_margin": 20.0,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_last_margin": -9.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 123.0,
+     "opp_last_upset": false,
+     "opp_rest": 1,
+     "record": [
+      3,
+      0
+     ],
+     "rest": 1,
+     "spread_gap": -0.0881,
+     "total": 238.5,
+     "total_vs_league": 7.5,
+     "win_streak": 3
+    },
+    "drift": -0.0242,
+    "edge": -0.044718301149523465,
+    "edge_own": -0.054324576511389,
+    "elo_edge": 10.5,
+    "fact": "The Grizzlies are 3-0, the Jazz 1-2.",
+    "facts": [
+     [
+      "The Grizzlies are 3-0, the Jazz 1-2.",
+      "The Grizzlies 3-0 on the year, the Jazz 1-2.",
+      "It's 3-0 (the Grizzlies) against 1-2 (the Jazz).",
+      "The Grizzlies sit 3-0; the Jazz sit 1-2."
+     ],
+     [
+      "The Grizzlies have won 3 straight.",
+      "3 straight wins for the Grizzlies.",
+      "The Grizzlies are on a 3-game winning streak.",
+      "The Grizzlies haven't lost in 3."
+     ],
+     [
+      "The Jazz just lost to the Lakers 132-123.",
+      "The Jazz gave up 132 to the Lakers last time out.",
+      "The Jazz are coming off a 132-123 loss to the Lakers.",
+      "The Lakers beat the Jazz 132-123 last time out.",
+      "Last time out the Jazz took a 132-123 L to the Lakers.",
+      "The Lakers hung 132 on the Jazz last time out."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     11.0,
+     3,
+     -162,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909875",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -112,
+    "opp": "Jazz",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Trey Alexander (G)",
+     "Jusuf Nurkic (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5046771239210065,
+    "p_market": 0.5043297540699688,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.4622,
+    "reasons": [
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 3,
+    "side": "away",
+    "start": "2026-10-27T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Grizzlies",
+    "team_id": "29",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": true,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udd4a We got Grizzlies here \u2014 the Jazz gave up 132 to the Lakers last time out."
+   }
+  ],
+  "p_hit": 0.5047,
+  "pnl": 0.0,
+  "posted": "2026-10-26T15:47Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",
