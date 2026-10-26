@@ -1,17 +1,17 @@
 {
- "updated": 1792985579306,
+ "updated": 1792991092856,
  "plays": [],
  "record": {
   "won": 16,
   "lost": 17
  },
- "live_games": 4,
+ "live_games": 1,
  "tennis": {
-  "watching": 3,
-  "priced": 2,
+  "watching": 1,
+  "priced": 1,
   "stale": 0,
-  "suspended": 1,
-  "books": "3 live lines, 3 fresh (betrivers 3)"
+  "suspended": 0,
+  "books": "1 live lines, 1 fresh (betrivers 1)"
  },
  "scores": {
   "nfl:401873010": {
@@ -369,64 +369,10 @@
   "nhl:401892581": {
    "away": "Wild",
    "home": "Canucks",
-   "a": 3,
-   "h": 0,
-   "clock": "03:11 - 2nd",
-   "live": true
-  },
-  "tennis:atp:185020": {
-   "n": [
-    "Tsitsipas",
-    "Basilashvili"
-   ],
-   "sets": [
-    [
-     4,
-     6
-    ],
-    [
-     7,
-     6
-    ],
-    [
-     3,
-     6
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
-  },
-  "tennis:atp:185108": {
-   "n": [
-    "Musetti",
-    "Van Assche"
-   ],
-   "sets": [
-    [
-     7,
-     6
-    ],
-    [
-     6,
-     7
-    ],
-    [
-     6,
-     4
-    ]
-   ],
-   "pts": null,
-   "srv": null,
-   "done": 3,
-   "first": 1,
-   "tennis": true,
-   "live": false,
-   "delayed": false
+   "a": 4,
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "tennis:wta:185611": {
    "n": [
@@ -547,45 +493,22 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185712": {
+  "tennis:wta:185707": {
    "n": [
-    "Kostovic",
-    "Timofeeva"
+    "Bondar",
+    "Snigur"
    ],
    "sets": [
     [
-     3,
-     3
+     0,
+     0
     ]
    ],
    "pts": [
-    "30",
-    "15"
+    "40",
+    "40"
    ],
    "srv": 0,
-   "done": 0,
-   "first": 1,
-   "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
-  },
-  "tennis:wta:185716": {
-   "n": [
-    "Kraus",
-    "Udvardy"
-   ],
-   "sets": [
-    [
-     4,
-     2
-    ]
-   ],
-   "pts": [
-    "0",
-    "15"
-   ],
-   "srv": 1,
    "done": 0,
    "first": 1,
    "tennis": true,
@@ -620,49 +543,74 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185666": {
+  "tennis:atp:185020": {
    "n": [
-    "Gibson",
-    "Kasatkina"
+    "Tsitsipas",
+    "Basilashvili"
    ],
    "sets": [
     [
-     1,
-     0
+     4,
+     6
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     3,
+     6
     ]
    ],
-   "pts": [
-    "40",
-    "15"
-   ],
-   "srv": 1,
-   "done": 0,
+   "pts": null,
+   "srv": null,
+   "done": 3,
    "first": 1,
    "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
+   "live": false,
+   "delayed": false
+  },
+  "tennis:atp:185108": {
+   "n": [
+    "Musetti",
+    "Van Assche"
+   ],
+   "sets": [
+    [
+     7,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     6,
+     4
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
   }
  },
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nhl": "ok 0",
-  "betrivers:tennis": "ok 3"
+  "betrivers:tennis": "ok 1"
  },
- "health": [
-  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nhl"
- ],
+ "health": [],
  "priced": 0,
- "dk_only": 1,
+ "dk_only": 0,
  "min_p": 0.55,
  "espn_only": 0,
  "errors": [
   "git pull timed out"
  ],
- "books": {
-  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 8.3
+ "books": {},
+ "took_s": 7.8
 }
