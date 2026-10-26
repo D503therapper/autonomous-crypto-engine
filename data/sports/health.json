@@ -1,14 +1,9 @@
 {
- "at": "2026-10-26T15:46Z",
+ "at": "2026-10-26T15:47Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Silva vs Gormaz: no points for 1138s",
-  "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 2617s",
-  "live tennis scores: tennis Olivares vs Herea: no points for 338s",
-  "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 375s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (59s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,19 +11,24 @@
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 6 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T15:47Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-26T15:46Z",
    "fixes": [],
@@ -494,13 +494,6 @@
    "at": "2026-10-24T23:09Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-24T22:44Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553089 HTTP 404"
-   ]
   }
  ]
 }
