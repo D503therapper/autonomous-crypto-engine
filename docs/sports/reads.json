@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T03:33Z",
+ "updated": "2026-10-26T03:42Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -432,7 +432,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.374,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -460,7 +460,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.551,
+    "p": 0.548,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -476,9 +476,9 @@
     "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.604,
-    "win_p": 0.604,
+    "odds": -166,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -491,8 +491,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.537,
-    "tie": 0.036,
+    "p": 0.517,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -507,9 +507,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -130,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "the stronger team"
     ]
@@ -551,7 +551,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.628,
+    "p": 0.643,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -565,13 +565,14 @@
    "lean": {
     "team": "Heat",
     "opp": "Mavericks",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.714,
-    "win_p": 0.714,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.734,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -609,7 +610,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.541,
+    "p": 0.543,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -626,8 +627,8 @@
     "market": "ml",
     "line": null,
     "odds": -170,
-    "p": 0.563,
-    "win_p": 0.563,
+    "p": 0.566,
+    "win_p": 0.566,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -639,7 +640,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.658,
+    "p": 0.668,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -654,10 +655,10 @@
     "team": "Thunder",
     "opp": "Suns",
     "market": "spread",
-    "line": -8.5,
+    "line": -9.5,
     "odds": -115,
-    "p": 0.501,
-    "win_p": 0.753,
+    "p": 0.502,
+    "win_p": 0.766,
     "reasons": [
      "the stronger team"
     ]
@@ -686,8 +687,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.653,
-    "win_p": 0.653,
+    "p": 0.652,
+    "win_p": 0.652,
     "reasons": [
      "sharp money moving this way",
      "opponent drama: illness"
@@ -746,10 +747,40 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -180,
     "p": 0.622,
     "win_p": 0.4,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909875",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Jazz",
+    "p": 0.489,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-27T01:00Z",
+   "away": "Grizzlies",
+   "home": "Jazz",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Jazz",
+    "opp": "Grizzlies",
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
+    "reasons": [
+     "altitude edge"
+    ]
    }
   },
   {
@@ -789,7 +820,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.628,
+    "p": 0.635,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -798,16 +829,16 @@
    "start": "2026-10-27T02:00Z",
    "away": "Warriors",
    "home": "Nuggets",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Nuggets",
     "opp": "Warriors",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.714,
-    "win_p": 0.714,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.722,
     "reasons": [
      "the stronger team",
      "altitude edge"
