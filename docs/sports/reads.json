@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T00:06Z",
+ "updated": "2026-10-26T00:30Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -244,8 +244,8 @@
    "away": "Islanders",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -333,6 +333,21 @@
    "start": "2026-10-25T23:30Z",
    "away": "Pistons",
    "home": "76ers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892580",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-26T00:00Z",
+   "away": "Avalanche",
+   "home": "Predators",
    "h1": null,
    "why": "started",
    "done": false,
@@ -434,7 +449,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.373,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -451,8 +466,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.671,
-    "win_p": 0.453,
+    "p": 0.66,
+    "win_p": 0.441,
     "reasons": []
    }
   },
