@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T00:33Z",
+ "updated": "2026-10-26T00:49Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -259,8 +259,8 @@
    "away": "Pacers",
    "home": "Nets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -384,36 +384,6 @@
    }
   },
   {
-   "id": "nba:401909867",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Grizzlies",
-    "p": 0.545,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-26T01:00Z",
-   "away": "Grizzlies",
-   "home": "Kings",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Grizzlies",
-    "opp": "Kings",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892581",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -449,7 +419,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.379,
+    "p": 0.374,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -477,7 +447,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.537,
+    "p": 0.538,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -494,8 +464,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.583,
-    "win_p": 0.583,
+    "p": 0.585,
+    "win_p": 0.585,
     "reasons": [
      "the stronger team"
     ]
@@ -537,7 +507,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.628,
+    "p": 0.629,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -715,7 +685,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.628,
+    "p": 0.629,
     "tie": 0.034,
     "name": "1st half"
    },
