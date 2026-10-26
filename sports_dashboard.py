@@ -434,11 +434,30 @@ def units_box(picks, today=None):
             f'{out}</div>')
 
 
-def day_calls(picks, today):
+def day_calls(picks, today, early=None):
     """The day's PICKS, each once (a parlay's picks count on their own; a pick on two cards once) -> ({key: result},
-    anything still to grade?). The brain's day line and 📊 TODAY'S RESULTS both use it (the owner, 10/1: 3-2, not 1-4)."""
+    anything still to grade?). The brain's day line and 📊 TODAY'S RESULTS both use it (the owner, 10/1: 3-2, not 1-4).
+    Our early plays playing that day count too, each its own bet (the owner, 10/25: "gotta count early plays too" - the
+    brain said 2-1 with the Bengals, Dolphins and the Paris under all cashed); a pulled one never counts."""
     import sports
     calls, pending = {}, False
+    if early is None:
+        try:
+            import sports_early
+            early = sports_early.load().get("picks") or []
+        except Exception:                                    # noqa: BLE001 - the brain never waits on the early file
+            early = []
+    for e in early:
+        try:
+            d = datetime.strptime(e["start"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc).astimezone(PT)
+        except (KeyError, TypeError, ValueError):
+            continue
+        if d.strftime("%Y-%m-%d") != today or e.get("pulled") or e.get("result") in ("push", "void"):
+            continue
+        if e.get("result") in ("won", "lost"):
+            calls[("early", e.get("game_id"), e.get("side"), e.get("market"))] = e["result"]
+        else:
+            pending = True
     for p in picks:
         if p["date"] != today or p["kind"] == "eight" or not sports.in_record(p):
             continue
