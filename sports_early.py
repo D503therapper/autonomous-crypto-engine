@@ -18,7 +18,7 @@ import re
 import sports_owner_lingo
 import json
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_data as sd
@@ -1348,16 +1348,18 @@ def move_say(p, now_odds, call):
     return line.format(t=p.get("team", ""), a=am(p["odds"]), n=am(now_odds))
 
 
-GRADED_STAYS_H = 2                                        # a graded row stays 2 hours, like every card on the board
+GRADED_STAYS_H = 24                                       # a graded row stays ALL DAY, like every card on the board
+#   (the owner, 10/25: "the early plays hits are not up" - was 2 hours; the row goes with its board day, board_day)
 
 
-def gameday_html(st, games, E, now=None, show_units=None):
+def gameday_html(st, games, E, now=None, show_units=None, day=None):
     """🎯 WE GOT IN EARLY: on game day the early plays move onto Today's Board - one box, one row each: the price we got
-    -> the price now. A graded row stays 3 hours with its ✅ / ❌ (the board's rule), then it's gone."""
+    -> the price now. A graded row stays all day with its ✅ / ❌ (the board's rule), then it goes with the board day
+    (`day`, the dashboard's board_day - yesterday's board till 1 AM PT)."""
     now = now or datetime.now(timezone.utc)
     if not ON:
         return ""
-    today = now.astimezone(PT).date()
+    today = date.fromisoformat(day) if day else now.astimezone(PT).date()
     rows = []
     for p in sorted(st.get("picks") or [], key=lambda p: p["start"]):
         t = _t(p["start"]).astimezone(PT)
