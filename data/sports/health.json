@@ -1,33 +1,36 @@
 {
- "at": "2026-10-26T22:26Z",
+ "at": "2026-10-26T22:36Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Papamichail vs Da Silva: no points for 391s",
-  "live tennis scores: tennis Gomez vs Rodriguez: no points for 1750s",
-  "live tennis scores: tennis Plekhanova vs Hu: no points for 1009s",
-  "live tennis points: none of 3 live matches has points + server on the 1-second route"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 11 min ago",
+  "engine ran 21 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T22:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-26T22:26Z",
    "fixes": [],
@@ -512,15 +515,6 @@
    "fixes": [],
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-25T06:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garland vs Prozorova: no points for 2624s",
-    "live tennis scores: tennis Yastremska vs Jones: no points for 2624s",
-    "live tennis scores: tennis Putintseva vs Ishii: no points for 386s"
    ]
   }
  ]
