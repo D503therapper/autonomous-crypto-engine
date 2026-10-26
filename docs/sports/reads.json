@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T01:29Z",
+ "updated": "2026-10-26T02:00Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -274,8 +274,8 @@
    "away": "Canadiens",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -289,8 +289,8 @@
    "away": "Clippers",
    "home": "Thunder",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -304,8 +304,8 @@
    "away": "Magic",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -319,8 +319,8 @@
    "away": "Raptors",
    "home": "Timberwolves",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -402,30 +402,28 @@
    "id": "nhl:401892581",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.41,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-26T02:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "no_value",
-   "board": null,
+   "h1": null,
+   "why": "on_board",
+   "done": false,
+   "board": "dog",
    "lean": {
-    "team": "Wild",
-    "opp": "Canucks",
+    "team": "Canucks",
+    "opp": "Wild",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.632,
-    "win_p": 0.632,
+    "odds": 160,
+    "p": 0.387,
+    "win_p": 0.387,
     "reasons": [
-     "the stronger team"
-    ]
+     "opponent on a back-to-back",
+     "better rested"
+    ],
+    "result": "void"
    }
   },
   {
