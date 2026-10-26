@@ -1,34 +1,41 @@
 {
- "at": "2026-10-26T20:46Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-25 Learner Tien) - sports.yml already running"
- ],
+ "at": "2026-10-26T22:17Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Bronzetti vs Giovannini: no points for 1186s",
-  "live tennis scores: tennis Van Impe vs Llewellyn: no points for 1186s",
-  "live tennis scores: tennis Oliva vs Herea: no points for 1186s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Gomez vs Rodriguez: no points for 1221s",
+  "live tennis scores: tennis Plekhanova vs Hu: no points for 480s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (93s)",
+  "live watcher fresh (38s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 4 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 9 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T22:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gomez vs Rodriguez: no points for 1221s",
+    "live tennis scores: tennis Plekhanova vs Hu: no points for 480s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-26T20:46Z",
    "fixes": [
@@ -512,13 +519,6 @@
     "live tennis scores: tennis Garland vs Prozorova: no points for 409s",
     "live tennis scores: tennis Yastremska vs Jones: no points for 409s",
     "live tennis scores: tennis Kasatkina vs Birrell: no points for 409s",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-25T05:16Z",
-   "fixes": [],
-   "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
