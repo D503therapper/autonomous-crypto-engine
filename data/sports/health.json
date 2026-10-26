@@ -1,29 +1,50 @@
 {
- "at": "2026-10-26T18:05Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-26T19:38Z",
+ "fixes": [
+  "live watch 40381221894 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
+ "problems": [
+  "live tennis scores: tennis Knutson vs Dencheva: no points for 143s",
+  "live tennis scores: tennis Gomez vs Osborne: no points for 143s",
+  "live tennis scores: tennis Tran vs Plekhanova: no points for 143s",
+  "live tennis scores: tennis Vilar vs Strakhova: no points for 143s",
+  "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+ ],
  "ok": [
-  "live watcher fresh (20s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 7 live matches",
+  "live tennis points + server: 1 of 5 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 3h ago",
-  "engine ran 64 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 27 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T19:38Z",
+   "fixes": [
+    "live watch 40381221894 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Knutson vs Dencheva: no points for 143s",
+    "live tennis scores: tennis Gomez vs Osborne: no points for 143s",
+    "live tennis scores: tennis Tran vs Plekhanova: no points for 143s",
+    "live tennis scores: tennis Vilar vs Strakhova: no points for 143s",
+    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-26T18:05Z",
    "fixes": [],
@@ -493,11 +514,6 @@
   },
   {
    "at": "2026-10-25T02:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T02:10Z",
    "fixes": [],
    "problems": []
   }
