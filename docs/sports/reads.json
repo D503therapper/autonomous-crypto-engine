@@ -1,94 +1,58 @@
 {
- "updated": "2026-10-26T22:25Z",
+ "updated": "2026-10-26T22:44Z",
  "games": [
   {
    "id": "nhl:401892582",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.373,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-26T23:00Z",
    "away": "Kings",
    "home": "Rangers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Kings",
-    "opp": "Rangers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.671,
-    "win_p": 0.453,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909869",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Cavaliers",
-    "p": 0.51,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-26T23:00Z",
-   "away": "Timberwolves",
-   "home": "Cavaliers",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Cavaliers",
-    "opp": "Timberwolves",
+    "team": "Rangers",
+    "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.542,
-    "win_p": 0.542,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
-     "opponent on a back-to-back"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
    "id": "nba:401909868",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Hornets",
-    "p": 0.539,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-26T23:00Z",
    "away": "Wizards",
    "home": "Hornets",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Hornets",
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -130,
+    "p": 0.558,
+    "win_p": 0.558,
     "reasons": [
      "the stronger team"
-    ]
+    ],
+    "result": null
    }
   },
   {
