@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T22:44Z",
+ "updated": "2026-10-26T23:29Z",
  "games": [
   {
    "id": "nhl:401892582",
@@ -27,6 +27,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nba:401909869",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:00Z",
+   "away": "Timberwolves",
+   "home": "Cavaliers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401909868",
@@ -59,60 +74,27 @@
    "id": "nba:401909870",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Celtics",
-    "p": 0.736,
-    "tie": 0.029,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-26T23:30Z",
    "away": "Bulls",
    "home": "Celtics",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Celtics",
     "opp": "Bulls",
     "market": "spread",
-    "line": -13.5,
-    "odds": -115,
-    "p": 0.506,
-    "win_p": 0.847,
+    "line": -14.5,
+    "odds": -105,
+    "p": 0.507,
+    "win_p": 0.507,
     "reasons": [
      "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909871",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Heat",
-    "p": 0.626,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-26T23:30Z",
-   "away": "Mavericks",
-   "home": "Heat",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Heat",
-    "opp": "Mavericks",
-    "market": "ml",
-    "line": null,
-    "odds": -285,
-    "p": 0.71,
-    "win_p": 0.71,
-    "reasons": [
-     "the stronger team"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -121,7 +103,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.446,
+    "p": 0.445,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -137,9 +119,9 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -211,
-    "p": 0.623,
-    "win_p": 0.507,
+    "odds": -210,
+    "p": 0.622,
+    "win_p": 0.506,
     "reasons": []
    }
   },
@@ -149,7 +131,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.548,
+    "p": 0.54,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -165,9 +147,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -166,
+    "p": 0.568,
+    "win_p": 0.568,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -209,7 +191,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.591,
+    "p": 0.592,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -226,8 +208,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.65,
-    "win_p": 0.65,
+    "p": 0.651,
+    "win_p": 0.651,
     "reasons": [
      "sharp money moving this way",
      "opponent missing key players",
@@ -420,7 +402,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Western KY",
-    "p": 0.492,
+    "p": 0.487,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -436,9 +418,9 @@
     "opp": "Delaware",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -112,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -742,8 +724,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.377,
-    "tie": 0.299,
+    "p": 0.382,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -758,9 +740,9 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.662,
-    "win_p": 0.442,
+    "odds": -205,
+    "p": 0.651,
+    "win_p": 0.43,
     "reasons": []
    }
   }
