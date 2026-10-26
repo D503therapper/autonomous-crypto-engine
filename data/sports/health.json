@@ -1,35 +1,42 @@
 {
- "at": "2026-10-26T15:01Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-26T15:30Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Cerundolo vs Altmaier: points frozen at 0-0 for 207s",
-  "live tennis scores: tennis Tubello vs Samson: no points for 2618s",
-  "live tennis scores: tennis Gomes vs Rivera: no points for 2618s",
-  "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 744s",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Gomes vs Rivera: no points for 1704s",
+  "live tennis scores: tennis Silva vs Gormaz: no points for 225s",
+  "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 1704s"
  ],
  "ok": [
-  "live watcher fresh (120s)",
+  "live watcher fresh (169s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
+  "live tennis points + server: 3 of 6 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 22 min ago",
+  "simulator ran 0h ago",
+  "engine ran 51 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T15:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gomes vs Rivera: no points for 1704s",
+    "live tennis scores: tennis Silva vs Gormaz: no points for 225s",
+    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 1704s"
+   ]
+  },
   {
    "at": "2026-10-26T15:01Z",
    "fixes": [
@@ -486,11 +493,6 @@
   },
   {
    "at": "2026-10-24T21:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T21:36Z",
    "fixes": [],
    "problems": []
   }
