@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:46Z",
+ "updated": "2026-10-26T00:06Z",
  "games": [
   {
    "id": "nfl:401873011",
@@ -27,7 +27,7 @@
    "home": "Falcons",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "49ers",
@@ -42,8 +42,23 @@
      "opponent drama: illness",
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
     ],
-    "result": null
+    "result": "lost"
    }
+  },
+  {
+   "id": "nfl:401873012",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Bengals",
+   "home": "Ravens",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nfl:401873013",
@@ -56,7 +71,7 @@
    "home": "Titans",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Browns",
@@ -71,8 +86,23 @@
      "better QB play lately",
      "revenge game"
     ],
-    "result": null
+    "result": "won"
    }
+  },
+  {
+   "id": "nfl:401873018",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Buccaneers",
+   "home": "Panthers",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nfl:401873014",
@@ -85,7 +115,7 @@
    "home": "Vikings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Colts",
@@ -96,429 +126,231 @@
     "p": 0.515,
     "win_p": 0.515,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
+  },
+  {
+   "id": "nfl:401873015",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Dolphins",
+   "home": "Jets",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873016",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-10-25T17:00Z",
+   "away": "Giants",
+   "home": "Texans",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892578",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.413,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-25T19:00Z",
    "away": "Panthers",
    "home": "Blackhawks",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Panthers",
-    "opp": "Blackhawks",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.638,
-    "win_p": 0.638,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873019",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Broncos",
-    "p": 0.618,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T20:05Z",
    "away": "Broncos",
    "home": "Cardinals",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Broncos",
-    "opp": "Cardinals",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.687,
-    "win_p": 0.687,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "better rested"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873020",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.56,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T20:25Z",
    "away": "Packers",
    "home": "Lions",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Lions",
-    "opp": "Packers",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.617,
-    "win_p": 0.617,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "better QB play lately"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873021",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rams",
-    "p": 0.562,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-25T20:25Z",
    "away": "Rams",
    "home": "Raiders",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Rams",
-    "opp": "Raiders",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.609,
-    "win_p": 0.609,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909861",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.618,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T21:00Z",
    "away": "Lakers",
    "home": "Jazz",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Jazz",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892579",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.415,
-    "tie": 0.295,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-25T22:00Z",
    "away": "Islanders",
    "home": "Stars",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Stars",
-    "opp": "Islanders",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909862",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacers",
-    "p": 0.628,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T22:00Z",
    "away": "Pacers",
    "home": "Nets",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pacers",
-    "opp": "Nets",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.705,
-    "win_p": 0.705,
-    "reasons": [
-     "opponent on a back-to-back",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401891807",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Canadiens",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-25T23:00Z",
    "away": "Canadiens",
    "home": "Jets",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Jets",
-    "opp": "Canadiens",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -258,
-    "p": 0.693,
-    "win_p": 0.477,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909865",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.782,
-    "tie": 0.026,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T23:00Z",
    "away": "Clippers",
    "home": "Thunder",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Clippers",
-    "market": "spread",
-    "line": -16.5,
-    "odds": -105,
-    "p": 0.509,
-    "win_p": 0.893,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909863",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Knicks",
-    "p": 0.632,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T23:00Z",
    "away": "Magic",
    "home": "Knicks",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Knicks",
-    "opp": "Magic",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.718,
-    "win_p": 0.718,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909864",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Timberwolves",
-    "p": 0.489,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T23:00Z",
    "away": "Raptors",
    "home": "Timberwolves",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Timberwolves",
-    "opp": "Raptors",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909866",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pistons",
-    "p": 0.499,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-25T23:30Z",
    "away": "Pistons",
    "home": "76ers",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pistons",
-    "opp": "76ers",
-    "market": "ml",
-    "line": null,
-    "odds": -108,
-    "p": 0.517,
-    "win_p": 0.517,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892580",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.451,
-    "tie": 0.29,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-26T00:00Z",
-   "away": "Avalanche",
-   "home": "Predators",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Predators",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.709,
-    "win_p": 0.709,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401873022",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Seahawks",
-    "p": 0.529,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-26T00:20Z",
    "away": "Chiefs",
    "home": "Seahawks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Seahawks",
@@ -532,7 +364,8 @@
      "the stronger team",
      "better rested",
      "coming off a bye"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -541,7 +374,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.549,
+    "p": 0.545,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -557,9 +390,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -162,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
      "the stronger team"
     ]
@@ -571,8 +404,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.403,
-    "tie": 0.297,
+    "p": 0.41,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -580,16 +413,16 @@
    "start": "2026-10-26T02:00Z",
    "away": "Wild",
    "home": "Canucks",
-   "why": "on_board",
-   "board": "dog",
+   "why": "no_value",
+   "board": null,
    "lean": {
     "team": "Wild",
     "opp": "Canucks",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.618,
-    "win_p": 0.618,
+    "odds": -205,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "the stronger team"
     ]
@@ -624,12 +457,102 @@
    }
   },
   {
+   "id": "nba:401909868",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Hornets",
+    "p": 0.537,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:00Z",
+   "away": "Wizards",
+   "home": "Hornets",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hornets",
+    "opp": "Wizards",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909870",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Celtics",
+    "p": 0.742,
+    "tie": 0.029,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:30Z",
+   "away": "Bulls",
+   "home": "Celtics",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Celtics",
+    "opp": "Bulls",
+    "market": "spread",
+    "line": -13.5,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.852,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909871",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Heat",
+    "p": 0.628,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-26T23:30Z",
+   "away": "Mavericks",
+   "home": "Heat",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Heat",
+    "opp": "Mavericks",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.714,
+    "win_p": 0.714,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "mlb:401908044",
    "league": "mlb",
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.45,
+    "p": 0.448,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -645,9 +568,9 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -216,
-    "p": 0.628,
-    "win_p": 0.512,
+    "odds": -209,
+    "p": 0.625,
+    "win_p": 0.509,
     "reasons": []
    }
   },
@@ -657,7 +580,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.587,
+    "p": 0.591,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -673,9 +596,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.645,
-    "win_p": 0.645,
+    "odds": -225,
+    "p": 0.653,
+    "win_p": 0.653,
     "reasons": [
      "sharp money moving this way",
      "opponent drama: illness"
@@ -688,8 +611,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.382,
-    "tie": 0.298,
+    "p": 0.397,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -704,9 +627,9 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.651,
-    "win_p": 0.43,
+    "odds": -170,
+    "p": 0.622,
+    "win_p": 0.4,
     "reasons": []
    }
   },

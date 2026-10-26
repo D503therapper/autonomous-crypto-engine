@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T16:38Z",
+ "updated": "2026-10-26T00:00Z",
  "games": [
   {
    "id": "tennis:wta:185662",
@@ -128,6 +128,84 @@
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185177",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-26T18:00Z",
+   "away": "Luciano Darderi",
+   "home": "Matteo Arnaldi",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Luciano Darderi",
+    "opp": "Matteo Arnaldi",
+    "market": "spread",
+    "line": 0.5,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.489,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185137",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-26T19:00Z",
+   "away": "Casper Ruud",
+   "home": "Dominic Stricker",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Casper Ruud",
+    "opp": "Dominic Stricker",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185175",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-26T19:00Z",
+   "away": "Learner Tien",
+   "home": "Luca Van Assche",
+   "vs": true,
+   "why": "on_board",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Learner Tien",
+    "opp": "Luca Van Assche",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
     ]
    }
   }

@@ -431,6 +431,14 @@ def _poss(team):
     return t + "'" if t.endswith("s") else t + "'s"
 
 
+FACT_KEYS = {   # (10/25) the lines that carry a fact - a score, a record, who's out, days off, miles - never dropped
+    "b2b", "rest", "home", "road", "latest", "h2h", "h2h1", "rec", "cold", "hot", "bothhot", "even", "better", "sched",
+    "keyout", "banged", "healthy", "splits_f", "splits_w", "splits_y", "bump", "revenge", "letdown", "momentum",
+    "nba_last", "cx_trip", "cx_trip_home", "trash", "G_cold", "G_hot", "QB_cold", "QB_hot", "SP_cold", "SP_hot",
+    "QB_washed", "f_last", "f_skid", "f_heat", "f_site", "f_rest", "f_b2b", "f_trip", "f_outs", "f_net", "f_qb",
+    "f_pts", "f_pdo", "f_pyth", "f_shots", "f_go4", "f_h2h", "f_bye", "f_short", "f_ot"}
+
+
 class Voice:
     """Picks a way to say each line: different wording from game to game and day to day, and never the same
     wording twice on one board (share one `used` set across a board's breakdowns)."""
@@ -439,13 +447,18 @@ class Voice:
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
         self.names = ()
 
-    def say(self, key, options, must=False, names=(), tags=None):
+    def say(self, key, options, must=False, names=(), tags=None, fact=False):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
         must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it.
+        fact=True (10/25, the owner: "we need it to be thorough ... this goes for every pick"): a FACT line - a score,
+        a record, who's out, the rest days - is never dropped for its wording; when every fresh wording is taken it takes
+        the least-repeated one. The names and numbers in it make it its own line anyway. Before this the anti-repeat
+        memory starved a card (the Canucks Dog, 10/25: 3 lines - its rest, trip and record lines all dropped).
         Our big phrases ("cheeks clapped", "smack that ass"...) show up once a board, never on two cards in a row.
         tags: per option, extra once-a-board marks (10/23: a one-liner's kicker - "We riding X" - once a board)."""
         if not options:
             return ""
+        must = must or fact or key in FACT_KEYS
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
         order = [(start + i) % len(options) for i in range(len(options))]
         def slang(x):
@@ -1116,7 +1129,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     #  The 💸 LINE ALERT on a posted card (sports.py) is a separate warning and stays.)
 
     # who's betting who: the real splits (the same numbers Google shows) - unless the one-liner already said them
-    sp_ = None if ("public fade" in said or "public ride" in said) else public_split(leg)
+    sp_ = public_split(leg)                               # (10/25: a fact - said unless the one-liner has the number)
+    if sp_ and (f"{sp_[0]}%" in str(leg.get("why_line") or "") or f"{100 - sp_[0]}%" in str(leg.get("why_line") or "")):
+        sp_ = None
     if sp_ and sp_[1] is None:                            # bets % only (Yahoo's backup has no money %): say that plain
         t = sp_[0]
         crowd = the_us if t >= 50 else the_them
@@ -1154,6 +1169,14 @@ def breakdown(leg, games, elo, injuries, used=None):
         pass                                          # the real splits already said it (with the numbers)
     # (10/22, the owner: "these breakdowns suck" - with no split data the 🤡 / 🤝 lines only guessed at the public
     #  from the price (sheep / casuals lines): no data, no line)
+
+    # 📚 THE REST OF THE FACTS (10/25, the owner on the 3-line Canucks card: "very vague ... we need it to be thorough, in
+    # our lingo ... this goes for every pick"): everything the engine computed for the leg that the lines above didn't
+    # say - both last games with the scores, the skids, both home / road records, the rest days, the trip, who's out on
+    # BOTH sides, the goalies / QBs with their numbers, the points lately, puck luck. Each only from real data.
+    added = more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
+                       ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs)
+    out += added
 
     # bottom line - in our lingo, never the book-vs-us odds talk (the owner, 9/29: that don't make sense), and never the
     # same wording twice on a board (a big pool per kind; the Voice skips any wording already used)
@@ -1220,9 +1243,12 @@ def breakdown(leg, games, elo, injuries, used=None):
     leg["why_line"] = sports_card_guard.one(leg["why_line"], lg, us)
     lines = sports_card_guard.clean([x for x in out if x], lg, us)
     _wl = str(leg.get("why_line") or "")
+    _scores = lambda t: set(re.findall(r"\b\d{1,3}-\d{1,3}\b", str(t)))
     for em, body_em in SAME_STORY:                        # (10/3: the record said twice - the headline already has it;
         if _wl.startswith(em):                            #  10/21: the same for the streak, the blowout, the rest, the
-            lines = [x for x in lines if not str(x).startswith(body_em)]   # last meeting - said once, under the pick)
+            lines = [x for x in lines if not (str(x).startswith(body_em) and   # last meeting - said once, under the pick;
+                                              (body_em != "📅" or _scores(x) & _scores(_wl) or not _scores(x)))]
+            #   (10/25: a 📅 line that carries a score the one-liner didn't - our last game - stays: the owner wants both)
     if rec_u and rec_u in _wl:                            # (the why line carries the record: no 📋 line too)
         lines = [x for x in lines if not str(x).startswith("📋")]
     if day_game(start):                                   # (10/4, the owner's queue: "tonight" on a 10 AM game)
@@ -1232,8 +1258,11 @@ def breakdown(leg, games, elo, injuries, used=None):
         import random
         rnd = random.Random(f"{g['id']}|{start:%Y-%m-%d}|{side}|shape")
         body, bottom = lines[:-1], lines[-1]
-        keep = max(4, len(body) - rnd.randint(0, 2))          # not every pick gets every line
-        must = {i for i, x in enumerate(body) if x[:1] in "🤡🤝💸🚑⚾🏀" or x.startswith("🗑️")}   # the spicy stuff stays
+        floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
+        keep = max(floor, len(body) - rnd.randint(0, 2))      # (10/25: thorough - a card only loses a line or two past
+        #                                                         the floor; the floor is the owner's, never padded to)
+        must = {i for i, x in enumerate(body) if x[:1] not in SHAPEABLE or x in added}   # (10/25) every FACT line stays
+        #   - the owner wants the whole picture, not a sample of it; only the talk (news, drama, weather) gets shaped
         #   (10/21: and the fact lines - the pitching matchup, last season's hoops facts - never shaped out)
         drop = [i for i in range(len(body)) if i not in must]
         rnd.shuffle(drop)
@@ -1241,7 +1270,231 @@ def breakdown(leg, games, elo, injuries, used=None):
         body = [x for i, x in enumerate(body) if i not in gone]
         rnd.shuffle(body)
         lines = body + [bottom]
+    short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
+    if len(lines) - 1 < short_floor:                      # (never padded with filler: the log says the facts ran out)
+        print(f"BREAKDOWN SHORT: {us} vs {them} ({lg}) has {len(lines) - 1} fact lines, floor {short_floor} - "
+              f"games on file: ours {len(s_ours)}, theirs {len(s_theirs)}", flush=True)
     return lines
+
+
+SHAPEABLE = "📣🧯🤒🪤😤🚀🏔🥶🌧🌬🦓🪑🚨🌍"   # the talk lines a card may skip; a fact line never (10/25)
+FLOOR_UNIT, FLOOR_LEAN = 6, 5    # (10/25, the owner) fact lines a unit pick / a lean posts with, when the facts exist
+
+
+def _pts3(gs, tid, n=3):
+    """(scored, allowed) a game over the team's last n games on file, rounded - or None."""
+    last = (gs or [])[-n:]
+    if len(last) < 2:
+        return None
+    f = a = 0
+    for x in last:
+        home = x["home"] == tid
+        f += int(x["home_score"] if home else x["away_score"])
+        a += int(x["away_score"] if home else x["home_score"])
+    return round(f / len(last)), round(a / len(last)), len(last)
+
+
+def _body(out):
+    return " ".join(str(x) for x in out if x).lower()
+
+
+def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
+               ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs):
+    """The facts the card hasn't said yet (10/25) - every line a score, a record, a name or a count from the leg or the
+    game data; nothing here guesses. A fact the lines above already carry (its number is in the body) isn't repeated."""
+    add = []
+    body = _body(out) + " " + str(leg.get("why_line") or "").lower()
+    D = lambda d: f"{d} day{'s' if d != 1 else ''}"
+
+    # both last games, with the scores (the 📅 line above only prints when ours was a W and theirs an L)
+    if s_ours and not any(str(x).startswith("📅") for x in out):
+        a = _said(s_ours[-1], tid, pro)
+        if s_theirs:
+            b = _said(s_theirs[-1], oid, pro)
+            add.append(v.say("f_last", [f"📅 Last time out: {us} took a {a}; {them} a {b}.",
+                                        f"📅 {us} come off a {a}. {them} come off a {b}.",
+                                        f"📅 Fresh tape - {us}: {a}. {them}: {b}.",
+                                        f"📅 {_cap(the_us)} last played to a {a}, {the_them} to a {b}.",
+                                        f"📅 Latest for {us}: {a}. Latest for {them}: {b}.",
+                                        f"📅 {us} are coming off a {a}, {them} off a {b}."]))
+        else:
+            add.append(v.say("f_last", [f"📅 Last time out: {us} took a {a}.", f"📅 {us} come off a {a}.",
+                                        f"📅 Fresh tape - {us}: {a}.", f"📅 Latest for {us}: {a}."]))
+
+    # our own skid, said straight (it's why the price is what it is) - and their heater
+    if heat.startswith("lost"):
+        n = int(heat.split()[1])
+        if f"{n} straight" not in body and f"{n} in a row" not in body:
+            add.append(v.say("f_skid", [f"📉 {us} have dropped {n} straight. That's why the price is {_am(leg['odds'])}.",
+                                        f"📉 {n} straight L's for {us} - the number ({_am(leg['odds'])}) says it.",
+                                        f"📉 {us} lost {n} in a row coming in. We know. The price knows too.",
+                                        f"📉 {us} are on a {n}-game skid, and that skid is baked into {_am(leg['odds'])}."]))
+    if heat_t.startswith("won"):
+        n = int(heat_t.split()[1])
+        if f"{n} straight" not in body and f"{n} in a row" not in body and f"{them} {n}" not in body:
+            add.append(v.say("f_heat", [f"📈 {them} have won {n} straight coming in.",
+                                        f"📈 {them} bring a {n}-game winning streak into this one.",
+                                        f"📈 {n} in a row for {them} - the side we're going against.",
+                                        f"📈 {them} are hot: {n} straight W's."]))
+
+    # home / road records, both sides (the 🏟️ / 🧳 line above is ours only)
+    ts = _site_rec(r_theirs, oid, other)
+    if ts and ts[1] >= 2 and f"{ts[3]} " not in body and f"{them} are {ts[3]}" not in body:
+        where = "at home" if ts[0] == "home" else "on the road"
+        add.append(v.say("f_site", [f"🏟️ {them} are {ts[3]} {where} this year.",
+                                    f"🏟️ {where.capitalize()}, {them} are {ts[3]} this season.",
+                                    f"🏟️ {them} {where} this year: {ts[3]}.",
+                                    f"🏟️ {ts[3]} {where} for {them} so far."]))
+    us_site = _site_rec(r_ours, tid, side)
+    if us_site and us_site[1] >= 2 and not any(str(x)[:1] in "🏟🧳" and us in str(x) for x in out):
+        where = "at home" if us_site[0] == "home" else "on the road"
+        add.append(v.say("f_site", [f"🏟️ {us} are {us_site[3]} {where} this year.",
+                                    f"🏟️ {where.capitalize()}, {us} are {us_site[3]} this season.",
+                                    f"🏟️ {us} {where} this year: {us_site[3]}."]))
+
+    # rest: the day counts for both, and the back-to-back WITH the score of the game they played last night
+    if ours and theirs:
+        d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
+        h_them = (start - _t(theirs[-1]["start"])).total_seconds() / 3600
+        h_us = (start - _t(ours[-1]["start"])).total_seconds() / 3600
+        if h_them <= B2B_HOURS < h_us:
+            b = _said(theirs[-1], oid, pro)
+            add.append(v.say("f_b2b", [f"⏳ {them} played last night - a {b} - and {us} had {D(d_us)} off.",
+                                       f"⏳ Second night in a row for {them}, fresh off a {b}. {us} sat {D(d_us)}.",
+                                       f"⏳ {them} were on the ice last night ({b}); {us} come in on {D(d_us)} rest." if lg == "nhl"
+                                       else f"⏳ {them} played last night ({b}); {us} come in on {D(d_us)} rest.",
+                                       f"⏳ Tired legs: {them} played yesterday, a {b}. {us} had {D(d_us)} off."]))
+        elif h_us <= B2B_HOURS < h_them:
+            a = _said(ours[-1], tid, pro)
+            add.append(v.say("f_b2b", [f"⏳ {us} played last night ({a}); {them} had {D(d_them)} off. Straight up, that's on us.",
+                                       f"⏳ Back-to-back for {us} after a {a}. {them} sat {D(d_them)}.",
+                                       f"⏳ {us} were out there yesterday, a {a}. {them} come in with {D(d_them)} off."]))
+        elif not any(str(x)[:1] in "🛌😴" for x in out) and "days off" not in body and "days of rest" not in body \
+                and "more days" not in body and d_us <= 12 and d_them <= 12:   # (the rest edge above already said it)
+            if d_us == d_them:
+                add.append(v.say("f_rest", [f"⏳ Even rest: both teams are on {D(d_us)} off.",
+                                            f"⏳ Rest check: {us} {D(d_us)}, {them} {D(d_them)}. Even.",
+                                            f"⏳ Both sides had {D(d_us)} between games."]))
+            else:
+                add.append(v.say("f_rest", [f"⏳ Rest: {us} {D(d_us)} off, {them} {D(d_them)}.",
+                                            f"⏳ {us} come in on {D(d_us)} rest, {them} on {D(d_them)}.",
+                                            f"⏳ Days off: {us} {d_us}, {them} {d_them}.",
+                                            f"⏳ Rest check: {them} {D(d_them)}, {us} {D(d_us)}."]))
+
+    # the trip in miles (the 🧳 line above needs 1,000+)
+    for c in leg.get("ctx") or []:
+        mi = c.get("mi") or 0
+        if c.get("k") == "trip" and 300 <= mi < 1000 and "-mile" not in body and str(g.get("neutral")) != "1":
+            who = the_them if leg.get("side") == "home" else the_us
+            add.append(v.say("f_trip", [f"🧳 {_cap(who)} traveled {_mi(mi)} miles for this one.",
+                                        f"🧳 {_mi(mi)} miles on the road for {who}.",
+                                        f"🧳 {_cap(who)} made a {_mi(mi)}-mile trip to get here."]))
+
+    # who's out on THEIR side, named (the 🚑 card line is ours; the key-man lines name one player)
+    theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
+    theirs_out = [x for x in theirs_out if x.split(" (")[0].lower() not in body][:4]
+    if theirs_out:
+        nm = ", ".join(theirs_out)
+        add.append(v.say("f_outs", [f"🚑 {them} are without {nm}.", f"🚑 Out for {them}: {nm}.",
+                                    f"🚑 {them} are missing {nm}.", f"🚑 Not dressing for {them}: {nm}."]))
+    ours_out = [str(x) for x in (leg.get("outs") or []) if x]
+    ours_out = [x for x in ours_out if x.split(" (")[0].lower() not in body][:4]
+    if ours_out and not any(str(x).startswith("🚑") and us in str(x) for x in out):
+        nm = ", ".join(ours_out)
+        add.append(v.say("f_outs", [f"🚑 {us} are without {nm}. We know, and we still like the side.",
+                                    f"🚑 Out for {us}: {nm}.", f"🚑 {us} go without {nm}."]))
+
+    # the goalies / QBs with their numbers - both named, whatever their form (the 🥅 / 🎯 lines only print hot or cold)
+    role = sp.ROLE.get(lg)
+    mine, his = next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if o_), None), \
+        next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if not o_), None)
+    if role == "G" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
+        tag = lambda k: "expected in net" if k else "in net last time out"
+        add.append(v.say("f_net", [f"🥅 {mine[0]} ({tag(mine[2])} for {us}): {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
+                                   f"🥅 Goalies - {us}: {mine[0]}, {mine[1]}. {them}: {his[0]}, {his[1]}.",
+                                   f"🥅 {mine[0]} for {us} has {mine[1]}; {his[0]} for {them} has {his[1]}."]))
+    elif role == "G" and his and his[0].lower() not in body:
+        add.append(v.say("f_net", [f"🥅 {his[0]} ({'expected in net' if his[2] else 'in net last time out'} for {them}): {his[1]}.",
+                                   f"🥅 {them}' goalie {his[0]} has {his[1]}."]))
+    elif role == "QB" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
+        add.append(v.say("f_qb", [f"🎯 Under center: {mine[0]} for {us} ({mine[1]}) vs {his[0]} for {them} ({his[1]}).",
+                                  f"🎯 The quarterbacks - {mine[0]} ({us}): {mine[1]}. {his[0]} ({them}): {his[1]}.",
+                                  f"🎯 {mine[0]} has {mine[1]} for {us}; {his[0]} has {his[1]} for {them}."]))
+    elif role == "QB" and mine and mine[0].lower() not in body:
+        add.append(v.say("f_qb", [f"🎯 {mine[0]} for {us}: {mine[1]}.", f"🎯 Under center for {us}, {mine[0]} has {mine[1]}."]))
+
+    # points lately, both sides (football / hoops / hockey goals)
+    pu, pt = _pts3(s_ours, tid), _pts3(s_theirs, oid)
+    unit = "goals" if lg == "nhl" else "points"
+    if pu and pt and f"{pu[0]} and " not in body:
+        add.append(v.say("f_pts", [f"📊 Last {pu[2]} games: {us} scored {pu[0]} and gave up {pu[1]} {unit} a game; {them} {pt[0]} and {pt[1]}.",
+                                   f"📊 {us} average {pu[0]} for / {pu[1]} against over their last {pu[2]}; {them} {pt[0]} for / {pt[1]} against.",
+                                   f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}.",
+                                   f"📊 Over the last {pu[2]}, {us} put up {pu[0]} a game and allowed {pu[1]}; {them} put up {pt[0]} and allowed {pt[1]}."]))
+
+    # hockey: puck luck, the unlucky record, the 40-shot night
+    if lg == "nhl":
+        pdo = leg.get("pdo")
+        if pdo is not None and "pdo" not in body:
+            import sports_form as _sf
+            tag = "the bounces haven't gone their way" if pdo <= _sf.PDO_BAD else "the bounces have gone their way" \
+                if pdo >= _sf.PDO_GOOD else "about average luck"
+            add.append(v.say("f_pdo", [f"🍀 Puck luck (PDO) for {us} over the last 10: {pdo / 10:.1f} - {tag}.",
+                                       f"🍀 {us} sit at a {pdo / 10:.1f} PDO over their last 10 - {tag}.",
+                                       f"🍀 Shooting plus save % (PDO) for {us}, last 10: {pdo / 10:.1f}. {tag.capitalize()}."]))
+        pl = leg.get("pyth_luck")
+        if pl is not None and pl <= -0.05:
+            pts = round(-pl * 100)
+            add.append(v.say("f_pyth", [f"🎲 {us}' record sits {pts} points under what their goals for and against say it should be.",
+                                        f"🎲 By goals scored and allowed, {us} should be about {pts} points better than their record.",
+                                        f"🎲 {us} have been unlucky: their goal totals say a record {pts} points better than this."]))
+        if leg.get("outshot_opp") and s_theirs:
+            b = _said(s_theirs[-1], oid, pro)
+            add.append(v.say("f_shots", [f"🏒 {them} gave up 40+ shots in their last game (a {b}) and play again inside 2 days.",
+                                         f"🏒 {them} got outshot bad last time - 40 or more shots against in that {b} - on short turnaround."]))
+        if leg.get("outshot_me") and s_ours:
+            a = _said(s_ours[-1], tid, pro)
+            add.append(v.say("f_shots", [f"🏒 {us} gave up 40+ shots in their last game (a {a}) and play again inside 2 days. Not ideal.",
+                                         f"🏒 {us} got outshot bad in that {a} - 40 or more shots against - and it's a quick turnaround."]))
+        ot = leg.get("ot_last")
+        if ot and s_ours and "overtime" not in body and "shootout" not in body:
+            a = _said(s_ours[-1], tid, pro)
+            how = "a shootout" if "so" in str(ot) else "overtime"
+            add.append(v.say("f_ot", [f"🕐 {us}' last game went past regulation - a {a} in {how}.",
+                                      f"🕐 That {a} for {us} last time out needed {how}."]))
+
+    # football: the 4th-down coach tendency
+    mo = leg.get("dog_more") or {}
+    if lg == "nfl" and mo.get("go4_gap") is not None:
+        import sports_go4 as _g4
+        gg = mo["go4_gap"]
+        if gg >= _g4.GAP_HI:
+            add.append(v.say("f_go4", [f"🎲 4th-down nerve: {us}' coach goes for it a lot more than {them}' coach does.",
+                                       f"🎲 On 4th down, {us} keep the offense out there way more often than {them}."]))
+        elif gg <= _g4.GAP_LO:
+            add.append(v.say("f_go4", [f"🎲 4th-down nerve: {them}' coach goes for it a lot more than {us}' coach does.",
+                                       f"🎲 On 4th down, {them} keep the offense out there way more often than {us}."]))
+
+    # head to head this season, when the 🆚 line above didn't print (we lost it, or split)
+    if last_vs and not any(str(x).startswith("🆚") for x in out):
+        a = _said(last_vs[-1], tid, pro)
+        n = len(last_vs)
+        w = sum(1 for x in last_vs if _line(x, tid).startswith("W"))
+        add.append(v.say("f_h2h", [f"🆚 Last meeting: a {a} for {us}.",
+                                   f"🆚 These two already met - {us} took a {a}.",
+                                   f"🆚 Head to head: {us} are {w}-{n - w} against {them} this year, the last one a {a}.",
+                                   f"🆚 {them} got {us} last time, {a}." if a.find("loss") >= 0 else f"🆚 {us} got {them} last time, {a}."]))
+
+    # football: the bye / short week with the day counts
+    if lg in ("nfl", "ncaaf") and ours and theirs and "bye" not in body and "short week" not in body:
+        d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
+        if d_us >= 13 and d_them <= 8:
+            add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago.",
+                                       f"🛌 {D(d_us)} between games for {us}, {D(d_them)} for {them}."]))
+        elif d_them <= 5 < d_us:
+            add.append(v.say("f_short", [f"⏱️ {them} are on a short week - {D(d_them)} since their last game. {us} had {D(d_us)}.",
+                                         f"⏱️ Short week for {them}: {D(d_them)} off against {us}' {D(d_us)}."]))
+    return [x for x in add if x]
 
 
 def day_game(start):
@@ -1853,7 +2106,7 @@ def context_lines(leg, v, us, them, the_us, the_them, g, games=None):
             fact = ", ".join(bits)
             out.append(v.say("cx_trip", [f"🧳 {_cap(the_them)}: {fact}.",
                                          f"🧳 Travel check on {the_them}: {fact}.",
-                                         f"🧳 {_cap(the_them)} put in the miles to get here ({fact})."]))
+                                         f"🧳 {_cap(the_them)} put in the miles to get here ({fact})."], fact=True))
         elif k == "dome_cold":
             temp, wind = g.get("wx_temp", ""), g.get("wx_wind", "")
             wx = (f"{temp}°" if str(temp) != "" else "cold") + (f" with {wind} mph wind" if str(wind) not in ("", "0")

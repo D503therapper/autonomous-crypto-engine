@@ -568,8 +568,8 @@ def engine_weights():
 
 
 def day_recap(picks, today=None, early=None, now=None):
-    """📊 The day's units, up top once every pick with units that day is graded (the owner, 10/1: 'after the last
-    game of the day' - never a half-day number), gone at midnight Pacific. The bankroll's own plays only: the Lock, the
+    """📊 The day's units, up top from the first graded unit play - "TODAY'S RESULTS SO FAR" while plays are still going,
+    "TODAY'S RESULTS" once every play with units that day is graded (the owner, 10/25 - was only at the end, 10/1). The bankroll's own plays only: the Lock, the
     Dog, value plays, early value plays (leans, parlays, live plus money, tennis keep their own records). It stays up
     till the next day's 8 AM board (the owner, 10/18 - it was midnight)."""
     import sports
@@ -580,8 +580,11 @@ def day_recap(picks, today=None, early=None, now=None):
         today = (now - timedelta(days=1) if early_hours else now).astimezone(sports.PT).strftime("%Y-%m-%d")
     early = sports_early.load().get("picks") or [] if early is None else early
     rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today]
-    if not rows or sports.day_pending(picks, early, today):
-        return ""                                            # (every play with units in - never a half-day number)
+    if not rows:
+        return ""
+    pending = sports.day_pending(picks, early, today)       # (10/25, the owner: "the daily results at the top throughout
+    #                                                         the day after the first units, updated as the day goes -
+    #                                                         'so far' - and when everything's done, just daily results")
     bet, net = sum(r[1] for r in rows), sum(r[2] for r in rows)
     w = sum(1 for r in rows if r[2] > 0)                     # the plays with units only (the owner, 10/1: "the ROI is
     l = sum(1 for r in rows if r[2] < 0)                     # the ROI" - leans carry no units, their cards say so)
@@ -593,7 +596,7 @@ def day_recap(picks, today=None, early=None, now=None):
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     up = net >= 0
     return (f'<div class="dayr {"up" if up else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
-            f'<div class="dayr-t">📊 TODAY\'S RESULTS</div><div class="dayr-u">(UNIT PLAYS ONLY)</div>'
+            f'<div class="dayr-t">📊 TODAY\'S RESULTS{" SO FAR" if pending else ""}</div><div class="dayr-u">(UNIT PLAYS ONLY)</div>'
             f'<div class="dayr-n">{"+" if up else "-"}{abs(net):.1f} UNITS</div>'
             f'<div class="dayr-s">{"+" if up else "-"}${abs(usd):,.2f} · ROI {net / bet:+.0%} · {rec}</div></div>'
             f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
@@ -857,8 +860,10 @@ BOARD_KEEP_HOUR_PT = 1          # the day's board (graded picks + their reviews)
                                 # and a late game can be the Lock) - then it goes to the results and the 8 AM note shows
 
 
-SHOW_GRADED_H = 2               # a graded card stays up with its grade + review for 2 hours (the owner, 10/5 - was 3), then it's in the results only
-#                                 (the owner, 9/29) - so once the day's cards are all done, the 8 AM note shows early
+SHOW_GRADED_H = 24              # a graded card stays up with its grade + review ALL DAY - the day's board comes down at the
+#                                 end of the day (BOARD_KEEP_HOUR_PT) and only then goes to the results, with the day's units
+#                                 up top (the owner, 10/25: "I want all the picks to stay up and graded and not go into the
+#                                 results until the end of the day" - was 2 hours from 10/5, 3 before)
 
 
 def still_up(p, now_utc):

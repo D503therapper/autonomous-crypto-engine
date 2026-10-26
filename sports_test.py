@@ -2797,8 +2797,9 @@ def test_breakdown_variety():
     def spy_of(fn):
         def spy(self, key, options, must=False, names=(), **kw):  # what Voice itself compares: the line's runs, facts blanked
             out = fn(self, key, options, must, names, **kw)
-            said.append((self.seed, out, sb.grams(out, tuple(names) + tuple(self.names)) if out else set()))
-            return out
+            fact = kw.get("fact") or key in getattr(v24, "FACT_KEYS", ())   # (10/25: a fact line is never dropped for its
+            said.append((self.seed, out, sb.grams(out, tuple(names) + tuple(self.names)) if out and not fact else set()))
+            return out                                                       #  wording - the run check is for the talk)
         return spy
     sb.Voice.say, v24.Voice.say = spy_of(orig), spy_of(orig24)
     try:
@@ -2825,7 +2826,8 @@ def test_breakdown_variety():
                 old = sb.recent_grams(yesterday)
                 for seed, g in per.items():
                     assert not g & old, ("a 4-word run from yesterday", seed, g & old)
-                assert not {x for x, _ in texts} & {x for x, _ in yesterday}, "a line word for word from yesterday"
+                same = {x for x, _ in texts} & {x for x, _ in yesterday}
+                assert not {x for x in same if x[:1] not in "📅⏳🏟📊📋🧳🆚"}, ("a line word for word from yesterday", same)
             cards[day] = texts
             yesterday = texts
     finally:
@@ -4027,9 +4029,10 @@ def test_graded_card_stays_3_hours_then_results():
     now = datetime(2026, 9, 30, 5, 0, tzinfo=timezone.utc)
     assert sdb.still_up({"status": "open"}, now)
     assert sdb.still_up({"status": "won", "settled": "2026-09-30T03:17Z"}, now)        # graded 1h43m ago: up
-    assert not sdb.still_up({"status": "lost", "settled": "2026-09-30T02:45Z"}, now)   # 2h15m ago: results only
+    assert sdb.still_up({"status": "lost", "settled": "2026-09-30T02:45Z"}, now)       # 2h15m ago: still up (10/25 - all day)
+    assert not sdb.still_up({"status": "lost", "settled": "2026-09-29T03:00Z"}, now)   # a day ago: results only
     assert not sdb.still_up({"status": "won"}, now)                                    # no time kept: long gone
-    assert sdb.SHOW_GRADED_H == 2                       # (the owner, 10/5: 2 hours, was 3)
+    assert sdb.SHOW_GRADED_H == 24                      # (the owner, 10/25: all day - was 2 hours, 3 before)
 
 
 def test_strengths_by_sport_and_no_puck_or_run_lines():
@@ -4169,7 +4172,7 @@ def test_graded_card_comes_down_on_time_without_a_rebuild():
     once they're all down, the 8 AM note shows."""
     import sports_dashboard as D
     p = {"kind": "lock", "status": "won", "settled": "2026-09-30T03:17Z"}
-    assert D.gone_ms(p) == int(datetime(2026, 9, 30, 5, 17, tzinfo=timezone.utc).timestamp() * 1000)   # 2 hours (10/5)
+    assert D.gone_ms(p) == int(datetime(2026, 10, 1, 3, 17, tzinfo=timezone.utc).timestamp() * 1000)   # all day (10/25 - was 2 hours)
     assert D.gone_ms({"status": "open"}) is None and D.gone_ms({"status": "won", "settled": None}) is None
     html = D._cards("2026-09-29", [], [("lock", "<section class='pk'>L</section>"), ("two", "<section class='pk'>2</section>")],
                     {"lock": D.gone_ms(p), "two": None})
@@ -5887,9 +5890,12 @@ def test_todays_damage_after_the_last_game():
     keep = sports.leg_units
     sports.leg_units = lambda p, l: p.get("units", 0)
     try:
-        assert D.day_recap([lock, dog], "2026-10-01", [], now) == ""                 # the Kings still going: nothing yet
+        so_far = D.day_recap([lock, dog], "2026-10-01", [], now)                     # the Kings still going: the
+        assert "RESULTS SO FAR" in so_far and "+1.5 UNITS" in so_far                 # 2u at -130 so far
+        assert "SO FAR" in so_far and "1-0" in so_far                                # graded so far (the owner, 10/25)
         dog["legs"][0]["result"], dog["status"] = "lost", "lost"
         h = D.day_recap([lock, dog], "2026-10-01", [], now)
+        assert "SO FAR" not in h                                                   # all in: just the results
         assert "TODAY" in h and "RESULTS" in h and "DAMAGE" not in h and "1-1" in h and "ROI +18%" in h
         assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
         assert "+$" in h and "Leans count" not in h                       # dollars too; no note (the owner, 10/1)
@@ -13561,6 +13567,98 @@ def test_sweep_1025_sizing_check_knows_the_5u_max_play_and_the_bankroll_box_says
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "roughly 1% of the bankroll" not in src and "up $500 for every $50,000" in src
     assert sports.unit_usd(100000) == 1000 and sports.unit_usd(149999) == 1000 and sports.unit_usd(150000) == 1500
+
+
+
+def test_full_breakdown_is_thorough_10_25():
+    """10/25, the owner on the 3-line Canucks Dog card: "the breakdown is very vague ... we need it to be thorough, we need
+    it to be in our lingo ... this goes for every pick." The cause: the anti-repeat memory dropped FACT lines whose
+    wordings were taken (the trip, the rest, the record) and the hockey facts (puck luck, both last games, both records,
+    the skid) never had lines. Now: a fact line is never dropped for its wording (Voice.say fact / FACT_KEYS), more_facts
+    adds what the engine computed, a unit pick posts 6+ fact lines and a lean 5+ when the facts exist, every line carries
+    a number or a name, no filler, and a 6-pick board never says the same line twice."""
+    import types
+    import sports_breakdown as sb
+    import sports_breakdown_v24 as v24
+    import sports_card_guard
+    import sports_owner_lingo
+    rnd, games = random.Random(1025), {}
+    t0 = datetime(2026, 10, 1, 2, 0)
+
+    def season(lg, teams, days, lo, hi):
+        for d in range(days):
+            order = teams[:]
+            rnd.shuffle(order)
+            for i in range(0, len(order) - 1, 2):
+                if rnd.random() < 0.45:
+                    continue
+                gid = f"{lg}:s{d}_{i}"
+                hs, as_ = rnd.randint(lo, hi), rnd.randint(lo, hi)
+                games[gid] = {"id": gid, "league": lg, "start": (t0 + timedelta(days=d)).strftime("%Y-%m-%dT%H:%MZ"),
+                              "status": "final", "stype": "2", "home": order[i], "away": order[i + 1], "home_name": order[i],
+                              "away_name": order[i + 1], "home_score": str(hs), "away_score": str(as_ + (hs == as_)), "neutral": "0"}
+    nhl = ["Canucks", "Wild", "Kraken", "Flames", "Oilers", "Jets", "Stars", "Avalanche"]
+    nfl = ["49ers", "Falcons", "Browns", "Titans", "Seahawks", "Chiefs", "Colts", "Vikings"]
+    nba = ["Lakers", "Suns", "Heat", "Magic", "Bulls", "Hawks", "Nets", "Knicks"]
+    season("nhl", nhl, 20, 1, 6)
+    season("nfl", nfl, 24, 10, 35)
+    season("nba", nba, 20, 95, 125)
+    elo = {lg: types.SimpleNamespace(r={t: 1500 + rnd.randint(-120, 120) for t in ts}, hfa=40)
+           for lg, ts in (("nhl", nhl), ("nfl", nfl), ("nba", nba))}
+    when = (t0 + timedelta(days=24, hours=20)).strftime("%Y-%m-%dT%H:%MZ")
+
+    def game(lg, home, away, mlh, mla):
+        gid = f"{lg}:today_{home}"
+        games[gid] = {"id": gid, "league": lg, "start": when, "status": "pre", "stype": "2", "home": home, "away": away,
+                      "home_name": home, "away_name": away, "home_score": "", "away_score": "", "neutral": "0",
+                      "ml_home": str(mlh), "ml_away": str(mla), "ml_home_open": str(mlh), "ml_away_open": str(mla)}
+        return gid
+
+    def leg(lg, gid, side, odds, lean=False, **kw):
+        g = games[gid]
+        dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+        o = "away" if side == "home" else "home"
+        return {"game_id": gid, "league": lg, "side": side, "market": "ml", "line": None, "odds": odds, "dec": dec,
+                "p": 1 / dec + (0.0 if lean else 0.06), "team": g[side + "_name"], "opp": g[o + "_name"], "start": when,
+                "tier": "lean" if lean else kw.pop("tier", "play"), "is_lean": lean, "reasons": kw.pop("reasons", []),
+                "ctx": kw.pop("ctx", []), **kw}
+    board = [
+        leg("nhl", game("nhl", "Canucks", "Wild", 160, -190), "home", 160, tier="dog", pdo=987.4, pyth_luck=-0.114,
+            opp_outs=["Kirill Kaprizov (LW)"], outs=[], ctx=[{"k": "trip", "mi": 0, "road6": 4, "who": "them"}],
+            reasons=["opponent on a back-to-back"]),
+        leg("nfl", game("nfl", "Falcons", "49ers", 125, -142), "away", -142, tier="lock", opp_outs=["Divine Deablo (LB)"],
+            outs=["Mike Evans (WR)"], dog_more={"go4_gap": 0.12}),
+        leg("nfl", game("nfl", "Titans", "Browns", 115, -130), "away", -130, opp_outs=[], outs=[]),
+        leg("nba", game("nba", "Lakers", "Suns", -120, 105), "home", -120, lean=True),
+        leg("nba", game("nba", "Heat", "Magic", -150, 130), "home", -150, lean=True),
+        leg("nhl", game("nhl", "Flames", "Oilers", -130, 115), "away", 115, lean=True, pdo=1012.0),
+    ]
+    used, texts = set(), []
+    for l in board:
+        bd = sb.breakdown(l, games, elo, None, used)
+        if l["is_lean"]:
+            bd = sb.lean_tone(bd, l, "t" + l["team"])
+        l["breakdown"] = bd
+        floor = v24.FLOOR_LEAN if l["is_lean"] else v24.FLOOR_UNIT
+        assert len(bd) - 1 >= floor, (l["team"], len(bd), bd)
+        for x in bd:
+            assert re.search(r"\d|[A-Z][a-z]+", x.split(" ", 1)[-1]), ("a line with no number or name", x)
+            assert not sports_card_guard.FILLER.search(x), x
+            assert not sports_card_guard.problem(x, l["league"]), x
+            for bad in sports_owner_lingo.NEVER:
+                assert bad not in x.lower(), x
+        texts += bd
+    assert len(texts) == len(set(texts)), [x for x in texts if texts.count(x) > 1]       # (never the same line twice)
+    canucks = board[0]["breakdown"]
+    joined = " ".join(canucks)
+    assert "PDO" in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
+    assert "Kaprizov" in joined, canucks
+    assert len(canucks) - 1 >= 7, canucks
+    assert "FULL BREAKDOWN is thorough" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CLAUDE.md")).read()
+    # a fact line is never starved: with every wording's tag already used, the Voice still says it
+    v = v24.Voice("x", used={f"f_last:{i}" for i in range(6)})
+    assert v.say("f_last", ["a 1", "b 2", "c 3", "d 4", "e 5", "f 6"]) != ""
+    assert v24.Voice("x", used={"talk_q:0", "talk_q:1"}).say("talk_q", ["a", "b"]) == ""   # (an opinion line still drops)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-25T16:38Z",
+ "checked": "2026-10-26T00:00Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -232,7 +232,7 @@
    "line": -6.5,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-24T03:55Z",
    "side": "home",
    "us": {
@@ -240,7 +240,7 @@
     "lean": true,
     "same": false,
     "side": "away",
-    "status": "open"
+    "status": "won"
    }
   },
   "2026-10-25|Kansas City Chiefs|Seattle Seahawks|home": {
@@ -261,6 +261,24 @@
     "status": "open"
    }
   },
+  "2026-10-25|San Francisco 49ers|Atlanta Falcons|home": {
+   "away": "San Francisco 49ers",
+   "date": "2026-10-25",
+   "home": "Atlanta Falcons",
+   "line": 2.5,
+   "price": null,
+   "rating": null,
+   "result": "won",
+   "seen": "2026-10-25T17:42Z",
+   "side": "home",
+   "us": {
+    "kind": "lock",
+    "lean": false,
+    "same": false,
+    "side": "away",
+    "status": "lost"
+   }
+  },
   "2026-10-25|Tampa Bay Buccaneers|Carolina Panthers|away": {
    "away": "Tampa Bay Buccaneers",
    "date": "2026-10-25",
@@ -271,7 +289,7 @@
     "home",
     3.6
    ],
-   "result": null,
+   "result": "won",
    "seen": "2026-10-23T20:54Z",
    "side": "away"
   },
@@ -285,7 +303,7 @@
     "home",
     3.6
    ],
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-23T20:54Z",
    "side": "under"
   },
@@ -304,25 +322,25 @@
    "side": "away"
   }
  },
- "read": "2026-10-25T14:00Z",
+ "read": "2026-10-26T00:00Z",
  "record": {
   "against_us": {
-   "lost": 1,
+   "lost": 2,
    "push": 0,
-   "won": 2
+   "won": 3
   },
   "all": {
-   "lost": 8,
+   "lost": 10,
+   "push": 0,
+   "won": 9
+  },
+  "sides": {
+   "lost": 7,
    "push": 0,
    "won": 7
   },
-  "sides": {
-   "lost": 6,
-   "push": 0,
-   "won": 5
-  },
   "totals": {
-   "lost": 2,
+   "lost": 3,
    "push": 0,
    "won": 2
   },
