@@ -1,33 +1,3 @@
-streak|home: following hit 61.5% vs 60.8% the price said over 13112 (edge +0.9% older, +0.4% newer, z 1.8) -> watch only
-rate|total: following hit 51.1% vs 50.0% the price said over 3911 (edge +1.4% older, +0.9% newer, z 1.39) -> watch only
-rate|fav_ml: following hit 73.7% vs 72.8% the price said over 113306 (edge +0.9% older, +1.1% newer, z 7.86) -> watch only
-rate|fav_cover: following hit 49.0% vs 50.0% the price said over 1806 (edge -0.1% older, -1.9% newer, z -0.85) -> watch only
-rate|home: following hit 66.3% vs 65.2% the price said over 42342 (edge +1.0% older, +1.3% newer, z 5.88) -> watch only
-nfl|streak: following hit 58.4% vs 59.7% the price said over 1547 (edge -2.5% older, -0.1% newer, z -1.11) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4132 (edge +0.1% older, -0.0% newer, z 0.04) -> watch only
-ncaaf|streak: following hit 70.4% vs 69.9% the price said over 7342 (edge -0.3% older, +1.3% newer, z 1.03) -> watch only
-ncaaf|rate: following hit 72.3% vs 71.7% the price said over 22211 (edge +0.7% older, +0.6% newer, z 2.46) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9830 (edge -0.2% older, -0.0% newer, z -0.25) -> watch only
-nba|rate: following hit 68.4% vs 68.7% the price said over 23801 (edge -0.2% older, -0.3% newer, z -0.77) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10769 (edge +0.6% older, -0.5% newer, z 0.14) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.4% the price said over 5104 (edge +1.6% older, +1.2% newer, z 2.01) -> watch only
-nhl|rate: following hit 61.6% vs 60.9% the price said over 5305 (edge +0.1% older, +1.4% newer, z 1.09) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 12-1 (prices said 9.3) (12 straight) -> coin flip
-ACTIVE nba wednesday: favorites cover 9-2 (8 straight) -> coin flip
-ACTIVE nfl sunday night: underdogs cover 6-0 (6 straight) -> coin flip · next: Chiefs @ Seahawks
-ACTIVE nba wednesday: favorites win 9-2 (prices said 6.7) (8 straight) -> coin flip
-ACTIVE nba away favorite: favorites win 7-1 (prices said 4.8) (7 straight) -> coin flip · next: Heat @ Hornets, Spurs @ Mavericks, Rockets @ Hawks
-ACTIVE mlb monday: over 145-116 (5 straight) -> coin flip · next: Brewers @ Rays
-ACTIVE ncaaf big favorite: home team wins 256-107 (prices said 243.9) (5 straight) -> coin flip · next: Texas A&M @ Alabama, BYU @ UCF, Iowa @ Minnesota
-ACTIVE nhl monday: home team wins 8-3 (prices said 6) (5 straight) -> coin flip · next: Kings @ Rangers, Maple Leafs @ Flames, Red Wings @ Oilers
-totals study: {'nfl': (0.5482, True), 'ncaaf': (0.4819, False), 'nba': (0.5059, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4793, False)}
-public splits: 83 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 5 rows - not used
    ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 5 rows - not used
@@ -2974,6 +2944,36 @@ player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
 weather: 123 games got weather, 0 new stadiums located, 241s
 4th-down rates: 32 NFL teams
 news: 51 new drama tags
+goalies: 3 games on the page, 3 matched, 4 confirmed
+nba rosters: 30 teams as of 2026-10-26, 0 failed, 0 moves
+beat the close: unit plays 17 of 56 better than the close, avg +0.2 pts
+public splits: 84 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+   no units on Hornets: missing Kon Knueppel, Coby White, Grant Williams, Naz Reid
+   no units on Pacers: missing Ivica Zubac, Ben Sheppard, Andrew Nembhard
+   no units on Thunder: missing Nikola Topic, Cason Wallace, Chet Holmgren, Jalen Williams
+   no units on Nuggets: missing Spencer Jones, Julian Strawther, Cameron Johnson
+   no units on Kings: missing Mats Zuccarello, Alex Turcotte, Quinton Byfield
+   no units on Maple Leafs: missing Nick Blankenburg, John Tavares, Chris Tanev
+   no units on Oilers: missing Mattias Ekholm, Jason Dickinson
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26170 rated matches, acc 0.646 (surface ratings alone 0.645), loss 0.6291 vs 0.6296, own weights [-0.004, 0.825, 0.075, 0.147, 0.424, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6291: experience 0.6292 (-0.11 mnats, z -0.11), age 0.6268 (+2.33 mnats, z 1.68), young_vs_aging 0.6287 (+0.38 mnats, z 0.92), last_match 0.6273 (+1.79 mnats, z 1.25), streaks 0.6299 (-0.85 mnats, z -0.83), first_set 0.6283 (+0.83 mnats, z 1.29), injury 0.6298 (-0.69 mnats, z -1.07), travel 0.6291 (+0.03 mnats, z 0.72) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30631 rated matches, acc 0.6505 (surface ratings alone 0.651), loss 0.621 vs 0.6209, own weights [0.004, 0.903, -0.0, -0.085, 0.3, 0.025, -0.202]
+tennis study WTA life factors vs current loss 0.621: experience 0.6178 (+3.22 mnats, z 1.87), age 0.6204 (+0.54 mnats, z 0.66), young_vs_aging 0.6208 (+0.18 mnats, z 1.02), last_match 0.621 (-0.05 mnats, z -0.05), streaks 0.621 (-0.02 mnats, z -0.03), first_set 0.6206 (+0.41 mnats, z 0.91), injury 0.6201 (+0.88 mnats, z 1.55), travel 0.6211 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+sync: 131223 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 124 games got weather, 0 new stadiums located, 141s
+4th-down rates: 32 NFL teams
+news: 53 new drama tags
 goalies: 3 games on the page, 3 matched, 4 confirmed
 nba rosters: 30 teams as of 2026-10-26, 0 failed, 0 moves
 beat the close: unit plays 17 of 56 better than the close, avg +0.2 pts
