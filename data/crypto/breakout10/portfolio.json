@@ -1,5 +1,5 @@
 {
-  "cash": 50.0,
+  "cash": 227.23231978332373,
   "positions": {
     "NEAR": {
       "qty": 44.411054131347726,
@@ -10,21 +10,13 @@
       "took_profit": false,
       "opened": 1790370000000,
       "hi": 5.9725
-    },
-    "SUI": {
-      "qty": 194.02869042764004,
-      "entry": 1.1549838299999997,
-      "cost": 225.0,
-      "peak": 1.1549838299999997,
-      "stop": 0.0,
-      "took_profit": false,
-      "opened": 1790370000000,
-      "hi": 1.29318
     }
   },
   "peak_equity": 545.5213134738538,
-  "cooldown": {},
+  "cooldown": {
+    "SUI": 1793016000000
+  },
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-43"
+  "last_rebalance_week": "2026-44"
 }
