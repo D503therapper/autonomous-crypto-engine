@@ -1,28 +1,64 @@
 {
- "at": "2026-10-25T23:36Z",
+ "at": "2026-10-26T03:25Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
+ ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 23 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 58 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 60 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-26T03:25Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-26T03:23Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nfl:1028823702 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-26T01:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T01:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T01:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-26T01:07Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-25T23:36Z",
    "fixes": [],
@@ -470,51 +506,6 @@
     "live tennis scores: tennis Yamaguchi vs Fruhvirtova: no points for 2016s",
     "live tennis scores: tennis Zhang Shuai vs Day: no points for 2623s",
     "live tennis scores: tennis Ishii vs Okamura: no points for 2623s"
-   ]
-  },
-  {
-   "at": "2026-10-24T10:06Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-24T09:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Jones vs Wong: no points for 1762s",
-    "live tennis scores: tennis Inglis vs Garland: no points for 1049s",
-    "live tennis scores: tennis Putintseva vs Kinoshita: no points for 1762s",
-    "live tennis scores: tennis Kasatkina vs Ma YeXin: no points for 1533s"
-   ]
-  },
-  {
-   "at": "2026-10-24T08:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T08:34Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gorgodze vs Prozorova: no points for 2620s",
-    "live tennis scores: tennis Golubic vs Joint: no points for 2620s",
-    "live tennis scores: tennis Ito vs Birrell: no points for 2620s"
-   ]
-  },
-  {
-   "at": "2026-10-24T07:02Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-24T07:01Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lee vs Vandromme: no points for 2622s",
-    "live tennis scores: tennis Hontama vs Oliynykova: no points for 2622s",
-    "live tennis scores: tennis Golubic vs Joint: no points for 1186s"
    ]
   }
  ]

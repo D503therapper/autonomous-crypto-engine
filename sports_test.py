@@ -5996,10 +5996,10 @@ def test_nutshell_counts_picks_not_cards():
            {"date": "2026-09-30", "kind": "dog", "status": "lost", "legs": [leg("Kings", "lost")]},
            {"date": "2026-09-30", "kind": "four", "status": "lost", "legs": [leg("Yankees", "won"), leg("Flyers", "lost"),
                                                                               leg("Padres", "won", "lean"), leg("Maple Leafs", "won", "lean")]}]
-    calls, pending = D.day_calls(day, "2026-09-30")
+    calls, pending = D.day_calls(day, "2026-09-30", early=[])
     assert sorted(calls.values()).count("won") == 3 and list(calls.values()).count("lost") == 2 and not pending
     day[2]["legs"][2]["result"] = None
-    assert D.day_calls(day, "2026-09-30")[1]                                # the Padres still going: not done
+    assert D.day_calls(day, "2026-09-30", early=[])[1]                                # the Padres still going: not done
 
 
 def test_tennis_watch_reads_yesterdays_scoreboard():
@@ -13775,6 +13775,25 @@ def test_board_shows_only_its_own_day_and_early_hits_stay_all_day_10_25():
     finally:
         se.ON = saved
     assert "day=today" in open(sdb.__file__).read()
+
+
+def test_brain_day_line_counts_early_plays_10_25():
+    """10/25, the owner: "the brain not updating ... gotta count early plays too" - the brain said 2-1 with the Bengals,
+    Dolphins and the Paris under (our early plays) all cashed. An early play playing that day counts in the day's line,
+    its own bet; one still going keeps the day open; another day's doesn't count."""
+    import sports_dashboard as D
+    leg = lambda t, r: {"team": t, "game_id": t, "side": "home", "market": "ml", "result": r}
+    day = [{"date": "2026-10-25", "kind": "lock", "status": "lost", "legs": [leg("49ers", "lost")]},
+           {"date": "2026-10-25", "kind": "play", "status": "won", "legs": [leg("Browns", "won")]}]
+    early = [{"game_id": "b", "side": "away", "team": "Bengals", "start": "2026-10-25T17:00Z", "result": "won"},
+             {"game_id": "m", "side": "away", "team": "Dolphins", "start": "2026-10-25T20:05Z", "result": "won"},
+             {"game_id": "p", "side": "under", "market": "total", "team": "Under 43.5", "start": "2026-10-25T13:30Z",
+              "result": "won"},
+             {"game_id": "t", "side": "home", "team": "Tulane", "start": "2026-10-25T00:00Z", "result": "lost"}]   # Sat PT
+    calls, pending = D.day_calls(day, "2026-10-25", early=early)
+    assert list(calls.values()).count("won") == 4 and list(calls.values()).count("lost") == 1 and not pending, calls
+    early[0]["result"] = None
+    assert D.day_calls(day, "2026-10-25", early=early)[1]
 
 
 if __name__ == "__main__":
