@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T22:12Z",
+ "updated": "2026-10-27T22:21Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -97,7 +97,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.462,
+    "p": 0.465,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -113,9 +113,9 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -172,
-    "p": 0.593,
-    "win_p": 0.475,
+    "odds": -171,
+    "p": 0.59,
+    "win_p": 0.471,
     "reasons": [
      "better starting pitcher"
     ]
@@ -545,7 +545,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.547,
+    "p": 0.573,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -561,12 +561,42 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -162,
+    "p": 0.606,
+    "win_p": 0.606,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909881",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Hawks",
+    "p": 0.533,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-28T23:00Z",
+   "away": "Heat",
+   "home": "Hawks",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hawks",
+    "opp": "Heat",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.578,
+    "win_p": 0.578,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -603,6 +633,36 @@
    }
   },
   {
+   "id": "nba:401909882",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Cavaliers",
+    "p": 0.66,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-28T23:00Z",
+   "away": "Wizards",
+   "home": "Cavaliers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Cavaliers",
+    "opp": "Wizards",
+    "market": "spread",
+    "line": -9.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.755,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892596",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -630,6 +690,36 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909885",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Raptors",
+    "p": 0.555,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-28T23:30Z",
+   "away": "Magic",
+   "home": "Raptors",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Raptors",
+    "opp": "Magic",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -732,7 +822,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.358,
+    "p": 0.363,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -749,8 +839,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.699,
-    "win_p": 0.484,
+    "p": 0.689,
+    "win_p": 0.473,
     "reasons": [
      "the stronger team"
     ]
