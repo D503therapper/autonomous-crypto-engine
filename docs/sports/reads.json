@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T19:10Z",
+ "updated": "2026-10-27T19:38Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -156,7 +156,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.352,
+    "p": 0.358,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -168,14 +168,16 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Canadiens",
-    "opp": "Blues",
+    "team": "Blues",
+    "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.718,
-    "win_p": 0.504,
-    "reasons": []
+    "odds": -278,
+    "p": 0.698,
+    "win_p": 0.483,
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
