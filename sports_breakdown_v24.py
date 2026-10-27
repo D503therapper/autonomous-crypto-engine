@@ -1335,6 +1335,21 @@ def breakdown(leg, games, elo, injuries, used=None):
     return lines
 
 
+SINGULAR = {"Wild", "Heat", "Magic", "Jazz", "Thunder", "Lightning", "Avalanche", "Kraken", "Mammoth", "Fire", "Sky",
+            "Fever", "Storm", "Mercury", "Liberty", "Dream", "Sun", "Lynx", "Galaxy", "Crew", "Union", "Fury"}
+
+
+def vb(team, plural, singular):
+    """The verb for a team name: 'the Wild holds', 'the Bruins hold' (the owner, 10/27: "it says Wild hold teams to
+    this - it should say holds with an S"). A one-word mascot that isn't a plural (Wild, Heat, Jazz ...) or a school /
+    city name (Delaware, Western KY) takes the singular."""
+    t = str(team or "").strip()
+    last = t.split()[-1] if t else ""
+    if t in SINGULAR or last in SINGULAR or (last and not last.endswith("s")):
+        return singular
+    return plural
+
+
 SHAPEABLE = "📣🧯🤒🪤😤🚀🏔🥶🌧🌬🦓🪑🚨🌍"   # the talk lines a card may skip; a fact line never (10/25)
 FLOOR_UNIT, FLOOR_LEAN = 6, 5    # (10/25, the owner) fact lines a unit pick / a lean posts with, when the facts exist
 
@@ -1599,12 +1614,12 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
         pg_u, pg_t = _per_game(r_ours, tid), _per_game(r_theirs, oid)
         fmt = (lambda x: f"{x:.1f}") if nhl or lg == "mlb" else (lambda x: f"{round(x)}")
         if pg_u[1] < pg_t[1] - (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[1]) not in body:
-            add.append(v.say("f_wall", [f"🛡️ {us} give up {fmt(pg_u[1])} {unit} a game this year; {them} give up {fmt(pg_t[1])}. Our D is the better one.",
-                                        f"🛡️ On the year {us} allow {fmt(pg_u[1])} a game, {them} {fmt(pg_t[1])}. Defense travels.",
-                                        f"🛡️ {them} are leaking {fmt(pg_t[1])} {unit} a game this season. {us} hold teams to {fmt(pg_u[1])}."]))
+            add.append(v.say("f_wall", [f"🛡️ {us} {vb(us, 'give', 'gives')} up {fmt(pg_u[1])} {unit} a game this year; {them} {vb(them, 'give', 'gives')} up {fmt(pg_t[1])}. Our D is the better one.",
+                                        f"🛡️ On the year {us} {vb(us, 'allow', 'allows')} {fmt(pg_u[1])} a game, {them} {fmt(pg_t[1])}. Defense travels.",
+                                        f"🛡️ {them} {vb(them, 'are', 'is')} leaking {fmt(pg_t[1])} {unit} a game this season. {us} {vb(us, 'hold', 'holds')} teams to {fmt(pg_u[1])}."]))
         elif pg_u[0] > pg_t[0] + (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[0]) not in body:
-            add.append(v.say("f_gpg", [f"📊 {us} score {fmt(pg_u[0])} {unit} a game this year; {them} manage {fmt(pg_t[0])}.",
-                                       f"📊 Offense: {us} are putting up {fmt(pg_u[0])} a game on the season, {them} {fmt(pg_t[0])}.",
+            add.append(v.say("f_gpg", [f"📊 {us} {vb(us, 'score', 'scores')} {fmt(pg_u[0])} {unit} a game this year; {them} {vb(them, 'manage', 'manages')} {fmt(pg_t[0])}.",
+                                       f"📊 Offense: {us} {vb(us, 'are', 'is')} putting up {fmt(pg_u[0])} a game on the season, {them} {fmt(pg_t[0])}.",
                                        f"📊 {us} at {fmt(pg_u[0])} {unit} a game this year. {them} at {fmt(pg_t[0])}. Ours scores more, that's just facts."]))
 
     # hockey: puck luck, the unlucky record, the 40-shot night

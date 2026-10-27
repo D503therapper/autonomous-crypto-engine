@@ -1,13 +1,19 @@
 {
- "at": "2026-10-27T19:08Z",
+ "at": "2026-10-27T20:43Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Souza vs Bonardi: no points for 275s",
+  "live tennis scores: tennis Pigossi vs Carle: no points for 275s",
+  "live tennis scores: tennis Herea vs Cano: no points for 275s",
+  "live tennis scores: tennis Jeanjean vs Monnet: no points for 275s",
+  "live tennis scores: tennis Costoulas vs Strakhova: no points for 75s"
+ ],
  "ok": [
-  "live watcher fresh (216s)",
+  "live watcher fresh (43s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
+  "live tennis points + server: 2 of 7 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -16,14 +22,25 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 23 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 47 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T20:43Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Souza vs Bonardi: no points for 275s",
+    "live tennis scores: tennis Pigossi vs Carle: no points for 275s",
+    "live tennis scores: tennis Herea vs Cano: no points for 275s",
+    "live tennis scores: tennis Jeanjean vs Monnet: no points for 275s",
+    "live tennis scores: tennis Costoulas vs Strakhova: no points for 75s"
+   ]
+  },
   {
    "at": "2026-10-27T19:08Z",
    "fixes": [],
@@ -529,14 +546,6 @@
    "at": "2026-10-25T23:15Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-25T23:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }
