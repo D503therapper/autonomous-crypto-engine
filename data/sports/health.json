@@ -1,27 +1,35 @@
 {
- "at": "2026-10-27T07:40Z",
- "fixes": [],
+ "at": "2026-10-27T08:25Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - started sports.yml"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (9s)",
-  "every finished pick graded",
+  "live watcher fresh (59s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 4 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 4 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 11 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-27T08:25Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-27T07:40Z",
    "fixes": [],
@@ -493,15 +501,6 @@
     "live tennis scores: tennis Melleiro vs Bonardi: no points for 883s",
     "live tennis scores: tennis Bernardes vs Labrana: no points for 883s",
     "live tennis scores: tennis Chiesa vs Morderger: no points for 883s"
-   ]
-  },
-  {
-   "at": "2026-10-25T14:35Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gulin vs Ayala: no points for 794s",
-    "live tennis scores: tennis Dourado vs Cinalli: no points for 794s",
-    "live tennis scores: tennis Maduzzi vs Matuella: no points for 794s"
    ]
   }
  ]
