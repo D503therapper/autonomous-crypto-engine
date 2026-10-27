@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T14:37Z",
+ "updated": "2026-10-27T15:01Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -16,8 +16,8 @@
    "start": "2026-10-27T23:00Z",
    "away": "Blue Jackets",
    "home": "Flyers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Flyers",
     "opp": "Blue Jackets",
@@ -44,8 +44,8 @@
    "start": "2026-10-27T23:00Z",
    "away": "Delaware",
    "home": "Western KY",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Western KY",
     "opp": "Delaware",
@@ -66,7 +66,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.713,
+    "p": 0.711,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -84,7 +84,7 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.82,
+    "win_p": 0.818,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -97,7 +97,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.469,
+    "p": 0.473,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -114,8 +114,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -171,
-    "p": 0.585,
-    "win_p": 0.466,
+    "p": 0.58,
+    "win_p": 0.461,
     "reasons": []
    }
   },
@@ -251,8 +251,8 @@
    "start": "2026-10-28T00:00Z",
    "away": "Kings",
    "home": "Spurs",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Spurs",
     "opp": "Kings",
@@ -312,8 +312,8 @@
    "start": "2026-10-28T00:00Z",
    "away": "Panthers",
    "home": "Jets",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Jets",
     "opp": "Panthers",
@@ -401,7 +401,7 @@
    "start": "2026-10-28T01:00Z",
    "away": "Wild",
    "home": "Mammoth",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Wild",
@@ -411,7 +411,9 @@
     "odds": -230,
     "p": 0.689,
     "win_p": 0.471,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -516,8 +518,8 @@
    "start": "2026-10-28T03:00Z",
    "away": "Trail Blazers",
    "home": "Lakers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Lakers",
     "opp": "Trail Blazers",
@@ -554,8 +556,8 @@
     "market": "ml",
     "line": null,
     "odds": -130,
-    "p": 0.545,
-    "win_p": 0.545,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team"
     ]
