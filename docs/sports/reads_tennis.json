@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-27T19:41Z",
+ "updated": "2026-10-27T19:58Z",
  "games": [
-  {
-   "id": "tennis:atp:185180",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-27T20:05Z",
-   "away": "Flavio Cobolli",
-   "home": "Grigor Dimitrov",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Flavio Cobolli",
-    "opp": "Grigor Dimitrov",
-    "market": "ml",
-    "line": null,
-    "odds": -220,
-    "p": 0.658,
-    "win_p": 0.658,
-    "reasons": [
-     "on hard court",
-     "Erste Bank Open"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:185680",
    "league": "tennis",
@@ -36,17 +10,17 @@
    "away": "Ekaterina Alexandrova",
    "home": "Kamilla Rakhimova",
    "vs": true,
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
     "team": "Ekaterina Alexandrova",
     "opp": "Kamilla Rakhimova",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.718,
-    "win_p": 0.718,
+    "market": "spread",
+    "line": -4.0,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.726,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
