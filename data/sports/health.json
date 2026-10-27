@@ -1,34 +1,44 @@
 {
- "at": "2026-10-27T14:32Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-10-27T15:14Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Masarova vs Riera: no points for 164s",
-  "live tennis scores: tennis Urrutia vs Jones: no points for 164s",
-  "live tennis scores: tennis Selekhmeteva vs Nagy: no points for 164s",
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Masarova vs Riera: no points for 2620s",
+  "live tennis scores: tennis Urrutia vs Jones: no points for 2620s",
+  "live tennis scores: tennis Klimovicova vs Maduzzi: no points for 1810s",
+  "live tennis scores: tennis Kubka vs Ristic: no points for 1092s"
  ],
  "ok": [
-  "live watcher fresh (28s)",
+  "live watcher fresh (59s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 6 live matches",
+  "live tennis points + server: 3 of 7 live matches",
+  "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "engine ran 4 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 6 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T15:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Riera: no points for 2620s",
+    "live tennis scores: tennis Urrutia vs Jones: no points for 2620s",
+    "live tennis scores: tennis Klimovicova vs Maduzzi: no points for 1810s",
+    "live tennis scores: tennis Kubka vs Ristic: no points for 1092s"
+   ]
+  },
   {
    "at": "2026-10-27T14:32Z",
    "fixes": [
@@ -499,11 +509,6 @@
   },
   {
    "at": "2026-10-25T19:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T18:10Z",
    "fixes": [],
    "problems": []
   }
