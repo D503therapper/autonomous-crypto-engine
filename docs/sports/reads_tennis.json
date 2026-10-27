@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-27T09:32Z",
+ "updated": "2026-10-27T10:38Z",
  "games": [
-  {
-   "id": "tennis:wta:185724",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-27T10:00Z",
-   "away": "Venus Williams",
-   "home": "Lilli Tagger",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Venus Williams",
-    "opp": "Lilli Tagger",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.095,
-    "reasons": [
-     "on hard court",
-     "Guangzhou Open"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:185129",
    "league": "tennis",
@@ -44,9 +18,9 @@
     "opp": "Zizou Bergs",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
+    "odds": -195,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -68,10 +42,10 @@
    "lean": {
     "team": "Arthur Rinderknech",
     "opp": "Jerome Kym",
-    "market": "spread",
-    "line": 0.5,
-    "odds": -120,
-    "p": 0.51,
+    "market": "ml",
+    "line": null,
+    "odds": -110,
+    "p": 0.5,
     "win_p": 0.5,
     "reasons": [
      "on hard court",
@@ -122,9 +96,9 @@
     "opp": "Alejandro Tabilo",
     "market": "spread",
     "line": -3.5,
-    "odds": -135,
-    "p": 0.541,
-    "win_p": 0.745,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.726,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -330,9 +304,9 @@
     "opp": "Stan Wawrinka",
     "market": "spread",
     "line": -3.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.798,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.809,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -362,6 +336,58 @@
     "reasons": [
      "on hard court",
      "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185680",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T01:30Z",
+   "away": "Ekaterina Alexandrova",
+   "home": "Kamilla Rakhimova",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Ekaterina Alexandrova",
+    "opp": "Kamilla Rakhimova",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
+    "reasons": [
+     "on hard court",
+     "Toray Pan Pacific Open Tennis"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185682",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T02:30Z",
+   "away": "Maya Joint",
+   "home": "Cristina Bucsa",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Maya Joint",
+    "opp": "Cristina Bucsa",
+    "market": "ml",
+    "line": null,
+    "odds": -165,
+    "p": 0.594,
+    "win_p": 0.594,
+    "reasons": [
+     "on hard court",
+     "Toray Pan Pacific Open Tennis"
     ]
    }
   },
@@ -600,6 +626,32 @@
    }
   },
   {
+   "id": "tennis:wta:185669",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T04:00Z",
+   "away": "Diana Shnaider",
+   "home": "Aliaksandra Sasnovich",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Diana Shnaider",
+    "opp": "Aliaksandra Sasnovich",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.706,
+    "win_p": 0.706,
+    "reasons": [
+     "on hard court",
+     "Toray Pan Pacific Open Tennis"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:185708",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -616,9 +668,9 @@
     "opp": "Lanlana Tararudee",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "on hard court",
      "Guangzhou Open"
@@ -630,7 +682,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-28T04:00Z",
+   "start": "2026-10-28T06:30Z",
    "away": "Paula Badosa",
    "home": "Sinja Kraus",
    "vs": true,
