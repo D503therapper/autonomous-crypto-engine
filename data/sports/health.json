@@ -1,31 +1,41 @@
 {
- "at": "2026-10-27T05:42Z",
- "fixes": [],
+ "at": "2026-10-27T06:08Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
+ ],
  "problems": [
-  "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 385s"
+  "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 1928s"
  ],
  "ok": [
-  "live watcher fresh (3s)",
-  "every finished pick graded",
+  "live watcher fresh (46s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 4 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "slate check: all 14 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 45 min ago",
+  "simulator ran 1h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T06:08Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 1928s"
+   ]
+  },
   {
    "at": "2026-10-27T05:42Z",
    "fixes": [],
@@ -505,17 +515,6 @@
     "live tennis scores: tennis Maduzzi vs Matuella: no points for 493s",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-25T13:36Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Senica vs Morderger: no points for 2627s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
