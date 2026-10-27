@@ -21558,6 +21558,7 @@
      "us:hotseat"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "depth_pts": 1.5,
     "dog_ctx": {
      "cw5": 0,
@@ -21607,6 +21608,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,10,8,10",
+     "h": "7,7,7,0"
+    },
     "form_state": [
      -11.0,
      -4,
@@ -21666,10 +21671,12 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Cowboys 38 @ Eagles 21",
     "season_games": null,
+    "settled": "2026-10-27T03:19Z",
     "side": "home",
     "start": "2026-10-27T00:15Z",
     "stype": "2",
@@ -21685,12 +21692,14 @@
    }
   ],
   "p_hit": 0.5051,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-26T15:00Z",
   "round": 1,
+  "settled": "2026-10-27T03:19Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -130,
@@ -21741,6 +21750,7 @@
      "game:div"
     ],
     "dec": 1.7692307692307692,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -21796,6 +21806,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "21,23,24,35",
+     "h": "19,35,26,30"
+    },
     "form_state": [
      5.0,
      1,
@@ -21814,15 +21828,14 @@
      "Grant Williams"
     ],
     "injury_alerts": [
-     "Naz Reid (Hornets C) is now day-to-day \u2014 our pick: Hornets ML"
+     "Naz Reid (Hornets C) is now day-to-day \u2014 our pick: Hornets ML",
+     "Naz Reid (Hornets C) is off the injury report \u2014 our pick: Hornets ML"
     ],
     "intl": false,
     "is_lean": true,
     "key_edge": null,
     "key_out_me": false,
-    "key_seen": {
-     "Naz Reid (Hornets C)": "Day-To-Day"
-    },
+    "key_seen": {},
     "league": "nba",
     "line": null,
     "lost_last": false,
@@ -21863,10 +21876,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Wizards 103 @ Hornets 110",
     "season_games": 3,
+    "settled": "2026-10-27T01:45Z",
     "side": "home",
     "star_back": [],
     "start": "2026-10-26T23:00Z",
@@ -21885,12 +21900,14 @@
    }
   ],
   "p_hit": 0.5576,
-  "pnl": 0.0,
+  "pnl": 76.92,
   "posted": "2026-10-26T15:00Z",
   "round": 1,
+  "settled": "2026-10-27T01:45Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -21952,6 +21969,12 @@
      "them:road3in6"
     ],
     "dec": 1.9523809523809523,
+    "decider": {
+     "h": "66-54",
+     "s": "134-99",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -22015,6 +22038,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "21,33,21,24",
+     "h": "33,33,39,29"
+    },
     "form_state": [
      4.0,
      1,
@@ -22061,10 +22088,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Bulls 99 @ Celtics 134",
     "season_games": 2,
+    "settled": "2026-10-27T02:01Z",
     "side": "home",
     "start": "2026-10-26T23:30Z",
     "stype": "2",
@@ -22082,12 +22111,14 @@
    }
   ],
   "p_hit": 0.5067,
-  "pnl": 0.0,
+  "pnl": 95.24,
   "posted": "2026-10-26T15:00Z",
   "round": 1,
+  "settled": "2026-10-27T02:01Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -135,
@@ -22153,6 +22184,7 @@
      "them:road3in6"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -22191,6 +22223,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,2,1",
+     "h": "1,1,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -22228,10 +22264,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Kings 6 @ Rangers 3",
     "season_games": null,
+    "settled": "2026-10-27T01:52Z",
     "side": "home",
     "start": "2026-10-26T23:00Z",
     "stype": "2",
@@ -22249,12 +22287,14 @@
    }
   ],
   "p_hit": 0.5507,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-26T15:00Z",
   "round": 1,
+  "settled": "2026-10-27T01:52Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
@@ -22305,6 +22345,7 @@
      "us:road3in6"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 1,
      "hits_top": false,
@@ -22368,6 +22409,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,28,31,21",
+     "h": "21,31,24,29"
+    },
     "form_state": [
      11.0,
      3,
@@ -22413,10 +22458,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Grizzlies 110 @ Jazz 105",
     "season_games": 3,
+    "settled": "2026-10-27T03:53Z",
     "side": "away",
     "start": "2026-10-27T01:00Z",
     "stype": "2",
@@ -22433,11 +22480,13 @@
    }
   ],
   "p_hit": 0.5047,
-  "pnl": 0.0,
+  "pnl": 89.29,
   "posted": "2026-10-26T15:47Z",
   "round": 1,
+  "settled": "2026-10-27T03:53Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]

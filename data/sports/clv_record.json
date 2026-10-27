@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 125,
-  "beat": 40,
-  "same": 45,
-  "worse": 40,
-  "avg_pts": 0.1
+  "n": 130,
+  "beat": 42,
+  "same": 47,
+  "worse": 41,
+  "avg_pts": 0.11
  },
  "unit_plays": {
   "n": 56,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 69,
-   "beat": 23,
-   "same": 19,
-   "worse": 27,
-   "avg_pts": -0.01
+   "n": 74,
+   "beat": 25,
+   "same": 21,
+   "worse": 28,
+   "avg_pts": 0.03
   },
   "lock": {
    "n": 13,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 9,
-   "beat": 4,
-   "same": 3,
-   "worse": 2,
-   "avg_pts": 0.41
+   "n": 12,
+   "beat": 5,
+   "same": 4,
+   "worse": 3,
+   "avg_pts": 0.46
   },
   "ncaaf": {
    "n": 37,
@@ -66,16 +66,16 @@
    "avg_pts": 0.17
   },
   "nfl": {
-   "n": 19,
-   "beat": 6,
+   "n": 20,
+   "beat": 7,
    "same": 8,
    "worse": 5,
-   "avg_pts": 0.09
+   "avg_pts": 0.12
   },
   "nhl": {
-   "n": 46,
+   "n": 47,
    "beat": 14,
-   "same": 17,
+   "same": 18,
    "worse": 15,
    "avg_pts": 0.06
   }
@@ -1859,6 +1859,76 @@
    "close": -130,
    "pts": 0.0,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Eagles",
+   "market": "spread",
+   "line": 4.5,
+   "odds": -112,
+   "close": -115,
+   "pts": 0.7,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Hornets",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -142,
+   "pts": 2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Celtics",
+   "market": "spread",
+   "line": -14.5,
+   "odds": -105,
+   "close": -105,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -135,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Grizzlies",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -110,
+   "pts": -0.4,
+   "units": 0,
    "result": "won"
   }
  ]
