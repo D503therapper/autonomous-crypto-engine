@@ -2827,7 +2827,7 @@ def test_breakdown_variety():
                 for seed, g in per.items():
                     assert not g & old, ("a 4-word run from yesterday", seed, g & old)
                 same = {x for x, _ in texts} & {x for x, _ in yesterday}
-                assert not {x for x in same if x[:1] not in "📅⏳🏟📊📋🧳🆚"}, ("a line word for word from yesterday", same)
+                assert not {x for x in same if x[:1] not in "📅⏳🏟📊📋🧳🆚🗓🥊🛡⚠"}, ("a line word for word from yesterday", same)   # (fact lines)
             cards[day] = texts
             yesterday = texts
     finally:
@@ -3831,7 +3831,13 @@ def test_engine_knows_who_is_not_playing_baseball():
         sd._STARS.clear(); sd._STARS.update(keep)
     assert "mlb" in sd.INJ_LEAGUES
     src = open(__import__("sports_breakdown_v24").__file__).read()
-    assert 'v.say("keyout_us_bat"' in src and "Doesn't change our call" in src
+    # (10/27: our bat out is the card's ONE ⚠️ risk line - v.knock(10, ...) - never a body line that argues against us)
+    assert "best bats, is out" in src and 'v.knock(10' in src and 'v.say("keyout_us_bat"' not in src
+    import sports_breakdown_v24 as _v
+    _vv = _v.Voice("bat", set())
+    _vv.knock(10, "Aaron Judge, one of the Yankees' best bats, is out")
+    _r = _v.risk_line(_vv, "Yankees", "Red Sox", "the Yankees")
+    assert _r.startswith("⚠️") and "Judge" in _r and "Yankees" in _r, _r
 
 
 def test_never_lock_a_side_the_money_is_running_from():
@@ -13634,7 +13640,7 @@ def test_full_breakdown_is_thorough_10_25():
                 "tier": "lean" if lean else kw.pop("tier", "play"), "is_lean": lean, "reasons": kw.pop("reasons", []),
                 "ctx": kw.pop("ctx", []), **kw}
     board = [
-        leg("nhl", game("nhl", "Canucks", "Wild", 160, -190), "home", 160, tier="dog", pdo=987.4, pyth_luck=-0.114,
+        leg("nhl", game("nhl", "Canucks", "Wild", 160, -190), "home", 160, tier="dog", pdo=983.0, pyth_luck=-0.114,   # (10/27: 987 is average luck - no line; a bad-bounces PDO is the fact)
             opp_outs=["Kirill Kaprizov (LW)"], outs=[], ctx=[{"k": "trip", "mi": 0, "road6": 4, "who": "them"}],
             reasons=["opponent on a back-to-back"]),
         leg("nfl", game("nfl", "Falcons", "49ers", 125, -142), "away", -142, tier="lock", opp_outs=["Divine Deablo (LB)"],
@@ -13651,7 +13657,9 @@ def test_full_breakdown_is_thorough_10_25():
             bd = sb.lean_tone(bd, l, "t" + l["team"])
         l["breakdown"] = bd
         floor = v24.FLOOR_LEAN if l["is_lean"] else v24.FLOOR_UNIT
-        assert len(bd) - 1 >= floor, (l["team"], len(bd), bd)
+        # (10/27: the facts that favored the other side left the body - a card that lost them to the one ⚠️ risk line
+        #  may sit under the floor; a short card beats one that argues for the other team)
+        assert len(bd) - 1 >= floor or (len(bd) - 1 >= 3 and any(x.startswith("⚠️") for x in bd)), (l["team"], len(bd), bd)
         for x in bd:
             assert re.search(r"\d|[A-Z][a-z]+", x.split(" ", 1)[-1]), ("a line with no number or name", x)
             assert not sports_card_guard.FILLER.search(x), x
@@ -14084,6 +14092,76 @@ def test_floor_play_card_never_says_no_units_or_a_price_against_it_10_27():
     import sports_breakdown_v24 as v24
     bsrc = open(v24.__file__).read()
     assert '"bottom_floor"' in bsrc and bsrc.index('"bottom_floor"') < bsrc.index('"bottom_c"')
+
+
+def test_breakdown_makes_our_case_10_27():
+    """10/27, the owner on the Wild / Delaware / Panthers cards: "These breakdowns are terrible. They are not in our
+    lingo, really. And also, there's a lot of facts that support the opposing team." Now every fact line knows which
+    side it favors: the ones for them (their better rest, home record, heater, goalie, our road record, our skid, our
+    outs) are never body lines - the single biggest posts as ONE ⚠️ risk line right before the bottom line; the body
+    is our case, our lines first; no robotic "Rest check:" / "about average luck" / "Even on paper" templates."""
+    import types
+    import sports_breakdown as sb
+    import sports_breakdown_v24 as v24
+    games = {}
+    t0 = datetime(2026, 10, 1, 2, 0)
+
+    def final(gid, lg, day, home, away, hs, as_):
+        games[gid] = {"id": gid, "league": lg, "start": (t0 + timedelta(days=day)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "status": "final", "stype": "2", "home": home, "away": away, "home_name": home, "away_name": away,
+                      "home_score": str(hs), "away_score": str(as_), "neutral": "0"}
+    # the Wild (us, road dog): 1 day off, 1-4 on the road, 2 straight L's; the Mammoth: 3 days off, 4-0 at home, won 3 straight
+    final("nhl:w1", "nhl", 2, "Oilers", "Wild", 4, 2)
+    final("nhl:w2", "nhl", 5, "Wild", "Flames", 3, 1)
+    final("nhl:w3", "nhl", 8, "Kraken", "Wild", 2, 1)
+    final("nhl:w4", "nhl", 11, "Wild", "Stars", 5, 2)
+    final("nhl:w5", "nhl", 14, "Avalanche", "Wild", 3, 1)
+    final("nhl:w6", "nhl", 17, "Wild", "Canucks", 2, 1)
+    final("nhl:w7", "nhl", 20, "Canucks", "Wild", 3, 2)
+    final("nhl:w8", "nhl", 23, "Stars", "Wild", 4, 1)
+    final("nhl:m1", "nhl", 3, "Mammoth", "Oilers", 4, 1)
+    final("nhl:m2", "nhl", 6, "Flames", "Mammoth", 3, 2)
+    final("nhl:m3", "nhl", 9, "Mammoth", "Kraken", 3, 2)
+    final("nhl:m4", "nhl", 12, "Stars", "Mammoth", 2, 1)
+    final("nhl:m5", "nhl", 15, "Mammoth", "Avalanche", 2, 1)
+    final("nhl:m6", "nhl", 18, "Mammoth", "Canucks", 5, 2)
+    final("nhl:m7", "nhl", 21, "Oilers", "Mammoth", 1, 4)
+    when = (t0 + timedelta(days=24, hours=20)).strftime("%Y-%m-%dT%H:%MZ")
+    games["nhl:today"] = {"id": "nhl:today", "league": "nhl", "start": when, "status": "pre", "stype": "2", "home": "Mammoth",
+                          "away": "Wild", "home_name": "Mammoth", "away_name": "Wild", "home_score": "", "away_score": "",
+                          "neutral": "0", "ml_home": "-125", "ml_away": "105", "ml_home_open": "-125", "ml_away_open": "105"}
+    elo = {"nhl": types.SimpleNamespace(r={"Wild": 1510, "Mammoth": 1500}, hfa=40)}
+    leg = {"game_id": "nhl:today", "league": "nhl", "side": "away", "market": "ml", "line": None, "odds": 105, "dec": 2.05,
+           "p": 0.55, "team": "Wild", "opp": "Mammoth", "start": when, "tier": "value", "is_lean": False, "reasons": [],
+           "ctx": [], "pdo": 998.0, "outs": ["Marcus Foligno (LW)"], "opp_outs": []}
+    bd = sb.breakdown(leg, games, elo, None, set())
+    body = bd[:-1]
+    risks = [x for x in body if x.startswith("⚠️")]
+    assert len(risks) <= 1, risks
+    plain = [x for x in body if not x.startswith("⚠️")]
+    for x in plain:                                                       # their edges are never body lines
+        assert "4-0" not in x, ("their home record as a body line", x)
+        assert "3 straight" not in x and "3-game" not in x, ("their heater as a body line", x)
+        assert "1-4" not in x, ("our road record as a body line", x)
+        assert "2 straight" not in x, ("our skid as a body line", x)
+        assert "Foligno" not in x, ("our outs as a body line", x)
+        assert not x.startswith("⏳"), ("a rest line against us", x)
+    assert not risks or body[-1] == risks[0], ("the risk line sits last, right before the bottom line", body)
+    assert bd[-1].startswith("✅ Bottom line")
+    # no robotic templates / non-facts anywhere in the writer
+    src = open(v24.__file__).read()
+    for bad in ("Rest check:", "about average luck", "Even on paper", "Fresh tape", "Both sides had {D(d_us)} between games"):
+        assert bad not in src, bad
+    # the knock registry: the biggest knock wins, the ⚠️ line says it as the risk
+    v = v24.Voice("k", set())
+    v.knock(3, "Wild are 1-4 on the road this year")
+    v.knock(10, "Kaprizov is out and the Wild roll with the backup left wing")
+    r = v24.risk_line(v, "Wild", "Mammoth", "the Wild")
+    assert r.startswith("⚠️") and "Kaprizov" in r and "1-4" not in r, r
+    assert not v24.risk_line(v24.Voice("k2", set()), "Wild", "Mammoth", "the Wild")
+    vv = v24.Voice("o", set())
+    assert vv.tag("x", "neutral") == "x" and vv.dirs["x"] == "neutral" and vv.tag("", "us") == ""
+    assert sb.VERSION >= 56                                               # (posted cards get the new wording)
 
 
 if __name__ == "__main__":
