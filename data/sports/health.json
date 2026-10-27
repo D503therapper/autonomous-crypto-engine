@@ -1,9 +1,11 @@
 {
- "at": "2026-10-27T05:35Z",
+ "at": "2026-10-27T05:42Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 385s"
+ ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,13 +19,20 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "simulator ran 7h ago",
-  "engine ran 39 min ago",
+  "simulator ran 0h ago",
+  "engine ran 45 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T05:42Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 385s"
+   ]
+  },
   {
    "at": "2026-10-27T05:35Z",
    "fixes": [],
@@ -507,14 +516,6 @@
     "live tennis scores: tennis Senica vs Morderger: no points for 2627s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-25T12:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
