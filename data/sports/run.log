@@ -1,23 +1,3 @@
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10769 (edge +0.6% older, -0.5% newer, z 0.14) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.4% the price said over 5104 (edge +1.6% older, +1.2% newer, z 2.01) -> watch only
-nhl|rate: following hit 61.6% vs 60.9% the price said over 5321 (edge +0.0% older, +1.5% newer, z 1.14) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 12-1 (prices said 9.3) (12 straight) -> coin flip
-ACTIVE nba wednesday: favorites cover 9-2 (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE nfl sunday night: underdogs cover 6-0 (6 straight) -> coin flip · next: Chiefs @ Seahawks
-ACTIVE nba wednesday: favorites win 9-2 (prices said 6.7) (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE nba home favorite: underdogs cover 12-10 (8 straight) -> coin flip · next: Magic @ Knicks, Raptors @ Timberwolves, Clippers @ Thunder
-ACTIVE mlb monday: over 145-116 (5 straight) -> coin flip · next: Brewers @ Rays
-ACTIVE nhl monday: home team wins 8-3 (prices said 6) (5 straight) -> coin flip · next: Kings @ Rangers, Maple Leafs @ Flames, Red Wings @ Oilers
-ACTIVE nba friday: underdogs cover 8-4 (5 straight) -> coin flip
-totals study: {'nfl': (0.5482, True), 'ncaaf': (0.4794, False), 'nba': (0.5054, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4778, False)}
-public splits: 64 upcoming games
-self-check: 174 graded picks - we said 51%, they hit 56% (hitting at or above what we said)
-  market:ml: 164 graded, said 51%, hit 57% - hitting at or above what we said
-  source:pregame: 154 graded, said 50%, hit 56% - hitting at or above what we said
-  drama:none: 150 graded, said 51%, hit 57% - hitting at or above what we said
-  label:parlay leg: 120 graded, said 51%, hit 57% - hitting at or above what we said
   price:-149..-101: 102 graded, said 54%, hit 61% - hitting at or above what we said
   ctx:game:conf: 69 graded, said 49%, hit 56% - hitting at or above what we said (report only: forward-only tag)
   price:+101..+179: 58 graded, said 49%, hit 47% - a little below what we said - within noise
@@ -2996,5 +2976,25 @@ tennis study ATP life factors vs current loss 0.6289: experience 0.6289 (-0.03 m
 tennis study WTA: 30650 rated matches, acc 0.651 (surface ratings alone 0.651), loss 0.6206 vs 0.6203, own weights [0.004, 0.903, -0.001, -0.086, 0.3, 0.024, -0.201]
 tennis study WTA life factors vs current loss 0.6206: experience 0.6176 (+2.96 mnats, z 1.72), age 0.62 (+0.63 mnats, z 0.78), young_vs_aging 0.6204 (+0.19 mnats, z 1.12), last_match 0.6209 (-0.34 mnats, z -0.34), streaks 0.6207 (-0.05 mnats, z -0.11), first_set 0.6202 (+0.43 mnats, z 0.96), injury 0.6197 (+0.92 mnats, z 1.61), travel 0.6207 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 35 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 22 matches
+sync: 131240 games stored, 52 calls, 0 failed, 11s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 116 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 50 new drama tags
+goalies: 11 games on the page, 11 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-27, 0 failed, 0 moves
+beat the close: unit plays 17 of 56 better than the close, avg +0.2 pts
+public splits: 64 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26172 rated matches, acc 0.647 (surface ratings alone 0.6455), loss 0.6289 vs 0.6294, own weights [-0.005, 0.825, 0.074, 0.147, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6289: experience 0.6289 (-0.03 mnats, z -0.03), age 0.6266 (+2.30 mnats, z 1.67), young_vs_aging 0.6285 (+0.38 mnats, z 0.93), last_match 0.6271 (+1.81 mnats, z 1.26), streaks 0.6298 (-0.87 mnats, z -0.85), first_set 0.6281 (+0.82 mnats, z 1.28), injury 0.6296 (-0.69 mnats, z -1.07), travel 0.6289 (+0.03 mnats, z 0.71) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30652 rated matches, acc 0.652 (surface ratings alone 0.652), loss 0.6205 vs 0.6202, own weights [0.004, 0.903, -0.001, -0.086, 0.3, 0.024, -0.201]
+tennis study WTA life factors vs current loss 0.6205: experience 0.6176 (+2.95 mnats, z 1.71), age 0.6199 (+0.61 mnats, z 0.76), young_vs_aging 0.6203 (+0.17 mnats, z 0.99), last_match 0.6208 (-0.29 mnats, z -0.29), streaks 0.6205 (-0.03 mnats, z -0.06), first_set 0.6201 (+0.43 mnats, z 0.95), injury 0.6196 (+0.90 mnats, z 1.58), travel 0.6206 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 34 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 22 matches
