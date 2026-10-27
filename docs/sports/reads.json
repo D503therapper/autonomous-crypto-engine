@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T00:33Z",
+ "updated": "2026-10-27T00:45Z",
  "games": [
   {
    "id": "nhl:401892582",
@@ -189,31 +189,27 @@
    "id": "nba:401909875",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Grizzlies",
-    "p": 0.482,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-27T01:00Z",
    "away": "Grizzlies",
    "home": "Jazz",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Grizzlies",
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.501,
+    "odds": -112,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
