@@ -1,12 +1,12 @@
 {
- "updated": "2026-10-27T08:27Z",
+ "updated": "2026-10-27T09:32Z",
  "games": [
   {
    "id": "tennis:wta:185724",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-27T09:00Z",
+   "start": "2026-10-27T10:00Z",
    "away": "Venus Williams",
    "home": "Lilli Tagger",
    "vs": true,
@@ -20,7 +20,7 @@
     "line": 6.5,
     "odds": -120,
     "p": 0.51,
-    "win_p": 0.087,
+    "win_p": 0.095,
     "reasons": [
      "on hard court",
      "Guangzhou Open"
@@ -44,9 +44,9 @@
     "opp": "Zizou Bergs",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -59,20 +59,20 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-27T12:30Z",
-   "away": "Jerome Kym",
-   "home": "Arthur Rinderknech",
+   "away": "Arthur Rinderknech",
+   "home": "Jerome Kym",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Jerome Kym",
-    "opp": "Arthur Rinderknech",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "team": "Arthur Rinderknech",
+    "opp": "Jerome Kym",
+    "market": "spread",
+    "line": 0.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.5,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -148,9 +148,9 @@
     "opp": "Botic Van De Zandschulp",
     "market": "ml",
     "line": null,
-    "odds": -215,
-    "p": 0.652,
-    "win_p": 0.652,
+    "odds": -210,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -200,9 +200,9 @@
     "opp": "Ignacio Buse",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
@@ -215,20 +215,20 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-27T14:30Z",
-   "away": "Arthur Fils",
-   "home": "Giovanni Mpetshi Perricard",
+   "away": "Giovanni Mpetshi Perricard",
+   "home": "Arthur Fils",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Arthur Fils",
-    "opp": "Giovanni Mpetshi Perricard",
+    "team": "Giovanni Mpetshi Perricard",
+    "opp": "Arthur Fils",
     "market": "spread",
-    "line": -3.0,
+    "line": 3.0,
     "odds": -120,
     "p": 0.51,
-    "win_p": 0.755,
+    "win_p": 0.255,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -590,64 +590,12 @@
     "opp": "Learner Tien",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:185660",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-28T04:00Z",
-   "away": "Kimberly Birrell",
-   "home": "Alycia Parks",
-   "vs": true,
-   "why": "tight",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Kimberly Birrell",
-    "opp": "Alycia Parks",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.602,
-    "win_p": 0.602,
-    "reasons": [
-     "on hard court",
-     "Toray Pan Pacific Open Tennis"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:185667",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-28T04:00Z",
-   "away": "Alexandra Eala",
-   "home": "Talia Gibson",
-   "vs": true,
-   "why": "tight",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Alexandra Eala",
-    "opp": "Talia Gibson",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.718,
-    "win_p": 0.718,
-    "reasons": [
-     "on hard court",
-     "Toray Pan Pacific Open Tennis"
     ]
    }
   },
@@ -700,6 +648,32 @@
     "reasons": [
      "on hard court",
      "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185667",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T08:00Z",
+   "away": "Alexandra Eala",
+   "home": "Talia Gibson",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alexandra Eala",
+    "opp": "Talia Gibson",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
+    "reasons": [
+     "on hard court",
+     "Toray Pan Pacific Open Tennis"
     ]
    }
   }

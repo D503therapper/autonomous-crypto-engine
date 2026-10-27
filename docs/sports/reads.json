@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T09:13Z",
+ "updated": "2026-10-27T09:38Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -594,6 +594,34 @@
    }
   },
   {
+   "id": "nhl:401892596",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Capitals",
+    "p": 0.397,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-28T23:30Z",
+   "away": "Flyers",
+   "home": "Capitals",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Flyers",
+    "opp": "Capitals",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -192,
+    "p": 0.625,
+    "win_p": 0.405,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401871057",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -622,6 +650,94 @@
      "the stronger team",
      "better QB play lately",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892597",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Oilers",
+    "p": 0.436,
+    "tie": 0.292,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-29T00:30Z",
+   "away": "Flames",
+   "home": "Oilers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Oilers",
+    "opp": "Flames",
+    "market": "ml",
+    "line": null,
+    "odds": -244,
+    "p": 0.677,
+    "win_p": 0.677,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892598",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Avalanche",
+    "p": 0.37,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-29T01:00Z",
+   "away": "Devils",
+   "home": "Avalanche",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Devils",
+    "opp": "Avalanche",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.679,
+    "win_p": 0.46,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892599",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Maple Leafs",
+    "p": 0.352,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-29T02:00Z",
+   "away": "Maple Leafs",
+   "home": "Kraken",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Kraken",
+    "opp": "Maple Leafs",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -286,
+    "p": 0.71,
+    "win_p": 0.496,
+    "reasons": [
+     "the stronger team"
     ]
    }
   }
