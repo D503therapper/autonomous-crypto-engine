@@ -7927,7 +7927,7 @@ def test_no_lean_on_a_game_we_already_have_an_early_play_on():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     pb = src[src.index("def post_board("):src.index("def early_sides(")]
     assert "early_gids.add(gid)" in pb
-    i = pb.index('if kind == "lean":                                    # (10/20')
+    i = pb.index('if kind in ("lean", "floor", "nbafloor"):             # (10/20')   # (10/27: the floor plays skip them too)
     assert "used |= early_gids" in pb[i:i + 300]
     assert pb.index("used |= early_gids") < pb.index('for c in pool(all_cands if kind == "lean" else cands, used):')
 
@@ -13955,6 +13955,119 @@ def test_one_liner_never_leans_on_a_close_loss_or_a_third_team_10_27():
     assert beat["their last loss"] and all(w.lower().find("jets") < w.lower().find("canadiens") for w in beat["their last loss"])
     assert not v24.close_records("6-6", "4-7")
     assert v24.close_records("85-77", "89-73") and v24.close_records("2-3", "2-4")
+
+def test_fable_1027_dog_own_read_rule_is_read_per_sport():
+    """10/27 Fable funnel (the owner: "we need unit plays, especially basketball ... figure this out"): the 10/23 plan's
+    own-read Dog rule killed 153 of 153 hockey score-6+ dogs whose own read sat BETWEEN the no-vig market and the juice
+    (78-75, +15.6% flat, 2023-26 at the fixed hockey read) - the line-anchored hockey read can't beat the vig. Hockey now
+    asks the own read to not sit under the NO-VIG market; the NBA Dog has no own-read rule (score 4+ alone: own-under
+    14-13 +30.6%, own-over 4-5 +52.8%); football / college hoops keep the rule against the real price."""
+    assert sports.DOG_NEEDS_OWN and sports.DOG_OWN_RULE == {"nhl": "market", "nba": None}
+    dec = sd.decimal(120)                                    # +120 needs 45.5% to break even; the no-vig market 43.7%
+    between = {"league": "nhl", "dec": dec, "p_market": 0.437, "edge_own": 0.445 * dec - 1}   # own 44.5%: between
+    assert between["edge_own"] < 0 and sports.dog_own_ok(between)
+    assert not sports.dog_own_ok({**between, "edge_own": 0.43 * dec - 1})      # under the no-vig market: no
+    assert sports.dog_own_ok({**between, "edge_own": 0.47 * dec - 1})          # over the juice: yes, as before
+    assert sports.dog_own_ok({**between, "league": "nba", "edge_own": 0.40 * dec - 1})   # NBA: the gate decides
+    assert not sports.dog_own_ok({**between, "league": "ncaaf"})                # college football: the real price still
+    assert not sports.dog_own_ok({**between, "league": "ncaab"}) and sports.dog_own_ok({**between, "league": "nfl", "edge_own": 0.01})
+    assert sports.dog_own_ok({**between, "edge_own": None})                     # no own read = nothing to fight
+    # best_hockey_dog reads the same rule (the inline check is gone)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert src.count("DOG_NEEDS_OWN and c.get(\"edge_own\") is not None and c[\"edge_own\"] <= 0") == 0
+    # units: the NBA Dog 1u with its own read over the price, ½u (thin) otherwise; hockey own-under at its 1u floor -> ½u thin
+    leg = {**_cand("n", 150, 0.42, league="nba"), "dog_p": 0.44, "dog_score": 4.5}   # own read 42% at +150 (needs 40%)
+    pk = {"date": "2026-10-27", "kind": "dog", "status": "open", "legs": [leg], "dec": leg["dec"], "american": 150}
+    assert sports.units_for(pk) == 1.0 and sports.sizing_check([pk]) == []
+    under = {**leg, "edge_own": 0.39 * leg["dec"] - 1}
+    assert sports.units_for({**pk, "legs": [under]}) == 0.5
+    assert sports.units_for({**pk, "date": "2026-10-26"}) == 0.5          # (a pick posted before today keeps the old ½u)
+    h = {**_cand("h", 120, 0.45, league="nhl"), "edge_own": 0.445 * dec - 1, "p_market": 0.437, "dog_p": 0.50, "dog_score": 6.5}
+    assert sports.units_for({**pk, "legs": [h], "dec": dec, "american": 120}) == 0.5   # the floor is 1u, the thin edge ½u
+
+
+def test_fable_1027_nba_favorite_play_rides_the_study_weights():
+    """10/27: the 10/22 NBA favorite weights were wired on a read that starts AT the books' price, so a +2-point weight could
+    never clear the vig - the owner's wired value produced no pick (6 NBA favorites passed the price test in 1,027). The
+    cell on the board replay 2023-26: 62-25, +23.1% on 87, 3 of 3 seasons up. Now: an NBA moneyline favorite -150..-101
+    with a net POSITIVE weight, a real play (good), never games 1-5, never fighting, 1u, tagged nba_fav."""
+    assert sports.NBA_FAV_UNITS == 1.0 and sports.NBA_FAV_FROM == "2026-10-27"
+    mk = lambda gid, w, odds=-130, p=0.55, games=12: {**_cand(gid, odds, p, league="nba"), "nba_fav_w": w, "season_games": games,
+                                                    "w_p": round(1 / sd.decimal(odds) - 0.02 + sum(w.values()), 4)}
+    yes = mk("a", {"off_blowout": 0.02})
+    week1 = mk("b", {"off_blowout": 0.02}, games=3)
+    neg = mk("c", {"off_blowout": 0.02, "last_ot": -0.03})
+    none = mk("d", {})
+    pricey = mk("e", {"home_dog_mid": 0.02}, odds=-160)
+    weak = mk("f", {"home_dog_mid": 0.02}, p=0.51)             # under 53%: not a real play (good)
+    two = mk("g", {"home_dog_mid": 0.02, "off_blowout": 0.02}, p=0.54)
+    got = sports.nba_fav_plays([yes, week1, neg, none, pricey, weak, two], set())
+    assert [c["game_id"] for c in got] == ["a", "g"]           # the likeliest first; one weight or two, net positive only
+    assert sports.nba_fav_plays([yes], {"a"}) == []            # a game we're on: never
+    assert sports.nba_fav_plays([{**yes, "league": "nhl"}], set()) == []
+    pk = {"date": "2026-10-27", "kind": "play", "status": "open", "legs": [yes], "dec": yes["dec"], "american": -130,
+          "nba_fav": {"off_blowout": 0.02}, "tier": "value"}
+    assert sports.units_for(pk) == 1.0 and sports.sizing_check([pk]) == [] and sports.posted_kind(pk) == "nbafav"
+    assert sports.units_for({**pk, "nba_fav": None}) == sports.PLAY_UNITS
+    new = [pk]                                                 # the money check knows the play rides the weights, not the read
+    assert not sports.beats_price({**yes, "edge_own": -0.02, "w_p": 0.545})
+    probs = sports.rule_check([], [{**pk, "legs": [{**yes, "edge_own": -0.02, "w_p": 0.545}]}], "2026-10-27")
+    assert not any("doesn't beat" in x for x in probs), probs
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '("nbafav", nba_fav_plays, MAX_PLAYS)' in src and 'pk["nba_fav"], leg["tier"], pk["tier"]' in src
+
+
+def test_fable_1027_the_daily_floor_fills_the_board_to_two_unit_plays_by_dog_score():
+    """10/27, the owner: "I don't care why the boards are leans ... at least ONE unit play per day. Preferably more units."
+    The funnel replay tried 12 ways to fill the 634 empty board days of 2023-26; only the dog score made money (fill to 2:
+    635-757, +6.4% flat, +44.6u at ½u, 3 of 4 seasons, every sport flat or up). So a board short of FLOOR_MIN unit plays
+    fills with the dogs the dog score likes best, ½u each, tagged floor - never past +350, never a trap, a named reason,
+    never one the own read fights, never a game we're on or in early, the opening board only."""
+    assert sports.FLOOR_MIN == 2 and sports.FLOOR_UNITS == 0.5 and sports.FLOOR_FROM == "2026-10-27"
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        mk = lambda gid, sc, odds=140, lg="nhl", **kw: {**_cand(gid, odds, 0.40, league=lg), "waiting": [], "sc": sc, **kw}
+        cands = [mk("a", 3.0), mk("b", 5.5, lg="nba"), mk("c", 9.0, odds=400), mk("d", 8.0, trap=True), mk("e", 7.0, reasons=[]),
+                 mk("f", 6.0, waiting=["the goalie"]), mk("g", 4.0, odds=-120), mk("h", 2.0, edge_own=0.30 * sd.decimal(140) - 1)]
+        got = sports.floor_plays(cands, set())                 # (h: own read 30% at +140 - fighting the price; g: a favorite)
+        assert [c["game_id"] for c in got] == ["b", "a"] and got[0]["floor_score"] == 5.5
+        assert [c["game_id"] for c in sports.floor_plays(cands, {"b"})] == ["a"]
+    finally:
+        sports.dog_score = keep
+    leg = {**_cand("b", 140, 0.40, league="nba"), "floor_score": 5.5}
+    pk = {"date": "2026-10-27", "kind": "play", "status": "open", "legs": [leg], "dec": leg["dec"], "american": 140,
+          "floor": {"dog_score": 5.5}, "tier": "value"}
+    assert sports.units_for(pk) == 0.5 and sports.sizing_check([pk]) == [] and sports.posted_kind(pk) == "floor"
+    probs = sports.rule_check([], [{**pk, "legs": [{**leg, "edge_own": 0.41 * leg["dec"] - 1}]}], "2026-10-27")
+    assert not any("doesn't beat" in x for x in probs), probs   # a floor play is a thin edge by design - the check knows
+    # the count the floor fills to: straight unit plays today, leans and waiting rows never
+    picks = [{"date": "2026-10-27", "kind": "lock", "status": "open", "lean": False, "units": 2.0, "legs": [{"game_id": "x", "odds": -130}]},
+             {"date": "2026-10-27", "kind": "lean", "status": "open", "lean": True, "legs": [{"game_id": "y", "odds": -110}]},
+             {"date": "2026-10-27", "kind": "play", "status": "waiting", "legs": []},
+             {"date": "2026-10-26", "kind": "dog", "status": "won", "units": 1.0, "legs": [{"game_id": "z", "odds": 150}]}]
+    assert sports.unit_plays_today(picks, "2026-10-27") == 1
+    picks[0]["legs"][0]["league"] = "nhl"
+    assert sports.unit_plays_today(picks, "2026-10-27", "nba") == 0 and sports.unit_plays_today(picks, "2026-10-27", "nhl") == 1
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '("floor", floor_plays, FLOOR_MIN)' in src and "room = FLOOR_MIN - unit_plays_today(picks, iso)" in src
+    assert 'if kind in ("lean", "floor", "nbafloor"):' in src   # (never a game we're in early)
+    # 🏀 the NBA floor: the best NBA dog by score (score 0+), one, on an NBA day with no NBA unit play
+    assert '("nbafloor", nba_floor_plays, 1)' in src and 'room = 1 - unit_plays_today(picks, iso, "nba")' in src
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        mk = lambda gid, sc, lg="nba", odds=160: {**_cand(gid, odds, 0.38, league=lg), "waiting": [], "sc": sc}
+        got = sports.nba_floor_plays([mk("a", -1.5), mk("b", 1.5), mk("c", 0.5), mk("d", 7.0, lg="nhl")], set())
+        assert [c["game_id"] for c in got] == ["b"] and got[0]["floor_score"] == 1.5
+        assert sports.nba_floor_plays([mk("a", -0.5), mk("d", 7.0, lg="nhl")], set()) == []   # score under 0: no NBA floor play
+        assert sports.nba_floor_plays([mk("b", 1.5)], {"b"}) == []
+    finally:
+        sports.dog_score = keep
+    npk = {**pk, "floor": {"dog_score": 1.5, "nba": True}}
+    assert sports.posted_kind(npk) == "nbafloor" and sports.units_for(npk) == 0.5 and sports.sizing_check([npk]) == []
+    dsrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert 'label = "VALUE PLAY · THIN EDGE"' in dsrc and 'label = "🏀 NBA FAVORITE PLAY"' in dsrc   # the card says what it is
 
 
 if __name__ == "__main__":
