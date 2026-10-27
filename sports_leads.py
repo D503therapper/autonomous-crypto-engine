@@ -138,6 +138,14 @@ def tags(c, sports):
             t.append("hoops fav wins inside")
         if any("12+ innings" in r for r in c.get("reasons") or []):
             t.append("MLB scoring-drought fav")
+        if lg == "ncaaf" and -150 <= c.get("odds", 0) <= -101 and (pyth_luck(c) or 0) <= UNLUCKY_FAV:
+            t.append("college small fav, record 0.15+ under its points (fade)")   # 10/27 daily study: -101..-150
+            #   favorites whose record sits 0.15+ under its points-for / against: -22.2% on 112 (train 2 of 7 up,
+            #   2023+ -27.9%, holdout -38% on 14, 2026 -13% on 24, early price -30%; dose 0.10 -6% / 0.20 -30% /
+            #   0.25 -42%), but the NFL cell is flat (-3.9% on 47) - tracked only, never a weight
+        if lg == "nba" and -150 <= c.get("odds", 0) <= -100 and halftime_comeback(c):
+            t.append("NBA small fav off a 10+ halftime comeback win")   # 10/27 daily study: train +31.8% on 68
+            #   (6 of 7 up, 8+ / 12+ the same sign) but holdout 2025 3-6 -42% and the NHL version flat - tracked only
         if lg == "nfl" and c.get("odds", 0) <= -151 and shootout_win(mo):
             t.append("NFL big fav off a 30-30 shootout win")         # 10/26 daily study: -151..-400 favorites that
             #   won a game both teams scored 30+ in: +20.2% on 62 (train 7 of 7 up, 2025 -11% on 8, early price +17%);
@@ -165,6 +173,69 @@ def shootout_win(mo):
     """Won its last game with both teams scoring 30+ (dog_more's last_pts / last_margin - the 10/26 study)."""
     pts, mar = (mo or {}).get("last_pts"), (mo or {}).get("last_margin")
     return pts is not None and mar is not None and mar > 0 and pts >= 30 and pts - mar >= 30
+
+
+UNLUCKY_FAV = -0.15      # (the 10/27 study's cutoff: this season's win % minus its points expectation, 4+ games)
+PYTH_EXP = 2.37         # the football Pythagorean exponent
+_GAMES = {}             # league -> the games file (loaded once per run)
+
+
+def _season_before(c):
+    """(team id, [this season's earlier final regular-season games, oldest first]) for the candidate's side - from the
+    games file, results only (nothing about today's game)."""
+    lg, gid = c.get("league"), c.get("game_id")
+    if lg not in _GAMES:
+        try:
+            _GAMES[lg] = sd.load_games(lg)
+        except Exception:                                    # noqa: BLE001
+            _GAMES[lg] = {}
+    G = _GAMES[lg]
+    g = G.get(gid) or {}
+    team, start = g.get(c.get("side") or ""), g.get("start") or c.get("start") or ""
+    if not team or len(start) < 7:
+        return None, []
+    y, m = int(start[:4]), int(start[5:7])
+    cut = 7 if lg in ("nfl", "ncaaf") else 9
+    since = f"{y if m >= cut else y - 1}-{cut:02d}-01"
+    rows = [x for x in G.values() if x.get("status") == "final" and str(x.get("stype") or "2") == "2"
+            and since <= (x.get("start") or "") < start and team in (x.get("home"), x.get("away"))
+            and x.get("home_score") not in ("", None) and x.get("away_score") not in ("", None)]
+    return team, sorted(rows, key=lambda x: x["start"])
+
+
+def pyth_luck(c):
+    """This season's win % minus its points-for / points-against expectation (football, 4+ games) - None otherwise."""
+    team, rows = _season_before(c)
+    if len(rows) < 4:
+        return None
+    w = l = pf = pa = 0
+    for x in rows:
+        me, op = ("home", "away") if x["home"] == team else ("away", "home")
+        a, b = float(x[me + "_score"]), float(x[op + "_score"])
+        pf += a
+        pa += b
+        w += a > b
+        l += a < b
+    if pf + pa <= 0 or w + l == 0:
+        return None
+    return w / (w + l) - pf ** PYTH_EXP / (pf ** PYTH_EXP + pa ** PYTH_EXP)
+
+
+def halftime_comeback(c, down=10):
+    """Won its last game (this season, 3+ games in) after trailing by `down`+ at the half (the line score's first two
+    quarters) - the 10/27 NBA study."""
+    team, rows = _season_before(c)
+    if len(rows) < 3:
+        return False
+    x = rows[-1]
+    me, op = ("home", "away") if x["home"] == team else ("away", "home")
+    try:
+        a = [int(float(v)) for v in str(x.get("ls_" + me) or "").split(",")][:2]
+        b = [int(float(v)) for v in str(x.get("ls_" + op) or "").split(",")][:2]
+        won = float(x[me + "_score"]) > float(x[op + "_score"])
+    except (ValueError, TypeError):
+        return False
+    return len(a) == 2 and len(b) == 2 and won and sum(a) - sum(b) <= -down
 
 
 def load():

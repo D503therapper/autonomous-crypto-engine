@@ -11589,7 +11589,8 @@ def test_injury_line_names_the_players_who_play_first():
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
-    assert 'outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))' in src
+    assert 'rows = who_plays_first(g, side, sd.team_injuries((injuries or {}).get(g["league"]), g[side], name))' in src
+    assert 'leg[key] = card_outs(games, g, side, name, injuries)' in src     # (10/27: the card's list, via card_outs)
 
 
 def test_official_reports_are_read_for_their_game_day_only_and_covers_names_land():
@@ -13861,6 +13862,83 @@ def test_daily_1026_two_tracker_leads_tag_the_right_sides_and_never_touch_a_read
     assert sname not in sl.tags({**fav, "dog_more": {"last_pts": 31.0, "last_margin": -3.0}}, sports)  # lost 31-34
     assert sname not in sl.tags({**fav, "league": "ncaaf"}, sports)
     assert not hasattr(sports, "SHOOTOUT_W") and not hasattr(sports, "EARLY_TIP_W")   # tracked, never weighed
+
+
+
+def test_daily_1027_the_card_names_a_key_man_the_absence_penalty_weighs():
+    """10/27 daily run (the 10/26 Eagles +4.5 lean): Jalen Hurts was off the report's Out / Doubtful rows (a long-term
+    status - injured reserve), so sports_absences.penalty took the QB points off the Eagles' read, but the card's 🚑 list
+    (sd.team_injuries = Out / Doubtful only) never named him - the card said "Under center for Eagles, Tanner McKee"
+    with no word that the starter was out. The card's who's-out list now leads with the key men the penalty weighs;
+    a man who sat the last 2 box scores stays off (old news), and nobody is named twice."""
+    import sports_absences
+    keep = (sd.team_injuries, sports.who_plays_first, sports_absences.penalty, sports._sat_lately)
+    try:
+        sd.team_injuries = lambda inj, tid, name: [("DeVonta Smith", "WR", "Out"), ("Nolan Smith Jr.", "LB", "Out")]
+        sports.who_plays_first = lambda g, side, rows: rows
+        sports_absences.penalty = lambda games, g, side, inj, skip_qb=False: (0.08, ["QB Jalen Hurts", "WR DeVonta Smith"])
+        sports._sat_lately = lambda g, side, name: False
+        g = {"id": "nfl:1", "league": "nfl", "home": "21", "away": "6", "home_name": "Eagles", "away_name": "Cowboys",
+             "start": "2026-10-27T00:15Z"}
+        outs = sports.card_outs({}, g, "home", "Eagles", {"nfl": {}})
+        assert outs == ["Jalen Hurts (QB)", "DeVonta Smith (WR)", "Nolan Smith Jr. (LB)"], outs
+        sports._sat_lately = lambda g, side, name: name == "Jalen Hurts"     # sat the last 2: old news, not named
+        assert sports.card_outs({}, g, "home", "Eagles", {"nfl": {}}) == ["DeVonta Smith (WR)", "Nolan Smith Jr. (LB)"]
+        sports_absences.penalty = lambda *a, **k: (0.0, [])                  # nobody key out: the report's rows as before
+        sports._sat_lately = lambda g, side, name: False
+        assert sports.card_outs({}, g, "home", "Eagles", {"nfl": {}}) == ["DeVonta Smith (WR)", "Nolan Smith Jr. (LB)"]
+        sports_absences.penalty = lambda *a, **k: (0.09, ["Luka Doncic"])     # hoops: the penalty names the man alone
+        g2 = {**g, "league": "nba"}
+        assert sports.card_outs({}, g2, "home", "Lakers", {"nba": {}})[0] == "Luka Doncic"
+    finally:
+        sd.team_injuries, sports.who_plays_first, sports_absences.penalty, sports._sat_lately = keep
+
+
+def test_daily_1027_two_tracker_leads_tag_the_right_sides_and_never_touch_a_read():
+    """10/27 daily studies (results/studies/daily_1027/): two LEADs go to the tracker only - a college -101..-150
+    favorite whose record sits 0.15+ under its points this season (fade; -22.2% on 112, NFL flat), and an NBA
+    -100..-150 favorite that won its last game after trailing by 10+ at the half (train +31.8% on 68, holdout 3-6).
+    Tags only, from earlier games of this season only - no weight."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, hs, as_, lsh="", lsa=""):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_), "ls_home": lsh, "ls_away": lsa}
+        G = {}
+        # college: team T is 2-3 but outscored everybody 150-100 (unlucky by ~0.3); last season's games don't count
+        for k, (h, a, hs, as_) in enumerate([("T", "A", 45, 10), ("B", "T", 24, 21), ("T", "C", 20, 23),
+                                             ("D", "T", 13, 45), ("T", "E", 19, 33)]):
+            G[f"ncaaf:{k}"] = fg(f"ncaaf:{k}", f"2026-09-{5 + 7 * k:02d}T19:00Z", h, a, hs, as_)
+        G["ncaaf:old"] = fg("ncaaf:old", "2025-11-20T19:00Z", "T", "Z", 0, 70)
+        G["ncaaf:now"] = {"id": "ncaaf:now", "start": "2026-10-17T19:00Z", "status": "pre", "stype": "2", "home": "T", "away": "F"}
+        sl._GAMES["ncaaf"] = G
+        fav = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:now", "side": "home", "odds": -130,
+               "team": "Ts", "opp": "Fs", "start": "2026-10-17T19:00Z"}
+        name = "college small fav, record 0.15+ under its points (fade)"
+        assert sl.pyth_luck(fav) is not None and sl.pyth_luck(fav) <= -0.15, sl.pyth_luck(fav)
+        assert name in sl.tags(fav, sports)
+        assert name not in sl.tags({**fav, "odds": -170}, sports)          # past the band
+        assert name not in sl.tags({**fav, "odds": 120}, sports)           # a dog
+        assert name not in sl.tags({**fav, "side": "away"}, sports)        # the other team (no games on file)
+        # NBA: the Lakers won their last 128-120 after trailing 50-64 at the half
+        N = {}
+        for k in range(3):
+            N[f"nba:{k}"] = fg(f"nba:{k}", f"2026-10-2{k}T23:00Z", "L", f"O{k}", 100, 110, "25,25,25,25", "28,28,27,27")
+        N["nba:3"] = fg("nba:3", "2026-10-25T23:00Z", "L", "P", 128, 120, "24,26,40,38", "32,32,28,28")
+        N["nba:now"] = {"id": "nba:now", "start": "2026-10-27T23:00Z", "status": "pre", "stype": "2", "home": "L", "away": "Q"}
+        sl._GAMES["nba"] = N
+        nfav = {"market": "ml", "league": "nba", "game_id": "nba:now", "side": "home", "odds": -135, "team": "Lakers",
+                "opp": "Q", "start": "2026-10-27T23:00Z"}
+        cname = "NBA small fav off a 10+ halftime comeback win"
+        assert cname in sl.tags(nfav, sports)
+        assert cname not in sl.tags({**nfav, "odds": -180}, sports)
+        N["nba:3"]["ls_home"] = "30,26,36,36"                             # down 56-64: only 8 at the half
+        assert cname not in sl.tags(nfav, sports)
+        assert not hasattr(sports, "UNLUCKY_FAV_W") and not hasattr(sports, "COMEBACK_W")   # tracked, never weighed
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
 
 
 if __name__ == "__main__":

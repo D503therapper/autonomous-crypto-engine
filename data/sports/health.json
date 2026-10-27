@@ -1,27 +1,96 @@
 {
- "at": "2026-10-27T12:59Z",
+ "at": "2026-10-27T16:53Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Cinalli vs Candiotto: no points for 339s",
+  "live tennis scores: tennis Sierra vs Daniele: no points for 339s",
+  "live tennis scores: tennis Galfi vs Blinkova: no points for 339s",
+  "live tennis scores: tennis Sobolieva vs Bandecchi: no points for 339s",
+  "live tennis scores: tennis Pawlikowska vs Colmegna: no points for 339s",
+  "live tennis scores: tennis Arango vs Mandlik: no points for 339s",
+  "live tennis points check failed: The read operation timed out"
+ ],
  "ok": [
-  "live watcher fresh (14s)",
+  "live watcher fresh (1s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 5 live matches",
+  "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 60 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 40 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T16:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs Candiotto: no points for 339s",
+    "live tennis scores: tennis Sierra vs Daniele: no points for 339s",
+    "live tennis scores: tennis Galfi vs Blinkova: no points for 339s",
+    "live tennis scores: tennis Sobolieva vs Bandecchi: no points for 339s",
+    "live tennis scores: tennis Pawlikowska vs Colmegna: no points for 339s",
+    "live tennis scores: tennis Arango vs Mandlik: no points for 339s",
+    "live tennis points check failed: The read operation timed out"
+   ]
+  },
+  {
+   "at": "2026-10-27T16:48Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-27T16:47Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs Candiotto: no points for 2625s",
+    "live tennis scores: tennis Sierra vs Daniele: no points for 736s",
+    "live tennis scores: tennis Galfi vs Blinkova: no points for 2179s",
+    "live tennis scores: tennis Sobolieva vs Bandecchi: no points for 238s",
+    "live tennis scores: tennis Pawlikowska vs Colmegna: no points for 2625s",
+    "live tennis scores: tennis Mi vs Reami: no points for 2625s",
+    "live tennis scores: tennis Arango vs Mandlik: no points for 736s"
+   ]
+  },
+  {
+   "at": "2026-10-27T15:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-27T15:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Riera: no points for 2620s",
+    "live tennis scores: tennis Urrutia vs Jones: no points for 2620s",
+    "live tennis scores: tennis Klimovicova vs Maduzzi: no points for 1810s",
+    "live tennis scores: tennis Kubka vs Ristic: no points for 1092s"
+   ]
+  },
+  {
+   "at": "2026-10-27T14:32Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Riera: no points for 164s",
+    "live tennis scores: tennis Urrutia vs Jones: no points for 164s",
+    "live tennis scores: tennis Selekhmeteva vs Nagy: no points for 164s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-27T12:59Z",
    "fixes": [],
@@ -458,36 +527,6 @@
   },
   {
    "at": "2026-10-25T21:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T21:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T19:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T19:46Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T19:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T18:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T17:53Z",
    "fixes": [],
    "problems": []
   }

@@ -3188,6 +3188,29 @@ def _sat_lately(g, side, name):
         return False
 
 
+def card_outs(games, g, side, name, injuries, n=4):
+    """The card's who's-out list for a side: the report's Out / Doubtful men, the ones who play first, AND a key man the
+    absence penalty weighs from a long-term status (10/27 daily run: Jalen Hurts went on injured reserve before the 10/26
+    Monday night game - sports_absences.penalty took the QB points off the Eagles' read, but the card's 🚑 list read
+    Out / Doubtful only (sd.team_injuries), so the most important fact on the card never showed). A key man who sat the
+    team's last 2 box scores is old news and stays off (_sat_lately)."""
+    rows = who_plays_first(g, side, sd.team_injuries((injuries or {}).get(g["league"]), g[side], name))
+    named = [f"{r[0]} ({r[1]})" if r[1] else r[0] for r in rows]
+    try:
+        import sports_absences
+        gone = sports_absences.penalty(games, g, side, injuries)[1]
+    except Exception:                                        # noqa: BLE001
+        gone = []
+    have = {x.split(" (")[0].lower() for x in named}
+    extra = []
+    for x in gone:
+        role, nm = (x.split(" ", 1) if g["league"] in ("nfl", "ncaaf") and " " in x else ("", x))
+        if nm.lower() not in have and not _sat_lately(g, side, nm):
+            extra.append(f"{nm} ({role})" if role else nm)
+            have.add(nm.lower())
+    return (extra + named)[:n]
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
     matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions -
@@ -3988,8 +4011,7 @@ def post_board(games, model, picks, now, day, force=False):
             g = games[leg["game_id"]]
             other = "away" if leg["side"] == "home" else "home"
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
-                outs = who_plays_first(g, side, sd.team_injuries(injuries.get(leg["league"]), g[side], name))
-                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]   # (10/16: the ones who play first)
+                leg[key] = card_outs(games, g, side, name, injuries)   # (10/16: the ones who play first)
             elo = elo or sm.ratings(games, model)
             same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)

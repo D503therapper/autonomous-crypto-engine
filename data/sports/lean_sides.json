@@ -13,12 +13,12 @@
   "start": "2026-10-27T00:00Z",
   "team": "Rays"
  },
- "nba:401909093": {
+ "mlb:401908045": {
   "market": "ml",
-  "own": 0.5628,
-  "side": "home",
-  "start": "2026-10-22T23:00Z",
-  "team": "76ers"
+  "own": 0.5181,
+  "side": "away",
+  "start": "2026-10-28T00:00Z",
+  "team": "Brewers"
  },
  "nba:401909095": {
   "market": "ml",
@@ -26,27 +26,6 @@
   "side": "home",
   "start": "2026-10-23T23:00Z",
   "team": "Celtics"
- },
- "nba:401909838": {
-  "market": "ml",
-  "own": 0.5249,
-  "side": "home",
-  "start": "2026-10-22T00:00Z",
-  "team": "Grizzlies"
- },
- "nba:401909839": {
-  "market": "ml",
-  "own": 0.5545,
-  "side": "away",
-  "start": "2026-10-22T00:00Z",
-  "team": "Pacers"
- },
- "nba:401909841": {
-  "market": "ml",
-  "own": 0.563,
-  "side": "home",
-  "start": "2026-10-22T02:00Z",
-  "team": "Trail Blazers"
  },
  "nba:401909847": {
   "market": "ml",
@@ -139,6 +118,27 @@
   "start": "2026-10-27T01:00Z",
   "team": "Grizzlies"
  },
+ "nba:401909877": {
+  "market": "spread",
+  "own": 0.5052,
+  "side": "home",
+  "start": "2026-10-27T23:30Z",
+  "team": "Celtics"
+ },
+ "nba:401909879": {
+  "market": "spread",
+  "own": 0.5108,
+  "side": "home",
+  "start": "2026-10-28T00:00Z",
+  "team": "Spurs"
+ },
+ "nba:401909880": {
+  "market": "ml",
+  "own": 0.5514,
+  "side": "home",
+  "start": "2026-10-28T03:00Z",
+  "team": "Lakers"
+ },
  "ncaaf:401856729": {
   "market": "ml",
   "own": 0.2326,
@@ -209,26 +209,12 @@
   "start": "2026-10-24T22:30Z",
   "team": "San Diego St"
  },
- "ncaaf:401862807": {
-  "market": "ml",
-  "own": 0.2321,
-  "side": "away",
-  "start": "2026-10-22T23:30Z",
-  "team": "East Carolina"
- },
  "ncaaf:401864526": {
   "market": "ml",
   "own": 0.4242,
   "side": "home",
   "start": "2026-10-24T19:30Z",
   "team": "N Illinois"
- },
- "ncaaf:401869845": {
-  "market": "ml",
-  "own": 0.2678,
-  "side": "home",
-  "start": "2026-10-22T23:00Z",
-  "team": "App State"
  },
  "ncaaf:401869967": {
   "market": "ml",
@@ -237,12 +223,12 @@
   "start": "2026-10-24T21:00Z",
   "team": "Southern Miss"
  },
- "ncaaf:401871056": {
+ "ncaaf:401871071": {
   "market": "ml",
-  "own": 0.2793,
+  "own": 0.5,
   "side": "home",
-  "start": "2026-10-22T23:00Z",
-  "team": "Kennesaw St"
+  "start": "2026-10-27T23:00Z",
+  "team": "Western KY"
  },
  "nfl:401873009": {
   "market": "spread",
@@ -299,34 +285,6 @@
   "side": "home",
   "start": "2026-10-26T00:20Z",
   "team": "Seahawks"
- },
- "nhl:401892553": {
-  "market": "ml",
-  "own": 0.5119,
-  "side": "away",
-  "start": "2026-10-22T23:00Z",
-  "team": "Rangers"
- },
- "nhl:401892554": {
-  "market": "ml",
-  "own": 0.5415,
-  "side": "away",
-  "start": "2026-10-22T23:00Z",
-  "team": "Sharks"
- },
- "nhl:401892556": {
-  "market": "ml",
-  "own": 0.5064,
-  "side": "home",
-  "start": "2026-10-22T23:00Z",
-  "team": "Penguins"
- },
- "nhl:401892557": {
-  "market": "ml",
-  "own": 0.518,
-  "side": "away",
-  "start": "2026-10-22T23:30Z",
-  "team": "Kings"
  },
  "nhl:401892561": {
   "market": "ml",
@@ -397,5 +355,54 @@
   "side": "away",
   "start": "2026-10-27T00:30Z",
   "team": "Maple Leafs"
+ },
+ "nhl:401892585": {
+  "market": "ml",
+  "own": 0.5656,
+  "side": "away",
+  "start": "2026-10-27T23:00Z",
+  "team": "Blue Jackets"
+ },
+ "nhl:401892587": {
+  "market": "ml",
+  "own": 0.5073,
+  "side": "home",
+  "start": "2026-10-28T00:00Z",
+  "team": "Blackhawks"
+ },
+ "nhl:401892588": {
+  "market": "ml",
+  "own": 0.5591,
+  "side": "home",
+  "start": "2026-10-28T00:00Z",
+  "team": "Blues"
+ },
+ "nhl:401892589": {
+  "market": "ml",
+  "own": 0.5239,
+  "side": "home",
+  "start": "2026-10-28T00:00Z",
+  "team": "Predators"
+ },
+ "nhl:401892591": {
+  "market": "ml",
+  "own": 0.5859,
+  "side": "away",
+  "start": "2026-10-28T00:00Z",
+  "team": "Panthers"
+ },
+ "nhl:401892592": {
+  "market": "ml",
+  "own": 0.5555,
+  "side": "home",
+  "start": "2026-10-28T01:00Z",
+  "team": "Mammoth"
+ },
+ "nhl:401892595": {
+  "market": "ml",
+  "own": 0.5541,
+  "side": "away",
+  "start": "2026-10-28T02:30Z",
+  "team": "Sabres"
  }
 }
