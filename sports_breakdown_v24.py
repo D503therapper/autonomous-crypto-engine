@@ -439,7 +439,8 @@ FACT_KEYS = {   # (10/25) the lines that carry a fact - a score, a record, who's
     "keyout", "banged", "healthy", "splits_f", "splits_w", "splits_y", "bump", "revenge", "letdown", "momentum",
     "nba_last", "cx_trip", "cx_trip_home", "trash", "G_cold", "G_hot", "QB_cold", "QB_hot", "SP_cold", "SP_hot",
     "QB_washed", "f_last", "f_skid", "f_heat", "f_site", "f_rest", "f_b2b", "f_trip", "f_outs", "f_net", "f_qb",
-    "f_pts", "f_pdo", "f_pyth", "f_shots", "f_go4", "f_h2h", "f_bye", "f_short", "f_ot"}
+    "f_pts", "f_pdo", "f_pyth", "f_shots", "f_go4", "f_h2h", "f_bye", "f_short", "f_ot", "f_last5", "f_gpg", "f_wall",
+    "f_theirL", "risk"}
 
 
 class Voice:
@@ -449,6 +450,22 @@ class Voice:
     def __init__(self, seed, used=None):
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
         self.names = ()
+        self.dirs = {}          # (10/27) line -> "us" / "neutral": which side a body line argues for (unset = ours)
+        self.knocks = []        # (10/27) (priority, fact) - the facts that favor the OTHER side; one, the biggest, posts
+        #                         as the ⚠️ risk line at the end of the card. Never a body line (the owner, 10/27: "a lot
+        #                         of facts that support the opposing team")
+
+    def tag(self, line, d):
+        """Mark a line's direction ("us" / "neutral") and hand it back."""
+        if line:
+            self.dirs[line] = d
+        return line
+
+    def knock(self, pr, fact):
+        """A fact that favors the other side: kept for the one ⚠️ risk line, never a body line."""
+        if fact:
+            self.knocks.append((pr, fact))
+        return ""
 
     def say(self, key, options, must=False, names=(), tags=None, fact=False):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
@@ -685,9 +702,14 @@ def breakdown(leg, games, elo, injuries, used=None):
                                                f"⚖️ Same kind of record, tougher schedule: {us} lost to {nm}.",
                                                f"⚖️ Don't let {_ru} fool you — {us} took {one} from {nm}."]))
             elif close_records(_ru, _rt) and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
-                out.append(v.say("even", [f"⚖️ Even on paper: {us} {_ru}, {them} {_rt}.",
-                                           f"⚖️ {us} {_ru}, {them} {_rt} — no separation on the records.",
-                                           f"⚖️ Records are close: {us} {_ru}, {them} {_rt}."]))
+                plus = (leg.get("odds") or 0) > 0             # (10/27: said FOR us - a wash on paper at plus money is
+                out.append(v.tag(v.say("even", [               #  the whole point of a dog; never "even" as a shrug)
+                    f"⚖️ {us} {_ru}, {them} {_rt} - a wash on paper, and the book's paying us plus money to take {us}.",
+                    f"⚖️ Nothing between these two on the records ({us} {_ru}, {them} {_rt}) - so we take the plus money side.",
+                    f"⚖️ {_ru} vs {_rt}. Dead even on paper, which is exactly why plus money on {us} is the play."] if plus else [
+                    f"⚖️ {us} {_ru}, {them} {_rt} - a wash on the records, so the rest of this card is where {us} separate.",
+                    f"⚖️ Records say even ({us} {_ru}, {them} {_rt}). The numbers under the hood say {us}.",
+                    f"⚖️ {_ru} against {_rt} - nothing in it on paper. The matchup's where {us} win this."]), "neutral"))
 
     # 🏀 the opening weeks of hoops: every team is 0-1 and the cards came out empty (10/21) - the one fact that's always
     # true then is LAST season (both records, the point gap, who we added), from the box scores we hold
@@ -704,18 +726,28 @@ def breakdown(leg, games, elo, injuries, used=None):
     # the record, when nothing above compared it: with the other side's record, or with the last game's score
     if rec_line and not any(x and x[:1] in "💪🐺⚖" for x in out):
         last_said = _said(s_ours[-1], tid, pro) if s_ours else ""
-        if rec_t and len(r_theirs) >= MIN_REC_GAMES:
-            out.append(v.say("rec", [f"📋 {us} {rec_u}, {them} {rec_t}.",
-                                      f"📋 Records: {us} {rec_u}, {them} {rec_t}.",
-                                      f"📋 {us} come in {rec_u}; {them} are {rec_t}.",
-                                      f"📋 {us} are {rec_u} on the year, {them} {rec_t}."]))
+        _wsh = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
+        if rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) > _wsh(rec_t):
+            out.append(v.say("rec", [f"📋 {us} sit {rec_u}; {them} are {rec_t}. Better record's on our side.",
+                                      f"📋 {rec_u} for {us}, {rec_t} for {them}. We got the better squad on paper.",
+                                      f"📋 {us} come in {rec_u}, {them} {rec_t} - the record backs our side.",
+                                      f"📋 {us} {rec_u}, {them} {rec_t}. Our side's been winning more, that's just facts."]))
+        elif rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) < _wsh(rec_t):   # (10/27: their better record
+            v.knock(3, f"{them} come in {rec_t} to {_pos(us)} {rec_u}")                  #  is a knock, never a reason)
+            if last_said:
+                out.append(v.tag(v.say("rec", [f"📋 {us} are {rec_u} after a {last_said}.",
+                                                f"📋 {rec_u} for {us}, last time out a {last_said}."]), "neutral"))
+        elif rec_t and len(r_theirs) >= MIN_REC_GAMES:
+            out.append(v.tag(v.say("rec", [f"📋 {us} {rec_u}, {them} {rec_t}. Same record, different reasons - keep reading.",
+                                            f"📋 Both sides {rec_u}: {us} and {them} walk in with the same record.",
+                                            f"📋 {us} {rec_u}, {them} {rec_t} - same spot in the standings, not the same team."]), "neutral"))
         elif last_said:
-            out.append(v.say("rec", [f"📋 {us} are {rec_u} after a {last_said}.",
-                                      f"📋 {us} {rec_u} on the year - last time out, a {last_said}.",
-                                      f"📋 {us} sit {rec_u}; their last one was a {last_said}.",
-                                      f"📋 {rec_u} for {us}, fresh off a {last_said}."]))
+            out.append(v.tag(v.say("rec", [f"📋 {us} are {rec_u} after a {last_said}.",
+                                            f"📋 {us} {rec_u} on the year - last time out, a {last_said}.",
+                                            f"📋 {us} sit {rec_u}; their last one was a {last_said}.",
+                                            f"📋 {rec_u} for {us}, fresh off a {last_said}."]), "neutral"))
         else:
-            out.append(v.say("rec", [f"📋 {us} are {rec_u} on the year.", f"📋 {us} sit {rec_u} so far."]))
+            out.append(v.tag(v.say("rec", [f"📋 {us} are {rec_u} on the year.", f"📋 {us} sit {rec_u} so far."]), "neutral"))
 
     # talk our talk when the other side's been bad (only when the numbers back it up)
     if r_theirs:
@@ -946,18 +978,32 @@ def breakdown(leg, games, elo, injuries, used=None):
         _hm = [x for x in r_ours if x.get("home") == tid]
         if len(_hm) >= 2:                                # (10/1: never vague - the home record, or nothing)
             _hr = _record(_hm, tid)
-            out.append(v.say("home", [f"🏟️ {us} are {_hr} at home this year.",
-                                       f"🏟️ Home game for {us} — {_hr} in their building so far.",
-                                       f"🏟️ {us} at home: {_hr} this season.",
-                                       f"🏟️ {_hr} at home for {us} this year."]))
+            _w = sum(1 for x in _hm if _line(x, tid).startswith("W"))
+            if 2 * _w > len(_hm):                        # (10/27: a losing home record is a knock, not a reason)
+                out.append(v.say("home", [f"🏟️ {us} are {_hr} at home this year. Their building, their rules.",
+                                           f"🏟️ {us} take care of home: {_hr} in their building so far.",
+                                           f"🏟️ {_hr} at home for {us}. Teams don't come in here and eat.",
+                                           f"🏟️ Home cooking for {us} - {_hr} in their own building this season."]))
+            elif 2 * _w < len(_hm):
+                v.knock(3, f"{us} are {_hr} at home this year")
+            else:
+                out.append(v.tag(v.say("home", [f"🏟️ {us} are {_hr} at home so far.",
+                                                 f"🏟️ {_hr} at home this year for {us}."]), "neutral"))
     else:
         _rd = [x for x in r_ours if x.get("away") == tid]
         if len(_rd) >= 2:                                # (10/1: "they travel just fine" said nothing - the record does)
             _rr = _record(_rd, tid)
-            out.append(v.say("road", [f"🧳 {us} are {_rr} on the road this year.",
-                                       f"🧳 Road game for {us} — {_rr} away from home so far.",
-                                       f"🧳 {us} away from home: {_rr} this season.",
-                                       f"🧳 {_rr} on the road for {us} this year."]))
+            _w = sum(1 for x in _rd if _line(x, tid).startswith("W"))
+            if 2 * _w > len(_rd):
+                out.append(v.say("road", [f"🧳 {us} are {_rr} on the road this year. They pack their game.",
+                                           f"🧳 Road game, no problem: {us} are {_rr} away from home this season.",
+                                           f"🧳 {_rr} on the road for {us}. Other people's buildings don't scare 'em.",
+                                           f"🧳 {us} go on the road and win: {_rr} away from home."]))
+            elif 2 * _w < len(_rd):                      # (10/27: an 0-3 road record is the knock, never a body line)
+                v.knock(3, f"{us} are {_rr} on the road this year")
+            else:
+                out.append(v.tag(v.say("road", [f"🧳 {us} are {_rr} on the road so far.",
+                                                 f"🧳 {_rr} away from home this year for {us}."]), "neutral"))
 
     # rest
     if ours and theirs:
@@ -1094,38 +1140,23 @@ def breakdown(leg, games, elo, injuries, used=None):
     key_them2 = sd.team_key_out(inj, oid, them, lg) if inj else None
     if key_us and key_them2 and lg == "mlb":
         nm, nm2 = key_us[0][0], key_them2[0][0]
-        out.append(v.say("keyout_both_bat", [
+        out.append(v.tag(v.say("keyout_both_bat", [
             f"🚑 Both lineups are missing a big bat — no {nm} for {the_us}, no {nm2} for {the_them}. Still our side.",
             f"🚑 Both sides are missing someone: {nm} ({the_us}) and {nm2} ({the_them}). The price already has it - we still like {the_us}."],
-            must=True))
+            must=True), "neutral"))
     elif key_us and key_them2:                            # both teams down a starter: one plain line, not two
         pos, nm, nm2 = _posname(key_us[0][1], lg), key_us[0][0], key_them2[0][0]
         mv = ""                                           # (10/23, the owner: no line-move talk in the write-up)
-        out.append(v.say("keyout_both", [
+        out.append(v.tag(v.say("keyout_both", [
             f"🚑 Both teams are down their starting {pos} — {nm} is out for {the_us}, {nm2} for {the_them}.{mv} We still riding with the algorithm.",
             f"🚑 Backups on both sides tonight: no {nm} for {the_us}, no {nm2} for {the_them}.{mv} The numbers still say this the side.",
             f"🚑 Neither team has its starting {pos} — {nm} ({the_us}) and {nm2} ({the_them}) are both out.{mv} We still like {the_us}."],
-            must=True))
-    elif key_us and lg == "mlb":                          # our best bat is out: say it, and say why we still ride
-        nm = key_us[0][0]                                 # (the owner, 9/29: like the Caleb Williams one - it's out,
-        mv = ""                                           # it don't change our call. A bat on the IL has been out a
-        #                                                   while - today's line move isn't "for it")
-        out.append(v.say("keyout_us_bat", [
-            f"🚑 Yeah, {nm} is out for {the_us}. We know.{mv} The price already knows it too, and the numbers still say this the side.",
-            f"🚑 No {nm} tonight — that's a big bat missing for {the_us}.{mv} Doesn't change our call. We riding with the algorithm.",
-            f"🚑 {nm} ain't playing. Everybody's scared off {the_us} because of it.{mv} We ain't — the rest of this lineup still gets it done."],
-            must=True))
-    elif key_us:
-        pos, nm = _posname(key_us[0][1], lg), key_us[0][0]
-        mv = ""                                           # (10/23, the owner: no line-move talk in the write-up)
-        pts = leg.get("line") if leg.get("market") == "spread" else None
-        need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
-            if pts and pts > 0 and pts != int(pts) else ""
-        out.append(v.say("keyout_us", [
-            f"🚑 {nm} is out, {the_us} rolling with the backup {pos}.{mv} We know. We still riding with the algorithm.{need}",
-            f"🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
-            f"🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}"],
-            must=True))
+            must=True), "neutral"))
+    elif key_us and lg == "mlb":                          # our best bat is out: the card's ONE risk line (10/27)
+        v.knock(10, f"{key_us[0][0]}, one of {_pos(the_us)} best bats, is out")
+    elif key_us:                                          # our starter out: the biggest knock there is - it posts as the
+        pos, nm = _posname(key_us[0][1], lg), key_us[0][0]   # ⚠️ line, never as a body line (10/27)
+        v.knock(10, f"{nm} is out and {the_us} roll with the backup {pos}")
     # (10/23, the owner: "we don't need to talk about the line moving. We've proved that when the line moves, it doesn't
     #  even really matter." The 💰 money lines ('+200 → +180') and the 💸 'the line moved toward them' warning are GONE
     #  from the write-up - the move stays a weight in the engine, the card never talks about it.
@@ -1138,10 +1169,10 @@ def breakdown(leg, games, elo, injuries, used=None):
     if sp_ and sp_[1] is None:                            # bets % only (Yahoo's backup has no money %): say that plain
         t = sp_[0]
         crowd = the_us if t >= 50 else the_them
-        out.append(v.say("splits_y", [
+        out.append(v.tag(v.say("splits_y", [
             f"📊 {max(t, 100 - t)}% of the bets are on {crowd}." + (" We with 'em on this one." if t >= 50 else " We on the other side."),
             f"📊 The public's got {max(t, 100 - t)}% of the tickets on {crowd}." + (" Same side as us." if t >= 50 else " Not us."),
-            f"📊 {crowd} got {max(t, 100 - t)}% of the bets." + (" Popular pick, right pick." if t >= 50 else " We fading that.")]))
+            f"📊 {crowd} got {max(t, 100 - t)}% of the bets." + (" Popular pick, right pick." if t >= 50 else " We fading that.")]), "neutral"))
         sp_ = None
     if sp_:
         t, m = sp_
@@ -1150,17 +1181,17 @@ def breakdown(leg, games, elo, injuries, used=None):
         #  the crowd lines". The splits don't pick winners (the 10/7 study, dead), so the card just says who's on
         #  who when it's lopsided - a 40-60 split says nothing and is dropped)
         if t <= 35:
-            out.append(v.say("splits_f", [
+            out.append(v.tag(v.say("splits_f", [
                 f"📊 {100 - t}% of the bets and {100 - m}% of the money on {the_them} on {mk}. We on the other side.",
                 f"📊 The public's on {the_them}: {100 - t}% of the bets, {100 - m}% of the money. Not us.",
                 f"📊 {_cap(the_them)} got {100 - t}% of the tickets ({100 - m}% of the money). We got {the_us}.",
-                f"📊 Everybody and they mama on {the_them} ({100 - t}% of the bets). We riding {the_us} anyway."]))
+                f"📊 Everybody and they mama on {the_them} ({100 - t}% of the bets). We riding {the_us} anyway."]), "neutral"))
         elif t >= 65:
-            out.append(v.say("splits_w", [
+            out.append(v.tag(v.say("splits_w", [
                 f"📊 {t}% of the bets and {m}% of the money on {the_us}. Same side as the public on this one.",
                 f"📊 The public's with us: {t}% of the bets, {m}% of the money on {the_us}.",
                 f"📊 {_cap(the_us)} got {t}% of the tickets ({m}% of the money). Popular side.",
-                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money."]))
+                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money."]), "neutral"))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
@@ -1180,6 +1211,12 @@ def breakdown(leg, games, elo, injuries, used=None):
     added = more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
                        ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs)
     out += added
+    # ⚠️ THE ONE RISK LINE (10/27, the owner: "there's a lot of facts that support the opposing team"): every fact that
+    # favors the other side went into v.knocks instead of the body; the single biggest posts here, framed as the risk,
+    # right before the bottom line. Nothing else on the card argues for them.
+    risk = risk_line(v, us, them, the_us)
+    if risk:
+        out.append(risk)
 
     # bottom line - in our lingo, never the book-vs-us odds talk (the owner, 9/29: that don't make sense), and never the
     # same wording twice on a board (a big pool per kind; the Voice skips any wording already used)
@@ -1279,6 +1316,10 @@ def breakdown(leg, games, elo, injuries, used=None):
         gone = set(drop[:max(0, len(body) - keep)])
         body = [x for i, x in enumerate(body) if i not in gone]
         rnd.shuffle(body)
+        # (10/27) the card is OUR case: the lines for our side first, the even-handed context after, the one ⚠️ risk
+        # line last - right before the bottom line
+        rank = {"us": 0, "neutral": 1, "risk": 2}
+        body.sort(key=lambda x: rank.get("risk" if str(x).startswith("⚠️") else v.dirs.get(x, "us"), 0))
         lines = body + [bottom]
     short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
     if len(lines) - 1 < short_floor:                      # (never padded with filler: the log says the facts ran out)
@@ -1308,170 +1349,286 @@ def _body(out):
     return " ".join(str(x) for x in out if x).lower()
 
 
+def _sv(txt):
+    """The save % in a goalie's form line ('a 0.868 save % ...') -> 0.868, or None."""
+    m = re.search(r"(0\.\d{3}) save", str(txt or ""))
+    return float(m.group(1)) if m else None
+
+
+def _qb_nums(txt):
+    """(TDs, picks, yards) from a QB's form line ('8 TDs, 3 picks and 709 yards ...'), or None."""
+    m = re.search(r"(\d+) TDs?, (\d+) picks? and ([\d,]+) yards", str(txt or ""))
+    return (int(m.group(1)), int(m.group(2)), int(m.group(3).replace(",", ""))) if m else None
+
+
+def _last_n(gs, tid, n=5):
+    """(wins, losses) over the team's last n games on file - only with the full n."""
+    last = (gs or [])[-n:]
+    if len(last) < n:
+        return None
+    w = sum(1 for x in last if _line(x, tid).startswith("W"))
+    lo = sum(1 for x in last if _line(x, tid).startswith("L"))
+    return w, lo
+
+
+def _per_game(gs, tid):
+    """(scored, allowed) a game over a season's games, one decimal (hockey) or whole (the rest)."""
+    if not gs:
+        return None
+    f = a = 0
+    for x in gs:
+        home = x["home"] == tid
+        f += int(x["home_score"] if home else x["away_score"])
+        a += int(x["away_score"] if home else x["home_score"])
+    return f / len(gs), a / len(gs)
+
+
 def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
                ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs):
     """The facts the card hasn't said yet (10/25) - every line a score, a record, a name or a count from the leg or the
-    game data; nothing here guesses. A fact the lines above already carry (its number is in the body) isn't repeated."""
+    game data; nothing here guesses. A fact the lines above already carry (its number is in the body) isn't repeated.
+    (10/27, the owner: "a lot of facts that support the opposing team") Every fact here knows which side it favors: the
+    ones for us are body lines in his voice, the even ones carry a number or they're gone, and the ones for THEM go to
+    v.knock - the single biggest posts as the ⚠️ risk line, the rest never make the card."""
     add = []
     body = _body(out) + " " + str(leg.get("why_line") or "").lower()
     D = lambda d: f"{d} day{'s' if d != 1 else ''}"
+    N = lambda d: f"{d} night{'s' if d != 1 else ''}"
+    unit = "goals" if lg == "nhl" else "runs" if lg == "mlb" else "points"
+    nhl = lg == "nhl"
 
     # both last games, with the scores (the 📅 line above only prints when ours was a W and theirs an L)
     if s_ours and not any(str(x).startswith("📅") for x in out):
         a = _said(s_ours[-1], tid, pro)
+        wu = _line(s_ours[-1], tid).startswith("W")
         if s_theirs:
             b = _said(s_theirs[-1], oid, pro)
-            add.append(v.say("f_last", [f"📅 Last time out: {us} took a {a}; {them} a {b}.",
-                                        f"📅 {us} come off a {a}. {them} come off a {b}.",
-                                        f"📅 Fresh tape - {us}: {a}. {them}: {b}.",
-                                        f"📅 {_cap(the_us)} last played to a {a}, {the_them} to a {b}.",
-                                        f"📅 Latest for {us}: {a}. Latest for {them}: {b}.",
-                                        f"📅 {us} are coming off a {a}, {them} off a {b}."]))
+            wt = _line(s_theirs[-1], oid).startswith("W")
+            if wu and wt:
+                add.append(v.tag(v.say("f_last", [f"📅 Both coming off W's - {us} a {a}, {them} a {b}.",
+                                                   f"📅 {us} just took a {a}; {them} just took a {b}. Two winners walk in, one walks out.",
+                                                   f"📅 Last time out {us} got a {a}. {them} got a {b}. Somebody's streak ends tonight.",
+                                                   f"📅 {_cap(the_us)} are off a {a}, {the_them} off a {b}."]), "neutral"))
+            elif not wu and not wt:
+                add.append(v.tag(v.say("f_last", [f"📅 Both sides are coming off an L - {us} a {a}, {them} a {b}.",
+                                                   f"📅 {us} took a {a} last time; {them} took a {b}. Two teams looking to get right.",
+                                                   f"📅 Last time out: a {a} for {us}, a {b} for {them}. Both got something to prove."]), "neutral"))
+            elif not wu and wt:                           # (we lost, they won: the knock, never a reason)
+                v.knock(4, f"{us} come off a {a} while {them} just took a {b}")
+            else:
+                add.append(v.say("f_last", [f"📅 {us} come off a {a}; {them} come off a {b}.",
+                                            f"📅 Last time out: {us} took a {a}, {them} took a {b}."]))
+        elif wu:
+            add.append(v.say("f_last", [f"📅 {us} come off a {a}.", f"📅 Last time out, {us} took a {a}.",
+                                        f"📅 Fresh off a {a} for {us}."]))
         else:
-            add.append(v.say("f_last", [f"📅 Last time out: {us} took a {a}.", f"📅 {us} come off a {a}.",
-                                        f"📅 Fresh tape - {us}: {a}.", f"📅 Latest for {us}: {a}."]))
+            v.knock(2, f"{us} come off a {a}")
 
-    # our own skid, said straight (it's why the price is what it is) - and their heater
+    # our own skid is a knock; their heater is a knock (10/27 - neither is a reason to bet us)
     if heat.startswith("lost"):
         n = int(heat.split()[1])
         if f"{n} straight" not in body and f"{n} in a row" not in body:
-            add.append(v.say("f_skid", [f"📉 {us} have dropped {n} straight. That's why the price is {_am(leg['odds'])}.",
-                                        f"📉 {n} straight L's for {us} - the number ({_am(leg['odds'])}) says it.",
-                                        f"📉 {us} lost {n} in a row coming in. We know. The price knows too.",
-                                        f"📉 {us} are on a {n}-game skid, and that skid is baked into {_am(leg['odds'])}."]))
+            v.knock(6, f"{us} have dropped {n} straight")
     if heat_t.startswith("won"):
         n = int(heat_t.split()[1])
         if f"{n} straight" not in body and f"{n} in a row" not in body and f"{them} {n}" not in body:
-            add.append(v.say("f_heat", [f"📈 {them} have won {n} straight coming in.",
-                                        f"📈 {them} bring a {n}-game winning streak into this one.",
-                                        f"📈 {n} in a row for {them} - the side we're going against.",
-                                        f"📈 {them} are hot: {n} straight W's."]))
+            v.knock(5, f"{them} come in on a {n}-game heater")
 
     # home / road records, both sides (the 🏟️ / 🧳 line above is ours only)
     ts = _site_rec(r_theirs, oid, other)
     if ts and ts[1] >= 2 and f"{ts[3]} " not in body and f"{them} are {ts[3]}" not in body:
         where = "at home" if ts[0] == "home" else "on the road"
-        add.append(v.say("f_site", [f"🏟️ {them} are {ts[3]} {where} this year.",
-                                    f"🏟️ {where.capitalize()}, {them} are {ts[3]} this season.",
-                                    f"🏟️ {them} {where} this year: {ts[3]}.",
-                                    f"🏟️ {ts[3]} {where} for {them} so far."]))
+        if 2 * ts[2] < ts[1]:                              # their bad record at this site: a fact for us
+            add.append(v.say("f_site", [f"🏟️ {them} are {ts[3]} {where} this year. That ain't a fortress." if ts[0] == "home"
+                                        else f"🧳 {them} are {ts[3]} {where} this year. They don't travel.",
+                                        f"🏟️ {ts[3]} {where} for {them}. {_cap(_pos(them))} own building ain't saving them." if ts[0] == "home"
+                                        else f"🧳 {ts[3]} {where} for {them} this season. Bus-trip team.",
+                                        f"🏟️ {them} {where} this season: {ts[3]}. Nothing scary about that.",
+                                        f"🏟️ {where.capitalize()}, {them} are {ts[3]}. We'll take that matchup."]))
+        elif 2 * ts[2] > ts[1]:                            # their good record at this site: the knock
+            v.knock(3, f"{them} are {ts[3]} {where} this year")
     us_site = _site_rec(r_ours, tid, side)
-    if us_site and us_site[1] >= 2 and not any(str(x)[:1] in "🏟🧳" and us in str(x) for x in out):
+    if us_site and us_site[1] >= 2 and not any(str(x)[:1] in "🏟🧳" and us in str(x) for x in out) \
+            and not any(us in k for _, k in v.knocks if us_site[3] in k):
         where = "at home" if us_site[0] == "home" else "on the road"
-        add.append(v.say("f_site", [f"🏟️ {us} are {us_site[3]} {where} this year.",
-                                    f"🏟️ {where.capitalize()}, {us} are {us_site[3]} this season.",
-                                    f"🏟️ {us} {where} this year: {us_site[3]}."]))
+        if 2 * us_site[2] > us_site[1]:
+            add.append(v.say("f_site", [f"🏟️ {us} are {us_site[3]} {where} this year.",
+                                        f"🏟️ {where.capitalize()}, {us} are {us_site[3]} this season. They handle it.",
+                                        f"🏟️ {us} {where} this year: {us_site[3]}."]))
+        elif 2 * us_site[2] < us_site[1]:
+            v.knock(3, f"{us} are {us_site[3]} {where} this year")
 
-    # rest: the day counts for both, and the back-to-back WITH the score of the game they played last night
+    # rest: a back-to-back WITH the score of the game they played last night; an extra day said for us, or the knock
     if ours and theirs:
         d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
         h_them = (start - _t(theirs[-1]["start"])).total_seconds() / 3600
         h_us = (start - _t(ours[-1]["start"])).total_seconds() / 3600
-        if h_them <= B2B_HOURS < h_us:
+        rested = any(str(x)[:1] in "🛌😴" for x in out) or "days off" in body or "days of rest" in body or "more days" in body
+        if h_them <= B2B_HOURS < h_us and not rested:
             b = _said(theirs[-1], oid, pro)
-            add.append(v.say("f_b2b", [f"⏳ {them} played last night - a {b} - and {us} had {D(d_us)} off.",
-                                       f"⏳ Second night in a row for {them}, fresh off a {b}. {us} sat {D(d_us)}.",
-                                       f"⏳ {them} were on the ice last night ({b}); {us} come in on {D(d_us)} rest." if lg == "nhl"
-                                       else f"⏳ {them} played last night ({b}); {us} come in on {D(d_us)} rest.",
-                                       f"⏳ Tired legs: {them} played yesterday, a {b}. {us} had {D(d_us)} off."]))
+            add.append(v.say("f_b2b", [f"⏳ {them} played last night - a {b} - and {us} had {D(d_us)} off. Tired legs vs fresh ones.",
+                                       f"⏳ Second night in a row for {them}, fresh off a {b}. {us} sat {D(d_us)} and watched.",
+                                       f"⏳ {them} were on the ice last night ({b}); {us} come in on {D(d_us)} rest. That matters late." if nhl
+                                       else f"⏳ {them} played last night ({b}); {us} come in on {D(d_us)} rest. That matters late.",
+                                       f"⏳ {them} played yesterday, a {b}, and now they gotta do it again. {us} had {D(d_us)} off."]))
         elif h_us <= B2B_HOURS < h_them:
             a = _said(ours[-1], tid, pro)
-            add.append(v.say("f_b2b", [f"⏳ {us} played last night ({a}); {them} had {D(d_them)} off. Straight up, that's on us.",
-                                       f"⏳ Back-to-back for {us} after a {a}. {them} sat {D(d_them)}.",
-                                       f"⏳ {us} were out there yesterday, a {a}. {them} come in with {D(d_them)} off."]))
-        elif not any(str(x)[:1] in "🛌😴" for x in out) and "days off" not in body and "days of rest" not in body \
-                and "more days" not in body and d_us <= 12 and d_them <= 12:   # (the rest edge above already said it)
-            if d_us == d_them:
-                add.append(v.say("f_rest", [f"⏳ Even rest: both teams are on {D(d_us)} off.",
-                                            f"⏳ Rest check: {us} {D(d_us)}, {them} {D(d_them)}. Even.",
-                                            f"⏳ Both sides had {D(d_us)} between games."]))
-            else:
-                add.append(v.say("f_rest", [f"⏳ Rest: {us} {D(d_us)} off, {them} {D(d_them)}.",
-                                            f"⏳ {us} come in on {D(d_us)} rest, {them} on {D(d_them)}.",
-                                            f"⏳ Days off: {us} {d_us}, {them} {d_them}.",
-                                            f"⏳ Rest check: {them} {D(d_them)}, {us} {D(d_us)}."]))
+            v.knock(7, f"{us} played last night (a {a}) and {them} sat {D(d_them)}")
+        elif not rested and d_us <= 12 and d_them <= 12:
+            if d_us > d_them:                              # (the 2+ day edge printed above; this is the one-day edge)
+                add.append(v.say("f_rest", [f"⏳ {us} got the extra day: {D(d_us)} off to {_pos(them)} {D(d_them)}.",
+                                            f"⏳ Fresher legs on our side - {us} had {D(d_us)} off, {them} {D(d_them)}.",
+                                            f"⏳ {us} come in on {D(d_us)} rest; {them} are on {D(d_them)}. Small edge, ours."]))
+            elif d_us < d_them:
+                v.knock(2, f"{them} had {D(d_them)} off to {_pos(us)} {D(d_us)}")
+            #   (even rest: no line - "both sides had 2 days between games" told the owner nothing, 10/27)
 
     # the trip in miles (the 🧳 line above needs 1,000+)
     for c in leg.get("ctx") or []:
         mi = c.get("mi") or 0
         if c.get("k") == "trip" and 300 <= mi < 1000 and "-mile" not in body and str(g.get("neutral")) != "1":
-            who = the_them if leg.get("side") == "home" else the_us
-            add.append(v.say("f_trip", [f"🧳 {_cap(who)} traveled {_mi(mi)} miles for this one.",
-                                        f"🧳 {_mi(mi)} miles on the road for {who}.",
-                                        f"🧳 {_cap(who)} made a {_mi(mi)}-mile trip to get here."]))
+            if leg.get("side") == "home":
+                add.append(v.say("f_trip", [f"🧳 {_cap(the_them)} traveled {_mi(mi)} miles to come get beat in our building.",
+                                            f"🧳 {_mi(mi)} miles on the road for {the_them}, and {the_us} slept in their own beds.",
+                                            f"🧳 {_cap(the_them)} made a {_mi(mi)}-mile trip for this one. We didn't go anywhere."]))
+            else:
+                v.knock(1, f"{the_us} traveled {_mi(mi)} miles for this one")
 
-    # who's out on THEIR side, named (the 🚑 card line is ours; the key-man lines name one player)
+    # who's out on THEIR side, named (the 🚑 card line is ours; the key-man lines name one player); ours is the knock
     theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
     theirs_out = [x for x in theirs_out if x.split(" (")[0].lower() not in body][:4]
     if theirs_out:
         nm = ", ".join(theirs_out)
-        add.append(v.say("f_outs", [f"🚑 {them} are without {nm}.", f"🚑 Out for {them}: {nm}.",
-                                    f"🚑 {them} are missing {nm}.", f"🚑 Not dressing for {them}: {nm}."]))
+        add.append(v.say("f_outs", [f"🚑 {them} are without {nm}. Bodies missing over there.",
+                                    f"🚑 Out for {them}: {nm}. That's real depth gone.",
+                                    f"🚑 {them} are missing {nm}. Short-handed against us.",
+                                    f"🚑 Not dressing for {them}: {nm}. We'll take that."]))
     ours_out = [str(x) for x in (leg.get("outs") or []) if x]
     ours_out = [x for x in ours_out if x.split(" (")[0].lower() not in body][:4]
-    if ours_out and not any(str(x).startswith("🚑") and us in str(x) for x in out):
-        nm = ", ".join(ours_out)
-        add.append(v.say("f_outs", [f"🚑 {us} are without {nm}. We know, and we still like the side.",
-                                    f"🚑 Out for {us}: {nm}.", f"🚑 {us} go without {nm}."]))
+    if ours_out and not any(str(x).startswith("🚑") and us in str(x) for x in out) \
+            and not any(ours_out[0].split(" (")[0] in k for _, k in v.knocks):
+        v.knock(8 if len(ours_out) >= 3 else 5, f"{us} go without {', '.join(ours_out)}")
 
-    # the goalies / QBs with their numbers - both named, whatever their form (the 🥅 / 🎯 lines only print hot or cold)
+    # the goalies / QBs with their numbers - said FOR us when ours has the better numbers, the knock when theirs does
     role = sp.ROLE.get(lg)
     mine, his = next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if o_), None), \
         next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if not o_), None)
+    tag = lambda k: "expected in net" if k else "in net last time out"
     if role == "G" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
-        tag = lambda k: "expected in net" if k else "in net last time out"
-        add.append(v.say("f_net", [f"🥅 {mine[0]} ({tag(mine[2])} for {us}): {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
-                                   f"🥅 Goalies - {us}: {mine[0]}, {mine[1]}. {them}: {his[0]}, {his[1]}.",
-                                   f"🥅 {mine[0]} for {us} has {mine[1]}; {his[0]} for {them} has {his[1]}."]))
+        sm_, sh_ = _sv(mine[1]), _sv(his[1])
+        if sm_ is not None and sh_ is not None and sm_ > sh_ + 0.005:
+            add.append(v.say("f_net", [f"🥅 Goalie edge is ours: {mine[0]} ({tag(mine[2])} for {us}) has {mine[1]}; {his[0]} ({tag(his[2])} for {them}) has {his[1]}.",
+                                       f"🥅 {mine[0]} has been the better goalie - {mine[1]} for {us}. {his[0]} for {them}: {his[1]}.",
+                                       f"🥅 In net, {us} got {mine[0]}: {mine[1]}. {them} got {his[0]}: {his[1]}. Edge us.",
+                                       f"🥅 {his[0]} ({them}) has {his[1]}; our guy {mine[0]} has {mine[1]}. We like our goalie more."]))
+        elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005:
+            v.knock(6, f"{his[0]} ({them}) is at a {sh_:.3f} save % over his last 3 starts to {mine[0]}'s {sm_:.3f}")
+        else:
+            add.append(v.tag(v.say("f_net", [f"🥅 {mine[0]} ({tag(mine[2])} for {us}): {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
+                                             f"🥅 Goalies - {us}: {mine[0]}, {mine[1]}. {them}: {his[0]}, {his[1]}. A wash in net."]), "neutral"))
     elif role == "G" and his and his[0].lower() not in body:
-        add.append(v.say("f_net", [f"🥅 {his[0]} ({'expected in net' if his[2] else 'in net last time out'} for {them}): {his[1]}.",
-                                   f"🥅 {them}' goalie {his[0]} has {his[1]}."]))
+        add.append(v.tag(v.say("f_net", [f"🥅 {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
+                                         f"🥅 {them}' goalie {his[0]} has {his[1]}."]), "neutral"))
     elif role == "QB" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
-        add.append(v.say("f_qb", [f"🎯 Under center: {mine[0]} for {us} ({mine[1]}) vs {his[0]} for {them} ({his[1]}).",
-                                  f"🎯 The quarterbacks - {mine[0]} ({us}): {mine[1]}. {his[0]} ({them}): {his[1]}.",
-                                  f"🎯 {mine[0]} has {mine[1]} for {us}; {his[0]} has {his[1]} for {them}."]))
+        qm, qh = _qb_nums(mine[1]), _qb_nums(his[1])
+        ours_better = qm and qh and (qm[0] - qm[1], qm[2]) > (qh[0] - qh[1], qh[2]) and qm[2] >= qh[2]
+        theirs_better = qm and qh and (qh[0] - qh[1], qh[2]) > (qm[0] - qm[1], qm[2]) and qh[2] >= qm[2]
+        if ours_better:
+            add.append(v.say("f_qb", [f"🎯 Our quarterback's been better: {mine[0]} has {mine[1]} for {us}; {his[0]} has {his[1]} for {them}.",
+                                      f"🎯 {mine[0]} ({us}) is cooking - {mine[1]}. {his[0]} ({them}): {his[1]}. Not close.",
+                                      f"🎯 Under center, {us} got the hot hand: {mine[0]}, {mine[1]}. {them}'s {his[0]} has {his[1]}.",
+                                      f"🎯 {mine[0]} has {mine[1]}. {his[0]} has {his[1]}. That's a quarterback edge for {us}."]))
+        elif theirs_better:
+            v.knock(5, f"{his[0]} ({them}) has {his[1]} to {mine[0]}'s {mine[1]}")
+        else:
+            add.append(v.tag(v.say("f_qb", [f"🎯 Under center: {mine[0]} for {us} ({mine[1]}) vs {his[0]} for {them} ({his[1]}).",
+                                            f"🎯 The quarterbacks - {mine[0]} ({us}): {mine[1]}. {his[0]} ({them}): {his[1]}."]), "neutral"))
     elif role == "QB" and mine and mine[0].lower() not in body:
-        add.append(v.say("f_qb", [f"🎯 {mine[0]} for {us}: {mine[1]}.", f"🎯 Under center for {us}, {mine[0]} has {mine[1]}."]))
+        add.append(v.tag(v.say("f_qb", [f"🎯 {mine[0]} for {us}: {mine[1]}.", f"🎯 Under center for {us}, {mine[0]} has {mine[1]}."]), "neutral"))
 
-    # points lately, both sides (football / hoops / hockey goals)
+    # points lately, both sides - for us when we've been the better side on the scoreboard, the knock when they have
     pu, pt = _pts3(s_ours, tid), _pts3(s_theirs, oid)
-    unit = "goals" if lg == "nhl" else "points"
     if pu and pt and f"{pu[0]} and " not in body:
-        add.append(v.say("f_pts", [f"📊 Last {pu[2]} games: {us} scored {pu[0]} and gave up {pu[1]} {unit} a game; {them} {pt[0]} and {pt[1]}.",
-                                   f"📊 {us} average {pu[0]} for / {pu[1]} against over their last {pu[2]}; {them} {pt[0]} for / {pt[1]} against.",
-                                   f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}.",
-                                   f"📊 Over the last {pu[2]}, {us} put up {pu[0]} a game and allowed {pu[1]}; {them} put up {pt[0]} and allowed {pt[1]}."]))
+        net_u, net_t = pu[0] - pu[1], pt[0] - pt[1]
+        if net_u > net_t:
+            add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} are outscoring teams {pu[0]} to {pu[1]} a game; {them} sit at {pt[0]} for, {pt[1]} against.",
+                                       f"📊 {us} put up {pu[0]} a game and give up {pu[1]} over their last {pu[2]}. {them}: {pt[0]} and {pt[1]}. Scoreboard says us.",
+                                       f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}. We been better.",
+                                       f"📊 Over the last {pu[2]}, {us} are a {net_u:+d} team a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)." if net_u > 0 else
+                                       f"📊 Lately {us} score {pu[0]} and allow {pu[1]} a game; {them} score {pt[0]} and allow {pt[1]}. Edge us on the scoreboard."]))
+        elif net_t > net_u:
+            v.knock(3, f"{them} have outscored teams {pt[0]} to {pt[1]} a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against")
+        elif (pu[0], pu[1]) != (pt[0], pt[1]):        # (the same numbers both sides say nothing - no line)
+            add.append(v.tag(v.say("f_pts", [f"📊 Last {pu[2]} games: {us} scored {pu[0]} and gave up {pu[1]} {unit} a game; {them} {pt[0]} and {pt[1]}.",
+                                             f"📊 {us} average {pu[0]} for / {pu[1]} against over their last {pu[2]}; {them} {pt[0]} for / {pt[1]} against."]), "neutral"))
+
+    # the last 5 (ours when we've won more than we lost, theirs when they've lost more) - fresh facts for a thin card
+    l5u, l5t = _last_n(s_ours, tid), _last_n(s_theirs, oid)
+    if l5u and l5u[0] > l5u[1] and f"{l5u[0]}-{l5u[1]}" not in body and not heat.startswith("won"):
+        add.append(v.say("f_last5", [f"🗓️ {us} are {l5u[0]}-{l5u[1]} over their last 5.",
+                                     f"🗓️ Last 5 for {us}: {l5u[0]}-{l5u[1]}. They been getting it done.",
+                                     f"🗓️ {l5u[0]} of the last 5 went {_pos(us)} way."]))
+    if l5t and l5t[1] > l5t[0] and f"{l5t[0]}-{l5t[1]}" not in body and not heat_t.startswith("lost") \
+            and not any(str(x).startswith("🗑️") for x in out):
+        add.append(v.say("f_last5", [f"🗓️ {them} are {l5t[0]}-{l5t[1]} over their last 5. Not exactly scary.",
+                                     f"🗓️ Last 5 for {them}: {l5t[0]}-{l5t[1]}. They been losing more than winning.",
+                                     f"🗓️ {them} dropped {l5t[1]} of their last 5."]))
+
+    # their worst recent loss - a beatdown inside their last 5 (the owner's lingo lives here, with the score)
+    big = BIG_L.get(lg, 15)
+    for x in reversed((s_theirs or [])[-5:]):
+        o2, res, sc = _last_parts(x, oid, pro)
+        hi, lo = [int(y) for y in sc.split("-")]
+        if res == "L" and hi - lo >= big and sc not in body:
+            add.append(v.say("f_theirL", [f"🥊 {_cap(the_them)} got their cheeks clapped {sc} by {o2} inside their last 5.",
+                                          f"🥊 Not long ago {o2} beat the brakes off {the_them}, {sc}.",
+                                          f"🥊 {_cap(the_them)} got smacked {sc} by {o2} inside their last 5. That's who we're going against.",
+                                          f"🥊 {_cap(o2)} spanked {the_them} {sc} within their last 5 games."]))
+            break
+
+    # season scoring: our offense or our defense better than theirs on the year (10+ games pro, 4+ college)
+    need = 4 if lg in ("ncaaf",) else 8
+    if len(r_ours) >= need and len(r_theirs) >= need:
+        pg_u, pg_t = _per_game(r_ours, tid), _per_game(r_theirs, oid)
+        fmt = (lambda x: f"{x:.1f}") if nhl or lg == "mlb" else (lambda x: f"{round(x)}")
+        if pg_u[1] < pg_t[1] - (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[1]) not in body:
+            add.append(v.say("f_wall", [f"🛡️ {us} give up {fmt(pg_u[1])} {unit} a game this year; {them} give up {fmt(pg_t[1])}. Our D is the better one.",
+                                        f"🛡️ On the year {us} allow {fmt(pg_u[1])} a game, {them} {fmt(pg_t[1])}. Defense travels.",
+                                        f"🛡️ {them} are leaking {fmt(pg_t[1])} {unit} a game this season. {us} hold teams to {fmt(pg_u[1])}."]))
+        elif pg_u[0] > pg_t[0] + (0.3 if nhl or lg == "mlb" else 3) and fmt(pg_u[0]) not in body:
+            add.append(v.say("f_gpg", [f"📊 {us} score {fmt(pg_u[0])} {unit} a game this year; {them} manage {fmt(pg_t[0])}.",
+                                       f"📊 Offense: {us} are putting up {fmt(pg_u[0])} a game on the season, {them} {fmt(pg_t[0])}.",
+                                       f"📊 {us} at {fmt(pg_u[0])} {unit} a game this year. {them} at {fmt(pg_t[0])}. Ours scores more, that's just facts."]))
 
     # hockey: puck luck, the unlucky record, the 40-shot night
-    if lg == "nhl":
+    if nhl:
         pdo = leg.get("pdo")
         if pdo is not None and "pdo" not in body:
             import sports_form as _sf
-            tag = "the bounces haven't gone their way" if pdo <= _sf.PDO_BAD else "the bounces have gone their way" \
-                if pdo >= _sf.PDO_GOOD else "about average luck"
-            add.append(v.say("f_pdo", [f"🍀 Puck luck (PDO) for {us} over the last 10: {pdo / 10:.1f} - {tag}.",
-                                       f"🍀 {us} sit at a {pdo / 10:.1f} PDO over their last 10 - {tag}.",
-                                       f"🍀 Shooting plus save % (PDO) for {us}, last 10: {pdo / 10:.1f}. {tag.capitalize()}."]))
+            if pdo <= _sf.PDO_BAD:                        # (bad bounces = due; a lucky stretch = the knock; average = nothing)
+                add.append(v.say("f_pdo", [f"🍀 {us} are at {pdo / 10:.1f} PDO over their last 10 - the bounces have been going against them, and that evens out.",
+                                           f"🍀 Puck luck's been shit for {us}: a {pdo / 10:.1f} PDO over the last 10. That snaps back.",
+                                           f"🍀 Shooting plus save % for {us}, last 10: {pdo / 10:.1f}. They been unlucky, not bad."]))
+            elif pdo >= _sf.PDO_GOOD:
+                v.knock(1, f"{us} have been running hot on the bounces ({pdo / 10:.1f} PDO over their last 10)")
         pl = leg.get("pyth_luck")
         if pl is not None and pl <= -0.05:
             pts = round(-pl * 100)
-            add.append(v.say("f_pyth", [f"🎲 {us}' record sits {pts} points under what their goals for and against say it should be.",
-                                        f"🎲 By goals scored and allowed, {us} should be about {pts} points better than their record.",
+            add.append(v.say("f_pyth", [f"🎲 {us}' record sits {pts} points under what their goals for and against say it should be. They better than the standings.",
+                                        f"🎲 By goals scored and allowed, {us} should be about {pts} points better than their record. The price is sleeping on that.",
                                         f"🎲 {us} have been unlucky: their goal totals say a record {pts} points better than this."]))
         if leg.get("outshot_opp") and s_theirs:
             b = _said(s_theirs[-1], oid, pro)
-            add.append(v.say("f_shots", [f"🏒 {them} gave up 40+ shots in their last game (a {b}) and play again inside 2 days.",
-                                         f"🏒 {them} got outshot bad last time - 40 or more shots against in that {b} - on short turnaround."]))
+            add.append(v.say("f_shots", [f"🏒 {them} gave up 40+ shots in their last game (a {b}) and play again inside 2 days. Gassed.",
+                                         f"🏒 {them} got outshot bad last time - 40 or more shots against in that {b} - on a short turnaround."]))
         if leg.get("outshot_me") and s_ours:
             a = _said(s_ours[-1], tid, pro)
-            add.append(v.say("f_shots", [f"🏒 {us} gave up 40+ shots in their last game (a {a}) and play again inside 2 days. Not ideal.",
-                                         f"🏒 {us} got outshot bad in that {a} - 40 or more shots against - and it's a quick turnaround."]))
+            v.knock(2, f"{us} gave up 40+ shots in that {a} and play again inside 2 days")
         ot = leg.get("ot_last")
         if ot and s_ours and "overtime" not in body and "shootout" not in body:
             a = _said(s_ours[-1], tid, pro)
             how = "a shootout" if "so" in str(ot) else "overtime"
-            add.append(v.say("f_ot", [f"🕐 {us}' last game went past regulation - a {a} in {how}.",
-                                      f"🕐 That {a} for {us} last time out needed {how}."]))
+            v.knock(1, f"{_pos(us)} last game, a {a}, went to {how}")
 
     # football: the 4th-down coach tendency
     mo = leg.get("dog_more") or {}
@@ -1479,32 +1636,57 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
         import sports_go4 as _g4
         gg = mo["go4_gap"]
         if gg >= _g4.GAP_HI:
-            add.append(v.say("f_go4", [f"🎲 4th-down nerve: {us}' coach goes for it a lot more than {them}' coach does.",
-                                       f"🎲 On 4th down, {us} keep the offense out there way more often than {them}."]))
+            add.append(v.say("f_go4", [f"🎲 4th-down nerve: {us}' coach goes for it a lot more than {them}' coach does. Aggressive wins.",
+                                       f"🎲 On 4th down, {us} keep the offense out there way more often than {them}. We like a coach with balls."]))
         elif gg <= _g4.GAP_LO:
-            add.append(v.say("f_go4", [f"🎲 4th-down nerve: {them}' coach goes for it a lot more than {us}' coach does.",
-                                       f"🎲 On 4th down, {them} keep the offense out there way more often than {us}."]))
+            v.knock(1, f"{them}' coach goes for it on 4th down a lot more than {us}' coach does")
 
     # head to head this season, when the 🆚 line above didn't print (we lost it, or split)
     if last_vs and not any(str(x).startswith("🆚") for x in out):
         a = _said(last_vs[-1], tid, pro)
         n = len(last_vs)
         w = sum(1 for x in last_vs if _line(x, tid).startswith("W"))
-        add.append(v.say("f_h2h", [f"🆚 Last meeting: a {a} for {us}.",
-                                   f"🆚 These two already met - {us} took a {a}.",
-                                   f"🆚 Head to head: {us} are {w}-{n - w} against {them} this year, the last one a {a}.",
-                                   f"🆚 {them} got {us} last time, {a}." if a.find("loss") >= 0 else f"🆚 {us} got {them} last time, {a}."]))
+        if _line(last_vs[-1], tid).startswith("W"):
+            add.append(v.say("f_h2h", [f"🆚 {us} got {them} last time, a {a}.",
+                                       f"🆚 These two already met - {us} took a {a}.",
+                                       f"🆚 Head to head: {us} are {w}-{n - w} against {them} this year, the last one a {a}."]))
+        elif _line(last_vs[-1], tid).startswith("L"):
+            v.knock(3, f"{them} got {us} last time these two met, a {a}")
+        else:
+            add.append(v.tag(v.say("f_h2h", [f"🆚 Last meeting: a {a} for {us}.",
+                                             f"🆚 These two already played to a {a}."]), "neutral"))
 
     # football: the bye / short week with the day counts
     if lg in ("nfl", "ncaaf") and ours and theirs and "bye" not in body and "short week" not in body:
         d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
         if d_us >= 13 and d_them <= 8:
-            add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago.",
-                                       f"🛌 {D(d_us)} between games for {us}, {D(d_them)} for {them}."]))
+            add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago. Fresh legs, full game plan.",
+                                       f"🛌 {D(d_us)} between games for {us}, {D(d_them)} for {them}. Rest is on our side."]))
         elif d_them <= 5 < d_us:
             add.append(v.say("f_short", [f"⏱️ {them} are on a short week - {D(d_them)} since their last game. {us} had {D(d_us)}.",
-                                         f"⏱️ Short week for {them}: {D(d_them)} off against {us}' {D(d_us)}."]))
+                                         f"⏱️ Short week for {them}: {D(d_them)} off against {us}' {D(d_us)}. Tired team, rushed plan."]))
     return [x for x in add if x]
+
+
+BIG_L = {"nhl": 3, "mlb": 5, "nba": 15, "ncaab": 15, "nfl": 14, "ncaaf": 17}   # (10/27) their recent loss worth a
+#   "cheeks clapped" line - a real beatdown, never an 11-point hoops game
+
+
+def risk_line(v, us, them, the_us):
+    """(10/27) The ONE honest risk line: the biggest fact that favors the other side, said as the risk - never as a
+    reason. Everything else that favored them stays off the card."""
+    if not v.knocks:
+        return ""
+    pr, fact = max(v.knocks, key=lambda k: k[0])
+    fact = fact.rstrip(".")
+    return v.say("risk", [f"⚠️ The knock on {us}: {fact}. We know it, and we still like the side.",
+                          f"⚠️ Ain't gonna lie - {fact}. That's the risk here, and it's already in the price.",
+                          f"⚠️ The one thing that worries us: {fact}. Priced in. We still riding.",
+                          f"⚠️ Only thing we don't love: {fact}. The rest of this card outweighs it.",
+                          f"⚠️ Don't get it twisted, {fact}. We saw it, we still got {us}.",
+                          f"⚠️ The risk: {fact}. Everything above is why we take it anyway.",
+                          f"⚠️ Fair warning - {fact}. We weighed it, and {us} is still the side.",
+                          f"⚠️ What the other side's gonna say: {fact}. True. Still ain't enough to flip us."], fact=True)
 
 
 def day_game(start):
