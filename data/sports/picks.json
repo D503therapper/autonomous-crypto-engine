@@ -21960,6 +21960,12 @@
      "them:road3in6"
     ],
     "dec": 1.9523809523809523,
+    "decider": {
+     "h": "66-54",
+     "s": "134-99",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -22023,6 +22029,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "21,33,21,24",
+     "h": "33,33,39,29"
+    },
     "form_state": [
      4.0,
      1,
@@ -22069,10 +22079,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Bulls 99 @ Celtics 134",
     "season_games": 2,
+    "settled": "2026-10-27T02:01Z",
     "side": "home",
     "start": "2026-10-26T23:30Z",
     "stype": "2",
@@ -22090,12 +22102,14 @@
    }
   ],
   "p_hit": 0.5067,
-  "pnl": 0.0,
+  "pnl": 95.24,
   "posted": "2026-10-26T15:00Z",
   "round": 1,
+  "settled": "2026-10-27T02:01Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -135,
