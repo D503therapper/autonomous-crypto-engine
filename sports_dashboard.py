@@ -808,6 +808,14 @@ def _dog_note(day, day_picks):
     have = {p["kind"] for p in day_picks if not p.get("lean")}
     if "solo" in have or "dog" in have or not day_picks:
         return ""                                            # (no Lock either: the dog note still says the dog's off)
+    dogs_up = [p for p in day_picks if not p.get("lean") and (p.get("american") or 0) > 0]
+    if dogs_up:                                              # (10/27, the owner: "it says no dogs today, no plus money
+        n = len(dogs_up)                                     #  where the price beats the spot, but then it shows two
+        k = sum(map(ord, str(day))) % 3                      #  value plays - that don't make no sense")
+        msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'thin-edge plays' if n > 1 else 'a thin-edge play'} below.",
+               f"No Dog of the Day today. The dog check's top {'pick' if n == 1 else str(n)} still made the board below - thin edge, small bets.",
+               f"Dog of the Day's empty - no dog earned the full spot. {'Our best dog rides' if n == 1 else 'Our best dogs ride'} below as thin-edge value plays."][k]
+        return f'<div class="drop leanday">🐺 {E(msg)}</div>'
     return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
 
 
