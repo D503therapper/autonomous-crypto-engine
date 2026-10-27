@@ -222,7 +222,10 @@ def close_records(ru, rt):
         return False
     n = max(sum(a), sum(b), 1)
     pct = lambda r: r[0] / max(1, r[0] + r[1])
-    return abs(pct(a) - pct(b)) <= 0.15 and abs(a[0] - b[0]) <= max(2, round(CLOSE_WIN_SHARE * n))
+    net = lambda r: r[0] - r[1]
+    return abs(pct(a) - pct(b)) <= 0.15 and abs(a[0] - b[0]) <= max(2, round(CLOSE_WIN_SHARE * n)) \
+        and abs(net(a) - net(b)) < max(REC_GAP, round(2 * CLOSE_WIN_SHARE * n))   # (10/27, the owner: Panthers 6-6 vs
+    #   Jets 4-7 "Records are close" - 3 games apart on the net is the owner's 10/23 "better team" line, never close)
 
 
 CLOSE_WIN_SHARE = 0.03
@@ -1839,6 +1842,8 @@ FACT_ORDER = ("opponent missing key players", "opponent on a back-to-back", "pub
               "deeper bench", "public ride", "coming off a bye", "opponent on a short week", "cold-weather edge",
               "nasty weather helps us", "opponent's body clock is off", "altitude edge")
 BENCH_GAP = 3.0        # hoops: our bench this much better than theirs (per 48, last season) is a fact worth a line
+REAL_LOSS = {"nhl": 3, "mlb": 4, "nba": 10, "ncaab": 10, "nfl": 10, "ncaaf": 14}   # their last L backs our side only by
+#   this much (10/27: a 2-1 / 5-4 loss is a coin flip, never a reason - the one-liner said "Canadiens beat the Jets 2-1")
 BLOWOUT = 14           # a win / loss by this many is a blowout ("beat the brakes off", "cheeks clapped") - never by 3
 PUBLIC_HEAVY = 70      # the public is "all over" a side at 70%+ of the bets (sports_public.HEAVY) - under that, no line
 SITE_GOOD = 0.75       # a home / road record worth a line: 3+ games, 75%+ won (ours) ...
@@ -1904,12 +1909,14 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
                                           f"{sc} over {o2} last time out for {U}", f"{U} beat the brakes off {o2}, {sc}",
                                           f"{U} smacked {o2} {sc} last time out", f"{o2} got their cheeks clapped {sc} by {U} last time out"]
     # facts about THEM (the owner, 10/23: "talk about the team itself getting their cheeks clapped or spanked")
-    if s_theirs and _line(s_theirs[-1], oid).startswith("L"):
-        o2, _, sc = _last_parts(s_theirs[-1], oid, pro)
-        pts = sc.split("-")[0]
-        m["their last loss"] = [f"{T} just lost to {o2} {sc}", f"{T} gave up {pts} to {o2} last time out",
-                                f"{T} are coming off a {sc} loss to {o2}", f"{o2} beat {T} {sc} last time out",
-                                f"last time out {T} took a {sc} L to {o2}", f"{o2} hung {pts} on {T} last time out"]
+    if s_theirs and _line(s_theirs[-1], oid).startswith("L") \
+            and _score_gap(_last_parts(s_theirs[-1], oid, pro)[2]) >= REAL_LOSS.get(lg, BLOWOUT):
+        o2, _, sc = _last_parts(s_theirs[-1], oid, pro)    # (10/27, the owner: "The Canadiens beat the Jets 2-1 last
+        pts = sc.split("-")[0]                             #  time out. We lean Panthers - what the fuck is that?" - a
+        m["their last loss"] = [f"{T} just got beat {sc} by {o2}",   # one-goal L says nothing about this game: only a
+                                f"{T} are coming off a {sc} beating from {o2}",   # real beating, said about THEM, never
+                                f"last time out {T} took a {sc} L to {o2}",   # with a third team as the subject)
+                                f"{T} got handled {sc} by {o2} last time out"]
     if pub and pub[0] is not None:                        # the real public split (never a guess from the price)
         t, mo = pub
         n = 100 - t

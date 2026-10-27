@@ -10413,8 +10413,8 @@ def test_the_write_up_never_talks_line_movement_and_talks_shit_only_with_a_fact(
         assert gone not in shown, gone
     assert "rocking with the sharps" not in ol.OWNER
     hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T23:00Z", "B", "D", 1, 4), ("2026-10-03T23:00Z", "A", "D", 4, 1),
-            ("2026-10-03T23:30Z", "B", "C", 0, 3), ("2026-10-04T23:30Z", "B", "E", 1, 2)]
-    for op in ("-160", "-105"):                                               # the price moved both ways since the open
+            ("2026-10-03T23:30Z", "B", "C", 0, 3), ("2026-10-04T23:30Z", "B", "E", 1, 5)]   # (10/27: a real beating -
+    for op in ("-160", "-105"):                                               #  a 1-goal L is never a reason, REAL_LOSS)                                               # the price moved both ways since the open
         leg, games, elo = _audit_fixture("nhl", hist, "2026-10-06T23:30Z", reasons=["the stronger team"],
                                          ratings={"A": 1600, "B": 1400})
         games[leg["game_id"]].update({"ml_home_open": op, "ml_away_open": "140" if op == "-160" else "-115"})
@@ -13939,6 +13939,23 @@ def test_daily_1027_two_tracker_leads_tag_the_right_sides_and_never_touch_a_read
     finally:
         sl._GAMES.clear()
         sl._GAMES.update(keep)
+
+
+def test_one_liner_never_leans_on_a_close_loss_or_a_third_team_10_27():
+    """10/27, the owner: "take the Panthers. The Canadiens beat them 2-1. We lean Panthers. What the fuck is that?" - the
+    one-liner was the Jets' 2-1 loss to the Canadiens, said with the Canadiens as the subject. Their last L backs our side
+    only when it was a real beating (REAL_LOSS), said about THEM; and Panthers 6-6 vs Jets 4-7 is never "Records are close"."""
+    import sports_breakdown_v24 as v24
+    gm = lambda hs, as_: {"home": "52", "away": "8", "home_name": "Jets", "away_name": "Canadiens",
+                          "home_score": str(hs), "away_score": str(as_)}
+    close = v24.why_map("nhl", "Panthers", "Jets", "the Panthers", "the Jets", True, tid="26", oid="52",
+                        s_theirs=[gm(1, 2)])
+    assert "their last loss" not in close, close.get("their last loss")
+    beat = v24.why_map("nhl", "Panthers", "Jets", "the Panthers", "the Jets", True, tid="26", oid="52",
+                       s_theirs=[gm(1, 5)])
+    assert beat["their last loss"] and all(w.lower().find("jets") < w.lower().find("canadiens") for w in beat["their last loss"])
+    assert not v24.close_records("6-6", "4-7")
+    assert v24.close_records("85-77", "89-73") and v24.close_records("2-3", "2-4")
 
 
 if __name__ == "__main__":
