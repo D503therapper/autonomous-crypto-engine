@@ -1,13 +1,9 @@
 {
- "at": "2026-10-27T19:07Z",
+ "at": "2026-10-27T19:08Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Taborda vs Hercog: no points for 2617s",
-  "live tennis scores: tennis Johnson vs Ferro: no points for 2617s",
-  "live tennis scores: tennis Herea vs Cano: no points for 2356s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (80s)",
+  "live watcher fresh (216s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 22 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T19:08Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-27T19:07Z",
    "fixes": [],
@@ -536,11 +537,6 @@
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
-  },
-  {
-   "at": "2026-10-25T22:59Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
