@@ -14172,6 +14172,16 @@ def test_a_card_never_posts_without_a_line_under_the_pick_10_27():
     assert src.index("for em, body_em in SAME_STORY") < src.index("the Blues lean posted with NO line under the pick")
 
 
+def test_team_verbs_agree_wild_holds_10_27():
+    """10/27, the owner: "It says Wild hold teams to this. It should say holds with an S." """
+    import sports_breakdown_v24 as v24
+    assert v24.vb("Wild", "hold", "holds") == "holds" and v24.vb("Mammoth", "are", "is") == "is"
+    assert v24.vb("Bruins", "hold", "holds") == "hold" and v24.vb("Delaware", "score", "scores") == "scores"
+    assert v24.vb("Maple Leafs", "are", "is") == "are" and v24.vb("Utah Jazz", "are", "is") == "is"
+    src = open(v24.__file__).read()
+    assert "{us} hold teams to" not in src and "{them} are leaking" not in src
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
