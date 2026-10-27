@@ -1,28 +1,32 @@
 {
- "at": "2026-10-27T08:26Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - sports.yml already running"
- ],
+ "at": "2026-10-27T09:57Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (127s)",
+  "live watcher fresh (9s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 3 fresh (bovada 3)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 1 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 27 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-27T09:57Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-27T08:26Z",
    "fixes": [
@@ -490,15 +494,6 @@
     "live tennis scores: tennis Melleiro vs Bonardi: no points for 1753s",
     "live tennis scores: tennis Bernardes vs Labrana: no points for 1753s",
     "live tennis scores: tennis Chiesa vs Morderger: no points for 1753s"
-   ]
-  },
-  {
-   "at": "2026-10-25T16:12Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Melleiro vs Bonardi: no points for 1152s",
-    "live tennis scores: tennis Bernardes vs Labrana: no points for 1152s",
-    "live tennis scores: tennis Chiesa vs Morderger: no points for 1152s"
    ]
   }
  ]
