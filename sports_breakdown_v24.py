@@ -1196,7 +1196,14 @@ def breakdown(leg, games, elo, injuries, used=None):
     wp = f"{round(100 * _own)}%" if _own > _ol.SHOW_PCT_OVER / 100 else ""   # the owner 10/7: NO win % ever)                 # (10/1, the owner: "50 out of 100, the price
     pos = f" {us} at {wp}." if wp else ""                                # needs 48" is jargon - plain words: does our
     _fact = "Our read beats this price." if not _need or _own > _need else "The price is too steep for units."
-    if leg.get("near_price"):                                            # the always-a-Lock backup (the owner, 10/1):
+    if leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
+        out.append(v.say("bottom_floor", [                                # play - the dog check put it up, not the price
+            f"✅ Bottom line: {price}. Our read has it close to even - the dog check is why it's up. Thin edge, half a unit, tread light.",
+            f"✅ Bottom line: {price}. Not a big edge on the price - the dog check likes {us} here. Half a unit, keep it light.",
+            f"✅ Bottom line: {price}. Close to a coin flip on our read; {us} grade out best on the dog check today. Small bet - thin edge.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one - the dog check backs it, our read calls it about even. Half a unit."]) or
+                   _short(v, price, True, "Thin edge - the dog check backs it."))
+    elif leg.get("near_price"):                                          # the always-a-Lock backup (the owner, 10/1):
         out.append(v.say("bottom_near", [                                # the likeliest winner, priced about right -
             f"✅ Bottom line: {price}. Our Lock today, priced about right - a small bet, not a big one.",
             f"✅ Bottom line: {price}. We like {us} to win; the price is close to fair, so we keep it small.",
