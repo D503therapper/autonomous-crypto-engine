@@ -1,9 +1,9 @@
 {
  "all": {
-  "n": 128,
-  "beat": 41,
+  "n": 130,
+  "beat": 42,
   "same": 47,
-  "worse": 40,
+  "worse": 41,
   "avg_pts": 0.11
  },
  "unit_plays": {
@@ -22,10 +22,10 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 72,
-   "beat": 24,
+   "n": 74,
+   "beat": 25,
    "same": 21,
-   "worse": 27,
+   "worse": 28,
    "avg_pts": 0.03
   },
   "lock": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 11,
+   "n": 12,
    "beat": 5,
    "same": 4,
-   "worse": 2,
-   "avg_pts": 0.54
+   "worse": 3,
+   "avg_pts": 0.46
   },
   "ncaaf": {
    "n": 37,
@@ -66,11 +66,11 @@
    "avg_pts": 0.17
   },
   "nfl": {
-   "n": 19,
-   "beat": 6,
+   "n": 20,
+   "beat": 7,
    "same": 8,
    "worse": 5,
-   "avg_pts": 0.09
+   "avg_pts": 0.12
   },
   "nhl": {
    "n": 47,
@@ -1865,6 +1865,20 @@
    "date": "2026-10-26",
    "kind": "lean",
    "lean": true,
+   "league": "nfl",
+   "team": "Eagles",
+   "market": "spread",
+   "line": 4.5,
+   "odds": -112,
+   "close": -115,
+   "pts": 0.7,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
    "league": "nba",
    "team": "Hornets",
    "market": "ml",
@@ -1902,6 +1916,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Grizzlies",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -110,
+   "pts": -0.4,
+   "units": 0,
+   "result": "won"
   }
  ]
 }
