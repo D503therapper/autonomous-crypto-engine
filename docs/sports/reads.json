@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T19:10Z",
+ "updated": "2026-10-27T19:47Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -97,7 +97,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.473,
+    "p": 0.47,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -114,8 +114,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -172,
-    "p": 0.58,
-    "win_p": 0.461,
+    "p": 0.584,
+    "win_p": 0.465,
     "reasons": []
    }
   },
@@ -156,7 +156,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.352,
+    "p": 0.358,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -168,14 +168,16 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Canadiens",
-    "opp": "Blues",
+    "team": "Blues",
+    "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.718,
-    "win_p": 0.504,
-    "reasons": []
+    "odds": -278,
+    "p": 0.698,
+    "win_p": 0.483,
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -283,19 +285,19 @@
    "start": "2026-10-28T00:00Z",
    "away": "Kings",
    "home": "Blackhawks",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Blackhawks",
-    "opp": "Kings",
+    "team": "Kings",
+    "opp": "Blackhawks",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.737,
-    "win_p": 0.531,
+    "odds": -278,
+    "p": 0.689,
+    "win_p": 0.471,
     "reasons": [
-     "opponent on a back-to-back",
-     "sharp money moving this way"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },

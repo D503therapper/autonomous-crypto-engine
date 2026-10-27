@@ -1,5 +1,5 @@
 {
- "fetched": "2026-10-27T18:25Z",
+ "fetched": "2026-10-27T19:32Z",
  "src": "bovada",
  "lines": [
   {
@@ -8,38 +8,25 @@
    "start": "2026-10-27T16:55Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": -1.5,
-   "b_hcp": 1.5,
-   "a_sp": -150,
-   "b_sp": 115,
-   "a_ml": -450,
-   "b_ml": 350
-  },
-  {
-   "a": "Cameron Norrie",
-   "b": "Francisco Cerundolo",
-   "start": "2026-10-27T17:10Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -0.5,
-   "b_hcp": 0.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -130,
-   "b_ml": 110
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -3300,
+   "b_sp": 1200,
+   "a_ml": -325,
+   "b_ml": 260
   },
   {
    "a": "Flavio Cobolli",
    "b": "Grigor Dimitrov",
-   "start": "2026-10-27T19:00Z",
+   "start": "2026-10-27T19:50Z",
    "src": "bovada",
    "tour": "atp",
    "a_hcp": -2.5,
    "b_hcp": 2.5,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": -215,
-   "b_ml": 175
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -220,
+   "b_ml": 180
   },
   {
    "a": "Daniel Merida Aguilar",
@@ -62,8 +49,8 @@
    "tour": "atp",
    "a_hcp": 2.5,
    "b_hcp": -2.5,
-   "a_sp": -105,
-   "b_sp": -125,
+   "a_sp": -110,
+   "b_sp": -120,
    "a_ml": 185,
    "b_ml": -225
   },
@@ -79,6 +66,19 @@
    "b_sp": -115,
    "a_ml": 100,
    "b_ml": -120
+  },
+  {
+   "a": "Jakub Mensik",
+   "b": "Adrian Mannarino",
+   "start": "2026-10-28T14:50Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -4.0,
+   "b_hcp": 4.0,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": -500,
+   "b_ml": 375
   },
   {
    "a": "Jurij Rodionov",
@@ -107,28 +107,41 @@
    "b_ml": -115
   },
   {
+   "a": "Tommy Paul",
+   "b": "Luciano Darderi",
+   "start": "2026-10-29T12:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -4.5,
+   "b_hcp": 4.5,
+   "a_sp": 115,
+   "b_sp": -150,
+   "a_ml": -375,
+   "b_ml": 290
+  },
+  {
    "a": "Ben Shelton",
    "b": "Aleksandar Kovacevic",
    "start": "2026-10-27T17:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 0.5,
-   "b_hcp": -0.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": 110,
-   "b_ml": -130
+   "a_hcp": -1.5,
+   "b_hcp": 1.5,
+   "a_sp": 500,
+   "b_sp": -900,
+   "a_ml": -275,
+   "b_ml": 220
   },
   {
    "a": "Stan Wawrinka",
    "b": "Jiri Lehecka",
-   "start": "2026-10-27T18:30Z",
+   "start": "2026-10-27T19:50Z",
    "src": "bovada",
    "tour": "atp",
    "a_hcp": 3.5,
    "b_hcp": -3.5,
-   "a_sp": -105,
-   "b_sp": -125,
+   "a_sp": -110,
+   "b_sp": -120,
    "a_ml": 425,
    "b_ml": -600
   },
@@ -181,8 +194,8 @@
    "b_hcp": 3.0,
    "a_sp": -110,
    "b_sp": -120,
-   "a_ml": -260,
-   "b_ml": 210
+   "a_ml": -275,
+   "b_ml": 220
   },
   {
    "a": "Taylor Fritz",
@@ -196,6 +209,32 @@
    "b_sp": -120,
    "a_ml": -850,
    "b_ml": 550
+  },
+  {
+   "a": "Hubert Hurkacz",
+   "b": "Holger Rune",
+   "start": "2026-10-28T18:10Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.0,
+   "b_hcp": 2.0,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -195,
+   "b_ml": 160
+  },
+  {
+   "a": "Valentin Vacherot",
+   "b": "Rafael Jodar",
+   "start": "2026-10-29T10:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": 100,
+   "b_sp": -130,
+   "a_ml": 260,
+   "b_ml": -325
   },
   {
    "a": "Kamilla Rakhimova",
@@ -216,12 +255,12 @@
    "start": "2026-10-28T02:40Z",
    "src": "bovada",
    "tour": "wta",
-   "a_hcp": 2.0,
-   "b_hcp": -2.0,
+   "a_hcp": 1.5,
+   "b_hcp": -1.5,
    "a_sp": -115,
    "b_sp": -115,
-   "a_ml": 125,
-   "b_ml": -150
+   "a_ml": 110,
+   "b_ml": -130
   },
   {
    "a": "Aliaksandra Sasnovich",
@@ -289,6 +328,19 @@
    "b_ml": -105
   },
   {
+   "a": "Naomi Osaka",
+   "b": "Mia Pohankova",
+   "start": "2026-10-29T01:30Z",
+   "src": "bovada",
+   "tour": "wta",
+   "a_hcp": -4.5,
+   "b_hcp": 4.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": -350,
+   "b_ml": 275
+  },
+  {
    "a": "Katerina Siniakova",
    "b": "Lanlana Tararudee",
    "start": "2026-10-28T05:00Z",
@@ -296,10 +348,10 @@
    "tour": "wta",
    "a_hcp": -3.5,
    "b_hcp": 3.5,
-   "a_sp": -125,
-   "b_sp": -105,
-   "a_ml": -220,
-   "b_ml": 180
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": -215,
+   "b_ml": 175
   },
   {
    "a": "Paula Badosa",
