@@ -14182,6 +14182,18 @@ def test_team_verbs_agree_wild_holds_10_27():
     assert "{us} hold teams to" not in src and "{them} are leaking" not in src
 
 
+def test_no_dog_note_never_says_no_plus_money_when_dog_plays_are_up_10_27():
+    """10/27, the owner: "it says no dogs today, no plus money where the price beats the spot, but then it shows two
+    value plays, so that don't make no sense." With plus-money unit plays on the board the note says they're below."""
+    import sports_dashboard as sdb
+    day = [{"kind": "lock", "lean": False, "american": -130}, {"kind": "play", "lean": False, "american": 102, "floor": {}},
+           {"kind": "play", "lean": False, "american": 102, "floor": {}}]
+    h = sdb._dog_note("2026-10-27", day)
+    assert "below" in h and "No plus-money" not in h and "plays" in h, h
+    h1 = sdb._dog_note("2026-10-27", [{"kind": "lock", "lean": False, "american": -130}])
+    assert h1 and "below" not in h1
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
