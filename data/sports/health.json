@@ -1,36 +1,45 @@
 {
- "at": "2026-10-27T16:53Z",
- "fixes": [],
+ "at": "2026-10-27T18:25Z",
+ "fixes": [
+  "main board not up at 11:25 AM PT with 18 games today - sports.yml already running"
+ ],
  "problems": [
-  "live tennis scores: tennis Cinalli vs Candiotto: no points for 339s",
-  "live tennis scores: tennis Sierra vs Daniele: no points for 339s",
-  "live tennis scores: tennis Galfi vs Blinkova: no points for 339s",
-  "live tennis scores: tennis Sobolieva vs Bandecchi: no points for 339s",
-  "live tennis scores: tennis Pawlikowska vs Colmegna: no points for 339s",
-  "live tennis scores: tennis Arango vs Mandlik: no points for 339s",
-  "live tennis points check failed: The read operation timed out"
+  "live tennis scores: tennis Kabbaj vs Pereira: no points for 261s",
+  "live tennis scores: tennis Taborda vs Hercog: no points for 261s",
+  "live tennis scores: tennis Johnson vs Ferro: no points for 261s"
  ],
  "ok": [
-  "live watcher fresh (1s)",
+  "live watcher fresh (73s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 7 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 40 min ago",
+  "studies ran 0h ago",
+  "simulator ran 0h ago",
+  "engine ran 3 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-27T18:25Z",
+   "fixes": [
+    "main board not up at 11:25 AM PT with 18 games today - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Pereira: no points for 261s",
+    "live tennis scores: tennis Taborda vs Hercog: no points for 261s",
+    "live tennis scores: tennis Johnson vs Ferro: no points for 261s"
+   ]
+  },
   {
    "at": "2026-10-27T16:53Z",
    "fixes": [],
@@ -522,11 +531,6 @@
   },
   {
    "at": "2026-10-25T21:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-25T21:18Z",
    "fixes": [],
    "problems": []
   }
