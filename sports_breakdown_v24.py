@@ -1322,6 +1322,13 @@ def breakdown(leg, games, elo, injuries, used=None):
         body.sort(key=lambda x: rank.get("risk" if str(x).startswith("⚠️") else v.dirs.get(x, "us"), 0))
         lines = body + [bottom]
     short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
+    if not str(leg.get("why_line") or "").strip():        # (10/27: the Blues lean posted with NO line under the pick -
+        top = next((x for x in lines[:-1] if not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))), None)   # no reason
+        if top:                                           #  matched a fact; the card's best line for us leads instead,
+            lean_ = leg.get("is_lean") or leg.get("tier") in ("lean", "strong")   # and leaves the body only when the
+            leg["why_line"] = f"{str(top).rstrip()} " + (f"We lean {us}." if lean_ else f"{us} the side.")   # card
+            if len(lines) - 2 >= short_floor:             #  stays at its floor without it)
+                lines = [x for x in lines if x is not top]
     if len(lines) - 1 < short_floor:                      # (never padded with filler: the log says the facts ran out)
         print(f"BREAKDOWN SHORT: {us} vs {them} ({lg}) has {len(lines) - 1} fact lines, floor {short_floor} - "
               f"games on file: ours {len(s_ours)}, theirs {len(s_theirs)}", flush=True)

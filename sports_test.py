@@ -14163,6 +14163,15 @@ def test_breakdown_makes_our_case_10_27():
     assert sb.VERSION >= 56                                               # (posted cards get the new wording)
 
 
+def test_a_card_never_posts_without_a_line_under_the_pick_10_27():
+    """10/27: the Blues lean posted with an empty one-liner (no reason matched a fact). The card's best line for us
+    leads instead - never a blank under the pick."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("the Blues lean posted with NO line under the pick")
+    assert 'leg["why_line"] = f"{str(top).rstrip()} "' in src[i - 400:i + 900]
+    assert src.index("for em, body_em in SAME_STORY") < src.index("the Blues lean posted with NO line under the pick")
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
