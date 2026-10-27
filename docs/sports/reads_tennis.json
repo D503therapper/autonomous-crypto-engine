@@ -1,52 +1,26 @@
 {
- "updated": "2026-10-27T10:38Z",
+ "updated": "2026-10-27T11:43Z",
  "games": [
-  {
-   "id": "tennis:atp:185129",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-27T11:00Z",
-   "away": "Hubert Hurkacz",
-   "home": "Zizou Bergs",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Hubert Hurkacz",
-    "opp": "Zizou Bergs",
-    "market": "ml",
-    "line": null,
-    "odds": -195,
-    "p": 0.632,
-    "win_p": 0.632,
-    "reasons": [
-     "on hard court",
-     "Swiss Indoors Basel"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:185140",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-27T12:30Z",
-   "away": "Arthur Rinderknech",
-   "home": "Jerome Kym",
+   "away": "Jerome Kym",
+   "home": "Arthur Rinderknech",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Arthur Rinderknech",
-    "opp": "Jerome Kym",
+    "team": "Jerome Kym",
+    "opp": "Arthur Rinderknech",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.5,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -62,7 +36,7 @@
    "away": "Tommy Paul",
    "home": "Andrey Rublev",
    "vs": true,
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
@@ -70,9 +44,9 @@
     "opp": "Andrey Rublev",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
@@ -306,7 +280,7 @@
     "line": -3.5,
     "odds": -120,
     "p": 0.51,
-    "win_p": 0.809,
+    "win_p": 0.818,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -348,17 +322,17 @@
    "away": "Ekaterina Alexandrova",
    "home": "Kamilla Rakhimova",
    "vs": true,
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
     "team": "Ekaterina Alexandrova",
     "opp": "Kamilla Rakhimova",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.718,
-    "win_p": 0.718,
+    "market": "spread",
+    "line": -4.0,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.726,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -382,9 +356,9 @@
     "opp": "Cristina Bucsa",
     "market": "ml",
     "line": null,
-    "odds": -165,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -538,9 +512,9 @@
     "opp": "Lorenzo Musetti",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
@@ -634,17 +608,17 @@
    "away": "Diana Shnaider",
    "home": "Aliaksandra Sasnovich",
    "vs": true,
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
     "team": "Diana Shnaider",
     "opp": "Aliaksandra Sasnovich",
-    "market": "ml",
-    "line": null,
-    "odds": -285,
-    "p": 0.706,
-    "win_p": 0.706,
+    "market": "spread",
+    "line": -4.5,
+    "odds": -135,
+    "p": 0.541,
+    "win_p": 0.745,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -656,7 +630,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-28T04:00Z",
+   "start": "2026-10-28T05:00Z",
    "away": "Katerina Siniakova",
    "home": "Lanlana Tararudee",
    "vs": true,
@@ -726,6 +700,32 @@
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185720",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T11:00Z",
+   "away": "Dayana Yastremska",
+   "home": "Shi Han",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Dayana Yastremska",
+    "opp": "Shi Han",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
+    "reasons": [
+     "on hard court",
+     "Guangzhou Open"
     ]
    }
   }
