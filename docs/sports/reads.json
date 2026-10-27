@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T01:01Z",
+ "updated": "2026-10-27T01:47Z",
  "games": [
   {
    "id": "nhl:401892582",
@@ -54,7 +54,7 @@
    "home": "Hornets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Hornets",
@@ -67,7 +67,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -246,63 +246,16 @@
    "id": "nhl:401892584",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Oilers",
-    "p": 0.405,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-27T01:30Z",
    "away": "Red Wings",
    "home": "Oilers",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oilers",
-    "opp": "Red Wings",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.617,
-    "win_p": 0.617,
-    "reasons": [
-     "the stronger team",
-     "opponent drama: trade drama"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909876",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Nuggets",
-    "p": 0.619,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-27T02:00Z",
-   "away": "Warriors",
-   "home": "Nuggets",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Nuggets",
-    "opp": "Warriors",
-    "market": "ml",
-    "line": null,
-    "odds": -270,
-    "p": 0.7,
-    "win_p": 0.7,
-    "reasons": [
-     "the stronger team",
-     "altitude edge"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892585",
