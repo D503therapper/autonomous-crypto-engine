@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T01:47Z",
+ "updated": "2026-10-27T01:51Z",
  "games": [
   {
    "id": "nhl:401892582",
@@ -490,6 +490,36 @@
    }
   },
   {
+   "id": "nba:401909878",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Knicks",
+    "p": 0.553,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-28T00:00Z",
+   "away": "Pistons",
+   "home": "Knicks",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Knicks",
+    "opp": "Pistons",
+    "market": "ml",
+    "line": null,
+    "odds": -172,
+    "p": 0.607,
+    "win_p": 0.607,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401871072",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -613,8 +643,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.377,
-    "tie": 0.299,
+    "p": 0.382,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -629,9 +659,9 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.662,
-    "win_p": 0.442,
+    "odds": -205,
+    "p": 0.651,
+    "win_p": 0.43,
     "reasons": []
    }
   }

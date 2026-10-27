@@ -7077,5 +7077,80 @@
   "score": "27-24",
   "margin": 3.0,
   "pnl_units": 0.38
+ },
+ {
+  "date": "2026-10-26",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nba",
+  "game_id": "nba:401909868",
+  "team": "Hornets",
+  "opp": "Wizards",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -130,
+  "posted": "2026-10-26T15:00Z",
+  "price_says": 0.565,
+  "win_p": 0.5575864139024603,
+  "own_read": 0.523,
+  "weighed": 0.5227,
+  "dog_p": null,
+  "edge_own": 0.031107640754186372,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "blew_lead": false,
+   "comeback": false,
+   "games_in": 3,
+   "home_after_trip": 0,
+   "last_margin": 5.0,
+   "last_ot": false,
+   "last_pts": 115.0,
+   "last_upset": true,
+   "last_year_wp": 0.537,
+   "lose_streak": 0,
+   "opp_blew_lead": false,
+   "opp_comeback": false,
+   "opp_last_margin": 4.0,
+   "opp_last_ot": false,
+   "opp_last_pts": 124.0,
+   "opp_last_upset": true,
+   "opp_rest": 1,
+   "opp_trip_game": 2,
+   "record": [
+    2,
+    1
+   ],
+   "rest": 2,
+   "spread_gap": -0.0497,
+   "total": 228.5,
+   "total_vs_league": -2.5,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Kon Knueppel (G)",
+   "Coby White (G)",
+   "Grant Williams (F)",
+   "Kylan Boswell (G)"
+  ],
+  "theirs_out": [
+   "Jamir Watkins (G)",
+   "AJ Dybantsa (F)",
+   "Tristan Vukcevic (F)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": -142,
+  "beat_close_pts": 2.2,
+  "result": "won",
+  "score": "110-103",
+  "margin": 7.0,
+  "pnl_units": 0.0
  }
 ]

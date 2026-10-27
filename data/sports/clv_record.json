@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 125,
-  "beat": 40,
+  "n": 126,
+  "beat": 41,
   "same": 45,
   "worse": 40,
-  "avg_pts": 0.1
+  "avg_pts": 0.11
  },
  "unit_plays": {
   "n": 56,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 69,
-   "beat": 23,
+   "n": 70,
+   "beat": 24,
    "same": 19,
    "worse": 27,
-   "avg_pts": -0.01
+   "avg_pts": 0.03
   },
   "lock": {
    "n": 13,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 9,
-   "beat": 4,
+   "n": 10,
+   "beat": 5,
    "same": 3,
    "worse": 2,
-   "avg_pts": 0.41
+   "avg_pts": 0.59
   },
   "ncaaf": {
    "n": 37,
@@ -1859,6 +1859,20 @@
    "close": -130,
    "pts": 0.0,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Hornets",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -142,
+   "pts": 2.2,
+   "units": 0,
    "result": "won"
   }
  ]
