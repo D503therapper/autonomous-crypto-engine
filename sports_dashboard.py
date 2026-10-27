@@ -998,6 +998,10 @@ def _pick_card(kind, pk):
     label, c1, c2 = LOOK[kind]
     if pk and pk.get("gap"):                                 # 🔍 the owner, 10/17: the big-gap college dogs, their own record
         label = "🔍 THE ENGINE SEES SOMETHING"
+    elif pk and pk.get("nba_fav"):                           # 🏀 10/27: the NBA favorite play (the study weights back it)
+        label = "🏀 NBA FAVORITE PLAY"
+    elif pk and pk.get("floor"):                             # 💰 10/27: the daily floor - a thin edge, ½u, and it says so
+        label = "VALUE PLAY · THIN EDGE"
     if pk and pk.get("lean") and pk.get("legs"):             # a LEAN is never titled Lock/Dog of the Day
         c1, c2 = "#ffc233", "#e8c77a"
         if len(pk["legs"]) == 1:
