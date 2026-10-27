@@ -359,6 +359,9 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
         import sports as _s                                  #  Bigger bet." said nothing - the size line says OUR number
         import sports_breakdown_v24 as _v                    #  next to the book's)
         f = _v.fair_am(_s.read_of(leg)) if leg else None
+        if leg and leg.get("floor_score") is not None:       # (10/27: a floor play's read sits about even with the price -
+            f = None                                         #  "we make 'em +109, the book's at +102" argued against it)
+            why = "Thin edge - the dog check backs it. Small bet, tread light." if u == 0.5 else why
         if f and odds is not None:
             o = f"+{odds}" if odds > 0 else str(odds)
             size = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."

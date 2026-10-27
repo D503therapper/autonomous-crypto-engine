@@ -14070,6 +14070,21 @@ def test_fable_1027_the_daily_floor_fills_the_board_to_two_unit_plays_by_dog_sco
     assert 'label = "VALUE PLAY · THIN EDGE"' in dsrc and 'label = "🏀 NBA FAVORITE PLAY"' in dsrc   # the card says what it is
 
 
+def test_floor_play_card_never_says_no_units_or_a_price_against_it_10_27():
+    """10/27, the first floor board: the Wild +102 floor play (½u) said "We make 'em +109, the book's at +102" and its
+    bottom line "close to a coin flip ... No units". A floor play's card says what put it up (the dog check), thin edge,
+    half a unit - never "no units", never our price against the book's."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    assert 'leg.get("floor_score") is not None' in src
+    leg = {"team": "Wild", "odds": 102, "dec": 2.02, "p": 0.478, "floor_score": -0.6, "market": "ml"}
+    html = sdb._units_line(0.5, "Wild", 102, leg=leg)
+    assert "We make" not in html and "Thin edge" in html, html
+    import sports_breakdown_v24 as v24
+    bsrc = open(v24.__file__).read()
+    assert '"bottom_floor"' in bsrc and bsrc.index('"bottom_floor"') < bsrc.index('"bottom_c"')
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
