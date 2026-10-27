@@ -1,13 +1,11 @@
 {
- "at": "2026-10-27T00:07Z",
+ "at": "2026-10-27T00:14Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Papamichail vs Da Silva: no points for 2320s",
-  "live tennis scores: tennis Van Impe vs Strakhova: no points for 2320s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis points: none of 3 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,18 +13,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 46 min ago",
+  "engine ran 53 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-27T00:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-27T00:07Z",
    "fixes": [],
@@ -522,11 +527,6 @@
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
-  },
-  {
-   "at": "2026-10-25T08:18Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
