@@ -1,26 +1,52 @@
 {
- "updated": "2026-10-27T06:27Z",
+ "updated": "2026-10-27T07:32Z",
  "games": [
   {
-   "id": "tennis:wta:185661",
+   "id": "tennis:wta:185725",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-27T06:50Z",
-   "away": "Tereza Valentova",
-   "home": "Mia Pohankova",
+   "start": "2026-10-27T08:00Z",
+   "away": "Janice Tjen",
+   "home": "Polina Kudermetova",
    "vs": true,
    "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Tereza Valentova",
-    "opp": "Mia Pohankova",
+    "team": "Janice Tjen",
+    "opp": "Polina Kudermetova",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -170,
+    "p": 0.602,
+    "win_p": 0.602,
+    "reasons": [
+     "on hard court",
+     "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185674",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-27T08:00Z",
+   "away": "Jasmine Paolini",
+   "home": "Naomi Osaka",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jasmine Paolini",
+    "opp": "Naomi Osaka",
+    "market": "spread",
+    "line": 4.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.245,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -32,7 +58,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-27T07:50Z",
+   "start": "2026-10-27T09:00Z",
    "away": "Venus Williams",
    "home": "Lilli Tagger",
    "vs": true,
@@ -54,32 +80,6 @@
    }
   },
   {
-   "id": "tennis:wta:185674",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-27T08:00Z",
-   "away": "Naomi Osaka",
-   "home": "Jasmine Paolini",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Naomi Osaka",
-    "opp": "Jasmine Paolini",
-    "market": "spread",
-    "line": -4.0,
-    "odds": -125,
-    "p": 0.52,
-    "win_p": 0.726,
-    "reasons": [
-     "on hard court",
-     "Toray Pan Pacific Open Tennis"
-    ]
-   }
-  },
-  {
    "id": "tennis:atp:185129",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -96,9 +96,9 @@
     "opp": "Zizou Bergs",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -122,9 +122,9 @@
     "opp": "Arthur Rinderknech",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -148,9 +148,9 @@
     "opp": "Andrey Rublev",
     "market": "ml",
     "line": null,
-    "odds": -145,
-    "p": 0.566,
-    "win_p": 0.566,
+    "odds": -140,
+    "p": 0.556,
+    "win_p": 0.556,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
@@ -163,20 +163,20 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-27T13:00Z",
-   "away": "Alejandro Tabilo",
-   "home": "Rafael Jodar",
+   "away": "Rafael Jodar",
+   "home": "Alejandro Tabilo",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Alejandro Tabilo",
-    "opp": "Rafael Jodar",
+    "team": "Rafael Jodar",
+    "opp": "Alejandro Tabilo",
     "market": "spread",
-    "line": 4.0,
+    "line": -3.5,
     "odds": -135,
     "p": 0.541,
-    "win_p": 0.255,
+    "win_p": 0.745,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -200,9 +200,9 @@
     "opp": "Botic Van De Zandschulp",
     "market": "ml",
     "line": null,
-    "odds": -210,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -215,
+    "p": 0.652,
+    "win_p": 0.652,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -252,9 +252,9 @@
     "opp": "Ignacio Buse",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
@@ -278,8 +278,8 @@
     "opp": "Giovanni Mpetshi Perricard",
     "market": "spread",
     "line": -3.0,
-    "odds": -125,
-    "p": 0.52,
+    "odds": -120,
+    "p": 0.51,
     "win_p": 0.755,
     "reasons": [
      "on hard court",
@@ -330,8 +330,8 @@
     "opp": "Alexander Zverev",
     "market": "spread",
     "line": 4.5,
-    "odds": -125,
-    "p": 0.52,
+    "odds": -120,
+    "p": 0.51,
     "win_p": 0.123,
     "reasons": [
      "on hard court",
@@ -475,20 +475,20 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-28T04:00Z",
-   "away": "Rinky Hijikata",
-   "home": "Taylor Fritz",
+   "away": "Taylor Fritz",
+   "home": "Rinky Hijikata",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Rinky Hijikata",
-    "opp": "Taylor Fritz",
+    "team": "Taylor Fritz",
+    "opp": "Rinky Hijikata",
     "market": "spread",
-    "line": 4.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.132,
+    "line": -4.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.868,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -720,9 +720,35 @@
     "opp": "Lanlana Tararudee",
     "market": "ml",
     "line": null,
-    "odds": -240,
-    "p": 0.676,
-    "win_p": 0.676,
+    "odds": -230,
+    "p": 0.669,
+    "win_p": 0.669,
+    "reasons": [
+     "on hard court",
+     "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:185710",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-28T04:00Z",
+   "away": "Paula Badosa",
+   "home": "Sinja Kraus",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Paula Badosa",
+    "opp": "Sinja Kraus",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
     "reasons": [
      "on hard court",
      "Guangzhou Open"

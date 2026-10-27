@@ -1,23 +1,3 @@
-   no units on Flames: missing Mikael Backlund, Samuel Honzek
-   no units on Kraken: missing Jared McCann, Ryan Lindgren
-tennis sync: 73695 matches stored, 18 calls, 0 failed
-tennis study ATP: 26153 rated matches, acc 0.6465 (surface ratings alone 0.645), loss 0.6286 vs 0.629, own weights [-0.005, 0.825, 0.075, 0.146, 0.423, 0.048, 0.05]
-tennis study ATP life factors vs current loss 0.6286: experience 0.6287 (-0.16 mnats, z -0.17), age 0.6262 (+2.37 mnats, z 1.71), young_vs_aging 0.6281 (+0.42 mnats, z 1.02), last_match 0.6267 (+1.82 mnats, z 1.26), streaks 0.6293 (-0.71 mnats, z -0.7), first_set 0.6277 (+0.90 mnats, z 1.39), injury 0.6294 (-0.79 mnats, z -1.22), travel 0.6285 (+0.03 mnats, z 0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30602 rated matches, acc 0.6525 (surface ratings alone 0.6525), loss 0.6209 vs 0.6206, own weights [0.004, 0.903, -0.001, -0.087, 0.3, 0.025, -0.206]
-tennis study WTA life factors vs current loss 0.6209: experience 0.618 (+2.96 mnats, z 1.71), age 0.6202 (+0.71 mnats, z 0.89), young_vs_aging 0.6207 (+0.17 mnats, z 0.98), last_match 0.6209 (+0.00 mnats, z 0.0), streaks 0.621 (-0.09 mnats, z -0.18), first_set 0.6203 (+0.57 mnats, z 1.29), injury 0.6201 (+0.81 mnats, z 1.42), travel 0.621 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 55 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 22 matches
-sync: 131207 games stored, 58 calls, 0 failed, 22s
-odds history: 3 games got odds, 59 calls, 0 failed, 4s
-player stats: 7 box scores added, 7 to fetch, 0 failed, 1s
-weather: 130 games got weather, 0 new stadiums located, 142s
-4th-down rates: 32 NFL teams
-news: 8 new drama tags
-goalies: 12 games on the page, 10 matched, 18 confirmed
-nba rosters: 30 teams as of 2026-10-24, 0 failed, 0 moves
-beat the close: unit plays 15 of 51 better than the close, avg +0.2 pts
-tuned in 93s: mlb trust 32% acc 58.7%, nba trust 17% acc 69.2%, ncaab trust 5% acc 67.4%, ncaaf trust 0% acc 70.7%, nfl trust 15% acc 65.6%, nhl trust 8% acc 56.8%
 cover study: nba big favorites covered 50% of 3607 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3578 (adjust +0.00); nfl big favorites covered 47% of 516 (adjust +0.02)
 comeback study: nfl 2295 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.470; ncaaf 6202 games s=1.2 w=1.25 m=+0.0 loss 0.369->0.368; nba 10256 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19854 games s=1.0 w=1.00 m=+0.0 loss 0.456->0.456; nhl 10216 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
 halves study: nfl 2304 games: 1st half gets 51% of the edge (sd 10.26), 2nd 39%; 1st half leader wins 78%, tied 7%; ncaaf 6203 games: 1st half gets 61% of the edge (sd 11.82), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10256 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20088 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10216 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
@@ -2998,3 +2978,23 @@ tennis study WTA life factors vs current loss 0.6213: experience 0.6183 (+2.96 m
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 28 matches
+sync: 131240 games stored, 52 calls, 0 failed, 14s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 125 games got weather, 0 new stadiums located, 215s
+4th-down rates: 32 NFL teams
+news: 50 new drama tags
+goalies: 11 games on the page, 11 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-27, 0 failed, 0 moves
+beat the close: unit plays 17 of 56 better than the close, avg +0.2 pts
+public splits: 64 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26171 rated matches, acc 0.646 (surface ratings alone 0.645), loss 0.6292 vs 0.6296, own weights [-0.005, 0.825, 0.075, 0.147, 0.424, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6292: experience 0.6292 (-0.09 mnats, z -0.1), age 0.6268 (+2.31 mnats, z 1.67), young_vs_aging 0.6288 (+0.38 mnats, z 0.92), last_match 0.6273 (+1.83 mnats, z 1.27), streaks 0.63 (-0.85 mnats, z -0.83), first_set 0.6283 (+0.83 mnats, z 1.3), injury 0.6298 (-0.68 mnats, z -1.05), travel 0.6291 (+0.03 mnats, z 0.72) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30641 rated matches, acc 0.6505 (surface ratings alone 0.6505), loss 0.6213 vs 0.6211, own weights [0.004, 0.903, -0.001, -0.085, 0.3, 0.024, -0.202]
+tennis study WTA life factors vs current loss 0.6213: experience 0.6184 (+2.90 mnats, z 1.68), age 0.6206 (+0.65 mnats, z 0.81), young_vs_aging 0.6211 (+0.18 mnats, z 1.09), last_match 0.6217 (-0.38 mnats, z -0.38), streaks 0.6213 (-0.03 mnats, z -0.07), first_set 0.6209 (+0.38 mnats, z 0.84), injury 0.6204 (+0.91 mnats, z 1.59), travel 0.6214 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 36 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 29 matches
