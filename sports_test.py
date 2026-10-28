@@ -14518,6 +14518,55 @@ def test_a_thin_edge_is_never_the_lock_10_28():
     src = open(s.__file__).read()
     assert 'kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best)' in src
 
+def test_the_named_reason_10_28_facts_the_own_read_counts_become_reasons():
+    """10/28 THE NAMED REASON (the owner: "there's always a reason ... the engine has a bug"): New Mexico St +130 passed
+    every college Dog check (own read 47.7% vs a 41.7% price, dog score +6.0 over the gate of 4) and sat on reasons=[].
+    (1) sports_absences.penalty moved the own read for the opponent's QB / RB / WR / top scorer out and the football
+    depth weight for the more banged-up opponent - neither was ever a named reason (_reasons only sees the model's raw
+    injury count behind a weight that is negative in college). (2) a football dog whose whole score IS its own read over
+    the price (college trust 0: no model factor can name a college dog) names that fact plus every dog study that added
+    points - a reason only in SCORE_REASON_LEAGUES, a card fact (score_fact) everywhere."""
+    r = sports.absence_reasons("ncaaf", (0.03, ["QB Caden Creel"]), 0.0, 0, 0, "Jax State")
+    assert r == ["opponent missing key players: QB Caden Creel (their read -3)"], r
+    r = sports.absence_reasons("nfl", (0.0, []), 0.01, 1, 3, "Jets")
+    assert r == ["opponent the more banged-up side: 3 regulars out to 1 for us"], r
+    assert sports.absence_reasons("ncaaf", (0.0, []), 0.0, 2, 1, "x") == []        # nothing counted = no reason
+    # (2) the college dog: own read 47.7% vs the 41.7% price, score 6.0, no study points
+    keep, keep_lg = sports.dog_score, set(sports.SCORE_REASON_LEAGUES)
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        nm = {**_cand("nm", 130, 0.477, league="ncaaf"), "reasons": [], "sc": 6.0, "p_market": 0.417, "waiting": [],
+              "dog_more": {"win_pct": 0.429, "bye": False}, "dog_ctx": {"opp_won": None}}
+        sports.SCORE_REASON_LEAGUES = {"nba", "nfl", "ncaaf"}
+        base = dict(nm)
+        sports.score_reason(nm)
+        assert nm["reasons"] == ["our own read has them 6 points better than the price says (a home dog the books overprice)"
+                                 " - dog score +6 over the gate of 4"], nm["reasons"]
+        assert sports.good(dict(nm)) and sports.dog_gate(dict(nm))
+        bye = {**base, "reasons": [], "dog_more": {"win_pct": 0.714, "bye": True, "last_margin": 21.0}, "dog_ctx": {"opp_won": False}}
+        sports.score_reason(bye)
+        assert "off a bye against a team that played last week" in bye["reasons"][0] and "off a 21-point win" in bye["reasons"][0] \
+            and "the favorite lost its last game" in bye["reasons"][0] and "a 0.714 team getting plus money" in bye["reasons"][0]
+        under = {**base, "reasons": [], "sc": 3.9}                              # under the gate: no reason
+        sports.score_reason(under)
+        assert under["reasons"] == [] and "score_fact" not in under
+        own_under = {**base, "reasons": [], "edge_own": 0.40 * sd.decimal(130) - 1}   # the own read under the price: never
+        sports.score_reason(own_under)
+        assert own_under["reasons"] == []
+        sports.SCORE_REASON_LEAGUES = {"nba"}                                 # off the list: a card fact, not a reason
+        fact_only = {**base, "reasons": []}
+        sports.score_reason(fact_only)
+        assert fact_only["reasons"] == [] and fact_only["score_fact"].startswith("our own read has them 6 points")
+        assert not sports.good(dict(fact_only))
+        nhl = {**_cand("h", 160, 0.38, league="nhl"), "reasons": [], "sc": 7.0}
+        sports.score_reason(nhl)
+        assert nhl["reasons"] == [] and "score_fact" not in nhl                # hockey: unchanged
+    finally:
+        sports.dog_score = keep
+        sports.SCORE_REASON_LEAGUES = keep_lg
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "absence_reasons(lg, absent[other], depth[other]" in src          # wired into every candidate
+
 
 if __name__ == "__main__":
     import sports_goalies as _sg
@@ -14566,6 +14615,8 @@ if __name__ == "__main__":
     _fails = []
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
+            if os.environ.get("TESTS") and name not in os.environ["TESTS"].split(","):   # (a quick targeted run:
+                continue                                                                  #  TESTS=a,b python sports_test.py)
             if os.environ.get("KEEP_GOING"):
                 try:
                     fn()

@@ -223,6 +223,23 @@ def _reasons(side, f, g, league, params):
     return [r[1] for r in out[:3]]
 
 
+def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
+    """🚑 10/28 (THE NAMED REASON - New Mexico St +130 passed every Dog check and sat on "no named reason"): the facts the
+    engine's OWN read really counts for a side that _reasons could never see. _reasons reads the model's factor dict, and
+    the "opponent missing key players" line there is ESPN's raw injury COUNT behind the learned 'inj' weight - negative
+    in college (-0.12) and tiny everywhere, so it almost never fires. The absences that actually move the own read are
+    sports_absences.penalty (the opponent's QB -8 / RB -3 / WR -3 in the NFL, QB -3 in college, the top scorer -9 in
+    the NBA, -6 in the NHL) and the football depth weight (sports.depth_penalty) - both moved the read and neither was
+    ever a named reason. A fact the read counts FOR the side is its reason; the card names who's out."""
+    out = []
+    pts, who = absent_opp if absent_opp else (0.0, [])
+    if pts and who:
+        out.append(f"opponent missing key players: {', '.join(str(w) for w in who[:3])} (their read -{round(pts * 100):g})")
+    if depth_opp:
+        out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
+    return out
+
+
 POS_BY_DEFAULT = {"form": 1.0, "rest": 1.0, "b2b": 1.0, "inj": 1.0, "key": 1.0}   # no learned weights at hand (a bare
 #   call) = the old reading: the raw factor speaks for itself; with the model's weights, only a positive one does
 
@@ -667,6 +684,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "talk_theirs": [{"kind": e["kind"], "headline": e.get("headline", "")} for e in talk[other][:2]]}
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
+            base["reasons"] = base["reasons"] + absence_reasons(lg, absent[other], depth[other], n_out[side], n_out[other],
+                                                                g[other + "_name"])   # (10/28: a fact the own read counts)
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
                 base["absent"] = absent[side][1]
@@ -951,9 +970,21 @@ def score_reason(c):
     6-10, the 10/21 twenty studies). A model-factor reason (_reasons: the stronger team, rest...) rarely fires on a dog, so
     a gated dog had no "named reason" and good() / the floor threw it out - the 10/9 and 10/27 replays never asked for one.
     An NBA moneyline dog +100..+350 the score likes (NBA_FLOOR_SCORE+, the floor's bar) gets the score as its named reason.
-    Adds to c["reasons"] in place (once); never a trap, never one the own read is fighting."""
-    if c.get("league") != "nba" or c.get("market") != "ml" or c.get("reasons") or c.get("trap") \
-            or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+    Adds to c["reasons"] in place (once); never a trap, never one the own read is fighting.
+    🏈 10/28 (THE NAMED REASON - the owner: "there's always a reason ... the engine has a bug"): the same hole in football.
+    New Mexico St +130 (home vs Jax State) passed every college Dog check - own read 47.7% vs a 41.7% price, dog score
+    +6.0 over the gate of 4 - and the whole score WAS that own read: the home-dog edge plus the big dog study's price
+    correction (sports_dogs.adjust), the one thing the college own read counts in (trust 0 - the model's factors never
+    move it, so "the stronger team" / rest / travel can't name a college dog). A college dog's named reason is the fact
+    the read stands on: how far its own read sits over the price, plus every dog study that added points (off a bye, off
+    a 17+ win, the favorite lost its last, a .700 team, revenge, the market's overreaction). Words, no model names.
+    SCORE_REASON_LEAGUES says where the score is a reason that unlocks units (the owner's 10/23 "KEEP A" replay: gated
+    college dogs with no named reason went 84-132, -7.9% - the 10/28 replay re-judges that group as the newly-named one;
+    see SPORTS_FINDINGS 10/28). Off that list it is still a card fact (c["score_fact"]), never a reason."""
+    if c.get("market") != "ml" or c.get("reasons") or c.get("trap") or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+        return
+    lg = c.get("league")
+    if lg not in ("nba", "nfl", "ncaaf"):
         return
     try:
         if fighting(c):
@@ -961,10 +992,57 @@ def score_reason(c):
         sc = round(dog_score(c), 1)
     except Exception:                                        # noqa: BLE001 - no score = no reason
         return
-    if sc >= NBA_FLOOR_SCORE:
-        mo = c.get("dog_more") or {}
-        why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
-        c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+    if lg == "nba":
+        if sc >= NBA_FLOOR_SCORE:
+            mo = c.get("dog_more") or {}
+            why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
+            c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+        return
+    gate = {"nfl": DOG_GATE, "ncaaf": NCAAF_DOG_GATE}[lg]
+    if sc < gate or not dog_own_ok(c) or c.get("edge_own") is None or c.get("p_market") is None:
+        return
+    own = (c["edge_own"] + 1) / c["dec"]
+    over = round((own - c["p_market"]) * 100, 1)
+    if over <= 0:
+        return
+    why = [f"our own read has them {over:g} points better than the price says" + (" (a home dog the books overprice)"
+                                                                                  if c.get("home") else "")]
+    why += dog_study_facts(c)
+    fact = "; ".join(why) + f" - dog score +{sc:g} over the gate of {gate:g}"
+    c["score_fact"] = fact
+    if lg in SCORE_REASON_LEAGUES:
+        c["reasons"] = [fact]
+
+
+SCORE_REASON_LEAGUES = {"nba", "nfl", "ncaaf"}   # where the dog score (the own read + the studies) is a named reason that
+#   unlocks units - the NBA since 10/28 AM (the 10/27 replay never asked for a reason); football 10/28 PM, judged by the
+#   10/28 replay of the 2023-26 gated dogs that only this names (SPORTS_FINDINGS 10/28 - THE NAMED REASON)
+
+
+def dog_study_facts(c):
+    """The dog studies that ADDED points to this football dog's score, in words (the card's facts, the score's reason)."""
+    lg, mo, x = c.get("league"), c.get("dog_more") or {}, c.get("dog_ctx") or {}
+    out = []
+    if mo.get("bye"):
+        out.append("off a bye against a team that played last week")
+    if (mo.get("last_margin") or 0) >= 17:
+        out.append(f"off a {mo['last_margin']:g}-point win")
+    if x.get("opp_won") is False or c.get("opp_lost_last"):
+        out.append("the favorite lost its last game")
+    if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
+        out.append(f"a {mo['win_pct']:.3f} team getting plus money")
+    if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
+        out.append("the 0-2 team as a dog")
+    if lg == "nfl" and mo.get("east_west"):
+        out.append("an East Coast team out West")
+    if c.get("revenge"):
+        out.append("got blown out by this team last meeting")
+    try:
+        if overreact(c):
+            out.append("off a blowout loss the market overreacts to")
+    except Exception:                                        # noqa: BLE001
+        pass
+    return out
 
 
 def good(c):
