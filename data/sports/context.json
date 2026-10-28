@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "at": "2026-10-27T22:37Z",
+  "at": "2026-10-28T01:42Z",
   "expected_false_positives": 0.136,
   "game_flags": {
    "conf": "same conference, not the division",
@@ -17,7 +17,7 @@
   "null_sims": 3,
   "p_luck": 0.00023262907903552504,
   "refs": "officials.json loaded",
-  "secs": 26.3,
+  "secs": 22.7,
   "team_flags": {
    "bowl5": "college football team at 5 wins going for bowl-eligible 6",
    "clinched": "late season, playoff spot clinched",
@@ -8109,76 +8109,76 @@
     "z_edge": 0.33
    },
    "div|ml|dog": {
-    "edge": -0.0078,
-    "n": 3419,
+    "edge": -0.0079,
+    "n": 3420,
     "n_new": 1710,
-    "n_old": 1709,
-    "roi": -0.0664,
+    "n_old": 1710,
+    "roi": -0.0667,
     "roi_new": -0.0656,
-    "roi_old": -0.0672,
+    "roi_old": -0.0678,
     "tested": true,
-    "z": -3.28,
-    "z_edge": -0.94
+    "z": -3.29,
+    "z_edge": -0.96
    },
    "div|ml|fav": {
-    "edge": 0.0078,
-    "n": 3419,
+    "edge": 0.0079,
+    "n": 3420,
     "n_new": 1710,
-    "n_old": 1709,
-    "roi": -0.0297,
-    "roi_new": -0.0421,
-    "roi_old": -0.0172,
+    "n_old": 1710,
+    "roi": -0.0294,
+    "roi_new": -0.0419,
+    "roi_old": -0.017,
     "tested": true,
-    "z": -2.18,
-    "z_edge": 0.94
+    "z": -2.16,
+    "z_edge": 0.96
    },
    "div|ml|home": {
-    "edge": -0.0055,
-    "n": 3474,
-    "n_new": 1737,
+    "edge": -0.0056,
+    "n": 3475,
+    "n_new": 1738,
     "n_old": 1737,
-    "roi": -0.0554,
-    "roi_new": -0.0422,
+    "roi": -0.0556,
+    "roi_new": -0.0427,
     "roi_old": -0.0685,
     "tested": true,
-    "z": -3.5,
-    "z_edge": -0.67
+    "z": -3.52,
+    "z_edge": -0.68
    },
    "div|ml|road": {
-    "edge": 0.0055,
-    "n": 3474,
-    "n_new": 1737,
+    "edge": 0.0056,
+    "n": 3475,
+    "n_new": 1738,
     "n_old": 1737,
-    "roi": -0.0407,
-    "roi_new": -0.0653,
+    "roi": -0.0404,
+    "roi_new": -0.0648,
     "roi_old": -0.016,
     "tested": true,
-    "z": -2.22,
-    "z_edge": 0.67
+    "z": -2.21,
+    "z_edge": 0.68
    },
    "div|total|over": {
-    "edge": -0.0028,
-    "n": 3363,
+    "edge": -0.0027,
+    "n": 3364,
     "n_new": 1682,
-    "n_old": 1681,
-    "roi": -0.0491,
-    "roi_new": -0.0674,
-    "roi_old": -0.0309,
+    "n_old": 1682,
+    "roi": -0.0489,
+    "roi_new": -0.0663,
+    "roi_old": -0.0315,
     "tested": true,
-    "z": -2.98,
-    "z_edge": -0.33
+    "z": -2.96,
+    "z_edge": -0.31
    },
    "div|total|under": {
-    "edge": 0.0028,
-    "n": 3363,
+    "edge": 0.0027,
+    "n": 3364,
     "n_new": 1682,
-    "n_old": 1681,
-    "roi": -0.038,
-    "roi_new": -0.021,
-    "roi_old": -0.0551,
+    "n_old": 1682,
+    "roi": -0.0383,
+    "roi_new": -0.0223,
+    "roi_old": -0.0544,
     "tested": true,
-    "z": -2.29,
-    "z_edge": 0.33
+    "z": -2.31,
+    "z_edge": 0.31
    },
    "east1000|ml|fade": {
     "edge": -0.0051,
@@ -8903,7 +8903,7 @@
   },
   "closest": [],
   "confirmed": [],
-  "games": 13374,
+  "games": 13375,
   "killed": [],
   "proven": [],
   "shifts": {}
