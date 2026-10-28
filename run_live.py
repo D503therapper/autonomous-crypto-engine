@@ -826,7 +826,49 @@ def git_sync():
         else:
             print(f"   git sync: push rejected (try {i + 1}/5)")
         time.sleep(5 + 5 * i)
+    if force_sync():
+        return
     print("   git sync: gave up this hour; the next sync / end of run pushes the saved commit")
+
+
+def force_sync(remote="origin", branch="main"):
+    """Fallback when pull --rebase keeps failing (10-28 15:22-21:13: six hours of hourly saves never reached
+    GitHub while the dashboard, built with plumbing, still pushed every minute). Publish the paths OUR unpushed
+    commits changed on top of the remote branch as one commit - no merge, so nothing can conflict - then point the
+    local branch at it. Our version wins on our paths, the remote's on everything else (what -X theirs meant)."""
+    env = dict(os.environ, GIT_INDEX_FILE=os.path.abspath(".git/sync_index"))
+
+    def git(*args, **kw):
+        return subprocess.run(["git", *args], env=env, capture_output=True, text=True, check=True,
+                              timeout=GIT_TIMEOUT, **kw).stdout
+
+    try:
+        git("fetch", "-q", remote, branch)
+        base = git("rev-parse", "FETCH_HEAD").strip()
+        mb = git("merge-base", "HEAD", base).strip()
+        paths = [p for p in git("diff", "--name-only", "-z", mb, "HEAD").split("\0") if p]
+        if not paths:
+            return True
+        git("read-tree", base)
+        for p in paths:
+            entry = git("ls-tree", "-z", "HEAD", "--", p).strip("\0")
+            if entry:
+                meta, _ = entry.split("\t", 1)
+                mode, _, sha = meta.split()
+                git("update-index", "--add", "--cacheinfo", f"{mode},{sha},{p}")
+            else:
+                git("update-index", "--force-remove", "--", p)
+        tree = git("write-tree").strip()
+        commit = git("commit-tree", tree, "-p", base, "-m", f"paper-trade {ts(int(time.time() * 1000))} UTC (sync)").strip()
+        git("push", "-q", remote, f"{commit}:refs/heads/{branch}")
+        subprocess.run(["git", "reset", "-q", "--hard", commit], check=True, timeout=GIT_TIMEOUT)
+        print(f"   git sync: pull kept failing - published {len(paths)} files on top of {remote}/{branch} instead")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"   git sync fallback failed: {(e.stderr or '').strip()[:300]}")
+    except Exception as e:
+        print(f"   git sync fallback failed: {e}")
+    return False
 
 
 def main():

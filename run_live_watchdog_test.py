@@ -72,8 +72,52 @@ def test_flush_log_copies_only_new_lines():
     assert open(out).read().endswith("c\nx\n")
 
 
+def test_force_sync_publishes_our_paths_without_a_merge():
+    # 10-28 15:22-21:13: every hourly pull --rebase failed for six hours; the fallback publishes our changed paths
+    # on top of the remote branch with plumbing (no merge), our version on our paths, theirs everywhere else
+    import os, subprocess, tempfile
+    r = tempfile.mkdtemp()
+    cwd = os.getcwd()
+
+    def sh(c, d):
+        subprocess.run(c, shell=True, check=True, cwd=d, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    def put(path, data):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        open(path, "wb").write(data)
+    try:
+        sh("git init -q --bare -b main remote.git && git clone -q remote.git a", r)
+        a, b = os.path.join(r, "a"), os.path.join(r, "b")
+        sh("git config user.email t@t && git config user.name t", a)
+        for p, v in (("data/dex/eq.csv", b"1\n"), ("data/blob.bin", b"\x00\x01"), ("data/sports/s.json", b"{}"),
+                     ("data/gone.txt", b"x")):
+            put(os.path.join(a, p), v)
+        sh("git add -A && git commit -qm init && git push -q origin main && cd .. && git clone -q remote.git b", a)
+        sh("git config user.email t@t && git config user.name t", b)
+        put(os.path.join(b, "data/blob.bin"), b"\x00\x02")                # another session pushes first
+        put(os.path.join(b, "data/sports/s.json"), b'{"a":1}')
+        sh("git commit -qam other && git push -q origin main", b)
+        put(os.path.join(a, "data/blob.bin"), b"\x00\x03")                # the engine's unpushed hour
+        put(os.path.join(a, "data/dex/eq.csv"), b"1\n2\n")
+        os.remove(os.path.join(a, "data/gone.txt"))
+        sh("git add -A && git commit -qm engine", a)
+        os.chdir(a)
+        assert run_live.force_sync()
+        sh("git fetch -q && git reset -q --hard origin/main", b)
+        rd = lambda p: open(os.path.join(b, p), "rb").read()
+        assert rd("data/dex/eq.csv") == b"1\n2\n" and rd("data/blob.bin") == b"\x00\x03"   # ours on our paths
+        assert rd("data/sports/s.json") == b'{"a":1}'                                     # theirs elsewhere
+        assert not os.path.exists(os.path.join(b, "data/gone.txt"))
+        head = subprocess.run("git rev-parse HEAD origin/main", shell=True, capture_output=True, text=True).stdout.split()
+        assert head[0] == head[1]                                       # local branch now matches the remote
+        assert run_live.force_sync()                                    # nothing left to publish
+    finally:
+        os.chdir(cwd)
+
+
 if __name__ == "__main__":
     for f in (test_watchdog_fires_when_loop_stalls, test_watchdog_quiet_while_ticking, test_hung_git_is_bounded,
-              test_git_unjam_clears_stale_lock_and_rebase, test_flush_log_copies_only_new_lines):
+              test_git_unjam_clears_stale_lock_and_rebase, test_flush_log_copies_only_new_lines,
+              test_force_sync_publishes_our_paths_without_a_merge):
         f()
         print("ok", f.__name__)
