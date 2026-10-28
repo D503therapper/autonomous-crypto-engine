@@ -1,0 +1,113 @@
+=== 1. THE CLAIM (after the fact): the team that made more threes won straight up, NBA 2018-26 ===
+  tie          663 games (no leader)
+  1-2 more    2760 games - the 3PM leader won  54.8%
+  3-4 more    2298 games - the 3PM leader won  63.4%
+  5-7 more    2294 games - the 3PM leader won  71.2%
+  8+ more     1515 games - the 3PM leader won  85.5%
+  ALL with a leader: 8867 games, the team with more threes won 66.5%
+  by season: 2018-19 66.3%, 2019-20 62.7%, 2020-21 68.3%, 2021-22 66.8%, 2022-23 66.8%, 2023-24 67.6%, 2024-25 67.9%, 2025-26 65.0%, 2026-27 71.7%
+  for scale - the team that ATTEMPTED more threes won 49.2% (9144); the team that shot the better 3P%: 71.5% (9460)
+  the 3PM margin vs the final margin: correlation 0.521 (R² 0.271); 3PM diff sd 5.43
+
+=== 2. CAN WE PREDICT IT BEFORE TIP? (every input from games already played; home row = home minus away) ===
+  A. HONEST (pre-tip inputs only)
+    train    n  6548  OLS: corr 0.390 R² 0.152 | hand-built expected threes: corr 0.183 | the predicted 3PM leader really made more threes 63.0% of the time
+    2024-25  n  1148  OLS: corr 0.339 R² 0.111 | hand-built expected threes: corr 0.191 | the predicted 3PM leader really made more threes 62.1% of the time
+    2025-26  n  1150  OLS: corr 0.379 R² 0.143 | hand-built expected threes: corr 0.204 | the predicted 3PM leader really made more threes 64.5% of the time
+     coefficients (3PM diff per unit):
+       const                                +0.353
+       season 3PM/g                         +0.234
+       opp 3PM allowed                      -2.738
+       last-5 3PM                           +0.129
+       last-10 3PM                          +0.354
+       season 3P% (reg)                     -0.036
+       opp 3P% allowed (reg)                +0.879
+       last-10 3P%                          -0.109
+       season 3PA/g                         +0.051
+       opp 3PA allowed                      +0.661
+       opp last-10 3PM allowed              -0.094
+       pace (both)                          -0.003
+       rest days                            -0.172
+       b2b                                  -0.274
+       time-zone jump                       +0.066
+       games in 4 days                      -0.119
+       altitude (k ft)                      +0.036
+       top-3 shooter sat last game          -0.240
+       Elo gap                              +0.003
+  B. WITH LOOK-AHEAD (how many of the top-3 shooters are missing from tonight's box) - a ceiling, not a bet
+    train    n  6548  OLS: corr 0.395 R² 0.156 | hand-built expected threes: corr 0.183 | the predicted 3PM leader really made more threes 63.3% of the time
+    2024-25  n  1148  OLS: corr 0.341 R² 0.112 | hand-built expected threes: corr 0.191 | the predicted 3PM leader really made more threes 62.3% of the time
+    2025-26  n  1150  OLS: corr 0.385 R² 0.147 | hand-built expected threes: corr 0.204 | the predicted 3PM leader really made more threes 64.2% of the time
+     top-3 shooter out tonight coefficient -0.496 3PM each
+  C. one input at a time (train seasons, correlation with the actual 3PM margin):
+       season 3PM/g                         +0.307
+       opp 3PM allowed                      -0.160
+       last-5 3PM                           +0.287
+       last-10 3PM                          +0.310
+       season 3P% (reg)                     +0.116
+       opp 3P% allowed (reg)                -0.080
+       last-10 3P%                          +0.117
+       season 3PA/g                         +0.286
+       opp 3PA allowed                      -0.134
+       opp last-10 3PM allowed              -0.124
+       pace (both)                          -0.003
+       rest days                            -0.003
+       b2b                                  -0.007
+       time-zone jump                       +0.011
+       games in 4 days                      -0.008
+       altitude (k ft)                      +0.039
+       top-3 shooter sat last game          -0.078
+       Elo gap                              +0.183
+  D. a team's 3PM on a night vs its own season average: sd 3.72 threes (the night-to-night noise). The honest model's predicted 3PM DIFF has sd 2.15 against an actual-diff sd of 5.45.
+
+=== 3. DOES IT MAKE MONEY? bet the side predicted to win the 3-point battle, closing prices, flat 1u ===
+  MONEYLINE:
+  any price, predicted edge 0.5+ threes                      | train 3060-2155 -6.2% (58.7 vs 60.0, z -2.2, 0/6 up) | 2024 570-350 -4.3% (z +0.1) | 2025 549-393 -4.7% (z +0.0) | 2026 0-0 +0.0% (z +0.0)
+  any price, predicted edge 1.5+ threes                      | train 1920-1176 -4.3% (62.0 vs 63.0, z -1.2, 1/6 up) | 2024 334-168 -3.8% (z -0.3) | 2025 366-229 -6.3% (z -0.1) | 2026 0-0 +0.0% (z +0.0)
+  any price, predicted edge 2.5+ threes                      | train 983-552 -5.1% (64.0 vs 66.0, z -1.8, 1/6 up) | 2024 188-73 -5.0% (z -0.2) | 2025 204-109 -5.8% (z -0.3) | 2026 0-0 +0.0% (z +0.0)
+  any price, predicted edge 3.5+ threes                      | train 438-210 -2.0% (67.6 vs 69.0, z -0.8, 2/6 up) | 2024 83-31 -8.9% (z -1.1) | 2025 92-44 -10.4% (z -0.7) | 2026 0-0 +0.0% (z +0.0)
+  dogs +100..+350, predicted edge 0.5+ threes                | train 477-853 -8.9% (35.9 vs 37.9, z -1.5, 0/6 up) | 2024 77-138 -6.8% (z -0.2) | 2025 104-173 -3.3% (z +0.3) | 2026 0-0 +0.0% (z +0.0)
+  dogs +100..+350, predicted edge 1.5+ threes                | train 250-402 -2.7% (38.3 vs 38.5, z -0.1, 3/6 up) | 2024 34-50 +2.0% (z +0.5) | 2025 47-98 -16.7% (z -1.3) | 2026 0-0 +0.0% (z +0.0)
+  dogs +100..+350, predicted edge 2.5+ threes                | train 97-156 -5.2% (38.3 vs 39.6, z -0.4, 2/6 up) | 2024 11-14 +2.9% (z +0.6) | 2025 17-38 -15.5% (z -1.1) | 2026 0-0 +0.0% (z +0.0)
+  dogs +100..+350, predicted edge 3.5+ threes                | train 26-40 -4.4% (39.4 vs 40.5, z -0.2, 2/4 up) | 2024 2-1 +51.7% (z +0.8) | 2025 5-14 -37.0% (z -1.2) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 0.5+ threes           | train 395-384 -9.4% (50.7 vs 53.7, z -1.7, 1/6 up) | 2024 61-47 +1.3% (z +0.6) | 2025 57-63 -14.9% (z -1.3) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 1.5+ threes           | train 229-206 -5.9% (52.6 vs 53.8, z -0.5, 2/6 up) | 2024 28-24 -3.7% (z +0.0) | 2025 37-36 -9.5% (z -0.4) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 2.5+ threes           | train 101-96 -9.1% (51.3 vs 54.1, z -0.8, 2/6 up) | 2024 10-11 -16.0% (z -0.6) | 2025 16-19 -19.7% (z -0.9) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 3.5+ threes           | train 45-40 -5.4% (52.9 vs 53.9, z -0.2, 2/4 up) | 2024 3-3 -12.0% (z -0.2) | 2025 3-6 -40.1% (z -1.1) | 2026 0-0 +0.0% (z +0.0)
+  the FADE: dogs predicted to LOSE the 3-pt battle by 2.5+   | train 300-515 +4.1% (36.8 vs 33.7, z +1.9, 5/6 up) | 2024 39-72 +6.5% (z +0.6) | 2025 44-105 -15.7% (z -1.0) | 2026 0-0 +0.0% (z +0.0)
+  the FADE: favs -101..-150 predicted to LOSE it by 2.5+     | train 83-72 -4.3% (53.5 vs 53.5, z +0.0, 4/6 up) | 2024 5-8 -27.3% (z -1.0) | 2025 25-3 +60.5% (z +3.8) | 2026 0-0 +0.0% (z +0.0)
+  SPREAD (-110 assumed):
+  predicted edge 0.5+ threes, ATS                            | train 2544-2587 -5.3% (49.6 vs 50.0, z -0.6, 0/6 up) | 2024 455-445 -3.5% (z +0.3) | 2025 486-455 -1.4% (z +1.0) | 2026 0-0 +0.0% (z +0.0)
+  predicted edge 1.5+ threes, ATS                            | train 1542-1502 -3.3% (50.7 vs 50.0, z +0.7, 1/6 up) | 2024 243-247 -5.3% (z -0.2) | 2025 293-301 -5.8% (z -0.3) | 2026 0-0 +0.0% (z +0.0)
+  predicted edge 2.5+ threes, ATS                            | train 748-757 -5.1% (49.7 vs 50.0, z -0.2, 1/6 up) | 2024 124-128 -6.1% (z -0.3) | 2025 149-164 -9.1% (z -0.8) | 2026 0-0 +0.0% (z +0.0)
+  predicted edge 3.5+ threes, ATS                            | train 322-314 -3.3% (50.6 vs 50.0, z +0.3, 1/6 up) | 2024 50-61 -14.0% (z -1.0) | 2025 59-77 -17.2% (z -1.5) | 2026 0-0 +0.0% (z +0.0)
+  SECOND CHECK, the hand-built expected threes instead of the fit (dogs +100..+350):
+  hand-built edge 1.5+, dogs                                 | train 130-223 -2.5% (36.8 vs 36.7, z +0.1, 3/6 up) | 2024 13-34 -18.9% (z -1.2) | 2025 37-57 +8.1% (z +0.8) | 2026 0-0 +0.0% (z +0.0)
+  hand-built edge 1.5+, favs -101..-150                      | train 92-77 -3.3% (54.4 vs 53.8, z +0.2, 4/6 up) | 2024 11-7 +11.1% (z +0.7) | 2025 18-17 -7.0% (z -0.2) | 2026 0-0 +0.0% (z +0.0)
+  hand-built edge 2.5+, dogs                                 | train 21-20 +38.6% (51.2 vs 37.4, z +1.8, 1/2 up) | 2024 2-2 +51.3% (z +0.8) | 2025 6-6 +21.8% (z +0.7) | 2026 0-0 +0.0% (z +0.0)
+  hand-built edge 2.5+, favs -101..-150                      | train 13-11 -2.4% (54.2 vs 53.9, z +0.0, 0/0 up) | 2024 1-0 +80.0% (z +0.9) | 2025 3-2 +10.3% (z +0.3) | 2026 0-0 +0.0% (z +0.0)
+
+=== 3b. IS IT ALREADY IN THE PRICE? win % vs the no-vig implied by predicted-edge bucket (all rows, both sides) ===
+  train:
+    predicted 3PM edge -4 or worse  n   422  won  30.1%  implied  30.1%  gap -0.0 pts  z -0.0
+    predicted 3PM edge -4..-2       n  1795  won  38.6%  implied  36.7%  gap +1.9 pts  z +1.7
+    predicted 3PM edge -2..0        n  4331  won  46.2%  implied  45.2%  gap +1.0 pts  z +1.4
+    predicted 3PM edge 0..2         n  4331  won  53.8%  implied  54.8%  gap -1.0 pts  z -1.4
+    predicted 3PM edge 2..4         n  1795  won  61.4%  implied  63.3%  gap -1.9 pts  z -1.7
+    predicted 3PM edge 4+           n   422  won  69.9%  implied  69.9%  gap +0.0 pts  z +0.0
+  holdout 2024-26:
+    predicted 3PM edge -4 or worse  n   165  won  29.7%  implied  25.9%  gap +3.8 pts  z +1.0
+    predicted 3PM edge -4..-2       n   633  won  35.4%  implied  35.6%  gap -0.2 pts  z -0.1
+    predicted 3PM edge -2..0        n  1500  won  45.7%  implied  45.9%  gap -0.2 pts  z -0.2
+    predicted 3PM edge 0..2         n  1500  won  54.3%  implied  54.1%  gap +0.2 pts  z +0.2
+    predicted 3PM edge 2..4         n   633  won  64.6%  implied  64.4%  gap +0.2 pts  z +0.1
+    predicted 3PM edge 4+           n   165  won  70.3%  implied  74.1%  gap -3.8 pts  z -1.0
+
+  logistic on the train seasons: won ~ market logit +1.001 (se 0.059) + Elo/100 +0.009 (se 0.034) + predicted 3PM edge -0.0255 (se 0.0146, z -1.7) per three
+  for scale, the ACTUAL 3PM edge (known only after the game) on top of the market: +0.158 per three
+  model p 3+ points over the no-vig price, -150..+350: train    22-31 -2.9% (z +0.0)
+  model p 3+ points over the no-vig price, -150..+350: 2024-25  0-1 -100.0% (z -0.7)
+  model p 3+ points over the no-vig price, -150..+350: 2025-26  4-1 +60.3% (z +1.6)
+  model p 3+ points over the no-vig price, -150..+350: 2026-27  0-0 +0.0% (z +0.0)
+
+  cells run in part 3: 22 (+ 12 buckets, 4 model lines) - at 5% chance expect ~1.9 |z|>2 by luck
