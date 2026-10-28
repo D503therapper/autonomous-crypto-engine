@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T01:59Z",
+ "updated": "2026-10-28T02:12Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -273,32 +273,34 @@
    }
   },
   {
-   "id": "nhl:401892595",
+   "id": "nhl:401892594",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sabres",
-    "p": 0.386,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-28T02:30Z",
-   "away": "Sabres",
-   "home": "Sharks",
-   "why": "no_value",
+   "start": "2026-10-28T02:00Z",
+   "away": "Canucks",
+   "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Sharks",
-    "opp": "Sabres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.643,
-    "win_p": 0.422,
-    "reasons": []
-   }
+   "lean": null
+  },
+  {
+   "id": "nhl:401892593",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-28T02:00Z",
+   "away": "Senators",
+   "home": "Golden Knights",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401909880",
@@ -856,7 +858,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.573,
+    "p": 0.58,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -872,9 +874,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.608,
-    "win_p": 0.608,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": []
    }
   }
