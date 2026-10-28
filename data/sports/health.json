@@ -1,13 +1,16 @@
 {
- "at": "2026-10-28T10:23Z",
+ "at": "2026-10-28T16:31Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Rivera vs Gormaz: no points for 74s"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 3 live matches",
+  "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
@@ -15,13 +18,85 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 49 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T16:31Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Gormaz: no points for 74s"
+   ]
+  },
+  {
+   "at": "2026-10-28T16:29Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Gormaz: no points for 870s"
+   ]
+  },
+  {
+   "at": "2026-10-28T15:44Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Cinalli vs Tubello: no points for 2616s",
+    "live tennis scores: tennis Werner vs Jacquemot: no points for 2616s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-28T14:12Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T14:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Medvedev vs Merida: no points for 2618s",
+    "live tennis scores: tennis Zavatska vs Mair: no points for 2618s",
+    "live tennis scores: tennis Werner vs Jacquemot: no points for 2618s"
+   ]
+  },
+  {
+   "at": "2026-10-28T13:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-10-28T13:26Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T11:55Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T11:54Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Pigato vs Montgomery: no points for 2624s",
+    "live tennis scores: tennis Andreeva vs Kotliar: no points for 2624s"
+   ]
+  },
   {
    "at": "2026-10-28T10:23Z",
    "fixes": [],
@@ -485,80 +560,6 @@
   },
   {
    "at": "2026-10-26T18:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T18:03Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ortenzi vs Bosio: no points for 2616s",
-    "live tennis scores: tennis Ayala vs Fullana: no points for 1644s",
-    "live tennis scores: tennis Aksu vs Zaar: no points for 2616s",
-    "live tennis scores: tennis Maduzzi vs Li Zongyu: no points for 2616s",
-    "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 2616s",
-    "live tennis scores: tennis Oliva vs Murcia: no points for 2616s",
-    "live tennis scores: tennis Salazar vs Hu: no points for 2616s"
-   ]
-  },
-  {
-   "at": "2026-10-26T17:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T15:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T15:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Silva vs Gormaz: no points for 1138s",
-    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 2617s",
-    "live tennis scores: tennis Olivares vs Herea: no points for 338s",
-    "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 375s"
-   ]
-  },
-  {
-   "at": "2026-10-26T15:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gomes vs Rivera: no points for 1704s",
-    "live tennis scores: tennis Silva vs Gormaz: no points for 225s",
-    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 1704s"
-   ]
-  },
-  {
-   "at": "2026-10-26T15:01Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cerundolo vs Altmaier: points frozen at 0-0 for 207s",
-    "live tennis scores: tennis Tubello vs Samson: no points for 2618s",
-    "live tennis scores: tennis Gomes vs Rivera: no points for 2618s",
-    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 744s",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-26T13:30Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-26T11:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T11:58Z",
    "fixes": [],
    "problems": []
   }

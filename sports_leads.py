@@ -134,6 +134,11 @@ def tags(c, sports):
             #   (1 of 7 seasons up), 0-8 in 2025, ATS 16-28 / 1-7 - a LEAD on 54 games, tracked only, never a weight
         if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
             t.append("NFL dog scored 10 or fewer last game")
+        if lg in ("nba", "nhl") and c.get("odds", 0) <= 350 and slow_starts(c):
+            t.append("NBA / NHL dog, lost the 1st quarter / period 3 straight (fade)")   # 10/28 daily study: NBA dogs
+            #   -9.7% on 861 train / -17.1% on 99 held out (the dog base -3.7% / -6.7%), NHL dogs -16.1% on 347 / -12.6%
+            #   on 29 (base -6.6% / +1.9%), worse than teams with the same last-3 results in train; but z only -1.2 / -1.6,
+            #   2026 NHL +27% on 9, NBA none yet, NHL favorites the other way - tracked only, never a weight
         if c.get("opp_sv_slump"):
             t.append("NHL dog vs a slumping goalie (fade)")
         if c.get("west_trip_dog"):
@@ -161,6 +166,11 @@ def tags(c, sports):
             #   favorites whose record sits 0.15+ under its points-for / against: -22.2% on 112 (train 2 of 7 up,
             #   2023+ -27.9%, holdout -38% on 14, 2026 -13% on 24, early price -30%; dose 0.10 -6% / 0.20 -30% /
             #   0.25 -42%), but the NFL cell is flat (-3.9% on 47) - tracked only, never a weight
+        if lg == "ncaaf" and -150 <= c.get("odds", 0) <= -101 and shredded_loss(c):
+            t.append("college small fav off a loss allowing 40+ (fade)")   # 10/28 daily study: -28.3% on 142 vs -15.6%
+            #   for every band favorite off a loss (train 0 of 7 up, 2023+ -22.6%, holdout -35% on 17, early price -26%,
+            #   ATS -32%; the dog across +35.8% on 89) - but 2026 +2% on 18, no clean dose (0-20 allowed -25%, 30-39 -4.5%)
+            #   and the NFL flat; it sits inside the BUILT off-a-loss fade (-3) - tracked only, never a weight
         if lg == "nba" and -150 <= c.get("odds", 0) <= -100 and halftime_comeback(c):
             t.append("NBA small fav off a 10+ halftime comeback win")   # 10/27 daily study: train +31.8% on 68
             #   (6 of 7 up, 8+ / 12+ the same sign) but holdout 2025 3-6 -42% and the NHL version flat - tracked only
@@ -301,6 +311,44 @@ def halftime_comeback(c, down=10):
     except (ValueError, TypeError):
         return False
     return len(a) == 2 and len(b) == 2 and won and sum(a) - sum(b) <= -down
+
+
+def _last_rows(c, k):
+    """(team, the last k games this season) or (None, []) when there are fewer than k."""
+    team, rows = _season_before(c)
+    return (team, rows[-k:]) if len(rows) >= k else (None, [])
+
+
+def slow_starts(c, k=3):
+    """Outscored in the 1st quarter (NBA) / 1st period (NHL) - the line score's first number - in EACH of its last k
+    games this season (the 10/28 study). A game with no line score = not counted as slow (False)."""
+    team, rows = _last_rows(c, k)
+    if not rows:
+        return False
+    for x in rows:
+        me, op = ("home", "away") if x["home"] == team else ("away", "home")
+        try:
+            a = int(float(str(x.get("ls_" + me) or "").split(",")[0]))
+            b = int(float(str(x.get("ls_" + op) or "").split(",")[0]))
+        except (ValueError, TypeError):
+            return False
+        if a >= b:
+            return False
+    return True
+
+
+def shredded_loss(c, cut=40):
+    """LOST its last game this season while allowing `cut`+ points (the 10/28 college study)."""
+    team, rows = _last_rows(c, 1)
+    if not rows:
+        return False
+    x = rows[-1]
+    me, op = ("home", "away") if x["home"] == team else ("away", "home")
+    try:
+        a, b = float(x[me + "_score"]), float(x[op + "_score"])
+    except (TypeError, ValueError):
+        return False
+    return a < b and b >= cut
 
 
 def load():

@@ -1,0 +1,185 @@
+#### (a) NHL HOME FAVORITE -100..-150 BY ITS STRAIGHT HOME GAME (today included)
+NHL home fav, home game 1 in a row
+   TRAIN: n=1090 53.8% vs 53.1% exp z+0.5 ROI -2.9% up 2/7 [18:-11(191) 19:-11(190) 20:-1(75) 21:-0(158) 22:-2(159) 23:+4(160) 24:+5(157)]
+   HOLD: n=235 54.5% vs 53.0% exp z+0.4 ROI -1.8% up 0/1 [25:-2(235)]
+   CUR: n=37 48.6% vs 52.4% exp z-0.5 ROI -11.1% up 0/1 [26:-11(37)]
+NHL home fav, home game 2 in a row
+   TRAIN: n=679 56.8% vs 53.3% exp z+1.8 ROI +2.0% up 3/7 [18:+16(103) 19:-2(107) 20:+14(70) 21:-3(102) 22:-10(96) 23:-4(114) 24:+7(87)]
+   HOLD: n=136 49.3% vs 52.7% exp z-0.8 ROI -10.3% up 0/1 [25:-10(136)]
+   CUR: n=23 43.5% vs 52.6% exp z-0.9 ROI -21.4% up 0/1 [26:-21(23)]
+NHL home fav, home game 3 in a row
+   TRAIN: n=368 50.5% vs 53.1% exp z-1.0 ROI -8.8% up 2/7 [18:-22(56) 19:-5(53) 20:+1(43) 21:+9(51) 22:-11(47) 23:-2(55) 24:-25(63)]
+   HOLD: n=78 52.6% vs 53.3% exp z-0.1 ROI -5.3% up 0/1 [25:-5(78)]
+   CUR: n=12 75.0% vs 53.0% exp z+1.5 ROI +34.4% up 1/1 [26:+34(12)]
+NHL home fav, home game 4 in a row
+   TRAIN: n=220 52.3% vs 52.9% exp z-0.2 ROI -5.7% up 2/7 [18:+7(39) 19:-4(31) 20:+12(31) 21:-15(32) 22:-35(28) 23:-4(26) 24:-6(33)]
+   HOLD: n=40 40.0% vs 53.4% exp z-1.7 ROI -29.6% up 0/1 [25:-30(40)]
+   CUR: n=4 25.0% vs 50.6% exp z-1.0 ROI -54.2% up 0/1 [26:-54(4)]
+NHL home fav, home game 5 in a row
+   TRAIN: n=89 42.7% vs 53.2% exp z-2.0 ROI -22.7% up 2/7 [18:-28(15) 19:-43(12) 20:-48(14) 21:+10(15) 22:-25(12) 23:+1(11) 24:-26(10)]
+   HOLD: n=18 33.3% vs 53.2% exp z-1.7 ROI -41.5% up 0/1 [25:-42(18)]
+   CUR: n=1 100.0% vs 51.1% exp z+1.0 ROI +87.0% up 1/1 [26:+87(1)]
+NHL home fav, home game 6+ in a row
+   TRAIN: n=61 54.1% vs 53.3% exp z+0.1 ROI -3.8% up 3/7 [18:-44(10) 19:-21(9) 20:+44(6) 21:-5(15) 22:+12(11) 23:-66(5) 24:+79(5)]
+   HOLD: n=10 60.0% vs 51.0% exp z+0.6 ROI +14.3% up 1/1 [25:+14(10)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+NHL home fav, home game 4-5 in a row
+   TRAIN: n=309 49.5% vs 53.0% exp z-1.2 ROI -10.6% up 0/7 [18:-3(54) 19:-15(43) 20:-7(45) 21:-7(47) 22:-32(40) 23:-3(37) 24:-10(43)]
+   HOLD: n=58 37.9% vs 53.3% exp z-2.4 ROI -33.3% up 0/1 [25:-33(58)]
+   CUR: n=5 40.0% vs 50.7% exp z-0.5 ROI -25.9% up 0/1 [26:-26(5)]
+MIRROR: road dog +100..+150 at a team on its 4th+ home game
+   TRAIN: n=353 44.8% vs 43.0% exp z+0.7 ROI -0.4% up 3/7 [18:-13(56) 19:+11(56) 20:+11(48) 21:-11(52) 22:+18(47) 23:-0(43) 24:-17(51)]
+   HOLD: n=78 44.9% vs 42.9% exp z+0.3 ROI -0.3% up 0/1 [25:-0(78)]
+   CUR: n=5 40.0% vs 41.9% exp z-0.1 ROI -4.0% up 0/1 [26:-4(5)]
+base: every road dog +100..+150
+   TRAIN: n=2524 43.1% vs 43.1% exp z+0.0 ROI -3.5% up 2/7 [18:-3(416) 19:+4(415) 20:-6(233) 21:-13(364) 22:+3(363) 23:-3(348) 24:-9(385)]
+   HOLD: n=520 46.9% vs 43.2% exp z+1.7 ROI +4.0% up 1/1 [25:+4(520)]
+   CUR: n=67 41.8% vs 43.3% exp z-0.2 ROI -7.7% up 0/1 [26:-8(67)]
+
+#### (c) NHL DOG OUTSCORED IN THE 1ST PERIOD
+NHL dog lost the 1st period 2 straight
+   TRAIN: n=922 36.2% vs 38.5% exp z-1.4 ROI -10.3% up 3/7 [18:-25(146) 19:+3(106) 20:-13(105) 21:-21(136) 22:-24(152) 23:+6(133) 24:+7(144)]
+   HOLD: n=114 47.4% vs 40.7% exp z+1.5 ROI +13.1% up 1/1 [25:+13(114)]
+   CUR: n=24 41.7% vs 39.1% exp z+0.3 ROI -2.1% up 0/1 [26:-2(24)]
+NHL dog lost the 1st period 3 straight
+   TRAIN: n=347 34.0% vs 38.2% exp z-1.6 ROI -16.1% up 2/7 [18:-21(56) 19:+13(40) 20:-14(41) 21:-33(55) 22:-34(57) 23:+2(44) 24:-13(54)]
+   HOLD: n=29 37.9% vs 41.2% exp z-0.4 ROI -12.6% up 0/1 [25:-13(29)]
+   CUR: n=9 55.6% vs 42.3% exp z+0.8 ROI +27.4% up 1/1 [26:+27(9)]
+NHL dog lost the 1st period 4 straight
+   TRAIN: n=131 33.6% vs 37.5% exp z-0.9 ROI -17.8% up 3/7 [18:-52(20) 19:+11(14) 20:-4(17) 21:-16(19) 22:-65(24) 23:+16(24) 24:+8(13)]
+   HOLD: n=11 18.2% vs 40.4% exp z-1.5 ROI -55.5% up 0/1 [25:-55(11)]
+   CUR: n=2 50.0% vs 45.7% exp z+0.1 ROI +5.0% up 1/1 [26:+5(2)]
+NHL dog lost the 1st 3 straight, won 0 of the last 3
+   TRAIN: n=188 34.6% vs 37.1% exp z-0.7 ROI -11.7% up 2/7 [18:-1(27) 19:-2(21) 20:-23(26) 21:-17(32) 22:-39(32) 23:+7(27) 24:+2(23)]
+   HOLD: n=14 28.6% vs 39.8% exp z-0.9 ROI -30.4% up 0/1 [25:-30(14)]
+   CUR: n=2 50.0% vs 40.8% exp z+0.3 ROI +1.0% up 1/1 [26:+1(2)]
+   same results, NOT 3 slow starts (won 0 of 3)
+   TRAIN: n=1080 37.7% vs 37.2% exp z+0.3 ROI -3.7% up 2/7 [18:-10(156) 19:-4(131) 20:+5(121) 21:-12(186) 22:+8(168) 23:-1(150) 24:-9(168)]
+   HOLD: n=176 43.8% vs 40.5% exp z+0.9 ROI +3.4% up 1/1 [25:+3(176)]
+   CUR: n=26 23.1% vs 37.5% exp z-1.5 ROI -43.3% up 0/1 [26:-43(26)]
+NHL dog lost the 1st 3 straight, won 1 of the last 3
+   TRAIN: n=121 34.7% vs 39.1% exp z-1.0 ROI -16.6% up 3/7 [18:-53(23) 19:+23(13) 20:+27(12) 21:-47(19) 22:-27(18) 23:-15(14) 24:+8(22)]
+   HOLD: n=9 44.4% vs 41.3% exp z+0.2 ROI +0.1% up 1/1 [25:+0(9)]
+   CUR: n=6 66.7% vs 43.1% exp z+1.2 ROI +57.5% up 1/1 [26:+58(6)]
+   same results, NOT 3 slow starts (won 1 of 3)
+   TRAIN: n=2630 39.1% vs 38.8% exp z+0.3 ROI -3.6% up 2/7 [18:+7(386) 19:+3(311) 20:-9(282) 21:-10(393) 22:-9(380) 23:-6(435) 24:-1(443)]
+   HOLD: n=400 41.0% vs 40.7% exp z+0.1 ROI -4.4% up 0/1 [25:-4(400)]
+   CUR: n=40 47.5% vs 39.9% exp z+1.0 ROI +12.3% up 1/1 [26:+12(40)]
+NHL dog lost the 1st 3 straight, won 2 of the last 3
+   TRAIN: n=36 27.8% vs 40.5% exp z-1.6 ROI -37.8% up 3/7 [18:+8(6) 19:+31(5) 20:-100(3) 21:-100(4) 22:-26(7) 23:+40(3) 24:-100(8)]
+   HOLD: n=5 60.0% vs 44.5% exp z+0.7 ROI +32.0% up 1/1 [25:+32(5)]
+   CUR: n=1 0.0% vs 40.7% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+   same results, NOT 3 slow starts (won 2 of 3)
+   TRAIN: n=2090 38.1% vs 40.1% exp z-1.9 ROI -8.1% up 1/7 [18:-9(307) 19:+5(310) 20:-20(197) 21:-20(302) 22:-5(312) 23:-6(306) 24:-6(356)]
+   HOLD: n=356 46.9% vs 41.3% exp z+2.1 ROI +8.7% up 1/1 [25:+9(356)]
+   CUR: n=42 31.0% vs 41.1% exp z-1.3 ROI -28.1% up 0/1 [26:-28(42)]
+NHL dog lost the 1st 3 straight, won 3 of the last 3
+   TRAIN: n=2 50.0% vs 45.4% exp z+0.1 ROI +2.5% up 1/2 [19:+105(1) 24:-100(1)]
+   HOLD: n=1 0.0% vs 42.7% exp z-0.9 ROI -100.0% up 0/1 [25:-100(1)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 3 of 3)
+   TRAIN: n=594 36.5% vs 41.0% exp z-2.2 ROI -14.7% up 1/7 [18:-4(96) 19:+9(80) 20:-28(49) 21:-36(96) 22:-7(101) 23:-8(71) 24:-30(101)]
+   HOLD: n=114 44.7% vs 41.7% exp z+0.7 ROI +4.5% up 1/1 [25:+5(114)]
+   CUR: n=8 37.5% vs 42.3% exp z-0.3 ROI -17.8% up 0/1 [26:-18(8)]
+
+#### (b) NBA LOST THE 1ST QUARTER
+NBA dog +100..+350 lost the 1st quarter 2 straight
+   TRAIN: n=1639 35.3% vs 34.8% exp z+0.4 ROI -3.1% up 3/7 [18:-9(224) 19:-5(212) 20:+7(238) 21:-6(259) 22:+3(270) 23:-17(208) 24:+4(228)]
+   HOLD: n=196 34.2% vs 34.4% exp z-0.1 ROI -7.0% up 0/1 [25:-7(196)]
+   CUR: n=2 0.0% vs 29.6% exp z-0.9 ROI -100.0% up 0/1 [26:-100(2)]
+   NBA dog +100..+350 lost the 1st quarter 2 straight ATS | TRAIN 797-818 49.3% | HOLD 98-98 50.0% | CUR 0-2 0.0%
+NBA dog +100..+350 lost the 1st quarter 3 straight
+   TRAIN: n=861 33.0% vs 34.9% exp z-1.2 ROI -9.7% up 1/7 [18:-14(122) 19:-17(104) 20:-1(128) 21:-20(132) 22:+12(143) 23:-22(112) 24:-10(120)]
+   HOLD: n=99 30.3% vs 34.3% exp z-0.8 ROI -17.1% up 0/1 [25:-17(99)]
+   CUR: n=0
+   NBA dog +100..+350 lost the 1st quarter 3 straight ATS | TRAIN 402-445 47.5% | HOLD 44-55 44.4%
+NBA dog +100..+350 lost the 1st quarter 4 straight
+   TRAIN: n=444 34.0% vs 35.1% exp z-0.5 ROI -7.0% up 2/7 [18:-8(72) 19:-14(50) 20:-2(67) 21:-28(62) 22:+3(76) 23:+8(53) 24:-9(64)]
+   HOLD: n=57 29.8% vs 33.5% exp z-0.6 ROI -20.6% up 0/1 [25:-21(57)]
+   CUR: n=0
+   NBA dog +100..+350 lost the 1st quarter 4 straight ATS | TRAIN 206-229 47.4% | HOLD 26-31 45.6%
+NBA dog +100..+350 lost the 1st 3 straight, won 0 of the last 3
+   TRAIN: n=340 33.8% vs 34.3% exp z-0.2 ROI -5.6% up 2/7 [18:+18(39) 19:-12(41) 20:-32(48) 21:-1(56) 22:+16(61) 23:-17(46) 24:-14(49)]
+   HOLD: n=45 20.0% vs 32.1% exp z-1.8 ROI -48.3% up 0/1 [25:-48(45)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 0 of 3)
+   TRAIN: n=836 37.2% vs 33.8% exp z+2.1 ROI +4.8% up 4/7 [18:-10(122) 19:+4(116) 20:+28(97) 21:+11(130) 22:-12(121) 23:-5(127) 24:+22(123)]
+   HOLD: n=128 32.8% vs 34.4% exp z-0.4 ROI -9.9% up 0/1 [25:-10(128)]
+   CUR: n=2 100.0% vs 35.0% exp z+1.9 ROI +180.0% up 1/1 [26:+180(2)]
+NBA dog +100..+350 lost the 1st 3 straight, won 1 of the last 3
+   TRAIN: n=355 32.7% vs 35.2% exp z-1.0 ROI -12.4% up 2/7 [18:-18(63) 19:-24(36) 20:+23(59) 21:-33(54) 22:+16(55) 23:-32(43) 24:-33(45)]
+   HOLD: n=33 36.4% vs 34.3% exp z+0.3 ROI +11.6% up 1/1 [25:+12(33)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 1 of 3)
+   TRAIN: n=1956 35.5% vs 35.4% exp z+0.1 ROI -2.6% up 1/7 [18:+10(284) 19:-3(248) 20:-1(281) 21:-2(305) 22:-8(291) 23:-5(272) 24:-10(275)]
+   HOLD: n=269 30.5% vs 34.4% exp z-1.4 ROI -16.7% up 0/1 [25:-17(269)]
+   CUR: n=1 100.0% vs 30.0% exp z+1.5 ROI +220.0% up 1/1 [26:+220(1)]
+NBA dog +100..+350 lost the 1st 3 straight, won 2 of the last 3
+   TRAIN: n=139 33.1% vs 35.3% exp z-0.6 ROI -9.6% up 2/7 [18:-58(17) 19:-15(24) 20:-11(18) 21:-33(17) 22:-3(26) 23:+6(19) 24:+42(18)]
+   HOLD: n=19 42.1% vs 39.1% exp z+0.3 ROI +1.2% up 1/1 [25:+1(19)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 2 of 3)
+   TRAIN: n=1771 36.8% vs 36.6% exp z+0.1 ROI -4.0% up 2/7 [18:-9(261) 19:+3(238) 20:-13(232) 21:-5(253) 22:-3(301) 23:-8(250) 24:+5(236)]
+   HOLD: n=241 38.6% vs 36.1% exp z+0.8 ROI +2.7% up 1/1 [25:+3(241)]
+   CUR: n=2 0.0% vs 40.3% exp z-1.2 ROI -100.0% up 0/1 [26:-100(2)]
+NBA dog +100..+350 lost the 1st 3 straight, won 3 of the last 3
+   TRAIN: n=27 25.9% vs 38.0% exp z-1.3 ROI -26.9% up 2/7 [18:-100(3) 19:-25(3) 20:+73(3) 21:-46(5) 22:-100(1) 23:-100(4) 24:+20(8)]
+   HOLD: n=2 50.0% vs 35.5% exp z+0.4 ROI +35.0% up 1/1 [25:+35(2)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 3 of 3)
+   TRAIN: n=576 35.8% vs 36.7% exp z-0.5 ROI -8.2% up 2/7 [18:-4(76) 19:-22(66) 20:-1(84) 21:+4(82) 22:-23(89) 23:+4(92) 24:-18(87)]
+   HOLD: n=93 37.6% vs 37.0% exp z+0.1 ROI -2.2% up 0/1 [25:-2(93)]
+   CUR: n=3 0.0% vs 42.5% exp z-1.5 ROI -100.0% up 0/1 [26:-100(3)]
+NBA fav -100..-150 lost the 1st quarter 2 straight
+   TRAIN: n=527 52.8% vs 52.9% exp z-0.1 ROI -4.4% up 2/7 [18:-13(80) 19:-5(82) 20:-15(72) 21:+9(70) 22:-12(93) 23:-7(58) 24:+15(72)]
+   HOLD: n=67 46.3% vs 53.1% exp z-1.1 ROI -16.7% up 0/1 [25:-17(67)]
+   CUR: n=3 33.3% vs 52.3% exp z-0.7 ROI -36.9% up 0/1 [26:-37(3)]
+   NBA fav -100..-150 lost the 1st quarter 2 straight ATS | TRAIN 264-255 50.9% | HOLD 30-37 44.8% | CUR 1-2 33.3%
+NBA fav -100..-150 lost the 1st quarter 3 straight
+   TRAIN: n=230 47.4% vs 52.9% exp z-1.7 ROI -13.9% up 2/7 [18:-16(39) 19:-25(34) 20:-36(31) 21:+18(31) 22:-30(39) 23:-18(22) 24:+10(34)]
+   HOLD: n=39 48.7% vs 53.0% exp z-0.5 ROI -11.0% up 0/1 [25:-11(39)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+   NBA fav -100..-150 lost the 1st quarter 3 straight ATS | TRAIN 105-121 46.5% | HOLD 19-20 48.7% | CUR 1-0 100.0%
+NBA fav -100..-150 lost the 1st quarter 4 straight
+   TRAIN: n=125 49.6% vs 52.9% exp z-0.7 ROI -10.2% up 3/7 [18:+5(19) 19:-13(19) 20:-33(19) 21:+12(18) 22:-51(18) 23:-20(9) 24:+18(23)]
+   HOLD: n=21 57.1% vs 52.6% exp z+0.4 ROI +5.5% up 1/1 [25:+5(21)]
+   CUR: n=0
+   NBA fav -100..-150 lost the 1st quarter 4 straight ATS | TRAIN 62-61 50.4% | HOLD 12-9 57.1%
+NBA fav -100..-150 lost the 1st 3 straight, won 0 of the last 3
+   TRAIN: n=77 41.6% vs 52.8% exp z-2.0 ROI -24.5% up 1/7 [18:-37(14) 19:-35(11) 20:-36(17) 21:-17(9) 22:-23(12) 23:+14(8) 24:-11(6)]
+   HOLD: n=12 58.3% vs 52.1% exp z+0.4 ROI +9.6% up 1/1 [25:+10(12)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 0 of 3)
+   TRAIN: n=203 53.2% vs 53.1% exp z+0.0 ROI -3.8% up 5/7 [18:+3(28) 19:-36(34) 20:+13(27) 21:-18(22) 22:+6(35) 23:+5(24) 24:+3(33)]
+   HOLD: n=29 44.8% vs 52.3% exp z-0.8 ROI -18.0% up 0/1 [25:-18(29)]
+   CUR: n=0
+NBA fav -100..-150 lost the 1st 3 straight, won 1 of the last 3
+   TRAIN: n=90 52.2% vs 53.0% exp z-0.1 ROI -4.5% up 2/7 [18:+2(18) 19:-27(13) 20:-29(5) 21:+53(12) 22:-14(21) 23:-34(8) 24:-2(13)]
+   HOLD: n=15 53.3% vs 53.6% exp z-0.0 ROI -3.0% up 0/1 [25:-3(15)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 1 of 3)
+   TRAIN: n=698 53.3% vs 53.2% exp z+0.1 ROI -4.2% up 2/7 [18:-9(91) 19:-5(84) 20:+2(104) 21:-5(110) 22:-9(125) 23:+6(101) 24:-10(83)]
+   HOLD: n=76 55.3% vs 53.2% exp z+0.4 ROI -0.4% up 0/1 [25:-0(76)]
+   CUR: n=1 0.0% vs 49.6% exp z-1.0 ROI -100.0% up 0/1 [26:-100(1)]
+NBA fav -100..-150 lost the 1st 3 straight, won 2 of the last 3
+   TRAIN: n=51 49.0% vs 53.2% exp z-0.6 ROI -12.3% up 2/7 [18:-21(7) 19:-21(9) 20:-65(5) 21:+36(8) 22:-100(5) 23:-26(5) 24:+32(12)]
+   HOLD: n=11 36.4% vs 52.9% exp z-1.1 ROI -36.3% up 0/1 [25:-36(11)]
+   CUR: n=0
+   same results, NOT 3 slow starts (won 2 of 3)
+   TRAIN: n=810 52.2% vs 53.2% exp z-0.6 ROI -5.8% up 2/7 [18:-12(117) 19:+2(103) 20:+7(116) 21:-11(114) 22:-7(146) 23:-15(126) 24:-3(88)]
+   HOLD: n=111 51.4% vs 52.9% exp z-0.3 ROI -7.3% up 0/1 [25:-7(111)]
+   CUR: n=1 100.0% vs 56.3% exp z+0.9 ROI +70.4% up 1/1 [26:+70(1)]
+NBA fav -100..-150 lost the 1st 3 straight, won 3 of the last 3
+   TRAIN: n=12 41.7% vs 52.1% exp z-0.7 ROI -23.8% up 2/6 [19:+77(1) 20:-6(4) 21:-100(2) 22:-100(1) 23:-100(1) 24:+21(3)]
+   HOLD: n=1 0.0% vs 57.4% exp z-1.2 ROI -100.0% up 0/1 [25:-100(1)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+   same results, NOT 3 slow starts (won 3 of 3)
+   TRAIN: n=387 55.3% vs 53.3% exp z+0.8 ROI -0.3% up 4/7 [18:-13(57) 19:+16(41) 20:-8(49) 21:+2(69) 22:+5(55) 23:-6(65) 24:+7(51)]
+   HOLD: n=56 46.4% vs 52.6% exp z-0.9 ROI -14.8% up 0/1 [25:-15(56)]
+   CUR: n=1 0.0% vs 53.2% exp z-1.1 ROI -100.0% up 0/1 [26:-100(1)]
+
+#### (b2) NHL the same idea for favorites -100..-150 (a second sport)
+NHL fav -100..-150 lost the 1st period 3 straight
+   TRAIN: n=131 56.5% vs 52.7% exp z+0.9 ROI +2.6% up 4/7 [18:+18(23) 19:-6(19) 20:+53(19) 21:+16(16) 22:-53(16) 23:-27(22) 24:+14(16)]
+   HOLD: n=32 56.2% vs 52.3% exp z+0.4 ROI +2.6% up 1/1 [25:+3(32)]
+   CUR: n=0

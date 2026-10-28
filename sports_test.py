@@ -14332,6 +14332,61 @@ def test_college_weeknight_dog_studies_1028_nothing_weighed_two_fade_leads_track
         sl._GAMES.update(keep)
 
 
+def test_daily_1028_two_tracker_leads_slow_starts_and_shredded_college_fav_no_weight():
+    """10/28 daily run (10 studies): nothing clears the five checks, so no weight moves. Two LEADS go to the tracker
+    only: (1) the NBA / NHL dog outscored in the 1st quarter / period in EACH of its last 3 games (NBA dogs -9.7% train
+    / -17.1% held out, NHL -16.1% / -12.6%; 2026 thin), (2) the college -101..-150 favorite off a LOSS in which it
+    allowed 40+ (-28.3% on 142, inside the built off-a-loss fade; 2026 flat). Facts from final games before tip only."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, hs, as_, lh="", la=""):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_), "ls_home": lh, "ls_away": la}
+        G = {"nba:a": fg("nba:a", "2026-10-21T23:00Z", "T", "A", 100, 110, "20,30,25,25", "28,30,26,26"),
+             "nba:b": fg("nba:b", "2026-10-23T23:00Z", "B", "T", 105, 112, "30,25,25,25", "22,30,30,30"),   # T lost the 1st
+             "nba:c": fg("nba:c", "2026-10-25T23:00Z", "T", "C", 99, 101, "18,27,27,27", "25,25,25,26"),
+             "nba:old": fg("nba:old", "2026-04-10T23:00Z", "T", "Z", 90, 120, "10,30,25,25", "40,30,25,25"),   # last season
+             "nba:now": {"id": "nba:now", "start": "2026-10-28T23:00Z", "status": "pre", "stype": "2", "home": "T", "away": "F"}}
+        sl._GAMES["nba"] = G
+        dog = {"market": "ml", "league": "nba", "game_id": "nba:now", "side": "home", "home": True, "odds": 150,
+               "dec": 2.5, "p_market": 0.38, "edge": 0.0, "edge_own": 0.38 * 2.5 - 1, "reasons": [], "team": "Ts",
+               "opp": "Fs", "start": "2026-10-28T23:00Z", "dog_more": {}}
+        assert sl.slow_starts(dog)
+        assert "NBA / NHL dog, lost the 1st quarter / period 3 straight (fade)" in sl.tags(dog, sports)
+        assert "NBA / NHL dog, lost the 1st quarter / period 3 straight (fade)" not in sl.tags({**dog, "odds": 400}, sports)
+        G["nba:b"]["ls_away"] = "30,30,30,22"                  # won the 1st quarter of game 2: not 3 slow starts
+        assert not sl.slow_starts(dog)
+        G["nba:b"]["ls_away"] = "30,30,30,22"
+        del G["nba:a"]                                         # only 2 games this season (last April's never counts)
+        assert not sl.slow_starts(dog)
+        # the college favorite off a 40+ allowed loss
+        sl._GAMES["ncaaf"] = {"ncaaf:x": fg("ncaaf:x", "2026-10-18T19:00Z", "U", "V", 33, 44),
+                              "ncaaf:now": {"id": "ncaaf:now", "start": "2026-10-25T19:00Z", "status": "pre", "stype": "2",
+                                            "home": "U", "away": "W"}}
+        fav = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:now", "side": "home", "home": True, "odds": -130,
+               "dec": 1.769, "p_market": 0.55, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Us", "opp": "Ws",
+               "start": "2026-10-25T19:00Z", "dog_more": {}}
+        tag = "college small fav off a loss allowing 40+ (fade)"
+        assert sl.shredded_loss(fav) and tag in sl.tags(fav, sports)
+        assert tag not in sl.tags({**fav, "odds": -170}, sports)            # past the -101..-150 band
+        sl._GAMES["ncaaf"]["ncaaf:x"]["home_score"] = "45"                  # won 45-44: not a loss
+        assert not sl.shredded_loss(fav) and tag not in sl.tags(fav, sports)
+        sl._GAMES["ncaaf"]["ncaaf:x"]["home_score"], sl._GAMES["ncaaf"]["ncaaf:x"]["away_score"] = "20", "38"   # lost, 38 allowed
+        assert not sl.shredded_loss(fav)
+        # leads, not weights: the dog score never moves on a slow start
+        s = {**dog, "dog_ctx": {}}
+        G["nba:a"] = fg("nba:a", "2026-10-21T23:00Z", "T", "A", 100, 110, "20,30,25,25", "28,30,26,26")
+        G["nba:b"]["ls_away"] = "22,30,30,30"
+        assert sl.slow_starts(s)
+        sc = sports.dog_score(dict(s))
+        G["nba:b"]["ls_away"] = "30,30,30,22"
+        assert sports.dog_score(dict(s)) == sc
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
