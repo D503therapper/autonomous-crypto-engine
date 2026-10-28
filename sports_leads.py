@@ -104,6 +104,14 @@ def tags(c, sports):
             t.append(".700 college dog")
         if lg == "ncaaf" and c.get("big_cover"):
             t.append("college dog off a 21+ cover (fade)")
+        if lg == "ncaaf" and c.get("odds", 0) <= sports.DAILY_DOG_MAX:   # 10/28 college weeknight dog studies (LEADS,
+            if c.get("home") and weeknight(c):                #  tracked only, never a weight): the Tue-Fri HOME dog lost in
+                t.append("college weeknight home dog (fade)")   # every slice (-25.2% on 83 train, -16.4% / -18.0% / -34.5%
+                #                                                held out, 138 games); weeknight dogs as a group carry
+                #                                                nothing (-17.2% train, +0.4% / +7.2% / 4-11 held out)
+            if beat_good_last(c):
+                t.append("college dog off a win over a winning team (fade)")   # the owner's NM St story runs the wrong
+                #                                                way: -26.7% on 147 train (0 of 4 up), -11.5% / -11.1% / 5-5
         if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
             t.append("NFL 0-2 dog")
         if (mo.get("win_streak") or 0) >= 3 and lg == "nfl":
@@ -229,6 +237,53 @@ def pyth_luck(c):
     if pf + pa <= 0 or w + l == 0:
         return None
     return w / (w + l) - pf ** PYTH_EXP / (pf ** PYTH_EXP + pa ** PYTH_EXP)
+
+
+def beat_good_last(c):
+    """10/28 college weeknight dog studies - a LEAD, tracked only: the dog WON its last game this season (3+ games
+    in) and that opponent carried a WINNING record (3+ games) into it - the owner's New Mexico St story ("they just
+    smacked Western Kentucky, a good team"). It ran the WRONG way: -26.7% on 147 train (0 of 4 seasons up, z -1.7),
+    -11.5% on 60 (2024), -11.1% on 52 (2025), 5-5 in 2026 - the market pays up for the dog that just beat somebody
+    good (the built hangover fade's cousin). From the games file, results before kickoff only."""
+    team, rows = _season_before(c)
+    if len(rows) < 3:
+        return False
+    x = rows[-1]
+    me, op = ("home", "away") if x["home"] == team else ("away", "home")
+    try:
+        if not float(x[me + "_score"]) > float(x[op + "_score"]):
+            return False
+    except (TypeError, ValueError):
+        return False
+    opp = x[op]
+    G = _GAMES.get(c.get("league")) or {}
+    yr, mo = int(x["start"][:4]), int(x["start"][5:7])
+    since = f"{yr if mo >= 7 else yr - 1}-07-01"                 # that opponent's games THIS season, before that game
+    w = n = 0
+    for y in G.values():
+        if y.get("status") != "final" or str(y.get("stype") or "2") != "2" or not (since <= (y.get("start") or "") < x["start"]) \
+                or opp not in (y.get("home"), y.get("away")) or y.get("home_score") in ("", None) or y.get("away_score") in ("", None):
+            continue
+        a, b = ("home", "away") if y["home"] == opp else ("away", "home")
+        try:
+            w += float(y[a + "_score"]) > float(y[b + "_score"])
+        except (TypeError, ValueError):
+            continue
+        n += 1
+    return n >= 3 and w / n > 0.5
+
+
+WEEKNIGHTS = ("Tue", "Wed", "Thu", "Fri")
+
+
+def weeknight(c):
+    """A Tue/Wed/Thu/Fri kickoff, Eastern time (the MACtion / CUSA / Sun Belt weeknight slate) - from the start time."""
+    try:
+        from datetime import datetime, timedelta
+        t = datetime.fromisoformat(str(c.get("start") or "").replace("Z", "+00:00")) - timedelta(hours=5)
+        return t.strftime("%a") in WEEKNIGHTS
+    except (TypeError, ValueError):
+        return False
 
 
 def halftime_comeback(c, down=10):
