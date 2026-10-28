@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-28T18:58Z",
+ "updated": "2026-10-28T19:54Z",
  "games": [
-  {
-   "id": "tennis:atp:185146",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-28T19:40Z",
-   "away": "Hubert Hurkacz",
-   "home": "Holger Rune",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Hubert Hurkacz",
-    "opp": "Holger Rune",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
-    "reasons": [
-     "on hard court",
-     "Swiss Indoors Basel"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:185660",
    "league": "tennis",
@@ -388,6 +362,32 @@
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185196",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T19:00Z",
+   "away": "Flavio Cobolli",
+   "home": "Matteo Berrettini",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Flavio Cobolli",
+    "opp": "Matteo Berrettini",
+    "market": "spread",
+    "line": 0.5,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.489,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
     ]
    }
   }
