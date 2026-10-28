@@ -1,9 +1,9 @@
 {
- "at": "2026-10-28T20:49Z",
+ "at": "2026-10-28T20:50Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (65s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 40 min ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T20:50Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-28T20:49Z",
    "fixes": [],
@@ -533,16 +538,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Papamichail vs Da Silva: no points for 391s",
-    "live tennis scores: tennis Gomez vs Rodriguez: no points for 1750s",
-    "live tennis scores: tennis Plekhanova vs Hu: no points for 1009s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
  ]
