@@ -131,7 +131,21 @@ def seen_all(fin, tid, before, lg):
     if _week(mine[0]) - _week(first0) > 1:               # allowed - only when its opener is in our data (never a team
         return False                                     # whose first games might be the missing ones)
     weeks = _week(before) - _week(mine[0])               # football weeks it could have played before this game's week
-    return len(mine) >= weeks - 1
+    return len(mine) >= weeks - byes_ok(weeks)
+
+
+NCAAF_BYES = ((6, 1), (99, 2))     # byes a complete college schedule can show by its Nth week: one through week 6, two
+#                                    after. (10/28: New Mexico St and Jax State - week-0 openers, byes 9/19 and 10/17, all 7
+#                                    games on file - read as 'we don't hold all their games' and got no pick: the one-bye
+#                                    rule is wrong past midseason - 12 games in 14-15 weeks means every team shows two)
+
+
+def byes_ok(weeks):
+    """How many gaps a team's own calendar may show over `weeks` football weeks and still be complete (NCAAF_BYES)."""
+    for upto, n in NCAAF_BYES:
+        if weeks <= upto:
+            return n
+    return NCAAF_BYES[-1][1]
 
 
 NCAAB_D1_GAMES = 20                                      # a full Division I hoops season last year (D1 teams play 28-35;

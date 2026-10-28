@@ -9695,6 +9695,34 @@ def test_seen_all_counts_football_weeks_not_days_from_the_opener():
     assert v24._week(v24._t("2026-10-13T23:00Z")) == v24._week(sat) + 1   # Tuesday starts the next one
 
 
+def test_seen_all_allows_a_second_bye_past_midseason_10_28():
+    """10/28: New Mexico St and Jax State (week-0 openers, 8/29; byes 9/19 and 10/17; all 7 games on file) read as 'we
+    don't hold all their games this season' for their 10/28 Wednesday game, data_gaps held the game off the board and the
+    daily run said so. The one-bye rule is wrong past midseason: 12 games in 14-15 weeks means every team shows two byes.
+    A team's own calendar may show one gap through its 6th week (the 10/9 UNC case still fails) and two after; three gaps
+    in nine weeks is still a game we may be missing."""
+    import sports_breakdown_v24 as v24
+    def g(d, h, a, hhmm="19:00"):
+        return {"start": f"2026-{d}T{hhmm}Z", "home": h, "away": a}
+    fin = []
+    for wk, d in enumerate(("08-29", "09-05", "09-12", "09-19", "09-26", "10-03", "10-10", "10-17", "10-24")):
+        for k in range(20):
+            fin.append(g(d, f"busy{k}", f"opp{wk}_{k}"))                          # 9 games each: ref 9, need 8
+    fin += [g("08-29", "fsu", "NMSU", "23:00"), g("09-06", "NMSU", "mercy", "01:00"), g("09-13", "haw", "NMSU", "03:59"),
+            g("09-26", "NMSU", "unm"), g("10-02", "NMSU", "wku", "00:00"), g("10-08", "fiu", "NMSU", "00:04"),
+            g("10-22", "shsu", "NMSU", "00:00")]                                      # byes 9/19 and 10/17: 7 games, 9 weeks
+    fin += [g("08-29", "ndsu", "JSU", "21:30"), g("09-05", "JSU", "eku", "23:00"), g("09-12", "ohio", "JSU", "22:00"),
+            g("09-19", "JSU", "gaso", "23:00"), g("09-26", "JSU", "mtsu", "23:00"), g("10-07", "ksu", "JSU", "23:00"),
+            g("10-14", "JSU", "fiu", "00:00")]                                        # byes 10/3 and 10/24
+    fin += [g("08-29", "THREE", "a1"), g("09-12", "THREE", "a2"), g("09-26", "a3", "THREE"), g("10-03", "THREE", "a4"),
+            g("10-10", "a5", "THREE"), g("10-24", "THREE", "a6")]                     # three gaps in nine weeks
+    wed = v24._t("2026-10-29T00:00Z")
+    assert v24.seen_all(fin, "NMSU", wed, "ncaaf")
+    assert v24.seen_all(fin, "JSU", wed, "ncaaf")
+    assert not v24.seen_all(fin, "THREE", wed, "ncaaf")
+    assert v24.byes_ok(6) == 1 and v24.byes_ok(7) == 2 and v24.byes_ok(14) == 2
+
+
 def test_small_slate_note():
     """10/2, the owner: "when there's small slates like this, we should put a disclaimer - small slate today, not many
     games on the board ... let's go to work." Under SMALL_SLATE real, priced games that day: the note, with the count."""
