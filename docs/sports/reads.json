@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T00:28Z",
+ "updated": "2026-10-28T01:05Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -249,30 +249,27 @@
    "id": "nhl:401892592",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-28T01:00Z",
    "away": "Wild",
    "home": "Mammoth",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Wild",
     "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.695,
+    "market": "ml",
+    "line": null,
+    "odds": 102,
+    "p": 0.478,
     "win_p": 0.478,
     "reasons": [
      "opponent missing key players"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -852,6 +849,36 @@
    }
   },
   {
+   "id": "nba:401909891",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Thunder",
+    "p": 0.609,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-29T01:30Z",
+   "away": "Thunder",
+   "home": "Mavericks",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Thunder",
+    "opp": "Mavericks",
+    "market": "ml",
+    "line": null,
+    "odds": -205,
+    "p": 0.657,
+    "win_p": 0.657,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892599",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -887,7 +914,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.573,
+    "p": 0.58,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -903,9 +930,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.608,
-    "win_p": 0.608,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": []
    }
   }
