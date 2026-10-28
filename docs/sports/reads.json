@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T02:17Z",
+ "updated": "2026-10-28T02:46Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -54,8 +54,8 @@
    "away": "Nets",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -84,8 +84,8 @@
    "away": "Bruins",
    "home": "Hurricanes",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -100,7 +100,7 @@
    "home": "Blues",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blues",
@@ -114,7 +114,7 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -127,8 +127,8 @@
    "away": "Devils",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -158,7 +158,7 @@
    "home": "Spurs",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Spurs",
@@ -172,7 +172,7 @@
      "the stronger team",
      "rolling off a blowout win"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -185,8 +185,8 @@
    "away": "Kings",
    "home": "Blackhawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -201,7 +201,7 @@
    "home": "Jets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Panthers",
@@ -212,7 +212,7 @@
     "p": 0.552,
     "win_p": 0.552,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -273,34 +273,34 @@
    }
   },
   {
-   "id": "nba:401909880",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.493,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
+   "id": "nhl:401892594",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-28T03:00Z",
-   "away": "Trail Blazers",
-   "home": "Lakers",
-   "why": "coin_flip",
+   "start": "2026-10-28T02:00Z",
+   "away": "Canucks",
+   "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Trail Blazers",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.517,
-    "win_p": 0.517,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nhl:401892593",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-28T02:00Z",
+   "away": "Senators",
+   "home": "Golden Knights",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401909884",
@@ -705,8 +705,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.408,
-    "tie": 0.296,
+    "p": 0.422,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -714,7 +714,7 @@
    "start": "2026-10-29T01:00Z",
    "away": "Devils",
    "home": "Avalanche",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Avalanche",
@@ -722,11 +722,12 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "p": 0.649,
+    "win_p": 0.649,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -736,7 +737,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.739,
+    "p": 0.735,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -754,10 +755,9 @@
     "line": -12.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.821,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team",
-     "better rested",
      "rolling off a blowout win"
     ]
    }
