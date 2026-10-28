@@ -3378,8 +3378,16 @@ def card_extras(leg, g, injuries):
         if rl and "bench" in body.lower():                  # (10/21: the card already said the bench numbers - once)
             parts = [p for p in rl[len(mark):].strip(" .").split(" · ") if "bench" not in p]
             rl = f"{mark} {' · '.join(parts)}." if parts else ""
+        if rl:                                              # (10/28, the owner on the Bucks card: "sounds like favoring
+            parts = [p for p in rl[len(mark):].strip(" .").split(" · ")   # the Rockets way too much" - OUR man in a
+                     if "in a slump" not in p and "thin squad" not in p]   # slump / our thin bench is never a body line)
+            rl = f"{mark} {' · '.join(parts)}." if parts else ""
         if rl and not any(str(x).startswith(mark) for x in leg.get("breakdown") or []):
-            leg["breakdown"] = list(leg.get("breakdown") or []) + [rl]
+            bd = list(leg.get("breakdown") or [])
+            at = next((i for i in range(len(bd) - 1, -1, -1) if str(bd[i]).startswith(("✅", "🟡", "🔒", "⚠️"))), len(bd))
+            while at > 0 and str(bd[at - 1]).startswith("⚠️"):
+                at -= 1                                     # (and it sits in the body - never after the bottom line)
+            leg["breakdown"] = bd[:at] + [rl] + bd[at:]
         try:                                                # 🌟 10/23: the stars on the floor (verified honors only;
             sl = sports_nba_stars.card_line(g, leg["side"], sports_nba_roster.cached())   # a fact, never a weight)
         except Exception:                                   # noqa: BLE001
