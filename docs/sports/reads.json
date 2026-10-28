@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T05:25Z",
+ "updated": "2026-10-28T05:26Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -399,7 +399,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.629,
+    "p": 0.622,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -415,9 +415,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -290,
-    "p": 0.714,
-    "win_p": 0.714,
+    "odds": -278,
+    "p": 0.705,
+    "win_p": 0.705,
     "reasons": [
      "the stronger team"
     ]
@@ -523,7 +523,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.56,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -539,11 +539,42 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908046",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Brewers",
+    "p": 0.494,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-29T00:00Z",
+   "away": "Brewers",
+   "home": "Rays",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Brewers",
+    "opp": "Rays",
+    "market": "ml",
+    "line": null,
+    "odds": -141,
+    "p": 0.559,
+    "win_p": 0.559,
+    "reasons": [
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
