@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T21:27Z",
+ "updated": "2026-10-28T21:38Z",
  "games": [
   {
    "id": "tennis:wta:185660",
@@ -62,7 +62,7 @@
    "away": "Katerina Siniakova",
    "home": "Claire Liu",
    "vs": true,
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
@@ -70,9 +70,9 @@
     "opp": "Claire Liu",
     "market": "ml",
     "line": null,
-    "odds": -240,
-    "p": 0.676,
-    "win_p": 0.676,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "on hard court",
      "Guangzhou Open"
@@ -124,7 +124,7 @@
     "line": -4.5,
     "odds": -125,
     "p": 0.52,
-    "win_p": 0.762,
+    "win_p": 0.775,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -150,7 +150,7 @@
     "line": 5.5,
     "odds": -120,
     "p": 0.51,
-    "win_p": 0.153,
+    "win_p": 0.159,
     "reasons": [
      "on hard court",
      "Toray Pan Pacific Open Tennis"
@@ -192,17 +192,17 @@
    "away": "Rafael Jodar",
    "home": "Valentin Vacherot",
    "vs": true,
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
     "team": "Rafael Jodar",
     "opp": "Valentin Vacherot",
-    "market": "spread",
-    "line": -3.5,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.726,
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -232,6 +232,32 @@
     "reasons": [
      "on hard court",
      "Guangzhou Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185187",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T12:30Z",
+   "away": "Cameron Norrie",
+   "home": "Daniil Medvedev",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Cameron Norrie",
+    "opp": "Daniil Medvedev",
+    "market": "spread",
+    "line": 4.5,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.191,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
     ]
    }
   },
@@ -278,9 +304,61 @@
     "opp": "Alex Michelsen",
     "market": "ml",
     "line": null,
-    "odds": -215,
-    "p": 0.652,
-    "win_p": 0.652,
+    "odds": -220,
+    "p": 0.658,
+    "win_p": 0.658,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185193",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T14:00Z",
+   "away": "Nikoloz Basilashvili",
+   "home": "Carlos Alcaraz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Nikoloz Basilashvili",
+    "opp": "Carlos Alcaraz",
+    "market": "spread",
+    "line": 5.5,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.119,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185148",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T14:30Z",
+   "away": "Taylor Fritz",
+   "home": "Denis Shapovalov",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Taylor Fritz",
+    "opp": "Denis Shapovalov",
+    "market": "ml",
+    "line": null,
+    "odds": -260,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -314,28 +392,80 @@
    }
   },
   {
+   "id": "tennis:atp:185194",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T16:00Z",
+   "away": "Lorenzo Musetti",
+   "home": "Arthur Fery",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Lorenzo Musetti",
+    "opp": "Arthur Fery",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.706,
+    "win_p": 0.706,
+    "reasons": [
+     "on hard court",
+     "Erste Bank Open"
+    ]
+   }
+  },
+  {
    "id": "tennis:atp:185183",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
    "start": "2026-10-29T16:30Z",
-   "away": "Alexander Zverev",
-   "home": "Tallon Griekspoor",
+   "away": "Tallon Griekspoor",
+   "home": "Alexander Zverev",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Alexander Zverev",
-    "opp": "Tallon Griekspoor",
+    "team": "Tallon Griekspoor",
+    "opp": "Alexander Zverev",
     "market": "spread",
-    "line": -3.5,
-    "odds": -135,
-    "p": 0.541,
-    "win_p": 0.798,
+    "line": 3.5,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.225,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:185151",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-29T17:00Z",
+   "away": "Jan-Lennard Struff",
+   "home": "Novak Djokovic",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jan-Lennard Struff",
+    "opp": "Novak Djokovic",
+    "market": "spread",
+    "line": 3.5,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.255,
+    "reasons": [
+     "on hard court",
+     "Swiss Indoors Basel"
     ]
    }
   },
@@ -358,7 +488,7 @@
     "line": -2.5,
     "odds": -135,
     "p": 0.541,
-    "win_p": 0.726,
+    "win_p": 0.734,
     "reasons": [
      "on hard court",
      "Swiss Indoors Basel"
@@ -384,7 +514,7 @@
     "line": 0.5,
     "odds": -125,
     "p": 0.52,
-    "win_p": 0.489,
+    "win_p": 0.5,
     "reasons": [
      "on hard court",
      "Erste Bank Open"
