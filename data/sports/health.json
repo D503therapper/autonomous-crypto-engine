@@ -1,31 +1,35 @@
 {
- "at": "2026-10-28T11:54Z",
+ "at": "2026-10-28T11:55Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - sports.yml already running"
  ],
- "problems": [
-  "live tennis scores: tennis Pigato vs Montgomery: no points for 2624s",
-  "live tennis scores: tennis Andreeva vs Kotliar: no points for 2624s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (136s)",
+  "live watcher fresh (203s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-28T11:55Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-28T11:54Z",
    "fixes": [
@@ -565,11 +569,6 @@
    "problems": [
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-10-26T11:59Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
