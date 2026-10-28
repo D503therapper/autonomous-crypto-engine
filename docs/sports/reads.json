@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T15:00Z",
+ "updated": "2026-10-28T15:46Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -38,7 +38,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.516,
+    "p": 0.51,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -54,9 +54,9 @@
     "opp": "Heat",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team"
     ]
@@ -130,7 +130,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.683,
+    "p": 0.678,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -146,12 +146,11 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -10.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.503,
-    "win_p": 0.784,
+    "win_p": 0.778,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -287,8 +286,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.645,
-    "tie": 0.034,
+    "p": 0.65,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -303,9 +302,9 @@
     "opp": "Bulls",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.708,
-    "win_p": 0.708,
+    "odds": -278,
+    "p": 0.714,
+    "win_p": 0.714,
     "reasons": [
      "the stronger team"
     ]
@@ -347,7 +346,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.678,
+    "p": 0.675,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -365,7 +364,7 @@
     "line": -8.5,
     "odds": -105,
     "p": 0.501,
-    "win_p": 0.75,
+    "win_p": 0.746,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -447,8 +446,8 @@
    "start": "2026-10-29T01:00Z",
    "away": "Devils",
    "home": "Avalanche",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Devils",
     "opp": "Avalanche",
@@ -575,8 +574,8 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.6,
-    "win_p": 0.6,
+    "p": 0.599,
+    "win_p": 0.599,
     "reasons": []
    }
   },
