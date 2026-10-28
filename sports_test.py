@@ -14507,6 +14507,18 @@ def test_bucks_card_never_argues_for_the_rockets_10_28():
     assert '"bottom_floor_over"' in bsrc and bsrc.index('"bottom_floor_over"') < bsrc.index('"bottom_floor"')
 
 
+def test_a_thin_edge_is_never_the_lock_10_28():
+    """10/28, the owner: "How can we possibly say it's a very thin edge here, but it's a lock? That don't make no
+    sense." From 10/29 a Lock candidate whose own read beats the price by under THIN_EDGE is no Lock at all."""
+    import sports as s
+    thin = {"legs": [{"odds": -148, "dec": 1.676, "edge_own": 0.01, "p": 0.60}]}
+    real = {"legs": [{"odds": -148, "dec": 1.676, "edge_own": 0.08, "p": 0.65}]}
+    assert s.thin_lock(thin) and not s.thin_lock(real)
+    assert s.NO_THIN_LOCK_FROM == "2026-10-29"
+    src = open(s.__file__).read()
+    assert 'kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best)' in src
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

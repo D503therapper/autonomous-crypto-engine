@@ -2441,6 +2441,18 @@ THIN_EDGE = 0.03                 # value like that - probably should've been a h
 #   3% stays the line, the Lock sizes by its own read. Re-check on a full-board replay.
 
 
+NO_THIN_LOCK_FROM = "2026-10-29"   # 🔒 the owner, 10/28: "how can we possibly say it's a very thin edge here, but it's a
+#                                    lock? That don't make no sense." A thin-edge Lock (own read under THIN_EDGE over the
+#                                    price) is no Lock at all - the Lock spot says no Lock today. Live: ½u thin Locks 6-5
+#                                    -0.3u vs 1u+ Locks 3-1 +8.0u; thin unit plays 16-18 -4.4u (10/23).
+
+
+def thin_lock(b):
+    """A Lock candidate whose single leg is a thin edge - never titled the Lock (NO_THIN_LOCK_FROM)."""
+    legs = (b or {}).get("legs") or []
+    return len(legs) == 1 and thin_edge(legs[0])
+
+
 def thin_edge(leg):
     """The engine's own read beats the price by under THIN_EDGE per dollar (the smaller of its own read and the read
     the units ride on - a small edge is a small bet)."""
@@ -4291,6 +4303,10 @@ def post_board(games, model, picks, now, day, force=False):
             best = make_board(all_cands, lock_game, avoid=avoid, fixed=fixed).get(kind) or last_lock(all_cands, avoid)   # every healthy side falls
             #                                                  short, the backup Lock can be a banged-up side - ½u,
             #                                                  its card names who's out (never a blind one)
+        if kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best):
+            print(f"   no thin-edge Lock: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - "
+                  "a thin edge is never a Lock (the owner, 10/28)")
+            best = None
         if replacing:                                         # a lean never repeats a game we're already on today
             if best and any(l["game_id"] in avoid for l in best["legs"]):
                 best = None
