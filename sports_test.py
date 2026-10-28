@@ -3423,6 +3423,72 @@ def test_nba_underdog_second_batch_weights():
     assert mo["rest"] == 3 and mo["opp_rest"] == 2 and mo["games_in"] == 3
 
 
+def test_nba_dog_studies_1028_slate_and_soft_next_weights_heavy_minutes_lead():
+    """10/28 - 5 NBA dog studies (threes / variance / the favorite's schedule sandwich / the 2-game rematch / the
+    favorite's legs): two WEIGHTS inside the dog score's cap - a dog on a 12+ game slate +2 (holdout +16.8% / +17.9%),
+    the favorite's next game a soft one within 2 days -2 (0 of 6 train seasons up, holdout -24.9% / -18.4%) - and one
+    tracker LEAD (the favorite's top 3 men 38+ minutes last game, no overtime). The facts come from the schedule
+    (known in advance) and the box scores of games already played - nothing from after tip-off."""
+    import json
+    import sports_leads
+    import sports_nba_roster
+    base = {"market": "ml", "league": "nba", "odds": 170, "dec": 2.7, "p_market": 0.36, "edge": 0.0,
+            "edge_own": 0.36 * 2.7 - 1, "reasons": [], "home": True, "season_games": 20, "elo_edge": -100}
+    w = sports.nba_dog_weights
+    assert w({**base, "dog_more": {"slate": 12}}) == 2 and w({**base, "dog_more": {"slate": 11}}) == 0
+    assert w({**base, "dog_more": {"opp_next_soft": True}}) == -2
+    assert w({**base, "dog_more": {"slate": 13, "opp_next_soft": True}}) == 0
+    assert w({**base, "dog_more": {"opp_heavy_last": True}}) == 0          # the lead never moves the score
+    assert w({**base, "odds": -120, "dog_more": {"slate": 13}}) == 0        # dogs only
+    tags = sports_leads.tags({**base, "dog_more": {"slate": 12, "opp_next_soft": True, "opp_heavy_last": True}}, sports)
+    assert "NBA dog on a 12+ game slate" in tags and "NBA dog, favorite's next game is soft (fade)" in tags
+    assert "NBA dog vs a favorite whose top 3 played 38+ last game" in tags
+    assert not any("slate" in t or "soft" in t for t in sports_leads.tags({**base, "dog_more": {"slate": 9}}, sports))
+    # the facts from a schedule: 12 games on the night (PT), the favorite B plays Z tomorrow and Z is 2-8
+    games = {}
+    for i in range(10):                                                     # Z's 10 games: 2 wins
+        hs, as_ = (100, 90) if i < 2 else (90, 100)
+        games[f"z{i}"] = {"id": f"z{i}", "league": "nba", "start": f"2026-11-{1 + i:02d}T00:00Z", "status": "final",
+                          "stype": "2", "home": "Z", "away": f"Q{i}", "home_score": hs, "away_score": as_}
+    for t in ("A", "B"):
+        games[f"p{t}"] = {"id": f"p{t}", "league": "nba", "start": "2026-11-18T00:00Z", "status": "final", "stype": "2",
+                          "home": t, "away": "Y", "home_score": 100, "away_score": 95}
+    g = {"id": "n", "league": "nba", "start": "2026-11-21T02:00Z", "status": "pre", "stype": "2", "home": "A", "away": "B"}
+    games["n"] = g
+    for i in range(11):                                                     # 11 more games the same night = a 12-game slate
+        games[f"s{i}"] = {"id": f"s{i}", "league": "nba", "start": "2026-11-21T00:30Z", "status": "pre", "stype": "2",
+                          "home": f"H{i}", "away": f"R{i}"}
+    games["nx"] = {"id": "nx", "league": "nba", "start": "2026-11-22T02:00Z", "status": "pre", "stype": "2",
+                   "home": "Z", "away": "B"}
+    games["nhl"] = {"id": "nhl", "league": "nhl", "start": "2026-11-21T00:00Z", "status": "pre", "stype": "2",
+                    "home": "X", "away": "W"}
+    sports._SCHED.clear()
+    mo = sports._dog_more(games, g, "home", "away", "nba")
+    assert mo["slate"] == 12 and mo["opp_next_days"] == 1 and mo["opp_next_wp"] == 0.2 and mo["opp_next_soft"] is True
+    mo_b = sports._dog_more(games, g, "away", "home", "nba")                # A's next game is not on the schedule
+    assert mo_b["slate"] == 12 and mo_b.get("opp_next_soft") is None
+    games["z9"]["home_score"], games["z9"]["away_score"] = 100, 90           # Z 3-7 = .300, still soft
+    sports._SCHED.clear()
+    assert sports._dog_more(games, g, "home", "away", "nba")["opp_next_soft"] is True
+    for i in range(3, 8):                                                   # Z 8-2: a real team, not soft
+        games[f"z{i}"]["home_score"], games[f"z{i}"]["away_score"] = 100, 90
+    sports._SCHED.clear()
+    assert sports._dog_more(games, g, "home", "away", "nba")["opp_next_soft"] is False
+    games["nx"]["start"] = "2026-11-25T00:00Z"                              # 4 days off: no next-game fact
+    sports._SCHED.clear()
+    assert "opp_next_soft" not in sports._dog_more(games, g, "home", "away", "nba")
+    # the heavy-minutes fact from box rows: B's last game, top 3 men 40 / 39 / 36 (no OT) = heavy; 53 minutes = OT
+    rows = [{"gid": "pB", "start": "2026-11-18T00:00Z", "team": "B", "pid": str(i), "player": f"P{i}",
+             "stats": json.dumps({"minutes": m})} for i, m in enumerate((40, 39, 36, 30, 20, 10))]
+    assert sports_nba_roster.heavy_last("B", "2026-11-21T02:00Z", 38.0, rows=rows) is True
+    assert sports_nba_roster.heavy_last("B", "2026-11-21T02:00Z", 38.0, rows=rows, ot=True) is False
+    assert sports_nba_roster.heavy_last("B", "2026-11-18T00:00Z", 38.0, rows=rows) is None   # no earlier game
+    rows[0]["stats"] = json.dumps({"minutes": 53})                          # a 53-minute man = overtime
+    assert sports_nba_roster.heavy_last("B", "2026-11-21T02:00Z", 38.0, rows=rows) is False
+    rows[0]["stats"] = json.dumps({"minutes": 37})
+    assert sports_nba_roster.heavy_last("B", "2026-11-21T02:00Z", 38.0, rows=rows) is False  # 37.3 average
+
+
 def test_dog_eye_study_wires_no_weight_and_tracks_the_upset_dog_lead():
     """10/24 - the owner's 'line looks way off' eye (roster talent, stars, beat a good team, last season's record, the
     Elo gap, rest, a combined fair line, a favorite missing starters): every detector is priced at the close AND at the

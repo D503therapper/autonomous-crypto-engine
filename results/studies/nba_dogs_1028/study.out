@@ -1,0 +1,112 @@
+=== REALITY CHECK: NBA dogs +100..+350 at the close, flat 1u (win % vs the no-vig implied) ===
+  2018-19: all 327-573 36.3% vs 35.8% implied, -3.8% | +100-150 165-184 47.3% vs 43.5% implied, +4.7% | +150-250 124-258 32.5% vs 33.7% implied, -7.9% | +250-350 38-131 22.5% vs 24.5% implied, -12.1%
+  2019-20: all 290-514 36.1% vs 35.5% implied, -3.3% | +100-150 137-165 45.4% vs 43.7% implied, +0.0% | +150-250 115-221 34.2% vs 33.5% implied, -2.8% | +250-350 38-128 22.9% vs 24.6% implied, -10.2%
+  2020-21: all 313-549 36.3% vs 35.7% implied, -0.4% | +100-150 139-199 41.1% vs 43.6% implied, -8.9% | +150-250 129-232 35.7% vs 33.4% implied, +4.3% | +250-350 45-118 27.6% vs 24.5% implied, +7.0%
+  2021-22: all 335-607 35.6% vs 35.7% implied, -3.5% | +100-150 170-239 41.6% vs 42.9% implied, -7.5% | +150-250 118-249 32.2% vs 32.7% implied, -5.8% | +250-350 47-119 28.3% vs 24.5% implied, +11.1%
+  2022-23: all 348-631 35.5% vs 36.0% implied, -5.7% | +100-150 171-243 41.3% vs 43.2% implied, -8.8% | +150-250 136-267 33.7% vs 33.2% implied, -4.1% | +250-350 41-121 25.3% vs 24.6% implied, -1.5%
+  2023-24: all 311-581 34.9% vs 35.6% implied, -8.0% | +100-150 160-213 42.9% vs 43.1% implied, -5.1% | +150-250 119-224 34.7% vs 33.4% implied, -1.2% | +250-350 32-144 18.2% vs 24.3% implied, -27.5%
+  2024-25: all 308-566 35.2% vs 34.8% implied, -1.1% | +100-150 125-176 41.5% vs 43.0% implied, -7.1% | +150-250 129-268 32.5% vs 33.2% implied, -6.7% | +250-350 54-122 30.7% vs 24.4% implied, +22.0%
+  2025-26: all 301-568 34.6% vs 35.2% implied, -6.7% | +100-150 147-182 44.7% vs 43.2% implied, -1.5% | +150-250 114-242 32.0% vs 33.3% implied, -8.0% | +250-350 40-144 21.7% vs 24.5% implied, -13.7%
+  2026-27: all 12-26 31.6% vs 37.4% implied, -17.8% | +100-150 6-15 28.6% vs 43.1% implied, -36.0% | +150-250 6-5 54.5% vs 33.5% implied, +61.7% | +250-350 0-6 0.0% vs 24.8% implied, -100.0%
+  ALL all: 2545-4615, won 35.5% vs 35.6% implied (raw price says 37.1%), flat ROI -4.2%, z -0.0
+  ALL +100-150: 1220-1616, won 43.0% vs 43.3% implied (raw price says 45.1%), flat ROI -4.7%, z -0.3
+  ALL +150-250: 990-1966, won 33.5% vs 33.3% implied (raw price says 34.7%), flat ROI -3.9%, z +0.2
+  ALL +250-350: 335-1033, won 24.5% vs 24.5% implied (raw price says 25.5%), flat ROI -3.7%, z +0.0
+  home dogs:
+  home                                                           | train 786-1372 -5.4% (36.4 vs 36.8, z -0.3, 3/6 up) | hold 289-484 +0.6% (37.4 vs 35.9, z +0.9) | now 3-9 -42.1% (25.0 vs 40.3, z -1.1)
+  road                                                           | train 1138-2083 -3.3% (35.3 vs 35.1, z +0.3, 2/6 up) | hold 320-650 -7.4% (33.0 vs 34.3, z -0.9) | now 9-17 -6.6% (34.6 vs 36.1, z -0.2)
+
+=== STUDY 1: THREES / VARIANCE - the dog's three-point rate (last 10 box scores, 3PA / FGA), the favorite's; 3P% luck ===
+  all with box                                                   | train 1635-2983 -4.9% (35.4 vs 35.7, z -0.4, 0/6 up) | hold 519-982 -5.2% (34.6 vs 35.0, z -0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 3PA-rate quartile 0 (3 = most threes)                      | train 399-753 -7.2% (34.6 vs 35.9, z -0.9, 0/6 up) | hold 125-249 -7.5% (33.4 vs 34.7, z -0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 3PA-rate quartile 1 (3 = most threes)                      | train 405-750 -6.4% (35.1 vs 35.3, z -0.2, 2/6 up) | hold 122-254 -11.7% (32.4 vs 35.3, z -1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 3PA-rate quartile 2 (3 = most threes)                      | train 416-739 -2.3% (36.0 vs 35.5, z +0.4, 2/6 up) | hold 149-227 +9.7% (39.6 vs 35.5, z +1.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 3PA-rate quartile 3 (3 = most threes)                      | train 415-741 -3.9% (35.9 vs 36.2, z -0.2, 2/6 up) | hold 123-252 -11.5% (32.8 vs 34.6, z -0.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite 3PA-rate quartile 0                                   | train 371-704 -7.9% (34.5 vs 36.0, z -1.0, 0/6 up) | hold 142-274 -7.8% (34.1 vs 35.0, z -0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite 3PA-rate quartile 1                                   | train 355-617 -3.3% (36.5 vs 36.1, z +0.3, 2/6 up) | hold 125-224 -1.3% (35.8 vs 35.1, z +0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite 3PA-rate quartile 2                                   | train 413-749 -5.2% (35.5 vs 35.8, z -0.2, 1/6 up) | hold 128-257 -8.7% (33.2 vs 35.3, z -0.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite 3PA-rate quartile 3                                   | train 496-913 -3.6% (35.2 vs 35.1, z +0.1, 2/6 up) | hold 124-227 -2.4% (35.3 vs 34.5, z +0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  high-3 dog (q3) vs low-3 fav (q0/1)                            | train 195-325 -0.7% (37.5 vs 36.8, z +0.4, 3/6 up) | hold 63-128 -9.2% (33.0 vs 34.8, z -0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  low-3 dog (q0) vs high-3 fav (q2/3)                            | train 225-417 -5.3% (35.0 vs 35.9, z -0.4, 1/6 up) | hold 66-126 -2.6% (34.4 vs 34.7, z -0.1) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog shoots 3s 5+ pts of rate more than fav                     | train 322-563 -4.2% (36.4 vs 36.4, z -0.0, 2/6 up) | hold 112-239 -14.3% (31.9 vs 35.2, z -1.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog shoots 3s 5+ pts of rate LESS than fav                     | train 417-776 -5.1% (35.0 vs 35.2, z -0.2, 1/6 up) | hold 109-227 -9.8% (32.4 vs 34.6, z -0.8) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  big dog +200..+350, high-3 (q3)                                | train 107-275 -1.1% (28.0 vs 27.2, z +0.4, 2/6 up) | hold 29-114 -25.5% (20.3 vs 26.7, z -1.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  big dog +200..+350, low-3 (q0)                                 | train 98-293 -10.0% (25.1 vs 26.9, z -0.8, 2/6 up) | hold 37-114 -10.8% (24.5 vs 27.2, z -0.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog hot from 3 last game (45%+ on 25+ att)                     | train 205-387 -7.1% (34.6 vs 36.6, z -1.0, 2/6 up) | hold 77-112 +7.7% (40.7 vs 36.4, z +1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog cold from 3 last game (<25% on 25+ att)                    | train 143-243 -0.0% (37.0 vs 35.3, z +0.7, 3/6 up) | hold 32-88 -20.1% (26.7 vs 33.6, z -1.6) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav hot from 3 last game (45%+)                                | train 227-387 +1.2% (37.0 vs 35.3, z +0.9, 3/6 up) | hold 56-136 -16.1% (29.2 vs 33.6, z -1.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav cold from 3 last game (<25%)                               | train 113-196 -3.7% (36.6 vs 35.9, z +0.3, 2/6 up) | hold 33-75 -24.7% (30.6 vs 36.0, z -1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 10-game 3P% 40%+ (hot stretch)                             | train 107-187 -5.3% (36.4 vs 36.9, z -0.2, 2/6 up) | hold 38-57 +15.9% (40.0 vs 34.4, z +1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog 10-game 3P% under 33% (cold stretch)                       | train 292-529 -2.9% (35.6 vs 34.9, z +0.4, 3/6 up) | hold 79-158 -8.2% (33.3 vs 34.1, z -0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+
+=== STUDY 2: MARGIN VARIANCE - the dog's result spread over its last 10 games (pstdev of margins), the favorite's ===
+  all with 8+ games                                              | train 1696-3073 -4.6% (35.6 vs 35.7, z -0.2, 0/6 up) | hold 534-1013 -5.5% (34.5 vs 35.0, z -0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog margin-variance quartile 0 (3 = wildest)                   | train 426-764 -2.5% (35.8 vs 35.4, z +0.3, 2/6 up) | hold 126-259 -11.8% (32.7 vs 35.4, z -1.1) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog margin-variance quartile 1 (3 = wildest)                   | train 404-788 -11.3% (33.9 vs 35.9, z -1.4, 0/6 up) | hold 130-258 -8.9% (33.5 vs 34.7, z -0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog margin-variance quartile 2 (3 = wildest)                   | train 411-784 -8.7% (34.4 vs 35.9, z -1.1, 0/6 up) | hold 139-249 -0.8% (35.8 vs 34.9, z +0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog margin-variance quartile 3 (3 = wildest)                   | train 455-737 +4.2% (38.2 vs 35.7, z +1.8, 4/6 up) | hold 139-247 -0.5% (36.0 vs 35.1, z +0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite margin-variance quartile 0                            | train 449-714 +1.9% (38.6 vs 36.3, z +1.7, 4/6 up) | hold 145-228 +4.5% (38.9 vs 35.4, z +1.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite margin-variance quartile 1                            | train 443-792 -2.5% (35.9 vs 35.7, z +0.2, 3/6 up) | hold 129-245 -6.6% (34.5 vs 35.2, z -0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite margin-variance quartile 2                            | train 385-746 -9.6% (34.0 vs 35.6, z -1.1, 2/6 up) | hold 144-280 -5.0% (34.0 vs 34.9, z -0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  favorite margin-variance quartile 3                            | train 419-821 -8.1% (33.8 vs 35.4, z -1.2, 1/6 up) | hold 116-260 -14.9% (30.9 vs 34.7, z -1.6) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  wild dog (q3) vs steady fav (q0)                               | train 111-171 +5.4% (39.4 vs 36.5, z +1.0, 3/6 up) | hold 43-54 +20.8% (44.3 vs 36.1, z +1.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  steady dog (q0) vs wild fav (q3)                               | train 110-191 +0.2% (36.5 vs 35.6, z +0.3, 3/6 up) | hold 28-62 -18.9% (31.1 vs 36.0, z -1.0) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  big dog +200+, wild (q3)                                       | train 135-285 +14.9% (32.1 vs 27.1, z +2.3, 4/6 up) | hold 42-105 +5.6% (28.6 vs 26.9, z +0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  big dog +200+, steady (q0)                                     | train 114-317 -5.6% (26.5 vs 26.9, z -0.2, 2/6 up) | hold 38-101 -4.9% (27.3 vs 27.2, z +0.0) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  wild fav (q3) any dog                                          | train 419-821 -8.1% (33.8 vs 35.4, z -1.2, 1/6 up) | hold 116-260 -14.9% (30.9 vs 34.7, z -1.6) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  steady fav (q0) +200+ dog                                      | train 111-265 +3.0% (29.5 vs 27.2, z +1.0, 3/6 up) | hold 37-104 -5.1% (26.2 vs 26.9, z -0.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+
+=== STUDY 3: THE FAVORITE'S SCHEDULE SANDWICH - look-ahead to a marquee game / letdown after one ===
+  all with a next game                                           | train 1625-2962 -5.0% (35.4 vs 35.7, z -0.4, 0/6 up) | hold 513-979 -6.1% (34.4 vs 35.0, z -0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next game vs a 1600+ Elo team within 2 days              | train 286-499 -1.4% (36.4 vs 35.7, z +0.4, 2/6 up) | hold 89-195 -14.7% (31.3 vs 35.1, z -1.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next game vs a 1600+ Elo team, next day                  | train 129-223 +0.9% (36.6 vs 35.4, z +0.5, 3/6 up) | hold 49-95 -6.8% (34.0 vs 35.2, z -0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next game vs a 1575+ team within 2 days                  | train 429-709 +2.2% (37.7 vs 35.6, z +1.5, 4/6 up) | hold 124-263 -12.7% (32.0 vs 35.4, z -1.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next opp 100+ Elo better than tonight's dog, within 2 days | train 458-841 -1.2% (35.3 vs 34.0, z +1.0, 2/6 up) | hold 166-298 +0.4% (35.8 vs 34.2, z +0.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next opp 150+ Elo better than the dog, within 2 days     | train 326-587 +1.3% (35.7 vs 33.7, z +1.3, 2/6 up) | hold 127-226 +2.3% (36.0 vs 33.7, z +0.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+    ... and the dog is a weak team (Elo under 1470)              | train 294-532 +1.8% (35.6 vs 33.4, z +1.3, 2/6 up) | hold 112-205 +0.9% (35.3 vs 33.2, z +0.8) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+    ... and the fav is on the road tonight                       | train 169-331 -5.7% (33.8 vs 34.5, z -0.3, 3/6 up) | hold 69-125 +0.9% (35.6 vs 33.9, z +0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's next game vs a weak team (control)                       | train 387-780 -11.7% (33.2 vs 36.0, z -2.0, 0/6 up) | hold 130-302 -19.4% (30.1 vs 35.2, z -2.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's LAST game vs a 1600+ team (letdown)                      | train 317-561 -1.8% (36.1 vs 36.0, z +0.1, 1/6 up) | hold 88-225 -26.1% (28.1 vs 35.3, z -2.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's LAST game a WIN vs a 1600+ team                          | train 140-236 +0.4% (37.2 vs 35.9, z +0.5, 2/6 up) | hold 34-73 -20.6% (31.8 vs 35.8, z -0.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's last opp 1575+ AND won                                   | train 213-359 +1.1% (37.2 vs 35.8, z +0.7, 3/6 up) | hold 49-116 -23.7% (29.7 vs 35.2, z -1.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  sandwich: fav beat a 1575+ team last AND next is 1575+ within 2 days | train 62-79 +18.7% (44.0 vs 35.9, z +2.0, 5/6 up) | hold 14-42 -36.7% (25.0 vs 36.9, z -1.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  DOG's next game vs a 1600+ team within 2 days (dog looking ahead) | train 311-531 -0.3% (36.9 vs 35.4, z +0.9, 3/6 up) | hold 118-208 +2.6% (36.2 vs 35.3, z +0.4) | now 3-4 +10.6% (42.9 vs 33.6, z +0.5)
+
+=== STUDY 4: THE IMMEDIATE REMATCH - the same two teams again within 3 days (the 2-game sets) ===
+  all dogs (control)                                             | train 1892-3403 -4.2% (35.7 vs 35.7, z +0.0, 0/6 up) | hold 600-1114 -3.7% (35.0 vs 35.0, z +0.0) | now 9-16 -1.6% (36.0 vs 36.4, z -0.0)
+  rematch within 3 days, any                                     | train 82-152 -7.1% (35.0 vs 35.5, z -0.2, 2/6 up) | hold 33-44 +23.3% (42.9 vs 34.5, z +1.6) | now 0-1 -100.0% (0.0 vs 36.9, z -0.8)
+  rematch: dog LOST game 1                                       | train 53-93 -0.8% (36.3 vs 34.1, z +0.6, 3/6 up) | hold 14-23 +13.6% (37.8 vs 34.1, z +0.5) | now 0-1 -100.0% (0.0 vs 36.9, z -0.8)
+  rematch: dog lost game 1 by 15+                                | train 14-26 +0.3% (35.0 vs 31.3, z +0.5, 2/4 up) | hold 5-13 -6.3% (27.8 vs 33.1, z -0.5) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  rematch: dog lost game 1 by 1-9                                | train 27-48 -1.4% (36.0 vs 35.5, z +0.1, 3/5 up) | hold 7-5 +68.6% (58.3 vs 34.5, z +1.8) | now 0-1 -100.0% (0.0 vs 36.9, z -0.8)
+  rematch: dog WON game 1 (still a dog)                          | train 29-59 -17.6% (33.0 vs 38.0, z -1.0, 2/5 up) | hold 19-21 +32.2% (47.5 vs 34.9, z +1.7) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  rematch: dog won game 1 AND +150 or longer                     | train 9-33 -31.4% (21.4 vs 31.2, z -1.4, 0/4 up) | hold 13-13 +53.9% (50.0 vs 30.4, z +2.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  rematch, same court both games                                 | train 82-150 -6.3% (35.3 vs 35.5, z -0.1, 2/6 up) | hold 31-44 +17.4% (41.3 vs 34.7, z +1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  rematch, dog at home game 2                                    | train 40-59 +4.7% (40.4 vs 37.5, z +0.6, 3/6 up) | hold 15-14 +57.5% (51.7 vs 34.7, z +1.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  rematch, dog on the road game 2                                | train 42-93 -15.7% (31.1 vs 34.1, z -0.7, 3/6 up) | hold 18-30 +2.6% (37.5 vs 34.4, z +0.5) | now 0-1 -100.0% (0.0 vs 36.9, z -0.8)
+  game 1 of a 2-game set (plays the same team next within 3 days) | train 71-155 -15.4% (31.4 vs 35.5, z -1.3, 2/6 up) | hold 34-43 +22.5% (44.2 vs 35.3, z +1.6) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  game 1 of a set, dog at home                                   | train 27-68 -29.5% (28.4 vs 37.0, z -1.7, 2/5 up) | hold 13-15 +23.4% (46.4 vs 36.4, z +1.1) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  2nd+ meeting this season, lost ALL previous meetings (2+)      | train 304-531 +0.3% (36.4 vs 34.7, z +1.1, 2/6 up) | hold 82-197 -17.7% (29.4 vs 34.6, z -1.8) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+
+=== STUDY 5: THE FAVORITE'S LEGS - heavy minutes last game, dense schedule, the dog fresh ===
+  all with the fav's last box                                    | train 1786-3223 -4.4% (35.7 vs 35.7, z -0.1, 0/6 up) | hold 560-1059 -5.1% (34.6 vs 35.0, z -0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top 3 averaged 38+ min last game                         | train 299-456 +6.9% (39.6 vs 35.6, z +2.3, 4/6 up) | hold 78-120 +8.7% (39.4 vs 34.6, z +1.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top 3 averaged 38+ min last game AND b2b                 | train 101-169 +1.0% (37.4 vs 36.2, z +0.4, 4/6 up) | hold 33-49 +7.8% (40.2 vs 35.4, z +0.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top 3 averaged 38+ AND b2b AND dog rested 2+             | train 41-64 -2.1% (39.0 vs 36.9, z +0.5, 3/6 up) | hold 15-19 +18.2% (44.1 vs 35.2, z +1.1) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top man 42+ min last game                                | train 169-257 +5.4% (39.7 vs 35.7, z +1.7, 3/6 up) | hold 37-63 -0.2% (37.0 vs 35.7, z +0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top man 42+ min AND b2b                                  | train 57-98 -2.9% (36.8 vs 36.4, z +0.1, 3/6 up) | hold 17-26 +4.8% (39.5 vs 36.4, z +0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav's top 3 under 32 min last game (light night) AND b2b       | train 160-310 -6.5% (34.0 vs 35.4, z -0.6, 2/6 up) | hold 66-134 -9.7% (33.0 vs 34.8, z -0.6) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav on a b2b (control)                                         | train 735-1300 -2.9% (36.1 vs 35.8, z +0.3, 2/6 up) | hold 251-455 -0.7% (35.6 vs 35.0, z +0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav 4 games in 6 nights (control, dead before)                 | train 799-1404 -3.9% (36.3 vs 36.0, z +0.3, 3/6 up) | hold 262-479 -3.2% (35.4 vs 34.9, z +0.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav 4-in-6 AND heavy minutes last game (38+)                   | train 124-190 +4.6% (39.5 vs 36.3, z +1.2, 4/6 up) | hold 38-56 +10.7% (40.4 vs 34.6, z +1.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav 3-in-4 AND heavy minutes last game (38+)                   | train 112-188 +1.0% (37.3 vs 36.1, z +0.5, 3/6 up) | hold 35-52 +8.0% (40.2 vs 35.7, z +0.9) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  fav played OT last game (built, control)                       | train 114-166 +8.9% (40.7 vs 36.3, z +1.6, 4/6 up) | hold 25-47 -5.2% (34.7 vs 35.7, z -0.2) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  dog's own top 3 38+ last game AND dog on b2b (fade?)           | train 80-163 -8.5% (32.9 vs 35.2, z -0.8, 2/6 up) | hold 26-42 +2.1% (38.2 vs 35.8, z +0.4) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+
+=== EXTRA: SLATE SIZE (how many NBA games that night) ===
+  slate 1-3 games                                                | train 63-108 -3.6% (36.8 vs 37.0, z -0.0, 3/6 up) | hold 18-37 -5.3% (32.7 vs 34.5, z -0.3) | now 2-3 -10.0% (40.0 vs 38.9, z +0.1)
+  slate 4-6 games                                                | train 392-727 -4.7% (35.0 vs 35.4, z -0.2, 2/6 up) | hold 126-201 +6.8% (38.5 vs 35.2, z +1.3) | now 0-0 +0.0% (0.0 vs 0.0, z +0.0)
+  slate 7-9 games                                                | train 764-1416 -4.7% (35.0 vs 35.5, z -0.4, 2/6 up) | hold 232-464 -10.3% (33.3 vs 35.3, z -1.1) | now 6-10 +3.4% (37.5 vs 36.1, z +0.1)
+  slate 10-11 games                                              | train 481-844 -5.2% (36.3 vs 36.1, z +0.2, 1/6 up) | hold 129-284 -14.3% (31.2 vs 35.0, z -1.6) | now 1-8 -76.2% (11.1 vs 39.7, z -1.8)
+  slate 12-15 games                                              | train 224-360 +1.0% (38.4 vs 36.1, z +1.1, 5/6 up) | hold 104-148 +17.3% (41.3 vs 34.2, z +2.4) | now 3-5 +0.6% (37.5 vs 36.6, z +0.1)
+  slate 11+ AND +200..+350                                       | train 103-298 -10.6% (25.7 vs 27.1, z -0.6, 2/6 up) | hold 57-108 +24.3% (34.5 vs 26.6, z +2.3) | now 1-3 -21.3% (25.0 vs 25.9, z -0.0)
+  slate 1-4 AND +200..+350                                       | train 33-83 +3.1% (28.4 vs 27.3, z +0.3, 3/6 up) | hold 17-36 +14.3% (32.1 vs 27.1, z +0.8) | now 0-1 -100.0% (0.0 vs 25.9, z -0.6)

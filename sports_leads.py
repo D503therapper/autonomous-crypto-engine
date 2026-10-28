@@ -55,6 +55,12 @@ def tags(c, sports):
     if dog and lg == "nba" and mo.get("last_upset") and c.get("odds", 0) >= sports.NBA_UPSET_DOG_MIN:
         t.append("NBA dog off an upset win, still +180 or longer")   # 10/24 dog-eye study: a LEAD (train +7.2% on 538,
         #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
+    if dog and lg == "nba" and (mo.get("slate") or 0) >= sports.NBA_SLATE_BIG:   # 10/28 studies (a weight): its own record
+        t.append("NBA dog on a 12+ game slate")
+    if dog and lg == "nba" and mo.get("opp_next_soft"):       # 10/28 (a weight, a fade): the favorite's next game is soft
+        t.append("NBA dog, favorite's next game is soft (fade)")
+    if dog and lg == "nba" and mo.get("opp_heavy_last"):      # 10/28 LEAD (tracker only): the favorite's top 3 men went
+        t.append("NBA dog vs a favorite whose top 3 played 38+ last game")   # 38+ minutes last game, no overtime
     if lg == "nba":                                           # 10/21 underdog studies' score (weights)
         nw = sports.nba_dog_weights(c)
         if nw >= 2 * sports.NBA_DOG_W:
