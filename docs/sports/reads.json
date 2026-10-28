@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T02:46Z",
+ "updated": "2026-10-28T03:20Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -142,8 +142,8 @@
    "away": "Islanders",
    "home": "Predators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -225,8 +225,8 @@
    "away": "Pistons",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -303,6 +303,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892595",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-28T02:30Z",
+   "away": "Sabres",
+   "home": "Sharks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909884",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -325,8 +340,8 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.614,
-    "win_p": 0.614,
+    "p": 0.615,
+    "win_p": 0.615,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -369,7 +384,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.628,
+    "p": 0.629,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -416,8 +431,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.559,
-    "win_p": 0.559,
+    "p": 0.56,
+    "win_p": 0.56,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -431,7 +446,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.676,
+    "p": 0.677,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -449,7 +464,7 @@
     "line": -10.5,
     "odds": -105,
     "p": 0.503,
-    "win_p": 0.776,
+    "win_p": 0.777,
     "reasons": [
      "the stronger team"
     ]
@@ -493,7 +508,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.555,
+    "p": 0.56,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -509,9 +524,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team"
     ]
@@ -523,7 +538,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jax State",
-    "p": 0.514,
+    "p": 0.511,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -540,8 +555,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.538,
-    "win_p": 0.538,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -555,7 +570,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.648,
+    "p": 0.645,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -572,8 +587,8 @@
     "market": "ml",
     "line": null,
     "odds": -270,
-    "p": 0.711,
-    "win_p": 0.711,
+    "p": 0.706,
+    "win_p": 0.706,
     "reasons": [
      "the stronger team"
     ]
@@ -615,7 +630,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.659,
+    "p": 0.66,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -737,7 +752,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.735,
+    "p": 0.736,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -768,7 +783,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.609,
+    "p": 0.61,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -785,8 +800,8 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.657,
-    "win_p": 0.657,
+    "p": 0.659,
+    "win_p": 0.659,
     "reasons": [
      "the stronger team"
     ]
@@ -814,7 +829,7 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -238,
+    "odds": -250,
     "p": 0.689,
     "win_p": 0.473,
     "reasons": [

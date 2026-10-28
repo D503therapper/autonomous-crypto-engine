@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 130,
+  "n": 133,
   "beat": 42,
-  "same": 47,
-  "worse": 41,
-  "avg_pts": 0.11
+  "same": 48,
+  "worse": 43,
+  "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 56,
+  "n": 57,
   "beat": 17,
   "same": 26,
-  "worse": 13,
-  "avg_pts": 0.22
+  "worse": 14,
+  "avg_pts": 0.17
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 74,
+   "n": 76,
    "beat": 25,
-   "same": 21,
-   "worse": 28,
-   "avg_pts": 0.03
+   "same": 22,
+   "worse": 29,
+   "avg_pts": -0.01
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 25,
+   "n": 26,
    "beat": 6,
    "same": 14,
-   "worse": 5,
-   "avg_pts": 0.12
+   "worse": 6,
+   "avg_pts": 0.01
   }
  },
  "by_sport": {
@@ -59,11 +59,11 @@
    "avg_pts": 0.46
   },
   "ncaaf": {
-   "n": 37,
+   "n": 38,
    "beat": 11,
    "same": 16,
-   "worse": 10,
-   "avg_pts": 0.17
+   "worse": 11,
+   "avg_pts": 0.09
   },
   "nfl": {
    "n": 20,
@@ -73,11 +73,11 @@
    "avg_pts": 0.12
   },
   "nhl": {
-   "n": 47,
+   "n": 49,
    "beat": 14,
-   "same": 18,
-   "worse": 15,
-   "avg_pts": 0.06
+   "same": 19,
+   "worse": 16,
+   "avg_pts": -0.0
   }
  },
  "lock_by_size": {
@@ -1929,6 +1929,48 @@
    "close": -110,
    "pts": -0.4,
    "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -105,
+   "pts": -2.9,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Delaware",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 114,
+   "pts": -2.8,
+   "units": 0.5,
    "result": "won"
   }
  ]
