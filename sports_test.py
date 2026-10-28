@@ -3423,6 +3423,29 @@ def test_nba_underdog_second_batch_weights():
     assert mo["rest"] == 3 and mo["opp_rest"] == 2 and mo["games_in"] == 3
 
 
+def test_big_slate_nba_upset_studies_1028_nothing_new_weighed_home_dog_lead_tracked():
+    """10/28 - 5 BIG-SLATE NBA upset studies (which dogs carry the 12+ game slate edge: the dog's traits, market
+    attention / tip time, the open-to-close move, the favorite's star out, the box-score matchup): NOTHING beyond the
+    slate +2 held - of 22 traits only the home dog and the small-market dog beat the big-slate base in train and both
+    holdout seasons, by a few points (z under 1.5). So: the slate weight stays +2 for every band, home or road
+    (results/studies/nba_bigslate_1028/); the home dog gets a tracker LEAD tag only, never a weight."""
+    import sports_leads
+    base = {"market": "ml", "league": "nba", "odds": 170, "dec": 2.7, "p_market": 0.36, "edge": 0.0,
+            "edge_own": 0.36 * 2.7 - 1, "reasons": [], "season_games": 20, "elo_edge": -100}
+    w = sports.nba_dog_weights
+    assert w({**base, "home": True, "dog_more": {"slate": 12}}) == 2 == w({**base, "home": False, "dog_more": {"slate": 12}})
+    assert w({**base, "home": True, "odds": 120, "dog_more": {"slate": 12}}) == 2         # every band the same
+    assert w({**base, "home": True, "odds": 340, "dog_more": {"slate": 12}}) == 2
+    assert w({**base, "home": True, "dog_more": {"slate": 12, "opp_next_soft": True}}) == 0   # the soft-next fade holds
+    #                                                      inside big slates too (holdout -10.5% / -48.1% on those dogs)
+    home = sports_leads.tags({**base, "home": True, "dog_more": {"slate": 12}}, sports)
+    road = sports_leads.tags({**base, "home": False, "dog_more": {"slate": 12}}, sports)
+    assert "NBA home dog on a 12+ game slate" in home and "NBA dog on a 12+ game slate" in home
+    assert "NBA home dog on a 12+ game slate" not in road and "NBA dog on a 12+ game slate" in road
+    assert "NBA home dog on a 12+ game slate" not in sports_leads.tags({**base, "home": True, "dog_more": {"slate": 11}}, sports)
+    assert "NBA home dog on a 12+ game slate" not in sports_leads.tags({**base, "home": True, "odds": -130, "dog_more": {"slate": 12}}, sports)
+
+
 def test_nba_dog_studies_1028_slate_and_soft_next_weights_heavy_minutes_lead():
     """10/28 - 5 NBA dog studies (threes / variance / the favorite's schedule sandwich / the 2-game rematch / the
     favorite's legs): two WEIGHTS inside the dog score's cap - a dog on a 12+ game slate +2 (holdout +16.8% / +17.9%),

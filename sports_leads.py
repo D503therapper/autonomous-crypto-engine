@@ -57,6 +57,10 @@ def tags(c, sports):
         #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
     if dog and lg == "nba" and (mo.get("slate") or 0) >= sports.NBA_SLATE_BIG:   # 10/28 studies (a weight): its own record
         t.append("NBA dog on a 12+ game slate")
+        if c.get("home"):                                     # 10/28 big-slate studies: a LEAD (tracker only, no extra
+            t.append("NBA home dog on a 12+ game slate")      # weight) - the home dog carried the slate edge a little
+            #                                                   better in every slice (lift +1.4 / +7.6 / +7.2 over the
+            #                                                   big-slate base; z under 1.5) - one of 2 traits of 22 that did
     if dog and lg == "nba" and mo.get("opp_next_soft"):       # 10/28 (a weight, a fade): the favorite's next game is soft
         t.append("NBA dog, favorite's next game is soft (fade)")
     if dog and lg == "nba" and mo.get("opp_heavy_last"):      # 10/28 LEAD (tracker only): the favorite's top 3 men went
