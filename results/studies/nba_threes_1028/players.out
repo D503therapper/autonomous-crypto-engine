@@ -1,0 +1,68 @@
+=== PLAYER LEVEL (3+ attempts a game, 10+ games this season) ===
+1. DOES A HOT SHOOTER STAY HOT? his last-3-games 3P% vs his season %, then what he shot TONIGHT (vs his season %)
+  train:
+    ice cold (-15 or worse)    n   4871 games - tonight  37.0% on 4.7 attempts vs his season  36.9% -> +0.1 pts
+    cold (-15..-5)             n  12136 games - tonight  37.1% on 5.4 attempts vs his season  37.0% -> +0.1 pts
+    normal                     n  18192 games - tonight  36.9% on 5.7 attempts vs his season  37.0% -> -0.1 pts
+    hot (+5..+15)              n  11962 games - tonight  37.0% on 5.6 attempts vs his season  37.1% -> -0.1 pts
+    on fire (+15 or more)      n   4779 games - tonight  36.8% on 5.0 attempts vs his season  37.0% -> -0.2 pts
+  holdout:
+    ice cold (-15 or worse)    n   1981 games - tonight  36.8% on 4.9 attempts vs his season  37.0% -> -0.2 pts
+    cold (-15..-5)             n   4704 games - tonight  37.0% on 5.5 attempts vs his season  36.9% -> +0.1 pts
+    normal                     n   7038 games - tonight  36.6% on 5.7 attempts vs his season  36.9% -> -0.3 pts
+    hot (+5..+15)              n   4618 games - tonight  37.0% on 5.7 attempts vs his season  36.9% -> +0.1 pts
+    on fire (+15 or more)      n   1842 games - tonight  37.2% on 5.1 attempts vs his season  36.9% -> +0.3 pts
+   (a hot streak means NOTHING for tonight if every row is near +0; a persistent hot hand would read + on the hot rows)
+2. HIS OWN SPLITS - the man's past home/road or b2b/rested gap (60+ attempts each side), and tonight vs his season %:
+   home/road   train    n  56984: corr(past gap, tonight) +0.009; men with a 5+ pt gap on this side n 9846 shot +0.3 pts in the gap's direction
+   home/road   holdout  n  21928: corr(past gap, tonight) +0.011; men with a 5+ pt gap on this side n 2540 shot +0.0 pts in the gap's direction
+   b2b/rested  train    n  56678: corr(past gap, tonight) +0.005; men with a 5+ pt gap on this side n 8893 shot +0.1 pts in the gap's direction
+   b2b/rested  holdout  n  21856: corr(past gap, tonight) -0.013; men with a 5+ pt gap on this side n 2121 shot -0.4 pts in the gap's direction
+3. EXPERIENCE (seasons seen in our box scores since 2016-17 - censored, no ages in our data) and night-to-night consistency:
+  train:
+    0 (first season seen)  n   3308 nights - sd of (tonight's % - his season %) 21.8 pts, mean -0.5, attempts 5.6
+    1-2                    n  15329 nights - sd of (tonight's % - his season %) 21.4 pts, mean -0.6, attempts 5.9
+    3-5                    n  22359 nights - sd of (tonight's % - his season %) 21.0 pts, mean -0.6, attempts 6.1
+    6-9                    n   7560 nights - sd of (tonight's % - his season %) 21.2 pts, mean -0.6, attempts 6.1
+  holdout:
+    0 (first season seen)  n   1279 nights - sd of (tonight's % - his season %) 21.8 pts, mean -0.4, attempts 5.5
+    1-2                    n   3220 nights - sd of (tonight's % - his season %) 22.0 pts, mean +0.2, attempts 5.6
+    3-5                    n   5881 nights - sd of (tonight's % - his season %) 21.3 pts, mean -1.0, attempts 6.1
+    6-9                    n   8558 nights - sd of (tonight's % - his season %) 21.1 pts, mean -0.9, attempts 6.2
+   (in 2018 nobody can read over 2 seasons seen; by 2024-26 the proxy runs to 8-9 - compare within a slice)
+   the hot streak by experience (holdout): on-fire men (+15 last 3) tonight vs season -
+     0-2  n 525 +1.7 pts
+     3+   n 1317 -0.2 pts
+
+=== 4. TEAM LEVEL: the player-built expectation, the opponent's experience and the coaches, added to the model ===
+  n 8846 games with every input (both teams 5+ games); one at a time, correlation with the actual 3PM margin (train):
+    player-built expected 3PM (plain)                raw +0.258   vs what the team model misses (residual) +0.030
+    player-built, with his home/road + b2b splits    raw +0.260   vs what the team model misses (residual) +0.033
+    player-built, with his hot hand (last 3)         raw +0.262   vs what the team model misses (residual) +0.031
+    top-3 shooters' experience (seasons seen)        raw +0.117   vs what the team model misses (residual) +0.017
+    opponent rotation experience (min-weighted)      raw +0.167   vs what the team model misses (residual) +0.033
+    coach tenure with the team                       raw -0.007   vs what the team model misses (residual) +0.007
+    coach career seasons                             raw +0.052   vs what the team model misses (residual) +0.016
+  the brother's defense idea, straight: the team's 3P% tonight (minus its season %) vs the opponent's rotation experience / coach tenure (train):
+    n 13144: opponent rotation experience -0.014, opponent coach tenure +0.003, opponent coach career -0.005
+  the model refit WITH the player / experience / coach inputs (train 2018-23), judged held out:
+    train    n  6548  team-only model R² 0.152 (leader right 63.0%)  ->  with players/coaches R² 0.155 (leader right 63.2%)
+    2024-25  n  1148  team-only model R² 0.111 (leader right 62.1%)  ->  with players/coaches R² 0.107 (leader right 62.1%)
+    2025-26  n  1150  team-only model R² 0.143 (leader right 64.5%)  ->  with players/coaches R² 0.143 (leader right 64.1%)
+    added coefficients: player-built expected 3PM (plain) -0.437; player-built, with his home/road + b2b splits +0.376; player-built, with his hot hand (last 3) +0.158; top-3 shooters' experience (seasons seen) -0.013; opponent rotation experience (min-weighted) +0.212; coach tenure with the team +0.003; coach career seasons +0.006
+  AT THE PRICE (closing moneyline, flat 1u) with the fuller model:
+  dogs +100..+350, predicted edge 1.5+ threes                | train 241-401 -5.2% (37.5 vs 38.5, z -0.5, 2/6 up) | 2024 32-50 -1.5% (z +0.1) | 2025 47-89 -10.1% (z -0.7) | 2026 0-0 +0.0% (z +0.0)
+  dogs +100..+350, predicted edge 2.5+ threes                | train 95-156 -6.0% (37.8 vs 39.3, z -0.5, 1/6 up) | 2024 11-9 +26.9% (z +1.4) | 2025 14-44 -36.3% (z -2.2) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 1.5+ threes           | train 234-211 -6.2% (52.6 vs 53.8, z -0.5, 1/6 up) | 2024 28-24 -4.2% (z +0.0) | 2025 33-39 -18.0% (z -1.3) | 2026 0-0 +0.0% (z +0.0)
+  favorites -101..-150, predicted edge 2.5+ threes           | train 110-95 -4.6% (53.7 vs 54.1, z -0.1, 2/6 up) | 2024 9-10 -16.8% (z -0.6) | 2025 14-19 -25.6% (z -1.3) | 2026 0-0 +0.0% (z +0.0)
+  any price, predicted edge 2.5+ threes                      | train 1031-560 -4.2% (64.8 vs 66.2, z -1.2, 1/6 up) | 2024 178-66 -3.8% (z -0.1) | 2025 202-112 -10.9% (z -0.7) | 2026 0-0 +0.0% (z +0.0)
+  predicted edge 2.5+ threes, ATS                            | train 785-772 -3.7% (50.4 vs 50.0, z +0.3, 1/6 up) | 2024 113-123 -8.6% (z -0.7) | 2025 145-169 -11.8% (z -1.4) | 2026 0-0 +0.0% (z +0.0)
+  IS IT IN THE PRICE? win % vs the no-vig implied by predicted-edge bucket (fuller model, both sides):
+    train: -4- n 426 won 28.9 vs 29.2 (-0.3) | -4..-2 n 1829 won 36.9 vs 36.5 (+0.4) | -2..0 n 4293 won 46.7 vs 45.1 (+1.6) | 0..2 n 4293 won 53.3 vs 54.9 (-1.6) | 2..4 n 1829 won 63.1 vs 63.5 (-0.4) | 4+ n 426 won 71.1 vs 70.8 (+0.3)
+    holdout 2024-26: -4- n 165 won 32.1 vs 26.1 (+6.0) | -4..-2 n 634 won 34.4 vs 34.7 (-0.3) | -2..0 n 1499 won 44.2 vs 45.2 (-1.0) | 0..2 n 1499 won 55.8 vs 54.8 (+1.0) | 2..4 n 634 won 65.6 vs 65.3 (+0.3) | 4+ n 165 won 67.9 vs 73.9 (-6.0)
+  hot-hand player expectation alone: dogs, edge 2.5+         | train 194-346 -5.9% (35.9 vs 37.1, z -0.6, 3/6 up) | 2024 46-63 +14.0% (z +1.4) | 2025 50-82 +2.2% (z +0.5) | 2026 0-0 +0.0% (z +0.0)
+  hot-hand player expectation alone: favs -101..-150, edge 2.5+ | train 191-175 -7.1% (52.2 vs 53.8, z -0.6, 1/6 up) | 2024 22-20 -6.0% (z -0.1) | 2025 27-31 -16.4% (z -1.0) | 2026 0-0 +0.0% (z +0.0)
+  splits player expectation alone: dogs, edge 2.5+           | train 180-319 -5.2% (36.1 vs 37.1, z -0.5, 3/6 up) | 2024 34-55 +5.8% (z +0.7) | 2025 51-78 +7.7% (z +0.8) | 2026 0-0 +0.0% (z +0.0)
+  splits player expectation alone: favs -101..-150, edge 2.5+ | train 177-169 -8.8% (51.2 vs 53.8, z -1.0, 1/6 up) | 2024 19-13 +6.6% (z +0.7) | 2025 16-30 -36.8% (z -2.4) | 2026 0-0 +0.0% (z +0.0)
+
+  cells at the price in part 4: 10

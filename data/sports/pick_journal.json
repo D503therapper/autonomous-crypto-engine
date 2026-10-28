@@ -7695,5 +7695,60 @@
   "score": "35-21",
   "margin": 14.0,
   "pnl_units": 0.51
+ },
+ {
+  "date": "2026-10-28",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892599",
+  "team": "Maple Leafs",
+  "opp": "Kraken",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-28T15:00Z",
+  "price_says": 0.574,
+  "win_p": 0.5609776326849228,
+  "own_read": 0.567,
+  "weighed": 0.567,
+  "dog_p": null,
+  "edge_own": -0.029356519451493868,
+  "near_lock": false,
+  "units": 0.0,
+  "reasons": [
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "rec:1",
+   "road:1",
+   "w_their_loss:19",
+   "splits_w:2",
+   "f_last:1",
+   "f_net:2",
+   "f_pts:3",
+   "f_last5:1",
+   "f_last5:2",
+   "f_theirL:3",
+   "f_pyth:0",
+   "risk:4",
+   "bottom_n:7"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": null,
+  "beat_close_pts": null,
+  "result": "void",
+  "score": null,
+  "margin": null,
+  "pnl_units": 0.0
  }
 ]

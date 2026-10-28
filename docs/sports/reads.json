@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T21:44Z",
+ "updated": "2026-10-28T22:07Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -146,7 +146,7 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -9.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.502,
     "win_p": 0.775,
     "reasons": [
@@ -379,7 +379,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.551,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -395,9 +395,9 @@
     "opp": "Warriors",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.604,
-    "win_p": 0.604,
+    "odds": -162,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
      "the stronger team"
     ]
@@ -449,7 +449,7 @@
    "away": "Devils",
    "home": "Avalanche",
    "why": "on_board",
-   "board": "lock",
+   "board": "play",
    "lean": {
     "team": "Devils",
     "opp": "Avalanche",
@@ -538,8 +538,8 @@
    "start": "2026-10-29T02:00Z",
    "away": "Maple Leafs",
    "home": "Kraken",
-   "why": "on_board",
-   "board": "lean",
+   "why": "no_value",
+   "board": null,
    "lean": {
     "team": "Kraken",
     "opp": "Maple Leafs",
@@ -761,7 +761,7 @@
     "opp": "Troy",
     "market": "spread",
     "line": -19.5,
-    "odds": -108,
+    "odds": -110,
     "p": 0.502,
     "win_p": 0.844,
     "reasons": [
@@ -793,7 +793,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -270,
     "p": 0.71,
     "win_p": 0.494,
     "reasons": [
@@ -945,6 +945,36 @@
     "odds": -198,
     "p": 0.636,
     "win_p": 0.636,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909895",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Trail Blazers",
+    "p": 0.632,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T02:00Z",
+   "away": "Grizzlies",
+   "home": "Trail Blazers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Trail Blazers",
+    "opp": "Grizzlies",
+    "market": "ml",
+    "line": null,
+    "odds": -295,
+    "p": 0.717,
+    "win_p": 0.717,
     "reasons": [
      "the stronger team"
     ]
