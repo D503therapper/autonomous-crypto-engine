@@ -23055,6 +23055,7 @@
      "us:road3in6"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23092,6 +23093,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": -0.61,
+    "flow": {
+     "a": "0,1,2",
+     "h": "0,0,1"
+    },
     "form_state": null,
     "g_role_me": true,
     "g_role_opp": true,
@@ -23131,10 +23136,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Wild 3 @ Mammoth 1",
     "season_games": null,
+    "settled": "2026-10-28T04:17Z",
     "side": "away",
     "start": "2026-10-28T01:00Z",
     "stype": "2",
@@ -23151,12 +23158,14 @@
    }
   ],
   "p_hit": 0.4778,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-27T18:25Z",
   "round": 1,
+  "settled": "2026-10-28T04:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 102,
