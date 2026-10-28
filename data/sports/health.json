@@ -1,26 +1,40 @@
 {
- "at": "2026-10-28T13:35Z",
+ "at": "2026-10-28T14:11Z",
  "fixes": [],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Medvedev vs Merida: no points for 2618s",
+  "live tennis scores: tennis Zavatska vs Mair: no points for 2618s",
+  "live tennis scores: tennis Werner vs Jacquemot: no points for 2618s"
  ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (50s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 21 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-28T14:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Medvedev vs Merida: no points for 2618s",
+    "live tennis scores: tennis Zavatska vs Mair: no points for 2618s",
+    "live tennis scores: tennis Werner vs Jacquemot: no points for 2618s"
+   ]
+  },
   {
    "at": "2026-10-28T13:35Z",
    "fixes": [],
@@ -548,15 +562,6 @@
     "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 2617s",
     "live tennis scores: tennis Olivares vs Herea: no points for 338s",
     "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 375s"
-   ]
-  },
-  {
-   "at": "2026-10-26T15:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gomes vs Rivera: no points for 1704s",
-    "live tennis scores: tennis Silva vs Gormaz: no points for 225s",
-    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 1704s"
    ]
   }
  ]
