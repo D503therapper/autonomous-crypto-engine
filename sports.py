@@ -257,6 +257,14 @@ def lost_last_in_series(games, g, side):
 
 
 HURT_OUT, HURT_UNSURE = 2, 4   # unweighed absences that take the money off a side (until every position is weighed)
+NBA_HURT_WEIGHED = True        # 🏀 10/28 (the owner, a 12-game slate with ZERO NBA unit plays - the Clippers +154 sat "hurt:
+#                                Rui Hachimura, Jordan Miller"): the NBA's absences are WEIGHED like football's (10/3-10/4),
+#                                never a block - sports_absences.penalty already takes -9 off the own read for the top scorer,
+#                                -11 for two of the top 3, so the 2+ out / 4+ questionable rule double-counted them. Hockey /
+#                                baseball keep the rule (not studied). A team with no box scores keeps it too.
+NBA_KEY_WAIT = True            # 🏀 10/28 (the owner: "Lendeborg is ass. He's not a factor"): an NBA pick waits only on a
+#                                questionable / game-time KEY man - a top-3 scorer by the box scores or a verified starter
+#                                (3+ of the last 10) - on either side. A rookie or the 12th man never holds the board.
 # 🚑 FOOTBALL: BANGED UP IS A WEIGHT, NOT A BLOCK (the owner, 10/3: "just because a QB or a star is out or a team is too
 # banged up doesn't necessarily mean no units. It all just depends."). The 10/4 study (our box scores 2021-26, a
 # 'regular' by sports_absences.regulars on the team's prior games, missing = not in the game's box): a football side
@@ -273,8 +281,9 @@ DEPTH_CAP = 0.03                             # ...at most 3 points, like the stu
 
 
 def depth_weighed(g, side):
-    """Is this side's depth WEIGHED (football, box scores say who plays) rather than blocked (every other case)?"""
-    if g["league"] not in DEPTH_PTS:
+    """Is this side's depth WEIGHED (football, box scores say who plays; 10/28 the NBA too - NBA_HURT_WEIGHED, its top
+    scorers weighed by sports_absences.penalty, the depth weight 0) rather than blocked (every other case)?"""
+    if g["league"] not in DEPTH_PTS and not (g["league"] == "nba" and NBA_HURT_WEIGHED):
         return False
     import sports_absences
     return bool(sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9"))
@@ -303,6 +312,8 @@ def hurt(g, side, injuries):
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
     if reg and g["league"] in DEPTH_PTS:                     # football, who plays known: weighed, never a block (10/4)
         return []
+    if reg and g["league"] == "nba" and NBA_HURT_WEIGHED:    # 🏀 10/28: hoops with box scores - WEIGHED (the top scorers
+        return []                                            # by sports_absences.penalty, -9 / -11), never a block
     if reg:                                                  # football / hoops: only players who actually play count
         rows = [r for r in rows if sports_absences.match(r[0], reg)]   # (10/3 - a college report lists walk-ons and
         #   redshirts); a regular ruled out long-term (injured reserve, out for the season) just PLAYED - a fresh hole
@@ -360,17 +371,44 @@ def waiting_on(g, injuries, maybe=True):
         if g["league"] == "nhl" and goalie_known(g, side):   # (10/22, the owner: the Sharks sat all day on "Ullmark
             unsure = [u for u in unsure if (u[1] or "").upper() != "G"]   # (G) questionable" while Daily Faceoff
             #                                                   already had Ottawa's starter - a known starter settles it)
+        if g["league"] == "nba" and NBA_KEY_WAIT:             # 🏀 10/28: only a KEY man's status holds an NBA pick
+            unsure = [u for u in unsure if nba_key_man(g, side, u[0])]
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable" for n, pos, _ in unsure[:2]]
     if g["league"] == "nba" and inj is not None and maybe:   # 🏀 (10/20) a rotation man still a game-time decision in
         try:                                                 # the roster read: the unit play waits for news
             cur = sports_nba_roster.cached()
             for side in ("away", "home"):
                 for name in ((cur or {}).get("flags") or {}).get(str(g[side]), {}).get("game_time") or []:
+                    if NBA_KEY_WAIT and not nba_key_man(g, side, name):   # (10/28: a key man only)
+                        continue
                     if not any(name in x for x in out):
                         out.append(f"{name} game-time decision")
         except Exception:                                    # noqa: BLE001
             pass
     return out
+
+
+def nba_key_man(g, side, name):
+    """🏀 10/28 (the owner, on the Warriors +142 Dog held all day by "Yaxel Lendeborg (F) questionable" - a Timberwolves
+    rookie: "Lendeborg is ass. He's not a factor"): is this NBA player a KEY man for this side - one of the team's top 3
+    scorers over its last 10 box scores (sports_absences.key_players, the men the absence penalty weighs) or a verified
+    starter (3+ of the last 10, sports_players.nba_starters)? Unknown is never key: a man the box scores don't put in
+    the top 3 or the starting five never holds a pick. A team with NO box scores keeps every man key (the old rule)."""
+    import sports_absences
+    try:
+        top = (sports_absences.key_players({}, "nba", g[side], g.get("start") or "9") or {}).get("top") or []
+    except Exception:                                        # noqa: BLE001 - no box scores: everyone stays key
+        top = []
+    if not top:
+        return True
+    if sports_absences.match(name, {sports_absences._nm(p) for p in top}):
+        return True
+    try:
+        if sd.STARTER_OF is None:
+            import sports_players                            # noqa: F401 - installs STARTER_OF
+        return sd.STARTER_OF is not None and sd.STARTER_OF("nba", g[side], name) is True
+    except Exception:                                        # noqa: BLE001
+        return False
 
 
 import sports_absences  # noqa: E402
@@ -906,9 +944,33 @@ def best_hockey_dog(cands, taken=()):
     return None
 
 
+def score_reason(c):
+    """🏀 10/28 (the owner, a 12-game slate with no NBA unit play - the Bucks +270, dog score +4.7 over the gate of 4, sat
+    "kept off: no named reason"): the dog score IS the engine's whole read on an NBA dog - the own read vs the price plus
+    every weighed NBA dog study (the 12+ game slate, rested vs a back-to-back, off a blowout loss, the home dog in games
+    6-10, the 10/21 twenty studies). A model-factor reason (_reasons: the stronger team, rest...) rarely fires on a dog, so
+    a gated dog had no "named reason" and good() / the floor threw it out - the 10/9 and 10/27 replays never asked for one.
+    An NBA moneyline dog +100..+350 the score likes (NBA_FLOOR_SCORE+, the floor's bar) gets the score as its named reason.
+    Adds to c["reasons"] in place (once); never a trap, never one the own read is fighting."""
+    if c.get("league") != "nba" or c.get("market") != "ml" or c.get("reasons") or c.get("trap") \
+            or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+        return
+    try:
+        if fighting(c):
+            return
+        sc = round(dog_score(c), 1)
+    except Exception:                                        # noqa: BLE001 - no score = no reason
+        return
+    if sc >= NBA_FLOOR_SCORE:
+        mo = c.get("dog_more") or {}
+        why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
+        c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+
+
 def good(c):
     """A real play: likely to win by the engine's (honest) win %, a real reason behind it, and no red flags.
     Over/unders keep their own value rule (their study proves them separately). Anything else is filler."""
+    score_reason(c)                                    # (🏀 10/28: an NBA dog the dog score likes names the score)
     if c.get("trap") or not c.get("reasons"):          # a dog the big study proved books overprice / no reason: never
         return False
     if c.get("market") == "total":
@@ -2998,6 +3060,7 @@ def floor_plays(cands, avoid):
     post_board posts as many as the board is short of FLOOR_MIN unit plays, ½u each, tagged floor."""
     pool = []
     for c in cands:
+        score_reason(c)                                      # (🏀 10/28: the NBA dog score names itself)
         if c.get("market") != "ml" or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") \
                 or not c.get("reasons") or fighting(c) or c.get("waiting"):
             continue
@@ -3568,6 +3631,16 @@ def first_start(games, day):
               and g["league"] in sd.LEAGUES]
     starts = [t for t in starts if t.astimezone(PT).date() == day]
     return min(starts) if starts else None
+
+
+def nba_started(games, day, now):
+    """🏀 10/28: has the day's first NBA game tipped? (The NBA floor play posts until it has - the board's `started` reads
+    the day's first game of ANY sport, so a 4 PM PT hockey or college tip closed the NBA floor on a 12-game night.)"""
+    starts = [datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+              for g in games.values() if g.get("league") == "nba" and g.get("start") and g.get("status") != "void"
+              and (g.get("stype") or "?") in sd.REAL]
+    starts = [t for t in starts if t.astimezone(PT).date() == day]
+    return bool(starts) and now >= min(starts)
 
 
 SLATE_PATH = os.path.join(sd.DATA, "slate_check.json")
@@ -4289,8 +4362,8 @@ def post_board(games, model, picks, now, day, force=False):
         #                                                        with its tag - counted by the tag, or the cap never bit)
         if kind == "nbafloor":                                # 🏀 10/27, the owner: NBA unit plays - an NBA day with no NBA
             room = 1 - unit_plays_today(picks, iso, "nba")    # unit play gets the best NBA dog by score (score 0+), ½u
-            if started:
-                room = 0
+            if started and nba_started(games, day, now):      # (10/28: an early hockey / college tip never closes the NBA
+                room = 0                                      #  floor - it posts till the first NBA game of the day tips)
         if kind == "floor":                                   # 💰 10/27, the owner: "at least ONE unit play per day" - the
             room = FLOOR_MIN - unit_plays_today(picks, iso)   # floor fills the board up to FLOOR_MIN unit plays (early plays
             if started:                                       # on today's games don't count: the BOARD carries the units)
