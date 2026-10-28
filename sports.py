@@ -1475,6 +1475,20 @@ NBA_UPSET_DOG_MIN = 180         # 10/24 dog-eye study: a dog off an UPSET win (w
 #                                 (~2.5 chance hits), a LEAD for the tracker (sports_leads), NEVER a weight. Every other
 #                                 'line looks way off' eye (roster talent, stars, beat a good team, last season's record,
 #                                 the Elo gap, rest, a combined fair line) is priced at the close - and at the open
+NBA_SLATE_BIG = 12              # 10/28 NBA dog studies (a WEIGHT, +2 on the dog score): a dog on a 12+ game night - the books
+#                                 and the sharps spread thin. Train 2018-24 +1.0% on 584 (5 of 6 seasons up, vs the band's
+#                                 -4.4%), holdout 2024-25 +16.8% on 146 / 2025-26 +17.9% on 106; the +150..+250 band carries
+#                                 it (+12.7% / +14.4% / +18.3%). Slates of 9-11 games: -5.1% / -11.1% / -14.4%.
+NBA_SOFT_NEXT = (0.40, 10, 2)   # 10/28 (a WEIGHT, -2 on the dog score - a FADE): the FAVORITE's next game, within 2 days, is
+#                                 a soft one (vs a team under .400 after 10+ games) - no look-ahead to distract it, the dog
+#                                 loses more than its price: train -11.1% on 935 (0 of 6 seasons up, z -1.9), holdout 2024-25
+#                                 -24.9% on 174 (z -2.1) / 2025-26 -18.4% on 174; by Elo (next opponent under 1450) red in
+#                                 8 of 8 seasons. The marquee look-ahead (next game vs a .600+ team) is PRICED (-1.0% / -3.7%
+#                                 / -13.9%). Caveat: the dog's OWN soft next game runs red too (-8.7% / -12.7% / -20.4%).
+NBA_HEAVY_MIN = 38.0            # 10/28 LEAD (tracker only, never a weight): the favorite's top 3 men by minutes averaged 38+
+#                                 last game and it was NOT overtime (the built OT weight carried half the raw +6.9%): train
+#                                 +3.2% on 517 (3 of 6), holdout +16.3% on 87 / +7.9% on 53 - up in every slice, z under 1.6,
+#                                 no dose-response (39+ / 40+ red in 2025-26). Judge it on the live tracker.
 _NORMS = {}
 
 
@@ -1596,6 +1610,32 @@ def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev, games=None
             w_ += (m if x["home"] == g[side] else -m) > 0
         out["last_year_wp"] = round(w_ / len(prior), 3)
     out["games_in"] = len(mine)
+    # (10/28 NBA dog studies) the night's slate size and the favorite's NEXT game: a soft one within 2 days (vs a team
+    # under .400 after 10+ games) - the schedule is known in advance, nothing from after tip-off
+    if games is not None:
+        day = start.astimezone(PT).strftime("%Y-%m-%d")
+        out["slate"] = sum(1 for x in games.values() if x.get("league") == lg and str(x.get("stype") or "2") == "2"
+                           and x.get("start") and se._t(x["start"]).astimezone(PT).strftime("%Y-%m-%d") == day
+                           and x.get("status") not in ("postponed", "canceled", "cancelled"))
+    wp_lo, g_min, days_max = NBA_SOFT_NEXT
+    nxt = next((x for st_, x in sched.get((lg, g[other]), []) if st_ > g["start"]
+                and str(x.get("stype") or "2") == "2"), None)
+    if nxt is not None and 0 <= (se._t(nxt["start"]) - start).days <= days_max:
+        no = nxt["away"] if nxt["home"] == g[other] else nxt["home"]
+        res_n = []
+        for x in season(no):
+            try:
+                m_ = float(x["home_score"]) - float(x["away_score"])
+            except (TypeError, ValueError, KeyError):
+                continue
+            res_n.append((m_ if x["home"] == no else -m_) > 0)
+        out["opp_next_days"] = (se._t(nxt["start"]) - start).days
+        out["opp_next_wp"] = round(sum(res_n) / len(res_n), 3) if res_n else None
+        out["opp_next_soft"] = len(res_n) >= g_min and sum(res_n) / len(res_n) < wp_lo
+    try:                                                     # the 10/28 heavy-minutes LEAD (tracker only)
+        out["opp_heavy_last"] = sports_nba_roster.heavy_last(g[other], g["start"], NBA_HEAVY_MIN)
+    except Exception:                                        # noqa: BLE001 - a tracker fact never blocks the board
+        pass
     if side == "home":
         out["opp_trip_game"] = away_run(g[other], theirs) + 1      # tonight is their Nth straight road game
         out["home_after_trip"] = away_run(g[side], mine)           # we just got home from N road games
@@ -1667,6 +1707,12 @@ def nba_dog_weights(c):
     if mo.get("rest") is not None and mo.get("opp_rest") is not None and mo["opp_rest"] - mo["rest"] >= 2:
         sc -= w
     if (mo.get("games_in") if mo.get("games_in") is not None else 99) < 15 and (mo.get("last_year_wp") or 0) >= 0.55:
+        sc -= w
+    # the 10/28 NBA dog studies (weights, inside the same cap): a dog on a 12+ game slate +2 (holdout +16.8% / +17.9%);
+    # the favorite's next game is a soft one within 2 days -2 (train 0 of 6 up, holdout -24.9% / -18.4%)
+    if (mo.get("slate") or 0) >= NBA_SLATE_BIG:
+        sc += w
+    if mo.get("opp_next_soft"):
         sc -= w
     return sc
 

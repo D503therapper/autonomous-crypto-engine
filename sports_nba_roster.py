@@ -841,3 +841,32 @@ def returning(cur, tid, start, k=5, missed=2, rows=None):
     named = {_nm(r["player"]) for r in rows if r["gid"] in keep and r["team"] == str(tid)}
     out_now = set((((cur or {}).get("flags") or {}).get(str(tid)) or {}).get("out") or [])
     return [n for n, pid in top_men(cur, tid, k) if n not in out_now and pid not in played and _nm(n) not in named]
+
+
+def heavy_last(tid, start, heavy=38.0, rows=None, ot=None):
+    """(10/28 NBA dog studies - a LEAD for the tracker, never a weight) True when the team's top 3 men by minutes
+    averaged `heavy`+ minutes in its LAST game this season and that game was not overtime (the OT fact is the
+    built weight's); None when this season's box scores don't hold the team's last game. `ot` = the last game's
+    overtime flag when the caller knows it; without it a 53+ minute man marks an overtime game."""
+    season = season_of(start)
+    if rows is None:
+        if season not in _RECENT:
+            _RECENT.clear()
+            _RECENT[season] = _rows(season)
+        rows = _RECENT[season]
+    last = max(((r["start"], r["gid"]) for r in rows if r["team"] == str(tid) and r["start"] < start), default=None)
+    if last is None:
+        return None
+    mins = []
+    for r in rows:
+        if r["gid"] == last[1] and r["team"] == str(tid):
+            try:
+                mins.append(float(json.loads(r.get("stats") or "{}").get("minutes") or 0))
+            except (ValueError, TypeError):
+                continue
+    mins.sort(reverse=True)
+    if len(mins) < 3:
+        return None
+    if ot is None:
+        ot = mins[0] > 52
+    return (not ot) and sum(mins[:3]) / 3 >= heavy
