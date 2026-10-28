@@ -660,3 +660,12 @@ Scoreboard: DEX seasons 1-5 all lost (55 closed trades -$1,790 on $3,985; season
 chasing; none can be judged. DECISION: DEX rules FROZEN until the 11-01 judge (bug fixes only); reviews report, they
 don't tweak. At 11-01: keep only what beat season-5's start; if the DEX is still losing, recommend to the owner moving
 its money to the stocks side (breakout52 - the only strategy with long-history evidence of big gains, +45%/yr 2011-2026).
+
+### 2026-10-28 hourly saves lost for 6 hours (bug fix, allowed under the DEX freeze)
+The 15:16 run kept trading and pushing the dashboard every minute, but no hourly "paper-trade" commit reached GitHub
+from 15:22 to the run's end at 21:13 (its end-of-run push failed too). The next run restarted from the 15:22 data, so
+the hourly equity rows for 15:22-21:13 are missing. The DEX had no trades in that window, and the stock trades of the
+day were in by 13:30. The job log can't be fetched from here (blob storage 403), so the exact git error is unknown.
+FIX: run_live.force_sync - when pull --rebase fails all 5 tries, publish the paths our unpushed commits changed on top
+of origin/main with plumbing (no merge, nothing can conflict), then reset the local branch to it. Test:
+run_live_watchdog_test.test_force_sync_publishes_our_paths_without_a_merge.
