@@ -4467,7 +4467,11 @@ def post_board(games, model, picks, now, day, force=False):
               "stake": STAKE, "status": "open", "pnl": 0.0, "lean": False, "midday": started,
               "owner_post": req["note"], "units": float(req["units"])}
         c["tier"] = "lock" if req["kind"] == "lock" else leg_tier(c)
+        if c["tier"] in ("lean", "strong"):                  # (10/28, the owner: New Mexico St 1u said "slight lean" -
+            c["tier"] = "value"                              #  a play with units is never labeled a lean)
         pk["tier"] = pick_tier({**pk, "tier": None})
+        if pk["tier"] in ("lean", "strong"):
+            pk["tier"] = "value"
         picks.append(pk)
         posted[req["kind"]] = pk
         new.append(pk)

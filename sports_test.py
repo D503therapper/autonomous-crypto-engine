@@ -14618,6 +14618,14 @@ def test_hockey_audit_10_28_no_hockey_favorite_lean_at_150_130_and_the_fallback_
         sports.dog_score = keep
 
 
+def test_owner_post_with_units_is_never_labeled_a_lean_10_28():
+    """10/28, the owner: "It says New Mexico State is a slight lean but puts a full unit play on it. That contradicts
+    our rule of no units on leans. This should be labeled a value play." An owner post with units carries tier value."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    i = src.index("a play with units is never labeled a lean")
+    assert 'c["tier"] = "value"' in src[i - 300:i + 200] and 'pk["tier"] = "value"' in src[i:i + 400]
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
