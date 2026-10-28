@@ -14468,6 +14468,17 @@ def test_nba_injuries_weighed_not_blocked_and_only_a_key_man_holds_a_pick_10_28(
     assert "if started and nba_started(games, day, now):" in src
 
 
+def test_bucks_card_never_argues_for_the_rockets_10_28():
+    """10/28, the owner on the Bucks +270 card: "it sounds like favoring the Rockets way too much" - our own players'
+    slumps sat under the bottom line, and the floor bottom line said "close to even" on a dog our read had 5 points
+    over the price. Our slump / thin bench never makes the 🏀 line; the line sits in the body; a floor dog whose read
+    clears the price says so."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '"in a slump" not in p' in src and "never after the bottom line" in src
+    bsrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert '"bottom_floor_over"' in bsrc and bsrc.index('"bottom_floor_over"') < bsrc.index('"bottom_floor"')
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

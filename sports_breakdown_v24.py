@@ -1233,7 +1233,14 @@ def breakdown(leg, games, elo, injuries, used=None):
     wp = f"{round(100 * _own)}%" if _own > _ol.SHOW_PCT_OVER / 100 else ""   # the owner 10/7: NO win % ever)                 # (10/1, the owner: "50 out of 100, the price
     pos = f" {us} at {wp}." if wp else ""                                # needs 48" is jargon - plain words: does our
     _fact = "Our read beats this price." if not _need or _own > _need else "The price is too steep for units."
-    if leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
+    if leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock" \
+            and _need and _own > _need + 0.03:                  # (10/28, the Bucks +270: the read clears the price by
+        out.append(v.say("bottom_floor_over", [                 #  5+ points - "close to even" was false)
+            f"✅ Bottom line: {price}. The book's selling {us} short - that price pays like they got no shot, and our read says they live. Dog check backs it. Half a unit.",
+            f"✅ Bottom line: {price}. Too much plus money for a team this live - our read and the dog check both like {us}. Half a unit, it's a dog.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Our numbers say the price is too big and the dog check agrees. Half a unit on the upset."]) or
+                   _short(v, price, True, "Our read beats the price."))
+    elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
         out.append(v.say("bottom_floor", [                                # play - the dog check put it up, not the price
             f"✅ Bottom line: {price}. Our read has it close to even - the dog check is why it's up. Thin edge, half a unit, tread light.",
             f"✅ Bottom line: {price}. Not a big edge on the price - the dog check likes {us} here. Half a unit, keep it light.",
