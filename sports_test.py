@@ -14283,6 +14283,54 @@ def test_no_dog_note_never_says_no_plus_money_when_dog_plays_are_up_10_27():
     assert h1 and "below" not in h1
 
 
+def test_college_weeknight_dog_studies_1028_nothing_weighed_two_fade_leads_tracked():
+    """10/28 - 5 college weeknight dog studies (the owner on New Mexico St +136 at home vs Jax State on a Wednesday:
+    "they just smacked Western Kentucky ... maybe even a 2-unit bet"): NOTHING holds out of sample, so the college
+    dog score does NOT move on any of it. Two LEADS go to the tracker only: the Tue-Fri HOME dog (lost in every slice,
+    138 games) and the dog off a WIN over a winning-record team (-26.7% train 0 of 4 up, -11.5% / -11.1% held out -
+    the owner's story runs the wrong way). The facts come from the kickoff time and games already final."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, hs, as_):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_)}
+        G = {}
+        # the good team W is 3-0, then the dog T beats W 34-13 in T's 3rd game (Thu Oct 2); T plays F on Wed Oct 29
+        for k in range(3):
+            G[f"ncaaf:w{k}"] = fg(f"ncaaf:w{k}", f"2026-09-{6 + 7 * k:02d}T19:00Z", "W", f"Q{k}", 30, 10)
+        G["ncaaf:t0"] = fg("ncaaf:t0", "2026-09-06T19:00Z", "T", "A", 51, 14)
+        G["ncaaf:t1"] = fg("ncaaf:t1", "2026-09-13T19:00Z", "B", "T", 29, 19)
+        G["ncaaf:t2"] = fg("ncaaf:t2", "2026-10-02T23:00Z", "T", "W", 34, 13)
+        G["ncaaf:old"] = fg("ncaaf:old", "2025-11-20T19:00Z", "W", "Z", 0, 70)        # last season never counts
+        G["ncaaf:now"] = {"id": "ncaaf:now", "start": "2026-10-29T00:00Z", "status": "pre", "stype": "2", "home": "T", "away": "F"}
+        sl._GAMES["ncaaf"] = G
+        dog = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:now", "side": "home", "home": True, "odds": 136,
+               "dec": 2.36, "p_market": 0.407, "edge": 0.0, "edge_own": 0.467 * 2.36 - 1, "reasons": [],
+               "team": "Ts", "opp": "Fs", "start": "2026-10-29T00:00Z", "dog_more": {}}
+        assert sl.weeknight(dog) and not sl.weeknight({**dog, "start": "2026-10-31T19:00Z"})   # Wed 8 PM ET / Saturday
+        assert sl.beat_good_last(dog)
+        tags = sl.tags(dog, sports)
+        assert "college weeknight home dog (fade)" in tags and "college dog off a win over a winning team (fade)" in tags
+        assert "college weeknight home dog (fade)" not in sl.tags({**dog, "start": "2026-10-31T19:00Z"}, sports)   # Saturday
+        assert "college weeknight home dog (fade)" not in sl.tags({**dog, "home": False, "side": "away"}, sports)  # road
+        G["ncaaf:w1"]["home_score"], G["ncaaf:w1"]["away_score"] = "10", "30"   # W was 1-2 going in: not a good team
+        G["ncaaf:w2"]["home_score"], G["ncaaf:w2"]["away_score"] = "10", "30"
+        assert not sl.beat_good_last(dog)
+        G["ncaaf:w1"]["home_score"], G["ncaaf:w1"]["away_score"] = "30", "10"
+        G["ncaaf:w2"]["home_score"], G["ncaaf:w2"]["away_score"] = "30", "10"
+        G["ncaaf:t2"]["home_score"], G["ncaaf:t2"]["away_score"] = "13", "34"   # T lost that game (NM St's real spot)
+        assert not sl.beat_good_last(dog)
+        assert "college dog off a win over a winning team (fade)" not in sl.tags(dog, sports)
+        # the dog score never moves on any of it (leads, not weights): the same score Saturday or Wednesday, home or road
+        s = {**dog, "dog_ctx": {}, "home": True}
+        assert sports.dog_score(dict(s)) == sports.dog_score({**s, "start": "2026-10-31T19:00Z"})
+        assert sports.dog_score(dict(s)) == sports.dog_score({**s, "home": False, "side": "away"})
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
