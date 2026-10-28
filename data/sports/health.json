@@ -1,13 +1,17 @@
 {
- "at": "2026-10-28T10:23Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-28T11:54Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - started sports.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Pigato vs Montgomery: no points for 2624s",
+  "live tennis scores: tennis Andreeva vs Kotliar: no points for 2624s"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
-  "every finished pick graded",
+  "live watcher fresh (136s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
@@ -15,13 +19,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 2 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-28T11:54Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Pigato vs Montgomery: no points for 2624s",
+    "live tennis scores: tennis Andreeva vs Kotliar: no points for 2624s"
+   ]
+  },
   {
    "at": "2026-10-28T10:23Z",
    "fixes": [],
@@ -554,11 +568,6 @@
   },
   {
    "at": "2026-10-26T11:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T11:58Z",
    "fixes": [],
    "problems": []
   }
