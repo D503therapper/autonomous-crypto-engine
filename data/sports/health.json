@@ -1,31 +1,32 @@
 {
- "at": "2026-10-28T14:11Z",
+ "at": "2026-10-28T14:12Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Medvedev vs Merida: no points for 2618s",
-  "live tennis scores: tennis Zavatska vs Mair: no points for 2618s",
-  "live tennis scores: tennis Werner vs Jacquemot: no points for 2618s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 6 live matches",
+  "live tennis points + server: 3 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 9h ago",
   "simulator ran 8h ago",
-  "engine ran 57 min ago",
+  "engine ran 58 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-28T14:12Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-28T14:11Z",
    "fixes": [],
@@ -553,16 +554,6 @@
    "at": "2026-10-26T15:47Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-26T15:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Silva vs Gormaz: no points for 1138s",
-    "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 2617s",
-    "live tennis scores: tennis Olivares vs Herea: no points for 338s",
-    "live tennis scores: tennis Gonzalez vs Rodriguez: no points for 375s"
-   ]
   }
  ]
 }
