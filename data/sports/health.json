@@ -1,28 +1,32 @@
 {
- "at": "2026-10-28T11:55Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - sports.yml already running"
- ],
+ "at": "2026-10-28T13:26Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (203s)",
+  "live watcher fresh (6s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 4 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 8 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 2 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-28T13:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-28T11:55Z",
    "fixes": [
@@ -559,15 +563,6 @@
     "live tennis scores: tennis Gomes vs Rivera: no points for 2618s",
     "live tennis scores: tennis Chiesa vs Sakellaridi: no points for 744s",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-26T13:30Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
