@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T20:17Z",
+ "updated": "2026-10-28T20:52Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -559,9 +559,9 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Lakers",
-    "p": 0.554,
-    "tie": 0.036,
+    "team": "Clippers",
+    "p": 0.504,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -569,17 +569,21 @@
    "start": "2026-10-29T02:30Z",
    "away": "Lakers",
    "home": "Clippers",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Lakers",
-    "opp": "Clippers",
+    "team": "Clippers",
+    "opp": "Lakers",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.578,
-    "win_p": 0.578,
-    "reasons": []
+    "odds": -112,
+    "p": 0.534,
+    "win_p": 0.534,
+    "reasons": [
+     "sharp money moving this way",
+     "opponent on a back-to-back",
+     "better rested"
+    ]
    }
   },
   {
