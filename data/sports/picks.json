@@ -24155,13 +24155,201 @@
   "tier": "value"
  },
  {
+  "american": 270,
   "date": "2026-10-28",
-  "deadline": "2026-10-28T21:00Z",
-  "kind": "dog",
-  "legs": [],
-  "status": "waiting",
-  "waiting": [
-   "Yaxel Lendeborg (F) questionable"
-  ]
+  "dec": 3.7,
+  "floor": {
+   "dog_score": 4.68,
+   "nba": true
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 2,
+    "bd_tags": [
+     "rec:0",
+     "cx_trip:0",
+     "home:1",
+     "w_public:83",
+     "k_trip:1",
+     "f_last:3",
+     "f_rest:2",
+     "f_outs:2",
+     "risk:7",
+     "bottom_floor:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\u23f3 Bucks come in on 2 days rest; Rockets are on 1 day. Small edge, ours.",
+     "\ud83e\uddf3 The Rockets: 1,010-mile trip east, 3rd road game in 6 days.",
+     "\ud83d\ude91 Rockets are missing Alperen Sengun (C), Marcus Smart (G), Steven Adams (C). Short-handed against us.",
+     "\ud83d\udcc5 The Bucks are off a 110-102 win over the Pacers, the Rockets off a 120-110 win over the Hawks.",
+     "\ud83d\udccb Bucks are 1-3 after a 110-102 win over the Pacers.",
+     "\ud83c\udfdf\ufe0f 1-1 at home this year for Bucks.",
+     "\u26a0\ufe0f What the other side's gonna say: Rockets come in on a 4-game heater. True. Still ain't enough to flip us.",
+     "\u2705 Bottom line: Bucks (+270). Our read has it close to even - the dog check is why it's up. Thin edge, half a unit, tread light.",
+     "\ud83c\udfc0 Bucks: the coach plays 8 guys real minutes \u00b7 Jaime Jaquez Jr. is in a slump - the team's -4.9 per 48 with him on the floor lately, +3.3 last season \u00b7 Tyler Herro is in a slump - the team's -7.2 per 48 with him on the floor lately, -1.8 last season."
+    ],
+    "bv": 58,
+    "coach": [
+     null,
+     true
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1006,
+      "road6": 3,
+      "who": "them",
+      "wk": 2671
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:road3in6",
+     "them:trip1000"
+    ],
+    "dec": 3.7,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 4,
+     "home_after_trip": 0,
+     "last_margin": 8.0,
+     "last_ot": false,
+     "last_pts": 110.0,
+     "last_upset": true,
+     "last_year_wp": 0.39,
+     "lose_streak": 0,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_heavy_last": false,
+     "opp_last_margin": 10.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 120.0,
+     "opp_last_upset": false,
+     "opp_next_days": 2,
+     "opp_next_soft": false,
+     "opp_next_wp": 0.5,
+     "opp_rest": 1,
+     "opp_trip_game": 1,
+     "record": [
+      1,
+      3
+     ],
+     "rest": 2,
+     "slate": 12,
+     "spread_gap": -0.0005,
+     "total": 225.5,
+     "total_vs_league": -6.0,
+     "win_streak": 1
+    },
+    "dog_p": 0.3059,
+    "dog_score": 4.68,
+    "drift": 0.0273,
+    "edge": -0.15416129271645784,
+    "edge_own": 0.20607815433023302,
+    "elo_edge": -167.8,
+    "fact": "95% of the bets are on the Rockets.",
+    "facts": [
+     [
+      "95% of the bets are on the Rockets.",
+      "The public's got 95% of the tickets on the Rockets.",
+      "95% of tickets are on the Rockets.",
+      "95% of the crowd is on the Rockets.",
+      "The Rockets are holding 95% of the action.",
+      "The public side is the Rockets, 95% of all bets.",
+      "Only 5% of the public is on the Bucks.",
+      "The Rockets is the public's team tonight, 95% of bets.",
+      "The public is all over the Rockets, 95% of bets.",
+      "Everybody and they mama on the Rockets with 94% of the money.",
+      "94% of the cash is on the Rockets."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "floor_score": 4.68,
+    "form_state": [
+     8.0,
+     1,
+     140,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909887",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 270,
+    "opp": "Rockets",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Alperen Sengun (C)",
+     "Marcus Smart (G)",
+     "Steven Adams (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.22860505602257894,
+    "p_market": 0.2591283863368669,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.3511,
+    "reasons": [
+     "the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 4,
+    "side": "home",
+    "start": "2026-10-29T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Bucks",
+    "team_id": "15",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcca 95% of the crowd is on the Rockets, Bucks take this one. And Rockets are coming off a 1,010-mile trip."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.2286,
+  "pnl": 0.0,
+  "posted": "2026-10-28T21:05Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
