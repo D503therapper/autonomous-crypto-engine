@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T21:24Z",
+ "updated": "2026-10-28T21:44Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -145,9 +145,9 @@
     "team": "Cavaliers",
     "opp": "Wizards",
     "market": "spread",
-    "line": -10.5,
-    "odds": -105,
-    "p": 0.503,
+    "line": -9.5,
+    "odds": -115,
+    "p": 0.502,
     "win_p": 0.775,
     "reasons": [
      "the stronger team",
@@ -161,8 +161,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.446,
-    "tie": 0.291,
+    "p": 0.474,
+    "tie": 0.285,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -177,12 +177,12 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.695,
-    "win_p": 0.695,
+    "odds": -245,
+    "p": 0.744,
+    "win_p": 0.744,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "better rested"
     ]
    }
@@ -265,8 +265,8 @@
    "start": "2026-10-29T00:00Z",
    "away": "Jax State",
    "home": "New Mexico St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Jax State",
     "opp": "New Mexico St",
@@ -388,8 +388,8 @@
    "start": "2026-10-29T00:00Z",
    "away": "Warriors",
    "home": "Timberwolves",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Timberwolves",
     "opp": "Warriors",
