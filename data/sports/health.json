@@ -1,31 +1,72 @@
 {
- "at": "2026-10-28T16:31Z",
+ "at": "2026-10-28T20:50Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Rivera vs Gormaz: no points for 74s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 49 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T20:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T20:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T20:44Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T20:42Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T19:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Sierra vs Ce: no points for 1165s",
+    "live tennis scores: tennis Akugue vs Klimovicova: no points for 1165s"
+   ]
+  },
+  {
+   "at": "2026-10-28T18:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T18:04Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Gormaz: no points for 191s",
+    "live tennis scores: tennis Sierra vs Ce: no points for 191s",
+    "live tennis scores: tennis Selekhmeteva vs Yaneva: no points for 191s",
+    "live tennis scores: tennis Charaeva vs Knutson: no points for 191s"
+   ]
+  },
   {
    "at": "2026-10-28T16:31Z",
    "fixes": [],
@@ -498,70 +539,6 @@
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
-  },
-  {
-   "at": "2026-10-26T22:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Papamichail vs Da Silva: no points for 391s",
-    "live tennis scores: tennis Gomez vs Rodriguez: no points for 1750s",
-    "live tennis scores: tennis Plekhanova vs Hu: no points for 1009s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:17Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gomez vs Rodriguez: no points for 1221s",
-    "live tennis scores: tennis Plekhanova vs Hu: no points for 480s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T20:46Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-25 Learner Tien) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bronzetti vs Giovannini: no points for 1186s",
-    "live tennis scores: tennis Van Impe vs Llewellyn: no points for 1186s",
-    "live tennis scores: tennis Oliva vs Herea: no points for 1186s",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-26T19:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-26T19:39Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Knutson vs Dencheva: no points for 211s",
-    "live tennis scores: tennis Gomez vs Osborne: no points for 211s",
-    "live tennis scores: tennis Vilar vs Strakhova: no points for 211s"
-   ]
-  },
-  {
-   "at": "2026-10-26T19:38Z",
-   "fixes": [
-    "live watch 40381221894 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Knutson vs Dencheva: no points for 143s",
-    "live tennis scores: tennis Gomez vs Osborne: no points for 143s",
-    "live tennis scores: tennis Tran vs Plekhanova: no points for 143s",
-    "live tennis scores: tennis Vilar vs Strakhova: no points for 143s",
-    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-26T18:05Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

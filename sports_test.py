@@ -7355,7 +7355,8 @@ def test_empty_pro_injury_feed_is_unknown():
 def test_nba_banged_up_side_carries_no_units():
     """10/3 sweep: hoops has no key position (team_key_out never lists an NBA player), yet _is_key read EVERY NBA player
     as 'weighed already' - hurt() dropped them all, so an NBA side with 3 out and 4 day-to-day kept its units. Now the
-    rotation counts (anyone who played 3+ of the last 10 box scores); a two-way guy who never plays doesn't."""
+    rotation counts (anyone who played 3+ of the last 10 box scores); a two-way guy who never plays doesn't. 10/28: with box
+    scores the NBA side is WEIGHED, not blocked (NBA_HURT_WEIGHED) - the no-box-score rule stays."""
     import sports_absences as A
     keep = dict(A._TEAM)
     try:
@@ -7371,9 +7372,12 @@ def test_nba_banged_up_side_carries_no_units():
                                    for p in ("A Guard", "B Wing", "C Big")]
         A._TEAM["nba"] = {"1": [(f"2026-10-{20 + i}T02:00Z", f"g{i}", rows(f"g{i}", f"2026-10-{20 + i}T02:00Z")) for i in range(5)]}
         assert A.regulars(None, "nba", "1", "2026-11-01") == {"a guard", "b wing", "c big"}
-        assert sports.hurt(g, "home", rep(out3)) == ["A Guard", "B Wing", "C Big"]
+        assert sports.hurt(g, "home", rep(out3)) == []            # 10/28: box scores known = WEIGHED (the absence penalty),
+        sports.NBA_HURT_WEIGHED = False                           # never a block (the owner: the Clippers lost units twice)
+        assert sports.hurt(g, "home", rep(out3)) == ["A Guard", "B Wing", "C Big"]   # (the old rule, if ever turned back on)
         bench = [("Two Way", "G", "Out"), ("G League", "F", "Out"), ("A Guard", "G", "Out")]
         assert sports.hurt(g, "home", rep(bench)) == []            # one rotation player out: the price has it
+        sports.NBA_HURT_WEIGHED = True
         assert sd.team_key_out(rep(out3)["nba"], "1", "Lakers", "nba") == []   # (still no key-position path for hoops)
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
@@ -14385,6 +14389,84 @@ def test_daily_1028_two_tracker_leads_slow_starts_and_shredded_college_fav_no_we
     finally:
         sl._GAMES.clear()
         sl._GAMES.update(keep)
+
+
+
+def test_nba_injuries_weighed_not_blocked_and_only_a_key_man_holds_a_pick_10_28():
+    """10/28 (the owner, a 12-game NBA slate with ZERO NBA unit plays: "the engine's not doing its job" / "Lendeborg is
+    ass. He's not a factor" / "Fix what needs to be fixed, add what plays need to be added"). Three holes: (1) the NBA kept
+    the 2+ out / 4+ questionable no-units rule (sports.hurt) on top of the absence penalty that already weighs its top
+    scorers (-9 / -11) - the Clippers +154 lost their units twice over; now hoops with box scores is WEIGHED like football
+    (10/3-10/4), never a block; (2) a pick waited on ANY questionable NBA player - the Warriors +142 Dog (score +6.8,
+    passed every check) sat all day on a Timberwolves rookie; now only a KEY man (top-3 scorer by the box scores or a
+    verified starter) holds it; (3) an NBA dog the dog score liked (the Bucks +270, score +4.7 over the gate of 4) had no
+    model-factor "named reason", so good() and the floor threw it out - the score names itself now (score_reason). And
+    the NBA floor play posts until the first NBA game tips, not the day's first game of any sport."""
+    import sports_absences as A
+    assert sports.NBA_HURT_WEIGHED and sports.NBA_KEY_WAIT
+    keep, keep_st = dict(A._TEAM), sd.STARTER_OF
+    row = lambda gid, start, who, pts, mins=30: {"gid": gid, "start": start, "team": "7", "player": who,
+                                                   "stats": '{"points":"%d","minutes":"%d"}' % (pts, mins)}
+    rows = lambda gid, start: [row(gid, start, "Big Star", 28), row(gid, start, "Second Man", 20), row(gid, start, "Third Man", 15),
+                               row(gid, start, "Yaxel Rookie", 4, 12), row(gid, start, "Rui Hachi", 9), row(gid, start, "Jordan Mill", 3, 8)]
+    A._TEAM["nba"] = {"7": [(f"2026-10-2{d}T23:00Z", f"g{d}", rows(f"g{d}", f"2026-10-2{d}T23:00Z")) for d in (2, 4, 6)]}
+    sd.STARTER_OF = lambda lg, tid, name: None            # (no starter list: unknown is never key)
+    try:
+        g = {"id": "w", "league": "nba", "home": "7", "home_name": "Wolves", "away": "8", "away_name": "Dubs", "start": "2026-10-29T00:00Z"}
+        rep = lambda ps: {"nba": {"7": ps, "8": []}}
+        # (1) WEIGHED, not blocked: three rotation men out = still units (the penalty already took -9 / -11 off the read)
+        out3 = [("Rui Hachi", "F", "Out"), ("Jordan Mill", "G", "Out"), ("Second Man", "G", "Out")]
+        assert sports.hurt(g, "home", rep(out3)) == []
+        hg = {**g, "league": "nhl", "home": "999999"}                         # (a team id our hockey box scores never saw)
+        assert sports.hurt(hg, "home", {"nhl": {"999999": [("A", "D", "Out"), ("B", "C", "Out")]}}) == ["A", "B"]   # hockey keeps the rule
+        # (2) a questionable rookie never holds the pick; a questionable top-3 scorer does
+        assert sports.waiting_on(g, rep([("Yaxel Rookie", "F", "Questionable")])) == []
+        assert sports.waiting_on(g, rep([("Big Star", "G", "Questionable")])) == ["Big Star (G) questionable"]
+        assert sports.waiting_on(g, rep([("Third Man", "F", "Day-To-Day")])) == ["Third Man (F) questionable"]
+        assert sports.nba_key_man(g, "home", "Yaxel Rookie") is False and sports.nba_key_man(g, "home", "Big Star")
+        sd.STARTER_OF = lambda lg, tid, name: name == "Yaxel Rookie"   # ...unless the box scores say he STARTS
+        assert sports.nba_key_man(g, "home", "Yaxel Rookie")
+        A._TEAM["nba"] = {}                                   # no box scores at all: the old rule - everyone's key, 2+ out blocks
+        sd.STARTER_OF = lambda lg, tid, name: None
+        assert sports.nba_key_man(g, "home", "Yaxel Rookie") and len(sports.hurt(g, "home", rep(out3))) == 3
+        assert sports.waiting_on(g, rep([("Yaxel Rookie", "F", "Questionable")])) == ["Yaxel Rookie (F) questionable"]
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep); sd.STARTER_OF = keep_st
+    # (3) the dog score is the NBA dog's named reason
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        dec = sd.decimal(270)
+        bucks = {**_cand("b", 270, 0.326, league="nba"), "reasons": [], "sc": 4.7, "waiting": [], "dog_more": {"slate": 12}}
+        sports.score_reason(bucks)
+        assert bucks["reasons"] == ["the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"]
+        assert sports.good(dict(bucks)) and sports.dog_gate(dict(bucks))   # it clears the gate (4+) and is a real play now
+        thin = {**_cand("t", 160, 0.38, league="nba"), "reasons": [], "sc": 1.5, "waiting": []}
+        assert [c["game_id"] for c in sports.nba_floor_plays([thin], set())] == ["t"]   # ...and a 0+ score is a floor play
+        cold = {**_cand("c", 160, 0.38, league="nba"), "reasons": [], "sc": -0.5}
+        sports.score_reason(cold)
+        assert cold["reasons"] == [] and not sports.good(cold)              # under 0: no reason, no play
+        nhl = {**_cand("h", 160, 0.38, league="nhl"), "reasons": [], "sc": 7.0}
+        sports.score_reason(nhl)
+        assert nhl["reasons"] == [] and not sports.good(nhl)                # hockey: the rule is unchanged
+        fav = {**_cand("f", -120, 0.55, league="nba"), "reasons": [], "sc": 5.0}
+        sports.score_reason(fav)
+        assert fav["reasons"] == []                                         # a favorite: never
+        fight = {**_cand("x", 160, 0.38, league="nba"), "reasons": [], "sc": 5.0, "edge_own": 0.30 * sd.decimal(160) - 1}
+        sports.score_reason(fight)
+        assert fight["reasons"] == []                                       # the own read fighting the price: never
+    finally:
+        sports.dog_score = keep
+    # (4) the NBA floor stays open until the first NBA tip
+    games = {"a": {"league": "nhl", "start": "2026-10-28T23:00Z", "status": "pre", "stype": "2"},
+             "b": {"league": "nba", "start": "2026-10-29T00:00Z", "status": "pre", "stype": "2"}}
+    from datetime import date, datetime, timezone
+    day = date(2026, 10, 28)
+    assert not sports.nba_started(games, day, datetime(2026, 10, 28, 23, 30, tzinfo=timezone.utc))
+    assert sports.nba_started(games, day, datetime(2026, 10, 29, 0, 0, tzinfo=timezone.utc))
+    assert not sports.nba_started({"a": games["a"]}, day, datetime(2026, 10, 29, 5, 0, tzinfo=timezone.utc))
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "if started and nba_started(games, day, now):" in src
 
 
 if __name__ == "__main__":
