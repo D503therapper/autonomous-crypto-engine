@@ -1,9 +1,9 @@
 {
- "at": "2026-10-28T20:42Z",
+ "at": "2026-10-28T20:44Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (14s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 33 min ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T20:44Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-28T20:42Z",
    "fixes": [],
@@ -542,18 +547,6 @@
     "live tennis scores: tennis Gomez vs Rodriguez: no points for 1221s",
     "live tennis scores: tennis Plekhanova vs Hu: no points for 480s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T20:46Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-25 Learner Tien) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bronzetti vs Giovannini: no points for 1186s",
-    "live tennis scores: tennis Van Impe vs Llewellyn: no points for 1186s",
-    "live tennis scores: tennis Oliva vs Herea: no points for 1186s",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
