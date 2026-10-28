@@ -640,6 +640,7 @@
     "nba:401909883",
     "nba:401909886",
     "nba:401909890",
+    "nba:401909892",
     "nba:401909893",
     "nba:401909894",
     "nba:401909897",
@@ -650,6 +651,7 @@
     "Hornets @ Pistons",
     "Knicks @ Bulls",
     "Spurs @ Jazz",
+    "Lakers @ Clippers",
     "Cavaliers @ Hawks",
     "Kings @ Pelicans",
     "76ers @ Hornets",
@@ -888,36 +890,6 @@
    "families": [
     "rate"
    ],
-   "league": "nba",
-   "outcome": "fav_ml",
-   "price_said": 25.4,
-   "record": "26-12",
-   "season": 2026,
-   "side": 1,
-   "situation": "home favorite",
-   "streak": 3,
-   "strength": 0.22,
-   "trend": "favorites win",
-   "upcoming": [
-    "nba:401909881",
-    "nba:401909882",
-    "nba:401909883",
-    "nba:401909885",
-    "nba:401909888"
-   ],
-   "upcoming_names": [
-    "Heat @ Hawks",
-    "Wizards @ Cavaliers",
-    "Hornets @ Pistons",
-    "Magic @ Raptors",
-    "Warriors @ Timberwolves"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
    "league": "ncaaf",
    "outcome": "fav_ml",
    "price_said": 336.4,
@@ -1022,6 +994,36 @@
    "trend": "favorites win",
    "upcoming": [],
    "upcoming_names": [],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "fav_ml",
+   "price_said": 25.9,
+   "record": "26-13",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 0,
+   "strength": 0.03,
+   "trend": "favorites win",
+   "upcoming": [
+    "nba:401909881",
+    "nba:401909882",
+    "nba:401909883",
+    "nba:401909885",
+    "nba:401909888"
+   ],
+   "upcoming_names": [
+    "Heat @ Hawks",
+    "Wizards @ Cavaliers",
+    "Hornets @ Pistons",
+    "Magic @ Raptors",
+    "Warriors @ Timberwolves"
+   ],
    "verdict": "coin flip"
   },
   {
@@ -1480,13 +1482,13 @@
    "hit": 0.6882,
    "hit_new": 0.6891,
    "hit_old": 0.6872,
-   "n": 231608,
-   "n_new": 115804,
+   "n": 231609,
+   "n_new": 115805,
    "n_old": 115804,
    "said": 0.6792,
    "status": "watch only",
    "to": "2026-10-27",
-   "z": 10.02
+   "z": 10.01
   },
   "mlb|all": {
    "edge": 0.0042,
@@ -1640,29 +1642,29 @@
    "hit": 0.6632,
    "hit_new": 0.6678,
    "hit_old": 0.6585,
-   "n": 33703,
+   "n": 33704,
    "n_new": 16852,
-   "n_old": 16851,
+   "n_old": 16852,
    "said": 0.6649,
    "status": "watch only",
    "to": "2026-10-27",
-   "z": -0.72
+   "z": -0.73
   },
   "nba|rate": {
    "edge": -0.0022,
-   "edge_new": -0.0026,
+   "edge_new": -0.0027,
    "edge_old": -0.0017,
    "from": "2018-10-18",
    "hit": 0.6843,
-   "hit_new": 0.689,
+   "hit_new": 0.6889,
    "hit_old": 0.6796,
-   "n": 23851,
+   "n": 23852,
    "n_new": 11926,
-   "n_old": 11925,
+   "n_old": 11926,
    "said": 0.6864,
    "status": "watch only",
    "to": "2026-10-27",
-   "z": -0.75
+   "z": -0.76
   },
   "nba|rate|fav_cover": {
    "edge": -0.0266,
@@ -1682,19 +1684,19 @@
   },
   "nba|rate|fav_ml": {
    "edge": -0.0022,
-   "edge_new": -0.0008,
+   "edge_new": -0.0009,
    "edge_old": -0.0035,
    "from": "2018-10-18",
-   "hit": 0.7041,
-   "hit_new": 0.7091,
+   "hit": 0.704,
+   "hit_new": 0.709,
    "hit_old": 0.6991,
-   "n": 20416,
-   "n_new": 10208,
+   "n": 20417,
+   "n_new": 10209,
    "n_old": 10208,
    "said": 0.7062,
    "status": "watch only",
    "to": "2026-10-27",
-   "z": -0.71
+   "z": -0.72
   },
   "nba|rate|home": {
    "edge": -0.0016,
@@ -2488,9 +2490,9 @@
    "hit": 0.7096,
    "hit_new": 0.7112,
    "hit_old": 0.7081,
-   "n": 161755,
+   "n": 161756,
    "n_new": 80878,
-   "n_old": 80877,
+   "n_old": 80878,
    "said": 0.6994,
    "status": "watch only",
    "to": "2026-10-27",
@@ -2520,13 +2522,13 @@
    "hit": 0.7373,
    "hit_new": 0.7381,
    "hit_old": 0.7365,
-   "n": 113617,
+   "n": 113618,
    "n_new": 56809,
-   "n_old": 56808,
+   "n_old": 56809,
    "said": 0.7274,
    "status": "watch only",
    "to": "2026-10-27",
-   "z": 7.88
+   "z": 7.87
   },
   "rate|home": {
    "edge": 0.0116,
@@ -2643,7 +2645,7 @@
  },
  "follow_ups": {
   "mlb": 16134,
-  "nba": 33703,
+  "nba": 33704,
   "ncaab": 135775,
   "ncaaf": 29829,
   "nfl": 5696,
@@ -2660,5 +2662,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-28T05:25Z"
+ "updated": "2026-10-28T06:09Z"
 }
