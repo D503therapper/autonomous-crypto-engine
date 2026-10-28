@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28T03:20Z",
+ "updated": "2026-10-28T03:32Z",
  "games": [
   {
    "id": "nhl:401892585",
@@ -240,8 +240,8 @@
    "away": "Sam Houston",
    "home": "Missouri St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -311,6 +311,21 @@
    "start": "2026-10-28T02:30Z",
    "away": "Sabres",
    "home": "Sharks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909880",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-28T03:00Z",
+   "away": "Trail Blazers",
+   "home": "Lakers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -570,7 +585,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.645,
+    "p": 0.644,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -752,7 +767,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.736,
+    "p": 0.735,
     "tie": 0.029,
     "name": "1st half"
    },
