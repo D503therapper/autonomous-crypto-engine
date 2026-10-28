@@ -1,21 +1,15 @@
 {
- "at": "2026-10-28T15:44Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-28T16:29Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Cinalli vs Tubello: no points for 2616s",
-  "live tennis scores: tennis Werner vs Jacquemot: no points for 2616s",
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Rivera vs Gormaz: no points for 870s"
  ],
  "ok": [
-  "live watcher fresh (106s)",
+  "live watcher fresh (73s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 2 of 3 live matches",
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -24,12 +18,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "engine ran 1 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 47 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T16:29Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Gormaz: no points for 870s"
+   ]
+  },
   {
    "at": "2026-10-28T15:44Z",
    "fixes": [
@@ -565,11 +568,6 @@
     "live tennis scores: tennis Oliva vs Murcia: no points for 2616s",
     "live tennis scores: tennis Salazar vs Hu: no points for 2616s"
    ]
-  },
-  {
-   "at": "2026-10-26T17:18Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
