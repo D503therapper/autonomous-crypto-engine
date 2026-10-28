@@ -14566,6 +14566,8 @@ def test_the_named_reason_10_28_facts_the_own_read_counts_become_reasons():
         sports.SCORE_REASON_LEAGUES = keep_lg
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "absence_reasons(lg, absent[other], depth[other]" in src          # wired into every candidate
+    assert sports.SCORE_REASON_LEAGUES == {"nba"}      # the 10/28 replay: football's newly-named dogs 27-55 -8.1% (college),
+    #   the own-read-alone shape 1-4 - a card fact, never the reason that unlocks units (KEEP A holds, SPORTS_FINDINGS 10/28)
 
 
 if __name__ == "__main__":

@@ -1014,9 +1014,12 @@ def score_reason(c):
         c["reasons"] = [fact]
 
 
-SCORE_REASON_LEAGUES = {"nba", "nfl", "ncaaf"}   # where the dog score (the own read + the studies) is a named reason that
-#   unlocks units - the NBA since 10/28 AM (the 10/27 replay never asked for a reason); football 10/28 PM, judged by the
-#   10/28 replay of the 2023-26 gated dogs that only this names (SPORTS_FINDINGS 10/28 - THE NAMED REASON)
+SCORE_REASON_LEAGUES = {"nba"}   # where the dog score (the own read + the studies) is a named reason that unlocks
+#   units: the NBA only (10/28 AM - the 10/27 NBA replay never asked for a reason). NOT football: the 10/28 replay of every
+#   board day 2023-10..2026-10 (results/studies/named_reason_1028/) - college dogs +100..+350 passing every own-read check
+#   with NO named reason went 27-55, -8.1% on 82; the ones whose own read alone cleared the gate (the New Mexico St shape)
+#   1-4, -46% (all five home dogs, all 2026); the 10/23 study's 84-132, -7.9% again. A fact the card names (score_fact),
+#   never the reason that puts units on it. Turning football on = the owner's call, with a replay that says otherwise.
 
 
 def dog_study_facts(c):

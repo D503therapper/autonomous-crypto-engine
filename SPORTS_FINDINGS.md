@@ -2107,3 +2107,29 @@ at today's sizing (Lock by read, Dog 1u, plays ½u). Nothing changed in the engi
 - Scripts (scratch, not kept): nocap/run_nocap.py (the 7 cap days re-run with sports.MAX_PLAYS unlimited on the 10/2
   snapshot), nocap/nocap_an.py, nocap/injury_est.py. Re-run after the 2026 football season with the real injury
   reports (data/sports/injuries_official.json holds them from 10/2 on) - then the block can be replayed for real.
+
+## 10/28 - THE NAMED REASON (the owner, New Mexico St +130: "there has to be a named reason ... the engine has a bug")
+- WHAT WAS WRONG: sports._reasons reads the model's factor dict only (the stronger team, form, rest, b2b, the ESPN injury
+  COUNT behind the learned 'inj' weight, sharp money, the situational spots) and, since the 10/15 truth audit, names a factor
+  only when its learned weight is positive. In college those weights are negative on inj (-0.12), rest (-0.19), travel
+  (-0.30), form (-0.21) and the own read is the market plus the dog study (trust 0), so NO model factor can ever name a
+  college dog. Two facts the own read really counts never became reasons anywhere: the opponent's key man out
+  (sports_absences.penalty - NFL QB -8 / RB -3 / WR -3, college QB -3, NBA top scorer -9, NHL -6) and the football depth
+  weight (depth_penalty). Fixed: sports.absence_reasons on every candidate (regression test
+  test_the_named_reason_10_28_facts_the_own_read_counts_become_reasons).
+- NM ST CONCRETELY: Jax State's A. Watkins (WR, out) is NOT one of their key men or regulars (top 2 catchers Deondre
+  Johnson / Luke Gilbert; top-4 catchers / top-11 tacklers list by the last 3 box scores) and the 7 questionables are not
+  weighed (penalty counts out / doubtful only) - the absence penalty was 0, rightly. The trip (1,219 miles West, a time
+  zone) is a card fact; the learned college travel weight is negative, so the engine does not count it. Jax State's bye:
+  the college bye weight is negative but trust 0 - not counted either. The dog score +6.0 was ENTIRELY the own read over
+  the price (47.7% vs 41.7% - the home-dog parameter + sports_dogs.adjust), dog_spots 0. So the only fact the engine held
+  for NM St was its own read vs the price - now named (sports.score_reason, football: c["score_fact"] = "our own read has
+  them 6 points better than the price says (a home dog the books overprice) - dog score +6 over the gate of 4").
+- THE REPLAY (results/studies/named_reason_1028/, every candidate of every board day 2023-10-01..2026-10-26 - the 10/27
+  funnel replay rows, closing prices, params re-tuned each July 1): college moneyline dogs +100..+350 passing every own-read
+  check (dog_own_ok, not a trap, not fighting) WITH a named reason 89-148, -1.5% on 237; with NO named reason (what a
+  football score_reason would newly unlock) 27-55, -8.1% on 82; the own read alone 4+ over the price (the NM St shape)
+  1-4, -46% on 5 (all 2026 home dogs); 0-2 over 14-32 -4.0%, 2-4 over 12-19 -8.0%. NFL: 2 such dogs, 0-2. The 10/23 study's
+  84-132, -7.9% again. VERDICT: the own-read fact stays a CARD FACT in football (score_fact), never a reason that unlocks
+  units - sports.SCORE_REASON_LEAGUES = {"nba"}. The owner's KEEP A holds; the absence / depth reasons are kept (real facts
+  the read counts; the replay rows carried no injuries, so they are untested as a gate - a watch item).
