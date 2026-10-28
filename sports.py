@@ -868,7 +868,13 @@ NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backt
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
 #                                (the owner, 10/1: "only one way to prove it - you do it"; UConn +210)
-NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
+NHL_BEST_DOG_MIN = 3.0         # ...and the best hockey dog of the day (score over NHL_BEST_DOG_MIN). Was 0 (2023+ +11.7% on the
+#                                replay whose hockey read the 10/25 sweep voided). THE 10/28 HOCKEY AUDIT (the owner: "our hockey
+#                                picks are ass ... tighten up on hockey"; the 10/27 funnel dump re-read, the FIXED hockey read,
+#                                1,097 board days 2023-26 + live): the best fallback dog a day at score 0-3 went 30-44, -10.1%;
+#                                at score 3-6 63-62, +17.8% (3 of 4 seasons up); own read over or under the price, the same split
+#                                (own-over 0-3: 6-9). Live, 11 of the first 12 hockey Dogs were this fallback (4-8). A score 0-3
+#                                dog can still be a ½u floor play (the floor's hockey plays at 0-3: 19-12) - never the Dog of the Day.
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
 NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
@@ -3326,9 +3332,20 @@ LEAN_NCAAF_FAV_BAND = (-150, -130)   # the owner, 10/10 (Arkansas St -142 lost 5
 #                                      blind leans), no units involved.
 
 
+LEAN_NHL_FAV_BAND = (-150, -130)   # 🏒 THE 10/28 HOCKEY AUDIT (the owner: "our hockey picks are ass - below 50%"): no hockey
+#                                    favorite lean at -150..-130 either. The 10/27 funnel dump re-read with the fixed hockey read
+#                                    (every lean the board posted, 1,097 board days 2023-26 + live): hockey leans at -150..-130
+#                                    191-185, -12.5% at the close, down 4 of 4 seasons (z -2.8) - the worst cell in the whole hockey
+#                                    replay; -129..-101 hockey favorite leans 288-234 +2.1% (3 of 4 up) stand. Live: 5-8 vs 9-8.
+#                                    The 10/16 checkup had the same cell (-12.5% on 226) as a proposal; it's a rule now. No units
+#                                    were ever on them - it's the 🟡 record and the viewers' trust.
+LEAN_FAV_BANDS = {"ncaaf": LEAN_NCAAF_FAV_BAND, "nhl": LEAN_NHL_FAV_BAND}
+
+
 def pricey_college_fav(c):
-    lo, hi = LEAN_NCAAF_FAV_BAND
-    return c.get("league") == "ncaaf" and c.get("market") == "ml" and lo <= (c.get("odds") or 0) <= hi
+    """A favorite lean in a band its sport's leans lose: college -150..-130 (10/10), hockey -150..-130 (10/28)."""
+    band = LEAN_FAV_BANDS.get(c.get("league"))
+    return bool(band) and c.get("market") == "ml" and band[0] <= (c.get("odds") or 0) <= band[1]
 
 
 def lean_rank(c):
@@ -4075,7 +4092,8 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
                 and (l.get("odds") or 0) > DOG_DAY_MAX:
             why = f"a unit play on a dog past +{DOG_DAY_MAX}"   # (the owner, 10/10: dogs +100..+300, never past)
         elif pk.get("lean") and pricey_college_fav(l):
-            why = "a college favorite lean at -150..-130"    # (the owner, 10/10 - LEAN_NCAAF_FAV_BAND)
+            why = (f"a {'hockey' if l.get('league') == 'nhl' else 'college'} favorite lean at -150..-130")   # (the owner,
+            #                                                  10/10 - LEAN_NCAAF_FAV_BAND; the 10/28 hockey audit - LEAN_NHL_FAV_BAND)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
