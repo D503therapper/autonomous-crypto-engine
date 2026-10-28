@@ -1,29 +1,41 @@
 {
- "at": "2026-10-28T20:50Z",
+ "at": "2026-10-28T22:24Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Giovannini vs Da Silva: no points for 191s",
+  "live tennis scores: tennis Monnet vs Herea: no points for 191s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 41 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-28T22:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Giovannini vs Da Silva: no points for 191s",
+    "live tennis scores: tennis Monnet vs Herea: no points for 191s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-28T20:50Z",
    "fixes": [],
@@ -530,14 +542,6 @@
     "live tennis scores: tennis Plekhanova vs Hu: no points for 1888s",
     "live tennis scores: tennis Van Impe vs Strakhova: no points for 171s",
     "live tennis points: none of 4 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:36Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
