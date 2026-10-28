@@ -6602,11 +6602,13 @@ def test_hockey_dogs_by_the_whole_score():
     assert sports.dog_gate(dict(hot))
     assert not sports.dog_gate(dict(base))
     fav = _cand("fav", -130, 0.56, league="nhl")
-    mild = {**base, "dog_ctx": {"won": False, "opp_won": False}}                      # +2: 36.3% vs the 35.7% price
+    mild = {**base, "dog_ctx": {"won": False, "opp_won": False, "hits_top": True}}   # +4: 38.3% vs the 35.7% price
     b = sports.make_board([fav, dict(mild)])
     assert b["dog"] and b["dog"]["legs"][0]["game_id"] == "hawks"
     assert sports.units_for({"kind": "dog", "legs": b["dog"]["legs"]}) >= 0.5
     assert sports.make_board([fav, dict(base)])["dog"] is None        # score 0: nothing says it's worth the price
+    assert sports.dog_score(dict(mild)) >= sports.NHL_BEST_DOG_MIN    # (10/28 hockey audit: the fallback needs score 3+ -
+    #                                                                   test_hockey_audit_10_28_... holds the bar itself)
     assert sports.best_hockey_dog([{**mild, "odds": 370, "dec": 4.7}]) is None   # never past +350
 
 
@@ -7056,8 +7058,8 @@ def test_fill_lean_skips_a_team_missing_players():
     assert sports.fill_hurt(g, "home", inj) == ["Dylan Larkin"] and sports.fill_hurt(g, "away", inj) == []
     j = {"league": "nhl", "home": "3", "away": "2", "home_name": "Jets", "away_name": "Bruins"}
     assert sports.fill_hurt(j, "home", inj) == ["Connor Hellebuyck"]
-    cs = [{**_cand("rw", -130, 0.576, league="nhl"), "game_id": "rw", "w_p": 0.55}]
-    assert sports.viewer_leans(cs, set())[0].get("fill") is True
+    cs = [{**_cand("rw", -125, 0.576, league="nhl"), "game_id": "rw", "w_p": 0.55}]   # (-125: a -130 hockey fill lean
+    assert sports.viewer_leans(cs, set())[0].get("fill") is True                       #  is banned since the 10/28 audit)
 
 
 def test_lean_waits_only_on_a_verified_starter():
@@ -7097,7 +7099,8 @@ def test_leans_fill_the_board_to_five():
     still a who-wins lean (no units) when the board is short - never past -150, never fighting its own read."""
     def hk(gid, odds, p):
         return {**_cand(gid, odds, p, league="nhl"), "game_id": gid, "w_p": p - 0.02, "reasons": ["the stronger team"]}
-    cs = [hk("rw", -130, 0.576), hk("jets", -122, 0.525), hk("big", -190, 0.63)]   # (10/6: weighed reads 55.6 / 50.5 -
+    cs = [hk("rw", -128, 0.576), hk("jets", -122, 0.525), hk("big", -190, 0.63)]   # (10/6: weighed reads 55.6 / 50.5 -
+    #   (rw was -130: a hockey favorite lean at -150..-130 is banned since the 10/28 audit - LEAN_NHL_FAV_BAND)
     #                                                         a weighed read under 50% is never the who-wins lean)
     assert all(sports.hockey_fav_bad(c) for c in cs[:2])
     got = [c["game_id"] for c in sports.viewer_leans(cs, set())]
@@ -7659,7 +7662,7 @@ def test_best_hockey_dog_needs_real_value():
             "side": "away", "start": "2026-10-04T20:00Z", "game_id": "jets", "team": "Jets", "opp": "x", "waiting": []}
     keep = sports.dog_score
     try:
-        sports.dog_score = lambda c: 1.5                                     # 48.78% + 1.5 = 50.3%: 3% over - a Dog
+        sports.dog_score = lambda c: 3.5                                     # 48.78% + 3.5 = 52.3%: over - a Dog (3+ since 10/28)
         assert sports.best_hockey_dog([dict(base)]) is not None
         sports.dog_score = lambda c: 0.02                                    # +0.02 points: 0.04% value - no Dog
         assert sports.best_hockey_dog([dict(base)]) is None
@@ -11781,9 +11784,9 @@ def test_sizing_audit_10_16_a_dog_keeps_its_score_and_the_buckets_read_todays_ru
         hd = {"league": "nhl", "market": "ml", "odds": 105, "dec": 2.05, "p": 0.47, "p_market": 1 / 2.05, "edge": 0.47 * 2.05 - 1,
               "edge_own": 0.473 * 2.05 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away",
               "start": "2026-10-04T20:00Z", "game_id": "jets", "team": "Jets", "opp": "x", "waiting": []}
-        sports.dog_score = lambda c: 1.5
+        sports.dog_score = lambda c: 3.5                      # (3+ since the 10/28 hockey audit - NHL_BEST_DOG_MIN)
         best = sports.best_hockey_dog([dict(hd)])
-        assert best is not None and best["dog_score"] == 1.5 and best["dog_p"] == round(1 / 2.05 + 0.015, 4)
+        assert best is not None and best["dog_score"] == 3.5 and best["dog_p"] == round(1 / 2.05 + 0.035, 4)
     finally:
         sports_strength.weak, sports.dog_score = keep_weak, keep_score
     spec = importlib.util.spec_from_file_location("sizing_by_bucket", os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -14519,6 +14522,102 @@ def test_a_thin_edge_is_never_the_lock_10_28():
     src = open(s.__file__).read()
     assert 'kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best)' in src
 
+def test_the_named_reason_10_28_facts_the_own_read_counts_become_reasons():
+    """10/28 THE NAMED REASON (the owner: "there's always a reason ... the engine has a bug"): New Mexico St +130 passed
+    every college Dog check (own read 47.7% vs a 41.7% price, dog score +6.0 over the gate of 4) and sat on reasons=[].
+    (1) sports_absences.penalty moved the own read for the opponent's QB / RB / WR / top scorer out and the football
+    depth weight for the more banged-up opponent - neither was ever a named reason (_reasons only sees the model's raw
+    injury count behind a weight that is negative in college). (2) a football dog whose whole score IS its own read over
+    the price (college trust 0: no model factor can name a college dog) names that fact plus every dog study that added
+    points - a reason only in SCORE_REASON_LEAGUES, a card fact (score_fact) everywhere."""
+    r = sports.absence_reasons("ncaaf", (0.03, ["QB Caden Creel"]), 0.0, 0, 0, "Jax State")
+    assert r == ["opponent missing key players: QB Caden Creel (their read -3)"], r
+    r = sports.absence_reasons("nfl", (0.0, []), 0.01, 1, 3, "Jets")
+    assert r == ["opponent the more banged-up side: 3 regulars out to 1 for us"], r
+    assert sports.absence_reasons("ncaaf", (0.0, []), 0.0, 2, 1, "x") == []        # nothing counted = no reason
+    # (2) the college dog: own read 47.7% vs the 41.7% price, score 6.0, no study points
+    keep, keep_lg = sports.dog_score, set(sports.SCORE_REASON_LEAGUES)
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        nm = {**_cand("nm", 130, 0.477, league="ncaaf"), "reasons": [], "sc": 6.0, "p_market": 0.417, "waiting": [],
+              "dog_more": {"win_pct": 0.429, "bye": False}, "dog_ctx": {"opp_won": None}}
+        sports.SCORE_REASON_LEAGUES = {"nba", "nfl", "ncaaf"}
+        base = dict(nm)
+        sports.score_reason(nm)
+        assert nm["reasons"] == ["our own read has them 6 points better than the price says (a home dog the books overprice)"
+                                 " - dog score +6 over the gate of 4"], nm["reasons"]
+        assert sports.good(dict(nm)) and sports.dog_gate(dict(nm))
+        bye = {**base, "reasons": [], "dog_more": {"win_pct": 0.714, "bye": True, "last_margin": 21.0}, "dog_ctx": {"opp_won": False}}
+        sports.score_reason(bye)
+        assert "off a bye against a team that played last week" in bye["reasons"][0] and "off a 21-point win" in bye["reasons"][0] \
+            and "the favorite lost its last game" in bye["reasons"][0] and "a 0.714 team getting plus money" in bye["reasons"][0]
+        under = {**base, "reasons": [], "sc": 3.9}                              # under the gate: no reason
+        sports.score_reason(under)
+        assert under["reasons"] == [] and "score_fact" not in under
+        own_under = {**base, "reasons": [], "edge_own": 0.40 * sd.decimal(130) - 1}   # the own read under the price: never
+        sports.score_reason(own_under)
+        assert own_under["reasons"] == []
+        sports.SCORE_REASON_LEAGUES = {"nba"}                                 # off the list: a card fact, not a reason
+        fact_only = {**base, "reasons": []}
+        sports.score_reason(fact_only)
+        assert fact_only["reasons"] == [] and fact_only["score_fact"].startswith("our own read has them 6 points")
+        assert not sports.good(dict(fact_only))
+        nhl = {**_cand("h", 160, 0.38, league="nhl"), "reasons": [], "sc": 7.0}
+        sports.score_reason(nhl)
+        assert nhl["reasons"] == [] and "score_fact" not in nhl                # hockey: unchanged
+    finally:
+        sports.dog_score = keep
+        sports.SCORE_REASON_LEAGUES = keep_lg
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "absence_reasons(lg, absent[other], depth[other]" in src          # wired into every candidate
+    assert sports.SCORE_REASON_LEAGUES == {"nba"}      # the 10/28 replay: football's newly-named dogs 27-55 -8.1% (college),
+    #   the own-read-alone shape 1-4 - a card fact, never the reason that unlocks units (KEEP A holds, SPORTS_FINDINGS 10/28)
+
+def test_hockey_audit_10_28_no_hockey_favorite_lean_at_150_130_and_the_fallback_dog_needs_score_3():
+    """10/28, the owner: "our hockey picks are ass - below 50% ... tighten up on hockey ... take off any plays." The 10/27
+    funnel dump re-read with the FIXED hockey read: (1) hockey favorite leans at -150..-130 went 191-185, -12.5% at the
+    close, down 4 of 4 seasons (live 5-8) - never a lean again, regular or fill (LEAN_NHL_FAV_BAND; -129..-101 hockey leans
+    +2.1%, 3 of 4 up, stand; the Maple Leafs -135 fill lean of 10/28 was pulled); rule_check pulls a posted one by name.
+    (2) The best-hockey-dog fallback at score 0-3 went 30-44 -10.1%, at 3-6 63-62 +17.8% - NHL_BEST_DOG_MIN is 3 (the
+    0-3 dog can still be a ½u floor play)."""
+    mk = lambda gid, lg, odds, p: {"game_id": gid, "league": lg, "market": "ml", "odds": odds,
+                                   "dec": sports._dec(odds), "p": p, "edge_own": p * sports._dec(odds) - 1, "w_p": p,
+                                   "edge": 0.0, "reasons": ["x"], "side": "home", "team": gid, "start": "2026-10-28T23:00Z"}
+    saved = (sports.fighting, sports.stick)
+    try:
+        sports.fighting = lambda c: False
+        sports.stick = lambda c, pool: c
+        out = [c["team"] for c in sports.viewer_leans(
+            [mk("nhl135", "nhl", -135, 0.60), mk("nhl125", "nhl", -125, 0.58), mk("nba140", "nba", -140, 0.60)], set())]
+        assert "nhl135" not in out and "nhl125" in out and "nba140" in out, out
+        fill = mk("nhl148", "nhl", -148, 0.57)                # the who-wins FILL lean (no value) - same band, same answer
+        fill["edge_own"] = -0.02
+        out = [c["team"] for c in sports.viewer_leans([fill, mk("nhl118", "nhl", -118, 0.55)], set())]
+        assert "nhl148" not in out and "nhl118" in out, out
+    finally:
+        sports.fighting, sports.stick = saved
+    assert sports.pricey_college_fav({"league": "nhl", "market": "ml", "odds": -135})
+    assert not sports.pricey_college_fav({"league": "nhl", "market": "ml", "odds": -129})
+    assert not sports.pricey_college_fav({"league": "nba", "market": "ml", "odds": -135})
+    leg = {**mk("nhl135", "nhl", -135, 0.60), "league": "nhl"}
+    pk = {"date": "2026-10-28", "kind": "lean", "lean": True, "status": "open", "legs": [leg], "posted": "2026-10-28T15:00Z"}
+    picks = [pk]
+    probs = sports.rule_check(picks, [pk], "2026-10-28")
+    assert any("hockey favorite lean at -150..-130" in p for p in probs), probs
+    assert pk not in picks
+    assert sports.NHL_BEST_DOG_MIN == 3.0
+    base = {"league": "nhl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
+            "edge_own": 0.0, "reasons": ["r"], "home": False, "side": "away", "start": "2026-10-28T23:00Z",
+            "game_id": "wild", "team": "Wild", "opp": "x", "waiting": [], "dog_ctx": {}}
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: 2.5                      # a score 0-3 dog: never the Dog of the Day any more
+        assert sports.best_hockey_dog([dict(base)]) is None
+        sports.dog_score = lambda c: 3.5                      # 3+: the fallback Dog (40% + 3.5 = 43.5% vs 40%)
+        assert sports.best_hockey_dog([dict(base)]) is not None
+    finally:
+        sports.dog_score = keep
+
 
 if __name__ == "__main__":
     import sports_goalies as _sg
@@ -14567,6 +14666,8 @@ if __name__ == "__main__":
     _fails = []
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
+            if os.environ.get("TESTS") and name not in os.environ["TESTS"].split(","):   # (a quick targeted run:
+                continue                                                                  #  TESTS=a,b python sports_test.py)
             if os.environ.get("KEEP_GOING"):
                 try:
                     fn()

@@ -223,6 +223,23 @@ def _reasons(side, f, g, league, params):
     return [r[1] for r in out[:3]]
 
 
+def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
+    """🚑 10/28 (THE NAMED REASON - New Mexico St +130 passed every Dog check and sat on "no named reason"): the facts the
+    engine's OWN read really counts for a side that _reasons could never see. _reasons reads the model's factor dict, and
+    the "opponent missing key players" line there is ESPN's raw injury COUNT behind the learned 'inj' weight - negative
+    in college (-0.12) and tiny everywhere, so it almost never fires. The absences that actually move the own read are
+    sports_absences.penalty (the opponent's QB -8 / RB -3 / WR -3 in the NFL, QB -3 in college, the top scorer -9 in
+    the NBA, -6 in the NHL) and the football depth weight (sports.depth_penalty) - both moved the read and neither was
+    ever a named reason. A fact the read counts FOR the side is its reason; the card names who's out."""
+    out = []
+    pts, who = absent_opp if absent_opp else (0.0, [])
+    if pts and who:
+        out.append(f"opponent missing key players: {', '.join(str(w) for w in who[:3])} (their read -{round(pts * 100):g})")
+    if depth_opp:
+        out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
+    return out
+
+
 POS_BY_DEFAULT = {"form": 1.0, "rest": 1.0, "b2b": 1.0, "inj": 1.0, "key": 1.0}   # no learned weights at hand (a bare
 #   call) = the old reading: the raw factor speaks for itself; with the model's weights, only a positive one does
 
@@ -667,6 +684,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "talk_theirs": [{"kind": e["kind"], "headline": e.get("headline", "")} for e in talk[other][:2]]}
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
+            base["reasons"] = base["reasons"] + absence_reasons(lg, absent[other], depth[other], n_out[side], n_out[other],
+                                                                g[other + "_name"])   # (10/28: a fact the own read counts)
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
                 base["absent"] = absent[side][1]
@@ -849,7 +868,13 @@ NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backt
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
 #                                (the owner, 10/1: "only one way to prove it - you do it"; UConn +210)
-NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
+NHL_BEST_DOG_MIN = 3.0         # ...and the best hockey dog of the day (score over NHL_BEST_DOG_MIN). Was 0 (2023+ +11.7% on the
+#                                replay whose hockey read the 10/25 sweep voided). THE 10/28 HOCKEY AUDIT (the owner: "our hockey
+#                                picks are ass ... tighten up on hockey"; the 10/27 funnel dump re-read, the FIXED hockey read,
+#                                1,097 board days 2023-26 + live): the best fallback dog a day at score 0-3 went 30-44, -10.1%;
+#                                at score 3-6 63-62, +17.8% (3 of 4 seasons up); own read over or under the price, the same split
+#                                (own-over 0-3: 6-9). Live, 11 of the first 12 hockey Dogs were this fallback (4-8). A score 0-3
+#                                dog can still be a ½u floor play (the floor's hockey plays at 0-3: 19-12) - never the Dog of the Day.
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
 NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
@@ -951,9 +976,21 @@ def score_reason(c):
     6-10, the 10/21 twenty studies). A model-factor reason (_reasons: the stronger team, rest...) rarely fires on a dog, so
     a gated dog had no "named reason" and good() / the floor threw it out - the 10/9 and 10/27 replays never asked for one.
     An NBA moneyline dog +100..+350 the score likes (NBA_FLOOR_SCORE+, the floor's bar) gets the score as its named reason.
-    Adds to c["reasons"] in place (once); never a trap, never one the own read is fighting."""
-    if c.get("league") != "nba" or c.get("market") != "ml" or c.get("reasons") or c.get("trap") \
-            or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+    Adds to c["reasons"] in place (once); never a trap, never one the own read is fighting.
+    🏈 10/28 (THE NAMED REASON - the owner: "there's always a reason ... the engine has a bug"): the same hole in football.
+    New Mexico St +130 (home vs Jax State) passed every college Dog check - own read 47.7% vs a 41.7% price, dog score
+    +6.0 over the gate of 4 - and the whole score WAS that own read: the home-dog edge plus the big dog study's price
+    correction (sports_dogs.adjust), the one thing the college own read counts in (trust 0 - the model's factors never
+    move it, so "the stronger team" / rest / travel can't name a college dog). A college dog's named reason is the fact
+    the read stands on: how far its own read sits over the price, plus every dog study that added points (off a bye, off
+    a 17+ win, the favorite lost its last, a .700 team, revenge, the market's overreaction). Words, no model names.
+    SCORE_REASON_LEAGUES says where the score is a reason that unlocks units (the owner's 10/23 "KEEP A" replay: gated
+    college dogs with no named reason went 84-132, -7.9% - the 10/28 replay re-judges that group as the newly-named one;
+    see SPORTS_FINDINGS 10/28). Off that list it is still a card fact (c["score_fact"]), never a reason."""
+    if c.get("market") != "ml" or c.get("reasons") or c.get("trap") or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+        return
+    lg = c.get("league")
+    if lg not in ("nba", "nfl", "ncaaf"):
         return
     try:
         if fighting(c):
@@ -961,10 +998,60 @@ def score_reason(c):
         sc = round(dog_score(c), 1)
     except Exception:                                        # noqa: BLE001 - no score = no reason
         return
-    if sc >= NBA_FLOOR_SCORE:
-        mo = c.get("dog_more") or {}
-        why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
-        c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+    if lg == "nba":
+        if sc >= NBA_FLOOR_SCORE:
+            mo = c.get("dog_more") or {}
+            why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
+            c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+        return
+    gate = {"nfl": DOG_GATE, "ncaaf": NCAAF_DOG_GATE}[lg]
+    if sc < gate or not dog_own_ok(c) or c.get("edge_own") is None or c.get("p_market") is None:
+        return
+    own = (c["edge_own"] + 1) / c["dec"]
+    over = round((own - c["p_market"]) * 100, 1)
+    if over <= 0:
+        return
+    why = [f"our own read has them {over:g} points better than the price says" + (" (a home dog the books overprice)"
+                                                                                  if c.get("home") else "")]
+    why += dog_study_facts(c)
+    fact = "; ".join(why) + f" - dog score +{sc:g} over the gate of {gate:g}"
+    c["score_fact"] = fact
+    if lg in SCORE_REASON_LEAGUES:
+        c["reasons"] = [fact]
+
+
+SCORE_REASON_LEAGUES = {"nba"}   # where the dog score (the own read + the studies) is a named reason that unlocks
+#   units: the NBA only (10/28 AM - the 10/27 NBA replay never asked for a reason). NOT football: the 10/28 replay of every
+#   board day 2023-10..2026-10 (results/studies/named_reason_1028/) - college dogs +100..+350 passing every own-read check
+#   with NO named reason went 27-55, -8.1% on 82; the ones whose own read alone cleared the gate (the New Mexico St shape)
+#   1-4, -46% (all five home dogs, all 2026); the 10/23 study's 84-132, -7.9% again. A fact the card names (score_fact),
+#   never the reason that puts units on it. Turning football on = the owner's call, with a replay that says otherwise.
+
+
+def dog_study_facts(c):
+    """The dog studies that ADDED points to this football dog's score, in words (the card's facts, the score's reason)."""
+    lg, mo, x = c.get("league"), c.get("dog_more") or {}, c.get("dog_ctx") or {}
+    out = []
+    if mo.get("bye"):
+        out.append("off a bye against a team that played last week")
+    if (mo.get("last_margin") or 0) >= 17:
+        out.append(f"off a {mo['last_margin']:g}-point win")
+    if x.get("opp_won") is False or c.get("opp_lost_last"):
+        out.append("the favorite lost its last game")
+    if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
+        out.append(f"a {mo['win_pct']:.3f} team getting plus money")
+    if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
+        out.append("the 0-2 team as a dog")
+    if lg == "nfl" and mo.get("east_west"):
+        out.append("an East Coast team out West")
+    if c.get("revenge"):
+        out.append("got blown out by this team last meeting")
+    try:
+        if overreact(c):
+            out.append("off a blowout loss the market overreacts to")
+    except Exception:                                        # noqa: BLE001
+        pass
+    return out
 
 
 def good(c):
@@ -3245,9 +3332,20 @@ LEAN_NCAAF_FAV_BAND = (-150, -130)   # the owner, 10/10 (Arkansas St -142 lost 5
 #                                      blind leans), no units involved.
 
 
+LEAN_NHL_FAV_BAND = (-150, -130)   # 🏒 THE 10/28 HOCKEY AUDIT (the owner: "our hockey picks are ass - below 50%"): no hockey
+#                                    favorite lean at -150..-130 either. The 10/27 funnel dump re-read with the fixed hockey read
+#                                    (every lean the board posted, 1,097 board days 2023-26 + live): hockey leans at -150..-130
+#                                    191-185, -12.5% at the close, down 4 of 4 seasons (z -2.8) - the worst cell in the whole hockey
+#                                    replay; -129..-101 hockey favorite leans 288-234 +2.1% (3 of 4 up) stand. Live: 5-8 vs 9-8.
+#                                    The 10/16 checkup had the same cell (-12.5% on 226) as a proposal; it's a rule now. No units
+#                                    were ever on them - it's the 🟡 record and the viewers' trust.
+LEAN_FAV_BANDS = {"ncaaf": LEAN_NCAAF_FAV_BAND, "nhl": LEAN_NHL_FAV_BAND}
+
+
 def pricey_college_fav(c):
-    lo, hi = LEAN_NCAAF_FAV_BAND
-    return c.get("league") == "ncaaf" and c.get("market") == "ml" and lo <= (c.get("odds") or 0) <= hi
+    """A favorite lean in a band its sport's leans lose: college -150..-130 (10/10), hockey -150..-130 (10/28)."""
+    band = LEAN_FAV_BANDS.get(c.get("league"))
+    return bool(band) and c.get("market") == "ml" and band[0] <= (c.get("odds") or 0) <= band[1]
 
 
 def lean_rank(c):
@@ -3994,7 +4092,8 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
                 and (l.get("odds") or 0) > DOG_DAY_MAX:
             why = f"a unit play on a dog past +{DOG_DAY_MAX}"   # (the owner, 10/10: dogs +100..+300, never past)
         elif pk.get("lean") and pricey_college_fav(l):
-            why = "a college favorite lean at -150..-130"    # (the owner, 10/10 - LEAN_NCAAF_FAV_BAND)
+            why = (f"a {'hockey' if l.get('league') == 'nhl' else 'college'} favorite lean at -150..-130")   # (the owner,
+            #                                                  10/10 - LEAN_NCAAF_FAV_BAND; the 10/28 hockey audit - LEAN_NHL_FAV_BAND)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
