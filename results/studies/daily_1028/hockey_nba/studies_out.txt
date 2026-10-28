@@ -1,0 +1,226 @@
+NHL rows 19058
+NHL BASE dog +100..+350
+   TRAIN: n=7014 38.1% vs 39.1% exp z-1.8 ROI -6.6% up 1/7 [18:-3(1038) 19:+3(908) 20:-12(723) 21:-16(1071) 22:-6(1063) 23:-6(1043) 24:-6(1168)]
+   HOLD: n=1113 43.7% vs 41.0% exp z+1.8 ROI +1.9% up 1/1 [25:+2(1113)]
+   CUR: n=160 37.5% vs 40.0% exp z-0.7 ROI -12.0% up 0/1 [26:-12(160)]
+NHL BASE fav -100..-150
+   TRAIN: n=4619 53.9% vs 52.9% exp z+1.3 ROI -2.5% up 2/7 [18:-3(760) 19:-6(684) 20:+2(458) 21:+2(675) 22:-4(647) 23:-3(721) 24:-4(674)]
+   HOLD: n=932 51.9% vs 52.7% exp z-0.5 ROI -5.8% up 0/1 [25:-6(932)]
+   CUR: n=143 51.0% vs 52.2% exp z-0.3 ROI -6.4% up 0/1 [26:-6(143)]
+NHL BASE fav -151..-400
+   TRAIN: n=4238 64.9% vs 64.3% exp z+0.9 ROI -3.1% up 1/7 [18:-4(574) 19:-8(429) 20:-1(433) 21:+3(686) 22:-3(707) 23:-6(657) 24:-4(752)]
+   HOLD: n=576 59.0% vs 63.0% exp z-2.0 ROI -10.5% up 0/1 [25:-11(576)]
+   CUR: n=93 69.9% vs 63.7% exp z+1.2 ROI +5.1% up 1/1 [26:+5(93)]
+
+#### S5 NHL THE GOALIE GOT SHELLED (allowed 6+ last game)
+S5 NHL allowed 6+ last game - dog +100..+350
+   TRAIN: n=747 38.8% vs 37.8% exp z+0.6 ROI -0.8% up 3/7 [18:-11(100) 19:+17(74) 20:+23(65) 21:-10(133) 22:-3(133) 23:+3(114) 24:-6(128)]
+   HOLD: n=121 38.8% vs 40.3% exp z-0.3 ROI -11.5% up 0/1 [25:-11(121)]
+   CUR: n=20 30.0% vs 40.6% exp z-1.0 ROI -32.9% up 0/1 [26:-33(20)]
+S5 NHL OPPONENT allowed 6+ last game - dog +100..+350
+   TRAIN: n=488 40.2% vs 39.4% exp z+0.3 ROI -1.4% up 5/7 [18:+13(73) 19:+22(69) 20:-55(40) 21:-28(70) 22:+2(72) 23:+0(81) 24:+10(83)]
+   HOLD: n=79 41.8% vs 41.3% exp z+0.1 ROI -2.2% up 0/1 [25:-2(79)]
+   CUR: n=15 46.7% vs 41.3% exp z+0.4 ROI +3.5% up 1/1 [26:+3(15)]
+S5 NHL allowed 6+ last game - fav -100..-150
+   TRAIN: n=347 53.0% vs 52.8% exp z+0.1 ROI -4.1% up 2/7 [18:-4(62) 19:-4(49) 20:+1(30) 21:-5(50) 22:-9(46) 23:+4(58) 24:-10(52)]
+   HOLD: n=73 52.1% vs 52.2% exp z-0.0 ROI -3.9% up 0/1 [25:-4(73)]
+   CUR: n=12 41.7% vs 52.6% exp z-0.8 ROI -22.3% up 0/1 [26:-22(12)]
+S5 NHL OPPONENT allowed 6+ last game - fav -100..-150
+   TRAIN: n=389 53.7% vs 53.2% exp z+0.2 ROI -3.1% up 3/7 [18:-7(70) 19:-18(48) 20:+3(30) 21:+21(67) 22:+0(47) 23:-9(64) 24:-12(63)]
+   HOLD: n=95 50.5% vs 53.0% exp z-0.5 ROI -8.1% up 0/1 [25:-8(95)]
+   CUR: n=15 53.3% vs 53.0% exp z+0.0 ROI -4.7% up 0/1 [26:-5(15)]
+S5 NHL allowed 6+ last game - fav -151..-400
+   TRAIN: n=287 62.7% vs 64.1% exp z-0.5 ROI -5.9% up 2/7 [18:-19(34) 19:-30(32) 20:+27(21) 21:+20(44) 22:-8(49) 23:-7(52) 24:-13(55)]
+   HOLD: n=44 61.4% vs 61.4% exp z-0.0 ROI -3.4% up 0/1 [25:-3(44)]
+   CUR: n=8 75.0% vs 62.3% exp z+0.7 ROI +14.8% up 1/1 [26:+15(8)]
+S5 NHL OPPONENT allowed 6+ last game - fav -151..-400
+   TRAIN: n=496 63.3% vs 65.2% exp z-0.9 ROI -7.0% up 1/7 [18:+7(53) 19:-20(37) 20:-19(46) 21:-3(90) 22:-7(106) 23:-15(78) 24:-1(86)]
+   HOLD: n=64 68.8% vs 63.4% exp z+0.9 ROI +2.6% up 1/1 [25:+3(64)]
+   CUR: n=10 80.0% vs 64.3% exp z+1.0 ROI +18.8% up 1/1 [26:+19(10)]
+
+#### S6 NHL THE LONG HOMESTAND (home team's straight home games, today included)
+S6 NHL 4th+ straight home game - dog +100..+350
+   TRAIN: n=369 39.6% vs 40.2% exp z-0.3 ROI -3.7% up 2/7 [18:+12(34) 19:-7(37) 20:+12(71) 21:-4(60) 22:-5(50) 23:-24(56) 24:-10(61)]
+   HOLD: n=60 40.0% vs 42.6% exp z-0.4 ROI -11.9% up 0/1 [25:-12(60)]
+   CUR: n=4 25.0% vs 38.8% exp z-0.6 ROI -46.5% up 0/1 [26:-46(4)]
+S6 NHL 6th+ straight home game - dog +100..+350
+   TRAIN: n=78 41.0% vs 40.0% exp z+0.2 ROI -3.1% up 3/7 [18:+26(7) 19:-8(7) 20:-20(14) 21:+36(13) 22:-34(15) 23:-79(10) 24:+62(12)]
+   HOLD: n=16 37.5% vs 41.7% exp z-0.3 ROI -15.4% up 0/1 [25:-15(16)]
+   CUR: n=1 0.0% vs 36.3% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+S6 NHL road team at a 4th+ straight home game - dog +100..+350
+   TRAIN: n=632 38.0% vs 38.5% exp z-0.3 ROI -6.4% up 1/7 [18:-10(93) 19:+18(81) 20:-7(89) 21:-10(104) 22:-5(87) 23:-2(87) 24:-25(91)]
+   HOLD: n=122 42.6% vs 39.5% exp z+0.7 ROI +6.1% up 1/1 [25:+6(122)]
+   CUR: n=5 40.0% vs 41.9% exp z-0.1 ROI -4.0% up 0/1 [26:-4(5)]
+S6 NHL 4th+ straight home game - fav -100..-150
+   TRAIN: n=370 50.3% vs 53.0% exp z-1.1 ROI -9.5% up 0/7 [18:-9(64) 19:-16(52) 20:-1(51) 21:-6(62) 22:-23(51) 23:-10(42) 24:-1(48)]
+   HOLD: n=68 41.2% vs 53.0% exp z-2.0 ROI -26.3% up 0/1 [25:-26(68)]
+   CUR: n=6 50.0% vs 50.7% exp z-0.0 ROI -6.7% up 0/1 [26:-7(6)]
+S6 NHL 6th+ straight home game - fav -100..-150
+   TRAIN: n=61 54.1% vs 53.3% exp z+0.1 ROI -3.8% up 3/7 [18:-44(10) 19:-21(9) 20:+44(6) 21:-5(15) 22:+12(11) 23:-66(5) 24:+79(5)]
+   HOLD: n=10 60.0% vs 51.0% exp z+0.6 ROI +14.3% up 1/1 [25:+14(10)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+S6 NHL road team at a 4th+ straight home game - fav -100..-150
+   TRAIN: n=316 57.0% vs 52.5% exp z+1.6 ROI +4.1% up 5/7 [18:-0(52) 19:+13(34) 20:+1(50) 21:+10(53) 22:+9(39) 23:-5(40) 24:+2(48)]
+   HOLD: n=62 64.5% vs 53.2% exp z+1.8 ROI +16.7% up 1/1 [25:+17(62)]
+   CUR: n=6 50.0% vs 50.6% exp z-0.0 ROI -4.3% up 0/1 [26:-4(6)]
+S6 NHL 4th+ straight home game - fav -151..-400
+   TRAIN: n=407 66.1% vs 64.6% exp z+0.6 ROI -1.9% up 3/7 [18:+3(58) 19:-26(37) 20:-1(59) 21:+0(69) 22:-1(57) 23:-7(62) 24:+9(65)]
+   HOLD: n=78 60.3% vs 63.7% exp z-0.6 ROI -8.7% up 0/1 [25:-9(78)]
+   CUR: n=4 50.0% vs 59.6% exp z-0.4 ROI -18.8% up 0/1 [26:-19(4)]
+S6 NHL 6th+ straight home game - fav -151..-400
+   TRAIN: n=75 62.7% vs 64.9% exp z-0.4 ROI -8.2% up 2/7 [18:+27(6) 19:-35(7) 20:+4(18) 21:-6(20) 22:-11(13) 23:-28(4) 24:-34(7)]
+   HOLD: n=20 60.0% vs 64.9% exp z-0.5 ROI -8.3% up 0/1 [25:-8(20)]
+   CUR: n=0
+S6 NHL road team at a 4th+ straight home game - fav -151..-400
+   TRAIN: n=204 60.8% vs 63.5% exp z-0.8 ROI -7.9% up 2/7 [18:-16(11) 19:+0(11) 20:-27(42) 21:-13(35) 22:-7(33) 23:+17(35) 24:-6(37)]
+   HOLD: n=22 68.2% vs 61.4% exp z+0.7 ROI +6.0% up 1/1 [25:+6(22)]
+   CUR: n=3 100.0% vs 63.3% exp z+1.3 ROI +51.7% up 1/1 [26:+52(3)]
+
+#### S7 NHL SLOW STARTS (outscored in the 1st period in each of the last 3)
+S7 NHL lost the 1st period 3 straight - dog +100..+350
+   TRAIN: n=347 34.0% vs 38.2% exp z-1.6 ROI -16.1% up 2/7 [18:-21(56) 19:+13(40) 20:-14(41) 21:-33(55) 22:-34(57) 23:+2(44) 24:-13(54)]
+   HOLD: n=29 37.9% vs 41.2% exp z-0.4 ROI -12.6% up 0/1 [25:-13(29)]
+   CUR: n=9 55.6% vs 42.3% exp z+0.8 ROI +27.4% up 1/1 [26:+27(9)]
+S7 NHL WON the 1st period 3 straight - dog +100..+350
+   TRAIN: n=194 38.7% vs 40.1% exp z-0.4 ROI -6.6% up 1/7 [18:+15(36) 19:-0(20) 20:-2(19) 21:-15(27) 22:-2(42) 23:-27(19) 24:-24(31)]
+   HOLD: n=32 37.5% vs 39.3% exp z-0.2 ROI -8.5% up 0/1 [25:-9(32)]
+   CUR: n=3 0.0% vs 44.4% exp z-1.5 ROI -100.0% up 0/1 [26:-100(3)]
+S7 NHL lost the 1st period 3 straight - fav -100..-150
+   TRAIN: n=131 56.5% vs 52.7% exp z+0.9 ROI +2.6% up 4/7 [18:+18(23) 19:-6(19) 20:+53(19) 21:+16(16) 22:-53(16) 23:-27(22) 24:+14(16)]
+   HOLD: n=32 56.2% vs 52.3% exp z+0.4 ROI +2.6% up 1/1 [25:+3(32)]
+   CUR: n=0
+S7 NHL WON the 1st period 3 straight - fav -100..-150
+   TRAIN: n=178 48.9% vs 52.6% exp z-1.0 ROI -11.0% up 2/7 [18:-4(28) 19:-6(23) 20:+12(25) 21:+15(27) 22:-16(24) 23:-39(30) 24:-39(21)]
+   HOLD: n=34 35.3% vs 53.5% exp z-2.1 ROI -37.7% up 0/1 [25:-38(34)]
+   CUR: n=5 40.0% vs 50.8% exp z-0.5 ROI -27.3% up 0/1 [26:-27(5)]
+S7 NHL lost the 1st period 3 straight - fav -151..-400
+   TRAIN: n=113 60.2% vs 63.4% exp z-0.7 ROI -8.8% up 2/7 [18:-12(18) 19:-41(12) 20:-27(4) 21:+0(17) 22:-14(26) 23:-12(19) 24:+25(17)]
+   HOLD: n=20 50.0% vs 63.5% exp z-1.3 ROI -26.2% up 0/1 [25:-26(20)]
+   CUR: n=3 66.7% vs 66.6% exp z+0.0 ROI -4.1% up 0/1 [26:-4(3)]
+S7 NHL WON the 1st period 3 straight - fav -151..-400
+   TRAIN: n=207 68.6% vs 65.0% exp z+1.1 ROI +1.0% up 4/7 [18:+12(20) 19:-53(12) 20:-4(29) 21:+11(43) 22:+6(32) 23:+4(33) 24:-3(38)]
+   HOLD: n=22 72.7% vs 63.3% exp z+0.9 ROI +10.0% up 1/1 [25:+10(22)]
+   CUR: n=6 66.7% vs 61.7% exp z+0.3 ROI +3.0% up 1/1 [26:+3(6)]
+
+NBA rows 19162
+NBA BASE dog +100..+350
+   TRAIN: n=6253 35.7% vs 35.6% exp z+0.1 ROI -3.7% up 0/7 [18:-4(900) 19:-3(804) 20:-0(862) 21:-4(942) 22:-6(979) 23:-8(892) 24:-1(874)]
+   HOLD: n=869 34.6% vs 35.2% exp z-0.3 ROI -6.7% up 0/1 [25:-7(869)]
+   CUR: n=39 33.3% vs 37.7% exp z-0.6 ROI -14.6% up 0/1 [26:-15(39)]
+NBA BASE fav -100..-150
+   TRAIN: n=2445 52.6% vs 53.2% exp z-0.5 ROI -5.1% up 0/7 [18:-9(344) 19:-6(313) 20:-2(346) 21:-4(359) 22:-6(421) 23:-7(359) 24:-1(303)]
+   HOLD: n=324 50.3% vs 52.9% exp z-0.9 ROI -8.8% up 0/1 [25:-9(324)]
+   CUR: n=27 59.3% vs 52.2% exp z+0.7 ROI +8.1% up 1/1 [26:+8(27)]
+NBA BASE fav -151..-400
+   TRAIN: n=4371 67.1% vs 66.8% exp z+0.4 ROI -3.6% up 0/7 [18:-2(622) 19:-5(544) 20:-6(578) 21:-4(673) 22:-2(676) 23:-2(630) 24:-5(648)]
+   HOLD: n=623 69.2% vs 66.8% exp z+1.3 ROI -0.7% up 0/1 [25:-1(623)]
+   CUR: n=24 62.5% vs 65.3% exp z-0.3 ROI -7.7% up 0/1 [26:-8(24)]
+
+#### S8 NBA SLOW STARTS (lost the 1st quarter in each of the last 3)
+S8 NBA lost the 1st quarter 3 straight - dog +100..+350
+   TRAIN: n=861 33.0% vs 34.9% exp z-1.2 ROI -9.7% up 1/7 [18:-14(122) 19:-17(104) 20:-1(128) 21:-20(132) 22:+12(143) 23:-22(112) 24:-10(120)]
+   HOLD: n=99 30.3% vs 34.3% exp z-0.8 ROI -17.1% up 0/1 [25:-17(99)]
+   CUR: n=0
+   S8 NBA lost the 1st quarter 3 straight - dog +100..+350 ATS | TRAIN 402-445 47.5% | HOLD 44-55 44.4%
+S8 NBA WON the 1st quarter 3 straight - dog +100..+350
+   TRAIN: n=554 36.6% vs 37.0% exp z-0.2 ROI -6.1% up 1/7 [18:+22(80) 19:-10(75) 20:-17(95) 21:-10(80) 22:-3(91) 23:-6(65) 24:-18(68)]
+   HOLD: n=71 49.3% vs 36.9% exp z+2.2 ROI +28.6% up 1/1 [25:+29(71)]
+   CUR: n=1 0.0% vs 41.7% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+   S8 NBA WON the 1st quarter 3 straight - dog +100..+350 ATS | TRAIN 275-270 50.5% | HOLD 43-28 60.6% | CUR 1-0 100.0%
+S8 NBA lost the 1st quarter 3 straight - fav -100..-150
+   TRAIN: n=230 47.4% vs 52.9% exp z-1.7 ROI -13.9% up 2/7 [18:-16(39) 19:-25(34) 20:-36(31) 21:+18(31) 22:-30(39) 23:-18(22) 24:+10(34)]
+   HOLD: n=39 48.7% vs 53.0% exp z-0.5 ROI -11.0% up 0/1 [25:-11(39)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+   S8 NBA lost the 1st quarter 3 straight - fav -100..-150 ATS | TRAIN 105-121 46.5% | HOLD 19-20 48.7% | CUR 1-0 100.0%
+S8 NBA WON the 1st quarter 3 straight - fav -100..-150
+   TRAIN: n=286 54.2% vs 53.4% exp z+0.3 ROI -2.7% up 3/7 [18:-25(36) 19:+7(38) 20:+11(44) 21:-11(46) 22:-1(44) 23:+3(40) 24:-4(38)]
+   HOLD: n=33 54.5% vs 52.2% exp z+0.3 ROI -0.1% up 0/1 [25:-0(33)]
+   CUR: n=1 0.0% vs 49.6% exp z-1.0 ROI -100.0% up 0/1 [26:-100(1)]
+   S8 NBA WON the 1st quarter 3 straight - fav -100..-150 ATS | TRAIN 143-138 50.9% | HOLD 18-15 54.5% | CUR 0-1 0.0%
+S8 NBA lost the 1st quarter 3 straight - fav -151..-400
+   TRAIN: n=370 70.5% vs 67.1% exp z+1.4 ROI +1.0% up 4/7 [18:+4(69) 19:-18(51) 20:+15(43) 21:+17(56) 22:+8(55) 23:-4(44) 24:-17(52)]
+   HOLD: n=48 75.0% vs 67.0% exp z+1.2 ROI +7.3% up 1/1 [25:+7(48)]
+   CUR: n=0
+   S8 NBA lost the 1st quarter 3 straight - fav -151..-400 ATS | TRAIN 198-166 54.4% | HOLD 30-18 62.5%
+S8 NBA WON the 1st quarter 3 straight - fav -151..-400
+   TRAIN: n=616 67.5% vs 66.8% exp z+0.4 ROI -2.6% up 3/7 [18:+1(89) 19:-7(75) 20:-17(94) 21:+16(85) 22:-1(100) 23:+1(85) 24:-9(88)]
+   HOLD: n=85 65.9% vs 67.4% exp z-0.3 ROI -6.7% up 0/1 [25:-7(85)]
+   CUR: n=2 100.0% vs 62.0% exp z+1.1 ROI +54.6% up 1/1 [26:+55(2)]
+   S8 NBA WON the 1st quarter 3 straight - fav -151..-400 ATS | TRAIN 313-292 51.7% | HOLD 37-47 44.0% | CUR 2-0 100.0%
+
+#### S9 NBA THE HOT SHOOTING NIGHT (scored 15+ over its season average last game, 5+ games in)
+S9 NBA scored 15+ over its average last game - dog +100..+350
+   TRAIN: n=688 32.6% vs 35.7% exp z-1.7 ROI -13.3% up 1/7 [18:-8(98) 19:+12(95) 20:-38(90) 21:-22(115) 22:-5(97) 23:-14(86) 24:-17(107)]
+   HOLD: n=92 43.5% vs 36.4% exp z+1.4 ROI +13.5% up 1/1 [25:+13(92)]
+   CUR: n=0
+   S9 NBA scored 15+ over its average last game - dog +100..+350 ATS | TRAIN 318-352 47.5% | HOLD 57-35 62.0%
+S9 NBA OPPONENT scored 15+ over its average last game - dog +100..+350
+   TRAIN: n=719 35.2% vs 35.1% exp z+0.1 ROI -3.3% up 4/7 [18:+11(96) 19:+3(81) 20:+9(101) 21:-5(133) 22:+6(112) 23:-17(97) 24:-30(99)]
+   HOLD: n=89 31.5% vs 34.9% exp z-0.7 ROI -15.8% up 0/1 [25:-16(89)]
+   CUR: n=0
+   S9 NBA OPPONENT scored 15+ over its average last game - dog +100..+350 ATS | TRAIN 356-348 50.6% | HOLD 43-46 48.3%
+S9 NBA scored 15+ over its average last game - fav -100..-150
+   TRAIN: n=270 52.2% vs 53.0% exp z-0.2 ROI -5.6% up 2/7 [18:-3(37) 19:-17(32) 20:+6(40) 21:+20(42) 22:-19(45) 23:-18(37) 24:-11(37)]
+   HOLD: n=35 57.1% vs 52.4% exp z+0.6 ROI +5.1% up 1/1 [25:+5(35)]
+   CUR: n=0
+   S9 NBA scored 15+ over its average last game - fav -100..-150 ATS | TRAIN 130-134 49.2% | HOLD 20-15 57.1%
+S9 NBA OPPONENT scored 15+ over its average last game - fav -100..-150
+   TRAIN: n=279 57.0% vs 53.0% exp z+1.3 ROI +2.9% up 5/7 [18:-13(33) 19:+7(34) 20:+10(39) 21:+1(44) 22:-17(48) 23:+20(38) 24:+15(43)]
+   HOLD: n=35 42.9% vs 52.7% exp z-1.2 ROI -21.8% up 0/1 [25:-22(35)]
+   CUR: n=0
+   S9 NBA OPPONENT scored 15+ over its average last game - fav -100..-150 ATS | TRAIN 149-126 54.2% | HOLD 13-22 37.1%
+S9 NBA scored 15+ over its average last game - fav -151..-400
+   TRAIN: n=527 66.2% vs 67.1% exp z-0.4 ROI -5.3% up 2/7 [18:-15(66) 19:-10(55) 20:-11(74) 21:-10(103) 22:-6(78) 23:+5(71) 24:+10(80)]
+   HOLD: n=60 70.0% vs 66.3% exp z+0.6 ROI +0.8% up 1/1 [25:+1(60)]
+   CUR: n=0
+   S9 NBA scored 15+ over its average last game - fav -151..-400 ATS | TRAIN 251-266 48.5% | HOLD 30-30 50.0%
+S9 NBA OPPONENT scored 15+ over its average last game - fav -151..-400
+   TRAIN: n=481 69.2% vs 66.5% exp z+1.3 ROI -0.2% up 3/7 [18:-1(73) 19:-10(67) 20:+8(62) 21:+2(79) 22:-0(67) 23:-4(58) 24:+2(75)]
+   HOLD: n=69 59.4% vs 65.2% exp z-1.0 ROI -12.7% up 0/1 [25:-13(69)]
+   CUR: n=0
+   S9 NBA OPPONENT scored 15+ over its average last game - fav -151..-400 ATS | TRAIN 242-224 51.9% | HOLD 29-40 42.0%
+
+#### S10 NBA QUICK REMATCH (same two teams met in the last 4 days)
+S10 NBA lost game one of the set - dog +100..+350
+   TRAIN: n=165 37.0% vs 33.9% exp z+0.8 ROI +3.0% up 4/7 [18:+7(9) 19:+112(8) 20:-15(48) 21:-7(24) 22:-34(31) 23:+34(26) 24:+32(19)]
+   HOLD: n=18 33.3% vs 35.6% exp z-0.2 ROI -6.2% up 0/1 [25:-6(18)]
+   CUR: n=1 0.0% vs 36.9% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+   S10 NBA lost game one of the set - dog +100..+350 ATS | TRAIN 86-74 53.8% | HOLD 8-10 44.4% | CUR 0-1 0.0%
+S10 NBA lost game one by 15+ - dog +100..+350
+   TRAIN: n=50 36.0% vs 31.4% exp z+0.7 ROI +7.1% up 5/7 [18:+20(2) 19:+126(3) 20:-31(13) 21:+30(7) 22:-100(6) 23:+43(9) 24:+34(10)]
+   HOLD: n=8 12.5% vs 34.5% exp z-1.3 ROI -56.9% up 0/1 [25:-57(8)]
+   CUR: n=0
+   S10 NBA lost game one by 15+ - dog +100..+350 ATS | TRAIN 24-25 49.0% | HOLD 3-5 37.5%
+S10 NBA lost game one of the set - fav -100..-150
+   TRAIN: n=57 52.6% vs 53.2% exp z-0.1 ROI -5.4% up 1/7 [18:-5(4) 19:-100(2) 20:+47(16) 21:-30(8) 22:-6(13) 23:-74(7) 24:-0(7)]
+   HOLD: n=6 33.3% vs 53.7% exp z-1.0 ROI -40.8% up 0/1 [25:-41(6)]
+   CUR: n=0
+   S10 NBA lost game one of the set - fav -100..-150 ATS | TRAIN 29-27 51.8% | HOLD 2-4 33.3%
+S10 NBA lost game one by 15+ - fav -100..-150
+   TRAIN: n=14 42.9% vs 52.8% exp z-0.7 ROI -23.3% up 3/5 [20:+34(4) 21:+77(1) 22:-100(1) 23:-100(6) 24:+80(2)]
+   HOLD: n=1 0.0% vs 55.1% exp z-1.1 ROI -100.0% up 0/1 [25:-100(1)]
+   CUR: n=0
+   S10 NBA lost game one by 15+ - fav -100..-150 ATS | TRAIN 6-8 42.9% | HOLD 0-1 0.0%
+S10 NBA lost game one of the set - fav -151..-400
+   TRAIN: n=68 67.6% vs 65.9% exp z+0.3 ROI -1.2% up 3/7 [18:+47(7) 19:-18(2) 20:-8(19) 21:+5(4) 22:-1(13) 23:+6(10) 24:-22(13)]
+   HOLD: n=14 64.3% vs 67.7% exp z-0.3 ROI -10.2% up 0/1 [25:-10(14)]
+   CUR: n=0
+   S10 NBA lost game one of the set - fav -151..-400 ATS | TRAIN 34-31 52.3% | HOLD 8-6 57.1%
+S10 NBA lost game one by 15+ - fav -151..-400
+   TRAIN: n=11 72.7% vs 67.7% exp z+0.4 ROI +0.3% up 2/3 [20:-15(5) 22:+31(2) 24:+4(4)]
+   HOLD: n=4 50.0% vs 68.9% exp z-0.8 ROI -30.3% up 0/1 [25:-30(4)]
+   CUR: n=0
+   S10 NBA lost game one by 15+ - fav -151..-400 ATS | TRAIN 6-4 60.0% | HOLD 2-2 50.0%
+
+primary cells 39
+BOTH HALVES SAME SIGN: S5 NHL allowed 6+ last game - fav -151..-400 train 287/-5.9% hold 44/-3.4%
+BOTH HALVES SAME SIGN: S6 NHL 4th+ straight home game - fav -100..-150 train 370/-9.5% hold 68/-26.3%
+BOTH HALVES SAME SIGN: S6 NHL road team at a 4th+ straight home game - fav -100..-150 train 316/+4.1% hold 62/+16.7%
+BOTH HALVES SAME SIGN: S6 NHL 6th+ straight home game - fav -151..-400 train 75/-8.2% hold 20/-8.3%
+BOTH HALVES SAME SIGN: S7 NHL lost the 1st period 3 straight - dog +100..+350 train 347/-16.1% hold 29/-12.6%
+BOTH HALVES SAME SIGN: S7 NHL WON the 1st period 3 straight - dog +100..+350 train 194/-6.6% hold 32/-8.5%
+BOTH HALVES SAME SIGN: S7 NHL WON the 1st period 3 straight - fav -100..-150 train 178/-11.0% hold 34/-37.7%
+BOTH HALVES SAME SIGN: S7 NHL lost the 1st period 3 straight - fav -151..-400 train 113/-8.8% hold 20/-26.2%
+BOTH HALVES SAME SIGN: S8 NBA lost the 1st quarter 3 straight - dog +100..+350 train 861/-9.7% hold 99/-17.1%
+BOTH HALVES SAME SIGN: S8 NBA lost the 1st quarter 3 straight - fav -100..-150 train 230/-13.9% hold 39/-11.0%
+BOTH HALVES SAME SIGN: S10 NBA lost game one of the set - fav -100..-150 train 57/-5.4% hold 6/-40.8%
