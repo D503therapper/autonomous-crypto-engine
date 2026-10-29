@@ -1,5 +1,6 @@
-[push] 2026-10-29 12:08 UTC rc 1:  remote: error: Trace: 753f1751d5eef6327f8d14f296815e5c2d968bea8f1c14f9ef580331b8646f00        
+[push] 2026-10-29 13:08 UTC rc 1:  remote: error: Trace: 42a59904cf526fb2050c4a825bdb19f724751375cb01bc0d1db94413fb78daa6        
 remote: error: See https://gh.io/lfs for more information.        
+remote: error: File data/run.log is 100.34 MB; this exceeds GitHub's file size limit of 100.00 MB        
 remote: error: File data/run.log is 100.14 MB; this exceeds GitHub's file size limit of 100.00 MB        
 remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
 remote: pre-receive hook declined
@@ -7,11 +8,11 @@ To https://github.com/D503therapper/autonomous-crypto-engine
  ! [remote rejected]       main -> main (pre-receive hook declined)
 error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
 
-[fallback] 2026-10-29 12:08 UTC ['push', '-q']: remote: error: Trace: d456b9f54ef5b9483baa9f683eb23206113295dfece6bc298585835ce672b549        
+[fallback] 2026-10-29 13:09 UTC ['push', '-q']: remote: error: Trace: 1a46a9acfd7837c40ddcd49591d57a4f0a5f345792119fd8633794fbb618d8bb        
 remote: error: See https://gh.io/lfs for more information.        
-remote: error: File data/run.log is 100.14 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File data/run.log is 100.34 MB; this exceeds GitHub's file size limit of 100.00 MB        
 remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
 remote: pre-receive hook declined
 To https://github.com/D503therapper/autonomous-crypto-engine
- ! [remote rejected]       69ab155f2412fc69111574447537a2faa73c244c -> main (pre-receive hook declined)
+ ! [remote rejected]       48e8bd9241f15a2e75694e0b15caba975d325227 -> main (pre-receive hook declined)
 error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
