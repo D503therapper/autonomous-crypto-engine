@@ -1,5 +1,5 @@
 {
- "fetched": "2026-10-29T07:53Z",
+ "fetched": "2026-10-29T10:03Z",
  "src": "bovada",
  "lines": [
   {
@@ -23,8 +23,8 @@
    "tour": "atp",
    "a_hcp": 3.0,
    "b_hcp": -3.0,
-   "a_sp": -120,
-   "b_sp": -110,
+   "a_sp": -125,
+   "b_sp": -105,
    "a_ml": 180,
    "b_ml": -220
   },
@@ -38,8 +38,8 @@
    "b_hcp": 2.5,
    "a_sp": -130,
    "b_sp": 100,
-   "a_ml": -230,
-   "b_ml": 190
+   "a_ml": -240,
+   "b_ml": 195
   },
   {
    "a": "Daniel Altmaier",
@@ -64,8 +64,8 @@
    "b_hcp": 3.5,
    "a_sp": -115,
    "b_sp": -115,
-   "a_ml": -375,
-   "b_ml": 290
+   "a_ml": -350,
+   "b_ml": 275
   },
   {
    "a": "Ben Shelton",
@@ -77,8 +77,8 @@
    "b_hcp": 3.0,
    "a_sp": 100,
    "b_sp": -130,
-   "a_ml": -325,
-   "b_ml": 260
+   "a_ml": -350,
+   "b_ml": 275
   },
   {
    "a": "Cameron Norrie",
@@ -88,8 +88,8 @@
    "tour": "atp",
    "a_hcp": 4.5,
    "b_hcp": -4.5,
-   "a_sp": -130,
-   "b_sp": 100,
+   "a_sp": -125,
+   "b_sp": -105,
    "a_ml": 400,
    "b_ml": -550
   },
@@ -112,10 +112,10 @@
    "start": "2026-10-29T14:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 4.5,
-   "b_hcp": -4.5,
-   "a_sp": 100,
-   "b_sp": -130,
+   "a_hcp": 5.0,
+   "b_hcp": -5.0,
+   "a_sp": -130,
+   "b_sp": 100,
    "a_ml": 675,
    "b_ml": -1100
   },
@@ -125,10 +125,10 @@
    "start": "2026-10-29T16:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 4.0,
-   "b_hcp": -4.0,
-   "a_sp": -130,
-   "b_sp": 100,
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": 100,
+   "b_sp": -130,
    "a_ml": 250,
    "b_ml": -310
   },
@@ -164,25 +164,25 @@
    "start": "2026-10-29T06:30Z",
    "src": "bovada",
    "tour": "wta",
-   "a_hcp": 4.5,
-   "b_hcp": -4.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": 240,
-   "b_ml": -300
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -3300,
+   "b_sp": 1200,
+   "a_ml": 900,
+   "b_ml": -1800
   },
   {
    "a": "Anna Bondar",
    "b": "Kaitlin Quevedo",
-   "start": "2026-10-29T08:20Z",
+   "start": "2026-10-29T10:10Z",
    "src": "bovada",
    "tour": "wta",
-   "a_hcp": -0.5,
-   "b_hcp": 0.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -115,
-   "b_ml": -105
+   "a_hcp": 0.5,
+   "b_hcp": -0.5,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": -110,
+   "b_ml": -110
   },
   {
    "a": "Lilli Tagger",
@@ -192,8 +192,8 @@
    "tour": "wta",
    "a_hcp": -4.0,
    "b_hcp": 4.0,
-   "a_sp": -105,
-   "b_sp": -125,
+   "a_sp": 100,
+   "b_sp": -130,
    "a_ml": -275,
    "b_ml": 220
   },
@@ -211,32 +211,6 @@
    "b_ml": 260
   },
   {
-   "a": "Elena Rybakina",
-   "b": "Yulia Putintseva",
-   "start": "2026-10-29T08:00Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": -5.5,
-   "b_hcp": 5.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": -700,
-   "b_ml": 475
-  },
-  {
-   "a": "Alexandra Eala",
-   "b": "Diana Shnaider",
-   "start": "2026-10-30T01:30Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": 2.5,
-   "b_hcp": -2.5,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": 130,
-   "b_ml": -155
-  },
-  {
    "a": "Kamilla Rakhimova",
    "b": "Maya Joint",
    "start": "2026-10-30T01:30Z",
@@ -248,6 +222,19 @@
    "b_sp": -110,
    "a_ml": 110,
    "b_ml": -130
+  },
+  {
+   "a": "Alexandra Eala",
+   "b": "Diana Shnaider",
+   "start": "2026-10-30T08:00Z",
+   "src": "bovada",
+   "tour": "wta",
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": 130,
+   "b_ml": -155
   }
  ]
 }
