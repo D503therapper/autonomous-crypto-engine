@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T00:33Z",
+ "updated": "2026-10-29T00:40Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -289,60 +289,29 @@
    "id": "nhl:401892598",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.397,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-29T01:00Z",
    "away": "Devils",
    "home": "Avalanche",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Devils",
-    "opp": "Avalanche",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.625,
-    "win_p": 0.405,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909890",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.773,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-29T01:00Z",
-   "away": "Spurs",
-   "home": "Jazz",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Spurs",
-    "opp": "Jazz",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -110,
-    "p": 0.507,
-    "win_p": 0.855,
+    "team": "Avalanche",
+    "opp": "Devils",
+    "market": "ml",
+    "line": null,
+    "odds": -148,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
+     "opponent on a back-to-back",
+     "better rested"
+    ],
+    "result": null
    }
   },
   {
