@@ -1,29 +1,39 @@
 {
- "at": "2026-10-29T02:44Z",
- "fixes": [],
+ "at": "2026-10-29T02:56Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-28 Kimberly Birrell) - started sports.yml"
+ ],
  "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (5s)",
-  "every finished pick graded",
+  "live watcher fresh (264s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "all 8 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 11 min ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T02:56Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-28 Kimberly Birrell) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-29T02:44Z",
    "fixes": [],
@@ -526,15 +536,6 @@
     "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-27T06:08Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 1928s"
-   ]
   }
  ]
 }
