@@ -14867,6 +14867,64 @@ def test_slate_audit_1029_the_line_under_the_pick_never_leads_with_a_fact_for_th
     assert "We lean {us}." in src[i:i + 400]
 
 
+def test_daily_1029_nfl_first_half_share_and_dog_run_are_tracker_leads_no_weight():
+    """10/29 daily run (10 studies): nothing clears the five checks, so no weight moves. Three NFL LEADS go to the
+    tracker only: (1) the book's 1st-half spread at 60%+ of the dog's full-game spread (+7.2% train / +21.7% 2025 /
+    -5.5% 2026) and (2) its mirror, under 60% (fade: -20.9% / -12.9% / -17.8%) - college runs the other way, so never a
+    weight; (3) the NFL dog that was a dog in each of its last 4 (fade, -18.3% train / -13.3% held out). The share reads
+    tonight's game row (no 1st-half line yet = no tag); the run reads earlier closing moneylines this season only."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, mh, ma):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": "20", "away_score": "17", "ml_home": str(mh), "ml_away": str(ma)}
+        G = {"nfl:1": fg("nfl:1", "2026-09-13T17:00Z", "T", "A", 150, -170),
+             "nfl:2": fg("nfl:2", "2026-09-20T17:00Z", "B", "T", -200, 170),
+             "nfl:3": fg("nfl:3", "2026-09-27T17:00Z", "T", "C", 110, -130),
+             "nfl:4": fg("nfl:4", "2026-10-04T17:00Z", "D", "T", -300, 250),
+             "nfl:old": fg("nfl:old", "2026-01-04T17:00Z", "T", "Z", -200, 170),           # last season: never counts
+             "nfl:now": {"id": "nfl:now", "start": "2026-10-11T17:00Z", "status": "pre", "stype": "2", "home": "F",
+                         "away": "T", "spread_home": "-3.0", "h1_spread_home": "-2.5"}}
+        sl._GAMES["nfl"] = G
+        dog = {"market": "ml", "league": "nfl", "game_id": "nfl:now", "side": "away", "home": False, "odds": 140,
+               "dec": 2.4, "p_market": 0.40, "edge": 0.0, "edge_own": 0.40 * 2.4 - 1, "reasons": [], "team": "Ts",
+               "opp": "Fs", "start": "2026-10-11T17:00Z", "dog_more": {}}
+        big, small = "NFL dog, 1st-half spread 60%+ of the full", "NFL dog, 1st-half spread under 60% of the full (fade)"
+        run = "NFL dog, a dog in each of its last 4 (fade)"
+        assert abs(sl.h1_share(dog) - 2.5 / 3.0) < 1e-9
+        t = sl.tags(dog, sports)
+        assert big in t and small not in t and run in t, t
+        G["nfl:now"]["h1_spread_home"] = "-1.5"                       # 1.5 of 3 = 0.50: the fade side
+        t = sl.tags(dog, sports)
+        assert small in t and big not in t
+        G["nfl:now"]["h1_spread_home"] = ""                           # no 1st-half line up yet: no share tag
+        assert sl.h1_share(dog) is None and not {big, small} & set(sl.tags(dog, sports))
+        G["nfl:now"]["h1_spread_home"], G["nfl:now"]["spread_home"] = "-1.0", "-2.0"   # under 2.5 points: no share
+        assert sl.h1_share(dog) is None
+        fav = {**dog, "side": "home", "home": True, "odds": -160, "team": "Fs", "opp": "Ts"}
+        assert not {big, small, run} & set(sl.tags(fav, sports))     # dogs only
+        G["nfl:3"]["ml_home"] = "-105"                                # favored once in the last 4: the run breaks
+        assert not sl.dog_run(dog, 4) and run not in sl.tags(dog, sports)
+        G["nfl:3"]["ml_home"] = ""                                    # no closing price: never counted as a dog
+        assert not sl.dog_run(dog, 4)
+        G["nfl:3"]["ml_home"] = "110"
+        assert sl.dog_run(dog, 4)
+        del G["nfl:1"]                                                # 3 games this season (last January's never counts)
+        assert not sl.dog_run(dog, 4)
+        # leads, not weights: the dog score never moves on either
+        s = {**dog, "dog_ctx": {}}
+        G["nfl:1"] = fg("nfl:1", "2026-09-13T17:00Z", "T", "A", 150, -170)
+        G["nfl:now"]["h1_spread_home"], G["nfl:now"]["spread_home"] = "-2.5", "-3.0"
+        sc = sports.dog_score(dict(s))
+        G["nfl:now"]["h1_spread_home"] = "-0.5"
+        G["nfl:4"]["ml_away"] = "-110"
+        assert sports.dog_score(dict(s)) == sc
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
