@@ -1001,8 +1001,12 @@ def score_reason(c):
     if lg == "nba":
         if sc >= NBA_FLOOR_SCORE:
             mo = c.get("dog_more") or {}
-            why = " on a 12-game slate" if (mo.get("slate") or 0) >= NBA_SLATE_BIG else ""
-            c["reasons"] = [f"the NBA dog score backs it: +{sc:g} points over the price{why} (every dog study weighed)"]
+            n_sl = mo.get("slate") or 0                      # (10/29 sweep: the score is NOT "points over the price" - it
+            why = f" on a {n_sl:g}-game slate" if n_sl >= NBA_SLATE_BIG else ""   # is the read vs the price PLUS the
+            own = (c["edge_own"] + 1) / c["dec"] if c.get("edge_own") is not None else None   # studies; and a 13-game
+            over = (f"our read {round((own - c['p_market']) * 100, 1):+g} points on the price" if own is not None   # night
+                    and c.get("p_market") is not None else "our read against the price")       # said "12-game slate")
+            c["reasons"] = [f"the NBA dog score backs it: +{sc:g} ({over}, every NBA dog study weighed{why})"]
         return
     gate = {"nfl": DOG_GATE, "ncaaf": NCAAF_DOG_GATE}[lg]
     if sc < gate or not dog_own_ok(c) or c.get("edge_own") is None or c.get("p_market") is None:
@@ -2208,6 +2212,15 @@ def leg_tier(c):
     return "lock" if lock_ok(c) else "lean"                  # 53-56% = a strong lean (a real play, counts)
 
 
+def play_tier(c):
+    """A straight unit play's label (the 10/29 sweep): a VALUE PLAY is never labeled LOCK - the 🔒 chip and the "Lock it
+    in" closer belong to the Lock of the Day alone. The favorite the no-thin-Lock rule drops (NO_THIN_LOCK_FROM) lands
+    here through plays() as a ½u value play and said LOCK on a VALUE PLAY card (the owner, 10/28, relabeling the
+    Avalanche by hand: "it's obviously not a lock, so we would label it as value"). A lean-grade leg stays a lean."""
+    t = leg_tier(c)
+    return "value" if t == "lock" else t
+
+
 LEANS_COUNT_FROM = "2026-09-29"   # the owner, 9/28: leans hit about like value - from this board on they count in OUR record
 
 
@@ -2651,10 +2664,20 @@ def near_lock(cands, raw=False):
 LOCK_MISS_PATH = os.path.join(sd.DATA, "lock_miss.json")
 
 
-def lock_miss(cands, all_cands=None):
+def lock_miss(cands, all_cands=None, thin=None):
     """(the owner, 10/2: "can someone ask the question box what it would have been ... Virginia Tech, but it didn't quite
     meet the criteria") A day with no Lock: the pick that came closest (the old forced-Lock pick, near_lock) and why it
-    fell short - for the question box only. Never a pick, never units, never in the record."""
+    fell short - for the question box only. Never a pick, never units, never in the record.
+    thin: the Lock the no-thin-Lock rule took down (10/29 sweep) - it IS the answer, with the real reason: the edge was
+    under 3 cents on the dollar, and a thin edge is never the Lock (it rides as a ½u value play when the play bar clears)."""
+    if thin is not None and thin.get("dec") and read_of(thin) is not None:
+        own, need = read_of(thin), 1 / thin["dec"]
+        return {"team": thin.get("team"), "opp": thin.get("opp"), "league": thin.get("league"), "odds": thin.get("odds"),
+                "game_id": thin.get("game_id"), "start": thin.get("start"), "engine's own read %": round(own * 100),
+                "the price needs %": round(need * 100, 1),
+                "why it's not the Lock": (f"our read beats the price by only {round((own - need) * 100, 1)} points - a thin "
+                                          "edge (under 3 cents on the dollar) is never the Lock; it's a half-unit value "
+                                          "play at most (the owner, 10/28)")}
     c = near_lock([dict(x) for x in cands])                  # the same pick the forced Lock made (10/2: Virginia
     if not c:                                                 # Tech all morning) - the healthy pool first, then any
         b = last_lock([dict(x) for x in (all_cands or cands)])   # side the board could still post
@@ -4128,13 +4151,19 @@ def sizing_check(new):
             continue
         l, u, k = pk["legs"][0], units_for(pk), pk.get("kind")
         want = None
-        if pk.get("lean"):
+        if pk.get("owner_post") and pk.get("units") is not None:
+            want = (pk["units"], pk["units"])                # (10/29 sweep: the owner's post keeps HIS units - the
+            #                                                   check flagged his 2u Wyoming against the Dog's 1u floor)
+        elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
             want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog":
-            want = (dog_units(pk),) * 2
+            want = ((0.5, 0.5) if (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(l) and not pk.get("owner_post")
+                    else (dog_units(pk),) * 2)             # (10/29 sweep: the thin-edge Dog IS ½u - units_for's rule since
+            #                                                 10/24; the check still asked for the sport's 1u floor and
+            #                                                 flagged every own-under hockey Dog, the Blue Jackets 10/29)
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
         elif k == "lock":
@@ -4384,6 +4413,7 @@ def post_board(games, model, picks, now, day, force=False):
         not any(make_board(all_cands).get(k) for k in ("lock", "dog", "solo")) and not plays(cands, ())
     if lean_day:
         print(f"{iso}: nothing clears the value bar - leans only today")
+    thin_dropped = None                                       # the Lock the no-thin-Lock rule took down today, if any
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
         replacing = kind in posted or lean_day                # the opening board is value only; replacements may lean
@@ -4405,6 +4435,7 @@ def post_board(games, model, picks, now, day, force=False):
         if kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best):
             print(f"   no thin-edge Lock: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - "
                   "a thin edge is never a Lock (the owner, 10/28)")
+            thin_dropped = best["legs"][0]                    # (10/29: the question box names THIS pick, not near_lock's)
             best = None
         if replacing:                                         # a lean never repeats a game we're already on today
             if best and any(l["game_id"] in avoid for l in best["legs"]):
@@ -4426,7 +4457,10 @@ def post_board(games, model, picks, now, day, force=False):
             picks.append({"date": iso, "kind": kind, "status": "waiting", "legs": [], "waiting": wait[:3],
                           "deadline": deadline.strftime("%Y-%m-%dT%H:%MZ")})
             continue
-        dress(b)
+        for leg in b["legs"]:                                 # (10/29 sweep: the label BEFORE the write-up - the card's
+            leg["tier"] = ("lean" if (bool(b.get("lean")) or replacing) else "lock" if kind == "lock"   # bottom line
+                           else leg_tier(leg))                #  reads it; it was set after dress(), so a Lock's first
+        dress(b)                                              #  card had a value play's closer until the next rewrite)
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
@@ -4443,7 +4477,7 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     if "lock" in todo and not started and not any(p["date"] == iso and p["kind"] == "lock" and p["status"] != "waiting" for p in picks):
         try:                                                  # no Lock today: what it would have been, and why not
-            miss = lock_miss(cands, all_cands)                # (the question box answers "what would the Lock have been")
+            miss = lock_miss(cands, all_cands, thin=thin_dropped)   # (the question box answers "what would the Lock have been")
             if miss:
                 save_lock_miss(iso, miss)
         except Exception as e:                               # noqa: BLE001 - never blocks the board
@@ -4466,7 +4500,7 @@ def post_board(games, model, picks, now, day, force=False):
               "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
               "stake": STAKE, "status": "open", "pnl": 0.0, "lean": False, "midday": started,
               "owner_post": req["note"], "units": float(req["units"])}
-        c["tier"] = "lock" if req["kind"] == "lock" else leg_tier(c)
+        c["tier"] = "lock" if req["kind"] == "lock" else play_tier(c)   # (10/29: his play is VALUE, never LOCK-chipped)
         if c["tier"] in ("lean", "strong"):                  # (10/28, the owner: New Mexico St 1u said "slight lean" -
             c["tier"] = "value"                              #  a play with units is never labeled a lean)
         pk["tier"] = pick_tier({**pk, "tier": None})
@@ -4514,7 +4548,8 @@ def post_board(games, model, picks, now, day, force=False):
                 print(f"   fill lean on {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
                 #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
-            dress(b)
+            c["tier"] = "lean" if kind == "lean" else play_tier(c)   # (10/29 sweep: the card is written with its label -
+            dress(b)                                                 #  a VALUE PLAY never reads "Lock it in")
             pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
@@ -4522,7 +4557,7 @@ def post_board(games, model, picks, now, day, force=False):
             if kind == "lean" and confident_lean(c):
                 pk["lean_units"] = lean_units(c)
             leg = pk["legs"][0]
-            leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
+            leg["tier"] = "lean" if pk["lean"] else play_tier(leg)   # (10/29: a unit play is VALUE, never LOCK)
             if pk["lean"]:
                 leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}lean{c['game_id']}")
             pk["tier"] = pick_tier({**pk, "tier": None})
@@ -4593,6 +4628,9 @@ def upgrade_dog(picks, iso, now):
     best = max((p for p in picks if p.get("kind") == "play" and open_(p) and p["legs"][0].get("market") == "ml"
                 and not p.get("gap")                         # (10/17: a 🔍 play rides the raw read - never the Dog)
                 and not p.get("owner_post")                  # (10/22: the owner's hand-posted play stays as he posted it)
+                and not p.get("floor")                       # (10/29 sweep: a floor / NBA floor play never passed the Dog
+                #                                               gate or the own-read rule - it is up on the dog score alone,
+                #                                               ½u by design; promoting it made a score-0 dog a 1u-2u Dog)
                 and DOG_MIN <= (p["legs"][0].get("odds") or 0) <= DAILY_DOG_MAX and dog_value(p) is not None),
                key=dog_value, default=None)
     if best is None or dog_value(best) < dog_value(dog) + DOG_UPGRADE_GAP:

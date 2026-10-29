@@ -35,6 +35,13 @@ def dog_blockers(c):
             out.append("not a real play (good)")
     except Exception as e:                                   # noqa: BLE001
         out.append(f"check failed: {str(e)[:40]}")
+    if out and c.get("league") == "nhl":                     # (10/29 sweep: the hockey fallback Dog - best_hockey_dog, score
+        try:                                                 #  over NHL_BEST_DOG_MIN - needs no named reason / good(); the
+            if sports.best_hockey_dog([dict(c)]) is not None:   #  line said "kept off" under the pick it was)
+                return ["kept off the gated Dog (" + ", ".join(out) + f") - but it clears the hockey best-dog path "
+                        f"(score over {sports.NHL_BEST_DOG_MIN:g}, own read over the no-vig market)"]
+        except Exception:                                    # noqa: BLE001
+            pass
     return ["kept off: " + ", ".join(out)] if out else ["passes every Dog check"]
 
 def main(day_iso=None):
@@ -113,7 +120,13 @@ def main(day_iso=None):
             if sports.fighting(c):
                 why.append("own read under the price")
             elif sports.DOG_NEEDS_OWN and c.get("edge_own") is not None and c["edge_own"] <= 0:
-                why.append(f"own read {(c['edge_own'] + 1) / c['dec']:.1%} - not over the price, so no Dog (10/23 plan)")
+                rule = sports.DOG_OWN_RULE.get(c.get("league"), "price")   # (10/29 sweep: hockey's rule is the no-vig
+                own_ = (c["edge_own"] + 1) / c["dec"]                     #  market, the NBA has none - the line said
+                if not sports.dog_own_ok(c):                              #  "so no Dog" on dogs that pass it)
+                    why.append(f"own read {own_:.1%} - under the {'no-vig market' if rule == 'market' else 'price'}, so no Dog (10/23 plan)")
+                else:
+                    why.append(f"own read {own_:.1%} - under the price but " + ("over the no-vig market (hockey's own-read rule, 10/27)" if rule == "market"
+                                                                             else "the NBA Dog has no own-read rule (10/27) - the score decides"))
             try:
                 why.append(f"dog score {sports.dog_score(c):+.1f}")
             except Exception:                                            # noqa: BLE001

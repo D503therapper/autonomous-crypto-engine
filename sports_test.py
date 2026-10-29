@@ -10857,7 +10857,8 @@ def test_board_preview_names_the_10_23_own_read_dog_rule():
     """10/23: the owner asked where the Wyoming 2u Dog went - the preview listed it with no reason (it only showed the
     3-point 'fighting' check, not the 10/23 plan's own-read-over-the-price Dog rule). Every dog the rule keeps off says so."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "board_preview.py")).read()
-    assert "sports.DOG_NEEDS_OWN" in src and "not over the price, so no Dog (10/23 plan)" in src
+    assert "sports.DOG_NEEDS_OWN" in src and "so no Dog (10/23 plan)" in src and "sports.dog_own_ok(c)" in src   # (10/29:
+    #   the line reads the per-sport rule - hockey's no-vig market, the NBA none - and says which one the dog is under)
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
     import board_preview as bp                          # ...and every other Dog check it fails, by name
     got = bp.dog_blockers({"market": "ml", "odds": 180, "dec": 2.8, "edge": 0.1, "edge_own": 0.05, "p": 0.39,
@@ -14470,7 +14471,8 @@ def test_nba_injuries_weighed_not_blocked_and_only_a_key_man_holds_a_pick_10_28(
         dec = sd.decimal(270)
         bucks = {**_cand("b", 270, 0.326, league="nba"), "reasons": [], "sc": 4.7, "waiting": [], "dog_more": {"slate": 12}}
         sports.score_reason(bucks)
-        assert bucks["reasons"] == ["the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"]
+        assert len(bucks["reasons"]) == 1 and bucks["reasons"][0].startswith("the NBA dog score backs it: +4.7 (") \
+            and "12-game slate" in bucks["reasons"][0] and "+5.6 points on the price" in bucks["reasons"][0]   # (10/29 wording)
         assert sports.good(dict(bucks)) and sports.dog_gate(dict(bucks))   # it clears the gate (4+) and is a real play now
         thin = {**_cand("t", 160, 0.38, league="nba"), "reasons": [], "sc": 1.5, "waiting": []}
         assert [c["game_id"] for c in sports.nba_floor_plays([thin], set())] == ["t"]   # ...and a 0+ score is a floor play
@@ -14625,6 +14627,101 @@ def test_owner_post_with_units_is_never_labeled_a_lean_10_28():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     i = src.index("a play with units is never labeled a lean")
     assert 'c["tier"] = "value"' in src[i - 300:i + 200] and 'pk["tier"] = "value"' in src[i:i + 400]
+
+
+def test_sweep_1029_upgrade_dog_never_promotes_a_floor_play():
+    """10/29 sweep: a floor / NBA floor play is up on the dog score alone (½u, never through the Dog gate or the own-read
+    rule), yet upgrade_dog read it as a plain value play - 3 points more value than the posted Dog and a score-0 dog
+    became the 1u-2u Dog of the Day. A floor play never takes the Dog spot; a dog_play (it cleared the full check) still can."""
+    now = datetime(2026, 10, 29, 18, 0, tzinfo=timezone.utc)
+    leg = lambda team, odds, read: {"team": team, "odds": odds, "market": "ml", "dog_p": read, "start": "2026-10-30T01:00Z",
+                                    "game_id": team, "side": "home", "league": "nhl"}
+    pk = lambda kind, team, odds, read, **kw: {"date": "2026-10-29", "kind": kind, "status": "open", "lean": False,
+                                              "dec": 1 + odds / 100, "legs": [leg(team, odds, read)], **kw}
+    picks = [pk("dog", "Blue Jackets", 190, 0.36), pk("play", "Flames", 160, 0.45, floor={"dog_score": 2.0})]
+    assert sports.upgrade_dog(picks, "2026-10-29", now) is None and picks[0]["kind"] == "dog" and picks[1]["kind"] == "play"
+    picks = [pk("dog", "Blue Jackets", 190, 0.36), pk("play", "Bucks", 270, 0.33, floor={"dog_score": 4.7, "nba": True})]
+    assert sports.upgrade_dog(picks, "2026-10-29", now) is None            # the NBA floor play neither
+    picks = [pk("dog", "Blue Jackets", 190, 0.36), pk("play", "Flames", 160, 0.45, dog_play=True)]
+    assert sports.upgrade_dog(picks, "2026-10-29", now)["legs"][0]["team"] == "Flames"   # a runner-up Dog still can
+
+
+def test_sweep_1029_a_unit_play_is_value_never_lock_on_the_card():
+    """10/29 sweep: the no-thin-Lock rule (10/28) drops the Lock and the same favorite comes back through plays() as a ½u
+    value play - its leg tier was leg_tier() = "lock", so a VALUE PLAY card wore the 🔒 LOCK chip and the "Lock it in"
+    closer (the owner, 10/28, relabeling the Avalanche by hand: "it's obviously not a lock, so we would label it as
+    value"). play_tier: lock -> value, a lean stays a lean; the tier is set BEFORE the write-up on every posting path."""
+    c = _cand("a", -140, 0.62, league="nfl")
+    assert sports.leg_tier(c) == "lock" and sports.play_tier(c) == "value"
+    assert sports.play_tier(_cand("b", -110, 0.50, league="nfl")) == "lean"
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("def early_sides(")]
+    i = pb.index('b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}')
+    assert 'c["tier"] = "lean" if kind == "lean" else play_tier(c)' in pb[i:i + 300] and pb.index("dress(b)", i) > pb.index('play_tier(c)', i)
+    assert 'leg["tier"] = "lean" if pk["lean"] else play_tier(leg)' in pb      # (and again on the posted leg)
+    j = pb.index('for kind in todo:')
+    k = pb.index("dress(b)", j)
+    assert 'else leg_tier(leg))' in pb[j:k] and '"lock" if kind == "lock"' in pb[j:k]   # the Lock's label before its card
+    assert 'c["tier"] = "lock" if req["kind"] == "lock" else play_tier(c)' in pb      # the owner's play: VALUE, never LOCK-chipped
+
+
+def test_sweep_1029_nba_score_reason_says_what_the_score_is():
+    """10/29 sweep: the NBA named reason read "+4.7 points over the price on a 12-game slate" - the dog score is the read
+    vs the price PLUS the studies (the Bucks' read was 5.6 over), and a 13-game night said "12-game". It names both."""
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        c = {**_cand("b", 270, 0.326, league="nba"), "reasons": [], "sc": 4.7, "waiting": [], "dog_more": {"slate": 13}}
+        sports.score_reason(c)
+        r = c["reasons"][0]
+        assert "+4.7 (" in r and "+5.6 points on the price" in r and "13-game slate" in r and "points over the price" not in r, r
+        c2 = {**_cand("c", 160, 0.40, league="nba"), "reasons": [], "sc": 1.0, "waiting": [], "dog_more": {"slate": 8}}
+        sports.score_reason(c2)
+        assert "slate" not in c2["reasons"][0] and "+1 (" in c2["reasons"][0]
+    finally:
+        sports.dog_score = keep
+
+
+def test_sweep_1029_the_question_box_names_the_thin_lock_the_rule_took_down():
+    """10/29 sweep: with the thin Lock dropped (NO_THIN_LOCK_FROM) the no-Lock answer came from near_lock - a different
+    pick with "not enough for the Lock". The answer is the pick the rule took down and the real reason: a thin edge."""
+    c = {"market": "ml", "odds": -148, "dec": sd.decimal(-148), "team": "Avalanche", "opp": "Devils", "league": "nhl",
+         "game_id": "nhl:1", "start": "2026-10-29T02:00Z", "reasons": ["x"], "waiting": [], "p": 0.60, "w_p": 0.5988}
+    c["edge_own"] = 0.595 * c["dec"] - 1
+    m = sports.lock_miss([], thin=c)
+    assert m["team"] == "Avalanche" and m["odds"] == -148 and "thin" in m["why it's not the Lock"] \
+        and "half-unit value play" in m["why it's not the Lock"] and m["engine's own read %"] == 60
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("def early_sides(")]
+    assert 'thin_dropped = best["legs"][0]' in pb and "lock_miss(cands, all_cands, thin=thin_dropped)" in pb
+
+
+def test_sweep_1029_sizing_check_knows_the_thin_edge_dog_is_half_a_unit():
+    """10/29 sweep (the 10/29 preview: "sizing: dog Blue Jackets 190 at 0.5u - the unit system says 1u"): units_for has
+    sized a thin-edge Dog at ½u since 10/24 (THIN_HALF_FROM); the sizing check still wanted the sport's 1u floor and
+    flagged every own-under hockey Dog that passes the no-vig market rule. The check reads the thin rule too."""
+    dec = sd.decimal(190)
+    leg = {"league": "nhl", "odds": 190, "dec": dec, "market": "ml", "team": "Blue Jackets", "dog_p": 0.396,
+           "edge_own": 0.336 * dec - 1, "p_market": 0.345}
+    pk = {"date": "2026-10-29", "kind": "dog", "lean": False, "status": "open", "dec": dec, "american": 190, "legs": [leg]}
+    assert sports.thin_edge(leg) and sports.units_for(pk) == 0.5 and sports.sizing_check([pk]) == []
+    fat = {**pk, "legs": [{**leg, "edge_own": 0.45 * dec - 1, "dog_p": 0.45}]}
+    assert not sports.thin_edge(fat["legs"][0]) and sports.units_for(fat) == 2.0 and sports.sizing_check([fat]) == []
+    assert sports.sizing_check([{**pk, "units": 2.0, "owner_post": "x"}]) == []   # the owner's units are his
+
+
+def test_sweep_1029_no_dog_note_calls_a_play_thin_only_when_it_is_half_a_unit():
+    """10/29 sweep: the no-Dog note said "thin-edge plays below" over a 1u 🔍 gap play and an NBA floor dog whose read
+    cleared the price by 5 points. Half-unit plays only get "half-unit"; anything bigger is "value plays, their own units"."""
+    import sports_dashboard as sdb
+    lock = {"kind": "lock", "lean": False, "american": -130}
+    half = {"kind": "play", "lean": False, "american": 160, "floor": {}, "date": "2026-10-29", "status": "open",
+            "dec": 2.6, "legs": [{"odds": 160, "dec": 2.6, "market": "ml", "league": "nhl"}]}
+    h = sdb._dog_note("2026-10-29", [lock, half])
+    assert "half" in h and "thin" not in h, h
+    gap = {**half, "floor": None, "gap": 0.16, "american": 130, "dec": 2.3, "legs": [{"odds": 130, "dec": 2.3, "market": "ml", "league": "ncaaf"}]}
+    h2 = sdb._dog_note("2026-10-29", [lock, half, gap])
+    assert "half" not in h2 and "thin" not in h2 and "value play" in h2 and "below" in h2, h2
 
 
 if __name__ == "__main__":
