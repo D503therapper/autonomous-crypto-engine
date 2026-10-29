@@ -1,9 +1,13 @@
 {
- "at": "2026-10-29T03:30Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-29T03:32Z",
+ "fixes": [
+  "live watch 40808142820 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
+ "problems": [
+  "live board check failed: <urlopen error timed out>"
+ ],
  "ok": [
-  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +15,25 @@
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 4 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 35 min ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T03:32Z",
+   "fixes": [
+    "live watch 40808142820 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live board check failed: <urlopen error timed out>"
+   ]
+  },
   {
    "at": "2026-10-29T03:30Z",
    "fixes": [],
@@ -523,13 +534,6 @@
    "at": "2026-10-27T08:26Z",
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T08:25Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - started sports.yml"
    ],
    "problems": []
   }
