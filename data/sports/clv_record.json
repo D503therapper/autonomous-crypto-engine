@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 136,
+  "n": 138,
   "beat": 43,
-  "same": 50,
-  "worse": 43,
-  "avg_pts": 0.07
+  "same": 51,
+  "worse": 44,
+  "avg_pts": 0.06
  },
  "unit_plays": {
-  "n": 59,
+  "n": 60,
   "beat": 18,
-  "same": 27,
+  "same": 28,
   "worse": 14,
   "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
-   "n": 18,
+   "n": 19,
    "beat": 4,
-   "same": 8,
+   "same": 9,
    "worse": 6,
-   "avg_pts": -0.26
+   "avg_pts": -0.24
   },
   "lean": {
-   "n": 77,
+   "n": 78,
    "beat": 25,
    "same": 23,
-   "worse": 29,
-   "avg_pts": -0.01
+   "worse": 30,
+   "avg_pts": -0.03
   },
   "lock": {
    "n": 13,
@@ -52,18 +52,18 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 14,
+   "n": 15,
    "beat": 5,
-   "same": 6,
+   "same": 7,
    "worse": 3,
-   "avg_pts": 0.39
+   "avg_pts": 0.37
   },
   "ncaaf": {
-   "n": 38,
+   "n": 39,
    "beat": 11,
    "same": 16,
-   "worse": 11,
-   "avg_pts": 0.09
+   "worse": 12,
+   "avg_pts": 0.05
   },
   "nfl": {
    "n": 20,
@@ -2003,6 +2003,20 @@
   },
   {
    "date": "2026-10-28",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "MTSU",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -108,
+   "pts": -1.6,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-28",
    "kind": "play",
    "lean": false,
    "league": "nba",
@@ -2014,6 +2028,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "dog",
+   "lean": false,
+   "league": "nba",
+   "team": "Warriors",
+   "market": "ml",
+   "line": null,
+   "odds": 142,
+   "close": 142,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }

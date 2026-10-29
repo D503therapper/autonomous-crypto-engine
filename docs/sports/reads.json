@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T02:49Z",
+ "updated": "2026-10-29T03:11Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -372,6 +372,21 @@
    }
   },
   {
+   "id": "nba:401909892",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-29T02:30Z",
+   "away": "Lakers",
+   "home": "Clippers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892603",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -499,7 +514,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.705,
+    "p": 0.704,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -517,7 +532,7 @@
     "line": -13.5,
     "odds": -118,
     "p": 0.501,
-    "win_p": 0.761,
+    "win_p": 0.759,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -530,7 +545,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "James Madison",
-    "p": 0.785,
+    "p": 0.784,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -548,7 +563,7 @@
     "line": -19.5,
     "odds": -110,
     "p": 0.502,
-    "win_p": 0.844,
+    "win_p": 0.843,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -629,18 +644,18 @@
    "start": "2026-10-30T00:00Z",
    "away": "Capitals",
    "home": "Predators",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Predators",
-    "opp": "Capitals",
+    "team": "Capitals",
+    "opp": "Predators",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.73,
-    "win_p": 0.522,
+    "odds": -285,
+    "p": 0.697,
+    "win_p": 0.479,
     "reasons": [
-     "opponent on a back-to-back"
+     "the stronger team"
     ]
    }
   },
@@ -801,7 +816,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.616,
+    "p": 0.615,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -810,7 +825,7 @@
    "start": "2026-10-30T02:00Z",
    "away": "Grizzlies",
    "home": "Trail Blazers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Trail Blazers",
