@@ -1,27 +1,32 @@
 {
- "at": "2026-10-29T10:27Z",
+ "at": "2026-10-29T12:00Z",
  "fixes": [],
- "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 15 min ago",
+  "baseball star list fresh (30 teams)",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 44 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-29T12:00Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-29T10:27Z",
    "fixes": [],
@@ -474,15 +479,6 @@
    "at": "2026-10-27T19:08Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-27T19:07Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Taborda vs Hercog: no points for 2617s",
-    "live tennis scores: tennis Johnson vs Ferro: no points for 2617s",
-    "live tennis scores: tennis Herea vs Cano: no points for 2356s"
-   ]
   }
  ]
 }
