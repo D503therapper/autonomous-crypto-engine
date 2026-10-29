@@ -1,29 +1,48 @@
 {
- "at": "2026-10-29T14:57Z",
- "fixes": [],
+ "at": "2026-10-29T16:28Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - started sports.yml",
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "studies last ran 9h ago - restarted"
+  "live tennis scores: tennis Kabbaj vs Riera: no points for 2615s",
+  "live tennis scores: tennis Jacquemot vs Bandecchi: no points for 2615s",
+  "live tennis scores: tennis Aksu vs Stefanini: no points for 2615s",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (114s)",
-  "every finished pick graded",
+  "live watcher fresh (55s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 3 of 6 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 9h ago",
-  "engine ran 18 min ago",
+  "studies ran 2h ago",
+  "engine ran 1 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T16:28Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - started sports.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Riera: no points for 2615s",
+    "live tennis scores: tennis Jacquemot vs Bandecchi: no points for 2615s",
+    "live tennis scores: tennis Aksu vs Stefanini: no points for 2615s",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-29T14:57Z",
    "fixes": [],
@@ -464,16 +483,6 @@
     "live tennis scores: tennis Grabher vs Alves: no points for 2623s",
     "live tennis scores: tennis Linana vs Rodriguez: no points for 2623s",
     "live tennis scores: tennis Andreescu vs Hui: no points for 1736s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-27T23:01Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Alves: no points for 343s",
-    "live tennis scores: tennis Cherubini vs Gonzalez: no points for 343s",
-    "live tennis scores: tennis Linana vs Rodriguez: no points for 343s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
