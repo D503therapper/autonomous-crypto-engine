@@ -1381,10 +1381,10 @@ def label(p, now_odds, opp_now=None):
 
 
 MOVE_SAY = {   # (10/1, the owner: every row explains the move - "the line moved in our favor, let's go to work")
-    "🔥 we beat the line": (
-        "We got {t} at {a}, it's {n} now. The line came our way - let's go to work.",
+    "🔥 we beat the line": (   # (10/29: plain words - a favorite at -107 that's -110 now = we got the CHEAPER price)
+        "We got {t} at {a}, it's {n} now - we got the better number. Let's go to work.",
         "{a} when we got in, {n} now. The books moved toward us - we already got the better number.",
-        "Grabbed {t} at {a} and the market followed us to {n}. That's beating the line."),
+        "Grabbed {t} at {a}; the book's at {n} now. Our price was the better one, and it's locked in."),
     "💰 better price now": (
         "{t} went from {a} to {n}, and the engine still likes 'em. Line got worse for us, but this still gon' smack.",
         "We took {a}, it's {n} now - a bigger price and our read didn't move. Still riding.",

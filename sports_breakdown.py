@@ -10,7 +10,8 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 59          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 60          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+#                       (60: 10/29 afternoon lingo sweep - no "PDO" / "dog check", the heater bar, the risk line, verbs)
 
 
 def _t(iso):

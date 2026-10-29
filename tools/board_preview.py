@@ -39,7 +39,13 @@ def dog_blockers(c):
         try:                                                 #  over NHL_BEST_DOG_MIN - needs no named reason / good(); the
             if sports.best_hockey_dog([dict(c)]) is not None:   #  line said "kept off" under the pick it was)
                 return ["kept off the gated Dog (" + ", ".join(out) + f") - but it clears the hockey best-dog path "
-                        f"(score over {sports.NHL_BEST_DOG_MIN:g}, own read over the no-vig market)"]
+                        f"(score over {sports.NHL_BEST_DOG_MIN:g}, own read {sports.NHL_FALLBACK_OWN_GAP:g}+ points over the no-vig market)"]
+        except Exception:                                    # noqa: BLE001
+            pass
+        try:                                                 # (10/29: the fallback Dog needs the own read 2+ over the market)
+            gap = sports.hockey_own_gap(c)
+            if gap is not None and gap < sports.NHL_FALLBACK_OWN_GAP:
+                out.append(f"own read only {gap:+.2f} points on the no-vig market (the hockey fallback Dog needs {sports.NHL_FALLBACK_OWN_GAP:g}+)")
         except Exception:                                    # noqa: BLE001
             pass
     return ["kept off: " + ", ".join(out)] if out else ["passes every Dog check"]
