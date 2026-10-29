@@ -1,32 +1,36 @@
 {
- "at": "2026-10-29T22:02Z",
+ "at": "2026-10-29T22:32Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Strakhova vs Hercog: no points for 856s",
-  "live tennis scores: tennis Colmegna vs Maria: no points for 205s"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 10 min ago",
+  "simulator ran 4h ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T22:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-29T22:02Z",
    "fixes": [],
@@ -498,11 +502,6 @@
   },
   {
    "at": "2026-10-28T07:54Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T06:22Z",
    "fixes": [],
    "problems": []
   }
