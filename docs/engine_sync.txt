@@ -1,18 +1,17 @@
-[push] 2026-10-29 11:08 UTC rc 1:   error: File data/run.log is 100.60 MB; this exceeds GitHub's file size limit of 100.00 MB        
-remote: error: File data/run.log is 100.40 MB; this exceeds GitHub's file size limit of 100.00 MB        
-remote: error: File data/run.log is 100.20 MB; this exceeds GitHub's file size limit of 100.00 MB        
-remote: error: File data/run.log is 101.00 MB; this exceeds GitHub's file size limit of 100.00 MB        
+[push] 2026-10-29 12:08 UTC rc 1:  remote: error: Trace: 753f1751d5eef6327f8d14f296815e5c2d968bea8f1c14f9ef580331b8646f00        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File data/run.log is 100.14 MB; this exceeds GitHub's file size limit of 100.00 MB        
 remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
 remote: pre-receive hook declined
 To https://github.com/D503therapper/autonomous-crypto-engine
  ! [remote rejected]       main -> main (pre-receive hook declined)
 error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
 
-[fallback] 2026-10-29 11:08 UTC ['push', '-q']: remote: error: Trace: fd267e37469dac4fe660a06ab6a92b08ae134642bc74224b1daab0d49fb67a11        
+[fallback] 2026-10-29 12:08 UTC ['push', '-q']: remote: error: Trace: d456b9f54ef5b9483baa9f683eb23206113295dfece6bc298585835ce672b549        
 remote: error: See https://gh.io/lfs for more information.        
-remote: error: File data/run.log is 101.00 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: File data/run.log is 100.14 MB; this exceeds GitHub's file size limit of 100.00 MB        
 remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
 remote: pre-receive hook declined
 To https://github.com/D503therapper/autonomous-crypto-engine
- ! [remote rejected]       a8a9a3841ebbc5e16ffe882db471478699f44e73 -> main (pre-receive hook declined)
+ ! [remote rejected]       69ab155f2412fc69111574447537a2faa73c244c -> main (pre-receive hook declined)
 error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
