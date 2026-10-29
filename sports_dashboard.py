@@ -812,9 +812,17 @@ def _dog_note(day, day_picks):
     if dogs_up:                                              # (10/27, the owner: "it says no dogs today, no plus money
         n = len(dogs_up)                                     #  where the price beats the spot, but then it shows two
         k = sum(map(ord, str(day))) % 3                      #  value plays - that don't make no sense")
-        msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'thin-edge plays' if n > 1 else 'a thin-edge play'} below.",
-               f"No Dog of the Day today. The dog check's top {'pick' if n == 1 else str(n)} still made the board below - thin edge, small bets.",
-               f"Dog of the Day's empty - no dog earned the full spot. {'Our best dog rides' if n == 1 else 'Our best dogs ride'} below as thin-edge value plays."][k]
+        import sports as _sp                                 # (10/29 sweep: "thin-edge" only when every dog up IS a ½u
+        half = all((_sp.units_for(p) or 0) <= 0.5 for p in dogs_up)   #  bet - a 1u 🔍 gap play or an NBA floor dog
+        #                                                      whose read clears the price by 5 points is no thin edge)
+        if half:
+            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'half-unit plays' if n > 1 else 'a half-unit play'} below.",
+                   f"No Dog of the Day today. The dog check's top {'pick' if n == 1 else str(n)} still made the board below - small bets, half a unit each.",
+                   f"Dog of the Day's empty - no dog earned the full spot. {'Our best dog rides' if n == 1 else 'Our best dogs ride'} below as half-unit value plays."][k]
+        else:
+            msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'value plays' if n > 1 else 'a value play'} below, with {'their' if n > 1 else 'its'} own units.",
+                   f"No Dog of the Day today. {'The dogs' if n > 1 else 'The dog'} that made the board {'ride' if n > 1 else 'rides'} below as {'value plays' if n > 1 else 'a value play'} - each sized on its own rule.",
+                   f"Dog of the Day's empty - no dog earned the full spot. {'Our dogs ride' if n > 1 else 'Our dog rides'} below as {'value plays' if n > 1 else 'a value play'}."][k]
         return f'<div class="drop leanday">🐺 {E(msg)}</div>'
     return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
 
