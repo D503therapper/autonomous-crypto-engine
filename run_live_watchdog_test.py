@@ -140,9 +140,29 @@ def test_sync_error_published_with_the_dashboard():
         os.chdir(cwd)
 
 
+def test_run_log_rotates_under_the_github_limit():
+    # 10-29: data/run.log hit 100 MB and GitHub refused every hourly save; it rotates into data/run_logs/ now
+    import gzip, os, tempfile
+    d = tempfile.mkdtemp()
+    live, out, off = (os.path.join(d, n) for n in ("live", "run.log", "off"))
+    noise = (b"/x/yfinance/utils.py:568: Pandas4Warning: The inplace keyword in DataFrame.sort_index is deprecated\n"
+             b"See https://pandas.pydata.org/docs/dev/whatsnew/v3.1.0.html#deprecation-inplace for more details.\n"
+             b"  quotes.sort_index(inplace=True)\n")
+    open(live, "wb").write(b"keep 1\n" + noise + b"keep 2\n")
+    run_live.flush_log(live, out, off)
+    assert open(out, "rb").read() == b"keep 1\nkeep 2\n"                      # the warning spam never lands
+    open(out, "ab").write(b"y" * 2000 + b"\n")
+    dest = run_live.rotate_log(out, limit=1000)
+    assert dest and os.path.dirname(dest).endswith("run_logs")
+    assert gzip.open(dest).read().startswith(b"keep 1\nkeep 2\n")                 # history kept, zipped
+    assert os.path.getsize(out) < 200 and b"log rotated" in open(out, "rb").read()
+    assert run_live.rotate_log(out, limit=1000) is None                         # small again: left alone
+
+
 if __name__ == "__main__":
     for f in (test_watchdog_fires_when_loop_stalls, test_watchdog_quiet_while_ticking, test_hung_git_is_bounded,
               test_git_unjam_clears_stale_lock_and_rebase, test_flush_log_copies_only_new_lines,
-              test_force_sync_publishes_our_paths_without_a_merge, test_sync_error_published_with_the_dashboard):
+              test_force_sync_publishes_our_paths_without_a_merge, test_sync_error_published_with_the_dashboard,
+              test_run_log_rotates_under_the_github_limit):
         f()
         print("ok", f.__name__)

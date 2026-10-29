@@ -8,12 +8,15 @@ Every strategy in every market has its own $500 paper account under data/<market
 import argparse
 import base64
 import csv
+import gzip
 import json
 import os
+import re
 import subprocess
 import threading
 import time
 import urllib.request
+import warnings
 
 import config
 import dashboard
@@ -794,6 +797,12 @@ def sh(cmd, err=None, tag=None, **kw):
 
 
 LIVE_LOG, RUN_LOG, LIVE_OFF = "data/run.live.log", "data/run.log", "data/run.live.offset"
+# 10-29: data/run.log reached GitHub's 100 MB file limit and every hourly save was refused (pre-receive hook
+# declined) from 10-28 15:22 on. Above ROTATE_LOG the log is gzipped into data/run_logs/ (history kept) and restarted.
+# Most of it was yfinance's pandas deprecation spam (290k lines): those lines never reach the log now.
+ROTATE_LOG = 40 * 1024 * 1024
+LOG_NOISE = re.compile(rb"Pandas4Warning|whatsnew/v3\.1\.0|^\s+\w+\.(sort_index|set_index)\(.*inplace=True\)\s*$")
+warnings.filterwarnings("ignore", message=".*inplace keyword.*")
 
 
 def flush_log(live=LIVE_LOG, out=RUN_LOG, off=LIVE_OFF):
@@ -815,10 +824,34 @@ def flush_log(live=LIVE_LOG, out=RUN_LOG, off=LIVE_OFF):
     with open(live, "rb") as f:
         f.seek(start)
         chunk = f.read(size - start)
+    chunk = b"".join(ln for ln in chunk.splitlines(keepends=True) if not LOG_NOISE.search(ln))
     with open(out, "ab") as f:
         f.write(chunk)
     with open(off, "w") as f:
         f.write(str(size))
+    rotate_log(out)
+
+
+def rotate_log(out=RUN_LOG, limit=None):
+    """Keep data/run.log under GitHub's 100 MB file limit: past `limit`, gzip it into data/run_logs/ and start fresh."""
+    limit = ROTATE_LOG if limit is None else limit
+    try:
+        if os.path.getsize(out) <= limit:
+            return None
+    except OSError:
+        return None
+    folder = os.path.join(os.path.dirname(out) or ".", "run_logs")
+    os.makedirs(folder, exist_ok=True)
+    dest = os.path.join(folder, f"run_{time.strftime('%Y%m%d_%H%M', time.gmtime())}.log.gz")
+    with open(out, "rb") as src, gzip.open(dest, "wb") as gz:
+        while True:
+            block = src.read(1 << 20)
+            if not block:
+                break
+            gz.write(b"".join(ln for ln in block.splitlines(keepends=True) if not LOG_NOISE.search(ln)))
+    with open(out, "w") as f:
+        f.write(f"[{time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC] log rotated: earlier lines in {dest}\n")
+    return dest
 
 
 def git_sync():
