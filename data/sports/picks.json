@@ -23375,6 +23375,7 @@
      "game:div"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23436,6 +23437,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "34,35,28,32",
+     "h": "25,31,29,32"
+    },
     "form_state": [
      -10.0,
      -2,
@@ -23484,10 +23489,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Heat 129 @ Hawks 117",
     "season_games": 4,
+    "settled": "2026-10-29T01:22Z",
     "side": "home",
     "star_back": [],
     "start": "2026-10-28T23:00Z",
@@ -23506,12 +23513,14 @@
    }
   ],
   "p_hit": 0.5514,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T15:00Z",
   "round": 1,
+  "settled": "2026-10-29T01:22Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,

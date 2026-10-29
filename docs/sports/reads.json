@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T01:14Z",
+ "updated": "2026-10-29T01:22Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -27,7 +27,7 @@
    "home": "Hawks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Hawks",
@@ -40,7 +40,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -335,7 +335,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.377,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -352,8 +352,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.662,
-    "win_p": 0.442,
+    "p": 0.67,
+    "win_p": 0.451,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
