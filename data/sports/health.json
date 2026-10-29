@@ -1,12 +1,9 @@
 {
- "at": "2026-10-29T18:44Z",
+ "at": "2026-10-29T18:46Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Grabher vs Carle: no points for 907s",
-  "live tennis scores: tennis Zavatska vs Blinkova: no points for 2618s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (48s)",
+  "live watcher fresh (122s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,19 +11,24 @@
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 0h ago",
   "simulator ran 0h ago",
-  "engine ran 42 min ago",
+  "engine ran 43 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T18:46Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-29T18:44Z",
    "fixes": [],
@@ -478,11 +480,6 @@
    "problems": [
     "sources down (the backups took over): betrivers:nba:1028754151 HTTP 404"
    ]
-  },
-  {
-   "at": "2026-10-28T02:26Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
