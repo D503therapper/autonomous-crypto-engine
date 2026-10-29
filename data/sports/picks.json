@@ -24062,6 +24062,11 @@
      "game:rival"
     ],
     "dec": 2.6,
+    "decider": {
+     "s": "4-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24105,6 +24110,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 5.51,
+    "flow": {
+     "a": "0,0,0",
+     "h": "1,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -24146,10 +24155,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 0 @ Oilers 4",
     "season_games": null,
+    "settled": "2026-10-29T03:34Z",
     "side": "away",
     "start": "2026-10-29T00:30Z",
     "stype": "2",
@@ -24166,12 +24177,14 @@
    }
   ],
   "p_hit": 0.3833,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T15:00Z",
   "round": 1,
+  "settled": "2026-10-29T03:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 270,
@@ -24649,6 +24662,7 @@
      "them:west1000"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24682,6 +24696,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,7,10,7",
+     "h": "0,0,0,0"
+    },
     "form_state": [
      6.0,
      1,
@@ -24724,10 +24742,12 @@
     "raw_own": 0.414,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Jax State 24 @ New Mexico St 0",
     "season_games": null,
+    "settled": "2026-10-29T03:34Z",
     "side": "home",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24746,11 +24766,12 @@
   "midday": true,
   "owner_post": "10/28 - the owner: 'B, post New Mexico State 1 unit' - a one-off (read 47.7% vs 43.5% at +130, dog score 6.0 over the college gate of 4; kept off only by the college no-named-reason rule, which stays)",
   "p_hit": 0.4764,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T21:38Z",
   "round": 1,
+  "settled": "2026-10-29T03:34Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "value",
   "units": 1.0
  }

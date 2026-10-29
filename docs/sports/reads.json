@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T03:11Z",
+ "updated": "2026-10-29T03:36Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -142,8 +142,8 @@
    "away": "Brewers",
    "home": "Rays",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -158,7 +158,7 @@
    "home": "New Mexico St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "New Mexico St",
@@ -169,7 +169,7 @@
     "p": 0.476,
     "win_p": 0.476,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -268,7 +268,7 @@
    "home": "Oilers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Flames",
@@ -282,7 +282,7 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
