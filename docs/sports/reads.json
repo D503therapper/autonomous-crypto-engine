@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T20:19Z",
+ "updated": "2026-10-29T21:05Z",
  "games": [
   {
    "id": "nhl:401892603",
@@ -70,7 +70,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.372,
+    "p": 0.376,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -79,16 +79,16 @@
    "start": "2026-10-29T23:00Z",
    "away": "Mammoth",
    "home": "Penguins",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Penguins",
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.67,
-    "win_p": 0.452,
+    "p": 0.662,
+    "win_p": 0.443,
     "reasons": [
      "better rested"
     ]
@@ -404,7 +404,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.563,
+    "p": 0.559,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -420,9 +420,9 @@
     "opp": "Panthers",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -526,7 +526,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.361,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -543,8 +543,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -258,
-    "p": 0.692,
-    "win_p": 0.476,
+    "p": 0.679,
+    "win_p": 0.461,
     "reasons": [
      "opponent missing key players"
     ]
@@ -739,8 +739,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.748,
-    "tie": 0.028,
+    "p": 0.73,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -757,7 +757,7 @@
     "line": -15.5,
     "odds": -110,
     "p": 0.508,
-    "win_p": 0.859,
+    "win_p": 0.84,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -834,8 +834,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.634,
-    "tie": 0.034,
+    "p": 0.686,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -843,18 +843,19 @@
    "start": "2026-10-30T23:30Z",
    "away": "Pistons",
    "home": "Nets",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Pistons",
     "opp": "Nets",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.758,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -864,8 +865,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.605,
-    "tie": 0.035,
+    "p": 0.574,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -880,9 +881,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.681,
-    "win_p": 0.681,
+    "odds": -230,
+    "p": 0.637,
+    "win_p": 0.637,
     "reasons": [
      "the stronger team"
     ]
@@ -922,7 +923,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.579,
+    "p": 0.571,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -938,9 +939,9 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.644,
-    "win_p": 0.644,
+    "odds": -185,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
