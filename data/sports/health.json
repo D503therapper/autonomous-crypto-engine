@@ -1,31 +1,40 @@
 {
- "at": "2026-10-29T16:29Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - sports.yml already running"
- ],
+ "at": "2026-10-29T17:06Z",
+ "fixes": [],
  "problems": [
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Souza vs Jones: no points for 1077s",
+  "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
  ],
  "ok": [
-  "live watcher fresh (14s)",
+  "live watcher fresh (10s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 6 live matches",
+  "live tennis points + server: 4 of 6 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 2 min ago",
+  "simulator ran 1h ago",
+  "engine ran 8 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T17:06Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Souza vs Jones: no points for 1077s",
+    "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
+   ]
+  },
   {
    "at": "2026-10-29T16:29Z",
    "fixes": [
@@ -471,14 +480,6 @@
     "live tennis scores: tennis Bulgaru vs Plekhanova: no points for 1121s",
     "live tennis scores: tennis Rame vs Podoroska: no points for 664s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-27T23:41Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
