@@ -1166,12 +1166,63 @@ def nba_open_why(c, fx):
     return [(r.format(t=me, pr=pr) + (" " + fact if fact else "")).strip() for r in NBA_OPEN_READS]
 
 
+def nba_open_weigh(games, facts=None):
+    """🏀 10/29 (the owner: "plug everything in the engine that needs to be plugged in"): the board's NBA dog weights on
+    the opening-line read - `weigh(gid, side, ml)` for sports_nba_open.best_tonight. A plus-money side gets what the
+    board's dog score adds for the same facts (sports.nba_dog_weights - the 10/21 twenty studies, the 10/28 12+ game
+    slate +2 (the slate = every game scheduled that night, priced or not - the schedule is known when the line opens)
+    and the favorite's soft next game -2 - and the 10/25 cold dog -2, sports.cold_dog), capped at ±STUDY_CAP like
+    every stack of studies on one dog (the owner, 10/2), in win-% points / 100. A favorite gets 0 (the studies are dog
+    studies). `facts` (a dict) keeps each side's dog facts for the card. Never a trigger: the model's 37-factor read
+    plus these weights has to clear the 4-point bar together."""
+    import sports
+    facts = facts if facts is not None else {}
+
+    def weigh(gid, side, ml):
+        if ml is None or ml < 100:
+            return 0.0
+        g = games.get(gid)
+        if not g:
+            return 0.0
+        other = "away" if side == "home" else "home"
+        try:
+            mo = sports._dog_more(games, g, side, other, "nba") or {}
+            c = {"league": "nba", "market": "ml", "odds": ml, "dog_more": mo, "home": side == "home",
+                 "season_games": mo.get("games_in")}
+            pts = sports.nba_dog_weights(c) - (sports.COLD_DOG_PTS if sports.cold_dog("nba", mo) else 0)
+        except Exception:                                    # noqa: BLE001 - no facts = no weight, never a crash
+            return 0.0
+        facts[(gid, side)] = mo
+        return max(-sports.STUDY_CAP, min(sports.STUDY_CAP, pts)) / 100.0
+    return weigh
+
+
+def nba_key_hole(g, side, inj):
+    """🏀 the early rule's injury check for an NBA side (the owner, 10/1: never an early play on a side with a key player
+    out or questionable): the KEY men (sports.nba_key_man - the 10/28 definition: a top-3 scorer over the last 10 box
+    scores or a verified starter; a team with no box scores keeps every man key) on this side who are out / doubtful
+    (short term - a season-long absence is in the team's results already) or questionable / day-to-day right now.
+    [] = clear. (10/29: sports.hurt returns [] for every NBA side with box scores since 10/28 - the board WEIGHS NBA
+    absences - so the opening-line play had no key-man check at all.)"""
+    import sports
+    rows = sd._team_rows(inj, g[side], g.get(f"{side}_name"))
+    out = []
+    for r in rows:
+        s = (r[2] or "").lower()
+        hole = (any(x in s for x in sd.SHORT_TERM) and "season" not in s) or any(x in s for x in sd.UNSURE)
+        if hole and sports.nba_key_man(g, side, r[0]):
+            out.append(r[0])
+    return out
+
+
 def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model=None):
     """🏀 -> the NBA opening-line candidates right now (sports_nba_open.best_tonight): for every slate date AFTER today
-    (never game day - the early rule) within AHEAD_D, the ONE side the model likes best at the price now - the first
-    price we hold (ESPN posts the NBA 2-4 days out; sd.record_lines keeps every hour's). It posts only when: both
-    teams' last games are over (ready - a fair price), the price hasn't already run MOVED_MAX+ toward us, the side has
-    no injury hole (sports.hurt - no report = UNKNOWN = no play), we hold no pick on the other side (board_sides / an
+    (never game day - the early rule; the line history says every regular-season NBA price so far landed the night
+    before or earlier, 0 of 79 on game day) within AHEAD_D, the ONE side the model's read PLUS the board's NBA dog
+    weights (nba_open_weigh) likes best at the price now - the first price we hold (ESPN posts the NBA 1-4 days out;
+    sd.record_lines keeps every hour's). It posts only when: both teams' last games are over (ready - a fair price),
+    the price hasn't already run MOVED_MAX+ toward us, the side has no injury hole (sports.hurt, and no KEY man out or
+    questionable - nba_key_hole; no report = UNKNOWN = no play), we hold no pick on the other side (board_sides / an
     open early play), and that slate has no 🏀 play yet (one a night, the #2 side loses). When the night's #1 side isn't
     bettable yet (its team plays tonight), nothing posts for that night - never the #2."""
     now = now or datetime.now(timezone.utc)
@@ -1196,11 +1247,13 @@ def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model
     board = board_sides() if board is None else board
     sched = _schedule(games)
     inj = (injuries or {}).get("nba")
+    dog_facts = {}
+    weigh = nba_open_weigh(games, dog_facts)                 # 🏀 10/29: the board's NBA dog weights ride on the read
     out = []
     for d in sorted({tab[g["id"]]["date"] for g in up if g["id"] in tab}):   # the slate nights (the table's US dates)
         if d in taken:
             continue
-        c = no.best_tonight(games, d, model, tab=tab)
+        c = no.best_tonight(games, d, model, tab=tab, weigh=weigh)
         if not c:
             continue
         g = games.get(c["game_id"])
@@ -1217,10 +1270,16 @@ def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model
             continue                                         # no NBA injury report = UNKNOWN, never a play
         if inj is not None and (not sd.covered(inj, "nba", g[c["side"]], c["team"]) or sports.hurt(g, c["side"], {"nba": inj})):
             continue                                         # a banged-up side (the hoops 2+ out / 4+ questionable rule)
+        if inj is not None and nba_key_hole(g, c["side"], inj):
+            continue                                         # a KEY man out / questionable on our side (the early rule;
+            #                                                  the 10/28 key-man definition - never every player)
         fx = no.facts(tab[c["game_id"]], c["side"])
         whys = nba_open_why(c, fx)
+        mo = dog_facts.get((c["game_id"], c["side"])) or {}
         c.update(league="nba", spot="nba_open", spots=["nba_open"], fades=[], why=whys[0], whys=whys,
-                 fair_at=r.strftime("%Y-%m-%dT%H:%MZ") if r else None, open=_int(g.get(f"ml_{c['side']}_open")))
+                 fair_at=r.strftime("%Y-%m-%dT%H:%MZ") if r else None, open=_int(g.get(f"ml_{c['side']}_open")),
+                 slate=mo.get("slate"), dog_more={k: mo[k] for k in ("slate", "opp_next_soft", "record", "lose_streak")
+                                                  if k in mo})
         out.append(c)
     return out
 

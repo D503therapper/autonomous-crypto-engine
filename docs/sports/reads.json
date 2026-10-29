@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T04:23Z",
+ "updated": "2026-10-29T05:19Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -355,7 +355,7 @@
    "home": "Kraken",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Maple Leafs",
@@ -381,8 +381,8 @@
    "away": "Lakers",
    "home": "Clippers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -529,8 +529,8 @@
     "team": "North Texas",
     "opp": "FAU",
     "market": "spread",
-    "line": -14.0,
-    "odds": -110,
+    "line": -14.5,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.759,
     "reasons": [
@@ -652,7 +652,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -270,
-    "p": 0.697,
+    "p": 0.696,
     "win_p": 0.479,
     "reasons": [
      "the stronger team"
@@ -724,8 +724,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.579,
-    "tie": 0.036,
+    "p": 0.588,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -740,11 +740,12 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.645,
-    "win_p": 0.645,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
