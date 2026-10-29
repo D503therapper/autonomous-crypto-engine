@@ -14703,6 +14703,36 @@ def test_hockey_audit_10_28_no_hockey_favorite_lean_at_150_130_and_the_fallback_
         sports.dog_score = keep
 
 
+def test_ten_hockey_studies_10_29_the_hot_hockey_dog_is_a_minus_2_weight_never_a_gate():
+    import sports_form
+    """10/29, the owner: "Run 10 studies across hockey because we need to tighten up." Of ten new angles (9,533 NHL finals
+    2018-27 at the close, actual starters, train 2018-23 / held out 2023-27) ONE held both halves: a hockey dog on a 3+ game
+    WIN streak -10.5% on 405 / -13.3% on 299 (1 of 4 seasons up) vs -6.9% / -3.8% for every hockey dog. A -2 WEIGHT on the
+    dog score (sports.hot_dog / NHL_HOT_DOG_W, inside STUDY_CAP), hockey only (NFL streak dogs run +6.7% - a +1 there),
+    never a gate; the tracker keeps its own live record. The team form (sports_form.team_states) now covers hockey."""
+    assert sports.NHL_HOT_DOG_W == 2 and sports_form.HOT_DOG_FADE == {"nhl": 3} and sports.STUDY_CAP == 6
+    base = {"league": "nhl", "market": "ml", "odds": 160, "dec": 2.6, "p_market": 0.385, "edge": 0.0, "edge_own": 0.0,
+            "dog_ctx": {}, "dog_more": {}, "form_state": (2.0, 2, 150, True, 0)}         # won 2 straight: not hot
+    hot = {**base, "form_state": (1.0, 3, 140, True, 0)}                                # 3 straight: hot
+    assert not sports.hot_dog(base) and sports.hot_dog(hot)
+    assert sports.dog_score(hot) == sports.dog_score(base) - 2
+    assert not sports.hot_dog({**hot, "odds": -140})                                    # a favorite: no dog weight
+    assert not sports.hot_dog({**hot, "league": "nba"})                                 # hoops: not studied here
+    assert not sports.hot_dog({**hot, "form_state": None}) and not sports.hot_dog({**hot, "form_state": (1.0, -3)})
+    # a stack of hockey fades still sits inside the owner's cap
+    stacked = {**hot, "odds": 230, "dec": 3.3, "p_market": 0.30, "pdo": 1.05, "ot_last": "so_win", "drift": 0.03}
+    assert sports.dog_score(stacked) >= -sports.STUDY_CAP
+    # the team form reads hockey games now (a 3-game win streak from the finals)
+    gs = [{"id": f"nhl:{i}", "league": "nhl", "start": f"2026-10-{20 + i:02d}T23:00Z", "status": "final", "stype": "2",
+           "home": "22", "away": f"{30 + i}", "home_score": 4, "away_score": 1} for i in range(3)]
+    st = sports_form.team_states({g["id"]: g for g in gs}, "2026-10-24T12:00Z")
+    assert st[("nhl", "22")][1] == 3 and st[("nhl", "32")][1] == -1, st
+    # the tracker tags it
+    import sports_leads
+    assert "NHL dog on a 3+ game win streak (fade)" in sports_leads.tags({**hot, "game_id": "x", "team": "Flames", "opp": "Oilers",
+                                                                           "side": "away", "home": False, "start": "2026-10-28T23:00Z"}, sports)
+
+
 def test_owner_post_with_units_is_never_labeled_a_lean_10_28():
     """10/28, the owner: "It says New Mexico State is a slight lean but puts a full unit play on it. That contradicts
     our rule of no units on leans. This should be labeled a value play." An owner post with units carries tier value."""

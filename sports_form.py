@@ -127,6 +127,11 @@ UPSET_HANGOVER = ("nfl", "ncaaf", "mlb")   # won as a +200 dog: next game AS A D
 # that hasn't scored in 12+ innings in a row: +4.9% (363) vs -3.8% for every favorite, at -150..-101 +10.2% (217),
 # better 7 of 9 seasons. Bettors fade the cold bats too hard. (Dogs in a drought: -6.9% vs -3.3%, not steady.)
 DROUGHT = {"mlb": 12}                      # scoreless innings in a row
+# THE HOT HOCKEY DOG (10/29 - ten hockey studies, 9,533 NHL finals 2018-27 at the close): a dog +100..+350 on a 3+ game
+# WIN streak lost -10.5% on 405 (train 2018-23, z -1.8) and -13.3% on 299 held out 2023-27 (z -2.0, 1 of 4 seasons up)
+# vs -6.9% / -3.8% for every hockey dog - the public pays up for the hot team. A -2 WEIGHT on the dog score (sports.hot_dog),
+# never a gate (the owner: findings are weights). Hockey only (NFL dogs on a 3+ streak run +6.7% - the opposite, a +1).
+HOT_DOG_FADE = {"nhl": 3}                  # league -> the win streak that makes a dog "hot" (sports.hot_dog)
 
 
 def team_states(games, now_iso):
@@ -134,7 +139,7 @@ def team_states(games, now_iso):
     in a row)} - real games in the last 3 weeks."""
     import sports_model as sm
     out = {}
-    for lg in set(BLOWOUT) | set(COLD_STREAK) | set(UPSET_BOUNCE) | set(UPSET_HANGOVER) | set(DROUGHT):
+    for lg in set(BLOWOUT) | set(COLD_STREAK) | set(UPSET_BOUNCE) | set(UPSET_HANGOVER) | set(DROUGHT) | set(HOT_DOG_FADE):
         streak, last, dry = {}, {}, {}
         for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
             if (g.get("stype") or "2") not in ("2", "3"):

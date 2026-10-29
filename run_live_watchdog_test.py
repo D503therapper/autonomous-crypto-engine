@@ -115,9 +115,34 @@ def test_force_sync_publishes_our_paths_without_a_merge():
         os.chdir(cwd)
 
 
+def test_sync_error_published_with_the_dashboard():
+    # 10-29: hourly saves failed for hours with no way to read why; the error rides the minute dashboard push
+    import os, subprocess, tempfile
+    err = {}
+    assert run_live.sh("echo boom >&2; exit 3", capture_output=True, text=True, err=err, tag="push") == 3
+    assert "rc 3" in err["push"] and "boom" in err["push"]
+    r, cwd = tempfile.mkdtemp(), os.getcwd()
+    try:
+        subprocess.run("git init -q --bare -b main remote.git && git clone -q remote.git a && cd a && "
+                       "git config user.email t@t && git config user.name t && mkdir docs && echo x > docs/index.html && "
+                       "git add -A && git commit -qm i && git push -q origin main", shell=True, check=True, cwd=r,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        os.chdir(os.path.join(r, "a"))
+        run_live.SYNC_ERR.clear()
+        run_live.SYNC_ERR["push"] = err["push"]
+        open("docs/index.html", "w").write("y\n")
+        run_live.push_docs()
+        shown = subprocess.run("git fetch -q && git show origin/main:docs/engine_sync.txt", shell=True,
+                               capture_output=True, text=True).stdout
+        assert "[push]" in shown and "boom" in shown, shown
+    finally:
+        run_live.SYNC_ERR.clear()
+        os.chdir(cwd)
+
+
 if __name__ == "__main__":
     for f in (test_watchdog_fires_when_loop_stalls, test_watchdog_quiet_while_ticking, test_hung_git_is_bounded,
               test_git_unjam_clears_stale_lock_and_rebase, test_flush_log_copies_only_new_lines,
-              test_force_sync_publishes_our_paths_without_a_merge):
+              test_force_sync_publishes_our_paths_without_a_merge, test_sync_error_published_with_the_dashboard):
         f()
         print("ok", f.__name__)

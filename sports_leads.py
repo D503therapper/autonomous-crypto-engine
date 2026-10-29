@@ -78,6 +78,8 @@ def tags(c, sports):
         t.append("NHL dog, record 10+ under its goals")
     if lg == "nhl" and c.get("odds", 0) >= sports.NHL_LONG_DOG:   # 10/17 study (built as a weight): its live record
         t.append("NHL dog +220 or longer (fade)")
+    if dog and lg == "nhl" and sports.hot_dog(c):            # 10/29 ten hockey studies (built as a -2 weight): its live record
+        t.append("NHL dog on a 3+ game win streak (fade)")   # (-10.5% train / -13.3% held out vs the band's -6.9% / -3.8%)
     if dog and lg == "ncaaf" and c.get("raw_own") is not None and c.get("p_market") is not None \
             and c["raw_own"] - c["p_market"] >= 0.10:            # (10/17: the RAW ratings read - the college board's
         #                                                      edge_own IS the market, so the old test never fired)

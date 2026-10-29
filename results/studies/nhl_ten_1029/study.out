@@ -1,0 +1,745 @@
+live hockey read weights (train only): {'b2b': 0.1618, 'rest': -0.0381}
+# (scripts: build.py writes rows.json next to it - not committed, 6.7 MB - study.py reads it; live_check.py reads the pick journal)
+=== BASELINES
+
+every dog +100..+350
+  train 2018-23 : 1828-2975 n=4803 ROI -6.9% (-329.8u) pts vs no-vig -1.3 z -3.9
+  held 2023-27  : 1392-2096 n=3488 ROI -3.8% (-132.3u) pts vs no-vig +0.4 z -1.9
+    2023-24: 398-645 n=1043 ROI -6.1% (-63.9u) pts vs no-vig -0.5 z -1.6
+    2024-25: 447-721 n=1168 ROI -5.9% (-68.6u) pts vs no-vig -0.6 z -1.6
+    2025-26: 486-627 n=1113 ROI +1.9% (+21.3u) pts vs no-vig +2.7 z +0.5
+    2026-27: 61-103 n=164 ROI -12.8% (-21.0u) pts vs no-vig -2.8 z -1.4
+  held-out seasons up: 1 of 4
+
+every favorite -150..-127 (the Lock band, 56%+)
+  train 2018-23 : 777-566 n=1343 ROI -0.3% (-4.1u) pts vs no-vig +2.0 z -0.1
+  held 2023-27  : 578-445 n=1023 ROI -2.7% (-27.8u) pts vs no-vig +0.8 z -1.0
+    2023-24: 166-126 n=292 ROI -1.9% (-5.7u) pts vs no-vig +1.3 z -0.4
+    2024-25: 178-130 n=308 ROI -0.8% (-2.3u) pts vs no-vig +2.0 z -0.2
+    2025-26: 211-165 n=376 ROI -3.3% (-12.2u) pts vs no-vig +0.5 z -0.7
+    2026-27: 23-24 n=47 ROI -16.1% (-7.6u) pts vs no-vig -6.8 z -1.3
+  held-out seasons up: 0 of 4
+
+favorites -126..-101
+  train 2018-23 : 951-900 n=1851 ROI -3.5% (-64.4u) pts vs no-vig +0.4 z -1.6
+  held 2023-27  : 711-699 n=1410 ROI -5.2% (-73.3u) pts vs no-vig -0.3 z -2.1
+    2023-24: 215-189 n=404 ROI +0.1% (+0.3u) pts vs no-vig +2.5 z +0.0
+    2024-25: 179-184 n=363 ROI -7.4% (-26.7u) pts vs no-vig -1.4 z -1.5
+    2025-26: 266-279 n=545 ROI -8.2% (-44.9u) pts vs no-vig -2.1 z -2.0
+    2026-27: 51-47 n=98 ROI -2.0% (-1.9u) pts vs no-vig +1.4 z -0.2
+  held-out seasons up: 1 of 4
+
+
+=== STUDY 1: THE GOALIE QUALITY GAP (season-to-date save %, shrunk, both starters 5+ starts in) - is the better goalie priced?
+
+S1a dog +100..+350, its starter .010+ better on the season
+  train 2018-23 : 179-222 n=401 ROI +2.8% (+11.1u) pts vs no-vig +2.8 z +0.5
+  held 2023-27  : 152-227 n=379 ROI -7.3% (-27.5u) pts vs no-vig -1.1 z -1.2
+    2023-24: 42-69 n=111 ROI -10.9% (-12.1u) pts vs no-vig -2.8 z -1.0
+    2024-25: 25-65 n=90 ROI -34.7% (-31.2u) pts vs no-vig -12.2 z -3.1
+    2025-26: 82-93 n=175 ROI +6.4% (+11.3u) pts vs no-vig +4.7 z +0.7
+    2026-27: 3-0 n=3 ROI +150.0% (+4.5u) pts vs no-vig +61.0 z +7.2
+  held-out seasons up: 2 of 4
+
+S1b dog, its starter .005..+.010 better
+  train 2018-23 : 137-264 n=401 ROI -19.4% (-78.0u) pts vs no-vig -6.3 z -3.4
+  held 2023-27  : 132-178 n=310 ROI +1.9% (+5.8u) pts vs no-vig +2.3 z +0.3
+    2023-24: 44-72 n=116 ROI -6.7% (-7.8u) pts vs no-vig -1.5 z -0.6
+    2024-25: 48-57 n=105 ROI +10.3% (+10.8u) pts vs no-vig +6.2 z +0.8
+    2025-26: 36-46 n=82 ROI -0.2% (-0.2u) pts vs no-vig +1.7 z -0.0
+    2026-27: 4-3 n=7 ROI +42.7% (+3.0u) pts vs no-vig +15.4 z +0.8
+  held-out seasons up: 2 of 4
+
+S1c dog, starters within .005
+  train 2018-23 : 440-687 n=1127 ROI -5.4% (-61.2u) pts vs no-vig -0.7 z -1.5
+  held 2023-27  : 348-504 n=852 ROI -3.2% (-27.0u) pts vs no-vig +1.3 z -0.8
+    2023-24: 86-165 n=251 ROI -17.3% (-43.4u) pts vs no-vig -4.0 z -2.3
+    2024-25: 140-183 n=323 ROI +4.8% (+15.4u) pts vs no-vig +4.2 z +0.7
+    2025-26: 120-148 n=268 ROI +2.5% (+6.8u) pts vs no-vig +3.5 z +0.4
+    2026-27: 2-8 n=10 ROI -57.2% (-5.7u) pts vs no-vig -20.7 z -2.0
+  held-out seasons up: 2 of 4
+
+S1d dog, its starter .010+ WORSE
+  train 2018-23 : 369-642 n=1011 ROI -7.1% (-71.7u) pts vs no-vig -1.1 z -1.8
+  held 2023-27  : 270-391 n=661 ROI +1.6% (+10.4u) pts vs no-vig +2.3 z +0.3
+    2023-24: 90-113 n=203 ROI +12.1% (+24.5u) pts vs no-vig +6.4 z +1.3
+    2024-25: 80-150 n=230 ROI -12.1% (-27.9u) pts vs no-vig -3.0 z -1.5
+    2025-26: 99-125 n=224 ROI +7.0% (+15.7u) pts vs no-vig +4.5 z +0.9
+    2026-27: 1-3 n=4 ROI -49.5% (-2.0u) pts vs no-vig -17.7 z -1.0
+  held-out seasons up: 2 of 4
+
+S1e favorite -101..-150, its starter .010+ better
+  train 2018-23 : 248-194 n=442 ROI +0.9% (+4.1u) pts vs no-vig +2.8 z +0.2
+  held 2023-27  : 189-180 n=369 ROI -7.8% (-28.7u) pts vs no-vig -1.8 z -1.7
+    2023-24: 52-57 n=109 ROI -14.3% (-15.6u) pts vs no-vig -5.4 z -1.7
+    2024-25: 53-46 n=99 ROI -4.4% (-4.3u) pts vs no-vig +0.3 z -0.5
+    2025-26: 82-75 n=157 ROI -5.4% (-8.5u) pts vs no-vig -0.7 z -0.7
+    2026-27: 2-2 n=4 ROI -8.6% (-0.3u) pts vs no-vig -2.1 z -0.2
+  held-out seasons up: 0 of 4
+
+S1f favorite -101..-150, its starter .010+ WORSE
+  train 2018-23 : 197-192 n=389 ROI -8.2% (-31.8u) pts vs no-vig -2.2 z -1.8
+  held 2023-27  : 181-152 n=333 ROI -1.3% (-4.2u) pts vs no-vig +1.6 z -0.3
+    2023-24: 53-39 n=92 ROI +4.4% (+4.0u) pts vs no-vig +4.7 z +0.5
+    2024-25: 49-29 n=78 ROI +14.6% (+11.4u) pts vs no-vig +10.3 z +1.5
+    2025-26: 78-82 n=160 ROI -11.6% (-18.6u) pts vs no-vig -4.0 z -1.6
+    2026-27: 1-2 n=3 ROI -35.8% (-1.1u) pts vs no-vig -18.5 z -0.6
+  held-out seasons up: 2 of 4
+
+S1g COMBINED: dog on its #1 with the better goalie (.005+) vs a favorite on its BACKUP
+  train 2018-23 : 66-124 n=190 ROI -20.3% (-38.5u) pts vs no-vig -6.2 z -2.5
+  held 2023-27  : 69-83 n=152 ROI +8.7% (+13.3u) pts vs no-vig +4.9 z +0.9
+    2023-24: 15-31 n=46 ROI -19.5% (-9.0u) pts vs no-vig -7.0 z -1.1
+    2024-25: 23-20 n=43 ROI +32.0% (+13.7u) pts vs no-vig +14.4 z +1.6
+    2025-26: 30-30 n=60 ROI +15.7% (+9.4u) pts vs no-vig +8.0 z +1.0
+    2026-27: 1-2 n=3 ROI -30.0% (-0.9u) pts vs no-vig -11.4 z -0.4
+  held-out seasons up: 2 of 4
+
+S1h COMBINED: dog on its backup AND the worse goalie (.005+) - the fade
+  train 2018-23 : 173-337 n=510 ROI -12.1% (-61.6u) pts vs no-vig -3.3 z -2.2
+  held 2023-27  : 138-212 n=350 ROI -0.1% (-0.5u) pts vs no-vig +1.4 z -0.0
+    2023-24: 41-61 n=102 ROI +2.8% (+2.9u) pts vs no-vig +2.7 z +0.2
+    2024-25: 55-87 n=142 ROI -1.5% (-2.2u) pts vs no-vig +1.4 z -0.1
+    2025-26: 42-63 n=105 ROI -0.1% (-0.1u) pts vs no-vig +0.5 z -0.0
+    2026-27: 0-1 n=1 ROI -100.0% (-1.0u) pts vs no-vig -35.5 z +0.0
+  held-out seasons up: 1 of 4
+
+
+=== STUDY 2: THE FAVORITE ON NIGHT 2 OF A BACK-TO-BACK - who is in net, and is it priced? (tonight: Hurricanes at the Blue Jackets)
+favorites on a b2b: 1228; the #1 played night 1: 696; of those, the backup starts night 2: 613 (88%); the #1 goes again: 83
+
+S2a favorite on a b2b, its #1 played night 1, BACKUP in net tonight: bet the FAVORITE
+  train 2018-23 : 211-150 n=361 ROI -2.9% (-10.4u) pts vs no-vig +0.3 z -0.7
+  held 2023-27  : 144-108 n=252 ROI -3.2% (-8.1u) pts vs no-vig +0.6 z -0.6
+    2023-24: 56-22 n=78 ROI +19.4% (+15.1u) pts vs no-vig +13.4 z +2.2
+    2024-25: 39-44 n=83 ROI -21.0% (-17.4u) pts vs no-vig -9.3 z -2.2
+    2025-26: 42-37 n=79 ROI -6.8% (-5.4u) pts vs no-vig -1.9 z -0.7
+    2026-27: 7-5 n=12 ROI -3.3% (-0.4u) pts vs no-vig +1.7 z -0.1
+  held-out seasons up: 1 of 4
+
+S2b ... bet the DOG +100..+350 (rested dog vs the b2b favorite on its backup)
+  train 2018-23 : 68-92 n=160 ROI +2.1% (+3.3u) pts vs no-vig +2.1 z +0.2
+  held 2023-27  : 49-73 n=122 ROI -7.0% (-8.6u) pts vs no-vig -0.9 z -0.7
+    2023-24: 12-28 n=40 ROI -27.0% (-10.8u) pts vs no-vig -9.1 z -1.5
+    2024-25: 20-22 n=42 ROI +9.3% (+3.9u) pts vs no-vig +6.0 z +0.5
+    2025-26: 15-17 n=32 ROI +6.3% (+2.0u) pts vs no-vig +3.9 z +0.3
+    2026-27: 2-6 n=8 ROI -45.8% (-3.7u) pts vs no-vig -16.1 z -1.3
+  held-out seasons up: 2 of 4
+
+S2c favorite on a b2b, its #1 played night 1 AND goes again: bet the DOG
+  train 2018-23 : 12-13 n=25 ROI +20.4% (+5.1u) pts vs no-vig +7.3 z +0.8
+  held 2023-27  : 4-6 n=10 ROI -5.7% (-0.6u) pts vs no-vig -2.8 z -0.1
+    2023-24: 1-1 n=2 ROI +10.0% (+0.2u) pts vs no-vig +10.6 z +0.1
+    2024-25: 1-3 n=4 ROI -38.7% (-1.5u) pts vs no-vig -18.2 z -0.6
+    2025-26: 2-2 n=4 ROI +19.5% (+0.8u) pts vs no-vig +6.0 z +0.3
+  held-out seasons up: 2 of 3
+
+S2d favorite on a b2b (any goalie), rested dog +100..+350: bet the DOG
+  train 2018-23 : 135-174 n=309 ROI +5.0% (+15.3u) pts vs no-vig +3.2 z +0.7
+  held 2023-27  : 99-132 n=231 ROI +0.5% (+1.3u) pts vs no-vig +1.9 z +0.1
+    2023-24: 26-44 n=70 ROI -11.4% (-8.0u) pts vs no-vig -1.9 z -0.8
+    2024-25: 35-45 n=80 ROI +3.0% (+2.4u) pts vs no-vig +2.6 z +0.2
+    2025-26: 35-36 n=71 ROI +13.6% (+9.7u) pts vs no-vig +6.6 z +1.0
+    2026-27: 3-7 n=10 ROI -28.1% (-2.8u) pts vs no-vig -10.6 z -0.8
+  held-out seasons up: 2 of 4
+
+S2e S2b at +100..+150
+  train 2018-23 : 52-62 n=114 ROI +2.2% (+2.5u) pts vs no-vig +2.3 z +0.2
+  held 2023-27  : 41-46 n=87 ROI +3.5% (+3.0u) pts vs no-vig +3.2 z +0.3
+    2023-24: 9-15 n=24 ROI -15.2% (-3.6u) pts vs no-vig -5.6 z -0.7
+    2024-25: 17-13 n=30 ROI +23.2% (+6.9u) pts vs no-vig +12.5 z +1.2
+    2025-26: 13-15 n=28 ROI +1.4% (+0.4u) pts vs no-vig +2.3 z +0.1
+    2026-27: 2-3 n=5 ROI -13.2% (-0.7u) pts vs no-vig -5.3 z -0.2
+  held-out seasons up: 2 of 4
+
+S2f S2b at +151..+350
+  train 2018-23 : 16-30 n=46 ROI +1.8% (+0.8u) pts vs no-vig +1.6 z +0.1
+  held 2023-27  : 8-27 n=35 ROI -33.1% (-11.6u) pts vs no-vig -11.2 z -1.6
+    2023-24: 3-13 n=16 ROI -44.8% (-7.2u) pts vs no-vig -14.3 z -1.5
+    2024-25: 3-9 n=12 ROI -25.5% (-3.1u) pts vs no-vig -10.3 z -0.6
+    2025-26: 2-2 n=4 ROI +40.8% (+1.6u) pts vs no-vig +15.7 z +0.5
+    2026-27: 0-3 n=3 ROI -100.0% (-3.0u) pts vs no-vig -34.1 z +0.0
+  held-out seasons up: 1 of 4
+
+S2g S2b, the favorite -150 or shorter (a big favorite on a tired backup)
+  train 2018-23 : 40-49 n=89 ROI +16.9% (+15.0u) pts vs no-vig +8.3 z +1.2
+  held 2023-27  : 19-38 n=57 ROI -12.4% (-7.1u) pts vs no-vig -3.0 z -0.7
+    2023-24: 7-18 n=25 ROI -25.0% (-6.3u) pts vs no-vig -7.4 z -1.0
+    2024-25: 8-12 n=20 ROI +3.2% (+0.6u) pts vs no-vig +2.5 z +0.1
+    2025-26: 4-5 n=9 ROI +17.2% (+1.5u) pts vs no-vig +7.0 z +0.4
+    2026-27: 0-3 n=3 ROI -100.0% (-3.0u) pts vs no-vig -34.1 z +0.0
+  held-out seasons up: 2 of 4
+
+
+=== STUDY 3: THE GOOD BACKUP vs THE BAD BACKUP (the backup's own season save %, 5+ starts)
+
+S3a dog on its backup, the backup .910+ on the season: bet the dog
+  train 2018-23 : 101-160 n=261 ROI -6.2% (-16.2u) pts vs no-vig -0.5 z -0.8
+  held 2023-27  : 45-69 n=114 ROI -6.9% (-7.9u) pts vs no-vig -1.2 z -0.6
+    2023-24: 23-30 n=53 ROI +3.5% (+1.8u) pts vs no-vig +2.9 z +0.2
+    2024-25: 6-20 n=26 ROI -43.2% (-11.2u) pts vs no-vig -15.6 z -2.0
+    2025-26: 16-18 n=34 ROI +7.3% (+2.5u) pts vs no-vig +4.8 z +0.4
+    2026-27: 0-1 n=1 ROI -100.0% (-1.0u) pts vs no-vig -46.8 z +0.0
+  held-out seasons up: 2 of 4
+
+S3b dog on its backup, the backup under .895: bet the dog
+  train 2018-23 : 42-72 n=114 ROI -1.2% (-1.3u) pts vs no-vig +1.0 z -0.1
+  held 2023-27  : 70-110 n=180 ROI -3.6% (-6.5u) pts vs no-vig +0.5 z -0.4
+    2023-24: 12-23 n=35 ROI -10.0% (-3.5u) pts vs no-vig -1.4 z -0.5
+    2024-25: 23-35 n=58 ROI -3.9% (-2.3u) pts vs no-vig +1.8 z -0.2
+    2025-26: 35-52 n=87 ROI -0.8% (-0.7u) pts vs no-vig +0.5 z -0.1
+  held-out seasons up: 0 of 3
+
+S3c favorite on a WEAK backup (<.895) -> bet the dog on its #1
+  train 2018-23 : 8-21 n=29 ROI -37.8% (-11.0u) pts vs no-vig -12.0 z -2.0
+  held 2023-27  : 26-36 n=62 ROI +0.9% (+0.6u) pts vs no-vig +1.1 z +0.1
+    2023-24: 1-4 n=5 ROI -47.2% (-2.4u) pts vs no-vig -18.7 z -0.9
+    2024-25: 4-5 n=9 ROI +8.3% (+0.8u) pts vs no-vig +4.5 z +0.2
+    2025-26: 21-25 n=46 ROI +9.1% (+4.2u) pts vs no-vig +4.2 z +0.5
+    2026-27: 0-2 n=2 ROI -100.0% (-2.0u) pts vs no-vig -37.0 z +0.0
+  held-out seasons up: 2 of 4
+
+S3d favorite on a GOOD backup (.910+) -> bet the dog on its #1
+  train 2018-23 : 66-126 n=192 ROI -15.4% (-29.7u) pts vs no-vig -5.0 z -1.8
+  held 2023-27  : 42-49 n=91 ROI +18.1% (+16.5u) pts vs no-vig +8.7 z +1.3
+    2023-24: 25-22 n=47 ROI +36.2% (+17.0u) pts vs no-vig +16.8 z +1.8
+    2024-25: 5-15 n=20 ROI -31.8% (-6.3u) pts vs no-vig -12.8 z -1.1
+    2025-26: 12-12 n=24 ROI +24.2% (+5.8u) pts vs no-vig +10.7 z +0.9
+  held-out seasons up: 2 of 3
+
+S3e favorite -101..-150 on a weak backup: bet the favorite
+  train 2018-23 : 26-23 n=49 ROI -4.2% (-2.1u) pts vs no-vig +0.5 z -0.3
+  held 2023-27  : 42-39 n=81 ROI -5.5% (-4.5u) pts vs no-vig -0.8 z -0.5
+    2023-24: 7-3 n=10 ROI +27.6% (+2.8u) pts vs no-vig +16.8 z +1.0
+    2024-25: 10-13 n=23 ROI -19.2% (-4.4u) pts vs no-vig -8.5 z -1.0
+    2025-26: 24-23 n=47 ROI -7.6% (-3.6u) pts vs no-vig -1.7 z -0.6
+    2026-27: 1-0 n=1 ROI +76.9% (+0.8u) pts vs no-vig +45.7 z +0.0
+  held-out seasons up: 2 of 4
+
+
+=== STUDY 4: THE DOG'S LAST-5 GOAL DIFFERENTIAL vs ITS LAST-5 RECORD (underlying form)
+
+S4a dog, last 5: 2 or fewer wins but goal diff 0 or better (unlucky lately)
+  train 2018-23 : 152-233 n=385 ROI -5.2% (-20.1u) pts vs no-vig -0.6 z -0.9
+  held 2023-27  : 102-148 n=250 ROI -3.2% (-7.9u) pts vs no-vig +0.5 z -0.4
+    2023-24: 29-50 n=79 ROI -9.6% (-7.6u) pts vs no-vig -3.7 z -0.7
+    2024-25: 41-48 n=89 ROI +8.8% (+7.8u) pts vs no-vig +6.5 z +0.7
+    2025-26: 27-41 n=68 ROI -8.6% (-5.8u) pts vs no-vig -1.4 z -0.6
+    2026-27: 5-9 n=14 ROI -16.7% (-2.3u) pts vs no-vig -5.4 z -0.5
+  held-out seasons up: 1 of 4
+
+S4b dog, last 5: 3+ wins but goal diff under 0 (lucky lately) - fade?
+  train 2018-23 : 103-167 n=270 ROI -6.7% (-18.0u) pts vs no-vig -1.9 z -0.9
+  held 2023-27  : 75-103 n=178 ROI -1.9% (-3.4u) pts vs no-vig +2.1 z -0.2
+    2023-24: 16-25 n=41 ROI -6.4% (-2.6u) pts vs no-vig -0.5 z -0.3
+    2024-25: 22-39 n=61 ROI -18.1% (-11.0u) pts vs no-vig -3.8 z -1.3
+    2025-26: 32-32 n=64 ROI +15.2% (+9.7u) pts vs no-vig +9.2 z +1.0
+    2026-27: 5-7 n=12 ROI +4.2% (+0.5u) pts vs no-vig +3.3 z +0.1
+  held-out seasons up: 2 of 4
+
+S4c dog, last-5 goal diff +4 or better
+  train 2018-23 : 355-573 n=928 ROI -11.3% (-105.3u) pts vs no-vig -3.4 z -3.0
+  held 2023-27  : 288-400 n=688 ROI -2.0% (-13.8u) pts vs no-vig +0.8 z -0.4
+    2023-24: 68-114 n=182 ROI -14.4% (-26.2u) pts vs no-vig -4.3 z -1.7
+    2024-25: 84-140 n=224 ROI -8.8% (-19.7u) pts vs no-vig -2.4 z -1.1
+    2025-26: 120-127 n=247 ROI +12.7% (+31.5u) pts vs no-vig +6.9 z +1.7
+    2026-27: 16-19 n=35 ROI +2.0% (+0.7u) pts vs no-vig +4.0 z +0.1
+  held-out seasons up: 2 of 4
+
+S4d dog, last-5 goal diff -6 or worse
+  train 2018-23 : 475-824 n=1299 ROI -6.2% (-80.3u) pts vs no-vig -0.7 z -1.8
+  held 2023-27  : 361-564 n=925 ROI -2.9% (-27.1u) pts vs no-vig +1.2 z -0.7
+    2023-24: 119-177 n=296 ROI +2.8% (+8.2u) pts vs no-vig +3.7 z +0.4
+    2024-25: 108-191 n=299 ROI -8.1% (-24.1u) pts vs no-vig -0.7 z -1.1
+    2025-26: 113-165 n=278 ROI -3.7% (-10.3u) pts vs no-vig +0.3 z -0.5
+    2026-27: 21-31 n=52 ROI -1.7% (-0.9u) pts vs no-vig +2.6 z -0.1
+  held-out seasons up: 1 of 4
+
+S4e dog whose SEASON goal diff a game beats the favorite's (both 15+ games)
+  train 2018-23 : 254-341 n=595 ROI -6.4% (-38.3u) pts vs no-vig -1.2 z -1.4
+  held 2023-27  : 218-297 n=515 ROI -6.5% (-33.2u) pts vs no-vig -1.1 z -1.3
+    2023-24: 48-91 n=139 ROI -24.1% (-33.5u) pts vs no-vig -9.2 z -2.7
+    2024-25: 76-101 n=177 ROI -4.0% (-7.0u) pts vs no-vig +0.0 z -0.5
+    2025-26: 94-105 n=199 ROI +3.7% (+7.3u) pts vs no-vig +3.6 z +0.5
+  held-out seasons up: 1 of 3
+
+S4f dog whose season goal diff a game is 0.5+ WORSE than the favorite's
+  train 2018-23 : 765-1414 n=2179 ROI -7.2% (-157.2u) pts vs no-vig -1.2 z -2.6
+  held 2023-27  : 533-875 n=1408 ROI -2.7% (-37.8u) pts vs no-vig +0.9 z -0.8
+    2023-24: 187-312 n=499 ROI -2.6% (-12.9u) pts vs no-vig +1.6 z -0.4
+    2024-25: 186-319 n=505 ROI -2.5% (-12.7u) pts vs no-vig +0.3 z -0.4
+    2025-26: 160-244 n=404 ROI -3.0% (-12.3u) pts vs no-vig +0.8 z -0.5
+  held-out seasons up: 0 of 3
+
+
+=== STUDY 5: THE DOG WITH THE BETTER RECORD (both 20+ games in)
+
+S5a dog with the better win % (5+ points) than the favorite
+  train 2018-23 : 149-186 n=335 ROI -2.7% (-9.1u) pts vs no-vig +0.5 z -0.5
+  held 2023-27  : 111-147 n=258 ROI -4.0% (-10.3u) pts vs no-vig -0.4 z -0.6
+    2023-24: 25-39 n=64 ROI -13.4% (-8.6u) pts vs no-vig -5.0 z -1.0
+    2024-25: 35-45 n=80 ROI -1.2% (-1.0u) pts vs no-vig +0.6 z -0.1
+    2025-26: 51-63 n=114 ROI -0.6% (-0.7u) pts vs no-vig +1.6 z -0.1
+  held-out seasons up: 0 of 3
+
+S5b dog with the better win % AND the better goal diff a game
+  train 2018-23 : 168-224 n=392 ROI -6.4% (-25.1u) pts vs no-vig -1.2 z -1.2
+  held 2023-27  : 137-171 n=308 ROI -1.7% (-5.2u) pts vs no-vig +0.9 z -0.3
+    2023-24: 30-51 n=81 ROI -18.6% (-15.1u) pts vs no-vig -7.1 z -1.6
+    2024-25: 48-58 n=106 ROI +0.9% (+1.0u) pts vs no-vig +2.0 z +0.1
+    2025-26: 59-62 n=121 ROI +7.3% (+8.9u) pts vs no-vig +5.2 z +0.7
+  held-out seasons up: 2 of 3
+
+S5c the ROAD dog with the better record (the home-ice premium)
+  train 2018-23 : 137-165 n=302 ROI -0.6% (-1.7u) pts vs no-vig +1.5 z -0.1
+  held 2023-27  : 89-126 n=215 ROI -7.6% (-16.4u) pts vs no-vig -1.9 z -1.0
+    2023-24: 20-35 n=55 ROI -19.1% (-10.5u) pts vs no-vig -7.7 z -1.3
+    2024-25: 28-39 n=67 ROI -6.2% (-4.1u) pts vs no-vig -1.3 z -0.5
+    2025-26: 41-52 n=93 ROI -1.9% (-1.8u) pts vs no-vig +1.1 z -0.2
+  held-out seasons up: 0 of 3
+
+S5d a home favorite -101..-150 with the WORSE record (10+ points) than the dog
+  train 2018-23 : 110-103 n=213 ROI -5.2% (-11.1u) pts vs no-vig -0.4 z -0.8
+  held 2023-27  : 91-77 n=168 ROI -0.3% (-0.6u) pts vs no-vig +2.4 z -0.0
+    2023-24: 29-22 n=51 ROI +4.5% (+2.3u) pts vs no-vig +5.2 z +0.3
+    2024-25: 31-23 n=54 ROI +5.7% (+3.1u) pts vs no-vig +5.7 z +0.5
+    2025-26: 31-32 n=63 ROI -9.4% (-5.9u) pts vs no-vig -2.6 z -0.8
+  held-out seasons up: 2 of 3
+
+
+=== STUDY 6: THE BACK-TO-BACK WITH A MOVE (the tired team and where it slept)
+
+S6a dog on a b2b that did NOT move (home both nights / same time zone): bet the dog
+  train 2018-23 : 231-431 n=662 ROI -11.2% (-73.9u) pts vs no-vig -3.3 z -2.3
+  held 2023-27  : 144-296 n=440 ROI -19.1% (-83.9u) pts vs no-vig -5.7 z -3.4
+    2023-24: 27-73 n=100 ROI -32.9% (-32.9u) pts vs no-vig -11.4 z -2.9
+    2024-25: 42-99 n=141 ROI -23.6% (-33.2u) pts vs no-vig -6.5 z -2.3
+    2025-26: 71-111 n=182 ROI -5.7% (-10.3u) pts vs no-vig -1.0 z -0.6
+    2026-27: 4-13 n=17 ROI -44.2% (-7.5u) pts vs no-vig -15.7 z -1.7
+  held-out seasons up: 0 of 4
+
+S6b dog on a b2b that moved (road team after a game in another time zone / home team home from the road)
+  train 2018-23 : 70-165 n=235 ROI -29.1% (-68.4u) pts vs no-vig -9.4 z -4.0
+  held 2023-27  : 74-114 n=188 ROI -2.0% (-3.7u) pts vs no-vig +0.9 z -0.2
+    2023-24: 20-38 n=58 ROI -7.3% (-4.2u) pts vs no-vig -3.2 z -0.4
+    2024-25: 26-42 n=68 ROI -6.6% (-4.5u) pts vs no-vig +0.0 z -0.4
+    2025-26: 25-29 n=54 ROI +9.6% (+5.2u) pts vs no-vig +6.7 z +0.6
+    2026-27: 3-5 n=8 ROI -2.4% (-0.2u) pts vs no-vig -0.2 z -0.0
+  held-out seasons up: 1 of 4
+
+S6c rested dog vs a favorite on a b2b that MOVED
+  train 2018-23 : 50-58 n=108 ROI +11.6% (+12.5u) pts vs no-vig +5.8 z +1.0
+  held 2023-27  : 34-49 n=83 ROI -2.0% (-1.7u) pts vs no-vig +0.3 z -0.2
+    2023-24: 10-13 n=23 ROI +7.8% (+1.8u) pts vs no-vig +6.4 z +0.3
+    2024-25: 12-16 n=28 ROI +2.5% (+0.7u) pts vs no-vig +1.6 z +0.1
+    2025-26: 11-17 n=28 ROI -10.7% (-3.0u) pts vs no-vig -4.2 z -0.5
+    2026-27: 1-3 n=4 ROI -28.7% (-1.1u) pts vs no-vig -11.9 z -0.4
+  held-out seasons up: 2 of 4
+
+S6d rested dog vs a favorite on a b2b that did NOT move
+  train 2018-23 : 85-116 n=201 ROI +1.4% (+2.8u) pts vs no-vig +1.8 z +0.2
+  held 2023-27  : 65-83 n=148 ROI +2.0% (+2.9u) pts vs no-vig +2.8 z +0.2
+    2023-24: 16-31 n=47 ROI -20.9% (-9.8u) pts vs no-vig -5.9 z -1.3
+    2024-25: 23-29 n=52 ROI +3.3% (+1.7u) pts vs no-vig +3.1 z +0.2
+    2025-26: 24-19 n=43 ROI +29.5% (+12.7u) pts vs no-vig +13.6 z +1.6
+    2026-27: 2-4 n=6 ROI -27.7% (-1.7u) pts vs no-vig -9.7 z -0.6
+  held-out seasons up: 2 of 4
+
+S6e rested favorite -127..-150 vs a dog on a b2b that moved
+  train 2018-23 : 27-15 n=42 ROI +10.6% (+4.5u) pts vs no-vig +8.4 z +0.8
+  held 2023-27  : 21-15 n=36 ROI +0.2% (+0.1u) pts vs no-vig +2.6 z +0.0
+    2023-24: 8-6 n=14 ROI -1.2% (-0.2u) pts vs no-vig +1.6 z -0.1
+    2024-25: 8-5 n=13 ROI +5.8% (+0.8u) pts vs no-vig +5.7 z +0.2
+    2025-26: 4-4 n=8 ROI -14.8% (-1.2u) pts vs no-vig -5.5 z -0.5
+    2026-27: 1-0 n=1 ROI +67.6% (+0.7u) pts vs no-vig +42.8 z +0.0
+  held-out seasons up: 2 of 4
+
+S6f rested favorite -127..-150 vs a dog on a b2b that did not move
+  train 2018-23 : 65-40 n=105 ROI +6.6% (+6.9u) pts vs no-vig +6.0 z +0.8
+  held 2023-27  : 54-30 n=84 ROI +11.1% (+9.3u) pts vs no-vig +8.8 z +1.2
+    2023-24: 16-5 n=21 ROI +31.8% (+6.7u) pts vs no-vig +20.9 z +1.9
+    2024-25: 8-9 n=17 ROI -18.3% (-3.1u) pts vs no-vig -8.2 z -0.8
+    2025-26: 29-14 n=43 ROI +16.4% (+7.1u) pts vs no-vig +11.7 z +1.3
+    2026-27: 1-2 n=3 ROI -44.1% (-1.3u) pts vs no-vig -22.2 z -0.8
+  held-out seasons up: 2 of 4
+
+
+=== STUDY 7: THE HOCKEY DOG BY PRICE BAND x THE ENGINE'S READ GAP (the live read = the line + b2b / rest, fit on train)
+
+S7 band +100..+150: every dog
+  train 2018-23 : 1256-1705 n=2961 ROI -5.7% (-169.3u) pts vs no-vig -0.9 z -2.8
+  held 2023-27  : 995-1249 n=2244 ROI -1.5% (-34.0u) pts vs no-vig +1.1 z -0.6
+    2023-24: 266-349 n=615 ROI -3.5% (-21.5u) pts vs no-vig +0.1 z -0.8
+    2024-25: 297-399 n=696 ROI -4.7% (-32.9u) pts vs no-vig -0.2 z -1.1
+    2025-26: 385-441 n=826 ROI +2.9% (+23.9u) pts vs no-vig +3.1 z +0.8
+    2026-27: 47-60 n=107 ROI -3.2% (-3.5u) pts vs no-vig +0.5 z -0.3
+  held-out seasons up: 1 of 4
+
+S7 band +100..+150: own read OVER the no-vig market (any)
+  train 2018-23 : 281-388 n=669 ROI -6.5% (-43.8u) pts vs no-vig -1.3 z -1.5
+  held 2023-27  : 205-284 n=489 ROI -7.8% (-37.9u) pts vs no-vig -1.6 z -1.6
+    2023-24: 55-93 n=148 ROI -17.1% (-25.4u) pts vs no-vig -6.0 z -1.9
+    2024-25: 63-86 n=149 ROI -7.1% (-10.6u) pts vs no-vig -0.9 z -0.8
+    2025-26: 76-91 n=167 ROI -0.6% (-0.9u) pts vs no-vig +1.6 z -0.1
+    2026-27: 11-14 n=25 ROI -4.2% (-1.1u) pts vs no-vig -0.4 z -0.2
+  held-out seasons up: 0 of 4
+
+S7 band +100..+150: own read over the no-vig market by 2+ points
+  train 2018-23 : 102-121 n=223 ROI +2.9% (+6.5u) pts vs no-vig +2.5 z +0.4
+  held 2023-27  : 77-87 n=164 ROI +2.9% (+4.8u) pts vs no-vig +3.0 z +0.3
+    2023-24: 20-22 n=42 ROI +6.6% (+2.8u) pts vs no-vig +4.4 z +0.4
+    2024-25: 27-29 n=56 ROI +5.0% (+2.8u) pts vs no-vig +4.2 z +0.3
+    2025-26: 28-32 n=60 ROI +1.4% (+0.8u) pts vs no-vig +2.4 z +0.1
+    2026-27: 2-4 n=6 ROI -27.7% (-1.7u) pts vs no-vig -11.7 z -0.6
+  held-out seasons up: 3 of 4
+
+S7 band +100..+150: own read over the PRICE (the juice too)
+  train 2018-23 : 102-121 n=223 ROI +2.9% (+6.5u) pts vs no-vig +2.5 z +0.4
+  held 2023-27  : 80-88 n=168 ROI +4.5% (+7.6u) pts vs no-vig +3.6 z +0.5
+    2023-24: 20-22 n=42 ROI +6.6% (+2.8u) pts vs no-vig +4.4 z +0.4
+    2024-25: 27-29 n=56 ROI +5.0% (+2.8u) pts vs no-vig +4.2 z +0.3
+    2025-26: 31-33 n=64 ROI +5.7% (+3.7u) pts vs no-vig +4.0 z +0.4
+    2026-27: 2-4 n=6 ROI -27.7% (-1.7u) pts vs no-vig -11.7 z -0.6
+  held-out seasons up: 3 of 4
+
+S7 band +100..+150: own read UNDER the market by 2+
+  train 2018-23 : 123-200 n=323 ROI -14.8% (-47.7u) pts vs no-vig -5.0 z -2.4
+  held 2023-27  : 99-174 n=273 ROI -19.0% (-51.8u) pts vs no-vig -6.6 z -2.9
+    2023-24: 21-46 n=67 ROI -30.2% (-20.2u) pts vs no-vig -12.0 z -2.4
+    2024-25: 29-46 n=75 ROI -13.4% (-10.0u) pts vs no-vig -3.7 z -1.1
+    2025-26: 45-74 n=119 ROI -15.7% (-18.7u) pts vs no-vig -5.0 z -1.6
+    2026-27: 4-8 n=12 ROI -23.8% (-2.9u) pts vs no-vig -10.4 z -0.7
+  held-out seasons up: 0 of 4
+
+S7 band +151..+199: every dog
+  train 2018-23 : 382-767 n=1149 ROI -9.7% (-111.9u) pts vs no-vig -2.3 z -2.6
+  held 2023-27  : 286-498 n=784 ROI -1.5% (-12.0u) pts vs no-vig +0.9 z -0.3
+    2023-24: 96-157 n=253 ROI +3.4% (+8.5u) pts vs no-vig +2.7 z +0.4
+    2024-25: 97-187 n=284 ROI -8.2% (-23.4u) pts vs no-vig -1.5 z -1.1
+    2025-26: 80-124 n=204 ROI +4.8% (+9.8u) pts vs no-vig +3.3 z +0.5
+    2026-27: 13-30 n=43 ROI -16.3% (-7.0u) pts vs no-vig -5.1 z -0.8
+  held-out seasons up: 2 of 4
+
+S7 band +151..+199: own read OVER the no-vig market (any)
+  train 2018-23 : 84-142 n=226 ROI +0.4% (+1.0u) pts vs no-vig +1.5 z +0.0
+  held 2023-27  : 59-108 n=167 ROI -5.0% (-8.4u) pts vs no-vig -0.4 z -0.5
+    2023-24: 23-39 n=62 ROI +0.8% (+0.5u) pts vs no-vig +2.0 z +0.0
+    2024-25: 15-37 n=52 ROI -23.3% (-12.1u) pts vs no-vig -7.6 z -1.4
+    2025-26: 15-24 n=39 ROI +1.4% (+0.5u) pts vs no-vig +2.2 z +0.1
+    2026-27: 6-8 n=14 ROI +18.9% (+2.6u) pts vs no-vig +8.2 z +0.5
+  held-out seasons up: 3 of 4
+
+S7 band +151..+199: own read over the no-vig market by 2+ points
+  train 2018-23 : 22-35 n=57 ROI +3.9% (+2.2u) pts vs no-vig +3.2 z +0.2
+  held 2023-27  : 14-33 n=47 ROI -20.3% (-9.5u) pts vs no-vig -5.9 z -1.1
+    2023-24: 4-13 n=17 ROI -36.9% (-6.3u) pts vs no-vig -11.5 z -1.3
+    2024-25: 4-13 n=17 ROI -36.3% (-6.2u) pts vs no-vig -13.1 z -1.3
+    2025-26: 5-4 n=9 ROI +45.3% (+4.1u) pts vs no-vig +19.7 z +1.0
+    2026-27: 1-3 n=4 ROI -28.7% (-1.1u) pts vs no-vig -9.0 z -0.4
+  held-out seasons up: 1 of 4
+
+S7 band +151..+199: own read over the PRICE (the juice too)
+  train 2018-23 : 22-35 n=57 ROI +3.9% (+2.2u) pts vs no-vig +3.2 z +0.2
+  held 2023-27  : 14-34 n=48 ROI -21.9% (-10.5u) pts vs no-vig -6.7 z -1.2
+    2023-24: 4-13 n=17 ROI -36.9% (-6.3u) pts vs no-vig -11.5 z -1.3
+    2024-25: 4-13 n=17 ROI -36.3% (-6.2u) pts vs no-vig -13.1 z -1.3
+    2025-26: 5-5 n=10 ROI +30.8% (+3.1u) pts vs no-vig +13.4 z +0.7
+    2026-27: 1-3 n=4 ROI -28.7% (-1.1u) pts vs no-vig -9.0 z -0.4
+  held-out seasons up: 1 of 4
+
+S7 band +151..+199: own read UNDER the market by 2+
+  train 2018-23 : 44-134 n=178 ROI -32.4% (-57.7u) pts vs no-vig -10.8 z -3.6
+  held 2023-27  : 44-83 n=127 ROI -5.6% (-7.1u) pts vs no-vig -0.6 z -0.5
+    2023-24: 11-22 n=33 ROI -9.3% (-3.1u) pts vs no-vig -2.5 z -0.4
+    2024-25: 11-33 n=44 ROI -33.5% (-14.7u) pts vs no-vig -10.1 z -1.9
+    2025-26: 20-23 n=43 ROI +27.6% (+11.9u) pts vs no-vig +11.4 z +1.3
+    2026-27: 2-5 n=7 ROI -17.1% (-1.2u) pts vs no-vig -6.5 z -0.3
+  held-out seasons up: 1 of 4
+
+S7 band +200..+350: every dog
+  train 2018-23 : 190-503 n=693 ROI -7.0% (-48.6u) pts vs no-vig -0.9 z -1.2
+  held 2023-27  : 111-349 n=460 ROI -18.8% (-86.2u) pts vs no-vig -4.1 z -2.8
+    2023-24: 36-139 n=175 ROI -29.1% (-50.9u) pts vs no-vig -7.3 z -2.7
+    2024-25: 53-135 n=188 ROI -6.6% (-12.4u) pts vs no-vig -0.3 z -0.6
+    2025-26: 21-62 n=83 ROI -15.0% (-12.4u) pts vs no-vig -3.0 z -0.9
+    2026-27: 1-13 n=14 ROI -75.4% (-10.6u) pts vs no-vig -21.3 z -3.1
+  held-out seasons up: 0 of 4
+
+S7 band +200..+350: own read OVER the no-vig market (any)
+  train 2018-23 : 49-101 n=150 ROI +9.6% (+14.4u) pts vs no-vig +4.4 z +0.7
+  held 2023-27  : 25-80 n=105 ROI -20.2% (-21.2u) pts vs no-vig -4.6 z -1.4
+    2023-24: 8-43 n=51 ROI -47.1% (-24.0u) pts vs no-vig -12.6 z -2.7
+    2024-25: 12-30 n=42 ROI -5.5% (-2.3u) pts vs no-vig -0.0 z -0.2
+    2025-26: 5-6 n=11 ROI +55.8% (+6.1u) pts vs no-vig +17.3 z +1.0
+    2026-27: 0-1 n=1 ROI -100.0% (-1.0u) pts vs no-vig -28.2 z +0.0
+  held-out seasons up: 1 of 4
+
+S7 band +200..+350: own read over the no-vig market by 2+ points
+  train 2018-23 : 11-18 n=29 ROI +22.6% (+6.6u) pts vs no-vig +8.4 z +0.8
+  held 2023-27  : 8-12 n=20 ROI +30.1% (+6.0u) pts vs no-vig +10.7 z +0.8
+    2023-24: 2-9 n=11 ROI -40.9% (-4.5u) pts vs no-vig -11.0 z -1.0
+    2024-25: 4-3 n=7 ROI +82.6% (+5.8u) pts vs no-vig +27.5 z +1.3
+    2025-26: 2-0 n=2 ROI +237.5% (+4.8u) pts vs no-vig +71.2 z +7.3
+  held-out seasons up: 2 of 3
+
+S7 band +200..+350: own read over the PRICE (the juice too)
+  train 2018-23 : 11-18 n=29 ROI +22.6% (+6.6u) pts vs no-vig +8.4 z +0.8
+  held 2023-27  : 9-12 n=21 ROI +39.0% (+8.2u) pts vs no-vig +12.7 z +1.1
+    2023-24: 2-9 n=11 ROI -40.9% (-4.5u) pts vs no-vig -11.0 z -1.0
+    2024-25: 5-3 n=8 ROI +99.1% (+7.9u) pts vs no-vig +30.7 z +1.7
+    2025-26: 2-0 n=2 ROI +237.5% (+4.8u) pts vs no-vig +71.2 z +7.3
+  held-out seasons up: 2 of 3
+
+S7 band +200..+350: own read UNDER the market by 2+
+  train 2018-23 : 30-91 n=121 ROI -15.7% (-18.9u) pts vs no-vig -3.5 z -1.2
+  held 2023-27  : 22-77 n=99 ROI -25.4% (-25.1u) pts vs no-vig -5.8 z -1.8
+    2023-24: 7-18 n=25 ROI -8.1% (-2.0u) pts vs no-vig +0.2 z -0.3
+    2024-25: 9-39 n=48 ROI -35.1% (-16.8u) pts vs no-vig -9.3 z -1.8
+    2025-26: 6-16 n=22 ROI -10.2% (-2.2u) pts vs no-vig -0.8 z -0.3
+    2026-27: 0-4 n=4 ROI -100.0% (-4.0u) pts vs no-vig -29.6 z +0.0
+  held-out seasons up: 0 of 4
+
+
+=== STUDY 8: THE GOALIE vs THIS OPPONENT (career save % against them in our data, 3+ starts) and the goalie's run of starts
+
+S8a dog whose starter is .930+ career vs this opponent
+  train 2018-23 : 129-231 n=360 ROI -14.2% (-51.3u) pts vs no-vig -3.7 z -2.3
+  held 2023-27  : 129-168 n=297 ROI +1.9% (+5.5u) pts vs no-vig +3.2 z +0.3
+    2023-24: 29-48 n=77 ROI -11.4% (-8.8u) pts vs no-vig -1.5 z -0.9
+    2024-25: 45-65 n=110 ROI -2.4% (-2.6u) pts vs no-vig +1.3 z -0.2
+    2025-26: 49-49 n=98 ROI +14.2% (+14.0u) pts vs no-vig +8.2 z +1.2
+    2026-27: 6-6 n=12 ROI +25.0% (+3.0u) pts vs no-vig +9.9 z +0.7
+  held-out seasons up: 2 of 4
+
+S8b dog whose starter is under .890 career vs this opponent
+  train 2018-23 : 138-218 n=356 ROI -4.4% (-15.7u) pts vs no-vig -0.2 z -0.7
+  held 2023-27  : 185-304 n=489 ROI -8.1% (-39.6u) pts vs no-vig -1.3 z -1.5
+    2023-24: 43-86 n=129 ROI -18.3% (-23.6u) pts vs no-vig -5.2 z -1.8
+    2024-25: 64-91 n=155 ROI +3.8% (+5.8u) pts vs no-vig +3.1 z +0.4
+    2025-26: 69-105 n=174 ROI -6.6% (-11.5u) pts vs no-vig -1.0 z -0.7
+    2026-27: 9-22 n=31 ROI -33.2% (-10.3u) pts vs no-vig -9.0 z -1.7
+  held-out seasons up: 1 of 4
+
+S8c dog facing a goalie .930+ career vs the dog
+  train 2018-23 : 193-373 n=566 ROI -14.6% (-82.4u) pts vs no-vig -4.3 z -2.8
+  held 2023-27  : 201-307 n=508 ROI -3.9% (-19.8u) pts vs no-vig +0.8 z -0.7
+    2023-24: 58-98 n=156 ROI -7.1% (-11.1u) pts vs no-vig -0.4 z -0.7
+    2024-25: 66-118 n=184 ROI -11.7% (-21.4u) pts vs no-vig -2.3 z -1.3
+    2025-26: 72-82 n=154 ROI +8.8% (+13.5u) pts vs no-vig +6.1 z +0.9
+    2026-27: 5-9 n=14 ROI -5.1% (-0.7u) pts vs no-vig -2.9 z -0.1
+  held-out seasons up: 1 of 4
+
+S8d dog whose starter is on his 6th+ straight start
+  train 2018-23 : 59-92 n=151 ROI -8.3% (-12.5u) pts vs no-vig -1.7 z -0.9
+  held 2023-27  : 20-36 n=56 ROI -19.0% (-10.7u) pts vs no-vig -5.5 z -1.3
+    2023-24: 9-13 n=22 ROI -8.6% (-1.9u) pts vs no-vig -1.0 z -0.4
+    2024-25: 7-15 n=22 ROI -27.3% (-6.0u) pts vs no-vig -8.8 z -1.2
+    2025-26: 4-8 n=12 ROI -22.9% (-2.8u) pts vs no-vig -7.5 z -0.7
+  held-out seasons up: 0 of 3
+
+S8e dog facing a favorite's goalie on his 6th+ straight start
+  train 2018-23 : 77-127 n=204 ROI -8.2% (-16.8u) pts vs no-vig -2.0 z -1.0
+  held 2023-27  : 32-39 n=71 ROI +7.3% (+5.2u) pts vs no-vig +5.7 z +0.5
+    2023-24: 11-17 n=28 ROI -3.1% (-0.9u) pts vs no-vig +0.5 z -0.1
+    2024-25: 9-17 n=26 ROI -17.0% (-4.4u) pts vs no-vig -3.9 z -0.7
+    2025-26: 11-5 n=16 ROI +58.2% (+9.3u) pts vs no-vig +27.3 z +2.0
+    2026-27: 1-0 n=1 ROI +120.0% (+1.2u) pts vs no-vig +56.3 z +0.0
+  held-out seasons up: 2 of 4
+
+S8f favorite -101..-150 whose goalie is on his 8th+ straight start
+  train 2018-23 : 30-25 n=55 ROI -2.6% (-1.4u) pts vs no-vig +1.1 z -0.2
+  held 2023-27  : 10-13 n=23 ROI -21.3% (-4.9u) pts vs no-vig -9.3 z -1.1
+    2023-24: 6-7 n=13 ROI -18.4% (-2.4u) pts vs no-vig -7.0 z -0.7
+    2024-25: 3-1 n=4 ROI +39.8% (+1.6u) pts vs no-vig +22.7 z +0.8
+    2025-26: 1-5 n=6 ROI -68.0% (-4.1u) pts vs no-vig -35.6 z -2.1
+  held-out seasons up: 1 of 3
+
+
+=== STUDY 9: THE SEASON SERIES (the last meeting this season)
+
+S9a dog that WON the last meeting this season
+  train 2018-23 : 469-761 n=1230 ROI -8.3% (-102.2u) pts vs no-vig -2.0 z -2.4
+  held 2023-27  : 349-531 n=880 ROI -6.0% (-52.6u) pts vs no-vig -0.6 z -1.5
+    2023-24: 101-174 n=275 ROI -12.1% (-33.3u) pts vs no-vig -2.9 z -1.7
+    2024-25: 117-185 n=302 ROI -6.0% (-18.3u) pts vs no-vig -0.5 z -0.9
+    2025-26: 129-169 n=298 ROI -0.1% (-0.4u) pts vs no-vig +1.6 z -0.0
+    2026-27: 2-3 n=5 ROI -12.4% (-0.6u) pts vs no-vig -1.4 z -0.2
+  held-out seasons up: 0 of 4
+
+S9b dog that won the last meeting by 3+
+  train 2018-23 : 159-258 n=417 ROI -8.0% (-33.5u) pts vs no-vig -2.4 z -1.4
+  held 2023-27  : 115-175 n=290 ROI -4.7% (-13.6u) pts vs no-vig -0.6 z -0.7
+    2023-24: 23-65 n=88 ROI -33.9% (-29.8u) pts vs no-vig -13.8 z -2.8
+    2024-25: 49-59 n=108 ROI +9.6% (+10.4u) pts vs no-vig +5.8 z +0.8
+    2025-26: 41-50 n=91 ROI +4.8% (+4.4u) pts vs no-vig +3.6 z +0.4
+    2026-27: 2-1 n=3 ROI +46.0% (+1.4u) pts vs no-vig +23.4 z +0.6
+  held-out seasons up: 3 of 4
+
+S9c dog that LOST the last meeting by 3+ (revenge)
+  train 2018-23 : 304-552 n=856 ROI -10.4% (-89.0u) pts vs no-vig -2.2 z -2.5
+  held 2023-27  : 207-302 n=509 ROI -1.0% (-5.1u) pts vs no-vig +2.2 z -0.2
+    2023-24: 65-100 n=165 ROI -2.4% (-4.0u) pts vs no-vig +2.2 z -0.3
+    2024-25: 58-114 n=172 ROI -16.1% (-27.7u) pts vs no-vig -4.4 z -1.8
+    2025-26: 84-85 n=169 ROI +17.5% (+29.6u) pts vs no-vig +9.6 z +1.9
+    2026-27: 0-3 n=3 ROI -100.0% (-3.0u) pts vs no-vig -35.3 z +0.0
+  held-out seasons up: 1 of 4
+
+S9d dog that lost the last meeting by 1
+  train 2018-23 : 279-459 n=738 ROI -5.4% (-39.7u) pts vs no-vig -1.0 z -1.2
+  held 2023-27  : 190-280 n=470 ROI -1.6% (-7.5u) pts vs no-vig +1.4 z -0.3
+    2023-24: 56-89 n=145 ROI -4.7% (-6.8u) pts vs no-vig +1.1 z -0.5
+    2024-25: 62-99 n=161 ROI -3.0% (-4.8u) pts vs no-vig +0.1 z -0.3
+    2025-26: 69-90 n=159 ROI +1.4% (+2.2u) pts vs no-vig +2.4 z +0.1
+    2026-27: 3-2 n=5 ROI +37.2% (+1.9u) pts vs no-vig +19.1 z +0.7
+  held-out seasons up: 2 of 4
+
+S9e favorite -101..-150 that lost the last meeting
+  train 2018-23 : 509-421 n=930 ROI -1.1% (-10.5u) pts vs no-vig +1.8 z -0.4
+  held 2023-27  : 369-319 n=688 ROI -2.8% (-19.5u) pts vs no-vig +0.8 z -0.8
+    2023-24: 116-89 n=205 ROI +2.6% (+5.4u) pts vs no-vig +3.7 z +0.4
+    2024-25: 106-97 n=203 ROI -5.6% (-11.4u) pts vs no-vig -0.8 z -0.9
+    2025-26: 146-132 n=278 ROI -4.7% (-13.1u) pts vs no-vig -0.1 z -0.9
+    2026-27: 1-1 n=2 ROI -16.2% (-0.3u) pts vs no-vig -4.9 z -0.2
+  held-out seasons up: 1 of 4
+
+S9f streaks: dog on a 3+ game WIN streak
+  train 2018-23 : 155-250 n=405 ROI -10.5% (-42.4u) pts vs no-vig -3.1 z -1.8
+  held 2023-27  : 112-187 n=299 ROI -13.3% (-39.7u) pts vs no-vig -3.6 z -2.0
+    2023-24: 28-44 n=72 ROI -13.0% (-9.4u) pts vs no-vig -2.9 z -1.0
+    2024-25: 30-72 n=102 ROI -30.5% (-31.1u) pts vs no-vig -10.4 z -2.8
+    2025-26: 51-64 n=115 ROI +3.6% (+4.1u) pts vs no-vig +2.6 z +0.3
+    2026-27: 3-7 n=10 ROI -34.2% (-3.4u) pts vs no-vig -11.9 z -1.0
+  held-out seasons up: 1 of 4
+
+S9g favorite -101..-150 on a 3+ game LOSS streak
+  train 2018-23 : 172-162 n=334 ROI -6.0% (-20.0u) pts vs no-vig -1.1 z -1.2
+  held 2023-27  : 144-109 n=253 ROI +3.3% (+8.3u) pts vs no-vig +4.3 z +0.6
+    2023-24: 40-30 n=70 ROI +3.4% (+2.4u) pts vs no-vig +4.7 z +0.3
+    2024-25: 47-32 n=79 ROI +8.5% (+6.8u) pts vs no-vig +6.8 z +0.8
+    2025-26: 50-44 n=94 ROI -3.7% (-3.4u) pts vs no-vig +0.5 z -0.4
+    2026-27: 7-3 n=10 ROI +26.7% (+2.7u) pts vs no-vig +17.5 z +1.0
+  held-out seasons up: 3 of 4
+
+
+=== STUDY 10: THE HOCKEY LOCK (56%+ favorites, -127..-150) by goalie matchup x rest - a stronger filter?
+
+S10a Lock band, favorite on its #1 (not backup)
+  train 2018-23 : 519-389 n=908 ROI -1.4% (-13.1u) pts vs no-vig +1.3 z -0.5
+  held 2023-27  : 417-313 n=730 ROI -1.8% (-12.9u) pts vs no-vig +1.5 z -0.6
+    2023-24: 122-89 n=211 ROI -0.4% (-0.8u) pts vs no-vig +2.3 z -0.1
+    2024-25: 128-93 n=221 ROI -0.6% (-1.4u) pts vs no-vig +2.1 z -0.1
+    2025-26: 155-115 n=270 ROI -1.2% (-3.2u) pts vs no-vig +1.8 z -0.2
+    2026-27: 12-16 n=28 ROI -26.4% (-7.4u) pts vs no-vig -12.8 z -1.6
+  held-out seasons up: 0 of 4
+
+S10b Lock band, favorite on its BACKUP
+  train 2018-23 : 236-155 n=391 ROI +3.8% (+15.0u) pts vs no-vig +4.5 z +0.9
+  held 2023-27  : 161-132 n=293 ROI -5.1% (-14.9u) pts vs no-vig -0.7 z -1.0
+    2023-24: 44-37 n=81 ROI -5.9% (-4.8u) pts vs no-vig -1.2 z -0.6
+    2024-25: 50-37 n=87 ROI -1.0% (-0.9u) pts vs no-vig +1.6 z -0.1
+    2025-26: 56-50 n=106 ROI -8.5% (-9.0u) pts vs no-vig -2.8 z -1.0
+    2026-27: 11-8 n=19 ROI -0.9% (-0.2u) pts vs no-vig +2.1 z -0.0
+  held-out seasons up: 0 of 4
+
+S10c Lock band, dog on its backup
+  train 2018-23 : 243-165 n=408 ROI +2.5% (+10.3u) pts vs no-vig +3.7 z +0.6
+  held 2023-27  : 183-130 n=313 ROI +0.5% (+1.7u) pts vs no-vig +2.7 z +0.1
+    2023-24: 51-31 n=82 ROI +7.1% (+5.8u) pts vs no-vig +6.5 z +0.8
+    2024-25: 53-46 n=99 ROI -8.1% (-8.1u) pts vs no-vig -2.3 z -0.9
+    2025-26: 71-46 n=117 ROI +4.4% (+5.1u) pts vs no-vig +5.0 z +0.6
+    2026-27: 8-7 n=15 ROI -8.1% (-1.2u) pts vs no-vig -2.2 z -0.4
+  held-out seasons up: 2 of 4
+
+S10d Lock band, favorite on #1, dog on backup
+  train 2018-23 : 160-113 n=273 ROI +1.0% (+2.7u) pts vs no-vig +2.8 z +0.2
+  held 2023-27  : 125-83 n=208 ROI +3.3% (+6.9u) pts vs no-vig +4.4 z +0.6
+    2023-24: 33-16 n=49 ROI +15.8% (+7.7u) pts vs no-vig +11.7 z +1.4
+    2024-25: 39-28 n=67 ROI -0.2% (-0.2u) pts vs no-vig +2.4 z -0.0
+    2025-26: 50-34 n=84 ROI +2.6% (+2.2u) pts vs no-vig +4.0 z +0.3
+    2026-27: 3-5 n=8 ROI -35.5% (-2.8u) pts vs no-vig -17.8 z -1.1
+  held-out seasons up: 2 of 4
+
+S10e Lock band, rested vs a dog on a b2b
+  train 2018-23 : 92-55 n=147 ROI +7.7% (+11.3u) pts vs no-vig +6.7 z +1.1
+  held 2023-27  : 75-45 n=120 ROI +7.8% (+9.3u) pts vs no-vig +6.9 z +1.0
+    2023-24: 24-11 n=35 ROI +18.6% (+6.5u) pts vs no-vig +13.2 z +1.3
+    2024-25: 16-14 n=30 ROI -7.9% (-2.4u) pts vs no-vig -2.2 z -0.5
+    2025-26: 33-18 n=51 ROI +11.5% (+5.9u) pts vs no-vig +9.0 z +1.0
+    2026-27: 2-2 n=4 ROI -16.2% (-0.6u) pts vs no-vig -6.0 z -0.3
+  held-out seasons up: 2 of 4
+
+S10f Lock band, rested vs a b2b dog OR the dog on its backup (either edge)
+  train 2018-23 : 197-139 n=336 ROI +1.0% (+3.4u) pts vs no-vig +2.8 z +0.2
+  held 2023-27  : 154-103 n=257 ROI +3.0% (+7.7u) pts vs no-vig +4.3 z +0.6
+    2023-24: 44-22 n=66 ROI +14.6% (+9.7u) pts vs no-vig +11.0 z +1.5
+    2024-25: 44-34 n=78 ROI -3.2% (-2.5u) pts vs no-vig +0.7 z -0.3
+    2025-26: 62-41 n=103 ROI +3.6% (+3.7u) pts vs no-vig +4.6 z +0.4
+    2026-27: 4-6 n=10 ROI -31.7% (-3.2u) pts vs no-vig -15.5 z -1.1
+  held-out seasons up: 2 of 4
+
+S10g Lock band, favorite on #1, dog on #1, both rested (no edge at all)
+  train 2018-23 : 292-228 n=520 ROI -3.1% (-16.3u) pts vs no-vig +0.3 z -0.8
+  held 2023-27  : 246-194 n=440 ROI -3.8% (-16.8u) pts vs no-vig +0.2 z -0.9
+    2023-24: 75-64 n=139 ROI -6.9% (-9.6u) pts vs no-vig -1.5 z -0.9
+    2024-25: 80-53 n=133 ROI +3.2% (+4.2u) pts vs no-vig +4.2 z +0.4
+    2025-26: 84-67 n=151 ROI -4.3% (-6.4u) pts vs no-vig -0.0 z -0.6
+    2026-27: 7-10 n=17 ROI -29.4% (-5.0u) pts vs no-vig -14.7 z -1.4
+  held-out seasons up: 1 of 4
+
+S10h Lock band, favorite on its #1 with the better season save % (.005+)
+  train 2018-23 : 168-119 n=287 ROI +0.8% (+2.2u) pts vs no-vig +2.7 z +0.2
+  held 2023-27  : 137-89 n=226 ROI +4.2% (+9.5u) pts vs no-vig +4.9 z +0.7
+    2023-24: 40-33 n=73 ROI -5.8% (-4.2u) pts vs no-vig -0.7 z -0.6
+    2024-25: 45-19 n=64 ROI +20.8% (+13.3u) pts vs no-vig +14.4 z +2.1
+    2025-26: 52-37 n=89 ROI +0.4% (+0.3u) pts vs no-vig +2.7 z +0.0
+  held-out seasons up: 2 of 3
+
+S10i Lock band, favorite ON a b2b
+  train 2018-23 : 103-68 n=171 ROI +4.0% (+6.9u) pts vs no-vig +4.4 z +0.6
+  held 2023-27  : 62-53 n=115 ROI -7.1% (-8.2u) pts vs no-vig -1.7 z -0.9
+    2023-24: 13-10 n=23 ROI -2.5% (-0.6u) pts vs no-vig +0.9 z -0.1
+    2024-25: 19-16 n=35 ROI -6.7% (-2.3u) pts vs no-vig -1.2 z -0.5
+    2025-26: 27-25 n=52 ROI -10.6% (-5.5u) pts vs no-vig -3.6 z -0.9
+    2026-27: 3-2 n=5 ROI +4.3% (+0.2u) pts vs no-vig +4.5 z +0.1
+  held-out seasons up: 1 of 4
+
+S10j Lock band, favorite's goalie .010+ WORSE than the dog's
+  train 2018-23 : 82-76 n=158 ROI -10.2% (-16.1u) pts vs no-vig -3.8 z -1.5
+  held 2023-27  : 74-60 n=134 ROI -4.8% (-6.4u) pts vs no-vig -0.5 z -0.6
+    2023-24: 25-19 n=44 ROI -2.0% (-0.9u) pts vs no-vig +1.2 z -0.2
+    2024-25: 17-10 n=27 ROI +7.5% (+2.0u) pts vs no-vig +6.7 z +0.5
+    2025-26: 32-30 n=62 ROI -10.6% (-6.6u) pts vs no-vig -3.9 z -1.0
+    2026-27: 0-1 n=1 ROI -100.0% (-1.0u) pts vs no-vig -54.3 z +0.0
+  held-out seasons up: 1 of 4
+
+S10k Lock band, HOME favorite on #1 vs a dog on a b2b or its backup
+  train 2018-23 : 129-97 n=226 ROI -1.7% (-3.8u) pts vs no-vig +1.2 z -0.3
+  held 2023-27  : 99-65 n=164 ROI +3.8% (+6.2u) pts vs no-vig +4.7 z +0.6
+    2023-24: 31-14 n=45 ROI +18.2% (+8.2u) pts vs no-vig +13.2 z +1.5
+    2024-25: 23-22 n=45 ROI -12.2% (-5.5u) pts vs no-vig -4.6 z -0.9
+    2025-26: 41-25 n=66 ROI +7.2% (+4.7u) pts vs no-vig +6.5 z +0.7
+    2026-27: 4-4 n=8 ROI -14.6% (-1.2u) pts vs no-vig -5.6 z -0.5
+  held-out seasons up: 2 of 4
+
+S10l Lock band, ROAD favorite on #1 vs a dog on a b2b or its backup
+  train 2018-23 : 68-42 n=110 ROI +6.6% (+7.2u) pts vs no-vig +6.1 z +0.8
+  held 2023-27  : 55-38 n=93 ROI +1.5% (+1.4u) pts vs no-vig +3.5 z +0.2
+    2023-24: 13-8 n=21 ROI +7.1% (+1.5u) pts vs no-vig +6.4 z +0.4
+    2024-25: 21-12 n=33 ROI +9.1% (+3.0u) pts vs no-vig +7.9 z +0.6
+    2025-26: 21-16 n=37 ROI -2.8% (-1.0u) pts vs no-vig +1.1 z -0.2
+    2026-27: 0-2 n=2 ROI -100.0% (-2.0u) pts vs no-vig -55.1 z +0.0
+  held-out seasons up: 2 of 4
+
+
+=== MULTIPLE TESTING: cells looked at 79 - cells with train AND held both over +3% and held-out seasons up 3+ of 4:
+cells with train AND held both under -5% (fades), 0-1 of 4 up:
+  S4e dog whose SEASON goal diff a game beats the favorite's (both 15+ games): train -6.4% (n 595) / held -6.5% (n 515) up 1 of 3
+  S6a dog on a b2b that did NOT move (home both nights / same time zone): bet the dog: train -11.2% (n 662) / held -19.1% (n 440) up 0 of 4
+  S7 band +100..+150: own read OVER the no-vig market (any): train -6.5% (n 669) / held -7.8% (n 489) up 0 of 4
+  S7 band +100..+150: own read UNDER the market by 2+: train -14.8% (n 323) / held -19.0% (n 273) up 0 of 4
+  S7 band +151..+199: own read UNDER the market by 2+: train -32.4% (n 178) / held -5.6% (n 127) up 1 of 4
+  S7 band +200..+350: every dog: train -7.0% (n 693) / held -18.8% (n 460) up 0 of 4
+  S7 band +200..+350: own read UNDER the market by 2+: train -15.7% (n 121) / held -25.4% (n 99) up 0 of 4
+  S8d dog whose starter is on his 6th+ straight start: train -8.3% (n 151) / held -19.0% (n 56) up 0 of 3
+  S9a dog that WON the last meeting this season: train -8.3% (n 1230) / held -6.0% (n 880) up 0 of 4
+  S9f streaks: dog on a 3+ game WIN streak: train -10.5% (n 405) / held -13.3% (n 299) up 1 of 4

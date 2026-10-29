@@ -689,6 +689,11 @@ def push_docs(remote="origin", branch="main"):
         git("read-tree", base)
         blob = git("hash-object", "-w", "docs/index.html")
         git("update-index", "--add", "--cacheinfo", f"100644,{blob},docs/index.html")
+        if SYNC_ERR:                                   # the hourly save is failing: say why where a review can read it
+            note = "\n\n".join(f"[{k}] {v}" for k, v in SYNC_ERR.items()) + "\n"
+            blob = subprocess.run(["git", "hash-object", "-w", "--stdin"], env=env, input=note, capture_output=True,
+                                  text=True, check=True, timeout=GIT_TIMEOUT).stdout.strip()
+            git("update-index", "--add", "--cacheinfo", f"100644,{blob},docs/engine_sync.txt")
         tree = git("write-tree")
         if tree == git("rev-parse", f"{base}^{{tree}}"):
             return                                     # unchanged
@@ -767,11 +772,22 @@ def watchdog(limit=WATCHDOG_S, exit_fn=None, every=60):
     return t
 
 
-def sh(cmd, **kw):
-    """git via the shell with a time limit; a hung call counts as failed (returncode 124)."""
+# The last hourly-save error (10-28/29: saves failed for hours and the job log can't be read from a review session):
+# push_docs publishes it as docs/engine_sync.txt with the minute dashboard, the one push that kept working.
+SYNC_ERR = {}
+
+
+def sh(cmd, err=None, tag=None, **kw):
+    """git via the shell with a time limit; a hung call counts as failed (returncode 124). With err/tag, a failure's
+    output is kept in err[tag]."""
     try:
-        return subprocess.run(cmd, shell=True, timeout=GIT_TIMEOUT, **kw).returncode
+        r = subprocess.run(cmd, shell=True, timeout=GIT_TIMEOUT, **kw)
+        if err is not None and r.returncode:
+            err[tag] = f"{ts(int(time.time() * 1000))} UTC rc {r.returncode}: {(r.stdout or '')[-400:]} {(r.stderr or '')[-800:]}".strip()
+        return r.returncode
     except subprocess.TimeoutExpired:
+        if err is not None:
+            err[tag] = f"{ts(int(time.time() * 1000))} UTC: took over {GIT_TIMEOUT}s"
         print(f"   git: '{cmd[:40]}' took over {GIT_TIMEOUT}s - skipped")
         git_unjam(lock_age=0)                           # it was killed: whatever it left behind is stale now
         return 124
@@ -818,15 +834,17 @@ def git_sync():
     # other sessions push to main all the time (dashboard, sports, wallet tracker): a single pull + push lost the
     # race at 09:05 UTC on 2026-09-30 and the hour was never saved. Retry, and never leave a rebase in progress.
     for i in range(5):
-        if sh("git pull -q --rebase --autostash -X theirs"):
+        if sh("git pull -q --rebase --autostash -X theirs", capture_output=True, text=True, err=SYNC_ERR, tag="pull"):
             sh("git rebase --abort", stderr=subprocess.DEVNULL)
             print(f"   git sync: pull failed (try {i + 1}/5)")
-        elif not sh("git push -q"):
+        elif not sh("git push -q", capture_output=True, text=True, err=SYNC_ERR, tag="push"):
+            SYNC_ERR.clear()
             return
         else:
             print(f"   git sync: push rejected (try {i + 1}/5)")
         time.sleep(5 + 5 * i)
     if force_sync():
+        SYNC_ERR.clear()
         return
     print("   git sync: gave up this hour; the next sync / end of run pushes the saved commit")
 
@@ -865,8 +883,10 @@ def force_sync(remote="origin", branch="main"):
         print(f"   git sync: pull kept failing - published {len(paths)} files on top of {remote}/{branch} instead")
         return True
     except subprocess.CalledProcessError as e:
+        SYNC_ERR["fallback"] = f"{ts(int(time.time() * 1000))} UTC {e.cmd[1:3]}: {(e.stderr or '').strip()[-800:]}"
         print(f"   git sync fallback failed: {(e.stderr or '').strip()[:300]}")
     except Exception as e:
+        SYNC_ERR["fallback"] = f"{ts(int(time.time() * 1000))} UTC: {e}"
         print(f"   git sync fallback failed: {e}")
     return False
 

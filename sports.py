@@ -1357,6 +1357,9 @@ def dog_score(c):
         if c.get("odds", 0) >= NHL_LONG_DOG:             # (10/17 study: NHL dogs +220..+260 -25.7% on 494, 0 of 9
             sc -= NHL_LONG_DOG_W                         # seasons up; +300..+350 blind 4-52 - the long hockey dog is
             #                                              the money pit; college / NFL long dogs = just the vig)
+        if hot_dog(c):                                   # (10/29 ten hockey studies: a hockey dog on a 3+ game win streak
+            sc -= NHL_HOT_DOG_W                          #  -10.5% train / -13.3% held out, 1 of 4 seasons up - the public
+            #                                              pays up for the hot team; sports_form.HOT_DOG_FADE)
         k = c.get("key_edge")
         if k is not None and not c.get("hot_key"):       # (10/2 study: 93% of hot_key dogs got this too - -5 stacked,
             #                                              the data says ~-2 in all: one or the other, never both)
@@ -1366,7 +1369,11 @@ def dog_score(c):
 
 
 NHL_LONG_DOG, NHL_LONG_DOG_W = 220, 3   # hockey dogs +220 and longer: -3 on the dog score (a weight, 10/17)
-STUDY_CAP = 6     # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
+NHL_HOT_DOG_W = 2                       # 🏒 the HOT hockey dog (10/29 - ten hockey studies): a dog on a 3+ game win streak is a
+#                                         -2 weight on the dog score (sports.hot_dog): -10.5% on 405 train (2018-23) / -13.3% on
+#                                         299 held out (2023-27, 1 of 4 seasons up) vs -6.9% / -3.8% for every hockey dog. Live
+#                                         before the weight: the Flames +160 (4 straight wins) lost 10/28. Hockey only.
+STUDY_CAP = 6    # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
 #                   overlapping spots (a rested bye-week dog off a blowout on Monday night...) never outweighs the read
 
 
@@ -2113,6 +2120,21 @@ def overreact(c):
     if not st or c.get("market") != "ml":
         return False
     return sports_form.overreaction(c.get("league"), None, c["odds"], {(c.get("league"), None): tuple(st)}) > 0
+
+
+def hot_dog(c):
+    """🏒 10/29 (ten hockey studies): a hockey dog +100..+350 riding a 3+ game WIN streak - the public pays up for the hot team
+    (-10.5% train / -13.3% held out vs -6.9% / -3.8% for every hockey dog). From the team form (sports_form.team_states:
+    (last margin, win(+)/loss(-) streak, ...), real games in the last 3 weeks). A -2 WEIGHT (NHL_HOT_DOG_W), never a gate.
+    Only the leagues in sports_form.HOT_DOG_FADE (hockey) - an NFL dog on a streak is the other way (+1 in dog_more)."""
+    cut = sports_form.HOT_DOG_FADE.get(c.get("league"))
+    st = c.get("form_state")
+    if not cut or not st or c.get("odds", 0) < 100 or c.get("market", "ml") != "ml":
+        return False
+    try:
+        return (st[1] or 0) >= cut
+    except (IndexError, TypeError):
+        return False
 
 
 def hangover(c):
