@@ -669,3 +669,8 @@ day were in by 13:30. The job log can't be fetched from here (blob storage 403),
 FIX: run_live.force_sync - when pull --rebase fails all 5 tries, publish the paths our unpushed commits changed on top
 of origin/main with plumbing (no merge, nothing can conflict), then reset the local branch to it. Test:
 run_live_watchdog_test.test_force_sync_publishes_our_paths_without_a_merge.
+ROOT CAUSE (10-29, from docs/engine_sync.txt): "File data/run.log is 100.34 MB; this exceeds GitHub's file size limit"
+(pre-receive hook declined) - every push carrying the log was refused. 290k of its lines were yfinance/pandas
+deprecation warnings. FIX: run_live.rotate_log gzips data/run.log into data/run_logs/ past 40 MB (history kept; the
+104 MB log -> 377 KB gz, all 69 DEX outcome lines intact), flush_log drops the warning lines, and the warning is
+silenced at the source. Test: test_run_log_rotates_under_the_github_limit.
