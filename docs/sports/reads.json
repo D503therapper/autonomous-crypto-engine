@@ -1,125 +1,58 @@
 {
- "updated": "2026-10-29T22:36Z",
+ "updated": "2026-10-29T22:54Z",
  "games": [
   {
    "id": "nhl:401892603",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.443,
-    "tie": 0.291,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-29T23:00Z",
    "away": "Blue Jackets",
    "home": "Hurricanes",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Hurricanes",
-    "opp": "Blue Jackets",
+    "team": "Blue Jackets",
+    "opp": "Hurricanes",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": 205,
+    "p": 0.319,
+    "win_p": 0.319,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892601",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.426,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-29T23:00Z",
-   "away": "Jets",
-   "home": "Lightning",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Lightning",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.658,
-    "win_p": 0.658,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "sharp money moving this way"
-    ]
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892602",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.376,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-29T23:00Z",
    "away": "Mammoth",
    "home": "Penguins",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Penguins",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.662,
-    "win_p": 0.443,
+    "team": "Mammoth",
+    "opp": "Penguins",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401867969",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "SC State",
-    "p": 0.616,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-29T23:00Z",
-   "away": "SC State",
-   "home": "Morgan St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Morgan St",
-    "opp": "SC State",
-    "market": "spread",
-    "line": 7.0,
-    "odds": 100,
-    "p": 0.5,
-    "win_p": 0.341,
-    "reasons": []
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
@@ -149,7 +82,7 @@
     "win_p": 0.411,
     "reasons": [
      "sharp money moving this way",
-     "opponent drama: trade drama"
+     "opponent drama: suspension"
     ]
    }
   },
@@ -268,7 +201,7 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
+    "odds": -175,
     "p": 0.616,
     "win_p": 0.396,
     "reasons": [
@@ -331,7 +264,9 @@
     "odds": -118,
     "p": 0.517,
     "win_p": 0.517,
-    "reasons": []
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -371,7 +306,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.593,
+    "p": 0.601,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -387,9 +322,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -238,
+    "p": 0.675,
+    "win_p": 0.675,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
