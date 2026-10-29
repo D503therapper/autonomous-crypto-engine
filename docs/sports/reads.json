@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T14:14Z",
+ "updated": "2026-10-29T14:31Z",
  "games": [
   {
    "id": "nhl:401892603",
@@ -90,6 +90,36 @@
     "win_p": 0.452,
     "reasons": [
      "better rested"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401867969",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "SC State",
+    "p": 0.606,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-29T23:00Z",
+   "away": "SC State",
+   "home": "Morgan St",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "SC State",
+    "opp": "Morgan St",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.647,
+    "win_p": 0.647,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -266,7 +296,7 @@
     "opp": "Predators",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
+    "odds": -290,
     "p": 0.696,
     "win_p": 0.479,
     "reasons": [
@@ -370,7 +400,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.569,
+    "p": 0.573,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -386,9 +416,9 @@
     "opp": "Panthers",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -198,
+    "p": 0.637,
+    "win_p": 0.637,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -490,7 +520,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.358,
+    "p": 0.361,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -506,9 +536,9 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.698,
-    "win_p": 0.482,
+    "odds": -270,
+    "p": 0.692,
+    "win_p": 0.476,
     "reasons": []
    }
   },
@@ -538,6 +568,37 @@
     "p": 0.66,
     "win_p": 0.441,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaaf:401867838",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Harvard",
+    "p": 0.655,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-30T23:00Z",
+   "away": "Harvard",
+   "home": "Dartmouth",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Harvard",
+    "opp": "Dartmouth",
+    "market": "spread",
+    "line": -10.0,
+    "odds": -118,
+    "p": 0.5,
+    "win_p": 0.704,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
    }
   },
   {
