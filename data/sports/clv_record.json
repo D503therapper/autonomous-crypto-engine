@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 138,
-  "beat": 43,
-  "same": 51,
+  "n": 141,
+  "beat": 44,
+  "same": 53,
   "worse": 44,
   "avg_pts": 0.06
  },
  "unit_plays": {
-  "n": 60,
-  "beat": 18,
-  "same": 28,
+  "n": 63,
+  "beat": 19,
+  "same": 30,
   "worse": 14,
   "avg_pts": 0.18
  },
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 28,
-   "beat": 7,
-   "same": 15,
+   "n": 31,
+   "beat": 8,
+   "same": 17,
    "worse": 6,
-   "avg_pts": 0.04
+   "avg_pts": 0.07
   }
  },
  "by_sport": {
@@ -59,9 +59,9 @@
    "avg_pts": 0.37
   },
   "ncaaf": {
-   "n": 39,
+   "n": 40,
    "beat": 11,
-   "same": 16,
+   "same": 17,
    "worse": 12,
    "avg_pts": 0.05
   },
@@ -73,11 +73,11 @@
    "avg_pts": 0.12
   },
   "nhl": {
-   "n": 50,
-   "beat": 15,
-   "same": 19,
+   "n": 52,
+   "beat": 16,
+   "same": 20,
    "worse": 16,
-   "avg_pts": 0.02
+   "avg_pts": 0.03
   }
  },
  "lock_by_size": {
@@ -2019,6 +2019,34 @@
    "date": "2026-10-28",
    "kind": "play",
    "lean": false,
+   "league": "nhl",
+   "team": "Avalanche",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 154,
+   "pts": 0.9,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "play",
+   "lean": false,
    "league": "nba",
    "team": "Bucks",
    "market": "ml",
@@ -2042,6 +2070,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "New Mexico St",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }
