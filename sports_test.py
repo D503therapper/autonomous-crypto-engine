@@ -6820,7 +6820,7 @@ def test_both_teams_hot_never_called_our_heater():
     the hot hand is ours."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
     i = src.index("their_hot = ")
-    blk = src[i:src.index("elif rec_u and n_hot >= 2:", i)]
+    blk = src[i:src.index("elif rec_u and n_hot >= HOT_MIN:", i)]
     assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
 
 
@@ -13488,7 +13488,8 @@ def test_public_fade_one_liner_uses_real_splits_only_and_cheeks_clapped_is_one_o
         assert "% of" not in none and "📊" not in none, none
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 12, "ml_home_m": 35, "ml_away_t": 88, "ml_away_m": 65}
         line = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
-        assert "88" in line and "Air Force" in line and line.startswith("📊"), line
+        assert ("88" in line or "65" in line) and "Air Force" in line and line.startswith("📊"), line   # (10/29: the
+        #   bets split (88%) or the money split (65%) - both real; the seeded pick moved when the tail pool grew)
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 40, "ml_home_m": 50, "ml_away_t": 60, "ml_away_m": 50}
         mild = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
         assert "% of" not in mild, mild                                       # 60-40 says nothing
@@ -13877,7 +13878,8 @@ def test_full_breakdown_is_thorough_10_25():
     assert len(texts) == len(set(texts)), [x for x in texts if texts.count(x) > 1]       # (never the same line twice)
     canucks = board[0]["breakdown"]
     joined = " ".join(canucks)
-    assert "PDO" in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
+    assert "98.3" in joined and "PDO" not in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
+    #   (10/29: the puck-luck line says the number in plain words - "shooting plus save %" - never "PDO")
     assert "Kaprizov" in joined, canucks
     assert len(canucks) - 1 >= 7, canucks
     assert "FULL BREAKDOWN is thorough" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CLAUDE.md")).read()
@@ -14691,9 +14693,9 @@ def test_hockey_audit_10_28_no_hockey_favorite_lean_at_150_130_and_the_fallback_
     assert pk not in picks
     assert sports.NHL_BEST_DOG_MIN == 3.0
     base = {"league": "nhl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
-            "edge_own": 0.0, "reasons": ["r"], "home": False, "side": "away", "start": "2026-10-28T23:00Z",
-            "game_id": "wild", "team": "Wild", "opp": "x", "waiting": [], "dog_ctx": {}}
-    keep = sports.dog_score
+            "edge_own": 0.05, "reasons": ["r"], "home": False, "side": "away", "start": "2026-10-28T23:00Z",
+            "game_id": "wild", "team": "Wild", "opp": "x", "waiting": [], "dog_ctx": {}}   # (10/29: the own read 42% -
+    keep = sports.dog_score                                                                 #  2 points over the market)
     try:
         sports.dog_score = lambda c: 2.5                      # a score 0-3 dog: never the Dog of the Day any more
         assert sports.best_hockey_dog([dict(base)]) is None
@@ -14924,6 +14926,98 @@ def test_daily_1029_nfl_first_half_share_and_dog_run_are_tracker_leads_no_weight
     finally:
         sl._GAMES.clear()
         sl._GAMES.update(keep)
+
+
+def test_sweep_1029b_the_fallback_hockey_dog_needs_the_own_read_2_points_over_the_market():
+    """10/29 afternoon sweep (the owner: "we need to win more hockey"): the Blue Jackets +205 Dog sat over the no-vig market
+    by 0.45 - the losing cell (own read over by under 2 at +200..+350: 88-240 train / 56-162 held). The fallback hockey
+    Dog (best_hockey_dog) now needs its own read NHL_FALLBACK_OWN_GAP (2) points over the no-vig market: the only version
+    up in both halves of the 10/29 table (+5.0% train 4 of 5 / +0.5% held) - "never past +199" lost both (-5.4% / -1.1%).
+    No read to judge = dog_own_ok's call as before. The posted Blue Jackets pick is untouched (the owner kept it)."""
+    assert sports.NHL_FALLBACK_OWN_GAP == 2.0
+    jackets = {"league": "nhl", "market": "ml", "odds": 205, "dec": 3.05, "p": 0.33, "p_market": 0.315, "edge": 0.0,
+               "edge_own": 0.319 * 3.05 - 1, "reasons": [], "home": True, "side": "home", "start": "2026-10-30T23:00Z",
+               "game_id": "cbj", "team": "Blue Jackets", "opp": "Hurricanes", "waiting": [], "dog_ctx": {}}
+    assert abs(sports.hockey_own_gap(jackets) - 0.4) < 0.1 and not sports.hockey_own_gap_ok(jackets)
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: 4.45
+        assert sports.dog_own_ok(dict(jackets))                           # (the 10/27 "not under the market" rule passes)
+        assert sports.best_hockey_dog([dict(jackets)]) is None             # ...but 0.45 over is not 2 over: no fallback Dog
+        over = {**jackets, "edge_own": 0.34 * 3.05 - 1}                    # own read 34% vs the market's 31.5%: 2.5 over
+        assert sports.hockey_own_gap_ok(over) and sports.best_hockey_dog([dict(over)]) is not None
+        noread = {**jackets, "edge_own": None}                             # no own read: the old path (dog_own_ok) decides
+        assert sports.hockey_own_gap(noread) is None and sports.hockey_own_gap_ok(noread)
+    finally:
+        sports.dog_score = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    i = src.index("def best_hockey_dog(")
+    assert "hockey_own_gap_ok(c)" in src[i:i + 1500]                      # the call site, not just the helper
+    pv = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "board_preview.py")).read()
+    assert "NHL_FALLBACK_OWN_GAP" in pv                                    # the preview says why a dog was kept off
+
+
+def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight():
+    """10/29 afternoon (the owner: "the lingo still sucks - the breakdowns and the lingo"). The 10/27-10/29 cards graded:
+    "98.4 PDO", "the dog check backs it", "Warriors is the side", "Both teams are rolling: ... won 2 straight", "Cam
+    Talbot — The Blue Jackets' last starter in net —", "Everything above is why we take it anyway", the same last score
+    on two lines of one card, "that's just facts" after a number. Every one is fixed at the pool and the guard drops a
+    stat-head word before it posts."""
+    import sports_breakdown_v24 as b
+    import sports_card_guard as g
+    import sports_breakdown
+    import sports_early
+    assert sports_breakdown.VERSION >= 60                                  # open cards re-render with the new wording
+    # the guard: stat-head words never post
+    for bad in ("🍀 Wild are at 98.4 PDO over their last 10.", "Thin edge - the dog check backs it.",
+                "the dog score likes them", "a 54% Corsi night", "the vig eats it", "no-vig 31.5%"):
+        assert g.problem(bad), bad
+    assert not g.problem("🍀 Puck luck's been shit for the Wild - shooting plus save % at 98.4 over the last 10 games (100 is average). That snaps back.")
+    assert g.problem("⚠️ The risk: they come in 10-4. Everything above is why we take it anyway.")
+    # the pools themselves carry none of it (the guard is the backstop, not the fix)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    lines = [l for l in src.splitlines() if ('f"' in l or "f'" in l) and not l.strip().startswith("#")]
+    for l in lines:
+        body = re.sub(r"#.*$", "", l)
+        assert " PDO" not in body and "dog check" not in body and "Everything above is why" not in body, l
+    dsh = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "dog check" not in dsh
+    # team verbs: a plural name takes the plural verb, a one-word mascot the singular
+    tails = b._tails(False, "Warriors", "Heat")
+    assert "Warriors are the side, that's just facts." in tails and "Warriors get it done." in tails and "Warriors take this one." in tails
+    heat = b._tails(False, "Heat", "Warriors")
+    assert "Heat is the side, that's just facts." in heat and "Heat gets it done." in heat
+    assert not any("Warriors is " in t or "Warriors gets " in t or "Warriors takes " in t for t in tails)
+    # the risk line never says the other side's record then "everything above is why we take it"; the verb agrees
+    v = b.Voice("cbj-1029")
+    v.knock(5, "Hurricanes come in 10-4 to Blue Jackets' 5-5")
+    for _ in range(12):
+        line = b.risk_line(b.Voice("cbj-1029-%d" % _, used=v.used), "Warriors", "Heat", "the Warriors")
+        if line:
+            assert "Everything above" not in line and "Warriors is still" not in line, line
+    # "that's just facts" is never after a number (the owner's rule): the play closers
+    for line in b.OWNER_PLAY("Wild (+150)", "Wild", "+120", 150):
+        assert not re.search(r"[+-]\d+[^.]*\. That's just facts", line), line
+    # a heater is 3+ straight - "rolling" at 2 straight was false
+    assert b.HOT_MIN == 3
+    i = src.index("their_hot = ")
+    assert "n_hot >= HOT_MIN and their_hot >= n_hot" in src[i:i + 600]
+    # the goalie line's mid-sentence possessive keeps "the" lowercase
+    assert b._possm("the Blue Jackets") == "the Blue Jackets'" and b._possm("Duke") == "Duke's"
+    assert b._poss("the Blue Jackets") == "The Blue Jackets'"
+    assert "{_possm(the_us)} last starter in net" in src and "{_possm(the_them)} last starter in net" in src
+    # the same last score never lands on two lines of one card: the W-W line skips our score when the record line said it
+    i = src.index("if wu and wt and any(a in str(x) for x in out)")
+    assert "come in off a {b} themselves" in src[i:i + 500]
+    # the early card's "we beat the line" says it plain: we got the better number
+    assert all("better number" in w or "better one" in w for w in sports_early.MOVE_SAY["🔥 we beat the line"])
+    # no bottom line repeats across one board: two floor cards sharing a board's memory say it two ways
+    used = set()
+    v1, v2 = b.Voice("game-a", used), b.Voice("game-b", used)
+    opts = [f"✅ Bottom line: X. Half a unit on X - small money, real shot.", f"✅ Bottom line: X. Thin one. Half a unit, no more.",
+            f"✅ Bottom line: X. Best dog on the slate by our angles. Half a unit."]
+    a1, a2 = v1.say("bottom_floor", opts), v2.say("bottom_floor", opts)
+    assert a1 and a2 and a1 != a2
 
 
 if __name__ == "__main__":

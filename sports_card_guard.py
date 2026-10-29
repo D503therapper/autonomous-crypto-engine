@@ -15,10 +15,13 @@ import re
 
 import sports_owner_lingo
 
-JARGON = re.compile(r"\b\d{1,3}\s*(?:times\s+)?in\s+100\b|\bprice\s+(?:only\s+)?needs\b|\bbreak[- ]even\b", re.I)
+JARGON = re.compile(r"\b\d{1,3}\s*(?:times\s+)?in\s+100\b|\bprice\s+(?:only\s+)?needs\b|\bbreak[- ]even\b|"
+                    r"\bPDO\b|\bdog check\b|\bdog score\b|\bCorsi\b|\bxG\b|\bFenwick\b|\bEV\b|\bno-vig\b|\bvig\b", re.I)
+#   (10/29, the owner: "the lingo still sucks" - stat-head words never post on a card: PDO, the dog check / dog score,
+#    Corsi / xG, "the vig" - the card says it in plain words or not at all)
 UNSET = re.compile(r"\bTBA\b|\bTBD\b")
 FILLER = re.compile(r"travel just fine|just the better team|they'?re just better|division rivals|no love lost|"
-                    r"everything above tips|and it ain'?t close|our own reasons\.|different reasons\.|got there on our own|"
+                    r"everything above tips|everything above is why|and it ain'?t close|our own reasons\.|different reasons\.|got there on our own|"
                     r"the rest is on the field|"
                     # (10/21, the owner: "the descriptions and the breakdowns just suck ... very vague" - the zero-fact
                     #  verdict and record lines, so they can't come back)

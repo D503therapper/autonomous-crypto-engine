@@ -1,32 +1,123 @@
 {
- "at": "2026-10-29T17:06Z",
+ "at": "2026-10-29T22:33Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Souza vs Jones: no points for 1077s",
-  "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 6 live matches",
+  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 8 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T22:33Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-29T22:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-10-29T22:02Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 856s",
+    "live tennis scores: tennis Colmegna vs Maria: no points for 205s"
+   ]
+  },
+  {
+   "at": "2026-10-29T20:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Pigato vs Kubka: no points for 2323s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 2336s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 2336s"
+   ]
+  },
+  {
+   "at": "2026-10-29T20:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 1746s",
+    "live tennis scores: tennis Pigato vs Kubka: no points for 1733s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 1746s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 1746s"
+   ]
+  },
+  {
+   "at": "2026-10-29T20:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 1134s",
+    "live tennis scores: tennis Pigato vs Kubka: no points for 1120s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 1134s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 1134s"
+   ]
+  },
+  {
+   "at": "2026-10-29T20:26Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 532s",
+    "live tennis scores: tennis Pigato vs Kubka: no points for 519s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 532s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 532s"
+   ]
+  },
+  {
+   "at": "2026-10-29T20:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 239s",
+    "live tennis scores: tennis Pigato vs Kubka: no points for 225s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 239s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 239s"
+   ]
+  },
+  {
+   "at": "2026-10-29T18:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-29T18:44Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 907s",
+    "live tennis scores: tennis Zavatska vs Blinkova: no points for 2618s"
+   ]
+  },
+  {
+   "at": "2026-10-29T18:39Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 645s",
+    "live tennis scores: tennis Zavatska vs Blinkova: no points for 2356s"
+   ]
+  },
   {
    "at": "2026-10-29T17:06Z",
    "fixes": [],
@@ -417,70 +508,6 @@
    "at": "2026-10-28T08:00Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-28T07:54Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T06:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T05:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T05:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T04:16Z",
-   "fixes": [],
-   "problems": [
-    "question box check failed: The read operation timed out",
-    "live tennis points check failed: The read operation timed out"
-   ]
-  },
-  {
-   "at": "2026-10-28T02:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T02:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T02:36Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:nba:1028754151 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-28T02:26Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T02:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T00:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bulgaru vs Plekhanova: no points for 1121s",
-    "live tennis scores: tennis Rame vs Podoroska: no points for 664s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }

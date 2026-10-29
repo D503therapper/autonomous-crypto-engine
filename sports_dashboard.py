@@ -361,7 +361,7 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
         f = _v.fair_am(_s.read_of(leg)) if leg else None
         if leg and leg.get("floor_score") is not None:       # (10/27: a floor play's read sits about even with the price -
             f = None                                         #  "we make 'em +109, the book's at +102" argued against it)
-            why = "Thin edge - the dog check backs it. Small bet, tread light." if u == 0.5 else why
+            why = "Thin edge - the best dog on the slate by our angles. Half a unit, nothing crazy." if u == 0.5 else why
         if f and odds is not None:
             o = f"+{odds}" if odds > 0 else str(odds)
             size = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
@@ -817,7 +817,7 @@ def _dog_note(day, day_picks):
         #                                                      whose read clears the price by 5 points is no thin edge)
         if half:
             msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'half-unit plays' if n > 1 else 'a half-unit play'} below.",
-                   f"No Dog of the Day today. The dog check's top {'pick' if n == 1 else str(n)} still made the board below - small bets, half a unit each.",
+                   f"No Dog of the Day today. The best {'dog' if n == 1 else str(n) + ' dogs'} by our angles still made the board below - small bets, half a unit each.",
                    f"Dog of the Day's empty - no dog earned the full spot. {'Our best dog rides' if n == 1 else 'Our best dogs ride'} below as half-unit value plays."][k]
         else:
             msg = [f"No Dog of the Day - nothing cleared the full Dog bar. The best dog{'s' if n > 1 else ''} on the slate {'are' if n > 1 else 'is'} up as {'value plays' if n > 1 else 'a value play'} below, with {'their' if n > 1 else 'its'} own units.",

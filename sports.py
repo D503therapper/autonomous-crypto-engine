@@ -875,7 +875,21 @@ NHL_BEST_DOG_MIN = 3.0         # ...and the best hockey dog of the day (score ov
 #                                at score 3-6 63-62, +17.8% (3 of 4 seasons up); own read over or under the price, the same split
 #                                (own-over 0-3: 6-9). Live, 11 of the first 12 hockey Dogs were this fallback (4-8). A score 0-3
 #                                dog can still be a ½u floor play (the floor's hockey plays at 0-3: 19-12) - never the Dog of the Day.
-NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
+NHL_FALLBACK_OWN_GAP = 2.0     # 🏒 10/29 (afternoon sweep, the owner: "we need to win more hockey"; the Blue Jackets +205 Dog sat
+#                                over the no-vig market by 0.45): the FALLBACK hockey Dog (best_hockey_dog) needs its own read
+#                                this many points OVER the no-vig market - not just "not under" it. The 10/29 ten-study table
+#                                (9,533 NHL finals 2018-27, the live read fit on train 2018-23, held out 2023-27, dogs +100..+350
+#                                not on a b2b, own read not under the market): today's rule 957-1521 -5.6% train / -2.2% held
+#                                (1 of 4 up); "never past +199" instead 858-1263 -5.4% / -1.1% (2 of 4); own read 2+ over
+#                                135-174 +5.0% (4 of 5 up) / 99-132 +0.5% (2 of 4) - the only version up in both halves;
+#                                both rules together +3.1% / -2.3% (the +200..+350 2+-over dogs went 8-12 held, +30%, and the
+#                                cap threw them out). The dog over by UNDER 2 at +200..+350 (the Jackets' cell) 88-240 -9.5% /
+#                                56-162 -13.2%. Inside the 2+ rule the one cell up both halves is +100..+150 (+2.9% / +2.9%,
+#                                3 of 4 up); +151..+199 2+-over 14-33 held - the WATCH stands. In the live read "2+ over the
+#                                market" IS the rested dog vs a favorite on a back-to-back (540 of 540) - the fallback Dog is
+#                                now that spot plus the 3+ score. Live hockey Dogs 9/30-10/29: 14 of 16 sat under 2 (3-10,
+#                                one open); the 2 over went 0-2 (Flyers +110, Sharks +145) - too few to say anything.
+NCAAB_DOG_EDGE = 0.04         # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
 NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
 #                                closing prices, params re-tuned each July): "own" = today's NCAAB_DOG_EDGE gate (2022-24
@@ -944,6 +958,22 @@ def dog_gate(c):
     return False
 
 
+def hockey_own_gap(c):
+    """How many win-% points the side's OWN read sits over the books' no-vig number (None when either is missing)."""
+    if c.get("edge_own") is None or not c.get("dec") or c.get("p_market") is None:
+        return None
+    return round(((c["edge_own"] + 1) / c["dec"] - c["p_market"]) * 100, 2)
+
+
+def hockey_own_gap_ok(c):
+    """🏒 10/29: the fallback hockey Dog's own read sits NHL_FALLBACK_OWN_GAP+ points over the no-vig market (the Blue
+    Jackets +205 were over by 0.45 - the losing cell). No read / no market = not the fallback Dog."""
+    if not DOG_NEEDS_OWN:                                    # (the 10/23 plan's own-read rule off = no own-read rule at all)
+        return True
+    gap = hockey_own_gap(c)
+    return gap is None or gap >= NHL_FALLBACK_OWN_GAP        # (no read / no market to judge = dog_own_ok's call, as before)
+
+
 def best_hockey_dog(cands, taken=()):
     """The owner, 10/1: "every day there's dogs that smack - the engine has to find the one with the most value." No
     real-value dog anywhere = the hockey dog the whole dog score likes best (over 0, +100..+220, never a trap, never one
@@ -954,8 +984,9 @@ def best_hockey_dog(cands, taken=()):
         if c.get("league") != "nhl" or c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX \
                 or c["game_id"] in taken or c.get("trap") or c.get("waiting") or fighting(c):
             continue
-        if not dog_own_ok(c):
-            continue                                         # (10/27: the hockey own read against the no-vig market - DOG_OWN_RULE)
+        if not dog_own_ok(c) or not hockey_own_gap_ok(c):
+            continue                                         # (10/27: the hockey own read against the no-vig market - DOG_OWN_RULE;
+            #                                                   10/29: and 2+ points over it - NHL_FALLBACK_OWN_GAP)
         sc = round(dog_score(c), 2)
         dp = min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100)
         if sc > NHL_BEST_DOG_MIN and dp * c["dec"] - 1 >= MIN_EDGE and (best is None or sc > best[0]):   # (10/3 sweep:
