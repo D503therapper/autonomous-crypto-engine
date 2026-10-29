@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T23:02Z",
+ "updated": "2026-10-29T23:21Z",
  "games": [
   {
    "id": "nhl:401892603",
@@ -29,6 +29,21 @@
    }
   },
   {
+   "id": "nhl:401892601",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-29T23:00Z",
+   "away": "Jets",
+   "home": "Lightning",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892602",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -56,98 +71,19 @@
    }
   },
   {
-   "id": "nhl:401892600",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Red Wings",
-    "p": 0.394,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-29T23:30Z",
-   "away": "Blackhawks",
-   "home": "Red Wings",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Blackhawks",
-    "opp": "Red Wings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.411,
-    "reasons": [
-     "sharp money moving this way",
-     "opponent drama: suspension"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401862812",
+   "id": "ncaaf:401867969",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "North Texas",
-    "p": 0.741,
-    "tie": 0.027,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-29T23:30Z",
-   "away": "FAU",
-   "home": "North Texas",
-   "why": "coin_flip",
+   "start": "2026-10-29T23:00Z",
+   "away": "SC State",
+   "home": "Morgan St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "North Texas",
-    "opp": "FAU",
-    "market": "spread",
-    "line": -14.0,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.798,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401869963",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "James Madison",
-    "p": 0.817,
-    "tie": 0.022,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-29T23:30Z",
-   "away": "Troy",
-   "home": "James Madison",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "James Madison",
-    "opp": "Troy",
-    "market": "spread",
-    "line": -19.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.875,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892604",
@@ -231,7 +167,7 @@
     "opp": "Predators",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
+    "odds": -265,
     "p": 0.688,
     "win_p": 0.471,
     "reasons": [
