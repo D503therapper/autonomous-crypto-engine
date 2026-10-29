@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T15:23Z",
+ "updated": "2026-10-29T15:34Z",
  "games": [
   {
    "id": "nhl:401892603",
@@ -7,8 +7,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.44,
-    "tie": 0.292,
+    "p": 0.443,
+    "tie": 0.291,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -23,11 +23,12 @@
     "opp": "Blue Jackets",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -129,7 +130,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.405,
+    "p": 0.401,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -138,18 +139,19 @@
    "start": "2026-10-29T23:30Z",
    "away": "Blackhawks",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Red Wings",
-    "opp": "Blackhawks",
-    "market": "ml",
-    "line": null,
+    "team": "Blackhawks",
+    "opp": "Red Wings",
+    "market": "spread",
+    "line": 1.5,
     "odds": -180,
     "p": 0.616,
-    "win_p": 0.616,
+    "win_p": 0.395,
     "reasons": [
-     "the stronger team"
+     "opponent missing key players",
+     "opponent drama: trade drama"
     ]
    }
   },
@@ -736,8 +738,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.717,
-    "tie": 0.03,
+    "p": 0.748,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -751,12 +753,13 @@
     "team": "Celtics",
     "opp": "Bulls",
     "market": "spread",
-    "line": -11.5,
+    "line": -15.5,
     "odds": -110,
-    "p": 0.504,
-    "win_p": 0.826,
+    "p": 0.508,
+    "win_p": 0.859,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -765,8 +768,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "76ers",
-    "p": 0.491,
+    "team": "Knicks",
+    "p": 0.506,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -778,15 +781,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "76ers",
-    "opp": "Knicks",
+    "team": "Knicks",
+    "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -128,
-    "p": 0.514,
-    "win_p": 0.514,
+    "odds": -112,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
-     "opponent drama: family/personal"
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent drama: trade drama"
     ]
    }
   },
@@ -796,7 +801,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.537,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -812,11 +817,12 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
@@ -827,7 +833,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.689,
+    "p": 0.686,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -843,9 +849,9 @@
     "opp": "Nets",
     "market": "spread",
     "line": -8.5,
-    "odds": -115,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.761,
+    "win_p": 0.758,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
