@@ -50,7 +50,9 @@ every session:
   few nights. Analyze and weigh, no rigid rules. A COLD dog (the owner, 10/25, after the 1-10 Canucks were the Dog and
   he pulled them: "do whatever is recommended, don't even ask me") is a WEIGHT, never a gate: -2 on the dog score for an
   NBA dog under .300 after 8+ games or on a 5+ game skid and a college football dog under .300 after 4+ games
-  (sports.cold_dog) - not in hockey, where the engine's cold dogs won against the price. The hockey Dog's edge is the
+  (sports.cold_dog) - not in hockey, where the engine's cold dogs won against the price; in hockey it's the HOT dog that's
+  the fade (the owner's 10/29 ten-studies order: a hockey dog on a 3+ game win streak lost -10.5% / -13.3% held out - a -2
+  WEIGHT on the dog score, sports.hot_dog, never a gate). The hockey Dog's edge is the
   favorite's back-to-back (the live read is the line + b2b / rest, no Elo): small and real (+3% / +15%), never the
   replay's "+19.9%" (that was a replay bug, fixed 10/25). THE 10/28 HOCKEY AUDIT (the owner: "our hockey picks are ass - below 50% ... tighten up on hockey ... take off any plays"; live hockey unit plays 10-11 -2.1u, the Dog of the Day 4-10 the whole leak, 11 of the first 12 Dogs the best-hockey-dog FALLBACK): the fallback Dog needs a dog score of 3+ (sports.NHL_BEST_DOG_MIN - in the fixed-read replay the 0-3 fallback went 30-44 -10.1%, 3-6 63-62 +17.8%; a 0-3 dog can still be a ½u floor play), and no hockey favorite lean at -150..-130 (sports.LEAN_NHL_FAV_BAND). The hockey Lock (favorites 56%+, +4.8% / +6.5% in band at the close) and the floor's hockey dogs (+15.5%, 4 of 4 seasons) stay. results/audit_1028_hockey.md.
 - ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
