@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 135,
+  "n": 136,
   "beat": 43,
-  "same": 49,
+  "same": 50,
   "worse": 43,
   "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 58,
+  "n": 59,
   "beat": 18,
-  "same": 26,
+  "same": 27,
   "worse": 14,
   "avg_pts": 0.18
  },
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 27,
+   "n": 28,
    "beat": 7,
-   "same": 14,
+   "same": 15,
    "worse": 6,
    "avg_pts": 0.04
   }
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 13,
+   "n": 14,
    "beat": 5,
-   "same": 5,
+   "same": 6,
    "worse": 3,
-   "avg_pts": 0.42
+   "avg_pts": 0.39
   },
   "ncaaf": {
    "n": 38,
@@ -1999,6 +1999,20 @@
    "close": -135,
    "pts": 0.0,
    "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-28",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Bucks",
+   "market": "ml",
+   "line": null,
+   "odds": 270,
+   "close": 270,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]
