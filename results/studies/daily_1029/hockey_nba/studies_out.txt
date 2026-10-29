@@ -1,0 +1,181 @@
+building ...
+
+BASES
+NBA all - dog +100..+350
+   TRAIN: n=6253 35.7% vs 35.6% exp z+0.1 ROI -3.7% up 0/7 [18:-4(900) 19:-3(804) 20:-0(862) 21:-4(942) 22:-6(979) 23:-8(892) 24:-1(874)]
+   HOLD: n=869 34.6% vs 35.2% exp z-0.3 ROI -6.7% up 0/1 [25:-7(869)]
+   CUR: n=49 32.7% vs 36.8% exp z-0.6 ROI -17.3% up 0/1 [26:-17(49)]
+NBA all - fav -101..-150
+   TRAIN: n=2399 52.8% vs 53.3% exp z-0.5 ROI -4.9% up 0/7 [18:-9(343) 19:-6(313) 20:-1(345) 21:-2(353) 22:-7(399) 23:-7(352) 24:-0(294)]
+   HOLD: n=315 49.5% vs 53.1% exp z-1.3 ROI -10.6% up 0/1 [25:-11(315)]
+   CUR: n=30 56.7% vs 52.2% exp z+0.5 ROI +3.7% up 1/1 [26:+4(30)]
+NHL all - dog +100..+350
+   TRAIN: n=7014 38.1% vs 39.1% exp z-1.8 ROI -6.6% up 1/7 [18:-3(1038) 19:+3(908) 20:-12(723) 21:-16(1071) 22:-6(1063) 23:-6(1043) 24:-6(1168)]
+   HOLD: n=1113 43.7% vs 41.0% exp z+1.8 ROI +1.9% up 1/1 [25:+2(1113)]
+   CUR: n=164 37.2% vs 40.0% exp z-0.7 ROI -12.8% up 0/1 [26:-13(164)]
+NHL all - fav -101..-150
+   TRAIN: n=4561 54.1% vs 53.0% exp z+1.5 ROI -2.3% up 2/7 [18:-3(760) 19:-6(684) 20:+2(452) 21:+2(668) 22:-4(630) 23:-1(696) 24:-4(671)]
+   HOLD: n=921 51.8% vs 52.8% exp z-0.6 ROI -6.2% up 0/1 [25:-6(921)]
+   CUR: n=145 51.0% vs 52.3% exp z-0.3 ROI -6.5% up 0/1 [26:-7(145)]
+
+S6 NBA DOGS BY THE CLOSING TOTAL (vs the season's running median, 60+ games in)
+NBA total 8+ under the median - dog +100..+350
+   TRAIN: n=924 33.2% vs 35.9% exp z-1.7 ROI -10.5% up 1/7 [18:-2(155) 19:-30(118) 20:+5(136) 21:-13(98) 22:-9(99) 23:-8(171) 24:-20(147)]
+   HOLD: n=172 37.8% vs 35.7% exp z+0.6 ROI -0.9% up 0/1 [25:-1(172)]
+   CUR: n=1 0.0% vs 36.9% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+NBA total 8+ under the median - fav -101..-150
+   TRAIN: n=347 54.8% vs 53.4% exp z+0.5 ROI -1.8% up 3/7 [18:+1(49) 19:+6(51) 20:-5(59) 21:-22(25) 22:-8(45) 23:-16(62) 24:+22(56)]
+   HOLD: n=70 45.7% vs 52.7% exp z-1.2 ROI -16.9% up 0/1 [25:-17(70)]
+   CUR: n=2 50.0% vs 50.0% exp z+0.0 ROI -3.7% up 0/1 [26:-4(2)]
+NBA total within 8 of the median - dog +100..+350
+   TRAIN: n=3621 35.2% vs 35.4% exp z-0.2 ROI -4.6% up 0/7 [18:-3(510) 19:-7(455) 20:-6(520) 21:-3(552) 22:-4(645) 23:-10(450) 24:-0(489)]
+   HOLD: n=530 32.6% vs 35.0% exp z-1.2 ROI -10.3% up 0/1 [25:-10(530)]
+   CUR: n=4 50.0% vs 33.0% exp z+0.7 ROI +25.5% up 1/1 [26:+26(4)]
+NBA total within 8 of the median - fav -101..-150
+   TRAIN: n=1368 53.3% vs 53.3% exp z+0.0 ROI -4.1% up 1/7 [18:-11(204) 19:-2(176) 20:+3(202) 21:-0(200) 22:-8(258) 23:-3(175) 24:-7(153)]
+   HOLD: n=196 52.6% vs 53.1% exp z-0.2 ROI -5.4% up 0/1 [25:-5(196)]
+   CUR: n=0
+NBA total 8+ over the median - dog +100..+350
+   TRAIN: n=1374 38.1% vs 35.9% exp z+1.8 ROI +2.0% up 3/7 [18:-3(190) 19:+21(188) 20:+9(156) 21:-1(243) 22:-13(188) 23:-3(218) 24:+7(191)]
+   HOLD: n=114 36.0% vs 34.7% exp z+0.3 ROI -5.4% up 0/1 [25:-5(114)]
+   CUR: n=1 0.0% vs 38.4% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+NBA total 8+ over the median - fav -101..-150
+   TRAIN: n=535 50.8% vs 53.3% exp z-1.2 ROI -8.3% up 0/7 [18:-11(71) 19:-17(65) 20:-8(59) 21:-3(106) 22:-14(71) 23:-7(93) 24:-2(70)]
+   HOLD: n=32 43.8% vs 53.3% exp z-1.1 ROI -20.5% up 0/1 [25:-20(32)]
+   CUR: n=0
+NBA dog +200..+350, total 8+ under the median
+   TRAIN: n=302 25.5% vs 27.1% exp z-0.6 ROI -8.5% up 2/7 [18:-19(46) 19:-52(34) 20:+39(50) 21:+21(32) 22:-26(23) 23:-26(63) 24:-7(54)]
+   HOLD: n=63 25.4% vs 27.0% exp z-0.3 ROI -8.3% up 0/1 [25:-8(63)]
+   CUR: n=0
+  (base: NBA dog +200..+350, with a median)
+   TRAIN: n=2091 26.8% vs 27.0% exp z-0.2 ROI -4.7% up 3/7 [18:-15(299) 19:-9(282) 20:+13(288) 21:+7(313) 22:-10(298) 23:-24(293) 24:+4(318)]
+   HOLD: n=313 26.2% vs 27.0% exp z-0.3 ROI -7.2% up 0/1 [25:-7(313)]
+   CUR: n=2 0.0% vs 27.7% exp z-0.9 ROI -100.0% up 0/1 [26:-100(2)]
+
+S7 NBA THE BOOK'S FIRST-HALF SHARE (1st-half spread / full spread, full spread 2.5+; the h1 line holds 2018-24 + 2026)
+NBA share under 0.45 - dog +100..+350
+   TRAIN: n=948 40.2% vs 40.5% exp z-0.2 ROI -4.6% up 3/6 [18:+8(190) 19:+5(168) 20:+3(146) 21:-11(196) 22:-28(114) 23:-15(134)]
+   HOLD: n=0
+   CUR: n=10 50.0% vs 41.8% exp z+0.5 ROI +16.2% up 1/1 [26:+16(10)]
+NBA share under 0.45 - fav -101..-150
+   TRAIN: n=331 55.6% vs 56.0% exp z-0.2 ROI -4.6% up 2/6 [18:-9(68) 19:-9(62) 20:-14(50) 21:+3(60) 22:+11(45) 23:-7(46)]
+   HOLD: n=0
+   CUR: n=4 50.0% vs 55.5% exp z-0.2 ROI -13.2% up 0/1 [26:-13(4)]
+NBA share 0.45-0.60 - dog +100..+350
+   TRAIN: n=2736 31.8% vs 32.3% exp z-0.6 ROI -5.9% up 1/6 [18:-9(491) 19:-7(438) 20:+3(482) 21:-4(484) 22:-3(428) 23:-16(413)]
+   HOLD: n=0
+   CUR: n=26 26.9% vs 32.6% exp z-0.6 ROI -24.8% up 0/1 [26:-25(26)]
+NBA share 0.45-0.60 - fav -101..-150
+   TRAIN: n=179 53.1% vs 57.3% exp z-1.2 ROI -11.0% up 0/6 [18:-11(17) 19:-13(21) 20:-16(44) 21:-20(23) 22:-6(48) 23:-3(26)]
+   HOLD: n=0
+   CUR: n=0
+NBA share 0.60+ - dog +100..+350
+   TRAIN: n=844 34.1% vs 33.0% exp z+0.7 ROI -1.3% up 3/6 [18:-8(77) 19:-5(73) 20:+2(103) 21:+8(136) 22:-9(249) 23:+4(206)]
+   HOLD: n=0
+   CUR: n=7 14.3% vs 36.5% exp z-1.2 ROI -54.3% up 0/1 [26:-54(7)]
+NBA share 0.60+ - fav -101..-150
+   TRAIN: n=170 52.4% vs 56.0% exp z-1.0 ROI -10.4% up 1/6 [18:-28(19) 19:-3(21) 20:+8(19) 21:-8(39) 22:-14(38) 23:-14(34)]
+   HOLD: n=0
+   CUR: n=4 100.0% vs 56.3% exp z+1.8 ROI +70.4% up 1/1 [26:+70(4)]
+NBA dog share under 0.45 (train 2018-22 / look 2023-24)
+   TRAIN: n=814 40.7% vs 40.3% exp z+0.2 ROI -2.9% up 3/5 [18:+8(190) 19:+5(168) 20:+3(146) 21:-11(196) 22:-28(114)]
+   HOLD: n=134 37.3% vs 41.4% exp z-1.0 ROI -15.0% up 0/1 [23:-15(134)]
+   CUR: n=10 50.0% vs 41.8% exp z+0.5 ROI +16.2% up 1/1 [26:+16(10)]
+NBA dog share 0.60+ (train 2018-22 / look 2023-24)
+   TRAIN: n=638 33.5% vs 33.1% exp z+0.2 ROI -2.9% up 2/5 [18:-8(77) 19:-5(73) 20:+2(103) 21:+8(136) 22:-9(249)]
+   HOLD: n=206 35.9% vs 32.8% exp z+1.0 ROI +3.7% up 1/1 [23:+4(206)]
+   CUR: n=7 14.3% vs 36.5% exp z-1.2 ROI -54.3% up 0/1 [26:-54(7)]
+
+S8 NBA THE BAD CLOSER / THE CLOSER (the 4th quarter, last 3 games)
+NBA lost the 4th in each of its last 3 - dog +100..+350
+   TRAIN: n=706 36.0% vs 35.4% exp z+0.3 ROI -0.9% up 4/7 [18:-11(99) 19:+13(100) 20:-19(96) 21:+5(92) 22:+4(128) 23:-19(86) 24:+16(105)]
+   HOLD: n=109 34.9% vs 34.6% exp z+0.1 ROI -4.8% up 0/1 [25:-5(109)]
+   CUR: n=3 33.3% vs 35.7% exp z-0.1 ROI -20.0% up 0/1 [26:-20(3)]
+NBA lost the 4th in each of its last 3 - fav -101..-150
+   TRAIN: n=217 52.5% vs 52.9% exp z-0.1 ROI -5.0% up 2/7 [18:-9(32) 19:-27(30) 20:+8(33) 21:-1(37) 22:-11(30) 23:+10(30) 24:-7(25)]
+   HOLD: n=38 50.0% vs 53.7% exp z-0.5 ROI -10.8% up 0/1 [25:-11(38)]
+   CUR: n=0
+NBA won the 4th in each of its last 3 - dog +100..+350
+   TRAIN: n=625 36.5% vs 35.9% exp z+0.3 ROI -2.8% up 3/7 [18:+0(81) 19:-1(75) 20:-1(83) 21:-11(100) 22:+6(110) 23:+4(90) 24:-19(86)]
+   HOLD: n=81 35.8% vs 37.6% exp z-0.3 ROI -6.1% up 0/1 [25:-6(81)]
+   CUR: n=1 0.0% vs 36.9% exp z-0.8 ROI -100.0% up 0/1 [26:-100(1)]
+NBA won the 4th in each of its last 3 - fav -101..-150
+   TRAIN: n=254 53.5% vs 53.5% exp z+0.0 ROI -3.7% up 4/7 [18:-30(38) 19:+0(34) 20:-18(37) 21:+25(40) 22:-17(43) 23:+0(31) 24:+18(31)]
+   HOLD: n=36 58.3% vs 53.0% exp z+0.6 ROI +5.9% up 1/1 [25:+6(36)]
+   CUR: n=1 100.0% vs 50.4% exp z+1.0 ROI +89.3% up 1/1 [26:+89(1)]
+NBA OPPONENT lost the 4th in each of its last 3 - dog +100..+350
+   TRAIN: n=541 38.8% vs 35.3% exp z+1.7 ROI +7.7% up 3/7 [18:-8(85) 19:+31(67) 20:-12(73) 21:+28(89) 22:-1(70) 23:-5(75) 24:+20(82)]
+   HOLD: n=89 38.2% vs 36.0% exp z+0.4 ROI +0.3% up 1/1 [25:+0(89)]
+   CUR: n=0
+NBA OPPONENT lost the 4th in each of its last 3 - fav -101..-150
+   TRAIN: n=264 56.4% vs 53.3% exp z+1.0 ROI +1.6% up 4/7 [18:+3(42) 19:-12(41) 20:+25(37) 21:+1(31) 22:+15(45) 23:-7(35) 24:-18(33)]
+   HOLD: n=30 43.3% vs 52.5% exp z-1.0 ROI -20.9% up 0/1 [25:-21(30)]
+   CUR: n=0
+
+S9 NHL THE 3RD-PERIOD TEAM (3rd-period goal diff over the last 5)
+NHL 3rd periods +4 or better, last 5 - dog +100..+350
+   TRAIN: n=789 38.4% vs 40.6% exp z-1.3 ROI -9.3% up 2/7 [18:-24(115) 19:+7(102) 20:-23(74) 21:-15(121) 22:-7(120) 23:-8(126) 24:+1(131)]
+   HOLD: n=126 48.4% vs 41.9% exp z+1.5 ROI +10.5% up 1/1 [25:+10(126)]
+   CUR: n=17 29.4% vs 41.2% exp z-1.0 ROI -33.8% up 0/1 [26:-34(17)]
+NHL 3rd periods +4 or better, last 5 - fav -101..-150
+   TRAIN: n=764 52.0% vs 53.1% exp z-0.6 ROI -6.0% up 1/7 [18:-0(130) 19:-11(97) 20:-19(72) 21:+4(119) 22:-18(111) 23:-2(126) 24:-3(109)]
+   HOLD: n=144 53.5% vs 53.2% exp z+0.1 ROI -4.0% up 0/1 [25:-4(144)]
+   CUR: n=14 42.9% vs 52.7% exp z-0.7 ROI -21.4% up 0/1 [26:-21(14)]
+NHL 3rd periods -4 or worse, last 5 - dog +100..+350
+   TRAIN: n=1376 37.7% vs 37.5% exp z+0.2 ROI -4.5% up 2/7 [18:-8(183) 19:+10(142) 20:+9(137) 21:-13(227) 22:-7(226) 23:-6(242) 24:-6(219)]
+   HOLD: n=211 37.0% vs 40.0% exp z-0.9 ROI -11.9% up 0/1 [25:-12(211)]
+   CUR: n=23 39.1% vs 38.3% exp z+0.1 ROI -6.9% up 0/1 [26:-7(23)]
+NHL 3rd periods -4 or worse, last 5 - fav -101..-150
+   TRAIN: n=603 52.4% vs 52.8% exp z-0.2 ROI -5.2% up 4/7 [18:-5(103) 19:-18(91) 20:+2(45) 21:+5(93) 22:-21(90) 23:+1(83) 24:+3(98)]
+   HOLD: n=125 53.6% vs 52.6% exp z+0.2 ROI -3.1% up 0/1 [25:-3(125)]
+   CUR: n=9 77.8% vs 52.3% exp z+1.5 ROI +43.0% up 1/1 [26:+43(9)]
+NHL 3rd periods 6+ better than the opponent's, last 5 - dog +100..+350
+   TRAIN: n=518 38.0% vs 40.9% exp z-1.3 ROI -11.1% up 3/7 [18:-20(79) 19:+12(80) 20:-32(50) 21:-35(74) 22:+4(71) 23:-17(71) 24:+1(93)]
+   HOLD: n=84 47.6% vs 42.1% exp z+1.0 ROI +8.0% up 1/1 [25:+8(84)]
+   CUR: n=11 27.3% vs 41.8% exp z-1.0 ROI -36.0% up 0/1 [26:-36(11)]
+NHL 3rd periods 6+ better than the opponent's, last 5 - fav -101..-150
+   TRAIN: n=616 51.5% vs 53.2% exp z-0.9 ROI -7.3% up 1/7 [18:-13(99) 19:+1(84) 20:-1(58) 21:-1(91) 22:-11(88) 23:-7(101) 24:-15(95)]
+   HOLD: n=113 54.9% vs 53.2% exp z+0.4 ROI -1.7% up 0/1 [25:-2(113)]
+   CUR: n=12 50.0% vs 54.2% exp z-0.3 ROI -13.1% up 0/1 [26:-13(12)]
+
+S10 NHL THE TOTAL'S JUICE (the closing over / under price)
+NHL over juiced -125 or more - dog +100..+350
+   TRAIN: n=1192 39.1% vs 38.7% exp z+0.3 ROI -3.9% up 2/7 [18:-3(188) 19:+22(72) 20:-28(84) 21:-27(141) 22:-1(261) 23:+11(254) 24:-10(192)]
+   HOLD: n=246 38.6% vs 41.1% exp z-0.8 ROI -9.2% up 0/1 [25:-9(246)]
+   CUR: n=32 43.8% vs 40.2% exp z+0.4 ROI +1.3% up 1/1 [26:+1(32)]
+NHL over juiced -125 or more - fav -101..-150
+   TRAIN: n=692 52.0% vs 53.2% exp z-0.6 ROI -6.5% up 1/7 [18:-4(125) 19:-17(54) 20:-0(43) 21:+1(67) 22:-12(159) 23:-7(149) 24:-4(95)]
+   HOLD: n=199 56.3% vs 53.0% exp z+0.9 ROI +1.4% up 1/1 [25:+1(199)]
+   CUR: n=30 50.0% vs 52.3% exp z-0.3 ROI -9.0% up 0/1 [26:-9(30)]
+NHL under juiced -125 or more - dog +100..+350
+   TRAIN: n=722 36.6% vs 38.9% exp z-1.3 ROI -9.6% up 2/7 [18:-5(147) 19:+5(79) 20:+6(79) 21:-13(85) 22:-11(107) 23:-32(82) 24:-15(143)]
+   HOLD: n=200 48.0% vs 40.5% exp z+2.2 ROI +14.3% up 1/1 [25:+14(200)]
+   CUR: n=14 28.6% vs 39.0% exp z-0.8 ROI -37.6% up 0/1 [26:-38(14)]
+NHL under juiced -125 or more - fav -101..-150
+   TRAIN: n=505 54.1% vs 52.7% exp z+0.6 ROI -1.6% up 4/7 [18:+1(100) 19:-13(75) 20:-6(47) 21:-12(65) 22:+3(62) 23:+2(61) 24:+8(95)]
+   HOLD: n=159 51.6% vs 52.9% exp z-0.3 ROI -6.9% up 0/1 [25:-7(159)]
+   CUR: n=16 43.8% vs 52.4% exp z-0.7 ROI -19.4% up 0/1 [26:-19(16)]
+NHL total priced near even - dog +100..+350
+   TRAIN: n=5101 38.1% vs 39.3% exp z-1.7 ROI -6.8% up 1/7 [18:-2(703) 19:+1(757) 20:-12(560) 21:-14(845) 22:-8(695) 23:-9(707) 24:-3(834)]
+   HOLD: n=672 44.0% vs 41.1% exp z+1.6 ROI +2.0% up 1/1 [25:+2(672)]
+   CUR: n=118 36.4% vs 40.1% exp z-0.8 ROI -13.7% up 0/1 [26:-14(118)]
+NHL total priced near even - fav -101..-150
+   TRAIN: n=3365 54.5% vs 53.0% exp z+1.7 ROI -1.5% up 3/7 [18:-4(535) 19:-4(555) 20:+3(362) 21:+3(536) 22:-2(409) 23:+1(486) 24:-7(482)]
+   HOLD: n=567 50.6% vs 52.7% exp z-1.0 ROI -8.1% up 0/1 [25:-8(567)]
+   CUR: n=99 52.5% vs 52.2% exp z+0.1 ROI -3.7% up 0/1 [26:-4(99)]
+NHL dog, total 5.5 with the over -125+ (a 6 in disguise)
+   TRAIN: n=461 38.8% vs 38.9% exp z-0.0 ROI -5.5% up 3/7 [18:+3(42) 19:+76(4) 20:-21(43) 21:-20(76) 22:-0(83) 23:+17(75) 24:-12(138)]
+   HOLD: n=178 38.8% vs 41.7% exp z-0.8 ROI -10.9% up 0/1 [25:-11(178)]
+   CUR: n=15 46.7% vs 41.7% exp z+0.4 ROI -1.7% up 0/1 [26:-2(15)]
+NHL dog, total 6.5 with the under -125+ (a 6 in disguise)
+   TRAIN: n=316 31.0% vs 37.4% exp z-2.4 ROI -20.4% up 0/6 [18:-40(20) 19:-18(9) 21:-18(32) 22:-17(89) 23:-34(72) 24:-11(94)]
+   HOLD: n=167 47.9% vs 40.4% exp z+2.0 ROI +13.9% up 1/1 [25:+14(167)]
+   CUR: n=13 30.8% vs 39.0% exp z-0.6 ROI -32.8% up 0/1 [26:-33(13)]
+
+primary cells 34
+FADE train 924 -10.5% / hold 172 -0.9%: NBA total 8+ under the median - dog +100..+350
+FADE train 535 -8.3% / hold 32 -20.5%: NBA total 8+ over the median - fav -101..-150
+FADE train 302 -8.5% / hold 63 -8.3%: NBA dog +200..+350, total 8+ under the median
+SURVIVOR train 541 +7.7% / hold 89 +0.3%: NBA OPPONENT lost the 4th in each of its last 3 - dog +100..+350
+FADE train 764 -6.0% / hold 144 -4.0%: NHL 3rd periods +4 or better, last 5 - fav -101..-150
+FADE train 616 -7.3% / hold 113 -1.7%: NHL 3rd periods 6+ better than the opponent's, last 5 - fav -101..-150

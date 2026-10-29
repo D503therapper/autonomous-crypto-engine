@@ -141,6 +141,18 @@ def tags(c, sports):
             #   -9.7% on 861 train / -17.1% on 99 held out (the dog base -3.7% / -6.7%), NHL dogs -16.1% on 347 / -12.6%
             #   on 29 (base -6.6% / +1.9%), worse than teams with the same last-3 results in train; but z only -1.2 / -1.6,
             #   2026 NHL +27% on 9, NBA none yet, NHL favorites the other way - tracked only, never a weight
+        if lg == "nfl" and c.get("odds", 0) <= 350:          # 10/29 daily studies: LEADS, tracked only, never a weight
+            sh = h1_share(c)
+            if sh is not None:
+                t.append("NFL dog, 1st-half spread 60%+ of the full" if sh >= H1_SHARE_BIG
+                         else "NFL dog, 1st-half spread under 60% of the full (fade)")
+            #   the book's 1st-half spread / the full spread (2.5+): NFL dogs at 0.60+ +7.2% on 537 train / +21.7% on 99
+            #   (2025) / -5.5% on 41 (2026); under 0.60 -20.9% / -12.9% / -17.8% (685 in all) - inside every spread size,
+            #   total, home / road and season; but college runs the OTHER way (0.60+ -7.5% on 1,308), the NBA only a
+            #   hair the same way, ATS mixed, no known reason - and the 1st-half line is often not up at 8 AM
+            if dog_run(c, 4):
+                t.append("NFL dog, a dog in each of its last 4 (fade)")   # -18.3% on 232 train (1 of 7 up), -13.3% on 34
+                #   (2025), 2026 -4.2% on 9; the dose 3 / 4 / 5 / 6 straight -9.6 / -17.2 / -19.2 / -20.1%; college flat
         if c.get("opp_sv_slump"):
             t.append("NHL dog vs a slumping goalie (fade)")
         if c.get("west_trip_dog"):
@@ -283,6 +295,50 @@ def beat_good_last(c):
             continue
         n += 1
     return n >= 3 and w / n > 0.5
+
+
+H1_SHARE_BIG = 0.60     # the 10/29 study's cut: the dog's 1st-half spread at 60%+ of its full-game spread
+
+
+def _game(c):
+    lg = c.get("league")
+    if lg not in _GAMES:
+        try:
+            _GAMES[lg] = sd.load_games(lg)
+        except Exception:                                    # noqa: BLE001
+            _GAMES[lg] = {}
+    return _GAMES[lg].get(c.get("game_id")) or {}
+
+
+def h1_share(c):
+    """The book's 1st-half spread as a share of the full-game spread, for THIS side, from tonight's game row - only when
+    the side gets 2.5+ points for the game and the 1st-half line is up (None otherwise). 10/29 daily study."""
+    g = _game(c)
+    try:
+        sp, h1 = float(g["spread_home"]), float(g["h1_spread_home"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    if c.get("side") == "away":
+        sp, h1 = -sp, -h1
+    elif c.get("side") != "home":
+        return None
+    return h1 / sp if sp >= 2.5 else None
+
+
+def dog_run(c, k=4):
+    """A dog (closing moneyline +100 or longer) in EACH of its last k games this season - the 10/29 NFL study. A game
+    with no closing moneyline breaks the run (False)."""
+    team, rows = _last_rows(c, k)
+    if not rows:
+        return False
+    for x in rows:
+        me = "home" if x["home"] == team else "away"
+        try:
+            if float(x["ml_" + me]) < 100:
+                return False
+        except (KeyError, TypeError, ValueError):
+            return False
+    return True
 
 
 WEEKNIGHTS = ("Tue", "Wed", "Thu", "Fri")
