@@ -24222,6 +24222,12 @@
      "them:trip1000"
     ],
     "dec": 3.7,
+    "decider": {
+     "h": "57-35",
+     "s": "132-100",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24287,6 +24293,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 4.68,
+    "flow": {
+     "a": "23,34,38,37",
+     "h": "21,14,34,31"
+    },
     "form_state": [
      8.0,
      1,
@@ -24333,10 +24343,12 @@
      "the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Rockets 132 @ Bucks 100",
     "season_games": 4,
+    "settled": "2026-10-29T02:44Z",
     "side": "home",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24354,12 +24366,14 @@
   ],
   "midday": true,
   "p_hit": 0.2286,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T21:05Z",
   "round": 1,
+  "settled": "2026-10-29T02:44Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 142,
@@ -24402,6 +24416,7 @@
      "us:road3in6"
     ],
     "dec": 2.42,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24478,6 +24493,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,34,29,26",
+     "h": "23,25,33,33"
+    },
     "form_state": [
      20.0,
      1,
@@ -24531,10 +24550,12 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Warriors 119 @ Timberwolves 114",
     "season_games": 4,
+    "settled": "2026-10-29T02:45Z",
     "side": "away",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24555,11 +24576,12 @@
   "midday": true,
   "owner_post": "10/28 - the owner: 'Lendeborg is not a factor' / 'fix what needs to be fixed, add what plays need to be added' (Warriors read 46.4% vs 41.3% at +142, dog score 6.8, passes every Dog check - held only by Yaxel Lendeborg (F) questionable, a starter in 3+ of the Warriors' last 10 box scores)",
   "p_hit": 0.4643,
-  "pnl": 0.0,
+  "pnl": 142.0,
   "posted": "2026-10-28T21:38Z",
   "round": 1,
+  "settled": "2026-10-29T02:45Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
   "units": 1.0
  },

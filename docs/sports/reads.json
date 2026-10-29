@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T02:01Z",
+ "updated": "2026-10-29T02:46Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -112,8 +112,8 @@
    "away": "Flyers",
    "home": "Capitals",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -127,8 +127,8 @@
    "away": "Magic",
    "home": "Raptors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -182,8 +182,8 @@
    "away": "Knicks",
    "home": "Bulls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -197,8 +197,8 @@
    "away": "Nuggets",
    "home": "Pelicans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -213,7 +213,7 @@
    "home": "Bucks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Bucks",
@@ -226,7 +226,7 @@
     "reasons": [
      "the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -240,7 +240,7 @@
    "home": "Timberwolves",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Warriors",
@@ -254,7 +254,7 @@
      "sharp money moving this way",
      "rolling off a blowout win"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -375,33 +375,16 @@
    "id": "nba:401909892",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Clippers",
-    "p": 0.504,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-29T02:30Z",
    "away": "Lakers",
    "home": "Clippers",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Clippers",
-    "opp": "Lakers",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.534,
-    "win_p": 0.534,
-    "reasons": [
-     "sharp money moving this way",
-     "opponent on a back-to-back",
-     "better rested"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892603",
@@ -651,8 +634,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Capitals",
-    "p": 0.356,
+    "team": "Predators",
+    "p": 0.36,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -661,7 +644,7 @@
    "start": "2026-10-30T00:00Z",
    "away": "Capitals",
    "home": "Predators",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Predators",
@@ -669,9 +652,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.702,
-    "win_p": 0.488,
-    "reasons": []
+    "p": 0.73,
+    "win_p": 0.522,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -731,8 +716,7 @@
     "p": 0.637,
     "win_p": 0.637,
     "reasons": [
-     "the stronger team",
-     "better rested"
+     "the stronger team"
     ]
    }
   },
@@ -804,7 +788,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.612,
+    "p": 0.608,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -813,16 +797,16 @@
    "start": "2026-10-30T02:00Z",
    "away": "Grizzlies",
    "home": "Trail Blazers",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Trail Blazers",
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -250,
+    "p": 0.685,
+    "win_p": 0.685,
     "reasons": [
      "the stronger team"
     ]
