@@ -1,28 +1,31 @@
 {
- "at": "2026-10-29T06:57Z",
+ "at": "2026-10-29T07:07Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (13s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
-  "slate check: all 19 of today's games named, priced and looked at",
+  "live tennis points + server: 1 of 1 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
+  "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 12 min ago",
+  "engine ran 22 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-29T07:07Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-29T06:57Z",
    "fixes": [],
@@ -508,20 +511,6 @@
     "live tennis scores: tennis Urrutia vs Jones: no points for 2620s",
     "live tennis scores: tennis Klimovicova vs Maduzzi: no points for 1810s",
     "live tennis scores: tennis Kubka vs Ristic: no points for 1092s"
-   ]
-  },
-  {
-   "at": "2026-10-27T14:32Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Masarova vs Riera: no points for 164s",
-    "live tennis scores: tennis Urrutia vs Jones: no points for 164s",
-    "live tennis scores: tennis Selekhmeteva vs Nagy: no points for 164s",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
