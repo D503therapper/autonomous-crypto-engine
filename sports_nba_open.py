@@ -7,8 +7,10 @@ altitude, the last game's margin, 5- and 10-game form, this season's and last se
 seasons BEFORE the one it's graded on (never a look-ahead) at the CLOSE, then scored at the OPEN. The best side a night
 with an open score of 4+ points, opening -150..+300: 334 bets 170-164, +13.4%, +44.7u, up all three seasons it never
 saw (2023 +9%, 2024 +19%, 2025 +13%), worst stretch -12.7u. The SAME picks at the close: +5%. The #2 side a night loses.
-Teams 1-10 games in: -3.4% on 43 - so both teams need 11+ games. Form / records carry it (the market-only model loses
--15%); it's a whole read of 37 factors, never one (the owner's rule).
+Form / records carry it (the market-only model loses -15%); it's a whole read of 37 factors, never one (the owner's
+rule). The 11-game gate came off 10/29 (MIN_TEAM_GAMES - the replay of this module found no early-season hole), and the
+board's NBA dog weights (the 12+ game slate, the favorite's soft next game, a cold dog) ride on the read through
+best_tonight(weigh=...) - the same read the board uses on an NBA dog, never a trigger.
 
 Pure Python (the Actions runner installs nothing): fit() is a column-wise Newton ridge fit, run once a season and
 cached in data/sports/nba_open_model.json; score() is a dot product."""
@@ -25,7 +27,14 @@ MODEL_PATH = os.path.join(sd.DATA, "nba_open_model.json")
 LAM = 300.0                 # the ridge on the standardized weights (chosen on the 2020-22 walk-forward log loss)
 SCORE_MIN = 0.04            # the model's win chance over the open's no-vig number, in win-% points (the study's cut)
 PRICE_BAND = (-150, 300)    # the side's opening price (the -150 rule; "never no damn +400")
-MIN_TEAM_GAMES = 11         # both teams 11+ games into the season (games 1-10: -3.4% blind)
+MIN_TEAM_GAMES = 1          # both teams have PLAYED this season (a record and a last game to stand on). Was 11 (the
+#                             10/23 study's "games 1-10: -3.4% on 43" - a cut that used the own-read gap input the built
+#                             module doesn't have). 10/29 (the owner: "we need to jump on these NBA dogs as soon as the
+#                             line opens"): THIS module replayed blind at the open 2023-25 with no games gate - teams
+#                             1-5 games in 15-15 +1.6u (+5.3%), 6-10 games in 8-9 +2.5u (+14.5%), 11+ 143-139 +38.6u
+#                             (+13.7%); all 166-163 +42.6u +13.0%, up all 3 seasons. The stage inputs (g1_5 / g6_10)
+#                             already weigh the early weeks. 47 early bets is noise either way - no reason to sit out
+#                             three weeks of the season; the spot's own record judges it (40 plays, under -5% = off).
 MIN_TRAIN_SEASONS = 2       # a fit needs two full prior seasons with prices, or there's no model
 MIN_SEASON_ROWS = 800       # ...a "full" season = 800+ priced regular-season sides
 ELO_K, ELO_HFA = 20, 70     # the NBA Elo the study used (sports_model's defaults for the NBA)
@@ -303,14 +312,20 @@ def score(model, row, side, mp):
     return predict(model, features(row, side, mp)) - mp
 
 
-def best_tonight(games, date, model, tab=None, min_team_games=MIN_TEAM_GAMES, score_min=SCORE_MIN, band=PRICE_BAND,
-                 prices=None):
+def best_tonight(games, date, model, tab=None, min_team_games=None, score_min=SCORE_MIN, band=PRICE_BAND,
+                 prices=None, weigh=None):
     """The ONE side the model likes best on a slate date (a PT / US date string 'YYYY-MM-DD'): upcoming regular-season
     games with a price, each side at its price now (`prices`: {gid: (ml_home, ml_away)} overrides - the open, in a
-    replay), score >= score_min, the side's price in the band, both teams min_team_games+ games in. The #2 side a
-    night loses, so only #1 ever comes back - None when nothing clears."""
+    replay), score >= score_min, the side's price in the band, both teams min_team_games+ games in (MIN_TEAM_GAMES).
+    `weigh(gid, side, ml)` -> win-% points (as a fraction, +0.02 = 2 points) the board's NBA dog studies add to a side
+    (sports_early.nba_open_weigh - the 12+ game slate, the favorite's soft next game, a cold dog; 10/29: the same read
+    the board uses, never a trigger) - the score that ranks and clears the bar is the model's read PLUS those weights
+    (c["model_score"] / c["weights"] keep the two apart). The #2 side a night loses, so only #1 ever comes back - None
+    when nothing clears."""
     if model is None:
         return None
+    if min_team_games is None:
+        min_team_games = MIN_TEAM_GAMES
     tab = tab if tab is not None else table(games)
     best = None
     for gid, row in tab.items():
@@ -323,11 +338,14 @@ def best_tonight(games, date, model, tab=None, min_team_games=MIN_TEAM_GAMES, sc
         for side, ml, mp in (("home", mh, mp_h), ("away", ma, 1 - mp_h)):
             if not band[0] <= ml <= band[1]:
                 continue
-            sc = score(model, row, side, mp)
+            ms = score(model, row, side, mp)
+            wt = float(weigh(gid, side, ml) or 0.0) if weigh else 0.0
+            sc = ms + wt
             if sc < score_min:
                 continue
             c = {"game_id": gid, "side": side, "odds": ml, "opp_odds": ma if side == "home" else mh, "mkt": round(mp, 4),
-                 "own": round(mp + sc, 4), "score": round(sc, 4), "start": row["start"], "date": row["date"],
+                 "own": round(mp + ms, 4), "score": round(sc, 4), "model_score": round(ms, 4), "weights": round(wt, 4),
+                 "start": row["start"], "date": row["date"],
                  "team": row[f"{side}_name"], "opp": row["away_name" if side == "home" else "home_name"]}
             if best is None or sc > best["score"]:
                 best = c

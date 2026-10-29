@@ -13239,10 +13239,10 @@ def test_nba_open_best_tonight_is_one_side_in_the_band_over_the_bar():
     assert no.best_tonight(G2, "2025-11-22", m2)["game_id"] == "p1"             # ...never past -150: the band holds
     G3, m3, _ = _nba_open_slate(score_home=0.1)                                 # +2.5 pts: under the 4-point bar
     assert no.best_tonight(G3, "2025-11-22", m3) is None
-    assert no.best_tonight(G, "2025-11-22", model, min_team_games=200) is None  # teams not 11+ games in: no play
+    assert no.best_tonight(G, "2025-11-22", model, min_team_games=200) is None  # teams not that many games in: no play
     assert no.best_tonight(G, "2025-11-23", model) is None                      # no games that night
     assert no.best_tonight(G, "2025-11-22", None) is None                       # no model = no play
-    assert no.SCORE_MIN == 0.04 and no.PRICE_BAND == (-150, 300) and no.MIN_TEAM_GAMES == 11
+    assert no.SCORE_MIN == 0.04 and no.PRICE_BAND == (-150, 300) and no.MIN_TEAM_GAMES == 1   # (10/29: was 11)
 
 
 def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
@@ -13314,6 +13314,88 @@ def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert '{"nfl", "ncaaf", "nba"}' in src                                    # the hourly run fetches the NBA report for it
     assert se.SPOTS["nba_open"] == ("🏀 NBA opening line", 0.5, ("nba",))
+
+
+def test_nba_open_fires_from_game_one_with_the_board_dog_weights_and_the_key_man_rule():
+    """10/29 (the owner: "plug everything in ... we need to jump on these NBA dogs as soon as the line opens"): the 🏀
+    opening-line play had NEVER fired - its 11-game gate (both teams 11+ games in) kept it quiet till mid-November, and
+    the replay of the built module found no early-season hole (games 1-10: 23-24 +4.1u blind). Now: (1) the gate is one
+    game - both teams have played, a team with no game yet never posts; (2) the board's NBA dog weights ride on the
+    read (sports_early.nba_open_weigh -> best_tonight(weigh=)): the 12+ game slate +2, the favorite's soft next game -2,
+    a cold dog -2, every study capped at ±STUDY_CAP, a favorite 0 - the read PLUS the weights ranks the night and
+    clears the bar, the card keeps the two apart (model_score / weights); (3) the early rule's injury check: sports.hurt
+    returns [] for every NBA side with box scores since 10/28 (absences WEIGHED on the board), so a KEY man (the 10/28
+    definition - sports.nba_key_man) out or questionable on our side blocks the play (nba_key_hole); a bench man or a
+    season-long absence doesn't; never the #2 side when the #1 is blocked."""
+    import sports_early as se
+    import sports_nba_open as no
+    G, model, now = _nba_open_slate()
+    for i in range(25, 100):                                                    # the opening weeks: 25 games played,
+        del G[f"nba:2025{i:04d}"]                                               # every team 1-10 games in
+    # (1) the gate: one game each is enough; a team that hasn't played yet never posts
+    assert no.MIN_TEAM_GAMES == 1
+    tab = no.table(G)
+    assert all(1 <= tab[g][s]["n_season"] < 11 for g in ("p1", "p2", "p3") for s in ("h", "a"))   # 1-10 games in...
+    assert no.best_tonight(G, "2025-11-22", model)["game_id"] == "p1"           # ...and the play fires
+    G0 = dict(G)
+    G0["p4"] = {**G["p1"], "id": "p4", "home": "t98", "away": "t99", "home_name": "Team98", "away_name": "Team99",
+                "ml_home": "105", "ml_away": "-125", "ml_home_open": "105", "ml_away_open": "-125"}   # (scores best)
+    m_big = {**model, "w": [0.0] + [1.0 if f == "logit_mp" else 3.0 if f == "is_home" else 0.0 for f in no.FEATURES]}
+    assert no.best_tonight(G0, "2025-11-22", m_big)["game_id"] != "p4"          # 0 games played: never the play
+    assert no.best_tonight(G0, "2025-11-22", m_big, min_team_games=0)["game_id"] == "p4"
+    # (2) the weights ride on the read: -5 points on p1's home side drops it under the bar, the night's #1 becomes p2
+    c = no.best_tonight(G, "2025-11-22", model, weigh=lambda gid, side, ml: -0.05 if (gid, side) == ("p1", "home") else 0.0)
+    assert c["game_id"] == "p2" and c["weights"] == 0.0 and c["model_score"] == c["score"]
+    c = no.best_tonight(G, "2025-11-22", model, weigh=lambda gid, side, ml: 0.02 if (gid, side) == ("p1", "home") else 0.0)
+    assert c["game_id"] == "p1" and c["weights"] == 0.02 and abs(c["score"] - c["model_score"] - 0.02) < 1e-9
+    keep_more = sports._dog_more
+    try:
+        facts = {}
+        sports._dog_more = lambda games, g, side, other, lg: {"slate": 12, "games_in": 5, "record": (2, 3), "lose_streak": 1}
+        w = se.nba_open_weigh(G, facts)
+        assert abs(w("p2", "away", 120) - 0.02) < 1e-9 and facts[("p2", "away")]["slate"] == 12   # the 12-game slate +2
+        assert w("p2", "home", -140) == 0.0                                      # a favorite: dog studies don't apply
+        sports._dog_more = lambda games, g, side, other, lg: {"slate": 12, "games_in": 9, "record": (0, 9), "lose_streak": 9}
+        assert abs(se.nba_open_weigh(G)("p2", "away", 120)) < 1e-9             # +2 slate, -2 cold (0-9, a 9-game skid)
+        sports._dog_more = lambda games, g, side, other, lg: {"slate": 8, "games_in": 5, "opp_next_soft": True, "last_margin": 20,
+                                                            "opp_trip_game": 5, "opp_last_margin": 25, "last_ot": True,
+                                                            "blew_lead": True, "win_streak": 3, "record": (0, 9), "lose_streak": 9}
+        assert abs(se.nba_open_weigh(G)("p2", "away", 120) + sports.STUDY_CAP / 100) < 1e-9   # a stack of fades: capped
+        assert se.nba_open_weigh(G)("p9", "away", 120) == 0.0                   # no such game: no weight, no crash
+        sports._dog_more = lambda *a: 1 / 0
+        assert se.nba_open_weigh(G)("p2", "away", 120) == 0.0                   # facts failed: no weight, never a crash
+        # the scan uses them: p1's home side a +105 dog, a -6 stack of fades on Team0 -> the night's #1 is p2 (Team2)
+        G5 = {k: dict(g) for k, g in G.items()}
+        G5["p1"].update(ml_home="105", ml_away="-125", ml_home_open="105", ml_away_open="-125")
+        sports._dog_more = lambda games, g, side, other, lg: ({"slate": 8, "games_in": 5, "last_margin": 20, "opp_trip_game": 5,
+                                                              "opp_last_margin": 25, "last_ot": True, "blew_lead": True,
+                                                              "win_streak": 3} if g["id"] == "p1" and side == "home" else {})
+        out = se.nba_open_scan(G5, {"picks": []}, now, {"nba": {}}, model=model)
+        assert [c["team"] for c in out] == ["Team2"] and out[0]["weights"] == 0.0
+        sports._dog_more = lambda games, g, side, other, lg: {"slate": 12, "games_in": 5}
+        out = se.nba_open_scan(G5, {"picks": []}, now, {"nba": {}}, model=model)
+        assert [c["team"] for c in out] == ["Team0"] and out[0]["weights"] == 0.02 and out[0]["slate"] == 12
+        assert out[0]["dog_more"] == {"slate": 12} and abs(out[0]["score"] - out[0]["model_score"] - 0.02) < 1e-9
+    finally:
+        sports._dog_more = keep_more
+    # (3) the key-man rule on our side (sports.hurt says [] - the 10/28 weighed NBA absences): a KEY man questionable
+    # or out blocks the night (never the #2); a bench man or a season-long absence doesn't
+    keep = (sports.nba_key_man, sports.hurt)
+    sports.nba_key_man = lambda g, side, name: name == "Star Man"
+    sports.hurt = lambda g, side, injuries: []
+    try:
+        key_q = {"nba": {"t0": [("Star Man", "G", "Questionable")]}}
+        assert se.nba_key_hole(G["p1"], "home", key_q["nba"]) == ["Star Man"]
+        assert se.nba_open_scan(G, {"picks": []}, now, key_q, model=model) == []
+        key_out = {"nba": {"t0": [("Star Man", "G", "Out")]}}
+        assert se.nba_open_scan(G, {"picks": []}, now, key_out, model=model) == []
+        bench_q = {"nba": {"t0": [("Bench Guy", "F", "Questionable"), ("Star Man", "G", "Out For Season")]}}
+        assert se.nba_key_hole(G["p1"], "home", bench_q["nba"]) == []
+        assert [c["team"] for c in se.nba_open_scan(G, {"picks": []}, now, bench_q, model=model)] == ["Team0"]
+        opp_q = {"nba": {"t1": [("Star Man", "G", "Questionable")]}}       # the OTHER side's man: not our hole
+        assert [c["team"] for c in se.nba_open_scan(G, {"picks": []}, now, opp_q, model=model)] == ["Team0"]
+    finally:
+        sports.nba_key_man, sports.hurt = keep
 
 
 def _ol_leg(**kw):
