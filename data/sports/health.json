@@ -1,9 +1,13 @@
 {
- "at": "2026-10-28T20:50Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-29T03:32Z",
+ "fixes": [
+  "live watch 40808142820 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
+ "problems": [
+  "live board check failed: <urlopen error timed out>"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,19 +15,122 @@
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
-  "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 41 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T03:32Z",
+   "fixes": [
+    "live watch 40808142820 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live board check failed: <urlopen error timed out>"
+   ]
+  },
+  {
+   "at": "2026-10-29T03:30Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-29T03:29Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-29T02:56Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-28 Kimberly Birrell) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-29T02:44Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-29T01:13Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-29T01:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-29T01:11Z",
+   "fixes": [
+    "live watch 40790239918 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T23:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Janicijevic: no points for 1833s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-28T23:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T23:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T23:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T22:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-28T22:40Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Herea: no points for 1136s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-28T22:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Herea: no points for 548s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-28T22:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Giovannini vs Da Silva: no points for 191s",
+    "live tennis scores: tennis Monnet vs Herea: no points for 191s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-28T20:50Z",
    "fixes": [],
@@ -429,116 +536,6 @@
     "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-27T08:25Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-26 Nikola Bartunkova) - started sports.yml"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T07:40Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T06:09Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T06:08Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-26 Maria Sakkari) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 1928s"
-   ]
-  },
-  {
-   "at": "2026-10-27T05:42Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bartunkova vs Sasnovich: no points for 385s"
-   ]
-  },
-  {
-   "at": "2026-10-27T05:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T04:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T04:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T02:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T02:30Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-27T01:45Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-27T00:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-27T00:07Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Papamichail vs Da Silva: no points for 2320s",
-    "live tennis scores: tennis Van Impe vs Strakhova: no points for 2320s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:42Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 4 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:41Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Papamichail vs Da Silva: no points for 1270s",
-    "live tennis scores: tennis Gomez vs Rodriguez: no points for 2629s",
-    "live tennis scores: tennis Plekhanova vs Hu: no points for 1888s",
-    "live tennis scores: tennis Van Impe vs Strakhova: no points for 171s",
-    "live tennis points: none of 4 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-26T22:36Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }

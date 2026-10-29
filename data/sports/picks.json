@@ -23375,6 +23375,7 @@
      "game:div"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23436,6 +23437,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "34,35,28,32",
+     "h": "25,31,29,32"
+    },
     "form_state": [
      -10.0,
      -2,
@@ -23484,10 +23489,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Heat 129 @ Hawks 117",
     "season_games": 4,
+    "settled": "2026-10-29T01:22Z",
     "side": "home",
     "star_back": [],
     "start": "2026-10-28T23:00Z",
@@ -23506,12 +23513,14 @@
    }
   ],
   "p_hit": 0.5514,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T15:00Z",
   "round": 1,
+  "settled": "2026-10-29T01:22Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -23570,6 +23579,7 @@
      "them:hotseat"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23618,6 +23628,10 @@
     "fav_form_spot": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,12,8,17",
+     "h": "7,10,3,8"
+    },
     "form_state": [
      3.0,
      2,
@@ -23662,10 +23676,12 @@
      "off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Kennesaw St 44 @ MTSU 28",
     "season_games": null,
+    "settled": "2026-10-29T02:48Z",
     "side": "home",
     "start": "2026-10-28T23:00Z",
     "stype": "2",
@@ -23683,12 +23699,14 @@
    }
   ],
   "p_hit": 0.504,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T15:00Z",
   "round": 1,
+  "settled": "2026-10-29T02:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -135,
@@ -23882,6 +23900,15 @@
      "us:west1000"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "c": "2:45",
+     "k": "",
+     "p": "Nazem Kadri",
+     "s": "5-2",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23911,6 +23938,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1",
+     "h": "0,1,4"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": true,
@@ -23950,10 +23981,12 @@
      "better rested"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Devils 2 @ Avalanche 5",
     "season_games": null,
+    "settled": "2026-10-29T03:41Z",
     "side": "home",
     "start": "2026-10-29T01:00Z",
     "stype": "2",
@@ -23971,12 +24004,13 @@
    }
   ],
   "p_hit": 0.5995,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-28T15:00Z",
   "relabeled": "10/28 - the owner: 'it's obviously not a lock, so we would label it as value' - a thin-edge Lock is a \u00bdu value play (same side, same price, same units)",
   "round": 1,
+  "settled": "2026-10-29T03:41Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
   "units": 0.5
  },
@@ -24044,6 +24078,11 @@
      "game:rival"
     ],
     "dec": 2.6,
+    "decider": {
+     "s": "4-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24087,6 +24126,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 5.51,
+    "flow": {
+     "a": "0,0,0",
+     "h": "1,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -24128,10 +24171,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 0 @ Oilers 4",
     "season_games": null,
+    "settled": "2026-10-29T03:34Z",
     "side": "away",
     "start": "2026-10-29T00:30Z",
     "stype": "2",
@@ -24148,12 +24193,14 @@
    }
   ],
   "p_hit": 0.3833,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T15:00Z",
   "round": 1,
+  "settled": "2026-10-29T03:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 270,
@@ -24213,6 +24260,12 @@
      "them:trip1000"
     ],
     "dec": 3.7,
+    "decider": {
+     "h": "57-35",
+     "s": "132-100",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24278,6 +24331,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 4.68,
+    "flow": {
+     "a": "23,34,38,37",
+     "h": "21,14,34,31"
+    },
     "form_state": [
      8.0,
      1,
@@ -24324,10 +24381,12 @@
      "the NBA dog score backs it: +4.7 points over the price on a 12-game slate (every dog study weighed)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Rockets 132 @ Bucks 100",
     "season_games": 4,
+    "settled": "2026-10-29T02:44Z",
     "side": "home",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24345,12 +24404,14 @@
   ],
   "midday": true,
   "p_hit": 0.2286,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T21:05Z",
   "round": 1,
+  "settled": "2026-10-29T02:44Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 142,
@@ -24393,6 +24454,7 @@
      "us:road3in6"
     ],
     "dec": 2.42,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24469,6 +24531,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,34,29,26",
+     "h": "23,25,33,33"
+    },
     "form_state": [
      20.0,
      1,
@@ -24482,13 +24548,14 @@
     "home": false,
     "hot_key": false,
     "hurt": [],
+    "injury_alerts": [
+     "Yaxel Lendeborg (Warriors F) is off the injury report \u2014 our pick: Warriors ML"
+    ],
     "intl": false,
     "is_lean": false,
     "key_edge": null,
     "key_out_me": false,
-    "key_seen": {
-     "Yaxel Lendeborg (Warriors F)": "Day-To-Day"
-    },
+    "key_seen": {},
     "league": "nba",
     "line": null,
     "lost_last": false,
@@ -24521,10 +24588,12 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Warriors 119 @ Timberwolves 114",
     "season_games": 4,
+    "settled": "2026-10-29T02:45Z",
     "side": "away",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24545,11 +24614,12 @@
   "midday": true,
   "owner_post": "10/28 - the owner: 'Lendeborg is not a factor' / 'fix what needs to be fixed, add what plays need to be added' (Warriors read 46.4% vs 41.3% at +142, dog score 6.8, passes every Dog check - held only by Yaxel Lendeborg (F) questionable, a starter in 3+ of the Warriors' last 10 box scores)",
   "p_hit": 0.4643,
-  "pnl": 0.0,
+  "pnl": 142.0,
   "posted": "2026-10-28T21:38Z",
   "round": 1,
+  "settled": "2026-10-29T02:45Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
   "units": 1.0
  },
@@ -24608,6 +24678,7 @@
      "them:west1000"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -24641,6 +24712,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,7,10,7",
+     "h": "0,0,0,0"
+    },
     "form_state": [
      6.0,
      1,
@@ -24683,10 +24758,12 @@
     "raw_own": 0.414,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Jax State 24 @ New Mexico St 0",
     "season_games": null,
+    "settled": "2026-10-29T03:34Z",
     "side": "home",
     "start": "2026-10-29T00:00Z",
     "stype": "2",
@@ -24705,11 +24782,12 @@
   "midday": true,
   "owner_post": "10/28 - the owner: 'B, post New Mexico State 1 unit' - a one-off (read 47.7% vs 43.5% at +130, dog score 6.0 over the college gate of 4; kept off only by the college no-named-reason rule, which stays)",
   "p_hit": 0.4764,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-28T21:38Z",
   "round": 1,
+  "settled": "2026-10-29T03:34Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "value",
   "units": 1.0
  }
