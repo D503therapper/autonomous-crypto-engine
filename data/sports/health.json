@@ -1,34 +1,44 @@
 {
- "at": "2026-10-29T20:26Z",
+ "at": "2026-10-29T20:36Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Grabher vs Carle: no points for 532s",
-  "live tennis scores: tennis Pigato vs Kubka: no points for 519s",
-  "live tennis scores: tennis Strakhova vs Hercog: no points for 532s",
-  "live tennis scores: tennis Bulgaru vs Podoroska: no points for 532s"
+  "live tennis scores: tennis Grabher vs Carle: no points for 1134s",
+  "live tennis scores: tennis Pigato vs Kubka: no points for 1120s",
+  "live tennis scores: tennis Strakhova vs Hercog: no points for 1134s",
+  "live tennis scores: tennis Bulgaru vs Podoroska: no points for 1134s"
  ],
  "ok": [
-  "live watcher fresh (13s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 6 live matches",
+  "live tennis points + server: 1 of 5 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 19 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T20:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Carle: no points for 1134s",
+    "live tennis scores: tennis Pigato vs Kubka: no points for 1120s",
+    "live tennis scores: tennis Strakhova vs Hercog: no points for 1134s",
+    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 1134s"
+   ]
+  },
   {
    "at": "2026-10-29T20:26Z",
    "fixes": [],
@@ -488,11 +498,6 @@
     "question box check failed: The read operation timed out",
     "live tennis points check failed: The read operation timed out"
    ]
-  },
-  {
-   "at": "2026-10-28T02:44Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
