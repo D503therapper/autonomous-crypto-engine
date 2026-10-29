@@ -83,8 +83,11 @@ def main(day_iso=None):
         size = "NO UNITS - LEAN" if pk.get("lean") else f"{u:g}u"
         label = sports.leg_label(leg)
         out.append(f"\n{pk['kind'].upper():5} {label} ({sports.fmt_american(leg['odds'])}) vs {leg.get('opp')} - "
-                   f"{leg['league'].upper()} - {size} - win {leg.get('p', 0):.0%}, own read "
-                   f"{(sports.read_of(leg) or 0):.0%}, edge {((leg.get('edge_own') or 0)):+.1%}"
+                   f"{leg['league'].upper()} - {size} - win {leg.get('p', 0):.0%}, read its units ride on "
+                   f"{(sports.read_of(leg) or 0):.0%}"              # (10/29 slate audit: read_of is a Dog's WEIGHED read -
+                   + (f" (own read {(leg['edge_own'] + 1) / leg['dec']:.0%})" if leg.get("edge_own") is not None and leg.get("dec")
+                      and leg.get("dog_p") is not None else "")   #  the line called it the own read; both are shown now)
+                   + f", edge {((leg.get('edge_own') or 0)):+.1%}"
                    + (" [THIN]" if sports.thin_edge(leg) else ""))
         for line in (leg.get("breakdown") or [])[-2:]:
             out.append(f"      {line}")

@@ -1344,12 +1344,12 @@ def breakdown(leg, games, elo, injuries, used=None):
         lines = body + [bottom]
     short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
     if not str(leg.get("why_line") or "").strip():        # (10/27: the Blues lean posted with NO line under the pick -
-        top = next((x for x in lines[:-1] if not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))), None)   # no reason
-        if top:                                           #  matched a fact; the card's best line for us leads instead,
-            lean_ = leg.get("is_lean") or leg.get("tier") in ("lean", "strong")   # and leaves the body only when the
-            leg["why_line"] = f"{str(top).rstrip()} " + (f"We lean {us}." if lean_ else f"{us} the side.")   # card
-            if len(lines) - 2 >= short_floor:             #  stays at its floor without it)
-                lines = [x for x in lines if x is not top]
+        lean_ = leg.get("is_lean") or leg.get("tier") in ("lean", "strong")   # no reason matched a fact; the card's
+        top = lead_line(lines, v, us)                     #  best line FOR US leads instead (10/29: never a line that
+        if top:                                           #  argues for the other side - the Hawks lean led with "2-3 for
+            leg["why_line"] = f"{str(top).rstrip()} " + (f"We lean {us}." if lean_ else f"{us} the side.")   # Hawks,
+            if len(lines) - 2 >= short_floor:             #  last time out a 129-117 loss"), and leaves the body only
+                lines = [x for x in lines if x is not top]   # when the card stays at its floor without it
     if len(lines) - 1 < short_floor:                      # (never padded with filler: the log says the facts ran out)
         print(f"BREAKDOWN SHORT: {us} vs {them} ({lg}) has {len(lines) - 1} fact lines, floor {short_floor} - "
               f"games on file: ours {len(s_ours)}, theirs {len(s_theirs)}", flush=True)
@@ -1845,6 +1845,35 @@ def _ok(opts, names=(), tags=None):
     if any(t for _, t in short):
         return [o for o, _ in short], [t for _, t in short]
     return [o for o, _ in short]
+
+
+def knocks_us(line, us):
+    """(10/29) Does this line lead with a fact AGAINST our side - our loss, our skid, our losing record? "2-3 for Hawks,
+    last time out a 129-117 loss to the Heat" does; "Heat lost 129-117 to the Hawks" (their loss) doesn't - the loss word
+    has to come AFTER our name in the sentence, or the line to carry a losing record of ours ("Hawks are 2-5")."""
+    t = str(line or "")
+    if not t or not us:
+        return False
+    U = re.escape(us)
+    if re.search(rf"\b{U}\b[^.!?]*\b(loss|lost|losses|skid|losing|dropped|fell|swept)\b", t, re.I):
+        return True
+    for m in re.finditer(rf"(\b\d{{1,2}}-\d{{1,2}}\b)[^.!?]{{0,12}}\bfor {U}\b|\b{U}\b[^.!?]{{0,12}}(\b\d{{1,2}}-\d{{1,2}}\b)", t):
+        w, l = (int(x) for x in (m.group(1) or m.group(2)).split("-"))
+        if w < l and w + l <= 90:                           # a losing record of ours (never a 129-117 score)
+            return True
+    return False
+
+
+def lead_line(lines, v, us):
+    """(10/29, the Hawks lean: "📋 2-3 for Hawks, last time out a 129-117 loss to the Heat. We lean Hawks." - the line under
+    the pick argued for the other side) The fallback line under the pick when no fact matched: the card's best body line
+    FOR US - never a line the Voice tagged "neutral" (the record-after-a-loss line, 10/27's direction tagging), never one
+    that knocks us (knocks_us), never the risk / bottom lines. None = no line (no pro-us fact = no line)."""
+    body = [x for x in (lines or [])[:-1] if x and not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))]
+    for x in body:
+        if (v.dirs.get(x, "us") if v is not None else "us") == "us" and not knocks_us(x, us):
+            return x
+    return None
 
 
 def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=None, n_cold=0, gap=None, form=None,

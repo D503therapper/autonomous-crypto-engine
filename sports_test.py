@@ -14835,6 +14835,38 @@ def test_sweep_1029_no_dog_note_calls_a_play_thin_only_when_it_is_half_a_unit():
     assert "half" not in h2 and "thin" not in h2 and "value play" in h2 and "below" in h2, h2
 
 
+def test_slate_audit_1029_the_line_under_the_pick_never_leads_with_a_fact_for_the_other_side():
+    """10/29 slate audit (the owner's full sweep): the Hawks -115 lean posted with "📋 2-3 for Hawks, last time out a
+    129-117 loss to the Heat. We lean Hawks." - the one-liner argued for the Cavaliers. The fallback (10/27: no fact
+    matched, the card's best body line leads) took the FIRST body line whatever its direction; the record-after-a-loss
+    line is tagged "neutral" by the 10/27 direction tagging and is a knock on us. Now: lead_line takes the best line FOR
+    US (tagged "us", never one that knocks us); no pro-us line = no line under the pick (no fact = no line)."""
+    import sports_breakdown_v24 as b
+    v = b.Voice("hawks-1029")
+    knock = v.tag("📋 2-3 for Hawks, last time out a 129-117 loss to the Heat.", "neutral")
+    star = "🌟 Hawks: Jalen Johnson (All-NBA 2026) is in the lineup tonight."
+    bottom = "🟡 Bottom line: Hawks (-115). A coin flip game - if you're playing it, Hawks's the side. No units from us."
+    assert b.lead_line([knock, star, bottom], v, "Hawks") == star            # the pro-us line leads, not the knock
+    assert b.lead_line([knock, bottom], v, "Hawks") is None                 # nothing for us = no line
+    assert b.lead_line([v.tag("⚠️ The risk: Cavaliers won 3 straight.", "risk"), bottom], v, "Hawks") is None
+    # an untagged line (an old card, another writer) still can't lead with our loss / skid / losing record
+    v2 = b.Voice("plain")
+    assert b.lead_line(["📋 2-3 for Hawks, last time out a 129-117 loss to the Heat.", bottom], v2, "Hawks") is None
+    assert b.lead_line(["📋 Hawks are 2-5 on the year.", bottom], v2, "Hawks") is None
+    assert b.lead_line(["🧊 Hawks have dropped 3 straight.", bottom], v2, "Hawks") is None
+    # THEIR loss, our win, our home record: facts for us - they lead
+    for ok in ("🥊 Heat lost 129-117 to the Hawks last time out.", "📅 Hawks beat the Heat 120-110 last time out.",
+               "🏟️ Hawks are 3-1 at home.", "💪 Hawks (8-5) over Kings (3-8) on the record."):
+        assert not b.knocks_us(ok, "Hawks"), ok
+        assert b.lead_line([ok, bottom], v2, "Hawks") == ok
+    assert b.knocks_us("📋 2-3 for Hawks, last time out a 129-117 loss to the Heat.", "Hawks")
+    assert b.knocks_us("📋 Hawks (2-3) walk in off a loss.", "Hawks") and not b.knocks_us("", "Hawks")
+    # the call site uses it (the 10/27 fallback never again takes the first line blind)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("top = lead_line(lines, v, us)")
+    assert "We lean {us}." in src[i:i + 400]
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
