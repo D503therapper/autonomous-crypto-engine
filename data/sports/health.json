@@ -1,35 +1,40 @@
 {
- "at": "2026-10-29T16:28Z",
+ "at": "2026-10-29T16:29Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - started sports.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
+  "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Kabbaj vs Riera: no points for 2615s",
-  "live tennis scores: tennis Jacquemot vs Bandecchi: no points for 2615s",
-  "live tennis scores: tennis Aksu vs Stefanini: no points for 2615s",
   "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (55s)",
+  "live watcher fresh (14s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 3 of 6 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-29T16:29Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - sports.yml already running"
+   ],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-29T16:28Z",
    "fixes": [
@@ -474,16 +479,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-27T23:39Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Alves: no points for 2623s",
-    "live tennis scores: tennis Linana vs Rodriguez: no points for 2623s",
-    "live tennis scores: tennis Andreescu vs Hui: no points for 1736s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
  ]
