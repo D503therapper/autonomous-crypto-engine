@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T01:44Z",
+ "updated": "2026-10-29T01:46Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -691,6 +691,37 @@
    }
   },
   {
+   "id": "nba:401909894",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pelicans",
+    "p": 0.574,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T00:00Z",
+   "away": "Kings",
+   "home": "Pelicans",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Pelicans",
+    "opp": "Kings",
+    "market": "ml",
+    "line": null,
+    "odds": -198,
+    "p": 0.637,
+    "win_p": 0.637,
+    "reasons": [
+     "the stronger team",
+     "better rested"
+    ]
+   }
+  },
+  {
    "id": "nfl:401873023",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -758,7 +789,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.608,
+    "p": 0.612,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -767,16 +798,16 @@
    "start": "2026-10-30T02:00Z",
    "away": "Grizzlies",
    "home": "Trail Blazers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Trail Blazers",
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team"
     ]
