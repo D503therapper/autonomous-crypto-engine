@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T01:38Z",
+ "updated": "2026-10-29T01:40Z",
  "games": [
   {
    "id": "nba:401909884",
@@ -333,31 +333,27 @@
    "id": "nhl:401892599",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Maple Leafs",
-    "p": 0.373,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-29T02:00Z",
    "away": "Maple Leafs",
    "home": "Kraken",
-   "why": "no_value",
-   "board": null,
+   "h1": null,
+   "why": "on_board",
+   "done": false,
+   "board": "lean",
    "lean": {
-    "team": "Kraken",
-    "opp": "Maple Leafs",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.67,
-    "win_p": 0.451,
+    "team": "Maple Leafs",
+    "opp": "Kraken",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": "void"
    }
   },
   {
