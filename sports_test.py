@@ -13324,13 +13324,14 @@ def test_nba_studies_1030_the_opening_line_play_sizes_1u_flat_from_its_date_and_
     favorites -101..-150 only, never a weight on the read."""
     import sports_early as se
     import sports_leads
-    assert se.NBA_OPEN_UNITS == 1.0 and se.NBA_OPEN_UNITS_FROM == "2026-10-31"
+    assert se.NBA_OPEN_UNITS == 1.0 and se.NBA_OPEN_UNITS_FROM in (None, "2026-10-31")   # off till the owner's yes
+    keep = se.NBA_OPEN_UNITS_FROM
+    se.NBA_OPEN_UNITS_FROM = "2026-10-31"
     p = {"spot": "nba_open", "league": "nba", "odds": -110, "posted": "2026-10-31T03:00Z"}
     assert se.units(p) == 1.0
     assert se.units({**p, "posted": "2026-10-30T23:00Z"}) == 0.5                 # before the date: the ½u it posted at
     assert se.units({**p, "units": 0.5}) == 0.5                                   # a stamped play never re-sizes
     assert se.units({"spot": "mnf", "league": "nfl", "odds": 150, "posted": "2026-11-02T03:00Z"}) == 0.5   # the other spots
-    keep = se.NBA_OPEN_UNITS_FROM
     try:
         se.NBA_OPEN_UNITS_FROM = None
         assert se.units(p) == 0.5                                                 # the owner's off switch
