@@ -662,6 +662,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
+                    "mkt_trend": market_trend(games, g, side) if lg in MKT_FADE_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
@@ -1381,6 +1382,9 @@ def dog_score(c):
         #                                                  +13.6% train (5 of 5 seasons), +10.1% blind (3 of 3); fades by
         #                                                  game 20 - the early-season market under-rates home dogs)
     sc += nba_dog_weights(c)                             # 🏀 10/21: the 20 NBA underdog studies' score (weights)
+    if market_faded(c):                                  # 10/30 daily study 2: the market moved AWAY from this team in its
+        sc -= MKT_FADE_W                                 # last 3 games (open -> close, 8+ no-vig points in all) - NBA / NHL
+        #                                                  dogs keep losing at the close (sports.market_trend)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         sc += OT_W.get(c.get("ot_last"), 0)              # 10/18: how its last game ended in OT / a shootout
@@ -1406,6 +1410,17 @@ NHL_HOT_DOG_W = 2                       # 🏒 the HOT hockey dog (10/29 - ten h
 #                                         -2 weight on the dog score (sports.hot_dog): -10.5% on 405 train (2018-23) / -13.3% on
 #                                         299 held out (2023-27, 1 of 4 seasons up) vs -6.9% / -3.8% for every hockey dog. Live
 #                                         before the weight: the Flames +160 (4 straight wins) lost 10/28. Hockey only.
+MKT_FADE_LEAGUES = ("nba", "nhl")       # 📉 THE TEAM THE MARKET KEEPS FADING (10/30 daily study 2, results/studies/daily_1030/
+MKT_TREND_N = 3                         # s2 / s2b): the books' move on a team in its last 3 priced regular-season games this
+MKT_FADE_SUM = 0.08                     # season (each game's close no-vig minus its open, for that team) summed 8+ points
+MKT_FADE_W = 2                          # AGAINST it -> -2 on its dog score (a weight inside STUDY_CAP, never a gate). At the
+#                                         close: NBA dogs -21.0% / -16.2% / -8.3% (2023 / 2024 / 2025, 0 of 3 up; the dog base
+#                                         -13.8 / -2.9 / -1.1 at the open), NHL dogs -21.9% / -10.3% / -9.8% / 2026 -11.7% on 29
+#                                         (base -6.7 / -5.6 / +4.5 / -8.0); NBA z -3.4 / NHL -3.0 at the open on ~85 cells;
+#                                         dose clean in the NBA (0.02-0.05 -3%, 0.05-0.08 -6%, 0.08+ -17%), the mirror up in
+#                                         both (TO 0.08+ NBA +9.9% / NHL +11.9% - a tracker LEAD, no weight). Opens exist
+#                                         2023-26 only (3 seasons) - judge the tag at 50 live, under -5% for the FADE side
+#                                         holding = keep; the fade side winning = off. NFL / college not wired (train flat).
 STUDY_CAP = 6    # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
 #                   overlapping spots (a rested bye-week dog off a blowout on Monday night...) never outweighs the read
 
@@ -2168,6 +2183,48 @@ def hot_dog(c):
         return (st[1] or 0) >= cut
     except (IndexError, TypeError):
         return False
+
+
+def market_trend(games, g, side, n=None):
+    """📉 10/30: the market's move on this team over its last n (MKT_TREND_N) priced regular-season finals THIS season -
+    each game's closing no-vig win % minus its opening one, from this team's side, summed (- = the books kept moving
+    AWAY from it). Results / prices of games already over only; None with fewer than n priced games or a read error."""
+    n = n or MKT_TREND_N
+    try:
+        sched, _ = _sched(games)
+        lg, team = g.get("league"), g[side]
+        season0 = f"{int(g['start'][:4]) if int(g['start'][5:7]) >= 7 else int(g['start'][:4]) - 1}-07-01"
+
+        def nv(a, b):
+            pa = 1 / (1 + (a / 100 if a > 0 else 100 / -a))
+            pb = 1 / (1 + (b / 100 if b > 0 else 100 / -b))
+            return pa / (pa + pb)
+        moves = []
+        for st_, x in reversed(sched.get((lg, team), [])):
+            if st_ >= g["start"]:
+                continue
+            if st_ < season0 or len(moves) >= n:
+                break
+            if x.get("status") != "final" or str(x.get("stype")) != "2":
+                continue
+            try:
+                oh, oa, ch, ca = (float(x[k]) for k in ("ml_home_open", "ml_away_open", "ml_home", "ml_away"))
+            except (KeyError, TypeError, ValueError):
+                continue
+            if min(abs(oh), abs(oa), abs(ch), abs(ca)) < 100:
+                continue
+            mv = nv(ch, ca) - nv(oh, oa)
+            moves.append(mv if x.get("home") == team else -mv)
+        return round(sum(moves), 4) if len(moves) >= n else None
+    except (TypeError, ValueError, KeyError, ZeroDivisionError):
+        return None
+
+
+def market_faded(c):
+    """A moneyline dog in MKT_FADE_LEAGUES whose last 3 games' market moves summed MKT_FADE_SUM+ against it (-2 weight)."""
+    t = c.get("mkt_trend")
+    return (c.get("league") in MKT_FADE_LEAGUES and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100
+            and t is not None and t <= -MKT_FADE_SUM)
 
 
 def hangover(c):

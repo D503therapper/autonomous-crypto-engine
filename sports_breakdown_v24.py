@@ -23,6 +23,13 @@ def _t(iso):
     return datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
 
 
+def _days(start, then):
+    """Days between two games by the CALENDAR (Pacific dates), never the clock floored (10/30 daily review: the Blue
+    Jackets 10/29 card said "2 days off to Hurricanes' 1 day" - both played 10/27, Columbus at 7 PM ET and Carolina at
+    8 PM ET, so the clock gave 48 hours = 2 and 47 hours = 1. A false rest edge on a unit play)."""
+    return (start.astimezone(PT).date() - then.astimezone(PT).date()).days
+
+
 _SEASON_MEMO = {}       # the season's game counts for one (finals list, cut) - computed once a board, not once a side
 
 
@@ -59,6 +66,10 @@ REVENGE_DAYS = 400     # (10/15 truth audit) a "revenge game" needs a meeting th
 H2H_DAYS = 730         # "2 of the last 3 meetings" counts meetings within two years - never 2018-2024 (Texans-Cowboys)
 SCHED_MAX_L = 6        # "their L's came against X, Y" names EVERY loss, so only a short season (football) - never 78 L's
 B2B_HOURS = 29         # a back-to-back is the next night (the model's 1.2 days) - two nights off is NOT "short rest"
+COIN_FLIP = (0.45, 0.55)  # "coin flip" / "close to even" on a card only for a read inside this band (10/30 daily review: the
+#                          Panthers +164 floor play 10/29 read "our read says coin flip" at a 36.6% read - the floor
+#                          closers meant the PRICE was about fair; a 37% team is no coin flip). The floor closers say "the
+#                          price about fair"; the bottom_c lean closer ("close to a coin flip") needs a read in the band.
 
 
 def _team_games(fin, tid):
@@ -615,7 +626,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     v.names = (us, them)                                  # team names blanked when comparing wordings to yesterday's
     pro = lg in ("nfl", "nba", "mlb", "nhl")
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
-    if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
+    if ours and theirs and _days(start, _t(ours[-1]["start"])) - _days(start, _t(theirs[-1]["start"])) < 2:
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
     # (10/15 truth audit) "revenge game" only means something when the last meeting was recent: the Cardinals' card said
     # "Giants won the last meeting ... they haven't forgotten" about a 2023 game, the Panthers' about a 2023 Lions game.
@@ -1029,7 +1040,7 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # rest
     if ours and theirs:
-        d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
+        d_us, d_them = _days(start, _t(ours[-1]["start"])), _days(start, _t(theirs[-1]["start"]))
         h_us, h_them = [(start - _t(x[-1]["start"])).total_seconds() / 3600 for x in (ours, theirs)]
         if h_them <= B2B_HOURS < h_us:                       # (10/15 truth audit: "Short rest for the Bruins" with two
             #   nights off - a 47-hour gap truncated to 1 "day"; a back-to-back is the next night, by the clock)
@@ -1114,7 +1125,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     _ku = sd.team_key_out(inj, tid, us, lg) if inj else []
     _b2b = bool(ours and theirs) and (start - _t(theirs[-1]["start"])).total_seconds() / 3600 <= B2B_HOURS \
         < (start - _t(ours[-1]["start"])).total_seconds() / 3600
-    _gap_d = ((start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days) if ours and theirs else 0
+    _gap_d = (_days(start, _t(ours[-1]["start"])) - _days(start, _t(theirs[-1]["start"]))) if ours and theirs else 0
     _bench = None
     if lg == "nba":                                       # (the roster read's bench numbers - a fact for a thin card)
         try:
@@ -1272,17 +1283,17 @@ def breakdown(leg, games, elo, injuries, used=None):
         out.append(v.say("bottom_floor_low", [
             f"✅ Bottom line: {price}. Not a big edge on the price, and the dog angles are about a wash - {us} {vb(us, 'are', 'is')} just the best dog left on today's slate. Half a unit, keep it light.",
             f"✅ Bottom line: {price}. Half a unit on {us} - the best dog on the board today, not a strong one. Small money.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one: our read calls it close and the dog angles are mixed. Half a unit, no more.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one: our read calls the price about fair and the dog angles are mixed. Half a unit, no more.",
             f"✅ Bottom line: {price}. A half-unit shot on the best dog the slate's got - nothing loud about it."]) or
                    _short(v, price, True, "Thin edge - the best dog left on the slate."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
         out.append(v.say("bottom_floor", [                                # play - the dog angles put it up, not the price
-            f"✅ Bottom line: {price}. Our read has it close to even - {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Thin edge, half a unit.",
+            f"✅ Bottom line: {price}. Our read has the price about right - {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Thin edge, half a unit.",
             f"✅ Bottom line: {price}. Not a big edge on the price - every angle we grade a dog on likes {us} here. Half a unit, keep it light.",
-            f"✅ Bottom line: {price}. Close to a coin flip on our read; {us} {vb(us, 'are', 'is')} the best dog on the board today. Small bet.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one - the dog angles back it, our read calls it about even. Half a unit, no more.",
-            f"✅ Bottom line: {price}. A half-unit shot: our read says coin flip, the dog angles say {us}. You can't win if you don't play.",
-            f"✅ Bottom line: {price}. Best dog on the slate by our angles, near even on the read - a half unit, nothing crazy.",
+            f"✅ Bottom line: {price}. The price is about fair on our read; {us} {vb(us, 'are', 'is')} the best dog on the board today. Small bet.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one - the dog angles back it, our read calls the price about fair. Half a unit, no more.",
+            f"✅ Bottom line: {price}. A half-unit shot: our read says the number's about fair, the dog angles say {us}. You can't win if you don't play.",
+            f"✅ Bottom line: {price}. Best dog on the slate by our angles, the price about fair on the read - a half unit, nothing crazy.",
             f"✅ Bottom line: {price}. Half a unit on {us} - small money, real shot."]) or
                    _short(v, price, True, "Thin edge - the dog angles back it."))
     elif leg.get("near_price"):                                          # the always-a-Lock backup (the owner, 10/1):
@@ -1292,7 +1303,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Fair price on a side we trust - small bet.",
             f"✅ Bottom line: {us} to win, {price}. The number's about even with our read - we ride it light."]) or
                    _short(v, price, True, ""))                           # (small, honest - never "value")
-    elif _need and _own <= _need and _own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: "we like the Kraken,
+    elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: "we like the Kraken,
         out.append(v.say("bottom_c", [                                   # just not at this price" at -108 makes no
             f"✅ Bottom line: {price}. We've got this one close to a coin flip - {us} by a hair. No units.",   # sense:
             f"✅ Bottom line: {price}. Close to 50-50 on our read, {us} a hair better. Just a lean.",          # the real
@@ -1536,7 +1547,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
 
     # rest: a back-to-back WITH the score of the game they played last night; an extra day said for us, or the knock
     if ours and theirs:
-        d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
+        d_us, d_them = _days(start, _t(ours[-1]["start"])), _days(start, _t(theirs[-1]["start"]))
         h_them = (start - _t(theirs[-1]["start"])).total_seconds() / 3600
         h_us = (start - _t(ours[-1]["start"])).total_seconds() / 3600
         rested = any(str(x)[:1] in "🛌😴" for x in out) or "days off" in body or "days of rest" in body or "more days" in body
@@ -1736,7 +1747,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
 
     # football: the bye / short week with the day counts
     if lg in ("nfl", "ncaaf") and ours and theirs and "bye" not in body and "short week" not in body:
-        d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
+        d_us, d_them = _days(start, _t(ours[-1]["start"])), _days(start, _t(theirs[-1]["start"]))
         if d_us >= 13 and d_them <= 8:
             add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago. Fresh legs, full game plan.",
                                        f"🛌 {D(d_us)} between games for {us}, {D(d_them)} for {them}. Rest is on our side."]))
@@ -2061,7 +2072,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     elif leg.get("near_price"):
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🔒 {F} We trust {us} to win this one - priced about right, so it's a small bet.",
                                  lambda F: f"🔒 {F} {us} to win at a fair price. A light bet, not a big one."), names))
-    elif need and own <= need and own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: the Kraken at -108 - a near coin flip
+    elif need and own <= need and COIN_FLIP[0] <= own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: the Kraken at -108 - a near coin flip
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} Still, we've got {us} close to a coin flip - a hair better, not enough for units.",
                                  lambda F: f"🧠 {F} Even so it's close to 50-50 on our read, {us} by a hair.",
                                  lambda F: f"🧠 {F} Close to 50-50 for us, {us} by a nose."), names))   # is the reason)
