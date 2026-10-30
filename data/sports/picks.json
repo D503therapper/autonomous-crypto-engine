@@ -25149,6 +25149,7 @@
      "game:nonconf"
     ],
     "dec": 1.925925925925926,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -25191,6 +25192,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,1",
+     "h": "1,1,1"
+    },
     "form_state": [
      -1.0,
      -1,
@@ -25233,10 +25238,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Capitals 4 @ Predators 3",
     "season_games": null,
+    "settled": "2026-10-30T03:08Z",
     "side": "home",
     "start": "2026-10-30T00:00Z",
     "stype": "2",
@@ -25253,12 +25260,14 @@
    }
   ],
   "p_hit": 0.5222,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-29T15:00Z",
   "round": 1,
+  "settled": "2026-10-30T03:08Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -25292,6 +25301,7 @@
      "game:conf"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -25340,6 +25350,10 @@
     "facts": [],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "28,16,38,29",
+     "h": "16,30,43,25"
+    },
     "form_state": [
      -12.0,
      -3,
@@ -25383,10 +25397,12 @@
     "raw_own": 0.4876,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Cavaliers 111 @ Hawks 114",
     "season_games": 5,
+    "settled": "2026-10-30T03:07Z",
     "side": "home",
     "start": "2026-10-30T00:00Z",
     "stype": "2",
@@ -25403,12 +25419,14 @@
    }
   ],
   "p_hit": 0.5108,
-  "pnl": 0.0,
+  "pnl": 86.96,
   "posted": "2026-10-29T15:00Z",
   "round": 1,
+  "settled": "2026-10-30T03:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 164,
