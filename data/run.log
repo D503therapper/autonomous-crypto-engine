@@ -2606,3 +2606,19 @@ DEX: $679.80 (-320.20) · Scammed: 8 (-$162.71)
    dex screen: REJECT SSV@ethereum liq $329,016 - is_mintable; owner_percent 6%; top-10 holders 76%; lp locked 0% < 95%
    dex screen: UNREACHABLE SIB@ethereum liq $416,649 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
    dex screen: REJECT ID@ethereum liq $568,314 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; hidden_owner; top-10 holders 90%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-30 07:01 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/mover     equity $242.29 (-51.5%) 2 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/social_heat equity $374.12 (-25.2%) 3 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/breakout10 equity $419.90 (-16.0%) 1 open  market UP
+[2026-10-30 07:01 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-30 07:01 UTC] crypto/hold_btc  equity $470.31 (-5.9%) 1 open  market DOWN
+   social heat top: HYPE 47 (37/0/10), PENGU 42 (32/0/10), BTC 35 (35/0/0), AAVE 27 (27/0/0), ENA 24 (24/0/0)
