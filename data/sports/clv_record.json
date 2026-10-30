@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 146,
-  "beat": 47,
+  "n": 147,
+  "beat": 48,
   "same": 53,
   "worse": 46,
-  "avg_pts": 0.07
+  "avg_pts": 0.08
  },
  "unit_plays": {
   "n": 66,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 80,
-   "beat": 27,
+   "n": 81,
+   "beat": 28,
    "same": 23,
    "worse": 30,
-   "avg_pts": -0.01
+   "avg_pts": -0.0
   },
   "lock": {
    "n": 13,
@@ -73,11 +73,11 @@
    "avg_pts": 0.19
   },
   "nhl": {
-   "n": 55,
-   "beat": 17,
+   "n": 56,
+   "beat": 18,
    "same": 20,
    "worse": 18,
-   "avg_pts": 0.02
+   "avg_pts": 0.04
   }
  },
  "lock_by_size": {
@@ -2097,6 +2097,20 @@
    "close": 210,
    "pts": -0.5,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Senators",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -122,
+   "pts": 0.8,
+   "units": 0,
    "result": "lost"
   },
   {

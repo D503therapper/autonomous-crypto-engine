@@ -25005,6 +25005,15 @@
      "them:west1000"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "fg",
+     "n": 1,
+     "p": "Quinton Byfield",
+     "s": "6-5",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -25034,6 +25043,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,4,0",
+     "h": "1,4,0,1"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -25078,10 +25091,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Senators 5 @ Kings 6",
     "season_games": null,
+    "settled": "2026-10-30T05:20Z",
     "side": "away",
     "start": "2026-10-30T02:00Z",
     "stype": "2",
@@ -25098,12 +25113,14 @@
    }
   ],
   "p_hit": 0.5256,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-29T15:00Z",
   "round": 1,
+  "settled": "2026-10-30T05:20Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
