@@ -112,6 +112,7 @@ every session:
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).
+- **Fable's findings go in without asking (the owner, 10/30: "You don't have to ask me anything. Whatever Fable finds that is best for the engine and me, then that's what we do")** - sizing included; tested, pushed, then reported in plain words.
 - Once the owner OKs something, publish it without asking again. Show a preview for new visual changes.
 - Commit to main and to the `claude/...` branch; don't open a PR unless asked.
 - What the studies found (built, not built yet, dead ends): `SPORTS_FINDINGS.md` - read it first, add to it.
