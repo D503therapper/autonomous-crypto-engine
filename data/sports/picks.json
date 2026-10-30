@@ -26339,5 +26339,168 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": -115,
+  "date": "2026-10-30",
+  "dec": 1.8696,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:3",
+     "latest:1",
+     "h2h:4",
+     "G_cold:1",
+     "road:3",
+     "keyout:0",
+     "w_hurt:6",
+     "splits_w:2",
+     "f_outs:1",
+     "f_last5:1",
+     "f_theirL:2",
+     "f_gpg:1",
+     "risk:2",
+     "bottom_c:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\uddf3 Kraken goes on the road and win: 4-3 away from home.",
+     "\ud83d\udcca Offense: Kraken is putting up 3.8 a game on the season, Flames 2.3.",
+     "\ud83d\ude91 Devin Cooley is on IR \u2014 Flames are still on their backup goalie.",
+     "\ud83e\udd45 Dustin Wolf \u2014 the Flames' last starter in net \u2014 has been giving up a lot of goals: a 0.864 save % (11 goals on 81 shots) over his last 3 starts.",
+     "\ud83d\udcc5 Last time out: Kraken W 5-4 vs Maple Leafs \u00b7 Flames L 0-4 @ Oilers.",
+     "\ud83d\udccb Kraken 8-5, Flames 5-7. Our side's been winning more, that's just facts.",
+     "\ud83d\ude91 Out for Flames: Brennan Othmann (LW), Connor Zary (C). That's real depth gone.",
+     "\ud83e\udd4a The Flames got smacked 4-0 by the Oilers inside their last 5. That's who we're going against.",
+     "\ud83d\uddd3\ufe0f Last 5 for Kraken: 3-2. They been getting it done.",
+     "\ud83d\udcca The Kraken got 66% of the tickets (69% of the money). Popular side.",
+     "\u26a0\ufe0f The one thing that worries us: Flames have outscored teams 3 to 2 a game over their last 3; Kraken sits 4 for, 4 against. Priced in. We still riding.",
+     "\ud83d\udfe1 Bottom line: Kraken (-115). Our read has it close to even, Kraken a hair better. Lean only."
+    ],
+    "bv": 61,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 1.8695652173913042,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": -0.0539,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": -0.0108,
+    "edge": -0.027863306656926934,
+    "edge_own": -0.031792730196970376,
+    "elo_edge": 2.1,
+    "fact": "The Flames are without their starting goalie Devin Cooley.",
+    "facts": [
+     [
+      "The Flames are without their starting goalie Devin Cooley.",
+      "Devin Cooley, the Flames' starting goalie, is out.",
+      "No Devin Cooley for the Flames - that's their starting goalie.",
+      "The Flames' starting goalie Devin Cooley isn't playing."
+     ],
+     [
+      "The Kraken are 8-5, the Flames 5-7.",
+      "The Kraken 8-5 on the year, the Flames 5-7.",
+      "It's 8-5 (the Kraken) against 5-7 (the Flames).",
+      "The Kraken sit 8-5; the Flames sit 5-7."
+     ],
+     [
+      "The Flames just got beat 4-0 by the Oilers.",
+      "The Flames are coming off a 4-0 beating from the Oilers.",
+      "Last time out the Flames took a 4-0 L to the Oilers.",
+      "The Flames got handled 4-0 by the Oilers last time out."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     1.0,
+     1,
+     110,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892613",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": 1.0036039046277923,
+    "key_out_me": false,
+    "key_seen": {
+     "Devin Cooley (Flames G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -115,
+    "opp": "Flames",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Brennan Othmann (LW)",
+     "Connor Zary (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5199800917881554,
+    "p_market": 0.5108342361863489,
+    "pdo": 1019.8749999999999,
+    "public": "ride",
+    "pyth_luck": 0.074,
+    "raw_own": 0.5128,
+    "reasons": [
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-10-31T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kraken",
+    "team_id": "124292",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude91 The Flames are without their starting goalie Devin Cooley. We got Kraken here."
+   }
+  ],
+  "p_hit": 0.52,
+  "pnl": 0.0,
+  "posted": "2026-10-30T16:49Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
