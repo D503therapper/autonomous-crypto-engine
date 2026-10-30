@@ -1,0 +1,233 @@
+====================================================================================================
+1. PLAY RATE BY STATUS (regular season, every listed man we can see in the team's box scores)
+
+  by status at the 1:30 PM ET report (what the engine waits on)
+   Available     all  74.7% of   2866 | key men  96.0% of   1088 | top scorer  98.4% of    188 | by season 19:62 20:75 21:84 22:68 23:62 24:73 25:80 26:81
+   Probable      all  89.0% of   4506 | key men  94.7% of   2625 | top scorer  95.9% of    676 | by season 19:86 20:88 21:86 22:91 23:89 24:91 25:89 26:91
+   Questionable  all  48.8% of  12019 | key men  54.5% of   6380 | top scorer  58.0% of   1111 | by season 19:48 20:49 21:49 22:52 23:48 24:47 25:48 26:50
+   Doubtful      all   3.9% of   1824 | key men   3.5% of    840 | top scorer   4.2% of     96 | by season 19:8 20:4 21:5 22:6 23:5 24:3 25:4 26:1
+   Out           all   0.8% of  53646 | key men   1.1% of  10303 | top scorer   0.4% of   1030 | by season 19:1 20:1 21:0 22:1 23:1 24:1 25:1 26:1
+
+  by final status before tip
+   Available     all  85.5% of  15285 | key men  98.7% of   7576 | top scorer  99.8% of   1581 | by season 19:80 20:84 21:89 22:86 23:84 24:84 25:87 26:87
+   Probable      all  90.4% of    301 | key men  94.6% of    186 | top scorer 100.0% of     56 | by season 19:92 20:88 21:92
+   Questionable  all  50.1% of    447 | key men  57.4% of    242 | top scorer  65.9% of     44 | by season 19:42 20:47 21:58 22:67 24:100
+   Doubtful      all   2.4% of     85 | key men   2.7% of     37 | top scorer   0.0% of      2 | by season 19:11 20:0 21:0 24:0
+   Out           all   0.2% of  68549 | key men   0.7% of  16517 | top scorer   0.3% of   1997 | by season 19:0 20:0 21:0 22:0 23:0 24:0 25:0 26:1
+
+  QUESTIONABLE at 1:30 PM -> what his FINAL status was:
+   final Available      53.1% of the questionables, played  88.6% of   6379
+   final Out            43.8% of the questionables, played   0.2% of   5268
+   final Questionable    2.8% of the questionables, played  53.5% of    333
+   final Probable        0.2% of the questionables, played  90.0% of     30
+   final Doubtful        0.1% of the questionables, played   0.0% of      9
+
+2. QUESTIONABLE (morning) BY KIND OF LISTING
+   injury: ankle                 56.3% of   1993  key men  59.8% of   1215
+   injury: knee                  50.0% of   1654  key men  51.6% of    905
+   injury: other                 51.9% of   1116  key men  56.5% of    626
+   g league                      18.6% of    975  key men  50.0% of      2
+   injury: back                  49.9% of    823  key men  54.7% of    479
+   injury: hip                   46.4% of    560  key men  49.1% of    338
+   illness                       43.7% of    542  key men  51.1% of    307
+   injury: foot                  54.3% of    523  key men  58.8% of    289
+   injury: hamstring             47.7% of    474  key men  51.9% of    266
+   injury: calf                  54.7% of    453  key men  55.7% of    273
+   injury: shoulder              49.5% of    315  key men  47.6% of    191
+   injury: quad                  52.5% of    265  key men  56.4% of    165
+   injury: groin                 50.5% of    216  key men  52.1% of    142
+   injury: wrist                 49.3% of    201  key men  46.4% of    110
+   injury: toe                   38.2% of    186  key men  37.5% of    112
+   injury: achilles              44.3% of    176  key men  47.7% of     88
+   injury: thumb                 55.5% of    137  key men  57.6% of     85
+   injury: adductor              55.8% of    129  key men  54.8% of     84
+   injury: heel                  40.5% of    111  key men  42.9% of     56
+   injury: hand                  52.3% of    109  key men  53.9% of     76
+   injury: elbow                 51.9% of    104  key men  53.3% of     75
+   return to competition         69.2% of    104  key men  75.7% of     37
+   health and safety             62.9% of     89  key men  67.7% of     31
+   other                         51.7% of     87  key men  63.6% of     33
+   injury: neck                  53.0% of     83  key men  53.2% of     47
+   personal                      44.4% of     81  key men  62.5% of     40
+   injury: finger                64.6% of     79  key men  64.6% of     48
+   injury: thigh                 52.7% of     74  key men  54.7% of     64
+   injury: head                  51.7% of     60  key men  66.7% of     36
+
+3. QUESTIONABLE (morning) - STAR vs ROLE
+   top scorer (top1)                     58.0% of   1111  train  55.1% of    566  hold  60.9% of    545
+   key man (top-3 / starter 3+ of 10)    54.5% of   6380  train  52.8% of   3366  hold  56.4% of   3014
+   regular, not key                      44.6% of   3567  train  45.8% of   1837  hold  43.4% of   1730
+   fringe (played <3 of last 10)         38.5% of   2072  train  44.4% of    871  hold  34.1% of   1201
+
+4. QUESTIONABLE (morning) - HOW MANY GAMES IN A ROW HE'S BEEN LISTED QUESTIONABLE BEFORE THIS ONE
+   first listing  all  48.1% of   8307  key men  51.5% of   4458
+   2nd in a row   all  53.0% of   2192  key men  59.6% of   1249
+   3rd in a row   all  55.0% of    707  key men  63.5% of    378
+   4th-5th        all  47.7% of    432  key men  65.1% of    218
+   6th-10th       all  41.1% of    190  key men  66.2% of     68
+   11th+          all  17.3% of    191  key men  88.9% of      9
+
+5. THE PER-PLAYER HISTORY (strictly before the game; questionable at 1:30 PM; regular season)
+   league questionable play rate (train) 49.5%; shrink weight 4
+   no history (first time)     44.3% of    908
+   history 1-4                 46.1% of   2702
+   history 5+                  50.1% of   8409
+   by the shrunk prior rate (HOLDOUT seasons only - the history is from before each game):
+     prior   0- 50% all      39.7% of   3296
+     prior   0- 50% key men  48.8% of   1272
+     prior  50- 65% all      54.9% of   1716
+     prior  50- 65% key men  57.9% of   1067
+     prior  65- 75% all      60.4% of    707
+     prior  65- 75% key men  62.0% of    471
+     prior  75- 85% all      80.7% of    176
+     prior  75- 85% key men  82.2% of    157
+     prior  85- 90% all      84.0% of     50
+     prior  85- 90% key men  83.0% of     47
+     prior  90-100% all        -  of      0
+     prior  90-100% key men    -  of      0
+   HOLDOUT key men, 5+ prior listings and shrunk rate 85%+:  83.0% of     47   | every other key questionable  55.9% of   2967
+        2024: 100.0% of      4
+        2025:  90.9% of     22
+        2026:  71.4% of     21
+   HOLDOUT key men, 8+ prior listings and shrunk rate 85%+:  83.0% of     47   | every other key questionable  55.9% of   2967
+        2024: 100.0% of      4
+        2025:  90.9% of     22
+        2026:  71.4% of     21
+   HOLDOUT key men, 10+ prior listings and shrunk rate 85%+:  83.0% of     47   | every other key questionable  55.9% of   2967
+        2024: 100.0% of      4
+        2025:  90.9% of     22
+        2026:  71.4% of     21
+
+   MOST-LISTED QUESTIONABLE MEN (2018-19..2025-26 regular seasons, morning questionable)
+     LeBron James               listed 166  played 142   85.5%   (as a key man 156)
+     Joel Embiid                listed 104  played  81   77.9%   (as a key man 93)
+     Anthony Davis              listed 100  played  68   68.0%   (as a key man 91)
+     Kendall Brown              listed  88  played  12   13.6%   (as a key man 0)
+     Oscar Tshiebwe             listed  83  played   9   10.8%   (as a key man 0)
+     Jimmy Butler III           listed  80  played  46   57.5%   (as a key man 73)
+     Isaiah Wong                listed  80  played   2    2.5%   (as a key man 0)
+     Alex Caruso                listed  76  played  42   55.3%   (as a key man 43)
+     Jamal Murray               listed  72  played  35   48.6%   (as a key man 67)
+     Jaylen Brown               listed  72  played  48   66.7%   (as a key man 68)
+     Myles Turner               listed  68  played  32   47.1%   (as a key man 67)
+     Kristaps Porzingis         listed  68  played  27   39.7%   (as a key man 57)
+     Anthony Edwards            listed  68  played  60   88.2%   (as a key man 66)
+     Trevelin Queen             listed  68  played   7   10.3%   (as a key man 0)
+     Robert Williams III        listed  65  played  30   46.2%   (as a key man 12)
+     Tyler Herro                listed  65  played  29   44.6%   (as a key man 46)
+     Malcolm Brogdon            listed  63  played  19   30.2%   (as a key man 42)
+     Bogdan Bogdanovic          listed  61  played  39   63.9%   (as a key man 35)
+     Luka Doncic                listed  61  played  49   80.3%   (as a key man 59)
+     Karl-Anthony Towns         listed  61  played  36   59.0%   (as a key man 50)
+     Caleb Martin               listed  61  played  37   60.7%   (as a key man 18)
+     Aaron Gordon               listed  59  played  31   52.5%   (as a key man 52)
+     Rudy Gobert                listed  59  played  43   72.9%   (as a key man 54)
+     Tyrese Haliburton          listed  59  played  41   69.5%   (as a key man 54)
+     Bradley Beal               listed  58  played  26   44.8%   (as a key man 53)
+     De'Andre Hunter            listed  56  played  29   51.8%   (as a key man 38)
+     Caris LeVert               listed  56  played  25   44.6%   (as a key man 22)
+     Josh Hart                  listed  53  played  34   64.2%   (as a key man 36)
+     Trae Young                 listed  52  played  35   67.3%   (as a key man 50)
+     Brandon Ingram             listed  51  played  17   33.3%   (as a key man 49)
+   always-questionable, always-plays (25+ listings, 90%+):
+   and the ones who usually SIT (25+ listings, under 50%):
+     Isaiah Wong                2/80 = 2%
+     Trevelin Queen             7/68 = 10%
+     Oscar Tshiebwe             9/83 = 11%
+     Kendall Brown              12/88 = 14%
+     Zeke Nnaji                 5/26 = 19%
+     Dennis Smith Jr.           8/41 = 20%
+     RayJ Dennis                7/30 = 23%
+     Quenton Jackson            13/49 = 27%
+     Deandre Ayton              10/36 = 28%
+     Cade Cunningham            10/35 = 29%
+     Malcolm Brogdon            19/63 = 30%
+     Gary Trent Jr.             15/49 = 31%
+     Brandon Ingram             17/51 = 33%
+     Hassan Whiteside           10/30 = 33%
+     Frank Ntilikina            9/27 = 33%
+     Monte Morris               10/30 = 33%
+     Wendell Carter Jr.         14/41 = 34%
+     Derrick Rose               13/38 = 34%
+     Cam Reddish                13/38 = 34%
+     Gary Harris                18/51 = 35%
+     Al Horford                 12/34 = 35%
+     Jonathan Isaac             11/31 = 35%
+     Quentin Grimes             11/31 = 35%
+     Marvin Bagley III          10/28 = 36%
+     Richaun Holmes             14/39 = 36%
+     Cole Anthony               11/30 = 37%
+     Kyle Kuzma                 13/35 = 37%
+     Tobias Harris              19/51 = 37%
+     OG Anunoby                 16/42 = 38%
+     Mo Bamba                   13/34 = 38%
+     Jeremy Lamb                18/47 = 38%
+     Dean Wade                  10/26 = 38%
+     Eric Gordon                17/44 = 39%
+     Goran Dragic               11/28 = 39%
+     Kristaps Porzingis         27/68 = 40%
+     Grayson Allen              11/27 = 41%
+     Andre Drummond             16/39 = 41%
+     Andrew Wiggins             16/39 = 41%
+     Josh Richardson            12/29 = 41%
+     Jrue Holiday               15/36 = 42%
+     Donovan Mitchell           15/36 = 42%
+     Rajon Rondo                13/30 = 43%
+     Javonte Green              11/25 = 44%
+     Fred VanVleet              19/43 = 44%
+     Ben Simmons                12/27 = 44%
+     Tyler Herro                29/65 = 45%
+     Caris LeVert               25/56 = 45%
+     Patrick Beverley           17/38 = 45%
+     Bradley Beal               26/58 = 45%
+     Reggie Bullock Jr.         14/31 = 45%
+     Chris Duarte               14/31 = 45%
+     Nerlens Noel               15/33 = 45%
+     Marcus Smart               16/35 = 46%
+     Goga Bitadze               22/48 = 46%
+     Robert Williams III        30/65 = 46%
+     Kevin Love                 12/26 = 46%
+     Matisse Thybulle           12/26 = 46%
+     Jerami Grant               18/39 = 46%
+     P.J. Washington            15/32 = 47%
+     Myles Turner               32/68 = 47%
+     Mike Conley                12/25 = 48%
+     Larry Nance Jr.            12/25 = 48%
+     Ayo Dosunmu                12/25 = 48%
+     Josh Okogie                13/27 = 48%
+     Alperen Sengun             14/29 = 48%
+     Dominick Barlow            15/31 = 48%
+     Jamal Murray               35/72 = 49%
+     D'Angelo Russell           23/47 = 49%
+     Rui Hachimura              7/22 = 32%
+     Anthony Davis              68/100 = 68%
+     LeBron James               142/166 = 86%
+     Kawhi Leonard              27/42 = 64%
+     Joel Embiid                81/104 = 78%
+     Giannis Antetokounmpo      27/44 = 61%
+     Stephen Curry              25/34 = 74%
+     Kevin Durant               7/13 = 54%
+     Zion Williamson            28/45 = 62%
+     Ja Morant                  16/32 = 50%
+
+6. THE MARKET - team-games with a KEY man questionable at 1:30 PM (his team's side), regular season
+   ALL key-questionable team-games              n= 4956 won  48.5% vs close no-vig  49.1% ( -0.6) ROI at close   -6.7% | open->close move -0.53 pts, bet-at-open value vs the close  -5.0%, ROI at open  -9.4% (n 2252)
+     ...he PLAYED                               n= 2406 won  51.5% vs close no-vig  51.8% ( -0.3) ROI at close   -6.4% | open->close move +1.17 pts, bet-at-open value vs the close  -1.6%, ROI at open  -2.4% (n 1120)
+     ...he SAT                                  n= 2550 won  45.7% vs close no-vig  46.6% ( -0.9) ROI at close   -7.0% | open->close move -2.20 pts, bet-at-open value vs the close  -8.4%, ROI at open -16.4% (n 1132)
+   top scorer questionable                      n= 1111 won  49.3% vs close no-vig  50.3% ( -1.0) ROI at close   -5.6% | open->close move -0.78 pts, bet-at-open value vs the close  -5.4%, ROI at open  -7.0% (n 545)
+     ...he PLAYED                               n=  530 won  55.3% vs close no-vig  55.6% ( -0.3) ROI at close   -4.2% | open->close move +2.09 pts, bet-at-open value vs the close  +0.4%, ROI at open  +2.1% (n 266)
+     ...he SAT                                  n=  581 won  43.9% vs close no-vig  45.5% ( -1.7) ROI at close   -6.8% | open->close move -3.51 pts, bet-at-open value vs the close -10.9%, ROI at open -15.6% (n 279)
+   CONTROL: no key man listed at 1:30 PM        n= 8634 won  53.1% vs close no-vig  52.6% ( +0.5) ROI at close   -2.1% | open->close move +0.87 pts, bet-at-open value vs the close  -2.3%, ROI at open  -0.4% (n 3006)
+     season 2019                                n=  283 won  45.6% vs close no-vig  48.5% ( -2.9) ROI at close  -14.9%
+     season 2020                                n=  453 won  50.3% vs close no-vig  49.5% ( +0.8) ROI at close   +4.4%
+     season 2021                                n=  488 won  48.8% vs close no-vig  47.2% ( +1.6) ROI at close   -2.0%
+     season 2022                                n=  733 won  46.7% vs close no-vig  48.9% ( -2.2) ROI at close   -9.8%
+     season 2023                                n=  747 won  50.1% vs close no-vig  49.5% ( +0.5) ROI at close   -2.4%
+     season 2024                                n=  797 won  51.1% vs close no-vig  49.9% ( +1.2) ROI at close   -2.5% | open->close move -0.85 pts, bet-at-open value vs the close  -5.6%, ROI at open  -3.2% (n 797)
+     season 2025                                n=  762 won  46.7% vs close no-vig  49.8% ( -3.1) ROI at close  -14.9% | open->close move -0.42 pts, bet-at-open value vs the close  -5.0%, ROI at open -14.7% (n 762)
+     season 2026                                n=  693 won  47.8% vs close no-vig  48.8% ( -1.0) ROI at close  -11.1% | open->close move -0.27 pts, bet-at-open value vs the close  -4.4%, ROI at open -10.8% (n 693)
+
+7. WHAT THE HOLD DOES (bet at the open vs wait for the news) - key-questionable team-games with an open price
+   he played 49.7% of 2252; betting at the open was worth -1.6% vs the close when he played, -8.4% when he sat
+   no hold, bet every one at the open: -5.01% a bet (vs the close)
+   hold, bet only if he plays (at the close): 0% vs the close on 50% of the bets; the open price he'd have had: -0.78% a slot given up, +4.23% a slot saved

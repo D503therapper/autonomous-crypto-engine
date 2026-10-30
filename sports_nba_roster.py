@@ -45,7 +45,9 @@ REPL_PCT = 0.25         # the replacement rate: the 25th percentile of rotation 
 ELO_PER_PT = 25.0       # NBA Elo points per point of margin a game (a 1-point favorite ~ 53%)
 BLEND_GAMES = 10        # the roster prior carries the read at game 0, the Elo takes over by here
 PLAY = {"probable": 0.95, "questionable": 0.5, "game-time": 0.5, "game time": 0.5, "day-to-day": 0.5,
-        "day to day": 0.5, "doubtful": 0.25}       # anything else on the report (out / suspended / IR / season) = 0
+        "day to day": 0.5, "doubtful": 0.05}       # anything else on the report (out / suspended / IR / season) = 0
+#   (10/30 study, the official reports 2018-19..2025-26 vs the box scores: probable played 89% / key men 95%,
+#   questionable 49% / 55%, DOUBTFUL 3.9% of 1,824 - every season 1-8%; it was 0.25, a doubtful man counted a quarter)
 PLAY_NOTE = ("expected to play", "probable", "will play", "available")   # a questionable note that says he's playing
 MIN_ROSTER = 8          # fewer players on a fetched roster = a broken page, never 'a thin team'
 
@@ -154,7 +156,15 @@ def report_chances(inj, team_id, team_name, notes=None):
         try:
             n = _nm(r[0])
             note = r[3] if len(r) > 3 else (notes.get(n) or {}).get("note", "")
-            out[n] = (play_chance(r[2], note), RESTRICTED_MIN if restricted(note) else None)
+            c = play_chance(r[2], note)
+            if PLAY["doubtful"] < c < PLAY["probable"]:      # 🏀 10/30: a man who plays through a questionable tag
+                try:                                         # (sports_questionable) is 4 in 5, not a coin flip
+                    import sports_questionable as sq
+                    if sq.usually_plays(r[0]):
+                        c = sq.USUALLY_PLAYS
+                except Exception:                            # noqa: BLE001
+                    pass
+            out[n] = (c, RESTRICTED_MIN if restricted(note) else None)
         except (IndexError, TypeError):
             continue
     return out
