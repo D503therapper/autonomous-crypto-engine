@@ -6588,7 +6588,13 @@ def _dog_gate_checks():
     far = {**_cand("far", 380, 0.25), "edge_own": 0.30 * sd.decimal(380) - 1}
     assert not sports.viewer_leans([far], ())                   # a lean dog past +300: never (10/10 - was +220)
     hoops = {**base, "league": "ncaab", "edge_own": 0.46 * 2.5 - 1}
-    assert sports.dog_gate(hoops)                              # college hoops: its own read 6 points over the price
+    assert not sports.dog_gate(hoops)                          # college hoops: no Dog since the 10/30 sizing study
+    keep_rule = sports.NCAAB_DOG_RULE                          # (NCAAB_DOG_RULE "off" - 0 of 3 seasons up)
+    sports.NCAAB_DOG_RULE = "score"
+    try:
+        assert sports.dog_gate(hoops) == (sports.dog_score(dict(hoops)) >= sports.NCAAB_DOG_GATE)   # the old rule still reads
+    finally:
+        sports.NCAAB_DOG_RULE = keep_rule
 
 
 def test_hockey_dogs_by_the_whole_score():
@@ -11308,7 +11314,7 @@ def test_college_hoops_dog_rule_constant():
     lost blind, a dog-score gate like the NBA's ran flat, and nothing cleared the five checks - so the rule is the OWNER'S
     call. NCAAB_DOG_RULE holds it: "own" (the old rule), "score" (the default from 10/10, the owner) (dog score NCAAB_DOG_GATE+, units by the weighed
     read) or "off" (college hoops dogs carry no units). Only the constant changes the gate - never the dog's facts."""
-    assert sports.NCAAB_DOG_RULE == "score" and sports.NCAAB_DOG_GATE == 4.0 and sports.NCAAB_DOG_EDGE == 0.04
+    assert sports.NCAAB_DOG_RULE == "off" and sports.NCAAB_DOG_GATE == 4.0 and sports.NCAAB_DOG_EDGE == 0.04   # (10/30 sizing: off)
     c = lambda: {"market": "ml", "league": "ncaab", "odds": 150, "dec": 2.5, "p": 0.42, "p_market": 0.40, "edge": 0.05,
                  "edge_own": 0.45 * 2.5 - 1, "reasons": ["the stronger team"], "dog_ctx": {}, "drift": 0.0}   # own 45% vs 40%
     keep, keep_sc = sports.NCAAB_DOG_RULE, sports.dog_score
@@ -15218,6 +15224,75 @@ def test_weekend_sweep_1030_team_verbs_agree_on_every_line_and_the_floor_closer_
     for bad in ("angles back it", "every angle", "every dog angle", "best of every dog", "the dog angles say"):
         assert bad not in low, bad
     assert "best dog left" in low
+
+
+def test_sizing_1030_lock_2u_or_1u_football_1u_dog_by_price_no_hoops_dog_posted_picks_keep_units():
+    """💰 10/30 SIZING (the owner: "run Fable on sizing ... whatever is recommended for the best profits"; results/studies/
+    sizing_1030/): from SIZING_1031_FROM the Lock is 2u when its own read sits under LOCK_BIG_GAP points over the no-vig
+    market, 1u at it or past it, and 1u in football (no 3u Lock); the hockey / football Dog is 2u at +100..+150 and ½u
+    longer, THIN OR NOT; the NBA Dog keeps its rule; no college hoops Dog; night / one-game-day unit picks never Kelly.
+    A pick dated before keeps the old schedule, a graded pick its units, the sizing check agrees with units_for."""
+    def leg(lg, odds, own, mkt, w=None):
+        dec = sports._dec(odds)
+        d = {"league": lg, "odds": odds, "dec": dec, "edge_own": own * dec - 1, "p_market": mkt, "p": own,
+             "market": "ml", "team": "X"}
+        if w:
+            d["w_p"] = w
+        return d
+    new, old = sports.SIZING_1031_FROM, "2026-10-30"
+    assert new == "2026-10-31" and sports.LOCK_UNITS_1031 == 2.0 and sports.LOCK_BIG_GAP == 7.0
+    assert sports.LOCK_FOOTBALL_UNITS == 1.0 and sports.DOG_SHORT_MAX == 150 and sports.DOG_SHORT_UNITS == 2.0
+    assert sports.DOG_LONG_UNITS == 0.5 and "ncaab" in sports.DOG_LEAGUES_OFF and sports.NCAAB_DOG_RULE == "off"
+
+    def u(kind, l, day, **kw):
+        pk = {"kind": kind, "date": day, "legs": [l], "status": "open", **kw}
+        assert sports.sizing_check([pk]) == [], (kind, l, day)            # the check reads the same schedule
+        return sports.units_for(pk)
+    # THE LOCK
+    small = leg("ncaab", -140, 0.61, 0.56, 0.62)                          # own read 5 points over the no-vig market
+    big = leg("ncaab", -140, 0.64, 0.56, 0.65)                            # 8 points over - the big-gap Lock
+    nfl = leg("nfl", -140, 0.61, 0.56, 0.62)
+    assert (u("lock", small, new), u("lock", big, new), u("lock", nfl, new)) == (2.0, 1.0, 1.0)
+    assert u("lock", leg("ncaaf", -135, 0.62, 0.57, 0.63), new) == 1.0     # college football 1u too
+    assert (u("lock", small, old), u("lock", big, old), u("lock", nfl, old)) == (3.0, 3.0, 3.0)   # posted before: the 10/23 plan
+    assert u("lock", leg("nhl", -140, 0.575, 0.56, 0.6), new) == 0.5        # a thin Lock stays ½u
+    assert u("lock", {**small, "backup_lock": True}, new) == 0.5           # the backup Lock ½u
+    assert sports.units_for({"kind": "lock", "date": new, "legs": [small], "status": "won", "units": 3.0}) == 3.0   # graded
+    # THE DOG - the price, thin or not
+    thin_short = leg("nhl", 140, 0.42, 0.40)
+    assert sports.thin_edge(thin_short)
+    assert u("dog", thin_short, new) == 2.0 and u("dog", thin_short, old) == 0.5
+    assert u("dog", leg("nhl", 140, 0.48, 0.41), new) == 2.0
+    assert u("dog", leg("nfl", 150, 0.45, 0.39), new) == 2.0               # +150 is still short
+    assert u("dog", leg("ncaaf", 151, 0.45, 0.39), new) == 0.5             # +151 is long
+    assert u("dog", leg("nhl", 180, 0.40, 0.35), new) == 0.5 and u("dog", leg("nhl", 180, 0.40, 0.35), old) == 2.0
+    assert u("dog", leg("ncaaf", 310, 0.30, 0.24), new) == 0.5             # (Illinois +310 would be ½u now)
+    assert u("dog", leg("nba", 140, 0.48, 0.41), new) == 1.0                # NBA: own over 1u, thin ½u - unchanged
+    assert u("dog", leg("nba", 140, 0.42, 0.41), new) == 0.5
+    # NIGHT / ONE-GAME DAY: the Lock's size when Lock-grade, else ½u - never Kelly on the read
+    nl = {**nfl, "tier": "lock"}
+    assert u("night", nl, new, tier="lock") == 1.0 and u("solo", nl, new, tier="lock") == 1.0
+    assert u("night", {**small, "tier": "lock"}, new, tier="lock") == 2.0
+    assert u("night", {**leg("nfl", 120, 0.52, 0.44), "tier": "value"}, new, tier="value") == 0.5
+    assert sports.units_for({"kind": "night", "date": new, "legs": [nl], "status": "open", "lean": True}) == 0
+    assert sports.units_for({"kind": "night", "date": old, "legs": [nl], "status": "open", "tier": "lock"}) > 1   # old: Kelly
+    # NO COLLEGE HOOPS DOG: the board's dog pool skips it even when every check passes
+    keep = (sports.good, sports.beats_price, sports.dog_score, sports.dog_own_ok, sports.best_hockey_dog)
+    try:
+        sports.good = sports.beats_price = sports.dog_own_ok = lambda c: True
+        sports.dog_score = lambda c: 5.0
+        sports.best_hockey_dog = lambda cands, taken=(): None
+        hoops = _cand("h1", 140, 0.45, league="ncaab")
+        assert sports.make_board([hoops])["dog"] is None
+        b = sports.make_board([hoops, _cand("k1", 130, 0.46, league="nhl")])
+        assert b["dog"]["legs"][0]["league"] == "nhl"
+    finally:
+        sports.good, sports.beats_price, sports.dog_score, sports.dog_own_ok, sports.best_hockey_dog = keep
+    import sports_early as se                                              # the NBA opening-line early play: 1u flat from 10/31
+    assert se.NBA_OPEN_UNITS_FROM == "2026-10-31"
+    assert se.units({"spot": "nba_open", "odds": 120, "posted": "2026-10-31T20:00Z"}) == 1.0
+    assert se.units({"spot": "nba_open", "odds": 120, "posted": "2026-10-30T20:00Z"}) == 0.5
+    assert se.units({"spot": "bye", "odds": 150, "posted": "2026-11-01T20:00Z"}) == 1.0     # the early spots keep theirs
 
 
 if __name__ == "__main__":
