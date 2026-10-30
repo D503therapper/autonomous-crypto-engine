@@ -13316,6 +13316,52 @@ def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
     assert se.SPOTS["nba_open"] == ("🏀 NBA opening line", 0.5, ("nba",))
 
 
+def test_nba_studies_1030_the_opening_line_play_sizes_1u_flat_from_its_date_and_the_b2b_favorite_lead():
+    """10/30 NBA unit-play studies: (1) the 🏀 opening-line play is 1u FLAT from NBA_OPEN_UNITS_FROM - no ½u / 1u / 2u
+    ladder by its read margin (a bigger margin did NOT earn more: 4-5 pts +18.9%, 5-7 +13.7%, 7+ +8.7%, 8+ -3.9%) - a
+    play posted before the date keeps ½u, a stamped play keeps its stamped size whatever the date, and None turns the
+    size-up off; (2) the favorite rest / travel study's one lead (both teams on a b2b) is a tracker tag on NBA
+    favorites -101..-150 only, never a weight on the read."""
+    import sports_early as se
+    import sports_leads
+    assert se.NBA_OPEN_UNITS == 1.0 and se.NBA_OPEN_UNITS_FROM == "2026-10-31"
+    p = {"spot": "nba_open", "league": "nba", "odds": -110, "posted": "2026-10-31T03:00Z"}
+    assert se.units(p) == 1.0
+    assert se.units({**p, "posted": "2026-10-30T23:00Z"}) == 0.5                 # before the date: the ½u it posted at
+    assert se.units({**p, "units": 0.5}) == 0.5                                   # a stamped play never re-sizes
+    assert se.units({"spot": "mnf", "league": "nfl", "odds": 150, "posted": "2026-11-02T03:00Z"}) == 0.5   # the other spots
+    keep = se.NBA_OPEN_UNITS_FROM
+    try:
+        se.NBA_OPEN_UNITS_FROM = None
+        assert se.units(p) == 0.5                                                 # the owner's off switch
+    finally:
+        se.NBA_OPEN_UNITS_FROM = keep
+    # the record reads the frozen size: a 1u play at -110 won = +0.91u
+    st = {"picks": [{**p, "units": 1.0, "result": "won"}, {**p, "units": 0.5, "result": "lost"}]}
+    w_, l_, u_ = se.spot_record(st)["nba_open"]
+    assert (w_, l_) == (1, 1) and abs(u_ - (100 / 110 - 0.5)) < 1e-9
+    # the lead: an NBA favorite -101..-150 with both teams on a back-to-back
+    fav = {"game_id": "n1", "league": "nba", "market": "ml", "odds": -130, "dec": 1.769, "p_market": 0.545,
+           "edge_own": 0.0, "home": True, "dog_more": {"rest": 1, "opp_rest": 1, "last_margin": 5}}
+    tag = "NBA fav -101..-150, both teams on a b2b"
+    assert tag in sports_leads.tags(fav, sports)
+    assert tag not in sports_leads.tags({**fav, "dog_more": {"rest": 2, "opp_rest": 1}}, sports)   # we're rested
+    assert tag not in sports_leads.tags({**fav, "dog_more": {"rest": 1, "opp_rest": 3}}, sports)   # they are
+    assert tag not in sports_leads.tags({**fav, "odds": -160, "dec": 1.625}, sports)               # out of the band
+    assert tag not in sports_leads.tags({**fav, "odds": 120, "dec": 2.2}, sports)                   # a dog
+    assert tag not in sports_leads.tags({**fav, "league": "nhl"}, sports)
+    cands = [dict(fav), {"game_id": "n1", "league": "nba", "market": "ml", "odds": 110, "dec": 2.1, "p_market": 0.455,
+                         "home": False, "season_games": 10}]
+    import sports_nba_roster as nr
+    keep = nr.cached
+    try:
+        nr.cached = lambda: None
+        sports.mark_nba_favorites(cands)
+    finally:
+        nr.cached = keep
+    assert cands[0]["w_p"] == 0.545 and cands[0]["nba_fav_w"] == {}                                # never a weight
+
+
 def test_nba_open_fires_from_game_one_with_the_board_dog_weights_and_the_key_man_rule():
     """10/29 (the owner: "plug everything in ... we need to jump on these NBA dogs as soon as the line opens"): the 🏀
     opening-line play had NEVER fired - its 11-game gate (both teams 11+ games in) kept it quiet till mid-November, and

@@ -556,6 +556,15 @@ def send(c):
 
 
 UNITS_MAX = 10
+NBA_OPEN_UNITS_FROM = "2026-10-31"   # 🏀 10/30 NBA UNIT-PLAY STUDIES (the owner, 10/30: "find ways to get good unit plays -
+NBA_OPEN_UNITS = 1.0                 # 1u, 2u, 3u plays"): the opening-line play goes to 1u FLAT from this date's posts
+#                                      (was ½u, the 10/23 lead size). The sizing-by-margin study (SPORTS_FINDINGS 10/30,
+#                                      332 plays blind at the open 2023-27): a bigger read margin does NOT earn more -
+#                                      4-5 pts +18.9%, 5-7 +13.7%, 7+ +8.7%, 8+ -3.9% - so no ½u / 1u / 2u ladder; the
+#                                      edge is the same size on every play, and flat 1u is the only honest size-up
+#                                      (+44.7u vs +22.4u at ½u, worst stretch -14.1u vs -7.0u, up all 4 seasons). A
+#                                      posted play keeps the size it posted at (stamp_units). The owner's sizing call -
+#                                      None = stays ½u.
 
 
 def units(p):
@@ -565,6 +574,8 @@ def units(p):
     time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
     if p.get("units") is not None:                           # (10/25 sweep: a posted play keeps the units it posted at -
         return float(p["units"])                             #  a spot's size changing later never re-sizes the record)
+    if p.get("spot") == "nba_open" and NBA_OPEN_UNITS_FROM and (p.get("posted") or "") >= NBA_OPEN_UNITS_FROM:
+        return NBA_OPEN_UNITS                                # 🏀 (10/30: the opening-line play at 1u flat - no margin ladder)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
         return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
     import sports

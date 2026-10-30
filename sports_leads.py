@@ -52,6 +52,13 @@ def tags(c, sports):
                       "own_top2_out": "NBA fav missing a top-2 man (fade)", "opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)",
                       "more_rest": "NBA fav 2+ more days rest (fade)", "off_blowout": "NBA fav off a 20+ win",
                       "home_dog_mid": "NBA fav at a home dog, games 31-60"}[k])
+    if lg == "nba" and not dog and -150 <= c.get("odds", 0) <= -101 and mo.get("rest") is not None \
+            and mo.get("opp_rest") is not None and mo["rest"] <= 1 and mo["opp_rest"] <= 1:
+        t.append("NBA fav -101..-150, both teams on a b2b")   # 10/30 NBA favorite rest / travel study: the ONE cell of 36
+        #                                                     up in both halves (train 55-33 +12.6% on 88, 3 of 6 seasons;
+        #                                                     held out 20-11 +14.2%, 2 of 2; now 3-4) - a LEAD (3 of 6 =
+        #                                                     not a weight); every rested-favorite spot LOST (the books
+        #                                                     over-move for rest)
     if dog and lg == "nba" and mo.get("last_upset") and c.get("odds", 0) >= sports.NBA_UPSET_DOG_MIN:
         t.append("NBA dog off an upset win, still +180 or longer")   # 10/24 dog-eye study: a LEAD (train +7.2% on 538,
         #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
