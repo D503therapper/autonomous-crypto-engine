@@ -1,0 +1,382 @@
+UNIT PLAYS by kind (today's rules), flat 1u
+   floor                              train  257-292   +7.6% | held  247-259  +10.6% | all  504-551   +9.0% | live    4-4    +33.2%
+   play                               train  222-158   +1.4% | held  129-93    +0.9% | all  351-251   +1.2% | live    8-5     +6.6%
+   dog                                train   66-74    +7.9% | held   61-56   +18.0% | all  127-130  +12.5% | live    4-4    +26.2%
+   nbafloor                           train   62-83   +17.0% | held   26-42    +8.5% | all   88-125  +14.3% | live    2-3    -11.0%
+   lock                               train   56-35    +5.6% | held   38-25    +3.6% | all   94-60    +4.8% | live    3-0    +68.5%
+   dogplay                            train   19-28    +3.6% | held   24-21   +27.8% | all   43-49   +15.4% | live    4-4    +28.0%
+   nbafav                             train   33-19    +9.8% | held   21-3    +50.7% | all   54-22   +22.7% | live       n=0          
+   floorfb                            train    7-4    +72.6% | held    3-6    -23.1% | all   10-10   +29.6% | live    2-0   +183.0%
+   solo                               train    1-0    +87.7% | held    1-0    +83.3% | all    2-0    +85.5% | live       n=0          
+
+Dogs of the Day by sport
+   dog nhl                            train   47-51    +9.0% | held   39-33   +22.3% | all   86-84   +14.6% | live    2-2    +16.0%
+   dog ncaaf                          train    2-1    +66.7% | held   11-13    +7.0% | all   13-14   +13.6% | live    1-2     +8.7%
+   dog nfl                            train    1-3    -40.5% | held       n=0           | all    1-3    -40.5% | live       n=0          
+   dog nba                            train   10-8    +34.1% | held    4-1    +94.6% | all   14-9    +47.3% | live    1-0   +120.0%
+   dog ncaab                          train    6-11   -25.5% | held    7-9     -8.6% | all   13-20   -17.3% | live       n=0          
+
+Locks by sport
+   lock ncaab                         train   55-31    +9.7% | held   31-22    +0.6% | all   86-53    +6.2% | live       n=0          
+   lock nhl                           train       n=0           | held    1-0    +71.4% | all    1-0    +71.4% | live       n=0          
+   lock mlb                           train    1-3    -55.8% | held    0-1   -100.0% | all    1-4    -64.6% | live       n=0          
+   lock ncaaf                         train       n=0           | held    5-1    +42.8% | all    5-1    +42.8% | live    3-0    +68.5%
+   lock nfl                           train    0-1   -100.0% | held    1-1    -16.2% | all    1-2    -44.1% | live       n=0          
+   lock nba                           train       n=0           | held       n=0           | all       n=0           | live       n=0          
+
+Locks by today's size
+   lock 1.0u                          train   20-9    +18.5% | held   12-10    -5.2% | all   32-19    +8.2% | live       n=0          
+   lock 2.0u                          train       n=0           | held       n=0           | all       n=0           | live       n=0          
+   lock 3.0u                          train   36-26    -0.4% | held   26-15    +8.3% | all   62-41    +3.1% | live    3-0    +68.5%
+
+== lock
+   ALL                                train   56-35    +5.6% | held   38-25    +3.6% | all   94-60    +4.8% | live    3-0    +68.5%
+   season 2023-24                     train   29-19    +3.1% | held       n=0           | all   29-19    +3.1% | live       n=0          
+   season 2024-25                     train   27-16    +8.4% | held       n=0           | all   27-16    +8.4% | live       n=0          
+   season 2025-26                     train       n=0           | held   33-23    +1.2% | all   33-23    +1.2% | live       n=0          
+   season 2026-27                     train       n=0           | held    5-2    +22.4% | all    5-2    +22.4% | live    3-0    +68.5%
+   edge_own 3..6                      train   26-13   +14.2% | held    9-5     +9.0% | all   35-18   +12.8% | live       n=0          
+   edge_own 6..10                     train   27-19    +0.5% | held   14-11    -3.2% | all   41-30    -0.8% | live    2-0    +69.0%
+   edge_own 10..15                    train    3-3    -11.4% | held    9-7     -3.7% | all   12-10    -5.8% | live    1-0    +67.6%
+   edge_own 15..99                    train       n=0           | held    6-2    +30.0% | all    6-2    +30.0% | live       n=0          
+   w_edge 3..6                        train   10-9    -11.0% | held    4-4    -14.8% | all   14-13   -12.1% | live    2-0    +69.0%
+   w_edge 6..10                       train   22-11   +14.9% | held    8-6     -2.9% | all   30-17    +9.6% | live    1-0    +67.6%
+   w_edge 10..99                      train    4-6    -31.0% | held   14-5    +26.3% | all   18-11    +6.6% | live       n=0          
+   w_edge none                        train   20-9    +18.5% | held   12-10    -5.2% | all   32-19    +8.2% | live       n=0          
+   gap 2..4                           train       n=0           | held    0-1   -100.0% | all    0-1   -100.0% | live       n=0          
+   gap 4..7                           train   44-24   +10.8% | held   15-8    +12.0% | all   59-32   +11.1% | live    1-0    +70.4%
+   gap 7..99                          train   12-11    -9.7% | held   23-16    +1.3% | all   35-27    -2.8% | live    2-0    +67.6%
+   odds -150..-135                    train   36-23    +3.0% | held   27-14   +11.5% | all   63-37    +6.5% | live    3-0    +68.5%
+   odds -135..-120                    train   19-12    +8.0% | held   11-10    -6.8% | all   30-22    +2.0% | live       n=0          
+   odds -120..-100                    train    1-0    +83.3% | held    0-1   -100.0% | all    1-1     -8.3% | live       n=0          
+   p (blend) 56..60                   train    7-4    +14.0% | held    4-2    +19.6% | all   11-6    +16.0% | live       n=0          
+   p (blend) 60..65                   train   49-30    +5.8% | held   19-19   -14.6% | all   68-49    -0.8% | live    1-0    +70.4%
+   p (blend) 65..100                  train    0-1   -100.0% | held   15-4    +34.8% | all   15-5    +28.1% | live    2-0    +67.6%
+
+== backup
+   ALL                                train       n=0           | held       n=0           | all       n=0           | live       n=0          
+
+== play
+   ALL                                train  222-158   +1.4% | held  129-93    +0.9% | all  351-251   +1.2% | live    8-5     +6.6%
+   season 2023-24                     train  118-84    +1.6% | held       n=0           | all  118-84    +1.6% | live       n=0          
+   season 2024-25                     train  104-74    +1.2% | held       n=0           | all  104-74    +1.2% | live       n=0          
+   season 2025-26                     train       n=0           | held  115-78    +3.4% | all  115-78    +3.4% | live       n=0          
+   season 2026-27                     train       n=0           | held   14-15   -15.8% | all   14-15   -15.8% | live    8-5     +6.6%
+   edge_own -99..0                    train   49-33    +1.6% | held   26-11   +19.2% | all   75-44    +7.0% | live    1-1    -16.2%
+   edge_own 0..3                      train  102-86    -5.5% | held   53-36    +2.7% | all  155-122   -2.9% | live    4-2    +15.3%
+   edge_own 3..6                      train   55-31   +11.6% | held   25-26   -13.5% | all   80-57    +2.2% | live       n=0          
+   edge_own 6..10                     train   15-7    +21.3% | held   18-13    +2.1% | all   33-20   +10.1% | live    2-0    +72.2%
+   edge_own 10..15                    train    1-1     -7.3% | held    6-5     -1.5% | all    7-6     -2.4% | live    1-1     -9.0%
+   edge_own 15..99                    train       n=0           | held    1-2    -37.7% | all    1-2    -37.7% | live    0-1   -100.0%
+   w_edge 0..3                        train   90-65    -0.3% | held   52-32    +6.0% | all  142-97    +1.9% | live    4-2    +13.3%
+   w_edge 3..6                        train   40-30    -1.1% | held   27-20    -1.1% | all   67-50    -1.1% | live    4-0    +76.6%
+   w_edge 6..10                       train   15-6    +24.7% | held    7-8    -19.7% | all   22-14    +6.2% | live    0-1   -100.0%
+   w_edge 10..99                      train    3-3    -12.5% | held    8-2    +41.9% | all   11-5    +21.5% | live    0-2   -100.0%
+   w_edge none                        train   74-54    +1.7% | held   35-31    -5.7% | all  109-85    -0.8% | live       n=0          
+   gap -99..0                         train   16-9     +7.7% | held   12-2    +44.4% | all   28-11   +20.9% | live    1-0    +67.6%
+   gap 0..2                           train   32-24    -2.2% | held   16-11    +1.2% | all   48-35    -1.1% | live    0-1   -100.0%
+   gap 2..4                           train   95-80    -5.5% | held   49-33    +3.3% | all  144-113   -2.7% | live    4-1    +38.4%
+   gap 4..7                           train   73-44    +8.9% | held   37-36   -10.6% | all  110-80    +1.4% | live    0-1   -100.0%
+   gap 7..99                          train    6-1    +55.8% | held   15-11    +1.8% | all   21-12   +13.2% | live    3-2     +5.3%
+   odds -150..-135                    train  114-79    -0.0% | held   67-38    +8.0% | all  181-117   +2.8% | live    4-1    +34.1%
+   odds -135..-120                    train   96-65    +5.7% | held   50-42    -4.3% | all  146-107   +2.1% | live    4-3     +2.3%
+   odds -120..-100                    train   12-14   -14.4% | held   12-13    -9.8% | all   24-27   -12.1% | live    0-1   -100.0%
+   p (blend) 56..60                   train  169-131   -1.6% | held   87-63    +1.4% | all  256-194   -0.6% | live    3-3    -12.6%
+   p (blend) 60..65                   train   53-27   +12.6% | held   40-29    -1.0% | all   93-56    +6.3% | live    5-1    +43.6%
+   p (blend) 65..100                  train       n=0           | held    2-1    +18.2% | all    2-1    +18.2% | live    0-1   -100.0%
+
+== dog
+   ALL                                train   66-74    +7.9% | held   61-56   +18.0% | all  127-130  +12.5% | live    4-4    +26.2%
+   season 2023-24                     train   32-29   +22.4% | held       n=0           | all   32-29   +22.4% | live       n=0          
+   season 2024-25                     train   34-45    -3.3% | held       n=0           | all   34-45    -3.3% | live       n=0          
+   season 2025-26                     train       n=0           | held   58-48   +24.2% | all   58-48   +24.2% | live       n=0          
+   season 2026-27                     train       n=0           | held    3-8    -41.3% | all    3-8    -41.3% | live    4-4    +26.2%
+   edge_own -99..0                    train   44-44   +14.0% | held   26-18   +36.8% | all   70-62   +21.6% | live    2-0   +135.0%
+   edge_own 0..3                      train   11-15    -1.1% | held   12-7    +40.8% | all   23-22   +16.6% | live    0-2   -100.0%
+   edge_own 3..6                      train    8-11    -2.8% | held   18-19    +9.6% | all   26-30    +5.4% | live    1-0   +114.0%
+   edge_own 6..10                     train    0-2   -100.0% | held    2-5    -38.7% | all    2-7    -52.3% | live       n=0          
+   edge_own 10..15                    train    3-2    +30.8% | held    2-2     +1.7% | all    5-4    +17.9% | live       n=0          
+   edge_own 15..99                    train       n=0           | held    1-5    -63.3% | all    1-5    -63.3% | live    1-2     +8.7%
+   gap -99..0                         train    3-1    +86.0% | held    2-1    +46.7% | all    5-2    +69.1% | live    1-0   +120.0%
+   gap 0..2                           train   42-48    +7.2% | held   26-18   +38.7% | all   68-66   +17.5% | live    1-1    +25.0%
+   gap 2..4                           train   16-21    -1.6% | held   24-20   +22.8% | all   40-41   +11.6% | live    1-1     +7.0%
+   gap 4..7                           train    3-3     +9.5% | held    6-10   -22.8% | all    9-13   -14.0% | live       n=0          
+   gap 7..99                          train    2-1    +38.7% | held    3-7    -37.3% | all    5-8    -19.8% | live    1-2     +8.7%
+   dog_score 2..4                     train    1-0   +141.0% | held    1-1    +12.5% | all    2-1    +55.3% | live       n=0          
+   dog_score 4..6                     train   16-15   +22.7% | held   14-11   +27.5% | all   30-26   +24.8% | live    1-0   +120.0%
+   dog_score 6..99                    train   49-59    +2.4% | held   46-44   +15.5% | all   95-103   +8.3% | live    3-4    +12.9%
+   odds 100..130                      train   38-34   +12.2% | held   40-31   +19.1% | all   78-65   +15.6% | live    2-2     +8.5%
+   odds 130..160                      train   21-21   +20.8% | held   16-14   +30.6% | all   37-35   +24.9% | live    1-1    +25.0%
+   odds 160..200                      train    7-17   -18.7% | held    3-6    -10.8% | all   10-23   -16.5% | live    0-1   -100.0%
+   odds 200..351                      train    0-2   -100.0% | held    2-5    -10.0% | all    2-7    -30.0% | live    1-0   +226.0%
+   p (blend) 0..40                    train   14-27    -9.7% | held   12-11   +37.7% | all   26-38    +7.3% | live    2-1    +92.0%
+   p (blend) 40..50                   train   48-42   +17.5% | held   36-31   +18.9% | all   84-73   +18.1% | live    2-2     +8.5%
+   p (blend) 50..56                   train    4-5     -8.6% | held   13-14    -1.1% | all   17-19    -2.9% | live    0-1   -100.0%
+
+== dogplay
+   ALL                                train   19-28    +3.6% | held   24-21   +27.8% | all   43-49   +15.4% | live    4-4    +28.0%
+   season 2023-24                     train   12-14   +12.0% | held       n=0           | all   12-14   +12.0% | live       n=0          
+   season 2024-25                     train    7-14    -6.9% | held       n=0           | all    7-14    -6.9% | live       n=0          
+   season 2025-26                     train       n=0           | held   19-19   +22.6% | all   19-19   +22.6% | live       n=0          
+   season 2026-27                     train       n=0           | held    5-2    +55.7% | all    5-2    +55.7% | live    4-4    +28.0%
+   edge_own -99..0                    train   13-19    -1.1% | held   12-13   +15.0% | all   25-32    +5.9% | live    2-3     -8.2%
+   edge_own 0..3                      train    6-8    +21.7% | held    4-7     +4.5% | all   10-15   +14.2% | live       n=0          
+   edge_own 3..6                      train       n=0           | held    2-0   +106.5% | all    2-0   +106.5% | live       n=0          
+   edge_own 6..10                     train    0-1   -100.0% | held    3-1    +61.3% | all    3-2    +29.0% | live       n=0          
+   edge_own 10..15                    train       n=0           | held    1-0   +120.0% | all    1-0   +120.0% | live       n=0          
+   edge_own 15..99                    train       n=0           | held    2-0   +124.0% | all    2-0   +124.0% | live    2-1    +88.3%
+   gap -99..0                         train    0-1   -100.0% | held    3-2    +70.0% | all    3-3    +41.7% | live    0-1   -100.0%
+   gap 0..2                           train   16-24    +4.1% | held   11-13    +8.6% | all   27-37    +5.8% | live    2-2    +14.8%
+   gap 2..4                           train    3-2    +40.8% | held    4-5    +10.9% | all    7-7    +21.6% | live       n=0          
+   gap 4..7                           train    0-1   -100.0% | held    4-1    +69.4% | all    4-2    +41.2% | live    1-0   +245.0%
+   gap 7..99                          train       n=0           | held    2-0   +124.0% | all    2-0   +124.0% | live    1-1    +10.0%
+   dog_score 4..6                     train    7-16    -9.8% | held    7-10   +21.6% | all   14-26    +3.6% | live    0-2   -100.0%
+   dog_score 6..99                    train   12-12   +16.4% | held   17-11   +31.5% | all   29-23   +24.5% | live    4-2    +70.7%
+   odds 100..130                      train    6-5    +17.0% | held   17-9    +40.5% | all   23-14   +33.5% | live    2-2     +8.5%
+   odds 130..160                      train    4-10   -33.4% | held    2-4    -20.3% | all    6-14   -29.5% | live    1-1    +22.5%
+   odds 160..200                      train    6-2   +102.4% | held    0-2   -100.0% | all    6-4    +61.9% | live       n=0          
+   odds 200..351                      train    3-11   -26.4% | held    5-6    +47.3% | all    8-17    +6.0% | live    1-1    +72.5%
+   p (blend) 0..40                    train    9-15   +10.4% | held    5-9    +15.7% | all   14-24   +12.3% | live    2-1    +96.7%
+   p (blend) 40..50                   train   10-13    -3.5% | held   14-12   +18.0% | all   24-25    +7.9% | live    1-2    -28.7%
+   p (blend) 50..56                   train       n=0           | held    4-0   +109.5% | all    4-0   +109.5% | live    0-1   -100.0%
+   p (blend) 56..60                   train       n=0           | held    1-0   +125.0% | all    1-0   +125.0% | live    1-0   +120.0%
+
+== nbafav
+   ALL                                train   33-19    +9.8% | held   21-3    +50.7% | all   54-22   +22.7% | live       n=0          
+   season 2023-24                     train   18-10   +10.2% | held       n=0           | all   18-10   +10.2% | live       n=0          
+   season 2024-25                     train   15-9     +9.3% | held       n=0           | all   15-9     +9.3% | live       n=0          
+   season 2025-26                     train       n=0           | held   21-3    +50.7% | all   21-3    +50.7% | live       n=0          
+   edge_own -99..0                    train   17-9    +11.7% | held   12-2    +48.2% | all   29-11   +24.5% | live       n=0          
+   edge_own 0..3                      train   10-9     -9.0% | held    9-1    +54.2% | all   19-10   +12.8% | live       n=0          
+   edge_own 3..6                      train    6-1    +53.6% | held       n=0           | all    6-1    +53.6% | live       n=0          
+   w_edge -99..0                      train   32-18   +10.5% | held   20-3    +49.7% | all   52-21   +22.9% | live       n=0          
+   w_edge 0..3                        train       n=0           | held    1-0    +74.6% | all    1-0    +74.6% | live       n=0          
+   w_edge 3..6                        train    1-1     -8.7% | held       n=0           | all    1-1     -8.7% | live       n=0          
+   gap -99..0                         train    4-1    +35.7% | held       n=0           | all    4-1    +35.7% | live       n=0          
+   gap 0..2                           train   13-5    +23.7% | held   11-1    +57.9% | all   24-6    +37.4% | live       n=0          
+   gap 2..4                           train   10-12   -21.4% | held   10-2    +43.5% | all   20-14    +1.5% | live       n=0          
+   gap 4..7                           train    6-1    +53.6% | held       n=0           | all    6-1    +53.6% | live       n=0          
+   odds -150..-135                    train   21-8    +23.2% | held   12-0    +68.8% | all   33-8    +36.5% | live       n=0          
+   odds -135..-120                    train   12-11    -7.1% | held    9-3    +32.6% | all   21-14    +6.5% | live       n=0          
+   p (blend) 50..56                   train   22-13    +9.7% | held    8-3    +28.7% | all   30-16   +14.2% | live       n=0          
+   p (blend) 56..60                   train   11-6    +10.0% | held   13-0    +69.3% | all   24-6    +35.7% | live       n=0          
+
+== nbafloor
+   ALL                                train   62-83   +17.0% | held   26-42    +8.5% | all   88-125  +14.3% | live    2-3    -11.0%
+   season 2023-24                     train   34-37   +27.9% | held       n=0           | all   34-37   +27.9% | live       n=0          
+   season 2024-25                     train   28-46    +6.5% | held       n=0           | all   28-46    +6.5% | live       n=0          
+   season 2025-26                     train       n=0           | held   26-42    +8.5% | all   26-42    +8.5% | live       n=0          
+   season 2026-27                     train       n=0           | held       n=0           | all       n=0           | live    2-3    -11.0%
+   edge_own -99..0                    train   53-65   +17.2% | held   24-42    +0.9% | all   77-107  +11.4% | live    1-1     +2.5%
+   edge_own 0..3                      train    8-17   +13.3% | held    1-0   +295.0% | all    9-17   +24.1% | live    1-2    -20.0%
+   edge_own 3..6                      train    1-1    +50.0% | held    1-0   +220.0% | all    2-1   +106.7% | live       n=0          
+   gap -99..0                         train   12-14   +24.1% | held   10-12   +22.3% | all   22-26   +23.3% | live    1-0   +105.0%
+   gap 0..2                           train   47-67   +12.9% | held   15-30    -3.0% | all   62-97    +8.4% | live    0-2   -100.0%
+   gap 2..4                           train    3-2    +72.0% | held    1-0   +220.0% | all    4-2    +96.7% | live    1-1    +20.0%
+   dog_score 0..2                     train   36-44   +25.9% | held   12-26   -16.6% | all   48-70   +12.2% | live    1-1     +2.5%
+   dog_score 2..4                     train   26-39    +6.0% | held   12-16   +26.0% | all   38-55   +12.0% | live    1-1    +20.0%
+   dog_score 4..6                     train       n=0           | held    2-0   +239.5% | all    2-0   +239.5% | live       n=0          
+   dog_score 6..99                    train       n=0           | held       n=0           | all       n=0           | live    0-1   -100.0%
+   odds 100..130                      train   14-10   +23.7% | held    6-8     -8.4% | all   20-18   +11.9% | live    1-3    -48.8%
+   odds 130..160                      train   19-19   +22.0% | held    6-5    +34.3% | all   25-24   +24.7% | live    1-0   +140.0%
+   odds 160..200                      train   15-16   +34.7% | held    5-5    +42.9% | all   20-21   +36.7% | live       n=0          
+   odds 200..351                      train   14-38    -0.3% | held    9-24    -3.4% | all   23-62    -1.5% | live       n=0          
+   p (blend) 0..40                    train   42-62   +21.1% | held   19-32   +15.0% | all   61-94   +19.1% | live       n=0          
+   p (blend) 40..50                   train   20-21    +6.6% | held    7-10   -11.1% | all   27-31    +1.4% | live    2-3    -11.0%
+
+== floor
+   ALL                                train  257-292   +7.6% | held  247-259  +10.6% | all  504-551   +9.0% | live    4-4    +33.2%
+   season 2023-24                     train  102-112  +10.8% | held       n=0           | all  102-112  +10.8% | live       n=0          
+   season 2024-25                     train  155-180   +5.5% | held       n=0           | all  155-180   +5.5% | live       n=0          
+   season 2025-26                     train       n=0           | held  177-185  +11.8% | all  177-185  +11.8% | live       n=0          
+   season 2026-27                     train       n=0           | held   70-74    +7.5% | all   70-74    +7.5% | live    4-4    +33.2%
+   edge_own -99..0                    train  176-220   +2.5% | held  196-203   +9.7% | all  372-423   +6.1% | live    2-4     -9.0%
+   edge_own 0..3                      train   81-72   +20.8% | held   51-56   +14.1% | all  132-128  +18.0% | live    2-0   +160.0%
+   gap -99..0                         train   65-75   +10.5% | held   41-25   +44.9% | all  106-100  +21.5% | live    2-2    +36.5%
+   gap 0..2                           train  126-161   +0.9% | held  172-194   +4.9% | all  298-355   +3.1% | live    1-2     -5.0%
+   gap 2..4                           train   66-56   +19.9% | held   34-40    +8.4% | all  100-96   +15.6% | live    1-0   +135.0%
+   dog_score -99..0                   train   30-49   -10.5% | held   24-12   +60.4% | all   54-61   +11.7% | live    2-1    +63.7%
+   dog_score 0..2                     train   65-89    -1.4% | held   72-76    +8.1% | all  137-165   +3.2% | live    1-0   +240.0%
+   dog_score 2..4                     train  120-110  +17.6% | held  129-144   +6.8% | all  249-254  +11.8% | live    0-3   -100.0%
+   dog_score 4..6                     train   38-37   +13.8% | held   20-25    +2.5% | all   58-62    +9.6% | live       n=0          
+   dog_score 6..99                    train    4-7    +11.1% | held    2-2     +6.0% | all    6-9     +9.7% | live    1-0   +135.0%
+   odds 100..130                      train  164-170   +4.7% | held  175-162  +11.0% | all  339-332   +7.9% | live    1-1     +3.0%
+   odds 130..160                      train   68-72   +17.0% | held   50-71    +0.2% | all  118-143   +9.2% | live    1-1    +17.5%
+   odds 160..200                      train   14-36   -23.3% | held   17-22   +17.5% | all   31-58    -5.4% | live    1-1    +42.5%
+   odds 200..351                      train   11-14   +55.4% | held    5-4   +106.3% | all   16-18   +68.9% | live    1-1    +70.0%
+   p (blend) 0..40                    train   46-75    +7.0% | held   36-45   +22.8% | all   82-120  +13.3% | live    2-3    +25.0%
+   p (blend) 40..50                   train  208-212   +8.4% | held  211-213   +8.6% | all  419-425   +8.5% | live    2-1    +47.0%
+   p (blend) 50..56                   train    3-5    -24.1% | held    0-1   -100.0% | all    3-6    -32.6% | live       n=0          
+
+== floorfb
+   ALL                                train    7-4    +72.6% | held    3-6    -23.1% | all   10-10   +29.6% | live    2-0   +183.0%
+   season 2023-24                     train    4-1   +101.8% | held       n=0           | all    4-1   +101.8% | live       n=0          
+   season 2024-25                     train    3-3    +48.3% | held       n=0           | all    3-3    +48.3% | live       n=0          
+   season 2025-26                     train       n=0           | held    2-6    -44.5% | all    2-6    -44.5% | live       n=0          
+   season 2026-27                     train       n=0           | held    1-0   +148.0% | all    1-0   +148.0% | live    2-0   +183.0%
+   edge_own -99..0                    train    5-2   +108.4% | held    2-6    -44.5% | all    7-8    +26.9% | live       n=0          
+   edge_own 0..3                      train       n=0           | held       n=0           | all       n=0           | live    1-0   +210.0%
+   edge_own 3..6                      train    2-1    +46.7% | held    1-0   +148.0% | all    3-1    +72.0% | live       n=0          
+   edge_own 6..10                     train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live    1-0   +156.0%
+   gap -99..0                         train    4-0   +209.8% | held    2-3    -11.2% | all    6-3    +87.0% | live       n=0          
+   gap 0..2                           train    0-2   -100.0% | held    0-3   -100.0% | all    0-5   -100.0% | live    1-0   +210.0%
+   gap 2..4                           train    2-1    +46.7% | held    1-0   +148.0% | all    3-1    +72.0% | live    1-0   +156.0%
+   gap 4..7                           train    1-1    +10.0% | held       n=0           | all    1-1    +10.0% | live       n=0          
+   dog_score -99..0                   train    4-2   +105.0% | held    1-5    -61.7% | all    5-7    +21.7% | live    1-0   +210.0%
+   dog_score 2..4                     train    1-0   +120.0% | held    2-0   +131.0% | all    3-0   +127.3% | live       n=0          
+   dog_score 4..6                     train    2-1    +49.7% | held    0-1   -100.0% | all    2-2    +12.3% | live       n=0          
+   dog_score 6..99                    train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live    1-0   +156.0%
+   odds 100..130                      train    4-1    +77.8% | held    1-1     +7.0% | all    5-2    +57.6% | live       n=0          
+   odds 130..160                      train    1-2    -23.3% | held    2-0   +139.0% | all    3-2    +41.6% | live    1-0   +156.0%
+   odds 160..200                      train    0-1   -100.0% | held    0-3   -100.0% | all    0-4   -100.0% | live       n=0          
+   odds 200..351                      train    2-0   +290.0% | held    0-2   -100.0% | all    2-2    +95.0% | live    1-0   +210.0%
+   p (blend) 0..40                    train    2-1   +160.0% | held    0-5   -100.0% | all    2-6     -2.5% | live    1-0   +210.0%
+   p (blend) 40..50                   train    5-2    +59.9% | held    3-1    +73.0% | all    8-3    +64.6% | live    1-0   +156.0%
+   p (blend) 50..56                   train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live       n=0          
+
+== dog nhl
+   ALL                                train   47-51    +9.0% | held   39-33   +22.3% | all   86-84   +14.6% | live    2-2    +16.0%
+   season 2023-24                     train   27-24   +21.7% | held       n=0           | all   27-24   +21.7% | live       n=0          
+   season 2024-25                     train   20-27    -4.8% | held       n=0           | all   20-27    -4.8% | live       n=0          
+   season 2025-26                     train       n=0           | held   39-33   +22.3% | all   39-33   +22.3% | live       n=0          
+   season 2026-27                     train       n=0           | held       n=0           | all       n=0           | live    2-2    +16.0%
+   edge_own -99..0                    train   34-37    +7.3% | held   22-17   +29.4% | all   56-54   +15.1% | live    1-0   +150.0%
+   edge_own 0..3                      train    7-10    -3.5% | held    6-2    +63.3% | all   13-12   +17.8% | live    0-2   -100.0%
+   edge_own 3..6                      train    6-4    +42.7% | held   10-14    -7.2% | all   16-18    +7.5% | live    1-0   +114.0%
+   edge_own 6..10                     train       n=0           | held    1-0   +124.0% | all    1-0   +124.0% | live       n=0          
+   gap 0..2                           train   34-40    +3.8% | held   23-17   +31.7% | all   57-57   +13.6% | live    1-1    +25.0%
+   gap 2..4                           train   13-11   +25.1% | held   14-11   +25.0% | all   27-22   +25.0% | live    1-1     +7.0%
+   gap 4..7                           train       n=0           | held    2-5    -41.4% | all    2-5    -41.4% | live       n=0          
+   dog_score 2..4                     train    1-0   +141.0% | held    1-1    +12.5% | all    2-1    +55.3% | live       n=0          
+   dog_score 4..6                     train    3-1    +81.7% | held    2-2    +17.8% | all    5-3    +49.7% | live       n=0          
+   dog_score 6..99                    train   43-50    +4.5% | held   36-30   +22.8% | all   79-80   +12.1% | live    2-2    +16.0%
+   odds 100..130                      train   26-24   +10.0% | held   24-19   +18.4% | all   50-43   +13.9% | live    1-1     +7.0%
+   odds 130..160                      train   17-15   +27.7% | held   14-11   +37.6% | all   31-26   +32.1% | live    1-0   +150.0%
+   odds 160..200                      train    4-12   -31.4% | held    1-3    -32.5% | all    5-15   -31.6% | live    0-1   -100.0%
+   p (blend) 0..40                    train    8-17   -16.1% | held    8-5    +54.1% | all   16-22    +7.9% | live    1-1    +25.0%
+   p (blend) 40..50                   train   38-32   +19.8% | held   27-22   +22.1% | all   65-54   +20.7% | live    1-1     +7.0%
+   p (blend) 50..56                   train    1-2    -32.7% | held    4-6    -18.4% | all    5-8    -21.7% | live       n=0          
+
+== dog ncaaf
+   ALL                                train    2-1    +66.7% | held   11-13    +7.0% | all   13-14   +13.6% | live    1-2     +8.7%
+   season 2023-24                     train    2-1    +66.7% | held       n=0           | all    2-1    +66.7% | live       n=0          
+   season 2025-26                     train       n=0           | held    8-5    +47.8% | all    8-5    +47.8% | live       n=0          
+   season 2026-27                     train       n=0           | held    3-8    -41.3% | all    3-8    -41.3% | live    1-2     +8.7%
+   edge_own 0..3                      train    2-1    +66.7% | held    3-2    +45.6% | all    5-3    +53.5% | live       n=0          
+   edge_own 3..6                      train       n=0           | held    6-3    +57.6% | all    6-3    +57.6% | live       n=0          
+   edge_own 6..10                     train       n=0           | held    0-2   -100.0% | all    0-2   -100.0% | live       n=0          
+   edge_own 10..15                    train       n=0           | held    1-1     +1.0% | all    1-1     +1.0% | live       n=0          
+   edge_own 15..99                    train       n=0           | held    1-5    -63.3% | all    1-5    -63.3% | live    1-2     +8.7%
+   gap 0..2                           train    1-1    +47.5% | held    1-1    +50.0% | all    2-2    +48.8% | live       n=0          
+   gap 2..4                           train    1-0   +105.0% | held    7-4    +48.7% | all    8-4    +53.4% | live       n=0          
+   gap 4..7                           train       n=0           | held    1-2    -30.0% | all    1-2    -30.0% | live       n=0          
+   gap 7..99                          train       n=0           | held    2-6    -47.2% | all    2-6    -47.2% | live    1-2     +8.7%
+   dog_score 4..6                     train    2-1    +66.7% | held    5-3    +37.6% | all    7-4    +45.5% | live       n=0          
+   dog_score 6..99                    train       n=0           | held    6-10    -8.3% | all    6-10    -8.3% | live    1-2     +8.7%
+   odds 100..130                      train    1-0   +105.0% | held    8-4    +41.3% | all    9-4    +46.2% | live    0-1   -100.0%
+   odds 130..160                      train       n=0           | held    1-2    -19.0% | all    1-2    -19.0% | live    0-1   -100.0%
+   odds 160..200                      train    1-1    +47.5% | held    0-2   -100.0% | all    1-3    -26.2% | live       n=0          
+   odds 200..351                      train       n=0           | held    2-5    -10.0% | all    2-5    -10.0% | live    1-0   +226.0%
+   p (blend) 0..40                    train    1-1    +47.5% | held    2-5    -10.0% | all    3-6     +2.8% | live    1-0   +226.0%
+   p (blend) 40..50                   train    1-0   +105.0% | held    5-4    +22.8% | all    6-4    +31.0% | live    0-1   -100.0%
+   p (blend) 50..56                   train       n=0           | held    4-4     +4.1% | all    4-4     +4.1% | live    0-1   -100.0%
+
+== dog nba
+   ALL                                train   10-8    +34.1% | held    4-1    +94.6% | all   14-9    +47.3% | live    1-0   +120.0%
+   season 2023-24                     train    3-3    +26.0% | held       n=0           | all    3-3    +26.0% | live       n=0          
+   season 2024-25                     train    7-5    +38.2% | held       n=0           | all    7-5    +38.2% | live       n=0          
+   season 2025-26                     train       n=0           | held    4-1    +94.6% | all    4-1    +94.6% | live       n=0          
+   season 2026-27                     train       n=0           | held       n=0           | all       n=0           | live    1-0   +120.0%
+   edge_own -99..0                    train   10-7    +42.0% | held    4-1    +94.6% | all   14-8    +54.0% | live    1-0   +120.0%
+   edge_own 3..6                      train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live       n=0          
+   gap -99..0                         train    3-1    +86.0% | held    2-1    +46.7% | all    5-2    +69.1% | live    1-0   +120.0%
+   gap 0..2                           train    7-7    +19.3% | held    2-0   +166.5% | all    9-7    +37.7% | live       n=0          
+   dog_score 4..6                     train    8-5    +49.2% | held    4-1    +94.6% | all   12-6    +61.8% | live    1-0   +120.0%
+   dog_score 6..99                    train    2-3     -5.2% | held       n=0           | all    2-3     -5.2% | live       n=0          
+   odds 100..130                      train    5-2    +58.0% | held    1-0   +105.0% | all    6-2    +63.9% | live    1-0   +120.0%
+   odds 130..160                      train    3-3    +25.0% | held    1-0   +135.0% | all    4-3    +40.7% | live       n=0          
+   odds 160..200                      train    2-2    +39.5% | held    2-1    +77.7% | all    4-3    +55.9% | live       n=0          
+   odds 200..351                      train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live       n=0          
+   p (blend) 0..40                    train    5-6    +18.9% | held    2-1    +77.7% | all    7-7    +31.5% | live       n=0          
+   p (blend) 40..50                   train    5-2    +58.0% | held    2-0   +120.0% | all    7-2    +71.8% | live    1-0   +120.0%
+
+== dog ncaab
+   ALL                                train    6-11   -25.5% | held    7-9     -8.6% | all   13-20   -17.3% | live       n=0          
+   season 2023-24                     train    0-1   -100.0% | held       n=0           | all    0-1   -100.0% | live       n=0          
+   season 2024-25                     train    6-10   -20.8% | held       n=0           | all    6-10   -20.8% | live       n=0          
+   season 2025-26                     train       n=0           | held    7-9     -8.6% | all    7-9     -8.6% | live       n=0          
+   edge_own 0..3                      train    2-4    -28.0% | held    3-3     +7.0% | all    5-7    -10.5% | live       n=0          
+   edge_own 3..6                      train    2-5    -40.1% | held    2-2     +2.5% | all    4-7    -24.6% | live       n=0          
+   edge_own 6..10                     train    0-1   -100.0% | held    1-3    -48.8% | all    1-4    -59.0% | live       n=0          
+   edge_own 10..15                    train    2-1    +38.7% | held    1-1     +2.5% | all    3-2    +24.2% | live       n=0          
+   gap 2..4                           train    2-8    -56.8% | held    3-5    -19.7% | all    5-13   -40.3% | live       n=0          
+   gap 4..7                           train    2-2     +4.7% | held    3-3     +2.5% | all    5-5     +3.4% | live       n=0          
+   gap 7..99                          train    2-1    +38.7% | held    1-1     +2.5% | all    3-2    +24.2% | live       n=0          
+   dog_score 4..6                     train    3-8    -42.1% | held    3-5    -19.7% | all    6-13   -32.7% | live       n=0          
+   dog_score 6..99                    train    3-3     +5.0% | held    4-4     +2.5% | all    7-7     +3.6% | live       n=0          
+   odds 100..130                      train    6-8     -9.5% | held    7-8     -2.5% | all   13-16    -5.9% | live       n=0          
+   odds 130..160                      train    0-3   -100.0% | held    0-1   -100.0% | all    0-4   -100.0% | live       n=0          
+   p (blend) 40..50                   train    3-8    -41.3% | held    2-5    -37.1% | all    5-13   -39.7% | live       n=0          
+   p (blend) 50..56                   train    3-3     +3.5% | held    5-4    +13.6% | all    8-7     +9.5% | live       n=0          
+
+== all dogs on the board (dog + dogplay + floor + nbafloor + floorfb)
+   ALL                                train  411-481   +9.7% | held  361-384  +12.2% | all  772-865  +10.9% | live   16-15   +32.6%
+   season 2023-24                     train  184-193  +17.2% | held       n=0           | all  184-193  +17.2% | live       n=0          
+   season 2024-25                     train  227-288   +4.3% | held       n=0           | all  227-288   +4.3% | live       n=0          
+   season 2025-26                     train       n=0           | held  282-300  +13.6% | all  282-300  +13.6% | live       n=0          
+   season 2026-27                     train       n=0           | held   79-84    +7.2% | all   79-84    +7.2% | live   16-15   +32.6%
+   edge_own -99..0                    train  291-350   +7.7% | held  260-282  +10.3% | all  551-632   +8.9% | live    7-8    +12.0%
+   edge_own 0..3                      train  106-112  +17.4% | held   68-70   +19.0% | all  174-182  +18.0% | live    4-4    +33.8%
+   edge_own 3..6                      train   11-13    +7.8% | held   22-19   +22.9% | all   33-32   +17.3% | live    1-0   +114.0%
+   edge_own 6..10                     train    0-4   -100.0% | held    5-6     -2.4% | all    5-10   -28.4% | live    1-0   +156.0%
+   edge_own 10..15                    train    3-2    +30.8% | held    3-2    +25.4% | all    6-4    +28.1% | live       n=0          
+   edge_own 15..99                    train       n=0           | held    3-5    -16.5% | all    3-5    -16.5% | live    3-3    +48.5%
+   gap -99..0                         train   84-91   +18.2% | held   58-43   +38.5% | all  142-134  +25.6% | live    4-3    +38.7%
+   gap 0..2                           train  231-302   +4.4% | held  224-258   +6.8% | all  455-560   +5.5% | live    5-7     +8.7%
+   gap 2..4                           train   90-82   +17.9% | held   64-65   +16.2% | all  154-147  +17.1% | live    4-2    +57.5%
+   gap 4..7                           train    4-5     -2.6% | held   10-11    -0.9% | all   14-16    -1.4% | live    1-0   +245.0%
+   gap 7..99                          train    2-1    +38.7% | held    5-7    -10.4% | all    7-8     -0.6% | live    2-3     +9.2%
+   dog_score -99..0                   train   34-51    -2.4% | held   25-17   +43.0% | all   59-68   +12.6% | live    3-1   +100.2%
+   dog_score 0..2                     train  101-133   +7.9% | held   84-102   +3.1% | all  185-235   +5.8% | live    2-1    +81.7%
+   dog_score 2..4                     train  148-149  +15.8% | held  144-161   +9.4% | all  292-310  +12.6% | live    1-4    -52.0%
+   dog_score 4..6                     train   63-69   +12.6% | held   43-47   +17.2% | all  106-116  +14.5% | live    1-2    -26.7%
+   dog_score 6..99                    train   65-79    +4.7% | held   65-57   +18.9% | all  130-136  +11.2% | live    9-7    +44.1%
+   odds 100..130                      train  226-220   +8.0% | held  239-211  +13.4% | all  465-431  +10.7% | live    6-8     -8.6%
+   odds 130..160                      train  113-124  +15.0% | held   76-94    +8.7% | all  189-218  +12.3% | live    5-3    +53.2%
+   odds 160..200                      train   42-72    +1.6% | held   25-38    +8.2% | all   67-110   +3.9% | live    1-2     -5.0%
+   odds 200..351                      train   30-65   +14.5% | held   21-41   +17.7% | all   51-106  +15.8% | live    4-2   +120.2%
+   p (blend) 0..40                    train  113-180  +11.5% | held   72-102  +18.4% | all  185-282  +14.1% | live    7-5    +75.1%
+   p (blend) 40..50                   train  291-290   +9.8% | held  271-267  +10.2% | all  562-557  +10.0% | live    8-8    +11.9%
+   p (blend) 50..56                   train    7-11   -20.6% | held   17-15    +9.7% | all   24-26    -1.2% | live    0-2   -100.0%
+   p (blend) 56..60                   train       n=0           | held    1-0   +125.0% | all    1-0   +125.0% | live    1-0   +120.0%
+
+== all favorites on the board (lock + backup + play + nbafav)
+   ALL                                train  312-212   +3.1% | held  189-121   +5.6% | all  501-333   +4.0% | live   11-5    +18.2%
+   season 2023-24                     train  165-113   +2.7% | held       n=0           | all  165-113   +2.7% | live       n=0          
+   season 2024-25                     train  147-99    +3.6% | held       n=0           | all  147-99    +3.6% | live       n=0          
+   season 2025-26                     train       n=0           | held  170-104   +7.4% | all  170-104   +7.4% | live       n=0          
+   season 2026-27                     train       n=0           | held   19-17    -8.4% | all   19-17    -8.4% | live   11-5    +18.2%
+   edge_own -99..0                    train   67-42    +4.8% | held   39-13   +28.2% | all  106-55   +12.4% | live    1-1    -16.2%
+   edge_own 0..3                      train  112-95    -5.9% | held   62-37    +7.9% | all  174-132   -1.4% | live    4-2    +15.3%
+   edge_own 3..6                      train   87-45   +14.6% | held   34-31    -8.7% | all  121-76    +6.9% | live       n=0          
+   edge_own 6..10                     train   42-26    +7.2% | held   32-24    -0.3% | all   74-50    +3.9% | live    4-0    +70.6%
+   edge_own 10..15                    train    4-4    -10.4% | held   15-12    -2.8% | all   19-16    -4.5% | live    2-1    +16.5%
+   edge_own 15..99                    train       n=0           | held    7-4    +11.6% | all    7-4    +11.6% | live    0-1   -100.0%
+   w_edge -99..0                      train   33-18   +12.0% | held   20-3    +49.7% | all   53-21   +23.7% | live       n=0          
+   w_edge 0..3                        train   90-65    -0.3% | held   53-32    +6.8% | all  143-97    +2.2% | live    4-2    +13.3%
+   w_edge 3..6                        train   51-40    -3.3% | held   31-24    -3.1% | all   82-64    -3.2% | live    6-0    +74.1%
+   w_edge 6..10                       train   37-17   +18.7% | held   15-14   -11.6% | all   52-31    +8.1% | live    1-1    -16.2%
+   w_edge 10..99                      train    7-9    -24.0% | held   22-7    +31.7% | all   29-16   +11.9% | live    0-2   -100.0%
+   w_edge none                        train   94-63    +4.8% | held   48-41    -4.6% | all  142-104   +1.4% | live       n=0          
+   gap -99..0                         train   20-10   +12.4% | held   12-2    +44.4% | all   32-12   +22.6% | live    1-0    +67.6%
+   gap 0..2                           train   46-29    +5.2% | held   28-12   +20.3% | all   74-41   +10.4% | live    0-1   -100.0%
+   gap 2..4                           train  105-92    -7.2% | held   59-36    +7.3% | all  164-128   -2.5% | live    4-1    +38.4%
+   gap 4..7                           train  123-69   +11.2% | held   52-44    -5.2% | all  175-113   +5.7% | live    1-1    -14.8%
+   gap 7..99                          train   18-12    +5.5% | held   38-27    +1.5% | all   56-39    +2.8% | live    5-2    +23.1%
+   odds -150..-135                    train  171-110   +3.0% | held  106-52   +13.5% | all  277-162   +6.8% | live    7-1    +47.0%
+   odds -135..-120                    train  127-88    +4.7% | held   70-55    -1.2% | all  197-143   +2.5% | live    4-3     +2.3%
+   odds -120..-100                    train   14-14    -7.3% | held   13-14    -9.7% | all   27-28    -8.4% | live    0-1   -100.0%
+   p (blend) 50..56                   train   23-13   +11.8% | held    9-3    +33.3% | all   32-16   +17.2% | live       n=0          
+   p (blend) 56..60                   train  187-141   -0.5% | held  104-65    +7.3% | all  291-206   +2.2% | live    3-3    -12.6%
+   p (blend) 60..65                   train  102-57    +9.2% | held   59-48    -5.8% | all  161-105   +3.2% | live    6-1    +47.4%
+   p (blend) 65..100                  train    0-1   -100.0% | held   17-5    +32.6% | all   17-6    +26.8% | live    2-1    +11.7%

@@ -891,7 +891,7 @@ NHL_FALLBACK_OWN_GAP = 2.0     # 🏒 10/29 (afternoon sweep, the owner: "we nee
 #                                one open); the 2 over went 0-2 (Flyers +110, Sharks +145) - too few to say anything.
 NCAAB_DOG_EDGE = 0.04         # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
-NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
+NCAAB_DOG_RULE = "off"         # 💰 10/30 SIZING: OFF - every college hoops Dog replay lost (10/10 flat, 10/24 -9.2% 1 of 4, 10/30 13-20 -25.5% / -8.6% 0 of 3); was "score" from the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
 #                                closing prices, params re-tuned each July): "own" = today's NCAAB_DOG_EDGE gate (2022-24
 #                                -4.7% on 471; blind 2024-26 14-22, -15.8% on 36); "score" = a dog-score gate like the
 #                                NBA's at NCAAB_DOG_GATE (4+: -1.2% on 459; blind 38-44, -0.1% on 82 - flat, 1 of 2
@@ -1212,7 +1212,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
             #                                                  the board's Lock pool and the backup, not the one-game day's
             #                                                  title - it stays the game's pick, with units, never a Lock)
         elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX and \
-                not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo) and dog_own_ok(solo):   # (10/1 audit: a Dog that fails
+                not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo) and dog_own_ok(solo) \
+                and solo.get("league") not in DOG_LEAGUES_OFF:   # (10/30 sizing: no college hoops Dog) (10/1 audit: a Dog that fails
             kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
             #                                                  Thursday game with no pick - it stays the game's pick)
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None, "solo": None, kind: one}
@@ -1263,7 +1264,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # proven reason behind it), the one the dog analysis (dog_score: the studies' spots and fades) likes best - and
         # never one the analysis flags as a trap (score under 0). None = no Dog of the Day, and the board says so.
         dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DAILY_DOG_MAX
-                and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0 and dog_own_ok(c)]   # (10/24 audit:
+                and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0 and dog_own_ok(c)
+                and c.get("league") not in DOG_LEAGUES_OFF]   # (10/30 sizing: no college hoops Dog) (10/24 audit:
         #                                                  the own-read rule holds for a proven-angle dog too - it only lived in dog_gate)
         regular = [c for c in dogs if c["odds"] < BIG_DOG]
         dog = max(regular, key=lambda c: (dog_score(c), c["edge"])) if regular else None
@@ -2480,6 +2482,10 @@ def units_for(pk):
     if pk.get("owner_post") and pk.get("units") is not None:
         return pk["units"]                                   # (10/22: a pick the owner posted by hand keeps HIS units -
         #                                                      the Sharks at his 1u came out 3.5u once it became the Dog)
+    if kind in ("solo", "night") and (pk.get("date") or "") >= SIZING_1031_FROM and not pk.get("lean"):
+        return solo_units_1031(pk)                           # 💰 10/30 SIZING: a one-game day's / a night game's unit
+        #                                                      pick - never Kelly on the read again (it put 3-5u on the
+        #                                                      big-edge reads, the worst ones)
     if kind == "solo" and (pk.get("date") or "") >= SOLO_UNITS_FROM:   # (the owner, 10/1: "on a one-game day we always
         t_ = pick_tier({**pk, "lean": False})                #  put units on" - a Lock or a value play, never a lean)
         u_ = _sized("lock" if t_ == "lock" else "value", legs[0]) or 0.5
@@ -2502,12 +2508,18 @@ def units_for(pk):
         #                                                      price while the blended win % sits under 56% - is ½u, the
         #                                                      rule the owner has had since 10/2; it never carried the plan's
         #                                                      2u / 3u: 16 of them in the 2023-26 replay, 9-7, flat)
+    if kind == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and legs[0].get("league") != "nba":
+        return dog_units(pk)                                 # 💰 10/30 SIZING: the Dog sizes on its PRICE, thin or not
+        #                                                      (the replay: the thin short Dog wins as much as the
+        #                                                      real-edge one; the long Dog is the loser) - dog_units
     if kind in ("lock", "dog") and (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(legs[0]):
         return 0.5                                           # (10/23, the owner: "the whole thin edge thing is sketchy -
         #                                                      those seem to lose a lot ... you need to fix this": live,
         #                                                      thin-edge unit plays 16-18 -4.4u vs real edges 11-6 +18.6u;
         #                                                      the 10/23 plan had a thin Lock at the 3u max - a small edge
         #                                                      is a small bet again, Lock and Dog)
+    if kind == "lock" and (pk.get("date") or "") >= SIZING_1031_FROM:
+        return lock_units_1031(legs[0])                      # 💰 10/30 SIZING: 2u / 1u, football 1u - no 3u Lock
     if kind == "lock" and (pk.get("date") or "") >= S6_FROM:
         return lock_units(legs[0])                           # (the 10/23 plan - never Kelly on the read again)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
@@ -2553,7 +2565,11 @@ def dog_units(pk):
     lg = leg.get("league")
     day = pk.get("date") or ""
     k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
-    if day >= DOG_BIG_FROM:                                  # (the owner, 10/16: every sport's Dog sizes by the read, its
+    if day >= SIZING_1031_FROM and lg != "nba":              # 💰 10/30 SIZING: by the price - 2u at +100..+150, ½u longer
+        if lg in DOG_LEAGUES_OFF:                            # (never posted - no college hoops Dog; its old ½u if one is)
+            return DOG_UNITS_BY.get(lg, DOG_UNITS)
+        return DOG_SHORT_UNITS if (leg.get("odds") or 999) <= DOG_SHORT_MAX else DOG_LONG_UNITS
+    if day >= DOG_BIG_FROM:                                 # (the owner, 10/16: every sport's Dog sizes by the read, its
         u = min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
         if day >= S6_FROM:                                  # (the 10/23 plan: 2u - only an own-read-over Dog gets posted)
             if lg == "nba" and day >= FLOOR_FROM:            # 🏀 10/27: the NBA Dog 1u with its own read over the price
@@ -2577,6 +2593,58 @@ S6_LOCK_SKIP = (-119, -101)  # Locks in this band went 46% in the replay
 PLAYS_FAV_ONLY = True        # value plays: favorites only (59% won, +3.8% / +4.9%)
 DOG_NEEDS_OWN = True         # (the 10/23 plan: no own-read-under Dog - "no Dog" beats the leak)
 S6_DOG_UNITS = 2.0           # the own-read-over Dog: 49% won at +100..+150, +27.8u / +11.7u blind
+SIZING_1031_FROM = "2026-10-31"   # 💰 10/30 SIZING (the owner, 10/30: "run Fable on sizing and whatever is recommended for
+#   the best profits is what we need to do ... when I see a bigger sizing, the engine's more confident, I do bigger bets
+#   myself" / "you don't have to ask me anything"). results/studies/sizing_1030/ - the 10/30 funnel rows (1,097 board days
+#   2023-26 on today's code + live, closing prices) re-built with today's board rules, every unit play kind, train 2023-25 /
+#   held out 2025-27. A size is the owner's CONFIDENCE signal: a bigger size only on a cell that won MORE vs the price in
+#   BOTH halves. From this date's board (posted picks keep their units):
+#   - THE LOCK: 2u (LOCK_UNITS_1031) when its own read sits under LOCK_BIG_GAP points over the no-vig market, 1u at the gap
+#     or more (59-33 +10.8% / +7.4% vs 35-27 -9.7% / +1.3% - the big-gap Locks are the worst, the 10/2, 10/16 and 10/30
+#     studies all say it; the cut holds at 5 / 6 / 7); NFL / college football Locks 1u (LOCK_FOOTBALL_UNITS - the 10/30
+#     football studies: -10.4% / -1.3% NFL, -5.4% college at the close). NO 3u Lock: the 10/23 plan's 3u cell won 62-41
+#     +3.1% (-0.4% train) - no better than the 1u Locks (+8.2%); the max play sized UP the average Lock.
+#   - THE DOG OF THE DAY (hockey / football): 2u at +100..+DOG_SHORT_MAX, ½u past it, THIN OR NOT (the short Dog 85-68
+#     +22.1% / +22.7%, 4 of 4 seasons; the long Dog 15-33 -29.6% / +3.4%; the thin short Dog 64-49 +17.9% / +36.9% vs the
+#     real-edge short Dog 21-19 +63.9% / +4.5% - the price separates, the edge size never did). NBA Dog unchanged (1u own
+#     over / ½u, n 23). No college hoops Dog (DOG_LEAGUES_OFF + NCAAB_DOG_RULE "off": 13-20 -25.5% / -8.6%, 0 of 3 seasons -
+#     the 10/10 and 10/24 replays said the same).
+#   - Night / one-game-day unit picks: a Lock-grade one = the Lock's size, else ½u (was Kelly on the read, up to 5u).
+#   The whole board: +180.8u on 1,651u (+11.0%) vs today's +126.3u on 1,644u (+7.7%), worst stretch -23.1u vs -23.2u,
+#   train +92.6u vs +59.7u, held out +88.2u vs +66.5u, 4 of 4 seasons. NOT backed (left as is): any 3u+ board play (the short
+#   Dog at 3u adds money only by betting more - its 8+ score sub-cell flips at 7 / 9), value plays (½u, +1.2%), the floor /
+#   NBA floor / runner-up dog (½u - their rules were picked on these same rows), the NBA favorite play (1u), the 🔍 gap play
+#   (1u - the 10/30 college study), the backup Lock (½u), the early spots (their own studies; NBA open 1u from 10/31).
+LOCK_UNITS_1031 = 2.0
+LOCK_BIG_GAP = 7.0               # points the Lock's own read sits over the no-vig market - at or past it, 1u
+LOCK_BIG_GAP_UNITS = 1.0
+LOCK_FOOTBALL = ("nfl", "ncaaf")
+LOCK_FOOTBALL_UNITS = 1.0        # the owner's 10/30 question ("cap the NFL Lock at 1u or keep the 3u max?"): 1u
+DOG_SHORT_MAX = 150              # the short Dog: +100..+150
+DOG_SHORT_UNITS = 2.0
+DOG_LONG_UNITS = 0.5             # +151..+350
+DOG_LEAGUES_OFF = ("ncaab",)     # no Dog of the Day in these (make_board's dog pool)
+
+
+def lock_units_1031(leg):
+    """💰 10/30 SIZING: the Lock's units from SIZING_1031_FROM - football 1u; else 2u when its own read sits under
+    LOCK_BIG_GAP points over the no-vig market, 1u at it or past it (or with no read / market to judge)."""
+    if leg.get("league") in LOCK_FOOTBALL:
+        return LOCK_FOOTBALL_UNITS
+    g = hockey_own_gap(leg)                                  # (the own read over the no-vig market, any sport)
+    return LOCK_UNITS_1031 if g is not None and g < LOCK_BIG_GAP else LOCK_BIG_GAP_UNITS
+
+
+def solo_units_1031(pk):
+    """💰 10/30 SIZING: a one-game day's / a night game's unit pick - thin ½u; Lock-grade (favorite) the Lock's size; else ½u."""
+    leg = (pk.get("legs") or [{}])[0]
+    if thin_edge(leg):
+        return 0.5
+    if pick_tier({**pk, "lean": False}) == "lock" and (leg.get("odds") or 0) < 100:
+        return lock_units_1031(leg)
+    return PLAY_UNITS
+
+
 DOG_OWN_CAP_FROM = "2026-10-23"   # the Dog whose own read is under the price (the Sharks 10/19 1.5u, the Predators 10/22
 #                                  2u - that kind is 4-7 as the Dog; the 10/17 sweep: -7.4% / -11.6% blind): no size-up,
 #                                  the sport's floor (1u), tracked - looked at again at 30 graded (the owner, 10/22)
@@ -4254,6 +4322,8 @@ def sizing_check(new):
         elif k == "play":
             want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
+        elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
+            want = (dog_units(pk),) * 2                      # (10/30 sizing: the Dog by its price, thin or not)
         elif k == "dog":
             want = ((0.5, 0.5) if (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(l) and not pk.get("owner_post")
                     else (dog_units(pk),) * 2)             # (10/29 sweep: the thin-edge Dog IS ½u - units_for's rule since
@@ -4261,8 +4331,12 @@ def sizing_check(new):
             #                                                 flagged every own-under hockey Dog, the Blue Jackets 10/29)
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
+        elif k == "lock" and (pk.get("date") or "") >= SIZING_1031_FROM:
+            want = (0.5, 0.5) if thin_edge(l) or l.get("backup_lock") else (lock_units_1031(l),) * 2   # (10/30 sizing)
         elif k == "lock":
             want = (0.5, 0.5) if thin_edge(l) else (0.5, LOCK_MAX_UNITS if (pk.get("date") or "") >= S6_FROM else UNIT_MAX)
+        elif k in ("solo", "night") and (pk.get("date") or "") >= SIZING_1031_FROM and not pk.get("lean"):
+            want = (solo_units_1031(pk),) * 2                # (10/30 sizing: never Kelly on the read)
         elif k in ("solo", "night"):
             want = (0.5, UNIT_MAX) if not pk.get("lean") else (0, 0)   # (10/25 sweep: the 5u max play, was 10)
         if want and not want[0] <= u <= want[1]:
