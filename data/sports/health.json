@@ -1,27 +1,38 @@
 {
- "at": "2026-10-30T12:16Z",
+ "at": "2026-10-30T13:50Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Akugue vs Aksu: no points for 251s",
+  "live tennis scores: tennis Charaeva vs Ribera: no points for 251s"
  ],
  "ok": [
-  "live watcher fresh (126s)",
+  "live watcher fresh (1s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 15 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-30T13:50Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Aksu: no points for 251s",
+    "live tennis scores: tennis Charaeva vs Ribera: no points for 251s"
+   ]
+  },
   {
    "at": "2026-10-30T12:16Z",
    "fixes": [],
@@ -478,11 +489,6 @@
     "live tennis scores: tennis Monnet vs Herea: no points for 191s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-10-28T20:50Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
