@@ -2741,3 +2741,31 @@ DEX: $679.80 (-320.20) · Scammed: 8 (-$162.71)
 [2026-10-30 10:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-10-30 10:06 UTC] crypto/hold_btc  equity $464.88 (-7.0%) 1 open  market DOWN
    social heat top: HYPE 53 (40/0/13), BTC 51 (37/0/14), AAVE 29 (29/0/0), PEPE 27 (27/0/0), PENGU 25 (19/0/7)
+   dex screen: REJECT TSLAC@base liq $4,015 - liquidity $4,015 < $100,000; 24h volume $1,994 < $100,000
+   dex screen: REJECT CBETH@ethereum liq $538,299 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 42%; lp locked 0% < 95%
+   dex screen: REJECT CBETH@base liq $1,913,459 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: REJECT DOT@base liq $521,770 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: UNREACHABLE SIB@ethereum liq $430,485 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT VEGETA@base liq $390,127 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: UNREACHABLE SIB@ethereum liq $451,066 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS BITPEPE@ethereum liq $100,797
+   >> dex/dex_hunter: BUY $17.24 of BITPEPE@ethereum:0x7FAE52 @ 0.001249 (dex tier A both 1h +62% 6h +283% buys/sells 113/36 impact 0.02%)
+   dex screen: REJECT DOG@solana liq $126,403,263 - top-10 holders 100%
+   dex screen: UNREACHABLE SIB@ethereum liq $445,336 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: UNREACHABLE SP@ethereum liq $357,480 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SIB@ethereum liq $440,976 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,653 pools (solana 1,746 / base 526 / ethereum 381), refresh cycle 108s (hot 103s), 3022 calls (108 feed, 429s 0, failed 0), 87,420 refreshed (8760 no pair), +50 added / -0 dropped (dead 0, stale 0, cap 0), movers 1 + warming 19 -> queued 2, screened 8 (passed 1), bought 1
+[2026-10-30 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/mover     equity $248.69 (-50.3%) 2 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/social_heat equity $376.92 (-24.6%) 3 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/breakout10 equity $420.39 (-15.9%) 1 open  market UP
+[2026-10-30 11:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-30 11:06 UTC] crypto/hold_btc  equity $466.00 (-6.8%) 1 open  market DOWN
+   social heat top: HYPE 40 (40/0/0), PEPE 35 (35/0/0), PENGU 34 (21/0/13), UNI 29 (29/0/0), BTC 27 (27/0/0)
