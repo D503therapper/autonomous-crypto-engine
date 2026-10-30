@@ -15166,6 +15166,56 @@ def test_college_unit_play_studies_1030_nothing_weighed_the_gap_dog_bands_are_tr
     tags = sl.tags(dog, sports)
     assert "college gap dog 15-20 (watch)" in tags
     assert "college gap dog 20+" not in tags
+def test_weekend_sweep_1030_team_verbs_agree_on_every_line_and_the_floor_closer_tells_the_truth():
+    """10/30 weekend sweep (the owner: "get everything in order so we can win a bunch of money this weekend"). The
+    Saturday preview's cards: "Iowa State are healthy", "Iowa State take care of home", "Fresno St have dropped 2
+    straight", "Senators's the side", "Sabres's the side" - and a Dolphins +260 floor play at a dog score of -1.9 closing
+    with "the dog angles back it". The guard makes every team verb agree with its name (ours AND the opponent's, on the
+    body and the line under the pick, on cards already posted too), the coin-flip lean closer says "are / is the side",
+    the school names ending in s (Texas, Kansas, Ole Miss) take the singular, and a floor dog the score has under zero
+    gets a closer that says it's just the best dog left."""
+    import sports_card_guard as g
+    import sports_breakdown_v24 as b
+    import sports_breakdown
+    assert sports_breakdown.VERSION >= 61                                  # open cards re-render
+    # the verbs: a school / a one-word mascot takes the singular, a plural mascot stays plural
+    assert g.agree("✅ Iowa State are healthy — nobody important sitting.", "Iowa State") == "✅ Iowa State is healthy — nobody important sitting."
+    assert g.agree("📋 Fresno St have dropped 2 straight.", "Fresno St") == "📋 Fresno St has dropped 2 straight."
+    assert g.agree("🏟️ Oklahoma St are 1-2 on the road this year.", "Iowa State", "Oklahoma St") == "🏟️ Oklahoma St is 1-2 on the road this year."
+    assert g.agree("🔥 Both teams are rolling: the Lightning have won 3 straight.", "Lightning") == "🔥 Both teams are rolling: the Lightning has won 3 straight."
+    assert g.agree("📅 The Bruins are off a 3-2 win; Bruins have everybody.", "Bruins") == "📅 The Bruins are off a 3-2 win; Bruins have everybody."
+    assert g.agree("💪 Iowa State been the better team.", "Iowa State") == "💪 Iowa State been the better team."   # his lingo stays
+    assert g.agree("Texas are 5-2 and Ole Miss are 6-1.", "Texas", "Ole Miss") == "Texas is 5-2 and Ole Miss is 6-1."
+    assert g.agree("Iowa State don't travel.", "Iowa State") == "Iowa State doesn't travel."
+    assert g.agree("🏟️ Iowa State take care of home: 3-1 in their building so far.", "Iowa State") == "🏟️ Iowa State takes care of home: 3-1 in their building so far."
+    assert g.agree("📅 Fresno St come off a 26-23 loss; Oregon St go on the road 2-1.", "Fresno St", "Oregon St") == "📅 Fresno St comes off a 26-23 loss; Oregon St goes on the road 2-1."
+    assert g.agree("the Bruins take care of home", "Bruins") == "the Bruins take care of home"
+    for name, want in (("Texas", "is"), ("Kansas", "is"), ("Arkansas", "is"), ("Ole Miss", "is"), ("UMass", "is"), ("Illinois", "is"),
+                       ("76ers", "are"), ("Bruins", "are"), ("Red Wings", "are"), ("Heat", "is"), ("Iowa State", "is")):
+        assert b.vb(name, "are", "is") == want, name
+    # the guard applies it to every line it passes, the opponent's name too, and to the line under the pick
+    out = g.clean(["✅ Iowa State are healthy.", "🧳 Oklahoma St are 1-2 on the road.", "✅ Bottom line: Iowa State (+280). Iowa State are the side."],
+                  "ncaaf", "Iowa State", "Oklahoma St")
+    assert out == ["✅ Iowa State is healthy.", "🧳 Oklahoma St is 1-2 on the road.", "✅ Bottom line: Iowa State (+280). Iowa State is the side."]
+    assert g.one("📊 Iowa State are 3-4; Oklahoma St are 1-6.", "ncaaf", "Iowa State", "Oklahoma St") == "📊 Iowa State is 3-4; Oklahoma St is 1-6."
+    assert g.clean(["the Bruins are rolling"], "nhl", "Bruins", "Lightning") == ["the Bruins are rolling"]
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "sports_card_guard.clean([x for x in out if x], lg, us, them)" in src          # the card passes both names
+    dsh = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert dsh.count('leg.get("team", ""), leg.get("opp", ""))') >= 2                     # the dashboard's last stop too
+    # the coin-flip lean closer: "Senators are the side", "Wild is the side" - never "Senators's"
+    leg = {"market": "ml", "odds": -120}
+    pool = sports_breakdown._lean_pool(leg, "Senators", "Senators (-120)", -120, 0.52)
+    assert any("Senators are the side" in x for x in pool) and not any("Senators's" in x for x in pool), pool
+    pool = sports_breakdown._lean_pool(leg, "Wild", "Wild (-120)", -120, 0.52)
+    assert any("Wild is the side" in x for x in pool) and not any("Wild's the side" in x for x in pool), pool
+    # the floor closer: a dog the score has UNDER zero never claims the dog angles back it
+    i, j = src.index('v.say("bottom_floor_low"'), src.index('v.say("bottom_floor",')
+    assert i < j and '(leg.get("floor_score") or 0) < 0' in src[i - 600:i]
+    low = src[i:j]
+    for bad in ("angles back it", "every angle", "every dog angle", "best of every dog", "the dog angles say"):
+        assert bad not in low, bad
+    assert "best dog left" in low
 
 
 if __name__ == "__main__":

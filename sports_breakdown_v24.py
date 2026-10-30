@@ -1265,6 +1265,16 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {us} at {_am(leg['odds'])}. Our numbers say the price is too big, and {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate. Half a unit on the upset.",
             f"✅ Bottom line: {price}. The books got {us} priced like a team that can't win - we don't see that. Half a unit, scared money don't make no money."]) or
                    _short(v, price, True, "Our read beats the price."))
+    elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock" \
+            and (leg.get("floor_score") or 0) < 0:              # 💰 10/30 weekend sweep: a floor dog the dog score has UNDER
+        #   zero (the Dolphins +260 at -1.9 on the 11/01 preview) is just the best dog LEFT on a thin slate - "the dog
+        #   angles back it" / "every angle likes them" was false there. The closer says what it is.
+        out.append(v.say("bottom_floor_low", [
+            f"✅ Bottom line: {price}. Not a big edge on the price, and the dog angles are about a wash - {us} {vb(us, 'are', 'is')} just the best dog left on today's slate. Half a unit, keep it light.",
+            f"✅ Bottom line: {price}. Half a unit on {us} - the best dog on the board today, not a strong one. Small money.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Thin one: our read calls it close and the dog angles are mixed. Half a unit, no more.",
+            f"✅ Bottom line: {price}. A half-unit shot on the best dog the slate's got - nothing loud about it."]) or
+                   _short(v, price, True, "Thin edge - the best dog left on the slate."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
         out.append(v.say("bottom_floor", [                                # play - the dog angles put it up, not the price
             f"✅ Bottom line: {price}. Our read has it close to even - {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Thin edge, half a unit.",
@@ -1322,8 +1332,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}.{pos} The books undersold 'em.",
             f"✅ Bottom line: {price}. The number's in our favor - that's why we're on {us}."]) or _short(v, price, False, _fact))
     import sports_card_guard                              # 🛡️ every line passes the owner's checks before it posts
-    leg["why_line"] = sports_card_guard.one(leg["why_line"], lg, us)
-    lines = sports_card_guard.clean([x for x in out if x], lg, us)
+    leg["why_line"] = sports_card_guard.one(leg["why_line"], lg, us, them)   # (10/30: the verbs agree with both names)
+    lines = sports_card_guard.clean([x for x in out if x], lg, us, them)
     _wl = str(leg.get("why_line") or "")
     _scores = lambda t: set(re.findall(r"\b\d{1,3}-\d{1,3}\b", str(t)))
     for em, body_em in SAME_STORY:                        # (10/3: the record said twice - the headline already has it;
@@ -1371,7 +1381,10 @@ def breakdown(leg, games, elo, injuries, used=None):
 
 
 SINGULAR = {"Wild", "Heat", "Magic", "Jazz", "Thunder", "Lightning", "Avalanche", "Kraken", "Mammoth", "Fire", "Sky",
-            "Fever", "Storm", "Mercury", "Liberty", "Dream", "Sun", "Lynx", "Galaxy", "Crew", "Union", "Fury"}
+            "Fever", "Storm", "Mercury", "Liberty", "Dream", "Sun", "Lynx", "Galaxy", "Crew", "Union", "Fury",
+            "Texas", "Kansas", "Arkansas", "Illinois", "Miss", "UMass", "Mass", "Massachusetts", "Athletics"}
+#   (10/30: the school names that end in an s - Texas, Kansas, Arkansas, Illinois, Ole Miss, UMass - read as plurals
+#    and got "Texas are"; they take the singular like every school)
 
 
 def vb(team, plural, singular):
