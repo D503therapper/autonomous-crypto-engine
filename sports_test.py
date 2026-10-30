@@ -9227,7 +9227,8 @@ def test_a_lean_says_the_real_reason_it_has_no_units():
     assert all("hair" not in x for x in dog)
     assert not any(cg.problem(x) for x in close + steep + dog)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
-    assert 'own <= need and own < 0.56' in src and "close to a coin flip - a hair better" in src   # the why line too
+    assert 'own <= need and COIN_FLIP[0] <= own < 0.56' in src and "close to a coin flip - a hair better" in src   # the why
+    #   line too (10/30 daily: only for a read inside COIN_FLIP - never "coin flip" on a 37% dog)
     leg = {"team": "Kraken", "opp": "Flames", "odds": -108, "p": 0.50, "dec": 1.926, "market": "ml", "side": "home",
            "game_id": "g1", "league": "nhl", "line": None}
     unit = {**leg, "game_id": "g2"}
@@ -15292,6 +15293,43 @@ def test_sizing_1030_lock_2u_or_1u_football_1u_dog_by_price_no_hoops_dog_posted_
     assert se.units({"spot": "nba_open", "odds": 120, "posted": "2026-10-31T20:00Z"}) == 1.0
     assert se.units({"spot": "nba_open", "odds": 120, "posted": "2026-10-30T20:00Z"}) == 0.5
     assert se.units({"spot": "bye", "odds": 150, "posted": "2026-11-01T20:00Z"}) == 1.0     # the early spots keep theirs
+
+
+def test_daily_1030_rest_days_by_the_calendar_never_a_false_extra_day():
+    """10/30 daily review: the Blue Jackets +205 Dog card (10/29) said "Blue Jackets got the extra day: 2 days off to
+    Hurricanes' 1 day" - both played 10/27 (Columbus 7 PM ET, Carolina 8 PM ET = 00:00Z 10/28), so the clock floored
+    48 h to 2 and 47 h to 1. Rest days are calendar days (Pacific dates) - same night, same rest, no line."""
+    import sports_breakdown_v24 as v24
+    from datetime import datetime, timezone
+    up = datetime(2026, 10, 29, 23, 0, tzinfo=timezone.utc)
+    assert v24._days(up, v24._t("2026-10-27T23:00Z")) == v24._days(up, v24._t("2026-10-28T00:00Z")) == 2
+    assert v24._days(up, v24._t("2026-10-28T23:00Z")) == 1                       # last night = 1
+    assert v24._days(up, v24._t("2026-10-30T02:30Z")) == 0                       # (a late game the same day stays 0)
+    hist = [("2026-10-27T23:00Z", "C", "A", 3, 4), ("2026-10-28T00:00Z", "B", "D", 2, 1)]
+    for side in ("home", "away"):
+        leg, games, elo = _audit_fixture("nhl", hist, "2026-10-29T23:00Z", side=side)
+        bd = v24.breakdown(leg, games, elo, None)
+        txt = " ".join(bd) + " " + str(leg.get("why_line") or "")
+        assert "extra day" not in txt and "Fresher legs" not in txt and "Small edge, ours" not in txt, bd
+        assert "more days off" not in txt and "😴" not in txt, bd
+    assert '(start - _t(ours[-1]["start"])).days' not in open("sports_breakdown_v24.py").read()
+
+
+def test_daily_1030_a_floor_dog_card_never_calls_a_37_percent_read_a_coin_flip():
+    """10/30 daily review: the Panthers +164 floor play (½u, 10/29 - lost 27-19 at Green Bay) closed "A half-unit shot:
+    our read says coin flip, the dog angles say Panthers" on a 36.6% read. The floor closers meant the PRICE was about
+    fair - they say that now; "coin flip" / "close to even" lines need a read inside COIN_FLIP (45-55%)."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__).read()
+    i, j = src.index('v.say("bottom_floor",'), src.index('elif leg.get("near_price"):', src.index('v.say("bottom_floor",'))
+    floor = src[i:j]
+    for bad in ("coin flip", "close to even", "about even", "near even", "calls it close"):
+        assert bad not in floor, bad
+    assert "about fair" in floor
+    i = src.index('v.say("bottom_floor_low"')
+    assert "calls it close" not in src[i:i + 900]
+    assert v24.COIN_FLIP[0] >= 0.45 and v24.COIN_FLIP[1] <= 0.55
+    assert src.count("COIN_FLIP[0] <= own") == 1 and src.count("COIN_FLIP[0] <= _own") == 1   # bottom_c + the why line
 
 
 if __name__ == "__main__":
