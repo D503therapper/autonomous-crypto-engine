@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T09:14Z",
+ "updated": "2026-10-30T09:59Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -69,7 +69,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.496,
+    "p": 0.482,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -85,9 +85,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -105,
-    "p": 0.513,
-    "win_p": 0.513,
+    "odds": 102,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
      "the stronger team"
     ]
@@ -288,8 +288,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.649,
-    "tie": 0.034,
+    "p": 0.657,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -304,9 +304,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.714,
-    "win_p": 0.714,
+    "odds": -298,
+    "p": 0.724,
+    "win_p": 0.724,
     "reasons": [
      "the stronger team"
     ]
@@ -318,8 +318,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.615,
-    "tie": 0.035,
+    "p": 0.622,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -327,16 +327,16 @@
    "start": "2026-10-31T00:00Z",
    "away": "Clippers",
    "home": "Timberwolves",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Timberwolves",
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.696,
-    "win_p": 0.696,
+    "odds": -278,
+    "p": 0.705,
+    "win_p": 0.705,
     "reasons": [
      "the stronger team"
     ]
@@ -376,8 +376,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.644,
-    "tie": 0.034,
+    "p": 0.659,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -385,16 +385,16 @@
    "start": "2026-10-31T00:00Z",
    "away": "Pacers",
    "home": "Heat",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Heat",
     "opp": "Pacers",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.735,
-    "win_p": 0.735,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.754,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
