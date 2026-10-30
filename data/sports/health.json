@@ -1,9 +1,9 @@
 {
- "at": "2026-10-30T05:27Z",
+ "at": "2026-10-30T05:29Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 7h ago",
   "simulator ran 7h ago",
-  "engine ran 2 min ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-30T05:29Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-30T05:27Z",
    "fixes": [],
@@ -497,14 +502,6 @@
     "live tennis scores: tennis Medvedev vs Merida: no points for 2618s",
     "live tennis scores: tennis Zavatska vs Mair: no points for 2618s",
     "live tennis scores: tennis Werner vs Jacquemot: no points for 2618s"
-   ]
-  },
-  {
-   "at": "2026-10-28T13:35Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
