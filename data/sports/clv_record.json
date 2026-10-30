@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 141,
+  "n": 143,
   "beat": 44,
   "same": 53,
-  "worse": 44,
-  "avg_pts": 0.06
+  "worse": 46,
+  "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 63,
+  "n": 65,
   "beat": 19,
   "same": 30,
-  "worse": 14,
-  "avg_pts": 0.18
+  "worse": 16,
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
-   "n": 19,
+   "n": 20,
    "beat": 4,
    "same": 9,
-   "worse": 6,
-   "avg_pts": -0.24
+   "worse": 7,
+   "avg_pts": -0.26
   },
   "lean": {
    "n": 78,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 31,
+   "n": 32,
    "beat": 8,
    "same": 17,
-   "worse": 6,
-   "avg_pts": 0.07
+   "worse": 7,
+   "avg_pts": 0.04
   }
  },
  "by_sport": {
@@ -73,11 +73,11 @@
    "avg_pts": 0.12
   },
   "nhl": {
-   "n": 52,
+   "n": 54,
    "beat": 16,
    "same": 20,
-   "worse": 16,
-   "avg_pts": 0.03
+   "worse": 18,
+   "avg_pts": 0.01
   }
  },
  "lock_by_size": {
@@ -2084,6 +2084,34 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Blue Jackets",
+   "market": "ml",
+   "line": null,
+   "odds": 205,
+   "close": 210,
+   "pts": -0.5,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -130,
+   "pts": -0.9,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

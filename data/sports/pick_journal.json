@@ -8196,5 +8196,113 @@
   "score": "0-24",
   "margin": -24.0,
   "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-29",
+  "kind": "dog",
+  "lean": false,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892603",
+  "team": "Blue Jackets",
+  "opp": "Hurricanes",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 205,
+  "posted": "2026-10-29T15:00Z",
+  "price_says": 0.328,
+  "win_p": 0.31907786285287487,
+  "own_read": 0.359,
+  "weighed": null,
+  "dog_p": 0.3591,
+  "edge_own": -0.026812518298731658,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:0",
+   "w_public:140",
+   "f_last:2",
+   "f_rest:0",
+   "f_outs:0",
+   "f_pdo:1",
+   "risk:8"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Taylor Hall (LW)",
+   "Alexander Nikishin (D)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": true
+  },
+  "public": "fade",
+  "close": 210,
+  "beat_close_pts": -0.5,
+  "result": "lost",
+  "score": "2-3",
+  "margin": -1.0,
+  "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-29",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892602",
+  "team": "Mammoth",
+  "opp": "Penguins",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-29T21:03Z",
+  "price_says": 0.574,
+  "win_p": 0.5606917190373707,
+  "own_read": 0.589,
+  "weighed": 0.5893,
+  "dog_p": null,
+  "edge_own": -0.030229114081566366,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "rec:0",
+   "h2h:4",
+   "road:1",
+   "w_num:16",
+   "splits_w:1",
+   "f_outs:2",
+   "f_last5:1",
+   "f_theirL:1",
+   "f_pdo:2",
+   "risk:8"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "John Marino (D)"
+  ],
+  "theirs_out": [
+   "Justin Brazeau (RW)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": true
+  },
+  "public": "ride",
+  "close": -130,
+  "beat_close_pts": -0.9,
+  "result": "won",
+  "score": "4-3",
+  "margin": 1.0,
+  "pnl_units": 0.37
  }
 ]

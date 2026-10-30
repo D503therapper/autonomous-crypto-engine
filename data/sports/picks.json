@@ -24838,6 +24838,7 @@
      "game:div"
     ],
     "dec": 3.05,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -24870,6 +24871,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,2",
+     "h": "1,1,1"
+    },
     "form_state": [
      1.0,
      2,
@@ -24915,10 +24920,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Blue Jackets 2 @ Hurricanes 3",
     "season_games": null,
+    "settled": "2026-10-30T02:02Z",
     "side": "away",
     "start": "2026-10-29T23:00Z",
     "stype": "2",
@@ -24935,12 +24942,14 @@
    }
   ],
   "p_hit": 0.3191,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-29T15:00Z",
   "round": 1,
+  "settled": "2026-10-30T02:02Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0.5
  },
  {
   "american": -118,
@@ -25624,6 +25633,15 @@
      "us:week3000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Mikhail Sergachev",
+     "s": "4-3",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -25647,6 +25665,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,0,1,1",
+     "h": "0,1,2,0"
+    },
     "form_state": [
      -2.0,
      -1,
@@ -25694,10 +25716,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Mammoth 4 @ Penguins 3",
     "season_games": null,
+    "settled": "2026-10-30T02:02Z",
     "side": "away",
     "start": "2026-10-29T23:00Z",
     "stype": "2",
@@ -25716,11 +25740,13 @@
   ],
   "midday": true,
   "p_hit": 0.5607,
-  "pnl": 0.0,
+  "pnl": 74.07,
   "posted": "2026-10-29T21:03Z",
   "round": 1,
+  "settled": "2026-10-30T02:02Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

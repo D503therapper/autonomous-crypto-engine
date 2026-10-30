@@ -651,13 +651,13 @@
   }
  },
  "nhl": {
-  "games": 9931,
+  "games": 9934,
   "grade": {
    "all": {
-    "hit": 0.4941,
-    "low80": 0.483,
-    "n": 3311,
-    "roi": -0.0783
+    "hit": 0.4949,
+    "low80": 0.4837,
+    "n": 3312,
+    "roi": -0.077
    },
    "top10": {
     "hit": 0.5106,
@@ -678,29 +678,29 @@
     "roi": -0.1243
    }
   },
-  "hit_all": 0.4941,
+  "hit_all": 0.4949,
   "hit_top": 0.4783,
-  "intercept": -0.01148,
+  "intercept": -0.01128,
   "kept": [
    "form"
   ],
   "ll_test_base": 0.69312,
-  "ll_test_kept": 0.69475,
-  "ll_val_base": 0.69318,
-  "ll_val_kept": 0.69219,
+  "ll_test_kept": 0.69473,
+  "ll_val_base": 0.69317,
+  "ll_val_kept": 0.69218,
   "n_top": 993,
   "norm": {
    "form": [
-    0.09185,
-    0.33487
+    0.09189,
+    0.33485
    ]
   },
   "proven": false,
   "roi_top": -0.1243,
   "screen": {
    "b2b": {
-    "gain": -6e-05,
-    "ll": 0.69324
+    "gain": -5e-05,
+    "ll": 0.69323
    },
    "cold": {
     "ll": null,
@@ -712,7 +712,7 @@
    },
    "form": {
     "gain": 0.00099,
-    "ll": 0.69219
+    "ll": 0.69218
    },
    "inj": {
     "ll": null,
@@ -723,20 +723,20 @@
     "note": "no data"
    },
    "lg_trend": {
-    "gain": -0.00032,
-    "ll": 0.6935
+    "gain": -0.00031,
+    "ll": 0.69349
    },
    "ou_away": {
-    "gain": -0.0,
-    "ll": 0.69318
+    "gain": 0.0,
+    "ll": 0.69317
    },
    "ou_home": {
     "gain": -0.0001,
     "ll": 0.69328
    },
    "park": {
-    "gain": -0.00063,
-    "ll": 0.6938
+    "gain": -0.00062,
+    "ll": 0.69379
    },
    "public": {
     "ll": null,
@@ -747,30 +747,30 @@
     "note": "no data"
    },
    "rest": {
-    "gain": -0.00045,
+    "gain": -0.00046,
     "ll": 0.69363
    },
    "starter": {
-    "gain": -9e-05,
+    "gain": -0.0001,
     "ll": 0.69327
    },
    "thin_air": {
     "gain": -1e-05,
-    "ll": 0.69319
+    "ll": 0.69318
    },
    "travel": {
-    "gain": -0.00181,
-    "ll": 0.69499
+    "gain": -0.00173,
+    "ll": 0.6949
    },
    "wind": {
     "ll": null,
     "note": "no data"
    }
   },
-  "test_from": "2024-03-07",
-  "test_games": 3311,
+  "test_from": "2024-03-08",
+  "test_games": 3312,
   "weights": {
-   "form": 0.02354
+   "form": 0.02395
   }
  }
 }
