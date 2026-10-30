@@ -156,6 +156,16 @@ def tags(c, sports):
             #   -9.7% on 861 train / -17.1% on 99 held out (the dog base -3.7% / -6.7%), NHL dogs -16.1% on 347 / -12.6%
             #   on 29 (base -6.6% / +1.9%), worse than teams with the same last-3 results in train; but z only -1.2 / -1.6,
             #   2026 NHL +27% on 9, NBA none yet, NHL favorites the other way - tracked only, never a weight
+        if lg in sports.MKT_FADE_LEAGUES and c.get("odds", 0) <= 350:   # 10/30 daily study 2 (the market's last-3-games
+            if sports.market_faded(c):                                    #  move on this team): the fade is BUILT as a -2
+                t.append("NBA / NHL dog, the market faded its last 3 games (fade)")   # weight - its own live record
+            elif (c.get("mkt_trend") or 0) >= sports.MKT_FADE_SUM:
+                t.append("NBA / NHL dog, the market backed its last 3 games")   # the mirror: a LEAD, tracked only (NBA
+                #   +9.9% / NHL +11.9% at the open on 501 / 392, at the close +7.8% / +7.2%, 2023 train small) - no weight
+        if lg == "nhl" and c.get("odds", 0) <= 350 and nhl_four_in_six(c):
+            t.append("NHL dog, 4th game in 6 nights (fade)")   # 10/30 daily study 5: -8.4% on 716 train (2018-22, 2 of 5
+            #   up) / -9.5% on 476 held out (2023 -8.3, 2024 -11.9, 2025 -10.1) vs -1.7% / -2.1% for the rested base; but
+            #   the rested team across it is NOT up (-4.6% / -2.7%) and z -1.7 held - tracked only, never a weight
         if lg == "nfl" and c.get("odds", 0) <= 350:          # 10/29 daily studies: LEADS, tracked only, never a weight
             sh = h1_share(c)
             if sh is not None:
@@ -206,6 +216,11 @@ def tags(c, sports):
             #   for every band favorite off a loss (train 0 of 7 up, 2023+ -22.6%, holdout -35% on 17, early price -26%,
             #   ATS -32%; the dog across +35.8% on 89) - but 2026 +2% on 18, no clean dose (0-20 allowed -25%, 30-39 -4.5%)
             #   and the NFL flat; it sits inside the BUILT off-a-loss fade (-3) - tracked only, never a weight
+        if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_early_away(c):
+            t.append("college hoops small fav away from home, games 1-3 (fade)")   # 10/30 daily study 10 (college
+            #   hoops prep): -101..-150 favorites on the road / at a neutral site in their first 3 games -18.1% on 95 train
+            #   (2018-21, 1 of 4 up) / -12.1% on 84 held out (2022-25, 0 of 4 up) vs -4.1% for road favorites later; at
+            #   home +2.1% - the open 10/16 'college hoops Locks small the first 2 weeks' question; tracked only
         if lg == "nba" and -150 <= c.get("odds", 0) <= -100 and halftime_comeback(c):
             t.append("NBA small fav off a 10+ halftime comeback win")   # 10/27 daily study: train +31.8% on 68
             #   (6 of 7 up, 8+ / 12+ the same sign) but holdout 2025 3-6 -42% and the NHL version flat - tracked only
@@ -412,6 +427,37 @@ def halftime_comeback(c, down=10):
     except (ValueError, TypeError):
         return False
     return len(a) == 2 and len(b) == 2 and won and sum(a) - sum(b) <= -down
+
+
+def _night(start):
+    """A US 'night' index for a start time (UTC - 5h, whole days) - the study's day count."""
+    from datetime import datetime
+    t = datetime.fromisoformat(str(start).replace("Z", "+00:00"))
+    return int((t.timestamp() - 5 * 3600) // 86400)
+
+
+def nhl_four_in_six(c):
+    """Tonight is this team's 4th game in 6 nights and NOT the 2nd night of a back-to-back (the b2b has its own weight) -
+    the 10/30 hockey schedule-density study. Finals this season only."""
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return False
+    try:
+        now = _night(c.get("start") or _game(c).get("start"))
+        prev = [now - _night(x["start"]) for x in rows]
+    except (TypeError, ValueError):
+        return False
+    return 1 + sum(1 for d in prev if 1 <= d <= 5) >= 4 and 1 not in prev
+
+
+def hoops_early_away(c):
+    """A college hoops side away from home (road or neutral site) in its first 3 games this season - 10/30 study 10."""
+    team, rows = _season_before(c)
+    if not team:
+        return False
+    g = _game(c)
+    home_court = c.get("side") == "home" and str(g.get("neutral")) != "1"
+    return not home_court and len(rows) <= 2
 
 
 def _last_rows(c, k):

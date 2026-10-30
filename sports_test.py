@@ -14983,6 +14983,102 @@ def test_daily_1029_nfl_first_half_share_and_dog_run_are_tracker_leads_no_weight
         sl._GAMES.update(keep)
 
 
+def test_daily_1030_the_team_the_market_keeps_fading_is_a_minus_2_dog_weight_and_three_tracker_leads():
+    """10/30 daily run (10 studies, results/studies/daily_1030/): ONE built - the team the market keeps fading. Each of its
+    last 3 priced regular-season games this season, the close's no-vig minus the open's for that team, summed 8+ points
+    AGAINST it -> NBA / NHL dogs lose at the close every season (NBA -21.0 / -16.2 / -8.3%, NHL -21.9 / -10.3 / -9.8%,
+    2026 -11.7%): -2 on the dog score (sports.market_trend / market_faded / MKT_FADE_W), inside STUDY_CAP, never a gate,
+    moneyline dogs only, NBA / NHL only, prices of finished games only. Three tracker LEADS (no weight): the mirror (the
+    market backed it 8+), the NHL dog on its 4th game in 6 nights (not a b2b), the college hoops -101..-150 favorite away
+    from home in its first 3 games."""
+    import sports_leads as sl
+    assert sports.MKT_FADE_W == 2 and sports.MKT_FADE_SUM == 0.08 and sports.MKT_TREND_N == 3
+    assert sports.MKT_FADE_LEAGUES == ("nba", "nhl") and sports.STUDY_CAP == 6
+
+    def fg(i, start, home, away, oh, oa, ch, ca, stype="2"):
+        return {"id": i, "league": "nba", "start": start, "status": "final", "stype": stype, "home": home, "away": away,
+                "home_score": "100", "away_score": "90", "ml_home_open": str(oh), "ml_away_open": str(oa),
+                "ml_home": str(ch), "ml_away": str(ca)}
+    # T: opened -110 / -110 three times, closed +130 / -150 (home) or -150 / +130 (away, T the road team): ~-6.5 pts each
+    G = {"a": fg("a", "2026-10-21T23:00Z", "T", "A", -110, -110, 130, -150),
+         "b": fg("b", "2026-10-23T23:00Z", "B", "T", -110, -110, -150, 130),
+         "c": fg("c", "2026-10-25T23:00Z", "T", "C", -110, -110, 130, -150),
+         "old": fg("old", "2026-04-01T23:00Z", "T", "Z", -110, -110, -300, 250),        # last season: never counts
+         "pre": fg("pre", "2026-10-10T23:00Z", "T", "Y", -110, -110, -300, 250, stype="1"),   # preseason: never counts
+         "now": {"id": "now", "league": "nba", "start": "2026-10-28T23:00Z", "status": "pre", "stype": "2", "home": "D",
+                 "away": "T"}}
+    sports._SCHED.clear()
+    tr = sports.market_trend(G, G["now"], "away")
+    assert tr is not None and tr < -0.15, tr
+    assert sports.market_trend(G, G["now"], "home") is None                 # D has no 3 priced games
+    G2 = {k: v for k, v in G.items() if k != "c"}                          # only 2 this season: None (never a guess)
+    sports._SCHED.clear()
+    assert sports.market_trend(G2, G2["now"], "away") is None
+    G3 = dict(G)
+    G3["now2"] = {**G["now"], "id": "now2", "start": "2026-10-24T23:00Z"}  # a game BEFORE c: c is never read (no look-ahead)
+    sports._SCHED.clear()
+    assert sports.market_trend(G3, G3["now2"], "away") is None
+    sports._SCHED.clear()
+    # the weight: -2 on an NBA / NHL moneyline dog, nothing for a favorite, nothing in football, inside the cap
+    base = {"league": "nba", "market": "ml", "odds": 160, "dec": 2.6, "p_market": 0.385, "edge": 0.0, "edge_own": 0.0,
+            "dog_ctx": {}, "dog_more": {}, "mkt_trend": -0.05}
+    faded = {**base, "mkt_trend": -0.09}
+    assert not sports.market_faded(base) and sports.market_faded(faded)
+    assert sports.dog_score(faded) == sports.dog_score(base) - 2
+    assert sports.dog_score({**faded, "league": "nhl"}) == sports.dog_score({**base, "league": "nhl"}) - 2
+    assert not sports.market_faded({**faded, "odds": -140}) and not sports.market_faded({**faded, "league": "nfl"})
+    assert not sports.market_faded({**faded, "mkt_trend": None}) and not sports.market_faded({**faded, "market": "spread"})
+    stacked = {**faded, "league": "nhl", "odds": 230, "dec": 3.3, "p_market": 0.30, "pdo": 1.05, "ot_last": "so_win",
+               "drift": 0.03, "form_state": (1.0, 3, 140, True, 0)}
+    assert sports.dog_score(stacked) >= -sports.STUDY_CAP
+    # the tracker: the fade's own record, the mirror lead (no weight)
+    tag = {**faded, "game_id": "x", "team": "Ts", "opp": "Ds", "side": "away", "home": False, "start": "2026-10-28T23:00Z"}
+    assert "NBA / NHL dog, the market faded its last 3 games (fade)" in sl.tags(tag, sports)
+    backed = {**tag, "mkt_trend": 0.09}
+    assert "NBA / NHL dog, the market backed its last 3 games" in sl.tags(backed, sports)
+    assert sports.dog_score(backed) == sports.dog_score({**backed, "mkt_trend": 0.0})   # the mirror is a lead, never a weight
+    # the candidate carries it (NBA / NHL only)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '"mkt_trend": market_trend(games, g, side) if lg in MKT_FADE_LEAGUES else None' in src
+    keep = dict(sl._GAMES)
+    try:
+        # NHL 4th game in 6 nights, not a back-to-back
+        def hg(i, start, home, away):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": "3", "away_score": "2"}
+        H = {"h1": hg("h1", "2026-10-21T23:00Z", "T", "A"), "h2": hg("h2", "2026-10-23T23:00Z", "B", "T"),
+             "h3": hg("h3", "2026-10-24T23:00Z", "T", "C"),
+             "hn": {"id": "hn", "start": "2026-10-26T23:00Z", "status": "pre", "stype": "2", "home": "D", "away": "T"}}
+        sl._GAMES["nhl"] = H
+        d = {"market": "ml", "league": "nhl", "game_id": "hn", "side": "away", "home": False, "odds": 150, "dec": 2.5,
+             "p_market": 0.40, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+             "start": "2026-10-26T23:00Z", "dog_more": {}}
+        assert sl.nhl_four_in_six(d) and "NHL dog, 4th game in 6 nights (fade)" in sl.tags(d, sports)
+        H["h3"]["start"] = "2026-10-25T23:00Z"                                   # last night: a b2b - the b2b weight's cell
+        assert not sl.nhl_four_in_six(d)
+        H["h3"]["start"], H["h1"]["start"] = "2026-10-24T23:00Z", "2026-10-20T23:00Z"   # 3 games in 6 nights: no
+        assert not sl.nhl_four_in_six(d)
+        # college hoops: the -101..-150 favorite away from home in its first 3 games
+        C = {"c1": {**hg("c1", "2026-11-04T00:00Z", "T", "A")},
+             "cn": {"id": "cn", "start": "2026-11-07T00:00Z", "status": "pre", "stype": "2", "home": "D", "away": "T",
+                    "neutral": "0"}}
+        sl._GAMES["ncaab"] = C
+        f = {"market": "ml", "league": "ncaab", "game_id": "cn", "side": "away", "home": False, "odds": -130, "dec": 1.77,
+             "p_market": 0.55, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+             "start": "2026-11-07T00:00Z", "dog_more": {}}
+        lead = "college hoops small fav away from home, games 1-3 (fade)"
+        assert lead in sl.tags(f, sports)
+        C["cn"]["home"], C["cn"]["away"] = "T", "D"
+        assert lead not in sl.tags({**f, "side": "home", "home": True}, sports)        # at home: no
+        C["cn"]["neutral"] = "1"
+        assert lead in sl.tags({**f, "side": "home", "home": True}, sports)            # a neutral site counts as away
+        assert lead not in sl.tags({**f, "side": "home", "home": True, "odds": -160}, sports)   # past -150: no
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+        sports._SCHED.clear()
+
+
 def test_sweep_1029b_the_fallback_hockey_dog_needs_the_own_read_2_points_over_the_market():
     """10/29 afternoon sweep (the owner: "we need to win more hockey"): the Blue Jackets +205 Dog sat over the no-vig market
     by 0.45 - the losing cell (own read over by under 2 at +200..+350: 88-240 train / 56-162 held). The fallback hockey
