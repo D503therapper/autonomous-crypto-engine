@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 143,
-  "beat": 44,
+  "n": 145,
+  "beat": 46,
   "same": 53,
   "worse": 46,
-  "avg_pts": 0.05
+  "avg_pts": 0.06
  },
  "unit_plays": {
   "n": 65,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 78,
-   "beat": 25,
+   "n": 80,
+   "beat": 27,
    "same": 23,
    "worse": 30,
-   "avg_pts": -0.03
+   "avg_pts": -0.01
   },
   "lock": {
    "n": 13,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 15,
-   "beat": 5,
+   "n": 16,
+   "beat": 6,
    "same": 7,
    "worse": 3,
-   "avg_pts": 0.37
+   "avg_pts": 0.38
   },
   "ncaaf": {
    "n": 40,
@@ -73,11 +73,11 @@
    "avg_pts": 0.12
   },
   "nhl": {
-   "n": 54,
-   "beat": 16,
+   "n": 55,
+   "beat": 17,
    "same": 20,
    "worse": 18,
-   "avg_pts": 0.01
+   "avg_pts": 0.02
   }
  },
  "lock_by_size": {
@@ -2098,6 +2098,34 @@
    "pts": -0.5,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Predators",
+   "market": "ml",
+   "line": null,
+   "odds": -108,
+   "close": -112,
+   "pts": 0.9,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Hawks",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -118,
+   "pts": 0.6,
+   "units": 0,
+   "result": "won"
   },
   {
    "date": "2026-10-29",

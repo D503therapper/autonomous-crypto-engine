@@ -5,9 +5,9 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.558,
-   "n": 199,
-   "said": 0.511,
+   "hit": 0.557,
+   "n": 201,
+   "said": 0.51,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
@@ -19,17 +19,17 @@
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 0.44,
-   "n": 50,
-   "said": 0.525,
+   "hit": 0.431,
+   "n": 51,
+   "said": 0.521,
    "verdict": "hitting well below what we said (report only: forward-only tag)"
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.594,
-   "n": 32,
-   "said": 0.498,
-   "verdict": "only 32 graded - report only (report only: forward-only tag)"
+   "hit": 0.606,
+   "n": 33,
+   "said": 0.5,
+   "verdict": "only 33 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:rival": {
    "extra_edge": 0.0,
@@ -110,10 +110,10 @@
   },
   "ctx:us:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.273,
-   "n": 11,
-   "said": 0.524,
-   "verdict": "only 11 graded - report only (report only: forward-only tag)"
+   "hit": 0.333,
+   "n": 12,
+   "said": 0.527,
+   "verdict": "only 12 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:hotseat": {
    "extra_edge": 0.0,
@@ -138,10 +138,10 @@
   },
   "ctx:us:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.522,
-   "n": 23,
-   "said": 0.51,
-   "verdict": "only 23 graded - report only (report only: forward-only tag)"
+   "hit": 0.542,
+   "n": 24,
+   "said": 0.512,
+   "verdict": "only 24 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:trip2000": {
    "extra_edge": 0.0,
@@ -152,10 +152,10 @@
   },
   "ctx:us:week3000": {
    "extra_edge": 0.0,
-   "hit": 0.778,
-   "n": 9,
-   "said": 0.525,
-   "verdict": "only 9 graded - report only (report only: forward-only tag)"
+   "hit": 0.8,
+   "n": 10,
+   "said": 0.529,
+   "verdict": "only 10 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:west1000": {
    "extra_edge": 0.0,
@@ -166,8 +166,8 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.576,
-   "n": 172,
+   "hit": 0.575,
+   "n": 174,
    "said": 0.51,
    "verdict": "hitting at or above what we said"
   },
@@ -187,10 +187,10 @@
   },
   "label:dog": {
    "extra_edge": 0.0,
-   "hit": 0.429,
-   "n": 21,
-   "said": 0.407,
-   "verdict": "only 21 graded - report only"
+   "hit": 0.409,
+   "n": 22,
+   "said": 0.403,
+   "verdict": "only 22 graded - report only"
   },
   "label:live": {
    "extra_edge": 0.0,
@@ -208,8 +208,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.574,
-   "n": 141,
+   "hit": 0.577,
+   "n": 142,
    "said": 0.512,
    "verdict": "hitting at or above what we said"
   },
@@ -250,9 +250,9 @@
   },
   "league:nhl": {
    "extra_edge": 0.02,
-   "hit": 0.426,
-   "n": 61,
-   "said": 0.505,
+   "hit": 0.429,
+   "n": 63,
+   "said": 0.503,
    "verdict": "a little below what we said - within noise"
   },
   "league:tennis": {
@@ -264,9 +264,9 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.562,
-   "n": 185,
-   "said": 0.51,
+   "hit": 0.561,
+   "n": 187,
+   "said": 0.509,
    "verdict": "hitting at or above what we said"
   },
   "market:spread": {
@@ -285,16 +285,16 @@
   },
   "price:+180+": {
    "extra_edge": 0.0,
-   "hit": 0.5,
-   "n": 12,
-   "said": 0.307,
-   "verdict": "only 12 graded - report only"
+   "hit": 0.462,
+   "n": 13,
+   "said": 0.308,
+   "verdict": "only 13 graded - report only"
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.61,
-   "n": 118,
-   "said": 0.544,
+   "hit": 0.613,
+   "n": 119,
+   "said": 0.545,
    "verdict": "hitting at or above what we said"
   },
   "price:pick'em": {
@@ -313,9 +313,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.562,
-   "n": 178,
-   "said": 0.504,
+   "hit": 0.561,
+   "n": 180,
+   "said": 0.503,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:hot seat": {
@@ -397,5 +397,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-30T02:10Z"
+ "updated": "2026-10-30T03:18Z"
 }
