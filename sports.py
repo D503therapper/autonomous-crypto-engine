@@ -282,6 +282,12 @@ NBA_HURT_WEIGHED = True        # 🏀 10/28 (the owner, a 12-game slate with ZER
 NBA_KEY_WAIT = True            # 🏀 10/28 (the owner: "Lendeborg is ass. He's not a factor"): an NBA pick waits only on a
 #                                questionable / game-time KEY man - a top-3 scorer by the box scores or a verified starter
 #                                (3+ of the last 10) - on either side. A rookie or the 12th man never holds the board.
+NBA_PLAYS_THROUGH = True       # 🏀 10/30 (the owner / Ricky: "some guys are always questionable ... there's data on that"):
+#                                a key man who PLAYS THROUGH a questionable tag (sports_questionable - 10+ times
+#                                questionable on the official report, 85%+ played: 4 in 5 going forward, held out) or one
+#                                ESPN's note calls probable is treated as PLAYING - no hold; his 1-in-5 chance to sit is
+#                                weighed in the read (sports_absences.penalty). Every other key questionable (a coin flip:
+#                                54.5% of 6,380 key men played) keeps the hold - betting before the news cost 8.4% when he sat.
 # 🚑 FOOTBALL: BANGED UP IS A WEIGHT, NOT A BLOCK (the owner, 10/3: "just because a QB or a star is out or a team is too
 # banged up doesn't necessarily mean no units. It all just depends."). The 10/4 study (our box scores 2021-26, a
 # 'regular' by sports_absences.regulars on the team's prior games, missing = not in the game's box): a football side
@@ -389,7 +395,7 @@ def waiting_on(g, injuries, maybe=True):
             unsure = [u for u in unsure if (u[1] or "").upper() != "G"]   # (G) questionable" while Daily Faceoff
             #                                                   already had Ottawa's starter - a known starter settles it)
         if g["league"] == "nba" and NBA_KEY_WAIT:             # 🏀 10/28: only a KEY man's status holds an NBA pick
-            unsure = [u for u in unsure if nba_key_man(g, side, u[0])]
+            unsure = [u for u in unsure if nba_key_man(g, side, u[0]) and not nba_plays_through(u[0])]
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable" for n, pos, _ in unsure[:2]]
     if g["league"] == "nba" and inj is not None and maybe:   # 🏀 (10/20) a rotation man still a game-time decision in
         try:                                                 # the roster read: the unit play waits for news
@@ -398,11 +404,25 @@ def waiting_on(g, injuries, maybe=True):
                 for name in ((cur or {}).get("flags") or {}).get(str(g[side]), {}).get("game_time") or []:
                     if NBA_KEY_WAIT and not nba_key_man(g, side, name):   # (10/28: a key man only)
                         continue
+                    if nba_plays_through(name):                  # (10/30: he plays through it - no hold)
+                        continue
                     if not any(name in x for x in out):
                         out.append(f"{name} game-time decision")
         except Exception:                                    # noqa: BLE001
             pass
     return out
+
+
+def nba_plays_through(name):
+    """🏀 10/30: a questionable / day-to-day NBA man the board treats as PLAYING (sports_questionable.plays_through - his
+    history says he plays through it, or ESPN's note says probable). Off with NBA_PLAYS_THROUGH."""
+    if not NBA_PLAYS_THROUGH:
+        return False
+    try:
+        import sports_questionable
+        return sports_questionable.plays_through(name)
+    except Exception:                                        # noqa: BLE001 - no table = the hold stays
+        return False
 
 
 def nba_key_man(g, side, name):

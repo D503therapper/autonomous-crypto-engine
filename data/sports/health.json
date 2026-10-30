@@ -1,29 +1,83 @@
 {
- "at": "2026-10-30T18:20Z",
+ "at": "2026-10-30T22:46Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Monnet vs Podoroska: no points for 1975s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (15s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
+  "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 46 min ago",
+  "engine ran 47 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-30T22:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Podoroska: no points for 1975s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-30T22:41Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Podoroska: no points for 1671s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-30T21:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ortenzi vs Tubello: no points for 1925s",
+    "live tennis scores: tennis Strakhova vs Maria: no points for 1925s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-30T20:36Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-30T20:34Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ortenzi vs Tubello: no points for 614s",
+    "live tennis scores: tennis Strakhova vs Maria: no points for 1400s"
+   ]
+  },
+  {
+   "at": "2026-10-30T19:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Da Silva vs Jones: no points for 205s"
+   ]
+  },
+  {
+   "at": "2026-10-30T19:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Da Silva vs Jones: no points for 151s"
+   ]
+  },
   {
    "at": "2026-10-30T18:20Z",
    "fixes": [],
@@ -454,53 +508,6 @@
    "at": "2026-10-29T03:30Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-29T03:29Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T02:56Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-28 Kimberly Birrell) - started sports.yml"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-29T02:44Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-29T01:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T01:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T01:11Z",
-   "fixes": [
-    "live watch 40790239918 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-28T23:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mandlik vs Janicijevic: no points for 1833s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }

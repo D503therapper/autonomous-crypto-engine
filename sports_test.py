@@ -12599,7 +12599,7 @@ def test_nba_roster_prior_player_values_and_lineup_math():
     line = {n: m for n, m, _, _ in nr.lineup(deep, vals, {star: (0.0, None)})}
     assert _pname("A", 0) not in line and line["Deep Y"] > 10.0 and line["Deep Y"] <= nr.NEXT_MAN_MAX + 1e-9   # next man up
     assert nr.bench_strength(deep, vals) > nr.bench_strength(thin, vals) or nr.bench_strength(deep, vals) == nr.bench_strength(roster_a, vals)
-    assert nr.play_chance("Probable") == 0.95 and nr.play_chance("Questionable") == 0.5 and nr.play_chance("Doubtful") == 0.25
+    assert nr.play_chance("Probable") == 0.95 and nr.play_chance("Questionable") == 0.5 and nr.play_chance("Doubtful") == 0.05   # (10/30 study: doubtful plays 3.9%)
     assert nr.play_chance("Out") == 0.0 and nr.play_chance("Game-Time Decision") == 0.5
     assert nr.play_chance("Questionable", "questionable but expected to play") == 0.95
     assert nr.restricted("He is on a minutes restriction") and not nr.restricted("sore knee")
@@ -15447,6 +15447,60 @@ def test_a_half_unit_near_even_favorite_is_never_called_too_expensive():
     assert has(sdb._units_line(0.5, "Mammoth", -135), sdb.HALF_WHY["fav"])   # a real price keeps its why
     sdb.WHY_USED.clear()
     assert has(sdb._units_line(0.5, "UCF", 110), sdb.HALF_WHY["dog"])
+
+
+def test_questionable_1030_a_man_who_plays_through_it_never_holds_the_board_a_coin_flip_still_does():
+    """10/30 (the owner / his brother Ricky: "Rui gonna play ... some guys are always questionable ... there's data on
+    that"). The study (results/studies/questionable_1030, the NBA's official reports 2018-19..2025-26 vs our box
+    scores): a questionable KEY man plays 54.5% of 6,380 - a coin flip, the hold stays (betting before the news cost
+    8.4% vs the close when he sat). But a key man with 10+ questionable listings and 85%+ played plays ~4 in 5 going
+    forward (72.6% train / 85.1% held out): he's treated as PLAYING - no hold, and his 1-in-5 chance to sit weighs the
+    read (20% of his absence penalty). A probable note on ESPN's day-to-day man never holds it either (key men 94.7%).
+    A doubtful man plays 3.9% (1,824), not the roster read's old 25%. Rui Hachimura himself: 7 of 22 - he keeps the hold."""
+    import sports_absences as A
+    import sports_questionable as sq
+    import sports_nba_roster as nr
+    assert sports.NBA_PLAYS_THROUGH and sq.USUALLY_N == 10 and sq.USUALLY_RATE == 0.85 and sq.USUALLY_PLAYS == 0.80
+    assert nr.play_chance("Doubtful") == 0.05 and nr.play_chance("Questionable") == 0.5 and nr.play_chance("Probable") == 0.95
+    # the real table: the men the archive says play through it, and the ones who don't
+    assert sq.usually_plays("LeBron James") and sq.usually_plays("Anthony Edwards")
+    assert not sq.usually_plays("Rui Hachimura") and not sq.usually_plays("Anthony Davis")   # 7/22, 68/100
+    assert not sq.usually_plays("Yaxel Lendeborg")                                           # no history = the hold stays
+    assert sq.history("LeBron James")[0] >= 100 and sq.history("Rui Hachimura") == (22, 7)
+    tbl = {"big star": [12, 11, "2026-04-01"], "second man": [30, 15, "2026-04-01"], "thin man": [9, 9, "2026-04-01"]}
+    assert sq.usually_plays("Big Star", tbl) and not sq.usually_plays("Second Man", tbl) and not sq.usually_plays("Thin Man", tbl)
+    assert sq.usually_plays("Big Star Jr.", tbl)                                              # (the name normalizes)
+    keep, keep_st, keep_t, keep_notes = dict(A._TEAM), sd.STARTER_OF, dict(sq._T), dict(sd.INJ_NOTES)
+    row = lambda gid, start, who, pts: {"gid": gid, "start": start, "team": "7", "player": who,
+                                        "stats": '{"points":"%d","minutes":"30"}' % pts}
+    rows = lambda gid, start: [row(gid, start, "Big Star", 28), row(gid, start, "Second Man", 20), row(gid, start, "Third Man", 15)]
+    A._TEAM["nba"] = {"7": [(f"2026-10-2{d}T23:00Z", f"g{d}", rows(f"g{d}", f"2026-10-2{d}T23:00Z")) for d in (2, 4, 6)]}
+    sd.STARTER_OF = lambda lg, tid, name: None
+    sq._T["t"] = tbl
+    try:
+        g = {"id": "w", "league": "nba", "home": "7", "home_name": "Wolves", "away": "8", "away_name": "Dubs", "start": "2026-10-29T00:00Z"}
+        rep = lambda ps: {"nba": {"7": ps, "8": []}}
+        assert sports.waiting_on(g, rep([("Big Star", "G", "Questionable")])) == []                 # plays through it
+        assert sports.waiting_on(g, rep([("Second Man", "G", "Questionable")])) == ["Second Man (G) questionable"]   # coin flip
+        assert sports.waiting_on(g, rep([("Third Man", "F", "Day-To-Day")])) == ["Third Man (F) questionable"]
+        sd.INJ_NOTES["nba"] = {sd._plain("Third Man"): {"status": "day-to-day", "note": "He is probable for Thursday"}}
+        assert sports.waiting_on(g, rep([("Third Man", "F", "Day-To-Day")])) == []                  # ESPN's note: probable
+        # the read: 20% of his absence penalty (the top scorer out = -9 -> -1.8), never on the card as out
+        pen, who = A.penalty({}, g, "home", rep([("Big Star", "G", "Questionable")]))
+        assert abs(pen - 0.2 * 0.09) < 1e-9 and who == [], (pen, who)
+        assert A.penalty({}, g, "home", rep([("Big Star", "G", "Out")])) == (0.09, ["Big Star"])
+        assert A.penalty({}, g, "home", rep([("Second Man", "G", "Questionable")])) == (0.0, [])   # held, not weighed
+        pen, who = A.penalty({}, g, "home", rep([("Big Star", "G", "Questionable"), ("Second Man", "G", "Out")]))
+        assert abs(pen - (0.0 + 0.2 * (0.11 - 0.0))) < 1e-9 and who == ["Second Man"], (pen, who)   # Second Man out alone: not
+        #   the top scorer, so 0; with Big Star out too it'd be two of the top 3 (-11): 20% of that
+        assert nr.report_chances(rep([("Big Star", "G", "Questionable")])["nba"], "7", "Wolves", {})["big star"][0] == 0.80
+        sports.NBA_PLAYS_THROUGH = False                                                             # the switch puts it back
+        assert sports.waiting_on(g, rep([("Big Star", "G", "Questionable")])) == ["Big Star (G) questionable"]
+        assert A.penalty({}, g, "home", rep([("Big Star", "G", "Questionable")])) == (0.0, [])
+    finally:
+        sports.NBA_PLAYS_THROUGH = True
+        A._TEAM.clear(); A._TEAM.update(keep); sd.STARTER_OF = keep_st
+        sq._T.clear(); sq._T.update(keep_t); sd.INJ_NOTES.clear(); sd.INJ_NOTES.update(keep_notes)
 
 if __name__ == "__main__":
     import sports_goalies as _sg

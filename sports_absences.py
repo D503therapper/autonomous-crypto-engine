@@ -189,9 +189,24 @@ def penalty(games, g, side, injuries, skip_qb=False):
     if lg not in WINDOW:
         return 0.0, []
     inj = (injuries or {}).get(lg)
-    out = {_nm(r[0]) for r in sd._team_rows(inj, g[side], g[side + "_name"]) if _gone(r[2])}
-    if not out:
+    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    out = {_nm(r[0]) for r in rows if _gone(r[2])}
+    thru = set()                                     # 🏀 10/30: a questionable man the board treats as PLAYING (he plays
+    if lg == "nba":                                  # through it - sports_questionable): no hold, so his 1-in-5 chance
+        try:                                         # to sit is weighed here instead
+            import sports
+            thru = {_nm(r[0]) for r in rows if not _gone(r[2]) and any(x in str(r[2]).lower() for x in sd.UNSURE)
+                    and sports.NBA_PLAYS_THROUGH and __import__("sports_questionable").usually_plays(r[0])}
+        except Exception:                            # noqa: BLE001
+            thru = set()
+    if not out and not thru:
         return 0.0, []
+    if thru:
+        base = penalty(games, g, side, {lg: {g[side]: [r for r in rows if _nm(r[0]) not in thru]}}, skip_qb)
+        worst = penalty(games, g, side, {lg: {g[side]: [r for r in rows if _nm(r[0]) not in thru]
+                                                      + [(r[0], r[1], "Out") for r in rows if _nm(r[0]) in thru]}}, skip_qb)
+        import sports_questionable as sq
+        return base[0] + (1 - sq.USUALLY_PLAYS) * max(0.0, worst[0] - base[0]), base[1]
     kp = key_players(games, lg, g[side], g.get("start") or "9")
     is_out = lambda p: p is not None and match(p, out)          # noqa: E731
     if lg in ("nfl", "ncaaf"):
