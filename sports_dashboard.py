@@ -217,6 +217,11 @@ HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensi
     "dog": ("Small bet, big payout — the value's still worth it.", "Small bet, big payout — still worth it.",
             "Plus money does the heavy lifting. A small bet is plenty.", "Small stake, big return if they cash.",
             "Big payout on a small bet — that's the play.", "Keep it small — the plus money pays big when it hits.")}
+HALF_WHY["even"] = ("Near even money - half a unit to start.", "About an even-money price. Half a unit.",   # (10/30, the
+                    "Not an expensive line - just a half-unit bet.")                                         #  owner on the
+HALF_WHY["early"] = ("Half a unit - this early spot starts small till it proves itself live.",               #  Wizards at -107:
+                     "This early spot is still proving itself live - half a unit.")                          #  "too expensive" was false)
+EVEN_FROM = -120             # a favorite at -119..-101 is near even money - never "too expensive"
 FULL_WHY = {   # 1-1½u: why it's more than ½
     "fav": ("Fair price — worth a full unit.", "The price is fair — a solid bet.", "Price is right where we want it. Full unit.",
             "Not too expensive — worth a full unit.", "Fair line for how much we like it. Solid bet."),
@@ -349,7 +354,9 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     if lean:                                                 # a lean we like: ½u, never called a lock (the owner, 10/1)
         return f'<div class="un">🟡 A LEAN WE LIKE — {_units_txt(u)}</div>'
     side = "dog" if (odds or 100) > 0 else "fav"             # (a plus-money dog is never "expensive")
-    pool = (HALF_WHY[side] if u == 0.5 else FULL_WHY[side] if u < 2 else BIGGER_WHY[side] if u < 4 else
+    if side == "fav" and u == 0.5:                           # (10/30: a ½u at -107 is not "expensive" - say the real why)
+        side = "early" if early else "even" if odds is not None and odds > EVEN_FROM else side
+    pool = (HALF_WHY[side] if u == 0.5 else FULL_WHY["fav" if side in ("even", "early") else side] if u < 2 else BIGGER_WHY[side] if u < 4 else
             BIG_WHY["early" if early else "board"])
     start = sum(map(ord, key))                               # a line already on the board this build is skipped
     order = [pool[(start + i) % len(pool)] for i in range(len(pool))]   # (never the same reason twice in a row)
