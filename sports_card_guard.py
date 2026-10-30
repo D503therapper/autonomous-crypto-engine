@@ -83,22 +83,56 @@ def _bottom_safe(line):
     return (m.group(1) + ".") if m else "✅ Bottom line: the pick's up."
 
 
-def clean(lines, league=None, who=""):
-    """The card's lines with every one that repeats a known mistake taken out (the bottom line cut back, never lost)."""
+_AGREE = {"are": "is", "have": "has", "were": "was", "aren't": "isn't", "haven't": "hasn't", "weren't": "wasn't",
+          "don't": "doesn't", "go": "goes", "do": "does"}
+for _v in ("take", "come", "get", "keep", "sit", "play", "win", "lose", "allow", "give", "hold", "cover",
+           "need", "look", "travel", "handle", "drop", "pack", "outscore", "average", "walk", "roll", "bring", "carry",
+           "make", "stay", "grade", "want", "know"):
+    _AGREE[_v] = _v + "s"                                    # ("Iowa State take care of home" -> "takes"; never a verb
+    #                                                          that is also its own past tense - put, beat, run - or a
+    #                                                          noun that follows a name - score, head (coach), run (game))
+#   (10/30 weekend sweep - the owner's 10/27 rule, "Wild holds", "Mammoth is leaking": team verbs agree. The 10/29 sweep
+#    fixed the tails, the risk line and the bottom lines at the pool; the ~70 body pools still say "{us} are healthy" /
+#    "{us} have dropped 2 straight" - right for the Bruins, wrong for Iowa State, Fresno St, Delaware and the Lightning.
+#    A Saturday board is mostly college names. The guard is the last stop every card passes, so the fix lives here: a
+#    singular name's "are / have / were" becomes "is / has / was". "been" stays - "Iowa State been the better team" is
+#    how he talks.)
+
+
+def agree(line, *teams):
+    """The line with every team verb agreeing with its name: 'Iowa State are 3-4' -> 'Iowa State is 3-4', 'the
+    Lightning have won' -> 'the Lightning has won'; a plural name ('the Bruins are') is untouched."""
+    t = str(line or "")
+    try:
+        from sports_breakdown_v24 import vb
+    except Exception:                                        # noqa: BLE001 - no verb table = no change
+        return t
+    for team in teams:
+        team = str(team or "").strip()
+        if not team or vb(team, "are", "is") == "are":
+            continue
+        rx = re.compile(r"(\b" + re.escape(team) + r") (" + "|".join(re.escape(k) for k in _AGREE) + r")\b(?![-'])")
+        t = rx.sub(lambda m: m.group(1) + " " + _AGREE[m.group(2)], t)
+    return t
+
+
+def clean(lines, league=None, who="", opp=""):
+    """The card's lines with every one that repeats a known mistake taken out (the bottom line cut back, never lost),
+    the team verbs agreeing with the names (agree - ours and the opponent's)."""
     out = []
     for x in lines or []:
         why = problem(x, league)
         if not why:
-            out.append(x)
+            out.append(agree(x, who, opp) if isinstance(x, str) else x)
             continue
         DROPPED.append(f"{who}: {why}: {str(x)[:90]}")
         print(f"CARD GUARD ({why}) dropped for {who}: {str(x)[:90]}", flush=True)
         if str(x).startswith("✅ Bottom line:"):
-            out.append(_bottom_safe(str(x)))
+            out.append(agree(_bottom_safe(str(x)), who, opp))
     return out
 
 
-def one(line, league=None, who=""):
+def one(line, league=None, who="", opp=""):
     """A single line (the line under the pick, a review): itself, or '' when it repeats a known mistake."""
-    kept = clean([line], league, who) if line else []
+    kept = clean([line], league, who, opp) if line else []
     return kept[0] if kept else ""

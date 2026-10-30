@@ -1,194 +1,3 @@
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
-   no units on Sharks: missing Igor Chernyshov, Alexander Wennberg
-   no units on Sabres: missing Jiri Kulich, Sam Carrick, Justin Danforth
-tennis sync: 73695 matches stored, 18 calls, 0 failed
-tennis study ATP: 26184 rated matches, acc 0.6475 (surface ratings alone 0.646), loss 0.6274 vs 0.6275, own weights [-0.005, 0.825, 0.074, 0.145, 0.425, 0.051, 0.05]
-tennis study ATP life factors vs current loss 0.6274: experience 0.6273 (+0.09 mnats, z 0.09), age 0.6252 (+2.26 mnats, z 1.62), young_vs_aging 0.6271 (+0.38 mnats, z 0.91), last_match 0.6254 (+2.00 mnats, z 1.4), streaks 0.6282 (-0.78 mnats, z -0.76), first_set 0.6266 (+0.82 mnats, z 1.27), injury 0.6281 (-0.68 mnats, z -1.06), travel 0.6274 (+0.00 mnats, z 0.02) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30665 rated matches, acc 0.6525 (surface ratings alone 0.6525), loss 0.62 vs 0.6197, own weights [0.004, 0.902, -0.002, -0.082, 0.3, 0.024, -0.201]
-tennis study WTA life factors vs current loss 0.62: experience 0.617 (+2.97 mnats, z 1.72), age 0.6194 (+0.61 mnats, z 0.76), young_vs_aging 0.6198 (+0.15 mnats, z 0.87), last_match 0.6203 (-0.30 mnats, z -0.3), streaks 0.6199 (+0.10 mnats, z 0.21), first_set 0.6195 (+0.43 mnats, z 0.94), injury 0.6191 (+0.83 mnats, z 1.46), travel 0.6201 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 18 matches
-sync: 131262 games stored, 52 calls, 0 failed, 13s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 7 box scores added, 7 to fetch, 0 failed, 1s
-weather: 127 games got weather, 0 new stadiums located, 178s
-4th-down rates: 32 NFL teams
-news: 50 new drama tags
-goalies: 11 games on the page, 4 matched, 8 confirmed
-nba rosters: 30 teams as of 2026-10-27, 0 failed, 0 moves
-beat the close: unit plays 17 of 57 better than the close, avg +0.2 pts
-tuned in 152s: mlb trust 34% acc 58.7%, nba trust 20% acc 70.1%, ncaab trust 5% acc 67.4%, ncaaf trust 0% acc 69.8%, nfl trust 14% acc 64.9%, nhl trust 10% acc 57.0%
-cover study: nba big favorites covered 50% of 3619 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3589 (adjust +0.00); nfl big favorites covered 47% of 517 (adjust +0.02)
-comeback study: nfl 2308 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.470; ncaaf 6223 games s=1.2 w=1.25 m=+0.0 loss 0.369->0.368; nba 10282 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19856 games s=1.0 w=1.00 m=+0.0 loss 0.457->0.457; nhl 10241 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
-halves study: nfl 2317 games: 1st half gets 51% of the edge (sd 10.27), 2nd 39%; 1st half leader wins 78%, tied 7%; ncaaf 6224 games: 1st half gets 61% of the edge (sd 11.81), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10282 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20090 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10241 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
-lines study: nhl 20482 team-games, loss 0.607->0.584; mlb 40182 team-games, loss 0.654->0.636
-spread/moneyline study: {'nfl': (0.5321, True), 'ncaaf': (0.4831, False), 'nba': (0.4513, False), 'ncaab': (0.482, False)}
-hockey study: ['b2b', 'rest'] 0.66641 vs line 0.66676
-all: following hit 68.8% vs 67.9% the price said over 231600 (edge +0.8% older, +1.0% newer, z 10.02) -> watch only
-streak: following hit 63.8% vs 63.2% the price said over 69849 (edge +0.6% older, +0.7% newer, z 3.65) -> watch only
-rate: following hit 71.0% vs 69.9% the price said over 161751 (edge +0.9% older, +1.1% newer, z 9.68) -> watch only
-streak|total: following hit 50.2% vs 50.0% the price said over 12479 (edge +0.1% older, +0.3% newer, z 0.4) -> watch only
-streak|fav_ml: following hit 72.5% vs 71.5% the price said over 36408 (edge +0.9% older, +1.0% newer, z 4.42) -> watch only
-streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7847 (edge -1.3% older, +0.3% newer, z -0.85) -> watch only
-streak|home: following hit 61.5% vs 60.8% the price said over 13115 (edge +0.9% older, +0.4% newer, z 1.79) -> watch only
-rate|total: following hit 51.0% vs 50.0% the price said over 3926 (edge +1.4% older, +0.7% newer, z 1.28) -> watch only
-rate|fav_ml: following hit 73.7% vs 72.7% the price said over 113613 (edge +0.9% older, +1.1% newer, z 7.88) -> watch only
-rate|fav_cover: following hit 49.2% vs 50.0% the price said over 1817 (edge +0.0% older, -1.6% newer, z -0.68) -> watch only
-rate|home: following hit 66.3% vs 65.2% the price said over 42395 (edge +1.0% older, +1.3% newer, z 5.88) -> watch only
-nfl|streak: following hit 58.3% vs 59.7% the price said over 1548 (edge -2.6% older, -0.1% newer, z -1.14) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4148 (edge +0.1% older, +0.1% newer, z 0.07) -> watch only
-ncaaf|streak: following hit 70.4% vs 69.9% the price said over 7342 (edge -0.3% older, +1.3% newer, z 1.03) -> watch only
-ncaaf|rate: following hit 72.3% vs 71.6% the price said over 22486 (edge +0.8% older, +0.5% newer, z 2.52) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9852 (edge -0.2% older, +0.0% newer, z -0.18) -> watch only
-nba|rate: following hit 68.4% vs 68.6% the price said over 23851 (edge -0.2% older, -0.3% newer, z -0.75) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10771 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.4% the price said over 5115 (edge +1.5% older, +1.2% newer, z 2.02) -> watch only
-nhl|rate: following hit 61.6% vs 60.9% the price said over 5350 (edge +0.1% older, +1.3% newer, z 1.06) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 12-1 (prices said 9.3) (12 straight) -> coin flip
-ACTIVE nba wednesday: favorites cover 9-2 (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE nba wednesday: favorites win 9-2 (prices said 6.7) (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
-ACTIVE nba friday: underdogs cover 8-4 (5 straight) -> coin flip · next: Hornets @ Wizards, Bulls @ Celtics, Pistons @ Nets
-ACTIVE mlb saturday: favorites win 227-181 (prices said 231.3) (6 straight) -> coin flip · next: Rays @ Brewers
-ACTIVE nba away favorite: favorites cover 13-4 -> coin flip · next: 76ers @ Pacers, Knicks @ Bulls, Rockets @ Bucks
-ACTIVE nfl big favorite: underdogs cover 22-10 -> coin flip · next: Cardinals @ Cowboys, Colts @ Jaguars, Titans @ Bengals
-totals study: {'nfl': (0.5435, True), 'ncaaf': (0.4854, False), 'nba': (0.5064, False), 'ncaab': (0.5271, True), 'mlb': (0.4862, False), 'nhl': (0.4798, False)}
-public splits: 64 upcoming games
-self-check: 190 graded picks - we said 51%, they hit 57% (hitting at or above what we said)
-  market:ml: 176 graded, said 51%, hit 57% - hitting at or above what we said
-  source:pregame: 170 graded, said 51%, hit 57% - hitting at or above what we said
-  drama:none: 163 graded, said 51%, hit 59% - hitting at or above what we said
-  label:parlay leg: 134 graded, said 52%, hit 59% - hitting at or above what we said
-  price:-149..-101: 115 graded, said 54%, hit 62% - hitting at or above what we said
-  ctx:game:conf: 77 graded, said 49%, hit 58% - hitting at or above what we said (report only: forward-only tag)
-  price:+101..+179: 61 graded, said 49%, hit 48% - a little below what we said - within noise
-  league:nhl: 58 graded, said 51%, hit 41% - hitting well below what we said - bar raised
-  ctx:game:div: 47 graded, said 53%, hit 45% - hitting well below what we said (report only: forward-only tag)
-  league:ncaaf: 43 graded, said 46%, hit 49% - hitting at or above what we said
-  league:nfl: 34 graded, said 55%, hit 68% - only 34 graded - report only
-  league:mlb: 32 graded, said 54%, hit 81% - only 32 graded - report only
-  ctx:game:nonconf: 30 graded, said 50%, hit 60% - only 30 graded - report only (report only: forward-only tag)
-  ctx:them:trip1000: 29 graded, said 51%, hit 76% - only 29 graded - report only (report only: forward-only tag)
-  ctx:game:rival: 24 graded, said 54%, hit 46% - only 24 graded - report only (report only: forward-only tag)
-  ctx:us:trip1000: 22 graded, said 51%, hit 50% - only 22 graded - report only (report only: forward-only tag)
-  label:dog: 20 graded, said 41%, hit 40% - only 20 graded - report only
-  label:live: 20 graded, said 57%, hit 55% - only 20 graded - report only
-  source:live: 20 graded, said 57%, hit 55% - only 20 graded - report only
-  drama:theirs: 19 graded, said 51%, hit 42% - only 19 graded - report only
-  ctx:them:east1000: 18 graded, said 51%, hit 72% - only 18 graded - report only (report only: forward-only tag)
-  ctx:them:week3000: 15 graded, said 53%, hit 60% - only 15 graded - report only (report only: forward-only tag)
-  label:lock: 15 graded, said 56%, hit 60% - only 15 graded - report only
-  market:spread: 14 graded, said 52%, hit 50% - only 14 graded - report only
-  league:nba: 13 graded, said 52%, hit 77% - only 13 graded - report only
-  ctx:them:west1000: 11 graded, said 50%, hit 82% - only 11 graded - report only (report only: forward-only tag)
-  ctx:us:east1000: 11 graded, said 52%, hit 27% - only 11 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 11 graded, said 49%, hit 73% - only 11 graded - report only (report only: forward-only tag)
-  drama:ours: 11 graded, said 54%, hit 55% - only 11 graded - report only
-  price:+180+: 11 graded, said 31%, hit 55% - only 11 graded - report only
-  ctx:us:road3in6: 10 graded, said 51%, hit 60% - only 10 graded - report only (report only: forward-only tag)
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:us:week3000: 8 graded, said 52%, hit 75% - only 8 graded - report only (report only: forward-only tag)
-  ctx:them:dome_out: 7 graded, said 52%, hit 71% - only 7 graded - report only (report only: forward-only tag)
-  ctx:them:road3in6: 6 graded, said 52%, hit 50% - only 6 graded - report only (report only: forward-only tag)
-  ctx:them:out_dome: 5 graded, said 55%, hit 100% - only 5 graded - report only (report only: forward-only tag)
-  ctx:us:trip2000: 5 graded, said 52%, hit 60% - only 5 graded - report only (report only: forward-only tag)
-  talk:ours:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  talk:theirs:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  ctx:them:trip2000: 4 graded, said 54%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  ctx:us:hotseat: 4 graded, said 41%, hit 0% - only 4 graded - report only (report only: forward-only tag)
-  talk:theirs:hot seat: 4 graded, said 52%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  talk:theirs:trash talk: 4 graded, said 56%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  ctx:them:hotseat: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
-  ctx:us:out_dome: 3 graded, said 55%, hit 33% - only 3 graded - report only (report only: forward-only tag)
-  price:pick'em: 3 graded, said 52%, hit 67% - only 3 graded - report only
-  talk:ours:hot seat: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
-  ctx:us:dome_out: 2 graded, said 56%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:trash talk: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  talk:ours:unhappy: 1 graded, said 53%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:contract year: 1 graded, said 54%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:unhappy: 1 graded, said 57%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: league:nhl +2%
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
-tennis sync: 73695 matches stored, 18 calls, 0 failed
-tennis study ATP: 26184 rated matches, acc 0.6475 (surface ratings alone 0.646), loss 0.6274 vs 0.6275, own weights [-0.005, 0.825, 0.074, 0.145, 0.425, 0.051, 0.05]
-tennis study ATP life factors vs current loss 0.6274: experience 0.6273 (+0.09 mnats, z 0.09), age 0.6252 (+2.26 mnats, z 1.62), young_vs_aging 0.6271 (+0.38 mnats, z 0.91), last_match 0.6254 (+2.00 mnats, z 1.4), streaks 0.6282 (-0.78 mnats, z -0.76), first_set 0.6266 (+0.82 mnats, z 1.27), injury 0.6281 (-0.68 mnats, z -1.06), travel 0.6274 (+0.00 mnats, z 0.02) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30665 rated matches, acc 0.6525 (surface ratings alone 0.6525), loss 0.62 vs 0.6197, own weights [0.004, 0.902, -0.002, -0.082, 0.3, 0.024, -0.201]
-tennis study WTA life factors vs current loss 0.62: experience 0.617 (+2.97 mnats, z 1.72), age 0.6194 (+0.61 mnats, z 0.76), young_vs_aging 0.6198 (+0.15 mnats, z 0.87), last_match 0.6203 (-0.30 mnats, z -0.3), streaks 0.6199 (+0.10 mnats, z 0.21), first_set 0.6195 (+0.43 mnats, z 0.94), injury 0.6191 (+0.83 mnats, z 1.46), travel 0.6201 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 18 matches
-sync: 131262 games stored, 52 calls, 0 failed, 15s
-odds history: 0 games got odds, 55 calls, 0 failed, 4s
-player stats: 2 box scores added, 2 to fetch, 0 failed, 1s
-weather: 127 games got weather, 0 new stadiums located, 208s
-4th-down rates: 32 NFL teams
-news: 50 new drama tags
-goalies: 11 games on the page, 3 matched, 6 confirmed
-nba rosters: 30 teams as of 2026-10-27, 0 failed, 0 moves
-settled 2026-10-27 play: won +102.00
-beat the close: unit plays 18 of 58 better than the close, avg +0.2 pts
-tuned in 99s: mlb trust 34% acc 58.7%, nba trust 20% acc 70.1%, ncaab trust 5% acc 67.4%, ncaaf trust 0% acc 69.8%, nfl trust 14% acc 64.9%, nhl trust 11% acc 57.1%
-cover study: nba big favorites covered 50% of 3619 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3589 (adjust +0.00); nfl big favorites covered 47% of 517 (adjust +0.02)
-comeback study: nfl 2308 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.470; ncaaf 6224 games s=1.2 w=1.25 m=+0.0 loss 0.369->0.368; nba 10282 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19856 games s=1.0 w=1.00 m=+0.0 loss 0.457->0.457; nhl 10242 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
-halves study: nfl 2317 games: 1st half gets 51% of the edge (sd 10.27), 2nd 39%; 1st half leader wins 78%, tied 7%; ncaaf 6225 games: 1st half gets 61% of the edge (sd 11.81), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10282 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20090 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10242 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
-lines study: nhl 20484 team-games, loss 0.607->0.584; mlb 40182 team-games, loss 0.654->0.636
-spread/moneyline study: {'nfl': (0.5321, True), 'ncaaf': (0.4835, False), 'nba': (0.4513, False), 'ncaab': (0.482, False)}
-hockey study: ['b2b', 'rest'] 0.66634 vs line 0.66668
-all: following hit 68.8% vs 67.9% the price said over 231603 (edge +0.8% older, +1.0% newer, z 10.02) -> watch only
-streak: following hit 63.8% vs 63.2% the price said over 69850 (edge +0.6% older, +0.7% newer, z 3.64) -> watch only
-rate: following hit 71.0% vs 69.9% the price said over 161753 (edge +0.9% older, +1.1% newer, z 9.68) -> watch only
-streak|total: following hit 50.2% vs 50.0% the price said over 12480 (edge +0.1% older, +0.3% newer, z 0.39) -> watch only
-streak|fav_ml: following hit 72.5% vs 71.5% the price said over 36408 (edge +0.9% older, +1.0% newer, z 4.42) -> watch only
-streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7847 (edge -1.3% older, +0.3% newer, z -0.85) -> watch only
-streak|home: following hit 61.5% vs 60.8% the price said over 13115 (edge +0.9% older, +0.4% newer, z 1.79) -> watch only
-rate|total: following hit 51.0% vs 50.0% the price said over 3926 (edge +1.4% older, +0.7% newer, z 1.28) -> watch only
-rate|fav_ml: following hit 73.7% vs 72.7% the price said over 113615 (edge +0.9% older, +1.1% newer, z 7.88) -> watch only
-rate|fav_cover: following hit 49.2% vs 50.0% the price said over 1817 (edge +0.0% older, -1.6% newer, z -0.68) -> watch only
-rate|home: following hit 66.3% vs 65.2% the price said over 42395 (edge +1.0% older, +1.3% newer, z 5.88) -> watch only
-nfl|streak: following hit 58.3% vs 59.7% the price said over 1548 (edge -2.6% older, -0.1% newer, z -1.14) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4148 (edge +0.1% older, +0.1% newer, z 0.07) -> watch only
-ncaaf|streak: following hit 70.4% vs 69.9% the price said over 7342 (edge -0.3% older, +1.3% newer, z 1.03) -> watch only
-ncaaf|rate: following hit 72.3% vs 71.6% the price said over 22487 (edge +0.8% older, +0.5% newer, z 2.52) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9852 (edge -0.2% older, +0.0% newer, z -0.18) -> watch only
-nba|rate: following hit 68.4% vs 68.6% the price said over 23851 (edge -0.2% older, -0.3% newer, z -0.75) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10771 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.4% the price said over 5116 (edge +1.5% older, +1.2% newer, z 2.0) -> watch only
-nhl|rate: following hit 61.6% vs 60.9% the price said over 5351 (edge +0.1% older, +1.2% newer, z 1.05) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 12-1 (prices said 9.3) (12 straight) -> coin flip
-ACTIVE nba wednesday: favorites cover 9-2 (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE nba wednesday: favorites win 9-2 (prices said 6.7) (8 straight) -> coin flip · next: Heat @ Hawks, Wizards @ Cavaliers, Hornets @ Pistons
-ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
-ACTIVE nba friday: underdogs cover 8-4 (5 straight) -> coin flip · next: Hornets @ Wizards, Bulls @ Celtics, Pistons @ Nets
-ACTIVE nhl tuesday: road team wins 27-22 (prices said 23.2) (5 straight) -> coin flip
-ACTIVE mlb saturday: favorites win 227-181 (prices said 231.3) (6 straight) -> coin flip · next: Rays @ Brewers
-ACTIVE nba away favorite: favorites cover 13-4 -> coin flip · next: 76ers @ Pacers, Knicks @ Bulls, Rockets @ Bucks
-totals study: {'nfl': (0.5435, True), 'ncaaf': (0.4846, False), 'nba': (0.5064, False), 'ncaab': (0.5271, True), 'mlb': (0.4862, False), 'nhl': (0.4778, False)}
-public splits: 63 upcoming games
-self-check: 190 graded picks - we said 51%, they hit 57% (hitting at or above what we said)
-  market:ml: 176 graded, said 51%, hit 57% - hitting at or above what we said
-  source:pregame: 170 graded, said 51%, hit 57% - hitting at or above what we said
-  drama:none: 163 graded, said 51%, hit 59% - hitting at or above what we said
   label:parlay leg: 134 graded, said 52%, hit 59% - hitting at or above what we said
   price:-149..-101: 115 graded, said 54%, hit 62% - hitting at or above what we said
   ctx:game:conf: 77 graded, said 49%, hit 58% - hitting at or above what we said (report only: forward-only tag)
@@ -2998,3 +2807,194 @@ tennis study WTA life factors vs current loss 0.6207: experience 0.6176 (+3.05 m
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 2 matches
+sync: 131589 games stored, 52 calls, 0 failed, 13s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 3 box scores added, 3 to fetch, 0 failed, 1s
+weather: 192 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 50 new drama tags
+goalies: 11 games on the page, 0 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-29, 0 failed, 0 moves
+settled 2026-10-29 lean: lost -100.00
+beat the close: unit plays 20 of 66 better than the close, avg +0.2 pts
+tuned in 70s: mlb trust 34% acc 58.6%, nba trust 16% acc 70.1%, ncaab trust 5% acc 67.4%, ncaaf trust 0% acc 69.1%, nfl trust 14% acc 64.9%, nhl trust 12% acc 56.9%
+cover study: nba big favorites covered 50% of 3625 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3591 (adjust +0.00); nfl big favorites covered 47% of 517 (adjust +0.02)
+comeback study: nfl 2309 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.470; ncaaf 6229 games s=1.2 w=1.25 m=+0.0 loss 0.370->0.368; nba 10298 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19858 games s=0.9 w=0.75 m=+0.0 loss 0.455->0.455; nhl 10260 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
+halves study: nfl 2318 games: 1st half gets 51% of the edge (sd 10.27), 2nd 39%; 1st half leader wins 78%, tied 7%; ncaaf 6230 games: 1st half gets 61% of the edge (sd 11.81), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10298 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20092 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10260 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
+lines study: nhl 20520 team-games, loss 0.607->0.584; mlb 40186 team-games, loss 0.654->0.636
+spread/moneyline study: {'nfl': (0.5311, True), 'ncaaf': (0.4831, False), 'nba': (0.4538, False), 'ncaab': (0.482, False)}
+hockey study: ['b2b', 'rest', 'travel'] 0.6653 vs line 0.66566
+all: following hit 68.8% vs 67.9% the price said over 231725 (edge +0.9% older, +0.9% newer, z 10.0) -> watch only
+streak: following hit 63.8% vs 63.2% the price said over 69880 (edge +0.5% older, +0.7% newer, z 3.63) -> watch only
+rate: following hit 71.0% vs 69.9% the price said over 161845 (edge +0.9% older, +1.1% newer, z 9.66) -> watch only
+streak|total: following hit 50.2% vs 50.0% the price said over 12482 (edge +0.1% older, +0.3% newer, z 0.39) -> watch only
+streak|fav_ml: following hit 72.5% vs 71.5% the price said over 36423 (edge +1.0% older, +1.0% newer, z 4.41) -> watch only
+streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7859 (edge -1.3% older, +0.3% newer, z -0.87) -> watch only
+streak|home: following hit 61.5% vs 60.8% the price said over 13116 (edge +0.9% older, +0.4% newer, z 1.8) -> watch only
+rate|total: following hit 51.0% vs 50.0% the price said over 3927 (edge +1.4% older, +0.7% newer, z 1.26) -> watch only
+rate|fav_ml: following hit 73.7% vs 72.7% the price said over 113670 (edge +0.9% older, +1.1% newer, z 7.89) -> watch only
+rate|fav_cover: following hit 49.1% vs 50.0% the price said over 1835 (edge +0.1% older, -1.8% newer, z -0.77) -> watch only
+rate|home: following hit 66.3% vs 65.1% the price said over 42413 (edge +1.0% older, +1.3% newer, z 5.86) -> watch only
+nfl|streak: following hit 58.3% vs 59.7% the price said over 1548 (edge -2.6% older, -0.1% newer, z -1.14) -> watch only
+nfl|rate: following hit 65.1% vs 65.0% the price said over 4148 (edge +0.1% older, +0.1% newer, z 0.07) -> watch only
+ncaaf|streak: following hit 70.4% vs 69.9% the price said over 7342 (edge -0.3% older, +1.3% newer, z 1.03) -> watch only
+ncaaf|rate: following hit 72.3% vs 71.6% the price said over 22504 (edge +0.8% older, +0.5% newer, z 2.48) -> watch only
+nba|streak: following hit 61.2% vs 61.3% the price said over 9877 (edge -0.2% older, -0.0% newer, z -0.22) -> watch only
+nba|rate: following hit 68.4% vs 68.6% the price said over 23907 (edge -0.3% older, -0.2% newer, z -0.76) -> watch only
+ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
+ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
+mlb|streak: following hit 53.7% vs 53.6% the price said over 10773 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
+mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
+nhl|streak: following hit 56.8% vs 55.4% the price said over 5119 (edge +1.5% older, +1.3% newer, z 2.01) -> watch only
+nhl|rate: following hit 61.6% vs 60.9% the price said over 5370 (edge +0.2% older, +1.2% newer, z 1.07) -> watch only
+proven: ncaab|rate|fav_cover, ncaaf|rate|total
+ACTIVE nhl big favorite: favorites win 13-1 (prices said 10) (13 straight) -> coin flip
+ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
+ACTIVE nhl back-to-back: favorites win 31-14 (prices said 26.5) (5 straight) -> coin flip · next: Jets @ Panthers, Flames @ Avalanche, Oilers @ Rangers
+ACTIVE nhl wednesday: home team wins 10-4 (prices said 7.8) (5 straight) -> coin flip
+ACTIVE nba friday: underdogs cover 8-4 (5 straight) -> coin flip · next: Hornets @ Wizards, Bulls @ Celtics, Pistons @ Nets
+ACTIVE nba big favorite: road team wins 13-15 (prices said 10.6) (5 straight) -> coin flip · next: Bulls @ Celtics, Pistons @ Nets, Pacers @ Heat
+ACTIVE mlb saturday: favorites win 227-181 (prices said 231.3) (6 straight) -> coin flip · next: Rays @ Brewers
+ACTIVE mlb wednesday: road team wins 179-208 (prices said 183.7) (6 straight) -> coin flip
+totals study: {'nfl': (0.5478, True), 'ncaaf': (0.4846, False), 'nba': (0.5044, False), 'ncaab': (0.5271, True), 'mlb': (0.4862, False), 'nhl': (0.4809, False)}
+public splits: 73 upcoming games
+self-check: 204 graded picks - we said 51%, they hit 55% (hitting at or above what we said)
+  market:ml: 190 graded, said 51%, hit 56% - hitting at or above what we said
+  source:pregame: 183 graded, said 50%, hit 56% - hitting at or above what we said
+  drama:none: 176 graded, said 51%, hit 57% - hitting at or above what we said
+  label:parlay leg: 145 graded, said 51%, hit 57% - hitting at or above what we said
+  price:-149..-101: 121 graded, said 54%, hit 61% - hitting at or above what we said
+  ctx:game:conf: 82 graded, said 49%, hit 57% - hitting at or above what we said (report only: forward-only tag)
+  price:+101..+179: 67 graded, said 49%, hit 46% - a little below what we said - within noise
+  league:nhl: 64 graded, said 50%, hit 42% - hitting well below what we said - bar raised
+  ctx:game:div: 51 graded, said 52%, hit 43% - hitting well below what we said (report only: forward-only tag)
+  league:ncaaf: 46 graded, said 47%, hit 46% - a little below what we said - within noise
+  league:nfl: 35 graded, said 55%, hit 66% - only 35 graded - report only
+  ctx:game:nonconf: 34 graded, said 50%, hit 59% - only 34 graded - report only (report only: forward-only tag)
+  league:mlb: 32 graded, said 54%, hit 81% - only 32 graded - report only
+  ctx:them:trip1000: 31 graded, said 50%, hit 71% - only 31 graded - report only (report only: forward-only tag)
+  ctx:game:rival: 25 graded, said 53%, hit 44% - only 25 graded - report only (report only: forward-only tag)
+  ctx:us:trip1000: 24 graded, said 51%, hit 54% - only 24 graded - report only (report only: forward-only tag)
+  label:dog: 22 graded, said 40%, hit 41% - only 22 graded - report only
+  label:live: 21 graded, said 57%, hit 52% - only 21 graded - report only
+  source:live: 21 graded, said 57%, hit 52% - only 21 graded - report only
+  drama:theirs: 20 graded, said 50%, hit 40% - only 20 graded - report only
+  ctx:them:east1000: 19 graded, said 50%, hit 68% - only 19 graded - report only (report only: forward-only tag)
+  league:nba: 17 graded, said 50%, hit 71% - only 17 graded - report only
+  ctx:them:week3000: 15 graded, said 53%, hit 60% - only 15 graded - report only (report only: forward-only tag)
+  label:lock: 15 graded, said 56%, hit 60% - only 15 graded - report only
+  market:spread: 14 graded, said 52%, hit 50% - only 14 graded - report only
+  price:+180+: 13 graded, said 31%, hit 46% - only 13 graded - report only
+  ctx:them:west1000: 12 graded, said 50%, hit 75% - only 12 graded - report only (report only: forward-only tag)
+  ctx:us:east1000: 12 graded, said 53%, hit 33% - only 12 graded - report only (report only: forward-only tag)
+  ctx:us:road3in6: 12 graded, said 50%, hit 67% - only 12 graded - report only (report only: forward-only tag)
+  ctx:us:west1000: 12 graded, said 50%, hit 75% - only 12 graded - report only (report only: forward-only tag)
+  drama:ours: 11 graded, said 54%, hit 55% - only 11 graded - report only
+  ctx:us:week3000: 10 graded, said 53%, hit 80% - only 10 graded - report only (report only: forward-only tag)
+  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
+  ctx:them:dome_out: 7 graded, said 52%, hit 71% - only 7 graded - report only (report only: forward-only tag)
+  ctx:them:road3in6: 7 graded, said 48%, hit 43% - only 7 graded - report only (report only: forward-only tag)
+  ctx:them:out_dome: 5 graded, said 55%, hit 100% - only 5 graded - report only (report only: forward-only tag)
+  ctx:us:trip2000: 5 graded, said 52%, hit 60% - only 5 graded - report only (report only: forward-only tag)
+  talk:ours:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
+  talk:theirs:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
+  ctx:them:hotseat: 4 graded, said 53%, hit 50% - only 4 graded - report only (report only: forward-only tag)
+  ctx:them:trip2000: 4 graded, said 54%, hit 75% - only 4 graded - report only (report only: forward-only tag)
+  ctx:us:hotseat: 4 graded, said 41%, hit 0% - only 4 graded - report only (report only: forward-only tag)
+  talk:theirs:hot seat: 4 graded, said 52%, hit 75% - only 4 graded - report only (report only: forward-only tag)
+  talk:theirs:trash talk: 4 graded, said 56%, hit 75% - only 4 graded - report only (report only: forward-only tag)
+  ctx:us:out_dome: 3 graded, said 55%, hit 33% - only 3 graded - report only (report only: forward-only tag)
+  price:pick'em: 3 graded, said 52%, hit 67% - only 3 graded - report only
+  talk:ours:hot seat: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
+  ctx:us:dome_out: 2 graded, said 56%, hit 50% - only 2 graded - report only (report only: forward-only tag)
+  talk:ours:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
+  talk:ours:trash talk: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
+  talk:theirs:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
+  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
+  talk:ours:unhappy: 1 graded, said 53%, hit 100% - only 1 graded - report only (report only: forward-only tag)
+  talk:theirs:contract year: 1 graded, said 54%, hit 100% - only 1 graded - report only (report only: forward-only tag)
+  talk:theirs:unhappy: 1 graded, said 57%, hit 100% - only 1 graded - report only (report only: forward-only tag)
+  (13 graded live bets were logged without a said chance - left out)
+extra edge now needed: league:nhl +2%
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26207 rated matches, acc 0.647 (surface ratings alone 0.645), loss 0.6282 vs 0.6287, own weights [-0.005, 0.826, 0.075, 0.143, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6282: experience 0.6282 (-0.02 mnats, z -0.02), age 0.6262 (+1.96 mnats, z 1.41), young_vs_aging 0.6278 (+0.40 mnats, z 0.98), last_match 0.6262 (+1.94 mnats, z 1.36), streaks 0.6289 (-0.70 mnats, z -0.68), first_set 0.6273 (+0.82 mnats, z 1.27), injury 0.629 (-0.85 mnats, z -1.31), travel 0.6281 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30703 rated matches, acc 0.651 (surface ratings alone 0.6515), loss 0.6209 vs 0.6207, own weights [0.004, 0.903, -0.001, -0.083, 0.3, 0.024, -0.202]
+tennis study WTA life factors vs current loss 0.6209: experience 0.6179 (+2.98 mnats, z 1.74), age 0.6203 (+0.64 mnats, z 0.8), young_vs_aging 0.6207 (+0.20 mnats, z 1.2), last_match 0.6214 (-0.50 mnats, z -0.5), streaks 0.6209 (+0.06 mnats, z 0.13), first_set 0.6205 (+0.37 mnats, z 0.8), injury 0.6202 (+0.69 mnats, z 1.19), travel 0.621 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches
+sync: 131589 games stored, 52 calls, 0 failed, 17s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 203 games got weather, 0 new stadiums located, 251s
+4th-down rates: 32 NFL teams
+news: 50 new drama tags
+goalies: 11 games on the page, 0 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-29, 0 failed, 0 moves
+beat the close: unit plays 20 of 66 better than the close, avg +0.2 pts
+public splits: 73 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26207 rated matches, acc 0.647 (surface ratings alone 0.645), loss 0.6282 vs 0.6287, own weights [-0.005, 0.826, 0.075, 0.143, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6282: experience 0.6282 (-0.02 mnats, z -0.02), age 0.6262 (+1.96 mnats, z 1.41), young_vs_aging 0.6278 (+0.40 mnats, z 0.98), last_match 0.6262 (+1.94 mnats, z 1.36), streaks 0.6289 (-0.70 mnats, z -0.68), first_set 0.6273 (+0.82 mnats, z 1.27), injury 0.629 (-0.85 mnats, z -1.31), travel 0.6281 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30703 rated matches, acc 0.651 (surface ratings alone 0.6515), loss 0.6209 vs 0.6207, own weights [0.004, 0.903, -0.001, -0.083, 0.3, 0.024, -0.202]
+tennis study WTA life factors vs current loss 0.6209: experience 0.6179 (+2.98 mnats, z 1.74), age 0.6203 (+0.64 mnats, z 0.8), young_vs_aging 0.6207 (+0.20 mnats, z 1.2), last_match 0.6214 (-0.50 mnats, z -0.5), streaks 0.6209 (+0.06 mnats, z 0.13), first_set 0.6205 (+0.37 mnats, z 0.8), injury 0.6202 (+0.69 mnats, z 1.19), travel 0.621 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches
+sync: 131589 games stored, 52 calls, 0 failed, 13s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 143 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 51 new drama tags
+goalies: 3 games on the page, 3 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-29, 0 failed, 0 moves
+beat the close: unit plays 20 of 66 better than the close, avg +0.2 pts
+public splits: 73 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26207 rated matches, acc 0.647 (surface ratings alone 0.645), loss 0.6282 vs 0.6287, own weights [-0.005, 0.826, 0.075, 0.143, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6282: experience 0.6282 (-0.02 mnats, z -0.02), age 0.6262 (+1.96 mnats, z 1.41), young_vs_aging 0.6278 (+0.40 mnats, z 0.98), last_match 0.6262 (+1.94 mnats, z 1.36), streaks 0.6289 (-0.70 mnats, z -0.68), first_set 0.6273 (+0.82 mnats, z 1.27), injury 0.629 (-0.85 mnats, z -1.31), travel 0.6281 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30704 rated matches, acc 0.6505 (surface ratings alone 0.6515), loss 0.621 vs 0.6208, own weights [0.004, 0.903, -0.001, -0.083, 0.3, 0.024, -0.202]
+tennis study WTA life factors vs current loss 0.621: experience 0.6181 (+2.92 mnats, z 1.7), age 0.6204 (+0.64 mnats, z 0.8), young_vs_aging 0.6208 (+0.20 mnats, z 1.2), last_match 0.6215 (-0.50 mnats, z -0.5), streaks 0.621 (+0.05 mnats, z 0.1), first_set 0.6207 (+0.37 mnats, z 0.8), injury 0.6203 (+0.68 mnats, z 1.18), travel 0.6211 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches
+sync: 131589 games stored, 52 calls, 0 failed, 12s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 149 games got weather, 0 new stadiums located, 243s
+4th-down rates: 32 NFL teams
+news: 50 new drama tags
+goalies: 3 games on the page, 3 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-10-30, 0 failed, 0 moves
+beat the close: unit plays 20 of 66 better than the close, avg +0.2 pts
+public splits: 73 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73695 matches stored, 18 calls, 0 failed
+tennis study ATP: 26207 rated matches, acc 0.647 (surface ratings alone 0.645), loss 0.6282 vs 0.6287, own weights [-0.005, 0.826, 0.075, 0.143, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6282: experience 0.6282 (-0.02 mnats, z -0.02), age 0.6262 (+1.96 mnats, z 1.41), young_vs_aging 0.6278 (+0.40 mnats, z 0.98), last_match 0.6262 (+1.94 mnats, z 1.36), streaks 0.6289 (-0.70 mnats, z -0.68), first_set 0.6273 (+0.82 mnats, z 1.27), injury 0.629 (-0.85 mnats, z -1.31), travel 0.6281 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30705 rated matches, acc 0.6505 (surface ratings alone 0.651), loss 0.6214 vs 0.6212, own weights [0.004, 0.903, -0.001, -0.083, 0.3, 0.024, -0.202]
+tennis study WTA life factors vs current loss 0.6214: experience 0.6184 (+2.92 mnats, z 1.7), age 0.6207 (+0.61 mnats, z 0.77), young_vs_aging 0.6212 (+0.20 mnats, z 1.2), last_match 0.6219 (-0.54 mnats, z -0.54), streaks 0.6213 (+0.05 mnats, z 0.1), first_set 0.621 (+0.35 mnats, z 0.75), injury 0.6207 (+0.65 mnats, z 1.12), travel 0.6214 (-0.08 mnats, z -0.51) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 1 matches

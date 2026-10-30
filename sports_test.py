@@ -13317,6 +13317,53 @@ def test_nba_open_early_spot_posts_half_unit_with_its_own_record():
     assert se.SPOTS["nba_open"] == ("🏀 NBA opening line", 0.5, ("nba",))
 
 
+def test_nba_studies_1030_the_opening_line_play_sizes_1u_flat_from_its_date_and_the_b2b_favorite_lead():
+    """10/30 NBA unit-play studies: (1) the 🏀 opening-line play is 1u FLAT from NBA_OPEN_UNITS_FROM - no ½u / 1u / 2u
+    ladder by its read margin (a bigger margin did NOT earn more: 4-5 pts +18.9%, 5-7 +13.7%, 7+ +8.7%, 8+ -3.9%) - a
+    play posted before the date keeps ½u, a stamped play keeps its stamped size whatever the date, and None turns the
+    size-up off; (2) the favorite rest / travel study's one lead (both teams on a b2b) is a tracker tag on NBA
+    favorites -101..-150 only, never a weight on the read."""
+    import sports_early as se
+    import sports_leads
+    assert se.NBA_OPEN_UNITS == 1.0 and se.NBA_OPEN_UNITS_FROM in (None, "2026-10-31")   # off till the owner's yes
+    keep = se.NBA_OPEN_UNITS_FROM
+    se.NBA_OPEN_UNITS_FROM = "2026-10-31"
+    p = {"spot": "nba_open", "league": "nba", "odds": -110, "posted": "2026-10-31T03:00Z"}
+    assert se.units(p) == 1.0
+    assert se.units({**p, "posted": "2026-10-30T23:00Z"}) == 0.5                 # before the date: the ½u it posted at
+    assert se.units({**p, "units": 0.5}) == 0.5                                   # a stamped play never re-sizes
+    assert se.units({"spot": "mnf", "league": "nfl", "odds": 150, "posted": "2026-11-02T03:00Z"}) == 0.5   # the other spots
+    try:
+        se.NBA_OPEN_UNITS_FROM = None
+        assert se.units(p) == 0.5                                                 # the owner's off switch
+    finally:
+        se.NBA_OPEN_UNITS_FROM = keep
+    # the record reads the frozen size: a 1u play at -110 won = +0.91u
+    st = {"picks": [{**p, "units": 1.0, "result": "won"}, {**p, "units": 0.5, "result": "lost"}]}
+    w_, l_, u_ = se.spot_record(st)["nba_open"]
+    assert (w_, l_) == (1, 1) and abs(u_ - (100 / 110 - 0.5)) < 1e-9
+    # the lead: an NBA favorite -101..-150 with both teams on a back-to-back
+    fav = {"game_id": "n1", "league": "nba", "market": "ml", "odds": -130, "dec": 1.769, "p_market": 0.545,
+           "edge_own": 0.0, "home": True, "dog_more": {"rest": 1, "opp_rest": 1, "last_margin": 5}}
+    tag = "NBA fav -101..-150, both teams on a b2b"
+    assert tag in sports_leads.tags(fav, sports)
+    assert tag not in sports_leads.tags({**fav, "dog_more": {"rest": 2, "opp_rest": 1}}, sports)   # we're rested
+    assert tag not in sports_leads.tags({**fav, "dog_more": {"rest": 1, "opp_rest": 3}}, sports)   # they are
+    assert tag not in sports_leads.tags({**fav, "odds": -160, "dec": 1.625}, sports)               # out of the band
+    assert tag not in sports_leads.tags({**fav, "odds": 120, "dec": 2.2}, sports)                   # a dog
+    assert tag not in sports_leads.tags({**fav, "league": "nhl"}, sports)
+    cands = [dict(fav), {"game_id": "n1", "league": "nba", "market": "ml", "odds": 110, "dec": 2.1, "p_market": 0.455,
+                         "home": False, "season_games": 10}]
+    import sports_nba_roster as nr
+    keep = nr.cached
+    try:
+        nr.cached = lambda: None
+        sports.mark_nba_favorites(cands)
+    finally:
+        nr.cached = keep
+    assert cands[0]["w_p"] == 0.545 and cands[0]["nba_fav_w"] == {}                                # never a weight
+
+
 def test_nba_open_fires_from_game_one_with_the_board_dog_weights_and_the_key_man_rule():
     """10/29 (the owner: "plug everything in ... we need to jump on these NBA dogs as soon as the line opens"): the 🏀
     opening-line play had NEVER fired - its 11-game gate (both teams 11+ games in) kept it quiet till mid-November, and
@@ -15022,6 +15069,42 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
     assert a1 and a2 and a1 != a2
 
 
+def test_nfl_unit_play_studies_1030_two_tracker_leads_no_weight_no_sizing_change():
+    """10/30 NFL unit-play studies (the owner: "find ways to get good unit plays - 1u, 2u, 3u plays"): three studies,
+    NOTHING clears the five checks - the NFL Lock (-101..-150, blend 56%+, own read over) lost -10.4% train / -1.3% held
+    out and -15.5% / -16.0% at the first fair early number; the fresh QB change is priced (facing the backup +15% train,
+    -20% held out). Two LEADS go to the tracker only: (1) the NFL dog +100..+150 across the engine's Lock-grade favorite
+    (+6.6% / +8.7% at the close, 5 of 7 up, z under 1); (2) the Lock-grade small favorite in September / December+ (fade:
+    -30.5% / -33.9% on 25 / 26). No weight, no sizing rule: the NFL Lock's units (sports.lock_units) are untouched."""
+    import sports_leads as sl
+    dog = {"market": "ml", "league": "nfl", "game_id": "nfl:x", "side": "away", "home": False, "odds": 130, "dec": 2.3,
+           "p": 0.41, "p_market": 0.42, "edge_own": 0.38 * 2.3 - 1, "reasons": [], "team": "Ds", "opp": "Fs",
+           "start": "2026-11-01T18:00Z", "dog_more": {}}
+    fav = {"market": "ml", "league": "nfl", "game_id": "nfl:x", "side": "home", "home": True, "odds": -150, "dec": 1.6667,
+           "p": 0.59, "p_market": 0.58, "edge_own": 0.62 * 1.6667 - 1, "reasons": [], "team": "Fs", "opp": "Ds",
+           "start": "2026-11-01T18:00Z", "dog_more": {}}
+    across = "NFL dog across the engine's Lock-grade small favorite"
+    cold = "NFL Lock-grade small favorite in September / December+ (fade)"
+    assert sl.across_engine_lock(dog) and across in sl.tags(dog, sports)
+    assert sl.lock_grade(fav) and sl.nfl_month(fav) == 11 and cold not in sl.tags(fav, sports)   # November: no tag
+    for m in ("09", "12", "01"):
+        assert cold in sl.tags({**fav, "start": f"2026-{m}-05T18:00Z"}, sports), m
+    assert cold not in sl.tags({**fav, "start": "2026-10-05T18:00Z"}, sports)
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "p": 0.55}, sports)        # blend under 56%: no Lock
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "odds": -160, "dec": 1.625}, sports)   # past -150
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "edge_own": 0.56 * 1.6667 - 1}, sports)   # own under
+    assert not sl.across_engine_lock({**dog, "p": 0.46})                       # the favorite under 56%: not Lock grade
+    assert not sl.across_engine_lock({**dog, "edge_own": 0.44 * 2.3 - 1})      # the dog's own read over the market
+    assert not sl.across_engine_lock({**dog, "odds": 170, "dec": 2.7})         # past +150
+    assert not sl.across_engine_lock({**dog, "league": "ncaaf"})               # NFL only
+    assert sl.nfl_month({}) is None
+    # leads, not weights: the dog score and the Lock's units never move on either
+    s = {**dog, "dog_ctx": {}, "edge": 0.0}
+    assert sports.dog_score(dict(s)) == sports.dog_score({**s, "p": 0.46})
+    leg = {"odds": -150, "dec": 1.6667, "w_p": 0.62, "edge_own": 0.62 * 1.6667 - 1, "league": "nfl", "start": "2026-12-05T18:00Z"}
+    assert sports.lock_units(leg) == sports.lock_units({**leg, "start": "2026-11-05T18:00Z"}) == sports.LOCK_MAX_UNITS
+
+
 def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_with_a_one_a_day_fallback():
     """10/29 (night), the owner after the two ½u thin losers (Blue Jackets +205, Panthers +164): "Run Fable and fix the thin
     edge plays." The 10/30 funnel re-run on today's code (1,097 board days 2023-26; train 2023-25 / held out 2025-27; ~45
@@ -15060,6 +15143,81 @@ def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_
     pk = {"date": "2026-10-30", "kind": "play", "status": "open", "legs": [leg], "dec": leg["dec"], "american": 140,
           "floor": {"dog_score": 4.0, "nba": False, "fallback": leg["floor_fallback"]}, "tier": "value"}
     assert sports.units_for(pk) == 0.5 and sports.posted_kind(pk) == "floor" and sports.sizing_check([pk]) == []
+
+
+def test_college_unit_play_studies_1030_nothing_weighed_the_gap_dog_bands_are_tracker_leads():
+    """10/30 - 4 college football unit-play studies before a big Saturday (the owner: "find ways to get good unit
+    plays - 1u, 2u, 3u plays"): 126 cells, NONE passed the five checks - the -101..-150 college favorite loses at the
+    close in every cell (the 3u Lock cell -5.4% on 325), factor agreement pays nothing (favorites run WORSE the more
+    factors agree), the hammered college favorite is 28 games in 7 seasons, and no dog gap band holds up held out.
+    So nothing moves a read or a size: GAP_MIN stays 0.15, the Lock / Dog sizing is untouched. The 🔍 gap dog gets
+    its bands SPLIT in the tracker for its 50-play judge: 15-20 (watch - red in every season), 20+, and the
+    +251..+350 fade (10-34). Tags only, never a weight."""
+    import sports_leads as sl
+    assert sports.GAP_MIN == 0.15 and sports.LOCK_MAX_UNITS == 3.0 and sports.S6_DOG_UNITS == 2.0
+    dog = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:x", "side": "away", "home": False, "odds": 180,
+           "dec": 2.8, "p_market": 0.37, "raw_own": 0.54, "elo_edge": 3.5, "edge": 0.0, "edge_own": 0.512,
+           "reasons": [], "team": "A", "opp": "B", "start": "2026-10-31T19:00Z", "dog_more": {}}
+    assert sl.gap_band(dog) == ["college gap dog 15-20 (watch)"]
+    assert sl.gap_band({**dog, "raw_own": 0.58}) == ["college gap dog 20+"]
+    assert sl.gap_band({**dog, "raw_own": 0.58, "odds": 280}) == ["college gap dog 20+", "college gap dog +251..+350 (fade)"]
+    assert sl.gap_band({**dog, "raw_own": 0.50}) == []                      # under 15 points: not a gap dog
+    assert sl.gap_band({**dog, "elo_edge": -1.0}) == []                     # the ratings have the favorite: no 🔍 play
+    assert sl.gap_band({**dog, "odds": 400}) == []                          # past +350
+    assert sl.gap_band({**dog, "league": "nfl"}) == []                      # college only
+    tags = sl.tags(dog, sports)
+    assert "college gap dog 15-20 (watch)" in tags
+    assert "college gap dog 20+" not in tags
+def test_weekend_sweep_1030_team_verbs_agree_on_every_line_and_the_floor_closer_tells_the_truth():
+    """10/30 weekend sweep (the owner: "get everything in order so we can win a bunch of money this weekend"). The
+    Saturday preview's cards: "Iowa State are healthy", "Iowa State take care of home", "Fresno St have dropped 2
+    straight", "Senators's the side", "Sabres's the side" - and a Dolphins +260 floor play at a dog score of -1.9 closing
+    with "the dog angles back it". The guard makes every team verb agree with its name (ours AND the opponent's, on the
+    body and the line under the pick, on cards already posted too), the coin-flip lean closer says "are / is the side",
+    the school names ending in s (Texas, Kansas, Ole Miss) take the singular, and a floor dog the score has under zero
+    gets a closer that says it's just the best dog left."""
+    import sports_card_guard as g
+    import sports_breakdown_v24 as b
+    import sports_breakdown
+    assert sports_breakdown.VERSION >= 61                                  # open cards re-render
+    # the verbs: a school / a one-word mascot takes the singular, a plural mascot stays plural
+    assert g.agree("✅ Iowa State are healthy — nobody important sitting.", "Iowa State") == "✅ Iowa State is healthy — nobody important sitting."
+    assert g.agree("📋 Fresno St have dropped 2 straight.", "Fresno St") == "📋 Fresno St has dropped 2 straight."
+    assert g.agree("🏟️ Oklahoma St are 1-2 on the road this year.", "Iowa State", "Oklahoma St") == "🏟️ Oklahoma St is 1-2 on the road this year."
+    assert g.agree("🔥 Both teams are rolling: the Lightning have won 3 straight.", "Lightning") == "🔥 Both teams are rolling: the Lightning has won 3 straight."
+    assert g.agree("📅 The Bruins are off a 3-2 win; Bruins have everybody.", "Bruins") == "📅 The Bruins are off a 3-2 win; Bruins have everybody."
+    assert g.agree("💪 Iowa State been the better team.", "Iowa State") == "💪 Iowa State been the better team."   # his lingo stays
+    assert g.agree("Texas are 5-2 and Ole Miss are 6-1.", "Texas", "Ole Miss") == "Texas is 5-2 and Ole Miss is 6-1."
+    assert g.agree("Iowa State don't travel.", "Iowa State") == "Iowa State doesn't travel."
+    assert g.agree("🏟️ Iowa State take care of home: 3-1 in their building so far.", "Iowa State") == "🏟️ Iowa State takes care of home: 3-1 in their building so far."
+    assert g.agree("📅 Fresno St come off a 26-23 loss; Oregon St go on the road 2-1.", "Fresno St", "Oregon St") == "📅 Fresno St comes off a 26-23 loss; Oregon St goes on the road 2-1."
+    assert g.agree("the Bruins take care of home", "Bruins") == "the Bruins take care of home"
+    for name, want in (("Texas", "is"), ("Kansas", "is"), ("Arkansas", "is"), ("Ole Miss", "is"), ("UMass", "is"), ("Illinois", "is"),
+                       ("76ers", "are"), ("Bruins", "are"), ("Red Wings", "are"), ("Heat", "is"), ("Iowa State", "is")):
+        assert b.vb(name, "are", "is") == want, name
+    # the guard applies it to every line it passes, the opponent's name too, and to the line under the pick
+    out = g.clean(["✅ Iowa State are healthy.", "🧳 Oklahoma St are 1-2 on the road.", "✅ Bottom line: Iowa State (+280). Iowa State are the side."],
+                  "ncaaf", "Iowa State", "Oklahoma St")
+    assert out == ["✅ Iowa State is healthy.", "🧳 Oklahoma St is 1-2 on the road.", "✅ Bottom line: Iowa State (+280). Iowa State is the side."]
+    assert g.one("📊 Iowa State are 3-4; Oklahoma St are 1-6.", "ncaaf", "Iowa State", "Oklahoma St") == "📊 Iowa State is 3-4; Oklahoma St is 1-6."
+    assert g.clean(["the Bruins are rolling"], "nhl", "Bruins", "Lightning") == ["the Bruins are rolling"]
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "sports_card_guard.clean([x for x in out if x], lg, us, them)" in src          # the card passes both names
+    dsh = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert dsh.count('leg.get("team", ""), leg.get("opp", ""))') >= 2                     # the dashboard's last stop too
+    # the coin-flip lean closer: "Senators are the side", "Wild is the side" - never "Senators's"
+    leg = {"market": "ml", "odds": -120}
+    pool = sports_breakdown._lean_pool(leg, "Senators", "Senators (-120)", -120, 0.52)
+    assert any("Senators are the side" in x for x in pool) and not any("Senators's" in x for x in pool), pool
+    pool = sports_breakdown._lean_pool(leg, "Wild", "Wild (-120)", -120, 0.52)
+    assert any("Wild is the side" in x for x in pool) and not any("Wild's the side" in x for x in pool), pool
+    # the floor closer: a dog the score has UNDER zero never claims the dog angles back it
+    i, j = src.index('v.say("bottom_floor_low"'), src.index('v.say("bottom_floor",')
+    assert i < j and '(leg.get("floor_score") or 0) < 0' in src[i - 600:i]
+    low = src[i:j]
+    for bad in ("angles back it", "every angle", "every dog angle", "best of every dog", "the dog angles say"):
+        assert bad not in low, bad
+    assert "best dog left" in low
 
 
 if __name__ == "__main__":

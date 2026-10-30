@@ -1,0 +1,244 @@
+====================================================================================================
+STUDY 1 - THE NFL LOCK AT THE CLOSE (favorites -101..-150; blend = the engine's blended win %, own = its ratings read)
+====================================================================================================
+band -101..-150, every favorite [train]                    n  331 won 52.3% (said 56.0%) ROI -6.7% z -1.4 up 0/4 | 20:-6%/76 21:-16%/79 22:-4%/84 23:-1%/92
+band -101..-150, every favorite [hold]                     n  188 won 52.7% (said 55.7%) ROI -5.5% z -0.8 up 0/3 | 24:-4%/76 25:-5%/80 26:-10%/32
+blend 56%+ (lock_ok) [train]                               n   98 won 55.1% (said 58.0%) ROI -4.8% z -0.6 up 1/4 | 20:-8%/15 21:-13%/36 22:+8%/26 23:-4%/21
+blend 56%+ (lock_ok) [hold]                                n   64 won 56.2% (said 58.0%) ROI -3.1% z -0.3 up 0/3 | 24:-1%/12 25:-3%/39 26:-6%/13
+blend 56%+ AND own over the price (today's Lock) [train]   n   76 won 51.3% (said 57.5%) ROI -10.4% z -1.0 up 1/4 | 20:+1%/12 21:-12%/28 22:-3%/22 23:-28%/14
+blend 56%+ AND own over the price (today's Lock) [hold]    n   37 won 56.8% (said 57.8%) ROI -1.3% z -0.1 up 2/3 | 24:-15%/8 25:+1%/19 26:+6%/10
+blend 56%+, own UNDER the price (no Lock) [train]          n   22 won 68.2% (said 59.5%) ROI +14.5% z +0.9 up 2/4 | 20:-44%/3 21:-16%/8 22:+69%/4 23:+44%/7
+blend 56%+, own UNDER the price (no Lock) [hold]           n   27 won 55.6% (said 58.3%) ROI -5.4% z -0.3 up 1/3 | 24:+26%/4 25:-6%/20 26:-44%/3
+...own edge 3%+ (the non-thin Lock) [train]                n   62 won 53.2% (said 57.2%) ROI -6.7% z -0.6 up 1/4 | 20:+21%/10 21:-9%/25 22:-6%/19 23:-37%/8
+...own edge 3%+ (the non-thin Lock) [hold]                 n   28 won 50.0% (said 57.3%) ROI -12.1% z -0.7 up 0/3 | 24:-31%/5 25:-12%/14 26:-2%/9
+...own edge under 3% (thin) [train]                        n   14 won 42.9% (said 59.0%) ROI -26.6% z -1.2 up 1/4 | 20:-100%/2 21:-43%/3 22:+17%/3 23:-16%/6
+...own edge under 3% (thin) [hold]                         n    9 won 77.8% (said 59.1%) ROI +32.0% z +1.4 up 3/3 | 24:+11%/3 25:+37%/5 26:+70%/1
+...at -119..-101 (S6_LOCK_SKIP) [train]                    n    7 won 71.4% (said 53.0%) ROI +33.8% z +1.1 up 1/2 | 21:-7%/4 22:+88%/3
+...at -119..-101 (S6_LOCK_SKIP) [hold]                     n    3 won 100.0% (said 53.1%) ROI +88.3% z +105.3 up 2/2 | 25:+88%/2 26:+89%/1
+...at -150..-120 [train]                                   n   69 won 49.3% (said 58.0%) ROI -14.9% z -1.4 up 1/4 | 20:+1%/12 21:-13%/24 22:-17%/19 23:-28%/14
+...at -150..-120 [hold]                                    n   34 won 52.9% (said 58.2%) ROI -9.3% z -0.6 up 0/3 | 24:-15%/8 25:-9%/17 26:-4%/9
+...own read itself 56%+ [train]                            n   75 won 50.7% (said 57.5%) ROI -11.5% z -1.1 up 1/4 | 20:+1%/12 21:-12%/28 22:-7%/21 23:-28%/14
+...own read itself 56%+ [hold]                             n   37 won 56.8% (said 57.8%) ROI -1.3% z -0.1 up 2/3 | 24:-15%/8 25:+1%/19 26:+6%/10
+...own read itself 60%+ [train]                            n   61 won 54.1% (said 57.5%) ROI -5.7% z -0.5 up 1/4 | 20:+10%/11 21:-9%/23 22:-5%/17 23:-16%/10
+...own read itself 60%+ [hold]                             n   29 won 48.3% (said 57.6%) ROI -15.7% z -1.0 up 0/3 | 24:-31%/5 25:-19%/15 26:-2%/9
+...own read under 56% [train]                              n    1 won 100.0% (said 56.3%) ROI +77.5% z +0.8 up 1/1 | 22:+78%/1
+...own read under 56% [hold]                               n 0
+...home favorite [train]                                   n   35 won 54.3% (said 58.5%) ROI -6.7% z -0.5 up 1/4 | 20:-5%/11 21:-14%/10 22:+5%/5 23:-6%/9
+...home favorite [hold]                                    n   20 won 55.0% (said 58.6%) ROI -5.6% z -0.3 up 1/3 | 24:-15%/8 25:+7%/8 26:-13%/4
+...road favorite [train]                                   n   41 won 48.8% (said 56.7%) ROI -13.5% z -1.0 up 1/4 | 20:+67%/1 21:-11%/18 22:-5%/17 23:-66%/5
+...road favorite [hold]                                    n   17 won 58.8% (said 56.8%) ROI +3.7% z +0.2 up 1/2 | 25:-4%/11 26:+18%/6
+...own_blind (no injuries) over too [train]                n   76 won 51.3% (said 57.5%) ROI -10.4% z -1.0 up 1/4 | 20:+1%/12 21:-12%/28 22:-3%/22 23:-28%/14
+...own_blind (no injuries) over too [hold]                 n   37 won 56.8% (said 57.8%) ROI -1.3% z -0.1 up 2/3 | 24:-15%/8 25:+1%/19 26:+6%/10
+...own over only because of injuries [train]               n 0
+...own over only because of injuries [hold]                n 0
+...the opponent is the banged-up one (inj>0) [train]       n 0
+...the opponent is the banged-up one (inj>0) [hold]        n    2 won 100.0% (said 54.7%) ROI +83.1% z +19.0 up 1/1 | 26:+83%/2
+...we are the banged-up one (inj<0) [train]                n 0
+...we are the banged-up one (inj<0) [hold]                 n    3 won 33.3% (said 55.7%) ROI -41.0% z -0.9 up 0/1 | 26:-41%/3
+...laying 3+ [train]                                       n   14 won 57.1% (said 59.7%) ROI -4.1% z -0.2 up 1/4 | 20:-16%/2 21:+12%/6 22:-16%/2 23:-16%/4
+...laying 3+ [hold]                                        n    4 won 50.0% (said 59.8%) ROI -16.4% z -0.4 up 1/3 | 24:+67%/2 25:-100%/1 26:-100%/1
+...laying under 3 [train]                                  n   62 won 50.0% (said 57.0%) ROI -11.8% z -1.1 up 1/4 | 20:+4%/10 21:-19%/22 22:-1%/20 23:-32%/10
+...laying under 3 [hold]                                   n   33 won 57.6% (said 57.5%) ROI +0.5% z +0.0 up 2/3 | 24:-42%/6 25:+6%/18 26:+17%/9
+...own read 2%+ over the no-vig close [train]              n   69 won 53.6% (said 57.4%) ROI -6.3% z -0.6 up 1/4 | 20:+1%/12 21:-6%/26 22:-2%/20 23:-24%/11
+...own read 2%+ over the no-vig close [hold]               n   33 won 54.5% (said 57.6%) ROI -4.7% z -0.3 up 0/3 | 24:-15%/6 25:-3%/18 26:-2%/9
+...own read 4%+ over the no-vig close [train]              n   64 won 54.7% (said 57.3%) ROI -4.4% z -0.4 up 1/4 | 20:+21%/10 21:-9%/25 22:-6%/19 23:-16%/10
+...own read 4%+ over the no-vig close [hold]               n   28 won 50.0% (said 57.3%) ROI -12.1% z -0.7 up 0/3 | 24:-31%/5 25:-12%/14 26:-2%/9
+...own read 6%+ over the no-vig close [train]              n   49 won 55.1% (said 57.0%) ROI -3.0% z -0.2 up 2/4 | 20:+24%/7 21:-4%/22 22:+11%/13 23:-52%/7
+...own read 6%+ over the no-vig close [hold]               n   24 won 45.8% (said 57.4%) ROI -19.4% z -1.1 up 0/3 | 24:-14%/4 25:-27%/12 26:-11%/8
+...own read 8%+ over the no-vig close [train]              n   41 won 61.0% (said 56.8%) ROI +7.6% z +0.6 up 3/4 | 20:+74%/5 21:+2%/19 22:+15%/11 23:-44%/6
+...own read 8%+ over the no-vig close [hold]               n   20 won 50.0% (said 57.4%) ROI -12.1% z -0.6 up 1/3 | 24:-44%/3 25:-20%/11 26:+19%/6
+...off a bye [train]                                       n   10 won 50.0% (said 58.8%) ROI -14.4% z -0.5 up 1/3 | 21:-31%/5 22:+72%/2 23:-44%/3
+...off a bye [hold]                                        n    7 won 71.4% (said 58.5%) ROI +23.2% z +0.8 up 3/3 | 24:+67%/1 25:+5%/5 26:+71%/1
+...opponent off a bye [train]                              n    8 won 50.0% (said 58.8%) ROI -14.6% z -0.5 up 1/3 | 21:-43%/3 22:+73%/2 23:-44%/3
+...opponent off a bye [hold]                               n    3 won 100.0% (said 58.3%) ROI +71.7% z +29.6 up 3/3 | 24:+67%/1 25:+77%/1 26:+71%/1
+...off a loss [train]                                      n   39 won 48.7% (said 57.9%) ROI -15.4% z -1.1 up 0/4 | 20:-33%/5 21:-1%/16 22:-21%/11 23:-28%/7
+...off a loss [hold]                                       n   15 won 53.3% (said 57.1%) ROI -5.9% z -0.3 up 1/3 | 24:-12%/2 25:+6%/10 26:-41%/3
+...off a win [train]                                       n   37 won 54.1% (said 57.2%) ROI -5.1% z -0.4 up 2/4 | 20:+24%/7 21:-27%/12 22:+15%/11 23:-28%/7
+...off a win [hold]                                        n   22 won 59.1% (said 58.2%) ROI +1.8% z +0.1 up 1/3 | 24:-16%/6 25:-5%/9 26:+25%/7
+...September [train]                                       n   12 won 25.0% (said 57.7%) ROI -57.8% z -2.7 up 1/4 | 20:-100%/1 21:-72%/6 22:-100%/2 23:+12%/3
+...September [hold]                                        n   13 won 53.8% (said 57.3%) ROI -5.3% z -0.2 up 2/3 | 24:+1%/5 25:-37%/3 26:+8%/5
+...Oct-Nov [train]                                         n   46 won 63.0% (said 57.2%) ROI +11.0% z +0.9 up 3/4 | 20:+15%/6 21:+11%/19 22:+28%/14 23:-27%/7
+...Oct-Nov [hold]                                          n   16 won 68.8% (said 58.0%) ROI +18.9% z +0.9 up 2/3 | 24:-12%/2 25:+34%/9 26:+4%/5
+...Dec+ [train]                                            n   18 won 38.9% (said 58.3%) ROI -33.3% z -1.7 up 1/4 | 20:+3%/5 21:-42%/3 22:-43%/6 23:-58%/4
+...Dec+ [hold]                                             n    8 won 37.5% (said 58.0%) ROI -35.3% z -1.2 up 0/2 | 24:-100%/1 25:-26%/7
+
+Bigger favorites the Lock never takes (for the size question):
+-151..-200, blend 56%+, own over [train]                   n  103 won 63.1% (said 63.6%) ROI -0.8% z -0.1 up 1/4 | 20:-3%/21 21:-15%/20 22:-15%/37 23:+34%/25
+-151..-200, blend 56%+, own over [hold]                    n   67 won 64.2% (said 63.3%) ROI +1.0% z +0.1 up 1/3 | 24:+16%/30 25:-13%/27 26:-7%/10
+-201..-300, own over [train]                               n   70 won 54.3% (said 71.1%) ROI -23.6% z -2.8 up 0/4 | 20:-10%/14 21:-9%/20 22:-30%/20 23:-46%/16
+-201..-300, own over [hold]                                n   54 won 72.2% (said 71.0%) ROI +1.6% z +0.2 up 1/3 | 24:+19%/25 25:-15%/23 26:-4%/6
+
+====================================================================================================
+STUDY 2 - THE EARLY-WEEK NUMBER (E = the first fair look of the week, 1.5-7.5 days out, after both teams' last games)
+====================================================================================================
+--- read = own_blind (own_blind = no injury info, what's known Tuesday)
+EARLY LOCK: E fav -101..-150, blend@E 56%+, own_blind over E [train] n   70 won 48.6% (said 57.7%) ROI -15.5% z -1.5 up 1/4 | 20:-34%/13 21:+8%/23 22:-22%/20 23:-27%/14
+EARLY LOCK: E fav -101..-150, blend@E 56%+, own_blind over E [hold] n   43 won 48.8% (said 58.0%) ROI -16.0% z -1.2 up 1/3 | 24:+0%/17 25:-26%/21 26:-30%/5
+  ...same sides graded at the CLOSE price [train]          n   70 won 48.6% (said 55.4%) ROI -11.5% z -1.0 up 1/4 | 20:-30%/13 21:+17%/23 22:-23%/20 23:-26%/14
+  ...same sides graded at the CLOSE price [hold]           n   43 won 48.8% (said 57.2%) ROI -14.9% z -1.1 up 0/3 | 24:-1%/17 25:-23%/21 26:-30%/5
+  ...same sides at the best early book [train]             n   70 won 48.6% (said 56.3%) ROI -13.5% z -1.3 up 1/4 | 20:-32%/13 21:+11%/23 22:-20%/20 23:-26%/14
+  ...same sides at the best early book [hold]              n   43 won 48.8% (said 57.0%) ROI -14.6% z -1.1 up 1/3 | 24:+2%/17 25:-24%/21 26:-29%/5
+  ...own_blind edge 3%+ at E [train]                       n   55 won 49.1% (said 57.4%) ROI -14.3% z -1.2 up 1/4 | 20:-31%/10 21:+3%/19 22:-25%/16 23:-14%/10
+  ...own_blind edge 3%+ at E [hold]                        n   30 won 50.0% (said 57.7%) ROI -13.5% z -0.9 up 1/3 | 24:+14%/12 25:-30%/15 26:-40%/3
+  ...own_blind 60%+ [train]                                n   55 won 49.1% (said 57.7%) ROI -14.7% z -1.3 up 0/4 | 20:-31%/10 21:-2%/18 22:-20%/15 23:-15%/12
+  ...own_blind 60%+ [hold]                                 n   34 won 47.1% (said 58.1%) ROI -18.8% z -1.3 up 0/3 | 24:-3%/14 25:-24%/16 26:-55%/4
+  ...still -101..-150 at the close [train]                 n   52 won 48.1% (said 57.7%) ROI -16.7% z -1.4 up 1/4 | 20:-37%/11 21:+20%/16 22:-26%/14 23:-38%/11
+  ...still -101..-150 at the close [hold]                  n   26 won 53.8% (said 57.7%) ROI -6.3% z -0.4 up 1/3 | 24:+15%/9 25:-13%/14 26:-40%/3
+  ...the price shortened by the close (CLV won) [train]    n   23 won 60.9% (said 57.6%) ROI +6.9% z +0.4 up 2/4 | 20:+78%/2 21:+28%/7 22:-13%/8 23:-15%/6
+  ...the price shortened by the close (CLV won) [hold]     n   19 won 47.4% (said 58.6%) ROI -19.6% z -1.0 up 1/3 | 24:+3%/10 25:-52%/7 26:-16%/2
+  ...the price got longer by the close [train]             n   47 won 42.6% (said 57.7%) ROI -26.5% z -2.1 up 0/4 | 20:-54%/11 21:-1%/16 22:-28%/12 23:-36%/8
+  ...the price got longer by the close [hold]              n   24 won 50.0% (said 57.6%) ROI -13.2% z -0.7 up 0/3 | 24:-3%/7 25:-13%/14 26:-40%/3
+  E fav, own_blind 3%+ over the E no-vig [train]           n   96 won 49.0% (said 55.9%) ROI -12.5% z -1.4 up 1/4 | 20:+0%/16 21:-3%/24 22:-28%/22 23:-15%/34
+  E fav, own_blind 3%+ over the E no-vig [hold]            n   64 won 51.6% (said 55.5%) ROI -6.7% z -0.6 up 1/3 | 24:+1%/30 25:-12%/27 26:-20%/7
+  E dog +100..+350, own_blind 3%+ over the E no-vig [train] n  492 won 35.4% (said 36.8%) ROI -4.7% z -0.8 up 1/4 | 20:-17%/131 21:+14%/116 22:-6%/122 23:-8%/123
+  E dog +100..+350, own_blind 3%+ over the E no-vig [hold] n  257 won 32.3% (said 37.3%) ROI -9.2% z -1.1 up 1/3 | 24:-20%/128 25:-7%/102 26:+31%/27
+  E fav, own_blind 6%+ over the E no-vig [train]           n   71 won 49.3% (said 55.8%) ROI -11.8% z -1.1 up 0/4 | 20:-0%/9 21:-1%/20 22:-22%/18 23:-17%/24
+  E fav, own_blind 6%+ over the E no-vig [hold]            n   47 won 48.9% (said 55.9%) ROI -12.5% z -1.0 up 1/3 | 24:+6%/20 25:-22%/21 26:-40%/6
+  E dog +100..+350, own_blind 6%+ over the E no-vig [train] n  372 won 36.0% (said 36.9%) ROI -3.9% z -0.6 up 2/4 | 20:-14%/97 21:+4%/83 22:+5%/98 23:-10%/94
+  E dog +100..+350, own_blind 6%+ over the E no-vig [hold] n  198 won 33.8% (said 37.6%) ROI -7.5% z -0.8 up 1/3 | 24:-21%/103 25:-7%/71 26:+47%/24
+  E fav, own_blind 9%+ over the E no-vig [train]           n   49 won 57.1% (said 55.6%) ROI +2.6% z +0.2 up 2/4 | 20:+28%/7 21:+1%/16 22:-2%/9 23:-5%/17
+  E fav, own_blind 9%+ over the E no-vig [hold]            n   23 won 47.8% (said 55.8%) ROI -14.4% z -0.8 up 1/3 | 24:-3%/11 25:-34%/11 26:+80%/1
+  E dog +100..+350, own_blind 9%+ over the E no-vig [train] n  268 won 37.7% (said 36.8%) ROI +0.2% z +0.0 up 2/4 | 20:-14%/68 21:+11%/57 22:+5%/78 23:-0%/65
+  E dog +100..+350, own_blind 9%+ over the E no-vig [hold] n  135 won 32.6% (said 38.3%) ROI -14.9% z -1.4 up 1/3 | 24:-30%/75 25:-1%/44 26:+19%/16
+  E fav -151..-250, own_blind 4%+ over [train]             n   89 won 55.1% (said 65.7%) ROI -15.7% z -1.9 up 2/4 | 20:+20%/15 21:+6%/23 22:-38%/30 23:-34%/21
+  E fav -151..-250, own_blind 4%+ over [hold]              n   59 won 71.2% (said 65.6%) ROI +8.2% z +0.9 up 2/3 | 24:+25%/29 25:-15%/27 26:+56%/3
+--- read = own (own_blind = no injury info, what's known Tuesday)
+EARLY LOCK: E fav -101..-150, blend@E 56%+, own over E [train] n   70 won 48.6% (said 57.7%) ROI -15.5% z -1.5 up 1/4 | 20:-34%/13 21:+8%/23 22:-22%/20 23:-27%/14
+EARLY LOCK: E fav -101..-150, blend@E 56%+, own over E [hold] n   43 won 48.8% (said 58.0%) ROI -16.0% z -1.2 up 1/3 | 24:+0%/17 25:-26%/21 26:-30%/5
+  ...same sides graded at the CLOSE price [train]          n   70 won 48.6% (said 55.4%) ROI -11.5% z -1.0 up 1/4 | 20:-30%/13 21:+17%/23 22:-23%/20 23:-26%/14
+  ...same sides graded at the CLOSE price [hold]           n   43 won 48.8% (said 57.2%) ROI -14.9% z -1.1 up 0/3 | 24:-1%/17 25:-23%/21 26:-30%/5
+  ...same sides at the best early book [train]             n   70 won 48.6% (said 56.3%) ROI -13.5% z -1.3 up 1/4 | 20:-32%/13 21:+11%/23 22:-20%/20 23:-26%/14
+  ...same sides at the best early book [hold]              n   43 won 48.8% (said 57.0%) ROI -14.6% z -1.1 up 1/3 | 24:+2%/17 25:-24%/21 26:-29%/5
+  ...own edge 3%+ at E [train]                             n   55 won 49.1% (said 57.4%) ROI -14.3% z -1.2 up 1/4 | 20:-31%/10 21:+3%/19 22:-25%/16 23:-14%/10
+  ...own edge 3%+ at E [hold]                              n   30 won 50.0% (said 57.7%) ROI -13.5% z -0.9 up 1/3 | 24:+14%/12 25:-30%/15 26:-40%/3
+  ...own 60%+ [train]                                      n   55 won 49.1% (said 57.7%) ROI -14.7% z -1.3 up 0/4 | 20:-31%/10 21:-2%/18 22:-20%/15 23:-15%/12
+  ...own 60%+ [hold]                                       n   34 won 47.1% (said 58.1%) ROI -18.8% z -1.3 up 0/3 | 24:-3%/14 25:-24%/16 26:-55%/4
+  ...still -101..-150 at the close [train]                 n   52 won 48.1% (said 57.7%) ROI -16.7% z -1.4 up 1/4 | 20:-37%/11 21:+20%/16 22:-26%/14 23:-38%/11
+  ...still -101..-150 at the close [hold]                  n   26 won 53.8% (said 57.7%) ROI -6.3% z -0.4 up 1/3 | 24:+15%/9 25:-13%/14 26:-40%/3
+  ...the price shortened by the close (CLV won) [train]    n   23 won 60.9% (said 57.6%) ROI +6.9% z +0.4 up 2/4 | 20:+78%/2 21:+28%/7 22:-13%/8 23:-15%/6
+  ...the price shortened by the close (CLV won) [hold]     n   19 won 47.4% (said 58.6%) ROI -19.6% z -1.0 up 1/3 | 24:+3%/10 25:-52%/7 26:-16%/2
+  ...the price got longer by the close [train]             n   47 won 42.6% (said 57.7%) ROI -26.5% z -2.1 up 0/4 | 20:-54%/11 21:-1%/16 22:-28%/12 23:-36%/8
+  ...the price got longer by the close [hold]              n   24 won 50.0% (said 57.6%) ROI -13.2% z -0.7 up 0/3 | 24:-3%/7 25:-13%/14 26:-40%/3
+  E fav, own 3%+ over the E no-vig [train]                 n   96 won 49.0% (said 55.9%) ROI -12.5% z -1.4 up 1/4 | 20:+0%/16 21:-3%/24 22:-28%/22 23:-15%/34
+  E fav, own 3%+ over the E no-vig [hold]                  n   64 won 51.6% (said 55.5%) ROI -6.7% z -0.6 up 1/3 | 24:+1%/30 25:-12%/27 26:-20%/7
+  E dog +100..+350, own 3%+ over the E no-vig [train]      n  492 won 35.4% (said 36.8%) ROI -4.7% z -0.8 up 1/4 | 20:-17%/131 21:+14%/116 22:-6%/122 23:-8%/123
+  E dog +100..+350, own 3%+ over the E no-vig [hold]       n  257 won 32.3% (said 37.3%) ROI -9.2% z -1.1 up 1/3 | 24:-20%/128 25:-7%/102 26:+31%/27
+  E fav, own 6%+ over the E no-vig [train]                 n   71 won 49.3% (said 55.8%) ROI -11.8% z -1.1 up 0/4 | 20:-0%/9 21:-1%/20 22:-22%/18 23:-17%/24
+  E fav, own 6%+ over the E no-vig [hold]                  n   47 won 48.9% (said 55.9%) ROI -12.5% z -1.0 up 1/3 | 24:+6%/20 25:-22%/21 26:-40%/6
+  E dog +100..+350, own 6%+ over the E no-vig [train]      n  372 won 36.0% (said 36.9%) ROI -3.9% z -0.6 up 2/4 | 20:-14%/97 21:+4%/83 22:+5%/98 23:-10%/94
+  E dog +100..+350, own 6%+ over the E no-vig [hold]       n  198 won 33.8% (said 37.6%) ROI -7.5% z -0.8 up 1/3 | 24:-21%/103 25:-7%/71 26:+47%/24
+  E fav, own 9%+ over the E no-vig [train]                 n   49 won 57.1% (said 55.6%) ROI +2.6% z +0.2 up 2/4 | 20:+28%/7 21:+1%/16 22:-2%/9 23:-5%/17
+  E fav, own 9%+ over the E no-vig [hold]                  n   23 won 47.8% (said 55.8%) ROI -14.4% z -0.8 up 1/3 | 24:-3%/11 25:-34%/11 26:+80%/1
+  E dog +100..+350, own 9%+ over the E no-vig [train]      n  268 won 37.7% (said 36.8%) ROI +0.2% z +0.0 up 2/4 | 20:-14%/68 21:+11%/57 22:+5%/78 23:-0%/65
+  E dog +100..+350, own 9%+ over the E no-vig [hold]       n  135 won 32.6% (said 38.3%) ROI -14.9% z -1.4 up 1/3 | 24:-30%/75 25:-1%/44 26:+19%/16
+  E fav -151..-250, own 4%+ over [train]                   n   89 won 55.1% (said 65.7%) ROI -15.7% z -1.9 up 2/4 | 20:+20%/15 21:+6%/23 22:-38%/30 23:-34%/21
+  E fav -151..-250, own 4%+ over [hold]                    n   59 won 71.2% (said 65.6%) ROI +8.2% z +0.9 up 2/3 | 24:+25%/29 25:-15%/27 26:+56%/3
+--- how the early favorite's price moves (favorites -101..-150 at E): share whose close is shorter
+  all                          n 508 shortened 44.1%, avg implied move -0.85%
+  early Lock (own_blind)       n 113 shortened 37.2%, avg implied move -1.70%
+  own_blind UNDER              n 300 shortened 44.7%, avg implied move -0.80%
+
+====================================================================================================
+STUDY 3 - THE FRESH QB CHANGE (nflverse report: the QB who started the team's last game is Out / Doubtful this week; box scores confirm another QB threw)
+====================================================================================================
+team-games with a known last-game QB and this-game QB: 2732; FRESH QB change (last starter Out/Doubtful): 64; questionable-then-sat: 41; other changes (benching / already-known): 217
+--- facing the backup: FRESH change (Out/Doubtful)
+  the side facing the new QB, any price, close [train]     n   36 won 72.2% (said 63.3%) ROI +15.4% z +1.2 up 2/3 | 21:+21%/9 22:+28%/15 23:-5%/12
+  the side facing the new QB, any price, close [hold]      n   28 won 60.7% (said 72.4%) ROI -20.0% z -1.6 up 1/3 | 24:+27%/8 25:-32%/18 26:-100%/2
+  ...as a favorite, close [train]                          n   27 won 77.8% (said 70.7%) ROI +11.2% z +0.9 up 2/3 | 21:+40%/6 22:+12%/11 23:-7%/10
+  ...as a favorite, close [hold]                           n   24 won 66.7% (said 77.2%) ROI -15.8% z -1.3 up 1/3 | 24:+27%/8 25:-28%/14 26:-100%/2
+  ...as a -101..-150 favorite, close [train]               n    4 won 75.0% (said 54.7%) ROI +39.2% z +1.0 up 2/2 | 21:+94%/1 23:+21%/3
+  ...as a -101..-150 favorite, close [hold]                n    2 won 50.0% (said 58.3%) ROI -14.8% z -0.2 up 0/1 | 25:-15%/2
+  ...as a -151..-250 favorite, close [train]               n   12 won 75.0% (said 65.9%) ROI +13.2% z +0.7 up 2/3 | 21:+41%/2 22:+23%/5 23:-8%/5
+  ...as a -151..-250 favorite, close [hold]                n    5 won 40.0% (said 66.3%) ROI -40.6% z -1.2 up 1/3 | 24:+49%/2 25:-100%/2 26:-100%/1
+  ...as a dog, close [train]                               n    9 won 55.6% (said 41.0%) ROI +28.2% z +0.7 up 2/3 | 21:-17%/3 22:+73%/4 23:+5%/2
+  ...as a dog, close [hold]                                n    4 won 25.0% (said 43.5%) ROI -45.2% z -1.0 up 0/1 | 25:-45%/4
+  ...favorite with the own read (inj in) over the close [train] n    7 won 71.4% (said 73.1%) ROI -0.5% z -0.0 up 1/3 | 21:+26%/4 22:-100%/1 23:-5%/2
+  ...favorite with the own read (inj in) over the close [hold] n    7 won 42.9% (said 75.6%) ROI -48.2% z -2.1 up 0/2 | 25:-40%/6 26:-100%/1
+  ...the Lock test (blend 56%+, own over) [train]          n    6 won 66.7% (said 76.5%) ROI -15.7% z -0.6 up 1/3 | 21:+26%/4 22:-100%/1 23:-100%/1
+  ...the Lock test (blend 56%+, own over) [hold]           n    7 won 42.9% (said 75.6%) ROI -48.2% z -2.1 up 0/2 | 25:-40%/6 26:-100%/1
+  ...graded at E (first look - before the news?) [train]   n   36 won 72.2% (said 61.5%) ROI +18.5% z +1.3 up 2/3 | 21:+24%/9 22:+33%/15 23:-4%/12
+  ...graded at E (first look - before the news?) [hold]    n   28 won 60.7% (said 69.2%) ROI -15.4% z -1.1 up 1/3 | 24:+41%/8 25:-31%/18 26:-100%/2
+  ...the same sides at the close [train]                   n   36 won 72.2% (said 63.3%) ROI +15.4% z +1.2 up 2/3 | 21:+21%/9 22:+28%/15 23:-5%/12
+  ...the same sides at the close [hold]                    n   28 won 60.7% (said 72.4%) ROI -20.0% z -1.6 up 1/3 | 24:+27%/8 25:-32%/18 26:-100%/2
+  ...graded at M (last look before game day) [train]       n   35 won 74.3% (said 63.4%) ROI +19.2% z +1.4 up 2/3 | 21:+41%/8 22:+27%/15 23:-5%/12
+  ...graded at M (last look before game day) [hold]        n   25 won 64.0% (said 69.8%) ROI -10.7% z -0.7 up 1/3 | 24:+36%/8 25:-24%/15 26:-100%/2
+  ...the same sides at the close [train]                   n   35 won 74.3% (said 63.7%) ROI +18.7% z +1.4 up 2/3 | 21:+36%/8 22:+28%/15 23:-5%/12
+  ...the same sides at the close [hold]                    n   25 won 64.0% (said 71.4%) ROI -15.2% z -1.1 up 1/3 | 24:+27%/8 25:-27%/15 26:-100%/2
+  ...graded at G (game morning) [train]                    n   35 won 71.4% (said 64.0%) ROI +11.9% z +0.9 up 2/3 | 21:+23%/9 22:+20%/14 23:-6%/12
+  ...graded at G (game morning) [hold]                     n   27 won 59.3% (said 71.5%) ROI -19.9% z -1.5 up 1/3 | 24:+30%/8 25:-34%/17 26:-100%/2
+  the new-QB side itself:
+  the new-QB team, any price, close [train]                n   36 won 27.8% (said 41.0%) ROI -37.1% z -2.1 up 0/3 | 21:-67%/9 22:-46%/15 23:-4%/12
+  the new-QB team, any price, close [hold]                 n   28 won 39.3% (said 31.8%) ROI +8.6% z +0.3 up 2/3 | 24:-100%/8 25:+31%/18 26:+242%/2
+  ...as a dog, close [train]                               n   25 won 24.0% (said 32.1%) ROI -34.4% z -1.4 up 1/3 | 21:-100%/5 22:-42%/11 23:+12%/9
+  ...as a dog, close [hold]                                n   24 won 33.3% (said 27.0%) ROI +6.4% z +0.2 up 2/3 | 24:-100%/8 25:+34%/14 26:+242%/2
+--- facing the backup: questionable then sat
+  the side facing the new QB, any price, close [train]     n   26 won 61.5% (said 63.2%) ROI -3.0% z -0.2 up 2/3 | 21:-47%/9 22:+14%/10 23:+29%/7
+  the side facing the new QB, any price, close [hold]      n   15 won 66.7% (said 64.4%) ROI +15.3% z +0.6 up 1/2 | 24:-13%/10 25:+72%/5
+  ...as a favorite, close [train]                          n   20 won 70.0% (said 69.1%) ROI +3.1% z +0.2 up 2/3 | 21:-46%/5 22:+12%/8 23:+29%/7
+  ...as a favorite, close [hold]                           n   10 won 70.0% (said 77.3%) ROI -12.1% z -0.7 up 0/2 | 24:-8%/7 25:-21%/3
+  ...as a -101..-150 favorite, close [train]               n    4 won 75.0% (said 55.6%) ROI +35.0% z +0.9 up 1/2 | 22:+77%/2 23:-7%/2
+  ...as a -101..-150 favorite, close [hold]                n    1 won 0.0% (said 58.5%) ROI -100.0% z -1.0 up 0/1 | 24:-100%/1
+  ...as a -151..-250 favorite, close [train]               n    9 won 66.7% (said 66.7%) ROI +1.0% z +0.0 up 1/3 | 21:-53%/3 22:-1%/3 23:+57%/3
+  ...as a -151..-250 favorite, close [hold]                n    2 won 50.0% (said 66.1%) ROI -27.8% z -0.5 up 0/1 | 24:-28%/2
+  ...as a dog, close [train]                               n    6 won 33.3% (said 43.4%) ROI -23.5% z -0.5 up 1/2 | 21:-48%/4 22:+25%/2
+  ...as a dog, close [hold]                                n    5 won 60.0% (said 38.6%) ROI +70.0% z +1.1 up 1/2 | 24:-25%/3 25:+212%/2
+  ...favorite with the own read (inj in) over the close [train] n    5 won 60.0% (said 60.3%) ROI -0.9% z -0.0 up 1/2 | 22:-12%/2 23:+6%/3
+  ...favorite with the own read (inj in) over the close [hold] n    2 won 50.0% (said 66.1%) ROI -27.8% z -0.5 up 0/1 | 24:-28%/2
+  ...the Lock test (blend 56%+, own over) [train]          n    4 won 75.0% (said 61.5%) ROI +23.9% z +0.7 up 1/2 | 22:-12%/2 23:+59%/2
+  ...the Lock test (blend 56%+, own over) [hold]           n    2 won 50.0% (said 66.1%) ROI -27.8% z -0.5 up 0/1 | 24:-28%/2
+  ...graded at E (first look - before the news?) [train]   n   26 won 61.5% (said 55.4%) ROI +9.7% z +0.5 up 2/3 | 21:-28%/9 22:+23%/10 23:+38%/7
+  ...graded at E (first look - before the news?) [hold]    n   15 won 66.7% (said 61.0%) ROI +19.2% z +0.7 up 1/2 | 24:-11%/10 25:+81%/5
+  ...the same sides at the close [train]                   n   26 won 61.5% (said 63.2%) ROI -3.0% z -0.2 up 2/3 | 21:-47%/9 22:+14%/10 23:+29%/7
+  ...the same sides at the close [hold]                    n   15 won 66.7% (said 64.4%) ROI +15.3% z +0.6 up 1/2 | 24:-13%/10 25:+72%/5
+  ...graded at M (last look before game day) [train]       n   22 won 63.6% (said 54.4%) ROI +9.5% z +0.5 up 2/3 | 21:-32%/8 22:+28%/7 23:+38%/7
+  ...graded at M (last look before game day) [hold]        n   14 won 64.3% (said 61.1%) ROI +18.3% z +0.6 up 1/2 | 24:-19%/9 25:+85%/5
+  ...the same sides at the close [train]                   n   22 won 63.6% (said 60.9%) ROI +2.5% z +0.1 up 2/3 | 21:-40%/8 22:+25%/7 23:+29%/7
+  ...the same sides at the close [hold]                    n   14 won 64.3% (said 64.0%) ROI +13.2% z +0.5 up 1/2 | 24:-19%/9 25:+72%/5
+  ...graded at G (game morning) [train]                    n   26 won 61.5% (said 59.4%) ROI +0.1% z +0.0 up 2/3 | 21:-43%/9 22:+15%/10 23:+34%/7
+  ...graded at G (game morning) [hold]                     n   15 won 66.7% (said 62.9%) ROI +19.8% z +0.7 up 1/2 | 24:-12%/10 25:+83%/5
+  the new-QB side itself:
+  the new-QB team, any price, close [train]                n   26 won 38.5% (said 40.9%) ROI -8.3% z -0.3 up 1/3 | 21:+58%/9 22:-24%/10 23:-70%/7
+  the new-QB team, any price, close [hold]                 n   15 won 33.3% (said 39.8%) ROI +0.4% z +0.0 up 1/2 | 24:-22%/10 25:+45%/5
+  ...as a dog, close [train]                               n   19 won 31.6% (said 34.2%) ROI -9.7% z -0.3 up 1/3 | 21:+87%/5 22:-29%/8 23:-65%/6
+  ...as a dog, close [hold]                                n   10 won 30.0% (said 26.8%) ROI +19.0% z +0.3 up 1/2 | 24:-34%/7 25:+142%/3
+--- facing the backup: other change (benched / 2nd week)
+  the side facing the new QB, any price, close [train]     n  125 won 60.0% (said 57.6%) ROI +0.7% z +0.1 up 2/3 | 21:+8%/48 22:-12%/38 23:+4%/39
+  the side facing the new QB, any price, close [hold]      n   92 won 62.0% (said 59.5%) ROI +11.6% z +1.0 up 2/3 | 24:+25%/39 25:+6%/40 26:-11%/13
+  ...as a favorite, close [train]                          n   76 won 75.0% (said 70.9%) ROI +4.7% z +0.6 up 1/3 | 21:+20%/33 22:-5%/21 23:-9%/22
+  ...as a favorite, close [hold]                           n   62 won 66.1% (said 71.4%) ROI -8.5% z -1.0 up 1/3 | 24:-10%/24 25:+3%/27 26:-34%/11
+  ...as a -101..-150 favorite, close [train]               n   18 won 50.0% (said 56.2%) ROI -10.9% z -0.5 up 1/3 | 21:+49%/6 22:-31%/5 23:-48%/7
+  ...as a -101..-150 favorite, close [hold]                n   11 won 36.4% (said 55.7%) ROI -35.0% z -1.3 up 1/3 | 24:-100%/3 25:+19%/6 26:-100%/2
+  ...as a -151..-250 favorite, close [train]               n   23 won 69.6% (said 65.3%) ROI +6.6% z +0.4 up 2/3 | 21:+8%/10 22:-2%/6 23:+12%/7
+  ...as a -151..-250 favorite, close [hold]                n   22 won 63.6% (said 65.4%) ROI -2.4% z -0.1 up 1/3 | 24:-4%/8 25:+14%/8 26:-21%/6
+  ...as a dog, close [train]                               n   49 won 36.7% (said 36.9%) ROI -5.6% z -0.3 up 1/3 | 21:-19%/15 22:-21%/17 23:+22%/17
+  ...as a dog, close [hold]                                n   30 won 53.3% (said 35.0%) ROI +53.1% z +1.9 up 3/3 | 24:+81%/15 25:+12%/13 26:+110%/2
+  ...favorite with the own read (inj in) over the close [train] n   27 won 59.3% (said 65.3%) ROI -8.6% z -0.6 up 0/3 | 21:-1%/14 22:-35%/5 23:-6%/8
+  ...favorite with the own read (inj in) over the close [hold] n   21 won 61.9% (said 71.5%) ROI -13.0% z -0.8 up 1/3 | 24:-23%/7 25:+6%/11 26:-58%/3
+  ...the Lock test (blend 56%+, own over) [train]          n   22 won 63.6% (said 67.7%) ROI -5.4% z -0.3 up 1/3 | 21:-8%/13 22:-35%/5 23:+41%/4
+  ...the Lock test (blend 56%+, own over) [hold]           n   19 won 63.2% (said 73.3%) ROI -13.6% z -0.9 up 1/3 | 24:-23%/7 25:+9%/9 26:-58%/3
+  ...graded at E (first look - before the news?) [train]   n  125 won 60.0% (said 57.2%) ROI +2.5% z +0.3 up 2/3 | 21:+11%/48 22:-10%/38 23:+4%/39
+  ...graded at E (first look - before the news?) [hold]    n   86 won 64.0% (said 59.3%) ROI +14.6% z +1.3 up 3/3 | 24:+21%/39 25:+9%/40 26:+12%/7
+  ...the same sides at the close [train]                   n  125 won 60.0% (said 57.6%) ROI +0.7% z +0.1 up 2/3 | 21:+8%/48 22:-12%/38 23:+4%/39
+  ...the same sides at the close [hold]                    n   86 won 64.0% (said 59.0%) ROI +16.0% z +1.4 up 3/3 | 24:+25%/39 25:+6%/40 26:+23%/7
+  ...graded at M (last look before game day) [train]       n  115 won 58.3% (said 56.9%) ROI -0.7% z -0.1 up 2/3 | 21:+1%/41 22:-8%/37 23:+5%/37
+  ...graded at M (last look before game day) [hold]        n   79 won 65.8% (said 59.1%) ROI +19.2% z +1.6 up 3/3 | 24:+24%/38 25:+11%/38 26:+68%/3
+  ...the same sides at the close [train]                   n  115 won 58.3% (said 56.7%) ROI -0.5% z -0.1 up 2/3 | 21:+1%/41 22:-10%/37 23:+7%/37
+  ...the same sides at the close [hold]                    n   79 won 65.8% (said 58.8%) ROI +21.0% z +1.7 up 3/3 | 24:+26%/38 25:+11%/38 26:+84%/3
+  ...graded at G (game morning) [train]                    n  123 won 59.3% (said 57.6%) ROI -0.1% z -0.0 up 2/3 | 21:+7%/47 22:-11%/38 23:+2%/38
+  ...graded at G (game morning) [hold]                     n   83 won 63.9% (said 59.4%) ROI +16.2% z +1.3 up 3/3 | 24:+25%/39 25:+6%/40 26:+31%/4
+  the new-QB side itself:
+  the new-QB team, any price, close [train]                n  125 won 40.0% (said 46.6%) ROI -24.7% z -2.7 up 0/3 | 21:-38%/48 22:-20%/38 23:-12%/39
+  the new-QB team, any price, close [hold]                 n   92 won 38.0% (said 44.7%) ROI -13.0% z -1.0 up 1/3 | 24:-19%/39 25:-24%/40 26:+39%/13
+  ...as a dog, close [train]                               n   71 won 22.5% (said 32.0%) ROI -39.8% z -2.9 up 0/3 | 21:-58%/32 22:-35%/20 23:-15%/19
+  ...as a dog, close [hold]                                n   57 won 31.6% (said 31.1%) ROI -4.6% z -0.2 up 1/3 | 24:-6%/24 25:-20%/24 26:+42%/9
+facing a fresh backup, E -> close implied move for our side: avg +2.42%, n 64; shortened 64%
+  own read minus the no-vig close for the side facing the backup: avg -9.47%
+
+Calibration of the close for the side facing a fresh backup, by close band (train+hold pooled):
+  -400..-201: n 18 won 66.7% said 74.2%
+  -200..-151: n 11 won 63.6% said 64.0%
+  -150..-101: n 6 won 66.7% said 55.9%
+  100..160: n 11 won 54.5% said 44.5%
+  161..350: n 1 won 0.0% said 38.0%
+examples (hold): [(2025, 'Saints', 'vs', '49ers', ('Brock Purdy', 'Mac Jones'), 130, False), (2025, 'Bengals', 'vs', 'Vikings', ('J.J. McCarthy', 'Carson Wentz'), 142, False), (2025, 'Raiders', 'vs', 'Commanders', ('Jayden Daniels', 'Marcus Mariota'), 130, False), (2025, 'Rams', 'vs', '49ers', ('Brock Purdy', 'Mac Jones'), -430, False), (2025, 'Texans', 'vs', 'Ravens', ('Lamar Jackson', 'Cooper Rush'), -142, True), (2025, 'Bengals', 'vs', 'Jets', ('Tyrod Taylor', 'Justin Fields'), -260, False), (2025, 'Bills', 'vs', 'Panthers', ('Bryce Young', 'Andy Dalton'), -395, True), (2025, 'Chiefs', 'vs', 'Commanders', ('Jayden Daniels', 'Marcus Mariota'), -590, True), (2025, 'Lions', 'vs', 'Commanders', ('Jayden Daniels', 'Marcus Mariota'), -467, True), (2025, 'Packers', 'vs', 'Giants', ('Jaxson Dart', 'Jameis Winston'), -394, True), (2025, 'Seahawks', 'vs', 'Vikings', ('J.J. McCarthy', 'Max Brosmer'), -950, True), (2025, 'Giants', 'vs', 'Commanders', ('Jayden Daniels', 'Marcus Mariota'), -155, False)]

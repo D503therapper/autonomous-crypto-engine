@@ -10,7 +10,9 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 60          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 61          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+#   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
+#    floor closer for a dog the score has under zero)
 #                       (60: 10/29 afternoon lingo sweep - no "PDO" / "dog check", the heater bar, the risk line, verbs)
 
 
@@ -302,8 +304,9 @@ def _lean_pool(leg, team, price, o, own):
     try:
         import sports_breakdown_v24 as _v
         _f = _v.fair_am(own)                                   # (10/22, the owner: "vague" - our number on them, said)
+        _is = _v.vb(team, "are", "is")                         # (10/30: "Senators's the side" - the verb, not a possessive)
     except Exception:                                         # noqa: BLE001
-        _f = None
+        _f, _is = None, "is"
     if own < 0.47 and (o or 0) > 0:                           # an underdog lean: never "by a hair" on a team we
         return ([f"🟡 Bottom line: {price}. We make {team} {_f} - close to the number, not enough for units. Lean only.",
                  f"🟡 Bottom line: {price}. Our number's {_f} on {team}. A live dog, no units."] if _f else []) + [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
@@ -315,7 +318,7 @@ def _lean_pool(leg, team, price, o, own):
                 f"🟡 Bottom line: {price}. Close to 50-50 on our read. We tilt {team}, no units.",
                 f"🟡 Bottom line: {price}. Our read has it close to even, {team} a hair better. Lean only.",
                 f"🟡 Bottom line: {price}. Basically a coin flip - {team} by a nose. Fun to ride, not a money play.",
-                f"🟡 Bottom line: {price}. A coin flip game - if you're playing it, {team}'s the side. No units from us.",
+                f"🟡 Bottom line: {price}. A coin flip game - if you're playing it, {team} {_is} the side. No units from us.",
                 f"🟡 Bottom line: {price}. It's close to even tonight, {team} slightly better. Just a lean.",
                 f"🟡 Bottom line: {price}. 50-50 type game. The engine leans {team} - no units on it.",
                 f"🟡 Bottom line: {price}. Not much between these two - close to even. {team} if you gotta pick one."]

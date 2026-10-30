@@ -1,0 +1,74 @@
+rows 3890 seasons [2022, 2023, 2024, 2025] days 266
+
+NBA FAVORITES -101..-150 at the close (the board's reads), flat 1u:
+the band                                                   train 246-228   -6.2%  -29.3u (0/3)      | hold 50-55  -13.3%  -14.0u (0/1)    | now 0-0   
+the band -120..-150 (the Lock's price)                     train 157-135   -5.7%  -16.6u (0/3)      | hold 27-33  -21.2%  -12.7u (0/1)    | now 0-0   
+the band -101..-119 (S6_LOCK_SKIP)                         train 89-93   -7.0%  -12.7u (0/3)        | hold 23-22   -2.8%   -1.2u (0/1)    | now 0-0   
+-- today's Lock test on an NBA favorite:
+lock_ok (p 56%+, not week one)                             train 22-26  -22.0%  -10.6u (0/3)        | hold 8-7   -8.8%   -1.3u (0/1)      | now 0-0   
+lock_ok + good                                             train 16-19  -21.8%   -7.6u (0/3)        | hold 7-5   -0.2%   -0.0u (0/1)      | now 0-0   
+lock_ok + own_agrees (w_p over the market)                 train 11-10  -10.7%   -2.3u (2/3)        | hold 5-5  -14.7%   -1.5u (0/1)      | now 0-0   
+lock_ok + own_agrees + real_value + good -120..-150        train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+...and NOT thin (would be a 1u+ Lock)                      train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+...and thin (today: a ½u value play)                       train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0  
+-- the OWN read (the ratings + form, the roster prior) over the price:
+own read over the no-vig market by 0+ pts                  train 157-142   -4.8%  -14.5u (0/3)      | hold 31-36  -16.0%  -10.7u (0/1)    | now 0-0   
+own read over the no-vig market by 1+ pts                  train 92-81   -3.9%   -6.7u (2/3)        | hold 19-19   -9.5%   -3.6u (0/1)    | now 0-0   
+own read over the no-vig market by 2+ pts                  train 64-54   -2.4%   -2.9u (2/3)        | hold 9-7   +3.0%   +0.5u (1/1)      | now 0-0   
+own read over the no-vig market by 3+ pts                  train 40-29   +5.1%   +3.5u (2/3)        | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+own read over the no-vig market by 5+ pts                  train 4-2  +23.6%   +1.4u (1/1)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+own read UNDER the market                                  train 89-86   -8.4%  -14.8u (0/3)        | hold 19-19   -8.7%   -3.3u (0/1)    | now 0-0   
+edge_own (per $) 0+ (beats the real price)                 train 56-44   +1.0%   +1.0u (2/3)        | hold 5-6  -17.2%   -1.9u (0/1)      | now 0-0   
+edge_own (per $) 3+ (beats the real price)                 train 14-10   +7.1%   +1.7u (2/2)        | hold 0-1 -100.0%   -1.0u (0/1)      | now 0-0   
+-- the blended win % (p) over the market:
+p over the market by 0+ pts                                train 163-145   -4.1%  -12.6u (0/3)      | hold 35-38  -13.2%   -9.6u (0/1)    | now 0-0   
+p over the market by 1+ pts                                train 42-44  -10.5%   -9.0u (0/3)        | hold 12-8  +10.6%   +2.1u (1/1)     | now 0-0   
+p over the market by 2+ pts                                train 15-6  +33.1%   +6.9u (2/2)         | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+p over the market by 3+ pts                                train 3-1  +39.8%   +1.6u (1/1)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+p 56%+                                                     train 30-31  -16.5%  -10.0u (1/3)        | hold 10-8   -5.4%   -1.0u (0/1)     | now 0-0   
+p 58%+                                                     train 2-4  -44.3%   -2.7u (2/3)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+p 60%+                                                     train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+-- the WEIGHED read (w_p = market + the 10/22 favorite weights):
+w_p over the market (net + weights)                        train 23-17   +0.1%   +0.0u (2/3)        | hold 3-2   +7.6%   +0.4u (1/1)      | now 0-0   
+w_p under the market (net - weights)                       train 14-19  -26.1%   -8.6u (0/3)        | hold 2-4  -41.6%   -2.5u (0/1)      | now 0-0   
+no weights                                                 train 115-96   -4.3%   -9.1u (1/3)       | hold 22-24  -16.5%   -7.6u (0/1)    | now 0-0   
+-- BOTH reads over the price:
+own over 0+ AND w_p over                                   train 17-14   -3.9%   -1.2u (1/3)        | hold 3-1  +34.5%   +1.4u (1/1)      | now 0-0   
+own over 2+ AND w_p over                                   train 11-10   -8.5%   -1.8u (0/2)        | hold 1-0  +74.1%   +0.7u (1/1)      | now 0-0   
+own over 3+ AND w_p over                                   train 7-6   -5.6%   -0.7u (1/2)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+own over 0+ AND p 56%+                                     train 26-28  -18.1%   -9.8u (1/3)        | hold 8-7   -9.1%   -1.4u (0/1)      | now 0-0   
+own over 2+ AND p 56%+                                     train 15-16  -17.0%   -5.3u (0/3)        | hold 2-3  -31.1%   -1.6u (0/1)      | now 0-0   
+own over 3+ AND p 56%+                                     train 9-8   -8.5%   -1.4u (0/2)          | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+own over 3+ AND p 56%+ AND w_p not under                   train 8-8  -13.5%   -2.2u (0/2)          | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+own over 3+ AND p 56%+, -120..-150                         train 8-8  -14.4%   -2.3u (0/2)          | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+own over 3+ AND p 56%+, not week one, good                 train 9-7   -2.8%   -0.4u (0/1)          | hold 0-1 -100.0%   -1.0u (0/1)      | now 0-0   
+-- the raw own read (before the roster prior / trust) and the Elo:
+raw_own over the market 3+                                 train 62-59   -6.7%   -8.1u (0/3)        | hold 15-11   +7.5%   +1.9u (1/1)    | now 0-0   
+raw_own over the market 5+                                 train 40-44  -13.1%  -11.0u (0/3)        | hold 11-10   -2.7%   -0.6u (0/1)    | now 0-0   
+elo_edge 50+                                               train 71-72  -11.5%  -16.4u (1/3)        | hold 14-9  +10.6%   +2.4u (1/1)     | now 0-0   
+elo_edge 100+                                              train 24-25  -11.8%   -5.8u (1/3)        | hold 5-5   -7.7%   -0.8u (0/1)      | now 0-0   
+-- the no-trap / fighting / drift flags:
+trap                                                       train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+not trap, not fighting, own over 3+                        train 40-28   +6.6%   +4.5u (2/3)        | hold 0-1 -100.0%   -1.0u (0/1)      | now 0-0   
+drift our way 2+ pts (money came to us)                    train 40-47  -16.7%  -14.5u (0/2)        | hold 16-15   -4.3%   -1.3u (0/1)    | now 0-0   
+drift against 2+ pts                                       train 63-49   +2.3%   +2.6u (1/2)        | hold 23-32  -24.3%  -13.4u (0/1)    | now 0-0   
+-- ONE a night (the best own_over among p 56%+ favorites) - the Lock is one pick:
+best own_over a night, own over 0+                         train 16-19  -22.4%   -7.8u (0/3)        | hold 5-5  -14.7%   -1.5u (0/1)      | now 0-0   
+best own_over a night, own over 2+                         train 12-12  -14.8%   -3.5u (0/3)        | hold 1-3  -57.4%   -2.3u (0/1)      | now 0-0   
+best own_over a night, own over 3+                         train 7-6   -7.7%   -1.0u (0/2)          | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+best own_over a night, own over 5+                         train 1-1   -9.0%   -0.2u (0/1)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+-- the same at -151..-200 (out of band, a check):
+own over 3+ AND p 56%+                                     train 8-13  -40.1%   -8.4u (0/3)         | hold 0-1 -100.0%   -1.0u (0/1)      | now 0-0   
+-- by stage (team games): own over 3+ AND p 56%+
+  games 6-15                                               train 2-0  +78.0%   +1.6u (1/1)          | hold 0-2 -100.0%   -2.0u (0/1)      | now 0-0   
+  games 16-40                                              train 7-8  -20.0%   -3.0u (0/2)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+  games 41+                                                train 0-0   +0.0%   +0.0u (0/0)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+-- what the board posted (kind) on NBA favorites:
+  posted as lock                                           train 2-2   -9.3%   -0.4u (0/1)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+  posted as play                                           train 1-0  +87.0%   +0.9u (1/1)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
+  posted as nbafav                                         train 12-11   -9.7%   -2.2u (1/3)        | hold 1-1  -13.0%   -0.3u (0/1)      | now 0-0   
+  posted as solo                                           train 0-0   +0.0%   +0.0u (0/0)          | hold 1-0  +74.1%   +0.7u (1/1)      | now 0-0   
+-- the ¹the NBA favorite play's cell (nba_fav_w net +, good, not week one):
+nba_fav cell                                               train 13-11   -5.8%   -1.4u (1/3)        | hold 1-1  -13.0%   -0.3u (0/1)      | now 0-0   
+nba_fav cell AND own over 0+                               train 11-10   -8.8%   -1.8u (0/3)        | hold 1-1  -13.0%   -0.3u (0/1)      | now 0-0   
+nba_fav cell AND own UNDER                                 train 2-1  +14.6%   +0.4u (2/3)          | hold 0-0   +0.0%   +0.0u (0/0)      | now 0-0   
