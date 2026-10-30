@@ -4198,3 +4198,19 @@ $SAVA: No data found, symbol may be delisted
 [2026-10-30 18:06 UTC] stocks/trend     equity $466.70 (-6.7%) 3 open  market DOWN
 [2026-10-30 18:06 UTC] stocks/hold_spy  equity $491.03 (-1.8%) 1 open  market DOWN
    social heat top: PENGU 49 (37/0/12), BTC 40 (40/0/0), HYPE 32 (29/0/2), NEAR 27 (27/0/0), ENA 24 (24/0/0)
+   dex screen: REJECT AGAIN@solana liq $326,193 - top-10 holders 96%; lp holders unknown
+   dex screen: REJECT NFLXC@base liq $219,392 - pool age unknown
+   dex screen: REJECT TRUMP@solana liq $207,501 - top-10 holders 88%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $334,883 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PARTI@base liq $311,536 - goplus partial data: cannot_sell_all unknown; top-10 holders 97%; lp locked 0% < 95%
+   dex re-screen: DESSA@solana:npz2Fhou data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: UNREACHABLE SIB@ethereum liq $206,220 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   >> stocks/trend: SELL $138.89 of IWM @ 277.371, P/L $-1.81 (stop hit (live check))
+   dex screen: REJECT GTA@solana liq $104,885 - lp holders unknown; rugcheck lp locked 78% < 95%
+   dex screen: PASS SNOWMOON@ethereum liq $102,032
+   >> dex/dex_hunter: BUY $17.34 of SNOWMOON@ethereum:0xa314A6 @ 0.001234 (dex tier A both 1h +12% 6h +158% buys/sells 22/17 impact 0.02%)
+   dex screen: UNREACHABLE SP@ethereum liq $345,519 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   >> stocks/trend: SELL $139.76 of AAPL @ 342.769, P/L $-0.94 (stop hit (live check))
+   dex screen: REJECT PAID@solana liq $373,396 - lp holders unknown; rugcheck lp locked 72% < 95%
+   dex screen: REJECT PROS@base liq $873,193 - pool age unknown
+   dex screen: REJECT NIL@ethereum liq $613,387 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; holders unknown; lp holders unknown
