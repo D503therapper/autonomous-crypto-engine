@@ -15428,6 +15428,25 @@ def test_daily_1030_a_floor_dog_card_never_calls_a_37_percent_read_a_coin_flip()
     assert src.count("COIN_FLIP[0] <= own") == 1 and src.count("COIN_FLIP[0] <= _own") == 1   # bottom_c + the why line
 
 
+
+def test_a_half_unit_near_even_favorite_is_never_called_too_expensive():
+    """10/30 (the owner on the Wizards -107 early play): the ½u size line said "Line's too expensive. Big bets at
+    expensive prices lose money long term." - false at -107. A ½u early favorite says the spot starts small; a ½u
+    favorite at -119..-101 says near even money; only -120 and steeper keep the "expensive" reason."""
+    import sports_dashboard as sdb
+    has = lambda line, pool: any(x in line or sdb.E(x) in line for x in pool)
+    for early in (True, False):
+        for key in ("Wizards", "Hornets", "Kraken", "UCF", "Mammoth", "Lakers"):
+            sdb.WHY_USED.clear()
+            line = sdb._units_line(0.5, key, -107, early=early)
+            assert "xpensive" not in line.replace("Not an expensive", "") and "steep" not in line, line
+    sdb.WHY_USED.clear()
+    assert has(sdb._units_line(0.5, "Wizards", -107, early=True), sdb.HALF_WHY["early"])
+    sdb.WHY_USED.clear()
+    assert has(sdb._units_line(0.5, "Mammoth", -135), sdb.HALF_WHY["fav"])   # a real price keeps its why
+    sdb.WHY_USED.clear()
+    assert has(sdb._units_line(0.5, "UCF", 110), sdb.HALF_WHY["dog"])
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
