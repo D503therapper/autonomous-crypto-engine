@@ -3133,3 +3133,291 @@ $SAVA: No data found, symbol may be delisted
 [2026-10-30 14:06 UTC] stocks/trend     equity $468.77 (-6.2%) 3 open  market DOWN
 [2026-10-30 14:06 UTC] stocks/hold_spy  equity $494.79 (-1.0%) 1 open  market DOWN
    social heat top: PEPE 38 (32/0/6), BTC 37 (37/0/0), HYPE 35 (24/0/11), PENGU 30 (21/0/8), SOL 16 (16/0/0)
+   dex screen: REJECT EURC@solana liq $388,981 - freeze authority; mint authority; top-10 holders 72%; lp holders unknown
+   dex screen: REJECT SWORDCAT@solana liq $165,661 - lp holders unknown; rugcheck lp locked 72% < 95%
+   dex screen: REJECT NVDAC@base liq $920,130 - pool age unknown
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $136,749 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT DOPE@solana liq $162,086 - lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $394,542 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS PEPE@ethereum liq $31,673,202
+   dex screen: REJECT IMD@ethereum liq $1,581,662 - goplus partial data: cannot_sell_all unknown; top-10 holders 63%
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 4401:259AC9:7AAF7:AC602:6AE4A819        
+remote: Time 2026-10-30T14:22:17Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rem
+   dex screen: UNREACHABLE SP@ethereum liq $376,855 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       db7f74fe54601dfaea307d77d09c31b02d65594f -> main (fatal error i
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 4401:E982F:9169F:C8714:6AE4A894        
+remote: Time 2026-10-30T14:24:21Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remo
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $139,957 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       91390cbdbc7206945b34134ab833ff12a2ffcb94 -> main (fatal error i
+   dex screen: REJECT SPCXC@base liq $694,342 - pool age unknown
+   dex screen: REJECT ELSA@base liq $458,261 - top-10 holders 91%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: UNREACHABLE SP@ethereum liq $386,709 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ZEC@solana liq $1,382,791,970 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $973,234,153 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $3,084,029 - top-10 holders 100%
+   >> dex/dex_hunter: BUY $17.22 of DESSA@solana:npz2Fhou @ 0.009615 (dex tier A both 1h +6% 6h +2% buys/sells 186/188 impact 0.01%)
+   dex scanner: bought DESSA@solana on a refresh (1h +6%, buys/sells 186/188)
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $139,957 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SP@ethereum liq $385,895 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT AERO@base liq $6,071,181 - is_mintable; top-10 holders 76%
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $141,599 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,997 pools (solana 2,008 / base 576 / ethereum 413), refresh cycle 142s (hot 137s), 2630 calls (106 feed, 429s 0, failed 0), 75,720 refreshed (7767 no pair), +91 added / -64 dropped (dead 56, stale 0, cap 8), movers 2 + warming 13 -> queued 0, screened 8 (passed 0), bought 1
+[2026-10-30 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/mover     equity $252.23 (-49.6%) 2 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/social_heat equity $375.50 (-24.9%) 3 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/breakout10 equity $420.47 (-15.9%) 1 open  market UP
+[2026-10-30 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-30 15:06 UTC] crypto/hold_btc  equity $463.72 (-7.3%) 1 open  market DOWN
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  data.rename(columns=ctx.isins, inplace=True)
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$NKLA: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$BITF: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$SAVA: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+
+3 Failed downloads:
+['NKLA', 'BITF', 'SAVA']: No data found, symbol may be delisted
+  data.rename(columns=ctx.isins, inplace=True)
+[2026-10-30 15:07 UTC] stocks/rsi2      equity $496.60 (-0.7%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLC 0, GOOGL 7, NFLX 13, AMZN 15 BUY
+[2026-10-30 15:07 UTC] stocks/breakout52 equity $470.93 (-5.8%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-10-30 15:07 UTC] stocks/dual_momentum equity $466.01 (-6.8%) 2 open  market DOWN
+[2026-10-30 15:07 UTC] stocks/trend_ensemble equity $508.67 (+1.7%) 5 open  market UP
+[2026-10-30 15:07 UTC] stocks/rotation10 equity $513.03 (+2.6%) 2 open  market UP
+[2026-10-30 15:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-10-30 15:07 UTC] stocks/trend     equity $471.50 (-5.7%) 3 open  market DOWN
+[2026-10-30 15:07 UTC] stocks/hold_spy  equity $494.29 (-1.1%) 1 open  market DOWN
+   social heat top: HYPE 46 (35/0/11), BTC 37 (37/0/0), PENGU 32 (24/0/8), SOL 32 (32/0/0), PEPE 22 (21/0/1)
