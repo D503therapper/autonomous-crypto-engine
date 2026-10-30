@@ -2350,3 +2350,42 @@ DEX: $679.80 (-320.20) · Scammed: 8 (-$162.71)
 [2026-10-30 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-10-30 00:06 UTC] crypto/hold_btc  equity $466.75 (-6.6%) 1 open  market DOWN
    social heat top: PEPE 54 (40/0/14), ENA 39 (27/0/12), AAVE 38 (29/0/8), HYPE 33 (32/0/1), UNI 24 (24/0/0)
+   dex screen: PASS ZCAT@solana liq $1,016,496
+   dex screen: REJECT REPPO@base liq $520,764 - top-10 holders 71%; lp locked 0% < 95%
+   dex screen: REJECT BLUECHIP@base liq $255,036 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; lp locked 0% < 95%
+   dex screen: REJECT GULD@ethereum liq $1,383,334 - goplus partial data: cannot_sell_all unknown; top-10 holders 43%
+   dex screen: REJECT PNUT @solana liq $2,781,782 - top-10 holders 70%
+   dex screen: REJECT MEW@solana liq $8,463,491 - top-10 holders 76%
+   dex screen: REJECT BASECAT@base liq $432,877 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; lp locked 0% < 95%
+   dex screen: REJECT STONKEX@base liq $220,058 - lp locked 0% < 95%
+   dex screen: REJECT WETH@solana liq $6,549,481 - mint authority; top-10 holders 77%
+   dex screen: PASS INUWEEN@solana liq $118,844
+   dex screen: REJECT SPX@solana liq $1,925,757 - mint authority
+   dex screen: REJECT QUID@base liq $842,738 - goplus partial data: cannot_sell_all unknown; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $5,547,075 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%
+   dex screen: REJECT CBBTC@ethereum liq $7,693,319 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 78%
+   dex screen: REJECT ANSEM@solana liq $317,701,563 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,306 - top-10 holders 100%
+   dex screen: REJECT ORE@solana liq $285,605 - mint authority; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT ZRO@ethereum liq $664,331 - lp locked 0% < 95%
+   dex screen: REJECT STONKEX@base liq $221,911 - lp locked 0% < 95%
+   scanner: PEPE: +5.7% in 15 min on 5.6x volume @ 4.562e-06 spread 0.42%
+   take-off: BUY PEPE (scanner mover): PEPE: +5.7% in 15 min on 5.6x volume @ 4.562e-06 spread 0.42%
+   >> crypto/mover: BUY $101.74 of PEPE @ 5e-06 (scanner mover)
+   dex screen: REJECT QNT@ethereum liq $705,755 - is_mintable; lp locked 0% < 95%
+   scanner: USELESS: +6.5% in 15 min on 22.9x volume @ 0.125481 spread 0.24%
+   take-off: BUY USELESS (scanner mover): USELESS: +6.5% in 15 min on 22.9x volume @ 0.125481 spread 0.24%
+   >> crypto/mover: BUY $101.71 of USELESS @ 0.125606 (scanner mover)
+   scanner: USELESS: +6.5% in 15 min on 22.9x volume @ 0.125534 spread 0.24%
+   dex screen: REJECT MORPHO@ethereum liq $299,915 - pool age 0.2h < 6h; 24h volume $20,683 < $100,000; no buys or no sells in 24h
+   dex scanner: 1,930 pools (solana 1,193 / base 414 / ethereum 323), refresh cycle 81s (hot 77s), 2956 calls (108 feed, 429s 0, failed 0), 85,438 refreshed (7594 no pair), +102 added / -74 dropped (dead 63, stale 11, cap 0), movers 0 + warming 13 -> queued 2, screened 3 (passed 0), bought 0
+[2026-10-30 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/mover     equity $225.75 (-54.9%) 2 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/social_heat equity $365.59 (-26.9%) 3 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/breakout10 equity $404.29 (-19.1%) 1 open  market UP
+[2026-10-30 01:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-30 01:06 UTC] crypto/hold_btc  equity $462.51 (-7.5%) 1 open  market DOWN
+   social heat top: ENA 43 (32/0/11), HYPE 41 (37/0/4), BTC 29 (29/0/0), UNI 27 (27/0/0), PENGU 26 (16/0/10)
