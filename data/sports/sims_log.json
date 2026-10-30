@@ -1,5 +1,36 @@
 [
  {
+  "at": "2026-10-30T06:23Z",
+  "games": 131589,
+  "sim": {
+   "ok": true,
+   "proven": [],
+   "suspects": [],
+   "tested": 120,
+   "tested_total": 15246,
+   "cell_tests": 2160,
+   "expected_by_luck": 0.502,
+   "new_suspects": [],
+   "new_proven": [],
+   "new_killed": [],
+   "best": {
+    "mlb": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+    "nba": "nba|disp=1.12|form=0.5|gain=0.5|hfa=team|pace=1.0|park=1|regress=0.4|rest=1",
+    "ncaab": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+    "ncaaf": "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=learned|keys=1|pace=1.0|park=1|regress=0.1|rest=1",
+    "nfl": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+    "nhl": "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1"
+   },
+   "secs": 171.3
+  },
+  "today": {
+   "ok": true,
+   "games": 489,
+   "secs": 11.7
+  },
+  "secs": 185
+ },
+ {
   "at": "2026-10-29T22:55Z",
   "games": 131278,
   "sim": {
@@ -1820,37 +1851,6 @@
     "nhl": "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1"
    },
    "secs": 247.9
-  },
-  "today": {
-   "ok": true,
-   "games": 179,
-   "secs": 11.1
-  },
-  "secs": 262
- },
- {
-  "at": "2026-10-15T05:06Z",
-  "games": 130826,
-  "sim": {
-   "ok": true,
-   "proven": [],
-   "suspects": [],
-   "tested": 120,
-   "tested_total": 8046,
-   "cell_tests": 2160,
-   "expected_by_luck": 0.502,
-   "new_suspects": [],
-   "new_proven": [],
-   "new_killed": [],
-   "best": {
-    "mlb": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
-    "nba": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-    "ncaab": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-    "ncaaf": "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=learned|keys=1|pace=1.0|park=1|regress=0.1|rest=1",
-    "nfl": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
-    "nhl": "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1"
-   },
-   "secs": 248.6
   },
   "today": {
    "ok": true,
