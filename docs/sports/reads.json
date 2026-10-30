@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T02:11Z",
+ "updated": "2026-10-30T02:23Z",
  "games": [
   {
    "id": "nhl:401892603",
@@ -95,8 +95,8 @@
    "away": "Blackhawks",
    "home": "Red Wings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -270,6 +270,51 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nhl:401892610",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-30T02:00Z",
+   "away": "Canucks",
+   "home": "Sharks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909895",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T02:00Z",
+   "away": "Grizzlies",
+   "home": "Trail Blazers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892608",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-30T02:00Z",
+   "away": "Sabres",
+   "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892609",
@@ -796,7 +841,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kent State",
-    "p": 0.623,
+    "p": 0.619,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -805,16 +850,16 @@
    "start": "2026-10-31T02:30Z",
    "away": "Kent State",
    "home": "Sacramento St",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Kent State",
     "opp": "Sacramento St",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.667,
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.663,
+    "win_p": 0.663,
     "reasons": [
      "the stronger team",
      "better QB play lately"
