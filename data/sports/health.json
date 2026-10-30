@@ -1,29 +1,41 @@
 {
- "at": "2026-10-30T20:36Z",
+ "at": "2026-10-30T21:08Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Ortenzi vs Tubello: no points for 1925s",
+  "live tennis scores: tennis Strakhova vs Maria: no points for 1925s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 43 min ago",
+  "simulator ran 3h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-30T21:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ortenzi vs Tubello: no points for 1925s",
+    "live tennis scores: tennis Strakhova vs Maria: no points for 1925s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-30T20:36Z",
    "fixes": [],
@@ -494,13 +506,6 @@
    ],
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-29T02:44Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
