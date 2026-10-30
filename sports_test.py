@@ -14248,7 +14248,9 @@ def test_fable_1027_the_daily_floor_fills_the_board_to_two_unit_plays_by_dog_sco
         cands = [mk("a", 3.0), mk("b", 5.5, lg="nba"), mk("c", 9.0, odds=400), mk("d", 8.0, trap=True), mk("e", 7.0, reasons=[]),
                  mk("f", 6.0, waiting=["the goalie"]), mk("g", 4.0, odds=-120), mk("h", 2.0, edge_own=0.30 * sd.decimal(140) - 1)]
         got = sports.floor_plays(cands, set())                 # (h: own read 30% at +140 - fighting the price; g: a favorite)
-        assert [c["game_id"] for c in got] == ["b", "a"] and got[0]["floor_score"] == 5.5
+        assert [c["game_id"] for c in got] == ["a", "b"] and got[1]["floor_score"] == 5.5   # (10/29 night: the NBA dog
+        assert got[1].get("floor_fallback") and not got[0].get("floor_fallback")          #  comes last, the fallback)
+        assert [c["game_id"] for c in sports.floor_plays(cands, set(), filtered=False)] == ["b", "a"]
         assert [c["game_id"] for c in sports.floor_plays(cands, {"b"})] == ["a"]
     finally:
         sports.dog_score = keep
@@ -15017,6 +15019,46 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
             f"✅ Bottom line: X. Best dog on the slate by our angles. Half a unit."]
     a1, a2 = v1.say("bottom_floor", opts), v2.say("bottom_floor", opts)
     assert a1 and a2 and a1 != a2
+
+
+def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_with_a_one_a_day_fallback():
+    """10/29 (night), the owner after the two ½u thin losers (Blue Jackets +205, Panthers +164): "Run Fable and fix the thin
+    edge plays." The 10/30 funnel re-run on today's code (1,097 board days 2023-26; train 2023-25 / held out 2025-27; ~45
+    versions): the floor's thin dogs PAY (+6.0% / +6.8%) - its losers are a second NBA dog a night (12-29 / 4-15; the NBA
+    floor already takes the best one), the college football dog (7-12 / 6-11) and the dog whose RAW own read beats the
+    price by 3c+ while the full read failed the Dog gate (70-99 -4.6% / 10-20 -12.9%). Without them the floor runs +7.6% /
+    +10.6% (was +3.1% / +5.7%), the board +6.5% / +9.3% (was +4.7% / +7.7%), 4 of 4 seasons. The owner's "at least ONE unit
+    play per day" holds: the skipped dogs come last, flagged, and one goes up only when the board has no unit play at all."""
+    assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf") and sports.FLOOR_THIN_ONLY and sports.FLOOR_FALLBACK_MIN == 1
+    assert sports.FLOOR_V2_FROM == "2026-10-30" and sports.FLOOR_MIN == 2 and sports.FLOOR_UNITS == 0.5   # the floor itself holds
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        mk = lambda gid, sc, p=0.40, odds=140, lg="nhl": {**_cand(gid, odds, p, league=lg), "waiting": [], "sc": sc}
+        a, b, c_, d, e = mk("a", 3.0), mk("b", 5.5, lg="nba"), mk("c", 4.0, lg="ncaaf"), mk("d", 2.0, p=0.50), mk("e", 1.0, lg="mlb")
+        assert sports.thin_edge(a) and not sports.thin_edge(d)            # d: the raw read 50% at +140, 20c over the price
+        got = sports.floor_plays([a, b, c_, d, e], set())
+        assert [c["game_id"] for c in got] == ["a", "e", "b", "c", "d"], [c["game_id"] for c in got]   # kept by score, then the skipped
+        assert not a.get("floor_fallback") and not e.get("floor_fallback")
+        assert b["floor_fallback"] == "the NBA has its own floor" and c_["floor_fallback"] == "college football sits out the floor"
+        assert d["floor_fallback"] == "our raw read likes it more than the full read does"
+        assert sports.floor_skip(a) is None and sports.floor_skip(b) and sports.floor_skip(c_) and sports.floor_skip(d)
+        full = sports.floor_plays([a, b, c_, d, e], set(), filtered=False)    # the unfiltered list: by score, no flags
+        assert [c["game_id"] for c in full] == ["b", "c", "a", "d", "e"] and not any(c.get("floor_fallback") for c in full)
+        assert [c["game_id"] for c in sports.nba_floor_plays([a, b, c_, d, e], set())] == ["b"]   # the 🏀 floor still has the NBA
+        assert sports.floor_plays([b, c_, d], set())[0]["floor_fallback"]     # nothing kept: the best skipped dog leads (the fallback)
+    finally:
+        sports.dog_score = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'if kind == "floor" and c.get("floor_fallback") and iso >= FLOOR_V2_FROM:' in src
+    assert "if unit_plays_today(picks, iso) >= FLOOR_FALLBACK_MIN:" in src       # one unit play on the board = no fallback
+    assert 'pk["floor"]["fallback"] = leg["floor_fallback"]' in src              # the fallback is tracked on the pick
+    assert 'floor_plays(cands, avoid, filtered=False)' in src[src.index("def nba_floor_plays("):]
+    # the fallback pick is still a ½u floor play in the record
+    leg = {**_cand("c", 140, 0.40, league="ncaaf"), "floor_score": 4.0, "floor_fallback": "college football sits out the floor"}
+    pk = {"date": "2026-10-30", "kind": "play", "status": "open", "legs": [leg], "dec": leg["dec"], "american": 140,
+          "floor": {"dog_score": 4.0, "nba": False, "fallback": leg["floor_fallback"]}, "tier": "value"}
+    assert sports.units_for(pk) == 0.5 and sports.posted_kind(pk) == "floor" and sports.sizing_check([pk]) == []
 
 
 if __name__ == "__main__":

@@ -3229,10 +3229,25 @@ def nba_fav_plays(cands, avoid):
     return out
 
 
-def floor_plays(cands, avoid):
+def floor_skip(c):
+    """💰 10/29 (night) THIN EDGES: why a dog sits out the daily floor (None = a floor dog). The general floor takes no NBA
+    dog (the 🏀 NBA floor is the NBA's one a day - a SECOND NBA dog a night 12-29 / 4-15 in the replay, the "#2 side a
+    night" that loses everywhere) and no college football dog (7-12 / 6-11 - the college dog the full read doesn't gate
+    is the 10/23 / 10/28 loser), and never a dog whose raw own read beats the price by THIN_EDGE+ while the full weighed
+    read failed the Dog gate (70-99 -4.6% / 10-20 -12.9%): the raw read is the thing that's wrong there."""
+    if c.get("league") in FLOOR_LEAGUES_OFF:
+        return "the NBA has its own floor" if c.get("league") == "nba" else "college football sits out the floor"
+    if FLOOR_THIN_ONLY and not thin_edge(c):
+        return "our raw read likes it more than the full read does"
+    return None
+
+
+def floor_plays(cands, avoid, filtered=True):
     """💰 The daily floor's candidates (10/27): the dogs +100..+350 the dog score likes best - never a trap, a named reason,
     never one the own read is fighting, moneyline only (no puck / run lines), one per game, never a game in `avoid`.
-    post_board posts as many as the board is short of FLOOR_MIN unit plays, ½u each, tagged floor."""
+    post_board posts as many as the board is short of FLOOR_MIN unit plays, ½u each, tagged floor. 10/29 (night): the
+    dogs floor_skip names come LAST, flagged floor_fallback - post_board takes one of those only when the board would
+    otherwise carry no unit play at all (FLOOR_FALLBACK_MIN - the owner's "at least ONE unit play per day")."""
     pool = []
     for c in cands:
         score_reason(c)                                      # (🏀 10/28: the NBA dog score names itself)
@@ -3249,8 +3264,19 @@ def floor_plays(cands, avoid):
         if c["game_id"] not in seen:
             seen.add(c["game_id"])
             c["floor_score"] = sc
+            c.pop("floor_fallback", None)
             out.append(c)
-    return out
+    if not filtered:
+        return out
+    kept, back = [], []
+    for c in out:
+        why = floor_skip(c)
+        if why:
+            c["floor_fallback"] = why
+            back.append(c)
+        else:
+            kept.append(c)
+    return kept + back
 
 
 def nba_floor_plays(cands, avoid):
@@ -3259,7 +3285,8 @@ def nba_floor_plays(cands, avoid):
     fighting the own read, +100..+350) - one a day, posted when the board has no NBA unit play. The 10/27 funnel: the best
     clean NBA dog by score each NBA day at score 0+ went 84-110, +16.5% flat on 194 (3 of 3 seasons up: +13.5 / +5.4 /
     +13.1u), at score 2+ alone flat (+0.4% on 101), every NBA dog by score -10.6%. ½u, tagged floor (nba), judge at 50."""
-    return [c for c in floor_plays(cands, avoid) if c.get("league") == "nba" and (c.get("floor_score") or -99) >= NBA_FLOOR_SCORE][:1]
+    return [c for c in floor_plays(cands, avoid, filtered=False)   # (10/29 night: the general floor skips the NBA - not this one)
+            if c.get("league") == "nba" and (c.get("floor_score") or -99) >= NBA_FLOOR_SCORE][:1]
 
 
 def unit_plays_today(picks, iso, league=None):
@@ -3292,6 +3319,21 @@ NBA_FAV_FROM = FLOOR_FROM      # and put units on them"): an NBA moneyline favor
 #                                owner, 10/27: "more units where the replay holds up"). Own tag (nba_fav), judge at 50 live.
 NBA_DOG_OWN_UNITS = 1.0        # the NBA Dog with its own read over the price (10/27; ½u otherwise - the thin edge)
 NBA_FLOOR_SCORE = 0.0          # 🏀 the NBA floor (nba_floor_plays): the best NBA dog by score, score 0+, one a day, ½u
+FLOOR_V2_FROM = "2026-10-30"   # 💰 10/29 (night) THIN EDGES (the owner, after 10/29's two ½u thin losers: "Run Fable and fix the
+FLOOR_LEAGUES_OFF = ("nba", "ncaaf")   # thin edge plays"): the 10/30 funnel re-run (1,097 board days 2023-26 on TODAY's code -
+FLOOR_THIN_ONLY = True         # the hot hockey dog weight, the 2-point fallback hockey Dog, the no-thin-Lock rule; train 2023-25,
+FLOOR_FALLBACK_MIN = 1         # held out 2025-27; ~45 versions tried) says the floor's losers are (1) a SECOND NBA dog a night
+#                                (the 🏀 NBA floor already takes the best one: 12-29 train / 4-15 held, -5% / -41%), (2) the college
+#                                football dog (7-12 / 6-11, -15% both halves - the college dog the full read doesn't gate, the 10/23
+#                                and 10/28 loser), (3) a dog whose RAW own read beats the price by 3c+ while the weighed read failed
+#                                the Dog gate (70-99 -4.6% / 10-20 -12.9%) - the thin floor dogs are the ones that pay (198-244
+#                                +6.0% / 236-267 +6.8%). Without those three the floor runs 257-292 +7.6% train / 247-259 +10.6%
+#                                held (today's 268-343 +3.1% / 246-287 +5.7%); the whole board +6.5% / +9.3% vs +4.7% / +7.7%,
+#                                4 of 4 seasons up, +126u vs +100u on 1,650u, worst stretch -23.2u vs -19.4u. The owner's floor
+#                                holds: when the kept pool is empty the best skipped dog by score still goes up so the day has ONE
+#                                unit play (FLOOR_FALLBACK_MIN; 10-10 +29.6% on 20 in the replay) - ≥1 unit play on 98.2% of days,
+#                                the same as before. Every piece is a thin cut on a few hundred plays; judged live at 50 floor
+#                                plays like every tag. Posted picks keep their units.
 GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
 GAP_MIN = 0.15            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 15+ points over
 GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
@@ -4597,6 +4639,11 @@ def post_board(games, model, picks, now, day, force=False):
                 break
             if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
                 continue                                     # (a lean waits only on a verified starter - 10/2)
+            if kind == "floor" and c.get("floor_fallback") and iso >= FLOOR_V2_FROM:   # 💰 10/29 (night): a dog that sits
+                if unit_plays_today(picks, iso) >= FLOOR_FALLBACK_MIN:   # out the floor goes up only so the day has ONE
+                    print(f"   floor: {c.get('team')} {c.get('odds')} sits out - {c['floor_fallback']}")   # unit play
+                    continue
+                print(f"   floor fallback: {c.get('team')} {c.get('odds')} - {c['floor_fallback']}, but the board has no unit play")
             if c.get("fill") and fill_hurt(games[c["game_id"]], c["side"], injuries):   # (10/2, the owner: "a lock,
                 print(f"   fill lean on {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
                 #                                      a dog and three leans, no matter what" - it goes up, named)
@@ -4622,6 +4669,8 @@ def post_board(games, model, picks, now, day, force=False):
                 pk["nba_fav"], leg["tier"], pk["tier"] = dict(leg.get("nba_fav_w") or {}), "value", "value"
             if kind in ("floor", "nbafloor"):                # 💰 the daily floor (10/27): ½u, a thin edge that says so
                 pk["floor"], leg["tier"], pk["tier"] = {"dog_score": leg.get("floor_score"), "nba": kind == "nbafloor"}, "value", "value"
+                if kind == "floor" and leg.get("floor_fallback"):
+                    pk["floor"]["fallback"] = leg["floor_fallback"]   # (10/29 night: the one-a-day fallback, tracked)
             picks.append(pk)
             new.append(pk)
             room -= 1
