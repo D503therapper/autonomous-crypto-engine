@@ -114,6 +114,8 @@ def tags(c, sports):
             if beat_good_last(c):
                 t.append("college dog off a win over a winning team (fade)")   # the owner's NM St story runs the wrong
                 #                                                way: -26.7% on 147 train (0 of 4 up), -11.5% / -11.1% / 5-5
+            t.extend(gap_band(c))                             # 10/30 college unit-play studies: the 🔍 gap play's bands
+            #                                                   split for its 50-play judge (tracker only, no weight)
         if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
             t.append("NFL 0-2 dog")
         if (mo.get("win_streak") or 0) >= 3 and lg == "nfl":
@@ -339,6 +341,28 @@ def dog_run(c, k=4):
         except (KeyError, TypeError, ValueError):
             return False
     return True
+
+
+GAP_WATCH = (0.15, 0.20)   # 10/30 college unit-play studies (results/studies/ncaaf_units_1030/): the rating-backed 🔍
+GAP_LONG = 251             # gap dog split by band for its 50-play judge - gap 15-20 red in train AND every held-out
+#                            season (22-36 -7.1% / -23.7% / -3.8% / -21.0%), gap 20+ +11.0% train / -5.3% / +23.1% /
+#                            -29.7%; the +251..+350 one 10-34 -12.6% (train -29.4%, then 2-4 / 3-4 / 0-4). LEADS only
+#                            (126 cells looked at, none passed the five checks) - never a weight, GAP_MIN stays 0.15.
+
+
+def gap_band(c):
+    """The tracker tags for a rating-backed college gap dog (raw own read 15+ over the no-vig market, Elo for the dog)."""
+    if c.get("league") != "ncaaf" or c.get("raw_own") is None or c.get("p_market") is None:
+        return []
+    if not 100 <= (c.get("odds") or 0) <= 350 or (c.get("elo_edge") or 0) <= 0:
+        return []
+    gap = c["raw_own"] - c["p_market"]
+    if gap < GAP_WATCH[0]:
+        return []
+    t = ["college gap dog 15-20 (watch)" if gap < GAP_WATCH[1] else "college gap dog 20+"]
+    if c["odds"] >= GAP_LONG:
+        t.append("college gap dog +251..+350 (fade)")
+    return t
 
 
 WEEKNIGHTS = ("Tue", "Wed", "Thu", "Fri")

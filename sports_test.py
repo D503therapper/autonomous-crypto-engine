@@ -15061,6 +15061,31 @@ def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_
     assert sports.units_for(pk) == 0.5 and sports.posted_kind(pk) == "floor" and sports.sizing_check([pk]) == []
 
 
+def test_college_unit_play_studies_1030_nothing_weighed_the_gap_dog_bands_are_tracker_leads():
+    """10/30 - 4 college football unit-play studies before a big Saturday (the owner: "find ways to get good unit
+    plays - 1u, 2u, 3u plays"): 126 cells, NONE passed the five checks - the -101..-150 college favorite loses at the
+    close in every cell (the 3u Lock cell -5.4% on 325), factor agreement pays nothing (favorites run WORSE the more
+    factors agree), the hammered college favorite is 28 games in 7 seasons, and no dog gap band holds up held out.
+    So nothing moves a read or a size: GAP_MIN stays 0.15, the Lock / Dog sizing is untouched. The 🔍 gap dog gets
+    its bands SPLIT in the tracker for its 50-play judge: 15-20 (watch - red in every season), 20+, and the
+    +251..+350 fade (10-34). Tags only, never a weight."""
+    import sports_leads as sl
+    assert sports.GAP_MIN == 0.15 and sports.LOCK_MAX_UNITS == 3.0 and sports.S6_DOG_UNITS == 2.0
+    dog = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:x", "side": "away", "home": False, "odds": 180,
+           "dec": 2.8, "p_market": 0.37, "raw_own": 0.54, "elo_edge": 3.5, "edge": 0.0, "edge_own": 0.512,
+           "reasons": [], "team": "A", "opp": "B", "start": "2026-10-31T19:00Z", "dog_more": {}}
+    assert sl.gap_band(dog) == ["college gap dog 15-20 (watch)"]
+    assert sl.gap_band({**dog, "raw_own": 0.58}) == ["college gap dog 20+"]
+    assert sl.gap_band({**dog, "raw_own": 0.58, "odds": 280}) == ["college gap dog 20+", "college gap dog +251..+350 (fade)"]
+    assert sl.gap_band({**dog, "raw_own": 0.50}) == []                      # under 15 points: not a gap dog
+    assert sl.gap_band({**dog, "elo_edge": -1.0}) == []                     # the ratings have the favorite: no 🔍 play
+    assert sl.gap_band({**dog, "odds": 400}) == []                          # past +350
+    assert sl.gap_band({**dog, "league": "nfl"}) == []                      # college only
+    tags = sl.tags(dog, sports)
+    assert "college gap dog 15-20 (watch)" in tags
+    assert "college gap dog 20+" not in tags
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
