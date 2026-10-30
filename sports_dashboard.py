@@ -218,9 +218,13 @@ HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensi
             "Plus money does the heavy lifting. A small bet is plenty.", "Small stake, big return if they cash.",
             "Big payout on a small bet — that's the play.", "Keep it small — the plus money pays big when it hits.")}
 HALF_WHY["even"] = ("Near even money - half a unit to start.", "About an even-money price. Half a unit.",   # (10/30, the
-                    "Not an expensive line - just a half-unit bet.")                                         #  owner on the
-HALF_WHY["early"] = ("Half a unit - this early spot starts small till it proves itself live.",               #  Wizards at -107:
-                     "This early spot is still proving itself live - half a unit.")                          #  "too expensive" was false)
+                    "Not an expensive line - just a half-unit bet.", "Close to even money. Half a unit.",    #  owner on the
+                    "Price is about a pick'em - half a unit.")                                              #  Wizards at -107:
+HALF_WHY["early"] = ("Half a unit - this early spot starts small till it proves itself live.",               #  "too expensive"
+                     "This early spot is still proving itself live - half a unit.",                          #  was false)
+                     "Early spot, still earning its stripes live. Half a unit.",
+                     "Half a unit while this early spot builds its live record.",
+                     "We start this early spot small - half a unit till the live record backs it.")
 EVEN_FROM = -120             # a favorite at -119..-101 is near even money - never "too expensive"
 FULL_WHY = {   # 1-1½u: why it's more than ½
     "fav": ("Fair price — worth a full unit.", "The price is fair — a solid bet.", "Price is right where we want it. Full unit.",
