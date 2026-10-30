@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T23:13Z",
+ "updated": "2026-10-30T23:50Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -25,6 +25,36 @@
    "start": "2026-10-30T23:00Z",
    "away": "Harvard",
    "home": "Dartmouth",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909277",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T23:00Z",
+   "away": "Hornets",
+   "home": "Wizards",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892612",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-30T23:00Z",
+   "away": "Jets",
+   "home": "Panthers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -89,125 +119,118 @@
    }
   },
   {
+   "id": "nba:401909278",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T23:30Z",
+   "away": "Bulls",
+   "home": "Celtics",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909280",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T23:30Z",
+   "away": "Knicks",
+   "home": "76ers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909281",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T23:30Z",
+   "away": "Magic",
+   "home": "Raptors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909279",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-30T23:30Z",
+   "away": "Pistons",
+   "home": "Nets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909284",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Timberwolves",
-    "p": 0.615,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-10-31T00:00Z",
    "away": "Clippers",
    "home": "Timberwolves",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Timberwolves",
-    "opp": "Clippers",
+    "team": "Clippers",
+    "opp": "Timberwolves",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.696,
-    "win_p": 0.696,
+    "odds": 215,
+    "p": 0.298,
+    "win_p": 0.298,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
+     "sharp money moving this way",
+     "opponent missing key players: Anthony Edwards (their read -9)"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892613",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kraken",
-    "p": 0.358,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-31T00:00Z",
    "away": "Kraken",
    "home": "Flames",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Flames",
-    "opp": "Kraken",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -258,
-    "p": 0.697,
-    "win_p": 0.482,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909282",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Heat",
-    "p": 0.678,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-31T00:00Z",
-   "away": "Pacers",
-   "home": "Heat",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Heat",
-    "opp": "Pacers",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.778,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909283",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.598,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-31T00:00Z",
-   "away": "Rockets",
-   "home": "Mavericks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Mavericks",
+    "team": "Kraken",
+    "opp": "Flames",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.645,
-    "win_p": 0.645,
+    "odds": -115,
+    "p": 0.52,
+    "win_p": 0.52,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -248,7 +271,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.566,
+    "p": 0.572,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -264,9 +287,9 @@
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3505,8 +3528,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.523,
-    "tie": 0.273,
+    "p": 0.513,
+    "tie": 0.276,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3522,8 +3545,8 @@
     "market": "spread",
     "line": -1.5,
     "odds": -180,
-    "p": 0.647,
-    "win_p": 0.818,
+    "p": 0.626,
+    "win_p": 0.804,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
