@@ -2794,3 +2794,16 @@ DEX: $679.80 (-320.20) · Scammed: 8 (-$162.71)
 [2026-10-30 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-10-30 12:06 UTC] crypto/hold_btc  equity $463.82 (-7.2%) 1 open  market DOWN
    social heat top: HYPE 50 (40/0/10), PENGU 41 (29/0/11), BTC 35 (35/0/0), ETH 24 (24/0/0), UNI 21 (21/0/0)
+   dex screen: REJECT SNDK@solana liq $104,046 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 72%; lp holders unknown
+   dex screen: PASS BITPEPE@ethereum liq $106,842
+   dex screen: REJECT EUL@ethereum liq $574,464 - is_mintable; honeypot_with_same_creator; top-10 holders 60%; lp locked 0% < 95%
+   dex screen: REJECT OCT@ethereum liq $628,737 - goplus partial data: cannot_sell_all unknown; is_mintable; owner_change_balance; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $357,867 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $108,855 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT STONKEX@base liq $114,575 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT REPPO@base liq $506,899 - top-10 holders 72%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $105,768 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SP@ethereum liq $368,366 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT UNION@base liq $705,739 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT RSGP@base liq $105,897 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; creator_percent 20%; lp holders unknown
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $107,333 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
