@@ -15021,6 +15021,42 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
     assert a1 and a2 and a1 != a2
 
 
+def test_nfl_unit_play_studies_1030_two_tracker_leads_no_weight_no_sizing_change():
+    """10/30 NFL unit-play studies (the owner: "find ways to get good unit plays - 1u, 2u, 3u plays"): three studies,
+    NOTHING clears the five checks - the NFL Lock (-101..-150, blend 56%+, own read over) lost -10.4% train / -1.3% held
+    out and -15.5% / -16.0% at the first fair early number; the fresh QB change is priced (facing the backup +15% train,
+    -20% held out). Two LEADS go to the tracker only: (1) the NFL dog +100..+150 across the engine's Lock-grade favorite
+    (+6.6% / +8.7% at the close, 5 of 7 up, z under 1); (2) the Lock-grade small favorite in September / December+ (fade:
+    -30.5% / -33.9% on 25 / 26). No weight, no sizing rule: the NFL Lock's units (sports.lock_units) are untouched."""
+    import sports_leads as sl
+    dog = {"market": "ml", "league": "nfl", "game_id": "nfl:x", "side": "away", "home": False, "odds": 130, "dec": 2.3,
+           "p": 0.41, "p_market": 0.42, "edge_own": 0.38 * 2.3 - 1, "reasons": [], "team": "Ds", "opp": "Fs",
+           "start": "2026-11-01T18:00Z", "dog_more": {}}
+    fav = {"market": "ml", "league": "nfl", "game_id": "nfl:x", "side": "home", "home": True, "odds": -150, "dec": 1.6667,
+           "p": 0.59, "p_market": 0.58, "edge_own": 0.62 * 1.6667 - 1, "reasons": [], "team": "Fs", "opp": "Ds",
+           "start": "2026-11-01T18:00Z", "dog_more": {}}
+    across = "NFL dog across the engine's Lock-grade small favorite"
+    cold = "NFL Lock-grade small favorite in September / December+ (fade)"
+    assert sl.across_engine_lock(dog) and across in sl.tags(dog, sports)
+    assert sl.lock_grade(fav) and sl.nfl_month(fav) == 11 and cold not in sl.tags(fav, sports)   # November: no tag
+    for m in ("09", "12", "01"):
+        assert cold in sl.tags({**fav, "start": f"2026-{m}-05T18:00Z"}, sports), m
+    assert cold not in sl.tags({**fav, "start": "2026-10-05T18:00Z"}, sports)
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "p": 0.55}, sports)        # blend under 56%: no Lock
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "odds": -160, "dec": 1.625}, sports)   # past -150
+    assert cold not in sl.tags({**fav, "start": "2026-12-05T18:00Z", "edge_own": 0.56 * 1.6667 - 1}, sports)   # own under
+    assert not sl.across_engine_lock({**dog, "p": 0.46})                       # the favorite under 56%: not Lock grade
+    assert not sl.across_engine_lock({**dog, "edge_own": 0.44 * 2.3 - 1})      # the dog's own read over the market
+    assert not sl.across_engine_lock({**dog, "odds": 170, "dec": 2.7})         # past +150
+    assert not sl.across_engine_lock({**dog, "league": "ncaaf"})               # NFL only
+    assert sl.nfl_month({}) is None
+    # leads, not weights: the dog score and the Lock's units never move on either
+    s = {**dog, "dog_ctx": {}, "edge": 0.0}
+    assert sports.dog_score(dict(s)) == sports.dog_score({**s, "p": 0.46})
+    leg = {"odds": -150, "dec": 1.6667, "w_p": 0.62, "edge_own": 0.62 * 1.6667 - 1, "league": "nfl", "start": "2026-12-05T18:00Z"}
+    assert sports.lock_units(leg) == sports.lock_units({**leg, "start": "2026-11-05T18:00Z"}) == sports.LOCK_MAX_UNITS
+
+
 def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_with_a_one_a_day_fallback():
     """10/29 (night), the owner after the two ½u thin losers (Blue Jackets +205, Panthers +164): "Run Fable and fix the thin
     edge plays." The 10/30 funnel re-run on today's code (1,097 board days 2023-26; train 2023-25 / held out 2025-27; ~45
