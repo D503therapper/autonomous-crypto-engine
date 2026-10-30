@@ -1,29 +1,31 @@
 {
- "at": "2026-10-30T06:10Z",
+ "at": "2026-10-30T07:41Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (119s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
-  "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 7h ago",
-  "engine ran 45 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 6 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-30T07:41Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-30T06:10Z",
    "fixes": [],
@@ -485,19 +487,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Rivera vs Gormaz: no points for 870s"
-   ]
-  },
-  {
-   "at": "2026-10-28T15:44Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Cinalli vs Tubello: no points for 2616s",
-    "live tennis scores: tennis Werner vs Jacquemot: no points for 2616s",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
