@@ -4773,3 +4773,33 @@ $BITF: No data found, symbol may be delisted
 [2026-10-30 21:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-10-30 21:06 UTC] crypto/hold_btc  equity $461.78 (-7.6%) 1 open  market DOWN
    social heat top: HYPE 42 (37/0/5), PENGU 42 (27/0/15), BTC 40 (40/0/0), SOL 29 (29/0/0), NEAR 24 (24/0/0)
+   dex screen: PASS SPCX80K@solana liq $149,063
+   dex screen: REJECT ELEVATE@ethereum liq $964,420 - is_mintable; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT WBTC@ethereum liq $24,577,703 - transfer_pausable; is_mintable; top-10 holders 54%
+   dex screen: REJECT BIRB@solana liq $840,410 - creator holds 12%; top-10 holders 93%; lp holders unknown
+   dex screen: PASS DRB@base liq $1,019,581
+   dex screen: REJECT PUMP@solana liq $22,653,866 - transfer hook; top-10 holders 60%
+   dex screen: REJECT XDP@base liq $1,717,777 - top-10 holders 93%
+   dex screen: REJECT VVV@base liq $7,713,466 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT PAXG@ethereum liq $2,116,705 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT CBUCKS@solana liq $113,965 - top-10 holders 41%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $378,318 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT XDP@base liq $1,723,890 - top-10 holders 93%
+   dex screen: REJECT XDP@solana liq $17,756,015 - top-10 holders 100%; lp holders unknown
+   dex screen: PASS DOAS@solana liq $527,808
+   dex screen: REJECT EXFIL@solana liq $161,165 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT LTC@solana liq $579,626 - top-10 holders 95%; lp holders unknown
+   dex scanner: 2,736 pools (solana 1,929 / base 456 / ethereum 351), refresh cycle 119s (hot 114s), 2885 calls (108 feed, 429s 0, failed 0), 83,310 refreshed (10985 no pair), +79 added / -89 dropped (dead 83, stale 6, cap 0), movers 0 + warming 19 -> queued 3, screened 4 (passed 1), bought 0
+[2026-10-30 22:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/mover     equity $239.73 (-52.1%) 2 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/social_heat equity $369.42 (-26.1%) 4 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/breakout10 equity $419.06 (-16.2%) 1 open  market UP
+[2026-10-30 22:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-30 22:05 UTC] crypto/hold_btc  equity $460.37 (-7.9%) 1 open  market DOWN
+   social heat top: BTC 53 (40/0/13), PENGU 41 (37/0/4), HYPE 37 (32/0/5), SOL 35 (35/0/0), ETH 29 (29/0/0)
+   [alert] Today +7.24 | Total -332.26: Stocks: $479.64  today -1.06  total -20.36
+DEX: $688.09  today +8.29  total -311.91
+DEX: $688.09 (-311.91) · Scammed: 9 (-$182.13)
