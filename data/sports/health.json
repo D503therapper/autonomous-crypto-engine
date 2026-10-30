@@ -1,9 +1,11 @@
 {
- "at": "2026-10-30T18:20Z",
+ "at": "2026-10-30T19:53Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Da Silva vs Jones: no points for 151s"
+ ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,14 +18,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
-  "engine ran 46 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-30T19:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Da Silva vs Jones: no points for 151s"
+   ]
+  },
   {
    "at": "2026-10-30T18:20Z",
    "fixes": [],
@@ -493,14 +502,6 @@
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-28T23:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mandlik vs Janicijevic: no points for 1833s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }
