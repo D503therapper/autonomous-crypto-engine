@@ -25475,6 +25475,7 @@
      "game:conf"
     ],
     "dec": 2.6399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -25518,6 +25519,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 5.28,
+    "flow": {
+     "a": "3,7,3,6",
+     "h": "6,14,7,0"
+    },
     "form_state": [
      -30.0,
      -1,
@@ -25571,10 +25576,12 @@
      "opponent the more banged-up side: 1 regulars out to 0 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 19 @ Packers 27",
     "season_games": null,
+    "settled": "2026-10-30T03:56Z",
     "side": "away",
     "start": "2026-10-30T00:15Z",
     "stype": "2",
@@ -25598,12 +25605,14 @@
    }
   ],
   "p_hit": 0.3554,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-29T15:00Z",
   "round": 1,
+  "settled": "2026-10-30T03:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -135,
