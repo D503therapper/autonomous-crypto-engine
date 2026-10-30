@@ -1,11 +1,9 @@
 {
- "at": "2026-10-30T03:53Z",
+ "at": "2026-10-30T03:54Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Linana vs Zidansek: no points for 2627s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (53s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +18,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 46 min ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-30T03:54Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-30T03:53Z",
    "fixes": [],
@@ -505,16 +508,6 @@
     "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-10-28T11:54Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-27 Alexandra Eala) - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Pigato vs Montgomery: no points for 2624s",
-    "live tennis scores: tennis Andreeva vs Kotliar: no points for 2624s"
-   ]
   }
  ]
 }
