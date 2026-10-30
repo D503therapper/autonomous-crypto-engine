@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 145,
-  "beat": 46,
+  "n": 146,
+  "beat": 47,
   "same": 53,
   "worse": 46,
-  "avg_pts": 0.06
+  "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 65,
-  "beat": 19,
+  "n": 66,
+  "beat": 20,
   "same": 30,
   "worse": 16,
-  "avg_pts": 0.16
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 32,
-   "beat": 8,
+   "n": 33,
+   "beat": 9,
    "same": 17,
    "worse": 7,
-   "avg_pts": 0.04
+   "avg_pts": 0.08
   }
  },
  "by_sport": {
@@ -66,11 +66,11 @@
    "avg_pts": 0.05
   },
   "nfl": {
-   "n": 20,
-   "beat": 7,
+   "n": 21,
+   "beat": 8,
    "same": 8,
    "worse": 5,
-   "avg_pts": 0.12
+   "avg_pts": 0.19
   },
   "nhl": {
    "n": 55,
@@ -2126,6 +2126,20 @@
    "pts": 0.6,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-29",
+   "kind": "play",
+   "lean": false,
+   "league": "nfl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": 164,
+   "close": 154,
+   "pts": 1.5,
+   "units": 0.5,
+   "result": "lost"
   },
   {
    "date": "2026-10-29",
