@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T00:56Z",
+ "updated": "2026-10-31T00:58Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -641,8 +641,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rhode Island",
-    "p": 0.761,
-    "tie": 0.025,
+    "p": 0.747,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -657,9 +657,9 @@
     "opp": "Maine",
     "market": "spread",
     "line": -15.5,
-    "odds": -112,
+    "odds": -101,
     "p": 0.501,
-    "win_p": 0.819,
+    "win_p": 0.805,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -750,7 +750,7 @@
     "opp": "Navy",
     "market": "spread",
     "line": -30.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.503,
     "win_p": 0.944,
     "reasons": [
@@ -827,7 +827,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SMU",
-    "p": 0.657,
+    "p": 0.649,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -842,10 +842,10 @@
     "team": "SMU",
     "opp": "Syracuse",
     "market": "spread",
-    "line": -10.5,
+    "line": -10.0,
     "odds": -108,
-    "p": 0.501,
-    "win_p": 0.707,
+    "p": 0.5,
+    "win_p": 0.697,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1836,8 +1836,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Norfolk St",
-    "p": 0.538,
-    "tie": 0.033,
+    "p": 0.526,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1852,11 +1852,12 @@
     "opp": "Delaware St",
     "market": "ml",
     "line": null,
-    "odds": -151,
-    "p": 0.566,
-    "win_p": 0.566,
+    "odds": -142,
+    "p": 0.552,
+    "win_p": 0.552,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
   },
@@ -2133,6 +2134,36 @@
     "reasons": [
      "the stronger team",
      "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909896",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Trail Blazers",
+    "p": 0.604,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-31T19:00Z",
+   "away": "Trail Blazers",
+   "home": "Jazz",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Trail Blazers",
+    "opp": "Jazz",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -3088,6 +3119,36 @@
    }
   },
   {
+   "id": "nba:401909898",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Hawks",
+    "p": 0.547,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-10-31T23:00Z",
+   "away": "Hawks",
+   "home": "Pelicans",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hawks",
+    "opp": "Pelicans",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892621",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -3459,6 +3520,67 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909900",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Cavaliers",
+    "p": 0.675,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T00:00Z",
+   "away": "Cavaliers",
+   "home": "Bucks",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Cavaliers",
+    "opp": "Bucks",
+    "market": "spread",
+    "line": -9.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.751,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909899",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Grizzlies",
+    "p": 0.681,
+    "tie": 0.032,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T00:00Z",
+   "away": "Kings",
+   "home": "Grizzlies",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Grizzlies",
+    "opp": "Kings",
+    "market": "spread",
+    "line": -10.5,
+    "odds": -115,
+    "p": 0.503,
+    "win_p": 0.782,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win"
     ]
    }
   },
