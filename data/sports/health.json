@@ -1,11 +1,13 @@
 {
- "at": "2026-10-31T18:07Z",
- "fixes": [],
+ "at": "2026-10-31T18:08Z",
+ "fixes": [
+  "live watch 41223985295 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Dimitrov vs Vallejo: no points for 2612s"
  ],
  "ok": [
-  "live watcher fresh (224s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +22,22 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 40 min ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T18:08Z",
+   "fixes": [
+    "live watch 41223985295 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Dimitrov vs Vallejo: no points for 2612s"
+   ]
+  },
   {
    "at": "2026-10-31T18:07Z",
    "fixes": [],
@@ -540,14 +552,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-29T22:02Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Strakhova vs Hercog: no points for 856s",
-    "live tennis scores: tennis Colmegna vs Maria: no points for 205s"
    ]
   }
  ]
