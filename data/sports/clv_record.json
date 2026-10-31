@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 151,
-  "beat": 48,
+  "n": 152,
+  "beat": 49,
   "same": 56,
   "worse": 47,
-  "avg_pts": 0.07
+  "avg_pts": 0.08
  },
  "unit_plays": {
   "n": 68,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 83,
-   "beat": 28,
+   "n": 84,
+   "beat": 29,
    "same": 25,
    "worse": 30,
-   "avg_pts": -0.0
+   "avg_pts": 0.01
   },
   "lock": {
    "n": 13,
@@ -59,11 +59,11 @@
    "avg_pts": 0.36
   },
   "ncaaf": {
-   "n": 42,
-   "beat": 11,
+   "n": 43,
+   "beat": 12,
    "same": 18,
    "worse": 13,
-   "avg_pts": 0.03
+   "avg_pts": 0.05
   },
   "nfl": {
    "n": 21,
@@ -2167,6 +2167,20 @@
    "close": -130,
    "pts": -0.9,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Sacramento St",
+   "market": "ml",
+   "line": null,
+   "odds": 235,
+   "close": 225,
+   "pts": 0.9,
+   "units": 0,
    "result": "won"
   },
   {
