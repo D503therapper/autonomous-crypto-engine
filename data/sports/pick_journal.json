@@ -8862,5 +8862,62 @@
   "score": "101-127",
   "margin": -26.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-31",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892615",
+  "team": "Blues",
+  "opp": "Red Wings",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -118,
+  "posted": "2026-10-31T15:00Z",
+  "price_says": 0.541,
+  "win_p": 0.5259509526092221,
+  "own_read": 0.524,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.03152412013370287,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "sharp money moving this way",
+   "opponent missing key players",
+   "opponent drama: suspension"
+  ],
+  "angles": [
+   "even:2",
+   "G_hot:0",
+   "drama_suspension:0",
+   "f_last:0",
+   "f_outs:3",
+   "f_net:1",
+   "f_last5:0",
+   "f_theirL:0",
+   "f_pyth:0",
+   "risk:4",
+   "bottom_c:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Albert Johansson (D)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": true
+  },
+  "public": null,
+  "close": -102,
+  "beat_close_pts": -3.6,
+  "result": "won",
+  "score": "5-4",
+  "margin": 1.0,
+  "pnl_units": 0.0
  }
 ]

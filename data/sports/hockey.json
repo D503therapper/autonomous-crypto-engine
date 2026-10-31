@@ -1,31 +1,31 @@
 {
- "games": 9620,
- "test_games": 3207,
- "ll_market": 0.66572,
+ "games": 9622,
+ "test_games": 3208,
+ "ll_market": 0.66556,
  "factors": {
   "goalie": {
-   "w": 0.1301,
-   "ll": 0.66581,
+   "w": 0.1278,
+   "ll": 0.6656,
    "better": false
   },
   "backup": {
-   "w": -0.0384,
-   "ll": 0.66576,
+   "w": -0.0374,
+   "ll": 0.66559,
    "better": false
   },
   "b2b": {
-   "w": 0.1147,
-   "ll": 0.66534,
+   "w": 0.1168,
+   "ll": 0.66519,
    "better": true
   },
   "rest": {
-   "w": 0.0528,
-   "ll": 0.66562,
+   "w": 0.0549,
+   "ll": 0.66546,
    "better": true
   },
   "travel": {
    "w": -0.0434,
-   "ll": 0.66571,
+   "ll": 0.66554,
    "better": true
   }
  },
@@ -34,12 +34,12 @@
   "rest",
   "travel"
  ],
- "ll_kept": 0.66535,
- "acc": 0.5847,
- "acc_market": 0.5865,
+ "ll_kept": 0.6652,
+ "acc": 0.5848,
+ "acc_market": 0.587,
  "weights": {
   "b2b": 0.1164,
-  "rest": 0.0084,
-  "travel": -0.0393
+  "rest": 0.0083,
+  "travel": -0.0399
  }
 }
