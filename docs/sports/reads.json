@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T02:06Z",
+ "updated": "2026-10-31T02:13Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -267,32 +267,27 @@
    "id": "ncaaf:401866451",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Kent State",
-    "p": 0.608,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-31T02:30Z",
    "away": "Kent State",
    "home": "Sacramento St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Kent State",
-    "opp": "Sacramento St",
+    "team": "Sacramento St",
+    "opp": "Kent State",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.65,
-    "win_p": 0.65,
+    "odds": 235,
+    "p": 0.341,
+    "win_p": 0.341,
     "reasons": [
-     "hotter recent form",
-     "the stronger team",
-     "better QB play lately"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
@@ -2081,7 +2076,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.604,
+    "p": 0.603,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2805,7 +2800,9 @@
     "odds": -225,
     "p": 0.661,
     "win_p": 0.442,
-    "reasons": []
+    "reasons": [
+     "opponent drama: suspension"
+    ]
    }
   },
   {
@@ -3062,7 +3059,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.547,
+    "p": 0.546,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3483,7 +3480,7 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.502,
     "win_p": 0.751,
     "reasons": [
@@ -3550,6 +3547,36 @@
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909901",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Spurs",
+    "p": 0.699,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T00:00Z",
+   "away": "Timberwolves",
+   "home": "Spurs",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Spurs",
+    "opp": "Timberwolves",
+    "market": "spread",
+    "line": -11.5,
+    "odds": -115,
+    "p": 0.504,
+    "win_p": 0.804,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
