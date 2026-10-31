@@ -27874,6 +27874,15 @@
      "them:hotseat"
     ],
     "dec": 2.3,
+    "decider": {
+     "k": "td",
+     "n": 1,
+     "p": null,
+     "s": "27-24",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27924,6 +27933,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,7,7,7,3",
+     "h": "7,0,7,7,6"
+    },
     "form_state": [
      -11.0,
      -1,
@@ -27976,10 +27989,12 @@
      "opponent drama: illness"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Kansas St 24 @ Colorado 27",
     "season_games": null,
+    "settled": "2026-10-31T22:03Z",
     "side": "away",
     "start": "2026-10-31T18:00Z",
     "stype": "2",
@@ -28004,11 +28019,13 @@
   ],
   "midday": true,
   "p_hit": 0.4168,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-31T17:30Z",
   "round": 1,
+  "settled": "2026-10-31T22:03Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  }
 ]
