@@ -1,27 +1,32 @@
 {
- "at": "2026-10-31T10:30Z",
+ "at": "2026-10-31T12:01Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 6 live matches",
+  "live tennis points + server: 6 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 9 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 10 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-31T12:01Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-31T10:30Z",
    "fixes": [],
@@ -530,17 +535,6 @@
    "at": "2026-10-29T14:57Z",
    "fixes": [],
    "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-29T14:56Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Andreeva vs Ribera: no points for 2611s",
-    "live tennis scores: tennis Jacquemot vs Bandecchi: no points for 1305s",
     "studies last ran 9h ago - restarted"
    ]
   }
