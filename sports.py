@@ -363,6 +363,16 @@ def out_count(g, side, injuries):
     return len(rows)
 
 
+def raw_absences(games, g, injuries, key_out, absent):
+    """🔍 10/31 college sweep: the absence points the RAW ratings read takes. With a starting QB out the OWN read is the
+    market (it prices the backup), so `absent` skipped the QB points; the raw read never sees the market, so it takes
+    them (college QB -3) - a 🔍 gap built on a starting QB the ratings think is playing is the books knowing what we
+    don't. No QB out: the same points as the own read."""
+    if not injuries or not (key_out.get("home") or key_out.get("away")):
+        return absent
+    return {s_: sports_absences.penalty(games, g, s_, injuries) for s_ in ("home", "away")}
+
+
 def goalie_known(g, side):
     """Hockey: tonight's starting goalie for this side is confirmed / likely on Daily Faceoff (sports_goalies) - then a
     questionable goalie on the injury report no longer leaves the game unknown: we know who's in net."""
@@ -628,9 +638,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
                   for s_ in ("home", "away")}
         if absent["home"][0] or absent["away"][0]:
             ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
+        absent_raw = raw_absences(games, g, injuries, key_out, absent)   # (10/31: the raw read takes the QB points)
         try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
             raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
-            raw_h = min(0.99, max(0.01, raw_h - absent["home"][0] + absent["away"][0]))   # plays ride on (10/17)
+            raw_h = min(0.99, max(0.01, raw_h - absent_raw["home"][0] + absent_raw["away"][0]))   # plays ride on (10/17)
             if ew < 1 and mkt is not None:
                 raw_h = early_shrink(raw_h, mkt, ew)
         except Exception:                            # noqa: BLE001
@@ -660,6 +671,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
         except Exception as e:                        # noqa: BLE001 - unknown = no weight, never a blocked board
             print(f"goalie roles failed: {str(e)[:60]}")
             g_roles = {}
+        fbs_game = None                               # 🔍 10/31: both college teams FBS? (the gap play's proof is FBS-only)
+        if lg == "ncaaf":
+            try:
+                fbs_ = sp.fbs_set(games, g["start"])
+                fbs_game = None if fbs_ is None else (g["home"] in fbs_ and g["away"] in fbs_)
+            except Exception:                         # noqa: BLE001 - the files can't say: no filter
+                fbs_game = None
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
             if n_out[side] - n_out[other] > MAX_EXTRA_OUT and not hurt_[side] and not weighed[side]:   # the more banged-up team: never
@@ -668,6 +686,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "team_id": g[side], "elo_edge": round(f["elo_pts"] * (1 if side == "home" else -1), 1),
+                    "fbs_game": fbs_game,
                     "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
@@ -3489,6 +3508,11 @@ GAP_LEAGUES = ("ncaaf",)  # (History says these lose - 1-6 live through 10/16 - 
 #   the first fair price - while 15+ runs +7.0% train (377) / -0.5% blind (280) / +7.2% 2026 (53), and every robust cell
 #   that passed (fav not hot, dog not cold, rating-backed) sat on the 15+ band. Live through 10/24: 3-6, -0.8u (the 10-15
 #   plays 1-1). Judge at 50 plays, cut under -5% (the owner's 10/17 bar).
+GAP_FBS_ONLY = True       # 🔍 10/31 college sweep: both teams FBS (sports_players.fbs_set, walk-forward). Every proof the gap
+#                           play stands on - the 10/17 study, the 10/24 audit's 15+ band, the 10/30 unit-play study - is
+#                           the paid odds history = FBS games; our feed only started pricing FCS-vs-FCS games in 2026, and
+#                           there the rule ran 10-19 -4.9% (2026) on ratings built from thin FCS schedules. Every live 🔍
+#                           play so far was FBS v FBS. An FCS game never carries a 🔍 unit play; its dogs still get read.
 
 
 def gap_plays(cands, avoid):
@@ -3500,6 +3524,8 @@ def gap_plays(cands, avoid):
             continue
         if c.get("trap") or c.get("raw_own") is None or c.get("p_market") is None or not c.get("dec"):
             continue
+        if GAP_FBS_ONLY and c.get("fbs_game") is False:
+            continue                                         # (10/31: an FCS game - the 15+ rule was never proven there)
         if c.get("elo_edge") is None or c["elo_edge"] < 0:
             continue                                         # (the owner, 10/17 "A": only a gap the RATINGS back - when
             #                                                  Elo + home edge side with the favorite and the gap is all

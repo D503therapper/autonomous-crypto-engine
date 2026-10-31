@@ -15502,6 +15502,79 @@ def test_questionable_1030_a_man_who_plays_through_it_never_holds_the_board_a_co
         sq._T.clear(); sq._T.update(keep_t); sd.INJ_NOTES.clear(); sd.INJ_NOTES.update(keep_notes)
 
 
+def test_college_sweep_1031_a_covers_listed_starting_qb_counts_the_raw_read_takes_his_points_and_no_fcs_gap_play():
+    """10/31 college sweep (the owner: "the engine needs more college football"). Three bugs on the Saturday board:
+    (1) Covers' college page - the report behind most FBS schools - lists "J. Knuth"; the box score has "Jacob Knuth",
+    who started Kansas St's last game. The starter check matched exact names only, so a Covers-listed starting QB was
+    never key: his "Questionable" never held the board (Kansas St +130 went up as a 1u 🔍 play) and a starter ruled
+    out was never weighed. (2) With a starting QB out, the RAW ratings read (what the 🔍 gap rides on) skipped the QB
+    points the market-based own read skips. (3) The 🔍 gap play's proof is FBS games only; on FCS-vs-FCS games (priced
+    in our feed only from 2026) the 15+ rule ran 10-19 -4.9% - no 🔍 unit play there."""
+    import sports_players as spl
+    import sports_absences as A
+    keep_cache, keep_hook = spl.CACHE, sd.STARTER_OF
+    keep_pen = A.penalty
+    try:
+        sd.STARTER_OF = spl._starter_of
+        spl.CACHE = {"ncaaf": [{"gid": "g1", "team": "KS", "player": "Avery Johnson", "start": "2026-10-17T16:00Z"},
+                               {"gid": "g2", "team": "KS", "player": "Jacob Knuth", "start": "2026-10-24T19:45Z"}]}
+        assert sd.STARTER_OF("ncaaf", "KS", "J. Knuth") is True               # the Covers short name = the starter
+        assert sd.STARTER_OF("ncaaf", "KS", "Jacob Knuth") is True
+        assert sd.STARTER_OF("ncaaf", "KS", "D. Duff") is False               # a backup who never started: never key
+        assert sd.STARTER_OF("ncaaf", "KS", "K. Knuth") is False              # another first initial: no guess
+        assert sd.STARTER_OF("ncaaf", "ZZ", "J. Knuth") is None               # no box scores: unknown, as before
+        spl.CACHE["nhl"] = [{"gid": "h1", "team": "BOS", "player": "Jeremy Swayman", "start": "2026-10-30T23:00Z"}]
+        assert sd.STARTER_OF("nhl", "BOS", "Jeremy Swayman") is True
+        assert sd.STARTER_OF("nhl", "BOS", "Jeremey Swayman") is False        # full-name feeds: no fuzzy guess
+        inj = {"KS": [("J. Knuth", "QB", "Questionable"), ("D. Duff", "QB", "Out")]}
+        assert [r[0] for r in sd.team_unsure(inj, "KS", "Kansas St", "ncaaf")] == ["J. Knuth"]   # holds the board
+        assert sd.team_key_out(inj, "KS", "Kansas St", "ncaaf") == []        # Duff out: not the starting QB
+        out = {"KS": [("J. Knuth", "QB", "Out")]}
+        assert [r[0] for r in sd.team_key_out(out, "KS", "Kansas St", "ncaaf")] == ["J. Knuth"]   # weighed now
+        # (2) the raw read takes the QB points the market-based own read skipped
+        A.penalty = lambda games, g, side, injuries, skip_qb=False: ((0.0 if skip_qb else 0.03), []) if side == "home" else (0.0, [])
+        g = {"home": "KS", "away": "CO", "home_name": "Kansas St", "away_name": "Colorado", "league": "ncaaf"}
+        skipped = {"home": (0.0, []), "away": (0.0, [])}
+        raw = sports.raw_absences({}, g, {"ncaaf": out}, {"home": [("J. Knuth", "QB", "Out")], "away": []}, skipped)
+        assert raw["home"][0] == 0.03 and raw["away"][0] == 0.0
+        assert sports.raw_absences({}, g, {"ncaaf": {}}, {"home": [], "away": []}, skipped) is skipped   # no QB out
+    finally:
+        spl.CACHE, sd.STARTER_OF = keep_cache, keep_hook
+        A.penalty = keep_pen
+    # (3) no 🔍 play on an FCS game; an FBS game or one the files can't judge still goes
+    dec = sports._dec(234)
+    c = {"game_id": "F", "league": "ncaaf", "market": "ml", "side": "away", "team": "Lafayette", "opp": "Villanova",
+         "odds": 234, "dec": dec, "p": 0.30, "p_market": 0.30, "edge_own": 0.30 * dec - 1, "edge": 0.30 * dec - 1,
+         "raw_own": 0.52, "elo_edge": 20.0, "start": "2026-10-31T17:00Z", "reasons": ["r"], "waiting": []}
+    assert sports.GAP_FBS_ONLY is True
+    assert sports.gap_plays([{**c, "fbs_game": False}], avoid=()) == []
+    assert [x["game_id"] for x in sports.gap_plays([{**c, "fbs_game": True}], avoid=())] == ["F"]
+    assert [x["game_id"] for x in sports.gap_plays([{**c, "fbs_game": None}], avoid=())] == ["F"]
+    assert sports.GAP_MIN == 0.15 and sports.GAP_UNITS == 1.0                # the band and the size untouched
+    # the lead: a college favorite the weights carry over the price while its own read sits under - tracked, never a play
+    import sports_leads as sl
+    fd = sports._dec(-125)
+    fav = {"market": "ml", "league": "ncaaf", "game_id": "ncaaf:none", "side": "home", "home": True, "odds": -125,
+           "dec": fd, "p": 0.54, "p_market": 0.54, "w_p": 0.57, "edge_own": 0.54 * fd - 1, "edge": 0.54 * fd - 1,
+           "reasons": ["r"], "team": "A", "opp": "B", "start": "2026-10-31T19:00Z", "dog_more": {}}
+    # the risk / outs lines name only men the box scores say play (football); no box scores = the list as it is
+    import sports_breakdown_v24 as b24
+    keep_reg = A.regulars
+    try:
+        A.regulars = lambda games, lg, team, before: {"avery johnson", "jacob knuth", "jayce brown"}
+        outs = ["D. Duff (QB)", "G. Oakley (TE)", "J. Brown (WR)", "A. Morrell (TE)"]
+        assert b24.who_plays_only(outs, "ncaaf", "KS", "2026-10-31") == ["J. Brown (WR)"]
+        assert b24.who_plays_only(outs, "nhl", "KS", "2026-10-31") == outs
+        A.regulars = lambda games, lg, team, before: None
+        assert b24.who_plays_only(outs, "ncaaf", "KS", "2026-10-31") == outs
+    finally:
+        A.regulars = keep_reg
+    tag = "college small fav: weighed read over the price, own read under"
+    assert tag in sl.tags(fav, sports)
+    assert tag not in sl.tags({**fav, "w_p": 0.54}, sports)                 # the weights don't clear the price
+    assert tag not in sl.tags({**fav, "edge_own": 0.57 * fd - 1}, sports)   # the own read beats it: a real play's cell
+
+
 def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
     """10/30: the Bovada tennis feed went quiet 10/29 11:20Z and the repo had no trace of why (the job logs are out of
     reach). Every read now writes tennis/odds_status.json - the lines it got, the raw payload size, or the error -

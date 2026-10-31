@@ -211,6 +211,13 @@ def tags(c, sports):
             #   favorites whose record sits 0.15+ under its points-for / against: -22.2% on 112 (train 2 of 7 up,
             #   2023+ -27.9%, holdout -38% on 14, 2026 -13% on 24, early price -30%; dose 0.10 -6% / 0.20 -30% /
             #   0.25 -42%), but the NFL cell is flat (-3.9% on 47) - tracked only, never a weight
+        if lg == "ncaaf" and -150 <= c.get("odds", 0) <= -101 and c.get("dec") and c.get("w_p") is not None \
+                and c["w_p"] * c["dec"] > 1 and not sports.own_beats(c):
+            t.append("college small fav: weighed read over the price, own read under")   # 10/31 college sweep: the
+            #   favorite the weights (rule A, off-a-loss, depth) carry over the price but the 10/18 own-read rule keeps off
+            #   the board - the funnel replay 24-13 +17.3% train / 10-5 +21.7% held out (4 of 4 seasons), but the 10/30
+            #   study's same cell over the odds history 79-54 +6.9% with train 2020-23 -7.4%, and ~60 cells looked at -
+            #   a LEAD, tracked for its own record (judge at 30), never a play
         if lg == "ncaaf" and -150 <= c.get("odds", 0) <= -101 and shredded_loss(c):
             t.append("college small fav off a loss allowing 40+ (fade)")   # 10/28 daily study: -28.3% on 142 vs -15.6%
             #   for every band favorite off a loss (train 0 of 7 up, 2023+ -22.6%, holdout -35% on 17, early price -26%,

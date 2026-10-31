@@ -146,7 +146,19 @@ def _starter_of(lg, tid, name):
     #   (10/5, the owner: "⚠️ Cooper Rush (Falcons QB) is now out" - Rush started 2 of the Falcons' last 3, but Penix
     #   started the latest one: in football the starting QB is the one who started the LAST game; hockey keeps 3 - goalies
     #   split starts)
-    return None if st is None else _nm(name) in st
+    if st is None:
+        return None
+    if _nm(name) in st:
+        return True
+    #   (10/31 college sweep: Covers' college page - the report behind most FBS schools - lists "J. Knuth", the box
+    #   score "Jacob Knuth": the exact-name check called every Covers-listed starting QB a backup, so Kansas St's
+    #   questionable starter never held the board and a starting QB ruled out was never weighed. The absences'
+    #   matcher - the one same-last-name starter whose first name starts the same way, two candidates = no guess.
+    #   Football only: the pro feeds write full names, and in the NBA "Jaylin Williams" would pass for Jalen)
+    if lg not in ("nfl", "ncaaf"):
+        return False
+    import sports_absences
+    return sports_absences.match(name, {sports_absences._nm(x) for x in st})
 
 
 sd.STARTER_OF = _starter_of
