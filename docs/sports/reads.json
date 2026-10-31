@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T15:02Z",
+ "updated": "2026-10-31T15:07Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -376,8 +376,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Notre Dame",
-    "p": 0.895,
-    "tie": 0.015,
+    "p": 0.902,
+    "tie": 0.014,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -391,10 +391,10 @@
     "team": "Notre Dame",
     "opp": "Navy",
     "market": "spread",
-    "line": -30.5,
-    "odds": -118,
-    "p": 0.503,
-    "win_p": 0.943,
+    "line": -31.5,
+    "odds": -102,
+    "p": 0.504,
+    "win_p": 0.948,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -688,7 +688,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Villanova",
-    "p": 0.617,
+    "p": 0.616,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -700,14 +700,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Villanova",
-    "opp": "Lafayette",
+    "team": "Lafayette",
+    "opp": "Villanova",
     "market": "spread",
-    "line": -7.5,
-    "odds": -112,
+    "line": 7.0,
+    "odds": -110,
     "p": 0.5,
-    "win_p": 0.66,
-    "reasons": []
+    "win_p": 0.34,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1171,7 +1173,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Northern Iowa",
-    "p": 0.687,
+    "p": 0.688,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1187,9 +1189,9 @@
     "opp": "Indiana St",
     "market": "spread",
     "line": -8.5,
-    "odds": -112,
+    "odds": -113,
     "p": 0.5,
-    "win_p": 0.74,
+    "win_p": 0.741,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1202,7 +1204,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colorado",
-    "p": 0.543,
+    "p": 0.552,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1211,19 +1213,18 @@
    "start": "2026-10-31T18:00Z",
    "away": "Kansas St",
    "home": "Colorado",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Colorado",
     "opp": "Kansas St",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
-     "sharp money moving this way",
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1756,7 +1757,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Mercer",
-    "p": 0.803,
+    "p": 0.801,
     "tie": 0.023,
     "name": "1st half"
    },
@@ -1771,10 +1772,10 @@
     "team": "Mercer",
     "opp": "The Citadel",
     "market": "spread",
-    "line": -17.5,
+    "line": -16.5,
     "odds": -113,
-    "p": 0.502,
-    "win_p": 0.862,
+    "p": 0.501,
+    "win_p": 0.86,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -2738,7 +2739,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Florida St",
-    "p": 0.621,
+    "p": 0.626,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2754,9 +2755,9 @@
     "opp": "Clemson",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.665,
-    "win_p": 0.665,
+    "odds": -238,
+    "p": 0.671,
+    "win_p": 0.671,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -3054,8 +3055,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas",
-    "p": 0.833,
-    "tie": 0.02,
+    "p": 0.827,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -3070,9 +3071,9 @@
     "opp": "Mississippi St",
     "market": "spread",
     "line": -20.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.502,
-    "win_p": 0.89,
+    "win_p": 0.885,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3211,7 +3212,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.679,
+    "p": 0.687,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3229,7 +3230,7 @@
     "line": -9.5,
     "odds": -108,
     "p": 0.502,
-    "win_p": 0.758,
+    "win_p": 0.769,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3242,7 +3243,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.664,
+    "p": 0.657,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3260,7 +3261,7 @@
     "line": -8.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.76,
+    "win_p": 0.751,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
