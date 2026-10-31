@@ -1,33 +1,54 @@
 {
- "at": "2026-10-31T13:55Z",
- "fixes": [],
+ "at": "2026-10-31T15:31Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Bonzi vs Griekspoor: no points for 812s",
-  "live tennis scores: tennis Hanfmann vs Balshaw: no points for 633s",
-  "live tennis scores: tennis Dzumhur vs Baez: no points for 205s",
-  "live tennis scores: tennis Akugue vs Blinkova: no points for 812s",
-  "live tennis scores: tennis Kotliar vs Kulambayeva: no points for 812s",
-  "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Bonzi vs Griekspoor: no points for 1667s",
+  "live tennis scores: tennis Dzumhur vs Baez: no points for 1667s",
+  "live tennis scores: tennis Munar vs Sonego: no points for 1667s",
+  "live tennis scores: tennis Mannarino vs Borges: no points for 115s",
+  "live tennis scores: tennis Charaeva vs Jacquemot: no points for 682s",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (11s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 5 live matches",
+  "live tennis points + server: 4 of 7 live matches",
+  "slate check: all 121 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 11 min ago",
+  "engine ran 51 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T15:31Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Bonzi vs Griekspoor: no points for 1667s",
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 1667s",
+    "live tennis scores: tennis Munar vs Sonego: no points for 1667s",
+    "live tennis scores: tennis Mannarino vs Borges: no points for 115s",
+    "live tennis scores: tennis Charaeva vs Jacquemot: no points for 682s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-31T13:55Z",
    "fixes": [],
@@ -536,14 +557,6 @@
    "problems": [
     "live tennis scores: tennis Grabher vs Carle: no points for 645s",
     "live tennis scores: tennis Zavatska vs Blinkova: no points for 2356s"
-   ]
-  },
-  {
-   "at": "2026-10-29T17:06Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Souza vs Jones: no points for 1077s",
-    "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
    ]
   }
  ]
