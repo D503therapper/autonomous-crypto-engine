@@ -26762,16 +26762,6 @@
   "units": 0.5
  },
  {
-  "date": "2026-10-31",
-  "deadline": "2026-10-31T20:00Z",
-  "kind": "dog",
-  "legs": [],
-  "status": "waiting",
-  "waiting": [
-   "Connor Moberly (QB) questionable"
-  ]
- },
- {
   "american": -118,
   "date": "2026-10-31",
   "dec": 1.8475,
@@ -27051,14 +27041,16 @@
     "hot_key": false,
     "hurt": [],
     "injury_alerts": [
-     "Rudy Gobert (Timberwolves C) is now day-to-day \u2014 our pick: Spurs -12.5"
+     "Rudy Gobert (Timberwolves C) is now day-to-day \u2014 our pick: Spurs -12.5",
+     "Stephon Castle (Spurs G) is now day-to-day \u2014 our pick: Spurs -12.5"
     ],
     "intl": false,
     "is_lean": true,
     "key_edge": null,
     "key_out_me": false,
     "key_seen": {
-     "Rudy Gobert (Timberwolves C)": "Day-To-Day"
+     "Rudy Gobert (Timberwolves C)": "Day-To-Day",
+     "Stephon Castle (Spurs G)": "Day-To-Day"
     },
     "league": "nba",
     "line": -12.5,
@@ -28009,5 +28001,15 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "date": "2026-10-31",
+  "deadline": "2026-10-31T20:00Z",
+  "kind": "dog",
+  "legs": [],
+  "status": "waiting",
+  "waiting": [
+   "Connor Moberly (QB) questionable"
+  ]
  }
 ]
