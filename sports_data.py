@@ -651,6 +651,7 @@ def parse_team_page(lines):
     Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name is skipped - never
     guessed."""
     out, cur = {}, None
+    _PAGE_DATE.clear()
     for i, x in enumerate(lines):
         if x == "Status":
             mk = [j for j in range(max(0, i - 8), i) if lines[j].endswith('">')]    # code | `"> | School | Mascot | (1) |
@@ -665,10 +666,64 @@ def parse_team_page(lines):
                 and re.match(r"^[A-Z][\w'.\-]*\.? [A-Z]", lines[i - 2]):   # (10/4: 'Jean-Luc', 'José' are players too -
             #                                                                 a dropped row read as 'nobody hurt')
             out[cur].append((lines[i - 2], lines[i - 1], x.split(" - ")[0].strip()))
+            d = re.match(r"^\(\s*(?:[A-Z][a-z]{2}, )?([A-Z][a-z]{2}) (\d{1,2})\)", " ".join(lines[i + 1:i + 3]))
+            if d:                                            # the note's date: "(" | "Sat, Oct 17)" (10/31 - stale_rows)
+                _PAGE_DATE[(cur, lines[i - 2])] = (d.group(1), int(d.group(2)))
     return out
 
 
-def page_injuries(league, names, get=None):
+_PAGE_DATE = {}        # (school, player) -> (month, day) of the page's note, from the last parse_team_page
+_MONTHS = {m: n for n, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                                       "Dec"), 1)}
+
+
+def _note_day(md, now=None):
+    """('Oct', 17) -> the latest such date not after today (Pacific) - the page writes no year."""
+    now = now or datetime.now(timezone.utc)
+    today = (now - timedelta(hours=8)).date()
+    try:
+        d = today.replace(month=_MONTHS[md[0]], day=md[1])
+    except (KeyError, ValueError):
+        return None
+    if d > today:
+        try:
+            d = d.replace(year=d.year - 1)
+        except ValueError:
+            return None
+    return d
+
+
+def stale_rows(league, tid, school, rows, now=None):
+    """🚑 10/31 (Kansas St's J. Knuth): Covers' page keeps a row up with its OLD note - "Questionable - Undisclosed
+    (Sat, Oct 17) ... unclear if he will play against Arizona State" - and Knuth then started 10/24 (41 passes) and
+    still read questionable, holding the 🔍 play on a two-week-old note about a game already played. A row whose note
+    is dated BEFORE a game our box scores show the player in (a later Pacific date) is stale - he has played since -
+    and is dropped. Only rows proven stale go: no date, no box scores, or no later game = the row stands.
+    Returns the rows to drop."""
+    try:
+        import sports_absences as sa
+        games_ = sa._games(league).get(str(tid)) or []
+    except Exception:                                        # noqa: BLE001 - no box scores: nothing is proven stale
+        return []
+    drop = []
+    for r in rows:
+        md = _PAGE_DATE.get((school, r[0]))
+        nd = _note_day(md, now) if md else None
+        if nd is None:
+            continue
+        for start, _gid, rs in games_:
+            try:
+                gday = (datetime.strptime(str(start)[:16], "%Y-%m-%dT%H:%M") - timedelta(hours=8)).date()
+            except ValueError:
+                continue
+            if nd < gday <= (now or datetime.now(timezone.utc)).date() \
+                    and sa.match(r[0], {sa._nm(x.get("player")) for x in rs}):
+                drop.append(r)
+                break
+    return drop
+
+
+def page_injuries(league, names, get=None, now=None):
     """(10/3, the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
     same") The public college injury page (WEB_PAGE) read every run -> {ESPN team id: [(player, pos, status)]} for
     every school it names (listed = covered, an empty list = nobody hurt). {} on a broken / thin read."""
@@ -689,7 +744,7 @@ def page_injuries(league, names, get=None):
     for tid, nm in names.items():
         by.setdefault(_wn(nm), tid)
     keys = list(by)
-    out, miss = {}, set()
+    out, miss, stale_n = {}, set(), 0
     for school, rows in teams.items():
         w = _wn(school)
         short = " ".join(_DIR.get(p, p) if n == 0 else p for n, p in enumerate(w.split()))
@@ -700,7 +755,13 @@ def page_injuries(league, names, get=None):
         if tid is None:
             miss.add(w)
             continue
+        old_ = stale_rows(league, tid, school, rows, now)
+        if old_:                                             # (10/31: a note older than a game he has played since)
+            stale_n += len(old_)
+            rows = [r for r in rows if r not in old_]
         out.setdefault(str(tid), []).extend(rows)
+    if stale_n:
+        print(f"   {league} injury page: {stale_n} stale rows dropped (a note dated before a game the player played since)")
     print(f"   {league} injury page: {len(teams)} schools ({sum(map(len, teams.values()))} players), {len(out)} matched,"
           f" {len(miss)} unmatched" + (f" ({', '.join(sorted(miss)[:6])})" if miss else ""))
     return out

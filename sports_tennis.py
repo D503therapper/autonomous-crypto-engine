@@ -57,6 +57,11 @@ ALIASES = {"china pr": "china", "usa": "united states", "great britain": "united
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
 TOURS = ("atp", "wta")
 BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&lang=en"
+BOVADA_V2 = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
+BOVADA_V2_PATHS = ("tennis/atp", "tennis/wta")   # 🎾 10/31: the book's current feed, tour by tour (the live watcher's
+#                                                  sports_live.BOV_BASE / BOV_SPLIT) - the old coupon address above has
+#                                                  answered an EMPTY object ({}) on every read since 10/29 11:20Z while
+#                                                  the v2 feed kept serving live tennis; read first, the coupon after
 YEARS = 10
 N_PER_TOUR = 4                 # up to 4 men's + 4 women's straights a slate (the owner, 9/29) - never filler
 N_PICKS = 2 * N_PER_TOUR
@@ -926,10 +931,35 @@ def _median(xs):
 _BOV_RAW = [None]                 # the last raw Bovada payload (the first-set capture reads it; research only)
 
 
-def bovada():
-    """Bovada's public tennis feed: ATP + WTA singles moneylines."""
-    data, _ = _get(BOVADA)
-    _BOV_RAW[0] = data
+_BOV_SRC = [None]                 # which address the last read's lines came from ("v2" / "coupon") - odds_status.json
+
+
+def bovada(get=None):
+    """Bovada's public tennis feed: ATP + WTA singles moneylines. 10/31: the v2 feed (ATP and WTA paths, the same plain
+    request as before - no other headers) first; the old coupon address only when v2 gives no lines. The coupon has
+    answered {} on every read since 10/29 11:20Z (odds_status.json: "raw": "dict 0" - an empty object, not a block:
+    no error, no 403) while the live watcher kept reading tennis off v2 - the book moved its feed."""
+    get = get or (lambda u: _get(u)[0])
+    groups, errs = [], []
+    for path in BOVADA_V2_PATHS:
+        try:
+            data = get(BOVADA_V2.format(path=path))
+        except Exception as e:                               # noqa: BLE001 - one tour failing never stops the other
+            errs.append(f"{path}: {str(e)[:60]}")
+            continue
+        if isinstance(data, list):
+            groups += data
+    lines = parse_bovada(groups)
+    if lines:
+        _BOV_RAW[0], _BOV_SRC[0] = groups, "v2"
+        return lines
+    try:
+        data = get(BOVADA)
+    except Exception as e:                                   # noqa: BLE001
+        if errs:
+            raise RuntimeError(f"v2 {'; '.join(errs)} / coupon {str(e)[:60]}") from e
+        raise
+    _BOV_RAW[0], _BOV_SRC[0] = (data if data else groups), "coupon"
     return parse_bovada(data)
 
 
@@ -1109,7 +1139,8 @@ def refresh_odds(state, now):
     try:
         lines = bovada()
         raw = _BOV_RAW[0]
-        status.update(lines=len(lines), raw=(f"{type(raw).__name__} {len(raw)}" if raw is not None else "none"))
+        status.update(lines=len(lines), raw=(f"{type(raw).__name__} {len(raw)}" if raw is not None else "none"),
+                      url=_BOV_SRC[0])
         if lines:
             cache = {"fetched": now.strftime("%Y-%m-%dT%H:%MZ"), "src": "bovada", "lines": lines}
             os.makedirs(DIR, exist_ok=True)

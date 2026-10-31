@@ -15604,6 +15604,89 @@ def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
         finally:
             st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.bovada = keep
 
+
+def test_daily_1031_tennis_reads_bovadas_v2_feed_when_the_coupon_answers_empty():
+    """10/31: odds_status.json read "lines": 0, "raw": "dict 0" on every read - the old coupon address answers an empty
+    object (no error, no 403: not a block) while the live watcher kept reading tennis off the v2 feed. The pregame read
+    now takes the v2 feed (ATP + WTA paths, the same plain request) first and the coupon only when v2 has no lines; the
+    status file says which address the lines came from."""
+    import sports_tennis as st
+    grp = lambda tour, a, b: {"path": [{"description": f"{tour} Paris"}, {"description": "Tennis"}], "events": [
+        {"id": a, "live": False, "startTime": 1793000000000, "displayGroups": [{"markets": [
+            {"description": "Moneyline", "period": {"main": True},
+             "outcomes": [{"description": a, "price": {"american": "-150"}},
+                          {"description": b, "price": {"american": "+125"}}]}]}]}]}
+    seen = []
+
+    def get(url):
+        seen.append(url)
+        if "/v2/" in url and url.endswith("lang=en") and "tennis/atp" in url:
+            return [grp("ATP", "Jannik Sinner", "Holger Rune")]
+        if "/v2/" in url:
+            return [grp("WTA", "Iga Swiatek", "Coco Gauff")]
+        return {}                                                         # the coupon: an empty object
+    rows = st.bovada(get=get)
+    assert {r["a"] for r in rows} == {"Jannik Sinner", "Iga Swiatek"} and st._BOV_SRC[0] == "v2", rows
+    assert not any("/coupon/" in u for u in seen), "v2 had lines - the coupon is never read"
+    assert {r["tour"] for r in rows} == {"atp", "wta"}
+    # v2 empty -> the coupon (still parsed); v2 failing on one tour never stops the other
+    rows = st.bovada(get=lambda u: [] if "/v2/" in u else [grp("ATP", "A Guy", "B Guy")])
+    assert [r["a"] for r in rows] == ["A Guy"] and st._BOV_SRC[0] == "coupon"
+    def half(u):
+        if "tennis/wta" in u:
+            raise OSError("HTTP 500")
+        return [grp("ATP", "C Guy", "D Guy")] if "/v2/" in u else {}
+    assert [r["a"] for r in st.bovada(get=half)] == ["C Guy"]
+    assert st.bovada(get=lambda u: {}) == [], "both empty: no lines, never a crash"
+    src = open("sports_tennis.py").read().split("def bovada(")[1][:1500]
+    assert "User-Agent" not in src and "Mozilla" not in src, "no disguise - the same plain request (the owner's rule)"
+
+
+def test_daily_1031_a_covers_note_older_than_a_game_he_played_since_never_holds_the_board():
+    """10/31 (Kansas St +130, a 🔍 gap play at 15+ points): Covers' page still listed starting QB J. Knuth
+    "Questionable - Undisclosed (Sat, Oct 17) ... unclear if he will play against Arizona State" - Knuth then STARTED
+    10/24 (41 passes) and the two-week-old note held the 10/31 play. A row dated before a game our box scores show the
+    player in is stale and dropped; a fresh note, a man with no later box score, or no date all stand."""
+    from datetime import datetime, timezone
+    import sports_absences as sa
+    page = ["KS", "`\">", "Kansas State", "Wildcats", "(3)", "Player", "POS", "Status",
+            "J. Knuth", "QB", "Questionable - Undisclosed", "(", "Sat, Oct 17)", "Knuth note.",
+            "D. Duff", "QB", "Out - Undisclosed", "(", "Sat, Oct 17)", "Duff note.",
+            "B. Barnett", "QB", "Questionable - Lower Body", "(", "Thu, Oct 29)", "Barnett note.",
+            "G. Oakley", "TE", "Out - Undisclosed", "Oakley note with no date."]
+    t = sd.parse_team_page(page)
+    assert [r[0] for r in t["Kansas State"]] == ["J. Knuth", "D. Duff", "B. Barnett", "G. Oakley"], t
+    assert sd._PAGE_DATE[("Kansas State", "J. Knuth")] == ("Oct", 17)
+    assert sd._PAGE_DATE[("Kansas State", "B. Barnett")] == ("Oct", 29)
+    assert ("Kansas State", "G. Oakley") not in sd._PAGE_DATE
+    keep = sa._TEAM.get("ncaaf")
+    sa._TEAM["ncaaf"] = {"2306": [
+        ("2026-10-17T16:00Z", "g1", [{"player": "Avery Johnson"}, {"player": "Jacob Knuth"}, {"player": "B. Barnett"}]),
+        ("2026-10-25T02:00Z", "g2", [{"player": "Jacob Knuth"}, {"player": "Bryce Barnett"}, {"player": "G Oakley"}])]}
+    try:
+        now = datetime(2026, 10, 31, 15, 0, tzinfo=timezone.utc)
+        drop = sd.stale_rows("ncaaf", "2306", "Kansas State", t["Kansas State"], now)
+        assert drop == [("J. Knuth", "QB", "Questionable")], drop      # played 10/24 (PT) after the 10/17 note
+        # a note dated the same day as his last game (written after it: "exited the game") stands
+        sa._TEAM["ncaaf"]["2306"][1] = ("2026-10-18T02:00Z", "g2", [{"player": "Jacob Knuth"}])
+        assert sd.stale_rows("ncaaf", "2306", "Kansas State", t["Kansas State"], now) == []
+        # no box scores for the team: nothing is proven stale
+        assert sd.stale_rows("ncaaf", "9999", "Kansas State", t["Kansas State"], now) == []
+        # page_injuries drops it - the starter's stale questionable no longer reaches the board
+        sa._TEAM["ncaaf"]["2306"][1] = ("2026-10-25T02:00Z", "g2", [{"player": "Jacob Knuth"}])
+        pg = []
+        for i in range(sd.WEB_MIN_TEAMS):
+            pg += [f"X{i}", "`\">", f"Filler School {i}", "M", "(0)", "Player", "POS", "Status", "No injuries to report."]
+        got = sd.page_injuries("ncaaf", {"2306": "Kansas St"}, get=lambda u: page + pg, now=now)
+        assert [r[0] for r in got["2306"]] == ["D. Duff", "B. Barnett", "G. Oakley"], got.get("2306")
+    finally:
+        if keep is None:
+            sa._TEAM.pop("ncaaf", None)
+        else:
+            sa._TEAM["ncaaf"] = keep
+    assert sd._note_day(("Dec", 30), datetime(2027, 1, 2, 20, tzinfo=timezone.utc)).year == 2026   # no year on the page
+    assert sd._note_day(("Feb", 30), now) is None
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
