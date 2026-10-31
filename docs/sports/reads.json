@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T13:19Z",
+ "updated": "2026-10-31T13:33Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -37,7 +37,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Duke",
-    "p": 0.643,
+    "p": 0.635,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -53,9 +53,9 @@
     "opp": "Boston College",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -265,
+    "p": 0.681,
+    "win_p": 0.681,
     "reasons": [
      "the stronger team"
     ]
@@ -160,7 +160,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Campbell",
-    "p": 0.501,
+    "p": 0.51,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -176,9 +176,9 @@
     "opp": "UAlbany",
     "market": "ml",
     "line": null,
-    "odds": -152,
-    "p": 0.521,
-    "win_p": 0.521,
+    "odds": -160,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
@@ -192,7 +192,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Princeton",
-    "p": 0.495,
+    "p": 0.489,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -208,9 +208,9 @@
     "opp": "Cornell",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.515,
-    "win_p": 0.515,
+    "odds": -117,
+    "p": 0.508,
+    "win_p": 0.508,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -407,7 +407,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Brown",
-    "p": 0.552,
+    "p": 0.572,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -423,11 +423,12 @@
     "opp": "Penn",
     "market": "ml",
     "line": null,
-    "odds": -164,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -184,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -437,8 +438,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "C Connecticut",
-    "p": 0.689,
-    "tie": 0.029,
+    "p": 0.656,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -455,7 +456,7 @@
     "line": -8.5,
     "odds": -109,
     "p": 0.5,
-    "win_p": 0.742,
+    "win_p": 0.706,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -595,7 +596,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Iowa",
-    "p": 0.529,
+    "p": 0.519,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -604,16 +605,16 @@
    "start": "2026-10-31T16:00Z",
    "away": "Wisconsin",
    "home": "Iowa",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Iowa",
     "opp": "Wisconsin",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -135,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "the stronger team",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
@@ -626,8 +627,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Yale",
-    "p": 0.644,
-    "tie": 0.031,
+    "p": 0.603,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -635,16 +636,16 @@
    "start": "2026-10-31T16:00Z",
    "away": "Yale",
    "home": "Columbia",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Yale",
     "opp": "Columbia",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -114,
-    "p": 0.5,
-    "win_p": 0.691,
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": []
    }
   },
@@ -686,7 +687,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Villanova",
-    "p": 0.616,
+    "p": 0.617,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -698,16 +699,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Lafayette",
-    "opp": "Villanova",
+    "team": "Villanova",
+    "opp": "Lafayette",
     "market": "spread",
-    "line": 7.0,
-    "odds": -110,
+    "line": -7.5,
+    "odds": -112,
     "p": 0.5,
-    "win_p": 0.34,
-    "reasons": [
-     "the stronger team"
-    ]
+    "win_p": 0.66,
+    "reasons": []
    }
   },
   {
@@ -1202,7 +1201,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colorado",
-    "p": 0.56,
+    "p": 0.543,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1211,18 +1210,19 @@
    "start": "2026-10-31T18:00Z",
    "away": "Kansas St",
    "home": "Colorado",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Colorado",
     "opp": "Kansas St",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ]
    }
   },
@@ -3220,7 +3220,7 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -8.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.741,
     "reasons": [
@@ -3250,7 +3250,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -9.5,
-    "odds": -108,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.772,
     "reasons": [
@@ -3386,7 +3386,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.507,
+    "p": 0.502,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3402,9 +3402,9 @@
     "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.538,
-    "win_p": 0.538,
+    "odds": -142,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": []
    }
   },
