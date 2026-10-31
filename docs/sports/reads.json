@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T18:42Z",
+ "updated": "2026-10-31T18:58Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -221,8 +221,8 @@
    "away": "Robert Morris",
    "home": "C Connecticut",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -793,37 +793,6 @@
    }
   },
   {
-   "id": "ncaaf:401858283",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Louisville",
-    "p": 0.852,
-    "tie": 0.019,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-31T19:15Z",
-   "away": "Stanford",
-   "home": "Louisville",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Louisville",
-    "opp": "Stanford",
-    "market": "spread",
-    "line": -22.5,
-    "odds": -112,
-    "p": 0.502,
-    "win_p": 0.907,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401868296",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -892,7 +861,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah State",
-    "p": 0.667,
+    "p": 0.674,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -907,10 +876,10 @@
     "team": "Utah State",
     "opp": "Colorado St",
     "market": "spread",
-    "line": -8.5,
-    "odds": -105,
+    "line": -9.5,
+    "odds": -110,
     "p": 0.5,
-    "win_p": 0.718,
+    "win_p": 0.725,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -939,7 +908,7 @@
     "opp": "FIU",
     "market": "spread",
     "line": -14.0,
-    "odds": -108,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.802,
     "reasons": [
@@ -1630,7 +1599,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "GA Southern",
-    "p": 0.608,
+    "p": 0.613,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1646,9 +1615,9 @@
     "opp": "App State",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.65,
-    "win_p": 0.65,
+    "odds": -225,
+    "p": 0.656,
+    "win_p": 0.656,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2215,8 +2184,8 @@
     "market": "ml",
     "line": null,
     "odds": -188,
-    "p": 0.565,
-    "win_p": 0.565,
+    "p": 0.564,
+    "win_p": 0.564,
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win"
@@ -2291,7 +2260,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Grambling",
-    "p": 0.537,
+    "p": 0.534,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2307,9 +2276,9 @@
     "opp": "Texas Southern",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.565,
-    "win_p": 0.565,
+    "odds": -190,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "hotter recent form",
      "the stronger team",
