@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T11:17Z",
+ "updated": "2026-10-31T11:33Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -1895,7 +1895,7 @@
     "opp": "Stanford",
     "market": "spread",
     "line": -22.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.502,
     "win_p": 0.907,
     "reasons": [
@@ -4014,6 +4014,36 @@
     "win_p": 0.441,
     "reasons": [
      "better rested"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892628",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Senators",
+    "p": 0.382,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-02T01:00Z",
+   "away": "Senators",
+   "home": "Ducks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Ducks",
+    "opp": "Senators",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.651,
+    "win_p": 0.43,
+    "reasons": [
+     "opponent drama: suspension"
     ]
    }
   },
