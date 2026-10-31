@@ -1,12 +1,12 @@
 {
- "at": "2026-10-30T22:46Z",
+ "at": "2026-10-31T00:17Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Monnet vs Podoroska: no points for 1975s",
+  "live tennis scores: tennis Monnet vs Podoroska: no points for 2359s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (15s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +14,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 47 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T00:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Podoroska: no points for 2359s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-30T22:46Z",
    "fixes": [],
@@ -503,11 +511,6 @@
    "problems": [
     "live board check failed: <urlopen error timed out>"
    ]
-  },
-  {
-   "at": "2026-10-29T03:30Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
