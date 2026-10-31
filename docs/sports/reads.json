@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T02:54Z",
+ "updated": "2026-10-31T02:59Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -72,7 +72,7 @@
    "home": "Charlotte",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Charlotte",
@@ -86,7 +86,7 @@
      "sharp money moving this way",
      "better QB play lately"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -3605,7 +3605,8 @@
     "p": 0.504,
     "win_p": 0.804,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
