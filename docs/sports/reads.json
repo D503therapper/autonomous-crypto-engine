@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T01:19Z",
+ "updated": "2026-10-31T02:06Z",
  "games": [
   {
    "id": "nhl:401892611",
@@ -41,8 +41,8 @@
    "away": "Hornets",
    "home": "Wizards",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -56,8 +56,8 @@
    "away": "Jets",
    "home": "Panthers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -173,8 +173,8 @@
    "away": "Pistons",
    "home": "Nets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -262,68 +262,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909285",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.564,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-31T02:00Z",
-   "away": "Lakers",
-   "home": "Warriors",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Warriors",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.596,
-    "win_p": 0.596,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909286",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Nuggets",
-    "p": 0.566,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-10-31T02:00Z",
-   "away": "Nuggets",
-   "home": "Suns",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Nuggets",
-    "opp": "Suns",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.609,
-    "win_p": 0.609,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
   },
   {
    "id": "ncaaf:401866451",
