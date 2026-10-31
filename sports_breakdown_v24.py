@@ -1466,6 +1466,24 @@ def _per_game(gs, tid):
     return f / len(gs), a / len(gs)
 
 
+def who_plays_only(names, lg, team_id, before):
+    """Football: the out list ("Name (POS)") cut to the men the team's box scores say PLAY (sports_absences.regulars -
+    the QB, top backs / catchers / tacklers of the last 3 games). 10/31 college sweep: the Kansas St card's risk line
+    read "goes without D. Duff (QB), G. Oakley (TE), A. Morrell (TE), W. Anciaux (TE)" - four men who never show up in
+    its box scores, a backup QB first - and "That's real depth gone" can say the same of walk-ons. No box scores / not
+    football: the list as it is. The 🚑 list on the card keeps everyone (who_plays_first only orders it)."""
+    if lg not in ("nfl", "ncaaf"):
+        return names
+    try:
+        import sports_absences
+        reg = sports_absences.regulars(None, lg, team_id, before)
+    except Exception:                                        # noqa: BLE001
+        return names
+    if not reg:
+        return names
+    return [x for x in names if sports_absences.match(str(x).split(" (")[0], reg)]
+
+
 def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
                ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs):
     """The facts the card hasn't said yet (10/25) - every line a score, a record, a name or a count from the leg or the
@@ -1582,8 +1600,9 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                 v.knock(1, f"{the_us} traveled {_mi(mi)} miles for this one")
 
     # who's out on THEIR side, named (the 🚑 card line is ours; the key-man lines name one player); ours is the knock
+    _who_plays = lambda names, team_id: who_plays_only(names, lg, team_id, g.get("start") or "9")   # noqa: E731
     theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
-    theirs_out = [x for x in theirs_out if x.split(" (")[0].lower() not in body][:4]
+    theirs_out = _who_plays([x for x in theirs_out if x.split(" (")[0].lower() not in body], oid)[:4]
     if theirs_out:
         nm = ", ".join(theirs_out)
         add.append(v.say("f_outs", [f"🚑 {them} are without {nm}. Bodies missing over there.",
@@ -1591,7 +1610,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                     f"🚑 {them} are missing {nm}. Short-handed against us.",
                                     f"🚑 Not dressing for {them}: {nm}. We'll take that."]))
     ours_out = [str(x) for x in (leg.get("outs") or []) if x]
-    ours_out = [x for x in ours_out if x.split(" (")[0].lower() not in body][:4]
+    ours_out = _who_plays([x for x in ours_out if x.split(" (")[0].lower() not in body], tid)[:4]
     if ours_out and not any(str(x).startswith("🚑") and us in str(x) for x in out) \
             and not any(ours_out[0].split(" (")[0] in k for _, k in v.knocks):
         v.knock(8 if len(ours_out) >= 3 else 5, f"{us} go without {', '.join(ours_out)}")
