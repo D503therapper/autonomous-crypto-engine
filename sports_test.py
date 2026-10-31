@@ -15501,6 +15501,36 @@ def test_questionable_1030_a_man_who_plays_through_it_never_holds_the_board_a_co
         A._TEAM.clear(); A._TEAM.update(keep); sd.STARTER_OF = keep_st
         sq._T.clear(); sq._T.update(keep_t); sd.INJ_NOTES.clear(); sd.INJ_NOTES.update(keep_notes)
 
+
+def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
+    """10/30: the Bovada tennis feed went quiet 10/29 11:20Z and the repo had no trace of why (the job logs are out of
+    reach). Every read now writes tennis/odds_status.json - the lines it got, the raw payload size, or the error -
+    and a failed or empty read still keeps the last good prices."""
+    import os, json, tempfile
+    from datetime import datetime, timezone
+    import sports_tennis as st
+    keep = (st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.bovada)
+    with tempfile.TemporaryDirectory() as d:
+        try:
+            st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES = d, os.path.join(d, "odds.json"), os.path.join(d, "s.json"), os.path.join(d, "l.json")
+            now = datetime(2026, 10, 31, 12, 0, tzinfo=timezone.utc)
+            good = {"fetched": "x", "src": "bovada", "lines": [{"a": "A", "b": "B", "start": "2026-10-31T15:00Z", "a_ml": -120, "b_ml": 100}]}
+            json.dump(good, open(st.ODDS, "w"))
+            def boom():
+                raise OSError("HTTP 403")
+            st.bovada = boom
+            got = st.refresh_odds({}, now)
+            s = json.load(open(st.ODDS_STATUS))
+            assert "403" in s["error"] and s["at"] == "2026-10-31T12:00Z"
+            assert len(got) == 1                                            # the last good prices stay
+            st.bovada = lambda: []
+            st.refresh_odds({}, now)
+            s = json.load(open(st.ODDS_STATUS))
+            assert s["lines"] == 0 and "error" not in s
+            assert json.load(open(st.ODDS))["fetched"] == "x"               # an empty read never wipes the cache
+        finally:
+            st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.bovada = keep
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

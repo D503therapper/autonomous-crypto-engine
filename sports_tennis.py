@@ -39,6 +39,7 @@ DIR = os.path.join(sd.DATA, "tennis")
 MATCHES = os.path.join(DIR, "matches.csv")
 PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
+ODDS_STATUS = os.path.join(DIR, "odds_status.json")   # the last Bovada read: lines, raw size, error
 RANKS = os.path.join(DIR, "rankings.json")   # ATP + WTA rankings, saved daily (ESPN only has today's): {date: {"tour:id": rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
 SET1_LINES = os.path.join(DIR, "set1_lines.json")   # RESEARCH ONLY: Bovada's first-set markets, the last price before the
@@ -1104,8 +1105,11 @@ def refresh_odds(state, now):
     if os.path.exists(ODDS):
         with open(ODDS) as f:
             cache = json.load(f)
+    status = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "src": "bovada"}
     try:
         lines = bovada()
+        raw = _BOV_RAW[0]
+        status.update(lines=len(lines), raw=(f"{type(raw).__name__} {len(raw)}" if raw is not None else "none"))
         if lines:
             cache = {"fetched": now.strftime("%Y-%m-%dT%H:%MZ"), "src": "bovada", "lines": lines}
             os.makedirs(DIR, exist_ok=True)
@@ -1122,7 +1126,14 @@ def refresh_odds(state, now):
             print(f"tennis first-set capture failed: {str(e)[:80]}")
     except Exception as e:                               # noqa: BLE001
         sd.ERRORS.append(f"bovada: {str(e)[:100]}")
+        status["error"] = str(e)[:200]
         print(f"tennis odds: BOVADA FAILED ({str(e)[:80]}) - tell the owner if this keeps happening")
+    try:                                                 # (10/30: the feed went quiet 10/29 11:20Z with no trace in the
+        os.makedirs(DIR, exist_ok=True)                  #  repo - every read now leaves its outcome where a session can see it)
+        with open(ODDS_STATUS, "w") as f:
+            json.dump(status, f, indent=1)
+    except OSError:
+        pass
     return [ln for ln in cache.get("lines", []) if ln.get("start", "") >= (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M")]
 
 
