@@ -5063,3 +5063,50 @@ DEX: $688.09 (-311.91) · Scammed: 9 (-$182.13)
 [2026-10-31 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-10-31 05:06 UTC] crypto/hold_btc  equity $462.73 (-7.5%) 1 open  market DOWN
    social heat top: PENGU 43 (37/0/6), HYPE 37 (32/0/5), BTC 29 (29/0/0), QNT 27 (27/0/0), NEAR 21 (21/0/0)
+   dex screen: REJECT LMTS@base liq $167,621 - pool age unknown
+   dex screen: REJECT VIRTUAL@base liq $103,002 - pool age unknown
+   dex screen: REJECT NOMA@base liq $140,429 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $111,608 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CBBTC@base liq $5,479,669 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%
+   dex screen: REJECT ILV@ethereum liq $1,772,659 - is_mintable; honeypot_with_same_creator; top-10 holders 56%
+   dex screen: REJECT NOMA@base liq $142,965 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   dex screen: PASS SNOWMOON@ethereum liq $106,607
+   dex screen: PASS NPC@ethereum liq $4,025,251
+   dex screen: UNREACHABLE GTA6@ethereum liq $142,169 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE GTA6@ethereum liq $154,578 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT IDOL@solana liq $14,461,255 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SOPH@ethereum liq $531,292 - top-10 holders 88%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $153,808 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: WOLFINA@ethereum:0x1e6351 data flag #4 (top-10 holders 63%); holding (experiment 10)
+   dex screen: REJECT ETC@solana liq $7,992,443,681 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SOPH@ethereum liq $124,856 - pool age 0.1h < 6h; 24h volume $60,267 < $100,000
+   dex screen: REJECT AR@solana liq $3,327,565,447 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT BGB@solana liq $1,896,992,330 - top-10 holders 100%; lp holders unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $148,770 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PROM@ethereum liq $255,082 - goplus partial data: cannot_sell_all unknown; top-10 holders 69%; lp locked 0% < 95%
+   dex screen: REJECT BEAM@ethereum liq $3,446,362 - is_mintable; owner_change_balance; top-10 holders 59%
+   dex screen: REJECT SNDKC@base liq $1,101,845 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: REJECT CTR@base liq $606,651 - pool age unknown
+   dex screen: REJECT GTA6@ethereum liq $126,236 - spike-and-fade (6h +92%, 1h -23%)
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $111,787 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT LUX@base liq $315,610 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; lp locked 0% < 95%
+   dex re-screen: DOAS@solana:dsZhtrFF unreachable (lp holders unknown; rugcheck unreachable); holding
+   dex screen: REJECT ELSA@base liq $478,596 - top-10 holders 91%; lp locked 0% < 95%
+   dex re-screen: WOLFINA@ethereum:0x1e6351 data flag #5 (top-10 holders 63%); holding (experiment 10)
+   dex screen: REJECT GULD@base liq $1,461,165 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 57%
+   dex screen: REJECT KIMCHI@solana liq $220,003 - top-10 holders 83%; lp holders unknown
+   dex screen: UNREACHABLE GTAPEPE@ethereum liq $120,261 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE GTA6@ethereum liq $157,591 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PHA@ethereum liq $284,227 - transfer_pausable; hidden_owner; top-10 holders 69%; lp locked 0% < 95%
+   dex screen: REJECT DACITY@solana liq $21,120,331 - top-10 holders 100%; lp holders unknown
+   dex scanner: 3,000 pools (solana 2,078 / base 527 / ethereum 395), refresh cycle 124s (hot 119s), 3024 calls (108 feed, 429s 0, failed 0), 87,479 refreshed (9786 no pair), +121 added / -120 dropped (dead 30, stale 0, cap 90), movers 2 + warming 12 -> queued 4, screened 14 (passed 0), bought 0
+[2026-10-31 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/mover     equity $241.86 (-51.6%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/social_heat equity $369.13 (-26.2%) 4 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/breakout10 equity $420.13 (-16.0%) 1 open  market UP
+[2026-10-31 06:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-10-31 06:06 UTC] crypto/hold_btc  equity $463.20 (-7.4%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), PENGU 38 (35/0/3), HYPE 34 (29/0/5), SOL 24 (24/0/0), SUI 21 (21/0/0)
