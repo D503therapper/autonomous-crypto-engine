@@ -1,14 +1,15 @@
 {
- "at": "2026-10-31T02:43Z",
+ "at": "2026-10-31T02:51Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Mandlik vs Ferro: no points for 2339s",
-  "live tennis scores: tennis Wong vs Sakatsume: no points for 1956s",
-  "live tennis scores: tennis Ibragimova vs Stojsavljevic: no points for 1722s",
-  "live tennis scores: tennis Kinoshita vs Prozorova: no points for 1925s"
+  "live tennis scores: tennis Mandlik vs Ferro: no points for 2609s",
+  "live tennis scores: tennis Wong vs Sakatsume: no points for 2225s",
+  "live tennis scores: tennis Ibragimova vs Stojsavljevic: no points for 1991s",
+  "live tennis scores: tennis Kinoshita vs Prozorova: no points for 2194s",
+  "sources down (the backups took over): betrivers:nhl:1028409815 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (238s)",
+  "live watcher fresh (208s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,18 +18,28 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 45 min ago",
+  "engine ran 53 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T02:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Ferro: no points for 2609s",
+    "live tennis scores: tennis Wong vs Sakatsume: no points for 2225s",
+    "live tennis scores: tennis Ibragimova vs Stojsavljevic: no points for 1991s",
+    "live tennis scores: tennis Kinoshita vs Prozorova: no points for 2194s",
+    "sources down (the backups took over): betrivers:nhl:1028409815 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-31T02:43Z",
    "fixes": [],
@@ -518,11 +529,6 @@
   },
   {
    "at": "2026-10-29T07:17Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T07:07Z",
    "fixes": [],
    "problems": []
   }
