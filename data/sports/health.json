@@ -1,28 +1,108 @@
 {
- "at": "2026-10-31T12:47Z",
+ "at": "2026-10-31T17:23Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (7 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Mannarino vs Borges: no points for 195s",
+  "live tennis scores: tennis Altmaier vs Molcan: no points for 195s",
+  "live tennis scores: tennis Dimitrov vs Vallejo: no points for 195s"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 6 live matches",
+  "live tennis points + server: 4 of 5 live matches",
+  "slate check: all 121 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "all 1 backup sources answering",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 39 min ago",
+  "studies ran 0h ago",
+  "simulator ran 2h ago",
+  "engine ran 25 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T17:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mannarino vs Borges: no points for 195s",
+    "live tennis scores: tennis Altmaier vs Molcan: no points for 195s",
+    "live tennis scores: tennis Dimitrov vs Vallejo: no points for 195s"
+   ]
+  },
+  {
+   "at": "2026-10-31T15:49Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-31T15:47Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 2614s",
+    "live tennis scores: tennis Munar vs Sonego: no points for 2614s",
+    "live tennis scores: tennis Mannarino vs Borges: no points for 1063s",
+    "live tennis scores: tennis Charaeva vs Jacquemot: no points for 1630s"
+   ]
+  },
+  {
+   "at": "2026-10-31T15:42Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 2348s",
+    "live tennis scores: tennis Munar vs Sonego: no points for 2348s",
+    "live tennis scores: tennis Mannarino vs Borges: no points for 797s",
+    "live tennis scores: tennis Charaeva vs Jacquemot: no points for 1364s"
+   ]
+  },
+  {
+   "at": "2026-10-31T15:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 1736s",
+    "live tennis scores: tennis Munar vs Sonego: no points for 1736s",
+    "live tennis scores: tennis Mannarino vs Borges: no points for 185s",
+    "live tennis scores: tennis Charaeva vs Jacquemot: no points for 752s",
+    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-31T15:31Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Bonzi vs Griekspoor: no points for 1667s",
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 1667s",
+    "live tennis scores: tennis Munar vs Sonego: no points for 1667s",
+    "live tennis scores: tennis Mannarino vs Borges: no points for 115s",
+    "live tennis scores: tennis Charaeva vs Jacquemot: no points for 682s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-31T13:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bonzi vs Griekspoor: no points for 812s",
+    "live tennis scores: tennis Hanfmann vs Balshaw: no points for 633s",
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 205s",
+    "live tennis scores: tennis Akugue vs Blinkova: no points for 812s",
+    "live tennis scores: tennis Kotliar vs Kulambayeva: no points for 812s",
+    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-31T12:47Z",
    "fixes": [],
@@ -478,64 +558,6 @@
     "live tennis scores: tennis Pigato vs Kubka: no points for 1120s",
     "live tennis scores: tennis Strakhova vs Hercog: no points for 1134s",
     "live tennis scores: tennis Bulgaru vs Podoroska: no points for 1134s"
-   ]
-  },
-  {
-   "at": "2026-10-29T20:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Carle: no points for 532s",
-    "live tennis scores: tennis Pigato vs Kubka: no points for 519s",
-    "live tennis scores: tennis Strakhova vs Hercog: no points for 532s",
-    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 532s"
-   ]
-  },
-  {
-   "at": "2026-10-29T20:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Carle: no points for 239s",
-    "live tennis scores: tennis Pigato vs Kubka: no points for 225s",
-    "live tennis scores: tennis Strakhova vs Hercog: no points for 239s",
-    "live tennis scores: tennis Bulgaru vs Podoroska: no points for 239s"
-   ]
-  },
-  {
-   "at": "2026-10-29T18:46Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T18:44Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Carle: no points for 907s",
-    "live tennis scores: tennis Zavatska vs Blinkova: no points for 2618s"
-   ]
-  },
-  {
-   "at": "2026-10-29T18:39Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Carle: no points for 645s",
-    "live tennis scores: tennis Zavatska vs Blinkova: no points for 2356s"
-   ]
-  },
-  {
-   "at": "2026-10-29T17:06Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Souza vs Jones: no points for 1077s",
-    "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
-   ]
-  },
-  {
-   "at": "2026-10-29T16:29Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
