@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T21:12Z",
+ "updated": "2026-10-31T21:18Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -580,8 +580,8 @@
    "away": "Davidson",
    "home": "St Thomas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -595,8 +595,8 @@
    "away": "Gardner-Webb",
    "home": "SE Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -698,8 +698,8 @@
    "away": "N'Western St",
    "home": "Incarnate Word",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -728,8 +728,8 @@
    "away": "Tennessee St",
    "home": "Lindenwood",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -758,8 +758,8 @@
    "away": "W Illinois",
    "home": "Charleston So",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1375,6 +1375,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868056",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T20:00Z",
+   "away": "West Georgia",
+   "home": "Abilene Chrstn",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401858508",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1425,7 +1440,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.487,
+    "p": 0.483,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1441,9 +1456,9 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -108,
-    "p": 0.508,
-    "win_p": 0.508,
+    "odds": -105,
+    "p": 0.502,
+    "win_p": 0.502,
     "reasons": [
      "opponent missing key players",
      "the stronger team",
@@ -1804,8 +1819,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas",
-    "p": 0.834,
-    "tie": 0.02,
+    "p": 0.829,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1822,7 +1837,7 @@
     "line": -20.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.891,
+    "win_p": 0.887,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
