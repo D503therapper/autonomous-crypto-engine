@@ -1,29 +1,44 @@
 {
- "at": "2026-10-31T02:52Z",
+ "at": "2026-10-31T04:24Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Andreescu vs Linana: no points for 2618s",
+  "live tennis scores: tennis Watson vs Jones: no points for 2618s",
+  "live tennis scores: tennis Shek vs Sasnovich: no points for 2348s",
+  "live tennis scores: tennis Gorgodze vs Pridankina: no points for 205s"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 3 of 5 live matches",
   "slate check: all 18 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 54 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T04:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Linana: no points for 2618s",
+    "live tennis scores: tennis Watson vs Jones: no points for 2618s",
+    "live tennis scores: tennis Shek vs Sasnovich: no points for 2348s",
+    "live tennis scores: tennis Gorgodze vs Pridankina: no points for 205s"
+   ]
+  },
   {
    "at": "2026-10-31T02:52Z",
    "fixes": [],
@@ -519,11 +534,6 @@
   },
   {
    "at": "2026-10-29T07:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-29T07:22Z",
    "fixes": [],
    "problems": []
   }
