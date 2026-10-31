@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T22:47Z",
+ "updated": "2026-10-31T22:51Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -773,8 +773,8 @@
    "away": "Alcorn St",
    "home": "Miss Valley St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -788,8 +788,8 @@
    "away": "Bethune",
    "home": "AR-Pine Bluff",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -818,8 +818,8 @@
    "away": "Delaware St",
    "home": "Norfolk St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1087,8 +1087,8 @@
    "away": "Colorado St",
    "home": "Utah State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1102,8 +1102,8 @@
    "away": "FIU",
    "home": "Liberty",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1207,8 +1207,8 @@
    "away": "UTEP",
    "home": "N Dakota St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1297,8 +1297,8 @@
    "away": "New Mexico",
    "home": "San Jos\u00e9 St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1328,7 +1328,7 @@
    "home": "Kings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Kings",
@@ -1341,7 +1341,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1485,8 +1485,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Pitt",
-    "p": 0.62,
-    "tie": 0.032,
+    "p": 0.631,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1503,7 +1503,7 @@
     "line": -8.5,
     "odds": -108,
     "p": 0.5,
-    "win_p": 0.665,
+    "win_p": 0.677,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1548,8 +1548,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas",
-    "p": 0.774,
-    "tie": 0.025,
+    "p": 0.78,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1565,8 +1565,8 @@
     "market": "spread",
     "line": -20.5,
     "odds": -108,
-    "p": 0.502,
-    "win_p": 0.833,
+    "p": 0.501,
+    "win_p": 0.839,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1611,7 +1611,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Missouri",
-    "p": 0.668,
+    "p": 0.666,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1629,7 +1629,7 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.5,
-    "win_p": 0.667,
+    "win_p": 0.666,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1750,9 +1750,9 @@
     "team": "Grizzlies",
     "opp": "Kings",
     "market": "spread",
-    "line": -8.5,
-    "odds": -108,
-    "p": 0.501,
+    "line": -9.5,
+    "odds": -105,
+    "p": 0.502,
     "win_p": 0.751,
     "reasons": [
      "the stronger team",
@@ -1999,8 +1999,8 @@
     "team": "UNLV",
     "opp": "N Illinois",
     "market": "spread",
-    "line": -22.5,
-    "odds": -108,
+    "line": -21.5,
+    "odds": -112,
     "p": 0.502,
     "win_p": 0.859,
     "reasons": [
@@ -2015,7 +2015,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.575,
+    "p": 0.574,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2032,8 +2032,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.559,
-    "win_p": 0.559,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
      "better QB play lately"
     ]
@@ -2531,7 +2531,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.361,
+    "p": 0.355,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2548,8 +2548,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.692,
-    "win_p": 0.476,
+    "p": 0.703,
+    "win_p": 0.489,
     "reasons": [
      "sharp money moving this way",
      "opponent drama: suspension"
