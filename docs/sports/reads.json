@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T19:31Z",
+ "updated": "2026-10-31T19:44Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -11,8 +11,8 @@
    "away": "Arizona",
    "home": "Texas Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -26,8 +26,8 @@
    "away": "Boston College",
    "home": "Duke",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -71,8 +71,8 @@
    "away": "California",
    "home": "NC State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "Campbell",
    "home": "UAlbany",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -206,8 +206,8 @@
    "away": "Penn",
    "home": "Brown",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -236,8 +236,8 @@
    "away": "SMU",
    "home": "Syracuse",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -251,8 +251,8 @@
    "away": "Sacred Heart",
    "home": "Stony Brook",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -266,8 +266,8 @@
    "away": "UAB",
    "home": "South Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -311,8 +311,8 @@
    "away": "Yale",
    "home": "Columbia",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -387,7 +387,7 @@
    "home": "Red Wings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blues",
@@ -402,7 +402,7 @@
      "opponent missing key players",
      "opponent drama: suspension"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1033,246 +1033,195 @@
    }
   },
   {
-   "id": "ncaaf:401868098",
+   "id": "ncaaf:401858283",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Idaho",
-    "p": 0.644,
-    "tie": 0.031,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "Idaho",
-   "home": "Portland St",
-   "why": "coin_flip",
+   "start": "2026-10-31T19:15Z",
+   "away": "Stanford",
+   "home": "Louisville",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Idaho",
-    "opp": "Portland St",
-    "market": "spread",
-    "line": -9.5,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.692,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401868267",
+   "id": "ncaaf:401868296",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "San Diego",
-    "p": 0.573,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "Marist",
-   "home": "San Diego",
-   "why": "no_value",
+   "start": "2026-10-31T19:30Z",
+   "away": "Alabama St",
+   "home": "Alabama A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "San Diego",
-    "opp": "Marist",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.609,
-    "win_p": 0.609,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401868089",
+   "id": "ncaaf:401856843",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Montana",
-    "p": 0.671,
-    "tie": 0.03,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "Montana",
-   "home": "E Washington",
-   "why": "coin_flip",
+   "start": "2026-10-31T19:30Z",
+   "away": "Arizona St",
+   "home": "BYU",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Montana",
-    "opp": "E Washington",
-    "market": "spread",
-    "line": -11.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.723,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401864529",
+   "id": "ncaaf:401860910",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "New Mexico",
-    "p": 0.733,
-    "tie": 0.027,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "New Mexico",
-   "home": "San Jos\u00e9 St",
-   "why": "coin_flip",
+   "start": "2026-10-31T19:30Z",
+   "away": "Colorado St",
+   "home": "Utah State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "New Mexico",
-    "opp": "San Jos\u00e9 St",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.791,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401868320",
+   "id": "ncaaf:401871059",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "SE Louisiana",
-    "p": 0.65,
-    "tie": 0.031,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "SE Louisiana",
-   "home": "East Texas A&M",
-   "why": "coin_flip",
+   "start": "2026-10-31T19:30Z",
+   "away": "FIU",
+   "home": "Liberty",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "SE Louisiana",
-    "opp": "East Texas A&M",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.699,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856845",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "Kansas",
+   "home": "TCU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858501",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "Minnesota",
+   "home": "Indiana",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858505",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "Northwestern",
+   "home": "Oregon",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871095",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "Southern Miss",
+   "home": "UL Monroe",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868349",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "Tennessee Tech",
+   "home": "ETSU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401864531",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T19:30Z",
+   "away": "UTEP",
+   "home": "N Dakota St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892618",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sabres",
-    "p": 0.377,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-31T20:00Z",
    "away": "Sabres",
    "home": "Kings",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Kings",
     "opp": "Sabres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -225,
-    "p": 0.662,
-    "win_p": 0.442,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892619",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Senators",
-    "p": 0.392,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "Senators",
-   "home": "Sharks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Sharks",
-    "opp": "Senators",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.632,
-    "win_p": 0.41,
-    "reasons": [
-     "opponent missing key players",
-     "opponent drama: suspension"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401867887",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "S Dakota St",
-    "p": 0.626,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-31T20:00Z",
-   "away": "South Dakota",
-   "home": "S Dakota St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "S Dakota St",
-    "opp": "South Dakota",
     "market": "ml",
     "line": null,
-    "odds": -252,
-    "p": 0.671,
-    "win_p": 0.671,
+    "odds": 102,
+    "p": 0.467,
+    "win_p": 0.467,
     "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -1281,7 +1230,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UCLA",
-    "p": 0.845,
+    "p": 0.851,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -1297,9 +1246,9 @@
     "opp": "Nevada",
     "market": "spread",
     "line": -22.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.502,
-    "win_p": 0.901,
+    "win_p": 0.906,
     "reasons": [
      "the stronger team"
     ]
@@ -1402,7 +1351,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.483,
+    "p": 0.487,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1418,9 +1367,9 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -105,
-    "p": 0.502,
-    "win_p": 0.502,
+    "odds": -108,
+    "p": 0.508,
+    "win_p": 0.508,
     "reasons": [
      "opponent missing key players",
      "the stronger team",
@@ -1591,7 +1540,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma St",
-    "p": 0.654,
+    "p": 0.655,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1607,7 +1556,7 @@
     "opp": "Iowa State",
     "market": "spread",
     "line": -9.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.5,
     "win_p": 0.704,
     "reasons": [
@@ -1764,7 +1713,7 @@
     "opp": "North Carolina",
     "market": "spread",
     "line": -14.0,
-    "odds": -108,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.781,
     "reasons": [
@@ -1859,7 +1808,7 @@
     "opp": "Arkansas",
     "market": "spread",
     "line": -10.0,
-    "odds": -112,
+    "odds": -115,
     "p": 0.5,
     "win_p": 0.713,
     "reasons": [
@@ -1967,7 +1916,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.662,
+    "p": 0.657,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1985,7 +1934,7 @@
     "line": -8.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.757,
+    "win_p": 0.751,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
