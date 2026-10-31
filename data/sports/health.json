@@ -1,12 +1,9 @@
 {
- "at": "2026-10-31T00:17Z",
+ "at": "2026-10-31T00:22Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Monnet vs Podoroska: no points for 2359s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (50s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 36 min ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-31T00:22Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-31T00:17Z",
    "fixes": [],
@@ -501,16 +503,6 @@
    "at": "2026-10-29T05:04Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-29T03:32Z",
-   "fixes": [
-    "live watch 40808142820 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live board check failed: <urlopen error timed out>"
-   ]
   }
  ]
 }
