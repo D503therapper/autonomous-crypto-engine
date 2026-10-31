@@ -1,28 +1,45 @@
 {
- "at": "2026-10-31T12:47Z",
+ "at": "2026-10-31T13:55Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (7 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Bonzi vs Griekspoor: no points for 812s",
+  "live tennis scores: tennis Hanfmann vs Balshaw: no points for 633s",
+  "live tennis scores: tennis Dzumhur vs Baez: no points for 205s",
+  "live tennis scores: tennis Akugue vs Blinkova: no points for 812s",
+  "live tennis scores: tennis Kotliar vs Kulambayeva: no points for 812s",
+  "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 6 live matches",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 39 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-31T13:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bonzi vs Griekspoor: no points for 812s",
+    "live tennis scores: tennis Hanfmann vs Balshaw: no points for 633s",
+    "live tennis scores: tennis Dzumhur vs Baez: no points for 205s",
+    "live tennis scores: tennis Akugue vs Blinkova: no points for 812s",
+    "live tennis scores: tennis Kotliar vs Kulambayeva: no points for 812s",
+    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-31T12:47Z",
    "fixes": [],
@@ -527,15 +544,6 @@
    "problems": [
     "live tennis scores: tennis Souza vs Jones: no points for 1077s",
     "live tennis scores: tennis Aksu vs Stefanini: no points for 2197s"
-   ]
-  },
-  {
-   "at": "2026-10-29T16:29Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-28 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
