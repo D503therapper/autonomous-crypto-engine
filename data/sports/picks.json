@@ -26395,6 +26395,11 @@
      "game:div"
     ],
     "dec": 1.8695652173913042,
+    "decider": {
+     "s": "6-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -26430,6 +26435,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0",
+     "h": "1,3,2"
+    },
     "form_state": [
      1.0,
      1,
@@ -26477,10 +26486,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Kraken 2 @ Flames 6",
     "season_games": null,
+    "settled": "2026-10-31T02:52Z",
     "side": "away",
     "start": "2026-10-31T00:00Z",
     "stype": "2",
@@ -26497,12 +26508,14 @@
    }
   ],
   "p_hit": 0.52,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-30T16:49Z",
   "round": 1,
+  "settled": "2026-10-31T02:52Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 215,
@@ -26546,6 +26559,12 @@
      "us:week3000"
     ],
     "dec": 3.15,
+    "decider": {
+     "h": "69-56",
+     "s": "127-101",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -26614,6 +26633,10 @@
     ],
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "24,32,25,20",
+     "h": "34,35,29,29"
+    },
     "form_state": [
      -16.0,
      -3,
@@ -26666,10 +26689,12 @@
      "opponent missing key players: Anthony Edwards (their read -9)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Clippers 101 @ Timberwolves 127",
     "season_games": 4,
+    "settled": "2026-10-31T02:52Z",
     "side": "away",
     "start": "2026-10-31T00:00Z",
     "stype": "2",
@@ -26687,11 +26712,13 @@
   ],
   "midday": true,
   "p_hit": 0.2984,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-30T22:53Z",
   "round": 1,
+  "settled": "2026-10-31T02:52Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
