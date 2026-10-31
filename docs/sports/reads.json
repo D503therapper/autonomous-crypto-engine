@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31T17:10Z",
+ "updated": "2026-10-31T17:23Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -362,6 +362,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892614",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-31T17:00Z",
+   "away": "Blackhawks",
+   "home": "Bruins",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892615",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -389,6 +404,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401866678",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T17:00Z",
+   "away": "Bryant",
+   "home": "Monmouth",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401868215",
@@ -429,6 +459,21 @@
    "start": "2026-10-31T17:00Z",
    "away": "Drake",
    "home": "Morehead St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401866679",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-31T17:00Z",
+   "away": "Elon",
+   "home": "NC A&T",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1663,7 +1708,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "N Dakota St",
-    "p": 0.863,
+    "p": 0.856,
     "tie": 0.018,
     "name": "1st half"
    },
@@ -1678,10 +1723,10 @@
     "team": "N Dakota St",
     "opp": "UTEP",
     "market": "spread",
-    "line": -24.5,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.916,
+    "line": -23.5,
+    "odds": -118,
+    "p": 0.502,
+    "win_p": 0.91,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -2119,8 +2164,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "76ers",
-    "p": 0.494,
+    "team": "Hornets",
+    "p": 0.487,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2132,14 +2177,18 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "76ers",
-    "opp": "Hornets",
+    "team": "Hornets",
+    "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.512,
-    "win_p": 0.512,
-    "reasons": []
+    "odds": -108,
+    "p": 0.508,
+    "win_p": 0.508,
+    "reasons": [
+     "opponent missing key players",
+     "the stronger team",
+     "opponent drama: trade drama"
+    ]
    }
   },
   {
@@ -2747,8 +2796,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.717,
-    "tie": 0.03,
+    "p": 0.712,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2765,7 +2814,7 @@
     "line": -12.5,
     "odds": -105,
     "p": 0.505,
-    "win_p": 0.824,
+    "win_p": 0.818,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -2841,7 +2890,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.502,
+    "p": 0.513,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2850,16 +2899,16 @@
    "start": "2026-11-01T00:30Z",
    "away": "Thunder",
    "home": "Rockets",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Rockets",
     "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.53,
-    "win_p": 0.53,
+    "odds": -155,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "opponent missing key players"
     ]
