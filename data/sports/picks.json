@@ -25794,207 +25794,6 @@
   "units": 0.5
  },
  {
-  "american": 110,
-  "date": "2026-10-30",
-  "dec": 2.1,
-  "gap": 0.1539,
-  "kind": "play",
-  "lean": false,
-  "legs": [
-   {
-    "ats_run": 1,
-    "bd_tags": [
-     "rec:0",
-     "latest:5",
-     "drama_coach_fired:1",
-     "home:1",
-     "w_cold:36",
-     "f_site:2",
-     "f_outs:0",
-     "f_qb:0",
-     "f_last5:0",
-     "f_gpg:0",
-     "risk:1",
-     "bottom_so:5"
-    ],
-    "big_cover": false,
-    "breakdown": [
-     "\ud83c\udfdf\ufe0f Baylor on the road this season: 1-2. Nothing scary about that.",
-     "\ud83d\udcc5 Previous game: UCF W 39-31 vs BYU \u00b7 Baylor L 24-25 @ Kansas.",
-     "\ud83d\ude91 Baylor is without D. Tezino (DT), J. Redding (S), J. Richardson (CB), C. Tone (OL). Bodies missing over there.",
-     "\ud83c\udfdf\ufe0f UCF takes care of home: 4-0 in their building so far.",
-     "\ud83c\udfaf Our quarterback's been better: Keyone Jenkins has 8 TDs, 2 picks and 811 yards in his last 3 games for UCF; DJ Lagway has 5 TDs, 2 picks and 798 yards in his last 3 games for Baylor.",
-     "\ud83d\udcca UCF scores 33 points a game this year; Baylor manages 29.",
-     "\ud83d\uddd3\ufe0f UCF is 3-2 over their last 5.",
-     "\ud83d\udccb UCF 4-3, Baylor 4-3. Same record, different reasons - keep reading.",
-     "\u26a0\ufe0f Ain't gonna lie - UCF goes without D. Henderson (S), D. Bell (CB), L. Carter (LB), T. Gibson (OL). That's the risk here, and it's already in the price.",
-     "\u2705 Bottom line: UCF (+110). Fair on UCF is -107 to us. The homies riding at +110."
-    ],
-    "bv": 61,
-    "coach": [
-     null,
-     false
-    ],
-    "country": "USA",
-    "ctx": [],
-    "ctx_tags": [
-     "game:conf"
-    ],
-    "dec": 2.1,
-    "decider": {
-     "h": "20-6",
-     "s": "41-9",
-     "type": "blowout",
-     "win": "away"
-    },
-    "dog_ctx": {
-     "cw5": 0,
-     "hits_top": false,
-     "opp_won": false,
-     "won": true
-    },
-    "dog_more": {
-     "fades": [
-      "ice cold"
-     ],
-     "last_margin": 8.0,
-     "last_pts": 39.0,
-     "neutral": false,
-     "record": [
-      4,
-      3
-     ],
-     "win_pct": 0.571,
-     "win_streak": 1
-    },
-    "dog_p": 0.5173,
-    "dog_score": 6,
-    "drift": 0.093,
-    "edge": 0.05982781935584347,
-    "edge_own": 0.2835,
-    "elo_edge": 72.1,
-    "fact": "Baylor have lost 2 straight.",
-    "facts": [
-     [
-      "Baylor have lost 2 straight.",
-      "2 straight losses for Baylor.",
-      "Baylor are on a 2-game skid.",
-      "Baylor haven't won in 2."
-     ],
-     [
-      "UCF are fresh off a 39-31 win over BYU.",
-      "UCF just beat BYU 39-31.",
-      "Last time out UCF took BYU 39-31.",
-      "UCF handled BYU 39-31 last time out."
-     ],
-     [
-      "UCF are 4-0 at home this year.",
-      "4-0 at home for UCF this season.",
-      "UCF haven't lost at home this year (4-0).",
-      "UCF at home this year: 4-0."
-     ]
-    ],
-    "fired_on": null,
-    "first_timer": false,
-    "flow": {
-     "a": "7,13,14,7",
-     "h": "0,6,3,0"
-    },
-    "form_state": [
-     8.0,
-     1,
-     245,
-     true,
-     0
-    ],
-    "g_role_me": null,
-    "g_role_opp": null,
-    "game_id": "ncaaf:401856844",
-    "gap": 0.1539,
-    "home": true,
-    "hot_key": false,
-    "hurt": [],
-    "intl": false,
-    "is_lean": false,
-    "key_edge": 0.4397534639634535,
-    "key_out_me": false,
-    "key_seen": {},
-    "league": "ncaaf",
-    "line": null,
-    "lost_last": false,
-    "market": "ml",
-    "odds": 110,
-    "opp": "Baylor",
-    "opp_lost_last": false,
-    "opp_ot_last": null,
-    "opp_outs": [
-     "D. Tezino (DT)",
-     "J. Redding (S)",
-     "J. Richardson (CB)",
-     "C. Tone (OL)"
-    ],
-    "ot_last": null,
-    "our_drama": [],
-    "outs": [
-     "D. Henderson (S)",
-     "D. Bell (CB)",
-     "L. Carter (LB)",
-     "T. Gibson (OL)"
-    ],
-    "outshot_me": false,
-    "outshot_opp": false,
-    "p": 0.504679913978973,
-    "p_market": 0.4572564612326044,
-    "pdo": null,
-    "public": null,
-    "pyth_luck": null,
-    "raw_own": 0.6112,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better QB play lately",
-     "opponent drama: coach fired"
-    ],
-    "rested_vs_b2b": false,
-    "result": "lost",
-    "revenge": false,
-    "road_opener": false,
-    "score": "Baylor 41 @ UCF 9",
-    "season_games": null,
-    "settled": "2026-10-31T03:05Z",
-    "side": "home",
-    "start": "2026-10-30T23:30Z",
-    "stype": "2",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "UCF",
-    "team_id": "2116",
-    "their_drama": [
-     {
-      "date": "2026-10-26",
-      "headline": "Baylor interim Joe Klanderman wants to give 'jolt of energy'",
-      "id": "50290413",
-      "kind": "coach fired"
-     }
-    ],
-    "tier": "value",
-    "tired_vs_rested": false,
-    "trap": false,
-    "waiting": [],
-    "why_line": "\ud83e\uddca Let's eat \u2014 2 straight losses for Baylor."
-   }
-  ],
-  "p_hit": 0.5047,
-  "pnl": -100.0,
-  "posted": "2026-10-30T15:00Z",
-  "round": 1,
-  "settled": "2026-10-31T03:05Z",
-  "stake": 100.0,
-  "status": "lost",
-  "tier": "value",
-  "units": 1.0
- },
- {
   "american": 235,
   "date": "2026-10-30",
   "dec": 3.35,
@@ -26370,6 +26169,207 @@
   "status": "lost",
   "tier": "lean",
   "units": 0
+ },
+ {
+  "american": 110,
+  "date": "2026-10-30",
+  "dec": 2.1,
+  "gap": 0.1539,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:0",
+     "latest:5",
+     "drama_coach_fired:1",
+     "home:1",
+     "w_cold:36",
+     "f_site:2",
+     "f_outs:0",
+     "f_qb:0",
+     "f_last5:0",
+     "f_gpg:0",
+     "risk:1",
+     "bottom_so:5"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83c\udfdf\ufe0f Baylor on the road this season: 1-2. Nothing scary about that.",
+     "\ud83d\udcc5 Previous game: UCF W 39-31 vs BYU \u00b7 Baylor L 24-25 @ Kansas.",
+     "\ud83d\ude91 Baylor is without D. Tezino (DT), J. Redding (S), J. Richardson (CB), C. Tone (OL). Bodies missing over there.",
+     "\ud83c\udfdf\ufe0f UCF takes care of home: 4-0 in their building so far.",
+     "\ud83c\udfaf Our quarterback's been better: Keyone Jenkins has 8 TDs, 2 picks and 811 yards in his last 3 games for UCF; DJ Lagway has 5 TDs, 2 picks and 798 yards in his last 3 games for Baylor.",
+     "\ud83d\udcca UCF scores 33 points a game this year; Baylor manages 29.",
+     "\ud83d\uddd3\ufe0f UCF is 3-2 over their last 5.",
+     "\ud83d\udccb UCF 4-3, Baylor 4-3. Same record, different reasons - keep reading.",
+     "\u26a0\ufe0f Ain't gonna lie - UCF goes without D. Henderson (S), D. Bell (CB), L. Carter (LB), T. Gibson (OL). That's the risk here, and it's already in the price.",
+     "\u2705 Bottom line: UCF (+110). Fair on UCF is -107 to us. The homies riding at +110."
+    ],
+    "bv": 61,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.1,
+    "decider": {
+     "h": "20-6",
+     "s": "41-9",
+     "type": "blowout",
+     "win": "away"
+    },
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [
+      "ice cold"
+     ],
+     "last_margin": 8.0,
+     "last_pts": 39.0,
+     "neutral": false,
+     "record": [
+      4,
+      3
+     ],
+     "win_pct": 0.571,
+     "win_streak": 1
+    },
+    "dog_p": 0.5173,
+    "dog_score": 6,
+    "drift": 0.093,
+    "edge": 0.05982781935584347,
+    "edge_own": 0.2835,
+    "elo_edge": 72.1,
+    "fact": "Baylor have lost 2 straight.",
+    "facts": [
+     [
+      "Baylor have lost 2 straight.",
+      "2 straight losses for Baylor.",
+      "Baylor are on a 2-game skid.",
+      "Baylor haven't won in 2."
+     ],
+     [
+      "UCF are fresh off a 39-31 win over BYU.",
+      "UCF just beat BYU 39-31.",
+      "Last time out UCF took BYU 39-31.",
+      "UCF handled BYU 39-31 last time out."
+     ],
+     [
+      "UCF are 4-0 at home this year.",
+      "4-0 at home for UCF this season.",
+      "UCF haven't lost at home this year (4-0).",
+      "UCF at home this year: 4-0."
+     ]
+    ],
+    "fired_on": null,
+    "first_timer": false,
+    "flow": {
+     "a": "7,13,14,7",
+     "h": "0,6,3,0"
+    },
+    "form_state": [
+     8.0,
+     1,
+     245,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401856844",
+    "gap": 0.1539,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.4397534639634535,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 110,
+    "opp": "Baylor",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "D. Tezino (DT)",
+     "J. Redding (S)",
+     "J. Richardson (CB)",
+     "C. Tone (OL)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "D. Henderson (S)",
+     "D. Bell (CB)",
+     "L. Carter (LB)",
+     "T. Gibson (OL)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.504679913978973,
+    "p_market": 0.4572564612326044,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.6112,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "better QB play lately",
+     "opponent drama: coach fired"
+    ],
+    "rested_vs_b2b": false,
+    "result": "lost",
+    "revenge": false,
+    "road_opener": false,
+    "score": "Baylor 41 @ UCF 9",
+    "season_games": null,
+    "settled": "2026-10-31T03:05Z",
+    "side": "home",
+    "start": "2026-10-30T23:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "UCF",
+    "team_id": "2116",
+    "their_drama": [
+     {
+      "date": "2026-10-26",
+      "headline": "Baylor interim Joe Klanderman wants to give 'jolt of energy'",
+      "id": "50290413",
+      "kind": "coach fired"
+     }
+    ],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\uddca Let's eat \u2014 2 straight losses for Baylor."
+   }
+  ],
+  "p_hit": 0.5047,
+  "pnl": -100.0,
+  "posted": "2026-10-30T15:00Z",
+  "round": 1,
+  "settled": "2026-10-31T03:05Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -115,
