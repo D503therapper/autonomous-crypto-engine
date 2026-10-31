@@ -15575,6 +15575,71 @@ def test_college_sweep_1031_a_covers_listed_starting_qb_counts_the_raw_read_take
     assert tag not in sl.tags({**fav, "edge_own": 0.57 * fd - 1}, sports)   # the own read beats it: a real play's cell
 
 
+def test_daily_1031_three_tracker_leads_bowl_chase_hoops_rust_hockey_scorer_out_no_weight():
+    """10/31 daily run (10 studies, results/studies/daily_1031/): nothing built as a weight. Three tracker LEADS (their own
+    live record, never a weight): the college dog sitting on 5 wins late in the season (10/20-11/30, FBS vs FBS - the
+    bowl chase; +6.5% train then -18..-26% each held-out season), the college hoops -101..-150 favorite off 7+ nights vs
+    a team that played within 4 (-17.9% train / -12.3% held), and the NHL -101..-150 favorite with a top scorer out
+    (-11.4% on 446 - the built absence penalty is the right size; this is its live record). Refs, the split moves, the
+    holidays, NBA continuity and book coverage: dead - nothing wired."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+
+    def fg(i, start, home, away, hs, as_):
+        return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                "home_score": str(hs), "away_score": str(as_)}
+    try:
+        # the bowl chase: T has 5 wins on file, both FBS, inside the window
+        F = {f"g{k}": fg(f"g{k}", f"2026-09-{5 + 7 * k:02d}T19:00Z", "T", f"O{k}", 30, 10) for k in range(3)}
+        F.update({"g3": fg("g3", "2026-10-03T19:00Z", "O3", "T", 10, 24), "g4": fg("g4", "2026-10-10T19:00Z", "O4", "T", 7, 21),
+                  "g5": fg("g5", "2026-10-17T19:00Z", "T", "O5", 3, 35),
+                  "g6": fg("g6", "2026-10-24T19:00Z", "O6", "T", 28, 14),
+                  "gn": {"id": "gn", "start": "2026-11-01T00:00Z", "status": "pre", "stype": "2", "home": "D", "away": "T"}})
+        sl._GAMES["ncaaf"] = F
+        dog = {"market": "ml", "league": "ncaaf", "game_id": "gn", "side": "away", "home": False, "odds": 160, "dec": 2.6,
+               "p_market": 0.37, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+               "start": "2026-11-01T00:00Z", "dog_more": {}, "fbs_game": True}
+        lead = "college dog needing its 6th win (fade)"
+        assert sl.bowl_need1(dog) and lead in sl.tags(dog, sports)
+        assert not sl.bowl_need1({**dog, "fbs_game": None}) and not sl.bowl_need1({**dog, "fbs_game": False})
+        assert not sl.bowl_need1({**dog, "start": "2026-10-10T19:00Z"})          # before the window: no
+        F["g6"]["home_score"], F["g6"]["away_score"] = "10", "31"                # 6 wins: already eligible - no
+        assert not sl.bowl_need1(dog)
+        F["g6"]["home_score"], F["g6"]["away_score"] = "28", "14"
+        assert lead not in sl.tags({**dog, "odds": -130, "dec": 1.77}, sports)   # a favorite: no (the dog tag only)
+        # college hoops rust: T off 8 nights, D played 2 nights ago, both 3+ games in
+        H = {"t1": fg("t1", "2026-11-04T00:00Z", "T", "A", 70, 60), "t2": fg("t2", "2026-11-07T00:00Z", "T", "B", 70, 60),
+             "t3": fg("t3", "2026-11-10T00:00Z", "C", "T", 60, 70),
+             "d1": fg("d1", "2026-11-05T00:00Z", "D", "E", 70, 60), "d2": fg("d2", "2026-11-12T00:00Z", "F", "D", 60, 70),
+             "d3": fg("d3", "2026-11-16T00:00Z", "D", "G", 70, 60),
+             "hn": {"id": "hn", "start": "2026-11-18T00:00Z", "status": "pre", "stype": "2", "home": "D", "away": "T"}}
+        sl._GAMES["ncaab"] = H
+        fav = {"market": "ml", "league": "ncaab", "game_id": "hn", "side": "away", "home": False, "odds": -130,
+               "dec": 1.77, "p_market": 0.55, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+               "start": "2026-11-18T00:00Z", "dog_more": {}}
+        rust = "college hoops small fav off 7+ days vs a team in rhythm (fade)"
+        assert sl.hoops_rust(fav) and rust in sl.tags(fav, sports)
+        assert rust not in sl.tags({**fav, "odds": -170, "dec": 1.59}, sports)   # past -150: no
+        assert rust not in sl.tags({**fav, "odds": 130, "dec": 2.3}, sports)     # a dog: no
+        H["d3"]["start"] = "2026-11-12T23:00Z"                                    # D off 5 nights too: no rhythm edge
+        H["d2"]["start"] = "2026-11-09T00:00Z"
+        assert not sl.hoops_rust(fav)
+        # the hockey favorite with a top scorer out: the tag rides the engine's own absence list
+        nhl = {"market": "ml", "league": "nhl", "game_id": "x", "side": "home", "home": True, "odds": -135, "dec": 1.74,
+               "p_market": 0.56, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+               "start": "2026-11-01T23:00Z", "dog_more": {}, "absent": ["Top Scorer"]}
+        out = "NHL small fav, a top scorer out (fade)"
+        assert out in sl.tags(nhl, sports) and out not in sl.tags({**nhl, "absent": []}, sports)
+        assert out not in sl.tags({**nhl, "odds": -180, "dec": 1.56}, sports)
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+    # nothing weighed: the caps and the 10/30 sizing untouched; the dog score never reads the new tags
+    assert sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "bowl_need1" not in src and "hoops_rust" not in src
+
+
 def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
     """10/30: the Bovada tennis feed went quiet 10/29 11:20Z and the repo had no trace of why (the job logs are out of
     reach). Every read now writes tennis/odds_status.json - the lines it got, the raw payload size, or the error -

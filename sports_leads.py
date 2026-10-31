@@ -127,6 +127,10 @@ def tags(c, sports):
             if beat_good_last(c):
                 t.append("college dog off a win over a winning team (fade)")   # the owner's NM St story runs the wrong
                 #                                                way: -26.7% on 147 train (0 of 4 up), -11.5% / -11.1% / 5-5
+            if bowl_need1(c):
+                t.append("college dog needing its 6th win (fade)")   # 10/31 daily study 3 (the bowl chase), FBS vs
+                #   FBS 10/20-11/30: +6.5% on 68 train (2018-22) then -21.4% / -17.9% / -26.0% held out (2023-25) and
+                #   ATS -13.9% held (base -4.7%) - the market now pays up for 'they need it'; train never agreed - a LEAD
             t.extend(gap_band(c))                             # 10/30 college unit-play studies: the 🔍 gap play's bands
             #                                                   split for its 50-play judge (tracker only, no weight)
         if lg == "nfl" and tuple(mo.get("record") or ()) == (0, 2):
@@ -228,6 +232,17 @@ def tags(c, sports):
             #   hoops prep): -101..-150 favorites on the road / at a neutral site in their first 3 games -18.1% on 95 train
             #   (2018-21, 1 of 4 up) / -12.1% on 84 held out (2022-25, 0 of 4 up) vs -4.1% for road favorites later; at
             #   home +2.1% - the open 10/16 'college hoops Locks small the first 2 weeks' question; tracked only
+        if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_rust(c):
+            t.append("college hoops small fav off 7+ days vs a team in rhythm (fade)")   # 10/31 daily study 10: -17.9%
+            #   on 167 train (2018-21, 1 of 4 up) / -12.3% on 243 held out (2022-25, 3 of 4 down) outside December vs
+            #   -3.8% for every band favorite; ATS the same side -7.2% / -7.5% (Dec) vs -4.5%; but the December exam
+            #   window itself +5.1% train, 10+ days no worse than 7+ - a LEAD, tracked only
+        if lg == "nhl" and -150 <= c.get("odds", 0) <= -101 and c.get("absent"):
+            t.append("NHL small fav, a top scorer out (fade)")   # 10/31 daily study 8: a -101..-150 favorite whose
+            #   top-2 scorer (this season's points a game) missed the last game and is out again: -11.4% on 446 vs
+            #   -3.2% for the band (train 2021-22 -3.7% vs -0.8%, held out 2023-25 -15.6%, 3 of 3 down) - the BUILT
+            #   hockey absence penalty (top scorer -6 / top-2 -4 off the own read) is the right size; this is its live
+            #   record, never a second weight
         if lg == "nba" and -150 <= c.get("odds", 0) <= -100 and halftime_comeback(c):
             t.append("NBA small fav off a 10+ halftime comeback win")   # 10/27 daily study: train +31.8% on 68
             #   (6 of 7 up, 8+ / 12+ the same sign) but holdout 2025 3-6 -42% and the NHL version flat - tracked only
@@ -538,6 +553,52 @@ def shredded_loss(c, cut=40):
     except (TypeError, ValueError):
         return False
     return a < b and b >= cut
+
+
+BOWL_WINDOW = ("10-20", "11-30")   # the 10/31 bowl-chase study's late-season window (month-day, the start's date)
+
+
+def bowl_need1(c):
+    """10/31 daily study 3 (a LEAD, tracked only): a college team sitting on exactly 5 wins - one short of bowl
+    eligibility - late in the season, both teams FBS. Wins = every finished game this season on file (FCS wins count
+    toward 6, as they do for eligibility)."""
+    if c.get("league") != "ncaaf" or c.get("fbs_game") is not True:
+        return False
+    start = str(c.get("start") or _game(c).get("start") or "")
+    if len(start) < 10 or not (BOWL_WINDOW[0] <= start[5:10] <= BOWL_WINDOW[1]):
+        return False
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return False
+    w = 0
+    for x in rows:
+        me, op = ("home", "away") if x["home"] == team else ("away", "home")
+        try:
+            w += float(x[me + "_score"]) > float(x[op + "_score"])
+        except (TypeError, ValueError):
+            return False
+    return w == 5
+
+
+HOOPS_RUST_DAYS, HOOPS_RHYTHM_DAYS = 7, 4   # the 10/31 layoff study's cuts
+
+
+def hoops_rust(c):
+    """10/31 daily study 10 (college hoops prep; a LEAD, tracked only): this side's last game was 7+ nights ago and
+    the opponent played within the last 4 nights - both teams 3+ games into the season."""
+    if c.get("league") != "ncaab":
+        return False
+    team, rows = _season_before(c)
+    other = "away" if c.get("side") == "home" else "home"
+    oteam, orows = _season_before(dict(c, side=other))
+    if not team or not oteam or len(rows) < 3 or len(orows) < 3:
+        return False
+    try:
+        now = _night(c.get("start") or _game(c).get("start"))
+        gap, ogap = now - _night(rows[-1]["start"]), now - _night(orows[-1]["start"])
+    except (TypeError, ValueError):
+        return False
+    return gap >= HOOPS_RUST_DAYS and ogap <= HOOPS_RHYTHM_DAYS
 
 
 def load():
