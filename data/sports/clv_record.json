@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 147,
+  "n": 151,
   "beat": 48,
-  "same": 53,
-  "worse": 46,
-  "avg_pts": 0.08
+  "same": 56,
+  "worse": 47,
+  "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 66,
+  "n": 68,
   "beat": 20,
-  "same": 30,
-  "worse": 16,
-  "avg_pts": 0.18
+  "same": 31,
+  "worse": 17,
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
@@ -22,9 +22,9 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 81,
+   "n": 83,
    "beat": 28,
-   "same": 23,
+   "same": 25,
    "worse": 30,
    "avg_pts": -0.0
   },
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 33,
+   "n": 35,
    "beat": 9,
-   "same": 17,
-   "worse": 7,
-   "avg_pts": 0.08
+   "same": 18,
+   "worse": 8,
+   "avg_pts": 0.05
   }
  },
  "by_sport": {
@@ -52,18 +52,18 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 16,
+   "n": 17,
    "beat": 6,
-   "same": 7,
+   "same": 8,
    "worse": 3,
-   "avg_pts": 0.38
+   "avg_pts": 0.36
   },
   "ncaaf": {
-   "n": 40,
+   "n": 42,
    "beat": 11,
-   "same": 17,
-   "worse": 12,
-   "avg_pts": 0.05
+   "same": 18,
+   "worse": 13,
+   "avg_pts": 0.03
   },
   "nfl": {
    "n": 21,
@@ -73,9 +73,9 @@
    "avg_pts": 0.19
   },
   "nhl": {
-   "n": 56,
+   "n": 57,
    "beat": 18,
-   "same": 20,
+   "same": 21,
    "worse": 18,
    "avg_pts": 0.04
   }
@@ -2168,6 +2168,62 @@
    "pts": -0.9,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "UCF",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 114,
+   "pts": -0.9,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Charlotte",
+   "market": "ml",
+   "line": null,
+   "odds": 275,
+   "close": 275,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Kraken",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -115,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Clippers",
+   "market": "ml",
+   "line": null,
+   "odds": 215,
+   "close": 215,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }
