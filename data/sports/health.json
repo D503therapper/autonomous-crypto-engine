@@ -1,27 +1,46 @@
 {
- "at": "2026-10-31T12:01Z",
+ "at": "2026-10-31T12:46Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Kopriva vs Gaston: no points for 2627s",
+  "live tennis scores: tennis Kecmanovic vs Duckworth: no points for 2627s",
+  "live tennis scores: tennis Landaluce vs Machac: no points for 2627s",
+  "live tennis scores: tennis Kovacevic vs Cerundolo: no points for 1758s",
+  "live tennis scores: tennis Falkowska vs Kanabar: no points for 2627s",
+  "live tennis scores: tennis Desai vs Yamaguchi: no points for 1693s"
+ ],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (180s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 6 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 9 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 36 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 38 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-31T12:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kopriva vs Gaston: no points for 2627s",
+    "live tennis scores: tennis Kecmanovic vs Duckworth: no points for 2627s",
+    "live tennis scores: tennis Landaluce vs Machac: no points for 2627s",
+    "live tennis scores: tennis Kovacevic vs Cerundolo: no points for 1758s",
+    "live tennis scores: tennis Falkowska vs Kanabar: no points for 2627s",
+    "live tennis scores: tennis Desai vs Yamaguchi: no points for 1693s"
+   ]
+  },
   {
    "at": "2026-10-31T12:01Z",
    "fixes": [],
@@ -529,13 +548,6 @@
     "live tennis scores: tennis Jacquemot vs Bandecchi: no points for 2615s",
     "live tennis scores: tennis Aksu vs Stefanini: no points for 2615s",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-29T14:57Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
