@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 153,
+  "n": 154,
   "beat": 49,
-  "same": 56,
+  "same": 57,
   "worse": 48,
   "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 68,
+  "n": 69,
   "beat": 20,
-  "same": 31,
+  "same": 32,
   "worse": 17,
   "avg_pts": 0.16
  },
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 35,
+   "n": 36,
    "beat": 9,
-   "same": 18,
+   "same": 19,
    "worse": 8,
    "avg_pts": 0.05
   }
@@ -59,9 +59,9 @@
    "avg_pts": 0.36
   },
   "ncaaf": {
-   "n": 43,
+   "n": 44,
    "beat": 12,
-   "same": 18,
+   "same": 19,
    "worse": 13,
    "avg_pts": 0.05
   },
@@ -2252,6 +2252,20 @@
    "pts": -3.6,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Kansas St",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }
