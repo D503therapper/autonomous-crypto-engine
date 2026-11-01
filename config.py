@@ -277,7 +277,7 @@ DEX = {
               # Owner 2026-10-18 ("we're not doing shit ... play money, go to the moon"): survivor alone bought ~1 coin
               # in 6 days and left $950 idle. "both" = survivor OR the momentum rule, with smaller bets (tiers below) so
               # there are many more lottery tickets on runners; moon alerts still ping at 2x .. 100x.
-              "mode": "both",
+              "mode": "survivor",          # 11-01 judge: the fresh-pump half lost 45% live (n 29) - off again
               "skip_pump": True,           # EXPERIMENT 16: the fresh-pump rule skips pump.fun launches (dex._trig)
               "fresh_skip_chains": ("solana",),   # EXPERIMENT 18: ... and all Solana coins (survivors still buy)
               "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}},
