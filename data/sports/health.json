@@ -1,21 +1,15 @@
 {
- "at": "2026-11-01T11:34Z",
+ "at": "2026-11-01T11:35Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Bellucci vs Tirante: no points for 2616s",
-  "live tennis scores: tennis Kopriva vs Hijikata: no points for 2616s",
-  "live tennis scores: tennis Kecmanovic vs Cerundolo: no points for 1506s",
-  "live tennis scores: tennis Zolotareva vs Falei: no points for 2616s",
-  "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 1331s",
-  "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 2616s",
-  "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+  "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 6 live matches",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "all 1 backup sources answering",
@@ -23,11 +17,18 @@
   "every upcoming game has its real teams",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 61 min ago",
+  "engine ran 63 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-01T11:35Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-11-01T11:34Z",
    "fixes": [],
@@ -566,14 +567,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Monnet vs Podoroska: no points for 1975s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-30T22:41Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Podoroska: no points for 1671s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
