@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T01:39Z",
+ "updated": "2026-11-01T01:42Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -1534,8 +1534,8 @@
    "away": "Maple Leafs",
    "home": "Canucks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1837,69 +1837,6 @@
    }
   },
   {
-   "id": "nhl:401892623",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.517,
-    "tie": 0.274,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-01T02:00Z",
-   "away": "Flames",
-   "home": "Avalanche",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Flames",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -166,
-    "p": 0.635,
-    "win_p": 0.811,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401860908",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Boise St",
-    "p": 0.663,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-01T02:00Z",
-   "away": "Texas St",
-   "home": "Boise St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Boise St",
-    "opp": "Texas St",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -110,
-    "p": 0.508,
-    "win_p": 0.714,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401864530",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1921,7 +1858,7 @@
     "opp": "N Illinois",
     "market": "spread",
     "line": -21.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.512,
     "win_p": 0.862,
     "reasons": [
