@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T02:36Z",
+ "updated": "2026-11-01T03:41Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -1489,8 +1489,8 @@
    "away": "Clemson",
    "home": "Florida St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1549,8 +1549,8 @@
    "away": "Oklahoma St",
    "home": "Iowa State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1609,8 +1609,8 @@
    "away": "Georgia Tech",
    "home": "Pitt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1624,8 +1624,8 @@
    "away": "Miami",
    "home": "North Carolina",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1639,8 +1639,8 @@
    "away": "Mississippi St",
    "home": "Texas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1654,8 +1654,8 @@
    "away": "Ohio State",
    "home": "USC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1669,8 +1669,8 @@
    "away": "Missouri",
    "home": "Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1684,8 +1684,8 @@
    "away": "Army",
    "home": "Memphis",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1699,8 +1699,8 @@
    "away": "Blue Jackets",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1744,8 +1744,8 @@
    "away": "Lamar",
    "home": "UT Rio Grande",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1819,7 +1819,7 @@
    "home": "Rockets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Thunder",
@@ -1833,7 +1833,7 @@
      "opponent on a back-to-back",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1867,33 +1867,45 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401864530",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-01T02:30Z",
+   "away": "N Illinois",
+   "home": "UNLV",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401860924",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Oregon St",
-    "p": 0.577,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-11-01T03:00Z",
    "away": "Oregon St",
    "home": "Fresno St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Oregon St",
-    "opp": "Fresno St",
+    "team": "Fresno St",
+    "opp": "Oregon St",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.562,
-    "win_p": 0.562,
+    "odds": 190,
+    "p": 0.388,
+    "win_p": 0.388,
     "reasons": [
-     "better QB play lately"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
@@ -2005,9 +2017,9 @@
     "opp": "Jaguars",
     "market": "spread",
     "line": 10.0,
-    "odds": -115,
+    "odds": -112,
     "p": 0.511,
-    "win_p": 0.192,
+    "win_p": 0.193,
     "reasons": [
      "revenge game"
     ]
@@ -2019,7 +2031,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Buccaneers",
-    "p": 0.509,
+    "p": 0.502,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2035,13 +2047,13 @@
     "opp": "Falcons",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -125,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
-     "sharp money moving this way"
+     "revenge game"
     ]
    }
   },
@@ -2144,7 +2156,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.728,
+    "p": 0.731,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2161,8 +2173,8 @@
     "market": "spread",
     "line": 12.5,
     "odds": -112,
-    "p": 0.504,
-    "win_p": 0.155,
+    "p": 0.506,
+    "win_p": 0.153,
     "reasons": [
      "revenge game",
      "opponent drama: family/personal"
@@ -2249,12 +2261,12 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Wild",
-    "opp": "Capitals",
+    "team": "Capitals",
+    "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.715,
+    "odds": -278,
+    "p": 0.712,
     "win_p": 0.5,
     "reasons": []
    }
@@ -2282,7 +2294,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.622,
+    "p": 0.621,
     "win_p": 0.4,
     "reasons": []
    }
@@ -2505,6 +2517,37 @@
    }
   },
   {
+   "id": "nba:401909905",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Warriors",
+    "p": 0.51,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-02T01:30Z",
+   "away": "Clippers",
+   "home": "Warriors",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Warriors",
+    "opp": "Clippers",
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "nba:401909906",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -2540,8 +2583,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "High Point",
-    "p": 0.65,
-    "tie": 0.04,
+    "p": 0.656,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2549,19 +2592,17 @@
    "start": "2026-11-02T04:59Z",
    "away": "Liberty",
    "home": "High Point",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "High Point",
-    "opp": "Liberty",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.721,
-    "win_p": 0.721,
-    "reasons": [
-     "the stronger team"
-    ]
+    "team": "Liberty",
+    "opp": "High Point",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -105,
+    "p": 0.5,
+    "win_p": 0.274,
+    "reasons": []
    }
   }
  ]

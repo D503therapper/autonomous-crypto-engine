@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 156,
-  "beat": 50,
+  "n": 158,
+  "beat": 52,
   "same": 57,
   "worse": 49,
-  "avg_pts": 0.06
+  "avg_pts": 0.08
  },
  "unit_plays": {
-  "n": 70,
-  "beat": 20,
+  "n": 71,
+  "beat": 21,
   "same": 32,
   "worse": 18,
-  "avg_pts": 0.11
+  "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 86,
-   "beat": 30,
+   "n": 87,
+   "beat": 31,
    "same": 25,
    "worse": 31,
-   "avg_pts": 0.01
+   "avg_pts": 0.04
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 37,
-   "beat": 9,
+   "n": 38,
+   "beat": 10,
    "same": 19,
    "worse": 9,
-   "avg_pts": -0.03
+   "avg_pts": 0.03
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 17,
-   "beat": 6,
+   "n": 19,
+   "beat": 8,
    "same": 8,
    "worse": 3,
-   "avg_pts": 0.36
+   "avg_pts": 0.55
   },
   "ncaaf": {
    "n": 45,
@@ -2257,6 +2257,20 @@
    "date": "2026-10-31",
    "kind": "lean",
    "lean": true,
+   "league": "nba",
+   "team": "Spurs",
+   "market": "spread",
+   "line": -12.5,
+   "odds": -105,
+   "close": -115,
+   "pts": 2.3,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "lean",
+   "lean": true,
    "league": "ncaaf",
    "team": "Air Force",
    "market": "ml",
@@ -2278,6 +2292,20 @@
    "odds": 102,
    "close": 114,
    "pts": -2.8,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Thunder",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 120,
+   "pts": 2.0,
    "units": 0.5,
    "result": "lost"
   },
