@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T22:35Z",
+ "updated": "2026-11-01T22:53Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -301,30 +301,29 @@
    "id": "nhl:401892627",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.365,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-11-01T23:00Z",
    "away": "Oilers",
    "home": "Rangers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Oilers",
-    "opp": "Rangers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.688,
-    "win_p": 0.47,
+    "team": "Rangers",
+    "opp": "Oilers",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
-     "the stronger team"
-    ]
+     "sharp money moving this way",
+     "better rested",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -427,7 +426,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.514,
+    "p": 0.523,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -436,16 +435,16 @@
    "start": "2026-11-02T02:00Z",
    "away": "Raptors",
    "home": "Lakers",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Lakers",
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.549,
-    "win_p": 0.549,
+    "odds": -155,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "the stronger team"
     ]
@@ -546,7 +545,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Queens",
-    "p": 0.504,
+    "p": 0.492,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -562,9 +561,9 @@
     "opp": "Winthrop",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.535,
-    "win_p": 0.535,
+    "odds": -118,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": []
    }
   },
@@ -1080,9 +1079,9 @@
     "opp": "Indiana St",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.614,
-    "win_p": 0.614,
+    "odds": -170,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": []
    }
   },
@@ -2181,8 +2180,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "G Washington",
-    "p": 0.828,
-    "tie": 0.027,
+    "p": 0.847,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2609,8 +2608,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Siena",
-    "p": 0.51,
+    "team": "Bryant",
+    "p": 0.504,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -2626,13 +2625,10 @@
     "opp": "Bryant",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.546,
-    "win_p": 0.546,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "odds": -125,
+    "p": 0.535,
+    "win_p": 0.535,
+    "reasons": []
    }
   },
   {
@@ -2783,8 +2779,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Valparaiso",
-    "p": 0.873,
-    "tie": 0.021,
+    "p": 0.862,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2839,7 +2835,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.536,
+    "p": 0.538,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2856,8 +2852,8 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.582,
-    "win_p": 0.582,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -3152,7 +3148,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "BYU",
-    "p": 0.552,
+    "p": 0.536,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3168,9 +3164,9 @@
     "opp": "Ohio State",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.598,
-    "win_p": 0.598,
+    "odds": -148,
+    "p": 0.577,
+    "win_p": 0.577,
     "reasons": [
      "sharp money moving this way",
      "altitude edge"
@@ -3471,8 +3467,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon",
-    "p": 0.828,
-    "tie": 0.027,
+    "p": 0.833,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
