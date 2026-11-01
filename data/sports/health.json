@@ -1,11 +1,11 @@
 {
- "at": "2026-11-01T21:19Z",
+ "at": "2026-11-01T21:20Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (109s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,19 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 3 min ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T21:20Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T21:19Z",
    "fixes": [],
@@ -580,14 +587,6 @@
    "at": "2026-10-31T08:14Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-31T07:33Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Shubladze vs Zhang Ying: no points for 297s",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
