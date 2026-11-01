@@ -1,13 +1,12 @@
 {
- "at": "2026-11-01T23:10Z",
+ "at": "2026-11-01T23:20Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Andreescu vs Maria: no points for 1148s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "sources down (the backups took over): betrivers:nba:1028754087 HTTP 404"
+  "live tennis scores: tennis Andreescu vs Maria: no points for 1750s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (14s)",
+  "live watcher fresh (15s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,16 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 49 min ago",
+  "engine ran 60 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T23:20Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Maria: no points for 1750s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T23:10Z",
    "fixes": [],
@@ -588,11 +596,6 @@
     "live tennis scores: tennis Falkowska vs Kanabar: no points for 2627s",
     "live tennis scores: tennis Desai vs Yamaguchi: no points for 1693s"
    ]
-  },
-  {
-   "at": "2026-10-31T12:01Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
