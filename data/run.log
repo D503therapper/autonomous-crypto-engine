@@ -6141,3 +6141,29 @@ DEX: $686.73 (-313.27) · Scammed: 9 (-$182.13)
 [2026-11-01 11:20 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-01 11:20 UTC] crypto/hold_btc  equity $467.12 (-6.6%) 1 open  market DOWN
    social heat top: PENGU 48 (37/0/10), BTC 44 (32/0/12), MORPHO 29 (29/0/0), UNI 27 (27/0/0), PUMP 22 (11/0/11)
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.6%, 5 volume hikes, 67% quiet hours @ 1.2532
+   footprint: QNT: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.4%, 3 volume hikes, 75% quiet hours @ 199.03
+   scanner: 984 tickers, sample: {'i': 'BTC_USD', 'h': '78162.99', 'l': '77252.07', 'a': '77910.47', 'v': '1320.3972', 'vv': '102483051.56', 'c': '0.0077', 'b': '77903.73', 'k': '77903.74', 'oi': '0', 't': 1793532015980}
+   dex screen: REJECT TBTC@ethereum liq $4,204,103 - is_mintable; honeypot_with_same_creator; top-10 holders 80%
+   dex screen: UNREACHABLE GTA6@ethereum liq $259,081 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT OGN@ethereum liq $2,283,870 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 72%
+   dex screen: REJECT BABA@solana liq $189,667 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 61%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT OETH@ethereum liq $47,748,303 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 97%
+   dex screen: UNREACHABLE GTA6@ethereum liq $242,795 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS ASTEROID@ethereum liq $878,413
+   dex screen: UNREACHABLE GTA6@ethereum liq $234,550 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,554 pools (solana 1,818 / base 394 / ethereum 342), refresh cycle 96s (hot 90s), 2213 calls (83 feed, 429s 1, failed 1), 63,632 refreshed (10653 no pair), +99 added / -73 dropped (dead 67, stale 6, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-01 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/mover     equity $241.62 (-51.7%) 2 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/social_heat equity $368.08 (-26.4%) 4 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/breakout10 equity $421.69 (-15.7%) 1 open  market UP
+[2026-11-01 12:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-01 12:06 UTC] crypto/hold_btc  equity $467.04 (-6.6%) 1 open  market DOWN
+   social heat top: BTC 41 (37/0/4), PENGU 36 (27/0/10), HYPE 32 (32/0/0), PONS 30 (19/0/11), MORPHO 24 (24/0/0)
