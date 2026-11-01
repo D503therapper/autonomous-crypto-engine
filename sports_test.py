@@ -15429,6 +15429,28 @@ def test_daily_1030_a_floor_dog_card_never_calls_a_37_percent_read_a_coin_flip()
 
 
 
+def test_daily_1101_a_team_getting_outscored_is_never_called_outscoring_teams():
+    """11/1 daily review: the Kansas St +130 🔍 card (10/31, lost 27-24 in OT at Colorado) said "Last 3: Kansas St is
+    outscoring teams 23 to 29 a game" - 23 scored, 29 allowed is getting outscored. The points-lately line picked the
+    'us' wording whenever our net beat theirs, even with both sides under water. Now a side that's minus on the
+    scoreboard gets the plain numbers, and the risk line never says "outscored teams" for a minus side either."""
+    import sports_breakdown_v24 as v24
+    for day in range(10, 20):
+        hist = [(f"2026-09-{day - 9 + 7 * i:02d}T17:00Z", "A", "C", 23, 29) for i in range(3)] + \
+               [(f"2026-09-{day - 9 + 7 * i:02d}T20:00Z", "B", "D", 18, 38) for i in range(3)]
+        for side in ("home", "away"):
+            leg, games, elo = _audit_fixture("nfl", hist, f"2026-10-{day:02d}T17:00Z", side=side)
+            bd = v24.breakdown(leg, games, elo, None)
+            txt = " ".join(bd) + " " + str(leg.get("why_line") or "")
+            assert "outscoring teams 23 to 29" not in txt and "outscored teams 23 to 29" not in txt, bd
+            assert "outscoring teams 18 to 38" not in txt and "outscored teams 18 to 38" not in txt, bd
+            if side == "home":
+                pts = [x for x in bd if x.startswith("📊") and "23" in x and "29" in x]
+                assert not any("Scoreboard says us" in x or "We been better" in x or "Edge us" in x for x in pts), pts
+    src = open(v24.__file__).read()
+    assert "net_u > net_t and net_u <= 0" in src and "if net_t > 0 else" in src
+
+
 def test_a_half_unit_near_even_favorite_is_never_called_too_expensive():
     """10/30 (the owner on the Wizards -107 early play): the ½u size line said "Line's too expensive. Big bets at
     expensive prices lose money long term." - false at -107. A ½u early favorite says the spot starts small; a ½u

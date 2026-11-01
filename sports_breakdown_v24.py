@@ -1656,14 +1656,21 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     pu, pt = _pts3(s_ours, tid), _pts3(s_theirs, oid)
     if pu and pt and f"{pu[0]} and " not in body:
         net_u, net_t = pu[0] - pu[1], pt[0] - pt[1]
-        if net_u > net_t:
+        if net_u > net_t and net_u <= 0:                # (11/1: the Kansas St card said "outscoring teams 23 to 29 a
+            #   game" - 23 scored, 29 allowed is getting OUTSCORED. A side under water lately but less than the other
+            #   one says the plain numbers - never "outscoring", never "scoreboard says us")
+            add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} score {pu[0]} and give up {pu[1]} a game; {them} score {pt[0]} and give up {pt[1]}.",
+                                       f"📊 Over the last {pu[2]}, {us} are {net_u:+d} a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)."]))
+        elif net_u > net_t:
             add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} are outscoring teams {pu[0]} to {pu[1]} a game; {them} sit at {pt[0]} for, {pt[1]} against.",
                                        f"📊 {us} put up {pu[0]} a game and give up {pu[1]} over their last {pu[2]}. {them}: {pt[0]} and {pt[1]}. Scoreboard says us.",
                                        f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}. We been better.",
                                        f"📊 Over the last {pu[2]}, {us} are a {net_u:+d} team a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)." if net_u > 0 else
                                        f"📊 Lately {us} score {pu[0]} and allow {pu[1]} a game; {them} score {pt[0]} and allow {pt[1]}. Edge us on the scoreboard."]))
         elif net_t > net_u:
-            v.knock(3, f"{them} have outscored teams {pt[0]} to {pt[1]} a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against")
+            v.knock(3, f"{them} have outscored teams {pt[0]} to {pt[1]} a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against"
+                    if net_t > 0 else f"{them} have been the better side on the scoreboard lately - {pt[0]} for, {pt[1]} against "
+                    f"a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against")
         elif (pu[0], pu[1]) != (pt[0], pt[1]):        # (the same numbers both sides say nothing - no line)
             add.append(v.tag(v.say("f_pts", [f"📊 Last {pu[2]} games: {us} scored {pu[0]} and gave up {pu[1]} {unit} a game; {them} {pt[0]} and {pt[1]}.",
                                              f"📊 {us} average {pu[0]} for / {pu[1]} against over their last {pu[2]}; {them} {pt[0]} for / {pt[1]} against."]), "neutral"))
