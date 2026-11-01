@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T19:20Z",
+ "updated": "2026-11-01T19:36Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -275,8 +275,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.619,
-    "tie": 0.037,
+    "p": 0.626,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -291,9 +291,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.7,
-    "win_p": 0.7,
+    "odds": -285,
+    "p": 0.71,
+    "win_p": 0.71,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -928,6 +928,62 @@
    }
   },
   {
+   "id": "ncaab:401909562",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Duke",
+    "p": 0.92,
+    "tie": 0.015,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-02T23:30Z",
+   "away": "Army",
+   "home": "Duke",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Army",
+    "opp": "Duke",
+    "market": "spread",
+    "line": 42.5,
+    "odds": -110,
+    "p": 0.54,
+    "win_p": 0.029,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401925857",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Temple",
+    "p": 0.806,
+    "tie": 0.029,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-02T23:30Z",
+   "away": "C Connecticut",
+   "home": "Temple",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "C Connecticut",
+    "opp": "Temple",
+    "market": "spread",
+    "line": 15.5,
+    "odds": -112,
+    "p": 0.51,
+    "win_p": 0.113,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401921264",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -949,7 +1005,7 @@
     "opp": "Georgetown",
     "market": "spread",
     "line": 24.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.52,
     "win_p": 0.037,
     "reasons": []
@@ -1218,6 +1274,34 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401902275",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Butler",
+    "p": 0.884,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-03T00:00Z",
+   "away": "Lafayette",
+   "home": "Butler",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Lafayette",
+    "opp": "Butler",
+    "market": "spread",
+    "line": 21.5,
+    "odds": -112,
+    "p": 0.516,
+    "win_p": 0.051,
+    "reasons": []
    }
   },
   {
@@ -1500,6 +1584,34 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401911237",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Richmond",
+    "p": 0.755,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-03T00:00Z",
+   "away": "UNC Asheville",
+   "home": "Richmond",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UNC Asheville",
+    "opp": "Richmond",
+    "market": "spread",
+    "line": 12.5,
+    "odds": -115,
+    "p": 0.506,
+    "win_p": 0.163,
+    "reasons": []
    }
   },
   {
@@ -2866,9 +2978,9 @@
     "team": "Milwaukee",
     "opp": "USC",
     "market": "spread",
-    "line": 25.5,
-    "odds": -102,
-    "p": 0.521,
+    "line": 26.5,
+    "odds": -115,
+    "p": 0.522,
     "win_p": 0.037,
     "reasons": []
    }
