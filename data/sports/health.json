@@ -1,13 +1,13 @@
 {
- "at": "2026-11-01T20:46Z",
+ "at": "2026-11-01T20:50Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 328s",
-  "live tennis scores: tennis Scott vs Gonzalez: no points for 328s",
+  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 544s",
+  "live tennis scores: tennis Scott vs Gonzalez: no points for 544s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,17 +15,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 16 min ago",
+  "engine ran 19 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T20:50Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 544s",
+    "live tennis scores: tennis Scott vs Gonzalez: no points for 544s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T20:46Z",
    "fixes": [],
@@ -570,16 +579,6 @@
    "at": "2026-10-31T04:25Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-31T04:24Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Linana: no points for 2618s",
-    "live tennis scores: tennis Watson vs Jones: no points for 2618s",
-    "live tennis scores: tennis Shek vs Sasnovich: no points for 2348s",
-    "live tennis scores: tennis Gorgodze vs Pridankina: no points for 205s"
-   ]
   }
  ]
 }
