@@ -1,13 +1,14 @@
 {
- "at": "2026-11-01T20:50Z",
+ "at": "2026-11-01T21:00Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 544s",
-  "live tennis scores: tennis Scott vs Gonzalez: no points for 544s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1162s",
+  "live tennis scores: tennis Scott vs Gonzalez: no points for 1162s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "sources down (the backups took over): betrivers:nfl:1028823872 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,17 +16,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 19 min ago",
+  "engine ran 30 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T21:00Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1162s",
+    "live tennis scores: tennis Scott vs Gonzalez: no points for 1162s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "sources down (the backups took over): betrivers:nfl:1028823872 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-01T20:50Z",
    "fixes": [],
@@ -574,11 +584,6 @@
     "live tennis scores: tennis Gorgodze vs Pridankina: no points for 103s",
     "live tennis scores: tennis Lee vs Lai: no points for 103s"
    ]
-  },
-  {
-   "at": "2026-10-31T04:25Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
