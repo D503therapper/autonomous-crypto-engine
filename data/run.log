@@ -6222,3 +6222,32 @@ DEX: $686.73 (-313.27) · Scammed: 9 (-$182.13)
 [2026-11-01 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-01 14:06 UTC] crypto/hold_btc  equity $466.60 (-6.7%) 1 open  market DOWN
    social heat top: PENGU 44 (32/0/12), BTC 38 (35/0/4), HYPE 24 (24/0/0), XPL 21 (21/0/0), PUMP 19 (19/0/0)
+   footprint: SUI: footprint 3/4 (quiet+hikes+rising_lows) 48h +1.4%, 2 volume hikes, 92% quiet hours @ 0.90192
+   dex screen: REJECT $WIF@solana liq $137,109 - top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT GTA6@solana liq $134,283 - lp holders unknown; rugcheck lp locked 42% < 95%
+   dex screen: REJECT CTM@ethereum liq $2,265,309 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: UNREACHABLE GTA6@ethereum liq $281,465 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS PAWCAT@solana liq $152,236
+   dex screen: UNREACHABLE GTA6@ethereum liq $284,888 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT COMMONPLACE@base liq $104,877 - goplus partial data: cannot_sell_all unknown; transfer_pausable; top-10 holders 59%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $290,396 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE GTA6@ethereum liq $308,631 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex outcome: normal DESSA@solana:npz2Fhou tier A P/L $+16.70 (trailing stop (peak 0.03229))
+   >> dex/dex_hunter: SELL $34.07 of DESSA@solana:npz2Fhou @ 0.019026, P/L $+16.70 (trailing stop (peak 0.03229))
+   dex screen: PASS DESSA@solana liq $411,038
+   dex screen: UNREACHABLE GTA6@ethereum liq $296,320 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ELSA@base liq $461,741 - top-10 holders 91%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $296,343 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT AERO@base liq $5,708,685 - is_mintable; top-10 holders 77%
+   dex screen: REJECT ZEC@solana liq $3,084,018 - top-10 holders 100%
+   dex scanner: 2,472 pools (solana 1,787 / base 374 / ethereum 311), refresh cycle 103s (hot 98s), 2995 calls (108 feed, 429s 0, failed 0), 86,605 refreshed (14588 no pair), +105 added / -154 dropped (dead 126, stale 28, cap 0), movers 1 + warming 0 -> queued 0, screened 6 (passed 0), bought 0
+[2026-11-01 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/mover     equity $240.76 (-51.8%) 1 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/social_heat equity $367.46 (-26.5%) 4 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/breakout10 equity $421.80 (-15.6%) 1 open  market UP
+[2026-11-01 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-01 15:06 UTC] crypto/hold_btc  equity $467.33 (-6.5%) 1 open  market DOWN
+   social heat top: PONS 39 (27/0/13), PENGU 39 (24/0/15), HYPE 32 (32/0/0), BTC 29 (29/0/0), SOL 21 (16/0/5)
