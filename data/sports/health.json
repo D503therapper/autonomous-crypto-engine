@@ -1,15 +1,12 @@
 {
- "at": "2026-11-01T16:55Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-11-01T17:39Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Grabher vs Tubello: no points for 95s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Sanchez vs Hercog: no points for 1977s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (1s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,16 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "engine ran 6 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 49 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T17:39Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Sanchez vs Hercog: no points for 1977s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T16:55Z",
    "fixes": [
@@ -580,14 +586,6 @@
     "live tennis scores: tennis Mandlik vs Ferro: no points for 1399s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-10-31T00:27Z",
-   "fixes": [
-    "live watch 41145615467 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
