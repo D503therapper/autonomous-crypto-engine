@@ -27345,6 +27345,7 @@
      "game:nonconf"
     ],
     "dec": 2.9,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27388,6 +27389,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,6,7,6",
+     "h": "7,14,17,0"
+    },
     "form_state": [
      -3.0,
      -2,
@@ -27435,10 +27440,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Oregon St 22 @ Fresno St 38",
     "season_games": null,
+    "settled": "2026-11-01T06:35Z",
     "side": "home",
     "start": "2026-11-01T03:00Z",
     "stype": "2",
@@ -27455,12 +27462,14 @@
    }
   ],
   "p_hit": 0.3875,
-  "pnl": 0.0,
+  "pnl": 190.0,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-11-01T06:35Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 102,
