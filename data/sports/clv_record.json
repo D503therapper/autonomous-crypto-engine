@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 152,
-  "beat": 49,
-  "same": 56,
-  "worse": 47,
-  "avg_pts": 0.08
+  "n": 159,
+  "beat": 53,
+  "same": 57,
+  "worse": 49,
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 68,
-  "beat": 20,
-  "same": 31,
-  "worse": 17,
-  "avg_pts": 0.16
+  "n": 72,
+  "beat": 22,
+  "same": 32,
+  "worse": 18,
+  "avg_pts": 0.15
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 84,
-   "beat": 29,
+   "n": 87,
+   "beat": 31,
    "same": 25,
-   "worse": 30,
-   "avg_pts": 0.01
+   "worse": 31,
+   "avg_pts": 0.04
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 35,
-   "beat": 9,
-   "same": 18,
-   "worse": 8,
-   "avg_pts": 0.05
+   "n": 39,
+   "beat": 11,
+   "same": 19,
+   "worse": 9,
+   "avg_pts": 0.04
   }
  },
  "by_sport": {
@@ -52,18 +52,18 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 17,
-   "beat": 6,
+   "n": 19,
+   "beat": 8,
    "same": 8,
    "worse": 3,
-   "avg_pts": 0.36
+   "avg_pts": 0.55
   },
   "ncaaf": {
-   "n": 43,
-   "beat": 12,
-   "same": 18,
+   "n": 46,
+   "beat": 14,
+   "same": 19,
    "worse": 13,
-   "avg_pts": 0.05
+   "avg_pts": 0.13
   },
   "nfl": {
    "n": 21,
@@ -73,11 +73,11 @@
    "avg_pts": 0.19
   },
   "nhl": {
-   "n": 57,
+   "n": 59,
    "beat": 18,
    "same": 21,
-   "worse": 18,
-   "avg_pts": 0.04
+   "worse": 20,
+   "avg_pts": -0.07
   }
  },
  "lock_by_size": {
@@ -2237,6 +2237,104 @@
    "close": 215,
    "pts": 0.0,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -102,
+   "pts": -3.6,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Spurs",
+   "market": "spread",
+   "line": -12.5,
+   "odds": -105,
+   "close": -115,
+   "pts": 2.3,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Air Force",
+   "market": "ml",
+   "line": null,
+   "odds": -108,
+   "close": -125,
+   "pts": 3.6,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Fresno St",
+   "market": "ml",
+   "line": null,
+   "odds": 190,
+   "close": 185,
+   "pts": 0.6,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Kings",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 114,
+   "pts": -2.8,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Thunder",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 120,
+   "pts": 2.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-31",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Kansas St",
+   "market": "ml",
+   "line": null,
+   "odds": 130,
+   "close": 130,
+   "pts": 0.0,
+   "units": 1.0,
    "result": "lost"
   }
  ]

@@ -26762,16 +26762,6 @@
   "units": 0.5
  },
  {
-  "date": "2026-10-31",
-  "deadline": "2026-10-31T20:00Z",
-  "kind": "dog",
-  "legs": [],
-  "status": "waiting",
-  "waiting": [
-   "Connor Moberly (QB) questionable"
-  ]
- },
- {
   "american": -118,
   "date": "2026-10-31",
   "dec": 1.8475,
@@ -26816,6 +26806,7 @@
      "game:nonconf"
     ],
     "dec": 1.847457627118644,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -26839,6 +26830,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,3",
+     "h": "1,2,1"
+    },
     "form_state": [
      3.0,
      1,
@@ -26889,10 +26884,12 @@
      "opponent drama: suspension"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Blues 5 @ Red Wings 4",
     "season_games": null,
+    "settled": "2026-10-31T19:42Z",
     "side": "away",
     "start": "2026-10-31T17:00Z",
     "stype": "2",
@@ -26916,12 +26913,14 @@
    }
   ],
   "p_hit": 0.526,
-  "pnl": 0.0,
+  "pnl": 84.75,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-10-31T19:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -26970,6 +26969,7 @@
      "us:trip1000"
     ],
     "dec": 1.9523809523809523,
+    "decider": {},
     "dog_ctx": {
      "cw5": 1,
      "hits_top": false,
@@ -27037,6 +27037,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "28,33,27,23",
+     "h": "34,26,33,28"
+    },
     "form_state": [
      6.0,
      3,
@@ -27050,6 +27054,12 @@
     "home": true,
     "hot_key": false,
     "hurt": [],
+    "injury_alerts": [
+     "Rudy Gobert (Timberwolves C) is now day-to-day \u2014 our pick: Spurs -12.5",
+     "Stephon Castle (Spurs G) is now day-to-day \u2014 our pick: Spurs -12.5",
+     "Rudy Gobert (Timberwolves C) is off the injury report \u2014 our pick: Spurs -12.5",
+     "Stephon Castle (Spurs G) is off the injury report \u2014 our pick: Spurs -12.5"
+    ],
     "intl": false,
     "is_lean": true,
     "key_edge": null,
@@ -27088,10 +27098,12 @@
      "opponent missing key players: Anthony Edwards (their read -9)"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Timberwolves 111 @ Spurs 121",
     "season_games": 5,
+    "settled": "2026-11-01T02:29Z",
     "side": "home",
     "start": "2026-11-01T00:00Z",
     "stype": "2",
@@ -27107,12 +27119,14 @@
    }
   ],
   "p_hit": 0.5051,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-11-01T02:29Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
@@ -27166,6 +27180,7 @@
      "them:west1000"
     ],
     "dec": 1.925925925925926,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27207,6 +27222,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,14,6,6",
+     "h": "14,7,7,7"
+    },
     "form_state": [
      -14.0,
      -1,
@@ -27256,10 +27275,12 @@
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "UConn 26 @ Air Force 35",
     "season_games": null,
+    "settled": "2026-10-31T22:11Z",
     "side": "home",
     "start": "2026-10-31T19:00Z",
     "stype": "2",
@@ -27277,12 +27298,14 @@
    }
   ],
   "p_hit": 0.5401,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-10-31T22:11Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 190,
@@ -27322,6 +27345,7 @@
      "game:nonconf"
     ],
     "dec": 2.9,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27365,6 +27389,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,6,7,6",
+     "h": "7,14,17,0"
+    },
     "form_state": [
      -3.0,
      -2,
@@ -27412,10 +27440,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Oregon St 22 @ Fresno St 38",
     "season_games": null,
+    "settled": "2026-11-01T06:35Z",
     "side": "home",
     "start": "2026-11-01T03:00Z",
     "stype": "2",
@@ -27432,12 +27462,14 @@
    }
   ],
   "p_hit": 0.3875,
-  "pnl": 0.0,
+  "pnl": 190.0,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-11-01T06:35Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 102,
@@ -27502,6 +27534,7 @@
      "them:week3000"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27534,6 +27567,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.31,
+    "flow": {
+     "a": "1,1,1",
+     "h": "0,1,1"
+    },
     "form_state": [
      1.0,
      1,
@@ -27587,10 +27624,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sabres 3 @ Kings 2",
     "season_games": null,
+    "settled": "2026-10-31T22:49Z",
     "side": "home",
     "start": "2026-10-31T20:00Z",
     "stype": "2",
@@ -27607,12 +27646,14 @@
    }
   ],
   "p_hit": 0.4671,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-31T15:00Z",
   "round": 1,
+  "settled": "2026-10-31T22:49Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 130,
@@ -27663,6 +27704,7 @@
      "them:week3000"
     ],
     "dec": 2.3,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -27729,6 +27771,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.96,
+    "flow": {
+     "a": "26,25,24,23",
+     "h": "35,27,30,27"
+    },
     "form_state": [
      -24.0,
      -1,
@@ -27780,9 +27826,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": true,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Thunder 98 @ Rockets 119",
     "season_games": 5,
+    "settled": "2026-11-01T03:29Z",
     "side": "away",
     "start": "2026-11-01T00:30Z",
     "stype": "2",
@@ -27800,8 +27849,1081 @@
   ],
   "midday": true,
   "p_hit": 0.4239,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-31T17:21Z",
+  "round": 1,
+  "settled": "2026-11-01T03:29Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
+ },
+ {
+  "american": 130,
+  "date": "2026-10-31",
+  "dec": 2.3,
+  "gap": 0.2002,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "better:2",
+     "trash:9",
+     "h2h1:3",
+     "QB_cold:0",
+     "drama_illness:0",
+     "cx_hotseat:2",
+     "w_better:0",
+     "f_last:1",
+     "f_site:2",
+     "f_qb:0",
+     "f_pts:0",
+     "f_theirL:1",
+     "f_wall:0",
+     "risk:3",
+     "bottom_so:3"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Kansas St questionable: QB B. Barnett, WR M. Lovett.",
+     "\ud83d\udcca Last 3: Kansas St is outscoring teams 23 to 29 a game; Colorado sits at 18 for, 38 against.",
+     "\ud83d\uddd1\ufe0f Isaac Wilson has been complete booty cheeks \u2014 5 TDs, 7 picks and 826 yards in his last 3 games.",
+     "\ud83d\udd25 Colorado (5 straight L's) are in a fishbowl right now.",
+     "\ud83c\udfdf\ufe0f Colorado at home this season: 1-2. Nothing scary about that.",
+     "\ud83e\udd4a Not long ago Oklahoma St beat the brakes off Colorado, 57-24.",
+     "\ud83d\uddd1\ufe0f 2-5 lately. Colorado is complete ass and it shows.",
+     "\ud83d\udee1\ufe0f Kansas St gives up 21 points a game this year; Colorado gives up 30. Our D is the better one.",
+     "\ud83c\udfaf Jacob Knuth for Kansas St: 1 TD, 0 picks and 194 yards in his last 1 game.",
+     "\ud83d\udcc5 Kansas St took a 28-17 loss to Arizona St last time; Colorado took a 57-24 loss to Oklahoma St. Two teams looking to get right.",
+     "\u26a0\ufe0f Only thing we don't love: Kansas St is 0-2 on the road this year. The rest of this card outweighs it.",
+     "\u2705 Bottom line: Kansas St (+130). +105 on our sheet, +130 at the book. Trust the algorithm."
+    ],
+    "bv": 61,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "hotseat",
+      "n": 5,
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:hotseat"
+    ],
+    "dec": 2.3,
+    "decider": {
+     "k": "td",
+     "n": 1,
+     "p": null,
+     "s": "27-24",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [
+      "ice cold"
+     ],
+     "last_margin": -11.0,
+     "last_pts": 17.0,
+     "neutral": false,
+     "record": [
+      4,
+      3
+     ],
+     "win_pct": 0.571,
+     "win_streak": 0
+    },
+    "dog_p": 0.487,
+    "dog_score": 7.0,
+    "drift": 0.1274,
+    "edge": -0.0412579029319976,
+    "edge_own": 0.4196,
+    "elo_edge": 58.1,
+    "fact": "Kansas St are 4-3, Colorado 2-5.",
+    "facts": [
+     [
+      "Kansas St are 4-3, Colorado 2-5.",
+      "Kansas St 4-3 on the year, Colorado 2-5.",
+      "It's 4-3 (Kansas St) against 2-5 (Colorado).",
+      "Kansas St sit 4-3; Colorado sit 2-5."
+     ],
+     [
+      "Colorado have lost 5 straight.",
+      "5 straight losses for Colorado.",
+      "Colorado are on a 5-game skid.",
+      "Colorado haven't won in 5."
+     ],
+     [
+      "Colorado just got beat 57-24 by Oklahoma St.",
+      "Colorado are coming off a 57-24 beating from Oklahoma St.",
+      "Last time out Colorado took a 57-24 L to Oklahoma St.",
+      "Colorado got handled 57-24 by Oklahoma St last time out."
+     ]
+    ],
+    "fbs_game": true,
+    "fired_on": null,
+    "first_timer": false,
+    "flow": {
+     "a": "0,7,7,7,3",
+     "h": "7,0,7,7,6"
+    },
+    "form_state": [
+     -11.0,
+     -1,
+     -118,
+     false,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401856846",
+    "gap": 0.2002,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.2074741234052797,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "odds": 130,
+    "opp": "Colorado",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Z. Atkins (TE)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "D. Duff (QB)",
+     "G. Oakley (TE)",
+     "A. Morrell (TE)",
+     "W. Anciaux (TE)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4168443900295663,
+    "p_market": 0.41700735895339336,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.6172,
+    "reasons": [
+     "the stronger team",
+     "opponent drama: illness"
+    ],
+    "rested_vs_b2b": false,
+    "result": "lost",
+    "revenge": false,
+    "road_opener": false,
+    "score": "Kansas St 24 @ Colorado 27",
+    "season_games": null,
+    "settled": "2026-10-31T22:03Z",
+    "side": "away",
+    "start": "2026-10-31T18:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kansas St",
+    "team_id": "2306",
+    "their_drama": [
+     {
+      "date": "2026-10-29",
+      "headline": "Colorado QB Lewis suffers medical emergency, hospitalized",
+      "id": "50319712",
+      "kind": "illness"
+     }
+    ],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Kansas St is 4-3, Colorado is 2-5. Better team, better price \u2014 that's just facts."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4168,
+  "pnl": -100.0,
+  "posted": "2026-10-31T17:30Z",
+  "round": 1,
+  "settled": "2026-10-31T22:03Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
+ },
+ {
+  "american": 114,
+  "date": "2026-11-01",
+  "dec": 2.14,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -2,
+    "bd_tags": [
+     "rec:0",
+     "h2h:4",
+     "w_public:119",
+     "f_outs:2",
+     "risk:9",
+     "bottom_so:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Warriors are missing Draymond Green (F), Stephen Curry (G), Kristaps Porzingis (C), Moses Moody (G). Short-handed against us.",
+     "\ud83d\udccb Clippers are 1-4 after a 127-101 loss to the Timberwolves.",
+     "\ud83c\udfc0 Clippers: their bench outscored teams by 3 per 48 minutes last season - deep squad \u00b7 the coach plays 9 guys real minutes.",
+     "\u26a0\ufe0f Yeah, Clippers go without Jordan Miller (G), Max Strus (G), Brandon Ingram (F), Bradley Beal (G). That's the part that could bite us. We'll live with it.",
+     "\u2705 Bottom line: Clippers (+114). We make Clippers -105 - the book's paying +114. Tap in."
+    ],
+    "bv": 61,
+    "coach": [
+     8,
+     false
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "us:trip1000",
+     "us:week3000",
+     "us:west1000"
+    ],
+    "dec": 2.1399999999999997,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "blew_lead": false,
+     "comeback": false,
+     "games_in": 5,
+     "last_margin": -26.0,
+     "last_ot": false,
+     "last_pts": 101.0,
+     "last_upset": false,
+     "last_year_wp": 0.512,
+     "lose_streak": 4,
+     "opp_blew_lead": false,
+     "opp_comeback": false,
+     "opp_heavy_last": false,
+     "opp_last_margin": 17.0,
+     "opp_last_ot": false,
+     "opp_last_pts": 112.0,
+     "opp_last_upset": true,
+     "opp_next_days": 1,
+     "opp_next_soft": false,
+     "opp_next_wp": 0.25,
+     "opp_rest": 1,
+     "record": [
+      1,
+      4
+     ],
+     "rest": 2,
+     "slate": 4,
+     "spread_gap": -0.0087,
+     "total": 221.5,
+     "total_vs_league": -9.5,
+     "win_streak": 0
+    },
+    "dog_p": 0.5126,
+    "dog_score": 6.4,
+    "drift": 0.0087,
+    "edge": -0.057158690805145684,
+    "edge_own": 0.13973439441345414,
+    "elo_edge": -21.3,
+    "fact": "83% of the bets are on the Warriors.",
+    "facts": [
+     [
+      "83% of the bets are on the Warriors.",
+      "The public's got 83% of the tickets on the Warriors.",
+      "83% of tickets are on the Warriors.",
+      "83% of the crowd is on the Warriors.",
+      "The Warriors are holding 83% of the action.",
+      "The public side is the Warriors, 83% of all bets.",
+      "Only 17% of the public is on the Clippers.",
+      "The Warriors is the public's team tonight, 83% of bets.",
+      "The public is all over the Warriors, 83% of bets.",
+      "Everybody and they mama on the Warriors with 64% of the money.",
+      "64% of the cash is on the Warriors."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -26.0,
+     -4,
+     215,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nba:401909905",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {
+     "Gui Santos (Warriors F)": "Day-To-Day"
+    },
+    "league": "nba",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": 0.1448,
+    "odds": 114,
+    "opp": "Warriors",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Draymond Green (F)",
+     "Stephen Curry (G)",
+     "Kristaps Porzingis (C)",
+     "Moses Moody (G)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Jordan Miller (G)",
+     "Max Strus (G)",
+     "Brandon Ingram (F)",
+     "Bradley Beal (G)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4405800510256329,
+    "p_market": 0.448558885283451,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.5247,
+    "reasons": [
+     "opponent missing key players",
+     "opponent missing key players: Stephen Curry (their read -9)"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": 5,
+    "side": "away",
+    "start": "2026-11-02T01:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Clippers",
+    "team_id": "12",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcca Ride Clippers \u2014 the Warriors are holding 83% of the action."
+   }
+  ],
+  "p_hit": 0.4406,
+  "pnl": 0.0,
+  "posted": "2026-11-01T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -112,
+  "date": "2026-11-01",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "absent": [
+     "RB Dameon Pierce"
+    ],
+    "ats_run": -2,
+    "bd_tags": [
+     "even:0",
+     "trash:2",
+     "h2h:3",
+     "w_their_road:6",
+     "f_last:2",
+     "f_outs:3",
+     "f_theirL:0",
+     "f_go4:0",
+     "risk:6",
+     "bottom_n:5"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Not dressing for Commanders: Daron Payne (DT), Javon Kinlaw (DT). We'll take that.",
+     "\ud83c\udfb2 4th-down nerve: Eagles' coach goes for it a lot more than Commanders' coach does. Aggressive wins.",
+     "\ud83e\udd4a The Commanders got their cheeks clapped 30-13 by the Colts inside their last 5.",
+     "\ud83d\uddd1\ufe0f Commanders can't get out of their own way (1-4-1).",
+     "\ud83d\udcc5 Last time out: a 38-21 loss to the Cowboys for Eagles, a 23-17 loss to the 49ers for Commanders. Both got something to prove.",
+     "\u2696\ufe0f Eagles 2-5, Commanders 1-4-1 - a wash on the records, so the rest of this card is where Eagles separate.",
+     "\u26a0\ufe0f Fair warning - Eagles go without Dameon Pierce (RB), Jihaad Campbell (LB), Dontayvion Wicks (WR). We weighed it, and Eagles are still the side.",
+     "\ud83d\udfe1 Bottom line: Eagles +6.5 (-112). Eagles +6.5 is near 50-50 to cover on our read. Lean only."
+    ],
+    "bv": 61,
+    "coach": [
+     5,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival",
+     "us:hotseat"
+    ],
+    "dec": 1.8928571428571428,
+    "depth_pts": 0.5,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": 0.1202,
+     "last_margin": -17.0,
+     "last_pts": 21.0,
+     "neutral": false,
+     "record": [
+      2,
+      5
+     ],
+     "win_pct": 0.286,
+     "win_streak": 0
+    },
+    "drift": 0.0681,
+    "edge": -0.03930654066547479,
+    "elo_edge": -6.3,
+    "fact": "The Eagles are 2-5, the Commanders 1-4-1.",
+    "facts": [
+     [
+      "The Eagles are 2-5, the Commanders 1-4-1.",
+      "The Eagles 2-5 on the year, the Commanders 1-4-1.",
+      "It's 2-5 (the Eagles) against 1-4-1 (the Commanders).",
+      "The Eagles sit 2-5; the Commanders sit 1-4-1."
+     ],
+     [
+      "The Commanders are 1-1-1 at home this year.",
+      "1-1-1 at home for the Commanders this season.",
+      "The Commanders at home: 1-1-1.",
+      "The Commanders at home this season: 1-1-1."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -17.0,
+     -5,
+     185,
+     false,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873035",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": -0.6001913265306125,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": 6.5,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "odds": -112,
+    "opp": "Commanders",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Daron Payne (DT)",
+     "Javon Kinlaw (DT)"
+    ],
+    "ot_last": null,
+    "our_drama": [
+     {
+      "date": "2026-10-23",
+      "headline": "Marshall Faulk, Hall of Famer and Southern coach, reveals Parkinson's diagnosis",
+      "id": "50253673",
+      "kind": "illness"
+     }
+    ],
+    "outs": [
+     "Dameon Pierce (RB)",
+     "Jihaad Campbell (LB)",
+     "Dontayvion Wicks (WR)",
+     "Britain Covey (WR)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5075361671955982,
+    "p_market": 0.5283018867924528,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.3442,
+    "reasons": [],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-02T01:20Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Eagles",
+    "team_id": "21",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83e\uddf3 The Commanders are 1-1-1 at home this year. We got Eagles here."
+   }
+  ],
+  "p_hit": 0.5075,
+  "pnl": 0.0,
+  "posted": "2026-11-01T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -125,
+  "date": "2026-11-01",
+  "dec": 1.8,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:0",
+     "home:1",
+     "b2b:2",
+     "w_rest:35",
+     "f_outs:0",
+     "f_theirL:1",
+     "f_h2h:1",
+     "risk:7",
+     "bottom_so:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\udd4a Not long ago the Maple Leafs beat the brakes off the Oilers, 7-2.",
+     "\ud83c\udfdf\ufe0f Rangers take care of home: 6-1 in their building so far.",
+     "\ud83d\ude91 Oilers are without Isaac Howard (LW). Bodies missing over there.",
+     "\ud83d\udccb Rangers are 7-7 after a 6-3 loss to the Kings.",
+     "\u26a0\ufe0f What the other side's gonna say: Rangers have dropped 3 straight. True. Still ain't enough to flip us.",
+     "\ud83d\udfe1 Bottom line: Rangers (-125). Rangers the better side - the books priced it right, so no units. The Oilers had 5 fewer days off than the Rangers."
+    ],
+    "bv": 61,
+    "coach": [
+     9,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.8,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "ss_gap": 0.0028,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0851,
+    "edge": -0.04246936498259468,
+    "edge_own": -0.04623305138560263,
+    "elo_edge": -23.1,
+    "fact": "The Rangers had 5 more days off than the Oilers.",
+    "facts": [
+     [
+      "The Rangers had 5 more days off than the Oilers.",
+      "5 extra days of rest for the Rangers.",
+      "The Rangers got 5 more days to rest than the Oilers did.",
+      "The Oilers had 5 fewer days off than the Rangers."
+     ],
+     [
+      "The Oilers played last night and the Rangers didn't.",
+      "The Oilers are on a back-to-back; the Rangers had the night off.",
+      "Second night in a row for the Oilers, a night off for the Rangers.",
+      "The Oilers played yesterday, the Rangers rested."
+     ],
+     [
+      "The Rangers are 6-1 at home this year.",
+      "6-1 at home for the Rangers this season.",
+      "The Rangers are 6-1 at home.",
+      "The Rangers at home this year: 6-1."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -3.0,
+     -3,
+     -135,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892627",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": -0.6221919329597647,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": 0.0048,
+    "odds": -125,
+    "opp": "Oilers",
+    "opp_dog": -5.74,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Isaac Howard (LW)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5319614638985585,
+    "p_market": 0.5324675324675325,
+    "pdo": 997.6451073031294,
+    "public": null,
+    "pyth_luck": -0.023,
+    "raw_own": 0.5268,
+    "reasons": [
+     "sharp money moving this way",
+     "better rested",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": true,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-01T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Rangers",
+    "team_id": "13",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5762,
+    "waiting": [],
+    "why_line": "\ud83d\ude2e\u200d\ud83d\udca8 The Oilers played yesterday, the Rangers rested. Good parlay piece: Rangers."
+   }
+  ],
+  "p_hit": 0.532,
+  "pnl": 0.0,
+  "posted": "2026-11-01T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -130,
+  "date": "2026-11-01",
+  "dec": 1.7692,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:1",
+     "momentum:1",
+     "cx_domeout:3",
+     "w_rolling:20",
+     "f_last:0",
+     "f_outs:1",
+     "f_pts:0",
+     "risk:5",
+     "bottom_c:3"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca Last 3: Buccaneers are outscoring teams 29 to 18 a game; Falcons sit at 25 for, 27 against.",
+     "\ud83d\ude91 Out for Falcons: Divine Deablo (LB), Brian Robinson Jr. (RB). That's real depth gone.",
+     "\ud83c\udfdf\ufe0f Open air for an indoor team: the Falcons out of their element.",
+     "\ud83d\udcc5 The Falcons come in off a 29-20 win over the 49ers themselves - two winners walk in, one walks out.",
+     "\ud83d\udccb 2-5 for Buccaneers, last time out a 43-13 win over the Panthers.",
+     "\u26a0\ufe0f The risk: Buccaneers go without Emeka Egbuka (WR). We ain't blind to it - we just like our side more.",
+     "\ud83d\udfe1 Bottom line: Buccaneers (-130). Our read has it close to even, Buccaneers a hair better. Lean only."
+    ],
+    "bv": 61,
+    "coach": [
+     9,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     },
+     {
+      "k": "dome_out",
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "them:dome_out"
+    ],
+    "dec": 1.7692307692307692,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "go4_gap": -0.0067,
+     "last_margin": 30.0,
+     "last_pts": 43.0,
+     "neutral": false,
+     "record": [
+      2,
+      5
+     ],
+     "win_pct": 0.286,
+     "win_streak": 1
+    },
+    "drift": -0.0103,
+    "edge": -0.03976143141153077,
+    "edge_own": -0.04257182495759049,
+    "elo_edge": 24.9,
+    "fact": "The Buccaneers just rolled to a 43-13 win over the Panthers.",
+    "facts": [
+     [
+      "The Buccaneers just rolled to a 43-13 win over the Panthers.",
+      "The Buccaneers blew out the Panthers 43-13 last time out.",
+      "43-13 over the Panthers last time out for the Buccaneers.",
+      "The Buccaneers beat the brakes off the Panthers, 43-13.",
+      "The Buccaneers smacked the Panthers 43-13 last time out.",
+      "The Panthers got their cheeks clapped 43-13 by the Buccaneers last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     30.0,
+     1,
+     140,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873025",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": -0.8531427189423053,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "odds": -130,
+    "opp": "Falcons",
+    "opp_dog_pts": -3.0,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Divine Deablo (LB)",
+     "Brian Robinson Jr. (RB)",
+     "Billy Bowman Jr. (CB)",
+     "Anterio Thompson (DT)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Emeka Egbuka (WR)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5427435387673957,
+    "p_market": 0.5427435387673957,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.5307,
+    "reasons": [
+     "opponent missing key players",
+     "the stronger team",
+     "rolling off a blowout win"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-01T18:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Buccaneers",
+    "team_id": "27",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5562,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 43-13 over the Panthers last time out for the Buccaneers, we lean Buccaneers."
+   }
+  ],
+  "p_hit": 0.5427,
+  "pnl": 0.0,
+  "posted": "2026-11-01T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": 142,
+  "date": "2026-11-01",
+  "dec": 2.42,
+  "floor": {
+   "dog_score": 1.63,
+   "nba": false
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "hot:4",
+     "better:3",
+     "h2h:2",
+     "road:3",
+     "w_better:5",
+     "splits_f:1",
+     "f_last:2",
+     "f_pts:1",
+     "risk:0",
+     "bottom_floor:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcc5 Last time out Vikings got a 16-10 win over the Colts. Lions got a 20-17 win over the Packers. Somebody's streak ends today.",
+     "\ud83d\udd25 Vikings are cooking \u2014 6 straight W's, 6-0 overall.",
+     "\ud83e\uddf3 Vikings go on the road and win: 3-0 away from home.",
+     "\ud83d\udcca The public's on the Lions: 68% of the bets, 71% of the money. Not us.",
+     "\ud83d\udcca Vikings average 18 for / 11 against over their last 3; Lions 30 for / 23 against.",
+     "\u26a0\ufe0f The knock on Vikings: Lions come in on a 2-game heater. We know it, and we still like the side.",
+     "\u2705 Bottom line: Vikings (+142). Not a big edge on the price - every angle we grade a dog on likes Vikings here. Half a unit, keep it light."
+    ],
+    "bv": 61,
+    "coach": [
+     4,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 2.42,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": -0.0109,
+     "last_margin": 6.0,
+     "last_pts": 16.0,
+     "neutral": false,
+     "record": [
+      6,
+      0
+     ],
+     "win_pct": 1.0,
+     "win_streak": 6
+    },
+    "drift": 0.0104,
+    "edge": -0.030574312367349754,
+    "edge_own": -0.025841618470962446,
+    "elo_edge": 33.7,
+    "fact": "The Vikings are 6-0, the Lions 4-2.",
+    "facts": [
+     [
+      "The Vikings are 6-0, the Lions 4-2.",
+      "The Vikings 6-0 on the year, the Lions 4-2.",
+      "It's 6-0 (the Vikings) against 4-2 (the Lions).",
+      "The Vikings sit 6-0; the Lions sit 4-2."
+     ],
+     [
+      "The Vikings have won 6 straight.",
+      "6 straight wins for the Vikings.",
+      "The Vikings are on a 6-game winning streak.",
+      "The Vikings haven't lost in 6."
+     ],
+     [
+      "The Vikings are 3-0 on the road this year.",
+      "3-0 on the road for the Vikings this season.",
+      "The Vikings haven't lost on the road this year (3-0).",
+      "The Vikings on the road this year: 3-0."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "floor_score": 1.63,
+    "form_state": [
+     6.0,
+     11,
+     -325,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873030",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.9699778761061948,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "odds": 142,
+    "opp": "Lions",
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Kerby Joseph (S)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.40058912712092987,
+    "p_market": 0.39624302905782216,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.4433,
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-01T18:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Vikings",
+    "team_id": "16",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Vikings (6-0) over Lions (4-2) on the record \u2014 the better team. That's just facts."
+   }
+  ],
+  "p_hit": 0.4006,
+  "pnl": 0.0,
+  "posted": "2026-11-01T16:00Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",

@@ -136,7 +136,7 @@ docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results
 - Owner 2026-10-14: NO buy-and-hold Bitcoin ("too expensive and the gains are minimal") even though the 10-14 altcoin
   study found holding BTC (+35%/yr since 2023) beat every altcoin trading strategy - don't re-propose it. The crypto
   money stays on the moonshot hunt (DEX survivor rule); stocks stay on rsi2 dip-buying.
-- DEX rules FROZEN 2026-10-21 until the 11-01 judge of experiments 14-18 (owner: "regroup and do better"): bug fixes only, no rule tweaks in the reviews.
+- 11-01 judge: the fresh-pump DEX entry is OFF (live -45%, twice tested); entries = survivor rule only; sell rules kept (80% at 5x, after 3x a 40% drop sells). Recommended to the owner: move the DEX money to stocks (his call).
 - Owner 2026-10-05: the scam PAUSE (circuit breaker) is OFF - "play money, we're learning". Every scam check before a buy
   and on held coins still runs; scams are still counted and reported.
 - Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md) - the only scheduled checks (bug checks turned off 10-01 to
