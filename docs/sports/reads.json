@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T02:34Z",
+ "updated": "2026-11-01T02:36Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -1867,27 +1867,12 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401864530",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-01T02:30Z",
-   "away": "N Illinois",
-   "home": "UNLV",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
    "id": "ncaaf:401860924",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.578,
+    "p": 0.577,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2034,7 +2019,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Buccaneers",
-    "p": 0.506,
+    "p": 0.509,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2043,18 +2028,20 @@
    "start": "2026-11-01T18:00Z",
    "away": "Falcons",
    "home": "Buccaneers",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Falcons @ Buccaneers",
-    "market": "total",
-    "line": 43.5,
-    "odds": -111,
-    "p": 0.634,
-    "win_p": 0.634,
+    "team": "Buccaneers",
+    "opp": "Falcons",
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
-     "the engine's scoring read"
+     "the stronger team",
+     "rolling off a blowout win",
+     "sharp money moving this way"
     ]
    }
   },
@@ -2215,6 +2202,36 @@
    }
   },
   {
+   "id": "nba:401909903",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Celtics",
+    "p": 0.619,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T20:30Z",
+   "away": "Celtics",
+   "home": "Magic",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Celtics",
+    "opp": "Magic",
+    "market": "ml",
+    "line": null,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892625",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2232,12 +2249,12 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Capitals",
-    "opp": "Wild",
+    "team": "Wild",
+    "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.712,
+    "odds": -285,
+    "p": 0.715,
     "win_p": 0.5,
     "reasons": []
    }
@@ -2265,7 +2282,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.621,
+    "p": 0.622,
     "win_p": 0.4,
     "reasons": []
    }
@@ -2308,7 +2325,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.485,
+    "p": 0.481,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2324,9 +2341,9 @@
     "opp": "Broncos",
     "market": "spread",
     "line": -1.5,
-    "odds": -105,
-    "p": 0.509,
-    "win_p": 0.506,
+    "odds": 100,
+    "p": 0.511,
+    "win_p": 0.501,
     "reasons": [
      "better QB play lately"
     ]
@@ -2361,6 +2378,36 @@
      "sharp money moving this way",
      "revenge game",
      "opponent drama: illness"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909904",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pacers",
+    "p": 0.555,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T22:00Z",
+   "away": "Nets",
+   "home": "Pacers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Pacers",
+    "opp": "Nets",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -2454,6 +2501,36 @@
      "sharp money moving this way",
      "better rested",
      "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909906",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Lakers",
+    "p": 0.56,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-02T02:00Z",
+   "away": "Raptors",
+   "home": "Lakers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Lakers",
+    "opp": "Raptors",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },

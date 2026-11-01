@@ -123,7 +123,7 @@
   }
  },
  "nba": {
-  "games": 10204,
+  "games": 10205,
   "grade": {
    "all": {
     "hit": 0.4974,
@@ -144,35 +144,35 @@
     "roi": -0.063
    },
    "top30": {
-    "hit": 0.5029,
-    "low80": 0.4829,
+    "hit": 0.5039,
+    "low80": 0.4839,
     "n": 1020,
-    "roi": -0.0404
+    "roi": -0.0385
    }
   },
   "hit_all": 0.4974,
-  "hit_top": 0.5029,
-  "intercept": 0.01372,
+  "hit_top": 0.5039,
+  "intercept": 0.01392,
   "kept": [
    "b2b"
   ],
   "ll_test_base": 0.69318,
-  "ll_test_kept": 0.6937,
+  "ll_test_kept": 0.69368,
   "ll_val_base": 0.69304,
-  "ll_val_kept": 0.69263,
+  "ll_val_kept": 0.69264,
   "n_top": 1020,
   "norm": {
    "b2b": [
-    0.30929,
-    0.54401
+    0.30926,
+    0.544
    ]
   },
   "proven": false,
-  "roi_top": -0.0404,
+  "roi_top": -0.0385,
   "screen": {
    "b2b": {
-    "gain": 0.00041,
-    "ll": 0.69263
+    "gain": 0.0004,
+    "ll": 0.69264
    },
    "cold": {
     "ll": null,
@@ -183,8 +183,8 @@
     "note": "no data"
    },
    "form": {
-    "gain": -0.00021,
-    "ll": 0.69325
+    "gain": -0.00023,
+    "ll": 0.69327
    },
    "inj": {
     "ll": null,
@@ -195,20 +195,20 @@
     "note": "no data"
    },
    "lg_trend": {
-    "gain": -0.00013,
-    "ll": 0.69317
+    "gain": -0.00012,
+    "ll": 0.69316
    },
    "ou_away": {
     "gain": -4e-05,
-    "ll": 0.69308
+    "ll": 0.69309
    },
    "ou_home": {
-    "gain": -0.00051,
-    "ll": 0.69355
+    "gain": -0.0005,
+    "ll": 0.69354
    },
    "park": {
-    "gain": -0.00125,
-    "ll": 0.69429
+    "gain": -0.00123,
+    "ll": 0.69427
    },
    "public": {
     "ll": null,
@@ -220,7 +220,7 @@
    },
    "rest": {
     "gain": 3e-05,
-    "ll": 0.69301
+    "ll": 0.69302
    },
    "starter": {
     "ll": null,
@@ -232,7 +232,7 @@
    },
    "travel": {
     "gain": -3e-05,
-    "ll": 0.69307
+    "ll": 0.69308
    },
    "wind": {
     "ll": null,
@@ -242,7 +242,7 @@
   "test_from": "2024-01-20",
   "test_games": 3402,
   "weights": {
-   "b2b": 0.01814
+   "b2b": 0.01803
   }
  },
  "ncaab": {
@@ -381,13 +381,13 @@
   }
  },
  "ncaaf": {
-  "games": 5874,
+  "games": 5875,
   "grade": {
    "all": {
-    "hit": 0.5087,
-    "low80": 0.4942,
-    "n": 1958,
-    "roi": -0.0297
+    "hit": 0.5084,
+    "low80": 0.4939,
+    "n": 1959,
+    "roi": -0.0302
    },
    "top10": {
     "hit": 0.4769,
@@ -408,21 +408,21 @@
     "roi": -0.0642
    }
   },
-  "hit_all": 0.5087,
+  "hit_all": 0.5084,
   "hit_top": 0.4906,
-  "intercept": -0.01226,
+  "intercept": -0.0126,
   "kept": [
    "wind"
   ],
-  "ll_test_base": 0.69328,
+  "ll_test_base": 0.69327,
   "ll_test_kept": 0.69367,
   "ll_val_base": 0.69529,
   "ll_val_kept": 0.69437,
   "n_top": 587,
   "norm": {
    "wind": [
-    9.85189,
-    4.49816
+    9.8514,
+    4.49793
    ]
   },
   "proven": false,
@@ -498,9 +498,9 @@
    }
   },
   "test_from": "2023-11-26",
-  "test_games": 1958,
+  "test_games": 1959,
   "weights": {
-   "wind": -0.03755
+   "wind": -0.03733
   }
  },
  "nfl": {
