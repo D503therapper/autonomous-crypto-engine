@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T19:10Z",
+ "updated": "2026-11-01T19:14Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -552,8 +552,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "High Point",
-    "p": 0.663,
-    "tie": 0.039,
+    "p": 0.646,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -561,17 +561,19 @@
    "start": "2026-11-02T04:59Z",
    "away": "Liberty",
    "home": "High Point",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Liberty",
-    "opp": "High Point",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -112,
-    "p": 0.501,
-    "win_p": 0.266,
-    "reasons": []
+    "team": "High Point",
+    "opp": "Liberty",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.716,
+    "win_p": 0.716,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
