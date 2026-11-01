@@ -1,12 +1,11 @@
 {
- "at": "2026-11-01T23:37Z",
+ "at": "2026-11-01T23:38Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Andreescu vs Maria: no points for 2647s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,17 +13,24 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 12 min ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T23:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T23:37Z",
    "fixes": [],
@@ -580,18 +586,6 @@
     "live tennis scores: tennis Charaeva vs Jacquemot: no points for 682s",
     "studies last ran 10h ago - restarted",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-31T13:55Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bonzi vs Griekspoor: no points for 812s",
-    "live tennis scores: tennis Hanfmann vs Balshaw: no points for 633s",
-    "live tennis scores: tennis Dzumhur vs Baez: no points for 205s",
-    "live tennis scores: tennis Akugue vs Blinkova: no points for 812s",
-    "live tennis scores: tennis Kotliar vs Kulambayeva: no points for 812s",
-    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
