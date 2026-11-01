@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 159,
+  "n": 161,
   "beat": 53,
-  "same": 57,
+  "same": 59,
   "worse": 49,
-  "avg_pts": 0.09
+  "avg_pts": 0.08
  },
  "unit_plays": {
-  "n": 72,
+  "n": 73,
   "beat": 22,
-  "same": 32,
+  "same": 33,
   "worse": 18,
-  "avg_pts": 0.15
+  "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
@@ -22,9 +22,9 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 87,
+   "n": 88,
    "beat": 31,
-   "same": 25,
+   "same": 26,
    "worse": 31,
    "avg_pts": 0.04
   },
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 39,
+   "n": 40,
    "beat": 11,
-   "same": 19,
+   "same": 20,
    "worse": 9,
    "avg_pts": 0.04
   }
@@ -66,11 +66,11 @@
    "avg_pts": 0.13
   },
   "nfl": {
-   "n": 21,
+   "n": 23,
    "beat": 8,
-   "same": 8,
+   "same": 10,
    "worse": 5,
-   "avg_pts": 0.19
+   "avg_pts": 0.17
   },
   "nhl": {
    "n": 59,
@@ -2335,6 +2335,34 @@
    "close": 130,
    "pts": 0.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Buccaneers",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "play",
+   "lean": false,
+   "league": "nfl",
+   "team": "Vikings",
+   "market": "ml",
+   "line": null,
+   "odds": 142,
+   "close": 142,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]
