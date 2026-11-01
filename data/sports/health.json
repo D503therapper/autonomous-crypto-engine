@@ -1,11 +1,11 @@
 {
- "at": "2026-11-01T11:35Z",
+ "at": "2026-11-01T13:06Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
+  "tennis live prices all stale (4 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,13 +15,20 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 63 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 24 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-01T13:06Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (4 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-11-01T11:35Z",
    "fixes": [],
@@ -559,14 +566,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Monnet vs Podoroska: no points for 2359s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-30T22:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Podoroska: no points for 1975s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
