@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T08:35Z",
+ "updated": "2026-11-01T09:00Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -103,18 +103,18 @@
    "start": "2026-11-01T18:00Z",
    "away": "Colts",
    "home": "Jaguars",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Colts @ Jaguars",
-    "market": "total",
-    "line": 46.5,
-    "odds": -110,
-    "p": 0.587,
-    "win_p": 0.587,
+    "team": "Colts",
+    "opp": "Jaguars",
+    "market": "spread",
+    "line": 10.0,
+    "odds": -112,
+    "p": 0.509,
+    "win_p": 0.198,
     "reasons": [
-     "the engine's scoring read"
+     "revenge game"
     ]
    }
   },
@@ -124,7 +124,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Buccaneers",
-    "p": 0.502,
+    "p": 0.504,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -140,13 +140,13 @@
     "opp": "Falcons",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -130,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
-     "revenge game"
+     "sharp money moving this way"
     ]
    }
   },
@@ -460,7 +460,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Patriots",
-    "p": 0.66,
+    "p": 0.659,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -478,7 +478,7 @@
     "line": 7.0,
     "odds": -115,
     "p": 0.515,
-    "win_p": 0.245,
+    "win_p": 0.246,
     "reasons": [
      "sharp money moving this way",
      "revenge game",
