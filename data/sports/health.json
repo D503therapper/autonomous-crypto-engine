@@ -1,14 +1,14 @@
 {
- "at": "2026-11-01T21:00Z",
+ "at": "2026-11-01T21:10Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1162s",
-  "live tennis scores: tennis Scott vs Gonzalez: no points for 1162s",
+  "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1759s",
+  "live tennis scores: tennis Scott vs Gonzalez: no points for 1759s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "sources down (the backups took over): betrivers:nfl:1028823872 HTTP 404"
+  "sources down (the backups took over): betrivers:nfl:1028823867 HTTP 404, betrivers:nfl:1028823875 HTTP 404, betrivers:nfl:1028823868 HTTP 404, betrivers:nfl:1028823870 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +20,22 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 30 min ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T21:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1759s",
+    "live tennis scores: tennis Scott vs Gonzalez: no points for 1759s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "sources down (the backups took over): betrivers:nfl:1028823867 HTTP 404, betrivers:nfl:1028823875 HTTP 404, betrivers:nfl:1028823868 HTTP 404, betrivers:nfl:1028823870 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-01T21:00Z",
    "fixes": [],
@@ -575,14 +585,6 @@
    "problems": [
     "live tennis scores: tennis Shubladze vs Zhang Ying: no points for 933s",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-31T05:57Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gorgodze vs Pridankina: no points for 103s",
-    "live tennis scores: tennis Lee vs Lai: no points for 103s"
    ]
   }
  ]
