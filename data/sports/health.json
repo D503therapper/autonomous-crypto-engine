@@ -1,27 +1,39 @@
 {
- "at": "2026-11-01T07:46Z",
- "fixes": [
-  "live watch 41283104342 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+ "at": "2026-11-01T09:18Z",
+ "fixes": [],
+ "problems": [
+  "live tennis scores: tennis Kobori vs Okamura: no points for 2605s",
+  "live tennis scores: tennis Zolotareva vs Falei: no points for 2352s",
+  "live tennis scores: tennis Falkowska vs Morvayova: no points for 1835s"
  ],
- "problems": [],
  "ok": [
+  "live watcher fresh (42s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 65 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran -34 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-01T09:18Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kobori vs Okamura: no points for 2605s",
+    "live tennis scores: tennis Zolotareva vs Falei: no points for 2352s",
+    "live tennis scores: tennis Falkowska vs Morvayova: no points for 1835s"
+   ]
+  },
   {
    "at": "2026-11-01T07:46Z",
    "fixes": [
@@ -543,11 +555,6 @@
    "problems": [
     "live tennis scores: tennis Da Silva vs Jones: no points for 151s"
    ]
-  },
-  {
-   "at": "2026-10-30T18:20Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
