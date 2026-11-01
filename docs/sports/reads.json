@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T17:02Z",
+ "updated": "2026-11-01T17:42Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -11,116 +11,23 @@
    "away": "Notre Dame",
    "home": "Villanova",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nfl:401873027",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Steelers",
-    "p": 0.563,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Browns",
-   "home": "Steelers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Steelers",
-    "opp": "Browns",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
-    "reasons": [
-     "the stronger team",
-     "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873024",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Cowboys",
-    "p": 0.649,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Cardinals",
-   "home": "Cowboys",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Cardinals",
-    "opp": "Cowboys",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -102,
-    "p": 0.515,
-    "win_p": 0.256,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nfl:401873028",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jaguars",
-    "p": 0.693,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Colts",
-   "home": "Jaguars",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Colts",
-    "opp": "Jaguars",
-    "market": "spread",
-    "line": 10.0,
-    "odds": -108,
-    "p": 0.509,
-    "win_p": 0.197,
-    "reasons": [
-     "revenge game"
-    ]
-   }
   },
   {
    "id": "nfl:401873025",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Buccaneers",
-    "p": 0.509,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-01T18:00Z",
    "away": "Falcons",
    "home": "Buccaneers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Buccaneers",
@@ -134,163 +41,36 @@
      "opponent missing key players",
      "the stronger team",
      "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892624",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.474,
-    "tie": 0.285,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Jets",
-   "home": "Hurricanes",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Hurricanes",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.744,
-    "win_p": 0.744,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873029",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jets",
-    "p": 0.502,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Raiders",
-   "home": "Jets",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Jets",
-    "opp": "Raiders",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873026",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bills",
-    "p": 0.546,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Ravens",
-   "home": "Bills",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Bills",
-    "opp": "Ravens",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.597,
-    "win_p": 0.597,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "coming off a bye"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873031",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bengals",
-    "p": 0.752,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-01T18:00Z",
-   "away": "Titans",
-   "home": "Bengals",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Titans",
-    "opp": "Bengals",
-    "market": "spread",
-    "line": 13.5,
-    "odds": -112,
-    "p": 0.508,
-    "win_p": 0.13,
-    "reasons": [
-     "revenge game",
-     "opponent drama: family/personal"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401873030",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.54,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-01T18:00Z",
    "away": "Vikings",
    "home": "Lions",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Lions",
-    "opp": "Vikings",
+    "team": "Vikings",
+    "opp": "Lions",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.588,
-    "win_p": 0.588,
+    "odds": 142,
+    "p": 0.401,
+    "win_p": 0.401,
     "reasons": [
-     "better QB play lately",
-     "revenge game",
-     "sharp money moving this way"
-    ]
+     "the stronger team",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -606,7 +386,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.516,
+    "p": 0.51,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -622,9 +402,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1361,8 +1141,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Xavier",
-    "p": 0.923,
-    "tie": 0.015,
+    "p": 0.915,
+    "tie": 0.016,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1379,7 +1159,7 @@
     "line": 26.5,
     "odds": -108,
     "p": 0.522,
-    "win_p": 0.027,
+    "win_p": 0.032,
     "reasons": []
    }
   },
@@ -2032,9 +1812,9 @@
     "team": "Lindenwood",
     "opp": "TCU",
     "market": "spread",
-    "line": 27.5,
-    "odds": -108,
-    "p": 0.523,
+    "line": 28.5,
+    "odds": -112,
+    "p": 0.524,
     "win_p": 0.027,
     "reasons": []
    }
@@ -2205,7 +1985,7 @@
     "opp": "DePaul",
     "market": "spread",
     "line": 22.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.517,
     "win_p": 0.046,
     "reasons": [
@@ -2278,8 +2058,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Colorado",
-    "p": 0.844,
-    "tie": 0.025,
+    "p": 0.835,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2293,10 +2073,10 @@
     "team": "Abilene Chrstn",
     "opp": "Colorado",
     "market": "spread",
-    "line": 18.5,
-    "odds": -110,
-    "p": 0.513,
-    "win_p": 0.08,
+    "line": 17.5,
+    "odds": -105,
+    "p": 0.512,
+    "win_p": 0.088,
     "reasons": []
    }
   },
@@ -2418,8 +2198,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah",
-    "p": 0.865,
-    "tie": 0.022,
+    "p": 0.859,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2436,7 +2216,7 @@
     "line": 19.5,
     "odds": -108,
     "p": 0.514,
-    "win_p": 0.064,
+    "win_p": 0.069,
     "reasons": []
    }
   },
@@ -2560,7 +2340,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.825,
+    "p": 0.82,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -2575,10 +2355,10 @@
     "team": "Weber St",
     "opp": "Oregon St",
     "market": "spread",
-    "line": 17.5,
-    "odds": -115,
-    "p": 0.512,
-    "win_p": 0.096,
+    "line": 16.5,
+    "odds": -110,
+    "p": 0.511,
+    "win_p": 0.101,
     "reasons": [
      "sharp money moving this way"
     ]
