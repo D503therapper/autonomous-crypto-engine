@@ -1,12 +1,12 @@
 {
- "at": "2026-11-01T01:08Z",
+ "at": "2026-11-01T01:14Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Ferro vs Maria: no points for 188s",
+  "live tennis scores: tennis Ferro vs Maria: no points for 481s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (51s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,17 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 23 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T01:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ferro vs Maria: no points for 481s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T01:08Z",
    "fixes": [],
@@ -539,11 +547,6 @@
   },
   {
    "at": "2026-10-30T06:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-30T06:09Z",
    "fixes": [],
    "problems": []
   }
