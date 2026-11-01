@@ -1,6 +1,21 @@
 {
- "updated": "2026-11-01T14:21Z",
+ "updated": "2026-11-01T14:39Z",
  "games": [
+  {
+   "id": "ncaab:401920982",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-01T14:30Z",
+   "away": "Notre Dame",
+   "home": "Villanova",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "nfl:401873027",
    "league": "nfl",
@@ -126,8 +141,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.447,
-    "tie": 0.291,
+    "p": 0.474,
+    "tie": 0.285,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -135,16 +150,16 @@
    "start": "2026-11-01T18:00Z",
    "away": "Jets",
    "home": "Hurricanes",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Hurricanes",
     "opp": "Jets",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.697,
-    "win_p": 0.697,
+    "odds": -278,
+    "p": 0.744,
+    "win_p": 0.744,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -368,7 +383,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.615,
+    "p": 0.619,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -384,9 +399,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.696,
-    "win_p": 0.696,
+    "odds": -270,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -430,7 +445,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Patriots",
-    "p": 0.647,
+    "p": 0.665,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -446,9 +461,9 @@
     "opp": "Patriots",
     "market": "spread",
     "line": 7.0,
-    "odds": -110,
-    "p": 0.509,
-    "win_p": 0.262,
+    "odds": -105,
+    "p": 0.515,
+    "win_p": 0.239,
     "reasons": [
      "sharp money moving this way",
      "revenge game",
@@ -462,7 +477,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.544,
+    "p": 0.551,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -471,16 +486,16 @@
    "start": "2026-11-01T22:00Z",
    "away": "Nets",
    "home": "Pacers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Pacers",
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "the stronger team"
     ]
@@ -616,7 +631,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.523,
+    "p": 0.514,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -625,16 +640,16 @@
    "start": "2026-11-02T02:00Z",
    "away": "Raptors",
    "home": "Lakers",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Lakers",
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.562,
-    "win_p": 0.562,
+    "odds": -148,
+    "p": 0.549,
+    "win_p": 0.549,
     "reasons": [
      "the stronger team"
     ]
@@ -646,7 +661,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "High Point",
-    "p": 0.663,
+    "p": 0.656,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -661,10 +676,10 @@
     "team": "Liberty",
     "opp": "High Point",
     "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.266,
+    "line": 6.5,
+    "odds": -108,
+    "p": 0.5,
+    "win_p": 0.274,
     "reasons": []
    }
   },
