@@ -1,11 +1,11 @@
 {
- "at": "2026-11-01T19:11Z",
+ "at": "2026-11-01T19:12Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (46s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,19 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T19:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-01T19:11Z",
    "fixes": [],
@@ -570,16 +577,6 @@
     "live tennis scores: tennis Ibragimova vs Stojsavljevic: no points for 1991s",
     "live tennis scores: tennis Kinoshita vs Prozorova: no points for 2194s",
     "sources down (the backups took over): betrivers:nhl:1028409815 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-31T02:43Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mandlik vs Ferro: no points for 2339s",
-    "live tennis scores: tennis Wong vs Sakatsume: no points for 1956s",
-    "live tennis scores: tennis Ibragimova vs Stojsavljevic: no points for 1722s",
-    "live tennis scores: tennis Kinoshita vs Prozorova: no points for 1925s"
    ]
   }
  ]
