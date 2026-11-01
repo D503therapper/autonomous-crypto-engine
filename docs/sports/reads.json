@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T16:01Z",
+ "updated": "2026-11-01T16:11Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -356,8 +356,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.406,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -365,18 +365,19 @@
    "start": "2026-11-01T21:00Z",
    "away": "Mammoth",
    "home": "Flyers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Flyers",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.621,
-    "win_p": 0.4,
+    "team": "Mammoth",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.624,
+    "win_p": 0.624,
     "reasons": [
-     "opponent missing key players"
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -587,9 +588,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.69,
-    "win_p": 0.69,
+    "odds": -270,
+    "p": 0.685,
+    "win_p": 0.685,
     "reasons": [
      "sharp money moving this way",
      "better rested",
