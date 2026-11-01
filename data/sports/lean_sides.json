@@ -1,11 +1,4 @@
 {
- "mlb:401908044": {
-  "market": "ml",
-  "own": 0.4987,
-  "side": "home",
-  "start": "2026-10-27T00:00Z",
-  "team": "Rays"
- },
  "mlb:401908045": {
   "market": "ml",
   "own": 0.5181,
@@ -68,20 +61,6 @@
   "side": "away",
   "start": "2026-10-31T02:00Z",
   "team": "Nuggets"
- },
- "nba:401909875": {
-  "market": "ml",
-  "own": 0.4996,
-  "side": "away",
-  "start": "2026-10-27T01:00Z",
-  "team": "Grizzlies"
- },
- "nba:401909877": {
-  "market": "spread",
-  "own": 0.5052,
-  "side": "home",
-  "start": "2026-10-27T23:30Z",
-  "team": "Celtics"
  },
  "nba:401909879": {
   "market": "spread",
@@ -159,6 +138,13 @@
   "side": "home",
   "start": "2026-11-01T00:30Z",
   "team": "Rockets"
+ },
+ "nba:401909906": {
+  "market": "ml",
+  "own": 0.5421,
+  "side": "home",
+  "start": "2026-11-02T02:00Z",
+  "team": "Lakers"
  },
  "ncaaf:401856733": {
   "market": "ml",
@@ -265,13 +251,6 @@
   "start": "2026-10-28T23:00Z",
   "team": "MTSU"
  },
- "ncaaf:401871071": {
-  "market": "ml",
-  "own": 0.5,
-  "side": "home",
-  "start": "2026-10-27T23:00Z",
-  "team": "Western KY"
- },
  "ncaaf:401871095": {
   "market": "ml",
   "own": 0.4519,
@@ -293,26 +272,61 @@
   "start": "2026-10-31T19:00Z",
   "team": "South Alabama"
  },
- "nfl:401873009": {
+ "nfl:401873024": {
   "market": "spread",
-  "own": 0.5119,
+  "own": 0.5138,
+  "side": "away",
+  "start": "2026-11-01T18:00Z",
+  "team": "Cardinals"
+ },
+ "nfl:401873025": {
+  "market": "ml",
+  "own": 0.5562,
   "side": "home",
-  "start": "2026-10-27T00:15Z",
+  "start": "2026-11-01T18:00Z",
+  "team": "Buccaneers"
+ },
+ "nfl:401873027": {
+  "market": "spread",
+  "own": 0.5069,
+  "side": "away",
+  "start": "2026-11-01T18:00Z",
+  "team": "Browns"
+ },
+ "nfl:401873028": {
+  "market": "spread",
+  "own": 0.5114,
+  "side": "away",
+  "start": "2026-11-01T18:00Z",
+  "team": "Colts"
+ },
+ "nfl:401873031": {
+  "market": "spread",
+  "own": 0.511,
+  "side": "away",
+  "start": "2026-11-01T18:00Z",
+  "team": "Titans"
+ },
+ "nfl:401873033": {
+  "market": "spread",
+  "own": 0.511,
+  "side": "away",
+  "start": "2026-11-01T21:25Z",
+  "team": "Chiefs"
+ },
+ "nfl:401873034": {
+  "market": "spread",
+  "own": 0.515,
+  "side": "home",
+  "start": "2026-11-01T21:25Z",
+  "team": "Dolphins"
+ },
+ "nfl:401873035": {
+  "market": "spread",
+  "own": 0.5075,
+  "side": "away",
+  "start": "2026-11-02T01:20Z",
   "team": "Eagles"
- },
- "nhl:401892583": {
-  "market": "ml",
-  "own": 0.5803,
-  "side": "away",
-  "start": "2026-10-27T00:30Z",
-  "team": "Maple Leafs"
- },
- "nhl:401892585": {
-  "market": "ml",
-  "own": 0.5656,
-  "side": "away",
-  "start": "2026-10-27T23:00Z",
-  "team": "Blue Jackets"
  },
  "nhl:401892587": {
   "market": "ml",
@@ -404,5 +418,19 @@
   "side": "away",
   "start": "2026-10-31T20:00Z",
   "team": "Sabres"
+ },
+ "nhl:401892625": {
+  "market": "ml",
+  "own": 0.5117,
+  "side": "away",
+  "start": "2026-11-01T20:30Z",
+  "team": "Wild"
+ },
+ "nhl:401892627": {
+  "market": "ml",
+  "own": 0.5762,
+  "side": "home",
+  "start": "2026-11-01T23:00Z",
+  "team": "Rangers"
  }
 }
