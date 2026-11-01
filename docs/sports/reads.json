@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-01T02:05Z",
+ "updated": "2026-11-01T02:07Z",
  "games": [
   {
    "id": "ncaaf:401856842",
@@ -1859,8 +1859,8 @@
     "market": "spread",
     "line": -21.5,
     "odds": -110,
-    "p": 0.512,
-    "win_p": 0.862,
+    "p": 0.502,
+    "win_p": 0.861,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -1873,7 +1873,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.58,
+    "p": 0.578,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1890,8 +1890,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.565,
-    "win_p": 0.565,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "better QB play lately"
     ]
@@ -2020,7 +2020,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Buccaneers",
-    "p": 0.506,
+    "p": 0.502,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2036,7 +2036,7 @@
     "opp": "Falcons @ Buccaneers",
     "market": "total",
     "line": 43.5,
-    "odds": -111,
+    "odds": -112,
     "p": 0.634,
     "win_p": 0.634,
     "reasons": [
@@ -2201,6 +2201,36 @@
    }
   },
   {
+   "id": "nba:401909903",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Celtics",
+    "p": 0.617,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T20:30Z",
+   "away": "Celtics",
+   "home": "Magic",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Celtics",
+    "opp": "Magic",
+    "market": "ml",
+    "line": null,
+    "odds": -258,
+    "p": 0.691,
+    "win_p": 0.691,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892625",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2222,7 +2252,7 @@
     "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
+    "odds": -278,
     "p": 0.712,
     "win_p": 0.5,
     "reasons": []
@@ -2251,7 +2281,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.622,
+    "p": 0.621,
     "win_p": 0.4,
     "reasons": []
    }
@@ -2293,8 +2323,8 @@
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "Chiefs",
-    "p": 0.485,
+    "team": "Broncos",
+    "p": 0.483,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2310,9 +2340,9 @@
     "opp": "Broncos",
     "market": "spread",
     "line": -1.5,
-    "odds": -105,
-    "p": 0.509,
-    "win_p": 0.506,
+    "odds": 100,
+    "p": 0.513,
+    "win_p": 0.495,
     "reasons": [
      "better QB play lately"
     ]
@@ -2347,6 +2377,36 @@
      "sharp money moving this way",
      "revenge game",
      "opponent drama: illness"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909904",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pacers",
+    "p": 0.551,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-01T22:00Z",
+   "away": "Nets",
+   "home": "Pacers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Pacers",
+    "opp": "Nets",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -2440,6 +2500,36 @@
      "sharp money moving this way",
      "better rested",
      "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909906",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Lakers",
+    "p": 0.566,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-02T02:00Z",
+   "away": "Raptors",
+   "home": "Lakers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Lakers",
+    "opp": "Raptors",
+    "market": "ml",
+    "line": null,
+    "odds": -190,
+    "p": 0.626,
+    "win_p": 0.626,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
