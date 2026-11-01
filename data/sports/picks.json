@@ -28450,6 +28450,7 @@
      "them:dome_out"
     ],
     "dec": 1.7692307692307692,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -28487,6 +28488,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,0",
+     "h": "6,3,7,0"
+    },
     "form_state": [
      30.0,
      1,
@@ -28540,10 +28545,12 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Falcons 0 @ Buccaneers 16",
     "season_games": null,
+    "settled": "2026-11-01T21:23Z",
     "side": "home",
     "start": "2026-11-01T18:00Z",
     "stype": "2",
@@ -28561,12 +28568,14 @@
    }
   ],
   "p_hit": 0.5427,
-  "pnl": 0.0,
+  "pnl": 76.92,
   "posted": "2026-11-01T16:00Z",
   "round": 1,
+  "settled": "2026-11-01T21:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 114,
@@ -28808,6 +28817,7 @@
      "game:div"
     ],
     "dec": 2.42,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -28857,6 +28867,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.63,
+    "flow": {
+     "a": "0,7,0,8",
+     "h": "3,3,6,7"
+    },
     "form_state": [
      6.0,
      11,
@@ -28903,10 +28917,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Vikings 15 @ Lions 19",
     "season_games": null,
+    "settled": "2026-11-01T21:23Z",
     "side": "away",
     "start": "2026-11-01T18:00Z",
     "stype": "2",
@@ -28923,12 +28939,14 @@
    }
   ],
   "p_hit": 0.4006,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-01T16:00Z",
   "round": 1,
+  "settled": "2026-11-01T21:23Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 142,
@@ -29107,6 +29125,7 @@
      "opponent missing key players: Obi Toppin (their read -9)"
     ],
     "rested_vs_b2b": true,
+    "result": null,
     "revenge": false,
     "road_opener": false,
     "season_games": 5,
