@@ -1,33 +1,43 @@
 {
- "at": "2026-11-01T15:26Z",
+ "at": "2026-11-01T16:55Z",
  "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
+  "simulator overdue (10h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Sonego vs Vallejo: no points for 251s",
-  "live tennis scores: tennis Grabher vs Tubello: no points for 251s",
-  "live tennis scores: tennis Charaeva vs Akugue: no points for 251s",
-  "live tennis scores: tennis Van Poppel vs Suvirdjonkova: no points for 251s",
-  "studies last ran 10h ago - restarted"
+  "live tennis scores: tennis Grabher vs Tubello: no points for 95s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (1s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
+  "slate check: all 22 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 9 min ago",
+  "studies ran 1h ago",
+  "engine ran 6 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-01T16:55Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Tubello: no points for 95s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-01T15:26Z",
    "fixes": [
@@ -577,11 +587,6 @@
     "live watch 41145615467 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-31T00:25Z",
-   "fixes": [],
    "problems": []
   }
  ]
