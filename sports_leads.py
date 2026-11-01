@@ -59,6 +59,12 @@ def tags(c, sports):
         #                                                     held out 20-11 +14.2%, 2 of 2; now 3-4) - a LEAD (3 of 6 =
         #                                                     not a weight); every rested-favorite spot LOST (the books
         #                                                     over-move for rest)
+    if lg == "ncaab" and HOOPS_BLOWOUT_ODDS[0] <= c.get("odds", 0) <= HOOPS_BLOWOUT_ODDS[1] and hoops_blowout_b2b(c):
+        t.append("college hoops side the day after a 15+ loss (fade)")   # 11/1 daily study 9 (college hoops prep, the
+        #   Nov-Dec tournament back-to-back - the consolation game): ATS -13.1% on 75 train (2018-21) / -21.3% on 68 held
+        #   out (2022-25, 4 of 4 down) at a neutral site, -32.8% on 40 at home / road; the moneyline -10.4% / -16.8%
+        #   (neutral, -400..+350) - but the dose is ragged (lost by 10-14 ATS +3.1%, 15-19 -27.2%, 20+ -13.2%) and ~60
+        #   cells looked at: a LEAD, tracked only, never a weight (the season opens 11/3 - no live games yet)
     if dog and lg == "nba" and mo.get("last_upset") and c.get("odds", 0) >= sports.NBA_UPSET_DOG_MIN:
         t.append("NBA dog off an upset win, still +180 or longer")   # 10/24 dog-eye study: a LEAD (train +7.2% on 538,
         #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
@@ -599,6 +605,32 @@ def hoops_rust(c):
     except (TypeError, ValueError):
         return False
     return gap >= HOOPS_RUST_DAYS and ogap <= HOOPS_RHYTHM_DAYS
+
+
+HOOPS_BLOWOUT_LOSS = 15             # the 11/1 study's cut: lost yesterday by 15+
+HOOPS_BLOWOUT_ODDS = (-400, 350)    # the moneyline range the study graded
+HOOPS_BLOWOUT_MONTHS = ("11", "12")  # the study's window: the November / December tournament back-to-backs
+
+
+def hoops_blowout_b2b(c):
+    """11/1 daily study 9 (college hoops prep; a LEAD, tracked only): this side played LAST NIGHT (the night before
+    tonight's game - the early-season tournament back-to-back) and lost that game by 15+. Finals this season only."""
+    if c.get("league") != "ncaab":
+        return False
+    start = str(c.get("start") or _game(c).get("start") or "")
+    if start[5:7] not in HOOPS_BLOWOUT_MONTHS:
+        return False
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return False
+    x = rows[-1]
+    try:
+        if _night(c.get("start") or _game(c).get("start")) - _night(x["start"]) != 1:
+            return False
+        me, op = ("home", "away") if x["home"] == team else ("away", "home")
+        return float(x[op + "_score"]) - float(x[me + "_score"]) >= HOOPS_BLOWOUT_LOSS
+    except (TypeError, ValueError, KeyError):
+        return False
 
 
 def load():

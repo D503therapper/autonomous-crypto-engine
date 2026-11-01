@@ -15663,6 +15663,56 @@ def test_daily_1031_three_tracker_leads_bowl_chase_hoops_rust_hockey_scorer_out_
     assert "bowl_need1" not in src and "hoops_rust" not in src
 
 
+def test_daily_1101_hoops_day_after_a_blowout_loss_is_a_tracker_lead_no_weight():
+    """11/1 daily run (10 studies, results/studies/daily_1101/): nothing built as a weight. ONE tracker LEAD (its own
+    live record, never a weight): the college hoops side playing the night after a 15+ point loss (the early-season
+    tournament consolation game; ATS -13.1% train / -21.3% held out at a neutral site, the moneyline -10.4% / -16.8%,
+    a ragged dose). The NFL road favorite off a road win, NFL division games late (sides and the under), the
+    soft-schedule streak, the college bye vs a rivalry hangover, the NHL favorite's next game, the playoff-series
+    rematch, NBA pace totals, the over / under streak and the hoops opener: dead or watch - nothing wired."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+
+    def fg(i, start, home, away, hs, as_):
+        return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                "home_score": str(hs), "away_score": str(as_)}
+    try:
+        H = {"a1": fg("a1", "2026-11-04T00:00Z", "T", "A", 70, 60),
+             "a2": fg("a2", "2026-11-26T19:00Z", "B", "T", 81, 62),             # Thanksgiving: T loses by 19
+             "hn": {"id": "hn", "start": "2026-11-27T19:00Z", "status": "pre", "stype": "2", "home": "D", "away": "T",
+                    "neutral": "1"}}
+        sl._GAMES["ncaab"] = H
+        side = {"market": "ml", "league": "ncaab", "game_id": "hn", "side": "away", "home": False, "odds": 140,
+                "dec": 2.4, "p_market": 0.40, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Ds",
+                "start": "2026-11-27T19:00Z", "dog_more": {}}
+        lead = "college hoops side the day after a 15+ loss (fade)"
+        assert sl.hoops_blowout_b2b(side) and lead in sl.tags(side, sports)
+        assert lead in sl.tags({**side, "odds": -180, "dec": 1.56}, sports)        # a favorite too (-400..+350)
+        assert lead not in sl.tags({**side, "odds": -450, "dec": 1.22}, sports)    # past -400: no
+        assert lead not in sl.tags({**side, "odds": 400, "dec": 5.0}, sports)      # past +350: no
+        assert lead not in sl.tags({**side, "market": "spread"}, sports)           # moneylines only
+        H["a2"]["home_score"] = "75"                                               # lost by 13: no
+        assert not sl.hoops_blowout_b2b(side)
+        H["a2"]["home_score"] = "81"
+        H["a2"]["start"] = "2026-11-25T19:00Z"                                     # two nights ago: no
+        assert not sl.hoops_blowout_b2b(side)
+        H["a2"]["start"] = "2026-11-26T19:00Z"
+        H["a2"]["home_score"], H["a2"]["away_score"] = "62", "81"                  # T WON by 19: no
+        assert not sl.hoops_blowout_b2b(side)
+        assert not sl.hoops_blowout_b2b({**side, "league": "nba"})                 # college hoops only
+        H["a2"]["home_score"], H["a2"]["away_score"] = "81", "62"
+        assert sl.hoops_blowout_b2b(side)
+        H["a2"]["start"], H["hn"]["start"] = "2027-03-12T19:00Z", "2027-03-13T19:00Z"     # March: outside the window
+        assert not sl.hoops_blowout_b2b({**side, "start": "2027-03-13T19:00Z"})
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+    # nothing weighed: the caps and the 10/30 sizing untouched; the board never reads the new tag
+    assert sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "hoops_blowout_b2b" not in src
+
+
 def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
     """10/30: the Bovada tennis feed went quiet 10/29 11:20Z and the repo had no trace of why (the job logs are out of
     reach). Every read now writes tennis/odds_status.json - the lines it got, the raw payload size, or the error -
