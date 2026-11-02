@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T22:14Z",
+ "updated": "2026-11-02T22:15Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -652,8 +652,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Marist",
-    "p": 0.649,
-    "tie": 0.04,
+    "p": 0.662,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -661,20 +661,17 @@
    "start": "2026-11-03T00:00Z",
    "away": "Dartmouth",
    "home": "Marist",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Marist",
-    "opp": "Dartmouth",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.72,
-    "win_p": 0.72,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "team": "Dartmouth",
+    "opp": "Marist",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.266,
+    "reasons": []
    }
   },
   {
