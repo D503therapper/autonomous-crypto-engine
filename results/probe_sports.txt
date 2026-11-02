@@ -1,31 +1,45 @@
 == https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard
-200 728159B 0.3s
+200 201102B 0.4s
 saved results/tennis_live_espn_atp.json.gz
-atp: 0 matches in progress
+LIVE atp Rolex Paris Masters | Men's Singles | status {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}
+  competition keys: ['broadcast', 'broadcasts', 'competitors', 'date', 'format', 'geoBroadcasts', 'id', 'notes', 'recent', 'round', 'situation', 'startDate', 'status', 'timeValid', 'tournamentId', 'type', 'uid', 'venue', 'wasSuspended']
+  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 6.0, 'tiebreak': 5, 'winner': False}, {'value': 1.0}]
+    {'id': '3310', 'uid': 's:850~l:851~a:3310', 'type': 'athlete', 'order': 2, 'homeAway': 'away', 'possession': False}
+  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 7.0, 'tiebreak': 7, 'winner': True}, {'value': 0.0}]
+    {'id': '3085', 'uid': 's:850~l:851~a:3085', 'type': 'athlete', 'order': 1, 'homeAway': 'home', 'possession': True}
+  situation: {'onFirst': False, 'onSecond': False, 'onThird': False} | status: {'period': 2, 'type': {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}}
+atp: 1 matches in progress
 == https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard
-200 564358B 0.2s
+200 378951B 0.1s
 saved results/tennis_live_espn_wta.json.gz
-wta: 0 matches in progress
+LIVE wta Reto Win Tennis Cali Open | Women's Singles | status {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}
+  competition keys: ['broadcast', 'broadcasts', 'competitors', 'date', 'format', 'geoBroadcasts', 'id', 'notes', 'recent', 'round', 'situation', 'startDate', 'status', 'timeValid', 'tournamentId', 'type', 'uid', 'venue', 'wasSuspended']
+  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 6.0, 'winner': True}, {'value': 4.0}]
+    {'id': '10676', 'uid': 's:850~l:900~a:10676', 'type': 'athlete', 'order': 2, 'homeAway': 'away', 'possession': False}
+  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 0.0, 'winner': False}, {'value': 1.0}]
+    {'id': '1095', 'uid': 's:850~l:900~a:1095', 'type': 'athlete', 'order': 1, 'homeAway': 'home', 'possession': True}
+  situation: {'onFirst': False, 'onSecond': False, 'onThird': False} | status: {'period': 2, 'type': {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}}
+wta: 1 matches in progress
 == https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en
-200 35329B 1.5s
-9 groups, 17 live events
+200 41659B 1.1s
+11 groups, 19 live events
 saved results/tennis_live_bovada.json.gz
-PATH ['Curitiba', 'Challenger', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '31512991-17991664', 'name': 'Ryan Dickerson', 'home': True, 'shortName': 'Dickerson'}, {'id': '31512991-16446701', 'name': 'Jose Pereira', 'home': False, 'shortName': 'Pereira'}]
-  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ryan Dickerson', 'O', '-115'), ('Jose Pereira', 'O', '-115')]
-  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ryan Dickerson', 'O', '+105'), ('Jose Pereira', 'O', '-135')]
+PATH ['Paris', 'ATP', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
+  competitors: [{'id': '32996800-16415988', 'name': 'Ugo Humbert', 'home': True, 'shortName': 'Humbert'}, {'id': '32996800-16199421', 'name': 'Botic van de Zandschulp', 'home': False, 'shortName': 'van de Zandschulp'}]
+  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ugo Humbert', 'O', '-135'), ('Botic van de Zandschulp', 'O', '+105')]
+  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ugo Humbert', 'O', '-325'), ('Botic van de Zandschulp', 'O', '+260')]
   market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '-115'), ('Under', 'O', '-115')]
-PATH ['Mouilleron-Le-Captif', 'Challenger', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '31460782-16115796', 'name': 'Clement Tabur', 'home': True, 'shortName': 'Tabur'}, {'id': '31460782-16415400', 'name': 'Matteo Martineau', 'home': False, 'shortName': 'Martineau'}]
-  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Clement Tabur', 'O', '+155'), ('Matteo Martineau', 'O', '-205')]
-  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Clement Tabur', 'O', '-750'), ('Matteo Martineau', 'O', '+450')]
-  market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '-220'), ('Under', 'O', '+165')]
-PATH ['Columbus', 'Challenger', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '31476771-16489855', 'name': 'Braden Shick', 'home': True, 'shortName': 'Shick'}, {'id': '31476771-16464144', 'name': 'Ozan Baris', 'home': False, 'shortName': 'Baris'}]
-  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Braden Shick', 'O', '-125'), ('Ozan Baris', 'O', '-105')]
-  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Braden Shick', 'O', '-165'), ('Ozan Baris', 'O', '+125')]
-  market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '-110'), ('Under', 'O', '-120')]
-== https://services.bovada.lv/services/sports/results/api/v1/scores/31512991
-200 441B 0.7s
+PATH ['Chennai', 'WTA', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
+  competitors: [{'id': '33085187-16535338', 'name': 'Jeline Vandromme', 'home': True, 'shortName': 'Vandromme'}, {'id': '33085187-16417883', 'name': 'Kyoka Okamura', 'home': False, 'shortName': 'Okamura'}]
+  market: Game Spread | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Jeline Vandromme', 'S', '-120'), ('Kyoka Okamura', 'S', '-110')]
+  market: Moneyline | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Jeline Vandromme', 'S', '-275'), ('Kyoka Okamura', 'S', '+220')]
+  market: Total | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'S', '-110'), ('Under', 'S', '-120')]
+PATH ['Villa Maria', 'Challenger', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
+  competitors: [{'id': '33050163-16523698', 'name': 'Lucio Ratti', 'home': True, 'shortName': 'Ratti'}, {'id': '33050163-16605836', 'name': 'Maximo Zeitune', 'home': False, 'shortName': 'Zeitune'}]
+  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Lucio Ratti', 'O', '-275'), ('Maximo Zeitune', 'O', '+200')]
+  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Lucio Ratti', 'O', '-900'), ('Maximo Zeitune', 'O', '+500')]
+  market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '+200'), ('Under', 'O', '-275')]
+== https://services.bovada.lv/services/sports/results/api/v1/scores/32996800
+200 468B 1.0s
 saved results/tennis_live_bovada_score.json.gz
-{"eventId": 31512991, "eventSource": "BGS", "altIds": {"BGS": 31512991}, "sport": "TENNIS", "clock": {"period": "Set 1", "periodNumber": 1, "gameTime": "0:00", "relativeGameTimeInSecs": 0, "direction": "none", "numberOfPeriods": 3, "isTicking": false}, "currentPeriodScore": {"home": 1, "visitor": 2}, "previousPeriodsScore": [], "sportDetails": {"tennis": {"sets": {"home": 0, "visitor": 0}, "server": "home"}}, "gameStatus": "IN_PROGRESS", "lastUpdated": "2026-09-28T16:07:50-0400"}
+{"eventId": 32996800, "eventSource": "BGS", "altIds": {"BGS": 32996800}, "sport": "TENNIS", "clock": {"period": "Set 2", "periodNumber": 2, "gameTime": "0:00", "relativeGameTimeInSecs": 0, "direction": "none", "numberOfPeriods": 3, "isTicking": false}, "currentPeriodScore": {"home": 0, "visitor": 1}, "previousPeriodsScore": [{"home": 7, "visitor": 6}], "sportDetails": {"tennis": {"sets": {"home": 1, "visitor": 0}, "server": "home"}}, "gameStatus": "IN_PROGRESS", "lastUpdated": "2026-11-02T21:59:07.792+00:00"}
