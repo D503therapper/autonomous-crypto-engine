@@ -16566,6 +16566,98 @@ def test_cbb_1103_a_american_and_pacific_are_real_schools_cards_get_last_season_
     assert "college hoops side the line jumped 8+ to, games 1-6 (fade)" in fav
     # the college hoops Dog stays OFF and no runner-up college hoops play - untouched
     assert sports.NCAAB_DOG_RULE == "off" and "ncaab" in sports.DOG_LEAGUES_OFF
+def test_cbb_1103_b_away_small_fav_novdec_rubber_dog_skid_dog_weights_and_a_rest_lead():
+    """11/3 COLLEGE HOOPS (B) (results/studies/cbb_1103_b/): TWO WEIGHTS - (1) a college hoops -101..-150 moneyline
+    favorite away from home (road or neutral site) in Nov-Dec lost to its close -11.6% on 1,097 (0 of 5 train, 0 of 3
+    held out up): its weighed read -3 points (never past own - FAV_CAP), home / January / -160 / other sports untouched;
+    (2) the rubber-match dog (3rd meeting after a 1-1 split this season) -22.1% on 457: -2 on its dog_spots, so the
+    favorite across reads +1; (3) the dog on a 5+ game losing streak -20.0% on 1,127: -2 (COLD_DOG_PTS) on its dog_spots. ONE tracker LEAD (spread only, never a weight): the side rested 4-5 nights vs a team that
+    played 2 nights ago."""
+    import sports_leads as sl
+    d = sports.sd.decimal
+    mk = lambda side, odds, start, w_p=None, lg="ncaab": {"league": lg, "market": "ml", "odds": odds, "dec": d(odds),
+                                                          "edge_own": 0.6 * d(odds) - 1, "w_p": w_p, "reasons": [],
+                                                          "side": side, "game_id": "ncaab:1", "start": start}
+    games = {"ncaab:1": {"id": "ncaab:1", "league": "ncaab", "neutral": "0", "start": "2026-11-20T00:00Z",
+                         "home": "10", "away": "20"}}
+    road = mk("away", -130, "2026-11-20T00:00Z")
+    home = mk("home", -130, "2026-11-20T00:00Z")
+    jan = mk("away", -130, "2027-01-20T00:00Z")
+    big = mk("away", -160, "2026-11-20T00:00Z")
+    nba = mk("away", -130, "2026-11-20T00:00Z", lg="nba")
+    low = mk("away", -130, "2026-12-20T00:00Z", w_p=0.57)
+    sports.weigh_ncaab_away_fav(games, [road, home, big, nba, low])
+    sports.weigh_ncaab_away_fav({"ncaab:1": {**games["ncaab:1"], "start": "2027-01-20T00:00Z"}}, [jan])
+    assert abs(road["w_p"] - 0.57) < 1e-9 and road["ncaab_away_fav"]
+    assert all(x.get("w_p") is None for x in (home, jan, big, nba))
+    assert abs(low["w_p"] - 0.56) < 1e-9                     # 0.57 - 0.03 = 0.54, floored at own 0.60 - FAV_CAP
+    assert sports.read_of(road) < 0.6
+    neutral_home = mk("home", -130, "2026-12-01T01:00Z")
+    sports.weigh_ncaab_away_fav({"ncaab:1": {**games["ncaab:1"], "neutral": "1", "start": "2026-12-01T01:00Z"}}, [neutral_home])
+    assert neutral_home.get("ncaab_away_fav")                 # a neutral site is away from home too
+    nye = mk("away", -130, "2027-01-01T02:00Z")              # 9 PM ET New Year's Eve = still December (the US night)
+    assert sports.ncaab_away_fav({"ncaab:1": {**games["ncaab:1"], "start": "2027-01-01T02:00Z"}}, nye)
+    assert "college hoops small fav away from home, Nov-Dec (fade)" in sl.tags(road, sports)
+    src = open("sports.py").read()
+    assert "weigh_ncaab_away_fav(games, out)" in src and "mark_ncaab_rubber(games, out)" in src
+    assert src.index("mark_ncaab_rubber(games, out)") < src.index("    weigh_favorites(out)")
+    # (2) the rubber match: two earlier finals this season, split 1-1 -> the dog is flagged; a sweep / last season isn't
+    fin = lambda gid, start, h, a, hs, as_: {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": start,
+                                             "home": h, "away": a, "home_score": str(hs), "away_score": str(as_)}
+    today = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "start": "2027-03-10T00:00Z",
+             "home": "10", "away": "20", "neutral": "1"}
+    split = {"ncaab:9": today, "a": fin("a", "2027-01-10T00:00Z", "10", "20", 70, 60),
+             "b": fin("b", "2027-02-10T00:00Z", "20", "10", 75, 60)}
+    swept = {"ncaab:9": today, "a": fin("a", "2027-01-10T00:00Z", "10", "20", 70, 60),
+             "b": fin("b", "2027-02-10T00:00Z", "20", "10", 60, 75)}
+    old = {"ncaab:9": today, "a": fin("a", "2026-01-10T00:00Z", "10", "20", 70, 60),
+           "b": fin("b", "2027-02-10T00:00Z", "20", "10", 75, 60)}
+    dogm = lambda: {"league": "ncaab", "market": "ml", "odds": 170, "game_id": "ncaab:9", "side": "away",
+                    "start": today["start"], "dog_ctx": {}}
+    a, b, c_ = dogm(), dogm(), dogm()
+    sports.mark_ncaab_rubber(split, [a])
+    sports.mark_ncaab_rubber(swept, [b])
+    sports.mark_ncaab_rubber(old, [c_])
+    assert a.get("rubber_dog") and not b.get("rubber_dog") and not c_.get("rubber_dog")
+    assert sports.dog_spots(a) == sports.dog_spots(b) - sports.NCAAB_RUBBER_W == sports.dog_spots(b) - 2
+    assert sports.dog_spots({**a, "league": "nba"}) == sports.dog_spots({**b, "league": "nba"})   # college hoops only
+    assert "college hoops rubber-match dog (fade)" in sl.tags(a, sports)
+    # (3) the 5+ game skid (the same pass): the dog's losing streak this season; -2 at 5+, nothing at 4
+    skid = {"ncaab:9": today}
+    for i in range(6):
+        skid[f"s{i}"] = fin(f"s{i}", f"2027-02-0{i + 1}T00:00Z", "20", f"9{i}", 50 if i else 80, 60)   # W then 5 losses
+    skid["last_season"] = fin("ls", "2026-02-01T00:00Z", "20", "77", 50, 60)
+    k5, k4 = dogm(), dogm()
+    sports.mark_ncaab_rubber(skid, [k5])
+    del skid["s5"]
+    sports.mark_ncaab_rubber(skid, [k4])
+    assert k5["ncaab_skid"] == 5 and k4["ncaab_skid"] == 4 and not k5.get("rubber_dog")
+    assert sports.dog_spots(k5) == sports.dog_spots(k4) - sports.COLD_DOG_PTS
+    assert "college hoops dog on a 5+ game skid (fade)" in sl.tags(k5, sports)
+    assert "college hoops dog on a 5+ game skid (fade)" not in sl.tags(k4, sports)
+    # the favorite across reads +1 (half a point per dog point) through weigh_favorites
+    fav = {"league": "ncaab", "market": "ml", "odds": -200, "dec": d(-200), "edge_own": 0.7 * d(-200) - 1,
+           "game_id": "ncaab:9", "side": "home", "start": today["start"], "reasons": []}
+    sports.weigh_favorites([fav, {**a, "dec": d(170), "edge_own": 0.36 * d(170) - 1}])
+    assert abs(fav["w_p"] - 0.71) < 1e-9 and fav["opp_dog_pts"] == -2
+    # the rest LEAD (spread rows only): rested 4-5 nights vs a team that played 2 nights ago, home / road
+    keep = dict(sl._GAMES)
+    try:
+        sl._GAMES["ncaab"] = {
+            "ncaab:50": {"id": "ncaab:50", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-12T00:00Z",
+                         "home": "10", "away": "20", "neutral": "0"},
+            "p1": fin("p1", "2026-12-07T00:00Z", "10", "30", 70, 60),     # the home side: 5 nights ago
+            "p2": fin("p2", "2026-12-10T00:00Z", "40", "20", 70, 60)}     # the road side: 2 nights ago
+        sp = {"league": "ncaab", "market": "spread", "line": -4.5, "odds": -110, "dec": 1.909, "p": 0.5, "side": "home",
+              "game_id": "ncaab:50", "start": "2026-12-12T00:00Z", "reasons": []}
+        assert sl.hoops_rested_vs_two(sp)
+        assert "college hoops spread side on 4-5 nights rest vs a team on 2 (fade)" in sl.tags(sp, sports)
+        assert not sl.hoops_rested_vs_two({**sp, "side": "away"})          # the tired side isn't the fade
+        sl._GAMES["ncaab"]["ncaab:50"] = {**sl._GAMES["ncaab"]["ncaab:50"], "neutral": "1"}
+        assert not sl.hoops_rested_vs_two(sp)                              # tournaments (neutral) don't count
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
 
 
 if __name__ == "__main__":

@@ -73,6 +73,12 @@ def tags(c, sports):
         #   out (2022-25, 4 of 4 down) at a neutral site, -32.8% on 40 at home / road; the moneyline -10.4% / -16.8%
         #   (neutral, -400..+350) - but the dose is ragged (lost by 10-14 ATS +3.1%, 15-19 -27.2%, 20+ -13.2%) and ~60
         #   cells looked at: a LEAD, tracked only, never a weight (the season opens 11/3 - no live games yet)
+    if dog and lg == "ncaab" and c.get("rubber_dog") and c.get("odds", 0) <= 350:
+        t.append("college hoops rubber-match dog (fade)")   # 11/3 college hoops (B) study 2 (BUILT as a -2 dog_spots
+        #   weight): the 3rd meeting after a 1-1 split, the dog -22.1% on 457 (0 of 5 train, 0 of 3 held out) - its live record
+    if dog and lg == "ncaab" and (c.get("ncaab_skid") or 0) >= sports.NCAAB_SKID and c.get("odds", 0) <= 350:
+        t.append("college hoops dog on a 5+ game skid (fade)")   # 11/3 college hoops (B) study 4 (BUILT as a -2 dog_spots
+        #   weight): -20.0% on 1,127, Jan-Mar 0 of 5 train / 0 of 3 held out up - its live record
     if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_rest_stack(c):
         t.append("NBA dog on 2+ days off vs a team on a back-to-back")   # 11/2 daily study 3 (rest stacking): the dog
         #   with 2+ nights off vs a b2b team +6.2% on 104 train (2016-22, 3 of 5 up) / +13.4% on 65 held out vs -0.1% /
@@ -256,6 +262,10 @@ def tags(c, sports):
             #   hoops prep): -101..-150 favorites on the road / at a neutral site in their first 3 games -18.1% on 95 train
             #   (2018-21, 1 of 4 up) / -12.1% on 84 held out (2022-25, 0 of 4 up) vs -4.1% for road favorites later; at
             #   home +2.1% - the open 10/16 'college hoops Locks small the first 2 weeks' question; tracked only
+        if c.get("ncaab_away_fav"):                          # 11/3 college hoops (B) study 4b (BUILT as a -3 weight,
+            t.append("college hoops small fav away from home, Nov-Dec (fade)")   # sports.weigh_ncaab_away_fav): its live
+            #   record - -11.6% on 1,097 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the fade
+            #   side winning 55%+ against a -125 average price = the weight comes off
         if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_rust(c):
             t.append("college hoops small fav off 7+ days vs a team in rhythm (fade)")   # 10/31 daily study 10: -17.9%
             #   on 167 train (2018-21, 1 of 4 up) / -12.3% on 243 held out (2022-25, 3 of 4 down) outside December vs
@@ -689,7 +699,37 @@ def spread_tags(c, sports):
     t = []
     if sports.nba_early_spread_fav(c):
         t.append("NBA spread fav 3.5-12.5, games 1-20 (fade)")
+    if hoops_rested_vs_two(c):
+        t.append("college hoops spread side on 4-5 nights rest vs a team on 2 (fade)")   # 11/3 college hoops (B) study 1
+        #   (s6_followups.py c): home / road games, the side rested 4-5 nights vs a team that played 2 nights ago (the
+        #   Thursday-Saturday team) ATS -14.5% on 717 (train -13.5%, 0 of 5 up; held out -16.6%, 0 of 3) - but the dose is
+        #   ragged (rested 3 -7.7%, 6+ -3.8%), the moneyline doesn't carry it (the rested favorite -9.6% then +3.0% held
+        #   out) and there are no spread opens for a 2nd check: a LEAD, tracked only, never a weight
     return t
+
+
+HOOPS_RESTED = (4, 5)        # 11/3 college hoops (B) study 1: this side's nights since its last game
+HOOPS_TIRED_NIGHTS = 2       # ...vs an opponent that played exactly 2 nights ago
+
+
+def hoops_rested_vs_two(c):
+    """A college hoops side at home / on the road (not a neutral site) whose last game was 4-5 nights ago, vs an opponent
+    whose last game was exactly 2 nights ago - this season's finals only."""
+    if c.get("league") != "ncaab":
+        return False
+    g = _game(c)
+    if str(g.get("neutral")) == "1":
+        return False
+    team, rows = _season_before(c)
+    oteam, orows = _season_before(dict(c, side="away" if c.get("side") == "home" else "home"))
+    if not team or not oteam or not rows or not orows:
+        return False
+    try:
+        now = _night(c.get("start") or g.get("start"))
+        return HOOPS_RESTED[0] <= now - _night(rows[-1]["start"]) <= HOOPS_RESTED[1] \
+            and now - _night(orows[-1]["start"]) == HOOPS_TIRED_NIGHTS
+    except (TypeError, ValueError):
+        return False
 
 
 NHL_FEB_HOME_ODDS = (-250, 350)     # 11/2 daily study 5: the bands graded (home favorites to -250, home dogs to +350)

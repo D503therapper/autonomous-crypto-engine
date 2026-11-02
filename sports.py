@@ -805,7 +805,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_hoops_inside(games, out, now)
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
+    mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
+    weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -2091,6 +2093,10 @@ def dog_spots(c):
         sc -= 3                    # won 2+ close games lately: -20.0% vs -3.4% (worse 7 of 8) - over-rated
     elif lg == "ncaab" and (x.get("cw5") or 0) >= 2:
         sc -= 1                    # (college hoops: the same, weaker - worse 5 of 8)
+    if lg == "ncaab" and c.get("rubber_dog"):
+        sc -= NCAAB_RUBBER_W       # 11/3: the rubber-match dog (3rd meeting after a 1-1 split) -22.1% on 457, 8 of 8 down
+    if lg == "ncaab" and (c.get("ncaab_skid") or 0) >= NCAAB_SKID:
+        sc -= COLD_DOG_PTS         # 11/3: the college hoops dog on a 5+ game losing streak -20.0% on 1,127 (Jan-Mar 8 of 8 down)
     if lg == "nhl" and x.get("hits_top"):
         sc += 2                    # out-hitting people (top quarter, last 10): +2.2% vs -6.1% (5 of 5)
     if lg == "mlb" and (x.get("luck_gap") or 0) <= -0.10:
@@ -3233,6 +3239,93 @@ def weigh_ncaaf_fav_form_spot(cands):
         c["w_p"] = round(min(0.95, max(0.05, min(own + FAV_CAP, base + NCAAF_FAV_SPOT_W))), 4)
         c["fav_form_spot"] = True
         c["reasons"] = c["reasons"] + ["off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"]
+
+
+NCAAB_AWAY_FAV_W = -0.03          # 🏀 11/3 COLLEGE HOOPS (B), study 4/5 (results/studies/cbb_1103_b/s4b_away_fav_novdec.py):
+NCAAB_AWAY_FAV_BAND = (-150, -101)  # a college hoops moneyline favorite -101..-150 AWAY FROM HOME (true road or a neutral
+NCAAB_AWAY_FAV_MONTHS = ("11", "12")  # site) in November-December lost to its close -11.6% on 1,097 (train 2018-22 -10.9%,
+#                                   0 of 5 seasons up; held out 2023-25 -12.8%, 0 of 3; every season 2018-25 down; the OPEN
+#                                   2023-25 -11.4%) vs -3.0% for the same favorites Jan-Mar and +0.6% at home Nov-Dec; ATS
+#                                   the same side -11.1%. Non-conference games carry it (-13.0% on 963, 8 of 8 down). The
+#                                   10/30 November study's games-1-3 lead was the front of this. A WEIGHT on the favorite's
+#                                   read (-3 points - about half the gap), never a trigger; the whole lift stays in FAV_CAP.
+
+
+def ncaab_away_fav(games, c):
+    """A college hoops moneyline favorite -101..-150 playing away from home (road or a neutral site) in Nov-Dec."""
+    if c.get("league") != "ncaab" or c.get("market") != "ml":
+        return False
+    if not (NCAAB_AWAY_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_AWAY_FAV_BAND[1]):
+        return False
+    g = (games or {}).get(c.get("game_id")) or {}
+    start = str(g.get("start") or c.get("start") or "")
+    try:
+        month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+    except ValueError:
+        return False
+    away = c.get("side") == "away" or str(g.get("neutral")) == "1"
+    return month in NCAAB_AWAY_FAV_MONTHS and away
+
+
+def weigh_ncaab_away_fav(games, cands):
+    """The Nov-Dec college hoops favorite away from home: its weighed read goes down NCAAB_AWAY_FAV_W (floor own - FAV_CAP)."""
+    for c in cands:
+        if not ncaab_away_fav(games, c) or c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_AWAY_FAV_W))), 4)
+        c["ncaab_away_fav"] = True
+        c["reasons"] = c["reasons"] + ["a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"]
+
+
+NCAAB_RUBBER_W = 2       # 🏀 11/3 COLLEGE HOOPS (B), study 2 (s2_revenge.py / s6_followups.py): the DOG in a RUBBER MATCH -
+#                          the third meeting of a season after the teams split the first two (regular season, nearly all
+#                          conference tournaments) - lost to its close -22.1% on 457 (train -25.1%, 0 of 5 up; held out
+#                          -17.6%, 0 of 3; the OPEN -22.5%) vs -9.6% for every March neutral-site dog; +150..+220 -35.1%,
+#                          neutral -20.0%, home / road -31.8%. -2 on the dog's study points (dog_spots) - so the favorite
+#                          across reads +1 (weigh_favorites) - a weight, never a trigger. The college hoops Dog is off.
+
+
+NCAAB_SKID = 5           # 🏀 11/3 COLLEGE HOOPS (B), study 4 (s4_form_vs_rating.py / s4c_cold_dog.py): a college hoops DOG on a
+#                          5+ game losing streak this season lost to its close -20.0% on 1,127 (Jan-Mar -22.6% on 970: train
+#                          -24.8% 0 of 5 up, held out -19.3% 0 of 3; the OPEN -20.9%) vs -8.4% for every Jan-Mar dog - in every
+#                          price band (+100..+159 -19.4% vs -4.6%, +160..+249 -20.2% vs -9.0%, +250..+350 -29.8% vs -9.8%);
+#                          at home -25.8% (0 of 5 / 0 of 3). The dose is ragged (a 4-game skid +8.0%, 6-7 held out flat) and
+#                          November-December is flat (-3.8% on 157) - so the NBA's size, -2 (COLD_DOG_PTS), a weight inside
+#                          STUDY_CAP, never a gate. (The 10/25 sweep read college hoops cold dogs 'mixed' on 27 gated dogs.)
+
+
+def mark_ncaab_rubber(games, cands):
+    """College hoops dog facts from this season's finals (one pass): rubber_dog - the two teams met exactly twice before
+    (regular season) and split 1-1; ncaab_skid - this side's current losing streak."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") == "ml" and c.get("odds", 0) >= 100]
+    if not hoops:
+        return
+    meet, team_games = {}, {}
+    for x in (games or {}).values():
+        if x.get("league", "ncaab") != "ncaab" or x.get("status") != "final" or str(x.get("stype") or "2") != "2":
+            continue
+        try:
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        st_, h, a = x.get("start") or "", x.get("home"), x.get("away")
+        meet.setdefault(frozenset((h, a)), []).append((st_, h if hs > as_ else a))
+        team_games.setdefault(h, []).append((st_, hs > as_))
+        team_games.setdefault(a, []).append((st_, as_ > hs))
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 7:
+            continue
+        y = int(start[:4]) if int(start[5:7]) >= 7 else int(start[:4]) - 1
+        lo = f"{y}-07-01"
+        prior = [w for s, w in sorted(meet.get(frozenset((g.get("home"), g.get("away"))), [])) if lo <= s < start]
+        if len(prior) == 2 and prior[0] != prior[1]:
+            c["rubber_dog"] = True
+        mine = [w for s, w in sorted(team_games.get(g.get(c.get("side")), [])) if lo <= s < start]
+        c["ncaab_skid"] = next((i for i, w in enumerate(reversed(mine)) if w), len(mine))
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
