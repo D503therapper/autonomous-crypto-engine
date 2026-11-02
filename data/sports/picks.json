@@ -28124,6 +28124,7 @@
      "us:hotseat"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -28166,6 +28167,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,0,0,0",
+     "h": "3,10,3,11"
+    },
     "form_state": [
      -17.0,
      -5,
@@ -28222,10 +28227,12 @@
     "raw_own": 0.3442,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Eagles 10 @ Commanders 27",
     "season_games": null,
+    "settled": "2026-11-02T04:25Z",
     "side": "away",
     "start": "2026-11-02T01:20Z",
     "stype": "2",
@@ -28241,12 +28248,14 @@
    }
   ],
   "p_hit": 0.5075,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-01T16:00Z",
   "round": 1,
+  "settled": "2026-11-02T04:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -125,
@@ -28288,6 +28297,7 @@
      "game:nonconf"
     ],
     "dec": 1.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -28324,6 +28334,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,1,1",
+     "h": "0,1,0"
+    },
     "form_state": [
      -3.0,
      -3,
@@ -28372,10 +28386,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Oilers 4 @ Rangers 1",
     "season_games": null,
+    "settled": "2026-11-02T01:37Z",
     "side": "home",
     "start": "2026-11-01T23:00Z",
     "stype": "2",
@@ -28393,12 +28409,14 @@
    }
   ],
   "p_hit": 0.532,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-01T16:00Z",
   "round": 1,
+  "settled": "2026-11-02T01:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -130,
@@ -28620,6 +28638,7 @@
      "us:west1000"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -28683,6 +28702,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "37,20,28,27",
+     "h": "29,34,29,32"
+    },
     "form_state": [
      -26.0,
      -4,
@@ -28740,10 +28763,12 @@
      "opponent missing key players: Stephen Curry (their read -9)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Clippers 112 @ Warriors 124",
     "season_games": 5,
+    "settled": "2026-11-02T04:14Z",
     "side": "away",
     "start": "2026-11-02T01:30Z",
     "stype": "2",
@@ -28760,12 +28785,14 @@
    }
   ],
   "p_hit": 0.4406,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-01T16:00Z",
   "round": 1,
+  "settled": "2026-11-02T04:14Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "value",
+  "units": 0.5,
   "was_dog": "2026-11-01T20:34Z"
  },
  {

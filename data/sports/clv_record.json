@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 161,
-  "beat": 53,
-  "same": 59,
+  "n": 164,
+  "beat": 55,
+  "same": 60,
   "worse": 49,
-  "avg_pts": 0.08
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 73,
-  "beat": 22,
+  "n": 75,
+  "beat": 24,
   "same": 33,
   "worse": 18,
-  "avg_pts": 0.14
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
-   "n": 20,
-   "beat": 4,
+   "n": 21,
+   "beat": 5,
    "same": 9,
    "worse": 7,
-   "avg_pts": -0.26
+   "avg_pts": -0.19
   },
   "lean": {
-   "n": 88,
+   "n": 89,
    "beat": 31,
-   "same": 26,
+   "same": 27,
    "worse": 31,
-   "avg_pts": 0.04
+   "avg_pts": 0.03
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 40,
-   "beat": 11,
+   "n": 41,
+   "beat": 12,
    "same": 20,
    "worse": 9,
-   "avg_pts": 0.04
+   "avg_pts": 0.09
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 19,
-   "beat": 8,
+   "n": 21,
+   "beat": 10,
    "same": 8,
    "worse": 3,
-   "avg_pts": 0.55
+   "avg_pts": 0.65
   },
   "ncaaf": {
    "n": 46,
@@ -73,9 +73,9 @@
    "avg_pts": 0.17
   },
   "nhl": {
-   "n": 59,
+   "n": 60,
    "beat": 18,
-   "same": 21,
+   "same": 22,
    "worse": 20,
    "avg_pts": -0.07
   }
@@ -2341,6 +2341,20 @@
    "date": "2026-11-01",
    "kind": "lean",
    "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -125,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "lean",
+   "lean": true,
    "league": "nfl",
    "team": "Buccaneers",
    "market": "ml",
@@ -2355,6 +2369,20 @@
    "date": "2026-11-01",
    "kind": "play",
    "lean": false,
+   "league": "nba",
+   "team": "Clippers",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 105,
+   "pts": 2.1,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "play",
+   "lean": false,
    "league": "nfl",
    "team": "Vikings",
    "market": "ml",
@@ -2364,6 +2392,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "dog",
+   "lean": false,
+   "league": "nba",
+   "team": "Nets",
+   "market": "ml",
+   "line": null,
+   "odds": 142,
+   "close": 136,
+   "pts": 1.1,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }
