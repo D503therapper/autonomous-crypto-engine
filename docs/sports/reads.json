@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T23:00Z",
+ "updated": "2026-11-02T23:05Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -191,8 +191,8 @@
    "away": "Carn Mellon",
    "home": "Princeton",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -206,8 +206,8 @@
    "away": "UMBC",
    "home": "George Mason",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -235,6 +235,36 @@
    "start": "2026-11-02T22:30Z",
    "away": "UAB",
    "home": "McNeese",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928858",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-02T23:00Z",
+   "away": "Bowling Green",
+   "home": "Georgia St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401925733",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-02T23:00Z",
+   "away": "Oakland",
+   "home": "Michigan",
    "h1": null,
    "why": "started",
    "done": false,
@@ -404,7 +434,7 @@
     "market": "spread",
     "line": 25.5,
     "odds": -112,
-    "p": 0.52,
+    "p": 0.521,
     "win_p": 0.037,
     "reasons": []
    }
@@ -897,9 +927,9 @@
     "team": "Maine",
     "opp": "Providence",
     "market": "spread",
-    "line": 31.5,
-    "odds": -112,
-    "p": 0.527,
+    "line": 32.5,
+    "odds": -105,
+    "p": 0.529,
     "win_p": 0.024,
     "reasons": []
    }
@@ -1099,7 +1129,7 @@
     "market": "spread",
     "line": 28.5,
     "odds": -105,
-    "p": 0.523,
+    "p": 0.524,
     "win_p": 0.019,
     "reasons": []
    }
@@ -1318,7 +1348,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.551,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1334,9 +1364,9 @@
     "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.604,
-    "win_p": 0.604,
+    "odds": -174,
+    "p": 0.61,
+    "win_p": 0.61,
     "reasons": [
      "opponent missing key players",
      "rolling off a blowout win"
@@ -1699,8 +1729,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.723,
-    "tie": 0.03,
+    "p": 0.7,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1714,10 +1744,10 @@
     "team": "Hawks",
     "opp": "Pacers",
     "market": "spread",
-    "line": -10.5,
-    "odds": -112,
-    "p": 0.503,
-    "win_p": 0.811,
+    "line": -8.5,
+    "odds": -117,
+    "p": 0.501,
+    "win_p": 0.785,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1930,8 +1960,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.778,
-    "tie": 0.026,
+    "p": 0.773,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1946,9 +1976,9 @@
     "opp": "Nets",
     "market": "spread",
     "line": -14.5,
-    "odds": -114,
+    "odds": -110,
     "p": 0.507,
-    "win_p": 0.889,
+    "win_p": 0.884,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -2494,7 +2524,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Siena",
-    "p": 0.598,
+    "p": 0.588,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -3307,8 +3337,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah State",
-    "p": 0.913,
-    "tie": 0.016,
+    "p": 0.921,
+    "tie": 0.015,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3324,11 +3354,9 @@
     "market": "spread",
     "line": 26.5,
     "odds": -105,
-    "p": 0.521,
-    "win_p": 0.032,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "p": 0.522,
+    "win_p": 0.027,
+    "reasons": []
    }
   },
   {
@@ -4205,8 +4233,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.395,
-    "tie": 0.297,
+    "p": 0.39,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4222,8 +4250,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.628,
-    "win_p": 0.41,
+    "p": 0.639,
+    "win_p": 0.42,
     "reasons": []
    }
   },
