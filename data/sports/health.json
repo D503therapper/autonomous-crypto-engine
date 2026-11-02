@@ -1,26 +1,35 @@
 {
- "at": "2026-11-02T12:43Z",
+ "at": "2026-11-02T14:14Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Baez vs Merida: no points for 2214s"
+ ],
  "ok": [
-  "live watcher fresh (1s)",
+  "live watcher fresh (61s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
-  "all 3 backup sources answering",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 38 min ago",
+  "studies ran 9h ago",
+  "simulator ran 7h ago",
+  "engine ran 64 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-02T14:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Baez vs Merida: no points for 2214s"
+   ]
+  },
   {
    "at": "2026-11-02T12:43Z",
    "fixes": [],
@@ -537,13 +546,6 @@
    "at": "2026-10-31T23:35Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-31T23:34Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553257 HTTP 404, betrivers:ncaaf:1027553329 HTTP 404"
-   ]
   }
  ]
 }
