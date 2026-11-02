@@ -9,7 +9,8 @@ Every engine run:
      Then the "life" factors (age + experience from ESPN bios, the last match, streaks, first-set record, injuries,
      travel) are each tested against that model on the same holdout - a factor joins a tour's model only with a
      real gain (paired log-loss z 2+); otherwise its weights stay 0.
-  3. Odds: Bovada's public feed (current men's singles moneylines), refreshed every run.
+  3. Odds: The Odds API (the owner's key, 11/2 - 3 pull slots a day inside a hard credit cap), then Bovada's plain
+     public feed as the fallback (no disguise); the last prices stay between reads.
   4. Once a day (from 8am Pacific on game day, like the main board: the next 24 hours of matches): up to 4 men's and 4 women's
      straight picks (55%+ and real value - fewer qualify = fewer picks, never filler), a Men's Tennis Parlay and a
      Women's Tennis Parlay (the 3 likeliest of that tour - never a mixed parlay). Posted picks are final.
@@ -39,7 +40,7 @@ DIR = os.path.join(sd.DATA, "tennis")
 MATCHES = os.path.join(DIR, "matches.csv")
 PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
-ODDS_STATUS = os.path.join(DIR, "odds_status.json")   # the last Bovada read: lines, raw size, error
+ODDS_STATUS = os.path.join(DIR, "odds_status.json")   # the last odds read: which source answered, lines, credits, error
 RANKS = os.path.join(DIR, "rankings.json")   # ATP + WTA rankings, saved daily (ESPN only has today's): {date: {"tour:id": rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
 SET1_LINES = os.path.join(DIR, "set1_lines.json")   # RESEARCH ONLY: Bovada's first-set markets, the last price before the
@@ -928,6 +929,194 @@ def _median(xs):
     return xs[len(xs) // 2] if xs else None
 
 
+# ---------------------------------------------------------------- 🎾 The Odds API (11/2: the legit tennis price source)
+# Bovada's tennis feeds answer EMPTY to a plain request since 10/29 (only a browser-disguised request got through, and
+# the owner's rule forbids disguises). The owner (11/2): "We need a legit source for tennis regardless". ESPN's tennis
+# scoreboard carries no odds; The Odds API does - the owner's own key (the ODDS_API_KEY GitHub secret, read from the
+# environment only, never written anywhere). Tennis there is PER TOURNAMENT: GET /v4/sports (free, 0 credits) lists the
+# active tennis_atp_* / tennis_wta_* keys, then GET /v4/sports/{key}/odds (regions=us, markets=h2h) costs 1 credit a
+# tournament. A typical week has 2-5 tour events priced -> ~4 credits a pull, 3 pulls a day (TENNIS_ODDS_SLOTS_PT) ->
+# ~12 a day, ~360 a month - under the FREE plan's 500 with room for the checks. Hard caps: per run, per day, per month,
+# and a floor on the credits the plan has left (the same pool the odds-history studies spend).
+ODDS_API = "https://api.the-odds-api.com/v4/sports"
+ODDS_USAGE = os.path.join(DIR, "odds_api_usage.json")   # credits this engine spent on tennis, by day and month
+TENNIS_ODDS_SLOTS_PT = (7, 15, 23)   # pull at the first run at / after these Pacific hours: 7 AM = the 7:44 run before the
+#                                      8 AM board; 3 PM = tonight's US + tomorrow's Asia order of play; 11 PM = Europe's
+#                                      day (the live checker's pre-match price is the last pull before the first serve)
+TENNIS_ODDS_RUN_CAP = 8              # credits (tournaments) a single pull may spend
+TENNIS_ODDS_DAILY_CAP = 15           # credits a day (Pacific day)
+TENNIS_ODDS_MONTH_CAP = 450          # credits a month - fits The Odds API's free 500 / month
+TENNIS_ODDS_FLOOR = 25               # never pull with fewer than this many credits left on the plan
+ODDS_API_SKIP = ("doubles",)         # (the engine prices singles only)
+
+
+def _odds_key():
+    return (os.environ.get("ODDS_API_KEY") or "").strip()
+
+
+def _api_get(url):
+    """(json, response headers as a lower-case dict). The key rides in the URL - never printed: errors are scrubbed."""
+    with urllib.request.urlopen(url, timeout=20) as r:
+        return json.load(r), {k.lower(): v for k, v in r.headers.items()}
+
+
+def _scrub(msg, key):
+    msg = str(msg)
+    return msg.replace(key, "***") if key else msg
+
+
+def _int(x):
+    try:
+        return int(float(x))
+    except (TypeError, ValueError):
+        return None
+
+
+def load_usage(path=None):
+    try:
+        with open(path or ODDS_USAGE) as f:
+            u = json.load(f)
+        return u if isinstance(u, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def save_usage(u, path=None):
+    path = path or ODDS_USAGE
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    days = dict(sorted((u.get("days") or {}).items())[-40:])          # (a rolling 40 days, 13 months)
+    months = dict(sorted((u.get("months") or {}).items())[-13:])
+    with open(path + ".tmp", "w") as f:
+        json.dump({**u, "days": days, "months": months}, f, indent=1, sort_keys=True)
+    os.replace(path + ".tmp", path)
+
+
+def odds_slot(now):
+    """The latest pull slot (a UTC datetime) at or before `now` (TENNIS_ODDS_SLOTS_PT, Pacific hours)."""
+    lp = now.astimezone(PT)
+    for back in (0, 1):
+        d = (lp - timedelta(days=back)).date()
+        for h in sorted(TENNIS_ODDS_SLOTS_PT, reverse=True):
+            t = datetime(d.year, d.month, d.day, h, tzinfo=PT)
+            if t <= lp:
+                return t.astimezone(timezone.utc)
+    return None
+
+
+def odds_due(now, usage):
+    """(pull now?, why not). Due when the latest slot passed after the last pull; never past a cap or the floor."""
+    day, month = now.astimezone(PT).strftime("%Y-%m-%d"), now.astimezone(PT).strftime("%Y-%m")
+    if (usage.get("months") or {}).get(month, 0) >= TENNIS_ODDS_MONTH_CAP:
+        return False, f"month cap {TENNIS_ODDS_MONTH_CAP}"
+    if (usage.get("days") or {}).get(day, 0) >= TENNIS_ODDS_DAILY_CAP:
+        return False, f"daily cap {TENNIS_ODDS_DAILY_CAP}"
+    rem = usage.get("remaining")
+    if rem is not None and rem < TENNIS_ODDS_FLOOR and str(usage.get("remaining_at", ""))[:7] == now.strftime("%Y-%m"):
+        return False, f"plan floor ({rem} credits left < {TENNIS_ODDS_FLOOR})"   # (a new month: the plan refilled - try)
+    slot, last = odds_slot(now), usage.get("last_pull")
+    if last and slot and _t(last) >= slot:
+        return False, "not due (pulled since the " + slot.astimezone(PT).strftime("%H:00 PT") + " slot)"
+    return True, ""
+
+
+def oddsapi_tour(sport):
+    """'atp' / 'wta' for an active singles tennis key from /v4/sports; None for anything else."""
+    k = str(sport.get("key") or "").lower()
+    if not k.startswith("tennis_") or sport.get("has_outrights") or not sport.get("active", True):
+        return None
+    if any(x in f"{k} {str(sport.get('title') or '').lower()} {str(sport.get('description') or '').lower()}"
+           for x in ODDS_API_SKIP):
+        return None
+    return "atp" if k.startswith("tennis_atp") else "wta" if k.startswith("tennis_wta") else None
+
+
+def parse_oddsapi(events, tour):
+    """The Odds API events (one tournament) -> [{a, b, start, a_ml, b_ml, tour, src, books}]: the MEDIAN American price
+    of each player across the US books that quote the match (one book's stale or off number never sets it)."""
+    out = []
+    for ev in events if isinstance(events, list) else []:
+        if not isinstance(ev, dict):
+            continue
+        a, b = ev.get("home_team"), ev.get("away_team")
+        try:
+            start = datetime.strptime(str(ev.get("commence_time"))[:19], "%Y-%m-%dT%H:%M:%S").strftime("%Y-%m-%dT%H:%MZ")
+        except ValueError:
+            continue
+        if not a or not b or "/" in f"{a}{b}":                         # (a doubles pair: "X / Y")
+            continue
+        pa, pb = [], []
+        for bk in ev.get("bookmakers") or []:
+            for mk in bk.get("markets") or []:
+                if mk.get("key") != "h2h":
+                    continue
+                got = {o.get("name"): _int(o.get("price")) for o in mk.get("outcomes") or []}
+                if len(got) == 2 and got.get(a) is not None and got.get(b) is not None \
+                        and abs(got[a]) >= 100 and abs(got[b]) >= 100:
+                    pa.append(got[a])
+                    pb.append(got[b])
+        if not pa:
+            continue
+        out.append({"a": a, "b": b, "start": start, "a_ml": _median(pa), "b_ml": _median(pb), "tour": tour,
+                    "src": "oddsapi", "books": len(pa)})
+    return out
+
+
+def oddsapi(now, get=None, key=None, usage_path=None):
+    """Tennis moneylines from The Odds API, inside the credit caps. -> (lines, info) - info goes in odds_status.json
+    (pulled?, why not, tournaments, credits used / left). Raises only when a pull was due and every call failed."""
+    key = _odds_key() if key is None else key
+    if not key:
+        return [], {"pulled": False, "why": "no ODDS_API_KEY"}
+    usage = load_usage(usage_path)
+    due, why = odds_due(now, usage)
+    if not due:
+        return [], {"pulled": False, "why": why, "remaining": usage.get("remaining")}
+    get = get or _api_get
+    day, month = now.astimezone(PT).strftime("%Y-%m-%d"), now.astimezone(PT).strftime("%Y-%m")
+    info = {"pulled": True, "credits_used": 0, "keys": []}
+    try:
+        sports, hdr = get(f"{ODDS_API}/?apiKey={key}")                       # free: 0 credits
+    except Exception as e:                                                   # noqa: BLE001
+        raise RuntimeError("odds api sports list: " + _scrub(e, key)[:120]) from None
+    rem = _int(hdr.get("x-requests-remaining"))
+    tours = [(s["key"], t) for s in sports if isinstance(s, dict) for t in [oddsapi_tour(s)] if t] \
+        if isinstance(sports, list) else []
+    room = min(TENNIS_ODDS_RUN_CAP, TENNIS_ODDS_DAILY_CAP - (usage.get("days") or {}).get(day, 0),
+               TENNIS_ODDS_MONTH_CAP - (usage.get("months") or {}).get(month, 0))
+    lines, errs = [], []
+    for sk, tour in tours:
+        if info["credits_used"] >= room:
+            info["capped"] = f"{len(tours) - len(info['keys']) - len(errs)} tournaments left for the next pull (cap)"
+            break
+        if rem is not None and rem < TENNIS_ODDS_FLOOR:
+            info["capped"] = f"plan floor ({rem} credits left)"
+            break
+        try:
+            evs, hdr = get(f"{ODDS_API}/{sk}/odds/?apiKey={key}&regions=us&markets=h2h&oddsFormat=american&dateFormat=iso")
+        except Exception as e:                                               # noqa: BLE001 - one event never stops the rest
+            errs.append(f"{sk}: {_scrub(e, key)[:60]}")
+            continue
+        last = _int(hdr.get("x-requests-last"))
+        info["credits_used"] += last if last is not None else 1
+        rem = _int(hdr.get("x-requests-remaining")) if hdr.get("x-requests-remaining") is not None else rem
+        got = parse_oddsapi(evs, tour)
+        info["keys"].append(f"{sk} {len(got)}")
+        lines += got
+    days, months = usage.setdefault("days", {}), usage.setdefault("months", {})
+    days[day] = days.get(day, 0) + info["credits_used"]
+    months[month] = months.get(month, 0) + info["credits_used"]
+    usage["last_pull"] = now.strftime("%Y-%m-%dT%H:%MZ")
+    if rem is not None:
+        usage["remaining"], usage["remaining_at"] = rem, now.strftime("%Y-%m-%dT%H:%MZ")
+    save_usage(usage, usage_path)
+    info.update(remaining=rem, today=usage["days"][day], month=usage["months"][month], tournaments=len(tours))
+    if errs:
+        info["error"] = "; ".join(errs)[:200]
+        if not info["keys"]:
+            raise RuntimeError(info["error"])
+    return lines, info
+
+
 _BOV_RAW = [None]                 # the last raw Bovada payload (the first-set capture reads it; research only)
 
 
@@ -1129,36 +1318,72 @@ def save_set1_lines(rows, now, path=None):
     os.replace(path + ".tmp", path)
 
 
-def refresh_odds(state, now):
-    """Prices for upcoming matches from Bovada (kept from the last good read if the feed fails)."""
+def _line_key(ln):
+    return f"{'|'.join(sorted((_last(ln['a']), _last(ln['b']))))}|{str(ln.get('start', ''))[:10]}"
+
+
+def refresh_odds(state, now, api=None):
+    """Prices for upcoming matches. 11/2: The Odds API first (the legit source - only at its pull slots, inside the
+    credit caps), then Bovada's plain request (free, no disguise - empty since 10/29). The cache (odds.json) MERGES:
+    a match keeps its last price until a newer read has one, so the 7 AM pull carries the board and the live checker's
+    pre-match numbers between pulls. odds_status.json says which source answered, the lines, the credits, any error."""
+    api = api or oddsapi
     cache = {}
     if os.path.exists(ODDS):
         with open(ODDS) as f:
             cache = json.load(f)
-    status = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "src": "bovada"}
+    status = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "src": None}
+    lines, errs = [], []
     try:
-        lines = bovada()
-        raw = _BOV_RAW[0]
-        status.update(lines=len(lines), raw=(f"{type(raw).__name__} {len(raw)}" if raw is not None else "none"),
-                      url=_BOV_SRC[0])
+        lines, info = api(now)
+        status["oddsapi"] = info
         if lines:
-            cache = {"fetched": now.strftime("%Y-%m-%dT%H:%MZ"), "src": "bovada", "lines": lines}
-            os.makedirs(DIR, exist_ok=True)
-            with open(ODDS, "w") as f:
-                json.dump(cache, f, indent=1)
-        save_lines(lines, now)
-        print(f"tennis odds: {len(lines)} singles matches priced (bovada)")
-        try:                                             # research only: never touches the lines above
-            s1 = parse_bovada_set1(_BOV_RAW[0])
-            save_set1_lines(s1, now)
-            print(f"tennis first-set lines: {sum('a_s1' in r for r in s1)} first-set winner markets seen "
-                  f"({len(s1)} matches with any set market)")
-        except Exception as e:                           # noqa: BLE001
-            print(f"tennis first-set capture failed: {str(e)[:80]}")
+            status["src"] = "oddsapi"
+        if info.get("error"):
+            errs.append(f"odds api: {info['error']}")
     except Exception as e:                               # noqa: BLE001
-        sd.ERRORS.append(f"bovada: {str(e)[:100]}")
-        status["error"] = str(e)[:200]
-        print(f"tennis odds: BOVADA FAILED ({str(e)[:80]}) - tell the owner if this keeps happening")
+        status["oddsapi"] = {"pulled": True, "error": str(e)[:200]}
+        errs.append(f"odds api: {str(e)[:150]}")
+        print(f"tennis odds: THE ODDS API FAILED ({str(e)[:80]})")
+    if not lines:
+        try:
+            lines = bovada()
+            raw = _BOV_RAW[0]
+            status["bovada"] = {"lines": len(lines), "url": _BOV_SRC[0],
+                                "raw": (f"{type(raw).__name__} {len(raw)}" if raw is not None else "none")}
+            if lines:
+                status["src"] = "bovada"
+            try:                                         # research only: never touches the lines above
+                s1 = parse_bovada_set1(_BOV_RAW[0])
+                save_set1_lines(s1, now)
+                print(f"tennis first-set lines: {sum('a_s1' in r for r in s1)} first-set winner markets seen "
+                      f"({len(s1)} matches with any set market)")
+            except Exception as e:                       # noqa: BLE001
+                print(f"tennis first-set capture failed: {str(e)[:80]}")
+        except Exception as e:                           # noqa: BLE001
+            status["bovada"] = {"error": str(e)[:200]}
+            errs.append(f"bovada: {str(e)[:150]}")
+            print(f"tennis odds: BOVADA FAILED ({str(e)[:80]})")
+    status["lines"] = len(lines)
+    if lines:
+        keep = (now - timedelta(hours=6)).strftime("%Y-%m-%dT%H:%M")
+        merged = {_line_key(ln): ln for ln in cache.get("lines", []) if ln.get("start", "") >= keep}
+        merged.update({_line_key(ln): ln for ln in lines})
+        cache = {"fetched": now.strftime("%Y-%m-%dT%H:%MZ"), "src": status["src"],
+                 "lines": sorted(merged.values(), key=lambda x: (x.get("start", ""), str(x["a"])))}
+        os.makedirs(DIR, exist_ok=True)
+        with open(ODDS, "w") as f:
+            json.dump(cache, f, indent=1)
+        save_lines(lines, now)
+        print(f"tennis odds: {len(lines)} singles matches priced ({status['src']})")
+    else:
+        why = (status.get("oddsapi") or {}).get("why")
+        print("tennis odds: no new prices this run - the last prices stay" +
+              (f" ({'; '.join(errs)[:120]})" if errs else f" (odds api: {why or '-'}; bovada empty)"))
+        if errs:
+            sd.ERRORS.append(f"tennis odds: {'; '.join(errs)[:150]}")
+            status["error"] = "; ".join(errs)[:300]
+    status["cached"] = len(cache.get("lines", []))
     try:                                                 # (10/30: the feed went quiet 10/29 11:20Z with no trace in the
         os.makedirs(DIR, exist_ok=True)                  #  repo - every read now leaves its outcome where a session can see it)
         with open(ODDS_STATUS, "w") as f:

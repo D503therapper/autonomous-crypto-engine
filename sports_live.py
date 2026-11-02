@@ -276,8 +276,21 @@ def _get(url, tries=2):
             time.sleep(0.5)
 
 
+def plain_tennis(url):
+    """🎾 11/2 (the owner's rule: no disguises to get past a site's blocks): every TENNIS read goes out as the engine's
+    own plain request - no browser User-Agent, no Referer / Origin. Bovada answers its tennis feeds empty to a plain
+    request since 10/29, so live tennis has no in-play book price unless a book serves it plainly; the pre-match prices
+    come from The Odds API (sports_tennis.oddsapi). The other sports' Bovada reads are untouched here (STATUS 11/2)."""
+    u = str(url).lower()
+    return "/tennis" in u or ("bovada" in u and "/scores/" in u)     # (the score feed is read for tennis only)
+
+
+PLAIN_HDR = {"Accept": "application/json"}
+
+
 def _get1(url):
-    hdr = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"} if "bovada" in url else {}   # Bovada sends an empty
+    hdr = PLAIN_HDR if plain_tennis(url) else \
+        {"User-Agent": "Mozilla/5.0", "Accept": "application/json"} if "bovada" in url else {}   # Bovada sends an empty
     req = urllib.request.Request(url, headers=hdr)                            # list to a bare client; ESPN 403s a browser one
     with urllib.request.urlopen(req, timeout=20) as r:
         return json.load(r)
@@ -594,8 +607,9 @@ def remember_events(path, data):
 
 def _safe_get(url):
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={**BOV_HDR, "Accept": "application/json, text/plain, */*",
-                                                                         "Referer": "https://www.bovada.lv/sports"}), timeout=8) as r:
+        hdr = PLAIN_HDR if plain_tennis(url) else {**BOV_HDR, "Accept": "application/json, text/plain, */*",
+                                                   "Referer": "https://www.bovada.lv/sports"}
+        with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=8) as r:
             return json.load(r)
     except urllib.error.HTTPError as e:
         if e.code in (400, 404) and "?" in url:
@@ -1605,6 +1619,8 @@ BOV_SCORE = {}                # event id -> (fetched at, score json)
 BOV_SCORE_URL = "https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}"
 BOV_HDR = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
            "Accept": "*/*", "Referer": "https://www.bovada.lv/", "Origin": "https://www.bovada.lv"}
+# ^ 11/2: a browser disguise. Tennis no longer sends it (plain_tennis). The team sports' live Bovada reads (_safe_get)
+#   still do - flagged to the owner in STATUS 11/2 (dropping it ends their live Bovada prices: his call, not silent).
 
 
 def _bovada_score(m, ln, side):
@@ -1617,7 +1633,7 @@ def _bovada_score(m, ln, side):
     got = BOV_SCORE.get(eid)
     if not got or now_s - got[0] >= 3:                    # (at most every 3s a match - never hammer the book)
         try:
-            with urllib.request.urlopen(urllib.request.Request(BOV_SCORE_URL.format(eid=eid), headers=BOV_HDR), timeout=5) as r:
+            with urllib.request.urlopen(urllib.request.Request(BOV_SCORE_URL.format(eid=eid), headers=PLAIN_HDR), timeout=5) as r:
                 BOV_SCORE[eid] = got = (now_s, json.load(r))
         except Exception:                                 # noqa: BLE001
             BOV_SCORE[eid] = got = (now_s, (got or (0, None))[1])

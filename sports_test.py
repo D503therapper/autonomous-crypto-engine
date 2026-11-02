@@ -16119,7 +16119,192 @@ def test_daily_1102_a_second_board_from_a_stale_run_never_merges_in_a_sixth_pick
     assert len(merge_json.merge_picks(real, real)) == len(real)
 
 
+def test_tennis_odds_1102_the_odds_api_is_the_legit_source_inside_a_hard_credit_cap():
+    """11/2 (the owner: "We need a legit source for tennis regardless"): Bovada's tennis feeds answer EMPTY to a plain
+    request since 10/29 - only a browser disguise got through, and the owner's rule forbids disguises. The Odds API (his
+    own key, the ODDS_API_KEY secret, env only) is now the first source: the free /v4/sports list names the active
+    tennis tournaments, 1 credit a tournament for h2h. Pulls only at 3 Pacific slots a day, capped per run / day / month
+    and stopped under a floor of credits left; Bovada's plain request is the fallback; odds_status.json says which
+    source answered and the credits. No network here."""
+    import os, json, tempfile
+    from datetime import datetime, timezone, timedelta
+    import sports_tennis as st
+    # -- the parser: median US price per player, singles only, the engine's line rows
+    evs = [{"id": "e1", "sport_key": "tennis_atp_paris_masters", "commence_time": "2026-11-03T10:00:00Z",
+            "home_team": "Jannik Sinner", "away_team": "Holger Rune", "bookmakers": [
+                {"key": "draftkings", "markets": [{"key": "h2h", "outcomes": [{"name": "Jannik Sinner", "price": -400},
+                                                                             {"name": "Holger Rune", "price": 300}]}]},
+                {"key": "fanduel", "markets": [{"key": "h2h", "outcomes": [{"name": "Holger Rune", "price": 320},
+                                                                          {"name": "Jannik Sinner", "price": -450}]}]},
+                {"key": "betmgm", "markets": [{"key": "h2h", "outcomes": [{"name": "Jannik Sinner", "price": -380},
+                                                                         {"name": "Holger Rune", "price": 290}]}]},
+                {"key": "junk", "markets": [{"key": "spreads", "outcomes": [{"name": "Jannik Sinner", "price": -110},
+                                                                           {"name": "Holger Rune", "price": -110}]}]}]},
+           {"id": "e2", "commence_time": "2026-11-03T12:00:00Z", "home_team": "A Guy / B Guy", "away_team": "C / D",
+            "bookmakers": [{"markets": [{"key": "h2h", "outcomes": [{"name": "A Guy / B Guy", "price": -120},
+                                                                   {"name": "C / D", "price": 100}]}]}]},
+           {"id": "e3", "commence_time": "2026-11-03T13:00:00Z", "home_team": "No Price", "away_team": "Guy",
+            "bookmakers": []}]
+    rows = st.parse_oddsapi(evs, "atp")
+    assert rows == [{"a": "Jannik Sinner", "b": "Holger Rune", "start": "2026-11-03T10:00Z", "a_ml": -400, "b_ml": 300,
+                     "tour": "atp", "src": "oddsapi", "books": 3}], rows
+    m = {"p1_name": "Holger Rune", "p2_name": "Jannik Sinner", "start": "2026-11-03T10:00Z"}
+    assert st.price(m, rows) == (300, -400), "the rows fit the engine's matcher (either order)"
+    assert st.oddsapi_tour({"key": "tennis_wta_finals", "active": True}) == "wta"
+    assert st.oddsapi_tour({"key": "tennis_atp_paris_masters", "active": True}) == "atp"
+    assert st.oddsapi_tour({"key": "tennis_atp_doubles_x", "active": True}) is None
+    assert st.oddsapi_tour({"key": "tennis_atp_wimbledon_winner", "has_outrights": True}) is None
+    assert st.oddsapi_tour({"key": "basketball_nba", "active": True}) is None
+    # -- the pull: free list, 1 credit a tournament, the key never leaks, the ledger counts
+    sports_list = [{"key": "tennis_atp_paris_masters", "group": "Tennis", "active": True, "has_outrights": False},
+                   {"key": "tennis_wta_finals", "group": "Tennis", "active": True, "has_outrights": False},
+                   {"key": "basketball_nba", "group": "Basketball", "active": True, "has_outrights": False}]
+    calls = []
+
+    def get(url, left=[500]):
+        calls.append(url)
+        if "/odds/" not in url:
+            return sports_list, {"x-requests-remaining": str(left[0]), "x-requests-used": "0"}
+        left[0] -= 1
+        assert "regions=us" in url and "markets=h2h" in url and "oddsFormat=american" in url
+        return (evs if "atp" in url else []), {"x-requests-remaining": str(left[0]), "x-requests-last": "1"}
+    pt = st.PT
+    at = lambda h, mi=44, d=3: datetime(2026, 11, d, h, mi, tzinfo=pt).astimezone(timezone.utc)
+    with tempfile.TemporaryDirectory() as tmp:
+        up = os.path.join(tmp, "usage.json")
+        assert st.oddsapi(at(7), get=get, key="", usage_path=up) == ([], {"pulled": False, "why": "no ODDS_API_KEY"})
+        assert not calls and not os.path.exists(up), "no key: no call, no ledger"
+        lines, info = st.oddsapi(at(7), get=get, key="SECRETKEY123", usage_path=up)
+        assert [r["a"] for r in lines] == ["Jannik Sinner"] and info["credits_used"] == 2 and info["remaining"] == 498
+        assert len(calls) == 3 and not any("basketball" in c for c in calls)
+        u = json.load(open(up))
+        assert u["days"]["2026-11-03"] == 2 and u["months"]["2026-11"] == 2 and "SECRETKEY123" not in open(up).read()
+        # the same slot again (the 8:02 / 8:12 board runs): not due, no call
+        n = len(calls)
+        assert st.oddsapi(at(8, 2), get=get, key="SECRETKEY123", usage_path=up)[1]["why"].startswith("not due")
+        assert st.oddsapi(at(14, 23), get=get, key="SECRETKEY123", usage_path=up)[1]["pulled"] is False
+        assert len(calls) == n
+        # the 3 PM slot: due again
+        assert st.oddsapi(at(15, 23), get=get, key="SECRETKEY123", usage_path=up)[1]["pulled"] is True
+        # the slot math: 11 PM PT is its own slot; 2 AM PT belongs to last night's 11 PM slot
+        assert st.odds_slot(at(2, 23, d=4)) == datetime(2026, 11, 3, 23, tzinfo=pt).astimezone(timezone.utc)
+        assert st.odds_slot(at(6, 59)) == datetime(2026, 11, 2, 23, tzinfo=pt).astimezone(timezone.utc)
+        # the daily cap: a day at the cap never pulls; a pull never spends past the room left
+        u = json.load(open(up))
+        u["days"]["2026-11-04"] = st.TENNIS_ODDS_DAILY_CAP
+        json.dump(u, open(up, "w"))
+        assert st.oddsapi(at(7, d=4), get=get, key="K", usage_path=up)[1]["why"].startswith("daily cap")
+        u["days"]["2026-11-04"] = st.TENNIS_ODDS_DAILY_CAP - 1
+        u["last_pull"] = None
+        json.dump(u, open(up, "w"))
+        lines, info = st.oddsapi(at(7, d=4), get=get, key="K", usage_path=up)
+        assert info["credits_used"] == 1 and "cap" in info["capped"], info
+        assert json.load(open(up))["days"]["2026-11-04"] == st.TENNIS_ODDS_DAILY_CAP
+        # the month cap
+        u = json.load(open(up))
+        u["months"]["2026-11"], u["last_pull"] = st.TENNIS_ODDS_MONTH_CAP, None
+        json.dump(u, open(up, "w"))
+        assert st.oddsapi(at(7, d=5), get=get, key="K", usage_path=up)[1]["why"].startswith("month cap")
+        assert st.TENNIS_ODDS_MONTH_CAP <= 450 and st.TENNIS_ODDS_DAILY_CAP * 30 <= 500 and len(st.TENNIS_ODDS_SLOTS_PT) == 3
+        # the floor: the plan's credits left under it = no pull (the list call says so too)
+        u["months"]["2026-11"], u["last_pull"], u["remaining"], u["remaining_at"] = 0, None, 10, "2026-11-04T15:00Z"
+        json.dump(u, open(up, "w"))
+        assert st.oddsapi(at(7, d=5), get=get, key="K", usage_path=up)[1]["why"].startswith("plan floor")
+        u["remaining"] = 900
+        json.dump(u, open(up, "w"))
+        low = lambda url: (sports_list, {"x-requests-remaining": "3"}) if "/odds/" not in url else 1 / 0
+        lines, info = st.oddsapi(at(7, d=5), get=low, key="K", usage_path=up)
+        assert lines == [] and info["credits_used"] == 0 and "floor" in info["capped"]
+        # a failing list call raises with the key scrubbed
+        def bad(url):
+            raise OSError(f"boom {url}")
+        json.dump({}, open(up, "w"))
+        try:
+            st.oddsapi(at(7, d=6), get=bad, key="SECRETKEY123", usage_path=up)
+            raise AssertionError("should raise")
+        except RuntimeError as e:
+            assert "SECRETKEY123" not in str(e) and "***" in str(e)
+    # -- refresh_odds: the fallback order and the status file
+    keep = (st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.SET1_LINES, st.bovada)
+    with tempfile.TemporaryDirectory() as d:
+        try:
+            st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.SET1_LINES = (d, os.path.join(d, "o.json"), os.path.join(d, "s.json"),
+                                                                       os.path.join(d, "l.json"), os.path.join(d, "s1.json"))
+            now = datetime(2026, 11, 3, 5, 44, tzinfo=timezone.utc)
+            bov_calls = []
+            st.bovada = lambda: bov_calls.append(1) or [{"a": "Iga Swiatek", "b": "Coco Gauff", "start": "2026-11-03T20:00Z",
+                                                        "a_ml": -150, "b_ml": 125, "src": "bovada", "tour": "wta"}]
+            api = lambda now: (rows, {"pulled": True, "credits_used": 2, "remaining": 498, "today": 2, "month": 2})
+            got = st.refresh_odds({}, now, api=api)
+            s = json.load(open(st.ODDS_STATUS))
+            assert s["src"] == "oddsapi" and s["lines"] == 1 and s["oddsapi"]["credits_used"] == 2 \
+                and s["oddsapi"]["remaining"] == 498 and "error" not in s and not bov_calls, s
+            assert [x["a"] for x in got] == ["Jannik Sinner"]
+            # not due: Bovada's plain read; the cache MERGES (the Odds API price stays next to Bovada's)
+            got = st.refresh_odds({}, now + timedelta(hours=1), api=lambda now: ([], {"pulled": False, "why": "not due"}))
+            s = json.load(open(st.ODDS_STATUS))
+            assert s["src"] == "bovada" and s["oddsapi"]["why"] == "not due" and bov_calls == [1]
+            assert {x["a"] for x in got} == {"Jannik Sinner", "Iga Swiatek"} and s["cached"] == 2
+            # the API failing: Bovada steps in, the API's error is on file, no top-level error (lines came)
+            def boom(now):
+                raise RuntimeError("HTTP Error 401")
+            st.refresh_odds({}, now + timedelta(hours=2), api=boom)
+            s = json.load(open(st.ODDS_STATUS))
+            assert s["src"] == "bovada" and "401" in s["oddsapi"]["error"] and "error" not in s
+            # both empty / failing: the last prices stay, the status names the errors
+            st.bovada = lambda: []
+            got = st.refresh_odds({}, now + timedelta(hours=2), api=boom)
+            s = json.load(open(st.ODDS_STATUS))
+            assert s["src"] is None and s["lines"] == 0 and "401" in s["error"] and len(got) == 2
+        finally:
+            st.DIR, st.ODDS, st.ODDS_STATUS, st.LINES, st.SET1_LINES, st.bovada = keep
+    # the key comes from the environment only - never a literal in the code, and the workflow passes the secret
+    src = open("sports_tennis.py").read()
+    assert 'os.environ.get("ODDS_API_KEY")' in src and "apiKey=" in src
+    wf = open(".github/workflows/sports.yml").read()
+    assert "ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}" in wf.split("python -u sports.py")[1].split("- if:")[0]
+
+
+def test_tennis_odds_1102_live_tennis_reads_go_out_plain_no_browser_disguise():
+    """11/2: the live tennis checker reached Bovada with a browser User-Agent + Referer / Origin (sports_live.BOV_HDR in
+    _safe_get and _bovada_score) and BetRivers with one (sports_books.UA) - a disguise under the owner's rule. Every
+    tennis read now goes out plain; the team sports' Bovada reads are flagged to the owner, not silently changed."""
+    import urllib.request
+    import sports_live as slv
+    import sports_books as sbk
+    seen = []
+
+    class R:
+        headers = {}
+        def __enter__(self):
+            return self
+        def __exit__(self, *a):
+            return False
+        def read(self, *a):
+            return b"[]"
+    keep = urllib.request.urlopen
+    try:
+        urllib.request.urlopen = lambda req, timeout=None: seen.append(dict(req.header_items())) or R()
+        slv._safe_get(slv.BOV_BASE.format(path="tennis/atp") + "lang=en")
+        slv._get1("https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis/wta?lang=en")
+        sbk._CACHE.clear()
+        sbk._get(sbk.KAMBI.format(p=sbk.KAMBI_PATH["tennis"]))
+        slv.BOV_SCORE.pop("991", None)
+        slv._bovada_score({"p1_name": "A B", "p2_name": "C D"}, {"event": 991}, 1)
+        for h in seen:
+            assert not any(k.lower() in ("user-agent", "referer", "origin") for k in h), h
+        assert len(seen) == 4
+        seen.clear()
+        slv._safe_get(slv.BOV_BASE.format(path="basketball/nba") + "lang=en")       # (team sports: unchanged - flagged)
+        assert any(k.lower() == "user-agent" for k in seen[0])
+    finally:
+        urllib.request.urlopen = keep
+    assert slv.plain_tennis("https://services.bovada.lv/services/sports/results/api/v1/scores/1")
+    assert not slv.plain_tennis("https://api.actionnetwork.com/web/v1/scores/nba")
+
+
 if __name__ == "__main__":
+    os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)

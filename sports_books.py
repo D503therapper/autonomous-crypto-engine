@@ -34,7 +34,8 @@ def _get(url):
     hit = _CACHE.get(url)
     if hit and now - hit[0] < EVERY_S:
         return hit[1], hit[2]
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=8) as r:
+    hdr = {"Accept": "application/json"} if "/tennis" in url.lower() else UA   # 🎾 11/2: tennis plain (no disguise -
+    with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=8) as r:   # the owner's rule)
         age = r.headers.get("Age")
         data = json.load(r)
     out = (now, data, int(age) if age and str(age).isdigit() else None)
