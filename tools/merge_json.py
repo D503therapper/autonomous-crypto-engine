@@ -96,7 +96,40 @@ def one_per_game(rows):
         if _straight(p):
             for k in keys(p):
                 first.setdefault(k, id(p))
-    return [p for p in rows if not _straight(p) or all(first.get(k) == id(p) for k in keys(p))]
+    # 11/2: a run that never saw the 8 AM board (a stale copy - "results 16:33: 0 graded, 5 new") posted a WHOLE second
+    # board; the rule above dropped its copies of the games we were on, and its lean on a new game (Troy -148) stayed as
+    # a 6th pick. A run whose Lock / Dog lost to an earlier one of the same round is a second board: none of its picks stay.
+    second = {(p.get("date"), p.get("posted")) for p in rows
+              if _straight(p) and (p.get("date") or "") >= BOARD_FROM and p.get("kind") in ("lock", "dog")
+              and first.get((p.get("date"), p.get("kind"), p.get("round") or 1)) not in (None, id(p))}
+    rows = [p for p in rows if not _straight(p) or all(first.get(k) == id(p) for k in keys(p))]
+    rows = [p for p in rows if not (_straight(p) and (p.get("date"), p.get("posted")) in second)]
+    return lean_cap(rows)
+
+
+BOARD_FROM = "2026-11-03"   # (posted picks before it stay as they are - Troy -148 on 11/2 is a posted pick)
+BOARD_TARGET = 5            # sports.BOARD_TARGET - the leans fill the board to 5 picks, never past it
+STRAIGHT_KINDS = ("lock", "dog", "solo", "night", "play", "lean")   # sports.STRAIGHT_KINDS
+
+
+def lean_cap(rows):
+    """The viewer leans only fill the board to BOARD_TARGET straight picks (sports.post_board): a lean that merged in
+    with BOARD_TARGET straight picks already posted at or before it is a second run's copy - it never stays."""
+    drop, by_day = set(), {}
+    for p in rows:
+        if p.get("status") != "waiting" and len(p.get("legs") or []) == 1 and p.get("kind") in STRAIGHT_KINDS:
+            by_day.setdefault(p.get("date"), []).append(p)   # (graded ones count too - only an open lean is ever dropped)
+    for day, ps in by_day.items():
+        if (day or "") < BOARD_FROM:
+            continue
+        kept = []
+        for p in sorted(ps, key=lambda p: (p.get("posted") or "9", p.get("kind") == "lean")):
+            if p.get("kind") == "lean" and _straight(p) and \
+                    sum((q.get("posted") or "9") <= (p.get("posted") or "9") for q in kept) >= BOARD_TARGET:
+                drop.add(id(p))
+                continue
+            kept.append(p)
+    return [p for p in rows if id(p) not in drop]
 
 
 def merge_log(ours, theirs):

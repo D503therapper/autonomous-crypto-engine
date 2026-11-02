@@ -15969,6 +15969,56 @@ def test_nba_odds_1102_the_opening_line_play_goes_back_to_half_and_the_nba_backe
     assert sports.dog_units({"date": "2026-11-03", "legs": [{**leg, "edge_own": -0.01}]}) == 0.5
 
 
+def test_daily_1102_a_second_board_from_a_stale_run_never_merges_in_a_sixth_pick():
+    """11/2: the 8 AM board posted 5 picks (Flames Dog, Heat play, Bears / Golden Knights / Knicks leans); the live
+    watcher's 'results 16:33: 0 graded, 5 new' run never saw it and posted its own board - the merge dropped its copies
+    of our games but kept its Troy -148 lean on a new game: a 6th pick. From 11/3 a run whose Dog / Lock lost to an
+    earlier one is a second board (none of its picks stay), and a lean never merges past BOARD_TARGET (5) picks.
+    Posted picks before 11/3 stay as they are (Troy is a posted pick)."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    assert merge_json.BOARD_TARGET == sports.BOARD_TARGET and set(merge_json.STRAIGHT_KINDS) == set(sports.STRAIGHT_KINDS)
+
+    def pk(day, kind, gid, posted, status="open"):
+        return {"date": day, "kind": kind, "round": 1, "posted": posted, "status": status,
+                "lean": kind == "lean", "legs": [{"game_id": gid, "side": "home", "team": gid}]}
+
+    def board(day, extra_status="open"):
+        return [pk(day, "dog", "nhl:flames", f"{day}T16:00Z"), pk(day, "play", "nba:heat", f"{day}T16:00Z"),
+                pk(day, "lean", "nfl:bears", f"{day}T16:00Z"), pk(day, "lean", "nhl:vgk", f"{day}T16:00Z"),
+                pk(day, "lean", "nba:knicks", f"{day}T16:00Z", extra_status)]
+
+    def stale(day):                                                # the stale run: its own Dog on the same game + a new lean
+        return [pk(day, "dog", "nhl:flames", f"{day}T16:34Z"), pk(day, "play", "nba:heat", f"{day}T16:34Z"),
+                pk(day, "lean", "nfl:bears", f"{day}T16:34Z"), pk(day, "lean", "ncaab:troy", f"{day}T16:34Z")]
+
+    # 11/3 on: the second board leaves nothing behind
+    out = merge_json.merge_picks(board("2026-11-03"), stale("2026-11-03"))
+    assert sorted(p["legs"][0]["game_id"] for p in out) == sorted(p["legs"][0]["game_id"] for p in board("2026-11-03"))
+    assert all(p["posted"].endswith("16:00Z") for p in out), out
+    # a lone lean merging in past 5 picks (no duplicate Dog to give the run away) never stays either
+    out = merge_json.merge_picks(board("2026-11-03"), [pk("2026-11-03", "lean", "ncaab:troy", "2026-11-03T16:34Z")])
+    assert "ncaab:troy" not in {p["legs"][0]["game_id"] for p in out} and len(out) == 5
+    # ...even when one of the 5 is graded already
+    out = merge_json.merge_picks(board("2026-11-03", "won"), [pk("2026-11-03", "lean", "ncaab:troy", "2026-11-03T16:34Z")])
+    assert len(out) == 5
+    # a lean that fits under 5 (posted later, waiting on a verified starter) stays; a later UNIT play always stays
+    four = board("2026-11-03")[:4]
+    late = [pk("2026-11-03", "lean", "ncaab:troy", "2026-11-03T17:00Z"), pk("2026-11-03", "play", "nhl:x", "2026-11-03T18:00Z")]
+    out = merge_json.merge_picks(four, late)
+    assert {"ncaab:troy", "nhl:x"} <= {p["legs"][0]["game_id"] for p in out} and len(out) == 6
+    # a night pick (kind "night") and the Dog upgrade are never touched
+    night = pk("2026-11-03", "night", "nfl:mnf", "2026-11-03T20:00Z")
+    out = merge_json.merge_picks(board("2026-11-03"), [night])
+    assert "nfl:mnf" in {p["legs"][0]["game_id"] for p in out}
+    # 11/2 (posted): Troy stays on the board - a posted pick is never changed
+    out = merge_json.merge_picks(board("2026-11-02"), stale("2026-11-02"))
+    assert "ncaab:troy" in {p["legs"][0]["game_id"] for p in out} and len(out) == 6
+    # the real file: today's 6 picks merge onto themselves unchanged
+    real = json.load(open(os.path.join(sports.DATA, "picks.json")))
+    assert len(merge_json.merge_picks(real, real)) == len(real)
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
