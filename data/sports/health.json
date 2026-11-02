@@ -1,31 +1,35 @@
 {
- "at": "2026-11-02T15:47Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-02T16:32Z",
+ "fixes": [],
  "problems": [
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (11s)",
+  "live watcher fresh (83s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 199 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran 15 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 61 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-02T16:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-11-02T15:47Z",
    "fixes": [
@@ -545,14 +549,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Ferro vs Maria: no points for 481s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T01:08Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ferro vs Maria: no points for 188s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
