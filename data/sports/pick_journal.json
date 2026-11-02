@@ -9298,5 +9298,118 @@
   "score": "24-27",
   "margin": -3.0,
   "pnl_units": -1.0
+ },
+ {
+  "date": "2026-11-01",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873025",
+  "team": "Buccaneers",
+  "opp": "Falcons",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -130,
+  "posted": "2026-11-01T16:00Z",
+  "price_says": 0.565,
+  "win_p": 0.5427435387673957,
+  "own_read": 0.556,
+  "weighed": 0.5562,
+  "dog_p": null,
+  "edge_own": -0.04257182495759049,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent missing key players",
+   "the stronger team",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "fades": [],
+   "go4_gap": -0.0067,
+   "last_margin": 30.0,
+   "last_pts": 43.0,
+   "neutral": false,
+   "record": [
+    2,
+    5
+   ],
+   "win_pct": 0.286,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Emeka Egbuka (WR)"
+  ],
+  "theirs_out": [
+   "Divine Deablo (LB)",
+   "Brian Robinson Jr. (RB)",
+   "Billy Bowman Jr. (CB)",
+   "Anterio Thompson (DT)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": -130,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "16-0",
+  "margin": 16.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-11-01",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nfl",
+  "game_id": "nfl:401873030",
+  "team": "Vikings",
+  "opp": "Lions",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 142,
+  "posted": "2026-11-01T16:00Z",
+  "price_says": 0.413,
+  "win_p": 0.40058912712092987,
+  "own_read": 0.403,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.025841618470962446,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "the stronger team",
+   "opponent missing key players"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [],
+   "go4_gap": -0.0109,
+   "last_margin": 6.0,
+   "last_pts": 16.0,
+   "neutral": false,
+   "record": [
+    6,
+    0
+   ],
+   "win_pct": 1.0,
+   "win_streak": 6
+  },
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Kerby Joseph (S)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 142,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "15-19",
+  "margin": -4.0,
+  "pnl_units": -0.5
  }
 ]

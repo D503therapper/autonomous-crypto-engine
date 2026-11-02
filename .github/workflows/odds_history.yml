@@ -1,13 +1,15 @@
 # ODDS HISTORY (10/1): the owner's one-month The Odds API plan - midweek NFL / college football lines since 2020
 # (tools/odds_history.py). The key lives in the ODDS_API_KEY secret, never in the repo.
 # Run by hand only (10/1: a push-started run checked out a commit from before the last pull was saved and pulled it all
-# again). It pulls the latest main first, so it always skips what's already saved. market: check (free) / h2h / spreads.
+# again). It pulls the latest main first, so it always skips what's already saved. market: check (free) / estimate (dry
+# run - no API call, no key: snapshot count + credit cost) / h2h / spreads. 11/1: NBA + NHL (basketball_nba /
+# icehockey_nhl) - name the sport; blank = every plan, football included.
 name: odds_history
 on:
   workflow_dispatch:
     inputs:
-      market: { description: "check / h2h / spreads", default: "check" }
-      sports: { description: "blank = both, or americanfootball_nfl / americanfootball_ncaaf", default: "" }
+      market: { description: "check / estimate / h2h / spreads", default: "check" }
+      sports: { description: "blank = every plan, or basketball_nba / icehockey_nhl / americanfootball_nfl / americanfootball_ncaaf (comma list ok)", default: "" }
       guard: { description: "stop with this many credits left", default: "2500" }
       newest_first: { description: "1 = latest seasons first", default: "" }
 permissions:
