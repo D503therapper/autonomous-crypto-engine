@@ -6248,6 +6248,63 @@ def test_odds_history_pull():
     assert 0 < sum(len(oh.snaps(s, date(2026, 10, 1), oh.SPREAD_PLAN)) for s in oh.SPREAD_PLAN) * 10 < 3500
 
 
+def test_odds_history_nba_nhl_plan_and_dry_run_estimate():
+    """11/1, the owner: "Spend the odds credits" (20,000 refilled, guard 2,500). NBA + NHL get one 15:00Z look a day,
+    only on days with a game that day or the next (from our game files), the 2020-21..2022-23 seasons the opening-line
+    studies never had; MARKET=estimate counts snapshots and credits with NO API call; the whole plan fits over the
+    guard, NBA first."""
+    import sys as _s
+    _s.path.insert(0, "tools")
+    import odds_history as oh
+    from datetime import date
+    gd = tempfile.mkdtemp()
+    os.makedirs(os.path.join(gd, "nba"))
+    rows_ = [("nba:1", "2021-01-02T00:30Z", "2"),      # (7:30 PM ET 1/1 -> game day 1/1: looks 12/31 + 1/1)
+             ("nba:2", "2021-01-03T20:00Z", "2"),      # (a matinee on 1/3: looks 1/2 + 1/3)
+             ("nba:3", "2021-01-10T01:00Z", "1"),      # (preseason - no look)
+             ("nba:4", "2020-08-10T20:00Z", "2"),      # (the bubble - before the plan's season)
+             ("nba:5", "2021-05-30T00:00Z", "3")]      # (a playoff game - moneyline yes, spreads no)
+    with open(os.path.join(gd, "nba", "2021-01.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["id", "league", "start", "stype"])
+        for gid, st, ty in rows_:
+            w.writerow([gid, "nba", st, ty])
+    got = oh.snaps("basketball_nba", date(2026, 11, 1), oh.plan_for("h2h"), gd)
+    assert got == ["2020-12-31T15:00:00Z", "2021-01-01T15:00:00Z", "2021-01-02T15:00:00Z", "2021-01-03T15:00:00Z",
+                   "2021-05-28T15:00:00Z", "2021-05-29T15:00:00Z"], got
+    assert len(oh.snaps("basketball_nba", date(2026, 11, 1), oh.plan_for("spreads"), gd)) == 4
+    assert oh.snaps("basketball_nba", date(2021, 1, 2), oh.plan_for("h2h"), gd)[-1] == "2021-01-01T15:00:00Z"
+    assert all(s in oh.plan_for("h2h") for s in ("americanfootball_nfl", "icehockey_nhl", "basketball_nba"))
+    assert "icehockey_nhl" not in oh.plan_for("spreads") and "americanfootball_ncaaf" in oh.plan_for("spreads")
+    # the dry run: no network (urlopen would blow up), saved snapshots skipped, the guard respected in BUDGET_ORDER
+    keep_open, keep_out = oh.urllib.request.urlopen, oh.OUT
+    oh.urllib.request.urlopen = lambda *a, **k: (_ for _ in ()).throw(AssertionError("estimate called the API"))
+    oh.OUT = tempfile.mkdtemp()
+    try:
+        with gzip.open(oh.out_path("basketball_nba", "h2h"), "wt") as f:
+            f.write(json.dumps({"want": "2021-01-01T15:00:00Z", "n": 5}) + "\n")
+        est = oh.estimate(date(2026, 11, 1), ["basketball_nba"], guard=2500, left=2550, games_dir=gd)
+        assert [(r["market"], r["todo"], r["have"], r["credits"], r["fits"]) for r in est] == \
+            [("h2h", 5, 1, 50, 5), ("spreads", 4, 0, 40, 0)], est
+        real = {(r["market"], r["sport"]): r for r in oh.estimate(date(2026, 11, 1), ["basketball_nba", "icehockey_nhl"])}
+        spend = sum(r["credits"] for r in real.values())
+        assert 12000 < spend <= 20000 - oh.GUARD, spend          # (the whole NBA + NHL plan fits over the guard)
+        assert all(r["fits"] == r["todo"] for r in real.values())
+        assert real[("h2h", "basketball_nba")]["first"] >= "2020-12" and real[("h2h", "icehockey_nhl")]["last"] < "2023-07"
+        os.environ["MARKET"], os.environ["SPORTS"] = "estimate", "basketball_nba"
+        keep_key = os.environ.pop("ODDS_API_KEY", None)
+        try:
+            assert oh.main() == 0
+        finally:
+            for k in ("MARKET", "SPORTS"):
+                os.environ.pop(k, None)
+            if keep_key:
+                os.environ["ODDS_API_KEY"] = keep_key
+    finally:
+        oh.urllib.request.urlopen, oh.OUT = keep_open, keep_out
+    assert oh.BUDGET_ORDER[0][1] == "basketball_nba" and oh.COST == 10
+
+
 def test_challenge_score_turned_to_each_players_side():
     """10/1, the owner: the Patty box's scores 'look fucked up again'. The live scores come from two feeds - ESPN's
     order (p1 first) and our own picks' (OUR player first) - and only the first one said so: a box player listed
