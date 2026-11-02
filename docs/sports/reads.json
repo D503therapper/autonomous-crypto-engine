@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T10:28Z",
+ "updated": "2026-11-02T11:13Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -20,31 +20,16 @@
    "id": "ncaab:401921422",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Merrimack",
-    "p": 0.56,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-02T11:00Z",
-   "away": "App State",
-   "home": "Merrimack",
-   "why": "tight",
+   "away": "Merrimack",
+   "home": "App State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Merrimack",
-    "opp": "App State",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.609,
-    "win_p": 0.609,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401921423",
@@ -80,8 +65,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Murray St",
-    "p": 0.734,
-    "tie": 0.035,
+    "p": 0.738,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -98,7 +83,7 @@
     "line": 10.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.183,
+    "win_p": 0.178,
     "reasons": [
      "the stronger team"
     ]
@@ -482,8 +467,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Ball State",
-    "p": 0.502,
-    "tie": 0.044,
+    "p": 0.541,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -491,17 +476,18 @@
    "start": "2026-11-03T00:00Z",
    "away": "Ball State",
    "home": "GA Southern",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Ball State",
     "opp": "GA Southern",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.535,
-    "win_p": 0.535,
+    "odds": -155,
+    "p": 0.588,
+    "win_p": 0.588,
     "reasons": [
+     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
@@ -907,9 +893,9 @@
     "team": "Little Rock",
     "opp": "VCU",
     "market": "spread",
-    "line": 18.5,
-    "odds": -105,
-    "p": 0.513,
+    "line": 19.5,
+    "odds": -112,
+    "p": 0.514,
     "win_p": 0.064,
     "reasons": []
    }
@@ -3130,9 +3116,9 @@
     "team": "Texas Southern",
     "opp": "Grand Canyon",
     "market": "spread",
-    "line": 28.5,
+    "line": 27.5,
     "odds": -110,
-    "p": 0.524,
+    "p": 0.523,
     "win_p": 0.027,
     "reasons": []
    }
