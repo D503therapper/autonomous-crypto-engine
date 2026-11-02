@@ -1,9 +1,11 @@
 {
- "at": "2026-11-02T05:49Z",
- "fixes": [],
+ "at": "2026-11-02T05:50Z",
+ "fixes": [
+  "live watch 41391619509 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (233s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,14 +16,22 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 8h ago",
+  "studies ran 0h ago",
   "simulator ran 8h ago",
-  "engine ran 29 min ago",
+  "engine ran 31 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-02T05:50Z",
+   "fixes": [
+    "live watch 41391619509 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-02T05:49Z",
    "fixes": [],
@@ -535,16 +545,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Dimitrov vs Vallejo: no points for 2350s"
-   ]
-  },
-  {
-   "at": "2026-10-31T18:08Z",
-   "fixes": [
-    "live watch 41223985295 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Dimitrov vs Vallejo: no points for 2612s"
    ]
   }
  ]
