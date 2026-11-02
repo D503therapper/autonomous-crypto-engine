@@ -7420,3 +7420,14 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-02 16:07 UTC] stocks/trend     equity $472.94 (-5.4%) 3 open  market DOWN
 [2026-11-02 16:07 UTC] stocks/hold_spy  equity $495.44 (-0.9%) 1 open  market DOWN
    social heat top: BTC 37 (32/0/5), PENGU 27 (27/0/0), SOL 24 (24/0/0), INJ 21 (21/0/0), STONK 16 (16/0/0)
+   dex screen: REJECT PREDICT@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT JITOSOL@base liq $13,223,754 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 0411:2E1EF2:11EB5:1835A:6AE8B58C        
+remote: Time 2026-11-02T16:08:52Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rem
+   dex screen: PASS SPX@ethereum liq $10,597,719
+   dex screen: REJECT DJT@solana liq $275,124 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%; lp holders unknown
+   dex screen: REJECT GATO@solana liq $337,816 - lp holders unknown; rugcheck lp locked 95% < 95%
+   dex screen: REJECT SWORDCAT@solana liq $161,922 - lp holders unknown; rugcheck lp locked 77% < 95%
