@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T03:30Z",
+ "updated": "2026-11-02T04:17Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -336,8 +336,8 @@
    "away": "Senators",
    "home": "Ducks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -377,7 +377,7 @@
    "home": "Warriors",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Clippers",
@@ -391,7 +391,7 @@
      "opponent missing key players",
      "opponent missing key players: Stephen Curry (their read -9)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -4011,8 +4011,7 @@
     "p": 0.616,
     "win_p": 0.616,
     "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
+     "the stronger team"
     ]
    }
   },
