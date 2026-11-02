@@ -438,6 +438,15 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             new.append(c)
     except Exception as e:                                   # noqa: BLE001 - never breaks the engine
         print(f"   europe under failed: {str(e)[:120]}")
+    try:                                                     # ⛰️ the college hoops over at altitude (11/3 deep study)
+        for c in alt_overs(games, st, now):
+            if c["game_id"] in have_tot:
+                continue
+            st["picks"].append(c)
+            have_tot.add(c["game_id"])
+            new.append(c)
+    except Exception as e:                                   # noqa: BLE001 - never breaks the engine
+        print(f"   altitude over failed: {str(e)[:120]}")
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
     watch(st, games, injuries)
@@ -480,6 +489,94 @@ def euro_unders(games, st, now):
                     "start": g["start"], "spot": "euro_under", "spots": ["euro_under"], "fades": [],
                     "why": f"🌍 {city}, {st_.astimezone(PT):%-I:%M %p} PT kickoff. NFL games in Europe that start "
                            f"this early went 17-9 to the under since 2018"
+                           + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
+                    "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
+    return out
+
+
+def alt_quit(st):
+    """The judge: ALT_OVER_QUIT[0]+ graded and the ROI on the units risked under ALT_OVER_QUIT[1] = no more posts."""
+    w, l_, u = spot_record(st).get("alt_over", (0, 0, 0.0))
+    n = w + l_
+    return n >= ALT_OVER_QUIT[0] and u / (n * SPOTS["alt_over"][1]) < ALT_OVER_QUIT[1]
+
+
+def _hoops_season(start):
+    y, m = int(str(start)[:4]), int(str(start)[5:7])
+    return y if m >= 8 else y - 1
+
+
+def scoring_avgs(games, league, season, before):
+    """{team key: (points for a game, points against a game, games)} - this season's finals that tipped before `before`
+    (any venue, any opponent: the read the 11/3 study used)."""
+    acc = {}
+    for g in games.values():
+        if g.get("league") != league or g.get("status") != "final" or (g.get("stype") or "2") not in sd.REAL:
+            continue
+        if _hoops_season(g.get("start") or "") != season or _t(g["start"]) >= before:
+            continue
+        try:
+            hs, as_ = float(g["home_score"]), float(g["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        for t, f, a in ((g.get("home"), hs, as_), (g.get("away"), as_, hs)):
+            r = acc.setdefault(t, [0.0, 0.0, 0])
+            r[0] += f; r[1] += a; r[2] += 1
+    return {t: (r[0] / r[2], r[1] / r[2], r[2]) for t, r in acc.items() if r[2]}
+
+
+def alt_read(av, g):
+    """⛰️ The points read for a college hoops game at altitude (the 11/3 deep study, s4c): both teams' season scoring
+    (home for + away against + away for + home against) / 2, plus ALT_READ_ADJ (the plain read's -1.0 + the altitude
+    bump +2.5, both fit on 2018-22 only). av = scoring_avgs(...). None = a team under ALT_MIN_GAMES finals this season
+    (no read, no play)."""
+    h, a = av.get(g.get("home")), av.get(g.get("away"))
+    if not h or not a or h[2] < ALT_MIN_GAMES or a[2] < ALT_MIN_GAMES:
+        return None
+    return (h[0] + a[1] + a[0] + h[1]) / 2 + ALT_READ_ADJ
+
+
+def alt_overs(games, st, now):
+    """⛰️ THE COLLEGE HOOPS OVER AT ALTITUDE - ½u, its own record (the 11/3 deep study "where basketball books are weak";
+    the owner's 10/30 rule: the best findings go in). College totals don't carry the thin air: at a home floor 1,220 m+
+    (4,000 ft - Air Force, Wyoming, Colorado, Colorado St, New Mexico, BYU, Utah, Utah St, Nevada, N Arizona, Weber St,
+    N Colorado, Montana St, Idaho St, Southern Utah...) games score +4.0 points over both teams' own season norms (every
+    final 2016-26, no prices) while the closing total carries only about 1.5 of it. Never one factor: the play needs the
+    WHOLE points read (both teams' season scoring + the altitude) ALT_OVER_GAP+ over the total - then the over went
+    445-318 (58.3%, +11.1%) at the close 2018-26, 5 of 5 train seasons and 3 of 3 held out up (1+ / 3+ the same).
+    Neutral sites never count; both teams need ALT_MIN_GAMES finals. Posted the night before (from EURO_FROM_PT PT the
+    day before - never game day), the over at the number then, -150 rule. Judged at ALT_OVER_QUIT[0]: under -5% = off."""
+    if alt_quit(st):
+        return []
+    out, avs = [], {}
+    for g in games.values():
+        if g.get("league") != "ncaab" or g.get("status") != "pre" or (g.get("stype") or "2") != "2":
+            continue
+        if str(g.get("neutral") or "0") in ("1", "True", "true") or (sm._num(g.get("elev")) or 0) < ALT_OVER_M:
+            continue
+        tot, odds = sm._num(g.get("total")), _int(g.get("over_odds")) or -110
+        if tot is None or odds < -150:
+            continue
+        st_ = _t(g["start"])
+        eve = datetime.combine((st_.astimezone(PT) - timedelta(days=1)).date(), datetime.min.time(),
+                               tzinfo=PT).replace(hour=EURO_FROM_PT)
+        if not eve <= now < st_ or now.astimezone(PT).date() >= st_.astimezone(PT).date():
+            continue                                         # the night before only - never game day
+        s = _hoops_season(g["start"])
+        if s not in avs:                                     # (one pass over the finals a season, through now)
+            avs[s] = scoring_avgs(games, "ncaab", s, now)
+        read = alt_read(avs[s], g)
+        if read is None or read - tot < ALT_OVER_GAP:
+            continue
+        w, l_, _ = spot_record(st).get("alt_over", (0, 0, 0.0))
+        feet = round((sm._num(g.get("elev")) or 0) * 3.281 / 100) * 100
+        out.append({"game_id": g["id"], "league": "ncaab", "market": "total", "side": "over", "line": tot,
+                    "team": f"Over {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
+                    "start": g["start"], "spot": "alt_over", "spots": ["alt_over"], "fades": [], "read": round(read, 1),
+                    "why": f"⛰️ {g.get('home_name')} plays about {feet:,} feet up - the thin air adds points the "
+                           f"books don't fully price. Our points read has this one at {read:.0f}, the number's {tot:g}. "
+                           f"College games 4,000+ feet up with our read 2+ over the total went 445-318 to the over "
+                           f"since 2018"
                            + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
                     "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
     return out
@@ -616,6 +713,8 @@ SPOTS = {   # key: (label, units, leagues)
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
+    "alt_over":  ("⛰️ College hoops over at altitude", 0.5, ("ncaab",)),        # 445-318 +11.1% 2018-26, 8 of 8 seasons
+    #                                                                              up - the 11/3 deep study (alt_overs)
     "nba_open":  ("🏀 NBA opening line", 0.5, ("nba",)),                       # the owner OK'd 10/23: the whole-model read
     #                                                                              at the first price, best side a night -
     #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
@@ -641,6 +740,14 @@ BLOWOUT_FBS_ONLY = True                  # 💥 the blowout spot counts a colleg
 #                                         reads (sports_players.fbs_set, walk-forward); no set on file = no filter.
 EURO_QUIT = (15, 0.5)                    # the owner, 10/4: "half unit with the quit rule" - under 50% after 15 = it's off
 EURO_FROM_PT = 18                        # posted the night before (6 PM PT on): the line's set, nobody moves it overnight
+ALT_OVER_M = 1220                        # ⛰️ the college hoops altitude over (11/3 deep study): a home floor 1,220 m+ = 4,000 ft
+#                                         (the 10/10 study's line; sm.THIN_AIR_M's 1,000 m is the sides' - 900-1,219 m games
+#                                         run UNDER both teams' norms, -3.0 pts, so the over starts at 4,000 ft)
+ALT_READ_ADJ = 1.46                      # the points read = both teams' season scoring + this (plain read -1.01 + the altitude
+#                                         bump +2.47, fit on 2018-22 only - results/studies/deep_bb_market/s4c)
+ALT_OVER_GAP = 2.0                       # the read must sit 2+ points over the total (1+ / 3+ ran the same - not a tuned edge)
+ALT_MIN_GAMES = 5                        # both teams' finals this season before the read counts
+ALT_OVER_QUIT = (50, -0.05)              # judged at 50 graded: ROI under -5% on the units risked = it's off
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
@@ -1329,15 +1436,18 @@ def now_line(p, games):
     if not g or p.get("result") or g.get("status") not in (None, "pre") or not p.get("side") or p.get("odds") is None:
         return ""
     am = lambda o: f"+{o}" if o > 0 else str(o)               # noqa: E731
-    if p.get("market") == "total":                           # 🌍 the under: the number (and its price) now
-        tot, o = g.get("total"), _int(g.get("under_odds"))
+    if p.get("market") == "total":                           # 🌍 the under / ⛰️ the over: the number (and its price) now
+        over = p.get("side") == "over"
+        tot, o = g.get("total"), _int(g.get("over_odds" if over else "under_odds"))
         try:
             tot = float(tot)
         except (TypeError, ValueError):
             return ""
         if o is None:
             return ""
-        call = ("🔥 we beat the number" if tot < p["line"] else "👀 the number went up" if tot > p["line"] else "")
+        better = tot > p["line"] if over else tot < p["line"]      # (11/3: an over beats the number when it goes UP)
+        call = ("🔥 we beat the number" if better else
+                f"👀 the number went {'down' if over else 'up'}" if tot != p["line"] else "")
         return (f"📈 Got it at {p['line']:g} ({am(p['odds'])}) ➜ now {tot:g} ({am(o)})"
                 + (f" · {call}" if call else " · hasn't moved"))
     now_odds = _int(g.get(f"ml_{p['side']}"))

@@ -16783,6 +16783,56 @@ def test_ncaab_early_lock_1103_no_lock_before_both_teams_play_3_then_half_unit_t
     assert not sports.nba_week_one({**base, "games_in": 10, "opp_games_in": 14})
     assert sports.ncaab_early_lock({"league": "nba", "season_games": 0}) is None              # other sports untouched
 
+
+def test_deep_bb_1103_college_hoops_altitude_over_half_unit_whole_read_night_before_and_the_judge():
+    """11/3 DEEP: WHERE BASKETBALL BOOKS ARE WEAK (results/studies/deep_bb_market/): college totals don't carry the thin
+    air - at a home floor 1,220 m+ (4,000 ft) games score +4.0 over both teams' own norms, the close carries ~1.5. The
+    ⛰️ altitude over: ½u, its own record, only when the WHOLE points read (both teams' season scoring + ALT_READ_ADJ) sits
+    2+ over the total (445-318 +11.1% 2018-26, 8 of 8 seasons up), both teams 5+ finals, never a neutral site, never
+    under 4,000 ft (900-1,219 m runs UNDER), posted the night before (never game day), the over graded on the total and
+    its 'now' line reading an over right; judged at 50 (ROI under -5% = off). The run log's line no longer KeyErrors on a
+    total (it skipped queue_pings for the whole run)."""
+    import sports
+    import sports_early as se
+    def fin(i, h, a, hs, as_, day):
+        return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
+                "home_score": str(hs), "away_score": str(as_), "start": f"2026-11-{day:02d}T02:00Z"}
+    games = {}
+    for i in range(6):                                       # Wyoming (W) and Utah St (U): 6 finals each, 80-70 games
+        games[f"w{i}"] = fin(i, "W", f"x{i}", 80, 70, 5 + i)
+        games[f"u{i}"] = fin(10 + i, "U", f"y{i}", 80, 70, 5 + i)
+    g = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "home": "W", "away": "U", "neutral": "0",
+         "elev": "2184", "start": "2026-11-21T03:00Z", "total": "145.5", "over_odds": "-110", "under_odds": "-110",
+         "home_name": "Wyoming", "away_name": "Utah St"}
+    games["ncaab:9"] = g
+    st = {"picks": []}
+    eve = datetime(2026, 11, 20, 3, 0, tzinfo=timezone.utc)        # 7 PM PT 11/19, the night before (tip 7 PM PT 11/20)
+    got = se.alt_overs(games, st, eve)                              # read 150 + 1.46 = 151.5 vs 145.5: 6 over
+    assert len(got) == 1 and got[0]["side"] == "over" and got[0]["line"] == 145.5 and got[0]["spot"] == "alt_over"
+    assert se.units(got[0]) == 0.5 and "445-318" in got[0]["why"] and "7,200 feet" in got[0]["why"]
+    assert abs(got[0]["read"] - 151.5) < 0.05
+    assert se.alt_overs(games, st, datetime(2026, 11, 20, 18, 0, tzinfo=timezone.utc)) == []   # game day: never
+    assert se.alt_overs(games, st, datetime(2026, 11, 19, 18, 0, tzinfo=timezone.utc)) == []   # 10 AM PT: too early
+    assert se.alt_overs({**games, "ncaab:9": {**g, "total": "150.5"}}, st, eve) == []          # read only 1 over
+    assert se.alt_overs({**games, "ncaab:9": {**g, "elev": "1100"}}, st, eve) == []            # under 4,000 ft
+    assert se.alt_overs({**games, "ncaab:9": {**g, "neutral": "1"}}, st, eve) == []            # neutral site
+    assert se.alt_overs({**games, "ncaab:9": {**g, "over_odds": "-160"}}, st, eve) == []       # the -150 rule
+    few = {k: v for k, v in games.items() if k not in ("w0", "w1")}                         # Wyoming 4 finals: no read
+    assert se.alt_overs(few, st, eve) == []
+    assert se.alt_overs({**games, "ncaab:9": {**g, "league": "nba"}}, st, eve) == []           # college hoops only
+    p = dict(got[0])
+    assert "we beat the number" in se.now_line(p, {"ncaab:9": {**g, "total": "147.5"}})       # an over: the number UP
+    assert "went down" in se.now_line(p, {"ncaab:9": {**g, "total": "143.5"}})
+    se.grade({"picks": [p]}, {"ncaab:9": dict(g, status="final", home_score="80", away_score="70")})
+    assert p["result"] == "won"                                                              # 150 > 145.5
+    lost = [{"game_id": f"z{i}", "spot": "alt_over", "odds": -110, "units": 0.5, "result": "lost" if i < 28 else "won"}
+            for i in range(50)]                                                              # 22-28: -14% on the units
+    assert se.alt_quit({"picks": lost}) and se.alt_overs(games, {"picks": lost}, eve) == []
+    assert not se.alt_quit({"picks": lost[:49]})                                             # 49 graded: not yet
+    assert se.SPOTS["alt_over"][1] == 0.5 and se.SPOTS["alt_over"][2] == ("ncaab",)
+    assert "Over 145.5" in sports.early_log_line(got[0]) and "alt_over" in sports.early_log_line(got[0])
+    assert "own 40% vs price 35%" in sports.early_log_line({"team": "Bucks", "odds": 150, "league": "nba", "own": .4, "mkt": .35})
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
