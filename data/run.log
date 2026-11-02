@@ -6792,3 +6792,20 @@ DEX: $674.96 (-325.04) · Scammed: 10 (-$199.20)
 [2026-11-02 10:40 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-02 10:40 UTC] crypto/hold_btc  equity $466.97 (-6.6%) 1 open  market DOWN
    social heat top: BTC 42 (37/0/5), MON 35 (35/0/0), NEAR 32 (32/0/0), AERO 29 (29/0/0), ETH 24 (24/0/0)
+   scanner: 983 tickers, sample: {'i': 'BTC_USD', 'h': '78786.72', 'l': '77529.73', 'a': '77920.75', 'v': '1563.7017', 'vv': '122082629.44', 'c': '-0.0006', 'b': '77921.04', 'k': '77921.05', 'oi': '0', 't': 1793616010286}
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex scanner: 3,000 pools (solana 2,061 / base 588 / ethereum 351), refresh cycle 112s (hot 109s), 1098 calls (43 feed, 429s 1, failed 1), 31,641 refreshed (2742 no pair), +43 added / -42 dropped (dead 7, stale 0, cap 35), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT CBETH@base liq $1,343,306 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+[2026-11-02 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/mover     equity $240.15 (-52.0%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/social_heat equity $363.85 (-27.2%) 3 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/breakout10 equity $409.34 (-18.1%) 1 open  market UP
+[2026-11-02 11:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-02 11:06 UTC] crypto/hold_btc  equity $467.05 (-6.6%) 1 open  market DOWN
+   social heat top: PENGU 41 (29/0/12), MON 37 (37/0/0), BTC 37 (32/0/5), PONS 29 (19/0/10), SOL 24 (24/0/0)
