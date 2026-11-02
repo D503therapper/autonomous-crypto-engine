@@ -41,6 +41,7 @@ every session:
   💰 the UNIT PLAYS record (every Lock, Dog of the Day, value play and early play - "The good bets we put money on":
   W-L, units, ROI; sports_dashboard.unit_record) and 🟡 the LEANS record (the only picks without units, from 9/29 on).
   BY SPORT is unit plays only - W-L and units per sport (the owner, 10/6: "leans don't get a by sport"); leans live only in their own 🟡 Leans record. No units on them, so never the bankroll. Live plus money and tennis keep their own records. The -150 rule stays.
+- College hoops Locks early (11/3 study, the owner's open 10/16 question): no college hoops Lock until both teams have played 3 games, then half a unit through game 10 (sports.ncaab_early_lock). No college hoops Dog (opening-week upsets are already in the price - early dogs win less than their price says).
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.

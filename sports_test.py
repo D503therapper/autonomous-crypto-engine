@@ -16660,6 +16660,23 @@ def test_cbb_1103_b_away_small_fav_novdec_rubber_dog_skid_dog_weights_and_a_rest
         sl._GAMES.update(keep)
 
 
+
+def test_ncaab_early_lock_1103_no_lock_before_both_teams_play_3_then_half_unit_through_game_10():
+    """11/3 COLLEGE HOOPS (A) answered the owner's open 10/16 question (college hoops Locks early) and his 10/30 rule put it
+    in: -120..-150 college hoops favorites in opening week -12.9% (held out -20.2%, 3 of 3 down) and before 10 games the
+    read is the market - so no college hoops Lock until BOTH teams have played 3, then half a unit through game 10."""
+    import sports
+    base = {"league": "ncaab", "odds": -130, "dec": 1.769, "p": 0.6, "edge_own": 0.05}
+    assert sports.ncaab_early_lock({**base, "games_in": 2, "opp_games_in": 8}) == "none"     # the fewer count decides
+    assert sports.ncaab_early_lock({**base, "games_in": 5}) is None                           # no count: not a live side
+    assert sports.ncaab_early_lock({**base, "games_in": 0, "opp_games_in": 0}) == "none"      # opening night: no Lock
+    assert sports.nba_week_one({**base, "games_in": 0, "opp_games_in": 0})                    # every Lock gate reads it
+    assert sports.ncaab_early_lock({**base, "games_in": 3, "opp_games_in": 9}) == "half"
+    assert sports.lock_units_1031({**base, "games_in": 3, "opp_games_in": 9}) == 0.5
+    assert sports.ncaab_early_lock({**base, "games_in": 10, "opp_games_in": 14}) is None
+    assert not sports.nba_week_one({**base, "games_in": 10, "opp_games_in": 14})
+    assert sports.ncaab_early_lock({"league": "nba", "season_games": 0}) is None              # other sports untouched
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

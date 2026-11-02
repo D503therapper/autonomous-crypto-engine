@@ -703,6 +703,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
                     "games_in": season_games(games, g, side) if lg == "ncaab" else None,   # (11/3: ncaab_early_road_dog)
+                    "opp_games_in": season_games(games, g, other) if lg == "ncaab" else None,   # (11/3: ncaab_early_lock)
                     "mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
@@ -1548,8 +1549,29 @@ NBA_NO_LOCK_GAMES = 5      # 10/21 study #3: NBA favorites in a team's games 1-5
 
 
 def nba_week_one(c):
-    """An NBA side in its team's games 1-5 (no Lock then - the 10/21 study)."""
+    """An NBA side in its team's games 1-5 (no Lock then - the 10/21 study); a college hoops game before both teams have
+    played NCAAB_NO_LOCK_GAMES (11/3, ncaab_early_lock)."""
+    if c.get("league") == "ncaab":
+        return ncaab_early_lock(c) == "none"
     return c.get("league") == "nba" and c.get("season_games") is not None and c["season_games"] + 1 <= NBA_NO_LOCK_GAMES
+
+
+NCAAB_NO_LOCK_GAMES = 3     # 11/3 COLLEGE HOOPS (A) - the owner's open 10/16 question ("college hoops Locks small the first
+NCAAB_HALF_LOCK_GAMES = 10  # 2 weeks"), answered by the data and wired under his 10/30 rule (Fable's findings go in): -120..-150
+#                             favorites in opening week -12.9% on 156 (held out -20.2%, 3 of 3 down), and before 10 games the
+#                             read IS the market (early_trust) - no college hoops Lock until both teams have played 3 games,
+#                             then ½u through game 10
+
+
+def ncaab_early_lock(c):
+    """'none' (no college hoops Lock yet), 'half' (½u) or None (normal) - by the fewer games either team has played."""
+    if c.get("league") != "ncaab":
+        return None
+    n = [c.get("games_in"), c.get("opp_games_in")]
+    if any(x is None for x in n):                            # (no count on file: not a live board candidate - live ones
+        return None                                          #  always carry it, 0 on opening night)
+    m = min(n)
+    return "none" if m < NCAAB_NO_LOCK_GAMES else "half" if m < NCAAB_HALF_LOCK_GAMES else None
 EARLY_TRUST_LEAGUES, EARLY_TRUST_GAMES = ("nba", "ncaab"), 10
 EARLY_TRUST_ROSTER = 0.5       # with the roster prior in the read (NBA, 10/20) the pull is softer: half the own read
 #                                at game 0 (the prior read games 1-5 at 0.638 log loss vs the market's 0.630 - close,
@@ -2799,6 +2821,8 @@ def lock_units_1031(leg):
     LOCK_BIG_GAP points over the no-vig market, 1u at it or past it (or with no read / market to judge)."""
     if leg.get("league") in LOCK_FOOTBALL:
         return LOCK_FOOTBALL_UNITS
+    if ncaab_early_lock(leg) == "half":                      # (11/3: a college hoops Lock before game 10 = ½u)
+        return 0.5
     g = hockey_own_gap(leg)                                  # (the own read over the no-vig market, any sport)
     return LOCK_UNITS_1031 if g is not None and g < LOCK_BIG_GAP else LOCK_BIG_GAP_UNITS
 

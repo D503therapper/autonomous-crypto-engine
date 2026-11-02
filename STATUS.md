@@ -1,4 +1,5 @@
 # D503 Sports Engine - where things stand (read this first in every new chat)
+- 11/3: COLLEGE HOOPS EARLY LOCK WIRED (the open 10/16 decision, answered by the 11/3 (A) study under the owner's 10/30 rule): no college hoops Lock until both teams have played 3, then half a unit through game 10 (sports.ncaab_early_lock / NCAAB_NO_LOCK_GAMES / NCAAB_HALF_LOCK_GAMES).
 
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
@@ -732,7 +733,7 @@ on 102, 3 of 6 seasons) - re-check after 2027.
 - 10/17 the owner: yes to A (🔍 plays only when the ratings back the dog) and units on rule A as a WEIGHT, never automatic (sports.weigh_ncaaf_fav_form_spot, +3 pts, lead tag).
 - 10/17 the owner: the dog limit is +350 everywhere (Dog, plays, 🔍, early spots - DAILY_DOG_MAX / DOG_DAY_MAX / SPOT_DOG), was +300.
 - 10/17 the owner: NFL 0-2 dog +3 on the dog score (a weight); the 'blew somebody out' early spot OFF in the NFL (college keeps it). And: if a Fable audit finds an early play that should be removed, pull it without asking.
-- 10/16 still open (from the 10 Fable jobs): Dog only when its own read beats the price too; drop the hockey "best dog under score 6" fallback Dog; MLB early (exam) plays flat 1u instead of Kelly (Brewers 3u rode a read ~9 pts high); college hoops Locks small the first 2 weeks.
+- 10/16 still open (from the 10 Fable jobs): Dog only when its own read beats the price too; drop the hockey "best dog under score 6" fallback Dog; MLB early (exam) plays flat 1u instead of Kelly (Brewers 3u rode a read ~9 pts high). (College hoops Locks early: ANSWERED 11/3 - no Lock before both teams play 3, half a unit through game 10.)
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.
 - Card labels showing the edge size in words ("BIG EDGE - 3 UNITS" / "SMALL EDGE - ½ UNIT").
