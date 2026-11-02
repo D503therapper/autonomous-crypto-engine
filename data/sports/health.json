@@ -1,12 +1,9 @@
 {
- "at": "2026-11-02T18:49Z",
+ "at": "2026-11-02T18:51Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Bronzetti vs Jeanjean: no points for 2623s",
-  "live tennis scores: tennis Garcia vs Alves: no points for 2608s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (53s)",
+  "live watcher fresh (130s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +11,23 @@
   "slate check: all 199 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 2 fresh (bovada 2)",
   "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 12 min ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-02T18:51Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-02T18:49Z",
    "fixes": [],
@@ -539,16 +541,6 @@
     "live tennis scores: tennis Monnet vs Andreescu: no points for 1405s",
     "live tennis scores: tennis Lee vs Sasnovich: no points for 1437s",
     "live tennis scores: tennis Stojsavljevic vs Prozorova: no points for 1437s"
-   ]
-  },
-  {
-   "at": "2026-11-01T02:39Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Andreescu: no points for 735s",
-    "live tennis scores: tennis Lee vs Sasnovich: no points for 768s",
-    "live tennis scores: tennis Stojsavljevic vs Prozorova: no points for 768s",
-    "sources down (the backups took over): betrivers:nba:1028754095 HTTP 404"
    ]
   }
  ]
