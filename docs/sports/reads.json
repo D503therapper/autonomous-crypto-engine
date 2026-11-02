@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T23:53Z",
+ "updated": "2026-11-02T23:55Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -2809,8 +2809,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee",
-    "p": 0.921,
-    "tie": 0.015,
+    "p": 0.927,
+    "tie": 0.014,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2825,9 +2825,9 @@
     "opp": "Tennessee",
     "market": "spread",
     "line": 27.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.522,
-    "win_p": 0.027,
+    "win_p": 0.024,
     "reasons": []
    }
   },
@@ -2923,8 +2923,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia Tech",
-    "p": 0.827,
-    "tie": 0.027,
+    "p": 0.812,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2938,11 +2938,13 @@
     "team": "Hampton",
     "opp": "Georgia Tech",
     "market": "spread",
-    "line": 14.5,
-    "odds": -110,
-    "p": 0.508,
-    "win_p": 0.094,
-    "reasons": []
+    "line": 15.5,
+    "odds": -102,
+    "p": 0.509,
+    "win_p": 0.107,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -3025,7 +3027,7 @@
     "opp": "Akron",
     "market": "spread",
     "line": -14.0,
-    "odds": -105,
+    "odds": -108,
     "p": 0.507,
     "win_p": 0.713,
     "reasons": [
@@ -3174,9 +3176,9 @@
     "team": "Drexel",
     "opp": "Virginia",
     "market": "spread",
-    "line": 26.5,
-    "odds": -115,
-    "p": 0.521,
+    "line": 29.5,
+    "odds": -110,
+    "p": 0.524,
     "win_p": 0.027,
     "reasons": []
    }
@@ -3187,8 +3189,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.395,
-    "tie": 0.297,
+    "p": 0.39,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3203,9 +3205,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
-    "p": 0.628,
-    "win_p": 0.41,
+    "odds": -192,
+    "p": 0.639,
+    "win_p": 0.42,
     "reasons": []
    }
   },
@@ -3231,7 +3233,7 @@
     "opp": "Alabama",
     "market": "spread",
     "line": 26.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.521,
     "win_p": 0.032,
     "reasons": [
@@ -3276,8 +3278,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Missouri",
-    "p": 0.903,
-    "tie": 0.018,
+    "p": 0.913,
+    "tie": 0.016,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3291,10 +3293,10 @@
     "team": "Cleveland St",
     "opp": "Missouri",
     "market": "spread",
-    "line": 23.5,
-    "odds": -110,
-    "p": 0.518,
-    "win_p": 0.037,
+    "line": 26.5,
+    "odds": -108,
+    "p": 0.521,
+    "win_p": 0.032,
     "reasons": [
      "opponent drama: suspension"
     ]
@@ -3329,6 +3331,34 @@
      "the stronger team",
      "sharp money moving this way"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401909796",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Kansas St",
+    "p": 0.763,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T01:00Z",
+   "away": "S Dakota St",
+   "home": "Kansas St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "S Dakota St",
+    "opp": "Kansas St",
+    "market": "spread",
+    "line": 13.5,
+    "odds": -112,
+    "p": 0.507,
+    "win_p": 0.153,
+    "reasons": []
    }
   },
   {
