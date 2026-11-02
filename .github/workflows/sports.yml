@@ -43,6 +43,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}     # (the engine's key for the 🔔 alerts - never printed)
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           SPORTS_POST_NOW: ${{ github.event.inputs.post_now == 'true' && '1' || '' }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}     # 🎾 11/2: tennis prices (sports_tennis.oddsapi - 3 pulls a day, capped 15 / day, 450 / month; never printed)
       - if: always()
         run: |
           git config user.name "paper-trader-bot"
