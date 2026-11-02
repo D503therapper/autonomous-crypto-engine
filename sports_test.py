@@ -15771,6 +15771,106 @@ def test_daily_1101_hoops_day_after_a_blowout_loss_is_a_tracker_lead_no_weight()
     assert "hoops_blowout_b2b" not in src
 
 
+def test_daily_1102_nba_early_spread_favorite_is_a_rank_weight_and_three_tracker_leads():
+    """11/2 daily run (10 studies, results/studies/daily_1102/): ONE WEIGHT - an NBA spread favorite laying 3.5-12.5 in
+    its team's first 20 games covered 46.8% (train -11.5% ATS 0 of 5 up, held out -8.7% / -10.0% 3 of 3 down, the paid
+    morning spread -9.6%) - -0.03 on its spread rank (rank_p, the lean / Lock line), never a gate, moneylines and the
+    dog side untouched; its live cover record in the tracker (a spread row graded against its line). THREE tracker
+    LEADS (never a weight): the NBA dog on 2+ days off vs a back-to-back team, the NBA -101..-150 favorite whose top
+    scorer just had 40+, the NHL home side in February."""
+    import tempfile
+    import sports_leads as sl
+    base = {"league": "nba", "market": "spread", "line": -6.5, "odds": -110, "dec": 1.909, "p": 0.55, "side": "home",
+            "home": True, "season_games": 4, "game_id": "g1", "team": "A", "opp": "B", "start": "2026-11-05T00:00Z",
+            "reasons": []}
+    assert sports.nba_early_spread_fav(base) and sports.early_spread_w(base) == -sports.NBA_EARLY_SPREAD_W == -0.03
+    assert abs(sports.rank_p(base) - (base["p"] - 0.03 + sports.cover_run_w(base) + sports.coach_w(base))) < 1e-9
+    for k, v in (("season_games", 20), ("line", -3.0), ("line", -13.0), ("line", 6.5), ("market", "ml"),
+                 ("league", "ncaab"), ("season_games", None)):
+        assert not sports.nba_early_spread_fav({**base, k: v}), (k, v)          # game 20+, out of the band, the dog,
+    assert sports.nba_early_spread_fav({**base, "season_games": 18, "line": -12.5})   # a moneyline, another sport
+    assert sports.nba_early_spread_fav({**base, "line": -3.5})
+    assert sports.early_spread_w({**base, "line": 6.5}) == 0.0                 # the dog side: no bump
+    lead = "NBA spread fav 3.5-12.5, games 1-20 (fade)"
+    assert sl.tags(base, sports) == [lead] and sl.tags({**base, "season_games": 25}, sports) == []
+    # the tracker logs the spread side apart from the moneyline side and grades it against its line
+    keep = (sl.PATH, sl.RECORD)
+    with tempfile.TemporaryDirectory() as d:
+        try:
+            sl.PATH, sl.RECORD = os.path.join(d, "t.json"), os.path.join(d, "r.json")
+            assert sl.log("2026-11-04", [base], sports) == 1 and sl.log("2026-11-04", [base], sports) == 0
+            row = sl.load()[0]
+            assert row["market"] == "spread" and row["line"] == -6.5 and row["tags"] == [lead]
+            assert sl._key("d", "g", "home", "spread") != sl._key("d", "g", "home", "ml") == ("d", "g", "home")
+            G = {"g1": {"status": "final", "home_score": "110", "away_score": "105"}}   # won by 5: did NOT cover -6.5
+            rec = sl.grade(G)
+            assert rec[lead]["w"] == 0 and rec[lead]["l"] == 1
+            G["g1"]["home_score"] = "112"                                     # won by 7: covered
+            assert sl.grade(G)[lead]["w"] == 1
+            G["g1"]["home_score"] = "104"                                     # lost outright at home: no cover
+            assert sl.grade(G)[lead]["l"] == 1
+        finally:
+            sl.PATH, sl.RECORD = keep
+    # the three moneyline LEADS
+    keep_g = dict(sl._GAMES)
+
+    def fg(i, start, home, away, hs, as_, **kw):
+        return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                "home_score": str(hs), "away_score": str(as_), **kw}
+    import sports_absences as sa
+    keep_box = dict(sa._TEAM)
+    try:
+        sl._GAMES["nba"] = {
+            "a1": fg("nba:a1", "2026-11-01T00:00Z", "T", "X", 120, 110),          # T last played 11/1 (night 10/31)
+            "b1": fg("nba:b1", "2026-11-03T00:00Z", "O", "Y", 101, 99),           # O played last night
+            "hn": {"id": "hn", "start": "2026-11-04T00:00Z", "status": "pre", "stype": "2", "home": "T", "away": "O"}}
+        sl._GAMES["nba"]["nba:a1"] = sl._GAMES["nba"].pop("a1")
+        sl._GAMES["nba"]["nba:b1"] = sl._GAMES["nba"].pop("b1")
+        dog = {"market": "ml", "league": "nba", "game_id": "hn", "side": "home", "home": True, "odds": 150, "dec": 2.5,
+               "p_market": 0.38, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ts", "opp": "Os",
+               "start": "2026-11-04T00:00Z", "dog_more": {}}
+        assert sl.nba_rest_stack(dog) and "NBA dog on 2+ days off vs a team on a back-to-back" in sl.tags(dog, sports)
+        assert "NBA dog on 2+ days off vs a team on a back-to-back" not in sl.tags({**dog, "odds": 400, "dec": 5.0}, sports)
+        sl._GAMES["nba"]["nba:a1"]["start"] = "2026-11-02T00:00Z"            # only 1 day off: no
+        assert not sl.nba_rest_stack(dog)
+        sl._GAMES["nba"]["nba:a1"]["start"] = "2026-11-01T00:00Z"
+        sl._GAMES["nba"]["nba:b1"]["start"] = "2026-11-02T00:00Z"            # the opponent rested too: no
+        assert not sl.nba_rest_stack(dog)
+        # the top scorer's 40
+        st = lambda p: json.dumps({"points": str(p)})                        # noqa: E731
+        sa._TEAM["nba"] = {"T": [("2026-11-01T00:00Z", "nba:a1", [{"player": "Star", "stats": st(41)},
+                                                                     {"player": "Two", "stats": st(18)}])]}
+        fav = {**dog, "odds": -130, "dec": 1.77}
+        assert sl.nba_star40(fav) and "NBA small fav, its top scorer just had 40+ (fade)" in sl.tags(fav, sports)
+        assert "NBA small fav, its top scorer just had 40+ (fade)" not in sl.tags({**fav, "odds": -180, "dec": 1.56}, sports)
+        sa._TEAM["nba"]["T"][0][2][0]["stats"] = st(39)                      # 39: no
+        assert not sl.nba_star40(fav)
+        # the NHL home side in February
+        sl._GAMES["nhl"] = {"h": {"id": "h", "start": "2027-02-10T00:00Z", "status": "pre", "stype": "2",
+                                  "home": "H", "away": "R"}}
+        hk = {"market": "ml", "league": "nhl", "game_id": "h", "side": "home", "home": True, "odds": -140, "dec": 1.71,
+              "p_market": 0.56, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Hs", "opp": "Rs",
+              "start": "2027-02-10T00:00Z", "dog_more": {}}
+        lead = "NHL home side in February (fade)"
+        assert sl.nhl_feb_home(hk) and lead in sl.tags(hk, sports)
+        assert lead not in sl.tags({**hk, "side": "away", "home": False}, sports)
+        assert lead not in sl.tags({**hk, "odds": -300, "dec": 1.33}, sports)
+        sl._GAMES["nhl"]["h"]["start"] = "2027-03-10T00:00Z"
+        assert not sl.nhl_feb_home({**hk, "start": "2027-03-10T00:00Z"})
+        sl._GAMES["nhl"]["h"].update(start="2027-02-10T00:00Z", neutral="1")  # a neutral site: no
+        assert not sl.nhl_feb_home(hk)
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
+        sa._TEAM.clear()
+        sa._TEAM.update(keep_box)
+    # the caps and the sizing untouched; the leads are never read by the board
+    assert sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    for fn in ("nba_rest_stack", "nba_star40", "nhl_feb_home"):
+        assert fn not in src
+
+
 def test_tennis_odds_read_always_leaves_its_outcome_on_disk():
     """10/30: the Bovada tennis feed went quiet 10/29 11:20Z and the repo had no trace of why (the job logs are out of
     reach). Every read now writes tennis/odds_status.json - the lines it got, the raw payload size, or the error -

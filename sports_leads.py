@@ -13,7 +13,9 @@ RECORD = os.path.join(sd.DATA, "lead_record.json")
 
 
 def tags(c, sports):
-    """The leads firing on one candidate side (moneylines)."""
+    """The leads firing on one candidate side (moneylines; a spread side only for its own spread leads)."""
+    if c.get("market") == "spread":
+        return spread_tags(c, sports)
     if c.get("market") != "ml":
         return []
     try:                                                     # the sharp-money signals, any side (the owner, 10/1: "the
@@ -59,12 +61,24 @@ def tags(c, sports):
         #                                                     held out 20-11 +14.2%, 2 of 2; now 3-4) - a LEAD (3 of 6 =
         #                                                     not a weight); every rested-favorite spot LOST (the books
         #                                                     over-move for rest)
+    if lg == "nhl" and NHL_FEB_HOME_ODDS[0] <= c.get("odds", 0) <= NHL_FEB_HOME_ODDS[1] and nhl_feb_home(c):
+        t.append("NHL home side in February (fade)")   # 11/2 daily study 5 (NHL home ice by month): the home side in
+        #   February -12.1% on 705 train (2018-21, 0 of 4 up) / -7.2% on 496 held out (2022-25; 2024 +0.7%) at the close,
+        #   the paid 2021-23 MORNING price -13.5% on 458, vs -2..-5% for the other months; but the neighbors flip
+        #   (December -7.2%, January / March near the base), ~50 month cells looked at, no mechanism and no live
+        #   February yet - a LEAD, tracked only (fires from February), never a weight
     if lg == "ncaab" and HOOPS_BLOWOUT_ODDS[0] <= c.get("odds", 0) <= HOOPS_BLOWOUT_ODDS[1] and hoops_blowout_b2b(c):
         t.append("college hoops side the day after a 15+ loss (fade)")   # 11/1 daily study 9 (college hoops prep, the
         #   Nov-Dec tournament back-to-back - the consolation game): ATS -13.1% on 75 train (2018-21) / -21.3% on 68 held
         #   out (2022-25, 4 of 4 down) at a neutral site, -32.8% on 40 at home / road; the moneyline -10.4% / -16.8%
         #   (neutral, -400..+350) - but the dose is ragged (lost by 10-14 ATS +3.1%, 15-19 -27.2%, 20+ -13.2%) and ~60
         #   cells looked at: a LEAD, tracked only, never a weight (the season opens 11/3 - no live games yet)
+    if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_rest_stack(c):
+        t.append("NBA dog on 2+ days off vs a team on a back-to-back")   # 11/2 daily study 3 (rest stacking): the dog
+        #   with 2+ nights off vs a b2b team +6.2% on 104 train (2016-22, 3 of 5 up) / +13.4% on 65 held out vs -0.1% /
+        #   -6.3% for the 1-day-off dog vs a b2b; the 2020-23 morning price +12.3% on 56 vs -7.7%; the same side as a
+        #   -151..-300 favorite +6.2% vs -5.9%, ATS +0.6% vs -5.5% - one sign everywhere, but z 0.8 on 169: a dose of the
+        #   BUILT +3 rested_vs_b2b, tracked only, never a second weight
     if dog and lg == "nba" and mo.get("last_upset") and c.get("odds", 0) >= sports.NBA_UPSET_DOG_MIN:
         t.append("NBA dog off an upset win, still +180 or longer")   # 10/24 dog-eye study: a LEAD (train +7.2% on 538,
         #                                                             4 of 7 seasons; holdout +1.1% on 73) - tracked, never a weight
@@ -253,6 +267,11 @@ def tags(c, sports):
             #   -3.2% for the band (train 2021-22 -3.7% vs -0.8%, held out 2023-25 -15.6%, 3 of 3 down) - the BUILT
             #   hockey absence penalty (top scorer -6 / top-2 -4 off the own read) is the right size; this is its live
             #   record, never a second weight
+        if lg == "nba" and -150 <= c.get("odds", 0) <= -101 and nba_star40(c):
+            t.append("NBA small fav, its top scorer just had 40+ (fade)")   # 11/2 daily study 4: the -101..-150
+            #   favorite the game after its top scorer put up 40+: -15.5% on 104 train (2016-22, 1 of 5 up) / -12.0% on 64
+            #   held out (2024 +15.5%), the 2020-23 morning price -17.3% on 70, vs -4.5% for the band; ATS -7.1% vs -4.2%;
+            #   the -151..-300 favorite and the dogs at their base, z -2.0 - a LEAD, tracked only, never a weight
         if lg == "nba" and -150 <= c.get("odds", 0) <= -100 and halftime_comeback(c):
             t.append("NBA small fav off a 10+ halftime comeback win")   # 10/27 daily study: train +31.8% on 68
             #   (6 of 7 up, 8+ / 12+ the same sign) but holdout 2025 3-6 -42% and the NHL version flat - tracked only
@@ -643,6 +662,77 @@ def hoops_blowout_b2b(c):
         return False
 
 
+def _key(day, gid, side, market):
+    """One tracker row per game side per day - a spread side keeps its own row next to the moneyline one."""
+    return (day, gid, side) + (("spread",) if market == "spread" else ())
+
+
+def spread_tags(c, sports):
+    """The spread leads (graded against the line): 11/2 daily study 1 - the NBA early-season spread favorite, BUILT as a
+    -0.03 rank weight (sports.early_spread_w); its live cover record here (judge at 50: covering 52%+ = it comes off)."""
+    t = []
+    if sports.nba_early_spread_fav(c):
+        t.append("NBA spread fav 3.5-12.5, games 1-20 (fade)")
+    return t
+
+
+NHL_FEB_HOME_ODDS = (-250, 350)     # 11/2 daily study 5: the bands graded (home favorites to -250, home dogs to +350)
+NBA_STAR_PTS = 40                   # 11/2 daily study 4: the top scorer's points last game
+NBA_REST_STACK_NIGHTS = 3           # 11/2 daily study 3: last game 3+ nights ago = 2+ days off
+
+
+def nhl_feb_home(c):
+    """11/2 daily study 5 (a LEAD, tracked only): the home side (not a neutral site) of an NHL game in February."""
+    if c.get("league") != "nhl" or c.get("side") != "home":
+        return False
+    g = _game(c)
+    start = str(c.get("start") or g.get("start") or "")
+    return start[5:7] == "02" and str(g.get("neutral")) != "1"
+
+
+def nba_rest_stack(c):
+    """11/2 daily study 3 (a LEAD, tracked only): this NBA side's last game was 3+ nights ago (2+ days off) and the
+    opponent played LAST NIGHT (the 2nd night of its back-to-back) - this season's finals only."""
+    if c.get("league") != "nba":
+        return False
+    team, rows = _season_before(c)
+    oteam, orows = _season_before(dict(c, side="away" if c.get("side") == "home" else "home"))
+    if not team or not oteam or not rows or not orows:
+        return False
+    try:
+        now = _night(c.get("start") or _game(c).get("start"))
+        return now - _night(rows[-1]["start"]) >= NBA_REST_STACK_NIGHTS and now - _night(orows[-1]["start"]) == 1
+    except (TypeError, ValueError):
+        return False
+
+
+def nba_star40(c):
+    """11/2 daily study 4 (a LEAD, tracked only): this NBA side's top scorer had 40+ points in its last game (this
+    season, within the last 4 nights) - from the saved box scores (sports_absences._games)."""
+    if c.get("league") != "nba":
+        return False
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return False
+    x = rows[-1]
+    try:
+        if _night(c.get("start") or _game(c).get("start")) - _night(x["start"]) > 4:
+            return False
+        import sports_absences
+        box = next((rs for s_, gid, rs in sports_absences._games("nba").get(str(team), []) if gid == x["id"]), None)
+    except Exception:                                        # noqa: BLE001
+        return False
+    if not box:
+        return False
+    best = 0.0
+    for r in box:
+        try:
+            best = max(best, float(json.loads(r.get("stats") or "{}").get("points") or 0))
+        except (TypeError, ValueError):
+            continue
+    return best >= NBA_STAR_PTS
+
+
 def load():
     try:
         return json.load(open(PATH))
@@ -653,17 +743,20 @@ def load():
 def log(day_iso, cands, sports):
     """Add today's firing leads (once per game side per day - the first look the board run took)."""
     rows = load()
-    have = {(r["day"], r["game_id"], r["side"]) for r in rows}
+    have = {_key(r["day"], r["game_id"], r["side"], r.get("market")) for r in rows}
     added = 0
     for c in cands:
-        key = (day_iso, c.get("game_id"), c.get("side"))
+        key = _key(day_iso, c.get("game_id"), c.get("side"), c.get("market"))
         if key in have:
             continue
         tg = tags(c, sports)
         if not tg:
             continue
-        rows.append({"day": day_iso, "game_id": c["game_id"], "league": c.get("league"), "side": c.get("side"),
-                     "team": c.get("team"), "odds": c.get("odds"), "tags": tg})
+        row = {"day": day_iso, "game_id": c["game_id"], "league": c.get("league"), "side": c.get("side"),
+               "team": c.get("team"), "odds": c.get("odds"), "tags": tg}
+        if c.get("market") == "spread":                      # (11/2: a spread lead grades against its line)
+            row.update(market="spread", line=c.get("line"))
+        rows.append(row)
         have.add(key)
         added += 1
     if added:
@@ -684,9 +777,18 @@ def grade(games):
             hs, as_ = float(g["home_score"]), float(g["away_score"])
         except (KeyError, ValueError, TypeError):
             continue
-        if hs == as_:
+        if r.get("market") == "spread":
+            try:
+                m = (hs - as_ if r["side"] == "home" else as_ - hs) + float(r["line"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if m == 0:
+                continue                                     # a push grades nothing
+            won = m > 0
+        elif hs == as_:
             continue
-        won = (hs > as_) == (r["side"] == "home")
+        else:
+            won = (hs > as_) == (r["side"] == "home")
         o = r.get("odds") or 100
         net = (o / 100 if o > 0 else 100 / -o) if won else -1.0
         for t in r["tags"]:
