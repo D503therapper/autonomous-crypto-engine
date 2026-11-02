@@ -280,6 +280,22 @@ def tags(c, sports):
             #   won a game both teams scored 30+ in: +20.2% on 62 (train 7 of 7 up, 2025 -11% on 8, early price +17%);
             #   college 35+ the same sign (+8.8% on 78) but not at 31+ / 42+; the bettable -101..-150 band doesn't
             #   hold - tracked only, never a weight
+    gi = c.get("games_in") if lg == "ncaab" else None    # 🏀 11/3 college hoops (A) - results/studies/cbb_1103_a/
+    if gi is not None:
+        if sports.ncaab_early_road_dog(c):
+            t.append("college hoops road dog, games 1-3 (fade)")   # s7 - BUILT as a -2 dog-score weight; its live
+            #   record (ML -20.0% on 581, open -26.1%, ATS -16.4%, held 3 of 3 down)
+        if 100 <= c.get("odds", 0) <= 150 and gi + 1 <= 2:
+            t.append("college hoops short dog +100..+150, games 1-2")   # s0 / s0b: opening week +14.6% on 273 (train
+            #   +12.2% 3/5 up, held +21.0% 3/3 up) - but the sides that OPENED there +0.4% (the second check fails),
+            #   +151..+200 next door -19.4%, ~50 cells (2-3 at |z| 2 by luck). A LEAD - games 1-2 stand in for the week
+        if -150 <= c.get("odds", 0) <= -120 and gi + 1 <= 2:
+            t.append("college hoops Lock-band fav -120..-150, games 1-2 (fade)")   # s6: days 0-7 -12.9% on 156
+            #   (train 1/5 up, held -20.2% 3/3 down), days 8-14 +5.7% - the open 10/16 Lock question; tracked only
+        if (c.get("drift") or 0) <= -0.08 and gi + 1 <= 6:
+            t.append("college hoops side the line jumped 8+ to, games 1-6 (fade)")   # s2: following an 8+ point
+            #   open->close move in the first 3 weeks -23.3% at the close on 104 (2023 / 2024 down, 2025 +3.8%) vs
+            #   -8.1% later; fading it +17.6% - 3 seasons of opens only, a LEAD
     return t + sharp
 
 

@@ -688,7 +688,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "team_id": g[side], "elo_edge": round(f["elo_pts"] * (1 if side == "home" else -1), 1),
                     "fbs_game": fbs_game,
                     "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
-                    "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
+                    "home": side == "home", "neutral": str(g.get("neutral")) == "1",   # (11/3: ncaab_big_home_fav)
+                    "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
@@ -701,6 +702,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
+                    "games_in": season_games(games, g, side) if lg == "ncaab" else None,   # (11/3: ncaab_early_road_dog)
                     "mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
@@ -2171,6 +2173,11 @@ def dog_spots(c):
         sc -= 2                    # ...and the dog off one is overpriced the same way (10/2 momentum study - a lead)
     if lg == "mlb" and mo.get("late_rally") and 100 <= odds <= 220:
         sc += 1.5                  # lost, but won the last 3 innings by 4+: +12% vs -4.7% (10/2 - a lead, baseball only)
+    if ncaab_early_road_dog(c):
+        sc -= NCAAB_EARLY_ROAD_DOG_PTS   # 🏀 11/3 college hoops (A) s7: a true ROAD dog in its first 3 games loses ~12
+        #                            points past the vig in BOTH markets - ML -20.0% on 581 (train -17.8% 4/5 down, held
+        #                            -23.1% 3/3 down), at ESPN's open -26.1% (3/3), ATS -16.4% (train 0/5 up, held 3/3 down)
+        #                            vs -7.4% / -4.1% for road dogs later. The home dog in the same games +-0. A weight.
     if cold_dog(lg, mo):
         sc -= COLD_DOG_PTS         # 10/25 night sweep: a dog the engine likes that is COLD this season loses against its
         #                            price in football and the NBA (college under .300 after 4+: 3-10 / 5-13 the two seasons
@@ -2178,6 +2185,19 @@ def dog_spots(c):
         #                            3 of 4 seasons down). A weight, never a gate. NOT hockey: cold NHL dogs the live read
         #                            likes WON (+8% / +10% on 38 / 67, hold +18% / +88%) - the Canucks pull was the owner's.
     return sc
+
+
+NCAAB_EARLY_ROAD_DOG_PTS = 2       # 🏀 11/3 college hoops (A): the early true-road dog fade (a weight inside STUDY_CAP)
+NCAAB_EARLY_ROAD_DOG_GAMES = 3     #   - the dog's own games 1-3 (game 4-6 -6.5% = the base; the calendar cut agrees:
+#                                    days 0-7 -19.4%, 8-14 -16.3%, 15+ -7.2%)
+
+
+def ncaab_early_road_dog(c):
+    """A college hoops moneyline dog on a true road floor (not neutral) in its first NCAAB_EARLY_ROAD_DOG_GAMES games."""
+    if c.get("league") != "ncaab" or c.get("home") or c.get("neutral") or c.get("market", "ml") != "ml":
+        return False
+    n = c.get("games_in")
+    return n is not None and (c.get("odds") or 0) >= 100 and n + 1 <= NCAAB_EARLY_ROAD_DOG_GAMES
 
 
 COLD_DOG_PTS = 2                   # the cold-dog weight (10/25 night sweep): NBA / college football only
@@ -3678,6 +3698,24 @@ LEAN_NHL_FAV_BAND = (-150, -130)   # 🏒 THE 10/28 HOCKEY AUDIT (the owner: "ou
 LEAN_FAV_BANDS = {"ncaaf": LEAN_NCAAF_FAV_BAND, "nhl": LEAN_NHL_FAV_BAND}
 
 
+NCAAB_BIG_HOME_FAV = 12.0      # 🏀 11/3 readiness (the 11/2 buy-game study's pricing fact): a college hoops HOME favorite
+#   laying 12+ covers at ~-8% ATS every way it was cut (2,632 games, train -8.7%, held -7.5%; the same in conference play)
+#   - never a spread lean on that side. Today the spread read (strust 0 + the learned big-favorite offset, cover 49.1%)
+#   already leans the dog; this keeps it so if the spread model ever trusts the ratings again.
+
+
+def ncaab_big_home_fav(c):
+    """A college hoops spread side that is the HOME team (not a neutral floor) laying NCAAB_BIG_HOME_FAV or more."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or not c.get("home") or c.get("line") is None:
+        return False
+    if c.get("neutral"):
+        return False
+    try:
+        return float(c["line"]) <= -NCAAB_BIG_HOME_FAV
+    except (TypeError, ValueError):
+        return False
+
+
 def pricey_college_fav(c):
     """A favorite lean in a band its sport's leans lose: college -150..-130 (10/10), hockey -150..-130 (10/28)."""
     band = LEAN_FAV_BANDS.get(c.get("league"))
@@ -3708,6 +3746,8 @@ def viewer_leans(cands, avoid):
             #                                                  when the price is a bit high (10/1: two picks on 9 games)
         if c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
+        if ncaab_big_home_fav(c):
+            return False                                     # (11/3: the big college hoops home favorite, -8% ATS)
         if c["p"] >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is

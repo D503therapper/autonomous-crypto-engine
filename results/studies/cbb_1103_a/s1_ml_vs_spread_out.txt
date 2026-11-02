@@ -1,0 +1,42 @@
+STUDY 1 - MONEYLINE vs SPREAD in college hoops: do the two markets agree, and is one softer?
+(a) The map spread -> win chance is fit on TRAIN results only (logistic on the closing home spread + a neutral flag);
+    each game's moneyline no-vig is set against it. Bet the side whose MONEYLINE is cheap next to its own spread
+    (the ML says it wins less often than the spread does) by 2-4 / 4+ points, at the moneyline close.
+(b) Softness: the same favorite / dog read two ways - its ML vs its spread at -110ish - which loses less, early
+    (each team's games 1-5 / November) vs later. Spreads 1-9.5 only (where both markets are real bets).
+Train 2018-22, held out 2023 / 24 / 25 apart.
+fit on 17381 train games: P(home) = sigmoid(0.1555 * -spread + -0.060 * neutral + 0.036)
+(a) ML cheap 2-4 dog | Dec+                                n=   11 roi= +0.9% z=+0.02 | train -21.4%/7 (1/3 up) | held +40.0%/4 [2024:+55.0%/2 2025:+25.0%/2]
+(a) ML cheap 2-4 dog | Nov                                 n=    1 roi=-100.0% z=+0.00 | train  +0.0%/0 (0/0 up) | held -100.0%/1 [2025:-100.0%/1]
+(a) ML cheap 2-4 dog | g1-5                                n=    2 roi=+117.5% z=+0.76 | train +335.0%/1 (1/1 up) | held -100.0%/1 [2025:-100.0%/1]
+(a) ML cheap 2-4 fav | Dec+                                n= 9119 roi= -2.2% z=-2.85 | train  -2.4%/5716 (0/5 up) | held  -1.9%/3403 [2023:-2.1%/1295 2024:-1.0%/1185 2025:-2.9%/923]
+(a) ML cheap 2-4 fav | Nov                                 n=  517 roi= -5.4% z=-1.64 | train  -4.0%/305 (1/4 up) | held  -7.4%/212 [2023:+1.7%/63 2024:-16.3%/67 2025:-7.0%/82]
+(a) ML cheap 2-4 fav | g1-5                                n=  877 roi= -0.5% z=-0.21 | train  -0.6%/555 (2/5 up) | held  -0.1%/318 [2023:+7.0%/121 2024:-9.6%/105 2025:+1.5%/92] | 2026 -17.7%/4
+(a) ML cheap 4+ dog | Dec+                                 n=   28 roi=+75.0% z=+2.44 | train +28.2%/17 (3/3 up) | held +147.3%/11 [2024:+110.0%/3 2025:+161.2%/8]
+(a) ML cheap 4+ dog | g1-5                                 n=    4 roi=-49.8% z=-1.14 | train -33.0%/3 (1/3 up) | held -100.0%/1 [2024:-100.0%/1]
+(a) ML cheap 4+ fav | Dec+                                 n= 2638 roi= +1.4% z=+0.92 | train  -2.2%/1412 (2/5 up) | held  +5.6%/1226 [2023:-3.5%/430 2024:+10.2%/403 2025:+10.8%/393]
+(a) ML cheap 4+ fav | Nov                                  n=  186 roi= -4.8% z=-0.83 | train -21.2%/66 (1/4 up) | held  +4.3%/120 [2023:-5.7%/47 2024:+6.1%/40 2025:+16.3%/33]
+(a) ML cheap 4+ fav | g1-5                                 n=  309 roi= +1.3% z=+0.30 | train  +4.0%/159 (2/5 up) | held  -1.6%/150 [2023:-0.0%/60 2024:+0.3%/48 2025:-6.1%/42]
+(a) ML dear 2+ dog | Dec+                                  n=11396 roi= -9.0% z=-7.37 | train  -8.0%/7006 (0/5 up) | held -10.6%/4390 [2023:-9.8%/1696 2024:-12.5%/1513 2025:-9.3%/1181]
+(a) ML dear 2+ dog | Nov                                   n=  690 roi= -2.9% z=-0.59 | train  -5.2%/366 (0/4 up) | held  -0.4%/324 [2023:-10.4%/110 2024:+16.4%/104 2025:-6.1%/110]
+(a) ML dear 2+ dog | g1-5                                  n= 1168 roi=-12.3% z=-3.22 | train -12.5%/704 (0/5 up) | held -12.6%/459 [2023:-24.7%/173 2024:-2.7%/155 2025:-8.3%/131] | 2026 +47.0%/5
+(a) ML dear 2+ fav | Dec+                                  n=  872 roi= -9.6% z=-2.91 | train  -3.1%/411 (2/5 up) | held -15.3%/461 [2023:+4.3%/120 2024:-21.9%/147 2025:-22.5%/194]
+(a) ML dear 2+ fav | Nov                                   n=   46 roi=-12.5% z=-0.88 | train +20.4%/21 (1/4 up) | held -40.0%/25 [2023:+12.3%/7 2024:-79.2%/9 2025:-41.5%/9]
+(a) ML dear 2+ fav | g1-5                                  n=   76 roi=-17.6% z=-1.62 | train -16.3%/43 (0/5 up) | held -19.3%/33 [2023:-26.8%/16 2024:-20.5%/7 2025:-6.4%/10]
+(b) dog sp 1-9.5 ATS | Dec+                                n=17568 roi= -4.1% z=-5.79 | train  -4.0%/10548 (0/5 up) | held  -4.4%/7020 [2023:-5.4%/2396 2024:-4.5%/2373 2025:-3.1%/2251]
+(b) dog sp 1-9.5 ATS | Nov                                 n= 1036 roi= -1.8% z=-0.62 | train  -3.8%/561 (1/4 up) | held  +0.5%/475 [2023:+4.3%/142 2024:+9.4%/145 2025:-9.2%/188]
+(b) dog sp 1-9.5 ATS | g1-5                                n= 1698 roi= -8.4% z=-3.65 | train  -8.5%/1045 (0/5 up) | held  -8.1%/648 [2023:-16.6%/230 2024:+3.3%/213 2025:-10.5%/205] | 2026 -23.0%/5
+(b) dog sp 1-9.5 ML | Dec+                                 n=17568 roi= -7.1% z=-7.16 | train  -7.2%/10548 (0/5 up) | held  -6.9%/7020 [2023:-6.5%/2396 2024:-10.9%/2373 2025:-3.2%/2251]
+(b) dog sp 1-9.5 ML | Nov                                  n= 1036 roi= -0.8% z=-0.19 | train  -4.2%/561 (1/4 up) | held  +3.2%/475 [2023:+0.1%/142 2024:+20.0%/145 2025:-7.4%/188]
+(b) dog sp 1-9.5 ML | g1-5                                 n= 1698 roi=-10.0% z=-3.17 | train  -9.3%/1045 (0/5 up) | held -11.7%/648 [2023:-21.3%/230 2024:+4.5%/213 2025:-17.8%/205] | 2026 +47.0%/5
+(b) fav sp 1-9.5 ATS | Dec+                                n=16612 roi= -4.5% z=-6.14 | train  -4.9%/10007 (0/5 up) | held  -4.0%/6605 [2023:-3.1%/2260 2024:-3.9%/2241 2025:-5.1%/2104]
+(b) fav sp 1-9.5 ATS | Nov                                 n=  986 roi= -7.3% z=-2.41 | train  -6.0%/537 (1/4 up) | held  -8.8%/449 [2023:-11.2%/132 2024:-17.4%/137 2025:-0.6%/180]
+(b) fav sp 1-9.5 ATS | g1-5                                n= 1607 roi= +0.4% z=+0.15 | train  +0.6%/989 (2/5 up) | held  +0.0%/614 [2023:+8.8%/215 2024:-14.8%/204 2025:+5.9%/195] | 2026 -3.5%/4
+(b) fav sp 1-9.5 ML | Dec+                                 n=16612 roi= -2.9% z=-5.01 | train  -3.0%/10007 (0/5 up) | held  -2.8%/6605 [2023:-3.3%/2260 2024:-0.7%/2241 2025:-4.5%/2104]
+(b) fav sp 1-9.5 ML | Nov                                  n=  986 roi= -5.8% z=-2.44 | train  -6.1%/537 (0/4 up) | held  -5.5%/449 [2023:-2.6%/132 2024:-12.9%/137 2025:-2.0%/180]
+(b) fav sp 1-9.5 ML | g1-5                                 n= 1607 roi= -2.0% z=-1.08 | train  -2.0%/989 (1/5 up) | held  -1.9%/614 [2023:+4.6%/215 2024:-11.3%/204 2025:+0.7%/195] | 2026 -17.7%/4
+
+ML no-vig minus the spread's win chance (home side): mean / spread of the gap
+  g1-5  n=3619 mean -0.0146 sd 0.0254 share |gap|>=2pts 54.9%
+  Nov   n=1661 mean -0.0089 sd 0.0266 share |gap|>=2pts 55.1%
+  Dec+  n=24437 mean -0.0130 sd 0.0278 share |gap|>=2pts 57.3%

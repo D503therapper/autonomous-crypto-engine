@@ -1,0 +1,86 @@
+STUDY 5 - HOME COURT BY VENUE: a true home floor vs a NEUTRAL floor, and the early-season tournament (Thanksgiving
+week events: neutral floors Nov 18 - Dec 2) vs other neutral games. (a) How much the home floor is worth in points
+(the home side's margin vs its spread - the market's home edge should leave it at 0), (b) the home / 'home-listed'
+side's ATS and moneyline by venue x phase (opening week, games 1-5, Nov, Dec+), (c) on a neutral floor, the team
+whose CAMPUS is closer (the event in its own state) - from the game file's state vs each team's home-game state.
+Train 2018-22, held out 2023 / 24 / 25 apart.
+(a) the home-listed side's margin + its spread (0 = the market prices the floor right):
+  neutral-Thanksgiving  Dec+          held  n=     6 mean -7.83
+  neutral-Thanksgiving  Dec+          train n=    13 mean +2.27
+  neutral-Thanksgiving  Nov           held  n=   262 mean +0.26
+  neutral-Thanksgiving  Nov           train n=   319 mean -0.74
+  neutral-Thanksgiving  games 1-5     held  n=    80 mean +0.35
+  neutral-Thanksgiving  games 1-5     train n=   221 mean -1.45
+  neutral-Thanksgiving  opening week  train n=    58 mean -2.97
+  neutral-other         Dec+          held  n=   939 mean -0.15
+  neutral-other         Dec+          train n=  1304 mean -0.29
+  neutral-other         Nov           held  n=     2 mean +9.50
+  neutral-other         Nov           train n=     3 mean +3.50
+  neutral-other         games 1-5     held  n=    37 mean +1.01
+  neutral-other         games 1-5     train n=    44 mean +0.27
+  neutral-other         opening week  held  n=    27 mean +0.19
+  neutral-other         opening week  train n=    58 mean +0.29
+  true home             Dec+          held  n=  8877 mean -0.06
+  true home             Dec+          train n= 13420 mean +0.11
+  true home             Nov           held  n=   526 mean +0.36
+  true home             Nov           train n=   551 mean +0.27
+  true home             games 1-5     held  n=   664 mean +0.07
+  true home             games 1-5     train n=   783 mean +0.47
+  true home             opening week  held  n=   665 mean +0.77
+  true home             opening week  train n=   989 mean +0.12
+AWAY-listed ATS | neutral-Thanksgiving | Dec+              n=   19 roi= +0.8% z=+0.04 | train -26.6%/13 (0/2 up) | held +60.1%/6 [2023:+26.8%/3 2024:+93.5%/3]
+AWAY-listed ATS | neutral-Thanksgiving | Nov               n=  581 roi= -4.7% z=-1.19 | train  -0.1%/319 (2/4 up) | held -10.3%/262 [2023:-10.6%/48 2024:-13.0%/100 2025:-7.7%/114]
+AWAY-listed ATS | neutral-Thanksgiving | games 1-5         n=  301 roi= -2.0% z=-0.36 | train  +0.5%/221 (2/4 up) | held  -8.9%/80 [2023:-13.2%/53 2024:+2.7%/15 2025:-4.2%/12]
+AWAY-listed ATS | neutral-Thanksgiving | opening week      n=   58 roi= +5.6% z=+0.45 | train  +5.6%/58 (1/1 up) | held  +0.0%/0 []
+AWAY-listed ATS | neutral-other | Dec+                     n= 2243 roi= -3.3% z=-1.66 | train  -3.2%/1304 (2/5 up) | held  -3.5%/939 [2023:-10.0%/304 2024:-4.8%/332 2025:+4.5%/303]
+AWAY-listed ATS | neutral-other | Nov                      n=    5 roi=-61.8% z=-1.81 | train -36.4%/3 (0/1 up) | held -100.0%/2 [2024:-100.0%/2]
+AWAY-listed ATS | neutral-other | games 1-5                n=   81 roi=-10.6% z=-1.00 | train -13.4%/44 (0/4 up) | held  -7.3%/37 [2023:+9.3%/21 2024:-45.5%/7 2025:-16.3%/9]
+AWAY-listed ATS | neutral-other | opening week             n=   85 roi=-19.3% z=-1.89 | train -19.2%/52 (2/5 up) | held -15.4%/27 [2023:-36.5%/9 2024:-17.5%/7 2025:+3.3%/11] | 2026 -38.0%/6
+AWAY-listed ATS | true home | Dec+                         n=22297 roi= -4.2% z=-6.64 | train  -4.1%/13420 (0/5 up) | held  -4.4%/8877 [2023:-4.4%/3003 2024:-5.1%/2961 2025:-3.6%/2913]
+AWAY-listed ATS | true home | Nov                          n= 1077 roi= -4.8% z=-1.66 | train  -5.9%/551 (1/4 up) | held  -3.6%/526 [2023:-1.7%/175 2024:-5.1%/169 2025:-4.1%/182]
+AWAY-listed ATS | true home | games 1-5                    n= 1447 roi= -6.3% z=-2.53 | train  -7.4%/783 (1/5 up) | held  -5.0%/664 [2023:-18.3%/171 2024:-7.8%/250 2025:+7.1%/243]
+AWAY-listed ATS | true home | opening week                 n= 1654 roi= -6.1% z=-2.63 | train  -4.9%/989 (0/5 up) | held  -8.0%/665 [2023:-9.3%/238 2024:-6.4%/219 2025:-8.2%/208]
+AWAY-listed ML -400..+350 | neutral-Thanksgiving | Dec+    n=   13 roi= +7.9% z=+0.26 | train -28.7%/9 (0/2 up) | held +90.4%/4 [2023:+28.5%/2 2024:+152.3%/2]
+AWAY-listed ML -400..+350 | neutral-Thanksgiving | Nov     n=  466 roi= -2.5% z=-0.49 | train  -8.1%/257 (2/4 up) | held  +4.4%/209 [2023:+17.7%/41 2024:+2.0%/74 2025:+0.5%/94]
+AWAY-listed ML -400..+350 | neutral-Thanksgiving | games 1-5 n=  218 roi= +6.8% z=+0.89 | train +12.4%/157 (3/4 up) | held  -7.8%/61 [2023:-17.0%/45 2024:+41.6%/10 2025:-21.7%/6]
+AWAY-listed ML -400..+350 | neutral-Thanksgiving | opening week n=   35 roi=+35.9% z=+2.08 | train +35.9%/35 (1/1 up) | held  +0.0%/0 []
+AWAY-listed ML -400..+350 | neutral-other | Dec+           n= 1812 roi= -6.2% z=-2.16 | train  -4.2%/1047 (2/5 up) | held  -8.8%/765 [2023:-6.8%/254 2024:-12.7%/271 2025:-6.6%/240]
+AWAY-listed ML -400..+350 | neutral-other | Nov            n=    5 roi=-54.0% z=-1.31 | train -23.3%/3 (0/1 up) | held -100.0%/2 [2024:-100.0%/2]
+AWAY-listed ML -400..+350 | neutral-other | games 1-5      n=   63 roi=-18.7% z=-1.36 | train -26.8%/37 (0/4 up) | held  -7.2%/26 [2023:-7.1%/15 2024:-58.3%/6 2025:+53.8%/5]
+AWAY-listed ML -400..+350 | neutral-other | opening week   n=   72 roi=-15.4% z=-1.16 | train -15.1%/44 (1/5 up) | held -13.2%/23 [2023:-30.9%/9 2024:+52.6%/5 2025:-32.1%/9] | 2026 -28.0%/5
+AWAY-listed ML -400..+350 | true home | Dec+               n=15742 roi= -6.1% z=-6.52 | train  -6.6%/9516 (0/5 up) | held  -5.2%/6226 [2023:-6.1%/2138 2024:-6.0%/2084 2025:-3.5%/2004]
+AWAY-listed ML -400..+350 | true home | Nov                n=  562 roi= -9.9% z=-1.91 | train -12.3%/301 (1/4 up) | held  -7.1%/261 [2023:-17.4%/100 2024:+5.0%/68 2025:-5.0%/93]
+AWAY-listed ML -400..+350 | true home | games 1-5          n=  693 roi=-11.3% z=-2.50 | train -10.0%/386 (1/5 up) | held -13.0%/307 [2023:-12.7%/70 2024:-4.0%/121 2025:-22.6%/116]
+AWAY-listed ML -400..+350 | true home | opening week       n=  620 roi=-16.6% z=-3.51 | train -14.4%/388 (1/5 up) | held -20.4%/232 [2023:-29.1%/92 2024:-28.2%/74 2025:+0.4%/66]
+HOME-listed ATS | neutral-Thanksgiving | Dec+              n=   19 roi= -9.1% z=-0.41 | train +18.2%/13 (2/2 up) | held -68.3%/6 [2023:-36.6%/3 2024:-100.0%/3]
+HOME-listed ATS | neutral-Thanksgiving | Nov               n=  581 roi= -4.3% z=-1.10 | train  -9.0%/319 (2/4 up) | held  +1.4%/262 [2023:+1.4%/48 2024:+4.2%/100 2025:-1.1%/114]
+HOME-listed ATS | neutral-Thanksgiving | games 1-5         n=  301 roi= -6.7% z=-1.22 | train  -9.2%/221 (1/4 up) | held  +0.2%/80 [2023:+4.4%/53 2024:-10.7%/15 2025:-4.4%/12]
+HOME-listed ATS | neutral-Thanksgiving | opening week      n=   58 roi=-14.4% z=-1.18 | train -14.4%/58 (0/1 up) | held  +0.0%/0 []
+HOME-listed ATS | neutral-other | Dec+                     n= 2243 roi= -5.4% z=-2.70 | train  -5.6%/1304 (1/5 up) | held  -5.1%/939 [2023:+0.9%/304 2024:-3.7%/332 2025:-12.7%/303]
+HOME-listed ATS | neutral-other | Nov                      n=    5 roi=+53.8% z=+1.56 | train +27.3%/3 (1/1 up) | held +93.5%/2 [2024:+93.5%/2]
+HOME-listed ATS | neutral-other | games 1-5                n=   81 roi= +1.6% z=+0.15 | train  +4.5%/44 (2/4 up) | held  -1.8%/37 [2023:-18.1%/21 2024:+36.1%/7 2025:+6.8%/9]
+HOME-listed ATS | neutral-other | opening week             n=   85 roi=+10.4% z=+1.02 | train +10.3%/52 (2/5 up) | held  +6.4%/27 [2023:+27.3%/9 2024:+8.9%/7 2025:-12.3%/11] | 2026 +29.5%/6
+HOME-listed ATS | true home | Dec+                         n=22297 roi= -4.6% z=-7.20 | train  -4.7%/13420 (0/5 up) | held  -4.4%/8877 [2023:-4.6%/3003 2024:-3.6%/2961 2025:-4.9%/2913]
+HOME-listed ATS | true home | Nov                          n= 1077 roi= -4.2% z=-1.44 | train  -3.2%/551 (2/4 up) | held  -5.2%/526 [2023:-7.4%/175 2024:-3.4%/169 2025:-4.9%/182]
+HOME-listed ATS | true home | games 1-5                    n= 1447 roi= -2.6% z=-1.05 | train  -1.6%/783 (1/5 up) | held  -3.8%/664 [2023:+9.5%/171 2024:-1.1%/250 2025:-15.9%/243]
+HOME-listed ATS | true home | opening week                 n= 1654 roi= -2.8% z=-1.20 | train  -4.0%/989 (0/5 up) | held  -1.0%/665 [2023:+0.1%/238 2024:-2.6%/219 2025:-0.7%/208]
+HOME-listed ML -400..+350 | neutral-Thanksgiving | Dec+    n=   13 roi= -5.7% z=-0.19 | train +10.9%/9 (1/2 up) | held -43.0%/4 [2023:+14.0%/2 2024:-100.0%/2]
+HOME-listed ML -400..+350 | neutral-Thanksgiving | Nov     n=  467 roi= -1.7% z=-0.33 | train  -1.0%/258 (2/4 up) | held  -2.5%/209 [2023:-23.3%/39 2024:+11.1%/75 2025:-4.6%/95]
+HOME-listed ML -400..+350 | neutral-Thanksgiving | games 1-5 n=  219 roi=-15.7% z=-2.28 | train -19.4%/159 (0/4 up) | held  -5.9%/60 [2023:-1.3%/45 2024:-48.1%/9 2025:+22.8%/6]
+HOME-listed ML -400..+350 | neutral-Thanksgiving | opening week n=   35 roi=-36.2% z=-2.14 | train -36.2%/35 (0/1 up) | held  +0.0%/0 []
+HOME-listed ML -400..+350 | neutral-other | Dec+           n= 1744 roi= -4.1% z=-1.96 | train  -3.8%/1012 (1/5 up) | held  -4.4%/732 [2023:-4.4%/243 2024:-3.0%/257 2025:-6.0%/232]
+HOME-listed ML -400..+350 | neutral-other | Nov            n=    5 roi=+53.8% z=+1.44 | train +21.1%/3 (1/1 up) | held +102.9%/2 [2024:+102.9%/2]
+HOME-listed ML -400..+350 | neutral-other | games 1-5      n=   65 roi=+10.1% z=+0.77 | train +11.8%/37 (3/4 up) | held  +7.9%/28 [2023:-6.4%/16 2024:+56.5%/6 2025:-2.8%/6]
+HOME-listed ML -400..+350 | neutral-other | opening week   n=   68 roi=+14.8% z=+1.13 | train +10.2%/43 (3/5 up) | held +12.4%/21 [2023:+47.7%/9 2024:-22.4%/5 2025:-8.0%/7] | 2026 +76.1%/4
+HOME-listed ML -400..+350 | true home | Dec+               n=15315 roi= -3.9% z=-5.01 | train  -3.8%/9294 (0/5 up) | held  -4.1%/6021 [2023:-3.2%/2053 2024:-5.4%/2027 2025:-3.6%/1941]
+HOME-listed ML -400..+350 | true home | Nov                n=  535 roi= +1.6% z=+0.41 | train  +1.2%/288 (2/4 up) | held  +2.1%/247 [2023:+17.0%/94 2024:-3.2%/65 2025:-10.0%/88]
+HOME-listed ML -400..+350 | true home | games 1-5          n=  670 roi= -1.0% z=-0.27 | train  -2.5%/375 (3/5 up) | held  +1.0%/295 [2023:+0.5%/66 2024:+2.0%/116 2025:+0.1%/113]
+HOME-listed ML -400..+350 | true home | opening week       n=  584 roi= +0.8% z=+0.23 | train  +0.8%/364 (3/5 up) | held  +0.9%/220 [2023:+4.5%/85 2024:+9.3%/69 2025:-12.5%/66]
+NEUTRAL, the in-state team ATS | Thanksgiving | Dec+       n=    6 roi=+27.3% z=+0.74 | train +14.5%/5 (1/2 up) | held +90.9%/1 [2023:+90.9%/1]
+NEUTRAL, the in-state team ATS | Thanksgiving | early      n=  122 roi= -4.5% z=-0.53 | train  -1.9%/72 (3/5 up) | held  -8.4%/50 [2023:+7.4%/16 2024:+1.8%/15 2025:-29.7%/19]
+NEUTRAL, the in-state team ATS | other | Dec+              n=  470 roi= -4.9% z=-1.12 | train  -1.5%/288 (2/5 up) | held -10.3%/182 [2023:-2.9%/59 2024:-23.6%/55 2025:-5.9%/68]
+NEUTRAL, the in-state team ATS | other | early             n=   42 roi=-22.7% z=-1.57 | train -25.3%/23 (2/5 up) | held -15.2%/18 [2023:-61.8%/5 2024:+14.5%/5 2025:-4.5%/8] | 2026 -100.0%/1
+NEUTRAL, the in-state team ML | Thanksgiving | Dec+        n=    4 roi=+39.5% z=+0.93 | train +10.0%/3 (1/2 up) | held +128.0%/1 [2023:+128.0%/1]
+NEUTRAL, the in-state team ML | Thanksgiving | early       n=   84 roi=-17.6% z=-1.49 | train -18.1%/47 (1/5 up) | held -17.0%/37 [2023:+13.2%/13 2024:-6.7%/6 2025:-42.3%/18]
+NEUTRAL, the in-state team ML | other | Dec+               n=  355 roi=-10.1% z=-1.84 | train  -6.9%/221 (2/5 up) | held -15.5%/134 [2023:-11.5%/46 2024:-35.1%/37 2025:-4.9%/51]
+NEUTRAL, the in-state team ML | other | early              n=   36 roi=-22.4% z=-1.48 | train  -2.2%/22 (2/5 up) | held -50.6%/13 [2023:-100.0%/5 2024:+22.4%/4 2025:-62.0%/4] | 2026 -100.0%/1

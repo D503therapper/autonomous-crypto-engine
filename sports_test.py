@@ -16480,6 +16480,94 @@ def test_no_disguise_1102_college_injuries_stay_unknown_without_a_source_and_eac
     sh.SEEN.clear()
 
 
+def test_cbb_1103_a_american_and_pacific_are_real_schools_cards_get_last_season_and_the_early_road_dog_fade():
+    """11/3 college hoops (A) - opening night readiness + five studies (results/studies/cbb_1103_a/).
+    (1) sd.exhibition read the all-star names 'American' / 'Pacific' as exhibitions in college hoops too - American
+        (Patriot) and Pacific (WCC) are D1 schools: 632 games out of the ratings, never a candidate. College hoops only.
+    (2) Opening-night cards came out 1-3 lines (0 games on file): a college hoops team in its first 5 games gets LAST
+        season's full record + point gap (a full D1 season only - never a guess), only when its record AND gap beat
+        the other side's (the 'better squad' wording).
+    (3) The big college hoops HOME favorite laying 12+ (-8% ATS, the 11/2 pricing fact) is never a spread lean.
+    (4) s7: a true-road college hoops dog in its first 3 games: -2 on its dog score (a weight inside STUDY_CAP) +
+        its tracker tag; the leads (short dog games 1-2, Lock-band fav games 1-2, the 8+ jump) are tags only."""
+    import sports_breakdown_v24 as v24
+    import sports_leads as sl
+    # (1)
+    assert not sd.exhibition({"league": "ncaab", "home_name": "American", "away_name": "Cincinnati"})
+    assert not sd.exhibition({"league": "ncaab", "home_name": "Pacific", "away_name": "Bethesda"})
+    assert sd.exhibition({"league": "mlb", "home_name": "American", "away_name": "National"})
+    assert sd.exhibition({"league": "ncaaf", "home_name": "American", "away_name": "National"})
+    assert sd.exhibition({"league": "nhl", "home_name": "Pacific", "away_name": "Central"})
+    # (2) last season's record: a full season counts (incl. the postseason), a short one is None
+    fin = []
+    for i in range(26):
+        for t, opp, hs, as_ in (("A", f"X{i}", 80, 60 if i < 22 else 90), ("B", f"Y{i}", 60, 70 if i < 10 else 50)):
+            fin.append({"id": f"{t}{i}", "start": f"2026-0{1 + i // 10}-{1 + i % 10 * 2:02d}T01:00Z", "status": "final",
+                        "stype": "3" if i == 25 else "2", "home": t, "away": opp, "home_score": str(hs), "away_score": str(as_)})
+    fin.append({"id": "c1", "start": "2026-01-03T01:00Z", "status": "final", "stype": "2", "home": "C", "away": "X1",
+                "home_score": "70", "away_score": "60"})
+    before = v24._t("2026-11-04T01:00Z")
+    assert v24.ncaab_last_season(fin, "A", before) == ("22-4", 15.4)
+    assert v24.ncaab_last_season(fin, "B", before) == ("16-10", 2.3)
+    assert v24.ncaab_last_season(fin, "C", before) is None               # 1 game: not a full D1 season
+    assert v24.ncaab_last_season(fin, "A", v24._t("2027-11-04T01:00Z")) is None   # two seasons back: nothing
+    G = {f["id"]: {**f, "league": "ncaab", "home_name": f["home"] + "u", "away_name": f["away"], "neutral": "0",
+                   "ml_home": "", "ml_away": ""} for f in fin}
+    G["n"] = {"id": "n", "league": "ncaab", "start": "2026-11-04T01:00Z", "status": "pre", "stype": "2", "home": "A",
+              "away": "B", "home_name": "Au", "away_name": "Bu", "home_score": "", "away_score": "", "neutral": "0",
+              "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110"}
+    elo = sm.ratings(G, {"params": {}})
+    leg = {"game_id": "n", "league": "ncaab", "side": "home", "team": "Au", "opp": "Bu", "odds": -130, "dec": 1.77,
+           "market": "ml", "p": 0.58, "edge": 0.02, "edge_own": 0.02, "reasons": [], "outs": [], "opp_outs": [],
+           "is_lean": True, "p_market": 0.55}
+    lg2 = dict(leg)
+    v24.breakdown(lg2, G, elo, {"ncaab": {"A": [], "B": []}}, set())
+    card = " ".join(v24.breakdown(dict(leg), G, elo, {"ncaab": {"A": [], "B": []}}, set())) + " " + (lg2.get("why_line") or "")
+    assert "22-4" in card and "16-10" in card, card                     # A's card says last season (a fact, labeled)
+    b = {**leg, "side": "away", "team": "Bu", "opp": "Au", "odds": 110, "dec": 2.1}
+    out_b = v24.breakdown(b, G, elo, {"ncaab": {"A": [], "B": []}}, set())
+    assert "16-10" not in " ".join(out_b) + (b.get("why_line") or "")   # B's card: last season backs A - never said FOR B
+    assert "0-0" not in card and "None" not in card
+    # (3) no lean on a 12+ college hoops home favorite's spread (neutral floor / the dog / -11.5: fine)
+    sp_ = {"league": "ncaab", "market": "spread", "home": True, "neutral": False, "line": -14.5, "odds": -110}
+    assert sports.ncaab_big_home_fav(sp_)
+    assert not sports.ncaab_big_home_fav({**sp_, "neutral": True})
+    assert not sports.ncaab_big_home_fav({**sp_, "line": -11.5})
+    assert not sports.ncaab_big_home_fav({**sp_, "home": False, "line": 14.5})
+    assert not sports.ncaab_big_home_fav({**sp_, "league": "nba"})
+    c_sp = {**sp_, "game_id": "g1", "side": "home", "team": "H", "opp": "R", "dec": 1.91, "p": 0.56, "edge": 0.07,
+            "edge_own": 0.07, "trap": False, "reasons": [], "w_p": None}
+    assert not [c for c in sports.viewer_leans([c_sp], set()) if c["game_id"] == "g1"]
+    keep_f = sports.ncaab_big_home_fav
+    sports.ncaab_big_home_fav = lambda c: False                         # (the guard is what keeps it off)
+    try:
+        assert [c for c in sports.viewer_leans([c_sp], set()) if c["game_id"] == "g1"]
+    finally:
+        sports.ncaab_big_home_fav = keep_f
+    # (4) the early road dog: a weight on the dog score, never a gate
+    dog = {"league": "ncaab", "market": "ml", "home": False, "neutral": False, "odds": 160, "dec": 2.6, "games_in": 1,
+           "edge": 0.0, "edge_own": 0.0, "p_market": 0.37, "reasons": [], "dog_more": {}}
+    assert sports.ncaab_early_road_dog(dog)
+    assert not sports.ncaab_early_road_dog({**dog, "games_in": 3})       # its 4th game: no
+    assert not sports.ncaab_early_road_dog({**dog, "neutral": True})     # a neutral floor: no
+    assert not sports.ncaab_early_road_dog({**dog, "home": True})        # the home dog: no
+    assert not sports.ncaab_early_road_dog({**dog, "odds": -130})        # a favorite: no
+    assert not sports.ncaab_early_road_dog({**dog, "league": "nba"})
+    assert sports.dog_score(dog) == sports.dog_score({**dog, "games_in": 5}) - sports.NCAAB_EARLY_ROAD_DOG_PTS
+    assert sports.NCAAB_EARLY_ROAD_DOG_PTS == 2 and sports.STUDY_CAP == 6
+    t = sl.tags({**dog, "game_id": "x", "side": "away", "team": "R", "opp": "H", "start": "2026-11-04T01:00Z"}, sports)
+    assert "college hoops road dog, games 1-3 (fade)" in t
+    short = sl.tags({**dog, "odds": 120, "dec": 2.2, "home": True, "game_id": "x", "side": "home", "team": "R", "opp": "H",
+                     "start": "2026-11-04T01:00Z"}, sports)
+    assert "college hoops short dog +100..+150, games 1-2" in short and "college hoops road dog, games 1-3 (fade)" not in short
+    fav = sl.tags({**dog, "odds": -135, "dec": 1.74, "home": True, "drift": -0.09, "game_id": "x", "side": "home",
+                   "team": "R", "opp": "H", "start": "2026-11-04T01:00Z"}, sports)
+    assert "college hoops Lock-band fav -120..-150, games 1-2 (fade)" in fav
+    assert "college hoops side the line jumped 8+ to, games 1-6 (fade)" in fav
+    # the college hoops Dog stays OFF and no runner-up college hoops play - untouched
+    assert sports.NCAAB_DOG_RULE == "off" and "ncaab" in sports.DOG_LEAGUES_OFF
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
