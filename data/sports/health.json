@@ -1,31 +1,32 @@
 {
- "at": "2026-11-02T20:42Z",
+ "at": "2026-11-02T20:52Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Lizarazo vs Samson: no points for 597s",
-  "live tennis scores: tennis Sierra vs Janicijevic: no points for 597s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (19s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 199 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 45 min ago",
+  "engine ran 56 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-02T20:52Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-02T20:42Z",
    "fixes": [],
@@ -538,14 +539,6 @@
    "at": "2026-11-01T06:04Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-01T04:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }
