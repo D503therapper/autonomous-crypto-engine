@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T01:01Z",
+ "updated": "2026-11-02T01:11Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -355,31 +355,28 @@
    "id": "nba:401909905",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Warriors",
-    "p": 0.503,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-02T01:30Z",
    "away": "Clippers",
    "home": "Warriors",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Warriors",
-    "opp": "Clippers",
+    "team": "Clippers",
+    "opp": "Warriors",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": 114,
+    "p": 0.441,
+    "win_p": 0.441,
     "reasons": [
-     "the stronger team",
-     "rolling off a blowout win"
-    ]
+     "opponent missing key players",
+     "opponent missing key players: Stephen Curry (their read -9)"
+    ],
+    "result": null
    }
   },
   {
@@ -609,7 +606,7 @@
     "opp": "San Jos\u00e9 St",
     "market": "spread",
     "line": 8.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.502,
     "win_p": 0.266,
     "reasons": []
@@ -1363,9 +1360,9 @@
     "team": "Little Rock",
     "opp": "VCU",
     "market": "spread",
-    "line": 20.5,
+    "line": 18.5,
     "odds": -115,
-    "p": 0.515,
+    "p": 0.513,
     "win_p": 0.064,
     "reasons": []
    }
@@ -4019,7 +4016,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.513,
+    "p": 0.504,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -4035,9 +4032,9 @@
     "opp": "Seattle U",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.546,
-    "win_p": 0.546,
+    "odds": -125,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
      "the stronger team"
     ]
