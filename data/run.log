@@ -8198,3 +8198,265 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-02 18:06 UTC] stocks/trend     equity $470.93 (-5.8%) 3 open  market DOWN
 [2026-11-02 18:06 UTC] stocks/hold_spy  equity $494.08 (-1.2%) 1 open  market DOWN
    social heat top: BTC 35 (35/0/0), AERO 32 (32/0/0), SOL 31 (24/0/7), HYPE 27 (27/0/0), PENGU 21 (21/0/0)
+   dex screen: REJECT PLAY@base liq $280,463 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT NIO@solana liq $106,924 - lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: PASS CYBERLEEK@solana liq $422,971
+   dex screen: REJECT ZEC@solana liq $3,890,346 - mint authority
+   dex screen: UNREACHABLE GTA6@ethereum liq $254,783 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RLUSD@ethereum liq $2,154,327 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 69%
+   dex screen: REJECT MAMESUKE@solana liq $99,324 - liquidity $99,324 < $100,000
+   dex screen: UNREACHABLE STONK@solana liq $2,332,654 - rugcheck unreachable
+   dex screen: UNREACHABLE GTA6@ethereum liq $245,700 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS STONK@solana liq $2,332,612
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE GTA6@ethereum liq $240,830 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT DRV@base liq $1,097,562 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,044 / base 587 / ethereum 369), refresh cycle 130s (hot 126s), 2872 calls (107 feed, 429s 0, failed 0), 82,949 refreshed (9746 no pair), +93 added / -89 dropped (dead 15, stale 0, cap 74), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-02 19:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/mover     equity $233.21 (-53.4%) 1 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/social_heat equity $359.51 (-28.1%) 3 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/breakout10 equity $399.71 (-20.1%) 1 open  market UP
+[2026-11-02 19:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] crypto/hold_btc  equity $461.53 (-7.7%) 1 open  market DOWN
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  data.rename(columns=ctx.isins, inplace=True)
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$SAVA: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$BITF: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+$NKLA: No data found, symbol may be delisted
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+  df.drop(
+  df.rename(columns={
+
+3 Failed downloads:
+['SAVA', 'BITF', 'NKLA']: No data found, symbol may be delisted
+  data.rename(columns=ctx.isins, inplace=True)
+[2026-11-02 19:06 UTC] stocks/rsi2      equity $495.00 (-1.0%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLC 0, PLTR 2 BUY, COIN 3, NVDA 5 BUY
+[2026-11-02 19:06 UTC] stocks/breakout52 equity $474.83 (-5.0%) 3 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-02 19:06 UTC] stocks/dual_momentum equity $464.61 (-7.1%) 2 open  market DOWN
+[2026-11-02 19:06 UTC] stocks/trend_ensemble equity $500.37 (+0.1%) 5 open  market UP
+[2026-11-02 19:06 UTC] stocks/rotation10 equity $508.61 (+1.7%) 2 open  market UP
+[2026-11-02 19:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-02 19:06 UTC] stocks/trend     equity $469.26 (-6.1%) 3 open  market DOWN
+[2026-11-02 19:06 UTC] stocks/hold_spy  equity $492.49 (-1.5%) 1 open  market DOWN
+   social heat top: BTC 32 (32/0/0), TAO 27 (27/0/0), PENGU 24 (24/0/0), SOL 22 (13/0/9), NEAR 21 (21/0/0)
