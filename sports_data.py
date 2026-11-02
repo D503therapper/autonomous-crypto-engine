@@ -44,9 +44,15 @@ EXHIBITION = {"AFC", "NFC", "American", "National", "EAST", "WEST", "World", "US
               "Atlantic", "Central", "Metro", "Pacific"}   # all-star / Pro Bowl / 4 Nations sides - never real games
 
 
+NCAAB_REAL = {"American", "Pacific"}   # 🏀 11/3 opening-night audit: American (Patriot League) and Pacific (WCC) are
+#   real Division I schools - the all-star names above read 632 of their college hoops games (305 priced) as exhibitions:
+#   never a candidate, never in the ratings (sports_model.finals), their opponents' Elo short a game.
+
+
 def exhibition(g):
     """An all-star / Pro Bowl / international showcase game (its 'teams' aren't franchises)."""
-    return any(str(g.get(k) or "") in EXHIBITION or (g.get("league") in ("nba", "nhl")
+    real = NCAAB_REAL if g.get("league") == "ncaab" else ()
+    return any((str(g.get(k) or "") in EXHIBITION and str(g.get(k) or "") not in real) or (g.get("league") in ("nba", "nhl")
                and str(g.get(k) or "").startswith("Team ")) for k in ("home_name", "away_name"))
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 

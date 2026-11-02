@@ -1,0 +1,66 @@
+STUDY 4 - CONFERENCE STRENGTH EARLY + HOW LAST SEASON CARRIES OVER.
+No conference field on file, so 'power' = a top-75 team by last season's closing rating (our own margin Elo, carried
+over 2/3 - lib.annotate), 'mid-major' = every other Division I team (20+ games on file both seasons).
+(a) November-to-Dec 15 games between a power team and a mid-major (the non-conference season): the mid-major dog /
+    the power favorite at the moneyline close and ATS, by price band, opening week / games 1-5 vs the rest - and the
+    same matchup type in the 2nd half of the season (Jan+, mostly conference tournaments/postseason - rare) as base.
+(b) THE CARRYOVER: does last season's carried rating add anything to the closing price in each team's games 1-5 / 6-10
+    / 11+? Fit on TRAIN: P(home) = sigmoid(logit(close no-vig) + b * (logit(Elo p) - logit(close no-vig))); b > 0 =
+    the ratings know something the close doesn't. Then the held-out log loss with b vs the close alone. This is the
+    test behind sports.early_trust (college hoops reads = the market until 10 games) and the 10/16 open question
+    'college hoops Locks small the first 2 weeks'.
+Train 2018-22, held out 2023 / 24 / 25 apart.
+(a) power (last season's top 75) vs mid-major, non-conference season:
+MID ATS dog | Nov-Dec15                                    n= 1053 roi= +3.1% z=+1.08 | train  +5.7%/633 (3/5 up) | held  -0.7%/420 [2023:+12.1%/122 2024:-1.6%/151 2025:-10.4%/147]
+MID ATS dog | games 1-5                                    n=  508 roi= +1.1% z=+0.26 | train  -4.0%/287 (2/5 up) | held  +7.7%/221 [2023:+5.1%/71 2024:-9.1%/81 2025:+30.1%/69]
+MID ATS dog | opening week                                 n=  543 roi= -5.8% z=-1.42 | train  -5.8%/337 (1/5 up) | held  -5.8%/206 [2023:-3.3%/77 2024:-9.6%/73 2025:-4.4%/56]
+MID ATS fav | Nov-Dec15                                    n=  237 roi=-18.8% z=-3.09 | train -17.0%/129 (1/5 up) | held -21.0%/108 [2023:-18.4%/41 2024:-7.0%/32 2025:-36.7%/35]
+MID ATS fav | games 1-5                                    n=  111 roi= -0.6% z=-0.07 | train  +5.0%/67 (3/5 up) | held  -9.2%/44 [2023:-36.2%/12 2024:+11.7%/17 2025:-11.3%/15]
+MID ATS fav | opening week                                 n=   72 roi=+19.6% z=+1.79 | train +19.5%/48 (4/5 up) | held +19.7%/24 [2023:+6.0%/9 2024:-36.1%/3 2025:+43.9%/12]
+MID dog +100..+350 away | Nov-Dec15                        n=  160 roi= +7.4% z=+0.65 | train  +9.6%/102 (3/5 up) | held  +3.7%/58 [2023:+3.0%/23 2024:+5.3%/19 2025:+2.6%/16]
+MID dog +100..+350 away | games 1-5                        n=   39 roi=-21.8% z=-0.99 | train -35.6%/22 (2/5 up) | held  -4.0%/17 [2023:-5.0%/4 2024:+38.7%/6 2025:-40.0%/7]
+MID dog +100..+350 away | opening week                     n=   41 roi=-40.8% z=-2.27 | train -24.9%/22 (2/5 up) | held -59.1%/19 [2023:-78.5%/11 2024:-50.0%/5 2025:-3.3%/3]
+MID dog +100..+350 home | Nov-Dec15                        n=  144 roi= +6.2% z=+0.57 | train +11.9%/102 (3/5 up) | held  -7.6%/42 [2023:+50.0%/12 2024:-2.9%/15 2025:-58.3%/15]
+MID dog +100..+350 home | games 1-5                        n=   43 roi=-27.7% z=-1.54 | train -26.2%/24 (2/5 up) | held -29.4%/19 [2023:-100.0%/5 2024:-42.2%/9 2025:+64.2%/5]
+MID dog +100..+350 home | opening week                     n=   42 roi=+34.8% z=+1.69 | train +19.7%/33 (3/5 up) | held +90.2%/9 [2024:+112.1%/7 2025:+13.5%/2]
+MID dog +100..+350 neutral | Nov-Dec15                     n=  149 roi= -7.4% z=-0.63 | train -21.5%/78 (1/4 up) | held  +8.2%/71 [2023:+9.1%/12 2024:+45.1%/30 2025:-30.4%/29]
+MID dog +100..+350 neutral | games 1-5                     n=   76 roi= +6.6% z=+0.41 | train +12.4%/50 (2/4 up) | held  -4.7%/26 [2023:-7.8%/19 2024:-14.8%/6 2025:+114.0%/1]
+MID dog +100..+350 neutral | opening week                  n=   19 roi=-13.2% z=-0.50 | train  -3.5%/15 (1/4 up) | held -49.2%/4 [2023:+1.5%/2 2025:-100.0%/2]
+MID dog +100..+350 | Nov-Dec15                             n=  453 roi= +2.2% z=+0.33 | train  +1.8%/282 (3/5 up) | held  +2.8%/171 [2023:+16.6%/47 2024:+22.0%/64 2025:-28.6%/60]
+MID dog +100..+350 | games 1-5                             n=  158 roi= -9.8% z=-0.91 | train  -8.2%/96 (1/5 up) | held -12.1%/62 [2023:-23.9%/28 2024:-11.3%/21 2025:+11.9%/13]
+MID dog +100..+350 | opening week                          n=  102 roi= -4.5% z=-0.36 | train  +0.7%/70 (2/5 up) | held -15.9%/32 [2023:-66.2%/13 2024:+44.6%/12 2025:-26.1%/7]
+MID fav -101..-150 | Nov-Dec15                             n=  102 roi= -6.7% z=-0.75 | train  -1.5%/60 (2/5 up) | held -14.1%/42 [2023:-8.3%/14 2024:+34.1%/12 2025:-55.2%/16]
+MID fav -101..-150 | games 1-5                             n=   36 roi=-16.1% z=-1.09 | train -16.1%/21 (2/5 up) | held -16.2%/15 [2023:-10.6%/6 2024:+4.3%/5 2025:-50.2%/4]
+MID fav -101..-150 | opening week                          n=   26 roi= -3.6% z=-0.21 | train  +5.2%/17 (3/5 up) | held -20.3%/9 [2023:-25.4%/7 2024:+95.2%/1 2025:-100.0%/1]
+MID fav -151..-400 | Nov-Dec15                             n=  112 roi= -7.8% z=-1.15 | train  -4.7%/60 (2/4 up) | held -11.4%/52 [2023:-14.4%/24 2024:-19.3%/13 2025:+0.3%/15]
+MID fav -151..-400 | games 1-5                             n=   55 roi= -0.2% z=-0.02 | train  -2.2%/35 (1/5 up) | held  +3.2%/20 [2023:+0.4%/4 2024:-16.2%/10 2025:+37.5%/6]
+MID fav -151..-400 | opening week                          n=   35 roi=-13.0% z=-1.07 | train  -8.0%/25 (1/5 up) | held -25.5%/10 [2023:-33.1%/2 2024:-100.0%/2 2025:+1.9%/6]
+POWER ATS dog | Nov-Dec15                                  n=  242 roi=+10.3% z=+1.71 | train  +8.4%/134 (4/5 up) | held +12.6%/108 [2023:+9.7%/41 2024:-1.2%/32 2025:+28.7%/35]
+POWER ATS dog | games 1-5                                  n=  112 roi= -7.8% z=-0.86 | train -13.1%/68 (1/5 up) | held  +0.4%/44 [2023:+27.7%/12 2024:-21.2%/17 2025:+3.1%/15]
+POWER ATS dog | opening week                               n=   73 roi=-26.8% z=-2.47 | train -25.8%/49 (1/5 up) | held -28.8%/24 [2023:-15.9%/9 2024:+27.6%/3 2025:-52.5%/12]
+POWER ATS fav | Nov-Dec15                                  n= 1048 roi=-12.3% z=-4.21 | train -15.1%/628 (0/5 up) | held  -8.1%/420 [2023:-21.1%/122 2024:-7.0%/151 2025:+1.5%/147]
+POWER ATS fav | games 1-5                                  n=  507 roi=-10.0% z=-2.38 | train  -5.0%/286 (2/5 up) | held -16.5%/221 [2023:-13.9%/71 2024:+0.1%/81 2025:-38.8%/69]
+POWER ATS fav | opening week                               n=  542 roi= -3.3% z=-0.81 | train  -3.4%/336 (1/5 up) | held  -3.2%/206 [2023:-5.8%/77 2024:+0.3%/73 2025:-4.4%/56]
+POWER dog +100..+350 away | Nov-Dec15                      n=  108 roi= +2.4% z=+0.19 | train  -9.9%/66 (1/4 up) | held +21.9%/42 [2023:+10.5%/17 2024:+48.1%/13 2025:+9.7%/12]
+POWER dog +100..+350 away | games 1-5                      n=   49 roi=+18.0% z=+0.88 | train +31.5%/22 (3/4 up) | held  +7.0%/27 [2023:+63.0%/7 2024:+11.0%/12 2025:-48.1%/8]
+POWER dog +100..+350 away | opening week                   n=   36 roi= -3.4% z=-0.15 | train  -7.0%/25 (3/5 up) | held  +4.8%/11 [2023:-49.0%/4 2024:+145.0%/1 2025:+17.3%/6]
+POWER dog +100..+350 home | Nov-Dec15                      n=   24 roi= -5.1% z=-0.22 | train +27.3%/9 (3/4 up) | held -24.5%/15 [2023:+15.9%/8 2024:-100.0%/2 2025:-59.0%/5]
+POWER dog +100..+350 home | games 1-5                      n=    6 roi=-22.2% z=-0.49 | train -22.2%/6 (2/3 up) | held  +0.0%/0 []
+POWER dog +100..+350 home | opening week                   n=    3 roi=-28.3% z=-0.48 | train  +7.5%/2 (1/1 up) | held -100.0%/1 [2023:-100.0%/1]
+POWER dog +100..+350 neutral | Nov-Dec15                   n=   50 roi=-10.9% z=-0.64 | train -34.1%/29 (0/4 up) | held +21.2%/21 [2023:+38.3%/6 2024:-18.3%/6 2025:+36.1%/9]
+POWER dog +100..+350 neutral | games 1-5                   n=   24 roi=-38.8% z=-1.77 | train -33.7%/19 (2/4 up) | held -58.0%/5 [2023:-100.0%/2 2024:-100.0%/2 2025:+110.0%/1]
+POWER dog +100..+350 neutral | opening week                n=   12 roi=+34.6% z=+0.74 | train +17.8%/9 (2/3 up) | held +85.0%/3 [2023:+200.0%/1 2024:+155.0%/1 2025:-100.0%/1]
+POWER dog +100..+350 | Nov-Dec15                           n=  182 roi= -2.2% z=-0.23 | train -13.5%/104 (1/4 up) | held +12.8%/78 [2023:+17.3%/31 2024:+15.0%/21 2025:+5.6%/26]
+POWER dog +100..+350 | games 1-5                           n=   79 roi= -2.3% z=-0.15 | train  -1.7%/47 (4/5 up) | held  -3.2%/32 [2023:+26.8%/9 2024:-4.9%/14 2025:-30.6%/9]
+POWER dog +100..+350 | opening week                        n=   51 roi= +4.1% z=+0.21 | train  -0.0%/36 (3/5 up) | held +13.9%/15 [2023:-16.0%/6 2024:+150.0%/2 2025:+0.6%/7]
+POWER fav -101..-150 | Nov-Dec15                           n=  114 roi= -5.2% z=-0.62 | train  -5.2%/70 (3/5 up) | held  -5.2%/44 [2023:-34.5%/14 2024:-35.0%/11 2025:+33.6%/19]
+POWER fav -101..-150 | games 1-5                           n=   45 roi=+24.1% z=+1.93 | train +20.5%/30 (5/5 up) | held +31.2%/15 [2023:+57.2%/9 2024:+23.8%/3 2025:-39.3%/3]
+POWER fav -101..-150 | opening week                        n=   31 roi= -6.8% z=-0.42 | train -10.4%/24 (2/5 up) | held  +5.7%/7 [2023:+41.0%/4 2024:-41.4%/3]
+POWER fav -151..-400 | Nov-Dec15                           n=  344 roi= -7.6% z=-2.07 | train  -9.9%/214 (0/5 up) | held  -3.9%/130 [2023:-10.9%/36 2024:-6.9%/52 2025:+5.8%/42]
+POWER fav -151..-400 | games 1-5                           n=  115 roi= -9.1% z=-1.46 | train  -9.4%/68 (1/5 up) | held  -8.8%/47 [2023:-11.4%/18 2024:-7.1%/19 2025:-7.1%/10]
+POWER fav -151..-400 | opening week                        n=   76 roi= -5.7% z=-0.73 | train  -7.5%/50 (2/5 up) | held  -2.3%/26 [2023:+30.4%/11 2024:-29.3%/10 2025:-20.2%/5]
+
+(b) the carryover: b (train fit) and held-out log loss, close alone vs close + b * (Elo - close)
+  games 1-5  train n=2287 best b -0.14 (train ll 0.4497 vs close 0.4504) | held n=1628 ll close 0.4105 vs with b 0.4092 (+1.28 mnats) | Elo alone held 0.5038
+  games 6-10 train n=2324 best b -0.02 (train ll 0.5145 vs close 0.5145) | held n=1673 ll close 0.5067 vs with b 0.5066 (+0.06 mnats) | Elo alone held 0.5546
+  games 11+  train n=11335 best b +0.02 (train ll 0.5534 vs close 0.5534) | held n=8708 ll close 0.5475 vs with b 0.5476 (-0.07 mnats) | Elo alone held 0.5692

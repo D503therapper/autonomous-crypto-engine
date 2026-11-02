@@ -109,6 +109,46 @@ def _last_parts(g, tid, pro=True):
 
 
 NBA_EARLY_GAMES = 5    # the first weeks of hoops: last season's facts carry the card until this many games are in
+NCAAB_EARLY_GAMES = 5  # college hoops too (11/3) - a FULL D1 season only (NCAAB_D1_GAMES+ games; a non-D1 school or
+#                        a team we don't hold whole gets nothing - never a guessed record)
+_NCAAB_LAST = {}
+
+
+def ncaab_last_season(fin, tid, before):
+    """(W-L, points a game better than the other team) for a college hoops team LAST season - every game we hold
+    (regular season + conference tournament + NCAA / NIT: the official record - 2024-25 Duke 35-4, Florida 36-4,
+    American 22-13 checked), or None when it played under NCAAB_D1_GAMES (not a full D1 season - never a guess)."""
+    want = (before.year if before.month >= 8 else before.year - 1) - 1
+    key = (id(fin), len(fin), str(tid), want)
+    if key in _NCAAB_LAST:
+        return _NCAAB_LAST[key]
+    w = l = n = 0
+    diff = 0
+    seen = set()
+    for g in fin:
+        if str(tid) not in (str(g.get("home")), str(g.get("away"))) or str(g.get("stype") or "2") not in ("2", "3"):
+            continue
+        t = _t(g["start"]).astimezone(PT)
+        if (t.year if t.month >= 8 else t.year - 1) != want:
+            continue
+        k = (g["start"][:10], str(g.get("home")), str(g.get("away")))
+        if k in seen:
+            continue
+        seen.add(k)
+        try:
+            hs, as_ = int(g["home_score"]), int(g["away_score"])
+        except (TypeError, ValueError, KeyError):
+            continue
+        us, them = (hs, as_) if str(g["home"]) == str(tid) else (as_, hs)
+        n += 1
+        diff += us - them
+        w += us > them
+        l += us < them
+    out = (f"{w}-{l}", round(diff / n, 1)) if n >= NCAAB_D1_GAMES else None
+    if len(_NCAAB_LAST) > 4000:
+        _NCAAB_LAST.clear()
+    _NCAAB_LAST[key] = out
+    return out
 REC_GAP = 3            # 10/23, the owner: "Army 4-2, Tulsa 4-3 ... we know which side we want - they both have 4 wins":
 #                        a record is a 'better team' line only 3+ games better (wins minus losses: 4-2 vs 4-3 is 1;
 #                        93-68 vs 87-75 is 13)
@@ -756,6 +796,16 @@ def breakdown(leg, games, elo, injuries, used=None):
         if not (nba_f and nba_f.get("us") and nba_f.get("them") and nba_f["us"][1] > nba_f["them"][1]):
             nba_f = None                                  # (only when last season backs OUR side; the line comes
         #                                                    after the one under the pick - see nba_lines)
+    if lg == "ncaab" and len(r_ours) < NCAAB_EARLY_GAMES:     # 🏀 11/3 opening night: every college card came out 1-3
+        try:                                              # lines (0 games on file) - last season's full record and
+            nba_f = {"us": ncaab_last_season(fin, tid, start), "them": ncaab_last_season(fin, oid, start), "added": []}
+        except Exception:                                 # noqa: BLE001 - point gap, both sides, same rule as the NBA
+            nba_f = None
+        _wp = lambda r_: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r_.split("-")[:2]])   # noqa: E731
+        if not (nba_f and nba_f.get("us") and nba_f.get("them") and nba_f["us"][1] > nba_f["them"][1]
+                and _wp(nba_f["us"][0]) > _wp(nba_f["them"][0])):   # (the 'better squad' wording needs the RECORD
+            nba_f = None                                  #  better too - Indiana St 11-21 'better' than 17-17 Charlotte
+            #                                               on a 0.2-point margin read false)
     # the record, when nothing above compared it: with the other side's record, or with the last game's score
     if rec_line and not any(x and x[:1] in "💪🐺⚖" for x in out):
         last_said = _said(s_ours[-1], tid, pro) if s_ours else ""
