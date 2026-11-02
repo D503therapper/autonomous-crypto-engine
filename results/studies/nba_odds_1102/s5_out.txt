@@ -1,0 +1,19 @@
+conversion on 2289 closes 2018-19: logit(p_home) = 0.004 + -0.1436 * spread (resid sd 0.109 logits)
+median-book conversion (fav spread -> fav %): 1:51.1, 1.5:52.4, 2:54.3, 2.5:56.3, 3:57.8, 3.5:59.5, 4:61.1, 4.5:63.0, 5:64.4, 5.5:66.0, 6:67.9, 6.5:69.5, 7:71.3, 7.5:72.7, 8:74.4, 8.5:76.0, 9:77.2, 9.5:78.7, 10:80.5, 10.5:81.9, 11:83.3, 11.5:84.5, 12:85.6, 12.5:86.3
+morning games with both markets: 3537; |gap| mean 0.51 pts, 2+ pts 26, 3+ 0
+
+THE MONEYLINE CHEAPER THAN ITS OWN SPREAD at the morning (median book), bet the ML at the median, flat 1u
+  gap 1+ pts                                           train 20-21 104-118   -3.3%    -7.3u z-0.4 (0/2 up) | held 22 40-27   -1.5%    -1.0u z-0.1 (0/1 up)   [2020:51-59 -5%  2021:53-59 -1%  2022:40-27 -2%]
+  gap 1+ pts, the cheap side a dog                     train 20-21 33-68   -2.2%    -2.2u z-0.2 (0/2 up) | held 22 2-5  -30.0%    -2.1u z-0.7 (0/1 up)   [2020:17-32 -1%  2021:16-36 -4%  2022:2-5 -30%]
+  gap 1+ pts, the cheap side a fav                     train 20-21 71-50   -4.2%    -5.1u z-0.6 (1/2 up) | held 22 38-22   +1.8%    +1.1u z+0.2 (1/1 up)   [2020:34-27 -9%  2021:37-23 +0%  2022:38-22 +2%]
+  gap 2+ pts                                           train 20-21 3-5  -26.6%    -2.1u z-0.8 (1/2 up) | held 22 1-0  +76.9%    +0.8u z+0.8 (1/1 up)   [2020:1-4 -47%  2021:2-1 +8%  2022:1-0 +77%]
+  gap 2+ pts, the cheap side a fav                     train 20-21 2-1   +7.9%    +0.2u z+0.2 (1/2 up) | held 22 1-0  +76.9%    +0.8u z+0.8 (1/1 up)   [2020:0-1 -100%  2021:2-0 +62%  2022:1-0 +77%]
+  gap 2+ pts, the cheap side a dog                     train 20-21 1-4  -47.4%    -2.4u z-1.0 (0/2 up) | held 22 -   [2020:1-3 -34%  2021:0-1 -100%]
+
+PER BOOK: a book's ML N+ pts cheaper than its OWN spread, bet at that book's ML (one a game, the biggest)
+  book gap 2+ pts                                      train 20-21 267-318   -5.6%   -32.7u z-1.2 (0/2 up) | held 22 207-152   -1.3%    -4.5u z-0.3 (0/1 up)   [2020:103-114 -3%  2021:164-204 -7%  2022:207-152 -1%]
+  book gap 3+ pts                                      train 20-21 28-47   -6.1%    -4.6u z-0.4 (0/2 up) | held 22 28-17   +9.5%    +4.3u z+0.7 (1/1 up)   [2020:15-25 -3%  2021:13-22 -10%  2022:28-17 +9%]
+  book gap 4+ pts                                      train 20-21 13-11  +33.2%    +8.0u z+1.1 (2/2 up) | held 22 2-0  +59.1%    +1.2u z+4.4 (1/1 up)   [2020:9-10 +15%  2021:4-1 +104%  2022:2-0 +59%]
+
+WHO MOVES: the gap's side - did the ML close toward the spread (+1) or the spread toward the ML (-1)?
+  ML moved more toward closing the gap                 train 20-21 8-5  +23.1%    +3.0u z+0.9 (1/2 up) | held 22 5-8  -23.1%    -3.0u z-0.9 (0/1 up)   [2020:3-5 -25%  2021:5-0 +100%  2022:5-8 -23%]

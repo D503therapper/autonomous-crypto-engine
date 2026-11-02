@@ -1470,7 +1470,13 @@ MKT_FADE_W = 2                          # AGAINST it -> -2 on its dog score (a w
 #                                         both (TO 0.08+ NBA +9.9% / NHL +11.9% - a tracker LEAD, no weight). Opens exist
 #                                         2023-26 only (3 seasons) - judge the tag at 50 live, under -5% for the FADE side
 #                                         holding = keep; the fade side winning = off. NFL / college not wired (train flat).
-STUDY_CAP = 6    # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
+#                                         11/2 RE-VALIDATED on 2020-22 (the paid odds history, game-day morning -> close moves -
+#                                         results/studies/nba_odds_1102/s2): NBA dogs faded 8+ went 123-227 -6.9% at the close vs
+#                                         the -3.2% dog base, worse than the base in all 3 seasons (2020 -3 vs -1, 2021 -6 vs -3,
+#                                         2022 -12 vs -6); at the morning price -12.8% vs -4.9%; the share-matched cut -5.1% /
+#                                         -11.8% - the -2 STAYS (smaller than 2023-25's -13.3%, so no bigger weight). The NBA
+#                                         mirror flipped (-10.5%, 0 of 3) - its tracker tag is NHL only now (sports_leads).
+STUDY_CAP = 6   # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
 #                   overlapping spots (a rested bye-week dog off a blowout on Monday night...) never outweighs the read
 
 

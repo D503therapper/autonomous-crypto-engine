@@ -173,7 +173,7 @@ def tags(c, sports):
             if sports.market_fade_spot(c):                                #  move on this team): the fade is BUILT as a -2
                 t.append("NBA / NHL dog, the market faded its last 3 games (fade)")   # weight in the NBA (the NHL weight came
                 #   off 11/2 - the 2021-23 odds history said nothing; the NHL side keeps its live record here)
-            elif (c.get("mkt_trend") or 0) >= sports.MKT_FADE_SUM:
+            elif (c.get("mkt_trend") or 0) >= sports.MKT_FADE_SUM and lg in MKT_BACKED_LEAGUES:
                 t.append("NBA / NHL dog, the market backed its last 3 games")   # the mirror: a LEAD, tracked only (NBA
                 #   +9.9% / NHL +11.9% at the open on 501 / 392, at the close +7.8% / +7.2%, 2023 train small) - no weight
         if lg == "nhl" and c.get("odds", 0) <= 350 and nhl_four_in_six(c):
@@ -609,6 +609,12 @@ def hoops_rust(c):
     except (TypeError, ValueError):
         return False
     return gap >= HOOPS_RUST_DAYS and ogap <= HOOPS_RHYTHM_DAYS
+
+
+MKT_BACKED_LEAGUES = ("nhl",)       # 11/2 NBA odds-history study 2 (results/studies/nba_odds_1102/s2): the market-BACKED mirror
+#   lead is CUT for the NBA - on 2020-22 (the paid odds history, morning -> close moves) NBA dogs the market backed 8+ in
+#   their last 3 went 108-207 -10.5% at the close (0 of 3 seasons up; 2023-25 had +5.1%) - noise. NHL keeps tracking it
+#   (the tag's name stays the same so its record carries on).
 
 
 HOOPS_BLOWOUT_LOSS = 15             # the 11/1 study's cut: lost yesterday by 15+
