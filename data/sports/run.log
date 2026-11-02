@@ -1,24 +1,3 @@
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 78 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 78 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 365 schools (103 players), 365 matched, 0 unmatched
-   no units on Kings: missing Adrian Kempe, Mats Zuccarello
-   no units on Sabres: missing Justin Danforth, Konsta Helenius, Jiri Kulich
-   no units on Sharks: missing Igor Chernyshov, Alexander Wennberg
-   no units on Senators: missing Andre Burakovsky, Warren Foegele, Hayden Hodgson
-   no units on Canadiens: missing Mike Matheson, Nick Suzuki
-   no units on Penguins: missing Elmer Soderblom, Bryan Rust
-   no units on Maple Leafs: missing Kirill Marchenko, Nick Blankenburg
-   no units on Stars: missing Kyle Capobianco, Radek Faksa, Oskar Back
-   no units on Avalanche: missing Logan O'Connor, Josh Manson
-tennis sync: 73894 matches stored, 18 calls, 0 failed
-tennis study ATP: 26230 rated matches, acc 0.646 (surface ratings alone 0.644), loss 0.6288 vs 0.6293, own weights [-0.005, 0.827, 0.075, 0.142, 0.423, 0.05, 0.05]
-tennis study ATP life factors vs current loss 0.6288: experience 0.6288 (-0.00 mnats, z -0.0), age 0.627 (+1.80 mnats, z 1.29), young_vs_aging 0.6285 (+0.34 mnats, z 0.84), last_match 0.6269 (+1.93 mnats, z 1.35), streaks 0.6294 (-0.61 mnats, z -0.59), first_set 0.628 (+0.78 mnats, z 1.2), injury 0.6298 (-1.04 mnats, z -1.58), travel 0.6288 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30732 rated matches, acc 0.6475 (surface ratings alone 0.65), loss 0.6223 vs 0.6221, own weights [0.003, 0.903, -0.002, -0.081, 0.302, 0.024, -0.197]
 tennis study WTA life factors vs current loss 0.6223: experience 0.6193 (+2.95 mnats, z 1.72), age 0.6214 (+0.89 mnats, z 1.13), young_vs_aging 0.6221 (+0.21 mnats, z 1.27), last_match 0.6229 (-0.65 mnats, z -0.64), streaks 0.6223 (-0.03 mnats, z -0.06), first_set 0.6219 (+0.35 mnats, z 0.75), injury 0.6216 (+0.69 mnats, z 1.18), travel 0.6223 (-0.05 mnats, z -0.32) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
@@ -2994,6 +2973,27 @@ public splits: 123 upcoming games
 tennis sync: 73929 matches stored, 18 calls, 0 failed
 tennis study ATP: 26243 rated matches, acc 0.644 (surface ratings alone 0.643), loss 0.6291 vs 0.63, own weights [-0.005, 0.827, 0.074, 0.143, 0.423, 0.05, 0.05]
 tennis study ATP life factors vs current loss 0.6291: experience 0.6292 (-0.05 mnats, z -0.05), age 0.6272 (+1.92 mnats, z 1.37), young_vs_aging 0.6288 (+0.31 mnats, z 0.76), last_match 0.6269 (+2.21 mnats, z 1.56), streaks 0.6298 (-0.70 mnats, z -0.68), first_set 0.6284 (+0.75 mnats, z 1.15), injury 0.6301 (-0.98 mnats, z -1.52), travel 0.6291 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30753 rated matches, acc 0.647 (surface ratings alone 0.65), loss 0.6224 vs 0.6221, own weights [0.004, 0.904, -0.002, -0.08, 0.301, 0.024, -0.2]
+tennis study WTA life factors vs current loss 0.6224: experience 0.6195 (+2.91 mnats, z 1.69), age 0.6216 (+0.83 mnats, z 1.06), young_vs_aging 0.6222 (+0.18 mnats, z 1.05), last_match 0.623 (-0.62 mnats, z -0.62), streaks 0.6224 (-0.02 mnats, z -0.04), first_set 0.622 (+0.39 mnats, z 0.83), injury 0.6217 (+0.71 mnats, z 1.23), travel 0.6224 (-0.05 mnats, z -0.32) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+sync: 131769 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 131 games got weather, 0 new stadiums located, 113s
+4th-down rates: 32 NFL teams
+news: 2 new drama tags
+goalies: 4 games on the page, 4 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-11-02, 0 failed, 0 moves
+beat the close: unit plays 24 of 75 better than the close, avg +0.2 pts
+futures logged: nba 9, nhl 7, nfl 11, ncaaf 12
+public splits: 123 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 133 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73929 matches stored, 18 calls, 0 failed
+tennis study ATP: 26245 rated matches, acc 0.6435 (surface ratings alone 0.6425), loss 0.6293 vs 0.6303, own weights [-0.005, 0.827, 0.074, 0.143, 0.423, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6293: experience 0.6293 (-0.06 mnats, z -0.07), age 0.6274 (+1.93 mnats, z 1.38), young_vs_aging 0.629 (+0.31 mnats, z 0.76), last_match 0.6271 (+2.21 mnats, z 1.56), streaks 0.63 (-0.68 mnats, z -0.66), first_set 0.6285 (+0.77 mnats, z 1.18), injury 0.6303 (-1.00 mnats, z -1.53), travel 0.6293 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis study WTA: 30753 rated matches, acc 0.647 (surface ratings alone 0.65), loss 0.6224 vs 0.6221, own weights [0.004, 0.904, -0.002, -0.08, 0.301, 0.024, -0.2]
 tennis study WTA life factors vs current loss 0.6224: experience 0.6195 (+2.91 mnats, z 1.69), age 0.6216 (+0.83 mnats, z 1.06), young_vs_aging 0.6222 (+0.18 mnats, z 1.05), last_match 0.623 (-0.62 mnats, z -0.62), streaks 0.6224 (-0.02 mnats, z -0.04), first_set 0.622 (+0.39 mnats, z 0.83), injury 0.6217 (+0.71 mnats, z 1.23), travel 0.6224 (-0.05 mnats, z -0.32) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
