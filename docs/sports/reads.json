@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T12:45Z",
+ "updated": "2026-11-02T13:22Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -26,8 +26,8 @@
    "away": "Merrimack",
    "home": "App State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -123,7 +123,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Jos\u00e9 St",
-    "p": 0.687,
+    "p": 0.679,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -141,7 +141,7 @@
     "line": 7.5,
     "odds": -102,
     "p": 0.501,
-    "win_p": 0.24,
+    "win_p": 0.249,
     "reasons": []
    }
   },
@@ -455,9 +455,9 @@
     "team": "Air Force",
     "opp": "Wright St",
     "market": "spread",
-    "line": 10.5,
-    "odds": -105,
-    "p": 0.504,
+    "line": 11.5,
+    "odds": -118,
+    "p": 0.505,
     "win_p": 0.168,
     "reasons": []
    }
@@ -1002,14 +1002,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "James Madison",
-    "opp": "Miami OH",
+    "team": "Miami OH",
+    "opp": "James Madison",
     "market": "spread",
     "line": -1.5,
     "odds": 110,
     "p": 0.5,
     "win_p": 0.5,
-    "reasons": []
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1018,8 +1020,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Xavier",
-    "p": 0.927,
-    "tie": 0.014,
+    "p": 0.919,
+    "tie": 0.015,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1036,7 +1038,7 @@
     "line": 26.5,
     "odds": -112,
     "p": 0.522,
-    "win_p": 0.027,
+    "win_p": 0.032,
     "reasons": []
    }
   },
@@ -1204,7 +1206,7 @@
     "opp": "Michigan St",
     "market": "spread",
     "line": 29.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.525,
     "win_p": 0.019,
     "reasons": []
@@ -1984,7 +1986,7 @@
     "opp": "Seton Hall",
     "market": "spread",
     "line": 20.5,
-    "odds": -108,
+    "odds": -110,
     "p": 0.515,
     "win_p": 0.051,
     "reasons": []
@@ -2024,8 +2026,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.521,
-    "tie": 0.037,
+    "p": 0.531,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2040,9 +2042,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.559,
-    "win_p": 0.559,
+    "odds": -142,
+    "p": 0.574,
+    "win_p": 0.574,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2085,7 +2087,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.437,
+    "p": 0.44,
     "tie": 0.292,
     "name": "1st period"
    },
@@ -2101,9 +2103,9 @@
     "opp": "Blackhawks",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.684,
-    "win_p": 0.684,
+    "odds": -238,
+    "p": 0.689,
+    "win_p": 0.689,
     "reasons": [
      "the stronger team"
     ]
@@ -2667,7 +2669,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.539,
+    "p": 0.535,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2683,9 +2685,9 @@
     "opp": "Bears",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.586,
-    "win_p": 0.586,
+    "odds": -170,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -2817,8 +2819,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "C Arkansas",
-    "p": 0.702,
-    "tie": 0.037,
+    "p": 0.692,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2835,7 +2837,7 @@
     "line": 8.5,
     "odds": -110,
     "p": 0.502,
-    "win_p": 0.223,
+    "win_p": 0.234,
     "reasons": []
    }
   },
@@ -3117,9 +3119,9 @@
     "team": "Texas Southern",
     "opp": "Grand Canyon",
     "market": "spread",
-    "line": 27.5,
+    "line": 28.5,
     "odds": -110,
-    "p": 0.523,
+    "p": 0.524,
     "win_p": 0.027,
     "reasons": []
    }
