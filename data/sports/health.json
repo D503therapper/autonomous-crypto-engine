@@ -1,26 +1,69 @@
 {
- "at": "2026-11-02T12:43Z",
+ "at": "2026-11-02T18:04Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (1s)",
+  "live watcher fresh (114s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 1 of 2 live matches",
+  "slate check: all 199 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
-  "all 3 backup sources answering",
+  "tennis live prices: 2 live lines, 2 fresh (bovada 2)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 38 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 23 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-02T18:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-02T16:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-02T16:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-02T15:47Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-02T14:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-02T14:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Baez vs Merida: no points for 2214s"
+   ]
+  },
   {
    "at": "2026-11-02T12:43Z",
    "fixes": [],
@@ -502,47 +545,6 @@
    "fixes": [],
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T01:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ferro vs Maria: no points for 481s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T01:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ferro vs Maria: no points for 481s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T01:08Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ferro vs Maria: no points for 188s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-31T23:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-31T23:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-31T23:34Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027553257 HTTP 404, betrivers:ncaaf:1027553329 HTTP 404"
    ]
   }
  ]

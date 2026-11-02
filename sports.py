@@ -2326,6 +2326,29 @@ def season_w(c):
     return -HOT_W if 0 <= days < EARLY_NHL_D else 0.0
 
 
+NBA_EARLY_SPREAD_FAV = (3.5, 12.5)   # 11/2 daily study 1 (results/studies/daily_1102/s1 + s1b): an NBA favorite laying
+NBA_EARLY_SPREAD_GAMES = 20          # 3.5-12.5 in its team's first 20 games covered 46.8% - ATS -11.5% on 1,021 train
+NBA_EARLY_SPREAD_W = HOT_W           # (2016-22, 0 of 5 seasons up) / -8.7% / -10.0% held out (2023-25, 3 of 3 down) vs
+#                                      -1.9% from game 21 on; the paid 2020-23 MORNING spread -9.6% on 380; inside every
+#                                      size (3.5-6.5 / 7-9.5 / 10-12.5) and both halves (games 1-10, 11-20); 2026 +0.5% on 57.
+#                                      ~3 points of cover chance = a -0.03 WEIGHT on the favorite's spread rank (the lean /
+#                                      Lock line), never a block; the dog side is the vig (+1.8%) - no dog bump, no play.
+
+
+def nba_early_spread_fav(c):
+    """An NBA SPREAD favorite laying 3.5-12.5 in its team's first 20 games (season_games = games before tonight)."""
+    if c.get("league") != "nba" or c.get("market") != "spread" or c.get("line") is None:
+        return False
+    n = c.get("season_games")
+    lo, hi = NBA_EARLY_SPREAD_FAV
+    return n is not None and n + 1 <= NBA_EARLY_SPREAD_GAMES and lo <= -float(c["line"]) <= hi
+
+
+def early_spread_w(c):
+    """The 11/2 NBA early-season spread-favorite weight (a fade on the rank, never a gate)."""
+    return -NBA_EARLY_SPREAD_W if nba_early_spread_fav(c) else 0.0
+
+
 def season_starts(games, now):
     """{league: first regular-season game day of the season going on now} - the first game after the offseason (the
     last 30+ day gap), never last season's games (9/30: a 200-day look-back picked last March)."""
@@ -2860,6 +2883,7 @@ def rank_p(c):
     ladder, so the Lock and the unit plays never saw it)."""
     return (c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) and not c.get("drought_w") else 0)
             + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
+            + early_spread_w(c)                                # (11/2: the NBA early-season spread favorite)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
