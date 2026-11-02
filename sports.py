@@ -701,7 +701,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
-                    "mkt_trend": market_trend(games, g, side) if lg in MKT_FADE_LEAGUES else None,
+                    "mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
@@ -1422,7 +1422,8 @@ def dog_score(c):
         #                                                  game 20 - the early-season market under-rates home dogs)
     sc += nba_dog_weights(c)                             # 🏀 10/21: the 20 NBA underdog studies' score (weights)
     if market_faded(c):                                  # 10/30 daily study 2: the market moved AWAY from this team in its
-        sc -= MKT_FADE_W                                 # last 3 games (open -> close, 8+ no-vig points in all) - NBA / NHL
+        sc -= MKT_FADE_W                                 # last 3 games (open -> close, 8+ no-vig points in all) - the NBA
+        #                                                  (the NHL off 11/2: no signal on the 2021-23 odds history)
         #                                                  dogs keep losing at the close (sports.market_trend)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
@@ -1449,7 +1450,16 @@ NHL_HOT_DOG_W = 2                       # 🏒 the HOT hockey dog (10/29 - ten h
 #                                         -2 weight on the dog score (sports.hot_dog): -10.5% on 405 train (2018-23) / -13.3% on
 #                                         299 held out (2023-27, 1 of 4 seasons up) vs -6.9% / -3.8% for every hockey dog. Live
 #                                         before the weight: the Flames +160 (4 straight wins) lost 10/28. Hockey only.
-MKT_FADE_LEAGUES = ("nba", "nhl")       # 📉 THE TEAM THE MARKET KEEPS FADING (10/30 daily study 2, results/studies/daily_1030/
+MKT_TREND_LEAGUES = ("nba", "nhl")      # where the candidate carries mkt_trend (the weight below + the tracker tags read it)
+MKT_FADE_LEAGUES = ("nba",)             # 🏒 11/2 NHL ODDS HISTORY STUDIES (results/studies/nhl_odds_1102/s2): the -2 is OFF for
+#                                         hockey - on the paid 2021-23 history (the first seasons with an open -> close move
+#                                         before 2023; held out) the NHL dogs the market faded 8+ over their last 3 games went
+#                                         -5.7% at the morning price vs -10.9% for every dog (better, not worse; at the close
+#                                         -6.7% vs -11.4%; as the engine reads it -10.8% vs -11.0% - no signal), and the mirror
+#                                         (backed 8+) -37.8%, the opposite of its +11.9% lead. Six NHL seasons split 3 / 3: the
+#                                         weight stays NBA only; the NHL side keeps its tracker line (market_fade_spot).
+#                                         Was ("nba", "nhl") from 10/30:
+# 📉 THE TEAM THE MARKET KEEPS FADING (10/30 daily study 2, results/studies/daily_1030/
 MKT_TREND_N = 3                         # s2 / s2b): the books' move on a team in its last 3 priced regular-season games this
 MKT_FADE_SUM = 0.08                     # season (each game's close no-vig minus its open, for that team) summed 8+ points
 MKT_FADE_W = 2                          # AGAINST it -> -2 on its dog score (a weight inside STUDY_CAP, never a gate). At the
@@ -2259,11 +2269,18 @@ def market_trend(games, g, side, n=None):
         return None
 
 
-def market_faded(c):
-    """A moneyline dog in MKT_FADE_LEAGUES whose last 3 games' market moves summed MKT_FADE_SUM+ against it (-2 weight)."""
+def market_fade_spot(c):
+    """A moneyline dog in MKT_TREND_LEAGUES whose last 3 games' market moves summed MKT_FADE_SUM+ against it - the spot
+    itself (the tracker line reads it in the NBA and the NHL); market_faded is the WEIGHT (MKT_FADE_LEAGUES only)."""
     t = c.get("mkt_trend")
-    return (c.get("league") in MKT_FADE_LEAGUES and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100
+    return (c.get("league") in MKT_TREND_LEAGUES and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100
             and t is not None and t <= -MKT_FADE_SUM)
+
+
+def market_faded(c):
+    """A moneyline dog in MKT_FADE_LEAGUES (the NBA since the 11/2 NHL odds-history studies) whose last 3 games' market
+    moves summed MKT_FADE_SUM+ against it (-2 weight)."""
+    return c.get("league") in MKT_FADE_LEAGUES and market_fade_spot(c)
 
 
 def hangover(c):
