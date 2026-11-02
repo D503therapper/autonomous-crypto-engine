@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T22:13Z",
+ "updated": "2026-11-02T22:14Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -205,21 +205,6 @@
    "start": "2026-11-02T21:00Z",
    "away": "UMBC",
    "home": "George Mason",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "ncaab:401928858",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-02T22:00Z",
-   "away": "St Francis IL",
-   "home": "UIC",
    "h1": null,
    "why": "started",
    "done": false,
@@ -507,9 +492,9 @@
     "opp": "GA Southern",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.527,
-    "win_p": 0.527,
+    "odds": -130,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -1615,7 +1600,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -9.5,
-    "odds": -119,
+    "odds": -118,
     "p": 0.502,
     "win_p": 0.81,
     "reasons": [
@@ -1877,9 +1862,9 @@
     "opp": "SE Missouri",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.533,
-    "win_p": 0.533,
+    "odds": -135,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2095,8 +2080,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Seton Hall",
-    "p": 0.873,
-    "tie": 0.021,
+    "p": 0.882,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2113,10 +2098,8 @@
     "line": 19.5,
     "odds": -108,
     "p": 0.514,
-    "win_p": 0.057,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "win_p": 0.051,
+    "reasons": []
    }
   },
   {
@@ -2244,8 +2227,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.863,
-    "tie": 0.023,
+    "p": 0.869,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2583,9 +2566,9 @@
     "opp": "Bryant",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.659,
-    "win_p": 0.659,
+    "odds": -205,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
      "sharp money moving this way",
      "the stronger team"
@@ -3870,8 +3853,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "USC",
-    "p": 0.921,
-    "tie": 0.015,
+    "p": 0.903,
+    "tie": 0.018,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3920,6 +3903,34 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401906848",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Tennessee",
+    "p": 0.921,
+    "tie": 0.015,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-03T23:00Z",
+   "away": "Wofford",
+   "home": "Tennessee",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Wofford",
+    "opp": "Tennessee",
+    "market": "spread",
+    "line": 27.5,
+    "odds": -112,
+    "p": 0.523,
+    "win_p": 0.027,
+    "reasons": []
    }
   },
   {
@@ -4087,9 +4098,9 @@
     "team": "Ohio",
     "opp": "Akron",
     "market": "spread",
-    "line": -13.5,
-    "odds": -112,
-    "p": 0.508,
+    "line": -14.0,
+    "odds": -105,
+    "p": 0.507,
     "win_p": 0.713,
     "reasons": [
      "the stronger team",
@@ -4194,8 +4205,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.39,
-    "tie": 0.298,
+    "p": 0.395,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4211,8 +4222,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.639,
-    "win_p": 0.42,
+    "p": 0.628,
+    "win_p": 0.41,
     "reasons": []
    }
   },
