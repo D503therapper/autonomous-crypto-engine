@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 161,
-  "beat": 53,
+  "n": 162,
+  "beat": 54,
   "same": 59,
   "worse": 49,
-  "avg_pts": 0.08
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 73,
-  "beat": 22,
+  "n": 74,
+  "beat": 23,
   "same": 33,
   "worse": 18,
-  "avg_pts": 0.14
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
-   "n": 20,
-   "beat": 4,
+   "n": 21,
+   "beat": 5,
    "same": 9,
    "worse": 7,
-   "avg_pts": -0.26
+   "avg_pts": -0.19
   },
   "lean": {
    "n": 88,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 19,
-   "beat": 8,
+   "n": 20,
+   "beat": 9,
    "same": 8,
    "worse": 3,
-   "avg_pts": 0.55
+   "avg_pts": 0.57
   },
   "ncaaf": {
    "n": 46,
@@ -2364,6 +2364,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "dog",
+   "lean": false,
+   "league": "nba",
+   "team": "Nets",
+   "market": "ml",
+   "line": null,
+   "odds": 142,
+   "close": 136,
+   "pts": 1.1,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T00:56Z",
+ "updated": "2026-11-02T01:01Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -330,32 +330,25 @@
    "id": "nfl:401873035",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Commanders",
-    "p": 0.612,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-02T01:20Z",
    "away": "Eagles",
    "home": "Commanders",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Commanders",
-    "opp": "Eagles",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.691,
-    "win_p": 0.691,
-    "reasons": [
-     "sharp money moving this way",
-     "better rested",
-     "better QB play lately"
-    ]
+    "team": "Eagles",
+    "opp": "Commanders",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -112,
+    "p": 0.508,
+    "win_p": 0.508,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -425,7 +418,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "High Point",
-    "p": 0.664,
+    "p": 0.658,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -443,7 +436,7 @@
     "line": 7.5,
     "odds": -112,
     "p": 0.501,
-    "win_p": 0.266,
+    "win_p": 0.274,
     "reasons": []
    }
   },
@@ -1439,8 +1432,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa State",
-    "p": 0.801,
-    "tie": 0.029,
+    "p": 0.809,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1457,7 +1450,7 @@
     "line": 13.5,
     "odds": -118,
     "p": 0.507,
-    "win_p": 0.12,
+    "win_p": 0.113,
     "reasons": []
    }
   },
@@ -1835,7 +1828,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.564,
+    "p": 0.56,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1851,12 +1844,11 @@
     "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
-     "rolling off a blowout win",
-     "sharp money moving this way"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -2039,7 +2031,7 @@
    "h1": {
     "team": "76ers",
     "p": 0.731,
-    "tie": 0.029,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2056,7 +2048,7 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.841,
+    "win_p": 0.84,
     "reasons": [
      "the stronger team"
     ]
@@ -2324,7 +2316,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.761,
+    "p": 0.76,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -2588,7 +2580,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.675,
+    "p": 0.674,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2606,7 +2598,7 @@
     "line": -11.5,
     "odds": -105,
     "p": 0.504,
-    "win_p": 0.774,
+    "win_p": 0.773,
     "reasons": [
      "the stronger team"
     ]
@@ -3225,7 +3217,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.756,
+    "p": 0.755,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -3243,7 +3235,7 @@
     "line": -15.5,
     "odds": -115,
     "p": 0.508,
-    "win_p": 0.867,
+    "win_p": 0.866,
     "reasons": [
      "the stronger team"
     ]
