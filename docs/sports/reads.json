@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T00:47Z",
+ "updated": "2026-11-02T00:48Z",
  "games": [
   {
    "id": "ncaab:401920982",
@@ -279,7 +279,7 @@
    "home": "Pacers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Nets",
@@ -294,7 +294,7 @@
      "sharp money moving this way",
      "opponent missing key players: Obi Toppin (their read -9)"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -2324,7 +2324,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.757,
+    "p": 0.761,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -2342,9 +2342,10 @@
     "line": -14.5,
     "odds": -110,
     "p": 0.507,
-    "win_p": 0.869,
+    "win_p": 0.872,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
