@@ -6536,3 +6536,30 @@ DEX: $674.96 (-325.04) · Scammed: 10 (-$199.20)
 [2026-11-02 00:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-02 00:07 UTC] crypto/hold_btc  equity $469.28 (-6.1%) 1 open  market DOWN
    social heat top: PENGU 44 (35/0/9), PONS 33 (21/0/12), AAVE 29 (29/0/0), HYPE 27 (27/0/0), INJ 24 (24/0/0)
+   dex screen: REJECT NOCK@base liq $898,017 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   dex screen: REJECT MOG@ethereum liq $4,902,750 - top-10 holders 46%
+   dex screen: REJECT SPCXC@base liq $758,703 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT BATON@solana liq $348,722 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex screen: PASS ASTEROID@ethereum liq $878,606
+   dex screen: REJECT WETH@solana liq $6,483,587 - mint authority; top-10 holders 77%
+   dex screen: REJECT SHFL@ethereum liq $8,805,598 - top-10 holders 86%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT TRUE@base liq $793,716 - is_mintable; top-10 holders 59%; lp locked 0% < 95%
+   dex screen: REJECT ANSEM@solana liq $1,248,843 - top-10 holders 65%
+   dex screen: REJECT ANSEM@solana liq $317,701,532 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,307 - top-10 holders 100%
+   dex scanner: 2,898 pools (solana 1,996 / base 543 / ethereum 359), refresh cycle 123s (hot 118s), 2948 calls (106 feed, 429s 0, failed 0), 85,219 refreshed (12807 no pair), +72 added / -111 dropped (dead 98, stale 13, cap 0), movers 2 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-02 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/mover     equity $240.15 (-52.0%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/social_heat equity $366.32 (-26.7%) 3 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/breakout10 equity $416.83 (-16.6%) 1 open  market UP
+[2026-11-02 01:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-02 01:06 UTC] crypto/hold_btc  equity $467.74 (-6.5%) 1 open  market DOWN
+   social heat top: BTC 40 (35/0/5), PENGU 40 (32/0/8), PONS 36 (21/0/14), CARDS 29 (29/0/0), HYPE 24 (21/0/3)
