@@ -1,0 +1,30 @@
+ML -> spread map (train): spread = -6.835*logit -0.0671*logit^3; check: p .75 -> -7.6, p .5 -> -0.0
+
+== 1. the 1H spread regressed on the full CLOSE spread and the OPEN-implied full spread (2023-25)
+h1 = +0.510*close_spread +0.062*open_spread  (a fresh 1H number: all weight on the close)
+h1 = +0.488*closeML_spread +0.089*openML_spread  (same map both sides - apples to apples)
+games whose full ML moved 4+ pts: h1 = +0.534*closeML_spread +0.023*openML_spread on 6155
+
+== 2. the edge vs the CLOSE full spread (s3b) and vs the OPEN-implied full spread, edge 1+
+vs CLOSE edge 0.75+                                          ALL   +5.9% n1383  z+2.4 | TR   -2.8% n392   0/1 | HO   +9.3% n991   2/2 | 23:-3/392 24:+5/499 25:+14/492
+vs CLOSE edge 1.0+                                           ALL   +6.4% n684   z+1.8 | TR   -8.6% n203   0/1 | HO  +12.8% n481   2/2 | 23:-9/203 24:+10/283 25:+17/198
+vs CLOSE edge 1.5+                                           ALL   +0.9% n141   z+0.1 | TR  -13.7% n36    0/1 | HO   +5.9% n105   1/2 | 23:-14/36 24:+10/69 25:-3/36
+vs OPEN-implied edge 0.75+                                   ALL   -2.8% n4606  z-2.0 | TR   +2.4% n1556  1/1 | HO   -5.4% n3050  0/2 | 23:+2/1556 24:-5/1627 25:-5/1423
+vs OPEN-implied edge 1.0+                                    ALL   -3.7% n3082  z-2.2 | TR   +0.1% n1050  1/1 | HO   -5.7% n2032  0/2 | 23:+0/1050 24:-6/1105 25:-6/927
+vs OPEN-implied edge 1.5+                                    ALL   -2.9% n1250  z-1.1 | TR   +0.9% n415   1/1 | HO   -4.7% n835   0/2 | 23:+1/415 24:-7/473 25:-2/362
+vs CLOSE-ML-implied edge 0.75+                               ALL   -2.6% n1261  z-1.0 | TR   -5.2% n360   0/1 | HO   -1.5% n901   1/2 | 23:-5/360 24:+1/451 25:-4/450
+vs CLOSE-ML-implied edge 1.0+                                ALL   -2.1% n723   z-0.6 | TR  -13.2% n177   0/1 | HO   +1.6% n546   2/2 | 23:-13/177 24:+1/283 25:+2/263
+vs CLOSE-ML-implied edge 1.5+                                ALL   +3.7% n358   z+0.8 | TR   -8.7% n66    0/1 | HO   +6.5% n292   2/2 | 23:-9/66 24:+6/180 25:+7/112
+
+== 3. the CLEAN test - the full ML did NOT move (|close - open| < 1 pt), edge vs the close
+no move, edge 0.5+                                           ALL   +2.2% n1007  z+0.8 | TR   -7.2% n343   0/1 | HO   +7.1% n664   2/2 | 23:-7/343 24:+6/330 25:+8/334
+no move, edge 0.75+                                          ALL   +5.0% n573   z+1.3 | TR   -5.5% n186   0/1 | HO  +10.0% n387   2/2 | 23:-5/186 24:+9/217 25:+11/170
+no move, edge 1.0+                                           ALL   +6.9% n326   z+1.4 | TR  -11.2% n109   0/1 | HO  +15.9% n217   2/2 | 23:-11/109 24:+16/133 25:+16/84
+moved 3+, edge 0.5+                                          ALL   +8.5% n882   z+2.8 | TR   +3.0% n247   1/1 | HO  +10.7% n635   2/2 | 23:+3/247 24:+14/276 25:+8/359
+    ...of those, the side the full ML moved TO               ALL  +13.7% n592   z+3.7 | TR   +4.4% n163   1/1 | HO  +17.2% n429   2/2 | 23:+4/163 24:+19/172 25:+16/257
+moved 3+, edge 0.75+                                         ALL   +5.5% n308   z+1.0 | TR   -6.7% n77    0/1 | HO   +9.5% n231   2/2 | 23:-7/77 24:+13/92 25:+7/139
+    ...of those, the side the full ML moved TO               ALL   +5.9% n214   z+0.9 | TR  -15.2% n45    0/1 | HO  +11.5% n169   2/2 | 23:-15/45 24:+9/61 25:+13/108
+moved 3+, edge 1.0+                                          ALL  +12.6% n107   z+1.4 | TR  -13.4% n28    0/1 | HO  +21.8% n79    2/2 | 23:-13/28 24:+27/35 25:+17/44
+    ...of those, the side the full ML moved TO               ALL  +10.7% n72    z+1.0 | TR  -43.1% n13    0/1 | HO  +22.5% n59    2/2 | 23:-43/13 24:+15/26 25:+29/33
+
+cells looked at: 18

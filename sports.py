@@ -5310,6 +5310,16 @@ def _push(title, body, tag="ambulance"):
 LINE_ALERT = 0.03             # the money ran 3+ no-vig points away from our side since we posted it
 
 
+def early_log_line(c):
+    """The run log's line for a new early play (11/3 deep study: the old f-string read c['own'] / c['mkt'] - a total
+    (🌍 the Europe under, ⛰️ the altitude over) has neither, so the KeyError skipped queue_pings for every play that run)."""
+    if c.get("market") == "total":
+        return f"early value play: {c.get('team')} ({c.get('odds')}) ({c.get('league')}, {c.get('spot')}, {c.get('opp')})"
+    own, mkt = c.get("own"), c.get("mkt")
+    tail = f"own {own:.0%} vs price {mkt:.0%}" if own is not None and mkt is not None else str(c.get("spot") or "")
+    return f"early value play: {c.get('team')} {c.get('odds')} ({c.get('league')}, {tail})"
+
+
 def line_watch(games, picks):
     """After a pick is up, keep watching its line every run (the owner's rule: the engine watches the line all day).
     If the money runs away from our side (the Astros, 9/29: -143 at the open, -123 by first pitch - they lost), say
@@ -5803,7 +5813,7 @@ def run(repick=False, fetch=True):
         queue = []                                                      # (pinged only once the dashboard shows them:
         for c in sports_early.post(games, model, now, inj, ping=queue.append if sports_early.PINGS else None,
                                    trap=lambda lg, o, h: sports_dogs.verdict(DOGS_ST, lg, o, h) == "trap"):
-            print(f"early value play: {c['team']} +{c['odds']} ({c['league']}, own {c['own']:.0%} vs price {c['mkt']:.0%})")
+            print(early_log_line(c))
         sports_early.queue_pings(queue, now)
     except Exception as e:                                              # noqa: BLE001 - never blocks the board
         print(f"early value plays failed: {e}")

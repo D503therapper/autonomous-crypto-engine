@@ -1,0 +1,63 @@
+
+== BY GAME TIER x ERA (train 2018-22 / held 2023-25)
+train P                            n  5888 MAE  9.03 slope 0.961 (10+: 0.960) | favATS  -5.3% homeATS  -3.5% | over  -5.1% bias +0.33 | favML  -2.5% dogML(<=+350)  -6.2% | 1H line  82%
+train M                            n  2802 MAE  8.69 slope 1.035 (10+: 1.063) | favATS  -4.5% homeATS  -5.7% | over  -5.6% bias +0.36 | favML  -0.2% dogML(<=+350) -14.5% | 1H line  69%
+train L                            n  8578 MAE  8.67 slope 0.994 (10+: 0.988) | favATS  -5.4% homeATS  -4.7% | over  -3.0% bias +0.93 | favML  -3.2% dogML(<=+350)  -6.1% | 1H line  50%
+held P                             n  3853 MAE  9.04 slope 1.027 (10+: 1.008) | favATS  -4.1% homeATS  -4.0% | over  -3.1% bias +0.92 | favML  -2.3% dogML(<=+350)  -5.7% | 1H line  79% || OPEN n3853 |move| 2.80pt LLopen 0.4602 LLclose 0.4557 gain +4.5m
+held M                             n  2072 MAE  8.72 slope 1.027 (10+: 1.066) | favATS  -6.6% homeATS  -4.3% | over  -2.4% bias +0.65 | favML  -3.6% dogML(<=+350)  -6.9% | 1H line  71% || OPEN n2073 |move| 2.83pt LLopen 0.5040 LLclose 0.4992 gain +4.8m
+held L                             n  5874 MAE  8.72 slope 0.988 (10+: 1.060) | favATS  -5.6% homeATS  -4.2% | over  -4.5% bias +0.97 | favML  -2.5% dogML(<=+350)  -6.3% | 1H line  54% || OPEN n5883 |move| 3.12pt LLopen 0.5782 LLclose 0.5744 gain +3.7m
+
+== TIER x CONFERENCE GAME (held)
+held P conf=True                   n  2262 MAE  8.80 slope 1.036 (10+: 1.019) | favATS  -4.3% homeATS  -6.3% | over  -1.3% bias +1.19 | favML  -1.9% dogML(<=+350)  -7.1% | 1H line  89% || OPEN n2262 |move| 3.27pt LLopen 0.5552 LLclose 0.5493 gain +5.8m
+held P conf=False                  n  1591 MAE  9.38 slope 0.999 (10+: 0.980) | favATS  -3.9% homeATS  -0.6% | over  -5.7% bias +0.54 | favML  -2.8% dogML(<=+350)  -1.0% | 1H line  69% || OPEN n1591 |move| 2.13pt LLopen 0.3251 LLclose 0.3225 gain +2.7m
+held M conf=True                   n  1215 MAE  8.50 slope 1.054 (10+: 1.078) | favATS  -5.6% homeATS  -5.4% | over  -3.7% bias +0.56 | favML  -3.4% dogML(<=+350)  -8.9% | 1H line  80% || OPEN n1216 |move| 2.73pt LLopen 0.5147 LLclose 0.5085 gain +6.2m
+held M conf=False                  n   857 MAE  9.02 slope 0.964 (10+: 1.026) | favATS  -7.9% homeATS  -2.7% | over  -0.6% bias +0.78 | favML  -3.9% dogML(<=+350)  -3.0% | 1H line  60% || OPEN n857 |move| 2.98pt LLopen 0.4889 LLclose 0.4860 gain +2.9m
+held L conf=True                   n  4393 MAE  8.71 slope 0.990 (10+: 1.043) | favATS  -5.3% homeATS  -4.8% | over  -5.1% bias +0.87 | favML  -2.4% dogML(<=+350)  -6.7% | 1H line  63% || OPEN n4402 |move| 2.98pt LLopen 0.5798 LLclose 0.5766 gain +3.2m
+held L conf=False                  n  1481 MAE  8.75 slope 0.976 (10+: 1.113) | favATS  -6.4% homeATS  -2.5% | over  -2.9% bias +1.29 | favML  -2.8% dogML(<=+350)  -5.1% | 1H line  37% || OPEN n1481 |move| 3.54pt LLopen 0.5733 LLclose 0.5679 gain +5.4m
+
+== LIQUIDITY PROXIES (held)
+held 1H line hung                  n 11666 MAE  8.83 slope 1.019 (10+: 1.045) | favATS  -5.4% homeATS  -4.1% | over  -3.8% bias +0.88 | favML  -2.7% dogML(<=+350)  -5.9% | 1H line 100% || OPEN n11674 |move| 2.96pt LLopen 0.5270 LLclose 0.5230 gain +4.0m
+held NO 1H line                    n   133 MAE  8.21 slope 1.087 (10+:  -   ) | favATS  +9.2% homeATS  -5.2% | over  +6.1% bias +2.16 | favML  +3.1% dogML(<=+350) -30.5% | 1H line   0% || OPEN n135 |move| 3.44pt LLopen 0.4975 LLclose 0.4782 gain +19.2m
+held late tip 22:00+ ET            n   862 MAE  9.24 slope 0.991 (10+: 1.043) | favATS  -5.1% homeATS  -5.1% | over  +1.2% bias +1.50 | favML  -3.4% dogML(<=+350)  -4.6% | 1H line  69% || OPEN n863 |move| 3.06pt LLopen 0.4945 LLclose 0.4930 gain +1.5m
+held tip before 22:00 ET           n 10937 MAE  8.79 slope 1.022 (10+: 1.043) | favATS  -5.3% homeATS  -4.1% | over  -4.1% bias +0.85 | favML  -2.5% dogML(<=+350)  -6.3% | 1H line  63% || OPEN n10946 |move| 2.96pt LLopen 0.5292 LLclose 0.5248 gain +4.4m
+held Mon-Thu                       n  4499 MAE  8.83 slope 1.053 (10+: 1.070) | favATS  -5.5% homeATS  -6.5% | over  -4.7% bias +0.87 | favML  -2.9% dogML(<=+350)  -5.3% | 1H line  61% || OPEN n4501 |move| 2.86pt LLopen 0.5014 LLclose 0.4995 gain +1.9m
+held Fri-Sun                       n  7300 MAE  8.81 slope 0.995 (10+: 1.020) | favATS  -5.1% homeATS  -2.7% | over  -3.0% bias +0.91 | favML  -2.4% dogML(<=+350)  -6.7% | 1H line  65% || OPEN n7308 |move| 3.02pt LLopen 0.5422 LLclose 0.5366 gain +5.6m
+held L late                        n   199 MAE  9.15 slope 1.023 (10+:  -   ) | favATS  +0.3% homeATS  -5.5% | over  -3.6% bias +0.99 | favML  -1.2% dogML(<=+350)  -5.1% | 1H line  49% || OPEN n199 |move| 3.74pt LLopen 0.5458 LLclose 0.5440 gain +1.8m
+held Nov-Dec                       n  4279 MAE  9.08 slope 0.998 (10+: 1.010) | favATS  -6.1% homeATS  -2.9% | over  -3.3% bias +0.88 | favML  -3.5% dogML(<=+350)  -2.4% | 1H line  53% || OPEN n4280 |move| 2.88pt LLopen 0.4623 LLclose 0.4587 gain +3.6m
+held Jan-Mar                       n  7520 MAE  8.68 slope 1.029 (10+: 1.067) | favATS  -4.8% homeATS  -4.8% | over  -3.9% bias +0.91 | favML  -2.1% dogML(<=+350)  -7.8% | 1H line  71% || OPEN n7529 |move| 3.01pt LLopen 0.5632 LLclose 0.5587 gain +4.5m
+held L Nov-Dec                     n  1662 MAE  8.74 slope 0.976 (10+: 1.091) | favATS  -5.6% homeATS  -3.8% | over  -2.9% bias +1.23 | favML  -3.2% dogML(<=+350)  -3.8% | 1H line  40% || OPEN n1663 |move| 3.53pt LLopen 0.5704 LLclose 0.5658 gain +4.6m
+held P Nov-Dec                     n  1705 MAE  9.42 slope 0.991 (10+: 0.969) | favATS  -4.8% homeATS  -1.4% | over  -5.1% bias +0.66 | favML  -3.2% dogML(<=+350)  -0.3% | 1H line  70% || OPEN n1705 |move| 2.20pt LLopen 0.3434 LLclose 0.3409 gain +2.5m
+
+== TRAIN SAME PROXIES
+train 1H line hung                 n 16837 MAE  8.81 slope 0.992 (10+: 0.993) | favATS  -5.2% homeATS  -4.4% | over  -4.1% bias +0.67 | favML  -2.4% dogML(<=+350)  -7.4% | 1H line 100%
+train NO 1H line                   n   431 MAE  8.39 slope 0.937 (10+: 0.957) | favATS  -6.7% homeATS  -7.1% | over  -6.2% bias -0.67 | favML  -3.4% dogML(<=+350)  -3.7% | 1H line   0%
+train late tip                     n  1292 MAE  8.84 slope 1.053 (10+: 1.067) | favATS  -1.4% homeATS  -6.5% | over  -4.3% bias +0.50 | favML  -1.3% dogML(<=+350)  -9.4% | 1H line  66%
+train early tip                    n 15976 MAE  8.79 slope 0.985 (10+: 0.984) | favATS  -5.5% homeATS  -4.3% | over  -4.1% bias +0.64 | favML  -2.5% dogML(<=+350)  -7.1% | 1H line  61%
+
+== ATS / ML CELLS BY TIER (graded per season)
+P favorite ATS                                               ALL   -4.8% n9741  z-5.0 | TR   -5.3% n5888  1/5 | HO   -4.0% n3853  0/3 | 18:+2/1153 19:-7/1230 20:-7/964 21:-10/1274 22:-4/1267 23:-2/1330 24:-2/1282 25:-9/1241
+P dog ATS                                                    ALL   -4.0% n9741  z-4.2 | TR   -3.6% n5888  1/5 | HO   -4.7% n3853  1/3 | 18:-11/1153 19:-1/1230 20:-2/964 21:+1/1274 22:-5/1267 23:-7/1330 24:-7/1282 25:+0/1241
+P big fav 10+ ATS                                            ALL   -7.4% n3651  z-4.7 | TR   -9.8% n2024  0/5 | HO   -4.4% n1627  0/3 | 18:-7/343 19:-9/438 20:-8/302 21:-13/483 22:-11/458 23:-3/527 24:-2/553 25:-8/547
+P big dog 10+ ATS                                            ALL   -1.5% n3651  z-0.9 | TR   +0.9% n2024  3/5 | HO   -4.4% n1627  1/3 | 18:-2/343 19:+0/438 20:-1/302 21:+4/483 22:+2/458 23:-6/527 24:-7/553 25:+0/547
+P home ATS                                                   ALL   -3.2% n8503  z-3.1 | TR   -2.9% n5130  0/5 | HO   -3.7% n3373  0/3 | 18:-2/979 19:-3/1099 20:-2/863 21:-3/1104 22:-4/1085 23:-2/1168 24:-0/1134 25:-9/1071
+P fav ML -101..-150                                          ALL   -2.9% n1762  z-1.4 | TR   -3.5% n1130  2/5 | HO   -1.9% n632   0/3 | 18:-4/220 19:-12/250 20:+0/170 21:-3/247 22:+3/243 23:-1/231 24:-3/184 25:-3/217
+P fav ML -151..-300                                          ALL   -4.3% n3041  z-3.3 | TR   -2.9% n1942  2/5 | HO   -6.8% n1099  0/3 | 18:+1/394 19:-2/412 20:-5/337 21:-9/388 22:+0/411 23:-6/391 24:-4/371 25:-11/337
+P dog ML +100..+200                                          ALL   -5.3% n3533  z-2.6 | TR   -5.4% n2307  1/5 | HO   -5.0% n1226  0/3 | 18:-6/472 19:-1/494 20:-4/402 21:+2/454 22:-17/485 23:-6/447 24:-8/401 25:-1/378
+M favorite ATS                                               ALL   -5.3% n4874  z-3.9 | TR   -4.5% n2802  0/5 | HO   -6.5% n2072  0/3 | 18:-3/537 19:-7/593 20:-1/405 21:-4/610 22:-6/657 23:-1/648 24:-10/703 25:-8/721
+M dog ATS                                                    ALL   -3.6% n4874  z-2.6 | TR   -4.5% n2802  0/5 | HO   -2.3% n2072  1/3 | 18:-6/537 19:-2/593 20:-8/405 21:-5/610 22:-3/657 23:-8/648 24:+1/703 25:-0/721
+M big fav 10+ ATS                                            ALL   -7.2% n1728  z-3.1 | TR   -6.3% n986   2/5 | HO   -8.3% n742   1/3 | 18:+1/170 19:-13/233 20:+2/163 21:-5/224 22:-13/196 23:+1/202 24:-12/279 25:-12/261
+M big dog 10+ ATS                                            ALL   -1.7% n1728  z-0.8 | TR   -2.6% n986   2/5 | HO   -0.5% n742   2/3 | 18:-10/170 19:+5/233 20:-11/163 21:-4/224 22:+4/196 23:-10/202 24:+3/279 25:+3/261
+M home ATS                                                   ALL   -5.4% n4358  z-3.8 | TR   -6.0% n2499  0/5 | HO   -4.6% n1859  0/3 | 18:-2/475 19:-7/540 20:-7/356 21:-9/542 22:-4/586 23:-2/581 24:-7/624 25:-5/654
+M fav ML -101..-150                                          ALL   -6.4% n968   z-2.2 | TR   -1.8% n522   2/5 | HO  -11.7% n446   0/3 | 18:+1/96 19:-1/101 20:+6/68 21:-4/124 22:-7/133 23:-15/133 24:-10/160 25:-11/153
+M fav ML -151..-300                                          ALL   -0.9% n1511  z-0.5 | TR   -0.6% n885   2/5 | HO   -1.4% n626   1/3 | 18:-3/181 19:+2/164 20:-4/127 21:+2/183 22:-1/230 23:-1/244 24:+1/193 25:-4/189
+M dog ML +100..+200                                          ALL   -6.1% n1748  z-2.2 | TR   -9.0% n1023  0/5 | HO   -2.0% n725   1/3 | 18:-7/209 19:-6/193 20:-9/141 21:-12/224 22:-11/256 23:-2/267 24:-7/232 25:+3/226
+L favorite ATS                                               ALL   -5.4% n14461 z-6.9 | TR   -5.4% n8578  0/5 | HO   -5.5% n5874  0/3 | 18:-6/1515 19:-5/1840 20:-2/1358 21:-10/1869 22:-4/1996 23:-5/1951 24:-5/1976 25:-6/1947 26:+28/9
+L dog ATS                                                    ALL   -3.4% n14461 z-4.3 | TR   -3.4% n8578  1/5 | HO   -3.2% n5874  0/3 | 18:-3/1515 19:-4/1840 20:-7/1358 21:+1/1869 22:-4/1996 23:-3/1951 24:-3/1976 25:-3/1947 26:-36/9
+L big fav 10+ ATS                                            ALL   -6.4% n2768  z-3.5 | TR   -5.3% n1731  1/5 | HO   -8.3% n1036  0/3 | 18:-4/279 19:-5/364 20:-8/257 21:-12/422 22:+2/409 23:-10/384 24:-0/342 25:-15/310 26:+89/1
+L big dog 10+ ATS                                            ALL   -2.4% n2768  z-1.3 | TR   -3.5% n1731  1/5 | HO   -0.4% n1036  2/3 | 18:-5/279 19:-3/364 20:-1/257 21:+3/422 22:-11/409 23:+1/384 24:-8/342 25:+6/310 26:-100/1
+L home ATS                                                   ALL   -4.6% n13433 z-5.7 | TR   -4.9% n8008  0/5 | HO   -4.2% n5423  0/3 | 18:-5/1409 19:-4/1788 20:-5/1258 21:-8/1719 22:-3/1834 23:-5/1805 24:-4/1821 25:-3/1797 26:+94/2
+L fav ML -101..-150                                          ALL   -4.5% n4214  z-3.2 | TR   -5.0% n2482  0/5 | HO   -3.7% n1731  0/3 | 18:-6/463 19:-3/582 20:-8/363 21:-6/476 22:-3/598 23:-2/541 24:-2/563 25:-7/627 26:+70/1
+L fav ML -151..-300                                          ALL   -3.6% n5712  z-3.8 | TR   -4.0% n3325  0/5 | HO   -3.0% n2385  0/3 | 18:-1/593 19:-2/702 20:-5/555 21:-6/728 22:-5/747 23:-2/782 24:-5/827 25:-2/776 26:-21/2
+L dog ML +100..+200                                          ALL   -4.3% n7025  z-3.1 | TR   -3.7% n4161  0/5 | HO   -5.1% n2861  0/3 | 18:-5/773 19:-6/887 20:-2/671 21:-1/888 22:-4/942 23:-7/967 24:-4/951 25:-4/943 26:-18/3
+
+cells looked at: 24
