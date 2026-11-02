@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 163,
-  "beat": 54,
+  "n": 164,
+  "beat": 55,
   "same": 60,
   "worse": 49,
-  "avg_pts": 0.09
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 74,
-  "beat": 23,
+  "n": 75,
+  "beat": 24,
   "same": 33,
   "worse": 18,
-  "avg_pts": 0.16
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 40,
-   "beat": 11,
+   "n": 41,
+   "beat": 12,
    "same": 20,
    "worse": 9,
-   "avg_pts": 0.04
+   "avg_pts": 0.09
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 20,
-   "beat": 9,
+   "n": 21,
+   "beat": 10,
    "same": 8,
    "worse": 3,
-   "avg_pts": 0.57
+   "avg_pts": 0.65
   },
   "ncaaf": {
    "n": 46,
@@ -2364,6 +2364,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Clippers",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 105,
+   "pts": 2.1,
+   "units": 0.5,
+   "result": "lost"
   },
   {
    "date": "2026-11-01",
