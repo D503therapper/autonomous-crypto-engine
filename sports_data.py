@@ -594,16 +594,21 @@ def web_injuries(league, names, get=None):
     url = WEB_INJ.get(league)
     if not url:
         return {}
-    try:
-        rows = get(url) if get else json.load(urllib.request.urlopen(
-            urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126 Safari/537.36",
-                                                 "Accept": "application/json"}), timeout=20))
-    except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
-        print(f"   {league} web injuries: {str(e)[:100]}")
+    import sports_http as sh
+    src = f"rotowire_{league}"
+    try:                                                     # (11/2: a plain request - the Linux Chrome User-Agent it
+        rows = get(url) if get else json.load(urllib.request.urlopen(          # sent is gone; if Rotowire refuses an
+            urllib.request.Request(url, headers=sh.JSON_HDR), timeout=20))      # honest read, Covers / ESPN / the
+    except Exception as e:                                   # noqa: BLE001 - official reports carry it, and a school
+        print(f"   {league} web injuries: {str(e)[:100]}")   # none of them lists stays UNKNOWN - no pick)
+        sh.note(src, False, err=sh.err_text(e), how="plain request - the other college injury sources carry it")
         return {}
     if not isinstance(rows, list) or len(rows) < WEB_MIN_ROWS:
         print(f"   {league} web injuries: only {len(rows) if isinstance(rows, list) else 0} rows - not used")
+        sh.note(src, False, n=len(rows) if isinstance(rows, list) else 0,
+                how=f"plain request - under {WEB_MIN_ROWS} rows, not used (the other college injury sources carry it)")
         return {}
+    sh.note(src, True, n=len(rows), how="plain request")
     by = {}
     for tid, nm in names.items():
         by.setdefault(_wn(nm), tid)
@@ -638,10 +643,11 @@ _STATUS = re.compile(r"^(Out|Doubtful|Questionable|Probable|Day-To-Day|Suspended
 
 def _page_lines(url):
     import importlib.util
+    import sports_http as sh
     spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
     fp = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fp)
-    with urllib.request.urlopen(urllib.request.Request(url, headers=fp.UA), timeout=25) as r:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=sh.HDR), timeout=25) as r:   # (11/2: plain request)
         return fp.text_of(r.read().decode("utf-8", "replace"))
 
 
@@ -730,16 +736,21 @@ def page_injuries(league, names, get=None, now=None):
     url = WEB_PAGE.get(league)
     if not url:
         return {}
+    import sports_http as sh
+    src = f"covers_{league}"
     try:
         lines = get(url) if get else _page_lines(url)
         teams = parse_team_page(lines)
     except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
         print(f"   {league} injury page: {str(e)[:100]}")
+        sh.note(src, False, err=sh.err_text(e), how="plain request - a school no other source lists stays UNKNOWN")
         return {}
     if len(teams) < WEB_MIN_TEAMS:
         print(f"   {league} injury page: only {len(teams)} schools - not used ({len(lines)} lines, "
               f"{lines.count('Status')} 'Status', starts: {' | '.join(lines[:3])[:120]})")
+        sh.note(src, False, n=len(teams), how=f"plain request - under {WEB_MIN_TEAMS} schools, not used")
         return {}
+    sh.note(src, True, n=len(teams), how="plain request")
     by = {}
     for tid, nm in names.items():
         by.setdefault(_wn(nm), tid)
@@ -936,8 +947,8 @@ STARS_V = 2                            # bump when the rule changes: today's sav
 
 
 def _mlb_get(path):
-    with urllib.request.urlopen(urllib.request.Request(MLB_API + path, headers={"User-Agent": "Mozilla/5.0"}),
-                                timeout=20) as r:
+    import sports_http as sh                               # (11/2: the engine's own name, never a browser's)
+    with urllib.request.urlopen(urllib.request.Request(MLB_API + path, headers=sh.JSON_HDR), timeout=20) as r:
         return json.load(r)
 
 

@@ -5,7 +5,9 @@ offering it), BetRivers (Kambi's public odds feed) fills in - every price carrie
 60-second freshness rule applies as for Bovada.
 
 Plain public pages only: no borrowed keys or access codes (that's why FanDuel was dropped 9/29 - its feed wants one),
-and when a book turns us away we just move on - we never disguise ourselves to get back in. Every read is logged in STATUS so the hourly bug check can say which source is down.
+and when a book turns us away we just move on - we never disguise ourselves to get back in (11/2: the Chrome User-Agent
+these reads carried is gone - every read is the engine's own plain request, sports_http). Every read is logged in STATUS
+so the hourly bug check can say which source is down (and source_status.json whether it answers a plain request).
 """
 import json
 import re
@@ -16,8 +18,9 @@ import urllib.request
 import sports_data as sd
 from datetime import datetime, timezone
 
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-      "Accept": "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9"}
+import sports_http as sh
+
+UA = dict(sh.JSON_HDR)        # (11/2: the engine's own name - the Mac Chrome User-Agent it used to send is gone)
 KAMBI = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/{p}.json?lang=en_US&market=US"
 KAMBI_EVENT = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/betoffer/event/{id}.json?lang=en_US&market=US"
 KAMBI_PATH = {"nfl": "american_football/nfl", "ncaaf": "american_football/ncaaf", "nba": "basketball/nba",
@@ -34,8 +37,8 @@ def _get(url):
     hit = _CACHE.get(url)
     if hit and now - hit[0] < EVERY_S:
         return hit[1], hit[2]
-    hdr = {"Accept": "application/json"} if "/tennis" in url.lower() else UA   # 🎾 11/2: tennis plain (no disguise -
-    with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=8) as r:   # the owner's rule)
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=8) as r:   # (11/2: plain, every sport -
+        #                                                                               the owner's no-disguise rule)
         age = r.headers.get("Age")
         data = json.load(r)
     out = (now, data, int(age) if age and str(age).isdigit() else None)

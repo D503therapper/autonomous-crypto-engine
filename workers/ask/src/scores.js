@@ -9,6 +9,8 @@ const PATHS = {
 };
 const EXTRA = { ncaaf: "?groups=80&limit=1000", ncaab: "?groups=50&limit=1000" };
 
+export const UA = "D503-sports-engine/1.0 (personal picks dashboard)";   // (11/2) who we are - never a browser
+const PLAIN = { "User-Agent": UA, Accept: "application/json" };
 const DBG = {};
 const HOSTS = ["https://site.web.api.espn.com", "https://site.api.espn.com"];   // (the first one lets Cloudflare in)
 async function board(key, ctx) {
@@ -29,12 +31,9 @@ async function boardAt(key, ctx, q) {
   const hit = await cache.match(ck);
   if (hit) return hit.json();
   const tries = [];
-  for (const [i, host] of HOSTS.entries()) {                 // ESPN turns some servers away: other doors, browser-like
-    const bust = `${q ? "&" : "?"}_=${Math.floor(Date.now() / 1000)}`;   // ESPN's own servers hand out older copies
-    const r = await fetch(host + path + bust, { headers: {                // (a score flipped 1-3, 1-2, 1-3): a fresh one
-      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
-      Accept: "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9",
-      Referer: "https://www.espn.com/", Origin: "https://www.espn.com" }, });
+  for (const [i, host] of HOSTS.entries()) {                 // two ESPN addresses, each asked plainly (11/2: the owner's
+    const bust = `${q ? "&" : "?"}_=${Math.floor(Date.now() / 1000)}`;   // no-disguise rule - no browser User-Agent,
+    const r = await fetch(host + path + bust, { headers: PLAIN });        // no Referer / Origin); a fresh copy each second
     tries.push(`${host.slice(8, 20)} ${r.status}`);
     if (!r.ok) continue;
     DBG[key] = tries.join(" | ");
@@ -123,8 +122,7 @@ async function kambiTennis(ctx) {
   const hit = await cache.match(ck);
   if (hit) return hit.json();
   try {
-    const r = await fetch(`${KAMBI_TN}&_=${Math.floor(Date.now() / 1000)}`, { headers: { Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148" } });
+    const r = await fetch(`${KAMBI_TN}&_=${Math.floor(Date.now() / 1000)}`, { headers: PLAIN });   // (11/2: plain)
     if (!r.ok) { BOOK.err = `HTTP ${r.status}`; return null; }
     const body = await r.text();
     ctx.waitUntil(cache.put(ck, new Response(body, { headers: { "Cache-Control": "max-age=1", "Content-Type": "application/json" } })));

@@ -24,8 +24,7 @@ SRC = {"tourney": "Tournament", "location": "Location", "court": "Court", "surfa
        "bo": "Best of", "winner": "Winner", "loser": "Loser", "wrank": "WRank", "lrank": "LRank", "wpts": "WPts",
        "lpts": "LPts", "wsets": "Wsets", "lsets": "Lsets", "comment": "Comment", "psw": "PSW", "psl": "PSL",
        "b365w": "B365W", "b365l": "B365L", "maxw": "MaxW", "maxl": "MaxL", "avgw": "AvgW", "avgl": "AvgL"}
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/126.0 Safari/537.36"}
+UA = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 
 
 ERRS = []

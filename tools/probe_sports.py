@@ -7,7 +7,7 @@ import json
 import time
 import urllib.request
 
-UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+UA = "D503-sports-engine/1.0 (personal picks dashboard)"   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
 BOVADA = ["https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",
           "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",

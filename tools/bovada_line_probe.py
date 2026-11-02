@@ -1,8 +1,7 @@
 """Which Bovada address variations dodge its 10-minute cache? For each: HTTP status, the CDN's Age, and how old the
 newest live tennis price in it is (now - the event's lastModified). Two rounds."""
 import json, time, urllib.request
-H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-     "Accept": "application/json, text/plain, */*", "Referer": "https://www.bovada.lv/sports/tennis", "Origin": "https://www.bovada.lv"}
+H = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 W = "https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?"
 R = int(time.time())
 V = [f"liveOnly=true&eventsLimit={n}&lang=en" for n in (5, 50, 100, 250, 500, R % 500 + 1)] + \

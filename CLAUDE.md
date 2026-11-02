@@ -30,7 +30,13 @@ every session:
 - **Reviews say how it was won or lost** (the owner, 10/1): when something big decided the game - a last-second field
   goal, a blocked kick, a pick-six, overtime, a walk-off, an empty-netter, a late comeback - the graded review says it.
 - **The FULL BREAKDOWN is thorough** (the owner, 10/25, on a 3-line Canucks card: "We need it to be thorough ... more than just vague bullshit ... this goes for every pick"): 6-9 fact lines on a unit pick, 5-7 on a lean (sports_breakdown_v24.FLOOR_UNIT / FLOOR_LEAN / more_facts) - both last games with scores, skids, home / road records, rest days, the trip, who's out on both sides, the goalies / QBs with numbers, points lately, puck luck, the public split, head to head - every line a real number or name, never padded with filler (short = a log line). The one-liner under the pick stays ONE line; reviews stay short. Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
-  past a site's blocks.
+  past a site's blocks. Since 11/2 (the owner: "Do whatever Fable recommends") EVERY request the sports engine, its
+  tools and the Worker make goes out as itself - Python's default or "D503-sports-engine/1.0 (personal picks dashboard)"
+  (sports_http.UA) - never a browser User-Agent, never a Referer / Origin (the one Origin left is our own page's, sent
+  by tools/health.py to our OWN Worker's gate). A source that answers a plain request empty or refuses it goes QUIET and
+  says so (data/sports/source_status.json, live.json "health" / "price_src"), never worked around. Live Plus Money's
+  price: Bovada / BetRivers when they answer plainly, else DraftKings (via ESPN) confirmed by Action Network's own live
+  line (sports_live.dk_an_agree) - no confirmed price = no bet. A source scan in sports_test fails on any disguise.
 - TWO RECORDS, NO OVERALL (the owner, 10/2: "people get the wrong impression if they look at the overall record"):
   💰 the UNIT PLAYS record (every Lock, Dog of the Day, value play and early play - "The good bets we put money on":
   W-L, units, ROI; sports_dashboard.unit_record) and 🟡 the LEANS record (the only picks without units, from 9/29 on).

@@ -16265,46 +16265,226 @@ def test_tennis_odds_1102_the_odds_api_is_the_legit_source_inside_a_hard_credit_
     assert "ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}" in wf.split("python -u sports.py")[1].split("- if:")[0]
 
 
+class _FakeResp:
+    headers = {}
+    def __enter__(self):
+        return self
+    def __exit__(self, *a):
+        return False
+    def read(self, *a):
+        return b"[]"
+
+
+def _headers_sent(calls):
+    """Run each call with urlopen faked (no network) -> the header sets every request carried."""
+    import urllib.request
+    seen = []
+    keep = urllib.request.urlopen
+    try:
+        urllib.request.urlopen = lambda req, timeout=None, **k: seen.append(
+            dict(req.header_items()) if hasattr(req, "header_items") else {}) or _FakeResp()
+        for c in calls:
+            try:
+                c()
+            except Exception:                                # noqa: BLE001 - a parse of the fake body may fail: the
+                pass                                         #  headers were already recorded
+    finally:
+        urllib.request.urlopen = keep
+    return seen
+
+
 def test_tennis_odds_1102_live_tennis_reads_go_out_plain_no_browser_disguise():
     """11/2: the live tennis checker reached Bovada with a browser User-Agent + Referer / Origin (sports_live.BOV_HDR in
     _safe_get and _bovada_score) and BetRivers with one (sports_books.UA) - a disguise under the owner's rule. Every
-    tennis read now goes out plain; the team sports' Bovada reads are flagged to the owner, not silently changed."""
-    import urllib.request
+    tennis read goes out plain - and since the owner's 11/2 call on the rest, every TEAM sport read too (the old half of
+    this test that held the team sports' disguise in place is gone; test_no_disguise_1102_*)."""
     import sports_live as slv
     import sports_books as sbk
-    seen = []
-
-    class R:
-        headers = {}
-        def __enter__(self):
-            return self
-        def __exit__(self, *a):
-            return False
-        def read(self, *a):
-            return b"[]"
-    keep = urllib.request.urlopen
-    try:
-        urllib.request.urlopen = lambda req, timeout=None: seen.append(dict(req.header_items())) or R()
-        slv._safe_get(slv.BOV_BASE.format(path="tennis/atp") + "lang=en")
-        slv._get1("https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis/wta?lang=en")
-        sbk._CACHE.clear()
-        sbk._get(sbk.KAMBI.format(p=sbk.KAMBI_PATH["tennis"]))
-        slv.BOV_SCORE.pop("991", None)
-        slv._bovada_score({"p1_name": "A B", "p2_name": "C D"}, {"event": 991}, 1)
-        for h in seen:
-            assert not any(k.lower() in ("user-agent", "referer", "origin") for k in h), h
-        assert len(seen) == 4
-        seen.clear()
-        slv._safe_get(slv.BOV_BASE.format(path="basketball/nba") + "lang=en")       # (team sports: unchanged - flagged)
-        assert any(k.lower() == "user-agent" for k in seen[0])
-    finally:
-        urllib.request.urlopen = keep
+    import sports_http as sh
+    sbk._CACHE.clear()
+    slv.BOV_SCORE.pop("991", None)
+    seen = _headers_sent([
+        lambda: slv._safe_get(slv.BOV_BASE.format(path="tennis/atp") + "lang=en"),
+        lambda: slv._get1("https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis/wta?lang=en"),
+        lambda: sbk._get(sbk.KAMBI.format(p=sbk.KAMBI_PATH["tennis"])),
+        lambda: slv._bovada_score({"p1_name": "A B", "p2_name": "C D"}, {"event": 991}, 1),
+        lambda: slv._safe_get(slv.BOV_BASE.format(path="basketball/nba") + "lang=en")])
+    assert len(seen) == 5
+    for h in seen:
+        assert not sh.browser_like(h), h
+        assert h.get("User-agent") == sh.UA, h            # (urllib title-cases the header name)
     assert slv.plain_tennis("https://services.bovada.lv/services/sports/results/api/v1/scores/1")
     assert not slv.plain_tennis("https://api.actionnetwork.com/web/v1/scores/nba")
 
 
+# the crypto / DEX engine's own files (a separate engine with its own rules - flagged to the owner, not changed here)
+CRYPTO_FILES = {"signals.py", "social.py", "dex_legends_study.py", "tools/wallet_tracker.py", "tools/probe_goplus.py",
+                "tools/probe_smartmoney.py", "tools/probe.py"}
+
+
+def test_no_disguise_1102_no_request_anywhere_sends_a_browser_user_agent_referer_or_origin():
+    """11/2, the owner ("Do whatever Fable recommends" on the browser disguises left after the tennis fix): the engine
+    reached Bovada (BOV_HDR: a Mac Chrome User-Agent + Referer + Origin; "Mozilla/5.0" in _get1), BetRivers (a Chrome
+    User-Agent), Rotowire (a Linux Chrome one), Covers / Daily Faceoff / Dr. Bob / the official reports (tools/
+    fetch_pages' Chrome one), Action Network's splits + Yahoo (a Windows Chrome one), ESPN rosters / MLB (Mozilla/5.0),
+    and the Worker reached ESPN as an iPhone with ESPN's own Referer / Origin. Every one of them is gone: a source scan
+    of every sports file, the tools and the Worker, plus the real request headers of every reader (no network)."""
+    import glob
+    import re as _re
+    import sports_http as sh
+    root = os.path.dirname(os.path.abspath(__file__))
+    files = [f for f in glob.glob(os.path.join(root, "sports*.py")) + glob.glob(os.path.join(root, "tools", "*.py"))
+             + glob.glob(os.path.join(root, "workers", "*", "src", "*.js"))
+             if os.path.relpath(f, root) not in CRYPTO_FILES and os.path.basename(f) not in ("sports_test.py", "sports_http.py")]
+    assert len(files) > 40, len(files)
+    hdr_key = _re.compile(r"""(?<![-\w])["']?(Referer|Origin)["']?\s*:\s*["']?([^"',}]*)""")
+    bad = []
+    for f in files:
+        for n, line in enumerate(open(f, encoding="utf-8", errors="replace"), 1):
+            if sh.BROWSER.search(line):
+                bad.append(f"{os.path.relpath(f, root)}:{n} browser User-Agent: {line.strip()[:90]}")
+            for m in hdr_key.finditer(line):
+                if m.group(1) == "Origin" and m.group(2).startswith("https://d503therapper.github.io"):
+                    continue                                 # (tools/health.py: our own page's Origin to our OWN Worker's
+                bad.append(f"{os.path.relpath(f, root)}:{n} {m.group(1)} header: {line.strip()[:90]}")   # gate - no third
+    assert not bad, "\n".join(bad)                                                                  # party's block)
+    # the browser test itself: it catches the old headers, passes the honest ones
+    assert sh.browser_like({"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
+    assert sh.browser_like({"Accept": "*/*", "Referer": "https://www.bovada.lv/"})
+    assert sh.browser_like({"Origin": "https://www.espn.com"})
+    assert not sh.browser_like(sh.JSON_HDR) and not sh.browser_like({}) and "D503" in sh.UA
+    # every reader's real request headers (urlopen faked - no network)
+    import sports_live as slv, sports_books as sbk, sports_goalies as sgo, sports_public as spub
+    import sports_nba_roster as snr, sports_capper as scap
+    sbk._CACHE.clear()
+    calls = [lambda: slv._get1("https://www.bovada.lv/services/sports/event/v2/events/A/description/hockey/nhl?lang=en"),
+             lambda: slv._get1("https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard"),
+             lambda: slv._safe_get(slv.BOV_BASE.format(path="football/nfl") + "lang=en"),
+             lambda: sbk._get(sbk.KAMBI.format(p=sbk.KAMBI_PATH["nfl"])),
+             lambda: sd.web_injuries("ncaaf", {"1": "Alabama"}),
+             lambda: sd._page_lines(sd.WEB_PAGE["ncaab"]),
+             lambda: sd._mlb_get("/teams?sportId=1"),
+             lambda: sgo.fetch(),
+             lambda: spub._get("https://api.actionnetwork.com/web/v2/scoreboard/nba?bookIds=15"),
+             lambda: snr._get("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/1/roster"),
+             lambda: scap.fetch(),
+             lambda: sh.probe_one("bovada", sh.PROBES["bovada"])]
+    seen = _headers_sent(calls)
+    assert len(seen) == len(calls), len(seen)
+    for h in seen:
+        assert not sh.browser_like(h), h
+        ua = h.get("User-agent")
+        assert ua is None or ua == sh.UA, h                 # Python's default (ESPN) or the engine's own name
+
+
+def test_no_disguise_1102_live_prices_fall_back_to_draftkings_plus_action_network_or_go_quiet():
+    """11/2: with every Bovada / BetRivers read plain, their live lines may go dark. The legit fallback: DraftKings' live
+    line (ESPN's odds feed - a plain read, already used) confirmed by Action Network's OWN live line (boxscore
+    latest_odds.live in the game list the watcher reads anyway). Both there and within BOOKS_AGREE = a price; DraftKings
+    alone, or the two apart = no price (the owner's 10/4 rule: DraftKings via ESPN has no time stamp). No usable price on
+    any live game = the health line says no legit live price source answered, and nothing posts."""
+    import sports_live as slv
+
+    class F:
+        def __init__(self, v): self.v = v
+        def result(self): return self.v
+    assert slv.dk_an_agree((150, -180), (155, -185))
+    assert not slv.dk_an_agree((150, -180), (None, None)), "DraftKings alone is never a price"
+    assert not slv.dk_an_agree((150, -180), (-200, 170)), "far apart = one of them is wrong = no price"
+    assert not slv.dk_an_agree((None, None), (150, -180)), "Action Network alone is never a price"
+    assert not slv.dk_an_agree((150, 0), (150, -180)), "a pulled line (0) is no line"
+    g = {"id": "ncaaf:556", "league": "ncaaf", "home_name": "Arkansas St", "away_name": "South Alabama", "start": "2026-10-08T23:30Z"}
+    ang = {"id": 556, "teams": [], "home_team_id": "1", "away_team_id": "2"}
+    now = datetime.now(timezone.utc)
+    # DraftKings + Action Network's live line agreeing: priced (it gets past the price step)
+    slv.WATCHING[0], slv.PRICED[0], slv.DK_ONLY[0] = 1, 0, 0
+    slv.PRICE_SRC.clear()
+    box = {"period": 2, "clock": "4:10", "total_home_points": 21, "total_away_points": 28,
+           "latest_odds": {"live": {"ml_home": "+155", "ml_away": "-185"}, "game": {"ml_home": -300, "ml_away": 250}}}
+    judged = set()
+    try:
+        slv._judge("ncaaf", ang, box, g, F((150, -180)), {}, {}, {"params": {}}, {}, {}, now, (), judged)
+    except Exception:                                        # noqa: BLE001 (no ratings / model here: past the price step)
+        pass
+    assert slv.PRICED[0] == 1 and slv.DK_ONLY[0] == 0 and "ncaaf:556" in judged
+    assert slv.PRICE_SRC == {"draftkings+an": 1}, slv.PRICE_SRC
+    # Action Network's PREGAME line never confirms (only its live line counts)
+    slv.PRICED[0] = slv.DK_ONLY[0] = 0
+    box2 = dict(box, latest_odds={"game": {"ml_home": 150, "ml_away": -180}})
+    judged = set()
+    assert slv._judge("ncaaf", ang, box2, g, F((150, -180)), {}, {}, {"params": {}}, {}, {}, now, (), judged) == []
+    assert not judged and slv.PRICED[0] == 0 and slv.DK_ONLY[0] == 1
+    # nothing usable anywhere: the feature says so (quiet, never a crash, never a made-up price)
+    slv.BOOKS.clear()
+    slv.BOOKS["ncaaf"] = "0 groups, 0 fresh events"
+    issues = slv.health_check()
+    assert slv.NO_SOURCE in issues and "no legit live price source" in slv.NO_SOURCE, issues
+    slv.PRICED[0] = 1
+    assert slv.NO_SOURCE not in slv.health_check()
+    slv.WATCHING[0] = slv.PRICED[0] = slv.DK_ONLY[0] = 0
+    slv.BOOKS.clear()
+    slv.PRICE_SRC.clear()
+
+
+def test_no_disguise_1102_college_injuries_stay_unknown_without_a_source_and_each_source_shows_its_answer():
+    """11/2: Rotowire's college feed lost its Chrome User-Agent. If it refuses a plain request, Covers' page, ESPN and the
+    official reports (injuries_official.json) carry the college injuries - and a school none of them lists stays
+    UNKNOWN (covered() False = no pick), never 'healthy'. Every source's answer to a plain request lands in
+    data/sports/source_status.json (the hourly run), so a session can see who still answers."""
+    import urllib.error
+    import sports_http as sh
+
+    def refuse(url):
+        raise urllib.error.HTTPError(url, 403, "Forbidden", {}, None)
+    sh.SEEN.clear()
+    assert sd.web_injuries("ncaaf", {"333": "Alabama"}, get=refuse) == {}
+    assert sh.SEEN["rotowire_ncaaf"]["ok"] is False and sh.SEEN["rotowire_ncaaf"]["err"] == "HTTP 403"
+    assert sd.web_injuries("ncaab", {"333": "Alabama"}, get=lambda u: []) == {}
+    assert sh.SEEN["rotowire_ncaab"]["ok"] is False and sh.SEEN["rotowire_ncaab"]["n"] == 0
+    assert sd.page_injuries("ncaaf", {"333": "Alabama"}, get=refuse) == {}
+    assert sh.SEEN["covers_ncaaf"]["ok"] is False
+    # no source lists the school: UNKNOWN (no pick) - for a college team, never 'nobody hurt'
+    assert sd.covered({}, "ncaaf", "333", "Alabama") is False
+    assert sd.covered({"333": []}, "ncaaf", "333", "Alabama") is True       # (listed by a source with nobody hurt)
+    assert sd.covered(None, "nfl", "1") is False                           # (a pro feed that failed: unknown too)
+    # the books: an empty answer to a plain request is shown as such; an error by its code; a good one by its count
+    sh.probe_one("bovada", sh.PROBES["bovada"], get=lambda u: [])
+    assert sh.SEEN["bovada"]["ok"] is False and "EMPTY" in sh.SEEN["bovada"]["how"]
+    sh.probe_one("betrivers", sh.PROBES["betrivers"], get=refuse)
+    assert sh.SEEN["betrivers"] == {**sh.SEEN["betrivers"], "ok": False, "err": "HTTP 403"}
+    sh.probe_one("bovada_nfl", sh.PROBES["bovada_nfl"], get=lambda u: [{"events": [{"id": 1}, {"id": 2}]}])
+    assert sh.SEEN["bovada_nfl"]["ok"] is True and sh.SEEN["bovada_nfl"]["n"] == 2
+    keep = sh.ON[0]
+    try:
+        sh.ON[0] = False
+        assert sh.probe() == {}, "tests never make a real request"
+    finally:
+        sh.ON[0] = keep
+    tmp = os.path.join(tempfile.mkdtemp(), "source_status.json")
+    with open(tmp, "w") as f:
+        json.dump({"sources": {"yahoo_splits": {"ok": True, "n": 9}}}, f)
+    out = sh.run_check(tmp, get=lambda u: {"events": [{}]} if "kambi" in u else [])
+    s = json.load(open(tmp))
+    assert s == out and s["ua"] == sh.UA and "no browser" in s["rule"]
+    assert s["sources"]["yahoo_splits"]["n"] == 9, "a source not read this run keeps its last line"
+    assert s["sources"]["betrivers"]["ok"] is True and s["sources"]["bovada"]["ok"] is False
+    assert s["sources"]["rotowire_ncaaf"]["err"] == "HTTP 403"
+    # a BetRivers read turned away: [] and its STATUS says why (the live watch carries on)
+    import sports_books as sbk
+    keep_get = sbk._get
+    try:
+        sbk._get = lambda url: refuse(url)
+        assert sbk.team_backup("nba") == [] and sbk.STATUS["betrivers:nba"]["err"] == "HTTP 403"
+    finally:
+        sbk._get = keep_get
+    sh.SEEN.clear()
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
+    import sports_http as _sh
+    _sh.ON[0] = False                                    # (11/2: nor make the hourly plain-request check's real reads)
+    _sh.PATH = os.path.join(tempfile.mkdtemp(), "source_status.json")   # (nor touch the real source_status.json)
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)

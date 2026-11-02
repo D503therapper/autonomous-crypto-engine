@@ -1,8 +1,8 @@
 """Which public sites give us who's-betting-who (and lines) as a backup to Action Network? Fetch each candidate the
 way a browser would; print status, size, and whether bet/money percentages are in it."""
 import re, urllib.request, json, time
-H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-     "Accept": "text/html,application/json;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9"}
+H = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)",   # (11/2: the engine's own name - no browser disguise, the owner's rule)
+     "Accept": "text/html,application/json;q=0.9,*/*;q=0.8"}
 C = {
     "yahoo nfl odds page": "https://sports.yahoo.com/nfl/odds/",
     "yahoo mlb odds page": "https://sports.yahoo.com/mlb/odds/",

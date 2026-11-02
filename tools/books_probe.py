@@ -1,8 +1,7 @@
 """Which sportsbooks' public odds feeds can the engine read (backups for Bovada)? NFL + tennis for each; print status,
 size, and a sample of what's in it."""
 import json, re, time, urllib.request
-H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-     "Accept": "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9"}
+H = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 C = {
     "draftkings nfl": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/88808",
     "draftkings tennis (atp)": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/2585",

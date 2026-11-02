@@ -5,7 +5,7 @@ import os
 import re
 import urllib.request
 
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
+UA = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 PAGES = {
     "Big Ten": ["https://bigten.org/fb/", "https://bigten.org/fb/availability/", "https://bigten.org/sports/fb/availability-report/"],
     "ACC": ["https://theacc.com/sports/football", "https://theacc.com/sports/2026/9/1/football-availability.aspx",

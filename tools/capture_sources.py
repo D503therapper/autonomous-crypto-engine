@@ -2,8 +2,7 @@
 built and tested against real data offline. Writes samples/<name>.json.gz + samples/manifest.json."""
 import gzip, json, os, time, urllib.request
 from datetime import datetime, timezone
-H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-     "Accept": "application/json, text/plain, text/html, */*", "Accept-Language": "en-US,en;q=0.9"}
+H = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json, text/plain, text/html, */*"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 K = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/{p}.json?lang=en_US&market=US"
 day = datetime.now(timezone.utc).strftime("%Y%m%d")
 S = {
