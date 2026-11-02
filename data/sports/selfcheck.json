@@ -6,15 +6,15 @@
   "all": {
    "extra_edge": 0.0,
    "hit": 0.536,
-   "n": 220,
-   "said": 0.506,
+   "n": 222,
+   "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.539,
-   "n": 89,
-   "said": 0.48,
+   "hit": 0.544,
+   "n": 90,
+   "said": 0.479,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:div": {
@@ -26,10 +26,10 @@
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.59,
-   "n": 39,
-   "said": 0.499,
-   "verdict": "only 39 graded - report only (report only: forward-only tag)"
+   "hit": 0.575,
+   "n": 40,
+   "said": 0.5,
+   "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:rival": {
    "extra_edge": 0.0,
@@ -75,10 +75,10 @@
   },
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.686,
-   "n": 35,
-   "said": 0.496,
-   "verdict": "only 35 graded - report only (report only: forward-only tag)"
+   "hit": 0.694,
+   "n": 36,
+   "said": 0.493,
+   "verdict": "only 36 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:trip2000": {
    "extra_edge": 0.0,
@@ -89,17 +89,17 @@
   },
   "ctx:them:week3000": {
    "extra_edge": 0.0,
-   "hit": 0.5,
-   "n": 18,
-   "said": 0.516,
-   "verdict": "only 18 graded - report only (report only: forward-only tag)"
+   "hit": 0.526,
+   "n": 19,
+   "said": 0.51,
+   "verdict": "only 19 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:west1000": {
    "extra_edge": 0.0,
-   "hit": 0.688,
-   "n": 16,
-   "said": 0.493,
-   "verdict": "only 16 graded - report only (report only: forward-only tag)"
+   "hit": 0.706,
+   "n": 17,
+   "said": 0.487,
+   "verdict": "only 17 graded - report only (report only: forward-only tag)"
   },
   "ctx:us:dome_out": {
    "extra_edge": 0.0,
@@ -166,9 +166,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.559,
-   "n": 188,
-   "said": 0.506,
+   "hit": 0.558,
+   "n": 190,
+   "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -187,10 +187,10 @@
   },
   "label:dog": {
    "extra_edge": 0.0,
-   "hit": 0.409,
-   "n": 22,
-   "said": 0.403,
-   "verdict": "only 22 graded - report only"
+   "hit": 0.435,
+   "n": 23,
+   "said": 0.402,
+   "verdict": "only 23 graded - report only"
   },
   "label:live": {
    "extra_edge": 0.0,
@@ -208,8 +208,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.55,
-   "n": 160,
+   "hit": 0.547,
+   "n": 161,
    "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
@@ -229,10 +229,10 @@
   },
   "league:nba": {
    "extra_edge": 0.0,
-   "hit": 0.6,
-   "n": 20,
-   "said": 0.487,
-   "verdict": "only 20 graded - report only"
+   "hit": 0.619,
+   "n": 21,
+   "said": 0.482,
+   "verdict": "only 21 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -250,9 +250,9 @@
   },
   "league:nhl": {
    "extra_edge": 0.02,
-   "hit": 0.412,
-   "n": 68,
-   "said": 0.503,
+   "hit": 0.406,
+   "n": 69,
+   "said": 0.504,
    "verdict": "hitting well below what we said - bar raised"
   },
   "league:tennis": {
@@ -265,7 +265,7 @@
   "market:ml": {
    "extra_edge": 0.0,
    "hit": 0.541,
-   "n": 205,
+   "n": 207,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -278,9 +278,9 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.425,
-   "n": 73,
-   "said": 0.484,
+   "hit": 0.432,
+   "n": 74,
+   "said": 0.483,
    "verdict": "a little below what we said - within noise"
   },
   "price:+180+": {
@@ -292,8 +292,8 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.606,
-   "n": 127,
+   "hit": 0.602,
+   "n": 128,
    "said": 0.543,
    "verdict": "hitting at or above what we said"
   },
@@ -314,7 +314,7 @@
   "source:pregame": {
    "extra_edge": 0.0,
    "hit": 0.54,
-   "n": 198,
+   "n": 200,
    "said": 0.498,
    "verdict": "hitting at or above what we said"
   },
@@ -397,5 +397,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-02T00:59Z"
+ "updated": "2026-11-02T02:18Z"
 }

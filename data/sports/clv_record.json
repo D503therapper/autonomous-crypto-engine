@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 162,
+  "n": 163,
   "beat": 54,
-  "same": 59,
+  "same": 60,
   "worse": 49,
   "avg_pts": 0.09
  },
@@ -22,11 +22,11 @@
    "avg_pts": -0.19
   },
   "lean": {
-   "n": 88,
+   "n": 89,
    "beat": 31,
-   "same": 26,
+   "same": 27,
    "worse": 31,
-   "avg_pts": 0.04
+   "avg_pts": 0.03
   },
   "lock": {
    "n": 13,
@@ -73,9 +73,9 @@
    "avg_pts": 0.17
   },
   "nhl": {
-   "n": 59,
+   "n": 60,
    "beat": 18,
-   "same": 21,
+   "same": 22,
    "worse": 20,
    "avg_pts": -0.07
   }
@@ -2335,6 +2335,20 @@
    "close": 130,
    "pts": 0.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-01",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -125,
+   "pts": 0.0,
+   "units": 0,
    "result": "lost"
   },
   {
