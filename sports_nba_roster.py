@@ -392,7 +392,8 @@ def played_roster(rows, season, team, first_n=10):
 
 # ---------------------------------------------------------------- 2. today's rosters (ESPN), cached, diffed
 def _get(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=15) as r:
+    import sports_http as sh                               # (11/2: the engine's own name, never a browser's)
+    with urllib.request.urlopen(urllib.request.Request(url, headers=sh.JSON_HDR), timeout=15) as r:
         return json.load(r)
 
 

@@ -22,8 +22,7 @@ MATCHES = os.path.join("data", "sports", "tennis", "matches.csv")
 OUT = os.path.join("data", "sports", "tennis", "players.json")
 V3 = "https://site.web.api.espn.com/apis/common/v3/sports/tennis/{tour}/athletes/{id}"
 CORE = "https://sports.core.api.espn.com/v2/sports/tennis/leagues/{tour}/athletes/{id}"
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/126.0 Safari/537.36", "Accept": "application/json"}
+UA = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 THREADS, PAUSE_S, TRIES = 4, 0.25, 3
 SAVE_EVERY = 50
 ERRS = []

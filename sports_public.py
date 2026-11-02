@@ -22,14 +22,14 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 
 import sports_data as sd
+import sports_http as sh
 import sports_model as sm
 
 PATH = os.path.join(sd.DATA, "public.json")
 LIVE = os.path.join(sd.DATA, "public_live.json")
 STUDY = os.path.join(sd.DATA, "rigged.json")
 AN2 = "https://api.actionnetwork.com/web/v2/scoreboard/{lg}?bookIds=15&{q}{extra}"
-UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-      "Accept": "application/json"}
+UA = dict(sh.JSON_HDR)        # (11/2: the engine's own name - the Windows Chrome User-Agent it sent is gone)
 START = date(2024, 1, 1)                   # splits before this aren't published (checked league by league)
 FOOTBALL = {"nfl": (("reg", 18), ("post", 5)), "ncaaf": (("reg", 15), ("post", 1))}
 FOOTBALL_FROM = 2019
@@ -242,8 +242,10 @@ def refresh_today(games, now=None):
                 else:
                     rows = fetch_day(lg, day)
                 keep.update(match(games, lg, rows))
+                sh.note("actionnetwork_splits", True, n=len(rows), how="plain request")
             except Exception as e:                           # noqa: BLE001
                 print(f"   public splits {lg} {day}: {str(e)[:80]}")
+                sh.note("actionnetwork_splits", False, err=sh.err_text(e), how="plain request")
                 failed = True
             if lg in FOOTBALL:
                 break                                        # football pages are by week: one call covers it
@@ -252,8 +254,10 @@ def refresh_today(games, now=None):
                 got = yahoo_splits(games, lg)
                 keep.update({k2: v for k2, v in got.items() if k2 not in keep or keep[k2] is live.get(k2)})
                 print(f"   public splits {lg}: Action Network down - {len(got)} games from Yahoo")
+                sh.note("yahoo_splits", True, n=len(got), how="plain request")
             except Exception as e:                           # noqa: BLE001
                 print(f"   public splits {lg} (Yahoo): {str(e)[:80]}")
+                sh.note("yahoo_splits", False, err=sh.err_text(e), how="plain request - the split stays unknown")
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     for k, v in keep.items():                                # (10/2: when each game's split was really pulled - a
         if k not in live or live[k] is not v:                #  failed pull keeps yesterday's, never quoted as today's)

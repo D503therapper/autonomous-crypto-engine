@@ -15,10 +15,11 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 import sports_data as sd
+import sports_http as sh
 
 URL = "https://drbobsports.com/nfl-analysis/"
 PATH = os.path.join(sd.DATA, "capper_drbob.json")
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
+UA = dict(sh.HDR)             # (11/2: the engine's own name - the Linux Chrome User-Agent it sent is gone)
 EVERY_H = 3                                                     # read his page at most every 3 hours
 KICK = re.compile(r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), (\w{3}) (\d{1,2}) ")
 SIDE = re.compile(r"^(?P<who>[A-Za-z .'&]+?)\s*\((?P<line>[+-]\d+(?:\.5)?|pk|PK)(?:/[+-]?\d+(?:\.5)?)?(?:\s+(?P<px>[+-]\d{3}))?\)")
@@ -161,8 +162,10 @@ def run(games, picks, now=None, path=None, page=None):
         try:
             page = parse(fetch(), now.year)
             st["read"] = now.strftime("%Y-%m-%dT%H:%MZ")
+            sh.note("drbob", True, n=len(page or []), how="plain request")
         except Exception as e:                               # noqa: BLE001 - his site down never stops anything
             print(f"capper page not read: {str(e)[:80]}")
+            sh.note("drbob", False, err=sh.err_text(e), how="plain request")
     update(st, page or [], games, picks, now)
     with open(path or PATH, "w") as f:
         json.dump(st, f, indent=1, sort_keys=True)

@@ -1,11 +1,21 @@
 {
- "ncaaf": {
+ "ncaab": {
   "list": {
    "count": 0,
    "pageIndex": 0,
    "pageSize": 25,
    "pageCount": 0,
    "items": []
+  },
+  "coach": {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2027/coaches/5344116?lang=en&region=us",
+   "id": "5344116",
+   "uid": "s:40~l:41~co:5344116",
+   "firstName": "Luke",
+   "lastName": "Murray",
+   "person": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/coaches/5344116?lang=en&region=us"
+   }
   }
  }
 }

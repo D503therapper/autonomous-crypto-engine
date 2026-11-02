@@ -34,6 +34,7 @@ from zoneinfo import ZoneInfo
 import sports_comeback as sc
 import sports_lingo
 import sports_data as sd
+import sports_http as sh
 import sports_model as sm
 import sports_players as sp
 import sports_tennis as stn
@@ -277,21 +278,19 @@ def _get(url, tries=2):
 
 
 def plain_tennis(url):
-    """🎾 11/2 (the owner's rule: no disguises to get past a site's blocks): every TENNIS read goes out as the engine's
-    own plain request - no browser User-Agent, no Referer / Origin. Bovada answers its tennis feeds empty to a plain
-    request since 10/29, so live tennis has no in-play book price unless a book serves it plainly; the pre-match prices
-    come from The Odds API (sports_tennis.oddsapi). The other sports' Bovada reads are untouched here (STATUS 11/2)."""
+    """🎾 11/2: the tennis reads went plain first (Bovada's tennis feeds answer a plain request empty since 10/29; the
+    pre-match prices come from The Odds API - sports_tennis.oddsapi). Since the owner's 11/2 call on the rest ("Do
+    whatever Fable recommends") EVERY read goes out plain - this only says which reads are tennis."""
     u = str(url).lower()
     return "/tennis" in u or ("bovada" in u and "/scores/" in u)     # (the score feed is read for tennis only)
 
 
-PLAIN_HDR = {"Accept": "application/json"}
+PLAIN_HDR = dict(sh.JSON_HDR)   # (11/2) the engine's own name - never a browser User-Agent, Referer or Origin
 
 
 def _get1(url):
-    hdr = PLAIN_HDR if plain_tennis(url) else \
-        {"User-Agent": "Mozilla/5.0", "Accept": "application/json"} if "bovada" in url else {}   # Bovada sends an empty
-    req = urllib.request.Request(url, headers=hdr)                            # list to a bare client; ESPN 403s a browser one
+    hdr = PLAIN_HDR if "bovada" in url else {}             # (11/2: no disguise, any sport - Bovada gets the engine's own
+    req = urllib.request.Request(url, headers=hdr)         #  name; ESPN / Action Network get Python's default, as always)
     with urllib.request.urlopen(req, timeout=20) as r:
         return json.load(r)
 
@@ -547,9 +546,24 @@ DK_ONLY = [0]                 # live games whose only price was DraftKings' via 
 ESPN_ONLY = [0]               # games this check whose score came only from ESPN's board (Action Network's list had no match)
 #                               (10/9: these counted as 'priced', so the health check read '5 of 18 priced' on a night
 #                               Bovada had no team-sport lines at all and not one of those prices could post a bet)
+PRICE_SRC = {}                # (11/2) this check's usable prices by source: bovada / betrivers / draftkings (confirmed) /
+#                               draftkings+an - live.json "price_src" shows which honest source carries the live board
+NO_SOURCE = ("no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and "
+             "DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a "
+             "real price)")
 
 
-BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+def dk_an_agree(dk, an):
+    """(11/2) DraftKings' live line (via ESPN) and Action Network's own live line (the game list the watcher reads anyway,
+    a plain request) both there and within BOOKS_AGREE of each other = a confirmed price. Either missing, or the two
+    apart = no price (DraftKings alone has no time stamp - the owner, 10/4)."""
+    ok = lambda x: x is not None and len(x) == 2 and all(isinstance(v, int) and (v >= 100 or v <= -100) for v in x)
+    if not ok(dk) or not ok(an):
+        return False
+    return abs(sd.no_vig(*dk) - sd.no_vig(*an)) <= BOOKS_AGREE
+
+
+BOVADA ="https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_ALL = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
 BOVADA_SPORT = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{sport}?marketFilterId=def&liveOnly=true&lang=en"
@@ -607,9 +621,8 @@ def remember_events(path, data):
 
 def _safe_get(url):
     try:
-        hdr = PLAIN_HDR if plain_tennis(url) else {**BOV_HDR, "Accept": "application/json, text/plain, */*",
-                                                   "Referer": "https://www.bovada.lv/sports"}
-        with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=8) as r:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=PLAIN_HDR), timeout=8) as r:   # (11/2: plain,
+            #                                                          every sport - the owner's no-disguise rule)
             return json.load(r)
     except urllib.error.HTTPError as e:
         if e.code in (400, 404) and "?" in url:
@@ -991,16 +1004,22 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     fill_half(lg, g, box)                                  # ⚾ top / bottom of the inning when the box doesn't say
     lines_ = books_f[lg].result() if lg in books_f else []
     bov_ = book_line(lines_, g)
-    mlh, mla, checked = two_books(dk_f.result(), bov_)
+    dk_ = dk_f.result()
+    mlh, mla, checked = two_books(dk_, bov_)
     src = book_src(lines_, g) if (mlh, mla) == tuple(bov_) and mlh is not None else "draftkings"   # (10/1: which book
     #                                                             the price came from - the Devils +145 never said)
     if mlh is None or mla is None:
         return plays                                       # the book paused its line: wait
+    if src == "draftkings" and not checked and dk_an_agree(dk_, live_line(box)):
+        checked, src = True, "draftkings+an"               # (11/2: no Bovada / BetRivers price to a plain request -
+        #                                                    Action Network's own live line, in the list we already read,
+        #                                                    is the second source; both must say the same thing)
     if src == "draftkings" and not checked:
         DK_ONLY[0] += 1                                    # (counted apart: it's no price we can bet on)
         return plays                                       # (the owner, 10/4: DraftKings via ESPN has no time stamp - a
     #                                                        cached price could post a bet: alone it needs a 2nd book)
     PRICED[0] += 1
+    PRICE_SRC[src] = PRICE_SRC.get(src, 0) + 1
     judged.add(g["id"])
     params = model["params"].get(lg) or sm.default_params(lg)
     f = elo[lg].features(g)
@@ -1076,6 +1095,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     judged = set()                # games priced and judged this check (the rest were paused / out of sync)
     WATCHING[0] = PRICED[0] = DK_ONLY[0] = ESPN_ONLY[0] = 0
     BOOKS.clear()
+    PRICE_SRC.clear()
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
         angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live_any, sd.LEAGUES)))
         live_lgs = [lg for lg, angs in angs_by.items()
@@ -1617,10 +1637,7 @@ def _keep_game_score(lg, g, box, status, src=None):
 BOV_HOME = {}                 # Bovada live tennis event id -> its home player
 BOV_SCORE = {}                # event id -> (fetched at, score json)
 BOV_SCORE_URL = "https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}"
-BOV_HDR = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-           "Accept": "*/*", "Referer": "https://www.bovada.lv/", "Origin": "https://www.bovada.lv"}
-# ^ 11/2: a browser disguise. Tennis no longer sends it (plain_tennis). The team sports' live Bovada reads (_safe_get)
-#   still do - flagged to the owner in STATUS 11/2 (dropping it ends their live Bovada prices: his call, not silent).
+# (11/2: BOV_HDR - a Mac Chrome User-Agent + a Bovada Referer / Origin - is gone; every Bovada read sends PLAIN_HDR.)
 
 
 def _bovada_score(m, ln, side):
@@ -1884,6 +1901,7 @@ def run():
            "sources": sources_status(),
            "health": health,
            "priced": PRICED[0], "dk_only": DK_ONLY[0], "min_p": round(min_p(), 3),   # (the bar a new bet needs now)
+           "price_src": dict(PRICE_SRC), "ua": sh.UA,                          # (11/2: which honest source priced it)
            "espn_only": ESPN_ONLY[0],                                          # (scores Action Network's list missed)
            "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
@@ -1940,11 +1958,13 @@ def health_check():
     """The live feature checks itself every cycle: games going but few or no sportsbook prices = something's broken.
     Problems go into live.json ("health") and the log, loud."""
     issues = []
+    if WATCHING[0] and not PRICED[0]:                        # (11/2: plain requests only - when no honest source
+        issues.append(NO_SOURCE)                             #  prices a live game, the feature says so and stays quiet)
     if WATCHING[0] >= 3 and PRICED[0] < WATCHING[0] / 2:
         issues.append(f"only {PRICED[0]} of {WATCHING[0]} live games have a sportsbook price we can bet on")
     if DK_ONLY[0]:
         issues.append(f"{DK_ONLY[0]} live game{'s' if DK_ONLY[0] > 1 else ''} priced only by DraftKings (via ESPN), no second "
-                      "book to confirm it - no live bet can post there")
+                      "source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there")
     empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v
              or ", 0 fresh events" in v]
     if empty and WATCHING[0]:

@@ -5602,6 +5602,9 @@ def run(repick=False, fetch=True):
         sports_tennis.run(state, now, fetch=fetch)
     except Exception as e:                                              # noqa: BLE001
         print(f"tennis failed: {e}")
+    if fetch:                                                           # 🔎 (11/2) does each source still answer a
+        import sports_http                                              # PLAIN request on GitHub's servers? (the no-
+        sports_http.run_check()                                         # disguise rule) -> source_status.json
     sd.save_games(games)
     _save("state.json", state)
     _save("model.json", model)

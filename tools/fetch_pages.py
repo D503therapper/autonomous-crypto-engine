@@ -9,7 +9,7 @@ import re
 import sys
 import urllib.request
 
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
+UA = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 OUT = "results/pages"
 KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-time)", re.I)
 # 10/2: Dr. Bob's free analysis (the capper benchmark - tracked, never copied): keep his leans, plays and margins.

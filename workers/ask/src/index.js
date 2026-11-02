@@ -149,7 +149,7 @@ what they can afford to lose - it's entertainment.`;
 const hits = new Map();                  // best effort, per Cloudflare instance
 
 // ---- live data tools: the same feeds the engine uses, so the answer has exact numbers --------------------------
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
+const UA = "D503-sports-engine/1.0 (personal picks dashboard)";   // (11/2: who we are - the owner's no-disguise rule)
 const LEAGUES = ["nfl", "ncaaf", "nba", "ncaab", "mlb", "nhl"];
 const ESPN_PATH = { nfl: "football/nfl", ncaaf: "football/college-football", nba: "basketball/nba",
   ncaab: "basketball/mens-college-basketball", mlb: "baseball/mlb", nhl: "hockey/nhl", atp: "tennis/atp", wta: "tennis/wta" };
@@ -242,8 +242,9 @@ async function bovadaLines({ league, team }) {
 }
 
 async function espnScoreboard({ league, date, team }) {
-  // ESPN turns Cloudflare away at site.api (9/29: every lookup failed and the AI couldn't see a match) - the web door
-  // first, browser-like. Tennis lives a level down (groupings -> competitions) and Asia's matches sit on the next day.
+  // ESPN turned Cloudflare away at site.api (9/29) - the web door first, then site.api, both asked plainly (11/2: the
+  // owner's no-disguise rule - no browser User-Agent, no Referer / Origin; if ESPN refuses, the tool says it couldn't
+  // see the scoreboard). Tennis lives a level down (groupings -> competitions) and Asia's matches sit on the next day.
   const day = ptDate(date).replaceAll("-", "");
   const next = new Date(Date.parse(`${ptDate(date)}T12:00:00Z`) + 86400000).toISOString().slice(0, 10).replaceAll("-", "");
   const tennis = league === "atp" || league === "wta";
@@ -252,8 +253,7 @@ async function espnScoreboard({ league, date, team }) {
   for (const d of tennis ? [day, next] : [day]) {
     for (const host of ["https://site.web.api.espn.com", "https://site.api.espn.com"]) {
       try {
-        const r = await fetch(host + q(d), { headers: { "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148",
-          Accept: "application/json", Referer: "https://www.espn.com/", Origin: "https://www.espn.com" } });
+        const r = await fetch(host + q(d), { headers: { "User-Agent": UA, Accept: "application/json" } });
         if (r.ok) { boards.push(await r.json()); break; }
       } catch (e) { /* the other door */ }
     }

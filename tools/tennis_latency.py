@@ -2,8 +2,7 @@
 time: ESPN's scoreboard (what we use now) and Bovada's live tennis feed + its per-event score API. Run by hand."""
 import json, time, urllib.request
 from datetime import datetime, timezone
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-      "Accept": "*/*", "Referer": "https://www.bovada.lv/", "Origin": "https://www.bovada.lv", "Accept-Language": "en-US,en;q=0.9"}
+UA = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json"}   # (11/2: the engine's own name - no browser disguise, the owner's rule)
 def get(u):
     return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=15))
 BOV = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en"

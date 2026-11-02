@@ -22,6 +22,8 @@ from datetime import datetime, timedelta, timezone
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sports_data as sd          # noqa: E402
+import sports_http as sh          # noqa: E402  (11/2: our own name to our own server - never a browser disguise; the
+#                                   Origin it sends is our own page's, to our own Worker's gate - not a third-party block)
 
 OUT = os.path.join(sd.DATA, "health.json")
 from zoneinfo import ZoneInfo  # noqa: E402
@@ -121,7 +123,7 @@ else:
 try:
     api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
     r = urllib.request.urlopen(urllib.request.Request(f"{api}/scores?ids=nfl:0", headers={"Origin": "https://d503therapper.github.io",
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148"}),
+        "User-Agent": sh.UA}),
                                timeout=20)
     ok.append(f"scores route up ({r.status})")
 except Exception as e:                                   # noqa: BLE001
@@ -132,7 +134,7 @@ try:
     api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
     req = urllib.request.Request(api, data=json.dumps({"q": "health check: what's the Lock of the Day? one line"}).encode(),
                                  headers={"Content-Type": "application/json", "Origin": "https://d503therapper.github.io",
-                                          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) Mobile/15E148"})
+                                          "User-Agent": sh.UA})
     try:
         got = json.load(urllib.request.urlopen(req, timeout=90))
         (ok if got.get("answer") else problems).append("question box " + ("answers" if got.get("answer") else f"empty: {got}"[:120]))
@@ -156,7 +158,7 @@ if needed:
             api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
             got = json.load(urllib.request.urlopen(urllib.request.Request(
                 f"{api}/scores?debug=1&ids=" + ",".join(tn_live[:10]),
-                headers={"Origin": "https://d503therapper.github.io", "User-Agent": "Mozilla/5.0 (iPhone) Mobile/15E148"}), timeout=20))
+                headers={"Origin": "https://d503therapper.github.io", "User-Agent": sh.UA}), timeout=20))
             book = (got.get("_debug") or {}).get("book") or {}
             with_pts = [k for k in tn_live if (got.get(k) or {}).get("pts") and (got.get(k) or {}).get("srv") in (0, 1)]
             if book.get("err"):
@@ -204,7 +206,7 @@ try:
     else:
         req = urllib.request.Request(f"{api}/push", data=json.dumps({"key": key, "dry": True}).encode(),
                                      headers={"Content-Type": "application/json", "Origin": "https://d503therapper.github.io",
-                                              "User-Agent": "Mozilla/5.0"})
+                                              "User-Agent": sh.UA})
         got = json.load(urllib.request.urlopen(req, timeout=20))
         (ok if got.get("dry") else problems).append("alerts: engine key " + ("works" if got.get("dry") else f"refused {got}"))
 except Exception as e:                                   # noqa: BLE001

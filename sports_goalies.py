@@ -28,9 +28,10 @@ from collections import Counter
 from datetime import datetime, timezone
 
 import sports_data as sd
+import sports_http as sh
 
 URL = "https://www.dailyfaceoff.com/starting-goalies"
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
+UA = dict(sh.HDR)             # (11/2: the engine's own name - the Linux Chrome User-Agent it sent is gone)
 PATH = os.path.join(sd.DATA, "nhl_goalies.json")
 STATUSES = ("confirmed", "likely", "expected", "projected", "unconfirmed")   # the page's words, surest first
 KNOWN = ("confirmed", "likely", "expected")   # known enough to weigh / to pick the goalie the form weights look at
@@ -144,9 +145,11 @@ def sync(games, now=None, get=None):
         _CACHE.clear()
         print(f"goalies: {len(parsed)} games on the page, {len(got)} matched, "
               f"{sum(1 for g in got.values() for v in g.values() if v.get('status') == 'confirmed')} confirmed")
+        sh.note("dailyfaceoff", True, n=len(parsed), how="plain request")
         return len(got)
     except Exception as e:                                   # noqa: BLE001 - unknown is unknown, never a guess
         print(f"goalies failed to load: {str(e)[:80]}")
+        sh.note("dailyfaceoff", False, err=sh.err_text(e), how="plain request - the goalies stay unknown (no weight)")
         return None
 
 
