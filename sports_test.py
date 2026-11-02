@@ -15050,7 +15050,8 @@ def test_daily_1030_the_team_the_market_keeps_fading_is_a_minus_2_dog_weight_and
     from home in its first 3 games."""
     import sports_leads as sl
     assert sports.MKT_FADE_W == 2 and sports.MKT_FADE_SUM == 0.08 and sports.MKT_TREND_N == 3
-    assert sports.MKT_FADE_LEAGUES == ("nba", "nhl") and sports.STUDY_CAP == 6
+    assert sports.MKT_FADE_LEAGUES == ("nba",) and sports.MKT_TREND_LEAGUES == ("nba", "nhl") and sports.STUDY_CAP == 6
+    #   (11/2 NHL odds-history studies: the NHL weight came off - test_nhl_odds_1102_*)
 
     def fg(i, start, home, away, oh, oa, ch, ca, stype="2"):
         return {"id": i, "league": "nba", "start": start, "status": "final", "stype": stype, "home": home, "away": away,
@@ -15082,7 +15083,7 @@ def test_daily_1030_the_team_the_market_keeps_fading_is_a_minus_2_dog_weight_and
     faded = {**base, "mkt_trend": -0.09}
     assert not sports.market_faded(base) and sports.market_faded(faded)
     assert sports.dog_score(faded) == sports.dog_score(base) - 2
-    assert sports.dog_score({**faded, "league": "nhl"}) == sports.dog_score({**base, "league": "nhl"}) - 2
+    assert sports.dog_score({**faded, "league": "nhl"}) == sports.dog_score({**base, "league": "nhl"})   # (NBA only from 11/2)
     assert not sports.market_faded({**faded, "odds": -140}) and not sports.market_faded({**faded, "league": "nfl"})
     assert not sports.market_faded({**faded, "mkt_trend": None}) and not sports.market_faded({**faded, "market": "spread"})
     stacked = {**faded, "league": "nhl", "odds": 230, "dec": 3.3, "p_market": 0.30, "pdo": 1.05, "ot_last": "so_win",
@@ -15096,7 +15097,7 @@ def test_daily_1030_the_team_the_market_keeps_fading_is_a_minus_2_dog_weight_and
     assert sports.dog_score(backed) == sports.dog_score({**backed, "mkt_trend": 0.0})   # the mirror is a lead, never a weight
     # the candidate carries it (NBA / NHL only)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
-    assert '"mkt_trend": market_trend(games, g, side) if lg in MKT_FADE_LEAGUES else None' in src
+    assert '"mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None' in src
     keep = dict(sl._GAMES)
     try:
         # NHL 4th game in 6 nights, not a back-to-back
@@ -15880,6 +15881,55 @@ def test_daily_1031_a_covers_note_older_than_a_game_he_played_since_never_holds_
             sa._TEAM["ncaaf"] = keep
     assert sd._note_day(("Dec", 30), datetime(2027, 1, 2, 20, tzinfo=timezone.utc)).year == 2026   # no year on the page
     assert sd._note_day(("Feb", 30), now) is None
+
+
+def test_nhl_odds_1102_the_hockey_market_fade_comes_off_the_drift_fade_gets_a_tracker_line_and_the_hockey_dog_stands():
+    """11/2 NHL ODDS HISTORY STUDIES (the paid 2021-23 history - every US book's game-day MORNING price and the next-day
+    open; results/studies/nhl_odds_1102/): the hockey Dog as it runs live is NOT a leak there (+13.6% flat at the morning
+    on 188, 3 of 3 seasons; the gated 6+ Dog +15.0%) - kept, gates and sizing untouched; the hot dog -2 confirmed (-17.1% vs
+    -10.2%); the MARKET-FADE -2 failed for hockey (the faded NHL dogs -5.7% vs -10.9% for every dog, the mirror -37.8%) -
+    the weight is NBA only now, the NHL side keeps its tracker line; the built drift -4 (the money left a dog 2+ since the
+    open: -19.2% on 579, 0 of 3) gets its own live record."""
+    import sports_leads as sl
+    assert sports.MKT_FADE_LEAGUES == ("nba",) and sports.MKT_TREND_LEAGUES == ("nba", "nhl")
+    assert sports.MKT_FADE_W == 2 and sports.MKT_FADE_SUM == 0.08 and sports.STUDY_CAP == 6
+    # unchanged by the studies: the hockey Dog's gates and price-band sizing, the hot dog, the lean band
+    assert sports.NHL_DOG_GATE == 6.0 and sports.NHL_BEST_DOG_MIN == 3.0 and sports.NHL_FALLBACK_OWN_GAP == 2.0
+    assert sports.NHL_HOT_DOG_W == 2 and sports.LEAN_NHL_FAV_BAND == (-150, -130)
+    assert sports.DOG_SHORT_MAX == 150 and sports.DOG_SHORT_UNITS == 2.0 and sports.DOG_LONG_UNITS == 0.5
+    base = {"league": "nhl", "market": "ml", "odds": 140, "dec": 2.4, "p_market": 0.40, "edge": 0.0, "edge_own": 0.0,
+            "dog_ctx": {}, "dog_more": {}, "mkt_trend": -0.02, "game_id": "x", "team": "Ts", "opp": "Ds", "side": "away",
+            "home": False, "start": "2026-11-03T00:00Z", "reasons": []}
+    faded = {**base, "mkt_trend": -0.10}
+    # the NHL spot: no weight any more, still tracked
+    assert sports.market_fade_spot(faded) and not sports.market_faded(faded)
+    assert sports.dog_score(faded) == sports.dog_score(base)
+    assert "NBA / NHL dog, the market faded its last 3 games (fade)" in sl.tags(faded, sports)
+    assert "NBA / NHL dog, the market backed its last 3 games" in sl.tags({**base, "mkt_trend": 0.10}, sports)
+    # the NBA keeps the -2
+    nba, nba_f = {**base, "league": "nba"}, {**faded, "league": "nba"}
+    assert sports.market_faded(nba_f) and sports.dog_score(nba_f) == sports.dog_score(nba) - 2
+    assert "NBA / NHL dog, the market faded its last 3 games (fade)" in sl.tags(nba_f, sports)
+    # never a favorite, never past +350 in the tracker, never football
+    assert not sports.market_fade_spot({**faded, "odds": -130, "dec": 1.77})
+    assert not sports.market_fade_spot({**faded, "league": "nfl"})
+    assert "NBA / NHL dog, the market faded its last 3 games (fade)" not in sl.tags({**faded, "odds": 400, "dec": 5.0}, sports)
+    # the drift -4 (built 10/1) keeps its size and gets a live record of its own
+    left = {**base, "drift": 0.025}
+    assert sports.dog_score(left) == sports.dog_score({**base, "drift": 0.0}) - 4
+    tag = "NHL dog, the money left it 2+ since the open (fade)"
+    assert tag in sl.tags(left, sports)
+    assert tag not in sl.tags({**base, "drift": 0.015}, sports)                  # under 2 points: no
+    assert tag not in sl.tags({**left, "odds": -130, "dec": 1.77}, sports)       # favorites: no
+    assert tag not in sl.tags({**left, "league": "nba"}, sports)                 # hockey only
+    assert tag not in sl.tags({**left, "odds": 400, "dec": 5.0}, sports)         # past +350: no
+    # the candidate still carries the trend in both sports (the tracker reads it)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '"mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None' in src
+    here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "studies", "nhl_odds_1102")
+    for f in ("lib.py", "s1_hockey_dog.py", "s2_hot_and_fade.py", "s3_favorites.py", "s4_line_moves.py",
+              "s5_b2b_open_vs_morning.py", "s1_out.txt", "s2_out.txt", "s3_out.txt", "s4_out.txt", "s5_out.txt"):
+        assert os.path.exists(os.path.join(here, f)), f
 
 if __name__ == "__main__":
     import sports_goalies as _sg

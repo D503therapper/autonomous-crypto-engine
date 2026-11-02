@@ -97,6 +97,9 @@ def tags(c, sports):
         t.append("NHL dog, record 10+ under its goals")
     if lg == "nhl" and c.get("odds", 0) >= sports.NHL_LONG_DOG:   # 10/17 study (built as a weight): its live record
         t.append("NHL dog +220 or longer (fade)")
+    if dog and lg == "nhl" and c.get("odds", 0) <= 350 and (c.get("drift") or 0) >= 0.02:   # the BUILT drift -4 (the money ran
+        t.append("NHL dog, the money left it 2+ since the open (fade)")   # away since the open) - re-confirmed on the 11/2
+        #   paid 2021-23 history at the 8 AM price: -19.2% on 579 vs -10.8% for every dog, 0 of 3 seasons up, z -3.9 - its live record
     if dog and lg == "nhl" and sports.hot_dog(c):            # 10/29 ten hockey studies (built as a -2 weight): its live record
         t.append("NHL dog on a 3+ game win streak (fade)")   # (-10.5% train / -13.3% held out vs the band's -6.9% / -3.8%)
     if dog and lg == "ncaaf" and c.get("raw_own") is not None and c.get("p_market") is not None \
@@ -166,9 +169,10 @@ def tags(c, sports):
             #   -9.7% on 861 train / -17.1% on 99 held out (the dog base -3.7% / -6.7%), NHL dogs -16.1% on 347 / -12.6%
             #   on 29 (base -6.6% / +1.9%), worse than teams with the same last-3 results in train; but z only -1.2 / -1.6,
             #   2026 NHL +27% on 9, NBA none yet, NHL favorites the other way - tracked only, never a weight
-        if lg in sports.MKT_FADE_LEAGUES and c.get("odds", 0) <= 350:   # 10/30 daily study 2 (the market's last-3-games
-            if sports.market_faded(c):                                    #  move on this team): the fade is BUILT as a -2
-                t.append("NBA / NHL dog, the market faded its last 3 games (fade)")   # weight - its own live record
+        if lg in sports.MKT_TREND_LEAGUES and c.get("odds", 0) <= 350:   # 10/30 daily study 2 (the market's last-3-games
+            if sports.market_fade_spot(c):                                #  move on this team): the fade is BUILT as a -2
+                t.append("NBA / NHL dog, the market faded its last 3 games (fade)")   # weight in the NBA (the NHL weight came
+                #   off 11/2 - the 2021-23 odds history said nothing; the NHL side keeps its live record here)
             elif (c.get("mkt_trend") or 0) >= sports.MKT_FADE_SUM:
                 t.append("NBA / NHL dog, the market backed its last 3 games")   # the mirror: a LEAD, tracked only (NBA
                 #   +9.9% / NHL +11.9% at the open on 501 / 392, at the close +7.8% / +7.2%, 2023 train small) - no weight
