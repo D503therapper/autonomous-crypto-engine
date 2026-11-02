@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T15:49Z",
+ "updated": "2026-11-02T16:01Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -68,9 +68,9 @@
     "opp": "Murray St",
     "market": "spread",
     "line": 9.5,
-    "odds": -112,
+    "odds": -102,
     "p": 0.503,
-    "win_p": 0.209,
+    "win_p": 0.192,
     "reasons": [
      "the stronger team"
     ]
@@ -759,8 +759,8 @@
    "start": "2026-11-03T00:00Z",
    "away": "Golden Knights",
    "home": "Bruins",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Bruins",
     "opp": "Golden Knights",
@@ -1147,7 +1147,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Boston U",
-    "p": 0.52,
+    "p": 0.504,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1163,11 +1163,12 @@
     "opp": "Northeastern",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": -125,
+    "p": 0.535,
+    "win_p": 0.535,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1369,6 +1370,7 @@
     "p": 0.616,
     "win_p": 0.616,
     "reasons": [
+     "opponent missing key players",
      "rolling off a blowout win"
     ]
    }
@@ -1569,7 +1571,7 @@
     "line": -10.5,
     "odds": -113,
     "p": 0.503,
-    "win_p": 0.815,
+    "win_p": 0.814,
     "reasons": [
      "the stronger team"
     ]
@@ -1725,7 +1727,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.585,
+    "p": 0.586,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1746,7 +1748,8 @@
     "win_p": 0.639,
     "reasons": [
      "the stronger team",
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "opponent missing key players"
     ]
    }
   },
@@ -1879,8 +1882,8 @@
    "start": "2026-11-03T00:30Z",
    "away": "Nets",
    "home": "Knicks",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Knicks",
     "opp": "Nets",
@@ -1888,7 +1891,7 @@
     "line": -14.5,
     "odds": -114,
     "p": 0.507,
-    "win_p": 0.885,
+    "win_p": 0.886,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -2017,7 +2020,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.539,
+    "p": 0.547,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2033,9 +2036,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.586,
-    "win_p": 0.586,
+    "odds": -155,
+    "p": 0.598,
+    "win_p": 0.598,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2136,7 +2139,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.707,
+    "p": 0.706,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2154,7 +2157,7 @@
     "line": -10.5,
     "odds": -112,
     "p": 0.503,
-    "win_p": 0.813,
+    "win_p": 0.812,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2418,6 +2421,7 @@
     "win_p": 0.636,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "opponent drama: suspension"
     ]
    }
@@ -2659,7 +2663,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.543,
+    "p": 0.539,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2668,16 +2672,16 @@
    "start": "2026-11-03T01:15Z",
    "away": "Bears",
    "home": "Seahawks",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Seahawks",
     "opp": "Bears",
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.593,
-    "win_p": 0.593,
+    "p": 0.587,
+    "win_p": 0.587,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -2800,7 +2804,8 @@
     "win_p": 0.899,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -2931,8 +2936,8 @@
    "start": "2026-11-03T02:00Z",
    "away": "Flames",
    "home": "Sharks",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Flames",
     "opp": "Sharks",
@@ -3391,8 +3396,8 @@
    "start": "2026-11-03T03:00Z",
    "away": "Heat",
    "home": "Lakers",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Lakers",
     "opp": "Heat",
@@ -3554,7 +3559,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.585,
+    "p": 0.587,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -3574,6 +3579,7 @@
     "p": 0.644,
     "win_p": 0.644,
     "reasons": [
+     "opponent missing key players",
      "the stronger team"
     ]
    }
@@ -3612,7 +3618,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.514,
+    "p": 0.513,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3629,8 +3635,8 @@
     "market": "ml",
     "line": null,
     "odds": -149,
-    "p": 0.549,
-    "win_p": 0.549,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "the stronger team"
     ]
