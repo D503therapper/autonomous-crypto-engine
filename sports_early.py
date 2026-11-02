@@ -565,6 +565,16 @@ NBA_OPEN_UNITS = 1.0                 # 1u, 2u, 3u plays"): the opening-line play
 #                                      (+44.7u vs +22.4u at ½u, worst stretch -14.1u vs -7.0u, up all 4 seasons). A
 #                                      posted play keeps the size it posted at (stamp_units). The owner's sizing call -
 #                                      None = stays ½u. ON - the owner 10/30: "whatever is recommended for the best profits is what we need to do".
+NBA_OPEN_HALF_FROM = "2026-11-03"    # 🏀 11/2 NBA ODDS-HISTORY STUDY 1 (the owner's paid 2020-23 odds, results/studies/
+NBA_OPEN_HALF_UNITS = 0.5            # nba_odds_1102/s1): BACK TO ½u from this date's posts. The same module fit
+#                                      walk-forward on 2020-21 / 2021-22 / 2022-23 (seasons no test of it ever saw) LOST
+#                                      at the earliest price that data holds (the game-day morning, ~10h before tip):
+#                                      145-216 -6.9% on 361 (2020 -27%, 2021 -6%, 2022 +14% - 1 of 3 up); picked at the
+#                                      close -7.5% (vs +3.4% for 2023-25 at the close). A true next-day line exists for
+#                                      only ~4% of those games, so the OPEN edge itself can't be re-tested - but the old
+#                                      seasons give the model's read no support, and the 10/30 bar for a bigger size is
+#                                      "won more in BOTH halves". ½u (its 10/23 lead size) with its own record (judge at 40,
+#                                      under -5% = off). Posted plays keep their units; None = stays 1u.
 
 
 def units(p):
@@ -574,6 +584,8 @@ def units(p):
     time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
     if p.get("units") is not None:                           # (10/25 sweep: a posted play keeps the units it posted at -
         return float(p["units"])                             #  a spot's size changing later never re-sizes the record)
+    if p.get("spot") == "nba_open" and NBA_OPEN_HALF_FROM and (p.get("posted") or "") >= NBA_OPEN_HALF_FROM:
+        return NBA_OPEN_HALF_UNITS                           # 🏀 (11/2: back to ½u - the 2020-23 seasons didn't back it)
     if p.get("spot") == "nba_open" and NBA_OPEN_UNITS_FROM and (p.get("posted") or "") >= NBA_OPEN_UNITS_FROM:
         return NBA_OPEN_UNITS                                # 🏀 (10/30: the opening-line play at 1u flat - no margin ladder)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves

@@ -15093,8 +15093,9 @@ def test_daily_1030_the_team_the_market_keeps_fading_is_a_minus_2_dog_weight_and
     # the tracker: the fade's own record, the mirror lead (no weight)
     tag = {**faded, "game_id": "x", "team": "Ts", "opp": "Ds", "side": "away", "home": False, "start": "2026-10-28T23:00Z"}
     assert "NBA / NHL dog, the market faded its last 3 games (fade)" in sl.tags(tag, sports)
-    backed = {**tag, "mkt_trend": 0.09}
-    assert "NBA / NHL dog, the market backed its last 3 games" in sl.tags(backed, sports)
+    backed = {**tag, "mkt_trend": 0.09, "league": "nhl"}                   # (11/2: the mirror lead is NHL only - the NBA
+    assert "NBA / NHL dog, the market backed its last 3 games" in sl.tags(backed, sports)   # half flipped on 2020-22)
+    assert "NBA / NHL dog, the market backed its last 3 games" not in sl.tags({**backed, "league": "nba"}, sports)
     assert sports.dog_score(backed) == sports.dog_score({**backed, "mkt_trend": 0.0})   # the mirror is a lead, never a weight
     # the candidate carries it (NBA / NHL only)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
@@ -15931,6 +15932,43 @@ def test_nhl_odds_1102_the_hockey_market_fade_comes_off_the_drift_fade_gets_a_tr
     for f in ("lib.py", "s1_hockey_dog.py", "s2_hot_and_fade.py", "s3_favorites.py", "s4_line_moves.py",
               "s5_b2b_open_vs_morning.py", "s1_out.txt", "s2_out.txt", "s3_out.txt", "s4_out.txt", "s5_out.txt"):
         assert os.path.exists(os.path.join(here, f)), f
+def test_nba_odds_1102_the_opening_line_play_goes_back_to_half_and_the_nba_backed_mirror_is_cut():
+    """11/2 NBA odds-history studies (the owner's paid 2020-23 odds, results/studies/nba_odds_1102/): (1) the 🏀
+    opening-line play LOST walk-forward on 2020-22 at the earliest price that data holds (-6.9% on 361, 1 of 3 seasons) -
+    back to ½u for posts from NBA_OPEN_HALF_FROM; a play posted 10/31-11/2 keeps its 1u, a stamped play never re-sizes,
+    the other spots untouched; (2) the market-fade -2 weight held (every old season worse than the dog base) and stays;
+    its NBA mirror ('the market backed its last 3') flipped (-10.5%, 0 of 3) - tracked for the NHL only."""
+    import sports_early as se
+    import sports_leads as sl
+    assert se.NBA_OPEN_HALF_FROM == "2026-11-03" and se.NBA_OPEN_HALF_UNITS == 0.5
+    p = {"spot": "nba_open", "league": "nba", "odds": 130}
+    assert se.units({**p, "posted": "2026-11-03T05:00Z"}) == 0.5                   # from the date: ½u
+    assert se.units({**p, "posted": "2026-11-02T20:00Z"}) == 1.0                   # 10/31 - 11/2 posts keep 1u
+    assert se.units({**p, "posted": "2026-10-30T20:00Z"}) == 0.5                   # before 10/31: the old ½u
+    assert se.units({**p, "posted": "2026-11-05T05:00Z", "units": 1.0}) == 1.0     # stamped = frozen
+    assert se.units({"spot": "bye", "odds": 150, "posted": "2026-11-05T20:00Z"}) == 1.0
+    keep = se.NBA_OPEN_HALF_FROM
+    try:
+        se.NBA_OPEN_HALF_FROM = None
+        assert se.units({**p, "posted": "2026-11-05T05:00Z"}) == 1.0               # the off switch: stays 1u
+    finally:
+        se.NBA_OPEN_HALF_FROM = keep
+    assert sports.MKT_FADE_W == 2 and sports.MKT_FADE_SUM == 0.08 and "nba" in sports.MKT_FADE_LEAGUES
+    assert sl.MKT_BACKED_LEAGUES == ("nhl",)
+    backed, faded = "NBA / NHL dog, the market backed its last 3 games", "NBA / NHL dog, the market faded its last 3 games (fade)"
+    base = {"market": "ml", "game_id": "zz", "side": "away", "home": False, "odds": 150, "dec": 2.5, "p_market": 0.38,
+            "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "A", "opp": "B", "start": "2026-11-05T00:00Z",
+            "dog_more": {}}
+    assert backed not in sl.tags({**base, "league": "nba", "mkt_trend": 0.10}, sports)
+    assert backed in sl.tags({**base, "league": "nhl", "mkt_trend": 0.10}, sports)
+    assert faded in sl.tags({**base, "league": "nba", "mkt_trend": -0.10}, sports)  # the built fade keeps its record
+    # (3) the NBA Dog gate held on 2020-22 (27-24 +46.9%, 3 of 3) and the longer NBA Dogs did BETTER (+151..+350 +52.6% vs
+    # +100..+150 +33.3%) - the NBA Dog keeps its own sizing, never the football / hockey price band (½u past +150)
+    assert sports.NBA_DOG_GATE == 4.0
+    leg = {"league": "nba", "market": "ml", "odds": 240, "edge_own": 0.03}
+    assert sports.dog_units({"date": "2026-11-03", "legs": [leg]}) == sports.NBA_DOG_OWN_UNITS == 1.0
+    assert sports.dog_units({"date": "2026-11-03", "legs": [{**leg, "edge_own": -0.01}]}) == 0.5
+
 
 if __name__ == "__main__":
     import sports_goalies as _sg
