@@ -16833,6 +16833,86 @@ def test_deep_bb_1103_college_hoops_altitude_over_half_unit_whole_read_night_bef
     assert "Over 145.5" in sports.early_log_line(got[0]) and "alt_over" in sports.early_log_line(got[0])
     assert "own 40% vs price 35%" in sports.early_log_line({"team": "Bucks", "odds": 150, "league": "nba", "own": .4, "mkt": .35})
 
+
+def test_h1log_1103_pre_tip_first_half_line_logged_hourly_no_network():
+    """11/3 (DEEP BASKETBALL, Q2): the college hoops 1H spread lead (+5.5% on 2,140) stands on Action Network's AFTER-
+    the-game 1H number - the engine had no pre-tip 1H line. Every hourly run now logs the pre-tip 1st-half spread next
+    to the full-game spread (with timestamps) for NBA / college hoops games in the next ~24h -> h1_lines.jsonl.gz:
+    append-only, one row per game per hour, plain requests (the engine's own name), never a pick. No network here."""
+    import gzip
+    import sports_h1log as h1
+    import sports_http as sh
+    d = tempfile.mkdtemp()
+    path, seen = os.path.join(d, "h1_lines.jsonl.gz"), os.path.join(d, "seen.json")
+    now = datetime(2026, 11, 4, 18, 5, tzinfo=timezone.utc)
+    teams = [{"id": 1, "full_name": "Duke Blue Devils"}, {"id": 2, "full_name": "Army Black Knights"},
+             {"id": 3, "full_name": "Kansas Jayhawks"}, {"id": 4, "full_name": "Iowa Hawkeyes"}]
+
+    def game(gid, start, st, odds, h=1, a=2):
+        return {"id": gid, "start_time": start, "status": st, "home_team_id": h, "away_team_id": a, "teams": teams,
+                "odds": odds}
+    fg = [{"book_id": 30, "type": "game", "spread_home": -20.0, "ml_home": -5000, "ml_away": 1800},
+          {"book_id": 15, "type": "game", "spread_home": -21.5, "spread_home_line": -110, "spread_away_line": -110,
+           "ml_home": -6000, "ml_away": 2000, "total": 141.5, "inserted": "2026-11-04T17:58:00Z"}]
+    h1o = [{"book_id": 15, "type": "firsthalf", "spread_home": -11.5, "spread_home_line": -115,
+            "spread_away_line": -105, "inserted": "2026-11-04T17:40:00Z"}]
+    urls = []
+
+    def get(url):
+        urls.append(url)
+        if "ncaab" not in url or "date=20261104" not in url:
+            return {"games": []}
+        if "period=firsthalf" in url:
+            return {"games": [game(101, "2026-11-05T00:00:00.000Z", "scheduled", h1o),
+                              game(102, "2026-11-04T17:00:00.000Z", "inprogress", h1o, 3, 4)]}
+        return {"games": [game(101, "2026-11-05T00:00:00.000Z", "scheduled", fg),
+                          game(102, "2026-11-04T17:00:00.000Z", "inprogress", fg, 3, 4),      # tipped: never logged
+                          game(103, "2026-11-07T00:00:00.000Z", "scheduled", fg, 3, 4)]}      # 54h out: not yet
+    ours = {"ncaab:9": {"id": "ncaab:9", "league": "ncaab", "start": "2026-11-05T00:00Z", "home_name": "Duke",
+                        "away_name": "Army", "spread_home": "-21"}}
+    sh.SEEN.pop("actionnetwork_h1", None)
+    assert h1.log(ours, now, get=get, path=path, seen_path=seen) == 1
+    assert len(urls) == 8                                   # 2 leagues x 2 periods x today / tomorrow (PT)
+    assert {u.split("?")[0].rsplit("/", 1)[1] for u in urls} == {"nba", "ncaab"}
+    assert h1._get.__code__.co_names.count("JSON_HDR") == 1 and not sh.browser_like(sh.JSON_HDR)   # honest header
+    rows = h1.read(path)
+    r = rows[0]
+    assert (r["lg"], r["an"], r["g"], r["s"], r["esp"]) == ("ncaab", 101, "ncaab:9", "2026-11-05T00:00Z", -21.0)
+    assert r["fg"]["b"] == 15 and r["fg"]["sp"] == -21.5 and r["fg"]["at"] == "2026-11-04T17:58:00Z"   # consensus
+    assert r["h1"]["sp"] == -11.5 and r["h1"]["spo"] == [-115, -105] and r["h1"]["at"] == "2026-11-04T17:40:00Z"
+    assert r["t"] == "2026-11-04T18:05Z" and r["hr"] == "2026-11-04T18"
+    assert sh.SEEN["actionnetwork_h1"]["ok"] and sh.SEEN["actionnetwork_h1"]["n"] == 1
+    # the same hour again: nothing added; the next hour: a fresh row, appended (the first stays)
+    assert h1.log(ours, now + timedelta(minutes=40), get=get, path=path, seen_path=seen) == 0
+    assert h1.log(ours, now + timedelta(hours=1), get=get, path=path, seen_path=seen) == 1
+    assert [x["hr"] for x in h1.read(path)] == ["2026-11-04T18", "2026-11-04T19"]
+    with gzip.open(path, "rt") as f:                         # a real gzip file, two members, read straight through
+        assert len(f.read().splitlines()) == 2
+    # a 1H page with unlabelled entries still reads as the 1st half; the full-game page never feeds the 1H side
+    p = h1.parse({"games": [game(5, "2026-11-05T01:00Z", "scheduled", [{"book_id": 15, "spread_home": -4.5}])]},
+                 "firsthalf")
+    assert p[5]["h1"]["sp"] == -4.5 and "fg" not in p[5]
+    p = h1.parse({"games": [game(5, "2026-11-05T01:00Z", "scheduled", fg)]}, "game")
+    assert "h1" not in p[5] and p[5]["fg"]["sp"] == -21.5
+
+    # AN down: no rows, no crash, the source says why; and a test run without a get never makes a real request
+    def boom(url):
+        raise OSError("refused")
+    assert h1.log(ours, now + timedelta(hours=2), get=boom, path=path, seen_path=seen) == 0
+    assert not sh.SEEN["actionnetwork_h1"]["ok"] and "refused" in sh.SEEN["actionnetwork_h1"]["err"]
+    keep = sh.ON[0]
+    sh.ON[0] = False
+    try:
+        assert h1.log(ours, now, path=path, seen_path=seen) == 0
+    finally:
+        sh.ON[0] = keep
+    assert len(h1.read(path)) == 2
+    sh.SEEN.pop("actionnetwork_h1", None)
+    # data only: the hourly run calls it inside the fetch block, and no pick / board path reads it
+    assert "sports_h1log.log(games, now)" in open("sports.py").read()
+    assert not any("sports_h1log" in open(f).read() for f in ("sports_dashboard.py", "sports_early.py"))
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

@@ -5843,6 +5843,12 @@ def run(repick=False, fetch=True):
         sports_tennis.run(state, now, fetch=fetch)
     except Exception as e:                                              # noqa: BLE001
         print(f"tennis failed: {e}")
+    if fetch:                                                           # 🕐 (11/3, data only) the pre-tip 1st-half
+        try:                                                            # spread next to the full-game spread, NBA +
+            import sports_h1log                                         # college hoops, next ~24h ->
+            sports_h1log.log(games, now)                                # data/sports/h1_lines.jsonl.gz (the 1H lead's
+        except Exception as e:                                          # noqa: BLE001 - re-test after 3-4 weeks)
+            print(f"1H line log failed: {e}")
     if fetch:                                                           # 🔎 (11/2) does each source still answer a
         import sports_http                                              # PLAIN request on GitHub's servers? (the no-
         sports_http.run_check()                                         # disguise rule) -> source_status.json
