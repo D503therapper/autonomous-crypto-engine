@@ -79,6 +79,19 @@ def tags(c, sports):
     if dog and lg == "ncaab" and (c.get("ncaab_skid") or 0) >= sports.NCAAB_SKID and c.get("odds", 0) <= 350:
         t.append("college hoops dog on a 5+ game skid (fade)")   # 11/3 college hoops (B) study 4 (BUILT as a -2 dog_spots
         #   weight): -20.0% on 1,127, Jan-Mar 0 of 5 train / 0 of 3 held out up - its live record
+    if dog and lg == "ncaab" and c.get("top_out") and c.get("odds", 0) <= 350:
+        t.append("college hoops dog, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -2 dog_spots
+        #   weight, sports.mark_ncaab_top_out): -20.5% on 617 vs -5.7% at the close 2022-25 (0 of 4 seasons at the
+        #   base), the open -20.7% - its live record; judge at 50: running at or above -6% = the weight comes off
+    if lg == "ncaab" and c.get("ncaab_top_out_fav"):
+        t.append("college hoops fav -101..-250, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -2
+        #   weight on the favorite's read, sports.weigh_ncaab_top_out): -7.8% on 344 vs -4.0% - its live record
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and ncaab_newlook_dog(c):
+        t.append("college hoops new-look dog (transfer-heavy), games 6-10")   # 11/3 DEEP study 5 (a LEAD, tracked
+        #   only): a dog whose roster leans on strong D1 transfers (sports_ncaab_roster.tin_m 0.03+, the top third) in
+        #   its games 6-10 +9.8% on 380 (train 2022-23 +2.3%, held out +29.0% / +4.1%; the open +5.4%) vs -5.6% for the
+        #   other dogs; the study's Elo version +13.8% on 401 (4 of 4 up) - but a narrow window found by looking
+        #   (games 1-5 -15%, 11-15 +2%), ~160 cells, z 1.4-2.0, and the same teams as favorites LOSE (-10%): never a weight
     if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_rest_stack(c):
         t.append("NBA dog on 2+ days off vs a team on a back-to-back")   # 11/2 daily study 3 (rest stacking): the dog
         #   with 2+ nights off vs a b2b team +6.2% on 104 train (2016-22, 3 of 5 up) / +13.4% on 65 held out vs -0.1% /
@@ -413,6 +426,28 @@ def beat_good_last(c):
 H1_SHARE_BIG = 0.60     # the 10/29 study's cut: the dog's 1st-half spread at 60%+ of its full-game spread
 
 
+def ncaab_newlook_dog(c):
+    """11/3 DEEP study 5 (a LEAD, tracked only): a college hoops side in its games 6-10 whose transfer strength
+    (sports_ncaab_roster.tin_m - last season's points by its D1 transfers x their old teams' margins) is 0.03+."""
+    if c.get("league") != "ncaab":
+        return False
+    n = c.get("games_in")
+    if n is None:
+        n = c.get("season_games")
+    if n is None or not 6 <= n + 1 <= 10:
+        return False
+    g = _game(c)
+    team = g.get(c.get("side") or "")
+    if not team or len(str(g.get("start") or "")) < 10:
+        return False
+    try:
+        import sports_ncaab_roster as nr
+        v = nr.tin_m(_GAMES.get("ncaab") or {}, team, g["start"])
+    except Exception:                                        # noqa: BLE001
+        return False
+    return v is not None and v >= nr.TIN_M_CUT
+
+
 def _game(c):
     lg = c.get("league")
     if lg not in _GAMES:
@@ -699,6 +734,9 @@ def spread_tags(c, sports):
     t = []
     if sports.nba_early_spread_fav(c):
         t.append("NBA spread fav 3.5-12.5, games 1-20 (fade)")
+    if c.get("league") == "ncaab" and c.get("top_out"):
+        t.append("college hoops spread side, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -0.03
+        #   rank weight, sports.ncaab_top_out_spread_w): ATS -10.8% on 1,521 vs -4.4% (0 of 4 seasons at the base)
     if hoops_rested_vs_two(c):
         t.append("college hoops spread side on 4-5 nights rest vs a team on 2 (fade)")   # 11/3 college hoops (B) study 1
         #   (s6_followups.py c): home / road games, the side rested 4-5 nights vs a team that played 2 nights ago (the

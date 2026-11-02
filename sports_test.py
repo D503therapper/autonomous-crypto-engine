@@ -16662,6 +16662,112 @@ def test_cbb_1103_b_away_small_fav_novdec_rubber_dog_skid_dog_weights_and_a_rest
 
 
 
+def test_deep_cbb_roster_1103_top_scorer_missed_last_game_weights_and_the_new_look_lead():
+    """11/3 DEEP - COLLEGE HOOPS ROSTERS (results/studies/deep_cbb_roster/): a college hoops team whose TOP SCORER (points
+    a game this season, 3+ games, 20+ minutes) missed its LAST game falls short of its close (-0.94 pts / -4.3 win %,
+    4 of 4 seasons): -2 on the dog's study points (the favorite across reads +1), -2 on a -101..-250 favorite's own
+    weighed read, -0.03 on a spread side's rank. Only the TOP scorer; no box for the last game = unknown = nothing.
+    Plus a LEAD (tracked only): the transfer-heavy dog in its games 6-10 (sports_ncaab_roster.tin_m)."""
+    import csv as _csv, gzip as _gz, json as _json
+    import sports_leads as sl
+    import sports_ncaab_roster as nr
+    d = sports.sd.decimal
+    tmp = tempfile.mkdtemp()
+    keep_dir, keep_games = nr.DIR, dict(sl._GAMES)
+    nr.DIR = tmp
+    nr._CACHE.clear(); nr._IDX.clear(); nr._LAST.clear()
+    try:
+        rows = []
+
+        def box(gid, start, team, players):
+            for pid, (mins, pts) in players.items():
+                rows.append({"gid": gid, "start": start, "team": team, "pid": pid, "player": f"Player {pid}", "pos": "G",
+                             "group": "", "starter": "1", "stats": _json.dumps({"minutes": str(mins), "points": str(pts)})})
+        fin = lambda gid, start, h, a: {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": start,
+                                        "home": h, "away": a, "home_score": "70", "away_score": "60"}
+        games = {}
+        full = {"p1": (34, 22), "p2": (30, 15), "p3": (28, 9), "p4": (25, 8), "p5": (22, 6)}
+        for i in range(4):                                       # team 10: 4 games, the top scorer p1 sits the 4th
+            gid, st = f"ncaab:{100 + i}", f"2026-11-{10 + 2 * i:02d}T00:00Z"
+            games[gid] = fin(gid, st, "10", f"9{i}")
+            box(gid, st, "10", full if i < 3 else {k: v for k, v in full.items() if k != "p1"})
+        for i in range(4):                                       # team 20: 4 games, only the 2nd scorer sits the 4th
+            gid, st = f"ncaab:{200 + i}", f"2026-11-{10 + 2 * i:02d}T01:00Z"
+            games[gid] = fin(gid, st, "20", f"8{i}")
+            box(gid, st, "20", full if i < 3 else {k: v for k, v in full.items() if k != "p2"})
+        with _gz.open(os.path.join(tmp, "ncaab_2026.csv.gz"), "wt", newline="") as f:
+            w = _csv.DictWriter(f, fieldnames=["gid", "start", "team", "pid", "player", "pos", "group", "starter", "stats"])
+            w.writeheader()
+            w.writerows(rows)
+        tonight = "2026-11-20T00:00Z"
+        t10 = nr.top_out(games, "10", tonight)
+        assert t10 == {"out": True, "name": "Player p1", "ppg": 22.0}
+        assert nr.top_out(games, "20", tonight)["out"] is False          # the 2nd scorer missing: nothing
+        assert nr.top_out(games, "10", "2026-11-13T00:00Z") is None       # 2 box games in: unknown
+        games["ncaab:199"] = fin("ncaab:199", "2026-11-19T00:00Z", "10", "77")   # a newer final with NO box on file
+        nr._IDX.clear()
+        assert nr.top_out(games, "10", tonight) is None                   # the last game's box isn't in: unknown
+        del games["ncaab:199"]
+        nr._IDX.clear()
+        # the engine: team 10 the dog at team 20 tonight
+        games["ncaab:9"] = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "start": tonight,
+                            "home": "20", "away": "10", "neutral": "0"}
+        dog = {"league": "ncaab", "market": "ml", "odds": 170, "dec": d(170), "edge_own": 0.36 * d(170) - 1,
+               "game_id": "ncaab:9", "side": "away", "start": tonight, "dog_ctx": {}, "reasons": []}
+        fav = {"league": "ncaab", "market": "ml", "odds": -200, "dec": d(-200), "edge_own": 0.7 * d(-200) - 1,
+               "game_id": "ncaab:9", "side": "home", "start": tonight, "reasons": []}
+        sp_d = {"league": "ncaab", "market": "spread", "line": 5.5, "odds": -110, "dec": d(-110), "p": 0.5,
+                "game_id": "ncaab:9", "side": "away", "start": tonight, "reasons": []}
+        sp_f = {**sp_d, "line": -5.5, "side": "home", "reasons": []}
+        sports.mark_ncaab_top_out(games, [dog, fav, sp_d, sp_f])
+        assert dog.get("top_out") and not fav.get("top_out") and fav.get("opp_top_out") and sp_d.get("top_out")
+        assert any("Player p1 (22.0 a game) missed their last game" in r for r in fav["reasons"])
+        assert sports.dog_spots(dog) == sports.dog_spots({**dog, "top_out": False}) - sports.NCAAB_TOP_OUT_PTS
+        assert sports.NCAAB_TOP_OUT_PTS == 2
+        assert sports.dog_spots({**dog, "league": "nba"}) == sports.dog_spots({**dog, "league": "nba", "top_out": False})
+        sports.weigh_favorites([fav, dog])
+        assert abs(fav["w_p"] - 0.71) < 1e-9                              # +1 point across a flagged dog
+        assert abs(sports.rank_p(sp_d) - (sports.rank_p({**sp_d, "top_out": False}) - 0.03)) < 1e-9
+        assert sports.rank_p(sp_f) == sports.rank_p({**sp_f, "top_out": False})
+        # a flagged FAVORITE: -2 on its weighed read, floored at own - FAV_CAP, only -101..-250, moneyline only
+        f2 = {"league": "ncaab", "market": "ml", "odds": -180, "dec": d(-180), "edge_own": 0.66 * d(-180) - 1,
+              "top_out": True, "reasons": []}
+        f3 = {**f2, "odds": -300, "dec": d(-300), "edge_own": 0.8 * d(-300) - 1}
+        f4 = {**f2, "w_p": 0.63}
+        sports.weigh_ncaab_top_out([f2, f3, f4])
+        assert abs(f2["w_p"] - 0.64) < 1e-9 and f2["ncaab_top_out_fav"] and f3.get("w_p") is None
+        assert abs(f4["w_p"] - 0.62) < 1e-9                               # 0.63 - 0.02 = 0.61, floored at 0.66 - 0.04
+        src = open("sports.py").read()
+        assert src.index("mark_ncaab_top_out(games, out)") < src.index("    weigh_favorites(out)") \
+            < src.index("weigh_ncaab_top_out(out)")
+        # the tracker
+        sl._GAMES["ncaab"] = games
+        assert "college hoops dog, top scorer missed its last game (fade)" in sl.tags(dog, sports)
+        assert "college hoops fav -101..-250, top scorer missed its last game (fade)" in sl.tags(f2, sports)
+        assert "college hoops spread side, top scorer missed its last game (fade)" in sl.tags(sp_d, sports)
+        assert "college hoops spread side, top scorer missed its last game (fade)" not in sl.tags(sp_f, sports)
+        # the new-look LEAD: last season p1 scored 500 for team 30 (a +10 a game team); team 10 scored 2,000 last season
+        last = [{"gid": "ncaab:1", "start": "2025-12-01T00:00Z", "team": "30", "pid": "p1", "player": "Player p1", "pos": "G",
+                 "group": "", "starter": "1", "stats": _json.dumps({"minutes": "900", "points": "500"})},
+                {"gid": "ncaab:2", "start": "2025-12-01T00:00Z", "team": "10", "pid": "x9", "player": "Player x9", "pos": "G",
+                 "group": "", "starter": "1", "stats": _json.dumps({"minutes": "900", "points": "2000"})}]
+        with _gz.open(os.path.join(tmp, "ncaab_2025.csv.gz"), "wt", newline="") as f:
+            w = _csv.DictWriter(f, fieldnames=["gid", "start", "team", "pid", "player", "pos", "group", "starter", "stats"])
+            w.writeheader()
+            w.writerows(last)
+        games["ncaab:1"] = {**fin("ncaab:1", "2025-12-01T00:00Z", "30", "31"), "home_score": "80", "away_score": "70"}
+        nr._IDX.clear()
+        assert abs(nr.tin_m(games, "10", tonight) - 500 * 1.0 / 2000) < 1e-9   # 500 x (10 / 10) / 2000 = 0.25
+        assert sl.ncaab_newlook_dog({**dog, "games_in": 5})                 # game 6
+        assert not sl.ncaab_newlook_dog({**dog, "games_in": 3})             # game 4: outside 6-10
+        assert "college hoops new-look dog (transfer-heavy), games 6-10" in sl.tags({**dog, "games_in": 6}, sports)
+    finally:
+        nr.DIR = keep_dir
+        nr._CACHE.clear(); nr._IDX.clear(); nr._LAST.clear()
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_games)
+
+
 def test_ncaab_early_lock_1103_no_lock_before_both_teams_play_3_then_half_unit_through_game_10():
     """11/3 COLLEGE HOOPS (A) answered the owner's open 10/16 question (college hoops Locks early) and his 10/30 rule put it
     in: -120..-150 college hoops favorites in opening week -12.9% (held out -20.2%, 3 of 3 down) and before 10 games the

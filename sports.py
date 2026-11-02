@@ -807,8 +807,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
+    mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
+    weigh_ncaab_top_out(out)                          # 🏀 11/3 DEEP: ...and the favorite whose own top scorer missed it
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -2119,6 +2121,9 @@ def dog_spots(c):
         sc -= NCAAB_RUBBER_W       # 11/3: the rubber-match dog (3rd meeting after a 1-1 split) -22.1% on 457, 8 of 8 down
     if lg == "ncaab" and (c.get("ncaab_skid") or 0) >= NCAAB_SKID:
         sc -= COLD_DOG_PTS         # 11/3: the college hoops dog on a 5+ game losing streak -20.0% on 1,127 (Jan-Mar 8 of 8 down)
+    if lg == "ncaab" and c.get("top_out"):
+        sc -= NCAAB_TOP_OUT_PTS    # 11/3 DEEP: the college hoops dog whose top scorer missed its last game -20.5% on 617 vs
+        #                            -5.7% (train / held out 0 of 4 seasons at the base; the open -20.7% vs -7.9%)
     if lg == "nhl" and x.get("hits_top"):
         sc += 2                    # out-hitting people (top quarter, last 10): +2.2% vs -6.1% (5 of 5)
     if lg == "mlb" and (x.get("luck_gap") or 0) <= -0.10:
@@ -2934,6 +2939,7 @@ def rank_p(c):
     return (c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) and not c.get("drought_w") else 0)
             + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
             + early_spread_w(c)                                # (11/2: the NBA early-season spread favorite)
+            + ncaab_top_out_spread_w(c)                        # (11/3 DEEP: the college hoops top scorer missed the last game)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -3350,6 +3356,74 @@ def mark_ncaab_rubber(games, cands):
             c["rubber_dog"] = True
         mine = [w for s, w in sorted(team_games.get(g.get(c.get("side")), [])) if lo <= s < start]
         c["ncaab_skid"] = next((i for i, w in enumerate(reversed(mine)) if w), len(mine))
+
+
+NCAAB_TOP_OUT_PTS = 2    # 🏀 11/3 DEEP - COLLEGE HOOPS ROSTERS (results/studies/deep_cbb_roster/s3*.py, s6_combos.py,
+NCAAB_TOP_OUT_FAV_W = -0.02   # s7_final.py; sports_ncaab_roster.top_out): the team's TOP SCORER (its leader in points a
+NCAAB_TOP_OUT_SPREAD_W = 0.03  # game this season, 3+ games, 20+ minutes a game) MISSED ITS LAST GAME (not in that box -
+NCAAB_TOP_OUT_FAV_BAND = (-250, -101)   # known before tip). The close under-prices it: the team falls short by 0.94
+#                          points (z -3.35) / 4.3 win-% points (z -4.04), every season 2022-25 (-1.03 / -0.88 / -1.11 /
+#                          -0.76); the flagged dog -20.5% on 617 vs -5.7% (0 of 4 seasons at the base; ESPN's open -20.7% vs
+#                          -7.9%), the flagged favorite -101..-250 -7.8% vs -4.0%, the flagged side ATS -10.8% on 1,521 vs
+#                          -4.4% (0 of 4); the favorite ACROSS a flagged dog +5.0% on 474 (not a play by itself). It holds
+#                          INSIDE every existing college hoops flag (skid, 'lost / won', the favorite lost its last) - new
+#                          information. Only the top scorer (the 2nd scorer missing: nothing). Weights, never triggers, all
+#                          under the gap: -2 on the dog's study points (so the favorite across reads +1, weigh_favorites),
+#                          -2 on a flagged favorite's weighed read (floor own - FAV_CAP), -0.03 on a flagged spread side's
+#                          rank (~3 points of cover chance; the study gap is ~6). No box for the last game = unknown = 0.
+
+
+def mark_ncaab_top_out(games, cands):
+    """College hoops sides whose top scorer missed the team's last game (sports_ncaab_roster.top_out, from this
+    season's box scores): top_out on that side, opp_top_out on the other; the side across gets the fact as a reason."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_ncaab_roster
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = sports_ncaab_roster.top_out(games, g.get(side), start) if g.get(side) else None
+                except Exception:                                    # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me and me["out"]:
+            c["top_out"] = True
+            c["top_out_who"] = (me["name"], me["ppg"])
+        if op and op["out"]:
+            c["opp_top_out"] = True
+            c["reasons"] = c.get("reasons", []) + [f"their top scorer {op['name']} ({op['ppg']} a game) missed their "
+                                                    "last game - the books under-price that (4 of 4 seasons)"]
+
+
+def weigh_ncaab_top_out(cands):
+    """A college hoops moneyline favorite -101..-250 whose OWN top scorer missed its last game: its weighed read goes
+    down NCAAB_TOP_OUT_FAV_W (floor own - FAV_CAP). (The favorite ACROSS a flagged dog already reads +1 through the
+    dog's -2 in weigh_favorites - one factor, once.)"""
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "ml" or not c.get("top_out"):
+            continue
+        if not (NCAAB_TOP_OUT_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_TOP_OUT_FAV_BAND[1]):
+            continue
+        if c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_TOP_OUT_FAV_W))), 4)
+        c["ncaab_top_out_fav"] = True
+
+
+def ncaab_top_out_spread_w(c):
+    """The 11/3 DEEP rank weight: a college hoops SPREAD side whose top scorer missed its last game (a fade, never a gate)."""
+    if c.get("league") == "ncaab" and c.get("market") == "spread" and c.get("top_out"):
+        return -NCAAB_TOP_OUT_SPREAD_W
+    return 0.0
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
