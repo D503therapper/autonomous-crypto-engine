@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T02:28Z",
+ "updated": "2026-11-03T02:30Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -686,8 +686,8 @@
    "away": "FGCU",
    "home": "UCF",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1058,8 +1058,8 @@
    "away": "Red Wings",
    "home": "Panthers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1535,8 +1535,8 @@
    "away": "Navy",
    "home": "G Washington",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3418,8 +3418,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.447,
-    "tie": 0.291,
+    "p": 0.485,
+    "tie": 0.283,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3427,7 +3427,7 @@
    "start": "2026-11-04T00:00Z",
    "away": "Red Wings",
    "home": "Lightning",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Lightning",
@@ -3435,12 +3435,12 @@
     "market": "ml",
     "line": null,
     "odds": -265,
-    "p": 0.697,
-    "win_p": 0.697,
+    "p": 0.761,
+    "win_p": 0.761,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
-     "opponent drama: suspension"
+     "opponent on a back-to-back"
     ]
    }
   },
