@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T15:17Z",
+ "updated": "2026-11-03T16:00Z",
  "games": [
   {
    "id": "ncaab:401906848",
@@ -16,8 +16,8 @@
    "start": "2026-11-03T23:00Z",
    "away": "Wofford",
    "home": "Tennessee",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Wofford",
     "opp": "Tennessee",
@@ -44,8 +44,8 @@
    "start": "2026-11-04T00:00Z",
    "away": "Avalanche",
    "home": "Blue Jackets",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Blue Jackets",
     "opp": "Avalanche",
@@ -76,8 +76,8 @@
    "start": "2026-11-04T00:00Z",
    "away": "Blues",
    "home": "Rangers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Blues",
     "opp": "Rangers",
@@ -134,8 +134,8 @@
    "start": "2026-11-04T00:00Z",
    "away": "Golden Knights",
    "home": "Penguins",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Penguins",
     "opp": "Golden Knights",
@@ -204,7 +204,7 @@
     "market": "spread",
     "line": 20.5,
     "odds": -105,
-    "p": 0.521,
+    "p": 0.518,
     "win_p": 0.054,
     "reasons": []
    }
@@ -224,8 +224,8 @@
    "start": "2026-11-04T00:00Z",
    "away": "Jets",
    "home": "Canadiens",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Canadiens",
     "opp": "Jets",
@@ -291,7 +291,7 @@
     "market": "spread",
     "line": 32.5,
     "odds": -110,
-    "p": 0.543,
+    "p": 0.536,
     "win_p": 0.029,
     "reasons": [
      "sharp money moving this way"
@@ -321,7 +321,7 @@
     "market": "spread",
     "line": -14.5,
     "odds": -110,
-    "p": 0.508,
+    "p": 0.507,
     "win_p": 0.738,
     "reasons": [
      "the stronger team",
@@ -425,8 +425,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Carolina",
-    "p": 0.855,
-    "tie": 0.024,
+    "p": 0.871,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -441,9 +441,9 @@
     "opp": "South Carolina",
     "market": "spread",
     "line": 19.5,
-    "odds": -115,
-    "p": 0.536,
-    "win_p": 0.069,
+    "odds": -110,
+    "p": 0.529,
+    "win_p": 0.057,
     "reasons": []
    }
   },
@@ -469,8 +469,8 @@
     "opp": "Boston College",
     "market": "spread",
     "line": 19.5,
-    "odds": -118,
-    "p": 0.53,
+    "odds": -112,
+    "p": 0.526,
     "win_p": 0.057,
     "reasons": []
    }
@@ -481,7 +481,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.406,
+    "p": 0.413,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -497,9 +497,9 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -185,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -585,11 +585,39 @@
     "market": "spread",
     "line": 26.5,
     "odds": -108,
-    "p": 0.533,
+    "p": 0.526,
     "win_p": 0.032,
     "reasons": [
      "sharp money moving this way"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401929372",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Arkansas",
+    "p": 0.816,
+    "tie": 0.028,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T01:00Z",
+   "away": "AR-Pine Bluff",
+   "home": "Arkansas",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "AR-Pine Bluff",
+    "opp": "Arkansas",
+    "market": "spread",
+    "line": 41.5,
+    "odds": -105,
+    "p": 0.552,
+    "win_p": 0.101,
+    "reasons": []
    }
   },
   {
@@ -615,7 +643,7 @@
     "market": "spread",
     "line": 32.5,
     "odds": -112,
-    "p": 0.538,
+    "p": 0.534,
     "win_p": 0.032,
     "reasons": [
      "sharp money moving this way"
@@ -675,7 +703,7 @@
     "market": "spread",
     "line": 26.5,
     "odds": -112,
-    "p": 0.532,
+    "p": 0.519,
     "win_p": 0.032,
     "reasons": [
      "opponent drama: suspension"
@@ -734,9 +762,9 @@
     "team": "LSU N Orleans",
     "opp": "LSU",
     "market": "spread",
-    "line": 26.5,
-    "odds": -108,
-    "p": 0.542,
+    "line": 27.5,
+    "odds": -110,
+    "p": 0.545,
     "win_p": 0.032,
     "reasons": []
    }
@@ -747,8 +775,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa",
-    "p": 0.887,
-    "tie": 0.02,
+    "p": 0.893,
+    "tie": 0.019,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -762,10 +790,10 @@
     "team": "Lipscomb",
     "opp": "Iowa",
     "market": "spread",
-    "line": 21.5,
-    "odds": -112,
-    "p": 0.534,
-    "win_p": 0.046,
+    "line": 23.5,
+    "odds": -115,
+    "p": 0.538,
+    "win_p": 0.042,
     "reasons": []
    }
   },
@@ -847,7 +875,7 @@
     "opp": "San Diego St",
     "market": "spread",
     "line": 16.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.514,
     "win_p": 0.092,
     "reasons": [
