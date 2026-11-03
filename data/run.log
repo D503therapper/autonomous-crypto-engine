@@ -9104,3 +9104,27 @@ error: failed to push some refs to 'https://githu
 [2026-11-03 08:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-03 08:06 UTC] crypto/hold_btc  equity $460.53 (-7.9%) 1 open  market DOWN
    social heat top: NEAR 40 (40/0/0), AAVE 37 (37/0/0), SOL 36 (32/0/4), BTC 35 (35/0/0), ETH 27 (27/0/0)
+   dex screen: PASS DESSA@solana liq $342,808
+   dex screen: UNREACHABLE GTA6@ethereum liq $156,504 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT AZTEC@ethereum liq $12,163,225 - top-10 holders 100%
+   dex screen: REJECT WASTED@solana liq $113,657 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: UNREACHABLE FOCO@ethereum liq $214,568 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS AHSOKA@solana liq $100,879
+   dex screen: REJECT GULD@base liq $1,367,142 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 59%
+   dex screen: UNREACHABLE GTA6@ethereum liq $155,882 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE FOCO@ethereum liq $209,542 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT TSLAC@base liq $4,131 - liquidity $4,131 < $100,000; 24h volume $52 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT GTA6@ethereum liq $122,435 - spike-and-fade (6h +384%, 1h -16%)
+   dex screen: UNREACHABLE FOCO@ethereum liq $198,700 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS CYBERLEEK@solana liq $424,266
+   dex scanner: 2,388 pools (solana 1,720 / base 352 / ethereum 316), refresh cycle 98s (hot 93s), 3056 calls (108 feed, 429s 0, failed 0), 88,432 refreshed (13875 no pair), +41 added / -44 dropped (dead 40, stale 4, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-03 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/mover     equity $235.52 (-52.9%) 1 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/social_heat equity $358.00 (-28.4%) 3 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/breakout10 equity $395.40 (-20.9%) 1 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-03 09:06 UTC] crypto/hold_btc  equity $459.71 (-8.1%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), HYPE 37 (37/0/0), AAVE 35 (35/0/0), MON 32 (32/0/0), NEAR 29 (29/0/0)
