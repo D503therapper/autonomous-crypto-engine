@@ -806,6 +806,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_hoops_inside(games, out, now)
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
+    mark_nba_lost_man(games, out)                     # 🏀 11/3 daily: the NBA team that lost a rotation man (-2 / -0.03)
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
@@ -2143,6 +2144,9 @@ def dog_spots(c):
     if lg == "ncaab" and c.get("top_out"):
         sc -= NCAAB_TOP_OUT_PTS    # 11/3 DEEP: the college hoops dog whose top scorer missed its last game -20.5% on 617 vs
         #                            -5.7% (train / held out 0 of 4 seasons at the base; the open -20.7% vs -7.9%)
+    if lg == "nba" and c.get("lost_man"):
+        sc -= NBA_LOST_MAN_PTS     # 11/3 daily study 7: the NBA dog that lost a 20+ minute man in its last 10 games -19.7%
+        #                            on 284 in games 4-10 (0 of 5 train seasons up, 3 of 3 held down, the morning -16.5%)
     if lg == "ncaab" and c.get("ranked_road"):
         sc -= NCAAB_RANKED_ROAD_DOG   # 11/3 FABLE: a top-25 team as a road dog in Nov-Dec -31.1% on 104 (0 of 5 train)
     elif lg == "ncaab" and c.get("vs_ranked_road"):
@@ -2968,6 +2972,7 @@ def rank_p(c):
             + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
             + early_spread_w(c)                                # (11/2: the NBA early-season spread favorite)
             + ncaab_top_out_spread_w(c)                        # (11/3 DEEP: the college hoops top scorer missed the last game)
+            + nba_lost_man_spread_w(c)                         # (11/3 daily: the NBA side that lost a rotation man)
             - (NCAAB_BIG_HOME_FAV_W if ncaab_big_home_fav(c) else 0)   # (11/3: the 12+ college hoops home favorite
             #                                                     on the spread, -8% ATS - a WEIGHT on its rank, never a block:
             #                                                     the owner, 11/3: "not one thing decides a pick")
@@ -3508,6 +3513,58 @@ def ncaab_top_out_spread_w(c):
     """The 11/3 DEEP rank weight: a college hoops SPREAD side whose top scorer missed its last game (a fade, never a gate)."""
     if c.get("league") == "ncaab" and c.get("market") == "spread" and c.get("top_out"):
         return -NCAAB_TOP_OUT_SPREAD_W
+    return 0.0
+
+
+# 🏀 11/3 DAILY STUDIES, study 7 / 7b (results/studies/daily_1103/s7_nba_after_trade.py, s7b_trade_robust.py;
+# SPORTS_FINDINGS "11/3 - DAILY STUDIES"): THE NBA TEAM THAT LOST A ROTATION MAN. A man at 20+ minutes a game over
+# his last 10 with the team (5+ played) who turns up in another team's box the same season (a trade, a waiver and a
+# signing - the box scores 2016-26 see it, no transaction feed needed): the team that lost him falls short of its
+# number for its next 10 games. ATS -12.3% on 556 (games 1-3) / -11.4% on 721 (games 4-10) vs -4.4% for every NBA
+# side (train 2016-22 1 of 5 seasons up, held out 2023 / 2024 / 2025 all down); the DOG +100..+350 in games 4-10
+# -19.7% on 284 (train 0 of 5 up; held -40.2% / -8.8% / -21.8%; the paid 2020-23 MORNING price -16.5% on 104; games
+# 1-10 together -14%), the favorite that lost a man at the band (-5..-9%). It is not the tanking team again: the
+# .300-.499 teams carry it (dog -18.3% on 372, ATS 0 of 5 train up), a starter (28+) and a bench man (20-28) both,
+# a trade (a new team within 8 days) and a cut both, Nov-Jan and Feb-Apr both. ~85 cells (4 by luck). WEIGHTS inside
+# STUDY_CAP / the rank nudge, never a gate: -2 on a flagged NBA dog's study points (so the favorite across reads +1
+# through weigh_favorites), -0.03 on a flagged NBA spread side's rank. No box scores this season = unknown = 0.
+NBA_LOST_MAN_PTS = 2
+NBA_LOST_MAN_SPREAD_W = HOT_W
+
+
+def mark_nba_lost_man(games, cands):
+    """NBA sides that lost a rotation man within their last 10 games (sports_nba_roster.lost_man, this season's box
+    scores): lost_man = {name, mpg, games_since} on that side, opp_lost_man on the other (with a fact line)."""
+    hoops = [c for c in cands if c.get("league") == "nba" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_nba_roster
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = sports_nba_roster.lost_man(g.get(side), start) if g.get(side) and start else None
+                except Exception:                                    # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me:
+            c["lost_man"] = dict(me)
+        if op:
+            c["opp_lost_man"] = dict(op)
+            c["reasons"] = c.get("reasons", []) + [f"they just lost {op['name']} ({op['mpg']} minutes a night) to another "
+                                                    "team - a team short a rotation man falls short of its number for about "
+                                                    "10 games"]
+
+
+def nba_lost_man_spread_w(c):
+    """The 11/3 rank weight: an NBA SPREAD side that lost a rotation man in its last 10 games (a fade, never a gate)."""
+    if c.get("league") == "nba" and c.get("market") == "spread" and c.get("lost_man"):
+        return -NBA_LOST_MAN_SPREAD_W
     return 0.0
 
 

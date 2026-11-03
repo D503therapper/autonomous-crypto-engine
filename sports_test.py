@@ -17275,6 +17275,161 @@ def test_daily_1103_lead_tracker_counts_only_prices_the_engine_could_play():
         assert len(sl.load()) == 4                                                    # the rows are all still there
     finally:
         sl.PATH, sl.RECORD = keep
+def test_daily_1103_nba_team_that_lost_a_rotation_man_is_a_dog_and_spread_weight_plus_six_tracker_leads():
+    """11/3 daily run (10 studies, results/studies/daily_1103/): ONE WEIGHT - the NBA team that LOST a rotation man (20+
+    minutes a game over his last 10 with the team, 5+ played) to another team within its last 10 games (the box scores
+    see the move) falls short of its number: the dog in games 4-10 -19.7% on 284 (0 of 5 train seasons up, 3 of 3 held
+    down, the paid morning -16.5%), ATS -12.3% / -11.4% - -2 on the dog's study points (sports.NBA_LOST_MAN_PTS, inside
+    STUDY_CAP, the favorite across +1 through weigh_favorites), -0.03 on the spread side's rank; never a gate. SIX
+    tracker LEADS (never a weight): the NBA lucky dog (record 15+ pts over its margin, games 6-20), the NBA dog that
+    already beat this team on this floor, the NHL top scorer who missed its last game (dog / small favorite), the NFL
+    side in its first sub-40F game vs a team that had one (spread), the college hoops host just home from 3+ neutral
+    games (spread)."""
+    import sports_leads as sl
+    import sports_nba_roster as nr
+    assert sports.NBA_LOST_MAN_PTS == 2 and sports.NBA_LOST_MAN_SPREAD_W == 0.03
+    assert nr.LOST_MAN_MPG == 20.0 and nr.LOST_MAN_GAMES == 5 and nr.LOST_MAN_SINCE == 10
+
+    def row(gid, start, team, pid, mins):
+        return {"gid": gid, "start": start, "team": team, "pid": pid, "player": "Man " + pid,
+                "stats": json.dumps({"minutes": str(mins), "points": "10"})}
+    rows = []
+    for i in range(12):                                          # team 1: 12 games, 11/01 .. 11/23 (every other day)
+        start = f"2026-11-{1 + 2 * i:02d}T00:00Z"
+        rows.append(row(f"nba:g{i}", start, "1", "keep", 30))
+        if i < 7:
+            rows.append(row(f"nba:g{i}", start, "1", "x", 24))    # x: 24 minutes a night through game 7 (11/13)
+            rows.append(row(f"nba:g{i}", start, "1", "bench", 12))   # a 12-minute man leaves too: not a rotation man
+    rows.append(row("nba:t2a", "2026-11-14T00:00Z", "2", "x", 22))   # x turns up for team 2 on 11/14
+    rows.append(row("nba:t2a", "2026-11-14T00:00Z", "2", "bench", 12))
+    rows.append(row("nba:g20", "2026-11-02T00:00Z", "3", "y", 30))   # y came TO us from team 3: not a loss
+    rows.append(row("nba:g3", "2026-11-07T00:00Z", "1", "y", 30))
+    # 11/15 (team 1's game 8 = its first since 11/14): games_since 0; by 11/23 (game 12) it's 4 (11/15, 17, 19, 21)
+    got = nr.lost_man("1", "2026-11-15T00:00Z", rows=rows)
+    assert got == {"name": "Man x", "mpg": 24.0, "games_since": 0}, got
+    assert nr.lost_man("1", "2026-11-23T00:00Z", rows=rows)["games_since"] == 4
+    assert nr.lost_man("1", "2026-11-13T12:00Z", rows=rows) is None           # before his first game elsewhere
+    assert nr.lost_man("2", "2026-11-15T00:00Z", rows=rows) is None           # team 2 GOT him: nothing
+    assert nr.lost_man("3", "2026-11-15T00:00Z", rows=rows) is None           # team 3 lost y, but he played 1 game there
+    late = rows + [row(f"nba:g{i}", f"2026-12-{i - 10:02d}T00:00Z", "1", "keep", 30) for i in range(12, 20)]
+    assert nr.lost_man("1", "2026-12-10T00:00Z", rows=late) is None           # 11+ games since: the window has passed
+    thin = [r for r in rows if not (r["pid"] == "x" and r["gid"] in ("nba:g0", "nba:g1", "nba:g2"))]
+    assert nr.lost_man("1", "2026-11-15T00:00Z", rows=thin) is None           # 4 games with us: under the floor
+    assert nr.lost_man("1", "2026-11-15T00:00Z", rows=[]) is None             # no box scores: unknown, never a guess
+    # the marks on the day's candidates (this season's rows patched in - no file read)
+    keep_recent = dict(nr._RECENT)
+    nr._RECENT.clear()
+    nr._RECENT[2026] = rows
+    try:
+        games = {"nba:tonight": {"id": "nba:tonight", "league": "nba", "start": "2026-11-15T00:00Z", "home": "1",
+                                 "away": "2", "home_name": "Ones", "away_name": "Twos", "status": "pre", "stype": "2"}}
+        base = {"game_id": "nba:tonight", "league": "nba", "start": "2026-11-15T00:00Z", "dec": 2.2, "reasons": []}
+        dog = {**base, "market": "ml", "side": "home", "home": True, "odds": 120, "dog_ctx": {}, "dog_more": {}}
+        fav = {**base, "market": "ml", "side": "away", "home": False, "odds": -140, "dec": 1.714, "edge_own": 0.0}
+        sp = {**base, "market": "spread", "side": "home", "home": True, "line": 2.5, "odds": -110, "dec": 1.909, "p": 0.5}
+        osp = {**sp, "side": "away", "home": False, "line": -2.5}
+        cands = [dog, fav, sp, osp]
+        sports.mark_nba_lost_man(games, cands)
+        assert dog["lost_man"]["name"] == "Man x" and sp["lost_man"]["games_since"] == 0
+        assert "lost_man" not in fav and fav["opp_lost_man"]["name"] == "Man x"
+        assert any("Man x" in r and "rotation man" in r for r in fav["reasons"]) and not dog["reasons"]
+        plain = {**dog}
+        plain.pop("lost_man")
+        assert sports.dog_spots(dog) == sports.dog_spots(plain) - 2        # -2 on the dog's study points, never a gate
+        assert sports.nba_lost_man_spread_w(sp) == -0.03 and sports.nba_lost_man_spread_w(osp) == 0.0
+        assert sports.nba_lost_man_spread_w(dog) == 0.0                     # the moneyline rank is the dog score's
+        assert abs(sports.rank_p(sp) - (sports.rank_p({**sp, "lost_man": None}) - 0.03)) < 1e-9
+        assert "NBA dog that lost a 20+ minute man in its last 10 games (fade)" in sl.tags(dog, sports)
+        assert "NBA spread side that lost a 20+ minute man in its last 10 games (fade)" in sl.tags(sp, sports)
+        assert "NBA spread side that lost a 20+ minute man in its last 10 games (fade)" not in sl.tags(osp, sports)
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+        assert "mark_nba_lost_man(games, out)" in src                        # wired into the day's candidates
+    finally:
+        nr._RECENT.clear()
+        nr._RECENT.update(keep_recent)
+    # the tracker LEADS (synthetic game files)
+    keep_g = dict(sl._GAMES)
+
+    def fg(i, start, home, away, hs, as_, **kw):
+        return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                "home_score": str(hs), "away_score": str(as_), **kw}
+    try:
+        G = {}
+        for i in range(8):                                               # L: 7-1 on a +1-a-game margin = lucky
+            G[f"nba:l{i}"] = fg(f"nba:l{i}", f"2026-11-{1 + 2 * i:02d}T00:00Z", "L", f"o{i}", 101 if i else 100, 100 if i else 108)
+        for i in range(8):                                               # H: 7-1 by 12 a game = earned
+            G[f"nba:h{i}"] = fg(f"nba:h{i}", f"2026-11-{1 + 2 * i:02d}T00:00Z", "H", f"p{i}", 112 if i else 100, 100 if i else 108)
+        G["nba:m1"] = fg("nba:m1", "2026-11-01T00:00Z", "B", "C", 99, 95)   # B beat C at home on 11/1
+        G["nba:tn"] = {"id": "nba:tn", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "L", "away": "x"}
+        G["nba:tb"] = {"id": "nba:tb", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "B", "away": "C"}
+        G["nba:tc"] = {"id": "nba:tc", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "C", "away": "B"}
+        G["nba:th"] = {"id": "nba:th", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "H", "away": "x"}
+        sl._GAMES["nba"] = G
+        lucky = {"market": "ml", "league": "nba", "game_id": "nba:tn", "side": "home", "home": True, "odds": 130, "dec": 2.3,
+                 "p_market": 0.43, "edge": 0.0, "edge_own": 0.0, "reasons": [], "team": "Ls", "opp": "xs",
+                 "start": "2026-11-20T00:00Z", "dog_more": {}, "dog_ctx": {}}
+        assert sl.nba_lucky(lucky) and "NBA lucky dog (record 15+ pts over its margin), games 6-20 (fade)" in sl.tags(lucky, sports)
+        assert not sl.nba_lucky({**lucky, "game_id": "nba:th"})            # the same record earned by the margin
+        assert "lucky" not in " ".join(sl.tags({**lucky, "odds": -130, "dec": 1.77}, sports))   # the favorite: no tag
+        beat = {**lucky, "game_id": "nba:tb", "team": "Bs", "opp": "Cs"}
+        assert sl.nba_beat_here(beat) and "NBA dog that already beat this team on this floor this season (fade)" in sl.tags(beat, sports)
+        assert not sl.nba_beat_here({**beat, "game_id": "nba:tc", "side": "away", "home": False})   # won it at home, now away
+        assert not sl.nba_beat_here({**beat, "side": "away", "home": False})                        # C lost the 1st meeting
+        G["nba:m1"]["start"] = "2026-11-18T00:00Z"
+        assert not sl.nba_beat_here(beat)                                   # 2 days on = the quick rematch (dead): no tag
+        # NHL: the top scorer missed the team's last game (a hand-built box table: 8 games, 's' the scorer)
+        nbox = {"T": [(f"2026-11-{1 + 2 * i:02d}T00:00Z", f"nhl:b{i}", {"s": 2.0, "d": 1.0, "e": 0.0} if i < 7 else {"d": 1.0, "e": 0.0})
+                      for i in range(8)]}
+        G2 = {"nhl:tn": {"id": "nhl:tn", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "T", "away": "U"}}
+        sl._GAMES["nhl"] = G2
+        hd = {**lucky, "league": "nhl", "game_id": "nhl:tn", "team": "Ts", "opp": "Us"}
+        assert sl.nhl_top_missed(hd, box=nbox)
+        assert not sl.nhl_top_missed(hd, box={"T": nbox["T"][:5]})          # under 6 box games: unknown
+        full = {"T": nbox["T"][:7] + [(nbox["T"][7][0], nbox["T"][7][1], {"s": 0.0, "d": 1.0, "e": 0.0})]}
+        assert not sl.nhl_top_missed(hd, box=full)                          # he played the last game
+        keep_box = dict(sl._NHL_BOX)
+        sl._NHL_BOX.clear()
+        sl._NHL_BOX[2026] = nbox
+        try:
+            assert "NHL dog, top scorer missed its last game (fade)" in sl.tags(hd, sports)
+            assert "NHL fav -101..-200, top scorer missed its last game (fade)" in sl.tags({**hd, "odds": -150, "dec": 1.667}, sports)
+            assert "NHL fav -101..-200, top scorer missed its last game (fade)" not in sl.tags({**hd, "odds": -250, "dec": 1.4}, sports)
+        finally:
+            sl._NHL_BOX.clear()
+            sl._NHL_BOX.update(keep_box)
+        # NFL: the first sub-40F game vs a team that already had one (spread)
+        GN = {"nfl:a1": fg("nfl:a1", "2026-10-04T17:00Z", "W", "q1", 20, 10, wx_temp="65", indoor="0"),
+              "nfl:a2": fg("nfl:a2", "2026-10-11T17:00Z", "W", "q2", 20, 10, wx_temp="38", indoor="1"),   # a dome: warm
+              "nfl:b1": fg("nfl:b1", "2026-10-04T17:00Z", "Z", "q3", 20, 10, wx_temp="35", indoor="0"),   # Z had the cold
+              "nfl:tn": {"id": "nfl:tn", "start": "2026-11-22T18:00Z", "status": "pre", "stype": "2", "home": "Z",
+                         "away": "W", "wx_temp": "31", "indoor": "0"}}
+        sl._GAMES["nfl"] = GN
+        wsp = {"market": "spread", "league": "nfl", "game_id": "nfl:tn", "side": "away", "home": False, "line": 3.5,
+               "odds": -110, "dec": 1.909, "p": 0.5, "team": "Ws", "opp": "Zs", "start": "2026-11-22T18:00Z", "reasons": []}
+        assert sl.nfl_first_cold(wsp) and "NFL side in its first sub-40F game vs a team that already had one (fade)" in sl.tags(wsp, sports)
+        assert not sl.nfl_first_cold({**wsp, "side": "home", "home": True})          # Z already had a cold one
+        GN["nfl:tn"]["wx_temp"] = "45"
+        assert not sl.nfl_first_cold(wsp)                                            # not a cold game
+        GN["nfl:tn"]["wx_temp"] = ""
+        assert not sl.nfl_first_cold(wsp)                                            # no temperature: unknown
+        # college hoops: the host just home from 3+ neutral games (spread)
+        GC = {f"ncaab:n{i}": fg(f"ncaab:n{i}", f"2026-11-{20 + i:02d}T00:00Z", "K", f"r{i}", 70, 60, neutral="1") for i in range(3)}
+        GC["ncaab:n0"]["neutral"] = "0"
+        GC["ncaab:tn"] = {"id": "ncaab:tn", "start": "2026-11-26T00:00Z", "status": "pre", "stype": "2", "home": "K",
+                          "away": "V", "neutral": "0"}
+        sl._GAMES["ncaab"] = GC
+        ksp = {**wsp, "league": "ncaab", "game_id": "ncaab:tn", "side": "home", "home": True, "team": "Ks", "opp": "Vs",
+               "start": "2026-11-26T00:00Z"}
+        assert not sl.hoops_host_home_from_neutral(ksp)                              # only 2 neutral games in a row
+        GC["ncaab:n0"]["neutral"] = "1"
+        assert sl.hoops_host_home_from_neutral(ksp)
+        assert "college hoops host in its first game back from 3+ neutral games (fade)" in sl.tags(ksp, sports)
+        assert not sl.hoops_host_home_from_neutral({**ksp, "side": "away", "home": False})   # the visitor: no
+        GC["ncaab:tn"]["start"] = "2026-12-10T00:00Z"
+        assert not sl.hoops_host_home_from_neutral({**ksp, "start": "2026-12-10T00:00Z"})    # 18 nights later: no
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
 
 
 if __name__ == "__main__":

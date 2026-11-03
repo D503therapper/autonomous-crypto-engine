@@ -926,3 +926,61 @@ def pace_last(tid, start, n=PACE_N, min_games=PACE_MIN_GAMES, rows=None):
         if None not in ps:
             vals.append(sum(ps) / 2)
     return round(sum(vals) / len(vals), 2) if len(vals) >= min_games else None
+
+
+LOST_MAN_MPG = 20.0       # 11/3 daily study 7 (results/studies/daily_1103/s7, s7b): a ROTATION man - 20+ minutes a game
+LOST_MAN_GAMES = 5        # over his last 10 games with the team (5+ of them played)...
+LOST_MAN_WINDOW = 10      # ...who then turned up in another team's box score (a trade, a waiver and a signing) - the
+LOST_MAN_SINCE = 10       # team that lost him falls short of its number for its next 10 games (ATS -12.3% / -11.4%,
+#                           the dog +100..+350 in games 4-10 -19.7% on 284, 0 of 5 train seasons up / 3 of 3 held
+#                           down, the paid morning -16.5%; both a trade and a cut, both halves of the season, a starter
+#                           and a bench man, .300-.499 teams most of all - the cold-dog weight's blind spot).
+
+
+def lost_man(tid, start, rows=None):
+    """{"name", "mpg", "games_since"} for the most recent rotation man (LOST_MAN_MPG+ minutes a game over his last
+    LOST_MAN_WINDOW games with the team, LOST_MAN_GAMES+ played) who left this team and has since played for ANOTHER
+    team this season (his first box elsewhere before `start`), when the team has played LOST_MAN_SINCE or fewer games
+    since that first box; None otherwise (no box scores = nothing, never a guess). games_since = the team's finished
+    games on / after his first game elsewhere (0 = tonight is the first)."""
+    season = season_of(start)
+    if rows is None:
+        if season not in _RECENT:
+            _RECENT.clear()
+            _RECENT[season] = _rows(season)
+        rows = _RECENT[season]
+    tid = str(tid)
+    mine = [r for r in rows if r["team"] == tid and r["start"] < start]
+    if not mine:
+        return None
+    team_games = sorted({(r["start"], r["gid"]) for r in mine})
+    by_pid = {}
+    for r in mine:
+        try:
+            m = float(json.loads(r.get("stats") or "{}").get("minutes") or 0)
+        except (ValueError, TypeError):
+            m = 0.0
+        by_pid.setdefault(r["pid"], []).append((r["start"], m, r["player"]))
+    elsewhere = {}                                   # pid -> first start in another team's box this season
+    for r in rows:
+        if r["team"] != tid and r["start"] < start and r["pid"] in by_pid:
+            if r["pid"] not in elsewhere or r["start"] < elsewhere[r["pid"]]:
+                elsewhere[r["pid"]] = r["start"]
+    best = None
+    for pid, first_b in elsewhere.items():
+        hist = sorted(by_pid[pid])
+        last_a = hist[-1][0]
+        if last_a >= first_b:                        # he left US for them (not the other way round)
+            continue
+        hist = [h for h in hist if h[0] <= last_a][-LOST_MAN_WINDOW:]
+        if len(hist) < LOST_MAN_GAMES:
+            continue
+        mpg = sum(h[1] for h in hist) / len(hist)
+        if mpg < LOST_MAN_MPG:
+            continue
+        since = sum(1 for s, _ in team_games if s >= first_b)
+        if since > LOST_MAN_SINCE:
+            continue
+        if best is None or first_b > best[0]:
+            best = (first_b, {"name": hist[-1][2], "mpg": round(mpg, 1), "games_since": since})
+    return best[1] if best else None
