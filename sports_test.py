@@ -17229,6 +17229,54 @@ def test_fable_nba_1103_fast_favorite_and_favorite_home_after_a_trip_are_fade_we
         nr.pace_last = keep_p
 
 
+def test_daily_1103_lead_tracker_counts_only_prices_the_engine_could_play():
+    """11/3 daily check: the lead tracker logged EVERY side on the slate at any price, so one +5000 winner (East Texas
+    A&M, opening night 11/2) put +50u on "money 10+ over tickets" in one game (+1.6% on 269 -> +17.8% on 311), and the
+    +1000..+5000 opening-night road dogs made "college hoops road dog, games 1-3 (fade)" 4-58 -45u on a study whose
+    cell was +100..+350. A tag's record is judged at 50 / 100 - it has to be the study's band: a dog to +350
+    (sports.DAILY_DOG_MAX) on every tag, and a favorite no shorter than -150 (sports.MAX_FAV) on the three sharp-money
+    tags that have no band of their own. Log and grade both skip the rest; the rows stay (never deleted)."""
+    import sports_leads as sl, tempfile
+    assert sl.DOG_MAX == sports.DAILY_DOG_MAX == 350 and sl.FAV_MIN == sports.MAX_FAV == -150
+    assert set(sl.SHARP_TAGS) == {"money 10+ over tickets", "70%+ of tickets", "reverse line move to it"}
+    assert not sl.counts("money 10+ over tickets", 5000) and not sl.counts("college hoops road dog, games 1-3 (fade)", 900)
+    assert sl.counts("money 10+ over tickets", 350) and sl.counts("money 10+ over tickets", 150)
+    assert not sl.counts("70%+ of tickets", -400) and sl.counts("70%+ of tickets", -150) and sl.counts("70%+ of tickets", -101)
+    assert sl.counts("hockey fav weighed UP", -400)         # (a favorite tag with its own band: untouched)
+    assert sl.counts("off a bye", None)                      # (no price on file: counts as before)
+    keep = (sl.PATH, sl.RECORD)
+    try:
+        d = tempfile.mkdtemp()
+        sl.PATH, sl.RECORD = os.path.join(d, "t.json"), os.path.join(d, "r.json")
+        dog = {"league": "ncaab", "market": "ml", "home": False, "neutral": False, "odds": 5000, "dec": 51.0, "games_in": 0,
+               "edge": 0.0, "edge_own": 0.0, "p_market": 0.02, "reasons": [], "dog_more": {}, "game_id": "g1",
+               "side": "away", "team": "ETAM", "opp": "H", "start": "2026-11-04T01:00Z"}
+        assert "college hoops road dog, games 1-3 (fade)" in sl.tags(dog, sports)   # the tag still fires (the weight)...
+        assert sl.log("2026-11-03", [dog], sports) == 0                             # ...but a +5000 row is never logged
+        short = {**dog, "odds": 160, "dec": 2.6, "p_market": 0.37, "game_id": "g2", "team": "R"}
+        assert sl.log("2026-11-03", [short], sports) == 1                           # the +160 one is
+        rows = sl.load()
+        rows += [{"day": "2026-11-02", "game_id": "g3", "league": "ncaab", "side": "away", "team": "ETAM", "odds": 5000,
+                  "tags": ["money 10+ over tickets"]},                                # (an old row at +5000 - it stays,
+                 {"day": "2026-11-02", "game_id": "g4", "league": "ncaab", "side": "home", "team": "Bama", "odds": -10000,
+                  "tags": ["70%+ of tickets"]},                                       #  it just never counts)
+                 {"day": "2026-11-02", "game_id": "g5", "league": "nhl", "side": "away", "team": "F", "odds": 105,
+                  "tags": ["money 10+ over tickets", "reverse line move to it"]}]
+        with open(sl.PATH, "w") as f:
+            json.dump(rows, f)
+        games = {"g2": {"status": "final", "home_score": "70", "away_score": "60"},    # the +160 road dog lost
+                 "g3": {"status": "final", "home_score": "60", "away_score": "71"},    # the +5000 dog WON (+50u if counted)
+                 "g4": {"status": "final", "home_score": "90", "away_score": "50"},    # the -10000 favorite won
+                 "g5": {"status": "final", "home_score": "1", "away_score": "2"}}      # the +105 dog won
+        rec = sl.grade(games)
+        assert rec["college hoops road dog, games 1-3 (fade)"] == {"w": 0, "l": 1, "units": -1.0, "roi": -1.0}
+        assert rec["money 10+ over tickets"] == {"w": 1, "l": 0, "units": 1.05, "roi": 1.05}   # g3 never counted
+        assert rec["reverse line move to it"]["w"] == 1 and "70%+ of tickets" not in rec      # g4 never counted
+        assert len(sl.load()) == 4                                                    # the rows are all still there
+    finally:
+        sl.PATH, sl.RECORD = keep
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

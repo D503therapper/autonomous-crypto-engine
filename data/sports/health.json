@@ -1,29 +1,312 @@
 {
- "at": "2026-11-03T00:34Z",
- "fixes": [
-  "live watch 41548511287 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+ "at": "2026-11-03T18:05Z",
+ "fixes": [],
+ "problems": [
+  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1772s",
+  "live tennis scores: tennis Burillo vs Kalieva: no points for 1772s",
+  "live tennis scores: tennis Gonzalez vs Monnet: no points for 1772s"
  ],
- "problems": [],
  "ok": [
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "slate check: all 199 of today's games named, priced and looked at",
+  "live tennis points + server: 4 of 7 live matches",
+  "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 12 backup sources answering",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T18:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1772s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1772s",
+    "live tennis scores: tennis Gonzalez vs Monnet: no points for 1772s"
+   ]
+  },
+  {
+   "at": "2026-11-03T16:46Z",
+   "fixes": [
+    "live watch 41669511887 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-03T16:44Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-03T16:43Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-03T16:40Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1933s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2042s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1824s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-03T16:36Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - started sports.yml",
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Fritz vs Bonzi: no points for 70s",
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1717s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1826s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1608s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-03T15:04Z",
+   "fixes": [
+    "live board 7 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T15:03Z",
+   "fixes": [
+    "live watch 41652014825 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T15:01Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T14:59Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T14:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T14:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
+    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+   ]
+  },
+  {
+   "at": "2026-11-03T13:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Klimovicova vs Feistel: no points for 2417s",
+    "live tennis scores: tennis Sawant vs Bohner: no points for 2417s"
+   ]
+  },
+  {
+   "at": "2026-11-03T13:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Klimovicova vs Feistel: no points for 2417s",
+    "live tennis scores: tennis Sawant vs Bohner: no points for 2417s"
+   ]
+  },
+  {
+   "at": "2026-11-03T13:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Klimovicova vs Feistel: no points for 2417s",
+    "live tennis scores: tennis Sawant vs Bohner: no points for 2417s"
+   ]
+  },
+  {
+   "at": "2026-11-03T13:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Klimovicova vs Feistel: no points for 1842s",
+    "live tennis scores: tennis Sawant vs Bohner: no points for 1842s"
+   ]
+  },
+  {
+   "at": "2026-11-03T11:40Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samsonova vs Shubladze: points frozen at 0-0 for 433s",
+    "live tennis scores: tennis Nahimana vs Sziedat: no points for 1696s",
+    "live tennis scores: tennis Klimovicova vs Feistel: no points for 1696s",
+    "live tennis scores: tennis Sawant vs Bohner: no points for 1696s"
+   ]
+  },
+  {
+   "at": "2026-11-03T10:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Aziz vs Lemaitre: no points for 211s",
+    "live tennis scores: tennis Kubka vs Suvirdjonkova: no points for 211s",
+    "live tennis scores: tennis Okutoyi vs Lansere: no points for 211s"
+   ]
+  },
+  {
+   "at": "2026-11-03T09:16Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T09:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T09:13Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T09:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T07:38Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T07:36Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T07:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T06:59Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T05:23Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T05:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T05:20Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T05:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T03:29Z",
+   "fixes": [
+    "live watch 41571794014 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T03:27Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T03:26Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T03:24Z",
+   "fixes": [
+    "live board 16 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T03:22Z",
+   "fixes": [
+    "live watch 41571020989 froze (14 min) - cancelled",
+    "live board 14 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T01:51Z",
+   "fixes": [
+    "live board 11 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-03T00:34Z",
    "fixes": [
@@ -240,298 +523,6 @@
   },
   {
    "at": "2026-11-02T04:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T04:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T02:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T02:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T01:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T01:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T23:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T23:37Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 2647s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T23:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 2351s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T23:20Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 1750s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T23:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 1148s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:nba:1028754087 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-01T23:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 553s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T22:59Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Maria: no points for 476s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:23Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:20Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:19Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 2151s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 2151s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:nfl:1028823867 HTTP 404, betrivers:nfl:1028823875 HTTP 404, betrivers:nfl:1028823870 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1759s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 1759s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:nfl:1028823867 HTTP 404, betrivers:nfl:1028823875 HTTP 404, betrivers:nfl:1028823868 HTTP 404, betrivers:nfl:1028823870 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1162s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 1162s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:nfl:1028823872 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-01T20:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 544s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 544s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T20:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 328s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 328s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T19:13Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T19:12Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T19:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T17:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T17:39Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Sanchez vs Hercog: no points for 1977s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-01T16:55Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Grabher vs Tubello: no points for 95s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-01T15:26Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Sonego vs Vallejo: no points for 251s",
-    "live tennis scores: tennis Grabher vs Tubello: no points for 251s",
-    "live tennis scores: tennis Charaeva vs Akugue: no points for 251s",
-    "live tennis scores: tennis Van Poppel vs Suvirdjonkova: no points for 251s",
-    "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-01T13:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T13:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Sonego vs Vallejo: no points for 517s",
-    "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 2614s",
-    "live tennis scores: tennis Van Poppel vs Suvirdjonkova: no points for 1054s"
-   ]
-  },
-  {
-   "at": "2026-11-01T13:06Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (4 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-01T11:35Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (6 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-01T11:34Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bellucci vs Tirante: no points for 2616s",
-    "live tennis scores: tennis Kopriva vs Hijikata: no points for 2616s",
-    "live tennis scores: tennis Kecmanovic vs Cerundolo: no points for 1506s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 2616s",
-    "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 1331s",
-    "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 2616s",
-    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-01T11:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bellucci vs Tirante: no points for 2354s",
-    "live tennis scores: tennis Kopriva vs Hijikata: no points for 2354s",
-    "live tennis scores: tennis Kecmanovic vs Cerundolo: no points for 1244s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 2354s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 2354s",
-    "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 1070s",
-    "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 2354s",
-    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-01T11:19Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bellucci vs Tirante: no points for 1749s",
-    "live tennis scores: tennis Kopriva vs Hijikata: no points for 1749s",
-    "live tennis scores: tennis Kecmanovic vs Cerundolo: no points for 638s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 1749s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 1749s",
-    "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 464s",
-    "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 1749s"
-   ]
-  },
-  {
-   "at": "2026-11-01T09:47Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kobori vs Okamura: no points for 1695s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 1695s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 1695s"
-   ]
-  },
-  {
-   "at": "2026-11-01T09:19Z",
    "fixes": [],
    "problems": []
   }

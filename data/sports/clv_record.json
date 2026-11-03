@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 164,
-  "beat": 55,
-  "same": 60,
-  "worse": 49,
-  "avg_pts": 0.1
+  "n": 171,
+  "beat": 56,
+  "same": 64,
+  "worse": 51,
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 75,
-  "beat": 24,
-  "same": 33,
-  "worse": 18,
-  "avg_pts": 0.18
+  "n": 78,
+  "beat": 25,
+  "same": 34,
+  "worse": 19,
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
-   "n": 21,
+   "n": 22,
    "beat": 5,
-   "same": 9,
+   "same": 10,
    "worse": 7,
-   "avg_pts": -0.19
+   "avg_pts": -0.18
   },
   "lean": {
-   "n": 89,
+   "n": 93,
    "beat": 31,
-   "same": 27,
-   "worse": 31,
-   "avg_pts": 0.03
+   "same": 30,
+   "worse": 32,
+   "avg_pts": 0.02
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 41,
-   "beat": 12,
+   "n": 43,
+   "beat": 13,
    "same": 20,
-   "worse": 9,
-   "avg_pts": 0.09
+   "worse": 10,
+   "avg_pts": 0.06
   }
  },
  "by_sport": {
@@ -52,11 +52,18 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 21,
-   "beat": 10,
+   "n": 24,
+   "beat": 11,
    "same": 8,
-   "worse": 3,
-   "avg_pts": 0.65
+   "worse": 5,
+   "avg_pts": 0.48
+  },
+  "ncaab": {
+   "n": 1,
+   "beat": 0,
+   "same": 1,
+   "worse": 0,
+   "avg_pts": 0.0
   },
   "ncaaf": {
    "n": 46,
@@ -66,16 +73,16 @@
    "avg_pts": 0.13
   },
   "nfl": {
-   "n": 23,
+   "n": 24,
    "beat": 8,
-   "same": 10,
+   "same": 11,
    "worse": 5,
-   "avg_pts": 0.17
+   "avg_pts": 0.16
   },
   "nhl": {
-   "n": 60,
+   "n": 62,
    "beat": 18,
-   "same": 22,
+   "same": 24,
    "worse": 20,
    "avg_pts": -0.07
   }
@@ -2406,6 +2413,104 @@
    "pts": 1.1,
    "units": 1.0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 105,
+   "pts": 0.0,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Bears",
+   "market": "spread",
+   "line": 3.0,
+   "odds": 100,
+   "close": 100,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Golden Knights",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -118,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Knicks",
+   "market": "spread",
+   "line": -14.5,
+   "odds": -114,
+   "close": -110,
+   "pts": -0.9,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Heat",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 115,
+   "pts": -2.3,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Troy",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Suns",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 115,
+   "pts": 1.1,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }

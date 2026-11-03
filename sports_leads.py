@@ -911,6 +911,24 @@ def load():
         return []
 
 
+DOG_MAX = 350               # 11/3 daily check: a lead row only COUNTS at a price the engine could ever play - a dog to
+FAV_MIN = -150              # +350 (sports.DAILY_DOG_MAX, every dog study's band) and, on the three sharp-money tags (any
+SHARP_TAGS = ("money 10+ over tickets", "70%+ of tickets", "reverse line move to it")   # side, no study band of their
+#   own), a favorite no shorter than -150 (sports.MAX_FAV). Before this the tracker logged every side on the slate: East
+#   Texas A&M +5000 won on opening night 11/2 and put +50u on "money 10+ over tickets" in one game (+1.6% on 269 ->
+#   +17.8% on 311 - inside the band it is 115-142 +3.8%), and the +1000..+5000 opening-night road dogs made "college hoops
+#   road dog, games 1-3 (fade)" 4-58 -45u on a study whose cell was +100..+350 (inside the band: 3-5). A record the owner
+#   judges at 50 / 100 has to be the study's band, so log and grade skip the rest (the rows stay - never deleted).
+
+
+def counts(tag, odds):
+    """Does a lead row at this price count toward the tag's record (the engine's playable band)?"""
+    o = odds if odds is not None else 100
+    if o > DOG_MAX:
+        return False
+    return not (tag in SHARP_TAGS and o < FAV_MIN)
+
+
 def log(day_iso, cands, sports):
     """Add today's firing leads (once per game side per day - the first look the board run took)."""
     rows = load()
@@ -920,7 +938,7 @@ def log(day_iso, cands, sports):
         key = _key(day_iso, c.get("game_id"), c.get("side"), c.get("market"))
         if key in have:
             continue
-        tg = tags(c, sports)
+        tg = [t for t in tags(c, sports) if counts(t, c.get("odds"))]   # (11/3: only at a price the engine could play)
         if not tg:
             continue
         row = {"day": day_iso, "game_id": c["game_id"], "league": c.get("league"), "side": c.get("side"),
@@ -963,6 +981,8 @@ def grade(games):
         o = r.get("odds") or 100
         net = (o / 100 if o > 0 else 100 / -o) if won else -1.0
         for t in r["tags"]:
+            if not counts(t, o):                             # (11/3: a +5000 row never counts - the study's band)
+                continue
             x = rec.setdefault(t, {"w": 0, "l": 0, "units": 0.0})
             x["w" if won else "l"] += 1
             x["units"] = round(x["units"] + net, 3)
