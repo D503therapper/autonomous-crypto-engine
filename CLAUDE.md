@@ -126,6 +126,7 @@ every session:
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).
 - **Fable's findings go in without asking (the owner, 10/30: "You don't have to ask me anything. Whatever Fable finds that is best for the engine and me, then that's what we do")** - sizing included; tested, pushed, then reported in plain words.
+- **"Fable" means the Fable model** (the owner, 11/3: "Everything I told you to run I said use fable"): every study, sweep, audit or deep dive the owner asks Fable to run is launched as a subagent with model "fable" - never on the session's own model under Fable's name (10/26-11/3 ran on the wrong model and his Fable usage sat at 0%).
 - Once the owner OKs something, publish it without asking again. Show a preview for new visual changes.
 - Commit to main and to the `claude/...` branch; don't open a PR unless asked.
 - What the studies found (built, not built yet, dead ends): `SPORTS_FINDINGS.md` - read it first, add to it.
