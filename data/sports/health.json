@@ -1,31 +1,41 @@
 {
- "at": "2026-11-03T21:21Z",
- "fixes": [],
+ "at": "2026-11-03T21:37Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-11-02 Rafael Jodar) - started sports.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Papamichail vs Carle: no points for 1298s",
-  "live tennis scores: tennis Pigossi vs Grabher: no points for 1298s",
-  "live tennis points: none of 3 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Pigossi vs Grabher: no points for 2285s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (48s)",
-  "every finished pick graded",
+  "live watcher fresh (13s)",
   "scores route up (200)",
   "question box answers",
   "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 32 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T21:37Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Rafael Jodar) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Pigossi vs Grabher: no points for 2285s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-03T21:21Z",
    "fixes": [],
@@ -541,14 +551,6 @@
   {
    "at": "2026-11-02T07:23Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T05:50Z",
-   "fixes": [
-    "live watch 41391619509 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
