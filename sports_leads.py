@@ -86,6 +86,23 @@ def tags(c, sports):
     if lg == "ncaab" and c.get("ncaab_top_out_fav"):
         t.append("college hoops fav -101..-250, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -2
         #   weight on the favorite's read, sports.weigh_ncaab_top_out): -7.8% on 344 vs -4.0% - its live record
+    # 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (results/studies/fable_cbb_1103/; BUILT as weights in sports.py -
+    # dog_spots / ncaab_fable_spread_w): the live records of the moneyline sides. Judge each at 50.
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("ranked_road"):
+        t.append("college hoops top-25 team as a road dog, Nov-Dec (fade)")   # -31.1% on 104 (0 of 5 train, 1 of 3 held)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("vs_ranked_road"):
+        t.append("college hoops home dog vs a top-25 road team, Nov-Dec")   # +14.0% on 146 (3 of 5 / 3 of 3 held, open +30.9%)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and (c.get("ats_gap") or 0) >= sports.NCAAB_ATS_GAP:
+        t.append("college hoops hot-ATS dog, gap 3+ (fade)")   # the hot side as a dog -9.4% on 1,656 (1 of 5 / 0 of 3)
+    if not dog and lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and c.get("ats_gap") is not None \
+            and c["ats_gap"] <= -sports.NCAAB_ATS_GAP:
+        t.append("college hoops cold-ATS fav -101..-150, gap -3")   # +1.1% on 811 (3 of 5 / 2 of 3, the open +7.5%) vs -4%
+        #   for the band - a LEAD on the moneyline (only the spread side is a weight); the owner's 'slight favorites'
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and (c.get("reb_gap") or 0) >= sports.NCAAB_REB_GAP_BIG:
+        t.append("college hoops dog out-rebounding by 8+ a game")   # +10.0% on 397 (4 of 5 seasons up, the open +8.4%)
+    if not dog and lg == "ncaab" and -200 <= c.get("odds", 0) <= -101 and c.get("reb_gap") is not None \
+            and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
+        t.append("college hoops fav -101..-200 out-rebounded by 6+ a game (fade)")   # -17.9% on 368 at 8+ (0 of 5 up)
     if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and ncaab_newlook_dog(c):
         t.append("college hoops new-look dog (transfer-heavy), games 6-10")   # 11/3 DEEP study 5 (a LEAD, tracked
         #   only): a dog whose roster leans on strong D1 transfers (sports_ncaab_roster.tin_m 0.03+, the top third) in
@@ -747,6 +764,20 @@ def spread_tags(c, sports):
     if c.get("league") == "ncaab" and c.get("top_out"):
         t.append("college hoops spread side, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -0.03
         #   rank weight, sports.ncaab_top_out_spread_w): ATS -10.8% on 1,521 vs -4.4% (0 of 4 seasons at the base)
+    # 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (BUILT as rank weights, sports.ncaab_fable_spread_w): the live cover
+    # records of the three spread weights (judge at 50 each: the faded side covering 52%+ = its weight comes off), plus
+    # one tracker-only LEAD (the public name on Saturday - a hand-picked list, never a weight)
+    if c.get("league") == "ncaab" and c.get("ranked_road"):
+        t.append("college hoops top-25 team on the road, Nov-Dec (fade)")   # ATS -19.4% on 329 (7 of 8 seasons down)
+    if c.get("league") == "ncaab" and c.get("vs_ranked_road"):
+        t.append("college hoops home side vs a top-25 road team, Nov-Dec")   # ATS +10.3% on 329 (3 of 5 / 2 of 3)
+    if c.get("league") == "ncaab" and (c.get("ats_gap") or 0) >= sports.NCAAB_ATS_GAP:
+        t.append("college hoops hot-ATS side, gap 3+ (fade)")   # ATS -7.4% on 7,258 (0 of 5 / 0 of 3 up, z -6.6)
+    if c.get("league") == "ncaab" and c.get("reb_gap") is not None and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
+        t.append("college hoops spread side out-rebounded by 6+ a game (fade)")   # the favorite ATS -10.8% on 1,009 (5 of 5)
+    if c.get("league") == "ncaab" and public_saturday(c):
+        t.append("college hoops public name on a Saturday (fade)")   # ATS -7.6% on 2,046 (0 of 5 / 0 of 3; at home
+        #   -9.6%), the side across +0.2% - a hand-picked list of 30 names, a LEAD only (never a weight)
     if hoops_rested_vs_two(c):
         t.append("college hoops spread side on 4-5 nights rest vs a team on 2 (fade)")   # 11/3 college hoops (B) study 1
         #   (s6_followups.py c): home / road games, the side rested 4-5 nights vs a team that played 2 nights ago (the
@@ -754,6 +785,26 @@ def spread_tags(c, sports):
         #   ragged (rested 3 -7.7%, 6+ -3.8%), the moneyline doesn't carry it (the rested favorite -9.6% then +3.0% held
         #   out) and there are no spread opens for a 2nd check: a LEAD, tracked only, never a weight
     return t
+
+
+PUBLIC_NAMES = {"Duke", "Kentucky", "Kansas", "North Carolina", "UCLA", "Michigan St", "Indiana", "Syracuse", "Gonzaga",
+                "Arizona", "Louisville", "Villanova", "UConn", "Michigan", "Ohio St", "Purdue", "Alabama", "Auburn",
+                "Tennessee", "Houston", "Baylor", "Texas", "Florida", "LSU", "Memphis", "Georgetown", "Marquette",
+                "Illinois", "Iowa St", "Creighton"}   # 11/3 FABLE study 5: the 30 public names (a hand-picked list)
+
+
+def public_saturday(c):
+    """A college hoops spread side that is one of PUBLIC_NAMES playing on a Saturday (ET night) - a LEAD, tracked only."""
+    if c.get("league") != "ncaab":
+        return False
+    g = _game(c)
+    name = g.get(f"{c.get('side')}_name") or c.get("team") or ""
+    if name not in PUBLIC_NAMES:
+        return False
+    try:
+        return (_night(c.get("start") or g.get("start")) + 3) % 7 == 5
+    except (TypeError, ValueError):
+        return False
 
 
 HOOPS_RESTED = (4, 5)        # 11/3 college hoops (B) study 1: this side's nights since its last game

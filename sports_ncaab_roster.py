@@ -200,3 +200,58 @@ def tin_m(games, team, start):
         return None
     v = sum(pts * marg.get(ot, 0.0) / 10 for pid in roster for ot, pts in (pp.get(pid) or {}).items() if ot != team)
     return v / tp[team]
+
+
+# ---------------- 11/3 FABLE second opinion: rebounding from the box scores (BUILT as weights) ----------------
+REB_MIN_GAMES = 5            # a team's rebound margin counts after 5 box games (both teams' boxes on the same game)
+_REB = {}                    # season -> (mtime, {team: [(start, gid, margin)] oldest first})
+
+
+def team_rebounds(season):
+    """{team id: [(start, gid, rebound margin)]} this college hoops season - the team's rebounds minus the opponent's
+    in every game whose box holds BOTH teams (cached on the file's mtime)."""
+    path = os.path.join(DIR, f"ncaab_{season}.csv.gz")
+    try:
+        mt = os.path.getmtime(path)
+    except OSError:
+        return {}
+    hit = _REB.get(season)
+    if hit and hit[0] == mt:
+        return hit[1]
+    by = {}                                                  # gid -> {team: (start, rebounds)}
+    try:
+        with gzip.open(path, "rt", newline="") as f:
+            for r in csv.DictReader(f):
+                try:
+                    st = json.loads(r.get("stats") or "{}")
+                except ValueError:
+                    continue
+                d = by.setdefault(r["gid"], {})
+                s, reb = d.get(r["team"], (r["start"], 0.0))
+                d[r["team"]] = (s, reb + _num(st.get("rebounds")))
+    except (OSError, EOFError, ValueError):
+        return {}
+    out = {}
+    for gid, teams in by.items():
+        if len(teams) != 2:
+            continue
+        (ta, (sa, ra)), (tb, (sb, rb)) = teams.items()
+        out.setdefault(ta, []).append((sa, gid, ra - rb))
+        out.setdefault(tb, []).append((sb, gid, rb - ra))
+    out = {t: sorted(v) for t, v in out.items()}
+    _REB[season] = (mt, out)
+    return out
+
+
+def reb_margin(team, start):
+    """The team's average rebound margin a game this season before `start` (REB_MIN_GAMES+ box games), else None."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        rows = [m for s, _, m in (team_rebounds(season_of(start)).get(str(team)) or []) if s < start]
+    except Exception:                                        # noqa: BLE001
+        return None
+    if len(rows) < REB_MIN_GAMES:
+        return None
+    return round(sum(rows) / len(rows), 2)
