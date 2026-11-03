@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T17:36Z",
+ "updated": "2026-11-03T17:47Z",
  "games": [
   {
    "id": "ncaab:401906848",
@@ -7,8 +7,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tennessee",
-    "p": 0.893,
-    "tie": 0.019,
+    "p": 0.9,
+    "tie": 0.018,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -22,10 +22,10 @@
     "team": "Wofford",
     "opp": "Tennessee",
     "market": "spread",
-    "line": 24.5,
-    "odds": -105,
-    "p": 0.522,
-    "win_p": 0.042,
+    "line": 25.5,
+    "odds": -110,
+    "p": 0.524,
+    "win_p": 0.037,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -53,7 +53,7 @@
     "opp": "Avalanche",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
+    "odds": -238,
     "p": 0.709,
     "win_p": 0.496,
     "reasons": [
@@ -143,7 +143,7 @@
     "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
+    "odds": -250,
     "p": 0.679,
     "win_p": 0.461,
     "reasons": [
@@ -216,8 +216,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.409,
-    "tie": 0.296,
+    "p": 0.402,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -228,16 +228,15 @@
    "why": "on_board",
    "board": "play",
    "lean": {
-    "team": "Canadiens",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.624,
-    "win_p": 0.624,
+    "team": "Jets",
+    "opp": "Canadiens",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -170,
+    "p": 0.614,
+    "win_p": 0.395,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "opponent missing key players"
     ]
    }
   },
