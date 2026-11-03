@@ -9521,3 +9521,20 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-03 15:06 UTC] stocks/trend     equity $469.31 (-6.1%) 3 open  market DOWN
 [2026-11-03 15:06 UTC] stocks/hold_spy  equity $490.82 (-1.8%) 1 open  market DOWN
    social heat top: HYPE 29 (29/0/0), PENGU 24 (24/0/0), SOL 23 (21/0/2), PEPE 19 (19/0/0), BTC 16 (16/0/0)
+   dex screen: REJECT AERO@base liq $5,434,827 - is_mintable; top-10 holders 80%
+   dex screen: UNREACHABLE SP@ethereum liq $410,468 - honeypot.is unreachable
+   dex screen: REJECT CTM@ethereum liq $2,250,147 - goplus partial data: cannot_sell_all unknown; is_mintable
+   listing: kraken_pairs #KOR 'New Kraken listing (KOR)' -> ['KOR']
+   listing: KOR: kraken_pairs notice "New Kraken listing (KOR)" -> not on Crypto.com USD
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ADI@ethereum liq $2,974,998 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       f95425b7adfeb009785b8c5af6f50a1a650a9f27 -> main (cannot lock ref 'refs/heads/main': is at 6858f5451bbad6e37e180
+   dex screen: REJECT ZEC@solana liq $1,650,344,943 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $3,084,042 - top-10 holders 100%
+   dex screen: UNREACHABLE SP@ethereum liq $420,355 - honeypot.is unreachable
+   dex screen: PASS PEPE@ethereum liq $31,542,334
+   dex screen: REJECT CBBTC@ethereum liq $116,943 - pool age 1.9h < 6h
+   dex screen: REJECT FONE@solana liq $311,205 - lp holders unknown; rugcheck lp locked 93% < 95%
+   >> stocks/trend: SELL $141.89 of TSLA @ 400.24, P/L $+1.20 (stop hit (live check))
+   dex screen: UNREACHABLE SP@ethereum liq $417,488 - honeypot.is unreachable
