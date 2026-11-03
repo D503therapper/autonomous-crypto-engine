@@ -16537,11 +16537,13 @@ def test_cbb_1103_a_american_and_pacific_are_real_schools_cards_get_last_season_
     assert not sports.ncaab_big_home_fav({**sp_, "league": "nba"})
     c_sp = {**sp_, "game_id": "g1", "side": "home", "team": "H", "opp": "R", "dec": 1.91, "p": 0.56, "edge": 0.07,
             "edge_own": 0.07, "trap": False, "reasons": [], "w_p": None}
-    assert not [c for c in sports.viewer_leans([c_sp], set()) if c["game_id"] == "g1"]
+    # 11/3, the owner: "not one thing decides a pick" - the big home favorite is a WEIGHT on the spread rank, never a block
+    assert [c for c in sports.viewer_leans([c_sp], set()) if c["game_id"] == "g1"]
+    assert abs((sports.rank_p({**c_sp, "line": -11.5}) - sports.rank_p(c_sp)) - sports.NCAAB_BIG_HOME_FAV_W) < 1e-9
     keep_f = sports.ncaab_big_home_fav
-    sports.ncaab_big_home_fav = lambda c: False                         # (the guard is what keeps it off)
+    sports.ncaab_big_home_fav = lambda c: False
     try:
-        assert [c for c in sports.viewer_leans([c_sp], set()) if c["game_id"] == "g1"]
+        assert abs(sports.rank_p(c_sp) - sports.rank_p({**c_sp, "line": -11.5})) < 1e-9
     finally:
         sports.ncaab_big_home_fav = keep_f
     # (4) the early road dog: a weight on the dog score, never a gate

@@ -42,6 +42,7 @@ every session:
   W-L, units, ROI; sports_dashboard.unit_record) and 🟡 the LEANS record (the only picks without units, from 9/29 on).
   BY SPORT is unit plays only - W-L and units per sport (the owner, 10/6: "leans don't get a by sport"); leans live only in their own 🟡 Leans record. No units on them, so never the bankroll. Live plus money and tennis keep their own records. The -150 rule stays.
 - College hoops Locks early (11/3 study, the owner's open 10/16 question): no college hoops Lock until both teams have played 3 games, then half a unit through game 10 (sports.ncaab_early_lock). No college hoops Dog (opening-week upsets are already in the price - early dogs win less than their price says).
+- **Every study finding is a WEIGHT, never a gate or a block** (the owner, 11/3: "Remember, it's very important that these are weights ... not one thing decides a pick") - that holds for the 11/3 basketball edges too (the top scorer out, the efficiency slight-favorite filter, the ranked road team, the hot-ATS side, the glass, the NBA fast favorite / home after a trip, the big college home favorite on the spread): each moves the read or the rank inside STUDY_CAP / FAV_CAP; a pick only happens when the whole read clears the price.
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
