@@ -1,9 +1,9 @@
 {
- "at": "2026-11-03T05:21Z",
+ "at": "2026-11-03T05:23Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (124s)",
+  "live watcher fresh (218s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,14 +14,19 @@
   "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
+  "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 27 min ago",
+  "engine ran 28 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T05:23Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-03T05:21Z",
    "fixes": [],
@@ -491,19 +496,6 @@
     "live tennis scores: tennis Grabher vs Tubello: no points for 95s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-01T15:26Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Sonego vs Vallejo: no points for 251s",
-    "live tennis scores: tennis Grabher vs Tubello: no points for 251s",
-    "live tennis scores: tennis Charaeva vs Akugue: no points for 251s",
-    "live tennis scores: tennis Van Poppel vs Suvirdjonkova: no points for 251s",
-    "studies last ran 10h ago - restarted"
    ]
   }
  ]
