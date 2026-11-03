@@ -1,83 +1,7 @@
 {
- "fetched": "2026-11-03T16:00Z",
+ "fetched": "2026-11-03T18:52Z",
  "src": "bovada",
  "lines": [
-  {
-   "a": "Andrey Rublev",
-   "b": "Tomas Martin Etcheverry",
-   "start": "2026-11-03T10:00Z",
-   "a_ml": -250,
-   "b_ml": 204,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
-  {
-   "a": "Arthur Rinderknech",
-   "b": "Francisco Cerundolo",
-   "start": "2026-11-03T10:00Z",
-   "a_ml": 163,
-   "b_ml": -195,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
-  {
-   "a": "Quentin Halys",
-   "b": "Arthur Fery",
-   "start": "2026-11-03T10:00Z",
-   "a_ml": -159,
-   "b_ml": 134,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
-  {
-   "a": "Alycia Parks",
-   "b": "Alexandra Eala",
-   "start": "2026-11-03T10:30Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": 5.0,
-   "b_hcp": -5.0,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": 400,
-   "b_ml": -550
-  },
-  {
-   "a": "Stefanos Tsitsipas",
-   "b": "Learner Tien",
-   "start": "2026-11-03T11:10Z",
-   "a_ml": 115,
-   "b_ml": -140,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
-  {
-   "a": "Elena Pridankina",
-   "b": "Paula Badosa",
-   "start": "2026-11-03T11:40Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": 4.5,
-   "b_hcp": -4.5,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": 260,
-   "b_ml": -325
-  },
-  {
-   "a": "Alejandro Davidovich Fokina",
-   "b": "Moise Kouame",
-   "start": "2026-11-03T12:00Z",
-   "a_ml": -295,
-   "b_ml": 235,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
   {
    "a": "Brandon Nakashima",
    "b": "Matteo Berrettini",
@@ -170,19 +94,6 @@
    "b_ml": -155
   },
   {
-   "a": "Sahaja Yamalapalli",
-   "b": "Simona Waltert",
-   "start": "2026-11-03T15:55Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": 6.5,
-   "b_hcp": -6.5,
-   "a_sp": -130,
-   "b_sp": 100,
-   "a_ml": 600,
-   "b_ml": -950
-  },
-  {
    "a": "Benjamin Bonzi",
    "b": "Taylor Fritz",
    "start": "2026-11-03T16:00Z",
@@ -196,17 +107,30 @@
    "b_ml": -425
   },
   {
-   "a": "Jan-Lennard Struff",
-   "b": "Arthur Gea",
-   "start": "2026-11-03T17:10Z",
+   "a": "Mei Yamaguchi",
+   "b": "Zhibek Kulambayeva",
+   "start": "2026-11-03T16:50Z",
    "src": "bovada",
-   "tour": "atp",
-   "a_hcp": 0.5,
-   "b_hcp": -0.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": 100,
-   "b_ml": -120
+   "tour": "wta",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -130,
+   "b_sp": 100,
+   "a_ml": 350,
+   "b_ml": -450
+  },
+  {
+   "a": "Sahaja Yamalapalli",
+   "b": "Simona Waltert",
+   "start": "2026-11-03T16:55Z",
+   "src": "bovada",
+   "tour": "wta",
+   "a_hcp": 5.5,
+   "b_hcp": -5.5,
+   "a_sp": -135,
+   "b_sp": 105,
+   "a_ml": 1400,
+   "b_ml": -5000
   },
   {
    "a": "Ben Shelton",
@@ -214,12 +138,25 @@
    "start": "2026-11-03T18:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -285,
-   "b_ml": 225
+   "a_hcp": -4.5,
+   "b_hcp": 4.5,
+   "a_sp": -310,
+   "b_sp": 225,
+   "a_ml": -2000,
+   "b_ml": 1000
+  },
+  {
+   "a": "Jan-Lennard Struff",
+   "b": "Arthur Gea",
+   "start": "2026-11-03T18:20Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 1.5,
+   "b_hcp": -1.5,
+   "a_sp": -115,
+   "b_sp": -115,
+   "a_ml": 100,
+   "b_ml": -120
   },
   {
    "a": "Casper Ruud",
@@ -268,8 +205,8 @@
    "tour": "wta",
    "a_hcp": -4.5,
    "b_hcp": 4.5,
-   "a_sp": -125,
-   "b_sp": -105,
+   "a_sp": -120,
+   "b_sp": -110,
    "a_ml": -300,
    "b_ml": 240
   },
@@ -279,12 +216,12 @@
    "start": "2026-11-04T07:30Z",
    "src": "bovada",
    "tour": "wta",
-   "a_hcp": 2.5,
-   "b_hcp": -2.5,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": 140,
-   "b_ml": -170
+   "a_hcp": 3.0,
+   "b_hcp": -3.0,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 155,
+   "b_ml": -185
   },
   {
    "a": "Janice Tjen",
@@ -294,8 +231,8 @@
    "tour": "wta",
    "a_hcp": -3.5,
    "b_hcp": 3.5,
-   "a_sp": -120,
-   "b_sp": -110,
+   "a_sp": -135,
+   "b_sp": 105,
    "a_ml": -240,
    "b_ml": 195
   },
@@ -324,19 +261,6 @@
    "b_sp": -115,
    "a_ml": -250,
    "b_ml": 200
-  },
-  {
-   "a": "Arthur Fils",
-   "b": "Tomas Machac",
-   "start": "2026-11-04T10:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -210,
-   "b_ml": 170
   },
   {
    "a": "Ignacio Buse",
@@ -378,30 +302,121 @@
    "b_ml": -150
   },
   {
-   "a": "Tomas Martin Etcheverry",
-   "b": "Alex de Minaur",
-   "start": "2026-11-04T10:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": 3.5,
-   "b_hcp": -3.5,
-   "a_sp": 105,
-   "b_sp": -135,
-   "a_ml": 290,
-   "b_ml": -375
-  },
-  {
    "a": "Maya Joint",
    "b": "Maria Sakkari",
    "start": "2026-11-04T10:30Z",
    "src": "bovada",
    "tour": "wta",
+   "a_hcp": 3.0,
+   "b_hcp": -3.0,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 155,
+   "b_ml": -185
+  },
+  {
+   "a": "Luca van Assche",
+   "b": "Learner Tien",
+   "start": "2026-11-04T11:10Z",
+   "src": "bovada",
+   "tour": "atp",
    "a_hcp": 3.5,
    "b_hcp": -3.5,
    "a_sp": -110,
    "b_sp": -120,
-   "a_ml": 175,
-   "b_ml": -215
+   "a_ml": 200,
+   "b_ml": -250
+  },
+  {
+   "a": "Tommy Paul",
+   "b": "Daniel Merida Aguilar",
+   "start": "2026-11-04T11:30Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -4.5,
+   "b_hcp": 4.5,
+   "a_sp": 110,
+   "b_sp": -145,
+   "a_ml": -300,
+   "b_ml": 240
+  },
+  {
+   "a": "Tomas Martin Etcheverry",
+   "b": "Alex de Minaur",
+   "start": "2026-11-04T12:40Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 4.5,
+   "b_hcp": -4.5,
+   "a_sp": -145,
+   "b_sp": 110,
+   "a_ml": 325,
+   "b_ml": -425
+  },
+  {
+   "a": "Novak Djokovic",
+   "b": "Rinky Hijikata",
+   "start": "2026-11-04T13:40Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -4.5,
+   "b_hcp": 4.5,
+   "a_sp": 100,
+   "b_sp": -130,
+   "a_ml": -450,
+   "b_ml": 350
+  },
+  {
+   "a": "Nuno Borges",
+   "b": "Karen Khachanov",
+   "start": "2026-11-04T14:30Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": 100,
+   "b_sp": -130,
+   "a_ml": 165,
+   "b_ml": -200
+  },
+  {
+   "a": "Matteo Berrettini",
+   "b": "Ugo Humbert",
+   "start": "2026-11-04T15:40Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 0.5,
+   "b_hcp": -0.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 105,
+   "b_ml": -125
+  },
+  {
+   "a": "Arthur Fils",
+   "b": "Tomas Machac",
+   "start": "2026-11-04T19:30Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -185,
+   "b_ml": 155
+  },
+  {
+   "a": "Elena Pridankina",
+   "b": "Alexandra Shubladze",
+   "start": "2026-11-05T06:00Z",
+   "src": "bovada",
+   "tour": "wta",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -115,
+   "b_sp": -115,
+   "a_ml": 155,
+   "b_ml": -185
   },
   {
    "a": "Sorana Cirstea",
@@ -415,6 +430,19 @@
    "b_sp": 100,
    "a_ml": -325,
    "b_ml": 260
+  },
+  {
+   "a": "Tereza Valentova",
+   "b": "Alexandra Eala",
+   "start": "2026-11-05T06:00Z",
+   "src": "bovada",
+   "tour": "wta",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": 145,
+   "b_ml": -175
   }
  ]
 }
