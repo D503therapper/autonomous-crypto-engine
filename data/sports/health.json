@@ -1,6 +1,8 @@
 {
- "at": "2026-11-03T16:44Z",
+ "at": "2026-11-03T16:46Z",
  "fixes": [
+  "live watch 41669511887 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running",
   "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
  ],
  "problems": [
@@ -10,7 +12,6 @@
   "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (239s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 7 live matches",
@@ -22,12 +23,26 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "simulator ran 0h ago",
-  "engine ran 8 min ago",
+  "engine ran 10 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T16:46Z",
+   "fixes": [
+    "live watch 41669511887 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-03T16:44Z",
    "fixes": [
@@ -506,11 +521,6 @@
   },
   {
    "at": "2026-11-02T04:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T02:42Z",
    "fixes": [],
    "problems": []
   }
