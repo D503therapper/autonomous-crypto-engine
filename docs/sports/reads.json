@@ -1,34 +1,29 @@
 {
- "updated": "2026-11-03T22:18Z",
+ "updated": "2026-11-03T22:50Z",
  "games": [
   {
    "id": "ncaab:401906848",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Tennessee",
-    "p": 0.9,
-    "tie": 0.018,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-03T23:00Z",
    "away": "Wofford",
    "home": "Tennessee",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Wofford",
     "opp": "Tennessee",
     "market": "spread",
     "line": 25.5,
-    "odds": -115,
+    "odds": -108,
     "p": 0.524,
-    "win_p": 0.037,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "win_p": 0.524,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -127,7 +122,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.37,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -144,8 +139,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -250,
-    "p": 0.679,
-    "win_p": 0.461,
+    "p": 0.673,
+    "win_p": 0.455,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -453,8 +448,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Boston College",
-    "p": 0.875,
-    "tie": 0.021,
+    "p": 0.871,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -471,7 +466,7 @@
     "line": 20.5,
     "odds": -115,
     "p": 0.529,
-    "win_p": 0.054,
+    "win_p": 0.057,
     "reasons": []
    }
   },
@@ -955,7 +950,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.503,
+    "p": 0.51,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -971,9 +966,9 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team",
      "opponent drama: trade drama"
@@ -1017,7 +1012,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.511,
+    "p": 0.509,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1033,9 +1028,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.534,
-    "win_p": 0.534,
+    "odds": -124,
+    "p": 0.532,
+    "win_p": 0.532,
     "reasons": [
      "the stronger team"
     ]
@@ -1108,8 +1103,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.762,
-    "tie": 0.028,
+    "p": 0.7,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1123,10 +1118,10 @@
     "team": "Celtics",
     "opp": "Bucks",
     "market": "spread",
-    "line": -14.5,
-    "odds": -116,
-    "p": 0.507,
-    "win_p": 0.874,
+    "line": -11.5,
+    "odds": -106,
+    "p": 0.504,
+    "win_p": 0.804,
     "reasons": [
      "the stronger team"
     ]
@@ -1138,7 +1133,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.722,
+    "p": 0.721,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1156,7 +1151,7 @@
     "line": -12.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.83,
+    "win_p": 0.829,
     "reasons": [
      "the stronger team"
     ]
@@ -1228,7 +1223,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.526,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1244,9 +1239,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -147,
+    "p": 0.571,
+    "win_p": 0.571,
     "reasons": [
      "the stronger team"
     ]
@@ -1258,7 +1253,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.374,
+    "p": 0.37,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1275,8 +1270,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.671,
-    "win_p": 0.453,
+    "p": 0.679,
+    "win_p": 0.461,
     "reasons": []
    }
   },
@@ -1286,7 +1281,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.52,
+    "p": 0.497,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1295,16 +1290,16 @@
    "start": "2026-11-05T01:00Z",
    "away": "Cavaliers",
    "home": "Thunder",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Thunder",
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -138,
-    "p": 0.557,
-    "win_p": 0.557,
+    "odds": -120,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
      "the stronger team"
     ]
@@ -1346,7 +1341,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.638,
+    "p": 0.632,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1355,16 +1350,16 @@
    "start": "2026-11-05T01:30Z",
    "away": "Timberwolves",
    "home": "Rockets",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Rockets",
     "opp": "Timberwolves",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.726,
+    "market": "ml",
+    "line": null,
+    "odds": -297,
+    "p": 0.718,
+    "win_p": 0.718,
     "reasons": [
      "the stronger team"
     ]
@@ -1437,8 +1432,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.719,
-    "tie": 0.03,
+    "p": 0.711,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1455,7 +1450,7 @@
     "line": -11.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.827,
+    "win_p": 0.818,
     "reasons": [
      "the stronger team"
     ]
