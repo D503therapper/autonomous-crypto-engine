@@ -11121,3 +11121,33 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-03 20:05 UTC] stocks/trend     equity $466.99 (-6.6%) 3 open  market DOWN
 [2026-11-03 20:05 UTC] stocks/hold_spy  equity $491.17 (-1.8%) 1 open  market DOWN
    social heat top: PENGU 32 (32/0/0), PONS 29 (16/0/13), HYPE 21 (21/0/0), NEAR 19 (19/0/0), SOL 19 (19/0/0)
+   dex screen: REJECT CBBTC@base liq $3,042,059 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: REJECT PYUSD@ethereum liq $100,209,786 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $389,311 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $390,984 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT EDGE@solana liq $652,476,480 - top-10 holders 100%
+   dex screen: UNREACHABLE SP@ethereum liq $416,901 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT SPCX@solana liq $2,652,704 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $383,283 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT WORTH@base liq $98,631 - liquidity $98,631 < $100,000
+   dex screen: REJECT DRV@base liq $1,115,386 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT DRV@solana liq $391,822,798 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DRV@solana liq $382,405,515 - top-10 holders 100%
+   dex screen: REJECT GTA6@solana liq $135,492 - lp holders unknown; rugcheck lp locked 39% < 95%
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $379,721 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SP@ethereum liq $423,078 - honeypot.is unreachable
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $383,083 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT IMD@ethereum liq $1,383,696 - goplus partial data: cannot_sell_all unknown; top-10 holders 64%
+   dex screen: PASS CYBERLEEK@solana liq $446,789
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $402,686 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,683 pools (solana 1,882 / base 443 / ethereum 358), refresh cycle 136s (hot 130s), 2465 calls (108 feed, 429s 0, failed 1), 70,678 refreshed (10250 no pair), +79 added / -77 dropped (dead 73, stale 4, cap 0), movers 1 + warming 0 -> queued 0, screened 6 (passed 0), bought 0
+[2026-11-03 21:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/mover     equity $241.07 (-51.8%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/social_heat equity $362.03 (-27.6%) 3 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/breakout10 equity $397.46 (-20.5%) 1 open  market UP
+[2026-11-03 21:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-03 21:05 UTC] crypto/hold_btc  equity $466.34 (-6.7%) 1 open  market DOWN
+   social heat top: AERO 35 (29/0/5), PENGU 30 (16/0/14), PONS 27 (16/0/11), HYPE 24 (24/0/0), FET 21 (21/0/0)
