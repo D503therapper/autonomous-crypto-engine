@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T02:46Z",
+ "updated": "2026-11-03T02:47Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -702,7 +702,7 @@
    "home": "Bruins",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Golden Knights",
@@ -715,7 +715,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1415,8 +1415,8 @@
    "away": "Kent State",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1520,8 +1520,8 @@
    "away": "NC Central",
    "home": "Georgia",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2971,8 +2971,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Golden Knights",
-    "p": 0.356,
+    "team": "Penguins",
+    "p": 0.362,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2981,7 +2981,7 @@
    "start": "2026-11-04T00:00Z",
    "away": "Golden Knights",
    "home": "Penguins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Golden Knights",
@@ -2989,8 +2989,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -265,
-    "p": 0.725,
-    "win_p": 0.513,
+    "p": 0.693,
+    "win_p": 0.476,
     "reasons": [
      "the stronger team"
     ]
