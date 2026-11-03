@@ -29243,6 +29243,7 @@
      "us:road3in6"
     ],
     "dec": 2.05,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -29282,6 +29283,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1",
+     "h": "0,0,1"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -29327,10 +29332,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 2 @ Sharks 1",
     "season_games": null,
+    "settled": "2026-11-03T04:40Z",
     "side": "away",
     "start": "2026-11-03T02:00Z",
     "stype": "2",
@@ -29347,12 +29354,14 @@
    }
   ],
   "p_hit": 0.4718,
-  "pnl": 0.0,
+  "pnl": 105.0,
   "posted": "2026-11-02T16:00Z",
   "round": 1,
+  "settled": "2026-11-03T04:40Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 100,
@@ -29402,6 +29411,7 @@
      "us:west1000"
     ],
     "dec": 2.0,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -29451,6 +29461,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,6,7,14",
+     "h": "0,9,0,8"
+    },
     "form_state": [
      6.0,
      2,
@@ -29505,10 +29519,12 @@
      "opponent the more banged-up side: 1 regulars out to 0 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Bears 34 @ Seahawks 17",
     "season_games": null,
+    "settled": "2026-11-03T04:34Z",
     "side": "away",
     "start": "2026-11-03T01:15Z",
     "stype": "2",
@@ -29524,12 +29540,14 @@
    }
   ],
   "p_hit": 0.5098,
-  "pnl": 0.0,
+  "pnl": 100.0,
   "posted": "2026-11-02T16:00Z",
   "round": 1,
+  "settled": "2026-11-03T04:34Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
