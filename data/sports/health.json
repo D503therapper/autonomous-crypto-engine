@@ -1,30 +1,52 @@
 {
- "at": "2026-11-03T15:04Z",
+ "at": "2026-11-03T16:36Z",
  "fixes": [
-  "live board 7 min stale with games on - sports-live.yml already running"
+  "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - started sports.yml",
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
-  "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
+  "live tennis scores: tennis Fritz vs Bonzi: no points for 70s",
+  "live tennis scores: tennis Zarazua vs Scott: no points for 1717s",
+  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1826s",
+  "live tennis scores: tennis Burillo vs Kalieva: no points for 1608s",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "every finished pick graded",
+  "live watcher fresh (59s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 8 live matches",
+  "live tennis points + server: 4 of 7 live matches",
+  "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 5 fresh (betrivers 5)",
-  "all 1 backup sources answering",
+  "tennis live prices: 5 live lines, 4 fresh (bovada 4)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 65 min ago",
+  "engine ran -0 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T16:36Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - started sports.yml",
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Fritz vs Bonzi: no points for 70s",
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1717s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1826s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1608s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-03T15:04Z",
    "fixes": [
@@ -472,13 +494,6 @@
    "at": "2026-11-02T01:03Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-01T23:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }
