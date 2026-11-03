@@ -9689,6 +9689,127 @@
  },
  {
   "date": "2026-11-02",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892632",
+  "team": "Flames",
+  "opp": "Sharks",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 105,
+  "posted": "2026-11-02T16:00Z",
+  "price_says": 0.488,
+  "win_p": 0.4717561021762918,
+  "own_read": 0.532,
+  "weighed": null,
+  "dog_p": 0.5317,
+  "edge_own": -0.03289999053860182,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "even:1",
+   "h2h:0",
+   "G_cold:2",
+   "w_public:135",
+   "f_last:1",
+   "f_site:1",
+   "f_pts:0",
+   "f_last5:0",
+   "f_last5:2",
+   "f_theirL:3",
+   "risk:4",
+   "bottom_so:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Connor Zary (C)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 105,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "2-1",
+  "margin": 1.0,
+  "pnl_units": 2.1
+ },
+ {
+  "date": "2026-11-02",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873036",
+  "team": "Bears",
+  "opp": "Seahawks",
+  "home": false,
+  "market": "spread",
+  "line": 3.0,
+  "odds": 100,
+  "posted": "2026-11-02T16:00Z",
+  "price_says": 0.5,
+  "win_p": 0.5097643386925199,
+  "own_read": 0.51,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": null,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent missing key players",
+   "better QB play lately",
+   "coming off a bye",
+   "opponent missing key players: WR Rashid Shaheed (their read -3)",
+   "opponent the more banged-up side: 1 regulars out to 0 for us"
+  ],
+  "angles": {
+   "east_west": true,
+   "fades": [
+    "ice cold"
+   ],
+   "go4_gap": 0.1084,
+   "last_margin": 6.0,
+   "last_pts": 30.0,
+   "mnf": true,
+   "neutral": false,
+   "record": [
+    5,
+    2
+   ],
+   "win_pct": 0.714,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Kyle Monangai (RB)"
+  ],
+  "theirs_out": [
+   "Rashid Shaheed (WR)",
+   "Charles Cross (OT)",
+   "Velus Jones Jr. (RB)",
+   "Uchenna Nwosu (LB)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 100,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "34-17",
+  "margin": 17.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-11-02",
   "kind": "lean",
   "lean": true,
   "tier": "lean",

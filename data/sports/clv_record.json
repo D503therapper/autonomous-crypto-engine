@@ -1,30 +1,30 @@
 {
  "all": {
-  "n": 167,
+  "n": 169,
   "beat": 55,
-  "same": 62,
+  "same": 64,
   "worse": 50,
-  "avg_pts": 0.1
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 75,
+  "n": 76,
   "beat": 24,
-  "same": 33,
+  "same": 34,
   "worse": 18,
   "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
-   "n": 21,
+   "n": 22,
    "beat": 5,
-   "same": 9,
+   "same": 10,
    "worse": 7,
-   "avg_pts": -0.19
+   "avg_pts": -0.18
   },
   "lean": {
-   "n": 92,
+   "n": 93,
    "beat": 31,
-   "same": 29,
+   "same": 30,
    "worse": 32,
    "avg_pts": 0.02
   },
@@ -73,16 +73,16 @@
    "avg_pts": 0.13
   },
   "nfl": {
-   "n": 23,
+   "n": 24,
    "beat": 8,
-   "same": 10,
+   "same": 11,
    "worse": 5,
-   "avg_pts": 0.17
+   "avg_pts": 0.16
   },
   "nhl": {
-   "n": 61,
+   "n": 62,
    "beat": 18,
-   "same": 23,
+   "same": 24,
    "worse": 20,
    "avg_pts": -0.07
   }
@@ -2412,6 +2412,34 @@
    "close": 136,
    "pts": 1.1,
    "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 105,
+   "pts": 0.0,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Bears",
+   "market": "spread",
+   "line": 3.0,
+   "odds": 100,
+   "close": 100,
+   "pts": 0.0,
+   "units": 0,
    "result": "won"
   },
   {
