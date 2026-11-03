@@ -53,7 +53,11 @@ def tags(c, sports):
             t.append({"star_back": "NBA fav, top-5 man back (fade)", "last_ot": "NBA fav off an OT game (fade)",
                       "own_top2_out": "NBA fav missing a top-2 man (fade)", "opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)",
                       "more_rest": "NBA fav 2+ more days rest (fade)", "off_blowout": "NBA fav off a 20+ win",
-                      "home_dog_mid": "NBA fav at a home dog, games 31-60"}[k])
+                      "home_dog_mid": "NBA fav at a home dog, games 31-60",
+                      "faster": "NBA fav 4+ possessions faster than the dog (fade)",          # 11/3 FABLE NBA deep
+                      "home_after_trip": "NBA fav, first home game after a 4+ trip (fade)"}[k])   # dive (weights)
+    if lg == "nba" and dog and nba_fast_dog(c):             # 11/3 FABLE NBA deep dive (a LEAD, never a weight)
+        t.append("NBA dog 4+ possessions faster than the favorite (fade)")
     if lg == "nba" and not dog and -150 <= c.get("odds", 0) <= -101 and mo.get("rest") is not None \
             and mo.get("opp_rest") is not None and mo["rest"] <= 1 and mo["opp_rest"] <= 1:
         t.append("NBA fav -101..-150, both teams on a b2b")   # 10/30 NBA favorite rest / travel study: the ONE cell of 36
@@ -86,6 +90,23 @@ def tags(c, sports):
     if lg == "ncaab" and c.get("ncaab_top_out_fav"):
         t.append("college hoops fav -101..-250, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -2
         #   weight on the favorite's read, sports.weigh_ncaab_top_out): -7.8% on 344 vs -4.0% - its live record
+    # 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (results/studies/fable_cbb_1103/; BUILT as weights in sports.py -
+    # dog_spots / ncaab_fable_spread_w): the live records of the moneyline sides. Judge each at 50.
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("ranked_road"):
+        t.append("college hoops top-25 team as a road dog, Nov-Dec (fade)")   # -31.1% on 104 (0 of 5 train, 1 of 3 held)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("vs_ranked_road"):
+        t.append("college hoops home dog vs a top-25 road team, Nov-Dec")   # +14.0% on 146 (3 of 5 / 3 of 3 held, open +30.9%)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and (c.get("ats_gap") or 0) >= sports.NCAAB_ATS_GAP:
+        t.append("college hoops hot-ATS dog, gap 3+ (fade)")   # the hot side as a dog -9.4% on 1,656 (1 of 5 / 0 of 3)
+    if not dog and lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and c.get("ats_gap") is not None \
+            and c["ats_gap"] <= -sports.NCAAB_ATS_GAP:
+        t.append("college hoops cold-ATS fav -101..-150, gap -3")   # +1.1% on 811 (3 of 5 / 2 of 3, the open +7.5%) vs -4%
+        #   for the band - a LEAD on the moneyline (only the spread side is a weight); the owner's 'slight favorites'
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and (c.get("reb_gap") or 0) >= sports.NCAAB_REB_GAP_BIG:
+        t.append("college hoops dog out-rebounding by 8+ a game")   # +10.0% on 397 (4 of 5 seasons up, the open +8.4%)
+    if not dog and lg == "ncaab" and -200 <= c.get("odds", 0) <= -101 and c.get("reb_gap") is not None \
+            and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
+        t.append("college hoops fav -101..-200 out-rebounded by 6+ a game (fade)")   # -17.9% on 368 at 8+ (0 of 5 up)
     if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and ncaab_newlook_dog(c):
         t.append("college hoops new-look dog (transfer-heavy), games 6-10")   # 11/3 DEEP study 5 (a LEAD, tracked
         #   only): a dog whose roster leans on strong D1 transfers (sports_ncaab_roster.tin_m 0.03+, the top third) in
@@ -140,6 +161,12 @@ def tags(c, sports):
         #                                                      edge_own IS the market, so the old test never fired)
         t.append("college dog, engine 10+ over the books")   # the owner, 10/16 (Tulane): "lay off" - but keep its live
         #                                                      score (the posted / pulled ones went 0-6 through 10/16)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 150 and c.get("eff_p") is not None \
+            and c.get("p_market") is not None and c["eff_p"] - c["p_market"] >= 0.03:
+        t.append("college hoops short dog the efficiency read is 3+ over")   # 11/3 DEEP s_short_dog.py: +3.9% on 2,687
+        #   at the close 2018-25 (train +2.6%, 4 of 5 up; held out +6.0%, 3 of 3) vs -2.8% for every short dog and -5.2%
+        #   when the read is against it - but z 1.8, no dose (edge 3-6 +6.9%, 6-10 +2.5%, 10+ +1.3%), the open +0.5%,
+        #   one of 110 hunt cells: a LEAD, tracked only (judge at 100)
     if dog:
         try:
             sc = round(sports.dog_score(c), 2)
@@ -279,6 +306,10 @@ def tags(c, sports):
             t.append("college hoops small fav away from home, Nov-Dec (fade)")   # sports.weigh_ncaab_away_fav): its live
             #   record - -11.6% on 1,097 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the fade
             #   side winning 55%+ against a -125 average price = the weight comes off
+        if c.get("ncaab_eff_fav"):                           # 11/3 DEEP college hoops efficiency model (BUILT as a -3
+            t.append("college hoops slight fav the efficiency read is 3+ under (fade)")   # weight, sports.weigh_ncaab_eff_fav):
+            #   its live record - -9.6% on 2,338 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the
+            #   faded favorites running at or above -4.5% (every slight favorite's base) = the weight comes off
         if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_rust(c):
             t.append("college hoops small fav off 7+ days vs a team in rhythm (fade)")   # 10/31 daily study 10: -17.9%
             #   on 167 train (2018-21, 1 of 4 up) / -12.3% on 243 held out (2022-25, 3 of 4 down) outside December vs
@@ -737,6 +768,20 @@ def spread_tags(c, sports):
     if c.get("league") == "ncaab" and c.get("top_out"):
         t.append("college hoops spread side, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -0.03
         #   rank weight, sports.ncaab_top_out_spread_w): ATS -10.8% on 1,521 vs -4.4% (0 of 4 seasons at the base)
+    # 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (BUILT as rank weights, sports.ncaab_fable_spread_w): the live cover
+    # records of the three spread weights (judge at 50 each: the faded side covering 52%+ = its weight comes off), plus
+    # one tracker-only LEAD (the public name on Saturday - a hand-picked list, never a weight)
+    if c.get("league") == "ncaab" and c.get("ranked_road"):
+        t.append("college hoops top-25 team on the road, Nov-Dec (fade)")   # ATS -19.4% on 329 (7 of 8 seasons down)
+    if c.get("league") == "ncaab" and c.get("vs_ranked_road"):
+        t.append("college hoops home side vs a top-25 road team, Nov-Dec")   # ATS +10.3% on 329 (3 of 5 / 2 of 3)
+    if c.get("league") == "ncaab" and (c.get("ats_gap") or 0) >= sports.NCAAB_ATS_GAP:
+        t.append("college hoops hot-ATS side, gap 3+ (fade)")   # ATS -7.4% on 7,258 (0 of 5 / 0 of 3 up, z -6.6)
+    if c.get("league") == "ncaab" and c.get("reb_gap") is not None and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
+        t.append("college hoops spread side out-rebounded by 6+ a game (fade)")   # the favorite ATS -10.8% on 1,009 (5 of 5)
+    if c.get("league") == "ncaab" and public_saturday(c):
+        t.append("college hoops public name on a Saturday (fade)")   # ATS -7.6% on 2,046 (0 of 5 / 0 of 3; at home
+        #   -9.6%), the side across +0.2% - a hand-picked list of 30 names, a LEAD only (never a weight)
     if hoops_rested_vs_two(c):
         t.append("college hoops spread side on 4-5 nights rest vs a team on 2 (fade)")   # 11/3 college hoops (B) study 1
         #   (s6_followups.py c): home / road games, the side rested 4-5 nights vs a team that played 2 nights ago (the
@@ -744,6 +789,26 @@ def spread_tags(c, sports):
         #   ragged (rested 3 -7.7%, 6+ -3.8%), the moneyline doesn't carry it (the rested favorite -9.6% then +3.0% held
         #   out) and there are no spread opens for a 2nd check: a LEAD, tracked only, never a weight
     return t
+
+
+PUBLIC_NAMES = {"Duke", "Kentucky", "Kansas", "North Carolina", "UCLA", "Michigan St", "Indiana", "Syracuse", "Gonzaga",
+                "Arizona", "Louisville", "Villanova", "UConn", "Michigan", "Ohio St", "Purdue", "Alabama", "Auburn",
+                "Tennessee", "Houston", "Baylor", "Texas", "Florida", "LSU", "Memphis", "Georgetown", "Marquette",
+                "Illinois", "Iowa St", "Creighton"}   # 11/3 FABLE study 5: the 30 public names (a hand-picked list)
+
+
+def public_saturday(c):
+    """A college hoops spread side that is one of PUBLIC_NAMES playing on a Saturday (ET night) - a LEAD, tracked only."""
+    if c.get("league") != "ncaab":
+        return False
+    g = _game(c)
+    name = g.get(f"{c.get('side')}_name") or c.get("team") or ""
+    if name not in PUBLIC_NAMES:
+        return False
+    try:
+        return (_night(c.get("start") or g.get("start")) + 3) % 7 == 5
+    except (TypeError, ValueError):
+        return False
 
 
 HOOPS_RESTED = (4, 5)        # 11/3 college hoops (B) study 1: this side's nights since its last game
@@ -798,6 +863,18 @@ def nba_rest_stack(c):
         return now - _night(rows[-1]["start"]) >= NBA_REST_STACK_NIGHTS and now - _night(orows[-1]["start"]) == 1
     except (TypeError, ValueError):
         return False
+
+
+def nba_fast_dog(c):
+    """11/3 FABLE NBA deep dive (a LEAD, tracked only - never a weight): an NBA moneyline dog +100..+350 that plays
+    sports.NBA_PACE_GAP+ possessions a game faster than the favorite over the last 10 (dog_more pace / opp_pace from
+    sports_nba_roster.pace_last). -9.0% at the close on 970 but flat in train (2 of 5 up) - the favorite's side is the
+    weight; this one is judged live."""
+    import sports
+    mo = c.get("dog_more") or {}
+    if c.get("league") != "nba" or c.get("market") != "ml" or not (100 <= c.get("odds", 0) <= 350):
+        return False
+    return mo.get("pace") is not None and mo.get("opp_pace") is not None and mo["pace"] - mo["opp_pace"] >= sports.NBA_PACE_GAP
 
 
 def nba_star40(c):

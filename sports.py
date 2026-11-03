@@ -808,9 +808,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
+    mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
+    mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
+    mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
     weigh_ncaab_top_out(out)                          # 🏀 11/3 DEEP: ...and the favorite whose own top scorer missed it
+    weigh_ncaab_eff_fav(games, out)                   # 🏀 11/3 DEEP: the slight favorite our efficiency ratings don't buy
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -1776,6 +1780,16 @@ NBA_SOFT_NEXT = (0.40, 10, 2)   # 10/28 (a WEIGHT, -2 on the dog score - a FADE)
 #                                 -24.9% on 174 (z -2.1) / 2025-26 -18.4% on 174; by Elo (next opponent under 1450) red in
 #                                 8 of 8 seasons. The marquee look-ahead (next game vs a .600+ team) is PRICED (-1.0% / -3.7%
 #                                 / -13.9%). Caveat: the dog's OWN soft next game runs red too (-8.7% / -12.7% / -20.4%).
+NBA_PACE_GAP = 4.0              # 🏀 11/3 FABLE NBA DEEP DIVE (results/studies/fable_nba_1103/s3 / s7 / s7b): the team that
+#                                 plays 4+ possessions a game FASTER than its opponent (both over their last 10 games -
+#                                 sports_nba_roster.pace_last) loses to its number: every side -10.5% at the close on
+#                                 2,369 (train 2018-22 -7.5%, 0 of 5 seasons up; held out 2023 -19.4 / 2024 +0.1 / 2025
+#                                 -26.5%), ATS -8.4% (0 of 5; held 3 of 3 down), the open -14.6%, the paid morning -9.2%
+#                                 (0 of 3); the last-20 and season-to-date windows agree. As a FAVORITE -150..-101 it is
+#                                 -12.7% (4 of 5 train seasons down, held 3 of 3: -2.6 / -4.7 / -19.5; last 20 -15.9%,
+#                                 season to date -18.7%) -> a -2 WEIGHT on the favorite's read (NBA_FAV_W "faster"). The
+#                                 fast DOG is -9.0% but flat in train (2 of 5 up, -3.3%): a tracker LEAD, never a weight.
+#                                 The slower side sits at the vig (+3.3% / -0.4%): the fade is one-way.
 NBA_HEAVY_MIN = 38.0            # 10/28 LEAD (tracker only, never a weight): the favorite's top 3 men by minutes averaged 38+
 #                                 last game and it was NOT overtime (the built OT weight carried half the raw +6.9%): train
 #                                 +3.2% on 517 (3 of 6), holdout +16.3% on 87 / +7.9% on 53 - up in every slice, z under 1.6,
@@ -1926,6 +1940,11 @@ def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev, games=None
     try:                                                     # the 10/28 heavy-minutes LEAD (tracker only)
         out["opp_heavy_last"] = sports_nba_roster.heavy_last(g[other], g["start"], NBA_HEAVY_MIN)
     except Exception:                                        # noqa: BLE001 - a tracker fact never blocks the board
+        pass
+    try:                                                     # (11/3 FABLE NBA deep dive) both teams' pace over their
+        out["pace"] = sports_nba_roster.pace_last(g[side], g["start"])            # last 10 games this season - the
+        out["opp_pace"] = sports_nba_roster.pace_last(g[other], g["start"])       # fast favorite's -2 (NBA_PACE_GAP)
+    except Exception:                                        # noqa: BLE001 - no box scores = no pace fact, never a block
         pass
     if side == "home":
         out["opp_trip_game"] = away_run(g[other], theirs) + 1      # tonight is their Nth straight road game
@@ -2124,6 +2143,15 @@ def dog_spots(c):
     if lg == "ncaab" and c.get("top_out"):
         sc -= NCAAB_TOP_OUT_PTS    # 11/3 DEEP: the college hoops dog whose top scorer missed its last game -20.5% on 617 vs
         #                            -5.7% (train / held out 0 of 4 seasons at the base; the open -20.7% vs -7.9%)
+    if lg == "ncaab" and c.get("ranked_road"):
+        sc -= NCAAB_RANKED_ROAD_DOG   # 11/3 FABLE: a top-25 team as a road dog in Nov-Dec -31.1% on 104 (0 of 5 train)
+    elif lg == "ncaab" and c.get("vs_ranked_road"):
+        sc += NCAAB_RANKED_ROAD_DOG   # 11/3 FABLE: the home dog across a top-25 road team in Nov-Dec +14.0% on 146 (held
+        #                               out 3 of 3 up, the open +30.9%) - the ranking is in the price and then some
+    if lg == "ncaab" and c.get("reb_gap") is not None:
+        rg = c["reb_gap"]              # 11/3 FABLE: the dog that out-rebounds its opponent by 8+ a game +10.0% on 397 (4 of
+        sc += NCAAB_REB_DOG[1] if rg >= NCAAB_REB_GAP_BIG else NCAAB_REB_DOG[0] if rg >= NCAAB_REB_GAP \
+            else -NCAAB_REB_DOG[0] if rg <= -NCAAB_REB_GAP else 0   # 5 seasons up); out-rebounded by 6+ -9.5..-12.9%
     if lg == "nhl" and x.get("hits_top"):
         sc += 2                    # out-hitting people (top quarter, last 10): +2.2% vs -6.1% (5 of 5)
     if lg == "mlb" and (x.get("luck_gap") or 0) <= -0.10:
@@ -2940,6 +2968,8 @@ def rank_p(c):
             + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
             + early_spread_w(c)                                # (11/2: the NBA early-season spread favorite)
             + ncaab_top_out_spread_w(c)                        # (11/3 DEEP: the college hoops top scorer missed the last game)
+            + ncaab_fable_spread_w(c)                          # (11/3 FABLE: the ranked road team Nov-Dec, the hot-ATS side,
+            #                                                     the glass - each ±0.02-0.03, a weight never a gate)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -3171,6 +3201,14 @@ NBA_FAV_W = {             # 10/22 NBA favorite study (-150..-100 at the close, t
     "more_rest": -0.02,      # +2.8% / +5.7% (3 of 3). The study 10/21 #5: the NBA own read loses to the close every
     "off_blowout": 0.02,     # season - so the NBA favorite's read starts from the books' no-vig price, these weights
     "home_dog_mid": 0.02,    # move it (inside FAV_CAP). Weights, never a trigger (the owner: "wire everything as weights").
+    "faster": -0.02,         # 🏀 11/3 FABLE NBA deep dive (NBA_PACE_GAP): the favorite 4+ possessions a game faster than
+    #                          the dog over the last 10 - -12.7% in the band (train 4 of 5 down, held 3 of 3), the same at
+    #                          the last-20 / season-to-date windows, every side -10.5% (0 of 5 train up, z -4.2).
+    "home_after_trip": -0.02,   # 🏀 11/3 FABLE NBA deep dive (s2 / s7 b): the favorite in its FIRST HOME GAME after a 4+ game
+    #                          trip - -22.4% in the band on 117 (train -20.8%, 0 of 5 up; held -15.5 / -11.9 / -43.9%; the
+    #                          open -24.2%), every favorite -10.8% after a 4-game trip vs -3.3% mid-homestand; the home DOG
+    #                          after a 4+ trip is the built 10/21 -2 (the same fact's other side; the 10/30 favorite study
+    #                          had -20.3% / -28.3% on 83 / 37 and called it n-short - 117 now, 8 of 8 seasons down).
 }
 
 
@@ -3190,6 +3228,10 @@ def nba_fav_facts(fav, dog):
     for k in ("star_back", "own_top2_out", "opp_top2_out"):
         if fav.get(k):
             w[k] = NBA_FAV_W[k]
+    if mo.get("pace") is not None and mo.get("opp_pace") is not None and mo["pace"] - mo["opp_pace"] >= NBA_PACE_GAP:
+        w["faster"] = NBA_FAV_W["faster"]                    # (11/3 FABLE NBA deep dive - the fast favorite)
+    if fav.get("home") and (mo.get("home_after_trip") or 0) >= 4:
+        w["home_after_trip"] = NBA_FAV_W["home_after_trip"]  # (11/3 - the favorite's first home game after a 4+ trip)
     return w
 
 
@@ -3309,6 +3351,46 @@ def weigh_ncaab_away_fav(games, cands):
         c["reasons"] = c["reasons"] + ["a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"]
 
 
+NCAAB_EFF_FAV_W = -0.03           # 🏀 11/3 DEEP: COLLEGE HOOPS EFFICIENCY MODEL (results/studies/deep_cbb_model/s_slight_fav.py,
+NCAAB_EFF_FAV_GAP = 0.03          # sports_cbb_eff): a college hoops -101..-150 moneyline favorite whose efficiency read (tempo-
+NCAAB_EFF_FAV_BAND = (-150, -101)  # free, opponent / venue adjusted, our own box scores) sits 3+ points UNDER the price's no-vig
+#                                   lost -9.6% on 2,338 at the close 2018-25 (train -9.5%, 0 of 5 seasons up; held out -9.7%,
+#                                   0 of 3; EVERY season down; the open -5.1%, 0 of 3; ratings 2 nights stale -8.3%, 0 of 8;
+#                                   the old Elo read in the same seat -7.5%, 0 of 8) vs -0.6% when the read agrees within 3
+#                                   and -4.5% for every slight favorite; outside the Nov-Dec away weight -8.0% too. A WEIGHT on
+#                                   the favorite's read (-3 points, about the gap), never a trigger; stacks with the away
+#                                   weight inside FAV_CAP. The model itself does NOT beat the close - it is a filter, not a read.
+
+
+def weigh_ncaab_eff_fav(games, cands):
+    """The college hoops slight favorite the efficiency ratings read 3+ points under its price: weighed read -3 (floor
+    own - FAV_CAP). Sets c['eff_p'] (the ratings' chance for the side) on every college hoops moneyline side it reads."""
+    picks = [c for c in cands if c.get("league") == "ncaab" and c.get("market") == "ml"
+             and c.get("p_market") is not None and c.get("edge_own") is not None and c.get("dec")]
+    if not picks:
+        return
+    try:
+        import sports_cbb_eff
+        reads = sports_cbb_eff.read_many(games, {c["game_id"] for c in picks})
+    except Exception as e:                                   # noqa: BLE001 - no read = no weight, never a blocked board
+        print(f"cbb efficiency weight skipped: {str(e)[:80]}")
+        return
+    for c in picks:
+        r = reads.get(c["game_id"])
+        if not r:
+            continue
+        p = r["p_home"] if c.get("side") == "home" else 1 - r["p_home"]
+        c["eff_p"] = round(p, 4)
+        if not (NCAAB_EFF_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_EFF_FAV_BAND[1]) or p - c["p_market"] > -NCAAB_EFF_FAV_GAP:
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_EFF_FAV_W))), 4)
+        c["ncaab_eff_fav"] = True
+        c["reasons"] = c["reasons"] + ["our efficiency ratings have this one a lot closer than the price - favorites "
+                                       "like that lost to their price 8 of 8 seasons"]
+
+
 NCAAB_RUBBER_W = 2       # 🏀 11/3 COLLEGE HOOPS (B), study 2 (s2_revenge.py / s6_followups.py): the DOG in a RUBBER MATCH -
 #                          the third meeting of a season after the teams split the first two (regular season, nearly all
 #                          conference tournaments) - lost to its close -22.1% on 457 (train -25.1%, 0 of 5 up; held out
@@ -3424,6 +3506,181 @@ def ncaab_top_out_spread_w(c):
     if c.get("league") == "ncaab" and c.get("market") == "spread" and c.get("top_out"):
         return -NCAAB_TOP_OUT_SPREAD_W
     return 0.0
+
+
+# 🏀 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (results/studies/fable_cbb_1103/, SPORTS_FINDINGS "11/3 - FABLE: COLLEGE
+# HOOPS SECOND OPINION"): three market misses the earlier studies never cut, each a WEIGHT inside STUDY_CAP / FAV_CAP /
+# the rank nudge, never a trigger. Regular season 2018-26 at ESPN's close, train 2018-22, held out 2023 / 2024 / 2025.
+NCAAB_RANKED_TOP = 25         # (1) THE RANKED ROAD TEAM IN NOVEMBER-DECEMBER: a team in the engine's top 25 (its own Elo
+NCAAB_RANKED_MIN_GAMES = 3    # among D1 teams with 3+ games this season, the night of the game) on a TRUE road floor in
+NCAAB_RANKED_ROAD_MONTHS = ("11", "12")   # Nov-Dec lost to its spread -19.4% on 329 (7 of 8 seasons down, 0 of 3 held
+NCAAB_RANKED_ROAD_W = 0.03    # out up; the study's own Elo cut -19.7% on 549, z -4.9; non-conference -21%) vs -4.4%
+NCAAB_RANKED_ROAD_DOG = 2     # for every spread side and -9% for an UNRANKED road favorite in the same months - the
+#                               ranking is in the price and then some. The home side across covered +10.3% on 329 (3
+#                               of 5 train / 2 of 3 held), the home DOG +100..+350 across +14.0% on 146 (3 of 3 held,
+#                               the OPEN +30.9%); the ranked road DOG itself -31.1% on 104 (0 of 5 train). January on:
+#                               -6.8% (the vig). Weights: the ranked road side's spread rank -0.03 and the home side's
+#                               +0.03 (ncaab_fable_spread_w); dog_spots -2 on a ranked road dog / +2 on the home dog
+#                               across a ranked road team (so weigh_favorites moves the favorite across the other way).
+NCAAB_ATS_GAP = 3.0           # (2) THE HOT-ATS TEAM: both teams 10+ priced finals this season; the side whose average
+NCAAB_ATS_GAP_GAMES = 10      # cover margin (margin + its spread) beats the opponent's by 3+ lost ATS -7.4% on 7,258
+NCAAB_ATS_GAP_W = 0.03        # (0 of 5 train / 0 of 3 held out up, z -6.6; 16+ games in -9.6%; 8+ gap -11.7%) vs -4.4%,
+#                               and -7.6% with NO 4+ cover run (new next to cover_run_w); the side across -1.3%. The
+#                               market chases a team's ATS record ~0.6 points too far. Spread rank -0.03 hot / +0.03 cold.
+NCAAB_REB_GAP = 6.0           # (3) REBOUNDING (the box scores 2021-26): the side whose season rebound margin trails the
+NCAAB_REB_GAP_BIG = 8.0       # opponent's by 6+ a game (both 5+ box games) - the favorite ATS -10.8% on 1,009 (5 of 5
+NCAAB_REB_W = 0.02            # seasons down), the -101..-200 favorite ML -17.9% on 368 at 8+ (0 of 2 / 0 of 3, the OPEN
+NCAAB_REB_DOG = (1, 2)        # -18.9%); the side that out-rebounds by 8+ as a DOG +10.0% on 397 (4 of 5 up, the open
+#                               +8.4%); the cover margin runs with the gap in every bucket (-0.76 .. +0.80 pts). Spread
+#                               rank -0.02 (gap -6) / +0.02 (gap +6); dog_spots +1 at +6, +2 at +8, -1 at -6.
+
+
+def ncaab_ranked_set(games, elo, start):
+    """The engine's top-NCAAB_RANKED_TOP college hoops teams before `start`: ratings among D1 teams with
+    NCAAB_RANKED_MIN_GAMES+ regular-season finals this season (the games file), or an empty set when it can't tell."""
+    if elo is None or not start:
+        return set()
+    try:
+        sched, _ = _sched(games)
+        y = int(start[:4]) if int(start[5:7]) >= 7 else int(start[:4]) - 1
+        lo = f"{y}-07-01"
+        n = {}
+        for (lg, t), rows in sched.items():
+            if lg != "ncaab":
+                continue
+            n[t] = sum(1 for st_, x in rows if lo <= st_ < start and x.get("status") == "final" and str(x.get("stype")) == "2")
+        pool = sorted(((elo.r.get(t, 1500.0), t) for t, k in n.items() if k >= NCAAB_RANKED_MIN_GAMES), reverse=True)
+    except (TypeError, ValueError, KeyError, AttributeError):
+        return set()
+    if len(pool) < NCAAB_RANKED_TOP:
+        return set()
+    return {t for _, t in pool[:NCAAB_RANKED_TOP]}
+
+
+def mark_ncaab_ranked_road(games, cands, elo):
+    """Nov-Dec college hoops, a true road game (not neutral): the away team in the engine's top 25 -> ranked_road on
+    its sides (ml / spread), vs_ranked_road on the home side's. One ranking per night (cached by the first start)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops or elo is None:
+        return
+    top = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral")) == "1":
+            continue
+        try:
+            month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+        except ValueError:
+            continue
+        if month not in NCAAB_RANKED_ROAD_MONTHS:
+            continue
+        day = start[:10]
+        if day not in top:
+            top[day] = ncaab_ranked_set(games, elo, start)
+        if g.get("away") in top[day]:
+            if c.get("side") == "away":
+                c["ranked_road"] = True
+            elif c.get("side") == "home":
+                c["vs_ranked_road"] = True
+                c["reasons"] = c["reasons"] + [f"{g.get('away_name') or 'a ranked team'} is a top-25 team on the road in "
+                                               "Nov-Dec - those lost to the number 7 of 8 seasons (-19%)"]
+
+
+def mark_ncaab_ats_gap(games, cands):
+    """Both teams NCAAB_ATS_GAP_GAMES+ priced regular-season finals this season (the games file's closing spread):
+    ats_gap = this side's average cover margin minus the opponent's."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        sched, _ = _sched(games)
+    except (TypeError, ValueError, KeyError):
+        return
+    memo = {}
+
+    def mean_cover(team, start):
+        key = (team, start[:10])
+        if key in memo:
+            return memo[key]
+        y = int(start[:4]) if int(start[5:7]) >= 7 else int(start[:4]) - 1
+        lo = f"{y}-07-01"
+        v = []
+        for st_, x in sched.get(("ncaab", team), []):
+            if not (lo <= st_ < start) or x.get("status") != "final" or str(x.get("stype") or "2") != "2":
+                continue
+            try:
+                sp = float(x["spread_home"])
+                m = float(x["home_score"]) - float(x["away_score"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            v.append(m + sp if x.get("home") == team else -m - sp)
+        memo[key] = (sum(v) / len(v)) if len(v) >= NCAAB_ATS_GAP_GAMES else None
+        return memo[key]
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side = c.get("side")
+        if len(start) < 10 or side not in ("home", "away"):
+            continue
+        try:
+            mine = mean_cover(g[side], start)
+            theirs = mean_cover(g["away" if side == "home" else "home"], start)
+        except (KeyError, ValueError):
+            continue
+        if mine is None or theirs is None:
+            continue
+        c["ats_gap"] = round(mine - theirs, 2)
+        if c["ats_gap"] <= -NCAAB_ATS_GAP:
+            c["reasons"] = c["reasons"] + [f"the other side has beaten its spreads by {theirs - mine:.1f} more a game this "
+                                           "season - the market chases that too far (8 of 8 seasons)"]
+
+
+def mark_ncaab_reb(games, cands):
+    """reb_gap = this side's season rebound margin minus the opponent's (sports_ncaab_roster.reb_margin, both 5+ box games)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_roster as nr
+    except Exception:                                        # noqa: BLE001
+        return
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side = c.get("side")
+        if len(start) < 10 or side not in ("home", "away"):
+            continue
+        try:
+            mine = nr.reb_margin(g[side], start)
+            theirs = nr.reb_margin(g["away" if side == "home" else "home"], start)
+        except Exception:                                    # noqa: BLE001
+            continue
+        if mine is None or theirs is None:
+            continue
+        c["reb_gap"] = round(mine - theirs, 2)
+        if c["reb_gap"] >= NCAAB_REB_GAP:
+            c["reasons"] = c["reasons"] + [f"out-rebounding people by {mine:+.1f} a game to their {theirs:+.1f} - the books "
+                                           "don't price the glass (5 of 5 seasons)"]
+
+
+def ncaab_fable_spread_w(c):
+    """The 11/3 FABLE rank weights on a college hoops SPREAD side: the ranked road team in Nov-Dec (-), the home side
+    across it (+), the hot-ATS side (-) / the cold one (+), the out-rebounded side (-) / the glass team (+)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread":
+        return 0.0
+    w = 0.0
+    if c.get("ranked_road"):
+        w -= NCAAB_RANKED_ROAD_W
+    elif c.get("vs_ranked_road"):
+        w += NCAAB_RANKED_ROAD_W
+    gap = c.get("ats_gap")
+    if gap is not None:
+        w += -NCAAB_ATS_GAP_W if gap >= NCAAB_ATS_GAP else NCAAB_ATS_GAP_W if gap <= -NCAAB_ATS_GAP else 0.0
+    rg = c.get("reb_gap")
+    if rg is not None:
+        w += NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0
+    return w
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9

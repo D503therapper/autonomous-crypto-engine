@@ -1,0 +1,67 @@
+
+== A. The full fit 2018-22 (train) - coefficients in points of cover margin, with t-stats
+  const                +0.369 pts  (t +3.4)
+  ranked road ND       -1.887 pts  (t -3.2)
+  ranked road JM       -0.362 pts  (t -1.0)
+  home vs ranked ND    +1.949 pts  (t +3.3)
+  hot ATS gap/5        -0.442 pts  (t -3.9)
+  reb gap/6            +0.308 pts  (t +2.5)
+  away small fav ND    -1.161 pts  (t -2.7)
+  early road dog       -0.316 pts  (t -0.5)
+  skid dog             -0.539 pts  (t -1.7)
+  rubber dog           -0.260 pts  (t -0.4)
+  cover run            -0.428 pts  (t -1.6)
+  luck gap             -1.510 pts  (t -2.8)
+  sd gap/5             +0.028 pts  (t +0.4)
+  h2 gain gap/3        -0.026 pts  (t -0.7)
+  pace gap/8           -0.151 pts  (t -1.5)
+  top5 gap x10         +0.283 pts  (t +1.9)
+  Sat->Mon/Tue road    -0.227 pts  (t -0.8)
+  swing stop 2         -0.147 pts  (t -0.6)
+  slate                -0.012 pts  (t -0.1)
+  road                 -0.579 pts  (t -3.2)
+  neutral              -0.246 pts  (t -1.1)
+  spread/10            +0.667 pts  (t +4.4)
+  elo gap/100          +0.321 pts  (t +4.1)
+
+== B. Walk-forward: each held season graded on a fit of the seasons before it; ATS by predicted-edge bin
+  2023 pred -99..-2: n    27 ATS -36.6%  mean cover margin -4.74
+  2023 pred -2..-1: n   340 ATS -18.0%  mean cover margin -1.62
+  2023 pred -1..+0: n  3405 ATS  -4.2%  mean cover margin +0.02
+  2023 pred +0..+1: n  3711 ATS  -4.5%  mean cover margin +0.09
+  2023 pred +1..+2: n   253 ATS  +7.1%  mean cover margin +0.70
+  2023 pred +2..+99: n    26 ATS +32.3%  mean cover margin +4.75
+  2024 pred -99..-2: n    47 ATS -30.7%  mean cover margin -3.19
+  2024 pred -2..-1: n   372 ATS  -5.4%  mean cover margin -0.10
+  2024 pred -1..+0: n  3339 ATS  -5.7%  mean cover margin -0.01
+  2024 pred +0..+1: n  3740 ATS  -2.7%  mean cover margin +0.07
+  2024 pred +1..+2: n   302 ATS  -8.9%  mean cover margin -0.54
+  2024 pred +2..+99: n    30 ATS +27.8%  mean cover margin +4.72
+  2025 pred -99..-2: n    35 ATS -28.9%  mean cover margin -0.76
+  2025 pred -2..-1: n   224 ATS -11.5%  mean cover margin -1.83
+  2025 pred -1..+0: n  3437 ATS  -3.8%  mean cover margin -0.14
+  2025 pred +0..+1: n  3916 ATS  -4.7%  mean cover margin +0.13
+  2025 pred +1..+2: n   160 ATS  +9.6%  mean cover margin +2.71
+  2025 pred +2..+99: n    20 ATS +14.4%  mean cover margin -0.95
+
+== C. Walk-forward on the NEW three alone (ranked road ND, hot gap, reb gap + road / spread / elo)
+  2023 pred -99.0..-1.5: n    66 ATS -19.2%
+  2023 pred -1.5..-0.5: n   654 ATS -10.1%
+  2023 pred -0.5..+0.5: n  6330 ATS  -4.4%
+  2023 pred +0.5..+1.5: n   647 ATS  -0.7%
+  2023 pred +1.5..+99.0: n    65 ATS +11.5%
+  coefficients: const +0.32, ranked road ND -2.00, home vs ranked ND +2.00, hot ATS gap/5 -0.41, reb gap/6 +0.25, road -0.64, neutral -0.31, spread/10 +0.61, elo gap/100 +0.31
+  2024 pred -99.0..-1.5: n    62 ATS -10.5%
+  2024 pred -1.5..-0.5: n   757 ATS  -6.1%
+  2024 pred -0.5..+0.5: n  6188 ATS  -4.5%
+  2024 pred +0.5..+1.5: n   762 ATS  -1.7%
+  2024 pred +1.5..+99.0: n    61 ATS  +3.5%
+  coefficients: const +0.23, ranked road ND -2.00, home vs ranked ND +2.00, hot ATS gap/5 -0.40, reb gap/6 +0.31, road -0.46, neutral -0.23, spread/10 +0.47, elo gap/100 +0.26
+  2025 pred -99.0..-1.5: n    70 ATS -28.7%
+  2025 pred -1.5..-0.5: n   491 ATS  -8.2%
+  2025 pred -0.5..+0.5: n  6674 ATS  -4.3%
+  2025 pred +0.5..+1.5: n   488 ATS  -0.2%
+  2025 pred +1.5..+99.0: n    69 ATS +21.8%
+  coefficients: const +0.18, ranked road ND -1.93, home vs ranked ND +1.93, hot ATS gap/5 -0.36, reb gap/6 +0.29, road -0.36, neutral -0.18, spread/10 +0.24, elo gap/100 +0.15
+
+cells looked at: 33

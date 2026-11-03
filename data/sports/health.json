@@ -1,28 +1,57 @@
 {
- "at": "2026-11-02T22:42Z",
- "fixes": [],
+ "at": "2026-11-03T00:34Z",
+ "fixes": [
+  "live watch 41548511287 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 199 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 3 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 12 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 44 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T00:34Z",
+   "fixes": [
+    "live watch 41548511287 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T00:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T00:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T00:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T00:16Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-02T22:42Z",
    "fixes": [],
@@ -503,38 +532,6 @@
   },
   {
    "at": "2026-11-01T09:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T09:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kobori vs Okamura: no points for 2605s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 2352s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 1835s"
-   ]
-  },
-  {
-   "at": "2026-11-01T07:46Z",
-   "fixes": [
-    "live watch 41283104342 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T07:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T07:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-01T07:41Z",
    "fixes": [],
    "problems": []
   }
