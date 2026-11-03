@@ -1,36 +1,46 @@
 {
- "at": "2026-11-03T16:36Z",
+ "at": "2026-11-03T16:40Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - started sports.yml",
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
+  "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Fritz vs Bonzi: no points for 70s",
-  "live tennis scores: tennis Zarazua vs Scott: no points for 1717s",
-  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1826s",
-  "live tennis scores: tennis Burillo vs Kalieva: no points for 1608s",
+  "live tennis scores: tennis Zarazua vs Scott: no points for 1933s",
+  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2042s",
+  "live tennis scores: tennis Burillo vs Kalieva: no points for 1824s",
   "studies last ran 10h ago - restarted",
   "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (59s)",
+  "live watcher fresh (32s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 7 live matches",
   "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 4 fresh (bovada 4)",
+  "tennis live prices: 4 live lines, 4 fresh (bovada 4)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran -0 min ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T16:40Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Scott: no points for 1933s",
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2042s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1824s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-03T16:36Z",
    "fixes": [
@@ -487,11 +497,6 @@
   },
   {
    "at": "2026-11-02T01:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T01:03Z",
    "fixes": [],
    "problems": []
   }
