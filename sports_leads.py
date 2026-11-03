@@ -350,6 +350,28 @@ def tags(c, sports):
             t.append("college hoops side the line jumped 8+ to, games 1-6 (fade)")   # s2: following an 8+ point
             #   open->close move in the first 3 weeks -23.3% at the close on 104 (2023 / 2024 down, 2025 +3.8%) vs
             #   -8.1% later; fading it +17.6% - 3 seasons of opens only, a LEAD
+    # 11/3 DAILY STUDIES (results/studies/daily_1103/): one WEIGHT's live record + four moneyline LEADS (tracked only)
+    if dog and lg == "nba" and c.get("odds", 0) <= 350 and c.get("lost_man"):
+        t.append("NBA dog that lost a 20+ minute man in its last 10 games (fade)")   # s7 / s7b - BUILT as a -2 dog-score
+        #   weight (sports.NBA_LOST_MAN_PTS): the dog in games 4-10 after a rotation man left -19.7% on 284 (0 of 5 train
+        #   up, 3 of 3 held down, the morning -16.5%); judge at 50 - the flagged dogs winning at the price = it comes off
+    if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_lucky(c):
+        t.append("NBA lucky dog (record 15+ pts over its margin), games 6-20 (fade)")   # s8: the early-season sample-size
+        #   trap - a dog whose win % sits 0.15+ over its Pythagorean (exponent 14) in games 6-20 -31.9% on 77 (train
+        #   -20.8%, 1 of 5 up; held out -100% / -69% / -38% / 2026 +19% on 4; the paid morning -44.0% on 28, 0 of 3), the
+        #   same team as a favorite -17.5% on 50, ATS -22.3% held; but 77 bets and ~45 cells looked at - a LEAD only
+    if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_beat_here(c):
+        t.append("NBA dog that already beat this team on this floor this season (fade)")   # s9: the 2nd meeting 4+ days
+        #   on, the dog that won the 1st meeting at the same venue -21.8% on 144 (train -29.1%, 0 of 5 up; held out
+        #   -3.4% / -11.2% / -13.0%; the morning -48.0% on 40, 0 of 3) - "they already beat them here" is in the price
+        #   and then some; 144 bets, ~45 cells - a LEAD only
+    if lg == "nhl" and nhl_top_missed(c):                     # s6 / s6b: the NHL top scorer (points over the team's last
+        if dog and c.get("odds", 0) <= 350:                   #   10 before its last game) MISSED THE LAST GAME - the side
+            t.append("NHL dog, top scorer missed its last game (fade)")   #   -17.8% on 337 (train -21.4% 0 of 3 up, held
+        elif -200 <= c.get("odds", 0) <= -101:                #   -18.1% / -6.4%), the dog -32.2% on 163 (morning -63%),
+            t.append("NHL fav -101..-200, top scorer missed its last game (fade)")   #   and BACK tonight still -20.9%
+        #   on 110 (fav -20.1% on 49) - the part the built report penalty (sports_absences, -6 when he's OUT) can't see;
+        #   out again tonight = that penalty's cell (dog -34.7%). Tracked next to it, never a second weight yet
     return t + sharp
 
 
@@ -788,6 +810,19 @@ def spread_tags(c, sports):
         #   Thursday-Saturday team) ATS -14.5% on 717 (train -13.5%, 0 of 5 up; held out -16.6%, 0 of 3) - but the dose is
         #   ragged (rested 3 -7.7%, 6+ -3.8%), the moneyline doesn't carry it (the rested favorite -9.6% then +3.0% held
         #   out) and there are no spread opens for a 2nd check: a LEAD, tracked only, never a weight
+    # 11/3 DAILY STUDIES (results/studies/daily_1103/): one spread WEIGHT's live record + two spread LEADS (tracked only)
+    if c.get("league") == "nba" and c.get("lost_man"):
+        t.append("NBA spread side that lost a 20+ minute man in its last 10 games (fade)")   # s7 - BUILT as a -0.03
+        #   rank weight (sports.nba_lost_man_spread_w): ATS -12.3% on 556 (games 1-3) / -11.4% on 721 (4-10) vs -4.4%
+    if nfl_first_cold(c):
+        t.append("NFL side in its first sub-40F game vs a team that already had one (fade)")   # s3: ATS -36.4% on 69
+        #   (train -36.3% on 48, 1 of 5 up; held out 0-5 / -36.6% on 9 / +8.4% on 7), the side across +27.3% (4 of 5 train
+        #   up) - the game file's temperature (a forecast before kickoff), 69 games in ten seasons, ~45 cells: a LEAD only
+    if hoops_host_home_from_neutral(c):
+        t.append("college hoops host in its first game back from 3+ neutral games (fade)")   # s10: the home team just
+        #   back (within 10 days) from 3+ straight neutral-site games (the November / December tournament trip) ATS
+        #   -11.2% on 256 (train -20.5%, 0 of 4 up; held out -11.5% / -2.3% / -16.0% / +15.8%), the road side across
+        #   +2.2% (train +11.2%, 4 of 4 up) - the dog across isn't up on the moneyline; a LEAD only
     return t
 
 
@@ -902,6 +937,159 @@ def nba_star40(c):
         except (TypeError, ValueError):
             continue
     return best >= NBA_STAR_PTS
+
+
+# ---------------- 11/3 daily studies: the lead helpers ----------------
+NBA_LUCK_EXP = 14.0          # s8: the NBA Pythagorean exponent
+NBA_LUCK_GAP = 0.15          # s8: win % 0.15+ over the margin-implied win %...
+NBA_LUCK_GAMES = (6, 20)     # s8: ...in the team's games 6-20 (5-19 finals before tonight)
+NBA_BEAT_HERE_DAYS = 4       # s9: the 2nd meeting 4+ days after the first (the quick rematch died twice, 10/28)
+NHL_TOP_WINDOW = 10          # s6: the top scorer = points over the team's 10 games before its last game...
+NHL_TOP_MIN_GAMES = 6        # s6: ...the team 6+ box games in, and he played 3 of the 4 before the one he missed
+NFL_COLD_F = 40              # s3: a sub-40F outdoor game (the game file's wx_temp - a forecast before kickoff)
+HOOPS_NEUTRAL_RUN = 3        # s10: 3+ straight neutral-site games, the first game back within 10 days
+HOOPS_HOME_WITHIN = 10
+_NHL_BOX = {}                # season -> {team: [(start, gid, {pid: points})]} from this season's NHL box scores
+
+
+def nba_lucky(c):
+    """11/3 daily study 8 (a LEAD, tracked only): this NBA side's win % this season sits NBA_LUCK_GAP+ over its
+    Pythagorean expectation in its games 6-20 - the early-season record the margin doesn't back."""
+    if c.get("league") != "nba":
+        return False
+    team, rows = _season_before(c)
+    n = len(rows)
+    if not team or not (NBA_LUCK_GAMES[0] <= n + 1 <= NBA_LUCK_GAMES[1]):
+        return False
+    try:
+        pf = sum(float(x["home_score"] if x["home"] == team else x["away_score"]) for x in rows)
+        pa = sum(float(x["away_score"] if x["home"] == team else x["home_score"]) for x in rows)
+        w = sum(1 for x in rows if (float(x["home_score"]) > float(x["away_score"])) == (x["home"] == team)) / n
+    except (TypeError, ValueError, KeyError):
+        return False
+    if not pf or not pa:
+        return False
+    exp = pf ** NBA_LUCK_EXP / (pf ** NBA_LUCK_EXP + pa ** NBA_LUCK_EXP)
+    return w - exp >= NBA_LUCK_GAP
+
+
+def nba_beat_here(c):
+    """11/3 daily study 9 (a LEAD, tracked only): tonight is the 2nd meeting of the season (4+ days after the 1st) and
+    this side WON the 1st at the same venue (home then and now, or away then and now) - this season's finals only."""
+    if c.get("league") != "nba":
+        return False
+    g = _game(c)
+    team, rows = _season_before(c)
+    opp = g.get("away" if c.get("side") == "home" else "home")
+    if not team or not opp:
+        return False
+    met = [x for x in rows if opp in (x["home"], x["away"])]
+    if len(met) != 1:
+        return False
+    first = met[0]
+    try:
+        if _night(c.get("start") or g.get("start")) - _night(first["start"]) < NBA_BEAT_HERE_DAYS:
+            return False
+        won = (float(first["home_score"]) > float(first["away_score"])) == (first["home"] == team)
+    except (TypeError, ValueError, KeyError):
+        return False
+    return won and (first["home"] == team) == (c.get("side") == "home")
+
+
+def _nhl_box(season):
+    """{team id: [(start, gid, {pid: points})]} for this NHL season's saved box scores (skaters only), oldest first."""
+    if season not in _NHL_BOX:
+        _NHL_BOX.clear()
+        by = {}
+        try:
+            import sports_roster as sr
+            rows = sr.load("nhl", seasons=[season])
+        except Exception:                                    # noqa: BLE001
+            rows = []
+        for r in rows:
+            if r.get("group") == "goalies":
+                continue
+            try:
+                st = json.loads(r.get("stats") or "{}")
+                pts = float(st.get("goals") or 0) + float(st.get("assists") or 0)
+            except (ValueError, TypeError):
+                pts = 0.0
+            by.setdefault(r["team"], {}).setdefault(r["gid"], (r["start"], {}))[1][r["pid"]] = pts
+        _NHL_BOX[season] = {t: sorted((s, gid, p) for gid, (s, p) in d.items()) for t, d in by.items()}
+    return _NHL_BOX[season]
+
+
+def nhl_top_missed(c, box=None):
+    """11/3 daily study 6 / 6b (a LEAD, tracked only): this NHL side's top scorer (points over its NHL_TOP_WINDOW games
+    before its last game, the team NHL_TOP_MIN_GAMES+ box games in) was NOT in the box of the team's last game after
+    playing 3 of the 4 before it. No box scores = False, never a guess."""
+    if c.get("league") != "nhl":
+        return False
+    g = _game(c)
+    team, start = g.get(c.get("side") or ""), str(c.get("start") or g.get("start") or "")
+    if not team or len(start) < 7:
+        return False
+    y, m = int(start[:4]), int(start[5:7])
+    season = y if m >= 7 else y - 1
+    rows = [x for x in (box if box is not None else _nhl_box(season)).get(str(team), []) if x[0] < start]
+    if len(rows) < NHL_TOP_MIN_GAMES:
+        return False
+    last, window = rows[-1], rows[-(NHL_TOP_WINDOW + 1):-1]
+    pts = {}
+    for _, _, p in window:
+        for pid, v in p.items():
+            pts[pid] = pts.get(pid, 0.0) + v
+    if not pts or not last[2]:
+        return False
+    top = max(pts, key=pts.get)
+    played_before = sum(1 for _, _, p in window[-4:] if top in p)
+    return top not in last[2] and played_before >= 3
+
+
+def nfl_first_cold(c):
+    """11/3 daily study 3 (a spread LEAD, tracked only): an outdoor NFL game under NFL_COLD_F (the game file's wx_temp)
+    that is this side's FIRST sub-40F game of the season while the opponent has already played one. Finals this season
+    only; a dome game counts as warm; no temperature on file = False."""
+    if c.get("league") != "nfl" or c.get("market") != "spread":
+        return False
+    g = _game(c)
+    try:
+        if str(g.get("indoor")) == "1" or float(g.get("wx_temp")) >= NFL_COLD_F:
+            return False
+    except (TypeError, ValueError):
+        return False
+
+    def had_cold(side):
+        _, rows = _season_before(dict(c, side=side))
+        for x in rows:
+            try:
+                if str(x.get("indoor")) != "1" and float(x.get("wx_temp")) < NFL_COLD_F:
+                    return True
+            except (TypeError, ValueError):
+                continue
+        return False
+    other = "away" if c.get("side") == "home" else "home"
+    return (not had_cold(c.get("side"))) and had_cold(other)
+
+
+def hoops_host_home_from_neutral(c):
+    """11/3 daily study 10 (a spread LEAD, tracked only): the college hoops HOME side (not a neutral site) whose last
+    HOOPS_NEUTRAL_RUN+ games were all at neutral sites, the last of them within HOOPS_HOME_WITHIN nights."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or c.get("side") != "home":
+        return False
+    g = _game(c)
+    if str(g.get("neutral")) == "1":
+        return False
+    team, rows = _season_before(c)
+    if not team or len(rows) < HOOPS_NEUTRAL_RUN:
+        return False
+    run = rows[-HOOPS_NEUTRAL_RUN:]
+    if not all(str(x.get("neutral")) == "1" for x in run):
+        return False
+    try:
+        return _night(c.get("start") or g.get("start")) - _night(run[-1]["start"]) <= HOOPS_HOME_WITHIN
+    except (TypeError, ValueError):
+        return False
 
 
 def load():
