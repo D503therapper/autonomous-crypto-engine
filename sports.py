@@ -2968,6 +2968,9 @@ def rank_p(c):
             + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
             + early_spread_w(c)                                # (11/2: the NBA early-season spread favorite)
             + ncaab_top_out_spread_w(c)                        # (11/3 DEEP: the college hoops top scorer missed the last game)
+            - (NCAAB_BIG_HOME_FAV_W if ncaab_big_home_fav(c) else 0)   # (11/3: the 12+ college hoops home favorite
+            #                                                     on the spread, -8% ATS - a WEIGHT on its rank, never a block:
+            #                                                     the owner, 11/3: "not one thing decides a pick")
             + ncaab_fable_spread_w(c)                          # (11/3 FABLE: the ranked road team Nov-Dec, the hot-ATS side,
             #                                                     the glass - each ±0.02-0.03, a weight never a gate)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
@@ -4146,6 +4149,7 @@ LEAN_NHL_FAV_BAND = (-150, -130)   # 🏒 THE 10/28 HOCKEY AUDIT (the owner: "ou
 LEAN_FAV_BANDS = {"ncaaf": LEAN_NCAAF_FAV_BAND, "nhl": LEAN_NHL_FAV_BAND}
 
 
+NCAAB_BIG_HOME_FAV_W = 0.03    # its weight on the spread rank (was a hard block on the lean until the owner, 11/3)
 NCAAB_BIG_HOME_FAV = 12.0      # 🏀 11/3 readiness (the 11/2 buy-game study's pricing fact): a college hoops HOME favorite
 #   laying 12+ covers at ~-8% ATS every way it was cut (2,632 games, train -8.7%, held -7.5%; the same in conference play)
 #   - never a spread lean on that side. Today the spread read (strust 0 + the learned big-favorite offset, cover 49.1%)
@@ -4194,8 +4198,6 @@ def viewer_leans(cands, avoid):
             #                                                  when the price is a bit high (10/1: two picks on 9 games)
         if c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
-        if ncaab_big_home_fav(c):
-            return False                                     # (11/3: the big college hoops home favorite, -8% ATS)
         if c["p"] >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
