@@ -1,8 +1,7 @@
 {
- "at": "2026-11-03T00:34Z",
+ "at": "2026-11-03T01:51Z",
  "fixes": [
-  "live watch 41548511287 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+  "live board 11 min stale with games on - sports-live.yml already running"
  ],
  "problems": [],
  "ok": [
@@ -13,17 +12,24 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 12 backup sources answering",
+  "all 13 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T01:51Z",
+   "fixes": [
+    "live board 11 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-03T00:34Z",
    "fixes": [
@@ -529,11 +535,6 @@
     "live tennis scores: tennis Zolotareva vs Falei: no points for 1695s",
     "live tennis scores: tennis Falkowska vs Morvayova: no points for 1695s"
    ]
-  },
-  {
-   "at": "2026-11-01T09:19Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
