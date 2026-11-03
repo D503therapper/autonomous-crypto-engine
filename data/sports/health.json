@@ -1,34 +1,41 @@
 {
- "at": "2026-11-03T16:46Z",
- "fixes": [
-  "live watch 41669511887 froze (6 min) - cancelled",
-  "live board 6 min stale with games on - sports-live.yml already running",
-  "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
- ],
+ "at": "2026-11-03T18:05Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
-  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
-  "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
-  "studies last ran 10h ago - restarted"
+  "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1772s",
+  "live tennis scores: tennis Burillo vs Kalieva: no points for 1772s",
+  "live tennis scores: tennis Gonzalez vs Monnet: no points for 1772s"
  ],
  "ok": [
+  "live watcher fresh (9s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 7 live matches",
   "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 2 fresh (bovada 2)",
-  "all 2 backup sources answering",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 0h ago",
-  "engine ran 10 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T18:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1772s",
+    "live tennis scores: tennis Burillo vs Kalieva: no points for 1772s",
+    "live tennis scores: tennis Gonzalez vs Monnet: no points for 1772s"
+   ]
+  },
   {
    "at": "2026-11-03T16:46Z",
    "fixes": [
@@ -516,11 +523,6 @@
   },
   {
    "at": "2026-11-02T04:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T04:13Z",
    "fixes": [],
    "problems": []
   }
