@@ -1,0 +1,277 @@
+dogs +150..+350 with a close and an engine read: 11459 (train 6882, held 4573)
+they won 28.8% of the time; the no-vig close said 30.4% - the price already carries the upsets
+
+== A. WINNERS vs LOSERS - the average of each feature before tip (the dogs that won | the dogs that lost), train 2018-22 then held out 2023-25
+win streak (- = skid)                    train won   -0.175 (n1962) | lost   -0.384 (n4920) | d +0.07
+win streak (- = skid)                    held  won   -0.207 (n1341) | lost   -0.298 (n3232) | d +0.03
+win % so far (5+ games)                  train won   +0.504 (n1770) | lost   +0.495 (n4388) | d +0.05
+win % so far (5+ games)                  held  won   +0.502 (n1236) | lost   +0.498 (n2923) | d +0.02
+last margin                              train won   +0.124 (n1935) | lost   -0.444 (n4851) | d +0.04
+last margin                              held  won   +0.113 (n1331) | lost   -0.203 (n3190) | d +0.02
+avg margin so far (5+)                   train won   +1.419 (n1770) | lost   +1.101 (n4388) | d +0.05
+avg margin so far (5+)                   held  won   +1.521 (n1236) | lost   +1.227 (n2923) | d +0.04
+luck (win% - margin-implied)             train won   -0.040 (n1770) | lost   -0.039 (n4388) | d -0.01
+luck (win% - margin-implied)             held  won   -0.046 (n1236) | lost   -0.041 (n2923) | d -0.05
+cover run                                train won   -0.014 (n1962) | lost   +0.006 (n4920) | d -0.01
+cover run                                held  won   -0.011 (n1341) | lost   +0.017 (n3232) | d -0.02
+rest nights                              train won   +4.081 (n1935) | lost   +3.905 (n4851) | d +0.06
+rest nights                              held  won   +3.849 (n1331) | lost   +3.888 (n3190) | d -0.02
+opp rest nights                          train won   +4.006 (n1936) | lost   +3.972 (n4848) | d +0.01
+opp rest nights                          held  won   +3.936 (n1332) | lost   +3.951 (n3187) | d -0.01
+rest gap (mine - theirs)                 train won   +0.072 (n1931) | lost   -0.070 (n4839) | d +0.05
+rest gap (mine - theirs)                 held  won   -0.088 (n1331) | lost   -0.063 (n3185) | d -0.01
+games in 3 nights                        train won   +0.261 (n1935) | lost   +0.262 (n4851) | d -0.00
+games in 3 nights                        held  won   +0.226 (n1331) | lost   +0.227 (n3190) | d -0.00
+miles traveled                           train won +495.827 (n1405) | lost +489.731 (n3587) | d +0.01
+miles traveled                           held  won +527.671 (n986) | lost +548.278 (n2361) | d -0.03
+road trip game #                         train won   +1.575 (n1180) | lost   +1.559 (n3067) | d +0.02
+road trip game #                         held  won   +1.509 (n823) | lost   +1.475 (n1980) | d +0.04
+pace gap (FGA/g)                         train won   -0.601 (n712) | lost   -0.637 (n1870) | d +0.00
+pace gap (FGA/g)                         held  won   -0.862 (n1228) | lost   -0.532 (n2904) | d -0.04
+rebound margin gap                       train won   -1.655 (n712) | lost   -2.080 (n1870) | d +0.09
+rebound margin gap                       held  won   -1.899 (n1228) | lost   -2.073 (n2904) | d +0.03
+FG% gap (offense)                        train won   -0.014 (n712) | lost   -0.015 (n1870) | d +0.03
+FG% gap (offense)                        held  won   -0.014 (n1228) | lost   -0.013 (n2904) | d -0.03
+FG% allowed gap (defense, - = better)    train won   +0.009 (n712) | lost   +0.010 (n1870) | d -0.02
+FG% allowed gap (defense, - = better)    held  won   +0.009 (n1228) | lost   +0.012 (n2904) | d -0.10
+Elo gap (mine - theirs)                  train won  -93.826 (n1962) | lost -104.312 (n4920) | d +0.11
+Elo gap (mine - theirs)                  held  won  -92.199 (n1341) | lost -100.772 (n3232) | d +0.09
+efficiency read - no-vig price           train won   +0.000 (n1962) | lost   -0.002 (n4920) | d +0.03
+efficiency read - no-vig price           held  won   +0.011 (n1341) | lost   +0.009 (n3232) | d +0.03
+engine own read - no-vig price           train won   -0.006 (n1962) | lost   -0.008 (n4920) | d +0.09
+engine own read - no-vig price           held  won   -0.007 (n1341) | lost   -0.007 (n3232) | d +0.03
+line move open->close (to the dog +)     held  won   -0.016 (n1341) | lost   -0.014 (n3232) | d -0.05
+opp last margin (letdown)                train won   +4.074 (n1936) | lost   +4.365 (n4848) | d -0.02
+opp last margin (letdown)                held  won   +4.098 (n1332) | lost   +4.341 (n3187) | d -0.02
+opp next vs top-25 (lookahead)           train won   +0.090 (n1558) | lost   +0.087 (n3923) | d +0.01
+opp next vs top-25 (lookahead)           held  won   +0.086 (n1030) | lost   +0.089 (n2481) | d -0.01
+opp road trip game #                     train won   +1.546 (n557) | lost   +1.528 (n1333) | d +0.02
+opp road trip game #                     held  won   +1.473 (n355) | lost   +1.459 (n871) | d +0.02
+opp miles                                train won +430.100 (n557) | lost +428.298 (n1333) | d +0.00
+opp miles                                held  won +528.907 (n355) | lost +442.437 (n871) | d +0.18
+opp win streak                           train won   +1.029 (n1962) | lost   +1.087 (n4920) | d -0.02
+opp win streak                           held  won   +0.929 (n1341) | lost   +1.042 (n3232) | d -0.04
+opp ice cold                             train won   +0.221 (n1962) | lost   +0.226 (n4920) | d -0.01
+opp ice cold                             held  won   +0.271 (n1341) | lost   +0.266 (n3232) | d +0.01
+my ice cold                              train won   +0.231 (n1962) | lost   +0.231 (n4920) | d +0.00
+my ice cold                              held  won   +0.259 (n1341) | lost   +0.237 (n3232) | d +0.05
+my top scorer missed last game           train won   +0.061 (n770) | lost   +0.070 (n2001) | d -0.04
+my top scorer missed last game           held  won   +0.061 (n1296) | lost   +0.082 (n3070) | d -0.08
+opp top scorer missed last game          train won   +0.038 (n770) | lost   +0.042 (n2004) | d -0.02
+opp top scorer missed last game          held  won   +0.038 (n1296) | lost   +0.034 (n3068) | d +0.02
+games played                             train won  +17.536 (n1962) | lost  +17.686 (n4920) | d -0.02
+games played                             held  won  +19.007 (n1341) | lost  +19.012 (n3232) | d -0.00
+ats gap (hot-ATS +)                      train won   -1.006 (n1121) | lost   -1.020 (n2843) | d +0.00
+ats gap (hot-ATS +)                      held  won   -1.149 (n843) | lost   -1.130 (n2091) | d -0.01
+(d = the gap in standard deviations - the market's own price separates them at d ~ +0.3; anything under 0.1 is nothing)
+(the price itself:)
+no-vig price                             train won   +0.314 | lost   +0.300
+no-vig price                             held  won   +0.313 | lost   +0.300
+
+== B. THE MONEY TEST - the dogs in each bucket at the close (ALL / train seasons up / held out / the open)
+every dog +150..+350 (the base)                                  ALL   -9.3% n11459 z-6.9 | TR  -10.5% n6882  0/5 up | HELD   -7.7% n4573  0/3 up | open(held)  -11.1% n4573  | 18:-11 19:-10 20:-4 21:-15 22:-12 23:-10 24:-8 25:-5 26:+84
+win streak (- = skid) | <-5                                      ALL  -25.0% n542   z-4.2 | TR  -31.0% n333   0/5 up | HELD  -15.4% n209   0/3 up | open(held)  -18.0% n209   | 18:-58 19:-46 20:-1 21:-43 22:-14 23:-20 24:-11 25:-16
+win streak (- = skid) | -5..-3                                   ALL   -4.0% n705   z-0.7 | TR   -0.5% n415   3/5 up | HELD   -9.0% n290   1/3 up | open(held)  -12.4% n290   | 18:+17 19:-12 20:+21 21:-25 22:+2 23:-21 24:+3 25:-10
+win streak (- = skid) | -3..-1                                   ALL   -9.9% n2072  z-3.1 | TR  -15.0% n1246  0/5 up | HELD   -2.3% n826   2/3 up | open(held)   -5.9% n826   | 18:-18 19:-5 20:-13 21:-20 22:-18 23:+2 24:-9 25:+0
+win streak (- = skid) | -1..1                                    ALL  -10.2% n2700  z-3.7 | TR   -8.8% n1639  0/5 up | HELD  -12.7% n1057  0/3 up | open(held)  -15.7% n1057  | 18:-1 19:-13 20:-3 21:-8 22:-17 23:-16 24:-13 25:-9 26:+84
+win streak (- = skid) | 1..3                                     ALL   -7.0% n3940  z-3.0 | TR   -9.5% n2364  0/5 up | HELD   -3.4% n1576  1/3 up | open(held)   -7.0% n1576  | 18:-13 19:-6 20:-4 21:-16 22:-7 23:-8 24:-5 25:+4
+win streak (- = skid) | 3..5                                     ALL   -8.2% n1052  z-1.8 | TR   -4.1% n621   0/5 up | HELD  -14.2% n431   0/3 up | open(held)  -16.6% n431   | 18:-3 19:-2 20:-3 21:-2 22:-11 23:-17 24:-5 25:-19
+win streak (- = skid) | 5+                                       ALL  -13.7% n448   z-2.1 | TR  -13.7% n264   1/5 up | HELD  -13.8% n184   0/3 up | open(held)  -19.8% n184   | 18:-21 19:-13 20:-11 21:+3 22:-29 23:-7 24:-16 25:-19
+win % so far (5+ games) | <0.3                                   ALL  -10.7% n1415  z-2.7 | TR  -11.2% n895   2/5 up | HELD   -9.8% n520   0/3 up | open(held)  -12.7% n520   | 18:-17 19:-19 20:+2 21:-26 22:+7 23:-2 24:-13 25:-14
+win % so far (5+ games) | 0.3..0.5                               ALL   -9.1% n3510  z-3.7 | TR  -11.6% n2044  0/5 up | HELD   -5.7% n1466  0/3 up | open(held)   -9.1% n1466  | 18:-7 19:-15 20:-3 21:-17 22:-14 23:-3 24:-11 25:-4
+win % so far (5+ games) | 0.5..0.7                               ALL   -9.0% n3901  z-3.9 | TR  -10.9% n2303  1/5 up | HELD   -6.2% n1598  1/3 up | open(held)   -9.0% n1598  | 18:-13 19:-8 20:+1 21:-9 22:-21 23:-14 24:-6 25:+1
+win % so far (5+ games) | 0.7+                                   ALL   -3.8% n1491  z-1.0 | TR   -2.5% n916   2/5 up | HELD   -5.8% n575   1/3 up | open(held)  -11.0% n575   | 18:-6 19:+5 20:+14 21:-15 22:-7 23:-11 24:-8 25:+3
+last margin | <-15                                               ALL  -10.3% n1640  z-2.8 | TR   -9.8% n967   1/5 up | HELD  -11.1% n673   0/3 up | open(held)  -15.0% n673   | 18:-6 19:-8 20:+10 21:-24 22:-17 23:-19 24:-10 25:-5
+last margin | -15..-5                                            ALL  -10.2% n2660  z-3.6 | TR  -14.7% n1633  0/5 up | HELD   -3.0% n1027  1/3 up | open(held)   -6.4% n1027  | 18:-12 19:-20 20:-7 21:-18 22:-16 23:-5 24:-5 25:+2
+last margin | -5..0                                              ALL  -11.0% n1567  z-3.0 | TR   -9.4% n937   0/5 up | HELD  -13.5% n630   0/3 up | open(held)  -16.0% n630   | 18:-7 19:-9 20:-12 21:-9 22:-11 23:-9 24:-17 25:-15
+last margin | 0..5                                               ALL   -8.3% n1292  z-2.1 | TR  -10.9% n768   1/5 up | HELD   -4.5% n524   1/3 up | open(held)   -6.7% n524   | 18:-16 19:-11 20:+7 21:-21 22:-9 23:-19 24:-6 25:+12
+last margin | 5..15                                              ALL   -7.2% n2545  z-2.5 | TR   -9.1% n1536  0/5 up | HELD   -4.4% n1009  1/3 up | open(held)   -8.4% n1009  | 18:-6 19:-8 20:-7 21:-7 22:-16 23:+4 24:-11 25:-7
+last margin | 15+                                                ALL   -8.4% n1603  z-2.3 | TR   -6.6% n945   2/5 up | HELD  -10.8% n658   1/3 up | open(held)  -14.9% n658   | 18:-16 19:+1 20:-10 21:-11 22:+1 23:-23 24:+1 25:-9
+avg margin so far (5+) | <-10                                    ALL  -17.3% n536   z-2.8 | TR  -14.8% n295   0/5 up | HELD  -20.5% n241   0/3 up | open(held)  -24.5% n241   | 18:-28 19:-12 20:-1 21:-31 22:-16 23:-29 24:-15 25:-17
+avg margin so far (5+) | -10..-5                                 ALL   -7.6% n1201  z-1.8 | TR   -6.7% n762   3/5 up | HELD   -9.1% n439   0/3 up | open(held)  -12.4% n439   | 18:+3 19:-12 20:+8 21:-24 22:+3 23:-16 24:-7 25:-6
+avg margin so far (5+) | -5..0                                   ALL  -12.5% n2625  z-4.4 | TR  -16.4% n1550  0/5 up | HELD   -6.8% n1075  1/3 up | open(held)   -9.5% n1075  | 18:-15 19:-23 20:-8 21:-28 22:-10 23:+3 24:-15 25:-10
+avg margin so far (5+) | 0..5                                    ALL   -5.4% n2967  z-2.0 | TR   -5.7% n1812  2/5 up | HELD   -4.9% n1155  0/3 up | open(held)   -8.8% n1155  | 18:-11 19:-11 20:+8 21:+2 22:-12 23:-6 24:-7 25:-1
+avg margin so far (5+) | 5+                                      ALL   -6.9% n2988  z-2.6 | TR   -9.1% n1739  2/5 up | HELD   -3.8% n1249  1/3 up | open(held)   -7.2% n1249  | 18:-10 19:+4 20:+5 21:-16 22:-22 23:-14 24:-5 25:+9
+luck (win% - margin-implied) | <-0.1                             ALL   -7.2% n2666  z-2.5 | TR  -10.9% n1528  1/5 up | HELD   -2.3% n1138  1/3 up | open(held)   -5.3% n1138  | 18:-15 19:-2 20:+9 21:-18 22:-19 23:-10 24:-3 25:+7
+luck (win% - margin-implied) | -0.1..0                           ALL   -9.3% n4065  z-4.1 | TR   -9.9% n2431  0/5 up | HELD   -8.4% n1634  0/3 up | open(held)  -11.6% n1634  | 18:-12 19:-9 20:-1 21:-11 22:-14 23:-4 24:-13 25:-9
+luck (win% - margin-implied) | 0..0.1                            ALL   -9.1% n2847  z-3.3 | TR   -9.4% n1749  1/5 up | HELD   -8.6% n1098  0/3 up | open(held)  -11.9% n1098  | 18:-4 19:-16 20:+1 21:-24 22:-4 23:-15 24:-10 25:-0
+luck (win% - margin-implied) | 0.1+                              ALL   -6.8% n739   z-1.2 | TR   -9.2% n450   2/5 up | HELD   -3.0% n289   0/3 up | open(held)   -8.9% n289   | 18:-22 19:-14 20:+1 21:+2 22:-16 23:-2 24:-6 25:-1
+cover run | <-4                                                  ALL   +8.3% n145   z+0.6 | TR  +10.1% n79    4/5 up | HELD   +6.2% n66    2/3 up | open(held)   +4.1% n66    | 18:+6 19:+2 20:+9 21:-32 22:+84 23:+48 24:+10 25:-60
+cover run | -4..-2                                               ALL   -7.1% n614   z-1.2 | TR   -5.6% n370   1/5 up | HELD   -9.5% n244   1/3 up | open(held)  -12.8% n244   | 18:-15 19:-19 20:+37 21:-8 22:-23 23:-12 24:-29 25:+15
+cover run | -2..0                                                ALL  -11.4% n3790  z-4.9 | TR  -14.3% n2286  0/5 up | HELD   -7.1% n1504  0/3 up | open(held)  -10.3% n1504  | 18:-16 19:-11 20:-0 21:-22 22:-19 23:-13 24:-4 25:-4
+cover run | 0..2                                                 ALL   -6.7% n5043  z-3.3 | TR   -6.1% n3042  0/5 up | HELD   -7.9% n1997  0/3 up | open(held)  -11.1% n1997  | 18:-10 19:-4 20:-7 21:-5 22:-5 23:-12 24:-8 25:-3 26:+84
+cover run | 2..4                                                 ALL  -16.5% n1557  z-4.6 | TR  -20.7% n927   1/5 up | HELD  -10.5% n630   0/3 up | open(held)  -14.5% n630   | 18:+5 19:-28 20:-23 21:-35 22:-21 23:-7 24:-12 25:-12
+cover run | 4+                                                   ALL   -2.5% n310   z-0.3 | TR   -2.9% n178   2/5 up | HELD   -1.9% n132   1/3 up | open(held)   -6.9% n132   | 18:-30 19:+2 20:-16 21:+22 22:-2 23:+10 24:-4 25:-10
+rest nights | <2                                                 ALL   -7.8% n886   z-1.6 | TR   -8.3% n571   1/5 up | HELD   -6.9% n315   1/3 up | open(held)  -14.8% n315   | 18:-21 19:-6 20:+9 21:-32 22:-17 23:-14 24:+0 25:-8
+rest nights | 2..3                                               ALL   -9.4% n1771  z-2.7 | TR  -11.5% n1128  0/5 up | HELD   -5.8% n643   1/3 up | open(held)  -10.7% n643   | 18:-16 19:-14 20:-27 21:-6 22:-6 23:-6 24:-23 25:+12
+rest nights | 3..5                                               ALL   -9.3% n5402  z-4.7 | TR  -10.3% n3124  1/5 up | HELD   -7.8% n2278  0/3 up | open(held)  -10.6% n2278  | 18:-8 19:-11 20:+5 21:-15 22:-16 23:-8 24:-11 25:-5
+rest nights | 5..8                                               ALL  -10.8% n2676  z-3.9 | TR  -13.6% n1587  0/5 up | HELD   -6.7% n1089  1/3 up | open(held)   -9.5% n1089  | 18:-9 19:-9 20:-15 21:-24 22:-13 23:-10 24:+2 25:-12
+rest nights | 8+                                                 ALL   -2.2% n572   z-0.4 | TR   +1.9% n376   3/5 up | HELD  -10.2% n196   1/3 up | open(held)  -12.3% n196   | 18:-9 19:+2 20:-9 21:+22 22:+12 23:-30 24:-1 25:+8
+opp rest nights | <2                                             ALL   -5.6% n653   z-1.0 | TR   -5.2% n461   1/5 up | HELD   -6.7% n192   1/3 up | open(held)  -11.3% n192   | 18:-26 19:-19 20:+13 21:-31 22:-4 23:-22 24:+19 25:-20
+opp rest nights | 2..3                                           ALL  -11.5% n1679  z-3.3 | TR  -16.2% n1047  0/5 up | HELD   -3.6% n632   1/3 up | open(held)   -9.0% n632   | 18:-18 19:-11 20:-48 21:-3 22:-19 23:-1 24:-18 25:+9
+opp rest nights | 3..5                                           ALL   -9.8% n5569  z-5.0 | TR  -10.5% n3227  1/5 up | HELD   -8.7% n2342  0/3 up | open(held)  -11.5% n2342  | 18:-11 19:-9 20:+5 21:-18 22:-12 23:-11 24:-10 25:-5
+opp rest nights | 5..8                                           ALL   -8.4% n2897  z-3.1 | TR   -9.2% n1702  0/5 up | HELD   -7.4% n1195  0/3 up | open(held)  -10.7% n1195  | 18:-3 19:-11 20:-11 21:-12 22:-11 23:-13 24:-4 25:-4
+opp rest nights | 8+                                             ALL   -1.9% n505   z-0.3 | TR   -3.9% n347   2/5 up | HELD   +2.4% n158   2/3 up | open(held)   -2.8% n158   | 18:+6 19:+7 20:-10 21:-12 22:-2 23:+12 24:+4 25:-8
+rest gap (mine - theirs) | <-2                                   ALL   -9.3% n950   z-2.0 | TR   -6.6% n589   2/5 up | HELD  -13.9% n361   1/3 up | open(held)  -19.6% n361   | 18:+2 19:-9 20:-12 21:-20 22:+9 23:+1 24:-26 25:-15
+rest gap (mine - theirs) | -2..0                                 ALL   -9.1% n1615  z-2.5 | TR  -13.6% n943   0/5 up | HELD   -2.7% n672   2/3 up | open(held)   -6.0% n672   | 18:-16 19:-11 20:-10 21:-18 22:-12 23:-21 24:+3 25:+10
+rest gap (mine - theirs) | 0..1                                  ALL   -9.6% n6426  z-5.3 | TR  -11.1% n3827  1/5 up | HELD   -7.5% n2599  0/3 up | open(held)  -10.7% n2599  | 18:-12 19:-11 20:+4 21:-14 22:-17 23:-8 24:-11 25:-3
+rest gap (mine - theirs) | 1..3                                  ALL   -6.0% n1506  z-1.6 | TR   -9.4% n920   0/5 up | HELD   -0.7% n586   1/3 up | open(held)   -3.7% n586   | 18:-5 19:-12 20:-14 21:-8 22:-9 23:+4 24:-6 25:-1
+rest gap (mine - theirs) | 3+                                    ALL  -11.0% n789   z-2.1 | TR   -5.8% n491   2/5 up | HELD  -19.6% n298   1/3 up | open(held)  -23.0% n298   | 18:-2 19:+7 20:-16 21:-11 22:+4 23:-32 24:+7 25:-30
+games in 3 nights | <1                                           ALL   -9.3% n8650  z-5.9 | TR  -10.4% n5087  0/5 up | HELD   -7.6% n3563  0/3 up | open(held)  -10.4% n3563  | 18:-8 19:-9 20:-4 21:-15 22:-13 23:-10 24:-6 25:-6
+games in 3 nights | 1..2                                         ALL   -8.6% n2515  z-2.9 | TR  -10.3% n1623  0/5 up | HELD   -5.4% n892   1/3 up | open(held)  -11.0% n892   | 18:-18 19:-14 20:-5 21:-9 22:-8 23:-8 24:-17 25:+10
+games in 3 nights | 2+                                           ALL  -14.6% n142   z-1.2 | TR  -13.9% n76    2/5 up | HELD  -15.5% n66    1/3 up | open(held)  -26.1% n66    | 18:-15 19:+40 20:+42 21:-67 22:-25 23:-10 24:+20 25:-56
+miles traveled | <300                                            ALL   -8.7% n3664  z-3.6 | TR  -10.7% n2221  1/5 up | HELD   -5.6% n1442  1/3 up | open(held)   -8.8% n1442  | 18:-6 19:-15 20:+4 21:-18 22:-14 23:-13 24:-7 25:+4 26:-100
+miles traveled | 300..1000                                       ALL   -9.5% n3770  z-4.0 | TR  -11.6% n2286  0/5 up | HELD   -6.7% n1482  0/3 up | open(held)   -9.9% n1482  | 18:-14 19:-11 20:-8 21:-13 22:-12 23:-12 24:-1 25:-6 26:+268
+miles traveled | 1000..2000                                      ALL   -5.7% n598   z-0.9 | TR  -10.6% n318   1/5 up | HELD   +0.3% n279   2/3 up | open(held)   -3.5% n279   | 18:-6 19:+17 20:-51 21:-21 22:-13 23:+6 24:+7 25:-13 26:-100
+miles traveled | 2000+                                           ALL  -14.0% n311   z-1.7 | TR   -3.9% n167   3/5 up | HELD  -25.6% n144   0/3 up | open(held)  -26.0% n144   | 18:+0 19:-16 20:+8 21:+11 22:-12 23:-42 24:-1 25:-35
+road trip game # | <2                                            ALL  -10.8% n4355  z-4.9 | TR  -11.9% n2571  0/5 up | HELD   -9.2% n1783  0/3 up | open(held)  -11.2% n1783  | 18:-7 19:-11 20:-6 21:-16 22:-17 23:-16 24:-6 25:-5 26:-100
+road trip game # | 2..3                                          ALL   -7.9% n2022  z-2.4 | TR  -12.0% n1228  0/5 up | HELD   -1.6% n794   1/3 up | open(held)   -4.8% n794   | 18:-10 19:-11 20:-10 21:-15 22:-14 23:-3 24:-7 25:+6
+road trip game # | 3+                                            ALL   -7.3% n674   z-1.3 | TR  -10.5% n448   2/5 up | HELD   -0.9% n226   1/3 up | open(held)   -4.5% n226   | 18:-12 19:-31 20:+10 21:-28 22:+11 23:-4 24:+18 25:-14
+pace gap (FGA/g) | <-8                                           ALL   -8.7% n1172  z-2.0 | TR  -12.1% n517   0/2 up | HELD   -6.0% n655   1/3 up | open(held)   -9.3% n655   | 21:-15 22:-10 23:+2 24:-20 25:-2
+pace gap (FGA/g) | -8..-3                                        ALL   -8.6% n1386  z-2.2 | TR  -16.8% n466   0/2 up | HELD   -4.5% n920   1/3 up | open(held)   -8.0% n920   | 21:-20 22:-14 23:-14 24:-7 25:+9
+pace gap (FGA/g) | -3..3                                         ALL   -7.4% n1979  z-2.3 | TR  -15.3% n719   0/2 up | HELD   -2.9% n1260  1/3 up | open(held)   -6.7% n1260  | 21:-18 22:-13 23:-2 24:-7 25:+0
+pace gap (FGA/g) | 3..8                                          ALL  -12.0% n1278  z-3.0 | TR  -13.4% n490   0/2 up | HELD  -11.1% n788   0/3 up | open(held)  -14.6% n788   | 21:-6 22:-20 23:-17 24:-5 25:-11
+pace gap (FGA/g) | 8+                                            ALL  -11.6% n899   z-2.4 | TR  -10.5% n390   0/2 up | HELD  -12.5% n509   0/3 up | open(held)  -14.6% n509   | 21:-13 22:-8 23:-11 24:-13 25:-13
+rebound margin gap | <-8                                         ALL  -16.5% n765   z-3.2 | TR  -30.5% n281   0/2 up | HELD   -8.3% n484   1/3 up | open(held)  -12.5% n484   | 21:-44 22:-18 23:-8 24:-29 25:+8
+rebound margin gap | -8..-4                                      ALL  -11.7% n1556  z-3.2 | TR  -10.8% n599   0/2 up | HELD  -12.3% n957   0/3 up | open(held)  -15.1% n957   | 21:-11 22:-11 23:-7 24:-15 25:-14
+rebound margin gap | -4..0                                       ALL   -6.9% n2095  z-2.2 | TR  -12.6% n827   0/2 up | HELD   -3.2% n1268  1/3 up | open(held)   -6.5% n1268  | 21:-14 22:-12 23:-6 24:-6 25:+3
+rebound margin gap | 0..4                                        ALL   -5.8% n1528  z-1.6 | TR  -10.5% n574   0/2 up | HELD   -3.0% n954   0/3 up | open(held)   -7.1% n954   | 21:-6 22:-15 23:-1 24:-1 25:-7
+rebound margin gap | 4..8                                        ALL  -13.4% n586   z-2.3 | TR  -18.0% n234   0/2 up | HELD  -10.3% n352   1/3 up | open(held)  -11.8% n352   | 21:-24 22:-12 23:-33 24:-12 25:+21
+rebound margin gap | 8+                                          ALL   -3.0% n184   z-0.3 | TR   -1.7% n67    1/2 up | HELD   -3.8% n117   1/3 up | open(held)   -9.3% n117   | 21:+18 22:-21 23:-15 24:+18 25:-20
+FG% gap (offense) | <-0.04                                       ALL   -4.4% n1358  z-1.1 | TR   -8.9% n531   0/2 up | HELD   -1.5% n827   1/3 up | open(held)   -3.0% n827   | 21:-13 22:-5 23:+8 24:-8 25:-6
+FG% gap (offense) | -0.04..-0.01                                 ALL  -10.6% n2325  z-3.5 | TR  -19.4% n920   0/2 up | HELD   -4.8% n1405  1/3 up | open(held)   -8.5% n1405  | 21:-23 22:-16 23:-9 24:-9 25:+3
+FG% gap (offense) | -0.01..0.01                                  ALL  -10.4% n1556  z-2.9 | TR   -9.1% n602   0/2 up | HELD  -11.3% n954   0/3 up | open(held)  -14.9% n954   | 21:-8 22:-10 23:-16 24:-16 25:-1
+FG% gap (offense) | 0.01..0.04                                   ALL  -10.9% n1143  z-2.6 | TR  -16.0% n405   0/2 up | HELD   -8.1% n738   0/3 up | open(held)  -13.0% n738   | 21:-5 22:-25 23:-18 24:-3 25:-2
+FG% gap (offense) | 0.04+                                        ALL  -10.0% n332   z-1.3 | TR   -9.8% n124   0/2 up | HELD  -10.0% n208   0/3 up | open(held)  -12.9% n208   | 21:-21 22:-2 23:-2 24:-8 25:-26
+FG% allowed gap (defense, - = better) | <-0.04                   ALL   -2.0% n321   z-0.2 | TR   -8.1% n153   0/2 up | HELD   +3.6% n168   2/3 up | open(held)   -5.8% n168   | 21:-8 22:-9 23:-10 24:+4 25:+18
+FG% allowed gap (defense, - = better) | -0.04..-0.01             ALL   -6.9% n1309  z-1.7 | TR  -10.5% n517   0/2 up | HELD   -4.6% n792   1/3 up | open(held)   -8.9% n792   | 21:-10 22:-11 23:-9 24:+1 25:-6
+FG% allowed gap (defense, - = better) | -0.01..0.01              ALL   -6.5% n1673  z-1.8 | TR  -14.2% n623   0/2 up | HELD   -2.0% n1050  1/3 up | open(held)   -7.1% n1050  | 21:-7 22:-20 23:-3 24:-3 25:+1
+FG% allowed gap (defense, - = better) | 0.01..0.04               ALL  -10.3% n2343  z-3.4 | TR  -18.9% n882   0/2 up | HELD   -5.0% n1461  1/3 up | open(held)   -7.3% n1461  | 21:-19 22:-19 23:-12 24:-10 25:+7
+FG% allowed gap (defense, - = better) | 0.04+                    ALL  -16.9% n1068  z-3.9 | TR   -8.7% n407   1/2 up | HELD  -21.9% n661   0/3 up | open(held)  -22.4% n661   | 21:-26 22:+8 23:-7 24:-31 25:-24
+Elo gap (mine - theirs) | <-300                                  ALL  -28.4% n209   z-2.7 | TR  -21.6% n136   0/5 up | HELD  -41.0% n73    0/3 up | open(held)  -39.1% n73    | 18:-33 19:-30 20:-34 21:-10 22:-8 23:-22 24:-87 25:-12
+Elo gap (mine - theirs) | -300..-200                             ALL  -11.1% n1532  z-2.9 | TR  -15.1% n910   1/5 up | HELD   -5.4% n622   0/3 up | open(held)   -6.5% n622   | 18:-32 19:+1 20:-4 21:-29 22:-9 23:-4 24:-12 25:-0
+Elo gap (mine - theirs) | -200..-100                             ALL   -8.5% n3927  z-3.6 | TR   -9.4% n2391  1/5 up | HELD   -7.4% n1535  0/3 up | open(held)   -9.8% n1535  | 18:+1 19:-9 20:-0 21:-22 22:-12 23:-7 24:-7 25:-8 26:+260
+Elo gap (mine - theirs) | -100..0                                ALL  -11.1% n4108  z-5.0 | TR  -12.6% n2455  0/5 up | HELD   -8.9% n1651  1/3 up | open(held)  -13.0% n1651  | 18:-9 19:-16 20:-9 21:-12 22:-16 23:-16 24:-12 25:+2 26:-100
+Elo gap (mine - theirs) | 0+                                     ALL   -2.8% n1683  z-0.8 | TR   -2.2% n990   2/5 up | HELD   -4.1% n692   1/3 up | open(held)  -10.6% n692   | 18:-13 19:-2 20:+2 21:+13 22:-7 23:-8 24:+13 25:-17 26:+275
+efficiency read - no-vig price | <-0.06                          ALL   -8.6% n1597  z-2.4 | TR   -8.0% n1166  1/5 up | HELD  -10.2% n431   1/3 up | open(held)   -5.5% n431   | 18:-9 19:+6 20:-9 21:-21 22:-12 23:-26 24:-7 25:+7
+efficiency read - no-vig price | -0.06..-0.03                    ALL   -8.3% n1800  z-2.4 | TR   -6.5% n1147  1/5 up | HELD  -11.5% n653   0/3 up | open(held)  -10.6% n653   | 18:+10 19:-11 20:-3 21:-26 22:-3 23:-24 24:-8 25:-2
+efficiency read - no-vig price | -0.03..0                        ALL  -15.6% n2458  z-5.4 | TR  -20.5% n1457  0/5 up | HELD   -8.5% n1000  0/3 up | open(held)   -9.7% n1000  | 18:-22 19:-19 20:-14 21:-30 22:-17 23:-10 24:-9 25:-6 26:-100
+efficiency read - no-vig price | 0..0.03                         ALL  -10.0% n2219  z-3.2 | TR  -11.7% n1224  1/5 up | HELD   -8.0% n995   0/3 up | open(held)  -12.0% n995   | 18:-29 19:-17 20:+8 21:-8 22:-10 23:-3 24:-10 25:-11
+efficiency read - no-vig price | 0.03..0.06                      ALL   -1.3% n1552  z-0.3 | TR   -0.5% n850   2/5 up | HELD   -2.5% n701   1/3 up | open(held)   -9.5% n701   | 18:+1 19:-10 20:+17 21:-6 22:-1 23:+4 24:-7 25:-4 26:+260
+efficiency read - no-vig price | 0.06+                           ALL   -8.5% n1833  z-2.5 | TR  -10.3% n1038  1/5 up | HELD   -6.4% n793   0/3 up | open(held)  -16.5% n793   | 18:-10 19:-6 20:-14 21:+6 22:-25 23:-11 24:-5 25:-3 26:+88
+engine own read - no-vig price | <-0.03                          ALL   +0.7% n548   z+0.1 | TR   -1.7% n341   3/5 up | HELD   +4.8% n207   1/3 up | open(held)   +5.5% n207   | 18:+24 19:+19 20:+12 21:-28 22:-13 23:+20 24:-3 25:-3
+engine own read - no-vig price | -0.03..0                        ALL   -9.8% n7667  z-5.9 | TR  -11.8% n4565  0/5 up | HELD   -7.0% n3100  0/3 up | open(held)  -10.4% n3100  | 18:-11 19:-12 20:-6 21:-15 22:-13 23:-14 24:-3 25:-3 26:+80
+engine own read - no-vig price | 0..0.03                         ALL  -12.6% n2402  z-4.2 | TR  -11.4% n1487  0/5 up | HELD  -14.6% n913   0/3 up | open(held)  -17.9% n913   | 18:-17 19:-7 20:-5 21:-24 22:-4 23:-10 24:-22 25:-12 26:+88
+engine own read - no-vig price | 0.03..0.06                      ALL   -2.1% n841   z-0.5 | TR   -1.3% n488   2/5 up | HELD   -3.2% n353   2/3 up | open(held)   -8.7% n353   | 18:-0 19:-9 20:+2 21:+25 22:-26 23:+3 24:-17 25:+2
+engine own read - no-vig price | 0.06+                           ALL -100.0% n1     z-1.0 | TR -100.0% n1     0/1 up | HELD     -          0/0 up | 21:-100
+line move open->close (to the dog +) | <-0.04                    ALL   -2.9% n1112  z-0.6 | TR     -          0/0 up | HELD   -3.1% n1111  1/3 up | open(held)  -20.9% n1111  | 23:+0 24:-7 25:-3 26:+275
+line move open->close (to the dog +) | -0.04..-0.015             ALL   -3.0% n1087  z-0.7 | TR     -          0/0 up | HELD   -2.8% n1085  1/3 up | open(held)  -10.8% n1085  | 23:-5 24:-4 25:+2 26:-100
+line move open->close (to the dog +) | -0.015..0.015             ALL  -11.4% n1328  z-2.8 | TR     -          0/0 up | HELD  -11.6% n1327  0/3 up | open(held)  -11.9% n1327  | 23:-18 24:-16 25:-0 26:+260
+line move open->close (to the dog +) | 0.015..0.04               ALL  -12.1% n681   z-2.2 | TR     -          0/0 up | HELD  -12.1% n681   1/3 up | open(held)   -3.5% n681   | 23:-21 24:+2 25:-15
+line move open->close (to the dog +) | 0.04+                     ALL  -13.7% n369   z-1.9 | TR     -          0/0 up | HELD  -13.7% n369   0/3 up | open(held)   +7.0% n369   | 23:-22 24:-7 25:-12
+opp last margin (letdown) | <-10                                 ALL   -7.7% n1674  z-2.2 | TR  -12.9% n982   2/5 up | HELD   -0.3% n692   2/3 up | open(held)   -4.2% n692   | 18:-16 19:-26 20:+1 21:-22 22:+4 23:-14 24:+4 25:+9
+opp last margin (letdown) | -10..0                               ALL   -4.9% n2722  z-1.7 | TR   -5.2% n1637  1/5 up | HELD   -4.3% n1085  1/3 up | open(held)   -7.9% n1085  | 18:-2 19:+3 20:-16 21:-7 22:-6 23:-8 24:-10 25:+5
+opp last margin (letdown) | 0..10                                ALL  -12.1% n3166  z-4.7 | TR  -11.6% n1904  0/5 up | HELD  -12.8% n1262  0/3 up | open(held)  -15.5% n1262  | 18:-1 19:-12 20:-6 21:-12 22:-25 23:-11 24:-16 25:-12
+opp last margin (letdown) | 10..20                               ALL  -12.5% n2256  z-4.1 | TR  -13.6% n1420  1/5 up | HELD  -10.7% n836   0/3 up | open(held)  -14.0% n836   | 18:-30 19:-17 20:+4 21:-16 22:-7 23:-9 24:-9 25:-15
+opp last margin (letdown) | 20+                                  ALL   -7.0% n1485  z-1.8 | TR   -9.4% n841   2/5 up | HELD   -3.8% n644   0/3 up | open(held)   -8.1% n644   | 18:-6 19:+2 20:+1 21:-17 22:-24 23:-7 24:-2 25:-3
+opp next vs top-25 (lookahead) | yes                             ALL   -8.4% n793   z-1.6 | TR   -8.9% n482   2/5 up | HELD   -7.5% n311   1/3 up | open(held)  -10.6% n311   | 18:-5 19:+8 20:+10 21:-26 22:-32 23:+7 24:-22 25:-9
+opp next vs top-25 (lookahead) | no                              ALL   -9.6% n8199  z-6.0 | TR  -10.9% n4999  0/5 up | HELD   -7.6% n3200  0/3 up | open(held)  -10.4% n3200  | 18:-10 19:-12 20:-7 21:-14 22:-11 23:-11 24:-6 25:-6
+opp road trip game # | <2                                        ALL  -14.1% n1931  z-4.4 | TR  -14.3% n1151  0/5 up | HELD  -13.8% n780   0/3 up | open(held)  -17.7% n780   | 18:-18 19:-9 20:-3 21:-26 22:-13 23:-5 24:-22 25:-14
+opp road trip game # | 2..3                                      ALL   -3.6% n928   z-0.7 | TR   -2.6% n564   2/5 up | HELD   -5.1% n364   1/3 up | open(held)  -10.0% n364   | 18:-19 19:-3 20:-4 21:+8 22:+5 23:-6 24:-19 25:+8
+opp road trip game # | 3+                                        ALL   -3.6% n257   z-0.4 | TR   -0.3% n175   2/5 up | HELD  -10.7% n82    1/3 up | open(held)  -11.9% n82    | 18:+52 19:+5 20:-2 21:-2 22:-40 23:+5 24:-23 25:-12
+opp miles | <300                                                 ALL  -12.2% n1424  z-3.3 | TR   -8.2% n862   1/5 up | HELD  -18.3% n562   0/3 up | open(held)  -22.5% n562   | 18:-17 19:-15 20:-7 21:-4 22:+1 23:-14 24:-28 25:-13
+opp miles | 300..1000                                            ALL  -11.6% n1471  z-3.1 | TR  -12.0% n905   1/5 up | HELD  -11.0% n566   1/3 up | open(held)  -14.3% n566   | 18:-17 19:-4 20:+1 21:-18 22:-21 23:+4 24:-27 25:-9
+opp miles | 1000..2000                                           ALL  +15.2% n152   z+1.2 | TR   +4.0% n91    3/5 up | HELD  +31.8% n61    3/3 up | open(held)  +26.2% n61    | 18:+44 19:+22 20:-13 21:-59 22:+5 23:+21 24:+39 25:+35
+opp miles | 2000+                                                ALL   +9.7% n69    z+0.5 | TR  -11.7% n32    1/5 up | HELD  +28.2% n37    2/3 up | open(held)  +18.4% n37    | 18:-31 19:+48 20:-5 21:-100 22:-5 23:-37 24:+87 25:+22
+opp win streak | <-3                                             ALL  -13.9% n390   z-2.0 | TR  -17.4% n222   1/5 up | HELD   -9.4% n168   1/3 up | open(held)  -14.0% n168   | 18:-17 19:-32 20:-23 21:+8 22:-28 23:-17 24:+5 25:-20
+opp win streak | -3..0                                           ALL   -5.2% n4006  z-2.2 | TR   -7.2% n2397  0/5 up | HELD   -2.0% n1609  1/3 up | open(held)   -5.7% n1609  | 18:-6 19:-6 20:-9 21:-16 22:-0 23:-10 24:-5 25:+9
+opp win streak | 0..3                                            ALL  -11.6% n4307  z-5.3 | TR  -12.9% n2587  1/5 up | HELD   -9.9% n1716  0/3 up | open(held)  -13.3% n1716  | 18:-17 19:-19 20:+4 21:-14 22:-15 23:-12 24:-5 25:-13 26:+84
+opp win streak | 3..6                                            ALL  -11.7% n1898  z-3.5 | TR  -10.3% n1156  1/5 up | HELD  -13.8% n742   0/3 up | open(held)  -16.5% n742   | 18:-1 19:+1 20:-5 21:-19 22:-26 23:-9 24:-25 25:-8
+opp win streak | 6+                                              ALL  -10.2% n858   z-2.0 | TR  -10.9% n520   1/5 up | HELD   -9.1% n338   0/3 up | open(held)  -11.9% n338   | 18:-17 19:+9 20:-12 21:-15 22:-16 23:-6 24:-9 25:-12
+opp ice cold | yes                                               ALL  -10.0% n2768  z-3.6 | TR  -12.8% n1543  0/5 up | HELD   -6.4% n1225  0/3 up | open(held)   -9.0% n1225  | 18:-25 19:-13 20:-2 21:-12 22:-9 23:-7 24:-11 25:-0
+opp ice cold | no                                                ALL   -9.1% n8691  z-5.8 | TR   -9.8% n5339  0/5 up | HELD   -8.2% n3348  0/3 up | open(held)  -11.8% n3348  | 18:-6 19:-9 20:-4 21:-15 22:-13 23:-11 24:-7 25:-6 26:+84
+my ice cold | yes                                                ALL   -5.4% n2706  z-1.9 | TR   -8.4% n1592  2/5 up | HELD   -1.2% n1114  1/3 up | open(held)   -5.2% n1114  | 18:-22 19:+3 20:+5 21:-18 22:-8 23:-3 24:+1 25:-1
+my ice cold | no                                                 ALL  -10.5% n8753  z-6.8 | TR  -11.1% n5290  0/5 up | HELD   -9.8% n3459  0/3 up | open(held)  -13.0% n3459  | 18:-7 19:-14 20:-6 21:-14 22:-13 23:-13 24:-11 25:-6 26:+84
+my top scorer missed last game | yes                             ALL  -21.5% n519   z-3.4 | TR  -19.8% n188   0/2 up | HELD  -22.4% n331   0/3 up | open(held)  -27.2% n331   | 21:-4 22:-39 23:-26 24:-32 25:-12
+my top scorer missed last game | no                              ALL   -8.1% n6618  z-4.5 | TR  -12.5% n2583  0/2 up | HELD   -5.2% n4035  0/3 up | open(held)   -8.5% n4035  | 21:-14 22:-11 23:-7 24:-6 25:-2
+opp top scorer missed last game | yes                            ALL   -8.3% n267   z-0.9 | TR  -21.3% n114   0/2 up | HELD   +1.4% n153   2/3 up | open(held)   +0.1% n153   | 21:-25 22:-17 23:+7 24:+9 25:-7
+opp top scorer missed last game | no                             ALL   -9.1% n6871  z-5.2 | TR  -12.8% n2660  0/2 up | HELD   -6.7% n4211  0/3 up | open(held)  -10.3% n4211  | 21:-13 22:-12 23:-9 24:-9 25:-2
+games played | <4                                                ALL  -22.3% n583   z-3.9 | TR  -18.2% n373   1/5 up | HELD  -31.9% n206   0/3 up | open(held)  -34.2% n206   | 18:+4 19:-28 20:-28 21:-29 22:-2 23:-44 24:-3 25:-46 26:+84
+games played | 4..11                                             ALL   -4.0% n2087  z-1.2 | TR   -5.1% n1317  1/5 up | HELD   -2.3% n770   1/3 up | open(held)   -5.5% n770   | 18:-7 19:+6 20:-9 21:-7 22:-7 23:-8 24:+13 25:-13
+games played | 11..21                                            ALL   -9.0% n3882  z-3.9 | TR  -10.0% n2415  1/5 up | HELD   -7.5% n1467  1/3 up | open(held)   -9.5% n1467  | 18:-14 19:+1 20:-9 21:-14 22:-15 23:-15 24:-10 25:+2
+games played | 21+                                               ALL  -10.3% n4907  z-5.0 | TR  -12.5% n2777  1/5 up | HELD   -7.4% n2130  0/3 up | open(held)  -11.9% n2130  | 18:-11 19:-22 20:+20 21:-17 22:-13 23:-5 24:-15 25:-3
+ats gap (hot-ATS +) | <-5                                        ALL   -6.5% n851   z-1.3 | TR   -2.9% n502   3/5 up | HELD  -11.8% n349   1/3 up | open(held)  -14.5% n349   | 18:+2 19:+20 20:+24 21:-36 22:-20 23:+1 24:-12 25:-31
+ats gap (hot-ATS +) | -5..-2                                     ALL  -11.9% n1796  z-3.5 | TR  -16.7% n1009  0/5 up | HELD   -5.7% n787   1/3 up | open(held)   -7.2% n787   | 18:-22 19:-20 20:-7 21:-23 22:-9 23:-14 24:-7 25:+5
+ats gap (hot-ATS +) | -2..2                                      ALL  -10.9% n2993  z-4.2 | TR  -10.7% n1683  1/5 up | HELD  -11.1% n1310  0/3 up | open(held)  -15.9% n1310  | 18:-7 19:-19 20:+3 21:-12 22:-10 23:-5 24:-22 25:-7
+ats gap (hot-ATS +) | 2..5                                       ALL  -11.1% n992   z-2.5 | TR  -12.9% n602   1/5 up | HELD   -8.3% n390   1/3 up | open(held)  -14.3% n390   | 18:-19 19:-11 20:+26 21:-14 22:-23 23:-28 24:-20 25:+21
+ats gap (hot-ATS +) | 5+                                         ALL  -17.0% n266   z-2.0 | TR  -12.4% n168   1/5 up | HELD  -24.8% n98    1/3 up | open(held)  -29.7% n98    | 18:+0 19:-4 20:-3 21:-31 22:-17 23:+16 24:-30 25:-55
+venue | home                                                     ALL  -10.1% n3116  z-4.0 | TR   -9.5% n1890  0/5 up | HELD  -11.0% n1226  0/3 up | open(held)  -15.1% n1226  | 18:-14 19:-7 20:-3 21:-14 22:-10 23:-5 24:-22 25:-7
+venue | away                                                     ALL   -9.6% n7051  z-5.5 | TR  -11.8% n4247  0/5 up | HELD   -6.4% n2803  0/3 up | open(held)   -8.9% n2803  | 18:-9 19:-13 20:-4 21:-17 22:-14 23:-11 24:-5 25:-3 26:-100
+venue | neutral                                                  ALL   -5.8% n1292  z-1.4 | TR   -5.6% n745   1/5 up | HELD   -7.0% n544   1/3 up | open(held)  -13.4% n544   | 18:-14 19:+4 20:-2 21:-3 22:-9 23:-18 24:+5 25:-8 26:+145
+month | Nov                                                      ALL   -9.9% n1568  z-2.7 | TR  -11.7% n885   1/5 up | HELD   -8.0% n679   1/3 up | open(held)  -11.4% n679   | 18:-10 19:-10 20:+14 21:-19 22:-11 23:-19 24:+14 25:-20 26:+84
+month | Dec                                                      ALL   -4.6% n1715  z-1.3 | TR   -7.4% n1074  1/5 up | HELD   +0.1% n641   1/3 up | open(held)   -3.1% n641   | 18:-2 19:+2 20:-25 21:-7 22:-6 23:-4 24:+8 25:-3
+month | Jan                                                      ALL  -10.3% n3403  z-4.1 | TR  -10.7% n2057  0/5 up | HELD   -9.6% n1346  1/3 up | open(held)  -11.6% n1346  | 18:-15 19:-2 20:-2 21:-14 22:-19 23:-16 24:-15 25:+1
+month | Feb                                                      ALL   -9.6% n3288  z-3.8 | TR  -11.5% n2041  1/5 up | HELD   -6.4% n1247  0/3 up | open(held)  -10.2% n1247  | 18:-7 19:-24 20:+2 21:-14 22:-11 23:-4 24:-10 25:-5
+month | Mar                                                      ALL  -11.6% n1485  z-3.1 | TR  -10.0% n825   1/5 up | HELD  -13.5% n660   1/3 up | open(held)  -19.0% n660   | 18:-15 19:-7 20:+0 21:-21 22:-4 23:-9 24:-28 25:+0
+tier | P                                                         ALL   -5.7% n3492  z-2.3 | TR   -6.0% n2205  1/5 up | HELD   -5.0% n1287  1/3 up | open(held)   -8.2% n1287  | 18:-14 19:-1 20:+4 21:-9 22:-7 23:-9 24:-12 25:+8
+tier | M                                                         ALL  -18.6% n1744  z-5.5 | TR  -20.0% n1022  0/5 up | HELD  -16.7% n722   0/3 up | open(held)  -19.6% n722   | 18:-10 19:-22 20:-17 21:-41 22:-12 23:-19 24:-11 25:-19
+tier | L                                                         ALL   -8.8% n6223  z-4.8 | TR  -10.5% n3655  0/5 up | HELD   -6.5% n2564  0/3 up | open(held)  -10.1% n2564  | 18:-8 19:-11 20:-6 21:-11 22:-15 23:-8 24:-5 25:-6 26:+84
+conference game | yes                                            ALL  -10.1% n8446  z-6.4 | TR  -10.8% n5061  0/5 up | HELD   -8.9% n3385  0/3 up | open(held)  -12.2% n3385  | 18:-13 19:-12 20:-2 21:-14 22:-12 23:-8 24:-16 25:-3
+conference game | no                                             ALL   -7.3% n3013  z-2.7 | TR   -9.4% n1821  0/5 up | HELD   -4.3% n1188  1/3 up | open(held)   -7.9% n1188  | 18:-4 19:-3 20:-10 21:-18 22:-13 23:-17 24:+14 25:-9 26:+84
+price | <200                                                     ALL   -8.8% n4660  z-4.7 | TR   -9.8% n2810  0/5 up | HELD   -7.4% n1850  0/3 up | open(held)   -9.9% n1850  | 18:-11 19:-9 20:-6 21:-2 22:-19 23:-11 24:-6 25:-5
+price | 200..250                                                 ALL   -7.6% n3051  z-2.9 | TR   -9.3% n1815  0/5 up | HELD   -5.0% n1236  0/3 up | open(held)   -9.2% n1236  | 18:-17 19:-7 20:-4 21:-18 22:-0 23:-12 24:-2 25:-2
+price | 250..300                                                 ALL  -10.7% n2084  z-3.1 | TR   -9.1% n1258  2/5 up | HELD  -13.7% n823   0/3 up | open(held)  -16.8% n823   | 18:+6 19:+2 20:-18 21:-31 22:-3 23:-12 24:-21 25:-7 26:+145
+price | 300+                                                     ALL  -12.2% n1664  z-2.9 | TR  -16.3% n999   1/5 up | HELD   -6.0% n664   0/3 up | open(held)  -10.8% n664   | 18:-16 19:-30 20:+23 21:-22 22:-24 23:-5 24:-8 25:-6 26:-100
+
+== C. THE DOG MODEL - ridge logistic on the market logit + the honest features, walk-forward by season
+train fit 2018-22 (coefficients in log odds over the market, t):
+   rest gap/2         +0.034  t +1.8
+   games<=5           -0.144  t -1.4
+   skid 5+            -0.164  t -1.4
+   ranked road ND     -0.232  t -1.3
+   neutral            +0.126  t +1.3
+   reb gap/6          +0.069  t +1.3
+   ats gap/5          -0.056  t -1.1
+   elo gap/100        +0.048  t +1.1
+   rubber             -0.145  t -1.0
+   opp ice cold       -0.057  t -0.8
+   top out            -0.111  t -0.8
+   early road         -0.099  t -0.7
+   own-p x10          +0.123  t +0.7
+   streak/3           +0.028  t +0.7
+   ice cold           +0.042  t +0.6
+   wpct-.5            -0.091  t -0.6
+   opp last m/10      -0.012  t -0.6
+   Nov-Dec            +0.054  t +0.5
+   last m/10          +0.013  t +0.5
+   trip 2+            +0.034  t +0.5
+   home               +0.058  t +0.5
+   opp 2in3           -0.092  t -0.5
+   opp top out        -0.075  t -0.5
+   luck x5            -0.023  t -0.4
+   const              -0.044  t -0.4
+   pace gap/8         -0.014  t -0.3
+   fg% gap x20        -0.021  t -0.3
+   home vs ranked ND  +0.049  t +0.3
+   miles/1000         -0.014  t -0.2
+   eff-p x10          +0.009  t +0.2
+   2in3               -0.025  t -0.1
+   price/100          -0.007  t -0.1
+   conf               -0.002  t -0.0
+train log loss: the market 0.5914 | the model 0.5883 (in sample)
+held out 2023: log loss the market 0.5933 | the model 0.5920 (+1.29 milli, + = the model is better) on 1575
+held out 2024: log loss the market 0.5964 | the model 0.5929 (+3.45 milli, + = the model is better) on 1508
+held out 2025: log loss the market 0.6061 | the model 0.6072 (-1.14 milli, + = the model is better) on 1490
+walk-forward: the model reads the dog 0+ pts over the no-vig (held out only) ALL   -0.6% n1031  z-0.1 | TR     -          0/0 up | HELD   -0.6% n1031  2/3 up | open(held)   -5.0% n1031  | 23:+0 24:+8 25:-9
+walk-forward: the model reads the dog 2+ pts over the no-vig (held out only) ALL   -2.7% n319   z-0.3 | TR     -          0/0 up | HELD   -2.7% n319   1/3 up | open(held)   -7.3% n319   | 23:-23 24:+30 25:-16
+walk-forward: the model reads the dog 3+ pts over the no-vig (held out only) ALL   +6.9% n155   z+0.6 | TR     -          0/0 up | HELD   +6.9% n155   1/3 up | open(held)   +1.6% n155   | 23:-30 24:+54 25:-5
+walk-forward: the model reads the dog 5+ pts over the no-vig (held out only) ALL  +39.5% n35    z+1.6 | TR     -          0/0 up | HELD  +39.5% n35    2/3 up | open(held)  +32.7% n35    | 23:-100 24:+61 25:+40
+walk-forward: the model reads the dog 8+ pts over the no-vig (held out only) ALL  +33.0% n2     z+0.4 | TR     -          0/0 up | HELD  +33.0% n2     1/1 up | open(held)  +18.0% n2     | 24:+33
+walk-forward: model - price, fifth 1 of 5 (1 = the model likes it least) ALL  -19.0% n914   z-4.1 | TR     -          0/0 up | HELD  -19.0% n914   0/3 up | open(held)  -21.4% n914   | 23:-16 24:-22 25:-19
+walk-forward: model - price, fifth 2 of 5 (1 = the model likes it least) ALL  -14.0% n914   z-2.9 | TR     -          0/0 up | HELD  -14.0% n914   0/3 up | open(held)  -17.4% n914   | 23:-18 24:-22 25:-1
+walk-forward: model - price, fifth 3 of 5 (1 = the model likes it least) ALL   -7.9% n914   z-1.6 | TR     -          0/0 up | HELD   -7.9% n914   0/3 up | open(held)  -11.0% n914   | 23:-9 24:-11 25:-3
+walk-forward: model - price, fifth 4 of 5 (1 = the model likes it least) ALL   +1.3% n914   z+0.3 | TR     -          0/0 up | HELD   +1.3% n914   2/3 up | open(held)   -2.2% n914   | 23:-5 24:+0 25:+10
+walk-forward: model - price, fifth 5 of 5 (1 = the model likes it least) ALL   +0.8% n914   z+0.2 | TR     -          0/0 up | HELD   +0.8% n914   1/3 up | open(held)   -3.5% n914   | 23:-1 24:+12 25:-8
+walk-forward, NO rating inputs (schedule / form / style only): the model 3+ over the no-vig ALL   +3.3% n128   z+0.3 | TR     -          0/0 up | HELD   +3.3% n128   2/3 up | open(held)   +6.3% n128   | 23:-38 24:+45 25:+4
+
+cells looked at: 164

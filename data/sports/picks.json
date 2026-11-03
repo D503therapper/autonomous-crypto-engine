@@ -31209,5 +31209,165 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "american": -142,
+  "date": "2026-11-03",
+  "dec": 1.7042,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "better:0",
+     "h2h:2",
+     "G_cold:1",
+     "road:2",
+     "w_better:4",
+     "k_trip:1",
+     "f_outs:0",
+     "f_theirL:1",
+     "f_pdo:0",
+     "risk:5",
+     "bottom_so:4"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\udd45 The Maple Leafs' goalie Sergei Bobrovsky can't keep the puck out lately: a 0.838 save % (12 goals on 74 shots) over his last 3 starts.",
+     "\ud83c\udf40 The bounces have been going against Mammoth: their shooting and save % together sit at 97.6 over the last 10, and 100 is normal. That evens out.",
+     "\ud83e\udd4a Not long ago the Flames beat the brakes off the Maple Leafs, 5-2.",
+     "\ud83e\uddf3 5-4 on the road for Mammoth. Other people's buildings don't scare 'em.",
+     "\ud83d\ude91 Maple Leafs are without John Tavares (C). Bodies missing over there.",
+     "\u26a0\ufe0f The risk: Mammoth comes off a 6-3 loss to the Flyers while Maple Leafs just took a 4-2 win over the Canucks. We ain't blind to it - we just like our side more.",
+     "\u2705 Bottom line: Mammoth (-142). We price Mammoth at -158 - -142 is extra money. We'll take it."
+    ],
+    "bv": 61,
+    "coach": [
+     3,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 2186,
+      "road6": 2,
+      "who": "them",
+      "wk": 2827
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:trip1000",
+     "them:trip2000",
+     "us:road3in6"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": true,
+     "opp_won": true,
+     "ss_gap": 0.0332,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0418,
+    "edge": -0.018108994436991654,
+    "edge_own": -0.02833434654966771,
+    "elo_edge": 16.6,
+    "fact": "The Mammoth are 9-6, the Maple Leafs 8-8.",
+    "facts": [
+     [
+      "The Mammoth are 9-6, the Maple Leafs 8-8.",
+      "The Mammoth 9-6 on the year, the Maple Leafs 8-8.",
+      "It's 9-6 (the Mammoth) against 8-8 (the Maple Leafs).",
+      "The Mammoth sit 9-6; the Maple Leafs sit 8-8."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -3.0,
+     -1,
+     -175,
+     false,
+     0
+    ],
+    "g_role_me": false,
+    "g_role_opp": true,
+    "game_id": "nhl:401892633",
+    "games_in": null,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.4533143970670839,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": 0.0815,
+    "neutral": false,
+    "odds": -142,
+    "opp": "Maple Leafs",
+    "opp_dog": -6.67,
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "John Tavares (C)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5761509206196165,
+    "p_market": 0.5634920634920635,
+    "pdo": 976.2678266615275,
+    "public": null,
+    "pyth_luck": 0.081,
+    "raw_own": 0.5039,
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-04T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Mammoth",
+    "team_id": "129764",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.6118,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Mammoth sits 9-6 to Maple Leafs' 8-8. Ain't close on paper. And Maple Leafs are coming off a 2,190-mile trip."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.5762,
+  "pnl": 0.0,
+  "posted": "2026-11-03T18:52Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
