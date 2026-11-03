@@ -1,9 +1,11 @@
 {
- "at": "2026-11-03T00:32Z",
- "fixes": [],
+ "at": "2026-11-03T00:34Z",
+ "fixes": [
+  "live watch 41548511287 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (123s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +18,20 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T00:34Z",
+   "fixes": [
+    "live watch 41548511287 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-03T00:32Z",
    "fixes": [],
@@ -524,15 +534,6 @@
    "at": "2026-11-01T09:19Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-01T09:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kobori vs Okamura: no points for 2605s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 2352s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 1835s"
-   ]
   }
  ]
 }
