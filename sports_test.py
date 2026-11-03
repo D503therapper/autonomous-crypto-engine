@@ -17431,6 +17431,103 @@ def test_daily_1103_nba_team_that_lost_a_rotation_man_is_a_dog_and_spread_weight
         sl._GAMES.update(keep_g)
 
 
+def test_cbb_knowledge_b_1103_fades_hold_the_lock_band_pays_nothing_new_wired_two_slight_fav_leads():
+    """11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (B) (results/studies/cbb_knowledge_b/): five studies, 795 cells - NO new dog
+    cell (an upset winner looks like an upset loser before tip - every feature under d 0.11; the walk-forward dog model
+    only finds the dogs to AVOID, its bottom fifth -19% held out, its top fifth +0.8%), no spread-dog cell past the vig,
+    the slight favorites' good cells are the ones the 11/3 fades leave alone (-0.8% = the vig), the engine's reads are
+    no better in conference play than in November, and the one cell that pays is the engine's OWN Lock rule at
+    -120..-150 (the weighed read 56%+ over the price AND the own read over it: +6.3% on 839, train 3 of 5 / held 3 of 3,
+    the open +8.1%; the same band with the own read over but the weighed read short -7.6% on 1,558, 0 of 8). NOTHING new
+    is wired as a weight. The study replays the engine's college hoops weights (lib.dog_pts / fav_read) - this test keeps
+    that replay honest against sports.py (a drift guard) and checks the two tracker LEADS (never weights): the home slight
+    favorite in March (+9.4% on 255, 5 of 5 train) and the home slight favorite out-rebounding by 4+ with the efficiency
+    read 3+ over (+13.2% on 151, 5 of 5 seasons)."""
+    import importlib.util
+    import sports_leads as sl
+    keep_env = os.environ.get("STUDY_CACHE")
+    os.environ["STUDY_CACHE"] = tempfile.mkdtemp()           # (the study libs make a cache folder on import - not ~/.cache)
+    try:
+        spec = importlib.util.spec_from_file_location("cbb_kb_lib", os.path.join("results", "studies", "cbb_knowledge_b", "lib.py"))
+        lib = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(lib)
+    finally:
+        if keep_env is None:
+            os.environ.pop("STUDY_CACHE", None)
+        else:
+            os.environ["STUDY_CACHE"] = keep_env
+    # the drift guard: the replay's constants are the engine's
+    assert (lib.STUDY_CAP, lib.FAV_CAP, lib.FAV_PER_PT, lib.OWN_CAP) == (sports.STUDY_CAP, sports.FAV_CAP, sports.FAV_PER_PT, sports.OWN_CAP)
+    assert (lib.AWAY_FAV_W, lib.EFF_FAV_W, lib.EFF_FAV_GAP, lib.TOP_OUT_FAV_W) == \
+        (sports.NCAAB_AWAY_FAV_W, sports.NCAAB_EFF_FAV_W, sports.NCAAB_EFF_FAV_GAP, sports.NCAAB_TOP_OUT_FAV_W)
+    assert (lib.RANKED_ROAD_DOG, lib.REB_GAP, lib.REB_GAP_BIG, tuple(lib.REB_DOG), lib.ATS_GAP) == \
+        (sports.NCAAB_RANKED_ROAD_DOG, sports.NCAAB_REB_GAP, sports.NCAAB_REB_GAP_BIG, tuple(sports.NCAAB_REB_DOG), sports.NCAAB_ATS_GAP)
+    assert (sports.NCAAB_SKID, sports.NCAAB_RUBBER_W, sports.NCAAB_TOP_OUT_PTS, sports.COLD_DOG_PTS) == (5, 2, 2, 2)
+    assert (sports.NCAAB_EARLY_ROAD_DOG_PTS, sports.NCAAB_EARLY_ROAD_DOG_GAMES) == (2, 3)
+    assert (sports.NCAAB_AWAY_FAV_BAND, sports.NCAAB_EFF_FAV_BAND, sports.NCAAB_TOP_OUT_FAV_BAND) == ((-150, -101), (-150, -101), (-250, -101))
+    # the dog replay reads the same points as sports.dog_spots on the same facts (an early road dog, ranked, off a win vs a
+    # team off a loss, a rubber match, a 5-game skid, the top scorer out, the glass +8, ice cold): +2 -2 -2 -2 -2 +2 -2 -3
+    row = {"ml": 170, "p": 0.37, "olast_won": False, "last_won": True, "cw5": 0, "rubber": True, "streak": -5, "top_out": True,
+           "venue": "away", "nd": True, "rank25": True, "orank25": False, "rebm": 10.0, "o_rebm": 2.0, "gn": 2, "ice_cold": True}
+    assert lib.dog_pts(row) == -sports.STUDY_CAP and row["dog_pts_raw"] == -9
+    c = {"league": "ncaab", "market": "ml", "odds": 170, "dog_ctx": {"won": True, "opp_won": False, "cw5": 0}, "rubber_dog": True,
+         "ncaab_skid": 5, "top_out": True, "ranked_road": True, "reb_gap": 8.0, "home": False, "neutral": False, "games_in": 1,
+         "dog_more": {"fades": ["ice cold"]}}
+    assert sports.dog_spots(c) == row["dog_pts_raw"] == -9
+    row2 = dict(row, rubber=False, streak=0, top_out=False, ice_cold=False, rank25=False, gn=9)
+    assert lib.dog_pts(row2) == 4 == sports.dog_spots({**c, "rubber_dog": False, "ncaab_skid": 0, "top_out": False,
+                                                        "ranked_road": False, "games_in": 8, "dog_more": {}})
+    # the favorite replay: the three 11/3 favorite weights and the dog's points the other way, floored at own - FAV_CAP
+    fav = {"ml": -130, "p": 0.565, "own": 0.60, "venue": "away", "nd": True, "eff": 0.50, "top_out": True, "last_won": True,
+           "olast_won": True, "o_cw5": 0, "o_rubber": False, "o_streak": 0, "o_top_out": False, "rank25": False, "orank25": False,
+           "rebm": None, "o_rebm": None, "ogn": 12, "o_ice_cold": False}
+    assert abs(lib.fav_read(fav) - (0.60 - sports.FAV_CAP)) < 1e-9 and set(fav["fav_w"]) == {"away_nd", "eff_under", "top_out"}
+    home_fav = dict(fav, venue="home", nd=False, eff=0.60, top_out=False, o_streak=-5)   # no fade; the dog's skid -2 -> +1
+    assert abs(lib.fav_read(home_fav) - 0.61) < 1e-9 and home_fav["fav_w"] == {"opp_dog_pts": 0.01}
+    # the two LEADS (tracker tags only - no weight, no read moves)
+    keep_g = dict(sl._GAMES)
+    try:
+        g = {"id": "ncaab:77", "league": "ncaab", "status": "pre", "stype": "2", "start": "2027-03-05T00:00Z",
+             "home": "10", "away": "20", "neutral": "0", "home_name": "Vermont", "away_name": "Maine"}
+        sl._GAMES["ncaab"] = {"ncaab:77": g}
+        d = sports.sd.decimal
+        mk = lambda **kw: {**{"league": "ncaab", "market": "ml", "odds": -130, "dec": d(-130), "edge_own": 0.58 * d(-130) - 1,
+                              "p_market": 0.55, "side": "home", "game_id": "ncaab:77", "start": g["start"], "reasons": [],
+                              "games_in": 25, "opp_games_in": 25}, **kw}
+        march = "college hoops home slight fav -101..-150 in March"
+        glass = "college hoops home slight fav out-rebounding by 4+, efficiency read 3+ over"
+        assert sl.hoops_march_home_fav(mk()) and march in sl.tags(mk(), sports)
+        assert not sl.hoops_march_home_fav(mk(side="away")) and march not in sl.tags(mk(odds=-160), sports)
+        assert march not in sl.tags(mk(odds=130), sports)                        # a dog is never the favorite lead
+        sl._GAMES["ncaab"]["ncaab:77"] = {**g, "neutral": "1"}
+        assert not sl.hoops_march_home_fav(mk())                                 # a tournament floor is nobody's
+        sl._GAMES["ncaab"]["ncaab:77"] = {**g, "start": "2027-03-01T02:00Z"}     # 9 PM ET on Feb 28 = February
+        assert not sl.hoops_march_home_fav(mk(start="2027-03-01T02:00Z"))
+        sl._GAMES["ncaab"]["ncaab:77"] = {**g, "start": "2027-04-01T02:00Z"}     # 9 PM ET on Mar 31 = March
+        assert sl.hoops_march_home_fav(mk(start="2027-04-01T02:00Z"))
+        sl._GAMES["ncaab"]["ncaab:77"] = {**g, "start": "2026-12-10T00:00Z"}
+        dec_ = mk(start="2026-12-10T00:00Z", reb_gap=5.0, eff_p=0.60)
+        assert sl.hoops_glass_eff_fav(dec_) and glass in sl.tags(dec_, sports) and march not in sl.tags(dec_, sports)
+        assert not sl.hoops_glass_eff_fav({**dec_, "reb_gap": 3.9})              # the glass gap is 4+
+        assert not sl.hoops_glass_eff_fav({**dec_, "eff_p": 0.575})              # the efficiency read 3+ over the no-vig
+        assert not sl.hoops_glass_eff_fav({**dec_, "eff_p": None}) and not sl.hoops_glass_eff_fav({**dec_, "reb_gap": None})
+        assert not sl.hoops_glass_eff_fav({**dec_, "side": "away"})
+        sl._GAMES["ncaab"]["ncaab:77"] = {**g, "start": "2026-12-10T00:00Z", "neutral": "1"}
+        assert not sl.hoops_glass_eff_fav(dec_)
+        assert dec_.get("w_p") is None and dec_["edge_own"] == 0.58 * d(-130) - 1   # (no read moves - a tag only)
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
+    # the study's outputs are on file and the verdicts are logged
+    out = os.path.join("results", "studies", "cbb_knowledge_b")
+    assert all(os.path.exists(os.path.join(out, f)) for f in ("lib.py", "s1_upset_anatomy.py", "s2_spread_dogs.py",
+                                                              "s3_slight_favs.py", "s4_conference_play.py",
+                                                              "s5_engine_replay.py", "s6_followups.py", "s5_out.txt"))
+    s5 = open(os.path.join(out, "s5_out.txt")).read()
+    assert "the OWN read alone 2+ over the price (no weights), favorites" in s5 and "Lock-grade favorites" in s5
+    assert "11/3 - FABLE: COLLEGE HOOPS KNOWLEDGE (B)" in open("SPORTS_FINDINGS.md").read()
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

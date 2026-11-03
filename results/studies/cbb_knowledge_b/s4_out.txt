@@ -1,0 +1,142 @@
+priced sides -350..+350 with an engine read: 37757
+
+== A. LOG LOSS vs THE MARKET by month (held out 2023-25; lower = better; milli = x1000 under the market)
+-- held out 2023-25
+Nov                          n1047   market 0.6418 | own (old read) +0.3m | raw Elo -35.0m | efficiency -9.4m | weighed (11/3 weights) +1.2m
+Dec                          n1035   market 0.6603 | own (old read) -0.1m | raw Elo -26.1m | efficiency -11.1m | weighed (11/3 weights) -1.4m
+Jan                          n2180   market 0.6437 | own (old read) -2.1m | raw Elo -28.6m | efficiency -5.6m | weighed (11/3 weights) +0.2m
+Feb                          n2028   market 0.6409 | own (old read) -0.1m | raw Elo -26.2m | efficiency -2.7m | weighed (11/3 weights) +1.0m
+Mar                          n1002   market 0.6339 | own (old read) +0.8m | raw Elo -11.1m | efficiency -2.8m | weighed (11/3 weights) +1.7m
+Jan-Mar conference only      n5170   market 0.6411 | own (old read) -0.9m | raw Elo -24.7m | efficiency -4.2m | weighed (11/3 weights) +0.6m
+Nov-Dec non-conference only  n1813   market 0.6491 | own (old read) +0.1m | raw Elo -32.5m | efficiency -10.3m | weighed (11/3 weights) -0.1m
+-- train 2018-22
+Nov                          n1393   market 0.6428 | own (old read) +0.7m | raw Elo -32.7m | efficiency -44.9m | weighed (11/3 weights) +2.2m
+Dec                          n1660   market 0.6511 | own (old read) +0.4m | raw Elo -40.1m | efficiency -19.5m | weighed (11/3 weights) +1.5m
+Jan                          n3355   market 0.6402 | own (old read) -1.3m | raw Elo -24.0m | efficiency -6.6m | weighed (11/3 weights) +0.1m
+Feb                          n3287   market 0.6430 | own (old read) -1.2m | raw Elo -19.0m | efficiency -5.7m | weighed (11/3 weights) +0.0m
+Mar                          n1323   market 0.6420 | own (old read) +0.4m | raw Elo -17.6m | efficiency -4.5m | weighed (11/3 weights) +2.1m
+Jan-Mar conference only      n7756   market 0.6414 | own (old read) -0.9m | raw Elo -19.6m | efficiency -5.2m | weighed (11/3 weights) +0.5m
+Nov-Dec non-conference only  n2591   market 0.6459 | own (old read) +0.8m | raw Elo -37.4m | efficiency -33.8m | weighed (11/3 weights) +1.7m
+(a home side's read only - one per game; the weighed read is the favorite's weighed read / the dog's gated read)
+
+== B. BY GAMES PLAYED (held out) - the own read is the market until 10 games (early_trust)
+games 1-5   n630    market 0.6307 | own (old read) +0.4m | raw Elo -37.8m | efficiency -17.9m | weighed (11/3 weights) +1.2m
+games 6-10  n901    market 0.6508 | own (old read) -0.8m | raw Elo -34.3m | efficiency -4.0m | weighed (11/3 weights) +1.0m
+games 11-15  n1023   market 0.6519 | own (old read) +1.5m | raw Elo -20.3m | efficiency -9.1m | weighed (11/3 weights) -0.4m
+games 16-20  n1335   market 0.6460 | own (old read) -3.4m | raw Elo -32.6m | efficiency -7.4m | weighed (11/3 weights) -0.7m
+games 21-25  n1331   market 0.6427 | own (old read) -1.7m | raw Elo -20.3m | efficiency -1.3m | weighed (11/3 weights) +1.3m
+games 26-40  n2072   market 0.6395 | own (old read) +0.9m | raw Elo -21.4m | efficiency -3.0m | weighed (11/3 weights) +0.9m
+
+== C. THE MONEY - bet every side a read has 2+ / 3+ points over the no-vig close, by month
+own (old read) 2+ over the price - ALL months                    ALL   -2.8% n7905  z-2.5 | TR   -2.4% n4718  0/5 up | HELD   -3.5% n3187  0/3 up | open(held)   -4.8% n3187  | 18:-1 19:-5 20:-3 21:-2 22:-1 23:-3 24:-5 25:-3
+own (old read) 2+ over, by month | Nov                           ALL  +18.0% n112   z+1.7 | TR  +26.2% n59    4/4 up | HELD   +8.8% n53    2/3 up | open(held)   +6.3% n53    | 18:+30 19:+14 21:+0 22:+40 23:+23 24:+45 25:-19
+own (old read) 2+ over, by month | Dec                           ALL   +2.4% n1000  z+0.7 | TR   +4.6% n576   4/5 up | HELD   -0.6% n424   1/3 up | open(held)   -3.2% n424   | 18:+26 19:-6 20:+15 21:+0 22:+3 23:+9 24:-1 25:-10
+own (old read) 2+ over, by month | Jan                           ALL   -5.3% n2940  z-2.8 | TR   -3.9% n1746  2/5 up | HELD   -7.2% n1194  0/3 up | open(held)   -8.4% n1194  | 18:+3 19:-13 20:-2 21:+0 22:-7 23:-7 24:-9 25:-6
+own (old read) 2+ over, by month | Feb                           ALL   -3.3% n2858  z-1.8 | TR   -3.7% n1773  2/5 up | HELD   -2.7% n1085  1/3 up | open(held)   -4.3% n1085  | 18:-11 19:+5 20:-4 21:-11 22:+2 23:-4 24:-7 25:+3
+own (old read) 2+ over, by month | Mar                           ALL   -1.9% n995   z-0.7 | TR   -3.3% n564   1/5 up | HELD   +0.1% n431   2/3 up | open(held)   +1.2% n431   | 18:-10 19:-10 20:-9 21:+14 22:-2 23:-6 24:+5 25:+3
+own (old read) 2+ over, Jan-Mar CONFERENCE games                 ALL   -4.0% n6678  z-3.3 | TR   -3.7% n3991  0/5 up | HELD   -4.4% n2687  0/3 up | open(held)   -5.5% n2687  | 18:-5 19:-5 20:-2 21:-3 22:-3 23:-6 24:-6 25:-2
+own (old read) 2+ over, Jan-Mar conference, FAVORITES            ALL   -1.7% n3140  z-1.4 | TR   -1.6% n1845  1/5 up | HELD   -2.0% n1295  1/3 up | open(held)   -0.9% n1295  | 18:-3 19:-2 20:-5 21:-1 22:+1 23:-1 24:+1 25:-5
+own (old read) 2+ over, Jan-Mar conference, DOGS                 ALL   -6.0% n3538  z-3.0 | TR   -5.6% n2146  1/5 up | HELD   -6.7% n1392  1/3 up | open(held)   -9.7% n1392  | 18:-8 19:-7 20:+1 21:-5 22:-8 23:-10 24:-13 25:+2
+own (old read) 2+ over, Nov-Dec NON-conference                   ALL   +4.3% n818   z+1.1 | TR   +8.9% n463   5/5 up | HELD   -1.7% n355   1/3 up | open(held)   -4.3% n355   | 18:+35 19:+1 20:+12 21:+1 22:+3 23:-0 24:+1 25:-6
+own (old read) 3+ over the price - ALL months                    ALL   -2.7% n3901  z-1.5 | TR   -3.6% n2306  0/5 up | HELD   -1.5% n1595  1/3 up | open(held)   -4.0% n1595  | 18:-1 19:-3 20:-6 21:-1 22:-7 23:-2 24:-4 25:+2
+own (old read) 3+ over, by month | Nov                           ALL   -0.3% n28    z-0.0 | TR  +14.0% n13    3/4 up | HELD  -12.7% n15    1/3 up | open(held)  -19.1% n15    | 18:+12 19:+54 21:+21 22:-20 23:+14 24:-29 25:-20
+own (old read) 3+ over, by month | Dec                           ALL   +2.7% n496   z+0.5 | TR   +3.0% n280   3/5 up | HELD   +2.3% n216   2/3 up | open(held)   +0.2% n216   | 18:+16 19:-4 20:-29 21:+3 22:+5 23:+6 24:+10 25:-9
+own (old read) 3+ over, by month | Jan                           ALL   -3.9% n1560  z-1.4 | TR   -3.1% n925   3/5 up | HELD   -4.9% n635   0/3 up | open(held)   -6.8% n635   | 18:+5 19:-13 20:+1 21:+6 22:-14 23:-7 24:-4 25:-4
+own (old read) 3+ over, by month | Feb                           ALL   -2.7% n1489  z-0.9 | TR   -4.5% n908   1/5 up | HELD   +0.3% n581   2/3 up | open(held)   -3.0% n581   | 18:-2 19:+10 20:-11 21:-12 22:-6 23:+2 24:-12 25:+10
+own (old read) 3+ over, by month | Mar                           ALL   -6.2% n328   z-1.1 | TR  -12.9% n180   2/5 up | HELD   +2.0% n148   2/3 up | open(held)   -0.2% n148   | 18:-33 19:-18 20:-17 21:+10 22:+3 23:-8 24:+7 25:+11
+own (old read) 3+ over, Jan-Mar CONFERENCE games                 ALL   -3.4% n3315  z-1.8 | TR   -4.2% n1963  0/5 up | HELD   -2.1% n1352  1/3 up | open(held)   -4.7% n1352  | 18:-3 19:-3 20:-3 21:-2 22:-10 23:-3 24:-7 25:+3
+own (old read) 3+ over, Jan-Mar conference, FAVORITES            ALL   -5.1% n662   z-1.6 | TR  -11.1% n361   0/5 up | HELD   +2.1% n301   2/3 up | open(held)   +1.8% n301   | 18:-13 19:-11 20:-24 21:-10 22:-3 23:+8 24:+1 25:-1
+own (old read) 3+ over, Jan-Mar conference, DOGS                 ALL   -2.9% n2653  z-1.3 | TR   -2.7% n1602  1/5 up | HELD   -3.3% n1051  1/3 up | open(held)   -6.6% n1051  | 18:-1 19:-1 20:+2 21:-0 22:-12 23:-6 24:-9 25:+5
+own (old read) 3+ over, Nov-Dec NON-conference                   ALL   +1.9% n366   z+0.3 | TR   +4.5% n201   2/5 up | HELD   -1.3% n165   2/3 up | open(held)   -3.7% n165   | 18:+32 19:+9 20:-100 21:-3 22:-7 23:-6 24:+1 25:+2
+efficiency 3+ over the price - ALL months                        ALL   -2.1% n11832 z-2.1 | TR   -2.3% n7235  0/5 up | HELD   -1.7% n4591  0/3 up | open(held)   -6.0% n4591  | 18:-2 19:-5 20:-1 21:-0 22:-3 23:-1 24:-2 25:-2 26:+63
+efficiency 3+ over, by month | Nov                               ALL   -1.7% n1994  z-0.7 | TR   -5.6% n1139  1/5 up | HELD   +3.1% n849   2/3 up | open(held)   -0.8% n849   | 18:-10 19:-4 20:+7 21:-4 22:-7 23:+2 24:+11 25:-4 26:+63
+efficiency 3+ over, by month | Dec                               ALL   -5.6% n1950  z-2.3 | TR   -6.9% n1225  1/5 up | HELD   -3.3% n725   1/3 up | open(held)   -7.5% n725   | 18:+7 19:-9 20:-15 21:-12 22:-3 23:-7 24:+5 25:-7
+efficiency 3+ over, by month | Jan                               ALL   -2.2% n3544  z-1.2 | TR   -0.4% n2202  3/5 up | HELD   -5.1% n1342  0/3 up | open(held)   -8.2% n1342  | 18:+2 19:-6 20:+6 21:+2 22:-7 23:-7 24:-6 25:-2
+efficiency 3+ over, by month | Feb                               ALL   -0.6% n3033  z-0.3 | TR   -1.0% n1923  2/5 up | HELD   -0.1% n1110  1/3 up | open(held)   -5.1% n1110  | 18:-5 19:-7 20:+4 21:-0 22:+4 23:+10 24:-10 25:-1
+efficiency 3+ over, by month | Mar                               ALL   -0.3% n1311  z-0.1 | TR   +0.9% n746   2/5 up | HELD   -1.9% n565   1/3 up | open(held)   -8.3% n565   | 18:-4 19:+5 20:-13 21:+20 22:-3 23:-3 24:-5 25:+4
+efficiency 3+ over, Jan-Mar CONFERENCE games                     ALL   -1.3% n7717  z-1.1 | TR   -0.3% n4721  2/5 up | HELD   -2.9% n2996  0/3 up | open(held)   -7.3% n2996  | 18:-1 19:-5 20:+4 21:+4 22:-2 23:-0 24:-7 25:-1
+efficiency 3+ over, Jan-Mar conference, FAVORITES                ALL   -2.0% n3973  z-1.6 | TR   -1.6% n2565  2/5 up | HELD   -2.7% n1408  1/3 up | open(held)   -3.7% n1408  | 18:-5 19:-3 20:+0 21:-2 22:+3 23:-2 24:+1 25:-7
+efficiency 3+ over, Jan-Mar conference, DOGS                     ALL   -0.6% n3744  z-0.3 | TR   +1.3% n2156  3/5 up | HELD   -3.1% n1588  2/3 up | open(held)  -10.6% n1588  | 18:+3 19:-9 20:+7 21:+10 22:-6 23:+2 24:-14 25:+5
+efficiency 3+ over, Nov-Dec NON-conference                       ALL   -3.5% n3422  z-1.9 | TR   -6.5% n2032  0/5 up | HELD   +0.6% n1384  1/3 up | open(held)   -3.4% n1384  | 18:-1 19:-6 20:-15 21:-7 22:-7 23:-3 24:+9 25:-4 26:+63
+efficiency 6+ over the price - ALL months                        ALL   -4.0% n6444  z-3.0 | TR   -5.2% n4099  0/5 up | HELD   -2.0% n2341  1/3 up | open(held)   -8.3% n2341  | 18:-5 19:-7 20:-4 21:-1 22:-8 23:-4 24:+1 25:-3 26:+55
+efficiency 6+ over, by month | Nov                               ALL   -2.3% n1445  z-0.8 | TR   -7.2% n848   0/5 up | HELD   +4.4% n593   2/3 up | open(held)   -0.6% n593   | 18:-6 19:-5 20:-3 21:-2 22:-16 23:+6 24:+15 25:-6 26:+55
+efficiency 6+ over, by month | Dec                               ALL   -4.2% n1234  z-1.3 | TR   -5.8% n817   2/5 up | HELD   -0.9% n417   2/3 up | open(held)   -6.9% n417   | 18:+2 19:-4 20:-14 21:-10 22:+1 23:+0 24:+13 25:-17
+efficiency 6+ over, by month | Jan                               ALL   -4.5% n1856  z-1.8 | TR   -4.1% n1228  1/5 up | HELD   -5.2% n628   1/3 up | open(held)  -10.6% n628   | 18:-2 19:-11 20:+4 21:-4 22:-10 23:-13 24:-3 25:+1
+efficiency 6+ over, by month | Feb                               ALL   -4.3% n1338  z-1.5 | TR   -4.0% n883   1/5 up | HELD   -4.9% n455   1/3 up | open(held)  -13.2% n455   | 18:-10 19:-7 20:-1 21:+5 22:-5 23:-6 24:-12 25:+5
+efficiency 6+ over, by month | Mar                               ALL   -5.9% n571   z-1.3 | TR   -5.8% n323   1/5 up | HELD   -6.2% n248   1/3 up | open(held)  -14.2% n248   | 18:-14 19:-8 20:-24 21:+22 22:-6 23:-6 24:-9 25:+1
+efficiency 6+ over, Jan-Mar CONFERENCE games                     ALL   -4.7% n3665  z-2.7 | TR   -4.2% n2344  1/5 up | HELD   -5.6% n1321  1/3 up | open(held)  -12.5% n1321  | 18:-7 19:-9 20:-0 21:+3 22:-7 23:-10 24:-7 25:+2
+efficiency 6+ over, Jan-Mar conference, FAVORITES                ALL   -3.4% n1809  z-1.9 | TR   -3.6% n1249  0/5 up | HELD   -3.1% n560   1/3 up | open(held)   -5.7% n560   | 18:-4 19:-3 20:-0 21:-10 22:-1 23:-7 24:+8 25:-9
+efficiency 6+ over, Jan-Mar conference, DOGS                     ALL   -5.9% n1856  z-2.0 | TR   -4.8% n1095  1/5 up | HELD   -7.5% n761   1/3 up | open(held)  -17.5% n761   | 18:-11 19:-21 20:-0 21:+14 22:-12 23:-11 24:-17 25:+12
+efficiency 6+ over, Nov-Dec NON-conference                       ALL   -3.2% n2360  z-1.4 | TR   -6.7% n1451  1/5 up | HELD   +2.2% n905   2/3 up | open(held)   -3.1% n905   | 18:+1 19:-5 20:-18 21:-5 22:-10 23:+2 24:+16 25:-10 26:+55
+raw Elo 5+ over the price - ALL months                           ALL   -2.1% n12535 z-2.2 | TR   -2.3% n7555  0/5 up | HELD   -1.8% n4975  2/3 up | open(held)   -4.5% n4975  | 18:-2 19:-2 20:-2 21:-3 22:-2 23:+0 24:+0 25:-6 26:+24
+raw Elo 5+ over, by month | Nov                                  ALL   +0.2% n1886  z+0.1 | TR   -1.9% n1066  3/5 up | HELD   +2.7% n815   2/3 up | open(held)   -0.8% n815   | 18:-12 19:+1 20:-6 21:+1 22:+1 23:+1 24:+13 25:-6 26:+24
+raw Elo 5+ over, by month | Dec                                  ALL   -2.1% n2046  z-0.8 | TR   -5.3% n1254  1/5 up | HELD   +3.0% n792   2/3 up | open(held)   -0.2% n792   | 18:+11 19:-10 20:-4 21:-14 22:-6 23:+7 24:+10 25:-9
+raw Elo 5+ over, by month | Jan                                  ALL   -3.3% n3663  z-1.9 | TR   -2.3% n2225  1/5 up | HELD   -4.8% n1438  1/3 up | open(held)   -6.7% n1438  | 18:-0 19:-3 20:+0 21:-3 22:-5 23:+0 24:-7 25:-7
+raw Elo 5+ over, by month | Feb                                  ALL   -2.9% n3382  z-1.7 | TR   -0.9% n2110  2/5 up | HELD   -6.1% n1272  0/3 up | open(held)   -8.7% n1272  | 18:-4 19:+2 20:-2 21:-5 22:+3 23:-4 24:-9 25:-5
+raw Elo 5+ over, by month | Mar                                  ALL   -0.3% n1558  z-0.1 | TR   -1.9% n900   1/5 up | HELD   +1.8% n658   1/3 up | open(held)   -1.0% n658   | 18:-4 19:-9 20:-4 21:+7 22:-2 23:-3 24:+9 25:-1
+raw Elo 5+ over, Jan-Mar CONFERENCE games                        ALL   -2.4% n8407  z-2.2 | TR   -1.3% n5068  1/5 up | HELD   -4.1% n3339  0/3 up | open(held)   -6.5% n3339  | 18:-2 19:-2 20:+1 21:-2 22:-1 23:-2 24:-5 25:-6
+raw Elo 5+ over, Jan-Mar conference, FAVORITES                   ALL   -1.7% n5175  z-1.6 | TR   -1.6% n3156  1/5 up | HELD   -2.0% n2019  0/3 up | open(held)   -1.6% n2019  | 18:-3 19:+1 20:-2 21:-4 22:-1 23:-2 24:-0 25:-4
+raw Elo 5+ over, Jan-Mar conference, DOGS                        ALL   -3.5% n3232  z-1.5 | TR   -0.8% n1912  2/5 up | HELD   -7.4% n1320  0/3 up | open(held)  -14.1% n1320  | 18:-1 19:-8 20:+4 21:+1 22:-0 23:-2 24:-11 25:-8
+raw Elo 5+ over, Nov-Dec NON-conference                          ALL   -0.8% n3399  z-0.4 | TR   -3.3% n1977  1/5 up | HELD   +2.7% n1417  2/3 up | open(held)   -0.8% n1417  | 18:+2 19:-4 20:-9 21:-5 22:-3 23:+0 24:+15 25:-7 26:+24
+raw Elo 10+ over the price - ALL months                          ALL   -1.9% n7270  z-1.5 | TR   -2.0% n4336  1/5 up | HELD   -1.6% n2930  1/3 up | open(held)   -5.6% n2930  | 18:+0 19:-6 20:-1 21:-3 22:-1 23:-1 24:+4 25:-8 26:+55
+raw Elo 10+ over, by month | Nov                                 ALL   -2.0% n1244  z-0.6 | TR   -2.8% n689   3/5 up | HELD   -1.5% n551   1/3 up | open(held)   -6.0% n551   | 18:-11 19:-8 20:+1 21:+4 22:+2 23:-3 24:+19 25:-21 26:+55
+raw Elo 10+ over, by month | Dec                                 ALL   +0.6% n1307  z+0.2 | TR   -5.3% n806   1/5 up | HELD  +10.2% n501   2/3 up | open(held)   +5.6% n501   | 18:+20 19:-6 20:-8 21:-17 22:-8 23:+14 24:+23 25:-7
+raw Elo 10+ over, by month | Jan                                 ALL   -3.7% n2053  z-1.6 | TR   -2.3% n1242  2/5 up | HELD   -5.8% n811   0/3 up | open(held)   -9.0% n811   | 18:-0 19:-14 20:+4 21:-6 22:+3 23:-1 24:-6 25:-9
+raw Elo 10+ over, by month | Feb                                 ALL   -4.0% n1820  z-1.7 | TR   -1.4% n1106  1/5 up | HELD   -7.9% n714   0/3 up | open(held)  -12.2% n714   | 18:-2 19:+5 20:-0 21:-6 22:-4 23:-17 24:-6 25:-3
+raw Elo 10+ over, by month | Mar                                 ALL   +3.6% n846   z+1.1 | TR   +3.7% n493   1/5 up | HELD   +3.5% n353   2/3 up | open(held)   +0.4% n353   | 18:-3 19:-4 20:-2 21:+22 22:-1 23:+8 24:+2 25:-1
+raw Elo 10+ over, Jan-Mar CONFERENCE games                       ALL   -2.3% n4612  z-1.6 | TR   -0.4% n2749  2/5 up | HELD   -5.1% n1863  0/3 up | open(held)   -8.7% n1863  | 18:-0 19:-5 20:+3 21:-1 22:+0 23:-5 24:-5 25:-5
+raw Elo 10+ over, Jan-Mar conference, FAVORITES                  ALL   -2.8% n2804  z-1.9 | TR   -1.9% n1688  1/5 up | HELD   -4.2% n1116  1/3 up | open(held)   -4.7% n1116  | 18:-2 19:-3 20:+4 21:-4 22:-3 23:-6 24:+1 25:-8
+raw Elo 10+ over, Jan-Mar conference, DOGS                       ALL   -1.6% n1808  z-0.5 | TR   +1.9% n1061  4/5 up | HELD   -6.6% n747   0/3 up | open(held)  -14.7% n747   | 18:+3 19:-8 20:+3 21:+5 22:+7 23:-4 24:-13 25:-2
+raw Elo 10+ over, Nov-Dec NON-conference                         ALL   -1.2% n2203  z-0.5 | TR   -4.5% n1273  1/5 up | HELD   +3.2% n926   2/3 up | open(held)   -1.5% n926   | 18:+7 19:-7 20:-12 21:-7 22:-5 23:+2 24:+22 25:-15 26:+55
+weighed (11/3 weights) 2+ over the price - ALL months            ALL   +1.0% n7786  z+0.9 | TR   +1.1% n4643  3/5 up | HELD   +0.9% n3143  2/3 up | open(held)   +0.2% n3143  | 18:+1 19:+1 20:-2 21:-1 22:+6 23:-1 24:+1 25:+2
+weighed (11/3 weights) 2+ over, by month | Nov                   ALL   +6.5% n550   z+1.5 | TR   +8.0% n286   4/5 up | HELD   +4.8% n264   3/3 up | open(held)   +2.1% n264   | 18:-4 19:+12 20:+28 21:+12 22:+8 23:+4 24:+10 25:+1
+weighed (11/3 weights) 2+ over, by month | Dec                   ALL   +5.1% n1104  z+1.7 | TR   +6.7% n667   3/5 up | HELD   +2.8% n437   2/3 up | open(held)   +1.5% n437   | 18:+27 19:-11 20:+1 21:-3 22:+18 23:+3 24:+14 25:-8
+weighed (11/3 weights) 2+ over, by month | Jan                   ALL   -0.4% n2541  z-0.2 | TR   -1.0% n1526  2/5 up | HELD   +0.5% n1015  2/3 up | open(held)   -0.2% n1015  | 18:+2 19:-4 20:-3 21:+1 22:-0 23:-2 24:+0 25:+3
+weighed (11/3 weights) 2+ over, by month | Feb                   ALL   -0.9% n2469  z-0.5 | TR   -1.4% n1517  2/5 up | HELD   -0.2% n952   2/3 up | open(held)   -0.8% n952   | 18:-8 19:+11 20:-3 21:-11 22:+3 23:+0 24:-7 25:+7
+weighed (11/3 weights) 2+ over, by month | Mar                   ALL   +1.6% n1122  z+0.7 | TR   +2.9% n647   2/5 up | HELD   -0.1% n475   2/3 up | open(held)   +1.1% n475   | 18:-1 19:-5 20:-5 21:+14 22:+8 23:-3 24:+3 25:+1
+weighed (11/3 weights) 2+ over, Jan-Mar CONFERENCE games         ALL   -0.2% n6030  z-0.1 | TR   -0.3% n3608  2/5 up | HELD   +0.0% n2422  1/3 up | open(held)   -0.3% n2422  | 18:-2 19:+2 20:-3 21:-2 22:+2 23:-2 24:-3 25:+4
+weighed (11/3 weights) 2+ over, Jan-Mar conference, FAVORITES    ALL   +1.0% n3880  z+0.9 | TR   +1.2% n2304  4/5 up | HELD   +0.7% n1576  2/3 up | open(held)   +2.1% n1576  | 18:+0 19:+3 20:-4 21:+0 22:+5 23:+0 24:+4 25:-2
+weighed (11/3 weights) 2+ over, Jan-Mar conference, DOGS         ALL   -2.2% n2150  z-0.9 | TR   -2.9% n1304  1/5 up | HELD   -1.3% n846   1/3 up | open(held)   -4.9% n846   | 18:-7 19:+2 20:-1 21:-5 22:-4 23:-5 24:-15 25:+17
+weighed (11/3 weights) 2+ over, Nov-Dec NON-conference           ALL   +4.7% n1325  z+1.7 | TR   +6.0% n758   4/5 up | HELD   +2.9% n567   1/3 up | open(held)   +0.9% n567   | 18:+19 19:+2 20:-6 21:+0 22:+9 23:-4 24:+14 25:-2
+weighed (11/3 weights) 3+ over the price - ALL months            ALL   +0.1% n4887  z+0.1 | TR   +0.8% n2967  3/5 up | HELD   -1.0% n1920  1/3 up | open(held)   -1.9% n1920  | 18:+0 19:+4 20:-2 21:-4 22:+4 23:-3 24:-2 25:+2
+weighed (11/3 weights) 3+ over, by month | Nov                   ALL   +0.8% n193   z+0.1 | TR   +2.9% n106   3/4 up | HELD   -1.6% n87    2/3 up | open(held)   -5.0% n87    | 18:-18 19:+8 21:+9 22:+7 23:+4 24:+5 25:-14
+weighed (11/3 weights) 3+ over, by month | Dec                   ALL   +5.9% n716   z+1.5 | TR  +10.1% n434   4/5 up | HELD   -0.6% n282   2/3 up | open(held)   -2.3% n282   | 18:+30 19:-4 20:+17 21:+2 22:+12 23:+0 24:+17 25:-19
+weighed (11/3 weights) 3+ over, by month | Jan                   ALL   -1.2% n1699  z-0.5 | TR   -0.0% n1032  3/5 up | HELD   -3.1% n667   1/3 up | open(held)   -3.8% n667   | 18:-2 19:+0 20:-1 21:+2 22:+1 23:-5 24:-8 25:+2
+weighed (11/3 weights) 3+ over, by month | Feb                   ALL   -1.9% n1643  z-0.8 | TR   -3.4% n1035  2/5 up | HELD   +0.6% n608   1/3 up | open(held)   -0.4% n608   | 18:-4 19:+12 20:-8 21:-20 22:+3 23:-3 24:-6 25:+13
+weighed (11/3 weights) 3+ over, by month | Mar                   ALL   +1.9% n636   z+0.6 | TR   +3.4% n360   4/5 up | HELD   +0.0% n276   1/3 up | open(held)   +0.7% n276   | 18:-2 19:+2 20:+5 21:+10 22:+3 23:-1 24:-4 25:+5
+weighed (11/3 weights) 3+ over, Jan-Mar CONFERENCE games         ALL   -0.9% n3911  z-0.6 | TR   -0.6% n2374  2/5 up | HELD   -1.2% n1537  1/3 up | open(held)   -1.8% n1537  | 18:-3 19:+6 20:-2 21:-6 22:+2 23:-3 24:-7 25:+6
+weighed (11/3 weights) 3+ over, Jan-Mar conference, FAVORITES    ALL   +0.0% n2272  z+0.0 | TR   -0.3% n1354  2/5 up | HELD   +0.5% n918   2/3 up | open(held)   +1.5% n918   | 18:-1 19:+5 20:-2 21:-9 22:+5 23:-3 24:+2 25:+2
+weighed (11/3 weights) 3+ over, Jan-Mar conference, DOGS         ALL   -2.1% n1639  z-0.7 | TR   -1.1% n1020  1/5 up | HELD   -3.7% n619   1/3 up | open(held)   -6.5% n619   | 18:-5 19:+8 20:-2 21:-3 22:-3 23:-4 24:-20 25:+14
+weighed (11/3 weights) 3+ over, Nov-Dec NON-conference           ALL   +4.4% n684   z+1.1 | TR   +7.4% n398   5/5 up | HELD   +0.3% n286   1/3 up | open(held)   -1.8% n286   | 18:+24 19:+4 20:+32 21:+1 22:+1 23:-7 24:+14 25:-8
+
+== D. THE SIDE THE READS AGREE ON (own 2+ AND efficiency 3+ over the price) by month and games played
+own 2+ and efficiency 3+ over - ALL                              ALL   -1.0% n3190  z-0.5 | TR   +1.4% n2009  4/5 up | HELD   -4.9% n1181  1/3 up | open(held)   -9.3% n1181  | 18:+4 19:-7 20:+3 21:+6 22:+3 23:+0 24:-10 25:-4
+own 2+ and efficiency 3+ over, by month | Nov                    ALL  +12.7% n68    z+0.9 | TR  +17.7% n34    2/4 up | HELD   +7.7% n34    1/3 up | open(held)   +4.3% n34    | 18:+52 19:-32 21:-10 22:+32 23:-1 24:+74 25:-5
+own 2+ and efficiency 3+ over, by month | Dec                    ALL   +0.7% n518   z+0.1 | TR   +2.2% n296   3/5 up | HELD   -1.3% n222   1/3 up | open(held)   -6.2% n222   | 18:+26 19:-5 20:+6 21:-18 22:+2 23:+8 24:-4 25:-7
+own 2+ and efficiency 3+ over, by month | Jan                    ALL   -1.5% n1288  z-0.5 | TR   +2.3% n806   4/5 up | HELD   -7.9% n482   0/3 up | open(held)  -11.2% n482   | 18:+11 19:-13 20:+7 21:+8 22:+1 23:-4 24:-12 25:-6
+own 2+ and efficiency 3+ over, by month | Feb                    ALL   -1.6% n1019  z-0.5 | TR   +0.4% n684   3/5 up | HELD   -5.6% n335   1/3 up | open(held)  -11.2% n335   | 18:-7 19:-2 20:+1 21:+11 22:+5 23:+2 24:-15 25:-2
+own 2+ and efficiency 3+ over, by month | Mar                    ALL   -2.3% n297   z-0.4 | TR   -3.1% n189   2/5 up | HELD   -0.8% n108   1/3 up | open(held)   -5.1% n108   | 18:-21 19:-4 20:-7 21:+36 22:+4 23:-2 24:-2 25:+3
+own 2+ and efficiency 3+ over, by games played | <11             ALL   +6.7% n353   z+1.1 | TR  +16.6% n220   4/5 up | HELD   -9.7% n133   1/3 up | open(held)  -11.9% n133   | 18:+40 19:+22 20:+14 21:-6 22:+11 23:+0 24:-4 25:-24
+own 2+ and efficiency 3+ over, by games played | 11..16          ALL   -2.7% n679   z-0.7 | TR   -4.1% n452   3/5 up | HELD   +0.0% n227   2/3 up | open(held)   -4.9% n227   | 18:+2 19:-21 20:+7 21:-17 22:+6 23:+8 24:-8 25:+1
+own 2+ and efficiency 3+ over, by games played | 16..21          ALL   -3.9% n817   z-1.1 | TR   +0.1% n524   2/5 up | HELD  -11.0% n293   0/3 up | open(held)  -14.1% n293   | 18:+17 19:-8 20:-12 21:+15 22:-10 23:-10 24:-15 25:-8
+own 2+ and efficiency 3+ over, by games played | 21..26          ALL   +2.1% n665   z+0.5 | TR   +4.6% n406   3/5 up | HELD   -1.9% n259   1/3 up | open(held)   -7.9% n259   | 18:-6 19:-8 20:+21 21:+24 22:+12 23:+8 24:-9 25:-2
+own 2+ and efficiency 3+ over, by games played | 26+             ALL   -2.6% n676   z-0.7 | TR   -2.2% n407   2/5 up | HELD   -3.0% n269   1/3 up | open(held)   -7.8% n269   | 18:-11 19:-3 20:-46 21:+14 22:+3 23:-2 24:-10 25:+3
+own 2+ and efficiency 3+ over, by price band | -251 and up       ALL   -3.0% n605   z-1.2 | TR   -4.4% n429   2/5 up | HELD   +0.3% n176   1/3 up | open(held)   -1.2% n176   | 18:-7 19:-10 20:-8 21:+5 22:+9 23:-5 24:+8 25:-2
+own 2+ and efficiency 3+ over, by price band | -151..-250        ALL   -4.4% n663   z-1.6 | TR   -1.9% n415   3/5 up | HELD   -8.8% n248   1/3 up | open(held)   -9.9% n248   | 18:-2 19:-9 20:+0 21:+4 22:+1 23:+2 24:-13 25:-15
+own 2+ and efficiency 3+ over, by price band | -101..-150        ALL   +0.3% n210   z+0.1 | TR   +7.4% n106   4/5 up | HELD   -6.8% n104   1/3 up | open(held)   -9.8% n104   | 18:+20 19:+18 20:+9 21:-33 22:+17 23:-15 24:+6 25:-11
+own 2+ and efficiency 3+ over, by price band | +100..+150        ALL   +3.5% n1029  z+1.0 | TR   +4.2% n656   4/5 up | HELD   +2.3% n373   2/3 up | open(held)   -2.7% n373   | 18:+9 19:-8 20:+8 21:+2 22:+9 23:+9 24:-6 25:+6
+own 2+ and efficiency 3+ over, by price band | +151..+250        ALL   -5.1% n609   z-0.9 | TR   +2.1% n364   2/5 up | HELD  -15.8% n245   0/3 up | open(held)  -23.1% n245   | 18:+9 19:-3 20:-1 21:+27 22:-24 23:-10 24:-28 25:-9
+own 2+ and efficiency 3+ over, by price band | +251..+350        ALL  +15.4% n74    z+0.7 | TR  +28.7% n39    4/5 up | HELD   +0.6% n35    2/3 up | open(held)  -17.6% n35    | 18:+25 19:-100 20:+69 21:+5 22:+44 23:+56 24:-38 25:+2
+own 2+ and efficiency 3+ over, Jan-Mar conference favorites -101..-150 ALL   +0.6% n148   z+0.1 | TR   -0.4% n83    3/5 up | HELD   +1.8% n65    2/3 up | open(held)   -0.9% n65    | 18:+14 19:+3 20:+23 21:-41 22:-4 23:-14 24:+19 25:+5
+own 2+ and efficiency 3+ over, Jan-Mar conference favorites -151..-250 ALL   -3.1% n587   z-1.1 | TR   -0.4% n369   3/5 up | HELD   -7.8% n218   1/3 up | open(held)   -9.0% n218   | 18:-2 19:-5 20:+4 21:+4 22:+0 23:+3 24:-11 25:-15
+own 2+ and efficiency 3+ over, Jan-Mar conference dogs +100..+150 ALL   +2.4% n769   z+0.6 | TR   +3.8% n507   3/5 up | HELD   -0.5% n262   1/3 up | open(held)   -5.5% n262   | 18:+7 19:-1 20:+9 21:+11 22:-7 23:-3 24:-11 25:+18
+own 2+ and efficiency 3+ over, Jan-Mar conference dogs +151..+350 ALL   -5.2% n526   z-0.8 | TR   +5.3% n307   3/5 up | HELD  -19.9% n219   0/3 up | open(held)  -28.6% n219   | 18:-4 19:-22 20:+6 21:+38 22:+11 23:-1 24:-30 25:-25
+
+== E. WHERE THE MARKET IS LOOSEST - the close's own error by month (the no-vig favorite's win % minus its price)
+Nov: favorites won 61.8% vs 61.6% priced (n2517); dogs 38.2% vs 38.4%
+Dec: favorites won 59.0% vs 61.2% priced (n2808); dogs 41.0% vs 38.8%
+Jan: favorites won 61.7% vs 60.9% priced (n5701); dogs 38.3% vs 39.1%
+Feb: favorites won 61.9% vs 61.0% priced (n5510); dogs 38.1% vs 39.0%
+Mar: favorites won 63.8% vs 61.3% priced (n2432); dogs 36.2% vs 38.7%
+
+cells looked at: 101

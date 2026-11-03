@@ -113,6 +113,18 @@ def tags(c, sports):
         #   its games 6-10 +9.8% on 380 (train 2022-23 +2.3%, held out +29.0% / +4.1%; the open +5.4%) vs -5.6% for the
         #   other dogs; the study's Elo version +13.8% on 401 (4 of 4 up) - but a narrow window found by looking
         #   (games 1-5 -15%, 11-15 +2%), ~160 cells, z 1.4-2.0, and the same teams as favorites LOSE (-10%): never a weight
+    # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (B) (results/studies/cbb_knowledge_b/ s3 / s6): the owner's 'good slight
+    # favorites' - two LEADS, tracked only, never a weight (looked-for cells among ~250; each a single idea)
+    if lg == "ncaab" and not dog and HOOPS_SLIGHT_BAND[0] <= c.get("odds", 0) <= HOOPS_SLIGHT_BAND[1]:
+        if hoops_march_home_fav(c):
+            t.append("college hoops home slight fav -101..-150 in March")   # s6 (a): +9.4% on 255 at the close (train
+            #   2018-22 +11.1%, 5 of 5 up; held out 2023-25 +7.0%, 2 of 3; the open +6.7%) vs -4.3% for every slight
+            #   favorite and -2.5% for the February home favorite; the whole March favorite pool sits at the vig
+        if hoops_glass_eff_fav(c):
+            t.append("college hoops home slight fav out-rebounding by 4+, efficiency read 3+ over")   # s3 B: +13.2% on
+            #   151 (box seasons 2021-22 +20.5%, 2 of 2; held out 2023-25 +8.7%, 3 of 3; the open +8.3%) vs +4.8% on 314
+            #   for the glass alone and -2.9% for the efficiency agreement alone at home; fires once both teams have
+            #   5 box games (~mid-November)
     if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_rest_stack(c):
         t.append("NBA dog on 2+ days off vs a team on a back-to-back")   # 11/2 daily study 3 (rest stacking): the dog
         #   with 2+ nights off vs a b2b team +6.2% on 104 train (2016-22, 3 of 5 up) / +13.4% on 65 held out vs -0.1% /
@@ -844,6 +856,38 @@ def public_saturday(c):
         return (_night(c.get("start") or g.get("start")) + 3) % 7 == 5
     except (TypeError, ValueError):
         return False
+
+
+HOOPS_SLIGHT_BAND = (-150, -101)   # 11/3 FABLE college hoops knowledge (B): the owner's 'slight favorite' band
+HOOPS_GLASS_FAV = 4.0              # s3: the home slight favorite out-rebounding the dog by 4+ a game (sports.mark_ncaab_reb)
+HOOPS_EFF_AGREE = 0.03             # ...with the efficiency read (sports_cbb_eff, c['eff_p']) 3+ points OVER the no-vig price
+
+
+def hoops_march_home_fav(c):
+    """A college hoops moneyline favorite on its own floor (not neutral) in March, by the US night - a LEAD, tracked only."""
+    if c.get("league") != "ncaab" or c.get("market", "ml") != "ml" or c.get("side") != "home":
+        return False
+    g = _game(c)
+    if str(g.get("neutral")) == "1":
+        return False
+    start = str(g.get("start") or c.get("start") or "")
+    try:
+        from datetime import datetime, timedelta
+        return (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m") == "03"
+    except ValueError:
+        return False
+
+
+def hoops_glass_eff_fav(c):
+    """A college hoops home (not neutral) moneyline favorite whose season rebound margin beats the dog's by
+    HOOPS_GLASS_FAV+ a game (c['reb_gap'], both teams 5+ box games) with the efficiency read HOOPS_EFF_AGREE+ over the
+    no-vig price (c['eff_p'] - c['p_market']) - a LEAD, tracked only."""
+    if c.get("league") != "ncaab" or c.get("market", "ml") != "ml" or c.get("side") != "home":
+        return False
+    if str(_game(c).get("neutral")) == "1":
+        return False
+    rg, ep, pm = c.get("reb_gap"), c.get("eff_p"), c.get("p_market")
+    return rg is not None and ep is not None and pm is not None and rg >= HOOPS_GLASS_FAV and ep - pm >= HOOPS_EFF_AGREE
 
 
 HOOPS_RESTED = (4, 5)        # 11/3 college hoops (B) study 1: this side's nights since its last game
