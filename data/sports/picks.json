@@ -29957,6 +29957,7 @@
      "us:west1000"
     ],
     "dec": 2.05,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30024,6 +30025,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 2.99,
+    "flow": {
+     "a": "30,42,21,24",
+     "h": "37,42,32,27"
+    },
     "form_state": [
      20.0,
      2,
@@ -30075,10 +30080,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Heat 117 @ Lakers 138",
     "season_games": 6,
+    "settled": "2026-11-03T06:03Z",
     "side": "away",
     "start": "2026-11-03T03:00Z",
     "stype": "2",
@@ -30095,12 +30102,14 @@
    }
   ],
   "p_hit": 0.4649,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-02T16:00Z",
   "round": 1,
+  "settled": "2026-11-03T06:03Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -148,
@@ -30283,6 +30292,7 @@
      "game:div"
     ],
     "dec": 2.2,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30356,6 +30366,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "31,26,36,20",
+     "h": "19,32,42,23"
+    },
     "form_state": [
      -7.0,
      -2,
@@ -30408,10 +30422,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Suns 113 @ Warriors 116",
     "season_games": 4,
+    "settled": "2026-11-03T06:03Z",
     "side": "away",
     "start": "2026-11-03T03:00Z",
     "stype": "2",
@@ -30429,11 +30445,13 @@
   ],
   "midday": true,
   "p_hit": 0.4489,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-02T21:57Z",
   "round": 1,
+  "settled": "2026-11-03T06:03Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]

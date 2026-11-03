@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 169,
-  "beat": 55,
+  "n": 171,
+  "beat": 56,
   "same": 64,
-  "worse": 50,
+  "worse": 51,
   "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 76,
-  "beat": 24,
+  "n": 78,
+  "beat": 25,
   "same": 34,
-  "worse": 18,
-  "avg_pts": 0.18
+  "worse": 19,
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 41,
-   "beat": 12,
+   "n": 43,
+   "beat": 13,
    "same": 20,
-   "worse": 9,
-   "avg_pts": 0.09
+   "worse": 10,
+   "avg_pts": 0.06
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 22,
-   "beat": 10,
+   "n": 24,
+   "beat": 11,
    "same": 8,
-   "worse": 4,
-   "avg_pts": 0.58
+   "worse": 5,
+   "avg_pts": 0.48
   },
   "ncaab": {
    "n": 1,
@@ -2472,6 +2472,20 @@
   },
   {
    "date": "2026-11-02",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Heat",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 115,
+   "pts": -2.3,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
    "kind": "lean",
    "lean": true,
    "league": "ncaab",
@@ -2482,6 +2496,20 @@
    "close": -148,
    "pts": 0.0,
    "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Suns",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 115,
+   "pts": 1.1,
+   "units": 0.5,
    "result": "lost"
   }
  ]
