@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T03:51Z",
+ "updated": "2026-11-03T03:53Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -1744,8 +1744,8 @@
    "away": "Avalanche",
    "home": "Blackhawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2298,8 +2298,8 @@
    "away": "Alcorn St",
    "home": "Ole Miss",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3173,7 +3173,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.377,
+    "p": 0.362,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3182,7 +3182,7 @@
    "start": "2026-11-04T00:00Z",
    "away": "Avalanche",
    "home": "Blue Jackets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Blue Jackets",
@@ -3190,9 +3190,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.661,
-    "win_p": 0.441,
-    "reasons": []
+    "p": 0.69,
+    "win_p": 0.474,
+    "reasons": [
+     "opponent on a back-to-back",
+     "better rested"
+    ]
    }
   },
   {
