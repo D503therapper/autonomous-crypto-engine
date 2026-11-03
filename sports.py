@@ -811,6 +811,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
     weigh_ncaab_top_out(out)                          # 🏀 11/3 DEEP: ...and the favorite whose own top scorer missed it
+    weigh_ncaab_eff_fav(games, out)                   # 🏀 11/3 DEEP: the slight favorite our efficiency ratings don't buy
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -3307,6 +3308,46 @@ def weigh_ncaab_away_fav(games, cands):
         c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_AWAY_FAV_W))), 4)
         c["ncaab_away_fav"] = True
         c["reasons"] = c["reasons"] + ["a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"]
+
+
+NCAAB_EFF_FAV_W = -0.03           # 🏀 11/3 DEEP: COLLEGE HOOPS EFFICIENCY MODEL (results/studies/deep_cbb_model/s_slight_fav.py,
+NCAAB_EFF_FAV_GAP = 0.03          # sports_cbb_eff): a college hoops -101..-150 moneyline favorite whose efficiency read (tempo-
+NCAAB_EFF_FAV_BAND = (-150, -101)  # free, opponent / venue adjusted, our own box scores) sits 3+ points UNDER the price's no-vig
+#                                   lost -9.6% on 2,338 at the close 2018-25 (train -9.5%, 0 of 5 seasons up; held out -9.7%,
+#                                   0 of 3; EVERY season down; the open -5.1%, 0 of 3; ratings 2 nights stale -8.3%, 0 of 8;
+#                                   the old Elo read in the same seat -7.5%, 0 of 8) vs -0.6% when the read agrees within 3
+#                                   and -4.5% for every slight favorite; outside the Nov-Dec away weight -8.0% too. A WEIGHT on
+#                                   the favorite's read (-3 points, about the gap), never a trigger; stacks with the away
+#                                   weight inside FAV_CAP. The model itself does NOT beat the close - it is a filter, not a read.
+
+
+def weigh_ncaab_eff_fav(games, cands):
+    """The college hoops slight favorite the efficiency ratings read 3+ points under its price: weighed read -3 (floor
+    own - FAV_CAP). Sets c['eff_p'] (the ratings' chance for the side) on every college hoops moneyline side it reads."""
+    picks = [c for c in cands if c.get("league") == "ncaab" and c.get("market") == "ml"
+             and c.get("p_market") is not None and c.get("edge_own") is not None and c.get("dec")]
+    if not picks:
+        return
+    try:
+        import sports_cbb_eff
+        reads = sports_cbb_eff.read_many(games, {c["game_id"] for c in picks})
+    except Exception as e:                                   # noqa: BLE001 - no read = no weight, never a blocked board
+        print(f"cbb efficiency weight skipped: {str(e)[:80]}")
+        return
+    for c in picks:
+        r = reads.get(c["game_id"])
+        if not r:
+            continue
+        p = r["p_home"] if c.get("side") == "home" else 1 - r["p_home"]
+        c["eff_p"] = round(p, 4)
+        if not (NCAAB_EFF_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_EFF_FAV_BAND[1]) or p - c["p_market"] > -NCAAB_EFF_FAV_GAP:
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_EFF_FAV_W))), 4)
+        c["ncaab_eff_fav"] = True
+        c["reasons"] = c["reasons"] + ["our efficiency ratings have this one a lot closer than the price - favorites "
+                                       "like that lost to their price 8 of 8 seasons"]
 
 
 NCAAB_RUBBER_W = 2       # 🏀 11/3 COLLEGE HOOPS (B), study 2 (s2_revenge.py / s6_followups.py): the DOG in a RUBBER MATCH -

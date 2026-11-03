@@ -1,0 +1,25 @@
+P(home) = sig(-0.0014 + 0.1537 x margin), fit on 2018-22
+
+held-out PRICED games: n 12085, log loss 0.5294, Brier 0.1788
+  0.01-0.32: n  1209 predicted 0.230 actual 0.199
+  0.32-0.44: n  1208 predicted 0.385 actual 0.395
+  0.44-0.52: n  1209 predicted 0.481 actual 0.486
+  0.52-0.59: n  1208 predicted 0.555 actual 0.564
+  0.59-0.65: n  1208 predicted 0.620 actual 0.654
+  0.65-0.71: n  1209 predicted 0.680 actual 0.666
+  0.71-0.77: n  1208 predicted 0.742 actual 0.744
+  0.77-0.84: n  1209 predicted 0.806 actual 0.835
+  0.84-0.91: n  1208 predicted 0.877 actual 0.902
+  0.91-1.00: n  1209 predicted 0.951 actual 0.968
+
+held-out every game: n 18835, log loss 0.4885, Brier 0.1643
+  0.00-0.33: n  1884 predicted 0.235 actual 0.216
+  0.33-0.45: n  1883 predicted 0.397 actual 0.413
+  0.45-0.54: n  1884 predicted 0.496 actual 0.485
+  0.54-0.61: n  1883 predicted 0.574 actual 0.584
+  0.61-0.68: n  1883 predicted 0.644 actual 0.649
+  0.68-0.75: n  1884 predicted 0.712 actual 0.712
+  0.75-0.82: n  1883 predicted 0.781 actual 0.801
+  0.82-0.90: n  1884 predicted 0.856 actual 0.876
+  0.90-0.98: n  1883 predicted 0.939 actual 0.956
+  0.98-1.00: n  1884 predicted 0.992 actual 0.993

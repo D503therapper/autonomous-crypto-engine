@@ -16911,6 +16911,79 @@ def test_h1log_1103_pre_tip_first_half_line_logged_hourly_no_network():
     # data only: the hourly run calls it inside the fetch block, and no pick / board path reads it
     assert "sports_h1log.log(games, now)" in open("sports.py").read()
     assert not any("sports_h1log" in open(f).read() for f in ("sports_dashboard.py", "sports_early.py"))
+def test_deep_cbb_1103_efficiency_ratings_are_a_slight_favorite_filter_never_the_read():
+    """11/3 DEEP: COLLEGE HOOPS EFFICIENCY MODEL (results/studies/deep_cbb_model/). A tempo-free adjusted-efficiency
+    model from our own box scores does NOT beat the close (held out log loss 0.5294 vs 0.5229; blended 0.5228; its
+    disagreements lose on spreads, moneylines, totals) - so it is NOT the college hoops own read (early_trust, trust,
+    the Dog rule untouched). What it carries: a -101..-150 college hoops moneyline favorite it reads 3+ points under the
+    no-vig lost -9.6% on 2,338 (0 of 5 train / 0 of 3 held out seasons up) - a -3 WEIGHT on that favorite's read."""
+    import sports_cbb_eff as ce
+    import sports_leads as sl
+    # (1) the ratings: pure Python, opponent / venue adjusted - A beats everyone by 20, C loses to everyone by 20
+    games = {}
+    teams = ["A", "B", "C", "D"]
+    k = 0
+    for wk in range(6):
+        for i, h in enumerate(teams):
+            for a in teams[i + 1:]:
+                k += 1
+                sc_ = {"A": 90, "B": 75, "C": 60, "D": 75}                     # points each team scores
+                hh, aa = (h, a) if (wk + k) % 2 else (a, h)
+                hs, as_ = (sc_[hh] + 2, sc_[aa])
+                games[f"ncaab:{k}"] = {"id": f"ncaab:{k}", "league": "ncaab", "status": "final", "stype": "2",
+                                       "start": (datetime(2025, 11, 10) + timedelta(days=3 * wk, hours=k % 3)).strftime("%Y-%m-%dT%H:%MZ"),
+                                       "home": hh, "away": aa, "home_name": hh, "away_name": aa,
+                                       "home_score": str(hs), "away_score": str(as_), "neutral": "0"}
+    up = {"id": "ncaab:up", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-01-20T00:00Z",
+          "home": "C", "away": "A", "home_name": "C", "away_name": "A", "neutral": "1"}
+    games["ncaab:up"] = up
+    ce._CACHE.clear()
+    r = ce.predict(games, up, box={})
+    assert r is not None and r["margin"] < -15 and r["p_home"] < 0.2          # A (neutral floor) by a lot
+    home_c = ce.predict(games, {**up, "neutral": "0"}, box={})
+    assert home_c["margin"] > r["margin"]                                     # a home floor helps C
+    assert ce.read_many(games, ["ncaab:up", "nope"], box={})["ncaab:up"]["margin"] == r["margin"]
+    assert ce.predict({}, {"start": "bad"}, box={}) is None                   # a read error = no read, never a crash
+    # the settings the study tuned on 2018-22 only, the calibration, the 6-season prior chain (reproduces the study
+    # model to 0.07 points a game, check_live_out.txt)
+    assert (ce.PRM["halflife"], ce.PRM["prior_games"], ce.PRM["shrink"], ce.PRM["luck3"], ce.PRM["luckft"]) == \
+        (120.0, 6.0, 0.70, 0.3, 0.5)
+    assert ce.CAL == (-0.001, 0.1537) and ce.SEASONS_BACK == 6
+    # (2) the weight: -3 on a slight favorite the ratings read 3+ under its no-vig, floor own - FAV_CAP
+    d = sports.sd.decimal
+    mk = lambda side, odds, pm, w_p=None, lg="ncaab": {"league": lg, "market": "ml", "odds": odds, "dec": d(odds),
+                                                       "edge_own": 0.6 * d(odds) - 1, "w_p": w_p, "reasons": [],
+                                                       "side": side, "game_id": "g1", "p_market": pm}
+    keep = ce.read_many
+    try:
+        ce.read_many = lambda g_, ids, box=None: {"g1": {"p_home": 0.50, "margin": 0.0}}
+        fav = mk("home", -130, 0.55)                    # ratings 50% vs price 55%: 5 under -> weighed
+        close = mk("home", -130, 0.52)                  # 2 under: untouched
+        big = mk("home", -160, 0.60)                    # past -150: untouched
+        dog = mk("away", 110, 0.45)                     # the dog: read stored, never weighed
+        nba = mk("home", -130, 0.55, lg="nba")
+        low = mk("home", -130, 0.55, w_p=0.57)
+        sports.weigh_ncaab_eff_fav({}, [fav, close, big, dog, nba, low])
+        assert abs(fav["w_p"] - 0.57) < 1e-9 and fav["ncaab_eff_fav"] and fav["eff_p"] == 0.5
+        assert all(x.get("w_p") is None and not x.get("ncaab_eff_fav") for x in (close, big, dog, nba))
+        assert dog["eff_p"] == 0.5 and "eff_p" not in nba
+        assert abs(low["w_p"] - 0.56) < 1e-9                                   # 0.57 - 0.03 floored at 0.60 - FAV_CAP
+        assert "college hoops slight fav the efficiency read is 3+ under (fade)" in sl.tags(fav, sports)
+        sdog = {**mk("away", 120, 0.42), "eff_p": 0.46, "start": "2026-11-20T00:00Z"}   # the short-dog LEAD (tag only)
+        assert "college hoops short dog the efficiency read is 3+ over" in sl.tags(sdog, sports)
+        assert "college hoops short dog the efficiency read is 3+ over" not in sl.tags({**sdog, "eff_p": 0.44}, sports)
+        ce.read_many = lambda g_, ids, box=None: (_ for _ in ()).throw(RuntimeError("boom"))
+        safe = mk("home", -130, 0.55)
+        sports.weigh_ncaab_eff_fav({}, [safe])                                 # a failed read: no weight, no crash
+        assert safe.get("w_p") is None
+    finally:
+        ce.read_many = keep
+    src = open("sports.py").read()
+    assert src.index("weigh_ncaab_away_fav(games, out)") < src.index("weigh_ncaab_eff_fav(games, out)")
+    assert sports.NCAAB_EFF_FAV_W == -0.03 and sports.NCAAB_EFF_FAV_GAP == 0.03
+    # (3) NOT the own read: early_trust and the college hoops Dog rule stay as they were
+    assert sports.EARLY_TRUST_GAMES == 10 and "ncaab" in sports.EARLY_TRUST_LEAGUES
+    assert sports.NCAAB_DOG_RULE == "off"
 
 
 if __name__ == "__main__":

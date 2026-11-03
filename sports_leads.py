@@ -140,6 +140,12 @@ def tags(c, sports):
         #                                                      edge_own IS the market, so the old test never fired)
         t.append("college dog, engine 10+ over the books")   # the owner, 10/16 (Tulane): "lay off" - but keep its live
         #                                                      score (the posted / pulled ones went 0-6 through 10/16)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 150 and c.get("eff_p") is not None \
+            and c.get("p_market") is not None and c["eff_p"] - c["p_market"] >= 0.03:
+        t.append("college hoops short dog the efficiency read is 3+ over")   # 11/3 DEEP s_short_dog.py: +3.9% on 2,687
+        #   at the close 2018-25 (train +2.6%, 4 of 5 up; held out +6.0%, 3 of 3) vs -2.8% for every short dog and -5.2%
+        #   when the read is against it - but z 1.8, no dose (edge 3-6 +6.9%, 6-10 +2.5%, 10+ +1.3%), the open +0.5%,
+        #   one of 110 hunt cells: a LEAD, tracked only (judge at 100)
     if dog:
         try:
             sc = round(sports.dog_score(c), 2)
@@ -279,6 +285,10 @@ def tags(c, sports):
             t.append("college hoops small fav away from home, Nov-Dec (fade)")   # sports.weigh_ncaab_away_fav): its live
             #   record - -11.6% on 1,097 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the fade
             #   side winning 55%+ against a -125 average price = the weight comes off
+        if c.get("ncaab_eff_fav"):                           # 11/3 DEEP college hoops efficiency model (BUILT as a -3
+            t.append("college hoops slight fav the efficiency read is 3+ under (fade)")   # weight, sports.weigh_ncaab_eff_fav):
+            #   its live record - -9.6% on 2,338 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the
+            #   faded favorites running at or above -4.5% (every slight favorite's base) = the weight comes off
         if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_rust(c):
             t.append("college hoops small fav off 7+ days vs a team in rhythm (fade)")   # 10/31 daily study 10: -17.9%
             #   on 167 train (2018-21, 1 of 4 up) / -12.3% on 243 held out (2022-25, 3 of 4 down) outside December vs
