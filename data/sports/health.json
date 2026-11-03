@@ -1,10 +1,9 @@
 {
- "at": "2026-11-03T03:24Z",
- "fixes": [
-  "live board 16 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-03T03:26Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (161s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +16,17 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 40 min ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T03:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-03T03:24Z",
    "fixes": [
@@ -512,20 +516,6 @@
     "live tennis scores: tennis Zolotareva vs Falei: no points for 2616s",
     "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 1331s",
     "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 2616s",
-    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-01T11:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bellucci vs Tirante: no points for 2354s",
-    "live tennis scores: tennis Kopriva vs Hijikata: no points for 2354s",
-    "live tennis scores: tennis Kecmanovic vs Cerundolo: no points for 1244s",
-    "live tennis scores: tennis Zolotareva vs Falei: no points for 2354s",
-    "live tennis scores: tennis Falkowska vs Morvayova: no points for 2354s",
-    "live tennis scores: tennis Kulambayeva vs Yamaguchi: no points for 1070s",
-    "live tennis scores: tennis Easwaramurthi vs Rachapudi: no points for 2354s",
     "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
