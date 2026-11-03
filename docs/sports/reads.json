@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T04:00Z",
+ "updated": "2026-11-03T04:01Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -3162,7 +3162,7 @@
     "market": "spread",
     "line": 27.5,
     "odds": -112,
-    "p": 0.523,
+    "p": 0.522,
     "win_p": 0.027,
     "reasons": []
    }
@@ -3213,7 +3213,7 @@
    "start": "2026-11-04T00:00Z",
    "away": "Blues",
    "home": "Rangers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Blues",
@@ -3223,7 +3223,9 @@
     "odds": -250,
     "p": 0.69,
     "win_p": 0.473,
-    "reasons": []
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -3241,18 +3243,20 @@
    "start": "2026-11-04T00:00Z",
    "away": "Golden Knights",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Penguins",
+    "team": "Penguins",
+    "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
-    "p": 0.693,
-    "win_p": 0.476,
+    "odds": -258,
+    "p": 0.734,
+    "win_p": 0.526,
     "reasons": [
-     "the stronger team"
+     "opponent on a back-to-back",
+     "better rested",
+     "sharp money moving this way"
     ]
    }
   },
@@ -3262,8 +3266,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia Tech",
-    "p": 0.843,
-    "tie": 0.025,
+    "p": 0.819,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3278,10 +3282,12 @@
     "opp": "Georgia Tech",
     "market": "spread",
     "line": 15.5,
-    "odds": -102,
+    "odds": -115,
     "p": 0.509,
-    "win_p": 0.08,
-    "reasons": []
+    "win_p": 0.101,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -3409,8 +3415,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duquesne",
-    "p": 0.74,
-    "tie": 0.034,
+    "p": 0.72,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3425,9 +3431,9 @@
     "opp": "Duquesne",
     "market": "spread",
     "line": 10.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.504,
-    "win_p": 0.178,
+    "win_p": 0.2,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3439,8 +3445,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.485,
-    "tie": 0.283,
+    "p": 0.479,
+    "tie": 0.284,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3455,9 +3461,9 @@
     "opp": "Red Wings",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.761,
-    "win_p": 0.761,
+    "odds": -250,
+    "p": 0.752,
+    "win_p": 0.752,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3489,7 +3495,7 @@
     "line": 1.5,
     "odds": -285,
     "p": 0.712,
-    "win_p": 0.499,
+    "win_p": 0.5,
     "reasons": []
    }
   },
@@ -3530,8 +3536,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia",
-    "p": 0.937,
-    "tie": 0.012,
+    "p": 0.921,
+    "tie": 0.015,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3545,10 +3551,10 @@
     "team": "Drexel",
     "opp": "Virginia",
     "market": "spread",
-    "line": 28.5,
-    "odds": -112,
-    "p": 0.524,
-    "win_p": 0.019,
+    "line": 31.5,
+    "odds": -118,
+    "p": 0.527,
+    "win_p": 0.027,
     "reasons": []
    }
   },
@@ -3601,9 +3607,9 @@
     "team": "Sam Houston",
     "opp": "Alabama",
     "market": "spread",
-    "line": 27.5,
-    "odds": -112,
-    "p": 0.523,
+    "line": 26.5,
+    "odds": -108,
+    "p": 0.521,
     "win_p": 0.032,
     "reasons": [
      "sharp money moving this way"
@@ -3664,7 +3670,7 @@
     "market": "spread",
     "line": 25.5,
     "odds": -108,
-    "p": 0.521,
+    "p": 0.52,
     "win_p": 0.032,
     "reasons": [
      "opponent drama: suspension"
@@ -3764,8 +3770,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Diego St",
-    "p": 0.851,
-    "tie": 0.024,
+    "p": 0.834,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3780,10 +3786,12 @@
     "opp": "San Diego St",
     "market": "spread",
     "line": 16.5,
-    "odds": -110,
-    "p": 0.511,
-    "win_p": 0.074,
-    "reasons": []
+    "odds": -105,
+    "p": 0.51,
+    "win_p": 0.088,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -3808,7 +3816,7 @@
     "opp": "UNLV",
     "market": "spread",
     "line": 21.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.516,
     "win_p": 0.051,
     "reasons": [

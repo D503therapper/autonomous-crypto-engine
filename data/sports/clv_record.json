@@ -1,9 +1,9 @@
 {
  "all": {
-  "n": 166,
+  "n": 167,
   "beat": 55,
   "same": 62,
-  "worse": 49,
+  "worse": 50,
   "avg_pts": 0.1
  },
  "unit_plays": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.19
   },
   "lean": {
-   "n": 91,
+   "n": 92,
    "beat": 31,
    "same": 29,
-   "worse": 31,
-   "avg_pts": 0.03
+   "worse": 32,
+   "avg_pts": 0.02
   },
   "lock": {
    "n": 13,
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 21,
+   "n": 22,
    "beat": 10,
    "same": 8,
-   "worse": 3,
-   "avg_pts": 0.65
+   "worse": 4,
+   "avg_pts": 0.58
   },
   "ncaab": {
    "n": 1,
@@ -2425,6 +2425,20 @@
    "odds": -118,
    "close": -118,
    "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Knicks",
+   "market": "spread",
+   "line": -14.5,
+   "odds": -114,
+   "close": -110,
+   "pts": -0.9,
    "units": 0,
    "result": "lost"
   },
