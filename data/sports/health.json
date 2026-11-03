@@ -1,9 +1,11 @@
 {
- "at": "2026-11-03T23:43Z",
- "fixes": [],
+ "at": "2026-11-03T23:44Z",
+ "fixes": [
+  "live watch 41735322364 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (252s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,14 +16,22 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
+  "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 14 min ago",
+  "engine ran 15 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-03T23:44Z",
+   "fixes": [
+    "live watch 41735322364 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-03T23:43Z",
    "fixes": [],
@@ -547,14 +557,6 @@
    "at": "2026-11-02T11:12Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-02T11:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Rachapudi vs Bohner: no points for 1238s",
-    "live tennis scores: tennis Vaissaud vs Shinikova: no points for 208s"
-   ]
   }
  ]
 }
