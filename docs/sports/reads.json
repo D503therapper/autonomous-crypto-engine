@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T02:14Z",
+ "updated": "2026-11-03T02:16Z",
  "games": [
   {
    "id": "ncaab:401920912",
@@ -536,8 +536,8 @@
    "away": "Buffalo",
    "home": "Marshall",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -803,8 +803,8 @@
    "away": "Long Island",
    "home": "FAU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1073,8 +1073,8 @@
    "away": "Rider",
    "home": "Pitt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2349,6 +2349,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401925640",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-03T01:30Z",
+   "away": "Oakwood",
+   "home": "Alabama A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917913",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2722,8 +2737,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Arizona St",
-    "p": 0.869,
-    "tie": 0.022,
+    "p": 0.878,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2740,7 +2755,7 @@
     "line": 19.5,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.06,
+    "win_p": 0.054,
     "reasons": []
    }
   },
@@ -2921,7 +2936,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.563,
+    "p": 0.575,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2937,9 +2952,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.617,
-    "win_p": 0.617,
+    "odds": -191,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "opponent missing key players",
      "the stronger team"
