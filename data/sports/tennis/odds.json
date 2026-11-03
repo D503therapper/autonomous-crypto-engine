@@ -1,33 +1,7 @@
 {
- "fetched": "2026-11-02T23:59Z",
- "src": "bovada",
+ "fetched": "2026-11-03T07:08Z",
+ "src": "oddsapi",
  "lines": [
-  {
-   "a": "Denis Shapovalov",
-   "b": "Karen Khachanov",
-   "start": "2026-11-02T18:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -1.5,
-   "b_hcp": 1.5,
-   "a_sp": 240,
-   "b_sp": -335,
-   "a_ml": -550,
-   "b_ml": 400
-  },
-  {
-   "a": "Ugo Humbert",
-   "b": "Botic van de Zandschulp",
-   "start": "2026-11-02T20:55Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -2.5,
-   "b_hcp": 2.5,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": -195,
-   "b_ml": 160
-  },
   {
    "a": "Himeno Sakatsume",
    "b": "Tereza Valentova",
@@ -250,56 +224,34 @@
    "b_ml": -175
   },
   {
-   "a": "Tommy Paul",
-   "b": "Holger Rune",
-   "start": "2026-11-03T09:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -215,
-   "b_ml": 175
-  },
-  {
    "a": "Andrey Rublev",
    "b": "Tomas Martin Etcheverry",
    "start": "2026-11-03T10:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -115,
-   "b_sp": -115,
    "a_ml": -250,
-   "b_ml": 200
+   "b_ml": 204,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Arthur Rinderknech",
    "b": "Francisco Cerundolo",
    "start": "2026-11-03T10:00Z",
-   "src": "bovada",
+   "a_ml": 163,
+   "b_ml": -195,
    "tour": "atp",
-   "a_hcp": 2.5,
-   "b_hcp": -2.5,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": 165,
-   "b_ml": -200
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Quentin Halys",
    "b": "Arthur Fery",
    "start": "2026-11-03T10:00Z",
-   "src": "bovada",
+   "a_ml": -159,
+   "b_ml": 134,
    "tour": "atp",
-   "a_hcp": -2.0,
-   "b_hcp": 2.0,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": -155,
-   "b_ml": 130
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Aliona Falei",
@@ -341,43 +293,24 @@
    "b_ml": -550
   },
   {
-   "a": "Alejandro Davidovich Fokina",
-   "b": "Moise Kouame",
-   "start": "2026-11-03T11:10Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.5,
-   "b_hcp": 3.5,
-   "a_sp": -125,
-   "b_sp": -105,
-   "a_ml": -325,
-   "b_ml": 260
-  },
-  {
    "a": "Brandon Nakashima",
    "b": "Matteo Berrettini",
    "start": "2026-11-03T11:10Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -1.5,
-   "b_hcp": 1.5,
-   "a_sp": -120,
-   "b_sp": -110,
    "a_ml": -155,
-   "b_ml": 130
+   "b_ml": 130,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Stefanos Tsitsipas",
    "b": "Learner Tien",
    "start": "2026-11-03T11:10Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": 1.0,
-   "b_hcp": -1.0,
-   "a_sp": -110,
-   "b_sp": -120,
    "a_ml": 115,
-   "b_ml": -140
+   "b_ml": -140,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Sahaja Yamalapalli",
@@ -406,82 +339,84 @@
    "b_ml": -325
   },
   {
+   "a": "Alejandro Davidovich Fokina",
+   "b": "Moise Kouame",
+   "start": "2026-11-03T12:00Z",
+   "a_ml": -295,
+   "b_ml": 235,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
+  },
+  {
+   "a": "Tommy Paul",
+   "b": "Holger Rune",
+   "start": "2026-11-03T12:20Z",
+   "a_ml": -213,
+   "b_ml": 177,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 7
+  },
+  {
    "a": "Novak Djokovic",
    "b": "Valentin Vacherot",
-   "start": "2026-11-03T12:20Z",
-   "src": "bovada",
+   "start": "2026-11-03T13:30Z",
+   "a_ml": -221,
+   "b_ml": 180,
    "tour": "atp",
-   "a_hcp": -2.5,
-   "b_hcp": 2.5,
-   "a_sp": -125,
-   "b_sp": -105,
-   "a_ml": -220,
-   "b_ml": 180
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Alex Michelsen",
    "b": "Jiri Lehecka",
    "start": "2026-11-03T14:00Z",
-   "src": "bovada",
+   "a_ml": 128,
+   "b_ml": -150,
    "tour": "atp",
-   "a_hcp": 1.5,
-   "b_hcp": -1.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": 125,
-   "b_ml": -150
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Benjamin Bonzi",
    "b": "Taylor Fritz",
    "start": "2026-11-03T14:30Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": 3.5,
-   "b_hcp": -3.5,
-   "a_sp": -125,
-   "b_sp": -105,
    "a_ml": 325,
-   "b_ml": -425
+   "b_ml": -420,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Jan-Lennard Struff",
    "b": "Arthur Gea",
    "start": "2026-11-03T15:40Z",
-   "src": "bovada",
+   "a_ml": 107,
+   "b_ml": -127,
    "tour": "atp",
-   "a_hcp": 0.5,
-   "b_hcp": -0.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": 100,
-   "b_ml": -120
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Ben Shelton",
    "b": "Cameron Norrie",
    "start": "2026-11-03T18:00Z",
-   "src": "bovada",
+   "a_ml": -280,
+   "b_ml": 225,
    "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": -285,
-   "b_ml": 225
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Casper Ruud",
    "b": "Rafael Jodar",
    "start": "2026-11-03T19:30Z",
-   "src": "bovada",
+   "a_ml": 155,
+   "b_ml": -184,
    "tour": "atp",
-   "a_hcp": 2.5,
-   "b_hcp": -2.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": 160,
-   "b_ml": -195
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Antonia Ruzic",
@@ -526,40 +461,31 @@
    "a": "Alexander Zverev",
    "b": "Lorenzo Musetti",
    "start": "2026-11-04T10:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -115,
-   "b_sp": -115,
    "a_ml": -260,
-   "b_ml": 210
+   "b_ml": 210,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 8
   },
   {
    "a": "Arthur Fils",
    "b": "Tomas Machac",
    "start": "2026-11-04T10:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -3.0,
-   "b_hcp": 3.0,
-   "a_sp": -110,
-   "b_sp": -120,
    "a_ml": -210,
-   "b_ml": 170
+   "b_ml": 170,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 7
   },
   {
    "a": "Ignacio Buse",
    "b": "Daniil Medvedev",
    "start": "2026-11-04T10:00Z",
-   "src": "bovada",
+   "a_ml": 479,
+   "b_ml": -690,
    "tour": "atp",
-   "a_hcp": 5.0,
-   "b_hcp": -5.0,
-   "a_sp": -125,
-   "b_sp": -105,
-   "a_ml": 525,
-   "b_ml": -800
+   "src": "oddsapi",
+   "books": 8
   }
  ]
 }
