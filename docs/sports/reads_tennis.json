@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T22:47Z",
+ "updated": "2026-11-03T23:32Z",
  "games": [
   {
    "id": "tennis:wta:186616",
@@ -148,9 +148,9 @@
     "opp": "Quentin Halys",
     "market": "ml",
     "line": null,
-    "odds": -150,
-    "p": 0.574,
-    "win_p": 0.574,
+    "odds": -148,
+    "p": 0.576,
+    "win_p": 0.576,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -174,9 +174,9 @@
     "opp": "Arthur Rinderknech",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -136,
+    "p": 0.553,
+    "win_p": 0.553,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -252,9 +252,9 @@
     "opp": "Luca Van Assche",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.682,
-    "win_p": 0.682,
+    "odds": -200,
+    "p": 0.643,
+    "win_p": 0.643,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -270,7 +270,7 @@
    "away": "Alexander Zverev",
    "home": "Lorenzo Musetti",
    "vs": true,
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "h1": null,
    "lean": {
@@ -278,9 +278,9 @@
     "opp": "Lorenzo Musetti",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.682,
-    "win_p": 0.682,
+    "odds": -249,
+    "p": 0.68,
+    "win_p": 0.68,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -296,17 +296,17 @@
    "away": "Tomas Martin Etcheverry",
    "home": "Alex de Minaur",
    "vs": true,
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
     "team": "Tomas Martin Etcheverry",
     "opp": "Alex de Minaur",
-    "market": "spread",
-    "line": 4.5,
-    "odds": -145,
-    "p": 0.554,
-    "win_p": 0.225,
+    "market": "ml",
+    "line": null,
+    "odds": 371,
+    "p": 0.204,
+    "win_p": 0.204,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -328,11 +328,11 @@
    "lean": {
     "team": "Ignacio Buse",
     "opp": "Daniil Medvedev",
-    "market": "spread",
-    "line": 5.0,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.159,
+    "market": "ml",
+    "line": null,
+    "odds": 500,
+    "p": 0.16,
+    "win_p": 0.16,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -354,11 +354,11 @@
    "lean": {
     "team": "Rinky Hijikata",
     "opp": "Novak Djokovic",
-    "market": "spread",
-    "line": 4.5,
-    "odds": -130,
-    "p": 0.531,
-    "win_p": 0.214,
+    "market": "ml",
+    "line": null,
+    "odds": 302,
+    "p": 0.237,
+    "win_p": 0.237,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -382,9 +382,61 @@
     "opp": "Nuno Borges",
     "market": "ml",
     "line": null,
-    "odds": -200,
-    "p": 0.639,
-    "win_p": 0.639,
+    "odds": -220,
+    "p": 0.654,
+    "win_p": 0.654,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186490",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-04T14:30Z",
+   "away": "Alex Molcan",
+   "home": "Taylor Fritz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alex Molcan",
+    "opp": "Taylor Fritz",
+    "market": "ml",
+    "line": null,
+    "odds": 320,
+    "p": 0.227,
+    "win_p": 0.227,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186485",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-04T16:00Z",
+   "away": "Jan-Lennard Struff",
+   "home": "Thiago Agustin Tirante",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jan-Lennard Struff",
+    "opp": "Thiago Agustin Tirante",
+    "market": "ml",
+    "line": null,
+    "odds": -275,
+    "p": 0.695,
+    "win_p": 0.695,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -408,9 +460,35 @@
     "opp": "Matteo Berrettini",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -124,
+    "p": 0.53,
+    "win_p": 0.53,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186480",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-04T18:00Z",
+   "away": "Alex Michelsen",
+   "home": "Carlos Alcaraz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alex Michelsen",
+    "opp": "Carlos Alcaraz",
+    "market": "ml",
+    "line": null,
+    "odds": 425,
+    "p": 0.182,
+    "win_p": 0.182,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
@@ -434,9 +512,9 @@
     "opp": "Tomas Machac",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
+    "odds": -188,
+    "p": 0.627,
+    "win_p": 0.627,
     "reasons": [
      "on hard court",
      "Rolex Paris Masters"
