@@ -1,26 +1,39 @@
 {
- "at": "2026-11-03T09:16Z",
+ "at": "2026-11-03T10:08Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Aziz vs Lemaitre: no points for 211s",
+  "live tennis scores: tennis Kubka vs Suvirdjonkova: no points for 211s",
+  "live tennis scores: tennis Okutoyi vs Lansere: no points for 211s"
+ ],
  "ok": [
-  "live watcher fresh (225s)",
+  "live watcher fresh (84s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
+  "live tennis points + server: 6 of 9 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 10 live lines, 8 fresh (betrivers 6, bovada 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 24 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-03T10:08Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Aziz vs Lemaitre: no points for 211s",
+    "live tennis scores: tennis Kubka vs Suvirdjonkova: no points for 211s",
+    "live tennis scores: tennis Okutoyi vs Lansere: no points for 211s"
+   ]
+  },
   {
    "at": "2026-11-03T09:16Z",
    "fixes": [],
@@ -460,16 +473,6 @@
     "live tennis scores: tennis Scott vs Gonzalez: no points for 1759s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "sources down (the backups took over): betrivers:nfl:1028823867 HTTP 404, betrivers:nfl:1028823875 HTTP 404, betrivers:nfl:1028823868 HTTP 404, betrivers:nfl:1028823870 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-01T21:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Janicijevic vs Mandlik: no points for 1162s",
-    "live tennis scores: tennis Scott vs Gonzalez: no points for 1162s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:nfl:1028823872 HTTP 404"
    ]
   }
  ]
