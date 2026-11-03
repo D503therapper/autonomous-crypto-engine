@@ -1780,6 +1780,16 @@ NBA_SOFT_NEXT = (0.40, 10, 2)   # 10/28 (a WEIGHT, -2 on the dog score - a FADE)
 #                                 -24.9% on 174 (z -2.1) / 2025-26 -18.4% on 174; by Elo (next opponent under 1450) red in
 #                                 8 of 8 seasons. The marquee look-ahead (next game vs a .600+ team) is PRICED (-1.0% / -3.7%
 #                                 / -13.9%). Caveat: the dog's OWN soft next game runs red too (-8.7% / -12.7% / -20.4%).
+NBA_PACE_GAP = 4.0              # 🏀 11/3 FABLE NBA DEEP DIVE (results/studies/fable_nba_1103/s3 / s7 / s7b): the team that
+#                                 plays 4+ possessions a game FASTER than its opponent (both over their last 10 games -
+#                                 sports_nba_roster.pace_last) loses to its number: every side -10.5% at the close on
+#                                 2,369 (train 2018-22 -7.5%, 0 of 5 seasons up; held out 2023 -19.4 / 2024 +0.1 / 2025
+#                                 -26.5%), ATS -8.4% (0 of 5; held 3 of 3 down), the open -14.6%, the paid morning -9.2%
+#                                 (0 of 3); the last-20 and season-to-date windows agree. As a FAVORITE -150..-101 it is
+#                                 -12.7% (4 of 5 train seasons down, held 3 of 3: -2.6 / -4.7 / -19.5; last 20 -15.9%,
+#                                 season to date -18.7%) -> a -2 WEIGHT on the favorite's read (NBA_FAV_W "faster"). The
+#                                 fast DOG is -9.0% but flat in train (2 of 5 up, -3.3%): a tracker LEAD, never a weight.
+#                                 The slower side sits at the vig (+3.3% / -0.4%): the fade is one-way.
 NBA_HEAVY_MIN = 38.0            # 10/28 LEAD (tracker only, never a weight): the favorite's top 3 men by minutes averaged 38+
 #                                 last game and it was NOT overtime (the built OT weight carried half the raw +6.9%): train
 #                                 +3.2% on 517 (3 of 6), holdout +16.3% on 87 / +7.9% on 53 - up in every slice, z under 1.6,
@@ -1930,6 +1940,11 @@ def _nba_dog_facts(sched, g, side, other, lg, start, margin, op_prev, games=None
     try:                                                     # the 10/28 heavy-minutes LEAD (tracker only)
         out["opp_heavy_last"] = sports_nba_roster.heavy_last(g[other], g["start"], NBA_HEAVY_MIN)
     except Exception:                                        # noqa: BLE001 - a tracker fact never blocks the board
+        pass
+    try:                                                     # (11/3 FABLE NBA deep dive) both teams' pace over their
+        out["pace"] = sports_nba_roster.pace_last(g[side], g["start"])            # last 10 games this season - the
+        out["opp_pace"] = sports_nba_roster.pace_last(g[other], g["start"])       # fast favorite's -2 (NBA_PACE_GAP)
+    except Exception:                                        # noqa: BLE001 - no box scores = no pace fact, never a block
         pass
     if side == "home":
         out["opp_trip_game"] = away_run(g[other], theirs) + 1      # tonight is their Nth straight road game
@@ -3186,6 +3201,14 @@ NBA_FAV_W = {             # 10/22 NBA favorite study (-150..-100 at the close, t
     "more_rest": -0.02,      # +2.8% / +5.7% (3 of 3). The study 10/21 #5: the NBA own read loses to the close every
     "off_blowout": 0.02,     # season - so the NBA favorite's read starts from the books' no-vig price, these weights
     "home_dog_mid": 0.02,    # move it (inside FAV_CAP). Weights, never a trigger (the owner: "wire everything as weights").
+    "faster": -0.02,         # 🏀 11/3 FABLE NBA deep dive (NBA_PACE_GAP): the favorite 4+ possessions a game faster than
+    #                          the dog over the last 10 - -12.7% in the band (train 4 of 5 down, held 3 of 3), the same at
+    #                          the last-20 / season-to-date windows, every side -10.5% (0 of 5 train up, z -4.2).
+    "home_after_trip": -0.02,   # 🏀 11/3 FABLE NBA deep dive (s2 / s7 b): the favorite in its FIRST HOME GAME after a 4+ game
+    #                          trip - -22.4% in the band on 117 (train -20.8%, 0 of 5 up; held -15.5 / -11.9 / -43.9%; the
+    #                          open -24.2%), every favorite -10.8% after a 4-game trip vs -3.3% mid-homestand; the home DOG
+    #                          after a 4+ trip is the built 10/21 -2 (the same fact's other side; the 10/30 favorite study
+    #                          had -20.3% / -28.3% on 83 / 37 and called it n-short - 117 now, 8 of 8 seasons down).
 }
 
 
@@ -3205,6 +3228,10 @@ def nba_fav_facts(fav, dog):
     for k in ("star_back", "own_top2_out", "opp_top2_out"):
         if fav.get(k):
             w[k] = NBA_FAV_W[k]
+    if mo.get("pace") is not None and mo.get("opp_pace") is not None and mo["pace"] - mo["opp_pace"] >= NBA_PACE_GAP:
+        w["faster"] = NBA_FAV_W["faster"]                    # (11/3 FABLE NBA deep dive - the fast favorite)
+    if fav.get("home") and (mo.get("home_after_trip") or 0) >= 4:
+        w["home_after_trip"] = NBA_FAV_W["home_after_trip"]  # (11/3 - the favorite's first home game after a 4+ trip)
     return w
 
 

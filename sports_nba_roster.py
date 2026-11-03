@@ -881,3 +881,48 @@ def heavy_last(tid, start, heavy=38.0, rows=None, ot=None):
     if ot is None:
         ot = mins[0] > 52
     return (not ot) and sum(mins[:3]) / 3 >= heavy
+
+
+PACE_N, PACE_MIN_GAMES = 10, 5   # the pace read: the team's last 10 games this season, 5+ with a full box on both sides
+
+
+def _poss(rows):
+    """Possessions in one team's box rows (FGA - OREB + TO + 0.44 FTA), None when a row lacks any of them."""
+    tot = 0.0
+    for r in rows:
+        try:
+            st = json.loads(r.get("stats") or "{}")
+            fga = int(str(st["fieldGoalsMade-fieldGoalsAttempted"]).split("-")[1])
+            fta = int(str(st["freeThrowsMade-freeThrowsAttempted"]).split("-")[1])
+            tot += fga - int(st["offensiveRebounds"]) + int(st["turnovers"]) + 0.44 * fta
+        except (KeyError, ValueError, TypeError, IndexError):
+            return None
+    return tot
+
+
+def pace_last(tid, start, n=PACE_N, min_games=PACE_MIN_GAMES, rows=None):
+    """(11/3 FABLE NBA deep dive) The team's game pace over its last `n` games this season: possessions a game (both
+    teams' FGA - OREB + TO + 0.44 FTA, halved) averaged over the games whose box scores hold every stat for both
+    teams; None under `min_games` such games (the box scores don't cover it yet)."""
+    season = season_of(start)
+    if rows is None:
+        if season not in _RECENT:
+            _RECENT.clear()
+            _RECENT[season] = _rows(season)
+        rows = _RECENT[season]
+    games = sorted({(r["start"], r["gid"]) for r in rows if r["team"] == str(tid) and r["start"] < start})[-n:]
+    if len(games) < min_games:
+        return None
+    keep = {gid for _, gid in games}
+    by = {}
+    for r in rows:
+        if r["gid"] in keep:
+            by.setdefault(r["gid"], {}).setdefault(r["team"], []).append(r)
+    vals = []
+    for gid, teams in by.items():
+        if len(teams) != 2:
+            continue
+        ps = [_poss(rs) for rs in teams.values()]
+        if None not in ps:
+            vals.append(sum(ps) / 2)
+    return round(sum(vals) / len(vals), 2) if len(vals) >= min_games else None

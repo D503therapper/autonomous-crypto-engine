@@ -53,7 +53,11 @@ def tags(c, sports):
             t.append({"star_back": "NBA fav, top-5 man back (fade)", "last_ot": "NBA fav off an OT game (fade)",
                       "own_top2_out": "NBA fav missing a top-2 man (fade)", "opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)",
                       "more_rest": "NBA fav 2+ more days rest (fade)", "off_blowout": "NBA fav off a 20+ win",
-                      "home_dog_mid": "NBA fav at a home dog, games 31-60"}[k])
+                      "home_dog_mid": "NBA fav at a home dog, games 31-60",
+                      "faster": "NBA fav 4+ possessions faster than the dog (fade)",          # 11/3 FABLE NBA deep
+                      "home_after_trip": "NBA fav, first home game after a 4+ trip (fade)"}[k])   # dive (weights)
+    if lg == "nba" and dog and nba_fast_dog(c):             # 11/3 FABLE NBA deep dive (a LEAD, never a weight)
+        t.append("NBA dog 4+ possessions faster than the favorite (fade)")
     if lg == "nba" and not dog and -150 <= c.get("odds", 0) <= -101 and mo.get("rest") is not None \
             and mo.get("opp_rest") is not None and mo["rest"] <= 1 and mo["opp_rest"] <= 1:
         t.append("NBA fav -101..-150, both teams on a b2b")   # 10/30 NBA favorite rest / travel study: the ONE cell of 36
@@ -859,6 +863,18 @@ def nba_rest_stack(c):
         return now - _night(rows[-1]["start"]) >= NBA_REST_STACK_NIGHTS and now - _night(orows[-1]["start"]) == 1
     except (TypeError, ValueError):
         return False
+
+
+def nba_fast_dog(c):
+    """11/3 FABLE NBA deep dive (a LEAD, tracked only - never a weight): an NBA moneyline dog +100..+350 that plays
+    sports.NBA_PACE_GAP+ possessions a game faster than the favorite over the last 10 (dog_more pace / opp_pace from
+    sports_nba_roster.pace_last). -9.0% at the close on 970 but flat in train (2 of 5 up) - the favorite's side is the
+    weight; this one is judged live."""
+    import sports
+    mo = c.get("dog_more") or {}
+    if c.get("league") != "nba" or c.get("market") != "ml" or not (100 <= c.get("odds", 0) <= 350):
+        return False
+    return mo.get("pace") is not None and mo.get("opp_pace") is not None and mo["pace"] - mo["opp_pace"] >= sports.NBA_PACE_GAP
 
 
 def nba_star40(c):

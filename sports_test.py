@@ -17148,6 +17148,84 @@ def test_fable_cbb_1103_ranked_road_novdec_hot_ats_side_and_the_glass_are_weight
     assert sports.NCAAB_RANKED_ROAD_DOG + sports.NCAAB_REB_DOG[1] <= sports.STUDY_CAP
 
 
+def test_fable_nba_1103_fast_favorite_and_favorite_home_after_a_trip_are_fade_weights_the_fast_dog_a_lead():
+    """11/3 FABLE NBA deep dive (results/studies/fable_nba_1103/): TWO WEIGHTS on the NBA favorite's read (never a
+    trigger, inside FAV_CAP) - the favorite 4+ possessions a game faster than the dog over the last 10 (-12.7% in the
+    band, every side -10.5% 0 of 5 train / 3 of 3 held, z -4.2) and the favorite in its first home game after a 4+
+    game trip (-22.4% on 117, 8 of 8 seasons down) - both -2; the fast DOG a tracker LEAD only. The pace read comes
+    from this season's box scores (sports_nba_roster.pace_last: both teams' possessions, 5+ full boxes, else None)."""
+    import sports_nba_roster as nr
+    import sports_leads as sl
+    assert sports.NBA_PACE_GAP == 4.0 and sports.NBA_FAV_W["faster"] == -0.02 and sports.NBA_FAV_W["home_after_trip"] == -0.02
+    # the pace read: possessions = FGA - OREB + TO + 0.44 FTA for BOTH teams, halved, over the last 10 (5+ full boxes)
+    def st(fga, oreb, to, fta, **kw):
+        d = {"minutes": "30", "fieldGoalsMade-fieldGoalsAttempted": f"5-{fga}", "freeThrowsMade-freeThrowsAttempted": f"3-{fta}",
+             "offensiveRebounds": str(oreb), "turnovers": str(to)}
+        d.update(kw)
+        return json.dumps(d)
+    rows = []
+    for i in range(6):
+        gid, start = f"nba:g{i}", f"2026-11-{10 + i:02d}T00:00Z"
+        for team, opp in (("1", "2"), ("2", "1")):
+            for pid in ("a", "b"):                                  # 2 men a side: 40 FGA, 4 OREB, 6 TO, 10 FTA a team
+                rows.append({"gid": gid, "start": start, "team": team, "pid": team + pid, "player": "P" + pid,
+                             "stats": st(20, 2, 3, 5)})
+    # a team's possessions = 40 - 4 + 6 + 4.4 = 46.4; the game's pace = both teams' (46.4 + 46.4) / 2 = 46.4
+    assert nr.pace_last("1", "2026-11-20T00:00Z", rows=rows) == 46.4
+    assert nr.pace_last("2", "2026-11-20T00:00Z", rows=rows) == 46.4
+    assert nr.pace_last("1", "2026-11-12T00:00Z", rows=rows) is None          # only 2 games before: no read
+    broken = [dict(r, stats=json.dumps({"minutes": "30"})) if r["gid"] == "nba:g5" else r for r in rows]
+    assert nr.pace_last("1", "2026-11-20T00:00Z", rows=broken) == 46.4        # a box without the stats is skipped
+    broken = [dict(r, stats=json.dumps({"minutes": "30"})) if r["gid"] in ("nba:g4", "nba:g5") else r for r in rows]
+    assert nr.pace_last("1", "2026-11-20T00:00Z", rows=broken) is None        # 4 full boxes: under the floor
+    # the favorite weights
+    fav = {"game_id": "n1", "league": "nba", "market": "ml", "odds": -130, "dec": 1.769, "p_market": 0.545,
+           "edge_own": 0.2, "team_id": "1", "start": "2026-11-20T00:00Z", "home": True,
+           "dog_more": {"pace": 104.0, "opp_pace": 99.5, "rest": 2, "opp_rest": 2}}
+    dog = {"game_id": "n1", "league": "nba", "market": "ml", "odds": 110, "dec": 2.1, "p_market": 0.455,
+           "team_id": "2", "home": False, "season_games": 10, "dog_more": {"pace": 99.5, "opp_pace": 104.0}}
+    assert sports.nba_fav_facts(fav, dog) == {"faster": -0.02}
+    assert sports.nba_fav_facts({**fav, "dog_more": {"pace": 103.4, "opp_pace": 99.5}}, dog) == {}      # 3.9: no
+    assert sports.nba_fav_facts({**fav, "dog_more": {"pace": None, "opp_pace": 99.5}}, dog) == {}       # no read
+    assert sports.nba_fav_facts({**fav, "dog_more": {"home_after_trip": 4}}, dog) == {"home_after_trip": -0.02}
+    assert sports.nba_fav_facts({**fav, "dog_more": {"home_after_trip": 3}}, dog) == {}
+    assert sports.nba_fav_facts({**fav, "home": False, "dog_more": {"home_after_trip": 4}}, dog) == {}   # road: no
+    keep = nr.cached
+    try:
+        nr.cached = lambda: None
+        cands = [dict(fav, dog_more={"pace": 105.0, "opp_pace": 100.0, "home_after_trip": 5, "last_ot": True}), dict(dog)]
+        sports.mark_nba_favorites(cands)
+        assert cands[0]["nba_fav_w"] == {"last_ot": -0.03, "faster": -0.02, "home_after_trip": -0.02}
+        assert cands[0]["w_p"] == round(0.545 - sports.FAV_CAP, 4)                    # -7 capped at FAV_CAP (-4)
+        cands = [dict(fav), dict(dog)]
+        sports.mark_nba_favorites(cands)
+        assert cands[0]["w_p"] == round(0.545 - 0.02, 4)
+    finally:
+        nr.cached = keep
+    # the tracker: the two weights' own lines, and the fast dog as a LEAD (never a weight on the dog score)
+    tg = sl.tags({**fav, "nba_fav_w": {"faster": -0.02, "home_after_trip": -0.02}, "reasons": []}, sports)
+    assert "NBA fav 4+ possessions faster than the dog (fade)" in tg and "NBA fav, first home game after a 4+ trip (fade)" in tg
+    d = {**dog, "dog_more": {"pace": 104.0, "opp_pace": 99.5}, "reasons": [], "edge": 0.0, "edge_own": 0.0}
+    assert sl.nba_fast_dog(d) and "NBA dog 4+ possessions faster than the favorite (fade)" in sl.tags(d, sports)
+    assert not sl.nba_fast_dog({**d, "dog_more": {"pace": 103.0, "opp_pace": 99.5}})
+    assert not sl.nba_fast_dog({**d, "odds": 400, "dec": 5.0})
+    assert sports.nba_dog_weights(d) == sports.nba_dog_weights({**d, "dog_more": {}})            # no dog weight
+    # the facts ride dog_more from the box scores (pace_last), and a missing read never blocks
+    g = {"id": "nba:1", "league": "nba", "start": "2026-11-20T00:00Z", "home": "A", "away": "B", "ml_home": -130,
+         "ml_away": 110, "spread_home": -2.5, "status": "pre"}
+    keep_p = nr.pace_last
+    from datetime import datetime as _dt, timezone as _tz
+    try:
+        nr.pace_last = lambda tid, start, **kw: {"A": 104.0, "B": 99.5}[tid]
+        out = sports._nba_dog_facts({}, g, "home", "away", "nba", _dt(2026, 11, 20, tzinfo=_tz.utc), None, None, None)
+        assert out["pace"] == 104.0 and out["opp_pace"] == 99.5
+        nr.pace_last = lambda tid, start, **kw: None
+        out = sports._nba_dog_facts({}, g, "home", "away", "nba", _dt(2026, 11, 20, tzinfo=_tz.utc), None, None, None)
+        assert out["pace"] is None and sports.nba_fav_facts({**fav, "dog_more": out}, dog) == {}
+    finally:
+        nr.pace_last = keep_p
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

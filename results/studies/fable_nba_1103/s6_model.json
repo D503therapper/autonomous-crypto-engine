@@ -1,0 +1,123 @@
+{
+ "keys": [
+  "logit_nv",
+  "home",
+  "dog",
+  "elo_gap",
+  "m5",
+  "m10",
+  "wp",
+  "last_wp",
+  "sd10",
+  "pace",
+  "oreb",
+  "to",
+  "tp_rate",
+  "lineup",
+  "lost",
+  "out_rot",
+  "out_key",
+  "back",
+  "bias_last",
+  "bias_now",
+  "g_early",
+  "late",
+  "rested_vs_b2b",
+  "won_big_last",
+  "lost_big_last",
+  "ot_last",
+  "pts_last",
+  "streak3",
+  "rest_gap",
+  "home_after_trip",
+  "trip4",
+  "trip_end",
+  "dense",
+  "slate12",
+  "next_soft",
+  "cold",
+  "home_dog_6_20",
+  "home_31_60",
+  "early_wp_last"
+ ],
+ "lam": 3000.0,
+ "logloss": {
+  "2020": {
+   "n": 2000,
+   "model": 0.61022,
+   "market": 0.6093
+  },
+  "2021": {
+   "n": 2300,
+   "model": 0.6049,
+   "market": 0.60488
+  },
+  "2022": {
+   "n": 2292,
+   "model": 0.62078,
+   "market": 0.62028
+  },
+  "2023": {
+   "n": 2296,
+   "model": 0.57903,
+   "market": 0.57867
+  },
+  "2024": {
+   "n": 2296,
+   "model": 0.57769,
+   "market": 0.57777
+  },
+  "2025": {
+   "n": 2300,
+   "model": 0.56635,
+   "market": 0.56805
+  },
+  "2026": {
+   "n": 30,
+   "model": 0.60838,
+   "market": 0.61022
+  }
+ },
+ "weights": {
+  "logit_nv": 0.9833,
+  "ot_last": 0.0274,
+  "lost": -0.0233,
+  "cold": 0.0229,
+  "lost_big_last": 0.0213,
+  "oreb": -0.0208,
+  "home_dog_6_20": 0.0204,
+  "sd10": 0.0201,
+  "home_after_trip": 0.02,
+  "pace": -0.0184,
+  "home_31_60": -0.014,
+  "trip_end": 0.0122,
+  "rested_vs_b2b": 0.0122,
+  "dense": 0.0103,
+  "bias_now": -0.0095,
+  "to": 0.0089,
+  "next_soft": 0.0089,
+  "lineup": 0.0086,
+  "m5": 0.0084,
+  "out_key": 0.0078,
+  "pts_last": 0.0071,
+  "tp_rate": -0.0057,
+  "last_wp": -0.0055,
+  "won_big_last": 0.0047,
+  "dog": -0.0041,
+  "elo_gap": -0.004,
+  "home": 0.0039,
+  "bias_last": 0.0035,
+  "back": -0.0034,
+  "streak3": -0.003,
+  "g_early": -0.0024,
+  "wp": -0.0022,
+  "m10": 0.0017,
+  "trip4": -0.0015,
+  "late": 0.0012,
+  "out_rot": -0.0006,
+  "intercept": -0.0004,
+  "rest_gap": 0.0004,
+  "slate12": -0.0004,
+  "early_wp_last": -0.0002
+ }
+}
