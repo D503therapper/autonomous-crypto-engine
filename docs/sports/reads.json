@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T19:17Z",
+ "updated": "2026-11-04T19:54Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.516,
+    "p": 0.524,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -23,9 +23,9 @@
     "opp": "76ers",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -670,7 +670,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.548,
+    "p": 0.538,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -686,9 +686,9 @@
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -156,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -148,
+    "p": 0.573,
+    "win_p": 0.573,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1069,19 +1069,17 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Bruins",
-    "opp": "Penguins",
+    "team": "Penguins",
+    "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
-    "p": 0.716,
-    "win_p": 0.501,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -258,
+    "p": 0.712,
+    "win_p": 0.499,
+    "reasons": []
    }
   },
   {
@@ -1525,12 +1523,101 @@
    }
   },
   {
+   "id": "ncaab:401920913",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Tulsa",
+    "p": 0.84,
+    "tie": 0.025,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:00Z",
+   "away": "N Illinois",
+   "home": "Tulsa",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Tulsa",
+    "opp": "N Illinois",
+    "market": "spread",
+    "line": -15.5,
+    "odds": -110,
+    "p": 0.507,
+    "win_p": 0.919,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401925754",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Michigan St",
+    "p": 0.927,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:00Z",
+   "away": "Toledo",
+   "home": "Michigan St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Toledo",
+    "opp": "Michigan St",
+    "market": "spread",
+    "line": 25.5,
+    "odds": -110,
+    "p": 0.526,
+    "win_p": 0.026,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401918968",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "SMU",
+    "p": 0.919,
+    "tie": 0.015,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:00Z",
+   "away": "VMI",
+   "home": "SMU",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "VMI",
+    "opp": "SMU",
+    "market": "spread",
+    "line": 23.5,
+    "odds": -102,
+    "p": 0.52,
+    "win_p": 0.03,
+    "reasons": [
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "nfl:401873037",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.732,
+    "p": 0.735,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1548,7 +1635,35 @@
     "line": 10.0,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.159,
+    "win_p": 0.156,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401909501",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "DePaul",
+    "p": 0.618,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:30Z",
+   "away": "South Florida",
+   "home": "DePaul",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "DePaul",
+    "opp": "South Florida",
+    "market": "ml",
+    "line": null,
+    "odds": -245,
+    "p": 0.682,
+    "win_p": 0.682,
     "reasons": []
    }
   },
