@@ -62,7 +62,9 @@ def load_box(data=None):
                         ftm, fta = _split(t["freeThrowsMade-freeThrowsAttempted"])
                         oreb = int(t["offensiveRebounds"])
                         to = int(t.get("totalTurnovers") or t.get("turnovers") or 0)
-                        tm[str(tid)] = dict(to=to, poss=fga - oreb + to + 0.475 * fta)
+                        tpm, tpa = _split(t["threePointFieldGoalsMade-threePointFieldGoalsAttempted"])
+                        tm[str(tid)] = dict(to=to, poss=fga - oreb + to + 0.475 * fta, fgm=fgm, fga=fga, tpm=tpm,
+                                            tpa=tpa, ftm=ftm, fta=fta)
                     if len(tm) == 2:
                         out[str(d["gid"])] = tm
                 except (KeyError, ValueError, TypeError, AttributeError):
@@ -110,8 +112,8 @@ def _season_lines(games, season):
     by, league = {}, []
     tp = tposs = 0.0
     for s, gid, h, a, hs, as_, bh, ba in rows:
-        by.setdefault(h, []).append((s, gid, hs, bh["poss"], as_, ba["poss"], bh["to"], ba["to"]))
-        by.setdefault(a, []).append((s, gid, as_, ba["poss"], hs, bh["poss"], ba["to"], bh["to"]))
+        by.setdefault(h, []).append((s, gid, hs, bh["poss"], as_, ba["poss"], bh["to"], ba["to"], bh))
+        by.setdefault(a, []).append((s, gid, as_, ba["poss"], hs, bh["poss"], ba["to"], bh["to"], ba))
         tp += hs + as_
         tposs += bh["poss"] + ba["poss"]
         league.append((s, tp, tposs, len(league) + 1))
@@ -149,3 +151,47 @@ def identity(games, team, start):
     avg = 100 * lg[0] / lg[1]
     return {"n": len(mine), "tom": round(sum(r[7] - r[6] for r in mine) / len(mine), 2),
             "off": round(100 * pts / poss - avg, 2), "def": round(100 * opts / oposs - avg, 2)}
+
+
+# ---------------- 11/4 FABLE EXPERT KNOWLEDGE: shooting form from the team box ----------------
+SHOOT_LAST = 5               # the last 5 games vs the season to date (both 5+ box games)
+EFG_COLD = -0.04             # eFG% last 5 at least 4 points under its season = COLD. The 11/4 EXPERT study 2 (results/
+#                              studies/cbb_expert_1104/s2_shooting.py, s6 B): HOT shooting is in the price (the hot dog
+#                              -4.0%, the vig; the hot favorite -0.2%) - the one shape is the COLD-shooting dog in
+#                              Jan-Mar: -15.5% on 818 with no 5+ skid (2021-25 -33 / -14 / -16 / -22 / +5, the open
+#                              -12.7%) vs -8.4% for every Jan-Mar dog, the cold-from-deep-only dog -23.5% on 315. 2025
+#                              flipped (+5%), so a tracker LEAD, never a weight (sports_leads).
+TP_HOT = 0.06                # 3P% last 5 at least 6 points over its season = hot from deep; with 2P% NOT up (under
+TWO_NOT = 0.02               # +2) it's 3P LUCK: that ROAD dog -25.0% on 318 (0 of 2 train, held -35 / -38 / +16, the
+#                              open -26.0%) vs the 2P-hot road dog +3.4% on 391 - a tracker LEAD (sports_leads).
+
+
+def shooting(games, team, start):
+    """None (unknown) or {"n", "efg_s", "efg5", "efg_gap" (last 5 minus season), "tp_gap", "two_gap", "cold", "hot_deep"}
+    for the team before `start` - this season's team boxes (SHOOT_LAST+ games)."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        by, _ = _season_lines(games, season_of(start))
+    except Exception:                                        # noqa: BLE001
+        return None
+    mine = [r[8] for r in by.get(str(team)) or [] if r[0] < start and len(r) > 8]
+    if len(mine) < SHOOT_LAST:
+        return None
+
+    def agg(lines):
+        fgm = sum(b["fgm"] for b in lines)
+        fga = sum(b["fga"] for b in lines)
+        tpm = sum(b["tpm"] for b in lines)
+        tpa = sum(b["tpa"] for b in lines)
+        if not fga or not tpa or fga == tpa:
+            return None
+        return ((fgm + 0.5 * tpm) / fga, tpm / tpa, (fgm - tpm) / (fga - tpa))
+    s_, l_ = agg(mine), agg(mine[-SHOOT_LAST:])
+    if not s_ or not l_:
+        return None
+    efg_gap, tp_gap, two_gap = l_[0] - s_[0], l_[1] - s_[1], l_[2] - s_[2]
+    return {"n": len(mine), "efg_s": round(s_[0], 3), "efg5": round(l_[0], 3), "efg_gap": round(efg_gap, 3),
+            "tp_gap": round(tp_gap, 3), "two_gap": round(two_gap, 3), "cold": efg_gap <= EFG_COLD,
+            "hot_deep": tp_gap >= TP_HOT and two_gap < TWO_NOT}

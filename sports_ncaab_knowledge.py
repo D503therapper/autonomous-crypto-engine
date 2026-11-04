@@ -38,7 +38,50 @@ FIELDS (what each one is, where it comes from, what the study found on DOGS +100
   race_dog         Feb-Mar, 5+ games back vs a team within a game of first, not a power league: that DOG -31.2% on 664
                    (8 of 8 seasons, the open -29.3%) vs -8.6% - the built -3; vs a fellow also-ran -0.5% (even)
 The weights these feed: sports.NCAAB_NEW_COACH_FAV_W / NCAAB_LONG_OUT_PTS / NCAAB_RACE_PTS / NCAAB_TO_FAV_W /
-NCAAB_ROSTER_W (all inside STUDY_CAP / FAV_CAP / the rank nudge, never a trigger)."""
+NCAAB_ROSTER_W (all inside STUDY_CAP / FAV_CAP / the rank nudge, never a trigger).
+
+THE 11/4 FABLE EXPERT KNOWLEDGE fields (results/studies/cbb_expert_1104/, SPORTS_FINDINGS "11/4 - FABLE: COLLEGE HOOPS
+EXPERT KNOWLEDGE" - the owner: "teams in shambles ... home court advantage, away teams that come in and upset ...
+shooting with really good percentage, star players and injuries"; every one on DOGS +100..+350 at the close, the open
+as the second check, box years 2021-22 train / 2023-25 held):
+  top_out          the top scorer (points a game, 3+ games, 20+ minutes) missed the team's last game (the 11/3 DEEP -2)
+  top_out_run      games he has missed running. 5+ = that DOG -24.7% on 250 (0 of 5 seasons up, the open -31.6%) vs
+                   -12.9% for a 1-4 game miss - the built weight's dose, one more point (sports.NCAAB_TOP_OUT_LONG_PTS)
+  top_out_who      (name, points a game)
+  star_back        True = his 2ND GAME BACK tonight (he missed 2+ games, played the last one; sports_ncaab_roster.
+                   star_back). The books price him as all the way back: that side ATS -25.0% on 240 (0 of 5 seasons up,
+                   z -4.1), its DOG -51.1% on 87 (0 of 5, the open -40.6%), its -101..-250 favorite -17.7%; the side
+                   ACROSS it ATS +15.9% on 240 (5 of 5 up). The 3rd game back fades (-11.7% ATS), the 1st is ex post.
+                   BUILT: dog_spots -3, the favorite's read -0.03, the spread rank -0.03 / +0.03 across
+  star_back_who    (name, points a game, games he missed)
+  turmoil          regulars (top 7 by minutes) with 0 minutes in the last 3+ games who last played within 21 days - a
+                   team that LOST rotation men lately (sports_ncaab_roster.turmoil). 2+ is 87 sides in five seasons: the
+                   team's own dog -49.5% on 28, the side across at the vig (ATS +2.5% on 84) - a field + tracker, never
+                   a weight (the one-man absences are the built long_out / top_out weights)
+  turmoil_who      [(name, minutes a game, games missed)]
+  turmoil_news     [(kind, headline)] - this team's news of the last 10 days (suspension, coach fired, legal trouble,
+                   family / personal, a man leaving, illness) from sports_news. No archive to test: a fact on the card
+  road_cm          the team's average cover margin on TRUE road floors this season (3+ road games; the games file's
+                   closing spreads), road_games = how many. road_cold = True on a road team at -6 or worse: that ROAD DOG
+                   -15.9% on 735 (2018-25 8 of 8 seasons down, the open -16.1%) vs -6.8% for every dog; the dose steps
+                   at -6; ATS the vig (these dogs don't WIN). BUILT: dog_spots -2 (sports.NCAAB_ROAD_COLD_PTS). The HOT
+                   road dog (+6) is priced (-9.4%, held -25%); a team's per-season home edge does NOT persist (corr
+                   +0.01 first half vs second - dead, like the league version)
+  efg_gap          eFG% over the last 5 games minus its season (sports_ncaab_box.shooting, 5+ team boxes); tp_gap /
+                   two_gap the same for 3P% / 2P%. HOT shooting is in the price (the hot dog -4.0%, the hot favorite
+                   -0.2%, the hot dog vs a cold favorite -17.2%). cold_shoot (eFG 4+ under) = the Jan-Mar DOG -15.5% on
+                   818 (4 of 5 seasons down, 2025 +5%, the open -12.7%) - a tracker LEAD; hot_deep (3P% 6+ over, 2P% not
+                   up = 3P luck) = that ROAD dog -25.0% on 318 (4 of 5 down) vs the 2P-hot road dog +3.4% - a LEAD
+  good_facts       the facts the studies found PAY on a dog, as they stand on this read (the 11/3 (A) dog view, kept
+  bad_facts        up: 1+ good and no bad +14.5% on 337; 2+ bad -16.0% on 1,801 - the facts add up): good = def_first vs
+                   a bottom-third offense (needs opp), opp 2+ regulars lost (turmoil), the opponent's star in his 2nd
+                   game back; bad = top_out, long_out, race_dog, star_back, road_cold (away only), cold_shoot (Jan-Mar),
+                   hot_deep on the road, the new coach / transfer-heavy roster late. sports.ncaab_dog_good_bad adds the
+                   board-only facts (the skid, the rubber match, the ranked road team, the glass, the early road dog)
+DEAD in the 11/4 study (never re-run): hot shooting, shot quality vs 3P luck on favorites, free-throw streaks, my eFG
+vs their defense, road teams on a roll, the per-team home edge, the star's usage share / drop-off, the opponent's star
+out as a dog boost (the vig; Nov-Dec +20.8% on 83 a WATCH), the first game back (ex post), cover margin / Elo-adjusted
+margin / improvement over the last 5 (priced; improving + covering = the hot-ATS fade), the letdown, the big win."""
 from datetime import datetime, timedelta
 
 import sports_data as sd
@@ -48,8 +91,16 @@ RACE_GB = 5.0                # out of the race: 5+ conference games back
 RACE_CONTEND = 1.0           # a contender: within a game of first
 RACE_MIN_GAMES = 8           # both teams 8+ conference games before the standings mean anything
 RACE_MONTHS = ("02", "03")
+ROAD_COLD_CM = -6.0          # 11/4 EXPERT: a road cover margin at or under this (3+ true road games) = road_cold
+ROAD_COLD_GAMES = 3
+TOP_OUT_LONG = 5             # 11/4 EXPERT: the top scorer out this many games running = the long absence
 FIELDS = ("coach", "coach_tenure", "coach_new", "coach_first_time", "coach_mid", "long_out", "long_out_who", "roster_tin",
-          "roster_new", "to_margin", "off", "def", "off_first", "def_first", "conf_gb", "opp_conf_gb", "conf_power", "race_dog")
+          "roster_new", "to_margin", "off", "def", "off_first", "def_first", "conf_gb", "opp_conf_gb", "conf_power", "race_dog",
+          # 11/4 EXPERT
+          "top_out", "top_out_run", "top_out_who", "star_back", "star_back_who", "turmoil", "turmoil_who", "turmoil_news",
+          "road_cm", "road_games", "road_cold", "efg_gap", "tp_gap", "two_gap", "cold_shoot", "hot_deep",
+          "cold_shoot_late", "hot_deep_road", "opp_star_back", "opp_turmoil",   # (the gated names sports.NCAAB_DOG_FACTS reads)
+          "good_facts", "bad_facts")
 _MEMO = {}                   # (season, len(games)) -> (conferences, standings)
 
 
@@ -163,13 +214,114 @@ def race(games, team, opp, start):
     return out
 
 
-def read(games, team, opp, start, neutral=False):
-    """Every FIELDS entry for `team` facing `opp` at `start` (see the module doc). Unknown = None, never a guess."""
+def road_cover(games, team, start):
+    """(average cover margin on true road floors this season before `start`, road games with a closing spread) from
+    the games dict - (None, 0) when there is nothing to read (the 11/4 EXPERT road-cold read)."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None, 0
+    season = season_of(start)
+    lo = f"{season}-07-01"
+    v = []
+    for gid, g in (games or {}).items():
+        if g.get("league", "ncaab") != "ncaab" or g.get("status") != "final" or str(g.get("stype") or "2") != "2":
+            continue
+        s = str(g.get("start") or "")
+        if not (lo <= s < start) or str(g.get("away")) != str(team) or str(g.get("neutral")) == "1":
+            continue
+        try:
+            sp = float(g["spread_home"])
+            m = float(g["home_score"]) - float(g["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        v.append(-m - sp)
+    return ((sum(v) / len(v)) if v else None), len(v)
+
+
+def turmoil_news(team, start, news=None):
+    """[(kind, headline)] - this team's college hoops news of the turmoil kinds in the 10 days before `start`
+    (sports_news; the feed holds what ESPN's league news said - never a number, never a weight)."""
+    try:
+        import sports_news
+        news = sports_news.load() if news is None else news
+        cut = (datetime.fromisoformat(str(start).replace("Z", "+00:00")) - timedelta(days=sports_news.DRAMA_DAYS)).strftime("%Y-%m-%d")
+        kinds = ("suspension", "coach fired", "legal trouble", "family/personal", "trade drama", "illness")
+        return [(e["kind"], e["headline"]) for e in sports_news.drama(news, "ncaab", str(team))
+                if e.get("kind") in kinds and str(e.get("date", "")) >= cut]
+    except Exception:                                        # noqa: BLE001
+        return []
+
+
+def dog_facts(k, opp_k=None, start="", away=None):
+    """{"good": [...], "bad": [...]} from a knowledge read `k` (and the opponent's read `opp_k`, when given): the dog
+    view's bookkeeping - which studied facts stand FOR a dog with this read and which AGAINST it (see the module doc)."""
+    month = month_of(start)
+    good, bad = [], []
+    o = opp_k or {}
+    if k.get("def_first") and o.get("off") is not None:
+        import sports_ncaab_box as nb
+        if o["off"] <= nb.OFF_LO:
+            good.append("def_first_vs_bad_offense")
+    if (o.get("turmoil") or 0) >= 2:
+        good.append("opp_turmoil")
+    if o.get("star_back"):
+        good.append("opp_star_back")
+    if k.get("top_out"):
+        bad.append("top_out")
+    if k.get("long_out"):
+        bad.append("long_out")
+    if k.get("race_dog"):
+        bad.append("race_dog")
+    if k.get("star_back"):
+        bad.append("star_back")
+    if k.get("road_cold") and away:
+        bad.append("road_cold")
+    if k.get("cold_shoot") and month in ("01", "02", "03"):
+        bad.append("cold_shoot")
+    if k.get("hot_deep") and away:
+        bad.append("hot_deep_road")
+    if k.get("coach_new") and month in ("01", "02", "03"):
+        bad.append("new_coach_late")
+    if k.get("roster_tin") is not None and month in ("02", "03"):
+        import sports_ncaab_roster as nr
+        if k["roster_tin"] >= nr.TIN_HEAVY:
+            bad.append("transfer_heavy_late")
+    return {"good": good, "bad": bad}
+
+
+def read(games, team, opp, start, neutral=False, away=None, facts=True):
+    """Every FIELDS entry for `team` facing `opp` at `start` (see the module doc). Unknown = None, never a guess.
+    `away` = True when the team is on a true road floor (road_cold and the road facts need it; None = unknown);
+    facts=True fills good_facts / bad_facts (reads the opponent too - one extra read, cached inside the modules)."""
     import sports_ncaab_box as nb
     import sports_ncaab_coaches as nc
     import sports_ncaab_roster as nr
     out = {k: None for k in FIELDS}
     team, opp = str(team), str(opp)
+    # ---- 11/4 EXPERT: the star, the turmoil, the road, the shooting ----
+    to = nr.top_out(games, team, start)
+    if to:
+        out["top_out"] = bool(to["out"])
+        out["top_out_run"] = (to.get("run") or 0) if to["out"] else 0
+        out["top_out_who"] = (to["name"], to["ppg"])
+    sb = nr.star_back(games, team, start)
+    if sb:
+        out["star_back"] = bool(sb["back2"])
+        out["star_back_who"] = (sb["name"], sb["ppg"], sb["missed"]) if sb["back2"] else None
+    tu = nr.turmoil(games, team, start)
+    if tu:
+        out["turmoil"], out["turmoil_who"] = tu["lost"], tu["who"]
+    out["turmoil_news"] = turmoil_news(team, start)
+    cm, n = road_cover(games, team, start)
+    if cm is not None and n >= ROAD_COLD_GAMES:
+        out["road_cm"], out["road_games"] = round(cm, 2), n
+        out["road_cold"] = cm <= ROAD_COLD_CM
+    sh = nb.shooting(games, team, start)
+    if sh:
+        out.update({"efg_gap": sh["efg_gap"], "tp_gap": sh["tp_gap"], "two_gap": sh["two_gap"],
+                    "cold_shoot": sh["cold"], "hot_deep": sh["hot_deep"],
+                    "cold_shoot_late": sh["cold"] and month_of(start) in ("01", "02", "03"),
+                    "hot_deep_road": bool(sh["hot_deep"] and away)})
     st = nc.state(team, start)
     if st:
         out.update({"coach": st["coach"], "coach_tenure": st.get("tenure"), "coach_new": bool(st.get("new")),
@@ -191,4 +343,10 @@ def read(games, team, opp, start, neutral=False):
                     "race_dog": r["race_dog_side"]})
     else:
         out["race_dog"] = False
+    if facts:
+        opp_k = read(games, opp, team, start, neutral, away=(None if away is None else not away), facts=False)
+        out["opp_star_back"] = opp_k.get("star_back")
+        out["opp_turmoil"] = opp_k.get("turmoil")
+        f = dog_facts(out, opp_k, start, away)
+        out["good_facts"], out["bad_facts"] = f["good"], f["bad"]
     return out

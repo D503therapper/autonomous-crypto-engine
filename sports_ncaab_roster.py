@@ -144,7 +144,102 @@ def top_out(games, team, start):
         return None
     pid, name, ppg = top
     m = (lastbox.get(pid) or (0, 0, ""))[0]
-    return {"out": m <= 0, "name": name, "ppg": ppg}
+    run = 0                                                  # games missed running, newest first (11/4 EXPERT: the
+    for _, _, ps in reversed(before):                        # dog with him out 5+ -24.7% on 250 vs -12.9% for 1-4)
+        if (ps.get(pid) or (0, 0, ""))[0] > 0:
+            break
+        run += 1
+    return {"out": m <= 0, "name": name, "ppg": ppg, "run": run}
+
+
+# ---------------- 11/4 FABLE EXPERT KNOWLEDGE: the star's 2nd game back + the turmoil read (box) ----------------
+STAR_BACK_MISSED = 2         # the top scorer missed 2+ games running, then played the team's last game: tonight is his
+#                              2nd game back. The 11/4 EXPERT study 4 (results/studies/cbb_expert_1104/s4_stars.py,
+#                              s6_followups.py C): that side ATS -25.0% on 240 (2021-25 -19 / -28 / -27 / -15 / -33, 0 of
+#                              5 up, z -4.1), its DOG +100..+350 -51.1% on 87 (0 of 5, the open -40.6%), its favorite
+#                              -101..-250 -17.7% on 62; the side ACROSS it ATS +15.9% on 240 (5 of 5 up), the favorite
+#                              across -151..-250 +20.8% on 40 (3 of 3 held). The 3rd game back fades to -11.7% ATS, the
+#                              1st (ex post - only the news sees it before tip) -8.4%: the books price him as all the way
+#                              back after one game and he isn't. Weights: dog_spots -3, the favorite's read -0.03, the
+#                              spread rank -0.03 / +0.03 across (sports.NCAAB_STAR_BACK_*), never a gate.
+TURMOIL_RUN = 3              # a regular (top 7 by minutes, 15+ a game) with 0 minutes in the last 3+ games...
+TURMOIL_DAYS = 21            # ...whose last appearance was within 21 days = a man the team LOST lately. 11/4 EXPERT
+#                              study 1: 2+ lost = 87 sides in five seasons (rare); the team's own dog -49.5% on 28, the
+#                              side across it at the vig (ATS +2.5% on 84, the dog +4.8% on 29) - a FIELD + a tracker
+#                              lead, never a weight (the built long_out / top_out weights carry the one-man absences).
+
+
+def star_back(games, team, start):
+    """None (unknown) or {"back2": bool, "name", "ppg", "missed": games he sat before the last one}: the team's top
+    scorer (top_scorer's rules) missed STAR_BACK_MISSED+ games running and then PLAYED the team's last game - tonight
+    is his second game back. From this season's box scores; no box for the last game = unknown."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        boxes = team_boxes(season_of(start)).get(str(team)) or []
+    except Exception:                                        # noqa: BLE001
+        return None
+    before = [b for b in boxes if b[0] < start]
+    if len(before) < TEAM_MIN_BOX + 1:
+        return None
+    last = _last_final(games, team, start)
+    if not last or before[-1][1] != last[1]:
+        return None                                          # (the last game's box isn't on file yet: unknown)
+    top = top_scorer(before, start)
+    if not top:
+        return None
+    pid, name, ppg = top
+    played = [(ps.get(pid) or (0, 0, ""))[0] > 0 for _, _, ps in before]
+    if not played[-1]:
+        return {"back2": False, "name": name, "ppg": ppg, "missed": 0}
+    k, missed = len(played) - 2, 0
+    while k >= 0 and not played[k]:
+        missed += 1
+        k -= 1
+    return {"back2": missed >= STAR_BACK_MISSED, "name": name, "ppg": ppg, "missed": missed}
+
+
+def turmoil(games, team, start):
+    """None (unknown) or {"lost": how many regulars (top 7 by minutes) have had 0 minutes in the last TURMOIL_RUN+
+    games AND last played within TURMOIL_DAYS days, "who": [(name, minutes a game, games missed)], "gone": every
+    regular missing TURMOIL_RUN+ games (any age)} - the team-in-shambles read from the box scores."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        boxes = team_boxes(season_of(start)).get(str(team)) or []
+    except Exception:                                        # noqa: BLE001
+        return None
+    before = [b for b in boxes if b[0] < start]
+    if len(before) < LONG_OUT_MIN_BOX:
+        return None
+    last = _last_final(games, team, start)
+    if not last or not any(gid == last[1] for _, gid, _ in before):
+        return None
+    try:
+        from datetime import datetime
+        t0 = datetime.fromisoformat(start.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    who, gone = [], 0
+    for pid, name, mpg, _ in regulars(before, start):
+        run, last_seen = 0, None
+        for s, _, ps in reversed(before):
+            if (ps.get(pid) or (0, 0, ""))[0] > 0:
+                last_seen = s
+                break
+            run += 1
+        if run < TURMOIL_RUN:
+            continue
+        gone += 1
+        try:
+            days = (t0 - datetime.fromisoformat(str(last_seen).replace("Z", "+00:00"))).days if last_seen else None
+        except ValueError:
+            days = None
+        if days is not None and days <= TURMOIL_DAYS:
+            who.append((name, mpg, run))
+    return {"lost": len(who), "who": who, "gone": gone}
 
 
 # ---------------- the transfer-strength LEAD (tracked only) ----------------
