@@ -1,0 +1,42 @@
+season 2021: fit on 6443 dogs | log loss model 0.6166 vs market 0.6191 (+2.5 milli for the model) | n 2385
+season 2022: fit on 8828 dogs | log loss model 0.6289 vs market 0.6269 (-2.1 milli for the model) | n 2532
+season 2023: fit on 11360 dogs | log loss model 0.6278 vs market 0.6274 (-0.4 milli for the model) | n 2549
+season 2024: fit on 13909 dogs | log loss model 0.6263 vs market 0.6291 (+2.7 milli for the model) | n 2470
+season 2025: fit on 16379 dogs | log loss model 0.6376 vs market 0.6362 (-1.3 milli for the model) | n 2403
+  the biggest standardized weights (the 2018-24 fit): mkt_logit +0.427, dog_pts +0.128, raw_gap +0.099, ice_cold +0.087, em -0.074, nd +0.068, tierL +0.048, orest +0.047, away -0.046, ats_gap -0.044, gap10_backed -0.040, rest -0.039
+
+(for this study TRAIN = 2021-22, the walk-forward seasons before the held-out ones; HELD = 2023-25)
+
+== THE MONEY: the model's edge over the no-vig close (all walk-forward seasons) ==
+model edge | <-5: 541-1157 -10.5% n1698 z-3.2 | train -15.1% n696 z-3.0 0/2 up | held -7.3% n1002 z-1.7 0/3 up | open -9.8% n1002 z-2.3 | 2021:-17 2022:-14 2023:-3 2024:-14 2025:-7
+model edge | -5..0: 1823-4016 -11.4% n5839 z-6.4 | train -12.5% n2161 z-4.3 0/2 up | held -10.8% n3678 z-4.8 0/3 up | open -13.5% n3678 z-6.1 | 2021:-16 2022:-9 2023:-16 2024:-12 2025:-5
+model edge | 0..2: 810-1421 -5.0% n2231 z-1.8 | train -6.2% n902 z-1.4 0/2 up | held -4.1% n1329 z-1.1 0/3 up | open -6.8% n1329 z-2.0 | 2021:-8 2022:-4 2023:-2 2024:-10 2025:-0
+model edge | 2..5: 762-1072 +2.2% n1834 z+0.7 | train -4.0% n775 z-0.9 1/2 up | held +6.7% n1059 z+1.7 3/3 up | open +4.4% n1059 z+1.2 | 2021:+7 2022:-16 2023:+0 2024:+15 2025:+5
+model edge | 5..8: 242-317 +0.8% n559 z+0.2 | train +2.6% n273 z+0.4 2/2 up | held -0.9% n286 z-0.1 1/3 up | open -5.6% n286 z-0.8 | 2021:+6 2022:+1 2023:-6 2024:+16 2025:-9
+model edge | 8+: 82-96 +5.3% n178 z+0.6 | train -2.6% n110 z-0.2 1/2 up | held +18.1% n68 z+1.3 2/3 up | open +7.7% n68 z+0.6 | 2021:+4 2022:-6 2023:+50 2024:+16 2025:-20
+model edge 2+: 1086-1485 +2.1% n2571 z+0.9 | train -2.3% n1158 z-0.7 1/2 up | held +5.7% n1413 z+1.7 3/3 up | open +2.5% n1413 z+0.8 | 2021:+6 2022:-10 2023:+2 2024:+15 2025:+1
+model edge 5+: 324-413 +1.9% n737 z+0.4 | train +1.1% n383 z+0.2 1/2 up | held +2.7% n354 z+0.4 2/3 up | open -3.1% n354 z-0.5 | 2021:+5 2022:-1 2023:+6 2024:+16 2025:-11
+model edge 8+: 82-96 +5.3% n178 z+0.6 | train -2.6% n110 z-0.2 1/2 up | held +18.1% n68 z+1.3 2/3 up | open +7.7% n68 z+0.6 | 2021:+4 2022:-6 2023:+50 2024:+16 2025:-20
+-- deciles of the model edge, each season on its own fit --
+  2021: -16 -30 +4 -36 -11 -11 -12 +2 +0 +13  (n 2385; the top decile's edge from +3.9)
+  2022: -14 -18 -11 +0 -22 +6 +0 -15 -17 +1  (n 2532; the top decile's edge from +4.8)
+  2023: -4 -6 -15 -17 -23 -9 -8 -0 +3 +1  (n 2549; the top decile's edge from +3.6)
+  2024: -20 -16 -21 -10 +6 -16 -15 -3 +0 +25  (n 2470; the top decile's edge from +3.4)
+  2025: -9 -12 -12 -2 -2 +5 +2 -2 -3 +3  (n 2403; the top decile's edge from +3.4)
+top decile of the model edge, by season: 567-665 +8.3% n1232 z+2.4 | train +6.5% n491 z+1.2 2/2 up | held +9.5% n741 z+2.2 3/3 up | open +6.2% n741 z+1.4 | 2021:+12 2022:+1 2023:+1 2024:+25 2025:+2
+best model-edge dog a night: 265-338 +4.0% n603 z+0.8 | train +4.1% n242 z+0.5 2/2 up | held +4.0% n361 z+0.6 2/3 up | open -2.2% n361 z-0.4 | 2021:+3 2022:+5 2023:+16 2024:+9 2025:-12
+best model-edge dog a night, edge 3+: 213-263 +4.3% n476 z+0.8 | train +1.4% n208 z+0.2 2/2 up | held +6.6% n268 z+0.9 2/3 up | open -0.2% n268 z-0.0 | 2021:+1 2022:+2 2023:+26 2024:+9 2025:-14
+top 2 a night, edge 3+: 373-440 +7.9% n813 z+1.9 | train +8.2% n364 z+1.3 2/2 up | held +7.6% n449 z+1.3 2/3 up | open +2.6% n449 z+0.5 | 2021:+7 2022:+9 2023:+7 2024:+17 2025:-1
+
+== THE MODEL vs THE PLAIN GAP RULE (S1's backed 15+) on the same walk-forward seasons ==
+backed eff gap 15+ (2021-25): 122-140 +17.5% n262 z+2.2 | train +8.7% n134 z+0.8 1/2 up | held +26.7% n128 z+2.4 2/3 up | open +5.5% n128 z+0.6 | 2021:+24 2022:-20 2023:+43 2024:+40 2025:-4
+  ... and the model agrees (edge 0+): 90-90 +25.0% n180 z+2.6 | train +21.7% n89 z+1.5 1/2 up | held +28.2% n91 z+2.2 2/3 up | open +3.9% n91 z+0.4 | 2021:+37 2022:-9 2023:+49 2024:+39 2025:-4
+  ... the model disagrees (edge < 0): 32-50 +1.1% n82 z+0.1 | train -16.9% n45 z-0.9 0/2 up | held +23.1% n37 z+1.1 2/3 up | open +9.4% n37 z+0.5 | 2021:-3 2022:-39 2023:+31 2024:+45 2025:-4
+  ... model edge 3+: 66-61 +29.6% n127 z+2.6 | train +27.3% n58 z+1.6 1/2 up | held +31.6% n69 z+2.1 2/3 up | open +5.9% n69 z+0.5 | 2021:+54 2022:-13 2023:+56 2024:+55 2025:-5
+model edge 3+ WITHOUT the gap-15 rule: 687-926 +1.1% n1613 z+0.4 | train -3.2% n764 z-0.7 1/2 up | held +5.0% n849 z+1.2 2/3 up | open +2.8% n849 z+0.7 | 2021:+3 2022:-8 2023:-4 2024:+20 2025:+1
+
+== THE FADE END (what the model is sure about) ==
+model edge -5 or worse: 541-1157 -10.5% n1698 z-3.2 | train -15.1% n696 z-3.0 0/2 up | held -7.3% n1002 z-1.7 0/3 up | open -9.8% n1002 z-2.3 | 2021:-17 2022:-14 2023:-3 2024:-14 2025:-7
+model edge -8 or worse: 120-245 -17.1% n365 z-2.7 | train -20.5% n163 z-2.2 0/2 up | held -14.4% n202 z-1.7 0/3 up | open -18.7% n202 z-2.3 | 2021:-23 2022:-19 2023:-19 2024:-12 2025:-10
+
+cells looked at: 20

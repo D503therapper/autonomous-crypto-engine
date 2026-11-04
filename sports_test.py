@@ -17988,6 +17988,121 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
         sports.ncaab_play_fav, sports.ncaab_play_dog, sports.floor_plays, sports.plays, sports.dog_plays, sports.NCAAB_PLAY_ON = keep_fn
 
 
+def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge():
+    """11/3-4 FABLE - COLLEGE HOOPS DOG EXPERT (results/studies/cbb_dog_expert/): (1) the 🔍 college hoops GAP PLAY - the
+    college football play's twin on the EFFICIENCY read (sports_cbb_eff, never the raw Elo - DEAD in hoops at +0.7%): a
+    dog +100..+350 whose efficiency read sits 15+ points over the no-vig price, the ratings backing the dog on this floor
+    (eff_p over 50%), no study fade on it (dog_spots 0+), both teams 4+ games - +22.6% on 205 at the close 2018-25 (train
+    5/5 up, held 2/3), 1u, its own bands in the lead tracker, judged at 50; the gap 10-15 loses (-0.5%), not backed is
+    -14% held, games 1-3 -20% train. (2) THE DOG READ (the owner, 11/4: "more dogs ... more units"): weights (dog_spots,
+    capped) + ratings (backed +2, +2 more at a 15-point gap, 5+ against -2) + the knowledge (A) facts (NCAAB_DOG_FACTS -
+    any name a knowledge read sets true counts) - read 4+ with both teams 4+ games +16.5% on 600 (5/5 train, 3/3 held,
+    the open +11.5%, every season up), the gate for the college hoops test's dog slot (sports.ncaab_dog_read_ok)."""
+    import importlib.util
+    import sports_leads as sl
+    d = sports.sd.decimal
+    # the drift guard: the study's rule constants are the engine's
+    assert "ncaab" in sports.GAP_LEAGUES and sports.NCAAB_GAP_MIN == 0.15 and sports.NCAAB_GAP_GAMES == 4 and sports.GAP_UNITS == 1.0
+    assert sports.NCAAB_DOG_RATING_PTS == (2, 2, -2) and sports.NCAAB_DOG_RATING_GAP == 0.15 and sports.NCAAB_DOG_RATING_AGAINST == 0.05
+    assert sports.NCAAB_DOG_FACTS == {"def_first_vs_bad_off": 2, "whole_vs_2out": 1, "offense_first_late": -1,
+                                      "transfer_heavy_late": -1, "new_coach_late": -1}
+    assert sports.NCAAB_DOG_READ_GATE == 4 and sports.NCAAB_DOG_READ_GAMES == 4 and sports.STUDY_CAP == 6
+    keep_env = os.environ.get("STUDY_CACHE")
+    os.environ["STUDY_CACHE"] = tempfile.mkdtemp()
+    try:
+        spec = importlib.util.spec_from_file_location("cbb_dog_lib", os.path.join("results", "studies", "cbb_dog_expert", "lib.py"))
+        lib = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(lib)
+    finally:
+        if keep_env is None:
+            os.environ.pop("STUDY_CACHE", None)
+        else:
+            os.environ["STUDY_CACHE"] = keep_env
+    assert lib.DOG_BAND == (sports.DOG_MIN, sports.DAILY_DOG_MAX) == (100, 350)
+    assert lib.backed({"eff_m": 0.3}) and not lib.backed({"eff_m": -0.3}) and not lib.backed({})
+    # ---- (1) the 🔍 college hoops gap play ----
+    def cand(gid, odds, mkt, eff, games=(8, 8), start="2026-12-05T00:00Z", **kw):
+        dec = sports._dec(odds)
+        return {**{"game_id": gid, "league": "ncaab", "market": "ml", "side": "home", "team": gid, "opp": "X", "odds": odds,
+                   "dec": dec, "p": mkt, "p_market": mkt, "edge_own": mkt * dec - 1, "edge": mkt * dec - 1, "raw_own": mkt,
+                   "elo_edge": -4.0, "eff_p": eff, "start": start, "reasons": ["r"], "waiting": [], "games_in": games[0],
+                   "opp_games_in": games[1], "dog_ctx": {}}, **kw}
+    play = cand("A", 150, 0.40, 0.58)                                   # 18 points over, the ratings back it: a play
+    out = sports.gap_plays([play], avoid=())
+    assert [c["game_id"] for c in out] == ["A"] and abs(out[0]["gap"] - 0.18) < 1e-9
+    assert abs(out[0]["edge_own"] - (0.58 * sports._dec(150) - 1)) < 1e-9 and "dog_p" not in out[0]   # (its units: the ratings read)
+    assert sports.gap_plays([cand("B", 250, 0.30, 0.46)], avoid=()) == []       # 16 over but the ratings have the FAVORITE better
+    assert sports.gap_plays([cand("C", 150, 0.40, 0.52)], avoid=()) == []       # 12 over: the 10-15 band loses (-0.5%)
+    assert sports.gap_plays([cand("D", 150, 0.40, 0.58, top_out=True)], avoid=()) == []   # a study fade (-2): never a trap
+    assert sports.gap_plays([cand("E", 150, 0.40, 0.58, games=(3, 9))], avoid=()) == []   # games 1-3: the ratings' worst stretch
+    assert sports.gap_plays([cand("F", 150, 0.40, 0.58, start="2026-11-03T00:00Z")], avoid=()) == []   # before the play's start
+    assert sports.gap_plays([cand("G", 150, 0.40, None)], avoid=()) == []        # no efficiency read = no play
+    assert sports.gap_plays([cand("H", 400, 0.18, 0.40)], avoid=()) == []        # past +350
+    assert sports.gap_plays([play], avoid=("A",)) == []                          # a game we're already on
+    assert sports.gap_plays([cand("I", 150, 0.40, 0.58, dog_ctx={"opp_won": False})], avoid=())[0]["game_id"] == "I"   # +2: fine
+    # the college football twin still rides the raw Elo read (untouched)
+    cfb = {**cand("J", 114, 0.449, None, games=(5, 5)), "league": "ncaaf", "raw_own": 0.609, "elo_edge": 10.0}
+    assert [c["game_id"] for c in sports.gap_plays([cfb, play], avoid=())] == ["A", "J"]   # (biggest gap first)
+    assert sports.posted_kind({"kind": "play", "gap": 0.18, "legs": [{"league": "ncaab"}]}) == "gap"
+    assert sports.units_for({"kind": "play", "gap": 0.18, "date": "2026-12-05", "legs": [out[0]], "status": "open"}) == sports.GAP_UNITS
+    # the ladder (s7): sized by the DOG READ, never the gap - 2u at a read of 6+, football stays flat
+    assert sports.NCAAB_DOG_READ_2U == 6 and sports.NCAAB_GAP_UNITS_2U == 2.0
+    two = {"kind": "play", "gap": 0.18, "date": "2026-12-05", "legs": [{**out[0], "dog_read": 6}], "status": "open"}
+    assert sports.gap_units(two) == 2.0 and sports.units_for(two) == 2.0
+    assert sports.gap_units({"legs": [{**out[0], "dog_read": 5.5}], "gap": 0.18}) == 1.0
+    assert sports.gap_units({"legs": [{**cfb, "dog_read": 9}], "gap": 0.16}) == sports.GAP_UNITS == 1.0
+    # ---- (2) the dog read ----
+    c = cand("K", 150, 0.40, 0.58, dog_ctx={"opp_won": False}, reb_gap=8.0, def_first=True, opp_off_low=True)
+    assert sports.ncaab_dog_read(c) == 10 and c["dog_read_parts"] == {"weights": 4, "ratings": 4, "knowledge": 2,
+                                                                       "facts": ["def_first_vs_bad_off"], "games_ok": True}
+    assert sports.ncaab_dog_read_ok(c) and sports.dog_spots(c) == 4
+    assert sports.ncaab_dog_read(cand("L", 150, 0.40, 0.52)) == 2                # backed, under the 15-point gap: +2
+    assert sports.ncaab_dog_read(cand("L2", 150, 0.40, 0.44)) == 0               # 4 over but the favorite rated better: nothing
+    assert sports.ncaab_dog_read(cand("M", 150, 0.40, 0.34)) == -2               # the ratings 6 points against: -2
+    assert sports.ncaab_dog_read(cand("N", 150, 0.40, 0.37)) == 0                # 3 against: nothing
+    assert sports.ncaab_dog_read(cand("O", 150, 0.40, None)) == 0                # no read: the weights alone
+    late = cand("P", 150, 0.40, 0.58, start="2027-01-20T02:00Z", off_first=True, roster_tin=0.40, roster_cut=(0.30, 0.25), ncaab_new_coach=True)
+    assert sports.ncaab_dog_read(late) == 1 and late["dog_read_parts"]["knowledge"] == -3    # Jan: three bad facts
+    nov = cand("Q", 150, 0.40, 0.58, start="2026-11-20T02:00Z", off_first=True, roster_tin=0.40, roster_cut=(0.30, 0.25), ncaab_new_coach=True)
+    assert sports.ncaab_dog_read(nov) == 4 and nov["dog_read_parts"]["knowledge"] == 0        # Nov-Dec: they only fade late
+    generic = cand("R", 150, 0.40, 0.58)
+    assert sports.ncaab_dog_read(generic, facts={"whole_vs_2out": True, "something_new": True}) == 5   # a knowledge read's
+    assert generic["dog_read_parts"]["facts"] == ["whole_vs_2out"]                                    # names, table-driven
+    assert sports.ncaab_dog_read(cand("S", 150, 0.40, 0.58, dog_ctx={"opp_won": False}, reb_gap=8.0, ranked_road=False, vs_ranked_road=True, home=True, neutral=False)) == 10   # weights capped at STUDY_CAP
+    early = cand("T", 150, 0.40, 0.58, games=(3, 12))
+    assert sports.ncaab_dog_read(early) == 4 and not sports.ncaab_dog_read_ok(early)        # the gate needs 4+ games
+    assert sports.ncaab_dog_read({**cand("U", -130, 0.56, 0.60)}) is None                     # a favorite: no dog read
+    assert sports.ncaab_dog_read({**cand("V", 150, 0.40, 0.58), "league": "nba"}) is None    # NBA: not this read
+    sports.mark_ncaab_dog_read([c, late, early])
+    assert any("the dog read is 10" in r for r in c["reasons"]) and not any("dog read" in r for r in late["reasons"] + early["reasons"])
+    # ---- the tracker: the gap play's bands and the dog read's gate ----
+    keep_g = dict(sl._GAMES)
+    try:
+        sl._GAMES["ncaab"] = {}
+        t = sl.tags(cand("W", 150, 0.40, 0.58, dog_ctx={"opp_won": False}, reb_gap=8.0), sports)
+        assert "college hoops gap dog 15-20" in t and "college hoops dog read 4+" in t and "college hoops gap dog 20+" not in t
+        t = sl.tags(cand("X", 200, 0.33, 0.56), sports)                          # 23 over, backed, no fade, read 4
+        assert "college hoops gap dog 20+" in t and "college hoops dog read 4+" in t
+        t = sl.tags(cand("Y", 150, 0.40, 0.52), sports)                          # 12 over: no band, read 2 - no gate
+        assert not any(x.startswith("college hoops gap dog") for x in t) and "college hoops dog read 4+" not in t
+        t = sl.tags(cand("Z", 150, 0.40, 0.58, top_out=True), sports)            # a fade: no gap band, read 2
+        assert not any(x.startswith("college hoops gap dog") for x in t) and "college hoops dog read 4+" not in t
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
+    # the study's outputs are on file and the verdicts are logged
+    out_ = os.path.join("results", "studies", "cbb_dog_expert")
+    assert all(os.path.exists(os.path.join(out_, f)) for f in ("lib.py", "lib_model.py", "afacts.py", "s1_cfb_analogue.py", "s2_dog_model.py",
+                                                               "s3_where.py", "s4_sizing.py", "s5_knowledge.py", "s6_dog_read.py", "s7_dose.py",
+                                                               "s1_out.txt", "s4_out.txt", "s6_out.txt", "s7_out.txt"))
+    s4 = open(os.path.join(out_, "s4_out.txt")).read()
+    assert "THE RULE: 102-103 +22.6% n205" in s4 and "the same at 10..15 only: 120-151 -0.5% n271" in s4
+    assert "read 4+, both 4+ games: 298-302 +16.5% n600" in open(os.path.join(out_, "s6_out.txt")).read()
+    s7 = open(os.path.join(out_, "s7_out.txt")).read()
+    assert "gap | 15..20: 60-62 +16.5% n122" in s7 and "1u / 2u at read 6+ | held: +54.5u on 234u (+23.3%)" in s7
+    assert "11/3 - FABLE: COLLEGE HOOPS DOG EXPERT" in open("SPORTS_FINDINGS.md").read()
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
