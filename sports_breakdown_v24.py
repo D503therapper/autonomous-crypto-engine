@@ -353,8 +353,16 @@ def _record(gs, tid):
     return f"{w}-{lo}" + (f"-{t}" if t else "")
 
 
+def _site_side(g, side):
+    """The side for a home / road record line - None at a NEUTRAL site (11/4 audit: E Michigan vs C Michigan at Ford
+    Field, Detroit read "E Michigan is 2-2 at home" - the 'home' team on a neutral floor is not at home)."""
+    return None if str((g or {}).get("neutral")) in ("1", "True", "true") else side
+
+
 def _site_rec(gs, tid, side):
     """('home' / 'road', games, wins, '3-0') - the team's record at this game's site this season, or None."""
+    if side is None:
+        return None
     at = [x for x in gs or [] if x.get("home" if side == "home" else "away") == tid]
     if not at:
         return None
@@ -441,7 +449,12 @@ SHORT_S = ["Tap in.", "Let's eat.", "Trust the algorithm.", "We finna see.", "We
 
 
 def _read(leg):
-    """The read a leg's own number comes from: the weighed read (Lock / plays), the dog read, else the own read."""
+    """The read a leg's own number comes from: the weighed read (Lock / plays), the dog read, else the own read.
+    (11/4 audit: a SPREAD or TOTAL leg carries the side's moneyline raw_own from candidates' base - the SMU -6 lean
+    read "our ratings make SMU -362 — the book's at -110", a win chance set against the spread's juice. Off the
+    moneyline, the leg's own cover / total read is the only number.)"""
+    if leg.get("market") not in (None, "ml"):
+        return leg.get("p")
     for k in ("w_p", "dog_p", "raw_own", "p"):
         if leg.get(k) is not None:
             return leg[k]
@@ -1119,8 +1132,8 @@ def breakdown(leg, games, elo, injuries, used=None):
                                    f"🌍 {where} game. Weird spot, so the engine made sure the number's extra juicy."]))
 
     # home / road
-    if str(g.get("intl")) == "1":
-        pass                                            # no real home crowd overseas
+    if str(g.get("intl")) == "1" or _site_side(g, side) is None:
+        pass                                            # no real home crowd overseas / at a neutral site (11/4 audit)
     elif side == "home":
         _hm = [x for x in r_ours if x.get("home") == tid]
         if len(_hm) >= 2:                                # (10/1: never vague - the home record, or nothing)
@@ -1255,8 +1268,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         except Exception:                                 # noqa: BLE001
             _bench = None
     _pub = public_split(leg)                              # (10/23: the real split is a fact the one-liner can open with)
-    _site = _site_rec(r_ours, tid, side)                  # our home / road record, theirs
-    _tsite = _site_rec(r_theirs, oid, other)
+    _site = _site_rec(r_ours, tid, _site_side(g, side))                  # our home / road record, theirs
+    _tsite = _site_rec(r_theirs, oid, _site_side(g, other))
     whyf = why_map(lg, us, them, the_us, the_them, pro, rec_u=rec_u, rec_t=rec_t, n_hot=n_hot, their_hot=their_hot,
                    n_cold=n_cold, key_them=_kt, key_us=_ku, b2b=_b2b, gap_d=_gap_d if 2 <= _gap_d <= 10 else 0,
                    last_vs=[x for x in last_vs if (start - _t(x["start"])).days <= REVENGE_DAYS],   # (never a 2023 game)
@@ -1665,7 +1678,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
             v.knock(5, f"{them} come in on a {n}-game heater")
 
     # home / road records, both sides (the 🏟️ / 🧳 line above is ours only)
-    ts = _site_rec(r_theirs, oid, other)
+    ts = _site_rec(r_theirs, oid, _site_side(g, other))
     if ts and ts[1] >= 2 and f"{ts[3]} " not in body and f"{them} are {ts[3]}" not in body:
         where = "at home" if ts[0] == "home" else "on the road"
         if 2 * ts[2] < ts[1]:                              # their bad record at this site: a fact for us
@@ -1679,7 +1692,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                         else f"🧳 {ts[3]} {where} for {them}. Road trips been rough on 'em."]))
         elif 2 * ts[2] > ts[1]:                            # their good record at this site: the knock
             v.knock(3, f"{them} are {ts[3]} {where} this year")
-    us_site = _site_rec(r_ours, tid, side)
+    us_site = _site_rec(r_ours, tid, _site_side(g, side))
     if us_site and us_site[1] >= 2 and not any(str(x)[:1] in "🏟🧳" and us in str(x) for x in out) \
             and not any(us in k for _, k in v.knocks if us_site[3] in k):
         where = "at home" if us_site[0] == "home" else "on the road"

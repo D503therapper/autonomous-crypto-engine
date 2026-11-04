@@ -18606,11 +18606,11 @@ def _daily_1104_slot_before_floor_body():
         slot_reads.clear()
         slot_reads["ncaab:up1"] = 7.0
         picks2 = []
-        sports.post_board(games, model, picks2, now, day, force=True)
-        dogs2 = [p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        sports.post_board(games, model, picks2, now, day, force=True)   # (11/4 audit: force no longer skips the ⭐ -
+        dogs2 = [p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"]   # the floor's own size is ½u)
         floors2 = [p for p in picks2 if p.get("floor")]
         assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in dogs2] == [("ncaab:up1", 2.0)]
-        assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in floors2] == [("ncaab:up3", 0.5)], \
+        assert [(p["legs"][0]["game_id"], sports._units_base(p)) for p in floors2] == [("ncaab:up3", 0.5)], \
             [(p["kind"], p["legs"][0]["game_id"], p.get("floor")) for p in picks2]
         assert sports.unit_plays_today(picks2, day.isoformat()) == 2
         assert len({p["legs"][0]["game_id"] for p in picks2 if not p.get("lean")}) == sum(1 for p in picks2 if not p.get("lean"))
@@ -19102,6 +19102,330 @@ def test_lingo_1104_no_stiff_frames_in_any_pool_or_card():
     # (4) the tail after a comma: lower case unless it's a name
     assert v24._tl("Give me South Dakota.", ("South Dakota", "N Kentucky")) == "give me South Dakota."
     assert v24._tl("South Dakota all day.", ("South Dakota", "N Kentucky")) == "South Dakota all day."
+def test_audit_1104_the_rule_check_reads_the_inputs_south_dakota_kansas_st_stale_price_blind_team_and_the_star():
+    """11/4 FULL ENGINE AUDIT (the owner: "the engine posts picks on a mistake and it's actually a bug ... it wasn't
+    looking at injuries or it wasn't looking at something right" / "I've told you in the past to build in a checker ...
+    Obviously it doesn't. South Dakota."). rule_check only read the RULES (price caps, one a game, units); it never
+    re-read the INPUTS a pick stands on, so South Dakota +124 11/4 (a ½u floor play whose two named reasons were bugs -
+    "the stronger team" at a 43% read off the home edge, "rolling off a blowout win" over Mount Marty, a non-D1 school)
+    and Kansas St +130 10/31 (a 1u 🔍 play, its starting QB "J. Knuth" questionable on Covers' page - the starter matcher
+    missed "Jacob Knuth" so the pick never waited) both went up. Now every pick passes sports.pick_checks inside
+    rule_check before it posts - checked on its own, NOT through the code that built the pick: the game not started, a
+    read and a price, the book price fresh (PRICE_FRESH_H), the injury data covering BOTH teams (UNKNOWN never healthy),
+    our starting QB (the last game's starter, its own lenient match) not questionable / out unseen, a unit play never
+    waiting on news (a Monday / Thursday night pick drops to a lean), the goalie page fresh when the read used it, every
+    college game held, never a non-D1 school, and every named reason TRUE (a false one comes off; a floor play / Dog
+    left with nothing true is pulled). Plus: the ⭐ re-marks after a pull, and its card's "Half a unit" closer says the
+    raised size. The Senators-style gated hockey dog with everything in hand still passes (the check never over-blocks)."""
+    import sports_breakdown_v24 as v24
+    import sports_players as spl
+    import sports_early as se
+    import sports_goalies as sg
+    import copy
+    now = datetime(2026, 11, 4, 16, 30, tzinfo=timezone.utc)
+    fresh = "2026-11-04T16:05Z"
+    keep = (v24.seen_all, spl.CACHE, sd.STARTER_OF, sports.SLATE_PATH, sports.PICK_CHECK_PATH, sg.load)
+    tmp = tempfile.mkdtemp()
+    try:
+        v24.seen_all = lambda fin, tid, before, lg: True
+        sports.SLATE_PATH = os.path.join(tmp, "slate.json")
+        sports.PICK_CHECK_PATH = os.path.join(tmp, "pick_check.json")
+        games = {
+            "SDG": {"id": "SDG", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-11-05T01:00Z",
+                    "home": "SD", "away": "NKU", "home_name": "South Dakota", "away_name": "N Kentucky",
+                    "ml_home": "124", "ml_away": "-142", "odds_time": fresh, "home_score": "", "away_score": ""},
+            "MM": {"id": "MM", "league": "ncaab", "status": "final", "stype": "2", "start": "2026-11-03T01:00Z",
+                   "home": "SD", "away": "MTM", "home_name": "South Dakota", "away_name": "Mount Marty",
+                   "home_score": "95", "away_score": "57"},
+            "KSG": {"id": "KSG", "league": "ncaaf", "status": "pre", "stype": "2", "start": "2026-11-01T00:00Z",
+                    "home": "CO", "away": "KS", "home_name": "Colorado", "away_name": "Kansas St",
+                    "ml_home": "-150", "ml_away": "130", "odds_time": fresh, "home_score": "", "away_score": ""},
+        }
+        games["KSG"]["start"] = "2026-11-05T00:00Z"
+        inj = {"ncaab": {"SD": [], "NKU": []}, "ncaaf": {"KS": [("J. Knuth", "QB", "Questionable")], "CO": []}}
+
+        def sd_pick(**kw):
+            leg = {"league": "ncaab", "game_id": "SDG", "side": "home", "team": "South Dakota", "opp": "N Kentucky",
+                   "market": "ml", "odds": 124, "dec": sports._dec(124), "p": 0.433, "p_market": 0.428,
+                   "edge_own": 0.445 * sports._dec(124) - 1, "elo_raw": -64.0, "waiting": [], "edge": 0.0, "tier": "value",
+                   "reasons": ["the stronger team", "rolling off a blowout win"]}
+            leg.update(kw)
+            return {"date": "2026-11-04", "kind": "play", "status": "open", "lean": False, "dec": leg["dec"],
+                    "floor": {"dog_score": 0.43, "nba": False}, "legs": [leg]}
+        # SOUTH DAKOTA: the exact inputs -> both reasons false, the floor play has nothing true -> pulled
+        ctx = {"d1": {"SD", "NKU"}}                           # (Mount Marty is not a D1 school)
+        chk = {n: (r, w) for n, r, w in sports.pick_checks(sd_pick(), games, inj, now, ctx)}
+        assert chk["reasons"][0] == "fail", chk
+        assert "stronger team" in chk["reasons"][1] and "non-D1" in chk["reasons"][1], chk["reasons"]
+        for n in ("game", "read", "price_fresh", "injuries", "college_games", "d1"):
+            assert chk[n][0] == "pass", (n, chk[n])
+        pk = sd_pick()
+        new, picks = [pk], [pk]
+        probs = sports.rule_check(picks, new, "2026-11-04", games, None, now, injuries=inj)
+        assert new == [] and picks == [] and any("pick check" in x and "South Dakota" in x for x in probs), probs
+        assert sports.LAST_PICK_CHECK[0]["held"] and sports.LAST_PICK_CHECK[0]["checks"]["reasons"].startswith("fail")
+        # ...a LEAN with the same false label keeps going, the label taken off
+        ln = sd_pick()
+        ln.update(kind="lean", lean=True)
+        ln.pop("floor")
+        new = [ln]
+        sports.rule_check([ln], new, "2026-11-04", games, None, now, injuries=inj)
+        assert new == [ln] and "the stronger team" not in ln["legs"][0]["reasons"]
+        # the same side when it IS the better team (read 55%, rated higher, the blowout over a D1 team) passes
+        ok = sd_pick(p=0.55, elo_raw=40.0)
+        games["MM"]["away"] = "NKX"
+        ctx = {"d1": {"SD", "NKU", "NKX"}}
+        chk = {n: r for n, r, w in sports.pick_checks(ok, games, inj, now, ctx)}
+        assert all(r == "pass" for r in chk.values()), chk
+        games["MM"]["away"] = "MTM"
+        # a game against a non-D1 school is never a pick
+        chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=[]), games, inj, now, {"d1": {"SD"}})}
+        assert chk["d1"] == "fail"
+        # BLIND: the feed down / a team the data doesn't cover = UNKNOWN, never healthy -> pulled
+        for bad in ({"ncaab": None}, {"ncaab": {"SD": []}}):
+            pk = sd_pick(p=0.55, elo_raw=40.0, reasons=["better rested"])
+            new = [pk]
+            sports.rule_check([pk], new, "2026-11-04", games, None, now, injuries=bad)
+            assert new == [], bad
+        # STALE PRICE: the books stopped listing the game 8 hours ago -> pulled; no time stamp (ESPN's own) -> not judged
+        games["SDG"]["odds_time"] = "2026-11-04T08:00Z"
+        chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=["r"]), games, inj, now, {"d1": {"SD", "NKU"}})}
+        assert chk["price_fresh"] == "fail"
+        games["SDG"]["odds_time"] = ""
+        chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=["r"]), games, inj, now, {"d1": {"SD", "NKU"}})}
+        assert "price_fresh" not in chk
+        games["SDG"]["odds_time"] = fresh
+        # a started game / no market number never posts
+        chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p_market=None), games, inj, now, {"d1": {"SD", "NKU"}})}
+        assert chk["read"] == "fail"
+        chk = {n: r for n, r, w in sports.pick_checks(sd_pick(), games, inj, datetime(2026, 11, 5, 2, tzinfo=timezone.utc), {})}
+        assert chk["game"] == "fail"
+
+        # KANSAS ST: the exact inputs - Covers lists "J. Knuth" questionable, the box score's last starter "Jacob Knuth";
+        # the broken matcher (STARTER_OF says he's no starter) built a pick that never waited -> the check pulls it
+        spl.CACHE = {"ncaaf": [{"gid": "g1", "team": "KS", "player": "Avery Johnson", "start": "2026-10-17T16:00Z"},
+                               {"gid": "g2", "team": "KS", "player": "Jacob Knuth", "start": "2026-10-24T19:45Z"}]}
+        sd.STARTER_OF = lambda lg, tid, name: False
+        dec = sports._dec(130)
+        ks = {"date": "2026-10-31", "kind": "play", "status": "open", "lean": False, "gap": 0.20, "dec": dec,
+              "legs": [{"league": "ncaaf", "game_id": "KSG", "side": "away", "team": "Kansas St", "opp": "Colorado",
+                        "market": "ml", "odds": 130, "dec": dec, "p": 0.45, "p_market": 0.42, "raw_own": 0.62,
+                        "edge_own": 0.62 * dec - 1, "edge": 0.0, "tier": "value", "reasons": [], "waiting": [], "key_out_me": False}]}
+        new = [ks]
+        probs = sports.rule_check([ks], new, "2026-10-31", games, None, now, injuries=inj)
+        assert new == [] and any("starting QB J. Knuth is Questionable" in x for x in probs), probs
+        inj["ncaaf"]["KS"] = [("J. Knuth", "QB", "Out")]           # ruled OUT and the read never saw it -> pulled
+        assert dict((n, r) for n, r, w in sports.pick_checks(ks, games, inj, now, {}))["qb"] == "fail"
+        ks["legs"][0]["key_out_me"] = True                          # ...seen and weighed -> fine
+        assert "qb" not in dict((n, r) for n, r, w in sports.pick_checks(ks, games, inj, now, {}))
+        inj["ncaaf"]["KS"] = [("D. Duff", "QB", "Out"), ("K. Knuth", "QB", "Questionable")]   # backups: never key
+        ks["legs"][0]["key_out_me"] = False
+        assert "qb" not in dict((n, r) for n, r, w in sports.pick_checks(ks, games, inj, now, {}))
+        # a unit play waiting on news never posts; a Monday / Thursday night pick drops to a lean instead
+        w = copy.deepcopy(ks)
+        w["legs"][0]["waiting"] = ["Kansas St starting QB questionable"]
+        new = [w]
+        sports.rule_check([w], new, "2026-10-31", games, None, now, injuries={"ncaaf": {"KS": [], "CO": []}})
+        assert new == []
+        nt = copy.deepcopy(w)
+        nt.pop("gap")
+        nt["kind"] = "night"
+        new = [nt]
+        sports.rule_check([nt], new, "2026-10-31", games, None, now, injuries={"ncaaf": {"KS": [], "CO": []}})
+        assert new == [nt] and nt["lean"] is True and sports.units_for(nt) == 0
+        # THE GOALIES: a hockey read that used the starting-goalies page while the page is stale -> pulled
+        sg.load = lambda now=None: {}
+        games["H"] = {"id": "H", "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-05T00:00Z", "home": "BUF",
+                      "away": "OTT", "home_name": "Sabres", "away_name": "Senators", "ml_home": "-130", "ml_away": "110",
+                      "odds_time": fresh}
+        hd = sports._dec(110)
+        sen = {"date": "2026-11-04", "kind": "dog", "status": "open", "lean": False, "dec": hd,
+               "legs": [{"league": "nhl", "game_id": "H", "side": "away", "team": "Senators", "opp": "Sabres", "market": "ml",
+                         "odds": 110, "dec": hd, "p": 0.50, "p_market": 0.459, "dog_p": 0.52, "edge_own": 0.50 * hd - 1, "edge": 0.0, "tier": "value",
+                         "reasons": ["the dog score likes them (+6.4)"], "waiting": [], "g_role_me": "starter"}]}
+        hinj = {"nhl": {"0": []}}
+        assert dict((n, r) for n, r, w in sports.pick_checks(sen, games, hinj, now, {}))["goalies"] == "fail"
+        # THE SENATORS (the reverse): everything in hand -> every check passes, nothing over-blocked
+        sg.load = lambda now=None: {"seen": fresh}
+        chk = {n: r for n, r, w in sports.pick_checks(sen, games, hinj, now, {})}
+        assert all(r == "pass" for r in chk.values()), chk
+        # EARLY PLAYS pass the same check: a blind team never posts early
+        c = {"game_id": "KSG", "league": "ncaaf", "side": "away", "team": "Kansas St", "odds": 130, "own": 0.5, "mkt": 0.42}
+        assert se.early_ok(c, games, {"ncaaf": {"KS": [], "CO": []}}, now) is True
+        assert se.early_ok(c, games, {"ncaaf": None}, now) is False
+        assert se.early_ok(c, games, {"ncaaf": {"KS": []}}, now) is False
+        # THE REPORT: data/sports/pick_check.json + the held pick in slate_check's problems
+        rep = [{"key": "a", "kind": "floor", "team": "South Dakota", "odds": 124, "held": True, "why": "pick check: reasons",
+                "checks": {}}, {"key": "b", "kind": "lean", "team": "X", "odds": -110, "held": False, "why": "", "checks": {}}]
+        cur = sports.save_pick_check("2026-11-04", now, rep)
+        saved = json.load(open(sports.PICK_CHECK_PATH))
+        assert saved["day"] == "2026-11-04" and len(saved["picks"]) == 2 and len(saved["held"]) == 1 and cur == saved
+        assert any("pick check held floor South Dakota" in x for x in json.load(open(sports.SLATE_PATH))["problems"])
+        # THE ⭐: a floor play raised to 1u never keeps "Half a unit, no more" on its card
+        star = sd_pick(p=0.55, elo_raw=40.0, reasons=["r"])
+        star["legs"][0]["breakdown"] = ["📋 a fact.", "✅ Bottom line: South Dakota at +124. Thin one - the dog angles back "
+                                        "it, our read calls the price about fair. Half a unit, no more."]
+        star["best"], star["date"] = True, max(sports.BEST_FROM, "2026-11-04")
+        sports.best_closer(star)
+        last = star["legs"][0]["breakdown"][-1]
+        assert sports.units_for(star) == 1.0 and "half" not in last.lower() and "⭐" in last and "about fair" in last, last
+    finally:
+        v24.seen_all, spl.CACHE, sd.STARTER_OF, sports.SLATE_PATH, sports.PICK_CHECK_PATH, sg.load = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    i = src.index("def post_board(")
+    j = src.index("rule_check(picks, new, iso, games, day, now, injuries=injuries, report=rep)", i)
+    assert "mark_best(picks, iso)" in src[j:j + 900] and "save_pick_check(iso, now, rep)" in src[j:j + 1400]
+
+
+def test_audit_1104_post_now_force_never_skips_a_check():
+    """11/4 AUDIT: SPORTS_POST_NOW=1 calls post_board(force=True), and force skipped the opening slate / factor check,
+    the injury hold (a pick waiting on a QB / goalie posted anyway), the night pick's wait and the ⭐ - a manual "post
+    now" could put up exactly the picks the checks exist to hold. Now force only means "post now, even after the day's
+    first game": the slate check still holds the board before 8:30 PT, a waiting pick still waits, rule_check and the
+    pre-post pick check run the same."""
+    keep = (sports.candidates, sd.fetch_injuries, sports.slate_check, sports.factor_check, sports.checker_selftest,
+            sports.data_gaps, sports.DOGS_ST, sports.HOLD_DAYS)
+    try:
+        day = datetime(2026, 11, 5).date()
+        now = datetime(2026, 11, 5, 8, 10, tzinfo=sports.PT).astimezone(timezone.utc)
+        games = {"g": {"id": "g", "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-06T00:00Z",
+                       "home": "A", "away": "B", "home_name": "A", "away_name": "B", "ml_home": "-120", "ml_away": "100"}}
+        sports.candidates = lambda *a, **k: []
+        sd.fetch_injuries = lambda lg: {}
+        sports.slate_check = lambda *a, **k: ["NHL: the books' prices didn't load"]
+        sports.factor_check = lambda *a, **k: []
+        sports.checker_selftest = lambda: []
+        sports.data_gaps = lambda *a, **k: {}
+        sports.DOGS_ST = sports.DOGS_ST or {"x": 1}
+        sports.HOLD_DAYS = set()
+        assert sports.post_board(games, {"params": {}}, [], now, day, force=True) == []   # held, force or not
+    finally:
+        (sports.candidates, sd.fetch_injuries, sports.slate_check, sports.factor_check, sports.checker_selftest,
+         sports.data_gaps, sports.DOGS_ST, sports.HOLD_DAYS) = keep
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    body = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert "if opening and not force" not in body and "not force and not (kind ==" not in body
+    assert "if force or all(not l[\"waiting\"]" not in body and "now < deadline and not force" not in body
+    assert "BEST_FROM and not force" not in body
+    # the waiting unit play is pulled by the pre-post check whatever path posted it
+    leg = {"league": "nhl", "game_id": "g", "side": "home", "team": "A", "market": "ml", "odds": -120,
+           "dec": sports._dec(-120), "p": 0.56, "p_market": 0.53, "edge": 0.0, "edge_own": 0.02, "tier": "value",
+           "reasons": ["r"], "waiting": ["A starting goalie unconfirmed"]}
+    pk = {"date": "2026-11-05", "kind": "lock", "status": "open", "lean": False, "legs": [leg], "dec": leg["dec"]}
+    new = [pk]
+    sports.rule_check([pk], new, "2026-11-05", {"g": dict(games["g"], odds_time="2026-11-05T16:00Z")}, None,
+                      datetime(2026, 11, 5, 16, 30, tzinfo=timezone.utc), injuries={"nhl": {"0": []}})
+    assert new == [] and sports.LAST_PICK_CHECK[0]["held"] and "waiting" in sports.LAST_PICK_CHECK[0]["why"]
+
+
+def test_audit_1104_twin_counts_twice_spread_card_reads_its_cover_and_fair_open_builds_once():
+    """11/4 AUDIT, three more: (1) the 🏀 dog slot on the SAME dog as the 🔍 college hoops gap play ("both count, each
+    with its units") shared the ledger key - the 💰 record / BY SPORT / bankroll kept only the first; (2) a spread lean's
+    card said "our ratings make SMU -362 — the book's at -110": the leg carries the side's moneyline raw_own, and the
+    breakdown's _read took it for the spread; off the moneyline the leg's own cover read is the number; (3) fair_open
+    rebuilt the whole schedule for every football game (50 of 92 seconds of candidates() on the 11/7 slate) - once a
+    candidates() call now; (4) the card guard's verb fix turned "UConn and North Carolina walk in" into "walks in"."""
+    import sports_breakdown_v24 as v24
+    import sports_early as se
+    dec = sports._dec(150)
+    leg = lambda: {"league": "ncaab", "game_id": "ncaab:1", "side": "away", "team": "A", "odds": 150, "dec": dec,
+                   "result": "won", "market": "ml", "tier": "value"}
+    gap = {"date": "2026-11-20", "kind": "play", "status": "won", "gap": 0.2, "legs": [leg()], "dec": dec,
+           "posted": "2026-11-20T16:00Z", "units": 1.0}
+    slot = {"date": "2026-11-20", "kind": "play", "status": "won", "ncaab_play": {"slot": "dog"}, "legs": [leg()], "dec": dec,
+            "posted": "2026-11-20T16:00Z", "units": 2.0}
+    rows = [r for r in sports.units_ledger([gap, slot])["rows"] if r[1] > 0]
+    assert len(rows) == 2 and abs(sum(r[2] for r in rows) - 1.5 * (sports.units_for(gap) + sports.units_for(slot))) < 1e-6, rows
+    sp_leg = {"market": "spread", "line": -6.0, "odds": -110, "dec": sports._dec(-110), "p": 0.509, "raw_own": 0.78}
+    assert v24._read(sp_leg) == 0.509
+    assert v24._read({**sp_leg, "market": "ml"}) == 0.78
+    import sports_card_guard as cg                       # (4) "UConn and North Carolina walks in" - a compound subject
+    assert cg.agree("Both sides 4-4: UConn and North Carolina walk in with the same record.", "UConn", "North Carolina") \
+        == "Both sides 4-4: UConn and North Carolina walk in with the same record."
+    assert cg.agree("North Carolina walk in hot.", "North Carolina") == "North Carolina walks in hot."
+    calls = []
+    keep = se._schedule
+    try:
+        se._schedule = lambda games: calls.append(1) or {}
+        games = {"a": {"id": "a", "league": "nfl"}, "b": {"id": "b", "league": "nfl"}}
+        sports._FAIR_SCHED.clear()
+        for g in games.values():
+            sports.fair_open(games, g)
+        assert len(calls) == 1
+        games["c"] = {"id": "c", "league": "nfl"}               # a new game in the file: rebuilt
+        sports.fair_open(games, games["c"])
+        assert len(calls) == 2
+    finally:
+        se._schedule = keep
+        sports._FAIR_SCHED.clear()
+
+
+def test_audit_1104_a_college_key_man_who_already_missed_is_no_fresh_hole_one_man_one_role_and_no_home_line_at_a_neutral_site():
+    """11/4 AUDIT (live: E Michigan +110 ½u runner-up dog vs C Michigan at Ford Field, its ONLY reason "opponent missing
+    key players: QB Angel Flores, RB Angel Flores, WR Langston Lewis (their read -5)"). Flores had ALREADY MISSED C
+    Michigan's last game (Jadyn Glasser started 10/24); key_players picks the QB by pass attempts over the last 3 boxes
+    (Flores 45 vs Glasser 42) and listed him as the RB too. The study (results/studies/audit_1104/qb_known_out.py): a
+    college starting QB out AGAIN after missing the last game runs +0.1 pts vs the own read on 1,398 (the fresh one -3.0 on
+    1,309 = the built -3) - already in the read; the NFL's 'known' QB out still -3.1 on 400, so the NFL keeps it. Fixed:
+    (1) college: a key man not in the team's last box is no fresh hole; (2) one man, one role; (3) a neutral site never
+    gets a home / road record line; (4) the pre-post check refuses a reason naming a man who already missed (college),
+    a man counted twice, or a man not ruled out on today's report, and a home-record line on a neutral-site card."""
+    import copy
+    import sports_absences as A
+    import sports_breakdown_v24 as v24
+    keep = (dict(A._TEAM), v24.seen_all)
+    try:
+        def row(gid, start, player, passes=0, rush=0, rec=0):
+            return {"gid": gid, "start": start, "team": "CM", "player": player,
+                    "stats": json.dumps({"completions/passingAttempts": f"{passes // 2}/{passes}", "rushingYards": rush,
+                                         "receivingYards": rec})}
+        hist = []
+        for i, (st, qb) in enumerate([("2026-10-03T16:00Z", "Angel Flores"), ("2026-10-10T16:00Z", "Angel Flores"),
+                                      ("2026-10-17T16:00Z", "Angel Flores"), ("2026-10-25T00:00Z", "Jadyn Glasser")]):
+            gid = f"ncaaf:cm{i}"
+            rs = [row(gid, st, qb, passes=23 if qb == "Angel Flores" else 42, rush=90 if qb == "Angel Flores" else 5),
+                  row(gid, st, "Langston Lewis", rec=60 + 30 * (i == 3)), row(gid, st, "Tim Back", rush=40),
+                  row(gid, st, "Wide Two", rec=30)]
+            hist.append((st, gid, rs))
+        A._TEAM["ncaaf"] = {"CM": hist}
+        games = {gid: {"id": gid, "league": "ncaaf", "stype": "2", "start": st, "status": "final", "home": "CM", "away": "ZZ",
+                       "home_name": "C Michigan", "away_name": "Z", "home_score": "27", "away_score": "28"} for st, gid, _ in hist}
+        g = {"id": "ncaaf:401866456", "league": "ncaaf", "stype": "2", "status": "pre", "start": "2026-11-05T00:00Z",
+             "home": "EM", "away": "CM", "home_name": "E Michigan", "away_name": "C Michigan", "neutral": "1",
+             "ml_home": "110", "ml_away": "-130", "odds_time": "2026-11-04T16:05Z"}
+        games[g["id"]] = g
+        inj = {"ncaaf": {"CM": [("Angel Flores", "QB", "Out"), ("Langston Lewis", "WR", "Out")], "EM": []}}
+        kp = A.key_players(games, "ncaaf", "CM", g["start"])
+        assert kp["qb"] == "Angel Flores" and kp["rb"] == "Angel Flores"           # the old pick, both roles
+        pts, who = A.penalty(games, g, "away", inj)
+        assert pts == 0.0 and who == ["WR Langston Lewis"], (pts, who)           # Flores already missed: no hole; WR alone 0
+        hist[3] = (hist[3][0], hist[3][1], hist[3][2] + [row(hist[3][1], hist[3][0], "Angel Flores", passes=2, rush=10)])
+        A._TEAM["ncaaf"] = {"CM": hist}                                         # he PLAYED the last game: a fresh hole
+        pts, who = A.penalty(games, g, "away", inj)
+        assert pts == 0.05 and who.count("QB Angel Flores") == 1 and not any(w.startswith("RB Angel") for w in who), who
+        hist[3] = (hist[3][0], hist[3][1], hist[3][2][:-1])
+        A._TEAM["ncaaf"] = {"CM": hist}
+        # the pre-post check refuses the live reason
+        v24.seen_all = lambda fin, tid, before, lg: True
+        dec = sports._dec(110)
+        pk = {"date": "2026-11-04", "kind": "play", "status": "open", "lean": False, "dog_play": True, "dec": dec,
+              "legs": [{"league": "ncaaf", "game_id": g["id"], "side": "home", "team": "E Michigan", "opp": "C Michigan",
+                        "market": "ml", "odds": 110, "dec": dec, "p": 0.49, "p_market": 0.46, "edge": 0.0,
+                        "edge_own": 0.50 * dec - 1, "tier": "value", "waiting": [],
+                        "reasons": ["opponent missing key players: QB Angel Flores, RB Angel Flores, WR Langston Lewis (their read -5)"],
+                        "breakdown": ["🏟️ E Michigan is 2-2 at home so far.", "✅ Bottom line: E Michigan (+110)."]}]}
+        now = datetime(2026, 11, 4, 16, 30, tzinfo=timezone.utc)
+        chk = {n: (r, w) for n, r, w in sports.pick_checks(copy.deepcopy(pk), games, inj, now, {})}
+        assert chk["reasons"][0] == "fail" and "counted twice" in chk["reasons"][1] and "already missed" in chk["reasons"][1], chk
+        assert chk["neutral_site"][0] == "fail", chk
+        new = [pk]
+        sports.rule_check([pk], new, "2026-11-04", games, None, now, injuries=inj)
+        assert new == []
+        # the card: no home / road record at a neutral site; a real home game keeps it
+        assert v24._site_side(g, "home") is None and v24._site_side({**g, "neutral": "0"}, "home") == "home"
+        assert v24._site_rec([{"home": "EM", "away": "X"}], "EM", None) is None
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep[0]); v24.seen_all = keep[1]
 
 
 if __name__ == "__main__":
@@ -19113,6 +19437,7 @@ if __name__ == "__main__":
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
+    sports.PICK_CHECK_PATH = os.path.join(tempfile.mkdtemp(), "pick_check.json")      # (nor the real pick check - 11/4)
     import sports_early
     sports_early.PATH = os.path.join(tempfile.mkdtemp(), "early.json")                   # (nor the early plays)
     sports_early.ON = False              # (live in the engine; tests switch it on themselves, never touching real books)
