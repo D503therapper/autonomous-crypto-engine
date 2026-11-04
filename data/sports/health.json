@@ -1,12 +1,12 @@
 {
- "at": "2026-11-04T23:04Z",
+ "at": "2026-11-04T23:06Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Andreescu vs Ortenzi: no points for 2622s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (129s)",
+  "live watcher fresh (230s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,12 +19,20 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 18 min ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T23:06Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Ortenzi: no points for 2622s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-04T23:04Z",
    "fixes": [],
@@ -582,14 +590,6 @@
     "live watch 41652014825 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": [
-    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
-    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
-   ]
-  },
-  {
-   "at": "2026-11-03T15:01Z",
-   "fixes": [],
    "problems": [
     "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
     "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
