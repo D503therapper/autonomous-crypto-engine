@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T22:09Z",
+ "updated": "2026-11-04T22:20Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -85,9 +85,9 @@
     "team": "FDU",
     "opp": "Butler",
     "market": "spread",
-    "line": 27.5,
+    "line": 28.5,
     "odds": -110,
-    "p": 0.532,
+    "p": 0.534,
     "win_p": 0.024,
     "reasons": []
    }
@@ -718,7 +718,7 @@
     "opp": "Mavericks",
     "market": "spread",
     "line": -12.5,
-    "odds": -106,
+    "odds": -109,
     "p": 0.505,
     "win_p": 0.823,
     "reasons": [
@@ -934,6 +934,38 @@
    }
   },
   {
+   "id": "ncaab:401925031",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "McNeese",
+    "p": 0.502,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T22:00Z",
+   "away": "McNeese",
+   "home": "North Texas",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "McNeese",
+    "opp": "North Texas",
+    "market": "ml",
+    "line": null,
+    "odds": -126,
+    "p": 0.533,
+    "win_p": 0.533,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401917177",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1085,7 +1117,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.856,
+    "p": 0.863,
     "tie": 0.023,
     "name": "1st half"
    },
@@ -1100,10 +1132,10 @@
     "team": "Buffalo",
     "opp": "Pitt",
     "market": "spread",
-    "line": 19.5,
-    "odds": -115,
-    "p": 0.518,
-    "win_p": 0.072,
+    "line": 18.5,
+    "odds": -105,
+    "p": 0.516,
+    "win_p": 0.067,
     "reasons": []
    }
   },
@@ -1524,8 +1556,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.814,
-    "tie": 0.028,
+    "p": 0.82,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1542,7 +1574,7 @@
     "line": -15.5,
     "odds": -108,
     "p": 0.508,
-    "win_p": 0.896,
+    "win_p": 0.902,
     "reasons": [
      "the stronger team"
     ]
@@ -1747,9 +1779,9 @@
     "team": "Cal Poly",
     "opp": "Arizona",
     "market": "spread",
-    "line": 30.5,
-    "odds": -108,
-    "p": 0.53,
+    "line": 31.5,
+    "odds": -112,
+    "p": 0.532,
     "win_p": 0.023,
     "reasons": []
    }
