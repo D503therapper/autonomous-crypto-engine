@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 175,
-  "beat": 59,
+  "n": 177,
+  "beat": 60,
   "same": 65,
-  "worse": 51,
-  "avg_pts": 0.11
+  "worse": 52,
+  "avg_pts": 0.12
  },
  "unit_plays": {
-  "n": 80,
-  "beat": 26,
+  "n": 81,
+  "beat": 27,
   "same": 35,
   "worse": 19,
-  "avg_pts": 0.17
+  "avg_pts": 0.21
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.17
   },
   "lean": {
-   "n": 95,
+   "n": 96,
    "beat": 33,
    "same": 30,
-   "worse": 32,
-   "avg_pts": 0.05
+   "worse": 33,
+   "avg_pts": 0.04
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 44,
-   "beat": 14,
+   "n": 45,
+   "beat": 15,
    "same": 20,
    "worse": 10,
-   "avg_pts": 0.08
+   "avg_pts": 0.15
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 65,
-   "beat": 20,
+   "n": 67,
+   "beat": 21,
    "same": 25,
-   "worse": 20,
-   "avg_pts": -0.03
+   "worse": 21,
+   "avg_pts": 0.0
   }
  },
  "lock_by_size": {
@@ -2531,6 +2531,20 @@
    "kind": "lean",
    "lean": true,
    "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -120,
+   "pts": -1.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
    "team": "Penguins",
    "market": "ml",
    "line": null,
@@ -2553,6 +2567,20 @@
    "pts": 1.6,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 140,
+   "pts": 3.2,
+   "units": 0.5,
+   "result": "won"
   },
   {
    "date": "2026-11-03",
