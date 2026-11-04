@@ -1,12 +1,12 @@
 {
- "at": "2026-11-04T10:42Z",
+ "at": "2026-11-04T10:43Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Kudermetova vs Selekhmeteva: points frozen at 0-0 for 326s",
   "live tennis scores: tennis Akugue vs Mdlulwa: no points for 1012s"
  ],
  "ok": [
-  "live watcher fresh (25s)",
+  "live watcher fresh (75s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +19,19 @@
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 54 min ago",
+  "engine ran 55 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-04T10:43Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kudermetova vs Selekhmeteva: points frozen at 0-0 for 326s",
+    "live tennis scores: tennis Akugue vs Mdlulwa: no points for 1012s"
+   ]
+  },
   {
    "at": "2026-11-04T10:42Z",
    "fixes": [],
@@ -534,13 +542,6 @@
   {
    "at": "2026-11-03T03:26Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-03T03:24Z",
-   "fixes": [
-    "live board 16 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
