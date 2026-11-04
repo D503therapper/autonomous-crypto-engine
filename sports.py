@@ -807,6 +807,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_doubleheader_game2(games, out)
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_nba_lost_man(games, out)                     # 🏀 11/3 daily: the NBA team that lost a rotation man (-2 / -0.03)
+    mark_ncaaf_int_luck(games, out)                   # 🏈 11/4 daily: the interception-unlucky college dog (+2)
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
@@ -2179,6 +2180,9 @@ def dog_spots(c):
     if lg == "nba" and c.get("lost_man"):
         sc -= NBA_LOST_MAN_PTS     # 11/3 daily study 7: the NBA dog that lost a 20+ minute man in its last 10 games -19.7%
         #                            on 284 in games 4-10 (0 of 5 train seasons up, 3 of 3 held down, the morning -16.5%)
+    if lg == "ncaaf" and c.get("int_unlucky"):
+        sc += NCAAF_INT_LUCK_PTS   # 11/4 daily study 1: the college dog whose season INT margin runs -0.5 a game or worse
+        #                            +20.4% on 277 (3 of 3 train up, held 2024 / 2025 / 2026 up, the first fair +25.1%)
     if lg == "ncaab" and c.get("ranked_road"):
         sc -= NCAAB_RANKED_ROAD_DOG   # 11/3 FABLE: a top-25 team as a road dog in Nov-Dec -31.1% on 104 (0 of 5 train)
     elif lg == "ncaab" and c.get("vs_ranked_road"):
@@ -3604,6 +3608,50 @@ def nba_lost_man_spread_w(c):
     if c.get("league") == "nba" and c.get("market") == "spread" and c.get("lost_man"):
         return -NBA_LOST_MAN_SPREAD_W
     return 0.0
+
+
+# 🏈 11/4 DAILY STUDY 1 - THE INTERCEPTION-UNLUCKY COLLEGE DOG (results/studies/daily_1104/s1_nfl_int_luck.py + s1b;
+# SPORTS_FINDINGS "11/4 - DAILY STUDIES"): a college football dog +100..+350 whose season interception margin (made
+# minus thrown a game, from its box scores, 5+ games) runs -0.5 or worse wins MORE than its price says - +20.4% on 277
+# at the close 2021-26 (train 2021-23 +16.1%, 3 of 3 seasons up; held out 2024 +42.4% / 2025 +1.9% / 2026 +22.5% on
+# 21), +25.1% on 240 at the paid history's FIRST FAIR number, the last-6-game margin +16.3% on 330 / +21.1% first fair;
+# home +23.7% / road +17.3%, FBS vs FBS +20.8%, every price band and record band up, the dose steps (-1.0 or worse
+# +34.1% on 52); the lucky dog (+0.5 or better) -3.1% = the base, the mid dog -8.8%. The picks are in the record the
+# market prices off and not in the team. NOT the NFL (lucky / unlucky NFL dogs sit at the base). A WEIGHT inside
+# STUDY_CAP, never a gate: +2 on the flagged college dog's study points; no box scores = unknown = 0.
+NCAAF_INT_LUCK_PTS = 2
+NCAAF_INT_LUCK_M = -0.5                  # the season INT margin a game at which the dog is 'unlucky'
+
+
+def mark_ncaaf_int_luck(games, cands):
+    """College football moneyline sides: int_unlucky = {margin, games} on a side whose season interception margin runs
+    NCAAF_INT_LUCK_M or worse (sports_absences.int_margin - the box scores, 5+ games), with a fact line; int_margin on
+    every side the box scores cover (for the card)."""
+    fb = [c for c in cands if c.get("league") == "ncaaf" and c.get("market") == "ml"]
+    if not fb:
+        return
+    import sports_absences
+    seen = {}
+    for c in fb:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side = c.get("side")
+        key = (c.get("game_id"), side)
+        if key not in seen:
+            try:
+                seen[key] = sports_absences.int_margin(games, "ncaaf", g.get(side), start) if g.get(side) and start else None
+            except Exception:                                    # noqa: BLE001
+                seen[key] = None
+        im = seen[key]
+        if not im:
+            continue
+        c["int_margin"] = im["margin"]
+        if im["margin"] <= NCAAF_INT_LUCK_M:
+            c["int_unlucky"] = dict(im)
+            if c.get("odds", 0) > 0:
+                c["reasons"] = c.get("reasons", []) + [
+                    f"the picks have gone against them all year ({im['margin']:+.1f} a game over {im['games']} games) - "
+                    "that's in the record the price comes off, and these dogs win more than the number says"]
 
 
 # 🏀 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (results/studies/fable_cbb_1103/, SPORTS_FINDINGS "11/3 - FABLE: COLLEGE

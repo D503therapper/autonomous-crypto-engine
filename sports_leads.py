@@ -450,6 +450,22 @@ def tags(c, sports):
             t.append("NHL fav -101..-200, top scorer missed its last game (fade)")   #   and BACK tonight still -20.9%
         #   on 110 (fav -20.1% on 49) - the part the built report penalty (sports_absences, -6 when he's OUT) can't see;
         #   out again tonight = that penalty's cell (dog -34.7%). Tracked next to it, never a second weight yet
+    # 11/4 DAILY STUDIES (results/studies/daily_1104/): one WEIGHT's live record + two moneyline LEADS (tracked only)
+    if dog and lg == "ncaaf" and c.get("odds", 0) <= 350 and c.get("int_unlucky"):
+        t.append("college football dog, interception-unlucky (-0.5 a game or worse)")   # s1 / s1b - BUILT as a +2
+        #   dog-score weight (sports.NCAAF_INT_LUCK_PTS): the college dog whose season INT margin runs -0.5 a game or
+        #   worse +20.4% on 277 (3 of 3 train up, held 2024 / 2025 / 2026 up, the first fair +25.1%); judge at 50 -
+        #   the flagged dogs losing at the price = the weight comes off
+    if dog and lg == "nhl" and c.get("odds", 0) <= 350 and nhl_vs_new_city_b2b(c):
+        t.append("NHL dog vs a favorite on a road-road back-to-back in a new city")   # s6: the shape of the b2b - the
+        #   rested dog across a favorite that played on the road last night and flew to a NEW city for tonight +12.5%
+        #   on 182 (train +6.9% 3 of 4 up, held 2022-25 4 of 4 up) vs +3.4% for every rested dog vs a b2b; the b2b
+        #   side itself -20.9% as a dog (0 of 4 up). A dose of the built rested_vs_b2b +3 - a LEAD, judge at 50
+    if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_star_third_back(c):
+        t.append("NBA dog, top scorer's 3rd game back (fade)")   # s8: the NBA top scorer (season points a game) who
+        #   missed 2+ straight and has played 2 since - the dog in his 3rd game back -35.8% on 107 (train -35.6%, 4 of
+        #   5 down; held +6.3% / -56.3% / -43.1%; the paid morning -12.3% on 49), the side ML any -17.0% on 334; his
+        #   2nd game back (the college hoops weight's cell) is nothing here (+4.8%). ~100 cells looked at - a LEAD only
     return t + sharp
 
 
@@ -1190,6 +1206,106 @@ def nhl_top_missed(c, box=None):
     top = max(pts, key=pts.get)
     played_before = sum(1 for _, _, p in window[-4:] if top in p)
     return top not in last[2] and played_before >= 3
+
+
+NBA_STAR_MIN_GP = 5          # 11/4 s8: the top scorer = this season's points a game over 5+ games played
+NBA_STAR_MISSED = 2          # ...who missed 2+ straight team games
+NBA_STAR_NTH = 3             # ...and tonight is his 3rd game back (he played the team's last 2)
+NHL_SAME_CITY_MI = 40        # 11/4 s6: a road-road back-to-back counts as a NEW city when last night's venue sits 40+ miles away
+_NBA_BOX = {}                # season -> {team: [(start, gid, {pid: points})]} from this season's NBA box scores
+
+
+def _nba_box(season):
+    """{team id: [(start, gid, {pid: points})]} for this NBA season's saved box scores (men who played), oldest first."""
+    if season not in _NBA_BOX:
+        _NBA_BOX.clear()
+        by = {}
+        try:
+            import sports_roster as sr
+            rows = sr.load("nba", seasons=[season])
+        except Exception:                                    # noqa: BLE001
+            rows = []
+        for r in rows:
+            try:
+                st = json.loads(r.get("stats") or "{}")
+                mins, pts = float(st.get("minutes") or 0), float(st.get("points") or 0)
+            except (ValueError, TypeError):
+                continue
+            if mins <= 0:
+                continue
+            by.setdefault(r["team"], {}).setdefault(r["gid"], (r["start"], {}))[1][r["pid"]] = pts
+        _NBA_BOX[season] = {t: sorted((s, gid, p) for gid, (s, p) in d.items()) for t, d in by.items()}
+    return _NBA_BOX[season]
+
+
+def nba_star_third_back(c, box=None):
+    """11/4 daily study 8 (a LEAD, tracked only): this NBA side's top scorer (this season's points a game, NBA_STAR_MIN_GP+
+    played) missed NBA_STAR_MISSED+ straight team games and has played exactly NBA_STAR_NTH - 1 since - tonight is his
+    NBA_STAR_NTH-th game back, known from the last box before tip. No box scores = False, never a guess."""
+    if c.get("league") != "nba":
+        return False
+    g = _game(c)
+    team, start = g.get(c.get("side") or ""), str(c.get("start") or g.get("start") or "")
+    if not team or len(start) < 7:
+        return False
+    y, m = int(start[:4]), int(start[5:7])
+    season = y if m >= 7 else y - 1
+    rows = [x for x in (box if box is not None else _nba_box(season)).get(str(team), []) if x[0] < start]
+    if len(rows) < NBA_STAR_MIN_GP + NBA_STAR_MISSED:
+        return False
+    tot, gp = {}, {}
+    for _, _, p in rows:
+        for pid, v in p.items():
+            tot[pid] = tot.get(pid, 0.0) + v
+            gp[pid] = gp.get(pid, 0) + 1
+    cands = [(tot[p] / gp[p], p) for p in tot if gp[p] >= NBA_STAR_MIN_GP]
+    if not cands:
+        return False
+    star = max(cands)[1]
+    played = [star in p for _, _, p in rows]
+    i, n = len(played) - 1, 0
+    while i >= 0 and played[i]:
+        n += 1
+        i -= 1
+    missed = 0
+    while i >= 0 and not played[i]:
+        missed += 1
+        i -= 1
+    return n == NBA_STAR_NTH - 1 and missed >= NBA_STAR_MISSED
+
+
+def nhl_vs_new_city_b2b(c):
+    """11/4 daily study 6 (a LEAD, tracked only): this NHL side is at HOME and did not play last night, while the opponent
+    played last night ON THE ROAD somewhere else (its last final was away, one night ago, NHL_SAME_CITY_MI+ miles from
+    tonight's rink by the game file's city) - the road-road back-to-back in a new city."""
+    if c.get("league") != "nhl" or c.get("side") != "home":
+        return False
+    g = _game(c)
+    if str(g.get("neutral")) == "1":
+        return False
+    other = "away"
+    _, mine = _season_before(c)
+    opp, rows = _season_before(dict(c, side=other))
+    if not opp or not rows:
+        return False
+    last = rows[-1]
+    try:
+        tonight = _night(c.get("start") or g.get("start"))
+        if mine and tonight - _night(mine[-1]["start"]) < 2:
+            return False                                     # we played last night too: not the rested side
+        if tonight - _night(last["start"]) != 1 or last.get("away") != opp:
+            return False
+    except (TypeError, ValueError):
+        return False
+    try:
+        import sports_context as sc
+        ven = sc.venues()
+        a, b = sc._where(last, ven), sc._where(g, ven)
+        if a and b:
+            return sc.miles(a, b) >= NHL_SAME_CITY_MI
+    except Exception:                                        # noqa: BLE001
+        pass
+    return (last.get("city") or "") != (g.get("city") or "")
 
 
 def nfl_first_cold(c):

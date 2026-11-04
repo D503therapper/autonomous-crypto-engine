@@ -18609,6 +18609,123 @@ def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_i
     finally:
         sd.fetch_injuries = keep_f
         sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+def test_daily_1104_interception_unlucky_college_dog_is_a_plus_2_weight_plus_two_tracker_leads():
+    """11/4 daily run (10 studies, results/studies/daily_1104/): ONE WEIGHT - the college football dog whose season
+    interception margin (made minus thrown a game, from its box scores, 5+ games) runs -0.5 or worse wins more than its
+    price says: +20.4% on 277 at the close (train 2021-23 3 of 3 up, held 2024 / 2025 / 2026 up), +25.1% at the first
+    fair number, the lucky dog at the base - +2 on the dog's study points (sports.NCAAF_INT_LUCK_PTS, inside STUDY_CAP),
+    never a gate, unknown (no box scores) = 0. TWO tracker LEADS (never a weight): the NHL home dog vs a favorite on a
+    road-road back-to-back in a new city, the NBA dog in its top scorer's 3rd game back."""
+    import sports_absences as sa
+    import sports_leads as sl
+    assert sports.NCAAF_INT_LUCK_PTS == 2 and sports.NCAAF_INT_LUCK_M == -0.5 and sa.INT_LUCK_MIN_GAMES == 5
+
+    def box(gid, start, thrown, made):
+        rs = [{"gid": gid, "start": start, "team": "7", "pid": "qb", "player": "The QB", "group": "passing",
+               "stats": json.dumps({"completions/passingAttempts": "20/30", "interceptions": str(thrown)})}]
+        for i in range(made):
+            rs.append({"gid": gid, "start": start, "team": "7", "pid": f"db{i}", "player": f"DB {i}",
+                       "group": "interceptions", "stats": json.dumps({"interceptions": "1"})})
+        return (start, gid, rs)
+    rows = [box(f"ncaaf:g{i}", f"2026-{9 + i // 4:02d}-{1 + 7 * (i % 4):02d}T20:00Z", 2, 0) for i in range(6)]
+    G = {f"ncaaf:g{i}": {"stype": "2"} for i in range(6)}
+    got = sa.int_margin(G, "ncaaf", "7", "2026-11-01T00:00Z", rows=rows)
+    assert got == {"margin": -2.0, "games": 6}, got                        # 0 made, 2 thrown a game over 6 games
+    assert sa.int_margin(G, "ncaaf", "7", "2026-09-30T00:00Z", rows=rows) is None   # 4 games in: under the floor
+    assert sa.int_margin(G, "ncaaf", "7", "2026-10-02T00:00Z", rows=rows) == {"margin": -2.0, "games": 5}
+    G2 = dict(G, **{"ncaaf:g0": {"stype": "1"}})                         # a preseason / exhibition game doesn't count
+    assert sa.int_margin(G2, "ncaaf", "7", "2026-10-02T00:00Z", rows=rows) is None
+    lucky = [box(f"ncaaf:l{i}", f"2026-10-{1 + 3 * i:02d}T20:00Z", 0, 2) for i in range(5)]
+    assert sa.int_margin({}, "ncaaf", "7", "2026-11-01T00:00Z", rows=lucky)["margin"] == 2.0
+    assert sa.int_margin({}, "ncaaf", "7", "2025-11-01T00:00Z", rows=rows) is None   # last season's rows: not this season
+    assert sa.int_margin({}, "nhl", "7", "2026-11-01T00:00Z", rows=rows) is None     # football only
+    assert sa.int_margin({}, "ncaaf", "7", "2026-11-01T00:00Z", rows=[]) is None     # no box scores: unknown, never a guess
+    # the marks on the day's candidates (this season's box rows patched in - no file read)
+    keep_team = dict(sa._TEAM)
+    sa._TEAM.clear()
+    sa._TEAM["ncaaf"] = {"7": rows, "8": lucky}
+    try:
+        games = {"ncaaf:tonight": {"id": "ncaaf:tonight", "league": "ncaaf", "start": "2026-11-07T20:00Z", "home": "8",
+                                   "away": "7", "home_name": "Eights", "away_name": "Sevens", "status": "pre", "stype": "2"},
+                 **{k: dict(v, id=k, league="ncaaf", status="final") for k, v in G.items()}}
+        base = {"game_id": "ncaaf:tonight", "league": "ncaaf", "start": "2026-11-07T20:00Z", "reasons": []}
+        dog = {**base, "market": "ml", "side": "away", "home": False, "odds": 180, "dec": 2.8, "dog_ctx": {}, "dog_more": {}}
+        fav = {**base, "market": "ml", "side": "home", "home": True, "odds": -220, "dec": 1.4545, "edge_own": 0.0}
+        sp = {**base, "market": "spread", "side": "away", "home": False, "line": 6.5, "odds": -110, "dec": 1.909, "p": 0.5}
+        cands = [dog, fav, sp]
+        sports.mark_ncaaf_int_luck(games, cands)
+        assert dog["int_unlucky"] == {"margin": -2.0, "games": 6} and dog["int_margin"] == -2.0
+        assert "int_unlucky" not in fav and fav["int_margin"] == 2.0 and "int_unlucky" not in sp
+        assert any("picks have gone against them" in r and "-2.0 a game over 6 games" in r for r in dog["reasons"])
+        assert not fav["reasons"]                                        # the fact line goes on the dog only
+        plain = {**dog}
+        plain.pop("int_unlucky")
+        assert sports.dog_spots(dog) == sports.dog_spots(plain) + 2      # +2 on the dog's study points, never a gate
+        assert sports.dog_spots({**dog, "league": "nfl"}) == sports.dog_spots({**plain, "league": "nfl"})   # not the NFL
+        assert "college football dog, interception-unlucky (-0.5 a game or worse)" in sl.tags(dog, sports)
+        assert "interception-unlucky" not in " ".join(sl.tags(fav, sports))
+        assert "interception-unlucky" not in " ".join(sl.tags({**dog, "odds": 400, "dec": 5.0}, sports))   # past +350: no row
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+        assert "mark_ncaaf_int_luck(games, out)" in src                  # wired into the day's candidates
+    finally:
+        sa._TEAM.clear()
+        sa._TEAM.update(keep_team)
+    # the NBA LEAD: the top scorer's 3rd game back (a hand-built box table: 8 team games, 's' the scorer)
+    assert sl.NBA_STAR_MIN_GP == 5 and sl.NBA_STAR_MISSED == 2 and sl.NBA_STAR_NTH == 3
+
+    def nb(played):
+        out = []
+        for i, p in enumerate(played):
+            men = {"r1": 12.0, "r2": 10.0}
+            if p:
+                men["s"] = 30.0
+            out.append((f"2026-11-{1 + 2 * i:02d}T00:00Z", f"nba:b{i}", men))
+        return {"N": out}
+    keep_g = dict(sl._GAMES)
+    try:
+        sl._GAMES["nba"] = {"nba:tn": {"id": "nba:tn", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2",
+                                       "home": "N", "away": "x"}}
+        c = {"market": "ml", "league": "nba", "game_id": "nba:tn", "side": "home", "home": True, "odds": 140, "dec": 2.4,
+             "start": "2026-11-20T00:00Z", "team": "Ns", "opp": "xs", "reasons": [], "dog_more": {}, "dog_ctx": {}}
+        assert sl.nba_star_third_back(c, box=nb([1, 1, 1, 1, 0, 0, 1, 1]))          # missed 2, played the last 2: 3rd back
+        assert sl.nba_star_third_back(c, box=nb([1, 1, 1, 0, 0, 0, 1, 1]))          # missed 3: still his 3rd game back
+        assert not sl.nba_star_third_back(c, box=nb([1, 1, 1, 1, 1, 0, 0, 1]))      # played 1 since: his 2nd (not tagged)
+        assert not sl.nba_star_third_back(c, box=nb([1, 1, 1, 0, 0, 1, 1, 1]))      # played 3 since: his 4th
+        assert not sl.nba_star_third_back(c, box=nb([1, 1, 1, 1, 1, 0, 1, 1]))      # missed only 1
+        assert not sl.nba_star_third_back(c, box=nb([1, 1, 1, 1, 1, 1, 1, 1]))      # never out
+        assert not sl.nba_star_third_back(c, box=nb([1, 1, 0, 0, 1, 1]))            # 4 games played by the star: under 5
+        assert not sl.nba_star_third_back(c, box={})                                # no box scores: never a guess
+        assert not sl.nba_star_third_back({**c, "league": "nhl"}, box=nb([1, 1, 1, 1, 0, 0, 1, 1]))
+        # the NHL LEAD: the home dog vs a favorite that played on the road last night in another city
+        def fg(i, start, home, away, city, status="final"):
+            return {"id": i, "start": start, "status": status, "stype": "2", "home": home, "away": away, "city": city,
+                    "state": "ZZ", "country": "Nowhere", "home_score": "3", "away_score": "2"}
+        H = {"nhl:a1": fg("nhl:a1", "2026-11-19T00:00Z", "Q", "A", "Farville"),          # A played away last night
+             "nhl:h1": fg("nhl:h1", "2026-11-16T00:00Z", "H", "R", "Hometown"),          # H last played 3 nights ago
+             "nhl:tn": fg("nhl:tn", "2026-11-20T00:00Z", "H", "A", "Hometown", "pre")}
+        sl._GAMES["nhl"] = H
+        hd = {"market": "ml", "league": "nhl", "game_id": "nhl:tn", "side": "home", "home": True, "odds": 125, "dec": 2.25,
+              "start": "2026-11-20T00:00Z", "team": "Hs", "opp": "As", "reasons": [], "dog_more": {}, "dog_ctx": {}}
+        assert sl.nhl_vs_new_city_b2b(hd)
+        assert "NHL dog vs a favorite on a road-road back-to-back in a new city" in sl.tags(hd, sports)
+        assert not sl.nhl_vs_new_city_b2b({**hd, "side": "away", "home": False})     # the b2b side itself: no
+        H["nhl:a1"]["city"] = "Hometown"
+        assert not sl.nhl_vs_new_city_b2b(hd)                                        # same city: not the new-city b2b
+        H["nhl:a1"]["city"] = "Farville"
+        H["nhl:a1"]["home"], H["nhl:a1"]["away"] = "A", "Q"
+        assert not sl.nhl_vs_new_city_b2b(hd)                                        # A was HOME last night: home->road
+        H["nhl:a1"]["home"], H["nhl:a1"]["away"] = "Q", "A"
+        H["nhl:a1"]["start"] = "2026-11-18T00:00Z"
+        assert not sl.nhl_vs_new_city_b2b(hd)                                        # two nights ago: no b2b
+        H["nhl:a1"]["start"] = "2026-11-19T00:00Z"
+        H["nhl:h1"]["start"] = "2026-11-19T00:00Z"
+        assert not sl.nhl_vs_new_city_b2b(hd)                                        # we played last night too
+        H["nhl:tn"]["neutral"] = "1"
+        H["nhl:h1"]["start"] = "2026-11-16T00:00Z"
+        assert not sl.nhl_vs_new_city_b2b(hd)                                        # a neutral rink: nobody's home
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
 
 
 if __name__ == "__main__":
