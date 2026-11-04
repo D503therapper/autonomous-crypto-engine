@@ -255,3 +255,160 @@ def reb_margin(team, start):
     if len(rows) < REB_MIN_GAMES:
         return None
     return round(sum(rows) / len(rows), 2)
+
+
+# ---------------- 11/3 KNOWLEDGE (A): availability in-season + the roster mix late (BUILT as weights) ----------------
+REG_TOP = 7                  # the team's REGULARS: its top 7 by minutes a game this season before tonight...
+REG_MIN_MPG = 15             # ...at 15+ a game
+LONG_OUT_GAMES = 4           # a regular missing the last 4+ games running (the 11/3 KNOWLEDGE (A) study 2: the dog with
+#                              one -15.0% on 847 vs -8.2% for other dogs, 0 of 2 train / 0 of 3 held out up, ESPN's open
+#                              -21.8%; Jan-Mar -13.8% on 826; the 2-3 game absence -6.2% = the base - the market prices
+#                              the fresh news and then STOPS adjusting as the absence runs on). Never the top scorer -
+#                              he's the built 11/3 DEEP top_out weight. A -2 on the dog's study points (sports.dog_spots).
+LONG_OUT_MIN_BOX = 5         # the team needs 5+ box games this season before the flag can fire
+TIN_HEAVY = 0.28             # 11/3 KNOWLEDGE (A) study 3: the top third of teams by this season's minutes played by D1
+NEW_HEAVY = 0.26             # transfers (0.27-0.28 in 2022-25) / by newcomers with no earlier D1 box (0.25-0.29).
+#                              Feb-Mar: the transfer-heavy side ATS -7.3% (Feb) / -6.5% (Mar) on 3,979 vs -4.4%, the
+#                              60%+-new roster -8.8% on 3,519 (0 of 1 train / 0 of 3 held up); the freshman-heavy side
+#                              vs an experienced team +2.6% on 1,236 and the experienced team across it -11.4% (0 of 4
+#                              seasons up) - the young team is the one still improving in February. Spread-rank
+#                              weights ±0.02 (sports.ncaab_roster_spread_w), never a gate.
+PAST_SEASONS = 4             # a newcomer = no minutes in any of the last 4 seasons' boxes
+_PIDS = {}                   # season -> (mtime, {pid with minutes})
+
+
+def regulars(boxes, before):
+    """[(pid, name, minutes a game, games)] - the team's top REG_TOP men by minutes a game before `before`."""
+    gp = {}
+    for s, _, ps in boxes:
+        if s >= before:
+            break
+        for pid, (m, pts, name) in ps.items():
+            if m > 0:
+                g = gp.setdefault(pid, [0, 0.0, name])
+                g[0] += 1
+                g[1] += m
+    n = sum(1 for s, _, _ in boxes if s < before)
+    cand = sorted(((g[1] / n, pid, g[2], g[0], g[1]) for pid, g in gp.items() if n and g[1] / n >= REG_MIN_MPG), reverse=True)
+    return [(pid, name, round(mins / games, 1), games) for _, pid, name, games, mins in cand[:REG_TOP]]   # (minutes a
+    #                                                                       game PLAYED on the card; ranked over team games)
+
+
+def long_out(games, team, start):
+    """None (unknown) or {"n": how many regulars (not the top scorer) have missed the last LONG_OUT_GAMES+ games,
+    "who": [(name, minutes a game, games missed)]} - from this season's box scores, known before tip."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        boxes = team_boxes(season_of(start)).get(str(team)) or []
+    except Exception:                                        # noqa: BLE001
+        return None
+    before = [b for b in boxes if b[0] < start]
+    if len(before) < LONG_OUT_MIN_BOX:
+        return None
+    last = _last_final(games, team, start)
+    if not last or not any(gid == last[1] for _, gid, _ in before):
+        return None                                          # (the last game's box isn't on file yet: unknown)
+    top = top_scorer(before, start)
+    who = []
+    for pid, name, mpg, _ in regulars(before, start):
+        if top and pid == top[0]:
+            continue
+        run = 0
+        for _, _, ps in reversed(before):
+            if (ps.get(pid) or (0, 0, ""))[0] > 0:
+                break
+            run += 1
+        if run >= LONG_OUT_GAMES:
+            who.append((name, mpg, run))
+    return {"n": len(who), "who": who}
+
+
+def _pids(season):
+    """{pid} with minutes in that season's boxes (cached on the file's mtime)."""
+    path = os.path.join(DIR, f"ncaab_{season}.csv.gz")
+    try:
+        mt = os.path.getmtime(path)
+    except OSError:
+        return set()
+    hit = _PIDS.get(season)
+    if hit and hit[0] == mt:
+        return hit[1]
+    out = set()
+    for lst in team_boxes(season).values():
+        for _, _, ps in lst:
+            out.update(p for p, v in ps.items() if v[0] > 0)
+    _PIDS[season] = (mt, out)
+    return out
+
+
+def roster_mix(games, team, start):
+    """None (unknown) or {"n": box games, "tin": the share of the team's minutes so far by D1 TRANSFERS (men who
+    scored for another D1 team last season), "new": the share by NEWCOMERS (no minutes in any of the last
+    PAST_SEASONS seasons' boxes)}."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    s = season_of(start)
+    try:
+        boxes = [b for b in (team_boxes(s).get(str(team)) or []) if b[0] < start]
+    except Exception:                                        # noqa: BLE001
+        return None
+    if len(boxes) < TEAM_MIN_BOX:
+        return None
+    pp, _, _ = _last_season(games, s - 1)
+    old = set()
+    for k in range(1, PAST_SEASONS + 1):
+        old |= _pids(s - k)
+    if not old:
+        return None                                          # (no earlier box on file at all: nothing to compare to)
+    tot = tin = new = 0.0
+    for _, _, ps in boxes:
+        for pid, (m, _, _) in ps.items():
+            if m <= 0:
+                continue
+            tot += m
+            lp = pp.get(pid) or {}
+            if any(ot != str(team) for ot in lp):
+                tin += m
+            elif pid not in old:
+                new += m
+    if not tot:
+        return None
+    return {"n": len(boxes), "tin": round(tin / tot, 3), "new": round(new / tot, 3)}
+
+
+CUT_MIN_TEAMS = 100          # the season's own top-third cuts need 100+ teams with a roster read; else the fixed ones
+CUT_MIN_BOX = 10             # ...each with 10+ box games (the study's rows), so the thin non-D1 rosters don't set the cut
+_CUTS = {}                   # (season, day) -> (tin cut, new cut, teams)
+
+
+def roster_cuts(games, start):
+    """(transfer-heavy cut, freshman-heavy cut, teams read): the top third of this season's D1 teams on each share as
+    of `start` (the study ranked WITHIN the season - the portal era moves the whole distribution year to year); the
+    fixed TIN_HEAVY / NEW_HEAVY when fewer than CUT_MIN_TEAMS teams have a read. Cached per day."""
+    start = str(start or "")
+    if len(start) < 10:
+        return TIN_HEAVY, NEW_HEAVY, 0
+    key = (season_of(start), start[:10])
+    if key in _CUTS:
+        return _CUTS[key]
+    tins, news = [], []
+    try:
+        for team in list(team_boxes(key[0]).keys()):
+            m = roster_mix(games, team, start)
+            if m and m["n"] >= CUT_MIN_BOX:                  # (D1 teams well into the season, as the study's rows were)
+                tins.append(m["tin"])
+                news.append(m["new"])
+    except Exception:                                        # noqa: BLE001
+        return TIN_HEAVY, NEW_HEAVY, 0
+    if len(tins) < CUT_MIN_TEAMS:
+        out = (TIN_HEAVY, NEW_HEAVY, len(tins))
+    else:
+        tins.sort()
+        news.sort()
+        out = (round(tins[int(len(tins) * 2 / 3)], 3), round(news[int(len(news) * 2 / 3)], 3), len(tins))
+    _CUTS.clear()
+    _CUTS[key] = out
+    return out

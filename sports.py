@@ -812,10 +812,17 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
+    mark_ncaab_coach(games, out)                      # 🏀 11/3 KNOWLEDGE (A): the coach on every side (new this season?)
+    mark_ncaab_long_out(games, out)                   # 🏀 11/3 KNOWLEDGE (A): a regular out 4+ games running (-2 dog)
+    mark_ncaab_race(games, out)                       # 🏀 11/3 KNOWLEDGE (A): Feb-Mar, 5+ back vs a contender (-3 dog)
+    mark_ncaab_identity(games, out)                   # 🏀 11/3 KNOWLEDGE (A): turnover margin / offense-first from the box
+    mark_ncaab_roster_mix(games, out)                 # 🏀 11/3 KNOWLEDGE (A): transfer / freshman minute shares (Feb-Mar rank)
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
     weigh_ncaab_top_out(out)                          # 🏀 11/3 DEEP: ...and the favorite whose own top scorer missed it
     weigh_ncaab_eff_fav(games, out)                   # 🏀 11/3 DEEP: the slight favorite our efficiency ratings don't buy
+    weigh_ncaab_new_coach_fav(games, out)             # 🏀 11/3 KNOWLEDGE (A): a first-year coach's small favorite, Jan-Mar
+    weigh_ncaab_to_fav(out)                           # 🏀 11/3 KNOWLEDGE (A): the turnover-prone small favorite
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -2144,6 +2151,12 @@ def dog_spots(c):
     if lg == "ncaab" and c.get("top_out"):
         sc -= NCAAB_TOP_OUT_PTS    # 11/3 DEEP: the college hoops dog whose top scorer missed its last game -20.5% on 617 vs
         #                            -5.7% (train / held out 0 of 4 seasons at the base; the open -20.7% vs -7.9%)
+    if lg == "ncaab" and c.get("long_out"):
+        sc -= NCAAB_LONG_OUT_PTS   # 11/3 KNOWLEDGE (A): a regular (not the top scorer) out 4+ games running - the dog
+        #                            -15.0% on 847 vs -8.2% (0 of 2 train / 0 of 3 held out up, the open -21.8%)
+    if lg == "ncaab" and c.get("race_dog"):
+        sc -= NCAAB_RACE_PTS       # 11/3 KNOWLEDGE (A): Feb-Mar conference play, 5+ games out of first vs a team within a
+        #                            game of it -31.2% on 664 (8 of 8 seasons down, the open -29.3%) vs -8.6%
     if lg == "nba" and c.get("lost_man"):
         sc -= NBA_LOST_MAN_PTS     # 11/3 daily study 7: the NBA dog that lost a 20+ minute man in its last 10 games -19.7%
         #                            on 284 in games 4-10 (0 of 5 train seasons up, 3 of 3 held down, the morning -16.5%)
@@ -2978,6 +2991,8 @@ def rank_p(c):
             #                                                     the owner, 11/3: "not one thing decides a pick")
             + ncaab_fable_spread_w(c)                          # (11/3 FABLE: the ranked road team Nov-Dec, the hot-ATS side,
             #                                                     the glass - each ±0.02-0.03, a weight never a gate)
+            + ncaab_roster_spread_w(c)                         # (11/3 KNOWLEDGE (A): Feb-Mar, the transfer-heavy side -0.02,
+            #                                                     the freshman-heavy side vs an experienced team +0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -3741,6 +3756,274 @@ def ncaab_fable_spread_w(c):
     if rg is not None:
         w += NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0
     return w
+
+
+# 🏀 11/3 FABLE: COLLEGE HOOPS KNOWLEDGE (A) (the owner: "If the engine is knowledgeable on the teams, the injuries, the
+# players, the new players, the coaches ... there's no reason why we should be complete losers") - results/studies/
+# cbb_knowledge_a/, SPORTS_FINDINGS "11/3 - FABLE: COLLEGE HOOPS KNOWLEDGE (A)". Five kinds of knowledge the engine
+# never had, each tested against ESPN's close 2018-26 (train 2018-22, held out 2023 / 2024 / 2025, the open as the
+# second check) and wired as WEIGHTS inside STUDY_CAP / FAV_CAP / the rank nudge - never a trigger:
+NCAAB_NEW_COACH_FAV_W = -0.03     # (1) COACHES (sports_ncaab_coaches - the coach table rebuilt from Wikipedia's change
+NCAAB_NEW_COACH_FAV_BAND = (-150, -101)   # tables + ESPN's current list): a FIRST-YEAR coach's -101..-150 favorite in
+NCAAB_NEW_COACH_DOG_MAX = 160     # (the dog across a -101..-150 favorite sits at +100..+160 - it gets the fact as a reason)
+NCAAB_POWER_ANCHORS = {"Duke", "Kansas", "Kentucky", "Michigan", "Villanova", "Arizona"}   # a league holding one = power
+NCAAB_NEW_COACH_MONTHS = ("01", "02", "03")   # Jan-Mar lost -11.4% on 762 (7 of 8 seasons, the open -9.1%; the team's
+#                                   dog -10.6% / its spread sides -6.8% the same way; December -1.7%, -151..-250 -3.6%
+#                                   = the base) vs -3.5% for every Jan-Mar small favorite - the market keeps believing in
+#                                   the new coach's team as year one wears on. -3 on the favorite's weighed read.
+NCAAB_LONG_OUT_PTS = 2            # (2) AVAILABILITY (sports_ncaab_roster.long_out): a REGULAR (top 7 by minutes, not
+#                                   the top scorer) missing the last 4+ games running - the dog -15.0% on 847 vs -8.2%
+#                                   (0 of 2 train / 0 of 3 held out up, the open -21.8%; the 2-3 game absence = the
+#                                   base: the books price the fresh news, then stop moving). -2 on the dog's points.
+NCAAB_RACE_PTS = 3                # (5) CONFERENCE (sports.ncaab_standings): in Feb-Mar conference play the dog 5+
+NCAAB_RACE_GB = 5.0               # games out of first vs a team within a game of it lost -31.2% on 664 (8 of 8
+NCAAB_RACE_CONTEND = 1.0          # seasons down, train -31.9% / held -29.9%, the open -29.3%; not the 5+ skid - without
+NCAAB_RACE_MIN_GAMES = 8          # it -31.1%; vs a fellow also-ran -0.5% = even) vs -8.6% for every Feb-Mar conference
+NCAAB_RACE_MONTHS = ("02", "03")  # dog. Power leagues sit at the base (-8.3%) - skipped. -3 on the dog's points.
+NCAAB_TO_FAV_W = -0.02            # (4) IDENTITY (sports_ncaab_box.identity): the TURNOVER-PRONE team (margin -0.5 a
+NCAAB_TO_FAV_BAND = (-150, -101)  # game or worse, the bottom third) as a -101..-150 favorite -9.7% on 1,314 (0 of 2 /
+#                                   0 of 3, the open -7.2%; the bottom sixth -13.2%; home / away / both halves of the
+#                                   season / both price halves all down) vs -4.2%. -2 on the favorite's weighed read.
+NCAAB_ROSTER_W = 0.02             # (3) NEW PLAYERS (sports_ncaab_roster.roster_mix): Feb-Mar spread rank -0.02 on the
+NCAAB_ROSTER_MONTHS = ("02", "03")   # TRANSFER-heavy side (28%+ of the minutes by D1 transfers: ATS -7% vs -4.4%, the
+#                                   60%+-new roster -8.8% on 3,519, 0 of 4 seasons up - new rosters fade late), +0.02 on
+#                                   the FRESHMAN-heavy side (26%+ by newcomers) vs a team that isn't (+2.6% on 1,236,
+#                                   the experienced side across -11.4%, 0 of 4 up - the young team is still improving).
+
+
+def mark_ncaab_coach(games, cands):
+    """Every college hoops side gets its coach (sports_ncaab_coaches.state - name, seasons with the team, new this
+    season); ncaab_new_coach on a first-year coach's sides, opp_new_coach across."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_coaches as nc
+        table = nc.load()
+    except Exception:                                        # noqa: BLE001
+        return
+    if not table:
+        return
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side = c.get("side")
+        if side not in ("home", "away") or not g.get(side):
+            continue
+        me = nc.state(g[side], start, table)
+        op = nc.state(g["away" if side == "home" else "home"], start, table)
+        if me:
+            c["coach_name"], c["coach_tenure"] = me["coach"], me.get("tenure")
+            if me.get("new"):
+                c["ncaab_new_coach"] = True
+        if op and op.get("new"):
+            c["opp_new_coach"] = True
+            c["opp_coach_name"] = op["coach"]
+
+
+def weigh_ncaab_new_coach_fav(games, cands):
+    """A first-year coach's -101..-150 college hoops favorite in Jan-Mar: its weighed read goes down
+    NCAAB_NEW_COACH_FAV_W (floor own - FAV_CAP); the dog across gets the fact as a reason."""
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "ml":
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        try:
+            month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+        except ValueError:
+            continue
+        if month not in NCAAB_NEW_COACH_MONTHS:
+            continue
+        if c.get("ncaab_new_coach") and NCAAB_NEW_COACH_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_NEW_COACH_FAV_BAND[1] \
+                and c.get("edge_own") is not None and c.get("dec"):
+            own = (c["edge_own"] + 1) / c["dec"]
+            base = c["w_p"] if c.get("w_p") is not None else own
+            c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_NEW_COACH_FAV_W))), 4)
+            c["ncaab_new_coach_fav"] = True
+        elif c.get("opp_new_coach") and 100 <= c.get("odds", 0) <= NCAAB_NEW_COACH_DOG_MAX:   # the dog across it
+            c["reasons"] = c["reasons"] + [f"{c.get('opp_coach_name') or 'their coach'} is in his first season there - a "
+                                           "first-year coach's small favorite in Jan-Mar lost -11% (7 of 8 seasons)"]
+
+
+def mark_ncaab_long_out(games, cands):
+    """A regular (not the top scorer) out 4+ games running: long_out (how many) on that side, opp_long_out across
+    with the fact as a reason (sports_ncaab_roster.long_out - no box for the last game = unknown = nothing)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_ncaab_roster as nr
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nr.long_out(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me and me["n"]:
+            c["long_out"] = me["n"]
+            c["long_out_who"] = me["who"]
+        if op and op["n"]:
+            c["opp_long_out"] = op["n"]
+            name, mpg, run = op["who"][0]
+            c["reasons"] = c["reasons"] + [f"their {name} ({mpg:.0f} minutes a game) has missed {run} straight - the books "
+                                           "stop adjusting for a long absence (0 of 5 seasons at the base)"]
+
+
+def ncaab_conferences(games, season):
+    """{team id: (conference key, power)} - sports_ncaab_knowledge.conferences (the schedule-inferred leagues)."""
+    import sports_ncaab_knowledge as nk
+    return nk.conferences(games, season)
+
+
+def ncaab_standings(games, season, conf):
+    """{team id: [conference wins, losses]} - sports_ncaab_knowledge.standings."""
+    import sports_ncaab_knowledge as nk
+    return nk.standings(games, season, conf)
+
+
+def mark_ncaab_race(games, cands):
+    """Feb-Mar conference play (sports_ncaab_knowledge.race): race_dog on the dog NCAAB_RACE_GB+ games out of first
+    facing a team within NCAAB_RACE_CONTEND of it (never a power league); the favorite across gets the fact as a
+    reason; conf_gb / opp_conf_gb on every side that has standings."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") == "ml"]
+    if not hoops:
+        return
+    import sports_ncaab_knowledge as nk
+    nk.RACE_GB, nk.RACE_CONTEND, nk.RACE_MIN_GAMES, nk.RACE_MONTHS = NCAAB_RACE_GB, NCAAB_RACE_CONTEND, NCAAB_RACE_MIN_GAMES, NCAAB_RACE_MONTHS
+    nk.POWER_ANCHORS = NCAAB_POWER_ANCHORS
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral")) == "1" or nk.month_of(start) not in NCAAB_RACE_MONTHS:
+            continue
+        side = c.get("side")
+        if side not in ("home", "away") or not g.get("home") or not g.get("away"):
+            continue
+        me, op = (g["home"], g["away"]) if side == "home" else (g["away"], g["home"])
+        try:
+            r = nk.race(games, me, op, start)
+        except Exception:                                    # noqa: BLE001
+            continue
+        if r["conf_gb"] is None:
+            continue
+        c["conf_gb"], c["opp_conf_gb"] = r["conf_gb"], r["opp_conf_gb"]
+        if c.get("odds", 0) >= 100 and r["race_dog_side"]:
+            c["race_dog"] = True
+        elif c.get("odds", 0) < 0 and not r["conf_power"] and r["opp_conf_gb"] >= NCAAB_RACE_GB and r["conf_gb"] <= NCAAB_RACE_CONTEND:
+            c["vs_race_dog"] = True
+            where = "in first" if r["conf_gb"] == 0 else f"{r['conf_gb']:g} back"
+            c["reasons"] = c["reasons"] + [f"{g.get(('away' if side == 'home' else 'home') + '_name') or 'they'} "
+                                           f"sit {r['opp_conf_gb']:g} games out of first with nothing to play for, we're "
+                                           f"{where} - that dog lost -31% in Feb-Mar (8 of 8 seasons)"]
+
+
+def mark_ncaab_identity(games, cands):
+    """The team box identity (sports_ncaab_box.identity, 5+ box games): to_margin / off_first on every college hoops
+    side (the opponent's on opp_*)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_box as nb
+    except Exception:                                        # noqa: BLE001
+        return
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nb.identity(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me:
+            c["to_margin"] = me["tom"]
+            c["off_first"] = me["off"] >= nb.OFF_HI and me["def"] > nb.DEF_GOOD
+            c["def_first"] = me["def"] <= nb.DEF_GOOD and me["off"] < nb.OFF_HI
+        if op:
+            c["opp_off_low"] = op["off"] <= nb.OFF_LO
+
+
+def weigh_ncaab_to_fav(cands):
+    """The turnover-prone college hoops -101..-150 favorite: its weighed read goes down NCAAB_TO_FAV_W (floor own -
+    FAV_CAP) - a weight, never a trigger."""
+    try:
+        import sports_ncaab_box as nb
+    except Exception:                                        # noqa: BLE001
+        return
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("to_margin") is None:
+            continue
+        if not (NCAAB_TO_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_TO_FAV_BAND[1]) or c["to_margin"] > nb.TOM_PRONE:
+            continue
+        if c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_TO_FAV_W))), 4)
+        c["ncaab_to_fav"] = True
+        c["reasons"] = c["reasons"] + [f"coughing it up {-c['to_margin']:.1f} more a game than it forces - the turnover-"
+                                       "prone small favorite loses to its price (5 of 5 seasons)"]
+
+
+def mark_ncaab_roster_mix(games, cands):
+    """roster_tin / roster_new (this season's minute shares by D1 transfers / newcomers - sports_ncaab_roster.
+    roster_mix) on every college hoops side, the opponent's under opp_roster_new."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_ncaab_roster as nr
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nr.roster_mix(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me:
+            c["roster_tin"], c["roster_new"] = me["tin"], me["new"]
+            cut = nr.roster_cuts(games, start)                 # (the season's own top-third cuts, cached per day)
+            c["roster_cut"] = (cut[0], cut[1])
+        if op:
+            c["opp_roster_new"] = op["new"]
+
+
+def ncaab_roster_spread_w(c):
+    """The Feb-Mar roster rank weights on a college hoops SPREAD side: the transfer-heavy side -NCAAB_ROSTER_W, the
+    freshman-heavy side vs a team that isn't +NCAAB_ROSTER_W (never both on one side)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or c.get("roster_tin") is None:
+        return 0.0
+    start = str(c.get("start") or "")
+    try:
+        month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+    except ValueError:
+        return 0.0
+    if month not in NCAAB_ROSTER_MONTHS:
+        return 0.0
+    import sports_ncaab_roster as nr
+    tin_cut, new_cut = c.get("roster_cut") or (nr.TIN_HEAVY, nr.NEW_HEAVY)
+    if c["roster_tin"] >= tin_cut:
+        return -NCAAB_ROSTER_W
+    if c.get("roster_new", 0) >= new_cut and c.get("opp_roster_new") is not None and c["opp_roster_new"] < new_cut:
+        return NCAAB_ROSTER_W
+    return 0.0
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9

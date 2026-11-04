@@ -1,0 +1,101 @@
+regular-season sides 92982, conference home / road sides 51058
+conference sides with a prior-seasons league home read (300+): 16066
+league home-margin quartile cuts: 2022 -0.26/+0.65, 2023 -0.37/+0.47, 2024 -0.72/+0.25, 2025 -0.65/+0.14
+
+== A. HOME-COURT STRENGTH BY LEAGUE (prior seasons' home cover margin in conference play -> this season)
+base: conference home side ATS                                   ALL   -5.0% n6789  z-4.3 | TR   -4.5% n1738  0/2 up | HELD   -5.1% n5051  0/3 up | 21:-6 22:-4 23:-7 24:-5 25:-4
+base: conference home dog +100..+350 ML                          ALL   -7.2% n1710  z-2.3 | TR   -5.0% n438   1/2 up | HELD   -7.9% n1272  1/3 up | open(held)  -10.5% n1272  | 21:-15 22:+1 23:+1 24:-24 25:-0
+strong-floor league (top quartile): home side ATS                ALL   -3.7% n1967  z-1.7 | TR   -6.5% n265   0/1 up | HELD   -3.2% n1702  0/3 up | 22:-6 23:-3 24:-6 25:-0
+strong-floor league: home dog +100..+350 ML                      ALL   -2.3% n491   z-0.4 | TR   -6.9% n73    0/1 up | HELD   -1.5% n418   2/3 up | open(held)   -4.2% n418   | 22:-7 23:+15 24:-30 25:+14
+strong-floor league: home fav -101..-150 ML                      ALL  -10.1% n239   z-1.7 | TR  -10.7% n34    0/1 up | HELD  -10.0% n205   0/3 up | open(held)   -7.8% n205   | 22:-11 23:-14 24:-11 25:-6
+strong-floor league: road side ATS                               ALL   -5.1% n1967  z-2.4 | TR   -2.5% n265   0/1 up | HELD   -5.5% n1702  0/3 up | 22:-3 23:-6 24:-3 25:-8
+strong-floor league: road dog +100..+350 ML                      ALL  -11.4% n855   z-2.5 | TR  -15.9% n115   0/1 up | HELD  -10.7% n740   0/3 up | open(held)  -10.8% n740   | 22:-16 23:-12 24:-8 25:-14
+weak-floor league (bottom quartile): home side ATS               ALL   -5.3% n1363  z-2.0 | TR   -3.5% n275   0/1 up | HELD   -5.7% n1088  0/3 up | 22:-4 23:-12 24:-7 25:-0
+weak-floor league: home dog +100..+350 ML                        ALL  -13.5% n347   z-2.0 | TR   -3.3% n59    0/1 up | HELD  -15.6% n288   0/3 up | open(held)  -16.9% n288   | 22:-3 23:-11 24:-30 25:-8
+weak-floor league: road side ATS                                 ALL   -3.6% n1363  z-1.4 | TR   -5.6% n275   0/1 up | HELD   -3.1% n1088  1/3 up | 22:-6 23:+2 24:-1 25:-8
+weak-floor league: road dog +100..+350 ML                        ALL  -15.0% n604   z-2.8 | TR  -13.5% n147   0/1 up | HELD  -15.5% n457   0/3 up | open(held)  -17.9% n457   | 22:-13 23:-4 24:-22 25:-19
+weak-floor league: road fav -101..-150 ML                        ALL   -7.8% n168   z-1.1 | TR   -1.7% n44    0/1 up | HELD  -10.0% n124   0/3 up | open(held)   -8.7% n124   | 22:-2 23:-6 24:-3 25:-17
+   corr(prior league home margin, this game's home cover margin) = +0.003 on 6844
+power-tier league: conference home side ATS                      ALL   -4.7% n3146  z-2.8 | TR   -2.2% n1093  1/2 up | HELD   -6.0% n2053  0/3 up | 21:-5 22:+1 23:-5 24:-2 25:-11
+power-tier league: conference home dog ML                        ALL   -4.3% n765   z-0.9 | TR   -2.3% n276   1/2 up | HELD   -5.4% n489   1/3 up | open(held)   -8.2% n489   | 21:-15 22:+10 23:+11 24:-23 25:-4
+power-tier league: conference road dog ML                        ALL   -9.8% n1380  z-2.7 | TR  -16.4% n488   0/2 up | HELD   -6.3% n892   1/3 up | open(held)   -8.3% n892   | 21:-16 22:-16 23:-9 24:-10 25:+1
+power-tier league: conference road fav -101..-150 ML             ALL   -4.9% n334   z-1.0 | TR   -5.5% n119   0/2 up | HELD   -4.5% n215   1/3 up | open(held)   -0.2% n215   | 21:-3 22:-7 23:-9 24:-8 25:+2
+mid-tier league: conference home side ATS                        ALL   -2.7% n857   z-0.8 | TR   +2.2% n97    1/1 up | HELD   -3.3% n760   1/3 up | 22:+2 23:-10 24:-3 25:+0
+mid-tier league: conference home dog ML                          ALL  -13.1% n212   z-1.6 | TR  -16.3% n28    0/1 up | HELD  -12.6% n184   1/3 up | open(held)  -12.1% n184   | 22:-16 23:-28 24:-22 25:+4
+mid-tier league: conference road dog ML                          ALL  -14.9% n318   z-2.0 | TR   -9.3% n49    0/1 up | HELD  -15.9% n269   0/3 up | open(held)  -17.0% n269   | 22:-9 23:-6 24:-36 25:-8
+mid-tier league: conference road fav -101..-150 ML               ALL   -8.7% n97    z-0.9 | TR   +9.9% n11    1/1 up | HELD  -11.1% n86    0/3 up | open(held)   -9.5% n86    | 22:+10 23:-8 24:-7 25:-17
+low-tier league: conference home side ATS                        ALL   -5.9% n2786  z-3.3 | TR  -10.5% n548   0/2 up | HELD   -4.8% n2238  0/3 up | 21:-8 22:-11 23:-8 24:-8 25:-1
+low-tier league: conference home dog ML                          ALL   -8.5% n733   z-1.8 | TR   -8.3% n134   0/2 up | HELD   -8.6% n599   1/3 up | open(held)  -11.9% n599   | 21:-13 22:-7 23:-2 24:-27 25:+1
+low-tier league: conference road dog ML                          ALL   -4.8% n1288  z-1.3 | TR   -5.9% n274   0/2 up | HELD   -4.5% n1014  1/3 up | open(held)   -6.0% n1014  | 21:-12 22:-4 23:-1 24:+0 25:-10
+low-tier league: conference road fav -101..-150 ML               ALL   -6.1% n402   z-1.3 | TR   -4.6% n83    0/2 up | HELD   -6.5% n319   1/3 up | open(held)   -4.2% n319   | 21:-20 22:-0 23:-8 24:+0 25:-10
+
+== B. ROAD TEAMS BY LEAGUE - this season's league road cover record so far (60+ sides) and the prior seasons'
+league road cover margin so far 1.5+: road side ATS              ALL   -0.8% n596   z-0.2 | TR   -5.0% n364   2/5 up | HELD   +5.8% n232   3/3 up | 18:-22 19:-15 20:-100 21:+8 22:+0 23:+3 24:+15 25:+6
+league road cover margin so far 1.5+: road dog ML                ALL  -16.2% n262   z-2.0 | TR  -29.5% n164   0/5 up | HELD   +6.2% n98    1/3 up | open(held)   +5.8% n98    | 18:-60 19:-15 20:-100 21:-21 22:-20 23:-3 24:-34 25:+18
+league road cover margin so far -1.5 or worse: road side ATS     ALL   -0.2% n431   z-0.0 | TR   -2.8% n285   2/5 up | HELD   +4.9% n146   2/3 up | 18:+1 19:-6 20:-2 21:+5 22:-1 23:+7 24:+11 25:-19
+league road cover margin so far -1.5 or worse: home side ATS     ALL   -8.9% n431   z-1.9 | TR   -6.3% n285   0/5 up | HELD  -13.9% n146   1/3 up | 18:-11 19:-3 20:-7 21:-15 22:-8 23:-16 24:-20 25:+11
+league road cover margin so far -1.5 or worse: home dog ML       ALL  -12.7% n100   z-1.0 | TR  -17.4% n68    1/5 up | HELD   -2.9% n32    1/3 up | open(held)  -14.8% n32    | 18:-26 19:-14 20:-3 21:+10 22:-66 23:+50 24:-33 25:-100
+prior seasons' league road margin +1 or better: road side ATS    ALL   -5.4% n242   z-0.9 | TR   -0.4% n71    0/1 up | HELD   -7.5% n171   0/2 up | 22:-0 23:-13 25:-4
+prior seasons' league road margin +1 or better: road dog ML      ALL   -0.9% n135   z-0.1 | TR   -8.3% n42    0/1 up | HELD   +2.4% n93    2/2 up | open(held)   +3.6% n93    | 22:-8 23:+1 25:+4
+prior seasons' league road margin -1 or worse: road side ATS     ALL   +0.2% n391   z+0.0 | TR   +1.4% n277   1/2 up | HELD   -2.9% n114   0/1 up | 21:-0 22:+3 23:-3
+prior seasons' league road margin -1 or worse: home dog ML       ALL  +10.5% n101   z+0.7 | TR  -11.8% n76    0/2 up | HELD  +78.5% n25    1/1 up | open(held)  +62.5% n25    | 21:-27 22:-1 23:+78
+
+== C. LATE-SEASON STANDINGS PRESSURE (Feb-Mar conference games)
+Feb-Mar conference sides with standings at tip: 29296
+base: Feb-Mar conference side with standings ATS                 ALL   -4.5% n20901 z-6.8 | TR   -4.5% n12418 0/5 up | HELD   -4.4% n8483  0/3 up | 18:-5 19:-4 20:-4 21:-5 22:-5 23:-5 24:-4 25:-4
+base: Feb-Mar conference side with standings dog +100..+350 ML   ALL   -8.6% n7546  z-5.7 | TR   -9.7% n4532  0/5 up | HELD   -7.1% n3014  0/3 up | open(held)  -10.7% n3014  | 18:-7 19:-14 20:-3 21:-14 22:-9 23:-5 24:-14 25:-2
+base: Feb-Mar conference side with standings fav -101..-150 ML   ALL   -3.8% n2839  z-2.3 | TR   -2.9% n1684  0/5 up | HELD   -5.2% n1155  0/3 up | open(held)   -3.1% n1155  | 18:-4 19:-6 20:-3 21:-1 22:-1 23:-7 24:-3 25:-6
+the leader / within a game of first ATS                          ALL   -5.9% n3636  z-3.7 | TR   -5.7% n2343  1/5 up | HELD   -6.3% n1293  0/3 up | 18:-5 19:-12 20:-3 21:-8 22:+0 23:-7 24:-4 25:-8
+the leader / within a game of first dog +100..+350 ML            ALL   -1.0% n570   z-0.2 | TR   -5.6% n395   1/5 up | HELD   +9.2% n175   2/3 up | open(held)   +1.9% n175   | 18:+17 19:-14 20:-12 21:-7 22:-15 23:-2 24:+22 25:+13
+the leader / within a game of first fav -101..-150 ML            ALL   -3.4% n437   z-0.8 | TR   +1.0% n289   2/5 up | HELD  -11.9% n148   0/3 up | open(held)  -11.2% n148   | 18:-4 19:-17 20:+21 21:+10 22:-2 23:-8 24:-18 25:-11
+the bottom three of the league ATS                               ALL   -3.1% n4465  z-2.2 | TR   -1.9% n2728  2/5 up | HELD   -5.1% n1737  0/3 up | 18:-3 19:+0 20:-3 21:-6 22:+2 23:-6 24:-6 25:-4
+the bottom three of the league dog +100..+350 ML                 ALL  -12.1% n2086  z-4.1 | TR  -12.4% n1272  1/5 up | HELD  -11.5% n814   0/3 up | open(held)  -14.3% n814   | 18:-10 19:-17 20:-6 21:-30 22:+0 23:-1 24:-19 25:-14
+the bottom three of the league fav -101..-150 ML                 ALL   -5.6% n493   z-1.4 | TR   -6.2% n317   2/5 up | HELD   -4.6% n176   2/3 up | open(held)   -0.0% n176   | 18:+6 19:-20 20:-15 21:+1 22:-4 23:-20 24:+5 25:+3
+5+ games out of first ATS                                        ALL   -3.8% n9911  z-3.9 | TR   -3.4% n5704  0/5 up | HELD   -4.2% n4207  0/3 up | 18:-4 19:-2 20:-8 21:-3 22:-3 23:-4 24:-6 25:-3
+5+ games out of first dog +100..+350 ML                          ALL  -10.8% n4421  z-5.4 | TR  -11.9% n2565  0/5 up | HELD   -9.3% n1856  0/3 up | open(held)  -12.1% n1856  | 18:-8 19:-19 20:-7 21:-21 22:-3 23:-4 24:-20 25:-3
+5+ games out of first fav -101..-150 ML                          ALL   -5.7% n1256  z-2.3 | TR   -7.2% n728   0/5 up | HELD   -3.7% n528   1/3 up | open(held)   -0.4% n528   | 18:-4 19:-5 20:-15 21:-7 22:-8 23:-10 24:-5 25:+1
+the leader vs a team 5+ games out ATS                            ALL   -4.9% n1467  z-2.0 | TR   -4.5% n920   2/5 up | HELD   -5.7% n547   0/3 up | 18:-6 19:-7 20:+4 21:-11 22:+0 23:-8 24:-2 25:-9
+the leader vs a team 5+ games out dog +100..+350 ML              ALL  +18.9% n26    z+0.9 | TR  +10.9% n12    3/5 up | HELD  +25.8% n14    2/3 up | open(held)  +18.8% n14    | 18:-100 19:+42 20:+149 21:+7 22:-23 23:-6 24:+68 25:+43
+the leader vs a team 5+ games out fav -101..-150 ML              ALL  +18.1% n62    z+1.7 | TR  +17.1% n40    4/5 up | HELD  +20.0% n22    3/3 up | open(held)  +19.1% n22    | 18:+38 19:+25 20:+80 21:+31 22:-27 23:+46 24:+6 25:+18
+5+ games out vs the leader / contender ATS                       ALL   -5.6% n1628  z-2.4 | TR   -6.5% n1029  1/5 up | HELD   -4.0% n599   0/3 up | 18:-9 19:-2 20:-16 21:+2 22:-10 23:-3 24:-7 25:-1
+5+ games out vs the leader / contender dog +100..+350 ML         ALL  -31.2% n664   z-6.2 | TR  -31.9% n414   0/5 up | HELD  -29.9% n250   0/3 up | open(held)  -29.3% n250   | 18:-25 19:-23 20:-30 21:-40 22:-38 23:-16 24:-52 25:-16
+5+ games out vs the leader / contender fav -101..-150 ML         ALL   -7.6% n32    z-0.5 | TR  -21.3% n19    2/5 up | HELD  +12.3% n13    2/3 up | open(held)  +18.3% n13    | 18:-100 19:+5 20:-100 21:-100 22:+53 23:+33 24:+34 25:-21
+contender vs contender (both within a game) ATS                  ALL   -9.4% n639   z-2.5 | TR   -9.7% n442   0/5 up | HELD   -8.7% n197   0/3 up | 18:-13 19:-19 20:-10 21:-5 22:-6 23:-7 24:-9 25:-10
+contender vs contender (both within a game) dog +100..+350 ML    ALL  -19.5% n268   z-2.6 | TR  -26.1% n192   1/5 up | HELD   -2.9% n76    2/3 up | open(held)   -7.9% n76    | 18:+13 19:-59 20:-35 21:-30 22:-27 23:-42 24:+33 25:+11
+contender vs contender (both within a game) fav -101..-150 ML    ALL  -13.8% n140   z-1.8 | TR  -12.7% n101   2/5 up | HELD  -16.9% n39    1/3 up | open(held)  -14.8% n39    | 18:-31 19:-53 20:+16 21:+14 22:-17 23:+6 24:-39 25:-26
+bottom-three home dog +100..+350                                 ALL  -17.3% n978   z-4.2 | TR  -14.8% n585   2/5 up | HELD  -21.1% n393   0/3 up | open(held)  -24.2% n393   | 18:-23 19:-21 20:+0 21:-32 22:+9 23:-13 24:-30 25:-20
+bottom-three road dog +100..+350                                 ALL   -5.0% n901   z-1.1 | TR   -8.9% n554   1/5 up | HELD   +1.2% n347   1/3 up | open(held)   -1.0% n347   | 18:+6 19:-9 20:-22 21:-22 22:-3 23:+18 24:-12 25:-2
+the leader as a road fav -101..-150                              ALL   -5.3% n248   z-0.9 | TR   +0.1% n156   2/5 up | HELD  -14.4% n92    1/3 up | open(held)  -13.4% n92    | 18:+26 19:-14 20:+17 21:-15 22:-9 23:-18 24:+2 25:-25
+the leader as a road dog                                         ALL   +1.9% n425   z+0.3 | TR   -4.0% n288   1/5 up | HELD  +14.4% n137   3/3 up | open(held)   +6.6% n137   | 18:+26 19:-14 20:-1 21:-3 22:-26 23:+1 24:+29 25:+21
+the leader at home, fav -151..-400                               ALL   +1.2% n568   z+0.5 | TR   +1.3% n360   4/5 up | HELD   +1.2% n208   2/3 up | open(held)   +3.0% n208   | 18:-15 19:+9 20:+2 21:+3 22:+13 23:-1 24:+2 25:+6
+March: the leader / within a game ATS                            ALL   -3.9% n1222  z-1.4 | TR   -1.3% n764   2/5 up | HELD   -8.2% n458   0/3 up | 18:-2 19:-11 20:-1 21:+0 22:+5 23:-11 24:-0 25:-16
+March: the leader / within a game dog +100..+350 ML              ALL   +3.4% n166   z+0.4 | TR   -3.9% n121   2/5 up | HELD  +23.1% n45    2/3 up | open(held)  +14.4% n45    | 18:+21 19:-32 20:+22 21:-11 22:-21 23:+24 24:-12 25:+82
+March: the leader / within a game fav -101..-150 ML              ALL   +1.0% n128   z+0.1 | TR  +13.5% n89    4/5 up | HELD  -27.7% n39    1/3 up | open(held)  -26.8% n39    | 18:-9 19:+6 20:+46 21:+25 22:+13 23:+9 24:-42 25:-42
+March: the bottom three ATS                                      ALL   -3.5% n1220  z-1.3 | TR   -1.5% n720   1/5 up | HELD   -6.4% n500   0/3 up | 18:-1 19:-3 20:+2 21:-2 22:-4 23:-14 24:-2 25:-0
+March: the bottom three dog +100..+350 ML                        ALL  -17.5% n581   z-3.2 | TR  -18.0% n333   1/5 up | HELD  -17.0% n248   0/3 up | open(held)  -20.2% n248   | 18:-22 19:-29 20:-8 21:-32 22:+4 23:-14 24:-26 25:-9
+March: the bottom three fav -101..-150 ML                        ALL   +3.8% n136   z+0.5 | TR  +11.4% n91    4/5 up | HELD  -11.6% n45    1/3 up | open(held)  -11.2% n45    | 18:+27 19:-9 20:+49 21:+2 22:+1 23:-27 24:+3 25:-7
+Feb-Mar: a top-8 team (locked) ATS                               ALL   -4.7% n669   z-1.3 | TR   -4.6% n426   1/5 up | HELD   -4.9% n243   1/3 up | 18:-6 19:+0 20:-5 21:-9 22:-3 23:-11 24:+4 25:-9
+Feb-Mar: a top-8 team (locked) dog +100..+350 ML                 ALL  -24.4% n65    z-1.7 | TR  -46.6% n37    1/5 up | HELD   +4.9% n28    2/3 up | open(held)  -12.7% n28    | 18:-20 19:+12 20:-100 21:-75 22:-76 23:+8 24:+8 25:-5
+Feb-Mar: a top-8 team (locked) fav -101..-150 ML                 ALL   -7.4% n40    z-0.5 | TR  -11.1% n24    2/5 up | HELD   -1.8% n16    1/3 up | open(held)   -2.3% n16    | 18:-35 19:-10 20:+17 21:-33 22:+9 23:-31 24:-13 25:+26
+Feb-Mar: the bubble (Elo rank 25-60) ATS                         ALL   -4.9% n2717  z-2.7 | TR   -5.8% n1623  1/5 up | HELD   -3.5% n1094  1/3 up | 18:-7 19:-13 20:-0 21:-10 22:+2 23:+2 24:-2 25:-11
+Feb-Mar: the bubble (Elo rank 25-60) dog +100..+350 ML           ALL  -18.1% n604   z-3.6 | TR  -20.7% n366   1/5 up | HELD  -13.9% n238   0/3 up | open(held)  -19.3% n238   | 18:-25 19:-34 20:+2 21:-13 22:-33 23:-12 24:-17 25:-14
+Feb-Mar: the bubble (Elo rank 25-60) fav -101..-150 ML           ALL   +6.6% n324   z+1.4 | TR   +7.8% n196   4/5 up | HELD   +4.7% n128   3/3 up | open(held)   +7.1% n128   | 18:+5 19:-4 20:+19 21:+7 22:+9 23:+5 24:+4 25:+5
+Feb-Mar: rank 100+ (nothing to play for) ATS                     ALL   -3.7% n14461 z-4.7 | TR   -3.5% n8574  0/5 up | HELD   -4.0% n5887  0/3 up | 18:-4 19:-2 20:-4 21:-2 22:-6 23:-5 24:-5 25:-2
+Feb-Mar: rank 100+ (nothing to play for) dog +100..+350 ML       ALL   -8.0% n6143  z-4.7 | TR   -8.3% n3658  1/5 up | HELD   -7.6% n2485  0/3 up | open(held)  -11.1% n2485  | 18:-6 19:-15 20:+2 21:-16 22:-5 23:-4 24:-14 25:-4
+Feb-Mar: rank 100+ (nothing to play for) fav -101..-150 ML       ALL   -4.7% n2088  z-2.4 | TR   -4.5% n1222  0/5 up | HELD   -4.9% n866   0/3 up | open(held)   -2.8% n866   | 18:-1 19:-6 20:-8 21:-2 22:-7 23:-7 24:-2 25:-6
+locked team as a fav -101..-200 on the road                      ALL  -11.1% n58    z-1.0 | TR   -9.7% n42    1/5 up | HELD  -14.8% n16    1/3 up | open(held)  -13.7% n16    | 18:-7 19:-8 20:-10 21:-34 22:+20 23:-18 24:-43 25:+6
+the dog across a locked team, Feb-Mar                            ALL   -5.6% n273   z-0.7 | TR  -10.0% n178   1/5 up | HELD   +2.4% n95    2/3 up | open(held)   +2.2% n95    | 18:+27 19:-35 20:-0 21:-15 22:-36 23:+13 24:-13 25:+9
+the dog across a locked team, March                              ALL   -8.1% n121   z-0.6 | TR   -8.8% n77    2/5 up | HELD   -7.0% n44    1/3 up | open(held)   -3.5% n44    | 18:+9 19:-10 20:-12 21:+32 22:-68 23:+34 24:-30 25:-20
+the bubble team as a dog vs a locked team                        ALL  -31.9% n80    z-2.4 | TR  -25.8% n51    1/5 up | HELD  -42.8% n29    0/3 up | open(held)  -40.4% n29    | 18:-23 19:-76 20:+0 21:+11 22:-22 23:-35 24:-55 25:-36
+the bubble team as a dog vs a rank 100+ team                     ALL   +5.1% n52    z+0.3 | TR   -2.5% n26    3/5 up | HELD  +12.7% n26    2/3 up | open(held)  -10.2% n26    | 18:+61 19:-36 20:+37 21:+24 22:-46 23:+6 24:+41 25:-29
+the bubble team as a fav -101..-150 vs a rank 100+ team          ALL   +1.9% n108   z+0.2 | TR   +0.9% n67    3/5 up | HELD   +3.6% n41    2/3 up | open(held)   +3.6% n41    | 18:-6 19:+28 20:+12 21:+75 22:-19 23:+6 24:-15 25:+32
+the bubble team as a fav -151..-300 vs a rank 100+ team          ALL   -2.7% n354   z-0.7 | TR   -7.1% n221   2/5 up | HELD   +4.6% n133   3/3 up | open(held)   +7.0% n133   | 18:+3 19:-20 20:-10 21:-12 22:+0 23:+2 24:+11 25:+2
+rank 100+ home dog vs a bubble team                              ALL  -12.3% n404   z-1.8 | TR   -5.0% n245   2/5 up | HELD  -23.5% n159   0/3 up | open(held)  -24.8% n159   | 18:-30 19:+14 20:-15 21:+22 22:-7 23:-6 24:-30 25:-36
+the bubble team on the road, ATS, Feb-Mar                        ALL   -6.7% n1124  z-2.4 | TR   -9.5% n678   0/5 up | HELD   -2.5% n446   2/3 up | 18:-4 19:-13 20:-10 21:-7 22:-12 23:+8 24:+1 25:-18
+the bubble team at home, ATS, Feb-Mar                            ALL   -2.9% n1164  z-1.0 | TR   -1.7% n711   2/5 up | HELD   -4.7% n453   0/3 up | 18:-12 19:-14 20:+8 21:-9 22:+20 23:-3 24:-6 25:-6
+the bubble team off a loss, dog ML, Feb-Mar                      ALL  -18.7% n220   z-2.3 | TR  -24.9% n132   1/5 up | HELD   -9.3% n88    1/3 up | open(held)  -11.5% n88    | 18:-33 19:-39 20:-14 21:+6 22:-39 23:+14 24:-40 25:-15
+the bubble team off a loss, ATS, Feb-Mar                         ALL   -7.1% n872   z-2.2 | TR  -11.5% n515   0/5 up | HELD   -0.8% n357   2/3 up | 18:-11 19:-17 20:-17 21:-8 22:-5 23:+6 24:+3 25:-14
+the bubble team off a loss, fav -101..-150, Feb-Mar              ALL   +8.7% n100   z+1.0 | TR   +0.1% n59    3/5 up | HELD  +21.0% n41    3/3 up | open(held)  +24.4% n41    | 18:-17 19:-9 20:+9 21:+40 22:+5 23:+14 24:+44 25:+11
+the bubble team after 2 straight losses, ATS, Feb-Mar            ALL  -11.2% n258   z-1.9 | TR  -20.5% n151   1/5 up | HELD   +2.1% n107   2/3 up | 18:-8 19:-47 20:-15 21:-48 22:+10 23:+14 24:+8 25:-14
+
+cells looked at: 88
