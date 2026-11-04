@@ -1109,13 +1109,35 @@ def score_reason(c):
     if c.get("market") != "ml" or c.get("reasons") or c.get("trap") or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
         return
     lg = c.get("league")
-    if lg not in ("nba", "nfl", "ncaaf"):
+    if lg not in ("nba", "nfl", "ncaaf", "nhl"):
         return
     try:
         if fighting(c):
             return
         sc = round(dog_score(c), 1)
     except Exception:                                        # noqa: BLE001 - no score = no reason
+        return
+    if lg == "nhl":                                          # 🏒 11/4 FABLE - PLAYS EVERY DAY (the owner: "we don't have anything
+        #                                                      for hockey, which is ridiculous"): the Senators +110 at Buffalo
+        #                                                      cleared the hockey Dog gate (score +6.39, own read over the no-vig
+        #                                                      number) and never went up - a hockey dog almost never carries a
+        #                                                      model-factor reason, and the 10/28 fix named the score for the
+        #                                                      NBA / football only. The 10/30 funnel rows: gated hockey dogs with
+        #                                                      no named reason 59-52 +23.7% on 111 (train +21.2% / held +29.9%,
+        #                                                      4 of 4 seasons) - better than the named ones (+13.7%); 80 of 244
+        #                                                      gated-dog days had no hockey Dog for it. Live 10/15-10/24: the
+        #                                                      Sharks +110, Islanders +110, Ducks +102 all skipped, all won.
+        #                                                      Only a dog that CLEARS the gate (6+) with its own read not under
+        #                                                      the no-vig market - the floor's no-reason hockey dogs under 6 lose
+        #                                                      (-4.8% on 341), so they keep needing a real reason.
+        if round(dog_score(c), 2) < NHL_DOG_GATE or not dog_own_ok(c):
+            return
+        own = (c["edge_own"] + 1) / c["dec"] if c.get("edge_own") is not None else None
+        over = (f"our read {round((own - c['p_market']) * 100, 1):+g} points on the no-vig number" if own is not None
+                and c.get("p_market") is not None else "our read against the no-vig number")
+        why = hockey_dog_facts(c)
+        c["reasons"] = [f"the hockey dog score backs it: +{sc:g} ({over}" + (", " + ", ".join(why) if why else "")
+                        + " - every hockey dog angle weighed)"]
         return
     if lg == "nba":
         if sc >= NBA_FLOOR_SCORE:
@@ -1143,12 +1165,38 @@ def score_reason(c):
         c["reasons"] = [fact]
 
 
-SCORE_REASON_LEAGUES = {"nba"}   # where the dog score (the own read + the studies) is a named reason that unlocks
-#   units: the NBA only (10/28 AM - the 10/27 NBA replay never asked for a reason). NOT football: the 10/28 replay of every
+SCORE_REASON_LEAGUES = {"nba", "nhl"}   # where the dog score (the own read + the studies) is a named reason that unlocks
+#   units: the NBA (10/28 AM - the 10/27 NBA replay never asked for a reason) and, from 11/4, hockey at the Dog gate (6+ with
+#   the own read not under the no-vig market - PLAYS EVERY DAY, results/studies/plays_every_day_1104/). NOT football: the 10/28 replay of every
 #   board day 2023-10..2026-10 (results/studies/named_reason_1028/) - college dogs +100..+350 passing every own-read check
 #   with NO named reason went 27-55, -8.1% on 82; the ones whose own read alone cleared the gate (the New Mexico St shape)
 #   1-4, -46% (all five home dogs, all 2026); the 10/23 study's 84-132, -7.9% again. A fact the card names (score_fact),
 #   never the reason that puts units on it. Turning football on = the owner's call, with a replay that says otherwise.
+
+
+def hockey_dog_facts(c):
+    """🏒 The hockey dog angles that ADDED points to this dog's score (dog_score's NHL lines), in words - the facts inside
+    the gated hockey dog's named reason (11/4). Only what fired; nothing = an empty list."""
+    out = []
+    if c.get("rested_vs_b2b"):
+        out.append("rested against a team that played last night")
+    pdo = c.get("pdo")
+    if pdo is not None and pdo <= sports_form.PDO_BAD:
+        out.append(f"the puck luck's been against them (PDO {pdo:.0f})")
+    if (c.get("pyth_luck") or 0) <= PYTH_UNLUCKY and c.get("pyth_luck") is not None:
+        out.append("their goals say they're better than their record")
+    if c.get("opp_ot_last") == "ot_loss":
+        out.append("the favorite's coming off an overtime loss")
+    if c.get("ot_last") == "ot_win":
+        out.append("off an overtime win")
+    if (c.get("drift") or 0.0) <= -0.02:
+        out.append("the money's come in on them since the open")
+    k = c.get("key_edge")
+    if k is not None and k <= -0.4 and not c.get("hot_key"):
+        out.append("the books overpay for the other goalie's hot run")
+    if c.get("opp_lost_last"):
+        out.append("the favorite lost the last one")
+    return out
 
 
 def dog_study_facts(c):
@@ -2754,9 +2802,99 @@ def beats_price(c):
     return r is not None and dec is not None and r * dec > 1   # (no price on it = nothing to check = no units)
 
 
+BEST_FROM = "2026-11-05"      # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4: "Today I see three plays and they're all thin
+BEST_MIN_UNITS = 1.0          # edge, half unit plays ... I wanted to do a decent bet on one game and I can't figure out which
+#                               game ... every day we have, like, a PICK OF THE DAY ... this is the best play the engine has for
+#                               today, and it will always be sized at least one full unit. So then we know what the best pick is
+#                               for the day." / later: "a LABEL on ONE of the day's existing unit plays, not a separate extra
+#                               play ... raised to at least 1u ... the Dog of the Day, the Lock of the Day and the value plays
+#                               keep their own labels and units ... it counts once in the records, at its raised units ... when
+#                               there's no unit play at all that day, the forced 1u best side applies"). THE RANK (chosen on the
+#                               10/30 funnel rows' train half, results/studies/plays_every_day_1104/bestpick.py): the kind the
+#                               replay trusts most first - the Lock, then the Dog of the Day, the NBA favorite play, the 🔍 /
+#                               runner-up dog, the college hoops slot / NBA floor, a night / one-game pick, the floor, a value
+#                               play, the backup Lock last - then the bigger size, then the bigger edge on the read its units
+#                               ride on (BEST_KIND_RANK / best_rank). Raised to 1u at least: train 310-303 +107.6u on 764u
+#                               (+14.1%), held out 214-228 +55.3u on 524u (+10.5%), 4 of 4 seasons; the raise's extra ½u alone
+#                               +10.5% / +3.8%, 4 of 4. (The biggest-edge rank +7.7% / +12.6%; the surest +9.8% / +13.2%; the
+#                               train-ROI ladder with the Lock near last +15.0% / +8.2%, 3 of 4 - within noise of this one on
+#                               train and worse held out.) THE FORCED PICK on a day with no unit play at all (44 of 1,114 board
+#                               days): the surest moneyline side by the whole read (rank_p) that its own read isn't fighting,
+#                               -150..+350, 1u - 28-13 +8.5u on 41 flat (train +6.3u on 22 / held +2.1u on 19, 3 of 4 seasons;
+#                               live 0-2 on the two such days of 10/13-10/29) - the owner's call ("every day"), reported apart.
+BEST_KIND_RANK = {"lock": 0, "dog": 1, "nbafav": 2, "gap": 3, "dogplay": 3, "ncaabplay": 4, "nbafloor": 4, "solo": 5,
+                  "night": 5, "floor": 6, "play": 7, "backup": 8}
+
+
+def best_rank(pk):
+    """⭐ Where a unit play sits for the ENGINE'S BEST PICK: (the kind the replay trusts, the bigger size first, the bigger
+    edge on the read its units ride on first) - the smallest wins."""
+    leg = (pk.get("legs") or [{}])[0]
+    k = posted_kind(pk)
+    if k == "lock" and (leg.get("backup_lock") or leg.get("near_price")):
+        k = "backup"
+    u = _units_base(pk) or 0
+    v = dog_value(pk)
+    return (BEST_KIND_RANK.get(k, 9), -u, -(v if v is not None else -9))
+
+
+def best_pool(picks, iso):
+    """Today's unit plays that can carry the ⭐: open, one leg, units on it, -150..+350, never a lean, never a side the
+    engine's own read is fighting."""
+    out = []
+    for p in picks:
+        if p.get("date") != iso or p.get("status") != "open" or p.get("lean") or p.get("kind") not in ("lock", "dog", "solo", "night", "play"):
+            continue
+        legs = p.get("legs") or []
+        if len(legs) != 1 or not (_units_base(p) or 0) > 0:
+            continue
+        l = legs[0]
+        if not MAX_FAV <= (l.get("odds") or 0) <= DAILY_DOG_MAX or fighting(l):
+            continue
+        out.append(p)
+    return out
+
+
+def mark_best(picks, iso):
+    """⭐ ENGINE'S BEST PICK (the owner, 11/4): the day's best unit play by best_rank gets pk["best"] = True (units_for
+    raises it to BEST_MIN_UNITS at least). Once a day - a pick already carrying the star keeps it. Returns the pick or
+    None (no unit play today - post_board's forced best side then)."""
+    if iso < BEST_FROM:
+        return None
+    have = next((p for p in picks if p.get("date") == iso and p.get("best")), None)
+    if have:
+        return have
+    pool = best_pool(picks, iso)
+    if not pool:
+        return None
+    best = min(pool, key=best_rank)
+    best["best"] = True
+    return best
+
+
+def forced_best(cands, used):
+    """⭐ The forced best pick on a day with NO unit play (the owner, 11/4: "every day"): the surest moneyline side by the
+    whole read (rank_p) the engine's own read isn't fighting - -150..+350, never a trap, never waiting on news, never a
+    game we're already on. None = nothing to post."""
+    pool = [c for c in cands if c.get("market") == "ml" and MAX_FAV <= c.get("odds", 0) <= DAILY_DOG_MAX
+            and not c.get("trap") and not c.get("waiting") and not c.get("hurt") and c["game_id"] not in used and not fighting(c)]
+    if not pool:
+        return None
+    return max(pool, key=lambda c: (round(rank_p(c), 3), c["edge"]))
+
+
 def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
-    picks in a parlay carry their own - leg_units)."""
+    picks in a parlay carry their own - leg_units). ⭐ The engine's best pick (11/4) carries BEST_MIN_UNITS at least."""
+    u = _units_base(pk)
+    if pk.get("best") and not pk.get("lean") and (pk.get("date") or "") >= BEST_FROM and u and u < BEST_MIN_UNITS \
+            and not (pk.get("units") is not None and pk.get("status") in ("won", "lost", "push", "void")):
+        return BEST_MIN_UNITS                                # (a graded pick keeps the units it was graded at)
+    return u
+
+
+def _units_base(pk):
+    """units_for without the ⭐ raise - the unit system's own size."""
     kind, legs = pk.get("kind"), pk.get("legs") or []
     if kind in PARLAY_KINDS or not legs:
         return 0
@@ -4722,7 +4860,9 @@ def floor_skip(c):
     is the 10/23 / 10/28 loser), and never a dog whose raw own read beats the price by THIN_EDGE+ while the full weighed
     read failed the Dog gate (70-99 -4.6% / 10-20 -12.9%): the raw read is the thing that's wrong there."""
     if c.get("league") in FLOOR_LEAGUES_OFF:
-        return "the NBA has its own floor" if c.get("league") == "nba" else "college football sits out the floor"
+        return ("the NBA has its own floor" if c.get("league") == "nba"
+                else "college hoops sits out the floor (its dogs run the dog slot)" if c.get("league") == "ncaab"
+                else "college football sits out the floor")
     if FLOOR_THIN_ONLY and not thin_edge(c):
         return "our raw read likes it more than the full read does"
     return None
@@ -4783,9 +4923,19 @@ def unit_plays_today(picks, iso, league=None):
                and (league is None or any(l.get("league") == league for l in p.get("legs") or [])))
 
 
-FLOOR_OFF_FROM = "2026-11-05"  # 💰 THE DAILY FLOOR IS OFF from this board on (the owner, 11/4, after the South Dakota +124
-#                                 floor play: "We don't need a daily minimum on any sport" - the general floor and the NBA
-#                                 floor both stop; real plays only). None = back on.
+FLOOR_OFF_FROM = None          # 💰 THE DAILY FLOOR IS ON (11/4 FABLE - PLAYS EVERY DAY). The owner first said, after the
+#                                 South Dakota +124 floor play (a bug-driven pick, fixed), "We don't need a daily minimum on
+#                                 any sport" (the floor was set to stop from 11/5), then cleared it up the same day: "We need
+#                                 plays every day. We need unit plays, like how we have everything sized to be profitable. We
+#                                 don't want days with big college basketball slates, big NBA slates, a lot of hockey going on,
+#                                 and we have no plays ... remember, we did a study with Fable to figure out the sizing, how
+#                                 we could be profitable having plays every day." The 10/30 funnel rows re-run under today's
+#                                 sizing (results/studies/plays_every_day_1104/sim_volume.py): the floor OFF = 1.05 plays a
+#                                 day, a unit play on 46% of days, +115u on 1,007u (+11.4%); the floor ON (this v2 + the NBA
+#                                 floor) = 2.23 a day, 98% of days, +179u on 1,657u (+10.8%), train +9.5% / held out +12.6%,
+#                                 4 of 4 seasons - +64u more at the same ROI. With the hockey named-reason fix (score_reason)
+#                                 and college hoops out of the general floor: 2.22 a day, 96% of days, +190u on 1,720u
+#                                 (+11.0%), worst stretch -16.0u (was -23.4u). A date here turns the floor off from that board.
 FLOOR_FROM = "2026-10-27"      # 💰 THE DAILY FLOOR (the owner, 10/27, after two all-lean boards: "I don't care why the boards are
 FLOOR_MIN = 2                  # leans. We need to fix this ... at least ONE unit play per day. Preferably more units"): a board
 FLOOR_UNITS = PLAY_UNITS       # day short of FLOOR_MIN unit plays fills up to it with ½u FLOOR PLAYS - the dogs the dog score
@@ -4809,7 +4959,11 @@ NBA_FAV_FROM = FLOOR_FROM      # and put units on them"): an NBA moneyline favor
 NBA_DOG_OWN_UNITS = 1.0        # the NBA Dog with its own read over the price (10/27; ½u otherwise - the thin edge)
 NBA_FLOOR_SCORE = 0.0          # 🏀 the NBA floor (nba_floor_plays): the best NBA dog by score, score 0+, one a day, ½u
 FLOOR_V2_FROM = "2026-10-30"   # 💰 10/29 (night) THIN EDGES (the owner, after 10/29's two ½u thin losers: "Run Fable and fix the
-FLOOR_LEAGUES_OFF = ("nba", "ncaaf")   # thin edge plays"): the 10/30 funnel re-run (1,097 board days 2023-26 on TODAY's code -
+FLOOR_LEAGUES_OFF = ("nba", "ncaaf", "ncaab")   # thin edge plays"): the 10/30 funnel re-run (1,097 board days 2023-26 on TODAY's code -
+#   ("ncaab" from 11/4 - PLAYS EVERY DAY: the floor's college hoops dogs ran 26-31, +0.0u on 28u in the same replay, -1.1u
+#    train / +1.1u held - the vig, and the South Dakota +124 of 11/4 was one; the college hoops dog slot (NCAAB_PLAY_*) is
+#    that sport's dog path now. Without them the floor's cells are the ones up in BOTH halves: MLB +13.7u / +13.4u,
+#    NFL +2.1u / +4.9u, NHL +3.4u / +5.3u.)
 FLOOR_THIN_ONLY = True         # the hot hockey dog weight, the 2-point fallback hockey Dog, the no-thin-Lock rule; train 2023-25,
 FLOOR_FALLBACK_MIN = 1         # held out 2025-27; ~45 versions tried) says the floor's losers are (1) a SECOND NBA dog a night
 #                                (the 🏀 NBA floor already takes the best one: 12-29 train / 4-15 held, -5% / -41%), (2) the college
@@ -6213,6 +6367,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = "a college hoops play whose whole read doesn't beat the price"   # (🏀 11/3: its read is ncaab_read)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price") and not pk.get("ncaab_play") \
+                and not pk.get("forced") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
             #                                                  the always-a-Lock backup always carry units - the owner; 10/27:
             #                                                  a floor play is a thin edge by design and the NBA favorite play
@@ -6271,6 +6426,8 @@ def sizing_check(new):
             want = (solo_units_1031(pk),) * 2                # (10/30 sizing: never Kelly on the read)
         elif k in ("solo", "night"):
             want = (0.5, UNIT_MAX) if not pk.get("lean") else (0, 0)   # (10/25 sweep: the 5u max play, was 10)
+        if want and pk.get("best") and (pk.get("date") or "") >= BEST_FROM and not pk.get("lean"):
+            want = (max(want[0], BEST_MIN_UNITS), max(want[1], BEST_MIN_UNITS))   # ⭐ the engine's best pick: 1u at least
         if want and not want[0] <= u <= want[1]:
             out.append(f"sizing: {k} {l.get('team')} {l.get('odds')} at {u:g}u - the unit system says "
                        f"{want[0]:g}u" + (f"-{want[1]:g}u" if want[1] != want[0] else ""))
@@ -6731,6 +6888,27 @@ def post_board(games, model, picks, now, day, force=False):
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         new.append(pk)
+    if opening and iso >= BEST_FROM and not force:            # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): the opening
+        best = mark_best(picks, iso)                         # board's best unit play gets the star (1u at least)...
+        if best is None and cands:                           # ...and a day with no unit play at all posts the surest
+            c = forced_best(cands, {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting"   # side, 1u
+                                    for l in p["legs"]} | early_gids)
+            if c is not None and not (c["waiting"] and now < _start(c) - timedelta(minutes=DEADLINE_MIN)):
+                b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
+                c["tier"] = play_tier(c)
+                if c["tier"] in ("lean", "strong"):
+                    c["tier"] = "value"                      # (a play with units is never labeled a lean)
+                dress(b)
+                pk = {"date": iso, "kind": "play", "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
+                      "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
+                      "stake": STAKE, "status": "open", "pnl": 0.0, "lean": False, "best": True, "forced": True}
+                pk["legs"][0]["tier"] = "value"
+                pk["tier"] = "value"
+                picks.append(pk)
+                new.append(pk)
+                print(f"   ⭐ no unit play today - the forced best pick: {c.get('team')} {c.get('odds')} (the surest side, 1u)")
+        elif best is not None:
+            print(f"   ⭐ the engine's best pick: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - {units_for(best):g}u")
     if not opening:                                          # 💰 a unit play added after the board went up (the owner,
         for pk in new:                                       # 10/1: the engine keeps checking the lines all day) - ONE
             if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);

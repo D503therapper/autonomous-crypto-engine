@@ -14679,7 +14679,9 @@ def test_nba_injuries_weighed_not_blocked_and_only_a_key_man_holds_a_pick_10_28(
         assert cold["reasons"] == [] and not sports.good(cold)              # under 0: no reason, no play
         nhl = {**_cand("h", 160, 0.38, league="nhl"), "reasons": [], "sc": 7.0}
         sports.score_reason(nhl)
-        assert nhl["reasons"] == [] and not sports.good(nhl)                # hockey: the rule is unchanged
+        assert nhl["reasons"] == [] and not sports.good(nhl)                # hockey: its own read (38%) is under the no-vig
+        #                                                                     number (38.5%) - no reason (the 11/4 hockey rule
+        #                                                                     needs the own read not under the market)
         fav = {**_cand("f", -120, 0.55, league="nba"), "reasons": [], "sc": 5.0}
         sports.score_reason(fav)
         assert fav["reasons"] == []                                         # a favorite: never
@@ -14764,14 +14766,18 @@ def test_the_named_reason_10_28_facts_the_own_read_counts_become_reasons():
         assert not sports.good(dict(fact_only))
         nhl = {**_cand("h", 160, 0.38, league="nhl"), "reasons": [], "sc": 7.0}
         sports.score_reason(nhl)
-        assert nhl["reasons"] == [] and "score_fact" not in nhl                # hockey: unchanged
+        assert nhl["reasons"] == [] and "score_fact" not in nhl                # hockey: its own read (38%) sits UNDER the
+        #                                                                         no-vig number (38.5%) - no reason (11/4:
+        #                                                                         a gated hockey dog names its score only
+        #                                                                         with the own read not under the market)
     finally:
         sports.dog_score = keep
         sports.SCORE_REASON_LEAGUES = keep_lg
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "absence_reasons(lg, absent[other], depth[other]" in src          # wired into every candidate
-    assert sports.SCORE_REASON_LEAGUES == {"nba"}      # the 10/28 replay: football's newly-named dogs 27-55 -8.1% (college),
-    #   the own-read-alone shape 1-4 - a card fact, never the reason that unlocks units (KEEP A holds, SPORTS_FINDINGS 10/28)
+    assert sports.SCORE_REASON_LEAGUES == {"nba", "nhl"}   # the 10/28 replay: football's newly-named dogs 27-55 -8.1% (college),
+    #   the own-read-alone shape 1-4 - a card fact, never the reason that unlocks units (KEEP A holds, SPORTS_FINDINGS 10/28);
+    #   hockey from 11/4 (PLAYS EVERY DAY: the gated no-reason hockey dog 59-52 +23.7%, 4 of 4 seasons)
 
 def test_hockey_audit_10_28_no_hockey_favorite_lean_at_150_130_and_the_fallback_dog_needs_score_3():
     """10/28, the owner: "our hockey picks are ass - below 50% ... tighten up on hockey ... take off any plays." The 10/27
@@ -15276,7 +15282,8 @@ def test_thin_edges_1029_the_floor_skips_nba_college_football_and_raw_read_dogs_
     price by 3c+ while the full read failed the Dog gate (70-99 -4.6% / 10-20 -12.9%). Without them the floor runs +7.6% /
     +10.6% (was +3.1% / +5.7%), the board +6.5% / +9.3% (was +4.7% / +7.7%), 4 of 4 seasons. The owner's "at least ONE unit
     play per day" holds: the skipped dogs come last, flagged, and one goes up only when the board has no unit play at all."""
-    assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf") and sports.FLOOR_THIN_ONLY and sports.FLOOR_FALLBACK_MIN == 1
+    assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab") and sports.FLOOR_THIN_ONLY and sports.FLOOR_FALLBACK_MIN == 1
+    #   ("ncaab" from 11/4 - PLAYS EVERY DAY: the floor's college hoops dogs were the vig in the replay, 26-31 +0.0u)
     assert sports.FLOOR_V2_FROM == "2026-10-30" and sports.FLOOR_MIN == 2 and sports.FLOOR_UNITS == 0.5   # the floor itself holds
     keep = sports.dog_score
     try:
@@ -18732,15 +18739,18 @@ def test_daily_1104_interception_unlucky_college_dog_is_a_plus_2_weight_plus_two
 
 
 def test_floor_off_1104_no_daily_minimum_on_any_sport_from_the_11_5_board():
-    """11/4, the owner (after the South Dakota +124 floor play): "We don't need a daily minimum on any sport." From
-    FLOOR_OFF_FROM the general floor and the NBA floor post nothing; the real plays (Lock, Dog, value, gap, the college
-    hoops slots, early plays) are untouched. None turns the floor back on."""
+    """11/4, the owner (after the South Dakota +124 floor play): "We don't need a daily minimum on any sport" - the floor
+    was set to stop from 11/5 (FLOOR_OFF_FROM). The same day he cleared it up ("We need plays every day. We need unit
+    plays, like how we have everything sized to be profitable ... we did a study with Fable to figure out the sizing")
+    and the floor is back ON (FLOOR_OFF_FROM None - test_plays_every_day_1104_*). The switch itself still works: a date
+    there stops the general floor and the NBA floor from that board on; the real plays (Lock, Dog, value, gap, the
+    college hoops slots, early plays) are never touched by it."""
     import sports
-    assert sports.FLOOR_OFF_FROM == "2026-11-05"
+    assert sports.FLOOR_OFF_FROM is None                         # (11/4, later: plays every day)
     src = open(sports.__file__).read()
     assert 'kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM' in src
     # the skip expression, evaluated the way post_board does it
-    def skipped(kind, iso, off=sports.FLOOR_OFF_FROM):
+    def skipped(kind, iso, off="2026-11-05"):
         return (kind == "gap" and iso < sports.GAP_FROM or kind == "dogplay" and iso < sports.DOG_PLAY_FROM
                 or kind in ("nbafav", "nbafloor", "floor") and iso < sports.FLOOR_FROM
                 or kind in ("nbafloor", "floor") and off and iso >= off)
@@ -18748,7 +18758,7 @@ def test_floor_off_1104_no_daily_minimum_on_any_sport_from_the_11_5_board():
     assert not skipped("floor", "2026-11-04")                    # the 11/4 board as it was
     assert not skipped("nbafav", "2026-11-05") and not skipped("ncaabplay", "2026-11-05")
     assert not skipped("gap", "2026-11-05") and not skipped("lean", "2026-11-05")
-    assert not skipped("floor", "2026-11-05", off=None)          # the switch
+    assert not skipped("floor", "2026-11-05", off=None) and not skipped("nbafloor", "2026-12-01", off=sports.FLOOR_OFF_FROM)   # the switch, as wired
 
 
 def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_its_dog():
@@ -18877,6 +18887,133 @@ def test_sd_1104_a_non_d1_blowout_moves_nothing_and_the_stronger_team_needs_the_
         f_sd = e.features(games["ncaab:401928811"]) if "ncaab:401928811" in games else None
         if f_sd:
             assert f_sd["elo_raw"] < 0 and not sports.stronger_team(f_sd, 1, 0.4325)
+
+
+def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and_the_engines_best_pick():
+    """11/4 FABLE - PLAYS EVERY DAY (the owner: "We need plays every day. We need unit plays, like how we have everything
+    sized to be profitable ... we don't have anything for hockey, which is ridiculous. Today's board just sucks").
+    (1) THE HOCKEY NAMED-REASON HOLE: the Senators +110 at Buffalo (dog score +6.39, own read 46.1% over the no-vig
+    45.7%) cleared the hockey Dog gate and never went up - good() wants a named reason, a hockey dog almost never carries
+    a model factor, and the 10/28 fix named the score for the NBA / football only. The 10/30 funnel rows: gated hockey
+    dogs with NO named reason 59-52 +23.7% on 111 (train +21.2% / held +29.9%, 4 of 4 seasons); 80 of 244 gated-dog days
+    had no hockey Dog for it; live the Sharks +110 (10/15), Islanders +110 (10/17), Ducks +102 (10/24) were skipped the
+    same way and all won. score_reason names the hockey score at the gate (6+, own read not under the market) - never
+    under it (the floor's no-reason hockey dogs under 6 ran -4.8% on 341).
+    (2) THE FLOOR IS BACK ON (FLOOR_OFF_FROM None): the floor OFF = 1.05 plays a day, a unit play on 46% of days, +115u
+    (+11.4%); ON (v2 + the NBA floor) 2.23 a day, 98% of days, +179u (+10.8%, train +9.5% / held +12.6%); with the hockey
+    fix and college hoops out of the general floor 2.22 a day, 96% of days, +190u on 1,720u (+11.0%, train +9.7% / held
+    +12.9%), worst stretch -16.0u (was -23.4u), 4 of 4 seasons. College hoops out: its floor dogs 26-31 +0.0u (the vig).
+    (3) ⭐ THE ENGINE'S BEST PICK: a label on ONE of the day's unit plays (the kind the replay trusts first - Lock, Dog,
+    NBA favorite, 🔍 / runner-up, slot / NBA floor, night, floor, play, backup Lock - then size, then edge), raised to
+    1u at least, counted once at its raised units; train +14.1% / held +10.5% (4 of 4); the raise's extra ½u +10.5% /
+    +3.8%. A day with no unit play at all posts the surest side at 1u (28-13 +8.5u on 41 in the replay, live 0-2).
+    (4) THE LOCKS (the owner: "I haven't seen anything labeled a lock in a long time"): 15 Locks on 32 board days 9/27-
+    10/28 (10 of them ½u thin / backup), 0 on 7 days since 10/29. The blocks on the rows: the thin Lock as posted 144-112
+    -3.7% vs not thin 97-60 +6.0% (4 of 4) - NO_THIN_LOCK protects; own_agrees off -6.3%, real_value off -5.0% - protect;
+    the -119..-101 band 19-13 +11.4% on 32 (3 of 4; the 11/2 hockey odds study has that band -25.9%) - a WATCH, not
+    loosened; one Lock a day under today's rules fires on 164 of 1,114 board days (~1 a week), 98-66 +3.2% sized."""
+    import sports_dashboard as sdb
+    # (1) the hockey named reason
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        dec = sd.decimal(110)
+        sen = {**_cand("nhl:1", 110, 0.461, league="nhl"), "team": "Senators", "opp": "Sabres", "home": False, "side": "away",
+               "reasons": [], "sc": 6.39, "waiting": [], "p_market": 0.4573, "pdo": 982.1, "key_edge": -0.66, "drift": 0.0103,
+               "start": "2026-11-05T00:30Z"}
+        sports.score_reason(sen)
+        assert sen["reasons"] == ["the hockey dog score backs it: +6.4 (our read +0.4 points on the no-vig number, the puck luck's "
+                                  "been against them (PDO 982), the books overpay for the other goalie's hot run - every hockey "
+                                  "dog angle weighed)"], sen["reasons"]
+        assert sports.good(dict(sen)) and sports.dog_gate(dict(sen))
+        fav = {**_cand("nhl:1", -130, 0.542, league="nhl"), "team": "Sabres", "opp": "Senators", "reasons": ["the stronger team"],
+               "p_market": 0.5427, "edge_own": -0.0467, "w_p": 0.5108, "waiting": []}
+        b = sports.make_board([sen, fav])
+        d = b["dog"]["legs"][0]
+        assert d["team"] == "Senators" and d["dog_p"] == 0.5212 and d["dog_score"] == 6.39
+        pk = {"date": "2026-11-05", "kind": "dog", "legs": [d], "status": "open", "dec": dec}
+        assert sports.units_for(pk) == 2.0                                  # the short hockey Dog (10/30 sizing)
+        under = {**sen, "reasons": [], "sc": 5.9}
+        sports.score_reason(under)
+        assert under["reasons"] == [] and sports.floor_plays([under], set()) == []   # under the gate: no reason, no floor play
+        own_under = {**sen, "reasons": [], "sc": 6.5, "edge_own": 0.45 * dec - 1}    # own 45% under the no-vig 45.7%
+        sports.score_reason(own_under)
+        assert own_under["reasons"] == []
+        b2b = {**sen, "reasons": [], "sc": 8.0, "rested_vs_b2b": True, "opp_ot_last": "ot_loss", "pdo": None, "key_edge": None}
+        sports.score_reason(b2b)
+        assert "rested against a team that played last night" in b2b["reasons"][0] and "overtime loss" in b2b["reasons"][0]
+        assert sports.hockey_dog_facts({"rested_vs_b2b": False, "pdo": 1000}) == []
+    finally:
+        sports.dog_score = keep
+    assert sports.SCORE_REASON_LEAGUES == {"nba", "nhl"}
+    # (2) the floor
+    assert sports.FLOOR_OFF_FROM is None and sports.FLOOR_MIN == 2 and sports.FLOOR_FALLBACK_MIN == 1 and sports.FLOOR_THIN_ONLY
+    assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab")
+    assert sports.floor_skip({"league": "ncaab", "edge_own": 0.0, "dec": 2.0, "odds": 100}) == "college hoops sits out the floor (its dogs run the dog slot)"
+    # (3) the engine's best pick
+    assert sports.BEST_FROM == "2026-11-05" and sports.BEST_MIN_UNITS == 1.0
+    leg = lambda team, odds, p, lg="nhl", **kw: {**_cand(team, odds, p, league=lg), "team": team, "start": "2026-11-05T01:00Z", **kw}   # noqa: E731
+    mk = lambda kind, team, odds, p, **kw: {"date": "2026-11-05", "kind": kind, "status": "open", "lean": False, "dec": sd.decimal(odds),   # noqa: E731
+                                           "american": odds, "legs": [leg(team, odds, p, **{k: v for k, v in kw.items() if k in ("league", "dog_p", "backup_lock", "w_p")})],
+                                           **{k: v for k, v in kw.items() if k not in ("league", "dog_p", "backup_lock", "w_p")}}
+    lock = mk("lock", "Avalanche", -140, 0.62)                             # (0.60 would be a thin edge - a ½u Lock)
+    dog = mk("dog", "Senators", 110, 0.461, dog_p=0.5212)
+    floor = mk("play", "Ducks", 154, 0.382, floor={"dog_score": 1.0, "nba": False})
+    lean = {**mk("lean", "Bruins", -108, 0.50), "lean": True}
+    picks = [floor, dog, lock, lean]
+    assert sports.units_for(lock) == 2.0 and sports.units_for(dog) == 2.0 and sports.units_for(floor) == 0.5
+    assert sports.mark_best(picks, "2026-11-05") is lock and lock["best"] and sports.units_for(lock) == 2.0   # the Lock first, 2u stays 2u
+    assert not dog.get("best") and not floor.get("best") and not lean.get("best")
+    assert sports.mark_best(picks, "2026-11-05") is lock                     # once a day: the star stays put
+    lock.pop("best")
+    assert sports.mark_best([floor, dog, lean], "2026-11-05") is dog         # no Lock: the Dog
+    dog.pop("best")
+    assert sports.mark_best([floor, lean], "2026-11-05") is floor and sports.units_for(floor) == 1.0   # a lone ½u floor play -> 1u
+    assert sports.posted_kind(floor) == "floor" and sports.sizing_check([floor]) == []   # its kind stays; the sizing check knows
+    assert sports.units_for({**floor, "status": "lost", "units": 0.5}) == 0.5   # a graded pick keeps the units it was graded at
+    assert sports.units_for({**floor, "date": "2026-11-04"}) == 0.5          # before BEST_FROM: no raise
+    floor.pop("best")
+    backup = mk("lock", "Kings", -120, 0.55, backup_lock=True)
+    play = mk("play", "Stars", -130, 0.56)
+    assert sports.mark_best([backup, play, lean], "2026-11-05") is play     # the backup Lock ranks last
+    assert sports.mark_best([lean], "2026-11-05") is None                   # a lean never
+    assert sports.mark_best([mk("play", "Longshot", 400, 0.20)], "2026-11-05") is None   # past +350 never
+    assert sports.mark_best([lock], "2026-11-04") is None                   # before BEST_FROM
+    # the forced best side on a day with no unit play: the surest moneyline side not fighting its price
+    c1 = {**_cand("g1", -130, 0.58, league="nhl"), "reasons": [], "waiting": []}
+    c2 = {**_cand("g2", -145, 0.61, league="nba"), "reasons": [], "waiting": []}
+    c3 = {**_cand("g3", -160, 0.65, league="nba"), "reasons": [], "waiting": []}           # past -150
+    c4 = {**_cand("g4", -140, 0.62, league="nhl"), "reasons": [], "waiting": [], "edge_own": 0.50 * sd.decimal(-140) - 1}   # fighting
+    assert sports.forced_best([c1, c2, c3, c4], set())["game_id"] == "g2"
+    assert sports.forced_best([c1, c2, c3, c4], {"g2"})["game_id"] == "g1"
+    assert sports.forced_best([c3, c4], set()) is None
+    fp = {"date": "2026-11-05", "kind": "play", "status": "open", "lean": False, "dec": c2["dec"], "american": -145, "legs": [c2],
+          "best": True, "forced": True, "tier": "value"}
+    assert sports.units_for(fp) == 1.0 and sports.rule_check([], [fp], "2026-11-05") == [] and sports.sizing_check([fp]) == []
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert "best = mark_best(picks, iso)" in pb and "forced_best(cands" in pb and '"best": True, "forced": True' in pb
+    # the card and the records
+    real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1
+                and p.get("kind") == "play" and not p.get("lean") and p.get("status") == "open")
+    import copy
+    pk = copy.deepcopy(real)
+    pk.update(best=True, date="2026-11-05")
+    card = sdb._pick_card("play", pk)
+    assert "⭐ ENGINE'S BEST PICK" in card and 'class="slate-note best-note"' in card, card[:400]
+    assert "ENGINE'S BEST PICK" not in sdb._pick_card("play", copy.deepcopy(real))
+    forced_card = sdb._pick_card("play", {**pk, "forced": True})
+    assert "surest" in forced_card and "One unit" in forced_card
+    now = datetime(2026, 11, 5, 16, 0, tzinfo=timezone.utc)
+    order = [p["legs"][0]["team"] for p in sdb.board_cards([lock, floor, {**dog, "best": True}], "2026-11-05", now)]
+    assert order[0] == "Senators", order                                    # ⭐ on top of the board, then the Lock
+    won = {**mk("play", "Ducks", 154, 0.382, floor={"dog_score": 1.0, "nba": False}), "status": "won", "units": 1.0, "best": True}
+    won["legs"][0].update(result="won", tier="value")
+    rec = sdb.unit_record([won], "2026-11-05", early=[])
+    assert "⭐ engine's best picks 1-0 · +1.5 units" in rec, rec
+    assert sdb.BEST_NOTE and sdb.BEST_FORCED and len(set(sdb.BEST_NOTE)) == len(sdb.BEST_NOTE)
+    # (4) the Locks: the blocks that protected ROI stand
+    assert sports.NO_THIN_LOCK_FROM == "2026-10-29" and sports.S6_LOCK_SKIP == (-119, -101) and sports.DOG_LOCK is False
 
 
 if __name__ == "__main__":
