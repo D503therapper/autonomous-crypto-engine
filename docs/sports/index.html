@@ -212,8 +212,6 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
 .ovu .ovr-p.up{color:#22e39a} .ovu .ovr-p.dn{color:#ff5c5c}
 .ovl{border-color:rgba(255,210,63,.45);background:linear-gradient(160deg,rgba(255,210,63,.10),rgba(34,211,238,.08))}
 .ovu .ovr-t,.ovl .ovr-t{color:#fff;font-weight:900} .ovr-s.ovw{color:#fff;font-weight:900}
-.ovc{border-color:rgba(255,138,0,.55);background:linear-gradient(160deg,rgba(255,138,0,.13),rgba(34,211,238,.08))}
-.ovc .ovr-t{color:#fff;font-weight:900} .ovc .ovr-p.up{color:#22e39a} .ovc .ovr-p.dn{color:#ff5c5c}
 .sp-n.what{color:#fff;font-weight:700;line-height:1.5} .sp-n.what b{color:#22e39a}
 .pill{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}
@@ -446,7 +444,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1793781713674,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1793782326631,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
