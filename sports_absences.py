@@ -175,6 +175,40 @@ def regulars(games, league, team, before):
     return out
 
 
+INT_LUCK_MIN_GAMES = 5                                   # 🏈 11/4 daily study 1: the season INT margin needs 5+ box games
+
+
+def int_margin(games, league, team, before, rows=None):
+    """🏈 11/4 daily study 1: {"margin": interceptions made minus thrown A GAME this season, "games": n} for a football
+    team from its box scores before `before` (this season's real games only, INT_LUCK_MIN_GAMES+ of them), or None
+    (no box scores / too few = unknown, never a guess). The box holds interceptions thrown (the passing group) and
+    made (the interceptions group) - no fumbles. `rows` = [(start, gid, rows)] for the tests (else the saved box files)."""
+    if league not in ("nfl", "ncaaf"):
+        return None
+    before = str(before or "")
+    if len(before) < 7:
+        return None
+    y, m = int(before[:4]), int(before[5:7])
+    since = f"{y if m >= 7 else y - 1}-07-01"
+    src = rows if rows is not None else _games(league).get(str(team), [])
+    real = [(s, gid, rs) for s, gid, rs in src if since <= s < before
+            and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
+    if len(real) < INT_LUCK_MIN_GAMES:
+        return None
+    made = thrown = 0.0
+    for _, _, rs in real:
+        for r in rs:
+            try:
+                st = json.loads(r.get("stats") or "{}")
+            except ValueError:
+                continue
+            if r.get("group") == "passing":
+                thrown += _num(st.get("interceptions"))
+            elif r.get("group") == "interceptions":
+                made += _num(st.get("interceptions"))
+    return {"margin": round((made - thrown) / len(real), 2), "games": len(real)}
+
+
 def _gone(status):
     """Ruled out: out / doubtful / a short IL stint, or long-term (injured reserve, suspended, out for the season) - a
     key player here PLAYED in the team's last games, so a fresh trip to IR is a new absence the results don't hold yet
