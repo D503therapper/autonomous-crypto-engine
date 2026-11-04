@@ -1,6 +1,8 @@
 {
- "at": "2026-11-04T20:48Z",
+ "at": "2026-11-04T20:50Z",
  "fixes": [
+  "live watch 41902392531 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running",
   "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - sports.yml already running"
  ],
  "problems": [
@@ -8,7 +10,6 @@
   "live tennis scores: tennis Sierra vs Gormaz: no points for 2612s"
  ],
  "ok": [
-  "live watcher fresh (221s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 3 live matches",
@@ -21,12 +22,24 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T20:50Z",
+   "fixes": [
+    "live watch 41902392531 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Papamichail: no points for 2612s",
+    "live tennis scores: tennis Sierra vs Gormaz: no points for 2612s"
+   ]
+  },
   {
    "at": "2026-11-04T20:48Z",
    "fixes": [
@@ -581,16 +594,6 @@
    "problems": [
     "live tennis scores: tennis Klimovicova vs Feistel: no points for 1842s",
     "live tennis scores: tennis Sawant vs Bohner: no points for 1842s"
-   ]
-  },
-  {
-   "at": "2026-11-03T11:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Samsonova vs Shubladze: points frozen at 0-0 for 433s",
-    "live tennis scores: tennis Nahimana vs Sziedat: no points for 1696s",
-    "live tennis scores: tennis Klimovicova vs Feistel: no points for 1696s",
-    "live tennis scores: tennis Sawant vs Bohner: no points for 1696s"
    ]
   }
  ]
