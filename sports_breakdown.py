@@ -10,7 +10,9 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 61          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 62          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+#   (62 - 11/4 lingo pass, the owner: "I have not liked the damn lingo" - the risk / outs / last-game / site / bottom-line /
+#    lean / units-line pools rewritten in his voice; the stiff frames are in sports_owner_lingo.STIFF and can't come back)
 #   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
 #    floor closer for a dog the score has under zero)
 #                       (60: 10/29 afternoon lingo sweep - no "PDO" / "dog check", the heater bar, the risk line, verbs)
@@ -293,14 +295,15 @@ def _lean_pool(leg, team, price, o, own):
     if leg.get("market") == "spread" and leg.get("line") is not None:   # (10/2 audit: a spread lean's read is the
         ln = f"{leg['line']:+g}"                                         #  chance to COVER - never "win" / "underdog")
         if own < LEAN_CLOSE:
-            return [f"🟡 Bottom line: {price}. Close to a coin flip on {team} covering {ln} - by a hair, no units.",
-                    f"🟡 Bottom line: {price}. {team} {ln} is near 50-50 to cover on our read. Lean only.",
-                    f"🟡 Bottom line: {price}. Our read has {team} covering {ln} a hair more often than not. Just a lean.",
-                    f"🟡 Bottom line: {price}. {team} {ln} is the side, but it's close to even on our read. No units."]
-        return [f"🟡 Bottom line: {price}. {team} cover {ln} more often than not on our read - not by enough for units.",
-                f"🟡 Bottom line: {price}. {team} {ln} is the side we lean; the price already pays for it. No units.",
+            return [f"🟡 Bottom line: {price}. A coin flip on {team} covering {ln} - by a hair, no units.",
+                    f"🟡 Bottom line: {price}. {team} {ln} is about 50-50 to cover. Lean only.",
+                    f"🟡 Bottom line: {price}. {team} cover {ln} a hair more often than not for us. Just a lean.",
+                    f"🟡 Bottom line: {price}. We like {team} {ln}, but barely - a coin flip to cover. No money on it.",
+                    f"🟡 Bottom line: {price}. {team} {ln} if you gotta have a side. 50-50 to cover, too close for units."]
+        return [f"🟡 Bottom line: {price}. {team} cover {ln} more often than not for us - not by enough for units.",
+                f"🟡 Bottom line: {price}. {team} {ln} is the side; the price already pays for it. No units.",
                 f"🟡 Bottom line: {price}. {team} should cover {ln}, just not by enough to put money on. Lean only.",
-                f"🟡 Bottom line: {price}. We'd take {team} {ln}; at that price it's not a bet we put money on."]
+                f"🟡 Bottom line: {price}. We'd take {team} {ln}, but we ain't betting it at that price."]
     try:
         import sports_breakdown_v24 as _v
         _f = _v.fair_am(own)                                   # (10/22, the owner: "vague" - our number on them, said)
@@ -309,29 +312,29 @@ def _lean_pool(leg, team, price, o, own):
         _f, _is = None, "is"
     if own < 0.47 and (o or 0) > 0:                           # an underdog lean: never "by a hair" on a team we
         return ([f"🟡 Bottom line: {price}. We make {team} {_f} - close to the number, not enough for units. Lean only.",
-                 f"🟡 Bottom line: {price}. Our number's {_f} on {team}. A live dog, no units."] if _f else []) + [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
-                f"🟡 Bottom line: {price}. A live dog to us - not live enough to put money on. Lean only.",
+                 f"🟡 Bottom line: {price}. Our number's {_f} on {team}. A live dog, no units."] if _f else []) + [f"🟡 Bottom line: {price}. {team} {_is} the dog we lean - not enough there for units.",   # have losing
+                f"🟡 Bottom line: {price}. Live dog, just not live enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
-                f"🟡 Bottom line: {price}. Underdog lean - we see a shot, not a bet we put money on."]
+                f"🟡 Bottom line: {price}. Underdog lean - we see a shot, we ain't paying for it."]
     if own < LEAN_CLOSE:                                      # (10/21, the owner: the same bottom line on 3 cards -
-        return [f"🟡 Bottom line: {price}. We've got this game close to a coin flip - {team} by a hair, not enough to put money on.",
-                f"🟡 Bottom line: {price}. Close to 50-50 on our read. We tilt {team}, no units.",
-                f"🟡 Bottom line: {price}. Our read has it close to even, {team} a hair better. Lean only.",
+        return [f"🟡 Bottom line: {price}. Straight coin flip - {team} by a hair, not enough to put money on.",
+                f"🟡 Bottom line: {price}. 50-50 for us. We tilt {team}, no units.",
+                f"🟡 Bottom line: {price}. Could go either way - 50-50 for us, {team} a hair better. Lean only.",
                 f"🟡 Bottom line: {price}. Basically a coin flip - {team} by a nose. Fun to ride, not a money play.",
-                f"🟡 Bottom line: {price}. A coin flip game - if you're playing it, {team} {_is} the side. No units from us.",
-                f"🟡 Bottom line: {price}. It's close to even tonight, {team} slightly better. Just a lean.",
+                f"🟡 Bottom line: {price}. A coin flip - if you're playing it, {team} {_is} the side. No units from us.",
+                f"🟡 Bottom line: {price}. Toss-up, close to even - {team} slightly better. Just a lean.",
                 f"🟡 Bottom line: {price}. 50-50 type game. The engine leans {team} - no units on it.",
-                f"🟡 Bottom line: {price}. Not much between these two - close to even. {team} if you gotta pick one."]
+                f"🟡 Bottom line: {price}. Not much between these two, a coin flip. {team} if you gotta pick one."]
     return ([f"🟡 Bottom line: {price}. We make {team} {_f} - the book wants {price.split('(')[-1].rstrip(')')}. No money in it, just a lean.",
              f"🟡 Bottom line: {price}. {team} to win - our number's {_f}, so no units at this price."] if _f else []) + [
             f"🟡 Bottom line: {price}. {team} should win more than they lose, but at that price there's no profit in it. Lean only.",
-            f"🟡 Bottom line: {price}. {team} are the likelier winner - the price already accounts for that. No units.",
-            f"🟡 Bottom line: {price}. Right side, but the price costs about what they're worth. A lean.",
-            f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price it's not a bet we put money on.",
+            f"🟡 Bottom line: {price}. {team} {_is} the likelier winner - the books know it too. No units.",
+            f"🟡 Bottom line: {price}. Right side, but you're paying full price for it. A lean.",
+            f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price we ain't betting it.",
             f"🟡 Bottom line: {price}. {team} the better side - the books priced it right, so no units.",
-            f"🟡 Bottom line: {price}. {team} get the W on our read. Good parlay piece, not a unit play.",
-            f"🟡 Bottom line: {price}. We like {team} to win it. The price is too fair to bet - just a lean.",
-            f"🟡 Bottom line: {price}. {team} the pick to win. No value at this number, so no units."]
+            f"🟡 Bottom line: {price}. {team} get the W for us. Good parlay piece, not a unit play.",
+            f"🟡 Bottom line: {price}. We like {team} to win it. Price is too fair to bet - just a lean.",
+            f"🟡 Bottom line: {price}. {team} to win. No value at this number, so no units."]
 
 
 def breakdown(leg, games, elo, injuries, used=None):
@@ -868,8 +871,8 @@ T = {
     ],
     "cold": [
         "🧊 {them} are {rec} and {cold} — {cnt} straight {Ls}.",
-        "🧊 {them} have [dropped|lost] {cnt} {str8} ({rec}). [Not a good look.|Ugly.|Yikes.|]",
-        "🧊 {cnt} straight {Ls} for {them} ({rec}). [Not a good look.|Ugly.|Rough stretch.|Yikes.|Woof.]",
+        "🧊 {them} have [dropped|lost] {cnt} {str8} ({rec}). [Can't buy a W.|Ugly.|Yikes.|]",
+        "🧊 {cnt} straight {Ls} for {them} ({rec}). [In shambles.|Ugly.|Rough stretch.|Yikes.|Woof.]",
         "🧊 {them} ({rec}) keep [taking|eating|stacking|piling up] {Ls} — {cnt} {str8}.",
         "🧊 {them} ({rec}) [are in a slump|can't buy a win|are skidding|are sliding] — {cnt} {str8}.",
         "🧊 {them} [forgot how to win|lost the recipe|can't close]: {cnt} {str8}, {rec}.",
@@ -1151,7 +1154,7 @@ T = {
         "🌍 {where} [hosts this one|is the venue]. [Travel for everybody|No real home team] — we [only|] [play|take] these with [extra|more] value.",
     ],
     "home": [
-        "🏟️ {us} at the crib tonight — their building, their rules.",
+        "🏟️ {us} at the crib tonight. Teams don't come in here and eat.",
         "🏟️ Home cooking for {us}. That crowd finna be loud as hell.",
         "🏟️ {us} in their own house. Y'all know teams play different at home.",
         "🏟️ {us} are home tonight and ready to handle business.",

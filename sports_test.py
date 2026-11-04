@@ -14411,7 +14411,7 @@ def test_floor_play_card_never_says_no_units_or_a_price_against_it_10_27():
     assert 'leg.get("floor_score") is not None' in src
     leg = {"team": "Wild", "odds": 102, "dec": 2.02, "p": 0.478, "floor_score": -0.6, "market": "ml"}
     html = sdb._units_line(0.5, "Wild", 102, leg=leg)
-    assert "We make" not in html and "Thin edge" in html, html
+    assert "We make" not in html and "best dog" in html.lower(), html   # (11/4 lingo pass: what put it up, said his way)
     import sports_breakdown_v24 as v24
     bsrc = open(v24.__file__).read()
     assert '"bottom_floor"' in bsrc and bsrc.index('"bottom_floor"') < bsrc.index('"bottom_c"')
@@ -15226,7 +15226,7 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
     assert "{_possm(the_us)} last starter in net" in src and "{_possm(the_them)} last starter in net" in src
     # the same last score never lands on two lines of one card: the W-W line skips our score when the record line said it
     i = src.index("if wu and wt and any(a in str(x) for x in out)")
-    assert "come in off a {b} themselves" in src[i:i + 500]
+    assert "won their last one too, a {b}" in src[i:i + 500]                 # (11/4 lingo pass: their score only)
     # the early card's "we beat the line" says it plain: we got the better number
     assert all("better number" in w or "better one" in w for w in sports_early.MOVE_SAY["🔥 we beat the line"])
     # no bottom line repeats across one board: two floor cards sharing a board's memory say it two ways
@@ -17924,7 +17924,7 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
     bank = dsh.units_box(bad, "2026-11-21")
     assert "🔥 Value plays" in bank and "College hoops" not in bank and "test" not in bank.lower()
     line = dsh._units_line(0.5, "k", 160, leg={**leg, "dog_p": 0.45})
-    assert "We make &#x27;em +122, the book&#x27;s at +160. Small bet." in line and "test" not in line.lower()
+    assert "+122" in line and "+160" in line and "½ UNIT" in line and "test" not in line.lower()   # (11/4: the wording rolls)
     card = dsh._pick_card("play", {**pk, "american": 160})
     assert "VALUE PLAY" in card and "TEST" not in card and "ncaab-note" not in card
     # the records page: a normal value play in every record - the 💰 unit plays, the 🔥 value plays box, the sport's chip
@@ -18110,7 +18110,7 @@ def test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_
     bank = dsh.units_box(bad, "2026-11-19")
     assert "🔥 Value plays" in bank and "test" not in bank.lower()
     line = dsh._units_line(2.0, "k", 160, leg={**legB, "dog_p": 0.43})
-    assert "2 UNITS" in line and "the book&#x27;s at +160. Bigger bet." in line and "test" not in line.lower()
+    assert "2 UNITS" in line and "+160" in line and "test" not in line.lower()   # (11/4 lingo pass: the wording rolls)
     card = dsh._pick_card("play", {**pkB, "american": 160})
     assert "VALUE PLAY" in card and "TEST" not in card and "ncaab-note" not in card
     # THE BOARD: post_board posts up to two dogs a day (1u / 2u by the read), never a third, a second run adds none;
@@ -18866,7 +18866,7 @@ def test_sd_1104_a_non_d1_blowout_moves_nothing_and_the_stronger_team_needs_the_
            "floor": {"dog_score": 0.43}, "eff_p": 0.399, "home": True}
     out = v24.breakdown(dict(leg), G, elo, {"ncaab": {"T0": [], "T1": []}}, set())
     card = " ".join(out)
-    assert "N (a non-D1 school)" in card, card                              # the tune-up is named for what it is
+    assert "N (a no-name non-D1 school)" in card, card                              # the tune-up is named for what it is
     assert "🚀" not in card and "cheeks clapped" not in card, card           # never a blowout-win line off it
     assert "better team" not in card and "ratings like" not in card and "ratings have" not in card, card
     assert "dog angles back it" not in card and "every angle" not in card, card   # 0.43 = the own read alone
@@ -19015,6 +19015,94 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert sdb.BEST_NOTE and sdb.BEST_FORCED and len(set(sdb.BEST_NOTE)) == len(sdb.BEST_NOTE)
     # (4) the Locks: the blocks that protected ROI stand
     assert sports.NO_THIN_LOCK_FROM == "2026-10-29" and sports.S6_LOCK_SKIP == (-119, -101) and sports.DOG_LOCK is False
+
+
+def test_lingo_1104_no_stiff_frames_in_any_pool_or_card():
+    """11/4, the owner: "I have not liked the damn lingo. These breakdowns have not been in my lingo how I want it to
+    be." The ⚠️ risk line said the same corporate shrug on every card ("We weighed it, and Rangers are still the side",
+    "Priced in. We still riding", "The rest of this card outweighs it", "Don't get it twisted ... We saw it, we still got
+    Flames", "Noted. Not enough."), the 🚑 / 📅 / 🏟️ lines closed on template tails ("Bodies missing over there", "Two
+    teams looking to get right", "We'll take that matchup"), the closers said "Quiet play, right play" / "nothing loud
+    about it", and the units line was "We make 'em X, the book's at Y. Small bet." on every card. The pools were
+    rewritten in his voice (wording only - every line keeps its fact; the guard, vb(), knocks_us and REAL_LOSS stand);
+    the old frames sit in sports_owner_lingo.STIFF and can't come back: (1) no string in the write-up code says one,
+    (2) no rendered card line says one, (3) his 11/4 words are in the lingo file and live, (4) the one-liner's tail
+    after a comma starts lower case ("72% of the bets are on N Kentucky, Give me South Dakota." posted), (5) the
+    wording version moved so open cards re-render."""
+    import ast
+    import sports_breakdown as sb, sports_breakdown_v24 as v24, sports_owner_lingo as ol, sports_dashboard as dsh
+    assert sb.VERSION >= 62
+    stiff = [x.lower() for x in ol.STIFF]
+    assert "we weighed it" in stiff and "priced in. we still riding" in stiff and "bodies missing over there" in stiff
+    for w in ("GOAT call", "in shambles", "no-name", "lame ass", "on a heater", "line makers ain't showing no respect"):
+        assert w in ol.OWNER, w
+    # (1) every string the write-up code can post (docstrings and comments aside)
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fn in ("sports_breakdown_v24.py", "sports_breakdown.py", "sports_dashboard.py", "sports_lingo.py"):
+        tree = ast.parse(open(os.path.join(here, fn)).read())
+        docs = {id(n.body[0].value) for n in ast.walk(tree)
+                if isinstance(n, (ast.Module, ast.FunctionDef, ast.ClassDef)) and n.body
+                and isinstance(n.body[0], ast.Expr) and isinstance(n.body[0].value, ast.Constant)}
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in docs:
+                low = n.value.lower()
+                hit = [x for x in stiff if x in low]
+                assert not hit, (fn, hit, n.value[:120])
+    # (2) rendered cards: a small hockey slate, every side, fresh and shared board memory - not one stiff line
+    teams = ["A", "B", "C", "D"]
+    fin, k = [], 0
+    for rnd in range(14):
+        for h, a in ((teams[rnd % 4], teams[(rnd + 1) % 4]), (teams[(rnd + 2) % 4], teams[(rnd + 3) % 4])):
+            k += 1
+            hs, as_ = (5, 1) if (rnd + k) % 3 == 0 else (2, 3) if (rnd + k) % 3 == 1 else (4, 2)
+            fin.append({"id": f"h{k}", "league": "nhl", "status": "final", "stype": "2",
+                        "start": (datetime(2026, 10, 8, 23, tzinfo=timezone.utc) + timedelta(days=2 * rnd, hours=k % 2)).strftime("%Y-%m-%dT%H:%MZ"),
+                        "home": h, "away": a, "home_name": f"Team{h}s", "away_name": f"Team{a}s", "neutral": "0",
+                        "home_score": str(hs), "away_score": str(as_)})
+    e, _ = sm.replay(fin, 6.0, 30, "nhl")
+    G = {x["id"]: x for x in fin}
+    lines, risks = [], 0
+    for i, (h, a) in enumerate((("A", "B"), ("C", "D"), ("B", "C"), ("D", "A"))):
+        gid = f"p{i}"
+        G[gid] = {"id": gid, "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-06T00:00Z", "home": h,
+                  "away": a, "home_name": f"Team{h}s", "away_name": f"Team{a}s", "neutral": "0", "home_score": "",
+                  "away_score": "", "ml_home": "-120", "ml_away": "100"}
+        for side, odds in (("home", -120), ("away", 100)):
+            us, them = (G[gid]["home_name"], G[gid]["away_name"]) if side == "home" else (G[gid]["away_name"], G[gid]["home_name"])
+            for lean, floor in ((False, None), (True, None), (False, 0.4)):
+                leg = {"game_id": gid, "league": "nhl", "side": side, "team": us, "opp": them, "odds": odds,
+                       "dec": 1.0 + (100 / 120 if odds < 0 else odds / 100), "market": "ml", "p": 0.52, "edge": 0.02,
+                       "reasons": ["the stronger team"], "outs": ["Joe Out (D)"], "opp_outs": ["Sam Gone (C)"],
+                       "is_lean": lean, "tier": "lean" if lean else "value", "pdo": 975, "pyth_luck": -0.06}
+                if floor is not None:
+                    leg.update(floor_score=floor, floor={"dog_score": floor})
+                for shared in (False, True):
+                    out = v24.breakdown(dict(leg), G, {"nhl": e}, {"nhl": {}}, set(lines) if shared else set())
+                    if lean:
+                        out = sb.lean_tone(out, leg, gid + side)
+                    lines += [str(x) for x in out]
+                    risks += sum(str(x).startswith("⚠️") for x in out)
+    assert len(lines) > 100 and risks >= 4, (len(lines), risks)
+    bad = [x for x in lines if any(s in x.lower() for s in stiff)]
+    assert not bad, bad[:5]
+    # every risk wording, and every lean / units closer, rolled over many picks
+    v = v24.Voice("x", set())
+    for n in range(40):
+        v.knocks = [(5, f"Team{n}s have dropped {n % 5 + 2} straight")]
+        v.seed, v.used = f"s{n}", set()
+        r = v24.risk_line(v, f"Team{n}s", "Others", f"the Team{n}s")
+        assert r.startswith("⚠️") and f"dropped {n % 5 + 2} straight" in r and not any(s in r.lower() for s in stiff), r
+    for o, p in ((-108, 0.5), (-300, 0.72), (140, 0.44), (-130, 0.6)):
+        for x in sb.lean_ends({"team": "Kraken", "odds": o, "p": p, "market": "ml"}):
+            assert not any(s in x.lower() for s in stiff), x
+    dsh.WHY_USED.clear()
+    for n in range(12):
+        html = dsh._units_line(0.5 if n % 2 else 1.0, f"k{n}", 140, leg={"team": "K", "odds": 140, "p": 0.47, "dec": 2.4})
+        assert not any(s in html.lower() for s in stiff), html
+    dsh.WHY_USED.clear()
+    # (4) the tail after a comma: lower case unless it's a name
+    assert v24._tl("Give me South Dakota.", ("South Dakota", "N Kentucky")) == "give me South Dakota."
+    assert v24._tl("South Dakota all day.", ("South Dakota", "N Kentucky")) == "South Dakota all day."
 
 
 if __name__ == "__main__":
