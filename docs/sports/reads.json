@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T15:31Z",
+ "updated": "2026-11-04T16:01Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -79,8 +79,8 @@
    "start": "2026-11-05T00:00Z",
    "away": "FDU",
    "home": "Butler",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "FDU",
     "opp": "Butler",
@@ -119,7 +119,8 @@
     "win_p": 0.584,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -204,7 +205,7 @@
     "market": "spread",
     "line": 25.5,
     "odds": -115,
-    "p": 0.506,
+    "p": 0.505,
     "win_p": 0.079,
     "reasons": [
      "sharp money moving this way",
@@ -238,7 +239,8 @@
     "p": 0.692,
     "win_p": 0.692,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -293,12 +295,13 @@
     "team": "Knicks",
     "opp": "Bulls",
     "market": "spread",
-    "line": -11.5,
-    "odds": -115,
-    "p": 0.504,
+    "line": -12.5,
+    "odds": -105,
+    "p": 0.505,
     "win_p": 0.823,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -317,8 +320,8 @@
    "start": "2026-11-05T00:30Z",
    "away": "C Michigan",
    "home": "E Michigan",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "E Michigan",
     "opp": "C Michigan",
@@ -338,7 +341,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wichita St",
-    "p": 0.819,
+    "p": 0.825,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -353,10 +356,10 @@
     "team": "CSU Northridge",
     "opp": "Wichita St",
     "market": "spread",
-    "line": 14.5,
-    "odds": -110,
-    "p": 0.51,
-    "win_p": 0.101,
+    "line": 15.5,
+    "odds": -118,
+    "p": 0.506,
+    "win_p": 0.096,
     "reasons": []
    }
   },
@@ -406,7 +409,7 @@
    "start": "2026-11-05T00:30Z",
    "away": "Senators",
    "home": "Sabres",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Senators",
@@ -416,7 +419,9 @@
     "odds": -218,
     "p": 0.679,
     "win_p": 0.461,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -477,7 +482,8 @@
     "win_p": 0.668,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -496,8 +502,8 @@
    "start": "2026-11-05T01:00Z",
    "away": "N Kentucky",
    "home": "South Dakota",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "N Kentucky",
     "opp": "South Dakota",
@@ -537,7 +543,8 @@
     "p": 0.68,
     "win_p": 0.68,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -598,7 +605,8 @@
     "p": 0.713,
     "win_p": 0.713,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -676,8 +684,8 @@
    "start": "2026-11-05T02:00Z",
    "away": "Trail Blazers",
    "home": "Suns",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Trail Blazers",
     "opp": "Suns",
@@ -707,8 +715,8 @@
    "start": "2026-11-05T02:30Z",
    "away": "Mavericks",
    "home": "Spurs",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Spurs",
     "opp": "Mavericks",
@@ -718,7 +726,8 @@
     "p": 0.505,
     "win_p": 0.823,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -756,7 +765,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.74,
+    "p": 0.741,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -776,7 +785,8 @@
     "p": 0.505,
     "win_p": 0.824,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -862,7 +872,7 @@
     "opp": "LMU",
     "market": "spread",
     "line": 8.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.533,
     "win_p": 0.252,
     "reasons": [
@@ -906,7 +916,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.588,
+    "p": 0.589,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -926,6 +936,7 @@
     "p": 0.637,
     "win_p": 0.637,
     "reasons": [
+     "opponent missing key players",
      "sharp money moving this way"
     ]
    }
@@ -1157,6 +1168,34 @@
     "odds": -278,
     "p": 0.688,
     "win_p": 0.471,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaaf:401867964",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "SC State",
+    "p": 0.768,
+    "tie": 0.025,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-06T00:30Z",
+   "away": "SC State",
+   "home": "Howard",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Howard",
+    "opp": "SC State",
+    "market": "spread",
+    "line": 15.5,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.172,
     "reasons": []
    }
   },

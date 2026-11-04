@@ -1,25 +1,4 @@
 {
- "nba:401909277": {
-  "market": "ml",
-  "own": 0.5529,
-  "side": "away",
-  "start": "2026-10-30T23:00Z",
-  "team": "Hornets"
- },
- "nba:401909278": {
-  "market": "spread",
-  "own": 0.5082,
-  "side": "home",
-  "start": "2026-10-30T23:30Z",
-  "team": "Celtics"
- },
- "nba:401909280": {
-  "market": "ml",
-  "own": 0.5261,
-  "side": "away",
-  "start": "2026-10-30T23:30Z",
-  "team": "Knicks"
- },
  "nba:401909283": {
   "market": "ml",
   "own": 0.4099,
@@ -47,13 +26,6 @@
   "side": "away",
   "start": "2026-10-31T02:00Z",
   "team": "Nuggets"
- },
- "nba:401909893": {
-  "market": "ml",
-  "own": 0.508,
-  "side": "home",
-  "start": "2026-10-30T00:00Z",
-  "team": "Hawks"
  },
  "nba:401909897": {
   "market": "ml",
@@ -118,12 +90,40 @@
   "start": "2026-11-03T03:00Z",
   "team": "Warriors"
  },
+ "nba:401909926": {
+  "market": "spread",
+  "own": 0.5053,
+  "side": "home",
+  "start": "2026-11-05T00:30Z",
+  "team": "Knicks"
+ },
+ "nba:401909933": {
+  "market": "spread",
+  "own": 0.5053,
+  "side": "home",
+  "start": "2026-11-05T02:30Z",
+  "team": "Spurs"
+ },
+ "nba:401909934": {
+  "market": "spread",
+  "own": 0.5053,
+  "side": "away",
+  "start": "2026-11-05T03:00Z",
+  "team": "Lakers"
+ },
  "ncaab:401902275": {
   "market": "spread",
   "own": 0.514,
   "side": "away",
   "start": "2026-11-03T00:00Z",
   "team": "Lafayette"
+ },
+ "ncaab:401902276": {
+  "market": "spread",
+  "own": 0.5353,
+  "side": "away",
+  "start": "2026-11-05T00:00Z",
+  "team": "FDU"
  },
  "ncaab:401906757": {
   "market": "spread",
@@ -433,6 +433,13 @@
   "start": "2026-11-03T03:00Z",
   "team": "Towson"
  },
+ "ncaab:401918052": {
+  "market": "spread",
+  "own": 0.5173,
+  "side": "away",
+  "start": "2026-11-05T02:00Z",
+  "team": "Radford"
+ },
  "ncaab:401918073": {
   "market": "spread",
   "own": 0.5174,
@@ -545,6 +552,13 @@
   "start": "2026-11-04T00:00Z",
   "team": "Coppin St"
  },
+ "ncaab:401920410": {
+  "market": "spread",
+  "own": 0.5353,
+  "side": "away",
+  "start": "2026-11-05T00:00Z",
+  "team": "MD Eastern"
+ },
  "ncaab:401920422": {
   "market": "spread",
   "own": 0.5391,
@@ -607,6 +621,13 @@
   "side": "away",
   "start": "2026-11-03T03:00Z",
   "team": "Colgate"
+ },
+ "ncaab:401920798": {
+  "market": "spread",
+  "own": 0.5301,
+  "side": "away",
+  "start": "2026-11-05T01:00Z",
+  "team": "SE Louisiana"
  },
  "ncaab:401920806": {
   "market": "spread",
@@ -825,13 +846,6 @@
   "start": "2026-10-31T16:45Z",
   "team": "Auburn"
  },
- "ncaaf:401856844": {
-  "market": "ml",
-  "own": 0.5402,
-  "side": "home",
-  "start": "2026-10-30T23:30Z",
-  "team": "UCF"
- },
  "ncaaf:401856847": {
   "market": "ml",
   "own": 0.3041,
@@ -881,13 +895,6 @@
   "start": "2026-10-31T19:00Z",
   "team": "Air Force"
  },
- "ncaaf:401862813": {
-  "market": "ml",
-  "own": 0.3088,
-  "side": "home",
-  "start": "2026-10-30T23:00Z",
-  "team": "Charlotte"
- },
  "ncaaf:401864530": {
   "market": "spread",
   "own": 0.5117,
@@ -908,6 +915,20 @@
   "side": "away",
   "start": "2026-11-04T00:00Z",
   "team": "Ohio"
+ },
+ "ncaaf:401866456": {
+  "market": "ml",
+  "own": 0.5373,
+  "side": "home",
+  "start": "2026-11-05T00:30Z",
+  "team": "E Michigan"
+ },
+ "ncaaf:401866457": {
+  "market": "spread",
+  "own": 0.5053,
+  "side": "home",
+  "start": "2026-11-05T00:00Z",
+  "team": "Sacramento St"
  },
  "ncaaf:401871095": {
   "market": "ml",
@@ -992,27 +1013,6 @@
   "side": "away",
   "start": "2026-11-03T01:15Z",
   "team": "Bears"
- },
- "nhl:401892604": {
-  "market": "ml",
-  "own": 0.5064,
-  "side": "home",
-  "start": "2026-10-30T00:00Z",
-  "team": "Blues"
- },
- "nhl:401892605": {
-  "market": "ml",
-  "own": 0.5205,
-  "side": "home",
-  "start": "2026-10-30T00:00Z",
-  "team": "Predators"
- },
- "nhl:401892609": {
-  "market": "ml",
-  "own": 0.5044,
-  "side": "away",
-  "start": "2026-10-30T02:00Z",
-  "team": "Senators"
  },
  "nhl:401892613": {
   "market": "ml",

@@ -2,55 +2,55 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-04T15:30Z",
+   "at": "2026-11-04T16:01Z",
    "how": "plain request",
    "n": 24,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-04T15:28Z",
+   "at": "2026-11-04T16:00Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-04T15:30Z",
+   "at": "2026-11-04T16:01Z",
    "how": "plain request",
    "n": 18,
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-04T15:30Z",
+   "at": "2026-11-04T16:01Z",
    "how": "plain request",
    "n": 29,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-04T15:30Z",
+   "at": "2026-11-04T16:01Z",
    "how": "plain request",
    "n": 14,
    "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-04T15:30Z",
+   "at": "2026-11-04T16:01Z",
    "how": "plain request",
    "n": 15,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-04T07:54Z",
+   "at": "2026-11-04T16:00Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-04T15:29Z",
+   "at": "2026-11-04T16:00Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-04T15:28Z",
+   "at": "2026-11-04T15:40Z",
    "how": "plain request",
    "n": 4,
    "ok": true
@@ -62,18 +62,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-04T07:54Z",
+   "at": "2026-11-04T16:00Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-04T15:29Z",
+   "at": "2026-11-04T16:00Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-04T15:30Z"
+ "updated": "2026-11-04T16:01Z"
 }
