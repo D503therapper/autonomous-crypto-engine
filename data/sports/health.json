@@ -1,9 +1,11 @@
 {
- "at": "2026-11-04T03:15Z",
- "fixes": [],
+ "at": "2026-11-04T03:16Z",
+ "fixes": [
+  "live watch 41761282119 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (240s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +18,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 28 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T03:16Z",
+   "fixes": [
+    "live watch 41761282119 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-04T03:15Z",
    "fixes": [],
@@ -539,11 +549,6 @@
     "live tennis scores: tennis Bronzetti vs Jeanjean: no points for 81s",
     "live tennis scores: tennis Garcia vs Alves: no points for 81s"
    ]
-  },
-  {
-   "at": "2026-11-02T18:51Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
