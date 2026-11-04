@@ -1,14 +1,14 @@
 {
- "at": "2026-11-04T20:46Z",
+ "at": "2026-11-04T20:47Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - sports.yml already running"
  ],
  "problems": [
   "live tennis scores: tennis Zarazua vs Papamichail: no points for 2612s",
   "live tennis scores: tennis Sierra vs Gormaz: no points for 2612s"
  ],
  "ok": [
-  "live watcher fresh (127s)",
+  "live watcher fresh (180s)",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 3 live matches",
@@ -21,12 +21,22 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran -0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T20:47Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Zarazua vs Papamichail: no points for 2612s",
+    "live tennis scores: tennis Sierra vs Gormaz: no points for 2612s"
+   ]
+  },
   {
    "at": "2026-11-04T20:46Z",
    "fixes": [
@@ -581,11 +591,6 @@
     "live tennis scores: tennis Kubka vs Suvirdjonkova: no points for 211s",
     "live tennis scores: tennis Okutoyi vs Lansere: no points for 211s"
    ]
-  },
-  {
-   "at": "2026-11-03T09:16Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
