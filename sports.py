@@ -6538,9 +6538,16 @@ def post_board(games, model, picks, now, day, force=False):
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
+                            ("ncaabplay", ncaab_play_plays, NCAAB_PLAY_MAX_DAY),   # 🏀 11/3-4: the college hoops slot plays -
+                            #                                                       BEFORE the floor (11/4 daily check: the
+                            #                                                       floor ranks dogs by score, so the ½u floor
+                            #                                                       took the dog slot's best dog first and
+                            #                                                       the 1u / 2u slot play was blocked by
+                            #                                                       the one-pick-a-game rule; the floor is the
+                            #                                                       board's fallback and fills AFTER the real
+                            #                                                       plays - the slot plays count toward its 2)
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
-                            ("ncaabplay", ncaab_play_plays, NCAAB_PLAY_MAX_DAY),   # 🏀 11/3-4: the college hoops slot plays
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:

@@ -18540,6 +18540,77 @@ def test_cbb_expert_1104_star_second_game_back_road_cold_dog_long_top_out_turmoi
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_its_dog():
+    """11/4 DAILY CHECK (the board check): post_board ran the ½u daily floor BEFORE the 🏀 college hoops slot plays. The
+    floor ranks dogs by the dog score, so on the first night the dog read clears (both teams 4+ games, ~11/15) the
+    floor would have taken the slot's best dog at ½u and the 1u / 2u slot play on it was blocked by the one-pick-a-game
+    rule - the lesser reads got the units. Fixed: the slot plays post first; the floor is the board's fallback and fills
+    AFTER the real plays (the slot plays count toward its 2 unit plays), and a floor play never sits on a slot dog's game."""
+    src = open(sports.__file__).read()
+    assert src.index('("ncaabplay", ncaab_play_plays') < src.index('("floor", floor_plays'), "the slot plays post before the floor"
+    assert src.index('("gap", gap_plays') < src.index('("ncaabplay", ncaab_play_plays'), "the 🔍 twin is read off today's picks first"
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(4):
+        gid = f"ncaab:up{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T00:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        up = lambda c: c.get("game_id", "").startswith("ncaab:up") and c.get("market") == "ml" and c.get("odds", 0) > 0
+        reads = {"ncaab:up0": 4.0, "ncaab:up1": 7.0, "ncaab:up2": 5.0, "ncaab:up3": 6.5}
+        slot_reads = dict(reads)
+
+        def fake_dog(c):
+            if not up(c) or c["game_id"] not in slot_reads:
+                return None
+            c["dog_read"] = slot_reads[c["game_id"]]
+            return (0.5, round(0.5 * c["dec"] - 1, 4), c["dog_read"])
+
+        def fake_floor(cands, avoid, filtered=True):      # the floor's ranking: the best dogs by score are the SAME dogs
+            out = []
+            for c in sorted((c for c in cands if up(c)), key=lambda c: -reads[c["game_id"]]):
+                if c["game_id"] not in avoid:
+                    c["floor_score"] = reads[c["game_id"]]
+                    out.append(c)
+            return out
+        sports.ncaab_play_dog, sports.floor_plays = fake_dog, fake_floor
+        sports.ncaab_play_fav = lambda c: None
+        sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = [p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in dogs] == [("ncaab:up1", 2.0), ("ncaab:up3", 2.0)], \
+            [(p["kind"], p["legs"][0]["game_id"], p.get("ncaab_play"), p.get("floor")) for p in picks]
+        floors = [p for p in picks if p.get("floor")]
+        assert floors == [], "two slot plays = the board's two unit plays - the floor has nothing to fill"
+        assert sports.unit_plays_today(picks, day.isoformat()) == 2
+        # one slot dog on the night: it posts at its units, the floor fills the SECOND unit play with another dog - never his
+        slot_reads.clear()
+        slot_reads["ncaab:up1"] = 7.0
+        picks2 = []
+        sports.post_board(games, model, picks2, now, day, force=True)
+        dogs2 = [p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        floors2 = [p for p in picks2 if p.get("floor")]
+        assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in dogs2] == [("ncaab:up1", 2.0)]
+        assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in floors2] == [("ncaab:up3", 0.5)], \
+            [(p["kind"], p["legs"][0]["game_id"], p.get("floor")) for p in picks2]
+        assert sports.unit_plays_today(picks2, day.isoformat()) == 2
+        assert len({p["legs"][0]["game_id"] for p in picks2 if not p.get("lean")}) == sum(1 for p in picks2 if not p.get("lean"))
+    finally:
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
