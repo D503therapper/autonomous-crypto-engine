@@ -1,11 +1,9 @@
 {
- "at": "2026-11-04T03:22Z",
- "fixes": [
-  "live watch 41766096401 froze (11 min) - cancelled",
-  "live board 11 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-04T04:53Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (34s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 35 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 62 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T04:53Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-04T03:22Z",
    "fixes": [
@@ -536,16 +539,6 @@
    "at": "2026-11-02T20:32Z",
    "fixes": [],
    "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-02T20:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lizarazo vs Samson: no points for 224s",
-    "live tennis scores: tennis Sierra vs Janicijevic: no points for 224s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
