@@ -1,16 +1,17 @@
 {
- "at": "2026-11-04T18:53Z",
+ "at": "2026-11-04T19:13Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Riera vs Grabher: no points for 1448s",
-  "live tennis scores: tennis Ribera vs Tubello: no points for 1448s"
+  "live tennis scores: tennis Riera vs Grabher: no points for 2616s",
+  "live tennis scores: tennis Ribera vs Tubello: no points for 2616s",
+  "live tennis scores: tennis Zarazua vs Papamichail: no points for 372s"
  ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (52s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 5 live matches",
+  "live tennis points + server: 3 of 6 live matches",
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -20,12 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 15 min ago",
+  "engine ran 35 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T19:13Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Riera vs Grabher: no points for 2616s",
+    "live tennis scores: tennis Ribera vs Tubello: no points for 2616s",
+    "live tennis scores: tennis Zarazua vs Papamichail: no points for 372s"
+   ]
+  },
   {
    "at": "2026-11-04T18:53Z",
    "fixes": [],
@@ -569,11 +579,6 @@
   },
   {
    "at": "2026-11-03T09:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-03T09:11Z",
    "fixes": [],
    "problems": []
   }
