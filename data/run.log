@@ -11553,3 +11553,10 @@ DEX: $673.82 (-326.18) · Scammed: 11 (-$216.49)
 [2026-11-04 09:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-04 09:06 UTC] crypto/hold_btc  equity $469.30 (-6.1%) 1 open  market DOWN
    social heat top: NEAR 40 (40/0/0), PENGU 37 (37/0/0), HYPE 35 (35/0/0), PEPE 32 (32/0/0), UNI 27 (27/0/0)
+   dex screen: REJECT CBBTC@solana liq $5,119,142 - freeze authority; mint authority; top-10 holders 60%
+   dex screen: REJECT ELON@base liq $50,843,497 - no dexscreener pair
+   dex screen: REJECT OCEAN@ethereum liq $1,140,285 - transfer_pausable; is_mintable; hidden_owner; selfdestruct
+   dex screen: REJECT WASTED@ethereum liq $220,761 - goplus partial data: cannot_sell_all unknown; top-10 holders 106%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       117148ee33729a7ac9a7d6c4f91aad02df8b0a2b -> main (cannot lock ref 'refs/heads/main': is at e229c9b051b55abaf0f58
+   dex screen: UNREACHABLE GTA6@ethereum liq $143,855 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
