@@ -11340,3 +11340,30 @@ DEX: $673.82 (-326.18) · Scammed: 11 (-$216.49)
 [2026-11-04 02:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-04 02:05 UTC] crypto/hold_btc  equity $462.17 (-7.6%) 1 open  market DOWN
    social heat top: BTC 42 (37/0/5), PENGU 35 (35/0/0), NEAR 32 (32/0/0), HYPE 29 (29/0/0), ETH 27 (27/0/0)
+   dex screen: REJECT ZCHF@ethereum liq $2,444,125 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 89%
+   dex screen: REJECT VVV@base liq $7,640,884 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: UNREACHABLE SP@ethereum liq $157,603 - honeypot.is unreachable
+   dex screen: REJECT KIM@solana liq $271,033 - top-10 holders 100%; lp holders unknown
+   dex screen: PASS XTO@solana liq $375,443
+   dex screen: REJECT XTO@solana liq $324,563 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $357,256 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $32,128,619 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: UNREACHABLE SP@ethereum liq $157,708 - honeypot.is unreachable
+   dex screen: REJECT SNDKC@base liq $1,081,449 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: REJECT USDE@ethereum liq $3,406,055 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 92%
+   dex screen: REJECT TRUMP@solana liq $195,927 - top-10 holders 88%; lp holders unknown
+   dex screen: REJECT PI@solana liq $88,351,350 - top-10 holders 100%
+   dex screen: REJECT PI@solana liq $80,826,971 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT PI@solana liq $2,994,424 - top-10 holders 100%
+   dex screen: UNREACHABLE SP@ethereum liq $155,596 - honeypot.is unreachable
+   dex scanner: 2,991 pools (solana 2,098 / base 484 / ethereum 409), refresh cycle 126s (hot 121s), 2970 calls (110 feed, 429s 0, failed 0), 85,797 refreshed (11926 no pair), +94 added / -100 dropped (dead 85, stale 1, cap 14), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-04 03:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/mover     equity $241.07 (-51.8%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/social_heat equity $354.83 (-29.0%) 3 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/breakout10 equity $391.49 (-21.7%) 1 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-04 03:05 UTC] crypto/hold_btc  equity $457.06 (-8.6%) 1 open  market DOWN
+   social heat top: PENGU 37 (37/0/0), HYPE 37 (32/0/5), PONS 34 (27/0/8), PUMP 24 (24/0/0), BTC 24 (19/0/5)
