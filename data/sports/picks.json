@@ -31147,6 +31147,15 @@
      "us:week3000"
     ],
     "dec": 2.6,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Dylan Samberg",
+     "s": "5-4",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -31179,6 +31188,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": -1.56,
+    "flow": {
+     "a": "0,0,4,1",
+     "h": "2,1,1,0"
+    },
     "form_state": [
      -7.0,
      -9,
@@ -31228,10 +31241,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jets 5 @ Canadiens 4",
     "season_games": null,
+    "settled": "2026-11-04T03:42Z",
     "side": "away",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -31248,12 +31263,14 @@
    }
   ],
   "p_hit": 0.3735,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T03:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -142,

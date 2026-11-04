@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T02:59Z",
+ "updated": "2026-11-04T03:45Z",
  "games": [
   {
    "id": "ncaab:401906848",
@@ -165,7 +165,7 @@
    "home": "Canadiens",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Jets",
@@ -178,7 +178,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -250,8 +250,8 @@
    "away": "Ohio",
    "home": "Akron",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -370,8 +370,8 @@
    "away": "Oilers",
    "home": "Devils",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -400,8 +400,8 @@
    "away": "AR-Pine Bluff",
    "home": "Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -415,8 +415,8 @@
    "away": "Alabama St",
    "home": "Texas A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -445,8 +445,8 @@
    "away": "Cleveland St",
    "home": "Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -460,8 +460,8 @@
    "away": "Cornell (IA)",
    "home": "Northern Iowa",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -475,8 +475,8 @@
    "away": "Hurricanes",
    "home": "Predators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -505,8 +505,8 @@
    "away": "LSU N Orleans",
    "home": "LSU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -535,8 +535,8 @@
    "away": "Lipscomb",
    "home": "Iowa",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -550,8 +550,8 @@
    "away": "S Dakota St",
    "home": "Kansas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -565,8 +565,8 @@
    "away": "Regis U",
    "home": "Wyoming",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -580,8 +580,8 @@
    "away": "Western NM",
    "home": "New Mexico St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -594,6 +594,96 @@
    "start": "2026-11-04T02:00Z",
    "away": "Ducks",
    "home": "Canucks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917511",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "Bethesda",
+   "home": "Pacific",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929624",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "Chapman",
+   "home": "UC Irvine",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920155",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "Fullerton",
+   "home": "San Diego St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401925914",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "Lewis & Clark",
+   "home": "Portland St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924911",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "N Arizona",
+   "home": "UNLV",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920343",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-04T03:00Z",
+   "away": "North Florida",
+   "home": "CA Baptist",
    "h1": null,
    "why": "started",
    "done": false,
