@@ -1,0 +1,114 @@
+118612 graded sides, seasons ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025']
+days 1119
+
+=== TRAIN 2018-22 (the rule is chosen here) ===
+BASE: ml + spread, whole read beats the price, top 2 / day n  1152  609-543   +3.6%   +41.0u  4/5 up  z +1.2  days  595 1.94/day  18:+7u 19:-18u 20:+11u 21:+34u 22:+7u
+  ml only                                                  n   819  397-422   +3.0%   +24.3u  3/5 up  z +0.8  days  473 1.73/day  18:-2u 19:-20u 20:+8u 21:+19u 22:+19u
+  spread only                                              n  1135  609-526   +3.0%   +34.1u  3/5 up  z +1.0  days  591 1.92/day  18:+17u 19:-14u 20:+13u 21:+35u 22:-17u
+  ml dogs only                                             n   635  298-337   +6.9%   +43.8u  4/5 up  z +1.7  days  377 1.68/day  18:-5u 19:+2u 20:+5u 21:+21u 22:+20u
+  ml favorites only                                        n   383  216-167   +0.1%    +0.5u  3/5 up  z +0.0  days  253 1.51/day  18:-3u 19:-21u 20:+3u 21:+5u 22:+17u
+  edge 1%+                                                 n  1122  591-531   +3.3%   +36.5u  4/5 up  z +1.1  days  586 1.91/day  18:+5u 19:-15u 20:+9u 21:+32u 22:+6u
+  edge 2%+                                                 n  1056  557-499   +3.4%   +36.0u  4/5 up  z +1.1  days  561 1.88/day  18:+4u 19:-18u 20:+9u 21:+32u 22:+9u
+  edge 3%+                                                 n  1013  537-476   +4.1%   +41.1u  4/5 up  z +1.3  days  543 1.87/day  18:+5u 19:-20u 20:+10u 21:+36u 22:+9u
+  edge 5%+                                                 n   874  454-420   +2.2%   +19.0u  3/5 up  z +0.6  days  499 1.75/day  18:-1u 19:-22u 20:+6u 21:+32u 22:+5u
+  a built college hoops edge has to fire on the side       n   972  502-470   +3.3%   +32.4u  3/5 up  z +1.0  days  527 1.84/day  18:-3u 19:+5u 20:+6u 21:+24u 22:-1u
+  fired + spread only                                      n   823  433-390   +0.8%    +6.7u  2/5 up  z +0.2  days  467 1.76/day  18:-4u 19:+2u 20:-4u 21:+29u 22:-16u
+  fired + ml only                                          n   693  340-353   +4.7%   +32.5u  4/5 up  z +1.2  days  424 1.63/day  18:+1u 19:-5u 20:+1u 21:+17u 22:+18u
+  WEIGHTS-ONLY read (own read = the market)                n  1181  618-563   +2.2%   +25.5u  4/5 up  z +0.7  days  604 1.96/day  18:+4u 19:+2u 20:-10u 21:+25u 22:+4u
+  weights-only, spread only                                n  1178  615-563   +0.3%    +3.2u  3/5 up  z +0.1  days  604 1.95/day  18:-14u 19:-0u 20:+2u 21:+9u 22:+6u
+  weights-only, ml only                                    n   587  289-298  +12.5%   +73.5u  4/5 up  z +3.0  days  372 1.58/day  18:-6u 19:+7u 20:+9u 21:+36u 22:+28u
+  weights-only, ml dogs                                    n   577  282-295  +12.7%   +73.3u  4/5 up  z +3.1  days  366 1.58/day  18:-5u 19:+8u 20:+11u 21:+35u 22:+24u
+  weights-only, ml favorites                               n    32   21-11   +15.1%    +4.8u  3/5 up  z +0.8  days   28 1.14/day  18:+1u 19:-0u 20:-3u 21:+4u 22:+3u
+  weights-only + fired                                     n   962  496-466   +1.8%   +17.7u  3/5 up  z +0.6  days  524 1.84/day  18:+7u 19:+9u 20:-6u 21:+19u 22:-13u
+  weights-only + fired, spread                             n   833  434-399   +0.0%    +0.4u  3/5 up  z +0.0  days  465 1.79/day  18:+2u 19:+4u 20:-8u 21:+13u 22:-10u
+  weights-only + fired, ml                                 n   582  285-297  +12.1%   +70.7u  4/5 up  z +2.9  days  370 1.57/day  18:-6u 19:+7u 20:+10u 21:+32u 22:+28u
+  weights-only, edge 2%+                                   n   936  500-436   +3.2%   +30.3u  3/5 up  z +1.0  days  511 1.83/day  18:+14u 19:-2u 20:-1u 21:+15u 22:+4u
+  weights-only, edge 3%+                                   n   933  498-435   +3.0%   +28.1u  3/5 up  z +0.9  days  511 1.83/day  18:+14u 19:-4u 20:-1u 21:+15u 22:+4u
+  weights-only, spread, edge 2%+                           n   930  493-437   +1.9%   +17.3u  4/5 up  z +0.6  days  511 1.82/day  18:+14u 19:-4u 20:+0u 21:+5u 22:+2u
+  Nov-Dec only                                             n   444  243-201   +6.6%   +29.1u  4/5 up  z +1.4  days  235 1.89/day  18:+15u 19:-4u 20:+3u 21:+10u 22:+5u
+  weights-only, Nov-Dec only                               n   468  250-218   +5.4%   +25.3u  3/5 up  z +1.2  days  242 1.93/day  18:-3u 19:+12u 20:-1u 21:+3u 22:+14u
+  Jan-Mar only                                             n   708  366-342   +1.7%   +11.9u  3/5 up  z +0.4  days  360 1.97/day  18:-9u 19:-14u 20:+9u 21:+23u 22:+2u
+  top 1 a day                                              n   590  320-270   +6.6%   +38.7u  4/5 up  z +1.6  days  595 0.99/day  18:+8u 19:-11u 20:+0u 21:+23u 22:+19u
+  weights-only, top 1 a day                                n   599  326-273   +6.0%   +36.2u  4/5 up  z +1.5  days  604 0.99/day  18:+13u 19:-4u 20:+0u 21:+14u 22:+13u
+  top 3 a day                                              n  1686  881-805   +2.5%   +41.9u  3/5 up  z +1.0  days  595 2.83/day  18:+8u 19:-19u 20:+28u 21:+36u 22:-11u
+  postseason in                                            n  1241  655-586   +3.4%   +42.5u  4/5 up  z +1.2  days  648 1.92/day  18:+9u 19:-18u 20:+10u 21:+29u 22:+13u
+SISTER (B): -120..-150 fav, weighed 56%+ over price, own over, no fade n   165   95-70    +0.5%    +0.8u  3/5 up  z +0.1  days  122 1.35/day  18:+4u 19:-6u 20:+0u 21:+3u 22:-1u
+  sister, edge 1-5 points over the price                   n    98   59-39    +5.8%    +5.7u  4/5 up  z +0.6  days   83 1.18/day  18:+4u 19:-4u 20:+2u 21:+3u 22:+1u
+  sister, the -101..-150 band                              n   173   97-76    -2.0%    -3.5u  3/5 up  z -0.3  days  126 1.37/day  18:+3u 19:-10u 20:+0u 21:+4u 22:-1u
+  sister, no cap a day                                     n   213  121-92    -0.8%    -1.7u  3/5 up  z -0.1  days  122 1.75/day  18:+3u 19:-5u 20:+0u 21:+3u 22:-3u
+  sister, edge 1-5, no cap a day                           n   102   60-42    +3.3%    +3.3u  4/5 up  z +0.3  days   83 1.23/day  18:+3u 19:-4u 20:+2u 21:+3u 22:+0u
+  sister, Nov-Dec                                          n     9    6-3    +15.9%    +1.4u  2/3 up  z +0.5  days    9 1.00/day  18:+2u 20:+1u 22:-1u
+FAV SLOT: the sister cell, 1 a day                         n   122   75-47    +7.3%    +8.9u  4/5 up  z +0.8  days  122 1.00/day  18:+3u 19:-2u 20:+2u 21:+5u 22:+1u
+  fav slot, edge 1-5 points, 1 a day                       n    83   52-31   +10.0%    +8.3u  4/5 up  z +0.9  days   83 1.00/day  18:+3u 19:-4u 20:+4u 21:+3u 22:+3u
+DOG SLOT: dog gate 4+, own over, no fade, best score a night n   171   83-88    +9.2%   +15.7u  3/4 up  z +1.2  days  171 1.00/day  18:-3u 20:+5u 21:+2u 22:+13u
+  dog slot, gate 4+, no own-read rule                      n   188   93-95   +11.2%   +21.0u  3/4 up  z +1.5  days  188 1.00/day  18:-3u 20:+5u 21:+8u 22:+12u
+  dog slot, gate 2+                                        n   248  120-128   +9.1%   +22.5u  3/4 up  z +1.4  days  248 1.00/day  18:+4u 20:+8u 21:-0u 22:+11u
+  dog slot, gate 6+                                        n    51   26-25   +18.3%    +9.3u  3/4 up  z +1.3  days   51 1.00/day  18:+2u 20:+3u 21:-1u 22:+6u
+  dog slot, weights-only score 2+                          n   127   64-63   +15.9%   +20.2u  3/4 up  z +1.8  days  127 1.00/day  18:+6u 20:+10u 21:-3u 22:+7u
+  dog slot, weights-only score 4+                          n     8    6-2    +72.6%    +5.8u  2/2 up  z +2.1  days    8 1.00/day  21:+2u 22:+4u
+  dog slot, weights-only 2+, no own-read rule              n   345  171-174  +13.4%   +46.1u  5/5 up  z +2.5  days  345 1.00/day  18:+8u 19:+3u 20:+10u 21:+7u 22:+18u
+  dog slot, every gated dog (no cap)                       n   288  135-153   +5.4%   +15.5u  3/4 up  z +0.9  days  171 1.68/day  18:-12u 20:+8u 21:+1u 22:+18u
+  dog slot, Nov-Dec                                        n    32   19-13   +36.3%   +11.6u  2/4 up  z +2.1  days   32 1.00/day  18:+2u 20:-0u 21:-1u 22:+11u
+UNION: weights-only ml dog OR the sister cell (edge 1-5), top 2 n   605  310-295  +13.0%   +78.7u  5/5 up  z +3.2  days  376 1.61/day  18:+1u 19:+3u 20:+16u 21:+34u 22:+26u
+  union, top 1 a day                                       n   376  189-187   +9.8%   +36.7u  4/5 up  z +1.9  days  376 1.00/day  18:+3u 19:-3u 20:+7u 21:+17u 22:+12u
+  union, top 3 a day                                       n   737  367-370  +10.1%   +74.7u  4/5 up  z +2.8  days  376 1.96/day  18:+1u 19:-1u 20:+10u 21:+31u 22:+33u
+
+=== HELD OUT 2023-25 (every version, for honesty - the choice is made on train) ===
+BASE: ml + spread, whole read beats the price, top 2 / day n   734  413-321   +6.5%   +48.1u  2/3 up  z +1.8  days  380 1.93/day  23:+37u 24:+17u 25:-5u
+  ml only                                                  n   421  234-187   +2.1%    +8.9u  2/3 up  z +0.4  days  257 1.64/day  23:+1u 24:+19u 25:-11u
+  spread only                                              n   712  408-304  +10.5%   +74.6u  3/3 up  z +2.8  days  375 1.90/day  23:+37u 24:+24u 25:+13u
+  ml dogs only                                             n   152   72-80    +3.0%    +4.6u  1/3 up  z +0.4  days  115 1.32/day  23:-1u 24:+14u 25:-9u
+  ml favorites only                                        n   351  212-139   +6.6%   +23.1u  3/3 up  z +1.2  days  218 1.61/day  23:+6u 24:+11u 25:+6u
+  edge 1%+                                                 n   697  394-303   +7.0%   +48.8u  2/3 up  z +1.8  days  368 1.89/day  23:+40u 24:+13u 25:-4u
+  edge 2%+                                                 n   635  364-271   +8.4%   +53.5u  3/3 up  z +2.1  days  351 1.81/day  23:+35u 24:+16u 25:+2u
+  edge 3%+                                                 n   565  332-233  +11.1%   +62.6u  3/3 up  z +2.6  days  322 1.75/day  23:+34u 24:+21u 25:+8u
+  edge 5%+                                                 n   421  243-178   +8.6%   +36.1u  3/3 up  z +1.8  days  265 1.59/day  23:+23u 24:+1u 25:+13u
+  a built college hoops edge has to fire on the side       n   599  338-261   +7.5%   +45.1u  3/3 up  z +1.8  days  329 1.82/day  23:+17u 24:+24u 25:+4u
+  fired + spread only                                      n   563  328-235  +12.1%   +68.4u  3/3 up  z +2.9  days  313 1.80/day  23:+28u 24:+30u 25:+11u
+  fired + ml only                                          n   308  174-134   +5.2%   +16.1u  2/3 up  z +0.9  days  211 1.46/day  23:-8u 24:+16u 25:+8u
+  WEIGHTS-ONLY read (own read = the market)                n   747  404-343   +4.6%   +34.4u  2/3 up  z +1.3  days  384 1.95/day  23:-2u 24:+17u 25:+19u
+  weights-only, spread only                                n   746  404-342   +4.3%   +31.8u  2/3 up  z +1.2  days  384 1.94/day  23:-3u 24:+13u 25:+23u
+  weights-only, ml only                                    n   136   70-66   +10.8%   +14.7u  2/3 up  z +1.3  days  111 1.23/day  23:-3u 24:+14u 25:+4u
+  weights-only, ml dogs                                    n   122   60-62    +9.2%   +11.2u  2/3 up  z +1.0  days   99 1.23/day  23:-6u 24:+17u 25:+1u
+  weights-only, ml favorites                               n    15   10-5    +16.6%    +2.5u  2/3 up  z +0.6  days   15 1.00/day  23:+3u 24:-3u 25:+3u
+  weights-only + fired                                     n   633  348-285   +6.4%   +40.7u  3/3 up  z +1.6  days  340 1.86/day  23:+16u 24:+25u 25:+0u
+  weights-only + fired, spread                             n   615  340-275   +6.3%   +39.0u  3/3 up  z +1.6  days  329 1.87/day  23:+17u 24:+20u 25:+2u
+  weights-only + fired, ml                                 n   136   70-66   +10.8%   +14.7u  2/3 up  z +1.3  days  111 1.23/day  23:-3u 24:+14u 25:+4u
+  weights-only, edge 2%+                                   n   627  346-281   +6.4%   +40.0u  3/3 up  z +1.6  days  338 1.86/day  23:+5u 24:+17u 25:+18u
+  weights-only, edge 3%+                                   n   627  346-281   +6.4%   +40.0u  3/3 up  z +1.6  days  338 1.86/day  23:+5u 24:+17u 25:+18u
+  weights-only, spread, edge 2%+                           n   627  346-281   +6.3%   +39.3u  3/3 up  z +1.6  days  338 1.86/day  23:+5u 24:+16u 25:+18u
+  Nov-Dec only                                             n   298  162-136   +5.3%   +15.9u  2/3 up  z +0.9  days  157 1.90/day  23:+12u 24:+16u 25:-11u
+  weights-only, Nov-Dec only                               n   307  166-141   +5.0%   +15.4u  2/3 up  z +0.9  days  160 1.92/day  23:-11u 24:+13u 25:+14u
+  Jan-Mar only                                             n   436  251-185   +7.4%   +32.2u  3/3 up  z +1.5  days  223 1.96/day  23:+25u 24:+1u 25:+6u
+  top 1 a day                                              n   378  208-170   +3.2%   +12.1u  2/3 up  z +0.6  days  380 0.99/day  23:+18u 24:+0u 25:-6u
+  weights-only, top 1 a day                                n   381  205-176   +4.4%   +16.7u  3/3 up  z +0.9  days  384 0.99/day  23:+7u 24:+4u 25:+6u
+  top 3 a day                                              n  1059  593-466   +6.3%   +67.0u  2/3 up  z +2.1  days  380 2.79/day  23:+32u 24:+36u 25:-1u
+  postseason in                                            n   783  440-343   +6.6%   +51.4u  2/3 up  z +1.8  days  414 1.89/day  23:+42u 24:+9u 25:-0u
+SISTER (B): -120..-150 fav, weighed 56%+ over price, own over, no fade n   301  181-120   +4.6%   +13.9u  2/3 up  z +0.8  days  194 1.55/day  23:+7u 24:-5u 25:+12u
+  sister, edge 1-5 points over the price                   n   215  125-90    +1.3%    +2.9u  2/3 up  z +0.2  days  149 1.44/day  23:+3u 24:+3u 25:-3u
+  sister, the -101..-150 band                              n   315  189-126   +5.1%   +16.1u  2/3 up  z +0.9  days  200 1.57/day  23:+9u 24:-2u 25:+10u
+  sister, no cap a day                                     n   459  277-182   +5.0%   +22.8u  3/3 up  z +1.1  days  194 2.37/day  23:+15u 24:+0u 25:+7u
+  sister, edge 1-5, no cap a day                           n   277  167-110   +5.1%   +14.0u  2/3 up  z +0.8  days  149 1.86/day  23:+12u 24:+8u 25:-5u
+  sister, Nov-Dec                                          n    43   24-19    -2.6%    -1.1u  2/3 up  z -0.2  days   35 1.23/day  23:+2u 24:+1u 25:-4u
+FAV SLOT: the sister cell, 1 a day                         n   194  114-80    +2.1%    +4.1u  2/3 up  z +0.3  days  194 1.00/day  23:+10u 24:-7u 25:+1u
+  fav slot, edge 1-5 points, 1 a day                       n   149   93-56    +8.6%   +12.8u  2/3 up  z +1.0  days  149 1.00/day  23:+11u 24:+6u 25:-5u
+DOG SLOT: dog gate 4+, own over, no fade, best score a night n    33   14-19    -9.4%    -3.1u  1/3 up  z -0.5  days   33 1.00/day  23:-1u 24:+2u 25:-4u
+  dog slot, gate 4+, no own-read rule                      n    42   19-23    -1.3%    -0.5u  2/3 up  z -0.1  days   42 1.00/day  23:+0u 24:+5u 25:-5u
+  dog slot, gate 2+                                        n    51   23-28    -0.8%    -0.4u  1/3 up  z -0.1  days   51 1.00/day  23:-1u 24:+7u 25:-7u
+  dog slot, gate 6+                                        n    13    7-6    +12.2%    +1.6u  1/2 up  z +0.4  days   13 1.00/day  24:+4u 25:-3u
+  dog slot, weights-only score 2+                          n    16    9-7    +25.5%    +4.1u  1/2 up  z +1.0  days   16 1.00/day  24:+6u 25:-2u
+  dog slot, weights-only score 4+                          n     0    0-0     +0.0%    +0.0u  0/0 up  z +0.0  days    0 0.00/day  
+  dog slot, weights-only 2+, no own-read rule              n    93   43-50    +2.3%    +2.2u  1/3 up  z +0.2  days   93 1.00/day  23:-5u 24:+10u 25:-3u
+  dog slot, every gated dog (no cap)                       n    38   17-21    -5.2%    -2.0u  1/3 up  z -0.3  days   33 1.15/day  23:-1u 24:+2u 25:-3u
+  dog slot, Nov-Dec                                        n     6    3-3    +10.7%    +0.6u  1/2 up  z +0.2  days    6 1.00/day  24:+2u 25:-1u
+UNION: weights-only ml dog OR the sister cell (edge 1-5), top 2 n   306  169-137   +3.4%   +10.4u  1/3 up  z +0.6  days  212 1.44/day  23:-3u 24:+24u 25:-10u
+  union, top 1 a day                                       n   212  122-90    +7.6%   +16.2u  2/3 up  z +1.1  days  212 1.00/day  23:+4u 24:+23u 25:-10u
+  union, top 3 a day                                       n   356  198-158   +3.7%   +13.1u  2/3 up  z +0.7  days  212 1.68/day  23:+2u 24:+20u 25:-9u
+
+=== every priced side at the close, the base rates (no rule) ===
+  ml dogs +100..+350     train n  11281 roi  -7.4%
+  ml dogs +100..+350     held  n   7376 roi  -6.1%
+  ml favs -150..-101     train n   4115 roi  -4.1%
+  ml favs -150..-101     held  n   2795 roi  -4.6%
+  spread sides           train n  33998 roi  -4.5%
+  spread sides           held  n  23236 roi  -4.4%

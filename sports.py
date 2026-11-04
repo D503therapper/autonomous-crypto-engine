@@ -2766,6 +2766,8 @@ def units_for(pk):
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
+            if pk.get("cbb_test"):
+                return CBB_TEST_UNITS                        # 🏀 (11/3: the college hoops test - half a unit while we prove it)
             if pk.get("nba_fav") and (pk.get("date") or "") >= NBA_FAV_FROM:
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
@@ -2930,6 +2932,8 @@ def thin_edge(leg):
 def units_tier(pk, leg):
     """lock / value / strong / slight for one pick - the bankroll's rows (the owner, 9/30: the Dog of the Day is a value
     play; leans split strong and slight)."""
+    if pk.get("cbb_test"):
+        return "cbbtest"                                     # 🏀 11/3: the college hoops test - its own line in the bankroll
     if pk.get("gap"):
         return "value"                                       # 🔍 a value play in the bankroll (the owner, 10/18: "we don't
         #                                                      need that - it's value or lock or early play")
@@ -4212,6 +4216,8 @@ def posted_kind(p):
     their tag (the record reads them as value plays), so the cap counts them by the tag."""
     if p.get("kind") == "play" and p.get("gap") is not None:
         return "gap"
+    if p.get("kind") == "play" and p.get("cbb_test"):
+        return "cbbtest"                                     # 🏀 11/3: the college hoops test's own cap and record
     if p.get("kind") == "play" and p.get("dog_play"):
         return "dogplay"
     if p.get("kind") == "play" and p.get("nba_fav"):
@@ -4316,6 +4322,8 @@ def unit_plays_today(picks, iso, league=None):
     `league`)."""
     return sum(1 for p in picks if p["date"] == iso and p["status"] != "waiting" and not p.get("lean")
                and p.get("kind") in ("lock", "dog", "solo", "night", "play") and (units_for(p) or 0) > 0
+               and not p.get("cbb_test")                      # (🏀 11/3: the college hoops test is its own thing - the
+               #                                                 floor's count never leans on it, like the early plays)
                and (league is None or any(l.get("league") == league for l in p.get("legs") or [])))
 
 
@@ -4398,6 +4406,211 @@ def gap_plays(cands, avoid):
             g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read -
             out.append({**g_, "gap": round(gap, 4), "edge_own": round(c["raw_own"] * c["dec"] - 1, 4)})   # the raw one)
     return out
+
+
+# ---------------------------------------------------------------- 🏀 THE COLLEGE HOOPS TEST (the owner, 11/3 - his call on
+# units: "We might need to just experiment with some units on college basketball and see how we can do ... scared money
+# don't make no money, and we never know till we've really tried it ... we should have unit plays pretty much every day"
+# + "I want the engine to be very knowledgeable in these teams and be able to predict these upsets and find these dogs
+# that the engine likes. We've won a ton of units on college football dogs, and we need to do the same with college
+# basketball ... we had 3 units on BYU to upset Notre Dame and won 6 units"). A live TEST like the 🌍 Europe under: TWO
+# SLOTS a day, CBB_TEST_UNITS (½u) each, each with its OWN record and its own quit rule (CBB_TEST_QUIT), never mixed
+# into the other records (its own box under the leans, its own line in the bankroll), CBB_TEST_ON the switch.
+#   (1) THE FAVORITE SLOT - the sister study's one paying cell (college hoops knowledge (B), 11/3): a -120..-150
+#       moneyline favorite whose WEIGHED read (w_p - its own read moved by the dog's angles across it and the 11/3
+#       favorite weights) is CBB_TEST_FAV_MIN_P+ AND over the price, its OWN read over the price too (the engine's Lock
+#       rule), carrying none of the three favorite fades (the Nov-Dec away favorite, the efficiency filter, its own top
+#       scorer out), the edge CBB_TEST_FAV_PTS points over the price (the sister: 1-5 points +8.5..+11.7%, under 1
+#       point -3%), once both teams have played 3 (the early Lock rule). The best edge a day.
+#   (2) THE DOG SLOT - the best college hoops dog a night: +100..+350, the dog gate (dog score CBB_TEST_DOG_GATE+ with
+#       every 11/3 weight in it - the owner's "find these dogs the engine likes"), the OWN read over the price, never a
+#       side carrying a dog fade (a true road dog in its first 3 games, a rubber-match dog, the top scorer out, a top-25
+#       road dog, a 5+ skid), never a trap / a side the own read fights. The highest score a night.
+# NEVER ONE FACTOR (both reads are the whole weighed read), never forced (no side clears = nothing posts), the -150
+# rule, one pick a game, never the other side of a posted pick (post_board's `ours`). THE REPLAY (results/studies/
+# cbb_test_1103/ - every college hoops board day 2018-25 re-built with TODAY's code at the close; train 2018-22, held
+# out 2023-25; SPORTS_FINDINGS "11/3 - THE COLLEGE HOOPS TEST") grades each slot on its own. Judged at CBB_TEST_QUIT[0]
+# graded plays A SLOT: ROI under CBB_TEST_QUIT[1] = that slot turns itself off (the owner can turn it back on).
+CBB_TEST_ON = True
+CBB_TEST_FROM = "2026-11-04"      # the first board it can post on
+CBB_TEST_UNITS = 0.5              # half a unit while we prove it (the owner, 11/3)
+CBB_TEST_SLOTS = ("fav", "dog")   # one of each a day at most
+CBB_TEST_MAX_DAY = len(CBB_TEST_SLOTS)
+CBB_TEST_FAV_BAND = (-150, -120)  # the favorite slot's price band (the -150 rule; -119..-101 was never the cell)
+CBB_TEST_FAV_MIN_P = 0.56         # the weighed read has to be a Lock-type read (56%+)...
+CBB_TEST_FAV_PTS = (0.01, 0.05)   # ...and sit 1-5 points over the real price (under 1 lost; the sister's dose)
+CBB_TEST_DOG_BAND = (100, 350)    # the dog slot's price band (the owner, 10/17: dogs +100..+350)
+CBB_TEST_DOG_GATE = 4.0           # the dog score the dog slot needs (NCAAB_DOG_GATE - the NBA-style gate, the owner 10/10)
+CBB_TEST_QUIT = (50, -0.05)       # judged at 50 graded A SLOT: ROI under -5% on the units risked = that slot's off
+CBB_FAV_FADES = ("ncaab_away_fav", "ncaab_eff_fav", "ncaab_top_out_fav")   # the 11/3 favorite fades (a weighed read down)
+CBB_DOG_FADES = ("rubber_dog", "top_out", "ranked_road")                   # the 11/3 dog fades (+ the early road dog, the skid)
+
+
+def _own_of(c):
+    """The side's own read as a win chance (None without one)."""
+    if c.get("edge_own") is None or not c.get("dec"):
+        return None
+    return (c["edge_own"] + 1) / c["dec"]
+
+
+def cbb_test_fired(c):
+    """The built college hoops edges that moved THIS side's read up (the card's named reasons; never a gate)."""
+    out, odds = [], c.get("odds", 0)
+    reb = c.get("reb_gap")
+    if odds >= 100:
+        if c.get("vs_ranked_road"):
+            out.append("home dog vs a top-25 road team in Nov-Dec")
+        if reb is not None and reb >= NCAAB_REB_GAP:
+            out.append("the glass")
+        if (c.get("dog_ctx") or {}).get("opp_won") is False:
+            out.append("the favorite lost its last")
+    else:
+        if c.get("opp_top_out"):
+            out.append("their top scorer missed the last game")
+        if reb is not None and reb >= NCAAB_REB_GAP:
+            out.append("the glass")
+        if (c.get("opp_dog_pts") or 0) < 0:
+            out.append("the dog's angles run against it")
+    return out
+
+
+def cbb_dog_fade(c):
+    """A college hoops dog carrying one of the 11/3 dog fades (the side's own weighed read says no): the name, or None."""
+    if ncaab_early_road_dog(c):
+        return "a true road dog in its first 3 games"
+    if (c.get("ncaab_skid") or 0) >= NCAAB_SKID:
+        return f"a {c['ncaab_skid']}-game skid"
+    for k, name in zip(CBB_DOG_FADES, ("a rubber-match dog", "its top scorer missed the last game", "a top-25 team as a road dog")):
+        if c.get(k):
+            return name
+    return None
+
+
+def cbb_fav_fade(c):
+    """A college hoops favorite carrying one of the 11/3 favorite fades: the name, or None."""
+    for k, name in zip(CBB_FAV_FADES, ("a small favorite away from home in Nov-Dec", "the efficiency read is against it",
+                                       "its top scorer missed the last game")):
+        if c.get(k):
+            return name
+    return None
+
+
+def _cbb_side_ok(c):
+    """What both slots need: college hoops, the moneyline, not waiting on news, never a trap, never one the own read
+    is fighting, a named reason (a built college hoops edge firing counts as one)."""
+    if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("trap") or c.get("waiting"):
+        return False
+    if c.get("p_market") is None or not c.get("dec"):
+        return False
+    try:
+        if fighting(c):
+            return False
+    except (KeyError, TypeError):
+        return False
+    return bool(c.get("reasons")) or bool(cbb_test_fired(c))
+
+
+def cbb_test_fav(c):
+    """(1) THE FAVORITE SLOT's read -> (read, edge per dollar), or None when the side isn't it (see the block above)."""
+    if not _cbb_side_ok(c) or not CBB_TEST_FAV_BAND[0] <= c.get("odds", 0) <= CBB_TEST_FAV_BAND[1]:
+        return None
+    if ncaab_early_lock(c) == "none" or cbb_fav_fade(c):
+        return None
+    own = _own_of(c)
+    if own is None or c["edge_own"] <= 0:                    # the own read over the price (the Lock rule, own_beats)
+        return None
+    wp = c["w_p"] if c.get("w_p") is not None else own
+    pts = wp - 1 / c["dec"]
+    if wp < CBB_TEST_FAV_MIN_P or not CBB_TEST_FAV_PTS[0] <= pts <= CBB_TEST_FAV_PTS[1]:
+        return None
+    return round(wp, 4), round(wp * c["dec"] - 1, 4)
+
+
+def cbb_test_dog(c):
+    """(2) THE DOG SLOT's read -> (read, edge per dollar, dog score), or None when the side isn't it."""
+    if not _cbb_side_ok(c) or not CBB_TEST_DOG_BAND[0] <= c.get("odds", 0) <= CBB_TEST_DOG_BAND[1]:
+        return None
+    if cbb_dog_fade(c) or c.get("edge_own") is None or c["edge_own"] <= 0:
+        return None                                          # (the own read over the price - the 10/23 plan's dog rule)
+    try:
+        sc = round(dog_score(c), 2)
+    except Exception:                                        # noqa: BLE001 - no score = not the dog
+        return None
+    if sc < CBB_TEST_DOG_GATE:
+        return None
+    read = min(0.95, c["p_market"] + sc / 100)
+    edge = read * c["dec"] - 1
+    if edge <= 0:
+        return None
+    return round(read, 4), round(edge, 4), sc
+
+
+def cbb_test_plays(cands, avoid, slots=CBB_TEST_SLOTS):
+    """🏀 The college hoops test's picks: at most one a slot - the favorite slot's best edge, the dog slot's highest
+    score - one per game, never a game in `avoid`, the favorite first (post_board caps the day a slot and checks each
+    slot's quit rule). The chosen leg carries its read (cbb_read / cbb_edge / cbb_score / cbb_slot / cbb_fired)."""
+    out, seen = [], set(avoid)
+    if "fav" in slots:
+        pool = []
+        for c in cands:
+            x = cbb_test_fav(c)
+            if x is not None and c["game_id"] not in seen:
+                pool.append((x[1], x[0], c))
+        if pool:
+            edge, read, c = max(pool, key=lambda t: t[0])
+            c.update(cbb_read=read, cbb_edge=edge, cbb_score=None, cbb_slot="fav", cbb_fired=cbb_test_fired(c))
+            seen.add(c["game_id"])
+            out.append(c)
+    if "dog" in slots:
+        pool = []
+        for c in cands:
+            x = cbb_test_dog(c)
+            if x is not None and c["game_id"] not in seen:
+                pool.append((x[2], x[1], x[0], c))
+        if pool:
+            sc, edge, read, c = max(pool, key=lambda t: (t[0], t[1]))
+            c.update(cbb_read=read, cbb_edge=edge, cbb_score=sc, cbb_slot="dog", cbb_fired=cbb_test_fired(c))
+            seen.add(c["game_id"])
+            out.append(c)
+    return out
+
+
+def cbb_test_record(picks, slot=None):
+    """A slot's (or the whole test's) own record -> {"won", "lost", "units" (net), "risked"} over its graded plays."""
+    w = l_ = 0
+    net = risked = 0.0
+    for p in picks:
+        t = p.get("cbb_test")
+        if not t or p.get("status") not in ("won", "lost") or not p.get("legs"):
+            continue
+        if slot and t.get("slot") != slot:
+            continue
+        u = units_for(p) or 0
+        if not u:
+            continue
+        risked += u
+        if p["status"] == "won":
+            w += 1
+            net += u * (_dec(p["legs"][0]["odds"]) - 1)
+        else:
+            l_ += 1
+            net -= u
+    return {"won": w, "lost": l_, "units": round(net, 2), "risked": round(risked, 2)}
+
+
+def cbb_test_quit(picks, slot):
+    """A slot's judge: CBB_TEST_QUIT[0]+ graded and the ROI on the units risked under CBB_TEST_QUIT[1] = no more posts."""
+    r = cbb_test_record(picks, slot)
+    n = r["won"] + r["lost"]
+    return n >= CBB_TEST_QUIT[0] and r["risked"] > 0 and r["units"] / r["risked"] < CBB_TEST_QUIT[1]
+
+
+def cbb_test_slots_open(picks, iso):
+    """The slots the test may still post today: the switch on, the slot's judge not tripped, nothing of it up today."""
+    if not CBB_TEST_ON or iso < CBB_TEST_FROM:
+        return ()
+    up = {(p.get("cbb_test") or {}).get("slot") for p in picks if p["date"] == iso and p["status"] != "waiting" and p.get("cbb_test")}
+    return tuple(s for s in CBB_TEST_SLOTS if s not in up and not cbb_test_quit(picks, s))
 
 
 LEAN_WINNER_OWN = 0.55
@@ -5260,8 +5473,10 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
         elif pk.get("lean") and pricey_college_fav(l):
             why = (f"a {'hockey' if l.get('league') == 'nhl' else 'college'} favorite lean at -150..-130")   # (the owner,
             #                                                  10/10 - LEAN_NCAAF_FAV_BAND; the 10/28 hockey audit - LEAN_NHL_FAV_BAND)
+        elif pk.get("cbb_test") and not ((l.get("cbb_read") or 0) * (l.get("dec") or 0) > 1):
+            why = "a college hoops test play whose whole read doesn't beat the price"   # (🏀 11/3: its read is cbb_read)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
-                and pk.get("kind") != "solo" and not l.get("near_price") \
+                and pk.get("kind") != "solo" and not l.get("near_price") and not pk.get("cbb_test") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
             #                                                  the always-a-Lock backup always carry units - the owner; 10/27:
             #                                                  a floor play is a thin edge by design and the NBA favorite play
@@ -5300,7 +5515,8 @@ def sizing_check(new):
         elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
-            want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
+            want = (CBB_TEST_UNITS, CBB_TEST_UNITS) if pk.get("cbb_test") else (GAP_UNITS, GAP_UNITS) if pk.get("gap") \
+                else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
             want = (dog_units(pk),) * 2                      # (10/30 sizing: the Dog by its price, thin or not)
@@ -5663,10 +5879,16 @@ def post_board(games, model, picks, now, day, force=False):
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
+                            ("cbbtest", cbb_test_plays, CBB_TEST_MAX_DAY),   # 🏀 11/3: the college hoops test (½u, own record)
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:
             continue
+        if kind == "cbbtest":                                 # 🏀 one a SLOT a day (the favorite / the dog), each slot
+            slots_ = cbb_test_slots_open(picks, iso)          # off on its own judge; the switch off = none
+            if not slots_:
+                continue
+            pool = (lambda cands_, used_, s_=slots_: cbb_test_plays(cands_, used_, s_))
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"
         #                                                        with its tag - counted by the tag, or the cap never bit)
@@ -5704,7 +5926,7 @@ def post_board(games, model, picks, now, day, force=False):
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             c["tier"] = "lean" if kind == "lean" else play_tier(c)   # (10/29 sweep: the card is written with its label -
             dress(b)                                                 #  a VALUE PLAY never reads "Lock it in")
-            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "cbbtest") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
@@ -5725,6 +5947,10 @@ def post_board(games, model, picks, now, day, force=False):
                 pk["floor"], leg["tier"], pk["tier"] = {"dog_score": leg.get("floor_score"), "nba": kind == "nbafloor"}, "value", "value"
                 if kind == "floor" and leg.get("floor_fallback"):
                     pk["floor"]["fallback"] = leg["floor_fallback"]   # (10/29 night: the one-a-day fallback, tracked)
+            if kind == "cbbtest":                            # 🏀 the college hoops test (11/3): ½u, its own record a slot
+                pk["cbb_test"] = {"slot": leg.get("cbb_slot"), "read": leg.get("cbb_read"), "edge": leg.get("cbb_edge"),
+                                  "score": leg.get("cbb_score"), "fired": list(leg.get("cbb_fired") or [])}
+                leg["tier"], pk["tier"] = "value", "value"
             picks.append(pk)
             new.append(pk)
             room -= 1

@@ -377,6 +377,10 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
             o = f"+{odds}" if odds > 0 else str(odds)
             size = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
             why = f"We make 'em {f}, the book's at {o}. {size}"
+        if leg and leg.get("cbb_read") is not None and odds is not None:   # 🏀 11/3: the college hoops test - the
+            o = f"+{odds}" if odds > 0 else str(odds)        # whole read next to the book, and that it's a test
+            why = (f"College hoops test - half a unit while we prove it. Our whole read makes 'em "
+                   f"{_v.fair_am(leg['cbb_read'])}, the book's at {o}.")
     except Exception:                                        # noqa: BLE001 - the old line stays
         pass
     return (f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}'
@@ -390,6 +394,38 @@ def _units_txt(u):
 
 
 UNIT_REC = {}
+CBB_REC = {}
+
+
+def cbb_test_box(picks):
+    """🏀 THE COLLEGE HOOPS TEST's own record (the owner, 11/3 - a live test with units: "scared money don't make no money
+    ... we never know till we've really tried it"): W-L, net units, ROI on the half units risked, and where the judge
+    stands (CBB_TEST_QUIT). Shown once a play is graded; never mixed into the other records (the 💰 unit plays record
+    carries them as their own line, like the early plays)."""
+    import sports
+    CBB_REC.clear()
+    r = sports.cbb_test_record(picks)
+    n = r["won"] + r["lost"]
+    if not n:
+        return ""
+    net, bet = r["units"], r["risked"]
+    roi = net / bet if bet else 0.0
+    q = sports.CBB_TEST_QUIT[0]
+    lines, texts = [], []
+    for slot, name in (("fav", "🔒 the favorite slot"), ("dog", "🐺 the dog slot")):   # each slot its own record + judge
+        s = sports.cbb_test_record(picks, slot)
+        ns = s["won"] + s["lost"]
+        off = sports.cbb_test_quit(picks, slot) or not sports.CBB_TEST_ON
+        state = "OFF - the judge said so" if off and ns else f"{ns} of {q} graded"
+        texts.append(f"{slot} {s['won']}-{s['lost']} {s['units']:+.1f}u ({state})")
+        if ns:
+            lines.append(f'<div class="unr"><span>{name} · {s["won"]}-{s["lost"]}</span><b class="{"up" if s["units"] >= 0 else "dn"}">'
+                         f'{s["units"]:+.1f}u · {E(state)}</b></div>')
+    CBB_REC["text"] = f"{r['won']}-{r['lost']}, {net:+.1f} units, ROI {roi:+.0%} - " + "; ".join(texts)
+    return (f'<div class="ovr ovc"><div class="ovr-t">🏀 COLLEGE HOOPS TEST</div><div class="ovr-r">{r["won"]}-{r["lost"]}</div>'
+            f'<div class="ovr-p {"up" if net >= 0 else "dn"}">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS · ROI {roi:+.0%}</div>'
+            f'<div class="ovr-s ovw">half a unit while we prove it - one favorite and one dog a day, each judged at {q} plays</div>'
+            + "".join(lines) + '</div>')
 
 
 def unit_record(picks, today=None, early=None):
@@ -440,7 +476,8 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
-                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"))))   # Dog of the Day is a value play)
+                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"),   # Dog of the Day is a value play)
+                      ("cbbtest", "🏀 College hoops test"))))   # (11/3: the test's own line, like the early plays)
     #   (10/18, the owner: three rows only - "it's value or lock or early play": no leans row, the 🔍 plays are value plays)
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
@@ -1030,6 +1067,17 @@ BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day st
 ]
 
 
+CBB_TEST_NOTE = [   # 🏀 11/3 (the owner: "we might need to just experiment with some units on college basketball ... scared
+    # money don't make no money, and we never know till we've really tried it"): a college hoops unit play is a TEST -
+    # half a unit, its own record, judged at 50 plays. The note rotates by day and team, never the same line twice in a row.
+    "🏀 COLLEGE HOOPS TEST — half a unit while we prove it. Its own record, win or lose. Scared money don't make no money.",
+    "🏀 COLLEGE HOOPS TEST — we're putting half a unit on college hoops to see if the read holds up. Its own record.",
+    "🏀 COLLEGE HOOPS TEST — half a unit on college hoops till the record says more. Judged at 50 plays.",
+    "🏀 COLLEGE HOOPS TEST — the whole read likes this side over the price. Half a unit while we prove it, its own record.",
+    "🏀 COLLEGE HOOPS TEST — scared money don't make no money. Half a unit, its own record, the engine learns from every one.",
+]
+
+
 def _pick_card(kind, pk):
     import sports                                            # (the strong-lean bar lives there)
     label, c1, c2 = LOOK[kind]
@@ -1087,6 +1135,8 @@ def _pick_card(kind, pk):
     if kind == "lock" and len(pk["legs"]) == 1 and pk["legs"][0].get("near_price") and not pk.get("lean"):
         label = "LOCK"                                       # (the owner, 10/2: not the Lock of the Day - just a Lock,
         backup = '<div class="slate-note backup-note">' + _rot(spin, BACKUP_LOCK) + '</div>\n'   # its own box above)
+    if pk.get("cbb_test") and len(pk["legs"]) == 1:          # 🏀 11/3: the college hoops test says it's a test, above the card
+        backup = '<div class="slate-note cbb-note">' + _rot(spin, CBB_TEST_NOTE) + '</div>\n'
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
@@ -1825,7 +1875,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # every PICK we posted, graded once (a parlay's picks each count on their own - no parlay record, the owner 9/28;
     # a team we're on twice the same day counts once), by its label: lock / value / lean (leans count from 9/29 on)
     calls = {}
-    rank = {"lock": 3, "value": 2, "lean": 1, "ou": 0}
+    rank = {"lock": 3, "value": 2, "cbbtest": 2, "lean": 1, "ou": 0}
     for p in sorted(picks, key=lambda p: p.get("posted") or ""):
         for l in p["legs"]:                                  # (leans too - they get their own record below)
             if l.get("result") in ("won", "lost"):
@@ -1833,6 +1883,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     t = "ou"
                 elif p.get("lean"):
                     t = "lean"
+                elif p.get("cbb_test"):                      # 🏀 11/3: the college hoops test keeps its own record -
+                    t = "cbbtest"                            # never in the 🔥 VALUE PLAYS box
                 elif p["kind"] == "lock":
                     t = "lock"
                 elif p["kind"] == "dog":                     # the Dog of the Day is a value play (the owner, 9/30)
@@ -1858,12 +1910,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
         f'<div class="ovr ovl"><div class="ovr-t">🟡 LEANS RECORD</div><div class="ovr-r">{lw}-{ll}</div>'
         f'<div class="ovr-p">{f"{lw} won · {ll} lost{pct_}" if lw + ll else "no results yet"}</div>'
         f'<div class="ovr-s ovw">no units on these - just our lean</div></div>') if leans_ else unit_record(picks, today)
+    overall += cbb_test_box(picks)                           # 🏀 11/3: the college hoops test's own record (never mixed in)
     overall += units_box(picks, today) if UNITS_ON else ""
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     def wlt(w, l):
         return f"{w}-{l}"
     RECORDS.update({"unit plays (the bets with units on them - Locks, Dogs, value plays, early plays)": UNIT_REC.get("text", "none yet"),
+                    "college hoops test (half-unit plays, their own record - also counted in the unit plays)": CBB_REC.get("text", "none yet"),
                     "leans (no units - their own record)": wlt(lw, ll), "today (every pick, leans in)": wlt(tw, tl),
                     "locks": wlt(sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])),
                     "value": wlt(sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])),
@@ -1936,6 +1990,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
             if r_[1] <= 0:
                 continue
             pk_ = r_[0]
+            if pk_.get("cbb_test"):                          # (🏀 11/3: the college hoops test keeps its own record -
+                continue                                     #  the sport's chip stays the board's real plays)
             lg_ = (pk_.get("legs") or [{}])[0].get("league") or pk_.get("league")
             u_by.setdefault(lg_, []).append(r_[2])
     except Exception as e:                                   # noqa: BLE001 - a chip never breaks the page
@@ -2307,6 +2363,8 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .ovu .ovr-p.up{{color:#22e39a}} .ovu .ovr-p.dn{{color:#ff5c5c}}
 .ovl{{border-color:rgba(255,210,63,.45);background:linear-gradient(160deg,rgba(255,210,63,.10),rgba(34,211,238,.08))}}
 .ovu .ovr-t,.ovl .ovr-t{{color:#fff;font-weight:900}} .ovr-s.ovw{{color:#fff;font-weight:900}}
+.ovc{{border-color:rgba(255,138,0,.55);background:linear-gradient(160deg,rgba(255,138,0,.13),rgba(34,211,238,.08))}}
+.ovc .ovr-t{{color:#fff;font-weight:900}} .ovc .ovr-p.up{{color:#22e39a}} .ovc .ovr-p.dn{{color:#ff5c5c}}
 .sp-n.what{{color:#fff;font-weight:700;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
