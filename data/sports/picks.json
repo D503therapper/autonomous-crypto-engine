@@ -30967,6 +30967,12 @@
      "game:nonconf"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "h": "34-31",
+     "s": "90-59",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30996,6 +31002,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "31,28",
+     "h": "34,56"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -31034,10 +31044,12 @@
     "raw_own": 0.0272,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
+    "score": "Wofford 59 @ Tennessee 90",
     "season_games": null,
+    "settled": "2026-11-04T01:42Z",
     "side": "away",
     "start": "2026-11-03T23:00Z",
     "stype": "2",
@@ -31053,12 +31065,14 @@
    }
   ],
   "p_hit": 0.5241,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T01:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 160,
