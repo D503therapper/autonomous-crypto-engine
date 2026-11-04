@@ -15375,7 +15375,8 @@ def test_weekend_sweep_1030_team_verbs_agree_on_every_line_and_the_floor_closer_
     assert any("Wild is the side" in x for x in pool) and not any("Wild's the side" in x for x in pool), pool
     # the floor closer: a dog the score has UNDER zero never claims the dog angles back it
     i, j = src.index('v.say("bottom_floor_low"'), src.index('v.say("bottom_floor",')
-    assert i < j and '(leg.get("floor_score") or 0) < 0' in src[i - 600:i]
+    assert i < j and '(leg.get("floor_score") or 0) < FLOOR_ANGLES or dog_angles(leg) <= 0' in src[i - 700:i]   # (11/4:
+    #   the bar rose - under FLOOR_ANGLES, or no angle fired, the closer says "about a wash" - South Dakota +124)
     low = src[i:j]
     for bad in ("angles back it", "every angle", "every dog angle", "best of every dog", "the dog angles say"):
         assert bad not in low, bad
@@ -18759,6 +18760,123 @@ def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_i
         _daily_1104_slot_before_floor_body()
     finally:
         sports.FLOOR_OFF_FROM = keep
+def test_sd_1104_a_non_d1_blowout_moves_nothing_and_the_stronger_team_needs_the_read_on_its_side():
+    """11/4 (the owner on South Dakota +124 at home to N Kentucky, "the stronger team" + "rolling off a blowout win"
+    over Mount Marty: "a no-name non-D1 team, that doesn't mean much ... why would South Dakota be +124 underdogs if
+    they're the better team? We're not smarter than the books"). Found: South Dakota's Elo sat 64 points UNDER
+    N Kentucky's (1526 vs 1590) - the 100-point home edge made elo_pts +36 and that alone said "the stronger team";
+    the 95-57 win over Mount Marty (NAIA, rated 1430 like a weak D1 team) earned +19.9 Elo (N Kentucky got +17.3 for
+    beating UTEP, a D1 team) and the 'rolling off a blowout win' reason; the floor closer said "the dog angles back
+    it" on a score of 0.43 that was the own read's 0.4 points alone. Fixed:
+    (1) sports_model: a college hoops game against a non-D1 school (ncaab_d1 - under NCAAB_D1_MIN finals in every
+        season) moves NO rating, no form, no 'blowout win' (last_big), no last-meeting memory, and is never a training
+        row; the date still counts for rest. A small hand-built file (under NCAAB_D1_REAL D1 teams) counts every game.
+    (2) sports.stronger_team: the team itself rated higher (elo_raw > STRONG_RAW), the floor edge (STRONG_PTS, as
+        before) AND the engine's current read on its side (p_side 50%+) - a home dog the reads have under 50% never
+        gets the label; the efficiency read under 50% strips it (weigh_ncaab_eff_fav).
+    (3) the card: the 'better team' line needs the raw rating gap too; a non-D1 opponent is named as one in the
+        last-game line and never makes a 🚀 blowout line; the floor closer says "the dog angles back it" only when
+        the angles added something (dog_angles > 0, score FLOOR_ANGLES+) - else "about a wash"."""
+    import sports_breakdown_v24 as v24
+    # (1) the ratings: 60 D1 teams with a 20-game season, one non-D1 school ("N") that loses 95-57 to team "T0"
+    fin = []
+    teams = [f"T{i}" for i in range(60)]
+    day = 0
+    for rnd in range(20):                                   # 20 rounds, each team one game a round
+        for i in range(0, 60, 2):
+            h, a = teams[(i + rnd) % 60], teams[(i + 1 + rnd) % 60]
+            day += 1
+            fin.append({"id": f"g{rnd}_{i}", "league": "ncaab", "status": "final", "stype": "2",
+                        "start": (datetime(2025, 11, 1, 1, tzinfo=timezone.utc) + timedelta(hours=4 * day)).strftime("%Y-%m-%dT%H:%MZ"),
+                        "home": h, "away": a, "home_name": h, "away_name": a, "neutral": "0",
+                        "home_score": str(70 + (i % 7)), "away_score": str(65 + (rnd % 5))})
+    fin.sort(key=lambda g: g["start"])
+    tune_up = {"id": "mm", "league": "ncaab", "start": "2026-11-02T23:00Z", "status": "final", "stype": "2", "home": "T0",
+               "away": "N", "home_name": "T0", "away_name": "N", "neutral": "0", "home_score": "95", "away_score": "57"}
+    real = {"id": "d1", "league": "ncaab", "start": "2026-11-02T23:00Z", "status": "final", "stype": "2", "home": "T1",
+            "away": "T2", "home_name": "T1", "away_name": "T2", "neutral": "1", "home_score": "84", "away_score": "76"}
+    d1 = sm.ncaab_d1(fin + [tune_up, real])
+    assert d1 is not None and "T0" in d1 and "T1" in d1 and "N" not in d1, (d1 and len(d1))
+    e0, rows0 = sm.replay(fin, 22.0, 100, "ncaab")                        # before the two November games
+    e1, rows1 = sm.replay(fin + [tune_up, real], 22.0, 100, "ncaab")
+    t = sm._ts("2026-11-04T01:00Z")
+    assert abs(e1.rating("T0", t) - e0.rating("T0", t)) < 1e-9, (e1.rating("T0", t), e0.rating("T0", t))   # no move
+    assert e1.rating("N", t) == 1500.0 and not e1.last_big.get("T0") and not e1.form.get("N")   # no blowout, no form
+    assert e1.rating("T1", t) > e0.rating("T1", t) + 10                     # the D1 win moved T1 (+10 and more)
+    assert len(rows1) == len(rows0) + 1 and rows1[-1][0]["id"] == "d1"      # the tune-up is never a training row
+    assert e1.last.get("T0") == sm._ts("2026-11-02T23:00Z")                 # the date counts (rest)
+    assert ("T0", "N") not in e1.last_vs
+    # a small hand-built file: every game counts, as before (the sample tests' three-team slates)
+    assert sm.ncaab_d1(fin[:30]) is None
+    e_small, rows_small = sm.replay([tune_up], 22.0, 100, "ncaab")
+    assert e_small.r["T0"] > 1500 and len(rows_small) == 1
+    # (2) "the stronger team": South Dakota's numbers - rated 64 under, home edge 100 -> elo_pts +36
+    f = {"elo_pts": 36.0, "elo_raw": -64.0}
+    assert not sports.stronger_team(f, 1)                                   # the home edge never makes it stronger
+    assert not sports.stronger_team(f, 1, 0.4325)
+    assert not sports.stronger_team({"elo_pts": 120.0, "elo_raw": 20.0}, 1, 0.43)   # rated higher, the read says no
+    assert sports.stronger_team({"elo_pts": 120.0, "elo_raw": 20.0}, 1, 0.55)
+    assert sports.stronger_team({"elo_pts": 120.0, "elo_raw": 20.0}, 1)              # no read at hand: the ratings
+    assert sports.stronger_team({"elo_pts": -40.0, "elo_raw": -140.0}, -1, 0.6)      # the away side, rated higher
+    assert not sports.stronger_team({"elo_pts": 10.0, "elo_raw": 5.0}, 1, 0.6)       # under STRONG_PTS on the floor
+    assert sports.stronger_team({"elo_pts": 36.0}, 1)                               # an old features dict: as before
+    g = {"id": "x", "league": "ncaab", "start": "2026-11-05T01:00Z", "home": "SD", "away": "NK", "neutral": "0",
+         "ml_home": "120", "ml_away": "-142", "ml_home_open": "120", "ml_away_open": "-142"}
+    base_f = {"elo_pts": 36.0, "elo_raw": -64.0, "form": -0.1, "rest": 0.0, "b2b": 0.0, "inj": 0.0, "key": 0.0, "letdown": 0.0}
+    prm = {"weights": {"form": -0.064, "rest": -0.493, "b2b": 0.482, "inj": -0.081, "letdown": -0.116}}
+    assert "the stronger team" not in sports._reasons("home", base_f, g, "ncaab", prm, p_side=0.4325)
+    assert "the stronger team" not in sports._reasons("home", base_f, g, "ncaab", prm)
+    assert "the stronger team" in sports._reasons("away", {**base_f, "elo_pts": -40.0, "elo_raw": -140.0}, g, "ncaab", prm, p_side=0.57)
+    assert "the stronger team" not in sports._reasons("away", base_f, g, "ncaab", prm, p_side=0.57)   # N Kentucky's
+    #   own side: rated 64 higher but the Elo has South Dakota at home +36 on this floor - not "stronger" there either
+    # the efficiency read under 50% strips the label on a college hoops side that still carried it
+    import sports_cbb_eff
+    keep = sports_cbb_eff.read_many
+    sports_cbb_eff.read_many = lambda games, ids: {"x": {"p_home": 0.399}}
+    try:
+        c = {"game_id": "x", "league": "ncaab", "market": "ml", "side": "home", "odds": 124, "dec": 2.24,
+             "p_market": 0.428, "edge_own": -0.032, "reasons": ["the stronger team", "sharp money moving this way"]}
+        sports.weigh_ncaab_eff_fav({"x": g}, [c])
+        assert c["eff_p"] == 0.399 and c["reasons"] == ["sharp money moving this way"], c
+        c2 = {**c, "side": "away", "odds": -142, "dec": 1.7, "p_market": 0.572, "reasons": ["the stronger team"]}
+        sports.weigh_ncaab_eff_fav({"x": g}, [c2])
+        assert c2["reasons"] == ["the stronger team"]                      # 60%: the label stands
+    finally:
+        sports_cbb_eff.read_many = keep
+    # (3) the card: the posted South Dakota leg's shape - no 'better team' line, the non-D1 note, the honest closer
+    G = {x["id"]: x for x in fin + [tune_up, real]}
+    G["x"] = {**g, "status": "pre", "stype": "2", "home": "T0", "away": "T1", "home_name": "T0", "away_name": "T1",
+              "home_score": "", "away_score": ""}
+    elo = {"ncaab": e1}
+    e1.r["T0"], e1.r["T1"] = 1526.0, 1590.0                                  # South Dakota / N Kentucky's ratings
+    leg = {"game_id": "x", "league": "ncaab", "side": "home", "team": "T0", "opp": "T1", "team_id": "T0", "odds": 124,
+           "dec": 2.24, "market": "ml", "p": 0.4325, "p_market": 0.428, "edge": -0.031, "edge_own": -0.0317,
+           "reasons": [], "outs": [], "opp_outs": [], "is_lean": False, "tier": "value", "floor_score": 0.43,
+           "floor": {"dog_score": 0.43}, "eff_p": 0.399, "home": True}
+    out = v24.breakdown(dict(leg), G, elo, {"ncaab": {"T0": [], "T1": []}}, set())
+    card = " ".join(out)
+    assert "N (a non-D1 school)" in card, card                              # the tune-up is named for what it is
+    assert "🚀" not in card and "cheeks clapped" not in card, card           # never a blowout-win line off it
+    assert "better team" not in card and "ratings like" not in card and "ratings have" not in card, card
+    assert "dog angles back it" not in card and "every angle" not in card, card   # 0.43 = the own read alone
+    assert v24.dog_angles(leg) == 0.0
+    assert v24.dog_angles({**leg, "floor_score": 3.43}) == 3.0
+    # a real angle (the score 3 over the own read) keeps the "angles back it" closer
+    out2 = v24.breakdown({**leg, "floor_score": 3.43}, G, elo, {"ncaab": {"T0": [], "T1": []}}, set())
+    assert any("Bottom line" in x for x in out2) and "about a wash" not in " ".join(out2), out2
+    # the real slate's numbers (the live files hold 2026-11-02): Mount Marty never moves South Dakota's rating
+    try:
+        games = sd.load_games("ncaab")
+    except Exception:                                                        # noqa: BLE001
+        games = {}
+    if "ncaab:401929404" in games and games["ncaab:401929404"].get("status") == "final":
+        e, _ = sm.replay(sm.finals(games, "ncaab"), 22.0, 100)
+        assert e.d1 is not None and "573" not in e.d1 and "233" in e.d1 and "94" in e.d1   # Mount Marty / SD / NKU
+        assert e.r.get("573", 1500.0) == 1500.0 and not e.last_big.get("233")
+        f_sd = e.features(games["ncaab:401928811"]) if "ncaab:401928811" in games else None
+        if f_sd:
+            assert f_sd["elo_raw"] < 0 and not sports.stronger_team(f_sd, 1, 0.4325)
+
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

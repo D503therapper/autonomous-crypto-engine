@@ -40,6 +40,29 @@ FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "b
             "alt", "cold", "weather", "travel"]   # our view (+ intercept)
 BIG_WIN = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}   # a blowout, for letdown spots
 KEY_EDGE = {}      # {game id: key player edge} (QB / starting pitcher / goalie form), set by sports.run
+NCAAB_D1_MIN = 20  # 🏀 11/4 (the owner on South Dakota +124 off a 95-57 win over Mount Marty: "a no-name non-D1 team,
+#   that doesn't mean much"): a college hoops team is Division I when it has this many finals in one season in our
+#   files (every D1 team plays 25+; the 850-odd non-D1 opponents play 1-3 D1 games a year and sit at 1500 like an
+#   average D1 team - South Dakota earned +19.9 Elo and a 'blowout win' off Mount Marty, VMI +117 off VA Lynchburg).
+#   A game against a non-D1 school moves NO rating, no form, no 'blowout win' and is never a training row.
+
+
+NCAAB_D1_REAL = 50  # the rule reads a real file only (368 D1 teams qualify): a small hand-built slate (a test's three
+#                     teams) can't tell D1 from non-D1, so every game counts there
+
+
+def ncaab_d1(fin):
+    """The Division I college hoops teams in these finals: NCAAB_D1_MIN+ games in one season (Aug-Jul). None when
+    the file is too small to tell (under NCAAB_D1_REAL such teams) - then every game counts, as before."""
+    seen = {}
+    for g in fin:
+        y, m = int(g["start"][:4]), int(g["start"][5:7])
+        s = y if m >= 8 else y - 1
+        for t in (g["home"], g["away"]):
+            d = seen.setdefault(t, {})
+            d[s] = d.get(s, 0) + 1
+    out = {t for t, d in seen.items() if max(d.values()) >= NCAAB_D1_MIN}
+    return out if len(out) >= NCAAB_D1_REAL else None
 
 
 def _ts(iso):
@@ -104,6 +127,11 @@ class Elo:
         self.last_big = {}      # team -> won its last game by a blowout
         self.home_elev, self.home_temp = {}, {}   # team -> what it's used to at home (elevation m, game-day temp F)
         self.home_tz = {}                         # team -> its home time zone (UTC offset hours)
+        self.d1 = None                            # 🏀 college hoops: the D1 teams (ncaab_d1) - None = every team counts
+
+    def non_d1(self, g):
+        """🏀 11/4: a college hoops game with a non-D1 school on either side (never moves a rating / form / a blowout)."""
+        return self.d1 is not None and (g["home"] not in self.d1 or g["away"] not in self.d1)
 
     def rating(self, team, t):
         r = self.r.get(team, 1500.0)
@@ -155,6 +183,7 @@ class Elo:
             return abs(tzo - self.home_tz[tm]) / 3 if tzo is not None and tm in self.home_tz else 0.0
         return {
             "p_elo": pe, "elo": logit(pe), "elo_pts": (rh - ra + (0 if neutral else self.hfa)),
+            "elo_raw": rh - ra,                    # (11/4: the ratings alone, no home edge - "the stronger team" needs it)
             "form": form(g["home"]) - form(g["away"]),
             "rest": (rh_d - ra_d) / 7,
             "b2b": float(ra_d <= 1.2) - float(rh_d <= 1.2),     # + when only the away team is on a back-to-back
@@ -183,6 +212,12 @@ class Elo:
         diff_w = f["elo_pts"] * (1 if res >= 0.5 else -1)
         mult = math.log(margin + 1) * 2.2 / (diff_w * 0.001 + 2.2) if margin else 1.0
         d = self.k * mult * (res - p)
+        if self.non_d1(g):                        # 🏀 11/4: a tune-up against a non-D1 school - the date counts (rest),
+            for tm in (g["home"], g["away"]):     # the game doesn't: no rating move, no form, no 'blowout win', no
+                self.last[tm] = t                 # last-meeting memory (Mount Marty 95-57 earned South Dakota +19.9
+                self.n[tm] = self.n.get(tm, 0) + 1   # Elo and a 'rolling off a blowout win' reason - a fiction)
+                self.last_big[tm] = False
+            return f, res, hs - as_
         self.r[g["home"]], self.r[g["away"]] = rh + d, ra - d
         e_, t_ = _num(g.get("elev")), _num(g.get("wx_temp"))
         if _num(g.get("tzo")) is not None and str(g.get("intl")) != "1" and str(g.get("neutral")) != "1":
@@ -207,7 +242,14 @@ class Elo:
 def replay(fin, k, hfa, league=None):
     """Run the ratings through finished games in order -> (Elo, [(game, features, result, home margin)])."""
     e = Elo(k, hfa, league or (fin[0]["league"] if fin else None))
-    return e, [(g, *e.update(g)) for g in fin]
+    if e.league == "ncaab":                       # 🏀 11/4: non-D1 games move nothing and never train the model
+        e.d1 = ncaab_d1(fin)
+    rows = []
+    for g in fin:
+        row = (g, *e.update(g))
+        if not e.non_d1(g):
+            rows.append(row)
+    return e, rows
 
 
 def logloss(pairs):

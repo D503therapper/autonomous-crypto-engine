@@ -108,6 +108,56 @@ def _last_parts(g, tid, pro=True):
     return (f"the {opp}" if pro else opp), res, f"{max(us, them)}-{min(us, them)}"
 
 
+_D1 = {}               # 🏀 11/4: the slate's D1 set (sports_model.ncaab_d1), read once a breakdown
+
+
+def _d1_set(fin):
+    key = (id(fin), len(fin))
+    if _D1.get("key") != key:
+        try:
+            _D1["key"], _D1["set"] = key, sm.ncaab_d1(fin)
+        except Exception:                                     # noqa: BLE001 - can't tell = every team counts
+            _D1["key"], _D1["set"] = key, None
+    return _D1.get("set")
+
+
+def non_d1(lg, tid):
+    """🏀 11/4 (the owner: "Mount Marty, a no-name non-D1 team, that doesn't mean much"): is this college hoops team a
+    non-D1 school (after breakdown() read the slate)? The card says so next to its name, and a win over one is never
+    a 'blowout win' line."""
+    return lg == "ncaab" and _D1.get("set") is not None and str(tid) not in _D1["set"]
+
+
+def _opp_id(g, tid):
+    return g["away"] if g["home"] == tid else g["home"]
+
+
+def _said_d1(g, tid, pro, lg):
+    """_said, with '(a non-D1 school)' after a non-D1 college hoops opponent - never a tune-up dressed as a result."""
+    s = _said(g, tid, pro)
+    return s + " (a non-D1 school)" if non_d1(lg, _opp_id(g, tid)) else s
+
+
+FLOOR_ANGLES = 1.0     # 💰 11/4: a floor dog's closer says "the dog angles back it" only when the dog score sits this
+#                        far over the price AND the studies' angles added something (dog_angles > 0). South Dakota +124
+#                        (11/4): floor score 0.43 = the own read's 0.4 points over the price, NO dog angle at all - the
+#                        card said "the dog angles back it". Under that it says what it is: the best dog left, a wash.
+
+
+def dog_angles(leg):
+    """The studies' part of a floor dog's score: the dog score minus the own read's points over the price (0 = the
+    score is the own read alone, no angle fired)."""
+    try:
+        import sports as _sp
+        own = (leg.get("edge_own", leg["edge"]) + 1) / leg["dec"]
+        base = (own - (leg.get("p_market") or own)) * 100                  # (sports.dog_score's own-read part, capped)
+        if base > _sp.OWN_CAP:
+            base = 0.0 if leg.get("league") in _sp.OWN_TRAP else _sp.OWN_CAP
+        return round((leg.get("floor_score") or 0) - base, 2)
+    except (KeyError, TypeError, ZeroDivisionError):
+        return 0.0
+
+
 NBA_EARLY_GAMES = 5    # the first weeks of hoops: last season's facts carry the card until this many games are in
 NCAAB_EARLY_GAMES = 5  # college hoops too (11/3) - a FULL D1 season only (NCAAB_D1_GAMES+ games; a non-D1 school or
 #                        a team we don't hold whole gets nothing - never a guessed record)
@@ -652,6 +702,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     us, them = leg["team"], leg["opp"]
     start = _t(g["start"])
     fin = [x for x in sm.finals(games, lg) if _t(x["start"]) < start]
+    if lg == "ncaab":
+        _d1_set(fin)                                   # (11/4: who's D1 on this slate - the non-D1 note on the card)
     ours, theirs = _team_games(fin, tid), _team_games(fin, oid)
     if not seen_all(fin, tid, start, lg):            # (10/1, the owner: never false info) we don't hold all of a college
         ours = []                                    # team's games this year: no record, streak, last game or series
@@ -736,12 +788,13 @@ def breakdown(leg, games, elo, injuries, used=None):
     if e is not None:
         home_edge = 0 if str(g.get("neutral")) == "1" else (e.hfa if side == "home" else -e.hfa)
         gap = e.r.get(tid, 1500.0) - e.r.get(oid, 1500.0) + home_edge      # same yardstick as the card's reasons
+        raw_gap = e.r.get(tid, 1500.0) - e.r.get(oid, 1500.0)   # (11/4: the home edge never makes the lower-rated team
         said.add("the stronger team")                   # said here either way (better / even / worse): not again later
         _ru = _record(r_ours, tid) if len(r_ours) >= 2 else None    # (10/21: 1-0 vs 0-1 compares nothing; two games in,
         _rt = _record(r_theirs, oid) if len(r_theirs) >= 2 else None   #  football's schedule line is already a real fact)
         if _ru and _rt:                                  # (10/1, the owner: "they're just better" says nothing -
             _w = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
-            if gap > 15 and _w(_ru) > _w(_rt):           # the records do)
+            if gap > 15 and raw_gap > 0 and _w(_ru) > _w(_rt):   # the records do)  "the better team" - South Dakota 11/4)
                 _nt = lambda r: (lambda a: a[0] - a[1])([int(x) for x in r.split("-")[:2]])
                 big = _nt(_ru) - _nt(_rt) >= REC_GAP     # (10/23: the trash talk needs a real gap - 4-2 vs 4-3 is none)
                 out.append(v.say("better", ([f"💪 {us} ({_ru}) vs {them} ({_rt}) — the better team is on our side.",
@@ -980,7 +1033,8 @@ def breakdown(leg, games, elo, injuries, used=None):
                                       f"🪤 {them} are riding high off that {sc} over {o2}. That's when teams slip.",
                                       f"🪤 Trap game for {them} after beating {o2} {sc}."]))
         said.add("letdown spot for the opponent")
-    if "rolling off a blowout win" in rsn and s_ours and _line(s_ours[-1], tid).startswith("W"):
+    if "rolling off a blowout win" in rsn and s_ours and _line(s_ours[-1], tid).startswith("W") \
+            and not non_d1(lg, _opp_id(s_ours[-1], tid)):   # (11/4: a non-D1 tune-up is never a 'blowout win' line)
         o2, _, sc = _last_parts(s_ours[-1], tid, pro)
         out.append(v.say("momentum", [f"🚀 {us} just beat the brakes off {o2}, {sc}.",
                                        f"🚀 {us} smacked {o2} {sc} last time out.",
@@ -1327,7 +1381,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. The books got {us} priced like a team that can't win - we don't see that. Half a unit, scared money don't make no money."]) or
                    _short(v, price, True, "Our read beats the price."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock" \
-            and (leg.get("floor_score") or 0) < 0:              # 💰 10/30 weekend sweep: a floor dog the dog score has UNDER
+            and ((leg.get("floor_score") or 0) < FLOOR_ANGLES or dog_angles(leg) <= 0):   # 💰 10/30 weekend sweep: a floor dog the dog score has UNDER
         #   zero (the Dolphins +260 at -1.9 on the 11/01 preview) is just the best dog LEFT on a thin slate - "the dog
         #   angles back it" / "every angle likes them" was false there. The closer says what it is.
         out.append(v.say("bottom_floor_low", [
@@ -1550,10 +1604,10 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
 
     # both last games, with the scores (the 📅 line above only prints when ours was a W and theirs an L)
     if s_ours and not any(str(x).startswith("📅") for x in out):
-        a = _said(s_ours[-1], tid, pro)
+        a = _said_d1(s_ours[-1], tid, pro, lg)           # (11/4: "95-57 win over Mount Marty (a non-D1 school)")
         wu = _line(s_ours[-1], tid).startswith("W")
         if s_theirs:
-            b = _said(s_theirs[-1], oid, pro)
+            b = _said_d1(s_theirs[-1], oid, pro, lg)
             wt = _line(s_theirs[-1], oid).startswith("W")
             if wu and wt and any(a in str(x) for x in out):   # (10/29: the 📋 record line already said our last game -
                 add.append(v.tag(v.say("f_last", [f"📅 {_cap(the_them)} come in off a {b} themselves - two winners walk in, one walks out.",
@@ -2289,7 +2343,8 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
         o2, _, sc = _last_parts(last_vs[-1], tid, pro)
         m["revenge game"] = [f"{U} took a {sc} loss to {T} the last time these two met", f"{T} beat {U} {sc} last time out",
                              f"last meeting: {T} {sc} over {U}", f"{U} dropped the last one to {T}, {sc}"]
-    if s_ours and _line(s_ours[-1], tid).startswith("W") and _score_gap(_last_parts(s_ours[-1], tid, pro)[2]) >= BLOWOUT:
+    if s_ours and _line(s_ours[-1], tid).startswith("W") and _score_gap(_last_parts(s_ours[-1], tid, pro)[2]) >= BLOWOUT \
+            and not non_d1(lg, _opp_id(s_ours[-1], tid)):   # (11/4: a non-D1 tune-up - Mount Marty 95-57 - is no blowout)
         o2, _, sc = _last_parts(s_ours[-1], tid, pro)      # (10/23: "blew out" only when the score says so - 14+)
         m["rolling off a blowout win"] = [f"{U} just rolled to a {sc} win over {o2}", f"{U} blew out {o2} {sc} last time out",
                                           f"{sc} over {o2} last time out for {U}", f"{U} beat the brakes off {o2}, {sc}",
