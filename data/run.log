@@ -11235,3 +11235,36 @@ DEX: $673.82 (-326.18) · Scammed: 11 (-$216.49)
 [2026-11-03 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-03 23:05 UTC] crypto/hold_btc  equity $466.44 (-6.7%) 1 open  market DOWN
    social heat top: PENGU 43 (37/0/6), ETH 29 (29/0/0), CARDS 29 (19/0/10), HYPE 27 (27/0/0), SUI 21 (21/0/0)
+   dex screen: REJECT PANGEA@solana liq $100,488 - mint authority; lp holders unknown
+   dex screen: REJECT PANGEA@base liq $103,589 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT PANGEA@ethereum liq $102,997 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $260,678 - honeypot.is unreachable
+   dex screen: REJECT PAXG@ethereum liq $2,130,540 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT CATE@solana liq $73,764,174 - top-10 holders 100%
+   dex screen: REJECT CATE@solana liq $1,477,156 - top-10 holders 100%
+   dex screen: REJECT MSTRC@base liq $31,303 - liquidity $31,303 < $100,000; 24h volume $9,995 < $100,000
+   dex screen: UNREACHABLE SP@ethereum liq $268,014 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT MU@solana liq $3,935,104 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 89%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AERO@base liq $5,209 - liquidity $5,209 < $100,000; 24h volume $25,195 < $100,000
+   dex screen: UNREACHABLE SP@ethereum liq $270,248 - honeypot.is unreachable
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $324,783 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT OTC@solana liq $526,207 - lp holders unknown; rugcheck lp locked 75% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $245,277 - honeypot.is unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,960 pools (solana 2,063 / base 508 / ethereum 389), refresh cycle 125s (hot 120s), 2950 calls (110 feed, 429s 0, failed 0), 85,200 refreshed (11718 no pair), +95 added / -80 dropped (dead 63, stale 17, cap 0), movers 0 + warming 0 -> queued 0, screened 1 (passed 0), bought 0
+[2026-11-04 00:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/mover     equity $241.07 (-51.8%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/social_heat equity $362.93 (-27.4%) 3 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/breakout10 equity $397.39 (-20.5%) 1 open  market UP
+[2026-11-04 00:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-04 00:05 UTC] crypto/hold_btc  equity $464.01 (-7.2%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), PENGU 38 (35/0/4), NEAR 29 (29/0/0), AERO 24 (24/0/0), CC 21 (21/0/0)
