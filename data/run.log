@@ -11295,3 +11295,48 @@ DEX: $673.82 (-326.18) · Scammed: 11 (-$216.49)
 [2026-11-04 01:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-04 01:05 UTC] crypto/hold_btc  equity $462.86 (-7.4%) 1 open  market DOWN
    social heat top: BTC 40 (35/0/5), PENGU 32 (32/0/0), NEAR 29 (29/0/0), CARDS 22 (8/0/14), QNT 21 (21/0/0)
+   dex screen: REJECT ALCH@solana liq $2,721,838 - top-10 holders 88%
+   dex screen: REJECT NFLXC@base liq $418 - liquidity $418 < $100,000; 24h volume $3 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT DRV@base liq $1,123,148 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT OCT@ethereum liq $535,772 - goplus partial data: cannot_sell_all unknown; is_mintable; owner_change_balance; top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $416,344 - goplus partial data: cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SNOWMOON@ethereum liq $296,496 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS ALTSZN@solana liq $183,903
+   dex screen: REJECT SAPLING@solana liq $314,917 - lp holders unknown; rugcheck lp locked 78% < 95%
+   dex screen: REJECT BLUECHIP@base liq $225,766 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT SPCXC@base liq $742,012 - pool age unknown
+   dex screen: REJECT ANSEM@solana liq $1,236,623 - top-10 holders 65%
+   dex screen: REJECT ANSEM@solana liq $317,701,554 - top-10 holders 100%
+   dex screen: REJECT ONDO@solana liq $476,814,763 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SOL@base liq $96,083 - liquidity $96,083 < $100,000; pool age unknown
+   scanner: BMT: +5.9% in 15 min on 6.0x volume @ 0.03063 spread 0.10%
+   take-off: BMT vetoed by pump guard: already +42% in 24h
+   scanner: BMT: +5.8% in 15 min on 6.0x volume @ 0.03091 spread 0.03%
+   take-off: BMT vetoed by pump guard: blocked 28 more min
+   scanner: BMT: +8.2% in 30 min on 5.9x volume @ 0.03096 spread 1.38%
+   take-off: BMT vetoed by pump guard: blocked 27 more min
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT ONDO@solana liq $424,285,901 - top-10 holders 100%; lp holders unknown
+   scanner: BMT: +12.3% in 60 min on 5.8x volume @ 0.03127 spread 0.10%
+   take-off: BMT vetoed by pump guard: blocked 23 more min
+   scanner: BMT: +8.0% in 31 min on 6.8x volume @ 0.0312 spread 0.90%
+   take-off: BMT vetoed by pump guard: blocked 22 more min
+   dex screen: REJECT NVDAC@base liq $920,914 - pool age unknown
+   dex screen: REJECT EURC@ethereum liq $3,146,217 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 42%
+   dex screen: REJECT CIRBTC@ethereum liq $5,548,200 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 75%
+   dex screen: REJECT CLAUS@ethereum liq $164,809 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $163,753 - honeypot.is unreachable
+   dex scanner: 2,997 pools (solana 2,093 / base 494 / ethereum 410), refresh cycle 125s (hot 120s), 2969 calls (110 feed, 429s 0, failed 0), 85,767 refreshed (11905 no pair), +172 added / -115 dropped (dead 78, stale 8, cap 29), movers 0 + warming 0 -> queued 0, screened 1 (passed 0), bought 0
+[2026-11-04 02:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/mover     equity $241.07 (-51.8%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/social_heat equity $358.68 (-28.3%) 3 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/breakout10 equity $394.59 (-21.1%) 1 open  market UP
+[2026-11-04 02:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-04 02:05 UTC] crypto/hold_btc  equity $462.17 (-7.6%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), PENGU 35 (35/0/0), NEAR 32 (32/0/0), HYPE 29 (29/0/0), ETH 27 (27/0/0)
