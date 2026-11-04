@@ -4759,6 +4759,9 @@ def unit_plays_today(picks, iso, league=None):
                and (league is None or any(l.get("league") == league for l in p.get("legs") or [])))
 
 
+FLOOR_OFF_FROM = "2026-11-05"  # 💰 THE DAILY FLOOR IS OFF from this board on (the owner, 11/4, after the South Dakota +124
+#                                 floor play: "We don't need a daily minimum on any sport" - the general floor and the NBA
+#                                 floor both stop; real plays only). None = back on.
 FLOOR_FROM = "2026-10-27"      # 💰 THE DAILY FLOOR (the owner, 10/27, after two all-lean boards: "I don't care why the boards are
 FLOOR_MIN = 2                  # leans. We need to fix this ... at least ONE unit play per day. Preferably more units"): a board
 FLOOR_UNITS = PLAY_UNITS       # day short of FLOOR_MIN unit plays fills up to it with ½u FLOOR PLAYS - the dogs the dog score
@@ -6598,8 +6601,9 @@ def post_board(games, model, picks, now, day, force=False):
                             ("floor", floor_plays, FLOOR_MIN),
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
-                or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:
-            continue
+                or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
+                or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM:
+            continue                                         # (11/4, the owner: no daily minimum on any sport)
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         twin = {}                                            # 🔍🐶 11/4: today's college hoops gap plays {game: side} -
         if kind == "ncaabplay":                                 # 🏀 a SLOT's room a day (one favorite, two dogs), each slot

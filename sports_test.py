@@ -18540,7 +18540,7 @@ def test_cbb_expert_1104_star_second_game_back_road_cold_dog_long_top_out_turmoi
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_its_dog():
+def _daily_1104_slot_before_floor_body():
     """11/4 DAILY CHECK (the board check): post_board ran the ½u daily floor BEFORE the 🏀 college hoops slot plays. The
     floor ranks dogs by the dog score, so on the first night the dog read clears (both teams 4+ games, ~11/15) the
     floor would have taken the slot's best dog at ½u and the 1u / 2u slot play on it was blocked by the one-pick-a-game
@@ -18727,6 +18727,38 @@ def test_daily_1104_interception_unlucky_college_dog_is_a_plus_2_weight_plus_two
         sl._GAMES.clear()
         sl._GAMES.update(keep_g)
 
+
+
+def test_floor_off_1104_no_daily_minimum_on_any_sport_from_the_11_5_board():
+    """11/4, the owner (after the South Dakota +124 floor play): "We don't need a daily minimum on any sport." From
+    FLOOR_OFF_FROM the general floor and the NBA floor post nothing; the real plays (Lock, Dog, value, gap, the college
+    hoops slots, early plays) are untouched. None turns the floor back on."""
+    import sports
+    assert sports.FLOOR_OFF_FROM == "2026-11-05"
+    src = open(sports.__file__).read()
+    assert 'kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM' in src
+    # the skip expression, evaluated the way post_board does it
+    def skipped(kind, iso, off=sports.FLOOR_OFF_FROM):
+        return (kind == "gap" and iso < sports.GAP_FROM or kind == "dogplay" and iso < sports.DOG_PLAY_FROM
+                or kind in ("nbafav", "nbafloor", "floor") and iso < sports.FLOOR_FROM
+                or kind in ("nbafloor", "floor") and off and iso >= off)
+    assert skipped("floor", "2026-11-05") and skipped("nbafloor", "2026-11-12")
+    assert not skipped("floor", "2026-11-04")                    # the 11/4 board as it was
+    assert not skipped("nbafav", "2026-11-05") and not skipped("ncaabplay", "2026-11-05")
+    assert not skipped("gap", "2026-11-05") and not skipped("lean", "2026-11-05")
+    assert not skipped("floor", "2026-11-05", off=None)          # the switch
+
+
+def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_its_dog():
+    """The 11/4 ordering fix (slot plays before the floor) - checked with the floor switched ON, since the owner turned the
+    daily floor off from 11/5 (FLOOR_OFF_FROM); the order still matters if it is ever turned back on."""
+    import sports
+    keep = sports.FLOOR_OFF_FROM
+    sports.FLOOR_OFF_FROM = None
+    try:
+        _daily_1104_slot_before_floor_body()
+    finally:
+        sports.FLOOR_OFF_FROM = keep
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
