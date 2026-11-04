@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T18:39Z",
+ "updated": "2026-11-04T18:47Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -310,7 +310,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "E Michigan",
-    "p": 0.485,
+    "p": 0.483,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -322,16 +322,14 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "E Michigan",
-    "opp": "C Michigan",
-    "market": "ml",
-    "line": null,
-    "odds": -118,
+    "team": "C Michigan",
+    "opp": "E Michigan",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -115,
     "p": 0.502,
-    "win_p": 0.502,
-    "reasons": [
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
+    "win_p": 0.498,
+    "reasons": []
    }
   },
   {
@@ -459,8 +457,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.597,
-    "tie": 0.035,
+    "p": 0.578,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -475,12 +473,11 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.67,
-    "win_p": 0.67,
+    "odds": -203,
+    "p": 0.643,
+    "win_p": 0.643,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
@@ -1553,6 +1550,36 @@
     "p": 0.514,
     "win_p": 0.159,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921698",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Utah",
+    "p": 0.751,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T02:00Z",
+   "away": "Towson",
+   "home": "Utah",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Towson",
+    "opp": "Utah",
+    "market": "spread",
+    "line": 10.5,
+    "odds": -102,
+    "p": 0.519,
+    "win_p": 0.169,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
