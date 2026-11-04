@@ -179,8 +179,27 @@ def save_sharp_fired():
         print(f"sharp list not saved: {e}")
 
 
-def _reasons(side, f, g, league, params):
-    """Short plain-English reasons the engine likes this side, strongest first."""
+STRONG_PTS = 15      # "the stronger team": the ratings' edge on this floor (Elo points, home edge in) at least this...
+STRONG_RAW = 0       # ...AND the team itself rated over the other side (no home edge) by more than this (11/4)
+
+
+def stronger_team(f, s, p_side=None):
+    """🏀 11/4 (the owner on South Dakota +124 at home to N Kentucky, "the stronger team" on the card: "why would South
+    Dakota be +124 underdogs if they're the better team? We're not smarter than the books"): the label fired off
+    f["elo_pts"] alone - South Dakota's Elo sat 64 points UNDER N Kentucky's (1526 vs 1590) and the 100-point home
+    edge turned that into +36 'stronger'. A home edge never makes the weaker team "the stronger team": the team itself
+    has to be rated higher (elo_raw, STRONG_RAW), the floor edge has to hold (STRONG_PTS, as before), and when the
+    engine's current read on the side is at hand (p_side - the board read, pulled to the market in college hoops' first
+    10 games), that read has to have the team the likelier winner too: a side the engine reads under 50% is never
+    "the stronger team" (South Dakota's read 43%, its efficiency read 40% - every read said N Kentucky)."""
+    if f["elo_pts"] * s < STRONG_PTS or f.get("elo_raw", f["elo_pts"]) * s <= STRONG_RAW:
+        return False
+    return p_side is None or p_side >= 0.5
+
+
+def _reasons(side, f, g, league, params, p_side=None):
+    """Short plain-English reasons the engine likes this side, strongest first. p_side = the engine's current read
+    on the side when known (the stronger-team label needs it on its side - 11/4)."""
     s = 1 if side == "home" else -1
     out = []
     # (10/15 truth audit) a factor is a REASON only when the engine really counts it FOR the side: the learned weight
@@ -191,7 +210,7 @@ def _reasons(side, f, g, league, params):
 
     def counts(name):
         return w.get(name, POS_BY_DEFAULT.get(name, 0.0)) > 0
-    if f["elo_pts"] * s >= 15:
+    if stronger_team(f, s, p_side):                 # (11/4: rated higher itself, the floor edge, the read on its side)
         out.append((f["elo_pts"] * s / 40, "the stronger team"))
     if f["form"] * s >= 0.08 and counts("form"):
         out.append((f["form"] * s * 4, "hotter recent form"))
@@ -689,7 +708,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "fbs_game": fbs_game,
                     "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
                     "home": side == "home", "neutral": str(g.get("neutral")) == "1",   # (11/3: ncaab_big_home_fav)
-                    "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
+                    "start": g["start"], "reasons": _reasons(side, f, g, lg, params,
+                                                             p_side=None if ph is None else (ph if side == "home" else 1 - ph)),
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
@@ -3430,6 +3450,10 @@ def weigh_ncaab_eff_fav(games, cands):
             continue
         p = r["p_home"] if c.get("side") == "home" else 1 - r["p_home"]
         c["eff_p"] = round(p, 4)
+        if p < 0.5 and "the stronger team" in (c.get("reasons") or []):   # 🏀 11/4: the efficiency read (the honest
+            c["reasons"] = [x for x in c["reasons"] if x != "the stronger team"]   # college hoops ratings) has the other
+            #                                              side better on this floor - never "the stronger team" (South
+            #                                              Dakota: eff 40% at home, the Elo's stale +36 said 'stronger')
         if not (NCAAB_EFF_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_EFF_FAV_BAND[1]) or p - c["p_market"] > -NCAAB_EFF_FAV_GAP:
             continue
         own = (c["edge_own"] + 1) / c["dec"]
@@ -4759,6 +4783,9 @@ def unit_plays_today(picks, iso, league=None):
                and (league is None or any(l.get("league") == league for l in p.get("legs") or [])))
 
 
+FLOOR_OFF_FROM = "2026-11-05"  # 💰 THE DAILY FLOOR IS OFF from this board on (the owner, 11/4, after the South Dakota +124
+#                                 floor play: "We don't need a daily minimum on any sport" - the general floor and the NBA
+#                                 floor both stop; real plays only). None = back on.
 FLOOR_FROM = "2026-10-27"      # 💰 THE DAILY FLOOR (the owner, 10/27, after two all-lean boards: "I don't care why the boards are
 FLOOR_MIN = 2                  # leans. We need to fix this ... at least ONE unit play per day. Preferably more units"): a board
 FLOOR_UNITS = PLAY_UNITS       # day short of FLOOR_MIN unit plays fills up to it with ½u FLOOR PLAYS - the dogs the dog score
@@ -6598,8 +6625,9 @@ def post_board(games, model, picks, now, day, force=False):
                             ("floor", floor_plays, FLOOR_MIN),
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
-                or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:
-            continue
+                or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
+                or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM:
+            continue                                         # (11/4, the owner: no daily minimum on any sport)
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         twin = {}                                            # 🔍🐶 11/4: today's college hoops gap plays {game: side} -
         if kind == "ncaabplay":                                 # 🏀 a SLOT's room a day (one favorite, two dogs), each slot

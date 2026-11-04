@@ -1,110 +1,6 @@
 {
- "updated": "2026-11-04T17:46Z",
+ "updated": "2026-11-04T21:14Z",
  "games": [
-  {
-   "id": "tennis:atp:186491",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-04T19:30Z",
-   "away": "Arthur Fils",
-   "home": "Tomas Machac",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Arthur Fils",
-    "opp": "Tomas Machac",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.612,
-    "win_p": 0.612,
-    "reasons": [
-     "on hard court",
-     "Rolex Paris Masters"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:186496",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-05T05:00Z",
-   "away": "Quentin Halys",
-   "home": "Tommy Paul",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Quentin Halys",
-    "opp": "Tommy Paul",
-    "market": "ml",
-    "line": null,
-    "odds": 250,
-    "p": 0.275,
-    "win_p": 0.275,
-    "reasons": [
-     "on hard court",
-     "Rolex Paris Masters"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:186497",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-05T05:00Z",
-   "away": "Arthur Rinderknech",
-   "home": "Ben Shelton",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Arthur Rinderknech",
-    "opp": "Ben Shelton",
-    "market": "ml",
-    "line": null,
-    "odds": 270,
-    "p": 0.258,
-    "win_p": 0.258,
-    "reasons": [
-     "on hard court",
-     "Rolex Paris Masters"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:186499",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-05T05:00Z",
-   "away": "Lorenzo Musetti",
-   "home": "Luca Van Assche",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Lorenzo Musetti",
-    "opp": "Luca Van Assche",
-    "market": "ml",
-    "line": null,
-    "odds": -286,
-    "p": 0.703,
-    "win_p": 0.703,
-    "reasons": [
-     "on hard court",
-     "Rolex Paris Masters"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:186640",
    "league": "tennis",
@@ -184,6 +80,32 @@
    }
   },
   {
+   "id": "tennis:atp:186496",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-05T10:00Z",
+   "away": "Quentin Halys",
+   "home": "Tommy Paul",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Quentin Halys",
+    "opp": "Tommy Paul",
+    "market": "ml",
+    "line": null,
+    "odds": 250,
+    "p": 0.275,
+    "win_p": 0.275,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:186630",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -236,6 +158,32 @@
    }
   },
   {
+   "id": "tennis:atp:186497",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-05T11:30Z",
+   "away": "Arthur Rinderknech",
+   "home": "Ben Shelton",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Arthur Rinderknech",
+    "opp": "Ben Shelton",
+    "market": "ml",
+    "line": null,
+    "odds": 270,
+    "p": 0.258,
+    "win_p": 0.258,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:186641",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -258,6 +206,32 @@
     "reasons": [
      "on hard court",
      "Prudential Hong Kong Tennis Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186499",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-05T13:00Z",
+   "away": "Lorenzo Musetti",
+   "home": "Luca Van Assche",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Lorenzo Musetti",
+    "opp": "Luca Van Assche",
+    "market": "ml",
+    "line": null,
+    "odds": -286,
+    "p": 0.703,
+    "win_p": 0.703,
+    "reasons": [
+     "on hard court",
+     "Rolex Paris Masters"
     ]
    }
   }
