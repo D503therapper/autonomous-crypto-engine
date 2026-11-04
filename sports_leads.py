@@ -130,6 +130,13 @@ def tags(c, sports):
         #   its games 6-10 +9.8% on 380 (train 2022-23 +2.3%, held out +29.0% / +4.1%; the open +5.4%) vs -5.6% for the
         #   other dogs; the study's Elo version +13.8% on 401 (4 of 4 up) - but a narrow window found by looking
         #   (games 1-5 -15%, 11-15 +2%), ~160 cells, z 1.4-2.0, and the same teams as favorites LOSE (-10%): never a weight
+    if dog and lg == "ncaab":                                # 🔍🏀 11/4 DOG EXPERT: the college hoops gap play's bands
+        t.extend(gap_band(c))                                #   (its 50-play judge by gap) and the dog read's gate
+        try:
+            if sports.ncaab_dog_read_ok(c):
+                t.append("college hoops dog read 4+")        # +16.5% on 600 at the close (5/5 train, 3/3 held, open +11.5%)
+        except Exception:                                    # noqa: BLE001
+            pass
     # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (B) (results/studies/cbb_knowledge_b/ s3 / s6): the owner's 'good slight
     # favorites' - two LEADS, tracked only, never a weight (looked-for cells among ~250; each a single idea)
     if lg == "ncaab" and not dog and HOOPS_SLIGHT_BAND[0] <= c.get("odds", 0) <= HOOPS_SLIGHT_BAND[1]:
@@ -586,7 +593,24 @@ GAP_LONG = 251             # gap dog split by band for its 50-play judge - gap 1
 
 
 def gap_band(c):
-    """The tracker tags for a rating-backed college gap dog (raw own read 15+ over the no-vig market, Elo for the dog)."""
+    """The tracker tags for a rating-backed college gap dog (raw own read 15+ over the no-vig market, Elo for the dog).
+    College hoops (11/4 DOG EXPERT): the efficiency read 15+ over, the ratings backing the dog, no study fade, both
+    teams 4+ games - the 🔍 play's own bands for its 50-play judge."""
+    if c.get("league") == "ncaab":
+        if not 100 <= (c.get("odds") or 0) <= 350 or c.get("eff_p") is None or c.get("p_market") is None:
+            return []
+        if c["eff_p"] <= 0.5 or min(c.get("games_in") or 0, c.get("opp_games_in") or 0) < 4:
+            return []
+        gap = c["eff_p"] - c["p_market"]
+        if gap < GAP_WATCH[0]:
+            return []
+        try:
+            import sports
+            if round(sports.dog_spots(c), 2) < 0:
+                return []
+        except Exception:                                    # noqa: BLE001
+            return []
+        return ["college hoops gap dog 15-20" if gap < GAP_WATCH[1] else "college hoops gap dog 20+"]
     if c.get("league") != "ncaaf" or c.get("raw_own") is None or c.get("p_market") is None:
         return []
     if not 100 <= (c.get("odds") or 0) <= 350 or (c.get("elo_edge") or 0) <= 0:

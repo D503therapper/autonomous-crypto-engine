@@ -823,6 +823,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_ncaab_eff_fav(games, out)                   # 🏀 11/3 DEEP: the slight favorite our efficiency ratings don't buy
     weigh_ncaab_new_coach_fav(games, out)             # 🏀 11/3 KNOWLEDGE (A): a first-year coach's small favorite, Jan-Mar
     weigh_ncaab_to_fav(out)                           # 🏀 11/3 KNOWLEDGE (A): the turnover-prone small favorite
+    mark_ncaab_dog_read(out)                          # 🐶🏀 11/4 DOG EXPERT: the dog read (weights + ratings + knowledge)
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -2772,7 +2773,7 @@ def units_for(pk):
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
                 return FLOOR_UNITS                           # 💰 (10/27: a floor play, ½u - the thin edge)
-            return GAP_UNITS if pk.get("gap") else PLAY_UNITS                               # 7/2023 +10.5u vs today's sizing -57u overall
+            return gap_units(pk) if pk.get("gap") else PLAY_UNITS                           # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
         if not u or thin_edge(legs[0]):                      # only thing that doesn't get units is leans") - ½u
             return 0.5                                       # floor; a small edge is a small bet
@@ -4363,7 +4364,8 @@ FLOOR_FALLBACK_MIN = 1         # held out 2025-27; ~45 versions tried) says the 
 GAP_FROM = "2026-10-17"   # 🔍 THE ENGINE SEES SOMETHING (the owner, 10/16 - Tulane +215, the engine's read 49% vs the books
 GAP_MIN = 0.15            # 30%, won 31-17 after we pulled it): a college dog +100..+350 whose OWN read is 15+ points over
 GAP_UNITS = 1.0           # the books goes on the board as a unit play, 1u to start, with its own record - never pulled.
-GAP_LEAGUES = ("ncaaf",)  # (History says these lose - 1-6 live through 10/16 - the owner's call, 10/17.)
+GAP_LEAGUES = ("ncaaf", "ncaab")   # (History says these lose - 1-6 live through 10/16 - the owner's call, 10/17.)
+#                           🏀 college hoops from 11/4 (the DOG EXPERT study below) - the same play on the efficiency read.
 #   GAP_MIN was 0.10 from 10/17; 0.15 from the 10/24 audit (the owner: "don't even ask me, just fix everything
 #   accordingly"): the 10/17 college gap study (walk-forward 2018-26, 2,944 college dogs +100..+300) has the 10-15 point
 #   gap LOSING everywhere - train -8.8% (169), blind -13.0% (132), 2026 -16.8% (30) at the close; -11.7 / -17.4 / -23.1% at
@@ -4377,14 +4379,61 @@ GAP_FBS_ONLY = True       # 🔍 10/31 college sweep: both teams FBS (sports_pla
 #                           play so far was FBS v FBS. An FCS game never carries a 🔍 unit play; its dogs still get read.
 
 
+NCAAB_GAP_FROM = "2026-11-04"   # 🔍🏀 THE COLLEGE HOOPS GAP PLAY (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, results/studies/
+NCAAB_GAP_MIN = 0.15            # cbb_dog_expert/): the college football play's exact twin on the EFFICIENCY read
+NCAAB_GAP_GAMES = 4             # (sports_cbb_eff - the 11/3 DEEP verdict: the raw Elo is far worse in hoops, use the
+#                                 efficiency ratings for a gap-play twin). A college hoops dog +100..+350 whose efficiency
+#                                 read sits 15+ points over the no-vig price, the ratings backing the dog on this floor
+#                                 (eff_p over 50% - the CFB 'Elo + home edge back the dog' rule), no study fade on it
+#                                 (dog_spots 0+ - the CFB 'never a trap'), both teams NCAAB_GAP_GAMES+ games (the ratings'
+#                                 worst stretch is games 0-3: -4.7%, train -19.9%). 2018-25 at ESPN's close, walk-forward
+#                                 ratings: 102-103 +22.6% on 205 (train +24.1%, 5 of 5 up; held out +18.7%, 2 of 3 - 2023
+#                                 +36 / 2024 +29 / 2025 -16), won 49.8% vs 39.2% priced (the read SAID 61% - it is over-
+#                                 confident on dogs, the gap is real at about a third of its size); ESPN's open on the same
+#                                 56 held-out dogs -0.2% (the line moves AWAY from these dogs by the close - bet them on game
+#                                 day, as the board does). The controls: not backed +14.3% on 51 (train 4/5, held -14.1%);
+#                                 the gap 10-15 -0.5% on 271 (the CFB shape again: 10-15 loses, 15+ pays); without the
+#                                 no-fade rule +15.8% (3/5 train); games 1-3 in -4.7% train. No dose (15-20 +28% train /
+#                                 -13% held, 20+ +18% / +69%) = flat 1u like the CFB play. ~25 a season. Judge at 50, cut
+#                                 under -5% (the 🔍 rule). The raw Elo twin (the literal CFB rule) is DEAD in hoops:
+#                                 Elo-backed 15+ +0.7% on 1,495. NOT the 10/15 '12+ college gap trap' - that was the
+#                                 football own read in the EARLY spots; this is the game-day efficiency read.
+
+
+def ncaab_gap_read(c):
+    """(the ratings read, backed) for a college hoops dog: the efficiency read's chance and whether the ratings have
+    the dog the better side on this floor (None = no read)."""
+    p = c.get("eff_p")
+    if p is None:
+        return None, False
+    return p, p > 0.5
+
+
 def gap_plays(cands, avoid):
-    """🔍 Every college dog +100..+350 the engine's own read has 10+ points over the books (biggest gap first), one per
-    game, never a game in `avoid`, never a trap."""
+    """🔍 Every college dog +100..+350 the engine's RATINGS read has 15+ points over the books (biggest gap first), one
+    per game, never a game in `avoid`, never a trap. College football: the raw Elo read, Elo + home edge for the dog.
+    College hoops (11/4): the efficiency read backing the dog, no study fade (dog_spots 0+), both teams 4+ games."""
     pool = []
     for c in cands:
         if c.get("market") != "ml" or c.get("league") not in GAP_LEAGUES or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
             continue
-        if c.get("trap") or c.get("raw_own") is None or c.get("p_market") is None or not c.get("dec"):
+        if c.get("trap") or c.get("p_market") is None or not c.get("dec"):
+            continue
+        if c.get("league") == "ncaab":
+            if str(c.get("start") or "")[:10] < NCAAB_GAP_FROM:
+                continue
+            read, backed = ncaab_gap_read(c)
+            if read is None or not backed:
+                continue                                     # (the ratings have the favorite better: +14% train, -14% held)
+            if round(dog_spots(c), 2) < 0:
+                continue                                     # (a study fade on it - the whole picture says no: 3/5 train)
+            if min(c.get("games_in") or 0, c.get("opp_games_in") or 0) < NCAAB_GAP_GAMES:
+                continue                                     # (games 1-3: the ratings' worst stretch, -19.9% train)
+            gap = read - c["p_market"]
+            if gap >= NCAAB_GAP_MIN:
+                pool.append((gap, c, read))
+            continue
+        if c.get("raw_own") is None:
             continue
         if GAP_FBS_ONLY and c.get("fbs_game") is False:
             continue                                         # (10/31: an FCS game - the 15+ rule was never proven there)
@@ -4394,13 +4443,13 @@ def gap_plays(cands, avoid):
             #                                                  form / travel / rest weights: -15.7% blind, 8 of 9 seasons red)
         gap = c["raw_own"] - c["p_market"]
         if gap >= GAP_MIN:
-            pool.append((gap, c))
+            pool.append((gap, c, c["raw_own"]))
     out, seen = [], set(avoid)
-    for gap, c in sorted(pool, key=lambda x: -x[0]):
+    for gap, c, read in sorted(pool, key=lambda x: -x[0]):
         if c["game_id"] not in seen:
             seen.add(c["game_id"])
             g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read -
-            out.append({**g_, "gap": round(gap, 4), "edge_own": round(c["raw_own"] * c["dec"] - 1, 4)})   # the raw one)
+            out.append({**g_, "gap": round(gap, 4), "edge_own": round(read * c["dec"] - 1, 4)})   # the raw one)
     return out
 
 
@@ -4625,6 +4674,125 @@ def ncaab_play_slots_open(picks, iso):
         return ()
     up = {(p.get("ncaab_play") or {}).get("slot") for p in picks if p["date"] == iso and p["status"] != "waiting" and p.get("ncaab_play")}
     return tuple(s for s in NCAAB_PLAY_SLOTS if s not in up and not ncaab_play_quit(picks, s))
+
+
+NCAAB_DOG_RATING_PTS = (2, 2, -2)   # 🐶🏀 THE COLLEGE HOOPS DOG READ (11/4 DOG EXPERT s6 - the owner: "more dogs ... more
+NCAAB_DOG_RATING_GAP = 0.15         # units on college basketball"): ONE score that adds up everything the engine knows
+NCAAB_DOG_RATING_AGAINST = 0.05     # about a college hoops dog - its study WEIGHTS (dog_spots, capped STUDY_CAP), the
+NCAAB_DOG_FACTS = {                 # RATINGS (the efficiency read backing the dog +2, +2 more at a 15-point gap, the
+    "def_first_vs_bad_off": 2,      # ratings 5+ points against it -2) and the KNOWLEDGE (A) facts not already in the
+    "whole_vs_2out": 1,             # weights (a defense-first dog vs a bottom-third offense +2 - +14% on 313, held 3/3;
+    "offense_first_late": -1,       # a whole team vs 2+ regulars out across +1; the Jan-Mar offense-first / transfer-
+    "transfer_heavy_late": -1,      # heavy / first-year-coach dog -1 each - the (A) s7 dog view's bad facts). Points set
+    "new_coach_late": -1,           # by hand from the studies, never fit; the gate chosen on train. ANY name in this
+}                                   # table that a knowledge read (sports_ncaab_knowledge.read, or a mark on the side)
+NCAAB_DOG_READ_GATE = 4             # sets true counts - a sister session adds a fact by adding a row here.
+NCAAB_DOG_READ_GAMES = 4            # 2018-25 at the close: read 4+ with both teams 4+ games 298-302 +16.5% on 600 (train
+#                                     +13.7% 5/5 up, held +22.5% 3/3 up, the OPEN +11.5%, z 3.4; EVERY season 2018-25
+#                                     up), ~75 a season; 3+ +16.7% on 934 (5/5, 3/3, open +13.2%); 5+ +23.7% on 194;
+#                                     the best read a night +15.5% on 376 (held +25.8% 3/3), the top two +16.3% on 520.
+#                                     vs the weights-only score 2+ (the unit test's dog slot replay) +3.2% on 4,207 /
+#                                     the strict own-read version +8.7% on 1,209: the ratings and the knowledge are what
+#                                     separate (weights 2+ AND backed +12.1% on 466; weights 2+ NOT backed +2.1%). By
+#                                     band +100..+150 +14.4% / +151..+250 +26.9% / +251..+350 +3.0% on 25; home +12.5% /
+#                                     road +18.6%; 8 of 8 seasons. No 2u tier (read 4-6 +14.3%, 6+ +24.4% on 132, the
+#                                     open shrinks it to +10.8%) - 1u flat. Caveat: the ratings points were set after
+#                                     the S1/S3 cuts on all seasons; the weights and the (A) facts came from the sister
+#                                     studies' train-chosen builds; the open and 8-of-8 are the honest checks.
+
+
+NCAAB_DOG_READ_2U = 6               # 💰 THE LADDER (11/4 s7 - the owner: "3 units on college football and it smacked ... we
+NCAAB_GAP_UNITS_2U = 2.0            # need to be doing this with college basketball"): sized by the DOG READ, not the gap.
+#                                     The gap dose FLIPS: 15-20 +28.2% train / -13.5% held, 20+ +18.3% / +68.6%, 20+
+#                                     better than 15-20 in 1 of 5 train seasons (3 of 8 in all) - no honest ladder on the
+#                                     gap. The READ's dose holds in both halves: read 6+ +24.3% train / +25.2% held vs 4-6
+#                                     +10.9% / +21.4% (6+ better in 4 of 8 seasons - a weak dose, so 2u, never 3u: 8+ is
+#                                     14 rows). A 🔍 college hoops play whose dog read is 6+ is 2u (train +24.4% vs +24.1%
+#                                     flat, held +22.0% vs +18.8%, the open +2.0% vs -0.2% - never worse), else 1u; the
+#                                     dog slot the same way (1u / 2u at 6+: +15.4% / +23.3% vs +13.7% / +22.5% flat).
+
+
+def gap_units(pk):
+    """🔍 the gap play's units: college football flat GAP_UNITS; college hoops GAP_UNITS, NCAAB_GAP_UNITS_2U when the
+    leg's dog read is NCAAB_DOG_READ_2U+ (the s7 ladder - sized by the whole read, never by the gap alone)."""
+    leg = (pk.get("legs") or [{}])[0]
+    if leg.get("league") == "ncaab" and (leg.get("dog_read") or 0) >= NCAAB_DOG_READ_2U:
+        return NCAAB_GAP_UNITS_2U
+    return GAP_UNITS
+
+
+def ncaab_dog_facts(c, facts=None):
+    """{name: True} - the NCAAB_DOG_FACTS names that hold for this college hoops dog: from the marks on the side
+    (def_first / opp_off_low / off_first / roster_tin + roster_cut / ncaab_new_coach, sports.mark_ncaab_*) and, generically,
+    any NCAAB_DOG_FACTS name a knowledge read (`facts`, e.g. sports_ncaab_knowledge.read's dict) sets true."""
+    import sports_ncaab_knowledge as nk
+    late = nk.month_of(str(c.get("start") or "")) in ("01", "02", "03")
+    out = {}
+    if c.get("def_first") and c.get("opp_off_low"):
+        out["def_first_vs_bad_off"] = True
+    if c.get("off_first") and late:
+        out["offense_first_late"] = True
+    cut = c.get("roster_cut")
+    if late and c.get("roster_tin") is not None and cut and c["roster_tin"] >= cut[0]:
+        out["transfer_heavy_late"] = True
+    if c.get("ncaab_new_coach") and late:
+        out["new_coach_late"] = True
+    for name in NCAAB_DOG_FACTS:
+        if (facts or {}).get(name) or c.get(name):
+            out[name] = True
+    return out
+
+
+def ncaab_dog_read(c, facts=None):
+    """The college hoops dog read: the study weights (dog_spots, capped) + the ratings points + the knowledge facts'
+    points. Sets c['dog_read'] and c['dog_read_parts']; None when the side is not a college hoops dog."""
+    if c.get("league") != "ncaab" or c.get("market") != "ml" or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX:
+        return None
+    w = max(-STUDY_CAP, min(STUDY_CAP, round(dog_spots(c), 2)))
+    r = 0
+    read, backed = ncaab_gap_read(c)
+    if read is not None and c.get("p_market") is not None:
+        gap = read - c["p_market"]
+        if backed:
+            r += NCAAB_DOG_RATING_PTS[0] + (NCAAB_DOG_RATING_PTS[1] if gap >= NCAAB_DOG_RATING_GAP else 0)
+        elif gap <= -NCAAB_DOG_RATING_AGAINST:
+            r += NCAAB_DOG_RATING_PTS[2]
+    held = ncaab_dog_facts(c, facts)
+    k = sum(NCAAB_DOG_FACTS[n] for n in held)
+    c["dog_read"] = round(w + r + k, 2)
+    c["dog_read_parts"] = {"weights": w, "ratings": r, "knowledge": k, "facts": sorted(held),
+                           "games_ok": min(c.get("games_in") or 0, c.get("opp_games_in") or 0) >= NCAAB_DOG_READ_GAMES}
+    return c["dog_read"]
+
+
+def ncaab_dog_read_ok(c):
+    """The dog read clears its gate (NCAAB_DOG_READ_GATE) with both teams NCAAB_DOG_READ_GAMES+ games in - what the
+    college hoops unit test's dog slot should take (the best read on the night first)."""
+    r = c.get("dog_read") if c.get("dog_read") is not None else ncaab_dog_read(c)
+    return r is not None and r >= NCAAB_DOG_READ_GATE and bool((c.get("dog_read_parts") or {}).get("games_ok"))
+
+
+def mark_ncaab_dog_read(cands):
+    """The dog read on every college hoops dog side (after the marks and the efficiency read are on the sides); a read
+    at the gate puts the fact on the card as a reason."""
+    for c in cands:
+        try:
+            r = ncaab_dog_read(c)
+        except Exception as e:                               # noqa: BLE001 - no read = no score, never a blocked board
+            print(f"cbb dog read failed: {str(e)[:80]}")
+            continue
+        if r is None or not ncaab_dog_read_ok(c):
+            continue
+        parts = c["dog_read_parts"]
+        bits = []
+        if parts["ratings"] >= NCAAB_DOG_RATING_PTS[0]:
+            bits.append("our efficiency ratings have them the better team on this floor")
+        if parts["weights"] >= 2:
+            bits.append(f"the study angles add {parts['weights']:g} points")
+        if "def_first_vs_bad_off" in parts["facts"]:
+            bits.append("a defense-first team against a bottom-third offense")
+        c["reasons"] = c["reasons"] + [f"the dog read is {r:g} ({', '.join(bits) or 'the whole picture'}) - "
+                                       "dogs reading 4+ beat their price every season 2018-25"]
 
 
 LEAN_WINNER_OWN = 0.55
@@ -5529,7 +5697,7 @@ def sizing_check(new):
         elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
-            want = (NCAAB_PLAY_UNITS, NCAAB_PLAY_UNITS) if pk.get("ncaab_play") else (GAP_UNITS, GAP_UNITS) if pk.get("gap") \
+            want = (NCAAB_PLAY_UNITS, NCAAB_PLAY_UNITS) if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
                 else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
