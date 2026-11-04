@@ -2786,7 +2786,7 @@ def units_for(pk):
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
             if pk.get("ncaab_play"):
-                return NCAAB_PLAY_UNITS                        # 🏀 (11/3: a college hoops slot play - half a unit)
+                return ncaab_play_units(pk)                  # 🏀 (11/4: the favorite slot ½u, the dog slot 1u / 2u at a read of 6+)
             if pk.get("nba_fav") and (pk.get("date") or "") >= NBA_FAV_FROM:
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
@@ -4845,41 +4845,59 @@ def gap_plays(cands, avoid):
 # don't make no money, and we never know till we've really tried it ... we should have unit plays pretty much every day"
 # + "I want the engine to be very knowledgeable in these teams and be able to predict these upsets and find these dogs
 # that the engine likes. We've won a ton of units on college football dogs, and we need to do the same with college
-# basketball ... we had 3 units on BYU to upset Notre Dame and won 6 units" + 11/4: "this will not be test or anything, and will not be its own bankroll. This is part of our engine and our dashboard"). Part of the engine: TWO
-# SLOTS a day, NCAAB_PLAY_UNITS (½u) each, each slot with its own quit rule (NCAAB_PLAY_QUIT, like EURO_QUIT / ALT_OVER_QUIT - protection, never a label; the plays are normal value plays in every record, nothing
-# into the other records (its own box under the leans, its own line in the bankroll), NCAAB_PLAY_ON the switch.
+# basketball ... we had 3 units on BYU to upset Notre Dame and won 6 units" + 11/4: "this will not be test or anything, and will not be its own bankroll. This is part of our engine and our dashboard"
+# + 11/4: "more dogs and more units on college basketball ... just wire it into the engine"). Part of the engine: TWO
+# SLOTS a day - the favorite slot (one, NCAAB_PLAY_UNITS ½u) and the dog slot (up to NCAAB_PLAY_SLOT_MAX["dog"] = two a
+# night, NCAAB_PLAY_DOG_UNITS 1u, NCAAB_PLAY_DOG_UNITS_2U 2u at a dog read of NCAAB_DOG_READ_2U+, never 3u) - each slot with
+# its own quit rule (NCAAB_PLAY_QUIT, like EURO_QUIT / ALT_OVER_QUIT - protection, never a label, nothing of it on the
+# dashboard; the plays are normal value plays in every record - the 💰 unit plays, the value plays box, the sport's chip,
+# the bankroll), NCAAB_PLAY_ON the switch.
 #   (1) THE FAVORITE SLOT - the sister study's one paying cell (college hoops knowledge (B), 11/3): a -120..-150
 #       moneyline favorite whose WEIGHED read (w_p - its own read moved by the dog's angles across it and the 11/3
 #       favorite weights) is NCAAB_PLAY_FAV_MIN_P+ AND over the price, its OWN read over the price too (the engine's Lock
 #       rule), carrying none of the three favorite fades (the Nov-Dec away favorite, the efficiency filter, its own top
 #       scorer out), the edge NCAAB_PLAY_FAV_PTS points over the price (the sister: 1-5 points +8.5..+11.7%, under 1
 #       point -3%), once both teams have played 3 (the early Lock rule). The best edge a day.
-#   (2) THE DOG SLOT - the best college hoops dog a night: +100..+350, the dog gate (dog score NCAAB_PLAY_DOG_GATE+ with
-#       every 11/3 weight in it - the owner's "find these dogs the engine likes"), the OWN read over the price, never a
-#       side carrying a dog fade (a true road dog in its first 3 games, a rubber-match dog, the top scorer out, a top-25
-#       road dog, a 5+ skid), never a trap / a side the own read fights. The highest score a night.
+#   (2) THE DOG SLOT - the DOG EXPERT's read (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, sports.ncaab_dog_read - the study
+#       weights + the efficiency ratings + the knowledge facts, ONE score; the owner 11/4: "more dogs and more units on
+#       college basketball ... just wire it into the engine"): every dog +100..+350 whose dog read clears
+#       NCAAB_DOG_READ_GATE (4+) with both teams NCAAB_DOG_READ_GAMES+ games in (ncaab_dog_read_ok), the best read a
+#       night first (a tie: the bigger efficiency gap), up to two a night, never a side carrying a dog fade (a true road
+#       dog in its first 3 games, a rubber-match dog, the top scorer out, a top-25 road dog, a 5+ skid), never a trap /
+#       a side the own read fights, NO own-read rule on top. 1u, 2u at a read of 6+. The replay (2018-25 at the close):
+#       read 4+ 298-302 +16.5% on 600 (train +13.7% 5/5 up, held +22.5% 3/3 up, the open +11.5%); 6+ beat 4-6 in both
+#       halves. The 🔍 college hoops gap play and the dog slot may land on the SAME dog - both count, each with its
+#       units (the owner's 10/4 rule: "Jaguars can be both").
 # NEVER ONE FACTOR (both reads are the whole weighed read), never forced (no side clears = nothing posts), the -150
-# rule, one pick a game, never the other side of a posted pick (post_board's `ours`). THE REPLAY (results/studies/
-# ncaab_play_1103/ - every college hoops board day 2018-25 re-built with TODAY's code at the close; train 2018-22, held
-# out 2023-25; SPORTS_FINDINGS "11/3 - THE COLLEGE HOOPS TEST") grades each slot on its own. Judged at NCAAB_PLAY_QUIT[0]
+# rule, one pick a game, never the other side of a posted pick (post_board's `ours`). THE REPLAYS (results/studies/
+# ncaab_play_1103/ for the favorite slot - every college hoops board day 2018-25 re-built with TODAY's code at the close,
+# train 2018-22, held out 2023-25; results/studies/cbb_dog_expert/ s6-s7 for the dog read; SPORTS_FINDINGS "11/3 - THE
+# COLLEGE HOOPS TEST" / "11/3 - FABLE: COLLEGE HOOPS DOG EXPERT") grade each slot on its own. Judged at NCAAB_PLAY_QUIT[0]
 # graded plays A SLOT: ROI under NCAAB_PLAY_QUIT[1] = that slot turns itself off (the owner can turn it back on).
 NCAAB_PLAY_ON = True
 NCAAB_PLAY_FROM = "2026-11-04"      # the first board it can post on
-NCAAB_PLAY_UNITS = 0.5              # half a unit (the owner, 11/3)
-NCAAB_PLAY_SLOTS = ("fav", "dog")   # one of each a day at most
-NCAAB_PLAY_MAX_DAY = len(NCAAB_PLAY_SLOTS)
+NCAAB_PLAY_UNITS = 0.5              # the favorite slot: half a unit (the owner, 11/3)
+NCAAB_PLAY_DOG_UNITS = 1.0          # the dog slot: 1u (the owner, 11/4: "more dogs and more units on college basketball")...
+NCAAB_PLAY_DOG_UNITS_2U = 2.0       # ...and 2u at a dog read of NCAAB_DOG_READ_2U+ (6+ beat 4-6 in both halves) - never 3u
+NCAAB_PLAY_SLOTS = ("fav", "dog")
+NCAAB_PLAY_SLOT_MAX = {"fav": 1, "dog": 2}   # a day: one favorite, up to two dogs (the owner, 11/4: "more dogs")
+NCAAB_PLAY_MAX_DAY = sum(NCAAB_PLAY_SLOT_MAX.values())
 NCAAB_PLAY_FAV_BAND = (-150, -120)  # the favorite slot's price band (the -150 rule; -119..-101 was never the cell)
 NCAAB_PLAY_FAV_MIN_P = 0.56         # the weighed read has to be a Lock-type read (56%+)...
 NCAAB_PLAY_FAV_PTS = (0.01, 0.05)   # ...and sit 1-5 points over the real price (under 1 lost; the sister's dose)
 NCAAB_PLAY_DOG_BAND = (100, 350)    # the dog slot's price band (the owner, 10/17: dogs +100..+350)
 NCAAB_PLAY_DOG_GATE = 4.0           # "strict": the dog score the dog slot needs (NCAAB_DOG_GATE - the NBA-style gate, the owner 10/10)
-NCAAB_PLAY_DOG_RULE = "weights2"    # 🐺 11/4, the owner: "Yes, we need more dogs for college basketball" - the dog slot runs on
-#                                   the replay's LEAD: "weights2" = the WEIGHTS-ONLY score (the study angles on top of the
-#                                   no-vig price, the ratings' own lean counted at 0, capped ±STUDY_CAP) NCAAB_PLAY_DOG_GATE_W+
-#                                   with NO own-read rule - 171-174 +13.4% on 345 train (5 of 5 seasons up) / 43-50 +2.3% on
-#                                   93 held out (1 of 3), ~0.6 a board day; "strict" = the full dog score NCAAB_PLAY_DOG_GATE+
-#                                   AND the own read over the price - +9.2% on 171 train (3/4) / -9.4% on 33 held, ~0.1 a day.
-#                                   Both: the fades, the band, never a trap / fighting, the slot's own judge.
+NCAAB_PLAY_DOG_RULE = "dog_read"    # 🐶 11/4, the owner: "more dogs and more units on college basketball ... just wire it
+#                                   into the engine" - the dog slot runs on the DOG EXPERT's read: "dog_read" = the dog
+#                                   read (ncaab_dog_read - weights + ratings + knowledge) NCAAB_DOG_READ_GATE+ with both
+#                                   teams NCAAB_DOG_READ_GAMES+ games in (ncaab_dog_read_ok), NO own-read rule - 298-302
+#                                   +16.5% on 600 at the close 2018-25 (train +13.7% 5/5, held +22.5% 3/3, open +11.5%),
+#                                   ~75 a season. Selectable: "weights2" = the WEIGHTS-ONLY score (the study angles on top
+#                                   of the no-vig price, the ratings' own lean counted at 0, capped ±STUDY_CAP)
+#                                   NCAAB_PLAY_DOG_GATE_W+ with NO own-read rule - +13.4% on 345 train (5/5) / +2.3% on 93
+#                                   held (1/3); "strict" = the full dog score NCAAB_PLAY_DOG_GATE+ AND the own read over
+#                                   the price - +9.2% on 171 train / -9.4% on 33 held. All three: the fades, the band,
+#                                   never a trap / fighting, the slot's own judge.
 NCAAB_PLAY_DOG_GATE_W = 2.0         # "weights2": the weights-only score the dog slot needs
 NCAAB_PLAY_QUIT = (50, -0.05)       # judged at 50 graded A SLOT: ROI under -5% on the units risked = that slot's off
 NCAAB_FAV_FADES = ("ncaab_away_fav", "ncaab_eff_fav", "ncaab_top_out_fav")   # the 11/3 favorite fades (a weighed read down)
@@ -4972,6 +4990,18 @@ def ncaab_play_dog(c):
         return None
     if ncaab_dog_fade(c):
         return None
+    if NCAAB_PLAY_DOG_RULE == "dog_read":                    # 🐶 the dog expert's read (11/4): weights + ratings +
+        try:                                                 # knowledge at the gate, both teams 4+ games, no own-read rule
+            if min(c.get("games_in") or 0, c.get("opp_games_in") or 0) < NCAAB_DOG_READ_GAMES or not ncaab_dog_read_ok(c):
+                return None
+        except Exception:                                    # noqa: BLE001 - no read = not the dog
+            return None
+        sc = c["dog_read"]
+        read = min(0.95, c["p_market"] + sc / 100)
+        edge = read * c["dec"] - 1
+        if edge <= 0:
+            return None
+        return round(read, 4), round(edge, 4), sc
     if NCAAB_PLAY_DOG_RULE == "strict" and (c.get("edge_own") is None or c["edge_own"] <= 0):
         return None                                          # (the own read over the price - the 10/23 plan's dog rule)
     try:
@@ -4995,12 +5025,23 @@ def ncaab_play_dog(c):
     return round(read, 4), round(edge, 4), sc
 
 
-def ncaab_play_plays(cands, avoid, slots=NCAAB_PLAY_SLOTS):
-    """🏀 The college hoops unit plays: at most one a slot - the favorite slot's best edge, the dog slot's highest
-    score - one per game, never a game in `avoid`, the favorite first (post_board caps the day a slot and checks each
-    slot's quit rule). The chosen leg carries its read (ncaab_read / ncaab_edge / ncaab_score / ncaab_slot / ncaab_fired)."""
+def _ncaab_eff_gap(c):
+    """The efficiency read's gap over the no-vig price (the dog slot's tie-break - the bigger gap first); 0 without one."""
+    read, _ = ncaab_gap_read(c)
+    if read is None or c.get("p_market") is None:
+        return 0.0
+    return round(read - c["p_market"], 4)
+
+
+def ncaab_play_plays(cands, avoid, slots=NCAAB_PLAY_SLOTS, room=None):
+    """🏀 The college hoops unit plays: the favorite slot's best edge (one), then the dog slot's best dog reads - the
+    highest read first, a tie to the bigger efficiency gap, up to `room["dog"]` (NCAAB_PLAY_SLOT_MAX: two a night) -
+    one per game, never a game in `avoid`, the favorite first (post_board passes each slot's room left today and
+    checks each slot's quit rule). The chosen leg carries its read (ncaab_read / ncaab_edge / ncaab_score / ncaab_slot
+    / ncaab_fired)."""
+    room = dict(NCAAB_PLAY_SLOT_MAX) if room is None else room
     out, seen = [], set(avoid)
-    if "fav" in slots:
+    if "fav" in slots and room.get("fav", 0) > 0:
         pool = []
         for c in cands:
             x = ncaab_play_fav(c)
@@ -5011,18 +5052,49 @@ def ncaab_play_plays(cands, avoid, slots=NCAAB_PLAY_SLOTS):
             c.update(ncaab_read=read, ncaab_edge=edge, ncaab_score=None, ncaab_slot="fav", ncaab_fired=ncaab_play_fired(c))
             seen.add(c["game_id"])
             out.append(c)
-    if "dog" in slots:
+    if "dog" in slots and room.get("dog", 0) > 0:
         pool = []
         for c in cands:
             x = ncaab_play_dog(c)
             if x is not None and c["game_id"] not in seen:
-                pool.append((x[2], x[1], x[0], c))
-        if pool:
-            sc, edge, read, c = max(pool, key=lambda t: (t[0], t[1]))
+                pool.append((x[2], _ncaab_eff_gap(c), x[1], x[0], c))
+        n = 0
+        for sc, _gap, edge, read, c in sorted(pool, key=lambda t: (-t[0], -t[1], -t[2])):
+            if n >= room["dog"]:
+                break
+            if c["game_id"] in seen:
+                continue                                     # (one pick a game - the best read in it)
             c.update(ncaab_read=read, ncaab_edge=edge, ncaab_score=sc, ncaab_slot="dog", ncaab_fired=ncaab_play_fired(c))
             seen.add(c["game_id"])
             out.append(c)
+            n += 1
     return out
+
+
+def ncaab_twin(a, b):
+    """True when `a` and `b` are the 🔍 college hoops gap play and the college hoops dog slot play on the SAME dog (the
+    same game, the same side): the one game a day may carry both - each with its units (the owner, 10/4: "Jaguars can
+    be both"; 11/4). Anything else on a game we're already on is a second pick."""
+    la, lb = (a.get("legs") or [{}])[0], (b.get("legs") or [{}])[0]
+    if la.get("league") != "ncaab" or lb.get("league") != "ncaab":
+        return False
+    if la.get("game_id") != lb.get("game_id") or la.get("side") != lb.get("side"):
+        return False
+    tags = {("gap" if p.get("gap") is not None else "dog" if (p.get("ncaab_play") or {}).get("slot") == "dog" else None)
+            for p in (a, b)}
+    return tags == {"gap", "dog"}
+
+
+def ncaab_play_units(pk):
+    """A college hoops slot play's units: the favorite slot NCAAB_PLAY_UNITS (½u); the dog slot NCAAB_PLAY_DOG_UNITS (1u),
+    NCAAB_PLAY_DOG_UNITS_2U (2u) at a dog read of NCAAB_DOG_READ_2U+ (the owner, 11/4: "more units on college
+    basketball" - the s7 ladder, never 3u). The read is the one the pick posted with (ncaab_play.dog_read, else the leg's)."""
+    t = pk.get("ncaab_play") or {}
+    if t.get("slot") != "dog":
+        return NCAAB_PLAY_UNITS
+    leg = (pk.get("legs") or [{}])[0]
+    r = t.get("dog_read") if t.get("dog_read") is not None else leg.get("dog_read")
+    return NCAAB_PLAY_DOG_UNITS_2U if (r or 0) >= NCAAB_DOG_READ_2U else NCAAB_PLAY_DOG_UNITS
 
 
 def ncaab_play_record(picks, slot=None):
@@ -5055,12 +5127,23 @@ def ncaab_play_quit(picks, slot):
     return n >= NCAAB_PLAY_QUIT[0] and r["risked"] > 0 and r["units"] / r["risked"] < NCAAB_PLAY_QUIT[1]
 
 
-def ncaab_play_slots_open(picks, iso):
-    """The slots that may still post today: the switch on, the slot's judge not tripped, nothing of it up today."""
+def ncaab_play_room(picks, iso):
+    """{slot: how many more may post today} - the switch on, the slot's judge not tripped, its cap (NCAAB_PLAY_SLOT_MAX:
+    one favorite, two dogs) not reached by today's posts. A slot with no room is left out."""
     if not NCAAB_PLAY_ON or iso < NCAAB_PLAY_FROM:
-        return ()
-    up = {(p.get("ncaab_play") or {}).get("slot") for p in picks if p["date"] == iso and p["status"] != "waiting" and p.get("ncaab_play")}
-    return tuple(s for s in NCAAB_PLAY_SLOTS if s not in up and not ncaab_play_quit(picks, s))
+        return {}
+    up = [(p.get("ncaab_play") or {}).get("slot") for p in picks if p["date"] == iso and p["status"] != "waiting" and p.get("ncaab_play")]
+    out = {}
+    for s in NCAAB_PLAY_SLOTS:
+        left = NCAAB_PLAY_SLOT_MAX.get(s, 1) - up.count(s)
+        if left > 0 and not ncaab_play_quit(picks, s):
+            out[s] = left
+    return out
+
+
+def ncaab_play_slots_open(picks, iso):
+    """The slots that may still post today (ncaab_play_room with room left), in NCAAB_PLAY_SLOTS order."""
+    return tuple(ncaab_play_room(picks, iso))
 
 
 NCAAB_DOG_RATING_PTS = (2, 2, -2)   # 🐶🏀 THE COLLEGE HOOPS DOG READ (11/4 DOG EXPERT s6 - the owner: "more dogs ... more
@@ -5161,8 +5244,8 @@ def ncaab_dog_read(c, facts=None):
 
 
 def ncaab_dog_read_ok(c):
-    """The dog read clears its gate (NCAAB_DOG_READ_GATE) with both teams NCAAB_DOG_READ_GAMES+ games in - what the
-    college hoops unit test's dog slot should take (the best read on the night first)."""
+    """The dog read clears its gate (NCAAB_DOG_READ_GATE) with both teams NCAAB_DOG_READ_GAMES+ games in - the college
+    hoops dog slot's gate (NCAAB_PLAY_DOG_RULE "dog_read", the best read on the night first, up to two a night)."""
     r = c.get("dog_read") if c.get("dog_read") is not None else ncaab_dog_read(c)
     return r is not None and r >= NCAAB_DOG_READ_GATE and bool((c.get("dog_read_parts") or {}).get("games_ok"))
 
@@ -6033,8 +6116,9 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = "past -150"
         elif l.get("league") in ("nhl", "mlb") and l.get("market") not in ("ml", "total"):
             why = "a puck line / run line"
-        elif l.get("game_id") in seen:
-            why = "a second pick on a game we're already on"
+        elif l.get("game_id") in seen and not ncaab_twin(pk, seen[l["game_id"]]):
+            why = "a second pick on a game we're already on"   # (11/4: the 🔍 college hoops gap play and the dog slot
+            #                                                  may land on the SAME dog - both count, the owner's 10/4 rule)
         elif pk.get("kind") in ("lock", "dog") and not pk.get("lean") and not units_for(pk):
             why = f"a {pk['kind']} with no units"
         elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DAILY_DOG_MAX:   # (10/2 audit: +220, the owner's 10/1
@@ -6092,7 +6176,7 @@ def sizing_check(new):
         elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
-            want = (NCAAB_PLAY_UNITS, NCAAB_PLAY_UNITS) if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
+            want = (ncaab_play_units(pk),) * 2 if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
                 else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
@@ -6456,17 +6540,21 @@ def post_board(games, model, picks, now, day, force=False):
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
-                            ("ncaabplay", ncaab_play_plays, NCAAB_PLAY_MAX_DAY),   # 🏀 11/3: the college hoops slot plays (½u)
+                            ("ncaabplay", ncaab_play_plays, NCAAB_PLAY_MAX_DAY),   # 🏀 11/3-4: the college hoops slot plays
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:
             continue
-        if kind == "ncaabplay":                                 # 🏀 one a SLOT a day (the favorite / the dog), each slot
-            slots_ = ncaab_play_slots_open(picks, iso)          # off on its own judge; the switch off = none
-            if not slots_:
-                continue
-            pool = (lambda cands_, used_, s_=slots_: ncaab_play_plays(cands_, used_, s_))
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
+        twin = {}                                            # 🔍🐶 11/4: today's college hoops gap plays {game: side} -
+        if kind == "ncaabplay":                                 # 🏀 a SLOT's room a day (one favorite, two dogs), each slot
+            room_ = ncaab_play_room(picks, iso)                 # off on its own judge; the switch off = none
+            if not room_:
+                continue
+            twin = {l["game_id"]: l["side"] for p in today_ if p.get("gap") is not None   # the dog slot may take the
+                    for l in p["legs"] if l.get("league") == "ncaab"}                       # SAME dog (never the other side)
+            pool = (lambda cands_, used_, r_=room_, t_=twin: ncaab_play_plays(
+                [c for c in cands_ if c["game_id"] not in t_ or c["side"] == t_[c["game_id"]]], used_, tuple(r_), r_))
         room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"
         #                                                        with its tag - counted by the tag, or the cap never bit)
         if kind == "nbafloor":                                # 🏀 10/27, the owner: NBA unit plays - an NBA day with no NBA
@@ -6483,6 +6571,8 @@ def post_board(games, model, picks, now, day, force=False):
             room = 0                                          # (10/1: leans go up with the opening board only - the
         #                                                       record is the start-of-day board, never topped up later)
         used = {l["game_id"] for p in today_ for l in p["legs"]}
+        if twin:
+            used -= set(twin)                                # (the gap play's game stays open to the dog slot - same side only)
         if kind in ("lean", "floor", "nbafloor"):             # (10/20, the owner: "Marshall is a lean and we also have
             used |= early_gids                                #  units on Marshall in an early play - this can't be": a
             #                                                   game we're already in early never gets a no-units lean;
@@ -6524,9 +6614,10 @@ def post_board(games, model, picks, now, day, force=False):
                 pk["floor"], leg["tier"], pk["tier"] = {"dog_score": leg.get("floor_score"), "nba": kind == "nbafloor"}, "value", "value"
                 if kind == "floor" and leg.get("floor_fallback"):
                     pk["floor"]["fallback"] = leg["floor_fallback"]   # (10/29 night: the one-a-day fallback, tracked)
-            if kind == "ncaabplay":                            # 🏀 the college hoops slot plays (11/3): ½u, a slot a day
+            if kind == "ncaabplay":                            # 🏀 the college hoops slot plays (11/3-4): the favorite ½u,
                 pk["ncaab_play"] = {"slot": leg.get("ncaab_slot"), "read": leg.get("ncaab_read"), "edge": leg.get("ncaab_edge"),
-                                  "score": leg.get("ncaab_score"), "fired": list(leg.get("ncaab_fired") or [])}
+                                  "score": leg.get("ncaab_score"), "fired": list(leg.get("ncaab_fired") or []),
+                                  "dog_read": leg.get("dog_read")}   # a dog 1u / 2u at a read of 6+ (ncaab_play_units)
                 leg["tier"], pk["tier"] = "value", "value"
                 if leg.get("odds", 0) >= 100 and leg.get("ncaab_read") is not None:   # (11/4: a normal value play - the
                     leg["dog_p"], leg["dog_score"] = leg["ncaab_read"], leg.get("ncaab_score")   # card's units line reads the
