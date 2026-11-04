@@ -30499,6 +30499,11 @@
      "game:nonconf"
     ],
     "dec": 2.05,
+    "decider": {
+     "s": "7-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -30544,6 +30549,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0",
+     "h": "2,4,1"
+    },
     "form_state": [
      -2.0,
      -2,
@@ -30594,10 +30603,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Avalanche 2 @ Blue Jackets 7",
     "season_games": null,
+    "settled": "2026-11-04T02:36Z",
     "side": "home",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -30614,12 +30625,14 @@
    }
   ],
   "p_hit": 0.4957,
-  "pnl": 0.0,
+  "pnl": 105.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": -125,
