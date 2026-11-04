@@ -1,8 +1,8 @@
 {
- "at": "2026-11-04T03:16Z",
+ "at": "2026-11-04T03:22Z",
  "fixes": [
-  "live watch 41761282119 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+  "live watch 41766096401 froze (11 min) - cancelled",
+  "live board 11 min stale with games on - sports-live.yml already running"
  ],
  "problems": [],
  "ok": [
@@ -18,12 +18,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 29 min ago",
+  "engine ran 35 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T03:22Z",
+   "fixes": [
+    "live watch 41766096401 froze (11 min) - cancelled",
+    "live board 11 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-04T03:16Z",
    "fixes": [
@@ -540,14 +548,6 @@
     "live tennis scores: tennis Sierra vs Janicijevic: no points for 224s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-02T18:52Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bronzetti vs Jeanjean: no points for 81s",
-    "live tennis scores: tennis Garcia vs Alves: no points for 81s"
    ]
   }
  ]
