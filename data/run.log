@@ -11799,3 +11799,56 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-04 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-04 12:06 UTC] crypto/hold_btc  equity $469.35 (-6.1%) 1 open  market DOWN
    social heat top: AERO 36 (27/0/10), PENGU 35 (35/0/0), BTC 34 (29/0/5), SUI 32 (32/0/0), PONS 28 (19/0/9)
+   git sync: push rejected (try 1/5)
+   dex screen: REJECT POD@base liq $4,194,243 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   dex screen: REJECT SKY@ethereum liq $114,915 - pool age 3.2h < 6h; 24h volume $80,214 < $100,000
+   dex screen: REJECT ZEN@base liq $1,584,421 - is_mintable; top-10 holders 65%; lp locked 0% < 95%
+   dex screen: REJECT WOJAK@ethereum liq $864,386 - honeypot.is: no data
+   dex screen: REJECT SURPLUS@base liq $1,308,055 - transfer_pausable; is_mintable
+   dex screen: UNREACHABLE SP@ethereum liq $126,428 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT TRX-USDT@solana liq $309,861,971 - top-10 holders 100%
+   dex screen: REJECT USDT-ERC20@solana liq $209,708,837 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT NOCK@base liq $934,840 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $140,373 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT USDG@ethereum liq $1,804,267 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT OUSD@base liq $7,002,791 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 82%
+   dex screen: REJECT AGENC@solana liq $198,957 - top-10 holders 62%; lp holders unknown
+   dex screen: REJECT ASTER@solana liq $718,442,795 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT XAUT@solana liq $891,041,414 - top-10 holders 100%
+   dex screen: REJECT HNT@solana liq $664,291,152 - top-10 holders 100%
+   dex screen: REJECT BCH@solana liq $529,517,975 - top-10 holders 100%
+   dex screen: REJECT LINK@solana liq $238,857,490 - top-10 holders 100%
+   dex screen: PASS TREE@ethereum liq $1,376,947
+   dex screen: REJECT ECR@solana liq $219,719,994 - top-10 holders 100%
+   dex screen: REJECT UNI@solana liq $107,969,709 - top-10 holders 100%
+   dex screen: REJECT BNB@solana liq $71,218,765 - top-10 holders 100%
+   dex screen: REJECT FRXUSD@ethereum liq $1,005,621 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%
+   dex screen: REJECT MVPW@solana liq $1,119,861,648 - top-10 holders 100%
+   dex screen: REJECT OSOR@solana liq $96,889,008 - top-10 holders 100%
+   dex screen: REJECT CR7@solana liq $9,779,653 - top-10 holders 100%
+   dex screen: REJECT TRX-USDT@solana liq $309,772,174 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DOT@solana liq $247,346,103 - top-10 holders 100%
+   dex screen: REJECT INJ@solana liq $187,166,077 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT XTZ@solana liq $71,751,192 - top-10 holders 100%
+   dex screen: REJECT XCN@solana liq $43,492,641 - top-10 holders 100%
+   dex screen: REJECT ETHICS@solana liq $10,751,742 - top-10 holders 100%
+   dex screen: UNREACHABLE GTA6@ethereum liq $148,085 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CONST@solana liq $10,725,681 - top-10 holders 100%
+   dex screen: UNREACHABLE SP@ethereum liq $117,673 - honeypot.is unreachable
+   dex screen: PASS CYBERLEEK@solana liq $449,017
+   dex screen: REJECT MAMESUKE@solana liq $0 - holders unknown; lp holders unknown; rugcheck danger: Top 10 holders high ownership; rugcheck danger: Single holder ownership; rugcheck danger: Single holder ownership; rugcheck danger: Low Liquidity; rugcheck danger: High ownership; rugcheck score 65
+   dex screen: REJECT SPX@solana liq $117,213 - mint authority; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $149,872 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SP@ethereum liq $105,749 - honeypot.is unreachable
+   dex screen: REJECT METAC@base liq $1,085,336 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex scanner: 2,999 pools (solana 2,115 / base 480 / ethereum 404), refresh cycle 133s (hot 128s), 2813 calls (108 feed, 429s 0, failed 0), 81,149 refreshed (8081 no pair), +88 added / -89 dropped (dead 7, stale 0, cap 82), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-04 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/mover     equity $243.62 (-51.3%) 2 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/social_heat equity $364.64 (-27.1%) 2 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/breakout10 equity $405.45 (-18.9%) 1 open  market UP
+[2026-11-04 13:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-04 13:06 UTC] crypto/hold_btc  equity $469.57 (-6.1%) 1 open  market DOWN
+   social heat top: BTC 40 (35/0/5), TRUMP 37 (37/0/0), NEAR 29 (29/0/0), PENGU 27 (27/0/0), SUI 24 (24/0/0)
