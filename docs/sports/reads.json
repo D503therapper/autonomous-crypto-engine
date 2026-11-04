@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T20:03Z",
+ "updated": "2026-11-04T20:56Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -250,7 +250,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.695,
+    "p": 0.701,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -266,9 +266,9 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -11.5,
-    "odds": -103,
+    "odds": -107,
     "p": 0.504,
-    "win_p": 0.799,
+    "win_p": 0.805,
     "reasons": [
      "the stronger team"
     ]
@@ -326,7 +326,7 @@
     "opp": "E Michigan",
     "market": "spread",
     "line": 1.5,
-    "odds": -115,
+    "odds": -120,
     "p": 0.502,
     "win_p": 0.498,
     "reasons": []
@@ -701,7 +701,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.72,
+    "p": 0.716,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -717,9 +717,9 @@
     "opp": "Mavericks",
     "market": "spread",
     "line": -12.5,
-    "odds": -108,
+    "odds": -106,
     "p": 0.505,
-    "win_p": 0.828,
+    "win_p": 0.823,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -998,8 +998,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.507,
-    "tie": 0.277,
+    "p": 0.514,
+    "tie": 0.275,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1014,9 +1014,9 @@
     "opp": "Blackhawks",
     "market": "spread",
     "line": -1.5,
-    "odds": -142,
-    "p": 0.612,
-    "win_p": 0.795,
+    "odds": -175,
+    "p": 0.628,
+    "win_p": 0.805,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1069,17 +1069,19 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Bruins",
+    "team": "Bruins",
+    "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.712,
-    "win_p": 0.499,
-    "reasons": []
+    "odds": -278,
+    "p": 0.716,
+    "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1132,7 +1134,7 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
+    "odds": -192,
     "p": 0.64,
     "win_p": 0.421,
     "reasons": [
@@ -1192,7 +1194,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.65,
     "win_p": 0.43,
     "reasons": []
@@ -1262,7 +1264,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.399,
+    "p": 0.396,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1278,9 +1280,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
-    "p": 0.617,
-    "win_p": 0.395,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.401,
     "reasons": [
      "better rested"
     ]
@@ -1366,7 +1368,7 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
+    "odds": -238,
     "p": 0.669,
     "win_p": 0.45,
     "reasons": []
@@ -1617,7 +1619,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.735,
+    "p": 0.731,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1626,17 +1628,19 @@
    "start": "2026-11-06T01:15Z",
    "away": "Jaguars",
    "home": "Ravens",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Ravens",
-    "opp": "Jaguars",
-    "market": "spread",
-    "line": 10.0,
-    "odds": -112,
-    "p": 0.514,
-    "win_p": 0.156,
-    "reasons": []
+    "team": "Under",
+    "opp": "Jaguars @ Ravens",
+    "market": "total",
+    "line": 40.0,
+    "odds": -113,
+    "p": 0.608,
+    "win_p": 0.608,
+    "reasons": [
+     "the engine's scoring read"
+    ]
    }
   },
   {
