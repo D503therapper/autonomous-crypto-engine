@@ -1,8 +1,12 @@
 {
- "at": "2026-11-03T16:00Z",
- "day": "2026-11-03",
- "games": 42,
+ "at": "2026-11-04T15:25Z",
+ "day": "2026-11-04",
+ "games": 47,
  "looked_at": 31,
- "problems": [],
- "factors": []
+ "problems": [
+  "data pull failed: nhl 2026-11-03: HTTP Error 403: Forbidden",
+  "data pull failed: nhl 2026-11-04: HTTP Error 403: Forbidden",
+  "data pull failed: ncaab 2026-11-03: HTTP Error 403: Forbidden",
+  "data pull failed: ncaab 2026-11-04: HTTP Error 403: Forbidden"
+ ]
 }
