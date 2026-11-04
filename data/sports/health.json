@@ -1,32 +1,41 @@
 {
- "at": "2026-11-04T16:13Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-04T16:57Z",
+ "fixes": [],
  "problems": [
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Alves vs Jeanjean: no points for 2614s",
+  "live tennis scores: tennis Monnet vs Samson: no points for 2614s",
+  "live tennis scores: tennis Giovannini vs Burillo: no points for 2614s"
  ],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (111s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 8 live matches",
+  "live tennis points + server: 3 of 6 live matches",
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 7 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran 40 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 19 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T16:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Alves vs Jeanjean: no points for 2614s",
+    "live tennis scores: tennis Monnet vs Samson: no points for 2614s",
+    "live tennis scores: tennis Giovannini vs Burillo: no points for 2614s"
+   ]
+  },
   {
    "at": "2026-11-04T16:13Z",
    "fixes": [
@@ -555,11 +564,6 @@
   },
   {
    "at": "2026-11-03T07:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-03T06:59Z",
    "fixes": [],
    "problems": []
   }
