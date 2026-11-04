@@ -16704,7 +16704,7 @@ def test_deep_cbb_roster_1103_top_scorer_missed_last_game_weights_and_the_new_lo
             w.writerows(rows)
         tonight = "2026-11-20T00:00Z"
         t10 = nr.top_out(games, "10", tonight)
-        assert t10 == {"out": True, "name": "Player p1", "ppg": 22.0}
+        assert t10 == {"out": True, "name": "Player p1", "ppg": 22.0, "run": t10["run"]} and t10["run"] >= 1   # (11/4: + games missed running)
         assert nr.top_out(games, "20", tonight)["out"] is False          # the 2nd scorer missing: nothing
         assert nr.top_out(games, "10", "2026-11-13T00:00Z") is None       # 2 box games in: unknown
         games["ncaab:199"] = fin("ncaab:199", "2026-11-19T00:00Z", "10", "77")   # a newer final with NO box on file
@@ -17834,56 +17834,58 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
     own39 = 0.39 * d(160) - 1
     dog = mk("g1", "home", 160, 0.37, edge_own=own39, vs_ranked_road=True, reb_gap=8.5, dog_ctx={"opp_won": False})
     full = round(sports.dog_score(dict(dog)), 2)
-    assert full == 8.0 and sports.NCAAB_PLAY_DOG_RULE == "weights2" and sports.NCAAB_PLAY_DOG_GATE_W == 2.0
-    sc = 6.0                                                                                  # the weights-only score
-    assert sports.ncaab_play_dog(dog) == (0.43, round(0.43 * d(160) - 1, 4), sc)
-    assert set(sports.ncaab_play_fired(dog)) == {"home dog vs a top-25 road team in Nov-Dec", "the glass", "the favorite lost its last"}
-    assert sports.ncaab_play_dog(mk("g1", "home", 160, 0.37, edge_own=own39)) is None          # no angle: weights-only 0
-    assert sports.ncaab_play_dog({**dog, "edge_own": 0.37 * d(160) - 1}) == (0.43, round(0.43 * d(160) - 1, 4), sc)   # no own-read rule
-    one = mk("g1", "home", 160, 0.37, edge_own=own39, vs_ranked_road=True)                   # one angle: +2 = the gate
-    assert sports.ncaab_play_dog(one) == (0.39, round(0.39 * d(160) - 1, 4), 2.0)
-    assert sports.ncaab_play_dog({**one, "edge_own": 0.45 * d(160) - 1}) == (0.39, round(0.39 * d(160) - 1, 4), 2.0)   # a big own lean adds nothing
-    assert sports.ncaab_play_dog(mk("g1", "home", 160, 0.37, edge_own=own39, reb_gap=6.5)) is None   # +1: under the gate
+    assert full == 8.0 and sports.NCAAB_PLAY_DOG_RULE == "dog_read" and sports.NCAAB_PLAY_DOG_GATE_W == 2.0   # (11/4: the dog
+    sc = 6.0                                                                                  # the weights-only score      read is the default - its own test)
     keep_rule = sports.NCAAB_PLAY_DOG_RULE
-    try:                                                                                      # "strict" stays selectable
-        sports.NCAAB_PLAY_DOG_RULE = "strict"
+    try:                                                                                      # "weights2" stays selectable
+        sports.NCAAB_PLAY_DOG_RULE = "weights2"
+        assert sports.ncaab_play_dog(dog) == (0.43, round(0.43 * d(160) - 1, 4), sc)
+        assert set(sports.ncaab_play_fired(dog)) == {"home dog vs a top-25 road team in Nov-Dec", "the glass", "the favorite lost its last"}
+        assert sports.ncaab_play_dog(mk("g1", "home", 160, 0.37, edge_own=own39)) is None          # no angle: weights-only 0
+        assert sports.ncaab_play_dog({**dog, "edge_own": 0.37 * d(160) - 1}) == (0.43, round(0.43 * d(160) - 1, 4), sc)   # no own-read rule
+        one = mk("g1", "home", 160, 0.37, edge_own=own39, vs_ranked_road=True)                   # one angle: +2 = the gate
+        assert sports.ncaab_play_dog(one) == (0.39, round(0.39 * d(160) - 1, 4), 2.0)
+        assert sports.ncaab_play_dog({**one, "edge_own": 0.45 * d(160) - 1}) == (0.39, round(0.39 * d(160) - 1, 4), 2.0)   # a big own lean adds nothing
+        assert sports.ncaab_play_dog(mk("g1", "home", 160, 0.37, edge_own=own39, reb_gap=6.5)) is None   # +1: under the gate
+        assert sports.ncaab_play_dog({**dog, "trap": True}) is None and sports.ncaab_play_dog({**dog, "odds": 400, "dec": d(400)}) is None
+        assert sports.ncaab_play_dog({**dog, "edge_own": 0.30 * d(160) - 1}) is None                # fighting the price
+        for fade, name in (("rubber_dog", "a rubber-match dog"), ("top_out", "its top scorer missed the last game"),
+                           ("ranked_road", "a top-25 team as a road dog")):
+            assert sports.ncaab_dog_fade({**dog, fade: True}) == name and sports.ncaab_play_dog({**dog, fade: True}) is None
+        assert sports.ncaab_dog_fade({**dog, "ncaab_skid": 5}) == "a 5-game skid" and sports.ncaab_play_dog({**dog, "ncaab_skid": 5}) is None
+        road_early = {**dog, "side": "away", "home": False, "games_in": 1}
+        assert sports.ncaab_dog_fade(road_early) == "a true road dog in its first 3 games" and sports.ncaab_play_dog(road_early) is None
+        assert sports.ncaab_dog_fade(dog) is None and sports.ncaab_dog_fade({**dog, "ncaab_skid": 4}) is None
+        # the day's plays: one a slot - the favorite's best edge, the dog's highest score - one per game, never a game in avoid
+        fav2 = {**fav, "game_id": "g4", "w_p": 0.58}                                 # a smaller edge than fav
+        dog2 = {**dog, "game_id": "g5", "reb_gap": 3.0}                               # a lower score than dog
+        got = sports.ncaab_play_plays([fav2, dog2, fav, dog, {**dog, "game_id": "g6", "trap": True}], (), room={"fav": 1, "dog": 1})
+        assert [(c["game_id"], c["ncaab_slot"]) for c in got] == [("g2", "fav"), ("g1", "dog")]
+        assert got[0]["ncaab_read"] == 0.59 and got[1]["ncaab_score"] == sc and got[1]["ncaab_read"] == round(0.37 + sc / 100, 4) and got[1]["ncaab_fired"]
+        assert [c["game_id"] for c in sports.ncaab_play_plays([fav2, dog2, fav, dog], ("g2", "g1"), room={"fav": 1, "dog": 1})] == ["g4", "g5"]
+        assert [c["game_id"] for c in sports.ncaab_play_plays([fav, dog], (), slots=("dog",))] == ["g1"]   # the favorite slot used
+        assert sports.ncaab_play_plays([mk("g7", "away", -130, 0.55, w_p=0.59), mk("g8", "home", 160, 0.37)], ()) == []   # never forced
+        same = {**dog, "game_id": "g2"}                                              # the dog in the favorite's game: one pick a game
+        assert [(c["game_id"], c["ncaab_slot"]) for c in sports.ncaab_play_plays([fav, same], ())] == [("g2", "fav")]
+        sports.NCAAB_PLAY_DOG_RULE = "strict"                                                 # "strict" stays selectable
         assert full >= sports.NCAAB_PLAY_DOG_GATE == 4.0 and sports.ncaab_play_dog(dog) == (0.45, round(0.45 * d(160) - 1, 4), full)
         assert sports.ncaab_play_dog({**dog, "edge_own": 0.37 * d(160) - 1}) is None            # the own read not over the price
         assert sports.ncaab_play_dog(one) == (0.41, round(0.41 * d(160) - 1, 4), 4.0)           # the full score 2 + 2 = 4: at the gate
         assert sports.ncaab_play_dog(mk("g1", "home", 160, 0.37, edge_own=own39, reb_gap=6.5)) is None   # 2 + 1 = 3: under
     finally:
         sports.NCAAB_PLAY_DOG_RULE = keep_rule
-    assert sports.ncaab_play_dog({**dog, "trap": True}) is None and sports.ncaab_play_dog({**dog, "odds": 400, "dec": d(400)}) is None
-    assert sports.ncaab_play_dog({**dog, "edge_own": 0.30 * d(160) - 1}) is None                # fighting the price
-    for fade, name in (("rubber_dog", "a rubber-match dog"), ("top_out", "its top scorer missed the last game"),
-                       ("ranked_road", "a top-25 team as a road dog")):
-        assert sports.ncaab_dog_fade({**dog, fade: True}) == name and sports.ncaab_play_dog({**dog, fade: True}) is None
-    assert sports.ncaab_dog_fade({**dog, "ncaab_skid": 5}) == "a 5-game skid" and sports.ncaab_play_dog({**dog, "ncaab_skid": 5}) is None
-    road_early = {**dog, "side": "away", "home": False, "games_in": 1}
-    assert sports.ncaab_dog_fade(road_early) == "a true road dog in its first 3 games" and sports.ncaab_play_dog(road_early) is None
-    assert sports.ncaab_dog_fade(dog) is None and sports.ncaab_dog_fade({**dog, "ncaab_skid": 4}) is None
-    # the day's plays: one a slot - the favorite's best edge, the dog's highest score - one per game, never a game in avoid
-    fav2 = {**fav, "game_id": "g4", "w_p": 0.58}                                 # a smaller edge than fav
-    dog2 = {**dog, "game_id": "g5", "reb_gap": 3.0}                               # a lower score than dog
-    got = sports.ncaab_play_plays([fav2, dog2, fav, dog, {**dog, "game_id": "g6", "trap": True}], ())
-    assert [(c["game_id"], c["ncaab_slot"]) for c in got] == [("g2", "fav"), ("g1", "dog")]
-    assert got[0]["ncaab_read"] == 0.59 and got[1]["ncaab_score"] == sc and got[1]["ncaab_read"] == round(0.37 + sc / 100, 4) and got[1]["ncaab_fired"]
-    assert [c["game_id"] for c in sports.ncaab_play_plays([fav2, dog2, fav, dog], ("g2", "g1"))] == ["g4", "g5"]
-    assert [c["game_id"] for c in sports.ncaab_play_plays([fav, dog], (), slots=("dog",))] == ["g1"]   # the favorite slot used
-    assert sports.ncaab_play_plays([mk("g7", "away", -130, 0.55, w_p=0.59), mk("g8", "home", 160, 0.37)], ()) == []   # never forced
-    same = {**dog, "game_id": "g2"}                                              # the dog in the favorite's game: one pick a game
-    assert [(c["game_id"], c["ncaab_slot"]) for c in sports.ncaab_play_plays([fav, same], ())] == [("g2", "fav")]
     # the pick: kind "play" tagged cbb_test (slot) - ½u, its own cap a slot, its own bankroll line, never the floor's count
     leg = {**dog, "ncaab_read": 0.45, "ncaab_edge": 0.17, "ncaab_score": sc, "ncaab_slot": "dog", "ncaab_fired": ["the glass"], "tier": "value"}
     pk = {"date": "2026-11-20", "kind": "play", "status": "open", "legs": [leg], "dec": d(160), "american": 160, "p_hit": 0.45,
           "stake": 100, "pnl": 0.0, "lean": False, "tier": "value",
-          "ncaab_play": {"slot": "dog", "read": 0.45, "edge": 0.17, "score": sc, "fired": ["the glass"]}}
-    assert sports.units_for(pk) == sports.NCAAB_PLAY_UNITS == 0.5 and sports.posted_kind(pk) == "ncaabplay"
+          "ncaab_play": {"slot": "dog", "read": 0.45, "edge": 0.17, "score": sc, "fired": ["the glass"], "dog_read": 4.5}}
+    assert sports.units_for(pk) == sports.NCAAB_PLAY_DOG_UNITS == 1.0 and sports.posted_kind(pk) == "ncaabplay"   # (11/4: a dog 1u)
     assert sports.units_tier(pk, leg) == "value" and sports.sizing_check([pk]) == []   # (11/4: a normal value play)
     assert sports.unit_plays_today([pk], "2026-11-20") == 1                            # (counted like any unit play)
-    assert sports.NCAAB_PLAY_MAX_DAY == 2 and sports.NCAAB_PLAY_SLOTS == ("fav", "dog") and sports.NCAAB_PLAY_QUIT == (50, -0.05)
+    assert sports.NCAAB_PLAY_MAX_DAY == 3 and sports.NCAAB_PLAY_SLOTS == ("fav", "dog") and sports.NCAAB_PLAY_QUIT == (50, -0.05)
     assert sports.NCAAB_PLAY_FAV_BAND == (-150, -120) and sports.NCAAB_PLAY_DOG_BAND == (100, 350) and sports.NCAAB_PLAY_DOG_GATE == sports.NCAAB_DOG_GATE
-    assert sports.ncaab_play_slots_open([pk], "2026-11-20") == ("fav",)          # the dog slot's up: the favorite's open
+    assert sports.ncaab_play_slots_open([pk], "2026-11-20") == ("fav", "dog")   # one dog up: a second dog's room stays open
+    assert sports.ncaab_play_slots_open([pk, {**pk, "legs": [{**leg, "game_id": "g9"}]}], "2026-11-20") == ("fav",)   # two up: the favorite's open
     assert sports.ncaab_play_slots_open([], "2026-11-20") == ("fav", "dog") and sports.ncaab_play_slots_open([], "2026-11-03") == ()
     # the rule check: a test play rides ITS read (the own read sits near the market in college hoops), one whose read
     # doesn't beat the price is pulled
@@ -17899,13 +17901,13 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
             out.append({**pk, "date": "2026-11-21", "status": "won" if i < n_won else "lost", "legs": [l_], "american": odds,
                         "ncaab_play": {**pk["ncaab_play"], "slot": slot}})
         return out
-    bad = graded(23, 27)                                     # 23 x +0.5u - 27 x 0.5u = -2u on 25u = -8%
-    assert sports.ncaab_play_record(bad, "dog") == {"won": 23, "lost": 27, "units": -2.0, "risked": 25.0} and sports.ncaab_play_quit(bad, "dog")
+    bad = graded(23, 27)                                     # 23 x +1u - 27 x 1u = -4u on 50u = -8% (the dog slot 1u each)
+    assert sports.ncaab_play_record(bad, "dog") == {"won": 23, "lost": 27, "units": -4.0, "risked": 50.0} and sports.ncaab_play_quit(bad, "dog")
     assert not sports.ncaab_play_quit(bad, "fav") and sports.ncaab_play_slots_open(bad, "2026-11-22") == ("fav",)
     assert not sports.ncaab_play_quit(graded(25, 25), "dog") and not sports.ncaab_play_quit(graded(20, 29), "dog")   # even / 49 graded
     assert sports.ncaab_play_record([pk, {**pk, "status": "push"}]) == {"won": 0, "lost": 0, "units": 0.0, "risked": 0.0}
-    mixed = bad + graded(13, 12, slot="fav")                 # the favorite slot 13-12 +0.5u alongside
-    assert sports.ncaab_play_record(mixed) == {"won": 36, "lost": 39, "units": -1.5, "risked": 37.5}
+    mixed = bad + graded(13, 12, slot="fav")                 # the favorite slot 13-12 +0.5u alongside (½u each)
+    assert sports.ncaab_play_record(mixed) == {"won": 36, "lost": 39, "units": -3.5, "risked": 62.5}
     # the dashboard (the owner, 11/4: "this will not be test or anything, and will not be its own bankroll. This is part
     # of our engine and our dashboard"): a normal 🔥 VALUE PLAY - no test box, no test note, no test row, no test wording;
     # the units line reads the whole read the play rides on (dog_p = the slot's read, like a gated Dog)
@@ -17934,7 +17936,7 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
         R = dsh.RECORDS
         assert not any("test" in k for k in R), R.keys()
         assert R["value"] == "3-2" and R["locks"] == "0-0", R   # in the 🔥 value plays box like every value play
-        assert R["unit plays (the bets with units on them - Locks, Dogs, value plays, early plays)"].startswith("3-2, +0.5 units")
+        assert R["unit plays (the bets with units on them - Locks, Dogs, value plays, early plays)"].startswith("3-2, +1.0 units")
         assert R["by sport"]["College Basketball"] == "3-2", R["by sport"]   # and on the sport's chip
     finally:
         sd.DATA, se.PATH = keep_d, keep_e
@@ -17966,9 +17968,12 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
         picks = []
         sports.post_board(games, model, picks, now, day, force=True)
         tests = [p for p in picks if p.get("ncaab_play")]
-        assert 1 <= len(tests) <= 2 and len({p["ncaab_play"]["slot"] for p in tests}) == len(tests), [(p["kind"], p.get("ncaab_play")) for p in picks]
-        for p in tests:
-            assert p["kind"] == "play" and p["tier"] == "value" and sports.units_for(p) == 0.5 and p["legs"][0]["tier"] == "value"
+        slots_up = [p["ncaab_play"]["slot"] for p in tests]
+        assert 1 <= len(tests) <= 3 and slots_up.count("fav") <= 1 and slots_up.count("dog") <= 2, [(p["kind"], p.get("ncaab_play")) for p in picks]
+        for p in tests:                                      # (11/4: the favorite ½u, a dog 1u / 2u at a read of 6+)
+            assert p["kind"] == "play" and p["tier"] == "value" and p["legs"][0]["tier"] == "value"
+            assert sports.units_for(p) == sports.ncaab_play_units(p) == (0.5 if p["ncaab_play"]["slot"] == "fav" else
+                                                                          2.0 if (p["ncaab_play"].get("dog_read") or 0) >= 6 else 1.0)
             assert p["legs"][0]["ncaab_slot"] == p["ncaab_play"]["slot"] and p["ncaab_play"]["read"] == (0.6 if p["ncaab_play"]["slot"] == "fav" else 0.5)
         assert len({l["game_id"] for p in picks if p["status"] != "waiting" for l in p["legs"]}) == \
             sum(1 for p in picks if p["status"] != "waiting"), "one pick a game - never the other side of a posted pick"
@@ -17989,6 +17994,171 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
         sports.ncaab_play_fav, sports.ncaab_play_dog, sports.floor_plays, sports.plays, sports.dog_plays, sports.NCAAB_PLAY_ON = keep_fn
 
 
+def test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words():
+    """🐶🏀 THE COLLEGE HOOPS DOG SLOT ON THE DOG EXPERT'S READ (the owner, 11/4: "more dogs and more units on college
+    basketball ... just wire it into the engine"): NCAAB_PLAY_DOG_RULE "dog_read" (the default; "weights2" / "strict"
+    selectable) - the dog slot takes every dog +100..+350 that sports.ncaab_dog_read_ok passes (the dog read 4+ with
+    both teams 4+ games), the best read a night first (a tie: the bigger efficiency gap), up to TWO a night, 1u and 2u
+    at a read of 6+ (never 3u), no own-read rule, never a side carrying a dog fade, never the other side of a posted
+    pick, one pick a game; the 🔍 college hoops gap play and the dog slot may land on the SAME dog (both count, each with
+    its units - the owner's 10/4 rule); the slot's judge stays (50 graded, under -5% = off) and shows nothing on the
+    dashboard; normal 🔥 VALUE PLAYS - no "test" wording anywhere."""
+    import sports_dashboard as dsh
+    d = sd.decimal
+    assert sports.NCAAB_PLAY_DOG_RULE == "dog_read" and sports.NCAAB_PLAY_SLOT_MAX == {"fav": 1, "dog": 2} and sports.NCAAB_PLAY_MAX_DAY == 3
+    assert sports.NCAAB_PLAY_DOG_UNITS == 1.0 and sports.NCAAB_PLAY_DOG_UNITS_2U == 2.0 and sports.NCAAB_DOG_READ_2U == 6
+    assert sports.NCAAB_DOG_READ_GATE == 4 and sports.NCAAB_DOG_READ_GAMES == 4 and sports.NCAAB_PLAY_QUIT == (50, -0.05)
+
+    def mk(gid, side, odds, pm, **kw):
+        c = {"game_id": gid, "league": "ncaab", "side": side, "market": "ml", "odds": odds, "dec": d(odds), "p_market": pm,
+             "p": pm, "edge": pm * d(odds) - 1, "edge_own": pm * d(odds) - 1,     # (the college hoops own read IS the market)
+             "team": f"T{gid}{side[0]}", "opp": f"O{gid}", "home": side == "home", "neutral": False, "start": "2026-11-20T00:00Z",
+             "games_in": 6, "opp_games_in": 6, "reasons": ["the stronger team"], "dog_ctx": {}, "drift": 0.0, "line": None}
+        c.update(kw)
+        return c
+    # four +160 home dogs (no-vig 37%), each with one angle (+2, the home dog vs a top-25 road team): the read is the
+    # weights + the ratings (the efficiency read backing the dog +2, +2 more at a 15-point gap) + the knowledge facts
+    A = mk("g1", "home", 160, 0.37, vs_ranked_road=True, eff_p=0.45)                     # not backed: read 2 - under the gate
+    B = mk("g2", "home", 160, 0.37, vs_ranked_road=True, eff_p=0.52)                     # backed, gap 15: 2 + 4 = 6
+    C = mk("g3", "home", 160, 0.37, vs_ranked_road=True, eff_p=0.51)                     # backed, gap 14: 2 + 2 = 4
+    D = mk("g4", "home", 160, 0.37, vs_ranked_road=True, eff_p=0.51, def_first=True, opp_off_low=True)   # 2 + 2 + 2 = 6
+    for c, r in ((A, 2.0), (B, 6.0), (C, 4.0), (D, 6.0)):
+        assert sports.ncaab_dog_read(c) == r, (c["game_id"], c["dog_read"])
+    assert sports.ncaab_play_dog(A) is None and sports.ncaab_play_dog(B) == (0.43, round(0.43 * d(160) - 1, 4), 6.0)
+    assert sports.ncaab_play_dog(C) == (0.41, round(0.41 * d(160) - 1, 4), 4.0) and sports.ncaab_play_dog(D) == (0.43, round(0.43 * d(160) - 1, 4), 6.0)
+    # THE PICK ORDER: the best read first, a tie to the bigger efficiency gap (B's 15 points over D's 14), TWO a night (C out)
+    got = sports.ncaab_play_plays([A, C, D, B], ())
+    assert [(c["game_id"], c["ncaab_slot"], c["ncaab_score"], c["ncaab_read"]) for c in got] == [("g2", "dog", 6.0, 0.43), ("g4", "dog", 6.0, 0.43)]
+    assert [c["game_id"] for c in sports.ncaab_play_plays([A, C, D, B], (), room={"fav": 1, "dog": 1})] == ["g2"]   # one dog's room left
+    assert [c["game_id"] for c in sports.ncaab_play_plays([A, C, D, B], ("g2",))] == ["g4", "g3"]                   # never a game in avoid
+    assert [c["game_id"] for c in sports.ncaab_play_plays([A, C, D, B], (), room={"fav": 1})] == []                  # the dog slot's room 0
+    assert sports.ncaab_play_plays([A, C, D, B], (), slots=("fav",)) == []                                            # the slot not open
+    assert [c["game_id"] for c in sports.ncaab_play_plays([B, {**B, "side": "away", "odds": -190, "dec": d(-190), "p_market": 0.63}], ())] == ["g2"]   # one pick a game
+    # the band, the fades, the games rule, no own-read rule (fighting the price still never)
+    assert sports.ncaab_play_dog({**B, "odds": 400, "dec": d(400)}) is None and sports.ncaab_play_dog({**B, "odds": 95, "dec": d(95)}) is None
+    for fade in ("rubber_dog", "top_out", "ranked_road"):
+        assert sports.ncaab_play_dog({**B, fade: True}) is None, fade                  # never a side carrying a dog fade
+    assert sports.ncaab_play_dog({**B, "ncaab_skid": 5}) is None
+    assert sports.ncaab_play_dog({**B, "side": "away", "home": False, "games_in": 2}) is None   # the early road dog (a fade)
+    assert sports.ncaab_play_dog({**B, "games_in": 3}) is None and sports.ncaab_play_dog({**B, "opp_games_in": 3}) is None   # both teams 4+
+    assert sports.ncaab_play_dog({**B, "edge_own": 0.36 * d(160) - 1}) == (0.43, round(0.43 * d(160) - 1, 4), 6.0)   # the own read under the price: fine
+    assert sports.ncaab_play_dog({**B, "edge_own": 0.30 * d(160) - 1}) is None                                        # 7 points under: fighting
+    assert sports.ncaab_play_dog({**B, "trap": True}) is None and sports.ncaab_play_dog({**B, "league": "nba"}) is None
+    # THE UNITS: a dog 1u, 2u at a read of 6+ (never 3u); the favorite slot stays ½u; the sizing check agrees
+    legB = {**B, "ncaab_read": 0.43, "ncaab_edge": 0.118, "ncaab_score": 6.0, "ncaab_slot": "dog", "ncaab_fired": [], "tier": "value"}
+    pkB = {"date": "2026-11-20", "kind": "play", "status": "open", "legs": [legB], "dec": d(160), "american": 160, "p_hit": 0.43,
+           "stake": 100, "pnl": 0.0, "lean": False, "tier": "value",
+           "ncaab_play": {"slot": "dog", "read": 0.43, "edge": 0.118, "score": 6.0, "fired": [], "dog_read": 6.0}}
+    pkC = {**pkB, "legs": [{**legB, "game_id": "g3", "ncaab_read": 0.41, "ncaab_score": 4.0, "dog_read": 4.0}],
+           "ncaab_play": {**pkB["ncaab_play"], "score": 4.0, "read": 0.41, "dog_read": 4.0}}
+    pkF = {**pkB, "legs": [{**legB, "game_id": "g5", "odds": -130, "dec": d(-130), "ncaab_read": 0.59, "ncaab_slot": "fav"}],
+           "american": -130, "ncaab_play": {"slot": "fav", "read": 0.59, "edge": 0.04, "score": None, "fired": [], "dog_read": None}}
+    assert sports.units_for(pkB) == sports.ncaab_play_units(pkB) == 2.0 and sports.units_for(pkC) == 1.0 and sports.units_for(pkF) == 0.5
+    assert sports.ncaab_play_units({**pkB, "ncaab_play": {**pkB["ncaab_play"], "dog_read": 12.0}}) == 2.0           # never 3u
+    assert sports.ncaab_play_units({**pkB, "ncaab_play": {**pkB["ncaab_play"], "dog_read": None},
+                                    "legs": [{k: v for k, v in legB.items() if k != "dog_read"}]}) == 1.0           # (no read anywhere = 1u)
+    assert sports.ncaab_play_units({**pkB, "ncaab_play": {k: v for k, v in pkB["ncaab_play"].items() if k != "dog_read"},
+                                    "legs": [{**legB, "dog_read": 7.0}]}) == 2.0                                      # (an old tag: the leg's read)
+    assert sports.sizing_check([pkB, pkC, pkF]) == [] and sports.posted_kind(pkB) == "ncaabplay"
+    assert sports.sizing_check([{**pkB, "legs": [{**legB, "units": 3.0}]}]) == []   # (the leg's own number is never the check's)
+    assert sports.units_tier(pkB, legB) == "value" and sports.unit_plays_today([pkB, pkC, pkF], "2026-11-20") == 3
+    # the room a day: two dogs, one favorite; the judge a slot (50 graded under -5% = that slot's off, nothing on the dashboard)
+    assert sports.ncaab_play_room([], "2026-11-20") == {"fav": 1, "dog": 2} and sports.ncaab_play_room([pkB], "2026-11-20") == {"fav": 1, "dog": 1}
+    assert sports.ncaab_play_room([pkB, pkC], "2026-11-20") == {"fav": 1} and sports.ncaab_play_room([pkB, pkC, pkF], "2026-11-20") == {}
+    assert sports.ncaab_play_slots_open([pkB, pkC], "2026-11-20") == ("fav",) and sports.ncaab_play_room([], "2026-11-03") == {}
+
+    def graded(n_won, n_lost, slot="dog", odds=100, read=4.0):
+        out = []
+        for i in range(n_won + n_lost):
+            l_ = {**legB, "odds": odds, "dec": d(odds), "game_id": f"{slot}{i}", "result": "won" if i < n_won else "lost", "dog_read": read}
+            out.append({**pkB, "date": "2026-11-19", "status": "won" if i < n_won else "lost", "legs": [l_], "american": odds,
+                        "ncaab_play": {**pkB["ncaab_play"], "slot": slot, "dog_read": read}})
+        return out
+    bad = graded(23, 27)                                     # 1u each: -4u on 50u = -8% -> the dog slot's off
+    assert sports.ncaab_play_record(bad, "dog") == {"won": 23, "lost": 27, "units": -4.0, "risked": 50.0} and sports.ncaab_play_quit(bad, "dog")
+    assert sports.ncaab_play_room(bad, "2026-11-20") == {"fav": 1} and not sports.ncaab_play_quit(bad, "fav")
+    big = graded(23, 27, read=6.0)                           # 2u each: -8u on 100u = -8% - the same judge on the units risked
+    assert sports.ncaab_play_record(big, "dog") == {"won": 23, "lost": 27, "units": -8.0, "risked": 100.0} and sports.ncaab_play_quit(big, "dog")
+    assert not sports.ncaab_play_quit(graded(24, 26), "dog") and not sports.ncaab_play_quit(graded(22, 27), "dog")   # -4% / 49 graded
+    assert sports.ncaab_play_room(graded(24, 26), "2026-11-20") == {"fav": 1, "dog": 2}
+    # the 🔍 college hoops gap play and the dog slot on the SAME dog: both count (the rule check keeps both; the other
+    # side / another game is still a second pick)
+    gap = {**pkB, "gap": 0.16, "ncaab_play": None, "legs": [{**B, "gap": 0.16, "tier": "value", "edge_own": round(0.53 * d(160) - 1, 4)}]}
+    del gap["ncaab_play"]
+    assert sports.ncaab_twin(gap, pkB) and sports.ncaab_twin(pkB, gap)
+    assert not sports.ncaab_twin(gap, pkF) and not sports.ncaab_twin(pkB, pkC) and not sports.ncaab_twin(gap, {**gap})
+    other = {**pkB, "legs": [{**legB, "side": "away"}]}
+    assert not sports.ncaab_twin(gap, other)
+    both = [dict(gap, legs=[dict(gap["legs"][0])]), dict(pkB, legs=[dict(legB)])]
+    assert sports.rule_check([], both, "2026-11-20") == [] and len(both) == 2
+    two = [dict(pkB, legs=[dict(legB)]), dict(pkC, legs=[{**pkC["legs"][0], "game_id": "g2"}])]   # two dog slot plays on one game
+    assert any("a second pick on a game" in x for x in sports.rule_check([], two, "2026-11-20")) and len(two) == 1
+    # the dashboard: normal value plays, counted in the 💰 unit plays record, the college basketball chip, the bankroll - no "test"
+    src = open(dsh.__file__).read()
+    assert "HOOPS TEST" not in src and "ncaab_play_box" not in src and "NCAAB_PLAY_NOTE" not in src and "while we prove it" not in src
+    sp_src = open(sports.__file__).read()
+    blk = sp_src[sp_src.index("NCAAB_PLAY_ON = True"):sp_src.index("def ncaab_play_record")]
+    assert "test" not in blk.lower().replace("the college hoops test", "").replace("latest", ""), "no test wording on the slots"
+    bank = dsh.units_box(bad, "2026-11-19")
+    assert "🔥 Value plays" in bank and "test" not in bank.lower()
+    line = dsh._units_line(2.0, "k", 160, leg={**legB, "dog_p": 0.43})
+    assert "2 UNITS" in line and "the book&#x27;s at +160. Bigger bet." in line and "test" not in line.lower()
+    card = dsh._pick_card("play", {**pkB, "american": 160})
+    assert "VALUE PLAY" in card and "TEST" not in card and "ncaab-note" not in card
+    # THE BOARD: post_board posts up to two dogs a day (1u / 2u by the read), never a third, a second run adds none;
+    # a gap play on the same dog stays alongside it
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(4):
+        gid = f"ncaab:up{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T00:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        up = lambda c: c.get("game_id", "").startswith("ncaab:up") and c.get("market") == "ml" and c.get("odds", 0) > 0
+        reads = {"ncaab:up0": 4.0, "ncaab:up1": 7.0, "ncaab:up2": 5.0, "ncaab:up3": 6.5}
+
+        def fake_dog(c):
+            if not up(c):
+                return None
+            c["dog_read"] = reads[c["game_id"]]
+            return (0.5, round(0.5 * c["dec"] - 1, 4), c["dog_read"])
+        sports.ncaab_play_dog = fake_dog
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = lambda cands, avoid: []
+        sports.gap_plays = lambda cands, avoid: [{**c, "gap": 0.17, "dog_read": 7.0, "edge_own": round(0.5 * c["dec"] - 1, 4)}
+                                                 for c in cands if up(c) and c["game_id"] == "ncaab:up1"]   # the 🔍 twin on up1
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = [p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        assert [(p["legs"][0]["game_id"], p["ncaab_play"]["dog_read"], sports.units_for(p)) for p in dogs] == \
+            [("ncaab:up1", 7.0, 2.0), ("ncaab:up3", 6.5, 2.0)], [(p["kind"], p.get("ncaab_play"), p.get("gap")) for p in picks]
+        gaps = [p for p in picks if p.get("gap") is not None]
+        assert [(p["legs"][0]["game_id"], p["legs"][0]["side"]) for p in gaps] == [("ncaab:up1", "away")] and sports.units_for(gaps[0]) == 2.0
+        assert dogs[0]["legs"][0]["side"] == "away" and all(p["kind"] == "play" and p["tier"] == "value" for p in dogs)
+        assert sum(1 for p in picks if p["status"] != "waiting" and p["legs"][0]["game_id"] == "ncaab:up1"
+                   and (p.get("gap") is not None or p.get("ncaab_play"))) == 2   # both count, each with its units
+        again = list(picks)
+        sports.post_board(games, model, again, now + timedelta(minutes=30), day, force=True)
+        assert sum(1 for p in again if (p.get("ncaab_play") or {}).get("slot") == "dog") == 2, "a second run never adds a third dog"
+        picks3 = list(bad)                                   # the dog slot's judge tripped: no dog posts
+        sports.post_board(games, model, picks3, now, day, force=True)
+        assert not [p for p in picks3 if p["date"] == day.isoformat() and (p.get("ncaab_play") or {}).get("slot") == "dog"]
+    finally:
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
 def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge():
     """11/3-4 FABLE - COLLEGE HOOPS DOG EXPERT (results/studies/cbb_dog_expert/): (1) the 🔍 college hoops GAP PLAY - the
     college football play's twin on the EFFICIENCY read (sports_cbb_eff, never the raw Elo - DEAD in hoops at +0.7%): a
@@ -18006,7 +18176,8 @@ def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_re
     assert "ncaab" in sports.GAP_LEAGUES and sports.NCAAB_GAP_MIN == 0.15 and sports.NCAAB_GAP_GAMES == 4 and sports.GAP_UNITS == 1.0
     assert sports.NCAAB_DOG_RATING_PTS == (2, 2, -2) and sports.NCAAB_DOG_RATING_GAP == 0.15 and sports.NCAAB_DOG_RATING_AGAINST == 0.05
     assert sports.NCAAB_DOG_FACTS == {"def_first_vs_bad_off": 2, "whole_vs_2out": 1, "offense_first_late": -1,
-                                      "transfer_heavy_late": -1, "new_coach_late": -1}
+                                      "transfer_heavy_late": -1, "new_coach_late": -1,
+                                      "opp_star_back": 1, "upset_winner": 1, "cold_shoot_late": -1, "hot_deep_road": -1}   # (+ the 11/4 EXPERT rows)
     assert sports.NCAAB_DOG_READ_GATE == 4 and sports.NCAAB_DOG_READ_GAMES == 4 and sports.STUDY_CAP == 6
     keep_env = os.environ.get("STUDY_CACHE")
     os.environ["STUDY_CACHE"] = tempfile.mkdtemp()
@@ -18102,6 +18273,272 @@ def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_re
     s7 = open(os.path.join(out_, "s7_out.txt")).read()
     assert "gap | 15..20: 60-62 +16.5% n122" in s7 and "1u / 2u at read 6+ | held: +54.5u on 234u (+23.3%)" in s7
     assert "11/3 - FABLE: COLLEGE HOOPS DOG EXPERT" in open("SPORTS_FINDINGS.md").read()
+
+
+def test_cbb_expert_1104_star_second_game_back_road_cold_dog_long_top_out_turmoil_shooting_and_the_facts_add_up():
+    """11/4 FABLE - COLLEGE HOOPS EXPERT KNOWLEDGE (results/studies/cbb_expert_1104/): TWO WEIGHTS and one dose, never
+    gates - (1) the top scorer's 2ND GAME BACK (missed 2+, played the last): dog_spots -3, the -101..-250 favorite's
+    weighed read -0.03 (floor own - FAV_CAP), the spread rank -0.03 / +0.03 across, the side across gets the fact;
+    (2) the ROAD-COLD dog (road cover margin -6 or worse on 3+ true road games): dog_spots -2 on a road dog only, the
+    home side gets the fact; (3) the top scorer out 5+ games running: one more point on the built -2. FIELDS (no
+    weight): turmoil (regulars lost within 3 weeks + the news), shooting form (cold / 3P-hot), the upset winner, and
+    the good / bad fact lists on every college hoops dog (the facts add up). sports_ncaab_knowledge.read carries every
+    new field; every tag in sports_leads; nothing fires in other sports, on a neutral floor, or on a home side."""
+    import gzip as _gz, json as _json
+    import sports_leads as sl
+    import sports_ncaab_roster as nr
+    import sports_ncaab_box as nb
+    import sports_ncaab_knowledge as nk
+    import sports_news
+    d = sports.sd.decimal
+    tmp = tempfile.mkdtemp()
+    os.makedirs(os.path.join(tmp, "teamstats"))
+    keep_dir, keep_data, keep_load = nr.DIR, nb.DATA, sports_news.load
+    nr.DIR, nb.DATA = tmp, tmp
+    nr._CACHE.clear(); nr._IDX.clear(); nr._LAST.clear(); nr._PIDS.clear()
+    nb._BOX.clear(); nb._SEASON.clear()
+    sports._SCHED.clear()
+    try:
+        def mk(gid, start, side, market, odds, p=0.5, **kw):
+            return {"league": "ncaab", "market": market, "odds": odds, "dec": d(odds), "p": p, "side": side, "game_id": gid,
+                    "start": start, "reasons": [], "dog_ctx": {}, "edge_own": p * d(odds) - 1, "team": gid + side,
+                    "opp": gid + "o", "home": side == "home", "neutral": False, **kw}
+        # ---- the box files: team H (the star misses games 6-7, plays 8-11; Glue Guy gone from game 8), team K (the
+        #      star out the last 5), team R (a road team 10 points short of its number on the road), S cold, T 3P-hot ----
+        rows, tbox = [], []
+
+        def box(gid, start, team, men):                     # men: [(pid, name, minutes, points)]
+            for pid, name, m, pts in men:
+                rows.append({"gid": gid, "start": start, "team": team, "pid": pid, "player": name, "pos": "G", "group": "",
+                             "starter": "1", "stats": _json.dumps({"minutes": str(m), "points": str(pts), "fieldGoalsMade-fieldGoalsAttempted": "3-8", "rebounds": "4", "assists": "1"})})
+
+        def tb(fgm, fga, tpm, tpa):
+            return {"fieldGoalsMade-fieldGoalsAttempted": f"{fgm}-{fga}", "threePointFieldGoalsMade-threePointFieldGoalsAttempted": f"{tpm}-{tpa}",
+                    "freeThrowsMade-freeThrowsAttempted": "10-14", "offensiveRebounds": "8", "totalTurnovers": "12"}
+        G = {}
+        for i in range(12):
+            gid, start = f"ncaab:e{i}", f"2026-12-{1 + i:02d}T00:00Z"
+            G[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": start, "home": "H", "away": f"o{i}",
+                      "home_name": "Hawks", "away_name": f"Opp {i}", "home_score": "70", "away_score": "60", "neutral": "0", "spread_home": "-5"}
+            men = [("p1", "Star Man", 32, 20), ("p2", "Glue Guy", 28, 8), ("p3", "Third", 25, 9), ("p4", "Fourth", 22, 7),
+                   ("p5", "Fifth", 20, 5), ("p6", "Sixth", 18, 4), ("p7", "Seventh", 16, 3), ("p8", "Bench", 10, 2)]
+            if i in (6, 7):
+                men = [m for m in men if m[0] != "p1"]        # the star sits games 6-7, back for 8-11
+            if i >= 8:
+                men = [m for m in men if m[0] != "p2"]        # Glue Guy gone from game 8 on (lost within 3 weeks)
+            box(gid, start, "H", men)
+            box(gid, start, f"o{i}", [("q" + str(i), "Opp", 30, 10)])
+            kid = f"ncaab:k{i}"
+            G[kid] = {"id": kid, "league": "ncaab", "status": "final", "stype": "2", "start": start, "home": "K", "away": f"ko{i}",
+                      "home_name": "Kings", "away_name": f"KOpp {i}", "home_score": "70", "away_score": "60", "neutral": "0"}
+            kmen = [("k1", "Big Scorer", 33, 22), ("k2", "Two", 28, 9), ("k3", "Three", 24, 8), ("k4", "Four", 20, 6)]
+            if i >= 7:
+                kmen = kmen[1:]                                # the top scorer out the last 5 (games 7-11)
+            box(kid, start, "K", kmen)
+            box(kid, start, f"ko{i}", [("kq" + str(i), "Opp", 30, 10)])
+        for i in range(4):                                   # R on the road, a 5-point dog each time, loses by 15
+            gid, start = f"ncaab:r{i}", f"2026-12-{2 + i:02d}T01:00Z"
+            G[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": start, "home": f"rh{i}", "away": "R",
+                      "home_name": f"Host {i}", "away_name": "Roadies", "home_score": "80", "away_score": "65", "neutral": "0", "spread_home": "-5"}
+        G["ncaab:rn"] = {"id": "ncaab:rn", "league": "ncaab", "status": "final", "stype": "2", "start": "2026-12-06T01:00Z", "home": "rh9", "away": "R",
+                         "home_name": "Host 9", "away_name": "Roadies", "home_score": "60", "away_score": "90", "neutral": "1", "spread_home": "-5"}   # (neutral: not a road game)
+        for team, shots in (("S", [(40, 60, 10, 20)] + [(20, 60, 5, 20)] * 5), ("T", [(25, 60, 2, 20)] + [(25, 60, 10, 20)] * 5)):
+            for i, (fgm, fga, tpm, tpa) in enumerate(shots):
+                gid, start = f"ncaab:{team}{i}", f"2026-12-{1 + i:02d}T02:00Z"
+                G[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": start, "home": team, "away": f"{team}o{i}",
+                          "home_name": team, "away_name": "x", "home_score": "70", "away_score": "60", "neutral": "0"}
+                tbox.append({"gid": gid, "start": start, "teams": {team: tb(fgm, fga, tpm, tpa), f"{team}o{i}": tb(22, 60, 6, 20)}})
+        with _gz.open(os.path.join(tmp, "ncaab_2026.csv.gz"), "wt", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+        with open(os.path.join(tmp, "teamstats", "ncaab.jsonl"), "w") as f:
+            for r in tbox:
+                f.write(_json.dumps(r) + "\n")
+        nr._CACHE.clear(); nr._IDX.clear()
+        nb._BOX.clear(); nb._SEASON.clear()
+        # ---- the roster reads ----
+        sb = nr.star_back(G, "H", "2026-12-09T12:00Z")       # the last game = game 8: Star Man back after sitting 6-7
+        assert sb and sb["back2"] and sb["name"] == "Star Man" and sb["missed"] == 2, sb
+        assert nr.star_back(G, "H", "2026-12-10T12:00Z")["back2"] is False                # his 3rd game back: no
+        assert nr.star_back(G, "H", "2026-12-08T12:00Z")["back2"] is False                # still out: no
+        to = nr.top_out(G, "H", "2026-12-08T12:00Z")
+        assert to["out"] and to["run"] == 2 and nr.top_out(G, "H", "2026-12-09T12:00Z")["out"] is False
+        tk = nr.top_out(G, "K", "2026-12-12T12:00Z")
+        assert tk["out"] and tk["name"] == "Big Scorer" and tk["run"] == 5
+        tu = nr.turmoil(G, "H", "2026-12-12T12:00Z")
+        assert tu["lost"] == 1 and tu["who"] == [("Glue Guy", 28.0, 4)] and tu["gone"] == 1, tu   # (Star Man played game 8+)
+        assert nr.turmoil(G, "H", "2026-12-04T12:00Z") is None                                  # under 5 box games
+        # ---- the shooting read ----
+        s = nb.shooting(G, "S", "2026-12-07T12:00Z")
+        assert s and s["n"] == 6 and s["cold"] and abs(s["efg_gap"] - (0.375 - 0.4375)) < 1e-3 and not s["hot_deep"], s
+        t_ = nb.shooting(G, "T", "2026-12-07T12:00Z")
+        assert t_ and t_["hot_deep"] and not t_["cold"] and t_["tp_gap"] > 0.06 and t_["two_gap"] < 0.02, t_
+        assert nb.shooting(G, "S", "2026-12-04T12:00Z") is None                                  # 4 box games: unknown
+        # ---- the road-cold read ----
+        cm, n = sports.ncaab_road_cover(G, "R", "2026-12-20T00:00Z")
+        assert n == 4 and abs(cm - (-10.0)) < 1e-6, (cm, n)                                     # the neutral game never counts
+        assert nk.road_cover(G, "R", "2026-12-20T00:00Z") == (cm, n)
+        # ---- the marks on a slate: H (star back) at V, R (road-cold) at W, K (top out 5+) at X ----
+        GT = {**G,
+              "ncaab:T1": {"id": "ncaab:T1", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-09T12:00Z", "home": "V", "away": "H", "home_name": "Vikings", "away_name": "Hawks", "neutral": "0"},
+              "ncaab:T2": {"id": "ncaab:T2", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:00Z", "home": "W", "away": "R", "home_name": "Wolves", "away_name": "Roadies", "neutral": "0"},
+              "ncaab:T3": {"id": "ncaab:T3", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:00Z", "home": "R", "away": "W", "home_name": "Roadies", "away_name": "Wolves", "neutral": "0"},
+              "ncaab:T4": {"id": "ncaab:T4", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:00Z", "home": "W", "away": "R", "home_name": "Wolves", "away_name": "Roadies", "neutral": "1"},
+              "ncaab:T5": {"id": "ncaab:T5", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-12T12:00Z", "home": "X", "away": "K", "home_name": "Xs", "away_name": "Kings", "neutral": "0"}}
+        sports._SCHED.clear()
+        hd, vf = mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "ml", 150), mk("ncaab:T1", GT["ncaab:T1"]["start"], "home", "ml", -180)
+        hs, vs = mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "spread", -110), mk("ncaab:T1", GT["ncaab:T1"]["start"], "home", "spread", -110)
+        sports.mark_ncaab_star_back(GT, [hd, vf, hs, vs])
+        assert hd["star_back"] and hd["star_back_who"] == ("Star Man", 20.0, 2) and hs["star_back"]
+        assert vf["opp_star_back"] and any("Star Man (20.0 a game) is in his second game back after sitting 2" in r for r in vf["reasons"])
+        assert not hd.get("opp_star_back") and not vf.get("star_back")
+        base = mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "ml", 150)
+        assert sports.dog_spots(hd) == sports.dog_spots(base) - sports.NCAAB_STAR_BACK_PTS
+        assert sports.dog_spots({**hd, "league": "nba"}) == sports.dog_spots({**base, "league": "nba"})
+        assert sports.ncaab_star_back_spread_w(hs) == -sports.NCAAB_STAR_BACK_W and sports.ncaab_star_back_spread_w(vs) == sports.NCAAB_STAR_BACK_W
+        assert sports.ncaab_star_back_spread_w({**hs, "league": "nba"}) == 0.0 and sports.ncaab_star_back_spread_w(hd) == 0.0
+        assert abs(sports.rank_p(hs) - (sports.rank_p({**hs, "star_back": False}) - sports.NCAAB_STAR_BACK_W)) < 1e-9
+        fav = {**mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "ml", -150, p=0.62), "star_back": True}
+        own = (fav["edge_own"] + 1) / fav["dec"]
+        sports.weigh_ncaab_star_back_fav([fav])
+        assert fav.get("ncaab_star_back_fav") and abs(fav["w_p"] - (own - sports.NCAAB_STAR_BACK_W)) < 1e-6
+        big = {**mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "ml", -300, p=0.75), "star_back": True}
+        sports.weigh_ncaab_star_back_fav([big])
+        assert big.get("w_p") is None                                                            # past the band
+        capped = {**mk("ncaab:T1", GT["ncaab:T1"]["start"], "away", "ml", -150, p=0.62), "star_back": True, "w_p": 0.6}
+        sports.weigh_ncaab_star_back_fav([capped])
+        assert abs(capped["w_p"] - (own - sports.FAV_CAP)) < 1e-6                                 # the floor: own - FAV_CAP
+        assert "college hoops dog, top scorer's 2nd game back (fade)" in sl.tags(hd, sports)
+        assert "college hoops fav -101..-250, top scorer's 2nd game back (fade)" in sl.tags(fav, sports)
+        assert "college hoops side vs a top scorer's 2nd game back" in sl.tags(vf, sports)
+        assert "college hoops dog, top scorer's 2nd game back (fade)" not in sl.tags(vf, sports)
+        # the road-cold dog
+        rd, wf = mk("ncaab:T2", GT["ncaab:T2"]["start"], "away", "ml", 180), mk("ncaab:T2", GT["ncaab:T2"]["start"], "home", "ml", -220)
+        rh = mk("ncaab:T3", GT["ncaab:T3"]["start"], "home", "ml", 180)                        # R at home: never
+        rn = {**mk("ncaab:T4", GT["ncaab:T4"]["start"], "away", "ml", 180), "neutral": True}    # a neutral floor: never
+        rs = mk("ncaab:T2", GT["ncaab:T2"]["start"], "away", "spread", -110)
+        sports.mark_ncaab_road_cold(GT, [rd, wf, rh, rn, rs])
+        assert rd["ncaab_road_cold"] and rd["road_cm"] == -10.0 and rd["road_games"] == 4 and rs["road_cm"] == -10.0 and not rs.get("ncaab_road_cold")
+        assert wf["vs_road_cold"] and wf["opp_road_cm"] == -10.0 and any("Roadies have come up 10.0 points a game short of their number on the road this year (4 road games)" in r for r in wf["reasons"])
+        assert not rh.get("ncaab_road_cold") and not rn.get("ncaab_road_cold") and rn.get("road_cm") is None
+        base2 = mk("ncaab:T2", GT["ncaab:T2"]["start"], "away", "ml", 180)
+        assert sports.dog_spots(rd) == sports.dog_spots(base2) - sports.NCAAB_ROAD_COLD_PTS
+        assert "college hoops road dog 6+ short of its number on the road (fade)" in sl.tags(rd, sports)
+        assert "college hoops road dog 6+ short of its number on the road (fade)" not in sl.tags(wf, sports)
+        # the top scorer out 5+ games: one more point on the built -2
+        kd, xf = mk("ncaab:T5", GT["ncaab:T5"]["start"], "away", "ml", 200), mk("ncaab:T5", GT["ncaab:T5"]["start"], "home", "ml", -250)
+        sports.mark_ncaab_top_out(GT, [kd, xf])
+        assert kd["top_out"] and kd["top_out_run"] == 5 and xf["opp_top_out"]
+        base3 = mk("ncaab:T5", GT["ncaab:T5"]["start"], "away", "ml", 200)
+        assert sports.dog_spots(kd) == sports.dog_spots(base3) - sports.NCAAB_TOP_OUT_PTS - sports.NCAAB_TOP_OUT_LONG_PTS
+        assert sports.dog_spots({**kd, "top_out_run": 4}) == sports.dog_spots(base3) - sports.NCAAB_TOP_OUT_PTS
+        assert "college hoops dog, top scorer out 5+ games (fade)" in sl.tags(kd, sports)
+        assert "college hoops dog, top scorer out 5+ games (fade)" not in sl.tags({**kd, "top_out_run": 3}, sports)
+        # turmoil (the box + the news) - fields and reasons, never points
+        sports_news.load = lambda: {"ncaab:H": [{"date": "2026-12-08", "headline": "Hawks suspend Glue Guy indefinitely", "kind": "suspension"},
+                                                {"date": "2026-10-01", "headline": "old news", "kind": "suspension"},
+                                                {"date": "2026-12-08", "headline": "coach calls out refs", "kind": "unhappy", "talk": 1}]}
+        hd2, vf2 = mk("ncaab:T1", "2026-12-12T12:00Z", "away", "ml", 150), mk("ncaab:T1", "2026-12-12T12:00Z", "home", "ml", -180)
+        GT2 = {**GT, "ncaab:T1": {**GT["ncaab:T1"], "start": "2026-12-12T12:00Z"}}
+        sports.mark_ncaab_turmoil(GT2, [hd2, vf2])
+        assert hd2["turmoil"] == 1 and hd2["turmoil_who"] == [("Glue Guy", 28.0, 4)] and hd2["turmoil_news"] == [("suspension", "Hawks suspend Glue Guy indefinitely")]
+        assert vf2["opp_turmoil"] == 1 and vf2["opp_turmoil_news"] == hd2["turmoil_news"] and not vf2.get("turmoil")
+        assert any("lost 1 rotation man in the last three weeks - Glue Guy (28 minutes a game)" in r for r in vf2["reasons"])
+        assert any("suspension on their side this week: Hawks suspend Glue Guy indefinitely" in r for r in vf2["reasons"])
+        assert sports.dog_spots(hd2) == sports.dog_spots(mk("ncaab:T1", "2026-12-12T12:00Z", "away", "ml", 150))   # no points
+        # shooting - fields, a reason across, never points
+        GS = {**G, "ncaab:T6": {"id": "ncaab:T6", "league": "ncaab", "status": "pre", "stype": "2", "start": "2027-01-07T12:00Z", "home": "T", "away": "S", "home_name": "Ts", "away_name": "Ss", "neutral": "0"}}
+        for g in GS.values():                                 # (the same boxes, read in January - the Jan-Mar lead window)
+            if g["id"].startswith(("ncaab:S", "ncaab:T")) and g["id"] != "ncaab:T6":
+                g["start"] = g["start"].replace("2026-12", "2027-01")
+        nb._BOX.clear(); nb._SEASON.clear()
+        sdg, tfv = mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170), mk("ncaab:T6", GS["ncaab:T6"]["start"], "home", "ml", -200)
+        sports.mark_ncaab_shooting(GS, [sdg, tfv])
+        assert sdg["cold_shoot"] and not sdg["hot_deep"] and tfv["hot_deep"] and tfv["opp_cold_shoot"] and sdg["opp_hot_deep"]
+        assert any("shooting 6 points under their season clip over the last five" in r for r in tfv["reasons"])
+        assert "college hoops cold-shooting dog, Jan-Mar (fade)" in sl.tags(sdg, sports)
+        assert "college hoops cold-shooting dog, Jan-Mar (fade)" not in sl.tags({**sdg, "start": "2026-12-07T12:00Z"}, sports)
+        assert "college hoops 3P-hot road dog (fade)" in sl.tags({**mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170), "hot_deep": True}, sports)
+        assert "college hoops 3P-hot road dog (fade)" not in sl.tags({**mk("ncaab:T6", GS["ncaab:T6"]["start"], "home", "ml", 170), "hot_deep": True}, sports)
+        assert sports.dog_spots(sdg) == sports.dog_spots(mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170))
+        # the upset winner (the ranked set stubbed) - a lead, never points
+        keep_set = sports.ncaab_ranked_set
+        sports.ncaab_ranked_set = lambda games, elo, start: {"BIG"}
+        try:
+            GU = {**G, "ncaab:u0": {"id": "ncaab:u0", "league": "ncaab", "status": "final", "stype": "2", "start": "2026-12-18T00:00Z", "home": "BIG", "away": "U",
+                                    "home_name": "Big", "away_name": "Upstart", "home_score": "60", "away_score": "70", "neutral": "0", "ml_home": "-400", "ml_away": "300"},
+                  "ncaab:T7": {"id": "ncaab:T7", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:00Z", "home": "V", "away": "U", "home_name": "Vikings", "away_name": "Upstart", "neutral": "0"}}
+            sports._SCHED.clear()
+            ud = mk("ncaab:T7", "2026-12-20T00:00Z", "away", "ml", 160)
+            sports.mark_ncaab_upset_winner(GU, [ud], object())
+            assert ud["upset_winner"] and ud["upset_winner_over"] == "Big"
+            assert "college hoops upset winner (beat a top-25 team as a +150 dog), a dog again +100..+200" in sl.tags(ud, sports)
+            assert sports.dog_spots(ud) == sports.dog_spots(mk("ncaab:T7", "2026-12-20T00:00Z", "away", "ml", 160))
+            GU["ncaab:u0"]["ml_away"] = "120"                                                # not a +150 dog: no
+            sports._SCHED.clear()
+            ud2 = mk("ncaab:T7", "2026-12-20T00:00Z", "away", "ml", 160)
+            sports.mark_ncaab_upset_winner(GU, [ud2], object())
+            assert not ud2.get("upset_winner")
+        finally:
+            sports.ncaab_ranked_set = keep_set
+            sports._SCHED.clear()
+        # ---- the facts add up: dog_good / dog_bad on every college hoops dog ----
+        fd = {**mk("ncaab:T2", GT["ncaab:T2"]["start"], "away", "ml", 180), "ncaab_road_cold": True, "cold_shoot": True, "start": "2027-01-20T00:00Z"}
+        sports.mark_ncaab_facts([fd])
+        assert fd["dog_good"] == [] and fd["dog_bad"] == ["road_cold", "cold_shoot"] and any("2 things the studies hold against this dog" in r for r in fd["reasons"])
+        assert "college hoops dog, 2+ bad facts (fade)" in sl.tags(fd, sports)
+        gd = {**mk("ncaab:T1", GT["ncaab:T1"]["start"], "home", "ml", 140), "opp_star_back": True, "vs_ranked_road": True}
+        sports.mark_ncaab_facts([gd])
+        assert gd["dog_good"] == ["vs_ranked_road", "opp_star_back"] and gd["dog_bad"] == [] and any("2 things the studies like on this dog and nothing against it" in r for r in gd["reasons"])
+        assert "college hoops dog, 1+ good fact and no bad fact" in sl.tags(gd, sports)
+        fv = {**mk("ncaab:T1", GT["ncaab:T1"]["start"], "home", "ml", -160), "opp_star_back": True}
+        sports.mark_ncaab_facts([fv])
+        assert "dog_good" not in fv                                                             # favorites: no lists
+        # ---- one knowledge read carries every new field ----
+        k = nk.read(GT, "H", "V", "2026-12-09T12:00Z", away=True)
+        assert k["star_back"] is True and k["star_back_who"] == ("Star Man", 20.0, 2) and k["top_out"] is False and k["top_out_run"] == 0
+        assert k["turmoil"] == 0 and k["turmoil_who"] == [] and k["turmoil_news"] == [("suspension", "Hawks suspend Glue Guy indefinitely")]   # (Glue Guy sat one game by 12/9)
+        assert nk.read(GT2, "H", "V", "2026-12-12T12:00Z", away=True)["turmoil_who"] == [("Glue Guy", 28.0, 4)]
+        assert "star_back" in k["bad_facts"] and k["good_facts"] == [] and k["road_cm"] is None and k["road_cold"] is None
+        kv = nk.read(GT, "V", "H", "2026-12-09T12:00Z", away=False)
+        assert kv["good_facts"] == ["opp_star_back"] and kv["bad_facts"] == [] and kv["star_back"] is None
+        kr = nk.read(GT, "R", "W", "2026-12-20T00:00Z", away=True)
+        assert kr["road_cm"] == -10.0 and kr["road_games"] == 4 and kr["road_cold"] is True and kr["bad_facts"] == ["road_cold"]
+        assert nk.read(GT, "R", "W", "2026-12-20T00:00Z", away=False)["bad_facts"] == []        # at home the road read is no fact
+        kk = nk.read(GT, "K", "X", "2026-12-12T12:00Z", away=True)
+        assert kk["top_out"] is True and kk["top_out_run"] == 5 and kk["top_out_who"] == ("Big Scorer", 22.0) and "top_out" in kk["bad_facts"]
+        ks = nk.read(GS, "S", "T", "2027-01-07T12:00Z", away=True)
+        assert ks["cold_shoot"] is True and ks["hot_deep"] is False and "cold_shoot" in ks["bad_facts"] and abs(ks["efg_gap"] - (-0.062)) < 1e-3
+        assert ks["cold_shoot_late"] is True and ks["hot_deep_road"] is False                   # (the gated names the dog read's table reads)
+        kt = nk.read(GS, "T", "S", "2027-01-07T12:00Z", away=True)
+        assert kt["hot_deep_road"] is True and nk.read(GS, "T", "S", "2027-01-07T12:00Z", away=False)["hot_deep_road"] is False
+        assert kv["opp_star_back"] is True and k["opp_star_back"] is None
+        assert set(nk.FIELDS) >= {"star_back", "road_cold", "turmoil", "turmoil_news", "efg_gap", "hot_deep", "good_facts", "bad_facts", "top_out_run",
+                                  "cold_shoot_late", "hot_deep_road", "opp_star_back", "opp_turmoil"}
+        assert set(k) == set(nk.FIELDS)
+        # the dog expert's NCAAB_DOG_FACTS table takes the 11/4 rows (the leads, never the weights - those sit in dog_spots)
+        for name in ("opp_star_back", "upset_winner", "cold_shoot_late", "hot_deep_road"):
+            assert name in sports.NCAAB_DOG_FACTS and name in nk.FIELDS or name == "upset_winner", name
+        for name in ("star_back", "ncaab_road_cold", "road_cold", "top_out_run"):
+            assert name not in sports.NCAAB_DOG_FACTS, name                                     # one factor, once
+        assert sports.ncaab_dog_facts({**sdg, "cold_shoot_late": True}, None).get("cold_shoot_late")
+        assert sports.ncaab_dog_facts(mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170), ks).get("cold_shoot_late")   # via the knowledge read
+        assert sports.ncaab_dog_facts(mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170), kv).get("opp_star_back")
+        sports._SCHED.clear()
+        sdg2 = mk("ncaab:T6", GS["ncaab:T6"]["start"], "away", "ml", 170)
+        sports.mark_ncaab_shooting(GS, [sdg2])
+        assert sdg2.get("cold_shoot_late") and not sdg2.get("hot_deep_road")
+        assert sports.ncaab_dog_facts(sdg2).get("cold_shoot_late") and sports.NCAAB_DOG_FACTS["cold_shoot_late"] == -1
+        # the caps stand: one dog with every new fade never passes STUDY_CAP
+        assert sports.STUDY_CAP == 6 and sports.NCAAB_STAR_BACK_PTS + sports.NCAAB_ROAD_COLD_PTS + sports.NCAAB_TOP_OUT_LONG_PTS <= sports.STUDY_CAP
+    finally:
+        sports_news.load = keep_load
+        nr.DIR, nb.DATA = keep_dir, keep_data
+        nr._CACHE.clear(); nr._IDX.clear(); nr._LAST.clear(); nr._PIDS.clear()
+        nb._BOX.clear(); nb._SEASON.clear()
+        sports._SCHED.clear()
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 if __name__ == "__main__":

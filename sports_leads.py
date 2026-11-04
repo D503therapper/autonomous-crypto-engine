@@ -124,6 +124,41 @@ def tags(c, sports):
         t.append("college hoops offense-first dog, Jan-Mar (fade)")   # a LEAD (sports_ncaab_box.identity - a top-third
         #   offense without a best-third defense): -15.1% on 1,283 vs -8.9% (0 of 2 / 0 of 3, the open -17.6%) - but the
         #   dose is odd (the worst defenses -9.0%) and Nov-Dec flips (+4.7%): tracked only, never a weight
+    # 11/4 FABLE - COLLEGE HOOPS EXPERT KNOWLEDGE (results/studies/cbb_expert_1104/): the two weights' live records,
+    # the dose, and five LEADS (tracked only, never a weight) - judge each at 50
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("star_back"):
+        t.append("college hoops dog, top scorer's 2nd game back (fade)")   # BUILT as a -3 dog_spots weight: -51.1% on
+        #   87 (0 of 5 seasons up, the open -40.6%); the side ATS -25.0% on 240
+    if not dog and lg == "ncaab" and sports.NCAAB_STAR_BACK_FAV_BAND[0] <= c.get("odds", 0) <= sports.NCAAB_STAR_BACK_FAV_BAND[1] and c.get("star_back"):
+        t.append("college hoops fav -101..-250, top scorer's 2nd game back (fade)")   # BUILT as -0.03 on its read: -17.7% on 62
+    if lg == "ncaab" and c.get("opp_star_back") and (dog or -250 <= c.get("odds", 0) <= -101) and c.get("odds", 0) <= 350:
+        t.append("college hoops side vs a top scorer's 2nd game back")   # the mirror: the favorite across -151..-250
+        #   +20.8% on 40 (3 of 3 held), the dog across +10.8% on 72; the side ATS +15.9% on 240 (5 of 5 up)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("ncaab_road_cold"):
+        t.append("college hoops road dog 6+ short of its number on the road (fade)")   # BUILT as a -2 dog_spots weight:
+        #   -15.9% on 735 (8 of 8 seasons down, the open -16.1%) vs -6.8%
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("top_out") and (c.get("top_out_run") or 0) >= sports.NCAAB_TOP_OUT_LONG:
+        t.append("college hoops dog, top scorer out 5+ games (fade)")   # the built -2's dose (+1): -24.7% on 250 (0 of 5 up)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("cold_shoot") and _month(c) in ("01", "02", "03") \
+            and (c.get("ncaab_skid") or 0) < sports.NCAAB_SKID:
+        t.append("college hoops cold-shooting dog, Jan-Mar (fade)")   # a LEAD: eFG% last 5 at least 4 under its season
+        #   -15.5% on 818 with no skid (4 of 5 seasons down, 2025 +5%, the open -12.7%) vs -8.4% - never a weight
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("hot_deep") and not c.get("home") and not c.get("neutral"):
+        t.append("college hoops 3P-hot road dog (fade)")   # a LEAD: 3P% last 5 +6 over its season, 2P% not up (3P luck)
+        #   -25.0% on 318 (4 of 5 down, 2025 +16%, the open -26.0%) vs the 2P-hot road dog +3.4%
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and (c.get("opp_turmoil") or 0) >= 2:
+        t.append("college hoops dog vs a team that lost 2+ rotation men in 3 weeks")   # a LEAD: 87 sides in five seasons,
+        #   the dog across +4.8% on 29 (the vig) - the owner's 'team in shambles', tracked live
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("opp_top_out") and _month(c) in ("11", "12"):
+        t.append("college hoops dog vs a top scorer out, Nov-Dec")   # a WATCH: +20.8% on 83 (Jan-Mar -6.8%, all -2.2%)
+    if dog and lg == "ncaab" and 100 <= c.get("odds", 0) <= 200 and c.get("upset_winner"):
+        t.append("college hoops upset winner (beat a top-25 team as a +150 dog), a dog again +100..+200")   # a LEAD:
+        #   +26.7% on 117 (3 of 5 train, 3 of 3 held, the open +22.1%, z 2.4); +201..+350 +0.6% - the owner's confidence spot
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("dog_good") is not None:
+        if c["dog_good"] and not c["dog_bad"]:
+            t.append("college hoops dog, 1+ good fact and no bad fact")   # the 11/3 (A) dog view's STACK: +14.5% on 337
+        elif len(c["dog_bad"]) >= 2:
+            t.append("college hoops dog, 2+ bad facts (fade)")   # -16.0% on 1,801 - the facts add up (sports.ncaab_dog_good_bad)
     if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and ncaab_newlook_dog(c):
         t.append("college hoops new-look dog (transfer-heavy), games 6-10")   # 11/3 DEEP study 5 (a LEAD, tracked
         #   only): a dog whose roster leans on strong D1 transfers (sports_ncaab_roster.tin_m 0.03+, the top third) in
