@@ -68,6 +68,14 @@ OWNER = {
               "goated after yesterday'); hype, not literal (the owner: 'the GOAT' = greatest of all time, said loosely "
               "- 'Ohtani is the goat' just means he's great). Only after a real result, never before a game, never on "
               "a lean",
+    # 11/4 (the owner: "I have not liked the damn lingo. These breakdowns have not been in my lingo how I want it to be")
+    "GOAT call": "a big plus-money hit we called - the brag after it cashed, never before a game",
+    "in shambles": "the other side's a mess right now - with the losing record right there (or the books after a big hit)",
+    "no-name": "a nobody opponent - the non-D1 tune-up ('Mount Marty, a no-name non-D1 team', 11/4)",
+    "lame ass": "the other side's been bad - with the losing record right there",
+    "on a heater": "our side's won 3+ straight - with the streak right there",
+    "line makers ain't showing no respect": "a dog the books price too long - with our number next to theirs (never a "
+                                            "line MOVE: it's the price, not the move)",
 }
 
 # cussing is WANTED (the owner, 10/23: "I want the engine to throw out cuss words") - these are fine in a one-liner or
@@ -81,6 +89,23 @@ SHOW_PCT_OVER = 100   # the owner, 10/7: "we don't need to see win percentages e
 NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
          "class of this", "give him flowers", "give this man flowers", "give her flowers", "only one that counts", "only this one matters", "what counts", "clean slate tonight")   # (10/1: "that don't make no sense")   # (9/30: it's always
 #                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)
+
+# 🚫 the stiff frames the 11/4 lingo pass took out (the owner: "These breakdowns have not been in my lingo") - the same
+# corporate shrug on every card ("We weighed it, and X are still the side", "Priced in. We still riding"), template
+# tails that said nothing ("Bodies missing over there", "Two teams looking to get right"). sports_test pins that no pool
+# and no rendered card says them again (lower case, matched anywhere in a line).
+STIFF = ("we weighed it", "priced in. we still riding", "the rest of this card outweighs it", "don't get it twisted",
+         "we saw it, we still got", "noted. not enough", "we know it, and we still like the side",
+         "still ain't enough to flip us", "we ain't blind to it", "that's the part that could bite us",
+         "that's the risk here, and it's already in the price", "bodies missing over there", "that's real depth gone",
+         "short-handed against us", "two teams looking to get right", "both got something to prove",
+         "two winners walk in, one walks out", "somebody's streak ends", "we'll take that matchup",
+         "their building, their rules", "same record, different reasons", "keep reading", "nothing scary about that",
+         "not exactly scary", "quiet play, right play", "that's why we're on", "nothing loud about it",
+         "the price is the value", "the books undersold 'em", "bus-trip team", "they pack their game",
+         "go on the road and win", "that snaps back", "ain't close on paper",
+         "not a good look", "the matchup's where", "small edge, ours", "defense travels",
+         "aggressive wins", "come get beat in our building", "the price is sleeping")
 
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",

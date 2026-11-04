@@ -210,13 +210,13 @@ UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every pl
 HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensive lines lose money over time)
     "fav": ("Line's too expensive — betting big at prices like this loses money over time.",
             "Expensive line. Big bets at prices like this lose money in the long run.",
-            "Line's too expensive. Big bets at expensive prices lose money long term.",
-            "Pricey line. Over time, big bets at this kind of price lose money.",
+            "Pricey line - big bets on these bleed money. Keep it small.",
+            "Laying a lot of juice here. Small bet.",
             "At a price this steep, big bets lose money long term. Keep it small.",
-            "Expensive line — the long-run money says keep this bet small."),
-    "dog": ("Small bet, big payout — the value's still worth it.", "Small bet, big payout — still worth it.",
+            "Expensive number - half a unit, that's it."),
+    "dog": ("Small bet, big payout — the value's still worth it.", "Small bet, big payout if they hit.",
             "Plus money does the heavy lifting. A small bet is plenty.", "Small stake, big return if they cash.",
-            "Big payout on a small bet — that's the play.", "Keep it small — the plus money pays big when it hits.")}
+            "Half a unit - the plus money does the rest.", "Keep it small — the plus money pays big when it hits.")}
 HALF_WHY["even"] = ("Near even money - half a unit to start.", "About an even-money price. Half a unit.",   # (10/30, the
                     "Not an expensive line - just a half-unit bet.", "Close to even money. Half a unit.",    #  owner on the
                     "Price is about a pick'em - half a unit.")                                              #  Wizards at -107:
@@ -249,6 +249,32 @@ BIG_WHY = {   # 4u+
 
 
 WHY_USED = set()                 # the unit reasons already on the page this build (reset in render)
+
+NUM_WHY = {   # (11/4) the size line with our number next to the book's - a few ways per size, none repeated on a board
+    "half": ("We make 'em {f}, the book's at {o}. Small bet.", "Our number's {f}, they're hanging {o}. Keep it small.",
+             "{f} on our sheet, {o} at the book. Half a unit does it.", "Book says {o}, we say {f}. Light bet.",
+             "We got 'em at {f} - {o} is a little extra. Small one."),
+    "full": ("We make 'em {f}, the book's at {o}. Full unit.", "Our number's {f} and the book's at {o}. Full unit on it.",
+             "{f} for us, {o} at the book. That's a full unit.", "Book's at {o}, we're at {f}. One full unit."),
+    "bigger": ("We make 'em {f}, the book's at {o}. Bigger bet.", "Our number's {f}, the book's giving {o}. We go bigger.",
+               "{f} on our sheet, {o} at the book. Scared money don't make no money.",
+               "The book hangs {o}, we got 'em {f}. Bigger bet."),
+    "big": ("We make 'em {f}, the book's at {o}. Big bet.", "{f} for us, {o} at the book. Load up.",
+            "Our number's {f} and they're hanging {o}. We going big.")}
+FLOOR_WHY = ("Best dog on the slate by our angles. Half a unit, don't go crazy.",
+             "Half a unit on the best dog we found today. Small swing.",
+             "Small one - the best dog on the board, not a monster edge.",
+             "Best dog left on the slate. Half a unit and we'll see.")
+
+
+def _pick_why(pool, key=""):
+    """A size line not on the page yet this build (rolls by the pick)."""
+    pool = list(pool)
+    start = sum(map(ord, key or ""))
+    order = [pool[(start + i) % len(pool)] for i in range(len(pool))]
+    why = next((x for x in order if x not in WHY_USED), order[0])
+    WHY_USED.add(why)
+    return why
 
 
 STEEP = (   # (the owner, 10/1: the likelier winner, but a bad bet - the odds don't beat the price. Plain words, no numbers)
@@ -372,11 +398,12 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
         f = _v.fair_am(_s.read_of(leg)) if leg else None
         if leg and leg.get("floor_score") is not None:       # (10/27: a floor play's read sits about even with the price -
             f = None                                         #  "we make 'em +109, the book's at +102" argued against it)
-            why = "Thin edge - the best dog on the slate by our angles. Half a unit, nothing crazy." if u == 0.5 else why
-        if f and odds is not None:
-            o = f"+{odds}" if odds > 0 else str(odds)
-            size = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
-            why = f"We make 'em {f}, the book's at {o}. {size}"
+            if u == 0.5:
+                why = _pick_why(FLOOR_WHY, key)
+        if f and odds is not None:                           # (11/4, the owner: "I have not liked the damn lingo" - the
+            o = f"+{odds}" if odds > 0 else str(odds)        #  same "We make 'em X, the book's at Y. Small bet." on every
+            sz = "half" if u == 0.5 else "full" if u < 2 else "bigger" if u < 4 else "big"   # card; our number next to
+            why = _pick_why([w.format(f=f, o=o) for w in NUM_WHY[sz]], key)                   # theirs, said his way)
     except Exception:                                        # noqa: BLE001 - the old line stays
         pass
     return (f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}'
@@ -2068,7 +2095,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                          f"💰 +{o}{how}. CASHED. {_cap(what)} came through and I told y'all all day. Let's fucking go!",
                                          f"💰 Y'all doubted {what} at +{o}{how}? Smacked it. Trust the algorithm. LET'S GO!",
                                          f"💰 {_cap(what)} at +{o}{how} - cashed. The engine is goated.",
-                                         f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
+                                         f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!",
+                                         f"💰 GOAT call. {_cap(what)} at +{o}{how} - cashed. Let's fucking go!"]))
     big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
     # (no "studied the tape on N games" line - the owner, 9/28: it doesn't belong in a daily review)
     # (no "calls the winner N% of the time" line - the owner, 10/7: no win % on the dashboard, ever)
