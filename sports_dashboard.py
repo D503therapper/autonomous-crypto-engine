@@ -410,10 +410,14 @@ def unit_record(picks, today=None, early=None):
     tw, tl = sum(r[2] > 0 for r in tr), sum(r[2] < 0 for r in tr)
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     UNIT_REC["text"] = f"{rec}, {net:+.1f} units, ROI {net / bet:+.0%}"
+    br = [r for r in rows if r[0].get("best")]               # ⭐ the engine's best picks (11/4): their own line
+    bw, bl, bnet, bbet = sum(r[2] > 0 for r in br), sum(r[2] < 0 for r in br), sum(r[2] for r in br), sum(r[1] for r in br)
+    best = (f'<div class="ovr-s">⭐ engine\'s best picks {bw}-{bl} · {"+" if bnet >= 0 else "-"}{abs(bnet):.1f} units · ROI {bnet / bbet:+.0%}</div>'
+            if bw + bl else "")
     return (f'<div class="ovr ovu"><div class="ovr-t">💰 UNIT PLAYS RECORD</div><div class="ovr-r">{rec}</div>'
             f'<div class="ovr-p {"up" if net >= 0 else "dn"}">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS · ROI {net / bet:+.0%}</div>'
             f'<div class="ovr-s ovw">The good bets we put money on</div>'
-            + (f'<div class="ovr-s">today {tw}-{tl}</div>' if tw + tl else "") + '</div>')
+            + (f'<div class="ovr-s">today {tw}-{tl}</div>' if tw + tl else "") + best + '</div>')
 
 
 def units_box(picks, today=None):
@@ -437,6 +441,7 @@ def units_box(picks, today=None):
     tier = lambda r: r[0].get("units_tier")
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
+           + line("⭐ Engine's best picks", [r for r in rows if r[0].get("best")])   # (11/4: its own line, counted once at its raised units)
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
                      (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"))))   # Dog of the Day is a value play)
     #   (10/18, the owner: three rows only - "it's value or lock or early play": no leans row, the 🔍 plays are value plays)
@@ -929,8 +934,8 @@ def board_cards(picks, day, now_utc):
     """The cards on the board: the board day's own picks still up - never another day's (10/25, the owner: "Ole Miss is
     up, shouldn't be there" - Saturday's graded value play sat on Sunday's board once graded cards stayed 24 hours)."""
     order = list(LOOK)
-    return [p for p in sorted((p for p in picks if p["date"] == day),
-                              key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
+    return [p for p in sorted((p for p in picks if p["date"] == day),   # (⭐ 11/4: the engine's best pick on top)
+                              key=lambda p: (not p.get("best"), order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
             if still_up(p, now_utc)]
 
 
@@ -1019,6 +1024,17 @@ def _lean_note(day):
     return f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}</div>'      # one note - no second disclaimer under it
 
 
+BEST_NOTE = [     # ⭐ the owner, 11/4: "every day we have ... the best play the engine has for today, and it will always be
+    "⭐ ENGINE'S BEST PICK — the top play on today's board by the whole read. A full unit at least.",   # sized at least one
+    "⭐ ENGINE'S BEST PICK — of everything up today, this is the one the engine trusts most. Full unit minimum.",   # full unit"
+    "⭐ ENGINE'S BEST PICK — if you're betting one game today, this is it. Never under a full unit.",
+    "⭐ ENGINE'S BEST PICK — the play the engine likes best on today's slate, a full unit or more.",
+]
+BEST_FORCED = [   # ...and on a day nothing clears a unit-play bar, the engine's surest side goes up at 1u (his call: every day)
+    "⭐ ENGINE'S BEST PICK — nothing cleared a unit-play bar today, so this is the engine's surest side. One unit, because we post one every day.",
+    "⭐ ENGINE'S BEST PICK — no play made the bar today; this is the side the engine is surest on. One unit, every day.",
+    "⭐ ENGINE'S BEST PICK — the slate gave us no value play, so here's the engine's surest call at one unit. We post one every day.",
+]
 BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day standard, there's no Lock of the Day -
     #               the best call goes up as a plain LOCK, with this box above it
     "🔒 Nothing on today's board met our Lock of the Day standard — so no Lock of the Day. Here's our top lock.",
@@ -1085,6 +1101,9 @@ def _pick_card(kind, pk):
     if kind == "lock" and len(pk["legs"]) == 1 and pk["legs"][0].get("near_price") and not pk.get("lean"):
         label = "LOCK"                                       # (the owner, 10/2: not the Lock of the Day - just a Lock,
         backup = '<div class="slate-note backup-note">' + _rot(spin, BACKUP_LOCK) + '</div>\n'   # its own box above)
+    if pk.get("best") and not pk.get("lean"):                # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
+        label = f"{label} · ⭐ ENGINE'S BEST PICK"            # day's best unit play, 1u at least - its own kind stays
+        backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
@@ -1703,7 +1722,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # only the board day's own picks (10/25, the owner: "Ole Miss is up, shouldn't be there" - Saturday's graded cards sat
     # on Sunday's board once graded cards stayed 24 hours; the day's board comes down at the end of ITS day, board_day)
     todays = board_cards(picks, today, now_utc)
-    todays = sorted(todays, key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p["date"]))   # Lock on top
+    todays = sorted(todays, key=lambda p: (not p.get("best"), order.index(p["kind"]) if p["kind"] in order else 99, p["date"]))   # ⭐ then the Lock on top
     if todays:
         today = max(p["date"] for p in todays)
     active = list(todays)

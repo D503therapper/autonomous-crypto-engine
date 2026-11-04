@@ -1,0 +1,368 @@
+62140 graded rows, 1114 board days (635 train / 462 held / 17 live)
+
+(a) TODAY from 11/5: the floor OFF, the NBA floor OFF
+   train  1.09/day  391-303    +55.5u on    603u  ROI  +9.2%  worst  -12.9u  >=1 play  49.9% of days
+   held   0.99/day  267-189    +59.5u on    404u  ROI +14.7%  worst  -13.9u  >=1 play  40.5% of days
+   live   1.88/day  19-13     +4.1u on     25u  ROI +16.5%  worst   +0.0u  >=1 play  47.1% of days
+   ALL    1.05/day  658-492   +115.0u on   1007u  ROI +11.4%  worst  -13.9u  >=1 play  45.9% of days  seasons up 4/4 2023-24:+39.3 2024-25:+16.2 2025-26:+59.4 2026-27:+0.1
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+      by sport: mlb 34-35 -9.9u/42u -23.6%  nba 84-53 +23.6u/107u +22.1%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 6-9 -0.5u/10u -5.2%  nhl 211-165 +62.2u/395u +15.8%
+
+(b) the 10/29 floor v2 ON (FLOOR_MIN 2, fallback 1, thin only, no NBA / college football) + the NBA floor
+   train  2.21/day  719-687    +91.3u on    959u  ROI  +9.5%  worst  -23.4u  >=1 play  98.3% of days
+   held   2.26/day  545-499    +88.0u on    698u  ROI +12.6%  worst  -16.7u  >=1 play  98.1% of days
+   live   2.76/day  27-20     +7.0u on     32u  ROI +21.5%  worst   +0.0u  >=1 play  94.1% of days
+   ALL    2.23/day  1264-1186   +179.3u on   1657u  ROI +10.8%  worst  -23.4u  >=1 play  98.2% of days  seasons up 4/4 2023-24:+62.8 2024-25:+28.5 2025-26:+81.7 2026-27:+6.3
+      floor     508-558   +46.6u on   533u ROI  +8.7%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      floorfb   10-11    +2.5u on    10u ROI +23.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   371-409  +25.5u on  390u ROI  +6.5%  train  +12.2u held  +13.3u
+         floor    ncaab 29-32   +1.3u on   30u ROI  +4.3%  train   -0.4u held   +1.7u
+         floor    nfl   36-54   +5.8u on   45u ROI +12.8%  train   +0.9u held   +4.9u
+         floor    nhl   72-63  +14.1u on   68u ROI +20.8%  train   +6.8u held   +7.3u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         floorfb  nba   4-6   +1.2u on    5u ROI +24.0%  train   +2.5u held   -1.4u
+         floorfb  ncaab 0-1   -0.5u on    0u ROI -100.0%  train   +0.0u held   -0.5u
+         floorfb  ncaaf 3-2   +0.8u on    2u ROI +32.6%  train   +1.2u held   -0.4u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 408-446 +16.5u/434u +3.8%  nba 176-184 +40.0u/218u +18.3%  ncaab 316-232 +23.7u/424u +5.6%  ncaaf 39-33 +17.6u/62u +28.7%  nfl 42-63 +5.2u/56u +9.4%  nhl 283-228 +76.3u/462u +16.5%
+
+(c1) (b) with college hoops out of the general floor too
+   train  2.16/day  704-668    +89.9u on    942u  ROI  +9.5%  worst  -21.9u  >=1 play  96.1% of days
+   held   2.21/day  534-489    +86.9u on    688u  ROI +12.6%  worst  -17.4u  >=1 play  95.5% of days
+   live   2.71/day  26-20     +6.0u on     32u  ROI +18.6%  worst   +0.0u  >=1 play  88.2% of days
+   ALL    2.18/day  1238-1157   +176.8u on   1630u  ROI +10.9%  worst  -21.9u  >=1 play  95.8% of days  seasons up 4/4 2023-24:+62.7 2024-25:+27.2 2025-26:+80.6 2026-27:+6.3
+      floor     489-538   +45.7u on   514u ROI  +8.9%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      floorfb   3-2    +0.9u on     2u ROI +37.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   371-409  +25.5u on  390u ROI  +6.5%  train  +12.2u held  +13.3u
+         floor    nfl   39-55   +7.0u on   47u ROI +14.9%  train   +2.1u held   +4.9u
+         floor    nhl   79-74  +13.2u on   76u ROI +17.2%  train   +7.6u held   +5.6u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 408-446 +16.5u/434u +3.8%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 45-64 +6.5u/58u +11.2%  nhl 290-239 +75.4u/472u +16.0%
+
+(c2) (b) + a HOCKEY floor: the best clean hockey dog (score 0+, own read not under the market) every hockey night with no hockey unit play, ½u
+   train  2.24/day  721-704    +84.0u on    968u  ROI  +8.7%  worst  -25.0u  >=1 play  98.3% of days
+   held   2.28/day  548-505    +86.4u on    702u  ROI +12.3%  worst  -16.7u  >=1 play  98.1% of days
+   live   2.82/day  27-21     +6.5u on     33u  ROI +19.7%  worst   +0.0u  >=1 play  94.1% of days
+   ALL    2.26/day  1269-1209   +170.4u on   1671u  ROI +10.2%  worst  -25.0u  >=1 play  98.2% of days  seasons up 4/4 2023-24:+58.8 2024-25:+25.2 2025-26:+80.0 2026-27:+6.4
+      floor     481-533   +40.8u on   507u ROI  +8.0%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   32-48    -3.1u on    40u ROI  -7.7%
+      floorfb   10-11    +2.5u on    10u ROI +23.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   369-407  +25.2u on  388u ROI  +6.5%  train  +12.0u held  +13.3u
+         floor    ncaab 27-32   +0.2u on   30u ROI  +0.7%  train   -0.9u held   +1.1u
+         floor    nfl   34-52   +4.9u on   43u ROI +11.5%  train   -0.5u held   +5.4u
+         floor    nhl   51-42  +10.4u on   46u ROI +22.4%  train   +5.2u held   +5.2u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         floorfb  nba   4-6   +1.2u on    5u ROI +24.0%  train   +2.5u held   -1.4u
+         floorfb  ncaab 0-1   -0.5u on    0u ROI -100.0%  train   +0.0u held   -0.5u
+         floorfb  ncaaf 3-2   +0.8u on    2u ROI +32.6%  train   +1.2u held   -0.4u
+         hkfloor  nhl   32-48   -3.1u on   40u ROI  -7.7%  train   -3.6u held   +0.6u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 406-444 +16.3u/432u +3.8%  nba 176-184 +40.0u/218u +18.3%  ncaab 314-232 +22.5u/424u +5.3%  ncaaf 39-33 +17.6u/62u +28.7%  nfl 40-61 +4.4u/54u +8.2%  nhl 294-255 +69.6u/482u +14.4%
+
+(c3) (c1) + the hockey floor (short dogs +100..+150 only)
+   train  2.18/day  706-677    +86.4u on    948u  ROI  +9.1%  worst  -22.8u  >=1 play  96.1% of days
+   held   2.23/day  539-493    +87.6u on    692u  ROI +12.7%  worst  -17.7u  >=1 play  95.5% of days
+   live   2.76/day  26-21     +5.5u on     32u  ROI +16.8%  worst   +0.0u  >=1 play  88.2% of days
+   ALL    2.20/day  1245-1170   +174.0u on   1640u  ROI +10.6%  worst  -22.8u  >=1 play  95.8% of days  seasons up 4/4 2023-24:+62.0 2024-25:+24.4 2025-26:+81.2 2026-27:+6.4
+      floor     469-518   +43.3u on   494u ROI  +8.8%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   27-33    -0.4u on    30u ROI  -1.3%
+      floorfb   3-2    +0.9u on     2u ROI +37.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   369-407  +25.2u on  388u ROI  +6.5%  train  +12.0u held  +13.3u
+         floor    nfl   38-53   +7.1u on   46u ROI +15.5%  train   +1.7u held   +5.4u
+         floor    nhl   62-58  +10.9u on   60u ROI +18.2%  train   +6.0u held   +4.9u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         hkfloor  nhl   27-33   -0.4u on   30u ROI  -1.3%  train   -1.2u held   +0.8u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 406-444 +16.3u/432u +3.8%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 44-62 +6.5u/56u +11.7%  nhl 300-256 +72.8u/485u +15.0%
+
+(c4) (c1) + the hockey floor at score 3+
+   train  2.18/day  707-676    +88.0u on    948u  ROI  +9.3%  worst  -21.8u  >=1 play  96.1% of days
+   held   2.23/day  536-492    +86.2u on    690u  ROI +12.5%  worst  -16.3u  >=1 play  95.5% of days
+   live   2.76/day  26-21     +5.5u on     32u  ROI +16.8%  worst   +0.0u  >=1 play  88.2% of days
+   ALL    2.20/day  1243-1168   +174.2u on   1638u  ROI +10.6%  worst  -21.8u  >=1 play  95.8% of days  seasons up 4/4 2023-24:+59.6 2024-25:+28.4 2025-26:+79.8 2026-27:+6.4
+      floor     477-525   +42.9u on   501u ROI  +8.6%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   17-24    +0.1u on    20u ROI  +0.6%
+      floorfb   3-2    +0.9u on     2u ROI +37.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   371-408  +26.0u on  390u ROI  +6.7%  train  +12.7u held  +13.3u
+         floor    nfl   37-55   +5.2u on   46u ROI +11.3%  train   +0.3u held   +4.9u
+         floor    nhl   69-62  +11.8u on   66u ROI +18.0%  train   +6.4u held   +5.4u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         hkfloor  nhl   17-24   +0.1u on   20u ROI  +0.6%  train   +0.6u held   -0.5u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 408-445 +17.0u/434u +3.9%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 43-64 +4.6u/56u +8.2%  nhl 297-251 +74.1u/481u +15.4%
+
+(c5) (a) + the hockey fallback Dog loosened to own gap 0+ (score 3+), sized like the Dog (2u short / ½u long)
+   train  1.28/day  441-372    +53.1u on    774u  ROI  +6.9%  worst  -16.3u  >=1 play  59.2% of days
+   held   1.06/day  287-204    +77.2u on    470u  ROI +16.4%  worst   -9.6u  >=1 play  44.2% of days
+   live   2.18/day  21-16     +4.5u on     34u  ROI +13.5%  worst   +0.0u  >=1 play  76.5% of days
+   ALL    1.19/day  728-576   +130.3u on   1243u  ROI +10.5%  worst  -16.3u  >=1 play  52.9% of days  seasons up 3/4 2023-24:+31.8 2024-25:+21.3 2025-26:+79.0 2026-27:-1.9
+      dog       184-194   +85.0u on   578u ROI +14.7%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+      by sport: mlb 34-35 -9.9u/42u -23.6%  nba 84-53 +23.6u/107u +22.1%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 6-9 -0.5u/10u -5.2%  nhl 281-249 +77.5u/631u +12.3%
+
+(c6) (a) + the NBA floor only
+   train  1.32/day  453-386    +67.8u on    676u  ROI +10.0%  worst  -14.6u  >=1 play  61.3% of days
+   held   1.13/day  293-231    +62.4u on    438u  ROI +14.3%  worst  -16.0u  >=1 play  46.1% of days
+   live   2.18/day  21-16     +3.8u on     28u  ROI +14.0%  worst   +0.0u  >=1 play  58.8% of days
+   ALL    1.24/day  746-617   +130.2u on   1114u  ROI +11.7%  worst  -16.0u  >=1 play  54.9% of days  seasons up 4/4 2023-24:+49.2 2024-25:+18.6 2025-26:+62.3 2026-27:+0.1
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 34-35 -9.9u/42u -23.6%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 6-9 -0.5u/10u -5.2%  nhl 211-165 +62.2u/395u +15.8%
+
+(c7) (a) + the NBA floor + the hockey floor (score 0+), no general floor
+   train  1.41/day  475-423    +64.2u on    705u  ROI  +9.1%  worst  -14.1u  >=1 play  64.6% of days
+   held   1.18/day  303-242    +63.0u on    448u  ROI +14.0%  worst  -15.8u  >=1 play  47.6% of days
+   live   2.35/day  21-19     +2.3u on     29u  ROI  +8.1%  worst   +0.0u  >=1 play  70.6% of days
+   ALL    1.32/day  778-665   +127.2u on   1154u  ROI +11.0%  worst  -15.8u  >=1 play  57.4% of days  seasons up 4/4 2023-24:+46.1 2024-25:+18.1 2025-26:+62.1 2026-27:+0.9
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   32-48    -3.1u on    40u ROI  -7.7%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         hkfloor  nhl   32-48   -3.1u on   40u ROI  -7.7%  train   -3.6u held   +0.6u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 34-35 -9.9u/42u -23.6%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 6-9 -0.5u/10u -5.2%  nhl 243-213 +59.2u/435u +13.6%
+
+(c8) (c7) + the general floor to 1 (fallback 0) in hockey / baseball / NFL
+   train  1.72/day  566-528    +71.9u on    803u  ROI  +9.0%  worst  -17.8u  >=1 play  95.4% of days
+   held   1.66/day  403-362    +66.9u on    558u  ROI +12.0%  worst  -16.8u  >=1 play  95.2% of days
+   live   2.47/day  22-20     +3.0u on     30u  ROI +10.1%  worst   +0.0u  >=1 play  82.4% of days
+   ALL    1.69/day  969-890   +138.7u on   1362u  ROI +10.2%  worst  -17.8u  >=1 play  95.4% of days  seasons up 4/4 2023-24:+50.3 2024-25:+21.6 2025-26:+62.4 2026-27:+4.5
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      floor     191-225   +11.6u on   208u ROI  +5.6%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   32-48    -3.1u on    40u ROI  -7.7%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   163-193   +5.8u on  178u ROI  +3.3%  train   +5.8u held   -0.0u
+         floor    nfl   15-20   +4.2u on   18u ROI +24.1%  train   +2.2u held   +2.0u
+         floor    nhl   13-12   +1.6u on   12u ROI +12.4%  train   -0.4u held   +1.9u
+         hkfloor  nhl   32-48   -3.1u on   40u ROI  -7.7%  train   -3.6u held   +0.6u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 197-228 -4.1u/220u -1.9%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 21-29 +3.7u/28u +13.1%  nhl 256-225 +60.7u/448u +13.6%
+
+(c9) (c1) + hockey floor (score 0+) + the hockey fallback Dog at gap 0+
+   train  2.26/day  725-707    +82.5u on   1083u  ROI  +7.6%  worst  -16.5u  >=1 play  96.9% of days
+   held   2.26/day  549-496   +104.9u on    746u  ROI +14.1%  worst  -12.5u  >=1 play  95.7% of days
+   live   2.94/day  28-22     +6.9u on     40u  ROI +17.2%  worst   +0.0u  >=1 play 100.0% of days
+   ALL    2.26/day  1274-1203   +187.4u on   1830u  ROI +10.2%  worst  -16.5u  >=1 play  96.4% of days  seasons up 4/4 2023-24:+49.8 2024-25:+32.7 2025-26:+100.5 2026-27:+4.4
+      dog       184-194   +85.0u on   578u ROI +14.7%
+      floor     440-484   +40.2u on   462u ROI  +8.7%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   15-16    +0.8u on    16u ROI  +5.1%
+      floorfb   3-2    +0.9u on     2u ROI +37.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   357-391  +25.4u on  374u ROI  +6.8%  train  +12.2u held  +13.3u
+         floor    nfl   36-50   +7.2u on   43u ROI +16.7%  train   +1.8u held   +5.4u
+         floor    nhl   47-43   +7.6u on   45u ROI +16.9%  train   +3.8u held   +3.8u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         hkfloor  nhl   15-16   +0.8u on   16u ROI  +5.1%  train   -0.8u held   +1.6u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 394-428 +16.4u/418u +3.9%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 42-59 +6.6u/54u +12.4%  nhl 343-308 +85.9u/692u +12.4%
+
+(c10) (b) with the fallback floor (floorfb) OFF
+   train  2.20/day  712-683    +87.3u on    954u  ROI  +9.2%  worst  -22.9u  >=1 play  96.5% of days
+   held   2.24/day  542-492    +89.5u on    693u  ROI +12.9%  worst  -16.4u  >=1 play  95.9% of days
+   live   2.65/day  25-20     +5.2u on     32u  ROI +16.4%  worst   +0.0u  >=1 play  82.4% of days
+   ALL    2.21/day  1254-1175   +176.8u on   1646u  ROI +10.7%  worst  -22.9u  >=1 play  96.3% of days  seasons up 4/4 2023-24:+60.3 2024-25:+27.0 2025-26:+84.0 2026-27:+5.6
+      floor     508-558   +46.6u on   533u ROI  +8.7%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   371-409  +25.5u on  390u ROI  +6.5%  train  +12.2u held  +13.3u
+         floor    ncaab 29-32   +1.3u on   30u ROI  +4.3%  train   -0.4u held   +1.7u
+         floor    nfl   36-54   +5.8u on   45u ROI +12.8%  train   +0.9u held   +4.9u
+         floor    nhl   72-63  +14.1u on   68u ROI +20.8%  train   +6.8u held   +7.3u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 405-444 +15.6u/432u +3.6%  nba 172-178 +38.8u/214u +18.2%  ncaab 316-231 +24.2u/424u +5.7%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 42-63 +5.2u/56u +9.4%  nhl 283-228 +76.3u/462u +16.5%
+
+(c13) (a) + THE HOCKEY NAMED-REASON FIX (a gated hockey dog's score is its reason - the Dog / runner-up)
+   train  1.19/day  421-337    +65.9u on    683u  ROI  +9.7%  worst  -14.8u  >=1 play  53.7% of days
+   held   1.03/day  277-197    +64.6u on    432u  ROI +14.9%  worst  -11.5u  >=1 play  42.4% of days
+   live   1.94/day  20-13     +6.3u on     27u  ROI +23.4%  worst   +0.0u  >=1 play  52.9% of days
+   ALL    1.12/day  698-534   +130.5u on   1116u  ROI +11.7%  worst  -14.8u  >=1 play  49.0% of days  seasons up 4/4 2023-24:+32.3 2024-25:+33.6 2025-26:+64.4 2026-27:+0.1
+      dog       145-141   +85.2u on   440u ROI +19.3%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   52-60    +7.1u on    56u ROI +12.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+      by sport: mlb 34-35 -9.9u/42u -23.6%  nba 84-53 +23.6u/107u +22.1%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 6-9 -0.5u/10u -5.2%  nhl 251-207 +77.7u/504u +15.4%
+
+(c14) (b) + THE HOCKEY NAMED-REASON FIX
+   train  2.27/day  733-707    +98.9u on   1024u  ROI  +9.7%  worst  -15.0u  >=1 play  98.4% of days
+   held   2.27/day  549-502    +91.8u on    721u  ROI +12.7%  worst  -14.2u  >=1 play  98.1% of days
+   live   2.76/day  28-19     +9.7u on     34u  ROI +28.5%  worst   +0.0u  >=1 play  94.1% of days
+   ALL    2.27/day  1282-1209   +190.7u on   1745u  ROI +10.9%  worst  -15.0u  >=1 play  98.3% of days  seasons up 4/4 2023-24:+53.4 2024-25:+45.4 2025-26:+85.5 2026-27:+6.3
+      floor     486-540   +42.0u on   513u ROI  +8.2%
+      dog       145-141   +85.2u on   440u ROI +19.3%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   52-60    +7.1u on    56u ROI +12.6%
+      floorfb   10-10    +3.0u on    10u ROI +29.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   364-397  +27.1u on  380u ROI  +7.1%  train  +13.7u held  +13.4u
+         floor    ncaab 26-31   +0.0u on   28u ROI  +0.1%  train   -1.1u held   +1.1u
+         floor    nfl   36-54   +5.8u on   45u ROI +12.8%  train   +0.9u held   +4.9u
+         floor    nhl   60-58   +9.1u on   59u ROI +15.5%  train   +2.7u held   +6.4u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         floorfb  nba   4-5   +1.7u on    4u ROI +37.8%  train   +3.0u held   -1.4u
+         floorfb  ncaab 0-1   -0.5u on    0u ROI -100.0%  train   +0.0u held   -0.5u
+         floorfb  ncaaf 3-2   +0.8u on    2u ROI +32.6%  train   +1.2u held   -0.4u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 401-434 +18.1u/425u +4.3%  nba 176-183 +40.5u/218u +18.6%  ncaab 313-231 +22.4u/422u +5.3%  ncaaf 39-33 +17.6u/62u +28.7%  nfl 42-63 +5.2u/56u +9.4%  nhl 311-265 +86.8u/562u +15.4%
+
+(c15) (c14) with college hoops out of the general floor
+   train  2.22/day  719-689    +97.6u on   1008u  ROI  +9.7%  worst  -16.0u  >=1 play  96.5% of days
+   held   2.23/day  540-492    +91.8u on    712u  ROI +12.9%  worst  -14.7u  >=1 play  95.7% of days
+   live   2.71/day  27-19     +8.7u on     34u  ROI +25.8%  worst   +0.0u  >=1 play  88.2% of days
+   ALL    2.22/day  1259-1181   +189.5u on   1720u  ROI +11.0%  worst  -16.0u  >=1 play  96.2% of days  seasons up 4/4 2023-24:+52.8 2024-25:+44.9 2025-26:+85.5 2026-27:+6.3
+      floor     470-520   +42.8u on   495u ROI  +8.7%
+      dog       145-141   +85.2u on   440u ROI +19.3%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   52-60    +7.1u on    56u ROI +12.6%
+      floorfb   3-2    +0.9u on     2u ROI +37.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   364-397  +27.1u on  380u ROI  +7.1%  train  +13.7u held  +13.4u
+         floor    nfl   39-55   +7.0u on   47u ROI +14.9%  train   +2.1u held   +4.9u
+         floor    nhl   67-68   +8.7u on   68u ROI +12.9%  train   +3.4u held   +5.3u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 401-434 +18.1u/425u +4.3%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 45-64 +6.5u/58u +11.2%  nhl 318-275 +86.5u/571u +15.1%
+
+(c16) (c14) with the floor to 1 (fallback 1)
+   train  1.77/day  585-539    +87.5u on    866u  ROI +10.1%  worst  -14.5u  >=1 play  98.4% of days
+   held   1.68/day  407-369    +68.6u on    584u  ROI +11.8%  worst  -14.0u  >=1 play  98.1% of days
+   live   2.53/day  25-18     +8.1u on     32u  ROI +25.2%  worst   +0.0u  >=1 play  94.1% of days
+   ALL    1.73/day  992-908   +156.2u on   1450u  ROI +10.8%  worst  -14.5u  >=1 play  98.3% of days  seasons up 4/4 2023-24:+48.5 2024-25:+39.0 2025-26:+64.1 2026-27:+4.5
+      dog       145-141   +85.2u on   440u ROI +19.3%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      floor     196-239    +7.5u on   218u ROI  +3.4%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   52-60    +7.1u on    56u ROI +12.6%
+      floorfb   10-10    +3.0u on    10u ROI +29.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   156-193   +1.6u on  174u ROI  +0.9%  train   +3.5u held   -1.9u
+         floor    ncaab 9-5   +2.9u on    7u ROI +41.2%  train   +1.1u held   +1.8u
+         floor    nfl   16-22   +3.7u on   19u ROI +19.5%  train   +1.8u held   +1.9u
+         floor    nhl   15-19   -0.7u on   17u ROI  -4.1%  train   -1.7u held   +1.0u
+         floorfb  mlb   3-2   +0.9u on    2u ROI +37.6%  train   +0.2u held   +0.7u
+         floorfb  nba   4-5   +1.7u on    4u ROI +37.8%  train   +3.0u held   -1.4u
+         floorfb  ncaab 0-1   -0.5u on    0u ROI -100.0%  train   +0.0u held   -0.5u
+         floorfb  ncaaf 3-2   +0.8u on    2u ROI +32.6%  train   +1.2u held   -0.4u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 193-230 -7.4u/219u -3.4%  nba 176-183 +40.5u/218u +18.6%  ncaab 296-205 +25.2u/401u +6.3%  ncaaf 39-33 +17.6u/62u +28.7%  nfl 22-31 +3.2u/30u +10.7%  nhl 266-226 +77.0u/520u +14.8%
+
+(c11) (c1) with the general floor at dog score 0+
+   train  2.04/day  670-624    +89.1u on    903u  ROI  +9.9%  worst  -19.1u  >=1 play  93.1% of days
+   held   2.13/day  510-476    +76.3u on    669u  ROI +11.4%  worst  -16.4u  >=1 play  92.9% of days
+   live   2.53/day  24-19     +5.0u on     30u  ROI +16.4%  worst   +0.0u  >=1 play  82.4% of days
+   ALL    2.08/day  1180-1100   +165.4u on   1572u  ROI +10.5%  worst  -19.1u  >=1 play  93.0% of days  seasons up 4/4 2023-24:+59.1 2024-25:+30.0 2025-26:+73.0 2026-27:+3.3
+      floor     431-478   +35.8u on   454u ROI  +7.9%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      floorfb   3-5    -0.6u on     4u ROI -14.0%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   349-388  +22.7u on  368u ROI  +6.2%  train  +12.4u held  +10.4u
+         floor    nfl   31-43   +3.9u on   37u ROI +10.4%  train   +4.0u held   -0.1u
+         floor    nhl   51-47   +9.2u on   49u ROI +18.7%  train   +6.3u held   +2.9u
+         floorfb  mlb   3-5   -0.6u on    4u ROI -14.0%  train   -1.3u held   +0.7u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 386-428 +12.2u/414u +3.0%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 37-52 +3.3u/48u +7.0%  nhl 262-212 +71.4u/444u +16.1%
+
+(c12) (c4) with the fallback floor OFF
+   train  2.17/day  705-674    +87.8u on    946u  ROI  +9.3%  worst  -21.8u  >=1 play  95.4% of days
+   held   2.22/day  535-492    +85.5u on    690u  ROI +12.4%  worst  -16.3u  >=1 play  95.2% of days
+   live   2.71/day  25-21     +4.7u on     32u  ROI +14.6%  worst   +0.0u  >=1 play  82.4% of days
+   ALL    2.19/day  1240-1166   +173.3u on   1635u  ROI +10.6%  worst  -21.8u  >=1 play  95.4% of days  seasons up 4/4 2023-24:+59.6 2024-25:+28.2 2025-26:+79.8 2026-27:+5.7
+      floor     477-525   +42.9u on   501u ROI  +8.6%
+      dog       114-110   +69.7u on   342u ROI +20.4%
+      play      351-251    +3.7u on   301u ROI  +1.2%
+      lock      94-60   +16.4u on   241u ROI  +6.8%
+      nbafloor  88-125   +15.2u on   106u ROI +14.3%
+      nbafav    54-22   +17.3u on    76u ROI +22.7%
+      dogplay   43-49    +7.1u on    46u ROI +15.4%
+      hkfloor   17-24    +0.1u on    20u ROI  +0.6%
+      solo      2-0    +0.9u on     1u ROI +85.5%
+         floor    mlb   371-408  +26.0u on  390u ROI  +6.7%  train  +12.7u held  +13.3u
+         floor    nfl   37-55   +5.2u on   46u ROI +11.3%  train   +0.3u held   +4.9u
+         floor    nhl   69-62  +11.8u on   66u ROI +18.0%  train   +6.4u held   +5.4u
+         hkfloor  nhl   17-24   +0.1u on   20u ROI  +0.6%  train   +0.6u held   -0.5u
+         nbafloor nba   88-125  +15.2u on  106u ROI +14.3%  train  +12.3u held   +2.9u
+      by sport: mlb 405-443 +16.1u/432u +3.7%  nba 172-178 +38.8u/214u +18.2%  ncaab 287-199 +22.9u/394u +5.8%  ncaaf 36-31 +16.8u/59u +28.5%  nfl 43-64 +4.6u/56u +8.2%  nhl 297-251 +74.1u/481u +15.4%

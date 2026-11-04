@@ -1,0 +1,50 @@
+board days 1114; days with a unit play 1070
+
+== THE BEST PICK among the day's unit plays, raised to 1u at least (its own record, counted once at the raised size)
+  R1 kind trust (Lock > Dog > NBA fav > runner-up > NBA floor > floor > play), then units, then edge | train 310-303 +107.6u/ 764u +14.1% | held 214-228  +55.3u/ 524u +10.5% | live 11-4  +14.0u/  18u +77.8% | ALL 524-531 +162.9u +12.6% up 4/4
+        kinds picked: {'floor': 502, 'dog': 217, 'lock': 157, 'nbafloor': 119, 'play': 31, 'nbafav': 20, 'dogplay': 16, 'floorfb': 6, 'solo': 2}
+  R2 the biggest edge on the read its units ride on                                               | train 293-320  +56.3u/ 733u  +7.7% | held 217-225  +64.6u/ 514u +12.6% | live 7-8   +2.9u/  20u +14.5% | ALL 510-545 +120.9u  +9.7% up 3/4
+        kinds picked: {'floor': 529, 'dog': 243, 'play': 97, 'lock': 77, 'nbafloor': 59, 'dogplay': 47, 'nbafav': 10, 'floorfb': 6, 'solo': 2}
+  R3 the most units, then the biggest read edge                                                   | train 309-304  +89.1u/ 769u +11.6% | held 222-220  +70.8u/ 542u +13.1% | live 7-8   +3.8u/  21u +17.9% | ALL 531-524 +159.8u +12.2% up 4/4
+        kinds picked: {'floor': 522, 'dog': 256, 'lock': 105, 'play': 74, 'nbafloor': 57, 'nbafav': 27, 'dogplay': 21, 'floorfb': 6, 'solo': 2}
+  R4 the surest (rank_p / win %), then edge                                                       | train 329-284  +70.7u/ 722u  +9.8% | held 247-195  +64.5u/ 488u +13.2% | live 10-5   +6.3u/  16u +39.4% | ALL 576-479 +135.2u +11.2% up 4/4
+        kinds picked: {'floor': 521, 'play': 227, 'lock': 156, 'dog': 81, 'nbafloor': 38, 'nbafav': 24, 'dogplay': 15, 'floorfb': 6, 'solo': 2}
+  R5 both reads over the price first (own + weighed), then the kind trust                         | train 310-303  +84.7u/ 743u +11.4% | held 215-227  +41.6u/ 515u  +8.1% | live 10-5   +9.4u/  16u +58.5% | ALL 525-530 +126.3u +10.0% up 4/4
+        kinds picked: {'floor': 497, 'dog': 171, 'lock': 157, 'play': 115, 'nbafloor': 92, 'dogplay': 16, 'nbafav': 14, 'floorfb': 6, 'solo': 2}
+  R6 the kind trust by TRAIN ROI (Dog > NBA fav > runner-up > NBA floor > floor > Lock > play), then units | train 302-311 +110.5u/ 738u +15.0% | held 205-237  +44.1u/ 535u  +8.2% | live 8-7   +6.0u/  21u +28.3% | ALL 507-548 +154.6u +12.1% up 3/4
+        kinds picked: {'floor': 508, 'dog': 295, 'nbafloor': 143, 'nbafav': 35, 'lock': 32, 'play': 31, 'dogplay': 18, 'floorfb': 6, 'solo': 2}
+  R7 the Dog first (own read over the price), then the Lock, then the kind trust                  | train 307-306 +101.9u/ 760u +13.4% | held 209-233  +49.0u/ 534u  +9.2% | live 8-7   +6.0u/  21u +28.3% | ALL 516-539 +150.9u +11.7% up 3/4
+        kinds picked: {'floor': 502, 'dog': 250, 'lock': 124, 'nbafloor': 119, 'play': 31, 'nbafav': 20, 'dogplay': 16, 'floorfb': 6, 'solo': 2}
+
+  -- the same, flat 1u on the best pick (the raise alone: ½u plays -> 1u)
+  R1 kind trust (Lock > Dog > NBA fav > runner-up > NBA floor > floor > play), then units, then edge | train 310-303  +75.6u/ 613u +12.3% | held 214-228  +35.5u/ 442u  +8.0% | live 11-4  +10.3u/  15u +68.4% | ALL 524-531 +111.1u +10.5% up 4/4
+  R2 the biggest edge on the read its units ride on                                               | train 293-320  +39.6u/ 613u  +6.5% | held 217-225  +44.1u/ 442u +10.0% | live 7-8   +3.3u/  15u +21.7% | ALL 510-545  +83.7u  +7.9% up 3/4
+  R3 the most units, then the biggest read edge                                                   | train 309-304  +58.5u/ 613u  +9.5% | held 222-220  +49.8u/ 442u +11.3% | live 7-8   +3.0u/  15u +20.1% | ALL 531-524 +108.3u +10.3% up 4/4
+  R4 the surest (rank_p / win %), then edge                                                       | train 329-284  +47.9u/ 613u  +7.8% | held 247-195  +53.7u/ 442u +12.1% | live 10-5   +5.2u/  15u +34.7% | ALL 576-479 +101.6u  +9.6% up 4/4
+  R5 both reads over the price first (own + weighed), then the kind trust                         | train 310-303  +56.5u/ 613u  +9.2% | held 215-227  +26.4u/ 442u  +6.0% | live 10-5   +8.2u/  15u +54.8% | ALL 525-530  +83.0u  +7.9% up 4/4
+  R6 the kind trust by TRAIN ROI (Dog > NBA fav > runner-up > NBA floor > floor > Lock > play), then units | train 302-311  +85.0u/ 613u +13.9% | held 205-237  +28.2u/ 442u  +6.4% | live 8-7   +5.2u/  15u +34.7% | ALL 507-548 +113.2u +10.7% up 3/4
+  R7 the Dog first (own read over the price), then the Lock, then the kind trust                  | train 307-306  +74.8u/ 613u +12.2% | held 209-233  +30.0u/ 442u  +6.8% | live 8-7   +5.2u/  15u +34.7% | ALL 516-539 +104.8u  +9.9% up 3/4
+
+  -- the EXTRA units the raise adds (only the plays raised from ½u to 1u, the extra ½u)
+  R1 kind trust (Lock > Dog > NBA fav > runner-up > NBA floor > floor > play), then units, then edge | train 194-226  +22.0u/ 210u +10.5% | held 136-178   +6.0u/ 157u  +3.8% | live 5-4   +2.2u/   4u +49.7% | ALL 330-404  +27.9u  +7.6% up 4/4
+  R2 the biggest edge on the read its units ride on                                               | train 216-253  +13.0u/ 234u  +5.5% | held 156-186  +10.4u/ 171u  +6.1% | live 5-5   +1.8u/   5u +36.2% | ALL 372-439  +23.4u  +5.8% up 3/4
+  R3 the most units, then the biggest read edge                                                   | train 192-223  +12.4u/ 208u  +6.0% | held 143-169  +10.5u/ 156u  +6.7% | live 4-5   +1.1u/   4u +25.2% | ALL 335-392  +22.9u  +6.3% up 4/4
+  R4 the surest (rank_p / win %), then edge                                                       | train 241-223  +16.2u/ 232u  +7.0% | held 184-161  +17.7u/ 172u +10.3% | live 6-5   +1.0u/   6u +18.6% | ALL 425-384  +33.9u  +8.4% up 4/4
+  R5 both reads over the price first (own + weighed), then the kind trust                         | train 211-236  +16.5u/ 224u  +7.4% | held 143-180   +3.8u/ 162u  +2.3% | live 6-5   +2.5u/   6u +45.6% | ALL 354-416  +20.3u  +5.3% up 4/4
+  R6 the kind trust by TRAIN ROI (Dog > NBA fav > runner-up > NBA floor > floor > Lock > play), then units | train 214-245  +28.6u/ 230u +12.5% | held 140-190   +2.8u/ 165u  +1.7% | live 5-4   +2.2u/   4u +49.7% | ALL 354-435  +31.4u  +8.0% up 3/4
+  R7 the Dog first (own read over the price), then the Lock, then the kind trust                  | train 197-228  +23.5u/ 212u +11.1% | held 137-182   +4.7u/ 160u  +3.0% | live 5-4   +2.2u/   4u +49.7% | ALL 334-410  +28.2u  +7.6% up 3/4
+
+== THE FORCED 1u SIDE on days with NO unit play (reported apart - the owner asked for a pick every day)
+  days with no unit play: 44 of 1114 (43 with a side to pick)
+  F1 the surest side (rank_p) not fighting its price                                              | train 16-6   +6.3u/  22u +28.8% | held 12-7   +2.1u/  19u +11.3% | live 0-2   -2.0u/   2u -100.0% | ALL 28-13   +8.5u +20.7% up 3/4
+  F2 the biggest edge on the weighed read (p x price)                                             | train 15-7  +11.9u/  22u +54.3% | held 9-10   -1.1u/  19u  -5.6% | live 2-0   +2.9u/   2u +146.7% | ALL 24-17  +10.9u +26.5% up 2/4
+  F3 the best dog by dog score (clean, own read ok), else the surest                              | train 17-5  +16.1u/  22u +73.3% | held 8-11   -4.6u/  19u -24.4% | live 1-1   +1.1u/   2u +55.0% | ALL 25-16  +11.5u +28.0% up 2/4
+  F4 the surest favorite -150..-101 with a named reason (good), else the surest                   | train 15-7   +4.5u/  22u +20.5% | held 13-6   +3.9u/  19u +20.6% | live 0-2   -2.0u/   2u -100.0% | ALL 28-13   +8.4u +20.6% up 2/4
+
+== THE LOCK's -119..-101 band (full test, not thin) by league - the 10/23 plan's cut
+    nhl                                                                                           | train 0-0   +0.0u/   0u  +0.0% | held 1-0   +0.8u/   1u +84.7% | live 0-0   +0.0u/   0u  +0.0% | ALL 1-0   +0.8u +84.7% up 1/1
+    nba                                                                                           | train 0-0   +0.0u/   0u  +0.0% | held 0-0   +0.0u/   0u  +0.0% | live 0-0   +0.0u/   0u  +0.0% | ALL 0-0   +0.0u  +0.0% up 0/0
+    mlb                                                                                           | train 1-0   +0.9u/   1u +91.7% | held 1-1   -0.1u/   2u  -6.9% | live 0-0   +0.0u/   0u  +0.0% | ALL 2-1   +0.8u +26.0% up 1/2
+    nfl                                                                                           | train 0-0   +0.0u/   0u  +0.0% | held 1-0   +0.9u/   1u +86.2% | live 0-0   +0.0u/   0u  +0.0% | ALL 1-0   +0.9u +86.2% up 1/1
+    ncaaf                                                                                         | train 0-0   +0.0u/   0u  +0.0% | held 1-2   -1.1u/   3u -37.7% | live 0-1   -1.0u/   1u -100.0% | ALL 1-2   -1.1u -37.7% up 0/1
+    ncaab                                                                                         | train 7-6   -0.0u/  13u  -0.0% | held 7-3   +3.3u/  10u +32.9% | live 0-0   +0.0u/   0u  +0.0% | ALL 14-9   +3.3u +14.3% up 2/3

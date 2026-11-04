@@ -1,0 +1,77 @@
+LIVE LOCKS by ISO week: {'2026-W39': 1, '2026-W40': 5, '2026-W41': 4, '2026-W42': 3, '2026-W43': 2}
+9/27-10/28: 15 Locks on 32 board days (0.47/day); 10/29-11/4: 0 on 7 days (0.00/day)
+   2026-09-27 nfl Vikings -115 won units 5.0  
+   2026-09-29 mlb Yankees -135 won units 0.5  
+   2026-09-30 mlb Yankees -144 won units 0.5  
+   2026-10-01 ncaaf North Texas -118 won units 3.0  
+   2026-10-03 ncaaf UNLV -120 won units 2.5  
+   2026-10-04 nfl Cardinals -135 lost units 0.5  
+   2026-10-05 mlb Guardians -149 lost units 1.0  
+   2026-10-07 ncaaf Jax State -148 won units 0.5  
+   2026-10-10 ncaaf Minnesota -142 lost units 0.5  
+   2026-10-11 nfl Vikings -135 won units 0.5  
+   2026-10-13 mlb Rays -132 won units 0.5  
+   2026-10-15 nfl Seahawks -142 lost units 0.5  
+   2026-10-17 ncaaf Wisconsin 114 lost units 0.5  
+   2026-10-24 nhl Mammoth -142 won units 0.5  
+   2026-10-25 nfl 49ers -142 lost units 0.5  
+
+THE LOCK FUNNEL (favorites -150..-101, moneyline, clean):
+  every favorite -150..-101                                                      6938-6325   -5.0% on 13263  train   -4.0% (7352)  held   -6.2% (5911)  up 0/4
+  good + lock_ok (p 56%+) + not fighting  [the Lock pool]                        969-711   -1.0% on 1680  train   -1.4% (1047)  held   -0.3% (633)  up 2/4
+    + own_agrees + real_value + not nhl_pricey  [the full Lock test]             507-342   +3.2% on  849  train   +3.3% (529)  held   +3.2% (320)  up 3/4
+       of those in -119..-101 (the S6 skip band)                                 19-13  +11.4% on   32  train   +6.5% ( 14)  held  +15.2% ( 18)  up 3/4
+       of those -150..-120                                                       488-329   +2.9% on  817  train   +3.2% (515)  held   +2.5% (302)  up 4/4
+       of those THIN (own edge under 3%) - NO_THIN_LOCK drops them               316-214   +2.6% on  530  train   +1.5% (355)  held   +4.8% (175)  up 2/4
+       of those not thin                                                         191-128   +4.4% on  319  train   +6.9% (174)  held   +1.3% (145)  up 3/4
+       not thin, -150..-120 (what can be the Lock today)                         172-115   +3.6% on  287  train   +7.0% (160)  held   -0.7% (127)  up 3/4
+       not thin, -150..-120, own gap under 7 (2u)                                119-78   +4.5% on  197  train   +9.1% (133)  held   -5.2% ( 64)  up 3/4
+       not thin, -150..-120, own gap 7+ (1u)                                     53-37   +1.6% on   90  train   -3.6% ( 27)  held   +3.9% ( 63)  up 2/4
+       thin, -150..-120 (the cut: would they have paid?)                         316-214   +2.6% on  530  train   +1.5% (355)  held   +4.8% (175)  up 2/4
+       thin, -119..-101                                                          0-0   +0.0% on    0  train   +0.0% (  0)  held   +0.0% (  0)  up 0/0
+       not thin, -119..-101 (the band cut)                                       19-13  +11.4% on   32  train   +6.5% ( 14)  held  +15.2% ( 18)  up 3/4
+    good + lock_ok but own_agrees FALSE (the own-read block)                     125-101   -6.3% on  226  train   -7.2% (108)  held   -5.4% (118)  up 2/4
+    good + lock_ok + own_agrees but real_value FALSE                             337-268   -5.0% on  605  train   -6.0% (410)  held   -3.1% (195)  up 1/4
+    good + lock_ok + own_agrees + real_value but nhl_pricey                      0-0   +0.0% on    0  train   +0.0% (  0)  held   +0.0% (  0)  up 0/0
+    not lock_ok (p under 56%) but own read 56%+ and own_beats (the backup Lock pool) 13-7  +18.5% on   20  train  +10.0% ( 10)  held  +27.0% ( 10)  up 3/4
+       ...-150..-120                                                             9-7   +1.4% on   16  train   -9.6% (  8)  held  +12.3% (  8)  up 3/4
+    nba_week_one favorites passing the full test                                 0-0   +0.0% on    0  train   +0.0% (  0)  held   +0.0% (  0)  up 0/0
+
+By league, the full Lock test, not thin, -150..-120:
+    nhl                                                                          1-2  -42.9% on    3  train   +0.0% (  0)  held  -42.9% (  3)  up 0/1
+    nhl THIN -150..-120                                                          106-63   +6.9% on  169  train   +2.1% ( 97)  held  +13.5% ( 72)  up 3/4
+    nba                                                                          0-0   +0.0% on    0  train   +0.0% (  0)  held   +0.0% (  0)  up 0/0
+    nba THIN -150..-120                                                          5-1  +43.2% on    6  train  +13.6% (  3)  held  +72.9% (  3)  up 2/3
+    mlb                                                                          1-4  -64.6% on    5  train  -55.8% (  4)  held -100.0% (  1)  up 1/3
+    mlb THIN -150..-120                                                          31-30  -12.6% on   61  train  -14.6% ( 42)  held   -8.3% ( 19)  up 0/4
+    nfl                                                                          1-2  -44.1% on    3  train -100.0% (  1)  held  -16.2% (  2)  up 0/2
+    nfl THIN -150..-120                                                          11-7   +4.3% on   18  train  -15.5% (  8)  held  +20.1% ( 10)  up 3/4
+    ncaaf                                                                        12-2  +47.1% on   14  train   +0.0% (  0)  held  +47.1% ( 14)  up 1/1
+    ncaaf THIN -150..-120                                                        21-13   +4.5% on   34  train  +32.0% ( 18)  held  -26.4% ( 16)  up 3/4
+    ncaab                                                                        157-105   +3.6% on  262  train   +9.3% (155)  held   -4.5% (107)  up 2/3
+    ncaab THIN -150..-120                                                        142-100   +1.9% on  242  train   +2.3% (187)  held   +0.6% ( 55)  up 3/3
+
+The thin Lock by how thin (own edge per dollar), -150..-120:
+    own edge 0.00..0.01                                                          54-40   -1.2% on   94  train   -6.6% ( 61)  held   +8.8% ( 33)  up 2/4
+    own edge 0.01..0.02                                                          47-37   -2.5% on   84  train   -8.1% ( 55)  held   +8.1% ( 29)  up 1/4
+    own edge 0.02..0.03                                                          58-48   -4.6% on  106  train   -4.0% ( 73)  held   -5.8% ( 33)  up 1/4
+
+The posted Lock in the rows (kind lock), by the rows' units:
+    all kind lock                                                                241-172   -0.0% on  413  train   -0.2% (257)  held   +0.3% (156)  up 2/4
+    thin (dropped since 10/29)                                                   144-112   -3.7% on  256  train   -3.3% (166)  held   -4.3% ( 90)  up 2/4
+    not thin                                                                     97-60   +6.0% on  157  train   +5.6% ( 91)  held   +6.5% ( 66)  up 4/4
+    backup (units 0.5, not thin)                                                 0-0   +0.0% on    0  train   +0.0% (  0)  held   +0.0% (  0)  up 0/0
+
+ONE LOCK A DAY (the likeliest by rank_p among the full-test favorites):
+  today: not thin, -150..-120                                                    98-66   +2.6% on  164  train   +1.0% ( 97)  held   +5.0% ( 67)  up 2/4
+     ...sized 2u gap<7 / 1u (football 1u)                                        98-66   +3.2% on  164  train   +3.0% ( 97)  held   +3.5% ( 67)  up 3/4
+      Locks on 164 of 1114 board days
+  thin allowed, -150..-120                                                       234-168   -0.4% on  402  train   -0.3% (252)  held   -0.5% (150)  up 2/4
+     ...sized 2u gap<7 / 1u (football 1u)                                        234-168   -1.1% on  402  train   -0.7% (252)  held   -1.9% (150)  up 2/4
+      Locks on 402 of 1114 board days
+  thin allowed, -150..-101 (no band cut)                                         238-170   -0.0% on  408  train   +0.4% (256)  held   -0.6% (152)  up 2/4
+     ...sized 2u gap<7 / 1u (football 1u)                                        238-170   -0.8% on  408  train   -0.2% (256)  held   -1.9% (152)  up 1/4
+      Locks on 408 of 1114 board days
+  not thin, -150..-101                                                           104-70   +3.1% on  174  train   +3.3% (102)  held   +2.8% ( 72)  up 3/4
+     ...sized 2u gap<7 / 1u (football 1u)                                        104-70   +3.6% on  174  train   +4.7% (102)  held   +1.7% ( 72)  up 4/4
+      Locks on 174 of 1114 board days
