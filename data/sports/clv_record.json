@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 171,
-  "beat": 56,
-  "same": 64,
-  "worse": 51,
-  "avg_pts": 0.09
+  "n": 177,
+  "beat": 60,
+  "same": 65,
+  "worse": 52,
+  "avg_pts": 0.12
  },
  "unit_plays": {
-  "n": 78,
-  "beat": 25,
-  "same": 34,
+  "n": 81,
+  "beat": 27,
+  "same": 35,
   "worse": 19,
-  "avg_pts": 0.16
+  "avg_pts": 0.21
  },
  "by_kind": {
   "dog": {
-   "n": 22,
+   "n": 23,
    "beat": 5,
-   "same": 10,
+   "same": 11,
    "worse": 7,
-   "avg_pts": -0.18
+   "avg_pts": -0.17
   },
   "lean": {
-   "n": 93,
-   "beat": 31,
+   "n": 96,
+   "beat": 33,
    "same": 30,
-   "worse": 32,
-   "avg_pts": 0.02
+   "worse": 33,
+   "avg_pts": 0.04
   },
   "lock": {
    "n": 13,
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 43,
-   "beat": 13,
+   "n": 45,
+   "beat": 15,
    "same": 20,
    "worse": 10,
-   "avg_pts": 0.06
+   "avg_pts": 0.15
   }
  },
  "by_sport": {
@@ -59,11 +59,11 @@
    "avg_pts": 0.48
   },
   "ncaab": {
-   "n": 1,
-   "beat": 0,
+   "n": 2,
+   "beat": 1,
    "same": 1,
    "worse": 0,
-   "avg_pts": 0.0
+   "avg_pts": 0.8
   },
   "ncaaf": {
    "n": 46,
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 62,
-   "beat": 18,
-   "same": 24,
-   "worse": 20,
-   "avg_pts": -0.07
+   "n": 67,
+   "beat": 21,
+   "same": 25,
+   "worse": 21,
+   "avg_pts": 0.0
   }
  },
  "lock_by_size": {
@@ -2511,6 +2511,90 @@
    "pts": 1.1,
    "units": 0.5,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Blue Jackets",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 105,
+   "pts": 0.0,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -120,
+   "pts": -1.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Penguins",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -118,
+   "pts": 1.3,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Wofford",
+   "market": "spread",
+   "line": 25.5,
+   "odds": -108,
+   "close": -115,
+   "pts": 1.6,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 140,
+   "pts": 3.2,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-03",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

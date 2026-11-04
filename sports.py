@@ -812,10 +812,17 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
     mark_ncaab_ats_gap(games, out)                    # 🏀 11/3 FABLE: the hot-ATS side (fade) / the cold one
     mark_ncaab_reb(games, out)                        # 🏀 11/3 FABLE: the glass - season rebound margin, both teams
+    mark_ncaab_coach(games, out)                      # 🏀 11/3 KNOWLEDGE (A): the coach on every side (new this season?)
+    mark_ncaab_long_out(games, out)                   # 🏀 11/3 KNOWLEDGE (A): a regular out 4+ games running (-2 dog)
+    mark_ncaab_race(games, out)                       # 🏀 11/3 KNOWLEDGE (A): Feb-Mar, 5+ back vs a contender (-3 dog)
+    mark_ncaab_identity(games, out)                   # 🏀 11/3 KNOWLEDGE (A): turnover margin / offense-first from the box
+    mark_ncaab_roster_mix(games, out)                 # 🏀 11/3 KNOWLEDGE (A): transfer / freshman minute shares (Feb-Mar rank)
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     weigh_ncaab_away_fav(games, out)                  # 🏀 11/3: the Nov-Dec college hoops small favorite away from home
     weigh_ncaab_top_out(out)                          # 🏀 11/3 DEEP: ...and the favorite whose own top scorer missed it
     weigh_ncaab_eff_fav(games, out)                   # 🏀 11/3 DEEP: the slight favorite our efficiency ratings don't buy
+    weigh_ncaab_new_coach_fav(games, out)             # 🏀 11/3 KNOWLEDGE (A): a first-year coach's small favorite, Jan-Mar
+    weigh_ncaab_to_fav(out)                           # 🏀 11/3 KNOWLEDGE (A): the turnover-prone small favorite
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
@@ -2144,6 +2151,12 @@ def dog_spots(c):
     if lg == "ncaab" and c.get("top_out"):
         sc -= NCAAB_TOP_OUT_PTS    # 11/3 DEEP: the college hoops dog whose top scorer missed its last game -20.5% on 617 vs
         #                            -5.7% (train / held out 0 of 4 seasons at the base; the open -20.7% vs -7.9%)
+    if lg == "ncaab" and c.get("long_out"):
+        sc -= NCAAB_LONG_OUT_PTS   # 11/3 KNOWLEDGE (A): a regular (not the top scorer) out 4+ games running - the dog
+        #                            -15.0% on 847 vs -8.2% (0 of 2 train / 0 of 3 held out up, the open -21.8%)
+    if lg == "ncaab" and c.get("race_dog"):
+        sc -= NCAAB_RACE_PTS       # 11/3 KNOWLEDGE (A): Feb-Mar conference play, 5+ games out of first vs a team within a
+        #                            game of it -31.2% on 664 (8 of 8 seasons down, the open -29.3%) vs -8.6%
     if lg == "nba" and c.get("lost_man"):
         sc -= NBA_LOST_MAN_PTS     # 11/3 daily study 7: the NBA dog that lost a 20+ minute man in its last 10 games -19.7%
         #                            on 284 in games 4-10 (0 of 5 train seasons up, 3 of 3 held down, the morning -16.5%)
@@ -2753,6 +2766,8 @@ def units_for(pk):
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
+            if pk.get("cbb_test"):
+                return CBB_TEST_UNITS                        # 🏀 (11/3: the college hoops test - half a unit while we prove it)
             if pk.get("nba_fav") and (pk.get("date") or "") >= NBA_FAV_FROM:
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
@@ -2917,6 +2932,8 @@ def thin_edge(leg):
 def units_tier(pk, leg):
     """lock / value / strong / slight for one pick - the bankroll's rows (the owner, 9/30: the Dog of the Day is a value
     play; leans split strong and slight)."""
+    if pk.get("cbb_test"):
+        return "cbbtest"                                     # 🏀 11/3: the college hoops test - its own line in the bankroll
     if pk.get("gap"):
         return "value"                                       # 🔍 a value play in the bankroll (the owner, 10/18: "we don't
         #                                                      need that - it's value or lock or early play")
@@ -2978,6 +2995,8 @@ def rank_p(c):
             #                                                     the owner, 11/3: "not one thing decides a pick")
             + ncaab_fable_spread_w(c)                          # (11/3 FABLE: the ranked road team Nov-Dec, the hot-ATS side,
             #                                                     the glass - each ±0.02-0.03, a weight never a gate)
+            + ncaab_roster_spread_w(c)                         # (11/3 KNOWLEDGE (A): Feb-Mar, the transfer-heavy side -0.02,
+            #                                                     the freshman-heavy side vs an experienced team +0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -3743,6 +3762,274 @@ def ncaab_fable_spread_w(c):
     return w
 
 
+# 🏀 11/3 FABLE: COLLEGE HOOPS KNOWLEDGE (A) (the owner: "If the engine is knowledgeable on the teams, the injuries, the
+# players, the new players, the coaches ... there's no reason why we should be complete losers") - results/studies/
+# cbb_knowledge_a/, SPORTS_FINDINGS "11/3 - FABLE: COLLEGE HOOPS KNOWLEDGE (A)". Five kinds of knowledge the engine
+# never had, each tested against ESPN's close 2018-26 (train 2018-22, held out 2023 / 2024 / 2025, the open as the
+# second check) and wired as WEIGHTS inside STUDY_CAP / FAV_CAP / the rank nudge - never a trigger:
+NCAAB_NEW_COACH_FAV_W = -0.03     # (1) COACHES (sports_ncaab_coaches - the coach table rebuilt from Wikipedia's change
+NCAAB_NEW_COACH_FAV_BAND = (-150, -101)   # tables + ESPN's current list): a FIRST-YEAR coach's -101..-150 favorite in
+NCAAB_NEW_COACH_DOG_MAX = 160     # (the dog across a -101..-150 favorite sits at +100..+160 - it gets the fact as a reason)
+NCAAB_POWER_ANCHORS = {"Duke", "Kansas", "Kentucky", "Michigan", "Villanova", "Arizona"}   # a league holding one = power
+NCAAB_NEW_COACH_MONTHS = ("01", "02", "03")   # Jan-Mar lost -11.4% on 762 (7 of 8 seasons, the open -9.1%; the team's
+#                                   dog -10.6% / its spread sides -6.8% the same way; December -1.7%, -151..-250 -3.6%
+#                                   = the base) vs -3.5% for every Jan-Mar small favorite - the market keeps believing in
+#                                   the new coach's team as year one wears on. -3 on the favorite's weighed read.
+NCAAB_LONG_OUT_PTS = 2            # (2) AVAILABILITY (sports_ncaab_roster.long_out): a REGULAR (top 7 by minutes, not
+#                                   the top scorer) missing the last 4+ games running - the dog -15.0% on 847 vs -8.2%
+#                                   (0 of 2 train / 0 of 3 held out up, the open -21.8%; the 2-3 game absence = the
+#                                   base: the books price the fresh news, then stop moving). -2 on the dog's points.
+NCAAB_RACE_PTS = 3                # (5) CONFERENCE (sports.ncaab_standings): in Feb-Mar conference play the dog 5+
+NCAAB_RACE_GB = 5.0               # games out of first vs a team within a game of it lost -31.2% on 664 (8 of 8
+NCAAB_RACE_CONTEND = 1.0          # seasons down, train -31.9% / held -29.9%, the open -29.3%; not the 5+ skid - without
+NCAAB_RACE_MIN_GAMES = 8          # it -31.1%; vs a fellow also-ran -0.5% = even) vs -8.6% for every Feb-Mar conference
+NCAAB_RACE_MONTHS = ("02", "03")  # dog. Power leagues sit at the base (-8.3%) - skipped. -3 on the dog's points.
+NCAAB_TO_FAV_W = -0.02            # (4) IDENTITY (sports_ncaab_box.identity): the TURNOVER-PRONE team (margin -0.5 a
+NCAAB_TO_FAV_BAND = (-150, -101)  # game or worse, the bottom third) as a -101..-150 favorite -9.7% on 1,314 (0 of 2 /
+#                                   0 of 3, the open -7.2%; the bottom sixth -13.2%; home / away / both halves of the
+#                                   season / both price halves all down) vs -4.2%. -2 on the favorite's weighed read.
+NCAAB_ROSTER_W = 0.02             # (3) NEW PLAYERS (sports_ncaab_roster.roster_mix): Feb-Mar spread rank -0.02 on the
+NCAAB_ROSTER_MONTHS = ("02", "03")   # TRANSFER-heavy side (28%+ of the minutes by D1 transfers: ATS -7% vs -4.4%, the
+#                                   60%+-new roster -8.8% on 3,519, 0 of 4 seasons up - new rosters fade late), +0.02 on
+#                                   the FRESHMAN-heavy side (26%+ by newcomers) vs a team that isn't (+2.6% on 1,236,
+#                                   the experienced side across -11.4%, 0 of 4 up - the young team is still improving).
+
+
+def mark_ncaab_coach(games, cands):
+    """Every college hoops side gets its coach (sports_ncaab_coaches.state - name, seasons with the team, new this
+    season); ncaab_new_coach on a first-year coach's sides, opp_new_coach across."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_coaches as nc
+        table = nc.load()
+    except Exception:                                        # noqa: BLE001
+        return
+    if not table:
+        return
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side = c.get("side")
+        if side not in ("home", "away") or not g.get(side):
+            continue
+        me = nc.state(g[side], start, table)
+        op = nc.state(g["away" if side == "home" else "home"], start, table)
+        if me:
+            c["coach_name"], c["coach_tenure"] = me["coach"], me.get("tenure")
+            if me.get("new"):
+                c["ncaab_new_coach"] = True
+        if op and op.get("new"):
+            c["opp_new_coach"] = True
+            c["opp_coach_name"] = op["coach"]
+
+
+def weigh_ncaab_new_coach_fav(games, cands):
+    """A first-year coach's -101..-150 college hoops favorite in Jan-Mar: its weighed read goes down
+    NCAAB_NEW_COACH_FAV_W (floor own - FAV_CAP); the dog across gets the fact as a reason."""
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "ml":
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        try:
+            month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+        except ValueError:
+            continue
+        if month not in NCAAB_NEW_COACH_MONTHS:
+            continue
+        if c.get("ncaab_new_coach") and NCAAB_NEW_COACH_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_NEW_COACH_FAV_BAND[1] \
+                and c.get("edge_own") is not None and c.get("dec"):
+            own = (c["edge_own"] + 1) / c["dec"]
+            base = c["w_p"] if c.get("w_p") is not None else own
+            c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_NEW_COACH_FAV_W))), 4)
+            c["ncaab_new_coach_fav"] = True
+        elif c.get("opp_new_coach") and 100 <= c.get("odds", 0) <= NCAAB_NEW_COACH_DOG_MAX:   # the dog across it
+            c["reasons"] = c["reasons"] + [f"{c.get('opp_coach_name') or 'their coach'} is in his first season there - a "
+                                           "first-year coach's small favorite in Jan-Mar lost -11% (7 of 8 seasons)"]
+
+
+def mark_ncaab_long_out(games, cands):
+    """A regular (not the top scorer) out 4+ games running: long_out (how many) on that side, opp_long_out across
+    with the fact as a reason (sports_ncaab_roster.long_out - no box for the last game = unknown = nothing)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_ncaab_roster as nr
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nr.long_out(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me and me["n"]:
+            c["long_out"] = me["n"]
+            c["long_out_who"] = me["who"]
+        if op and op["n"]:
+            c["opp_long_out"] = op["n"]
+            name, mpg, run = op["who"][0]
+            c["reasons"] = c["reasons"] + [f"their {name} ({mpg:.0f} minutes a game) has missed {run} straight - the books "
+                                           "stop adjusting for a long absence (0 of 5 seasons at the base)"]
+
+
+def ncaab_conferences(games, season):
+    """{team id: (conference key, power)} - sports_ncaab_knowledge.conferences (the schedule-inferred leagues)."""
+    import sports_ncaab_knowledge as nk
+    return nk.conferences(games, season)
+
+
+def ncaab_standings(games, season, conf):
+    """{team id: [conference wins, losses]} - sports_ncaab_knowledge.standings."""
+    import sports_ncaab_knowledge as nk
+    return nk.standings(games, season, conf)
+
+
+def mark_ncaab_race(games, cands):
+    """Feb-Mar conference play (sports_ncaab_knowledge.race): race_dog on the dog NCAAB_RACE_GB+ games out of first
+    facing a team within NCAAB_RACE_CONTEND of it (never a power league); the favorite across gets the fact as a
+    reason; conf_gb / opp_conf_gb on every side that has standings."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") == "ml"]
+    if not hoops:
+        return
+    import sports_ncaab_knowledge as nk
+    nk.RACE_GB, nk.RACE_CONTEND, nk.RACE_MIN_GAMES, nk.RACE_MONTHS = NCAAB_RACE_GB, NCAAB_RACE_CONTEND, NCAAB_RACE_MIN_GAMES, NCAAB_RACE_MONTHS
+    nk.POWER_ANCHORS = NCAAB_POWER_ANCHORS
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or str(g.get("neutral")) == "1" or nk.month_of(start) not in NCAAB_RACE_MONTHS:
+            continue
+        side = c.get("side")
+        if side not in ("home", "away") or not g.get("home") or not g.get("away"):
+            continue
+        me, op = (g["home"], g["away"]) if side == "home" else (g["away"], g["home"])
+        try:
+            r = nk.race(games, me, op, start)
+        except Exception:                                    # noqa: BLE001
+            continue
+        if r["conf_gb"] is None:
+            continue
+        c["conf_gb"], c["opp_conf_gb"] = r["conf_gb"], r["opp_conf_gb"]
+        if c.get("odds", 0) >= 100 and r["race_dog_side"]:
+            c["race_dog"] = True
+        elif c.get("odds", 0) < 0 and not r["conf_power"] and r["opp_conf_gb"] >= NCAAB_RACE_GB and r["conf_gb"] <= NCAAB_RACE_CONTEND:
+            c["vs_race_dog"] = True
+            where = "in first" if r["conf_gb"] == 0 else f"{r['conf_gb']:g} back"
+            c["reasons"] = c["reasons"] + [f"{g.get(('away' if side == 'home' else 'home') + '_name') or 'they'} "
+                                           f"sit {r['opp_conf_gb']:g} games out of first with nothing to play for, we're "
+                                           f"{where} - that dog lost -31% in Feb-Mar (8 of 8 seasons)"]
+
+
+def mark_ncaab_identity(games, cands):
+    """The team box identity (sports_ncaab_box.identity, 5+ box games): to_margin / off_first on every college hoops
+    side (the opponent's on opp_*)."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_box as nb
+    except Exception:                                        # noqa: BLE001
+        return
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nb.identity(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me:
+            c["to_margin"] = me["tom"]
+            c["off_first"] = me["off"] >= nb.OFF_HI and me["def"] > nb.DEF_GOOD
+            c["def_first"] = me["def"] <= nb.DEF_GOOD and me["off"] < nb.OFF_HI
+        if op:
+            c["opp_off_low"] = op["off"] <= nb.OFF_LO
+
+
+def weigh_ncaab_to_fav(cands):
+    """The turnover-prone college hoops -101..-150 favorite: its weighed read goes down NCAAB_TO_FAV_W (floor own -
+    FAV_CAP) - a weight, never a trigger."""
+    try:
+        import sports_ncaab_box as nb
+    except Exception:                                        # noqa: BLE001
+        return
+    for c in cands:
+        if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("to_margin") is None:
+            continue
+        if not (NCAAB_TO_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_TO_FAV_BAND[1]) or c["to_margin"] > nb.TOM_PRONE:
+            continue
+        if c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_TO_FAV_W))), 4)
+        c["ncaab_to_fav"] = True
+        c["reasons"] = c["reasons"] + [f"coughing it up {-c['to_margin']:.1f} more a game than it forces - the turnover-"
+                                       "prone small favorite loses to its price (5 of 5 seasons)"]
+
+
+def mark_ncaab_roster_mix(games, cands):
+    """roster_tin / roster_new (this season's minute shares by D1 transfers / newcomers - sports_ncaab_roster.
+    roster_mix) on every college hoops side, the opponent's under opp_roster_new."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")]
+    if not hoops:
+        return
+    import sports_ncaab_roster as nr
+    seen = {}
+    for c in hoops:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        for side in ("home", "away"):
+            key = (c.get("game_id"), side)
+            if key not in seen:
+                try:
+                    seen[key] = nr.roster_mix(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key] = None
+        me = seen.get((c.get("game_id"), c.get("side")))
+        op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
+        if me:
+            c["roster_tin"], c["roster_new"] = me["tin"], me["new"]
+            cut = nr.roster_cuts(games, start)                 # (the season's own top-third cuts, cached per day)
+            c["roster_cut"] = (cut[0], cut[1])
+        if op:
+            c["opp_roster_new"] = op["new"]
+
+
+def ncaab_roster_spread_w(c):
+    """The Feb-Mar roster rank weights on a college hoops SPREAD side: the transfer-heavy side -NCAAB_ROSTER_W, the
+    freshman-heavy side vs a team that isn't +NCAAB_ROSTER_W (never both on one side)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or c.get("roster_tin") is None:
+        return 0.0
+    start = str(c.get("start") or "")
+    try:
+        month = (datetime.fromisoformat(start.replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+    except ValueError:
+        return 0.0
+    if month not in NCAAB_ROSTER_MONTHS:
+        return 0.0
+    import sports_ncaab_roster as nr
+    tin_cut, new_cut = c.get("roster_cut") or (nr.TIN_HEAVY, nr.NEW_HEAVY)
+    if c["roster_tin"] >= tin_cut:
+        return -NCAAB_ROSTER_W
+    if c.get("roster_new", 0) >= new_cut and c.get("opp_roster_new") is not None and c["opp_roster_new"] < new_cut:
+        return NCAAB_ROSTER_W
+    return 0.0
+
+
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
 #                          seasons (sports_form) - the books overreact. Was a ranking nudge only; now it moves the read
 #                          (the 10/1 wiring audit; the owner: "everything we studied has to be wired in")
@@ -3929,6 +4216,8 @@ def posted_kind(p):
     their tag (the record reads them as value plays), so the cap counts them by the tag."""
     if p.get("kind") == "play" and p.get("gap") is not None:
         return "gap"
+    if p.get("kind") == "play" and p.get("cbb_test"):
+        return "cbbtest"                                     # 🏀 11/3: the college hoops test's own cap and record
     if p.get("kind") == "play" and p.get("dog_play"):
         return "dogplay"
     if p.get("kind") == "play" and p.get("nba_fav"):
@@ -4033,6 +4322,8 @@ def unit_plays_today(picks, iso, league=None):
     `league`)."""
     return sum(1 for p in picks if p["date"] == iso and p["status"] != "waiting" and not p.get("lean")
                and p.get("kind") in ("lock", "dog", "solo", "night", "play") and (units_for(p) or 0) > 0
+               and not p.get("cbb_test")                      # (🏀 11/3: the college hoops test is its own thing - the
+               #                                                 floor's count never leans on it, like the early plays)
                and (league is None or any(l.get("league") == league for l in p.get("legs") or [])))
 
 
@@ -4115,6 +4406,211 @@ def gap_plays(cands, avoid):
             g_ = {k: v for k, v in c.items() if k not in ("dog_p", "w_p")}   # (its units ride on its OWN read -
             out.append({**g_, "gap": round(gap, 4), "edge_own": round(c["raw_own"] * c["dec"] - 1, 4)})   # the raw one)
     return out
+
+
+# ---------------------------------------------------------------- 🏀 THE COLLEGE HOOPS TEST (the owner, 11/3 - his call on
+# units: "We might need to just experiment with some units on college basketball and see how we can do ... scared money
+# don't make no money, and we never know till we've really tried it ... we should have unit plays pretty much every day"
+# + "I want the engine to be very knowledgeable in these teams and be able to predict these upsets and find these dogs
+# that the engine likes. We've won a ton of units on college football dogs, and we need to do the same with college
+# basketball ... we had 3 units on BYU to upset Notre Dame and won 6 units"). A live TEST like the 🌍 Europe under: TWO
+# SLOTS a day, CBB_TEST_UNITS (½u) each, each with its OWN record and its own quit rule (CBB_TEST_QUIT), never mixed
+# into the other records (its own box under the leans, its own line in the bankroll), CBB_TEST_ON the switch.
+#   (1) THE FAVORITE SLOT - the sister study's one paying cell (college hoops knowledge (B), 11/3): a -120..-150
+#       moneyline favorite whose WEIGHED read (w_p - its own read moved by the dog's angles across it and the 11/3
+#       favorite weights) is CBB_TEST_FAV_MIN_P+ AND over the price, its OWN read over the price too (the engine's Lock
+#       rule), carrying none of the three favorite fades (the Nov-Dec away favorite, the efficiency filter, its own top
+#       scorer out), the edge CBB_TEST_FAV_PTS points over the price (the sister: 1-5 points +8.5..+11.7%, under 1
+#       point -3%), once both teams have played 3 (the early Lock rule). The best edge a day.
+#   (2) THE DOG SLOT - the best college hoops dog a night: +100..+350, the dog gate (dog score CBB_TEST_DOG_GATE+ with
+#       every 11/3 weight in it - the owner's "find these dogs the engine likes"), the OWN read over the price, never a
+#       side carrying a dog fade (a true road dog in its first 3 games, a rubber-match dog, the top scorer out, a top-25
+#       road dog, a 5+ skid), never a trap / a side the own read fights. The highest score a night.
+# NEVER ONE FACTOR (both reads are the whole weighed read), never forced (no side clears = nothing posts), the -150
+# rule, one pick a game, never the other side of a posted pick (post_board's `ours`). THE REPLAY (results/studies/
+# cbb_test_1103/ - every college hoops board day 2018-25 re-built with TODAY's code at the close; train 2018-22, held
+# out 2023-25; SPORTS_FINDINGS "11/3 - THE COLLEGE HOOPS TEST") grades each slot on its own. Judged at CBB_TEST_QUIT[0]
+# graded plays A SLOT: ROI under CBB_TEST_QUIT[1] = that slot turns itself off (the owner can turn it back on).
+CBB_TEST_ON = True
+CBB_TEST_FROM = "2026-11-04"      # the first board it can post on
+CBB_TEST_UNITS = 0.5              # half a unit while we prove it (the owner, 11/3)
+CBB_TEST_SLOTS = ("fav", "dog")   # one of each a day at most
+CBB_TEST_MAX_DAY = len(CBB_TEST_SLOTS)
+CBB_TEST_FAV_BAND = (-150, -120)  # the favorite slot's price band (the -150 rule; -119..-101 was never the cell)
+CBB_TEST_FAV_MIN_P = 0.56         # the weighed read has to be a Lock-type read (56%+)...
+CBB_TEST_FAV_PTS = (0.01, 0.05)   # ...and sit 1-5 points over the real price (under 1 lost; the sister's dose)
+CBB_TEST_DOG_BAND = (100, 350)    # the dog slot's price band (the owner, 10/17: dogs +100..+350)
+CBB_TEST_DOG_GATE = 4.0           # the dog score the dog slot needs (NCAAB_DOG_GATE - the NBA-style gate, the owner 10/10)
+CBB_TEST_QUIT = (50, -0.05)       # judged at 50 graded A SLOT: ROI under -5% on the units risked = that slot's off
+CBB_FAV_FADES = ("ncaab_away_fav", "ncaab_eff_fav", "ncaab_top_out_fav")   # the 11/3 favorite fades (a weighed read down)
+CBB_DOG_FADES = ("rubber_dog", "top_out", "ranked_road")                   # the 11/3 dog fades (+ the early road dog, the skid)
+
+
+def _own_of(c):
+    """The side's own read as a win chance (None without one)."""
+    if c.get("edge_own") is None or not c.get("dec"):
+        return None
+    return (c["edge_own"] + 1) / c["dec"]
+
+
+def cbb_test_fired(c):
+    """The built college hoops edges that moved THIS side's read up (the card's named reasons; never a gate)."""
+    out, odds = [], c.get("odds", 0)
+    reb = c.get("reb_gap")
+    if odds >= 100:
+        if c.get("vs_ranked_road"):
+            out.append("home dog vs a top-25 road team in Nov-Dec")
+        if reb is not None and reb >= NCAAB_REB_GAP:
+            out.append("the glass")
+        if (c.get("dog_ctx") or {}).get("opp_won") is False:
+            out.append("the favorite lost its last")
+    else:
+        if c.get("opp_top_out"):
+            out.append("their top scorer missed the last game")
+        if reb is not None and reb >= NCAAB_REB_GAP:
+            out.append("the glass")
+        if (c.get("opp_dog_pts") or 0) < 0:
+            out.append("the dog's angles run against it")
+    return out
+
+
+def cbb_dog_fade(c):
+    """A college hoops dog carrying one of the 11/3 dog fades (the side's own weighed read says no): the name, or None."""
+    if ncaab_early_road_dog(c):
+        return "a true road dog in its first 3 games"
+    if (c.get("ncaab_skid") or 0) >= NCAAB_SKID:
+        return f"a {c['ncaab_skid']}-game skid"
+    for k, name in zip(CBB_DOG_FADES, ("a rubber-match dog", "its top scorer missed the last game", "a top-25 team as a road dog")):
+        if c.get(k):
+            return name
+    return None
+
+
+def cbb_fav_fade(c):
+    """A college hoops favorite carrying one of the 11/3 favorite fades: the name, or None."""
+    for k, name in zip(CBB_FAV_FADES, ("a small favorite away from home in Nov-Dec", "the efficiency read is against it",
+                                       "its top scorer missed the last game")):
+        if c.get(k):
+            return name
+    return None
+
+
+def _cbb_side_ok(c):
+    """What both slots need: college hoops, the moneyline, not waiting on news, never a trap, never one the own read
+    is fighting, a named reason (a built college hoops edge firing counts as one)."""
+    if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("trap") or c.get("waiting"):
+        return False
+    if c.get("p_market") is None or not c.get("dec"):
+        return False
+    try:
+        if fighting(c):
+            return False
+    except (KeyError, TypeError):
+        return False
+    return bool(c.get("reasons")) or bool(cbb_test_fired(c))
+
+
+def cbb_test_fav(c):
+    """(1) THE FAVORITE SLOT's read -> (read, edge per dollar), or None when the side isn't it (see the block above)."""
+    if not _cbb_side_ok(c) or not CBB_TEST_FAV_BAND[0] <= c.get("odds", 0) <= CBB_TEST_FAV_BAND[1]:
+        return None
+    if ncaab_early_lock(c) == "none" or cbb_fav_fade(c):
+        return None
+    own = _own_of(c)
+    if own is None or c["edge_own"] <= 0:                    # the own read over the price (the Lock rule, own_beats)
+        return None
+    wp = c["w_p"] if c.get("w_p") is not None else own
+    pts = wp - 1 / c["dec"]
+    if wp < CBB_TEST_FAV_MIN_P or not CBB_TEST_FAV_PTS[0] <= pts <= CBB_TEST_FAV_PTS[1]:
+        return None
+    return round(wp, 4), round(wp * c["dec"] - 1, 4)
+
+
+def cbb_test_dog(c):
+    """(2) THE DOG SLOT's read -> (read, edge per dollar, dog score), or None when the side isn't it."""
+    if not _cbb_side_ok(c) or not CBB_TEST_DOG_BAND[0] <= c.get("odds", 0) <= CBB_TEST_DOG_BAND[1]:
+        return None
+    if cbb_dog_fade(c) or c.get("edge_own") is None or c["edge_own"] <= 0:
+        return None                                          # (the own read over the price - the 10/23 plan's dog rule)
+    try:
+        sc = round(dog_score(c), 2)
+    except Exception:                                        # noqa: BLE001 - no score = not the dog
+        return None
+    if sc < CBB_TEST_DOG_GATE:
+        return None
+    read = min(0.95, c["p_market"] + sc / 100)
+    edge = read * c["dec"] - 1
+    if edge <= 0:
+        return None
+    return round(read, 4), round(edge, 4), sc
+
+
+def cbb_test_plays(cands, avoid, slots=CBB_TEST_SLOTS):
+    """🏀 The college hoops test's picks: at most one a slot - the favorite slot's best edge, the dog slot's highest
+    score - one per game, never a game in `avoid`, the favorite first (post_board caps the day a slot and checks each
+    slot's quit rule). The chosen leg carries its read (cbb_read / cbb_edge / cbb_score / cbb_slot / cbb_fired)."""
+    out, seen = [], set(avoid)
+    if "fav" in slots:
+        pool = []
+        for c in cands:
+            x = cbb_test_fav(c)
+            if x is not None and c["game_id"] not in seen:
+                pool.append((x[1], x[0], c))
+        if pool:
+            edge, read, c = max(pool, key=lambda t: t[0])
+            c.update(cbb_read=read, cbb_edge=edge, cbb_score=None, cbb_slot="fav", cbb_fired=cbb_test_fired(c))
+            seen.add(c["game_id"])
+            out.append(c)
+    if "dog" in slots:
+        pool = []
+        for c in cands:
+            x = cbb_test_dog(c)
+            if x is not None and c["game_id"] not in seen:
+                pool.append((x[2], x[1], x[0], c))
+        if pool:
+            sc, edge, read, c = max(pool, key=lambda t: (t[0], t[1]))
+            c.update(cbb_read=read, cbb_edge=edge, cbb_score=sc, cbb_slot="dog", cbb_fired=cbb_test_fired(c))
+            seen.add(c["game_id"])
+            out.append(c)
+    return out
+
+
+def cbb_test_record(picks, slot=None):
+    """A slot's (or the whole test's) own record -> {"won", "lost", "units" (net), "risked"} over its graded plays."""
+    w = l_ = 0
+    net = risked = 0.0
+    for p in picks:
+        t = p.get("cbb_test")
+        if not t or p.get("status") not in ("won", "lost") or not p.get("legs"):
+            continue
+        if slot and t.get("slot") != slot:
+            continue
+        u = units_for(p) or 0
+        if not u:
+            continue
+        risked += u
+        if p["status"] == "won":
+            w += 1
+            net += u * (_dec(p["legs"][0]["odds"]) - 1)
+        else:
+            l_ += 1
+            net -= u
+    return {"won": w, "lost": l_, "units": round(net, 2), "risked": round(risked, 2)}
+
+
+def cbb_test_quit(picks, slot):
+    """A slot's judge: CBB_TEST_QUIT[0]+ graded and the ROI on the units risked under CBB_TEST_QUIT[1] = no more posts."""
+    r = cbb_test_record(picks, slot)
+    n = r["won"] + r["lost"]
+    return n >= CBB_TEST_QUIT[0] and r["risked"] > 0 and r["units"] / r["risked"] < CBB_TEST_QUIT[1]
+
+
+def cbb_test_slots_open(picks, iso):
+    """The slots the test may still post today: the switch on, the slot's judge not tripped, nothing of it up today."""
+    if not CBB_TEST_ON or iso < CBB_TEST_FROM:
+        return ()
+    up = {(p.get("cbb_test") or {}).get("slot") for p in picks if p["date"] == iso and p["status"] != "waiting" and p.get("cbb_test")}
+    return tuple(s for s in CBB_TEST_SLOTS if s not in up and not cbb_test_quit(picks, s))
 
 
 LEAN_WINNER_OWN = 0.55
@@ -4977,8 +5473,10 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
         elif pk.get("lean") and pricey_college_fav(l):
             why = (f"a {'hockey' if l.get('league') == 'nhl' else 'college'} favorite lean at -150..-130")   # (the owner,
             #                                                  10/10 - LEAN_NCAAF_FAV_BAND; the 10/28 hockey audit - LEAN_NHL_FAV_BAND)
+        elif pk.get("cbb_test") and not ((l.get("cbb_read") or 0) * (l.get("dec") or 0) > 1):
+            why = "a college hoops test play whose whole read doesn't beat the price"   # (🏀 11/3: its read is cbb_read)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
-                and pk.get("kind") != "solo" and not l.get("near_price") \
+                and pk.get("kind") != "solo" and not l.get("near_price") and not pk.get("cbb_test") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
             #                                                  the always-a-Lock backup always carry units - the owner; 10/27:
             #                                                  a floor play is a thin edge by design and the NBA favorite play
@@ -5017,7 +5515,8 @@ def sizing_check(new):
         elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif k == "play":
-            want = (GAP_UNITS, GAP_UNITS) if pk.get("gap") else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
+            want = (CBB_TEST_UNITS, CBB_TEST_UNITS) if pk.get("cbb_test") else (GAP_UNITS, GAP_UNITS) if pk.get("gap") \
+                else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
             want = (dog_units(pk),) * 2                      # (10/30 sizing: the Dog by its price, thin or not)
@@ -5380,10 +5879,16 @@ def post_board(games, model, picks, now, day, force=False):
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
+                            ("cbbtest", cbb_test_plays, CBB_TEST_MAX_DAY),   # 🏀 11/3: the college hoops test (½u, own record)
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM:
             continue
+        if kind == "cbbtest":                                 # 🏀 one a SLOT a day (the favorite / the dog), each slot
+            slots_ = cbb_test_slots_open(picks, iso)          # off on its own judge; the switch off = none
+            if not slots_:
+                continue
+            pool = (lambda cands_, used_, s_=slots_: cbb_test_plays(cands_, used_, s_))
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"
         #                                                        with its tag - counted by the tag, or the cap never bit)
@@ -5421,7 +5926,7 @@ def post_board(games, model, picks, now, day, force=False):
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             c["tier"] = "lean" if kind == "lean" else play_tier(c)   # (10/29 sweep: the card is written with its label -
             dress(b)                                                 #  a VALUE PLAY never reads "Lock it in")
-            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "cbbtest") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
@@ -5442,6 +5947,10 @@ def post_board(games, model, picks, now, day, force=False):
                 pk["floor"], leg["tier"], pk["tier"] = {"dog_score": leg.get("floor_score"), "nba": kind == "nbafloor"}, "value", "value"
                 if kind == "floor" and leg.get("floor_fallback"):
                     pk["floor"]["fallback"] = leg["floor_fallback"]   # (10/29 night: the one-a-day fallback, tracked)
+            if kind == "cbbtest":                            # 🏀 the college hoops test (11/3): ½u, its own record a slot
+                pk["cbb_test"] = {"slot": leg.get("cbb_slot"), "read": leg.get("cbb_read"), "edge": leg.get("cbb_edge"),
+                                  "score": leg.get("cbb_score"), "fired": list(leg.get("cbb_fired") or [])}
+                leg["tier"], pk["tier"] = "value", "value"
             picks.append(pk)
             new.append(pk)
             room -= 1

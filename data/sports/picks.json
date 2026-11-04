@@ -30499,6 +30499,11 @@
      "game:nonconf"
     ],
     "dec": 2.05,
+    "decider": {
+     "s": "7-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -30544,6 +30549,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0",
+     "h": "2,4,1"
+    },
     "form_state": [
      -2.0,
      -2,
@@ -30594,10 +30603,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Avalanche 2 @ Blue Jackets 7",
     "season_games": null,
+    "settled": "2026-11-04T02:36Z",
     "side": "home",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -30614,12 +30625,14 @@
    }
   ],
   "p_hit": 0.4957,
-  "pnl": 0.0,
+  "pnl": 105.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": -125,
@@ -30663,6 +30676,7 @@
      "game:nonconf"
     ],
     "dec": 1.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30687,6 +30701,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "0,1,2"
+    },
     "form_state": [
      -3.0,
      -4,
@@ -30732,10 +30750,12 @@
     "raw_own": 0.4982,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Blues 1 @ Rangers 3",
     "season_games": null,
+    "settled": "2026-11-04T02:52Z",
     "side": "home",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -30753,12 +30773,14 @@
    }
   ],
   "p_hit": 0.5298,
-  "pnl": 0.0,
+  "pnl": 80.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T02:52Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
@@ -30811,6 +30833,7 @@
      "them:week3000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30854,6 +30877,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,2",
+     "h": "0,0,2"
+    },
     "form_state": [
      -1.0,
      -2,
@@ -30907,10 +30934,12 @@
      "better rested"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Golden Knights 3 @ Penguins 2",
     "season_games": null,
+    "settled": "2026-11-04T02:42Z",
     "side": "home",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -30927,12 +30956,14 @@
    }
   ],
   "p_hit": 0.5353,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T02:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
@@ -30967,6 +30998,12 @@
      "game:nonconf"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "h": "34-31",
+     "s": "90-59",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30996,6 +31033,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "31,28",
+     "h": "34,56"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -31034,10 +31075,12 @@
     "raw_own": 0.0272,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
+    "score": "Wofford 59 @ Tennessee 90",
     "season_games": null,
+    "settled": "2026-11-04T01:42Z",
     "side": "away",
     "start": "2026-11-03T23:00Z",
     "stype": "2",
@@ -31053,12 +31096,14 @@
    }
   ],
   "p_hit": 0.5241,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T01:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 160,
@@ -31102,6 +31147,15 @@
      "us:week3000"
     ],
     "dec": 2.6,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Dylan Samberg",
+     "s": "5-4",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -31134,6 +31188,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": -1.56,
+    "flow": {
+     "a": "0,0,4,1",
+     "h": "2,1,1,0"
+    },
     "form_state": [
      -7.0,
      -9,
@@ -31183,10 +31241,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jets 5 @ Canadiens 4",
     "season_games": null,
+    "settled": "2026-11-04T03:42Z",
     "side": "away",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -31203,12 +31263,14 @@
    }
   ],
   "p_hit": 0.3735,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T03:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -142,
@@ -31266,6 +31328,7 @@
      "us:road3in6"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -31290,6 +31353,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,1",
+     "h": "0,1,1"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -31341,10 +31408,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Mammoth 3 @ Maple Leafs 2",
     "season_games": null,
+    "settled": "2026-11-04T02:42Z",
     "side": "away",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -31363,11 +31432,13 @@
   ],
   "midday": true,
   "p_hit": 0.5762,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-03T18:52Z",
   "round": 1,
+  "settled": "2026-11-04T02:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

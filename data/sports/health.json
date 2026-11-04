@@ -1,27 +1,168 @@
 {
- "at": "2026-11-03T23:40Z",
- "fixes": [],
+ "at": "2026-11-04T07:15Z",
+ "fixes": [
+  "live watch 41788433089 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (50s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
-  "simulator ran 4h ago",
-  "engine ran 11 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 33 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T07:15Z",
+   "fixes": [
+    "live watch 41788433089 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T07:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T07:12Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T05:40Z",
+   "fixes": [
+    "live board 7 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-04T05:38Z",
+   "fixes": [
+    "live watch 41775903685 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T05:36Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T05:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T05:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T04:53Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:22Z",
+   "fixes": [
+    "live watch 41766096401 froze (11 min) - cancelled",
+    "live board 11 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:16Z",
+   "fixes": [
+    "live watch 41761282119 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:13Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T03:02Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T01:28Z",
+   "fixes": [
+    "live watch 41748961602 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T01:27Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T01:25Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T01:24Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-04T01:17Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T23:44Z",
+   "fixes": [
+    "live watch 41735322364 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T23:43Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-03T23:41Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-03T23:40Z",
    "fixes": [],
@@ -405,154 +546,6 @@
   },
   {
    "at": "2026-11-03T00:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T22:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T22:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T22:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T22:34Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T21:02Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T20:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T20:42Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lizarazo vs Samson: no points for 597s",
-    "live tennis scores: tennis Sierra vs Janicijevic: no points for 597s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-02T20:32Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-02T20:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lizarazo vs Samson: no points for 224s",
-    "live tennis scores: tennis Sierra vs Janicijevic: no points for 224s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-02T18:52Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bronzetti vs Jeanjean: no points for 81s",
-    "live tennis scores: tennis Garcia vs Alves: no points for 81s"
-   ]
-  },
-  {
-   "at": "2026-11-02T18:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T18:49Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bronzetti vs Jeanjean: no points for 2623s",
-    "live tennis scores: tennis Garcia vs Alves: no points for 2608s"
-   ]
-  },
-  {
-   "at": "2026-11-02T18:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T16:33Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T16:32Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-02T15:47Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-02T14:15Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T14:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Baez vs Merida: no points for 2214s"
-   ]
-  },
-  {
-   "at": "2026-11-02T12:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T11:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T11:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Rachapudi vs Bohner: no points for 1238s",
-    "live tennis scores: tennis Vaissaud vs Shinikova: no points for 208s"
-   ]
-  },
-  {
-   "at": "2026-11-02T10:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T08:55Z",
    "fixes": [],
    "problems": []
   }

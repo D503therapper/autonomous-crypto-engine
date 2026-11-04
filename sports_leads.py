@@ -107,6 +107,23 @@ def tags(c, sports):
     if not dog and lg == "ncaab" and -200 <= c.get("odds", 0) <= -101 and c.get("reb_gap") is not None \
             and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
         t.append("college hoops fav -101..-200 out-rebounded by 6+ a game (fade)")   # -17.9% on 368 at 8+ (0 of 5 up)
+    # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (A) (results/studies/cbb_knowledge_a/; the weights live in sports.py):
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("long_out"):
+        t.append("college hoops dog, a regular out 4+ games (fade)")   # BUILT as a -2 dog_spots weight
+        #   (sports.mark_ncaab_long_out): -15.0% on 847 vs -8.2% (0 of 2 train / 0 of 3 held out up, the open -21.8%)
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("race_dog"):
+        t.append("college hoops dog 5+ games back vs a contender, Feb-Mar (fade)")   # BUILT as a -3 dog_spots weight
+        #   (sports.mark_ncaab_race): -31.2% on 664, 8 of 8 seasons down, the open -29.3% - its live record
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("ncaab_new_coach") and _month(c) in sports.NCAAB_NEW_COACH_MONTHS:
+        t.append("college hoops dog, first-year coach, Jan-Mar (fade)")   # a LEAD (the favorite is the weight):
+        #   -10.6% on 2,208 vs -6.6% (0 of 5 train up, 1 of 3 held, the open -10.8%) - the new coach's team fades late
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("def_first") and c.get("opp_off_low"):
+        t.append("college hoops defense-first dog vs a bottom-third offense")   # a LEAD (the s7 dog view): +14.0% on 313
+        #   (train 1 of 2 up, held out 3 of 3, the open +13.3%) vs -7.3% for every dog - z 1.9, tracked only; judge at 50
+    if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and c.get("off_first") and _month(c) in ("01", "02", "03"):
+        t.append("college hoops offense-first dog, Jan-Mar (fade)")   # a LEAD (sports_ncaab_box.identity - a top-third
+        #   offense without a best-third defense): -15.1% on 1,283 vs -8.9% (0 of 2 / 0 of 3, the open -17.6%) - but the
+        #   dose is odd (the worst defenses -9.0%) and Nov-Dec flips (+4.7%): tracked only, never a weight
     if dog and lg == "ncaab" and c.get("odds", 0) <= 350 and ncaab_newlook_dog(c):
         t.append("college hoops new-look dog (transfer-heavy), games 6-10")   # 11/3 DEEP study 5 (a LEAD, tracked
         #   only): a dog whose roster leans on strong D1 transfers (sports_ncaab_roster.tin_m 0.03+, the top third) in
@@ -322,6 +339,13 @@ def tags(c, sports):
             t.append("college hoops slight fav the efficiency read is 3+ under (fade)")   # weight, sports.weigh_ncaab_eff_fav):
             #   its live record - -9.6% on 2,338 at the close 2018-25 (0 of 5 train, 0 of 3 held out up); judge at 50: the
             #   faded favorites running at or above -4.5% (every slight favorite's base) = the weight comes off
+        if c.get("ncaab_new_coach_fav"):                     # 11/3 KNOWLEDGE (A) study 1 (BUILT as a -3 weight,
+            t.append("college hoops small fav, first-year coach, Jan-Mar (fade)")   # sports.weigh_ncaab_new_coach_fav):
+            #   -11.4% on 762 at the close 2018-25 (7 of 8 seasons down, the open -9.1%) vs -3.5%; judge at 50: the faded
+            #   favorites at or above -3.5% = the weight comes off
+        if c.get("ncaab_to_fav"):                            # 11/3 KNOWLEDGE (A) study 4 (BUILT as a -2 weight,
+            t.append("college hoops small fav, turnover-prone (fade)")   # sports.weigh_ncaab_to_fav): -9.7% on 1,314
+            #   2021-25 (0 of 2 train / 0 of 3 held out up, the open -7.2%) vs -4.2%; judge at 50 the same way
         if lg == "ncaab" and -150 <= c.get("odds", 0) <= -101 and hoops_rust(c):
             t.append("college hoops small fav off 7+ days vs a team in rhythm (fade)")   # 10/31 daily study 10: -17.9%
             #   on 167 train (2018-21, 1 of 4 up) / -12.3% on 243 held out (2022-25, 3 of 4 down) outside December vs
@@ -606,6 +630,15 @@ def halftime_comeback(c, down=10):
     return len(a) == 2 and len(b) == 2 and won and sum(a) - sum(b) <= -down
 
 
+def _month(c):
+    """The game's month in the US evening clock ('01'..'12'), '' when the start is missing."""
+    try:
+        from datetime import datetime, timedelta
+        return (datetime.fromisoformat(str(c.get("start") or "").replace("Z", "+00:00")) - timedelta(hours=5)).strftime("%m")
+    except ValueError:
+        return ""
+
+
 def _night(start):
     """A US 'night' index for a start time (UTC - 5h, whole days) - the study's day count."""
     from datetime import datetime
@@ -799,6 +832,16 @@ def spread_tags(c, sports):
     t = []
     if sports.nba_early_spread_fav(c):
         t.append("NBA spread fav 3.5-12.5, games 1-20 (fade)")
+    # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (A): the Feb-Mar roster weights' cover records (sports.ncaab_roster_spread_w)
+    # and the first-year coach's late-season spread side (a LEAD: ATS -8.4% on 3,509 from game 21, 1 of 5 / 0 of 3 up)
+    if c.get("league") == "ncaab" and _month(c) in sports.NCAAB_ROSTER_MONTHS:
+        w = sports.ncaab_roster_spread_w(c)
+        if w < 0:
+            t.append("college hoops transfer-heavy spread side, Feb-Mar (fade)")
+        elif w > 0:
+            t.append("college hoops freshman-heavy side vs an experienced team, Feb-Mar")
+    if c.get("league") == "ncaab" and c.get("ncaab_new_coach") and (c.get("games_in") or 0) >= 21:
+        t.append("college hoops spread side, first-year coach, games 21+ (fade)")
     if c.get("league") == "ncaab" and c.get("top_out"):
         t.append("college hoops spread side, top scorer missed its last game (fade)")   # 11/3 DEEP (BUILT as a -0.03
         #   rank weight, sports.ncaab_top_out_spread_w): ATS -10.8% on 1,521 vs -4.4% (0 of 4 seasons at the base)
