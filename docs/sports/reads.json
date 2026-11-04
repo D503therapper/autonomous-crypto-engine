@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T20:56Z",
+ "updated": "2026-11-04T21:05Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -39,8 +39,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UMass",
-    "p": 0.535,
-    "tie": 0.033,
+    "p": 0.489,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -48,16 +48,16 @@
    "start": "2026-11-05T00:00Z",
    "away": "Ball State",
    "home": "UMass",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "UMass",
     "opp": "Ball State",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -135,
+    "p": 0.507,
+    "win_p": 0.507,
     "reasons": [
      "the stronger team",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
@@ -309,8 +309,8 @@
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "E Michigan",
-    "p": 0.483,
+    "team": "C Michigan",
+    "p": 0.49,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -324,12 +324,15 @@
    "lean": {
     "team": "C Michigan",
     "opp": "E Michigan",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -120,
-    "p": 0.502,
-    "win_p": 0.498,
-    "reasons": []
+    "market": "ml",
+    "line": null,
+    "odds": -112,
+    "p": 0.504,
+    "win_p": 0.504,
+    "reasons": [
+     "sharp money moving this way",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+    ]
    }
   },
   {
@@ -398,7 +401,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.37,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -415,8 +418,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.679,
-    "win_p": 0.461,
+    "p": 0.689,
+    "win_p": 0.471,
     "reasons": []
    }
   },
