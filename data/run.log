@@ -12137,3 +12137,52 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-04 19:05 UTC] stocks/trend     equity $465.09 (-7.0%) 3 open  market UP
 [2026-11-04 19:05 UTC] stocks/hold_spy  equity $499.47 (-0.1%) 1 open  market UP
    social heat top: TRUMP 39 (29/0/10), BTC 36 (21/0/14), ETH 35 (35/0/0), NEAR 32 (32/0/0), CLANKER 28 (16/0/12)
+   dex screen: UNREACHABLE GTA6@ethereum liq $208,976 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT UDTF@solana liq $894,654 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT ZEC@solana liq $4,155,337 - mint authority
+   dex screen: REJECT BOOTR@base liq $101,519 - goplus partial data: cannot_sell_all unknown; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT WASTED@ethereum liq $337,955 - goplus partial data: cannot_sell_all unknown; top-10 holders 106%
+   dex screen: REJECT PLTRC@base liq $372,794 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: REJECT RLUSD@ethereum liq $11,008,933 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 70%
+   dex screen: UNREACHABLE GTA6@ethereum liq $202,646 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT MIDTERM@solana liq $9,328,494 - top-10 holders 100%
+   dex screen: UNREACHABLE DENIM@base liq $312,584 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CLANKER@base liq $2,408,916 - top-10 holders 51%
+   dex screen: UNREACHABLE GTA6@ethereum liq $195,827 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS STONK@solana liq $2,410,205
+   dex screen: UNREACHABLE GTA6@ethereum liq $194,777 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $323,123 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT FLOAT@solana liq $356,764 - lp locked 0% < 95%
+   dex screen: REJECT FUN@ethereum liq $105,338 - owner_change_balance; top-10 holders 79%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $107,342 - honeypot.is unreachable
+   dex screen: REJECT OPENAI@solana liq $156,380 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 71%; lp holders unknown
+   dex screen: REJECT HELL@solana liq $152,915 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: UNREACHABLE FOCO@ethereum liq $441,918 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,000 pools (solana 2,139 / base 445 / ethereum 416), refresh cycle 129s (hot 123s), 2900 calls (110 feed, 429s 0, failed 0), 83,699 refreshed (12040 no pair), +87 added / -72 dropped (dead 40, stale 1, cap 31), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-04 20:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/mover     equity $243.90 (-51.2%) 2 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/social_heat equity $366.30 (-26.7%) 2 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/breakout10 equity $404.18 (-19.2%) 1 open  market UP
+[2026-11-04 20:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-04 20:05 UTC] crypto/hold_btc  equity $477.83 (-4.4%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-04 20:05 UTC] stocks/rsi2      equity $498.49 (-0.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): PLTR 1 BUY, AAPL 6 BUY, GOOGL 16, XLE 16 BUY
+[2026-11-04 20:05 UTC] stocks/breakout52 equity $487.41 (-2.5%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: AMC (+127% 6-mo), ROKU (+30% 6-mo)
+[2026-11-04 20:05 UTC] stocks/dual_momentum equity $469.32 (-6.1%) 2 open  market UP
+[2026-11-04 20:05 UTC] stocks/trend_ensemble equity $508.81 (+1.8%) 5 open  market UP
+[2026-11-04 20:05 UTC] stocks/rotation10 equity $499.15 (-0.2%) 2 open  market UP
+[2026-11-04 20:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market UP
+[2026-11-04 20:05 UTC] stocks/trend     equity $464.33 (-7.1%) 3 open  market UP
+[2026-11-04 20:05 UTC] stocks/hold_spy  equity $499.04 (-0.2%) 1 open  market UP
+   social heat top: BTC 33 (27/0/6), ETH 32 (32/0/0), NEAR 29 (29/0/0), SOL 24 (24/0/0), TRUMP 23 (19/0/4)
