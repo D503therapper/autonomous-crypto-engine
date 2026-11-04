@@ -1,28 +1,33 @@
 {
- "at": "2026-11-04T05:40Z",
- "fixes": [
-  "live board 7 min stale with games on - sports-live.yml already running"
- ],
- "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
- ],
+ "at": "2026-11-04T07:12Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
+  "live watcher fresh (126s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 42 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 43 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 30 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T07:12Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-04T05:40Z",
    "fixes": [
@@ -536,11 +541,6 @@
   },
   {
    "at": "2026-11-02T22:41Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-02T22:38Z",
    "fixes": [],
    "problems": []
   }
