@@ -1,32 +1,6 @@
 {
- "updated": "2026-11-04T10:56Z",
+ "updated": "2026-11-04T12:00Z",
  "games": [
-  {
-   "id": "tennis:atp:186479",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-04T11:30Z",
-   "away": "Learner Tien",
-   "home": "Luca Van Assche",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Learner Tien",
-    "opp": "Luca Van Assche",
-    "market": "ml",
-    "line": null,
-    "odds": -195,
-    "p": 0.637,
-    "win_p": 0.637,
-    "reasons": [
-     "on hard court",
-     "Rolex Paris Masters"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:186478",
    "league": "tennis",
@@ -411,6 +385,32 @@
     "odds": -180,
     "p": 0.616,
     "win_p": 0.616,
+    "reasons": [
+     "on hard court",
+     "Prudential Hong Kong Tennis Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:186641",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-11-05T12:00Z",
+   "away": "Mary Stoiana",
+   "home": "Sorana Cirstea",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Mary Stoiana",
+    "opp": "Sorana Cirstea",
+    "market": "spread",
+    "line": 5.0,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.245,
     "reasons": [
      "on hard court",
      "Prudential Hong Kong Tennis Open"
