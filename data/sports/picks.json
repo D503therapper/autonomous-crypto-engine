@@ -30676,6 +30676,7 @@
      "game:nonconf"
     ],
     "dec": 1.8,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -30700,6 +30701,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "0,1,2"
+    },
     "form_state": [
      -3.0,
      -4,
@@ -30745,10 +30750,12 @@
     "raw_own": 0.4982,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Blues 1 @ Rangers 3",
     "season_games": null,
+    "settled": "2026-11-04T02:52Z",
     "side": "home",
     "start": "2026-11-04T00:00Z",
     "stype": "2",
@@ -30766,12 +30773,14 @@
    }
   ],
   "p_hit": 0.5298,
-  "pnl": 0.0,
+  "pnl": 80.0,
   "posted": "2026-11-03T16:00Z",
   "round": 1,
+  "settled": "2026-11-04T02:52Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
