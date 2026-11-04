@@ -1,171 +1,58 @@
 {
- "updated": "2026-11-04T23:35Z",
+ "updated": "2026-11-04T23:58Z",
  "games": [
   {
-   "id": "nba:401909922",
-   "league": "nba",
+   "id": "ncaab:401920232",
+   "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pistons",
-    "p": 0.517,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
+   "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-05T00:00Z",
-   "away": "76ers",
-   "home": "Pistons",
-   "why": "tight",
+   "start": "2026-11-04T23:30Z",
+   "away": "Framingham St",
+   "home": "Dartmouth",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pistons",
-    "opp": "76ers",
-    "market": "ml",
-    "line": null,
-    "odds": -136,
-    "p": 0.553,
-    "win_p": 0.553,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent drama: trade drama"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401866455",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "UMass",
-    "p": 0.535,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-05T00:00Z",
-   "away": "Ball State",
-   "home": "UMass",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "UMass",
-    "opp": "Ball State",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
-    "reasons": [
-     "the stronger team",
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401902276",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Butler",
-    "p": 0.932,
-    "tie": 0.013,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-05T00:00Z",
    "away": "FDU",
    "home": "Butler",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "FDU",
     "opp": "Butler",
     "market": "spread",
-    "line": 29.5,
-    "odds": -115,
-    "p": 0.536,
-    "win_p": 0.024,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909923",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Hawks",
-    "p": 0.509,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-05T00:00Z",
-   "away": "Hawks",
-   "home": "Wizards",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Hawks",
-    "opp": "Wizards",
-    "market": "ml",
-    "line": null,
-    "odds": -124,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920191",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Saint Joseph's",
-    "p": 0.751,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-05T00:00Z",
-   "away": "Longwood",
-   "home": "Saint Joseph's",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Longwood",
-    "opp": "Saint Joseph's",
-    "market": "spread",
-    "line": 10.5,
-    "odds": 100,
-    "p": 0.515,
-    "win_p": 0.168,
-    "reasons": []
+    "line": 28.5,
+    "odds": -110,
+    "p": 0.534,
+    "win_p": 0.534,
+    "reasons": [],
+    "result": null
    }
   },
   {
    "id": "ncaab:401920410",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "High Point",
-    "p": 0.943,
-    "tie": 0.011,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-05T00:00Z",
    "away": "MD Eastern",
    "home": "High Point",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "MD Eastern",
@@ -174,39 +61,9 @@
     "line": 34.5,
     "odds": -112,
     "p": 0.534,
-    "win_p": 0.018,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401866457",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Toledo",
-    "p": 0.867,
-    "tie": 0.017,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-05T00:00Z",
-   "away": "Toledo",
-   "home": "Sacramento St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Sacramento St",
-    "opp": "Toledo",
-    "market": "spread",
-    "line": 24.5,
-    "odds": -105,
-    "p": 0.505,
-    "win_p": 0.079,
-    "reasons": [
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
+    "win_p": 0.534,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -246,7 +103,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.704,
+    "p": 0.71,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -262,9 +119,9 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -12.5,
-    "odds": -104,
+    "odds": -103,
     "p": 0.505,
-    "win_p": 0.81,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team"
     ]
@@ -306,7 +163,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "C Michigan",
-    "p": 0.536,
+    "p": 0.556,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -322,9 +179,9 @@
     "opp": "E Michigan",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "sharp money moving this way",
      "college favorite off a loss - those lose to their price (8 of 9 seasons)"
@@ -850,7 +707,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "LMU",
-    "p": 0.644,
+    "p": 0.636,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -859,16 +716,16 @@
    "start": "2026-11-05T03:00Z",
    "away": "Queens",
    "home": "LMU",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "LMU",
     "opp": "Queens",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.713,
-    "win_p": 0.713,
+    "odds": -270,
+    "p": 0.704,
+    "win_p": 0.704,
     "reasons": [
      "sharp money moving this way"
     ]
