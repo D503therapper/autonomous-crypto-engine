@@ -59,6 +59,8 @@ def main(day_iso=None):
     day = datetime.strptime(day_iso, "%Y-%m-%d").date() if day_iso else (now_real.astimezone(sports.PT) + timedelta(days=1)).date()
     at = datetime(day.year, day.month, day.day, hh, mm, tzinfo=sports.PT).astimezone(timezone.utc)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate.json")          # nothing real gets written
+    sports.PICK_CHECK_PATH = os.path.join(tempfile.mkdtemp(), "pick_check.json")   # (11/4 audit: the pre-post check's
+    sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "lean_sides.json")   #  report + the lean memory stay real)
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")  # (10/5 sweep: the dry run wrote the real
     #                                              Lock near-miss - the question box would name a pick from a preview)
     try:
@@ -101,6 +103,12 @@ def main(day_iso=None):
             out.append(f"      why: {leg['why_line']}")
     if not new:
         out.append("\n(no picks would post right now)")
+    if sports.LAST_PICK_CHECK:                             # 🔎 11/4 audit: the pre-post check, pick by pick - what the
+        out.append("\n🔎 PICK CHECK (every pick before it posts - a HELD pick never goes up):")   # 8 AM board would hold
+        for r in sports.LAST_PICK_CHECK:
+            out.append(f"  {'HELD' if r['held'] else 'ok  '} {r['kind']} {r['team']} {r['odds']}"
+                       + (f" - {r['why']}" if r['held'] else "")
+                       + "".join(f"\n        {n}: {v}" for n, v in r["checks"].items() if not str(v).startswith("pass")))
     for w in waiting:
         out.append(f"\nWAITING {w['kind']}: on {', '.join(w.get('waiting') or [])}")
     # 🐶 EVERY DOG on the slate (10/5, the owner: "there's no value in any dogs?") - the engine's read vs the price each

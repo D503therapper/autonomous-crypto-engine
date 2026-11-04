@@ -609,6 +609,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     """Every bettable side on the day's (Pacific) slate: moneylines, plus spreads in NFL/NCAAF/NBA."""
     now = now or datetime.now(timezone.utc)
     day = day or now.astimezone(PT).date()
+    _FAIR_SCHED.clear()                              # (11/4 audit: fair_open's schedule, built once a call)
     elo = sm.ratings(games, model)
     out = []
     for g in games.values():
@@ -705,6 +706,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "team_id": g[side], "elo_edge": round(f["elo_pts"] * (1 if side == "home" else -1), 1),
+                    "elo_raw": round(f.get("elo_raw", f["elo_pts"]) * (1 if side == "home" else -1), 1),   # (11/4 audit:
+                    #                                  the rule check re-reads "the stronger team" against it - no home edge)
                     "fbs_game": fbs_game,
                     "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
                     "home": side == "home", "neutral": str(g.get("neutral")) == "1",   # (11/3: ncaab_big_home_fav)
@@ -898,12 +901,19 @@ STALE_OPEN = ("nfl", "ncaaf")   # (10/1 bug hunt) a football "open" is the summe
 #                                 move 3+ points from it by kickoff - that's the season happening, not money running away
 
 
+_FAIR_SCHED = []   # [games, its schedule] - one build per candidates() call (11/4 audit: fair_open rebuilt the whole
+#                    230k-game schedule for EVERY football game - 50 calls x 0.9s = 50 of the 92 seconds of candidates()
+#                    on the 11/7 slate; candidates() clears it, so a new slate never reads an old one)
+
+
 def fair_open(games, g):
     """Football's real open: the first price our line history holds after both teams' last games (sports_early.ready /
     first_fair), as the home side's no-vig chance - or None."""
     try:
         import sports_early as se
-        ff = se.first_fair(g["id"], se.ready(se._schedule(games), g))
+        if not _FAIR_SCHED or _FAIR_SCHED[0] is not games or _FAIR_SCHED[2] != len(games):
+            _FAIR_SCHED[:] = [games, se._schedule(games), len(games)]
+        ff = se.first_fair(g["id"], se.ready(_FAIR_SCHED[1], g))
     except Exception:                                        # noqa: BLE001
         return None
     if not ff:
@@ -2690,7 +2700,9 @@ def units_ledger(picks, early=()):
             res = l.get("result") or (p.get("status") if len(p["legs"]) == 1 else None)
             if res not in ("won", "lost", "push"):
                 continue
-            key = (p["date"], l.get("game_id") or id(p), l.get("side") or n)
+            key = (p["date"], l.get("game_id") or id(p), l.get("side") or n) + (("twin",) if p.get("ncaab_play") and not parlay else ())
+            #   (11/4 audit: the 🏀 dog slot on the SAME dog as the 🔍 college hoops gap play - "both count, each with
+            #    its units" - shared the key and the ledger kept only the first; the slot play keeps its own row)
             if key in calls and (parlay or not calls[key][0]):
                 continue                                     # a straight pick wins over the same pick in a parlay
             dec = _dec(l["odds"]) if l.get("odds") else p.get("dec") or 2.0
@@ -2869,7 +2881,35 @@ def mark_best(picks, iso):
         return None
     best = min(pool, key=best_rank)
     best["best"] = True
+    best_closer(best)
     return best
+
+
+BEST_SAYS = ["⭐ The engine's best pick today - a full unit on it.", "⭐ Our best pick on the whole slate, so it gets a full unit.",
+             "⭐ Best play on the board today - full unit, let's eat.", "⭐ Out of everything today, this is the one - a full unit."]
+_HALF_SAID = ("half a unit", "half-unit", "half unit")
+
+
+def best_closer(pk):
+    """⭐ 11/4 AUDIT: the card is written before the star goes on, so a ½u floor / value play raised to 1u kept a bottom
+    line that said "Half a unit, no more" (the 11/5 dry run: the Ducks +154 ⭐ at 1u). The sentence that names the half
+    unit comes off and the ⭐ line takes its place - the rest of the bottom line (the facts) stays."""
+    import re
+    u = units_for(pk)
+    for leg in (pk.get("legs") or [])[:1]:
+        bd = leg.get("breakdown")
+        if not bd or u < 1:
+            continue
+        for i in range(len(bd) - 1, -1, -1):
+            line = str(bd[i])
+            if "Bottom line" not in line:
+                continue
+            parts = re.split(r"(?<=[.!])\s+", line)
+            keep = [s for s in parts if not any(h in s.lower() for h in _HALF_SAID)]
+            if len(keep) != len(parts):
+                say = BEST_SAYS[sum(map(ord, str(leg.get("team") or ""))) % len(BEST_SAYS)]
+                bd[i] = " ".join(keep + [say if u < 2 else say.replace("a full unit", f"{u:g} units").replace("full unit", f"{u:g} units")])
+            break
 
 
 def forced_best(cands, used):
@@ -6328,7 +6368,248 @@ def factor_check(games, cands, injuries, day, now, model=None):
     return probs
 
 
-def rule_check(picks, new, iso, games=None, day=None, now=None):
+PICK_CHECK_PATH = os.path.join(sd.DATA, "pick_check.json")
+PRICE_FRESH_H = 6          # 🔎 11/4 AUDIT: a book price older than this on a game we post = the books stopped listing it
+#                            (often for news) and the old number stayed in our file - never a pick off it
+LAST_PICK_CHECK = []       # the last rule_check's per-pick report (tools/board_preview prints it)
+_BLOWOUT_PTS = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "nhl": 3, "mlb": 5}
+
+
+def _qb_same(a, b):
+    """Two QB names the same man? (the checker's own lenient match - 'J. Knuth' = 'Jacob Knuth': the same last name and
+    the same first initial; it does NOT lean on sports_players._starter_of, the matcher that missed Kansas St 10/31)."""
+    def parts(x):
+        x = sp._nm(x).split()
+        return (x[0][:1], x[-1]) if x else ("", "")
+    fa, la = parts(a)
+    fb, lb = parts(b)
+    return bool(la) and la == lb and fa == fb
+
+
+def _last_final(games, lg, tid, before):
+    best = None
+    for x in games.values():
+        if x.get("league") == lg and x.get("status") == "final" and tid in (x.get("home"), x.get("away")) \
+                and str(x.get("start") or "") < before and (best is None or x["start"] > best["start"]):
+            best = x
+    return best
+
+
+def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
+    """🔎 THE PRE-POST CHECK (11/4 AUDIT - the owner: "the engine posts picks on a mistake and it's actually a bug ... it
+    wasn't looking at injuries or it wasn't looking at something right ... we lost money on a pick the engine should have
+    never posted" + "a checker that checks over every pick ... not posted on a bug"). rule_check's old checks only read
+    the RULES (price caps, one a game, units); none of them re-read the INPUTS a pick stands on, so South Dakota 11/4 (a
+    floor play whose only two named reasons were bugs - "the stronger team" off the home edge at a 43% read, "rolling off
+    a blowout win" over a non-D1 school) and Kansas St 10/31 (a 🔍 play with its starting QB questionable on Covers' page
+    as "J. Knuth" - the starter matcher missed him, so the pick never waited) both passed. This re-reads each input on
+    its own, independently of the code that built the pick: -> [(check, "pass" | "fail" | "warn", why)]. A "fail"
+    pulls the pick (rule_check); a "warn" is a card note, logged. Unknown is never 'fine': a team the injury data doesn't
+    cover, a price the books stopped listing, a college team we don't hold every game for -> fail."""
+    ctx = ctx if ctx is not None else {}
+    out = []
+    leg = (pk.get("legs") or [{}])[0]
+    lg, gid = leg.get("league"), leg.get("game_id")
+    unit = (bool(units_for(pk)) and not pk.get("lean")) if unit is None else unit
+    games = games or None                                    # (no slate handed in = only the leg's own checks)
+    g = games.get(gid) if games is not None else None
+    now = now or datetime.now(timezone.utc)
+
+    def add(name, ok, why=""):
+        out.append((name, "pass" if ok is True else ("warn" if ok == "warn" else "fail"), why))
+    if games is not None:                                    # 1. the game is real, not started, not over
+        if g is None:
+            add("game", False, "the game isn't in our files")
+            return out
+        st = _ts(g.get("start"))
+        add("game", g.get("status") == "pre" and st > now,
+            "" if g.get("status") == "pre" and st > now else f"the game is {g.get('status')} / started {g.get('start')}")
+    if pk.get("owner_post"):                                 # (the owner's own call - only the game check)
+        return out
+    dec, p = leg.get("dec"), leg.get("p")                    # 2. a read and a price at all
+    sane = dec is not None and dec > 1 and p is not None and 0 < p < 1 and leg.get("odds") is not None \
+        and not (games is not None and leg.get("market") == "ml" and leg.get("p_market") is None)
+    add("read", sane, "" if sane else "no price / no read / no market number on the leg - every key input missing is never a pick")
+    if g is not None:                                        # 3. the price is the books' current one
+        t = str(g.get("odds_time") or "")
+        if t:
+            try:
+                age = (now - datetime.strptime(t[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+            except ValueError:
+                age = None
+            add("price_fresh", age is not None and age <= PRICE_FRESH_H,
+                "" if age is not None and age <= PRICE_FRESH_H else
+                f"the book price is {'unreadable' if age is None else f'{age:.0f}h old'} - the books stopped listing it")
+        if leg.get("market") == "ml" and g.get(f"ml_{leg.get('side')}") not in ("", None):
+            try:
+                cur = int(float(g[f"ml_{leg['side']}"]))
+            except (TypeError, ValueError):
+                cur = None
+            if cur is not None and cur != leg.get("odds"):
+                add("price_same", "warn", f"the pick says {leg.get('odds')}, the books now {cur}")
+    if g is not None and injuries is not None and leg.get("market") != "total":   # 4. the injury data covers BOTH teams
+        inj = injuries.get(lg)
+        blind = [g.get(s_ + "_name") or g.get(s_) for s_ in ("home", "away")
+                 if inj is None or not sd.covered(inj, lg, g.get(s_), g.get(s_ + "_name", ""))]
+        add("injuries", not blind, "" if not blind else f"no injury data for {', '.join(map(str, blind))} - UNKNOWN, never healthy")
+        if unit and inj and lg in ("nfl", "ncaaf"):          # 5. the starting QB (the last game's starter) on OUR side
+            tid = g.get(leg.get("side"))
+            st_ = sp.recent_starters(lg, tid, n=1) or set()
+            for r in sd._team_rows(inj, tid, leg.get("team") or "") or []:
+                if str(r[1]).upper() != "QB" or not any(_qb_same(r[0], s_) for s_ in st_):
+                    continue
+                stt = str(r[2]).lower()
+                if any(x in stt for x in sd.UNSURE) and not leg.get("waiting"):
+                    add("qb", False, f"our starting QB {r[0]} is {r[2]} and the pick didn't wait on him")
+                elif any(x in stt for x in ("out", "doubtful", "injured reserve", "suspended")) and not leg.get("key_out_me"):
+                    add("qb", False, f"our starting QB {r[0]} is {r[2]} and the read never saw it")
+    if unit and leg.get("waiting"):                          # 6. a unit play never posts while it waits on news
+        add("waiting", False, "still waiting on: " + "; ".join(map(str, leg["waiting"]))[:120])
+    if unit and lg == "nhl" and (leg.get("g_role_me") or leg.get("g_role_opp")):   # 7. the goalie page is today's
+        try:
+            fresh = bool(sports_goalies.load(now))
+        except Exception:                                    # noqa: BLE001
+            fresh = False
+        add("goalies", fresh, "" if fresh else "the read used a goalie the starting-goalies page no longer backs (stale)")
+    if g is not None and lg in ("ncaaf", "ncaab"):           # 8. college: we hold every game of both teams
+        import sports_breakdown_v24 as v24
+        fin = ctx.get(("fin", lg))
+        if fin is None:
+            fin = ctx[("fin", lg)] = [x for x in sm.finals(games, lg) if v24._t(x["start"]) < now]
+        miss = [g.get(s_ + "_name") for s_ in ("home", "away") if not v24.seen_all(fin, g.get(s_), v24._t(g["start"]), lg)]
+        add("college_games", not miss, "" if not miss else f"we don't hold all of {', '.join(map(str, miss))}'s games")
+        if lg == "ncaab":                                    # 9. never a game against a non-D1 school
+            d1 = ctx.get("d1", 0)
+            if d1 == 0:
+                d1 = ctx["d1"] = sm.ncaab_d1(fin)
+            nd = [g.get(s_ + "_name") for s_ in ("home", "away") if d1 is not None and g.get(s_) not in d1]
+            add("d1", not nd, "" if not nd else f"{', '.join(map(str, nd))} is not a D1 school")
+    reasons = [str(r) for r in leg.get("reasons") or []]     # 10. every named reason is TRUE
+    false = []
+    if "the stronger team" in reasons:
+        rd = max(p or 0, read_of(leg) or 0)
+        if rd < 0.5 or (leg.get("elo_raw") is not None and leg["elo_raw"] <= STRONG_RAW):
+            false.append(f"'the stronger team' with the read at {rd:.0%}" + (f", rated {leg['elo_raw']:+g} raw"
+                                                                              if leg.get("elo_raw") is not None else ""))
+    if "rolling off a blowout win" in reasons and g is not None:
+        tid = g.get(leg.get("side"))
+        lf = _last_final(games, lg, tid, g["start"])
+        if lf is None:
+            false.append("'rolling off a blowout win' with no last game on file")
+        else:
+            me = "home" if lf["home"] == tid else "away"
+            try:
+                mg = float(lf[f"{me}_score"]) - float(lf[f"{'away' if me == 'home' else 'home'}_score"])
+            except (TypeError, ValueError):
+                mg = None
+            opp = lf["away" if me == "home" else "home"]
+            d1 = ctx.get("d1") if lg == "ncaab" else None
+            if mg is None or mg < _BLOWOUT_PTS.get(lg, 10):
+                false.append(f"'rolling off a blowout win' - the last game was {'unread' if mg is None else f'{mg:+g}'}")
+            elif lg == "ncaab" and d1 is not None and opp not in d1:
+                false.append(f"'rolling off a blowout win' - over {lf.get(('away' if me == 'home' else 'home') + '_name')}, a non-D1 school")
+    for rs in reasons:                                       # "opponent missing key players: QB X, RB X, WR Y" (11/4 -
+        if not rs.startswith("opponent missing key players:") or g is None:   # E Michigan +110: C Michigan's QB Angel
+            continue                                         # Flores had ALREADY MISSED their last game, and was listed
+        who = [w.strip() for w in rs.split(":", 1)[1].split("(")[0].split(",") if w.strip()]   # twice, QB and RB)
+        names = [w.split(" ", 1)[1] if lg in ("nfl", "ncaaf") and " " in w and w.split(" ", 1)[0].isupper() else w for w in who]
+        oside = "away" if leg.get("side") == "home" else "home"
+        why_ = []
+        if len({sp._nm(n) for n in names}) < len(names):
+            why_.append("one man counted twice")
+        if lg == "ncaaf":
+            import sports_absences as _sa
+            old_ = [n for n in names if _sa.missed_lately(games, lg, g.get(oside), n, g.get("start") or "9", n=1)]
+            if old_:
+                why_.append(f"{', '.join(old_)} already missed their last game (no fresh hole in college)")
+        if injuries is not None and injuries.get(lg) is not None:
+            import sports_absences as _sa
+            rows_ = sd._team_rows(injuries[lg], g.get(oside), g.get(oside + "_name") or "")
+            gone_ = {_sa._nm(r[0]) for r in rows_ if _sa._gone(r[2])}
+            off_ = [n for n in names if not _sa.match(n, gone_)]
+            if off_:
+                why_.append(f"{', '.join(off_)} not ruled out on today's report")
+        if why_:
+            false.append(f"'{rs}' - " + "; ".join(why_))
+    if false:
+        leg["reasons"] = [r for r in (leg.get("reasons") or []) if not any(f"'{str(r)}'" in x for x in false)]
+        left = [r for r in leg["reasons"]]
+        rides = pk.get("gap") is not None or pk.get("ncaab_play") or pk.get("nba_fav") or pk.get("forced")   # (these ride
+        #                                                  on their own read / gate, never on a named reason: the label
+        #                                                  just comes off)
+        named = pk.get("kind") == "dog" or (pk.get("kind") == "play" and (pk.get("floor") or pk.get("dog_play")))
+        held = unit and ((named and not pk.get("forced")) or (not left and not rides))   # (a floor play / Dog / runner-up
+        #                                                  dog is CHOSEN for its named reasons: one false = the choice
+        #                                                  was made on a bug - South Dakota 11/4)
+        add("reasons", not held, "; ".join(false) + ((" - the pick was chosen on it" if left else
+                                                      " - and nothing true is left to stand on") if held else " (taken off)"))
+    txt = " ".join([str(x) for x in leg.get("breakdown") or []] + [str(leg.get("why_line") or "")])   # 11. the card
+    if g is not None and str(g.get("neutral")) in ("1", "True", "true"):   # (11/4: E Michigan "2-2 at home" at Ford Field)
+        import re as _re
+        hit = [str(x) for x in leg.get("breakdown") or [] if _re.search(r"\bat home\b|own building|home cooking|in their building", str(x), _re.I)
+               and (leg.get("team") or "@@") in str(x)]
+        if hit:
+            add("neutral_site", False, f"a home-record line at a neutral site: {hit[0][:80]}")
+    try:
+        import sports_owner_lingo as _ol
+        bad = [w for w in _ol.NEVER if w in txt.lower()]
+        if bad:
+            add("card_words", "warn", f"words the owner never says: {', '.join(bad)}")
+    except Exception:                                        # noqa: BLE001
+        pass
+    try:
+        import sports_breakdown_v24 as _v
+        if leg.get("why_line") and _v.LINE_MOVE.search(str(leg["why_line"])):
+            add("one_liner", "warn", "the line under the pick talks line movement")
+    except Exception:                                        # noqa: BLE001
+        pass
+    return out
+
+
+def save_pick_check(iso, now, report, path=None):
+    """data/sports/pick_check.json - the day's pre-post check: every pick that reached the check, each check pass /
+    fail / warn, and why any was held (the owner's daily pre-board review reads it). Held picks also go into
+    slate_check.json's problems (the hourly bug check reads that)."""
+    path = path or PICK_CHECK_PATH
+    try:
+        cur = json.load(open(path)) if os.path.exists(path) else {}
+    except (OSError, ValueError):
+        cur = {}
+    if cur.get("day") != iso:
+        cur = {"day": iso, "picks": {}}
+    for r in report:
+        cur["picks"][r["key"]] = r
+    cur["updated"] = now.strftime("%Y-%m-%dT%H:%MZ")
+    cur["held"] = [f"{r['kind']} {r['team']} {r['odds']}: {r['why']}" for r in cur["picks"].values() if r["held"]]
+    try:
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        with open(path + ".tmp", "w") as f:
+            json.dump(cur, f, indent=1)
+        os.replace(path + ".tmp", path)
+    except OSError:
+        pass
+    held = [r for r in report if r["held"]]
+    if held:
+        try:
+            sc = json.load(open(SLATE_PATH)) if os.path.exists(SLATE_PATH) else {}
+        except (OSError, ValueError):
+            sc = {}
+        probs = list(sc.get("problems") or [])
+        for r in held:
+            x = f"pick check held {r['kind']} {r['team']} {r['odds']}: {r['why']}"
+            if x not in probs:
+                probs.append(x)
+        sc["problems"] = probs
+        try:
+            with open(SLATE_PATH + ".tmp", "w") as f:
+                json.dump(sc, f, indent=1)
+            os.replace(SLATE_PATH + ".tmp", SLATE_PATH)
+        except OSError:
+            pass
+    return cur
+
+
+def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, report=None):
     """🔎 THE DOUBLE CHECK, part 2: every pick about to go up obeys the owner's rules - never past -150, no puck / run
     lines, one pick per game, a Lock / Dog always carries units, the Dog never past its cap, units only when the read
     beats the real price. A pick that breaks one is pulled before it posts (and the log says why). Also flags a
@@ -6338,10 +6619,31 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
         if p["date"] == iso and p["status"] != "waiting" and p not in new and p.get("kind") not in PARLAY_KINDS:
             for l in p["legs"]:
                 seen[l["game_id"]] = p
+    ctx, rep = {}, []
+    LAST_PICK_CHECK[:] = []
     for pk in list(new):
         l = (pk.get("legs") or [{}])[0]
         why = None
-        if l.get("market") == "ml" and (l.get("odds") or 0) < MAX_FAV:
+        try:                                                 # 🔎 11/4 AUDIT: the INPUTS first (pick_checks) - a pick
+            chk = pick_checks(pk, games, injuries, now, ctx) if pk.get("kind") not in PARLAY_KINDS else []   # on missing /
+        except Exception as e:                               # noqa: BLE001 - stale / false data never posts
+            chk = [("checker", "fail", f"the check itself failed: {str(e)[:80]}")]
+        fails = [(n, w) for n, r, w in chk if r == "fail"]
+        if fails and pk.get("kind") == "night" and not pk.get("lean") and all(n == "waiting" for n, _ in fails):
+            pk["lean"] = True                                # (🏈 Monday / Thursday: the game still gets its pick - a
+            pk.pop("lean_units", None)                       #  lean, no units, while it waits on news)
+            l["tier"] = pk["tier"] = "lean"
+            chk = [(n, "warn" if r == "fail" else r, w + (" - posted as a lean" if r == "fail" else "")) for n, r, w in chk]
+            fails = []
+        if fails:
+            why = "pick check: " + "; ".join(f"{n} - {w}" for n, w in fails)
+        rep.append({"key": f"{pk.get('kind')}|{l.get('game_id')}|{l.get('side')}|{l.get('market')}", "kind": posted_kind(pk),
+                    "team": l.get("team"), "odds": l.get("odds"), "league": l.get("league"), "units": units_for(pk),
+                    "lean": bool(pk.get("lean")), "held": bool(fails), "why": why or "",
+                    "checks": {n: (r if not w else f"{r}: {w}") for n, r, w in chk}})
+        if why:
+            pass
+        elif l.get("market") == "ml" and (l.get("odds") or 0) < MAX_FAV:
             why = "past -150"
         elif l.get("league") in ("nhl", "mlb") and l.get("market") not in ("ml", "total"):
             why = "a puck line / run line"
@@ -6378,8 +6680,16 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             new.remove(pk)
             if pk in picks:
                 picks.remove(pk)
+            if rep and not rep[-1]["held"]:
+                rep[-1].update(held=True, why=why)
         else:
             seen[l.get("game_id")] = pk
+        for n, r, w in chk:
+            if r == "warn":
+                print(f"PICK CHECK note: {l.get('team')} {l.get('odds')}: {n} - {w}", flush=True)
+    LAST_PICK_CHECK[:] = rep
+    if report is not None:
+        report.extend(rep)
     probs += sizing_check(new)
     if games is not None and day is not None and day.weekday() in (0, 3):
         for gid in night_games(games, day, picks, now or datetime.now(timezone.utc)):
@@ -6540,7 +6850,9 @@ def preflight(games, model, now):
 def post_board(games, model, picks, now, day, force=False):
     """Post the day's plays. A play goes up as soon as none of its games is waiting on news (a starting
     pitcher, a questionable QB/goalie...); otherwise its card says what it's waiting on, and at the latest
-    DEADLINE_MIN before its first game it is posted from settled games only. force posts everything now.
+    DEADLINE_MIN before its first game it is posted from settled games only. force (SPORTS_POST_NOW) posts NOW even
+    after the day's first game - it never skips a check: the slate / factor check, the injury hold, rule_check and the
+    pre-post pick check all run the same (11/4 audit).
     A posted play is final. Returns the plays posted by this call."""
     iso = day.isoformat()
     local = now.astimezone(PT)
@@ -6601,7 +6913,9 @@ def post_board(games, model, picks, now, day, force=False):
     except Exception as e:                                   # noqa: BLE001 - the tracker never blocks the board
         print(f"lead tracker failed: {str(e)[:80]}")
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
-    if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
+    if opening:                                              # 🔎 the opening board: nothing missed, nothing broken
+        #                                                      (11/4 audit: SPORTS_POST_NOW's force skipped this whole
+        #                                                       check - force means "post now", never "skip the checks")
         gaps = data_gaps(games, all_cands, now)               # (10/2: the checks read every side we looked at -
         probs = slate_check(games, raw_cands, day, now, model=model) + factor_check(games, raw_cands, injuries, day, now, model) + \
             checker_selftest() + \
@@ -6704,7 +7018,7 @@ def post_board(games, model, picks, now, day, force=False):
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)
-        if force or all(not l["waiting"] for l in best["legs"]):
+        if all(not l["waiting"] for l in best["legs"]):     # (11/4 audit: force no longer posts a pick waiting on news)
             b = best
         elif now >= deadline:
             b = make_board(settled, lock_game, allow_lean=replacing, avoid=avoid, fixed=fixed).get(kind)   # out of time: settled
@@ -6820,7 +7134,7 @@ def post_board(games, model, picks, now, day, force=False):
         for c in pool(all_cands if kind == "lean" else cands, used):
             if room <= 0:
                 break
-            if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
+            if c["waiting"] and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
                 continue                                     # (a lean waits only on a verified starter - 10/2)
             if kind == "floor" and c.get("floor_fallback") and iso >= FLOOR_V2_FROM:   # 💰 10/29 (night): a dog that sits
                 if unit_plays_today(picks, iso) >= FLOOR_FALLBACK_MIN:   # out the floor goes up only so the day has ONE
@@ -6873,7 +7187,7 @@ def post_board(games, model, picks, now, day, force=False):
         if not b:
             continue
         deadline = _start(b["legs"][0]) - timedelta(minutes=DEADLINE_MIN)
-        if b["legs"][0]["waiting"] and now < deadline and not force:
+        if b["legs"][0]["waiting"] and now < deadline:
             continue                                         # waiting on news (a QB...): the next run looks again
         dress(b)
         leg = b["legs"][0]
@@ -6888,7 +7202,7 @@ def post_board(games, model, picks, now, day, force=False):
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         new.append(pk)
-    if opening and iso >= BEST_FROM and not force:            # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): the opening
+    if opening and iso >= BEST_FROM:                          # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): the opening
         best = mark_best(picks, iso)                         # board's best unit play gets the star (1u at least)...
         if best is None and cands:                           # ...and a day with no unit play at all posts the surest
             c = forced_best(cands, {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting"   # side, 1u
@@ -6904,6 +7218,7 @@ def post_board(games, model, picks, now, day, force=False):
                       "stake": STAKE, "status": "open", "pnl": 0.0, "lean": False, "best": True, "forced": True}
                 pk["legs"][0]["tier"] = "value"
                 pk["tier"] = "value"
+                best_closer(pk)
                 picks.append(pk)
                 new.append(pk)
                 print(f"   ⭐ no unit play today - the forced best pick: {c.get('team')} {c.get('odds')} (the surest side, 1u)")
@@ -6914,7 +7229,17 @@ def post_board(games, model, picks, now, day, force=False):
             if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);
                 pk["midday"] = True                          # leans never ping
     upgrade_dog(picks, iso, now)
-    rule_check(picks, new, iso, games, day, now)
+    rep = []
+    rule_check(picks, new, iso, games, day, now, injuries=injuries, report=rep)
+    if opening and iso >= BEST_FROM and not any(p.get("date") == iso and p.get("best") for p in picks):
+        best = mark_best(picks, iso)                         # (11/4 audit: the check pulled the ⭐ - the next best
+        if best is not None:                                 #  unit play that passed takes it)
+            print(f"   ⭐ the engine's best pick (after the check): {best['legs'][0].get('team')} - {units_for(best):g}u")
+    if rep:
+        held = [r for r in rep if r["held"]]
+        print(f"PICK CHECK: {len(rep)} pick(s) checked, {len(held)} held"
+              + "".join(f"\n   HELD {r['kind']} {r['team']} {r['odds']}: {r['why']}" for r in held), flush=True)
+        save_pick_check(iso, now, rep)
     return new
 
 

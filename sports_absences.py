@@ -246,6 +246,18 @@ def penalty(games, g, side, injuries, skip_qb=False):
     if lg in ("nfl", "ncaaf"):
         roles = [("QB", kp.get("qb"))] if not skip_qb else []
         roles += [("RB", kp.get("rb"))] + [("WR", w) for w in kp.get("wr") or []]
+        seen_ = set()                                # (11/4 audit: one man, one role - C Michigan's Angel Flores was
+        roles_ = []                                  #  the QB AND the 'RB' (his rushing yards) and counted twice)
+        for r, p in roles:
+            if p is not None and _nm(p) not in seen_:
+                seen_.add(_nm(p))
+                roles_.append((r, p))
+        roles = roles_
+        if lg == "ncaaf":                            # (11/4 audit: a college key man who ALREADY MISSED the team's last
+            roles = [(r, p) for r, p in roles        #  game is no fresh hole - results/studies/audit_1104/qb_known_out:
+                     if not missed_lately(games, lg, g[side], p, g.get("start") or "9", n=1)]   # the QB out again
+            #   +0.1 pts vs the own read on 1,398 (the fresh one -3.0 on 1,309 = the built -3). The NFL's 'known' QB out
+            #   still runs -3.1 on 400 (5 of 6 seasons) - the NFL keeps the weight.
         gone = [(r, p) for r, p in roles if is_out(p)]
         kinds = {r for r, _ in gone}
         if lg == "nfl":

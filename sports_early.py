@@ -284,6 +284,8 @@ def scan(games, model, now=None, injuries=None, trap=None):
                 continue                             # baseball: both starting pitchers announced, or no read at all
             if moved_toward(_int(g.get(f"ml_{side}_open")), odds) > MOVED_MAX:
                 continue                             # the money already took the value
+            if injuries is not None and inj is None:
+                continue                             # (11/4 audit: the feed down = UNKNOWN - the check below skipped)
             if inj is not None and not sd.covered(inj, lg, g[side], g[f"{side}_name"]):
                 continue                             # (10/3 sweep) no injury data on this team = unknown, never a play
             if inj and sd.team_key_out(inj, g[side], g[f"{side}_name"], lg, maybe=True):
@@ -356,6 +358,27 @@ def repost_ok(p, now):
     return (now - t).total_seconds() >= PULL_COOL_H * 3600
 
 
+def early_ok(c, games, injuries, now):
+    """🔎 11/4 AUDIT: an early play passes the same pre-post input check as every board pick (sports.pick_checks - the
+    game not started, a fresh book price, the injury data covering both teams, every college game held, never a non-D1
+    school, its starting QB not questionable / out unseen). A fail never posts; it's logged."""
+    import sports
+    tot = c.get("market") == "total"
+    odds = c.get("odds")
+    leg = {"league": c.get("league"), "game_id": c.get("game_id"), "side": c.get("side"), "team": c.get("team"),
+           "market": "total" if tot else "ml", "odds": odds, "dec": sd.decimal(odds) if odds else None,
+           "p": c.get("own") if c.get("own") is not None else 0.5, "p_market": c.get("mkt") if c.get("mkt") is not None else 0.5,
+           "reasons": [], "waiting": []}
+    try:
+        chk = sports.pick_checks({"kind": "early", "legs": [leg]}, games, injuries, now, unit=True)
+    except Exception as e:                                   # noqa: BLE001
+        chk = [("checker", "fail", str(e)[:80])]
+    bad = [f"{n} - {w}" for n, r, w in chk if r == "fail"]
+    if bad:
+        print(f"   early play held by the pick check: {c.get('team')} {odds}: {'; '.join(bad)}", flush=True)
+    return not bad
+
+
 def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None, lines=None):
     """Scan, post the new ones (once per game), grade the finished ones. Returns the new posts."""
     now = now or datetime.now(timezone.utc)
@@ -375,6 +398,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             continue                                 # one early dog per game, posted = final
         if c.get("spot") in SPOTS_OFF:
             continue                                 # ⏸️ a paused spot (the owner, 10/14) never posts
+        if not early_ok(c, games, injuries, now):
+            continue
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
         g = games.get(c["game_id"]) or {}
         inj = (injuries or {}).get(c["league"])
@@ -417,6 +442,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 continue                                     # (10/26: a paused spot never posts on this path either)
             if room <= 0:
                 break                                        # (10/1 audit: never past 2 a week, both paths together)
+            if not early_ok(c, games, injuries, now):
+                continue
             room -= 1
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
             st["picks"].append(pick_wording(c, st))
@@ -431,7 +458,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         print(f"   early spots failed: {str(e)[:120]}")
     try:                                                     # 🌍 the Europe morning NFL under (the owner, 10/4)
         for c in euro_unders(games, st, now):
-            if c["game_id"] in have_tot:
+            if c["game_id"] in have_tot or not early_ok(c, games, injuries, now):
                 continue
             st["picks"].append(c)
             have_tot.add(c["game_id"])
@@ -440,7 +467,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         print(f"   europe under failed: {str(e)[:120]}")
     try:                                                     # ⛰️ the college hoops over at altitude (11/3 deep study)
         for c in alt_overs(games, st, now):
-            if c["game_id"] in have_tot:
+            if c["game_id"] in have_tot or not early_ok(c, games, injuries, now):
                 continue
             st["picks"].append(c)
             have_tot.add(c["game_id"])

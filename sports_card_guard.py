@@ -112,7 +112,14 @@ def agree(line, *teams):
         if not team or vb(team, "are", "is") == "are":
             continue
         rx = re.compile(r"(\b" + re.escape(team) + r") (" + "|".join(re.escape(k) for k in _AGREE) + r")\b(?![-'])")
-        t = rx.sub(lambda m: m.group(1) + " " + _AGREE[m.group(2)], t)
+        others = [str(o or "").strip() for o in teams if str(o or "").strip() and str(o or "").strip() != team]
+
+        def fix(m, t_=t, others_=others):                    # (11/4 audit: "UConn and North Carolina walks in" - the
+            head = t_[:m.start()]                            #  tail of "<the other team> and <team>" is a plural subject)
+            if any(head.endswith(f"{o} and ") or head.endswith(f"{o} & ") for o in others_):
+                return m.group(0)
+            return m.group(1) + " " + _AGREE[m.group(2)]
+        t = rx.sub(fix, t)
     return t
 
 
