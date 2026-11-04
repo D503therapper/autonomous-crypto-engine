@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T22:21Z",
+ "updated": "2026-11-04T22:39Z",
  "games": [
   {
    "id": "nba:401909922",
@@ -145,9 +145,9 @@
     "team": "Longwood",
     "opp": "Saint Joseph's",
     "market": "spread",
-    "line": 10.5,
-    "odds": -105,
-    "p": 0.515,
+    "line": 11.5,
+    "odds": -120,
+    "p": 0.517,
     "win_p": 0.168,
     "reasons": []
    }
@@ -355,7 +355,7 @@
     "opp": "Wichita St",
     "market": "spread",
     "line": 15.5,
-    "odds": -118,
+    "odds": -110,
     "p": 0.505,
     "win_p": 0.096,
     "reasons": []
@@ -776,9 +776,9 @@
     "team": "Lakers",
     "opp": "Kings",
     "market": "spread",
-    "line": -12.5,
-    "odds": -106,
-    "p": 0.505,
+    "line": -11.5,
+    "odds": -114,
+    "p": 0.504,
     "win_p": 0.827,
     "reasons": [
      "the stronger team",
@@ -808,7 +808,7 @@
     "opp": "Santa Clara",
     "market": "spread",
     "line": 16.5,
-    "odds": -108,
+    "odds": -118,
     "p": 0.503,
     "win_p": 0.084,
     "reasons": [
@@ -850,7 +850,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "LMU",
-    "p": 0.67,
+    "p": 0.654,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -865,10 +865,10 @@
     "team": "Queens",
     "opp": "LMU",
     "market": "spread",
-    "line": 7.5,
+    "line": 6.5,
     "odds": -112,
-    "p": 0.53,
-    "win_p": 0.259,
+    "p": 0.528,
+    "win_p": 0.278,
     "reasons": []
    }
   },
@@ -1551,6 +1551,34 @@
    }
   },
   {
+   "id": "ncaab:401926780",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "South Alabama",
+    "p": 0.559,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:00Z",
+   "away": "Jax State",
+   "home": "South Alabama",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "South Alabama",
+    "opp": "Jax State",
+    "market": "ml",
+    "line": null,
+    "odds": -166,
+    "p": 0.607,
+    "win_p": 0.607,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401920913",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1641,6 +1669,34 @@
    }
   },
   {
+   "id": "ncaab:401911229",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Loyola Chicago",
+    "p": 0.824,
+    "tie": 0.027,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T01:00Z",
+   "away": "West Georgia",
+   "home": "Loyola Chicago",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "West Georgia",
+    "opp": "Loyola Chicago",
+    "market": "spread",
+    "line": 16.5,
+    "odds": -112,
+    "p": 0.517,
+    "win_p": 0.099,
+    "reasons": []
+   }
+  },
+  {
    "id": "nfl:401873037",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -1676,7 +1732,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "DePaul",
-    "p": 0.618,
+    "p": 0.623,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1692,9 +1748,9 @@
     "opp": "South Florida",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.682,
-    "win_p": 0.682,
+    "odds": -250,
+    "p": 0.688,
+    "win_p": 0.688,
     "reasons": []
    }
   },
@@ -1779,9 +1835,9 @@
     "team": "Cal Poly",
     "opp": "Arizona",
     "market": "spread",
-    "line": 31.5,
-    "odds": -112,
-    "p": 0.532,
+    "line": 30.5,
+    "odds": -105,
+    "p": 0.53,
     "win_p": 0.023,
     "reasons": []
    }
