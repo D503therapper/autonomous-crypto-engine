@@ -1,9 +1,11 @@
 {
- "at": "2026-11-04T01:27Z",
- "fixes": [],
+ "at": "2026-11-04T01:28Z",
+ "fixes": [
+  "live watch 41748961602 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (220s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +18,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 52 min ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-04T01:28Z",
+   "fixes": [
+    "live watch 41748961602 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-04T01:27Z",
    "fixes": [],
@@ -541,17 +551,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-02T15:47Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
