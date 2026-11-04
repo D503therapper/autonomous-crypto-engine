@@ -1,32 +1,3 @@
-SLATE CHECK (not held): MIT @ Harvard (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Trinity Co Jax @ Jacksonville (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Notre Dame MD @ Delaware (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Rivier @ UMass Lowell (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Coast Guard @ Sacred Heart (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Paul Quinn @ Prairie View (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Eureka @ SIUE (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Midway @ Kennesaw St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Mount Olive @ UNC Wilmington (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Saint Vincent @ Delaware St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): New College @ FIU (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Cheyney (PA) @ Morgan St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): KCU @ E Kentucky (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): NC Central @ Georgia (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Mercyhurst @ Marquette (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Le Moyne @ Nebraska (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Pfeiffer @ Longwood (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Lyon @ SF Austin (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Berry @ Samford (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Lawrence @ Green Bay (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): S Wesleyan @ Charleston (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): MD Eastern @ Wake Forest (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): FDU @ Illinois (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Willamette @ Portland (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Lane College @ Austin Peay (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Adams St @ California (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): W Colorado @ Utah Valley (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Maryville (MO) @ S Illinois (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Ottawa (KS) @ Tulsa (NCAAB): no price - a small-school game the books skip
 SLATE CHECK (not held): Regent @ Norfolk St (NCAAB): no price - a small-school game the books skip
 SLATE CHECK (not held): Monmouth (IL) @ Bradley (NCAAB): no price - a small-school game the books skip
 SLATE CHECK (not held): IU Kokomo @ Evansville (NCAAB): no price - a small-school game the books skip
@@ -2998,3 +2969,32 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 25 matches
 1H line log: 24 rows (0 with a 1st-half line) from 50 AN games
 source check (1.4s): plain requests answered by 9 of 12 sources - quiet: actionnetwork_h1, rotowire_ncaab, rotowire_ncaaf
+sync: 131939 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 124 games got weather, 0 new stadiums located, 245s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 4 games on the page, 4 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-11-03, 0 failed, 0 moves
+beat the close: unit plays 27 of 81 better than the close, avg +0.2 pts
+public splits: 78 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 133 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 133 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 4 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (99 players), 365 matched, 0 unmatched
+tennis sync: 73929 matches stored, 18 calls, 0 failed
+tennis study ATP: 26264 rated matches, acc 0.6445 (surface ratings alone 0.6415), loss 0.6285 vs 0.6298, own weights [-0.005, 0.827, 0.074, 0.145, 0.421, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6285: experience 0.6285 (+0.02 mnats, z 0.03), age 0.627 (+1.53 mnats, z 1.09), young_vs_aging 0.6283 (+0.24 mnats, z 0.59), last_match 0.626 (+2.49 mnats, z 1.75), streaks 0.6293 (-0.80 mnats, z -0.77), first_set 0.6277 (+0.79 mnats, z 1.21), injury 0.6295 (-0.94 mnats, z -1.46), travel 0.6285 (+0.02 mnats, z 0.44) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30788 rated matches, acc 0.6475 (surface ratings alone 0.6505), loss 0.622 vs 0.6216, own weights [0.004, 0.904, -0.002, -0.077, 0.303, 0.024, -0.201]
+tennis study WTA life factors vs current loss 0.622: experience 0.6196 (+2.43 mnats, z 1.41), age 0.6212 (+0.77 mnats, z 0.98), young_vs_aging 0.6218 (+0.23 mnats, z 1.39), last_match 0.6228 (-0.74 mnats, z -0.73), streaks 0.622 (+0.01 mnats, z 0.02), first_set 0.6218 (+0.25 mnats, z 0.52), injury 0.6214 (+0.65 mnats, z 1.13), travel 0.6222 (-0.17 mnats, z -0.98) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
+tennis reads: 25 matches
+1H line log: 0 rows (0 with a 1st-half line) from 50 AN games
+source check (0.7s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
