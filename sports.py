@@ -2802,7 +2802,7 @@ def beats_price(c):
     return r is not None and dec is not None and r * dec > 1   # (no price on it = nothing to check = no units)
 
 
-BEST_FROM = "2026-11-05"      # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4: "Today I see three plays and they're all thin
+BEST_FROM = "2026-11-04"      # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4: "Today I see three plays and they're all thin
 BEST_MIN_UNITS = 1.0          # edge, half unit plays ... I wanted to do a decent bet on one game and I can't figure out which
 #                               game ... every day we have, like, a PICK OF THE DAY ... this is the best play the engine has for
 #                               today, and it will always be sized at least one full unit. So then we know what the best pick is

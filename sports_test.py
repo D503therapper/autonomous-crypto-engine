@@ -18951,7 +18951,7 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab")
     assert sports.floor_skip({"league": "ncaab", "edge_own": 0.0, "dec": 2.0, "odds": 100}) == "college hoops sits out the floor (its dogs run the dog slot)"
     # (3) the engine's best pick
-    assert sports.BEST_FROM == "2026-11-05" and sports.BEST_MIN_UNITS == 1.0
+    assert sports.BEST_FROM == "2026-11-04" and sports.BEST_MIN_UNITS == 1.0   # (the owner, 11/4: today's board rebuilt with it)
     leg = lambda team, odds, p, lg="nhl", **kw: {**_cand(team, odds, p, league=lg), "team": team, "start": "2026-11-05T01:00Z", **kw}   # noqa: E731
     mk = lambda kind, team, odds, p, **kw: {"date": "2026-11-05", "kind": kind, "status": "open", "lean": False, "dec": sd.decimal(odds),   # noqa: E731
                                            "american": odds, "legs": [leg(team, odds, p, **{k: v for k, v in kw.items() if k in ("league", "dog_p", "backup_lock", "w_p")})],
@@ -18971,14 +18971,14 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert sports.mark_best([floor, lean], "2026-11-05") is floor and sports.units_for(floor) == 1.0   # a lone ½u floor play -> 1u
     assert sports.posted_kind(floor) == "floor" and sports.sizing_check([floor]) == []   # its kind stays; the sizing check knows
     assert sports.units_for({**floor, "status": "lost", "units": 0.5}) == 0.5   # a graded pick keeps the units it was graded at
-    assert sports.units_for({**floor, "date": "2026-11-04"}) == 0.5          # before BEST_FROM: no raise
+    assert sports.units_for({**floor, "date": "2026-11-03"}) == 0.5          # before BEST_FROM: no raise
     floor.pop("best")
     backup = mk("lock", "Kings", -120, 0.55, backup_lock=True)
     play = mk("play", "Stars", -130, 0.56)
     assert sports.mark_best([backup, play, lean], "2026-11-05") is play     # the backup Lock ranks last
     assert sports.mark_best([lean], "2026-11-05") is None                   # a lean never
     assert sports.mark_best([mk("play", "Longshot", 400, 0.20)], "2026-11-05") is None   # past +350 never
-    assert sports.mark_best([lock], "2026-11-04") is None                   # before BEST_FROM
+    assert sports.mark_best([lock], "2026-11-03") is None                   # before BEST_FROM
     # the forced best side on a day with no unit play: the surest moneyline side not fighting its price
     c1 = {**_cand("g1", -130, 0.58, league="nhl"), "reasons": [], "waiting": []}
     c2 = {**_cand("g2", -145, 0.61, league="nba"), "reasons": [], "waiting": []}
@@ -18995,15 +18995,16 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert "best = mark_best(picks, iso)" in pb and "forced_best(cands" in pb and '"best": True, "forced": True' in pb
     # the card and the records
     real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1
-                and p.get("kind") == "play" and not p.get("lean") and p.get("status") == "open")
+                and p.get("kind") == "play" and not p.get("lean"))   # (any real play - an open one may not exist on a rebuild day)
     import copy
+    real = {**copy.deepcopy(real), "status": "open", "result": None, "review": None}
     pk = copy.deepcopy(real)
     pk.update(best=True, date="2026-11-05")
     card = sdb._pick_card("play", pk)
     assert "⭐ ENGINE'S BEST PICK" in card and 'class="slate-note best-note"' in card, card[:400]
     assert "ENGINE'S BEST PICK" not in sdb._pick_card("play", copy.deepcopy(real))
     forced_card = sdb._pick_card("play", {**pk, "forced": True})
-    assert "surest" in forced_card and "One unit" in forced_card
+    assert "surest" in forced_card and "one unit" in forced_card.lower()
     now = datetime(2026, 11, 5, 16, 0, tzinfo=timezone.utc)
     order = [p["legs"][0]["team"] for p in sdb.board_cards([lock, floor, {**dog, "best": True}], "2026-11-05", now)]
     assert order[0] == "Senators", order                                    # ⭐ on top of the board, then the Lock
