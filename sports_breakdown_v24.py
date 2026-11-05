@@ -507,7 +507,9 @@ def OWNER_PLAY(price, us, fair=None, odds=None):
                 f"✅ Bottom line: {price}. We price {us} at {fair} - {o} is extra money. We'll take it.",
                 f"✅ Bottom line: {price}. Fair on {us} is {fair} to us. The homies riding at {o}.",
                 f"✅ Bottom line: {price}. We got {us} at {fair}, the book says {o}. We finna see."] + \
-               ([f"✅ Bottom line: {price}. Line makers ain't showing no respect to {us} at {o} - we make 'em {fair}."]
+               ([f"✅ Bottom line: {price}. Line makers ain't showing no respect to {us} at {o} - we make 'em {fair}.",
+                 f"✅ Bottom line: {price}. Fishy line - {us} at {o} when we make 'em {fair}. We'll take it."]   # (11/4, the
+                #                                              owner's D503 Call on the Cavs: 'a very fishy line')
                 if (odds or 0) > 0 else [])
     return [f"✅ Bottom line: {price}. The books are sleeping on {us}. Tap in.",
             f"✅ Bottom line: {price}. Our read beats the number. Tap in.",

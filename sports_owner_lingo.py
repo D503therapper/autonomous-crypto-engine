@@ -71,6 +71,7 @@ OWNER = {
     # 11/4 (the owner: "I have not liked the damn lingo. These breakdowns have not been in my lingo how I want it to be")
     "GOAT call": "a big plus-money hit we called - the brag after it cashed, never before a game",
     "in shambles": "the other side's a mess right now - with the losing record right there (or the books after a big hit)",
+    "fishy line": "a price that looks way off for the matchup - the owner's D503 Call on the Cavs +140 at the Thunder (11/4): 'a very fishy line'; about the PRICE, never about the line moving",
     "no-name": "a nobody opponent - the non-D1 tune-up ('Mount Marty, a no-name non-D1 team', 11/4)",
     "lame ass": "the other side's been bad - with the losing record right there",
     "on a heater": "our side's won 3+ straight - with the streak right there",
