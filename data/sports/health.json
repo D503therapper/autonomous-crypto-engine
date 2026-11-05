@@ -1,11 +1,13 @@
 {
- "at": "2026-11-05T21:17Z",
- "fixes": [],
+ "at": "2026-11-05T21:19Z",
+ "fixes": [
+  "live watch 42103891340 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (236s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +20,22 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 5 min ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T21:19Z",
+   "fixes": [
+    "live watch 42103891340 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T21:17Z",
    "fixes": [],
@@ -548,13 +560,6 @@
    "at": "2026-11-04T13:10Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-04T13:09Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Feistel vs Shinikova: no points for 2356s"
-   ]
   }
  ]
 }
