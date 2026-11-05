@@ -1,7 +1,7 @@
 {
- "at": "2026-11-05T19:37Z",
+ "at": "2026-11-05T19:38Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
  ],
  "problems": [
   "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
@@ -9,7 +9,7 @@
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (56s)",
+  "live watcher fresh (129s)",
   "scores route up (200)",
   "question box answers",
   "slate check: all 82 of today's games named, priced and looked at",
@@ -21,12 +21,23 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 2h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T19:38Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
+    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T19:37Z",
    "fixes": [
@@ -540,11 +551,6 @@
   },
   {
    "at": "2026-11-04T09:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T09:06Z",
    "fixes": [],
    "problems": []
   }
