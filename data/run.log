@@ -12783,3 +12783,42 @@ error: failed to push some refs to 'https://githu
 [2026-11-05 14:07 UTC] crypto/hold_btc  equity $476.20 (-4.8%) 1 open  market DOWN
    social heat top: TRUMP 40 (40/0/0), SOL 35 (35/0/0), CARDS 34 (32/0/2), ETH 30 (27/0/4), PENGU 29 (29/0/0)
    dex screen: REJECT QNT@ethereum liq $760,015 - is_mintable; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-11-05 14:30 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/mover     equity $229.22 (-54.2%) 1 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/social_heat equity $364.20 (-27.2%) 2 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/breakout10 equity $402.22 (-19.6%) 1 open  market UP
+[2026-11-05 14:30 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] crypto/hold_btc  equity $475.17 (-5.0%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $169.07 of AAPL @ 354.293, P/L $+0.85 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $163.29 of XLE @ 64.052 (entry)
+[2026-11-05 14:30 UTC] stocks/rsi2      equity $489.80 (-2.0%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): PLTR 0 BUY, XLE 4 BUY, TSLA 8 BUY, SMH 20
+[2026-11-05 14:30 UTC] stocks/breakout52 equity $501.01 (+0.2%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+430% 6-mo), AMC (+114% 6-mo), CHPT (+79% 6-mo), ROKU (+27% 6-mo), XYZ (+24% 6-mo)
+[2026-11-05 14:30 UTC] stocks/dual_momentum equity $466.09 (-6.8%) 2 open  market DOWN
+[2026-11-05 14:30 UTC] stocks/trend_ensemble equity $512.06 (+2.4%) 5 open  market UP
+   >> stocks/rotation10: SELL $225.08 of LLY @ 1433.58, P/L $+1.71 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $224.57 of JPM @ 359.545 (entry)
+[2026-11-05 14:30 UTC] stocks/rotation10 equity $505.39 (+1.1%) 2 open  market UP
+[2026-11-05 14:30 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-05 14:30 UTC] stocks/trend     equity $468.66 (-6.3%) 3 open  market DOWN
+[2026-11-05 14:30 UTC] stocks/hold_spy  equity $498.07 (-0.4%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), BTC 37 (37/0/0), CARDS 35 (35/0/0), SOL 34 (29/0/4), PENGU 27 (27/0/0)
