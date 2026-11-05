@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T02:48Z",
+ "updated": "2026-11-05T03:15Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -26,8 +26,8 @@
    "away": "76ers",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -256,8 +256,8 @@
    "away": "Bucks",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -271,8 +271,8 @@
    "away": "Bulls",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -388,8 +388,8 @@
    "away": "Senators",
    "home": "Sabres",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -448,8 +448,8 @@
    "away": "N Kentucky",
    "home": "South Dakota",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -478,8 +478,8 @@
    "away": "Randolph",
    "home": "Norfolk St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -493,8 +493,8 @@
    "away": "SE Louisiana",
    "home": "Auburn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -659,35 +659,79 @@
    }
   },
   {
-   "id": "nba:401909935",
+   "id": "nhl:401892647",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-05T03:00Z",
+   "away": "Flames",
+   "home": "Kraken",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909934",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Heat",
-    "p": 0.608,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-05T03:30Z",
-   "away": "Heat",
-   "home": "Clippers",
-   "why": "tight",
+   "start": "2026-11-05T03:00Z",
+   "away": "Lakers",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Heat",
-    "opp": "Clippers",
-    "market": "ml",
-    "line": null,
-    "odds": -216,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "opponent missing key players",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917513",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T03:00Z",
+   "away": "Milwaukee",
+   "home": "Santa Clara",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917512",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T03:00Z",
+   "away": "N Dakota St",
+   "home": "Saint Mary's",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917514",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T03:00Z",
+   "away": "Queens",
+   "home": "LMU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401925031",
@@ -727,8 +771,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Penn State",
-    "p": 0.812,
-    "tie": 0.028,
+    "p": 0.833,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -742,13 +786,11 @@
     "team": "Chattanooga",
     "opp": "Penn State",
     "market": "spread",
-    "line": 14.5,
+    "line": 15.5,
     "odds": -108,
-    "p": 0.531,
-    "win_p": 0.106,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "p": 0.537,
+    "win_p": 0.088,
+    "reasons": []
    }
   },
   {
@@ -1053,8 +1095,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charlotte",
-    "p": 0.781,
-    "tie": 0.031,
+    "p": 0.759,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1071,11 +1113,10 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.51,
-    "win_p": 0.866,
+    "win_p": 0.843,
     "reasons": [
      "hotter recent form",
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -1827,8 +1868,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.831,
-    "tie": 0.026,
+    "p": 0.814,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1843,9 +1884,9 @@
     "opp": "N Illinois",
     "market": "spread",
     "line": -15.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.537,
-    "win_p": 0.911,
+    "win_p": 0.897,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1918,8 +1959,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Loyola Chicago",
-    "p": 0.857,
-    "tie": 0.023,
+    "p": 0.843,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1933,10 +1974,10 @@
     "team": "West Georgia",
     "opp": "Loyola Chicago",
     "market": "spread",
-    "line": 18.5,
-    "odds": -105,
-    "p": 0.534,
-    "win_p": 0.069,
+    "line": 16.5,
+    "odds": -108,
+    "p": 0.522,
+    "win_p": 0.08,
     "reasons": []
    }
   },
@@ -2024,7 +2065,7 @@
     "opp": "Utah",
     "market": "spread",
     "line": 10.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.528,
     "win_p": 0.192,
     "reasons": [
