@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T11:22Z",
+ "updated": "2026-11-05T11:41Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -287,17 +287,19 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Bruins",
+    "team": "Bruins",
+    "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.712,
-    "win_p": 0.499,
-    "reasons": []
+    "odds": -278,
+    "p": 0.716,
+    "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1471,7 +1473,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.732,
+    "p": 0.739,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1487,9 +1489,9 @@
     "opp": "Jaguars",
     "market": "spread",
     "line": 10.0,
-    "odds": -112,
+    "odds": -108,
     "p": 0.514,
-    "win_p": 0.159,
+    "win_p": 0.152,
     "reasons": []
    }
   },
