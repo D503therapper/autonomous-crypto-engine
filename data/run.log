@@ -13136,3 +13136,31 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-05 20:20 UTC] stocks/trend     equity $457.40 (-8.5%) 3 open  market DOWN
 [2026-11-05 20:20 UTC] stocks/hold_spy  equity $480.85 (-3.8%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), TRUMP 40 (32/0/8), PENGU 38 (27/0/11), HYPE 35 (35/0/0), SOL 29 (29/0/0)
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '80898.70', 'l': '75459.01', 'a': '75958.95', 'v': '7256.3413', 'vv': '562430947.63', 'c': '-0.0519', 'b': '75951.00', 'k': '75951.01', 'oi': '0', 't': 1793910022406}
+   dex screen: UNREACHABLE REBOOT@base liq $359,149 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT DRV@base liq $1,133,290 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT DRV@solana liq $391,822,814 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DRV@solana liq $382,405,473 - top-10 holders 100%
+   dex screen: REJECT DRV@ethereum liq $867,602 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 86%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE REBOOT@base liq $359,818 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS SPX@ethereum liq $10,264,519
+   dex screen: UNREACHABLE DENIM@base liq $323,989 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT DOT@base liq $458,915 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT PYUSD@ethereum liq $12,269,088 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%
+   dex screen: UNREACHABLE REBOOT@base liq $363,121 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $318,452 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,000 pools (solana 2,089 / base 503 / ethereum 408), refresh cycle 120s (hot 116s), 2072 calls (94 feed, 429s 1, failed 1), 59,334 refreshed (9941 no pair), +255 added / -232 dropped (dead 67, stale 9, cap 156), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-05 21:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/mover     equity $224.36 (-55.1%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/social_heat equity $348.65 (-30.3%) 3 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/breakout10 equity $390.89 (-21.8%) 1 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-05 21:05 UTC] crypto/hold_btc  equity $456.90 (-8.6%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), SOL 38 (37/0/1), TRUMP 36 (27/0/9), NEAR 35 (35/0/0), PENGU 33 (21/0/12)
