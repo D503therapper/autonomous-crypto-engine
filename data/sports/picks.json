@@ -32160,6 +32160,12 @@
      "us:out_dome"
     ],
     "dec": 2.1,
+    "decider": {
+     "h": "21-0",
+     "s": "35-7",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -32208,6 +32214,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,14,7,7",
+     "h": "0,0,0,7"
+    },
     "form_state": [
      -4.0,
      -2,
@@ -32260,10 +32270,12 @@
      "opponent missing key players: QB Angel Flores, RB Angel Flores, WR Langston Lewis (their read -5)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "C Michigan 35 @ E Michigan 7",
     "season_games": null,
+    "settled": "2026-11-05T03:51Z",
     "side": "home",
     "start": "2026-11-05T00:30Z",
     "stype": "2",
@@ -32280,11 +32292,13 @@
    }
   ],
   "p_hit": 0.4464,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-04T22:51Z",
   "round": 1,
+  "settled": "2026-11-05T03:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
