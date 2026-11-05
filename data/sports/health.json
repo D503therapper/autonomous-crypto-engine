@@ -1,11 +1,11 @@
 {
- "at": "2026-11-05T21:14Z",
+ "at": "2026-11-05T21:15Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (53s)",
+  "live watcher fresh (197s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,19 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T21:15Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T21:14Z",
    "fixes": [],
@@ -547,17 +554,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Kroitor vs Lamens: no points for 2361s"
-   ]
-  },
-  {
-   "at": "2026-11-04T10:46Z",
-   "fixes": [
-    "live watch 41811434721 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Kudermetova vs Selekhmeteva: points frozen at 0-0 for 326s",
-    "live tennis scores: tennis Akugue vs Mdlulwa: no points for 1012s"
    ]
   }
  ]
