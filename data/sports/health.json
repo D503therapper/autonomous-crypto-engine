@@ -1,11 +1,12 @@
 {
- "at": "2026-11-05T22:23Z",
+ "at": "2026-11-05T23:05Z",
  "fixes": [],
  "problems": [
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (23s)",
+  "live watcher fresh (59s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 60 min ago",
+  "simulator ran 3h ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T23:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T22:23Z",
    "fixes": [],
@@ -552,17 +561,6 @@
     "live tennis scores: tennis Alves vs Jeanjean: no points for 2614s",
     "live tennis scores: tennis Monnet vs Samson: no points for 2614s",
     "live tennis scores: tennis Giovannini vs Burillo: no points for 2614s"
-   ]
-  },
-  {
-   "at": "2026-11-04T16:13Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
