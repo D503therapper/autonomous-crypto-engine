@@ -1,14 +1,9 @@
 {
- "at": "2026-11-04T23:08Z",
- "fixes": [
-  "live watch 41924152336 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
- "problems": [
-  "live tennis scores: tennis Andreescu vs Ortenzi: no points for 2622s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "at": "2026-11-05T00:33Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 21 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T00:33Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-04T23:08Z",
    "fixes": [
@@ -585,16 +585,6 @@
     "live tennis scores: tennis Burillo vs Kalieva: no points for 1608s",
     "studies last ran 10h ago - restarted",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-03T15:04Z",
-   "fixes": [
-    "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Laron vs Mikulskyte: no points for 1282s",
-    "live tennis scores: tennis Sanchez vs Li Zongyu: no points for 753s"
    ]
   }
  ]
