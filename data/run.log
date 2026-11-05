@@ -12757,3 +12757,28 @@ error: failed to push some refs to 'https://githu
 [2026-11-05 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-05 13:06 UTC] crypto/hold_btc  equity $476.19 (-4.8%) 1 open  market DOWN
    social heat top: CARDS 47 (35/0/13), TRUMP 40 (40/0/0), PENGU 27 (27/0/0), ETH 27 (27/0/0), BTC 24 (24/0/0)
+   dex screen: PASS FARTCOIN @solana liq $6,582,319
+   dex screen: REJECT LIT@ethereum liq $589,606 - goplus partial data: cannot_sell_all unknown; top-10 holders 62%; lp locked 0% < 95%
+   dex screen: REJECT AZTEC@ethereum liq $12,853,761 - top-10 holders 100%
+   dex screen: PASS NPC@ethereum liq $4,409,783
+   dex screen: UNREACHABLE SP@ethereum liq $114,882 - honeypot.is unreachable
+   dex screen: REJECT KTA@base liq $3,610,693 - top-10 holders 66%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AXIS@base liq $2,436,139 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 99%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $108,348 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       574f1c274e65fe3a9127ec422cbf13a924d3a625 -> main (cannot lock ref 'refs/heads/main': is at 2a8ec2097bb96c2068b02
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       d4291387a34e8b0549d2b3d1bd15674f92132e7c -> main (cannot lock ref 'refs/heads/main': is at 2f2c0e91c357ff4814e39
+   dex screen: REJECT METAC@base liq $932,418 - pool age unknown
+   dex scanner: 3,000 pools (solana 2,093 / base 527 / ethereum 380), refresh cycle 128s (hot 123s), 2928 calls (108 feed, 429s 0, failed 0), 84,599 refreshed (9773 no pair), +62 added / -62 dropped (dead 2, stale 0, cap 60), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-05 14:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/mover     equity $230.67 (-53.9%) 1 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/social_heat equity $364.45 (-27.1%) 2 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/breakout10 equity $402.39 (-19.5%) 1 open  market UP
+[2026-11-05 14:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-05 14:07 UTC] crypto/hold_btc  equity $476.20 (-4.8%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), SOL 35 (35/0/0), CARDS 34 (32/0/2), ETH 30 (27/0/4), PENGU 29 (29/0/0)
