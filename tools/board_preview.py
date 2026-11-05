@@ -70,6 +70,8 @@ def main(day_iso=None):
     except Exception:                                                          # noqa: BLE001
         pass
     sports.announce_pick = lambda pk: None
+    sports.PRICE_CLOCK = now_real                                             # (11/5: the price-age check reads
+    #                                              the real clock - a future 8:35 AM made every price look 11h old)
     sports.HOLD_DAYS = set()                                                   # (a held board still previews)
     games = sd.load_games()
     model = sports._load("model.json", {"params": {}, "log": []})

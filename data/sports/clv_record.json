@@ -1,30 +1,30 @@
 {
  "all": {
-  "n": 177,
-  "beat": 60,
-  "same": 65,
-  "worse": 52,
-  "avg_pts": 0.12
+  "n": 181,
+  "beat": 61,
+  "same": 67,
+  "worse": 53,
+  "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 81,
-  "beat": 27,
+  "n": 83,
+  "beat": 28,
   "same": 35,
-  "worse": 19,
-  "avg_pts": 0.21
+  "worse": 20,
+  "avg_pts": 0.19
  },
  "by_kind": {
   "dog": {
-   "n": 23,
-   "beat": 5,
+   "n": 24,
+   "beat": 6,
    "same": 11,
    "worse": 7,
-   "avg_pts": -0.17
+   "avg_pts": -0.16
   },
   "lean": {
-   "n": 96,
+   "n": 98,
    "beat": 33,
-   "same": 30,
+   "same": 32,
    "worse": 33,
    "avg_pts": 0.04
   },
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 45,
+   "n": 46,
    "beat": 15,
    "same": 20,
-   "worse": 10,
-   "avg_pts": 0.15
+   "worse": 11,
+   "avg_pts": 0.13
   }
  },
  "by_sport": {
@@ -52,25 +52,25 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 24,
-   "beat": 11,
-   "same": 8,
+   "n": 26,
+   "beat": 12,
+   "same": 9,
    "worse": 5,
-   "avg_pts": 0.48
+   "avg_pts": 0.45
   },
   "ncaab": {
-   "n": 2,
+   "n": 3,
    "beat": 1,
-   "same": 1,
+   "same": 2,
    "worse": 0,
-   "avg_pts": 0.8
+   "avg_pts": 0.53
   },
   "ncaaf": {
-   "n": 46,
+   "n": 47,
    "beat": 14,
    "same": 19,
-   "worse": 13,
-   "avg_pts": 0.13
+   "worse": 14,
+   "avg_pts": 0.11
   },
   "nfl": {
    "n": 24,
@@ -2595,6 +2595,62 @@
    "pts": 1.0,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "dog",
+   "lean": false,
+   "league": "nba",
+   "team": "Suns",
+   "market": "ml",
+   "line": null,
+   "odds": 125,
+   "close": 124,
+   "pts": 0.2,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Spurs",
+   "market": "spread",
+   "line": -12.5,
+   "odds": -109,
+   "close": -109,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "MD Eastern",
+   "market": "spread",
+   "line": 34.5,
+   "odds": -112,
+   "close": -112,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "E Michigan",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 114,
+   "pts": -0.9,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }

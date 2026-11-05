@@ -19192,6 +19192,14 @@ def test_audit_1104_the_rule_check_reads_the_inputs_south_dakota_kansas_st_stale
         games["SDG"]["odds_time"] = "2026-11-04T08:00Z"
         chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=["r"]), games, inj, now, {"d1": {"SD", "NKU"}})}
         assert chk["price_fresh"] == "fail"
+        # (11/5: the board preview builds a FUTURE 8:35 AM board on tonight's prices - it reads the price age on the real
+        #  clock, so a 05:54Z price at 06:55Z is fresh, not "11h old"; the live run keeps the board's own clock)
+        try:
+            sports.PRICE_CLOCK = datetime(2026, 11, 4, 8, 30, tzinfo=timezone.utc)
+            chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=["r"]), games, inj, now, {"d1": {"SD", "NKU"}})}
+            assert chk["price_fresh"] == "pass"
+        finally:
+            sports.PRICE_CLOCK = None
         games["SDG"]["odds_time"] = ""
         chk = {n: r for n, r, w in sports.pick_checks(sd_pick(p=0.55, elo_raw=40.0, reasons=["r"]), games, inj, now, {"d1": {"SD", "NKU"}})}
         assert "price_fresh" not in chk
