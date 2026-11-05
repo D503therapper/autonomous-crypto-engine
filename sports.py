@@ -6369,6 +6369,8 @@ def factor_check(games, cands, injuries, day, now, model=None):
 
 
 PICK_CHECK_PATH = os.path.join(sd.DATA, "pick_check.json")
+PRICE_CLOCK = None      # (11/5: the board preview runs at a future 8:35 AM with TONIGHT's prices - it sets this to the real
+#                         clock so the price-age check reads the age the prices really have; the live run leaves it None)
 PRICE_FRESH_H = 6          # 🔎 11/4 AUDIT: a book price older than this on a game we post = the books stopped listing it
 #                            (often for news) and the old number stayed in our file - never a pick off it
 LAST_PICK_CHECK = []       # the last rule_check's per-pick report (tools/board_preview prints it)
@@ -6434,7 +6436,7 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
         t = str(g.get("odds_time") or "")
         if t:
             try:
-                age = (now - datetime.strptime(t[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+                age = ((PRICE_CLOCK or now) - datetime.strptime(t[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)).total_seconds() / 3600
             except ValueError:
                 age = None
             add("price_fresh", age is not None and age <= PRICE_FRESH_H,
