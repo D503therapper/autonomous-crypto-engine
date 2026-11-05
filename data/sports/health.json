@@ -1,11 +1,11 @@
 {
- "at": "2026-11-05T21:12Z",
+ "at": "2026-11-05T21:14Z",
  "fixes": [],
  "problems": [
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,12 +18,19 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 30 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T21:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T21:12Z",
    "fixes": [],
@@ -551,14 +558,6 @@
    "problems": [
     "live tennis scores: tennis Kudermetova vs Selekhmeteva: points frozen at 0-0 for 326s",
     "live tennis scores: tennis Akugue vs Mdlulwa: no points for 1012s"
-   ]
-  },
-  {
-   "at": "2026-11-04T10:44Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
