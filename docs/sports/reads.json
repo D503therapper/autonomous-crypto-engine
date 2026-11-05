@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T19:02Z",
+ "updated": "2026-11-05T19:48Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -320,9 +320,9 @@
     "team": "Buffalo",
     "opp": "Pitt",
     "market": "spread",
-    "line": 18.5,
-    "odds": -110,
-    "p": 0.531,
+    "line": 17.5,
+    "odds": -108,
+    "p": 0.526,
     "win_p": 0.064,
     "reasons": []
    }
@@ -407,7 +407,7 @@
     "opp": "Lehigh",
     "market": "spread",
     "line": 1.5,
-    "odds": -118,
+    "odds": -115,
     "p": 0.535,
     "win_p": 0.484,
     "reasons": [
@@ -472,8 +472,7 @@
     "p": 0.65,
     "win_p": 0.432,
     "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
+     "sharp money moving this way"
     ]
    }
   },
@@ -499,7 +498,7 @@
     "opp": "Georgia St",
     "market": "spread",
     "line": -11.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.51,
     "win_p": 0.853,
     "reasons": [
@@ -530,7 +529,7 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.65,
     "win_p": 0.43,
     "reasons": []
@@ -570,7 +569,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Princeton",
-    "p": 0.542,
+    "p": 0.534,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -586,11 +585,12 @@
     "opp": "Hofstra",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.584,
-    "win_p": 0.584,
+    "odds": -148,
+    "p": 0.573,
+    "win_p": 0.573,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -631,8 +631,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.412,
-    "tie": 0.296,
+    "p": 0.42,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -647,9 +647,9 @@
     "opp": "Islanders",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.636,
-    "win_p": 0.636,
+    "odds": -198,
+    "p": 0.65,
+    "win_p": 0.65,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1043,7 +1043,7 @@
     "opp": "Mississippi St",
     "market": "spread",
     "line": 21.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.529,
     "win_p": 0.051,
     "reasons": []
@@ -1527,7 +1527,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.727,
+    "p": 0.728,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1545,7 +1545,7 @@
     "line": 10.0,
     "odds": -115,
     "p": 0.512,
-    "win_p": 0.164,
+    "win_p": 0.163,
     "reasons": []
    }
   },
@@ -1571,7 +1571,7 @@
     "opp": "Illinois",
     "market": "spread",
     "line": 30.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.544,
     "win_p": 0.024,
     "reasons": [
@@ -1822,6 +1822,66 @@
    }
   },
   {
+   "id": "ncaab:401926131",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Purdue",
+    "p": 0.867,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T23:30Z",
+   "away": "Valparaiso",
+   "home": "Purdue",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Valparaiso",
+    "opp": "Purdue",
+    "market": "spread",
+    "line": 17.5,
+    "odds": -102,
+    "p": 0.542,
+    "win_p": 0.064,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401916314",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Ohio State",
+    "p": 0.916,
+    "tie": 0.016,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T23:30Z",
+   "away": "Youngstown St",
+   "home": "Ohio State",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Youngstown St",
+    "opp": "Ohio State",
+    "market": "spread",
+    "line": 24.5,
+    "odds": -102,
+    "p": 0.605,
+    "win_p": 0.032,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892659",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1877,6 +1937,34 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401913100",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "North Carolina",
+    "p": 0.907,
+    "tie": 0.017,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T00:00Z",
+   "away": "Wofford",
+   "home": "North Carolina",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Wofford",
+    "opp": "North Carolina",
+    "market": "spread",
+    "line": 22.5,
+    "odds": -102,
+    "p": 0.531,
+    "win_p": 0.037,
+    "reasons": []
    }
   },
   {
@@ -1970,6 +2058,36 @@
    }
   },
   {
+   "id": "ncaab:401920807",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas A&M",
+    "p": 0.925,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T01:00Z",
+   "away": "N Kentucky",
+   "home": "Texas A&M",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "N Kentucky",
+    "opp": "Texas A&M",
+    "market": "spread",
+    "line": 25.5,
+    "odds": -110,
+    "p": 0.587,
+    "win_p": 0.028,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401858510",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2026,6 +2144,34 @@
      "the stronger team",
      "sharp money moving this way"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401916304",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Minnesota",
+    "p": 0.835,
+    "tie": 0.026,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T01:00Z",
+   "away": "St Thomas",
+   "home": "Minnesota",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "St Thomas",
+    "opp": "Minnesota",
+    "market": "spread",
+    "line": 15.5,
+    "odds": -110,
+    "p": 0.574,
+    "win_p": 0.09,
+    "reasons": []
    }
   },
   {
