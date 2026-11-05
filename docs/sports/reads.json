@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T03:58Z",
+ "updated": "2026-11-05T04:47Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -433,8 +433,8 @@
    "away": "Jazz",
    "home": "Pelicans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -523,8 +523,8 @@
    "away": "Timberwolves",
    "home": "Rockets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -553,8 +553,8 @@
    "away": "Radford",
    "home": "California",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -568,8 +568,8 @@
    "away": "Raptors",
    "home": "Nuggets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -599,7 +599,7 @@
    "home": "Suns",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Suns",
@@ -612,7 +612,7 @@
     "reasons": [
      "the NBA dog score backs it: +5.2 (our read -0.8 points on the price, every NBA dog study weighed on a 14-game slate)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -625,8 +625,8 @@
    "away": "West Coast",
    "home": "Boise St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -885,7 +885,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.529,
+    "p": 0.53,
     "tie": 0.271,
     "name": "1st period"
    },
@@ -902,7 +902,7 @@
     "market": "spread",
     "line": -1.5,
     "odds": -175,
-    "p": 0.659,
+    "p": 0.66,
     "win_p": 0.826,
     "reasons": [
      "the stronger team",
@@ -1006,8 +1006,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.868,
-    "tie": 0.022,
+    "p": 0.857,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1024,7 +1024,7 @@
     "line": 18.5,
     "odds": -105,
     "p": 0.532,
-    "win_p": 0.06,
+    "win_p": 0.069,
     "reasons": []
    }
   },
@@ -1185,8 +1185,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cincinnati",
-    "p": 0.902,
-    "tie": 0.018,
+    "p": 0.912,
+    "tie": 0.016,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1203,7 +1203,7 @@
     "line": 24.5,
     "odds": -108,
     "p": 0.545,
-    "win_p": 0.037,
+    "win_p": 0.032,
     "reasons": []
    }
   },
@@ -1225,16 +1225,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Princeton",
-    "opp": "Hofstra",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.541,
-    "win_p": 0.541,
-    "reasons": [
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
-    ]
+    "team": "Hofstra",
+    "opp": "Princeton",
+    "market": "spread",
+    "line": 2.5,
+    "odds": -118,
+    "p": 0.542,
+    "win_p": 0.46,
+    "reasons": []
    }
   },
   {
@@ -1871,8 +1869,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.583,
-    "tie": 0.042,
+    "p": 0.527,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1880,18 +1878,17 @@
    "start": "2026-11-06T01:00Z",
    "away": "Jax State",
    "home": "South Alabama",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "South Alabama",
     "opp": "Jax State",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.638,
-    "win_p": 0.638,
+    "odds": -142,
+    "p": 0.564,
+    "win_p": 0.564,
     "reasons": [
-     "sharp money moving this way",
      "the stronger team"
     ]
    }
@@ -1923,8 +1920,7 @@
     "win_p": 0.897,
     "reasons": [
      "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
+     "hotter recent form"
     ]
    }
   },
@@ -2084,8 +2080,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah",
-    "p": 0.74,
-    "tie": 0.034,
+    "p": 0.726,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2102,8 +2098,10 @@
     "line": 10.5,
     "odds": -110,
     "p": 0.528,
-    "win_p": 0.177,
-    "reasons": []
+    "win_p": 0.192,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {

@@ -31492,6 +31492,7 @@
      "them:road3in6"
     ],
     "dec": 2.25,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -31560,6 +31561,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "29,43,32,28",
+     "h": "34,25,26,34"
+    },
     "form_state": [
      -3.0,
      -3,
@@ -31612,10 +31617,12 @@
      "the NBA dog score backs it: +5.2 (our read -0.8 points on the price, every NBA dog study weighed on a 14-game slate)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Trail Blazers 132 @ Suns 119",
     "season_games": 5,
+    "settled": "2026-11-05T04:44Z",
     "side": "home",
     "start": "2026-11-05T02:00Z",
     "stype": "2",
@@ -31632,12 +31639,14 @@
    }
   ],
   "p_hit": 0.4155,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-04T22:51Z",
   "round": 1,
+  "settled": "2026-11-05T04:44Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -109,
