@@ -1,17 +1,17 @@
 {
- "updated": 1793853646418,
+ "updated": 1793859199072,
  "plays": [],
  "record": {
   "won": 16,
   "lost": 19
  },
- "live_games": 9,
+ "live_games": 3,
  "tennis": {
-  "watching": 0,
-  "priced": 0,
+  "watching": 2,
+  "priced": 1,
   "stale": 0,
-  "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "suspended": 1,
+  "books": "2 live lines, 2 fresh (betrivers 2)"
  },
  "scores": {
   "ncaaf:401866453": {
@@ -121,10 +121,10 @@
   "nba:401909932": {
    "away": "Trail Blazers",
    "home": "Suns",
-   "a": 126,
-   "h": 115,
-   "clock": "01:23 - 4th",
-   "live": true
+   "a": 132,
+   "h": 119,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909931": {
    "away": "Raptors",
@@ -137,25 +137,25 @@
   "nba:401909933": {
    "away": "Mavericks",
    "home": "Spurs",
-   "a": 66,
-   "h": 77,
-   "clock": "04:18 - 3rd",
-   "live": true
+   "a": 111,
+   "h": 112,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909934": {
    "away": "Lakers",
    "home": "Kings",
-   "a": 67,
-   "h": 60,
-   "clock": "09:36 - 3rd",
-   "live": true
+   "a": 116,
+   "h": 103,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909935": {
    "away": "Heat",
    "home": "Clippers",
-   "a": 52,
-   "h": 67,
-   "clock": "Halftime",
+   "a": 109,
+   "h": 112,
+   "clock": "02:41 - OT",
    "live": true
   },
   "nhl:401892633": {
@@ -266,17 +266,17 @@
    "away": "Flames",
    "home": "Kraken",
    "a": 1,
-   "h": 1,
-   "clock": "2nd Intermission",
-   "live": true
+   "h": 2,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892646": {
    "away": "Sharks",
    "home": "Kings",
-   "a": 1,
-   "h": 4,
-   "clock": "06:29 - 2nd",
-   "live": true
+   "a": 2,
+   "h": 7,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401906848": {
    "away": "Wofford",
@@ -473,27 +473,18 @@
   "ncaab:401917513": {
    "away": "Milwaukee",
    "home": "Santa Clara",
-   "a": 60,
-   "h": 82,
-   "clock": "07:32 - 2nd Half",
-   "live": true
+   "a": 72,
+   "h": 95,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401917514": {
    "away": "Queens",
    "home": "LMU",
-   "a": 72,
-   "h": 79,
-   "clock": "08:41 - 2nd Half",
-   "live": true
-  },
-  "ncaab:401917512": {
-   "away": "N Dakota St",
-   "home": "Saint Mary's",
-   "a": 58,
-   "h": 99,
-   "clock": "2:42 - 2nd Half",
-   "live": true,
-   "src": "espn"
+   "a": 96,
+   "h": 95,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401920232": {
    "away": "Framingham St",
@@ -634,6 +625,15 @@
    "away": "SalishKootenai",
    "home": "Montana",
    "a": 40,
+   "h": 105,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401917512": {
+   "away": "N Dakota St",
+   "home": "Saint Mary's",
+   "a": 64,
    "h": 105,
    "clock": "Final",
    "live": false,
@@ -855,36 +855,73 @@
    "tennis": true,
    "live": false,
    "delayed": false
+  },
+  "tennis:wta:186640": {
+   "n": [
+    "Shubladze",
+    "Pridankina"
+   ],
+   "sets": [
+    [
+     0,
+     0
+    ]
+   ],
+   "pts": [
+    "AD",
+    "40"
+   ],
+   "srv": 1,
+   "done": 0,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
+  "tennis:wta:186631": {
+   "n": [
+    "Ruzic",
+    "Wang Xinyu"
+   ],
+   "sets": [
+    [
+     1,
+     0
+    ]
+   ],
+   "pts": [
+    "0",
+    "0"
+   ],
+   "srv": 1,
+   "done": 0,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
   }
  },
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:ncaab": "ok 0",
-  "betrivers:nhl": "ok 0",
   "betrivers:nba": "ok 0",
-  "betrivers:tennis": "ok 0",
-  "betrivers:nba:1028754171": "ok 0",
-  "betrivers:ncaab:1028982401": "ok 0",
-  "betrivers:ncaab:1028850183": "ok 0"
+  "betrivers:tennis": "ok 2"
  },
  "health": [
-  "1 live game priced only by DraftKings (via ESPN), no second source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there",
-  "Bovada's liveOnly feed had nothing for nba, ncaab, nhl - used the full feed's live events instead (nba 4, ncaab 2, nhl 2)"
+  "no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a real price)",
+  "Bovada's liveOnly feed had nothing for nba - used the full feed's live events instead (nba 1)"
  ],
- "priced": 6,
- "dk_only": 1,
+ "priced": 0,
+ "dk_only": 0,
  "min_p": 0.55,
- "price_src": {
-  "bovada": 6
- },
+ "price_src": {},
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
  "espn_only": 18,
  "errors": [],
  "books": {
-  "ncaab": "3 groups, 2 fresh events (liveOnly feed empty: 2 fresh live from the full feed)",
-  "nba": "4 groups, 4 fresh events (liveOnly feed empty: 4 fresh live from the full feed)",
-  "nhl": "2 groups, 2 fresh events (liveOnly feed empty: 2 fresh live from the full feed)"
+  "nba": "1 groups, 1 fresh events (liveOnly feed empty: 1 fresh live from the full feed)"
  },
- "took_s": 14.2
+ "took_s": 15.3
 }
