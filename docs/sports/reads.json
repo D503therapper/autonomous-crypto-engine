@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T00:54Z",
+ "updated": "2026-11-05T01:40Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -11,8 +11,8 @@
    "away": "Framingham St",
    "home": "Dartmouth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -409,124 +409,135 @@
    "lean": null
   },
   {
-   "id": "nba:401909930",
+   "id": "nba:401909929",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.623,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-05T01:30Z",
-   "away": "Timberwolves",
-   "home": "Rockets",
-   "why": "no_value",
+   "start": "2026-11-05T01:00Z",
+   "away": "Cavaliers",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Timberwolves",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.706,
-    "win_p": 0.706,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401918052",
+   "id": "nba:401909928",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-05T01:00Z",
+   "away": "Jazz",
+   "home": "Pelicans",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928811",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "California",
-    "p": 0.844,
-    "tie": 0.025,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-05T02:00Z",
-   "away": "Radford",
-   "home": "California",
-   "why": "coin_flip",
+   "start": "2026-11-05T01:00Z",
+   "away": "N Kentucky",
+   "home": "South Dakota",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Radford",
-    "opp": "California",
-    "market": "spread",
-    "line": 16.5,
-    "odds": -112,
-    "p": 0.516,
-    "win_p": 0.079,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "nba:401909931",
+   "id": "nba:401909927",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Nuggets",
-    "p": 0.578,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-05T02:00Z",
-   "away": "Raptors",
-   "home": "Nuggets",
-   "why": "tight",
+   "start": "2026-11-05T01:00Z",
+   "away": "Pacers",
+   "home": "Grizzlies",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Nuggets",
-    "opp": "Raptors",
-    "market": "ml",
-    "line": null,
-    "odds": -203,
-    "p": 0.643,
-    "win_p": 0.643,
-    "reasons": [
-     "the stronger team",
-     "altitude edge"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaab:401925893",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T01:00Z",
+   "away": "Randolph",
+   "home": "Norfolk St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920798",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T01:00Z",
+   "away": "SE Louisiana",
+   "home": "Auburn",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401923391",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T01:00Z",
+   "away": "St Mary's",
+   "home": "S Indiana",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nba:401909932",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Trail Blazers",
-    "p": 0.538,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-05T02:00Z",
    "away": "Trail Blazers",
    "home": "Suns",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Trail Blazers",
-    "opp": "Suns",
+    "team": "Suns",
+    "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.573,
-    "win_p": 0.573,
+    "odds": 125,
+    "p": 0.415,
+    "win_p": 0.415,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+     "the NBA dog score backs it: +5.2 (our read -0.8 points on the price, every NBA dog study weighed on a 14-game slate)"
+    ],
+    "result": null
    }
   },
   {
@@ -657,8 +668,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Saint Mary's",
-    "p": 0.795,
-    "tie": 0.03,
+    "p": 0.799,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -672,10 +683,10 @@
     "team": "N Dakota St",
     "opp": "Saint Mary's",
     "market": "spread",
-    "line": 12.5,
-    "odds": -102,
-    "p": 0.507,
-    "win_p": 0.122,
+    "line": 13.5,
+    "odds": -115,
+    "p": 0.51,
+    "win_p": 0.118,
     "reasons": []
    }
   },
