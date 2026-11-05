@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T09:17Z",
+ "updated": "2026-11-05T09:43Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -287,17 +287,19 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Bruins",
+    "team": "Bruins",
+    "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.712,
-    "win_p": 0.499,
-    "reasons": []
+    "odds": -278,
+    "p": 0.716,
+    "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1471,7 +1473,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.731,
+    "p": 0.732,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1480,19 +1482,17 @@
    "start": "2026-11-06T01:15Z",
    "away": "Jaguars",
    "home": "Ravens",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Jaguars @ Ravens",
-    "market": "total",
-    "line": 39.5,
-    "odds": -109,
-    "p": 0.587,
-    "win_p": 0.587,
-    "reasons": [
-     "the engine's scoring read"
-    ]
+    "team": "Ravens",
+    "opp": "Jaguars",
+    "market": "spread",
+    "line": 10.0,
+    "odds": -112,
+    "p": 0.514,
+    "win_p": 0.159,
+    "reasons": []
    }
   },
   {
