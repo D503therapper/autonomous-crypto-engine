@@ -1,12 +1,12 @@
 {
- "at": "2026-11-05T18:55Z",
+ "at": "2026-11-05T19:01Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Gormaz vs Monnet: no points for 170s",
-  "live tennis scores: tennis Zarazua vs Riera: no points for 170s"
+  "live tennis scores: tennis Gormaz vs Monnet: no points for 542s",
+  "live tennis scores: tennis Zarazua vs Riera: no points for 542s"
  ],
  "ok": [
-  "live watcher fresh (19s)",
+  "live watcher fresh (201s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +20,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 2h ago",
-  "engine ran 5 min ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T19:01Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 542s",
+    "live tennis scores: tennis Zarazua vs Riera: no points for 542s"
+   ]
+  },
   {
    "at": "2026-11-05T18:55Z",
    "fixes": [],
@@ -524,14 +532,6 @@
   {
    "at": "2026-11-04T08:50Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T07:15Z",
-   "fixes": [
-    "live watch 41788433089 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
