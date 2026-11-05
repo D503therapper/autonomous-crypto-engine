@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T07:13Z",
+ "updated": "2026-11-05T07:25Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -1779,6 +1779,34 @@
    }
   },
   {
+   "id": "ncaab:401906792",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Mississippi St",
+    "p": 0.878,
+    "tie": 0.021,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T00:30Z",
+   "away": "N'Western St",
+   "home": "Mississippi St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "N'Western St",
+    "opp": "Mississippi St",
+    "market": "spread",
+    "line": 21.5,
+    "odds": -115,
+    "p": 0.529,
+    "win_p": 0.057,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401867964",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1812,8 +1840,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fordham",
-    "p": 0.827,
-    "tie": 0.027,
+    "p": 0.872,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1830,9 +1858,8 @@
     "line": 16.5,
     "odds": -112,
     "p": 0.55,
-    "win_p": 0.096,
+    "win_p": 0.061,
     "reasons": [
-     "sharp money moving this way",
      "hotter recent form"
     ]
    }
@@ -1963,8 +1990,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rice",
-    "p": 0.551,
-    "tie": 0.043,
+    "p": 0.602,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1979,11 +2006,12 @@
     "opp": "East Texas A&M",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.596,
-    "win_p": 0.596,
+    "odds": -218,
+    "p": 0.662,
+    "win_p": 0.662,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
