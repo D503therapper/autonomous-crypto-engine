@@ -129,7 +129,9 @@ def lean_cap(rows):
         #   the Thursday NFL pick - lost its Bruins lean on a self-merge.)
         for p in sorted(ps, key=lambda p: (p.get("posted") or "9", p.get("kind") == "lean")):
             if p.get("kind") == "lean" and _straight(p) and (p.get("posted") or "9") > first_post and \
-                    sum((q.get("posted") or "9") <= (p.get("posted") or "9") for q in kept) >= BOARD_TARGET:
+                    sum((q.get("posted") or "9") <= (p.get("posted") or "9") and not q.get("forced")
+                        for q in kept) >= BOARD_TARGET:   # (11/5: the forced ⭐ pick is posted on top of the
+                #                                           5-pick board - it never pushes a posted lean off it)
                 drop.add(id(p))
                 continue
             kept.append(p)
