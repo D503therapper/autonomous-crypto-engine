@@ -12822,3 +12822,47 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-05 14:30 UTC] stocks/trend     equity $468.66 (-6.3%) 3 open  market DOWN
 [2026-11-05 14:30 UTC] stocks/hold_spy  equity $498.07 (-0.4%) 1 open  market DOWN
    social heat top: TRUMP 40 (40/0/0), BTC 37 (37/0/0), CARDS 35 (35/0/0), SOL 34 (29/0/4), PENGU 27 (27/0/0)
+   scanner: 979 tickers, sample: {'i': 'BTC_USD', 'h': '81136.85', 'l': '78220.95', 'a': '79496.66', 'v': '4783.5635', 'vv': '383514680.68', 'c': '0.0163', 'b': '79496.66', 'k': '79496.67', 'oi': '0', 't': 1793889059724}
+   dex screen: PASS GTA@solana liq $158,975
+   dex screen: PASS GLITCH@solana liq $166,311
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AAPLC@base liq $519,002 - pool age unknown
+   dex screen: REJECT DOPE@solana liq $169,806 - lp holders unknown; rugcheck lp locked 72% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   >> stocks/trend: SELL $137.88 of IWM @ 281.839, P/L $-0.17 (stop hit (live check))
+   dex screen: REJECT JITOSOL@base liq $13,367,039 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
+   dex screen: REJECT TSLAON@ethereum liq $4,617,973 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 71%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,997 pools (solana 2,102 / base 513 / ethereum 382), refresh cycle 122s (hot 118s), 1477 calls (61 feed, 429s 1, failed 1), 42,439 refreshed (5264 no pair), +109 added / -112 dropped (dead 16, stale 0, cap 96), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-05 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/mover     equity $226.52 (-54.7%) 1 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/social_heat equity $362.39 (-27.5%) 2 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/breakout10 equity $397.46 (-20.5%) 1 open  market UP
+[2026-11-05 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-05 15:06 UTC] crypto/hold_btc  equity $466.76 (-6.6%) 1 open  market DOWN
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-05 15:06 UTC] stocks/rsi2      equity $478.68 (-4.3%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): PLTR 0 BUY, XLE 4 BUY, TSLA 8 BUY, SMH 20
+[2026-11-05 15:06 UTC] stocks/breakout52 equity $480.54 (-3.9%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+430% 6-mo), AMC (+114% 6-mo), CHPT (+79% 6-mo), ROKU (+27% 6-mo), XYZ (+24% 6-mo)
+[2026-11-05 15:06 UTC] stocks/dual_momentum equity $457.06 (-8.6%) 2 open  market DOWN
+[2026-11-05 15:06 UTC] stocks/trend_ensemble equity $510.82 (+2.2%) 5 open  market UP
+[2026-11-05 15:06 UTC] stocks/rotation10 equity $498.60 (-0.3%) 2 open  market UP
+[2026-11-05 15:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: BUY $137.20 of JPM @ 348.609 (entry)
+[2026-11-05 15:06 UTC] stocks/trend     equity $469.20 (-6.2%) 3 open  market DOWN
+[2026-11-05 15:06 UTC] stocks/hold_spy  equity $490.42 (-1.9%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), BTC 37 (37/0/0), SOL 35 (35/0/0), ETH 32 (32/0/0), INJ 27 (27/0/0)
