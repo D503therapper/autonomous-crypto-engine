@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T15:28Z",
+ "updated": "2026-11-05T16:01Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "McNeese",
-    "p": 0.541,
+    "p": 0.532,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -23,9 +23,9 @@
     "opp": "North Texas",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.587,
-    "win_p": 0.587,
+    "odds": -148,
+    "p": 0.576,
+    "win_p": 0.576,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -48,7 +48,7 @@
    "start": "2026-11-05T23:00Z",
    "away": "Bellarmine",
    "home": "Indiana",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Bellarmine",
@@ -56,7 +56,7 @@
     "market": "spread",
     "line": 29.5,
     "odds": -105,
-    "p": 0.566,
+    "p": 0.532,
     "win_p": 0.019,
     "reasons": []
    }
@@ -106,7 +106,7 @@
    "start": "2026-11-05T23:00Z",
    "away": "Wake Forest",
    "home": "Vanderbilt",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Wake Forest",
@@ -114,7 +114,7 @@
     "market": "spread",
     "line": 18.5,
     "odds": -115,
-    "p": 0.55,
+    "p": 0.516,
     "win_p": 0.069,
     "reasons": []
    }
@@ -255,8 +255,8 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Penguins",
     "opp": "Bruins",
@@ -342,7 +342,7 @@
    "start": "2026-11-06T00:00Z",
    "away": "C Connecticut",
    "home": "Syracuse",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "C Connecticut",
@@ -350,7 +350,7 @@
     "market": "spread",
     "line": 23.5,
     "odds": -108,
-    "p": 0.558,
+    "p": 0.524,
     "win_p": 0.038,
     "reasons": []
    }
@@ -461,8 +461,8 @@
    "start": "2026-11-06T00:00Z",
    "away": "Flyers",
    "home": "Rangers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Flyers",
     "opp": "Rangers",
@@ -550,7 +550,7 @@
    "start": "2026-11-06T00:00Z",
    "away": "Green Bay",
    "home": "Cincinnati",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Green Bay",
@@ -558,7 +558,7 @@
     "market": "spread",
     "line": 24.5,
     "odds": -108,
-    "p": 0.545,
+    "p": 0.611,
     "win_p": 0.037,
     "reasons": []
    }
@@ -702,8 +702,8 @@
    "start": "2026-11-06T00:00Z",
    "away": "Mammoth",
    "home": "Canadiens",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Canadiens",
     "opp": "Mammoth",
@@ -847,8 +847,8 @@
    "start": "2026-11-06T00:00Z",
    "away": "Stars",
    "home": "Blue Jackets",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Blue Jackets",
     "opp": "Stars",
@@ -1079,8 +1079,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fordham",
-    "p": 0.877,
-    "tie": 0.021,
+    "p": 0.885,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1095,9 +1095,9 @@
     "opp": "Fordham",
     "market": "spread",
     "line": 20.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.572,
-    "win_p": 0.057,
+    "win_p": 0.051,
     "reasons": [
      "hotter recent form"
     ]
@@ -1208,16 +1208,16 @@
    "start": "2026-11-06T01:00Z",
    "away": "Ducks",
    "home": "Oilers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Oilers",
     "opp": "Ducks",
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.624,
-    "win_p": 0.624,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "the stronger team"
     ]
@@ -1276,8 +1276,8 @@
     "market": "spread",
     "line": 41.5,
     "odds": -105,
-    "p": 0.587,
-    "win_p": 0.029,
+    "p": 0.554,
+    "win_p": 0.028,
     "reasons": []
    }
   },
@@ -1332,7 +1332,7 @@
     "market": "spread",
     "line": -13.5,
     "odds": -108,
-    "p": 0.504,
+    "p": 0.503,
     "win_p": 0.722,
     "reasons": [
      "the stronger team"
@@ -1521,7 +1521,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.735,
+    "p": 0.736,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1530,8 +1530,8 @@
    "start": "2026-11-06T01:15Z",
    "away": "Jaguars",
    "home": "Ravens",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Ravens",
     "opp": "Jaguars",
@@ -1539,7 +1539,7 @@
     "line": 10.0,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.156,
+    "win_p": 0.155,
     "reasons": []
    }
   },
@@ -1558,7 +1558,7 @@
    "start": "2026-11-06T01:30Z",
    "away": "Penn",
    "home": "Illinois",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Penn",
@@ -1566,7 +1566,7 @@
     "market": "spread",
     "line": 30.5,
     "odds": -108,
-    "p": 0.578,
+    "p": 0.544,
     "win_p": 0.029,
     "reasons": [
      "better rested"
@@ -1620,7 +1620,7 @@
    "start": "2026-11-06T02:00Z",
    "away": "Bethune",
    "home": "Texas Tech",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Bethune",
@@ -1628,7 +1628,7 @@
     "market": "spread",
     "line": 29.5,
     "odds": -115,
-    "p": 0.554,
+    "p": 0.52,
     "win_p": 0.037,
     "reasons": [
      "sharp money moving this way"
@@ -1687,9 +1687,9 @@
     "team": "Towson",
     "opp": "Utah",
     "market": "spread",
-    "line": 8.5,
-    "odds": -112,
-    "p": 0.516,
+    "line": 7.5,
+    "odds": -102,
+    "p": 0.511,
     "win_p": 0.213,
     "reasons": [
      "sharp money moving this way"
@@ -1732,7 +1732,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.638,
+    "p": 0.639,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1749,8 +1749,8 @@
     "market": "ml",
     "line": null,
     "odds": -279,
-    "p": 0.726,
-    "win_p": 0.726,
+    "p": 0.727,
+    "win_p": 0.727,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -1811,7 +1811,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -250,
-    "p": 0.678,
+    "p": 0.679,
     "win_p": 0.461,
     "reasons": []
    }
@@ -1929,7 +1929,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -233,
-    "p": 0.678,
+    "p": 0.679,
     "win_p": 0.461,
     "reasons": []
    }
