@@ -1775,7 +1775,10 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                        f"🥅 In net, {us} got {mine[0]}: {mine[1]}. {them} got {his[0]}: {his[1]}. Edge us.",
                                        f"🥅 {his[0]} ({them}) has {his[1]}; our guy {mine[0]} has {mine[1]}. We like our goalie more."]))
         elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005:
-            v.knock(6, f"{his[0]} ({them}) is at a {sh_:.3f} save % over his last 3 starts to {mine[0]}'s {sm_:.3f}")
+            v.knock(6, f"{his[0]} ({them}{'' if his[2] else ', in net last time out'}) is at a {sh_:.3f} save % over his last 3 "
+                       f"starts to {mine[0]}'s {sm_:.3f}{'' if mine[2] else ' (our guy in net last time out)'}")   # (11/5 pre-board
+            #   check: an unconfirmed starter is the LAST starter - the Ducks card named Brossoit while the goalie page had
+            #   Dostal projected; the line says whose numbers they are, never that he's in net tonight)
         else:
             add.append(v.tag(v.say("f_net", [f"🥅 {mine[0]} ({tag(mine[2])} for {us}): {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
                                              f"🥅 Goalies - {us}: {mine[0]}, {mine[1]}. {them}: {his[0]}, {his[1]}. A wash in net."]), "neutral"))

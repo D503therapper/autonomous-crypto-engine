@@ -19466,6 +19466,25 @@ def test_best_pick_1105_the_star_only_goes_on_a_play_whose_read_beats_its_price(
     assert sports.forced_best([c_under], set(), "2026-11-04")["game_id"] == "g1"     # the 11/4 rule before
 
 
+
+def test_preboard_1105_an_unconfirmed_goalie_in_the_knock_line_is_named_as_the_last_starter():
+    """11/5 pre-board check: at 8 AM every NHL starter on the goalie page is 'unconfirmed', so the card's goalie numbers
+    are the LAST starter's - the Ducks card read 'Jarry .961 ... to Laurent Brossoit's .844' while the page projected
+    Lukas Dostal, the Flyers card named Dan Vladar with Joseph Woll projected. Never false: the ⚠️ goalie knock says whose
+    numbers they are ('in net last time out') whenever the starter isn't known; a known starter reads as before."""
+    import re
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("save % over his last 3")
+    seg = src[i - 200:i + 400]
+    assert "'' if his[2] else ', in net last time out'" in seg and "'' if mine[2] else ' (our guy in net last time out)'" in seg
+    his, mine, them = ("Tristan Jarry", ".961", False), ("Laurent Brossoit", ".844", False), "Oilers"
+    line = (f"{his[0]} ({them}{'' if his[2] else ', in net last time out'}) is at a 0.961 save % over his last 3 "
+            f"starts to {mine[0]}'s 0.844{'' if mine[2] else ' (our guy in net last time out)'}")
+    assert line == ("Tristan Jarry (Oilers, in net last time out) is at a 0.961 save % over his last 3 starts to "
+                    "Laurent Brossoit's 0.844 (our guy in net last time out)")
+    assert not re.search(r"\bin net tonight\b", line)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

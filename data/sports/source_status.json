@@ -2,78 +2,78 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-05T07:13Z",
+   "at": "2026-11-05T13:34Z",
    "how": "plain request",
-   "n": 2,
+   "n": 21,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-05T07:11Z",
+   "at": "2026-11-05T13:33Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-05T07:13Z",
+   "at": "2026-11-05T13:34Z",
    "how": "plain request",
    "n": 6,
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-05T07:13Z",
+   "at": "2026-11-05T13:34Z",
    "how": "plain request",
    "n": 28,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-05T07:13Z",
-   "how": "plain request - answered EMPTY (no events: refused or down)",
-   "n": 0,
-   "ok": false
+   "at": "2026-11-05T13:34Z",
+   "how": "plain request",
+   "n": 2,
+   "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-05T07:13Z",
+   "at": "2026-11-05T13:34Z",
    "how": "plain request",
    "n": 15,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-05T07:12Z",
+   "at": "2026-11-05T07:33Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-05T07:12Z",
+   "at": "2026-11-05T13:33Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-05T07:04Z",
+   "at": "2026-11-05T13:32Z",
    "how": "plain request",
    "n": 11,
    "ok": true
   },
   "drbob": {
-   "at": "2026-11-05T07:04Z",
+   "at": "2026-11-05T10:46Z",
    "how": "plain request",
    "n": 15,
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-05T07:12Z",
+   "at": "2026-11-05T07:33Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-05T07:12Z",
+   "at": "2026-11-05T13:33Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-05T07:13Z"
+ "updated": "2026-11-05T13:34Z"
 }
