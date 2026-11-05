@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T04:57Z",
+ "updated": "2026-11-05T04:58Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -801,8 +801,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Penn State",
-    "p": 0.833,
-    "tie": 0.026,
+    "p": 0.824,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -816,11 +816,13 @@
     "team": "Chattanooga",
     "opp": "Penn State",
     "market": "spread",
-    "line": 15.5,
+    "line": 13.5,
     "odds": -108,
-    "p": 0.537,
-    "win_p": 0.088,
-    "reasons": []
+    "p": 0.526,
+    "win_p": 0.096,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -829,8 +831,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Vanderbilt",
-    "p": 0.856,
-    "tie": 0.023,
+    "p": 0.85,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -847,7 +849,7 @@
     "line": 17.5,
     "odds": -112,
     "p": 0.544,
-    "win_p": 0.069,
+    "win_p": 0.074,
     "reasons": []
    }
   },
@@ -885,8 +887,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.53,
-    "tie": 0.271,
+    "p": 0.526,
+    "tie": 0.272,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -901,9 +903,9 @@
     "opp": "Blackhawks",
     "market": "spread",
     "line": -1.5,
-    "odds": -175,
-    "p": 0.66,
-    "win_p": 0.826,
+    "odds": -155,
+    "p": 0.652,
+    "win_p": 0.821,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -964,7 +966,7 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
+    "odds": -285,
     "p": 0.712,
     "win_p": 0.499,
     "reasons": []
@@ -1126,8 +1128,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charlotte",
-    "p": 0.759,
-    "tie": 0.033,
+    "p": 0.781,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1144,10 +1146,11 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.51,
-    "win_p": 0.843,
+    "win_p": 0.866,
     "reasons": [
      "hotter recent form",
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1213,8 +1216,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Princeton",
-    "p": 0.509,
-    "tie": 0.044,
+    "p": 0.539,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1222,17 +1225,19 @@
    "start": "2026-11-06T00:00Z",
    "away": "Hofstra",
    "home": "Princeton",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Hofstra",
-    "opp": "Princeton",
-    "market": "spread",
-    "line": 2.5,
-    "odds": -118,
-    "p": 0.542,
-    "win_p": 0.46,
-    "reasons": []
+    "team": "Princeton",
+    "opp": "Hofstra",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.581,
+    "win_p": 0.581,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1585,7 +1590,7 @@
     "market": "spread",
     "line": -1.5,
     "odds": -105,
-    "p": 0.527,
+    "p": 0.528,
     "win_p": 0.518,
     "reasons": [
      "better rested",
@@ -1631,7 +1636,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SC State",
-    "p": 0.767,
+    "p": 0.766,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -1649,7 +1654,7 @@
     "line": 15.5,
     "odds": -110,
     "p": 0.506,
-    "win_p": 0.173,
+    "win_p": 0.174,
     "reasons": []
    }
   },
@@ -1840,7 +1845,7 @@
    "h1": {
     "team": "James Madison",
     "p": 0.743,
-    "tie": 0.026,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1857,7 +1862,7 @@
     "line": -14.5,
     "odds": -108,
     "p": 0.503,
-    "win_p": 0.742,
+    "win_p": 0.741,
     "reasons": [
      "the stronger team"
     ]
@@ -1869,8 +1874,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.527,
-    "tie": 0.043,
+    "p": 0.589,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1885,9 +1890,9 @@
     "opp": "Jax State",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.564,
-    "win_p": 0.564,
+    "odds": -205,
+    "p": 0.646,
+    "win_p": 0.646,
     "reasons": [
      "the stronger team"
     ]
@@ -1899,8 +1904,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.814,
-    "tie": 0.028,
+    "p": 0.844,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1914,10 +1919,10 @@
     "team": "Tulsa",
     "opp": "N Illinois",
     "market": "spread",
-    "line": -15.5,
-    "odds": -108,
-    "p": 0.537,
-    "win_p": 0.897,
+    "line": -16.5,
+    "odds": -102,
+    "p": 0.532,
+    "win_p": 0.922,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1990,8 +1995,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Loyola Chicago",
-    "p": 0.843,
-    "tie": 0.025,
+    "p": 0.857,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2005,10 +2010,10 @@
     "team": "West Georgia",
     "opp": "Loyola Chicago",
     "market": "spread",
-    "line": 16.5,
+    "line": 18.5,
     "odds": -108,
-    "p": 0.522,
-    "win_p": 0.08,
+    "p": 0.534,
+    "win_p": 0.069,
     "reasons": []
    }
   },
@@ -2096,7 +2101,7 @@
     "opp": "Utah",
     "market": "spread",
     "line": 10.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.528,
     "win_p": 0.192,
     "reasons": [
