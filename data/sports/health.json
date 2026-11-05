@@ -1,31 +1,31 @@
 {
- "at": "2026-11-05T10:00Z",
+ "at": "2026-11-05T10:02Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Linette vs Uchijima: no points for 88s",
-  "live tennis scores: tennis Kulambayeva vs Hontama: no points for 88s",
-  "live tennis scores: tennis Li Zongyu vs Blinkova: no points for 2625s",
-  "live tennis scores: tennis Zaytseva vs Kroitor: no points for 2625s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (49s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 3 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (bovada 2)",
+  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 28 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-05T10:02Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-05T10:00Z",
    "fixes": [],
@@ -516,11 +516,6 @@
     "live watch 41748961602 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T01:27Z",
-   "fixes": [],
    "problems": []
   }
  ]
