@@ -1,27 +1,3 @@
-SLATE CHECK (not held): AR-Pine Bluff @ Arkansas (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Regis U @ Wyoming (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Western NM @ New Mexico St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Bethesda @ Pacific (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Lewis & Clark @ Portland St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Chapman @ UC Irvine (NCAAB): no price - a small-school game the books skip
-everything's pulled and checked - the board goes up at 8:00 sharp (waiting 704s)
-public splits: 82 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 133 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 133 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 4 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (100 players), 365 matched, 0 unmatched
-   no units on Kentucky: missing K. Williams, J. Morton, T. Noah
-   no units on South Carolina: missing G. Polk, M. Alessanco, S. Blakeney
-   no units on Alabama: missing A. Diaz, A. Holloway, P. Murphy Jr.
-   no units on Missouri: missing L. Northweather, J. Carey, C. Gunn, A. Boateng
-   no units on Maple Leafs: missing Kirill Marchenko, Nick Blankenburg
-   no units on Canadiens: missing Mike Matheson, Nick Suzuki, Kirby Dach
-   no units on Red Wings: missing Albert Johansson, Dylan Larkin
    no units on Penguins: missing Elmer Soderblom, Bryan Rust, Evgeni Malkin, Kaedan Korczak
    no units on Stars: missing Kyle Capobianco, Oskar Back
    no units on Oilers: missing 2 players out (0 for Devils)
@@ -2998,3 +2974,27 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 3 matches
 1H line log: 45 rows (21 with a 1st-half line) from 120 AN games
 source check (3.1s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 131991 games stored, 52 calls, 0 failed, 9s
+odds history: 1 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 110 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 11 games on the page, 11 matched, 0 confirmed
+nba rosters: 30 teams as of 2026-11-05, 0 failed, 0 moves
+beat the close: unit plays 28 of 83 better than the close, avg +0.2 pts
+futures logged: nba 9, nhl 7, nfl 12, ncaaf 12
+public splits: 122 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 136 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 73929 matches stored, 18 calls, 0 failed
+tennis study ATP: 26279 rated matches, acc 0.644 (surface ratings alone 0.641), loss 0.6303 vs 0.632, own weights [-0.005, 0.827, 0.074, 0.15, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6303: experience 0.6301 (+0.20 mnats, z 0.21), age 0.6287 (+1.61 mnats, z 1.14), young_vs_aging 0.6301 (+0.24 mnats, z 0.6), last_match 0.6275 (+2.80 mnats, z 1.98), streaks 0.6311 (-0.79 mnats, z -0.76), first_set 0.6296 (+0.74 mnats, z 1.13), injury 0.6312 (-0.89 mnats, z -1.37), travel 0.6303 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30815 rated matches, acc 0.646 (surface ratings alone 0.6485), loss 0.6227 vs 0.6224, own weights [0.005, 0.904, -0.002, -0.074, 0.301, 0.023, -0.198]
+tennis study WTA life factors vs current loss 0.6227: experience 0.6202 (+2.45 mnats, z 1.42), age 0.6219 (+0.76 mnats, z 0.96), young_vs_aging 0.6224 (+0.21 mnats, z 1.27), last_match 0.6235 (-0.81 mnats, z -0.8), streaks 0.6227 (-0.01 mnats, z -0.01), first_set 0.6224 (+0.24 mnats, z 0.5), injury 0.6221 (+0.57 mnats, z 1.01), travel 0.6228 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
+tennis reads: 3 matches
+1H line log: 45 rows (41 with a 1st-half line) from 120 AN games
+source check (7.9s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
