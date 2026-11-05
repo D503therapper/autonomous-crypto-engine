@@ -123,8 +123,12 @@ def lean_cap(rows):
         if (day or "") < BOARD_FROM:
             continue
         kept = []
+        first_post = min((q.get("posted") or "9") for q in ps)   # (11/5: the opening board's own picks all share one
+        #   posted minute - a 6th pick from the SAME run (the forced ⭐ side on top of 5) is the board, not a second run's
+        #   copy; only a lean posted LATER than the opening board is ever capped. The 11/5 board - 3 plays, 3 leans incl.
+        #   the Thursday NFL pick - lost its Bruins lean on a self-merge.)
         for p in sorted(ps, key=lambda p: (p.get("posted") or "9", p.get("kind") == "lean")):
-            if p.get("kind") == "lean" and _straight(p) and \
+            if p.get("kind") == "lean" and _straight(p) and (p.get("posted") or "9") > first_post and \
                     sum((q.get("posted") or "9") <= (p.get("posted") or "9") for q in kept) >= BOARD_TARGET:
                 drop.add(id(p))
                 continue
