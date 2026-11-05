@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T10:49Z",
+ "updated": "2026-11-05T11:22Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -287,19 +287,17 @@
    "start": "2026-11-06T00:00Z",
    "away": "Bruins",
    "home": "Penguins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Bruins",
-    "opp": "Penguins",
+    "team": "Penguins",
+    "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.716,
-    "win_p": 0.501,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -285,
+    "p": 0.712,
+    "win_p": 0.499,
+    "reasons": []
    }
   },
   {
@@ -1072,7 +1070,7 @@
     "market": "spread",
     "line": 15.5,
     "odds": -110,
-    "p": 0.506,
+    "p": 0.505,
     "win_p": 0.174,
     "reasons": []
    }
@@ -1473,7 +1471,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.731,
+    "p": 0.732,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1491,7 +1489,7 @@
     "line": 10.0,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.16,
+    "win_p": 0.159,
     "reasons": []
    }
   },
@@ -1561,7 +1559,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.495,
+    "p": 0.485,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1577,9 +1575,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -119,
-    "p": 0.521,
-    "win_p": 0.521,
+    "odds": -114,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": []
    }
   },
