@@ -1,12 +1,14 @@
 {
- "at": "2026-11-05T23:08Z",
- "fixes": [],
+ "at": "2026-11-05T23:10Z",
+ "fixes": [
+  "live watch 42120688797 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (222s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,12 +21,23 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 39 min ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T23:10Z",
+   "fixes": [
+    "live watch 42120688797 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-05T23:08Z",
    "fixes": [],
@@ -550,15 +563,6 @@
    "problems": [
     "live tennis scores: tennis Riera vs Grabher: no points for 1448s",
     "live tennis scores: tennis Ribera vs Tubello: no points for 1448s"
-   ]
-  },
-  {
-   "at": "2026-11-04T18:31Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Monnet vs Samson: no points for 114s",
-    "live tennis scores: tennis Riera vs Grabher: no points for 114s",
-    "live tennis scores: tennis Ribera vs Tubello: no points for 114s"
    ]
   }
  ]
