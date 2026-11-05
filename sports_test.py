@@ -18770,6 +18770,65 @@ def test_floor_off_1104_no_daily_minimum_on_any_sport_from_the_11_5_board():
     assert not skipped("floor", "2026-11-05", off=None) and not skipped("nbafloor", "2026-12-01", off=sports.FLOOR_OFF_FROM)   # the switch, as wired
 
 
+def test_daily_1105_college_hoops_road_dog_back_from_a_neutral_site_is_a_minus_2_weight():
+    """11/5 daily run (results/studies/daily_1105/s2_s10_ncaab.py + s10b_robust.py): a college hoops ROAD dog in its
+    first game back from a neutral-site event (its last regular-season game neutral, within 10 days, Nov-Dec) loses
+    -21.9% on 306 at the close (train 4 of 5 seasons down, held 3 of 3 down, ESPN's open -26.9%) vs -4.6% for the other
+    road dogs - -2 on the dog score (sports.NCAAB_NEUTRAL_BACK_PTS, inside STUDY_CAP), never a gate, never stacked on the
+    early road dog, plus its tracker tag."""
+    import sports_leads as sl
+    assert sports.NCAAB_NEUTRAL_BACK_PTS == 2 and sports.NCAAB_NEUTRAL_BACK_DAYS == 10 and sports.STUDY_CAP == 6
+    G = {"ncaab:e1": {"id": "ncaab:e1", "league": "ncaab", "start": "2025-11-20T18:00Z", "home": "1", "away": "2",
+                      "status": "final", "stype": "2", "neutral": "1", "home_score": "70", "away_score": "60"},
+         "ncaab:e2": {"id": "ncaab:e2", "league": "ncaab", "start": "2025-11-22T18:00Z", "home": "3", "away": "2",
+                      "status": "final", "stype": "2", "neutral": "1", "home_score": "70", "away_score": "60"},
+         "ncaab:t": {"id": "ncaab:t", "league": "ncaab", "start": "2025-11-25T00:00Z", "home": "9", "away": "2",
+                     "status": "pre", "stype": "2", "neutral": "0"},
+         "ncaab:late": {"id": "ncaab:late", "league": "ncaab", "start": "2025-12-20T00:00Z", "home": "9", "away": "3",
+                        "status": "pre", "stype": "2", "neutral": "0"}}
+    sports._SCHED.clear()
+    assert sports.ncaab_neutral_back(G, G["ncaab:t"], "away") == 2.25      # back 2.25 days after the event's last game
+    assert sports.ncaab_neutral_back(G, G["ncaab:t"], "home") is None      # no game on file: none
+    assert sports.ncaab_neutral_back(G, G["ncaab:late"], "away") is None   # 27 days later: not "back from" it any more
+    dog = {"league": "ncaab", "market": "ml", "home": False, "neutral": False, "odds": 160, "dec": 2.6, "games_in": 5,
+           "neutral_back": 2.25, "start": "2025-11-25T00:00Z", "edge": 0.0, "edge_own": 0.0, "p_market": 0.37,
+           "reasons": [], "dog_more": {}}
+    assert sports.ncaab_neutral_back_dog(dog)
+    assert not sports.ncaab_neutral_back_dog({**dog, "neutral_back": None})   # last game not neutral: no
+    assert not sports.ncaab_neutral_back_dog({**dog, "home": True})           # the home dog: no
+    assert not sports.ncaab_neutral_back_dog({**dog, "neutral": True})        # another neutral floor tonight: no
+    assert not sports.ncaab_neutral_back_dog({**dog, "odds": -130})           # a favorite: no
+    assert not sports.ncaab_neutral_back_dog({**dog, "league": "nba"})
+    assert not sports.ncaab_neutral_back_dog({**dog, "start": "2026-01-20T00:00Z"})   # January: no (Nov-Dec only)
+    assert not sports.ncaab_neutral_back_dog({**dog, "games_in": 1})          # games 1-3: the early road dog's -2 only
+    # a WEIGHT on the dog score - exactly -2, never a gate, never stacked with the early road dog
+    assert sports.dog_score(dog) == sports.dog_score({**dog, "neutral_back": None}) - sports.NCAAB_NEUTRAL_BACK_PTS
+    early = {**dog, "games_in": 1}
+    assert sports.dog_score(early) == sports.dog_score({**early, "neutral_back": None})
+    t = sl.tags({**dog, "game_id": "x", "side": "away", "team": "R", "opp": "H"}, sports)
+    assert "college hoops road dog, first game back from a neutral site (fade)" in t
+    assert "college hoops road dog, first game back from a neutral site (fade)" not in sl.tags(
+        {**dog, "neutral_back": None, "game_id": "x", "side": "away", "team": "R", "opp": "H"}, sports)
+
+
+def test_daily_1105_the_forced_best_pick_never_pushes_a_posted_lean_off_the_board_in_a_merge():
+    """11/5 board: 2 floor plays + 3 leans (5 picks) and the forced ⭐ Stars -130 on top, all posted 16:00Z - merging the
+    real file onto itself dropped the Bruins lean (merge_json.lean_cap counted the forced pick toward the 5). A posted
+    pick never comes off; a second run's 6th lean still does."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+
+    def pk(kind, gid, posted="2026-11-05T16:00Z", **kw):
+        return {"date": "2026-11-05", "kind": kind, "round": 1, "posted": posted, "status": "open",
+                "lean": kind == "lean", "legs": [{"game_id": gid, "side": "away", "team": gid}], **kw}
+    day = [pk("play", "nhl:ducks"), pk("play", "nhl:flyers"), pk("lean", "nfl:ravens"), pk("lean", "nhl:mammoth"),
+           pk("lean", "nhl:bruins"), pk("play", "nhl:stars", best=True, forced=True)]
+    out = merge_json.merge_picks(day, day)
+    assert {p["legs"][0]["game_id"] for p in out} == {p["legs"][0]["game_id"] for p in day} and len(out) == 6
+    late = pk("lean", "nhl:other", posted="2026-11-05T16:33Z")       # a second run's extra lean: still never stays
+    assert "nhl:other" not in {p["legs"][0]["game_id"] for p in merge_json.merge_picks(day, day + [late])}
+
+
 def test_daily_1104_the_college_hoops_dog_slot_posts_before_the_floor_can_take_its_dog():
     """The 11/4 ordering fix (slot plays before the floor) - checked with the floor switched ON, since the owner turned the
     daily floor off from 11/5 (FLOOR_OFF_FROM); the order still matters if it is ever turned back on."""

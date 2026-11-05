@@ -417,6 +417,9 @@ def tags(c, sports):
         if sports.ncaab_early_road_dog(c):
             t.append("college hoops road dog, games 1-3 (fade)")   # s7 - BUILT as a -2 dog-score weight; its live
             #   record (ML -20.0% on 581, open -26.1%, ATS -16.4%, held 3 of 3 down)
+        if sports.ncaab_neutral_back_dog(c):
+            t.append("college hoops road dog, first game back from a neutral site (fade)")   # 11/5 daily s10 - BUILT
+            #   as a -2 dog-score weight (-21.9% on 306, train 4/5 down, held 3/3 down, the open -26.9%); judge at 50
         if 100 <= c.get("odds", 0) <= 150 and gi + 1 <= 2:
             t.append("college hoops short dog +100..+150, games 1-2")   # s0 / s0b: opening week +14.6% on 273 (train
             #   +12.2% 3/5 up, held +21.0% 3/3 up) - but the sides that OPENED there +0.4% (the second check fails),

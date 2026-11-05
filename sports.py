@@ -726,6 +726,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
                     "games_in": season_games(games, g, side) if lg == "ncaab" else None,   # (11/3: ncaab_early_road_dog)
+                    "neutral_back": ncaab_neutral_back(games, g, side) if lg == "ncaab" else None,   # (11/5 daily s10)
                     "opp_games_in": season_games(games, g, other) if lg == "ncaab" else None,   # (11/3: ncaab_early_lock)
                     "mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
@@ -1713,6 +1714,27 @@ def season_games(games, g, side):
         return None
 
 
+def ncaab_neutral_back(games, g, side):
+    """11/5 daily study 10: days since this team's LAST regular-season game when that game was at a NEUTRAL site (a
+    multi-team event) within NCAAB_NEUTRAL_BACK_DAYS - tonight is its first game back - else None (also on a read
+    error). Only the schedule (known before tip)."""
+    try:
+        sched, _ = _sched(games)
+        prev = None
+        for st_, x in sched.get((g.get("league"), g[side]), []):
+            if st_ >= g["start"]:
+                break
+            if x.get("status") == "final" and str(x.get("stype")) == "2":
+                prev = x
+        if not prev or str(prev.get("neutral")) != "1":
+            return None
+        d = (datetime.fromisoformat(g["start"].replace("Z", "+00:00"))
+             - datetime.fromisoformat(prev["start"].replace("Z", "+00:00"))).total_seconds() / 86400
+        return round(d, 2) if 0 < d <= NCAAB_NEUTRAL_BACK_DAYS else None
+    except (TypeError, ValueError, KeyError):
+        return None
+
+
 def ot_last(games, g, side):
     """10/18 study (NHL 2018-26, line scores - 4 periods = overtime, 5 = a shootout): how this team's LAST game ended,
     'ot_win' / 'ot_loss' / 'so_win' / 'so_loss', or None (regulation, none within OT_DAYS, no line score). Next game:
@@ -2357,6 +2379,13 @@ def dog_spots(c):
         #                            points past the vig in BOTH markets - ML -20.0% on 581 (train -17.8% 4/5 down, held
         #                            -23.1% 3/3 down), at ESPN's open -26.1% (3/3), ATS -16.4% (train 0/5 up, held 3/3 down)
         #                            vs -7.4% / -4.1% for road dogs later. The home dog in the same games +-0. A weight.
+    if ncaab_neutral_back_dog(c):
+        sc -= NCAAB_NEUTRAL_BACK_PTS     # 🏀 11/5 daily study 10 (results/studies/daily_1105/s2_s10_ncaab.py + s10b):
+        #                            a college hoops ROAD dog in its first game back from a neutral-site event (Nov-Dec)
+        #                            -21.9% on 306 at the close (train 2018-22 -22.1%, 4 of 5 down; held 2023-25 -21.6%,
+        #                            3 of 3 down; ESPN's open -26.9% on 125) vs -4.6% for the other road dogs; outside the
+        #                            early road dog's games 1-3 -20.8% on 284. A weight, never a gate (not stacked on
+        #                            the early road dog - one road-dog fade at a time).
     if cold_dog(lg, mo):
         sc -= COLD_DOG_PTS         # 10/25 night sweep: a dog the engine likes that is COLD this season loses against its
         #                            price in football and the NBA (college under .300 after 4+: 3-10 / 5-13 the two seasons
@@ -2377,6 +2406,24 @@ def ncaab_early_road_dog(c):
         return False
     n = c.get("games_in")
     return n is not None and (c.get("odds") or 0) >= 100 and n + 1 <= NCAAB_EARLY_ROAD_DOG_GAMES
+
+
+NCAAB_NEUTRAL_BACK_PTS = 2         # 🏀 11/5 daily s10: the road dog back from a neutral-site event (a weight inside STUDY_CAP)
+NCAAB_NEUTRAL_BACK_DAYS = 10       #   - its last game neutral within 10 days (1-3 days -27.1%, 4-10 days -18.2%)
+
+
+def ncaab_neutral_back_dog(c):
+    """A college hoops moneyline dog on a true road floor in November-December whose last game was at a neutral site
+    (c['neutral_back'] - sports.ncaab_neutral_back), not already carrying the early road dog fade."""
+    if c.get("league") != "ncaab" or c.get("home") or c.get("neutral") or c.get("market", "ml") != "ml":
+        return False
+    if not c.get("neutral_back") or (c.get("odds") or 0) < 100 or ncaab_early_road_dog(c):
+        return False
+    try:
+        mo_ = (datetime.fromisoformat(str(c.get("start") or "").replace("Z", "+00:00")) - timedelta(hours=5)).month
+    except ValueError:
+        return False
+    return mo_ in (11, 12)
 
 
 COLD_DOG_PTS = 2                   # the cold-dog weight (10/25 night sweep): NBA / college football only
