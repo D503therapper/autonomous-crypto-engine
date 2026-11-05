@@ -1,27 +1,35 @@
 {
- "at": "2026-11-05T00:42Z",
+ "at": "2026-11-05T00:44Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
+ ],
  "ok": [
-  "live watcher fresh (132s)",
+  "live watcher fresh (231s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 13 min ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T00:44Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-11-05T00:42Z",
    "fixes": [],
@@ -546,18 +554,6 @@
   },
   {
    "at": "2026-11-03T16:44Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Zarazua vs Scott: no points for 1970s",
-    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 2078s",
-    "live tennis scores: tennis Burillo vs Kalieva: no points for 1861s",
-    "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-03T16:43Z",
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-11-02 Novak Djokovic) - sports.yml already running"
    ],
