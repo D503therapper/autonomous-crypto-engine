@@ -1,26 +1,35 @@
 {
- "at": "2026-11-05T10:02Z",
+ "at": "2026-11-05T11:35Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Lemaitre vs Mikulskyte: no points for 72s"
+ ],
  "ok": [
-  "live watcher fresh (11s)",
+  "live watcher fresh (283s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 5 live matches",
+  "live tennis points + server: 3 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 29 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-05T11:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lemaitre vs Mikulskyte: no points for 72s"
+   ]
+  },
   {
    "at": "2026-11-05T10:02Z",
    "fixes": [],
@@ -508,14 +517,6 @@
   {
    "at": "2026-11-04T03:02Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T01:28Z",
-   "fixes": [
-    "live watch 41748961602 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
