@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 177,
+  "n": 178,
   "beat": 60,
-  "same": 65,
+  "same": 66,
   "worse": 52,
   "avg_pts": 0.12
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.17
   },
   "lean": {
-   "n": 96,
+   "n": 97,
    "beat": 33,
-   "same": 30,
+   "same": 31,
    "worse": 33,
    "avg_pts": 0.04
   },
@@ -59,11 +59,11 @@
    "avg_pts": 0.48
   },
   "ncaab": {
-   "n": 2,
+   "n": 3,
    "beat": 1,
-   "same": 1,
+   "same": 2,
    "worse": 0,
-   "avg_pts": 0.8
+   "avg_pts": 0.53
   },
   "ncaaf": {
    "n": 46,
@@ -2594,6 +2594,20 @@
    "close": -148,
    "pts": 1.0,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "MD Eastern",
+   "market": "spread",
+   "line": 34.5,
+   "odds": -112,
+   "close": -112,
+   "pts": 0.0,
+   "units": 0,
    "result": "won"
   }
  ]
