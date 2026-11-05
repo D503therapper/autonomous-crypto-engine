@@ -1,9 +1,11 @@
 {
- "at": "2026-11-05T07:27Z",
+ "at": "2026-11-05T07:45Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Ruzic vs Wang Xinyu: points frozen at 0-0 for 183s"
+ ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +13,25 @@
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 4 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T07:45Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ruzic vs Wang Xinyu: points frozen at 0-0 for 183s"
+   ]
+  },
   {
    "at": "2026-11-05T07:27Z",
    "fixes": [],
@@ -506,11 +515,6 @@
     "live watch 41735322364 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-03T23:43Z",
-   "fixes": [],
    "problems": []
   }
  ]
