@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T21:31Z",
+ "updated": "2026-11-05T21:33Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -1528,7 +1528,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.728,
+    "p": 0.727,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1546,7 +1546,7 @@
     "line": 10.0,
     "odds": -115,
     "p": 0.512,
-    "win_p": 0.164,
+    "win_p": 0.165,
     "reasons": []
    }
   },
@@ -2405,6 +2405,36 @@
    }
   },
   {
+   "id": "nba:401909292",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Raptors",
+    "p": 0.613,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-07T01:00Z",
+   "away": "Raptors",
+   "home": "Bucks",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Raptors",
+    "opp": "Bucks",
+    "market": "ml",
+    "line": null,
+    "odds": -226,
+    "p": 0.666,
+    "win_p": 0.666,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401928823",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2517,6 +2547,37 @@
     "p": 0.503,
     "win_p": 0.11,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909293",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Timberwolves",
+    "p": 0.582,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-07T01:00Z",
+   "away": "Timberwolves",
+   "home": "Pelicans",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Timberwolves",
+    "opp": "Pelicans",
+    "market": "ml",
+    "line": null,
+    "odds": -188,
+    "p": 0.627,
+    "win_p": 0.627,
+    "reasons": [
+     "the stronger team",
+     "opponent drama: suspension"
+    ]
    }
   },
   {
@@ -2775,6 +2836,36 @@
     "p": 0.506,
     "win_p": 0.096,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909295",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Spurs",
+    "p": 0.787,
+    "tie": 0.026,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-07T03:00Z",
+   "away": "Spurs",
+   "home": "Kings",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Spurs",
+    "opp": "Kings",
+    "market": "spread",
+    "line": -15.5,
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.865,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
