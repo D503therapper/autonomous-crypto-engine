@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T01:50Z",
+ "updated": "2026-11-05T02:30Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -56,8 +56,8 @@
    "away": "Concordia Chi",
    "home": "SIUE",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -71,8 +71,8 @@
    "away": "Erskine",
    "home": "UNC Asheville",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -87,7 +87,7 @@
    "home": "Butler",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "FDU",
@@ -98,7 +98,7 @@
     "p": 0.534,
     "win_p": 0.534,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -111,8 +111,8 @@
    "away": "Hawks",
    "home": "Wizards",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -126,8 +126,8 @@
    "away": "Longwood",
    "home": "Saint Joseph's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -142,7 +142,7 @@
    "home": "High Point",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "MD Eastern",
@@ -153,7 +153,7 @@
     "p": 0.534,
     "win_p": 0.534,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -166,8 +166,8 @@
    "away": "Regent",
    "home": "Old Dominion",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -196,8 +196,8 @@
    "away": "VA Lynchburg",
    "home": "Morgan St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -241,8 +241,8 @@
    "away": "Bob Jones",
    "home": "Furman",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -328,8 +328,8 @@
    "away": "Central Col",
    "home": "Drake",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -343,8 +343,8 @@
    "away": "Champ Chrstn",
    "home": "UL Monroe",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -358,8 +358,8 @@
    "away": "Christendom",
    "home": "App State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -403,8 +403,8 @@
    "away": "Webster",
    "home": "SE Missouri",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -514,6 +514,81 @@
    "lean": null
   },
   {
+   "id": "nba:401909930",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-05T01:30Z",
+   "away": "Timberwolves",
+   "home": "Rockets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401925939",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T02:00Z",
+   "away": "Grace U",
+   "home": "Utah Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401918052",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T02:00Z",
+   "away": "Radford",
+   "home": "California",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909931",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-05T02:00Z",
+   "away": "Raptors",
+   "home": "Nuggets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401922030",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T02:00Z",
+   "away": "SalishKootenai",
+   "home": "Montana",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909932",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -541,21 +616,32 @@
    }
   },
   {
+   "id": "ncaab:401929171",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-05T02:00Z",
+   "away": "West Coast",
+   "home": "Boise St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909933",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.72,
-    "tie": 0.03,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-05T02:30Z",
    "away": "Mavericks",
    "home": "Spurs",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Spurs",
@@ -564,11 +650,12 @@
     "line": -12.5,
     "odds": -109,
     "p": 0.505,
-    "win_p": 0.828,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
-    ]
+    ],
+    "result": null
    }
   },
   {

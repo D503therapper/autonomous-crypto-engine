@@ -31876,6 +31876,7 @@
      "game:nonconf"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -31891,6 +31892,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "19,30",
+     "h": "31,32"
+    },
     "form_state": [
      -21.0,
      -4,
@@ -31935,10 +31940,12 @@
     "raw_own": 0.0204,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "MD Eastern 49 @ High Point 63",
     "season_games": null,
+    "settled": "2026-11-05T02:27Z",
     "side": "away",
     "start": "2026-11-05T00:00Z",
     "stype": "2",
@@ -31954,12 +31961,14 @@
    }
   ],
   "p_hit": 0.5343,
-  "pnl": 0.0,
+  "pnl": 89.29,
   "posted": "2026-11-04T22:51Z",
   "round": 1,
+  "settled": "2026-11-05T02:27Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -110,
@@ -31993,6 +32002,12 @@
      "game:nonconf"
     ],
     "dec": 1.9090909090909092,
+    "decider": {
+     "h": "52-29",
+     "s": "99-65",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -32008,6 +32023,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "29,36",
+     "h": "52,47"
+    },
     "form_state": [
      -75.0,
      -5,
@@ -32054,10 +32073,12 @@
     "raw_own": 0.0284,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "FDU 65 @ Butler 99",
     "season_games": null,
+    "settled": "2026-11-05T02:27Z",
     "side": "away",
     "start": "2026-11-05T00:00Z",
     "stype": "2",
@@ -32073,12 +32094,14 @@
    }
   ],
   "p_hit": 0.5342,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-04T22:51Z",
   "round": 1,
+  "settled": "2026-11-05T02:27Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 110,
