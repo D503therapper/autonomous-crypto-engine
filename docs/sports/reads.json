@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T22:24Z",
+ "updated": "2026-11-05T22:39Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -37,8 +37,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Indiana",
-    "p": 0.942,
-    "tie": 0.012,
+    "p": 0.925,
+    "tie": 0.014,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -52,10 +52,10 @@
     "team": "Bellarmine",
     "opp": "Indiana",
     "market": "spread",
-    "line": 29.5,
+    "line": 30.5,
     "odds": -105,
-    "p": 0.532,
-    "win_p": 0.019,
+    "p": 0.538,
+    "win_p": 0.027,
     "reasons": []
    }
   },
@@ -139,7 +139,7 @@
     "opp": "Seton Hall",
     "market": "spread",
     "line": 17.5,
-    "odds": -118,
+    "odds": -112,
     "p": 0.519,
     "win_p": 0.069,
     "reasons": []
@@ -347,7 +347,7 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": 23.5,
-    "odds": -115,
+    "odds": -118,
     "p": 0.524,
     "win_p": 0.038,
     "reasons": []
@@ -1318,8 +1318,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "James Madison",
-    "p": 0.724,
-    "tie": 0.028,
+    "p": 0.731,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1333,10 +1333,10 @@
     "team": "James Madison",
     "opp": "Southern Miss",
     "market": "spread",
-    "line": -13.5,
-    "odds": -112,
+    "line": -14.0,
+    "odds": -102,
     "p": 0.503,
-    "win_p": 0.722,
+    "win_p": 0.729,
     "reasons": [
      "the stronger team"
     ]
@@ -1526,7 +1526,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.733,
+    "p": 0.732,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1538,14 +1538,16 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Ravens",
-    "opp": "Jaguars",
-    "market": "spread",
-    "line": 10.0,
-    "odds": -110,
-    "p": 0.514,
-    "win_p": 0.158,
-    "reasons": []
+    "team": "Under",
+    "opp": "Jaguars @ Ravens",
+    "market": "total",
+    "line": 39.5,
+    "odds": -109,
+    "p": 0.607,
+    "win_p": 0.607,
+    "reasons": [
+     "the engine's scoring read"
+    ]
    }
   },
   {
@@ -1569,9 +1571,9 @@
     "team": "Penn",
     "opp": "Illinois",
     "market": "spread",
-    "line": 30.5,
-    "odds": -108,
-    "p": 0.544,
+    "line": 29.5,
+    "odds": -105,
+    "p": 0.539,
     "win_p": 0.024,
     "reasons": [
      "better rested"
