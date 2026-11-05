@@ -31697,6 +31697,7 @@
      "game:rival"
     ],
     "dec": 1.9174311926605505,
+    "decider": {},
     "dog_ctx": {
      "cw5": 1,
      "hits_top": false,
@@ -31767,6 +31768,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "26,25,29,31",
+     "h": "32,36,22,22"
+    },
     "form_state": [
      22.0,
      5,
@@ -31822,10 +31827,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Mavericks 111 @ Spurs 112",
     "season_games": 7,
+    "settled": "2026-11-05T05:29Z",
     "side": "home",
     "start": "2026-11-05T02:30Z",
     "stype": "2",
@@ -31846,12 +31853,14 @@
    }
   ],
   "p_hit": 0.5053,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-04T22:51Z",
   "round": 1,
+  "settled": "2026-11-05T05:29Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,

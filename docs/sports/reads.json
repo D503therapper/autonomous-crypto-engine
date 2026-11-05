@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T04:58Z",
+ "updated": "2026-11-05T05:31Z",
  "games": [
   {
    "id": "ncaab:401920232",
@@ -641,7 +641,7 @@
    "home": "Spurs",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Spurs",
@@ -655,7 +655,7 @@
      "the stronger team",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -698,8 +698,8 @@
    "away": "Milwaukee",
    "home": "Santa Clara",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -728,8 +728,8 @@
    "away": "Queens",
    "home": "LMU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -887,8 +887,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.526,
-    "tie": 0.272,
+    "p": 0.53,
+    "tie": 0.271,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -903,9 +903,9 @@
     "opp": "Blackhawks",
     "market": "spread",
     "line": -1.5,
-    "odds": -155,
-    "p": 0.652,
-    "win_p": 0.821,
+    "odds": -175,
+    "p": 0.66,
+    "win_p": 0.826,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1228,16 +1228,14 @@
    "why": "tight",
    "board": null,
    "lean": {
-    "team": "Princeton",
-    "opp": "Hofstra",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.581,
-    "win_p": 0.581,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "team": "Hofstra",
+    "opp": "Princeton",
+    "market": "spread",
+    "line": 2.5,
+    "odds": -118,
+    "p": 0.542,
+    "win_p": 0.46,
+    "reasons": []
    }
   },
   {
@@ -1874,8 +1872,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Alabama",
-    "p": 0.589,
-    "tie": 0.042,
+    "p": 0.527,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1890,9 +1888,9 @@
     "opp": "Jax State",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.646,
-    "win_p": 0.646,
+    "odds": -142,
+    "p": 0.564,
+    "win_p": 0.564,
     "reasons": [
      "the stronger team"
     ]
