@@ -16124,7 +16124,16 @@ def test_daily_1102_a_second_board_from_a_stale_run_never_merges_in_a_sixth_pick
     # 11/2 (posted): Troy stays on the board - a posted pick is never changed
     out = merge_json.merge_picks(board("2026-11-02"), stale("2026-11-02"))
     assert "ncaab:troy" in {p["legs"][0]["game_id"] for p in out} and len(out) == 6
-    # the real file: today's 6 picks merge onto themselves unchanged
+    # 11/5: the opening board's OWN 6th pick (3 plays + the forced ⭐ side + leans incl. the Thursday NFL pick, all posted
+    # the same minute) is the board, never a second run's lean - a self-merge kept dropping the posted Bruins lean
+    six = [pk("2026-11-05", "play", "nhl:ducks", "2026-11-05T16:00Z"), pk("2026-11-05", "play", "nhl:flyers", "2026-11-05T16:00Z"),
+           pk("2026-11-05", "lean", "nfl:ravens", "2026-11-05T16:00Z"), pk("2026-11-05", "lean", "nhl:mammoth", "2026-11-05T16:00Z"),
+           pk("2026-11-05", "lean", "nhl:bruins", "2026-11-05T16:00Z"), pk("2026-11-05", "play", "nhl:stars", "2026-11-05T16:00Z")]
+    out = merge_json.merge_picks(six, six)
+    assert len(out) == 6 and "nhl:bruins" in {p["legs"][0]["game_id"] for p in out}
+    out = merge_json.merge_picks(six, [pk("2026-11-05", "lean", "ncaab:late", "2026-11-05T16:34Z")])   # a later run's lean
+    assert len(out) == 6 and "ncaab:late" not in {p["legs"][0]["game_id"] for p in out}          # past 5: still capped
+    # the real file: today's picks merge onto themselves unchanged
     real = json.load(open(os.path.join(sports.DATA, "picks.json")))
     assert len(merge_json.merge_picks(real, real)) == len(real)
 

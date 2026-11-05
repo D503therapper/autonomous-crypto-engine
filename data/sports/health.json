@@ -1,26 +1,93 @@
 {
- "at": "2026-11-05T13:11Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-11-05T17:22Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Buse vs Borges: no points for 531s",
+  "live tennis scores: tennis Gormaz vs Monnet: no points for 590s",
+  "live tennis scores: tennis Zarazua vs Riera: no points for 590s",
+  "live tennis points: none of 3 live matches has points + server on the 1-second route",
+  "simulator last ran 10h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (9s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "slate check: all 82 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 53 min ago",
+  "studies ran 2h ago",
+  "engine ran 1 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T17:22Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Buse vs Borges: no points for 531s",
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 590s",
+    "live tennis scores: tennis Zarazua vs Riera: no points for 590s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-05T15:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-05T15:27Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-05T15:25Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-05T15:20Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-05T15:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-05T15:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-05T14:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-05T14:45Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-05T13:11Z",
    "fixes": [],
@@ -465,65 +532,6 @@
   {
    "at": "2026-11-04T07:14Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T07:12Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T05:40Z",
-   "fixes": [
-    "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-04T05:38Z",
-   "fixes": [
-    "live watch 41775903685 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T05:36Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T05:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T05:33Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T04:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T03:22Z",
-   "fixes": [
-    "live watch 41766096401 froze (11 min) - cancelled",
-    "live board 11 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T03:16Z",
-   "fixes": [
-    "live watch 41761282119 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
