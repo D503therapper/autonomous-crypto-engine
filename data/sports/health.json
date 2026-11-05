@@ -1,12 +1,12 @@
 {
- "at": "2026-11-05T19:01Z",
+ "at": "2026-11-05T19:11Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Gormaz vs Monnet: no points for 542s",
-  "live tennis scores: tennis Zarazua vs Riera: no points for 542s"
+  "live tennis scores: tennis Gormaz vs Monnet: no points for 1156s",
+  "live tennis scores: tennis Zarazua vs Riera: no points for 1156s"
  ],
  "ok": [
-  "live watcher fresh (201s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +20,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 2h ago",
-  "engine ran 11 min ago",
+  "engine ran 21 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T19:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 1156s",
+    "live tennis scores: tennis Zarazua vs Riera: no points for 1156s"
+   ]
+  },
   {
    "at": "2026-11-05T19:01Z",
    "fixes": [],
@@ -526,11 +534,6 @@
   },
   {
    "at": "2026-11-04T08:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T08:50Z",
    "fixes": [],
    "problems": []
   }
