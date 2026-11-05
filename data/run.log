@@ -12687,3 +12687,43 @@ error: failed to push some refs to 'https://githu
 [2026-11-05 11:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-05 11:06 UTC] crypto/hold_btc  equity $479.50 (-4.1%) 1 open  market DOWN
    social heat top: TRUMP 48 (40/0/8), INJ 37 (37/0/0), CARDS 35 (29/0/6), PENGU 35 (35/0/0), BTC 32 (32/0/0)
+   dex screen: REJECT MSOL@solana liq $163,484 - mint authority; lp holders unknown
+   dex screen: REJECT ZCAT@solana liq $887,118 - lp holders unknown; rugcheck lp locked 53% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $133,460 - honeypot.is unreachable
+   dex screen: UNREACHABLE GTA6@ethereum liq $194,564 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS TROLL@solana liq $2,573,320
+   dex screen: UNREACHABLE FOCO@ethereum liq $193,172 - honeypot.is unreachable
+   dex screen: REJECT EUROP@ethereum liq $9,942 - liquidity $9,942 < $100,000; pool age 0.0h < 6h; 24h volume $4,104 < $100,000; no buys or no sells in 24h
+   dex screen: UNREACHABLE GTA6@ethereum liq $178,777 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: XTZ: +10.2% in 15 min on 34.4x volume @ 0.3056 spread 1.30%
+   take-off: BUY XTZ (scanner mover): XTZ: +10.2% in 15 min on 34.4x volume @ 0.3056 spread 1.30%
+   >> crypto/mover: BUY $108.66 of XTZ @ 0.305906 (scanner mover)
+   scanner: XTZ: +8.9% in 15 min on 43.9x volume @ 0.3065 spread 1.13%
+   scanner: XTZ: +9.1% in 15 min on 51.3x volume @ 0.3069 spread 1.46%
+   dex screen: REJECT RAY@solana liq $2,121,554 - top-10 holders 83%
+   dex screen: REJECT SI@solana liq $16,946,646 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT SI@solana liq $443,641 - transfer_fee_upgradable; lp holders unknown
+   scanner: XTZ: +11.5% in 30 min on 39.4x volume @ 0.3046 spread 1.38%
+   scanner: XTZ: +9.3% in 30 min on 39.6x volume @ 0.2993 spread 1.04%
+   scanner: XTZ: +8.9% in 30 min on 44.1x volume @ 0.2982 spread 0.93%
+   scanner: XTZ: +10.3% in 30 min on 46.4x volume @ 0.302 spread 1.19%
+   dex screen: UNREACHABLE DENIM@base liq $332,116 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: XTZ: +9.9% in 30 min on 49.0x volume @ 0.3029 spread 0.85%
+   dex screen: UNREACHABLE FOCO@ethereum liq $177,667 - honeypot.is unreachable
+   scanner: XTZ: +8.8% in 30 min on 50.6x volume @ 0.3017 spread 1.38%
+   scanner: XTZ: +12.2% in 60 min on 31.6x volume @ 0.301 spread 1.35%
+   scanner: XTZ: +12.8% in 60 min on 31.6x volume @ 0.3028 spread 1.45%
+   dex screen: UNREACHABLE GTA6@ethereum liq $178,777 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: XTZ: +12.2% in 60 min on 31.7x volume @ 0.3019 spread 1.07%
+   dex screen: UNREACHABLE DENIM@base liq $331,662 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,000 pools (solana 2,078 / base 529 / ethereum 393), refresh cycle 124s (hot 119s), 3019 calls (108 feed, 429s 0, failed 0), 87,329 refreshed (9107 no pair), +92 added / -91 dropped (dead 7, stale 0, cap 84), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-05 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/mover     equity $236.82 (-52.6%) 1 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/social_heat equity $362.94 (-27.4%) 2 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/breakout10 equity $405.00 (-19.0%) 1 open  market UP
+[2026-11-05 12:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-05 12:06 UTC] crypto/hold_btc  equity $479.24 (-4.2%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), INJ 35 (35/0/0), BTC 32 (32/0/0), CARDS 29 (29/0/0), AERO 24 (24/0/0)
