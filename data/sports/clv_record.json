@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 180,
+  "n": 181,
   "beat": 61,
-  "same": 66,
+  "same": 67,
   "worse": 53,
   "avg_pts": 0.11
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.16
   },
   "lean": {
-   "n": 97,
+   "n": 98,
    "beat": 33,
-   "same": 31,
+   "same": 32,
    "worse": 33,
    "avg_pts": 0.04
   },
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 25,
+   "n": 26,
    "beat": 12,
-   "same": 8,
+   "same": 9,
    "worse": 5,
-   "avg_pts": 0.47
+   "avg_pts": 0.45
   },
   "ncaab": {
    "n": 3,
@@ -2608,6 +2608,20 @@
    "close": 124,
    "pts": 0.2,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-04",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Spurs",
+   "market": "spread",
+   "line": -12.5,
+   "odds": -109,
+   "close": -109,
+   "pts": 0.0,
+   "units": 0,
    "result": "lost"
   },
   {
