@@ -1,9 +1,9 @@
 {
- "at": "2026-11-05T02:20Z",
+ "at": "2026-11-05T02:22Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (126s)",
+  "live watcher fresh (224s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +16,17 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 46 min ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T02:22Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-05T02:20Z",
    "fixes": [],
@@ -520,18 +525,6 @@
    "fixes": [
     "live watch 41705594467 froze (102 min) - cancelled",
     "live board 102 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-03 Ben Shelton) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Mandlik vs Ortenzi: no points for 1830s",
-    "live tennis scores: tennis Burillo vs Kalieva: no points for 1830s",
-    "live tennis scores: tennis Gonzalez vs Monnet: no points for 1830s"
-   ]
-  },
-  {
-   "at": "2026-11-03T19:44Z",
-   "fixes": [
-    "live board 97 min stale with games on - sports-live.yml already running",
     "1 finished pick(s) not graded (tennis 2026-11-03 Ben Shelton) - sports.yml already running"
    ],
    "problems": [
