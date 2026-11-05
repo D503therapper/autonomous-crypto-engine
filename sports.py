@@ -2834,6 +2834,12 @@ BEST_MIN_UNITS = 1.0          # edge, half unit plays ... I wanted to do a decen
 #                               days): the surest moneyline side by the whole read (rank_p) that its own read isn't fighting,
 #                               -150..+350, 1u - 28-13 +8.5u on 41 flat (train +6.3u on 22 / held +2.1u on 19, 3 of 4 seasons;
 #                               live 0-2 on the two such days of 10/13-10/29) - the owner's call ("every day"), reported apart.
+BEST_OVER_FROM = "2026-11-05"  # ⭐ 11/5 (the owner, on the 11/5 preview's ⭐ Magic +102 at 1u - a ½u NBA floor play whose read
+#                                sat UNDER its price, 47% vs the 49.5% it needed, with Banchero / Suggs / Isaac / Penda out:
+#                                "I don't like that at all. I don't like putting a full unit" on it): the ⭐ goes only on a
+#                                play whose read beats its price (beats_price - the read its units ride on, the juice in),
+#                                the forced pick too. Nothing clears it = no ⭐ that day - never a full unit forced onto a
+#                                price the engine says is too high.
 BEST_KIND_RANK = {"lock": 0, "dog": 1, "nbafav": 2, "gap": 3, "dogplay": 3, "ncaabplay": 4, "nbafloor": 4, "solo": 5,
                   "night": 5, "floor": 6, "play": 7, "backup": 8}
 
@@ -2862,6 +2868,8 @@ def best_pool(picks, iso):
             continue
         l = legs[0]
         if not MAX_FAV <= (l.get("odds") or 0) <= DAILY_DOG_MAX or fighting(l):
+            continue
+        if iso >= BEST_OVER_FROM and not beats_price(l):     # (11/5: never a full unit on a price its read doesn't beat)
             continue
         out.append(p)
     return out
@@ -2912,12 +2920,13 @@ def best_closer(pk):
             break
 
 
-def forced_best(cands, used):
+def forced_best(cands, used, iso=None):
     """⭐ The forced best pick on a day with NO unit play (the owner, 11/4: "every day"): the surest moneyline side by the
     whole read (rank_p) the engine's own read isn't fighting - -150..+350, never a trap, never waiting on news, never a
     game we're already on. None = nothing to post."""
     pool = [c for c in cands if c.get("market") == "ml" and MAX_FAV <= c.get("odds", 0) <= DAILY_DOG_MAX
-            and not c.get("trap") and not c.get("waiting") and not c.get("hurt") and c["game_id"] not in used and not fighting(c)]
+            and not c.get("trap") and not c.get("waiting") and not c.get("hurt") and c["game_id"] not in used and not fighting(c)
+            and not ((iso or "") >= BEST_OVER_FROM and not beats_price(c))]   # (11/5: the read beats the price, or no ⭐)
     if not pool:
         return None
     return max(pool, key=lambda c: (round(rank_p(c), 3), c["edge"]))
@@ -7208,7 +7217,7 @@ def post_board(games, model, picks, now, day, force=False):
         best = mark_best(picks, iso)                         # board's best unit play gets the star (1u at least)...
         if best is None and cands:                           # ...and a day with no unit play at all posts the surest
             c = forced_best(cands, {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting"   # side, 1u
-                                    for l in p["legs"]} | early_gids)
+                                    for l in p["legs"]} | early_gids, iso)
             if c is not None and not (c["waiting"] and now < _start(c) - timedelta(minutes=DEADLINE_MIN)):
                 b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
                 c["tier"] = play_tier(c)

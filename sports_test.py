@@ -18950,7 +18950,8 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert sports.FLOOR_OFF_FROM is None and sports.FLOOR_MIN == 2 and sports.FLOOR_FALLBACK_MIN == 1 and sports.FLOOR_THIN_ONLY
     assert sports.FLOOR_LEAGUES_OFF == ("nba", "ncaaf", "ncaab")
     assert sports.floor_skip({"league": "ncaab", "edge_own": 0.0, "dec": 2.0, "odds": 100}) == "college hoops sits out the floor (its dogs run the dog slot)"
-    # (3) the engine's best pick
+    # (3) the engine's best pick (the 11/4 rank, read with the 11/5 read-over-the-price rule off - it has its own test)
+    keep_over, sports.BEST_OVER_FROM = sports.BEST_OVER_FROM, "2099-01-01"
     assert sports.BEST_FROM == "2026-11-04" and sports.BEST_MIN_UNITS == 1.0   # (the owner, 11/4: today's board rebuilt with it)
     leg = lambda team, odds, p, lg="nhl", **kw: {**_cand(team, odds, p, league=lg), "team": team, "start": "2026-11-05T01:00Z", **kw}   # noqa: E731
     mk = lambda kind, team, odds, p, **kw: {"date": "2026-11-05", "kind": kind, "status": "open", "lean": False, "dec": sd.decimal(odds),   # noqa: E731
@@ -18993,6 +18994,7 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
     assert "best = mark_best(picks, iso)" in pb and "forced_best(cands" in pb and '"best": True, "forced": True' in pb
+    sports.BEST_OVER_FROM = keep_over
     # the card and the records
     real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1
                 and p.get("kind") == "play" and not p.get("lean"))   # (any real play - an open one may not exist on a rebuild day)
@@ -19435,6 +19437,33 @@ def test_audit_1104_a_college_key_man_who_already_missed_is_no_fresh_hole_one_ma
         assert v24._site_rec([{"home": "EM", "away": "X"}], "EM", None) is None
     finally:
         A._TEAM.clear(); A._TEAM.update(keep[0]); v24.seen_all = keep[1]
+
+
+
+def test_best_pick_1105_the_star_only_goes_on_a_play_whose_read_beats_its_price():
+    """11/5 - the owner, on the preview's ⭐ Magic +102 at 1u (a ½u NBA floor play, read 47% vs the 49.5% the price
+    needed, Banchero / Suggs / Isaac / Penda out): "I don't like that at all. I don't like putting a full unit" on it.
+    From 11/5 the ⭐ (and the forced ⭐ side) goes only on a play whose read beats its price; none = no ⭐ that day."""
+    assert sports.BEST_OVER_FROM == "2026-11-05"
+    leg = lambda team, odds, p, **kw: {**_cand(team, odds, p, league="nba"), "team": team, "start": "2026-11-06T02:00Z", **kw}   # noqa: E731
+    mk = lambda kind, team, odds, p, date="2026-11-05", **kw: {"date": date, "kind": kind, "status": "open", "lean": False,   # noqa: E731
+                                                               "dec": sd.decimal(odds), "american": odds,
+                                                               "legs": [leg(team, odds, p)], **kw}
+    magic = mk("play", "Magic", 102, 0.47, floor={"dog_score": 1.0, "nba": True})   # 47% x 2.02 = 0.95: under the price
+    ducks = mk("play", "Ducks", 154, 0.382, floor={"dog_score": 1.0, "nba": False})  # 38.2% x 2.54 = 0.97: under
+    assert not sports.beats_price(magic["legs"][0]) and not sports.beats_price(ducks["legs"][0])
+    assert sports.mark_best([magic, ducks], "2026-11-05") is None              # nothing clears: no ⭐, no forced full unit
+    assert not magic.get("best") and sports.units_for(magic) == 0.5 and sports.units_for(ducks) == 0.5
+    good = mk("play", "Wizards", 105, 0.52, floor={"dog_score": 1.0, "nba": True})    # 52% x 2.05 = 1.07: beats it
+    assert sports.mark_best([magic, good, ducks], "2026-11-05") is good and sports.units_for(good) == 1.0
+    old = mk("play", "Magic", 102, 0.47, date="2026-11-04", floor={"dog_score": 1.0, "nba": True})
+    assert sports.mark_best([old], "2026-11-04") is old                         # before 11/5: the 11/4 rule as it ran
+    # the forced side on a day with no unit play: the read must beat the price too
+    c_under = {**_cand("g1", -130, 0.55, league="nhl"), "reasons": [], "waiting": []}   # 55% x 1.769 = 0.97
+    c_over = {**_cand("g2", 120, 0.48, league="nhl"), "reasons": [], "waiting": []}     # 48% x 2.2 = 1.06
+    assert sports.forced_best([c_under], set(), "2026-11-05") is None
+    assert sports.forced_best([c_under, c_over], set(), "2026-11-05")["game_id"] == "g2"
+    assert sports.forced_best([c_under], set(), "2026-11-04")["game_id"] == "g1"     # the 11/4 rule before
 
 
 if __name__ == "__main__":
