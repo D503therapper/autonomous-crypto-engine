@@ -1,39 +1,4 @@
 {
- "nba:401909283": {
-  "market": "ml",
-  "own": 0.4099,
-  "side": "home",
-  "start": "2026-10-31T00:00Z",
-  "team": "Mavericks"
- },
- "nba:401909284": {
-  "market": "ml",
-  "own": 0.3705,
-  "side": "away",
-  "start": "2026-10-31T00:00Z",
-  "team": "Clippers"
- },
- "nba:401909285": {
-  "market": "ml",
-  "own": 0.5061,
-  "side": "away",
-  "start": "2026-10-31T02:00Z",
-  "team": "Lakers"
- },
- "nba:401909286": {
-  "market": "ml",
-  "own": 0.5487,
-  "side": "away",
-  "start": "2026-10-31T02:00Z",
-  "team": "Nuggets"
- },
- "nba:401909897": {
-  "market": "ml",
-  "own": 0.5176,
-  "side": "home",
-  "start": "2026-10-31T22:00Z",
-  "team": "Hornets"
- },
  "nba:401909901": {
   "market": "spread",
   "own": 0.5051,
@@ -439,6 +404,13 @@
   "side": "away",
   "start": "2026-11-03T03:00Z",
   "team": "Towson"
+ },
+ "ncaab:401917513": {
+  "market": "spread",
+  "own": 0.5484,
+  "side": "home",
+  "start": "2026-11-05T03:00Z",
+  "team": "Santa Clara"
  },
  "ncaab:401917514": {
   "market": "spread",
@@ -846,62 +818,6 @@
   "start": "2026-11-04T01:00Z",
   "team": "AR-Pine Bluff"
  },
- "ncaaf:401856733": {
-  "market": "ml",
-  "own": 0.2914,
-  "side": "home",
-  "start": "2026-10-31T23:45Z",
-  "team": "Arkansas"
- },
- "ncaaf:401856734": {
-  "market": "ml",
-  "own": 0.234,
-  "side": "away",
-  "start": "2026-10-31T19:30Z",
-  "team": "Florida"
- },
- "ncaaf:401856735": {
-  "market": "ml",
-  "own": 0.2297,
-  "side": "away",
-  "start": "2026-10-31T16:45Z",
-  "team": "Auburn"
- },
- "ncaaf:401856847": {
-  "market": "ml",
-  "own": 0.3041,
-  "side": "home",
-  "start": "2026-10-31T23:00Z",
-  "team": "Iowa State"
- },
- "ncaaf:401856848": {
-  "market": "ml",
-  "own": 0.3531,
-  "side": "home",
-  "start": "2026-10-31T19:45Z",
-  "team": "Cincinnati"
- },
- "ncaaf:401858278": {
-  "market": "ml",
-  "own": 0.301,
-  "side": "home",
-  "start": "2026-10-31T16:00Z",
-  "team": "Syracuse"
- },
- "ncaaf:401858503": {
-  "market": "ml",
-  "own": 0.4976,
-  "side": "home",
-  "start": "2026-10-31T16:00Z",
-  "team": "Maryland"
- },
- "ncaaf:401858506": {
-  "market": "ml",
-  "own": 0.2584,
-  "side": "away",
-  "start": "2026-10-31T20:15Z",
-  "team": "Purdue"
- },
  "ncaaf:401860908": {
   "market": "spread",
   "own": 0.5081,
@@ -909,26 +825,12 @@
   "start": "2026-11-01T02:00Z",
   "team": "Boise St"
  },
- "ncaaf:401861966": {
-  "market": "ml",
-  "own": 0.5144,
-  "side": "home",
-  "start": "2026-10-31T19:00Z",
-  "team": "Air Force"
- },
  "ncaaf:401864530": {
   "market": "spread",
   "own": 0.5117,
   "side": "home",
   "start": "2026-11-01T02:30Z",
   "team": "UNLV"
- },
- "ncaaf:401866451": {
-  "market": "ml",
-  "own": 0.3093,
-  "side": "home",
-  "start": "2026-10-31T02:30Z",
-  "team": "Sacramento St"
  },
  "ncaaf:401866453": {
   "market": "spread",
@@ -950,27 +852,6 @@
   "side": "home",
   "start": "2026-11-05T00:00Z",
   "team": "Sacramento St"
- },
- "ncaaf:401871095": {
-  "market": "ml",
-  "own": 0.4519,
-  "side": "home",
-  "start": "2026-10-31T19:30Z",
-  "team": "UL Monroe"
- },
- "ncaaf:401871096": {
-  "market": "ml",
-  "own": 0.4862,
-  "side": "home",
-  "start": "2026-10-31T17:00Z",
-  "team": "Old Dominion"
- },
- "ncaaf:401871097": {
-  "market": "ml",
-  "own": 0.3896,
-  "side": "home",
-  "start": "2026-10-31T19:00Z",
-  "team": "South Alabama"
  },
  "nfl:401873024": {
   "market": "spread",
@@ -1034,27 +915,6 @@
   "side": "away",
   "start": "2026-11-03T01:15Z",
   "team": "Bears"
- },
- "nhl:401892613": {
-  "market": "ml",
-  "own": 0.5044,
-  "side": "away",
-  "start": "2026-10-31T00:00Z",
-  "team": "Kraken"
- },
- "nhl:401892615": {
-  "market": "ml",
-  "own": 0.5177,
-  "side": "away",
-  "start": "2026-10-31T17:00Z",
-  "team": "Blues"
- },
- "nhl:401892618": {
-  "market": "ml",
-  "own": 0.5195,
-  "side": "away",
-  "start": "2026-10-31T20:00Z",
-  "team": "Sabres"
  },
  "nhl:401892625": {
   "market": "ml",
