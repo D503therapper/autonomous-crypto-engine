@@ -1,28 +1,37 @@
 {
- "at": "2026-11-05T07:48Z",
+ "at": "2026-11-05T09:23Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Li Zongyu vs Blinkova: no points for 411s",
+  "live tennis scores: tennis Zaytseva vs Kroitor: no points for 411s"
+ ],
  "ok": [
-  "live watcher fresh (101s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
-  "slate check: all 47 of today's games named, priced and looked at",
+  "live tennis points + server: 1 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 25 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 55 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-05T09:23Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Li Zongyu vs Blinkova: no points for 411s",
+    "live tennis scores: tennis Zaytseva vs Kroitor: no points for 411s"
+   ]
+  },
   {
    "at": "2026-11-05T07:48Z",
    "fixes": [],
@@ -504,11 +513,6 @@
   },
   {
    "at": "2026-11-04T01:25Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-04T01:24Z",
    "fixes": [],
    "problems": []
   }
