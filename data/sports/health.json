@@ -1,9 +1,9 @@
 {
- "at": "2026-11-05T03:56Z",
+ "at": "2026-11-05T05:28Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 17 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 43 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T05:28Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-05T03:56Z",
    "fixes": [],
@@ -506,18 +511,6 @@
    "at": "2026-11-03T23:19Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-03T21:44Z",
-   "fixes": [
-    "live watch 41717461621 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-02 Rafael Jodar) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }
