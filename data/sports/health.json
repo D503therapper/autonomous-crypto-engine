@@ -1,11 +1,9 @@
 {
- "at": "2026-11-05T02:24Z",
- "fixes": [
-  "live watch 41950314061 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-05T03:55Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (51s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,14 +14,19 @@
   "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 49 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-05T03:55Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-05T02:24Z",
    "fixes": [
@@ -519,15 +522,6 @@
    "problems": [
     "live tennis scores: tennis Pigossi vs Grabher: no points for 2285s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-03T21:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Papamichail vs Carle: no points for 1298s",
-    "live tennis scores: tennis Pigossi vs Grabher: no points for 1298s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
  ]
