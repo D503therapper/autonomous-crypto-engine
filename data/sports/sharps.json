@@ -17,25 +17,25 @@
   },
   "nhl": {
    "old": {
-    "n": 120,
-    "won": 0.55,
-    "close": 0.4489,
-    "roi_close": 0.1604
+    "n": 113,
+    "won": 0.5487,
+    "close": 0.4459,
+    "roi_close": 0.1678
    },
    "new": {
-    "n": 207,
-    "won": 0.3913,
-    "close": 0.4447,
-    "roi_close": -0.1732
+    "n": 201,
+    "won": 0.4179,
+    "close": 0.4379,
+    "roi_close": -0.1019
    },
    "proven": false
   },
   "nba": {
    "old": {
-    "n": 262,
-    "won": 0.3397,
-    "close": 0.3651,
-    "roi_close": -0.1315
+    "n": 264,
+    "won": 0.3409,
+    "close": 0.3647,
+    "roi_close": -0.1253
    },
    "new": {
     "n": 355,
@@ -54,42 +54,44 @@
    },
    "new": {
     "n": 77,
-    "won": 0.4156,
-    "close": 0.3867,
-    "roi_close": 0.097
+    "won": 0.4286,
+    "close": 0.3835,
+    "roi_close": 0.1502
    },
-   "proven": false
+   "proven": true
   },
   "ncaab": {
    "old": {
-    "n": 586,
-    "won": 0.4061,
-    "close": 0.3861,
-    "roi_close": -0.0361
+    "n": 589,
+    "won": 0.4092,
+    "close": 0.3865,
+    "roi_close": -0.0311
    },
    "new": {
-    "n": 697,
-    "won": 0.4161,
-    "close": 0.427,
-    "roi_close": -0.032
+    "n": 702,
+    "won": 0.4117,
+    "close": 0.4256,
+    "roi_close": -0.0377
    },
    "proven": false
   },
   "ncaaf": {
    "old": {
-    "n": 219,
-    "won": 0.4384,
-    "close": 0.4277,
-    "roi_close": -0.0572
+    "n": 230,
+    "won": 0.4478,
+    "close": 0.4233,
+    "roi_close": -0.0237
    },
    "new": {
-    "n": 225,
-    "won": 0.4089,
-    "close": 0.3889,
-    "roi_close": -0.0147
+    "n": 231,
+    "won": 0.4156,
+    "close": 0.3805,
+    "roi_close": 0.0129
    },
    "proven": false
   }
  },
- "proven": []
+ "proven": [
+  "nfl"
+ ]
 }

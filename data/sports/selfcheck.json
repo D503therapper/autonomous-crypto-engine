@@ -5,15 +5,15 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.518,
-   "n": 247,
+   "hit": 0.516,
+   "n": 248,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.543,
-   "n": 94,
+   "hit": 0.537,
+   "n": 95,
    "said": 0.479,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
@@ -166,8 +166,8 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.542,
-   "n": 212,
+   "hit": 0.54,
+   "n": 213,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -208,8 +208,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.519,
-   "n": 183,
+   "hit": 0.516,
+   "n": 184,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -250,9 +250,9 @@
   },
   "league:nfl": {
    "extra_edge": 0.0,
-   "hit": 0.625,
-   "n": 40,
-   "said": 0.541,
+   "hit": 0.61,
+   "n": 41,
+   "said": 0.54,
    "verdict": "hitting at or above what we said"
   },
   "league:nhl": {
@@ -278,10 +278,10 @@
   },
   "market:spread": {
    "extra_edge": 0.0,
-   "hit": 0.409,
-   "n": 22,
+   "hit": 0.391,
+   "n": 23,
    "said": 0.52,
-   "verdict": "only 22 graded - report only"
+   "verdict": "only 23 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
@@ -299,8 +299,8 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.57,
-   "n": 142,
+   "hit": 0.566,
+   "n": 143,
    "said": 0.542,
    "verdict": "hitting at or above what we said"
   },
@@ -320,9 +320,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.52,
-   "n": 225,
-   "said": 0.497,
+   "hit": 0.518,
+   "n": 226,
+   "said": 0.498,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:contract year": {
@@ -355,10 +355,10 @@
   },
   "talk:ours:trash talk": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 2,
-   "said": 0.553,
-   "verdict": "only 2 graded - report only (report only: forward-only tag)"
+   "hit": 0.667,
+   "n": 3,
+   "said": 0.54,
+   "verdict": "only 3 graded - report only (report only: forward-only tag)"
   },
   "talk:ours:unhappy": {
    "extra_edge": 0.0,
@@ -411,5 +411,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-06T05:00Z"
+ "updated": "2026-11-06T06:18Z"
 }
