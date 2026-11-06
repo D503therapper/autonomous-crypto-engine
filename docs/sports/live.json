@@ -1,19 +1,27 @@
 {
- "updated": 1793859199072,
+ "updated": 1793931877612,
  "plays": [],
  "record": {
   "won": 16,
   "lost": 19
  },
- "live_games": 3,
+ "live_games": 39,
  "tennis": {
-  "watching": 2,
-  "priced": 1,
+  "watching": 0,
+  "priced": 0,
   "stale": 0,
-  "suspended": 1,
-  "books": "2 live lines, 2 fresh (betrivers 2)"
+  "suspended": 0,
+  "books": "0 live lines, 0 fresh"
  },
  "scores": {
+  "nfl:401873037": {
+   "away": "Jaguars",
+   "home": "Ravens",
+   "a": 10,
+   "h": 3,
+   "clock": "01:57 - 2nd",
+   "live": true
+  },
   "ncaaf:401866453": {
    "away": "Ohio",
    "home": "Akron",
@@ -45,6 +53,22 @@
    "h": 31,
    "clock": "Final",
    "live": false
+  },
+  "ncaaf:401862817": {
+   "away": "UTSA",
+   "home": "FAU",
+   "a": 19,
+   "h": 35,
+   "clock": "00:50 - 2nd",
+   "live": true
+  },
+  "ncaaf:401869964": {
+   "away": "James Madison",
+   "home": "Southern Miss",
+   "a": 13,
+   "h": 7,
+   "clock": "05:29 - 2nd",
+   "live": true
   },
   "nba:401909922": {
    "away": "76ers",
@@ -153,98 +177,18 @@
   "nba:401909935": {
    "away": "Heat",
    "home": "Clippers",
-   "a": 109,
-   "h": 112,
-   "clock": "02:41 - OT",
+   "a": 117,
+   "h": 116,
+   "clock": "Final",
+   "live": false
+  },
+  "nba:401909936": {
+   "away": "Magic",
+   "home": "Suns",
+   "a": 16,
+   "h": 13,
+   "clock": "06:15 - 1st",
    "live": true
-  },
-  "nhl:401892633": {
-   "away": "Mammoth",
-   "home": "Maple Leafs",
-   "a": 3,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892640": {
-   "away": "Stars",
-   "home": "Capitals",
-   "a": 6,
-   "h": 5,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892637": {
-   "away": "Blues",
-   "home": "Rangers",
-   "a": 1,
-   "h": 3,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892634": {
-   "away": "Jets",
-   "home": "Canadiens",
-   "a": 5,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892639": {
-   "away": "Golden Knights",
-   "home": "Penguins",
-   "a": 3,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892641": {
-   "away": "Avalanche",
-   "home": "Blue Jackets",
-   "a": 2,
-   "h": 7,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892635": {
-   "away": "Red Wings",
-   "home": "Lightning",
-   "a": 2,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892638": {
-   "away": "Wild",
-   "home": "Flyers",
-   "a": 4,
-   "h": 2,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892636": {
-   "away": "Oilers",
-   "home": "Devils",
-   "a": 3,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892642": {
-   "away": "Hurricanes",
-   "home": "Predators",
-   "a": 1,
-   "h": 4,
-   "clock": "Final",
-   "live": false
-  },
-  "nhl:401892643": {
-   "away": "Ducks",
-   "home": "Canucks",
-   "a": 5,
-   "h": 4,
-   "clock": "Final",
-   "live": false
   },
   "nhl:401892645": {
    "away": "Blackhawks",
@@ -278,141 +222,85 @@
    "clock": "Final",
    "live": false
   },
-  "ncaab:401906848": {
-   "away": "Wofford",
-   "home": "Tennessee",
-   "a": 59,
-   "h": 90,
-   "clock": "Final",
-   "live": false
+  "nhl:401892655": {
+   "away": "Stars",
+   "home": "Blue Jackets",
+   "a": 1,
+   "h": 0,
+   "clock": "08:13 - 3rd",
+   "live": true
   },
-  "ncaab:401920304": {
-   "away": "Hampton",
-   "home": "Georgia Tech",
-   "a": 55,
-   "h": 75,
-   "clock": "Final",
-   "live": false
+  "nhl:401892650": {
+   "away": "Blackhawks",
+   "home": "Lightning",
+   "a": 0,
+   "h": 3,
+   "clock": "15:15 - 3rd",
+   "live": true
   },
-  "ncaab:401909551": {
-   "away": "Wagner",
-   "home": "Boston College",
-   "a": 50,
-   "h": 76,
-   "clock": "Final",
-   "live": false
+  "nhl:401892652": {
+   "away": "Hurricanes",
+   "home": "Islanders",
+   "a": 3,
+   "h": 3,
+   "clock": "09:46 - 3rd",
+   "live": true
   },
-  "ncaab:401921801": {
-   "away": "Manhattan",
-   "home": "Kentucky",
-   "a": 57,
-   "h": 85,
-   "clock": "Final",
-   "live": false
+  "nhl:401892654": {
+   "away": "Bruins",
+   "home": "Penguins",
+   "a": 6,
+   "h": 2,
+   "clock": "05:40 - 3rd",
+   "live": true
   },
-  "ncaab:401920061": {
-   "away": "Holy Cross",
-   "home": "Rhode Island",
-   "a": 59,
-   "h": 103,
-   "clock": "Final",
-   "live": false
+  "nhl:401892651": {
+   "away": "Blues",
+   "home": "Devils",
+   "a": 2,
+   "h": 4,
+   "clock": "08:14 - 3rd",
+   "live": true
   },
-  "ncaab:401920376": {
-   "away": "Coppin St",
-   "home": "Virginia Tech",
-   "a": 54,
-   "h": 88,
-   "clock": "Final",
-   "live": false
+  "nhl:401892653": {
+   "away": "Flyers",
+   "home": "Rangers",
+   "a": 2,
+   "h": 2,
+   "clock": "05:03 - 3rd",
+   "live": true
   },
-  "ncaab:401921819": {
-   "away": "Stetson",
-   "home": "South Carolina",
-   "a": 55,
-   "h": 81,
-   "clock": "Final",
-   "live": false
+  "nhl:401892649": {
+   "away": "Golden Knights",
+   "home": "Red Wings",
+   "a": 1,
+   "h": 1,
+   "clock": "09:22 - 3rd",
+   "live": true
   },
-  "ncaab:401925779": {
-   "away": "Purdue FW",
-   "home": "Duquesne",
-   "a": 71,
-   "h": 78,
-   "clock": "Final",
-   "live": false
+  "nhl:401892648": {
+   "away": "Mammoth",
+   "home": "Canadiens",
+   "a": 3,
+   "h": 3,
+   "clock": "13:57 - 3rd",
+   "live": true
   },
-  "ncaab:401920422": {
-   "away": "Drexel",
-   "home": "Virginia",
-   "a": 60,
-   "h": 89,
-   "clock": "Final",
-   "live": false
+  "nhl:401892656": {
+   "away": "Canucks",
+   "home": "Jets",
+   "a": 1,
+   "h": 5,
+   "clock": "09:45 - 3rd",
+   "live": true
   },
-  "ncaab:401906757": {
-   "away": "Sam Houston",
-   "home": "Alabama",
-   "a": 74,
-   "h": 96,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401921808": {
-   "away": "LSU N Orleans",
-   "home": "LSU",
-   "a": 57,
-   "h": 100,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401921165": {
-   "away": "Cleveland St",
-   "home": "Missouri",
-   "a": 50,
-   "h": 111,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401920702": {
-   "away": "Lipscomb",
-   "home": "Iowa",
-   "a": 54,
-   "h": 76,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401920806": {
-   "away": "Alabama St",
-   "home": "Texas A&M",
-   "a": 66,
-   "h": 97,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401924911": {
-   "away": "N Arizona",
-   "home": "UNLV",
-   "a": 77,
-   "h": 89,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401920343": {
-   "away": "North Florida",
-   "home": "CA Baptist",
-   "a": 71,
-   "h": 63,
-   "clock": "Final",
-   "live": false
-  },
-  "ncaab:401920155": {
-   "away": "Fullerton",
-   "home": "San Diego St",
-   "a": 78,
-   "h": 102,
-   "clock": "Final",
-   "live": false
+  "nhl:401892657": {
+   "away": "Ducks",
+   "home": "Oilers",
+   "a": 2,
+   "h": 2,
+   "clock": "14:29 - 2nd",
+   "live": true
   },
   "ncaab:401920191": {
    "away": "Longwood",
@@ -486,164 +374,531 @@
    "clock": "Final",
    "live": false
   },
-  "ncaab:401920232": {
-   "away": "Framingham St",
-   "home": "Dartmouth",
-   "a": 50,
-   "h": 107,
+  "ncaab:401925031": {
+   "away": "McNeese",
+   "home": "North Texas",
+   "a": 67,
+   "h": 77,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401929450": {
-   "away": "Regent",
-   "home": "Old Dominion",
-   "a": 47,
-   "h": 91,
+  "ncaab:401909726": {
+   "away": "Wake Forest",
+   "home": "Vanderbilt",
+   "a": 51,
+   "h": 74,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401928853": {
-   "away": "VA Lynchburg",
-   "home": "Morgan St",
-   "a": 58,
-   "h": 95,
+  "ncaab:401917177": {
+   "away": "Chattanooga",
+   "home": "Penn State",
+   "a": 93,
+   "h": 97,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401926142": {
-   "away": "Concordia Chi",
-   "home": "SIUE",
-   "a": 61,
-   "h": 85,
+  "ncaab:401916287": {
+   "away": "Bellarmine",
+   "home": "Indiana",
+   "a": 69,
+   "h": 92,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401920410": {
-   "away": "MD Eastern",
-   "home": "High Point",
-   "a": 49,
-   "h": 63,
+  "ncaab:401919804": {
+   "away": "Long Island",
+   "home": "Seton Hall",
+   "a": 60,
+   "h": 67,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401902276": {
-   "away": "FDU",
-   "home": "Butler",
-   "a": 65,
-   "h": 99,
+  "ncaab:401920377": {
+   "away": "Mercer",
+   "home": "Virginia Tech",
+   "a": 67,
+   "h": 96,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
-  "ncaab:401929438": {
-   "away": "Christendom",
-   "home": "App State",
-   "a": 43,
-   "h": 108,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401927361": {
-   "away": "Central Col",
-   "home": "Drake",
-   "a": 48,
-   "h": 101,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401926214": {
-   "away": "Blue Mountain",
-   "home": "Tennessee Tech",
-   "a": 70,
-   "h": 117,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401926151": {
-   "away": "Webster",
-   "home": "SE Missouri",
-   "a": 65,
-   "h": 90,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401926111": {
-   "away": "Bob Jones",
-   "home": "Furman",
-   "a": 52,
-   "h": 121,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401917977": {
-   "away": "Champ Chrstn",
-   "home": "UL Monroe",
-   "a": 55,
-   "h": 99,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401923391": {
-   "away": "St Mary's",
-   "home": "S Indiana",
-   "a": 42,
-   "h": 112,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401929171": {
-   "away": "West Coast",
-   "home": "Boise St",
-   "a": 53,
-   "h": 132,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401925939": {
-   "away": "Grace U",
-   "home": "Utah Tech",
-   "a": 52,
-   "h": 103,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401922030": {
-   "away": "SalishKootenai",
-   "home": "Montana",
-   "a": 40,
-   "h": 105,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401917512": {
-   "away": "N Dakota St",
-   "home": "Saint Mary's",
+  "ncaab:401921747": {
+   "away": "Green Bay",
+   "home": "Cincinnati",
    "a": 64,
-   "h": 105,
+   "h": 81,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
+  },
+  "ncaab:401909706": {
+   "away": "Buffalo",
+   "home": "Pitt",
+   "a": 58,
+   "h": 65,
+   "clock": "03:38 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401921681": {
+   "away": "New Hampshire",
+   "home": "Rider",
+   "a": 66,
+   "h": 55,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401921219": {
+   "away": "Delaware St",
+   "home": "Navy",
+   "a": 60,
+   "h": 66,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401920691": {
+   "away": "Vermont",
+   "home": "Fairfield",
+   "a": 79,
+   "h": 67,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401921084": {
+   "away": "UMBC",
+   "home": "Marist",
+   "a": 76,
+   "h": 81,
+   "clock": "00:31 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401921682": {
+   "away": "Maine",
+   "home": "Sacred Heart",
+   "a": 74,
+   "h": 72,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401920864": {
+   "away": "NJIT",
+   "home": "Iona",
+   "a": 49,
+   "h": 72,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401924733": {
+   "away": "Hofstra",
+   "home": "Princeton",
+   "a": 58,
+   "h": 60,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401919823": {
+   "away": "Mercyhurst",
+   "home": "Notre Dame",
+   "a": 56,
+   "h": 83,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401921679": {
+   "away": "UMass Lowell",
+   "home": "Merrimack",
+   "a": 71,
+   "h": 61,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401925684": {
+   "away": "Howard",
+   "home": "Alcorn St",
+   "a": 89,
+   "h": 82,
+   "clock": "00:33 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401921680": {
+   "away": "Bryant",
+   "home": "Quinnipiac",
+   "a": 56,
+   "h": 66,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401925819": {
+   "away": "Georgia St",
+   "home": "Charlotte",
+   "a": 67,
+   "h": 77,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401924718": {
+   "away": "Cornell",
+   "home": "Lehigh",
+   "a": 64,
+   "h": 71,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401919732": {
+   "away": "Chicago St",
+   "home": "Incarnate Word",
+   "a": 66,
+   "h": 54,
+   "clock": "00:25 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401911195": {
+   "away": "Stonehill",
+   "home": "Fordham",
+   "a": 55,
+   "h": 75,
+   "clock": "03:37 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401919002": {
+   "away": "Jackson St",
+   "home": "Tulane",
+   "a": 76,
+   "h": 81,
+   "clock": "03:33 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401920759": {
+   "away": "Centre",
+   "home": "Belmont",
+   "a": 45,
+   "h": 75,
+   "clock": "End of 2nd Half",
+   "live": true
+  },
+  "ncaab:401909563": {
+   "away": "Coastal",
+   "home": "Duke",
+   "a": 18,
+   "h": 54,
+   "clock": "Halftime",
+   "live": true
+  },
+  "ncaab:401906864": {
+   "away": "Gardner-Webb",
+   "home": "Texas",
+   "a": 22,
+   "h": 66,
+   "clock": "14:20 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401906770": {
+   "away": "Jacksonville",
+   "home": "Florida",
+   "a": 42,
+   "h": 69,
+   "clock": "11:43 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401918968": {
+   "away": "VMI",
+   "home": "SMU",
+   "a": 36,
+   "h": 58,
+   "clock": "15:24 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401909491": {
+   "away": "Le Moyne",
+   "home": "Creighton",
+   "a": 34,
+   "h": 65,
+   "clock": "12:22 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401927373": {
+   "away": "Central St",
+   "home": "Illinois St",
+   "a": 38,
+   "h": 78,
+   "clock": "11:38 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401921094": {
+   "away": "East Texas A&M",
+   "home": "Rice",
+   "a": 42,
+   "h": 36,
+   "clock": "15:30 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401920913": {
+   "away": "N Illinois",
+   "home": "Tulsa",
+   "a": 38,
+   "h": 66,
+   "clock": "15:27 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401925754": {
+   "away": "Toledo",
+   "home": "Michigan St",
+   "a": 26,
+   "h": 56,
+   "clock": "16:18 - 2nd Half",
+   "live": true
+  },
+  "ncaab:401909501": {
+   "away": "South Florida",
+   "home": "DePaul",
+   "a": 28,
+   "h": 39,
+   "clock": "03:40 - 1st Half",
+   "live": true
+  },
+  "ncaab:401913526": {
+   "away": "Penn",
+   "home": "Illinois",
+   "a": 30,
+   "h": 51,
+   "clock": "01:17 - 1st Half",
+   "live": true
+  },
+  "ncaab:401921133": {
+   "away": "Bethune",
+   "home": "Texas Tech",
+   "a": 2,
+   "h": 8,
+   "clock": "13:15 - 1st Half",
+   "live": true
+  },
+  "ncaab:401921698": {
+   "away": "Towson",
+   "home": "Utah",
+   "a": 11,
+   "h": 6,
+   "clock": "11:12 - 1st Half",
+   "live": true
   },
   "ncaaf:401866456": {
    "away": "C Michigan",
    "home": "E Michigan",
    "a": 35,
    "h": 7,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401921678": {
+   "away": "UAlbany",
+   "home": "Manhattan",
+   "a": 69,
+   "h": 66,
+   "clock": "0:38 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401911273": {
+   "away": "Binghamton",
+   "home": "Saint Peter's",
+   "a": 58,
+   "h": 55,
+   "clock": "End of 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401929370": {
+   "away": "Union (TN)",
+   "home": "North Alabama",
+   "a": 64,
+   "h": 70,
+   "clock": "0:31 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401928800": {
+   "away": "KY Wesleyan",
+   "home": "Western KY",
+   "a": 48,
+   "h": 82,
+   "clock": "0:30 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401906792": {
+   "away": "N'Western St",
+   "home": "Mississippi St",
+   "a": 41,
+   "h": 69,
+   "clock": "6:08 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401926780": {
+   "away": "Jax State",
+   "home": "South Alabama",
+   "a": 49,
+   "h": 41,
+   "clock": "10:47 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401920765": {
+   "away": "East West",
+   "home": "Tennessee St",
+   "a": 32,
+   "h": 75,
+   "clock": "13:17 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401911229": {
+   "away": "West Georgia",
+   "home": "Loyola Chicago",
+   "a": 38,
+   "h": 57,
+   "clock": "13:00 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401925922": {
+   "away": "Grace U",
+   "home": "Southern Utah",
+   "a": 23,
+   "h": 45,
+   "clock": "Halftime",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401911334": {
+   "away": "Calumet",
+   "home": "Air Force",
+   "a": 28,
+   "h": 47,
+   "clock": "1:06 - 1st Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401911518": {
+   "away": "Menlo",
+   "home": "UC Davis",
+   "a": 16,
+   "h": 15,
+   "clock": "11:56 - 1st Half",
+   "live": true,
+   "src": "espn"
+  },
+  "ncaab:401920960": {
+   "away": "VA Lynchburg",
+   "home": "Morehead St",
+   "a": 60,
+   "h": 114,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401924948": {
+   "away": "King's",
+   "home": "Lafayette",
+   "a": 67,
+   "h": 104,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401912227": {
+   "away": "Mt St Mary",
+   "home": "Army",
+   "a": 41,
+   "h": 118,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929418": {
+   "away": "Fort Valley St",
+   "home": "Florida A&M",
+   "a": 75,
+   "h": 70,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929198": {
+   "away": "Howard Payne",
+   "home": "Texas St",
+   "a": 66,
+   "h": 135,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929038": {
+   "away": "Central Bible",
+   "home": "Lindenwood",
+   "a": 46,
+   "h": 120,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401928849": {
+   "away": "Kalamazoo",
+   "home": "W Michigan",
+   "a": 52,
+   "h": 99,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401927395": {
+   "away": "S Virginia",
+   "home": "Richmond",
+   "a": 46,
+   "h": 107,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401926078": {
+   "away": "Biblical Stud",
+   "home": "Prairie View",
+   "a": 90,
+   "h": 103,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401924703": {
+   "away": "Old Westbury",
+   "home": "Columbia",
+   "a": 58,
+   "h": 120,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401911375": {
+   "away": "Columbia Int'l",
+   "home": "Charleston So",
+   "a": 49,
+   "h": 86,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401909717": {
+   "away": "C Connecticut",
+   "home": "Syracuse",
+   "a": 49,
+   "h": 102,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401928467": {
+   "away": "UA Monticello",
+   "home": "Louisiana Tech",
+   "a": 17,
+   "h": 76,
    "clock": "Final",
    "live": false,
    "src": "espn"
@@ -829,6 +1084,29 @@
    "live": false,
    "delayed": false
   },
+  "tennis:atp:186503": {
+   "n": [
+    "Fils",
+    "Fritz"
+   ],
+   "sets": [
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     6
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
   "tennis:wta:186633": {
    "n": [
     "Sasnovich",
@@ -863,65 +1141,95 @@
    ],
    "sets": [
     [
-     0,
-     0
+     6,
+     7
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     6,
+     3
     ]
    ],
-   "pts": [
-    "AD",
-    "40"
-   ],
-   "srv": 1,
-   "done": 0,
+   "pts": null,
+   "srv": null,
+   "done": 3,
    "first": 1,
    "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
+   "live": false,
+   "delayed": false
   },
-  "tennis:wta:186631": {
+  "tennis:wta:186585": {
    "n": [
-    "Ruzic",
-    "Wang Xinyu"
+    "Stefanini",
+    "Waltert"
    ],
    "sets": [
     [
-     1,
-     0
+     6,
+     2
+    ],
+    [
+     6,
+     3
     ]
    ],
-   "pts": [
-    "0",
-    "0"
-   ],
-   "srv": 1,
-   "done": 0,
+   "pts": null,
+   "srv": null,
+   "done": 2,
    "first": 1,
    "tennis": true,
-   "live": true,
-   "delayed": false,
-   "src": "book"
+   "live": false,
+   "delayed": false
   }
  },
  "done": {},
  "today": [],
  "sources": {
+  "betrivers:ncaab": "ok 0",
+  "betrivers:nhl": "ok 0",
+  "betrivers:nhl:1028410238": "ok 0",
+  "betrivers:ncaaf": "ok 0",
+  "betrivers:nfl": "ok 0",
+  "betrivers:ncaab:1028541901": "ok 0",
+  "betrivers:ncaab:1029081556": "ok 0",
+  "betrivers:tennis": "ok 0",
+  "betrivers:ncaab:1029185630": "ok 0",
+  "betrivers:ncaab:1028713732": "ok 0",
+  "betrivers:ncaab:1028802968": "ok 0",
+  "betrivers:ncaab:1029302475": "ok 0",
+  "betrivers:ncaab:1028627167": "ok 0",
+  "betrivers:ncaab:1028372097": "ok 0",
+  "betrivers:nhl:1028410215": "ok 0",
+  "betrivers:ncaab:1028541584": "ok 0",
   "betrivers:nba": "ok 0",
-  "betrivers:tennis": "ok 2"
+  "betrivers:nhl:1028410210": "ok 0",
+  "betrivers:ncaab:1029342706": "down HTTP 404",
+  "betrivers:nhl:1028410176": "ok 0",
+  "betrivers:ncaab:1028553806": "ok 0"
  },
  "health": [
-  "no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a real price)",
-  "Bovada's liveOnly feed had nothing for nba - used the full feed's live events instead (nba 1)"
+  "only 2 of 39 live games have a sportsbook price we can bet on",
+  "9 live games priced only by DraftKings (via ESPN), no second source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there",
+  "Bovada has no live lines for nba, ncaab, ncaaf, nfl, nhl"
  ],
- "priced": 0,
- "dk_only": 0,
+ "priced": 2,
+ "dk_only": 9,
  "min_p": 0.55,
- "price_src": {},
+ "price_src": {
+  "draftkings+an": 2
+ },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "espn_only": 18,
+ "espn_only": 25,
  "errors": [],
  "books": {
-  "nba": "1 groups, 1 fresh events (liveOnly feed empty: 1 fresh live from the full feed)"
+  "nba": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "ncaab": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "ncaaf": "2 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nfl": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 15.3
+ "took_s": 39.0
 }
