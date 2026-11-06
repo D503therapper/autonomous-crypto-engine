@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T05:02Z",
+ "updated": "2026-11-06T05:38Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -1239,8 +1239,8 @@
    "away": "Predators",
    "home": "Avalanche",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1269,8 +1269,8 @@
    "away": "Heat",
    "home": "Warriors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1366,8 +1366,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon",
-    "p": 0.855,
-    "tie": 0.024,
+    "p": 0.823,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1381,10 +1381,10 @@
     "team": "E Washington",
     "opp": "Oregon",
     "market": "spread",
-    "line": 16.5,
-    "odds": -102,
-    "p": 0.516,
-    "win_p": 0.074,
+    "line": 15.5,
+    "odds": -110,
+    "p": 0.51,
+    "win_p": 0.1,
     "reasons": []
    }
   },
@@ -1441,8 +1441,8 @@
     "market": "spread",
     "line": 25.5,
     "odds": -108,
-    "p": 0.612,
-    "win_p": 0.028,
+    "p": 0.611,
+    "win_p": 0.032,
     "reasons": [
      "hotter recent form"
     ]
@@ -1548,8 +1548,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.68,
-    "tie": 0.032,
+    "p": 0.668,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1564,9 +1564,9 @@
     "opp": "Hornets",
     "market": "spread",
     "line": -8.5,
-    "odds": -114,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.746,
+    "win_p": 0.733,
     "reasons": [
      "the stronger team"
     ]
@@ -1651,9 +1651,9 @@
     "team": "GA Southern",
     "opp": "Georgia Tech",
     "market": "spread",
-    "line": 18.5,
-    "odds": -112,
-    "p": 0.594,
+    "line": 16.5,
+    "odds": -110,
+    "p": 0.583,
     "win_p": 0.081,
     "reasons": []
    }
@@ -1825,8 +1825,8 @@
     "market": "spread",
     "line": 22.5,
     "odds": -108,
-    "p": 0.552,
-    "win_p": 0.042,
+    "p": 0.54,
+    "win_p": 0.057,
     "reasons": []
    }
   },
@@ -1836,8 +1836,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Elon",
-    "p": 0.701,
-    "tie": 0.037,
+    "p": 0.648,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1848,14 +1848,16 @@
    "why": "tight",
    "board": null,
    "lean": {
-    "team": "UNC Greensboro",
-    "opp": "Elon",
-    "market": "spread",
-    "line": 9.5,
-    "odds": -115,
-    "p": 0.527,
-    "win_p": 0.223,
-    "reasons": []
+    "team": "Elon",
+    "opp": "UNC Greensboro",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.719,
+    "win_p": 0.719,
+    "reasons": [
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1924,8 +1926,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UCF",
-    "p": 0.725,
-    "tie": 0.035,
+    "p": 0.709,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1942,8 +1944,10 @@
     "line": 9.5,
     "odds": -112,
     "p": 0.552,
-    "win_p": 0.198,
-    "reasons": []
+    "win_p": 0.215,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2221,8 +2225,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas A&M",
-    "p": 0.925,
-    "tie": 0.014,
+    "p": 0.907,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2236,10 +2240,10 @@
     "team": "N Kentucky",
     "opp": "Texas A&M",
     "market": "spread",
-    "line": 26.5,
-    "odds": -112,
-    "p": 0.592,
-    "win_p": 0.028,
+    "line": 27.5,
+    "odds": -115,
+    "p": 0.598,
+    "win_p": 0.038,
     "reasons": [
      "hotter recent form"
     ]
@@ -2589,10 +2593,10 @@
     "team": "Idaho St",
     "opp": "Wyoming",
     "market": "spread",
-    "line": 18.5,
-    "odds": -108,
-    "p": 0.533,
-    "win_p": 0.06,
+    "line": 19.5,
+    "odds": -118,
+    "p": 0.539,
+    "win_p": 0.064,
     "reasons": []
    }
   },
@@ -2679,11 +2683,13 @@
     "team": "Idaho",
     "opp": "Colorado St",
     "market": "spread",
-    "line": 16.5,
-    "odds": -102,
-    "p": 0.517,
-    "win_p": 0.074,
-    "reasons": []
+    "line": 17.5,
+    "odds": -112,
+    "p": 0.522,
+    "win_p": 0.087,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2836,8 +2842,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.867,
-    "tie": 0.022,
+    "p": 0.833,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2851,11 +2857,13 @@
     "team": "CA Baptist",
     "opp": "Oregon St",
     "market": "spread",
-    "line": 18.5,
-    "odds": -112,
-    "p": 0.549,
-    "win_p": 0.065,
-    "reasons": []
+    "line": 17.5,
+    "odds": -115,
+    "p": 0.543,
+    "win_p": 0.092,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
