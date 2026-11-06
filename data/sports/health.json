@@ -1,9 +1,11 @@
 {
- "at": "2026-11-06T20:11Z",
- "fixes": [],
+ "at": "2026-11-06T20:13Z",
+ "fixes": [
+  "live watch 42279686853 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (238s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +19,20 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 4 min ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-06T20:13Z",
+   "fixes": [
+    "live watch 42279686853 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-06T20:11Z",
    "fixes": [],
@@ -531,19 +541,6 @@
    "problems": [
     "live tennis scores: tennis Gormaz vs Monnet: no points for 170s",
     "live tennis scores: tennis Zarazua vs Riera: no points for 170s"
-   ]
-  },
-  {
-   "at": "2026-11-05T17:22Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Buse vs Borges: no points for 531s",
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 590s",
-    "live tennis scores: tennis Zarazua vs Riera: no points for 590s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
