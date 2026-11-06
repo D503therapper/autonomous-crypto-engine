@@ -33011,6 +33011,7 @@
      "game:conf"
     ],
     "dec": 1.925925925925926,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -33048,6 +33049,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,2,1",
+     "h": "1,1,0"
+    },
     "form_state": [
      1.0,
      2,
@@ -33094,10 +33099,12 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Bruins 6 @ Penguins 2",
     "season_games": null,
+    "settled": "2026-11-06T02:31Z",
     "side": "away",
     "start": "2026-11-06T00:00Z",
     "stype": "2",
@@ -33114,12 +33121,14 @@
    }
   ],
   "p_hit": 0.5008,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-11-05T16:00Z",
   "round": 1,
+  "settled": "2026-11-06T02:31Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -130,
