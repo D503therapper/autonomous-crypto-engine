@@ -1,9 +1,9 @@
 {
- "at": "2026-11-06T04:27Z",
+ "at": "2026-11-06T04:37Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 9 backup sources answering",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 48 min ago",
+  "engine ran 58 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-06T04:37Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-06T04:27Z",
    "fixes": [],
@@ -520,16 +525,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Andreescu vs Ortenzi: no points for 2378s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-04T22:48Z",
-   "fixes": [
-    "main board not up at 2:48 PM PT with 47 games today - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Ortenzi: no points for 1771s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
