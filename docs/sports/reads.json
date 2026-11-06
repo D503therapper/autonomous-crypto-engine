@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T22:52Z",
+ "updated": "2026-11-06T23:27Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -11,8 +11,8 @@
    "away": "UMass",
    "home": "Boston College",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -62,92 +62,46 @@
    "lean": null
   },
   {
-   "id": "ncaab:401922059",
+   "id": "ncaab:401920717",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "SC Upstate",
-    "p": 0.57,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-06T23:30Z",
-   "away": "SC State",
-   "home": "SC Upstate",
-   "why": "no_value",
+   "start": "2026-11-06T23:00Z",
+   "away": "E Washington",
+   "home": "Oregon",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "SC Upstate",
-    "opp": "SC State",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.62,
-    "win_p": 0.62,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401926131",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Purdue",
-    "p": 0.867,
-    "tie": 0.022,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-06T23:30Z",
-   "away": "Valparaiso",
-   "home": "Purdue",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Valparaiso",
-    "opp": "Purdue",
-    "market": "spread",
-    "line": 19.5,
-    "odds": -112,
-    "p": 0.554,
-    "win_p": 0.064,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401916314",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Ohio State",
-    "p": 0.899,
-    "tie": 0.018,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-06T23:30Z",
    "away": "Youngstown St",
    "home": "Ohio State",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Youngstown St",
     "opp": "Ohio State",
     "market": "spread",
     "line": 25.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.612,
-    "win_p": 0.043,
+    "win_p": 0.612,
     "reasons": [
      "hotter recent form",
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -294,7 +248,7 @@
     "opp": "Hornets",
     "market": "spread",
     "line": -10.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.788,
     "reasons": [
@@ -744,8 +698,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.652,
-    "tie": 0.033,
+    "p": 0.644,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -760,9 +714,9 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -8.5,
-    "odds": -114,
+    "odds": -107,
     "p": 0.501,
-    "win_p": 0.744,
+    "win_p": 0.733,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -790,9 +744,9 @@
     "team": "North Carolina",
     "opp": "Wofford",
     "market": "spread",
-    "line": -21.5,
-    "odds": -105,
-    "p": 0.513,
+    "line": -20.5,
+    "odds": -108,
+    "p": 0.519,
     "win_p": 0.953,
     "reasons": [
      "the stronger team",
@@ -806,8 +760,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UCF",
-    "p": 0.717,
-    "tie": 0.036,
+    "p": 0.728,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -815,19 +769,17 @@
    "start": "2026-11-07T00:00Z",
    "away": "Yale",
    "home": "UCF",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Yale",
     "opp": "UCF",
     "market": "spread",
     "line": 9.5,
-    "odds": -118,
+    "odds": -108,
     "p": 0.552,
-    "win_p": 0.206,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "win_p": 0.194,
+    "reasons": []
    }
   },
   {
@@ -976,7 +928,7 @@
     "opp": "UAB",
     "market": "spread",
     "line": 15.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.541,
     "win_p": 0.092,
     "reasons": [
@@ -1157,9 +1109,9 @@
     "team": "N Kentucky",
     "opp": "Texas A&M",
     "market": "spread",
-    "line": 27.5,
-    "odds": -115,
-    "p": 0.598,
+    "line": 26.5,
+    "odds": -102,
+    "p": 0.592,
     "win_p": 0.028,
     "reasons": [
      "hotter recent form"
@@ -1200,7 +1152,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.57,
+    "p": 0.579,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1216,9 +1168,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -184,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -192,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "the stronger team"
     ]
@@ -1298,15 +1250,15 @@
    "start": "2026-11-07T01:00Z",
    "away": "Southern",
    "home": "TCU",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Southern",
     "opp": "TCU",
     "market": "spread",
-    "line": 27.5,
-    "odds": -112,
-    "p": 0.551,
+    "line": 26.5,
+    "odds": -108,
+    "p": 0.546,
     "win_p": 0.037,
     "reasons": []
    }
@@ -1673,8 +1625,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Colorado St",
-    "p": 0.855,
-    "tie": 0.024,
+    "p": 0.839,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1688,11 +1640,13 @@
     "team": "Idaho",
     "opp": "Colorado St",
     "market": "spread",
-    "line": 16.5,
+    "line": 15.5,
     "odds": -108,
-    "p": 0.517,
-    "win_p": 0.074,
-    "reasons": []
+    "p": 0.511,
+    "win_p": 0.087,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1815,8 +1769,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oklahoma St",
-    "p": 0.86,
-    "tie": 0.023,
+    "p": 0.854,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1830,10 +1784,10 @@
     "team": "Queens",
     "opp": "Oklahoma St",
     "market": "spread",
-    "line": 18.5,
-    "odds": -115,
-    "p": 0.571,
-    "win_p": 0.07,
+    "line": 17.5,
+    "odds": -105,
+    "p": 0.566,
+    "win_p": 0.075,
     "reasons": [
      "sharp money moving this way",
      "hotter recent form"
@@ -1962,8 +1916,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Francisco",
-    "p": 0.711,
-    "tie": 0.036,
+    "p": 0.697,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1978,9 +1932,9 @@
     "opp": "San Francisco",
     "market": "spread",
     "line": 8.5,
-    "odds": -102,
+    "odds": -112,
     "p": 0.506,
-    "win_p": 0.213,
+    "win_p": 0.228,
     "reasons": []
    }
   },
