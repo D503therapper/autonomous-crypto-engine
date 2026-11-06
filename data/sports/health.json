@@ -1,11 +1,11 @@
 {
- "at": "2026-11-06T02:26Z",
+ "at": "2026-11-06T02:28Z",
  "fixes": [],
  "problems": [
   "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (249s)",
+  "live watcher fresh (219s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,19 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 58 min ago",
+  "engine ran 59 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-06T02:28Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-06T02:26Z",
    "fixes": [],
@@ -534,18 +541,6 @@
    "problems": [
     "live tennis scores: tennis Andreescu vs Ortenzi: no points for 180s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-04T20:50Z",
-   "fixes": [
-    "live watch 41902392531 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-04 Jan-Lennard Struff) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Zarazua vs Papamichail: no points for 2612s",
-    "live tennis scores: tennis Sierra vs Gormaz: no points for 2612s"
    ]
   }
  ]
