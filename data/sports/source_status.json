@@ -2,55 +2,55 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-05T23:45Z",
+   "at": "2026-11-06T00:42Z",
    "how": "plain request",
-   "n": 40,
+   "n": 17,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:40Z",
    "how": "plain request",
-   "n": 3,
+   "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-05T23:45Z",
+   "at": "2026-11-06T00:42Z",
    "how": "plain request",
-   "n": 10,
+   "n": 13,
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-05T23:45Z",
+   "at": "2026-11-06T00:42Z",
    "how": "plain request",
    "n": 28,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-05T23:45Z",
+   "at": "2026-11-06T00:43Z",
    "how": "plain request",
-   "n": 2,
+   "n": 7,
    "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-05T23:45Z",
+   "at": "2026-11-06T00:43Z",
    "how": "plain request",
    "n": 15,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:41Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:41Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:33Z",
    "how": "plain request",
    "n": 11,
    "ok": true
@@ -62,18 +62,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:41Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-05T23:43Z",
+   "at": "2026-11-06T00:41Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-05T23:45Z"
+ "updated": "2026-11-06T00:43Z"
 }
