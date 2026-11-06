@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 185,
+  "n": 186,
   "beat": 61,
   "same": 71,
-  "worse": 53,
-  "avg_pts": 0.11
+  "worse": 54,
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 85,
+  "n": 86,
   "beat": 28,
   "same": 37,
-  "worse": 20,
-  "avg_pts": 0.19
+  "worse": 21,
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 48,
+   "n": 49,
    "beat": 15,
    "same": 22,
-   "worse": 11,
-   "avg_pts": 0.12
+   "worse": 12,
+   "avg_pts": 0.1
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 71,
+   "n": 72,
    "beat": 21,
    "same": 29,
-   "worse": 21,
-   "avg_pts": 0.0
+   "worse": 22,
+   "avg_pts": -0.01
   }
  },
  "lock_by_size": {
@@ -2654,20 +2654,6 @@
   },
   {
    "date": "2026-11-05",
-   "kind": "play",
-   "lean": false,
-   "league": "nhl",
-   "team": "Flyers",
-   "market": "ml",
-   "line": null,
-   "odds": 124,
-   "close": 124,
-   "pts": 0.0,
-   "units": 0.5,
-   "result": "lost"
-  },
-  {
-   "date": "2026-11-05",
    "kind": "lean",
    "lean": true,
    "league": "nhl",
@@ -2693,6 +2679,34 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Ducks",
+   "market": "ml",
+   "line": null,
+   "odds": 154,
+   "close": 160,
+   "pts": -0.9,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
   },
   {
    "date": "2026-11-05",
