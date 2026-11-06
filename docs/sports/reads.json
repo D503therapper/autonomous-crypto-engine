@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T16:58Z",
+ "updated": "2026-11-06T17:12Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -198,7 +198,7 @@
     "opp": "American",
     "market": "spread",
     "line": -15.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.585,
     "win_p": 0.925,
     "reasons": [
@@ -642,9 +642,9 @@
     "team": "Missouri",
     "opp": "Saint Louis",
     "market": "spread",
-    "line": -2.5,
-    "odds": -108,
-    "p": 0.662,
+    "line": -1.5,
+    "odds": -118,
+    "p": 0.668,
     "win_p": 0.554,
     "reasons": []
    }
@@ -985,8 +985,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UAB",
-    "p": 0.801,
-    "tie": 0.029,
+    "p": 0.833,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1000,10 +1000,10 @@
     "team": "Nicholls",
     "opp": "UAB",
     "market": "spread",
-    "line": 15.5,
-    "odds": -112,
-    "p": 0.541,
-    "win_p": 0.12,
+    "line": 16.5,
+    "odds": -118,
+    "p": 0.547,
+    "win_p": 0.092,
     "reasons": [
      "hotter recent form",
      "opponent's body clock is off"
@@ -1404,8 +1404,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.81,
-    "tie": 0.028,
+    "p": 0.802,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1420,9 +1420,9 @@
     "opp": "Stony Brook",
     "market": "spread",
     "line": -12.5,
-    "odds": -118,
+    "odds": -112,
     "p": 0.541,
-    "win_p": 0.892,
+    "win_p": 0.885,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1584,8 +1584,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Ole Miss",
-    "p": 0.866,
-    "tie": 0.022,
+    "p": 0.86,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1600,9 +1600,9 @@
     "opp": "Ole Miss",
     "market": "spread",
     "line": 18.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.581,
-    "win_p": 0.065,
+    "win_p": 0.07,
     "reasons": []
    }
   },
@@ -1785,7 +1785,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.669,
+    "p": 0.676,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1801,9 +1801,9 @@
     "opp": "Nevada",
     "market": "spread",
     "line": -10.0,
-    "odds": -112,
+    "odds": -110,
     "p": 0.503,
-    "win_p": 0.662,
+    "win_p": 0.669,
     "reasons": [
      "the stronger team"
     ]
@@ -2034,7 +2034,7 @@
     "opp": "Oakland",
     "market": "spread",
     "line": -13.5,
-    "odds": -118,
+    "odds": -115,
     "p": 0.5,
     "win_p": 0.892,
     "reasons": [
@@ -2295,7 +2295,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Carolina",
-    "p": 0.615,
+    "p": 0.625,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2304,17 +2304,19 @@
    "start": "2026-11-07T17:00Z",
    "away": "North Carolina",
    "home": "UConn",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "North Carolina",
-    "opp": "UConn",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.599,
-    "win_p": 0.599,
-    "reasons": []
+    "team": "UConn",
+    "opp": "North Carolina",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -108,
+    "p": 0.517,
+    "win_p": 0.33,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
