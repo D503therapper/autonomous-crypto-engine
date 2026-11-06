@@ -332,10 +332,64 @@ def last_starter(rows, team, before):
     return None
 
 
+PROJ_GAMES = 10         # 🥅 11/6: the projected goalie reads the team's last 10 starts THIS season (sports_goalies' #1 window)
+PROJ_MIN = 3            # ...with 3+ of them on file (fewer: the last starter, as before)
+PROJ_B2B_DAYS = 1.5     # the team played within 36 hours: the 2nd night of a back-to-back
+PROJ_SAT = 2            # a #1 who didn't start either of the team's last 2 games stays out of the projection
+
+
+def _hours(a, b):
+    from datetime import datetime
+    try:
+        return (datetime.strptime(b[:16], "%Y-%m-%dT%H:%M") - datetime.strptime(a[:16], "%Y-%m-%dT%H:%M")).total_seconds() / 3600
+    except (TypeError, ValueError):
+        return 1e9
+
+
+def projected_starter(rows, team, before):
+    """🥅 THE MORNING GOALIE GUESS (11/5 study 3 + the 11/6 replay, results/studies/daily_1106/s1): with nobody confirmed,
+    the team's LAST starter starts tonight only 48% of rested nights and 9% of back-to-backs (2023-26 box scores). The
+    projection: on a RESTED night the team's #1 (most starts in its last PROJ_GAMES this season - a tie goes to the last
+    starter, then the most recent; a #1 who sat the last PROJ_SAT games in a row -> the last starter); on the 2nd night of a back-to-back the most-used OTHER goalie of those games (none
+    on file: the last starter). Right 62.5% rested / 78% b2b (2023-26). Under PROJ_MIN starts this season: the last
+    starter (the old guess). A guess, never a fact - the card says 'projected' (sports_breakdown_v24)."""
+    last = last_starter(rows, team, before)
+    if not last:
+        return None
+    y, m = int(before[:4]), int(before[5:7])
+    floor = f"{y if m >= 9 else y - 1}-09-01"
+    seq, seen, last_at = [], set(), None
+    for r in reversed(rows):
+        if str(r["team"]) != str(team) or not floor <= r["start"] < before or r.get("role", "G") != "G" or r["gid"] in seen:
+            continue
+        seen.add(r["gid"])
+        seq.append(r["player"])                              # newest first
+        last_at = last_at or r["start"]
+        if len(seq) >= PROJ_GAMES:
+            break
+    if len(seq) < PROJ_MIN or seq[0] != last:
+        return last
+    from collections import Counter
+    cnt = Counter(seq)
+    if _hours(last_at, before) < PROJ_B2B_DAYS * 24:        # the 2nd night of a back-to-back: the other goalie
+        others = [p for p in seq if p != last]
+        if not others:
+            return last
+        top = max(cnt[p] for p in others)
+        return next(p for p in others if cnt[p] == top)      # (a tie: the one who started most recently)
+    top = max(cnt.values())
+    if cnt[last] == top:
+        return last
+    n1 = next(p for p in seq if cnt[p] == top)
+    return n1 if n1 in seq[:PROJ_SAT] else last              # (a #1 who sat the last 2 in a row - hurt / benched: the
+    #                                                          last starter; 61.3% vs 60.6% right on rested nights 2023-26)
+
+
 def starter_for(rows, g, side):
     """The goalie to weigh for a side of an NHL game: the CONFIRMED / likely starter when one is known (sports_goalies -
-    the 10/6 build; spelled the way our box scores spell him), else the team's last starter (the old guess). Any other
-    league: the last starter."""
+    the 10/6 build; spelled the way our box scores spell him), else the PROJECTED starter (projected_starter - 11/6: the
+    #1 on a rested night, the other goalie on a back-to-back; the old guess, the last starter, was right 43% of nights
+    2023-26, the projection 63%). Any other league: the last starter."""
     if g.get("league") == "nhl":
         try:
             import sports_goalies
@@ -348,6 +402,7 @@ def starter_for(rows, g, side):
                 if r["team"] == g[side] and _nm(r["player"]) == want:
                     return r["player"]
             return k["name"]                                 # (no box score of his yet: the form reads 'not enough')
+        return projected_starter(rows, g[side], g["start"])
     return last_starter(rows, g[side], g["start"])
 
 

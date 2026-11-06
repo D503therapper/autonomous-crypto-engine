@@ -1,0 +1,59 @@
+S3 - THE REPLAY'S NBA ½u DOGS (every kind: NBA floor / runner-up / ½u Dog / ½u play)
+  all                                                                    | train 79-105  +15.2u  +16.5% | held 34-49   +6.1u  +14.6% | live 3-5   -0.7u  -16.9% | ALL 113-154  +15.9% up 3/3
+  +100..+129                                                             | train 20-12   +5.4u  +34.0% | held 8-8   +0.5u   +6.7% | live 2-3   -0.4u  -15.0% | ALL 28-20  +24.9% up 3/3
+  +130..+159                                                             | train 22-26   +2.9u  +12.2% | held 7-5   +2.6u  +42.7% | live 1-1   +0.2u  +20.0% | ALL 29-31  +18.3% up 2/3
+  +160..+199                                                             | train 20-19   +8.3u  +42.4% | held 7-6   +3.3u  +50.9% | live 0-0   +0.0u   +0.0% | ALL 27-25  +44.5% up 3/3
+  +200..+350                                                             | train 17-48   -1.4u   -4.4% | held 12-30   -0.4u   -1.7% | live 0-1   -0.5u -100.0% | ALL 29-78   -3.3% up 0/3
+  home                                                                   | train 11-14   +2.0u  +16.2% | held 4-8   +0.6u  +10.4% | live 1-4   -1.3u  -52.0% | ALL 15-22  +14.3% up 3/3
+  road                                                                   | train 68-91  +13.2u  +16.6% | held 30-41   +5.4u  +15.3% | live 2-1   +0.6u  +41.7% | ALL 98-132  +16.2% up 3/3
+  the own read UNDER the price (edge_own < 0)                            | train 67-82  +12.1u  +16.3% | held 32-48   +4.0u   +9.9% | live 2-3   -0.4u  -15.0% | ALL 99-130  +14.1% up 3/3
+  the own read over the price                                            | train 12-23   +3.1u  +17.5% | held 2-1   +2.1u +138.3% | live 1-2   -0.3u  -20.0% | ALL 14-24  +27.0% up 2/3
+  weighed read under the market (p < p_market)                           | train 21-20   +6.9u  +33.6% | held 13-13   +5.5u  +42.6% | live 1-1   +0.1u  +10.0% | ALL 34-33  +37.1% up 3/3
+  the WEIGHED read x price under 1 (p x dec - 1 < 0 - all six live losers) | train 70-88  +13.2u  +16.8% | held 32-47   +4.5u  +11.3% | live 2-2   +0.1u   +6.2% | ALL 102-135  +14.9% up 3/3
+  the weighed read x price 1+                                            | train 9-17   +2.0u  +15.1% | held 2-2   +1.6u  +78.8% | live 1-3   -0.8u  -40.0% | ALL 11-19  +23.6% up 2/3
+  +200..+350 AND the weighed read under the price                        | train 12-33   -1.0u   -4.3% | held 10-28   -1.9u  -10.2% | live 0-1   -0.5u -100.0% | ALL 22-61   -7.0% up 1/3
+  money moving TO the dog (drift > 0)                                    | train 23-22   +9.2u  +40.8% | held 12-18   +1.9u  +12.6% | live 0-1   -0.5u -100.0% | ALL 35-40  +29.5% up 3/3
+  money moving AWAY (drift < 0)                                          | train 55-80   +6.6u   +9.7% | held 20-30   +3.0u  +11.9% | live 3-2   +0.8u  +33.0% | ALL 75-110  +10.3% up 3/3
+  money against flag                                                     | train 0-0   +0.0u   +0.0% | held 0-0   +0.0u   +0.0% | live 0-0   +0.0u   +0.0% | ALL 0-0   +0.0% up 0/0
+  dog score 0..3                                                         | train 45-65   +6.9u  +12.6% | held 18-37   -3.2u  -11.7% | live 2-1   +0.7u  +48.3% | ALL 63-102   +4.5% up 2/3
+  dog score 3..6                                                         | train 30-35   +7.9u  +24.3% | held 16-12   +9.3u  +66.2% | live 1-3   -0.9u  -45.0% | ALL 46-47  +36.9% up 3/3
+  dog score 6..99                                                        | train 4-5   +0.4u   +8.0% | held 0-0   +0.0u   +0.0% | live 0-1   -0.5u -100.0% | ALL 4-5   +8.0% up 1/2
+  no dog score (a ½u play / Dog by its read)                             | train 0-0   +0.0u   +0.0% | held 0-0   +0.0u   +0.0% | live 0-0   +0.0u   +0.0% | ALL 0-0   +0.0% up 0/0
+  season games 1-10 (October / early November)                           | train 12-12   +4.2u  +35.0% | held 3-6   -0.0u   -0.3% | live 3-3   +0.3u  +10.8% | ALL 15-18  +25.3% up 2/3
+  season games 11+                                                       | train 66-90  +11.9u  +15.3% | held 30-42   +5.7u  +15.7% | live 0-0   +0.0u   +0.0% | ALL 96-132  +15.4% up 3/3
+
+S4 - THE ⭐ BEST PICK: on an existing play (R1 - the wired rank) vs FORCED (no unit play that day), 1u
+  ⭐ on a play (R1, any)                                                  | train 310-303  +75.6u  +12.3% | held 214-228  +35.5u   +8.0% | live 11-4  +10.3u  +68.4% | ALL 524-531  +10.5% up 4/4
+  ⭐ on a play whose read beats its price (the 11/5 rule)                 | train 234-194  +54.4u  +12.7% | held 143-120  +37.6u  +14.3% | live 10-2  +10.9u  +91.0% | ALL 377-314  +13.3% up 4/4
+  ⭐ FORCED, the surest side (11/4 rule)                                  | train 16-6   +6.3u  +28.8% | held 12-7   +2.1u  +11.3% | live 0-2   -2.0u -100.0% | ALL 28-13  +20.7% up 3/4
+  ⭐ FORCED, the surest side whose read beats its price (the 11/5 rule)   | train 8-6   +4.0u  +28.9% | held 2-7   -3.5u  -39.1% | live 0-2   -2.0u -100.0% | ALL 10-13   +2.3% up 1/4
+     ... of those, a THIN edge (weighed read x price under +3%)          | train 5-5   +1.8u  +18.5% | held 2-5   -1.5u  -21.7% | live 0-2   -2.0u -100.0% | ALL 7-10   +1.9% up 2/4
+     ... of those, a real edge (+3%+)                                    | train 3-1   +2.2u  +54.9% | held 0-2   -2.0u -100.0% | live 0-0   +0.0u   +0.0% | ALL 3-3   +3.3% up 2/3
+     ... forced favorites                                                | train 5-3   +1.4u  +17.8% | held 0-4   -4.0u -100.0% | live 0-2   -2.0u -100.0% | ALL 5-7  -21.5% up 1/3
+     ... forced dogs                                                     | train 3-3   +2.6u  +43.7% | held 2-3   +0.5u   +9.6% | live 0-0   +0.0u   +0.0% | ALL 5-6  +28.2% up 2/3
+  days: 1114; with a unit play 1070; forced days 43 (25 with a side whose read beats its price)
+    forced 2023-10-12 mlb   Phillies                +130 won  p 0.451 x2.30 edge +0.037
+    forced 2023-11-17 nba   Rockets                 +230 lost p 0.307 x3.30 edge +0.015
+    forced 2023-11-21 nba   Jazz                    +260 lost p 0.279 x3.60 edge +0.003
+    forced 2024-06-20 mlb   Athletics               +124 lost p 0.450 x2.24 edge +0.008
+    forced 2024-07-31 mlb   Red Sox                 -105 won  p 0.523 x1.95 edge +0.022
+    forced 2024-08-24 mlb   Pirates                 -109 lost p 0.529 x1.92 edge +0.014
+    forced 2024-10-08 mlb   Mets                    -106 won  p 0.540 x1.94 edge +0.049
+    forced 2024-10-09 mlb   Tigers                  -105 won  p 0.530 x1.95 edge +0.034
+    forced 2024-10-16 mlb   Mets                    -105 lost p 0.522 x1.95 edge +0.020
+    forced 2024-11-19 ncaab Quinnipiac              -135 won  p 0.568 x1.74 edge -0.012
+    forced 2024-11-22 ncaab Oklahoma St             +162 won  p 0.386 x2.62 edge +0.010
+    forced 2025-01-01 ncaab Tulsa                   -147 lost p 0.623 x1.68 edge +0.047
+    forced 2025-01-13 nba   Pistons                 +270 won  p 0.274 x3.70 edge +0.012
+    forced 2025-02-24 ncaab Stetson                 -120 won  p 0.556 x1.83 edge +0.020
+    forced 2025-10-08 ncaaf UTEP                    +105 lost p 0.495 x2.05 edge +0.015
+    forced 2025-10-10 ncaaf Colorado St             +180 won  p 0.365 x2.80 edge +0.021
+    forced 2025-10-27 mlb   Blue Jays               +167 lost p 0.378 x2.67 edge +0.009
+    forced 2025-10-29 mlb   Blue Jays               +168 won  p 0.377 x2.68 edge +0.010
+    forced 2025-11-17 nhl   Mammoth                 -125 lost p 0.542 x1.80 edge -0.024
+    forced 2025-12-12 nhl   Blackhawks              -115 lost p 0.554 x1.87 edge +0.036
+    forced 2026-02-16 ncaab Alcorn St               +110 lost p 0.497 x2.10 edge +0.043
+    forced 2026-07-06 mlb   Blue Jays               -116 lost p 0.552 x1.86 edge +0.028
+    forced 2026-08-27 mlb   Diamondbacks            -118 lost p 0.544 x1.85 edge +0.004
+    forced 2026-10-16 ncaaf Coastal                 -112 lost p 0.536 x1.89 edge +0.014
+    forced 2026-10-20 ncaaf South Alabama           -135 lost p 0.567 x1.74 edge -0.013

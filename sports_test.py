@@ -10438,7 +10438,8 @@ def test_goalie_card_line_and_watch():
     os.remove(sg.PATH)
     sg._CACHE.clear()
     assert sg.load(now) == {} and sg.starter("nhl:g2", "away", now) is None
-    assert sg.roles(rows, games["nhl:g2"], now) == {"n1": {"home": ("Igor Shesterkin", 7, 10), "away": ("Ilya Sorokin", 8, 10)}, "home": None, "away": None}
+    assert sg.roles(rows, games["nhl:g2"], now) == {"n1": {"home": ("Igor Shesterkin", 7, 10), "away": ("Ilya Sorokin", 8, 10)}, "home": None, "away": None,
+                                                    "sat": {"home": 3, "away": 0}}   # (11/6: games in a row the #1 sat)
     assert sg.role_points({"g_role_me": None, "g_role_opp": None}) == 0 and sg.card_line(games["nhl:g2"], "home", rows, now) == ""
 
 
@@ -19543,10 +19544,14 @@ def test_preboard_1105_an_unconfirmed_goalie_in_the_knock_line_is_named_as_the_l
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
     i = src.index("save % over his last 3")
     seg = src[i - 200:i + 400]
-    assert "'' if his[2] else ', in net last time out'" in seg and "'' if mine[2] else ' (our guy in net last time out)'" in seg
+    # (11/6: the hedge moved into note() - three states: known '', projected ', projected, not confirmed', the last
+    #  starter ', in net last time out'; test_daily_1106_* checks the projected wording)
+    assert "({them}{note(his[2])})" in seg and "' (our guy in net last time out)'" in seg
+    assert 'else ", in net last time out"' in src[src.index("note = lambda k"):src.index("note = lambda k") + 200]
     his, mine, them = ("Tristan Jarry", ".961", False), ("Laurent Brossoit", ".844", False), "Oilers"
-    line = (f"{his[0]} ({them}{'' if his[2] else ', in net last time out'}) is at a 0.961 save % over his last 3 "
-            f"starts to {mine[0]}'s 0.844{'' if mine[2] else ' (our guy in net last time out)'}")
+    note = lambda k: "" if k is True else ", projected, not confirmed" if k == "projected" else ", in net last time out"
+    line = (f"{his[0]} ({them}{note(his[2])}) is at a 0.961 save % over his last 3 "
+            f"starts to {mine[0]}'s 0.844{'' if mine[2] is True else ' (our projected guy, not confirmed)' if mine[2] == 'projected' else ' (our guy in net last time out)'}")
     assert line == ("Tristan Jarry (Oilers, in net last time out) is at a 0.961 save % over his last 3 starts to "
                     "Laurent Brossoit's 0.844 (our guy in net last time out)")
     assert not re.search(r"\bin net tonight\b", line)
@@ -19568,6 +19573,108 @@ def test_audit_1106_the_star_pick_at_1u_is_never_flagged_as_a_thin_edge():
     assert not any("thin edge" in x for x in f_star), f_star
     if plain_u > 0.5:
         assert any("thin edge" in x for x in sports_audit.audit_day([plain], {}, "2026-11-05")["flags"])
+
+
+def test_daily_1106_the_unconfirmed_goalie_is_the_projected_one_and_the_card_says_projected():
+    """11/6 daily study 1 (results/studies/daily_1106/s1): with nobody confirmed the engine weighed the team's LAST starter,
+    right 43% of the time 2023-26 (9% on a back-to-back). sports_players.projected_starter - the #1 (most starts in the
+    last 10 this season) on a rested night unless he sat the last 2, the OTHER goalie on the 2nd night of a back-to-back -
+    is right 63.5%; the replay: its key edge tracks the real starters' edge better (corr 0.66 vs 0.48) and no goalie dog
+    pool goes the wrong way. starter_for: a confirmed / likely starter (sports_goalies) always wins; else the projection.
+    The card never calls the projected man 'in net last time out' (false) nor tonight's starter: it says 'projected'."""
+    import json
+    import sports_breakdown_v24 as v24
+    import sports_goalies as sg
+    G = lambda gid, st, team, who, ga="2": {"gid": gid, "start": st, "team": team, "player": who, "role": "G", "sa": "30", "ga": ga}
+    # team 9: the #1 'One' 7 starts, 'Two' the last start (10/04 night) and 2 more
+    rows = [G(f"nhl:x{k}", f"2026-09-{20 + k:02d}T23:00Z", "9", "One") for k in range(7)] + \
+           [G("nhl:x7", "2026-09-28T23:00Z", "9", "Two"), G("nhl:x8", "2026-10-01T23:00Z", "9", "One"),
+            G("nhl:x9", "2026-10-04T23:00Z", "9", "Two")]
+    rows.sort(key=lambda r: r["start"])
+    assert sp.last_starter(rows, "9", "2026-10-06T23:00Z") == "Two"
+    assert sp.projected_starter(rows, "9", "2026-10-06T23:00Z") == "One"          # rested: the #1
+    assert sp.projected_starter(rows, "9", "2026-10-05T23:00Z") == "One"          # b2b: the other goalie (One also the #1)
+    b2b = rows[:-1] + [G("nhl:x9", "2026-10-04T23:00Z", "9", "One")]              # One went last night ->
+    assert sp.projected_starter(b2b, "9", "2026-10-05T23:00Z") == "Two"           #  the back-to-back is Two's
+    assert sp.projected_starter(b2b, "9", "2026-10-07T23:00Z") == "One"           # rested again: the #1
+    sat = rows + [G("nhl:x10", "2026-10-08T23:00Z", "9", "Two")]                  # the #1 sat the last 2 (hurt / benched?)
+    assert sp.projected_starter(sat, "9", "2026-10-11T23:00Z") == "Two"           #  -> the last starter
+    few = [G("nhl:y0", "2026-10-01T23:00Z", "8", "Uno"), G("nhl:y1", "2026-10-02T23:00Z", "8", "Dos")]
+    assert sp.projected_starter(few, "8", "2026-10-06T23:00Z") == "Dos"           # under 3 starts this season: the last
+    tie = [G("nhl:z0", "2026-10-01T23:00Z", "7", "Uno"), G("nhl:z1", "2026-10-03T23:00Z", "7", "Dos"),
+           G("nhl:z2", "2026-10-05T23:00Z", "7", "Uno"), G("nhl:z3", "2026-10-07T23:00Z", "7", "Dos")]
+    assert sp.projected_starter(tie, "7", "2026-10-10T23:00Z") == "Dos"           # a 2-2 tie: the last starter
+    assert sp.projected_starter([], "7", "2026-10-10T23:00Z") is None
+    # starter_for: the known starter wins; unknown -> the projection (the 10/6 fixture: Quick had the last 3 - the #1
+    # Shesterkin sat 3 straight, so Quick stays)
+    keep_path, keep_cache = sg.PATH, sp.CACHE
+    sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+    sg._CACHE.clear()
+    try:
+        g = {"id": "nhl:up", "league": "nhl", "home": "A", "away": "9", "start": "2026-10-06T23:00Z"}
+        assert sp.starter_for(rows, g, "away") == "One"
+        assert sp.starter_for(_goalie_rows(), _goalie_games()["nhl:g2"], "home") == "Jonathan Quick"
+        assert sp.starter_for(rows, {**g, "league": "nfl"}, "away") == "Two"      # (other leagues: the last starter)
+        seen = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        with open(sg.PATH, "w") as f:
+            json.dump({"seen": seen, "games": {"nhl:up": {"away": {"name": "Two", "status": "confirmed", "at": seen}}}}, f)
+        sg._CACHE.clear()
+        assert sp.starter_for(rows, g, "away") == "Two"                           # confirmed beats the projection
+        sg._CACHE.clear()
+        os.remove(sg.PATH)
+        # THE CARD: B's #1 'Cold Guy' (.833) projected on a rested night, a backup in net last time out
+        cold = [G(f"nhl:c{k}", f"2026-09-{22 + k:02d}T23:00Z", "B", "Cold Guy", "5") for k in range(5)] + \
+               [G("nhl:c5", "2026-09-28T23:00Z", "B", "Cold Guy", "5"), G("nhl:c6", "2026-10-01T23:00Z", "B", "Back Up")]
+        sp.CACHE = {"nhl": sorted(cold, key=lambda r: r["start"])}
+        hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-01T23:30Z", "B", "D", 1, 4)]
+        leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+        assert sp.starter_for(sp.CACHE["nhl"], games["nhl:up"], "away") == "Cold Guy"
+        bd = v24.breakdown(leg, games, elo, None)
+        net = [x for x in bd if "Cold Guy" in x]
+        assert net and all("projected" in x and "last time out" not in x and "last starter" not in x for x in net), bd
+        assert not any("Back Up" in x for x in bd), bd                            # (the weights and the words: one man)
+        # the projection IS the last starter -> the old true wording stays
+        sp.CACHE = {"nhl": sorted(cold[:-1], key=lambda r: r["start"])}
+        bd = v24.breakdown(leg, games, elo, None)
+        net = [x for x in bd if "Cold Guy" in x]
+        assert net and not any("projected" in x for x in net), bd
+    finally:
+        sg.PATH, sp.CACHE = keep_path, keep_cache
+        sg._CACHE.clear()
+
+
+def test_daily_1106_nhl_rested_dog_whose_number_one_sat_two_straight_is_a_minus_1_weight():
+    """11/6 daily study 10 (results/studies/daily_1106/s10b_n1_sat.py): an NHL side on a RESTED night whose #1 goalie
+    (sports_goalies.number_one) sat the team's last 2+ games in a row lost to its price -10.1% on 669 (train 2016-22 -9.4%,
+    4 of 5 down; held 2023-26 -11.5%, 3 of 4 down; ESPN's open agrees) vs -3.3% when he started the last game. A WEIGHT:
+    -1 on that dog's score (inside STUDY_CAP), never on a back-to-back (the b2b read has its own), never a gate."""
+    import sports_goalies as sg
+    G = lambda gid, st, team, who: {"gid": gid, "start": st, "team": team, "player": who, "role": "G", "sa": "30", "ga": "2"}
+    rows = [G(f"nhl:q{k}", f"2026-10-{1 + k:02d}T23:00Z", "4", "Top Guy") for k in range(7)] + \
+           [G("nhl:q7", "2026-10-09T23:00Z", "4", "Sub One"), G("nhl:q8", "2026-10-11T23:00Z", "4", "Sub One")]
+    rows.sort(key=lambda r: r["start"])
+    assert sg.number_one(rows, "4", "2026-10-14T23:00Z")[0] == "Top Guy"
+    assert sg.n1_sat(rows, "4", "2026-10-14T23:00Z") == 2
+    assert sg.n1_sat(rows[:-1], "4", "2026-10-14T23:00Z") == 1
+    assert sg.n1_sat(rows[:7], "4", "2026-10-14T23:00Z") == 0
+    assert sg.n1_sat(rows[:3], "4", "2026-10-14T23:00Z") is None            # under 6 games: no #1, no read
+    g = {"id": "nhl:t", "home": "4", "away": "5", "start": "2026-10-14T23:00Z"}
+    assert sg.roles(rows, g)["sat"] == {"home": 2, "away": None}
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "market": "ml", "league": "nhl"}
+    ds = lambda **k: sports.dog_score({**base, **k})
+    assert sg.n1_sat_points({**base, "n1_sat": 2}) == -sg.N1_SAT_PTS == -1
+    assert ds(n1_sat=2) == ds() - 1 == ds(n1_sat=3) and ds(n1_sat=1) == ds() == ds(n1_sat=None) == ds(n1_sat=0)
+    assert ds(n1_sat=2, b2b_me=True) == ds(b2b_me=True)                       # a back-to-back: the b2b read, not this
+    assert ds(n1_sat=2, tired_vs_rested=True) == ds(tired_vs_rested=True)
+    assert sg.n1_sat_points({**base, "n1_sat": 2, "odds": -130}) == 0.0       # favorites: no weight (dog score only)
+    assert sg.n1_sat_points({**base, "n1_sat": 2, "league": "nba"}) == 0.0
+    stacked = {"dog_ctx": {"won": False, "opp_won": False, "hits_top": True, "ss_gap": 0.02}, "rested_vs_b2b": True}
+    assert ds(**stacked, n1_sat=2) >= ds(**stacked) - 1 and ds(**stacked, n1_sat=2) <= ds(**stacked)   # inside STUDY_CAP
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '"n1_sat": g_roles.get("sat", {}).get(side)' in src and "sports_goalies.n1_sat_points(c)" in src
+    import sports_leads
+    assert "NHL rested dog, its #1 goalie sat the last 2+ (fade)" in sports_leads.tags({**base, "n1_sat": 2, "game_id": "x",
+                                                                                       "start": "2026-10-14T23:00Z"}, sports)
 
 
 if __name__ == "__main__":

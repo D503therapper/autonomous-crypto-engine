@@ -1,0 +1,11 @@
+(a) WHO STARTS - the share each guess names right (every side of a priced regular-season game with box scores)
+  2016-22 LAST  5199/10925 = 47.6%
+  2016-22 RULE  6986/10925 = 63.9%
+  2016-22 sides where RULE != LAST: 3562
+  2023-26 LAST  3503/8165 = 42.9%
+  2023-26 RULE  5188/8165 = 63.5%
+  2023-26 sides where RULE != LAST: 2674
+(b) THE KEY EDGE vs THE REAL STARTERS' edge: correlation, and the edge's value OVER THE MARKET (one weight on top of the no-vig close, fit on 2016-22, log loss held out in millis per game - lower = better; + = the edge helps)
+  LAST   corr with the real starters' edge +0.475  b(train) -0.03  held 2023-26 +0.32m (n 4082)  2023 +0.23m (n 1230)  2024 +0.31m (n 1310)  2025 +0.35m (n 1312)  2026 +0.63m (n 230)  | at ESPN's OPEN 2023-26 +0.27m (n 4082)
+  RULE   corr with the real starters' edge +0.656  b(train) -0.02  held 2023-26 +0.27m (n 4082)  2023 +0.27m (n 1230)  2024 +0.41m (n 1310)  2025 +0.17m (n 1312)  2026 -0.03m (n 230)  | at ESPN's OPEN 2023-26 +0.23m (n 4082)
+  ACTUAL corr with the real starters' edge +1.000  b(train) +0.01  held 2023-26 -0.10m (n 4082)  2023 -0.21m (n 1230)  2024 -0.26m (n 1310)  2025 +0.07m (n 1312)  2026 +0.37m (n 230)  | at ESPN's OPEN 2023-26 -0.07m (n 4082)

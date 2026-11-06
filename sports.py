@@ -731,6 +731,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "mkt_trend": market_trend(games, g, side) if lg in MKT_TREND_LEAGUES else None,
                     "opp_ot_last": ot_last(games, g, other) if lg == "nhl" else None,
                     "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
+                    "n1_sat": g_roles.get("sat", {}).get(side),       # (11/6 daily s10: games in a row its #1 sat)
+                    "b2b_me": lg == "nhl" and sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
                     "coach": COACH.get((lg, str(g[side]))),
                     "fired_on": FIRED.get((lg, str(g[side]))),
                     "first_timer": (lg, str(g[side])) in FIRST_TIMER,
@@ -2323,6 +2325,8 @@ def dog_spots(c):
         sc += sports_goalies.role_points(c)   # 🥅 the dog's confirmed / likely starter is its #1 and the favorite's isn't:
         #                            +1.5% vs -4.0% for every dog, better 7 of 8 seasons, 2023-26 +10% (the 10/6 re-check
         #                            of the 10/1 'goalie roles' finding) +2; the reverse was noise - 0 (sports_goalies)
+        sc += sports_goalies.n1_sat_points(c)   # 🥅 11/6 daily s10: a rested dog whose #1 sat its last 2+ games -1
+        #                            (-10.1% on 669 sides 2016-26, train 4/5 down, held 3/4 down, the open agrees)
     if lg == "nhl" and sharp_dog(c):
         sc += 1                    # an NHL dog the line moved TO (2+ pts) against the tickets, with 10+ pts more of the
         #                            money than the tickets: +14.3% on 190, beat the close by 8 pts, 2 of 2 seasons (10/1

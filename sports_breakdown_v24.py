@@ -987,9 +987,15 @@ def breakdown(leg, games, elo, injuries, used=None):
                 return True                                   # starter only 45% of the time (2023-26 box scores), and 5 of
             try:                                              # the season's 7 🥅 lines named a goalie who didn't play -
                 import sports_goalies                         # an unknown starter is said as what he is: in net LAST time
-                return sports_goalies.starter(g.get("id"), team_side) is not None
+                if sports_goalies.starter(g.get("id"), team_side) is not None:
+                    return True
             except Exception:                                 # noqa: BLE001
-                return False
+                pass
+            # 11/6: unknown -> the weights read the PROJECTED starter (sports_players.projected_starter - the #1 rested,
+            # the other goalie on a b2b). Named and NOT the last starter = "projected", never "in net last time out"
+            # (that would be false) and never stated as tonight's man; the last starter himself stays "in net last time out".
+            return "projected" if sp.starter_for(rows, g, team_side) != sp.last_starter(rows, g.get(team_side), g["start"]) \
+                else False
         for team_side, t_id, ours_ in ((other, oid, False), (side, tid, True)):
             name = who(team_side, t_id)
             if not name:
@@ -1017,7 +1023,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"💣 Hitters are teeing off on {name} — {txt}."],
                     "G": [f"🥅 {_poss(the_them)} goalie {name} has been giving up a lot of goals — {txt}.",
                           f"🥅 {_poss(the_them)} goalie {name} can't keep the puck out lately: {txt}.",
-                          f"🥅 Pucks keep getting past {_possm(the_them)} goalie, {name} — {txt}."] if kn else
+                          f"🥅 Pucks keep getting past {_possm(the_them)} goalie, {name} — {txt}."] if kn is True else
+                         [f"🥅 {name}, projected to start for {the_them} (not confirmed yet), can't keep the puck out lately: {txt}.",
+                          f"🥅 {name} — {_possm(the_them)} projected starter, nobody's confirmed yet — has been giving up a lot of goals: {txt}."]
+                         if kn == "projected" else
                          [f"🥅 {name}, in net last time out for {the_them}, can't keep the puck out lately: {txt}.",
                           f"🥅 {name} — {_possm(the_them)} last starter in net — has been giving up a lot of goals: {txt}.",
                           f"🥅 Pucks keep getting past {name}, who was in net last time out for {the_them} — {txt}."]}[role]))
@@ -1035,7 +1044,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"🔥 Nobody's touching {name} lately — {txt}."],
                     "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",
                           f"🧱 {name} is standing on his head: {txt}.",
-                          f"🧱 Good luck scoring on {name} — {txt}."] if kn else
+                          f"🧱 Good luck scoring on {name} — {txt}."] if kn is True else
+                         [f"🧱 {name}, projected to start for {the_us} (not confirmed yet), has been a brick wall — {txt}.",
+                          f"🧱 {name} — {_possm(the_us)} projected starter, nobody's confirmed yet — is standing on his head: {txt}."]
+                         if kn == "projected" else
                          [f"🧱 {name}, in net last time out for {the_us}, has been a brick wall — {txt}.",
                           f"🧱 {name} — {_possm(the_us)} last starter in net — is standing on his head: {txt}.",
                           f"🧱 Good luck scoring on {name} if he goes again for {the_us} — {txt}."]}[role]))
@@ -1766,7 +1778,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     role = sp.ROLE.get(lg)
     mine, his = next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if o_), None), \
         next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if not o_), None)
-    tag = lambda k: "expected in net" if k else "in net last time out"
+    tag = lambda k: "expected in net" if k is True else "projected, not confirmed" if k == "projected" else "in net last time out"
+    note = lambda k: "" if k is True else ", projected, not confirmed" if k == "projected" else ", in net last time out"
     if role == "G" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
         sm_, sh_ = _sv(mine[1]), _sv(his[1])
         if sm_ is not None and sh_ is not None and sm_ > sh_ + 0.005:
@@ -1775,8 +1788,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                        f"🥅 In net, {us} got {mine[0]}: {mine[1]}. {them} got {his[0]}: {his[1]}. Edge us.",
                                        f"🥅 {his[0]} ({them}) has {his[1]}; our guy {mine[0]} has {mine[1]}. We like our goalie more."]))
         elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005:
-            v.knock(6, f"{his[0]} ({them}{'' if his[2] else ', in net last time out'}) is at a {sh_:.3f} save % over his last 3 "
-                       f"starts to {mine[0]}'s {sm_:.3f}{'' if mine[2] else ' (our guy in net last time out)'}")   # (11/5 pre-board
+            v.knock(6, f"{his[0]} ({them}{note(his[2])}) is at a {sh_:.3f} save % over his last 3 starts to {mine[0]}'s "
+                       f"{sm_:.3f}{'' if mine[2] is True else ' (our projected guy, not confirmed)' if mine[2] == 'projected' else ' (our guy in net last time out)'}")   # (11/5 pre-board
             #   check: an unconfirmed starter is the LAST starter - the Ducks card named Brossoit while the goalie page had
             #   Dostal projected; the line says whose numbers they are, never that he's in net tonight)
         else:
@@ -2216,7 +2229,11 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             pools.append(S("w_arm", whyf["better starting pitcher"], "⚾"))
         elif r == "hotter goalie" and "hotter goalie" in whyf:
             hot = form.get((True, "hot"))
-            if hot and len(hot) > 2 and not hot[2]:           # (10/16: the starter isn't confirmed - he was in net LAST time)
+            if hot and len(hot) > 2 and hot[2] == "projected":   # (11/6: the projected starter - never stated as tonight's man)
+                pools.append(("w_goalie", _ok([
+                    f"🧱 {hot[0]}, projected to start for {us} (not confirmed yet), has been a brick wall — {hot[1]}.",
+                    f"🧱 {hot[0]} ({_pos(us)} projected starter, not confirmed) has been a brick wall — {hot[1]}."], names)))
+            elif hot and len(hot) > 2 and not hot[2]:         # (10/16: the starter isn't confirmed - he was in net LAST time)
                 pools.append(("w_goalie", _ok([
                     f"🧱 {hot[0]}, in net last time out for {us}, has been a brick wall — {hot[1]}.",
                     f"🧱 {hot[0]} ({_pos(us)} last starter in net) has been a brick wall — {hot[1]}."], names)))
