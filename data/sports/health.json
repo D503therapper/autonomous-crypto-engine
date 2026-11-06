@@ -1,13 +1,13 @@
 {
- "at": "2026-11-06T18:31Z",
+ "at": "2026-11-06T18:34Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Riera vs Gormaz: no points for 2325s"
+  "live tennis scores: tennis Riera vs Gormaz: no points for 2365s"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (148s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +21,20 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 18 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-06T18:34Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Riera vs Gormaz: no points for 2365s"
+   ]
+  },
   {
    "at": "2026-11-06T18:31Z",
    "fixes": [
@@ -531,11 +540,6 @@
   },
   {
    "at": "2026-11-05T15:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-05T15:00Z",
    "fixes": [],
    "problems": []
   }
