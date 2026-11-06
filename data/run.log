@@ -13443,3 +13443,39 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-06 05:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-06 05:05 UTC] crypto/hold_btc  equity $454.62 (-9.1%) 1 open  market DOWN
    social heat top: BTC 45 (40/0/5), PENGU 38 (35/0/4), NEAR 37 (37/0/0), TAO 32 (32/0/0), INJ 29 (29/0/0)
+   dex screen: UNREACHABLE ANT@ethereum liq $310,711 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PREDICT@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT ZEN@base liq $1,520,563 - is_mintable; top-10 holders 65%; lp locked 0% < 95%
+   dex screen: REJECT ANTHROPIC@base liq $10,328,140 - goplus partial data: cannot_sell_all unknown; buy tax unknown; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: REJECT 1INCH@ethereum liq $5,050,060 - honeypot_with_same_creator; top-10 holders 61%
+   dex screen: REJECT SUSDE@ethereum liq $1,461,259 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 76%
+   dex screen: UNREACHABLE DENIM@base liq $404,647 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CBBTC@solana liq $130,112 - freeze authority; mint authority; top-10 holders 60%; lp holders unknown
+   dex screen: REJECT NFLXC@base liq $440 - liquidity $440 < $100,000; 24h volume $93 < $100,000
+   dex screen: PASS TIBBIR@base liq $2,646,021
+   dex screen: REJECT AMZNC@base liq $34,189 - liquidity $34,189 < $100,000; 24h volume $23,879 < $100,000
+   dex screen: UNREACHABLE ANT@ethereum liq $308,237 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $397,208 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT KMNO@solana liq $1,845,235 - top-10 holders 53%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE ANT@ethereum liq $293,295 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $394,812 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ICP@base liq $358,029 - pool age unknown
+   dex screen: REJECT SNDKC@base liq $1,310,342 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 86%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $396,371 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: UNREACHABLE SP@ethereum liq $141,938 - honeypot.is unreachable
+   dex scanner: 2,894 pools (solana 2,027 / base 500 / ethereum 367), refresh cycle 126s (hot 121s), 2863 calls (104 feed, 429s 0, failed 0), 82,767 refreshed (11559 no pair), +75 added / -93 dropped (dead 87, stale 6, cap 0), movers 2 + warming 0 -> queued 0, screened 3 (passed 0), bought 0
+[2026-11-06 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/mover     equity $224.36 (-55.1%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/social_heat equity $345.59 (-30.9%) 2 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/breakout10 equity $390.36 (-21.9%) 1 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-06 06:05 UTC] crypto/hold_btc  equity $454.33 (-9.1%) 1 open  market DOWN
+   social heat top: BTC 45 (40/0/5), HYPE 35 (35/0/0), PENGU 32 (32/0/0), INJ 29 (29/0/0), NEAR 27 (27/0/0)
