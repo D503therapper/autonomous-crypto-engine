@@ -1,26 +1,37 @@
 {
- "at": "2026-11-06T09:47Z",
+ "at": "2026-11-06T11:18Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Kubka vs Lansere: no points for 1049s",
+  "live tennis scores: tennis Feistel vs Zaytseva: no points for 337s"
+ ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 2 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 2h ago",
-  "engine ran 41 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-06T11:18Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kubka vs Lansere: no points for 1049s",
+    "live tennis scores: tennis Feistel vs Zaytseva: no points for 337s"
+   ]
+  },
   {
    "at": "2026-11-06T09:47Z",
    "fixes": [],
@@ -501,11 +512,6 @@
   },
   {
    "at": "2026-11-05T07:00Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-05T05:29Z",
    "fixes": [],
    "problems": []
   }
