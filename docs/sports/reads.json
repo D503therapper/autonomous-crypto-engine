@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T02:38Z",
+ "updated": "2026-11-06T02:40Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -233,8 +233,8 @@
    "away": "Buffalo",
    "home": "Pitt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -263,8 +263,8 @@
    "away": "Canucks",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1230,6 +1230,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892658",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-06T02:30Z",
+   "away": "Predators",
+   "home": "Avalanche",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401920133",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1243,38 +1258,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909937",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Warriors",
-    "p": 0.549,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-06T03:00Z",
-   "away": "Heat",
-   "home": "Warriors",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Warriors",
-    "opp": "Heat",
-    "market": "ml",
-    "line": null,
-    "odds": -167,
-    "p": 0.6,
-    "win_p": 0.6,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "better rested"
-    ]
-   }
   },
   {
    "id": "ncaab:401909739",
