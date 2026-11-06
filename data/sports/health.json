@@ -1,17 +1,17 @@
 {
- "at": "2026-11-06T18:34Z",
+ "at": "2026-11-06T18:35Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Riera vs Gormaz: no points for 2365s"
+  "live tennis scores: tennis Riera vs Gormaz: no points for 2365s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (148s)",
+  "live watcher fresh (232s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 89 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -21,11 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 3 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-06T18:35Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Riera vs Gormaz: no points for 2365s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-06T18:34Z",
    "fixes": [
@@ -537,11 +547,6 @@
    "problems": [
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-11-05T15:10Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
