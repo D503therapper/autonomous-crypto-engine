@@ -1,14 +1,9 @@
 {
- "at": "2026-11-06T11:28Z",
- "fixes": [
-  "live watch 42204277237 froze (6 min) - cancelled",
-  "live board 6 min stale with games on - sports-live.yml already running"
- ],
- "problems": [
-  "live tennis scores: tennis Kubka vs Lansere: no points for 1305s",
-  "live tennis scores: tennis Feistel vs Zaytseva: no points for 593s"
- ],
+ "at": "2026-11-06T11:36Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
+  "live watcher fresh (26s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +16,16 @@
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 13 min ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-06T11:36Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-06T11:28Z",
    "fixes": [
@@ -524,11 +524,6 @@
     "live tennis scores: tennis Li Zongyu vs Blinkova: no points for 411s",
     "live tennis scores: tennis Zaytseva vs Kroitor: no points for 411s"
    ]
-  },
-  {
-   "at": "2026-11-05T07:48Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
