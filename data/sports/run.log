@@ -1,48 +1,3 @@
-  ctx:us:week3000: 15 graded, said 49%, hit 60% - only 15 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 15 graded, said 49%, hit 67% - only 15 graded - report only (report only: forward-only tag)
-  label:lock: 15 graded, said 56%, hit 60% - only 15 graded - report only
-  drama:ours: 14 graded, said 53%, hit 43% - only 14 graded - report only
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:them:road3in6: 9 graded, said 48%, hit 33% - only 9 graded - report only (report only: forward-only tag)
-  ctx:them:dome_out: 8 graded, said 52%, hit 75% - only 8 graded - report only (report only: forward-only tag)
-  ctx:us:trip2000: 7 graded, said 51%, hit 43% - only 7 graded - report only (report only: forward-only tag)
-  ctx:them:trip2000: 6 graded, said 51%, hit 83% - only 6 graded - report only (report only: forward-only tag)
-  ctx:us:hotseat: 6 graded, said 42%, hit 17% - only 6 graded - report only (report only: forward-only tag)
-  ctx:them:hotseat: 5 graded, said 51%, hit 40% - only 5 graded - report only (report only: forward-only tag)
-  ctx:them:out_dome: 5 graded, said 55%, hit 100% - only 5 graded - report only (report only: forward-only tag)
-  talk:ours:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  talk:theirs:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  league:ncaab: 4 graded, said 54%, hit 25% - only 4 graded - report only
-  price:pick'em: 4 graded, said 52%, hit 75% - only 4 graded - report only
-  talk:theirs:hot seat: 4 graded, said 52%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  talk:theirs:trash talk: 4 graded, said 56%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  ctx:us:out_dome: 3 graded, said 55%, hit 33% - only 3 graded - report only (report only: forward-only tag)
-  talk:ours:hot seat: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
-  ctx:us:dome_out: 2 graded, said 56%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:trash talk: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  talk:ours:unhappy: 1 graded, said 53%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:contract year: 1 graded, said 54%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:unhappy: 1 graded, said 57%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: league:nhl +2%
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 135 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 135 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 4 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (98 players), 365 matched, 0 unmatched
-   no units on Sharks: missing Igor Chernyshov, Alexander Wennberg
-tennis sync: 73929 matches stored, 18 calls, 0 failed
-tennis study ATP: 26278 rated matches, acc 0.6435 (surface ratings alone 0.6405), loss 0.6306 vs 0.6323, own weights [-0.005, 0.827, 0.074, 0.15, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6306: experience 0.6304 (+0.19 mnats, z 0.21), age 0.629 (+1.62 mnats, z 1.15), young_vs_aging 0.6304 (+0.24 mnats, z 0.6), last_match 0.6278 (+2.79 mnats, z 1.96), streaks 0.6315 (-0.84 mnats, z -0.81), first_set 0.6299 (+0.75 mnats, z 1.13), injury 0.6315 (-0.89 mnats, z -1.37), travel 0.6306 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30806 rated matches, acc 0.6445 (surface ratings alone 0.6475), loss 0.624 vs 0.6236, own weights [0.004, 0.905, -0.002, -0.077, 0.305, 0.024, -0.198]
-tennis study WTA life factors vs current loss 0.624: experience 0.6216 (+2.40 mnats, z 1.39), age 0.6232 (+0.82 mnats, z 1.05), young_vs_aging 0.6238 (+0.21 mnats, z 1.25), last_match 0.6248 (-0.77 mnats, z -0.76), streaks 0.624 (+0.03 mnats, z 0.05), first_set 0.6238 (+0.23 mnats, z 0.49), injury 0.6234 (+0.62 mnats, z 1.09), travel 0.6242 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
 tennis reads: 14 matches
@@ -2998,3 +2953,48 @@ tennis first-set lines: 0 first-set winner markets seen (0 matches with any set 
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
 1H line log: 1 rows (0 with a 1st-half line) from 127 AN games
 source check (1.3s): plain requests answered by 9 of 12 sources - quiet: actionnetwork_h1, rotowire_ncaab, rotowire_ncaaf
+sync: 132170 games stored, 52 calls, 0 failed, 17s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 169 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 3 matched, 5 confirmed
+nba rosters: 30 teams as of 2026-11-06, 0 failed, 0 moves
+beat the close: unit plays 28 of 86 better than the close, avg +0.2 pts
+public splits: 138 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 137 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 4 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (104 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 137 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 137 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 4 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (104 players), 365 matched, 0 unmatched
+   no units on Missouri: missing L. Northweather, J. Carey, A. Chronister, C. Gunn
+   no units on Clemson: missing Z. Foster, C. Welling
+   no units on Wisconsin: missing L. Fenderson, J. Manchester
+   no units on Iowa State: missing C. Wiggins, K. Toure
+   no units on Michigan: missing L. Cosby, B. McCoy Jr., J. Hartman
+   no units on Miami: missing M. Allen, L. Cason
+   no units on Sabres: missing Konsta Helenius, Justin Danforth
+   floor: TCU 230 sits out - college football sits out the floor
+   floor: Boston U 114 sits out - college hoops sits out the floor (its dogs run the dog slot)
+   floor: Indiana St 110 sits out - college hoops sits out the floor (its dogs run the dog slot)
+   floor: Nevada 320 sits out - college football sits out the floor
+tennis sync: 73972 matches stored, 18 calls, 0 failed
+tennis study ATP: 26287 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.6306 vs 0.6322, own weights [-0.004, 0.827, 0.074, 0.15, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6306: experience 0.6304 (+0.15 mnats, z 0.17), age 0.6289 (+1.69 mnats, z 1.2), young_vs_aging 0.6303 (+0.28 mnats, z 0.68), last_match 0.6278 (+2.80 mnats, z 1.97), streaks 0.6313 (-0.75 mnats, z -0.73), first_set 0.6298 (+0.74 mnats, z 1.13), injury 0.6314 (-0.82 mnats, z -1.27), travel 0.6306 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30830 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6224 vs 0.6224, own weights [0.005, 0.905, -0.002, -0.076, 0.3, 0.024, -0.198]
+tennis study WTA life factors vs current loss 0.6224: experience 0.62 (+2.36 mnats, z 1.36), age 0.6214 (+0.93 mnats, z 1.19), young_vs_aging 0.6222 (+0.20 mnats, z 1.28), last_match 0.6231 (-0.78 mnats, z -0.76), streaks 0.6223 (+0.02 mnats, z 0.05), first_set 0.622 (+0.33 mnats, z 0.7), injury 0.6218 (+0.53 mnats, z 0.93), travel 0.6225 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+1H line log: 0 rows (0 with a 1st-half line) from 127 AN games
+source check (4.8s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
