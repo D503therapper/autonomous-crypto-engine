@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T02:09Z",
+ "updated": "2026-11-06T02:11Z",
  "games": [
   {
    "id": "ncaab:401925031",
@@ -338,8 +338,8 @@
    "away": "Delaware St",
    "home": "Navy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1185,6 +1185,21 @@
    "lean": null
   },
   {
+   "id": "nba:401909936",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-06T02:00Z",
+   "away": "Magic",
+   "home": "Suns",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401911518",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1213,36 +1228,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nhl:401892658",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.427,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-06T02:30Z",
-   "away": "Predators",
-   "home": "Avalanche",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Predators",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.659,
-    "win_p": 0.659,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
   },
   {
    "id": "nba:401909937",
