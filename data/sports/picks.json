@@ -32357,6 +32357,12 @@
      "game:conf"
     ],
     "dec": 1.8928571428571428,
+    "decider": {
+     "h": "17-3",
+     "s": "33-10",
+     "type": "blowout",
+     "win": "away"
+    },
     "depth_pts": 1.0,
     "dog_ctx": {
      "cw5": 0,
@@ -32389,6 +32395,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,7,3,13",
+     "h": "3,0,0,7"
+    },
     "form_state": [
      -26.0,
      -3,
@@ -32436,10 +32446,12 @@
     "raw_own": 0.1912,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Jaguars 33 @ Ravens 10",
     "season_games": null,
+    "settled": "2026-11-06T04:50Z",
     "side": "home",
     "start": "2026-11-06T01:15Z",
     "stype": "2",
@@ -32460,12 +32472,14 @@
    }
   ],
   "p_hit": 0.5136,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-05T16:00Z",
   "round": 1,
+  "settled": "2026-11-06T04:50Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -122,
