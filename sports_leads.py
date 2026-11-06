@@ -225,6 +225,9 @@ def tags(c, sports):
     if dog and lg == "nhl" and c.get("odds", 0) <= 350 and (c.get("drift") or 0) >= 0.02:   # the BUILT drift -4 (the money ran
         t.append("NHL dog, the money left it 2+ since the open (fade)")   # away since the open) - re-confirmed on the 11/2
         #   paid 2021-23 history at the 8 AM price: -19.2% on 579 vs -10.8% for every dog, 0 of 3 seasons up, z -3.9 - its live record
+    if dog and lg == "nhl" and sports.sports_goalies.n1_sat_points(c):   # 11/6 daily s10 (BUILT as a -1 weight): its live
+        t.append("NHL rested dog, its #1 goalie sat the last 2+ (fade)")  # record (-10.1% on 669 sides 2016-26, train 4/5
+        #   down, held 3/4 down, the open agrees) - judge at 50; the flagged dogs beating their price = the weight comes off
     if dog and lg == "nhl" and sports.hot_dog(c):            # 10/29 ten hockey studies (built as a -2 weight): its live record
         t.append("NHL dog on a 3+ game win streak (fade)")   # (-10.5% train / -13.3% held out vs the band's -6.9% / -3.8%)
     if dog and lg == "ncaaf" and c.get("raw_own") is not None and c.get("p_market") is not None \

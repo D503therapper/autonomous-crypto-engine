@@ -223,12 +223,48 @@ def number_one(rows, team_id, before, n=N1_GAMES):
     return top[0][0], top[0][1], len(starts)
 
 
+N1_SAT = 2         # 🥅 11/6 daily study 10 (results/studies/daily_1106/s10b_n1_sat.py): the #1 sat the team's last 2+ games
+N1_SAT_PTS = 1.0   #   in a row, tonight a RESTED night - the dog's score -1 (a weight inside STUDY_CAP, never a gate)
+
+
+def n1_sat(rows, team_id, before):
+    """How many of the team's games IN A ROW (newest first, this season) its #1 (number_one) did not start - 0 when he
+    started the last one; None when there's no clear #1. Box scores only - knowable at 8 AM."""
+    n1 = number_one(rows, team_id, before)
+    if not n1:
+        return None
+    floor, seen, sat = season_start(before), set(), 0
+    for r in reversed(rows or []):
+        if str(r.get("team")) != str(team_id) or not floor <= r.get("start", "") < before or r.get("role", "G") != "G" \
+                or r["gid"] in seen:
+            continue
+        seen.add(r["gid"])
+        if _nm(r["player"]) == _nm(n1[0]):
+            return sat
+        sat += 1
+    return sat
+
+
+def n1_sat_points(c):
+    """11/6 daily study 10: an NHL moneyline DOG on a rested night (not the 2nd of a back-to-back) whose #1 goalie sat
+    its last N1_SAT+ games in a row -> -N1_SAT_PTS on the dog score. The side whose #1 sat 2+ lost to its price at the
+    close -10.1% on 669 dogs + favorites 2016-26 (train 2016-22 -9.4%, 4 of 5 seasons down; held 2023-26 -11.5%, 3 of 4
+    down, 2026 -57% on 9) vs -3.3% when he started the last game; dogs -10.6% on 433; ESPN's open agrees (dogs -6.1%,
+    favorites -8.0%); sat 3+ -13.7% vs exactly 2 -8.0%; true whether he came back tonight or not (-11.0% / -9.7%)."""
+    if c.get("league") != "nhl" or c.get("market", "ml") != "ml" or (c.get("odds") or 0) < 100 or c.get("tired_vs_rested") \
+            or c.get("b2b_me"):
+        return 0.0
+    n = c.get("n1_sat")
+    return -N1_SAT_PTS if n is not None and n >= N1_SAT else 0.0
+
+
 def roles(rows, g, now=None):
     """{side: True (the known starter is the team's #1) / False (he isn't) / None (unknown - no starter known, or no #1
     to compare him to)} for an NHL game, plus 'n1': {side: (name, starts, games)}."""
-    out = {"n1": {}}
+    out = {"n1": {}, "sat": {}}
     for side in ("home", "away"):
         n1 = number_one(rows, g.get(side), g.get("start") or "9")
+        out["sat"][side] = n1_sat(rows, g.get(side), g.get("start") or "9") if n1 else None   # (11/6 daily s10)
         st = starter(g.get("id"), side, now)
         out["n1"][side] = n1
         out[side] = None if not st or not n1 else _nm(st["name"]) == _nm(n1[0])
