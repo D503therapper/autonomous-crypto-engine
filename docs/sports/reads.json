@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T16:36Z",
+ "updated": "2026-11-06T16:46Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -584,9 +584,9 @@
     "team": "New Haven",
     "opp": "Rutgers",
     "market": "spread",
-    "line": 25.5,
-    "odds": -115,
-    "p": 0.547,
+    "line": 24.5,
+    "odds": -110,
+    "p": 0.542,
     "win_p": 0.037,
     "reasons": [
      "opponent's body clock is off"
@@ -1226,7 +1226,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.639,
+    "p": 0.633,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1242,9 +1242,9 @@
     "opp": "Bucks",
     "market": "ml",
     "line": null,
-    "odds": -257,
-    "p": 0.693,
-    "win_p": 0.693,
+    "odds": -249,
+    "p": 0.685,
+    "win_p": 0.685,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1325,15 +1325,15 @@
    "start": "2026-11-07T01:00Z",
    "away": "Southern",
    "home": "TCU",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Southern",
     "opp": "TCU",
     "market": "spread",
-    "line": 24.5,
-    "odds": -105,
-    "p": 0.534,
+    "line": 27.5,
+    "odds": -112,
+    "p": 0.551,
     "win_p": 0.037,
     "reasons": []
    }
@@ -1859,7 +1859,7 @@
     "opp": "Oklahoma St",
     "market": "spread",
     "line": 18.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.571,
     "win_p": 0.07,
     "reasons": [
@@ -3977,8 +3977,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.476,
-    "tie": 0.285,
+    "p": 0.488,
+    "tie": 0.282,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3986,18 +3986,19 @@
    "start": "2026-11-08T03:00Z",
    "away": "Canucks",
    "home": "Oilers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Oilers",
     "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.746,
-    "win_p": 0.746,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -125,
+    "p": 0.569,
+    "win_p": 0.765,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
