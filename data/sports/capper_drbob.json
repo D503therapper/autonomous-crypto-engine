@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-05T15:36Z",
+ "checked": "2026-11-06T17:59Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -363,12 +363,19 @@
    "line": 10.0,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "lost",
    "seen": "2026-11-05T10:41Z",
-   "side": "home"
+   "side": "home",
+   "us": {
+    "kind": "lean",
+    "lean": true,
+    "same": true,
+    "side": "home",
+    "status": "lost"
+   }
   }
  },
- "read": "2026-11-05T14:06Z",
+ "read": "2026-11-06T15:44Z",
  "record": {
   "against_us": {
    "lost": 2,
@@ -376,12 +383,12 @@
    "won": 4
   },
   "all": {
-   "lost": 12,
+   "lost": 13,
    "push": 0,
    "won": 11
   },
   "sides": {
-   "lost": 7,
+   "lost": 8,
    "push": 0,
    "won": 9
   },
@@ -391,7 +398,7 @@
    "won": 2
   },
   "with_us": {
-   "lost": 2,
+   "lost": 3,
    "push": 0,
    "won": 1
   }

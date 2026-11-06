@@ -1,97 +1,12 @@
 {
- "day": "2026-11-05",
+ "day": "2026-11-06",
  "picks": {
-  "play|nhl:401892657|away|ml": {
-   "key": "play|nhl:401892657|away|ml",
-   "kind": "floor",
-   "team": "Ducks",
-   "odds": 154,
-   "league": "nhl",
-   "units": 0.5,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "play|nhl:401892653|away|ml": {
-   "key": "play|nhl:401892653|away|ml",
-   "kind": "floor",
-   "team": "Flyers",
-   "odds": 124,
-   "league": "nhl",
-   "units": 0.5,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "lean|nfl:401873037|home|spread": {
-   "key": "lean|nfl:401873037|home|spread",
-   "kind": "lean",
-   "team": "Ravens",
-   "odds": -112,
-   "league": "nfl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "lean|nhl:401892648|away|ml": {
-   "key": "lean|nhl:401892648|away|ml",
-   "kind": "lean",
-   "team": "Mammoth",
-   "odds": -122,
-   "league": "nhl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "lean|nhl:401892654|away|ml": {
-   "key": "lean|nhl:401892654|away|ml",
-   "kind": "lean",
-   "team": "Bruins",
-   "odds": -108,
-   "league": "nhl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "play|nhl:401892655|away|ml": {
-   "key": "play|nhl:401892655|away|ml",
-   "kind": "play",
-   "team": "Stars",
-   "odds": -130,
-   "league": "nhl",
+  "dog|ncaaf:401858510|home|ml": {
+   "key": "dog|ncaaf:401858510|home|ml",
+   "kind": "dog",
+   "team": "Illinois",
+   "odds": 160,
+   "league": "ncaaf",
    "units": 1.0,
    "lean": false,
    "held": false,
@@ -100,10 +15,84 @@
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
+  },
+  "lean|nba:401909295|away|spread": {
+   "key": "lean|nba:401909295|away|spread",
+   "kind": "lean",
+   "team": "Spurs",
+   "odds": -110,
+   "league": "nba",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
     "injuries": "pass"
+   }
+  },
+  "lean|ncaab:401911249|home|spread": {
+   "key": "lean|ncaab:401911249|home|spread",
+   "kind": "lean",
+   "team": "Missouri",
+   "odds": -108,
+   "league": "ncaab",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass"
+   }
+  },
+  "lean|ncaab:401916314|away|spread": {
+   "key": "lean|ncaab:401916314|away|spread",
+   "kind": "lean",
+   "team": "Youngstown St",
+   "odds": -108,
+   "league": "ncaab",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass"
+   }
+  },
+  "lean|ncaaf:401858288|home|spread": {
+   "key": "lean|ncaaf:401858288|home|spread",
+   "kind": "lean",
+   "team": "SMU",
+   "odds": -110,
+   "league": "ncaaf",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
    }
   }
  },
- "updated": "2026-11-05T16:00Z",
+ "updated": "2026-11-06T16:00Z",
  "held": []
 }

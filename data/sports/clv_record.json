@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 181,
+  "n": 186,
   "beat": 61,
-  "same": 67,
-  "worse": 53,
-  "avg_pts": 0.11
+  "same": 71,
+  "worse": 54,
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 83,
+  "n": 86,
   "beat": 28,
-  "same": 35,
-  "worse": 20,
-  "avg_pts": 0.19
+  "same": 37,
+  "worse": 21,
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -22,9 +22,9 @@
    "avg_pts": -0.16
   },
   "lean": {
-   "n": 98,
+   "n": 100,
    "beat": 33,
-   "same": 32,
+   "same": 34,
    "worse": 33,
    "avg_pts": 0.04
   },
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 46,
+   "n": 49,
    "beat": 15,
-   "same": 20,
-   "worse": 11,
-   "avg_pts": 0.13
+   "same": 22,
+   "worse": 12,
+   "avg_pts": 0.1
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 67,
+   "n": 72,
    "beat": 21,
-   "same": 25,
-   "worse": 21,
-   "avg_pts": 0.0
+   "same": 29,
+   "worse": 22,
+   "avg_pts": -0.01
   }
  },
  "lock_by_size": {
@@ -2650,6 +2650,76 @@
    "close": 114,
    "pts": -0.9,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -122,
+   "close": -122,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Bruins",
+   "market": "ml",
+   "line": null,
+   "odds": -108,
+   "close": -108,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Ducks",
+   "market": "ml",
+   "line": null,
+   "odds": 154,
+   "close": 160,
+   "pts": -0.9,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Stars",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 1.0,
    "result": "lost"
   }
  ]
