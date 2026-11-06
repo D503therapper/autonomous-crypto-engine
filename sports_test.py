@@ -19552,6 +19552,24 @@ def test_preboard_1105_an_unconfirmed_goalie_in_the_knock_line_is_named_as_the_l
     assert not re.search(r"\bin net tonight\b", line)
 
 
+
+def test_audit_1106_the_star_pick_at_1u_is_never_flagged_as_a_thin_edge():
+    """11/6 daily check: the pick audit flagged the 11/5 ⭐ Stars -130 at 1u as 'on a thin edge - should be ½u' - the
+    owner's 11/5 rule sizes the ⭐ at 1u even on a thin edge its read beats (sports.BEST_MIN_UNITS / BEST_OVER_FROM), so
+    the audit knows the ⭐; a non-⭐ play on the same thin edge still gets the flag."""
+    import sports_audit
+    leg = {**_cand("Stars", -130, 0.58, league="nhl"), "team": "Stars", "game_id": "nhl:s", "start": "2026-11-06T00:00Z"}
+    assert sports.thin_edge(leg) and sports.beats_price(leg)
+    star = {"date": "2026-11-05", "kind": "play", "status": "lost", "lean": False, "dec": leg["dec"], "american": -130,
+            "legs": [leg], "best": True, "forced": True, "units": 1.0}
+    plain = {**star, "best": False, "forced": False, "units": 1.0, "legs": [dict(leg)]}
+    plain_u = sports.units_for(plain)
+    f_star = sports_audit.audit_day([star], {}, "2026-11-05")["flags"]
+    assert not any("thin edge" in x for x in f_star), f_star
+    if plain_u > 0.5:
+        assert any("thin edge" in x for x in sports_audit.audit_day([plain], {}, "2026-11-05")["flags"])
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
