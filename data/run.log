@@ -13221,3 +13221,46 @@ DEX: $678.42 (-321.58) · Scammed: 11 (-$216.49)
 [2026-11-05 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-05 23:05 UTC] crypto/hold_btc  equity $453.76 (-9.2%) 1 open  market DOWN
    social heat top: SOL 44 (35/0/9), ETH 40 (40/0/0), BTC 37 (37/0/0), TRUMP 29 (16/0/13), INJ 27 (27/0/0)
+   git sync: push rejected (try 1/5)
+   dex screen: REJECT BRETT@base liq $617,254 - pool age unknown
+   dex screen: UNREACHABLE REBOOT@base liq $352,022 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ADS@ethereum liq $862,441 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; hidden_owner; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT ONDO@ethereum liq $1,524,112 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT SPCX@solana liq $362,611 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $100,078 - honeypot.is unreachable
+   dex screen: PASS USELESS@solana liq $3,392,460
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       c873e8737cb1815e61d0f77c34417358a81a363c -> main (fatal error i
+   dex screen: REJECT PAXG@ethereum liq $2,104,282 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT MSTRC@base liq $58,483 - liquidity $58,483 < $100,000; 24h volume $34,767 < $100,000
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       0704e0899d196fd1c753184895a0793c4481948b -> main (fatal error i
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       c4bc304f40013a2f813d9216e022d694149e8097 -> main (fatal error i
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       54bb46eb5bdda5765b86f8b0a9a4af9cea069ace -> main (fatal error i
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       f3889a6a70c29a18d657e9a3f023311d031d0d46 -> main (fatal error i
+   dex screen: REJECT XMR@solana liq $2,644,574,934 - freeze authority; creator holds 99%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT AERO@base liq $8,915 - liquidity $8,915 < $100,000; 24h volume $15,140 < $100,000
+   dex screen: REJECT PUMP@solana liq $2,331,349 - transfer hook; top-10 holders 60%
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       66fe3e1bef5b1e4034f5e0a5d994841aa6c0d903 -> main (fatal error i
+   dex screen: REJECT OTC@solana liq $511,125 - lp holders unknown; rugcheck lp locked 81% < 95%
+   dex scanner: 2,946 pools (solana 2,095 / base 483 / ethereum 368), refresh cycle 125s (hot 121s), 2932 calls (110 feed, 429s 0, failed 0), 84,638 refreshed (13248 no pair), +130 added / -85 dropped (dead 76, stale 9, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-06 00:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/mover     equity $224.36 (-55.1%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/social_heat equity $348.94 (-30.2%) 3 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/breakout10 equity $391.15 (-21.8%) 1 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-06 00:05 UTC] crypto/hold_btc  equity $457.00 (-8.6%) 1 open  market DOWN
+   social heat top: HYPE 46 (32/0/14), BTC 40 (40/0/0), ETH 37 (37/0/0), PENGU 34 (27/0/8), FET 29 (29/0/0)
