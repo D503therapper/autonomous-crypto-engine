@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 183,
+  "n": 185,
   "beat": 61,
-  "same": 69,
+  "same": 71,
   "worse": 53,
   "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 84,
+  "n": 85,
   "beat": 28,
-  "same": 36,
+  "same": 37,
   "worse": 20,
   "avg_pts": 0.19
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.16
   },
   "lean": {
-   "n": 99,
+   "n": 100,
    "beat": 33,
-   "same": 33,
+   "same": 34,
    "worse": 33,
    "avg_pts": 0.04
   },
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 47,
+   "n": 48,
    "beat": 15,
-   "same": 21,
+   "same": 22,
    "worse": 11,
    "avg_pts": 0.12
   }
@@ -80,9 +80,9 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 69,
+   "n": 71,
    "beat": 21,
-   "same": 27,
+   "same": 29,
    "worse": 21,
    "avg_pts": 0.0
   }
@@ -2671,6 +2671,20 @@
    "kind": "lean",
    "lean": true,
    "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -122,
+   "close": -122,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
    "team": "Bruins",
    "market": "ml",
    "line": null,
@@ -2679,6 +2693,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Stars",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -130,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }

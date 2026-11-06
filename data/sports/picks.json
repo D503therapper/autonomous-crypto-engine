@@ -32863,6 +32863,15 @@
      "us:road3in6"
     ],
     "dec": 1.819672131147541,
+    "decider": {
+     "k": "fg",
+     "n": 1,
+     "p": "Cole Caufield",
+     "s": "5-4",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -32894,6 +32903,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,1,1,0",
+     "h": "2,0,2,1"
+    },
     "form_state": [
      1.0,
      1,
@@ -32944,10 +32957,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Mammoth 4 @ Canadiens 5",
     "season_games": null,
+    "settled": "2026-11-06T03:43Z",
     "side": "away",
     "start": "2026-11-06T00:00Z",
     "stype": "2",
@@ -32965,12 +32980,14 @@
    }
   ],
   "p_hit": 0.5359,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-05T16:00Z",
   "round": 1,
+  "settled": "2026-11-06T03:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
@@ -33183,6 +33200,11 @@
      "game:nonconf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {
+     "s": "2-1",
+     "type": "so",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -33214,6 +33236,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1,0,0",
+     "h": "0,0,1,0,1"
+    },
     "form_state": [
      1.0,
      2,
@@ -33269,10 +33295,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Stars 1 @ Blue Jackets 2",
     "season_games": null,
+    "settled": "2026-11-06T03:43Z",
     "side": "away",
     "start": "2026-11-06T00:00Z",
     "stype": "2",
@@ -33290,11 +33318,13 @@
    }
   ],
   "p_hit": 0.5538,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-05T16:00Z",
   "round": 1,
+  "settled": "2026-11-06T03:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  }
 ]
