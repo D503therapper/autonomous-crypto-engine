@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06T21:47Z",
+ "updated": "2026-11-06T22:14Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -10,6 +10,51 @@
    "start": "2026-11-06T21:00Z",
    "away": "UMass",
    "home": "Boston College",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401909751",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T22:00Z",
+   "away": "AR-Pine Bluff",
+   "home": "Baylor",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920423",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T22:00Z",
+   "away": "Northeastern",
+   "home": "Virginia",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401922248",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-06T22:00Z",
+   "away": "West Florida",
+   "home": "FIU",
    "h1": null,
    "why": "started",
    "done": false,
@@ -277,7 +322,7 @@
     "opp": "Hornets",
     "market": "spread",
     "line": -10.5,
-    "odds": -105,
+    "odds": -106,
     "p": 0.503,
     "win_p": 0.775,
     "reasons": [
@@ -395,7 +440,7 @@
     "opp": "Georgia Tech",
     "market": "spread",
     "line": 17.5,
-    "odds": -110,
+    "odds": -118,
     "p": 0.589,
     "win_p": 0.081,
     "reasons": []
@@ -727,8 +772,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.652,
-    "tie": 0.033,
+    "p": 0.625,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -736,16 +781,16 @@
    "start": "2026-11-07T00:00Z",
    "away": "Wizards",
    "home": "Hawks",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Hawks",
     "opp": "Wizards",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -107,
-    "p": 0.501,
-    "win_p": 0.744,
+    "market": "ml",
+    "line": null,
+    "odds": -278,
+    "p": 0.708,
+    "win_p": 0.708,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -866,7 +911,7 @@
     "opp": "Alabama",
     "market": "spread",
     "line": 24.5,
-    "odds": -105,
+    "odds": 100,
     "p": 0.532,
     "win_p": 0.042,
     "reasons": [
@@ -881,8 +926,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wisconsin",
-    "p": 0.9,
-    "tie": 0.018,
+    "p": 0.908,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -896,10 +941,10 @@
     "team": "Wisconsin",
     "opp": "Delaware",
     "market": "spread",
-    "line": -24.5,
-    "odds": -112,
-    "p": 0.548,
-    "win_p": 0.962,
+    "line": -25.5,
+    "odds": -110,
+    "p": 0.543,
+    "win_p": 0.967,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -913,8 +958,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wright St",
-    "p": 0.565,
-    "tie": 0.043,
+    "p": 0.575,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -929,9 +974,9 @@
     "opp": "FAU",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.614,
-    "win_p": 0.614,
+    "odds": -185,
+    "p": 0.627,
+    "win_p": 0.627,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1438,7 +1483,7 @@
     "opp": "LSU",
     "market": "spread",
     "line": 35.5,
-    "odds": -110,
+    "odds": -102,
     "p": 0.614,
     "win_p": 0.02,
     "reasons": []
@@ -1555,7 +1600,7 @@
     "opp": "Ole Miss",
     "market": "spread",
     "line": 17.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.576,
     "win_p": 0.07,
     "reasons": []
