@@ -1,23 +1,23 @@
 {
  "all": {
-  "n": 190,
+  "n": 193,
   "beat": 63,
-  "same": 73,
+  "same": 76,
   "worse": 54,
   "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 88,
+  "n": 91,
   "beat": 28,
-  "same": 39,
+  "same": 42,
   "worse": 21,
   "avg_pts": 0.17
  },
  "by_kind": {
   "dog": {
-   "n": 25,
+   "n": 26,
    "beat": 6,
-   "same": 12,
+   "same": 13,
    "worse": 7,
    "avg_pts": -0.15
   },
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 50,
+   "n": 52,
    "beat": 15,
-   "same": 23,
+   "same": 25,
    "worse": 12,
-   "avg_pts": 0.1
+   "avg_pts": 0.09
   }
  },
  "by_sport": {
@@ -66,11 +66,11 @@
    "avg_pts": 0.6
   },
   "ncaaf": {
-   "n": 48,
+   "n": 51,
    "beat": 14,
-   "same": 20,
+   "same": 23,
    "worse": 14,
-   "avg_pts": 0.11
+   "avg_pts": 0.1
   },
   "nfl": {
    "n": 24,
@@ -2774,6 +2774,48 @@
    "line": null,
    "odds": 136,
    "close": 136,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Boston College",
+   "market": "ml",
+   "line": null,
+   "odds": 190,
+   "close": 190,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Tulane",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "UConn",
+   "market": "ml",
+   "line": null,
+   "odds": 240,
+   "close": 240,
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
