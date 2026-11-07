@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 193,
+  "n": 194,
   "beat": 63,
-  "same": 76,
+  "same": 77,
   "worse": 54,
   "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 91,
+  "n": 92,
   "beat": 28,
-  "same": 42,
+  "same": 43,
   "worse": 21,
-  "avg_pts": 0.17
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 52,
+   "n": 53,
    "beat": 15,
-   "same": 25,
+   "same": 26,
    "worse": 12,
    "avg_pts": 0.09
   }
@@ -66,9 +66,9 @@
    "avg_pts": 0.6
   },
   "ncaaf": {
-   "n": 51,
+   "n": 52,
    "beat": 14,
-   "same": 23,
+   "same": 24,
    "worse": 14,
    "avg_pts": 0.1
   },
@@ -2818,6 +2818,20 @@
    "close": 240,
    "pts": 0.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "NC State",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 160,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   }
  ]
