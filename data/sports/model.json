@@ -1,5 +1,5 @@
 {
- "finals_seen": 122170,
+ "finals_seen": 122171,
  "graded_seen": 232,
  "log": [
   {
@@ -11281,9 +11281,105 @@
    "move_w": 0.29223101549934233,
    "odds_games": 900,
    "trust": 0.0056948058411492595
+  },
+  {
+   "accuracy": 0.6559,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 2835,
+   "hfa": 40,
+   "k": 20.0,
+   "league": "nfl",
+   "logloss_final": 0.6087,
+   "logloss_market": 0.6103,
+   "logloss_own": 0.6267,
+   "market_accuracy": 0.6782,
+   "move_w": 0.14637624490894077,
+   "odds_games": 898,
+   "trust": 0.19359755091112688
+  },
+  {
+   "accuracy": 0.6789,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 10160,
+   "hfa": 80,
+   "k": 25.0,
+   "league": "ncaaf",
+   "logloss_final": 0.543,
+   "logloss_market": 0.5453,
+   "logloss_own": 0.584,
+   "market_accuracy": 0.7247,
+   "move_w": 0.21161439837594453,
+   "odds_games": 701,
+   "trust": 0.0
+  },
+  {
+   "accuracy": 0.6911,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 12984,
+   "hfa": 40,
+   "k": 15.0,
+   "league": "nba",
+   "logloss_final": 0.5449,
+   "logloss_market": 0.5498,
+   "logloss_own": 0.5854,
+   "market_accuracy": 0.71,
+   "move_w": 0.29223101549934233,
+   "odds_games": 900,
+   "trust": 0.0056948058411492595
+  },
+  {
+   "accuracy": 0.5856,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 23268,
+   "hfa": 40,
+   "k": 3.0,
+   "league": "mlb",
+   "logloss_final": 0.6667,
+   "logloss_market": 0.6688,
+   "logloss_own": 0.6713,
+   "market_accuracy": 0.5833,
+   "move_w": -0.10490280425419268,
+   "odds_games": 900,
+   "trust": 0.33848710835087553
+  },
+  {
+   "accuracy": 0.5756,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 13451,
+   "hfa": 20,
+   "k": 12.0,
+   "league": "nhl",
+   "logloss_final": 0.663,
+   "logloss_market": 0.6646,
+   "logloss_own": 0.6681,
+   "market_accuracy": 0.5789,
+   "move_w": 0.19451700134419256,
+   "odds_games": 900,
+   "trust": 0.25667610967179405
+  },
+  {
+   "accuracy": 0.0,
+   "change": "no change",
+   "date": "2026-11-07",
+   "games": 59473,
+   "hfa": 0,
+   "k": 11.0,
+   "league": "ncaab",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.0,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
   }
  ],
- "ls_seen": 128869,
+ "ls_seen": 128870,
  "odds_seen": 83644,
  "params": {
   "mlb": {
@@ -11309,7 +11405,7 @@
     "ll_market": 0.6569
    },
    "trust": 0.33848710835087553,
-   "tuned": "2026-11-07 07:24",
+   "tuned": "2026-11-07 19:10",
    "w": [
     -0.08317098643011481,
     0.9884860778974308,
@@ -11393,7 +11489,7 @@
     -0.23422140194449767
    ],
    "trust": 0.0056948058411492595,
-   "tuned": "2026-11-07 07:24",
+   "tuned": "2026-11-07 19:10",
    "w": [
     0.04662137319669632,
     0.8673646407522156,
@@ -11436,7 +11532,7 @@
    "big_fav_cover": 0.491,
    "big_fav_games": 12663,
    "eval_games": 0,
-   "games": 59472,
+   "games": 59473,
    "hfa": 0,
    "k": 11.0,
    "logloss_elo": 0.0,
@@ -11468,7 +11564,7 @@
     1.3027239171185405
    ],
    "trust": 0.15,
-   "tuned": "2026-11-07 07:26",
+   "tuned": "2026-11-07 19:12",
    "w": [
     0.4574896592589479,
     1.3871194188215963,
@@ -11552,7 +11648,7 @@
     -5.816338433502103
    ],
    "trust": 0.0,
-   "tuned": "2026-11-07 07:23",
+   "tuned": "2026-11-07 19:10",
    "w": [
     0.05193010775816481,
     1.18552409749144,
@@ -11636,7 +11732,7 @@
     -1.528955663998353
    ],
    "trust": 0.19359755091112688,
-   "tuned": "2026-11-07 07:23",
+   "tuned": "2026-11-07 19:10",
    "w": [
     -0.03699712374474441,
     0.9412994175067838,
@@ -11700,7 +11796,7 @@
     "ll_market": 0.6479
    },
    "trust": 0.25667610967179405,
-   "tuned": "2026-11-07 07:24",
+   "tuned": "2026-11-07 19:11",
    "w": [
     0.02004215192445707,
     1.0140979150890146,
@@ -11751,5 +11847,5 @@
   "date": "2026-11-07",
   "finals": 122170
  },
- "tuned_on": "Nov 6, 11:26 PM PT"
+ "tuned_on": "Nov 7, 11:12 AM PT"
 }
