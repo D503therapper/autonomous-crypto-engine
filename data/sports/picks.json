@@ -33402,6 +33402,7 @@
      "us:bowl5"
     ],
     "dec": 2.6,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -33458,6 +33459,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,7,0,6",
+     "h": "0,7,7,10"
+    },
     "form_state": [
      3.0,
      3,
@@ -33516,10 +33521,12 @@
      "better QB play lately"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Nebraska 13 @ Illinois 24",
     "season_games": null,
+    "settled": "2026-11-07T04:36Z",
     "side": "home",
     "start": "2026-11-07T01:00Z",
     "stype": "2",
@@ -33536,12 +33543,14 @@
    }
   ],
   "p_hit": 0.426,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-06T16:00Z",
   "round": 1,
+  "settled": "2026-11-07T04:36Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
+  "units": 1.0,
   "was_dog": "2026-11-06T23:51Z"
  },
  {
