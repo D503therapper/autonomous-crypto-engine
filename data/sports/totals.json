@@ -375,7 +375,7 @@
   }
  },
  "ncaaf": {
-  "games": 5909,
+  "games": 5910,
   "grade": {
    "all": {
     "hit": 0.5076,
@@ -404,19 +404,19 @@
   },
   "hit_all": 0.5076,
   "hit_top": 0.4958,
-  "intercept": -0.0105,
+  "intercept": -0.01016,
   "kept": [
    "wind"
   ],
   "ll_test_base": 0.69329,
-  "ll_test_kept": 0.69363,
-  "ll_val_base": 0.69548,
-  "ll_val_kept": 0.69472,
+  "ll_test_kept": 0.69362,
+  "ll_val_base": 0.69558,
+  "ll_val_kept": 0.69481,
   "n_top": 591,
   "norm": {
    "wind": [
-    9.84515,
-    4.49488
+    9.8445,
+    4.49478
    ]
   },
   "proven": false,
@@ -428,15 +428,15 @@
    },
    "cold": {
     "gain": -1e-05,
-    "ll": 0.69549
+    "ll": 0.69559
    },
    "drama": {
     "ll": null,
     "note": "no data"
    },
    "form": {
-    "gain": 3e-05,
-    "ll": 0.69545
+    "gain": 4e-05,
+    "ll": 0.69554
    },
    "inj": {
     "ll": null,
@@ -447,32 +447,32 @@
     "note": "no data"
    },
    "lg_trend": {
-    "gain": -0.00012,
-    "ll": 0.69561
+    "gain": -0.00014,
+    "ll": 0.69572
    },
    "ou_away": {
-    "gain": -0.00081,
-    "ll": 0.69629
+    "gain": -0.00079,
+    "ll": 0.69637
    },
    "ou_home": {
     "gain": 6e-05,
-    "ll": 0.69543
+    "ll": 0.69552
    },
    "park": {
-    "gain": -0.00092,
-    "ll": 0.69641
+    "gain": -0.00086,
+    "ll": 0.69644
    },
    "public": {
     "ll": null,
     "note": "no data"
    },
    "rain": {
-    "gain": -0.00088,
-    "ll": 0.69637
+    "gain": -0.00086,
+    "ll": 0.69644
    },
    "rest": {
-    "gain": -0.00098,
-    "ll": 0.69647
+    "gain": -0.00097,
+    "ll": 0.69655
    },
    "starter": {
     "ll": null,
@@ -480,21 +480,21 @@
    },
    "thin_air": {
     "gain": -0.00016,
-    "ll": 0.69565
+    "ll": 0.69574
    },
    "travel": {
     "gain": 5e-05,
-    "ll": 0.69544
+    "ll": 0.69553
    },
    "wind": {
-    "gain": 0.00076,
-    "ll": 0.69472
+    "gain": 0.00077,
+    "ll": 0.69481
    }
   },
   "test_from": "2023-12-17",
   "test_games": 1970,
   "weights": {
-   "wind": -0.03498
+   "wind": -0.03527
   }
  },
  "nfl": {
