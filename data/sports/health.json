@@ -1,9 +1,9 @@
 {
- "at": "2026-11-07T19:55Z",
+ "at": "2026-11-07T20:05Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (57s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
+  "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 38 min ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T20:05Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-07T19:55Z",
    "fixes": [],
@@ -544,15 +549,6 @@
    "problems": [
     "live tennis scores: tennis Riera vs Gormaz: no points for 2365s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-06T18:34Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Riera vs Gormaz: no points for 2365s"
    ]
   }
  ]
