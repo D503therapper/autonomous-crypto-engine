@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T04:15Z",
+ "updated": "2026-11-07T04:29Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -1093,8 +1093,8 @@
    "away": "CSU Northridge",
    "home": "Kansas St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1123,8 +1123,8 @@
    "away": "MTSU",
    "home": "Kansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1198,8 +1198,8 @@
    "away": "Wagner",
    "home": "Miami",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1758,7 +1758,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Carolina",
-    "p": 0.625,
+    "p": 0.616,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1767,19 +1767,17 @@
    "start": "2026-11-07T17:00Z",
    "away": "North Carolina",
    "home": "UConn",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "UConn",
-    "opp": "North Carolina",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -108,
-    "p": 0.517,
-    "win_p": 0.329,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "team": "North Carolina",
+    "opp": "UConn",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.6,
+    "win_p": 0.6,
+    "reasons": []
    }
   },
   {
@@ -2189,13 +2187,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Predators",
-    "opp": "Blues",
+    "team": "Blues",
+    "opp": "Predators",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.707,
-    "win_p": 0.493,
+    "p": 0.721,
+    "win_p": 0.508,
     "reasons": []
    }
   },
@@ -4103,7 +4101,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rhode Island",
-    "p": 0.623,
+    "p": 0.626,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -4112,7 +4110,7 @@
    "start": "2026-11-07T21:00Z",
    "away": "Monmouth",
    "home": "Rhode Island",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Rhode Island",
@@ -4120,8 +4118,8 @@
     "market": "ml",
     "line": null,
     "odds": -250,
-    "p": 0.688,
-    "win_p": 0.688,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win"
@@ -4492,7 +4490,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.629,
+    "p": 0.642,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -4508,11 +4506,12 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -246,
-    "p": 0.683,
-    "win_p": 0.683,
+    "odds": -263,
+    "p": 0.697,
+    "win_p": 0.697,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "altitude edge"
     ]
    }
@@ -4701,6 +4700,34 @@
    }
   },
   {
+   "id": "ncaab:401926825",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "G Washington",
+    "p": 0.869,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T23:00Z",
+   "away": "Hampton",
+   "home": "G Washington",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Hampton",
+    "opp": "G Washington",
+    "market": "spread",
+    "line": 19.0,
+    "odds": -109,
+    "p": 0.502,
+    "win_p": 0.063,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401868108",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -4750,7 +4777,7 @@
     "opp": "New Mexico",
     "market": "spread",
     "line": 26.5,
-    "odds": -108,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.031,
     "reasons": []
@@ -5384,7 +5411,7 @@
     "opp": "Michigan St",
     "market": "spread",
     "line": -14.0,
-    "odds": -110,
+    "odds": -112,
     "p": 0.517,
     "win_p": 0.827,
     "reasons": [
@@ -5478,7 +5505,7 @@
     "market": "spread",
     "line": 21.5,
     "odds": -110,
-    "p": 0.517,
+    "p": 0.516,
     "win_p": 0.046,
     "reasons": [
      "sharp money moving this way"
@@ -5521,8 +5548,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.568,
-    "tie": 0.036,
+    "p": 0.585,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -5537,9 +5564,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -171,
-    "p": 0.606,
-    "win_p": 0.606,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -5801,8 +5828,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.634,
-    "tie": 0.034,
+    "p": 0.66,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -5817,9 +5844,9 @@
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -253,
-    "p": 0.688,
-    "win_p": 0.688,
+    "odds": -291,
+    "p": 0.721,
+    "win_p": 0.721,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
