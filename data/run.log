@@ -14364,3 +14364,30 @@ error: failed to push some refs to 'https://githu
 [2026-11-07 04:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-07 04:07 UTC] crypto/hold_btc  equity $455.76 (-8.8%) 1 open  market DOWN
    social heat top: BTC 40 (35/0/5), HYPE 27 (27/0/0), PENGU 27 (27/0/0), AERO 27 (21/0/5), PONS 18 (8/0/10)
+   dex screen: REJECT ONE@solana liq $10,854,625 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT PLAY@base liq $263,212 - goplus partial data: cannot_sell_all unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT AGENC@solana liq $177,172 - top-10 holders 62%; lp holders unknown
+   dex screen: REJECT CIRBTC@ethereum liq $5,507,278 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%
+   dex screen: UNREACHABLE SP@ethereum liq $135,341 - honeypot.is unreachable
+   dex screen: REJECT LBTC@ethereum liq $562,075 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $364,363 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS PEPE@ethereum liq $31,558,760
+   dex screen: REJECT POD@base liq $4,167,830 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   dex screen: PASS CBUCKS@solana liq $162,175
+   dex screen: UNREACHABLE DENIM@base liq $365,688 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT USDE@ethereum liq $3,282,534 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 93%
+   dex screen: REJECT GOOGLC@base liq $2,073,928 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $363,991 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT MUC@base liq $95 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 89%; lp locked 0% < 95%
+   dex screen: REJECT VELVET@base liq $5,635 - liquidity $5,635 < $100,000; pool age unknown; 24h volume $28,352 < $100,000
+   dex scanner: 2,992 pools (solana 2,013 / base 553 / ethereum 426), refresh cycle 129s (hot 124s), 2869 calls (108 feed, 429s 0, failed 1), 82,797 refreshed (12017 no pair), +109 added / -117 dropped (dead 39, stale 2, cap 76), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-07 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/mover     equity $210.94 (-57.8%) 1 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/social_heat equity $346.65 (-30.7%) 2 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/breakout10 equity $394.15 (-21.2%) 1 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 05:06 UTC] crypto/hold_btc  equity $455.90 (-8.8%) 1 open  market DOWN
+   social heat top: PENGU 35 (35/0/0), XLM 29 (29/0/0), TAO 27 (27/0/0), BTC 26 (21/0/5), NEAR 24 (24/0/0)
