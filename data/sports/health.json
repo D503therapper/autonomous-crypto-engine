@@ -1,13 +1,13 @@
 {
- "at": "2026-11-07T01:08Z",
+ "at": "2026-11-07T01:09Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (29s)",
+  "live watcher fresh (85s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,11 +20,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 12 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T01:09Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-07T01:08Z",
    "fixes": [
@@ -511,19 +520,6 @@
    "at": "2026-11-05T21:12Z",
    "fixes": [],
    "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:41Z",
-   "fixes": [
-    "live watch 42088306393 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
-    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
