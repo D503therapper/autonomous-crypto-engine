@@ -1,11 +1,11 @@
 {
- "at": "2026-11-07T05:42Z",
+ "at": "2026-11-07T05:44Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (52s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,11 +18,18 @@
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 1 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T05:44Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-07T05:42Z",
    "fixes": [
@@ -514,13 +521,6 @@
    "at": "2026-11-06T02:51Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-06T02:28Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
-   ]
   }
  ]
 }
