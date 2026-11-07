@@ -19677,6 +19677,66 @@ def test_daily_1106_nhl_rested_dog_whose_number_one_sat_two_straight_is_a_minus_
                                                                                        "start": "2026-10-14T23:00Z"}, sports)
 
 
+def test_daily_1107_college_favorite_on_its_third_qb_is_a_minus_2_weight():
+    """11/7 daily studies (results/studies/daily_1107/s1b_followups.py): a college football favorite -101..-250 that has
+    used 3+ quarterbacks this season (its top passer, 8+ attempts, in the box scores) lost to its close -27.4% on 73
+    (held 2023-25 3 of 3 down, the first fair number -24.2%, ATS -30.1%). A WEIGHT: -2 points on the favorite's weighed
+    read (floor own - FAV_CAP), never a trigger; under 2 box games = unknown = nothing; a dog / the NFL / past -250 untouched."""
+    import sports_absences as sa
+    import sports_leads as sl
+    assert sports.NCAAF_FAV_QB3_W == -0.02 and sports.NCAAF_FAV_QB3_N == 3 and sa.QB_MIN_ATT == 8
+
+    def box(gid, start, qbs):
+        return (start, gid, [{"gid": gid, "start": start, "team": "7", "pid": pid, "player": nm, "group": "passing",
+                              "stats": json.dumps({"completions/passingAttempts": f"{a // 2}/{a}"})} for pid, nm, a in qbs])
+    a, b, c3 = ("p1", "Avery Johnson", 30), ("p2", "Jake Knuth", 28), ("p3", "Blake Barnett", 25)
+    rows = [box("ncaaf:g1", "2026-09-05T20:00Z", [a, ("p9", "Mop Up", 4)]), box("ncaaf:g2", "2026-09-12T20:00Z", [a]),
+            box("ncaaf:g3", "2026-09-19T20:00Z", [b, ("p1", "Avery Johnson", 7)]), box("ncaaf:g4", "2026-10-03T20:00Z", [b]),
+            box("ncaaf:g5", "2026-10-17T20:00Z", [c3])]
+    G = {f"ncaaf:g{i}": {"stype": "2"} for i in range(1, 6)}
+    got = sa.qbs_used(G, "ncaaf", "7", "2026-11-07T00:00Z", rows=rows)
+    assert got == {"n": 3, "games": 5, "names": ["Avery Johnson", "Jake Knuth", "Blake Barnett"]}, got   # the mop-up man
+    assert sa.qbs_used(G, "ncaaf", "7", "2026-10-01T00:00Z", rows=rows)["n"] == 2   # (4 attempts) and a 7-attempt relief
+    assert sa.qbs_used(G, "ncaaf", "7", "2026-09-10T00:00Z", rows=rows) is None      # 1 game in: unknown, never a guess
+    assert sa.qbs_used(G, "ncaaf", "7", "2027-11-07T00:00Z", rows=rows) is None      # last season's games don't count
+    assert sa.qbs_used(dict(G, **{"ncaaf:g5": {"stype": "1"}}), "ncaaf", "7", "2026-11-07T00:00Z", rows=rows)["n"] == 2
+    assert sa.qbs_used(G, "nhl", "7", "2026-11-07T00:00Z", rows=rows) is None        # football only
+    keep_team = dict(sa._TEAM)
+    sa._TEAM.clear()
+    sa._TEAM["ncaaf"] = {"7": rows, "8": rows[:4]}
+    try:
+        games = {"ncaaf:t": {"id": "ncaaf:t", "league": "ncaaf", "start": "2026-11-07T20:00Z", "home": "7", "away": "8",
+                             "status": "pre", "stype": "2"},
+                 **{k: dict(v, id=k, league="ncaaf", status="final") for k, v in G.items()}}
+        base = {"game_id": "ncaaf:t", "league": "ncaaf", "market": "ml", "start": "2026-11-07T20:00Z", "reasons": []}
+        fav = {**base, "side": "home", "home": True, "odds": -140, "dec": 1.7143, "edge_own": 0.0}   # own = 58.3%
+        dog = {**base, "side": "away", "home": False, "odds": 120, "dec": 2.2, "edge_own": 0.0}
+        fav2 = {**base, "game_id": "ncaaf:t2", "side": "away", "odds": -140, "dec": 1.7143, "edge_own": 0.0}
+        games["ncaaf:t2"] = dict(games["ncaaf:t"], id="ncaaf:t2", home="9", away="8")              # 2 QBs: untouched
+        big = {**base, "odds": -300, "dec": 1.3333, "edge_own": 0.0}
+        sports.weigh_ncaaf_fav_qb_carousel(games, [fav, dog, fav2, big])
+        assert fav["qb_carousel"] == {"n": 3, "names": ["Avery Johnson", "Jake Knuth", "Blake Barnett"]}
+        assert abs(fav["w_p"] - (1 / 1.7143 - 0.02)) < 1e-3                             # -2 points on the weighed read
+        assert "qb_carousel" not in dog and "w_p" not in dog                            # never the dog
+        assert "qb_carousel" not in fav2 and "w_p" not in fav2 and "qb_carousel" not in big   # 2 QBs / past -250
+        floor = {**base, "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0, "w_p": 1 / 1.7143 - 0.035}
+        sports.weigh_ncaaf_fav_qb_carousel(games, [floor])
+        assert abs(floor["w_p"] - (1 / 1.7143 - sports.FAV_CAP)) < 1e-3                 # the whole lift stays in FAV_CAP
+        fcs = {**base, "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0, "fbs_game": False}
+        sports.weigh_ncaaf_fav_qb_carousel(games, [fcs])
+        assert "qb_carousel" not in fcs and "w_p" not in fcs                            # FBS v FBS only (the proof)
+        nfl = {**base, "league": "nfl", "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0}
+        sports.weigh_ncaaf_fav_qb_carousel(games, [nfl])
+        assert "qb_carousel" not in nfl                                                 # college only
+        assert "college football fav -101..-250 on its 3rd+ QB this season (fade)" in sl.tags(fav, sports)
+        assert "3rd+ QB" not in " ".join(sl.tags(fav2, sports))
+    finally:
+        sa._TEAM.clear()
+        sa._TEAM.update(keep_team)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "weigh_ncaaf_fav_qb_carousel(games, out)" in src                             # wired into the day's candidates
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

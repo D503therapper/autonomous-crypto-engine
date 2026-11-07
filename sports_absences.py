@@ -175,6 +175,46 @@ def regulars(games, league, team, before):
     return out
 
 
+QB_MIN_ATT = 8      # 🏈 11/7 daily study (results/studies/daily_1107/s1b_followups.py): a game's QB = its top passer, 8+ attempts
+
+
+def qbs_used(games, league, team, before, rows=None):
+    """🏈 11/7: {"n": distinct quarterbacks this season, "games": box games, "names": [in order of first start]} - a
+    game's QB is its top passer by attempts (QB_MIN_ATT+), this season's real games before `before` only. None when the
+    box scores hold under 2 such games (unknown, never a guess). `rows` = [(start, gid, rows)] for the tests."""
+    if league not in ("nfl", "ncaaf"):
+        return None
+    before = str(before or "")
+    if len(before) < 7:
+        return None
+    y, m = int(before[:4]), int(before[5:7])
+    since = f"{y if m >= 7 else y - 1}-07-01"
+    src = rows if rows is not None else _games(league).get(str(team), [])
+    names = []
+    n = 0
+    for s, gid, rs in sorted(src, key=lambda x: x[0]):
+        if not since <= s < before or str(((games or {}).get(gid) or {}).get("stype") or "2") not in sd.REAL:
+            continue
+        best, att = None, 0
+        for r in rs:
+            if r.get("group") != "passing":
+                continue
+            try:
+                a = int(str(json.loads(r.get("stats") or "{}").get("completions/passingAttempts", "0/0")).split("/")[1])
+            except (ValueError, IndexError, TypeError):
+                continue
+            if a > att:
+                best, att = (r.get("pid") or r.get("player"), r.get("player") or ""), a
+        if best is None or att < QB_MIN_ATT:
+            continue
+        n += 1
+        if best[0] not in [x[0] for x in names]:
+            names.append(best)
+    if n < 2:
+        return None
+    return {"n": len(names), "games": n, "names": [nm for _, nm in names]}
+
+
 INT_LUCK_MIN_GAMES = 5                                   # 🏈 11/4 daily study 1: the season INT margin needs 5+ box games
 
 
