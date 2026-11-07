@@ -14469,3 +14469,44 @@ error: failed to push some refs to 'https://githu
 [2026-11-07 07:16 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-07 07:16 UTC] crypto/hold_btc  equity $456.48 (-8.7%) 1 open  market DOWN
    social heat top: SOL 37 (37/0/0), ONE 35 (35/0/0), BTC 34 (29/0/5), PENGU 33 (32/0/1), INJ 32 (32/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '76292.41', 'l': '74770.02', 'a': '75919.82', 'v': '4827.4264', 'vv': '365512180.01', 'c': '0.0078', 'b': '75918.94', 'k': '75918.95', 'oi': '0', 't': 1794035809656}
+   scanner: ONE: +6.6% in 17 min on 6.3x volume @ 0.001967 spread 0.05%
+   take-off: ONE vetoed by pump guard: already +71% in 24h
+   scanner: ONE: +6.6% in 18 min on 6.3x volume @ 0.001967 spread 0.15%
+   take-off: ONE vetoed by pump guard: blocked 28 more min
+   scanner: ONE: +6.6% in 19 min on 6.3x volume @ 0.001967 spread 0.05%
+   take-off: ONE vetoed by pump guard: blocked 27 more min
+   dex screen: REJECT 1WIN@solana liq $973,813 - top-10 holders 83%; lp holders unknown
+   scanner: ONE: +6.6% in 20 min on 6.3x volume @ 0.001967 spread 0.05%
+   take-off: ONE vetoed by pump guard: blocked 26 more min
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: ONE: +6.7% in 21 min on 6.3x volume @ 0.001969 spread 0.05%
+   take-off: ONE vetoed by pump guard: blocked 25 more min
+   scanner: ONE: +6.7% in 22 min on 6.3x volume @ 0.001969 spread 0.05%
+   take-off: ONE vetoed by pump guard: blocked 24 more min
+   dex screen: REJECT ELSA@base liq $524,065 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $360,082 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE REBOOT@base liq $382,413 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $360,082 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE REBOOT@base liq $376,544 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $360,082 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT ICNT@base liq $120,834 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 49%; lp locked 0% < 95%
+   dex scanner: 3,021 pools (solana 2,073 / base 501 / ethereum 447), refresh cycle 110s (hot 105s), 2517 calls (152 feed, 429s 0, failed 0), 70,928 refreshed (9704 no pair), +503 added / -474 dropped (dead 34, stale 3, cap 437), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+[2026-11-07 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/mover     equity $214.11 (-57.2%) 1 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/social_heat equity $346.85 (-30.6%) 2 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/breakout10 equity $393.51 (-21.3%) 1 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 08:05 UTC] crypto/hold_btc  equity $457.02 (-8.6%) 1 open  market DOWN
+   social heat top: ONE 37 (37/0/0), BTC 34 (29/0/5), PENGU 32 (32/0/0), PONS 29 (19/0/10), SOL 27 (27/0/0)
