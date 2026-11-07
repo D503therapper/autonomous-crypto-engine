@@ -462,6 +462,10 @@ def tags(c, sports):
         #   dog-score weight (sports.NCAAF_INT_LUCK_PTS): the college dog whose season INT margin runs -0.5 a game or
         #   worse +20.4% on 277 (3 of 3 train up, held 2024 / 2025 / 2026 up, the first fair +25.1%); judge at 50 -
         #   the flagged dogs losing at the price = the weight comes off
+    if lg == "ncaaf" and c.get("qb_carousel") and -250 <= c.get("odds", 0) <= -101:
+        t.append("college football fav -101..-250 on its 3rd+ QB this season (fade)")   # 11/7 daily (s1b) - BUILT as
+        #   a -2 weight on the favorite's read (sports.NCAAF_FAV_QB3_W): -27.4% on 73 (held 3 of 3 down, the first fair
+        #   -24.2%); judge at 50 - these favorites winning at their price = the weight comes off
     if dog and lg == "nhl" and c.get("odds", 0) <= 350 and nhl_vs_new_city_b2b(c):
         t.append("NHL dog vs a favorite on a road-road back-to-back in a new city")   # s6: the shape of the b2b - the
         #   rested dog across a favorite that played on the road last night and flew to a NEW city for tonight +12.5%

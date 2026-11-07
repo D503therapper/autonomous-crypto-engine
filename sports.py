@@ -860,6 +860,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_dog_read(out)                          # 🐶🏀 11/4 DOG EXPERT: the dog read (weights + ratings + knowledge)
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
+    weigh_ncaaf_fav_qb_carousel(games, out)           # 🏈 11/7 daily: the college favorite on its 3rd+ QB this season (-2)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -3618,6 +3619,46 @@ def weigh_ncaaf_fav_form_spot(cands):
         c["w_p"] = round(min(0.95, max(0.05, min(own + FAV_CAP, base + NCAAF_FAV_SPOT_W))), 4)
         c["fav_form_spot"] = True
         c["reasons"] = c["reasons"] + ["off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"]
+
+
+NCAAF_FAV_QB3_W = -0.02   # 🏈 11/7 DAILY STUDIES (results/studies/daily_1107/s1_s2_s3_gap.py + s1b_followups.py; SPORTS_
+NCAAF_FAV_QB3_N = 3       # FINDINGS "11/7 - DAILY STUDIES"): a college football favorite -101..-250 that has already used 3+
+NCAAF_FAV_QB3_BAND = (-250, -101)   # quarterbacks this season (its top passer, 8+ attempts, in the box scores) lost to
+#                           its close -27.4% on 73 (2021-26; train 2021-22 -20.0%, 0 of 2 up; held 2023 -19.0 / 2024 -35.7 /
+#                           2025 -71.8 = 3 of 3 down, 2026 +8.7% on 3), won 42.7% where the no-vig said 56.5% and our read
+#                           56.1%; the paid history's FIRST FAIR number -24.2% on 57, ATS -30.1% on 71; the dose: 1 QB -3.9%,
+#                           2 QBs -1.4%, 3 -27.4%; -101..-150 -43.1% on 48. The NFL doesn't agree (-0.2% on 49), and it
+#                           was picked from a ~60-cell QB table (z -2.8), so a SMALL weight: -2 points on the favorite's
+#                           weighed read (floor own - FAV_CAP), never a trigger; unknown (under 2 box games) = 0; FBS v
+#                           FBS only (fbs_game not False - the study's rows; 11/7 the FCS slate has ~20 3-QB sides).
+#                           (The same study: a QB change in itself is NOT overrated by the ratings - read 42.8% / won
+#                           42.6% on 817 sides; the dog after a change +7.9% on 292 - so nothing else moves.)
+
+
+def weigh_ncaaf_fav_qb_carousel(games, cands):
+    """🏈 11/7: a college favorite -101..-250 on its 3rd+ quarterback this season (sports_absences.qbs_used): its weighed
+    read goes down NCAAF_FAV_QB3_W (floor own - FAV_CAP) and the side carries qb_carousel = {n, names}."""
+    fav = [c for c in cands if c.get("league") == "ncaaf" and c.get("market") == "ml"
+           and NCAAF_FAV_QB3_BAND[0] <= c.get("odds", 0) <= NCAAF_FAV_QB3_BAND[1]]
+    if not fav:
+        return
+    import sports_absences
+    for c in fav:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        team = g.get(c.get("side") or "")
+        try:
+            q = sports_absences.qbs_used(games, "ncaaf", team, start) if team and start else None
+        except Exception:                                    # noqa: BLE001 - unknown = no weight, never a blocked board
+            q = None
+        if not q or q["n"] < NCAAF_FAV_QB3_N or c.get("edge_own") is None or not c.get("dec"):
+            continue
+        if c.get("fbs_game") is False:
+            continue                                         # (the proof is FBS v FBS - FCS rosters churn QBs all year)
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAF_FAV_QB3_W))), 4)
+        c["qb_carousel"] = {"n": q["n"], "names": q["names"]}
 
 
 NCAAB_AWAY_FAV_W = -0.03          # 🏀 11/3 COLLEGE HOOPS (B), study 4/5 (results/studies/cbb_1103_b/s4b_away_fav_novdec.py):

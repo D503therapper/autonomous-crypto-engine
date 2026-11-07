@@ -14755,3 +14755,27 @@ error: failed to push some refs to 'https://githu
 [2026-11-07 17:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-07 17:06 UTC] crypto/hold_btc  equity $455.23 (-9.0%) 1 open  market DOWN
    social heat top: AERO 38 (32/0/6), HYPE 35 (35/0/0), BTC 29 (24/0/5), PENGU 27 (27/0/0), ONE 19 (19/0/0)
+   dex screen: REJECT CLAUDIA@solana liq $194,509 - holders unknown; lp holders unknown; rugcheck lp locked 68% < 95%
+   dex screen: PASS RAMBO@solana liq $204,665
+   dex screen: UNREACHABLE REBOOT@base liq $375,742 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS HODL@solana liq $177,559
+   dex screen: REJECT CTM@ethereum liq $2,255,724 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: REJECT TTWO@solana liq $483,996 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex screen: UNREACHABLE REBOOT@base liq $377,775 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CON@ethereum liq $386,568 - creator_percent 50%; top-10 holders 100%; lp holders unknown
+   dex screen: UNREACHABLE REBOOT@base liq $382,728 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CHOO@solana liq $193,389 - lp holders unknown; rugcheck lp locked 39% < 95%
+   dex screen: REJECT PSOL@solana liq $1,274,935 - mint authority
+   dex screen: UNREACHABLE REBOOT@base liq $372,590 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,979 pools (solana 2,122 / base 424 / ethereum 433), refresh cycle 122s (hot 116s), 3033 calls (108 feed, 429s 0, failed 0), 87,748 refreshed (16023 no pair), +98 added / -103 dropped (dead 90, stale 13, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-07 18:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: SELL $84.98 of BIRB @ 0.093826, P/L $-16.32 (time limit)
+[2026-11-07 18:06 UTC] crypto/mover     equity $208.04 (-58.4%) 0 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/social_heat equity $344.13 (-31.2%) 2 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/breakout10 equity $389.68 (-22.1%) 1 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 18:06 UTC] crypto/hold_btc  equity $455.52 (-8.9%) 1 open  market DOWN
+   social heat top: BTC 47 (35/0/13), ONE 32 (32/0/0), AERO 29 (19/0/10), HYPE 27 (27/0/0), PENGU 24 (24/0/0)
