@@ -14559,3 +14559,42 @@ error: failed to push some refs to 'https://githu
 [2026-11-07 10:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-07 10:05 UTC] crypto/hold_btc  equity $456.71 (-8.7%) 1 open  market DOWN
    social heat top: BTC 45 (40/0/5), ONE 37 (37/0/0), PENGU 32 (32/0/0), NEAR 29 (29/0/0), HYPE 19 (19/0/0)
+   dex screen: REJECT HLX@ethereum liq $414,325 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $10,494,612
+   scanner: ONE: +9.6% in 15 min on 3.6x volume @ 0.002399 spread 0.04%
+   take-off: ONE vetoed by pump guard: already +87% in 24h
+   scanner: ONE: +7.3% in 15 min on 3.6x volume @ 0.002348 spread 0.55%
+   take-off: ONE vetoed by pump guard: blocked 28 more min
+   dex screen: UNREACHABLE REBOOT@base liq $386,479 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: ONE: +6.7% in 15 min on 3.7x volume @ 0.002336 spread 0.04%
+   take-off: ONE vetoed by pump guard: blocked 26 more min
+   scanner: ONE: +7.9% in 15 min on 3.9x volume @ 0.002362 spread 0.04%
+   take-off: ONE vetoed by pump guard: blocked 24 more min
+   scanner: ONE: +7.3% in 15 min on 4.0x volume @ 0.002349 spread 0.04%
+   take-off: ONE vetoed by pump guard: blocked 23 more min
+   scanner: ONE: +6.8% in 15 min on 3.9x volume @ 0.002349 spread 0.04%
+   take-off: ONE vetoed by pump guard: blocked 22 more min
+   dex screen: REJECT FOTF@solana liq $2,966,492 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: REJECT FOTF@solana liq $1,437,946 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 53
+   dex screen: REJECT FOTF@solana liq $1,408,389 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: REJECT FOTF@solana liq $384,581 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $360,015 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE REBOOT@base liq $370,593 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DENIM@base liq $360,015 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT BUSTED@solana liq $1,505,152 - holders unknown; lp holders unknown; rugcheck danger: Low Liquidity
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,016 pools (solana 2,125 / base 458 / ethereum 433), refresh cycle 118s (hot 113s), 3160 calls (110 feed, 429s 0, failed 0), 91,497 refreshed (15574 no pair), +77 added / -64 dropped (dead 25, stale 0, cap 39), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+[2026-11-07 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/mover     equity $210.06 (-58.0%) 1 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/social_heat equity $345.55 (-30.9%) 2 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/breakout10 equity $391.16 (-21.8%) 1 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 11:05 UTC] crypto/hold_btc  equity $456.39 (-8.7%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), ONE 40 (40/0/0), ONDO 35 (35/0/0), PENGU 32 (32/0/0), SOL 29 (29/0/0)
