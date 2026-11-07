@@ -1,11 +1,11 @@
 {
- "at": "2026-11-07T03:30Z",
+ "at": "2026-11-07T03:42Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (32s)",
+  "live watcher fresh (56s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,16 +13,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 20 backup sources answering",
+  "all 18 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 6 min ago",
+  "engine ran 18 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T03:42Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-07T03:30Z",
    "fixes": [
@@ -502,17 +509,6 @@
    "at": "2026-11-05T23:11Z",
    "fixes": [
     "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T23:10Z",
-   "fixes": [
-    "live watch 42120688797 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
    ],
    "problems": [
     "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
