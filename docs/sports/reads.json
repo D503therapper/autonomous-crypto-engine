@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T05:22Z",
+ "updated": "2026-11-07T05:40Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -1258,8 +1258,8 @@
    "away": "Tarleton St",
    "home": "San Diego",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1391,6 +1391,21 @@
    "start": "2026-11-07T03:30Z",
    "away": "North Florida",
    "home": "UCLA",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929001",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T04:59Z",
+   "away": "Bethesda",
+   "home": "Hawai'i",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2187,13 +2202,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Predators",
-    "opp": "Blues",
+    "team": "Blues",
+    "opp": "Predators",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.707,
-    "win_p": 0.493,
+    "p": 0.721,
+    "win_p": 0.508,
     "reasons": []
    }
   },
@@ -4630,7 +4645,7 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -238,
     "p": 0.67,
     "win_p": 0.451,
     "reasons": []
@@ -5280,9 +5295,9 @@
     "team": "Dayton",
     "opp": "N Illinois",
     "market": "spread",
-    "line": -20.5,
-    "odds": -105,
-    "p": 0.534,
+    "line": -19.5,
+    "odds": -115,
+    "p": 0.54,
     "win_p": 0.959,
     "reasons": [
      "the stronger team",
@@ -5377,7 +5392,7 @@
     "line": 8.5,
     "odds": -108,
     "p": 0.53,
-    "win_p": 0.255,
+    "win_p": 0.256,
     "reasons": [
      "hotter recent form"
     ]
@@ -6093,7 +6108,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.611,
+    "p": 0.615,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -6109,9 +6124,9 @@
     "opp": "Magic",
     "market": "ml",
     "line": null,
-    "odds": -253,
-    "p": 0.69,
-    "win_p": 0.69,
+    "odds": -258,
+    "p": 0.695,
+    "win_p": 0.695,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -6445,9 +6460,9 @@
     "team": "Santa Clara",
     "opp": "Sacramento St",
     "market": "spread",
-    "line": -20.5,
-    "odds": -102,
-    "p": 0.523,
+    "line": -19.5,
+    "odds": -118,
+    "p": 0.529,
     "win_p": 0.945,
     "reasons": [
      "the stronger team",
@@ -6478,7 +6493,7 @@
     "opp": "UC Irvine",
     "market": "spread",
     "line": 8.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.508,
     "win_p": 0.272,
     "reasons": [
@@ -6494,7 +6509,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.562,
+    "p": 0.542,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -6510,9 +6525,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -152,
+    "p": 0.579,
+    "win_p": 0.579,
     "reasons": [
      "the stronger team"
     ]
