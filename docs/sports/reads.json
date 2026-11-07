@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T22:36Z",
+ "updated": "2026-11-07T22:50Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -969,8 +969,8 @@
    "away": "UT Martin",
    "home": "Charleston So",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -1014,8 +1014,8 @@
    "away": "Georgia St",
    "home": "App State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1329,8 +1329,8 @@
    "away": "Long Island",
    "home": "La Salle",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1614,8 +1614,8 @@
    "away": "PSU Shenango",
    "home": "Mercyhurst",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1962,150 +1962,34 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401860911",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Boise St",
-    "p": 0.758,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-07T23:00Z",
-   "away": "Boise St",
-   "home": "Colorado St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Boise St",
-    "opp": "Colorado St",
-    "market": "spread",
-    "line": -15.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.77,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401926825",
+   "id": "ncaab:401925106",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "G Washington",
-    "p": 0.867,
-    "tie": 0.022,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-07T23:00Z",
-   "away": "Hampton",
-   "home": "G Washington",
-   "why": "coin_flip",
+   "start": "2026-11-07T22:30Z",
+   "away": "Prairie View",
+   "home": "UT Rio Grande",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Hampton",
-    "opp": "G Washington",
-    "market": "spread",
-    "line": 20.5,
-    "odds": -115,
-    "p": 0.51,
-    "win_p": 0.064,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401868108",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Montana St",
-    "p": 0.751,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-07T23:00Z",
-   "away": "Montana St",
-   "home": "Idaho St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Montana St",
-    "opp": "Idaho St",
-    "market": "spread",
-    "line": -15.5,
-    "odds": -113,
-    "p": 0.501,
-    "win_p": 0.762,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401924895",
+   "id": "ncaab:401922291",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "New Mexico",
-    "p": 0.924,
-    "tie": 0.014,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-07T23:00Z",
-   "away": "N Arizona",
-   "home": "New Mexico",
-   "why": "coin_flip",
+   "start": "2026-11-07T22:30Z",
+   "away": "W Carolina",
+   "home": "UNC Asheville",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "N Arizona",
-    "opp": "New Mexico",
-    "market": "spread",
-    "line": 28.5,
-    "odds": -112,
-    "p": 0.512,
-    "win_p": 0.027,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401867862",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "S Illinois",
-    "p": 0.567,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-07T23:00Z",
-   "away": "S Illinois",
-   "home": "Indiana St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "S Illinois",
-    "opp": "Indiana St",
-    "market": "ml",
-    "line": null,
-    "odds": -208,
-    "p": 0.553,
-    "win_p": 0.553,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401856745",
@@ -2628,7 +2512,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Iowa",
-    "p": 0.533,
+    "p": 0.543,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2644,9 +2528,9 @@
     "opp": "Northwestern",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.519,
-    "win_p": 0.519,
+    "odds": -162,
+    "p": 0.524,
+    "win_p": 0.524,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win"
@@ -2906,7 +2790,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.618,
+    "p": 0.608,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2922,12 +2806,12 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -216,
-    "p": 0.665,
-    "win_p": 0.665,
+    "odds": -205,
+    "p": 0.651,
+    "win_p": 0.651,
     "reasons": [
-     "sharp money moving this way",
      "the stronger team",
+     "sharp money moving this way",
      "opponent on a back-to-back"
     ]
    }
@@ -3369,8 +3253,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.634,
-    "tie": 0.031,
+    "p": 0.621,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -3378,16 +3262,16 @@
    "start": "2026-11-08T02:30Z",
    "away": "Hawai'i",
    "home": "UTEP",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Hawai'i",
     "opp": "UTEP",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.632,
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.618,
+    "win_p": 0.618,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -3553,8 +3437,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC Irvine",
-    "p": 0.684,
-    "tie": 0.038,
+    "p": 0.692,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3569,9 +3453,9 @@
     "opp": "UC Irvine",
     "market": "spread",
     "line": 8.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.508,
-    "win_p": 0.242,
+    "win_p": 0.233,
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win",
