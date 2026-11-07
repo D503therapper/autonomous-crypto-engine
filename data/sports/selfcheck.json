@@ -6,8 +6,8 @@
   "all": {
    "extra_edge": 0.0,
    "hit": 0.516,
-   "n": 248,
-   "said": 0.504,
+   "n": 250,
+   "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
@@ -26,9 +26,9 @@
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.528,
-   "n": 53,
-   "said": 0.505,
+   "hit": 0.527,
+   "n": 55,
+   "said": 0.51,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:rival": {
@@ -166,17 +166,17 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.54,
-   "n": 213,
+   "hit": 0.542,
+   "n": 214,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
    "extra_edge": 0.0,
-   "hit": 0.4,
-   "n": 15,
-   "said": 0.534,
-   "verdict": "only 15 graded - report only"
+   "hit": 0.375,
+   "n": 16,
+   "said": 0.542,
+   "verdict": "only 16 graded - report only"
   },
   "drama:theirs": {
    "extra_edge": 0.0,
@@ -209,8 +209,8 @@
   "label:parlay leg": {
    "extra_edge": 0.0,
    "hit": 0.516,
-   "n": 184,
-   "said": 0.504,
+   "n": 186,
+   "said": 0.506,
    "verdict": "hitting at or above what we said"
   },
   "label:value": {
@@ -236,10 +236,10 @@
   },
   "league:ncaab": {
    "extra_edge": 0.0,
-   "hit": 0.25,
-   "n": 4,
-   "said": 0.542,
-   "verdict": "only 4 graded - report only"
+   "hit": 0.333,
+   "n": 6,
+   "said": 0.574,
+   "verdict": "only 6 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -278,10 +278,10 @@
   },
   "market:spread": {
    "extra_edge": 0.0,
-   "hit": 0.391,
-   "n": 23,
-   "said": 0.52,
-   "verdict": "only 23 graded - report only"
+   "hit": 0.4,
+   "n": 25,
+   "said": 0.529,
+   "verdict": "only 25 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
@@ -300,8 +300,8 @@
   "price:-149..-101": {
    "extra_edge": 0.0,
    "hit": 0.566,
-   "n": 143,
-   "said": 0.542,
+   "n": 145,
+   "said": 0.543,
    "verdict": "hitting at or above what we said"
   },
   "price:pick'em": {
@@ -321,8 +321,8 @@
   "source:pregame": {
    "extra_edge": 0.0,
    "hit": 0.518,
-   "n": 226,
-   "said": 0.498,
+   "n": 228,
+   "said": 0.499,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:contract year": {
@@ -411,5 +411,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-07T01:44Z"
+ "updated": "2026-11-07T02:38Z"
 }
