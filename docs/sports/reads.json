@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T21:41Z",
+ "updated": "2026-11-07T21:42Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -600,7 +600,7 @@
    "home": "Kansas St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Kansas St",
@@ -611,7 +611,7 @@
     "p": 0.356,
     "win_p": 0.356,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -684,8 +684,8 @@
    "away": "Samford",
    "home": "ETSU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -714,8 +714,8 @@
    "away": "St Thomas",
    "home": "Butler",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1695,6 +1695,36 @@
    "lean": null
   },
   {
+   "id": "ncaab:401925839",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T21:30Z",
+   "away": "Cheyney (PA)",
+   "home": "MD Eastern",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401929039",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T21:30Z",
+   "away": "East West",
+   "home": "Lindenwood",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892664",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2585,8 +2615,8 @@
     "market": "spread",
     "line": -14.0,
     "odds": -110,
-    "p": 0.516,
-    "win_p": 0.757,
+    "p": 0.514,
+    "win_p": 0.76,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2967,7 +2997,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.724,
+    "p": 0.719,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2982,10 +3012,10 @@
     "team": "Thunder",
     "opp": "Wizards",
     "market": "spread",
-    "line": -12.5,
-    "odds": -103,
-    "p": 0.505,
-    "win_p": 0.833,
+    "line": -11.5,
+    "odds": -112,
+    "p": 0.504,
+    "win_p": 0.826,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3171,8 +3201,8 @@
     "market": "ml",
     "line": null,
     "odds": -105,
-    "p": 0.503,
-    "win_p": 0.503,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "altitude edge",
      "sharp money moving this way"
