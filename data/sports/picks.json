@@ -35099,6 +35099,12 @@
      "game:conf"
     ],
     "dec": 2.24,
+    "decider": {
+     "h": "32-0",
+     "s": "60-10",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -35140,6 +35146,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,25,14,14",
+     "h": "0,0,0,10"
+    },
     "form_state": [
      7.0,
      1,
@@ -35188,11 +35198,13 @@
     "raw_own": 0.817,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Tulsa 60 @ Tulane 10",
     "score_fact": "our own read has them 38.9 points better than the price says (a home dog the books overprice); the favorite lost its last game - dog score +14 over the gate of 4",
     "season_games": null,
+    "settled": "2026-11-07T20:17Z",
     "side": "home",
     "start": "2026-11-07T17:00Z",
     "stype": "2",
@@ -35209,12 +35221,14 @@
    }
   ],
   "p_hit": 0.4792,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-07T16:00Z",
   "round": 1,
+  "settled": "2026-11-07T20:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 240,

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T20:16Z",
+ "updated": "2026-11-07T20:18Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -174,8 +174,8 @@
    "away": "Morehead St",
    "home": "Marist",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -307,7 +307,7 @@
    "home": "Tulane",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Tulane",
@@ -318,7 +318,7 @@
     "p": 0.479,
     "win_p": 0.479,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -2690,7 +2690,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Bonaventure",
-    "p": 0.707,
+    "p": 0.698,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2708,7 +2708,7 @@
     "line": 9.5,
     "odds": -112,
     "p": 0.535,
-    "win_p": 0.213,
+    "win_p": 0.223,
     "reasons": [
      "hotter recent form"
     ]
