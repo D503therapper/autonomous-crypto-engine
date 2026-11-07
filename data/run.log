@@ -14924,3 +14924,37 @@ error: failed to push some refs to 'https://githu
    [alert] Today -11.72 | Total -349.46: Stocks: $476.55  today +0.00  total -23.45
 DEX: $673.99  today -11.72  total -326.01
 DEX: $673.99 (-326.01) · Scammed: 11 (-$216.49)
+   footprint: QNT: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.5%, 2 volume hikes, 65% quiet hours @ 195.757
+   dex screen: REJECT PROMPT@base liq $105,099 - is_mintable; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT PROS@base liq $846,611 - pool age unknown
+   dex screen: REJECT SLC@base liq $102,159 - top-10 holders 43%; lp locked 0% < 95%
+   dex screen: UNREACHABLE FOCO@ethereum liq $110,704 - honeypot.is unreachable
+   dex screen: REJECT GTA6@solana liq $121,725 - lp holders unknown; rugcheck lp locked 44% < 95%
+   dex screen: PASS SPX@ethereum liq $10,388,204
+   dex screen: UNREACHABLE REBOOT@base liq $311,268 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT XDP@base liq $1,599,201 - top-10 holders 93%
+   dex screen: UNREACHABLE FOCO@ethereum liq $117,082 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT AZTEC@ethereum liq $11,797,978 - top-10 holders 100%
+   dex screen: REJECT SWORDCAT@solana liq $148,329 - lp holders unknown; rugcheck lp locked 73% < 95%
+   dex screen: REJECT FLOAT@solana liq $717,635 - lp locked 0% < 95%
+   dex screen: UNREACHABLE REBOOT@base liq $307,933 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT GHO@ethereum liq $138,510 - 24h volume $60,085 < $100,000
+   dex screen: UNREACHABLE FOCO@ethereum liq $120,319 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: UNREACHABLE REBOOT@base liq $311,972 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex scanner: 3,000 pools (solana 2,074 / base 454 / ethereum 472), refresh cycle 120s (hot 113s), 3115 calls (110 feed, 429s 0, failed 0), 90,133 refreshed (15629 no pair), +67 added / -64 dropped (dead 23, stale 0, cap 41), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-07 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/mover     equity $206.55 (-58.7%) 1 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/social_heat equity $343.27 (-31.3%) 3 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/breakout10 equity $390.53 (-21.9%) 1 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 23:05 UTC] crypto/hold_btc  equity $454.99 (-9.0%) 1 open  market DOWN
+   social heat top: BTC 40 (35/0/5), HYPE 32 (32/0/0), NEAR 29 (29/0/0), PONS 28 (19/0/9), MON 21 (21/0/0)
