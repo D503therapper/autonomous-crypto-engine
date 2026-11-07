@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T19:18Z",
+ "updated": "2026-11-07T19:26Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -246,8 +246,8 @@
    "away": "North Dakota",
    "home": "Winthrop",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -810,6 +810,36 @@
    "lean": null
   },
   {
+   "id": "ncaab:401920770",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T19:00Z",
+   "away": "Colgate",
+   "home": "Drexel",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920156",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T19:00Z",
+   "away": "Fullerton",
+   "home": "South Dakota",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868379",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -818,6 +848,21 @@
    "start": "2026-11-07T19:00Z",
    "away": "Furman",
    "home": "The Citadel",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401866685",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-07T19:00Z",
+   "away": "Hampton",
+   "home": "Elon",
    "h1": null,
    "why": "started",
    "done": false,
@@ -908,6 +953,21 @@
    "start": "2026-11-07T19:00Z",
    "away": "UNC Wilmington",
    "home": "East Carolina",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868176",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-07T19:00Z",
+   "away": "UT Martin",
+   "home": "Charleston So",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1780,7 +1840,7 @@
    "h1": {
     "team": "Austin Peay",
     "p": 0.805,
-    "tie": 0.022,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1794,9 +1854,9 @@
     "team": "Austin Peay",
     "opp": "E Kentucky",
     "market": "spread",
-    "line": -19.5,
-    "odds": -113,
-    "p": 0.501,
+    "line": -17.5,
+    "odds": -105,
+    "p": 0.502,
     "win_p": 0.864,
     "reasons": [
      "the stronger team"
@@ -2620,8 +2680,8 @@
     "team": "C Arkansas",
     "opp": "West Georgia",
     "market": "spread",
-    "line": -13.5,
-    "odds": -113,
+    "line": -14.0,
+    "odds": -118,
     "p": 0.502,
     "win_p": 0.817,
     "reasons": [
@@ -3526,10 +3586,10 @@
     "team": "Nets",
     "opp": "Hawks",
     "market": "spread",
-    "line": -7.5,
-    "odds": -108,
+    "line": 6.5,
+    "odds": -102,
     "p": 0.5,
-    "win_p": 0.736,
+    "win_p": 0.231,
     "reasons": [
      "opponent missing key players",
      "opponent on a back-to-back",
@@ -4887,7 +4947,7 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -192,
     "p": 0.661,
     "win_p": 0.442,
     "reasons": [
