@@ -14265,3 +14265,31 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-07 01:28 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-07 01:28 UTC] crypto/hold_btc  equity $455.92 (-8.8%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), BTC 40 (35/0/5), NEAR 29 (29/0/0), MON 27 (27/0/0), ETH 27 (27/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '76292.41', 'l': '74770.02', 'a': '75823.17', 'v': '5828.4409', 'vv': '441429593.95', 'c': '-0.0024', 'b': '75822.41', 'k': '75822.42', 'oi': '0', 't': 1794014896609}
+   dex screen: REJECT DRV@base liq $1,258,325 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DENIM@base liq $363,198 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SOL@base liq $93,999 - liquidity $93,999 < $100,000; pool age unknown
+   dex screen: REJECT ANSEM@solana liq $317,701,546 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,319 - top-10 holders 100%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]              7509ceaee780f94b47fb5204597cdd4de8eaf1c0 -> main (fetch first)
+error: failed to push some refs to 'https://githu
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE DENIM@base liq $365,324 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE SP@ethereum liq $131,403 - honeypot.is unreachable
+   dex screen: PASS COGE@solana liq $279,264
+   dex screen: REJECT NVDAC@base liq $877,067 - pool age unknown
+   dex scanner: 3,000 pools (solana 1,987 / base 582 / ethereum 431), refresh cycle 114s (hot 109s), 1747 calls (80 feed, 429s 0, failed 0), 50,001 refreshed (7733 no pair), +262 added / -209 dropped (dead 9, stale 6, cap 194), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-07 02:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/mover     equity $210.85 (-57.8%) 1 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/social_heat equity $346.56 (-30.7%) 2 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/breakout10 equity $393.63 (-21.3%) 1 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-07 02:06 UTC] crypto/hold_btc  equity $456.74 (-8.7%) 1 open  market DOWN
+   social heat top: PEPE 35 (35/0/0), PENGU 32 (32/0/0), BTC 32 (27/0/5), ETH 29 (29/0/0), LINK 27 (27/0/0)
