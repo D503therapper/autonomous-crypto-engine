@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 186,
-  "beat": 61,
+  "n": 187,
+  "beat": 62,
   "same": 71,
   "worse": 54,
-  "avg_pts": 0.1
+  "avg_pts": 0.11
  },
  "unit_plays": {
   "n": 86,
@@ -22,11 +22,11 @@
    "avg_pts": -0.16
   },
   "lean": {
-   "n": 100,
-   "beat": 33,
+   "n": 101,
+   "beat": 34,
    "same": 34,
    "worse": 33,
-   "avg_pts": 0.04
+   "avg_pts": 0.05
   },
   "lock": {
    "n": 13,
@@ -59,11 +59,11 @@
    "avg_pts": 0.45
   },
   "ncaab": {
-   "n": 3,
-   "beat": 1,
+   "n": 4,
+   "beat": 2,
    "same": 2,
    "worse": 0,
-   "avg_pts": 0.53
+   "avg_pts": 0.62
   },
   "ncaaf": {
    "n": 47,
@@ -2721,6 +2721,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Youngstown St",
+   "market": "spread",
+   "line": 25.5,
+   "odds": -108,
+   "close": -112,
+   "pts": 0.9,
+   "units": 0,
+   "result": "won"
   }
  ]
 }
