@@ -124,8 +124,44 @@
     "injuries": "pass",
     "college_games": "pass"
    }
+  },
+  "play|nhl:401892667|away|ml": {
+   "key": "play|nhl:401892667|away|ml",
+   "kind": "play",
+   "team": "Devils",
+   "odds": -148,
+   "league": "nhl",
+   "units": 0.5,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "goalies": "pass"
+   }
+  },
+  "play|ncaaf:401858286|home|ml": {
+   "key": "play|ncaaf:401858286|home|ml",
+   "kind": "dogplay",
+   "team": "NC State",
+   "odds": 160,
+   "league": "ncaaf",
+   "units": 0.5,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
   }
  },
- "updated": "2026-11-07T16:00Z",
+ "updated": "2026-11-07T16:56Z",
  "held": []
 }
