@@ -28,6 +28,7 @@
     "ncaab:401929293",
     "ncaab:401911007",
     "ncaab:401920411",
+    "ncaab:401920703",
     "ncaab:401928788",
     "ncaab:401925106",
     "ncaab:401924895",
@@ -59,6 +60,7 @@
     "Omaha @ Utah State",
     "Bellarmine @ Miami OH",
     "Washington St @ High Point",
+    "SIUE @ Lipscomb",
     "New Mexico St @ Gonzaga",
     "Prairie View @ UT Rio Grande",
     "N Arizona @ New Mexico",
@@ -134,6 +136,7 @@
     "ncaab:401929293",
     "ncaab:401911007",
     "ncaab:401920411",
+    "ncaab:401920703",
     "ncaab:401928788",
     "ncaab:401925106",
     "ncaab:401924895",
@@ -165,6 +168,7 @@
     "Omaha @ Utah State",
     "Bellarmine @ Miami OH",
     "Washington St @ High Point",
+    "SIUE @ Lipscomb",
     "New Mexico St @ Gonzaga",
     "Prairie View @ UT Rio Grande",
     "N Arizona @ New Mexico",
@@ -949,13 +953,13 @@
    ],
    "league": "ncaaf",
    "outcome": "home",
-   "price_said": 311.2,
-   "record": "329-150",
+   "price_said": 311.9,
+   "record": "330-150",
    "season": 2026,
    "side": 1,
    "situation": "big favorite",
-   "streak": 0,
-   "strength": 2.21,
+   "streak": 1,
+   "strength": 2.25,
    "trend": "home team wins",
    "upcoming": [
     "ncaaf:401856853",
@@ -1394,92 +1398,14 @@
     "rate"
    ],
    "league": "ncaaf",
-   "outcome": "total",
-   "price_said": 4.5,
-   "record": "6-3",
-   "season": 2026,
-   "side": 1,
-   "situation": "tuesday",
-   "streak": 1,
-   "strength": 1.0,
-   "trend": "over",
-   "upcoming": [
-    "ncaaf:401866458",
-    "ncaaf:401866459",
-    "ncaaf:401866460"
-   ],
-   "upcoming_names": [
-    "W Michigan @ Akron",
-    "Kent State @ Bowling Green",
-    "Ohio @ Miami OH"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaaf",
-   "outcome": "fav_cover",
-   "price_said": 4.5,
-   "record": "6-3",
-   "season": 2026,
-   "side": 0,
-   "situation": "tuesday",
-   "streak": 2,
-   "strength": 1.0,
-   "trend": "underdogs cover",
-   "upcoming": [
-    "ncaaf:401866458",
-    "ncaaf:401866459",
-    "ncaaf:401866460"
-   ],
-   "upcoming_names": [
-    "W Michigan @ Akron",
-    "Kent State @ Bowling Green",
-    "Ohio @ Miami OH"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaaf",
-   "outcome": "home",
-   "price_said": 5.6,
-   "record": "7-3",
-   "season": 2026,
-   "side": 0,
-   "situation": "wednesday",
-   "streak": 2,
-   "strength": 0.97,
-   "trend": "road team wins",
-   "upcoming": [
-    "ncaaf:401866463",
-    "ncaaf:401866461",
-    "ncaaf:401866462"
-   ],
-   "upcoming_names": [
-    "UMass @ Toledo",
-    "Buffalo @ Ball State",
-    "Sacramento St @ C Michigan"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaaf",
    "outcome": "fav_ml",
-   "price_said": 385.2,
-   "record": "394-114",
+   "price_said": 385.9,
+   "record": "395-114",
    "season": 2026,
    "side": 1,
    "situation": "home favorite",
-   "streak": 3,
-   "strength": 0.96,
+   "streak": 4,
+   "strength": 1.0,
    "trend": "favorites win",
    "upcoming": [
     "ncaaf:401856849",
@@ -1628,6 +1554,84 @@
     "Missouri @ Georgia",
     "Florida @ Kentucky",
     "Texas @ LSU"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "ncaaf",
+   "outcome": "total",
+   "price_said": 4.5,
+   "record": "6-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "tuesday",
+   "streak": 1,
+   "strength": 1.0,
+   "trend": "over",
+   "upcoming": [
+    "ncaaf:401866458",
+    "ncaaf:401866459",
+    "ncaaf:401866460"
+   ],
+   "upcoming_names": [
+    "W Michigan @ Akron",
+    "Kent State @ Bowling Green",
+    "Ohio @ Miami OH"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "ncaaf",
+   "outcome": "fav_cover",
+   "price_said": 4.5,
+   "record": "6-3",
+   "season": 2026,
+   "side": 0,
+   "situation": "tuesday",
+   "streak": 2,
+   "strength": 1.0,
+   "trend": "underdogs cover",
+   "upcoming": [
+    "ncaaf:401866458",
+    "ncaaf:401866459",
+    "ncaaf:401866460"
+   ],
+   "upcoming_names": [
+    "W Michigan @ Akron",
+    "Kent State @ Bowling Green",
+    "Ohio @ Miami OH"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "ncaaf",
+   "outcome": "home",
+   "price_said": 5.6,
+   "record": "7-3",
+   "season": 2026,
+   "side": 0,
+   "situation": "wednesday",
+   "streak": 2,
+   "strength": 0.97,
+   "trend": "road team wins",
+   "upcoming": [
+    "ncaaf:401866463",
+    "ncaaf:401866461",
+    "ncaaf:401866462"
+   ],
+   "upcoming_names": [
+    "UMass @ Toledo",
+    "Buffalo @ Ball State",
+    "Sacramento St @ C Michigan"
    ],
    "verdict": "coin flip"
   },
@@ -2131,33 +2135,15 @@
    "families": [
     "rate"
    ],
-   "league": "ncaab",
-   "outcome": "home",
-   "price_said": 8.5,
-   "record": "8-2",
-   "season": 2026,
-   "side": 1,
-   "situation": "wednesday",
-   "streak": 0,
-   "strength": -0.5,
-   "trend": "home team wins",
-   "upcoming": [],
-   "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
    "league": "ncaaf",
    "outcome": "fav_ml",
-   "price_said": 396.2,
-   "record": "392-87",
+   "price_said": 396.9,
+   "record": "393-87",
    "season": 2026,
    "side": 1,
    "situation": "big favorite",
-   "streak": 3,
-   "strength": -0.52,
+   "streak": 4,
+   "strength": -0.48,
    "trend": "favorites win",
    "upcoming": [
     "ncaaf:401856853",
@@ -2273,6 +2259,24 @@
     "Baylor @ BYU",
     "Missouri @ Georgia"
    ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "ncaab",
+   "outcome": "home",
+   "price_said": 8.5,
+   "record": "8-2",
+   "season": 2026,
+   "side": 1,
+   "situation": "wednesday",
+   "streak": 0,
+   "strength": -0.5,
+   "trend": "home team wins",
+   "upcoming": [],
+   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -2833,13 +2837,13 @@
    "hit": 0.689,
    "hit_new": 0.6899,
    "hit_old": 0.6882,
-   "n": 235443,
-   "n_new": 117722,
-   "n_old": 117721,
+   "n": 235447,
+   "n_new": 117724,
+   "n_old": 117723,
    "said": 0.68,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 10.19
+   "z": 10.2
   },
   "mlb|all": {
    "edge": 0.0043,
@@ -3339,35 +3343,35 @@
   },
   "ncaaf|all": {
    "edge": 0.0068,
-   "edge_new": 0.0088,
-   "edge_old": 0.0047,
+   "edge_new": 0.009,
+   "edge_old": 0.0046,
    "from": "2018-08-31",
    "hit": 0.7183,
-   "hit_new": 0.7129,
-   "hit_old": 0.7237,
-   "n": 30256,
-   "n_new": 15128,
-   "n_old": 15128,
+   "hit_new": 0.713,
+   "hit_old": 0.7236,
+   "n": 30260,
+   "n_new": 15130,
+   "n_old": 15130,
    "said": 0.7115,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 2.91
+   "z": 2.93
   },
   "ncaaf|rate": {
    "edge": 0.0074,
-   "edge_new": 0.0072,
-   "edge_old": 0.0076,
+   "edge_new": 0.0074,
+   "edge_old": 0.0075,
    "from": "2018-09-01",
    "hit": 0.7235,
-   "hit_new": 0.7147,
-   "hit_old": 0.7323,
-   "n": 22853,
-   "n_new": 11427,
-   "n_old": 11426,
+   "hit_new": 0.7149,
+   "hit_old": 0.7321,
+   "n": 22856,
+   "n_new": 11428,
+   "n_old": 11428,
    "said": 0.7161,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 2.79
+   "z": 2.81
   },
   "ncaaf|rate|fav_cover": {
    "edge": 0.0094,
@@ -3387,35 +3391,35 @@
   },
   "ncaaf|rate|fav_ml": {
    "edge": 0.0043,
-   "edge_new": 0.0041,
-   "edge_old": 0.0044,
+   "edge_new": 0.0043,
+   "edge_old": 0.0043,
    "from": "2018-09-01",
    "hit": 0.7712,
-   "hit_new": 0.7627,
-   "hit_old": 0.7797,
-   "n": 15472,
-   "n_new": 7736,
-   "n_old": 7736,
+   "hit_new": 0.7628,
+   "hit_old": 0.7796,
+   "n": 15474,
+   "n_new": 7737,
+   "n_old": 7737,
    "said": 0.7669,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 1.32
+   "z": 1.34
   },
   "ncaaf|rate|home": {
    "edge": 0.012,
-   "edge_new": 0.0142,
+   "edge_new": 0.0143,
    "edge_old": 0.0098,
    "from": "2018-09-07",
-   "hit": 0.6388,
+   "hit": 0.6389,
    "hit_new": 0.6328,
-   "hit_old": 0.6449,
-   "n": 6371,
+   "hit_old": 0.645,
+   "n": 6372,
    "n_new": 3186,
-   "n_old": 3185,
+   "n_old": 3186,
    "said": 0.6269,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 2.5
+   "z": 2.51
   },
   "ncaaf|rate|total": {
    "edge": 0.0458,
@@ -3434,20 +3438,20 @@
    "z": 2.01
   },
   "ncaaf|streak": {
-   "edge": 0.0047,
-   "edge_new": 0.0121,
-   "edge_old": -0.0027,
+   "edge": 0.0048,
+   "edge_new": 0.0122,
+   "edge_old": -0.0026,
    "from": "2018-08-31",
-   "hit": 0.7021,
+   "hit": 0.7022,
    "hit_new": 0.7048,
-   "hit_old": 0.6995,
-   "n": 7403,
+   "hit_old": 0.6996,
+   "n": 7404,
    "n_new": 3702,
-   "n_old": 3701,
+   "n_old": 3702,
    "said": 0.6974,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 0.98
+   "z": 0.99
   },
   "ncaaf|streak|fav_cover": {
    "edge": -0.0072,
@@ -3498,20 +3502,20 @@
    "z": 0.22
   },
   "ncaaf|streak|total": {
-   "edge": -0.0074,
-   "edge_new": 0.0045,
+   "edge": -0.0067,
+   "edge_new": 0.0059,
    "edge_old": -0.0193,
    "from": "2018-09-20",
-   "hit": 0.4926,
-   "hit_new": 0.5045,
+   "hit": 0.4933,
+   "hit_new": 0.5059,
    "hit_old": 0.4807,
-   "n": 674,
-   "n_new": 337,
+   "n": 675,
+   "n_new": 338,
    "n_old": 337,
    "said": 0.5,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": -0.39
+   "z": -0.35
   },
   "nfl|all": {
    "edge": -0.003,
@@ -3841,9 +3845,9 @@
    "hit": 0.71,
    "hit_new": 0.7114,
    "hit_old": 0.7085,
-   "n": 164340,
-   "n_new": 82170,
-   "n_old": 82170,
+   "n": 164343,
+   "n_new": 82172,
+   "n_old": 82171,
    "said": 0.6997,
    "status": "watch only",
    "to": "2026-11-06",
@@ -3873,9 +3877,9 @@
    "hit": 0.7378,
    "hit_new": 0.7389,
    "hit_old": 0.7367,
-   "n": 115391,
-   "n_new": 57696,
-   "n_old": 57695,
+   "n": 115393,
+   "n_new": 57697,
+   "n_old": 57696,
    "said": 0.7276,
    "status": "watch only",
    "to": "2026-11-06",
@@ -3883,15 +3887,15 @@
   },
   "rate|home": {
    "edge": 0.0115,
-   "edge_new": 0.0125,
+   "edge_new": 0.0126,
    "edge_old": 0.0104,
    "from": "2018-03-31",
    "hit": 0.6637,
-   "hit_new": 0.6669,
+   "hit_new": 0.667,
    "hit_old": 0.6604,
-   "n": 43091,
+   "n": 43092,
    "n_new": 21546,
-   "n_old": 21545,
+   "n_old": 21546,
    "said": 0.6522,
    "status": "watch only",
    "to": "2026-11-06",
@@ -3918,16 +3922,16 @@
    "edge_new": 0.0067,
    "edge_old": 0.0059,
    "from": "2018-04-06",
-   "hit": 0.6406,
+   "hit": 0.6407,
    "hit_new": 0.6421,
    "hit_old": 0.6392,
-   "n": 71103,
+   "n": 71104,
    "n_new": 35552,
-   "n_old": 35551,
+   "n_old": 35552,
    "said": 0.6343,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 3.74
+   "z": 3.75
   },
   "streak|fav_cover": {
    "edge": -0.0053,
@@ -3978,27 +3982,27 @@
    "z": 1.84
   },
   "streak|total": {
-   "edge": 0.0022,
-   "edge_new": 0.0047,
+   "edge": 0.0023,
+   "edge_new": 0.0048,
    "edge_old": -0.0002,
    "from": "2018-04-06",
-   "hit": 0.5022,
-   "hit_new": 0.5047,
+   "hit": 0.5023,
+   "hit_new": 0.5048,
    "hit_old": 0.4998,
-   "n": 12454,
-   "n_new": 6227,
+   "n": 12455,
+   "n_new": 6228,
    "n_old": 6227,
    "said": 0.5,
    "status": "watch only",
    "to": "2026-11-06",
-   "z": 0.5
+   "z": 0.51
   }
  },
  "follow_ups": {
   "mlb": 16135,
   "nba": 34002,
   "ncaab": 138741,
-  "ncaaf": 30256,
+  "ncaaf": 30260,
   "nfl": 5725,
   "nhl": 10584
  },
@@ -4013,5 +4017,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-11-07T06:32Z"
+ "updated": "2026-11-07T07:29Z"
 }
