@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T03:43Z",
+ "updated": "2026-11-07T03:46Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -736,8 +736,8 @@
    "away": "Ducks",
    "home": "Flames",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -840,7 +840,7 @@
    "home": "Bucks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Bucks",
@@ -855,7 +855,7 @@
      "opponent missing key players",
      "opponent missing key players: Scottie Barnes, Immanuel Quickley (their read -11)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -883,8 +883,8 @@
    "away": "Sharks",
    "home": "Wild",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1003,8 +1003,8 @@
    "away": "Timberwolves",
    "home": "Pelicans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1033,8 +1033,8 @@
    "away": "UConn",
    "home": "Michigan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1048,8 +1048,8 @@
    "away": "C Arkansas",
    "home": "Ole Miss",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1078,8 +1078,8 @@
    "away": "Idaho St",
    "home": "Wyoming",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1361,6 +1361,36 @@
    "start": "2026-11-07T03:00Z",
    "away": "Trail Blazers",
    "home": "Lakers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856855",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-07T03:15Z",
+   "away": "TCU",
+   "home": "Arizona",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401922219",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-07T03:30Z",
+   "away": "North Florida",
+   "home": "UCLA",
    "h1": null,
    "why": "started",
    "done": false,
@@ -5554,8 +5584,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.377,
-    "tie": 0.299,
+    "p": 0.393,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -5571,10 +5601,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.662,
-    "win_p": 0.443,
+    "p": 0.631,
+    "win_p": 0.41,
     "reasons": [
-     "better rested",
      "opponent drama: trade drama"
     ]
    }
@@ -5616,8 +5645,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.481,
-    "tie": 0.284,
+    "p": 0.496,
+    "tie": 0.28,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -5633,11 +5662,12 @@
     "market": "ml",
     "line": null,
     "odds": -290,
-    "p": 0.753,
-    "win_p": 0.753,
+    "p": 0.777,
+    "win_p": 0.777,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
