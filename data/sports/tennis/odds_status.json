@@ -1,16 +1,17 @@
 {
- "at": "2026-11-07T13:58Z",
- "src": null,
+ "at": "2026-11-07T15:03Z",
+ "src": "oddsapi",
  "oddsapi": {
-  "pulled": false,
-  "why": "not due (pulled since the 23:00 PT slot)",
-  "remaining": 3365
+  "pulled": true,
+  "credits_used": 1,
+  "keys": [
+   "tennis_atp_paris_masters 2"
+  ],
+  "remaining": 3364,
+  "today": 1,
+  "month": 16,
+  "tournaments": 1
  },
- "bovada": {
-  "lines": 0,
-  "url": "coupon",
-  "raw": "list 0"
- },
- "lines": 0,
+ "lines": 2,
  "cached": 2
 }
