@@ -1,29 +1,35 @@
 {
- "at": "2026-11-07T10:42Z",
+ "at": "2026-11-07T10:55Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Eala vs Sakkari: points frozen at 40-15 for 342s",
-  "live tennis scores: tennis Kabbaj vs Blinkova: no points for 1652s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 41 min ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-07T10:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
+   ]
+  },
   {
    "at": "2026-11-07T10:42Z",
    "fixes": [],
@@ -536,11 +542,6 @@
   },
   {
    "at": "2026-11-06T08:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:03Z",
    "fixes": [],
    "problems": []
   }
