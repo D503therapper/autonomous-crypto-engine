@@ -1,11 +1,11 @@
 {
- "day": "2026-11-06",
+ "day": "2026-11-07",
  "picks": {
-  "dog|ncaaf:401858510|home|ml": {
-   "key": "dog|ncaaf:401858510|home|ml",
+  "dog|ncaaf:401858289|home|ml": {
+   "key": "dog|ncaaf:401858289|home|ml",
    "kind": "dog",
-   "team": "Illinois",
-   "odds": 160,
+   "team": "Boston College",
+   "odds": 190,
    "league": "ncaaf",
    "units": 1.0,
    "lean": false,
@@ -19,14 +19,14 @@
     "college_games": "pass"
    }
   },
-  "lean|nba:401909295|away|spread": {
-   "key": "lean|nba:401909295|away|spread",
-   "kind": "lean",
-   "team": "Spurs",
-   "odds": -110,
-   "league": "nba",
-   "units": 0,
-   "lean": true,
+  "play|nhl:401892670|away|ml": {
+   "key": "play|nhl:401892670|away|ml",
+   "kind": "play",
+   "team": "Lightning",
+   "odds": -142,
+   "league": "nhl",
+   "units": 0.5,
+   "lean": false,
    "held": false,
    "why": "",
    "checks": {
@@ -36,52 +36,121 @@
     "injuries": "pass"
    }
   },
-  "lean|ncaab:401911249|home|spread": {
-   "key": "lean|ncaab:401911249|home|spread",
-   "kind": "lean",
-   "team": "Missouri",
-   "odds": -108,
-   "league": "ncaab",
-   "units": 0,
-   "lean": true,
+  "play|nhl:401892664|away|ml": {
+   "key": "play|nhl:401892664|away|ml",
+   "kind": "play",
+   "team": "Rangers",
+   "odds": -135,
+   "league": "nhl",
+   "units": 0.5,
+   "lean": false,
    "held": false,
    "why": "",
    "checks": {
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass"
+    "injuries": "pass"
    }
   },
-  "lean|ncaab:401916314|away|spread": {
-   "key": "lean|ncaab:401916314|away|spread",
-   "kind": "lean",
-   "team": "Youngstown St",
-   "odds": -108,
-   "league": "ncaab",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass"
-   }
-  },
-  "lean|ncaaf:401858288|home|spread": {
-   "key": "lean|ncaaf:401858288|home|spread",
-   "kind": "lean",
-   "team": "SMU",
-   "odds": -110,
+  "play|ncaaf:401862822|home|ml": {
+   "key": "play|ncaaf:401862822|home|ml",
+   "kind": "gap",
+   "team": "Tulane",
+   "odds": 124,
    "league": "ncaaf",
-   "units": 0,
-   "lean": true,
+   "units": 1.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
+  },
+  "play|ncaaf:401858292|home|ml": {
+   "key": "play|ncaaf:401858292|home|ml",
+   "kind": "gap",
+   "team": "UConn",
+   "odds": 240,
+   "league": "ncaaf",
+   "units": 1.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
+  },
+  "play|ncaaf:401856854|home|ml": {
+   "key": "play|ncaaf:401856854|home|ml",
+   "kind": "gap",
+   "team": "Kansas St",
+   "odds": 200,
+   "league": "ncaaf",
+   "units": 1.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
+  },
+  "play|ncaaf:401856741|home|ml": {
+   "key": "play|ncaaf:401856741|home|ml",
+   "kind": "gap",
+   "team": "Ole Miss",
+   "odds": 145,
+   "league": "ncaaf",
+   "units": 1.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
+  },
+  "play|nhl:401892667|away|ml": {
+   "key": "play|nhl:401892667|away|ml",
+   "kind": "play",
+   "team": "Devils",
+   "odds": -148,
+   "league": "nhl",
+   "units": 0.5,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "goalies": "pass"
+   }
+  },
+  "play|ncaaf:401858286|home|ml": {
+   "key": "play|ncaaf:401858286|home|ml",
+   "kind": "dogplay",
+   "team": "NC State",
+   "odds": 160,
+   "league": "ncaaf",
+   "units": 0.5,
+   "lean": false,
    "held": false,
    "why": "",
    "checks": {
@@ -93,6 +162,6 @@
    }
   }
  },
- "updated": "2026-11-06T16:00Z",
+ "updated": "2026-11-07T16:56Z",
  "held": []
 }

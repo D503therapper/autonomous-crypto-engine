@@ -1,31 +1,520 @@
 {
- "at": "2026-11-06T18:34Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
- ],
+ "at": "2026-11-07T16:39Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Riera vs Gormaz: no points for 2365s"
+  "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
  ],
  "ok": [
-  "live watcher fresh (148s)",
+  "live watcher fresh (285s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 2 live matches",
-  "slate check: all 89 of today's games named, priced and looked at",
+  "slate check: all 190 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 3 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 54 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T16:39Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
+   ]
+  },
+  {
+   "at": "2026-11-07T16:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
+   ]
+  },
+  {
+   "at": "2026-11-07T16:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
+   ]
+  },
+  {
+   "at": "2026-11-07T16:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
+   ]
+  },
+  {
+   "at": "2026-11-07T16:04Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 754s",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:31Z",
+   "fixes": [
+    "live watch 42378386323 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:28Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:26Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2417s"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:16Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 1817s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-07T14:07Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 1300s"
+   ]
+  },
+  {
+   "at": "2026-11-07T12:35Z",
+   "fixes": [
+    "live watch 42370047908 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T12:34Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T12:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T12:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T11:00Z",
+   "fixes": [
+    "live watch 42363127311 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
+   ]
+  },
+  {
+   "at": "2026-11-07T10:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-07T10:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
+   ]
+  },
+  {
+   "at": "2026-11-07T10:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
+   ]
+  },
+  {
+   "at": "2026-11-07T10:42Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Eala vs Sakkari: points frozen at 40-15 for 342s",
+    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 1652s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-07T09:23Z",
+   "fixes": [
+    "live watch 42356011921 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T09:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T09:20Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T09:18Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T09:03Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T07:28Z",
+   "fixes": [
+    "live watch 42348234660 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T07:27Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T07:25Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T07:24Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T07:21Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:48Z",
+   "fixes": [
+    "live watch 42340953764 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:47Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:45Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:44Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:42Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:32Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T05:22Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028556781 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-07T05:18Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028556781 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-07T03:45Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:43Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:42Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:20Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:16Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T03:10Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028496214 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-07T03:06Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028496214 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-07T01:33Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T01:31Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T01:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T01:29Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-07T01:18Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-07T01:09Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-07T01:08Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T23:33Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T23:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T21:59Z",
+   "fixes": [
+    "live watch 42294826597 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T21:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T21:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T21:54Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T21:44Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T20:13Z",
+   "fixes": [
+    "live watch 42279686853 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T20:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T20:09Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T20:08Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-06T18:37Z",
+   "fixes": [
+    "live watch 42265532854 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Riera vs Gormaz: no points for 2365s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-06T18:35Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Riera vs Gormaz: no points for 2365s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-06T18:34Z",
    "fixes": [
@@ -63,484 +552,6 @@
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T16:53Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-06T15:21Z",
-   "fixes": [
-    "live watch 42235266504 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-06T15:20Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-06T13:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T13:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Akugue vs Mikulskyte: no points for 475s"
-   ]
-  },
-  {
-   "at": "2026-11-06T13:09Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 119s"
-   ]
-  },
-  {
-   "at": "2026-11-06T11:36Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T11:28Z",
-   "fixes": [
-    "live watch 42204277237 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 1305s",
-    "live tennis scores: tennis Feistel vs Zaytseva: no points for 593s"
-   ]
-  },
-  {
-   "at": "2026-11-06T11:27Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 1305s",
-    "live tennis scores: tennis Feistel vs Zaytseva: no points for 593s"
-   ]
-  },
-  {
-   "at": "2026-11-06T11:25Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 1305s",
-    "live tennis scores: tennis Feistel vs Zaytseva: no points for 593s"
-   ]
-  },
-  {
-   "at": "2026-11-06T11:24Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 1305s",
-    "live tennis scores: tennis Feistel vs Zaytseva: no points for 593s"
-   ]
-  },
-  {
-   "at": "2026-11-06T11:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 1049s",
-    "live tennis scores: tennis Feistel vs Zaytseva: no points for 337s"
-   ]
-  },
-  {
-   "at": "2026-11-06T09:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T09:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T09:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T09:40Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:08Z",
-   "fixes": [
-    "live watch 42180060478 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T07:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T06:27Z",
-   "fixes": [
-    "live watch 42169453547 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T06:25Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T06:24Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T06:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T06:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:47Z",
-   "fixes": [
-    "live watch 42159550064 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T04:25Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T02:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T02:28Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-06T02:26Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-06T02:25Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1029342706 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-06T02:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T00:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T00:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-05T23:11Z",
-   "fixes": [
-    "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T23:10Z",
-   "fixes": [
-    "live watch 42120688797 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T23:08Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T23:06Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T23:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T22:23Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:20Z",
-   "fixes": [
-    "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:19Z",
-   "fixes": [
-    "live watch 42103891340 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:17Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T21:12Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:41Z",
-   "fixes": [
-    "live watch 42088306393 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
-    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:40Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
-    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:38Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
-    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:37Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-05 Arthur Fils) - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2613s",
-    "live tennis scores: tennis Andreescu vs Giovannini: no points for 301s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:31Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2349s"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 1759s"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 1156s",
-    "live tennis scores: tennis Zarazua vs Riera: no points for 1156s"
-   ]
-  },
-  {
-   "at": "2026-11-05T19:01Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 542s",
-    "live tennis scores: tennis Zarazua vs Riera: no points for 542s"
-   ]
-  },
-  {
-   "at": "2026-11-05T18:55Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 170s",
-    "live tennis scores: tennis Zarazua vs Riera: no points for 170s"
-   ]
-  },
-  {
-   "at": "2026-11-05T17:22Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Buse vs Borges: no points for 531s",
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 590s",
-    "live tennis scores: tennis Zarazua vs Riera: no points for 590s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-05T15:50Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-05T15:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-05T15:25Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-05T15:20Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-05T15:10Z",
-   "fixes": [],
    "problems": []
   }
  ]

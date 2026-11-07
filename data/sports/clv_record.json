@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 186,
-  "beat": 61,
-  "same": 71,
+  "n": 190,
+  "beat": 63,
+  "same": 73,
   "worse": 54,
-  "avg_pts": 0.1
+  "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 86,
+  "n": 88,
   "beat": 28,
-  "same": 37,
+  "same": 39,
   "worse": 21,
-  "avg_pts": 0.18
+  "avg_pts": 0.17
  },
  "by_kind": {
   "dog": {
-   "n": 24,
+   "n": 25,
    "beat": 6,
-   "same": 11,
+   "same": 12,
    "worse": 7,
-   "avg_pts": -0.16
+   "avg_pts": -0.15
   },
   "lean": {
-   "n": 100,
-   "beat": 33,
+   "n": 102,
+   "beat": 35,
    "same": 34,
    "worse": 33,
-   "avg_pts": 0.04
+   "avg_pts": 0.05
   },
   "lock": {
    "n": 13,
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 49,
+   "n": 50,
    "beat": 15,
-   "same": 22,
+   "same": 23,
    "worse": 12,
    "avg_pts": 0.1
   }
@@ -52,23 +52,23 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 26,
+   "n": 27,
    "beat": 12,
-   "same": 9,
+   "same": 10,
    "worse": 5,
-   "avg_pts": 0.45
+   "avg_pts": 0.43
   },
   "ncaab": {
-   "n": 3,
-   "beat": 1,
+   "n": 5,
+   "beat": 3,
    "same": 2,
    "worse": 0,
-   "avg_pts": 0.53
+   "avg_pts": 0.6
   },
   "ncaaf": {
-   "n": 47,
+   "n": 48,
    "beat": 14,
-   "same": 19,
+   "same": 20,
    "worse": 14,
    "avg_pts": 0.11
   },
@@ -2718,6 +2718,62 @@
    "line": null,
    "odds": -130,
    "close": -130,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 160,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Missouri",
+   "market": "spread",
+   "line": -2.5,
+   "odds": -108,
+   "close": -110,
+   "pts": 0.5,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Youngstown St",
+   "market": "spread",
+   "line": 25.5,
+   "odds": -108,
+   "close": -112,
+   "pts": 0.9,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-06",
+   "kind": "dog",
+   "lean": false,
+   "league": "nba",
+   "team": "Bucks",
+   "market": "ml",
+   "line": null,
+   "odds": 136,
+   "close": 136,
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
