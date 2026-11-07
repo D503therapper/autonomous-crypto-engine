@@ -381,13 +381,13 @@
   }
  },
  "ncaaf": {
-  "games": 5910,
+  "games": 5911,
   "grade": {
    "all": {
-    "hit": 0.5076,
-    "low80": 0.4932,
-    "n": 1970,
-    "roi": -0.0317
+    "hit": 0.5079,
+    "low80": 0.4934,
+    "n": 1971,
+    "roi": -0.0313
    },
    "top10": {
     "hit": 0.4873,
@@ -408,21 +408,21 @@
     "roi": -0.0544
    }
   },
-  "hit_all": 0.5076,
+  "hit_all": 0.5079,
   "hit_top": 0.4958,
-  "intercept": -0.01016,
+  "intercept": -0.01049,
   "kept": [
    "wind"
   ],
-  "ll_test_base": 0.69329,
+  "ll_test_base": 0.69328,
   "ll_test_kept": 0.69362,
   "ll_val_base": 0.69558,
   "ll_val_kept": 0.69481,
   "n_top": 591,
   "norm": {
    "wind": [
-    9.8445,
-    4.49478
+    9.84436,
+    4.49441
    ]
   },
   "proven": false,
@@ -498,9 +498,9 @@
    }
   },
   "test_from": "2023-12-17",
-  "test_games": 1970,
+  "test_games": 1971,
   "weights": {
-   "wind": -0.03527
+   "wind": -0.0352
   }
  },
  "nfl": {
