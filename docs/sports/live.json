@@ -1,17 +1,18 @@
 {
- "updated": 1794022916965,
+ "updated": 1794033343985,
  "plays": [],
  "record": {
   "won": 16,
   "lost": 19
  },
- "live_games": 24,
+ "live_games": 2,
  "tennis": {
-  "watching": 0,
+  "watching": 1,
   "priced": 0,
   "stale": 0,
   "suspended": 0,
-  "books": "0 live lines, 0 fresh"
+  "books": "1 live lines, 0 fresh",
+  "stale_line": 3
  },
  "scores": {
   "nfl:401873037": {
@@ -82,32 +83,32 @@
    "away": "South Florida",
    "home": "East Carolina",
    "a": 17,
-   "h": 17,
-   "clock": "03:33 - 4th",
-   "live": true
+   "h": 20,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401858510": {
    "away": "Nebraska",
    "home": "Illinois",
-   "a": 7,
-   "h": 14,
-   "clock": "01:31 - 3rd",
-   "live": true
+   "a": 13,
+   "h": 24,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401864533": {
    "away": "New Mexico",
    "home": "Nevada",
-   "a": 14,
+   "a": 31,
    "h": 3,
-   "clock": "Halftime",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401856855": {
    "away": "TCU",
    "home": "Arizona",
-   "a": 0,
-   "h": 7,
-   "clock": "10:39 - 1st",
+   "a": 21,
+   "h": 20,
+   "clock": "08:10 - 4th",
    "live": true
   },
   "nba:401909936": {
@@ -161,10 +162,10 @@
   "nba:401909293": {
    "away": "Timberwolves",
    "home": "Pelicans",
-   "a": 112,
-   "h": 104,
-   "clock": "00:27 - 4th",
-   "live": true
+   "a": 115,
+   "h": 109,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909290": {
    "away": "Jazz",
@@ -185,18 +186,18 @@
   "nba:401909295": {
    "away": "Spurs",
    "home": "Kings",
-   "a": 18,
-   "h": 20,
-   "clock": "05:12 - 1st",
-   "live": true
+   "a": 124,
+   "h": 109,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909294": {
    "away": "Trail Blazers",
    "home": "Lakers",
-   "a": 27,
-   "h": 17,
-   "clock": "00:53 - 1st",
-   "live": true
+   "a": 118,
+   "h": 124,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892655": {
    "away": "Stars",
@@ -305,10 +306,10 @@
   "nhl:401892661": {
    "away": "Ducks",
    "home": "Flames",
-   "a": 3,
+   "a": 5,
    "h": 3,
-   "clock": "02:01 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401925031": {
    "away": "McNeese",
@@ -923,96 +924,104 @@
    "home": "Wyoming",
    "a": 62,
    "h": 93,
-   "clock": "00:06 - 2nd Half",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401921739": {
    "away": "Omaha",
    "home": "BYU",
-   "a": 53,
-   "h": 86,
-   "clock": "07:46 - 2nd Half",
-   "live": true
+   "a": 67,
+   "h": 108,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401922261": {
    "away": "Idaho",
    "home": "Colorado St",
-   "a": 58,
-   "h": 61,
-   "clock": "07:27 - 2nd Half",
-   "live": true
+   "a": 67,
+   "h": 78,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401921732": {
    "away": "N Colorado",
    "home": "Arizona St",
-   "a": 53,
-   "h": 76,
-   "clock": "06:30 - 2nd Half",
-   "live": true
+   "a": 63,
+   "h": 90,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401921719": {
    "away": "Wagner",
    "home": "Miami",
-   "a": 28,
-   "h": 50,
-   "clock": "11:51 - 2nd Half",
-   "live": true
+   "a": 57,
+   "h": 83,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401909797": {
    "away": "CSU Northridge",
    "home": "Kansas St",
-   "a": 47,
-   "h": 68,
-   "clock": "09:49 - 2nd Half",
-   "live": true
+   "a": 78,
+   "h": 95,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401909785": {
    "away": "MTSU",
    "home": "Kansas",
-   "a": 26,
-   "h": 62,
-   "clock": "11:18 - 2nd Half",
-   "live": true
+   "a": 45,
+   "h": 89,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401919040": {
    "away": "Queens",
    "home": "Oklahoma St",
-   "a": 49,
-   "h": 97,
-   "clock": "09:02 - 2nd Half",
-   "live": true
+   "a": 68,
+   "h": 118,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401920344": {
    "away": "CA Baptist",
    "home": "Oregon St",
-   "a": 40,
-   "h": 52,
-   "clock": "16:57 - 2nd Half",
-   "live": true
+   "a": 68,
+   "h": 96,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401917515": {
    "away": "Tarleton St",
    "home": "San Diego",
-   "a": 46,
-   "h": 32,
-   "clock": "Halftime",
-   "live": true
+   "a": 90,
+   "h": 96,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401917516": {
    "away": "Lincoln (CA)",
    "home": "LMU",
-   "a": 19,
-   "h": 54,
-   "clock": "01:19 - 1st Half",
-   "live": true
+   "a": 50,
+   "h": 102,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401921727": {
    "away": "Oakland",
    "home": "Stanford",
-   "a": 26,
-   "h": 33,
-   "clock": "03:31 - 1st Half",
-   "live": true
+   "a": 63,
+   "h": 81,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaab:401922219": {
+   "away": "North Florida",
+   "home": "UCLA",
+   "a": 63,
+   "h": 114,
+   "clock": "Final",
+   "live": false
   },
   "ncaaf:401866456": {
    "away": "C Michigan",
@@ -1023,6 +1032,15 @@
    "live": false,
    "src": "espn"
   },
+  "ncaab:401929001": {
+   "away": "Bethesda",
+   "home": "Hawai'i",
+   "a": 24,
+   "h": 67,
+   "clock": "18:21 - 2nd Half",
+   "live": true,
+   "src": "espn"
+  },
   "ncaab:401920685": {
    "away": "UConn",
    "home": "Michigan",
@@ -1030,60 +1048,6 @@
    "h": 77,
    "clock": "Final",
    "live": false,
-   "src": "espn"
-  },
-  "ncaab:401920726": {
-   "away": "E Illinois",
-   "home": "Iowa",
-   "a": 47,
-   "h": 91,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401917914": {
-   "away": "C Arkansas",
-   "home": "Ole Miss",
-   "a": 60,
-   "h": 92,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaab:401920952": {
-   "away": "S Illinois",
-   "home": "Kansas City",
-   "a": 42,
-   "h": 55,
-   "clock": "Halftime",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401929410": {
-   "away": "Briar Cliff",
-   "home": "S Dakota St",
-   "a": 29,
-   "h": 42,
-   "clock": "17:08 - 2nd Half",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401929356": {
-   "away": "UT Arlington",
-   "home": "Portland",
-   "a": 46,
-   "h": 43,
-   "clock": "Halftime",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401921061": {
-   "away": "N Dakota St",
-   "home": "San Francisco",
-   "a": 28,
-   "h": 41,
-   "clock": "1:39 - 1st Half",
-   "live": true,
    "src": "espn"
   },
   "ncaab:401909751": {
@@ -1217,6 +1181,60 @@
    "home": "Alabama A&M",
    "a": 47,
    "h": 103,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401920726": {
+   "away": "E Illinois",
+   "home": "Iowa",
+   "a": 47,
+   "h": 91,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401917914": {
+   "away": "C Arkansas",
+   "home": "Ole Miss",
+   "a": 60,
+   "h": 92,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401920952": {
+   "away": "S Illinois",
+   "home": "Kansas City",
+   "a": 93,
+   "h": 100,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929410": {
+   "away": "Briar Cliff",
+   "home": "S Dakota St",
+   "a": 49,
+   "h": 71,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929356": {
+   "away": "UT Arlington",
+   "home": "Portland",
+   "a": 89,
+   "h": 85,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401921061": {
+   "away": "N Dakota St",
+   "home": "San Francisco",
+   "a": 70,
+   "h": 79,
    "clock": "Final",
    "live": false,
    "src": "espn"
@@ -1479,6 +1497,29 @@
    "live": false,
    "delayed": false
   },
+  "tennis:wta:186644": {
+   "n": [
+    "Liu",
+    "Shubladze"
+   ],
+   "sets": [
+    [
+     2,
+     3
+    ]
+   ],
+   "pts": [
+    "0",
+    "0"
+   ],
+   "srv": 1,
+   "done": 0,
+   "first": 1,
+   "tennis": true,
+   "live": true,
+   "delayed": false,
+   "src": "book"
+  },
   "tennis:wta:186585": {
    "n": [
     "Stefanini",
@@ -1506,46 +1547,22 @@
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nhl": "ok 0",
-  "betrivers:ncaab": "ok 0",
-  "betrivers:nba": "ok 0",
   "betrivers:ncaaf": "ok 0",
-  "betrivers:ncaab:1029232023": "ok 0",
-  "betrivers:ncaab:1028827096": "ok 0",
-  "betrivers:ncaab:1028969588": "ok 0",
-  "betrivers:tennis": "ok 0",
-  "betrivers:ncaab:1028456726": "ok 0",
-  "betrivers:ncaab:1028766093": "ok 0",
-  "betrivers:ncaab:1028469625": "ok 0",
-  "betrivers:ncaab:1028372259": "ok 0",
-  "betrivers:nhl:1028410232": "ok 0",
-  "betrivers:ncaab:1028495982": "ok 0",
-  "betrivers:nba:1028744836": "ok 0",
-  "betrivers:ncaab:1028566694": "ok 0",
-  "betrivers:nba:1028744838": "ok 0",
-  "betrivers:ncaab:1028985770": "ok 0"
+  "betrivers:tennis": "ok 1"
  },
  "health": [
-  "only 9 of 24 live games have a sportsbook price we can bet on",
-  "2 live games priced only by DraftKings (via ESPN), no second source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there",
-  "Bovada has no live lines for ncaab",
-  "Bovada's liveOnly feed had nothing for nba, ncaaf, nhl - used the full feed's live events instead (nba 3, ncaaf 4, nhl 1)"
+  "no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a real price)",
+  "Bovada has no live lines for ncaaf"
  ],
- "priced": 9,
- "dk_only": 2,
+ "priced": 0,
+ "dk_only": 0,
  "min_p": 0.55,
- "price_src": {
-  "bovada": 8,
-  "draftkings+an": 1
- },
+ "price_src": {},
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "espn_only": 23,
+ "espn_only": 24,
  "errors": [],
  "books": {
-  "nba": "3 groups, 3 fresh events (liveOnly feed empty: 3 fresh live from the full feed)",
-  "ncaab": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "1 groups, 1 fresh events (liveOnly feed empty: 1 fresh live from the full feed)",
-  "ncaaf": "4 groups, 4 fresh events (liveOnly feed empty: 4 fresh live from the full feed)"
+  "ncaaf": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 32.9
+ "took_s": 37.0
 }
