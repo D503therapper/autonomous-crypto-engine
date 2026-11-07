@@ -1,9 +1,11 @@
 {
- "at": "2026-11-07T12:34Z",
- "fixes": [],
+ "at": "2026-11-07T12:35Z",
+ "fixes": [
+  "live watch 42370047908 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (223s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,11 +17,19 @@
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 22 min ago",
+  "engine ran 24 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-07T12:35Z",
+   "fixes": [
+    "live watch 42370047908 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-07T12:34Z",
    "fixes": [],
@@ -543,11 +553,6 @@
     "live tennis scores: tennis Kubka vs Lansere: no points for 1049s",
     "live tennis scores: tennis Feistel vs Zaytseva: no points for 337s"
    ]
-  },
-  {
-   "at": "2026-11-06T09:47Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
