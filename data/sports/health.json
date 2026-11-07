@@ -1,16 +1,11 @@
 {
- "at": "2026-11-07T16:04Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-11-07T16:35Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Feistel vs Blinkova: no points for 754s",
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
  ],
  "ok": [
-  "live watcher fresh (277s)",
+  "live watcher fresh (52s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,11 +17,21 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran 18 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 50 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T16:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
+   ]
+  },
   {
    "at": "2026-11-07T16:04Z",
    "fixes": [
@@ -556,11 +561,6 @@
    "problems": [
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-11-06T13:48Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
