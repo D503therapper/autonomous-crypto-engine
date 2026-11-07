@@ -1,28 +1,33 @@
 {
- "at": "2026-11-07T10:57Z",
+ "at": "2026-11-07T10:58Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (131s)",
+  "live watcher fresh (222s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 55 min ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-07T10:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-11-07T10:57Z",
    "fixes": [],
@@ -540,11 +545,6 @@
     "live watch 42180060478 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-06T08:06Z",
-   "fixes": [],
    "problems": []
   }
  ]
