@@ -1,5 +1,5 @@
 {
- "at": "2026-11-07T03:06Z",
+ "at": "2026-11-07T03:10Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -7,7 +7,7 @@
   "sources down (the backups took over): betrivers:ncaab:1028496214 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (55s)",
+  "live watcher fresh (35s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +19,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 1 min ago",
+  "engine ran 5 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-07T03:10Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028496214 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-07T03:06Z",
    "fixes": [
@@ -512,13 +521,6 @@
    "problems": [
     "live tennis scores: tennis Tubello vs Jeanjean: no points for 497s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-05T22:23Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
  ]
