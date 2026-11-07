@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T20:12Z",
+ "updated": "2026-11-07T20:14Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -220,7 +220,7 @@
    "home": "UConn",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "UConn",
@@ -233,7 +233,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -434,8 +434,8 @@
    "away": "Panthers",
    "home": "Capitals",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1050,6 +1050,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868302",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-07T20:00Z",
+   "away": "Alabama A&M",
+   "home": "Prairie View",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868331",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1551,7 +1566,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.717,
+    "p": 0.72,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1569,7 +1584,7 @@
     "line": -14.5,
     "odds": -112,
     "p": 0.525,
-    "win_p": 0.774,
+    "win_p": 0.778,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -2302,9 +2317,9 @@
     "team": "N Arizona",
     "opp": "New Mexico",
     "market": "spread",
-    "line": 27.5,
-    "odds": -110,
-    "p": 0.506,
+    "line": 28.5,
+    "odds": -112,
+    "p": 0.511,
     "win_p": 0.027,
     "reasons": []
    }
@@ -4157,8 +4172,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.369,
-    "tie": 0.299,
+    "p": 0.386,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4174,8 +4189,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.68,
-    "win_p": 0.462,
+    "p": 0.647,
+    "win_p": 0.429,
     "reasons": []
    }
   },
