@@ -1,11 +1,13 @@
 {
- "at": "2026-11-07T14:30Z",
- "fixes": [],
+ "at": "2026-11-07T14:31Z",
+ "fixes": [
+  "live watch 42378386323 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
  ],
  "ok": [
-  "live watcher fresh (223s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,11 +20,21 @@
   "every upcoming game has its real teams",
   "studies ran 9h ago",
   "simulator ran 8h ago",
-  "engine ran 35 min ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-07T14:31Z",
+   "fixes": [
+    "live watch 42378386323 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Akugue vs Lansere: no points for 2453s"
+   ]
+  },
   {
    "at": "2026-11-07T14:30Z",
    "fixes": [],
@@ -541,13 +553,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Akugue vs Mikulskyte: no points for 475s"
-   ]
-  },
-  {
-   "at": "2026-11-06T13:09Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kubka vs Lansere: no points for 119s"
    ]
   }
  ]
