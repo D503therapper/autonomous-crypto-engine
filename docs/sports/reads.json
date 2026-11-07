@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07T06:16Z",
+ "updated": "2026-11-07T06:33Z",
  "games": [
   {
    "id": "ncaab:401909552",
@@ -1362,8 +1362,8 @@
    "away": "Trail Blazers",
    "home": "Lakers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2202,13 +2202,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Blues",
-    "opp": "Predators",
+    "team": "Predators",
+    "opp": "Blues",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.721,
-    "win_p": 0.508,
+    "p": 0.707,
+    "win_p": 0.493,
     "reasons": []
    }
   },
@@ -4323,8 +4323,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UNLV",
-    "p": 0.777,
-    "tie": 0.031,
+    "p": 0.766,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4338,11 +4338,13 @@
     "team": "Samford",
     "opp": "UNLV",
     "market": "spread",
-    "line": 10.5,
-    "odds": -105,
-    "p": 0.519,
-    "win_p": 0.142,
-    "reasons": []
+    "line": 11.5,
+    "odds": -120,
+    "p": 0.525,
+    "win_p": 0.153,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -4523,7 +4525,7 @@
     "opp": "Gonzaga",
     "market": "spread",
     "line": 27.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.534,
     "win_p": 0.024,
     "reasons": []
@@ -4747,8 +4749,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTSA",
-    "p": 0.62,
-    "tie": 0.041,
+    "p": 0.592,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4756,16 +4758,16 @@
    "start": "2026-11-07T22:00Z",
    "away": "VMI",
    "home": "UTSA",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "UTSA",
     "opp": "VMI",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.684,
-    "win_p": 0.684,
+    "odds": -205,
+    "p": 0.649,
+    "win_p": 0.649,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -5833,7 +5835,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.592,
+    "p": 0.593,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -6076,7 +6078,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.697,
+    "p": 0.698,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -6094,7 +6096,7 @@
     "line": -11.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.801,
+    "win_p": 0.802,
     "reasons": [
      "the stronger team"
     ]
@@ -6123,8 +6125,8 @@
     "market": "ml",
     "line": null,
     "odds": -258,
-    "p": 0.695,
-    "win_p": 0.695,
+    "p": 0.696,
+    "win_p": 0.696,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -6199,7 +6201,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.66,
+    "p": 0.662,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -6216,8 +6218,8 @@
     "market": "ml",
     "line": null,
     "odds": -291,
-    "p": 0.722,
-    "win_p": 0.722,
+    "p": 0.723,
+    "win_p": 0.723,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -6443,8 +6445,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Santa Clara",
-    "p": 0.873,
-    "tie": 0.021,
+    "p": 0.867,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -6461,11 +6463,11 @@
     "line": -19.5,
     "odds": -118,
     "p": 0.529,
-    "win_p": 0.943,
+    "win_p": 0.94,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -6475,7 +6477,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC Irvine",
-    "p": 0.658,
+    "p": 0.671,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -6493,7 +6495,7 @@
     "line": 8.5,
     "odds": -112,
     "p": 0.508,
-    "win_p": 0.272,
+    "win_p": 0.258,
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win",
@@ -6507,7 +6509,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.542,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
