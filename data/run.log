@@ -15434,3 +15434,36 @@ error: failed to push some refs to 'https://githu
 [2026-11-08 17:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-08 17:06 UTC] crypto/hold_btc  equity $455.22 (-9.0%) 1 open  market DOWN
    social heat top: HYPE 29 (29/0/0), PUMP 28 (27/0/2), BTC 21 (16/0/5), PENGU 19 (19/0/0), PONS 17 (13/0/4)
+   listings: upbit_markets failed (1x, retry in 30s): URLError: <urlopen error timed out>
+   dex screen: UNREACHABLE BITS@ethereum liq $168,708 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CBBTC@ethereum liq $282,155 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: UNREACHABLE ICNT@solana liq $312,973,210 - holders unknown; lp holders unknown; rugcheck unreachable
+   dex screen: REJECT ICNT@base liq $136,740 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 49%; lp locked 0% < 95%
+   dex screen: REJECT CLAUDIA@solana liq $405,877 - holders unknown; lp holders unknown; rugcheck lp locked 47% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CTM@ethereum liq $2,243,549 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       1f79d7733e1ff2410d9e1ce7b081f93768701b06 -> main (cannot lock ref 'refs/heads/main': is at a5479f63f9f9204f6fb3c
+   dex screen: UNREACHABLE BITS@ethereum liq $154,562 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CON@ethereum liq $466,411 - creator_percent 50%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT TTWO@solana liq $429,139 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $165,056 - honeypot.is unreachable
+   dex screen: UNREACHABLE BITS@ethereum liq $146,071 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT AGENC@solana liq $200,016 - top-10 holders 62%; lp holders unknown
+   dex screen: PASS RAMBO@solana liq $251,075
+   >> dex/dex_hunter: BUY $16.73 of RAMBO@solana:KMifrkYm @ 0.008494 (dex tier A survivor 1h +1% 6h +0% buys/sells 22/64 impact 0.01%)
+   dex screen: UNREACHABLE SP@ethereum liq $163,438 - honeypot.is unreachable
+   dex screen: UNREACHABLE BITS@ethereum liq $152,814 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT WFRAX@ethereum liq $1,724,116 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 96%
+   dex screen: REJECT CHOO@solana liq $163,797 - lp holders unknown; rugcheck lp locked 43% < 95%
+   dex scanner: 2,789 pools (solana 1,793 / base 495 / ethereum 501), refresh cycle 129s (hot 123s), 2729 calls (107 feed, 429s 0, failed 0), 78,658 refreshed (14962 no pair), +40 added / -93 dropped (dead 86, stale 7, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 1), bought 1
+[2026-11-08 18:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/mover     equity $207.88 (-58.4%) 1 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/social_heat equity $342.15 (-31.6%) 3 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/breakout10 equity $387.23 (-22.6%) 1 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-08 18:06 UTC] crypto/hold_btc  equity $455.21 (-9.0%) 1 open  market DOWN
+   social heat top: BTC 38 (35/0/3), PENGU 27 (27/0/0), HYPE 24 (24/0/0), NEAR 21 (21/0/0), STONK 18 (11/0/8)
