@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T00:47Z",
+ "updated": "2026-11-08T01:03Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -1479,8 +1479,8 @@
    "away": "E Kentucky",
    "home": "Austin Peay",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -1971,8 +1971,8 @@
    "away": "Prairie View",
    "home": "UT Rio Grande",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2321,6 +2321,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401862823",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-08T00:30Z",
+   "away": "Air Force",
+   "home": "Army",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401925780",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2329,6 +2344,21 @@
    "start": "2026-11-08T00:30Z",
    "away": "Central St",
    "home": "Duquesne",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856852",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-08T00:30Z",
+   "away": "Colorado",
+   "home": "Arizona St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2376,6 +2406,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401858513",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-08T00:30Z",
+   "away": "Iowa",
+   "home": "Northwestern",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858287",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-08T00:30Z",
+   "away": "Louisville",
+   "home": "Georgia Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401909513",
@@ -2670,8 +2730,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.629,
-    "tie": 0.031,
+    "p": 0.626,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2687,8 +2747,8 @@
     "market": "ml",
     "line": null,
     "odds": -290,
-    "p": 0.628,
-    "win_p": 0.628,
+    "p": 0.624,
+    "win_p": 0.624,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -2702,7 +2762,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.728,
+    "p": 0.727,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -2719,7 +2779,7 @@
     "market": "spread",
     "line": -16.5,
     "odds": -108,
-    "p": 0.501,
+    "p": 0.506,
     "win_p": 0.786,
     "reasons": [
      "the stronger team"
@@ -2918,7 +2978,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.563,
+    "p": 0.562,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2935,8 +2995,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.597,
-    "win_p": 0.597,
+    "p": 0.596,
+    "win_p": 0.596,
     "reasons": [
      "better QB play lately"
     ]
@@ -2948,7 +3008,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UNLV",
-    "p": 0.522,
+    "p": 0.521,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2965,8 +3025,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.547,
-    "win_p": 0.547,
+    "p": 0.546,
+    "win_p": 0.546,
     "reasons": [
      "the stronger team"
     ]
