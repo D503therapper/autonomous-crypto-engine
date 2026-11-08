@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T04:49Z",
+ "updated": "2026-11-08T04:53Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2772,8 +2772,8 @@
    "away": "Penguins",
    "home": "Kings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2892,8 +2892,8 @@
    "away": "Fresno St",
    "home": "UC San Diego",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -4038,7 +4038,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.359,
+    "p": 0.376,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -4047,7 +4047,7 @@
    "start": "2026-11-09T01:00Z",
    "away": "Penguins",
    "home": "Ducks",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Penguins",
@@ -4055,8 +4055,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.7,
-    "win_p": 0.483,
+    "p": 0.668,
+    "win_p": 0.45,
     "reasons": [
      "sharp money moving this way"
     ]
