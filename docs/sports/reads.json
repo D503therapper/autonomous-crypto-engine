@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T04:36Z",
+ "updated": "2026-11-08T04:49Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2315,8 +2315,8 @@
    "away": "West Florida",
    "home": "North Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2579,8 +2579,8 @@
    "away": "Liberty",
    "home": "New Mexico St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2742,8 +2742,8 @@
    "away": "Magic",
    "home": "Warriors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2787,8 +2787,8 @@
    "away": "Red Wings",
    "home": "Avalanche",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3055,7 +3055,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia",
-    "p": 0.529,
+    "p": 0.544,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -3064,20 +3064,18 @@
    "start": "2026-11-08T18:00Z",
    "away": "Arkansas",
    "home": "Virginia",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Virginia",
     "opp": "Arkansas",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.567,
-    "win_p": 0.567,
+    "odds": -155,
+    "p": 0.586,
+    "win_p": 0.586,
     "reasons": [
-     "opponent's body clock is off",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+     "opponent's body clock is off"
     ]
    }
   },
@@ -3545,7 +3543,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.696,
+    "p": 0.695,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -3606,7 +3604,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.633,
+    "p": 0.629,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3622,9 +3620,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.707,
-    "win_p": 0.707,
+    "odds": -238,
+    "p": 0.702,
+    "win_p": 0.702,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -3702,7 +3700,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.682,
+    "p": 0.679,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3720,7 +3718,7 @@
     "line": 9.5,
     "odds": -105,
     "p": 0.514,
-    "win_p": 0.206,
+    "win_p": 0.21,
     "reasons": [
      "sharp money moving this way",
      "revenge game",
@@ -3796,7 +3794,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.569,
+    "p": 0.57,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3948,7 +3946,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.721,
+    "p": 0.722,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -3966,7 +3964,7 @@
     "line": -11.5,
     "odds": -114,
     "p": 0.504,
-    "win_p": 0.829,
+    "win_p": 0.83,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3979,7 +3977,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.66,
+    "p": 0.661,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4165,7 +4163,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.678,
+    "p": 0.677,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -4183,7 +4181,7 @@
     "line": -8.5,
     "odds": -106,
     "p": 0.501,
-    "win_p": 0.743,
+    "win_p": 0.742,
     "reasons": [
      "the stronger team"
     ]
@@ -4195,7 +4193,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.502,
+    "p": 0.501,
     "tie": 0.037,
     "name": "1st half"
    },
