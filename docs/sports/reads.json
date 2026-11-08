@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T02:01Z",
+ "updated": "2026-11-08T02:21Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2091,8 +2091,8 @@
    "away": "Morgan St",
    "home": "Niagara",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2180,8 +2180,8 @@
    "away": "Hou Christian",
    "home": "W Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2225,8 +2225,8 @@
    "away": "Mercer",
    "home": "Davidson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2285,8 +2285,8 @@
    "away": "St Bonaventure",
    "home": "Canisius",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2748,97 +2748,34 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401860913",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah State",
-    "p": 0.487,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
+   "id": "ncaab:401931195",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-08T02:30Z",
-   "away": "Fresno St",
-   "home": "Utah State",
-   "why": "coin_flip",
+   "start": "2026-11-08T02:00Z",
+   "away": "Bethesda",
+   "home": "Pepperdine",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Utah State",
-    "opp": "Fresno St",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.504,
-    "win_p": 0.504,
-    "reasons": [
-     "sharp money moving this way",
-     "altitude edge"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401864532",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Hawai'i",
-    "p": 0.626,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
+   "id": "ncaab:401920435",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-08T02:30Z",
-   "away": "Hawai'i",
-   "home": "UTEP",
-   "why": "no_value",
+   "start": "2026-11-08T02:00Z",
+   "away": "Utah Valley",
+   "home": "Weber St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Hawai'i",
-    "opp": "UTEP",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.623,
-    "win_p": 0.623,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401856856",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texas Tech",
-    "p": 0.728,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-08T02:30Z",
-   "away": "West Virginia",
-   "home": "Texas Tech",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Texas Tech",
-    "opp": "West Virginia",
-    "market": "spread",
-    "line": -16.5,
-    "odds": -108,
-    "p": 0.506,
-    "win_p": 0.786,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892673",
@@ -3141,7 +3078,7 @@
     "market": "spread",
     "line": 28.5,
     "odds": -105,
-    "p": 0.567,
+    "p": 0.566,
     "win_p": 0.024,
     "reasons": [
      "hotter recent form"
@@ -3647,7 +3584,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.679,
+    "p": 0.69,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3662,12 +3599,13 @@
     "team": "76ers",
     "opp": "Bulls",
     "market": "spread",
-    "line": -9.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.745,
+    "line": -8.5,
+    "odds": -114,
+    "p": 0.501,
+    "win_p": 0.759,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -4158,8 +4096,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.548,
-    "win_p": 0.548,
+    "p": 0.549,
+    "win_p": 0.549,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -4222,7 +4160,7 @@
     "market": "spread",
     "line": 17.5,
     "odds": -105,
-    "p": 0.566,
+    "p": 0.565,
     "win_p": 0.075,
     "reasons": [
      "hotter recent form",
@@ -4236,7 +4174,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.666,
+    "p": 0.668,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4252,9 +4190,9 @@
     "opp": "Kings",
     "market": "spread",
     "line": -8.5,
-    "odds": -114,
+    "odds": -106,
     "p": 0.501,
-    "win_p": 0.729,
+    "win_p": 0.732,
     "reasons": [
      "the stronger team"
     ]
