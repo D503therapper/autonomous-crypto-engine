@@ -15483,3 +15483,36 @@ error: failed to push some refs to 'https://githu
 [2026-11-08 18:13 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-08 18:13 UTC] crypto/hold_btc  equity $455.52 (-8.9%) 1 open  market DOWN
    social heat top: BTC 36 (32/0/4), PUMP 30 (29/0/1), HYPE 27 (27/0/0), STONK 26 (24/0/2), PENGU 21 (21/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '76114.43', 'l': '75471.38', 'a': '75803.80', 'v': '1101.1164', 'vv': '83423761.19', 'c': '0.0004', 'b': '75804.72', 'k': '75804.73', 'oi': '0', 't': 1794161613893}
+   listings: upbit_markets failed (1x, retry in 30s): URLError: <urlopen error timed out>
+   dex screen: UNREACHABLE SP@ethereum liq $168,610 - honeypot.is unreachable
+   dex screen: REJECT MUC@base liq $10,529 - liquidity $10,529 < $100,000; 24h volume $232 < $100,000
+   dex screen: REJECT ADI@ethereum liq $2,981,907 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT JITOSOL@base liq $12,810,605 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
+   dex screen: UNREACHABLE SP@ethereum liq $168,811 - honeypot.is unreachable
+   dex screen: UNREACHABLE FOCO@ethereum liq $149,090 - honeypot.is unreachable
+   dex screen: PASS CATE@solana liq $1,955,393
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: UNREACHABLE SP@ethereum liq $182,969 - honeypot.is unreachable
+   dex screen: UNREACHABLE FOCO@ethereum liq $154,488 - honeypot.is unreachable
+   dex screen: REJECT PIRATE@solana liq $141,797 - holders unknown; lp holders unknown; rugcheck lp locked 79% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: UNREACHABLE SP@ethereum liq $198,162 - honeypot.is unreachable
+   dex scanner: 2,867 pools (solana 1,830 / base 536 / ethereum 501), refresh cycle 121s (hot 116s), 2299 calls (105 feed, 429s 1, failed 1), 65,818 refreshed (11861 no pair), +221 added / -138 dropped (dead 106, stale 32, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-08 19:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/mover     equity $208.88 (-58.2%) 1 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/social_heat equity $342.79 (-31.4%) 3 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/breakout10 equity $389.34 (-22.1%) 1 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-08 19:06 UTC] crypto/hold_btc  equity $455.91 (-8.8%) 1 open  market DOWN
+   social heat top: PUMP 40 (32/0/8), PONS 38 (35/0/4), STONK 32 (27/0/5), BTC 32 (24/0/8), PENGU 29 (29/0/0)
