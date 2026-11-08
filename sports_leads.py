@@ -471,6 +471,15 @@ def tags(c, sports):
         #   rested dog across a favorite that played on the road last night and flew to a NEW city for tonight +12.5%
         #   on 182 (train +6.9% 3 of 4 up, held 2022-25 4 of 4 up) vs +3.4% for every rested dog vs a b2b; the b2b
         #   side itself -20.9% as a dog (0 of 4 up). A dose of the built rested_vs_b2b +3 - a LEAD, judge at 50
+    # 11/8 DAILY STUDIES (results/studies/daily_1108/): one WEIGHT's live record + one LEAD (tracked only)
+    if lg == "nba" and c.get("opp_star_dud") and -250 <= c.get("odds", 0) <= -101:
+        t.append("NBA fav -101..-250 vs a team whose star shot under 35% last game (fade)")   # s7 / s7b - BUILT as a -1
+        #   weight on the favorite's read (sports.NBA_FAV_STAR_DUD_W): -11.9% on 350 (train 0 of 5 up, held 3 of 3 down,
+        #   ESPN's open -6.9%); Oct-Dec only -1.8% - judge at 50: these favorites winning at their price = it comes off
+    if lg == "nhl" and -250 <= c.get("odds", 0) <= -101 and c.get("g_role_me") is False and not c.get("b2b_me"):
+        t.append("NHL fav -101..-250 on its backup, rested night (fade)")   # s6: the favorite starting a goalie who isn't
+        #   its #1 on a night it ISN'T on a back-to-back -9.1% held 2023-25 on 989 (3 of 3 down; ESPN's open -10.1% on
+        #   1,035) vs -3.4% with its #1 - but the train half (2021-22) +2.1% and 2026 +5.9% on 56: a LEAD, judge at 50
     if dog and lg == "nba" and c.get("odds", 0) <= 350 and nba_star_third_back(c):
         t.append("NBA dog, top scorer's 3rd game back (fade)")   # s8: the NBA top scorer (season points a game) who
         #   missed 2+ straight and has played 2 since - the dog in his 3rd game back -35.8% on 107 (train -35.6%, 4 of

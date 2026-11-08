@@ -1,0 +1,107 @@
+== (a) LIVE Dogs (picks.json) - date league team odds units result edge_own thin?
+  2026-09-27 nfl   Patriots          +130 1.0  lost   edge_own None    real  pnl -100.0
+  2026-09-30 nhl   Kings             +160 0.5  lost   edge_own -0.024  THIN  pnl -100.0
+  2026-10-01 nhl   Blackhawks        +180 0.5  lost   edge_own -0.029  THIN  pnl -100.0
+  2026-10-02 nhl   Blues             +154 1.0  won    edge_own -0.026  THIN  pnl 154.0
+  2026-10-03 nhl   Flyers            +110 1.0  lost   edge_own 0.004   THIN  pnl -100.0
+  2026-10-04 nfl   Jaguars           +120 1.0  won    edge_own 0.03    real  pnl 120.0
+  2026-10-05 nhl   Sharks            +145 1.0  lost   edge_own 0.119   real  pnl -100.0
+  2026-10-06 nhl   Mammoth           +110 1.0  won    edge_own -0.029  THIN  pnl 110.0
+  2026-10-07 nhl   Penguins          +136 1.0  lost   edge_own -0.03   THIN  pnl -100.0
+  2026-10-08 nhl   Flames            +195 1.0  lost   edge_own 0.007   THIN  pnl -100.0
+  2026-10-09 nhl   Penguins          +102 1.0  lost   edge_own -0.035  THIN  pnl -100.0
+  2026-10-10 ncaaf Fresno St         +250 1.0  lost   edge_own -0.014  THIN  pnl -100.0
+  2026-10-13 nhl   Flames            +145 1.0  won    edge_own -0.028  THIN  pnl 145.0
+  2026-10-14 nhl   Canadiens         +105 1.0  lost   edge_own -0.031  THIN  pnl -100.0
+  2026-10-15 nhl   Mammoth           +102 1.0  won    edge_own -0.033  THIN  pnl 102.0
+  2026-10-17 ncaaf Boston College    +195 2.0  won    edge_own 0.034   real  pnl 195.0
+  2026-10-19 nhl   Sharks            +114 1.5  lost   edge_own -0.03   THIN  pnl -100.0
+  2026-10-22 nhl   Predators         +120 2.0  lost   edge_own -0.027  THIN  pnl -100.0
+  2026-10-23 ncaaf Wyoming           +180 2.0  won    edge_own 0.102   real  pnl 180.0
+  2026-10-24 ncaaf Illinois          +310 2.0  won    edge_own 0.181   real  pnl 310.0
+  2026-10-25 nhl   Canucks           +160 0    void   edge_own 0.006   THIN  pnl 0.0
+  2026-10-28 nba   Warriors          +142 1.0  won    edge_own 0.124   real  pnl 142.0
+  2026-10-29 nhl   Blue Jackets      +205 0.5  lost   edge_own -0.027  THIN  pnl -100.0
+  2026-11-01 nba   Nets              +142 1.0  won    edge_own 0.145   real  pnl 142.0
+  2026-11-02 nhl   Flames            +105 2.0  won    edge_own -0.033  THIN  pnl 105.0
+  2026-11-03 nhl   Blue Jackets      +105 2.0  won    edge_own 0.016   THIN  pnl 105.0
+  2026-11-04 nba   Suns              +125 1.0  lost   edge_own -0.057  THIN  pnl -100.0
+  2026-11-06 nba   Bucks             +136 1.0  lost   edge_own 0.18    real  pnl -100.0
+  2026-11-07 ncaaf Boston College    +190 1.0  lost   edge_own 0.097   real  pnl -100.0
+  2026-11-08 nhl   Jets              +124 0    open   edge_own 0.016   THIN  pnl 0.0
+  nhl +100..+150 real                      0-1  flat -1.00u (-100.0%)  as sized -1.00u
+  nhl +100..+150 thin/under                5-6  flat -0.33u (-3.0%)  as sized +0.27u
+  nhl +151..+350 thin/under                1-4  flat -2.46u (-49.2%)  as sized -0.96u
+  nhl all                                  6-11  flat -3.79u (-22.3%)  as sized -1.69u
+  nhl own under (<=0)                      5-8  flat -1.84u (-14.2%)  as sized -0.79u
+  nhl real (3%+)                           0-1  flat -1.00u (-100.0%)  as sized -1.00u
+  nhl since 10/31 thin                     2-0  flat +2.10u (+105.0%)  as sized +4.20u
+  nhl thin (0-3%)                          1-2  flat -0.95u (-31.7%)  as sized +0.10u
+  other +100..+150 real                    3-2  flat +2.04u (+40.8%)  as sized +2.04u
+  other +100..+150 thin/under              0-1  flat -1.00u (-100.0%)  as sized -1.00u
+  other +151..+350 real                    3-1  flat +5.85u (+146.2%)  as sized +12.70u
+  other +151..+350 thin/under              0-1  flat -1.00u (-100.0%)  as sized -1.00u
+  other all                                6-5  flat +5.89u (+53.5%)  as sized +12.74u
+  other no read                            0-1  flat -1.00u (-100.0%)  as sized -1.00u
+  other own under (<=0)                    0-2  flat -2.00u (-100.0%)  as sized -2.00u
+  other real (3%+)                         6-2  flat +8.89u (+111.1%)  as sized +15.74u
+  other since 10/31 real                   1-2  flat -0.58u (-19.3%)  as sized -0.58u
+  other since 10/31 thin                   0-1  flat -1.00u (-100.0%)  as sized -1.00u
+
+== (b) THE REPLAY (10/30 funnel rows, closing prices; train 2023-24/2024-25, held 2025-26, live 10/13-10/29), the Dog of the Day
+-- hockey
+  +100..+150 all (today 2u)                    train 41-35  +19.4% (76)         held 33-28  +19.0% (61)         live 2-1  +54.7% (3)            ALL 76-64  +20.0% (140)        | 2023-24:+32%(41) 2024-25:+5%(35) 2025-26:+19%(61) 2026-27:+55%(3)
+                                               won 54.3% vs priced 45.6% (own read 45.2%)
+  +100..+150 own under (<=0)                   train 31-26  +19.6% (57)         held 19-13  +33.3% (32)         live 1-0 +150.0% (1)            ALL 51-39  +26.0% (90)         | 2023-24:+43%(22) 2024-25:+5%(35) 2025-26:+33%(32) 2026-27:+150%(1)
+                                               won 56.7% vs priced 45.4% (own read 44.0%)
+  +100..+150 thin 0-3%                         train 6-7   +3.8% (13)           held 5-2  +50.6% (7)            live 0-1 -100.0% (1)            ALL 11-10  +14.5% (21)         | 2023-24:+4%(13) 2025-26:+51%(7) 2026-27:-100%(1)
+                                               won 52.4% vs priced 46.6% (own read 47.2%)
+  +100..+150 real 3%+                          train 4-2  +51.5% (6)            held 9-13  -11.8% (22)          live 1-0 +114.0% (1)            ALL 14-15   +5.6% (29)         | 2023-24:+52%(6) 2025-26:-12%(22) 2026-27:+114%(1)
+                                               won 48.3% vs priced 45.5% (own read 47.4%)
+  +100..+150 own edge 0.00-0.01                train 3-5  -23.0% (8)            held 1-0 +110.0% (1)            live n=0                        ALL 4-5   -8.2% (9)            | 2023-24:-23%(8) 2025-26:+110%(1)
+                                               won 44.4% vs priced 48.0% (own read 48.4%)
+  +100..+150 own edge 0.01-0.02                train 3-2  +46.8% (5)            held 3-2  +21.8% (5)            live 0-1 -100.0% (1)            ALL 6-5  +22.1% (11)           | 2023-24:+47%(5) 2025-26:+22%(5) 2026-27:-100%(1)
+                                               won 54.5% vs priced 45.8% (own read 46.4%)
+  +100..+150 own edge 0.02-0.03                train n=0                        held 1-0 +135.0% (1)            live n=0                        ALL 1-0 +135.0% (1)            | 2025-26:+135%(1)
+                                               won 100.0% vs priced 42.6% (own read 43.5%)
+  +100..+150 own edge 0.03-0.06                train 4-2  +51.5% (6)            held 8-13  -18.3% (21)          live 1-0 +114.0% (1)            ALL 13-15   +1.4% (28)         | 2023-24:+52%(6) 2025-26:-18%(21) 2026-27:+114%(1)
+                                               won 46.4% vs priced 45.5% (own read 47.3%)
+  +100..+150 own edge 0.06-9.00                train n=0                        held 1-0 +124.0% (1)            live n=0                        ALL 1-0 +124.0% (1)            | 2025-26:+124%(1)
+                                               won 100.0% vs priced 44.6% (own read 47.5%)
+  +100..+150 own over no-vig -99..0 pts        train n=0                        held n=0                        live n=0                        ALL n=0                        | 
+                                               
+  +100..+150 own over no-vig 0..2 pts          train 30-26  +17.7% (56)         held 20-13  +36.1% (33)         live 1-0 +150.0% (1)            ALL 51-39  +25.9% (90)         | 2023-24:+39%(21) 2024-25:+5%(35) 2025-26:+36%(33) 2026-27:+150%(1)
+                                               won 56.7% vs priced 45.4% (own read 44.0%)
+  +100..+150 own over no-vig 2..4 pts          train 11-9  +24.2% (20)          held 11-10  +12.4% (21)         live 1-1   +7.0% (2)            ALL 23-20  +17.7% (43)         | 2023-24:+24%(20) 2025-26:+12%(21) 2026-27:+7%(2)
+                                               won 53.5% vs priced 45.4% (own read 46.6%)
+  +100..+150 own over no-vig 4..99 pts         train n=0                        held 2-5  -41.4% (7)            live n=0                        ALL 2-5  -41.4% (7)            | 2025-26:-41%(7)
+                                               won 28.6% vs priced 48.9% (own read 50.9%)
+  +151..+350 all (today ½u)                    train 6-16  -27.0% (22)          held 6-5  +40.2% (11)           live 0-1 -100.0% (1)            ALL 12-22   -7.4% (34)         | 2023-24:-19%(10) 2024-25:-33%(12) 2025-26:+40%(11) 2026-27:-100%(1)
+                                               won 35.3% vs priced 37.5% (own read 37.3%)
+-- football
+  +100..+150 all (today 2u)                    train 2-0 +121.5% (2)            held 9-5  +38.4% (14)           live 0-2 -100.0% (2)            ALL 11-7  +32.3% (18)          | 2023-24:+105%(1) 2024-25:+138%(1) 2025-26:+44%(9) 2026-27:-8%(7)
+                                               won 61.1% vs priced 46.1% (own read 49.5%)
+  +100..+150 own under (<=0)                   train n=0                        held n=0                        live n=0                        ALL n=0                        | 
+                                               
+  +100..+150 thin 0-3%                         train 1-0 +105.0% (1)            held 2-1  +42.7% (3)            live n=0                        ALL 3-1  +58.2% (4)            | 2023-24:+105%(1) 2025-26:+43%(3)
+                                               won 75.0% vs priced 46.0% (own read 46.9%)
+  +100..+150 real 3%+                          train 1-0 +138.0% (1)            held 7-4  +37.3% (11)           live 0-2 -100.0% (2)            ALL 8-6  +24.9% (14)           | 2024-25:+138%(1) 2025-26:+44%(6) 2026-27:-8%(7)
+                                               won 57.1% vs priced 46.1% (own read 50.3%)
+  +151..+350 all (today ½u)                    train 1-4  -41.0% (5)            held 2-8  -37.0% (10)           live 1-0 +226.0% (1)            ALL 4-12  -21.8% (16)          | 2023-24:+48%(2) 2024-25:-100%(3) 2025-26:+57%(4) 2026-27:-53%(7)
+                                               won 25.0% vs priced 31.1% (own read 36.0%)
+-- hockey + football
+  +100..+150 all (today 2u)                    train 43-35  +22.1% (78)         held 42-33  +22.7% (75)         live 2-3   -7.2% (5)            ALL 87-71  +21.4% (158)        | 2023-24:+33%(42) 2024-25:+9%(36) 2025-26:+22%(70) 2026-27:+11%(10)
+                                               won 55.1% vs priced 45.7% (own read 45.7%)
+  +100..+150 own under (<=0)                   train 31-26  +19.6% (57)         held 19-13  +33.3% (32)         live 1-0 +150.0% (1)            ALL 51-39  +26.0% (90)         | 2023-24:+43%(22) 2024-25:+5%(35) 2025-26:+33%(32) 2026-27:+150%(1)
+                                               won 56.7% vs priced 45.4% (own read 44.0%)
+  +100..+150 thin 0-3%                         train 7-7  +11.1% (14)           held 7-3  +48.2% (10)           live 0-1 -100.0% (1)            ALL 14-11  +21.5% (25)         | 2023-24:+11%(14) 2025-26:+48%(10) 2026-27:-100%(1)
+                                               won 56.0% vs priced 46.5% (own read 47.1%)
+  +100..+150 real 3%+                          train 5-2  +63.9% (7)            held 16-17   +4.5% (33)         live 1-2  -28.7% (3)            ALL 22-21  +11.9% (43)         | 2023-24:+52%(6) 2024-25:+138%(1) 2025-26:+0%(28) 2026-27:+8%(8)
+                                               won 51.2% vs priced 45.7% (own read 48.3%)
+  +151..+350 all (today ½u)                    train 7-20  -29.6% (27)          held 8-13   +3.4% (21)          live 1-1  +63.0% (2)            ALL 16-34  -12.0% (50)         | 2023-24:-8%(12) 2024-25:-47%(15) 2025-26:+45%(15) 2026-27:-59%(8)
+                                               won 32.0% vs priced 35.5% (own read 36.9%)
+
+== (c) SIZE SCHEDULES on the hockey +100..+150 Dogs (units won, train / held / live / all)
+  today: 2u thin or not                        train +29.6u held +23.2u live +3.3u ALL +56.1u
+  thin 1u / real 2u                            train +17.9u held +9.0u live +2.8u ALL +29.7u
+  thin ½u / real 2u (the pre-10/31 rule)       train +12.0u held +1.9u live +2.5u ALL +16.5u

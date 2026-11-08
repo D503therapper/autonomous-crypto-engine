@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 190,
+  "n": 200,
   "beat": 63,
-  "same": 73,
-  "worse": 54,
-  "avg_pts": 0.11
+  "same": 81,
+  "worse": 56,
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 88,
+  "n": 98,
   "beat": 28,
-  "same": 39,
-  "worse": 21,
-  "avg_pts": 0.17
+  "same": 47,
+  "worse": 23,
+  "avg_pts": 0.13
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 50,
+   "n": 59,
    "beat": 15,
-   "same": 23,
-   "worse": 12,
-   "avg_pts": 0.1
+   "same": 30,
+   "worse": 14,
+   "avg_pts": 0.05
   }
  },
  "by_sport": {
@@ -66,11 +66,11 @@
    "avg_pts": 0.6
   },
   "ncaaf": {
-   "n": 48,
+   "n": 55,
    "beat": 14,
-   "same": 20,
-   "worse": 14,
-   "avg_pts": 0.11
+   "same": 26,
+   "worse": 15,
+   "avg_pts": 0.08
   },
   "nfl": {
    "n": 24,
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 72,
+   "n": 75,
    "beat": 21,
-   "same": 29,
-   "worse": 22,
-   "avg_pts": -0.01
+   "same": 31,
+   "worse": 23,
+   "avg_pts": -0.03
   }
  },
  "lock_by_size": {
@@ -2775,6 +2775,146 @@
    "odds": 136,
    "close": 136,
    "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Boston College",
+   "market": "ml",
+   "line": null,
+   "odds": 190,
+   "close": 190,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Lightning",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -135,
+   "pts": -1.2,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -135,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Tulane",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 124,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "UConn",
+   "market": "ml",
+   "line": null,
+   "odds": 240,
+   "close": 240,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Kansas St",
+   "market": "ml",
+   "line": null,
+   "odds": 200,
+   "close": 200,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Ole Miss",
+   "market": "ml",
+   "line": null,
+   "odds": 145,
+   "close": 145,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "NC State",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 160,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Miami",
+   "market": "ml",
+   "line": null,
+   "odds": 225,
+   "close": 235,
+   "pts": -0.9,
    "units": 1.0,
    "result": "lost"
   }
