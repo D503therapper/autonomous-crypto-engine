@@ -35879,6 +35879,15 @@
      "game:div"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Jack Hughes",
+     "s": "5-4",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -35916,6 +35925,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2,1",
+     "h": "2,2,0,0"
+    },
     "form_state": [
      1.0,
      3,
@@ -35969,10 +35982,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Devils 5 @ Islanders 4",
     "season_games": null,
+    "settled": "2026-11-08T03:12Z",
     "side": "away",
     "start": "2026-11-08T00:00Z",
     "stype": "2",
@@ -35991,12 +36006,14 @@
   ],
   "midday": true,
   "p_hit": 0.5849,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-11-07T16:56Z",
   "round": 1,
+  "settled": "2026-11-08T03:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 160,
