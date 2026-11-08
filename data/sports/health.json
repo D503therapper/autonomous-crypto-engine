@@ -1,31 +1,42 @@
 {
- "at": "2026-11-08T15:29Z",
+ "at": "2026-11-08T15:39Z",
  "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
+  "simulator overdue (9h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Avellaneda vs Alves: no points for 1158s",
-  "live tennis scores: tennis Murcia vs Scott: no points for 837s",
-  "studies last ran 10h ago - restarted"
+  "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
+  "live tennis scores: tennis Murcia vs Scott: no points for 1414s",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (40s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 42 min ago",
+  "studies ran 0h ago",
+  "engine ran 52 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-08T15:39Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
+    "live tennis scores: tennis Murcia vs Scott: no points for 1414s",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-08T15:29Z",
    "fixes": [
@@ -538,13 +549,6 @@
    "fixes": [
     "live watch 42348234660 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T07:27Z",
-   "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
