@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T18:03Z",
+ "updated": "2026-11-08T18:06Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -25,6 +25,21 @@
    "start": "2026-11-08T17:00Z",
    "away": "Iona",
    "home": "St John's",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920424",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Arkansas",
+   "home": "Virginia",
    "h1": null,
    "why": "started",
    "done": false,
@@ -61,6 +76,51 @@
    }
   },
   {
+   "id": "nfl:401873039",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Browns",
+   "home": "Saints",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921220",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Central Penn",
+   "home": "Navy",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873040",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Cowboys",
+   "home": "Colts",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401921683",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -76,6 +136,36 @@
    "lean": null
   },
   {
+   "id": "nfl:401873044",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Giants",
+   "home": "Eagles",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873045",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Jets",
+   "home": "Chiefs",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401873042",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -84,6 +174,36 @@
    "start": "2026-11-08T18:00Z",
    "away": "Lions",
    "home": "Dolphins",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921684",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Manhattan",
+   "home": "Maine",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921687",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Marist",
+   "home": "UMass Lowell",
    "h1": null,
    "why": "started",
    "done": false,
@@ -118,6 +238,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaab:401924734",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Princeton",
+   "home": "Siena",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nfl:401873043",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-08T18:00Z",
+   "away": "Rams",
+   "home": "Commanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401926867",
@@ -1293,8 +1443,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.71,
-    "tie": 0.036,
+    "p": 0.702,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1311,7 +1461,7 @@
     "line": 8.5,
     "odds": -115,
     "p": 0.501,
-    "win_p": 0.212,
+    "win_p": 0.222,
     "reasons": []
    }
   },
