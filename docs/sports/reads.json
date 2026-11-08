@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T16:08Z",
+ "updated": "2026-11-08T16:54Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -17,42 +17,12 @@
    "lean": null
   },
   {
-   "id": "ncaab:401924646",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "St John's",
-    "p": 0.929,
-    "tie": 0.014,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-08T17:00Z",
-   "away": "Iona",
-   "home": "St John's",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Iona",
-    "opp": "St John's",
-    "market": "spread",
-    "line": 28.5,
-    "odds": -115,
-    "p": 0.537,
-    "win_p": 0.024,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401920424",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia",
-    "p": 0.557,
+    "p": 0.564,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -68,9 +38,9 @@
     "opp": "Arkansas",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.603,
-    "win_p": 0.603,
+    "odds": -175,
+    "p": 0.613,
+    "win_p": 0.613,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -82,7 +52,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.558,
+    "p": 0.567,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -98,12 +68,12 @@
     "opp": "Panthers",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.602,
-    "win_p": 0.602,
+    "odds": -155,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
+     "sharp money moving this way",
      "opponent drama: coach fired"
     ]
    }
@@ -114,7 +84,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.544,
+    "p": 0.548,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -130,9 +100,9 @@
     "opp": "Browns",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -192,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "sharp money moving this way",
      "better rested",
@@ -146,8 +116,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.592,
-    "tie": 0.037,
+    "p": 0.574,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -162,12 +132,12 @@
     "opp": "Colts",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.651,
-    "win_p": 0.651,
+    "odds": -205,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
-     "opponent missing key players",
      "better QB play lately",
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -209,7 +179,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.565,
+    "p": 0.556,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -226,12 +196,12 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.612,
-    "win_p": 0.612,
+    "p": 0.599,
+    "win_p": 0.599,
     "reasons": [
-     "opponent missing key players",
      "sharp money moving this way",
-     "better rested"
+     "better rested",
+     "better QB play lately"
     ]
    }
   },
@@ -241,8 +211,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.689,
-    "tie": 0.034,
+    "p": 0.697,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -259,7 +229,7 @@
     "line": 9.5,
     "odds": -110,
     "p": 0.514,
-    "win_p": 0.198,
+    "win_p": 0.197,
     "reasons": [
      "revenge game"
     ]
@@ -271,7 +241,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.644,
+    "p": 0.641,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -280,19 +250,20 @@
    "start": "2026-11-08T18:00Z",
    "away": "Lions",
    "home": "Dolphins",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Dolphins",
-    "opp": "Lions",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -108,
-    "p": 0.514,
-    "win_p": 0.267,
+    "team": "Lions",
+    "opp": "Dolphins",
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.718,
+    "win_p": 0.718,
     "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
+     "the stronger team",
+     "better QB play lately",
+     "revenge game"
     ]
    }
   },
@@ -364,7 +335,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.397,
+    "p": 0.401,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -380,9 +351,9 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.626,
-    "win_p": 0.408,
+    "odds": -205,
+    "p": 0.618,
+    "win_p": 0.401,
     "reasons": []
    }
   },
@@ -422,7 +393,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.611,
+    "p": 0.617,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -439,10 +410,11 @@
     "market": "ml",
     "line": null,
     "odds": -238,
-    "p": 0.677,
-    "win_p": 0.677,
+    "p": 0.685,
+    "win_p": 0.685,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -577,8 +549,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Dartmouth",
-    "p": 0.632,
-    "tie": 0.04,
+    "p": 0.678,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -586,18 +558,19 @@
    "start": "2026-11-08T19:00Z",
    "away": "C Connecticut",
    "home": "Dartmouth",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Dartmouth",
     "opp": "C Connecticut",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.699,
-    "win_p": 0.699,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -108,
+    "p": 0.507,
+    "win_p": 0.754,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -607,7 +580,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "W Michigan",
-    "p": 0.599,
+    "p": 0.589,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -623,9 +596,9 @@
     "opp": "Campbell",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.658,
-    "win_p": 0.658,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": []
    }
   },
@@ -635,8 +608,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.698,
-    "tie": 0.037,
+    "p": 0.681,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -644,16 +617,16 @@
    "start": "2026-11-08T19:00Z",
    "away": "Green Bay",
    "home": "St Thomas",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Green Bay",
     "opp": "St Thomas",
     "market": "spread",
-    "line": 8.5,
-    "odds": -115,
-    "p": 0.553,
-    "win_p": 0.226,
+    "line": 7.5,
+    "odds": -110,
+    "p": 0.547,
+    "win_p": 0.246,
     "reasons": []
    }
   },
@@ -1037,7 +1010,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.669,
+    "p": 0.665,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1054,8 +1027,8 @@
     "market": "spread",
     "line": 9.5,
     "odds": -110,
-    "p": 0.511,
-    "win_p": 0.223,
+    "p": 0.508,
+    "win_p": 0.227,
     "reasons": [
      "sharp money moving this way",
      "opponent missing key players",
@@ -1339,8 +1312,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.722,
-    "tie": 0.03,
+    "p": 0.735,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1354,10 +1327,10 @@
     "team": "Timberwolves",
     "opp": "Jazz",
     "market": "spread",
-    "line": -11.5,
-    "odds": -106,
-    "p": 0.504,
-    "win_p": 0.829,
+    "line": -12.5,
+    "odds": -105,
+    "p": 0.505,
+    "win_p": 0.844,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1706,7 +1679,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.565,
+    "p": 0.569,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1722,9 +1695,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.613,
-    "win_p": 0.613,
+    "odds": -175,
+    "p": 0.618,
+    "win_p": 0.618,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
