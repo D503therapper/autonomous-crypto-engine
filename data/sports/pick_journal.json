@@ -11763,6 +11763,64 @@
   "kind": "play",
   "lean": false,
   "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401856741",
+  "team": "Ole Miss",
+  "opp": "Georgia",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 145,
+  "posted": "2026-11-07T16:00Z",
+  "price_says": 0.408,
+  "win_p": 0.43411218179974265,
+  "own_read": 0.486,
+  "weighed": null,
+  "dog_p": 0.4858,
+  "edge_own": 0.385,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "conservative": true,
+   "fades": [],
+   "fast": false,
+   "last_margin": 30.0,
+   "last_pts": 45.0,
+   "neutral": false,
+   "record": [
+    6,
+    2
+   ],
+   "win_pct": 0.75,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Kewan Lacy (RB)",
+   "Izaiah Hartrup (WR)",
+   "Edwin Joseph (S)",
+   "Nascar McCoy (S)"
+  ],
+  "theirs_out": [
+   "Amaris Williams (OLB)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": 145,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "7-42",
+  "margin": -35.0,
+  "pnl_units": -1.0
+ },
+ {
+  "date": "2026-11-07",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
   "league": "nhl",
   "game_id": "nhl:401892667",
   "team": "Devils",
@@ -11879,5 +11937,65 @@
   "score": "3-41",
   "margin": -38.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-11-07",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401858291",
+  "team": "Miami",
+  "opp": "Notre Dame",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 225,
+  "posted": "2026-11-07T20:26Z",
+  "price_says": 0.308,
+  "win_p": 0.27709205865935504,
+  "own_read": 0.355,
+  "weighed": null,
+  "dog_p": 0.355,
+  "edge_own": 0.6237,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "better QB play lately"
+  ],
+  "angles": {
+   "conservative": true,
+   "fades": [
+    "ice cold"
+   ],
+   "fast": false,
+   "last_margin": 3.0,
+   "last_pts": 38.0,
+   "neutral": false,
+   "record": [
+    8,
+    0
+   ],
+   "win_pct": 1.0,
+   "win_streak": 8
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "J. Moore (WR)",
+   "C. Brown (RB)",
+   "L. Gilbert (TE)"
+  ],
+  "theirs_out": [
+   "B. Hebert (QB)",
+   "Q. Porter (WR)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 235,
+  "beat_close_pts": -0.9,
+  "result": "lost",
+  "score": "24-31",
+  "margin": -7.0,
+  "pnl_units": -1.0
  }
 ]

@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 198,
+  "n": 200,
   "beat": 63,
-  "same": 80,
-  "worse": 55,
-  "avg_pts": 0.1
+  "same": 81,
+  "worse": 56,
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 96,
+  "n": 98,
   "beat": 28,
-  "same": 46,
-  "worse": 22,
-  "avg_pts": 0.14
+  "same": 47,
+  "worse": 23,
+  "avg_pts": 0.13
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 57,
+   "n": 59,
    "beat": 15,
-   "same": 29,
-   "worse": 13,
-   "avg_pts": 0.06
+   "same": 30,
+   "worse": 14,
+   "avg_pts": 0.05
   }
  },
  "by_sport": {
@@ -66,11 +66,11 @@
    "avg_pts": 0.6
   },
   "ncaaf": {
-   "n": 53,
+   "n": 55,
    "beat": 14,
-   "same": 25,
-   "worse": 14,
-   "avg_pts": 0.1
+   "same": 26,
+   "worse": 15,
+   "avg_pts": 0.08
   },
   "nfl": {
    "n": 24,
@@ -2866,6 +2866,20 @@
    "date": "2026-11-07",
    "kind": "play",
    "lean": false,
+   "league": "ncaaf",
+   "team": "Ole Miss",
+   "market": "ml",
+   "line": null,
+   "odds": 145,
+   "close": 145,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
    "league": "nhl",
    "team": "Devils",
    "market": "ml",
@@ -2888,6 +2902,20 @@
    "close": 160,
    "pts": 0.0,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Miami",
+   "market": "ml",
+   "line": null,
+   "odds": 225,
+   "close": 235,
+   "pts": -0.9,
+   "units": 1.0,
    "result": "lost"
   }
  ]
