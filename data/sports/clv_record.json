@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 197,
+  "n": 198,
   "beat": 63,
   "same": 80,
-  "worse": 54,
+  "worse": 55,
   "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 95,
+  "n": 96,
   "beat": 28,
   "same": 46,
-  "worse": 21,
-  "avg_pts": 0.16
+  "worse": 22,
+  "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 56,
+   "n": 57,
    "beat": 15,
    "same": 29,
-   "worse": 12,
-   "avg_pts": 0.09
+   "worse": 13,
+   "avg_pts": 0.06
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 74,
+   "n": 75,
    "beat": 21,
    "same": 31,
-   "worse": 22,
-   "avg_pts": -0.01
+   "worse": 23,
+   "avg_pts": -0.03
   }
  },
  "lock_by_size": {
@@ -2791,6 +2791,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Lightning",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -135,
+   "pts": -1.2,
+   "units": 0.5,
+   "result": "won"
   },
   {
    "date": "2026-11-07",

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T04:15Z",
+ "updated": "2026-11-08T04:17Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -1956,8 +1956,8 @@
    "away": "West Georgia",
    "home": "C Arkansas",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -2315,8 +2315,8 @@
    "away": "West Florida",
    "home": "North Alabama",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -3292,8 +3292,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.639,
-    "win_p": 0.421,
+    "p": 0.638,
+    "win_p": 0.42,
     "reasons": []
    }
   },
@@ -3846,7 +3846,7 @@
     "line": 1.5,
     "odds": -192,
     "p": 0.68,
-    "win_p": 0.462,
+    "win_p": 0.463,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back",
@@ -3974,6 +3974,37 @@
    }
   },
   {
+   "id": "nba:401909948",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Mavericks",
+    "p": 0.647,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-09T00:30Z",
+   "away": "Nets",
+   "home": "Mavericks",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Mavericks",
+    "opp": "Nets",
+    "market": "spread",
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.738,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back"
+    ]
+   }
+  },
+  {
    "id": "nba:401909949",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -4071,7 +4102,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.622,
+    "p": 0.619,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -4087,9 +4118,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.704,
-    "win_p": 0.704,
+    "odds": -265,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "the stronger team",
      "better QB play lately",
