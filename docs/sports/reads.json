@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T09:07Z",
+ "updated": "2026-11-08T10:09Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -193,7 +193,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.557,
+    "p": 0.564,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -209,9 +209,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.601,
-    "win_p": 0.601,
+    "odds": -162,
+    "p": 0.611,
+    "win_p": 0.611,
     "reasons": [
      "sharp money moving this way",
      "better rested",
@@ -255,7 +255,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.642,
+    "p": 0.645,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -271,9 +271,9 @@
     "opp": "Dolphins",
     "market": "ml",
     "line": null,
-    "odds": -290,
-    "p": 0.719,
-    "win_p": 0.719,
+    "odds": -298,
+    "p": 0.723,
+    "win_p": 0.723,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -683,7 +683,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Patriots",
-    "p": 0.565,
+    "p": 0.562,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -699,13 +699,13 @@
     "opp": "Packers",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -170,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "the stronger team",
      "better QB play lately",
-     "sharp money moving this way"
+     "revenge game"
     ]
    }
   },
@@ -1292,6 +1292,34 @@
    }
   },
   {
+   "id": "nhl:401892680",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Oilers",
+    "p": 0.391,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-10T01:00Z",
+   "away": "Rangers",
+   "home": "Oilers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Rangers",
+    "opp": "Oilers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -200,
+    "p": 0.638,
+    "win_p": 0.421,
+    "reasons": []
+   }
+  },
+  {
    "id": "nfl:401873051",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -1321,6 +1349,62 @@
      "rolling off a blowout win",
      "revenge game"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892681",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Flyers",
+    "p": 0.375,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-10T02:30Z",
+   "away": "Flyers",
+   "home": "Canucks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Canucks",
+    "opp": "Flyers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.667,
+    "win_p": 0.447,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892682",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Islanders",
+    "p": 0.374,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-10T03:00Z",
+   "away": "Islanders",
+   "home": "Sharks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Sharks",
+    "opp": "Islanders",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.668,
+    "win_p": 0.448,
+    "reasons": []
    }
   }
  ]
