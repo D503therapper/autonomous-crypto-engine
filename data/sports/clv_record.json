@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 196,
+  "n": 197,
   "beat": 63,
-  "same": 79,
+  "same": 80,
   "worse": 54,
-  "avg_pts": 0.11
+  "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 94,
+  "n": 95,
   "beat": 28,
-  "same": 45,
+  "same": 46,
   "worse": 21,
   "avg_pts": 0.16
  },
@@ -36,9 +36,9 @@
    "avg_pts": 1.08
   },
   "play": {
-   "n": 55,
+   "n": 56,
    "beat": 15,
-   "same": 28,
+   "same": 29,
    "worse": 12,
    "avg_pts": 0.09
   }
@@ -80,9 +80,9 @@
    "avg_pts": 0.16
   },
   "nhl": {
-   "n": 73,
+   "n": 74,
    "beat": 21,
-   "same": 30,
+   "same": 31,
    "worse": 22,
    "avg_pts": -0.01
   }
@@ -2847,6 +2847,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-07",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   },
   {
    "date": "2026-11-07",
