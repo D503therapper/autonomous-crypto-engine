@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T03:22Z",
+ "updated": "2026-11-08T03:40Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2534,8 +2534,8 @@
    "away": "Bethune",
    "home": "Grand Canyon",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2564,8 +2564,8 @@
    "away": "Knicks",
    "home": "Cavaliers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2667,8 +2667,8 @@
    "away": "S Indiana",
    "home": "Evansville",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2868,6 +2868,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892673",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-08T03:00Z",
+   "away": "Canucks",
+   "home": "Oilers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401920371",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2921,6 +2936,21 @@
    "start": "2026-11-08T03:00Z",
    "away": "San Jos\u00e9 St",
    "home": "UC Irvine",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909944",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-08T03:00Z",
+   "away": "Spurs",
+   "home": "Trail Blazers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -3259,8 +3289,8 @@
     "opp": "Siena",
     "market": "spread",
     "line": 1.5,
-    "odds": -125,
-    "p": 0.506,
+    "odds": -115,
+    "p": 0.507,
     "win_p": 0.495,
     "reasons": [
      "hotter recent form"
@@ -3320,7 +3350,7 @@
     "market": "spread",
     "line": 17.5,
     "odds": -105,
-    "p": 0.572,
+    "p": 0.573,
     "win_p": 0.075,
     "reasons": [
      "hotter recent form"
@@ -3391,8 +3421,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.689,
-    "tie": 0.038,
+    "p": 0.698,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3406,10 +3436,10 @@
     "team": "St Thomas",
     "opp": "Green Bay",
     "market": "spread",
-    "line": -8.5,
-    "odds": -110,
-    "p": 0.506,
-    "win_p": 0.766,
+    "line": -9.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.777,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3423,7 +3453,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Air Force",
-    "p": 0.626,
+    "p": 0.625,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -3484,7 +3514,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.69,
+    "p": 0.692,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -3502,7 +3532,7 @@
     "line": -8.5,
     "odds": -114,
     "p": 0.501,
-    "win_p": 0.759,
+    "win_p": 0.761,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3673,7 +3703,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nevada",
-    "p": 0.503,
+    "p": 0.495,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3689,9 +3719,9 @@
     "opp": "Saint Mary's",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.533,
-    "win_p": 0.533,
+    "odds": -120,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
      "sharp money moving this way",
      "altitude edge",
@@ -3735,7 +3765,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.57,
+    "p": 0.569,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3886,7 +3916,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.722,
+    "p": 0.721,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -3917,7 +3947,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.759,
+    "p": 0.761,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -3935,7 +3965,7 @@
     "line": -12.5,
     "odds": -110,
     "p": 0.505,
-    "win_p": 0.836,
+    "win_p": 0.838,
     "reasons": [
      "the stronger team"
     ]
@@ -4041,7 +4071,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Houston",
-    "p": 0.848,
+    "p": 0.855,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -4056,10 +4086,10 @@
     "team": "California",
     "opp": "Houston",
     "market": "spread",
-    "line": 17.5,
-    "odds": -105,
-    "p": 0.565,
-    "win_p": 0.075,
+    "line": 18.5,
+    "odds": -115,
+    "p": 0.571,
+    "win_p": 0.07,
     "reasons": [
      "hotter recent form",
      "opponent's body clock is off"
@@ -4072,7 +4102,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.668,
+    "p": 0.67,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -4090,7 +4120,7 @@
     "line": -8.5,
     "odds": -106,
     "p": 0.501,
-    "win_p": 0.732,
+    "win_p": 0.733,
     "reasons": [
      "the stronger team"
     ]
@@ -4102,7 +4132,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.501,
+    "p": 0.503,
     "tie": 0.037,
     "name": "1st half"
    },
