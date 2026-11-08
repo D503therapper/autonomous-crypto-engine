@@ -1,9 +1,9 @@
 {
- "at": "2026-11-08T18:58Z",
+ "at": "2026-11-08T19:09Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (34s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -12,17 +12,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 5 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 5 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-08T19:09Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-08T18:58Z",
    "fixes": [],
@@ -557,16 +562,6 @@
    "at": "2026-11-07T12:31Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-07T11:00Z",
-   "fixes": [
-    "live watch 42363127311 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
-   ]
   }
  ]
 }
