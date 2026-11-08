@@ -15542,3 +15542,38 @@ error: failed to push some refs to 'https://githu
 [2026-11-08 20:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-08 20:06 UTC] crypto/hold_btc  equity $456.11 (-8.8%) 1 open  market DOWN
    social heat top: BTC 37 (32/0/5), ONDO 29 (29/0/0), PUMP 28 (27/0/2), PENGU 24 (24/0/0), PONS 23 (19/0/4)
+   dex screen: UNREACHABLE SP@ethereum liq $255,366 - honeypot.is unreachable
+   dex screen: REJECT CARDS@solana liq $3,470,579 - top-10 holders 73%
+   dex screen: REJECT TRUMP@solana liq $155,692 - top-10 holders 88%; lp holders unknown
+   dex screen: REJECT HNT@solana liq $277,586 - mint authority; lp locked 0% < 95%
+   dex screen: UNREACHABLE FOCO@ethereum liq $152,065 - honeypot.is unreachable
+   dex screen: REJECT AMDC@base liq $306,199 - pool age unknown
+   dex screen: REJECT METAC@base liq $964,060 - pool age unknown
+   dex screen: UNREACHABLE SP@ethereum liq $254,041 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT LIT@ethereum liq $604,585 - goplus partial data: cannot_sell_all unknown; top-10 holders 62%; lp locked 0% < 95%
+   dex screen: PASS DESSA@solana liq $635,102
+   dex screen: UNREACHABLE FOCO@ethereum liq $151,398 - honeypot.is unreachable
+   dex screen: REJECT LMTS@base liq $129,628 - pool age unknown
+   dex screen: REJECT CLAUDIA@ethereum liq $155,557 - top-10 holders 120%; lp holders unknown
+   dex screen: REJECT NVDA@solana liq $414,823 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 48%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $257,432 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT DRV@solana liq $382,405,557 - top-10 holders 100%
+   dex screen: REJECT DRV@base liq $1,227,536 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: UNREACHABLE FOCO@ethereum liq $150,966 - honeypot.is unreachable
+   dex screen: REJECT NEIRO@ethereum liq $2,861,300 - top-10 holders 67%
+   dex screen: PASS STONK@solana liq $1,518,191
+   dex screen: REJECT DOT@base liq $421,778 - lp locked 0% < 95%
+   dex screen: REJECT PYUSD@ethereum liq $100,227,028 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   dex screen: PASS HEREWEGO@solana liq $104,179
+   dex scanner: 2,781 pools (solana 1,808 / base 497 / ethereum 476), refresh cycle 124s (hot 119s), 2831 calls (108 feed, 429s 0, failed 0), 81,685 refreshed (14313 no pair), +58 added / -122 dropped (dead 92, stale 30, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-08 21:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: SELL $93.86 of QNT @ 199.361, P/L $-0.13 (time limit)
+[2026-11-08 21:06 UTC] crypto/mover     equity $207.91 (-58.4%) 0 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/social_heat equity $341.83 (-31.6%) 3 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/breakout10 equity $388.06 (-22.4%) 1 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-08 21:06 UTC] crypto/hold_btc  equity $455.10 (-9.0%) 1 open  market DOWN
+   social heat top: STONK 35 (29/0/5), PENGU 27 (27/0/0), BTC 25 (19/0/6), SOL 21 (21/0/0), PONS 21 (16/0/5)
