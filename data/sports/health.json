@@ -1,12 +1,14 @@
 {
- "at": "2026-11-08T13:09Z",
- "fixes": [],
+ "at": "2026-11-08T13:11Z",
+ "fixes": [
+  "live watch 42480250485 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (223s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,11 +20,22 @@
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 7h ago",
-  "engine ran 59 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-08T13:11Z",
+   "fixes": [
+    "live watch 42480250485 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-08T13:09Z",
    "fixes": [],
@@ -526,13 +539,6 @@
   },
   {
    "at": "2026-11-07T07:24Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T07:21Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
