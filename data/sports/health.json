@@ -1,9 +1,11 @@
 {
- "at": "2026-11-08T22:50Z",
- "fixes": [],
+ "at": "2026-11-08T22:52Z",
+ "fixes": [
+  "live watch 42528505775 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (253s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +19,20 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 10 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-08T22:52Z",
+   "fixes": [
+    "live watch 42528505775 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-08T22:50Z",
    "fixes": [],
@@ -551,18 +561,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Feistel vs Blinkova: no points for 2611s"
-   ]
-  },
-  {
-   "at": "2026-11-07T16:04Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Feistel vs Blinkova: no points for 754s",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
