@@ -984,3 +984,50 @@ def lost_man(tid, start, rows=None):
         if best is None or first_b > best[0]:
             best = (first_b, {"name": hist[-1][2], "mpg": round(mpg, 1), "games_since": since})
     return best[1] if best else None
+
+
+STAR_DUD_PPG = 18.0       # 🏀 11/8 daily study 7 (results/studies/daily_1108/s4_s7_pros_hoops.py S7x + s7b_star_dud_robust.py):
+STAR_DUD_FGA = 15         # the team's top scorer (points a game this season, 3+ games with the team, 18+) shot under 35%
+STAR_DUD_PCT = 0.35       # on 15+ shots in the team's LAST game - the favorite across from that team next game falls short
+STAR_DUD_GAMES = 5        # of its price (-11.9% on 350 at the close; see sports.NBA_FAV_STAR_DUD_W). 5+ team games first.
+
+
+def star_dud(tid, start, rows=None):
+    """{"name", "ppg", "fgm", "fga", "gid", "start"} when the team's top scorer this season (STAR_DUD_PPG+ a game over
+    3+ games with the team, the team STAR_DUD_GAMES+ games in) shot under STAR_DUD_PCT on STAR_DUD_FGA+ shots in the
+    team's last box score before `start`; None otherwise (no box scores = nothing, never a guess)."""
+    season = season_of(start)
+    if rows is None:
+        if season not in _RECENT:
+            _RECENT.clear()
+            _RECENT[season] = _rows(season)
+        rows = _RECENT[season]
+    tid = str(tid)
+    mine = [r for r in rows if r["team"] == tid and r["start"] < start and season_of(r["start"]) == season]
+    games_ = sorted({(r["start"], r["gid"]) for r in mine})
+    if len(games_) < STAR_DUD_GAMES:
+        return None
+    pts, gp, names, line = {}, {}, {}, {}
+    last_gid = games_[-1][1]
+    for r in mine:
+        try:
+            st = json.loads(r.get("stats") or "{}")
+            p = float(st.get("points") or 0)
+            fgm, fga = [int(x) for x in str(st.get("fieldGoalsMade-fieldGoalsAttempted") or "").split("-")]
+        except (ValueError, TypeError):
+            continue
+        pts[r["pid"]] = pts.get(r["pid"], 0.0) + p
+        gp[r["pid"]] = gp.get(r["pid"], 0) + 1
+        names[r["pid"]] = r["player"]
+        if r["gid"] == last_gid:
+            line[r["pid"]] = (fgm, fga)
+    cand = [(pts[p] / gp[p], p) for p in pts if gp[p] >= 3]
+    if not cand:
+        return None
+    ppg, star = max(cand)
+    if ppg < STAR_DUD_PPG or star not in line:
+        return None
+    fgm, fga = line[star]
+    if fga < STAR_DUD_FGA or fgm / fga >= STAR_DUD_PCT:
+        return None
+    return {"name": names[star], "ppg": round(ppg, 1), "fgm": fgm, "fga": fga, "gid": last_gid, "start": games_[-1][0]}

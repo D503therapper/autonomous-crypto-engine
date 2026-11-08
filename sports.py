@@ -861,6 +861,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     weigh_ncaaf_fav_qb_carousel(games, out)           # 🏈 11/7 daily: the college favorite on its 3rd+ QB this season (-2)
+    weigh_nba_fav_vs_star_dud(games, out)             # 🏀 11/8 daily: the NBA favorite across from a star off a dud (-1)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -3659,6 +3660,51 @@ def weigh_ncaaf_fav_qb_carousel(games, cands):
         base = c["w_p"] if c.get("w_p") is not None else own
         c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAF_FAV_QB3_W))), 4)
         c["qb_carousel"] = {"n": q["n"], "names": q["names"]}
+
+
+NBA_FAV_STAR_DUD_W = -0.01   # 🏀 11/8 DAILY STUDIES (results/studies/daily_1108/s4_s7_pros_hoops.py S7 / S7x + s7b_star_
+NBA_FAV_STAR_DUD_BAND = (-250, -101)   # dud_robust.py; SPORTS_FINDINGS "11/8 - DAILY STUDIES"): an NBA favorite -101..-250
+#                           facing a team whose top scorer (18+ a game this season) shot under 35% on 15+ shots in its last
+#                           game lost to its close -11.9% on 350 (2016-26; train 2016-22 -10.8%, 0 of 5 seasons up; held
+#                           2023 -12.4 / 2024 -13.2 / 2025 -17.7 = 3 of 3 down) vs -4.2% for every such favorite; the same
+#                           games ATS: the dud team covers 55% (+5.7% on 1,159, train 5 of 5 up). ESPN's open -6.9% on 131
+#                           (2 of 3 down). The cuts hold at a 15 / 18 / 22 ppg star, home and road, -101..-150 -20.3%;
+#                           it lives after a dud the team LOST (-15.5% vs -4.5% after a win) and in Jan-Apr (-18.6%) -
+#                           Oct-Dec is only -1.8% (train +3.6%), and the <30% dose is no deeper (-8.8%). ~190 cells looked
+#                           at (z -2.7) - a SMALL weight: -1 point on the favorite's weighed read (floor own - FAV_CAP),
+#                           never a trigger; no box scores / the dud box isn't the team's last game = unknown = 0.
+
+
+def weigh_nba_fav_vs_star_dud(games, cands):
+    """🏀 11/8: an NBA moneyline favorite -101..-250 across from a team whose top scorer just shot under 35% on 15+
+    (sports_nba_roster.star_dud): its weighed read goes down NBA_FAV_STAR_DUD_W (floor own - FAV_CAP) and the side carries
+    opp_star_dud = {name, ppg, fgm, fga}. The dud box must be the opponent's LAST finished game (a stale box = unknown)."""
+    fav = [c for c in cands if c.get("league") == "nba" and c.get("market") == "ml"
+           and NBA_FAV_STAR_DUD_BAND[0] <= c.get("odds", 0) <= NBA_FAV_STAR_DUD_BAND[1]]
+    if not fav:
+        return
+    import sports_nba_roster
+    for c in fav:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        opp = g.get("away" if c.get("side") == "home" else "home")
+        if not opp or not start or c.get("edge_own") is None or not c.get("dec"):
+            continue
+        try:
+            d = sports_nba_roster.star_dud(opp, start)
+        except Exception:                                    # noqa: BLE001 - unknown = no weight, never a blocked board
+            d = None
+        if not d:
+            continue
+        later = [x for k, x in (games or {}).items() if (str(k).startswith("nba:") or x.get("league") == "nba")
+                 and x.get("status") == "final" and str(opp) in (str(x.get("home")), str(x.get("away")))
+                 and d["start"] < str(x.get("start") or "") < start]
+        if later:
+            continue                                         # (the box we hold isn't their last game - never a guess)
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NBA_FAV_STAR_DUD_W))), 4)
+        c["opp_star_dud"] = {k: d[k] for k in ("name", "ppg", "fgm", "fga")}
 
 
 NCAAB_AWAY_FAV_W = -0.03          # 🏀 11/3 COLLEGE HOOPS (B), study 4/5 (results/studies/cbb_1103_b/s4b_away_fav_novdec.py):

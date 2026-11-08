@@ -19737,6 +19737,73 @@ def test_daily_1107_college_favorite_on_its_third_qb_is_a_minus_2_weight():
     assert "weigh_ncaaf_fav_qb_carousel(games, out)" in src                             # wired into the day's candidates
 
 
+def test_daily_1108_nba_favorite_across_from_a_star_off_a_dud_is_a_minus_1_weight():
+    """11/8 daily studies (results/studies/daily_1108/s4_s7_pros_hoops.py S7x + s7b_star_dud_robust.py): an NBA favorite
+    -101..-250 facing a team whose top scorer (18+ a game this season) shot under 35% on 15+ shots in its LAST game lost to
+    its close -11.9% on 350 (train 0 of 5 up, held 3 of 3 down). A WEIGHT: -1 point on the favorite's weighed read (floor
+    own - FAV_CAP), never a trigger; a stale box (not the opponent's last game) / under 5 games / no box = nothing; the dog
+    side and past -250 untouched; the NHL rested-night backup favorite is a tracker tag only."""
+    import sports_nba_roster as nr
+    import sports_leads as sl
+    assert sports.NBA_FAV_STAR_DUD_W == -0.01 and nr.STAR_DUD_PPG == 18.0 and nr.STAR_DUD_FGA == 15
+    assert nr.STAR_DUD_PCT == 0.35 and nr.STAR_DUD_GAMES == 5
+
+    def row(gid, start, pid, nm, pts, fgm, fga, team="20"):
+        return {"gid": gid, "start": start, "team": team, "pid": pid, "player": nm,
+                "stats": json.dumps({"points": str(pts), "fieldGoalsMade-fieldGoalsAttempted": f"{fgm}-{fga}"})}
+    rows = []
+    for i in range(1, 6):                                                    # 5 games: the star 25 a night, a 12-a-night man
+        st = f"2026-11-0{i}T00:00Z"
+        last = i == 5
+        rows += [row(f"nba:g{i}", st, "s1", "Star Man", 12 if last else 28, 4 if last else 10, 17 if last else 20),
+                 row(f"nba:g{i}", st, "b1", "Bench Guy", 12, 5, 10)]
+    rows.append(row("nba:x1", "2026-11-03T00:00Z", "z9", "Other Team", 40, 15, 20, team="21"))
+    got = nr.star_dud("20", "2026-11-08T00:00Z", rows=rows)
+    assert got and got["name"] == "Star Man" and (got["fgm"], got["fga"]) == (4, 17) and got["gid"] == "nba:g5", got
+    assert nr.star_dud("20", "2026-11-05T00:00Z", rows=rows) is None                 # 4 games in: unknown, never a guess
+    hot = [dict(r) for r in rows]
+    hot[-3] = row("nba:g5", "2026-11-05T00:00Z", "s1", "Star Man", 30, 9, 17)        # 9 of 17 = 53%: no dud
+    assert nr.star_dud("20", "2026-11-08T00:00Z", rows=hot) is None
+    few = [dict(r) for r in rows]
+    few[-3] = row("nba:g5", "2026-11-05T00:00Z", "s1", "Star Man", 6, 3, 12)          # 3 of 12 - under 15 shots: no dud
+    assert nr.star_dud("20", "2026-11-08T00:00Z", rows=few) is None
+    keep = dict(nr._RECENT)
+    nr._RECENT.clear()
+    nr._RECENT[2026] = rows
+    try:
+        games = {"nba:t": {"id": "nba:t", "start": "2026-11-08T00:00Z", "home": "30", "away": "20", "status": "pre"},
+                 "nba:g5": {"id": "nba:g5", "start": "2026-11-05T00:00Z", "home": "20", "away": "31", "status": "final"}}
+        base = {"game_id": "nba:t", "league": "nba", "market": "ml", "start": "2026-11-08T00:00Z", "reasons": []}
+        fav = {**base, "side": "home", "home": True, "odds": -140, "dec": 1.7143, "edge_own": 0.0}
+        dog = {**base, "side": "away", "home": False, "odds": 120, "dec": 2.2, "edge_own": 0.0}
+        big = {**base, "side": "home", "odds": -300, "dec": 1.3333, "edge_own": 0.0}
+        sports.weigh_nba_fav_vs_star_dud(games, [fav, dog, big])
+        assert fav["opp_star_dud"] == {"name": "Star Man", "ppg": 24.8, "fgm": 4, "fga": 17}, fav.get("opp_star_dud")
+        assert abs(fav["w_p"] - (1 / 1.7143 - 0.01)) < 1e-3                               # -1 point on the weighed read
+        assert "opp_star_dud" not in dog and "w_p" not in dog and "opp_star_dud" not in big   # never the dog / past -250
+        floor = {**base, "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0, "w_p": 1 / 1.7143 - 0.035}
+        sports.weigh_nba_fav_vs_star_dud(games, [floor])
+        assert abs(floor["w_p"] - (1 / 1.7143 - sports.FAV_CAP)) < 1e-3                  # the whole lift stays in FAV_CAP
+        stale = dict(games, **{"nba:g6": {"id": "nba:g6", "start": "2026-11-06T00:00Z", "home": "32", "away": "20",
+                                          "status": "final"}})
+        f2 = {**base, "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0}
+        sports.weigh_nba_fav_vs_star_dud(stale, [f2])                                   # they've played since the box we hold
+        assert "opp_star_dud" not in f2 and "w_p" not in f2
+        nhl = {**base, "league": "nhl", "side": "home", "odds": -140, "dec": 1.7143, "edge_own": 0.0}
+        sports.weigh_nba_fav_vs_star_dud(games, [nhl])
+        assert "opp_star_dud" not in nhl                                                # the NBA only
+        assert "NBA fav -101..-250 vs a team whose star shot under 35% last game (fade)" in sl.tags(fav, sports)
+    finally:
+        nr._RECENT.clear()
+        nr._RECENT.update(keep)
+    hk = {"league": "nhl", "market": "ml", "odds": -130, "dec": 1.769, "g_role_me": False, "b2b_me": False, "reasons": []}
+    assert "NHL fav -101..-250 on its backup, rested night (fade)" in sl.tags(hk, sports)   # the 11/8 lead (s6): tracked
+    for x in ({**hk, "b2b_me": True}, {**hk, "g_role_me": None}, {**hk, "g_role_me": True}, {**hk, "odds": 120}):
+        assert "on its backup, rested night" not in " ".join(sl.tags(x, sports))
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "weigh_nba_fav_vs_star_dud(games, out)" in src                               # wired into the day's candidates
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
