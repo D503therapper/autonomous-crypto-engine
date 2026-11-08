@@ -1,38 +1,6 @@
 {
- "updated": "2026-11-08T13:49Z",
+ "updated": "2026-11-08T14:11Z",
  "games": [
-  {
-   "id": "nfl:401873038",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bengals",
-    "p": 0.57,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-08T14:30Z",
-   "away": "Bengals",
-   "home": "Falcons",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Bengals",
-    "opp": "Falcons",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.619,
-    "win_p": 0.619,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "opponent drama: legal trouble"
-    ]
-   }
-  },
   {
    "id": "ncaab:401924646",
    "league": "ncaab",
@@ -193,7 +161,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fairfield",
-    "p": 0.506,
+    "p": 0.496,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -205,16 +173,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Fairfield",
-    "opp": "Bryant",
-    "market": "ml",
-    "line": null,
-    "odds": -130,
-    "p": 0.538,
-    "win_p": 0.538,
+    "team": "Bryant",
+    "opp": "Fairfield",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -112,
+    "p": 0.529,
+    "win_p": 0.477,
     "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+     "hotter recent form",
+     "opponent's body clock is off"
     ]
    }
   },
@@ -316,7 +284,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Maine",
-    "p": 0.523,
+    "p": 0.538,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -332,9 +300,9 @@
     "opp": "Manhattan",
     "market": "ml",
     "line": null,
-    "odds": -137,
-    "p": 0.56,
-    "win_p": 0.56,
+    "odds": -148,
+    "p": 0.579,
+    "win_p": 0.579,
     "reasons": [
      "hotter recent form",
      "opponent's body clock is off"
@@ -347,8 +315,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UMass Lowell",
-    "p": 0.539,
-    "tie": 0.043,
+    "p": 0.506,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -356,16 +324,16 @@
    "start": "2026-11-08T18:00Z",
    "away": "Marist",
    "home": "UMass Lowell",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "UMass Lowell",
     "opp": "Marist",
     "market": "ml",
     "line": null,
-    "odds": -152,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -125,
+    "p": 0.536,
+    "win_p": 0.536,
     "reasons": [
      "hotter recent form"
     ]
@@ -513,7 +481,7 @@
     "opp": "Sacred Heart",
     "market": "ml",
     "line": null,
-    "odds": -156,
+    "odds": -155,
     "p": 0.592,
     "win_p": 0.592,
     "reasons": [
@@ -528,8 +496,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lehigh",
-    "p": 0.55,
-    "tie": 0.043,
+    "p": 0.586,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -544,12 +512,13 @@
     "opp": "Brown",
     "market": "ml",
     "line": null,
-    "odds": -156,
-    "p": 0.595,
-    "win_p": 0.595,
+    "odds": -192,
+    "p": 0.641,
+    "win_p": 0.641,
     "reasons": [
      "hotter recent form",
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -582,6 +551,36 @@
      "sharp money moving this way",
      "opponent's body clock is off",
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920233",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Dartmouth",
+    "p": 0.632,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T19:00Z",
+   "away": "C Connecticut",
+   "home": "Dartmouth",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Dartmouth",
+    "opp": "C Connecticut",
+    "market": "ml",
+    "line": null,
+    "odds": -258,
+    "p": 0.699,
+    "win_p": 0.699,
+    "reasons": [
+     "hotter recent form"
     ]
    }
   },
@@ -646,13 +645,43 @@
    }
   },
   {
+   "id": "ncaab:401921686",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Merrimack",
+    "p": 0.488,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T19:00Z",
+   "away": "Merrimack",
+   "home": "UAlbany",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UAlbany",
+    "opp": "Merrimack",
+    "market": "spread",
+    "line": 2.5,
+    "odds": -118,
+    "p": 0.528,
+    "win_p": 0.487,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401920692",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Vermont",
-    "p": 0.669,
-    "tie": 0.039,
+    "p": 0.674,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -666,10 +695,10 @@
     "team": "Quinnipiac",
     "opp": "Vermont",
     "market": "spread",
-    "line": 6.5,
-    "odds": -107,
-    "p": 0.523,
-    "win_p": 0.259,
+    "line": 7.5,
+    "odds": -108,
+    "p": 0.53,
+    "win_p": 0.253,
     "reasons": [
      "opponent's body clock is off",
      "hotter recent form"
@@ -787,7 +816,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -9.5,
-    "odds": -103,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.783,
     "reasons": [
@@ -832,7 +861,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Binghamton",
-    "p": 0.657,
+    "p": 0.656,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -848,7 +877,7 @@
     "opp": "Rider",
     "market": "spread",
     "line": -7.5,
-    "odds": -104,
+    "odds": -108,
     "p": 0.5,
     "win_p": 0.728,
     "reasons": [
@@ -863,7 +892,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.629,
+    "p": 0.625,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -879,9 +908,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.702,
-    "win_p": 0.702,
+    "odds": -230,
+    "p": 0.696,
+    "win_p": 0.696,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1205,7 +1234,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Flyers",
-    "p": 0.356,
+    "p": 0.362,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1221,9 +1250,9 @@
     "opp": "Flyers",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.703,
-    "win_p": 0.488,
+    "odds": -270,
+    "p": 0.691,
+    "win_p": 0.475,
     "reasons": []
    }
   },
@@ -1338,9 +1367,9 @@
     "team": "Celtics",
     "opp": "Bucks",
     "market": "spread",
-    "line": -13.5,
-    "odds": -106,
-    "p": 0.506,
+    "line": -12.5,
+    "odds": -116,
+    "p": 0.505,
     "win_p": 0.853,
     "reasons": [
      "the stronger team"
@@ -1494,7 +1523,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -9.5,
-    "odds": -107,
+    "odds": -115,
     "p": 0.502,
     "win_p": 0.78,
     "reasons": [
@@ -1569,7 +1598,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.718,
+    "p": 0.714,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1584,10 +1613,10 @@
     "team": "UT Arlington",
     "opp": "Hawai'i",
     "market": "spread",
-    "line": 9.5,
-    "odds": -115,
-    "p": 0.507,
-    "win_p": 0.203,
+    "line": 8.5,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.208,
     "reasons": []
    }
   },
