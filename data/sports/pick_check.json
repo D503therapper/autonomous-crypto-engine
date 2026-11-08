@@ -1,12 +1,12 @@
 {
- "day": "2026-11-07",
+ "day": "2026-11-08",
  "picks": {
-  "dog|ncaaf:401858289|home|ml": {
-   "key": "dog|ncaaf:401858289|home|ml",
-   "kind": "dog",
-   "team": "Boston College",
-   "odds": 190,
-   "league": "ncaaf",
+  "lock|nfl:401873041|away|ml": {
+   "key": "lock|nfl:401873041|away|ml",
+   "kind": "lock",
+   "team": "Broncos",
+   "odds": -142,
+   "league": "nfl",
    "units": 1.0,
    "lean": false,
    "held": false,
@@ -15,14 +15,31 @@
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
+    "injuries": "pass"
    }
   },
-  "play|nhl:401892670|away|ml": {
-   "key": "play|nhl:401892670|away|ml",
+  "dog|nhl:401892677|home|ml": {
+   "key": "dog|nhl:401892677|home|ml",
+   "kind": "dog",
+   "team": "Jets",
+   "odds": 124,
+   "league": "nhl",
+   "units": 2.0,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "goalies": "pass"
+   }
+  },
+  "play|nhl:401892674|home|ml": {
+   "key": "play|nhl:401892674|home|ml",
    "kind": "play",
-   "team": "Lightning",
+   "team": "Bruins",
    "odds": -142,
    "league": "nhl",
    "units": 0.5,
@@ -36,14 +53,14 @@
     "injuries": "pass"
    }
   },
-  "play|nhl:401892664|away|ml": {
-   "key": "play|nhl:401892664|away|ml",
-   "kind": "play",
-   "team": "Rangers",
-   "odds": -135,
-   "league": "nhl",
-   "units": 0.5,
-   "lean": false,
+  "lean|nfl:401873050|away|spread": {
+   "key": "lean|nfl:401873050|away|spread",
+   "kind": "lean",
+   "team": "Buccaneers",
+   "odds": -108,
+   "league": "nfl",
+   "units": 0,
+   "lean": true,
    "held": false,
    "why": "",
    "checks": {
@@ -53,133 +70,24 @@
     "injuries": "pass"
    }
   },
-  "play|ncaaf:401862822|home|ml": {
-   "key": "play|ncaaf:401862822|home|ml",
-   "kind": "gap",
-   "team": "Tulane",
-   "odds": 124,
-   "league": "ncaaf",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
-   }
-  },
-  "play|ncaaf:401858292|home|ml": {
-   "key": "play|ncaaf:401858292|home|ml",
-   "kind": "gap",
-   "team": "UConn",
-   "odds": 240,
-   "league": "ncaaf",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
-   }
-  },
-  "play|ncaaf:401856854|home|ml": {
-   "key": "play|ncaaf:401856854|home|ml",
-   "kind": "gap",
-   "team": "Kansas St",
-   "odds": 200,
-   "league": "ncaaf",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
-   }
-  },
-  "play|ncaaf:401856741|home|ml": {
-   "key": "play|ncaaf:401856741|home|ml",
-   "kind": "gap",
-   "team": "Ole Miss",
-   "odds": 145,
-   "league": "ncaaf",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
-   }
-  },
-  "play|nhl:401892667|away|ml": {
-   "key": "play|nhl:401892667|away|ml",
-   "kind": "play",
-   "team": "Devils",
-   "odds": -148,
+  "lean|nhl:401892678|away|ml": {
+   "key": "lean|nhl:401892678|away|ml",
+   "kind": "lean",
+   "team": "Flyers",
+   "odds": -118,
    "league": "nhl",
-   "units": 0.5,
-   "lean": false,
+   "units": 0,
+   "lean": true,
    "held": false,
    "why": "",
    "checks": {
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass",
-    "goalies": "pass"
-   }
-  },
-  "play|ncaaf:401858286|home|ml": {
-   "key": "play|ncaaf:401858286|home|ml",
-   "kind": "dogplay",
-   "team": "NC State",
-   "odds": 160,
-   "league": "ncaaf",
-   "units": 0.5,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
-   }
-  },
-  "play|ncaaf:401858291|away|ml": {
-   "key": "play|ncaaf:401858291|away|ml",
-   "kind": "gap",
-   "team": "Miami",
-   "odds": 225,
-   "league": "ncaaf",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass"
+    "injuries": "pass"
    }
   }
  },
- "updated": "2026-11-07T20:26Z",
+ "updated": "2026-11-08T16:00Z",
  "held": []
 }
