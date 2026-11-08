@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T01:40Z",
+ "updated": "2026-11-08T02:01Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2121,8 +2121,8 @@
    "away": "Albion",
    "home": "Purdue FW",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2718,6 +2718,36 @@
    "lean": null
   },
   {
+   "id": "ncaab:401931055",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T01:30Z",
+   "away": "Bethesda",
+   "home": "Southern Utah",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909942",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-08T01:30Z",
+   "away": "Magic",
+   "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401860913",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -3002,7 +3032,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.562,
+    "p": 0.551,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3018,9 +3048,9 @@
     "opp": "Texas St",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.596,
-    "win_p": 0.596,
+    "odds": -205,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "better QB play lately"
     ]
@@ -3187,7 +3217,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.529,
+    "p": 0.531,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -3203,12 +3233,12 @@
     "opp": "Browns",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -170,
+    "p": 0.576,
+    "win_p": 0.576,
     "reasons": [
-     "better rested",
      "sharp money moving this way",
+     "better rested",
      "coming off a bye"
     ]
    }
@@ -4190,9 +4220,9 @@
     "team": "California",
     "opp": "Houston",
     "market": "spread",
-    "line": 18.5,
-    "odds": -115,
-    "p": 0.571,
+    "line": 17.5,
+    "odds": -105,
+    "p": 0.566,
     "win_p": 0.075,
     "reasons": [
      "hotter recent form",
