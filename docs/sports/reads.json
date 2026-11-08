@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T02:35Z",
+ "updated": "2026-11-08T02:49Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -1479,8 +1479,8 @@
    "away": "E Kentucky",
    "home": "Austin Peay",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -1956,8 +1956,8 @@
    "away": "West Georgia",
    "home": "C Arkansas",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -2823,190 +2823,34 @@
    "lean": null
   },
   {
-   "id": "nhl:401892673",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Oilers",
-    "p": 0.508,
-    "tie": 0.277,
-    "name": "1st period"
-   },
-   "sport": "NHL",
+   "id": "ncaaf:401864532",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
    "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "Canucks",
-   "home": "Oilers",
-   "why": "tight",
+   "start": "2026-11-08T02:30Z",
+   "away": "Hawai'i",
+   "home": "UTEP",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Oilers",
-    "opp": "Canucks",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -155,
-    "p": 0.611,
-    "win_p": 0.793,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401920371",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UC San Diego",
-    "p": 0.752,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "ncaaf:401856856",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
    "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "Fresno St",
-   "home": "UC San Diego",
-   "why": "coin_flip",
+   "start": "2026-11-08T02:30Z",
+   "away": "West Virginia",
+   "home": "Texas Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Fresno St",
-    "opp": "UC San Diego",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -102,
-    "p": 0.537,
-    "win_p": 0.167,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401917517",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Seattle U",
-    "p": 0.745,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "Portland St",
-   "home": "Seattle U",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Portland St",
-    "opp": "Seattle U",
-    "market": "spread",
-    "line": 10.5,
-    "odds": -110,
-    "p": 0.551,
-    "win_p": 0.174,
-    "reasons": [
-     "hotter recent form",
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401917519",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Santa Clara",
-    "p": 0.868,
-    "tie": 0.022,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "Sacramento St",
-   "home": "Santa Clara",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Santa Clara",
-    "opp": "Sacramento St",
-    "market": "spread",
-    "line": -19.5,
-    "odds": -112,
-    "p": 0.53,
-    "win_p": 0.94,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401911470",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UC Irvine",
-    "p": 0.692,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "San Jos\u00e9 St",
-   "home": "UC Irvine",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "San Jos\u00e9 St",
-    "opp": "UC Irvine",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -115,
-    "p": 0.509,
-    "win_p": 0.233,
-    "reasons": [
-     "hotter recent form",
-     "rolling off a blowout win",
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909944",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.621,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-08T03:00Z",
-   "away": "Spurs",
-   "home": "Trail Blazers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Spurs",
-    "opp": "Trail Blazers",
-    "market": "ml",
-    "line": null,
-    "odds": -217,
-    "p": 0.669,
-    "win_p": 0.669,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401860912",
@@ -3014,7 +2858,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.55,
+    "p": 0.551,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3031,8 +2875,8 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.581,
-    "win_p": 0.581,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "better QB play lately"
     ]
@@ -3044,7 +2888,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UNLV",
-    "p": 0.519,
+    "p": 0.521,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3061,8 +2905,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.543,
-    "win_p": 0.543,
+    "p": 0.546,
+    "win_p": 0.546,
     "reasons": [
      "the stronger team"
     ]
@@ -3474,8 +3318,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Boise St",
-    "p": 0.529,
-    "tie": 0.043,
+    "p": 0.494,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -3483,20 +3327,18 @@
    "start": "2026-11-08T19:00Z",
    "away": "Butler",
    "home": "Boise St",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Boise St",
     "opp": "Butler",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.568,
-    "win_p": 0.568,
+    "odds": -118,
+    "p": 0.521,
+    "win_p": 0.521,
     "reasons": [
-     "sharp money moving this way",
-     "opponent's body clock is off",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+     "opponent's body clock is off"
     ]
    }
   },
@@ -3534,7 +3376,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.676,
+    "p": 0.689,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -3549,10 +3391,10 @@
     "team": "St Thomas",
     "opp": "Green Bay",
     "market": "spread",
-    "line": -9.5,
-    "odds": -105,
-    "p": 0.501,
-    "win_p": 0.751,
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.766,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3566,7 +3408,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Air Force",
-    "p": 0.625,
+    "p": 0.626,
     "tie": 0.041,
     "name": "1st half"
    },
