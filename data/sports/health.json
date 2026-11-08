@@ -1,13 +1,14 @@
 {
- "at": "2026-11-08T15:42Z",
- "fixes": [],
+ "at": "2026-11-08T15:44Z",
+ "fixes": [
+  "live watch 42492583462 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
-  "live tennis scores: tennis Murcia vs Scott: no points for 1414s",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Murcia vs Scott: no points for 1414s"
  ],
  "ok": [
-  "live watcher fresh (230s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +20,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 0h ago",
-  "engine ran 2 min ago",
+  "simulator ran 0h ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-08T15:44Z",
+   "fixes": [
+    "live watch 42492583462 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
+    "live tennis scores: tennis Murcia vs Scott: no points for 1414s"
+   ]
+  },
   {
    "at": "2026-11-08T15:42Z",
    "fixes": [],
@@ -547,11 +560,6 @@
   },
   {
    "at": "2026-11-07T09:20Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T09:18Z",
    "fixes": [],
    "problems": []
   }
