@@ -1,7 +1,7 @@
 {
- "at": "2026-11-08T17:17Z",
+ "at": "2026-11-08T17:18Z",
  "fixes": [
-  "live board 27 min stale with games on - sports-live.yml already running"
+  "live board 28 min stale with games on - sports-live.yml already running"
  ],
  "problems": [
   "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
@@ -20,12 +20,21 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 32 min ago",
+  "engine ran 33 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-08T17:18Z",
+   "fixes": [
+    "live board 28 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
+   ]
+  },
   {
    "at": "2026-11-08T17:17Z",
    "fixes": [
@@ -562,14 +571,6 @@
     "live tennis scores: tennis Kabbaj vs Blinkova: no points for 1652s",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
-  },
-  {
-   "at": "2026-11-07T09:23Z",
-   "fixes": [
-    "live watch 42356011921 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
