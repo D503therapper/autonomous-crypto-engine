@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T04:01Z",
+ "updated": "2026-11-08T04:08Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -2432,8 +2432,8 @@
    "away": "Louisville",
    "home": "Georgia Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2463,7 +2463,7 @@
    "home": "Notre Dame",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Miami",
@@ -2476,7 +2476,7 @@
     "reasons": [
      "better QB play lately"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -2519,8 +2519,8 @@
    "away": "Oklahoma",
    "home": "Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2595,7 +2595,7 @@
    "home": "Wild",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Lightning",
@@ -2609,7 +2609,7 @@
      "sharp money moving this way",
      "opponent on a back-to-back"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -2757,8 +2757,8 @@
    "away": "Bethesda",
    "home": "Pepperdine",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2817,8 +2817,8 @@
    "away": "Utah Valley",
    "home": "Weber St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3828,8 +3828,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.383,
-    "tie": 0.298,
+    "p": 0.368,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3837,7 +3837,7 @@
    "start": "2026-11-08T23:00Z",
    "away": "Lightning",
    "home": "Jets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Jets",
@@ -3845,11 +3845,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.65,
-    "win_p": 0.43,
+    "p": 0.68,
+    "win_p": 0.462,
     "reasons": [
      "sharp money moving this way",
-     "opponent drama: trade drama"
+     "opponent on a back-to-back",
+     "better rested"
     ]
    }
   },

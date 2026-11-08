@@ -34790,6 +34790,15 @@
      "us:west1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Nikita Kucherov",
+     "s": "4-3",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -34815,6 +34824,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,1,2,1",
+     "h": "2,0,1,0"
+    },
     "form_state": [
      3.0,
      2,
@@ -34872,10 +34885,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 4 @ Wild 3",
     "season_games": null,
+    "settled": "2026-11-08T04:04Z",
     "side": "away",
     "start": "2026-11-08T01:00Z",
     "stype": "2",
@@ -34893,12 +34908,14 @@
    }
   ],
   "p_hit": 0.6079,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-07T16:00Z",
   "round": 1,
+  "settled": "2026-11-08T04:04Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -135,
@@ -36262,6 +36279,7 @@
      "us:west1000"
     ],
     "dec": 3.25,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -36314,6 +36332,10 @@
     "fbs_game": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,3,14,7",
+     "h": "3,14,7,7"
+    },
     "form_state": [
      3.0,
      8,
@@ -36371,10 +36393,12 @@
      "better QB play lately"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Miami 24 @ Notre Dame 31",
     "season_games": null,
+    "settled": "2026-11-08T04:07Z",
     "side": "away",
     "start": "2026-11-08T00:30Z",
     "stype": "2",
@@ -36397,11 +36421,13 @@
   ],
   "midday": true,
   "p_hit": 0.2771,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-07T20:26Z",
   "round": 1,
+  "settled": "2026-11-08T04:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  }
 ]
