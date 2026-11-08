@@ -1,12 +1,12 @@
 {
- "at": "2026-11-08T12:56Z",
+ "at": "2026-11-08T13:07Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Lansere vs Blinkova: no points for 1760s",
+  "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (43s)",
+  "live watcher fresh (60s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,11 +18,19 @@
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 46 min ago",
+  "engine ran 56 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-08T13:07Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-08T12:56Z",
    "fixes": [],
@@ -525,13 +533,6 @@
   },
   {
    "at": "2026-11-07T05:47Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T05:45Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
