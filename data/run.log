@@ -14993,3 +14993,9 @@ DEX: $673.99 (-326.01) · Scammed: 11 (-$216.49)
 [2026-11-08 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-08 00:06 UTC] crypto/hold_btc  equity $455.44 (-8.9%) 1 open  market DOWN
    social heat top: STONK 40 (32/0/8), BTC 40 (35/0/5), PENGU 37 (37/0/0), AERO 37 (29/0/8), PONS 27 (21/0/6)
+   dex screen: UNREACHABLE REBOOT@base liq $204,520 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT TRAC@ethereum liq $509,435 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE REBOOT@base liq $153,671 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT GULD@base liq $1,495,446 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 59%
+   dex screen: REJECT SPCXX@solana liq $114,683 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 90%; lp holders unknown
