@@ -1,12 +1,13 @@
 {
- "at": "2026-11-08T02:24Z",
+ "at": "2026-11-08T03:55Z",
  "fixes": [
-  "live watch 42435075768 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:ncaaf:1027569569 HTTP 404"
+ ],
  "ok": [
+  "live watcher fresh (221s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,16 +15,24 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 11 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 3 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-08T03:55Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027569569 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-08T02:24Z",
    "fixes": [
@@ -524,13 +533,6 @@
   },
   {
    "at": "2026-11-07T01:33Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T01:31Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
