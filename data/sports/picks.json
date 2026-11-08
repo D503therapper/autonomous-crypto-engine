@@ -36502,6 +36502,7 @@
      "us:trip1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -36551,6 +36552,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,3,0,13",
+     "h": "0,7,7,7"
+    },
     "form_state": [
      4.0,
      4,
@@ -36610,10 +36615,12 @@
      "opponent drama: coach fired"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Broncos 26 @ Panthers 21",
     "season_games": null,
+    "settled": "2026-11-08T21:17Z",
     "side": "away",
     "start": "2026-11-08T18:00Z",
     "stype": "2",
@@ -36638,12 +36645,14 @@
    }
   ],
   "p_hit": 0.602,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-08T21:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 1.0
  },
  {
   "american": 124,
@@ -36875,6 +36884,7 @@
      "game:div"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -36912,6 +36922,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "3,0,1"
+    },
     "form_state": [
      4.0,
      3,
@@ -36965,10 +36979,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 1 @ Bruins 4",
     "season_games": null,
+    "settled": "2026-11-08T21:17Z",
     "side": "home",
     "start": "2026-11-08T18:00Z",
     "stype": "2",
@@ -36986,12 +37002,14 @@
    }
   ],
   "p_hit": 0.5982,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-08T21:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -108,
