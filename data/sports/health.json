@@ -1,9 +1,9 @@
 {
- "at": "2026-11-08T18:53Z",
+ "at": "2026-11-08T18:58Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 24 min ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-08T18:58Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-08T18:53Z",
    "fixes": [],
@@ -561,14 +566,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Kabbaj vs Blinkova: no points for 2375s"
-   ]
-  },
-  {
-   "at": "2026-11-07T10:58Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
