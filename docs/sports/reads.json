@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T02:49Z",
+ "updated": "2026-11-08T03:02Z",
  "games": [
   {
    "id": "ncaaf:401856849",
@@ -1479,8 +1479,8 @@
    "away": "E Kentucky",
    "home": "Austin Peay",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1956,8 +1956,8 @@
    "away": "West Georgia",
    "home": "C Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2031,8 +2031,8 @@
    "away": "Montana St",
    "home": "Idaho St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2076,8 +2076,8 @@
    "away": "Kentucky",
    "home": "Tennessee",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2136,8 +2136,8 @@
    "away": "Canadiens",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2210,8 +2210,8 @@
    "away": "Mammoth",
    "home": "Senators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2240,8 +2240,8 @@
    "away": "N Illinois",
    "home": "Dayton",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2447,8 +2447,8 @@
    "away": "Maryland",
    "home": "Georgetown",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2823,6 +2823,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401860913",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-08T02:30Z",
+   "away": "Fresno St",
+   "home": "Utah State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401864532",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2858,7 +2873,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.551,
+    "p": 0.55,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2875,8 +2890,8 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.583,
-    "win_p": 0.583,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": [
      "better QB play lately"
     ]
@@ -2888,7 +2903,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UNLV",
-    "p": 0.521,
+    "p": 0.519,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2905,8 +2920,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.546,
-    "win_p": 0.546,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "the stronger team"
     ]
@@ -2967,7 +2982,7 @@
     "market": "spread",
     "line": 28.5,
     "odds": -105,
-    "p": 0.566,
+    "p": 0.567,
     "win_p": 0.024,
     "reasons": [
      "hotter recent form"
@@ -3245,7 +3260,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -125,
-    "p": 0.507,
+    "p": 0.506,
     "win_p": 0.495,
     "reasons": [
      "hotter recent form"
@@ -3562,7 +3577,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.658,
+    "p": 0.659,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -3580,7 +3595,7 @@
     "line": 8.5,
     "odds": -110,
     "p": 0.514,
-    "win_p": 0.237,
+    "win_p": 0.236,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately",
@@ -3815,8 +3830,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.383,
-    "tie": 0.298,
+    "p": 0.399,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3832,11 +3847,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.651,
-    "win_p": 0.431,
-    "reasons": [
-     "better rested"
-    ]
+    "p": 0.619,
+    "win_p": 0.398,
+    "reasons": []
    }
   },
   {
@@ -3981,8 +3994,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.549,
-    "win_p": 0.549,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
