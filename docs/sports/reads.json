@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T22:46Z",
+ "updated": "2026-11-08T22:58Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -1160,8 +1160,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Indiana",
-    "p": 0.574,
-    "tie": 0.042,
+    "p": 0.569,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1176,9 +1176,9 @@
     "opp": "Syracuse",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.626,
-    "win_p": 0.626,
+    "odds": -175,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "the stronger team"
     ]
@@ -1205,11 +1205,43 @@
     "team": "E Illinois",
     "opp": "Notre Dame",
     "market": "spread",
-    "line": 27.5,
-    "odds": -110,
-    "p": 0.557,
+    "line": 28.5,
+    "odds": -115,
+    "p": 0.563,
     "win_p": 0.024,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401916305",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Cincinnati",
+    "p": 0.641,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T00:00Z",
+   "away": "Minnesota",
+   "home": "Cincinnati",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Cincinnati",
+    "opp": "Minnesota",
+    "market": "ml",
+    "line": null,
+    "odds": -270,
+    "p": 0.709,
+    "win_p": 0.709,
+    "reasons": [
+     "the stronger team",
+     "rolling off a blowout win",
+     "opponent's body clock is off"
+    ]
    }
   },
   {
@@ -1238,6 +1270,122 @@
     "p": 0.521,
     "win_p": 0.053,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401926181",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UIC",
+    "p": 0.849,
+    "tie": 0.024,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T00:00Z",
+   "away": "UNC Greensboro",
+   "home": "UIC",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UNC Greensboro",
+    "opp": "UIC",
+    "market": "spread",
+    "line": 18.5,
+    "odds": -112,
+    "p": 0.505,
+    "win_p": 0.079,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401906759",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Alabama",
+    "p": 0.943,
+    "tie": 0.011,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T00:30Z",
+   "away": "Oakland",
+   "home": "Alabama",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Oakland",
+    "opp": "Alabama",
+    "market": "spread",
+    "line": 31.5,
+    "odds": -115,
+    "p": 0.541,
+    "win_p": 0.019,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921810",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "LSU",
+    "p": 0.94,
+    "tie": 0.012,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T01:00Z",
+   "away": "Louisiana Tech",
+   "home": "LSU",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Louisiana Tech",
+    "opp": "LSU",
+    "market": "spread",
+    "line": 28.5,
+    "odds": -112,
+    "p": 0.639,
+    "win_p": 0.021,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401906803",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oklahoma",
+    "p": 0.925,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T01:00Z",
+   "away": "North Alabama",
+   "home": "Oklahoma",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "North Alabama",
+    "opp": "Oklahoma",
+    "market": "spread",
+    "line": 26.5,
+    "odds": -105,
+    "p": 0.579,
+    "win_p": 0.028,
+    "reasons": [
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1392,12 +1540,44 @@
    }
   },
   {
+   "id": "ncaab:401920718",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oregon St",
+    "p": 0.805,
+    "tie": 0.029,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T02:30Z",
+   "away": "E Washington",
+   "home": "Oregon St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Oregon St",
+    "opp": "E Washington",
+    "market": "spread",
+    "line": -15.5,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.888,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892681",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Flyers",
-    "p": 0.366,
+    "p": 0.374,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1414,8 +1594,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.683,
-    "win_p": 0.466,
+    "p": 0.668,
+    "win_p": 0.449,
     "reasons": []
    }
   },
@@ -1475,6 +1655,70 @@
     "p": 0.669,
     "win_p": 0.45,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921095",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Stanford",
+    "p": 0.87,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T03:00Z",
+   "away": "Rice",
+   "home": "Stanford",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Stanford",
+    "opp": "Rice",
+    "market": "spread",
+    "line": -19.5,
+    "odds": -115,
+    "p": 0.501,
+    "win_p": 0.941,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401929003",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Hawai'i",
+    "p": 0.641,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T04:59Z",
+   "away": "Portland",
+   "home": "Hawai'i",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hawai'i",
+    "opp": "Portland",
+    "market": "ml",
+    "line": null,
+    "odds": -265,
+    "p": 0.709,
+    "win_p": 0.709,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team",
+     "opponent's body clock is off"
+    ]
    }
   }
  ]
