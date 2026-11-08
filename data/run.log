@@ -15634,3 +15634,17 @@ $PLTR: possibly delisted; no price data found  (period=1y)
 [2026-11-08 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-08 23:06 UTC] crypto/hold_btc  equity $449.78 (-10.0%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), STONK 35 (27/0/8), HYPE 32 (32/0/0), AAVE 25 (21/0/4), PENGU 24 (24/0/0)
+   dex screen: REJECT STETH@ethereum liq $80,128,542 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 62%
+   dex screen: REJECT JEANPHIL@solana liq $291,157 - lp holders unknown; rugcheck lp locked 76% < 95%
+   dex screen: PASS TROLL@solana liq $2,259,788
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SPCX@solana liq $346,455 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%; lp holders unknown
+   dex screen: REJECT SPCX@solana liq $2,740,328,396 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT SPCX@solana liq $1,247,432,355 - top-10 holders 100%
+   dex screen: REJECT MSTRC@base liq $56,217 - liquidity $56,217 < $100,000; 24h volume $725 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT HELL@solana liq $130,716 - lp holders unknown; rugcheck lp locked 90% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AERO@base liq $5,822 - liquidity $5,822 < $100,000; 24h volume $5,303 < $100,000
+   dex screen: REJECT PUMP@solana liq $2,346,539 - transfer hook; top-10 holders 60%
+   dex screen: REJECT KTA@base liq $3,193,413 - top-10 holders 66%
+   dex screen: REJECT PAXG@ethereum liq $2,213,915 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
