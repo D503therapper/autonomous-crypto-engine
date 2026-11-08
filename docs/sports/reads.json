@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T16:54Z",
+ "updated": "2026-11-08T17:34Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -10,6 +10,21 @@
    "start": "2026-11-08T14:30Z",
    "away": "Bengals",
    "home": "Falcons",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924646",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-08T17:00Z",
+   "away": "Iona",
+   "home": "St John's",
    "h1": null,
    "why": "started",
    "done": false,
@@ -52,7 +67,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.567,
+    "p": 0.56,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -68,9 +83,9 @@
     "opp": "Panthers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -148,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -84,7 +99,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.548,
+    "p": 0.57,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -100,9 +115,9 @@
     "opp": "Browns",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -225,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "sharp money moving this way",
      "better rested",
@@ -116,7 +131,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.574,
+    "p": 0.581,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -132,12 +147,11 @@
     "opp": "Colts",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -218,
+    "p": 0.635,
+    "win_p": 0.635,
     "reasons": [
      "better QB play lately",
-     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -179,7 +193,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.556,
+    "p": 0.562,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -195,9 +209,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.599,
-    "win_p": 0.599,
+    "odds": -162,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "sharp money moving this way",
      "better rested",
@@ -211,8 +225,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.697,
-    "tie": 0.033,
+    "p": 0.684,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -229,7 +243,7 @@
     "line": 9.5,
     "odds": -110,
     "p": 0.514,
-    "win_p": 0.197,
+    "win_p": 0.204,
     "reasons": [
      "revenge game"
     ]
@@ -241,8 +255,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.641,
-    "tie": 0.036,
+    "p": 0.648,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -250,20 +264,18 @@
    "start": "2026-11-08T18:00Z",
    "away": "Lions",
    "home": "Dolphins",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Lions",
-    "opp": "Dolphins",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.718,
-    "win_p": 0.718,
+    "team": "Dolphins",
+    "opp": "Lions",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -108,
+    "p": 0.514,
+    "win_p": 0.262,
     "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "revenge game"
+     "sharp money moving this way"
     ]
    }
   },
@@ -335,8 +347,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.401,
-    "tie": 0.297,
+    "p": 0.406,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -347,14 +359,18 @@
    "why": "on_board",
    "board": "play",
    "lean": {
-    "team": "Panthers",
-    "opp": "Bruins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.618,
-    "win_p": 0.401,
-    "reasons": []
+    "team": "Bruins",
+    "opp": "Panthers",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.617,
+    "win_p": 0.617,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -393,7 +409,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.617,
+    "p": 0.6,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -409,12 +425,11 @@
     "opp": "Commanders",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
+     "the stronger team"
     ]
    }
   },
@@ -1090,7 +1105,7 @@
     "opp": "Richmond",
     "market": "spread",
     "line": 1.5,
-    "odds": -120,
+    "odds": -112,
     "p": 0.539,
     "win_p": 0.481,
     "reasons": [
@@ -1300,7 +1315,7 @@
     "opp": "UTEP",
     "market": "spread",
     "line": 12.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.524,
     "win_p": 0.141,
     "reasons": []
@@ -1591,7 +1606,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "USC",
-    "p": 0.629,
+    "p": 0.622,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1607,9 +1622,9 @@
     "opp": "Wichita St",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.697,
-    "win_p": 0.697,
+    "odds": -258,
+    "p": 0.688,
+    "win_p": 0.688,
     "reasons": [
      "rolling off a blowout win",
      "opponent's body clock is off",
