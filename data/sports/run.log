@@ -1,40 +1,3 @@
-  source:pregame: 242 graded, said 50%, hit 51% - hitting at or above what we said
-  market:ml: 238 graded, said 50%, hit 52% - hitting at or above what we said
-  drama:none: 226 graded, said 50%, hit 53% - hitting at or above what we said
-  label:parlay leg: 198 graded, said 50%, hit 51% - hitting at or above what we said
-  price:-149..-101: 150 graded, said 54%, hit 57% - hitting at or above what we said
-  ctx:game:conf: 105 graded, said 47%, hit 50% - hitting at or above what we said (report only: forward-only tag)
-  price:+101..+179: 90 graded, said 48%, hit 41% - a little below what we said - within noise
-  league:nhl: 84 graded, said 50%, hit 45% - a little below what we said - within noise
-  ctx:game:div: 63 graded, said 51%, hit 41% - hitting well below what we said (report only: forward-only tag)
-  league:ncaaf: 63 graded, said 46%, hit 41% - a little below what we said - within noise
-  ctx:game:nonconf: 58 graded, said 51%, hit 53% - hitting at or above what we said (report only: forward-only tag)
-  league:nfl: 41 graded, said 54%, hit 61% - hitting at or above what we said
-  ctx:them:trip1000: 40 graded, said 49%, hit 68% - hitting at or above what we said (report only: forward-only tag)
-  ctx:us:trip1000: 34 graded, said 50%, hit 47% - only 34 graded - report only (report only: forward-only tag)
-  league:mlb: 32 graded, said 54%, hit 81% - only 32 graded - report only
-  ctx:game:rival: 29 graded, said 52%, hit 38% - only 29 graded - report only (report only: forward-only tag)
-  league:nba: 29 graded, said 48%, hit 45% - only 29 graded - report only
-  label:dog: 28 graded, said 41%, hit 43% - only 28 graded - report only
-  market:spread: 27 graded, said 53%, hit 41% - only 27 graded - report only
-  drama:theirs: 24 graded, said 49%, hit 38% - only 24 graded - report only
-  label:live: 23 graded, said 57%, hit 48% - only 23 graded - report only
-  source:live: 23 graded, said 57%, hit 48% - only 23 graded - report only
-  ctx:them:week3000: 22 graded, said 50%, hit 50% - only 22 graded - report only (report only: forward-only tag)
-  ctx:them:east1000: 21 graded, said 50%, hit 67% - only 21 graded - report only (report only: forward-only tag)
-  price:+180+: 21 graded, said 32%, hit 38% - only 21 graded - report only
-  ctx:them:west1000: 19 graded, said 49%, hit 68% - only 19 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 19 graded, said 49%, hit 63% - only 19 graded - report only (report only: forward-only tag)
-  drama:ours: 18 graded, said 54%, hit 39% - only 18 graded - report only
-  ctx:us:road3in6: 16 graded, said 50%, hit 69% - only 16 graded - report only (report only: forward-only tag)
-  ctx:us:east1000: 15 graded, said 51%, hit 27% - only 15 graded - report only (report only: forward-only tag)
-  ctx:us:week3000: 15 graded, said 49%, hit 60% - only 15 graded - report only (report only: forward-only tag)
-  label:lock: 15 graded, said 56%, hit 60% - only 15 graded - report only
-  ctx:them:road3in6: 12 graded, said 46%, hit 33% - only 12 graded - report only (report only: forward-only tag)
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:them:dome_out: 8 graded, said 52%, hit 75% - only 8 graded - report only (report only: forward-only tag)
-  ctx:us:trip2000: 8 graded, said 52%, hit 50% - only 8 graded - report only (report only: forward-only tag)
-  ctx:them:hotseat: 7 graded, said 48%, hit 29% - only 7 graded - report only (report only: forward-only tag)
   ctx:them:trip2000: 7 graded, said 49%, hit 86% - only 7 graded - report only (report only: forward-only tag)
   ctx:them:out_dome: 6 graded, said 53%, hit 83% - only 6 graded - report only (report only: forward-only tag)
   ctx:us:hotseat: 6 graded, said 42%, hit 17% - only 6 graded - report only (report only: forward-only tag)
@@ -2998,3 +2961,40 @@ tennis first-set lines: 0 first-set winner markets seen (0 matches with any set 
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
 1H line log: 42 rows (34 with a 1st-half line) from 105 AN games
 source check (2.3s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132396 games stored, 52 calls, 0 failed, 9s
+odds history: 8 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 127 games got weather, 0 new stadiums located, 245s
+4th-down rates: 32 NFL teams
+news: 2 new drama tags
+goalies: 3 games on the page, 3 matched, 3 confirmed
+nba rosters: 30 teams as of 2026-11-09, 0 failed, 0 moves
+beat the close: unit plays 30 of 101 better than the close, avg +0.2 pts
+public splits: 64 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (104 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (104 players), 365 matched, 0 unmatched
+   no units on Clemson: missing Z. Foster, C. Welling, H. Reynolds
+   no units on Miami: missing M. Allen, L. Cason
+   no units on Missouri: missing J. Carey, A. Chronister, A. Boateng
+   no units on Oilers: missing Colton Dach, Isaac Howard
+   no units on Rangers: missing Alberts Smits, Sean Durzi
+   no units on Canucks: missing Filip Chytil, Tom Willander
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26304 rated matches, acc 0.645 (surface ratings alone 0.6415), loss 0.6296 vs 0.6312, own weights [-0.004, 0.827, 0.074, 0.151, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6296: experience 0.6294 (+0.23 mnats, z 0.25), age 0.6278 (+1.85 mnats, z 1.32), young_vs_aging 0.6293 (+0.27 mnats, z 0.66), last_match 0.6269 (+2.66 mnats, z 1.87), streaks 0.6302 (-0.64 mnats, z -0.62), first_set 0.6289 (+0.70 mnats, z 1.06), injury 0.6305 (-0.94 mnats, z -1.45), travel 0.6296 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30853 rated matches, acc 0.6475 (surface ratings alone 0.65), loss 0.622 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.075, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.622: experience 0.6192 (+2.81 mnats, z 1.65), age 0.6211 (+0.90 mnats, z 1.16), young_vs_aging 0.6218 (+0.23 mnats, z 1.46), last_match 0.6229 (-0.84 mnats, z -0.83), streaks 0.622 (+0.05 mnats, z 0.1), first_set 0.6217 (+0.33 mnats, z 0.71), injury 0.6215 (+0.55 mnats, z 0.95), travel 0.6221 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: -; bovada empty)
+1H line log: 41 rows (32 with a 1st-half line) from 105 AN games
+source check (1.3s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
