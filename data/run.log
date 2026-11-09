@@ -16236,3 +16236,38 @@ $BITF: possibly delisted; no price data found  (period=407d)
    dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
    dex screen: REJECT CTM@ethereum liq $2,146,164 - goplus partial data: cannot_sell_all unknown; is_mintable
    dex screen: UNREACHABLE GTA6@ethereum liq $188,252 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-11-09 17:31 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/mover     equity $214.45 (-57.1%) 2 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/social_heat equity $340.40 (-31.9%) 3 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] crypto/hold_btc  equity $450.26 (-9.9%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-09 17:31 UTC] stocks/rsi2      equity $473.78 (-5.2%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLE 2 BUY, LLY 11 BUY, XLI 14, AVGO 14
+[2026-11-09 17:31 UTC] stocks/breakout52 equity $493.01 (-1.4%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: CHPT (+86% 6-mo)
+[2026-11-09 17:31 UTC] stocks/dual_momentum equity $460.74 (-7.9%) 2 open  market DOWN
+[2026-11-09 17:31 UTC] stocks/trend_ensemble equity $501.99 (+0.4%) 5 open  market UP
+[2026-11-09 17:31 UTC] stocks/rotation10 equity $490.60 (-1.9%) 2 open  market UP
+[2026-11-09 17:31 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-09 17:31 UTC] stocks/trend     equity $456.41 (-8.7%) 4 open  market DOWN
+[2026-11-09 17:31 UTC] stocks/hold_spy  equity $490.36 (-1.9%) 1 open  market DOWN
+   social heat top: BTC 44 (35/0/9), AVAX 37 (37/0/0), PENGU 34 (24/0/10), ONDO 29 (29/0/0), AERO 19 (19/0/0)
