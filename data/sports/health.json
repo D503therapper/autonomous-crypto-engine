@@ -1,27 +1,44 @@
 {
- "at": "2026-11-09T19:39Z",
- "fixes": [],
+ "at": "2026-11-09T19:41Z",
+ "fixes": [
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
+  "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
+  "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
  ],
  "ok": [
-  "live watcher fresh (235s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 4 live matches",
   "slate check: all 62 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 65 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T19:41Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
+    "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
+    "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
+   ]
+  },
   {
    "at": "2026-11-09T19:39Z",
    "fixes": [],
@@ -507,11 +524,6 @@
   },
   {
    "at": "2026-11-08T18:58Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-08T18:53Z",
    "fixes": [],
    "problems": []
   }
