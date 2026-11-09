@@ -1,13 +1,15 @@
 {
- "at": "2026-11-09T17:58Z",
- "fixes": [],
+ "at": "2026-11-09T17:59Z",
+ "fixes": [
+  "live watch 42661975890 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Giovannini vs Maria: no points for 2621s",
   "live tennis scores: tennis Ribera vs Gonzalez: no points for 2343s",
   "live tennis scores: tennis Erjavec vs Mandlik: no points for 1185s"
  ],
  "ok": [
-  "live watcher fresh (235s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +23,24 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 56 min ago",
+  "engine ran 58 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T17:59Z",
+   "fixes": [
+    "live watch 42661975890 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Giovannini vs Maria: no points for 2621s",
+    "live tennis scores: tennis Ribera vs Gonzalez: no points for 2343s",
+    "live tennis scores: tennis Erjavec vs Mandlik: no points for 1185s"
+   ]
+  },
   {
    "at": "2026-11-09T17:58Z",
    "fixes": [],
@@ -506,15 +520,6 @@
    "at": "2026-11-08T17:17Z",
    "fixes": [
     "live board 27 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
-   ]
-  },
-  {
-   "at": "2026-11-08T17:16Z",
-   "fixes": [
-    "live board 26 min stale with games on - sports-live.yml already running"
    ],
    "problems": [
     "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
