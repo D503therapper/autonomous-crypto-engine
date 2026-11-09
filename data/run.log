@@ -15665,3 +15665,31 @@ $PLTR: possibly delisted; no price data found  (period=1y)
 [2026-11-09 00:03 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-09 00:03 UTC] crypto/hold_btc  equity $449.57 (-10.1%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), HYPE 35 (35/0/0), PUMP 32 (32/0/0), STONK 30 (21/0/9), TAO 29 (29/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '76114.43', 'l': '73325.70', 'a': '74551.50', 'v': '2181.8434', 'vv': '163914897.09', 'c': '-0.0158', 'b': '74554.49', 'k': '74554.50', 'oi': '0', 't': 1794182605389}
+   dex scanner: 2,745 pools (solana 1,788 / base 500 / ethereum 457), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex weekly: screened 2145, passed 211, trades 2, closed 2 (P/L $-27.17; by tier A $-27.17/2 B $+0.00/0 C $+0.00/0), scammed 1 (cost $-17.29), rejected-that-rugged 80/350, rejected-that-ran-up 23/350
+   dex screen: REJECT AAPLC@base liq $506,451 - pool age unknown
+   dex screen: REJECT AZTEC@ethereum liq $11,063,882 - top-10 holders 100%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS SI@ethereum liq $230,435
+   dex screen: UNREACHABLE SP@ethereum liq $293,819 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GHO@ethereum liq $1,375,681 - is_mintable; top-10 holders 98%
+   dex screen: REJECT BATON@solana liq $384,409 - lp holders unknown; rugcheck lp locked 57% < 95%
+   dex scanner: 2,881 pools (solana 1,943 / base 515 / ethereum 423), refresh cycle 113s (hot 108s), 3103 calls (168 feed, 429s 1, failed 1), 88,022 refreshed (15805 no pair), +444 added / -308 dropped (dead 217, stale 17, cap 74), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-09 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/mover     equity $209.16 (-58.2%) 1 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/social_heat equity $339.92 (-32.0%) 3 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 01:06 UTC] crypto/hold_btc  equity $452.66 (-9.5%) 1 open  market DOWN
+   social heat top: BTC 41 (37/0/4), PONS 38 (24/0/14), PENGU 35 (35/0/0), NEAR 29 (29/0/0), HYPE 27 (27/0/0)
