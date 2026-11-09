@@ -1,34 +1,42 @@
 {
- "at": "2026-11-09T16:07Z",
- "fixes": [
-  "live board 6 min stale with games on - sports-live.yml already running",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-09T17:39Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Jakupovic vs Pigossi: no points for 1359s",
-  "live tennis scores: tennis Lepchenko vs Hercog: no points for 1254s",
-  "live tennis scores: tennis Giovannini vs Maria: no points for 1531s",
-  "live tennis points: none of 3 live matches has points + server on the 1-second route",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Giovannini vs Maria: no points for 1741s",
+  "live tennis scores: tennis Ribera vs Gonzalez: no points for 1463s",
+  "live tennis scores: tennis Erjavec vs Mandlik: no points for 304s",
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
+  "live watcher fresh (49s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 4 live matches",
   "slate check: all 62 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "engine ran 10 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 38 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T17:39Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Giovannini vs Maria: no points for 1741s",
+    "live tennis scores: tennis Ribera vs Gonzalez: no points for 1463s",
+    "live tennis scores: tennis Erjavec vs Mandlik: no points for 304s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-11-09T16:07Z",
    "fixes": [
@@ -513,17 +521,6 @@
     "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
     "live tennis scores: tennis Murcia vs Scott: no points for 1414s",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-08T15:29Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Avellaneda vs Alves: no points for 1158s",
-    "live tennis scores: tennis Murcia vs Scott: no points for 837s",
-    "studies last ran 10h ago - restarted"
    ]
   }
  ]
