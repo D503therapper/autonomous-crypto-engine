@@ -1,13 +1,13 @@
 {
- "day": "2026-11-08",
+ "day": "2026-11-09",
  "picks": {
-  "lock|nfl:401873041|away|ml": {
-   "key": "lock|nfl:401873041|away|ml",
-   "kind": "lock",
-   "team": "Broncos",
-   "odds": -142,
-   "league": "nfl",
-   "units": 1.0,
+  "dog|nhl:401892681|home|ml": {
+   "key": "dog|nhl:401892681|home|ml",
+   "kind": "dog",
+   "team": "Canucks",
+   "odds": 114,
+   "league": "nhl",
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -18,29 +18,11 @@
     "injuries": "pass"
    }
   },
-  "dog|nhl:401892677|home|ml": {
-   "key": "dog|nhl:401892677|home|ml",
-   "kind": "dog",
-   "team": "Jets",
-   "odds": 124,
-   "league": "nhl",
-   "units": 2.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "goalies": "pass"
-   }
-  },
-  "play|nhl:401892674|home|ml": {
-   "key": "play|nhl:401892674|home|ml",
-   "kind": "play",
-   "team": "Bruins",
-   "odds": -142,
+  "play|nhl:401892682|home|ml": {
+   "key": "play|nhl:401892682|home|ml",
+   "kind": "floor",
+   "team": "Sharks",
+   "odds": 120,
    "league": "nhl",
    "units": 0.5,
    "lean": false,
@@ -53,12 +35,12 @@
     "injuries": "pass"
    }
   },
-  "lean|nfl:401873050|away|spread": {
-   "key": "lean|nfl:401873050|away|spread",
+  "lean|ncaab:401921810|away|spread": {
+   "key": "lean|ncaab:401921810|away|spread",
    "kind": "lean",
-   "team": "Buccaneers",
-   "odds": -108,
-   "league": "nfl",
+   "team": "Louisiana Tech",
+   "odds": -115,
+   "league": "ncaab",
    "units": 0,
    "lean": true,
    "held": false,
@@ -67,15 +49,36 @@
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass"
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass"
    }
   },
-  "lean|nhl:401892678|away|ml": {
-   "key": "lean|nhl:401892678|away|ml",
+  "lean|ncaab:401906803|away|spread": {
+   "key": "lean|ncaab:401906803|away|spread",
    "kind": "lean",
-   "team": "Flyers",
-   "odds": -118,
-   "league": "nhl",
+   "team": "North Alabama",
+   "odds": -105,
+   "league": "ncaab",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass"
+   }
+  },
+  "night|nfl:401873051|home|spread": {
+   "key": "night|nfl:401873051|home|spread",
+   "kind": "night",
+   "team": "Vikings",
+   "odds": 102,
+   "league": "nfl",
    "units": 0,
    "lean": true,
    "held": false,
@@ -88,6 +91,6 @@
    }
   }
  },
- "updated": "2026-11-08T16:00Z",
+ "updated": "2026-11-09T16:00Z",
  "held": []
 }
