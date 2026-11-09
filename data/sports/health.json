@@ -1,9 +1,9 @@
 {
- "at": "2026-11-09T21:32Z",
+ "at": "2026-11-09T21:33Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (132s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +17,17 @@
   "every upcoming game has its real teams",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 47 min ago",
+  "engine ran 49 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T21:33Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-09T21:32Z",
    "fixes": [],
@@ -514,14 +519,6 @@
    "fixes": [],
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-08T19:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
