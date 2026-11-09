@@ -1,5 +1,5 @@
 {
- "at": "2026-11-09T16:02Z",
+ "at": "2026-11-09T16:04Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Jakupovic vs Pigossi: no points for 1359s",
@@ -8,7 +8,7 @@
   "live tennis points: none of 3 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (75s)",
+  "live watcher fresh (160s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 9h ago",
-  "engine ran 6 min ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-09T16:04Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Jakupovic vs Pigossi: no points for 1359s",
+    "live tennis scores: tennis Lepchenko vs Hercog: no points for 1254s",
+    "live tennis scores: tennis Giovannini vs Maria: no points for 1531s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-09T16:02Z",
    "fixes": [],
@@ -502,14 +512,6 @@
     "live watch 42480250485 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": [
-    "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-08T13:09Z",
-   "fixes": [],
    "problems": [
     "live tennis scores: tennis Lansere vs Blinkova: no points for 2349s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
