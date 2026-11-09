@@ -1,40 +1,3 @@
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10773 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.9% vs 55.5% the price said over 5159 (edge +1.4% older, +1.4% newer, z 2.12) -> watch only
-nhl|rate: following hit 61.7% vs 60.9% the price said over 5453 (edge +0.1% older, +1.5% newer, z 1.27) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 21-1 (prices said 15.9) (21 straight) -> coin flip
-ACTIVE nba back-to-back: favorites win 30-5 (prices said 23.1) (9 straight) -> coin flip · next: Nets @ Mavericks, Lakers @ Hawks, Wizards @ Pistons
-ACTIVE nba big favorite: favorites win 48-7 (prices said 42.5) (9 straight) -> coin flip · next: 76ers @ Bulls, Jazz @ Timberwolves, Nets @ Mavericks
-ACTIVE nhl big favorite: home team wins 18-4 (prices said 14.7) (9 straight) -> coin flip
-ACTIVE ncaab monday: home team wins 96-20 (prices said 92.6) (10 straight) -> coin flip · next: SC State @ Chicago St, Cheyney (PA) @ Coppin St, Marshall @ Ohio State
-ACTIVE ncaaf wednesday: favorites win 9-1 (prices said 6.1) (7 straight) -> coin flip · next: Buffalo @ Ball State, Sacramento St @ C Michigan, UMass @ Toledo
-ACTIVE nba saturday: favorites win 16-3 (prices said 13.4) (8 straight) -> coin flip
-ACTIVE nba away favorite: favorites win 39-11 (prices said 32.3) (6 straight) -> coin flip · next: 76ers @ Bulls, Celtics @ Bucks, Pelicans @ Clippers
-totals study: {'nfl': (0.5411, False), 'ncaaf': (0.4941, False), 'nba': (0.5044, False), 'ncaab': (0.5124, False), 'mlb': (0.4862, False), 'nhl': (0.483, False)}
-public splits: 31 upcoming games
-self-check: 262 graded picks - we said 50%, they hit 51% (hitting at or above what we said)
-  source:pregame: 239 graded, said 50%, hit 51% - hitting at or above what we said
-  market:ml: 235 graded, said 50%, hit 52% - hitting at or above what we said
-  drama:none: 224 graded, said 50%, hit 54% - hitting at or above what we said
-  label:parlay leg: 195 graded, said 50%, hit 51% - hitting at or above what we said
-  price:-149..-101: 149 graded, said 54%, hit 57% - hitting at or above what we said
-  ctx:game:conf: 103 graded, said 48%, hit 52% - hitting at or above what we said (report only: forward-only tag)
-  price:+101..+179: 89 graded, said 48%, hit 42% - a little below what we said - within noise
-  league:nhl: 83 graded, said 50%, hit 45% - a little below what we said - within noise
-  ctx:game:div: 63 graded, said 51%, hit 41% - hitting well below what we said (report only: forward-only tag)
-  league:ncaaf: 61 graded, said 46%, hit 43% - a little below what we said - within noise
-  ctx:game:nonconf: 57 graded, said 51%, hit 53% - hitting at or above what we said (report only: forward-only tag)
-  league:nfl: 41 graded, said 54%, hit 61% - hitting at or above what we said
-  ctx:them:trip1000: 40 graded, said 49%, hit 68% - hitting at or above what we said (report only: forward-only tag)
-  ctx:us:trip1000: 32 graded, said 50%, hit 47% - only 32 graded - report only (report only: forward-only tag)
-  league:mlb: 32 graded, said 54%, hit 81% - only 32 graded - report only
-  ctx:game:rival: 29 graded, said 52%, hit 38% - only 29 graded - report only (report only: forward-only tag)
-  league:nba: 29 graded, said 48%, hit 45% - only 29 graded - report only
-  label:dog: 28 graded, said 41%, hit 43% - only 28 graded - report only
-  market:spread: 27 graded, said 53%, hit 41% - only 27 graded - report only
-  drama:theirs: 24 graded, said 49%, hit 38% - only 24 graded - report only
-  label:live: 23 graded, said 57%, hit 48% - only 23 graded - report only
   source:live: 23 graded, said 57%, hit 48% - only 23 graded - report only
   ctx:them:week3000: 22 graded, said 50%, hit 50% - only 22 graded - report only (report only: forward-only tag)
   ctx:them:east1000: 21 graded, said 50%, hit 67% - only 21 graded - report only (report only: forward-only tag)
@@ -2998,3 +2961,40 @@ tennis first-set lines: 0 first-set winner markets seen (0 matches with any set 
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
 1H line log: 42 rows (34 with a 1st-half line) from 105 AN games
 source check (2.0s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132396 games stored, 52 calls, 0 failed, 8s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 113 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 3 matched, 2 confirmed
+nba rosters: 30 teams as of 2026-11-09, 0 failed, 0 moves
+beat the close: unit plays 30 of 101 better than the close, avg +0.2 pts
+public splits: 59 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
+   no units on Clemson: missing Z. Foster, C. Welling, H. Reynolds
+   no units on Miami: missing M. Allen, L. Cason
+   no units on Missouri: missing L. Northweather, J. Carey, A. Chronister, C. Gunn
+   no units on Oilers: missing Colton Dach, Isaac Howard
+   no units on Rangers: missing Alberts Smits, Sean Durzi
+   no units on Canucks: missing Filip Chytil, Tom Willander
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26303 rated matches, acc 0.645 (surface ratings alone 0.6415), loss 0.6297 vs 0.6314, own weights [-0.004, 0.827, 0.074, 0.151, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6297: experience 0.6295 (+0.23 mnats, z 0.25), age 0.6279 (+1.85 mnats, z 1.32), young_vs_aging 0.6294 (+0.27 mnats, z 0.66), last_match 0.6271 (+2.64 mnats, z 1.86), streaks 0.6303 (-0.62 mnats, z -0.61), first_set 0.629 (+0.69 mnats, z 1.05), injury 0.6306 (-0.91 mnats, z -1.41), travel 0.6297 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30848 rated matches, acc 0.647 (surface ratings alone 0.65), loss 0.622 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.075, 0.299, 0.023, -0.197]
+tennis study WTA life factors vs current loss 0.622: experience 0.6191 (+2.90 mnats, z 1.7), age 0.6211 (+0.87 mnats, z 1.11), young_vs_aging 0.6217 (+0.23 mnats, z 1.46), last_match 0.6229 (-0.97 mnats, z -0.95), streaks 0.6219 (+0.07 mnats, z 0.16), first_set 0.6217 (+0.28 mnats, z 0.6), injury 0.6215 (+0.51 mnats, z 0.89), travel 0.6221 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+1H line log: 0 rows (0 with a 1st-half line) from 105 AN games
+source check (1.3s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
