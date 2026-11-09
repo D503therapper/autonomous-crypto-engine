@@ -15648,3 +15648,20 @@ $PLTR: possibly delisted; no price data found  (period=1y)
    dex screen: REJECT PUMP@solana liq $2,346,539 - transfer hook; top-10 holders 60%
    dex screen: REJECT KTA@base liq $3,193,413 - top-10 holders 66%
    dex screen: REJECT PAXG@ethereum liq $2,213,915 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-11-09 00:03 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/mover     equity $207.87 (-58.4%) 1 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/social_heat equity $338.26 (-32.3%) 3 open  market DOWN
+   >> crypto/breakout10: SELL $158.59 of NEAR @ 3.57103, P/L $-67.04 (weekly: fell below 5-day low or BTC trend down)
+[2026-11-09 00:03 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 00:03 UTC] crypto/hold_btc  equity $449.57 (-10.1%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), HYPE 35 (35/0/0), PUMP 32 (32/0/0), STONK 30 (21/0/9), TAO 29 (29/0/0)
