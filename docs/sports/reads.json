@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T01:25Z",
+ "updated": "2026-11-09T02:15Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -684,8 +684,8 @@
    "away": "Lakers",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -700,7 +700,7 @@
    "home": "Jets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Jets",
@@ -715,7 +715,7 @@
      "sharp money moving this way",
      "better rested"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -801,8 +801,8 @@
    "away": "Incarnate Word",
    "home": "UTEP",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -922,66 +922,49 @@
    }
   },
   {
+   "id": "ncaab:401918053",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-09T01:30Z",
+   "away": "California",
+   "home": "Houston",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909951",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Heat",
-    "p": 0.761,
-    "tie": 0.028,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-09T02:00Z",
    "away": "Heat",
    "home": "Kings",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Heat",
-    "opp": "Kings",
-    "market": "spread",
-    "line": -11.5,
-    "odds": -108,
-    "p": 0.504,
-    "win_p": 0.836,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nba:401909950",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pelicans",
-    "p": 0.505,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-09T02:00Z",
    "away": "Pelicans",
    "home": "Clippers",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Pelicans",
-    "opp": "Clippers",
-    "market": "ml",
-    "line": null,
-    "odds": -121,
-    "p": 0.526,
-    "win_p": 0.526,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401929002",
@@ -1163,8 +1146,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cincinnati",
-    "p": 0.668,
-    "tie": 0.039,
+    "p": 0.641,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1172,20 +1155,20 @@
    "start": "2026-11-10T00:00Z",
    "away": "Minnesota",
    "home": "Cincinnati",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Cincinnati",
     "opp": "Minnesota",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -105,
-    "p": 0.509,
-    "win_p": 0.741,
+    "market": "ml",
+    "line": null,
+    "odds": -270,
+    "p": 0.709,
+    "win_p": 0.709,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
+     "rolling off a blowout win",
+     "opponent's body clock is off"
     ]
    }
   },
@@ -1238,9 +1221,9 @@
     "team": "UNC Greensboro",
     "opp": "UIC",
     "market": "spread",
-    "line": 20.5,
-    "odds": -115,
-    "p": 0.516,
+    "line": 18.5,
+    "odds": -112,
+    "p": 0.505,
     "win_p": 0.079,
     "reasons": []
    }
@@ -1294,9 +1277,9 @@
     "team": "Oakland",
     "opp": "Alabama",
     "market": "spread",
-    "line": 32.5,
-    "odds": -110,
-    "p": 0.546,
+    "line": 31.5,
+    "odds": -115,
+    "p": 0.541,
     "win_p": 0.019,
     "reasons": []
    }
@@ -1352,9 +1335,9 @@
     "team": "Louisiana Tech",
     "opp": "LSU",
     "market": "spread",
-    "line": 30.5,
-    "odds": -115,
-    "p": 0.649,
+    "line": 28.5,
+    "odds": -112,
+    "p": 0.639,
     "win_p": 0.021,
     "reasons": [
      "hotter recent form"
@@ -1488,8 +1471,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Purdue",
-    "p": 0.839,
-    "tie": 0.025,
+    "p": 0.817,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1503,10 +1486,10 @@
     "team": "Illinois St",
     "opp": "Purdue",
     "market": "spread",
-    "line": 16.5,
-    "odds": -105,
-    "p": 0.538,
-    "win_p": 0.087,
+    "line": 15.5,
+    "odds": -110,
+    "p": 0.532,
+    "win_p": 0.106,
     "reasons": [
      "hotter recent form"
     ]
@@ -1581,7 +1564,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.655,
+    "p": 0.656,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1598,8 +1581,8 @@
     "market": "ml",
     "line": null,
     "odds": -281,
-    "p": 0.712,
-    "win_p": 0.712,
+    "p": 0.713,
+    "win_p": 0.713,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1624,14 +1607,18 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "E Washington",
-    "opp": "Oregon St",
+    "team": "Oregon St",
+    "opp": "E Washington",
     "market": "spread",
-    "line": 17.5,
-    "odds": -112,
-    "p": 0.511,
-    "win_p": 0.117,
-    "reasons": []
+    "line": -15.5,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.888,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team",
+     "rolling off a blowout win"
+    ]
    }
   },
   {
@@ -1726,8 +1713,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Stanford",
-    "p": 0.858,
-    "tie": 0.023,
+    "p": 0.85,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1742,9 +1729,9 @@
     "opp": "Rice",
     "market": "spread",
     "line": -17.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.512,
-    "win_p": 0.932,
+    "win_p": 0.926,
     "reasons": [
      "hotter recent form",
      "the stronger team",

@@ -36698,6 +36698,7 @@
      "game:nonconf"
     ],
     "dec": 2.24,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -36744,6 +36745,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,3",
+     "h": "0,2,2"
+    },
     "form_state": [
      4.0,
      2,
@@ -36796,10 +36801,12 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 3 @ Jets 4",
     "season_games": null,
+    "settled": "2026-11-09T02:12Z",
     "side": "home",
     "start": "2026-11-08T23:00Z",
     "stype": "2",
@@ -36823,12 +36830,14 @@
    }
   ],
   "p_hit": 0.4537,
-  "pnl": 0.0,
+  "pnl": 124.0,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-09T02:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 2.0
  },
  {
   "american": -142,
