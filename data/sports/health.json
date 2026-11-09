@@ -1,13 +1,13 @@
 {
- "at": "2026-11-09T19:31Z",
+ "at": "2026-11-09T19:37Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Erjavec vs Mandlik: no points for 2355s",
-  "live tennis scores: tennis Useche vs Costoulas: no points for 2166s",
-  "live tennis scores: tennis Grabher vs Zidansek: no points for 1624s"
+  "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
+  "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
+  "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
  ],
  "ok": [
-  "live watcher fresh (163s)",
+  "live watcher fresh (182s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 57 min ago",
+  "engine ran 62 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T19:37Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
+    "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
+    "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
+   ]
+  },
   {
    "at": "2026-11-09T19:31Z",
    "fixes": [],
@@ -512,15 +521,6 @@
    "problems": [
     "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-08T17:18Z",
-   "fixes": [
-    "live board 28 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
    ]
   }
  ]
