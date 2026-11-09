@@ -15930,3 +15930,34 @@ $PLTR: possibly delisted; no price data found  (period=1y)
 [2026-11-09 09:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-09 09:05 UTC] crypto/hold_btc  equity $448.83 (-10.2%) 1 open  market DOWN
    social heat top: BTC 45 (40/0/5), STONK 44 (37/0/7), PENGU 38 (29/0/8), XRP 35 (35/0/0), MON 32 (32/0/0)
+   dex screen: PASS STONK@solana liq $2,027,517
+   dex screen: REJECT LMAO!@solana liq $104,533 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT WHUF@base liq $207,978 - pool age unknown
+   dex screen: UNREACHABLE SP@ethereum liq $333,144 - honeypot.is unreachable
+   dex outcome: normal SNOWMOON@ethereum:0xa314A6 tier A P/L $+11.89 (trailing stop (peak 0.003856))
+   >> dex/dex_hunter: SELL $29.37 of SNOWMOON@ethereum:0xa314A6 @ 0.00209, P/L $+11.89 (trailing stop (peak 0.003856))
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ERA@solana liq $102,490,551 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $1,315,970 - top-10 holders 65%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AMZNC@base liq $34,385 - liquidity $34,385 < $100,000; 24h volume $7,110 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT ZCHF@ethereum liq $2,192,284 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 88%
+   dex screen: REJECT ZAMA@ethereum liq $517,275 - is_mintable; top-10 holders 94%; lp locked 0% < 95%
+   dex re-screen: COGE@solana:8UQdy5sH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS ELYSION@solana liq $100,934
+   dex scanner: 2,523 pools (solana 1,822 / base 381 / ethereum 320), refresh cycle 108s (hot 103s), 2957 calls (110 feed, 429s 0, failed 0), 85,403 refreshed (14586 no pair), +60 added / -191 dropped (dead 170, stale 21, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT EUROP@solana liq $1,172,064 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; top-10 holders 100%
+[2026-11-09 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/mover     equity $210.01 (-58.0%) 1 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/social_heat equity $337.33 (-32.5%) 3 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 10:05 UTC] crypto/hold_btc  equity $447.25 (-10.5%) 1 open  market DOWN
+   social heat top: BTC 45 (40/0/5), STONK 44 (35/0/9), NEAR 32 (32/0/0), PENGU 31 (29/0/2), PUMP 27 (27/0/0)
