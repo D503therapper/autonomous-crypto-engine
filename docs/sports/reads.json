@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T00:57Z",
+ "updated": "2026-11-09T01:00Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -855,32 +855,25 @@
    "id": "nfl:401873050",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bears",
-    "p": 0.619,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-09T01:20Z",
    "away": "Buccaneers",
    "home": "Bears",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Bears",
-    "opp": "Buccaneers",
-    "market": "ml",
-    "line": null,
-    "odds": -270,
-    "p": 0.7,
-    "win_p": 0.7,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
+    "team": "Buccaneers",
+    "opp": "Bears",
+    "market": "spread",
+    "line": 6.0,
+    "odds": -108,
+    "p": 0.51,
+    "win_p": 0.51,
+    "reasons": [],
+    "result": null
    }
   },
   {
