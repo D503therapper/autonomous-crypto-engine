@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T18:55Z",
+ "updated": "2026-11-09T19:50Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -322,8 +322,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Towson",
-    "p": 0.653,
-    "tie": 0.04,
+    "p": 0.659,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -331,21 +331,17 @@
    "start": "2026-11-10T00:00Z",
    "away": "Long Island",
    "home": "Towson",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Towson",
-    "opp": "Long Island",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.724,
-    "win_p": 0.724,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "opponent's body clock is off"
-    ]
+    "team": "Long Island",
+    "opp": "Towson",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -115,
+    "p": 0.514,
+    "win_p": 0.273,
+    "reasons": []
    }
   },
   {
@@ -370,7 +366,7 @@
     "opp": "Minnesota",
     "market": "spread",
     "line": -6.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.515,
     "win_p": 0.734,
     "reasons": [
@@ -402,7 +398,7 @@
     "opp": "North Dakota",
     "market": "spread",
     "line": -22.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.536,
     "win_p": 0.954,
     "reasons": [
@@ -464,7 +460,7 @@
     "opp": "Tennessee",
     "market": "spread",
     "line": 30.5,
-    "odds": -105,
+    "odds": -112,
     "p": 0.537,
     "win_p": 0.019,
     "reasons": []
@@ -592,7 +588,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.702,
+    "p": 0.709,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -608,12 +604,13 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -10.5,
-    "odds": -108,
+    "odds": -104,
     "p": 0.503,
-    "win_p": 0.806,
+    "win_p": 0.814,
     "reasons": [
      "the stronger team",
-     "opponent missing key players"
+     "opponent missing key players",
+     "sharp money moving this way"
     ]
    }
   },
@@ -651,8 +648,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Raptors",
-    "p": 0.524,
-    "tie": 0.037,
+    "p": 0.529,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -667,9 +664,9 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.563,
-    "win_p": 0.563,
+    "odds": -147,
+    "p": 0.571,
+    "win_p": 0.571,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -756,7 +753,7 @@
     "opp": "Northwestern",
     "market": "spread",
     "line": 14.5,
-    "odds": -102,
+    "odds": -110,
     "p": 0.504,
     "win_p": 0.092,
     "reasons": [
@@ -831,7 +828,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.538,
+    "p": 0.552,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -847,9 +844,9 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.584,
-    "win_p": 0.584,
+    "odds": -170,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -984,8 +981,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.669,
-    "tie": 0.033,
+    "p": 0.571,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -993,19 +990,20 @@
    "start": "2026-11-10T01:30Z",
    "away": "Nuggets",
    "home": "Rockets",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Rockets",
     "opp": "Nuggets",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.766,
+    "market": "ml",
+    "line": null,
+    "odds": -184,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
+     "the stronger team",
      "sharp money moving this way",
-     "the stronger team"
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
   },
@@ -1074,7 +1072,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Seton Hall",
-    "p": 0.602,
+    "p": 0.597,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -1090,9 +1088,9 @@
     "opp": "Charlotte",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.665,
-    "win_p": 0.665,
+    "odds": -218,
+    "p": 0.659,
+    "win_p": 0.659,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1240,9 +1238,9 @@
     "team": "Warriors",
     "opp": "Pelicans",
     "market": "spread",
-    "line": -9.5,
-    "odds": -102,
-    "p": 0.502,
+    "line": -8.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.762,
     "reasons": [
      "the stronger team",
@@ -1321,7 +1319,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.405,
+    "p": 0.398,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1330,20 +1328,17 @@
    "start": "2026-11-11T00:00Z",
    "away": "Avalanche",
    "home": "Maple Leafs",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Avalanche",
-    "opp": "Maple Leafs",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.621,
-    "win_p": 0.621,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "team": "Maple Leafs",
+    "opp": "Avalanche",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -166,
+    "p": 0.62,
+    "win_p": 0.399,
+    "reasons": []
    }
   },
   {
@@ -1440,7 +1435,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duke",
-    "p": 0.644,
+    "p": 0.64,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1456,9 +1451,9 @@
     "opp": "Michigan St",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.713,
-    "win_p": 0.713,
+    "odds": -270,
+    "p": 0.708,
+    "win_p": 0.708,
     "reasons": [
      "the stronger team"
     ]
@@ -1486,7 +1481,7 @@
     "opp": "Akron",
     "market": "spread",
     "line": -14.0,
-    "odds": -115,
+    "odds": -110,
     "p": 0.506,
     "win_p": 0.757,
     "reasons": [
