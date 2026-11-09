@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T17:12Z",
+ "updated": "2026-11-09T18:15Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -11,8 +11,8 @@
    "away": "Cheyney (PA)",
    "home": "Coppin St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -259,7 +259,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.504,
+    "p": 0.516,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -268,16 +268,16 @@
    "start": "2026-11-10T00:00Z",
    "away": "Lakers",
    "home": "Hawks",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Hawks",
     "opp": "Lakers",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.533,
-    "win_p": 0.533,
+    "odds": -129,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back",
@@ -291,7 +291,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Towson",
-    "p": 0.642,
+    "p": 0.653,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -307,12 +307,12 @@
     "opp": "Long Island",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.711,
-    "win_p": 0.711,
+    "odds": -298,
+    "p": 0.724,
+    "win_p": 0.724,
     "reasons": [
-     "the stronger team",
      "sharp money moving this way",
+     "the stronger team",
      "opponent's body clock is off"
     ]
    }
@@ -432,9 +432,9 @@
     "team": "Radford",
     "opp": "Tennessee",
     "market": "spread",
-    "line": 29.5,
-    "odds": -112,
-    "p": 0.532,
+    "line": 30.5,
+    "odds": -105,
+    "p": 0.537,
     "win_p": 0.019,
     "reasons": []
    }
@@ -577,7 +577,7 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -10.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.806,
     "reasons": [
@@ -697,7 +697,7 @@
     "opp": "Alabama",
     "market": "spread",
     "line": 32.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.546,
     "win_p": 0.019,
     "reasons": []
@@ -709,8 +709,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.838,
-    "tie": 0.025,
+    "p": 0.833,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -724,10 +724,10 @@
     "team": "Boston U",
     "opp": "Northwestern",
     "market": "spread",
-    "line": 15.5,
-    "odds": -110,
-    "p": 0.51,
-    "win_p": 0.088,
+    "line": 14.5,
+    "odds": -102,
+    "p": 0.504,
+    "win_p": 0.092,
     "reasons": [
      "sharp money moving this way",
      "hotter recent form"
@@ -785,9 +785,9 @@
     "team": "North Alabama",
     "opp": "Oklahoma",
     "market": "spread",
-    "line": 27.5,
-    "odds": -105,
-    "p": 0.584,
+    "line": 28.5,
+    "odds": -118,
+    "p": 0.59,
     "win_p": 0.028,
     "reasons": [
      "hotter recent form"
@@ -800,7 +800,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.544,
+    "p": 0.538,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -816,9 +816,9 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -161,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -156,
+    "p": 0.585,
+    "win_p": 0.585,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -891,8 +891,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.584,
-    "tie": 0.038,
+    "p": 0.589,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -907,9 +907,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.642,
-    "win_p": 0.642,
+    "odds": -192,
+    "p": 0.65,
+    "win_p": 0.65,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
@@ -1074,7 +1074,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.699,
+    "p": 0.705,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1092,7 +1092,7 @@
     "line": -8.5,
     "odds": -114,
     "p": 0.501,
-    "win_p": 0.767,
+    "win_p": 0.774,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1209,9 +1209,9 @@
     "team": "Warriors",
     "opp": "Pelicans",
     "market": "spread",
-    "line": -9.5,
-    "odds": -102,
-    "p": 0.502,
+    "line": -8.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.762,
     "reasons": [
      "the stronger team",
@@ -1406,7 +1406,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duke",
-    "p": 0.64,
+    "p": 0.644,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1422,9 +1422,9 @@
     "opp": "Michigan St",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.708,
-    "win_p": 0.708,
+    "odds": -278,
+    "p": 0.713,
+    "win_p": 0.713,
     "reasons": [
      "the stronger team"
     ]
