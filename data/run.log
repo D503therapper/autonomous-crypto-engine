@@ -16227,3 +16227,12 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-09 17:07 UTC] stocks/trend     equity $455.95 (-8.8%) 4 open  market DOWN
 [2026-11-09 17:07 UTC] stocks/hold_spy  equity $489.70 (-2.1%) 1 open  market DOWN
    social heat top: AVAX 37 (37/0/0), BTC 32 (32/0/0), HYPE 29 (29/0/0), ONDO 24 (24/0/0), AERO 21 (19/0/2)
+   dex screen: UNREACHABLE GTA6@ethereum liq $200,205 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CBBTC@ethereum liq $3,878,424 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%
+   dex screen: REJECT ICNT@solana liq $312,973,229 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT ICNT@base liq $132,198 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT CLAUDIA@solana liq $334,376 - holders unknown; lp holders unknown; rugcheck lp locked 50% < 95%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CTM@ethereum liq $2,146,164 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: UNREACHABLE GTA6@ethereum liq $188,252 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
