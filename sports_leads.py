@@ -415,11 +415,18 @@ def tags(c, sports):
             #   won a game both teams scored 30+ in: +20.2% on 62 (train 7 of 7 up, 2025 -11% on 8, early price +17%);
             #   college 35+ the same sign (+8.8% on 78) but not at 31+ / 42+; the bettable -101..-150 band doesn't
             #   hold - tracked only, never a weight
+    if lg == "nhl" and c.get("nhl_fast_start_fav"):
+        t.append("NHL fav -101..-250, a fast starter (1st-period excess +0.25+) (fade)")   # 11/9 daily s5 - BUILT as a -1
+        #   weight on the favorite's read (-9.2% on 695, held 3 of 3 down, the open -8.8%); judge at 50
     gi = c.get("games_in") if lg == "ncaab" else None    # 🏀 11/3 college hoops (A) - results/studies/cbb_1103_a/
     if gi is not None:
         if sports.ncaab_early_road_dog(c):
             t.append("college hoops road dog, games 1-3 (fade)")   # s7 - BUILT as a -2 dog-score weight; its live
-            #   record (ML -20.0% on 581, open -26.1%, ATS -16.4%, held 3 of 3 down)
+            #   record (ML -20.0% on 581, open -26.1%, ATS -16.4%, held 3 of 3 down). The weight came OFF 11/9 (its
+            #   judge at 50 tripped: +23.5% on 53 - results/studies/daily_1109/s1); the tag keeps logging the raw cell
+        if sports.ncaab_tp_lucky(c):
+            t.append("college hoops side lucky from three, NET +5+ (fade)")   # 11/9 daily s2 - BUILT as weights (the
+            #   favorite's read -2, the dog -1, the spread rank -0.02): ATS -10.1% on 5,668, held 3 of 3 down; judge at 50
         if sports.ncaab_neutral_back_dog(c):
             t.append("college hoops road dog, first game back from a neutral site (fade)")   # 11/5 daily s10 - BUILT
             #   as a -2 dog-score weight (-21.9% on 306, train 4/5 down, held 3/3 down, the open -26.9%); judge at 50

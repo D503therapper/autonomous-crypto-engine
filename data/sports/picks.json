@@ -36444,6 +36444,7 @@
      "us:trip1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -36493,6 +36494,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,3,0,13",
+     "h": "0,7,7,7"
+    },
     "form_state": [
      4.0,
      4,
@@ -36552,10 +36557,12 @@
      "opponent drama: coach fired"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Broncos 26 @ Panthers 21",
     "season_games": null,
+    "settled": "2026-11-08T21:17Z",
     "side": "away",
     "start": "2026-11-08T18:00Z",
     "stype": "2",
@@ -36580,12 +36587,14 @@
    }
   ],
   "p_hit": 0.602,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-08T21:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 1.0
  },
  {
   "american": 124,
@@ -36631,6 +36640,7 @@
      "game:nonconf"
     ],
     "dec": 2.24,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": true,
@@ -36677,6 +36687,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,3",
+     "h": "0,2,2"
+    },
     "form_state": [
      4.0,
      2,
@@ -36729,10 +36743,12 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 3 @ Jets 4",
     "season_games": null,
+    "settled": "2026-11-09T02:12Z",
     "side": "home",
     "start": "2026-11-08T23:00Z",
     "stype": "2",
@@ -36756,12 +36772,14 @@
    }
   ],
   "p_hit": 0.4537,
-  "pnl": 0.0,
+  "pnl": 124.0,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-09T02:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 2.0
  },
  {
   "american": -142,
@@ -36817,6 +36835,7 @@
      "game:div"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -36854,6 +36873,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "3,0,1"
+    },
     "form_state": [
      4.0,
      3,
@@ -36907,10 +36930,12 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 1 @ Bruins 4",
     "season_games": null,
+    "settled": "2026-11-08T21:17Z",
     "side": "home",
     "start": "2026-11-08T18:00Z",
     "stype": "2",
@@ -36928,12 +36953,14 @@
    }
   ],
   "p_hit": 0.5982,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-08T21:17Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -108,
@@ -36984,6 +37011,15 @@
      "us:west1000"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Cairo Santos",
+     "s": "27-24",
+     "type": "late",
+     "win": "home",
+     "y": 38
+    },
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -37023,6 +37059,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,6,7,11",
+     "h": "14,3,7,3"
+    },
     "form_state": [
      16.0,
      2,
@@ -37071,10 +37111,12 @@
     "raw_own": 0.2213,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Buccaneers 24 @ Bears 27",
     "season_games": null,
+    "settled": "2026-11-09T04:58Z",
     "side": "away",
     "start": "2026-11-09T01:20Z",
     "stype": "2",
@@ -37090,12 +37132,14 @@
    }
   ],
   "p_hit": 0.5104,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-09T04:58Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
@@ -37146,6 +37190,15 @@
      "us:west1000"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Matt Coronato",
+     "s": "4-3",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -37171,6 +37224,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,0,0",
+     "h": "1,1,1,1"
+    },
     "form_state": [
      -1.0,
      -2,
@@ -37222,10 +37279,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Flyers 3 @ Flames 4",
     "season_games": null,
+    "settled": "2026-11-09T02:55Z",
     "side": "away",
     "start": "2026-11-09T00:00Z",
     "stype": "2",
@@ -37242,8 +37301,812 @@
    }
   ],
   "p_hit": 0.5275,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-08T16:00Z",
+  "round": 1,
+  "settled": "2026-11-09T02:55Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
+ },
+ {
+  "american": 114,
+  "best": true,
+  "date": "2026-11-09",
+  "dec": 2.14,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "b2b_me": false,
+    "bd_tags": [
+     "rec:0",
+     "G_cold:2",
+     "cx_trip:1",
+     "b2b:2",
+     "w_rest:95",
+     "splits_f:0",
+     "f_last:0",
+     "f_site:3",
+     "f_pts:0",
+     "f_theirL:3",
+     "f_gpg:2",
+     "f_pdo:1",
+     "f_pyth:1",
+     "risk:6",
+     "bottom_so:3"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83c\udf40 Puck luck's been shit for Canucks - shooting plus save % at 97.1 over the last 10 games (100 is average). That don't last.",
+     "\ud83e\udd45 Pucks keep getting past the Flyers' goalie, Joseph Woll \u2014 a 0.854 save % (12 goals on 82 shots) over his last 3 starts.",
+     "\ud83c\udfb2 By goals scored and allowed, Canucks should be about 13 points better than their record. The books are sleeping on that.",
+     "\ud83d\udcca Canucks at 2.9 goals a game this year. Flyers at 2.2. Ours scores more, that's just facts.",
+     "\ud83e\uddf3 Travel check on the Flyers: 3rd road game in 6 days.",
+     "\ud83e\uddf3 1-8 on the road for Flyers. Road trips been rough on 'em.",
+     "\ud83e\udd4a The Capitals spanked the Flyers 5-2 within their last 5 games.",
+     "\ud83d\udcc5 Both took an L last time - Canucks a 4-2 loss to the Oilers, Flyers a 4-3 loss to the Flames.",
+     "\ud83d\udcca 81% of the bets and 67% of the money on the Flyers on the moneyline. We on the other side.",
+     "\ud83d\udcca Last 3 games: Canucks scored 3 and gave up 5 goals a game; Flyers 2 and 4.",
+     "\ud83d\udccb Canucks are 3-16 after a 4-2 loss to the Oilers.",
+     "\u26a0\ufe0f Not perfect - Canucks have dropped 5 straight. We'll take our chances.",
+     "\u2705 Bottom line: Canucks (+114). -115 on our sheet, +114 at the book. Trust the algorithm."
+    ],
+    "bv": 62,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "dir": "W",
+      "k": "trip",
+      "mi": 0,
+      "road6": 3,
+      "who": "them",
+      "wk": 2616
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:road3in6"
+    ],
+    "dec": 2.1399999999999997,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": -0.1012,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.535,
+    "dog_score": 8.64,
+    "drift": 0.0071,
+    "edge": 0.01632035216008454,
+    "edge_own": 0.01632035216008454,
+    "elo_edge": -85.7,
+    "elo_raw": -105.7,
+    "fact": "The Flyers played last night and the Canucks didn't.",
+    "facts": [
+     [
+      "The Flyers played last night and the Canucks didn't.",
+      "The Flyers are on a back-to-back; the Canucks had the night off.",
+      "Second night in a row for the Flyers, a night off for the Canucks.",
+      "The Flyers played yesterday, the Canucks rested."
+     ],
+     [
+      "81% of the bets are on the Flyers.",
+      "The public's got 81% of the tickets on the Flyers.",
+      "81% of tickets are on the Flyers.",
+      "81% of the crowd is on the Flyers.",
+      "The Flyers are holding 81% of the action.",
+      "The public side is the Flyers, 81% of all bets.",
+      "Only 19% of the public is on the Canucks.",
+      "The Flyers are the public's team tonight, 81% of bets.",
+      "The public is all over the Flyers, 81% of bets.",
+      "Everybody and they mama on the Flyers with 67% of the money.",
+      "67% of the cash is on the Flyers."
+     ],
+     [
+      "The Flyers have lost 3 straight.",
+      "3 straight losses for the Flyers.",
+      "The Flyers are on a 3-game skid.",
+      "The Flyers haven't won in 3."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -2.0,
+     -5,
+     295,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": false,
+    "game_id": "nhl:401892681",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": -0.7479272799920111,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": -0.1131,
+    "n1_sat": 0,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 114,
+    "opp": "Flyers",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": "ot_loss",
+    "opp_outs": [],
+    "opp_sv_slump": true,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4749160524112545,
+    "p_market": 0.44855888528345106,
+    "pdo": 970.519877675841,
+    "public": "fade",
+    "pyth_luck": -0.128,
+    "raw_own": 0.4699,
+    "reasons": [
+     "opponent on a back-to-back"
+    ],
+    "rested_vs_b2b": true,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-10T02:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Canucks",
+    "team_id": "22",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude2e\u200d\ud83d\udca8 The Flyers played yesterday, the Canucks rested, give me Canucks."
+   }
+  ],
+  "p_hit": 0.4749,
+  "pnl": 0.0,
+  "posted": "2026-11-09T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": 120,
+  "date": "2026-11-09",
+  "dec": 2.2,
+  "floor": {
+   "dog_score": 5.29,
+   "nba": false
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "b2b_me": false,
+    "bd_tags": [
+     "rec:0",
+     "cx_trip:2",
+     "w_public:118",
+     "k_trip:1",
+     "f_last:1",
+     "f_site:2",
+     "f_outs:2",
+     "f_theirL:3",
+     "f_pdo:1",
+     "f_shots:1",
+     "risk:7",
+     "bottom_floor:1"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83e\udd4a The Oilers spanked the Islanders 4-0 within their last 5 games.",
+     "\ud83e\uddf3 The Islanders put in the miles to get here (2,560-mile trip west).",
+     "\ud83d\ude91 No Ryan Pulock (D) for Islanders.",
+     "\ud83e\uddf3 Islanders on the road this season: 3-4. Road trips ain't their thing.",
+     "\ud83c\udfd2 Islanders got outshot bad last time - 40 or more shots against in that 5-4 loss to the Devils - on a short turnaround.",
+     "\ud83c\udf40 Puck luck's been shit for Sharks - shooting plus save % at 98.0 over the last 10 games (100 is average). That don't last.",
+     "\ud83d\udccb Sharks are 7-12 after a 4-3 loss to the Stars.",
+     "\ud83d\udcc5 Sharks off a 4-3 loss to the Stars, Islanders off a 5-4 loss to the Devils. One of 'em gets right tonight.",
+     "\u26a0\ufe0f Heads up: Sharks have dropped 5 straight. Still Sharks.",
+     "\u2705 Bottom line: Sharks (+120). Not a big edge on the price - every angle we grade a dog on likes Sharks here. Half a unit, keep it light."
+    ],
+    "bv": 62,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "W",
+      "k": "trip",
+      "mi": 2564,
+      "road6": 1,
+      "who": "them",
+      "wk": 2564
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:trip1000",
+     "them:trip2000",
+     "them:west1000",
+     "us:road3in6",
+     "us:trip1000",
+     "us:week3000",
+     "us:west1000"
+    ],
+    "dec": 2.2,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "ss_gap": -0.0139,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": 0.0191,
+    "edge": -0.05533193338064213,
+    "edge_own": -0.05533193338064213,
+    "elo_edge": -29.0,
+    "elo_raw": -49.0,
+    "fact": "84% of the bets are on the Islanders.",
+    "facts": [
+     [
+      "84% of the bets are on the Islanders.",
+      "The public's got 84% of the tickets on the Islanders.",
+      "84% of tickets are on the Islanders.",
+      "84% of the crowd is on the Islanders.",
+      "The Islanders are holding 84% of the action.",
+      "The public side is the Islanders, 84% of all bets.",
+      "Only 16% of the public is on the Sharks.",
+      "The Islanders are the public's team tonight, 84% of bets.",
+      "The public is all over the Islanders, 84% of bets.",
+      "Everybody and they mama on the Islanders with 79% of the money.",
+      "79% of the cash is on the Islanders."
+     ],
+     [
+      "The Islanders have lost 3 straight.",
+      "3 straight losses for the Islanders.",
+      "The Islanders are on a 3-game skid.",
+      "The Islanders haven't won in 3."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "floor_score": 5.29,
+    "form_state": [
+     -1.0,
+     -5,
+     235,
+     false,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892682",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": 0.30234187802342105,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": -0.1775,
+    "n1_sat": 1,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 120,
+    "opp": "Islanders",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": "ot_loss",
+    "opp_outs": [
+     "Ryan Pulock (D)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": true,
+    "p": 0.4293945757360717,
+    "p_market": 0.43650793650793646,
+    "pdo": 980.1604406130267,
+    "public": "fade",
+    "pyth_luck": 0.042,
+    "raw_own": 0.4768,
+    "reasons": [
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-10T03:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Sharks",
+    "team_id": "18",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcca The Islanders are holding 84% of the action. We eating. And Islanders are coming off a 2,560-mile trip."
+   }
+  ],
+  "p_hit": 0.4294,
+  "pnl": 0.0,
+  "posted": "2026-11-09T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -115,
+  "date": "2026-11-09",
+  "dec": 1.8696,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 1,
+    "b2b_me": false,
+    "bd_tags": [
+     "healthy:1",
+     "w_num:4",
+     "f_last:3",
+     "risk:1",
+     "bottom_so:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcc5 Louisiana Tech is off a 76-17 win over UA Monticello (a no-name non-D1 school), LSU off a 92-51 win over Texas Southern.",
+     "\u2705 Full squad for Louisiana Tech.",
+     "\u26a0\ufe0f LSU comes in on a 2-game heater. That's the one thing that could burn us.",
+     "\ud83d\udfe1 Bottom line: Louisiana Tech +30.5 (-115). Louisiana Tech +30.5 is the side; the price already pays for it. No units."
+    ],
+    "bv": 62,
+    "coach": [
+     0,
+     false
+    ],
+    "coach_name": "Talvin Hester",
+    "coach_tenure": 5,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.8695652173913042,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": 0.0096,
+    "edge": 0.2139794239212125,
+    "elo_edge": -20.3,
+    "elo_raw": -20.3,
+    "fact": "Louisiana Tech went 20-14 last season, LSU 15-17.",
+    "facts": [
+     [
+      "Louisiana Tech went 20-14 last season, LSU 15-17.",
+      "Last year it was 20-14 for Louisiana Tech, 15-17 for LSU.",
+      "Louisiana Tech finished 20-14 a year ago; LSU 15-17.",
+      "20-14 (Louisiana Tech) against 15-17 (LSU) last season."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     59.0,
+     2,
+     null,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401921810",
+    "games_in": 2,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": 30.5,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": -115,
+    "opp": "LSU",
+    "opp_coach_name": "Will Wade",
+    "opp_games_in": 2,
+    "opp_lost_last": false,
+    "opp_new_coach": true,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.6493378313997183,
+    "p_market": 0.5348837209302326,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.0371,
+    "reasons": [
+     "hotter recent form"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-10T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Louisiana Tech",
+    "team_id": "2348",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Louisiana Tech finished 20-14 a year ago; LSU 15-17. We lean Louisiana Tech."
+   }
+  ],
+  "p_hit": 0.6493,
+  "pnl": 0.0,
+  "posted": "2026-11-09T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -105,
+  "date": "2026-11-09",
+  "dec": 1.9524,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 1,
+    "b2b_me": false,
+    "bd_tags": [
+     "healthy:0",
+     "w_hot:5",
+     "f_last:0",
+     "f_rest:0",
+     "risk:6",
+     "bottom_so:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\u23f3 North Alabama got the extra day: 4 days off to Oklahoma's 3 days.",
+     "\u2705 North Alabama is healthy \u2014 nobody important sitting.",
+     "\ud83d\udcc5 Both won last time - North Alabama a 76-66 win over Union (TN) (a no-name non-D1 school), Oklahoma a 84-57 win over Miss Valley St.",
+     "\u26a0\ufe0f Not perfect - Oklahoma has outscored teams 74 to 62 a game over their last 2; North Alabama sits 78 for, 70 against. We'll take our chances.",
+     "\ud83d\udfe1 Bottom line: North Alabama +27.5 (-105). We'd take North Alabama +27.5, but we ain't betting it at that price."
+    ],
+    "bv": 62,
+    "coach": [
+     null,
+     false
+    ],
+    "coach_name": "Tony Pujol",
+    "coach_tenure": null,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 1.9523809523809523,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": 0.0,
+    "edge": 0.14072205483833855,
+    "elo_edge": -200.8,
+    "elo_raw": -200.8,
+    "fact": "North Alabama have won 2 straight.",
+    "facts": [
+     [
+      "North Alabama have won 2 straight.",
+      "2 straight wins for North Alabama.",
+      "North Alabama are on a 2-game winning streak.",
+      "North Alabama haven't lost in 2."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     10.0,
+     2,
+     null,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401906803",
+    "games_in": 2,
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": 27.5,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": -105,
+    "opp": "Oklahoma",
+    "opp_games_in": 2,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5842722719903686,
+    "p_market": 0.5121951219512195,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.0398,
+    "reasons": [
+     "hotter recent form"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-10T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "North Alabama",
+    "team_id": "2453",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83d\udd25 Nobody's beaten North Alabama in 2 games, 2 straight W's. We tilt North Alabama."
+   }
+  ],
+  "p_hit": 0.5843,
+  "pnl": 0.0,
+  "posted": "2026-11-09T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": 102,
+  "date": "2026-11-09",
+  "dec": 2.02,
+  "kind": "night",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -2,
+    "b2b_me": false,
+    "bd_tags": [
+     "even:0",
+     "home:0",
+     "w_home:12",
+     "splits_f:1",
+     "f_last5:1",
+     "f_h2h:1",
+     "risk:4",
+     "bottom_n:0"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Vikings out: QB Kyler Murray (starter), WR Jauan Jennings \u00b7 questionable: S Jay Ward.",
+     "\ud83d\uddd3\ufe0f Last 5 for Vikings: 4-1. They been getting it done.",
+     "\ud83d\udcca The public's on the Bills: 69% of the bets, 55% of the money. Not us.",
+     "\u2696\ufe0f Vikings 6-1, Bills 6-1 - a wash on paper, and the book's paying us plus money to take Vikings.",
+     "\u26a0\ufe0f Kyler Murray is out and the Vikings roll with the backup quarterback. We see it. Ain't scared of it.",
+     "\ud83d\udfe1 Bottom line: Vikings +3 (+102). We like Vikings +3, but barely - a coin flip to cover. No money on it."
+    ],
+    "bv": 62,
+    "coach": [
+     4,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:out_dome"
+    ],
+    "dec": 2.02,
+    "depth_pts": 0.5,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [],
+     "go4_gap": -0.1589,
+     "last_margin": -4.0,
+     "last_pts": 15.0,
+     "mnf": true,
+     "neutral": false,
+     "record": [
+      6,
+      1
+     ],
+     "win_pct": 0.857,
+     "win_streak": 0
+    },
+    "drift": 0.0395,
+    "edge": -0.020615993856983983,
+    "elo_edge": -9.2,
+    "elo_raw": -49.2,
+    "fact": "The Vikings are 3-0 at home this year.",
+    "facts": [
+     [
+      "The Vikings are 3-0 at home this year.",
+      "3-0 at home for the Vikings this season.",
+      "The Vikings haven't lost at home this year (3-0).",
+      "The Vikings at home this year: 3-0."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -4.0,
+     -1,
+     142,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873051",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": -0.32099246231155787,
+    "key_out_me": true,
+    "key_seen": {
+     "Kyler Murray (Vikings QB)": "Out"
+    },
+    "league": "nfl",
+    "line": 3.0,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 102,
+    "opp": "Bills",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Tyrell Shavers (WR)",
+     "Joshua Palmer (WR)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Kyler Murray (QB)",
+     "Demond Claiborne (RB)",
+     "Jauan Jennings (WR)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4848435673975327,
+    "p_market": 0.49504950495049505,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.318,
+    "reasons": [],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-10T01:15Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Vikings",
+    "team_id": "16",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83c\udfdf\ufe0f We lean Vikings \u2014 3-0 at home for the Vikings this season."
+   }
+  ],
+  "p_hit": 0.4848,
+  "pnl": 0.0,
+  "posted": "2026-11-09T16:00Z",
   "round": 1,
   "stake": 100.0,
   "status": "open",

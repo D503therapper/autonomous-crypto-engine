@@ -4,21 +4,21 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 
 | Market | Strategy | Balance | Return | Trades |
 |---|---|---|---|---|
-| dex | dex_hunter | $669.46 | -33.1% | 68 |
+| dex | dex_hunter | $645.87 | -35.4% | 70 |
+| stocks | trend_ensemble | $502.96 | +0.6% | 21 |
 | crypto | chaser | $500.00 | +0.0% | 0 |
-| stocks | trend_ensemble | $494.60 | -1.1% | 19 |
-| stocks | rotation10 | $487.97 | -2.4% | 38 |
-| stocks | hold_spy | $481.69 | -3.7% | 1 |
+| stocks | breakout52 (official) | $493.45 | -3.2% | 9 |
+| stocks | rotation10 | $491.12 | -1.8% | 40 |
+| stocks | hold_spy | $490.32 | -1.9% | 1 |
 | crypto | announce | $480.79 | -3.8% | 2 |
-| stocks | breakout52 (official) | $479.30 | -6.0% | 9 |
 | stocks | momentum | $478.81 | -4.2% | 12 |
 | crypto | breakout | $477.30 | -4.5% | 8 |
-| stocks | rsi2 (official) | $473.79 | -5.2% | 45 |
-| crypto | hold_btc | $455.52 | -8.9% | 1 |
-| stocks | dual_momentum | $450.73 | -9.9% | 4 |
-| stocks | trend | $450.00 | -10.0% | 107 |
+| stocks | rsi2 (official) | $472.27 | -5.5% | 45 |
+| stocks | dual_momentum | $460.42 | -7.9% | 4 |
+| stocks | trend | $456.53 | -8.7% | 107 |
+| crypto | hold_btc | $449.84 | -10.0% | 1 |
 | crypto | momentum | $418.69 | -16.3% | 16 |
-| crypto | breakout10 | $387.35 | -22.5% | 3 |
-| crypto | social_heat | $342.27 | -31.5% | 55 |
-| crypto | mover | $208.43 | -58.3% | 111 |
+| crypto | breakout10 | $385.19 | -23.0% | 4 |
+| crypto | social_heat | $339.67 | -32.1% | 56 |
+| crypto | mover | $214.02 | -57.2% | 114 |
 | crypto | early_mover (official) | $0.00 | -100.0% | 6 |

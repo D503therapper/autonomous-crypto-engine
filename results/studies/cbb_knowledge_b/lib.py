@@ -36,6 +36,7 @@ profit_ml, profit_ats, profit_open = B.profit_ml, B.profit_ats, B.profit_open
 STUDY_CAP, FAV_CAP, FAV_PER_PT, OWN_CAP = 6, 0.04, 0.005, 12
 AWAY_FAV_W, EFF_FAV_W, EFF_FAV_GAP, TOP_OUT_FAV_W = -0.03, -0.03, 0.03, -0.02
 RANKED_ROAD_DOG, REB_GAP, REB_GAP_BIG, REB_DOG, ATS_GAP = 2, 6.0, 8.0, (1, 2), 3.0
+EARLY_ROAD_DOG = 0       # the early true-road dog fade (sports.NCAAB_EARLY_ROAD_DOG_PTS): 2 from 11/3, OFF from 11/9
 ND = ("11", "12")
 
 
@@ -177,7 +178,7 @@ def dog_pts(x):
     if rg is not None:
         sc += REB_DOG[1] if rg >= REB_GAP_BIG else REB_DOG[0] if rg >= REB_GAP else -REB_DOG[0] if rg <= -REB_GAP else 0
     if road and x["gn"] <= 3:
-        sc -= 2
+        sc -= EARLY_ROAD_DOG       # sports.NCAAB_EARLY_ROAD_DOG_PTS (2 from 11/3, 0 from 11/9 - daily_1109/s1)
     if x.get("ice_cold"):
         sc -= 3
     x["dog_pts_raw"] = sc

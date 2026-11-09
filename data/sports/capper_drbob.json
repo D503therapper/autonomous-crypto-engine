@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-08T17:54Z",
+ "checked": "2026-11-09T18:10Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -374,6 +374,20 @@
     "status": "lost"
    }
   },
+  "2026-11-08|Cleveland Browns|New Orleans Saints|over": {
+   "away": "Cleveland Browns",
+   "date": "2026-11-08",
+   "home": "New Orleans Saints",
+   "line": 42.5,
+   "price": null,
+   "rating": [
+    "home",
+    1.1
+   ],
+   "result": "won",
+   "seen": "2026-11-08T20:34Z",
+   "side": "over"
+  },
   "2026-11-08|Dallas Cowboys|Indianapolis Colts|over": {
    "away": "Dallas Cowboys",
    "date": "2026-11-08",
@@ -381,12 +395,47 @@
    "line": 51.5,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "lost",
    "seen": "2026-11-06T22:46Z",
    "side": "over"
+  },
+  "2026-11-08|Las Vegas Raiders|San Francisco 49ers|under": {
+   "away": "Las Vegas Raiders",
+   "date": "2026-11-08",
+   "home": "San Francisco 49ers",
+   "line": 51.5,
+   "price": null,
+   "rating": [
+    "home",
+    14.3
+   ],
+   "result": "lost",
+   "seen": "2026-11-09T00:05Z",
+   "side": "under"
+  },
+  "2026-11-09|Buffalo Bills|Minnesota Vikings|home": {
+   "away": "Buffalo Bills",
+   "date": "2026-11-09",
+   "home": "Minnesota Vikings",
+   "line": 3.0,
+   "price": null,
+   "rating": [
+    "away",
+    1.2
+   ],
+   "result": null,
+   "seen": "2026-11-09T03:54Z",
+   "side": "home",
+   "us": {
+    "kind": "night",
+    "lean": true,
+    "same": true,
+    "side": "home",
+    "status": "open"
+   }
   }
  },
- "read": "2026-11-08T16:48Z",
+ "read": "2026-11-09T17:05Z",
  "record": {
   "against_us": {
    "lost": 2,
@@ -394,9 +443,9 @@
    "won": 4
   },
   "all": {
-   "lost": 13,
+   "lost": 15,
    "push": 0,
-   "won": 11
+   "won": 12
   },
   "sides": {
    "lost": 8,
@@ -404,9 +453,9 @@
    "won": 9
   },
   "totals": {
-   "lost": 5,
+   "lost": 7,
    "push": 0,
-   "won": 2
+   "won": 3
   },
   "with_us": {
    "lost": 3,

@@ -1,46 +1,46 @@
 {
  "all": {
-  "n": 200,
-  "beat": 63,
-  "same": 81,
-  "worse": 56,
-  "avg_pts": 0.09
+  "n": 204,
+  "beat": 65,
+  "same": 82,
+  "worse": 57,
+  "avg_pts": 0.11
  },
  "unit_plays": {
-  "n": 98,
-  "beat": 28,
+  "n": 101,
+  "beat": 30,
   "same": 47,
-  "worse": 23,
-  "avg_pts": 0.13
+  "worse": 24,
+  "avg_pts": 0.16
  },
  "by_kind": {
   "dog": {
-   "n": 25,
+   "n": 27,
    "beat": 6,
-   "same": 12,
-   "worse": 7,
-   "avg_pts": -0.15
+   "same": 13,
+   "worse": 8,
+   "avg_pts": -0.23
   },
   "lean": {
-   "n": 102,
+   "n": 103,
    "beat": 35,
-   "same": 34,
+   "same": 35,
    "worse": 33,
    "avg_pts": 0.05
   },
   "lock": {
-   "n": 13,
-   "beat": 7,
+   "n": 14,
+   "beat": 8,
    "same": 4,
    "worse": 2,
-   "avg_pts": 1.08
+   "avg_pts": 1.23
   },
   "play": {
-   "n": 59,
-   "beat": 15,
+   "n": 60,
+   "beat": 16,
    "same": 30,
    "worse": 14,
-   "avg_pts": 0.05
+   "avg_pts": 0.08
   }
  },
  "by_sport": {
@@ -73,17 +73,17 @@
    "avg_pts": 0.08
   },
   "nfl": {
-   "n": 24,
-   "beat": 8,
+   "n": 25,
+   "beat": 9,
    "same": 11,
    "worse": 5,
-   "avg_pts": 0.16
+   "avg_pts": 0.28
   },
   "nhl": {
-   "n": 75,
-   "beat": 21,
-   "same": 31,
-   "worse": 23,
+   "n": 78,
+   "beat": 22,
+   "same": 32,
+   "worse": 24,
    "avg_pts": -0.03
   }
  },
@@ -96,11 +96,11 @@
    "avg_pts": 0.88
   },
   "1-2u": {
-   "n": 1,
-   "beat": 1,
+   "n": 2,
+   "beat": 2,
    "same": 0,
    "worse": 0,
-   "avg_pts": 1.3
+   "avg_pts": 2.25
   },
   "2-4u": {
    "n": 2,
@@ -2916,6 +2916,62 @@
    "close": 235,
    "pts": -0.9,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Broncos",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -162,
+   "pts": 3.2,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": 124,
+   "close": 136,
+   "pts": -2.3,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Bruins",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -155,
+   "pts": 2.1,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -118,
+   "pts": 0.0,
+   "units": 0,
    "result": "lost"
   }
  ]
