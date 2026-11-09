@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T00:38Z",
+ "updated": "2026-11-09T00:40Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -835,100 +835,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909949",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Celtics",
-    "p": 0.79,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-09T01:00Z",
-   "away": "Celtics",
-   "home": "Bucks",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Celtics",
-    "opp": "Bucks",
-    "market": "spread",
-    "line": -13.5,
-    "odds": -112,
-    "p": 0.506,
-    "win_p": 0.864,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892679",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.376,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-09T01:00Z",
-   "away": "Penguins",
-   "home": "Ducks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Penguins",
-    "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.667,
-    "win_p": 0.45,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401909707",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pitt",
-    "p": 0.522,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-09T01:00Z",
-   "away": "Pitt",
-   "home": "Penn State",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Pitt",
-    "opp": "Penn State",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.562,
-    "win_p": 0.562,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
   },
   {
    "id": "nfl:401873050",
