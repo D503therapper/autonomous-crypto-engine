@@ -1,9 +1,11 @@
 {
- "at": "2026-11-09T02:45Z",
+ "at": "2026-11-09T02:51Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:nhl:1028410204 HTTP 404"
+ ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (66s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +13,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 1 min ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T02:51Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nhl:1028410204 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-09T02:45Z",
    "fixes": [],
@@ -533,11 +541,6 @@
   },
   {
    "at": "2026-11-07T20:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-07T19:55Z",
    "fixes": [],
    "problems": []
   }
