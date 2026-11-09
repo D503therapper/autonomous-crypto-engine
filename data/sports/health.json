@@ -1,9 +1,11 @@
 {
- "at": "2026-11-09T09:51Z",
- "fixes": [],
+ "at": "2026-11-09T09:53Z",
+ "fixes": [
+  "live watch 42591314092 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (231s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,11 +17,19 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 37 min ago",
+  "engine ran 38 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-09T09:53Z",
+   "fixes": [
+    "live watch 42591314092 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-09T09:51Z",
    "fixes": [],
@@ -515,13 +525,6 @@
   },
   {
    "at": "2026-11-08T05:35Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-08T05:29Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
