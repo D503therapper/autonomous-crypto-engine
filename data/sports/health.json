@@ -1,9 +1,9 @@
 {
- "at": "2026-11-09T13:53Z",
+ "at": "2026-11-09T13:55Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (76s)",
+  "live watcher fresh (148s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,11 +16,16 @@
   "every upcoming game has its real teams",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 58 min ago",
+  "engine ran 59 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-09T13:55Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-09T13:53Z",
    "fixes": [],
@@ -503,15 +508,6 @@
     "live watch 42472127570 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": [
-    "live tennis scores: tennis Lansere vs Blinkova: no points for 256s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-08T11:23Z",
-   "fixes": [],
    "problems": [
     "live tennis scores: tennis Lansere vs Blinkova: no points for 256s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
