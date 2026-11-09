@@ -1,30 +1,37 @@
 {
- "at": "2026-11-09T21:37Z",
+ "at": "2026-11-09T22:44Z",
  "fixes": [
-  "live watch 42696357500 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+  "live watch 42713812870 froze (22 min) - cancelled",
+  "live board 22 min stale with games on - sports-live.yml already running"
  ],
  "problems": [],
  "ok": [
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 62 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 52 min ago",
+  "studies ran 0h ago",
+  "simulator ran 0h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T22:44Z",
+   "fixes": [
+    "live watch 42713812870 froze (22 min) - cancelled",
+    "live board 22 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-09T21:37Z",
    "fixes": [
@@ -507,16 +514,6 @@
    "at": "2026-11-08T20:49Z",
    "fixes": [
     "live board 35 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-08T19:18Z",
-   "fixes": [
-    "live watch 42510213139 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
    ],
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
