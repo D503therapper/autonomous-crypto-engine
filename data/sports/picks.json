@@ -37069,6 +37069,15 @@
      "us:west1000"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "c": "0:00",
+     "k": "fg",
+     "p": "Cairo Santos",
+     "s": "27-24",
+     "type": "late",
+     "win": "home",
+     "y": 38
+    },
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -37108,6 +37117,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,6,7,11",
+     "h": "14,3,7,3"
+    },
     "form_state": [
      16.0,
      2,
@@ -37156,10 +37169,12 @@
     "raw_own": 0.2213,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Buccaneers 24 @ Bears 27",
     "season_games": null,
+    "settled": "2026-11-09T04:58Z",
     "side": "away",
     "start": "2026-11-09T01:20Z",
     "stype": "2",
@@ -37175,12 +37190,14 @@
    }
   ],
   "p_hit": 0.5104,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-09T04:58Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
