@@ -84,7 +84,8 @@ _SEASON = {}                 # (season, len(box), len(games)) -> ({team: [(start
 
 def _season_lines(games, season):
     """Per team, its boxed finals this season in start order with (points, possessions, allowed, their possessions,
-    turnovers, forced); and the league's running totals in the same order (for the D1 average before a date)."""
+    turnovers, forced, its box line, the opponent's box line); and the league's running totals in the same order (for
+    the D1 average before a date)."""
     box = load_box()
     key = (season, len(box), len(games or {}))
     hit = _SEASON.get(key)
@@ -112,8 +113,8 @@ def _season_lines(games, season):
     by, league = {}, []
     tp = tposs = 0.0
     for s, gid, h, a, hs, as_, bh, ba in rows:
-        by.setdefault(h, []).append((s, gid, hs, bh["poss"], as_, ba["poss"], bh["to"], ba["to"], bh))
-        by.setdefault(a, []).append((s, gid, as_, ba["poss"], hs, bh["poss"], ba["to"], bh["to"], ba))
+        by.setdefault(h, []).append((s, gid, hs, bh["poss"], as_, ba["poss"], bh["to"], ba["to"], bh, ba))
+        by.setdefault(a, []).append((s, gid, as_, ba["poss"], hs, bh["poss"], ba["to"], bh["to"], ba, bh))
         tp += hs + as_
         tposs += bh["poss"] + ba["poss"]
         league.append((s, tp, tposs, len(league) + 1))
@@ -195,3 +196,40 @@ def shooting(games, team, start):
     return {"n": len(mine), "efg_s": round(s_[0], 3), "efg5": round(l_[0], 3), "efg_gap": round(efg_gap, 3),
             "tp_gap": round(tp_gap, 3), "two_gap": round(two_gap, 3), "cold": efg_gap <= EFG_COLD,
             "hot_deep": tp_gap >= TP_HOT and two_gap < TWO_NOT}
+
+
+# ---------------- 11/9 DAILY STUDY 2: the season three-point NET (own 3P% minus what the opponents shot from three) ------
+TP_NET_GAMES = 5             # 5+ boxed games before tonight and 60+ three-point attempts each way (the study's floor)
+TP_NET_TPA = 60
+TP_NET_LUCKY = 0.05          # NET +5 points or better = the 'lucky from three' side. The 11/9 daily study 2 (results/
+#                              studies/daily_1109/s2b_three_luck_dose.py / s2c_three_luck_vs_built.py): from game 6 on
+#                              that side lost ATS -10.1% on 5,668 (train 2021-22 0 of 2 up, held 2023-25 -9.7% on 3,425,
+#                              3 of 3 down; z -8.0) vs -2.7% for NET within 2; as a -101..-250 favorite -7.7% on 1,570
+#                              (held 3 of 3 down, the open -6.5%) vs -3.8%; as a dog -12.5% on 1,412 (held -15.1%, 3/3);
+#                              the dose (+8 ATS -13.5%, +12 -17.9%); NOT the built hot-ATS fade (with that flag OFF -10.0%
+#                              on 4,589) and NOT a team the market is chasing (its own cover margin under 0: -10.2%). Both
+#                              halves pay: the lucky defense (opponents 30% or under) and the hot own shooting (38%+).
+#                              Week 2 (games 3-5, 30+ attempts) is too thin to read (s2: nothing clean).
+
+
+def three_net(games, team, start):
+    """None (unknown: under TP_NET_GAMES box games or TP_NET_TPA attempts either way) or {"n", "own3", "opp3", "net"}
+    for the team before `start` - this season's team boxes."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    try:
+        by, _ = _season_lines(games, season_of(start))
+    except Exception:                                        # noqa: BLE001
+        return None
+    rows = [r for r in by.get(str(team)) or [] if r[0] < start and len(r) > 9]
+    if len(rows) < TP_NET_GAMES:
+        return None
+    tpm = sum(r[8]["tpm"] for r in rows)
+    tpa = sum(r[8]["tpa"] for r in rows)
+    otpm = sum(r[9]["tpm"] for r in rows)
+    otpa = sum(r[9]["tpa"] for r in rows)
+    if tpa < TP_NET_TPA or otpa < TP_NET_TPA:
+        return None
+    own, opp = tpm / tpa, otpm / otpa
+    return {"n": len(rows), "own3": round(own, 3), "opp3": round(opp, 3), "net": round(own - opp, 3)}

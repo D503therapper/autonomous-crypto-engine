@@ -857,11 +857,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_ncaab_new_coach_fav(games, out)             # 🏀 11/3 KNOWLEDGE (A): a first-year coach's small favorite, Jan-Mar
     weigh_ncaab_to_fav(out)                           # 🏀 11/3 KNOWLEDGE (A): the turnover-prone small favorite
     weigh_ncaab_star_back_fav(out)                    # 🏀 11/4 EXPERT: the favorite in its star's 2nd game back
+    weigh_ncaab_tp_net_fav(out)                       # 🏀 11/9 daily: the favorite lucky from three this season (-2)
     mark_ncaab_dog_read(out)                          # 🐶🏀 11/4 DOG EXPERT: the dog read (weights + ratings + knowledge)
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
     weigh_ncaaf_fav_qb_carousel(games, out)           # 🏈 11/7 daily: the college favorite on its 3rd+ QB this season (-2)
     weigh_nba_fav_vs_star_dud(games, out)             # 🏀 11/8 daily: the NBA favorite across from a star off a dud (-1)
+    weigh_nhl_fast_starter_fav(games, out)            # 🏒 11/9 daily: the NHL favorite that wins 1st periods past its record (-1)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -2380,11 +2382,15 @@ def dog_spots(c):
         sc -= 2                    # ...and the dog off one is overpriced the same way (10/2 momentum study - a lead)
     if lg == "mlb" and mo.get("late_rally") and 100 <= odds <= 220:
         sc += 1.5                  # lost, but won the last 3 innings by 4+: +12% vs -4.7% (10/2 - a lead, baseball only)
-    if ncaab_early_road_dog(c):
+    if ncaab_early_road_fade(c):
         sc -= NCAAB_EARLY_ROAD_DOG_PTS   # 🏀 11/3 college hoops (A) s7: a true ROAD dog in its first 3 games loses ~12
         #                            points past the vig in BOTH markets - ML -20.0% on 581 (train -17.8% 4/5 down, held
         #                            -23.1% 3/3 down), at ESPN's open -26.1% (3/3), ATS -16.4% (train 0/5 up, held 3/3 down)
         #                            vs -7.4% / -4.1% for road dogs later. The home dog in the same games +-0. A weight.
+        #                            OFF from 11/9 (NCAAB_EARLY_ROAD_DOG_PTS 0 - its own judge-at-50 rule tripped).
+    if ncaab_tp_lucky(c) and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100:
+        sc -= NCAAB_TP_NET_DOG_PTS       # 🏀 11/9 daily study 2: a college hoops dog that's been lucky from three this
+        #                            season (NET +5+, games 6+) -12.5% on 1,412 (held 2023-25 -15.1%, 3 of 3 down). A weight.
     if ncaab_neutral_back_dog(c):
         sc -= NCAAB_NEUTRAL_BACK_PTS     # 🏀 11/5 daily study 10 (results/studies/daily_1105/s2_s10_ncaab.py + s10b):
         #                            a college hoops ROAD dog in its first game back from a neutral-site event (Nov-Dec)
@@ -2401,7 +2407,14 @@ def dog_spots(c):
     return sc
 
 
-NCAAB_EARLY_ROAD_DOG_PTS = 2       # 🏀 11/3 college hoops (A): the early true-road dog fade (a weight inside STUDY_CAP)
+NCAAB_EARLY_ROAD_DOG_PTS = 0       # 🏀 11/3 college hoops (A): the early true-road dog fade (a weight inside STUDY_CAP) -
+#                                    2 from 11/3, OFF (0) from 11/9: its own judge-at-50 rule ('if those dogs run at or above
+#                                    -7% the weight comes off') tripped - the tracker 21-32 +12.5u +23.5% on 53; every such
+#                                    dog on file in 2026-27 27-36 +18.7u +29.7% on 63 (ATS 41-22); the newest completed
+#                                    season 2025-26 -12.9% on 76 at the close (z -0.9), -5.6% at the open - and the whole
+#                                    2018-25 cell sits in ONE price band (+151..+250 -34.7% on 264; +100..+150 -1.7%,
+#                                    +251..+350 -1.2%). results/studies/daily_1109/s1_early_road_dog.py + s1b_context.py.
+#                                    The tracker tag keeps logging the cell (sports.ncaab_early_road_dog) for a re-read.
 NCAAB_EARLY_ROAD_DOG_GAMES = 3     #   - the dog's own games 1-3 (game 4-6 -6.5% = the base; the calendar cut agrees:
 #                                    days 0-7 -19.4%, 8-14 -16.3%, 15+ -7.2%)
 
@@ -2414,6 +2427,13 @@ def ncaab_early_road_dog(c):
     return n is not None and (c.get("odds") or 0) >= 100 and n + 1 <= NCAAB_EARLY_ROAD_DOG_GAMES
 
 
+def ncaab_early_road_fade(c):
+    """The early road dog fade IN FORCE (a weight > 0): the dog score's -NCAAB_EARLY_ROAD_DOG_PTS, the dog view's bad
+    fact, the dog slot's fade name and the neutral-back fade's no-stacking all read this; the tracker tag reads the raw
+    cell (ncaab_early_road_dog). Off from 11/9 (NCAAB_EARLY_ROAD_DOG_PTS 0)."""
+    return NCAAB_EARLY_ROAD_DOG_PTS > 0 and ncaab_early_road_dog(c)
+
+
 NCAAB_NEUTRAL_BACK_PTS = 2         # 🏀 11/5 daily s10: the road dog back from a neutral-site event (a weight inside STUDY_CAP)
 NCAAB_NEUTRAL_BACK_DAYS = 10       #   - its last game neutral within 10 days (1-3 days -27.1%, 4-10 days -18.2%)
 
@@ -2423,7 +2443,7 @@ def ncaab_neutral_back_dog(c):
     (c['neutral_back'] - sports.ncaab_neutral_back), not already carrying the early road dog fade."""
     if c.get("league") != "ncaab" or c.get("home") or c.get("neutral") or c.get("market", "ml") != "ml":
         return False
-    if not c.get("neutral_back") or (c.get("odds") or 0) < 100 or ncaab_early_road_dog(c):
+    if not c.get("neutral_back") or (c.get("odds") or 0) < 100 or ncaab_early_road_fade(c):
         return False
     try:
         mo_ = (datetime.fromisoformat(str(c.get("start") or "").replace("Z", "+00:00")) - timedelta(hours=5)).month
@@ -3707,6 +3727,73 @@ def weigh_nba_fav_vs_star_dud(games, cands):
         c["opp_star_dud"] = {k: d[k] for k in ("name", "ppg", "fgm", "fga")}
 
 
+NHL_FAST_START_FAV_W = -0.01      # 🏒 11/9 daily study 5 (results/studies/daily_1109/s5_s6_s8_periods.py + s5b): the NHL
+NHL_FAST_START_EXCESS = 0.25      # favorite -101..-250 that wins FIRST PERIODS more than its whole goal differential says
+NHL_FAST_START_GAMES = 10         # (1st-period goal diff a game minus a third of its goal diff a game, +0.25+, 10+ line-
+NHL_FAST_START_BAND = (-250, -101)   # scored games this season) lost -9.2% on 695 at the close (train 1 of 5 up, held
+#                                   2023-25 -9.7%, 3 of 3 down; 2026 -16.7% on 17; ESPN's open -8.8%, 3 of 3 down) vs -3.1%
+#                                   for the favorites near 0; the dose +0.15 -6.3% / +0.25 -9.2% / +0.35 -14.5%. Picked from
+#                                   ~55 cells at z -2.8, so SMALL: -1 point on the favorite's weighed read (floor own -
+#                                   FAV_CAP), never a trigger; under 10 line-scored games = unknown = 0. The slow-starter
+#                                   dog, the extra-time record and the NBA quarters were DEAD in the same study.
+
+
+def nhl_first_period_excess(games, team, start):
+    """The team's 1st-period goal differential a game minus a third of its whole goal differential a game, over this
+    season's line-scored regular-season finals before `start` (NHL_FAST_START_GAMES+), or None."""
+    try:
+        sched, _ = _sched(games)
+        start = str(start or "")
+        season0 = f"{int(start[:4]) if int(start[5:7]) >= 7 else int(start[:4]) - 1}-07-01"
+        n = p1 = tot = 0
+        for st_, x in sched.get(("nhl", team), []):
+            if st_ >= start:
+                break
+            if st_ < season0 or x.get("status") != "final" or str(x.get("stype") or "2") != "2":
+                continue
+            try:
+                lh = [int(v) for v in str(x.get("ls_home") or "").split(",") if v != ""]
+                la = [int(v) for v in str(x.get("ls_away") or "").split(",") if v != ""]
+                hs, as_ = float(x["home_score"]), float(x["away_score"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if len(lh) < 3 or len(la) < 3:
+                continue
+            sg = 1 if str(x.get("home")) == str(team) else -1
+            n += 1
+            p1 += sg * (lh[0] - la[0])
+            tot += sg * (hs - as_)
+        if n < NHL_FAST_START_GAMES:
+            return None
+        return round(p1 / n - tot / n / 3, 3)
+    except (TypeError, ValueError, KeyError):
+        return None
+
+
+def weigh_nhl_fast_starter_fav(games, cands):
+    """🏒 11/9: an NHL moneyline favorite -101..-250 whose 1st-period excess (nhl_first_period_excess) is
+    NHL_FAST_START_EXCESS+: its weighed read goes down NHL_FAST_START_FAV_W (floor own - FAV_CAP); c['p1_excess']."""
+    for c in cands:
+        if c.get("league") != "nhl" or c.get("market") != "ml":
+            continue
+        if not NHL_FAST_START_BAND[0] <= c.get("odds", 0) <= NHL_FAST_START_BAND[1]:
+            continue
+        g = (games or {}).get(c.get("game_id")) or {}
+        team, start = g.get(c.get("side")), str(g.get("start") or c.get("start") or "")
+        if not team or not start or c.get("edge_own") is None or not c.get("dec"):
+            continue
+        ex = nhl_first_period_excess(games, team, start)
+        if ex is None:
+            continue
+        c["p1_excess"] = ex
+        if ex < NHL_FAST_START_EXCESS:
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NHL_FAST_START_FAV_W))), 4)
+        c["nhl_fast_start_fav"] = True
+
+
 NCAAB_AWAY_FAV_W = -0.03          # 🏀 11/3 COLLEGE HOOPS (B), study 4/5 (results/studies/cbb_1103_b/s4b_away_fav_novdec.py):
 NCAAB_AWAY_FAV_BAND = (-150, -101)  # a college hoops moneyline favorite -101..-150 AWAY FROM HOME (true road or a neutral
 NCAAB_AWAY_FAV_MONTHS = ("11", "12")  # site) in November-December lost to its close -11.6% on 1,097 (train 2018-22 -10.9%,
@@ -4175,6 +4262,8 @@ def ncaab_fable_spread_w(c):
     rg = c.get("reb_gap")
     if rg is not None:
         w += NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0
+    if ncaab_tp_lucky(c):
+        w -= NCAAB_TP_NET_SPREAD_W                # 🏀 11/9 daily s2: lucky from three this season - ATS -10.1% on 5,668
     return w
 
 
@@ -4373,6 +4462,42 @@ def mark_ncaab_identity(games, cands):
             c["def_first"] = me["def"] <= nb.DEF_GOOD and me["off"] < nb.OFF_HI
         if op:
             c["opp_off_low"] = op["off"] <= nb.OFF_LO
+
+
+NCAAB_TP_NET_FAV_W = -0.02    # 🏀 11/9 daily study 2 (results/studies/daily_1109/s2b / s2c; sports_ncaab_box.three_net):
+NCAAB_TP_NET_FAV_BAND = (-250, -101)   # the college hoops side shooting NET +5+ points better from three than its
+NCAAB_TP_NET_DOG_PTS = 1      # opponents shot against it (5+ box games, 60+ attempts each way) - the market takes the
+NCAAB_TP_NET_SPREAD_W = 0.02  # three-point luck at face value: ATS -10.1% on 5,668 (0 of 2 train / 3 of 3 held down,
+#                               z -8.0) vs -2.7% for NET within 2; the -101..-250 favorite -7.7% on 1,570 (held 3 of 3
+#                               down, the open -6.5%) vs -3.8%; the dog -12.5% on 1,412 (held 3 of 3 down). NOT the built
+#                               hot-ATS fade (flag OFF -10.0% on 4,589). Weights only: the favorite's weighed read -2
+#                               points (floor own - FAV_CAP), the dog -1 on its dog score, the spread side's rank -0.02.
+
+
+def ncaab_tp_lucky(c):
+    """A college hoops side whose season three-point NET (own 3P% minus its opponents') is +5 points or better."""
+    try:
+        import sports_ncaab_box as nb
+        lucky = nb.TP_NET_LUCKY
+    except Exception:                                        # noqa: BLE001
+        lucky = 0.05
+    return c.get("league") == "ncaab" and c.get("tp_net") is not None and c["tp_net"] >= lucky - 1e-9
+
+
+def weigh_ncaab_tp_net_fav(cands):
+    """The college hoops -101..-250 moneyline favorite that's been lucky from three (ncaab_tp_lucky): its weighed read
+    goes down NCAAB_TP_NET_FAV_W (floor own - FAV_CAP) - a weight, never a trigger."""
+    for c in cands:
+        if c.get("market") != "ml" or not ncaab_tp_lucky(c):
+            continue
+        if not (NCAAB_TP_NET_FAV_BAND[0] <= c.get("odds", 0) <= NCAAB_TP_NET_FAV_BAND[1]):
+            continue
+        if c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAB_TP_NET_FAV_W))), 4)
+        c["ncaab_tp_net_fav"] = True
 
 
 def weigh_ncaab_to_fav(cands):
@@ -4677,6 +4802,14 @@ def mark_ncaab_shooting(games, cands):
                     seen[key] = nb.shooting(games, g.get(side), start) if g.get(side) else None
                 except Exception:                            # noqa: BLE001
                     seen[key] = None
+                try:                                         # 🏀 11/9 daily s2: the season three-point NET
+                    seen[key + ("net",)] = nb.three_net(games, g.get(side), start) if g.get(side) else None
+                except Exception:                            # noqa: BLE001
+                    seen[key + ("net",)] = None
+        net = seen.get((c.get("game_id"), c.get("side"), "net"))
+        if net:
+            c["tp_net"] = net["net"]
+            c["tp_net_line"] = (net["own3"], net["opp3"])
         me = seen.get((c.get("game_id"), c.get("side")))
         op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
         if me:
@@ -4778,7 +4911,7 @@ def ncaab_dog_good_bad(c):
         bad.append("star_back")
     if c.get("ncaab_road_cold"):
         bad.append("road_cold")
-    if ncaab_early_road_dog(c):
+    if ncaab_early_road_fade(c):
         bad.append("early_road")
     if c.get("reb_gap") is not None and c["reb_gap"] <= -NCAAB_REB_GAP:
         bad.append("out_rebounded")
@@ -5350,7 +5483,7 @@ def ncaab_play_fired(c):
 
 def ncaab_dog_fade(c):
     """A college hoops dog carrying one of the 11/3 dog fades (the side's own weighed read says no): the name, or None."""
-    if ncaab_early_road_dog(c):
+    if ncaab_early_road_fade(c):
         return "a true road dog in its first 3 games"
     if (c.get("ncaab_skid") or 0) >= NCAAB_SKID:
         return f"a {c['ncaab_skid']}-game skid"

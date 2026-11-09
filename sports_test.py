@@ -16575,7 +16575,7 @@ def test_cbb_1103_a_american_and_pacific_are_real_schools_cards_get_last_season_
     assert not sports.ncaab_early_road_dog({**dog, "odds": -130})        # a favorite: no
     assert not sports.ncaab_early_road_dog({**dog, "league": "nba"})
     assert sports.dog_score(dog) == sports.dog_score({**dog, "games_in": 5}) - sports.NCAAB_EARLY_ROAD_DOG_PTS
-    assert sports.NCAAB_EARLY_ROAD_DOG_PTS == 2 and sports.STUDY_CAP == 6
+    assert sports.NCAAB_EARLY_ROAD_DOG_PTS == 0 and sports.STUDY_CAP == 6   # 2 from 11/3, OFF from 11/9 (daily_1109 s1)
     t = sl.tags({**dog, "game_id": "x", "side": "away", "team": "R", "opp": "H", "start": "2026-11-04T01:00Z"}, sports)
     assert "college hoops road dog, games 1-3 (fade)" in t
     short = sl.tags({**dog, "odds": 120, "dec": 2.2, "home": True, "game_id": "x", "side": "home", "team": "R", "opp": "H",
@@ -17482,17 +17482,18 @@ def test_cbb_knowledge_b_1103_fades_hold_the_lock_band_pays_nothing_new_wired_tw
     assert (lib.RANKED_ROAD_DOG, lib.REB_GAP, lib.REB_GAP_BIG, tuple(lib.REB_DOG), lib.ATS_GAP) == \
         (sports.NCAAB_RANKED_ROAD_DOG, sports.NCAAB_REB_GAP, sports.NCAAB_REB_GAP_BIG, tuple(sports.NCAAB_REB_DOG), sports.NCAAB_ATS_GAP)
     assert (sports.NCAAB_SKID, sports.NCAAB_RUBBER_W, sports.NCAAB_TOP_OUT_PTS, sports.COLD_DOG_PTS) == (5, 2, 2, 2)
-    assert (sports.NCAAB_EARLY_ROAD_DOG_PTS, sports.NCAAB_EARLY_ROAD_DOG_GAMES) == (2, 3)
+    assert (sports.NCAAB_EARLY_ROAD_DOG_PTS, sports.NCAAB_EARLY_ROAD_DOG_GAMES) == (0, 3) == (lib.EARLY_ROAD_DOG, 3)   # off 11/9
     assert (sports.NCAAB_AWAY_FAV_BAND, sports.NCAAB_EFF_FAV_BAND, sports.NCAAB_TOP_OUT_FAV_BAND) == ((-150, -101), (-150, -101), (-250, -101))
     # the dog replay reads the same points as sports.dog_spots on the same facts (an early road dog, ranked, off a win vs a
-    # team off a loss, a rubber match, a 5-game skid, the top scorer out, the glass +8, ice cold): +2 -2 -2 -2 -2 +2 -2 -3
+    # team off a loss, a rubber match, a 5-game skid, the top scorer out, the glass +8, ice cold): +2 -2 -2 -2 -2 +2 -0 -3
+    # (the early road dog -2 came off 11/9 - daily_1109 s1)
     row = {"ml": 170, "p": 0.37, "olast_won": False, "last_won": True, "cw5": 0, "rubber": True, "streak": -5, "top_out": True,
            "venue": "away", "nd": True, "rank25": True, "orank25": False, "rebm": 10.0, "o_rebm": 2.0, "gn": 2, "ice_cold": True}
-    assert lib.dog_pts(row) == -sports.STUDY_CAP and row["dog_pts_raw"] == -9
+    assert lib.dog_pts(row) == -sports.STUDY_CAP and row["dog_pts_raw"] == -7
     c = {"league": "ncaab", "market": "ml", "odds": 170, "dog_ctx": {"won": True, "opp_won": False, "cw5": 0}, "rubber_dog": True,
          "ncaab_skid": 5, "top_out": True, "ranked_road": True, "reb_gap": 8.0, "home": False, "neutral": False, "games_in": 1,
          "dog_more": {"fades": ["ice cold"]}}
-    assert sports.dog_spots(c) == row["dog_pts_raw"] == -9
+    assert sports.dog_spots(c) == row["dog_pts_raw"] == -7
     row2 = dict(row, rubber=False, streak=0, top_out=False, ice_cold=False, rank25=False, gn=9)
     assert lib.dog_pts(row2) == 4 == sports.dog_spots({**c, "rubber_dog": False, "ncaab_skid": 0, "top_out": False,
                                                         "ranked_road": False, "games_in": 8, "dog_more": {}})
@@ -17871,7 +17872,7 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
             assert sports.ncaab_dog_fade({**dog, fade: True}) == name and sports.ncaab_play_dog({**dog, fade: True}) is None
         assert sports.ncaab_dog_fade({**dog, "ncaab_skid": 5}) == "a 5-game skid" and sports.ncaab_play_dog({**dog, "ncaab_skid": 5}) is None
         road_early = {**dog, "side": "away", "home": False, "games_in": 1}
-        assert sports.ncaab_dog_fade(road_early) == "a true road dog in its first 3 games" and sports.ncaab_play_dog(road_early) is None
+        assert sports.ncaab_dog_fade(road_early) is None                   # the early road dog fade is OFF from 11/9
         assert sports.ncaab_dog_fade(dog) is None and sports.ncaab_dog_fade({**dog, "ncaab_skid": 4}) is None
         # the day's plays: one a slot - the favorite's best edge, the dog's highest score - one per game, never a game in avoid
         fav2 = {**fav, "game_id": "g4", "w_p": 0.58}                                 # a smaller edge than fav
@@ -18800,11 +18801,13 @@ def test_daily_1105_college_hoops_road_dog_back_from_a_neutral_site_is_a_minus_2
     assert not sports.ncaab_neutral_back_dog({**dog, "odds": -130})           # a favorite: no
     assert not sports.ncaab_neutral_back_dog({**dog, "league": "nba"})
     assert not sports.ncaab_neutral_back_dog({**dog, "start": "2026-01-20T00:00Z"})   # January: no (Nov-Dec only)
-    assert not sports.ncaab_neutral_back_dog({**dog, "games_in": 1})          # games 1-3: the early road dog's -2 only
+    # games 1-3: the early road dog fade is OFF from 11/9 (daily_1109 s1), so the neutral-back -2 applies there too
+    # (it was measured on all 306; never stacked while the early road dog's -2 was on)
+    assert sports.ncaab_neutral_back_dog({**dog, "games_in": 1}) == (sports.NCAAB_EARLY_ROAD_DOG_PTS == 0)
     # a WEIGHT on the dog score - exactly -2, never a gate, never stacked with the early road dog
     assert sports.dog_score(dog) == sports.dog_score({**dog, "neutral_back": None}) - sports.NCAAB_NEUTRAL_BACK_PTS
     early = {**dog, "games_in": 1}
-    assert sports.dog_score(early) == sports.dog_score({**early, "neutral_back": None})
+    assert sports.dog_score(early) == sports.dog_score({**early, "neutral_back": None}) - sports.NCAAB_NEUTRAL_BACK_PTS
     t = sl.tags({**dog, "game_id": "x", "side": "away", "team": "R", "opp": "H"}, sports)
     assert "college hoops road dog, first game back from a neutral site (fade)" in t
     assert "college hoops road dog, first game back from a neutral site (fade)" not in sl.tags(
@@ -19802,6 +19805,108 @@ def test_daily_1108_nba_favorite_across_from_a_star_off_a_dud_is_a_minus_1_weigh
         assert "on its backup, rested night" not in " ".join(sl.tags(x, sports))
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "weigh_nba_fav_vs_star_dud(games, out)" in src                               # wired into the day's candidates
+
+
+def test_daily_1109_early_road_dog_fade_off_three_point_luck_and_the_nhl_fast_starter_are_weights():
+    """11/9 daily studies (results/studies/daily_1109/): (1) the 11/3 college hoops early road dog fade came OFF - its own
+    judge-at-50 rule tripped (the tracker +23.5% on 53, every such 2026-27 dog +29.7% on 63; 2025-26 -12.9% at the close)
+    - NCAAB_EARLY_ROAD_DOG_PTS 0: no dog-score point, no bad fact, no dog-slot fade name, and the neutral-back -2 now
+    reaches games 1-3; the tracker tag keeps logging the raw cell. (2) the college hoops side LUCKY FROM THREE (season
+    3P% minus its opponents' +5 pts, 5+ box games, 60+ attempts each way; ATS -10.1% on 5,668, held 3 of 3 down): the
+    favorite -101..-250 -2 on its weighed read, the dog -1 on its dog score, the spread rank -0.02 - weights, never
+    triggers. (3) the NHL favorite -101..-250 that wins first periods past its record (+0.25 a game, 10+ games): -1 on
+    its weighed read (floor own - FAV_CAP)."""
+    import sports_leads as sl
+    import sports_ncaab_box as nb
+    # ---- (1) the early road dog fade is off
+    assert sports.NCAAB_EARLY_ROAD_DOG_PTS == 0 and sports.NCAAB_EARLY_ROAD_DOG_GAMES == 3
+    dog = {"league": "ncaab", "market": "ml", "home": False, "neutral": False, "odds": 160, "dec": 2.6, "games_in": 1,
+           "edge": 0.0, "edge_own": 0.0, "p_market": 0.37, "reasons": [], "dog_more": {}}
+    assert sports.ncaab_early_road_dog(dog) and not sports.ncaab_early_road_fade(dog)
+    assert sports.dog_score(dog) == sports.dog_score({**dog, "games_in": 5})
+    assert sports.ncaab_dog_fade(dog) is None
+    assert "early_road" not in sports.ncaab_dog_good_bad(dog)["bad"]
+    t = sl.tags({**dog, "game_id": "x", "side": "away", "team": "R", "opp": "H", "start": "2026-11-10T01:00Z"}, sports)
+    assert "college hoops road dog, games 1-3 (fade)" in t                       # the record keeps logging the cell
+    keep = sports.NCAAB_EARLY_ROAD_DOG_PTS
+    sports.NCAAB_EARLY_ROAD_DOG_PTS = 2                                             # switched back on, it all returns
+    try:
+        assert sports.ncaab_early_road_fade(dog) and sports.ncaab_dog_fade(dog) == "a true road dog in its first 3 games"
+        assert sports.dog_score(dog) == sports.dog_score({**dog, "games_in": 5}) - 2
+    finally:
+        sports.NCAAB_EARLY_ROAD_DOG_PTS = keep
+    # ---- (2) three-point luck: the box read
+    assert (nb.TP_NET_GAMES, nb.TP_NET_TPA, nb.TP_NET_LUCKY) == (5, 60, 0.05)
+    assert (sports.NCAAB_TP_NET_FAV_W, sports.NCAAB_TP_NET_DOG_PTS, sports.NCAAB_TP_NET_SPREAD_W) == (-0.02, 1, 0.02)
+
+    def ln(tpm, tpa):
+        return {"to": 10, "poss": 70.0, "fgm": 25, "fga": 60, "tpm": tpm, "tpa": tpa, "ftm": 10, "fta": 15}
+    games, box = {}, {}
+    for i in range(1, 7):
+        gid = f"ncaab:b{i}"
+        games[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-11-0{i}T00:00Z",
+                      "home": "10", "away": f"9{i}", "home_score": "70", "away_score": "60"}
+        box[gid] = {"10": ln(10, 25), f"9{i}": ln(6, 24)}                             # 40% from three, opponents 25%
+    keep_box, keep_season = dict(nb._BOX), dict(nb._SEASON)
+    keep_load = nb.load_box
+    nb.load_box = lambda data=None: box
+    nb._SEASON.clear()
+    try:
+        got = nb.three_net(games, "10", "2026-11-09T00:00Z")
+        assert got and got["n"] == 6 and got["own3"] == 0.4 and got["opp3"] == 0.25 and got["net"] == 0.15, got
+        assert nb.three_net(games, "10", "2026-11-05T00:00Z") is None                # 4 box games before: unknown
+        nb._SEASON.clear()
+        for gid in box:
+            box[gid]["10"] = ln(5, 9)                                                  # 54 attempts in 6: under 60 = unknown
+        assert nb.three_net(games, "10", "2026-11-09T00:00Z") is None
+    finally:
+        nb.load_box = keep_load
+        nb._SEASON.clear()
+        nb._SEASON.update(keep_season)
+        nb._BOX.clear()
+        nb._BOX.update(keep_box)
+    # ---- (2) the weights
+    fav = {"league": "ncaab", "market": "ml", "side": "home", "home": True, "odds": -140, "dec": 1.7143, "edge_own": 0.0,
+           "reasons": [], "tp_net": 0.06}
+    sports.weigh_ncaab_tp_net_fav([fav])
+    assert fav.get("ncaab_tp_net_fav") and abs(fav["w_p"] - (1 / 1.7143 - 0.02)) < 1e-3
+    flo = {**fav, "w_p": 1 / 1.7143 - 0.035}
+    flo.pop("ncaab_tp_net_fav")
+    sports.weigh_ncaab_tp_net_fav([flo])
+    assert abs(flo["w_p"] - (1 / 1.7143 - sports.FAV_CAP)) < 1e-3                       # inside FAV_CAP
+    for x in ({**fav, "tp_net": 0.049}, {**fav, "tp_net": None}, {**fav, "odds": -300, "dec": 1.333},
+              {**fav, "league": "nba"}):
+        x.pop("w_p", None)
+        x.pop("ncaab_tp_net_fav", None)
+        sports.weigh_ncaab_tp_net_fav([x])
+        assert "w_p" not in x                                                          # not lucky / past -250 / not hoops
+    late = {**dog, "games_in": 8}
+    assert sports.dog_score({**late, "tp_net": 0.07}) == sports.dog_score(late) - 1      # the dog: -1, a weight
+    sp = {"league": "ncaab", "market": "spread", "reasons": []}
+    assert abs(sports.ncaab_fable_spread_w({**sp, "tp_net": 0.08}) - sports.ncaab_fable_spread_w(sp) + 0.02) < 1e-9
+    assert "college hoops side lucky from three, NET +5+ (fade)" in sl.tags(
+        {**late, "tp_net": 0.07, "game_id": "x", "side": "away", "team": "R", "opp": "H", "start": "2026-12-01T01:00Z"}, sports)
+    # ---- (3) the NHL fast starter favorite
+    assert (sports.NHL_FAST_START_FAV_W, sports.NHL_FAST_START_EXCESS, sports.NHL_FAST_START_GAMES) == (-0.01, 0.25, 10)
+    g2 = {}
+    for i in range(1, 11):                                    # 10 games: wins every 1st period 2-0, loses the game 2-3
+        gid = f"nhl:f{i}"
+        g2[gid] = {"id": gid, "league": "nhl", "status": "final", "stype": "2", "start": f"2026-10-{10 + i}T23:00Z",
+                   "home": "A", "away": f"Z{i}", "home_score": "2", "away_score": "3", "ls_home": "2,0,0",
+                   "ls_away": "0,1,2"}
+    g2["nhl:t"] = {"id": "nhl:t", "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-09T23:00Z",
+                   "home": "A", "away": "B"}
+    assert abs(sports.nhl_first_period_excess(g2, "A", "2026-11-09T23:00Z") - (2 - (-1) / 3)) < 1e-3
+    assert sports.nhl_first_period_excess(g2, "A", "2026-10-20T23:00Z") is None      # 9 games in: unknown
+    f = {"league": "nhl", "market": "ml", "game_id": "nhl:t", "side": "home", "odds": -130, "dec": 1.769,
+         "edge_own": 0.0, "reasons": []}
+    d = {**f, "side": "away", "odds": 110, "dec": 2.1}
+    sports.weigh_nhl_fast_starter_fav(g2, [f, d])
+    assert f.get("nhl_fast_start_fav") and abs(f["w_p"] - (1 / 1.769 - 0.01)) < 1e-3
+    assert "w_p" not in d                                                              # never the dog
+    assert "NHL fav -101..-250, a fast starter (1st-period excess +0.25+) (fade)" in sl.tags(f, sports)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "weigh_ncaab_tp_net_fav(out)" in src and "weigh_nhl_fast_starter_fav(games, out)" in src
 
 
 if __name__ == "__main__":
