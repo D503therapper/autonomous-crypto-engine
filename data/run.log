@@ -15880,3 +15880,34 @@ $PLTR: possibly delisted; no price data found  (period=1y)
 [2026-11-09 07:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-09 07:05 UTC] crypto/hold_btc  equity $446.97 (-10.6%) 1 open  market DOWN
    social heat top: BTC 42 (40/0/2), ETH 37 (37/0/0), AERO 35 (35/0/0), HYPE 29 (29/0/0), NEAR 27 (27/0/0)
+   dex screen: REJECT GTA6@solana liq $256,527 - lp holders unknown; rugcheck lp locked 51% < 95%
+   dex screen: REJECT GTA6@ethereum liq $186,960 - goplus partial data: cannot_sell_all unknown; top-10 holders 112%
+   dex screen: UNREACHABLE SP@ethereum liq $367,413 - honeypot.is unreachable
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS CATE@solana liq $1,799,057
+   dex screen: REJECT KMNO@solana liq $1,888,545 - top-10 holders 53%
+   dex re-screen: COGE@solana:8UQdy5sH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT VELVET@base liq $5,300 - liquidity $5,300 < $100,000; pool age unknown; 24h volume $26,589 < $100,000
+   dex screen: REJECT USDE@ethereum liq $1,347,844 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 93%
+   dex screen: REJECT CBETH@base liq $268,340 - pool age unknown
+   dex screen: REJECT ELSA@base liq $479,567 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: UNREACHABLE SP@ethereum liq $360,640 - honeypot.is unreachable
+   dex screen: PASS CBUCKS@solana liq $208,807
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT GTR@solana liq $2,063,275 - top-10 holders 99%
+   dex screen: UNREACHABLE SP@ethereum liq $349,186 - honeypot.is unreachable
+   dex re-screen: COGE@solana:8UQdy5sH data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 2,668 pools (solana 1,885 / base 423 / ethereum 360), refresh cycle 115s (hot 111s), 2945 calls (110 feed, 429s 0, failed 0), 85,049 refreshed (13762 no pair), +70 added / -132 dropped (dead 117, stale 15, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-09 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/mover     equity $207.44 (-58.5%) 1 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/social_heat equity $335.23 (-33.0%) 3 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 08:05 UTC] crypto/hold_btc  equity $444.76 (-11.0%) 1 open  market DOWN
+   social heat top: BTC 45 (40/0/5), STONK 35 (24/0/11), ETH 35 (35/0/0), MON 29 (29/0/0), NEAR 27 (27/0/0)
