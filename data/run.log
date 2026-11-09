@@ -16398,3 +16398,27 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-09 20:07 UTC] stocks/trend     equity $457.78 (-8.4%) 4 open  market DOWN
 [2026-11-09 20:07 UTC] stocks/hold_spy  equity $491.35 (-1.7%) 1 open  market DOWN
    social heat top: AVAX 37 (37/0/0), BTC 29 (29/0/0), ONDO 27 (27/0/0), HYPE 24 (21/0/2), AERO 19 (13/0/6)
+   dex screen: REJECT CARDS@solana liq $3,459,609 - top-10 holders 73%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT METAC@base liq $955,018 - pool age unknown
+   dex screen: REJECT AMDC@base liq $375,896 - pool age unknown
+   dex screen: REJECT NVDAC@base liq $1,103,330 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: PASS DESSA@solana liq $546,792
+   dex screen: REJECT OPENAI@solana liq $165,690 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 71%; lp holders unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $203,054 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT DRV@base liq $1,211,428 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT DRV@solana liq $391,822,846 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DRV@solana liq $382,405,436 - top-10 holders 100%
+   dex screen: REJECT DRV@ethereum liq $171,028 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   dex scanner: 2,623 pools (solana 1,869 / base 415 / ethereum 339), refresh cycle 121s (hot 116s), 2708 calls (106 feed, 429s 0, failed 0), 78,059 refreshed (14716 no pair), +58 added / -68 dropped (dead 59, stale 9, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-09 21:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/mover     equity $213.40 (-57.3%) 2 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/social_heat equity $339.80 (-32.0%) 2 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 21:06 UTC] crypto/hold_btc  equity $450.47 (-9.9%) 1 open  market DOWN
+   social heat top: AVAX 37 (37/0/0), PENGU 32 (32/0/0), BTC 29 (29/0/0), ARB 24 (24/0/0), HYPE 21 (21/0/0)
