@@ -1,37 +1,3 @@
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
-tennis reads: 1 matches
-1H line log: 0 rows (0 with a 1st-half line) from 95 AN games
-source check (6.4s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132349 games stored, 52 calls, 0 failed, 14s
-odds history: 1 games got odds, 55 calls, 0 failed, 5s
-player stats: 5 box scores added, 5 to fetch, 0 failed, 1s
-weather: 143 games got weather, 1 new stadiums located, 212s
-4th-down rates: 32 NFL teams
-news: 2 new drama tags
-goalies: 12 games on the page, 4 matched, 8 confirmed
-nba rosters: 30 teams as of 2026-11-07, 0 failed, 0 moves
-beat the close: unit plays 28 of 95 better than the close, avg +0.2 pts
-tuned in 152s: mlb trust 34% acc 58.6%, nba trust 1% acc 69.3%, ncaab trust 15% acc 0.0%, ncaaf trust 0% acc 66.2%, nfl trust 19% acc 65.6%, nhl trust 27% acc 57.8%
-cover study: nba big favorites covered 50% of 3647 (adjust +0.03); ncaab big favorites covered 49% of 12687 (adjust +0.02); ncaaf big favorites covered 50% of 3683 (adjust +0.02); nfl big favorites covered 47% of 520 (adjust +0.01)
-comeback study: nfl 2323 games s=1.3 w=1.50 m=+0.0 loss 0.479->0.471; ncaaf 6439 games s=1.2 w=1.25 m=+0.0 loss 0.371->0.369; nba 10363 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19858 games s=0.9 w=0.75 m=+0.0 loss 0.455->0.455; nhl 10319 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 30131 games s=1.3 w=1.50 m=-0.1 loss 0.432->0.415
-halves study: nfl 2332 games: 1st half gets 51% of the edge (sd 10.27), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 6440 games: 1st half gets 60% of the edge (sd 11.84), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10363 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 30131 games: 1st half gets 62% of the edge (sd 9.12), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20092 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10319 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
-lines study: nhl 20638 team-games, loss 0.607->0.584; mlb 40186 team-games, loss 0.654->0.636
-spread/moneyline study: {'nfl': (0.5298, True), 'ncaaf': (0.4855, False), 'nba': (0.4544, False), 'ncaab': (0.4815, False)}
-hockey study: ['backup', 'b2b', 'rest', 'travel'] 0.66455 vs line 0.66508
-all: following hit 68.9% vs 68.0% the price said over 235912 (edge +0.9% older, +1.0% newer, z 10.24) -> watch only
-streak: following hit 64.1% vs 63.4% the price said over 71177 (edge +0.6% older, +0.7% newer, z 3.78) -> watch only
-rate: following hit 71.0% vs 70.0% the price said over 164735 (edge +0.9% older, +1.1% newer, z 9.85) -> watch only
-streak|total: following hit 50.2% vs 50.0% the price said over 12455 (edge -0.0% older, +0.5% newer, z 0.51) -> watch only
-streak|fav_ml: following hit 72.6% vs 71.6% the price said over 37278 (edge +0.7% older, +1.3% newer, z 4.53) -> watch only
-streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7808 (edge -1.5% older, +0.5% newer, z -0.93) -> watch only
-streak|home: following hit 61.9% vs 61.2% the price said over 13636 (edge +0.9% older, +0.4% newer, z 1.84) -> watch only
-rate|total: following hit 50.8% vs 50.0% the price said over 3955 (edge +1.1% older, +0.5% newer, z 1.03) -> watch only
-rate|fav_ml: following hit 73.8% vs 72.8% the price said over 115712 (edge +0.9% older, +1.1% newer, z 8.21) -> watch only
-rate|fav_cover: following hit 48.9% vs 50.0% the price said over 1903 (edge +0.5% older, -2.6% newer, z -0.94) -> watch only
-rate|home: following hit 66.4% vs 65.2% the price said over 43165 (edge +1.0% older, +1.3% newer, z 5.85) -> watch only
-nfl|streak: following hit 58.3% vs 59.7% the price said over 1550 (edge -2.6% older, -0.1% newer, z -1.16) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4175 (edge -0.1% older, +0.3% newer, z 0.15) -> watch only
-ncaaf|streak: following hit 70.2% vs 69.7% the price said over 7404 (edge -0.3% older, +1.2% newer, z 0.99) -> watch only
 ncaaf|rate: following hit 72.3% vs 71.6% the price said over 23138 (edge +0.7% older, +0.8% newer, z 2.79) -> watch only
 nba|streak: following hit 61.2% vs 61.3% the price said over 9929 (edge -0.2% older, +0.1% newer, z -0.08) -> watch only
 nba|rate: following hit 68.4% vs 68.6% the price said over 24098 (edge -0.3% older, -0.1% newer, z -0.61) -> watch only
@@ -2998,3 +2964,37 @@ tennis first-set lines: 0 first-set winner markets seen (0 matches with any set 
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
 1H line log: 0 rows (0 with a 1st-half line) from 105 AN games
 source check (5.8s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132396 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 112 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 3 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-09, 0 failed, 0 moves
+beat the close: unit plays 30 of 101 better than the close, avg +0.2 pts
+public splits: 56 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
+   no units on Clemson: missing Z. Foster, C. Welling, H. Reynolds
+   no units on Miami: missing M. Allen, L. Cason
+   no units on Missouri: missing L. Northweather, J. Carey, A. Chronister, C. Gunn
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26303 rated matches, acc 0.645 (surface ratings alone 0.6415), loss 0.6297 vs 0.6314, own weights [-0.004, 0.827, 0.074, 0.151, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6297: experience 0.6295 (+0.23 mnats, z 0.25), age 0.6279 (+1.85 mnats, z 1.32), young_vs_aging 0.6294 (+0.27 mnats, z 0.66), last_match 0.6271 (+2.64 mnats, z 1.86), streaks 0.6303 (-0.62 mnats, z -0.61), first_set 0.629 (+0.69 mnats, z 1.05), injury 0.6306 (-0.91 mnats, z -1.41), travel 0.6297 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30846 rated matches, acc 0.6465 (surface ratings alone 0.649), loss 0.6232 vs 0.6235, own weights [0.005, 0.905, -0.002, -0.077, 0.299, 0.024, -0.198]
+tennis study WTA life factors vs current loss 0.6232: experience 0.6205 (+2.64 mnats, z 1.53), age 0.6223 (+0.86 mnats, z 1.11), young_vs_aging 0.6229 (+0.23 mnats, z 1.46), last_match 0.6243 (-1.12 mnats, z -1.09), streaks 0.6231 (+0.08 mnats, z 0.16), first_set 0.6229 (+0.31 mnats, z 0.67), injury 0.6227 (+0.47 mnats, z 0.82), travel 0.6233 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+1H line log: 42 rows (34 with a 1st-half line) from 105 AN games
+source check (1.3s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
