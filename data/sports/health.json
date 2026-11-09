@@ -1,5 +1,5 @@
 {
- "at": "2026-11-09T17:56Z",
+ "at": "2026-11-09T17:58Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Giovannini vs Maria: no points for 2621s",
@@ -7,7 +7,7 @@
   "live tennis scores: tennis Erjavec vs Mandlik: no points for 1185s"
  ],
  "ok": [
-  "live watcher fresh (139s)",
+  "live watcher fresh (235s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,21 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 55 min ago",
+  "engine ran 56 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T17:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Giovannini vs Maria: no points for 2621s",
+    "live tennis scores: tennis Ribera vs Gonzalez: no points for 2343s",
+    "live tennis scores: tennis Erjavec vs Mandlik: no points for 1185s"
+   ]
+  },
   {
    "at": "2026-11-09T17:56Z",
    "fixes": [],
@@ -509,17 +518,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Collazos vs Jakupovic: no points for 2169s"
-   ]
-  },
-  {
-   "at": "2026-11-08T15:44Z",
-   "fixes": [
-    "live watch 42492583462 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Avellaneda vs Alves: no points for 1735s",
-    "live tennis scores: tennis Murcia vs Scott: no points for 1414s"
    ]
   }
  ]
