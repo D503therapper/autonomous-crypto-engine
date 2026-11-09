@@ -37231,6 +37231,15 @@
      "us:west1000"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Matt Coronato",
+     "s": "4-3",
+     "type": "ot",
+     "win": "home",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -37256,6 +37265,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,0,0",
+     "h": "1,1,1,1"
+    },
     "form_state": [
      -1.0,
      -2,
@@ -37307,10 +37320,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Flyers 3 @ Flames 4",
     "season_games": null,
+    "settled": "2026-11-09T02:55Z",
     "side": "away",
     "start": "2026-11-09T00:00Z",
     "stype": "2",
@@ -37327,11 +37342,13 @@
    }
   ],
   "p_hit": 0.5275,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-08T16:00Z",
   "round": 1,
+  "settled": "2026-11-09T02:55Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]
