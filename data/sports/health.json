@@ -1,9 +1,9 @@
 {
- "at": "2026-11-09T01:11Z",
+ "at": "2026-11-09T01:13Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (127s)",
+  "live watcher fresh (230s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +16,17 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 5 min ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-09T01:13Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-09T01:11Z",
    "fixes": [],
@@ -532,18 +537,6 @@
    "at": "2026-11-07T18:13Z",
    "fixes": [
     "live board 36 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Andreescu: no points for 2176s",
-    "live tennis scores: tennis Feistel vs Blinkova: no points for 2176s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-07T18:11Z",
-   "fixes": [
-    "live board 35 min stale with games on - sports-live.yml already running"
    ],
    "problems": [
     "live tennis scores: tennis Gormaz vs Andreescu: no points for 2176s",
