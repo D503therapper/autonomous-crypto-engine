@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T18:15Z",
+ "updated": "2026-11-09T18:19Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -219,6 +219,37 @@
     "win_p": 0.051,
     "reasons": [
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401906865",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas",
+    "p": 0.923,
+    "tie": 0.015,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T00:00Z",
+   "away": "Grambling",
+   "home": "Texas",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Grambling",
+    "opp": "Texas",
+    "market": "spread",
+    "line": 37.5,
+    "odds": -105,
+    "p": 0.58,
+    "win_p": 0.029,
+    "reasons": [
+     "better rested",
+     "hotter recent form"
     ]
    }
   },
@@ -1290,7 +1321,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.398,
+    "p": 0.405,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1299,17 +1330,20 @@
    "start": "2026-11-11T00:00Z",
    "away": "Avalanche",
    "home": "Maple Leafs",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Maple Leafs",
-    "opp": "Avalanche",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -166,
-    "p": 0.62,
-    "win_p": 0.399,
-    "reasons": []
+    "team": "Avalanche",
+    "opp": "Maple Leafs",
+    "market": "ml",
+    "line": null,
+    "odds": -170,
+    "p": 0.621,
+    "win_p": 0.621,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1507,13 +1541,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Panthers",
-    "opp": "Blue Jackets",
+    "team": "Blue Jackets",
+    "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.73,
-    "win_p": 0.519,
+    "odds": -265,
+    "p": 0.698,
+    "win_p": 0.483,
     "reasons": []
    }
   },
