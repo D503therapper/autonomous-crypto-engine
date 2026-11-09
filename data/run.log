@@ -16458,3 +16458,25 @@ fatal: the remote end hung up unexpectedly
    [alert] Today -13.61 | Total -370.61: Stocks: $483.50  today +6.95  total -16.50
 DEX: $645.90  today -20.56  total -354.10
 DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
+   dex screen: PASS JOB@solana liq $186,377
+   dex screen: REJECT NEAR@ethereum liq $792,492 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT XDP@base liq $1,579,111 - top-10 holders 93%
+   dex screen: REJECT SWORDCAT@solana liq $134,588 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT TRUMP@solana liq $149,109 - top-10 holders 88%; lp holders unknown
+   dex screen: REJECT FLOAT@solana liq $648,676 - lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $180,314 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT RBLX@solana liq $305,113 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 53%; lp holders unknown
+   dex scanner: 2,659 pools (solana 1,904 / base 422 / ethereum 333), refresh cycle 112s (hot 108s), 2944 calls (108 feed, 429s 0, failed 0), 85,075 refreshed (16243 no pair), +84 added / -78 dropped (dead 75, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-09 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: SELL $97.93 of ATOM @ 1.36963, P/L $+3.98 (time limit)
+[2026-11-09 23:06 UTC] crypto/mover     equity $213.04 (-57.4%) 1 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/social_heat equity $340.38 (-31.9%) 2 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-09 23:06 UTC] crypto/hold_btc  equity $452.51 (-9.5%) 1 open  market DOWN
+   social heat top: AVAX 37 (37/0/0), ONDO 32 (32/0/0), PENGU 32 (32/0/0), ETH 27 (27/0/0), HYPE 24 (24/0/0)
