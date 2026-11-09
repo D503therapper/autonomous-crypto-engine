@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T00:16Z",
+ "updated": "2026-11-09T00:27Z",
  "games": [
   {
    "id": "nfl:401873038",
@@ -594,8 +594,8 @@
    "away": "Cardinals",
    "home": "Seahawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -624,8 +624,8 @@
    "away": "Raiders",
    "home": "49ers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -669,8 +669,8 @@
    "away": "Richmond",
    "home": "Temple",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -749,6 +749,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892676",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-09T00:00Z",
+   "away": "Devils",
+   "home": "Maple Leafs",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892678",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -777,12 +792,42 @@
    }
   },
   {
+   "id": "ncaab:401929352",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-09T00:00Z",
+   "away": "Incarnate Word",
+   "home": "UTEP",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909947",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-09T00:00Z",
+   "away": "Jazz",
+   "home": "Timberwolves",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909949",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.782,
+    "p": 0.79,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -798,9 +843,9 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -13.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.506,
-    "win_p": 0.857,
+    "win_p": 0.864,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
