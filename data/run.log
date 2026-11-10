@@ -16720,3 +16720,33 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 06:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 06:06 UTC] crypto/hold_btc  equity $449.69 (-10.1%) 1 open  market DOWN
    social heat top: HYPE 40 (40/0/0), INIT 37 (37/0/0), PEPE 35 (35/0/0), AVAX 29 (29/0/0), BTC 27 (27/0/0)
+   dex screen: REJECT POLYMARKET@solana liq $587 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 74%; lp holders unknown
+   dex screen: REJECT SNDKC@base liq $1,886,403 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: PASS TROLL@solana liq $2,304,140
+   dex screen: PASS NPC@ethereum liq $3,729,028
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MCDX@solana liq $393,506 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 96%; lp holders unknown
+   dex screen: REJECT ETHFI@ethereum liq $431,358 - top-10 holders 62%; lp locked 0% < 95%
+   dex screen: REJECT WBTC@solana liq $1,677,958 - mint authority; top-10 holders 70%
+   listing: okx_symbols #XSKDD 'New OKX listing (XSKDD)' -> ['XSKDD']
+   listing: XSKDD: okx_symbols notice "New OKX listing (XSKDD)" -> not on Crypto.com USD
+   dex screen: REJECT GOOGLC@base liq $1,896,761 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex scanner: 2,663 pools (solana 1,824 / base 477 / ethereum 362), refresh cycle 109s (hot 104s), 2895 calls (147 feed, 429s 0, failed 0), 82,437 refreshed (12797 no pair), +310 added / -101 dropped (dead 75, stale 26, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listing: okx_symbols #XSKUU 'New OKX listing (XSKUU)' -> ['XSKUU']
+   listing: XSKUU: okx_symbols notice "New OKX listing (XSKUU)" -> not on Crypto.com USD
+[2026-11-10 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/mover     equity $210.43 (-57.9%) 2 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/social_heat equity $339.82 (-32.0%) 2 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 07:06 UTC] crypto/hold_btc  equity $449.52 (-10.1%) 1 open  market DOWN
+   social heat top: HYPE 40 (40/0/0), PENGU 39 (32/0/7), BTC 37 (37/0/0), AVAX 35 (35/0/0), PEPE 29 (29/0/0)
