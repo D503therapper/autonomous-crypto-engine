@@ -6,7 +6,7 @@
   "all": {
    "extra_edge": 0.0,
    "hit": 0.513,
-   "n": 271,
+   "n": 273,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -26,9 +26,9 @@
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.541,
-   "n": 61,
-   "said": 0.51,
+   "hit": 0.54,
+   "n": 63,
+   "said": 0.514,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:rival": {
@@ -180,9 +180,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.535,
-   "n": 230,
-   "said": 0.502,
+   "hit": 0.534,
+   "n": 232,
+   "said": 0.503,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -223,8 +223,8 @@
   "label:parlay leg": {
    "extra_edge": 0.0,
    "hit": 0.512,
-   "n": 201,
-   "said": 0.504,
+   "n": 203,
+   "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
   "label:value": {
@@ -250,10 +250,10 @@
   },
   "league:ncaab": {
    "extra_edge": 0.0,
-   "hit": 0.333,
-   "n": 6,
-   "said": 0.574,
-   "verdict": "only 6 graded - report only"
+   "hit": 0.375,
+   "n": 8,
+   "said": 0.585,
+   "verdict": "only 8 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -292,10 +292,10 @@
   },
   "market:spread": {
    "extra_edge": 0.0,
-   "hit": 0.429,
-   "n": 28,
-   "said": 0.527,
-   "verdict": "only 28 graded - report only"
+   "hit": 0.433,
+   "n": 30,
+   "said": 0.533,
+   "verdict": "only 30 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
@@ -313,9 +313,9 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.578,
-   "n": 154,
-   "said": 0.544,
+   "hit": 0.577,
+   "n": 156,
+   "said": 0.545,
    "verdict": "hitting at or above what we said"
   },
   "price:pick'em": {
@@ -335,8 +335,8 @@
   "source:pregame": {
    "extra_edge": 0.0,
    "hit": 0.514,
-   "n": 247,
-   "said": 0.497,
+   "n": 249,
+   "said": 0.498,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:contract year": {
@@ -425,5 +425,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-10T01:31Z"
+ "updated": "2026-11-10T04:17Z"
 }
