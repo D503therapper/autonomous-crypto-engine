@@ -16615,3 +16615,32 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 03:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 03:06 UTC] crypto/hold_btc  equity $450.32 (-9.9%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), AVAX 35 (35/0/0), PENGU 29 (29/0/0), ONDO 27 (27/0/0), PEPE 21 (21/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT BTC@solana liq $150,052 - lp holders unknown; rugcheck lp locked 50% < 95%
+   dex screen: REJECT ACT@solana liq $1,266,731 - top-10 holders 82%
+   dex screen: REJECT NVDA@solana liq $40,629 - liquidity $40,629 < $100,000
+   dex screen: REJECT AAVE@ethereum liq $223,973 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $1,878,979 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 84%; lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $659,802 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $245,240 - lp holders unknown; rugcheck lp locked 37% < 95%
+   dex screen: REJECT AMD@solana liq $226,891 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 80%; lp holders unknown
+   dex screen: REJECT DACITY@ethereum liq $404,102 - goplus partial data: cannot_sell_all unknown; top-10 holders 104%; lp locked 0% < 95%
+   dex screen: REJECT MACCA@solana liq $112,552 - lp holders unknown; rugcheck lp locked 94% < 95%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PI@solana liq $88,351,255 - top-10 holders 100%
+   dex screen: REJECT PI@solana liq $80,826,832 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT PI@solana liq $2,994,420 - top-10 holders 100%
+   dex scanner: 2,338 pools (solana 1,656 / base 363 / ethereum 319), refresh cycle 102s (hot 98s), 2808 calls (108 feed, 429s 0, failed 1), 80,911 refreshed (15601 no pair), +91 added / -70 dropped (dead 57, stale 13, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 04:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/mover     equity $211.09 (-57.8%) 2 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/social_heat equity $338.81 (-32.2%) 2 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 04:07 UTC] crypto/hold_btc  equity $448.73 (-10.3%) 1 open  market DOWN
+   social heat top: AVAX 37 (37/0/0), BTC 35 (35/0/0), SOL 35 (29/0/5), PENGU 32 (32/0/0), HYPE 27 (27/0/0)
