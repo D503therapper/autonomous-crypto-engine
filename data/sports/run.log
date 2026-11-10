@@ -1,25 +1,3 @@
-1H line log: 1 rows (0 with a 1st-half line) from 81 AN games
-source check (6.4s): plain requests answered by 9 of 12 sources - quiet: actionnetwork_h1, rotowire_ncaab, rotowire_ncaaf
-sync: 132349 games stored, 52 calls, 0 failed, 10s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 143 games got weather, 0 new stadiums located, 209s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 6 games on the page, 6 matched, 0 confirmed
-nba rosters: 30 teams as of 2026-11-08, 0 failed, 0 moves
-beat the close: unit plays 28 of 98 better than the close, avg +0.1 pts
-futures logged: nba 9, nhl 7, nfl 12, ncaaf 10
-public splits: 45 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26294 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.63 vs 0.6317, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.63: experience 0.6298 (+0.23 mnats, z 0.25), age 0.6284 (+1.66 mnats, z 1.18), young_vs_aging 0.6298 (+0.27 mnats, z 0.65), last_match 0.6273 (+2.76 mnats, z 1.94), streaks 0.6307 (-0.70 mnats, z -0.68), first_set 0.6293 (+0.69 mnats, z 1.05), injury 0.6309 (-0.81 mnats, z -1.26), travel 0.63 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30841 rated matches, acc 0.6455 (surface ratings alone 0.649), loss 0.6233 vs 0.6236, own weights [0.005, 0.905, -0.001, -0.077, 0.3, 0.023, -0.198]
-tennis study WTA life factors vs current loss 0.6233: experience 0.6209 (+2.46 mnats, z 1.43), age 0.6225 (+0.83 mnats, z 1.07), young_vs_aging 0.6231 (+0.23 mnats, z 1.43), last_match 0.6242 (-0.91 mnats, z -0.89), streaks 0.6233 (+0.01 mnats, z 0.02), first_set 0.6231 (+0.27 mnats, z 0.57), injury 0.6228 (+0.48 mnats, z 0.84), travel 0.6235 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
 tennis reads: 0 matches
 1H line log: 36 rows (27 with a 1st-half line) from 81 AN games
@@ -2998,3 +2976,25 @@ tennis first-set lines: 0 first-set winner markets seen (0 matches with any set 
 tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
 1H line log: 62 rows (41 with a 1st-half line) from 126 AN games
 source check (2.3s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132470 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 110 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 7 games on the page, 7 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
+beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
+public splits: 118 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26306 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.6301 vs 0.6317, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6301: experience 0.6298 (+0.22 mnats, z 0.24), age 0.6281 (+1.96 mnats, z 1.39), young_vs_aging 0.6298 (+0.27 mnats, z 0.67), last_match 0.6274 (+2.67 mnats, z 1.87), streaks 0.6307 (-0.60 mnats, z -0.58), first_set 0.6294 (+0.68 mnats, z 1.03), injury 0.631 (-0.95 mnats, z -1.47), travel 0.63 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30854 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.002, -0.074, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6194 (+2.77 mnats, z 1.62), age 0.6212 (+0.94 mnats, z 1.2), young_vs_aging 0.6219 (+0.26 mnats, z 1.6), last_match 0.623 (-0.85 mnats, z -0.84), streaks 0.6221 (+0.06 mnats, z 0.12), first_set 0.6218 (+0.35 mnats, z 0.75), injury 0.6216 (+0.52 mnats, z 0.91), travel 0.6223 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
+1H line log: 0 rows (0 with a 1st-half line) from 126 AN games
+source check (1.2s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
