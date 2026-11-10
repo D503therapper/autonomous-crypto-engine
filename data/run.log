@@ -17076,3 +17076,34 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-10 16:50 UTC] stocks/trend     equity $457.04 (-8.6%) 4 open  market DOWN
 [2026-11-10 16:50 UTC] stocks/hold_spy  equity $486.89 (-2.6%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), INIT 32 (32/0/0), ETH 29 (29/0/0), MEGA 27 (27/0/0), SOL 24 (24/0/0)
+   scanner: 970 tickers, sample: {'i': 'BTC_USD', 'h': '75370.50', 'l': '72666.61', 'a': '72914.89', 'v': '4776.7041', 'vv': '354734288.44', 'c': '-0.0262', 'b': '72914.88', 'k': '72914.89', 'oi': '0', 't': 1794329419353}
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 2,864 pools (solana 1,938 / base 527 / ethereum 399), refresh cycle 118s (hot 113s), 503 calls (36 feed, 429s 0, failed 0), 14,005 refreshed (1975 no pair), +146 added / -33 dropped (dead 31, stale 2, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT DJT@solana liq $174,555 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 48%; lp holders unknown
+[2026-11-10 17:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/mover     equity $199.92 (-60.0%) 2 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/social_heat equity $335.24 (-33.0%) 2 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] crypto/hold_btc  equity $440.68 (-11.9%) 1 open  market DOWN
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-10 17:05 UTC] stocks/rsi2      equity $463.18 (-7.4%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 14, NVDA 17, XLE 26, COIN 33
+[2026-11-10 17:05 UTC] stocks/breakout52 equity $483.25 (-3.4%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+454% 6-mo), CHPT (+101% 6-mo), ELF (+93% 6-mo), XYZ (+26% 6-mo)
+[2026-11-10 17:05 UTC] stocks/dual_momentum equity $456.65 (-8.7%) 2 open  market DOWN
+[2026-11-10 17:05 UTC] stocks/trend_ensemble equity $503.70 (+0.7%) 5 open  market UP
+[2026-11-10 17:05 UTC] stocks/rotation10 equity $497.02 (-0.6%) 2 open  market UP
+[2026-11-10 17:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-10 17:05 UTC] stocks/trend     equity $457.07 (-8.6%) 4 open  market DOWN
+[2026-11-10 17:05 UTC] stocks/hold_spy  equity $486.74 (-2.7%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), INIT 32 (32/0/0), ETH 29 (29/0/0), MEGA 27 (27/0/0), SOL 24 (24/0/0)
