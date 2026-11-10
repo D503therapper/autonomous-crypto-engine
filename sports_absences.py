@@ -249,6 +249,70 @@ def int_margin(games, league, team, before, rows=None):
     return {"margin": round((made - thrown) / len(real), 2), "games": len(real)}
 
 
+YARD_LUCK_MIN_GAMES = 3                                  # 🏈 11/10 daily studies 4 / 8 (results/studies/daily_1110/s4_s8 +
+YARD_LUCK_SLOPE = {"nfl": 0.0695, "ncaaf": 0.1089}       # s4b): points of margin per yard of margin, fit on 2021-22 only
+
+
+def _yards(rs):
+    """Passing + rushing yards in one team's box rows (None if the box carries neither)."""
+    y, seen = 0.0, False
+    for r in rs:
+        g = r.get("group")
+        if g not in ("passing", "rushing"):
+            continue
+        try:
+            st = json.loads(r.get("stats") or "{}")
+        except ValueError:
+            continue
+        v = st.get("passingYards" if g == "passing" else "rushingYards")
+        if v is None or str(v).strip() == "":
+            continue
+        y += _num(v)
+        seen = True
+    return y if seen else None
+
+
+def yard_luck(games, league, team, before, rows=None):
+    """🏈 11/10 daily studies 4 / 8: {"luck": the team's point margin a game MINUS what its yard margin a game says it
+    should be (YARD_LUCK_SLOPE), "games": n} this season before `before` - a game counts when both teams' box scores
+    (passing + rushing yards) and the final score are on file, YARD_LUCK_MIN_GAMES+ of them; else None (unknown, never a
+    guess). Big plus = the scoreboard has run ahead of the yards (returns, fumbles, red-zone luck - what the public
+    reads as 'they just win'). `rows` = {team: [(start, gid, rows)]} for the tests (else the saved box files)."""
+    if league not in YARD_LUCK_SLOPE:
+        return None
+    before = str(before or "")
+    if len(before) < 7:
+        return None
+    y, m = int(before[:4]), int(before[5:7])
+    since = f"{y if m >= 7 else y - 1}-07-01"
+    src = rows if rows is not None else _games(league)
+    n, pm, ym = 0, 0.0, 0.0
+    for s, gid, rs in src.get(str(team), []):
+        if not (since <= s < before):
+            continue
+        g = (games or {}).get(gid) or {}
+        if str(g.get("stype") or "2") not in sd.REAL or g.get("status") != "final":
+            continue
+        home = str(g.get("home")) == str(team)
+        opp = str(g.get("away") if home else g.get("home"))
+        theirs = next((r2 for s2, gid2, r2 in src.get(opp, []) if gid2 == gid), None)
+        if not theirs:
+            continue
+        mine_y, their_y = _yards(rs), _yards(theirs)
+        if mine_y is None or their_y is None:
+            continue
+        try:
+            hs, as_ = float(g["home_score"]), float(g["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        n += 1
+        pm += (hs - as_) if home else (as_ - hs)
+        ym += mine_y - their_y
+    if n < YARD_LUCK_MIN_GAMES:
+        return None
+    return {"luck": round(pm / n - YARD_LUCK_SLOPE[league] * ym / n, 1), "games": n}
+
+
 def _gone(status):
     """Ruled out: out / doubtful / a short IL stint, or long-term (injured reserve, suspended, out for the season) - a
     key player here PLAYED in the team's last games, so a fresh trip to IR is a new absence the results don't hold yet

@@ -469,6 +469,12 @@ def tags(c, sports):
         #   dog-score weight (sports.NCAAF_INT_LUCK_PTS): the college dog whose season INT margin runs -0.5 a game or
         #   worse +20.4% on 277 (3 of 3 train up, held 2024 / 2025 / 2026 up, the first fair +25.1%); judge at 50 -
         #   the flagged dogs losing at the price = the weight comes off
+    # 11/10 DAILY STUDIES 4 / 8 (results/studies/daily_1110/): the scoreboard over the yards (sports.mark_football_yard_luck)
+    if dog and c.get("odds", 0) <= 350 and c.get("yard_lucky") and lg in ("ncaaf", "nfl"):
+        t.append("college football dog, scoreboard 6+ a game over its yards (fade)" if lg == "ncaaf" else
+                 "NFL dog, scoreboard 4+ a game over its yards (fade)")   # college BUILT as a -1 dog-score weight
+        #   (sports.NCAAF_YARD_LUCK_PTS; -12.7% on 328, 6 of 6 seasons down, the first fair -17.0%) - judge at 50: the
+        #   flagged dogs beating their price = it comes off. The NFL is a LEAD only (-17.6% on 146, train flat)
     if lg == "ncaaf" and c.get("qb_carousel") and -250 <= c.get("odds", 0) <= -101:
         t.append("college football fav -101..-250 on its 3rd+ QB this season (fade)")   # 11/7 daily (s1b) - BUILT as
         #   a -2 weight on the favorite's read (sports.NCAAF_FAV_QB3_W): -27.4% on 73 (held 3 of 3 down, the first fair
@@ -970,6 +976,10 @@ def spread_tags(c, sports):
     if c.get("league") == "nba" and c.get("lost_man"):
         t.append("NBA spread side that lost a 20+ minute man in its last 10 games (fade)")   # s7 - BUILT as a -0.03
         #   rank weight (sports.nba_lost_man_spread_w): ATS -12.3% on 556 (games 1-3) / -11.4% on 721 (4-10) vs -4.4%
+    if c.get("yard_lucky") and c.get("league") in ("ncaaf", "nfl"):   # 11/10 daily studies 4 / 8: college BUILT as a
+        t.append("college football spread side, scoreboard 6+ a game over its yards (fade)" if c["league"] == "ncaaf"
+                 else "NFL spread side, scoreboard 4+ a game over its yards (fade)")   # -0.02 rank weight (ATS -8.6% on
+        #   1,192, z -3.1; the NFL +7 -16.7% on 167 - a LEAD); judge at 50: the flagged side covering 52%+ = it comes off
     if nfl_first_cold(c):
         t.append("NFL side in its first sub-40F game vs a team that already had one (fade)")   # s3: ATS -36.4% on 69
         #   (train -36.3% on 48, 1 of 5 up; held out 0-5 / -36.6% on 9 / +8.4% on 7), the side across +27.3% (4 of 5 train
