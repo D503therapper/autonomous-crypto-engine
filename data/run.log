@@ -16644,3 +16644,34 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 04:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 04:07 UTC] crypto/hold_btc  equity $448.73 (-10.3%) 1 open  market DOWN
    social heat top: AVAX 37 (37/0/0), BTC 35 (35/0/0), SOL 35 (29/0/5), PENGU 32 (32/0/0), HYPE 27 (27/0/0)
+   dex screen: REJECT CHILLGUY@solana liq $1,080,384 - top-10 holders 50%
+   dex screen: REJECT PENGU@solana liq $2,871,298 - creator holds 7%; top-10 holders 43%
+   dex screen: REJECT BP@solana liq $5,827,106 - freeze authority; mint authority; top-10 holders 96%
+   dex screen: REJECT ANTHROPIC@base liq $10,332,111 - goplus partial data: cannot_sell_all unknown; buy tax unknown; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: PASS FARTBOY@solana liq $602,172
+   dex screen: REJECT SHFL@ethereum liq $8,447,570 - top-10 holders 86%
+   dex screen: REJECT SI@solana liq $334,262 - transfer_fee_upgradable; lp holders unknown
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       1f446c64aedb39ebf77a2994d3e4701c07af0772 -> main (cannot lock ref 'refs/heads/main': is at 27e5895a70f0307433750
+   dex screen: REJECT DOPE@solana liq $105,250 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       814305053416db79d25ecec4623ae5d264dfe7b4 -> main (cannot lock ref 'refs/heads/main': is at 57b7437f910223303e752
+   dex screen: REJECT PLAY@base liq $216,325 - goplus partial data: cannot_sell_all unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT UODF@solana liq $1,571 - liquidity $1,571 < $100,000
+   dex screen: REJECT UODF@solana liq $1,789 - liquidity $1,789 < $100,000
+   dex screen: REJECT UODF@solana liq $2,207 - holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%
+   dex screen: PASS PEPE@ethereum liq $31,647,122
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT GULD@base liq $1,496,439 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 59%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,338 pools (solana 1,640 / base 367 / ethereum 331), refresh cycle 108s (hot 103s), 2752 calls (106 feed, 429s 0, failed 0), 79,375 refreshed (14409 no pair), +112 added / -112 dropped (dead 110, stale 2, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/mover     equity $211.50 (-57.7%) 2 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/social_heat equity $339.98 (-32.0%) 2 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 05:06 UTC] crypto/hold_btc  equity $450.14 (-10.0%) 1 open  market DOWN
+   social heat top: PENGU 37 (37/0/0), PEPE 35 (35/0/0), AERO 34 (32/0/2), INIT 32 (32/0/0), BTC 29 (29/0/0)
