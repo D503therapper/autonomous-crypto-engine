@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T09:55Z",
+ "updated": "2026-11-10T10:14Z",
  "games": [
   {
    "id": "ncaab:401906771",
@@ -682,7 +682,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UCF",
-    "p": 0.829,
+    "p": 0.834,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -697,10 +697,10 @@
     "team": "South Alabama",
     "opp": "UCF",
     "market": "spread",
-    "line": 15.5,
-    "odds": -118,
-    "p": 0.52,
-    "win_p": 0.095,
+    "line": 14.5,
+    "odds": -105,
+    "p": 0.514,
+    "win_p": 0.091,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2036,6 +2036,36 @@
    }
   },
   {
+   "id": "nhl:401892690",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Lightning",
+    "p": 0.374,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T00:00Z",
+   "away": "Lightning",
+   "home": "Sabres",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Sabres",
+    "opp": "Lightning",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.668,
+    "win_p": 0.449,
+    "reasons": [
+     "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401866461",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2064,6 +2094,34 @@
      "the stronger team",
      "off a win vs a team off a loss, and the better-rated team (9 of 9 seasons)"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892691",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Rangers",
+    "p": 0.393,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T00:30Z",
+   "away": "Rangers",
+   "home": "Flames",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Flames",
+    "opp": "Rangers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -213,
+    "p": 0.631,
+    "win_p": 0.41,
+    "reasons": []
    }
   },
   {
@@ -2126,6 +2184,120 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892692",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Oilers",
+    "p": 0.418,
+    "tie": 0.295,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T02:00Z",
+   "away": "Flyers",
+   "home": "Oilers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Oilers",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -200,
+    "p": 0.641,
+    "win_p": 0.641,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892693",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Golden Knights",
+    "p": 0.38,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T02:30Z",
+   "away": "Mammoth",
+   "home": "Golden Knights",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Mammoth",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.659,
+    "win_p": 0.442,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892695",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Penguins",
+    "p": 0.375,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T03:00Z",
+   "away": "Penguins",
+   "home": "Sharks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Sharks",
+    "opp": "Penguins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.667,
+    "win_p": 0.448,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892694",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Ducks",
+    "p": 0.364,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T03:00Z",
+   "away": "Predators",
+   "home": "Ducks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Predators",
+    "opp": "Ducks",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.689,
+    "win_p": 0.472,
+    "reasons": []
    }
   }
  ]
