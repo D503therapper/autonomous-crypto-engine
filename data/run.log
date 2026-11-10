@@ -17030,3 +17030,14 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-10 16:07 UTC] stocks/trend     equity $457.07 (-8.6%) 4 open  market DOWN
 [2026-11-10 16:07 UTC] stocks/hold_spy  equity $487.56 (-2.5%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), INIT 35 (35/0/0), PEPE 34 (32/0/2), PENGU 29 (29/0/0), ETH 27 (27/0/0)
+   dex screen: REJECT MSUSD@base liq $716,658 - pool age unknown
+   dex screen: REJECT AVGOC@base liq $213,777 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 99%; lp locked 0% < 95%
+   dex screen: REJECT DRV@base liq $1,202,915 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT DOT@base liq $320,313 - lp locked 0% < 95%
+   dex screen: REJECT INJ@ethereum liq $98,220 - liquidity $98,220 < $100,000
+   dashboard push skipped: remote: fatal error in commit_refs_rules        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       e7bfb0a7c3d050f66ebf95b299c385f03d46fb07 -> main (fatal error i
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT GATO@solana liq $285,932 - lp holders unknown; rugcheck lp locked 61% < 95%
+   dex screen: PASS PEPE@ethereum liq $30,650,284
