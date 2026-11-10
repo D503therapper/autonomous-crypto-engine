@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T19:47Z",
+ "updated": "2026-11-10T21:29Z",
  "games": [
   {
    "id": "ncaab:401906771",
@@ -174,7 +174,7 @@
     "opp": "Davidson",
     "market": "spread",
     "line": 10.5,
-    "odds": -118,
+    "odds": -115,
     "p": 0.511,
     "win_p": 0.17,
     "reasons": [
@@ -228,18 +228,14 @@
    "why": "on_board",
    "board": "play",
    "lean": {
-    "team": "Capitals",
-    "opp": "Senators",
+    "team": "Senators",
+    "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.725,
-    "win_p": 0.513,
-    "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players",
-     "opponent drama: suspension"
-    ]
+    "odds": -285,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": []
    }
   },
   {
@@ -276,7 +272,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.388,
+    "p": 0.383,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -293,8 +289,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.642,
-    "win_p": 0.421,
+    "p": 0.65,
+    "win_p": 0.429,
     "reasons": [
      "opponent missing key players"
     ]
@@ -621,7 +617,7 @@
     "opp": "Duke",
     "market": "spread",
     "line": 7.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.257,
     "reasons": [
@@ -635,8 +631,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "NC State",
-    "p": 0.895,
-    "tie": 0.019,
+    "p": 0.884,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -647,14 +643,18 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Presbyterian",
-    "opp": "NC State",
+    "team": "NC State",
+    "opp": "Presbyterian",
     "market": "spread",
-    "line": 19.5,
-    "odds": -105,
+    "line": -18.5,
+    "odds": -115,
     "p": 0.503,
-    "win_p": 0.045,
-    "reasons": []
+    "win_p": 0.951,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -754,8 +754,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "W Michigan",
-    "p": 0.766,
-    "tie": 0.025,
+    "p": 0.758,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -772,7 +772,7 @@
     "line": -15.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.78,
+    "win_p": 0.772,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -818,7 +818,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.374,
+    "p": 0.369,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -835,8 +835,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.669,
-    "win_p": 0.45,
+    "p": 0.678,
+    "win_p": 0.46,
     "reasons": []
    }
   },
@@ -874,7 +874,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wright St",
-    "p": 0.49,
+    "p": 0.485,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -890,9 +890,9 @@
     "opp": "Toledo",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.517,
-    "win_p": 0.517,
+    "odds": -115,
+    "p": 0.51,
+    "win_p": 0.51,
     "reasons": [
      "hotter recent form",
      "the stronger team",
@@ -1269,7 +1269,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Dakota",
-    "p": 0.552,
+    "p": 0.571,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1285,12 +1285,12 @@
     "opp": "Hou Christian",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.597,
-    "win_p": 0.597,
+    "odds": -180,
+    "p": 0.622,
+    "win_p": 0.622,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -1408,7 +1408,7 @@
     "opp": "SMU",
     "market": "spread",
     "line": 26.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.546,
     "win_p": 0.027,
     "reasons": []
@@ -1599,7 +1599,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.549,
+    "p": 0.555,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1615,9 +1615,9 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -167,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -173,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1825,9 +1825,9 @@
     "team": "Queens",
     "opp": "BYU",
     "market": "spread",
-    "line": 29.5,
-    "odds": -118,
-    "p": 0.572,
+    "line": 28.5,
+    "odds": -108,
+    "p": 0.567,
     "win_p": 0.027,
     "reasons": []
    }
@@ -1960,8 +1960,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.626,
-    "tie": 0.034,
+    "p": 0.62,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1976,9 +1976,9 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -237,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -229,
+    "p": 0.669,
+    "win_p": 0.669,
     "reasons": [
      "the stronger team"
     ]
@@ -2042,6 +2042,7 @@
     "p": 0.679,
     "win_p": 0.462,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: suspension"
     ]
    }
@@ -2052,8 +2053,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.527,
-    "tie": 0.036,
+    "p": 0.519,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -2068,9 +2069,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -125,
+    "p": 0.534,
+    "win_p": 0.534,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -2298,7 +2299,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.369,
+    "p": 0.378,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2315,8 +2316,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.678,
-    "win_p": 0.46,
+    "p": 0.661,
+    "win_p": 0.441,
     "reasons": []
    }
   },
