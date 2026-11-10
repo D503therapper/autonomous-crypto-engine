@@ -1,43 +1,3 @@
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 5 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
-   no units on Sabres: missing Konsta Helenius, Justin Danforth
-   no units on Maple Leafs: missing Kirill Marchenko, Nick Blankenburg, Morgan Rielly
-   no units on Flames: missing Brennan Othmann, Kevin Bahl
-   no units on Penguins: missing Elmer Soderblom, Bryan Rust
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26298 rated matches, acc 0.645 (surface ratings alone 0.6415), loss 0.6296 vs 0.6313, own weights [-0.004, 0.827, 0.073, 0.151, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6296: experience 0.6293 (+0.29 mnats, z 0.32), age 0.6278 (+1.83 mnats, z 1.3), young_vs_aging 0.6293 (+0.27 mnats, z 0.66), last_match 0.6269 (+2.71 mnats, z 1.91), streaks 0.6301 (-0.51 mnats, z -0.5), first_set 0.629 (+0.66 mnats, z 1.0), injury 0.6304 (-0.78 mnats, z -1.21), travel 0.6296 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30842 rated matches, acc 0.6455 (surface ratings alone 0.649), loss 0.6232 vs 0.6234, own weights [0.005, 0.905, -0.001, -0.076, 0.3, 0.024, -0.198]
-tennis study WTA life factors vs current loss 0.6232: experience 0.6207 (+2.43 mnats, z 1.41), age 0.6223 (+0.88 mnats, z 1.13), young_vs_aging 0.6229 (+0.23 mnats, z 1.43), last_match 0.6241 (-0.93 mnats, z -0.91), streaks 0.6231 (+0.01 mnats, z 0.03), first_set 0.6229 (+0.28 mnats, z 0.6), injury 0.6227 (+0.48 mnats, z 0.84), travel 0.6233 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
-1H line log: 21 rows (19 with a 1st-half line) from 81 AN games
-source check (4.1s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132349 games stored, 52 calls, 0 failed, 12s
-odds history: 1 games got odds, 55 calls, 0 failed, 6s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 138 games got weather, 0 new stadiums located, 212s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 6 games on the page, 6 matched, 3 confirmed
-nba rosters: 30 teams as of 2026-11-08, 0 failed, 0 moves
-beat the close: unit plays 28 of 98 better than the close, avg +0.1 pts
-public splits: 48 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 5 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (106 players), 365 matched, 0 unmatched
    no units on Sabres: missing Konsta Helenius, Justin Danforth
    no units on Maple Leafs: missing Kirill Marchenko, Nick Blankenburg, Morgan Rielly
    no units on Flames: missing Brennan Othmann, Kevin Bahl
@@ -2998,3 +2958,43 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 2 matches
 1H line log: 0 rows (0 with a 1st-half line) from 0 AN games - errors: nba game 20261110: HTTP 404; nba game 20261111: HTTP 404; nba firsthalf 20261110: HTTP 404
 source check (0.4s): plain requests answered by 7 of 12 sources - quiet: actionnetwork_h1, bovada, bovada_nfl, rotowire_ncaab, rotowire_ncaaf
+sync: 132470 games stored, 52 calls, 0 failed, 10s
+   AN nba 2026-10-29: HTTP Error 404: Not Found
+   AN nba 2026-11-01: HTTP Error 404: Not Found
+   AN nba 2026-10-30: HTTP Error 404: Not Found
+   AN nba 2026-10-28: HTTP Error 404: Not Found
+   AN nba 2026-10-31: HTTP Error 404: Not Found
+odds history: 0 games got odds, 103 calls, 103 failed, 41s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 114 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 7 games on the page, 7 matched, 10 confirmed
+nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
+beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
+public splits: 120 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (107 players), 365 matched, 0 unmatched
+   no units on Green Bay: missing J. Overway, J. Edwards
+   no units on Wisconsin: missing L. Fenderson, J. Manchester
+   no units on Kansas: missing M. Council Jr., G. Mordini
+   no units on Maple Leafs: missing Morgan Rielly, Colton Sissons, Kirill Marchenko
+   no units on Senators: missing Andre Burakovsky, Warren Foegele
+   no units on Red Wings: missing Albert Johansson, Dylan Larkin
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26309 rated matches, acc 0.644 (surface ratings alone 0.641), loss 0.6304 vs 0.632, own weights [-0.004, 0.827, 0.074, 0.153, 0.42, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6304: experience 0.63 (+0.32 mnats, z 0.36), age 0.6284 (+2.01 mnats, z 1.43), young_vs_aging 0.6301 (+0.27 mnats, z 0.67), last_match 0.6277 (+2.65 mnats, z 1.86), streaks 0.631 (-0.61 mnats, z -0.6), first_set 0.6297 (+0.68 mnats, z 1.03), injury 0.6313 (-0.92 mnats, z -1.43), travel 0.6304 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30858 rated matches, acc 0.647 (surface ratings alone 0.65), loss 0.6216 vs 0.6217, own weights [0.005, 0.904, -0.002, -0.074, 0.3, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6216: experience 0.6187 (+2.91 mnats, z 1.71), age 0.6207 (+0.91 mnats, z 1.17), young_vs_aging 0.6214 (+0.26 mnats, z 1.6), last_match 0.6224 (-0.81 mnats, z -0.8), streaks 0.6216 (+0.04 mnats, z 0.08), first_set 0.6213 (+0.36 mnats, z 0.78), injury 0.6211 (+0.56 mnats, z 0.98), travel 0.6218 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+tennis reads: 1 matches
+1H line log: 0 rows (0 with a 1st-half line) from 0 AN games - errors: nba game 20261110: HTTP 404; nba game 20261111: HTTP 404; nba firsthalf 20261110: HTTP 404
+source check (1.1s): plain requests answered by 9 of 12 sources - quiet: actionnetwork_h1, rotowire_ncaab, rotowire_ncaaf
