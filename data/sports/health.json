@@ -1,9 +1,10 @@
 {
- "at": "2026-11-10T00:20Z",
- "fixes": [],
+ "at": "2026-11-10T00:21Z",
+ "fixes": [
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (246s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +17,19 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 37 min ago",
+  "engine ran 39 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-10T00:21Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-10T00:20Z",
    "fixes": [],
@@ -498,11 +506,6 @@
   },
   {
    "at": "2026-11-08T22:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-08T22:48Z",
    "fixes": [],
    "problems": []
   }
