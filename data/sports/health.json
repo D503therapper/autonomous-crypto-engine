@@ -1,5 +1,5 @@
 {
- "at": "2026-11-10T16:55Z",
+ "at": "2026-11-10T16:56Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
@@ -8,7 +8,7 @@
   "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
  ],
  "ok": [
-  "live watcher fresh (56s)",
+  "live watcher fresh (300s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,22 @@
   "every upcoming game has its real teams",
   "studies ran 0h ago",
   "simulator ran 0h ago",
-  "engine ran 10 min ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-10T16:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
+    "live tennis scores: tennis Riera vs Tubello: no points for 2624s",
+    "live tennis scores: tennis Pareja vs Bronzetti: no points for 2624s",
+    "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-10T16:55Z",
    "fixes": [],
@@ -512,11 +522,6 @@
   },
   {
    "at": "2026-11-09T13:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-09T13:55Z",
    "fixes": [],
    "problems": []
   }
