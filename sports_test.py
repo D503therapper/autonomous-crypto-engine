@@ -19909,6 +19909,79 @@ def test_daily_1109_early_road_dog_fade_off_three_point_luck_and_the_nhl_fast_st
     assert "weigh_ncaab_tp_net_fav(out)" in src and "weigh_nhl_fast_starter_fav(games, out)" in src
 
 
+def test_daily_1110_college_scoreboard_over_the_yards_is_a_weight():
+    """11/10 daily run (10 studies, results/studies/daily_1110/): ONE WEIGHT - the football side whose point margin a game
+    runs over what its yard margin says (sports_absences.yard_luck: passing + rushing from both teams' box scores, the
+    slope fit on 2021-22, 3+ boxed games). College 6+ over: ATS -8.6% on 1,192 (z -3.1), the dog -12.7% on 328 (6 of 6
+    seasons down, the first fair -17.0%) -> -1 on the college dog's study points + -0.02 on a college spread side's rank;
+    the NFL (+4) is marked for the tracker only (no weight). Unknown (under 3 boxed games / no box) = 0, never a gate."""
+    import sports_absences as sa
+    import sports_leads as sl
+    assert sa.YARD_LUCK_MIN_GAMES == 3 and sa.YARD_LUCK_SLOPE == {"nfl": 0.0695, "ncaaf": 0.1089}
+    assert sports.YARD_LUCK_CUT == {"ncaaf": 6.0, "nfl": 4.0}
+    assert sports.NCAAF_YARD_LUCK_PTS == 1 and sports.NCAAF_YARD_LUCK_SPREAD_W == 0.02
+
+    def rows(team, gid, start, pas, rush):
+        return (start, gid, [
+            {"gid": gid, "start": start, "team": team, "pid": "qb", "player": "QB", "group": "passing",
+             "stats": json.dumps({"completions/passingAttempts": "20/30", "passingYards": str(pas)})},
+            {"gid": gid, "start": start, "team": team, "pid": "rb", "player": "RB", "group": "rushing",
+             "stats": json.dumps({"rushingAttempts": "20", "rushingYards": str(rush)})}])
+    # team 7 wins every game 35-14 while dead even on yards (300 + 100 each side): +21 a game over the yards
+    G, R = {}, {"7": [], "8": [], "9": []}
+    for i in range(4):
+        gid, st = f"ncaaf:y{i}", f"2026-09-{5 + 7 * i:02d}T20:00Z"
+        G[gid] = {"id": gid, "league": "ncaaf", "start": st, "home": "7", "away": "9", "home_score": "35",
+                  "away_score": "14", "status": "final", "stype": "2"}
+        R["7"].append(rows("7", gid, st, 300, 100))
+        R["9"].append(rows("9", gid, st, 300, 100))
+    got = sa.yard_luck(G, "ncaaf", "7", "2026-11-01T00:00Z", rows=R)
+    assert got == {"luck": 21.0, "games": 4}, got
+    assert sa.yard_luck(G, "ncaaf", "9", "2026-11-01T00:00Z", rows=R) == {"luck": -21.0, "games": 4}
+    assert sa.yard_luck(G, "ncaaf", "7", "2026-09-13T00:00Z", rows=R) is None          # 2 games in: unknown
+    # the yards count: +200 yards a game for 7 with the same score -> 21 - 0.1089 * 200 = -0.8 (not lucky)
+    R2 = {"7": [rows("7", gid, s, 500, 100) for s, gid, _ in R["7"]], "9": R["9"]}
+    assert sa.yard_luck(G, "ncaaf", "7", "2026-11-01T00:00Z", rows=R2)["luck"] == round(21 - 0.1089 * 200, 1)
+    R3 = {"7": R["7"], "9": R["9"][:2]}                                                # no box for the opponent: skipped
+    assert sa.yard_luck(G, "ncaaf", "7", "2026-11-01T00:00Z", rows=R3) is None
+    G4 = dict(G, **{"ncaaf:y0": dict(G["ncaaf:y0"], stype="1")})                     # an exhibition never counts
+    assert sa.yard_luck(G4, "ncaaf", "7", "2026-11-01T00:00Z", rows=R)["games"] == 3
+    assert sa.yard_luck(G, "nhl", "7", "2026-11-01T00:00Z", rows=R) is None           # football only
+    assert sa.yard_luck(G, "ncaaf", "7", "2025-11-01T00:00Z", rows=R) is None         # last season: not this season
+    # the marks + the weights on the day's candidates (the box rows patched in - no file read)
+    keep = dict(sa._TEAM)
+    sa._TEAM.clear()
+    sa._TEAM["ncaaf"] = R
+    try:
+        games = dict(G, **{"ncaaf:tonight": {"id": "ncaaf:tonight", "league": "ncaaf", "start": "2026-11-07T20:00Z",
+                                             "home": "8", "away": "7", "status": "pre", "stype": "2"}})
+        base = {"game_id": "ncaaf:tonight", "league": "ncaaf", "start": "2026-11-07T20:00Z", "reasons": []}
+        dog = {**base, "market": "ml", "side": "away", "home": False, "odds": 150, "dec": 2.5, "p": 0.4,
+               "dog_ctx": {}, "dog_more": {}}
+        sp = {**base, "market": "spread", "side": "away", "home": False, "line": 3.5, "odds": -110, "dec": 1.909,
+              "p": 0.5}
+        other = {**base, "market": "ml", "side": "home", "home": True, "odds": -180, "dec": 1.556, "p": 0.6}
+        sports.mark_football_yard_luck(games, [dog, sp, other])
+        assert dog["yard_luck"] == 21.0 and dog["yard_lucky"] and sp["yard_lucky"]
+        assert "yard_luck" not in other                                                # team 8 has no box: unknown
+        plain = {k: v for k, v in dog.items() if k != "yard_lucky"}
+        assert sports.dog_spots(dog) == sports.dog_spots(plain) - 1                     # -1 on the study points
+        assert sports.dog_spots({**dog, "league": "nfl"}) == sports.dog_spots({**plain, "league": "nfl"})   # not the NFL
+        psp = {k: v for k, v in sp.items() if k != "yard_lucky"}
+        assert abs(sports.rank_p(sp) - (sports.rank_p(psp) - 0.02)) < 1e-9              # -0.02 on the spread rank
+        assert sports.rank_p({**sp, "league": "nfl"}) == sports.rank_p({**psp, "league": "nfl"})
+        assert "college football dog, scoreboard 6+ a game over its yards (fade)" in sl.tags(dog, sports)
+        assert "NFL dog, scoreboard 4+ a game over its yards (fade)" in sl.tags({**dog, "league": "nfl"}, sports)
+        assert "college football spread side, scoreboard 6+ a game over its yards (fade)" in sl.tags(sp, sports)
+        assert not any("over its yards" in t for t in sl.tags({**dog, "odds": 400, "dec": 5.0}, sports))   # past +350
+        assert not any("over its yards" in t for t in sl.tags(plain, sports))
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+        assert "mark_football_yard_luck(games, out)" in src                             # wired into the candidates
+    finally:
+        sa._TEAM.clear()
+        sa._TEAM.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

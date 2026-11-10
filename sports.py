@@ -834,6 +834,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_nba_favorites(out)                           # 🏀 10/22: the NBA favorite reads off the books' price + its studies
     mark_nba_lost_man(games, out)                     # 🏀 11/3 daily: the NBA team that lost a rotation man (-2 / -0.03)
     mark_ncaaf_int_luck(games, out)                   # 🏈 11/4 daily: the interception-unlucky college dog (+2)
+    mark_football_yard_luck(games, out)               # 🏈 11/10 daily: the scoreboard over the yards (college -1 / -0.02)
     mark_ncaab_rubber(games, out)                     # 🏀 11/3: the college hoops rubber-match dog (-2 in dog_spots)
     mark_ncaab_top_out(games, out)                    # 🏀 11/3 DEEP: the college hoops top scorer who missed the last game
     mark_ncaab_ranked_road(games, out, elo.get("ncaab"))   # 🏀 11/3 FABLE: the top-25 team on the road in Nov-Dec (fade)
@@ -2289,6 +2290,9 @@ def dog_spots(c):
     if lg == "ncaaf" and c.get("int_unlucky"):
         sc += NCAAF_INT_LUCK_PTS   # 11/4 daily study 1: the college dog whose season INT margin runs -0.5 a game or worse
         #                            +20.4% on 277 (3 of 3 train up, held 2024 / 2025 / 2026 up, the first fair +25.1%)
+    if lg == "ncaaf" and c.get("yard_lucky"):
+        sc -= NCAAF_YARD_LUCK_PTS  # 11/10 daily studies 4 / 8: the college dog whose scoreboard runs 6+ a game over its
+        #                            yards -12.7% on 328 (6 of 6 seasons down, the first fair -17.0%) vs +3.1%
     if lg == "ncaab" and c.get("ranked_road"):
         sc -= NCAAB_RANKED_ROAD_DOG   # 11/3 FABLE: a top-25 team as a road dog in Nov-Dec -31.1% on 104 (0 of 5 train)
     elif lg == "ncaab" and c.get("vs_ranked_road"):
@@ -3299,6 +3303,7 @@ def rank_p(c):
             + ncaab_roster_spread_w(c)                         # (11/3 KNOWLEDGE (A): Feb-Mar, the transfer-heavy side -0.02,
             #                                                     the freshman-heavy side vs an experienced team +0.02)
             + ncaab_star_back_spread_w(c)                      # (11/4 EXPERT: the star's 2nd game back -0.03 / +0.03 across)
+            + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -4088,6 +4093,53 @@ def mark_ncaaf_int_luck(games, cands):
                 c["reasons"] = c.get("reasons", []) + [
                     f"the picks have gone against them all year ({im['margin']:+.1f} a game over {im['games']} games) - "
                     "that's in the record the price comes off, and these dogs win more than the number says"]
+
+
+# 🏈 11/10 DAILY STUDIES 4 / 8 (results/studies/daily_1110/s4_s8_yards_luck.py + s4b_yards_luck_dog.py; SPORTS_FINDINGS
+# "11/10 - DAILY STUDIES"): THE SCOREBOARD OVER THE YARDS. A team's point margin a game this season minus what its yard
+# margin a game says (passing + rushing, both teams' box scores; the slope fit on 2021-22 only - sports_absences.
+# yard_luck, 3+ boxed games). A college side 6+ points a game OVER its yards fails its number: ATS -8.6% on 1,192 (train
+# 2021-22 0 of 2 up, held out 2023 -8.4 / 2024 -9.9 / 2025 +0.9, 2026 -12.6% on 264; z -3.1), +10 or more -15.1% on 366
+# (3 of 3 held out down, 2026 -17.2%) vs -2.4% for the sides within 2; as a dog +100..+350 -12.7% on 328 (6 of 6 seasons
+# down, the first fair number -17.0% on 240) vs +3.1%. The NFL says the same ATS (+7 -16.7% on 167, the dog +4 -17.6%
+# on 146) on a flat train half - tracked there, not weighed. WEIGHTS, never gates: a college dog flagged -1 on its study
+# points (inside STUDY_CAP), a college spread side flagged -0.02 on its rank; unknown (under 3 boxed games) = 0.
+YARD_LUCK_CUT = {"ncaaf": 6.0, "nfl": 4.0}   # points a game over the yards = 'lucky' (the NFL cut only feeds the tracker)
+NCAAF_YARD_LUCK_PTS = 1
+NCAAF_YARD_LUCK_SPREAD_W = 0.02
+
+
+def mark_football_yard_luck(games, cands):
+    """Football moneyline / spread sides: yard_luck = the season's points-over-yards a game (sports_absences.yard_luck)
+    and yard_lucky = True at YARD_LUCK_CUT or more - the weights read it in college only (dog_spots / rank_p)."""
+    fb = [c for c in cands if c.get("league") in YARD_LUCK_CUT and c.get("market") in ("ml", "spread")]
+    if not fb:
+        return
+    import sports_absences
+    seen = {}
+    for c in fb:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        side, lg = c.get("side"), c.get("league")
+        key = (c.get("game_id"), side)
+        if key not in seen:
+            try:
+                seen[key] = sports_absences.yard_luck(games, lg, g.get(side), start) if g.get(side) and start else None
+            except Exception:                                    # noqa: BLE001
+                seen[key] = None
+        yl = seen[key]
+        if not yl:
+            continue
+        c["yard_luck"] = yl["luck"]
+        if yl["luck"] >= YARD_LUCK_CUT[lg]:
+            c["yard_lucky"] = True
+
+
+def ncaaf_yard_luck_spread_w(c):
+    """The 11/10 rank weight: a college football SPREAD side whose scoreboard runs 6+ a game over its yards (a fade)."""
+    if c.get("league") == "ncaaf" and c.get("market") == "spread" and c.get("yard_lucky"):
+        return -NCAAF_YARD_LUCK_SPREAD_W
+    return 0.0
 
 
 # 🏀 11/3 FABLE - COLLEGE HOOPS SECOND OPINION (results/studies/fable_cbb_1103/, SPORTS_FINDINGS "11/3 - FABLE: COLLEGE
