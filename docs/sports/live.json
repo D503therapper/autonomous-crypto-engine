@@ -1,11 +1,11 @@
 {
- "updated": 1794287343627,
+ "updated": 1794296724705,
  "plays": [],
  "record": {
   "won": 17,
   "lost": 20
  },
- "live_games": 3,
+ "live_games": 0,
  "tennis": {
   "watching": 0,
   "priced": 0,
@@ -249,10 +249,10 @@
   "nba:401909959": {
    "away": "Pelicans",
    "home": "Warriors",
-   "a": 79,
-   "h": 124,
-   "clock": "06:38 - 4th",
-   "live": true
+   "a": 87,
+   "h": 138,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892674": {
    "away": "Panthers",
@@ -313,18 +313,18 @@
   "nhl:401892681": {
    "away": "Flyers",
    "home": "Canucks",
-   "a": 2,
+   "a": 3,
    "h": 1,
-   "clock": "01:59 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892682": {
    "away": "Islanders",
    "home": "Sharks",
    "a": 2,
-   "h": 2,
-   "clock": "13:57 - 3rd",
-   "live": true
+   "h": 3,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401924646": {
    "away": "Iona",
@@ -726,6 +726,14 @@
    "clock": "Final",
    "live": false
   },
+  "ncaab:401929003": {
+   "away": "Portland",
+   "home": "Hawai'i",
+   "a": 73,
+   "h": 66,
+   "clock": "Final",
+   "live": false
+  },
   "ncaab:401925630": {
    "away": "Cheyney (PA)",
    "home": "Coppin St",
@@ -960,29 +968,16 @@
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nba": "ok 0",
-  "betrivers:nhl": "ok 0",
-  "betrivers:ncaab": "ok 0",
-  "betrivers:nba:1028754082": "ok 0",
-  "betrivers:ncaab:1028770811": "ok 0",
   "betrivers:tennis": "ok 0"
  },
- "health": [
-  "no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a real price)",
-  "only 0 of 3 live games have a sportsbook price we can bet on",
-  "1 live game priced only by DraftKings (via ESPN), no second source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there",
-  "Bovada has no live lines for nba, nhl"
- ],
+ "health": [],
  "priced": 0,
- "dk_only": 1,
+ "dk_only": 0,
  "min_p": 0.55,
  "price_src": {},
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
  "espn_only": 23,
  "errors": [],
- "books": {
-  "nba": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
-  "nhl": "2 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 28.6
+ "books": {},
+ "took_s": 18.8
 }
