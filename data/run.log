@@ -16571,3 +16571,26 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 01:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 01:06 UTC] crypto/hold_btc  equity $452.29 (-9.5%) 1 open  market DOWN
    social heat top: AVAX 37 (37/0/0), LINK 32 (32/0/0), PENGU 27 (27/0/0), BTC 24 (24/0/0), PEPE 21 (21/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PAXG@solana liq $152,948 - freeze authority; mint authority; close authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 93%; lp holders unknown
+   dex screen: REJECT SOL@base liq $391,222 - pool age unknown
+   dex screen: REJECT PLTRC@base liq $371,176 - pool age unknown
+   dex screen: PASS SNOWMOON@ethereum liq $120,695
+   dex screen: REJECT GULD@ethereum liq $1,375,966 - top-10 holders 64%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT TBTC@ethereum liq $6,075,091 - is_mintable; honeypot_with_same_creator; top-10 holders 78%
+   dex scanner: 2,338 pools (solana 1,661 / base 360 / ethereum 317), refresh cycle 107s (hot 102s), 2756 calls (108 feed, 429s 0, failed 1), 79,409 refreshed (16106 no pair), +44 added / -86 dropped (dead 76, stale 10, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 02:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/mover     equity $212.64 (-57.5%) 2 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/social_heat equity $339.84 (-32.0%) 2 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 02:06 UTC] crypto/hold_btc  equity $451.22 (-9.8%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), AVAX 35 (35/0/0), AERO 29 (24/0/5), ONDO 27 (27/0/0), ETH 21 (21/0/0)
