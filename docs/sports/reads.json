@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T04:19Z",
+ "updated": "2026-11-10T04:30Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -741,7 +741,7 @@
    "home": "Vikings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "night",
    "lean": {
     "team": "Vikings",
@@ -752,7 +752,7 @@
     "p": 0.485,
     "win_p": 0.485,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -840,8 +840,8 @@
    "away": "Spurs",
    "home": "Suns",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
