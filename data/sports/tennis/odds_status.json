@@ -1,16 +1,17 @@
 {
- "at": "2026-11-10T14:58Z",
- "src": null,
+ "at": "2026-11-10T16:00Z",
+ "src": "oddsapi",
  "oddsapi": {
-  "pulled": false,
-  "why": "not due (pulled since the 23:00 PT slot)",
-  "remaining": 3361
+  "pulled": true,
+  "credits_used": 1,
+  "keys": [
+   "tennis_wta_finals 4"
+  ],
+  "remaining": 3360,
+  "today": 1,
+  "month": 20,
+  "tournaments": 1
  },
- "bovada": {
-  "lines": 0,
-  "url": "coupon",
-  "raw": "list 0"
- },
- "lines": 0,
- "cached": 1
+ "lines": 4,
+ "cached": 4
 }
