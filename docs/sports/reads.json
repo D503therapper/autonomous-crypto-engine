@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T06:59Z",
+ "updated": "2026-11-10T07:04Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -1071,9 +1071,9 @@
     "team": "NJIT",
     "opp": "Rutgers",
     "market": "spread",
-    "line": 24.5,
-    "odds": -102,
-    "p": 0.56,
+    "line": 25.5,
+    "odds": -118,
+    "p": 0.565,
     "win_p": 0.038,
     "reasons": [
      "sharp money moving this way"
@@ -1188,7 +1188,7 @@
     "opp": "Providence",
     "market": "spread",
     "line": 29.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.594,
     "win_p": 0.024,
     "reasons": []
@@ -1522,7 +1522,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rhode Island",
-    "p": 0.887,
+    "p": 0.883,
     "tie": 0.02,
     "name": "1st half"
    },
@@ -1540,7 +1540,7 @@
     "line": 18.5,
     "odds": -108,
     "p": 0.506,
-    "win_p": 0.05,
+    "win_p": 0.053,
     "reasons": []
    }
   },
@@ -1989,7 +1989,7 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -15.5,
-    "odds": -114,
+    "odds": -111,
     "p": 0.509,
     "win_p": 0.88,
     "reasons": [
@@ -2045,14 +2045,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Nicholls",
-    "opp": "Tulane",
+    "team": "Tulane",
+    "opp": "Nicholls",
     "market": "spread",
-    "line": 8.5,
-    "odds": -102,
-    "p": 0.502,
-    "win_p": 0.227,
-    "reasons": []
+    "line": -7.5,
+    "odds": -108,
+    "p": 0.503,
+    "win_p": 0.777,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -2213,7 +2216,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northern Iowa",
-    "p": 0.569,
+    "p": 0.562,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2229,9 +2232,9 @@
     "opp": "Green Bay",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.619,
-    "win_p": 0.619,
+    "odds": -166,
+    "p": 0.61,
+    "win_p": 0.61,
     "reasons": [
      "the stronger team"
     ]
@@ -2412,7 +2415,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -192,
     "p": 0.649,
     "win_p": 0.432,
     "reasons": []
@@ -2513,8 +2516,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Ole Miss",
-    "p": 0.918,
-    "tie": 0.015,
+    "p": 0.908,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2531,7 +2534,7 @@
     "line": 25.5,
     "odds": -112,
     "p": 0.552,
-    "win_p": 0.032,
+    "win_p": 0.037,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2678,7 +2681,7 @@
     "opp": "Jazz",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -106,
     "p": 0.503,
     "win_p": 0.777,
     "reasons": [
@@ -2964,7 +2967,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Kings",
-    "p": 0.381,
+    "p": 0.374,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2981,8 +2984,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.658,
-    "win_p": 0.441,
+    "p": 0.67,
+    "win_p": 0.453,
     "reasons": [
      "opponent drama: suspension"
     ]
@@ -2994,7 +2997,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.528,
+    "p": 0.535,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3003,20 +3006,20 @@
    "start": "2026-11-11T04:00Z",
    "away": "Thunder",
    "home": "Trail Blazers",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Thunder",
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team",
-     "rolling off a blowout win",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "rolling off a blowout win"
     ]
    }
   }

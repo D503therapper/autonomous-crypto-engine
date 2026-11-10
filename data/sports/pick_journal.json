@@ -12339,6 +12339,62 @@
  },
  {
   "date": "2026-11-09",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892682",
+  "team": "Sharks",
+  "opp": "Islanders",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 120,
+  "posted": "2026-11-09T16:00Z",
+  "price_says": 0.455,
+  "win_p": 0.4293945757360717,
+  "own_read": 0.429,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.05533193338064213,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:0",
+   "cx_trip:2",
+   "w_public:118",
+   "k_trip:1",
+   "f_last:1",
+   "f_site:2",
+   "f_outs:2",
+   "f_theirL:3",
+   "f_pdo:1",
+   "f_shots:1",
+   "risk:7",
+   "bottom_floor:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Ryan Pulock (D)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 120,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "3-2",
+  "margin": 1.0,
+  "pnl_units": 0.6
+ },
+ {
+  "date": "2026-11-09",
   "kind": "lean",
   "lean": true,
   "tier": "lean",

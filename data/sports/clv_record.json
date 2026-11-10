@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 205,
+  "n": 206,
   "beat": 65,
-  "same": 82,
+  "same": 83,
   "worse": 58,
   "avg_pts": 0.1
  },
  "unit_plays": {
-  "n": 102,
+  "n": 103,
   "beat": 30,
-  "same": 47,
+  "same": 48,
   "worse": 25,
   "avg_pts": 0.14
  },
@@ -36,9 +36,9 @@
    "avg_pts": 1.23
   },
   "play": {
-   "n": 60,
+   "n": 61,
    "beat": 16,
-   "same": 30,
+   "same": 31,
    "worse": 14,
    "avg_pts": 0.08
   }
@@ -80,9 +80,9 @@
    "avg_pts": 0.28
   },
   "nhl": {
-   "n": 79,
+   "n": 80,
    "beat": 22,
-   "same": 32,
+   "same": 33,
    "worse": 25,
    "avg_pts": -0.04
   }
@@ -2987,6 +2987,20 @@
    "pts": -1.3,
    "units": 2.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-09",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Sharks",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 120,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }
