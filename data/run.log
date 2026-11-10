@@ -16857,3 +16857,32 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 11:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 11:07 UTC] crypto/hold_btc  equity $446.77 (-10.6%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), NEAR 35 (35/0/0), SUI 29 (29/0/0), INIT 27 (27/0/0), AVAX 21 (21/0/0)
+   footprint: NEAR: footprint 3/4 (quiet+hikes+rising_lows) 48h -4.2%, 2 volume hikes, 69% quiet hours @ 3.5577
+   dex screen: REJECT USPR@solana liq $1,089,757 - lp holders unknown; rugcheck score 54
+   dex screen: REJECT AAVE@solana liq $3,317,525,598 - top-10 holders 100%
+   dex screen: REJECT SPX@solana liq $1,787,526 - mint authority
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT CBETH@base liq $268,928 - pool age unknown
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS CATE@solana liq $1,783,946
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 2,738 pools (solana 1,882 / base 491 / ethereum 365), refresh cycle 106s (hot 102s), 2916 calls (122 feed, 429s 1, failed 1), 83,794 refreshed (11092 no pair), +206 added / -241 dropped (dead 233, stale 8, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/mover     equity $207.33 (-58.5%) 2 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/social_heat equity $338.53 (-32.3%) 2 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 12:06 UTC] crypto/hold_btc  equity $447.80 (-10.4%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), AERO 35 (35/0/0), NEAR 33 (24/0/9), SOL 32 (32/0/0), AVAX 29 (29/0/0)
