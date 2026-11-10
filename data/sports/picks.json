@@ -37632,6 +37632,11 @@
      "us:west1000"
     ],
     "dec": 2.2,
+    "decider": {
+     "s": "3-2",
+     "type": "so",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -37671,6 +37676,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 5.29,
+    "flow": {
+     "a": "1,1,0,0,0",
+     "h": "1,1,0,0,1"
+    },
     "form_state": [
      -1.0,
      -5,
@@ -37721,10 +37730,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Islanders 2 @ Sharks 3",
     "season_games": null,
+    "settled": "2026-11-10T06:05Z",
     "side": "home",
     "start": "2026-11-10T03:00Z",
     "stype": "2",
@@ -37741,12 +37752,14 @@
    }
   ],
   "p_hit": 0.4294,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-11-09T16:00Z",
   "round": 1,
+  "settled": "2026-11-10T06:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -115,
