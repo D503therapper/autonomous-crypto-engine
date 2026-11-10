@@ -16981,3 +16981,52 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-10 15:07 UTC] stocks/trend     equity $458.07 (-8.4%) 4 open  market DOWN
 [2026-11-10 15:07 UTC] stocks/hold_spy  equity $489.67 (-2.1%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), PEPE 37 (32/0/5), INIT 35 (35/0/0), PENGU 27 (27/0/0), VVV 22 (11/0/11)
+   dex screen: REJECT LMAO!@solana liq $108,163 - lp holders unknown; rugcheck lp locked 86% < 95%
+   dex screen: PASS HODL@solana liq $251,059
+   dex screen: REJECT FONE@solana liq $263,788 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: REJECT BEC@base liq $215,151 - pool age unknown
+   dex screen: REJECT AVNT@base liq $610,185 - pool age unknown
+   dex screen: REJECT ORCLC@base liq $248,889 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex screen: REJECT NFLXC@base liq $10,180 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT FWA@ethereum liq $436,579 - goplus partial data: cannot_sell_all unknown; top-10 holders 58%
+   dex screen: PASS CBUCKS@solana liq $240,662
+   dex screen: REJECT JUPSOL@solana liq $108,496 - mint authority; top-10 holders 59735079942%; lp holders unknown
+   dex screen: REJECT ONDO@ethereum liq $1,547,825 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT WASTED@solana liq $112,615 - lp holders unknown; rugcheck lp locked 84% < 95%
+   dex screen: REJECT ELSA@base liq $480,893 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT AERO@base liq $4,312,050 - is_mintable; top-10 holders 90%
+   dex screen: REJECT ZEC@solana liq $1,650,344,932 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $1,382,791,966 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $973,234,152 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $3,084,017 - top-10 holders 100%
+   dex scanner: 2,738 pools (solana 1,909 / base 475 / ethereum 354), refresh cycle 125s (hot 120s), 2703 calls (106 feed, 429s 0, failed 0), 77,910 refreshed (10164 no pair), +73 added / -53 dropped (dead 37, stale 16, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/mover     equity $205.19 (-59.0%) 2 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/social_heat equity $335.98 (-32.8%) 2 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] crypto/hold_btc  equity $442.19 (-11.6%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-10 16:07 UTC] stocks/rsi2      equity $463.77 (-7.2%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 14, NVDA 17, XLE 26, COIN 33
+[2026-11-10 16:07 UTC] stocks/breakout52 equity $485.33 (-2.9%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+408% 6-mo), ELF (+116% 6-mo), CHPT (+93% 6-mo), XYZ (+21% 6-mo)
+[2026-11-10 16:07 UTC] stocks/dual_momentum equity $458.30 (-8.3%) 2 open  market DOWN
+[2026-11-10 16:07 UTC] stocks/trend_ensemble equity $502.46 (+0.5%) 5 open  market UP
+[2026-11-10 16:07 UTC] stocks/rotation10 equity $495.31 (-0.9%) 2 open  market UP
+[2026-11-10 16:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-10 16:07 UTC] stocks/trend     equity $457.07 (-8.6%) 4 open  market DOWN
+[2026-11-10 16:07 UTC] stocks/hold_spy  equity $487.56 (-2.5%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), INIT 35 (35/0/0), PEPE 34 (32/0/2), PENGU 29 (29/0/0), ETH 27 (27/0/0)
