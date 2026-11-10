@@ -37776,6 +37776,12 @@
      "game:nonconf"
     ],
     "dec": 1.8695652173913042,
+    "decider": {
+     "h": "47-20",
+     "s": "90-50",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -37799,6 +37805,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "20,30",
+     "h": "47,43"
+    },
     "form_state": [
      59.0,
      2,
@@ -37849,10 +37859,12 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Louisiana Tech 50 @ LSU 90",
     "season_games": null,
+    "settled": "2026-11-10T03:05Z",
     "side": "away",
     "start": "2026-11-10T01:00Z",
     "stype": "2",
@@ -37868,12 +37880,14 @@
    }
   ],
   "p_hit": 0.6493,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-09T16:00Z",
   "round": 1,
+  "settled": "2026-11-10T03:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -37914,6 +37928,7 @@
      "game:nonconf"
     ],
     "dec": 1.9523809523809523,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -37937,6 +37952,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "36,36",
+     "h": "37,44"
+    },
     "form_state": [
      10.0,
      2,
@@ -37985,10 +38004,12 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "North Alabama 72 @ Oklahoma 81",
     "season_games": null,
+    "settled": "2026-11-10T03:05Z",
     "side": "away",
     "start": "2026-11-10T01:00Z",
     "stype": "2",
@@ -38004,12 +38025,14 @@
    }
   ],
   "p_hit": 0.5843,
-  "pnl": 0.0,
+  "pnl": 95.24,
   "posted": "2026-11-09T16:00Z",
   "round": 1,
+  "settled": "2026-11-10T03:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 102,

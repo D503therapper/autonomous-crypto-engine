@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T02:57Z",
+ "updated": "2026-11-10T03:06Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -581,8 +581,8 @@
    "away": "Boston U",
    "home": "Northwestern",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -596,8 +596,8 @@
    "away": "Fisk",
    "home": "Tennessee St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -612,7 +612,7 @@
    "home": "LSU",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Louisiana Tech",
@@ -625,7 +625,7 @@
     "reasons": [
      "hotter recent form"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -639,7 +639,7 @@
    "home": "Oklahoma",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "North Alabama",
@@ -652,7 +652,7 @@
     "reasons": [
      "hotter recent form"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -928,6 +928,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaab:401921095",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T03:00Z",
+   "away": "Rice",
+   "home": "Stanford",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401929003",
