@@ -5,8 +5,8 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.513,
-   "n": 273,
+   "hit": 0.511,
+   "n": 274,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -26,9 +26,9 @@
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.54,
-   "n": 63,
-   "said": 0.514,
+   "hit": 0.531,
+   "n": 64,
+   "said": 0.513,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:rival": {
@@ -68,10 +68,10 @@
   },
   "ctx:them:out_dome": {
    "extra_edge": 0.0,
-   "hit": 0.833,
-   "n": 6,
-   "said": 0.529,
-   "verdict": "only 6 graded - report only (report only: forward-only tag)"
+   "hit": 0.714,
+   "n": 7,
+   "said": 0.522,
+   "verdict": "only 7 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:road3in6": {
    "extra_edge": 0.0,
@@ -180,8 +180,8 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.534,
-   "n": 232,
+   "hit": 0.532,
+   "n": 233,
    "said": 0.503,
    "verdict": "hitting at or above what we said"
   },
@@ -222,8 +222,8 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.512,
-   "n": 203,
+   "hit": 0.51,
+   "n": 204,
    "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
@@ -264,9 +264,9 @@
   },
   "league:nfl": {
    "extra_edge": 0.0,
-   "hit": 0.636,
-   "n": 44,
-   "said": 0.542,
+   "hit": 0.622,
+   "n": 45,
+   "said": 0.54,
    "verdict": "hitting at or above what we said"
   },
   "league:nhl": {
@@ -292,15 +292,15 @@
   },
   "market:spread": {
    "extra_edge": 0.0,
-   "hit": 0.433,
-   "n": 30,
-   "said": 0.533,
-   "verdict": "only 30 graded - report only"
+   "hit": 0.419,
+   "n": 31,
+   "said": 0.531,
+   "verdict": "only 31 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.418,
-   "n": 91,
+   "hit": 0.413,
+   "n": 92,
    "said": 0.476,
    "verdict": "a little below what we said - within noise"
   },
@@ -334,8 +334,8 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.514,
-   "n": 249,
+   "hit": 0.512,
+   "n": 250,
    "said": 0.498,
    "verdict": "hitting at or above what we said"
   },
@@ -425,5 +425,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-10T04:17Z"
+ "updated": "2026-11-10T04:56Z"
 }
