@@ -16500,3 +16500,47 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-09 23:21 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-09 23:21 UTC] crypto/hold_btc  equity $452.36 (-9.5%) 1 open  market DOWN
    social heat top: ONDO 35 (35/0/0), PENGU 32 (32/0/0), AVAX 29 (29/0/0), NEAR 27 (27/0/0), XRP 24 (24/0/0)
+   scanner: 975 tickers, sample: {'i': 'BTC_USD', 'h': '75589.77', 'l': '73657.91', 'a': '75206.54', 'v': '4948.5151', 'vv': '370036567.42', 'c': '-0.0036', 'b': '75207.71', 'k': '75207.72', 'oi': '0', 't': 1794266471189}
+   dex screen: REJECT CBXRP@base liq $402,676 - pool age unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $182,978 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SPCX@solana liq $2,440,078 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex screen: REJECT SPCX@solana liq $2,740,328,304 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT SPCX@solana liq $452,655,921 - top-10 holders 100%
+   dex screen: REJECT XAUT@ethereum liq $3,789,773 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 54%
+   scanner: CDCETH: +6.6% in 8 min on 18.3x volume @ 2280.68 spread 0.55%
+   take-off: BUY CDCETH (scanner mover): CDCETH: +6.6% in 8 min on 18.3x volume @ 2280.68 spread 0.55%
+   >> crypto/mover: BUY $95.64 of CDCETH @ 2282.96 (scanner mover)
+   scanner: CDCETH: +7.0% in 9 min on 18.3x volume @ 2290.19 spread 0.55%
+   scanner: CDCETH: +6.8% in 10 min on 18.3x volume @ 2284.85 spread 0.56%
+   scanner: CDCETH: +7.1% in 11 min on 18.3x volume @ 2291.44 spread 0.56%
+   scanner: CDCETH: +6.2% in 12 min on 18.3x volume @ 2272.17 spread 0.56%
+   dex screen: REJECT MSTRC@base liq $57,193 - liquidity $57,193 < $100,000; 24h volume $11,456 < $100,000
+   scanner: CDCETH: +6.2% in 13 min on 18.3x volume @ 2272.17 spread 0.56%
+   scanner: CDCETH: +6.6% in 14 min on 18.3x volume @ 2281.3 spread 0.56%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   scanner: CDCETH: +6.9% in 15 min on 18.3x volume @ 2287.02 spread 0.56%
+   scanner: CDCETH: +6.6% in 14 min on 7.6x volume @ 2280.76 spread 0.56%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: CDCETH: +6.6% in 15 min on 8.0x volume @ 2281.91 spread 0.56%
+   dex screen: UNREACHABLE GTA6@ethereum liq $185,785 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT GATO@ethereum liq $99,010 - liquidity $99,010 < $100,000
+   scanner: CDCETH: +6.7% in 15 min on 8.2x volume @ 2281.67 spread 0.56%
+   scanner: CDCETH: +6.8% in 15 min on 8.7x volume @ 2286.37 spread 0.54%
+   dex screen: REJECT AERO@base liq $5,647 - liquidity $5,647 < $100,000; 24h volume $2,061 < $100,000
+   dex screen: REJECT HELL@solana liq $127,817 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: REJECT PUMP@solana liq $2,365,078 - transfer hook; top-10 holders 60%
+   dex screen: UNREACHABLE GTA6@ethereum liq $183,070 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,733 pools (solana 1,939 / base 443 / ethereum 351), refresh cycle 114s (hot 109s), 1933 calls (81 feed, 429s 1, failed 2), 55,457 refreshed (11013 no pair), +93 added / -23 dropped (dead 13, stale 10, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/mover     equity $212.45 (-57.5%) 2 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/social_heat equity $340.45 (-31.9%) 2 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 00:06 UTC] crypto/hold_btc  equity $452.78 (-9.4%) 1 open  market DOWN
+   social heat top: ONDO 35 (35/0/0), PENGU 32 (32/0/0), XRP 29 (29/0/0), NEAR 27 (27/0/0), AVAX 24 (24/0/0)
