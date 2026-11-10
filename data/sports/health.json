@@ -1,28 +1,47 @@
 {
- "at": "2026-11-10T15:05Z",
+ "at": "2026-11-10T16:38Z",
  "fixes": [
-  "live watch 42832218615 froze (6 min) - cancelled",
-  "live board 6 min stale with games on - sports-live.yml already running"
+  "studies overdue (10h) - started sports_studies.yml"
  ],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Gormaz vs Monnet: no points for 1731s",
+  "live tennis scores: tennis Riera vs Tubello: no points for 1731s",
+  "live tennis scores: tennis Pareja vs Bronzetti: no points for 1731s",
+  "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list",
+  "studies last ran 10h ago - restarted"
+ ],
  "ok": [
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
+  "live tennis points + server: 1 of 4 live matches",
+  "slate check: all 85 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 22 min ago",
+  "simulator ran 9h ago",
+  "engine ran 58 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-10T16:38Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 1731s",
+    "live tennis scores: tennis Riera vs Tubello: no points for 1731s",
+    "live tennis scores: tennis Pareja vs Bronzetti: no points for 1731s",
+    "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-10T15:05Z",
    "fixes": [
@@ -487,11 +506,6 @@
   },
   {
    "at": "2026-11-09T13:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-09T13:44Z",
    "fixes": [],
    "problems": []
   }
