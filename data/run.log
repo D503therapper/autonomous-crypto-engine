@@ -16910,3 +16910,26 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 13:06 UTC] crypto/hold_btc  equity $447.21 (-10.6%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), AVAX 35 (35/0/0), PENGU 32 (32/0/0), HYPE 27 (27/0/0), NEAR 26 (16/0/10)
+   footprint: NEAR: footprint 3/4 (quiet+hikes+rising_lows) 48h -1.3%, 2 volume hikes, 67% quiet hours @ 3.6322
+   footprint: BUY NEAR (footprint 3/4 quiet+hikes+rising_lows): NEAR: footprint 3/4 (quiet+hikes+rising_lows) 48h -1.3%, 2 volume hikes, 67% quiet hours @ 3.6322
+   >> crypto/mover: BUY $92.51 of NEAR @ 3.63583 (footprint 3/4 quiet+hikes+rising_lows)
+   dex screen: REJECT ROCCO@ethereum liq $219,526 - goplus partial data: cannot_sell_all unknown; top-10 holders 119%
+   dex screen: REJECT AGL@ethereum liq $1,144,395 - goplus partial data: cannot_sell_all unknown; top-10 holders 55%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS USELESS@solana liq $3,439,062
+   dex screen: REJECT KTA@base liq $3,053,130 - top-10 holders 66%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       108aed904612f1055188953f3615aa3573e11502 -> main (cannot lock ref 'refs/heads/main': is at 66453d2cf0abde209667a
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PLAY@base liq $223,629 - goplus partial data: cannot_sell_all unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex scanner: 2,707 pools (solana 1,871 / base 476 / ethereum 360), refresh cycle 115s (hot 110s), 2931 calls (108 feed, 429s 0, failed 0), 84,686 refreshed (10624 no pair), +69 added / -92 dropped (dead 76, stale 16, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/mover     equity $206.93 (-58.6%) 2 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/social_heat equity $337.75 (-32.5%) 2 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 14:06 UTC] crypto/hold_btc  equity $444.92 (-11.0%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), HYPE 32 (32/0/0), SOL 32 (27/0/5), PENGU 29 (29/0/0), AVAX 24 (24/0/0)
