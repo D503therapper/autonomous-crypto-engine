@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T03:14Z",
+ "updated": "2026-11-10T03:42Z",
  "games": [
   {
    "id": "ncaab:401925630",
@@ -725,8 +725,8 @@
    "away": "UL Monroe",
    "home": "Texas A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -765,8 +765,8 @@
    "away": "Illinois St",
    "home": "Purdue",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -928,6 +928,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaab:401925737",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-10T03:00Z",
+   "away": "Miss Valley St",
+   "home": "Washington",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909959",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-10T03:00Z",
+   "away": "Pelicans",
+   "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401921095",
@@ -1362,7 +1392,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "LMU",
-    "p": 0.481,
+    "p": 0.497,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1371,7 +1401,7 @@
    "start": "2026-11-11T00:00Z",
    "away": "LMU",
    "home": "Troy",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Troy",
@@ -1380,7 +1410,7 @@
     "line": 1.5,
     "odds": -112,
     "p": 0.555,
-    "win_p": 0.496,
+    "win_p": 0.475,
     "reasons": [
      "opponent's body clock is off"
     ]
@@ -1450,7 +1480,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "GA Southern",
-    "p": 0.492,
+    "p": 0.504,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1464,11 +1494,11 @@
    "lean": {
     "team": "GA Southern",
     "opp": "Mercer",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -105,
-    "p": 0.532,
-    "win_p": 0.518,
+    "market": "ml",
+    "line": null,
+    "odds": -122,
+    "p": 0.534,
+    "win_p": 0.534,
     "reasons": [
      "hotter recent form",
      "the stronger team"
@@ -1481,7 +1511,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duke",
-    "p": 0.647,
+    "p": 0.64,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1497,9 +1527,9 @@
     "opp": "Michigan St",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.717,
-    "win_p": 0.717,
+    "odds": -270,
+    "p": 0.708,
+    "win_p": 0.708,
     "reasons": [
      "the stronger team"
     ]
@@ -1632,8 +1662,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duquesne",
-    "p": 0.593,
-    "tie": 0.042,
+    "p": 0.618,
+    "tie": 0.041,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1641,16 +1671,16 @@
    "start": "2026-11-11T00:00Z",
    "away": "Washington St",
    "home": "Duquesne",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Duquesne",
     "opp": "Washington St",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.65,
-    "win_p": 0.65,
+    "odds": -230,
+    "p": 0.681,
+    "win_p": 0.681,
     "reasons": [
      "hotter recent form",
      "the stronger team",
