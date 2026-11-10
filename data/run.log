@@ -16933,3 +16933,51 @@ DEX: $645.90 (-354.10) · Scammed: 11 (-$216.49)
 [2026-11-10 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-10 14:06 UTC] crypto/hold_btc  equity $444.92 (-11.0%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), HYPE 32 (32/0/0), SOL 32 (27/0/5), PENGU 29 (29/0/0), AVAX 24 (24/0/0)
+   dex screen: REJECT NVDAX@solana liq $2,633,500 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 78%
+   dex screen: REJECT WECX@solana liq $785,666 - mint authority; top-10 holders 83%; lp holders unknown
+   dex screen: REJECT DACITYCOIN@solana liq $296,590 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $5,434,206 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 72%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #3 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT LIT@ethereum liq $582,998 - top-10 holders 61%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #4 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS GLITCH@solana liq $123,183
+   dex scanner: 2,718 pools (solana 1,892 / base 466 / ethereum 360), refresh cycle 121s (hot 116s), 2820 calls (106 feed, 429s 0, failed 0), 81,419 refreshed (10808 no pair), +62 added / -51 dropped (dead 51, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-10 15:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/mover     equity $209.83 (-58.0%) 2 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/social_heat equity $339.11 (-32.2%) 2 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] crypto/hold_btc  equity $449.97 (-10.0%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $146.45 of PLTR @ 167.771, P/L $-18.89 (mean reversion: bounced or time limit)
+[2026-11-10 15:07 UTC] stocks/rsi2      equity $467.66 (-6.5%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 14, NVDA 17, XLE 26, COIN 33
+[2026-11-10 15:07 UTC] stocks/breakout52 equity $483.41 (-3.3%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+408% 6-mo), ELF (+116% 6-mo), CHPT (+93% 6-mo), XYZ (+21% 6-mo)
+[2026-11-10 15:07 UTC] stocks/dual_momentum equity $460.84 (-7.8%) 2 open  market DOWN
+[2026-11-10 15:07 UTC] stocks/trend_ensemble equity $503.01 (+0.6%) 5 open  market UP
+   >> stocks/rotation10: SELL $221.77 of AMZN @ 272.064, P/L $+0.23 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $223.12 of COST @ 1062.28 (entry)
+[2026-11-10 15:07 UTC] stocks/rotation10 equity $495.71 (-0.9%) 2 open  market UP
+[2026-11-10 15:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-10 15:07 UTC] stocks/trend     equity $458.07 (-8.4%) 4 open  market DOWN
+[2026-11-10 15:07 UTC] stocks/hold_spy  equity $489.67 (-2.1%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), PEPE 37 (32/0/5), INIT 35 (35/0/0), PENGU 27 (27/0/0), VVV 22 (11/0/11)
