@@ -1,17 +1,14 @@
 {
- "at": "2026-11-10T16:48Z",
- "fixes": [
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-10T16:55Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Gormaz vs Monnet: no points for 2360s",
-  "live tennis scores: tennis Riera vs Tubello: no points for 2360s",
-  "live tennis scores: tennis Pareja vs Bronzetti: no points for 2360s",
-  "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
+  "live tennis scores: tennis Riera vs Tubello: no points for 2624s",
+  "live tennis scores: tennis Pareja vs Bronzetti: no points for 2624s",
+  "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (56s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,12 +20,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 0h ago",
-  "engine ran 3 min ago",
+  "simulator ran 0h ago",
+  "engine ran 10 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-10T16:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
+    "live tennis scores: tennis Riera vs Tubello: no points for 2624s",
+    "live tennis scores: tennis Pareja vs Bronzetti: no points for 2624s",
+    "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-10T16:48Z",
    "fixes": [
@@ -509,11 +517,6 @@
   },
   {
    "at": "2026-11-09T13:55Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-09T13:53Z",
    "fixes": [],
    "problems": []
   }
