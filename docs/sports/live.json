@@ -1,11 +1,11 @@
 {
- "updated": 1794281801297,
+ "updated": 1794287343627,
  "plays": [],
  "record": {
   "won": 17,
   "lost": 20
  },
- "live_games": 15,
+ "live_games": 3,
  "tennis": {
   "watching": 0,
   "priced": 0,
@@ -129,10 +129,10 @@
   "nfl:401873051": {
    "away": "Bills",
    "home": "Vikings",
-   "a": 13,
+   "a": 23,
    "h": 6,
-   "clock": "04:11 - 3rd",
-   "live": true
+   "clock": "Final",
+   "live": false
   },
   "nba:401909945": {
    "away": "76ers",
@@ -225,33 +225,33 @@
   "nba:401909956": {
    "away": "Pacers",
    "home": "Mavericks",
-   "a": 119,
-   "h": 123,
-   "clock": "00:26 - 4th",
-   "live": true
+   "a": 122,
+   "h": 125,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909957": {
    "away": "Nuggets",
    "home": "Rockets",
-   "a": 87,
-   "h": 96,
-   "clock": "05:34 - 4th",
-   "live": true
+   "a": 100,
+   "h": 110,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909958": {
    "away": "Spurs",
    "home": "Suns",
-   "a": 74,
-   "h": 58,
-   "clock": "07:29 - 3rd",
-   "live": true
+   "a": 122,
+   "h": 96,
+   "clock": "Final",
+   "live": false
   },
   "nba:401909959": {
    "away": "Pelicans",
    "home": "Warriors",
-   "a": 18,
-   "h": 33,
-   "clock": "00:49 - 1st",
+   "a": 79,
+   "h": 124,
+   "clock": "06:38 - 4th",
    "live": true
   },
   "nhl:401892674": {
@@ -306,24 +306,24 @@
    "away": "Rangers",
    "home": "Oilers",
    "a": 1,
-   "h": 2,
-   "clock": "02:45 - 3rd",
-   "live": true
+   "h": 3,
+   "clock": "Final",
+   "live": false
   },
   "nhl:401892681": {
    "away": "Flyers",
    "home": "Canucks",
-   "a": 1,
-   "h": 0,
-   "clock": "1st Intermission",
+   "a": 2,
+   "h": 1,
+   "clock": "01:59 - 3rd",
    "live": true
   },
   "nhl:401892682": {
    "away": "Islanders",
    "home": "Sharks",
-   "a": 1,
-   "h": 0,
-   "clock": "04:25 - 1st",
+   "a": 2,
+   "h": 2,
+   "clock": "13:57 - 3rd",
    "live": true
   },
   "ncaab:401924646": {
@@ -697,70 +697,34 @@
   "ncaab:401926132": {
    "away": "Illinois St",
    "home": "Purdue",
-   "a": 50,
-   "h": 71,
-   "clock": "02:15 - 2nd Half",
-   "live": true
+   "a": 59,
+   "h": 76,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401909502": {
    "away": "Alabama A&M",
    "home": "DePaul",
-   "a": 30,
-   "h": 48,
-   "clock": "16:29 - 2nd Half",
-   "live": true
+   "a": 47,
+   "h": 84,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401925737": {
    "away": "Miss Valley St",
    "home": "Washington",
-   "a": 21,
-   "h": 30,
-   "clock": "06:27 - 1st Half",
-   "live": true
+   "a": 64,
+   "h": 77,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401921095": {
    "away": "Rice",
    "home": "Stanford",
-   "a": 21,
-   "h": 30,
-   "clock": "05:55 - 1st Half",
-   "live": true
-  },
-  "ncaab:401920887": {
-   "away": "Seton Hall",
-   "home": "Charlotte",
-   "a": 41,
-   "h": 39,
-   "clock": "16:11 - 2nd Half",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401920799": {
-   "away": "App State",
-   "home": "Auburn",
-   "a": 44,
-   "h": 51,
-   "clock": "11:37 - 2nd Half",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401929357": {
-   "away": "UT Arlington",
-   "home": "Bethesda",
-   "a": 57,
-   "h": 32,
-   "clock": "Halftime",
-   "live": true,
-   "src": "espn"
-  },
-  "ncaab:401920718": {
-   "away": "E Washington",
-   "home": "Oregon St",
-   "a": 37,
-   "h": 49,
-   "clock": "Halftime",
-   "live": true,
-   "src": "espn"
+   "a": 73,
+   "h": 91,
+   "clock": "Final",
+   "live": false
   },
   "ncaab:401925630": {
    "away": "Cheyney (PA)",
@@ -933,6 +897,42 @@
    "live": false,
    "src": "espn"
   },
+  "ncaab:401920887": {
+   "away": "Seton Hall",
+   "home": "Charlotte",
+   "a": 68,
+   "h": 62,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401920799": {
+   "away": "App State",
+   "home": "Auburn",
+   "a": 53,
+   "h": 75,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401929357": {
+   "away": "UT Arlington",
+   "home": "Bethesda",
+   "a": 116,
+   "h": 65,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "ncaab:401920718": {
+   "away": "E Washington",
+   "home": "Oregon St",
+   "a": 84,
+   "h": 94,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
   "tennis:wta:186585": {
    "n": [
     "Stefanini",
@@ -961,34 +961,28 @@
  "today": [],
  "sources": {
   "betrivers:nba": "ok 0",
-  "betrivers:ncaab": "ok 0",
   "betrivers:nhl": "ok 0",
-  "betrivers:nfl": "ok 0",
-  "betrivers:tennis": "ok 0",
-  "betrivers:ncaab:1028372134": "ok 0",
-  "betrivers:ncaab:1028906778": "ok 0",
-  "betrivers:ncaab:1028372224": "ok 0",
-  "betrivers:ncaab:1028934854": "ok 0",
-  "betrivers:ncaab:1028770811": "ok 0"
+  "betrivers:ncaab": "ok 0",
+  "betrivers:nba:1028754082": "ok 0",
+  "betrivers:ncaab:1028770811": "ok 0",
+  "betrivers:tennis": "ok 0"
  },
  "health": [
+  "no legit live price source answered - Bovada and BetRivers gave no live line to a plain request and DraftKings (via ESPN) had no second source agreeing; Live Plus Money stays quiet (never a bet without a real price)",
+  "only 0 of 3 live games have a sportsbook price we can bet on",
   "1 live game priced only by DraftKings (via ESPN), no second source (Bovada, BetRivers or Action Network's live line) agreeing - no live bet can post there",
-  "Bovada has no live lines for nfl"
+  "Bovada has no live lines for nba, nhl"
  ],
- "priced": 8,
+ "priced": 0,
  "dk_only": 1,
  "min_p": 0.55,
- "price_src": {
-  "bovada": 8
- },
+ "price_src": {},
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
  "espn_only": 23,
  "errors": [],
  "books": {
-  "nhl": "3 groups, 3 fresh events",
-  "ncaab": "7 groups, 7 fresh events",
-  "nba": "4 groups, 4 fresh events",
-  "nfl": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+  "nba": "1 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nhl": "2 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
  },
- "took_s": 36.5
+ "took_s": 28.6
 }
