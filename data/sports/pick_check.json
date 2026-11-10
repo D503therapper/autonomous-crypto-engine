@@ -1,28 +1,11 @@
 {
- "day": "2026-11-09",
+ "day": "2026-11-10",
  "picks": {
-  "dog|nhl:401892681|home|ml": {
-   "key": "dog|nhl:401892681|home|ml",
-   "kind": "dog",
-   "team": "Canucks",
-   "odds": 114,
-   "league": "nhl",
-   "units": 2.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "play|nhl:401892682|home|ml": {
-   "key": "play|nhl:401892682|home|ml",
+  "play|nhl:401892685|away|ml": {
+   "key": "play|nhl:401892685|away|ml",
    "kind": "floor",
-   "team": "Sharks",
-   "odds": 120,
+   "team": "Capitals",
+   "odds": 105,
    "league": "nhl",
    "units": 0.5,
    "lean": false,
@@ -35,12 +18,29 @@
     "injuries": "pass"
    }
   },
-  "lean|ncaab:401921810|away|spread": {
-   "key": "lean|ncaab:401921810|away|spread",
+  "play|nhl:401892689|away|ml": {
+   "key": "play|nhl:401892689|away|ml",
+   "kind": "floor",
+   "team": "Predators",
+   "odds": 114,
+   "league": "nhl",
+   "units": 0.5,
+   "lean": false,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass"
+   }
+  },
+  "lean|nhl:401892684|away|ml": {
+   "key": "lean|nhl:401892684|away|ml",
    "kind": "lean",
-   "team": "Louisiana Tech",
-   "odds": -115,
-   "league": "ncaab",
+   "team": "Wild",
+   "odds": -125,
+   "league": "nhl",
    "units": 0,
    "lean": true,
    "held": false,
@@ -49,17 +49,15 @@
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass"
+    "injuries": "pass"
    }
   },
-  "lean|ncaab:401906803|away|spread": {
-   "key": "lean|ncaab:401906803|away|spread",
+  "lean|nhl:401892686|away|ml": {
+   "key": "lean|nhl:401892686|away|ml",
    "kind": "lean",
-   "team": "North Alabama",
-   "odds": -105,
-   "league": "ncaab",
+   "team": "Panthers",
+   "odds": -120,
+   "league": "nhl",
    "units": 0,
    "lean": true,
    "held": false,
@@ -68,17 +66,15 @@
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass"
+    "injuries": "pass"
    }
   },
-  "night|nfl:401873051|home|spread": {
-   "key": "night|nfl:401873051|home|spread",
-   "kind": "night",
-   "team": "Vikings",
-   "odds": 102,
-   "league": "nfl",
+  "lean|nba:401909965|away|ml": {
+   "key": "lean|nba:401909965|away|ml",
+   "kind": "lean",
+   "team": "Thunder",
+   "odds": -130,
+   "league": "nba",
    "units": 0,
    "lean": true,
    "held": false,
@@ -91,6 +87,6 @@
    }
   }
  },
- "updated": "2026-11-09T16:00Z",
+ "updated": "2026-11-10T16:00Z",
  "held": []
 }
