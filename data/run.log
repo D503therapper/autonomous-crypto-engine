@@ -17288,3 +17288,10 @@ $BITF: possibly delisted; no price data found  (period=407d)
    [alert] Today -8.94 | Total -379.55: Stocks: $473.42  today -10.08  total -26.58
 DEX: $647.04  today +1.14  total -352.96
 DEX: $647.04 (-352.96) · Scammed: 11 (-$216.49)
+   dex screen: PASS STONK@solana liq $2,288,908
+   dex screen: REJECT RAY@solana liq $1,831,434 - top-10 holders 83%
+   dex screen: REJECT VCNT@base liq $190,763 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: PASS JOB@solana liq $153,860
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #4 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT XDP@base liq $1,617,011 - top-10 holders 93%
+   dex screen: REJECT SWORDCAT@solana liq $108,581 - lp holders unknown; rugcheck lp locked 76% < 95%
