@@ -1,0 +1,145 @@
+============================== S2 - WHO MOVES FIRST (beta: points the OTHER books move by the next look per point this book sits off them now; home side of every game, back-to-back fair looks)
+
+ nfl: book, looks, beta TRAIN, beta HELD, share of its own gap it gives back, how far it usually sits off (pts)
+   lowvig           n  4139  lead TRAIN +0.52  HELD +0.19  gives back 0.37  off by 0.54
+   betonlineag      n  4635  lead TRAIN +0.44  HELD +0.21  gives back 0.36  off by 0.55
+   superbook        n  1580  lead TRAIN +0.43  HELD +0.24  gives back 0.42  off by 0.60
+   bookmaker        n   685  lead TRAIN +0.26  HELD   -    gives back 0.55  off by 0.63
+   williamhill_us   n  4827  lead TRAIN +0.21  HELD +0.13  gives back 0.53  off by 0.57
+   foxbet           n  1229  lead TRAIN +0.13  HELD   -    gives back 0.25  off by 1.15
+   circasports      n   688  lead TRAIN +0.11  HELD   -    gives back 0.39  off by 1.06
+   gtbets           n  2238  lead TRAIN +0.11  HELD   -    gives back 0.31  off by 0.68
+   fanduel          n  4812  lead TRAIN +0.11  HELD +0.12  gives back 0.67  off by 0.82
+   draftkings       n  4906  lead TRAIN +0.08  HELD +0.07  gives back 0.51  off by 0.93
+   unibet           n  1842  lead TRAIN +0.07  HELD   -    gives back 0.72  off by 0.69
+   mybookieag       n  4518  lead TRAIN +0.07  HELD +0.10  gives back 0.56  off by 0.74
+   betus            n  3738  lead TRAIN +0.05  HELD +0.26  gives back 0.59  off by 0.56
+   bovada           n  4405  lead TRAIN +0.05  HELD +0.11  gives back 0.59  off by 0.72
+   betfair          n  2296  lead TRAIN +0.04  HELD   -    gives back 0.84  off by 3.02
+   pointsbetus      n  3088  lead TRAIN +0.02  HELD +0.01  gives back 0.83  off by 1.76
+   betrivers        n  4913  lead TRAIN +0.01  HELD -0.10  gives back 0.75  off by 0.73
+   betmgm           n  4655  lead TRAIN -0.03  HELD -0.09  gives back 0.77  off by 0.84
+   barstool         n  2031  lead TRAIN -0.06  HELD +0.06  gives back 0.68  off by 0.77
+   intertops        n  1958  lead TRAIN -0.06  HELD   -    gives back 0.78  off by 0.56
+   twinspires       n  1978  lead TRAIN -0.08  HELD -0.13  gives back 0.72  off by 0.77
+   sugarhouse       n  1896  lead TRAIN -0.08  HELD   -    gives back 0.91  off by 0.61
+   wynnbet          n  1970  lead TRAIN -0.12  HELD +0.04  gives back 0.71  off by 0.78
+   unibet_us        n  1281  lead TRAIN -0.18  HELD -0.20  gives back 0.94  off by 0.65
+   caesars          n   114  lead TRAIN   -    HELD   -    gives back  -   off by 0.74
+   fanatics         n   919  lead TRAIN   -    HELD +0.10  gives back 0.55  off by 0.59
+   -> the lead books by the train seasons: ['lowvig', 'betonlineag', 'superbook', 'bookmaker']
+
+ ncaaf: book, looks, beta TRAIN, beta HELD, share of its own gap it gives back, how far it usually sits off (pts)
+   foxbet           n   397  lead TRAIN +0.34  HELD   -    gives back 0.36  off by 1.15
+   betonlineag      n  4875  lead TRAIN +0.32  HELD +0.10  gives back 0.54  off by 0.57
+   betus            n  5531  lead TRAIN +0.31  HELD +0.30  gives back 0.41  off by 0.61
+   lowvig           n  5865  lead TRAIN +0.30  HELD +0.11  gives back 0.50  off by 0.60
+   williamhill_us   n  6882  lead TRAIN +0.28  HELD +0.20  gives back 0.36  off by 0.58
+   bookmaker        n   747  lead TRAIN +0.20  HELD   -    gives back 0.17  off by 0.88
+   superbook        n  2280  lead TRAIN +0.17  HELD +0.21  gives back 0.42  off by 0.67
+   fanduel          n  6789  lead TRAIN +0.14  HELD +0.14  gives back 0.36  off by 0.99
+   circasports      n  1207  lead TRAIN +0.13  HELD   -    gives back 0.33  off by 1.10
+   betmgm           n  6182  lead TRAIN +0.12  HELD -0.03  gives back 0.67  off by 0.83
+   draftkings       n  7033  lead TRAIN +0.12  HELD +0.14  gives back 0.50  off by 0.83
+   unibet           n  2500  lead TRAIN +0.06  HELD   -    gives back 0.32  off by 1.31
+   wynnbet          n  2565  lead TRAIN +0.06  HELD +0.01  gives back 0.46  off by 0.82
+   mybookieag       n  4843  lead TRAIN +0.06  HELD -0.04  gives back 0.49  off by 0.94
+   gtbets           n  2668  lead TRAIN +0.05  HELD   -    gives back 0.24  off by 0.87
+   unibet_us        n  1820  lead TRAIN +0.03  HELD +0.01  gives back 0.48  off by 1.03
+   pointsbetus      n  3706  lead TRAIN +0.03  HELD +0.20  gives back 0.86  off by 1.57
+   bovada           n  5816  lead TRAIN +0.01  HELD +0.20  gives back 0.05  off by 2.04
+   betrivers        n  6948  lead TRAIN +0.01  HELD +0.09  gives back 0.46  off by 1.09
+   betfair          n  1136  lead TRAIN +0.00  HELD   -    gives back 0.57  off by 18.03
+   barstool         n  3181  lead TRAIN -0.00  HELD +0.12  gives back 0.54  off by 0.90
+   intertops        n  1307  lead TRAIN -0.01  HELD   -    gives back 0.42  off by 0.74
+   sugarhouse       n  2536  lead TRAIN -0.02  HELD   -    gives back 0.52  off by 0.99
+   twinspires       n  1005  lead TRAIN -0.02  HELD   -    gives back 0.55  off by 0.98
+   caesars          n    19  lead TRAIN   -    HELD   -    gives back  -   off by 0.98
+   fanatics         n   892  lead TRAIN   -    HELD +0.37  gives back 0.30  off by 0.43
+   -> the lead books by the train seasons: ['foxbet', 'betonlineag', 'betus', 'lowvig']
+
+ S2b - the dog's LEAD-BOOK GAP at the first fair number (lead books minus the median, + = the lead books like the dog MORE than the pack) -> the move to the close, and the ROI at the median price
+   nfl 0.4 to 1 higher                      TRAIN move to the close +1.84 (t +3.4), to the game-day look +1.74 | ROI at the median n   42 26-16  +57.0% z+2.89 | at the BEST book +61.4%
+   nfl 0.4 to 1 higher                      HELD  move to the close -0.40 (t -0.8), to the game-day look +0.01 | ROI at the median n   43 14-29   +5.0% z+0.21 | at the BEST book +9.9%
+   nfl inside 0.4                           TRAIN move to the close +0.80 (t +3.8), to the game-day look +0.54 | ROI at the median n  366 119-247  -12.6% z-1.85 | at the BEST book -9.3%
+   nfl inside 0.4                           HELD  move to the close +0.04 (t +0.3), to the game-day look +0.18 | ROI at the median n  489 166-323   -6.4% z-1.03 | at the BEST book -3.2%
+   nfl 0.4 to 1 lower                       TRAIN move to the close +0.48 (t +1.0), to the game-day look +0.43 | ROI at the median n   93 35-58   +5.3% z+0.36 | at the BEST book +9.2%
+   nfl 0.4 to 1 lower                       HELD  move to the close -0.11 (t -0.3), to the game-day look -0.15 | ROI at the median n  151 57-94   -4.0% z-0.38 | at the BEST book -0.1%
+   nfl lead books 1+ pt LOWER on the dog    TRAIN move to the close -0.31 (t -0.2), to the game-day look -0.92 | ROI at the median n   19 5-14  -31.9% z-1.17 | at the BEST book -28.7%
+   nfl lead books 1+ pt LOWER on the dog    HELD  move to the close +0.66 (t +0.9), to the game-day look +0.11 | ROI at the median n   39 13-26  -20.7% z-1.11 | at the BEST book -17.3%
+   ncaaf lead books 1+ pt HIGHER on the dog   TRAIN move to the close +1.13 (t +1.7), to the game-day look +0.63 | ROI at the median n   12 3-9  -30.3% z-0.85 | at the BEST book -28.4%
+   ncaaf lead books 1+ pt HIGHER on the dog   HELD  move to the close +0.74 (t +1.0), to the game-day look +0.67 | ROI at the median n   30 9-21  -17.6% z-0.72 | at the BEST book -15.2%
+   ncaaf 0.4 to 1 higher                      TRAIN move to the close +0.53 (t +1.1), to the game-day look +0.00 | ROI at the median n   66 22-44   -7.7% z-0.45 | at the BEST book -3.8%
+   ncaaf 0.4 to 1 higher                      HELD  move to the close +1.15 (t +3.1), to the game-day look +0.51 | ROI at the median n  106 36-70   -2.0% z-0.15 | at the BEST book +1.5%
+   ncaaf inside 0.4                           TRAIN move to the close +0.53 (t +3.4), to the game-day look +0.37 | ROI at the median n  364 122-242   -6.1% z-0.85 | at the BEST book -2.4%
+   ncaaf inside 0.4                           HELD  move to the close +0.86 (t +7.8), to the game-day look +0.44 | ROI at the median n  996 342-654   -2.9% z-0.67 | at the BEST book -0.0%
+   ncaaf 0.4 to 1 lower                       TRAIN move to the close +0.08 (t +0.2), to the game-day look -0.32 | ROI at the median n   95 43-52  +29.9% z+1.94 | at the BEST book +36.3%
+   ncaaf 0.4 to 1 lower                       HELD  move to the close +0.70 (t +2.6), to the game-day look +0.44 | ROI at the median n  178 73-105   +4.7% z+0.48 | at the BEST book +8.3%
+   ncaaf lead books 1+ pt LOWER on the dog    TRAIN move to the close +1.22 (t +2.0), to the game-day look +0.45 | ROI at the median n   15 7-8  +18.2% z+0.54 | at the BEST book +25.2%
+   ncaaf lead books 1+ pt LOWER on the dog    HELD  move to the close +1.09 (t +1.7), to the game-day look +0.73 | ROI at the median n   24 7-17  -25.3% z-1.03 | at the BEST book -21.1%
+
+============================== S4 - PREDICTING THE MOVE (dogs +100..+350 at the first fair number; target = the close's no-vig % minus the first fair number's, points; + = toward the dog)
+
+ nfl A: no opener (train 2020-22 -> blind 2023-26): train 716, blind 769
+   fit: train corr +0.226; BLIND corr +0.009 (t +0.3); the move's own spread 3.69 pts, the model's 0.99
+   weights (per 1 sd of the input, points of move): price +0.57, rest_diff +0.51, best_gap -0.31, lead_gap +0.30, gap -0.28, blowout +0.24, eastwest -0.23, nbooks -0.22, last_margin -0.15, mnf +0.13
+   placebo (the train moves shuffled, 300 fits): blind corr beats ours 127 of 300 (the shuffles' 95th pct +0.088)
+   by the predicted fifth (blind): predicted / actual move to the close / share that came 1+ toward / ROI at the first fair price / ROI at the close
+     fifth 1: predicted -0.22 | actual +0.25 (t +0.8) | toward 1+  34% / away 1+  37% | first fair n  153 52-101  +10.6% z+0.82 | close  +11.3%
+     fifth 2: predicted +0.64 | actual -0.30 (t -1.1) | toward 1+  32% / away 1+  36% | first fair n  153 49-104   -6.5% z-0.57 | close   -6.3%
+     fifth 3: predicted +1.15 | actual +0.02 (t +0.1) | toward 1+  34% / away 1+  41% | first fair n  153 51-102  -13.4% z-1.30 | close  -13.7%
+     fifth 4: predicted +1.66 | actual -0.45 (t -1.4) | toward 1+  32% / away 1+  41% | first fair n  153 50-103  -16.5% z-1.66 | close  -16.3%
+     fifth 5: predicted +2.53 | actual +0.15 (t +0.5) | toward 1+  36% / away 1+  36% | first fair n  157 63-94   -7.4% z-0.81 | close   -7.5%
+   direction (games that moved 1+ pt): the model's side of its own median called 281 of 554 (50.7%)
+   WAIT OR BET NOW on the model (blind, the same 751 dogs): always at the first fair -7.49% | always at the game-day look -7.57% | the model picks -7.37% (vs always-now +0.12% a bet, t +0.3)
+
+ nfl B: + the opener -> first fair move (train 2023-24 -> blind 2025-26): train 484, blind 285
+   fit: train corr +0.266; BLIND corr +0.048 (t +0.8); the move's own spread 3.78 pts, the model's 0.78
+   weights (per 1 sd of the input, points of move): nbooks +0.56, open_move -0.48, last_margin +0.43, rest_diff +0.37, blowout -0.31, price +0.28, eastwest -0.21, lead_gap -0.17, days_out +0.16, prior_win -0.13
+   placebo (the train moves shuffled, 300 fits): blind corr beats ours 80 of 300 (the shuffles' 95th pct +0.152)
+   by the predicted fifth (blind): predicted / actual move to the close / share that came 1+ toward / ROI at the first fair price / ROI at the close
+     fifth 1: predicted -1.67 | actual -0.02 (t -0.0) | toward 1+  32% / away 1+  35% | first fair n   57 25-32  +34.2% z+1.61 | close  +38.6%
+     fifth 2: predicted -0.89 | actual -0.49 (t -1.2) | toward 1+  19% / away 1+  44% | first fair n   57 21-36   +3.1% z+0.17 | close   +5.2%
+     fifth 3: predicted -0.44 | actual -0.44 (t -0.8) | toward 1+  32% / away 1+  42% | first fair n   57 21-36   +1.2% z+0.07 | close   +2.1%
+     fifth 4: predicted -0.05 | actual +0.06 (t +0.1) | toward 1+  30% / away 1+  33% | first fair n   57 18-39  -19.7% z-1.23 | close  -19.6%
+     fifth 5: predicted +0.53 | actual +0.30 (t +0.6) | toward 1+  42% / away 1+  33% | first fair n   57 20-37  -14.2% z-0.91 | close  -16.1%
+   direction (games that moved 1+ pt): the model's side of its own median called 111 of 195 (56.9%)
+   WAIT OR BET NOW on the model (blind, the same 270 dogs): always at the first fair +0.16% | always at the game-day look +1.12% | the model picks +1.03% (vs always-now +0.88% a bet, t +1.6)
+
+ ncaaf A: no opener (train 2020-22 -> blind 2023-26): train 1039, blind 1362
+   fit: train corr +0.164; BLIND corr +0.078 (t +2.9); the move's own spread 3.53 pts, the model's 0.57
+   weights (per 1 sd of the input, points of move): price +0.37, blowout +0.36, bye +0.19, best_gap -0.18, days_out +0.16, last_margin -0.16, hrs_fair -0.15, neutral -0.13, lead_gap +0.09, disp +0.08
+   placebo (the train moves shuffled, 300 fits): blind corr beats ours 2 of 300 (the shuffles' 95th pct +0.054)
+   by the predicted fifth (blind): predicted / actual move to the close / share that came 1+ toward / ROI at the first fair price / ROI at the close
+     fifth 1: predicted -0.26 | actual +0.56 (t +2.9) | toward 1+  42% / away 1+  25% | first fair n  272 74-198   -7.1% z-0.75 | close   -8.6%
+     fifth 2: predicted +0.19 | actual +0.71 (t +3.5) | toward 1+  42% / away 1+  30% | first fair n  272 82-190   -8.2% z-0.94 | close  -10.4%
+     fifth 3: predicted +0.49 | actual +0.86 (t +4.0) | toward 1+  46% / away 1+  28% | first fair n  272 94-178   -4.3% z-0.52 | close   -7.2%
+     fifth 4: predicted +0.79 | actual +0.94 (t +4.1) | toward 1+  48% / away 1+  27% | first fair n  272 112-160   +6.1% z+0.77 | close   +3.9%
+     fifth 5: predicted +1.34 | actual +1.37 (t +6.0) | toward 1+  53% / away 1+  28% | first fair n  274 112-162   -3.2% z-0.44 | close   -5.9%
+   direction (games that moved 1+ pt): the model's side of its own median called 523 of 1004 (52.1%)
+   WAIT OR BET NOW on the model (blind, the same 1315 dogs): always at the first fair -3.40% | always at the game-day look -4.81% | the model picks -3.72% (vs always-now -0.33% a bet, t -1.5)
+
+ ncaaf B: + the opener -> first fair move (train 2023-24 -> blind 2025-26): train 814, blind 548
+   fit: train corr +0.145; BLIND corr +0.069 (t +1.6); the move's own spread 3.28 pts, the model's 0.51
+   weights (per 1 sd of the input, points of move): price +0.31, rest_diff +0.28, opp_last_margin -0.17, best_gap -0.15, open_move +0.14, opp_prior_win -0.10, bye -0.08, blowout +0.08, neutral +0.06, prior_win +0.04
+   placebo (the train moves shuffled, 300 fits): blind corr beats ours 4 of 300 (the shuffles' 95th pct +0.052)
+   by the predicted fifth (blind): predicted / actual move to the close / share that came 1+ toward / ROI at the first fair price / ROI at the close
+     fifth 1: predicted +0.37 | actual +0.01 (t +0.1) | toward 1+  39% / away 1+  36% | first fair n  109 32-77   +1.0% z+0.06 | close   -0.6%
+     fifth 2: predicted +0.79 | actual +0.70 (t +2.4) | toward 1+  46% / away 1+  26% | first fair n  109 29-80  -19.3% z-1.47 | close  -21.8%
+     fifth 3: predicted +1.04 | actual +0.94 (t +3.0) | toward 1+  47% / away 1+  28% | first fair n  109 35-74  -10.3% z-0.81 | close   -9.9%
+     fifth 4: predicted +1.30 | actual +0.50 (t +1.5) | toward 1+  44% / away 1+  30% | first fair n  109 36-73  -14.5% z-1.21 | close  -16.8%
+     fifth 5: predicted +1.79 | actual +0.93 (t +2.7) | toward 1+  51% / away 1+  30% | first fair n  112 48-64   -3.1% z-0.29 | close   -5.2%
+   direction (games that moved 1+ pt): the model's side of its own median called 214 of 413 (51.8%)
+   WAIT OR BET NOW on the model (blind, the same 510 dogs): always at the first fair -9.84% | always at the game-day look -11.24% | the model picks -10.38% (vs always-now -0.54% a bet, t -1.5)
+
+============================== S9 - SIZING BY THE EXPECTED MOVE (blind 2023-26, model A; the SPOT dogs only - what the engine posts)
+   nfl spot dogs | move called TOWARD us (top third)    actual move +0.07 | first fair n  102 38-64   -7.6% z-0.62 | z vs the price -0.41
+   nfl spot dogs | middle third                         actual move +0.71 | first fair n   51 22-29  +13.1% z+0.69 | z vs the price +1.05
+   nfl spot dogs | move called AWAY (bottom third)      actual move -0.34 | first fair n   51 18-33   +5.0% z+0.24 | z vs the price +0.38
+   nfl every dog: top third                            first fair n  257 89-168  -17.8% z-2.48 | z vs the price -1.95
+   nfl every dog: bottom third                         first fair n  257 79-178   -2.9% z-0.30 | z vs the price -0.16
+   ncaaf spot dogs | move called TOWARD us (top third)    actual move +1.24 | first fair n  282 103-179   -6.5% z-0.85 | z vs the price -0.28
+   ncaaf spot dogs | middle third                         actual move +0.58 | first fair n   94 33-61  +21.0% z+1.21 | z vs the price +1.68
+   ncaaf spot dogs | move called AWAY (bottom third)      actual move +1.08 | first fair n    9 3-6   +8.7% z+0.17 | z vs the price +0.41
+   ncaaf every dog: top third                            first fair n  454 182-272   -2.9% z-0.50 | z vs the price +0.23
+   ncaaf every dog: bottom third                         first fair n  454 132-322   -6.1% z-0.87 | z vs the price +0.08

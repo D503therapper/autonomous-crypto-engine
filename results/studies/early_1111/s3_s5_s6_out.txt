@@ -1,0 +1,415 @@
+============================== S3 - THE PRICE PATH (points of no-vig win % the side gained since its first fair number)
+
+ nfl | dogs +100..+350 at the first fair number: 1485 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL -0.34 (n  105, t  -2.3) | TRAIN -0.29 (n   51, t  -1.4) | HELD -0.39 (n   54, t  -1.7)
+   by the 3-4d     look   ALL +0.16 (n 1312, t  +2.6) | TRAIN +0.20 (n  620, t  +2.2) | HELD +0.11 (n  692, t  +1.5)
+   by the 2d       look   ALL +0.66 (n  171, t  +3.1) | TRAIN +0.68 (n   89, t  +2.3) | HELD +0.65 (n   82, t  +2.1)
+   by the 1d       look   ALL +0.21 (n 1323, t  +2.5) | TRAIN +0.35 (n  632, t  +2.7) | HELD +0.08 (n  691, t  +0.8)
+   by the game day look   ALL +0.21 (n 1316, t  +2.1) | TRAIN +0.45 (n  649, t  +3.0) | HELD -0.03 (n  667, t  -0.3)
+   by the CLOSE          ALL +0.30 (n 1485, t  +2.7) | TRAIN +0.69 (n  716, t  +4.0) | HELD -0.06 (n  769, t  -0.5)
+   the close vs the first fair number: came to it 1+ pt 38% / within a point 27% / ran away 1+ 36%;  3+ pts to it 20% / 3+ away 16%
+   by season: 2020 +0.91  2021 +0.52  2022 +0.64  2023 +0.44  2024 -0.50  2025 -0.15  2026 +0.02
+
+ nfl |   dogs +100..+149: 582 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL -0.55 (n   47, t  -2.0) | TRAIN -0.53 (n   20, t  -1.5) | HELD -0.57 (n   27, t  -1.4)
+   by the 3-4d     look   ALL +0.27 (n  530, t  +2.4) | TRAIN +0.54 (n  233, t  +2.8) | HELD +0.06 (n  297, t  +0.5)
+   by the 2d       look   ALL +1.64 (n   52, t  +3.0) | TRAIN +1.96 (n   24, t  +2.5) | HELD +1.36 (n   28, t  +1.8)
+   by the 1d       look   ALL +0.45 (n  536, t  +2.9) | TRAIN +0.91 (n  236, t  +3.4) | HELD +0.09 (n  300, t  +0.5)
+   by the game day look   ALL +0.58 (n  515, t  +3.3) | TRAIN +1.15 (n  235, t  +3.9) | HELD +0.11 (n  280, t  +0.5)
+   by the CLOSE          ALL +0.77 (n  582, t  +3.8) | TRAIN +1.50 (n  258, t  +4.3) | HELD +0.20 (n  324, t  +0.9)
+   the close vs the first fair number: came to it 1+ pt 42% / within a point 24% / ran away 1+ 34%;  3+ pts to it 26% / 3+ away 16%
+   by season: 2020 +1.47  2021 +1.62  2022 +1.42  2023 +0.65  2024 -0.31  2025 +0.09  2026 +0.45
+
+ nfl |   dogs +150..+350: 903 sides (first fair look on average 5.0 days out)
+   by the 5-7d     look   ALL -0.16 (n   58, t  -1.2) | TRAIN -0.13 (n   31, t  -0.6) | HELD -0.20 (n   27, t  -1.4)
+   by the 3-4d     look   ALL +0.07 (n  782, t  +1.2) | TRAIN -0.00 (n  387, t  -0.0) | HELD +0.15 (n  395, t  +1.6)
+   by the 2d       look   ALL +0.24 (n  119, t  +1.3) | TRAIN +0.21 (n   65, t  +0.8) | HELD +0.28 (n   54, t  +1.1)
+   by the 1d       look   ALL +0.05 (n  787, t  +0.5) | TRAIN +0.02 (n  396, t  +0.1) | HELD +0.08 (n  391, t  +0.6)
+   by the game day look   ALL -0.04 (n  801, t  -0.3) | TRAIN +0.05 (n  414, t  +0.3) | HELD -0.13 (n  387, t  -0.9)
+   by the CLOSE          ALL -0.01 (n  903, t  -0.0) | TRAIN +0.24 (n  458, t  +1.3) | HELD -0.25 (n  445, t  -1.6)
+   the close vs the first fair number: came to it 1+ pt 35% / within a point 29% / ran away 1+ 37%;  3+ pts to it 16% / 3+ away 16%
+   by season: 2020 +0.66  2021 -0.08  2022 +0.10  2023 +0.24  2024 -0.62  2025 -0.29  2026 -0.28
+
+ nfl |   home dogs: 612 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL -0.70 (n   45, t  -2.6) | TRAIN -0.55 (n   24, t  -1.9) | HELD -0.88 (n   21, t  -1.9)
+   by the 3-4d     look   ALL +0.16 (n  552, t  +1.6) | TRAIN +0.22 (n  268, t  +1.3) | HELD +0.11 (n  284, t  +0.9)
+   by the 2d       look   ALL +0.73 (n   69, t  +2.0) | TRAIN +0.32 (n   34, t  +0.7) | HELD +1.12 (n   35, t  +2.0)
+   by the 1d       look   ALL +0.31 (n  556, t  +2.2) | TRAIN +0.40 (n  269, t  +1.7) | HELD +0.23 (n  287, t  +1.4)
+   by the game day look   ALL +0.47 (n  532, t  +2.7) | TRAIN +0.68 (n  267, t  +2.4) | HELD +0.26 (n  265, t  +1.3)
+   by the CLOSE          ALL +0.66 (n  612, t  +3.5) | TRAIN +0.88 (n  299, t  +2.8) | HELD +0.45 (n  313, t  +2.1)
+   the close vs the first fair number: came to it 1+ pt 42% / within a point 25% / ran away 1+ 33%;  3+ pts to it 25% / 3+ away 17%
+   by season: 2020 +0.02  2021 +1.49  2022 +1.19  2023 +0.74  2024 -0.10  2025 +0.78  2026 +0.29
+
+ nfl |   road dogs: 873 sides (first fair look on average 5.0 days out)
+   by the 5-7d     look   ALL -0.06 (n   60, t  -0.4) | TRAIN -0.05 (n   27, t  -0.2) | HELD -0.07 (n   33, t  -0.4)
+   by the 3-4d     look   ALL +0.15 (n  760, t  +2.2) | TRAIN +0.19 (n  352, t  +1.9) | HELD +0.12 (n  408, t  +1.2)
+   by the 2d       look   ALL +0.62 (n  102, t  +2.4) | TRAIN +0.90 (n   55, t  +2.3) | HELD +0.30 (n   47, t  +0.9)
+   by the 1d       look   ALL +0.14 (n  767, t  +1.4) | TRAIN +0.32 (n  363, t  +2.1) | HELD -0.02 (n  404, t  -0.2)
+   by the game day look   ALL +0.03 (n  784, t  +0.2) | TRAIN +0.29 (n  382, t  +1.8) | HELD -0.23 (n  402, t  -1.4)
+   by the CLOSE          ALL +0.05 (n  873, t  +0.4) | TRAIN +0.56 (n  417, t  +2.8) | HELD -0.41 (n  456, t  -2.5)
+   the close vs the first fair number: came to it 1+ pt 34% / within a point 28% / ran away 1+ 37%;  3+ pts to it 16% / 3+ away 16%
+   by season: 2020 +1.63  2021 -0.12  2022 +0.27  2023 +0.26  2024 -0.78  2025 -0.89  2026 -0.14
+
+ nfl | favorites -150..-101: 498 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL +0.25 (n   36, t  +0.6) | TRAIN +0.62 (n   13, t  +1.8) | HELD +0.05 (n   23, t  +0.1)
+   by the 3-4d     look   ALL -0.30 (n  444, t  -2.0) | TRAIN -0.51 (n  188, t  -1.8) | HELD -0.14 (n  256, t  -0.9)
+   by the 2d       look   ALL -1.15 (n   52, t  -2.1) | TRAIN -1.00 (n   24, t  -1.3) | HELD -1.27 (n   28, t  -1.7)
+   by the 1d       look   ALL -0.41 (n  447, t  -2.1) | TRAIN -0.77 (n  190, t  -2.1) | HELD -0.15 (n  257, t  -0.7)
+   by the game day look   ALL -0.55 (n  442, t  -2.5) | TRAIN -1.06 (n  189, t  -2.7) | HELD -0.17 (n  253, t  -0.7)
+   by the CLOSE          ALL -0.76 (n  498, t  -3.3) | TRAIN -1.21 (n  211, t  -2.9) | HELD -0.43 (n  287, t  -1.6)
+   the close vs the first fair number: came to it 1+ pt 36% / within a point 21% / ran away 1+ 43%;  3+ pts to it 20% / 3+ away 30%
+   by season: 2020 -1.40  2021 -1.33  2022 -0.97  2023 -0.68  2024 -0.12  2025 -0.35  2026 -1.00
+
+ nfl | spot: bye dog: 46 sides (first fair look on average 5.3 days out)
+   by the 3-4d     look   ALL +0.51 (n   46, t  +1.7) | TRAIN +0.54 (n   19, t  +1.5) | HELD +0.48 (n   27, t  +1.1)
+   by the 1d       look   ALL +0.64 (n   46, t  +1.5) | TRAIN +0.85 (n   19, t  +1.5) | HELD +0.50 (n   27, t  +0.8)
+   by the game day look   ALL +0.89 (n   38, t  +1.6) | TRAIN +1.25 (n   19, t  +2.1) | HELD +0.53 (n   19, t  +0.6)
+   by the CLOSE          ALL +1.25 (n   46, t  +2.4) | TRAIN +2.07 (n   19, t  +3.0) | HELD +0.68 (n   27, t  +0.9)
+   the close vs the first fair number: came to it 1+ pt 59% / within a point 20% / ran away 1+ 22%;  3+ pts to it 28% / 3+ away 11%
+   by season: 2020 +2.21  2021 +0.18  2022 +3.00  2023 +0.02  2024 +1.59  2025 +0.48
+
+ nfl | spot: Monday night dog: 112 sides (first fair look on average 6.2 days out)
+   by the 3-4d     look   ALL +0.35 (n  106, t  +2.4) | TRAIN +0.49 (n   43, t  +2.0) | HELD +0.26 (n   63, t  +1.4)
+   by the 2d       look   ALL +0.57 (n  110, t  +2.2) | TRAIN +0.76 (n   47, t  +1.6) | HELD +0.43 (n   63, t  +1.6)
+   by the 1d       look   ALL +0.58 (n  111, t  +2.2) | TRAIN +0.58 (n   48, t  +1.1) | HELD +0.58 (n   63, t  +2.1)
+   by the CLOSE          ALL +0.73 (n  112, t  +1.9) | TRAIN +1.17 (n   48, t  +1.5) | HELD +0.41 (n   64, t  +1.0)
+   the close vs the first fair number: came to it 1+ pt 38% / within a point 27% / ran away 1+ 35%;  3+ pts to it 19% / 3+ away 12%
+   by season: 2020 +0.85  2021 +2.78  2022 +0.04  2023 +0.21  2024 -0.12  2025 +0.72  2026 +2.33
+
+ nfl | spot: East-West dog: 103 sides (first fair look on average 5.2 days out)
+   by the 3-4d     look   ALL -0.15 (n   96, t  -0.8) | TRAIN -0.37 (n   43, t  -1.5) | HELD +0.04 (n   53, t  +0.1)
+   by the 1d       look   ALL -0.14 (n   98, t  -0.6) | TRAIN -0.12 (n   45, t  -0.3) | HELD -0.15 (n   53, t  -0.5)
+   by the game day look   ALL -0.16 (n   94, t  -0.5) | TRAIN -0.16 (n   48, t  -0.3) | HELD -0.16 (n   46, t  -0.4)
+   by the CLOSE          ALL -0.25 (n  103, t  -0.8) | TRAIN -0.40 (n   49, t  -0.8) | HELD -0.11 (n   54, t  -0.3)
+   the close vs the first fair number: came to it 1+ pt 31% / within a point 23% / ran away 1+ 46%;  3+ pts to it 11% / 3+ away 20%
+   by season: 2020 -0.21  2021 -0.97  2022 +0.69  2023 -0.65  2024 -0.21  2025 +0.17  2026 +1.77
+
+ nfl | spot: blew somebody out dog: 146 sides (first fair look on average 5.0 days out)
+   by the 3-4d     look   ALL +0.18 (n  129, t  +1.2) | TRAIN +0.31 (n   50, t  +0.9) | HELD +0.10 (n   79, t  +0.7)
+   by the 2d       look   ALL +1.07 (n   16, t  +2.5) | TRAIN +1.05 (n    6, t  +1.1) | HELD +1.08 (n   10, t  +3.0)
+   by the 1d       look   ALL +0.50 (n  131, t  +2.1) | TRAIN +1.26 (n   52, t  +2.6) | HELD +0.00 (n   79, t  +0.0)
+   by the game day look   ALL +0.49 (n  131, t  +1.9) | TRAIN +1.30 (n   49, t  +2.8) | HELD -0.00 (n   82, t  -0.0)
+   by the CLOSE          ALL +0.55 (n  146, t  +2.0) | TRAIN +1.38 (n   54, t  +2.8) | HELD +0.05 (n   92, t  +0.2)
+   the close vs the first fair number: came to it 1+ pt 35% / within a point 38% / ran away 1+ 27%;  3+ pts to it 19% / 3+ away 12%
+   by season: 2020 +2.62  2021 +0.47  2022 +1.38  2023 -0.06  2024 -0.69  2025 +0.63  2026 +1.09
+
+ nfl | read 4+ pts over the price (dog): 689 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL -0.24 (n   47, t  -1.9) | TRAIN -0.37 (n   25, t  -2.2) | HELD -0.09 (n   22, t  -0.5)
+   by the 3-4d     look   ALL +0.13 (n  610, t  +1.5) | TRAIN +0.16 (n  298, t  +1.4) | HELD +0.10 (n  312, t  +0.8)
+   by the 2d       look   ALL +1.06 (n   74, t  +2.7) | TRAIN +1.03 (n   47, t  +2.1) | HELD +1.10 (n   27, t  +1.6)
+   by the 1d       look   ALL +0.22 (n  612, t  +1.9) | TRAIN +0.35 (n  300, t  +1.9) | HELD +0.09 (n  312, t  +0.6)
+   by the game day look   ALL +0.17 (n  615, t  +1.2) | TRAIN +0.36 (n  304, t  +1.7) | HELD -0.02 (n  311, t  -0.1)
+   by the CLOSE          ALL +0.23 (n  689, t  +1.5) | TRAIN +0.44 (n  339, t  +1.8) | HELD +0.03 (n  350, t  +0.1)
+   the close vs the first fair number: came to it 1+ pt 39% / within a point 26% / ran away 1+ 35%;  3+ pts to it 21% / 3+ away 17%
+   by season: 2020 +0.60  2021 -0.01  2022 +0.69  2023 +0.46  2024 -0.27  2025 -0.29  2026 +0.61
+
+ nfl | read 2+ pts UNDER the price (dog): 427 sides (first fair look on average 5.1 days out)
+   by the 5-7d     look   ALL -0.04 (n   30, t  -0.1) | TRAIN +0.16 (n   15, t  +0.3) | HELD -0.23 (n   15, t  -0.7)
+   by the 3-4d     look   ALL +0.29 (n  377, t  +2.2) | TRAIN +0.55 (n  169, t  +2.2) | HELD +0.08 (n  208, t  +0.7)
+   by the 2d       look   ALL +0.59 (n   49, t  +1.6) | TRAIN +0.33 (n   22, t  +0.7) | HELD +0.80 (n   27, t  +1.5)
+   by the 1d       look   ALL +0.42 (n  381, t  +2.4) | TRAIN +0.78 (n  175, t  +2.5) | HELD +0.10 (n  206, t  +0.6)
+   by the game day look   ALL +0.33 (n  377, t  +1.7) | TRAIN +0.74 (n  186, t  +2.3) | HELD -0.06 (n  191, t  -0.3)
+   by the CLOSE          ALL +0.51 (n  427, t  +2.3) | TRAIN +1.21 (n  202, t  +3.2) | HELD -0.11 (n  225, t  -0.4)
+   the close vs the first fair number: came to it 1+ pt 39% / within a point 27% / ran away 1+ 34%;  3+ pts to it 19% / 3+ away 15%
+   by season: 2020 +1.59  2021 +1.16  2022 +0.96  2023 +0.85  2024 -0.81  2025 -0.24  2026 +0.11
+
+ ncaaf | dogs +100..+350 at the first fair number: 2401 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL -0.17 (n   66, t  -0.8) | TRAIN +0.05 (n   32, t  +0.6) | HELD -0.37 (n   34, t  -1.0)
+   by the 3-4d     look   ALL -0.13 (n  226, t  -0.9) | TRAIN -0.04 (n   99, t  -0.2) | HELD -0.20 (n  127, t  -1.1)
+   by the 2d       look   ALL +0.17 (n 2037, t  +3.4) | TRAIN +0.11 (n  898, t  +1.3) | HELD +0.23 (n 1139, t  +3.4)
+   by the 1d       look   ALL +0.42 (n  364, t  +3.1) | TRAIN +0.15 (n  154, t  +0.7) | HELD +0.62 (n  210, t  +3.7)
+   by the game day look   ALL +0.34 (n 1978, t  +4.9) | TRAIN +0.20 (n  873, t  +1.8) | HELD +0.44 (n 1105, t  +5.0)
+   by the CLOSE          ALL +0.69 (n 2401, t  +9.5) | TRAIN +0.43 (n 1039, t  +3.9) | HELD +0.89 (n 1362, t  +9.3)
+   the close vs the first fair number: came to it 1+ pt 43% / within a point 29% / ran away 1+ 28%;  3+ pts to it 21% / 3+ away 11%
+   by season: 2020 +0.24  2021 +0.50  2022 +0.48  2023 +1.01  2024 +1.13  2025 +0.65  2026 +0.52
+
+ ncaaf |   dogs +100..+149: 842 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL -0.14 (n   24, t  -0.4) | TRAIN +0.06 (n   13, t  +0.4) | HELD -0.37 (n   11, t  -0.5)
+   by the 3-4d     look   ALL -0.26 (n   87, t  -0.9) | TRAIN +0.33 (n   43, t  +0.8) | HELD -0.84 (n   44, t  -2.2)
+   by the 2d       look   ALL +0.08 (n  695, t  +0.9) | TRAIN +0.01 (n  313, t  +0.0) | HELD +0.15 (n  382, t  +1.4)
+   by the 1d       look   ALL +0.99 (n  140, t  +3.8) | TRAIN +0.85 (n   58, t  +1.9) | HELD +1.08 (n   82, t  +3.5)
+   by the game day look   ALL +0.25 (n  674, t  +2.0) | TRAIN +0.17 (n  308, t  +0.8) | HELD +0.32 (n  366, t  +2.1)
+   by the CLOSE          ALL +0.89 (n  842, t  +6.0) | TRAIN +0.75 (n  373, t  +3.2) | HELD +1.00 (n  469, t  +5.3)
+   the close vs the first fair number: came to it 1+ pt 47% / within a point 23% / ran away 1+ 30%;  3+ pts to it 27% / 3+ away 14%
+   by season: 2020 +1.17  2021 +0.59  2022 +0.62  2023 +1.21  2024 +1.31  2025 +0.54  2026 +0.61
+
+ ncaaf |   dogs +150..+350: 1559 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL -0.18 (n   42, t  -0.8) | TRAIN +0.04 (n   19, t  +0.4) | HELD -0.37 (n   23, t  -0.9)
+   by the 3-4d     look   ALL -0.05 (n  139, t  -0.4) | TRAIN -0.33 (n   56, t  -1.8) | HELD +0.14 (n   83, t  +0.7)
+   by the 2d       look   ALL +0.22 (n 1342, t  +3.5) | TRAIN +0.16 (n  585, t  +1.7) | HELD +0.27 (n  757, t  +3.2)
+   by the 1d       look   ALL +0.07 (n  224, t  +0.5) | TRAIN -0.28 (n   96, t  -1.4) | HELD +0.33 (n  128, t  +1.7)
+   by the game day look   ALL +0.38 (n 1304, t  +4.7) | TRAIN +0.21 (n  565, t  +1.8) | HELD +0.50 (n  739, t  +4.7)
+   by the CLOSE          ALL +0.58 (n 1559, t  +7.5) | TRAIN +0.25 (n  666, t  +2.3) | HELD +0.83 (n  893, t  +7.7)
+   the close vs the first fair number: came to it 1+ pt 41% / within a point 32% / ran away 1+ 27%;  3+ pts to it 18% / 3+ away 10%
+   by season: 2020 -0.31  2021 +0.46  2022 +0.40  2023 +0.91  2024 +1.00  2025 +0.70  2026 +0.47
+
+ ncaaf |   home dogs: 1064 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL -0.37 (n   35, t  -1.2) | TRAIN +0.15 (n   14, t  +1.4) | HELD -0.71 (n   21, t  -1.4)
+   by the 3-4d     look   ALL -0.46 (n   93, t  -1.8) | TRAIN -0.27 (n   41, t  -0.8) | HELD -0.60 (n   52, t  -1.7)
+   by the 2d       look   ALL +0.26 (n  899, t  +2.8) | TRAIN +0.24 (n  408, t  +1.7) | HELD +0.28 (n  491, t  +2.3)
+   by the 1d       look   ALL +0.52 (n  173, t  +2.8) | TRAIN +0.25 (n   75, t  +0.9) | HELD +0.72 (n   98, t  +3.0)
+   by the game day look   ALL +0.43 (n  865, t  +3.7) | TRAIN +0.38 (n  392, t  +2.2) | HELD +0.48 (n  473, t  +3.0)
+   by the CLOSE          ALL +0.62 (n 1064, t  +5.5) | TRAIN +0.39 (n  472, t  +2.3) | HELD +0.80 (n  592, t  +5.3)
+   the close vs the first fair number: came to it 1+ pt 42% / within a point 28% / ran away 1+ 30%;  3+ pts to it 20% / 3+ away 14%
+   by season: 2020 +0.18  2021 +0.42  2022 +0.50  2023 +1.07  2024 +0.94  2025 +0.58  2026 +0.14
+
+ ncaaf |   road dogs: 1337 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL +0.06 (n   31, t  +0.3) | TRAIN -0.03 (n   18, t  -0.2) | HELD +0.19 (n   13, t  +0.4)
+   by the 3-4d     look   ALL +0.09 (n  133, t  +0.6) | TRAIN +0.11 (n   58, t  +0.4) | HELD +0.07 (n   75, t  +0.4)
+   by the 2d       look   ALL +0.10 (n 1138, t  +1.8) | TRAIN +0.00 (n  490, t  +0.0) | HELD +0.18 (n  648, t  +2.8)
+   by the 1d       look   ALL +0.33 (n  191, t  +1.7) | TRAIN +0.05 (n   79, t  +0.2) | HELD +0.53 (n  112, t  +2.2)
+   by the game day look   ALL +0.26 (n 1113, t  +3.2) | TRAIN +0.05 (n  481, t  +0.4) | HELD +0.42 (n  632, t  +4.3)
+   by the CLOSE          ALL +0.75 (n 1337, t  +7.9) | TRAIN +0.47 (n  567, t  +3.2) | HELD +0.95 (n  770, t  +7.8)
+   the close vs the first fair number: came to it 1+ pt 44% / within a point 29% / ran away 1+ 27%;  3+ pts to it 21% / 3+ away 9%
+   by season: 2020 +0.31  2021 +0.56  2022 +0.47  2023 +0.96  2024 +1.28  2025 +0.70  2026 +0.78
+
+ ncaaf | favorites -150..-101: 742 sides (first fair look on average 4.3 days out)
+   by the 5-7d     look   ALL +0.12 (n   20, t  +0.3) | TRAIN -0.26 (n    8, t  -1.6) | HELD +0.37 (n   12, t  +0.5)
+   by the 3-4d     look   ALL +0.26 (n   86, t  +0.9) | TRAIN -0.35 (n   43, t  -0.8) | HELD +0.87 (n   43, t  +2.1)
+   by the 2d       look   ALL -0.02 (n  608, t  -0.2) | TRAIN +0.04 (n  259, t  +0.2) | HELD -0.07 (n  349, t  -0.6)
+   by the 1d       look   ALL -0.77 (n  136, t  -2.6) | TRAIN -0.60 (n   58, t  -1.4) | HELD -0.89 (n   78, t  -2.2)
+   by the game day look   ALL -0.26 (n  582, t  -1.7) | TRAIN -0.25 (n  245, t  -1.0) | HELD -0.26 (n  337, t  -1.4)
+   by the CLOSE          ALL -0.80 (n  742, t  -4.7) | TRAIN -0.70 (n  311, t  -2.5) | HELD -0.88 (n  431, t  -4.1)
+   the close vs the first fair number: came to it 1+ pt 35% / within a point 18% / ran away 1+ 47%;  3+ pts to it 17% / 3+ away 29%
+   by season: 2020 -1.41  2021 -0.42  2022 -0.53  2023 -0.81  2024 -1.27  2025 -0.64  2026 -0.45
+
+ ncaaf | spot: bye dog: 175 sides (first fair look on average 4.1 days out)
+   by the 2d       look   ALL +0.29 (n  165, t  +2.6) | TRAIN +0.54 (n   68, t  +2.9) | HELD +0.11 (n   97, t  +0.8)
+   by the game day look   ALL +0.77 (n  159, t  +4.3) | TRAIN +0.90 (n   67, t  +3.3) | HELD +0.67 (n   92, t  +2.9)
+   by the CLOSE          ALL +1.31 (n  175, t  +5.1) | TRAIN +1.26 (n   71, t  +3.1) | HELD +1.34 (n  104, t  +4.0)
+   the close vs the first fair number: came to it 1+ pt 53% / within a point 21% / ran away 1+ 26%;  3+ pts to it 28% / 3+ away 8%
+   by season: 2020 +1.59  2021 +0.79  2022 +1.54  2023 +1.30  2024 +1.51  2025 +1.12  2026 +1.30
+
+ ncaaf | spot: blew somebody out dog: 490 sides (first fair look on average 4.1 days out)
+   by the 3-4d     look   ALL -0.37 (n   17, t  -0.6) | TRAIN -0.75 (n    6, t  -1.3) | HELD -0.16 (n   11, t  -0.2)
+   by the 2d       look   ALL +0.49 (n  424, t  +3.3) | TRAIN +0.33 (n  166, t  +2.5) | HELD +0.59 (n  258, t  +2.6)
+   by the 1d       look   ALL +0.89 (n   82, t  +3.5) | TRAIN +1.07 (n   32, t  +2.3) | HELD +0.76 (n   50, t  +2.6)
+   by the game day look   ALL +0.75 (n  400, t  +4.4) | TRAIN +0.49 (n  157, t  +2.9) | HELD +0.91 (n  243, t  +3.6)
+   by the CLOSE          ALL +1.01 (n  490, t  +6.8) | TRAIN +1.01 (n  192, t  +4.3) | HELD +1.02 (n  298, t  +5.3)
+   the close vs the first fair number: came to it 1+ pt 48% / within a point 27% / ran away 1+ 25%;  3+ pts to it 22% / 3+ away 7%
+   by season: 2020 +1.29  2021 +0.90  2022 +0.94  2023 +1.13  2024 +1.25  2025 +0.94  2026 +0.49
+
+ ncaaf | read 4+ pts over the price (dog): 1126 sides (first fair look on average 4.4 days out)
+   by the 5-7d     look   ALL +0.11 (n   37, t  +0.4) | TRAIN +0.07 (n   18, t  +0.5) | HELD +0.14 (n   19, t  +0.3)
+   by the 3-4d     look   ALL -0.11 (n  126, t  -0.7) | TRAIN -0.12 (n   53, t  -0.5) | HELD -0.11 (n   73, t  -0.5)
+   by the 2d       look   ALL +0.20 (n  952, t  +2.3) | TRAIN +0.22 (n  424, t  +1.7) | HELD +0.19 (n  528, t  +1.6)
+   by the 1d       look   ALL +0.59 (n  186, t  +3.2) | TRAIN +0.31 (n   79, t  +1.1) | HELD +0.79 (n  107, t  +3.3)
+   by the game day look   ALL +0.40 (n  905, t  +3.6) | TRAIN +0.24 (n  399, t  +1.4) | HELD +0.52 (n  506, t  +3.6)
+   by the CLOSE          ALL +0.69 (n 1126, t  +6.6) | TRAIN +0.34 (n  487, t  +2.1) | HELD +0.96 (n  639, t  +7.0)
+   the close vs the first fair number: came to it 1+ pt 42% / within a point 30% / ran away 1+ 28%;  3+ pts to it 19% / 3+ away 11%
+   by season: 2020 +0.07  2021 +0.64  2022 +0.23  2023 +1.30  2024 +1.16  2025 +0.66  2026 +0.42
+
+ ncaaf | read 2+ pts UNDER the price (dog): 851 sides (first fair look on average 4.2 days out)
+   by the 5-7d     look   ALL -0.60 (n   19, t  -1.2) | TRAIN -0.00 (n    8, t  -0.0) | HELD -1.04 (n   11, t  -1.3)
+   by the 3-4d     look   ALL -0.17 (n   65, t  -0.5) | TRAIN +0.32 (n   28, t  +0.6) | HELD -0.53 (n   37, t  -1.3)
+   by the 2d       look   ALL +0.14 (n  724, t  +1.8) | TRAIN -0.04 (n  319, t  -0.3) | HELD +0.28 (n  405, t  +3.3)
+   by the 1d       look   ALL +0.19 (n  126, t  +0.8) | TRAIN -0.08 (n   56, t  -0.2) | HELD +0.41 (n   70, t  +1.4)
+   by the game day look   ALL +0.27 (n  707, t  +2.4) | TRAIN +0.12 (n  313, t  +0.6) | HELD +0.39 (n  394, t  +2.9)
+   by the CLOSE          ALL +0.66 (n  851, t  +5.4) | TRAIN +0.48 (n  372, t  +2.5) | HELD +0.80 (n  479, t  +5.0)
+   the close vs the first fair number: came to it 1+ pt 43% / within a point 28% / ran away 1+ 29%;  3+ pts to it 23% / 3+ away 11%
+   by season: 2020 +0.32  2021 +0.40  2022 +0.72  2023 +0.87  2024 +1.21  2025 +0.35  2026 +0.75
+
+============================== S5 - WAIT OR BET NOW (flat 1u at the median book's price at each time; the same side all the way)
+
+ nfl | every dog +100..+350: 1485
+   at the FIRST FAIR number   ALL n 1485 526-959   -4.4% z-1.27 | TRAIN n  716 261-455   -2.0% z-0.40 | HELD n  769 265-504   -6.6% z-1.37
+   (first fair, BEST book)    ALL n 1485 526-959   -0.9% z-0.26 | TRAIN n  716 261-455   +1.5% z+0.30 | HELD n  769 265-504   -3.3% z-0.65
+   at the 3-4d     look       ALL n 1312 470-842   -4.3% z-1.18 | TRAIN n  620 234-386   +0.0% z+0.01 | HELD n  692 236-456   -8.3% z-1.63
+   at the 2d       look       ALL n  171 57-114  -11.8% z-1.19 | TRAIN n   89 24-65  -29.3% z-2.31 | HELD n   82 33-49   +7.1% z+0.46
+   at the 1d       look       ALL n 1323 475-848   -4.3% z-1.16 | TRAIN n  632 239-393   -0.2% z-0.04 | HELD n  691 236-455   -8.0% z-1.56
+   at the game day look       ALL n 1316 462-854   -6.4% z-1.74 | TRAIN n  649 239-410   -3.2% z-0.63 | HELD n  667 223-444   -9.4% z-1.81
+   at the CLOSE               ALL n 1485 526-959   -5.9% z-1.71 | TRAIN n  716 261-455   -5.3% z-1.08 | HELD n  769 265-504   -6.5% z-1.33
+   first fair minus the close, the same bets: +1.5% a bet (t +3.2); held -0.1%
+
+ nfl | bye dog: 46
+   at the FIRST FAIR number   ALL n   46 20-26  +25.0% z+1.15 | TRAIN n   19 8-11  +25.7% z+0.73 | HELD n   27 12-15  +24.4% z+0.88
+   (first fair, BEST book)    ALL n   46 20-26  +29.4% z+1.30 | TRAIN n   19 8-11  +31.4% z+0.85 | HELD n   27 12-15  +28.1% z+0.98
+   at the 3-4d     look       ALL n   46 20-26  +23.3% z+1.08 | TRAIN n   19 8-11  +21.6% z+0.64 | HELD n   27 12-15  +24.6% z+0.88
+   at the 1d       look       ALL n   46 20-26  +25.0% z+1.13 | TRAIN n   19 8-11  +18.6% z+0.56 | HELD n   27 12-15  +29.5% z+0.99
+   at the game day look       ALL n   38 14-24   +4.3% z+0.19 | TRAIN n   19 8-11  +16.6% z+0.51 | HELD n   19 6-13   -7.9% z-0.24
+   at the CLOSE               ALL n   46 20-26  +21.6% z+1.00 | TRAIN n   19 8-11  +11.9% z+0.38 | HELD n   27 12-15  +28.4% z+0.96
+   first fair minus the close, the same bets: +3.4% a bet (t +0.7); held -4.0%
+
+ nfl | Monday night dog: 112
+   at the FIRST FAIR number   ALL n  112 46-66  +12.7% z+0.95 | TRAIN n   48 17-31   -2.2% z-0.11 | HELD n   64 29-35  +24.0% z+1.33
+   (first fair, BEST book)    ALL n  112 46-66  +17.1% z+1.23 | TRAIN n   48 17-31   +1.0% z+0.05 | HELD n   64 29-35  +29.2% z+1.54
+   at the 3-4d     look       ALL n  106 42-64   +7.8% z+0.58 | TRAIN n   43 14-29  -12.1% z-0.61 | HELD n   63 28-35  +21.4% z+1.18
+   at the 2d       look       ALL n  110 44-66   +8.0% z+0.60 | TRAIN n   47 16-31   -8.9% z-0.46 | HELD n   63 28-35  +20.6% z+1.14
+   at the 1d       look       ALL n  111 45-66   +8.4% z+0.65 | TRAIN n   48 17-31   -6.3% z-0.34 | HELD n   63 28-35  +19.7% z+1.10
+   at the CLOSE               ALL n  112 46-66   +9.0% z+0.69 | TRAIN n   48 17-31   -9.6% z-0.52 | HELD n   64 29-35  +22.9% z+1.27
+   first fair minus the close, the same bets: +3.8% a bet (t +1.8); held +1.1%
+
+ nfl | East-West dog: 103
+   at the FIRST FAIR number   ALL n  103 42-61  +11.2% z+0.82 | TRAIN n   49 23-26  +35.4% z+1.66 | HELD n   54 19-35  -10.8% z-0.64
+   (first fair, BEST book)    ALL n  103 42-61  +15.0% z+1.06 | TRAIN n   49 23-26  +40.2% z+1.81 | HELD n   54 19-35   -7.9% z-0.46
+   at the 3-4d     look       ALL n   96 38-58   +6.2% z+0.45 | TRAIN n   43 19-24  +25.7% z+1.16 | HELD n   53 19-34   -9.7% z-0.57
+   at the 1d       look       ALL n   98 40-58  +11.6% z+0.83 | TRAIN n   45 21-24  +32.9% z+1.50 | HELD n   53 19-34   -6.5% z-0.37
+   at the game day look       ALL n   94 40-54  +16.9% z+1.16 | TRAIN n   48 23-25  +37.0% z+1.72 | HELD n   46 17-29   -4.1% z-0.22
+   at the CLOSE               ALL n  103 42-61  +11.9% z+0.87 | TRAIN n   49 23-26  +33.6% z+1.59 | HELD n   54 19-35   -7.7% z-0.44
+   first fair minus the close, the same bets: -0.7% a bet (t -0.5); held -3.0%
+
+ nfl | blew somebody out dog: 146
+   at the FIRST FAIR number   ALL n  146 59-87   +5.9% z+0.54 | TRAIN n   54 25-29  +25.2% z+1.32 | HELD n   92 34-58   -5.4% z-0.40
+   (first fair, BEST book)    ALL n  146 59-87   +9.6% z+0.84 | TRAIN n   54 25-29  +29.5% z+1.50 | HELD n   92 34-58   -2.1% z-0.15
+   at the 3-4d     look       ALL n  129 54-75   +8.9% z+0.76 | TRAIN n   50 24-26  +25.8% z+1.35 | HELD n   79 30-49   -1.7% z-0.12
+   at the 1d       look       ALL n  131 55-76   +8.7% z+0.75 | TRAIN n   52 25-27  +23.7% z+1.29 | HELD n   79 30-49   -1.1% z-0.08
+   at the game day look       ALL n  131 49-82   -3.9% z-0.34 | TRAIN n   49 21-28   +8.8% z+0.47 | HELD n   82 28-54  -11.5% z-0.80
+   at the CLOSE               ALL n  146 59-87   +3.2% z+0.29 | TRAIN n   54 25-29  +19.5% z+1.08 | HELD n   92 34-58   -6.4% z-0.48
+   first fair minus the close, the same bets: +2.7% a bet (t +2.0); held +1.0%
+
+ nfl | ANY spot dog: 359
+   at the FIRST FAIR number   ALL n  359 141-218   +6.2% z+0.86 | TRAIN n  155 63-92  +13.5% z+1.18 | HELD n  204 78-126   +0.7% z+0.08
+   (first fair, BEST book)    ALL n  359 141-218  +10.1% z+1.34 | TRAIN n  155 63-92  +17.5% z+1.48 | HELD n  204 78-126   +4.4% z+0.45
+   at the 3-4d     look       ALL n  332 130-202   +5.3% z+0.71 | TRAIN n  142 56-86   +8.0% z+0.69 | HELD n  190 74-116   +3.3% z+0.33
+   at the 2d       look       ALL n  116 45-71   +4.1% z+0.32 | TRAIN n   50 17-33  -10.4% z-0.57 | HELD n   66 28-38  +15.1% z+0.87
+   at the 1d       look       ALL n  340 135-205   +6.8% z+0.91 | TRAIN n  150 61-89  +10.0% z+0.89 | HELD n  190 74-116   +4.2% z+0.42
+   at the game day look       ALL n  244 93-151   +2.2% z+0.25 | TRAIN n  107 46-61  +17.5% z+1.28 | HELD n  137 47-90   -9.7% z-0.86
+   at the CLOSE               ALL n  359 141-218   +4.3% z+0.60 | TRAIN n  155 63-92   +8.2% z+0.75 | HELD n  204 78-126   +1.4% z+0.15
+   first fair minus the close, the same bets: +1.9% a bet (t +1.8); held -0.7%
+
+ nfl | ANY spot dog, read not fighting: 261
+   at the FIRST FAIR number   ALL n  261 100-161   +4.1% z+0.49 | TRAIN n  122 48-74   +9.5% z+0.74 | HELD n  139 52-87   -0.6% z-0.05
+   (first fair, BEST book)    ALL n  261 100-161   +7.8% z+0.89 | TRAIN n  122 48-74  +13.5% z+1.02 | HELD n  139 52-87   +2.8% z+0.24
+   at the 3-4d     look       ALL n  240 92-148   +3.3% z+0.38 | TRAIN n  112 43-69   +4.4% z+0.34 | HELD n  128 49-79   +2.4% z+0.20
+   at the 2d       look       ALL n   82 30-52   -1.8% z-0.12 | TRAIN n   41 13-28  -19.5% z-1.02 | HELD n   41 17-24  +16.0% z+0.71
+   at the 1d       look       ALL n  245 95-150   +4.3% z+0.49 | TRAIN n  117 46-71   +5.4% z+0.43 | HELD n  128 49-79   +3.3% z+0.27
+   at the game day look       ALL n  182 69-113   +1.3% z+0.13 | TRAIN n   84 36-48  +16.4% z+1.08 | HELD n   98 33-65  -11.7% z-0.90
+   at the CLOSE               ALL n  261 100-161   +2.4% z+0.28 | TRAIN n  122 48-74   +4.6% z+0.38 | HELD n  139 52-87   +0.4% z+0.03
+   first fair minus the close, the same bets: +1.8% a bet (t +1.6); held -1.0%
+
+ nfl | dog, read 4+ over the price: 689
+   at the FIRST FAIR number   ALL n  689 235-454   -6.8% z-1.32 | TRAIN n  339 120-219   -3.8% z-0.52 | HELD n  350 115-235   -9.7% z-1.34
+   (first fair, BEST book)    ALL n  689 235-454   -3.4% z-0.64 | TRAIN n  339 120-219   -0.3% z-0.04 | HELD n  350 115-235   -6.5% z-0.86
+   at the 3-4d     look       ALL n  610 210-400   -6.9% z-1.27 | TRAIN n  298 106-192   -4.8% z-0.63 | HELD n  312 104-208   -8.9% z-1.16
+   at the 2d       look       ALL n   74 22-52  -22.5% z-1.55 | TRAIN n   47 13-34  -28.9% z-1.66 | HELD n   27 9-18  -11.4% z-0.44
+   at the 1d       look       ALL n  612 212-400   -6.8% z-1.26 | TRAIN n  300 108-192   -4.7% z-0.62 | HELD n  312 104-208   -8.8% z-1.15
+   at the game day look       ALL n  615 210-405   -7.9% z-1.47 | TRAIN n  304 109-195   -4.7% z-0.62 | HELD n  311 101-210  -11.0% z-1.45
+   at the CLOSE               ALL n  689 235-454   -8.3% z-1.63 | TRAIN n  339 120-219   -6.8% z-0.96 | HELD n  350 115-235   -9.6% z-1.33
+   first fair minus the close, the same bets: +1.5% a bet (t +2.4); held -0.0%
+
+ ncaaf | every dog +100..+350: 2401
+   at the FIRST FAIR number   ALL n 2401 851-1550   -1.7% z-0.61 | TRAIN n 1039 377-662   +0.4% z+0.09 | HELD n 1362 474-888   -3.3% z-0.89
+   (first fair, BEST book)    ALL n 2401 851-1550   +1.8% z+0.62 | TRAIN n 1039 377-662   +4.5% z+1.01 | HELD n 1362 474-888   -0.3% z-0.07
+   at the 3-4d     look       ALL n  226 82-144   -3.0% z-0.34 | TRAIN n   99 38-61   +2.6% z+0.19 | HELD n  127 44-83   -7.4% z-0.63
+   at the 2d       look       ALL n 2037 715-1322   -2.2% z-0.73 | TRAIN n  898 324-574   +1.0% z+0.22 | HELD n 1139 391-748   -4.8% z-1.18
+   at the 1d       look       ALL n  364 138-226   +3.3% z+0.45 | TRAIN n  154 63-91  +10.9% z+0.96 | HELD n  210 75-135   -2.2% z-0.23
+   at the game day look       ALL n 1978 689-1289   -3.9% z-1.25 | TRAIN n  873 308-565   -2.0% z-0.43 | HELD n 1105 381-724   -5.3% z-1.30
+   at the CLOSE               ALL n 2401 851-1550   -3.9% z-1.38 | TRAIN n 1039 377-662   -1.5% z-0.35 | HELD n 1362 474-888   -5.7% z-1.54
+   first fair minus the close, the same bets: +2.2% a bet (t +6.1); held +2.4%
+
+ ncaaf | bye dog: 175
+   at the FIRST FAIR number   ALL n  175 68-107   +7.9% z+0.74 | TRAIN n   71 26-45   -5.2% z-0.34 | HELD n  104 42-62  +16.9% z+1.15
+   (first fair, BEST book)    ALL n  175 68-107  +11.8% z+1.06 | TRAIN n   71 26-45   -1.3% z-0.08 | HELD n  104 42-62  +20.7% z+1.36
+   at the 2d       look       ALL n  165 62-103   +4.8% z+0.44 | TRAIN n   68 25-43   -5.3% z-0.34 | HELD n   97 37-60  +11.9% z+0.79
+   at the game day look       ALL n  159 60-99   +3.5% z+0.32 | TRAIN n   67 25-42   -5.3% z-0.34 | HELD n   92 35-57   +9.9% z+0.65
+   at the CLOSE               ALL n  175 68-107   +5.0% z+0.47 | TRAIN n   71 26-45   -9.8% z-0.67 | HELD n  104 42-62  +15.1% z+1.04
+   first fair minus the close, the same bets: +2.9% a bet (t +2.1); held +1.8%
+
+ ncaaf | blew somebody out dog: 490
+   at the FIRST FAIR number   ALL n  490 190-300   +6.5% z+1.03 | TRAIN n  192 84-108  +21.6% z+2.06 | HELD n  298 106-192   -3.2% z-0.41
+   (first fair, BEST book)    ALL n  490 190-300  +10.4% z+1.58 | TRAIN n  192 84-108  +26.8% z+2.44 | HELD n  298 106-192   -0.2% z-0.02
+   at the 2d       look       ALL n  424 160-264   +2.5% z+0.38 | TRAIN n  166 71-95  +19.5% z+1.71 | HELD n  258 89-169   -8.4% z-1.03
+   at the 1d       look       ALL n   82 37-45  +27.9% z+1.67 | TRAIN n   32 19-13  +63.3% z+2.42 | HELD n   50 18-32   +5.3% z+0.25
+   at the game day look       ALL n  400 149-251   -0.2% z-0.03 | TRAIN n  157 64-93  +12.4% z+1.08 | HELD n  243 85-158   -8.3% z-0.99
+   at the CLOSE               ALL n  490 190-300   +3.0% z+0.49 | TRAIN n  192 84-108  +17.2% z+1.69 | HELD n  298 106-192   -6.2% z-0.80
+   first fair minus the close, the same bets: +3.5% a bet (t +4.6); held +2.9%
+
+ ncaaf | ANY spot dog: 637
+   at the FIRST FAIR number   ALL n  637 244-393   +6.2% z+1.11 | TRAIN n  252 105-147  +14.8% z+1.65 | HELD n  385 139-246   +0.6% z+0.08
+   (first fair, BEST book)    ALL n  637 244-393  +10.1% z+1.74 | TRAIN n  252 105-147  +19.7% z+2.10 | HELD n  385 139-246   +3.8% z+0.52
+   at the 2d       look       ALL n  561 208-353   +2.4% z+0.40 | TRAIN n  223 91-132  +12.9% z+1.35 | HELD n  338 117-221   -4.6% z-0.62
+   at the 1d       look       ALL n   95 43-52  +27.5% z+1.77 | TRAIN n   35 20-15  +54.5% z+2.20 | HELD n   60 23-37  +11.7% z+0.60
+   at the game day look       ALL n  532 195-337   -0.3% z-0.04 | TRAIN n  214 84-130   +7.1% z+0.74 | HELD n  318 111-207   -5.2% z-0.68
+   at the CLOSE               ALL n  637 244-393   +2.9% z+0.53 | TRAIN n  252 105-147  +10.4% z+1.19 | HELD n  385 139-246   -2.1% z-0.29
+   first fair minus the close, the same bets: +3.4% a bet (t +5.0); held +2.7%
+
+ ncaaf | ANY spot dog, read not fighting: 395
+   at the FIRST FAIR number   ALL n  395 147-248   +4.1% z+0.57 | TRAIN n  149 63-86  +18.6% z+1.57 | HELD n  246 84-162   -4.7% z-0.54
+   (first fair, BEST book)    ALL n  395 147-248   +7.9% z+1.07 | TRAIN n  149 63-86  +23.8% z+1.91 | HELD n  246 84-162   -1.8% z-0.19
+   at the 2d       look       ALL n  350 125-225   -0.5% z-0.07 | TRAIN n  132 56-76  +19.0% z+1.49 | HELD n  218 69-149  -12.3% z-1.35
+   at the 1d       look       ALL n   57 28-29  +36.8% z+1.86 | TRAIN n   20 11-9  +51.8% z+1.56 | HELD n   37 17-20  +28.7% z+1.17
+   at the game day look       ALL n  332 117-215   -3.5% z-0.46 | TRAIN n  127 52-75  +13.6% z+1.07 | HELD n  205 65-140  -14.0% z-1.53
+   at the CLOSE               ALL n  395 147-248   +0.5% z+0.07 | TRAIN n  149 63-86  +14.4% z+1.25 | HELD n  246 84-162   -7.9% z-0.92
+   first fair minus the close, the same bets: +3.5% a bet (t +3.9); held +3.2%
+
+ ncaaf | dog, read 4+ over the price: 1126
+   at the FIRST FAIR number   ALL n 1126 396-730   -0.5% z-0.11 | TRAIN n  487 170-317   -1.7% z-0.27 | HELD n  639 226-413   +0.5% z+0.09
+   (first fair, BEST book)    ALL n 1126 396-730   +3.1% z+0.72 | TRAIN n  487 170-317   +2.4% z+0.36 | HELD n  639 226-413   +3.7% z+0.64
+   at the 3-4d     look       ALL n  126 41-85  -12.4% z-1.06 | TRAIN n   53 17-36  -16.6% z-0.96 | HELD n   73 24-49   -9.3% z-0.59
+   at the 2d       look       ALL n  952 330-622   -1.5% z-0.34 | TRAIN n  424 146-278   -1.6% z-0.23 | HELD n  528 184-344   -1.5% z-0.25
+   at the 1d       look       ALL n  186 70-116   +4.6% z+0.44 | TRAIN n   79 34-45  +16.8% z+1.06 | HELD n  107 36-71   -4.5% z-0.32
+   at the game day look       ALL n  905 312-593   -3.0% z-0.64 | TRAIN n  399 132-267   -6.1% z-0.87 | HELD n  506 180-326   -0.5% z-0.08
+   at the CLOSE               ALL n 1126 396-730   -2.8% z-0.68 | TRAIN n  487 170-317   -2.8% z-0.44 | HELD n  639 226-413   -2.9% z-0.53
+   first fair minus the close, the same bets: +2.4% a bet (t +4.4); held +3.3%
+
+============================== S6 - THE MONEY-LEFT RULE (a dog +100..+350 at a LATER early look, 1.5+ days out: what the price already did since the first fair number -> the move still to come by the close, and the ROI at that look's price)
+
+ nfl | every dog (the second early look, on average 3.3 days out)
+   ran AWAY 4+ pts            still to come -0.68 (n   51, t  -1.1) | ROI at this look ALL n   51 19-32   -4.0% z-0.22 | TRAIN n   27 9-18  -15.4% z-0.65 | HELD n   24 10-14   +8.7% z+0.32 | (had we bet the first fair: -17.5%)
+   ran away 2-4               still to come -0.20 (n   98, t  -0.5) | ROI at this look ALL n   98 29-69  -25.4% z-2.10 | TRAIN n   45 13-32  -24.7% z-1.35 | HELD n   53 16-37  -25.9% z-1.62 | (had we bet the first fair: -30.5%)
+   ran away 1-2               still to come -0.22 (n  133, t  -1.0) | ROI at this look ALL n  133 47-86   -2.7% z-0.23 | TRAIN n   62 27-35  +19.6% z+1.12 | HELD n   71 20-51  -22.2% z-1.45 | (had we bet the first fair: -6.8%)
+   flat (inside 1)            still to come +0.07 (n  791, t  +0.6) | ROI at this look ALL n  791 265-526   -6.8% z-1.41 | TRAIN n  382 134-248   -2.9% z-0.42 | HELD n  409 131-278  -10.5% z-1.55 | (had we bet the first fair: -6.7%)
+   came to it 1-2             still to come +0.47 (n  144, t  +1.8) | ROI at this look ALL n  144 49-95   -8.0% z-0.71 | TRAIN n   55 18-37  -16.9% z-1.04 | HELD n   89 31-58   -2.4% z-0.16 | (had we bet the first fair: -3.8%)
+   came to it 2-4             still to come +0.86 (n  111, t  +1.9) | ROI at this look ALL n  111 44-67   -2.9% z-0.25 | TRAIN n   63 27-36   +7.1% z+0.44 | HELD n   48 17-31  -16.1% z-0.97 | (had we bet the first fair: +4.6%)
+   came to it 4+ (hammered)   still to come +0.58 (n   26, t  +0.6) | ROI at this look ALL n   26 14-12  +23.1% z+1.02 | TRAIN n   16 9-7  +23.1% z+0.84 | HELD n   10 5-5  +23.2% z+0.59 | (had we bet the first fair: +44.7%)
+
+ nfl | anyspot (the second early look, on average 3.5 days out)
+   ran AWAY 4+ pts            still to come -2.88 (n   14, t  -2.2) | ROI at this look ALL n   14 7-7  +26.8% z+0.76 | TRAIN n   10 4-6  -11.2% z-0.32 | HELD n    4 3-1 +121.8% z+1.76 | (had we bet the first fair: +9.4%)
+   ran away 2-4               still to come -0.21 (n   26, t  -0.3) | ROI at this look ALL n   26 7-19  -37.5% z-1.84 | TRAIN n   10 2-8  -48.5% z-1.48 | HELD n   16 5-11  -30.6% z-1.18 | (had we bet the first fair: -41.0%)
+   ran away 1-2               still to come +0.28 (n   30, t  +0.6) | ROI at this look ALL n   30 12-18  +12.6% z+0.48 | TRAIN n   10 6-4  +68.0% z+1.55 | HELD n   20 6-14  -15.2% z-0.50 | (had we bet the first fair: +7.4%)
+   flat (inside 1)            still to come +0.12 (n  207, t  +0.6) | ROI at this look ALL n  207 75-132   +2.2% z+0.22 | TRAIN n   91 33-58   +3.5% z+0.24 | HELD n  116 42-74   +1.1% z+0.08 | (had we bet the first fair: +2.2%)
+   came to it 1-2             still to come +0.42 (n   39, t  +1.0) | ROI at this look ALL n   39 16-23  +10.5% z+0.47 | TRAIN n   12 5-7  +14.5% z+0.36 | HELD n   27 11-16   +8.7% z+0.32 | (had we bet the first fair: +15.7%)
+   came to it 2-4             still to come +1.13 (n   22, t  +2.1) | ROI at this look ALL n   22 9-13   +6.6% z+0.23 | TRAIN n   13 6-7  +27.4% z+0.67 | HELD n    9 3-6  -23.3% z-0.64 | (had we bet the first fair: +16.6%)
+
+ nfl | blowout (the second early look, on average 3.2 days out)
+   ran away 2-4               still to come -1.09 (n   11, t  -1.5) | ROI at this look ALL n   11 3-8  -40.5% z-1.37 | TRAIN n    4 1-3  -40.0% z-0.77 | HELD n    7 2-5  -40.7% z-1.15 | (had we bet the first fair: -43.9%)
+   ran away 1-2               still to come +0.34 (n   12, t  +0.6) | ROI at this look ALL n   12 6-6  +43.8% z+1.01 | TRAIN n    3 2-1  +93.3% z+1.18 | HELD n    9 4-5  +27.2% z+0.54 | (had we bet the first fair: +37.1%)
+   flat (inside 1)            still to come +0.32 (n   81, t  +1.1) | ROI at this look ALL n   81 31-50   +3.2% z+0.21 | TRAIN n   29 14-15  +32.1% z+1.22 | HELD n   52 17-35  -12.9% z-0.71 | (had we bet the first fair: +3.4%)
+   came to it 1-2             still to come +0.49 (n   19, t  +1.2) | ROI at this look ALL n   19 9-10  +17.0% z+0.59 | TRAIN n    7 4-3  +46.3% z+0.96 | HELD n   12 5-7   -0.1% z-0.00 | (had we bet the first fair: +21.9%)
+
+ ncaaf | every dog (the second early look, on average 2.4 days out)
+   ran AWAY 4+ pts            still to come +1.61 (n   34, t  +2.5) | ROI at this look ALL n   34 18-16  +30.7% z+1.40 | TRAIN n   11 6-5  +55.8% z+1.25 | HELD n   23 12-11  +18.7% z+0.78 | (had we bet the first fair: +13.4%)
+   ran away 2-4               still to come +0.37 (n  107, t  +0.9) | ROI at this look ALL n  107 37-70  -14.3% z-1.23 | TRAIN n   49 16-33  -16.5% z-0.94 | HELD n   58 21-37  -12.5% z-0.81 | (had we bet the first fair: -20.1%)
+   ran away 1-2               still to come +0.14 (n  185, t  +0.6) | ROI at this look ALL n  185 58-127  -14.7% z-1.53 | TRAIN n   89 30-59   -6.1% z-0.43 | HELD n   96 28-68  -22.6% z-1.77 | (had we bet the first fair: -18.0%)
+   flat (inside 1)            still to come +0.57 (n 1487, t  +6.9) | ROI at this look ALL n 1487 528-959   +1.4% z+0.38 | TRAIN n  666 230-436   -1.3% z-0.24 | HELD n  821 298-523   +3.6% z+0.72 | (had we bet the first fair: +1.5%)
+   came to it 1-2             still to come +1.06 (n  187, t  +5.0) | ROI at this look ALL n  187 70-117   +0.5% z+0.05 | TRAIN n   81 37-44  +19.3% z+1.29 | HELD n  106 33-73  -13.8% z-1.08 | (had we bet the first fair: +4.8%)
+   came to it 2-4             still to come +0.08 (n  117, t  +0.3) | ROI at this look ALL n  117 42-75  -11.1% z-0.97 | TRAIN n   36 13-23  -11.2% z-0.55 | HELD n   81 29-52  -11.0% z-0.80 | (had we bet the first fair: -3.9%)
+   came to it 4+ (hammered)   still to come +0.63 (n   22, t  +0.9) | ROI at this look ALL n   22 11-11  +23.0% z+0.87 | TRAIN n    6 3-3  +25.0% z+0.48 | HELD n   16 8-8  +22.2% z+0.72 | (had we bet the first fair: +46.4%)
+
+ ncaaf | anyspot (the second early look, on average 2.2 days out)
+   ran away 2-4               still to come +1.57 (n   24, t  +2.0) | ROI at this look ALL n   24 6-18  -36.2% z-1.56 | TRAIN n   11 3-8  -27.8% z-0.75 | HELD n   13 3-10  -43.2% z-1.50 | (had we bet the first fair: -40.3%)
+   ran away 1-2               still to come +0.37 (n   48, t  +1.1) | ROI at this look ALL n   48 15-33  -14.1% z-0.74 | TRAIN n   19 7-12   +0.4% z+0.01 | HELD n   29 8-21  -23.6% z-0.99 | (had we bet the first fair: -17.2%)
+   flat (inside 1)            still to come +0.74 (n  373, t  +5.3) | ROI at this look ALL n  373 143-230   +9.2% z+1.22 | TRAIN n  150 59-91  +13.1% z+1.08 | HELD n  223 84-139   +6.5% z+0.68 | (had we bet the first fair: +9.3%)
+   came to it 1-2             still to come +1.55 (n   62, t  +3.9) | ROI at this look ALL n   62 27-35  +13.4% z+0.79 | TRAIN n   28 15-13  +39.4% z+1.54 | HELD n   34 12-22   -8.1% z-0.37 | (had we bet the first fair: +17.9%)
+   came to it 2-4             still to come +0.15 (n   45, t  +0.3) | ROI at this look ALL n   45 14-31  -26.4% z-1.60 | TRAIN n   16 6-10  -15.0% z-0.54 | HELD n   29 8-21  -32.7% z-1.60 | (had we bet the first fair: -20.8%)
+
+ ncaaf | bye (the second early look, on average 2.1 days out)
+   ran away 1-2               still to come +1.01 (n   11, t  +1.2) | ROI at this look ALL n   11 3-8  -23.5% z-0.62 | TRAIN n    5 2-3   +6.4% z+0.11 | HELD n    6 1-5  -48.3% z-1.02 | (had we bet the first fair: -25.9%)
+   flat (inside 1)            still to come +0.93 (n  113, t  +3.4) | ROI at this look ALL n  113 42-71  +10.2% z+0.72 | TRAIN n   43 15-28   -0.6% z-0.03 | HELD n   70 27-43  +16.8% z+0.91 | (had we bet the first fair: +10.1%)
+   came to it 1-2             still to come +1.83 (n   18, t  +1.9) | ROI at this look ALL n   18 9-9  +33.9% z+1.03 | TRAIN n    9 4-5  +13.9% z+0.33 | HELD n    9 5-4  +54.0% z+1.10 | (had we bet the first fair: +39.7%)
+   came to it 2-4             still to come +0.30 (n   15, t  +0.3) | ROI at this look ALL n   15 5-10  -21.0% z-0.72 | TRAIN n    8 3-5  -13.8% z-0.35 | HELD n    7 2-5  -29.3% z-0.69 | (had we bet the first fair: -14.4%)
+
+ ncaaf | blowout (the second early look, on average 2.2 days out)
+   ran away 2-4               still to come +1.51 (n   19, t  +1.7) | ROI at this look ALL n   19 5-14  -31.9% z-1.18 | TRAIN n    9 3-6  -11.8% z-0.27 | HELD n   10 2-8  -50.0% z-1.58 | (had we bet the first fair: -36.5%)
+   ran away 1-2               still to come +0.16 (n   38, t  +0.5) | ROI at this look ALL n   38 12-26  -13.7% z-0.64 | TRAIN n   14 5-9   -1.8% z-0.05 | HELD n   24 7-17  -20.6% z-0.78 | (had we bet the first fair: -16.9%)
+   flat (inside 1)            still to come +0.67 (n  274, t  +4.3) | ROI at this look ALL n  274 110-164  +11.3% z+1.31 | TRAIN n  110 46-64  +19.3% z+1.36 | HELD n  164 64-100   +5.9% z+0.55 | (had we bet the first fair: +11.5%)
+   came to it 1-2             still to come +1.29 (n   48, t  +2.9) | ROI at this look ALL n   48 20-28   +5.5% z+0.29 | TRAIN n   22 12-10  +41.3% z+1.42 | HELD n   26 8-18  -24.8% z-1.10 | (had we bet the first fair: +9.5%)
+   came to it 2-4             still to come +0.35 (n   39, t  +0.8) | ROI at this look ALL n   39 12-27  -28.7% z-1.66 | TRAIN n   13 5-8  -15.4% z-0.52 | HELD n   26 7-19  -35.3% z-1.67 | (had we bet the first fair: -23.1%)
+
+ S6b - the game file's OPENER -> the first fair number (what the money did before we could bet), dogs +100..+350 at the first fair number
+ nfl
+   ran AWAY 4+ pts            still to come +0.05 (n  405, t  +0.2) | ROI at the first fair ALL n  405 135-270   -6.3% z-0.92 | TRAIN n 0 | HELD n  405 135-270   -6.3% z-0.92
+   ran away 2-4               still to come -0.11 (n   76, t  -0.3) | ROI at the first fair ALL n   76 20-56  -28.9% z-2.04 | TRAIN n 0 | HELD n   76 20-56  -28.9% z-2.04
+   ran away 1-2               still to come -0.06 (n   37, t  -0.1) | ROI at the first fair ALL n   37 16-21  +17.6% z+0.75 | TRAIN n 0 | HELD n   37 16-21  +17.6% z+0.75
+   flat (inside 1)            still to come +0.00 (n   86, t  +0.0) | ROI at the first fair ALL n   86 38-48  +19.0% z+1.25 | TRAIN n 0 | HELD n   86 38-48  +19.0% z+1.25
+   came to it 1-2             still to come -0.25 (n   35, t  -0.5) | ROI at the first fair ALL n   35 15-20  +11.4% z+0.50 | TRAIN n 0 | HELD n   35 15-20  +11.4% z+0.50
+   came to it 2-4             still to come -0.04 (n   39, t  -0.1) | ROI at the first fair ALL n   39 12-27  -24.8% z-1.32 | TRAIN n 0 | HELD n   39 12-27  -24.8% z-1.32
+   came to it 4+ (hammered)   still to come -0.53 (n   91, t  -1.5) | ROI at the first fair ALL n   91 29-62  -22.7% z-1.87 | TRAIN n 0 | HELD n   91 29-62  -22.7% z-1.87
+ ncaaf
+   ran AWAY 4+ pts            still to come +0.95 (n  353, t  +4.9) | ROI at the first fair ALL n  353 128-225   +0.8% z+0.10 | TRAIN n 0 | HELD n  353 128-225   +0.8% z+0.10
+   ran away 2-4               still to come +0.59 (n  184, t  +2.2) | ROI at the first fair ALL n  184 59-125  -13.9% z-1.44 | TRAIN n 0 | HELD n  184 59-125  -13.9% z-1.44
+   ran away 1-2               still to come +0.63 (n  124, t  +2.0) | ROI at the first fair ALL n  124 43-81   -3.6% z-0.29 | TRAIN n 0 | HELD n  124 43-81   -3.6% z-0.29
+   flat (inside 1)            still to come +0.88 (n  233, t  +4.3) | ROI at the first fair ALL n  233 79-154   -4.4% z-0.49 | TRAIN n 0 | HELD n  233 79-154   -4.4% z-0.49
+   came to it 1-2             still to come +1.13 (n  107, t  +3.1) | ROI at the first fair ALL n  107 35-72   -3.3% z-0.23 | TRAIN n 0 | HELD n  107 35-72   -3.3% z-0.23
+   came to it 2-4             still to come +0.83 (n  156, t  +3.0) | ROI at the first fair ALL n  156 54-102   -0.6% z-0.05 | TRAIN n 0 | HELD n  156 54-102   -0.6% z-0.05
+   came to it 4+ (hammered)   still to come +1.12 (n  205, t  +4.5) | ROI at the first fair ALL n  205 76-129   -1.5% z-0.16 | TRAIN n 0 | HELD n  205 76-129   -1.5% z-0.16

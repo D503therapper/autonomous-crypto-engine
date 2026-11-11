@@ -522,7 +522,47 @@ def tags(c, sports):
     elif flip == "dog":
         t.append("football dog +100..+150, the favorite at the first fair number")   # the mirror: +18.4% on 109 (train
         #   3 of 3 up, held +11.1%) vs -2.0% for the dogs all week in the same band - same games, a LEAD
+    # 11/11 FABLE: BEATING THE LINE ON THE EARLY PLAYS (results/studies/early_1111/) - three LEADS, tracked only (never
+    #   read by the board), from the 11/12 Pacific game day
+    if sports.pt_day(c) >= EARLY_LINE_FROM:
+        t += early_line_tags(c)
     return t + sharp
+
+
+EARLY_LINE_FROM = "2026-11-12"   # 11/11 early-line studies: the three lead tags log from the 11/12 Pacific game day
+EARLY_LINE_DOG = (100, 350)      # the early spots' own dog band
+EARLY_LINE_BLOWOUT = 17          # sports_early.BLOWOUT: won its last game by 17+
+EARLY_LINE_LEFT = 0.02           # the money ran 2+ points away since the first fair number (drift, + = it left)
+EARLY_LINE_NHL_FAV = (-150, -101)
+
+
+def early_line_tags(c):
+    """11/11 FABLE early-line studies - LEADS, tracked only (the board never reads them):
+    (1) "football dog off a 17+ win (the blowout chase)": the blowout early spot and the board's +2 'off a 17+ win'
+        weight were found on 2020-25 as one block. Split: the college dog off a 17+ win is +21.6% at the first fair
+        number in 2020-22 and -3.2% on 298 in 2023-26 (-6.2% at the close; NFL +25.2% -> -5.4% on 92); under the live
+        bar 2022..2026 by season -7% / +12% / -14% / -1% / -42%. The money DOES come to it (+1.0 points by the close, 7
+        of 7 seasons; +2.8 this season, 68% of the time) - that's the public chasing last week's score, not a winner:
+        this season's 25 on our tape went 5-20. Its record at the game-day price says if the weight / the spot stays.
+    (2) "football dog, the money left it 2+ since the first fair number (fade)": the paid history's second early look
+        -11.0% on 290 (train -13.0%, held -9.2%, 6 of 7 seasons down) vs -1.5% for the dogs inside a point; a random
+        290 did as badly 314 of 2,000 times - a lead (the board's dog score already takes 4 off for it, NFL / college).
+    (3) "NHL road favorite -101..-150": the one early-line fact in hockey - the day-before number on it shortens 1.1
+        points by game morning (t +9.8 on 466, 2021-23 paid history: train +0.97, held +2.34; our tape this season the
+        same way), and the day-before price paid +6.1% (z 1.5) vs +4.2% at the morning number. Logged at the board's
+        price: if it holds, the hockey road favorite is the one side worth posting the night before (the owner's call)."""
+    if c.get("market") != "ml":
+        return []
+    lg, o, out = c.get("league"), c.get("odds") or 0, []
+    if lg in ("nfl", "ncaaf") and EARLY_LINE_DOG[0] <= o <= EARLY_LINE_DOG[1]:
+        if ((c.get("dog_more") or {}).get("last_margin") or 0) >= EARLY_LINE_BLOWOUT:
+            out.append("football dog off a 17+ win (the blowout chase)")
+        if (c.get("drift") or 0) >= EARLY_LINE_LEFT:
+            out.append("football dog, the money left it 2+ since the first fair number (fade)")
+    if lg == "nhl" and EARLY_LINE_NHL_FAV[0] <= o <= EARLY_LINE_NHL_FAV[1] and c.get("side") == "away" \
+            and not c.get("neutral"):
+        out.append("NHL road favorite -101..-150")
+    return out
 
 
 FLIP_FROM = "2026-11-12"   # 11/11 daily study 9: the line-flip lead tags log from the 11/12 Pacific game day

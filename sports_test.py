@@ -21117,6 +21117,266 @@ def test_daily_1111_football_line_flip_is_a_tracker_lead_only():
         sl._GAMES.clear(); sl._GAMES.update(keep)
 
 
+def test_early_1111_fresh_number_rule_close_stamp_and_line_leads():
+    """11/11 FABLE: BEATING THE LINE ON THE EARLY PLAYS (the owner: "we didn't really beat the line on any of them ...
+    figure out the best way to lock in these early plays"; results/studies/early_1111/). WIRED, games from the 11/12
+    Pacific day: (1) THE FRESH NUMBER RULE - a football early spot never posts on the look-ahead number still showing
+    from before the teams' last games (8 of our 49 football early plays did: 1-6, and all of our "beat the close");
+    it posts once our line tape shows the book re-hung the game at / after the fair moment (1h slack), or 15 hours on.
+    (2) the price's move since the first fair number is stamped on the play ('moved'), and the close + how far we beat
+    it are stamped at the grade ('close', 'clv') - sports_early.line_record is the engine's own beat-the-close record
+    by spot and by what the money had done. (3) three tracker tags, never read by the board. No weight, no gate on a
+    factor; no posted pick changes."""
+    import json as _j
+    import sports_early as se, sports_go4, sports_leads as sl
+    assert se.FRESH_FROM == "2026-11-12" and se.STALE_WAIT_H == 15 and se.FRESH_SLACK_H == 1
+    _go4 = dict(sports_go4._CACHE)
+    sports_go4._CACHE["d"] = {}
+    keep = (se.FRESH_FROM, dict(se._COACH))
+    se._COACH["exp"] = {}
+
+    def gm(gid, start, home, away, hn, an, mh="", ma="", status="pre", hs="", as_=""):
+        return {"id": gid, "league": "nfl", "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": hn, "away_name": an, "ml_home": mh, "ml_away": ma, "home_score": hs, "away_score": as_,
+                "tzo": "-5.0", "neutral": "0"}
+    # the Bills sat last week (last game 11/1), the Jets played Sunday 11/8 at 17:00Z: the 11/15 game is fair from
+    # 11/8 21:00Z (the Jets' kickoff + 4h). Bills +150 = the bye spot.
+    G = {"n1": gm("n1", "2026-11-01T18:00Z", "B", "X", "Bills", "X", status="final", hs="20", as_="17"),
+         "n2": gm("n2", "2026-11-08T17:00Z", "J", "Y", "Jets", "Y", status="final", hs="24", as_="10"),
+         "n3": gm("n3", "2026-11-15T18:00Z", "J", "B", "Jets", "Bills", "-170", "150")}
+
+    def own(g, side):
+        h, a = se._imp(int(g["ml_home"])), se._imp(int(g["ml_away"]))
+        return (h if side == "home" else a) / (h + a) + 0.02
+
+    def tape(rows):
+        d = tempfile.mkdtemp()
+        with open(os.path.join(d, "2026-11.jsonl"), "w") as f:
+            for t, h, a in rows:
+                f.write(_j.dumps({"g": "n3", "t": t, "s": "2026-11-15T18:00Z", "h": h, "a": a}) + "\n")
+        return d
+
+    def bills(now, d):
+        return [c for c in se.spot_scan(G, now, own_of=own, hist_dir=d) if c["team"] == "Bills"]
+    fair = datetime(2026, 11, 8, 21, 0, tzinfo=timezone.utc)
+    try:
+        at = fair + timedelta(minutes=30)
+        # the feed still shows Friday's look-ahead number half an hour after the Jets game: not a price anybody can bet
+        assert bills(at, tape([])) == []
+        assert bills(at, tape([("2026-11-06T15:00Z", -170, 150)])) == []           # hung BEFORE the Jets played: stale
+        assert not se.line_fresh("n3", fair, at, tape([("2026-11-06T15:00Z", -170, 150)]))
+        # the book re-hangs it at 22:10Z: the next scan posts, on the real number
+        d = tape([("2026-11-06T15:00Z", -190, 165), ("2026-11-08T22:10Z", -170, 150)])
+        assert bills(fair + timedelta(minutes=60), tape([("2026-11-06T15:00Z", -190, 165)])) == []   # 22:00Z: not yet
+        got = bills(fair + timedelta(minutes=90), d)
+        assert len(got) == 1 and got[0]["spot"] == "bye" and got[0]["odds"] == 150, got
+        assert got[0]["moved"] == 0.0                                                # no move since the first fair number
+        # a game that ended early: a change inside the hour before the fair moment counts as the re-hang
+        assert len(bills(at, tape([("2026-11-08T20:20Z", -170, 150)]))) == 1
+        assert bills(at, tape([("2026-11-08T19:50Z", -170, 150)])) == []             # 70 minutes before: still in the game
+        # never re-hung (the look-ahead number was right): 15 hours on, it's a real number
+        assert bills(fair + timedelta(hours=14), tape([])) == []
+        assert len(bills(fair + timedelta(hours=15), tape([]))) == 1
+        assert se.line_fresh("n3", None, at, tape([]))                               # no fair moment (an opener): nothing stale
+        # the move since the first fair number rides on the play: first fair +165, +150 now = the money came to it
+        got = bills(fair + timedelta(hours=20), tape([("2026-11-08T21:40Z", -190, 165), ("2026-11-09T15:00Z", -170, 150)]))
+        assert len(got) == 1 and 0 < got[0]["moved"] < se.HAMMER_PTS and "hammered" not in got[0]["spots"], got
+        got = bills(fair + timedelta(hours=20), tape([("2026-11-08T21:40Z", -150, 130), ("2026-11-09T15:00Z", -170, 150)]))
+        assert len(got) == 1 and got[0]["moved"] <= -se.MONEY_LEFT_PTS, got          # ran away: stamped, still a play -
+        #                                                                              the money-left read is a LEAD
+        # dated: a game before the 11/12 Pacific day keeps the old rule (posts at the fair moment)
+        se.FRESH_FROM = "2026-11-16"
+        assert len(bills(at, tape([]))) == 1
+    finally:
+        se.FRESH_FROM = keep[0]
+        se._COACH.clear(); se._COACH.update(keep[1])
+        sports_go4._CACHE.clear(); sports_go4._CACHE.update(_go4)
+    # (2) the close, stamped at the grade - the pick, its price and its units never move
+    p = {"game_id": "n3", "league": "nfl", "side": "away", "team": "Bills", "odds": 150, "opp_odds": -170, "spot": "bye",
+         "spots": ["bye"], "start": "2026-11-15T18:00Z", "posted": "2026-11-08T22:30Z", "result": None, "units": 1.0,
+         "moved": -2.5}
+    fin = dict(G["n3"], status="final", home_score="17", away_score="20", ml_home="-150", ml_away="130")
+    st = {"picks": [p]}
+    assert se.grade(st, {"n3": fin}, datetime(2026, 11, 15, 22, tzinfo=timezone.utc)) == 1
+    assert p["result"] == "won" and p["odds"] == 150 and p["units"] == 1.0
+    assert p["close"] == 130 and p["close_opp"] == -150 and p["clv"] > 0           # +150 -> +130: we beat the close
+    assert abs(p["clv"] - (se._imp(130) / (se._imp(130) + se._imp(-150)) - se._imp(150) / (se._imp(150) + se._imp(-170))) * 100) < 0.06
+    assert se.clv({"odds": 150, "opp_odds": -170, "side": "away"}, 165, -190) < 0  # the close ran away from it
+    assert se.clv({"market": "total", "side": "under", "line": 41.5, "odds": -110}, 40.5) == 1.0    # an under that closed lower
+    assert se.clv({"market": "total", "side": "over", "line": 147.5, "odds": -110}, 149.0) == 1.5   # an over that closed higher
+    assert se.clv({"market": "total", "side": "over", "line": 147.5, "odds": -110}, 146.0) == -1.5
+    assert se.clv(p, None) is None
+    assert se.grade(st, {"n3": fin}) == 0                                          # graded once
+    q = {"game_id": "n9", "league": "ncaaf", "side": "home", "team": "Dogs", "odds": 200, "opp_odds": -245, "spot": "blowout",
+         "result": "lost", "clv": 3.0, "moved": 0.4}
+    old = {"game_id": "n3", "league": "nfl", "side": "away", "team": "Bills", "odds": 110, "opp_odds": -130, "spot": "bye",
+           "result": "lost"}                                                         # graded before 11/11: no stamp
+    rec = se.line_record({"picks": [p, q, old, {"game_id": "z", "result": None, "odds": 120}]}, {"n3": fin})
+    assert rec["all"]["n"] == 3 and rec["bye"]["n"] == 2 and rec["blowout"] == {"n": 1, "clv": 3.0, "beat": 1, "same": 0, "worse": 0, "w": 0, "l": 1}
+    assert rec["bye"]["beat"] == 1 and rec["bye"]["worse"] == 1 and rec["bye"]["w"] == 1 and rec["bye"]["l"] == 1
+    assert rec["money left 2+"]["n"] == 1 and rec["money left 2+"]["w"] == 1 and rec["money flat"]["n"] == 1
+    assert "clv" not in old                                                          # read off the game file, never written back
+    assert se.line_record({"picks": [old]}) == {} and se.line_record_say({}) == ""
+    assert se.line_record_say(rec).startswith("📈 early plays vs the close: all ")
+    # (3) the three tracker tags - leads only, from the 11/12 Pacific game day
+    assert sl.EARLY_LINE_FROM == "2026-11-12"
+    dog = {"market": "ml", "league": "ncaaf", "side": "home", "odds": 180, "dog_more": {"last_margin": 21}, "drift": 0.03}
+    assert sl.early_line_tags(dog) == ["football dog off a 17+ win (the blowout chase)",
+                                       "football dog, the money left it 2+ since the first fair number (fade)"]
+    assert sl.early_line_tags({**dog, "dog_more": {"last_margin": 16}, "drift": 0.01}) == []
+    assert sl.early_line_tags({**dog, "odds": 360}) == [] and sl.early_line_tags({**dog, "odds": -120}) == []
+    assert sl.early_line_tags({**dog, "league": "nba"}) == [] and sl.early_line_tags({**dog, "market": "spread"}) == []
+    nhl = {"market": "ml", "league": "nhl", "side": "away", "odds": -130}
+    assert sl.early_line_tags(nhl) == ["NHL road favorite -101..-150"]
+    assert sl.early_line_tags({**nhl, "side": "home"}) == [] and sl.early_line_tags({**nhl, "odds": -160}) == []
+    assert sl.early_line_tags({**nhl, "odds": 110}) == []
+    late = {**nhl, "game_id": "nhl:1", "start": "2026-11-13T00:30Z", "p": 0.55, "p_market": 0.55, "dec": 1.77}   # 11/12 PT
+    eve = {**late, "start": "2026-11-12T03:00Z"}                                    # 7 PM Pacific 11/11: not tagged
+    assert "NHL road favorite -101..-150" in sl.tags(late, sports)
+    assert "NHL road favorite -101..-150" not in sl.tags(eve, sports)
+    # nothing here is a weight: the spot weights, the bar and the pause list are what they were
+    assert se.SPOT_WEIGHT == {"best": 0.0, "bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
+    assert se.SPOT_MIN_TOTAL == 0.05 and "money left" not in se.FADE_WEIGHT and se.SPOTS_OFF == {"engine"}
+
+
+def test_early_1111_one_voice_and_the_blowout_spot_paused():
+    """11/11 (the owner: "I don't want the algorithm to confuse itself" - the Grizzlies +146 opening-line play read 45.8%
+    on its own model while the 8 AM board's read on the same side was 36.5% against the 40.8% the price needs; and
+    "tighten the engine up ... on the early plays ... don't ask me anything, just fix what needs to be fixed").
+    (1) ONE VOICE, games from the 11/12 Pacific day: every early moneyline play - the spots, the 🏀 opening-line play, the
+    exam scan - posts only when the engine's MAIN read for that side (the board's own row, sports.read_of) is not under
+    what our price needs; no main read = no play; a total takes no side and keeps its own rule; the two numbers are
+    stamped on the play. (2) THE BLOWOUT SPOT IS PAUSED for games from the 11/12 Pacific day (held out -7.4% on 182
+    college / -5.4% on 92 NFL after +21% / +25% in 2020-22; this season 5-20 on our tape, 3-11 live) - dated, so no
+    posted play changes; the pause list the owner set (SPOTS_OFF) is untouched."""
+    import json as _j
+    import sports_early as se, sports_go4
+    assert se.ONE_VOICE_FROM == "2026-11-12" and se.SPOTS_OFF_FROM == {"blowout": "2026-11-12"}
+    assert se.SPOTS_OFF == {"engine"}                                             # the owner's own pause list: as it was
+    # (2) the dated pause
+    assert se.spot_off("blowout", "2026-11-14T18:00Z") and not se.spot_off("blowout", "2026-11-12T03:00Z")   # 7 PM PT 11/11
+    assert se.spot_off("engine", "2026-10-01T18:00Z") and not se.spot_off("bye", "2026-11-14T18:00Z")
+    assert se.spot_off("blowout", None)                                           # no date to read = paused
+    _go4 = dict(sports_go4._CACHE)
+    sports_go4._CACHE["d"] = {}
+    keep_c = dict(se._COACH)
+    se._COACH["exp"] = {}
+
+    def gm(gid, start, home, away, hn, an, mh="", ma="", status="pre", hs="", as_=""):
+        return {"id": gid, "league": "ncaaf", "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": hn, "away_name": an, "ml_home": mh, "ml_away": ma, "home_score": hs, "away_score": as_,
+                "tzo": "-6.0", "neutral": "0"}
+    # (college - the blowout spot is college-only) the Rams won 27-3 on 11/7, the Packers played the same day;
+    # Saturday 11/14: Rams +130 at the Packers
+    G = {"m0": gm("m0", "2026-11-07T18:00Z", "R", "Z", "Rams", "Z", status="final", hs="27", as_="3"),
+         "m1": gm("m1", "2026-11-07T18:00Z", "P", "W", "Packers", "W", status="final", hs="10", as_="13"),
+         "m2": gm("m2", "2026-11-14T18:00Z", "P", "R", "Packers", "Rams", "-150", "130")}
+
+    def own(g, side):
+        h, a = se._imp(int(g["ml_home"])), se._imp(int(g["ml_away"]))
+        return (h if side == "home" else a) / (h + a) + 0.03
+    d = tempfile.mkdtemp()
+    with open(os.path.join(d, "2026-11.jsonl"), "w") as f:
+        f.write(_j.dumps({"g": "m2", "t": "2026-11-07T23:00Z", "s": "2026-11-14T18:00Z", "h": -150, "a": 130}) + "\n")
+    now = datetime(2026, 11, 8, 18, 0, tzinfo=timezone.utc)
+    keep_from = dict(se.SPOTS_OFF_FROM)
+    import sports_breakdown_v24 as v24
+    keep_seen = v24.seen_all
+    v24.seen_all = lambda *a, **k: True
+    try:
+        assert [c for c in se.spot_scan(G, now, own_of=own, hist_dir=d) if c["team"] == "Rams"] == []   # paused
+        se.SPOTS_OFF_FROM.clear()
+        got = [c for c in se.spot_scan(G, now, own_of=own, hist_dir=d) if c["team"] == "Rams"]
+        assert len(got) == 1 and got[0]["spot"] == "blowout", got                # the spot itself still works
+    finally:
+        se.SPOTS_OFF_FROM.clear(); se.SPOTS_OFF_FROM.update(keep_from)
+        v24.seen_all = keep_seen
+        se._COACH.clear(); se._COACH.update(keep_c)
+        sports_go4._CACHE.clear(); sports_go4._CACHE.update(_go4)
+    # (1) ONE VOICE
+    bye = {"game_id": "nfl:7", "league": "nfl", "side": "away", "team": "Bills", "opp": "Jets", "odds": 150, "opp_odds": -170,
+           "start": "2026-11-15T18:00Z", "spot": "bye", "spots": ["bye"], "fades": [], "score": 0.06, "own": 0.42,
+           "mkt": 0.39, "why": "x", "whys": ["x"]}
+    nbo = {"game_id": "nba:7", "league": "nba", "side": "home", "team": "Grizzlies", "opp": "Nuggets", "odds": 146,
+           "opp_odds": -174, "start": "2026-11-14T01:00Z", "spot": "nba_open", "spots": ["nba_open"], "fades": [],
+           "score": 0.048, "own": 0.458, "mkt": 0.39, "why": "x", "whys": ["x"], "date": "2026-11-13"}
+    exam = {"game_id": "mlb:7", "league": "mlb", "side": "home", "team": "Brewers", "opp": "Cubs", "odds": 120,
+            "opp_odds": -140, "start": "2026-11-14T01:00Z", "own": 0.5, "mkt": 0.44, "why": "x"}
+    rows = []
+    keep = (sports.candidates, se.spot_scan, se.with_book_lines, se.ON, se.scan, se.nba_open_scan, se.early_ok,
+            se.min_one, se.euro_unders, se.alt_overs)
+
+    def run(cands, nba=(), scan=(), tot=()):
+        se.spot_scan = lambda *a, **k: [dict(c) for c in cands]
+        se.nba_open_scan = lambda *a, **k: [dict(c) for c in nba]
+        se.scan = lambda *a, **k: [dict(c) for c in scan]
+        se.euro_unders = lambda *a, **k: [dict(c) for c in tot]
+        with tempfile.TemporaryDirectory() as dd:
+            path = os.path.join(dd, "early.json")
+            _j.dump({"picks": []}, open(path, "w"))
+            return se.post({}, {}, now=datetime(2026, 11, 10, 18, tzinfo=timezone.utc), injuries={}, path=path, ping=None)
+    try:
+        calls = []
+
+        def cands(games, model, now=None, day=None, injuries=None):
+            calls.append(day)
+            return [dict(r) for r in rows]
+        sports.candidates = cands
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        se.early_ok = lambda *a, **k: True
+        se.min_one = lambda *a, **k: []
+        se.alt_overs = lambda *a, **k: []
+        need = 1 / sd.decimal(150)                                                 # +150 needs 40%
+        # the board's own read on the Bills is 36%: two opinions on one game - the early play never posts
+        rows[:] = [{"game_id": "nfl:7", "side": "away", "market": "ml", "dog_p": 0.36, "odds": 150, "dec": 2.5},
+                   {"game_id": "nfl:7", "side": "home", "market": "ml", "w_p": 0.66, "odds": -170, "dec": 1.588}]
+        assert run([bye]) == []
+        assert se.main_read(bye, {}, {}, {}, None, {}) == (0.36, need)
+        # 41%: one voice - it posts, the two numbers on the play
+        rows[0]["dog_p"] = 0.41
+        new = run([bye])
+        assert len(new) == 1 and new[0]["main"] == 0.41 and abs(new[0]["main_need"] - 0.4) < 1e-9 and new[0]["odds"] == 150
+        rows[0]["dog_p"] = need                                                    # dead on the price: not under it
+        assert len(run([bye])) == 1
+        # the board holds no read on that side (or only a spread row): unknown is never fine
+        rows[:] = [{"game_id": "nfl:7", "side": "away", "market": "spread", "p": 0.6, "odds": -110, "dec": 1.909}]
+        assert run([bye]) == []
+        rows[:] = []
+        assert run([bye]) == []
+        # the 🏀 opening-line play and the exam scan go through the same door (the Grizzlies case: 36.5% vs 40.7%)
+        rows[:] = [{"game_id": "nba:7", "side": "home", "market": "ml", "w_p": 0.365, "odds": 146, "dec": 2.46},
+                   {"game_id": "mlb:7", "side": "home", "market": "ml", "edge_own": -0.05, "odds": 120, "dec": 2.2}]
+        assert run([], nba=[nbo]) == [] and run([], scan=[exam]) == []
+        rows[0]["w_p"], rows[1]["edge_own"] = 0.43, 0.02
+        assert [c["team"] for c in run([], nba=[nbo])] == ["Grizzlies"]
+        assert [c["team"] for c in run([], scan=[exam])] == ["Brewers"]
+        # the board's rows are built once a run for a day, however many plays ask
+        calls.clear()
+        rows.append({"game_id": "nba:8", "side": "home", "market": "ml", "w_p": 0.5, "odds": 146, "dec": 2.46})
+        assert len(run([], nba=[nbo, {**nbo, "game_id": "nba:8", "team": "Jazz", "date": "2026-11-14"}])) == 2
+        assert len(calls) == 1
+        # dated: a game on the 11/11 Pacific day keeps the old rule (the posted Grizzlies pick was never under this)
+        rows[:] = [{"game_id": "nba:7", "side": "home", "market": "ml", "w_p": 0.365, "odds": 146, "dec": 2.46}]
+        calls.clear()
+        assert len(run([], nba=[{**nbo, "start": "2026-11-12T03:00Z"}])) == 1 and calls == []
+        # a total takes no side: its own rule, never the board's side read
+        tot = {"game_id": "nfl:7", "league": "nfl", "market": "total", "side": "under", "line": 41.5, "odds": -110,
+               "start": "2026-11-15T14:30Z", "spot": "euro_under", "spots": ["euro_under"], "team": "Under 41.5",
+               "posted": "2026-11-10T18:00Z", "result": None, "units": 0.5}
+        rows[:] = []
+        assert [c["spot"] for c in run([], tot=[tot])] == ["euro_under"]
+        assert se.one_voice(tot, {}, {}, {}, None) and se.main_read(tot, {}, {}, {}, None) is None
+        # a read that crashes is a hold, never a post and never a crash
+        def boom(*a, **k):
+            raise RuntimeError("x")
+        sports.candidates = boom
+        assert run([bye]) == []
+    finally:
+        (sports.candidates, se.spot_scan, se.with_book_lines, se.ON, se.scan, se.nba_open_scan, se.early_ok,
+         se.min_one, se.euro_unders, se.alt_overs) = keep
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
