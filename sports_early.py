@@ -396,8 +396,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     for c in scan(games, model, now, injuries, trap):
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
-        if c.get("spot") in SPOTS_OFF:
-            continue                                 # ⏸️ a paused spot (the owner, 10/14) never posts
+        if c.get("spot") in SPOTS_OFF or spot_quit(st, c.get("spot")):
+            continue                                 # ⏸️ a paused spot (the owner, 10/14) / a quit one never posts
         if not early_ok(c, games, injuries, now):
             continue
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
@@ -438,7 +438,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
                 min_one(games, st, now, injuries, own_of, have) + nba_open_scan(games, st, now, injuries, have):
-            if c["game_id"] in have or c.get("spot") in SPOTS_OFF:
+            if c["game_id"] in have or c.get("spot") in SPOTS_OFF or spot_quit(st, c.get("spot")):
                 continue                                     # (10/26: a paused spot never posts on this path either)
             if room <= 0:
                 break                                        # (10/1 audit: never past 2 a week, both paths together)
@@ -1587,6 +1587,20 @@ def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model
                                                   if k in mo})
         out.append(c)
     return out
+
+
+SPOT_QUIT = {"blowout": (25, 0.35)}    # 💥 11/11 (the Fable book study, under the owner's 11/11 "wire anything you and Fable
+#                                         recommend"): the blowout spot was 3-11 live - judged at 25 graded: under 35% won =
+#                                         it stops posting, like a paused spot (the owner can turn it back on).
+
+
+def spot_quit(st, spot):
+    """A spot's judge (SPOT_QUIT): its own graded record at n+ and under the win rate = no more posts."""
+    if spot not in SPOT_QUIT:
+        return False
+    w, l_, _ = spot_record(st).get(spot, (0, 0, 0.0))
+    n, r = SPOT_QUIT[spot]
+    return w + l_ >= n and w / (w + l_) < r
 
 
 def spot_record(st):
