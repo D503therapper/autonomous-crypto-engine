@@ -1061,9 +1061,94 @@ def lineup_for(lineups, g, side):
 # ---------------------------------------------------------------- Action Network: odds history
 # ESPN drops the odds once a game is over. Action Network's public scoreboard keeps them for finished
 # games: book 15 = market consensus (used as the closing line), book 30 = the opening line.
-AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game&date={day}{extra}"
+# (11/11: AN retired the v1 scoreboard - every /web/v1/scoreboard call answers 404 "No Content found" since ~15:24
+#  UTC, any league, any parameters. The v2 scoreboard carries the same games, ids, boxscore and latest_odds, but the
+#  lines sit in "markets" - {book: {period: {moneyline / spread / total: [one entry per side]}}} - instead of v1's flat
+#  "odds" list. an_url builds the v2 call; an_odds turns v2's markets back into v1's rows, so every reader below -
+#  and sports_live / sports_h1log - sees the rows it always did.)
+AN_BASE = "https://api.actionnetwork.com/web/v2/scoreboard/{lg}"
 AN_EXTRA = {"ncaaf": "&division=FBS", "ncaab": "&division=D1"}
 AN_CLOSE, AN_OPEN = 15, 30
+
+
+def an_url(lg, day=None, week=None, books=(AN_CLOSE, AN_OPEN), periods=None):
+    """The v2 scoreboard call: one day (a date / datetime / 'YYYYMMDD' -> date=), a football week ((season, seasonType,
+    week) -> season= / week= / seasonType=), or neither (football: the current week). books = AN book ids (15 the
+    consensus, 30 the open); periods e.g. ("event", "firsthalf") adds those markets (without it v2 sends the full game
+    only). College adds its division, as v1 did."""
+    q = [f"bookIds={','.join(str(b) for b in books)}"] if books else []
+    if periods:
+        q.append("periods=" + ",".join(periods))
+    if week is not None:
+        season, typ, wk = week
+        q.append(f"season={season}&week={wk}&seasonType={typ}")
+    elif day is not None:
+        q.append("date=" + (day if isinstance(day, str) else day.strftime("%Y%m%d")))
+    if AN_EXTRA.get(lg):
+        q.append(AN_EXTRA[lg].lstrip("&"))
+    return AN_BASE.format(lg=lg) + ("?" + "&".join(q) if q else "")
+
+
+AN_PERIOD = {"event": "game"}            # v2's full-game period is "event"; v1 called it "game" (1H etc. keep their names)
+
+
+def an_odds(g):
+    """A game's lines as v1's flat rows - [{book_id, type (game / firsthalf / ...), ml_home, ml_away, spread_home,
+    spread_away, spread_home_line, spread_away_line, total, over, under}] - from v2's "markets" (a v1 "odds" list passes
+    straight through). Pregame lines only: v2 lists a book's in-game line next to its pregame one (is_live) and the
+    pregame one is the line (the closing line once the game starts); alternate lines never count. The side comes from
+    the team id when there is one, never the label alone. A market AN didn't send stays out - never a zero."""
+    if isinstance(g.get("odds"), list):
+        return g["odds"]
+    hid, aid = g.get("home_team_id"), g.get("away_team_id")
+    out = []
+    for bk, periods in (g.get("markets") or {}).items():
+        if not isinstance(periods, dict):
+            continue
+        try:
+            book = int(bk)
+        except (TypeError, ValueError):
+            book = bk
+        for per, mks in periods.items():
+            if not isinstance(mks, dict):
+                continue
+            row = {}
+            for typ in ("moneyline", "spread", "total"):
+                for o in mks.get(typ) or []:
+                    if not isinstance(o, dict) or o.get("is_live") or o.get("is_alt_market") or o.get("odds") is None:
+                        continue
+                    side = o.get("side")
+                    if typ != "total" and o.get("team_id") is not None:
+                        side = "home" if o["team_id"] == hid else "away" if o["team_id"] == aid else None
+                    if typ == "moneyline" and side in ("home", "away"):
+                        row.setdefault(f"ml_{side}", o["odds"])
+                    elif typ == "spread" and side in ("home", "away") and f"spread_{side}" not in row:
+                        row[f"spread_{side}"], row[f"spread_{side}_line"] = o.get("value"), o["odds"]
+                    elif typ == "total" and side in ("over", "under") and side not in row:
+                        row[side] = o["odds"]
+                        row.setdefault("total", o.get("value"))
+            if row:
+                out.append({"book_id": book, "type": AN_PERIOD.get(per, per), **row})
+    return out
+
+
+AN_SEEN = {"pages": 0, "games": 0, "rows": 0, "errs": []}   # this run's reads (games = finished ones) -> an_note
+_AN_LOCK = threading.Lock()
+
+
+def an_note():
+    """Say how this run's odds-history reads went in source_status.json ("actionnetwork_odds") - loudly when the feed
+    answered with finished games but no consensus line on any of them (a shape change reads as empty, never as real)."""
+    import sports_http as sh
+    s = AN_SEEN
+    if not s["pages"] and not s["errs"]:
+        return
+    if s["games"] and not s["rows"]:
+        err = f"{s['games']} finished games on {s['pages']} pages, NONE with a consensus moneyline - feed shape changed?"
+    else:
+        err = "; ".join(s["errs"]) or None
+    sh.note("actionnetwork_odds", bool(s["rows"]) or (not s["games"] and not s["errs"]), n=s["rows"], err=err,
+            how="plain request (v2 scoreboard)")
 
 
 def parse_an(payload):
@@ -1073,7 +1158,7 @@ def parse_an(payload):
         home, away = teams.get(g.get("home_team_id")), teams.get(g.get("away_team_id"))
         if not home or not away or not g.get("start_time"):
             continue
-        books = {o.get("book_id"): o for o in g.get("odds") or [] if o.get("type", "game") == "game"}
+        books = {o.get("book_id"): o for o in an_odds(g) if o.get("type", "game") == "game"}
         close, open_ = books.get(AN_CLOSE) or {}, books.get(AN_OPEN) or {}
         row = {"start": g["start_time"][:16] + "Z", "home_full": home.get("full_name") or "", "away_full": away.get("full_name") or "",
                "ml_home": parse_american(close.get("ml_home")), "ml_away": parse_american(close.get("ml_away")),
@@ -1101,19 +1186,27 @@ AN_WEEKS = {"nfl": (("reg", 18), ("post", 5)), "ncaaf": (("reg", 15), ("post", 1
 def fetch_an_day(league, day):
     """One day's games (baseball, basketball, hockey) or, for football, day = (season, type, week)."""
     if league in AN_WEEKS:
-        season, typ, week = day
-        url = (f"https://api.actionnetwork.com/web/v1/scoreboard/{league}?period=game&season={season}&week={week}"
-               f"&seasonType={typ}{AN_EXTRA.get(league, '')}")
-        day = datetime(season, 1, 1)                  # only for the error message
+        url = an_url(league, week=day)
+        day = datetime(day[0], 1, 1)                  # only for the error message
     else:
-        url = AN.format(lg=league, day=day.strftime("%Y%m%d"), extra=AN_EXTRA.get(league, ""))
+        url = an_url(league, day=day)
     for i in range(2):
         try:
             with urllib.request.urlopen(url, timeout=15) as r:
-                return parse_an(json.load(r))
+                payload = json.load(r)
+            rows = parse_an(payload)
+            with _AN_LOCK:
+                AN_SEEN["pages"] += 1
+                AN_SEEN["games"] += sum(1 for g in payload.get("games") or []
+                                        if str(g.get("status") or "").lower() in ("complete", "closed", "final"))
+                AN_SEEN["rows"] += len(rows)
+            return rows
         except Exception as e:                       # noqa: BLE001
             if i == 1:
                 ERRORS.append(f"AN {league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                with _AN_LOCK:
+                    if len(AN_SEEN["errs"]) < 2:
+                        AN_SEEN["errs"].append(f"{league} {day:%Y-%m-%d}: {str(e)[:50]}")
                 if len(ERRORS) <= 5:
                     print(f"   {ERRORS[-1]}", flush=True)
                 return None
@@ -1196,7 +1289,8 @@ def _flag(lg, back):
 def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
     """Backfill closing + opening odds for finished games, a stretch per run until caught up."""
     today = datetime.now(timezone.utc).date()
-    if not state.get("an_h1"):                           # re-walk the odds history once to keep first-half / F5 lines
+    AN_SEEN.update(pages=0, games=0, rows=0, errs=[])
+    if not state.get("an_h1"):                          # re-walk the odds history once to keep first-half / F5 lines
         state["an_synced"], state["an_from"], state["an_h1"] = {}, {}, True
     if not state.get("an_tot"):                          # ...and once more to keep over/under totals
         state["an_synced"], state["an_from"], state["an_tot"] = {}, {}, True
@@ -1266,6 +1360,7 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
             #   every run: with the source down since 11/10 the four leagues walked from 11/9 back to 9/5 in 21 runs,
             #   12 more dead calls and ~5s more each run (55 calls / 5s -> 311 calls / 120s) with no end. The mark
             #   stays; the 2-day re-read picks the failed days up when the source answers again.)
+    an_note()
     return filled, len(jobs) + len(weeks), sum(1 for _, r in results + wres if r is None)
 
 

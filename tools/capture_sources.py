@@ -23,7 +23,9 @@ S = {
     "espn_nfl": "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
     "espn_mlb": f"https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates={day}",
     "espn_nhl": f"https://site.web.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates={day}",
-    "an_mlb": f"https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date={day}",
+    # (11/11: Action Network retired the v1 scoreboard - every call 404s; v2 is the engine's reader now)
+    "an_mlb": f"https://api.actionnetwork.com/web/v2/scoreboard/mlb?bookIds=15,30&periods=event,firstfiveinnings&date={day}",
+    "an_nba": f"https://api.actionnetwork.com/web/v2/scoreboard/nba?bookIds=15,30&periods=event,firsthalf&date={day}",
     # who's actually playing (MLB's own public stats site): rosters, lineups, season stats - the Judge miss, 9/29
     "mlb_teams": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
     "mlb_hitting_all": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&sportId=1&playerPool=ALL&limit=3000",

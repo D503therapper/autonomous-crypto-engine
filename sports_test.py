@@ -85,6 +85,111 @@ def test_action_network_odds_attach():
     assert abs(sm.line_move(g)) > 0.1                  # opener -375 -> close -250: the market moved toward Atlanta
 
 
+def test_action_network_v2_1111_v1_retired_same_rows_from_v2_markets():
+    """11/11 ~15:24 UTC: Action Network retired its v1 scoreboard - every /web/v1/scoreboard call (any league, any
+    parameters) answers 404 "No Content found"; the odds history, the live watcher's game list and the 1H line log all
+    went dark. v2 has the same games, ids, boxscore (latest_odds with live / firsthalf) but the lines sit in
+    markets[book][period][moneyline / spread / total] - one entry per side. Every caller now builds a v2 URL (plain
+    request, the same book ids) and an_odds turns v2's markets into v1's rows: the downstream rows are IDENTICAL.
+    (Shapes from real v2 payloads pulled on GitHub's servers 11/11 - Bucks at Knicks 11/10, Wizards at Pacers 11/11.)"""
+    import urllib.request as ur
+    import sports_h1log as h1
+    import sports_http as sh
+    import sports_live as slv
+    # (1) the URL builder: v2 everywhere, never v1; the consensus + open books; football weeks; college divisions
+    assert sd.an_url("nba", day=datetime(2026, 11, 10)) == \
+        "https://api.actionnetwork.com/web/v2/scoreboard/nba?bookIds=15,30&date=20261110"
+    assert sd.an_url("ncaaf", week=(2026, "reg", 11)) == "https://api.actionnetwork.com/web/v2/scoreboard/ncaaf?" \
+        "bookIds=15,30&season=2026&week=11&seasonType=reg&division=FBS"
+    assert sd.an_url("ncaab", day="20261111", books=(15,), periods=("event", "firsthalf")) == \
+        "https://api.actionnetwork.com/web/v2/scoreboard/ncaab?bookIds=15&periods=event,firsthalf&date=20261111&division=D1"
+    assert slv.an_live_url("nfl") == "https://api.actionnetwork.com/web/v2/scoreboard/nfl?bookIds=15"   # current week
+    assert slv.an_live_url("nhl", datetime(2026, 11, 11)).endswith("/nhl?bookIds=15&date=20261111")
+    assert h1.an_url("nba", "20261111").endswith("/nba?bookIds=15&periods=event,firsthalf&date=20261111")
+    for f in ("sports_data.py", "sports_live.py", "sports_h1log.py", "tools/capture_sources.py"):
+        assert "actionnetwork.com/web/v1" not in open(f).read(), f          # (no caller left on the dead feed)
+
+    # (2) a v2 game -> the same rows the v1 game gave
+    def o(side, odds, value=0, team=None, typ="moneyline", per="event", book=15, **kw):
+        return {"side": side, "odds": odds, "value": value, "team_id": team, "type": typ, "period": per,
+                "book_id": book, **kw}
+    box = {"linescore": [{"home_points": 26, "away_points": 21}, {"home_points": 32, "away_points": 13}],
+           "latest_odds": {"firsthalf": {"ml_home": -527, "ml_away": 385, "spread_home": -9, "spread_home_line": -111,
+                                         "spread_away_line": -110}}}
+    base = {"id": 295412, "status": "complete", "start_time": "2026-11-11T00:30:00.000Z", "home_team_id": 162,
+            "away_team_id": 172, "teams": [{"id": 162, "full_name": "New York Knicks"},
+                                           {"id": 172, "full_name": "Milwaukee Bucks"}], "boxscore": box}
+    v1 = dict(base, odds=[{"book_id": 15, "type": "game", "ml_home": -1200, "ml_away": 750, "spread_home": -15.5,
+                           "spread_home_line": -109, "spread_away_line": -111, "total": 221.5, "over": -109,
+                           "under": -107},
+                          {"book_id": 30, "type": "game", "ml_home": -1350, "ml_away": 810}])
+    v2 = dict(base, markets={
+        "15": {"event": {
+            "moneyline": [o("away", 1600, team=172, is_live=True), o("away", 750, team=172, is_live=False),
+                          o("home", -1200, team=162, is_live=False)],             # (an in-game line never counts)
+            "spread": [o("home", -150, -10.5, 162, "spread", is_alt_market=True),    # (nor an alternate line)
+                       o("away", -111, 15.5, 172, "spread"), o("home", -109, -15.5, 162, "spread")],
+            "total": [o("under", -107, 221.5, typ="total"), o("over", -109, 221.5, typ="total")],
+            "core_bet_type_6_team_score": [o("over", -109, 103, 172, "core_bet_type_6_team_score")]}},
+        "30": {"event": {"moneyline": [o("home", -1350, team=162, book=30), o("away", 810, team=172, book=30)]}}})
+    assert sd.parse_an({"games": [v2]}) == sd.parse_an({"games": [v1]})
+    r = sd.parse_an({"games": [v2]})[0]
+    assert (r["ml_home"], r["ml_away"], r["ml_home_open"], r["spread_home"], r["spread_home_odds"], r["total"],
+            r["under_odds"], r["h1_ml_home"], r["ls_home"]) == (-1200, 750, -1350, -15.5, -109, 221.5, -107, -527, "26,32")
+    rows = sd.an_odds(v2)
+    assert {(x["book_id"], x["type"]) for x in rows} == {(15, "game"), (30, "game")}
+    assert "spread_home" not in [x for x in rows if x["book_id"] == 30][0]          # not sent = not there, never 0
+    # the side comes from the team id, not the label (a mislabelled entry never flips a price)
+    flip = dict(base, markets={"15": {"event": {"moneyline": [o("home", 750, team=172), o("away", -1200, team=162)]}}})
+    assert sd.an_odds(flip)[0]["ml_home"] == -1200 and sd.an_odds(flip)[0]["ml_away"] == 750
+    # a v2 game with no consensus moneyline is no row (never written as if real)
+    assert sd.parse_an({"games": [dict(base, markets={"30": v2["markets"]["30"]})]}) == []
+
+    # (3) the 1H log: one v2 page (periods=event,firsthalf) -> the full-game AND the 1st-half line, consensus book
+    pre = dict(base, id=295418, status="scheduled", boxscore=None, markets={"15": {
+        "event": {"moneyline": [o("home", -152, team=162), o("away", 125, team=172)],
+                  "spread": [o("home", -115, -2.5, 162, "spread"), o("away", -105, 2.5, 172, "spread")],
+                  "total": [o("over", -111, 228, typ="total"), o("under", -112, 228, typ="total")]},
+        "firsthalf": {"moneyline": [o("home", -140, team=162, per="firsthalf"), o("away", 116, team=172, per="firsthalf")],
+                      "spread": [o("home", -107, -1.5, 162, "spread", "firsthalf"),
+                                 o("away", -112, 1.5, 172, "spread", "firsthalf")]}}})
+    x = h1.parse({"games": [pre]}, "game")[295418]
+    assert x["fg"] == {"b": 15, "sp": -2.5, "spo": [-115, -105], "ml": [-152, 125], "tot": 228, "at": None}
+    assert x["h1"] == {"b": 15, "sp": -1.5, "spo": [-107, -112], "ml": [-140, 116], "tot": None, "at": None}
+
+    # (4) the odds history says how the feed answered in source_status: loudly when finished games come back with
+    #     no consensus line (a shape change), quietly fine when they parse; never a real request here
+    keep = ur.urlopen
+
+    class _R:
+        def __init__(self, p):
+            self.p = p
+
+        def __enter__(self):
+            import io
+            return io.BytesIO(json.dumps(self.p).encode())
+
+        def __exit__(self, *a):
+            return False
+    seen_urls = []
+    try:
+        sd.AN_SEEN.update(pages=0, games=0, rows=0, errs=[])
+        ur.urlopen = lambda url, timeout=None: (seen_urls.append(url), _R({"games": [v2]}))[1]
+        assert len(sd.fetch_an_day("nba", datetime(2026, 11, 10))) == 1
+        assert seen_urls == ["https://api.actionnetwork.com/web/v2/scoreboard/nba?bookIds=15,30&date=20261110"]
+        sd.an_note()
+        assert sh.SEEN["actionnetwork_odds"]["ok"] and sh.SEEN["actionnetwork_odds"]["n"] == 1
+        sd.AN_SEEN.update(pages=0, games=0, rows=0, errs=[])
+        ur.urlopen = lambda url, timeout=None: _R({"games": [dict(base, markets={"15": {"event": {"spreadz": []}}})]})
+        assert sd.fetch_an_day("nba", datetime(2026, 11, 10)) == []
+        sd.an_note()
+        assert not sh.SEEN["actionnetwork_odds"]["ok"] and "NONE with a consensus" in sh.SEEN["actionnetwork_odds"]["err"]
+    finally:
+        ur.urlopen = keep
+        sd.AN_SEEN.update(pages=0, games=0, rows=0, errs=[])
+        sh.SEEN.pop("actionnetwork_odds", None)
+
+
 def test_preseason_ignored_and_key_injuries():
     ev = espn_event("7", "1", "2", "2026-08-22T17:00Z", "post", 26, 3, ml=None)
     ev["season"] = {"year": 2026, "type": 1}
@@ -16986,17 +17091,15 @@ def test_h1log_1103_pre_tip_first_half_line_logged_hourly_no_network():
         urls.append(url)
         if "ncaab" not in url or "date=20261104" not in url:
             return {"games": []}
-        if "period=firsthalf" in url:
-            return {"games": [game(101, "2026-11-05T00:00:00.000Z", "scheduled", h1o),
-                              game(102, "2026-11-04T17:00:00.000Z", "inprogress", h1o, 3, 4)]}
-        return {"games": [game(101, "2026-11-05T00:00:00.000Z", "scheduled", fg),
-                          game(102, "2026-11-04T17:00:00.000Z", "inprogress", fg, 3, 4),      # tipped: never logged
+        assert "periods=event,firsthalf" in url             # (11/11: v2 - one page carries both periods)
+        return {"games": [game(101, "2026-11-05T00:00:00.000Z", "scheduled", fg + h1o),
+                          game(102, "2026-11-04T17:00:00.000Z", "inprogress", fg + h1o, 3, 4),  # tipped: never logged
                           game(103, "2026-11-07T00:00:00.000Z", "scheduled", fg, 3, 4)]}      # 54h out: not yet
     ours = {"ncaab:9": {"id": "ncaab:9", "league": "ncaab", "start": "2026-11-05T00:00Z", "home_name": "Duke",
                         "away_name": "Army", "spread_home": "-21"}}
     sh.SEEN.pop("actionnetwork_h1", None)
     assert h1.log(ours, now, get=get, path=path, seen_path=seen) == 1
-    assert len(urls) == 8                                   # 2 leagues x 2 periods x today / tomorrow (PT)
+    assert len(urls) == 4                                   # 2 leagues x today / tomorrow (PT), both periods per call
     assert {u.split("?")[0].rsplit("/", 1)[1] for u in urls} == {"nba", "ncaab"}
     assert h1._get.__code__.co_names.count("JSON_HDR") == 1 and not sh.browser_like(sh.JSON_HDR)   # honest header
     rows = h1.read(path)
@@ -20973,6 +21076,45 @@ def test_book_1111_nfl_depth_weight_is_one_point_a_regular_from_11_13():
         assert tag not in sports_leads.tags({**got["new"]["away"], "league": "ncaaf"}, sports)
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
+
+
+def test_daily_1111_football_line_flip_is_a_tracker_lead_only():
+    """11/11 daily run (10 studies, results/studies/daily_1111/): NOTHING built as a weight; ONE tracker LEAD - the football
+    moneyline side that crossed pick'em between the first FAIR number of the week and now (s9 / s9b: the new -101..-150
+    favorite that was the dog at the first fair -13.6% on 309, held 3 of 3 down, both leagues; but move-size-matched
+    all-week favorites were as bad in 109 of 500 draws - a LEAD). The tag reads p_market + drift (drift = the side's
+    first-fair no-vig minus now; 0.0 = no fair first number = never a flip), logs from the 11/12 Pacific game day, and
+    is never read by the board (no weight, no gate)."""
+    import sports_leads as sl
+    assert sl.FLIP_FROM == "2026-11-12"
+    fav = {"market": "ml", "league": "ncaaf", "side": "home", "odds": -130, "p_market": 0.55, "drift": -0.08}
+    assert sl.football_flip(fav) == "fav"                                       # 47% at the first fair -> 55% now
+    assert sl.football_flip({**fav, "drift": -0.04}) is None                    # 51% at the first fair: a favorite all week
+    assert sl.football_flip({**fav, "drift": 0.0}) is None                      # no first fair number: never a flip
+    assert sl.football_flip({**fav, "odds": -160}) is None                      # past -150: out of the band
+    assert sl.football_flip({**fav, "league": "nba"}) is None                   # football only
+    assert sl.football_flip({**fav, "market": "spread"}) is None                # the moneyline only
+    dog = {"market": "ml", "league": "nfl", "side": "away", "odds": 120, "p_market": 0.45, "drift": 0.08}
+    assert sl.football_flip(dog) == "dog"                                       # 53% at the first fair -> 45% now
+    assert sl.football_flip({**dog, "drift": 0.03}) is None                     # 48%: a dog all week
+    assert sl.football_flip({**dog, "odds": 160}) is None
+    # the tags, dated: from the 11/12 Pacific game day (a 7 PM Pacific 11/11 kick is 11/12 in UTC - not tagged)
+    base = {"game_id": "nfl:none", "team": "A", "opp": "B", "home": True, "dec": sd.decimal(-130), "reasons": [],
+            "dog_more": {}, "dog_ctx": {}}
+    ftag, dtag = ("football fav -101..-150, the dog at the first fair number (fade)",
+                  "football dog +100..+150, the favorite at the first fair number")
+    keep = dict(sl._GAMES)
+    try:
+        sl._GAMES.update({"nfl": {}, "ncaaf": {}})
+        c = {**base, **fav, "start": "2026-11-14T20:00Z"}
+        assert ftag in sl.tags(c, sports) and dtag not in sl.tags(c, sports)
+        assert ftag not in sl.tags({**c, "start": "2026-11-12T03:00Z"}, sports)    # 11/11 7 PM Pacific: before the start
+        assert ftag in sl.tags({**c, "start": "2026-11-13T01:15Z"}, sports)        # Thursday night 11/12 Pacific
+        d = {**base, **dog, "home": False, "dec": sd.decimal(120), "start": "2026-11-15T18:00Z"}
+        assert dtag in sl.tags(d, sports) and ftag not in sl.tags(d, sports)
+        assert sl.counts(ftag, -130) and sl.counts(dtag, 120)                    # graded in the engine's band
+    finally:
+        sl._GAMES.clear(); sl._GAMES.update(keep)
 
 
 if __name__ == "__main__":

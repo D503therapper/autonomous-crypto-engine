@@ -3906,6 +3906,22 @@
     "team": "Panthers"
    },
    {
+    "close": -117,
+    "clv_cents": -13,
+    "clv_pts": -2.6,
+    "date": "2026-11-10",
+    "game_id": "nba:401909965",
+    "kind": "lean",
+    "league": "nba",
+    "lean": true,
+    "line": null,
+    "market": "ml",
+    "posted": -130,
+    "result": "lost",
+    "side": "away",
+    "team": "Thunder"
+   },
+   {
     "close": -118,
     "clv_cents": 23,
     "clv_pts": 5.35,
@@ -3955,23 +3971,22 @@
    }
   ],
   "skipped": {
-   "game live": 1,
    "game void": 1,
    "line moved / no closing price": 13
   },
   "summary": {
    "all": {
     "avg_cents": 1.1,
-    "avg_pts": 0.23,
-    "beat": 0.377,
-    "legs": 247,
+    "avg_pts": 0.22,
+    "beat": 0.375,
+    "legs": 248,
     "per_bet": {
-     "avg_cents": 1.0,
-     "beat": 0.361,
-     "bets": 230
+     "avg_cents": 0.9,
+     "beat": 0.359,
+     "bets": 231
     },
-    "tied": 0.308,
-    "unique_bets": 230
+    "tied": 0.306,
+    "unique_bets": 231
    },
    "by_kind": {
     "dog": {
@@ -4014,17 +4029,17 @@
      "unique_bets": 8
     },
     "lean": {
-     "avg_cents": 1.2,
-     "avg_pts": 0.17,
-     "beat": 0.413,
-     "legs": 104,
+     "avg_cents": 1.0,
+     "avg_pts": 0.14,
+     "beat": 0.41,
+     "legs": 105,
      "per_bet": {
-      "avg_cents": 1.2,
-      "beat": 0.413,
-      "bets": 104
+      "avg_cents": 1.0,
+      "beat": 0.41,
+      "bets": 105
      },
-     "tied": 0.269,
-     "unique_bets": 104
+     "tied": 0.267,
+     "unique_bets": 105
     },
     "lock": {
      "avg_cents": 6.1,
@@ -4107,17 +4122,17 @@
      "unique_bets": 23
     },
     "nba": {
-     "avg_cents": 2.4,
-     "avg_pts": 0.42,
-     "beat": 0.5,
-     "legs": 28,
+     "avg_cents": 1.8,
+     "avg_pts": 0.32,
+     "beat": 0.483,
+     "legs": 29,
      "per_bet": {
-      "avg_cents": 2.4,
-      "beat": 0.5,
-      "bets": 28
+      "avg_cents": 1.8,
+      "beat": 0.483,
+      "bets": 29
      },
-     "tied": 0.357,
-     "unique_bets": 28
+     "tied": 0.345,
+     "unique_bets": 29
     },
     "ncaab": {
      "avg_cents": 2.6,

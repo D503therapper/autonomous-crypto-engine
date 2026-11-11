@@ -7,10 +7,12 @@ that really lags. The only honest test is the real pre-tip numbers: every hourly
 next to the full-game spread, with timestamps, for every NBA and college hoops game tipping in the next ~24 hours.
 After 3-4 weeks of logs, re-test the lead on these numbers. Putting a 1H market on the board stays the owner's call.
 
-Source: Action Network's public scoreboard (the same game list sports_data / sports_live already read) - period=firsthalf
-for the 1H lines, period=game for the full-game lines, today's and tomorrow's Pacific dates. Plain requests with the
-engine's own name (sports_http.JSON_HDR) - no disguise. If AN answers with no 1H lines, the log says so (rows carry an
-empty "h1") and source_status.json shows "actionnetwork_h1" quiet - never worked around.
+Source: Action Network's public scoreboard (the same game list sports_data / sports_live already read) - the v2
+scoreboard (v1 retired 11/11, every call 404) with periods=event,firsthalf: one call per league per day carries both the
+full-game and the 1st-half lines, today's and tomorrow's Pacific dates. Plain requests with the engine's own name
+(sports_http.JSON_HDR) - no disguise. If AN answers with no 1H lines, the log says so (rows carry an empty "h1") and
+source_status.json shows "actionnetwork_h1" quiet - never worked around.
+(11/11: v2's lines carry no time stamp, so "at" is null from 11/11 on - "t", when we logged it, is the only time.)
 
 data/sports/h1_lines.jsonl.gz - append-only (one gzip member per run), one row per game per hour:
   {"t": logged at, "hr": the UTC hour, "lg": nba / ncaab, "an": AN game id, "g": our game id (or null), "s": tip,
@@ -35,10 +37,14 @@ except Exception:                                            # noqa: BLE001
     PT = timezone(timedelta(hours=-8))
 
 LEAGUES = ("nba", "ncaab")
-AN_URL = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period={period}&date={day}{extra}"
-AN_EXTRA = {"ncaab": "&division=D1"}
-PERIODS = {"game": "fg", "firsthalf": "h1"}
+PERIODS = ("event", "firsthalf")                             # v2's full game + 1st half, in one call
 CONSENSUS = 15                                               # AN's market consensus (the study's close)
+
+
+def an_url(lg, day):
+    """The v2 scoreboard call for one league and one day (YYYYMMDD): the consensus book, full game + 1st half."""
+    import sports_data as sd
+    return sd.an_url(lg, day=day, books=(CONSENSUS,), periods=PERIODS)
 AHEAD_H = 24                                                 # games tipping in the next ~24 hours
 PATH = os.path.join("data", "sports", "h1_lines.jsonl.gz")
 SEEN_PATH = os.path.join("data", "sports", "h1_lines_seen.json")
@@ -83,6 +89,7 @@ def pick_line(odds, typ):
 def parse(payload, period):
     """One scoreboard payload -> {an id: {"meta": ..., "fg"/"h1": line}}. A game-period payload can carry 1H entries
     too (and a boxscore's latest_odds.firsthalf) - all of it is read."""
+    import sports_data as sd
     out = {}
     for g in (payload or {}).get("games") or []:
         teams = {t.get("id"): t for t in g.get("teams") or []}
@@ -91,7 +98,7 @@ def parse(payload, period):
             continue
         x = {"meta": {"s": str(g["start_time"])[:16] + "Z", "home": home.get("full_name") or "",
                       "away": away.get("full_name") or "", "st": str(g.get("status") or "")}}
-        odds = g.get("odds") or []
+        odds = sd.an_odds(g)                              # (v2 markets -> v1's rows; a v1 "odds" list passes through)
         if period == "firsthalf":                         # (every entry on the 1H page is a 1H line, labelled or not)
             fg = None
             h1 = pick_line(odds, "firsthalf") or pick_line([dict(o, type="firsthalf") for o in odds
@@ -122,19 +129,17 @@ def fetch(now, get=None):
     res, errs = {}, []
     for lg in LEAGUES:
         games = res.setdefault(lg, {})
-        for period in PERIODS:
-            for day in days:
-                url = AN_URL.format(lg=lg, period=period, day=day, extra=AN_EXTRA.get(lg, ""))
-                try:
-                    got = parse(get(url), period)
-                except Exception as e:                      # noqa: BLE001 - a log never breaks a run
-                    errs.append(f"{lg} {period} {day}: {sh.err_text(e)}")
-                    continue
-                for gid, x in got.items():
-                    cur = games.setdefault(gid, {"meta": x["meta"]})
-                    for k in ("fg", "h1"):
-                        if x.get(k) and not cur.get(k):
-                            cur[k] = x[k]
+        for day in days:
+            try:
+                got = parse(get(an_url(lg, day)), "game")   # (one v2 page: full game + 1st half together)
+            except Exception as e:                          # noqa: BLE001 - a log never breaks a run
+                errs.append(f"{lg} {day}: {sh.err_text(e)}")
+                continue
+            for gid, x in got.items():
+                cur = games.setdefault(gid, {"meta": x["meta"]})
+                for k in ("fg", "h1"):
+                    if x.get(k) and not cur.get(k):
+                        cur[k] = x[k]
     return res, errs
 
 
