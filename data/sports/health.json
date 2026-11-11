@@ -1,11 +1,11 @@
 {
- "at": "2026-11-11T02:28Z",
+ "at": "2026-11-11T02:40Z",
  "fixes": [],
  "problems": [
-  "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
+  "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
  ],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (243s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,14 +15,21 @@
   "tennis live prices: 0 live lines, 0 fresh",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
+  "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 6 min ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T02:40Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-11T02:28Z",
    "fixes": [],
@@ -515,17 +522,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Lizarazo vs Burillo: no points for 1766s"
-   ]
-  },
-  {
-   "at": "2026-11-09T19:41Z",
-   "fixes": [
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
-    "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
-    "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
    ]
   }
  ]
