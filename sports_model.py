@@ -397,13 +397,16 @@ def tune(games, league, prev=None):
     fin = finals(games, league)
     if len(fin) < 60:
         return prev
-    warm = max(30, len(fin) // 4)
-    ev_from = max(warm, len(fin) - EVAL_GAMES)
     best = None
     for km in K_MULTS:
         k = BASE_K[league] * km
         for hfa in HFA_GRID:
             _, rows = replay(fin, k, hfa)
+            # (11/11: the windows count the rows the replay KEEPS - since 11/4 college hoops drops its non-D1 games,
+            #  so a window cut on len(fin) ran past the end: every grid point scored on 0 games, the first combo (half K,
+            #  home edge 0) "won" and the college hoops retune sat stuck at home edge 0 / the starting trust)
+            warm = max(30, len(rows) // 4)
+            ev_from = max(warm, len(rows) - EVAL_GAMES)
             ll = logloss([(f["p_elo"], y) for _, f, y, _ in rows[ev_from:] if y != 0.5])
             if best is None or ll < best[0]:
                 best = (ll, k, hfa, rows)

@@ -20001,6 +20001,26 @@ def test_public_lines_1110_always_name_which_bets_they_mean():
     assert f"{mk[4:]}" == "moneyline"
 
 
+
+def test_tune_1111_the_eval_window_counts_the_rows_the_replay_keeps():
+    """11/11: since the 11/4 non-D1 fix, college hoops' replay drops its non-D1 games, but tune() cut its windows on the
+    count of ALL finals - rows[ev_from:] came out empty, every grid point scored 0 games, the first combo (half K, home
+    edge 0) won and the college hoops retune sat stuck at home edge 0 / the 15% starting trust for a week. The windows
+    now count the kept rows: a replay that keeps fewer rows still grades on the most recent EVAL_GAMES of them."""
+    import sports_model as smod
+    games = sd.load_games()
+    fin = smod.finals(games, "nhl")[-400:]
+    sub = {g["id"]: g for g in fin}
+    real, keep_eval = smod.replay, smod.EVAL_GAMES
+    try:
+        smod.EVAL_GAMES = 100
+        smod.replay = lambda f, k, hfa, league=None: (lambda e_r: (e_r[0], e_r[1][-150:]))(real(f, k, hfa, league))
+        p = smod.tune(sub, "nhl")
+        assert p and p.get("eval_games", 0) >= 90, p and p.get("eval_games")
+    finally:
+        smod.replay, smod.EVAL_GAMES = real, keep_eval
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
