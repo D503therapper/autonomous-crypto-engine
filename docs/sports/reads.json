@@ -1,6 +1,21 @@
 {
- "updated": "2026-11-11T16:41Z",
+ "updated": "2026-11-11T16:54Z",
  "games": [
+  {
+   "id": "ncaab:401919759",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-11T16:30Z",
+   "away": "FDU",
+   "home": "East Texas A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaab:401920234",
    "league": "ncaab",
@@ -115,9 +130,9 @@
     "team": "South Florida",
     "opp": "Saint Joseph's",
     "market": "spread",
-    "line": -7.5,
-    "odds": -105,
-    "p": 0.507,
+    "line": -6.5,
+    "odds": -115,
+    "p": 0.513,
     "win_p": 0.737,
     "reasons": [
      "the stronger team",
@@ -131,7 +146,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "East Carolina",
-    "p": 0.769,
+    "p": 0.763,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -147,9 +162,9 @@
     "opp": "East Carolina",
     "market": "spread",
     "line": 11.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.509,
-    "win_p": 0.151,
+    "win_p": 0.157,
     "reasons": []
    }
   },
@@ -313,7 +328,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Drexel",
-    "p": 0.501,
+    "p": 0.493,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -329,9 +344,9 @@
     "opp": "American",
     "market": "spread",
     "line": -1.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.542,
-    "win_p": 0.531,
+    "win_p": 0.52,
     "reasons": [
      "hotter recent form",
      "the stronger team"
@@ -530,7 +545,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "James Madison",
-    "p": 0.557,
+    "p": 0.55,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -546,9 +561,9 @@
     "opp": "Delaware",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.608,
-    "win_p": 0.608,
+    "odds": -166,
+    "p": 0.599,
+    "win_p": 0.599,
     "reasons": []
    }
   },
@@ -713,7 +728,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Old Dominion",
-    "p": 0.627,
+    "p": 0.63,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -729,9 +744,9 @@
     "opp": "Norfolk St",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.696,
-    "win_p": 0.696,
+    "odds": -270,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "hotter recent form",
      "the stronger team",
@@ -845,15 +860,15 @@
    "start": "2026-11-12T00:00Z",
    "away": "UMass Lowell",
    "home": "UMass",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "UMass Lowell",
     "opp": "UMass",
     "market": "spread",
-    "line": 10.5,
-    "odds": -115,
-    "p": 0.554,
+    "line": 9.5,
+    "odds": -105,
+    "p": 0.548,
     "win_p": 0.176,
     "reasons": [
      "hotter recent form"
@@ -1210,7 +1225,7 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -166,
+    "odds": -167,
     "p": 0.6,
     "win_p": 0.6,
     "reasons": [
@@ -1949,8 +1964,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.391,
-    "tie": 0.298,
+    "p": 0.396,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1965,9 +1980,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.638,
-    "win_p": 0.421,
+    "odds": -192,
+    "p": 0.628,
+    "win_p": 0.411,
     "reasons": []
    }
   },
@@ -2244,7 +2259,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Kings",
-    "p": 0.374,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2260,9 +2275,9 @@
     "opp": "Kings",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
-    "p": 0.671,
-    "win_p": 0.453,
+    "odds": -238,
+    "p": 0.689,
+    "win_p": 0.472,
     "reasons": []
    }
   }
