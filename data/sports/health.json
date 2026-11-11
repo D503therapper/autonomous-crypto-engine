@@ -1,5 +1,5 @@
 {
- "at": "2026-11-11T19:09Z",
+ "at": "2026-11-11T19:10Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
@@ -15,7 +15,7 @@
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (109s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -27,12 +27,29 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 4h ago",
-  "simulator ran 2h ago",
-  "engine ran 15 min ago",
+  "simulator ran 3h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T19:10Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Grabher vs Burillo: no points for 1814s",
+    "live tennis scores: tennis Pigossi vs Andreescu: no points for 1814s",
+    "live tennis scores: tennis Ribera vs Carle: no points for 80s",
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-11T19:09Z",
    "fixes": [
@@ -752,14 +769,6 @@
   {
    "at": "2026-11-10T14:39Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-10T13:07Z",
-   "fixes": [
-    "live watch 42815973103 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
    "problems": []
   }
  ]
