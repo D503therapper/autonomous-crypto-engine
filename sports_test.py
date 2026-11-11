@@ -20530,6 +20530,22 @@ def _wired_1111_post(start, patches, picks=None, n=4):
     return picks, buf.getvalue()
 
 
+def test_book_1111_quit_rules_for_the_runner_up_dog_play_and_the_blowout_spot():
+    """11/11 (the Fable book study): the runner-up dog play stops at 20 graded under 35% won; the blowout early spot
+    at 25 graded under 35% won. Short of the count, or at 35%+, they keep posting."""
+    import sports_early as se
+    dp = lambda st_: {"dog_play": True, "status": st_}            # noqa: E731
+    assert not sports.dog_play_quit([dp("lost")] * 19)             # 0-19: not judged yet
+    assert sports.dog_play_quit([dp("won")] * 6 + [dp("lost")] * 14)        # 6-14 = 30% at 20 -> off
+    assert not sports.dog_play_quit([dp("won")] * 7 + [dp("lost")] * 13)    # 7-13 = 35% -> stays
+    assert not sports.dog_play_quit([{"status": "lost"}] * 30)     # untagged picks never count
+    bp = lambda r: {"spot": "blowout", "result": r, "odds": 150, "units": 0.5}   # noqa: E731
+    assert not se.spot_quit({"picks": [bp("lost")] * 24}, "blowout")
+    assert se.spot_quit({"picks": [bp("won")] * 8 + [bp("lost")] * 17}, "blowout")     # 8-17 = 32% -> off
+    assert not se.spot_quit({"picks": [bp("won")] * 9 + [bp("lost")] * 16}, "blowout") # 9-16 = 36% -> stays
+    assert not se.spot_quit({"picks": [bp("lost")] * 40}, "bye")   # only the spots listed in SPOT_QUIT
+
+
 def test_wired_1111_no_forced_best_pick_from_the_11_12_board():
     """1. NO FORCED ⭐ (the owner's 11/11 OK on the 11/6 study: the forced ⭐ under the 11/5 rule 10-13 +2.3%, held out 2-7
     -39.1%, forced favorites 5-7 -21.5%, live 0-2). From 11/12 the ⭐ goes only on one of the day's unit plays whose read

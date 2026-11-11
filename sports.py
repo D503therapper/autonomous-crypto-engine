@@ -5327,6 +5327,26 @@ DOG_PLAY_LEAGUES = ("nfl", "ncaaf", "nhl", "nba")   # no college hoops dog_plays
 #                                (their Dog of the Day runs -9.2% on 97 in the same replay - the owner's ½u lead, untouched)
 
 
+DOG_PLAY_QUIT = (20, 0.35)     # 🐶 11/11 (the Fable book study, under the owner's 11/11 "wire anything you and Fable
+#                                recommend"): the runner-up dog play was 0-6 live where its replay expects ~3 (z -2.5) -
+#                                judged at 20 graded: under 35% won = no more posts (the owner can turn it back on).
+
+
+def dog_play_record(picks):
+    """🐶 the runner-up dog play's own record (picks tagged dog_play) -> (won, lost)."""
+    w = l_ = 0
+    for p in picks or []:
+        if p.get("dog_play") and p.get("status") in ("won", "lost"):
+            w, l_ = (w + 1, l_) if p["status"] == "won" else (w, l_ + 1)
+    return w, l_
+
+
+def dog_play_quit(picks):
+    """The runner-up dog play's judge: DOG_PLAY_QUIT[0]+ graded and under DOG_PLAY_QUIT[1] won = no more posts."""
+    w, l_ = dog_play_record(picks)
+    return w + l_ >= DOG_PLAY_QUIT[0] and w / (w + l_) < DOG_PLAY_QUIT[1]
+
+
 def posted_kind(p):
     """The rule a posted pick came from, for the per-day caps: a 🔍 gap play and a dog_play are saved as kind "play" with
     their tag (the record reads them as value plays), so the cap counts them by the tag."""
@@ -7817,7 +7837,7 @@ def post_board(games, model, picks, now, day, force=False):
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
-        if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
+        if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and (iso < DOG_PLAY_FROM or dog_play_quit(picks)) \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
                 or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM \
                 or kind == "stackplay" and (iso < NCAAB_STACK_PLAY_FROM or not NCAAB_STACK_PLAY_ON or ncaab_stack_play_quit(picks)):
