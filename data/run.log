@@ -17766,3 +17766,46 @@ error: failed to push some refs to 'https://githu
 [2026-11-11 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-11 14:06 UTC] crypto/hold_btc  equity $445.06 (-11.0%) 1 open  market DOWN
    social heat top: BTC 42 (32/0/10), DOGE 40 (40/0/0), GRAM 37 (37/0/0), HYPE 29 (29/0/0), XRP 27 (27/0/0)
+   dex screen: UNREACHABLE GTA6@ethereum liq $169,911 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT DACITYCOIN@solana liq $347,071 - lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $5,427,163 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 73%
+   dex screen: UNREACHABLE GTA6@ethereum liq $186,555 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE MIHAO@ethereum liq $217,312 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: FLR: +9.6% in 15 min on 7.7x volume @ 0.005792 spread 0.22%
+   take-off: BUY FLR (scanner mover): FLR: +9.6% in 15 min on 7.7x volume @ 0.005792 spread 0.22%
+   >> crypto/mover: BUY $93.24 of FLR @ 0.005798 (scanner mover)
+   scanner: FLR: +5.5% in 15 min on 10.7x volume @ 0.005577 spread 0.02%
+   dex screen: UNREACHABLE GTA6@ethereum liq $190,052 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE MIHAO@ethereum liq $226,370 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,000 pools (solana 2,374 / base 378 / ethereum 248), refresh cycle 130s (hot 126s), 2887 calls (107 feed, 429s 0, failed 0), 83,397 refreshed (4133 no pair), +55 added / -55 dropped (dead 3, stale 0, cap 52), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-11 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/mover     equity $201.49 (-59.7%) 1 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/social_heat equity $337.22 (-32.6%) 2 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-11 15:06 UTC] crypto/hold_btc  equity $443.55 (-11.3%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $160.24 of XLE @ 62.8536, P/L $-3.06 (mean reversion: bounced or time limit)
+[2026-11-11 15:07 UTC] stocks/rsi2      equity $470.39 (-5.9%) 1 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 7, TLT 7, NVDA 8, IEF 9
+[2026-11-11 15:07 UTC] stocks/breakout52 equity $483.84 (-3.2%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-11 15:07 UTC] stocks/dual_momentum equity $464.32 (-7.1%) 2 open  market DOWN
+[2026-11-11 15:07 UTC] stocks/trend_ensemble equity $502.38 (+0.5%) 5 open  market UP
+[2026-11-11 15:07 UTC] stocks/rotation10 equity $498.41 (-0.3%) 2 open  market UP
+[2026-11-11 15:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-11 15:07 UTC] stocks/trend     equity $459.52 (-8.1%) 4 open  market DOWN
+[2026-11-11 15:07 UTC] stocks/hold_spy  equity $492.45 (-1.5%) 1 open  market DOWN
+   social heat top: DOGE 40 (40/0/0), GRAM 37 (37/0/0), BTC 32 (32/0/0), HYPE 29 (29/0/0), AVAX 24 (24/0/0)
