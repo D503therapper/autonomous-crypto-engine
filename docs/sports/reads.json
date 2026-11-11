@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T19:09Z",
+ "updated": "2026-11-11T19:19Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -40,6 +40,21 @@
    "start": "2026-11-11T18:00Z",
    "away": "Dartmouth",
    "home": "UAlbany",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911519",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-11T19:00Z",
+   "away": "Incarnate Word",
+   "home": "UC Davis",
    "h1": null,
    "why": "started",
    "done": false,
@@ -113,7 +128,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "East Carolina",
-    "p": 0.768,
+    "p": 0.765,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -129,9 +144,9 @@
     "opp": "East Carolina",
     "market": "spread",
     "line": 11.5,
-    "odds": -108,
+    "odds": -118,
     "p": 0.504,
-    "win_p": 0.152,
+    "win_p": 0.155,
     "reasons": []
    }
   },
@@ -349,7 +364,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.559,
+    "p": 0.567,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -365,9 +380,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.615,
-    "win_p": 0.615,
+    "odds": -179,
+    "p": 0.626,
+    "win_p": 0.626,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -469,8 +484,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Furman",
-    "p": 0.771,
-    "tie": 0.032,
+    "p": 0.776,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -484,10 +499,10 @@
     "team": "Holy Cross",
     "opp": "Furman",
     "market": "spread",
-    "line": 11.5,
+    "line": 12.5,
     "odds": -105,
-    "p": 0.504,
-    "win_p": 0.145,
+    "p": 0.505,
+    "win_p": 0.14,
     "reasons": []
    }
   },
@@ -798,8 +813,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UMass",
-    "p": 0.733,
-    "tie": 0.035,
+    "p": 0.704,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -813,13 +828,13 @@
     "team": "UMass Lowell",
     "opp": "UMass",
     "market": "spread",
-    "line": 8.5,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.188,
+    "line": 7.5,
+    "odds": -108,
+    "p": 0.5,
+    "win_p": 0.221,
     "reasons": [
-     "hotter recent form",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "hotter recent form"
     ]
    }
   },
@@ -887,8 +902,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.53,
-    "tie": 0.036,
+    "p": 0.525,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -903,9 +918,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -143,
+    "p": 0.565,
+    "win_p": 0.565,
     "reasons": [
      "opponent missing key players"
     ]
@@ -1005,7 +1020,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "C Michigan",
-    "p": 0.759,
+    "p": 0.754,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -1023,7 +1038,7 @@
     "line": -17.5,
     "odds": -102,
     "p": 0.504,
-    "win_p": 0.819,
+    "win_p": 0.814,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1159,7 +1174,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.576,
+    "p": 0.566,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1175,9 +1190,9 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -173,
-    "p": 0.609,
-    "win_p": 0.609,
+    "odds": -166,
+    "p": 0.599,
+    "win_p": 0.599,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1246,7 +1261,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "SF Austin",
-    "p": 0.615,
+    "p": 0.623,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1262,9 +1277,9 @@
     "opp": "Abilene Chrstn",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.681,
-    "win_p": 0.681,
+    "odds": -265,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
