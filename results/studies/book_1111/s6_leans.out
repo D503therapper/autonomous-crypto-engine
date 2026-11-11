@@ -1,0 +1,228 @@
+kinds in the rows: [(None, 60884), ('lock', 413), ('play', 400), ('dog', 265), ('dogplay', 100), ('nbafav', 76), ('solo', 2)]
+replay leans: 3011
+  ALL replay leans                             n 2958 1583-1375 flat   -4.8% z -2.90 | train   -3.3% (1709) | held   -6.8% (1249) | seasons up 0/4 | live 32-21 +13%
+ by sport
+     mlb                                       n 1153 625-528 flat   -5.5% z -2.07 | train   -7.9% (589) | held   -2.9% (564) | seasons up 1/4 | live 8-2 +58%
+     nba                                       n  492 260-232 flat   -5.8% z -1.65 | train   +1.2% (317) | held  -18.3% (175) | seasons up 2/3 | live 7-3 +23%
+     ncaab                                     n  518 294-224 flat   -0.8% z -0.19 | train   -0.3% (347) | held   -1.7% (171) | seasons up 1/3 | live 0-0 +0%
+     ncaaf                                     n   92  46-46  flat   -4.8% z -0.34 | train   -5.5% ( 41) | held   -4.2% ( 51) | seasons up 1/4 | live 2-8 -62%
+     nfl                                       n   85  41-44  flat  -15.9% z -1.69 | train  -16.4% ( 46) | held  -15.3% ( 39) | seasons up 0/4 | live 1-1 -15%
+     nhl                                       n  618 317-301 flat   -4.6% z -1.10 | train   -0.9% (369) | held  -10.1% (249) | seasons up 2/4 | live 14-7 +24%
+ favorite / dog
+     dog                                       n   71  18-53  flat  -35.4% z -2.87 | train  -27.8% ( 35) | held  -42.8% ( 36) | seasons up 0/4 | live 2-3 -2%
+     favorite -150..-101                       n 2887 1565-1322 flat   -4.0% z -2.49 | train   -2.8% (1674) | held   -5.7% (1213) | seasons up 1/4 | live 30-18 +14%
+
+=== nhl leans (639)
+ price
+     -150..-101                                n  595 312-283 flat   -2.9% z -0.75 | train   +0.6% (358) | held   -8.3% (237) | seasons up 2/4 | live 14-7 +24%
+     dog                                       n   23   5-18  flat  -47.0% z -1.92 | train  -49.1% ( 11) | held  -45.0% ( 12) | seasons up 0/4 | live 0-0 +0%
+ the weighed read vs the market
+     no weighed read                           n  410 206-204 flat   -5.1% z -0.96 | train   -5.6% (246) | held   -4.4% (164) | seasons up 0/4 | live 9-6 +13%
+     weighed 0-2 over                          n   51  25-26  flat  -10.9% z -0.87 | train   -1.8% ( 35) | held  -30.8% ( 16) | seasons up 1/3 | live 2-0 +80%
+     weighed 0-2 under                         n   41  21-20  flat   -7.1% z -0.51 | train  +20.7% ( 18) | held  -28.9% ( 23) | seasons up 3/4 | live 0-0 +0%
+     weighed 2+ UNDER the market               n   23   7-16  flat  -45.4% z -2.43 | train  -36.5% ( 17) | held  -70.4% (  6) | seasons up 0/3 | live 1-0 +82%
+     weighed 2+ over                           n   93  58-35  flat  +12.4% z +1.36 | train  +25.7% ( 53) | held   -5.2% ( 40) | seasons up 2/3 | live 2-1 +22%
+ the own read vs the market
+     own 0-2 over                              n  366 194-172 flat   -1.5% z -0.29 | train   -1.6% (217) | held   -1.5% (149) | seasons up 1/4 | live 5-4 +3%
+     own 0-2 under                             n  172  96-76  flat   +2.2% z +0.32 | train  +12.8% (115) | held  -19.2% ( 57) | seasons up 3/4 | live 5-1 +52%
+     own 2+ over                               n   80  27-53  flat  -33.2% z -2.90 | train  -39.6% ( 37) | held  -27.6% ( 43) | seasons up 1/3 | live 4-2 +26%
+ home / road
+     home                                      n  216 113-103 flat   -4.0% z -0.55 | train   +7.1% (135) | held  -22.3% ( 81) | seasons up 2/4 | live 9-3 +39%
+     road                                      n  402 204-198 flat   -4.9% z -0.96 | train   -5.5% (234) | held   -4.1% (168) | seasons up 0/4 | live 5-4 +3%
+ the move since the open
+     flat                                      n  312 157-155 flat   -6.1% z -1.10 | train   -3.8% (190) | held   -9.8% (122) | seasons up 1/4 | live 4-5 -18%
+     money came TO it 2+                       n  253 137-116 flat   +0.4% z +0.19 | train   +8.1% (140) | held   -9.2% (113) | seasons up 2/4 | live 9-2 +53%
+     money ran AWAY 2+                         n   53  23-30  flat  -19.3% z -1.49 | train  -19.1% ( 39) | held  -20.0% ( 14) | seasons up 1/4 | live 1-0 +82%
+ flags
+     clean                                     n  497 259-238 flat   -2.5% z -0.43 | train   -1.2% (295) | held   -4.5% (202) | seasons up 1/4 | live 11-7 +14%
+     hockey_fav_bad                            n  119  56-63  flat  -14.8% z -1.80 | train   +0.2% ( 74) | held  -39.6% ( 45) | seasons up 2/4 | live 3-0 +81%
+
+=== nba leans (502)
+ price
+     -150..-101                                n  488 258-230 flat   -6.8% z -1.76 | train   -0.3% (313) | held  -18.3% (175) | seasons up 1/3 | live 7-3 +23%
+ the weighed read vs the market
+     no weighed read                           n   96  48-48  flat   -1.6% z -0.48 | train   +7.5% ( 60) | held  -16.8% ( 36) | seasons up 2/3 | live 1-2 -38%
+     weighed 0-2 over                          n  317 171-146 flat   -6.2% z -1.32 | train   +0.8% (211) | held  -19.9% (106) | seasons up 1/3 | live 5-1 +46%
+     weighed 2+ UNDER the market               n   22   8-14  flat  -36.7% z -2.06 | train  -35.0% ( 16) | held  -41.3% (  6) | seasons up 0/3 | live 1-0 +70%
+     weighed 2+ over                           n   48  26-22  flat   -5.2% z -0.37 | train   +4.6% ( 25) | held  -15.8% ( 23) | seasons up 1/3 | live 0-0 +0%
+ the own read vs the market
+     own 0-2 over                              n  216 108-108 flat   -9.5% z -1.84 | train   -1.0% (128) | held  -21.8% ( 88) | seasons up 1/3 | live 4-3 +1%
+     own 0-2 under                             n  139  78-61  flat   -2.4% z -0.31 | train   -0.9% (102) | held   -6.7% ( 37) | seasons up 1/3 | live 2-0 +78%
+     own 2+ over                               n  137  74-63  flat   -3.3% z -0.50 | train   +6.8% ( 87) | held  -20.9% ( 50) | seasons up 2/3 | live 1-0 +70%
+ home / road
+     home                                      n  246 134-112 flat   -4.9% z -0.87 | train   -2.6% (172) | held  -10.3% ( 74) | seasons up 1/3 | live 5-3 +10%
+     road                                      n  246 126-120 flat   -6.6% z -1.47 | train   +5.6% (145) | held  -24.1% (101) | seasons up 1/3 | live 2-0 +78%
+ the move since the open
+     flat                                      n  160  87-73  flat   -3.7% z -0.54 | train   -3.5% (110) | held   -4.3% ( 50) | seasons up 1/3 | live 3-1 +31%
+     money came TO it 2+                       n  224 114-110 flat   -7.5% z -1.60 | train   -1.2% (147) | held  -19.5% ( 77) | seasons up 1/3 | live 3-1 +34%
+     money ran AWAY 2+                         n  108  59-49  flat   -5.1% z -0.56 | train  +15.5% ( 60) | held  -31.0% ( 48) | seasons up 2/3 | live 1-1 -15%
+ flags
+     clean                                     n  394 204-190 flat   -6.7% z -1.76 | train   -1.8% (260) | held  -16.4% (134) | seasons up 0/3 | live 6-3 +18%
+     fighting                                  n   98  56-42  flat   -1.8% z -0.17 | train  +14.5% ( 57) | held  -24.5% ( 41) | seasons up 2/3 | live 1-0 +70%
+
+=== ncaab leans (518)
+ price
+     -150..-101                                n  518 294-224 flat   -0.8% z -0.19 | train   -0.3% (347) | held   -1.7% (171) | seasons up 1/3 | live 0-0 +0%
+ the weighed read vs the market
+     no weighed read                           n  193 106-87  flat   -2.1% z -0.32 | train   -2.0% (124) | held   -2.1% ( 69) | seasons up 0/3 | live 0-0 +0%
+     weighed 0-2 over                          n  131  71-60  flat   -6.6% z -0.88 | train   -2.4% ( 90) | held  -15.8% ( 41) | seasons up 0/3 | live 0-0 +0%
+     weighed 0-2 under                         n   39  21-18  flat   -8.0% z -0.59 | train   -9.5% ( 32) | held   -1.2% (  7) | seasons up 1/3 | live 0-0 +0%
+     weighed 2+ over                           n  152  94-58  flat   +7.5% z +1.09 | train   +6.5% ( 98) | held   +9.4% ( 54) | seasons up 2/3 | live 0-0 +0%
+ the own read vs the market
+     own 0-2 over                              n  198 117-81  flat   +2.1% z +0.39 | train   +7.6% (146) | held  -13.6% ( 52) | seasons up 2/3 | live 0-0 +0%
+     own 0-2 under                             n   48  25-23  flat  -11.0% z -0.88 | train  -15.2% ( 36) | held   +1.6% ( 12) | seasons up 2/3 | live 0-0 +0%
+     own 2+ over                               n  272 152-120 flat   -1.0% z -0.22 | train   -4.0% (165) | held   +3.7% (107) | seasons up 1/3 | live 0-0 +0%
+ home / road
+     home                                      n  350 201-149 flat   +0.6% z +0.14 | train   +1.9% (227) | held   -1.8% (123) | seasons up 1/3 | live 0-0 +0%
+     road                                      n  168  93-75  flat   -3.7% z -0.54 | train   -4.5% (120) | held   -1.7% ( 48) | seasons up 1/3 | live 0-0 +0%
+ the move since the open
+     flat                                      n  144  83-61  flat   +1.7% z +0.20 | train   -2.8% (110) | held  +16.2% ( 34) | seasons up 2/3 | live 0-0 +0%
+     money came TO it 2+                       n  185 104-81  flat   -2.6% z -0.36 | train   -2.5% (140) | held   -2.6% ( 45) | seasons up 0/3 | live 0-0 +0%
+     money ran AWAY 2+                         n  189 107-82  flat   -0.9% z -0.14 | train   +5.8% ( 97) | held   -7.9% ( 92) | seasons up 2/3 | live 0-0 +0%
+ flags
+     clean                                     n  333 190-143 flat   -0.1% z -0.01 | train   -1.4% (249) | held   +3.8% ( 84) | seasons up 2/3 | live 0-0 +0%
+     fighting                                  n  185 104-81  flat   -1.9% z -0.30 | train   +2.6% ( 98) | held   -7.1% ( 87) | seasons up 1/3 | live 0-0 +0%
+
+=== nfl leans (87)
+ price
+     -150..-101                                n   85  41-44  flat  -15.9% z -1.69 | train  -16.4% ( 46) | held  -15.3% ( 39) | seasons up 0/4 | live 1-1 -15%
+ the weighed read vs the market
+     no weighed read                           n   20   9-11  flat  -21.1% z -1.02 | train  -12.3% ( 10) | held  -30.0% ( 10) | seasons up 1/4 | live 0-1 -100%
+     weighed 0-2 over                          n   29  18-11  flat   +7.7% z +0.48 | train   +6.7% ( 18) | held   +9.3% ( 11) | seasons up 3/4 | live 1-0 +70%
+ the own read vs the market
+     own 0-2 over                              n   59  31-28  flat   -8.2% z -0.70 | train   -9.9% ( 31) | held   -6.3% ( 28) | seasons up 0/4 | live 0-1 -100%
+ home / road
+     home                                      n   42  21-21  flat  -13.6% z -1.04 | train  -17.4% ( 23) | held   -9.0% ( 19) | seasons up 1/4 | live 0-0 +0%
+     road                                      n   43  20-23  flat  -18.1% z -1.35 | train  -15.5% ( 23) | held  -21.2% ( 20) | seasons up 0/4 | live 1-1 -15%
+ the move since the open
+     flat                                      n   85  41-44  flat  -15.9% z -1.69 | train  -16.4% ( 46) | held  -15.3% ( 39) | seasons up 0/4 | live 1-1 -15%
+ flags
+     clean                                     n   80  38-42  flat  -16.9% z -1.75 | train  -20.3% ( 44) | held  -12.8% ( 36) | seasons up 0/4 | live 1-1 -15%
+
+=== ncaaf leans (102)
+ price
+     -150..-101                                n   73  41-32  flat   +4.3% z +0.38 | train   -5.5% ( 41) | held  +17.0% ( 32) | seasons up 3/4 | live 2-5 -45%
+     dog                                       n   19   5-14  flat  -40.0% z -1.51 | train   +0.0% (  0) | held  -40.0% ( 19) | seasons up 0/2 | live 0-3 -100%
+ the weighed read vs the market
+     no weighed read                           n   49  20-29  flat  -19.3% z -1.25 | train  -28.6% ( 18) | held  -14.0% ( 31) | seasons up 0/4 | live 1-3 -54%
+     weighed 2+ over                           n   20  13-7   flat  +21.2% z +1.00 | train   +6.9% ( 14) | held  +54.5% (  6) | seasons up 3/4 | live 1-3 -50%
+ the own read vs the market
+     own 0-2 over                              n   50  30-20  flat   +9.8% z +0.75 | train   -0.6% ( 37) | held  +39.6% ( 13) | seasons up 2/3 | live 0-1 -100%
+     own 2+ over                               n   35  14-21  flat  -17.3% z -0.85 | train  -34.9% (  3) | held  -15.7% ( 32) | seasons up 0/3 | live 2-6 -52%
+ home / road
+     home                                      n   76  37-39  flat   -6.3% z -0.42 | train   -3.7% ( 27) | held   -7.8% ( 49) | seasons up 1/4 | live 1-5 -67%
+     road                                      n   16   9-7   flat   +2.4% z +0.11 | train   -9.2% ( 14) | held  +83.5% (  2) | seasons up 2/4 | live 1-3 -54%
+ the move since the open
+     flat                                      n   92  46-46  flat   -4.8% z -0.34 | train   -5.5% ( 41) | held   -4.2% ( 51) | seasons up 1/4 | live 2-8 -62%
+ flags
+     clean                                     n   92  46-46  flat   -4.8% z -0.34 | train   -5.5% ( 41) | held   -4.2% ( 51) | seasons up 1/4 | live 2-8 -62%
+
+=== mlb leans (1163)
+ price
+     -150..-101                                n 1128 619-509 flat   -4.6% z -1.78 | train   -6.6% (569) | held   -2.5% (559) | seasons up 1/4 | live 6-2 +36%
+     dog                                       n   25   6-19  flat  -46.0% z -2.09 | train  -45.5% ( 20) | held  -48.0% (  5) | seasons up 0/4 | live 2-0 +146%
+ the weighed read vs the market
+     no weighed read                           n  803 434-369 flat   -5.1% z -1.56 | train   -6.1% (405) | held   -4.0% (398) | seasons up 1/4 | live 5-0 +109%
+     weighed 0-2 over                          n  101  55-46  flat   -6.3% z -0.70 | train   -9.3% ( 76) | held   +3.1% ( 25) | seasons up 2/4 | live 2-0 +74%
+     weighed 0-2 under                         n  218 118-100 flat   -7.3% z -1.29 | train  -11.9% ( 94) | held   -3.8% (124) | seasons up 1/4 | live 1-1 -9%
+     weighed 2+ UNDER the market               n   21  12-9   flat   -2.1% z -0.16 | train  -49.0% (  7) | held  +21.4% ( 14) | seasons up 2/4 | live 0-1 -100%
+ the own read vs the market
+     own 0-2 over                              n  544 299-245 flat   -4.4% z -1.13 | train   -3.1% (305) | held   -5.9% (239) | seasons up 1/4 | live 5-1 +51%
+     own 0-2 under                             n  450 245-205 flat   -6.8% z -1.74 | train  -14.9% (158) | held   -2.5% (292) | seasons up 1/4 | live 1-1 -9%
+     own 2+ over                               n  154  78-76  flat   -5.4% z -0.59 | train  -10.0% (123) | held  +12.6% ( 31) | seasons up 1/4 | live 2-0 +146%
+ home / road
+     home                                      n  877 478-399 flat   -4.8% z -1.59 | train   -8.0% (554) | held   +0.6% (323) | seasons up 1/4 | live 3-1 +36%
+     road                                      n  276 147-129 flat   -7.4% z -1.41 | train   -6.5% ( 35) | held   -7.5% (241) | seasons up 0/4 | live 5-1 +72%
+ the move since the open
+     flat                                      n  647 352-295 flat   -4.9% z -1.36 | train   -3.4% (320) | held   -6.3% (327) | seasons up 1/4 | live 5-2 +40%
+     money came TO it 2+                       n  343 181-162 flat   -8.7% z -1.88 | train  -13.3% (170) | held   -4.2% (173) | seasons up 0/4 | live 2-0 +103%
+     money ran AWAY 2+                         n  163  92-71  flat   -1.0% z -0.07 | train  -13.3% ( 99) | held  +18.1% ( 64) | seasons up 2/4 | live 1-0 +93%
+ flags
+     clean                                     n  920 499-421 flat   -4.8% z -1.58 | train   -4.8% (489) | held   -4.7% (431) | seasons up 0/4 | live 8-2 +58%
+     fighting                                  n  233 126-107 flat   -8.2% z -1.48 | train  -23.3% (100) | held   +3.1% (133) | seasons up 1/4 | live 0-0 +0%
+
+89 cells printed
+
+LIVE LEANS (9/29 on), hockey first
+  nhl moneyline leans                                  19-24  flat  -19.5%  price expects  23.7  z -1.43
+     nhl weighed UNDER the market                      3-7  flat  -48.2%  price expects   5.8  z -1.76
+     nhl weighed OVER the market                       6-4  flat   +5.8%  price expects   5.7  z +0.21
+     nhl no weighed read on the leg                    10-13  flat  -18.0%  price expects  12.2  z -0.94
+     nhl own read under the price                      16-19  flat  -16.7%  price expects  19.3  z -1.11
+     nhl own read over the price                       3-5  flat  -31.8%  price expects   4.4  z -1.00
+     nhl -150..-101                                    19-24  flat  -19.5%  price expects  23.7  z -1.43
+  nba moneyline leans                                  9-5  flat  +15.2%  price expects   7.8  z +0.65
+     nba weighed UNDER the market                      2-2  flat  -11.5%  price expects   2.3  z -0.27
+     nba weighed OVER the market                       1-0  flat  +80.0%  price expects   0.6  z +0.89
+     nba no weighed read on the leg                    6-3  flat  +19.9%  price expects   5.0  z +0.69
+     nba own read under the price                      8-5  flat  +10.5%  price expects   7.2  z +0.43
+     nba own read over the price                       1-0  flat  +76.9%  price expects   0.6  z +0.88
+     nba -150..-101                                    9-5  flat  +15.2%  price expects   7.8  z +0.65
+  nfl moneyline leans                                  5-3  flat  +19.4%  price expects   4.3  z +0.50
+     nfl weighed UNDER the market                      1-1  flat  -16.2%  price expects   1.2  z -0.28
+     nfl weighed OVER the market                       2-0  flat  +75.5%  price expects   1.1  z +1.23
+     nfl no weighed read on the leg                    2-2  flat   +9.2%  price expects   2.0  z +0.03
+     nfl own read under the price                      3-2  flat   +6.3%  price expects   2.9  z +0.10
+     nfl own read over the price                       2-1  flat  +41.4%  price expects   1.4  z +0.69
+     nfl -150..-101                                    4-2  flat  +17.6%  price expects   3.5  z +0.44
+  ncaaf moneyline leans                                5-8  flat   +4.2%  price expects   5.9  z -0.52
+     ncaaf weighed OVER the market                     2-4  flat  -37.6%  price expects   3.3  z -1.10
+     ncaaf no weighed read on the leg                  3-4  flat  +40.0%  price expects   2.6  z +0.36
+     ncaaf own read under the price                    2-3  flat  -24.6%  price expects   2.7  z -0.67
+     ncaaf own read over the price                     3-5  flat  +22.2%  price expects   3.1  z -0.11
+     ncaaf -150..-101                                  3-5  flat  -28.8%  price expects   4.4  z -0.97
+  ncaab moneyline leans                                0-1  flat -100.0%  price expects   0.6  z -1.22
+     ncaab no weighed read on the leg                  0-1  flat -100.0%  price expects   0.6  z -1.22
+     ncaab own read under the price                    0-1  flat -100.0%  price expects   0.6  z -1.22
+     ncaab -150..-101                                  0-1  flat -100.0%  price expects   0.6  z -1.22
+  mlb moneyline leans                                  8-3  flat  +29.3%  price expects   6.2  z +1.09
+     mlb weighed UNDER the market                      3-1  flat  +31.1%  price expects   2.3  z +0.73
+     mlb weighed OVER the market                       1-1  flat  -13.5%  price expects   1.1  z -0.18
+     mlb no weighed read on the leg                    4-1  flat  +44.9%  price expects   2.8  z +1.07
+     mlb own read under the price                      7-3  flat  +24.9%  price expects   5.6  z +0.87
+     mlb own read over the price                       1-0  flat  +73.0%  price expects   0.6  z +0.85
+     mlb -150..-101                                    8-3  flat  +29.3%  price expects   6.2  z +1.09
+
+   2026-10-01 Kraken            -108 W w_p None mkt 0.49567024593003106 p 0.5008047481201907 edge_own -0.035601958084707896 drift -0.0065 home False
+   2026-10-02 Red Wings         -130 L w_p 0.5369 mkt 0.5427435387673957 p 0.575965339898127 edge_own 0.010346370588993903 drift 0.0207 home True
+   2026-10-02 Jets              -122 L w_p 0.5134 mkt 0.5260865852617197 p 0.5246159813209076 edge_own -0.05227246089953863 drift -0.0261 home True
+   2026-10-03 Flames            -110 L w_p None mkt 0.5 p 0.5074130188212607 edge_own -0.03240251806533334 drift -0.0108 home False
+   2026-10-05 Senators          -118 W w_p None mkt 0.5173641257162702 p 0.5251887223699736 edge_own -0.03213220529996352 drift -0.0141 home False
+   2026-10-06 Blues             -148 L w_p 0.5728 mkt 0.5720596355604639 p 0.5826821840322675 edge_own 0.07005663270271834 drift -0.0667 home False
+   2026-10-06 Rangers           -148 W w_p 0.5693 mkt 0.5720596355604638 p 0.5704493131883493 edge_own 0.04989678638707229 drift -0.0035 home True
+   2026-10-08 Blues             -142 L w_p 0.5284 mkt 0.5634920634920635 p 0.5614748149096187 edge_own -0.048514889445308906 drift -0.0635 home True
+   2026-10-09 Red Wings         -142 L w_p 0.5409 mkt 0.5634920634920635 p 0.5618889185660739 edge_own -0.04838481070296374 drift -0.0022 home True
+   2026-10-10 Mammoth           -108 W w_p None mkt 0.49567024593003106 p 0.500974030379969 edge_own -0.035264921985761366 drift -0.0401 home False
+   2026-10-12 Wild              -118 W w_p None mkt 0.5173641257162701 p 0.5130967455076297 edge_own -0.05338337878533794 drift -0.001 home True
+   2026-10-12 Panthers          -112 L w_p None mkt 0.5043297540699688 p 0.5124164185022216 edge_own -0.03133932787488314 drift 0.0087 home False
+   2026-10-12 Devils            -135 L w_p 0.529 mkt 0.551441114716549 p 0.549157637670114 edge_own -0.04868437040306539 drift -0.0079 home True
+   2026-10-13 Blue Jackets      -130 L w_p 0.5681 mkt 0.5427435387673957 p 0.5407885465304303 edge_own -0.047121039590444114 drift -0.0752 home True
+   2026-10-13 Jets              -115 W w_p None mkt 0.5108342361863489 p 0.5373080890446957 edge_own 0.0007622491330987469 drift -0.0119 home True
+   2026-10-14 Avalanche         -135 L w_p 0.5489 mkt 0.551441114716549 p 0.5492784553427376 edge_own -0.048704143916538656 drift 0.0113 home True
+   2026-10-15 Devils            -142 W w_p 0.591 mkt 0.5634920634920635 p 0.5652432296181534 edge_own -0.04811866424226163 drift -0.0418 home True
+   2026-10-15 Maple Leafs       -118 L w_p None mkt 0.5173641257162701 p 0.5131019030158057 edge_own -0.05352803548843199 drift 0.0044 home True
+   2026-10-16 Bruins            -112 W w_p None mkt 0.5043297540699688 p 0.5126973376730525 edge_own -0.031079486837746084 drift -0.0569 home False
+   2026-10-19 Rangers           -142 W w_p 0.5309 mkt 0.5634920634920635 p 0.5621610134800156 edge_own -0.04834979030612885 drift -0.0079 home True
+   2026-10-20 Blues             -148 W w_p 0.5973 mkt 0.5720596355604638 p 0.5719921726647829 edge_own -0.04911681704650761 drift -0.0602 home True
+   2026-10-20 Devils            -110 W w_p None mkt 0.5 p 0.5265613178413407 edge_own 0.002062963644603677 drift -0.0076 home True
+   2026-10-20 Kraken            -115 W w_p None mkt 0.5108342361863489 p 0.5066752440647966 edge_own -0.05352279574236796 drift 0.0174 home True
+   2026-10-20 Golden Knights    -115 L w_p None mkt 0.5108342361863489 p 0.5065285343863216 edge_own -0.05377982160361572 drift 0.01 home True
+   2026-10-21 Panthers          -112 L w_p None mkt 0.5043297540699688 p 0.5129725339830589 edge_own -0.03179821024504437 drift -0.0162 home False
+   2026-10-22 Hurricanes        -118 L w_p None mkt 0.5173641257162702 p 0.5263293952689216 edge_own -0.03099231745810682 drift -0.0174 home False
+   2026-10-23 Avalanche         -125 W w_p 0.5053 mkt 0.5324675324675325 p 0.5299843909255434 edge_own -0.04942391892077025 drift 0.0201 home True
+   2026-10-26 Rangers           -135 L w_p 0.5193 mkt 0.551441114716549 p 0.5506527286732185 edge_own -0.04733457909388206 drift 0.0113 home True
+   2026-10-27 Panthers          -130 W w_p 0.5859 mkt 0.5427435387673956 p 0.5523722737830282 edge_own -0.028555904859772108 drift -0.0103 home False
+   2026-10-27 Blues             -118 L w_p None mkt 0.5173641257162701 p 0.5143721230331275 edge_own 0.05945755876449588 drift -0.0174 home True
+   2026-10-29 Senators          -118 L w_p None mkt 0.5173641257162702 p 0.525613953924107 edge_own -0.031749027601390534 drift -0.0174 home False
+   2026-10-29 Predators         -108 L w_p None mkt 0.4956702459300312 p 0.5221502340648028 edge_own 0.0030997869354252305 drift 0.0043 home True
+   2026-10-30 Kraken            -115 L w_p None mkt 0.5108342361863489 p 0.5199800917881554 edge_own -0.031792730196970376 drift -0.0108 home False
+   2026-10-31 Blues             -118 W w_p None mkt 0.5173641257162702 p 0.5259509526092221 edge_own -0.03152412013370287 drift -0.0391 home False
+   2026-11-01 Rangers           -125 L w_p 0.5762 mkt 0.5324675324675325 p 0.5319614638985585 edge_own -0.04623305138560263 drift -0.0851 home True
+   2026-11-02 Golden Knights    -118 L w_p None mkt 0.5173641257162702 p 0.5271848525410227 edge_own -0.029891233646079596 drift -0.0292 home False
+   2026-11-03 Rangers           -125 W w_p 0.56 mkt 0.5324675324675325 p 0.5298366179631079 edge_own -0.050534028113794704 drift 0.0 home True
+   2026-11-03 Penguins          -112 L w_p None mkt 0.5043297540699689 p 0.5353213193471364 edge_own 0.008008503185092275 drift -0.0368 home True
+   2026-11-05 Mammoth           -122 L w_p 0.5746 mkt 0.5260865852617198 p 0.5358618386771288 edge_own -0.029820801151809184 drift -0.0379 home False
+   2026-11-05 Bruins            -108 W w_p None mkt 0.49567024593003106 p 0.5007903636558966 edge_own -0.035629471252280664 drift 0.0043 home False
+   2026-11-08 Flyers            -118 L w_p None mkt 0.5173641257162702 p 0.5274626678473116 edge_own -0.02990659032725862 drift -0.0498 home False
+   2026-11-10 Wild              -125 W w_p 0.566 mkt 0.5324675324675324 p 0.5433750133336493 edge_own -0.02874508891734273 drift -0.0443 home False
+   2026-11-10 Panthers          -120 W w_p 0.5474 mkt 0.5217391304347826 p 0.530780783151139 edge_own -0.031831371085664806 drift -0.0217 home False

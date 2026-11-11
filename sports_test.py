@@ -20750,6 +20750,105 @@ def test_wired_1111_the_floors_second_play_needs_a_dog_score_of_zero_or_more():
     assert got(picks) == two                                                            # the 11/11 board: as it ran
 
 
+def test_book_1111_no_favorite_lean_the_engines_own_weights_are_against():
+    """11/11 FABLE: THE BOOK, studies 5 / 6 (the owner: "look at what our book does and how we make money ... improve
+    the picks"). Live hockey leans 19-24 -19.5% - the worst cell on the board with a sample - and the ones whose WEIGHED
+    read sat under the market went 3-7. The replay: every -150..-101 favorite weighed 2+ points under the no-vig market
+    -16.1% on 1,111 (z -6.2, both halves, 0 of 4 seasons up; hockey -20.7% on 332, the NBA -47.5% on 40); the live
+    tracker's 'hockey fav weighed DOWN' at that price 21-22 -14.3%. From the 11/13 games (a game's Pacific day) such a
+    favorite is never the who-wins lean in hockey / the NBA / college hoops / baseball - regular or fill; football is
+    left out (its cells run the other way); before 11/13 nothing changes. A filter on a no-units lean, the engine's
+    own full read saying no - never a pick trigger."""
+    assert sports.BOOK_1111_FROM == "2026-11-13" and sports.LEAN_WEIGHED_UNDER == 0.02
+    assert sports.LEAN_WEIGHED_UNDER_LEAGUES == ("nhl", "nba", "ncaab", "mlb")
+
+    def mk(gid, lg, odds, p, w_gap, start="2026-11-14T03:00Z"):          # (7 PM Pacific on 11/13)
+        d = sports._dec(odds)
+        return {"game_id": gid, "league": lg, "market": "ml", "odds": odds, "dec": d, "p": p, "p_market": 0.54,
+                "w_p": None if w_gap is None else 0.54 + w_gap, "edge_own": p * d - 1, "edge": 0.0, "reasons": ["x"],
+                "side": "home", "team": gid, "start": start}
+    under, near, none = mk("u", "nhl", -125, 0.56, -0.03), mk("n", "nhl", -125, 0.56, -0.01), mk("x", "nhl", -125, 0.56, None)
+    assert sports.lean_weighed_under(under) and not sports.lean_weighed_under(near) and not sports.lean_weighed_under(none)
+    assert sports.lean_weighed_under(mk("e", "nhl", -125, 0.56, -0.02))                # 2 points under = the line
+    assert not sports.lean_weighed_under(mk("o", "nhl", -125, 0.56, 0.03))             # weighed OVER: a fine lean
+    assert not sports.lean_weighed_under(mk("old", "nhl", -125, 0.56, -0.03, "2026-11-13T03:00Z"))   # the 11/12 board (7 PM
+    #                                                                                    Pacific 11/12): the old rule
+    assert not sports.lean_weighed_under({**under, "start": None})                    # no start = the old rule
+    for lg, hit in (("nba", True), ("ncaab", True), ("mlb", True), ("nfl", False), ("ncaaf", False)):
+        assert sports.lean_weighed_under(mk("g", lg, -125, 0.56, -0.03)) is hit, lg
+    assert not sports.lean_weighed_under({**mk("d", "nhl", 120, 0.44, -0.03)})         # a dog is never this rule's call
+    assert not sports.lean_weighed_under({**under, "market": "spread"})
+    saved = (sports.fighting, sports.stick)
+    try:
+        sports.fighting = lambda c: False
+        sports.stick = lambda c, pool: c
+        out = [c["team"] for c in sports.viewer_leans([under, near, mk("nba_u", "nba", -130, 0.57, -0.04),
+                                                       mk("nfl_u", "nfl", -130, 0.57, -0.04)], set())]
+        assert "u" not in out and "nba_u" not in out and "n" in out and "nfl_u" in out, out
+        fill = {**mk("f", "nhl", -120, 0.55, -0.03), "edge_own": -0.02}   # the who-wins FILL lean: the same answer
+        out = [c["team"] for c in sports.viewer_leans([fill, mk("n2", "nhl", -118, 0.55, 0.01)], set())]
+        assert "f" not in out and "n2" in out, out
+        old = mk("u_old", "nhl", -125, 0.56, -0.03, "2026-11-13T03:00Z")
+        assert [c["team"] for c in sports.viewer_leans([old], set())] == ["u_old"]     # before 11/13: as it ran
+    finally:
+        sports.fighting, sports.stick = saved
+    import sports_leads
+    tg = sports_leads.tags({**under, "home": True}, sports)
+    assert "small fav, weighed read 2+ under the market (fade) - nhl" in tg, tg        # the forward record, every sport
+    assert not [t for t in sports_leads.tags({**near, "home": True}, sports) if t.startswith("small fav, weighed read")]
+    assert "small fav, weighed read 2+ under the market (fade) - nfl" in sports_leads.tags({**mk("g", "nfl", -125, 0.56, -0.03), "home": True}, sports)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert src.count("not lean_weighed_under(c)") == 2                                  # the regular leans AND the fill
+
+
+def test_book_1111_nfl_depth_weight_is_one_point_a_regular_from_11_13():
+    """11/11 FABLE: THE BOOK, study 8 - NFL injuries by position weighted by snaps (nflverse's public injury reports x
+    snap counts x closing moneylines, 2,421 games 2016-26): one starter's worth of missing snaps is 1.1 points of win
+    chance on a ratings read and still +0.6 / +1.6 on top of the CLOSING line; the NFL dog missing 1+ starters' worth
+    more than the favorite -10.0% (2016-21) / -20.2% (2022-26), 8 of 11 seasons down, 2026 -14.8u. The 10/4 lead (the
+    side with 2+ more regulars out -2.5 pts, under 2 SE) confirmed a second way - so the NFL depth weight on the OWN read
+    is 1 point a regular more out than the opponent (was ½) from the 11/13 games; the 3-point cap, college 0 and the
+    QB / RB / WR points are untouched. A weight on the read, never a block."""
+    import sports_absences as A
+    assert sports.DEPTH_PTS == {"nfl": 0.005, "ncaaf": 0.0} and sports.DEPTH_PTS_1113 == {"nfl": 0.01, "ncaaf": 0.0}
+    assert sports.depth_penalty("nfl", 2, 0) == 0.01 and sports.depth_penalty("nfl", 2, 0, "2026-11-12") == 0.01   # as it ran
+    assert sports.depth_penalty("nfl", 2, 0, "2026-11-13") == 0.02 and sports.depth_penalty("nfl", 1, 0, "2026-11-15") == 0.01
+    assert sports.depth_penalty("nfl", 3, 0, "2026-11-13") == sports.DEPTH_CAP == 0.03   # the cap is still 3 points
+    assert sports.depth_penalty("nfl", 9, 0, "2026-12-01") == 0.03 and sports.depth_penalty("nfl", 0, 3, "2026-11-13") == 0.0
+    assert sports.depth_penalty("ncaaf", 5, 0, "2026-11-14") == 0.0 and sports.depth_penalty("nhl", 5, 0, "2026-11-14") == 0.0
+    keep = dict(A._TEAM)
+    rows = lambda gid, start, team: [
+        {"gid": gid, "start": start, "team": team, "player": f"Back {team}", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Wideout {team}", "stats": '{"receptions":"8"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Backer {team}", "stats": '{"totalTackles":"9"}'}]
+    try:
+        thin = {"nfl": {"3": [], "4": [("Back 4", "RB", "Out"), ("Wideout 4", "WR", "Out"), ("Backer 4", "LB", "Out")]}}
+        got = {}
+        for tag, box, start, now in (("old", "2026-09-27T17:00Z", "2026-10-04T20:00Z", datetime(2026, 10, 4, 12, 0, tzinfo=timezone.utc)),
+                                     ("new", "2026-11-08T18:00Z", "2026-11-15T21:00Z", datetime(2026, 11, 15, 13, 0, tzinfo=timezone.utc))):
+            A._TEAM["nfl"] = {t: [(box, f"g{t}", rows(f"g{t}", box, t))] for t in ("3", "4")}
+            games, _ = fake_league("nfl", days=120)
+            model = {"params": {}, "log": []}
+            sm.tune_all(games, model)
+            g = {**games["nfl:1"], "id": "nfl:x", "status": "pre", "home": "3", "away": "4", "home_name": "Giants",
+                 "away_name": "Titans", "home_score": "", "away_score": "", "start": start,
+                 "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110", "stype": "2"}
+            games[g["id"]] = g
+            day = now.astimezone(sports.PT).date()
+            got[tag] = {c["side"]: c for c in sports.candidates(games, model, now, day, thin) if c["game_id"] == "nfl:x" and c["market"] == "ml"}
+        assert got["old"]["away"].get("depth_pts") == 1.5                       # 10/4: 3 heads x ½ pt, as it ran
+        assert got["new"]["away"].get("depth_pts") == 3.0                       # 11/15: 3 heads x 1 pt (= the cap)
+        assert "depth_pts" not in got["new"]["home"] and not got["new"]["away"].get("hurt")   # a weight, never a block
+        assert got["new"]["away"].get("depth_gap") == 3 and got["new"]["home"].get("depth_gap") == -3
+        import sports_leads
+        tag = "NFL dog, 2+ more regulars out than the favorite (fade)"
+        assert tag in sports_leads.tags(got["new"]["away"], sports)             # its forward record (the dog, +110)
+        assert tag not in sports_leads.tags({**got["new"]["away"], "depth_gap": 1}, sports)
+        assert tag not in sports_leads.tags({**got["new"]["away"], "league": "ncaaf"}, sports)
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
