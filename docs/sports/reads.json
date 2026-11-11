@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T17:13Z",
+ "updated": "2026-11-11T17:23Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -1348,8 +1348,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Santa Clara",
-    "p": 0.537,
-    "tie": 0.043,
+    "p": 0.5,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1357,18 +1357,20 @@
    "start": "2026-11-12T01:00Z",
    "away": "Santa Clara",
    "home": "North Texas",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Santa Clara",
     "opp": "North Texas",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -125,
+    "p": 0.53,
+    "win_p": 0.53,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -1675,8 +1677,8 @@
     "win_p": 0.705,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -1997,7 +1999,7 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
+    "odds": -170,
     "p": 0.628,
     "win_p": 0.411,
     "reasons": []
@@ -2039,7 +2041,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.388,
+    "p": 0.393,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2055,9 +2057,9 @@
     "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.641,
-    "win_p": 0.421,
+    "odds": -185,
+    "p": 0.631,
+    "win_p": 0.41,
     "reasons": []
    }
   },
@@ -2083,7 +2085,7 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
+    "odds": -162,
     "p": 0.619,
     "win_p": 0.401,
     "reasons": []
@@ -2095,8 +2097,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.422,
-    "tie": 0.294,
+    "p": 0.415,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2111,9 +2113,9 @@
     "opp": "Jets",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.648,
-    "win_p": 0.648,
+    "odds": -192,
+    "p": 0.634,
+    "win_p": 0.634,
     "reasons": [
      "the stronger team",
      "better rested"
