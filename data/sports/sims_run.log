@@ -2463,3 +2463,17 @@ THE SIMULATOR: tried 120 NEW sim configs (20766 ever) in 234.3s · 2160 cell tes
    closest miss: ncaab|total|blend|ncaab|disp=1.12|form=0.25|gain=2.0|hfa=learned|pace=2.0|park=0|regress=0.1|rest=0 z=2.53
 TODAY'S SIMS: 430 upcoming games x 10000 sims in 13.1s -> data/sports/sim_today.json
 sim run done in 250s
+THE SIMULATOR: tried 120 NEW sim configs (20886 ever) in 187.5s · 2160 cell tests (luck alone would give ~0.502 suspects)
+   new suspects: 0 · promoted to PROVEN: 0 · killed: 0 · proven demoted: 0 · better-sim suspects: 0 (promoted [], killed [])
+   now watching 0 suspects · 0 proven · 0 killed
+   mlb: ml LL sim 0.6828 / mkt 0.6764 / blend 0.6763 (w 0.09) · bets@0.08 n=4330 roi -0.003 z +2.0 | spread LL sim 0.6841 / mkt 0.6752 / blend 0.6753 (w 0.10) · bets@0.02 n=14343 roi -0.032 z +1.1 | total LL sim 0.7050 / mkt 0.6940 / blend 0.6940 (w 0.05) · bets@0.02 n=14882 roi -0.034 z +1.2
+   nba: ml LL sim 0.6151 / mkt 0.5902 / blend 0.5907 (w 0.13) · bets@0.10 n=3252 roi -0.014 z +1.1 | spread LL sim 0.7123 / mkt 0.6945 / blend 0.6946 (w 0.07) · bets@0.06 n=5033 roi -0.034 z +0.8 | total LL sim 0.7120 / mkt 0.6937 / blend 0.6937 (w 0.00) · bets@0.06 n=4942 roi -0.063 z -1.4
+   ncaab: ml LL sim 0.5466 / mkt 0.5252 / blend 0.5252 (w 0.04) · bets@0.08 n=9517 roi -0.078 z +0.5 | spread LL sim 0.7196 / mkt 0.6945 / blend 0.6946 (w 0.07) · bets@0.10 n=9391 roi -0.035 z +1.0 | total LL sim 0.7072 / mkt 0.6935 / blend 0.6937 (w 0.19) · bets@0.04 n=18079 roi -0.016 z +4.1
+   ncaaf: ml LL sim 0.5433 / mkt 0.5083 / blend 0.5083 (w 0.01) · bets@0.08 n=2662 roi -0.073 z +0.2 | spread LL sim 0.7355 / mkt 0.6932 / blend 0.6932 (w 0.00) · bets@0.10 n=2458 roi -0.062 z -0.8 | total LL sim 0.7119 / mkt 0.6931 / blend 0.6931 (w 0.00) · bets@0.10 n=1740 roi -0.033 z +0.6
+   nfl: ml LL sim 0.6341 / mkt 0.6027 / blend 0.6031 (w 0.03) · bets@0.08 n=992 roi -0.084 z -0.5 | spread LL sim 0.7144 / mkt 0.6945 / blend 0.6956 (w 0.19) · bets@0.10 n=628 roi +0.013 z +1.5 | total LL sim 0.7082 / mkt 0.6935 / blend 0.6935 (w 0.00) · bets@0.02 n=1864 roi -0.040 z +0.2
+   nhl: ml LL sim 0.6694 / mkt 0.6628 / blend 0.6628 (w 0.00) · bets@0.08 n=863 roi -0.018 z +0.3 | spread LL sim 0.6595 / mkt 0.6541 / blend 0.6542 (w 0.15) · bets@0.04 n=4447 roi -0.032 z +0.7 | total LL sim 0.6970 / mkt 0.6918 / blend 0.6918 (w 0.05) · bets@0.04 n=5056 roi -0.030 z +1.1
+   closest miss: ncaab|total|blend|ncaab|disp=1.06|form=0.5|gain=2.0|hfa=none|pace=2.0|park=1|regress=0.2|rest=0 z=2.91
+   closest miss: nhl|total|thr:0.08|nhl|disp=0.0|form=0.25|gain=1.5|hfa=team|pace=1.0|park=0|regress=0.6|rest=1 z=2.89
+   closest miss: nhl|total|thr:0.08|nhl|disp=0.0|form=0.5|gain=1.0|hfa=none|pace=1.0|park=0|regress=0.6|rest=0 z=2.64
+TODAY'S SIMS: 429 upcoming games x 10000 sims in 10.6s -> data/sports/sim_today.json
+sim run done in 200s

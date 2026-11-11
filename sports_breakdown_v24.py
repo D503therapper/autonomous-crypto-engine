@@ -1346,33 +1346,35 @@ def breakdown(leg, games, elo, injuries, used=None):
     sp_ = public_split(leg)                               # (10/25: a fact - said unless the one-liner has the number)
     if sp_ and (f"{sp_[0]}%" in str(leg.get("why_line") or "") or f"{100 - sp_[0]}%" in str(leg.get("why_line") or "")):
         sp_ = None
+    mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}.get(leg.get("market"), "the moneyline")
+    #   (11/10: a friend read "the public ate this time on the Lions" when 61% of the SPREAD bets were on the Vikings -
+    #    the card's split was the MONEYLINE's (68% Lions). Every splits line now names which bets it means.)
     if sp_ and sp_[1] is None:                            # bets % only (Yahoo's backup has no money %): say that plain
         t = sp_[0]
         crowd = the_us if t >= 50 else the_them
         out.append(v.tag(v.say("splits_y", [
-            f"📊 {max(t, 100 - t)}% of the bets are on {crowd}." + (" We with 'em on this one." if t >= 50 else " We on the other side."),
-            f"📊 The public's got {max(t, 100 - t)}% of the tickets on {crowd}." + (" Same side as us." if t >= 50 else " Not us."),
-            f"📊 {crowd} got {max(t, 100 - t)}% of the bets." + (" Popular pick, right pick." if t >= 50 else " We fading that.")]), "neutral"))
+            f"📊 {max(t, 100 - t)}% of the bets on {mk} are on {crowd}." + (" We with 'em on this one." if t >= 50 else " We on the other side."),
+            f"📊 The public's got {max(t, 100 - t)}% of the tickets on {crowd} on {mk}." + (" Same side as us." if t >= 50 else " Not us."),
+            f"📊 {crowd} got {max(t, 100 - t)}% of the bets on {mk}." + (" Popular pick, right pick." if t >= 50 else " We fading that.")]), "neutral"))
         sp_ = None
     if sp_:
         t, m = sp_
-        mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
         # (10/21, the owner: the splits lines were filler - "public's usually wrong, not this time", "for once the
         #  the crowd lines". The splits don't pick winners (the 10/7 study, dead), so the card just says who's on
         #  who when it's lopsided - a 40-60 split says nothing and is dropped)
         if t <= 35:
             out.append(v.tag(v.say("splits_f", [
                 f"📊 {100 - t}% of the bets and {100 - m}% of the money on {the_them} on {mk}. We on the other side.",
-                f"📊 The public's on {the_them}: {100 - t}% of the bets, {100 - m}% of the money. Not us.",
-                f"📊 {_cap(the_them)} got {100 - t}% of the tickets ({100 - m}% of the money). We got {the_us}.",
-                f"📊 Everybody and they mama on {the_them} ({100 - t}% of the bets). We riding {the_us} anyway.",
-                f"📊 {100 - t}% of the bets on {the_them}. Let the public have 'em."]), "neutral"))
+                f"📊 The public's on {the_them} on {mk}: {100 - t}% of the bets, {100 - m}% of the money. Not us.",
+                f"📊 {_cap(the_them)} got {100 - t}% of the tickets on {mk} ({100 - m}% of the money). We got {the_us}.",
+                f"📊 Everybody and they mama on {the_them} on {mk} ({100 - t}% of the bets). We riding {the_us} anyway.",
+                f"📊 {100 - t}% of the {mk[4:]} bets on {the_them}. Let the public have 'em."]), "neutral"))
         elif t >= 65:
             out.append(v.tag(v.say("splits_w", [
-                f"📊 {t}% of the bets and {m}% of the money on {the_us}. Same side as the public on this one.",
-                f"📊 The public's with us: {t}% of the bets, {m}% of the money on {the_us}.",
-                f"📊 {_cap(the_us)} got {t}% of the tickets ({m}% of the money). The public's eating with us on this one.",
-                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money."]), "neutral"))
+                f"📊 {t}% of the bets and {m}% of the money on {the_us} on {mk}. Same side as the public on this one.",
+                f"📊 The public's with us on {mk}: {t}% of the bets, {m}% of the money on {the_us}.",
+                f"📊 {_cap(the_us)} got {t}% of the tickets on {mk} ({m}% of the money). The public's eating with us on this one.",
+                f"📊 Everybody and they mama on {the_us} on {mk}: {t}% of the bets, {m}% of the money."]), "neutral"))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
