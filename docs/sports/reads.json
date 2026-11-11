@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T17:08Z",
+ "updated": "2026-11-11T17:13Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -10,6 +10,21 @@
    "start": "2026-11-11T16:30Z",
    "away": "FDU",
    "home": "East Texas A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921005",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-11T17:00Z",
+   "away": "Kansas City",
+   "home": "Florida A&M",
    "h1": null,
    "why": "started",
    "done": false,
@@ -573,7 +588,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UNC Wilmington",
-    "p": 0.688,
+    "p": 0.674,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -588,14 +603,14 @@
     "team": "UNC Wilmington",
     "opp": "Kent State",
     "market": "spread",
-    "line": -8.5,
-    "odds": -110,
-    "p": 0.513,
-    "win_p": 0.765,
+    "line": -7.5,
+    "odds": -112,
+    "p": 0.519,
+    "win_p": 0.749,
     "reasons": [
      "hotter recent form",
-     "sharp money moving this way",
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1027,7 +1042,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.387,
+    "p": 0.383,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -1044,9 +1059,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.642,
-    "win_p": 0.421,
-    "reasons": []
+    "p": 0.65,
+    "win_p": 0.43,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1732,8 +1749,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.384,
-    "tie": 0.298,
+    "p": 0.378,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1749,8 +1766,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.649,
-    "win_p": 0.429,
+    "p": 0.66,
+    "win_p": 0.441,
     "reasons": []
    }
   },
