@@ -19982,6 +19982,24 @@ def test_daily_1110_college_scoreboard_over_the_yards_is_a_weight():
         sa._TEAM.update(keep)
 
 
+
+def test_public_lines_1110_always_name_which_bets_they_mean():
+    """11/10: a friend read the Vikings +142 review 'The public ate this time on the Lions' when 61% of the SPREAD bets
+    were on the Vikings - the card's split was the MONEYLINE's (68% / 71% on the Lions). Both true; the card never said
+    which. Every splits line on a card names the market, and a 'fade' review says which crowd it was."""
+    import re
+    root = os.path.dirname(os.path.abspath(__file__))
+    v24 = open(os.path.join(root, "sports_breakdown_v24.py")).read()
+    i, j = v24.index("bets % only (Yahoo"), v24.index("# the public: fading them or riding with them")
+    lines = [x for x in re.findall(r'f"(📊[^"]*)"', v24[i - 600:j])]
+    assert len(lines) >= 12, len(lines)
+    assert all("{mk" in x for x in lines), [x for x in lines if "{mk" not in x]
+    dash = open(os.path.join(root, "sports_dashboard.py")).read()
+    assert 'if kind == "fade":' in dash and "crowd.)" in dash
+    mk = "the moneyline"
+    assert f"{mk[4:]}" == "moneyline"
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

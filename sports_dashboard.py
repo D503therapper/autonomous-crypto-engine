@@ -1458,6 +1458,8 @@ def _history(picks, early_rows=None):
                 cell["fact"] = game_fact(l)                  # (10/3 sweep: "The Blues won 4-0. Never close." said nothing
                 return cell                                  #  past the score - the half-time fact rides on these too)
         cell = later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
+        if kind == "fade":                                   # (11/10: say WHICH public - the moneyline crowd and the
+            cell["mk"] = {"ml": "moneyline", "spread": "spread", "total": "total"}.get(l.get("market"), "moneyline")   # spread
         cell["fact"] = game_fact(l)                          # (the owner, 10/2: never vague - what actually happened)
         cell["trailed"] = r == "won" and bool(cell["fact"]) and not cell["fact"].startswith(f'{l.get("team")} led')
         #   (10/16 truth audit: the other side led, or it was tied, at the checkpoint - no 'never had a chance' review)
@@ -1592,6 +1594,8 @@ def _history(picks, early_rows=None):
             c["text"] = sports_lingo.review_how(c["kw"]["how"], r, seed, used, lean=c["lean"])
         else:
             c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], trailed=c.get("trailed", False), **c["kw"])
+        if c.get("mk"):                                      # crowd can sit on opposite sides - Vikings / Lions 11/1)
+            c["text"] = c["text"].rstrip() + f" (That's the {c['mk']} crowd.)"
         c["text"] = with_fact(c["text"], c.get("fact"))     # the game's own fact, whichever way it was written
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
