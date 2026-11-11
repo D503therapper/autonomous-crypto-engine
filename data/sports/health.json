@@ -1,36 +1,59 @@
 {
- "at": "2026-11-11T15:37Z",
+ "at": "2026-11-11T16:39Z",
  "fixes": [
-  "live watch 43049239945 froze (28 min) - cancelled",
-  "live board 28 min stale with games on - sports-live.yml already running",
-  "slate check problem - re-pull before the board - sports.yml already running"
+  "slate check problem - re-pull before the board - sports.yml already running",
+  "simulator overdue (10h) - started sports_sims.yml",
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Tubello vs Maria: no points for 140s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "live tennis scores: tennis Tubello vs Maria: no points for 750s",
+  "live tennis scores: tennis Ortenzi vs Garcia: no points for 750s",
+  "live tennis scores: tennis Costoulas vs Samson: no points for 687s",
   "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
-  "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list",
-  "studies last ran 10h ago - restarted"
+  "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 5 min ago",
+  "studies ran 1h ago",
+  "engine ran 19 min ago",
   "pacer running",
-  "tennis slate on time"
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T16:39Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "simulator overdue (10h) - started sports_sims.yml",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Tubello vs Maria: no points for 750s",
+    "live tennis scores: tennis Ortenzi vs Garcia: no points for 750s",
+    "live tennis scores: tennis Costoulas vs Samson: no points for 687s",
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-11T15:37Z",
    "fixes": [
@@ -648,11 +671,6 @@
   },
   {
    "at": "2026-11-10T11:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-10T11:20Z",
    "fixes": [],
    "problems": []
   }
