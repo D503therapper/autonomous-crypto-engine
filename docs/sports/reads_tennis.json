@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-11T21:21Z",
+ "updated": "2026-11-11T21:33Z",
  "games": [
   {
    "id": "tennis:wta:187378",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-11-11T21:45Z",
+   "start": "2026-11-11T22:00Z",
    "away": "Aryna Sabalenka",
    "home": "Mirra Andreeva",
    "vs": true,
@@ -47,6 +47,32 @@
     "odds": 250,
     "p": 0.272,
     "win_p": 0.272,
+    "reasons": [
+     "on hard court",
+     "FAGE WTA Finals Indian Wells"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:187376",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-11-12T21:30Z",
+   "away": "Linda Noskova",
+   "home": "Jessica Pegula",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Linda Noskova",
+    "opp": "Jessica Pegula",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.516,
+    "win_p": 0.516,
     "reasons": [
      "on hard court",
      "FAGE WTA Finals Indian Wells"
