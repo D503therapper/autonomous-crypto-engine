@@ -18109,3 +18109,28 @@ $BITF: possibly delisted; no price data found  (period=407d)
    [alert] Today +4.72 | Total -374.82: Stocks: $477.64  today +4.22  total -22.36
 DEX: $647.54  today +0.50  total -352.46
 DEX: $647.54 (-352.46) · Scammed: 11 (-$216.49)
+   scanner: 970 tickers, sample: {'i': 'BTC_USD', 'h': '74756.18', 'l': '73110.60', 'a': '74403.25', 'v': '3957.0398', 'vv': '292648299.32', 'c': '0.0088', 'b': '74407.45', 'k': '74407.46', 'oi': '0', 't': 1794435667874}
+   dex scanner: 3,000 pools (solana 2,314 / base 389 / ethereum 297), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT NVDA@solana liq $9,757 - liquidity $9,757 < $100,000; 24h volume $1,443 < $100,000
+   dex screen: REJECT XDP@base liq $1,624,484 - top-10 holders 93%
+   dex screen: REJECT QNT@ethereum liq $638,920 - is_mintable; lp locked 0% < 95%
+   dex screen: REJECT EURC@ethereum liq $3,171,485 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%
+   dex screen: REJECT SWORDCAT@solana liq $146,879 - lp holders unknown; rugcheck lp locked 83% < 95%
+   dex screen: REJECT XDP@base liq $1,622,775 - top-10 holders 93%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT FLOAT@solana liq $548,009 - lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,111,152
+   dex scanner: 3,000 pools (solana 2,267 / base 415 / ethereum 318), refresh cycle 110s (hot 107s), 2200 calls (81 feed, 429s 1, failed 1), 63,465 refreshed (4696 no pair), +88 added / -88 dropped (dead 2, stale 0, cap 86), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-11 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/mover     equity $201.89 (-59.6%) 1 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/social_heat equity $336.45 (-32.7%) 2 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-11 23:05 UTC] crypto/hold_btc  equity $445.41 (-10.9%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), AVAX 35 (35/0/0), GRAM 29 (29/0/0), PONS 27 (19/0/8), PENGU 24 (24/0/0)
