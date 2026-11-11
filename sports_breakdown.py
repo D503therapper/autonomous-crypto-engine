@@ -1090,7 +1090,7 @@ T = {
         "🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy.",
         "🕐 {The_them} [flew|traveled] across [a few|several] time zones. [Body clocks are off.|Sleep's off.|Clocks don't adjust that fast.]",
         "🕐 [Time-zone|Jet-lag|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
-        "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|a few hours off]. [That matters.|Legs feel it.|It adds up.]",
+        "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|off their home time zone]. [That matters.|Legs feel it.|It adds up.]",
     ],
     "drama_coach_fired": [
         "🧯 {The_them} just [fired|canned] their coach. [Locker room's a mess.|Messy week.|Chaos.]",
@@ -1677,7 +1677,7 @@ T.update({
         "🕐 Long trip for {the_them}, time zones and all. Legs gonna be [heavy|slow].",
         "🕐 {The_them} [flew|traveled] across [a few|several] time zones. [Body clocks are off.|Sleep's off.|Clocks don't adjust that fast.]",
         "🕐 [Time-zone|Jet-lag|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
-        "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|a few hours off]. [That matters.|Legs feel it.|It adds up.]",
+        "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|off their home time zone]. [That matters.|Legs feel it.|It adds up.]",
     ],
     "revenge": [
         "😤 [Revenge|Payback|Get-back] game — {us} lost the last meeting and they haven't forgotten.",
