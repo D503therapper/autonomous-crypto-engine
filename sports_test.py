@@ -16816,6 +16816,15 @@ def test_deep_bb_1103_college_hoops_altitude_over_half_unit_whole_read_night_bef
     total (it skipped queue_pings for the whole run)."""
     import sports
     import sports_early as se
+    keep_1111 = se.ALT_1111_FROM
+    se.ALT_1111_FROM = "2099-01-01"                          # (11/11: this test pins the 11/3 rule - games before the
+    try:                                                     #  11/11 rule's first Pacific game day keep it)
+        _deep_bb_1103_altitude_body(sports, se)
+    finally:
+        se.ALT_1111_FROM = keep_1111
+
+
+def _deep_bb_1103_altitude_body(sports, se):
     def fin(i, h, a, hs, as_, day):
         return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
                 "home_score": str(hs), "away_score": str(as_), "start": f"2026-11-{day:02d}T02:00Z"}
@@ -16854,6 +16863,99 @@ def test_deep_bb_1103_college_hoops_altitude_over_half_unit_whole_read_night_bef
     assert se.SPOTS["alt_over"][1] == 0.5 and se.SPOTS["alt_over"][2] == ("ncaab",)
     assert "Over 145.5" in sports.early_log_line(got[0]) and "alt_over" in sports.early_log_line(got[0])
     assert "own 40% vs price 35%" in sports.early_log_line({"team": "Bucks", "odds": 150, "league": "nba", "own": .4, "mkt": .35})
+
+
+def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_price_and_total_limits():
+    """11/11 - THE OVER/UNDER STUDIES (the owner's brother's engine; results/studies/totals_1111/): the college hoops
+    over's edge is the floor's height and it starts at 4,600 ft - home floors 1,400 m+ 585-401 +13.1% on 993 (train
+    +8.5% 4 of 4, blind +17.3% 5 of 5, 0 of 500 random floor sets), 1,200-1,399 m flat. From the Pacific game day
+    ALT_1111_FROM the ⛰️ over is: a 1,400 m+ home floor (never neutral), the plain points read no more than ALT_FIGHT
+    under the total (the total limit - last season's scoring fills in before a team has 5 finals, so November games
+    count), the price no worse than ALT_MAX_PRICE, posted from the FIRST number (no 6 PM wait), never game day (the
+    owner's rule; ALT_GAME_DAY off), never a started game, ½u, the same record and judge. The card carries fact lines
+    (feet, both teams' scoring, last games, the record, the good-to number), never a win %. The game-day row reads an
+    over's number going UP as beating it (it read every total as an under). Games before 11/12 keep the 11/3 rule."""
+    import sports_early as se
+    assert se.ALT_1111_FROM == "2026-11-12" and se.ALT_HI_M == 1400 and se.ALT_MAX_PRICE == -130 and not se.ALT_GAME_DAY
+    assert se.SPOTS["alt_over"][1] == 0.5 and se.ALT_OVER_QUIT == (50, -0.05)
+
+    def fin(i, h, a, hs, as_, start, hn="", an=""):
+        return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
+                "home_score": str(hs), "away_score": str(as_), "start": start, "home_name": hn, "away_name": an}
+    games = {}
+    for i in range(12):                                      # LAST season: Wyoming (W) and Idaho St (I) 12 finals, 75-70
+        games[f"pw{i}"] = fin(100 + i, "W", f"x{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+        games[f"pi{i}"] = fin(200 + i, "I", f"y{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+    games["w1"] = fin(1, "W", "q", 90, 80, "2026-11-08T02:00Z", "Wyoming", "Cal Poly")       # this season: one each
+    games["i1"] = fin(2, "z", "I", 70, 85, "2026-11-08T02:00Z", "Weber St", "Idaho St")
+    g = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "home": "W", "away": "I", "neutral": "0",
+         "elev": "2184", "start": "2026-11-13T03:00Z", "total": "148.5", "over_odds": "-112", "under_odds": "-108",
+         "home_name": "Wyoming", "away_name": "Idaho St"}    # tips 7 PM PT 11/12 - the rule's first Pacific game day
+    games["ncaab:9"] = g
+    st = {"picks": []}
+    noon = datetime(2026, 11, 11, 20, 0, tzinfo=timezone.utc)      # noon PT the day before: a number's up = it posts
+    got = se.alt_overs(games, st, noon)
+    #   the read: W (90 + 4x75) / 5 = 78 for, (80 + 4x70) / 5 = 72 against; I (85 + 4x75) / 5 = 77 / (70 + 4x70) / 5 = 70
+    #   -> (78 + 70 + 77 + 72) / 2 = 148.5 - level with the number
+    assert len(got) == 1 and got[0]["spot"] == "alt_over" and got[0]["side"] == "over" and got[0]["line"] == 148.5
+    c = got[0]
+    assert abs(c["read"] - 148.5) < 0.05 and c["rule"] == "1111" and c["good_to"] == 150.0 and se.units(c) == 0.5
+    assert "7,200 feet" in c["why"] and se.ALT_REC in c["why"] and "%" not in c["why"]
+    txt = " | ".join(c["facts"])
+    assert "Wyoming's games are averaging 170 points - scoring 90, giving up 80 through 1 game" in txt
+    assert "Wyoming beat Cal Poly 90-80 last time out (170 points)" in txt
+    assert "Idaho St beat Weber St 85-70 last time out (155 points)" in txt
+    assert "Good to 150" in txt and "-130" in txt and "%" not in txt and len(c["facts"]) >= 5
+    low = (c["why"] + txt).lower()
+    assert not any(w in low for w in ("line moved", "line move", "steam", "sharp"))       # never the line moving
+    assert se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc)) == []      # game day: never
+    assert se.alt_overs(games, st, datetime(2026, 11, 13, 3, 30, tzinfo=timezone.utc)) == []      # tipped: never
+    assert se.alt_overs({**games, "ncaab:9": {**g, "total": "152"}}, st, noon) == []       # the number ran 3.5 past the read
+    assert len(se.alt_overs({**games, "ncaab:9": {**g, "total": "151.5"}}, st, noon)) == 1   # 3 past: still inside
+    assert se.alt_overs({**games, "ncaab:9": {**g, "over_odds": "-135"}}, st, noon) == []  # worse than -130
+    assert len(se.alt_overs({**games, "ncaab:9": {**g, "over_odds": "-130"}}, st, noon)) == 1
+    assert se.alt_overs({**games, "ncaab:9": {**g, "elev": "1382"}}, st, noon) == []       # Utah St's floor: under 4,600 ft
+    assert se.alt_overs({**games, "ncaab:9": {**g, "neutral": "1"}}, st, noon) == []       # never a neutral site
+    assert se.alt_overs({**games, "ncaab:9": {**g, "total": ""}}, st, noon) == []          # no number yet
+    assert se.alt_overs({**games, "ncaab:9": {**g, "stype": "3"}}, st, noon) == []         # regular season only
+    new = {k: v for k, v in games.items() if not k.startswith("pi")}                      # Idaho St: no last season on
+    assert se.alt_overs(new, st, noon) == []                                               # file + 1 final = no read
+    keep = se.ALT_GAME_DAY
+    se.ALT_GAME_DAY = True                                                                 # the switch (the owner's call)
+    try:
+        assert len(se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc))) == 1
+        assert se.alt_overs(games, st, datetime(2026, 11, 13, 3, 30, tzinfo=timezone.utc)) == []   # still never started
+    finally:
+        se.ALT_GAME_DAY = keep
+    old_g = {**g, "start": "2026-11-12T03:00Z"}                                            # 7 PM PT 11/11: the 11/3 rule -
+    assert se.alt_overs({**games, "ncaab:9": old_g}, st, datetime(2026, 11, 11, 3, 0, tzinfo=timezone.utc)) == []   # no
+    #                                                                                        5 finals each = no play
+    lost = [{"game_id": f"z{i}", "spot": "alt_over", "odds": -110, "units": 0.5, "result": "lost" if i < 28 else "won"}
+            for i in range(50)]
+    assert se.alt_overs(games, {"picks": lost}, noon) == []                                # the judge at 50 holds it too
+    p = dict(c, units=0.5)
+    se.grade({"picks": [p]}, {"ncaab:9": dict(g, status="final", home_score="80", away_score="70")})
+    assert p["result"] == "won"                                                            # 150 > 148.5
+    E = lambda x: str(x)                                                                   # noqa: E731
+    was_on, se.ON = se.ON, True                                                            # (the boxes need the switch on)
+    try:
+        box = se.html({"picks": [dict(c)]}, E, now=noon, games={"ncaab:9": g})
+        assert "Over 148.5" in box and "Good to 150" in box and "last time out" in box and "%" not in box, box
+        day = se.gameday_html({"picks": [dict(c)]}, {"ncaab:9": {**g, "total": "151.5"}}, E,
+                              now=datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc))
+        assert "we beat the number" in day and "the number went up" not in day             # an over: up = ours is better
+        assert "Good to 150" in day
+        day = se.gameday_html({"picks": [dict(c)]}, {"ncaab:9": {**g, "total": "146.5"}}, E,
+                              now=datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc))
+        assert "the number went down" in day
+        under = {"game_id": "nfl:1", "league": "nfl", "market": "total", "side": "under", "line": 44.5,
+                 "team": "Under 44.5", "opp": "A @ B", "odds": -110, "start": "2026-11-15T14:30Z", "spot": "euro_under",
+                 "result": None}
+        ug = {"nfl:1": {"id": "nfl:1", "status": "pre", "start": "2026-11-15T14:30Z", "total": "42.5"}}
+        assert "we beat the number" in se.gameday_html({"picks": [under]}, ug, E,          # an under: down = ours
+                                                       now=datetime(2026, 11, 15, 12, 0, tzinfo=timezone.utc))
+    finally:
+        se.ON = was_on
 
 
 def test_h1log_1103_pre_tip_first_half_line_logged_hourly_no_network():
