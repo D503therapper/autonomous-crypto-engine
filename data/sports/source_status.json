@@ -2,56 +2,56 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-11T00:57Z",
+   "at": "2026-11-11T01:29Z",
    "err": "nba game 20261110: HTTP 404; nba game 20261111: HTTP 404",
    "how": "plain request",
    "n": 0,
    "ok": false
   },
   "actionnetwork_splits": {
-   "at": "2026-11-11T00:56Z",
+   "at": "2026-11-11T01:27Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-11T00:57Z",
+   "at": "2026-11-11T01:29Z",
    "how": "plain request",
    "n": 10,
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-11T00:57Z",
+   "at": "2026-11-11T01:29Z",
    "how": "plain request",
    "n": 27,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-11T00:57Z",
+   "at": "2026-11-11T01:29Z",
    "how": "plain request",
    "n": 8,
    "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-11T00:57Z",
+   "at": "2026-11-11T01:29Z",
    "how": "plain request",
    "n": 14,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-11T00:56Z",
+   "at": "2026-11-11T01:28Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-11T00:56Z",
+   "at": "2026-11-11T01:28Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-11T00:55Z",
+   "at": "2026-11-11T01:27Z",
    "how": "plain request",
    "n": 7,
    "ok": true
@@ -63,18 +63,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-11T00:56Z",
+   "at": "2026-11-11T01:28Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-11T00:56Z",
+   "at": "2026-11-11T01:28Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-11T00:57Z"
+ "updated": "2026-11-11T01:29Z"
 }

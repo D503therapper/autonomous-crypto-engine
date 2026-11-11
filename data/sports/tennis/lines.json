@@ -3138,6 +3138,20 @@
 "start": "2026-10-01T02:00Z",
 "tour": "atp"
 },
+"fritz|norrie|2026-11-11": {
+"a": "Taylor Fritz",
+"a_hcp": -3.5,
+"a_ml": -325,
+"a_sp": -110,
+"b": "Cameron Norrie",
+"b_hcp": 3.5,
+"b_ml": 260,
+"b_sp": -120,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T13:30Z",
+"tour": "atp"
+},
 "fritz|shapovalov|2026-10-29": {
 "a": "Taylor Fritz",
 "a_hcp": -2.5,
@@ -3506,6 +3520,20 @@
 "seen": "2026-10-21T20:19Z",
 "src": "bovada",
 "start": "2026-10-22T11:20Z",
+"tour": "atp"
+},
+"gojo|humbert|2026-11-11": {
+"a": "Borna Gojo",
+"a_hcp": 3.0,
+"a_ml": 190,
+"a_sp": -125,
+"b": "Ugo Humbert",
+"b_hcp": -3.0,
+"b_ml": -230,
+"b_sp": -105,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T15:00Z",
 "tour": "atp"
 },
 "golubic|hontama|2026-10-19": {
@@ -4904,6 +4932,20 @@
 "start": "2026-10-09T09:10Z",
 "tour": "atp"
 },
+"kecmanovic|rune|2026-11-11": {
+"a": "Miomir Kecmanovic",
+"a_hcp": 3.5,
+"a_ml": 200,
+"a_sp": -120,
+"b": "Holger Rune",
+"b_hcp": -3.5,
+"b_ml": -250,
+"b_sp": -110,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T18:10Z",
+"tour": "atp"
+},
 "kenin|krueger|2026-09-30": {
 "a": "Sofia Kenin",
 "a_hcp": 2.0,
@@ -5057,6 +5099,16 @@
 "src": "bovada",
 "start": "2026-10-08T07:30Z",
 "tour": "atp"
+},
+"kostyuk|gauff|2026-11-12": {
+"a": "Marta Kostyuk",
+"a_ml": 325,
+"b": "Coco Gauff",
+"b_ml": -425,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-12T18:00Z",
+"tour": "wta"
 },
 "kostyuk|pegula|2026-11-10": {
 "a": "Marta Kostyuk",
@@ -7716,6 +7768,16 @@
 "start": "2026-10-17T08:20Z",
 "tour": "atp"
 },
+"pegula|noskova|2026-11-12": {
+"a": "Jessica Pegula",
+"a_ml": -110,
+"b": "Linda Noskova",
+"b_ml": -110,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-12T18:00Z",
+"tour": "wta"
+},
 "perricard|bertola|2026-10-17": {
 "a": "Giovanni Mpetshi Perricard",
 "a_hcp": -1.5,
@@ -8551,13 +8613,16 @@
 },
 "sabalenka|andreeva|2026-11-11": {
 "a": "Aryna Sabalenka",
-"a_ml": -114,
+"a_hcp": -0.5,
+"a_ml": -115,
+"a_sp": -110,
 "b": "Mirra Andreeva",
-"b_ml": -110,
-"books": 9,
-"seen": "2026-11-10T23:18Z",
-"src": "oddsapi",
-"start": "2026-11-11T21:10Z",
+"b_hcp": 0.5,
+"b_ml": -105,
+"b_sp": -120,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T21:30Z",
 "tour": "wta"
 },
 "sabalenka|li|2026-10-14": {
@@ -9255,6 +9320,20 @@
 "start": "2026-10-17T12:00Z",
 "tour": "atp"
 },
+"shevchenko|ruud|2026-11-11": {
+"a": "Alexander Shevchenko",
+"a_hcp": 4.0,
+"a_ml": 300,
+"a_sp": -125,
+"b": "Casper Ruud",
+"b_hcp": -4.0,
+"b_ml": -400,
+"b_sp": -105,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T17:00Z",
+"tour": "atp"
+},
 "shevchenko|sakellaridis|2026-10-18": {
 "a": "Alexander Shevchenko",
 "a_hcp": -2.5,
@@ -9600,6 +9679,20 @@
 "src": "bovada",
 "start": "2026-09-28T03:10Z"
 },
+"sonego|tabilo|2026-11-11": {
+"a": "Lorenzo Sonego",
+"a_hcp": -2.0,
+"a_ml": -155,
+"a_sp": -110,
+"b": "Alejandro Tabilo",
+"b_hcp": 2.0,
+"b_ml": 130,
+"b_sp": -120,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
+"start": "2026-11-11T12:00Z",
+"tour": "atp"
+},
 "sonmez|kraus|2026-10-11": {
 "a": "Zeynep Sonmez",
 "a_hcp": -3.0,
@@ -9925,12 +10018,15 @@
 },
 "svitolina|muchova|2026-11-11": {
 "a": "Elina Svitolina",
-"a_ml": 124,
+"a_hcp": 1.5,
+"a_ml": 125,
+"a_sp": -105,
 "b": "Karolina Muchova",
+"b_hcp": -1.5,
 "b_ml": -150,
-"books": 9,
-"seen": "2026-11-10T23:18Z",
-"src": "oddsapi",
+"b_sp": -125,
+"seen": "2026-11-11T01:23Z",
+"src": "bovada",
 "start": "2026-11-11T20:00Z",
 "tour": "wta"
 },
