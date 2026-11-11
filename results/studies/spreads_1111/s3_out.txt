@@ -1,0 +1,21 @@
+games with a box 2021-26: 6055
+  tune (TAU weeks, off-season weeks, ridge) (12.0, 8.0, 150.0) 2023 RMSE 17.295 n 778
+  tune (TAU weeks, off-season weeks, ridge) (20.0, 8.0, 150.0) 2023 RMSE 17.013 n 778
+  tune (TAU weeks, off-season weeks, ridge) (30.0, 8.0, 150.0) 2023 RMSE 16.927 n 778
+PICKED (2023 only): (30.0, 8.0, 150.0)
+
+QB read A - last fit's weights: {'dP': 3.45, 'dR': 3.18, 'dS': 83.41, 'dPts': 0.23, 'rest': 0.08, 'home': -0.41}
+  season             n   | MAE model  close | RMSE model  close | weight on (model - close), se | corr | mean gap
+  2023               778 |  13.46   12.27 |  16.93   15.42 | +0.022  0.077 | 0.890  5.40
+  2024               727 |  13.26   12.08 |  16.66   15.34 | +0.067  0.081 | 0.865  5.25
+  2025               720 |  13.07   11.96 |  16.34   15.07 | +0.113  0.078 | 0.857  5.36
+  2026               895 |  12.90   12.01 |  16.36   15.09 | +0.122  0.069 | 0.842  5.57
+  2024-26 HELD OUT  2342 |  13.06   12.02 |  16.45   15.16 | +0.103  0.044 | 0.853  5.41
+
+QB read P - last fit's weights: {'dP': 2.7, 'dR': 3.07, 'dS': 89.29, 'dPts': 0.32, 'rest': 0.1, 'home': -0.17}
+  season             n   | MAE model  close | RMSE model  close | weight on (model - close), se | corr | mean gap
+  2023               778 |  13.50   12.27 |  17.03   15.42 | +0.000  0.076 | 0.887  5.42
+  2024               727 |  13.38   12.08 |  16.84   15.34 | +0.026  0.080 | 0.858  5.29
+  2025               720 |  13.13   11.96 |  16.42   15.07 | +0.090  0.078 | 0.855  5.36
+  2026               895 |  12.92   12.01 |  16.43   15.09 | +0.109  0.068 | 0.836  5.61
+  2024-26 HELD OUT  2342 |  13.13   12.02 |  16.55   15.16 | +0.078  0.043 | 0.848  5.44
