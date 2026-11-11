@@ -1,7 +1,7 @@
 {
- "at": "2026-11-11T21:18Z",
+ "at": "2026-11-11T21:20Z",
  "fixes": [
-  "live board 31 min stale with games on - sports-live.yml already running",
+  "live board 33 min stale with games on - sports-live.yml already running",
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -25,12 +25,28 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "simulator ran 2h ago",
+  "engine ran 4 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T21:20Z",
+   "fixes": [
+    "live board 33 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Ribera vs Carle: no points for 2432s",
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-11T21:18Z",
    "fixes": [
@@ -822,11 +838,6 @@
     "live watch 42832218615 froze (6 min) - cancelled",
     "live board 6 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-10T15:03Z",
-   "fixes": [],
    "problems": []
   }
  ]
