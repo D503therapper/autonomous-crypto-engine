@@ -1,0 +1,100 @@
+rows 59898 graded moneyline sides; favorites -151..-250: 9543; -101..-150: 12430
+  coverage by league (-151..-250): {'mlb': 2606, 'nba': 1190, 'ncaab': 3128, 'ncaaf': 570, 'nfl': 332, 'nhl': 1717}
+  own read missing on 0 of 9543
+
+== S2 - THE FIVE LEAGUES WE PICK (NFL, college football, NHL, NBA, college hoops): favorites -151..-250 at the close, flat 1u
+  BASE every favorite -151..-250 (in the funnel)       n 6788 4247-2541 flat   -4.5% z -5.12 | train   -3.9% (4505, z -3.60) | BLIND   -5.7% (2283, z -3.76) | seasons up 0/4 (23:-5 24:-3 25:-6 26:-6) | live 93-56 -4%
+  own read UNDER the price (fighting it)               n 4078 2517-1561 flat   -5.6% z -4.84 | train   -5.4% (2755, z -3.89) | BLIND   -5.9% (1323, z -2.89) | seasons up 0/4 (23:-6 24:-5 25:-6 26:-1) | live 65-31 +5% | placebo: luck did as well 1845/2000 (all), 1082/2000 (blind)
+  own read 0..2 points over                            n 1167  748-419  flat   -1.8% z -0.87 | train   -1.4% ( 852, z -0.54) | BLIND   -3.0% ( 315, z -0.77) | seasons up 1/4 (23:-5 24:+3 25:-3 26:-4) | live 20-13 -8% | placebo: luck did as well 182/2000 (all), 473/2000 (blind)
+  own read 2+ points over                              n 1543  982-561  flat   -3.8% z -2.10 | train   -1.7% ( 898, z -0.72) | BLIND   -6.8% ( 645, z -2.40) | seasons up 0/4 (23:-2 24:-1 25:-6 26:-30) | live 8-12 -40% | placebo: luck did as well 699/2000 (all), 1377/2000 (blind)
+  own read 4+ points over                              n  719  448-271  flat   -6.7% z -2.61 | train   -4.8% ( 286, z -1.24) | BLIND   -8.0% ( 433, z -2.35) | seasons up 0/4 (23:-7 24:-1 25:-7 26:-30) | live 4-5 -31% | placebo: luck did as well 1626/2000 (all), 1554/2000 (blind)
+  own read 6+ points over                              n  337  215-122  flat   -4.7% z -1.26 | train   +5.3% (  68, z +0.55) | BLIND   -7.2% ( 269, z -1.68) | seasons up 3/4 (23:+3 24:+11 25:-7 26:+2) | live 3-2 -3% | placebo: luck did as well 1066/2000 (all), 1231/2000 (blind)
+  weighed read 2+ over                                 n 1608 1018-590  flat   -4.4% z -2.47 | train   -3.1% ( 955, z -1.35) | BLIND   -6.3% ( 653, z -2.25) | seasons up 0/4 (23:-3 24:-3 25:-6 26:-31) | live 9-10 -28% | placebo: luck did as well 996/2000 (all), 1154/2000 (blind)
+  weighed read 4+ over                                 n  810  508-302  flat   -5.9% z -2.43 | train   -5.4% ( 352, z -1.52) | BLIND   -6.3% ( 458, z -1.90) | seasons up 0/4 (23:-6 24:-4 25:-6 26:-30) | live 4-5 -30% | placebo: luck did as well 1444/2000 (all), 1164/2000 (blind)
+  own AND weighed 2+ over                              n 1462  929-533  flat   -4.1% z -2.20 | train   -2.5% ( 856, z -1.02) | BLIND   -6.4% ( 606, z -2.20) | seasons up 0/4 (23:-3 24:-2 25:-6 26:-31) | live 7-10 -38% | placebo: luck did as well 867/2000 (all), 1201/2000 (blind)
+  own 2+ over, clean (a reason, no trap, not fighting) n 1291  829-462  flat   -3.0% z -1.54 | train   -0.9% ( 785, z -0.37) | BLIND   -6.3% ( 506, z -1.99) | seasons up 1/4 (23:-2 24:+0 25:-5 26:-30) | live 7-12 -44% | placebo: luck did as well 423/2000 (all), 1159/2000 (blind)
+  THE PLAY BAR but the price (good, lock/value tier, own beats, real value) n 2080 1338-742  flat   -2.3% z -1.49 | train   -0.0% (1375, z -0.05) | BLIND   -6.6% ( 705, z -2.48) | seasons up 1/4 (23:-2 24:+2 25:-6 26:-29) | live 20-20 -24% | placebo: luck did as well 92/2000 (all), 1335/2000 (blind)
+  -- by band, own read 2+ / 4+ over:
+  -151..-175 every one                                 n 2465 1454-1011 flat   -4.9% z -3.06 | train   -4.1% (1640, z -2.12) | BLIND   -6.3% ( 825, z -2.30) | seasons up 1/4 (23:-7 24:-2 25:-7 26:+4) | live 40-22 +5%
+  -151..-175 own 2+ over                               n  430  257-173  flat   -3.8% z -0.99 | train   -2.5% ( 266, z -0.52) | BLIND   -5.8% ( 164, z -0.94) | seasons up 0/4 (23:-4 24:-0 25:-5 26:-19) | live 2-1 +10% | placebo: luck did as well 794/2000 (all), 928/2000 (blind)
+  -151..-175 own 4+ over                               n  146   92-54   flat   +1.3% z +0.22 | train   +7.3% (  60, z +0.72) | BLIND   -2.8% (  86, z -0.32) | seasons up 3/4 (23:+11 24:+5 25:-3 26:+7) | live 2-1 +10% | placebo: luck did as well 363/2000 (all), 689/2000 (blind)
+  -176..-200 every one                                 n 1897 1165-732  flat   -5.9% z -3.57 | train   -5.4% (1281, z -2.65) | BLIND   -7.1% ( 616, z -2.44) | seasons up 0/4 (23:-3 24:-8 25:-7 26:-7) | live 23-14 -5%
+  -176..-200 own 2+ over                               n  439  266-173  flat   -7.2% z -2.09 | train   -2.9% ( 260, z -0.64) | BLIND  -13.5% ( 179, z -2.50) | seasons up 0/4 (23:-2 24:-4 25:-13 26:-35) | live 1-4 -69% | placebo: luck did as well 1293/2000 (all), 1813/2000 (blind)
+  -176..-200 own 4+ over                               n  179  101-78   flat  -13.7% z -2.53 | train   -7.2% (  64, z -0.79) | BLIND  -17.3% ( 115, z -2.57) | seasons up 0/4 (23:-9 24:-1 25:-17 26:-24) | live 1-1 -23% | placebo: luck did as well 1850/2000 (all), 1890/2000 (blind)
+  -201..-250 every one                                 n 2426 1628-798  flat   -3.1% z -2.29 | train   -2.5% (1584, z -1.51) | BLIND   -4.2% ( 842, z -1.82) | seasons up 1/4 (23:-5 24:+0 25:-3 26:-14) | live 30-20 -13%
+  -201..-250 own 2+ over                               n  674  459-215  flat   -1.7% z -0.69 | train   -0.3% ( 372, z -0.14) | BLIND   -3.4% ( 302, z -0.87) | seasons up 1/4 (23:-1 24:+0 25:-3 26:-38) | live 5-7 -40% | placebo: luck did as well 524/2000 (all), 793/2000 (blind)
+  -201..-250 own 4+ over                               n  394  255-139  flat   -6.5% z -1.97 | train   -8.3% ( 162, z -1.62) | BLIND   -5.3% ( 232, z -1.20) | seasons up 0/4 (23:-10 24:-5 25:-4 26:-64) | live 1-3 -65% | placebo: luck did as well 1724/2000 (all), 1249/2000 (blind)
+  -- by league, own read 2+ / 4+ over:
+  nfl every one                                        n  317  214-103  flat   +3.9% z +0.85 | train  +13.4% ( 189, z +2.45) | BLIND  -10.3% ( 128, z -1.64) | seasons up 2/4 (23:+11 24:+16 25:-12 26:-4) | live 10-5 +3%
+  nfl own 2+ over                                      n    2    1-1    flat  -20.6% z -0.38 | train  -20.6% (   2, z -0.38) | BLIND    -                  | seasons up 0/1 (24:-21) | placebo: luck did as well 1201/2000 (all), None/2000 (blind)
+  nfl own 4+ over                                      n    1    0-1    flat -100.0% z -1.30 | train -100.0% (   1, z -1.30) | BLIND    -                  | seasons up 0/1 (24:-100) | placebo: luck did as well 2000/2000 (all), None/2000 (blind)
+  ncaaf every one                                      n  509  318-191  flat   -5.3% z -1.63 | train   -5.1% ( 249, z -1.00) | BLIND   -5.5% ( 260, z -1.30) | seasons up 0/4 (23:-11 24:-1 25:-2 26:-13) | live 36-25 -9%
+  ncaaf own 2+ over                                    n   22   10-12   flat  -30.2% z -1.98 | train    -                  | BLIND  -30.2% (  22, z -1.98) | seasons up 0/1 (26:-30) | live 7-10 -38% | placebo: luck did as well 1882/2000 (all), 1898/2000 (blind)
+  ncaaf own 4+ over                                    n   11    5-6    flat  -30.1% z -1.44 | train    -                  | BLIND  -30.1% (  11, z -1.44) | seasons up 0/1 (26:-30) | live 4-5 -31% | placebo: luck did as well 1716/2000 (all), 1704/2000 (blind)
+  nhl every one                                        n 1665  999-666  flat   -7.6% z -4.17 | train   -6.1% (1125, z -2.77) | BLIND  -10.8% ( 540, z -3.31) | seasons up 1/4 (23:-9 24:-4 25:-12 26:+9) | live 33-19 -2%
+  nhl own 2+ over                                      n   66   47-19   flat  +10.0% z +1.17 | train  +21.8% (  33, z +1.71) | BLIND   -1.8% (  33, z -0.06) | seasons up 2/3 (23:+25 24:+19 25:-2) | live 1-2 -51% | placebo: luck did as well 52/2000 (all), 509/2000 (blind)
+  nhl own 4+ over                                      -
+  nba every one                                        n 1169  739-430  flat   -3.8% z -1.82 | train   -5.0% ( 786, z -2.00) | BLIND   -1.2% ( 383, z -0.31) | seasons up 0/3 (23:-6 24:-4 25:-1) | live 14-7 +2%
+  nba own 2+ over                                      -
+  nba own 4+ over                                      -
+  ncaab every one                                      n 3128 1977-1151 flat   -3.9% z -2.99 | train   -3.8% (2156, z -2.38) | BLIND   -4.2% ( 972, z -1.82) | seasons up 0/3 (23:-4 24:-4 25:-4)
+  ncaab own 2+ over                                    n 1453  924-529  flat   -4.0% z -2.16 | train   -2.5% ( 863, z -1.06) | BLIND   -6.2% ( 590, z -2.11) | seasons up 0/3 (23:-3 24:-2 25:-6) | placebo: luck did as well 1061/2000 (all), 1700/2000 (blind)
+  ncaab own 4+ over                                    n  707  443-264  flat   -6.2% z -2.40 | train   -4.4% ( 285, z -1.16) | BLIND   -7.4% ( 422, z -2.15) | seasons up 0/3 (23:-7 24:-0 25:-7) | placebo: luck did as well 1661/2000 (all), 1756/2000 (blind)
+
+== S2 - MLB (history only): favorites -151..-250 at the close, flat 1u
+  BASE every favorite -151..-250 (in the funnel)       n 2606 1593-1013 flat   -5.1% z -3.44 | train   -4.5% (1415, z -2.23) | BLIND   -5.8% (1191, z -2.66) | seasons up 1/4 (23:+1 24:-7 25:-8 26:-1)
+  own read UNDER the price (fighting it)               n 2447 1501-946  flat   -4.6% z -3.01 | train   -3.5% (1256, z -1.61) | BLIND   -5.8% (1191, z -2.66) | seasons up 1/4 (23:+1 24:-6 25:-8 26:-1) | placebo: luck did as well 204/2000 (all), None/2000 (blind)
+  own read 0..2 points over                            n  155   89-66   flat  -12.9% z -2.23 | train  -12.9% ( 155, z -2.23) | BLIND    -                  | seasons up 0/1 (24:-13) | placebo: luck did as well 1793/2000 (all), None/2000 (blind)
+  own read 2+ points over                              n    4    3-1    flat  +12.0% z +0.36 | train  +12.0% (   4, z +0.36) | BLIND    -                  | seasons up 1/1 (24:+12) | placebo: luck did as well 938/2000 (all), None/2000 (blind)
+  own read 4+ points over                              -
+  own read 6+ points over                              -
+  weighed read 2+ over                                 n    1    1-0    flat  +53.5% z +0.73 | train  +53.5% (   1, z +0.73) | BLIND    -                  | seasons up 1/1 (24:+53) | placebo: luck did as well 727/2000 (all), None/2000 (blind)
+  weighed read 4+ over                                 -
+  own AND weighed 2+ over                              n    1    1-0    flat  +53.5% z +0.73 | train  +53.5% (   1, z +0.73) | BLIND    -                  | seasons up 1/1 (24:+53) | placebo: luck did as well 727/2000 (all), None/2000 (blind)
+  own 2+ over, clean (a reason, no trap, not fighting) n    4    3-1    flat  +12.0% z +0.36 | train  +12.0% (   4, z +0.36) | BLIND    -                  | seasons up 1/1 (24:+12) | placebo: luck did as well 938/2000 (all), None/2000 (blind)
+  THE PLAY BAR but the price (good, lock/value tier, own beats, real value) n  124   75-49   flat   -8.6% z -1.33 | train   -8.6% ( 124, z -1.33) | BLIND    -                  | seasons up 0/1 (24:-9) | placebo: luck did as well 1405/2000 (all), None/2000 (blind)
+  -- by band, own read 2+ / 4+ over:
+  -151..-175 every one                                 n 1319  762-557  flat   -6.6% z -3.05 | train   -6.3% ( 693, z -2.11) | BLIND   -6.9% ( 626, z -2.21) | seasons up 1/4 (23:-0 24:-9 25:-10 26:+1)
+  -151..-175 own 2+ over                               -
+  -151..-175 own 4+ over                               -
+  -176..-200 every one                                 n  702  435-267  flat   -5.0% z -1.82 | train   -6.2% ( 363, z -1.62) | BLIND   -3.8% ( 339, z -0.94) | seasons up 1/4 (23:+4 24:-12 25:-5 26:-1)
+  -176..-200 own 2+ over                               n    2    1-1    flat  -23.3% z -0.45 | train  -23.3% (   2, z -0.45) | BLIND    -                  | seasons up 0/1 (24:-23) | placebo: luck did as well 1274/2000 (all), None/2000 (blind)
+  -176..-200 own 4+ over                               -
+  -201..-250 every one                                 n  585  396-189  flat   -1.8% z -0.63 | train   +0.7% ( 359, z +0.19) | BLIND   -5.7% ( 226, z -1.26) | seasons up 1/4 (23:-1 24:+2 25:-6 26:-6)
+  -201..-250 own 2+ over                               n    2    2-0    flat  +47.2% z +0.97 | train  +47.2% (   2, z +0.97) | BLIND    -                  | seasons up 1/1 (24:+47) | placebo: luck did as well 185/2000 (all), None/2000 (blind)
+  -201..-250 own 4+ over                               -
+
+== REFERENCE - the same cuts in TODAY'S band (-101..-150, the five leagues):
+  BASE every favorite -101..-150                       n 6725 3552-3173 flat   -4.7% z -4.24 | train   -3.2% (4168, z -2.22) | BLIND   -7.2% (2557, z -4.03) | seasons up 0/4 (23:-3 24:-4 25:-7 26:-9) | live 104-82 +2%
+  own read 2+ over                                     n  530  299-231  flat   -0.9% z -0.17 | train   +2.7% ( 262, z +0.56) | BLIND   -4.5% ( 268, z -0.79) | seasons up 1/4 (23:+7 24:-1 25:-5 26:-4) | live 11-2 +49% | placebo: luck did as well 309/2000 (all), 606/2000 (blind)
+  own read 4+ over                                     n  198  108-90   flat   -4.6% z -0.68 | train   -0.6% (  65, z -0.09) | BLIND   -6.6% ( 133, z -0.77) | seasons up 2/4 (23:+10 24:-7 25:-8 26:+11) | live 6-2 +32% | placebo: luck did as well 976/2000 (all), 914/2000 (blind)
+
+== S3 - THE SAME FAVORITES LAYING THE CLOSING SPREAD (real juice, -110 when missing; pushes out), football + hoops
+  (no closing spread found for 0 rows)
+  ATS ALL every -151..-250 favorite                    n 5062 2519-2543 flat   -4.9% z -3.81 | train   -4.6% (3330, z -2.86) | BLIND   -5.6% (1732, z -2.54) | seasons up 0/4 (23:-4 24:-5 25:-5 26:-18) | live 49-46 -1%
+  ATS ALL own 2+ over on the moneyline                 n 1462  732-730  flat   -4.4% z -1.82 | train   -1.9% ( 852, z -0.60) | BLIND   -7.8% ( 610, z -2.11) | seasons up 1/4 (23:+1 24:-6 25:-7 26:-27) | live 5-12 -44% | placebo: luck did as well 748/2000 (all), 1531/2000 (blind)
+  ATS ALL own 4+ over on the moneyline                 n  714  351-363  flat   -6.1% z -1.77 | train   -4.9% ( 281, z -0.88) | BLIND   -6.9% ( 433, z -1.56) | seasons up 0/4 (23:-3 24:-8 25:-6 26:-30) | live 3-6 -36% | placebo: luck did as well 1277/2000 (all), 1284/2000 (blind)
+  ATS nfl every -151..-250 favorite                    n  306  163-143  flat   +1.9% z +0.31 | train  +12.0% ( 181, z +1.66) | BLIND  -12.8% ( 125, z -1.51) | seasons up 2/4 (23:+8 24:+15 25:-16 26:-4) | live 8-7 +3%
+  ATS nfl own 2+ over on the moneyline                 n    2    1-1    flat   -1.0% z -0.06 | train   -1.0% (   2, z -0.06) | BLIND    -                  | seasons up 0/1 (24:-1) | placebo: luck did as well 640/2000 (all), None/2000 (blind)
+  ATS nfl own 4+ over on the moneyline                 n    1    0-1    flat -100.0% z -1.07 | train -100.0% (   1, z -1.07) | BLIND    -                  | seasons up 0/1 (24:-100) | placebo: luck did as well 2000/2000 (all), None/2000 (blind)
+  ATS ncaaf every -151..-250 favorite                  n  497  245-252  flat   -6.1% z -1.41 | train   -0.7% ( 242, z -0.13) | BLIND  -11.1% ( 255, z -1.84) | seasons up 1/4 (23:-13 24:+9 25:-5 26:-23) | live 28-31 -9%
+  ATS ncaaf own 2+ over on the moneyline               n   21    8-13   flat  -27.3% z -1.31 | train    -                  | BLIND  -27.3% (  21, z -1.31) | seasons up 0/1 (26:-27) | live 5-12 -44% | placebo: luck did as well 1642/2000 (all), 1571/2000 (blind)
+  ATS ncaaf own 4+ over on the moneyline               n   11    4-7    flat  -30.3% z -1.05 | train    -                  | BLIND  -30.3% (  11, z -1.05) | seasons up 0/1 (26:-30) | live 3-6 -36% | placebo: luck did as well 1478/2000 (all), 1391/2000 (blind)
+  ATS nba every -151..-250 favorite                    n 1157  570-587  flat   -5.8% z -2.16 | train   -7.5% ( 776, z -2.23) | BLIND   -2.4% ( 381, z -0.58) | seasons up 0/3 (23:-7 24:-8 25:-2) | live 13-8 +19%
+  ATS nba own 2+ over on the moneyline                 -
+  ATS nba own 4+ over on the moneyline                 -
+  ATS ncaab every -151..-250 favorite                  n 3102 1541-1561 flat   -5.1% z -3.08 | train   -5.4% (2131, z -2.68) | BLIND   -4.5% ( 971, z -1.54) | seasons up 0/3 (23:-3 24:-8 25:-4)
+  ATS ncaab own 2+ over on the moneyline               n 1439  723-716  flat   -4.0% z -1.68 | train   -1.9% ( 850, z -0.60) | BLIND   -7.2% ( 589, z -1.90) | seasons up 1/3 (23:+1 24:-6 25:-7) | placebo: luck did as well 568/2000 (all), 1710/2000 (blind)
+  ATS ncaab own 4+ over on the moneyline               n  702  347-355  flat   -5.6% z -1.61 | train   -4.5% ( 280, z -0.82) | BLIND   -6.3% ( 422, z -1.41) | seasons up 0/3 (23:-3 24:-7 25:-6) | placebo: luck did as well 1125/2000 (all), 1382/2000 (blind)
+
+== S4 - TWO-LEG PARLAYS of engine-liked -151..-250 favorites (the five leagues), at the parlay price (d1 x d2)
+  own 2+ over: ONE parlay a day, the two best reads    n  240  104-136  flat   -2.2% z -0.28 | train   +0.9% ( 155, z +0.10) | BLIND   -7.7% (  85, z -0.60) | seasons up 1/4 (23:+5 24:-5 25:-6 26:-44) | live 0-3 -100%
+  own 2+ over: the same two legs bet STRAIGHT          n  480  313-167  flat   -1.9% z -0.60 | train   +0.9% ( 310, z +0.25) | BLIND   -7.2% ( 170, z -1.35) | seasons up 2/4 (23:+1 24:+1 25:-5 26:-42) | live 3-3 -23%
+  own 2+ over: EVERY pair on the day (pairs overlap)   n 7048 2818-4230 flat   -8.8% z -6.50 | train   -5.3% (3587, z -2.82) | BLIND  -12.4% (3461, z -6.40) | seasons up 0/4 (23:-7 24:-2 25:-12 26:-27) | live 10-70 -72%
+  own 4+ over: ONE parlay a day, the two best reads    n  131   58-73   flat   -1.5% z -0.14 | train   +3.2% (  64, z +0.28) | BLIND   -6.0% (  67, z -0.47) | seasons up 1/4 (23:+13 24:-14 25:-3 26:-100) | live 0-1 -100%
+  own 4+ over: the same two legs bet STRAIGHT          n  262  171-91   flat   -2.4% z -0.59 | train   +2.3% ( 128, z +0.38) | BLIND   -6.8% ( 134, z -1.20) | seasons up 2/4 (23:+3 24:+1 25:-5 26:-59) | live 1-1 -23%
+  own 4+ over: EVERY pair on the day (pairs overlap)   n 2303  892-1411 flat  -13.3% z -5.65 | train  -12.0% ( 384, z -2.25) | BLIND  -13.6% (1919, z -5.19) | seasons up 0/4 (23:-11 24:-17 25:-13 26:-42) | live 3-18 -66%
+  EVERY -151..-250 favorite (base): ONE parlay a day, the two best reads n  599  256-343  flat   -1.2% z -0.29 | train   +1.7% ( 382, z +0.27) | BLIND   -6.1% ( 217, z -0.85) | seasons up 2/4 (23:+4 24:-1 25:-7 26:+6) | live 2-14 -72%
+  EVERY -151..-250 favorite (base): the same two legs bet STRAIGHT n 1198  779-419  flat   -1.1% z -0.58 | train   +1.3% ( 764, z +0.49) | BLIND   -5.3% ( 434, z -1.61) | seasons up 2/4 (23:+2 24:+1 25:-5 26:-4) | live 15-17 -28%
+
+(cells printed: 81 - with ~81 looks, one or two |z| 2 cells are expected by luck alone)
