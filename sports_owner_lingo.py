@@ -13,8 +13,11 @@ OWNER = {
     "free money": "a lock (confident, never 'guaranteed')",
     "easy money": "a clean win / a lock",
     "tap in": "get on the pick",
-    "we eating": "a pick we love",
-    "let's eat": "a pick we love",
+    # 11/11 (the owner: "the whole we ate and shit is just retarded. It's not how I talk. Like, you could say something
+    # like the whole hood eating with this one or something, but not we ate") - "we eating" / "let's eat" came OFF this
+    # list and sit in EAT_BAN below; his version is the only eat line the engine says
+    "the whole hood eating": "a win, or a play everybody's on ('the whole hood eating with this one') - once a board "
+                             "at most (sports_breakdown_v24.SLANG 'hood'), never on a lean",
     "super value": "a lock at plus money",
     "that's just facts": "after a claim ('just the better team')",
     # the other side getting beat
@@ -107,6 +110,15 @@ STIFF = ("we weighed it", "priced in. we still riding", "the rest of this card o
          "go on the road and win", "that snaps back", "ain't close on paper",
          "not a good look", "the matchup's where", "small edge, ours", "defense travels",
          "aggressive wins", "come get beat in our building", "the price is sleeping")
+
+# 🚫 11/11, the owner: "fix the fucking lingo ... the whole we ate and shit is just retarded. It's not how I talk." Every
+# first-person eat line is banned from every pool ("We eating.", "Let's eat.", "Guess who ate.", "The public's eating
+# with us", "Tomorrow we eat", "the homies riding"); the one eat line left is HIS: "the whole hood eating (with this
+# one)". sports_test pins it over every string the write-up code can post (lower case, matched anywhere in a line).
+EAT_BAN = ("we ate", "we eat", "we're eating", "we are eating", "let's eat", "lets eat", "guess who ate", "who ate",
+           "the public ate", "public's eating", "eating with us", "eating with 'em", "tomorrow we eat", "time to eat",
+           "dogs eat", "vegas eats", "eating good", "we feast", "homies riding", "eatin'")
+STIFF = STIFF + EAT_BAN
 
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",

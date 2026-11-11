@@ -283,7 +283,7 @@ STEEP = (   # (the owner, 10/1: the likelier winner, but a bad bet - the odds do
     "📉 Right side, wrong price: {t} probably win, but {o} doesn't pay enough for the risk.",
     "📉 {t} are the better bet to win, not the better bet to make money. {o} is too pricey.",
     "📉 We'd take {t} to win, but at {o} the books already priced that in. No edge, no units.",
-    "📉 {t} likely get the W, but {o} eats the profit. That's why it's no Lock.",
+    "📉 {t} likely get the W, but {o} takes the profit out of it. That's why it's no Lock.",
     "📉 Good team, bad number: {t} at {o} is priced past what they're worth.",
     "📉 {t} win more often than not - but at {o} you're paying too much for it.",
     "📉 The {o} tax is too high. {t} are the side, but the odds don't catch up to the price.",
@@ -1119,7 +1119,7 @@ def _pick_card(kind, pk):
                       "🔒 Books got this wrong — the line makers trippin'. LOCK it in.",
                       "🔒 They got us as the dog? Line makers trippin'. We calling it a LOCK.",
                       "🔒 Plus money on this? Somebody at the book was sleepin'. LOCK.",
-                      "🔒 The books ain't see what we see. Plus money and a LOCK — let's eat.",
+                      "🔒 The books ain't see what we see. Plus money and a LOCK — tap in.",
                       "🔒 Plus money on a LOCK? That's super value. Line makers trippin' fr.",
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if len(pk["legs"]) == 1 and _tier(pk) == "lock" and pk.get("american", 0) > 0   # one pick at plus money:
@@ -2071,7 +2071,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         lines.append(_rot(k, [f"✅ {w_}-{l_}. We crushed today — let's fucking go!",
                               f"✅ {w_}-{l_}. We smacked today. Let's go!",
                               f"✅ Went {w_}-{l_}. Cashing tickets.",
-                              f"✅ {w_}-{l_} on the day. We eat.",
+                              f"✅ {w_}-{l_} on the day. The whole hood eating.",
                               f"✅ {w_}-{l_}. Told y'all. Trust the algorithm.",
                               f"✅ {w_}-{l_}. Today was a grace from Jesus. Fuck yeah!",
                               f"✅ {w_}-{l_}. Another W in the books. Let's go!",
@@ -2084,7 +2084,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
                               f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape.",
                               f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back.",
-                              f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. Tomorrow we eat.",
+                              f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. We get it back tomorrow.",
                               f"😤 {w_}-{l_}. Vegas got us today. Enjoy it while it lasts.",
                               f"😤 {w_}-{l_}. Rough day. Keep your head up — we back at it tomorrow.",
                               f"😤 {w_}-{l_}. Bad day at the office. The algorithm's taking notes."]))

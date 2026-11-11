@@ -18,21 +18,21 @@ from sports_vocab import SLOTS, variants
 from sports_vocab import supply as _supply
 
 BANNED = re.compile(r"real talk|chalk", re.I)
-LEAN_BAN = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer|smash|we eating|let'?s eat|bag|"
+LEAN_BAN = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer|smash|whole hood|\beat(s|ing|in')?\b|\bate\b|bag|"
                       r"money energy|can'?t lose|guaranteed|told y'all|say less|stamp it|book it|light work|"
                       r"levels to this|cook\b|tail it", re.I)
 
 # our own pools: "%name%" in a template -> [a|b|c] (never put one inside [..] - no nesting)
 PAL = {
-    "wk": ["Told y'all.", "Nice nice.", "Light work.", "Let's eat.", "Another one.", "Paid.", "Bag secured.", "We smacked.",
-           "Say less.", "Levels to this.", "Easy money.", "We eating.", "Stamp it.", "Keep stacking.", "Money.",
+    "wk": ["Told y'all.", "Nice nice.", "Light work.", "Another one.", "Paid.", "Bag secured.", "We smacked.",
+           "Say less.", "Levels to this.", "Easy money.", "The whole hood eating.", "Stamp it.", "Keep stacking.", "Money.",
            "Run it back.", "That's how it's done.", "Cashed.", "Another W.", "", "", ""],
     "lk": ["Our bad.", "That's on us.", "Is what it is.", "It happens.", "Next one.", "SMH.", "No excuses.",
            "We own it.", "Every L stays up.", "We bounce back.", "Short memory.", "On to the next.",
            "Can't win em all.", "Part of it.", "Chin up.", "", ""],   # (9/30: no 'Tip the cap' after OUR side let it slip,
     #                                                  no 'Bad read. Bad read.' - both live in the lines that fit them)
-    "go": ["Get in", "Tail it", "Hammer it", "Let's eat", "We buying", "Say less", "Take it", "Buy the dip"],
-    "go_": ["get in", "tail it", "hammer it", "let's eat", "we buying", "say less", "take it", "buy the dip"],
+    "go": ["Get in", "Tail it", "Hammer it", "Tap in", "We buying", "Say less", "Take it", "Buy the dip"],
+    "go_": ["get in", "tail it", "hammer it", "tap in", "we buying", "say less", "take it", "buy the dip"],
     "dn": ["down", "down", "behind by", "trailing by", "in a hole by"],
     "Dn": ["Down", "Down", "Behind by", "Trailing by", "In a hole by"],
     "pm": ["plus money", "plus money", "plus odds", "a plus price", "a plus number", "dog money"],
@@ -154,7 +154,7 @@ GOOD_OPEN = T(
 GOOD_END = T(
     "Watch {him} [work|do {his} thing|go].",
     "{o} [got no answer for|can't hang with|ain't seen nothing like|got nobody for|can't stop] {him}.",
-    "{He} [about to|finna|gon'] [go off|eat|feast|take over|put on a show|go to work].",
+    "{He} [about to|finna|gon'] [go off|take over|put on a show|go to work].",
     "{He} [about to|finna|gon'] [handle {o} light|make {o} look silly|make it look easy].",
     "{o} [in for a long day|in trouble|ain't ready|better pray|can't keep up|gon' need a miracle|picked the wrong day].",
     "[Light work|Easy work|Clock in, clock out|Different breed|Mark it down|Levels to this|Say less|Book it|Just watch].",
@@ -181,7 +181,7 @@ BAD_OPEN = T(
     "{o} [on a skid|in a funk|in a rut] right now.",
 )
 BAD_END = T(
-    "We [taking advantage|eating off it|riding against 'em|fading 'em].",
+    "We [taking advantage|riding against 'em|fading 'em].",
     "Somebody gotta pay for that.",
     "[Tonight|Today] ain't changing that.",
     "They about to get exposed again.",
@@ -221,7 +221,7 @@ REVIEWS = {
     ("comeback", "won"): (96, 3, T(
         "Down {d} and {t} [came all the way back|stormed back|refused to die]. We cashed, baby. %wk%",
         "{t} [were|was] down {d}. [Didn't matter.|Still got there.|Comeback kids.] %wk%",
-        "[Major|Big|Crazy] comeback: {t} [erased|wiped out|climbed out of] a {d}-point hole. [Cashed.|We ate.] %wk%",
+        "[Major|Big|Crazy] comeback: {t} [erased|wiped out|climbed out of] a {d}-point hole. [Cashed.|Got there.] %wk%",
         "We were cooked, down {d}. Then {t} [woke up|flipped the switch|turned it on]. %wk%",
         "{d} down and {t} [still cashed|still got it done]. Never count 'em out. %wk%",
         "Heart attack [ticket|pick]: {t} [came back from|overcame] {d} down. Paid. %wk%",
@@ -260,7 +260,7 @@ REVIEWS = {
         "{t} over the public's side. [We knew it.|Called it.|Easy fade.] %wk%",
         "Fade the public, get paid: {t}. %wk%",
         "The clowns loved {o}. {t} [humbled 'em|cooked 'em|sent 'em home]. %wk%",
-        "Public [money|tickets] on {o}, our money on {t}. [Guess who ate.|We ate.] %wk%",
+        "Public [money|tickets] on {o}, our money on {t}. [Guess who cashed.|We cashed.] %wk%",
         "[Casuals|Squares] on {o} again. {t} [cashed|hit]. Stay fading. %wk%",
     )),
     ("fade", "lost"): (86, 3, T(
@@ -275,7 +275,7 @@ REVIEWS = {
         "Wrong night to fade the crowd. {o} [had it|got the W]. %lk%",
         "The clowns cashed one on {o}. Still fading. %lk%",
         "[Faded|Went against] the [crowd|herd|squares] and {o} [made us pay|got there]. %lk%",
-        "The public [ate|cashed] this time on {o}. [We still fade 'em.|Rare one.|Happens.] %lk%",
+        "The public [won|cashed] this time on {o}. [We still fade 'em.|Rare one.|Happens.] %lk%",
         "{t} [left us hanging|let us down] against the public side. %lk%",
     )),
     ("fav", "won"): (59, 2, T(
@@ -311,7 +311,7 @@ REVIEWS = {
         "{t} smacked at plus money. %wk%",
         "Plus money and {t} smacked. Let's go.",
         "Dog barked — {t} [took down|got past|beat|stunned] {o}. %wk%",
-        "{t} came in as the dog and [ate|smacked|got fed|feasted]. %wk%",
+        "{t} came in as the dog and [smacked|won it outright|handled business]. %wk%",
         "Plus money and {t} [came through|got there|delivered|got it done]. %wk%",
         "Nobody [believed in|was on|rode with] {t} but us. [Paid.|Cashed.|Nice nice.]",
         "The value was real: {t} [got it done|came through|cashed]. %wk%",
@@ -408,7 +408,7 @@ REVIEWS = {
         "Bought the dip on {t} and it [paid|cashed|hit]. %wk%",
         "Trailing when it went up, {t} [still won it|found a way|got it done]. %wk%",
         "{o} [let {pro} back in|couldn't close|blew the lead]. %wk%",
-        "Live dog [ate|barked|cashed]: {t} came back on {o}. %wk%",
+        "Live dog [barked|cashed]: {t} came back on {o}. %wk%",
         "From behind and still {won_v}: {t}. %wk%",
     )),
     ("live_back", "lost"): (114, 3, T(
@@ -493,16 +493,16 @@ REVIEWS = {
         "Blown lead on {t}. [Pain.|Brutal.|Ugly.] %lk%",
     )),
     ("flowers", "won"): (100, 3, T(   # 💐 one of ours went off in a win (the owner's words, 9/30 - always "HIS flowers")
-        "{star} [went crazy|went off|was on one|was cooking|put on a show|had it going]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Let's eat.|Nice nice.] [💐|💰]",
+        "{star} [went crazy|went off|was on one|was cooking|put on a show|had it going]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Money.|Nice nice.] [💐|💰]",
         "{star} went the fuck off. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.] [💰|💐]",
         "Somebody give {star} his flowers. {t} [cashed|got it done|came through|handled business] [and he was the reason|behind him|on his back]. [💐|💰]",
         "{t} [got it done|cashed|handled business] and {star} [went off|went crazy|was on one|cooked]. Somebody give this man his flowers. [💰|💐]",
         "[Cash it, baby.|Paid.|Cashed.] {star} [went crazy|went off|was on one|put on a show]. Somebody give this man his flowers. [💐|💰]",
-        "{star} [took over|carried us|did it all|went nuclear]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Let's eat.] [💐|💰]",
+        "{star} [took over|carried us|did it all|went nuclear]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Money.] [💐|💰]",
         "[What a night|What a game|Big-time night] from {star}. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Nice nice.] [💐|💰]",
         "{t} [cashed|won|got there] because {star} [went off|went crazy|took over|was on one]. Somebody give this man his flowers. [💐|💰]",
         "Somebody give this man his flowers: {star} [went off|went crazy|took over|was on one|put on a show]. [Cash it, baby.|Paid.|Cashed.] [💐|💰]",
-        "{star} [balled out|showed out|showed up big|played out of his mind]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Let's eat.] [💐|💰]",
+        "{star} [balled out|showed out|showed up big|played out of his mind]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Money.] [💐|💰]",
         "{star} [is a beast|was a beast tonight|was filthy]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Levels to this.] [💐|💰]",
         "[Ticket cashed|We got paid|Green ticket] and {star} [balled out|went off|went crazy|took over]. Somebody give this man his flowers. [💐|💰]",
     )),
@@ -759,13 +759,13 @@ LINES = {
     )),
     "ls:won": ((45, 2), True, T(
         "and they [did|delivered|got it done|came through|handled it|pulled it off]. [Cashed|Paid|Nice nice|Told y'all|Levels]. 💰",
-        "and they {won_v}. [Told y'all|Nice nice|Let's eat|Paid|Levels]. 💰",
+        "and they {won_v}. [Told y'all|Nice nice|Paid|Levels]. 💰",
         "and [it hit|it cashed|we got paid|it paid|it went green]. [Told y'all|Light work|Nice nice]. 💰",
         'and they smacked that ass. 💰',
         'and [yup|bet|facts], they {won_v}. 💰',
         "and that's [exactly|just|precisely] what happened. 💰",
         'and they [pulled it off|made it happen|got there]. [Paid]. 💰',
-        "and it [paid|went green|cashed]. [Let's eat|Light work|Say less]. 💰",
+        "and it [paid|went green|cashed]. [Light work|Say less]. 💰",
         '[called it|nailed it]. [Cashed|Paid|Green]. 💰',
         'and sure enough, they [did|got it done]. 💰',
         'which they did. [Cashed|Paid|Nice nice]. 💰',
@@ -788,7 +788,7 @@ LINES = {
         "we gon' see.",
         "they about to [go to work|get busy|handle business]. We gon' see.",
         "[now|so] we gon' see.",
-        "[let's ride|light work|let's eat]. We [gon'|finna] see.",
+        "[let's ride|light work]. We [gon'|finna] see.",
         "they cooking soon. We [gon'|finna] see.",
         'we finna see.',
         "{book} is sleeping. We [gon'|finna] see.",
@@ -857,7 +857,7 @@ LINES = {
         "{me} is the call. We ride it out.",
         "{me} it is. Holding [tight|steady] till it's over.",
         "No moves, just {me}. Let it play.",
-        "Money's down on {me}. Let's eat.",
+        "Money's down on {me}. Tap in.",
         "Tapped in on {me}. Let it play out.",
         "Our money's with {me}. Let it ride.",
         "{me} for the win. Trust the algorithm.",
@@ -906,14 +906,14 @@ LINES = {
     "rc:won": ((39, 2), False, T(
         "💰 {who} [got it done|handled business|came through|went to work|took care of it|smacked that]{sc}. [Cashed.|Paid.|Told y'all.|Nice nice.|Easy money.|Light work.]",
         '💰 [Cashed|Paid|Money] — {who} [went to work|did it|won it|handled it]{sc}.',
-        "💰 {who} [came through|got there|delivered|got it done]{sc}. [Let's eat.|Paid.|Nice nice.]",
+        "💰 {who} [came through|got there|delivered|got it done]{sc}. [Paid.|Nice nice.]",
         '💰 W for {who}{sc}. [Paid.|Cashed.]',
         '💰 {who} [won|took it|closed it]{sc}. [Paid.|Cashed.]',
         '💰 [Easy work|Light work|Clean work] from {who}{sc}.',
         '💰 {who} delivered{sc}. [Nice nice.|Say less.|Paid.]',
         '💰 {who} did {his} thing{sc}.',
         '💰 [Paid|Cashed|Green]: {who}{sc}.',
-        '💰 {who} [cooked|ate]{sc}. [Money.|Paid.]',
+        '💰 {who} [cooked|went off]{sc}. [Money.|Paid.]',
     )),
     "rc:lost": ((54, 2), False, T(
         "😤 {who} [shit the bed|fumbled it|never showed up|folded|came up short|got cooked|didn't have it]{sc}. [Is what it is.|Our bad.|Bad call, our bad.|Next one's ours.|That's on us.|No excuses.]",
@@ -972,7 +972,7 @@ def live_story(result, seed, used, ran=False, **kw):
 # ---- LIVE PLAYS (sports_live): the short line + the tap-to-open breakdown -------------------------------------------
 LINES.update({
     "lv:ball": ((87, 4), False, T(
-        "{i} {us} %dn% {m} but they got %ball% and they're marching. [Hammer it|Get in|Let's eat].",
+        "{i} {us} %dn% {m} but they got %ball% and they're marching. [Hammer it|Get in].",
         "{i} %Dn% {m}? Who cares. {us} got %ball% and {them} can't stop nobody.",
         "{i} {us} %dn% {m} with the ball in their hands. {Book} is sleeping — %go_%.",
         "{i} {them} up {m} and the dummies think it's over. {us} got %ball%.",
@@ -986,14 +986,14 @@ LINES.update({
     )),
     "lv:better": ((105, 3), False, T(
         "{i} {us} %dn% {m}? Rough start, but they're %bt% and we get 'em at %pm%. %go%.",
-        "{i} Everybody jumping off {us} %dn% {m}. Not us. Better team, %pm% — let's eat.",
+        "{i} Everybody jumping off {us} %dn% {m}. Not us. Better team, %pm% — tap in.",
         "{i} {us} been booty cheeks so far, %dn% {m}. That don't last. [Way better team|Better squad] — they about to go to work.",
         "{i} %Dn% {m} ain't done. {us} got way too much for {them}, and {book} is handing us %pm%.",
         "{i} {them} up {m} and they must think they're good. They ain't. {us} about to smack that ass.",
         "{i} Slow start, %dn% {m}. {us} still the [better team|stronger side]. %go%.",
-        "{i} {us} %dn% {m}? The better team don't stay down. [Levels to this|Let's eat].",
+        "{i} {us} %dn% {m}? The better team don't stay down. [Levels to this].",
         "{i} We had {us} as %bt% before this started. %Dn% {m} don't change that. %go%.",
-        "{i} Better team, bad start, %pm%. {us} %dn% {m} — [let's eat|we eating|get in].",
+        "{i} Better team, bad start, %pm%. {us} %dn% {m} — [tap in|get in].",
         "{i} {us} %dn% {m} and {book} is panicking. We're not. [Levels to this|Buy the dip].",
         "{i} {us} %dn% {m}, but talent wins out. %Pm% on %bt% is {cheap}.",
     )),
@@ -1043,7 +1043,7 @@ LINES.update({
         "{i} {us} ahead {m}, still the dog. That's {cheap}.",
         "{i} {us} up {m} and nobody's respecting it. We are.",
         "{i} Leading by {m} and still %pm%. %go% before {book} wakes up.",
-        "{i} {us} up {m}. %Price% says dog. We say [let's eat|tap in].",
+        "{i} {us} up {m}. %Price% says dog. We say [tap in|get in].",
         "{i} {them} %dn% {m} and somehow favored. We taking {us}.",
     )),
     "lv:even_dog": ((90, 3), False, T(   # (10/21, the owner: "Sam Houston always been plus money" - a team that was
@@ -1061,10 +1061,10 @@ LINES.update({
         "{i} Tied game, {us} at %pm%. That's {cheap}.",
         "{i} Even score, {us} at %pm%? [Say less|Tail it|Get in].",
         "{i} Level game and {us} still the dog. We'll take that [all day|every time].",
-        "{i} Tied up. {us} the side at %pm%. [Let's eat|Get in].",
+        "{i} Tied up. {us} the side at %pm%. [Tap in|Get in].",
         "{i} Nobody's ahead, but {book} has {us} as the dog. [Wrong|Mistake]. %go%.",
         "{i} Tie game. %Pm% on {us} is {cheap}.",
-        "{i} Score's even and {us} still %pm%. [Let's eat].",
+        "{i} Score's even and {us} still %pm%. Tap in.",
         "{i} Knotted up, {us} priced like the dog. [We buying|Take it].",
     )),
     "bd:hist_trail": ((139, 3), False, T(
@@ -1158,11 +1158,11 @@ LINES.update({
         "🎯 This is the spot. Get in before the line catches up. Let's fucking go.",
         "🎯 Value like this don't last — {book} gonna wake up. We're on it.",
         "🎯 Don't be a sheep. The dummies are selling, we buying.",
-        "🎯 {Algo} says value. [Tail it|Get in|Let's eat].",
+        "🎯 {Algo} says value. [Tail it|Get in].",
         "🎯 Price is {cheap} right now. [Get in|Tail it] before it moves.",
         "🎯 Window's open. [Get in|Tail it] before {book} catches up.",
-        "🎯 Edge is live. [We're on it|We in]. [Let's eat].",
-        "🎯 %Pm% with real value. [Say less|Tail it|Let's eat].",
+        "🎯 Edge is live. [We're on it|We in]. Tap in.",
+        "🎯 %Pm% with real value. [Say less|Tail it].",
         "🎯 {Algo} and the score agree: this price is {cheap}.",
         "🎯 The {edge_noun} is right there. [Grab it|Take it] before it's gone.",
     )),
@@ -1201,7 +1201,7 @@ LINES.update({
         "🎾 {me} {sit} and priced like the dog at {o}. [We'll take it|Easy decision].",
         "🎾 {o} for {me}? {he} {sit}. [Get in|Tail it].",
         "🎾 %Price% ({o}) ain't caught up: {me} {sit}.",
-        "🎾 {me} {sit}, and we get {him} at {o}. [Let's eat].",
+        "🎾 {me} {sit}, and we get {him} at {o}. Tap in.",
         "🎾 {me} {sit}. {Book} still says {o}. We say [get in|tail it].",
         "🎾 {me} at {o} while {he} {sit}? [Light work|Say less].",
     )),
@@ -1261,7 +1261,7 @@ LINES.update({
         "🎯 {Book} is a step behind. [We're on it|Tail it|Get in].",
         '🎯 One break changes everything. [We in|Tail it].',
         "🎯 Price is {cheap}. [We're on it|Get in|Tail it].",
-        "🎯 {Algo} says go. [Let's eat|We in|Tail it].",
+        "🎯 {Algo} says go. [We in|Tail it].",
         "🎯 Numbers over feelings. [We're on it|Tail it|Get in].",
         '🎯 This is the spot. [Get in|We in|Tail it].',
         "🎯 Levels to this. [We're on it|Tail it|Get in].",

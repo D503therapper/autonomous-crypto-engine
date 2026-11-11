@@ -393,7 +393,7 @@ def _names(rows, k=3):
 
 SLANG = {                        # our big phrases: each FAMILY shows up once on a board (any wording of it)
     "cheeks": r"cheeks", "complete ass": r"complete ass", "smack": r"smack that ass", "cook": r"\bcook(ing)?\b",
-    "eat": r"\b(let's eat|we eat|we're eating|we eating|eat)\b", "tap in": r"tap in", "we gon see": r"gon' see|finna see",
+    "hood": r"whole hood", "tap in": r"tap in", "we gon see": r"gon' see|finna see",
     "trust": r"trust (the algorithm|it)", "let y'all down": r"let y'all down", "levels": r"levels to this|whole nother caliber",
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
@@ -442,9 +442,9 @@ def dashboard_texts(skip=()):
     return out
 
 
-SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", "We eating.", "Book it.", "Stamp it.",
+SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", "We on it.", "Book it.", "Stamp it.",
            "Say less.", "We locked in.", "All day.", "Bank it.", "Cash it."]
-SHORT_S = ["Tap in.", "Let's eat.", "Trust the algorithm.", "We finna see.", "We gon' see.", "Get in.", "Right side.",
+SHORT_S = ["Tap in.", "Give me that.", "Trust the algorithm.", "We finna see.", "We gon' see.", "Get in.", "Right side.",
            "Good number.", "Say less.", "Ride it.", "Let it ride.", "Smart side."]
 
 
@@ -483,12 +483,12 @@ def OWNER_LOCK(price, us, leg):
                f"✅ Bottom line: {price}. Our number on {us} is {f}. Free money at this price.",
                f"✅ Bottom line: {price}. We'd lay {f} on {us} - getting {_am(leg.get('odds'))}. Easy money.",
                f"✅ Bottom line: {price}. {f} on our sheet, {_am(leg.get('odds'))} at the book. Trust the algorithm.",
-               f"✅ Bottom line: {price}. We price {us} at {f}. We eating.",
-               f"✅ Bottom line: {price}. Fair on {us} is {f} to us - let's eat."]
+               f"✅ Bottom line: {price}. We price {us} at {f}, the book's at {_am(leg.get('odds'))}. The whole hood eating with this one.",
+               f"✅ Bottom line: {price}. Fair on {us} is {f} to us. Tap in."]
     else:
         out = [f"✅ Bottom line: {price}. The engine likes {us} more than the books do. Lock it in.",
                f"✅ Bottom line: {price}. Our top play today. Trust the algorithm.",
-               f"✅ Bottom line: {price}. {us} on top today. We eating."]
+               f"✅ Bottom line: {price}. {us} on top today. Easy money."]
     if (leg.get("odds") or 0) > 0:                       # "super value" = a Lock at plus money (sports_owner_lingo)
         out = [f"✅ Bottom line: {price}. A Lock at plus money - super value. Tap in.",
                f"✅ Bottom line: {price}. Plus money on our Lock? Super value."] + out
@@ -501,11 +501,11 @@ def OWNER_PLAY(price, us, fair=None, odds=None):
     if fair and odds is not None:
         o = _am(odds)
         return [f"✅ Bottom line: {price}. We make {us} {fair} - the book's paying {o}. Tap in.",
-                f"✅ Bottom line: {price}. Our number's {fair}; they're giving us {o}. We eating.",
-                f"✅ Bottom line: {price}. We'd play {us} down to {fair}. At {o}, let's eat.",
+                f"✅ Bottom line: {price}. Our number's {fair}; they're giving us {o}. Say less.",
+                f"✅ Bottom line: {price}. We'd play {us} down to {fair} and they're paying {o}. The whole hood eating with this one.",
                 f"✅ Bottom line: {price}. {fair} on our sheet, {o} at the book. Trust the algorithm.",
-                f"✅ Bottom line: {price}. We price {us} at {fair} - {o} is extra money. We'll take it.",
-                f"✅ Bottom line: {price}. Fair on {us} is {fair} to us. The homies riding at {o}.",
+                f"✅ Bottom line: {price}. We price {us} at {fair}, the book's at {o}. We'll take it.",
+                f"✅ Bottom line: {price}. Fair on {us} is {fair} to us and the book's hanging {o}. Give me {us}.",
                 f"✅ Bottom line: {price}. We got {us} at {fair}, the book says {o}. We finna see."] + \
                ([f"✅ Bottom line: {price}. Line makers ain't showing no respect to {us} at {o} - we make 'em {fair}.",
                  f"✅ Bottom line: {price}. Fishy line - {us} at {o} when we make 'em {fair}. We'll take it."]   # (11/4, the
@@ -513,14 +513,14 @@ def OWNER_PLAY(price, us, fair=None, odds=None):
                 if (odds or 0) > 0 else [])
     return [f"✅ Bottom line: {price}. The books are sleeping on {us}. Tap in.",
             f"✅ Bottom line: {price}. Our read beats the number. Tap in.",
-            f"✅ Bottom line: {price} pays more than it should. We eating.",
-            f"✅ Bottom line: {price}. Good number, right side - let's eat.",
+            f"✅ Bottom line: {price} pays more than it should. The whole hood eating with this one.",
+            f"✅ Bottom line: {price}. Good number, right side. Easy money.",
             f"✅ Bottom line: {price}. Our read's better than the price. Trust the algorithm.",
             f"✅ Bottom line: {price}. The engine found this one. Trust the algorithm.",
             f"✅ Bottom line: {price}. {us} are better than this price says - that's just facts.",
             f"✅ Bottom line: {price}. The number's too big for what {us} bring - that's just facts.",
-            f"✅ Bottom line: {price}. Value on {us} - the homies riding with us.",
-            f"✅ Bottom line: {price}. The homies riding {us} at this price.",
+            f"✅ Bottom line: {price}. Value on {us} - tell the homies.",
+            f"✅ Bottom line: {price}. Put the homies on {us} at this price.",
             f"✅ Bottom line: {price}. The books undersold {us}. We finna see."]
 
 
@@ -652,8 +652,8 @@ class Voice:
         return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
 
 
-HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer it|hammer time|smash it|we eating|real edge|"
-                  r"tips it our way|let'?s eat|bag|money energy|can'?t lose|guaranteed", re.I)
+HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer it|hammer time|smash it|whole hood|real edge|"
+                  r"tips it our way|\beat(s|ing|in')?\b|\bate\b|bag|money energy|can'?t lose|guaranteed", re.I)
 
 
 VET_STARTS = {"QB": 100, "SP": 200, "G": 350}   # "washed" (the owner, 10/1) only for a long-time starter: this many
@@ -827,7 +827,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                              f"💪 {us} {_ru}, {them} {_rt} — close on paper, but our ratings have {us} ahead.",
                                              f"💪 Records are tight ({_ru} / {_rt}); the ratings like {us}.",
                                              f"💪 {_ru} vs {_rt} looks even. Who they've played says {us}.",
-                                             f"💪 {us} {_ru}, {them} {_rt}. Look at who they played - {us} been playing grown men."])))
+                                             f"💪 {us} {_ru}, {them} {_rt}. Tight records, but our ratings got {us} as the better team."])))
                 #   (10/23, the owner on Army 4-2 vs Tulsa 4-3: "they both have 4 wins" - a 'better team' claim needs
                 #    a 3+ game record gap; close records say close, and the ratings carry it)
             elif gap < -15 and _w(_rt) > _w(_ru):
@@ -856,7 +856,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                     f"⚖️ Nothing between these two on the records ({us} {_ru}, {them} {_rt}) - so we take the plus money side.",
                     f"⚖️ {_ru} vs {_rt}. Dead even on paper, which is exactly why plus money on {us} is the play."] if plus else [
                     f"⚖️ {us} {_ru}, {them} {_rt}. A wash on the records.",
-                    f"⚖️ Records say even ({us} {_ru}, {them} {_rt}). The numbers under the hood say {us}.",
+                    f"⚖️ {us} {_ru}, {them} {_rt}. Nothing between 'em on the records.",
                     f"⚖️ {_ru} against {_rt} - nothing in it on paper."]), "neutral"))
 
     # 🏀 the opening weeks of hoops: every team is 0-1 and the cards came out empty (10/21) - the one fact that's always
@@ -1091,7 +1091,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         said.add("cold-weather edge")
     if "nasty weather helps us" in rsn:
         what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{rain} mm of rain"
-        out.append(v.say("wx", [f"🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how dogs eat.",
+        out.append(v.say("wx", [f"🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how a dog steals one.",
                                  f"🌬️ {what}. Ugly weather drags everybody down to the same level.",
                                  f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
         said.add("nasty weather helps us")
@@ -1156,7 +1156,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             if 2 * _w > len(_hm):                        # (10/27: a losing home record is a knock, not a reason)
                 out.append(v.say("home", [f"🏟️ {us} are {_hr} at home this year. Tough out in their own house.",
                                            f"🏟️ {us} take care of home: {_hr} in their building so far.",
-                                           f"🏟️ {_hr} at home for {us}. Teams don't come in here and eat.",
+                                           f"🏟️ {_hr} at home for {us}. They handle business in their own building.",
                                            f"🏟️ Home cooking for {us} - {_hr} in their own building this season.",
                                            f"🏟️ {us} {vb(us, 'protect', 'protects')} the crib: {_hr} at home.",
                                            f"🏟️ {_hr} in their own building - {us} {vb(us, 'win', 'wins')} more than {vb(us, 'they', 'it')} {vb(us, 'lose', 'loses')} there.",
@@ -1373,7 +1373,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.tag(v.say("splits_w", [
                 f"📊 {t}% of the bets and {m}% of the money on {the_us} on {mk}. Same side as the public on this one.",
                 f"📊 The public's with us on {mk}: {t}% of the bets, {m}% of the money on {the_us}.",
-                f"📊 {_cap(the_us)} got {t}% of the tickets on {mk} ({m}% of the money). The public's eating with us on this one.",
+                f"📊 {_cap(the_us)} got {t}% of the tickets on {mk} ({m}% of the money). The whole hood eating with this one.",
                 f"📊 Everybody and they mama on {the_us} on {mk}: {t}% of the bets, {m}% of the money."]), "neutral"))
 
     # the public: fading them or riding with them
@@ -1421,7 +1421,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         #   (10/29, the owner: "the lingo still sucks" - no "dog check" / "dog score" on a card: plain words for what it
         #    is - every angle we grade a dog on - and the closers don't all end "thin edge, half a unit, tread light")
         out.append(v.say("bottom_floor_over", [                 #  5+ points - "close to even" was false)
-            f"✅ Bottom line: {price}. The book's selling {us} short - that price pays like they got no shot, and our read says they live. Half a unit, let's eat.",
+            f"✅ Bottom line: {price}. The book's selling {us} short - that price pays like they got no shot, and our read says they live. Half a unit on it.",
             f"✅ Bottom line: {price}. Too much plus money for a team this live. Half a unit on the upset.",
             f"✅ Bottom line: {us} at {_am(leg['odds'])}. That number's too big and {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate. Half a unit.",
             f"✅ Bottom line: {price}. The books got {us} priced like a team that can't win - we don't see that. Half a unit, scared money don't make no money."]) or
@@ -1691,7 +1691,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     if heat_t.startswith("won"):
         n = int(heat_t.split()[1])
         if f"{n} straight" not in body and f"{n} in a row" not in body and f"{them} {n}" not in body:
-            v.knock(5, f"{them} come in on a {n}-game heater")
+            v.knock(5, f"{them} come in on a {n}-game heater" if n >= HOT_MIN else f"{them} have won {n} straight")   # (11/11: a heater is 3+)
 
     # home / road records, both sides (the 🏟️ / 🧳 line above is ours only)
     ts = _site_rec(r_theirs, oid, _site_side(g, other))
@@ -2046,9 +2046,9 @@ def _tails(lean, us, them, trash=False, beat=False):
                 f"Lean {us}, keep it light.", f"Good parlay piece: {us}.", f"We got {us} here.",
                 f"{them} don't scare us. {us} lean.", f"{us} by a little on our read.", f"Lean {us}.",
                 f"If you gotta pick one, {us}.", f"Slight lean {us}."]
-    out = [f"Tap in.", f"{us} all day.", f"We eating.", f"We riding {us}.", f"Say less.", f"{us} {vb(us, 'are', 'is')} the side, that's just facts.",
+    out = [f"Tap in.", f"{us} all day.", f"We on {us}.", f"We riding {us}.", f"Say less.", f"{us} {vb(us, 'are', 'is')} the side, that's just facts.",
            f"{them} ain't ready for this shit.", f"That's a shit spot for {them}.", f"{us} fin to handle that.",
-           f"Let's eat.", f"{them} fin to get spanked.", f"{us} about to spank 'em.", f"{them} about to get their ass beat.",
+           f"We like {us} a lot.", f"{them} fin to get spanked.", f"{us} about to spank 'em.", f"{them} about to get their ass beat.",
            f"We got {us}.", f"{us} {vb(us, 'get', 'gets')} it done.", f"Ride {us}.", f"Not us. We got {us}.", f"{us} {vb(us, 'take', 'takes')} this one.",
            f"We on {us}, no hesitation.", f"{us}, and it ain't a question.", f"Give me {us}.", f"{us}. Done talking.",
            f"Fuck it, {us}.", f"{us}, easy call.", f"Not touching {them}."]
@@ -2218,14 +2218,15 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                                                                       (f"{them} fin to get spanked." if big else "Tap in.")),
                     f"💪 A {ru} team last year against a {rt} one. " + (f"We tilt {us}." if lean else f"Levels to this shit."),
                     f"💪 Last season: {us} {ru}, {them} {rt}. " + (f"{us} if you're playing it." if lean else f"Say less."),
-                    f"💪 {us} won {ru.split('-')[0]} games last year to {_pos(them)} {rt.split('-')[0]}. " + (f"Lean {us}." if lean else f"We eating.")])))
+                    f"💪 {us} won {ru.split('-')[0]} games last year to {_pos(them)} {rt.split('-')[0]}. " + (f"Lean {us}." if lean else f"Tap in.")])))
         elif r == "hotter recent form" and n_hot >= 2 and "hotter recent form" in whyf:
             pools.append(("w_hot", _ok([
-                f"🔥 {us} are rolling — {n_hot} straight W's{f', {rec_u} on the year' if rec_u else ''}. Ride the heater.",
+                f"🔥 {us} are rolling — {n_hot} straight W's{f', {rec_u} on the year' if rec_u else ''}. Ride the heater." if n_hot >= HOT_MIN else   # (11/11: a heater is 3+)
+                f"🔥 {n_hot} straight W's for {us}{f', {rec_u} on the year' if rec_u else ''}. " + (f"Lean {us}." if lean else f"Give me {us}."),
                 f"🔥 {us} are cooking right now ({n_hot} straight) and {them} ain't matching that energy.",
-                f"🔥 Hot hand goes to {us} — {n_hot} straight. We don't bet against a heater.",
+                f"🔥 Hot hand goes to {us} — {n_hot} straight. " + ("We don't bet against a heater." if n_hot >= HOT_MIN else f"{us} been winning."),
                 f"🔥 {n_hot} straight for {us}. " + (f"We lean {us}." if lean else f"{them} fin to get spanked."),
-                f"🔥 {us} haven't lost in {n_hot} — a {n_hot}-game heater{f' ({rec_u})' if rec_u else ''}. " + (f"{us} the side here." if lean else f"Let's eat."),
+                f"🔥 {us} haven't lost in {n_hot}{f' — a {n_hot}-game heater' if n_hot >= HOT_MIN else ''}{f' ({rec_u})' if rec_u else ''}. " + (f"{us} the side here." if lean else f"Ride {us}."),
                 f"🔥 Nobody's beaten {us} in {n_hot} games, {n_hot} straight W's. " + (f"We tilt {us}." if lean else f"{them} ain't ready for this shit.")])))
         elif r == "better starting pitcher" and sp_us and "better starting pitcher" in whyf:
             pools.append(S("w_arm", whyf["better starting pitcher"], "⚾"))
@@ -2294,7 +2295,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                                        if _fa else (lambda F: f"🧠 {F} We lean {us}.",))), names))
     elif need:
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} That's value on {us} — tap in.", lambda F: f"🧠 {F} {us} all day.",
-                                 lambda F: f"🧠 {F} We eating."), names))
+                                 lambda F: f"🧠 {F} Give me {us}."), names))
     else:
         nums = ("w_num", [])
     line = ""

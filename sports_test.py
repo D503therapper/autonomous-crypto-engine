@@ -19176,6 +19176,69 @@ def test_lingo_1104_no_stiff_frames_in_any_pool_or_card():
     # (4) the tail after a comma: lower case unless it's a name
     assert v24._tl("Give me South Dakota.", ("South Dakota", "N Kentucky")) == "give me South Dakota."
     assert v24._tl("South Dakota all day.", ("South Dakota", "N Kentucky")) == "South Dakota all day."
+
+
+def test_lingo_1111_no_we_ate_only_the_whole_hood_eating():
+    """11/11, the owner: "fix the fucking lingo and the breakdowns ... the whole we ate and shit is just retarded. It's
+    not how I talk. Like, you could say something like the whole hood eating with this one or something, but not we
+    ate." The 11/4 pass kept the eat lines ("We eating.", "Let's eat.", "Guess who ate.", "The public's eating with us
+    on this one", "Tomorrow we eat", "the homies riding"). Every one is out of every pool and sits in
+    sports_owner_lingo.EAT_BAN (part of STIFF, so the 11/4 test's rendered-card check holds it too); the one eat line
+    the engine says is HIS - "the whole hood eating (with this one)" - once a board at most, never on a lean. Also
+    worded right on the way: "{o} is extra money" said that at -142 vs -142 (now our number next to the book's), a
+    2-game win streak was "a 2-game heater" in the risk line (a heater is 3+), and two close-records lines claimed a
+    schedule / "numbers under the hood" edge with no fact behind it."""
+    import ast
+    import sports_breakdown as sb, sports_breakdown_v24 as v24, sports_owner_lingo as ol
+    assert sb.VERSION >= 63                                # open cards re-render
+    assert "we eating" not in ol.OWNER and "let's eat" not in ol.OWNER and "the whole hood eating" in ol.OWNER
+    for w in ("we ate", "we eat", "let's eat", "guess who ate", "the public ate", "eating with us", "homies riding"):
+        assert w in ol.EAT_BAN and w in ol.STIFF, w
+    # (1) every string the write-up code can post: no banned eat line, and no eat word at all outside his phrase
+    here = os.path.dirname(os.path.abspath(__file__))
+    word = re.compile(r"\b(eat|eats|eatin|eating|ate|eaten)\b")
+    live = 0
+    for fn in ("sports_breakdown_v24.py", "sports_breakdown.py", "sports_dashboard.py", "sports_lingo.py",
+               "sports_vocab.py", "sports_tennis.py", "sports.py", "sports_early.py", "sports_live.py", "sports_decider.py"):
+        tree = ast.parse(open(os.path.join(here, fn)).read())
+        docs = {id(n.body[0].value) for n in ast.walk(tree)
+                if isinstance(n, (ast.Module, ast.FunctionDef, ast.ClassDef)) and n.body
+                and isinstance(n.body[0], ast.Expr) and isinstance(n.body[0].value, ast.Constant)}
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in docs:
+                low = n.value.lower()
+                live += "whole hood eating" in low
+                rest = low.replace("the whole hood eating", "")
+                assert not [x for x in ol.EAT_BAN if x in rest], (fn, n.value[:120])
+                assert not word.search(rest), (fn, n.value[:120])
+    assert live >= 4                                       # his line is live: the cards, the reviews, the day's recap
+    for fn in ("sports_breakdown_v24.py", "sports_lingo.py", "sports_dashboard.py"):
+        assert "the whole hood eating" in open(os.path.join(here, fn)).read().lower(), fn
+    # (2) once a board: six value plays and a Lock off one board memory say it one time at most
+    used, got = set(), []
+    for i in range(6):
+        v = v24.Voice(f"hood{i}", used)
+        got.append(v.say("bottom_so", v24.OWNER_PLAY(f"T{i} (+150)", f"T{i}", fair="+120", odds=150)))
+    v = v24.Voice("hoodL", used)
+    got.append(v.say("bottom_l", v24.OWNER_LOCK("W (-130)", "W", {"odds": -130, "_read": 0.6})))
+    assert all(got) and sum("whole hood" in x.lower() for x in got) <= 1, got
+    pools = v24.OWNER_PLAY("T (+150)", "T") + v24.OWNER_PLAY("T (+150)", "T", fair="+120", odds=150) + \
+        v24.OWNER_LOCK("W (-130)", "W", {"odds": -130, "_read": 0.6}) + v24.OWNER_LOCK("W (-130)", "W", {"odds": -130}) + \
+        v24.SHORT_L + v24.SHORT_S
+    assert any("whole hood eating with this one" in x.lower() for x in pools)
+    assert not [x for x in pools if any(b in x.lower().replace("the whole hood eating", "") for b in ol.EAT_BAN)]
+    assert not [x for x in pools if "extra money" in x]    # (-142 against -142 was never "extra money")
+    # (3) never on a lean: the fact stays, the hype sentence goes
+    out = sb.lean_tone(["📊 The Bruins got 74% of the tickets on the moneyline (52% of the money). The whole hood eating with this one."],
+                       {"team": "Bruins", "odds": -108, "p": 0.51, "market": "ml"}, "x")
+    assert "74% of the tickets" in out[0] and not any("hood" in x.lower() for x in out), out
+    assert v24.HYPE.search("we eating") and v24.HYPE.search("Let's eat.") and not v24.HYPE.search("beat the Jets 3-1")
+    # (4) the risk line: 2 straight wins is "won 2 straight", a heater is 3+
+    src = open(os.path.join(here, "sports_breakdown_v24.py")).read()
+    assert '-game heater" if n >= HOT_MIN else f"{them} have won {n} straight"' in src and v24.HOT_MIN == 3
+    assert "been playing grown men" not in src and "numbers under the hood" not in src
+
+
 def test_audit_1104_the_rule_check_reads_the_inputs_south_dakota_kansas_st_stale_price_blind_team_and_the_star():
     """11/4 FULL ENGINE AUDIT (the owner: "the engine posts picks on a mistake and it's actually a bug ... it wasn't
     looking at injuries or it wasn't looking at something right" / "I've told you in the past to build in a checker ...
