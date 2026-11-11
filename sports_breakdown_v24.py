@@ -2537,7 +2537,9 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
     if str(g.get("wx_temp", "")) != "":
         m["cold-weather edge"] = [f"it's {g['wx_temp']}\u00b0F at kickoff and {T} aren't built for it",
                                   f"{g['wx_temp']}\u00b0F at kickoff - a warm-weather team in a freezer"]
-    m["opponent's body clock is off"] = [f"{T} crossed time zones to get here", f"{T} are playing on a body clock a few hours off"]
+    m["opponent's body clock is off"] = [f"{T} crossed time zones to get here", f"{T} are playing off their home time zone"]
+    #   (11/11 pre-board check: the old "hours off" line said it of Marquette at Michigan - ONE hour; the travel
+    #   factor fires at one zone, so no line claims more than "crossed time zones")
     if (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
         m["altitude edge"] = [f"{T} are playing {g.get('elev')} meters up", f"{g.get('elev')} meters of altitude for {T} to breathe"]
     wind, rain = g.get("wx_wind", ""), g.get("wx_rain", "")

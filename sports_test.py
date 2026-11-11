@@ -20530,6 +20530,13 @@ def _wired_1111_post(start, patches, picks=None, n=4):
     return picks, buf.getvalue()
 
 
+def test_preboard_1111_the_body_clock_line_never_claims_a_few_hours():
+    """11/11 pre-board check: the Michigan lean said Marquette played 'on a body clock a few hours off' - Milwaukee to Ann
+    Arbor is ONE hour. The travel factor fires at one time zone, so no body-clock line may claim hours it can't see."""
+    import sports_breakdown_v24 as v24, sports_breakdown as sb, inspect
+    assert "few hours" not in inspect.getsource(v24) and "few hours" not in inspect.getsource(sb)
+
+
 def test_book_1111_quit_rules_for_the_runner_up_dog_play_and_the_blowout_spot():
     """11/11 (the Fable book study): the runner-up dog play stops at 20 graded under 35% won; the blowout early spot
     at 25 graded under 35% won. Short of the count, or at 35%+, they keep posting."""
