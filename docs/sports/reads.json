@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T21:26Z",
+ "updated": "2026-11-11T21:37Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -56,8 +56,8 @@
    "away": "Incarnate Word",
    "home": "UC Davis",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -722,9 +722,9 @@
     "team": "Saint Peter's",
     "opp": "South Carolina",
     "market": "spread",
-    "line": 21.5,
-    "odds": -102,
-    "p": 0.514,
+    "line": 22.5,
+    "odds": -118,
+    "p": 0.515,
     "win_p": 0.046,
     "reasons": [
      "sharp money moving this way"
@@ -1697,8 +1697,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Thunder",
-    "p": 0.488,
+    "team": "Trail Blazers",
+    "p": 0.516,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1707,18 +1707,19 @@
    "start": "2026-11-12T03:00Z",
    "away": "Thunder",
    "home": "Trail Blazers",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Thunder",
-    "opp": "Trail Blazers",
+    "team": "Trail Blazers",
+    "opp": "Thunder",
     "market": "ml",
     "line": null,
-    "odds": -113,
-    "p": 0.509,
-    "win_p": 0.509,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
-     "the stronger team"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -1743,9 +1744,9 @@
     "team": "UTSA",
     "opp": "Seattle U",
     "market": "spread",
-    "line": 17.5,
-    "odds": -118,
-    "p": 0.51,
+    "line": 16.5,
+    "odds": -102,
+    "p": 0.509,
     "win_p": 0.075,
     "reasons": []
    }
@@ -1772,7 +1773,7 @@
     "opp": "USC",
     "market": "spread",
     "line": 8.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.25,
     "reasons": []
