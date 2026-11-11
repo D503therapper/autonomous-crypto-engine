@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T16:13Z",
+ "updated": "2026-11-11T16:27Z",
  "games": [
   {
    "id": "ncaab:401921005",
@@ -22,9 +22,9 @@
     "team": "Florida A&M",
     "opp": "Kansas City",
     "market": "spread",
-    "line": 7.5,
-    "odds": -108,
-    "p": 0.602,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.608,
     "win_p": 0.285,
     "reasons": [
      "opponent's body clock is off"
@@ -36,8 +36,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Dartmouth",
-    "p": 0.481,
+    "team": "UAlbany",
+    "p": 0.48,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -51,13 +51,14 @@
    "lean": {
     "team": "UAlbany",
     "opp": "Dartmouth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -122,
-    "p": 0.519,
-    "win_p": 0.496,
+    "market": "ml",
+    "line": null,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
    }
   },
@@ -160,8 +161,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "East Carolina",
-    "p": 0.775,
-    "tie": 0.031,
+    "p": 0.769,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -175,10 +176,10 @@
     "team": "NC A&T",
     "opp": "East Carolina",
     "market": "spread",
-    "line": 12.5,
-    "odds": -118,
-    "p": 0.515,
-    "win_p": 0.145,
+    "line": 11.5,
+    "odds": -102,
+    "p": 0.509,
+    "win_p": 0.151,
     "reasons": []
    }
   },
@@ -266,7 +267,7 @@
     "opp": "VMI",
     "market": "spread",
     "line": 8.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.557,
     "win_p": 0.247,
     "reasons": []
@@ -435,7 +436,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.645,
+    "p": 0.635,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -451,9 +452,9 @@
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -256,
-    "p": 0.709,
-    "win_p": 0.709,
+    "odds": -243,
+    "p": 0.696,
+    "win_p": 0.696,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -1701,7 +1702,7 @@
     "opp": "Chicago St",
     "market": "spread",
     "line": -12.5,
-    "odds": -108,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.87,
     "reasons": [
@@ -1748,8 +1749,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.378,
-    "tie": 0.299,
+    "p": 0.384,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1765,8 +1766,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.66,
-    "win_p": 0.441,
+    "p": 0.649,
+    "win_p": 0.429,
     "reasons": []
    }
   },
@@ -1886,6 +1887,65 @@
     "p": 0.526,
     "win_p": 0.252,
     "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892699",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Panthers",
+    "p": 0.401,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:30Z",
+   "away": "Red Wings",
+   "home": "Panthers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Red Wings",
+    "opp": "Panthers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -180,
+    "p": 0.619,
+    "win_p": 0.401,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892703",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Stars",
+    "p": 0.422,
+    "tie": 0.294,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T01:00Z",
+   "away": "Jets",
+   "home": "Stars",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Stars",
+    "opp": "Jets",
+    "market": "ml",
+    "line": null,
+    "odds": -205,
+    "p": 0.648,
+    "win_p": 0.648,
+    "reasons": [
+     "the stronger team",
+     "better rested"
+    ]
    }
   },
   {
