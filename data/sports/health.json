@@ -1,7 +1,7 @@
 {
- "at": "2026-11-11T06:04Z",
+ "at": "2026-11-11T06:06Z",
  "fixes": [
-  "live board 18 min stale with games on - sports-live.yml already running"
+  "live board 20 min stale with games on - sports-live.yml already running"
  ],
  "problems": [
   "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
@@ -18,12 +18,21 @@
   "every upcoming game has its real teams",
   "studies ran 0h ago",
   "simulator ran 6h ago",
-  "engine ran 26 min ago",
+  "engine ran 28 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T06:06Z",
+   "fixes": [
+    "live board 20 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-11T06:04Z",
    "fixes": [
@@ -540,11 +549,6 @@
    "fixes": [
     "live board 6 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-10T00:20Z",
-   "fixes": [],
    "problems": []
   }
  ]
