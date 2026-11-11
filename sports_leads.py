@@ -1087,6 +1087,8 @@ def spread_tags(c, sports):
         #   back (within 10 days) from 3+ straight neutral-site games (the November / December tournament trip) ATS
         #   -11.2% on 256 (train -20.5%, 0 of 4 up; held out -11.5% / -2.3% / -16.0% / +15.8%), the road side across
         #   +2.2% (train +11.2%, 4 of 4 up) - the dog across isn't up on the moneyline; a LEAD only
+    t += spreads2_tags(c, sports)                            # 11/11 FABLE spreads part 2: the Wong teaser legs, the
+    #   visitor on a 5,900 ft+ floor, the NFL lookahead dog - LEADS (results/studies/spreads2_1111)
     return t
 
 
@@ -1488,6 +1490,147 @@ def hoops_host_home_from_neutral(c):
         return False
 
 
+# 11/11 FABLE - SPREADS LIKE THE PROS, part 2 (results/studies/spreads2_1111): ten studies of the number, the timing and
+# the market found NO new spread play that clears the five checks - four LEADS, tracked only (the board never reads them):
+SPREADS2_FROM = "2026-11-12"     # the tags log from the 11/12 Pacific game day
+WONG_DOG = (1.5, 2.5)            # s3: the Wong teaser legs - a dog +1.5..+2.5 teased 6 up through the 3 and the 7 ...
+WONG_FAV = (-8.5, -7.5)          # ... and a favorite -7.5..-8.5 teased 6 down through them
+WONG_TEASE = 6.0
+WONG_TOTAL = 49.0                # the lore's filter: a total under 49 (legs 77.1% vs 72.2% at 49+, 2015-26)
+WONG_LEG_NET = 0.354             # a leg graded as its share of a -120 two-team ticket (sqrt(1.8333) - 1): the tag's ROI
+#                                  is over zero exactly when the leg rate beats the 73.85% a -120 ticket needs
+WONG_DOG_TAG = "NFL Wong teaser leg, dog +1.5..+2.5 up to +7.5..+8.5"
+WONG_FAV_TAG = "NFL Wong teaser leg, favorite -7.5..-8.5 down to -1.5..-2.5"
+WONG_TOTAL_TAG = "NFL Wong teaser leg, total under 49"
+WONG_TAGS = (WONG_DOG_TAG, WONG_FAV_TAG, WONG_TOTAL_TAG)
+HOOPS_HIGH_FLOOR_M = 1800.0      # s7b: a 5,900 ft+ floor (the game file's elev, meters: Air Force / Wyoming / N Arizona)
+HOOPS_HIGH_FLOOR_TAG = "college hoops visitor on a 5,900 ft+ floor"
+NFL_LOOKAHEAD_LAY = 6.0          # s5b: a dog getting 6+ ...
+NFL_LOOKAHEAD_PCT = 0.7          # ... from a favorite whose NEXT game is against a .700+ team ...
+NFL_LOOKAHEAD_GAMES = 4          # ... that has played 4+ games
+NFL_LOOKAHEAD_DAYS = 16          # the next game inside 16 days (a bye between still counts)
+NFL_LOOKAHEAD_TAG = "NFL dog getting 6+, the favorite has a .700+ team next"
+
+
+def _spreads2_on(c, sports):
+    try:
+        return sports.pt_day(c) >= SPREADS2_FROM
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
+def wong_leg(c):
+    """'dog' / 'fav' when an NFL spread side is a Wong teaser leg (WONG_DOG / WONG_FAV at the board's line), else None.
+    11/11 s3 (nflverse's closes 1999-2026, 1,433 legs): the legs won 74.7% (train 1999-2014 73.0%, 2015-26 76.2% - every
+    other six-point tease 70.1%, a random set never matched it in 2,000 draws), a two-team ticket needs 73.85% a leg at
+    -120 and 75.2% at -130. At -120: +3.8% on 341 tickets 2015-26 (z 0.8, 8 of 12 seasons up), 1999-2014 -1.4%; at -130
+    +0.2%. The dog legs alone 77.7% since 2015 (two-dog tickets +18.2% at -120, 11 of 12 seasons) but 73.1% before, and
+    the favorite legs 63% since 2023 - a real edge on the key numbers, too thin over the price a book charges now to be
+    a play. A LEAD: the leg rate is its record (a teaser is a parlay - the owner's no-posted-parlays rule stands)."""
+    if c.get("league") != "nfl" or c.get("market") != "spread":
+        return None
+    try:
+        ln = float(c.get("line"))
+    except (TypeError, ValueError):
+        return None
+    if WONG_DOG[0] <= ln <= WONG_DOG[1]:
+        return "dog"
+    if WONG_FAV[0] <= ln <= WONG_FAV[1]:
+        return "fav"
+    return None
+
+
+def hoops_high_floor_visitor(c):
+    """11/11 s7 / s7b (a spread LEAD): the VISITOR in a true road game on a 5,900 ft+ floor (the game file's elevation).
+    The totals study found altitude games score more; against the spread the HOME team up there fails its number - the
+    visitor covered 59.0% (+12.6% on 300, 2018-25: train +8.5%, held +16.2%, 7 of 8 seasons at or over even; Jan-Mar
+    +19.8% on 199; a random three home teams did as well 13 of 5,000 times). Why it is NOT a play: it is three floors
+    (Air Force +21%, N Arizona +13%, Wyoming +4%), there is no dose (4,600-5,900 ft the visitor is -6%), and the
+    moneyline only half agrees (+4.7%). Its live cover record says if it's altitude or three teams."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or c.get("side") != "away":
+        return False
+    g = _game(c)
+    try:
+        return str(g.get("neutral") or "0") != "1" and float(g.get("elev")) >= HOOPS_HIGH_FLOOR_M
+    except (TypeError, ValueError):
+        return False
+
+
+def _plus_days(start, days):
+    from datetime import date, timedelta
+    try:
+        return (date.fromisoformat(start[:10]) + timedelta(days=days)).isoformat()
+    except ValueError:
+        return start[:10]
+
+
+def nfl_lookahead_dog(c):
+    """11/11 s5 / s5b (a spread LEAD): an NFL dog getting NFL_LOOKAHEAD_LAY+ from a favorite whose NEXT game is against
+    a team at NFL_LOOKAHEAD_PCT or better (NFL_LOOKAHEAD_GAMES+ games played - the standings before this game, the
+    schedule; nothing from after kickoff). The one situational cell of 34 that held in both halves on nflverse's closes
+    1999-2026: the dog covered 56.4% (+7.4% on 451; 1999-2014 +5.6%, 2015-26 +10.5%; a random set of 6+ dogs did as
+    well in both halves 19 of 5,000 times). Why it is NOT a play: only 14 of 28 seasons up, 2023-26 -13.6% on 52, the
+    dose is ragged (.700-.800 +13.8%, .800+ -0.2%), the Tuesday number on the same games 2020-25 was flat (-0.3% on 96)
+    and the general form (any spread) is zero."""
+    if c.get("league") != "nfl" or c.get("market") != "spread":
+        return False
+    try:
+        if float(c.get("line")) < NFL_LOOKAHEAD_LAY:
+            return False
+    except (TypeError, ValueError):
+        return False
+    g = _game(c)
+    start = g.get("start") or ""
+    fav = g.get("away" if c.get("side") == "home" else "home")
+    if not fav or len(start) < 10:
+        return False
+    G = _GAMES.get("nfl") or {}
+    last_day = _plus_days(start, NFL_LOOKAHEAD_DAYS)
+    later = [x for x in G.values() if start < (x.get("start") or "") and (x.get("start") or "")[:10] <= last_day
+             and str(x.get("stype") or "2") == "2" and fav in (x.get("home"), x.get("away"))]
+    if not later:
+        return False
+    nx = min(later, key=lambda x: x["start"])
+    opp = nx.get("away") if nx.get("home") == fav else nx.get("home")
+    if not opp:
+        return False
+    y, m = int(start[:4]), int(start[5:7])
+    since = f"{y if m >= 7 else y - 1}-07-01"
+    w = n = 0
+    for x in G.values():
+        if x.get("status") != "final" or str(x.get("stype") or "2") != "2" or not (since <= (x.get("start") or "") < start) \
+                or opp not in (x.get("home"), x.get("away")):
+            continue
+        try:
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        n += 1
+        if hs != as_ and (hs > as_) == (x.get("home") == opp):
+            w += 1
+    return n >= NFL_LOOKAHEAD_GAMES and w / n >= NFL_LOOKAHEAD_PCT
+
+
+def spreads2_tags(c, sports):
+    """The 11/11 'spreads like the pros, part 2' LEADS on a spread side (from SPREADS2_FROM)."""
+    if c.get("market") != "spread" or not _spreads2_on(c, sports):
+        return []
+    t = []
+    leg = wong_leg(c)
+    if leg:
+        t.append(WONG_DOG_TAG if leg == "dog" else WONG_FAV_TAG)
+        try:
+            if float(_game(c).get("total")) < WONG_TOTAL:
+                t.append(WONG_TOTAL_TAG)
+        except (TypeError, ValueError):
+            pass
+    if hoops_high_floor_visitor(c):
+        t.append(HOOPS_HIGH_FLOOR_TAG)
+    if nfl_lookahead_dog(c):
+        t.append(NFL_LOOKAHEAD_TAG)
+    return t
+
+
 def load():
     try:
         return json.load(open(PATH))
@@ -1529,6 +1672,8 @@ def log(day_iso, cands, sports):
                "team": c.get("team"), "odds": c.get("odds"), "tags": tg}
         if c.get("market") == "spread":                      # (11/2: a spread lead grades against its line)
             row.update(market="spread", line=c.get("line"))
+            if any(t in WONG_TAGS for t in tg):              # (11/11: a Wong teaser leg grades at its TEASED number)
+                row["tease"] = WONG_TEASE
         rows.append(row)
         have.add(key)
         added += 1
@@ -1550,14 +1695,13 @@ def grade(games):
             hs, as_ = float(g["home_score"]), float(g["away_score"])
         except (KeyError, ValueError, TypeError):
             continue
+        m = None
         if r.get("market") == "spread":
             try:
                 m = (hs - as_ if r["side"] == "home" else as_ - hs) + float(r["line"])
             except (KeyError, TypeError, ValueError):
                 continue
-            if m == 0:
-                continue                                     # a push grades nothing
-            won = m > 0
+            won = m > 0                                      # (a push grades nothing - skipped per tag below)
         elif hs == as_:
             continue
         else:
@@ -1567,6 +1711,16 @@ def grade(games):
         for t in r["tags"]:
             if not counts(t, o):                             # (11/3: a +5000 row never counts - the study's band)
                 continue
+            if t in WONG_TAGS and r.get("tease") and m is not None:   # 11/11: a Wong teaser LEG - graded at the teased
+                mt = m + float(r["tease"])                   # number, paid as its share of a -120 two-team ticket (ROI
+                if mt == 0:                                  # over zero = the leg rate beats what -120 needs)
+                    continue
+                x = rec.setdefault(t, {"w": 0, "l": 0, "units": 0.0})
+                x["w" if mt > 0 else "l"] += 1
+                x["units"] = round(x["units"] + (WONG_LEG_NET if mt > 0 else -1.0), 3)
+                continue
+            if m == 0:
+                continue                                     # a push grades nothing
             x = rec.setdefault(t, {"w": 0, "l": 0, "units": 0.0})
             x["w" if won else "l"] += 1
             x["units"] = round(x["units"] + net, 3)
