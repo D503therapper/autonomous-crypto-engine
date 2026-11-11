@@ -1,5 +1,5 @@
 {
- "at": "2026-11-11T22:57Z",
+ "at": "2026-11-11T23:04Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
@@ -12,7 +12,7 @@
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
  ],
  "ok": [
-  "live watcher fresh (221s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,13 +23,27 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
+  "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 5 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T23:04Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-11T22:57Z",
    "fixes": [
@@ -831,16 +845,6 @@
   },
   {
    "at": "2026-11-10T16:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
-    "live tennis scores: tennis Riera vs Tubello: no points for 2624s",
-    "live tennis scores: tennis Pareja vs Bronzetti: no points for 2624s",
-    "sources down (the backups took over): actionnetwork:mlb - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-10T16:55Z",
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Gormaz vs Monnet: no points for 2624s",
