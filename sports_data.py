@@ -1260,7 +1260,12 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
             continue
         upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
         if lg in cur or upto >= today - timedelta(days=backfill_days):
-            cur[lg] = min(upto, today).strftime("%Y-%m-%d")
+            new = min(upto, today).strftime("%Y-%m-%d")
+            cur[lg] = max(cur[lg], new) if lg in cur else new   # (11/11 sweep: a failed run never walks the mark BACK -
+            #   the next run starts 2 days before the mark, so a failure on its first day set the mark 3 days earlier
+            #   every run: with the source down since 11/10 the four leagues walked from 11/9 back to 9/5 in 21 runs,
+            #   12 more dead calls and ~5s more each run (55 calls / 5s -> 311 calls / 120s) with no end. The mark
+            #   stays; the 2-day re-read picks the failed days up when the source answers again.)
     return filled, len(jobs) + len(weeks), sum(1 for _, r in results + wres if r is None)
 
 

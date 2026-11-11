@@ -123,7 +123,13 @@ def audit_day(picks, games, day):
             flags.append(f"{label}: a lean carried {u}u - leans never carry units")
         if not pk.get("lean") and pk.get("kind") != "dog" and u > 0.5 and day >= sports.THIN_FROM \
                 and not (pk.get("best") and day >= sports.BEST_FROM) \
-                and sports.thin_edge(pk["legs"][0]):        # (the Dog of the Day has its own size - hockey flat 1u, the
+                and not (pk.get("nba_fav") or pk.get("gap") is not None or pk.get("ncaab_play")) \
+                and sports.thin_edge(pk["legs"][0]):        # (11/11 sweep: the NBA favorite play is 1u BY ITS RULE - its
+            #                                                read starts at the books' price, NBA_FAV_UNITS; the 🔍 gap play
+            #                                                1u and the college hoops dog slot 1u-2u size by their own
+            #                                                rules too. The Celtics -124 nba_fav of 11/10 was flagged
+            #                                                "should be ½u" on every run - a false flag hides a real one. The Dog
+            #                                                of the Day has its own size too - hockey flat 1u, the
             #                                                rest 1u-2u by edge (the owner, 10/10): 1u is its floor, not a miss)
             flags.append(f"{label}: {u}u on a thin edge (under {sports.THIN_EDGE:.0%}) - should be ½u")
         for leg in pk["legs"]:

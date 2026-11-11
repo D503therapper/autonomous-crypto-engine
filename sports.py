@@ -586,13 +586,33 @@ LAST_STARTS = {}               # {(league, team): [starts]} - the back-to-back c
 GAME_NEWS_KINDS = ("illness",)   # news about ONE game (who's sick for it) - stale once the team has played since
 
 
+_TEAM_NAMES = {}
+
+
+def league_team_names(games):
+    """{league: every team name our files use lately} - what a news headline is checked against (sports_news.about).
+    Built once per games file."""
+    key = (id(games), len(games))
+    if _TEAM_NAMES.get("key") != key:
+        out, cut = {}, (datetime.now(timezone.utc) - timedelta(days=400)).strftime("%Y-%m-%d")
+        for g in games.values():
+            if str(g.get("start") or "") >= cut:
+                s_ = out.setdefault(g.get("league"), set())
+                s_.add(g.get("home_name") or "")
+                s_.add(g.get("away_name") or "")
+        _TEAM_NAMES.clear()
+        _TEAM_NAMES.update(key=key, names={k: frozenset(n for n in v if n) for k, v in out.items()})
+    return _TEAM_NAMES["names"]
+
+
 def fresh_drama(events, lg, team, start):
     """Drama still true for THIS game (10/17: the Packers card said "sickness going around the Cowboys" off a 10/8
     headline - "sick Joey Porter Jr. won't face Bucs on TNF" - a game the Cowboys already played): a sickness story
     dated before the team's last game is dropped; suspensions, holdouts and the rest stay their DRAMA_DAYS."""
     prev = [s for k in ((lg, team), (lg, str(team))) for s in LAST_STARTS.get(k, []) if s < start]
     last = max(prev)[:10] if prev else None
-    return [e for e in events if not (e.get("kind") in GAME_NEWS_KINDS and last and e.get("date", "") < last)]
+    return [e for e in events if not ((e.get("kind") in GAME_NEWS_KINDS or sports_news.one_game(e))   # (11/11: a ONE-game
+                                      and last and e.get("date", "") < last)]   # suspension is served once they've played)
 TEAM_STATE = {}                # {(league, team): (last margin, streak)} - the overreaction angle (sports_form)
 HOT_KEY = {}                   # {game id: 'home'/'away'} - that side's goalie (NHL) / stars (NBA) are much hotter
 HOT_W = 0.03                   # (sports_form: the books over-rate a hot key player - NHL 5 of 5 seasons, NBA 3 of 4):
@@ -612,6 +632,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     _FAIR_SCHED.clear()                              # (11/4 audit: fair_open's schedule, built once a call)
     elo = sm.ratings(games, model)
     out = []
+    team_names = league_team_names(games)            # (11/11: a drama headline has to be ABOUT the team - sports_news.about)
     for g in games.values():
         if g["status"] != "pre" or g.get("ml_home", "") == "" or g["league"] not in sd.LEAGUES \
                 or (g.get("stype") or "?") not in sd.REAL or g.get("tbd") == "1" or sd.exhibition(g):   # (no time set:
@@ -684,7 +705,11 @@ def candidates(games, model, now=None, day=None, injuries=None):
         waiting = waiting_on(g, injuries)
         hurt_ = {sd_: hurt(g, sd_, injuries) for sd_ in ("home", "away")}
         news = sports_news.load()
-        drama = {side: fresh_drama(sports_news.drama(news, lg, g[side]), lg, g[side], g["start"]) for side in ("home", "away")}
+        drama = {side: fresh_drama(sports_news.drama(news, lg, g[side], name=g.get(side + "_name") or "?",
+                                                     others=team_names.get(lg, ())), lg, g[side], g["start"])
+                 for side in ("home", "away")}       # (11/11: ESPN tags every team an article touches - the Kings got
+        #                                              "opponent drama: suspension" off a Senators headline and it was
+        #                                              the Predators +114 floor play's only named reason)
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
         try:                                          # 🥅 hockey: is each side's known (confirmed / likely) starter
             g_roles = sports_goalies.roles(sp.CACHE.get("nhl") or [], g, now) if lg == "nhl" else {}   # its #1?
@@ -4889,8 +4914,10 @@ def mark_ncaab_turmoil(games, cands):
             if t and t not in nseen:
                 try:
                     cut = _days_back(start, sports_news.DRAMA_DAYS)
-                    nseen[t] = [(e["kind"], e["headline"]) for e in sports_news.drama(news, "ncaab", t)
-                                if e.get("kind") in NCAAB_TURMOIL_KINDS and str(e.get("date", "")) >= cut]
+                    nseen[t] = [(e["kind"], e["headline"]) for e in sports_news.drama(
+                        news, "ncaab", t, name=g.get(side + "_name") or "?",   # (11/11: a headline ABOUT this team only)
+                        others=league_team_names(games or {}).get("ncaab", ()))
+                        if e.get("kind") in NCAAB_TURMOIL_KINDS and str(e.get("date", "")) >= cut]
                 except Exception:                            # noqa: BLE001
                     nseen[t] = []
         me = seen.get((c.get("game_id"), c.get("side")))
@@ -6957,6 +6984,24 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
                 why_.append(f"{', '.join(off_)} not ruled out on today's report")
         if why_:
             false.append(f"'{rs}' - " + "; ".join(why_))
+    for rs in reasons:                                       # "opponent drama: suspension" (11/11 - the Predators +114
+        if not rs.startswith("opponent drama:"):             # floor play of 11/10: its ONLY named reason, on the Kings,
+            continue                                         # off "Ottawa Senators F Hayden Hodgson suspended ...")
+        ev = (leg.get("their_drama") or [{}])[0] or {}
+        head, kind = str(ev.get("headline") or ""), rs.split(":", 1)[1].strip()
+        names_ = ctx.get(("names", lg))
+        if names_ is None:
+            names_ = ctx[("names", lg)] = (league_team_names(games).get(lg, ()) if games is not None else ())
+        why_ = None
+        if not head:
+            why_ = "no headline behind it"
+        elif kind not in sports_news.headline_kinds(head):
+            why_ = f"the headline doesn't say it: {head[:70]}"
+        elif not sports_news.about(head, leg.get("opp") or "?", set(names_) | {leg.get("team") or ""}):
+            why_ = f"the headline isn't about {leg.get('opp')}: {head[:70]}"
+        if why_:
+            false.append(f"'{rs}' - {why_}")
+            leg["their_drama"] = []
     if false:
         leg["reasons"] = [r for r in (leg.get("reasons") or []) if not any(f"'{str(r)}'" in x for x in false)]
         left = [r for r in leg["reasons"]]

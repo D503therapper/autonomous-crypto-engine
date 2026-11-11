@@ -2231,7 +2231,7 @@ def test_context():
     assert sports_news.talk_kinds("QB guarantees a win over the Jets") == ["trash talk"]
     assert sports_news.talk_kinds("Rookie scores twice in win") == []
     nw = {"nfl:1": [{"id": "a|must-win", "kind": "must-win", "date": "2026-09-27", "talk": 1},
-                    {"id": "b", "kind": "suspension", "date": "2026-09-26"}]}
+                    {"id": "b", "kind": "suspension", "date": "2026-09-26", "headline": "Falcons suspend WR two games"}]}   # (11/11: the kind reads off the headline)
     assert [e["kind"] for e in sports_news.drama(nw, "nfl", "1")] == ["suspension"]
     assert [e["kind"] for e in sports_news.talk(nw, "nfl", "1", today=datetime(2026, 9, 28).date())] == ["must-win"]
     # breakdown lines in our voice, never a repeated wording on one board
@@ -20148,6 +20148,225 @@ def test_fable_1111_college_hoops_spread_stack_across_half_is_a_rank_weight_neve
     assert "mark_ncaab_spread_stack(out)" in src and 'c["opp_tp_net"] = onet["net"]' in src
     assert src.index("mark_ncaab_shooting(games, out)") < src.index("mark_ncaab_spread_stack(out)")   # after every mark
     assert "+ ncaab_across_spread_w(c)" in src
+
+
+def test_sweep_1111_a_drama_reason_has_to_be_about_the_team_it_is_pinned_on():
+    """11/11 FABLE SWEEP: ESPN tags an article with every team it touches and the kind was read off the headline + the
+    description - so the Predators +114 floor play of 11/10 went up with ONE named reason, "opponent drama: suspension"
+    on the Kings, off "Ottawa Senators F Hayden Hodgson suspended by NHL's Department of Player Safety" (a floor play
+    needs a named reason: a false tag chose the pick), the Celtics card carried "opponent drama: legal trouble" on the
+    76ers off "Man arrested on stalking charges at LeBron James' home", a 23-7 game recap was "coach fired" on both
+    teams and "back from suspension" a suspension. Now the kind has to read off the HEADLINE, the story can't be over,
+    the headline has to NAME the team (first among the league's teams it names), a one-game suspension is stale once
+    the team has played - and the pre-post check re-reads the reason on its own and holds a floor play chosen on it."""
+    import sports_news as sn
+    hod = "Ottawa Senators F Hayden Hodgson suspended by NHL's Department of Player Safety"
+    nhl = {"Kings", "Senators", "Predators", "Wild", "Stars", "Lightning", "Red Wings"}
+    # the kind reads off the headline only; the word "suspension" counts; a story that's over is no drama
+    assert sn.headline_kinds(hod) == ["suspension"]
+    assert sn.headline_kinds("Jets WR handed two-game suspension") == ["suspension"]
+    assert sn.headline_kinds("Falcons' James Pearce back from suspension, expected to play") == []
+    assert sn.headline_kinds("Oklahoma throttles No. 25 Florida for a 23-7 victory") == []
+    assert sn.headline_kinds("Sources: Flyers have not received formal trade request from Matvei Michkov") == []
+    assert sn.headline_kinds("Sources: Oklahoma fires 2nd-year OC Ben Arbuckle") == ["coach fired"]
+    # the headline has to be ABOUT the team
+    assert sn.about(hod, "Senators", nhl) and not sn.about(hod, "Kings", nhl)
+    hawks = "Hawks' Flemings suspended for elbowing Pelicans' McGowens in head"
+    assert sn.about(hawks, "Hawks", {"Hawks", "Pelicans"}) and not sn.about(hawks, "Pelicans", {"Hawks", "Pelicans"})
+    mich = "Michigan fires offensive coordinator Jason Beck after loss to Michigan State"
+    assert sn.about(mich, "Michigan", {"Michigan", "Michigan St"}) and not sn.about(mich, "Michigan St", {"Michigan", "Michigan St"})
+    assert not sn.about("Texas Tech fires DC after 1-8 start", "Texas", {"Texas", "Texas Tech"})
+    assert sn.about("Texas Tech fires DC after 1-8 start", "Texas Tech", {"Texas", "Texas Tech"})
+    assert not sn.about("Vikings suspend WR for conduct", "Kings", nhl)                 # 'Kings' is not in 'Vikings'
+    assert not sn.about("Man arrested on stalking charges at LeBron James' home in Los Angeles", "76ers", {"76ers", "Celtics"})
+    assert sn.about("'Angry' Rhule fires OC Holgorsen amid Nebraska's 4-game skid", "Nebraska", {"Nebraska", "Iowa"})
+    assert sn.about("Florida State suspends two starters", "Florida St", {"Florida", "Florida St"})
+    assert not sn.about("Florida State suspends two starters", "Florida", {"Florida", "Florida St"})
+    # drama(): the Kings never carry the Senators' story; a recap's passing mention is nobody's drama
+    news = {"nhl:8": [{"id": "1", "kind": "suspension", "date": "2026-10-31", "headline": hod}],
+            "nhl:14": [{"id": "1", "kind": "suspension", "date": "2026-10-31", "headline": hod}],
+            "ncaaf:57": [{"id": "2", "kind": "coach fired", "date": "2026-11-08", "headline": "Oklahoma throttles No. 25 Florida for a 23-7 victory"},
+                         {"id": "3", "kind": "suspension", "date": "2026-11-05",
+                          "headline": "Florida suspends DT Jeramiah McCloud 1 game for conduct detrimental to team"}]}
+    assert sn.drama(news, "nhl", "8", name="Kings", others=nhl) == []
+    assert [e["id"] for e in sn.drama(news, "nhl", "14", name="Senators", others=nhl)] == ["1"]
+    fl = sn.drama(news, "ncaaf", "57", name="Florida", others={"Florida", "Oklahoma", "Florida St"})
+    assert [e["id"] for e in fl] == ["3"] and sn.one_game(fl[0]) and not sn.one_game(news["nhl:14"][0])
+    # a ONE-game suspension is served once the team has played since
+    keep_ls = dict(sports.LAST_STARTS)
+    try:
+        sports.LAST_STARTS.clear()
+        assert sports.fresh_drama(fl, "ncaaf", "57", "2026-11-07T20:00Z") == fl             # not played since: still news
+        sports.LAST_STARTS[("ncaaf", "57")] = ["2026-11-07T20:00Z"]
+        assert sports.fresh_drama(fl, "ncaaf", "57", "2026-11-14T20:00Z") == []             # served
+        keep_ev = [{"id": "9", "kind": "suspension", "date": "2026-11-05", "headline": "Florida suspends DT indefinitely"}]
+        assert sports.fresh_drama(keep_ev, "ncaaf", "57", "2026-11-14T20:00Z") == keep_ev
+    finally:
+        sports.LAST_STARTS.clear()
+        sports.LAST_STARTS.update(keep_ls)
+    # the pre-post check: the Predators' exact floor play is held, the same reason pinned on the right team passes
+    now = datetime(2026, 11, 10, 16, 0, tzinfo=timezone.utc)
+    games = {"G": {"id": "G", "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-11T03:00Z", "home": "8",
+                   "away": "27", "home_name": "Kings", "away_name": "Predators", "ml_home": "-135", "ml_away": "114",
+                   "odds_time": "2026-11-10T15:40Z", "home_score": "", "away_score": ""},
+             "G2": {"id": "G2", "league": "nhl", "status": "pre", "stype": "2", "start": "2026-11-11T00:00Z", "home": "14",
+                    "away": "23", "home_name": "Senators", "away_name": "Capitals", "ml_home": "-125", "ml_away": "105",
+                    "odds_time": "2026-11-10T15:40Z", "home_score": "", "away_score": ""}}
+    inj = {"nhl": {"8": [], "27": [], "14": [], "23": []}}
+
+    def floor(gid, team, opp, odds):
+        leg = {"league": "nhl", "game_id": gid, "side": "away", "team": team, "opp": opp, "market": "ml", "odds": odds,
+               "dec": sports._dec(odds), "p": 0.453, "p_market": 0.449, "edge_own": -0.03, "waiting": [], "edge": 0.0,
+               "tier": "value", "reasons": ["opponent drama: suspension"],
+               "their_drama": [{"id": "1", "kind": "suspension", "date": "2026-10-31", "headline": hod}]}
+        return {"date": "2026-11-10", "kind": "play", "status": "open", "lean": False, "dec": leg["dec"],
+                "floor": {"dog_score": -3.57, "nba": False}, "legs": [leg]}
+    keep = (sports.SLATE_PATH, sports.PICK_CHECK_PATH)
+    tmp = tempfile.mkdtemp()
+    try:
+        sports.SLATE_PATH, sports.PICK_CHECK_PATH = os.path.join(tmp, "slate.json"), os.path.join(tmp, "pick_check.json")
+        pk = floor("G", "Predators", "Kings", 114)
+        chk = {n: (r, w) for n, r, w in sports.pick_checks(pk, games, inj, now, {})}
+        assert chk["reasons"][0] == "fail" and "isn't about Kings" in chk["reasons"][1], chk
+        assert pk["legs"][0]["reasons"] == [] and pk["legs"][0]["their_drama"] == []
+        pk = floor("G", "Predators", "Kings", 114)
+        new, picks = [pk], [pk]
+        probs = sports.rule_check(picks, new, "2026-11-10", games, None, now, injuries=inj)
+        assert new == [] and any("pick check" in x and "Predators" in x for x in probs), probs
+        ok = floor("G2", "Capitals", "Senators", 105)
+        chk = {n: r for n, r, w in sports.pick_checks(ok, games, inj, now, {})}
+        assert "reasons" not in chk and all(r == "pass" for r in chk.values()), chk
+        assert ok["legs"][0]["reasons"] == ["opponent drama: suspension"]
+        # a reason with no headline behind it, or a kind the headline doesn't state, is false too
+        bad = floor("G2", "Capitals", "Senators", 105)
+        bad["legs"][0]["their_drama"] = [{"kind": "legal trouble", "headline": hod}]
+        bad["legs"][0]["reasons"] = ["opponent drama: legal trouble"]
+        assert dict((n, r) for n, r, w in sports.pick_checks(bad, games, inj, now, {}))["reasons"] == "fail"
+    finally:
+        sports.SLATE_PATH, sports.PICK_CHECK_PATH = keep
+
+
+def test_sweep_1111_the_odds_history_mark_never_walks_back_when_the_source_is_down():
+    """11/11 FABLE SWEEP: the closing-odds source went down 11/10 (every request a 404). sync_odds_history set each
+    league's mark to the day BEFORE its first failed day, and the next run starts 2 days before the mark - so every run
+    walked the mark 3 days further back: 11/9 -> 9/5 in 21 runs, 55 calls / 5s -> 311 calls / 120s, no end. A failed
+    run now leaves the mark where it was; a clean run still moves it forward."""
+    keep = sd.fetch_an_day
+    today = datetime.now(timezone.utc).date()
+    mark = (today - timedelta(days=1)).isoformat()
+    far = (today - timedelta(days=sd.DEEP_DAYS + 30)).isoformat()
+
+    def state():
+        st = {"an_h1": True, "an_tot": True, "an_from": {lg: far for lg in sd.LEAGUES if lg not in sd.AN_WEEKS},
+              "an_synced": {lg: mark for lg in sd.LEAGUES if lg not in sd.AN_WEEKS}}
+        for lg in sd.AN_WEEKS:
+            for b in range(1, sd.SEASONS_BACK + 1):
+                st["an_synced"][sd._flag(lg, b)] = True
+        return st
+    try:
+        sd.fetch_an_day = lambda league, day: None                           # the source is down
+        st = state()
+        calls = []
+        for _ in range(4):
+            _, n, failed = sd.sync_odds_history({}, st, budget_s=30)
+            calls.append(n)
+            assert failed == n
+        assert all(st["an_synced"][lg] == mark for lg in sd.LEAGUES if lg not in sd.AN_WEEKS), st["an_synced"]
+        assert len(set(calls)) == 1, calls                                    # the same work every run - never growing
+        sd.fetch_an_day = lambda league, day: []                             # back up: the mark moves forward again
+        sd.sync_odds_history({}, st, budget_s=30)
+        assert all(st["an_synced"][lg] == today.isoformat() for lg in sd.LEAGUES if lg not in sd.AN_WEEKS), st["an_synced"]
+    finally:
+        sd.fetch_an_day = keep
+
+
+def test_sweep_1111_the_retune_keeps_the_standing_speed_on_a_tie():
+    """11/11 FABLE SWEEP: tune() took the grid's best log-loss outright, and its top two sit 0.0004-0.0008 apart on 900
+    games - so college football's reaction speed flipped 25 <-> 37.5 six times on Saturday 11/7 (eight on 10/31), each
+    flip re-rating every team (Kansas St's raw read 68% vs 58% - the 🔍 gap play's own number). The standing speed /
+    home edge stay unless another grid point beats them by TUNE_KEEP; a real improvement still wins."""
+    import sports_model as smod
+    games = sd.load_games()
+    sub = {g["id"]: g for g in smod.finals(games, "nhl")[-400:]}
+    keep = smod.TUNE_KEEP
+    try:
+        free = smod.tune(sub, "nhl")
+        other = next((k, h) for k in (smod.BASE_K["nhl"] * m for m in smod.K_MULTS) for h in smod.HFA_GRID
+                     if (k, h) != (free["k"], free["hfa"]))
+        prev = {**free, "k": other[0], "hfa": other[1]}
+        smod.TUNE_KEEP = 9.0                                                  # everything is a tie: the standing point stays
+        held = smod.tune(sub, "nhl", prev)
+        assert (held["k"], held["hfa"]) == other, (held["k"], held["hfa"], other)
+        smod.TUNE_KEEP = 0.0                                                  # nothing is a tie: the best point wins
+        won = smod.tune(sub, "nhl", prev)
+        assert (won["k"], won["hfa"]) == (free["k"], free["hfa"])
+        assert 0 < keep <= 0.005 and held["eval_games"] >= 90
+    finally:
+        smod.TUNE_KEEP = keep
+
+
+def test_sweep_1111_the_pick_audit_knows_the_plays_that_are_a_full_unit_by_their_own_rule():
+    """11/11 FABLE SWEEP: the pick audit flagged the Celtics -124 NBA favorite play of 11/10 "1.0u on a thin edge -
+    should be ½u" on every run. The NBA favorite play is 1u BY ITS RULE (NBA_FAV_UNITS - its read starts at the books'
+    price), like the 🔍 gap play and the college hoops dog slot; a false flag in the log hides a real one. A plain value
+    play at 1u on a thin edge is still flagged."""
+    import sports_audit as sa
+
+    def pk(**kw):
+        leg = {"league": "nba", "game_id": "nba:x", "side": "away", "team": "Celtics", "opp": "76ers", "market": "ml",
+               "odds": -124, "dec": sports._dec(-124), "p": 0.5416, "p_market": 0.5316, "edge_own": -0.0008, "w_p": 0.5516}
+        out = {"date": "2026-11-10", "kind": "play", "status": "won", "lean": False, "units": 1.0, "tier": "value", "legs": [leg]}
+        out.update(kw)
+        return out
+    assert sports.thin_edge(pk()["legs"][0])
+    for tag in ({"nba_fav": {"off_blowout": 0.02}}, {"gap": 0.2}, {"ncaab_play": "dog"}):
+        r = sa.audit_day([pk(**tag)], {}, "2026-11-10")
+        assert r["checked"] == 1 and not any("thin edge" in x for x in r["flags"]), (tag, r["flags"])
+    r = sa.audit_day([pk()], {}, "2026-11-10")
+    assert any("thin edge" in x for x in r["flags"]), r["flags"]
+
+
+def test_sweep_1111_our_number_on_a_card_is_never_the_raw_gap_read_never_the_price_itself_and_a_unit_play_is_never_a_lean():
+    """11/11 FABLE SWEEP (false info on real cards): (1) the Tulane +124 🔍 card of 11/7 closed "We got Tulane at -446,
+    the book says +124" - the RAW ratings read (82%) printed as a fair price; a 🔍 card's number is the engine's full
+    read (48% = +109) and no read 15+ points off the price is ever a "fair price". (2) the Bruins -142 card of 11/8:
+    "We price Bruins at -142 - -142 is extra money" - the same number is no gift; the closer says a fair price. (3) the
+    Celtics -124 1u NBA favorite play of 11/10 closed "Could go either way. Celtics by a nose - a lean." - a unit play
+    is never called a lean / no units. The size line under the pick follows the same rule."""
+    import sports_breakdown_v24 as v24
+    import sports_dashboard as dash
+    hist = [("2026-10-31T23:00Z", "A", "C", 38, 31), ("2026-10-31T23:00Z", "B", "D", 6, 34)]
+
+    def bottom(leg, games, elo):
+        bd = v24.breakdown(leg, games, elo, None)
+        return next(x for x in bd if x.startswith("✅")), " ".join(bd) + " " + str(leg.get("why_line") or "")
+    # (1) the 🔍 gap play
+    leg, games, elo = _audit_fixture("ncaaf", hist, "2026-11-07T20:00Z")
+    leg.update(odds=124, dec=sports._dec(124), p=0.479, p_market=0.428, raw_own=0.817, edge_own=0.8301, gap=0.3891,
+               tier="value", is_lean=False)
+    assert v24.card_fair(leg, sports.read_of(leg)) == "+109" and v24.fair_am(0.817) == "-446"
+    b, allt = bottom(leg, games, elo)
+    assert "-446" not in allt, allt
+    assert "-446" not in dash._units_line(1.0, "Tulane", 124, leg=leg)
+    assert v24.card_fair({"odds": 160, "dec": 2.6}, 0.69) is None                  # 30 points off the price: no number
+    assert v24.card_fair({"odds": 225, "dec": 3.25, "gap": 0.2, "p": 0.277}, 0.4996, beat=True) is None   # read under the price
+    assert v24.card_fair({"odds": 130, "dec": 2.3}, 0.47, beat=True) == "+113"     # an honest number still prints
+    # (2) our number = the price
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-11-08T20:00Z")
+    leg.update(odds=-142, dec=sports._dec(-142), p=0.598, p_market=0.563, w_p=0.5875, edge_own=0.008, tier="value", is_lean=False)
+    assert v24.fair_same(leg, sports.read_of(leg)) and v24.card_fair(leg, 0.5875, beat=True) is None
+    b, allt = bottom(leg, games, elo)
+    assert "extra money" not in b and "giving us" not in b and "fair" in b.lower(), b
+    assert "-142, the book" not in dash._units_line(0.5, "Bruins", -142, leg=leg)
+    # (3) a unit play whose read sits under its price is never "a lean"
+    leg, games, elo = _audit_fixture("nba", hist, "2026-11-11T01:00Z")
+    leg.update(odds=-124, dec=sports._dec(-124), p=0.5416, p_market=0.5316, w_p=0.5516, edge_own=-0.0008, tier="value", is_lean=False)
+    b, allt = bottom(leg, games, elo)
+    assert "lean" not in b.lower() and "no units" not in b.lower() and "coin flip" not in b.lower(), b
+    lean, games, elo = _audit_fixture("nba", hist, "2026-11-11T01:00Z")           # ...and a real lean still says so
+    lean.update(odds=-124, dec=sports._dec(-124), p=0.5416, p_market=0.5316, w_p=0.5516, edge_own=-0.0008, tier="lean", is_lean=True)
+    b, _ = bottom(lean, games, elo)
+    assert "lean" in b.lower() or "no units" in b.lower() or "ain't putting money" in b.lower(), b
 
 
 if __name__ == "__main__":
