@@ -17621,3 +17621,25 @@ error: failed to push some refs to 'https://githu
 [2026-11-11 09:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-11 09:06 UTC] crypto/hold_btc  equity $444.51 (-11.1%) 1 open  market DOWN
    social heat top: HYPE 35 (35/0/0), ETH 29 (29/0/0), BTC 24 (24/0/0), NEAR 24 (24/0/0), AERO 19 (13/0/5)
+   dex screen: REJECT CHIP@base liq $327,664 - pool age unknown
+   dex screen: REJECT 1WIN@solana liq $904,280 - top-10 holders 85%; lp holders unknown
+   dex screen: REJECT ZEC@solana liq $3,484,052 - mint authority
+   dex screen: REJECT BEAM@ethereum liq $3,197,439 - is_mintable; owner_change_balance; top-10 holders 58%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AMZNC@base liq $35,040 - liquidity $35,040 < $100,000; 24h volume $9,076 < $100,000
+   dex screen: UNREACHABLE GTA6@ethereum liq $106,392 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT CYBERLEEK@solana liq $429,137 - rugcheck lp locked 0% < 95%
+   dex screen: REJECT ICNT@base liq $126,313 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $104,045 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,005 pools (solana 2,375 / base 368 / ethereum 262), refresh cycle 123s (hot 120s), 3034 calls (108 feed, 429s 0, failed 0), 87,780 refreshed (4955 no pair), +73 added / -68 dropped (dead 2, stale 0, cap 66), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-11-11 10:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/mover     equity $204.21 (-59.2%) 1 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/social_heat equity $336.56 (-32.7%) 2 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-11 10:06 UTC] crypto/hold_btc  equity $445.01 (-11.0%) 1 open  market DOWN
+   social heat top: BTC 35 (35/0/0), PEPE 34 (21/0/13), SUI 27 (27/0/0), HYPE 24 (24/0/0), UNI 19 (19/0/0)
