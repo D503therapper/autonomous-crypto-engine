@@ -1,44 +1,3 @@
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
-   no units on Clemson: missing Z. Foster, C. Welling, H. Reynolds
-   no units on Miami: missing M. Allen, L. Cason
-   no units on Missouri: missing L. Northweather, J. Carey, A. Chronister, C. Gunn
-   no units on Oilers: missing Colton Dach, Isaac Howard
-   no units on Rangers: missing Alberts Smits, Sean Durzi
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26303 rated matches, acc 0.645 (surface ratings alone 0.6415), loss 0.6297 vs 0.6314, own weights [-0.004, 0.827, 0.074, 0.151, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6297: experience 0.6295 (+0.23 mnats, z 0.25), age 0.6279 (+1.85 mnats, z 1.32), young_vs_aging 0.6294 (+0.27 mnats, z 0.66), last_match 0.6271 (+2.64 mnats, z 1.86), streaks 0.6303 (-0.62 mnats, z -0.61), first_set 0.629 (+0.69 mnats, z 1.05), injury 0.6306 (-0.91 mnats, z -1.41), travel 0.6297 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30847 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6227 vs 0.623, own weights [0.004, 0.904, -0.002, -0.076, 0.299, 0.023, -0.197]
-tennis study WTA life factors vs current loss 0.6227: experience 0.6199 (+2.78 mnats, z 1.62), age 0.6218 (+0.89 mnats, z 1.15), young_vs_aging 0.6224 (+0.23 mnats, z 1.46), last_match 0.6236 (-0.98 mnats, z -0.97), streaks 0.6226 (+0.08 mnats, z 0.16), first_set 0.6224 (+0.27 mnats, z 0.58), injury 0.6222 (+0.48 mnats, z 0.83), travel 0.6228 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
-1H line log: 42 rows (34 with a 1st-half line) from 105 AN games
-source check (2.0s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132396 games stored, 52 calls, 0 failed, 8s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 113 games got weather, 0 new stadiums located, 241s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 3 games on the page, 3 matched, 2 confirmed
-nba rosters: 30 teams as of 2026-11-09, 0 failed, 0 moves
-beat the close: unit plays 30 of 101 better than the close, avg +0.2 pts
-public splits: 59 upcoming games
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
    ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
    no units on Clemson: missing Z. Foster, C. Welling, H. Reynolds
    no units on Miami: missing M. Allen, L. Cason
@@ -2988,6 +2947,47 @@ SLATE CHECK: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found
 SLATE CHECK: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found
 CHECKER SELF-TEST: all 12 checks caught their problem
 holding the board: the slate check found 5 problem(s) - the engine re-pulls and tries again (last try 8:30 PT)
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26312 rated matches, acc 0.644 (surface ratings alone 0.641), loss 0.6302 vs 0.6318, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6302: experience 0.6299 (+0.36 mnats, z 0.4), age 0.6282 (+2.03 mnats, z 1.44), young_vs_aging 0.63 (+0.28 mnats, z 0.68), last_match 0.6276 (+2.61 mnats, z 1.83), streaks 0.6309 (-0.66 mnats, z -0.64), first_set 0.6296 (+0.66 mnats, z 1.0), injury 0.6312 (-0.92 mnats, z -1.43), travel 0.6302 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30864 rated matches, acc 0.6475 (surface ratings alone 0.65), loss 0.6211 vs 0.6212, own weights [0.005, 0.904, -0.002, -0.074, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6211: experience 0.618 (+3.13 mnats, z 1.85), age 0.6203 (+0.84 mnats, z 1.08), young_vs_aging 0.6209 (+0.27 mnats, z 1.69), last_match 0.622 (-0.83 mnats, z -0.81), streaks 0.6211 (+0.06 mnats, z 0.12), first_set 0.6208 (+0.37 mnats, z 0.79), injury 0.6206 (+0.50 mnats, z 0.87), travel 0.6213 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+tennis reads: 4 matches
+1H line log: 0 rows (0 with a 1st-half line) from 0 AN games - errors: nba game 20261111: HTTP 404; nba game 20261112: HTTP 404; nba firsthalf 20261111: HTTP 404
+source check (0.4s): plain requests answered by 7 of 12 sources - quiet: actionnetwork_h1, bovada, bovada_nfl, rotowire_ncaab, rotowire_ncaaf
+sync: 132565 games stored, 52 calls, 0 failed, 13s
+   AN nba 2026-09-05: HTTP Error 404: Not Found
+   AN nba 2026-09-04: HTTP Error 404: Not Found
+   AN nba 2026-09-03: HTTP Error 404: Not Found
+   AN nba 2026-09-02: HTTP Error 404: Not Found
+   AN nba 2026-08-31: HTTP Error 404: Not Found
+odds history: 0 games got odds, 335 calls, 335 failed, 127s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 138 games got weather, 0 new stadiums located, 209s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 6 games on the page, 6 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-11, 0 failed, 0 moves
+beat the close: unit plays 32 of 106 better than the close, avg +0.2 pts
+public splits: 110 upcoming games
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (100 players), 365 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (100 players), 365 matched, 0 unmatched
+   no units on Michigan: missing J. Hartman, L. Cosby, B. McCoy Jr.
+   no units on South Carolina: missing G. Polk, M. Alessanco
+   no units on Rangers: missing Alberts Smits, Sean Durzi
+   no units on Mammoth: missing Nate Schmidt, Kailer Yamamoto, Dylan Guenther
 tennis sync: 74022 matches stored, 18 calls, 0 failed
 tennis study ATP: 26312 rated matches, acc 0.644 (surface ratings alone 0.641), loss 0.6302 vs 0.6318, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.05, 0.05]
 tennis study ATP life factors vs current loss 0.6302: experience 0.6299 (+0.36 mnats, z 0.4), age 0.6282 (+2.03 mnats, z 1.44), young_vs_aging 0.63 (+0.28 mnats, z 0.68), last_match 0.6276 (+2.61 mnats, z 1.83), streaks 0.6309 (-0.66 mnats, z -0.64), first_set 0.6296 (+0.66 mnats, z 1.0), injury 0.6312 (-0.92 mnats, z -1.43), travel 0.6302 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages

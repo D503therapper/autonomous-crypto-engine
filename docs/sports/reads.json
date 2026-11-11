@@ -1,36 +1,6 @@
 {
- "updated": "2026-11-11T16:28Z",
+ "updated": "2026-11-11T16:41Z",
  "games": [
-  {
-   "id": "ncaab:401921005",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Kansas City",
-    "p": 0.645,
-    "tie": 0.04,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-11T17:00Z",
-   "away": "Kansas City",
-   "home": "Florida A&M",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Florida A&M",
-    "opp": "Kansas City",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -115,
-    "p": 0.608,
-    "win_p": 0.285,
-    "reasons": [
-     "opponent's body clock is off"
-    ]
-   }
-  },
   {
    "id": "ncaab:401920234",
    "league": "ncaab",
@@ -236,9 +206,9 @@
     "team": "Navy",
     "opp": "Penn",
     "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.562,
+    "line": 8.5,
+    "odds": -118,
+    "p": 0.568,
     "win_p": 0.274,
     "reasons": [
      "sharp money moving this way"
@@ -483,9 +453,9 @@
     "team": "St John's",
     "opp": "Colgate",
     "market": "spread",
-    "line": -30.5,
-    "odds": -102,
-    "p": 0.511,
+    "line": -29.5,
+    "odds": -115,
+    "p": 0.516,
     "win_p": 0.985,
     "reasons": [
      "the stronger team",
@@ -954,8 +924,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pacers",
-    "p": 0.53,
-    "tie": 0.036,
+    "p": 0.524,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -970,9 +940,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "opponent missing key players"
     ]
@@ -1194,7 +1164,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.566,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1210,12 +1180,11 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -186,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -162,
+    "p": 0.593,
+    "win_p": 0.593,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -1392,9 +1361,9 @@
     "team": "Spurs",
     "opp": "Bulls",
     "market": "spread",
-    "line": -14.5,
-    "odds": -114,
-    "p": 0.508,
+    "line": -15.5,
+    "odds": -105,
+    "p": 0.509,
     "win_p": 0.895,
     "reasons": [
      "the stronger team",
@@ -1804,7 +1773,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.496,
+    "p": 0.488,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1820,9 +1789,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -117,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -113,
+    "p": 0.509,
+    "win_p": 0.509,
     "reasons": [
      "the stronger team"
     ]
@@ -1885,6 +1854,178 @@
     "odds": -110,
     "p": 0.526,
     "win_p": 0.252,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401891808",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Hurricanes",
+    "p": 0.445,
+    "tie": 0.291,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T17:00Z",
+   "away": "Hurricanes",
+   "home": "Kraken",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Hurricanes",
+    "opp": "Kraken",
+    "market": "ml",
+    "line": null,
+    "odds": -245,
+    "p": 0.697,
+    "win_p": 0.697,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892698",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Avalanche",
+    "p": 0.369,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:00Z",
+   "away": "Avalanche",
+   "home": "Senators",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Senators",
+    "opp": "Avalanche",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -230,
+    "p": 0.678,
+    "win_p": 0.46,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892696",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Bruins",
+    "p": 0.36,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:00Z",
+   "away": "Canadiens",
+   "home": "Bruins",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Canadiens",
+    "opp": "Bruins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -238,
+    "p": 0.698,
+    "win_p": 0.481,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892700",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Devils",
+    "p": 0.391,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:00Z",
+   "away": "Capitals",
+   "home": "Devils",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Capitals",
+    "opp": "Devils",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -205,
+    "p": 0.638,
+    "win_p": 0.421,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892701",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Lightning",
+    "p": 0.362,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:00Z",
+   "away": "Lightning",
+   "home": "Blue Jackets",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Blue Jackets",
+    "opp": "Lightning",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -238,
+    "p": 0.691,
+    "win_p": 0.474,
+    "reasons": [
+     "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892697",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Wild",
+    "p": 0.388,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T00:00Z",
+   "away": "Wild",
+   "home": "Maple Leafs",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Maple Leafs",
+    "opp": "Wild",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -205,
+    "p": 0.641,
+    "win_p": 0.421,
     "reasons": []
    }
   },
@@ -1979,6 +2120,34 @@
    }
   },
   {
+   "id": "nhl:401892702",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Sabres",
+    "p": 0.383,
+    "tie": 0.298,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T01:00Z",
+   "away": "Sabres",
+   "home": "Blackhawks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Blackhawks",
+    "opp": "Sabres",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -218,
+    "p": 0.65,
+    "win_p": 0.43,
+    "reasons": []
+   }
+  },
+  {
    "id": "nfl:401873052",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -2011,12 +2180,40 @@
    }
   },
   {
+   "id": "nhl:401892704",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Mammoth",
+    "p": 0.375,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T02:00Z",
+   "away": "Blues",
+   "home": "Mammoth",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Blues",
+    "opp": "Mammoth",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -218,
+    "p": 0.669,
+    "win_p": 0.451,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401869969",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisiana",
-    "p": 0.688,
+    "p": 0.682,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2034,11 +2231,39 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.503,
-    "win_p": 0.693,
+    "win_p": 0.687,
     "reasons": [
      "the stronger team",
      "better QB play lately"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892705",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Kings",
+    "p": 0.374,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T03:00Z",
+   "away": "Islanders",
+   "home": "Kings",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Islanders",
+    "opp": "Kings",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -225,
+    "p": 0.671,
+    "win_p": 0.453,
+    "reasons": []
    }
   }
  ]
