@@ -21077,6 +21077,45 @@ def test_book_1111_nfl_depth_weight_is_one_point_a_regular_from_11_13():
         A._TEAM.clear(); A._TEAM.update(keep)
 
 
+def test_daily_1111_football_line_flip_is_a_tracker_lead_only():
+    """11/11 daily run (10 studies, results/studies/daily_1111/): NOTHING built as a weight; ONE tracker LEAD - the football
+    moneyline side that crossed pick'em between the first FAIR number of the week and now (s9 / s9b: the new -101..-150
+    favorite that was the dog at the first fair -13.6% on 309, held 3 of 3 down, both leagues; but move-size-matched
+    all-week favorites were as bad in 109 of 500 draws - a LEAD). The tag reads p_market + drift (drift = the side's
+    first-fair no-vig minus now; 0.0 = no fair first number = never a flip), logs from the 11/12 Pacific game day, and
+    is never read by the board (no weight, no gate)."""
+    import sports_leads as sl
+    assert sl.FLIP_FROM == "2026-11-12"
+    fav = {"market": "ml", "league": "ncaaf", "side": "home", "odds": -130, "p_market": 0.55, "drift": -0.08}
+    assert sl.football_flip(fav) == "fav"                                       # 47% at the first fair -> 55% now
+    assert sl.football_flip({**fav, "drift": -0.04}) is None                    # 51% at the first fair: a favorite all week
+    assert sl.football_flip({**fav, "drift": 0.0}) is None                      # no first fair number: never a flip
+    assert sl.football_flip({**fav, "odds": -160}) is None                      # past -150: out of the band
+    assert sl.football_flip({**fav, "league": "nba"}) is None                   # football only
+    assert sl.football_flip({**fav, "market": "spread"}) is None                # the moneyline only
+    dog = {"market": "ml", "league": "nfl", "side": "away", "odds": 120, "p_market": 0.45, "drift": 0.08}
+    assert sl.football_flip(dog) == "dog"                                       # 53% at the first fair -> 45% now
+    assert sl.football_flip({**dog, "drift": 0.03}) is None                     # 48%: a dog all week
+    assert sl.football_flip({**dog, "odds": 160}) is None
+    # the tags, dated: from the 11/12 Pacific game day (a 7 PM Pacific 11/11 kick is 11/12 in UTC - not tagged)
+    base = {"game_id": "nfl:none", "team": "A", "opp": "B", "home": True, "dec": sd.decimal(-130), "reasons": [],
+            "dog_more": {}, "dog_ctx": {}}
+    ftag, dtag = ("football fav -101..-150, the dog at the first fair number (fade)",
+                  "football dog +100..+150, the favorite at the first fair number")
+    keep = dict(sl._GAMES)
+    try:
+        sl._GAMES.update({"nfl": {}, "ncaaf": {}})
+        c = {**base, **fav, "start": "2026-11-14T20:00Z"}
+        assert ftag in sl.tags(c, sports) and dtag not in sl.tags(c, sports)
+        assert ftag not in sl.tags({**c, "start": "2026-11-12T03:00Z"}, sports)    # 11/11 7 PM Pacific: before the start
+        assert ftag in sl.tags({**c, "start": "2026-11-13T01:15Z"}, sports)        # Thursday night 11/12 Pacific
+        d = {**base, **dog, "home": False, "dec": sd.decimal(120), "start": "2026-11-15T18:00Z"}
+        assert dtag in sl.tags(d, sports) and ftag not in sl.tags(d, sports)
+        assert sl.counts(ftag, -130) and sl.counts(dtag, 120)                    # graded in the engine's band
+    finally:
+        sl._GAMES.clear(); sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

@@ -511,7 +511,39 @@ def tags(c, sports):
         #   missed 2+ straight and has played 2 since - the dog in his 3rd game back -35.8% on 107 (train -35.6%, 4 of
         #   5 down; held +6.3% / -56.3% / -43.1%; the paid morning -12.3% on 49), the side ML any -17.0% on 334; his
         #   2nd game back (the college hoops weight's cell) is nothing here (+4.8%). ~100 cells looked at - a LEAD only
+    # 11/11 DAILY STUDIES 9 (results/studies/daily_1111/s9_football_flip.py + s9b_flip_placebo.py): THE LINE FLIP - a LEAD,
+    #   tracked only (never read by the board), from the 11/12 Pacific game day
+    flip = football_flip(c) if sports.pt_day(c) >= FLIP_FROM else None
+    if flip == "fav":
+        t.append("football fav -101..-150, the dog at the first fair number (fade)")   # -13.6% on 309 at the close
+        #   (NFL -12.5% / college -14.2%; train 2020-22 -4.0%, held 2023-25 3 of 3 down -21.4%) vs -4.9% for the favorites
+        #   all week - but the move SIZE carries most of it (all-week favorites matched on the move: 109 of 500 draws as
+        #   bad), so a LEAD: judge at 50
+    elif flip == "dog":
+        t.append("football dog +100..+150, the favorite at the first fair number")   # the mirror: +18.4% on 109 (train
+        #   3 of 3 up, held +11.1%) vs -2.0% for the dogs all week in the same band - same games, a LEAD
     return t + sharp
+
+
+FLIP_FROM = "2026-11-12"   # 11/11 daily study 9: the line-flip lead tags log from the 11/12 Pacific game day
+
+
+def football_flip(c):
+    """11/11 daily study 9 (a LEAD, tracked only): a football moneyline side that crossed pick'em between the first FAIR
+    number of the week (sports.fair_open - the first price after both teams' last games) and now. "fav" = a -101..-150
+    favorite now that was the dog (under 50% no-vig) at the first fair number; "dog" = a +100..+150 dog now that was the
+    favorite there. None otherwise - and None with no first fair number (sports.py stores drift 0.0 then: no flip read)."""
+    if c.get("league") not in ("nfl", "ncaaf") or c.get("market") != "ml":
+        return None
+    pm, dr, o = c.get("p_market"), c.get("drift"), c.get("odds") or 0
+    if pm is None or not dr:
+        return None
+    p0 = pm + dr                                             # drift = the side's first-fair no-vig minus now
+    if -150 <= o <= -101 and p0 < 0.5:
+        return "fav"
+    if 100 <= o <= 150 and p0 > 0.5:
+        return "dog"
+    return None
 
 
 NBA_WEST = {"Lakers", "Clippers", "Warriors", "Kings", "Suns", "Trail Blazers", "Jazz", "Nuggets", "Thunder",
