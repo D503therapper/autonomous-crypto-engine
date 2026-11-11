@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T15:44Z",
+ "updated": "2026-11-11T16:01Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -169,15 +169,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Saint Joseph's",
-    "opp": "South Florida",
+    "team": "South Florida",
+    "opp": "Saint Joseph's",
     "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.528,
-    "win_p": 0.257,
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.507,
+    "win_p": 0.747,
     "reasons": [
-     "hotter recent form"
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -232,7 +233,7 @@
     "market": "spread",
     "line": -18.5,
     "odds": -112,
-    "p": 0.514,
+    "p": 0.548,
     "win_p": 0.945,
     "reasons": [
      "the stronger team",
@@ -451,6 +452,7 @@
     "win_p": 0.627,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -482,8 +484,8 @@
     "win_p": 0.709,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "opponent missing key players",
+     "sharp money moving this way"
     ]
    }
   },
@@ -505,14 +507,18 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Colgate",
-    "opp": "St John's",
+    "team": "St John's",
+    "opp": "Colgate",
     "market": "spread",
-    "line": 30.5,
-    "odds": -118,
-    "p": 0.524,
-    "win_p": 0.019,
-    "reasons": []
+    "line": -30.5,
+    "odds": -102,
+    "p": 0.511,
+    "win_p": 0.984,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -671,7 +677,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Michigan",
-    "p": 0.578,
+    "p": 0.579,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -833,17 +839,20 @@
    "start": "2026-11-12T00:00Z",
    "away": "Saint Peter's",
    "home": "South Carolina",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Saint Peter's",
-    "opp": "South Carolina",
+    "team": "South Carolina",
+    "opp": "Saint Peter's",
     "market": "spread",
-    "line": 22.5,
-    "odds": -112,
-    "p": 0.557,
-    "win_p": 0.043,
-    "reasons": []
+    "line": -22.5,
+    "odds": -108,
+    "p": 0.512,
+    "win_p": 0.961,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team"
+    ]
    }
   },
   {
@@ -981,7 +990,7 @@
    "start": "2026-11-12T00:00Z",
    "away": "Wizards",
    "home": "Pacers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Pacers",
@@ -991,7 +1000,9 @@
     "odds": -143,
     "p": 0.565,
     "win_p": 0.565,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -1017,7 +1028,7 @@
     "market": "spread",
     "line": -1.5,
     "odds": -102,
-    "p": 0.504,
+    "p": 0.505,
     "win_p": 0.497,
     "reasons": []
    }
@@ -1135,8 +1146,8 @@
     "market": "spread",
     "line": -14.0,
     "odds": -112,
-    "p": 0.516,
-    "win_p": 0.754,
+    "p": 0.519,
+    "win_p": 0.766,
     "reasons": [
      "the stronger team"
     ]
@@ -1148,7 +1159,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Southern Miss",
-    "p": 0.712,
+    "p": 0.711,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1196,7 +1207,7 @@
     "line": -14.5,
     "odds": -106,
     "p": 0.508,
-    "win_p": 0.858,
+    "win_p": 0.857,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back",
@@ -1241,7 +1252,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.568,
+    "p": 0.569,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1261,7 +1272,8 @@
     "p": 0.6,
     "win_p": 0.6,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -1392,8 +1404,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.828,
-    "tie": 0.022,
+    "p": 0.827,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1513,7 +1525,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.562,
+    "p": 0.561,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1690,8 +1702,8 @@
     "win_p": 0.704,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "opponent missing key players",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1891,7 +1903,7 @@
    "start": "2026-11-12T04:00Z",
    "away": "USC",
    "home": "California",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "California",
@@ -1899,8 +1911,8 @@
     "market": "spread",
     "line": 8.5,
     "odds": -110,
-    "p": 0.56,
-    "win_p": 0.253,
+    "p": 0.526,
+    "win_p": 0.252,
     "reasons": []
    }
   },
