@@ -1,13 +1,13 @@
 {
- "at": "2026-11-10T23:43Z",
+ "at": "2026-11-11T00:56Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-10 Coco Gauff) - sports.yml already running"
+  "live board 29 min stale with games on - sports-live.yml already running"
  ],
  "problems": [
-  "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list"
+  "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
  ],
  "ok": [
-  "live watcher fresh (112s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 85 of today's games named, priced and looked at",
@@ -16,14 +16,23 @@
   "tennis live prices: 0 live lines, 0 fresh",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 4h ago",
-  "engine ran 1 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T00:56Z",
+   "fixes": [
+    "live board 29 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-10T23:43Z",
    "fixes": [
@@ -519,15 +528,6 @@
    "problems": [
     "live tennis points check failed: HTTP Error 403: rate limit exceeded",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-09T19:38Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Erjavec vs Mandlik: no points for 2618s",
-    "live tennis scores: tennis Useche vs Costoulas: no points for 2430s",
-    "live tennis scores: tennis Grabher vs Zidansek: no points for 1887s"
    ]
   }
  ]
