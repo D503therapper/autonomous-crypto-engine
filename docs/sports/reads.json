@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T21:56Z",
+ "updated": "2026-11-11T22:13Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -107,34 +107,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401921181",
+   "id": "ncaab:401925717",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Penn",
-    "p": 0.664,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-11T22:30Z",
-   "away": "Penn",
-   "home": "Navy",
-   "why": "coin_flip",
+   "start": "2026-11-11T22:00Z",
+   "away": "Bethune",
+   "home": "San Diego St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Navy",
-    "opp": "Penn",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.263,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401926202",
@@ -158,7 +143,7 @@
     "opp": "VMI",
     "market": "spread",
     "line": 7.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.5,
     "win_p": 0.235,
     "reasons": []
@@ -292,7 +277,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.567,
+    "p": 0.572,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -308,9 +293,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -179,
-    "p": 0.626,
-    "win_p": 0.626,
+    "odds": -185,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -695,7 +680,7 @@
     "opp": "South Carolina",
     "market": "spread",
     "line": 21.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.514,
     "win_p": 0.046,
     "reasons": [
@@ -965,7 +950,7 @@
     "market": "spread",
     "line": -17.5,
     "odds": -102,
-    "p": 0.504,
+    "p": 0.5,
     "win_p": 0.819,
     "reasons": [
      "the stronger team",
@@ -1040,8 +1025,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.79,
-    "tie": 0.026,
+    "p": 0.797,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1056,13 +1041,13 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -14.5,
-    "odds": -110,
+    "odds": -114,
     "p": 0.508,
-    "win_p": 0.864,
+    "win_p": 0.87,
     "reasons": [
      "the stronger team",
-     "opponent on a back-to-back",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -1072,7 +1057,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pelicans",
-    "p": 0.544,
+    "p": 0.538,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1088,9 +1073,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -155,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "the stronger team"
     ]
@@ -1578,6 +1563,34 @@
    }
   },
   {
+   "id": "ncaab:401925738",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oregon",
+    "p": 0.929,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-12T03:00Z",
+   "away": "Miss Valley St",
+   "home": "Oregon",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Miss Valley St",
+    "opp": "Oregon",
+    "market": "spread",
+    "line": 35.5,
+    "odds": -115,
+    "p": 0.527,
+    "win_p": 0.026,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401917523",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1614,7 +1627,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.384,
+    "p": 0.388,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -1631,8 +1644,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.649,
-    "win_p": 0.429,
+    "p": 0.641,
+    "win_p": 0.42,
     "reasons": []
    }
   },
