@@ -338,6 +338,10 @@ def tags(c, sports):
             t.append("East home dog vs West favorite (fade)")
         if c.get("key_out_me") and lg in ("nfl", "ncaaf"):
             t.append("football dog, key player out (fade)")
+        if lg == "nfl" and (c.get("depth_gap") or 0) >= 2:    # 11/11 THE BOOK, study 8 (nflverse reports x snaps,
+            t.append("NFL dog, 2+ more regulars out than the favorite (fade)")   # 2016-26): the dog missing 2+ starters'
+            #   worth more than the favorite won 28.9% vs the close's 33.5% on 415, 9 of 11 seasons down - the depth
+            #   weight went to 1 point a regular (sports.DEPTH_PTS_1113); this is its forward record
         g4 = mo.get("go4_gap")
         if g4 is not None:
             import sports_go4
@@ -348,6 +352,12 @@ def tags(c, sports):
     else:
         if lg == "nhl" and c.get("w_p") is not None:
             t.append("hockey fav weighed UP" if c["w_p"] > (c.get("p_market") or 0) else "hockey fav weighed DOWN (fade)")
+        if -150 <= c.get("odds", 0) <= -101 and c.get("w_p") is not None and c.get("p_market") is not None \
+                and c["w_p"] <= c["p_market"] - sports.LEAN_WEIGHED_UNDER + 1e-9:
+            t.append(f"small fav, weighed read 2+ under the market (fade) - {lg}")   # 11/11 THE BOOK, studies 5 / 6: every
+            #   sport's -150..-101 favorite the engine's own weights are against (-16.1% on 1,111 in the replay, 0 of 4
+            #   seasons up) - by sport, football included, so the lean rule (sports.lean_weighed_under: hockey / NBA /
+            #   college hoops / baseball) has a forward record and football's opposite sign gets judged too
         if any("West Coast favorite" in r for r in c.get("reasons") or []):
             t.append("West Coast road fav in the East")
         if c.get("hoops_inside"):

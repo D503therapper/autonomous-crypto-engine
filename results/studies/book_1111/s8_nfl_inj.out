@@ -1,0 +1,89 @@
+regular-season games with a closing moneyline 2015-26: 3030
+games with both teams' roles (weeks 3+), 2016-26: 2421
+THE PROXY CHECK: listed Out / Doubtful -> played anyway 15/9623 (0.2%); Questionable -> played 7702/11988 (64.2%); CARRIED (a 50%+ regular who missed the last game, not on the report) -> played 909/11012 (8.3%)
+average missing snaps a team (starters' worth, no QB): listed 1.02, with the carried 2.55
+
+=== TEST 1: beyond the CLOSING moneyline (logistic on top of the no-vig close; + = the side whose OPPONENT misses more wins more than its price)
+ each group, listed Out / Doubtful: held-out log loss, the close alone 0.60502 -> the close + injuries (fit on train) 0.60722
+    dQB    train -0.015 (z -0.07)   held +0.137 (z +0.66)
+    dRB    train +0.387 (z +1.61)   held -0.194 (z -0.67)
+    dWR    train +0.210 (z +1.45)   held +0.231 (z +1.54)
+    dTE    train -0.029 (z -0.14)   held -0.012 (z -0.05)
+    dOL    train -0.109 (z -1.13)   held +0.059 (z +0.53)
+    dDL    train -0.127 (z -0.80)   held +0.072 (z +0.40)
+    dLB    train +0.146 (z +1.02)   held +0.017 (z +0.11)
+    dDB    train +0.018 (z +0.19)   held +0.081 (z +0.79)
+ each group, listed + carried: held-out log loss, the close alone 0.60502 -> the close + injuries (fit on train) 0.60377
+    dcQB   train +0.033 (z +0.31)   held +0.026 (z +0.22)
+    dcRB   train +0.181 (z +1.06)   held -0.042 (z -0.20)
+    dcWR   train +0.092 (z +0.97)   held +0.073 (z +0.71)
+    dcTE   train -0.064 (z -0.43)   held -0.078 (z -0.41)
+    dcOL   train +0.022 (z +0.41)   held +0.087 (z +1.35)
+    dcDL   train +0.070 (z +0.66)   held +0.069 (z +0.58)
+    dcLB   train +0.051 (z +0.61)   held +0.144 (z +1.57)
+    dcDB   train -0.036 (z -0.65)   held +0.017 (z +0.26)
+ each group, Questionable: held-out log loss, the close alone 0.60502 -> the close + injuries (fit on train) 0.60419
+    dqQB   train +0.214 (z +1.02)   held +0.257 (z +1.11)
+    dqRB   train -0.143 (z -0.72)   held +0.191 (z +0.80)
+    dqWR   train -0.011 (z -0.10)   held -0.101 (z -0.81)
+    dqTE   train -0.231 (z -1.22)   held -0.406 (z -1.82)
+    dqOL   train -0.027 (z -0.37)   held +0.092 (z +1.05)
+    dqDL   train +0.012 (z +0.11)   held +0.223 (z +1.54)
+    dqLB   train -0.116 (z -1.05)   held -0.087 (z -0.64)
+    dqDB   train +0.040 (z +0.53)   held -0.022 (z -0.24)
+ ALL non-QB missing snaps (listed): train +0.0267 (z +0.56)   held +0.0728 (z +1.45)  per starter's worth of snaps
+ ALL non-QB (listed + carried): train +0.0222 (z +0.79)   held +0.0624 (z +1.97)  per starter's worth of snaps
+
+=== TEST 2: BET THE HEALTHIER SIDE at the closing moneyline (the gap in missing snaps, starters' worth)
+  listed Out / Doubtful, non-QB: healthier by 1+                     train   +0.0% on  525 (z +0.00) | held   -1.7% on  433 (z -0.36) | seasons up 5/11 | 2026 +2.2u
+     ...the healthier side is the DOG                                train   +7.4% on  227 (z +0.70) | held  -11.1% on  158 (z -1.03) | seasons up 4/11 | 2026 -2.1u
+     ...the healthier side is the FAVORITE to -150                   train   -9.7% on   51 (z -0.78) | held   +5.6% on   56 (z +0.49) | seasons up 5/11 | 2026 +0.9u
+  listed Out / Doubtful, non-QB: healthier by 2+                     train   +1.0% on  152 (z +0.11) | held   -2.1% on  130 (z -0.28) | seasons up 5/11 | 2026 -1.8u
+     ...the healthier side is the DOG                                train  -17.0% on   54 (z -0.73) | held  -14.3% on   36 (z -0.69) | seasons up 3/11 | 2026 -2.0u
+     ...the healthier side is the FAVORITE to -150                   train  +20.2% on   19 (z +1.08) | held   +1.4% on   15 (z +0.06) | seasons up 8/10 | 2026 +0.0u
+  listed Out / Doubtful, non-QB: healthier by 3+                     train   -0.5% on   33 (z -0.03) | held   -6.1% on   39 (z -0.53) | seasons up 4/11 | 2026 -0.3u
+     ...the healthier side is the DOG                                train  -40.4% on    8 (z -0.72) | held  -53.4% on   10 (z -1.81) | seasons up 1/11 | 2026 -1.0u
+     ...the healthier side is the FAVORITE to -150                   train  +25.7% on    7 (z +0.85) | held -100.0% on    2 (z +0.00) | seasons up 4/7 | 2026 +0.0u
+  listed + carried, non-QB: healthier by 1+                          train   +3.7% on  799 (z +1.03) | held   +0.6% on  642 (z +0.17) | seasons up 6/11 | 2026 -0.4u
+     ...the healthier side is the DOG                                train  +10.3% on  271 (z +1.14) | held  -10.1% on  198 (z -1.08) | seasons up 5/11 | 2026 -4.1u
+     ...the healthier side is the FAVORITE to -150                   train   +4.3% on   91 (z +0.46) | held  +22.3% on   77 (z +2.45) | seasons up 9/11 | 2026 +1.4u
+  listed + carried, non-QB: healthier by 2+                          train   -4.7% on  407 (z -1.02) | held   +3.1% on  344 (z +0.70) | seasons up 5/11 | 2026 -0.4u
+     ...the healthier side is the DOG                                train   -9.4% on  125 (z -0.77) | held   -9.6% on   85 (z -0.72) | seasons up 5/11 | 2026 -2.0u
+     ...the healthier side is the FAVORITE to -150                   train  +11.2% on   40 (z +0.82) | held  +34.2% on   31 (z +2.61) | seasons up 9/10 | 2026 +0.0u
+  listed + carried, non-QB: healthier by 3+                          train   +2.1% on  208 (z +0.35) | held   +1.8% on  173 (z +0.31) | seasons up 7/11 | 2026 +0.1u
+     ...the healthier side is the DOG                                train   +3.0% on   50 (z +0.16) | held   -6.8% on   29 (z -0.30) | seasons up 5/11 | 2026 -1.0u
+     ...the healthier side is the FAVORITE to -150                   train  +13.7% on   25 (z +0.80) | held  +27.4% on   15 (z +1.38) | seasons up 6/10 | 2026 +0.0u
+  OL: the opponent misses 0.75+ more OL snaps (listed)               train   -5.9% on  422 (z -1.05) | held   -7.9% on  309 (z -1.37) | seasons up 4/11 | 2026 -6.0u
+  OL: the opponent misses 1.5+ more OL snaps (listed)                train   +2.6% on   39 (z +0.10) | held   +3.5% on   36 (z +0.25) | seasons up 5/11 | 2026 +1.4u
+  WR: the opponent misses 0.75+ more WR snaps (listed)               train   +8.0% on  143 (z +1.04) | held   +1.4% on  152 (z +0.19) | seasons up 6/11 | 2026 +3.0u
+  WR: the opponent misses 1.5+ more WR snaps (listed)                train  +10.3% on    7 (z +0.59) | held  -21.0% on   10 (z -1.00) | seasons up 3/7 | 2026 +1.4u
+  DL: the opponent misses 0.75+ more DL snaps (listed)               train   +0.3% on   77 (z +0.02) | held  -20.3% on   68 (z -1.90) | seasons up 4/11 | 2026 -4.0u
+  DL: the opponent misses 1.5+ more DL snaps (listed)                train  -39.1% on    5 (z -1.17) | held  -18.6% on    4 (z -0.43) | seasons up 2/5 | 2026 +0.0u
+  LB: the opponent misses 0.75+ more LB snaps (listed)               train   +1.7% on  153 (z +0.21) | held   -4.1% on  146 (z -0.47) | seasons up 6/11 | 2026 +1.6u
+  LB: the opponent misses 1.5+ more LB snaps (listed)                train  +68.0% on    9 (z +1.47) | held  -13.5% on   10 (z -0.59) | seasons up 6/9 | 2026 +0.6u
+  DB: the opponent misses 0.75+ more DB snaps (listed)               train   -4.0% on  379 (z -0.70) | held   -3.3% on  310 (z -0.54) | seasons up 3/11 | 2026 -7.7u
+  DB: the opponent misses 1.5+ more DB snaps (listed)                train   +8.5% on   57 (z +0.56) | held  +16.6% on   52 (z +1.24) | seasons up 7/11 | 2026 +0.2u
+  RB: the opponent misses 0.75+ more RB snaps (listed)               train  +15.2% on   18 (z +0.77) | held  +12.6% on   16 (z +0.66) | seasons up 6/9 | 2026 +0.0u
+  RB: the opponent misses 1.5+ more RB snaps (listed)                train none | held none | seasons up 0/0 | 2026 +0.0u
+  TE: the opponent misses 0.75+ more TE snaps (listed)               train   -0.1% on   61 (z -0.00) | held   +2.5% on   39 (z +0.15) | seasons up 6/11 | 2026 +0.3u
+  TE: the opponent misses 1.5+ more TE snaps (listed)                train none | held none | seasons up 0/0 | 2026 +0.0u
+  the offense: opponent misses 1.5+ more OL+WR+TE+RB                 train   +3.5% on  124 (z +0.31) | held   -7.1% on  105 (z -0.90) | seasons up 5/11 | 2026 +1.2u
+  the defense: opponent misses 1.5+ more DL+LB+DB                    train   +1.9% on  125 (z +0.19) | held   +8.1% on  109 (z +0.83) | seasons up 8/11 | 2026 -0.8u
+  FADE the banged-up FAVORITE to -150 (it misses 2+ more, listed + carried) = its dog train   +7.8% on   45 (z +0.49) | held   +6.0% on   32 (z +0.32) | seasons up 8/11 | 2026 +1.0u
+  BACK the banged-up DOG +100..+350 (it misses 2+ more; the market over-marks it?) train   -7.9% on  217 (z -0.87) | held  -26.0% on  205 (z -2.84) | seasons up 2/11 | 2026 -9.4u
+
+=== TEST 3: does it improve a RATINGS-ONLY read (Elo, K 20, home 48, walk-forward on every game 2015-26)?
+ Elo + QB / RB / WR (what the engine weighs today): held-out log loss 0.63756 -> 0.63453   (the closing line: 0.60502)
+    dQB +0.367 (z +1.7)  dRB +0.553 (z +2.3)  dWR +0.303 (z +2.1)
+    one starter's worth of snaps = dQB +9.2 pts  dRB +13.8 pts  dWR +7.6 pts
+ Elo + every group, listed: held-out log loss 0.63756 -> 0.63549   (the closing line: 0.60502)
+    dQB +0.361 (z +1.6)  dRB +0.551 (z +2.3)  dWR +0.315 (z +2.2)  dTE -0.057 (z -0.3)  dOL -0.046 (z -0.5)  dDL -0.028 (z -0.2)  dLB +0.249 (z +1.7)  dDB +0.019 (z +0.2)
+    one starter's worth of snaps = dQB +9.0 pts  dRB +13.8 pts  dWR +7.9 pts  dTE -1.4 pts  dOL -1.1 pts  dDL -0.7 pts  dLB +6.2 pts  dDB +0.5 pts
+ Elo + every group, listed + carried: held-out log loss 0.63756 -> 0.63538   (the closing line: 0.60502)
+    dcQB +0.180 (z +1.7)  dcRB +0.350 (z +2.0)  dcWR +0.155 (z +1.6)  dcTE -0.060 (z -0.4)  dcOL +0.053 (z +1.0)  dcDL +0.090 (z +0.8)  dcLB +0.051 (z +0.6)  dcDB -0.050 (z -0.9)
+    one starter's worth of snaps = dcQB +4.5 pts  dcRB +8.7 pts  dcWR +3.9 pts  dcTE -1.5 pts  dcOL +1.3 pts  dcDL +2.3 pts  dcLB +1.3 pts  dcDB -1.2 pts
+ Elo + one number: all non-QB missing snaps + QB: held-out log loss 0.63756 -> 0.63148   (the closing line: 0.60502)
+    dQB +0.364 (z +1.7)  TOT +0.044 (z +1.6)
+    one starter's worth of snaps = dQB +9.1 pts  TOT +1.1 pts
+
+62 cells / coefficients printed; at |z| 2 about 3 would clear by luck

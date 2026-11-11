@@ -320,6 +320,20 @@ NBA_PLAYS_THROUGH = True       # 🏀 10/30 (the owner / Ricky: "some guys are a
 # who plays). Hockey / hoops / baseball keep the block until their own study.
 DEPTH_PTS = {"nfl": 0.005, "ncaaf": 0.0}    # win chance off the own read per regular more missing than the opponent
 DEPTH_CAP = 0.03                             # ...at most 3 points, like the study angles' caps (STUDY_CAP / FAV_CAP)
+# 📒 11/11 FABLE: THE BOOK (the owner, 11/11: "look at what our book does and how we make money ... run 10 studies and
+# improve the engine"; SPORTS_FINDINGS "11/11 - FABLE: THE BOOK"; results/studies/book_1111/). Everything it wired
+# starts with the 11/13 games (a game's Pacific day - pt_day), so no posted pick or graded record changes.
+BOOK_1111_FROM = "2026-11-13"
+DEPTH_PTS_1113 = {"nfl": 0.01, "ncaaf": 0.0}   # 🚑 THE NFL DEPTH WEIGHT IS 1 POINT A REGULAR (was ½); the 3-point cap
+#   stays. Study 8 (s8_nfl_inj.py / s8b_nfl_dog.py - nflverse's public injury reports x snap counts x closing
+#   moneylines, 2,421 games 2016-26, weeks 3+): a team's MISSING SNAPS = the snap share of its players listed Out /
+#   Doubtful plus the regulars already on injured reserve (1.0 = one every-down starter). On top of a ratings-only
+#   read one starter's worth is 1.1 points of win chance (held-out log loss 0.6376 -> 0.6315); on top of the CLOSING
+#   line it still runs +0.6 / +1.6 a starter (train z +0.8 / held +2.0) - the market under-prices attrition a little.
+#   The NFL dog +100..+350 missing 1+ starters' worth MORE than the favorite: -10.0% on 416 (2016-21) / -20.2% on 358
+#   (2022-26), 8 of 11 seasons down, 2026 -14.8u; at 2+ it won 28.9% where the no-vig close said 33.5% (415), 9 of 11
+#   seasons down. The 10/4 lead ("2+ more regulars out ran -2.5 pts vs the price, under 2 SE") measured a second way,
+#   now past 3 SE. A WEIGHT on the own read, never a block - QB / RB / WR keep their own points (penalty).
 
 
 def depth_weighed(g, side):
@@ -331,12 +345,14 @@ def depth_weighed(g, side):
     return bool(sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9"))
 
 
-def depth_penalty(lg, n_me, n_opp):
+def depth_penalty(lg, n_me, n_opp, day=""):
     """Points of win chance off a football side's OWN read for being the more banged-up team (regulars out beyond the
-    opponent's): DEPTH_PTS a head, capped at DEPTH_CAP; 0 in any other sport or when the opponent is just as thin."""
+    opponent's): DEPTH_PTS a head (DEPTH_PTS_1113 for a game on / after BOOK_1111_FROM - `day` is the game's Pacific
+    day), capped at DEPTH_CAP; 0 in any other sport or when the opponent is just as thin."""
     if lg not in DEPTH_PTS:
         return 0.0
-    return min(DEPTH_CAP, DEPTH_PTS[lg] * max(0, (n_me or 0) - (n_opp or 0)))
+    pts = DEPTH_PTS_1113 if (day or "") >= BOOK_1111_FROM else DEPTH_PTS
+    return min(DEPTH_CAP, round(pts[lg] * max(0, (n_me or 0) - (n_opp or 0)), 6))
 
 
 def hurt(g, side, injuries):
@@ -690,8 +706,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # 🚑 the more banged-up football side (regulars out beyond the opponent's): a small, capped weight on the OWN
         # read (10/4 - DEPTH_PTS), never a block; only when box scores say who plays (depth_weighed)
         weighed = {s_: depth_weighed(g, s_) for s_ in ("home", "away")}
-        depth = {s_: depth_penalty(lg, n_out[s_], n_out["away" if s_ == "home" else "home"]) if weighed[s_] else 0.0
-                 for s_ in ("home", "away")}
+        depth = {s_: depth_penalty(lg, n_out[s_], n_out["away" if s_ == "home" else "home"], pt_day(g)) if weighed[s_] else 0.0
+                 for s_ in ("home", "away")}   # (11/11 THE BOOK: 1 point a regular in the NFL from the 11/13 games)
         if depth["home"] or depth["away"]:
             ph_own = min(0.99, max(0.01, ph_own - depth["home"] + depth["away"]))
         # the studies' PROVEN angles (context factors, situational spots, the explorer): the single strongest one
@@ -785,6 +801,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 base["absent"] = absent[side][1]
             if depth[side]:                               # (the depth weight that moved the read, for the journal)
                 base["depth_pts"] = round(depth[side] * 100, 1)
+            if weighed[side] and weighed[other]:          # (11/11 THE BOOK: regulars out beyond the opponent's - the
+                base["depth_gap"] = n_out[side] - n_out[other]   # tracker's "NFL dog, 2+ more regulars out" tag)
             base["drift"] = round(((mkt_open - mkt) if side == "home" else (mkt - mkt_open)), 4) \
                 if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])
@@ -6267,6 +6285,32 @@ LEAN_NHL_FAV_BAND = (-150, -130)   # 🏒 THE 10/28 HOCKEY AUDIT (the owner: "ou
 LEAN_FAV_BANDS = {"ncaaf": LEAN_NCAAF_FAV_BAND, "nhl": LEAN_NHL_FAV_BAND}
 
 
+LEAN_WEIGHED_UNDER = 0.02      # 📒 11/11 FABLE: THE BOOK, studies 5 / 6 (s5_nhl_fav.py, s6_leans.py, s6b_weighed_under.py):
+LEAN_WEIGHED_UNDER_LEAGUES = ("nhl", "nba", "ncaab", "mlb")   # NO FAVORITE LEAN THE ENGINE'S OWN WEIGHTS ARE AGAINST. A
+#   moneyline favorite whose WEIGHED read (w_p - the market number plus every study weight on that side) sits 2+ points
+#   UNDER the no-vig market is never the who-wins lean, from the 11/13 games (BOOK_1111_FROM). The funnel rows (every
+#   favorite -150..-101 with a weighed read, 2023-26 at the close): weighed 2+ under -16.1% on 1,111 (z -6.2; train
+#   -15.4% / held -17.3%, 0 of 4 seasons up) vs weighed 2+ over +2.6% on 1,240; hockey -20.7% on 332 (0 of 4), the NBA
+#   -47.5% on 40, college hoops -13.0% on 135, baseball -11.8% on 396. The leans the replay board actually posted from
+#   that cell: 38-47 -21.9% (hockey 7-16, the NBA 8-14). FORWARD (the weights were fit on those seasons - the replay
+#   alone is not proof): the live tracker's 'hockey fav weighed DOWN' at -150..-101 is 21-22 -14.3% since 10/1 against
+#   'weighed UP' 21-11 +15.8%; the live hockey leans with the weighed read under the market 3-7 (2+ under 2-4) vs 6-4
+#   over it. Football is left out - the NFL cell runs the other way on 30, college football's live rows too. No units
+#   were ever on these (a value play / Lock already needs the weighed read over the price) - it is the 🟡 record and the
+#   viewers' money. The dog across from one (+10.8% on 1,127, hockey +15.6% 4 of 4 seasons) is the dog score's job.
+
+
+def lean_weighed_under(c):
+    """A favorite the engine's own weights are against: a moneyline favorite in LEAN_WEIGHED_UNDER_LEAGUES whose
+    weighed read is LEAN_WEIGHED_UNDER or more under the no-vig market, in a game on / after BOOK_1111_FROM (its
+    Pacific day; a game with no start keeps the old rule). No weighed read = no call."""
+    if c.get("market") != "ml" or (c.get("odds") or 0) >= 0 or c.get("league") not in LEAN_WEIGHED_UNDER_LEAGUES:
+        return False
+    if c.get("w_p") is None or c.get("p_market") is None or pt_day(c) < BOOK_1111_FROM:
+        return False
+    return c["w_p"] <= c["p_market"] - LEAN_WEIGHED_UNDER + 1e-9
+
+
 NCAAB_BIG_HOME_FAV_W = 0.03    # its weight on the spread rank (was a hard block on the lean until the owner, 11/3)
 NCAAB_BIG_HOME_FAV = 12.0      # 🏀 11/3 readiness (the 11/2 buy-game study's pricing fact): a college hoops HOME favorite
 #   laying 12+ covers at ~-8% ATS every way it was cut (2,632 games, train -8.7%, held -7.5%; the same in conference play)
@@ -6321,7 +6365,8 @@ def viewer_leans(cands, avoid):
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
         #                                                      underpriced (the owner, 10/1: "we need value plays")
     best = {}
-    okc = [c for c in cands if ok(c) and not pricey_college_fav(c)]
+    okc = [c for c in cands if ok(c) and not pricey_college_fav(c) and not lean_weighed_under(c)]   # (11/11 THE BOOK:
+    #                                                          never a favorite the engine's own weights are against)
     for c in sorted(okc, key=lambda c: -lean_rank(c)):       # (10/10: value-picked leans were tried - six versions all
         best.setdefault(c["game_id"], c)                     #  lost blind vs who-wins; the owner kept who-wins)
     best = {g: stick(c, okc) for g, c in best.items()}       # 📌 (10/5: a lean never flips on a price tick)
@@ -6340,7 +6385,7 @@ def viewer_leans(cands, avoid):
                 and (c.get("w_p") is None or c["w_p"] >= LEAN_PICK_P))   # (10/6: a hockey favorite whose WEIGHED read
         #                                                  has it losing - Panthers 48% - is never the who-wins lean)
     extra = {}
-    fillc = [c for c in cands if fill_ok(c) and not pricey_college_fav(c)]
+    fillc = [c for c in cands if fill_ok(c) and not pricey_college_fav(c) and not lean_weighed_under(c)]
     for c in sorted(fillc, key=lambda c: -lean_rank(c)):     # (10/16: the engine's weighed read, not the bigger
         extra.setdefault(c["game_id"], c)                    #  favorite)
     extra = {g: stick(c, fillc) for g, c in extra.items()}
