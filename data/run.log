@@ -18075,3 +18075,18 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-11 21:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-11 21:06 UTC] crypto/hold_btc  equity $448.98 (-10.2%) 1 open  market DOWN
    social heat top: BTC 42 (37/0/5), SOL 35 (35/0/0), HYPE 32 (32/0/0), TAO 29 (29/0/0), ETH 27 (27/0/0)
+   dex screen: REJECT KET@solana liq $190,365 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: PASS JOB@solana liq $135,949
+   dex screen: REJECT DRV@base liq $1,225,947 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DRV@solana liq $391,822,858 - goplus unreachable
+   dex screen: UNREACHABLE DRV@solana liq $382,405,484 - goplus unreachable
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SPCXON@ethereum liq $130,371 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 69%; lp locked 0% < 95%
+   scanner: FM: +27.6% in 60 min on 3.4x volume @ 0.005039 spread 0.02%
+   take-off: FM vetoed by pump guard: already +530% in 24h
+   dex screen: REJECT WPRL@ethereum liq $1,046,935 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
+   scanner: FM: +26.2% in 60 min on 3.4x volume @ 0.00515 spread 1.43%
+   take-off: FM vetoed by pump guard: blocked 25 more min
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PYUSD@ethereum liq $100,206,632 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 90%
+   dex screen: REJECT ZRO@base liq $350,114 - pool age unknown
