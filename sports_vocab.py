@@ -43,7 +43,7 @@ SLOTS = {
     "edge_noun": ["edge", "value", "gap", "cushion", "angle", "advantage"],
     # sayings after a line (optional flavor; short ones repeat, that's fine). Never a bare facts - it lands after a
     # percentage and makes no sense; "that's just facts" only follows a claim (the owner, 9/29: 'better team, facts')
-    "kick": ["", "", "", "", "", "Let's eat.", "Nice nice.", "Easy work.", "Run it.", "We outside.",
+    "kick": ["", "", "", "", "", "Tap in.", "Nice nice.", "Easy work.", "Run it.", "We outside.",
              "Say less.", "Book it.", "Light work.", "Tuck in.", "Get in.", "Bet.", "We're good.", "Pull up.",
              "Period.", "Simple.", "Done deal.", "Don't overthink it.", "You already know.",
              "Stamp it.", "Buckle up.", "We live.", "Clean.", "Straight up.", "On sight."],

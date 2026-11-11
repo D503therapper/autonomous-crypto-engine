@@ -1588,7 +1588,7 @@ T_SPREAD_DOG = [
  "Give us {me} and the {h} games. [{He} steals a set and this is basically over.|This stays tight and tight pays us.]",
  "{me} +{h} is the angle. [[Our math|The engine|Our model] has {him} hanging around way more than [the book|Vegas] thinks.|The cushion does the heavy lifting.]",
  "Plus {h} games with {me}. [{them} has to win big to beat us, and we don't see it.|A {pct}% cover in our numbers.]",
- "[Cushion play|Games play|Spread play]: {me} +{h}. [{He} keeps it close, we eat.|Lose close, still cash.|Tight match, paid ticket.]",
+ "[Cushion play|Games play|Spread play]: {me} +{h}. [{He} keeps it close, we cash.|Lose close, still cash.|Tight match, paid ticket.]",
  "[The book|Vegas] is giving {me} {h} games and [our math|the engine|our model] says {he} barely needs them.",
  "We're on {me} +{h}. [Blowout? Not in our numbers.|{them} winning by {h}+? We don't see it.]",
 ]
@@ -1693,7 +1693,7 @@ T_SURF_OPP = [
  "{them} ain't the same player on {surf}. [That's our edge.|]",
  "{Surf} exposes {them}. [That game don't travel.|]",
  "{them} on {surf}? Booty cheeks. [We're taking advantage.|]",
- "{them} is complete ass on {surf}. [We're eating.|]",
+ "{them} is complete ass on {surf}. [Tap in.|]",
  "{them}'s game falls off on {surf}. [The numbers show it.|]",
  "{Surf} ain't {them}'s thing. [Wrong surface, wrong matchup.|]",
  "{them} has never figured out {surf}.",

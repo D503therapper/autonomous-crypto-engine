@@ -2971,7 +2971,7 @@ def mark_best(picks, iso):
 
 
 BEST_SAYS = ["⭐ The engine's best pick today - a full unit on it.", "⭐ Our best pick on the whole slate, so it gets a full unit.",
-             "⭐ Best play on the board today - full unit, let's eat.", "⭐ Out of everything today, this is the one - a full unit."]
+             "⭐ Best play on the board today - full unit on it, tap in.", "⭐ Out of everything today, this is the one - a full unit."]
 _HALF_SAID = ("half a unit", "half-unit", "half unit")
 
 

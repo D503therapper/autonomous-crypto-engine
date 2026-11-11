@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 62          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 63          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 #   (62 - 11/4 lingo pass, the owner: "I have not liked the damn lingo" - the risk / outs / last-game / site / bottom-line /
 #    lean / units-line pools rewritten in his voice; the stiff frames are in sports_owner_lingo.STIFF and can't come back)
 #   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
@@ -82,7 +82,7 @@ def _names(rows, k=3):
 
 SLANG = {                        # our big phrases: each FAMILY shows up once on a board (any wording of it)
     "cheeks": r"cheeks", "complete ass": r"complete ass", "smack": r"smack that ass", "cook": r"\bcook(ing)?\b",
-    "eat": r"\b(let's eat|we eat|we're eating|we eating|eat)\b", "tap in": r"tap in", "we gon see": r"gon' see|finna see",
+    "hood": r"whole hood", "tap in": r"tap in", "we gon see": r"gon' see|finna see",
     "trust": r"trust (the algorithm|it)", "let y'all down": r"let y'all down", "levels": r"levels to this|whole nother caliber",
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
@@ -222,8 +222,8 @@ class Voice:
         return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
 
 
-HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer it|hammer time|smash it|we eating|real edge|"
-                  r"tips it our way|let'?s eat|bag|money energy|can'?t lose|guaranteed", re.I)
+HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer it|hammer time|smash it|whole hood|real edge|"
+                  r"tips it our way|\beat(s|ing|in')?\b|\bate\b|bag|money energy|can'?t lose|guaranteed", re.I)
 
 
 def lean_tone(lines, leg, seed=""):
@@ -767,7 +767,7 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
     "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market]",
     "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market]",
     "close": "[That's the value.|That's the play.|That gap is the play.|Trust the algorithm.|Easy call.|Value all day.|"
-             "We'll take that all day.|That's the edge.|Math is math.|Tail it.|We ride.|Book it.|Let's eat.|Nice nice.|"
+             "We'll take that all day.|That's the edge.|Math is math.|Tail it.|We ride.|Book it.|Nice nice.|"
              "Say less.|Light work.|Numbers don't lie.|That's where the money's at.|Levels to this.|]",
     "sclose": "[We gon' see.|We finna see.|Tap in.|I won't let y'all down.|Right side, that's all.|Quiet play.|"
               "Stay disciplined.|We'll see.|Small bet energy.|Let it ride.|]",
@@ -873,7 +873,7 @@ T = {
         "🧊 {them} are {rec} and {cold} — {cnt} straight {Ls}.",
         "🧊 {them} have [dropped|lost] {cnt} {str8} ({rec}). [Can't buy a W.|Ugly.|Yikes.|]",
         "🧊 {cnt} straight {Ls} for {them} ({rec}). [In shambles.|Ugly.|Rough stretch.|Yikes.|Woof.]",
-        "🧊 {them} ({rec}) keep [taking|eating|stacking|piling up] {Ls} — {cnt} {str8}.",
+        "🧊 {them} ({rec}) keep [taking|stacking|piling up] {Ls} — {cnt} {str8}.",
         "🧊 {them} ({rec}) [are in a slump|can't buy a win|are skidding|are sliding] — {cnt} {str8}.",
         "🧊 {them} [forgot how to win|lost the recipe|can't close]: {cnt} {str8}, {rec}.",
         "🧊 Losers of {cnt} {str8}, {them} [sit|limp in|show up|stumble in] at {rec}.",
@@ -1077,7 +1077,7 @@ T = {
         "🥶 {The_them} [come from|live in] the warm. [Tonight|Kickoff] is {temp}°F.",
     ],
     "wx": [
-        "🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how dogs eat.",
+        "🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how a dog steals one.",
         "🌬️ {what}. Ugly weather drags everybody down to the same level.",
         "🌧️ Weather's nasty ({what}). Anything can happen in the slop.",
         "🌧️ [Forecast|Weather] [says|calls for] {what}. [Messy|Sloppy|Ugly] [game|night] — [good for dogs|keeps it close|evens it out].",
@@ -1154,7 +1154,7 @@ T = {
         "🌍 {where} [hosts this one|is the venue]. [Travel for everybody|No real home team] — we [only|] [play|take] these with [extra|more] value.",
     ],
     "home": [
-        "🏟️ {us} at the crib tonight. Teams don't come in here and eat.",
+        "🏟️ {us} at the crib tonight. They handle business in their own building.",
         "🏟️ Home cooking for {us}. That crowd finna be loud as hell.",
         "🏟️ {us} in their own house. Y'all know teams play different at home.",
         "🏟️ {us} are home tonight and ready to handle business.",
@@ -1271,7 +1271,7 @@ T = {
         "💸 {The_them}{move} [are getting|keep getting] the [sharp|big] money. [Fine by us|We fade it] — {the_us} for us, {why}.",
     ],
     "splits_fade": [
-        "📊 The whole world on {the_them} — {pt}% of the bets and {pm}% of the money on {mk}. We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
+        "📊 The whole world on {the_them} — {pt}% of the bets and {pm}% of the money on {mk}. We fading the public and taking {the_us}.",
         "📊 {pt}% of the bets on {the_them} ({pm}% of the money) on {mk}. Sheep gon' be sheep — we on {the_us} with the other {t}%.",
         "📊 Public's hammering {the_them} on {mk}: {pt}% of the bets, {pm}% of the money. We ain't following the herd — {the_us} all day.",
         "📊 [Splits|The splits|Betting splits] on {mk}: {pt}% of [bets|tickets] and {pm}% of [the money|the cash] on {the_them}. [Fade the crowd|Fade the public|Other way for us]: {the_us}.",

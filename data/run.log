@@ -17552,3 +17552,46 @@ error: failed to push some refs to 'https://githu
 [2026-11-11 07:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-11 07:06 UTC] crypto/hold_btc  equity $443.55 (-11.3%) 1 open  market DOWN
    social heat top: INIT 40 (40/0/0), HYPE 37 (37/0/0), MEGA 27 (27/0/0), BTC 26 (21/0/5), NEAR 24 (24/0/0)
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #2 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS SPX@ethereum liq $10,237,079
+   dex screen: REJECT WETH@solana liq $5,317,405 - mint authority; top-10 holders 76%
+   dex screen: REJECT SNDKC@base liq $1,649,342 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT NPC@ethereum liq $3,632,476 - top-10 holders 40%
+   dex screen: REJECT USDG@ethereum liq $1,628,596 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%
+   dex screen: REJECT GULD@ethereum liq $1,367,517 - top-10 holders 64%
+   dex screen: REJECT T@solana liq $55,952,693 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT TBTC@ethereum liq $6,001,951 - is_mintable; honeypot_with_same_creator; top-10 holders 77%
+   dex screen: REJECT GOOGLC@base liq $1,804,233 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: REJECT SOL@ethereum liq $1,120,772 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
+   dex screen: REJECT ZAMA@ethereum liq $507,447 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT EDEL@base liq $748,393 - goplus partial data: cannot_sell_all unknown; top-10 holders 50%; lp locked 0% < 95%
+   dex screen: UNREACHABLE CYBERLEEK@solana liq $410,155 - goplus unreachable
+   dex screen: UNREACHABLE CBUCKS@solana liq $238,301 - goplus unreachable
+   dex screen: UNREACHABLE NIHAO@solana liq $176,072 - goplus unreachable
+   dex screen: UNREACHABLE DOPE@solana liq $129,933 - goplus unreachable
+   dex screen: REJECT MOVR@solana liq $3,200,023,540 - top-10 holders 100%
+   dex screen: REJECT CBZEC@base liq $352,939 - pool age unknown
+   dex screen: PASS NIHAO@solana liq $178,405
+   dex screen: REJECT DOPE@solana liq $125,794 - lp holders unknown; rugcheck lp locked 84% < 95%
+   dex screen: UNREACHABLE CBUCKS@solana liq $237,612 - goplus unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listing: okx_symbols #XBIDU 'New OKX listing (XBIDU)' -> ['XBIDU']
+   listing: XBIDU: okx_symbols notice "New OKX listing (XBIDU)" -> not on Crypto.com USD
+   dex screen: REJECT ELSA@base liq $458,181 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: REJECT XCN@ethereum liq $635,363 - 24h volume $94,222 < $100,000
+   dex screen: PASS CBUCKS@solana liq $237,659
+   dex screen: REJECT QUID@base liq $781,827 - goplus partial data: cannot_sell_all unknown; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT HLX@ethereum liq $388,097 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $100,894 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT USDE@ethereum liq $1,110,095 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 93%
+   dex scanner: 3,003 pools (solana 2,342 / base 396 / ethereum 265), refresh cycle 131s (hot 127s), 2962 calls (166 feed, 429s 1, failed 1), 83,873 refreshed (3765 no pair), +357 added / -391 dropped (dead 1, stale 0, cap 390), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-11 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/mover     equity $204.47 (-59.1%) 1 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/social_heat equity $336.82 (-32.6%) 2 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-11 08:06 UTC] crypto/hold_btc  equity $445.88 (-10.8%) 1 open  market DOWN
+   social heat top: BTC 37 (32/0/5), NEAR 35 (35/0/0), ETH 29 (29/0/0), HYPE 27 (27/0/0), SUI 24 (24/0/0)
