@@ -1,45 +1,8 @@
-== https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard
-200 201102B 0.4s
-saved results/tennis_live_espn_atp.json.gz
-LIVE atp Rolex Paris Masters | Men's Singles | status {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}
-  competition keys: ['broadcast', 'broadcasts', 'competitors', 'date', 'format', 'geoBroadcasts', 'id', 'notes', 'recent', 'round', 'situation', 'startDate', 'status', 'timeValid', 'tournamentId', 'type', 'uid', 'venue', 'wasSuspended']
-  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 6.0, 'tiebreak': 5, 'winner': False}, {'value': 1.0}]
-    {'id': '3310', 'uid': 's:850~l:851~a:3310', 'type': 'athlete', 'order': 2, 'homeAway': 'away', 'possession': False}
-  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 7.0, 'tiebreak': 7, 'winner': True}, {'value': 0.0}]
-    {'id': '3085', 'uid': 's:850~l:851~a:3085', 'type': 'athlete', 'order': 1, 'homeAway': 'home', 'possession': True}
-  situation: {'onFirst': False, 'onSecond': False, 'onThird': False} | status: {'period': 2, 'type': {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}}
-atp: 1 matches in progress
-== https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard
-200 378951B 0.1s
-saved results/tennis_live_espn_wta.json.gz
-LIVE wta Reto Win Tennis Cali Open | Women's Singles | status {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}
-  competition keys: ['broadcast', 'broadcasts', 'competitors', 'date', 'format', 'geoBroadcasts', 'id', 'notes', 'recent', 'round', 'situation', 'startDate', 'status', 'timeValid', 'tournamentId', 'type', 'uid', 'venue', 'wasSuspended']
-  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 6.0, 'winner': True}, {'value': 4.0}]
-    {'id': '10676', 'uid': 's:850~l:900~a:10676', 'type': 'athlete', 'order': 2, 'homeAway': 'away', 'possession': False}
-  competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'possession', 'statistics', 'type', 'uid'] | linescores: [{'value': 0.0, 'winner': False}, {'value': 1.0}]
-    {'id': '1095', 'uid': 's:850~l:900~a:1095', 'type': 'athlete', 'order': 1, 'homeAway': 'home', 'possession': True}
-  situation: {'onFirst': False, 'onSecond': False, 'onThird': False} | status: {'period': 2, 'type': {'id': '2', 'name': 'STATUS_IN_PROGRESS', 'state': 'in', 'completed': False, 'description': 'In Progress', 'detail': '2nd Set', 'shortDetail': '2nd'}}
-wta: 1 matches in progress
-== https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en
-200 41659B 1.1s
-11 groups, 19 live events
-saved results/tennis_live_bovada.json.gz
-PATH ['Paris', 'ATP', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '32996800-16415988', 'name': 'Ugo Humbert', 'home': True, 'shortName': 'Humbert'}, {'id': '32996800-16199421', 'name': 'Botic van de Zandschulp', 'home': False, 'shortName': 'van de Zandschulp'}]
-  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ugo Humbert', 'O', '-135'), ('Botic van de Zandschulp', 'O', '+105')]
-  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Ugo Humbert', 'O', '-325'), ('Botic van de Zandschulp', 'O', '+260')]
-  market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '-115'), ('Under', 'O', '-115')]
-PATH ['Chennai', 'WTA', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '33085187-16535338', 'name': 'Jeline Vandromme', 'home': True, 'shortName': 'Vandromme'}, {'id': '33085187-16417883', 'name': 'Kyoka Okamura', 'home': False, 'shortName': 'Okamura'}]
-  market: Game Spread | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Jeline Vandromme', 'S', '-120'), ('Kyoka Okamura', 'S', '-110')]
-  market: Moneyline | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Jeline Vandromme', 'S', '-275'), ('Kyoka Okamura', 'S', '+220')]
-  market: Total | status S | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'S', '-110'), ('Under', 'S', '-120')]
-PATH ['Villa Maria', 'Challenger', 'Tennis'] | event keys: ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-  competitors: [{'id': '33050163-16523698', 'name': 'Lucio Ratti', 'home': True, 'shortName': 'Ratti'}, {'id': '33050163-16605836', 'name': 'Maximo Zeitune', 'home': False, 'shortName': 'Zeitune'}]
-  market: Game Spread | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Lucio Ratti', 'O', '-275'), ('Maximo Zeitune', 'O', '+200')]
-  market: Moneyline | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Lucio Ratti', 'O', '-900'), ('Maximo Zeitune', 'O', '+500')]
-  market: Total | status O | period {'id': '245', 'description': 'Live Match', 'abbreviation': 'MT', 'live': True, 'main': True} | [('Over', 'O', '+200'), ('Under', 'O', '-275')]
-== https://services.bovada.lv/services/sports/results/api/v1/scores/32996800
-200 468B 1.0s
-saved results/tennis_live_bovada_score.json.gz
-{"eventId": 32996800, "eventSource": "BGS", "altIds": {"BGS": 32996800}, "sport": "TENNIS", "clock": {"period": "Set 2", "periodNumber": 2, "gameTime": "0:00", "relativeGameTimeInSecs": 0, "direction": "none", "numberOfPeriods": 3, "isTicking": false}, "currentPeriodScore": {"home": 0, "visitor": 1}, "previousPeriodsScore": [{"home": 7, "visitor": 6}], "sportDetails": {"tennis": {"sets": {"home": 1, "visitor": 0}, "server": "home"}}, "gameStatus": "IN_PROGRESS", "lastUpdated": "2026-11-02T21:59:07.792+00:00"}
+OK nba_yday: 6 games (6 final, 0 live, 0 scheduled) periods ['event'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK nba_today_h1: 10 games (0 final, 0 live, 10 scheduled) periods ['event', 'firsthalf'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK ncaab_today_h1: 53 games (0 final, 3 live, 50 scheduled) periods ['event', 'firsthalf'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK nhl_yday: 7 games (7 final, 0 live, 0 scheduled) periods ['event'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK nfl_2024_w3: 16 games (16 final, 0 live, 0 scheduled) periods ['event'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK ncaaf_w11: 67 games (3 final, 0 live, 64 scheduled) periods ['event'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK nfl_now: 14 games (0 final, 0 live, 14 scheduled) periods ['event'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
+OK mlb_2026_0930: 4 games (4 final, 0 live, 0 scheduled) periods ['event', 'firstfiveinnings'] types ['core_bet_type_6_team_score', 'moneyline', 'spread', 'total']
