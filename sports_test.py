@@ -18231,8 +18231,10 @@ def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_re
     assert sports.gap_plays([play], avoid=("A",)) == []                          # a game we're already on
     assert sports.gap_plays([cand("I", 150, 0.40, 0.58, dog_ctx={"opp_won": False})], avoid=())[0]["game_id"] == "I"   # +2: fine
     # the college football twin still rides the raw Elo read (untouched)
-    cfb = {**cand("J", 114, 0.449, None, games=(5, 5)), "league": "ncaaf", "raw_own": 0.609, "elo_edge": 10.0}
+    cfb = {**cand("J", 114, 0.449, None, games=(5, 5)), "league": "ncaaf", "raw_own": 0.609, "elo_edge": 10.0,
+           "side": "away", "home": False}                               # (11/11 wired: from 11/12 the football play is ROAD dogs only)
     assert [c["game_id"] for c in sports.gap_plays([cfb, play], avoid=())] == ["A", "J"]   # (biggest gap first)
+    assert [c["game_id"] for c in sports.gap_plays([{**cfb, "side": "home", "home": True}, play], avoid=())] == ["A"]   # (hoops keeps its home dogs)
     assert sports.posted_kind({"kind": "play", "gap": 0.18, "legs": [{"league": "ncaab"}]}) == "gap"
     assert sports.units_for({"kind": "play", "gap": 0.18, "date": "2026-12-05", "legs": [out[0]], "status": "open"}) == sports.GAP_UNITS
     # the ladder (s7): sized by the DOG READ, never the gap - 2u at a read of 6+, football stays flat
@@ -20367,6 +20369,385 @@ def test_sweep_1111_our_number_on_a_card_is_never_the_raw_gap_read_never_the_pri
     lean.update(odds=-124, dec=sports._dec(-124), p=0.5416, p_market=0.5316, w_p=0.5516, edge_own=-0.0008, tier="lean", is_lean=True)
     b, _ = bottom(lean, games, elo)
     assert "lean" in b.lower() or "no units" in b.lower() or "ain't putting money" in b.lower(), b
+
+
+# ── 11/11 WIRED (the owner: "I want you to wire anything into the engine that you recommend and Fable recommends to be
+# profitable and have good picks and a good engine") - seven rules, each from the 11/12 board (Pacific game day) on.
+_W1111 = {}
+_W1111_OLD, _W1111_NEW = "2026-11-12T03:00Z", "2026-11-13T03:00Z"   # 7 PM Pacific on 11/11 (the old rules) / on 11/12
+
+
+def _wired_1111_slate(start, n=4):
+    """A college hoops slate of n games at `start` on a fake season (built once), + the model and (now, day) at 8:30 AM PT."""
+    import copy
+    if not _W1111:
+        games, _ = fake_league("ncaab", days=120)
+        for x in games.values():
+            x["stype"] = "2"
+        model = {"params": {}, "log": []}
+        sm.tune_all(games, model)
+        _W1111["g"], _W1111["m"] = games, model
+    games, model = copy.deepcopy(_W1111["g"]), copy.deepcopy(_W1111["m"])
+    for i in range(n):
+        gid = f"ncaab:w{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "", "start": start,
+                      "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110",
+                      "spread_home": "-2.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    st = datetime.strptime(start[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    now = (st - timedelta(hours=10, minutes=30))
+    return games, model, now, now.astimezone(sports.PT).date()
+
+
+def _wired_1111_post(start, patches, picks=None, n=4):
+    """Run post_board on the fake slate with `patches` ({name on sports: stand-in}); the Lock / Dog ladder and every
+    other play path are switched off unless a patch says otherwise. -> (picks, the log)."""
+    import io
+    import contextlib
+    games, model, now, day = _wired_1111_slate(start, n)
+    none = lambda cands, avoid, *a, **k: []                                                # noqa: E731
+    base = {"make_board": lambda *a, **k: {k_: None for k_ in ("lock", "dog", "two", "three", "four", "solo")},
+            "plays": none, "dog_plays": none, "gap_plays": none, "floor_plays": none, "nba_fav_plays": none,
+            "viewer_leans": none, "ncaab_stack_plays": none, "ncaab_play_dog": lambda c: None, "ncaab_play_fav": lambda c: None}
+    base.update(patches)
+    keep = {k: getattr(sports, k) for k in base}
+    keep_f = sd.fetch_injuries
+    picks = [] if picks is None else picks
+    buf = io.StringIO()
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        for k, v in base.items():
+            setattr(sports, k, v)
+        with contextlib.redirect_stdout(buf):
+            sports.post_board(games, model, picks, now, day, force=True)
+    finally:
+        sd.fetch_injuries = keep_f
+        for k, v in keep.items():
+            setattr(sports, k, v)
+        sports._SCHED.clear()
+    return picks, buf.getvalue()
+
+
+def test_wired_1111_no_forced_best_pick_from_the_11_12_board():
+    """1. NO FORCED ⭐ (the owner's 11/11 OK on the 11/6 study: the forced ⭐ under the 11/5 rule 10-13 +2.3%, held out 2-7
+    -39.1%, forced favorites 5-7 -21.5%, live 0-2). From 11/12 the ⭐ goes only on one of the day's unit plays whose read
+    beats its price (mark_best / best_pool) - a day with none has no ⭐, never an extra forced 1u side. A 7 PM Pacific
+    game on 11/11 (11/12 in UTC) still runs the old rule: the day is the board's, never UTC's."""
+    assert sports.WIRE_1111_FROM == sports.NO_FORCED_BEST_FROM == "2026-11-12"
+    assert sports.pt_day({"start": _W1111_OLD}) == "2026-11-11" and sports.pt_day({"start": _W1111_NEW}) == "2026-11-12"
+    assert sports.pt_day({}) == ""
+    forced = lambda cands, used, iso=None: next((c for c in cands if c["market"] == "ml" and c["odds"] < 0   # noqa: E731
+                                                 and c["game_id"] not in used), None)
+    old, log_old = _wired_1111_post(_W1111_OLD, {"forced_best": forced})
+    star = [p for p in old if p.get("forced")]
+    assert len(star) == 1 and star[0].get("best") and sports.units_for(star[0]) == 1.0, (old, log_old[-600:])   # the 11/4-11/11 rule
+    new, log_new = _wired_1111_post(_W1111_NEW, {"forced_best": forced})
+    assert not any(p.get("forced") or p.get("best") for p in new), [(p["kind"], p.get("forced")) for p in new]
+    assert not any(p["kind"] in ("lock", "dog", "play", "solo") and not p.get("lean") for p in new)   # no unit play = no ⭐, no pick
+    assert "no best pick today" in log_new and "forced best pick" not in log_new
+    # the ⭐ on a real unit play is untouched: the best play whose read beats its price still gets it, 1u at least
+    leg = {**_cand("Wizards", 105, 0.52, league="nba"), "team": "Wizards", "start": _W1111_NEW}
+    pk = {"date": "2026-11-12", "kind": "play", "status": "open", "lean": False, "dec": leg["dec"], "american": 105,
+          "legs": [leg], "floor": {"dog_score": 1.0, "nba": True}}
+    assert sports.mark_best([pk], "2026-11-12") is pk and sports.units_for(pk) == 1.0
+    under = {**pk, "legs": [{**leg, "p": 0.45, "edge": 0.45 * leg["dec"] - 1, "edge_own": 0.45 * leg["dec"] - 1}]}
+    under.pop("best", None)
+    assert sports.mark_best([under], "2026-11-12") is None and sports.units_for(under) == 0.5
+
+
+def test_wired_1111_nba_half_unit_dogs_only_to_plus_199():
+    """2. NBA ½u DOG CAP (the owner's 11/11 OK on the 11/6 study: the replay's NBA ½u dogs +15.9% on 267, but +200..+350
+    -3.3% on 107, 0 of 3 seasons up - live the Bucks +270 floor, the Clippers +215 runner-up). From 11/12 an NBA ½u dog
+    play - the NBA floor, the runner-up dog play, the floor's fallback, a ½u NBA Dog of the Day - only at +100..+199.
+    A 1u NBA Dog (its own read over the price) is no ½u dog; hockey / football dogs are untouched."""
+    assert sports.NBA_HALF_DOG_CAP_FROM == "2026-11-12" and sports.NBA_HALF_DOG_MAX == 199
+
+    def dog(odds, p, start=_W1111_NEW, league="nba"):
+        c = _cand(f"{league}{odds}", odds, p, league=league)
+        return {**c, "side": "away", "home": False, "start": start, "waiting": [], "reasons": ["rested, on the road"]}
+    assert sports.nba_half_dog_capped(dog(215, 0.40)) and sports.nba_half_dog_capped(dog(200, 0.40))
+    assert not sports.nba_half_dog_capped(dog(199, 0.40)) and not sports.nba_half_dog_capped(dog(130, 0.45))
+    assert not sports.nba_half_dog_capped(dog(215, 0.40, start=_W1111_OLD))            # the 11/11 board: the old rule
+    assert not sports.nba_half_dog_capped(dog(215, 0.40, league="nhl"))                # NBA only
+    # the NBA floor: the +215 was its pick before, never from 11/12; a +180 still is
+    assert [c["odds"] for c in sports.nba_floor_plays([dog(215, 0.40, start=_W1111_OLD)], ())] == [215]
+    assert sports.nba_floor_plays([dog(215, 0.40)], ()) == []
+    assert [c["odds"] for c in sports.nba_floor_plays([dog(215, 0.40), dog(180, 0.40)], ())] == [180]
+    assert [c["odds"] for c in sports.floor_plays([dog(215, 0.40, league="nhl")], (), filtered=False)] == [215]
+    assert sports.floor_plays([dog(215, 0.40)], (), filtered=False) == []              # nor the floor's one-a-day fallback
+    # the Dog of the Day: ½u (a thin edge) past +199 = capped; a 1u NBA Dog (a real edge on its own read) is not
+    thin, real = dog(215, 0.32), dog(215, 0.40)
+    assert sports.units_for({"kind": "dog", "date": "2026-11-12", "status": "open", "legs": [thin]}) == 0.5
+    assert sports.units_for({"kind": "dog", "date": "2026-11-12", "status": "open", "legs": [real]}) == 1.0
+    assert sports.nba_half_dog_capped(thin, "dog") and not sports.nba_half_dog_capped(real, "dog")
+    assert not sports.nba_half_dog_capped(dog(180, 0.36), "dog")
+    # the pre-post rule check is the backstop on every path (the runner-up dog play, a floor play, the Dog)
+    mk = lambda c, date="2026-11-12", kind="play", **kw: {"date": date, "kind": kind, "status": "open", "lean": False,   # noqa: E731
+                                                          "dec": c["dec"], "american": c["odds"], "legs": [c], **kw}
+    cap = f"an NBA ½u dog past +{sports.NBA_HALF_DOG_MAX}"
+    for pk in (mk(dog(215, 0.40), dog_play=True), mk(dog(270, 0.33), floor={"dog_score": 1.0, "nba": True}), mk(thin, kind="dog")):
+        new = [pk]
+        assert any(cap in x for x in sports.rule_check([], new, "2026-11-12")) and new == [], pk
+    for pk in (mk(dog(180, 0.40), dog_play=True), mk(real, kind="dog"),
+               mk(dog(215, 0.40, start=_W1111_OLD), "2026-11-11", dog_play=True), mk(dog(215, 0.40, league="nhl"), dog_play=True)):
+        assert not any(cap in x for x in sports.rule_check([], [pk], pk["date"])), pk
+    src = open(sports.__file__).read()
+    dp = src[src.index("def dog_plays("):src.index("def nba_fav_plays(")]
+    mb = src[src.index("def make_board("):src.index("def ladder(")]
+    assert "not nba_half_dog_capped(c)" in dp and mb.count('nba_half_dog_capped(') == 2   # the runner-up, the Dog (both paths)
+
+
+def test_wired_1111_the_college_gap_play_is_road_dogs_under_35_points_with_a_steady_quarterback():
+    """3. 🔍 THE COLLEGE FOOTBALL GAP PLAY (the owner's 11/11 OK on the 11/7 study and the 11/11 sweep; live 4-13 -5.9u):
+    (a) ROAD dogs only - the raw read gives two equal teams 63.9% at home (really 58.5%): the 15+ gap home dog won 33.6%
+    vs 35.1% priced on 217, the road dog 44.3% vs 33.9% on 61; (b) never a raw gap of 35+ (held out -35.7% on 33, every
+    season since 2023 down); (c) never a dog whose quarterback changed in its last 2 games (-12.0% on 73 vs +9.2% on
+    202). 1u, its own record and the judge at 50 stand; college hoops' 🔍 twin is untouched; 11/11 and before: as it was."""
+    import sports_absences as sa
+    assert sports.GAP_1111_FROM == "2026-11-12" and sports.GAP_ROAD_ONLY and sports.GAP_MAX == 0.35
+    assert sports.GAP_QB_CHANGE_GAMES == 2 and sports.GAP_UNITS == 1.0 and sports.GAP_MIN == 0.15
+
+    def dog(gid, gap, start="2026-11-14T20:00Z", home=False, **kw):
+        dec = sd.decimal(200)
+        pm = 0.32
+        return {"game_id": gid, "league": "ncaaf", "market": "ml", "side": "home" if home else "away", "home": home,
+                "neutral": False, "team": gid, "opp": "x", "odds": 200, "dec": dec, "p": pm + 0.05, "p_market": pm,
+                "edge": 0.0, "edge_own": 0.0, "raw_own": round(pm + gap, 4), "elo_edge": 1.0, "fbs_game": True,
+                "start": start, "reasons": [], **kw}
+    ids = lambda cs: [c["game_id"] for c in sports.gap_plays(cs, ())]                   # noqa: E731
+    slate = [dog("road20", 0.20), dog("home20", 0.20, home=True), dog("neutral", 0.20, neutral=True),
+             dog("road36", 0.36), dog("road35", 0.35), dog("road34", 0.34),
+             dog("qb", 0.25, qb_changed={"changed": True, "names": ["A", "B", "B"]}),
+             dog("qbsame", 0.22, qb_changed={"changed": False, "names": ["A", "A", "A"]})]
+    assert ids(slate) == ["road34", "qbsame", "road20"]                                # the biggest gap under 35 first
+    before = [{**c, "start": "2026-11-07T20:00Z"} for c in slate]                      # the 11/7 slate: the rule as it ran
+    assert ids(before) == ["road36", "road35", "road34", "qb", "qbsame", "road20", "home20", "neutral"]
+    late = [{**c, "start": _W1111_OLD} for c in slate]                                 # 7 PM Pacific on 11/11: still the old rule
+    assert len(ids(late)) == 8
+    assert sports.gap_1111_skip(slate[1]).startswith("a home dog") and sports.gap_1111_skip(slate[2]) == "a neutral site"
+    assert "quarterback changed" in sports.gap_1111_skip(slate[6]) and sports.gap_1111_skip(slate[0]) is None
+    got = sports.gap_plays([dog("road20", 0.20)], ())[0]
+    assert got["gap"] == 0.2 and sports.gap_units({"legs": [got]}) == 1.0              # the size stands
+    # college hoops' twin (the efficiency read) keeps both floors
+    keep_spots = sports.dog_spots
+    try:
+        sports.dog_spots = lambda c: 0.0
+        hoop = {**dog("hoop", 0.20, home=True), "league": "ncaab", "eff_p": 0.60, "games_in": 6, "opp_games_in": 6}
+        assert ids([hoop]) == ["hoop"]
+    finally:
+        sports.dog_spots = keep_spots
+    # the quarterback read: the top passer of each of the last 3 box games (8+ attempts); under 3 games = unknown
+    box = lambda i, pid, att=30: (f"2026-10-{i:02d}T19:00Z", f"g{i}", [                 # noqa: E731
+        {"group": "passing", "pid": pid, "player": f"QB {pid}", "stats": json.dumps({"completions/passingAttempts": f"10/{att}"})},
+        {"group": "passing", "pid": "wr", "player": "Trick Play", "stats": json.dumps({"completions/passingAttempts": "1/1"})}])
+    G = {f"g{i}": {"stype": "2"} for i in range(1, 30)}
+    qb = lambda *pids: sa.qb_changed(G, "ncaaf", "T", "2026-11-14T20:00Z", rows=[box(3 + 7 * i, p) for i, p in enumerate(pids)])   # noqa: E731
+    assert qb("a", "a", "a") == {"changed": False, "names": ["QB a", "QB a", "QB a"]}
+    assert qb("a", "a", "b")["changed"] and qb("a", "b", "b")["changed"] and qb("a", "b", "a")["changed"]
+    assert not qb("b", "a", "a", "a")["changed"]                                       # a change 3 games back is old news
+    assert qb("a", "b") is None and qb() is None                                       # under 3 box games: unknown, no skip
+    assert sa.qb_changed(G, "nba", "T", "2026-11-14T20:00Z", rows=[]) is None
+    keep_q = sa.qb_changed
+    try:
+        sa.qb_changed = lambda games, lg, team, before, rows=None, last=2: {"changed": team == "77", "names": ["A", "B", "B"]}
+        gs = {"x": {"start": "2026-11-14T20:00Z", "away": "77", "home": "78"}}
+        a, h, fav = dog("x", 0.2), dog("x", 0.2, home=True), {**dog("x", 0.2), "odds": -150}
+        sports.mark_ncaaf_qb_change(gs, [a, h, fav])
+        assert a["qb_changed"]["changed"] and not h["qb_changed"]["changed"] and "qb_changed" not in fav
+        assert ids([a]) == []
+    finally:
+        sa.qb_changed = keep_q
+    src = open(sports.__file__).read()
+    cd = src[src.index("def candidates("):src.index("def fighting(")]
+    assert "mark_ncaaf_qb_change(games, out)" in cd
+
+
+def test_wired_1111_the_half_unit_college_hoops_spread_stack_play():
+    """4. 🏀 THE ½u COLLEGE HOOPS SPREAD PLAY (the owner's 11/11 OK on 11/11 FABLE b5: a spread stack of +0.05 or more
+    covered 56%, ATS +7.3% on 1,282, held out 2023-25 +11.0% on 798, 3 of 3 seasons up). From 11/12: a college hoops
+    SPREAD side whose stack is +0.05+ goes up as a ½u value play, at most 2 a night (the biggest stack first), tagged
+    stack_play with its own record ("🏀 college hoops spread stack") and its quit rule (100 graded, under 52.4% covered =
+    off). The ONE spread unit play - PLAY_MARKETS stays moneyline only for everything else; it passes the same pre-post
+    checks (one pick a game, injuries, the stack re-added from the leg), never carries the ⭐."""
+    assert sports.PLAY_MARKETS == ("ml",)                                              # every other path: moneyline only
+    assert sports.NCAAB_STACK_PLAY_FROM == "2026-11-12" and sports.NCAAB_STACK_PLAY_MIN == 0.05 == sports.NCAAB_STACK_MIN
+    assert sports.NCAAB_STACK_PLAY_UNITS == 0.5 and sports.NCAAB_STACK_PLAY_MAX_DAY == 2
+    assert sports.NCAAB_STACK_PLAY_QUIT == (100, 0.524) and sports.NCAAB_STACK_PLAY_ON
+    stacks = {"ncaab:w1": {"ats_gap": -4.0, "opp_top_out": True},                       # 0.03 + 0.03 = +0.06
+              "ncaab:w2": {"ats_gap": -4.0, "opp_top_out": True, "opp_tp_net": 0.07},   # +0.08
+              "ncaab:w3": {"ats_gap": -4.0, "opp_tp_net": 0.07}}                        # +0.05
+    real_mark = sports.mark_ncaab_spread_stack
+
+    def mark(cands):
+        for c in cands:
+            if c.get("league") == "ncaab":
+                c.update(ats_gap=None, reb_gap=None, top_out=False, opp_top_out=False, tp_net=None, opp_tp_net=None,
+                         ranked_road=False, vs_ranked_road=False)
+                c.pop("spread_stack", None)
+                if c.get("side") == "home":
+                    c.update(stacks.get(c["game_id"], {}))
+        real_mark(cands)
+    real = {"ncaab_stack_plays": sports.ncaab_stack_plays, "mark_ncaab_spread_stack": mark}
+    picks, log = _wired_1111_post(_W1111_NEW, real)
+    sp = [p for p in picks if p.get("stack_play")]
+    assert [(p["legs"][0]["game_id"], p["legs"][0]["market"], p["legs"][0]["side"], sports.units_for(p)) for p in sp] == \
+        [("ncaab:w2", "spread", "home", 0.5), ("ncaab:w1", "spread", "home", 0.5)], (log[-1500:], [(p["kind"], p["legs"][0]["game_id"]) for p in picks])
+    for p in sp:
+        assert p["kind"] == "play" and not p["lean"] and p["tier"] == "value" and sports.posted_kind(p) == "stackplay"
+        assert p["stack_play"]["line"] == -2.5 and p["stack_play"]["stack"] >= 0.06 and not p.get("best")
+        assert sports.sizing_check([p]) == []
+    assert "🏀 college hoops spread stack: H2 -2.5 (-110) - stack +0.08" in log
+    rep = {r["key"]: r for r in sports.LAST_PICK_CHECK}
+    for p in sp:
+        r = rep[f"play|{p['legs'][0]['game_id']}|home|spread"]
+        assert not r["held"] and r["kind"] == "stackplay" and r["checks"]["stack"] == "pass" and r["checks"]["injuries"] == "pass", r
+    again, _ = _wired_1111_post(_W1111_NEW, real, picks=picks)                          # a later run: 2 a night, never a third
+    assert len([p for p in again if p.get("stack_play")]) == 2
+    old, _ = _wired_1111_post(_W1111_OLD, real)                                         # the 11/11 board: no spread unit play
+    assert not any(p.get("stack_play") for p in old) and not any(p["legs"][0]["market"] == "spread" and not p["lean"] for p in old)
+    # the candidates: the stack, the juice (56% x the price > 1), never the faded side / a trap / a banged-up side
+    leg = dict(sp[0]["legs"][0])
+    c = lambda **kw: {**leg, "breakdown": [], **kw}                                     # noqa: E731
+    juice = lambda o: c(odds=o, dec=sd.decimal(o))                                      # noqa: E731
+    assert sports.ncaab_stack_play_ok(c()) and sports.ncaab_stack_play_ok(juice(-125)) and not sports.ncaab_stack_play_ok(juice(-130))
+    assert not sports.ncaab_stack_play_ok(c(spread_stack=0.04)) and not sports.ncaab_stack_play_ok(c(spread_stack=-0.08))
+    import sports_leads as sl                                                          # its own tracker line
+    assert "🏀 college hoops spread stack" in sl.spread_tags(c(), sports)
+    assert "🏀 college hoops spread stack" not in sl.spread_tags(c(start=_W1111_OLD), sports)
+    assert "🏀 college hoops spread stack" not in sl.spread_tags(juice(-135), sports)
+    assert not sports.ncaab_stack_play_ok(c(market="ml")) and not sports.ncaab_stack_play_ok(c(league="nba"))
+    assert not sports.ncaab_stack_play_ok(c(start=_W1111_OLD))
+    two = [c(game_id="a", spread_stack=0.05), c(game_id="b", spread_stack=0.09), c(game_id="b", side="away", spread_stack=-0.09),
+           c(game_id="t", spread_stack=0.10, trap=True), c(game_id="h", spread_stack=0.10, hurt=["3 players out"])]
+    assert [x["game_id"] for x in sports.ncaab_stack_plays(two, ())] == ["b", "a"]
+    assert [x["game_id"] for x in sports.ncaab_stack_plays(two, {"b"})] == ["a"]         # never a game we're already on
+    # the rule check: a stack play stands; a plain spread value play is still pulled; a stack play under its bar is pulled
+    mk = lambda l, **kw: {"date": "2026-11-12", "kind": "play", "status": "open", "lean": False, "dec": l["dec"],   # noqa: E731
+                          "american": l["odds"], "legs": [l], **kw}
+    assert sports.rule_check([], [mk(c(), stack_play={"stack": 0.08})], "2026-11-12") == []
+    assert any("off the moneyline" in x for x in sports.rule_check([], [mk(c())], "2026-11-12"))
+    weak = c(spread_stack=0.03, opp_top_out=False, opp_tp_net=None)
+    assert any("under its stack" in x or "the spread stack re-adds to +0.03" in x                     # (the input check catches it first)
+               for x in sports.rule_check([], [mk(weak, stack_play={"stack": 0.03})], "2026-11-12"))
+    assert any("under its stack" in x for x in sports.rule_check([], [mk(juice(-135), stack_play={"stack": 0.08})], "2026-11-12"))
+    assert any("off the moneyline" in x or "under its stack" in x
+               for x in sports.rule_check([], [mk(c(start=_W1111_OLD), date="2026-11-11", stack_play={"stack": 0.08})], "2026-11-11"))
+    assert any(n == "stack" and r == "fail" for n, r, _ in sports.pick_checks(mk(weak, stack_play={"stack": 0.08})))
+    # never the ⭐ (a ½u test on the stack, no read over its price), never the Dog upgrade
+    star = mk(c(), stack_play={"stack": 0.08})
+    assert sports.best_pool([star], "2026-11-12") == [] and sports.mark_best([star], "2026-11-12") is None
+    # its own record and the quit rule: judged at 100 graded, off under 52.4% covered
+    graded = lambda w, l_, push=0: ([{**mk(c(), stack_play={"stack": 0.05}), "status": "won", "units": 0.5}] * w   # noqa: E731
+                                    + [{**mk(c(), stack_play={"stack": 0.05}), "status": "lost", "units": 0.5}] * l_
+                                    + [{**mk(c(), stack_play={"stack": 0.05}), "status": "push", "units": 0.5}] * push
+                                    + [{**mk(c()), "status": "lost", "units": 0.5}] * 5)   # (a plain play is not in it)
+    r = sports.ncaab_stack_play_record(graded(53, 47, 3))
+    assert (r["won"], r["lost"], r["push"], r["risked"]) == (53, 47, 3, 50.0) and abs(r["units"] - (53 * 0.5 * (sd.decimal(-110) - 1) - 23.5)) < 0.01
+    assert not sports.ncaab_stack_play_quit(graded(53, 47)) and sports.ncaab_stack_play_quit(graded(52, 48))
+    assert not sports.ncaab_stack_play_quit(graded(40, 59)) and not sports.ncaab_stack_play_quit(graded(40, 59, 9))   # 99 graded: not judged yet
+    assert sports.ncaab_stack_play_quit(graded(40, 60))
+    quit_, _ = _wired_1111_post(_W1111_NEW, real, picks=graded(40, 60))                 # the judge tripped: no more posts
+    assert not any(p.get("stack_play") and p["status"] == "open" for p in quit_)
+    src = open(sports.__file__).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert pb.index('("ncaabplay", ncaab_play_plays') < pb.index('("stackplay", ncaab_stack_plays') < pb.index('("floor", floor_plays')
+    # the card: its header is the spread, its size ½u, never a lean / no-units line, never a moneyline price claim
+    import sports_dashboard as sdb
+    card = sdb._pick_card("play", sp[0])
+    low = card.lower()
+    assert "H2 -2.5" in card and "½ UNIT" in card and "VALUE PLAY" in card, card[:600]
+    assert "no units" not in low and "a lean" not in low and "lean only" not in low and "lean it" not in low, card
+    assert all(l["tier"] == "value" and l.get("is_lean") is False for p in sp for l in p["legs"])
+
+
+def test_wired_1111_a_value_play_needs_its_read_a_full_point_over_the_price():
+    """5. VALUE PLAYS NEED A REAL EDGE (the owner's 11/11 OK on the 11/11 sweep: the Bruins -142 of 11/8 went up ½u with its
+    read at 58.75% against the 58.68% the price needs - a play on nothing). From 11/12 a value play's read (the one
+    own_beats checks: the weighed read in hockey / the NBA, the own read elsewhere) has to beat the price by 1 point of
+    win chance or more. 11/11 and before: over by anything, as it ran."""
+    assert sports.VALUE_EDGE_FROM == "2026-11-12" and sports.VALUE_EDGE_MIN == 0.01
+    bruins = lambda wp, start: {**_cand("Bruins", -142, wp, league="nhl"), "w_p": wp, "start": start}   # noqa: E731
+    assert abs(sports.own_margin(bruins(0.5875, _W1111_NEW)) - 0.0007) < 0.0001        # 58.75% vs 58.68% needed
+    assert [c["game_id"] for c in sports.plays([bruins(0.5875, "2026-11-09T00:00Z")], ())] == ["Bruins"]   # 11/8: it posted
+    assert [c["game_id"] for c in sports.plays([bruins(0.5875, _W1111_OLD)], ())] == ["Bruins"]            # 11/11: still the old rule
+    assert sports.plays([bruins(0.5875, _W1111_NEW)], ()) == []                                             # 11/12: a hair is no edge
+    assert sports.plays([bruins(0.5960, _W1111_NEW)], ()) == []                                             # 0.9 of a point: no
+    assert [c["game_id"] for c in sports.plays([bruins(0.60, _W1111_NEW)], ())] == ["Bruins"]              # 1.3 points: a play
+    fav = lambda p: {**_cand(f"F{p}", -130, p, league="ncaaf"), "start": _W1111_NEW}   # noqa: E731       (the own read)
+    assert abs(sports.own_margin(fav(0.58)) - (0.58 - 130 / 230)) < 1e-9
+    assert [c["game_id"] for c in sports.plays([fav(0.57), fav(0.58)], ())] == ["F0.58"]                    # 0.5 / 1.5 points over
+    assert sports.value_edge_ok({**fav(0.57), "start": ""}) and sports.own_margin({"odds": -130}) is None   # no start: the old rule
+    assert not sports.value_edge_ok({"dec": 1.77, "start": _W1111_NEW})                                     # no read at all: no play
+    # the rule check backstops it on a plain value play - never on the kinds that ride their own rule
+    mk = lambda c, date="2026-11-12", **kw: {"date": date, "kind": "play", "status": "open", "lean": False, "dec": c["dec"],   # noqa: E731
+                                             "american": c["odds"], "legs": [c], **kw}
+    thin = f"a value play under {sports.VALUE_EDGE_MIN:.0%} over its price"
+    assert any(thin in x for x in sports.rule_check([], [mk(bruins(0.5875, _W1111_NEW))], "2026-11-12"))
+    assert not any(thin in x for x in sports.rule_check([], [mk(bruins(0.60, _W1111_NEW))], "2026-11-12"))
+    assert not any(thin in x for x in sports.rule_check([], [mk(bruins(0.5875, _W1111_OLD), "2026-11-11")], "2026-11-11"))
+    for tag in ({"nba_fav": {"x": 1}}, {"floor": {"dog_score": 1}}, {"owner_post": "his call", "units": 1.0}, {"was_dog": "x"}):
+        assert not any(thin in x for x in sports.rule_check([], [mk(bruins(0.5875, _W1111_NEW), **tag)], "2026-11-12")), tag
+
+
+def test_wired_1111_the_dog_upgrade_keeps_the_units_both_picks_were_posted_at():
+    """6. upgrade_dog KEEPS POSTED UNITS (the owner's 11/11 OK on the 11/11 sweep): the 10/8 rule swaps the Dog spot to a
+    later, better-value dog - and under the 10/30 price sizing that re-sized two posted picks: a posted ½u +140 play
+    became a 2u Dog and a posted 2u Dog fell to ½u, hours after people bet them. From 11/12 both keep the units they
+    were posted at (units_posted); the labels still swap. 11/11 and before: as it ran."""
+    assert sports.KEEP_UNITS_FROM == "2026-11-12"
+
+    def day(iso, start):
+        leg = lambda team, odds, read: {"team": team, "odds": odds, "dec": 1 + odds / 100, "market": "ml", "dog_p": read,   # noqa: E731
+                                        "start": start, "game_id": team, "side": "home", "league": "nhl"}
+        pk = lambda kind, team, odds, read: {"date": iso, "kind": kind, "status": "open", "lean": False,   # noqa: E731
+                                             "dec": 1 + odds / 100, "american": odds, "legs": [leg(team, odds, read)]}
+        return [pk("dog", "Flames", 120, 0.46), pk("play", "Predators", 140, 0.47)]
+    now = lambda iso: datetime.strptime(iso + "T18:00", "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)   # noqa: E731
+    picks = day("2026-11-12", "2026-11-13T03:00Z")
+    assert sports.units_for(picks[0]) == 2.0 and sports.units_for(picks[1]) == 0.5       # as posted: the short Dog 2u, the play ½u
+    assert sports.upgrade_dog(picks, "2026-11-12", now("2026-11-12")) is picks[1]
+    assert [p["kind"] for p in picks] == ["play", "dog"] and picks[0]["was_dog"] and picks[1]["upgraded"]   # the labels swap
+    assert sports.units_for(picks[0]) == 2.0 and sports.units_for(picks[1]) == 0.5       # ...the units never do
+    assert picks[0]["units_posted"] == 2.0 and picks[1]["units_posted"] == 0.5
+    assert sports.sizing_check(picks) == [] and sports.upgrade_dog(picks, "2026-11-12", now("2026-11-12")) is None
+    assert sports.units_for({**picks[1], "status": "won", "units": 0.5}) == 0.5          # graded at what it was posted at
+    star = day("2026-11-12", "2026-11-13T03:00Z")
+    star[1]["best"] = True                                                              # the ⭐ play at its raised 1u keeps 1u
+    sports.upgrade_dog(star, "2026-11-12", now("2026-11-12"))
+    assert sports.units_for(star[1]) == 1.0 and star[1]["units_posted"] == 1.0
+    old = day("2026-11-11", "2026-11-12T03:00Z")                                        # 11/11: the 10/30 sizing re-sized both
+    assert sports.upgrade_dog(old, "2026-11-11", now("2026-11-11")) is old[1]
+    assert sports.units_for(old[1]) == 2.0 and sports.units_for(old[0]) == 0.5 and "units_posted" not in old[0]
+
+
+def test_wired_1111_the_floors_second_play_needs_a_dog_score_of_zero_or_more():
+    """7. THE FLOOR'S SECOND PLAY (the owner's 11/11 OK on the 11/11 sweep): the 11/10 Predators +114 went up as the day's
+    second floor play at a dog score of -3.57 - the angles AGAINST it. From 11/12 a floor play under a dog score of 0
+    goes up only when the board has no unit play at all (the owner's "at least ONE unit play per day"); the floor still
+    fills to 2 with dogs at 0 or better. The NBA floor already needs 0+. 11/11 and before: as it ran."""
+    assert sports.FLOOR_SCORE_FROM == "2026-11-12" and sports.FLOOR_SECOND_SCORE == 0.0 == sports.NBA_FLOOR_SCORE
+
+    def floor_of(scores):
+        def fake(cands, avoid, filtered=True):
+            out = []
+            for gid, sc in scores:
+                c = next((c for c in cands if c["game_id"] == gid and c["market"] == "ml" and c["odds"] > 0), None)
+                if c is not None and gid not in avoid:
+                    c["floor_score"] = sc
+                    out.append(c)
+            return out
+        return fake
+    got = lambda picks: [(p["legs"][0]["game_id"], p["floor"]["dog_score"]) for p in picks if p.get("floor")]   # noqa: E731
+    two = [("ncaab:w0", 2.0), ("ncaab:w1", -3.57)]
+    picks, log = _wired_1111_post(_W1111_NEW, {"floor_plays": floor_of(two)})
+    assert got(picks) == [("ncaab:w0", 2.0)], (got(picks), log[-800:])                  # the second play at -3.57: no
+    assert "a dog score of -3.57" in log and sports.unit_plays_today(picks, "2026-11-12") == 1
+    picks, _ = _wired_1111_post(_W1111_NEW, {"floor_plays": floor_of([("ncaab:w0", 2.0), ("ncaab:w1", 0.0)])})
+    assert got(picks) == [("ncaab:w0", 2.0), ("ncaab:w1", 0.0)]                         # 0 or better: the floor fills to 2
+    picks, _ = _wired_1111_post(_W1111_NEW, {"floor_plays": floor_of([("ncaab:w1", -3.57), ("ncaab:w2", -4.0)])})
+    assert got(picks) == [("ncaab:w1", -3.57)]                                          # no unit play at all: ONE goes up
+    picks, _ = _wired_1111_post(_W1111_OLD, {"floor_plays": floor_of(two)})
+    assert got(picks) == two                                                            # the 11/11 board: as it ran
 
 
 if __name__ == "__main__":

@@ -888,6 +888,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_dog_read(out)                          # 🐶🏀 11/4 DOG EXPERT: the dog read (weights + ratings + knowledge)
     weigh_ncaaf_fav_off_loss(out)
     weigh_ncaaf_fav_form_spot(out)
+    mark_ncaaf_qb_change(games, out)                  # 🏈 11/11 wired: the college dog whose QB changed in its last 2 (🔍 skip)
     weigh_ncaaf_fav_qb_carousel(games, out)           # 🏈 11/7 daily: the college favorite on its 3rd+ QB this season (-2)
     weigh_nba_fav_vs_star_dud(games, out)             # 🏀 11/8 daily: the NBA favorite across from a star off a dud (-1)
     weigh_nhl_fast_starter_fav(games, out)            # 🏒 11/9 daily: the NHL favorite that wins 1st periods past its record (-1)
@@ -1393,6 +1394,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
             #                                                  title - it stays the game's pick, with units, never a Lock)
         elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX and \
                 not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo) and dog_own_ok(solo) \
+                and not nba_half_dog_capped(solo, "dog") \
                 and solo.get("league") not in DOG_LEAGUES_OFF:   # (10/30 sizing: no college hoops Dog) (10/1 audit: a Dog that fails
             kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
             #                                                  Thursday game with no pick - it stays the game's pick)
@@ -1445,6 +1447,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # never one the analysis flags as a trap (score under 0). None = no Dog of the Day, and the board says so.
         dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DAILY_DOG_MAX
                 and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0 and dog_own_ok(c)
+                and not nba_half_dog_capped(c, "dog")        # (11/11: a ½u NBA Dog only at +100..+199)
                 and c.get("league") not in DOG_LEAGUES_OFF]   # (10/30 sizing: no college hoops Dog) (10/24 audit:
         #                                                  the own-read rule holds for a proven-angle dog too - it only lived in dog_gate)
         regular = [c for c in dogs if c["odds"] < BIG_DOG]
@@ -2974,6 +2977,8 @@ def best_pool(picks, iso):
             continue
         if iso >= BEST_OVER_FROM and not beats_price(l):     # (11/5: never a full unit on a price its read doesn't beat)
             continue
+        if p.get("stack_play"):                              # (11/11: the ½u college hoops spread play rides the stack,
+            continue                                         #  never a read over its price - it never carries the ⭐)
         out.append(p)
     return out
 
@@ -3055,6 +3060,9 @@ def _units_base(pk):
     if pk.get("owner_post") and pk.get("units") is not None:
         return pk["units"]                                   # (10/22: a pick the owner posted by hand keeps HIS units -
         #                                                      the Sharks at his 1u came out 3.5u once it became the Dog)
+    if pk.get("units_posted") is not None and (pk.get("date") or "") >= KEEP_UNITS_FROM:
+        return pk["units_posted"]                            # (11/11: the Dog upgrade - both picks keep the units they
+        #                                                      were posted at, never re-sized hours after people bet them)
     if kind in ("solo", "night") and (pk.get("date") or "") >= SIZING_1031_FROM and not pk.get("lean"):
         return solo_units_1031(pk)                           # 💰 10/30 SIZING: a one-game day's / a night game's unit
         #                                                      pick - never Kelly on the read again (it put 3-5u on the
@@ -3099,6 +3107,8 @@ def _units_base(pk):
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
+            if pk.get("stack_play"):
+                return NCAAB_STACK_PLAY_UNITS                # 🏀 (11/11: the college hoops spread stack play, ½u)
             if pk.get("ncaab_play"):
                 return ncaab_play_units(pk)                  # 🏀 (11/4: the favorite slot ½u, the dog slot 1u / 2u at a read of 6+)
             if pk.get("nba_fav") and (pk.get("date") or "") >= NBA_FAV_FROM:
@@ -5274,6 +5284,7 @@ def plays(cands, avoid):
     pool = sorted((c for c in cands if c["market"] in PLAY_MARKETS and good(c) and c["odds"] >= MAX_FAV
                    and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)
                    and (c["market"] != "ml" or own_beats(c))   # (10/18: a moneyline's own read over the price too)
+                   and (c["market"] != "ml" or value_edge_ok(c))   # (11/11: ...by a real point, never by a hair)
                    and (not PLAYS_FAV_ONLY or c["odds"] < 100)),   # (10/23 plan: dog value plays lost -5% / -17.6%)
                   key=lambda c: (-rank_p(c), -c["edge"]))
     out, seen = [], set(avoid)
@@ -5305,6 +5316,8 @@ def posted_kind(p):
         return "gap"
     if p.get("kind") == "play" and p.get("ncaab_play"):
         return "ncaabplay"                                     # 🏀 11/3: the college hoops slot plays - their own cap a day
+    if p.get("kind") == "play" and p.get("stack_play"):
+        return "stackplay"                                     # 🏀 11/11: the ½u college hoops spread play - 2 a night
     if p.get("kind") == "play" and p.get("dog_play"):
         return "dogplay"
     if p.get("kind") == "play" and p.get("nba_fav"):
@@ -5319,7 +5332,7 @@ def dog_plays(cands, avoid):
     at most DOG_PLAY_MAX a day (post_board counts the day's), DOG_PLAY_LEAGUES only, best dog score first, one per game,
     never a game in `avoid`."""
     pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
-            and c.get("league") in DOG_PLAY_LEAGUES
+            and c.get("league") in DOG_PLAY_LEAGUES and not nba_half_dog_capped(c)   # (11/11: NBA ½u dogs to +199)
             and not c.get("trap") and good(c) and beats_price(c) and dog_score(c) > 0 and dog_gate(dict(c))]
     out, seen = [], set(avoid)
     for c in sorted(pool, key=lambda c: (-dog_score(c), -c["edge"])):
@@ -5370,6 +5383,8 @@ def floor_plays(cands, avoid, filtered=True):
         score_reason(c)                                      # (🏀 10/28: the NBA dog score names itself)
         if c.get("market") != "ml" or not DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") \
                 or not c.get("reasons") or fighting(c) or c.get("waiting"):
+            continue
+        if nba_half_dog_capped(c):                           # (11/11: an NBA ½u dog only at +100..+199)
             continue
         try:
             sc = round(dog_score(c), 2)
@@ -5486,6 +5501,172 @@ GAP_FBS_ONLY = True       # 🔍 10/31 college sweep: both teams FBS (sports_pla
 #                           play so far was FBS v FBS. An FCS game never carries a 🔍 unit play; its dogs still get read.
 
 
+# ── 11/11 WIRED (the owner, 11/11: "I want you to wire anything into the engine that you recommend and Fable recommends
+# to be profitable and have good picks and a good engine") - the seven open decisions of 11/6 / 11/7 / 11/11, each from
+# the 11/12 board on (a pick's Pacific game day - pt_day; posted picks and history are never re-sized or re-graded).
+WIRE_1111_FROM = "2026-11-12"
+NO_FORCED_BEST_FROM = WIRE_1111_FROM   # 1. ⭐ NO FORCED ⭐: the star goes only on one of the day's unit plays whose read
+#                           beats its price (mark_best / best_pool, 11/5); a day with none = no ⭐, never an extra forced
+#                           side. The 11/6 study: the forced ⭐ under the 11/5 rule 10-13 +2.3% (train 8-6 / held 2-7
+#                           -39.1%, 1 of 4 seasons up; forced favorites 5-7 -21.5%; live 0-2) vs the ⭐ on a play whose
+#                           read beats its price 377-314 +13.3% (4 of 4 seasons).
+NBA_HALF_DOG_CAP_FROM = WIRE_1111_FROM   # 2. 🏀 NBA ½u DOGS ONLY AT +100..+NBA_HALF_DOG_MAX: the NBA floor, the runner-up
+NBA_HALF_DOG_MAX = 199    # dog play, the floor's fallback and a ½u NBA Dog of the Day. The 11/6 study (the replay's NBA
+#                           ½u dogs 113-154 +15.9%): +100..+129 +24.9%, +130..+159 +18.3%, +160..+199 +44.5%, +200..+350
+#                           -3.3% on 107 (0 of 3 seasons up) - the one losing band (live: the Bucks +270, Clippers +215).
+GAP_1111_FROM = WIRE_1111_FROM   # 3. 🔍 THE COLLEGE FOOTBALL GAP PLAY, three more bars (1u and its judge-at-50 unchanged):
+GAP_ROAD_ONLY = True      # (a) ROAD dogs only - the raw read gives two equal teams 63.9% at home where FBS v FBS teams
+#                           rated within 30 really win 58.5%: the 15+ gap HOME dog read 60.1%, priced 35.1%, won 33.6% on
+#                           217 (under its price); the ROAD dog read 56.2%, priced 33.9%, won 44.3% on 61 (2023-26; live
+#                           home 3-9, road 1-4). A neutral site is not a road game.
+GAP_MAX = 0.35            # (b) never a raw gap of 35+ points: 35+ -35.7% on 33 held out, 2023 / 2024 / 2025 / 2026 all
+#                           down (read 73.9%, won 35.1% vs 32.6% priced) - a huge gap is the ratings missing something.
+GAP_QB_CHANGE_GAMES = 2   # (c) never a dog whose quarterback changed in its last 2 games (sports_absences.qb_changed -
+#                           the top passer of the box scores): inside the 🔍 rule 35.6% won vs 37.6% priced, -12.0% on
+#                           73 (the first fair number -27.6% on 54) vs +9.2% on 202 without a change. Unknown (under 3
+#                           box games) = no skip. College hoops' 🔍 twin (the efficiency read) is untouched.
+NCAAB_STACK_PLAY_FROM = WIRE_1111_FROM   # 4. 🏀 THE ½u COLLEGE HOOPS SPREAD PLAY ("🏀 college hoops spread stack"): a
+NCAAB_STACK_PLAY_ON = True               # college hoops SPREAD side whose study stack (ncaab_spread_stack) is
+NCAAB_STACK_PLAY_MIN = 0.05              # +0.05 or more - ATS +7.3% on 1,282, covered 56% (held out 2023-25 +11.0% on
+NCAAB_STACK_PLAY_UNITS = 0.5             # 798, 3 of 3 seasons up; 11/11 FABLE b5) - ½u, at most 2 a night, the biggest
+NCAAB_STACK_PLAY_MAX_DAY = 2             # stack first, its own record. The ONE spread unit play: PLAY_MARKETS stays
+NCAAB_STACK_PLAY_COVER = 0.56            # ("ml",) for every other path. A spread carries no own read (strust = 0), so
+NCAAB_STACK_PLAY_QUIT = (100, 0.524)     # its money check is the stack's cover rate against the juice (56% x the
+#                           price > 1 = never worse than about -127). THE QUIT RULE: judged at 100 graded plays - under
+#                           52.4% covered (the -110 break-even) = it's off (ncaab_stack_play_quit).
+VALUE_EDGE_FROM = WIRE_1111_FROM   # 5. A VALUE PLAY NEEDS A REAL EDGE: the read own_beats() checks has to sit
+VALUE_EDGE_MIN = 0.01     # VALUE_EDGE_MIN (1 point of win chance) or more over what the price needs (own_margin) - the
+#                           Bruins -142 of 11/8 went up ½u at 58.75% vs 58.68% needed, a play on nothing.
+KEEP_UNITS_FROM = WIRE_1111_FROM   # 6. upgrade_dog KEEPS POSTED UNITS: the old Dog and the new Dog keep the units they
+#                           were posted at (pk["units_posted"]) - under the 10/30 price sizing a posted ½u +120 play
+#                           became a 2u Dog and a posted 2u Dog fell to ½u, hours after people bet them.
+FLOOR_SCORE_FROM = WIRE_1111_FROM   # 7. THE FLOOR'S SECOND PLAY needs a dog score of FLOOR_SECOND_SCORE or more (the NBA
+FLOOR_SECOND_SCORE = 0.0  # floor already does): a floor play goes up under it only when the board has no unit play at
+#                           all (the owner's "at least ONE unit play per day"). The 11/10 Predators +114 were the day's
+#                           second floor play at a dog score of -3.57 - the angles AGAINST it.
+
+
+def pt_day(c):
+    """The Pacific game day (YYYY-MM-DD) of a side / leg, from its start - "" when it has none (a date gate then holds
+    the old rule). A 7 PM Pacific game is the next day in UTC: the day a rule starts is the board's, never UTC's."""
+    try:
+        return _start(c).astimezone(PT).date().isoformat()
+    except (KeyError, TypeError, ValueError):
+        return ""
+
+
+def own_margin(c):
+    """Points of win chance the read own_beats() checks sits over what the price needs (None = no read / no price)."""
+    dec = c.get("dec")
+    if not dec:
+        return None
+    if c.get("w_p") is not None and (c.get("league") in ("nhl", "nba") or c.get("edge_own") is None):
+        return c["w_p"] - 1 / dec
+    if c.get("edge_own") is None:
+        return None
+    return c["edge_own"] / dec
+
+
+def value_edge_ok(c):
+    """5. (11/11) a value play's read beats its price by VALUE_EDGE_MIN or more, from VALUE_EDGE_FROM (before it, or with
+    no start on the side: own_beats' "over by anything")."""
+    if pt_day(c) < VALUE_EDGE_FROM:
+        return True
+    m = own_margin(c)
+    return m is not None and m >= VALUE_EDGE_MIN - 1e-9
+
+
+def nba_half_dog_capped(c, kind="play"):
+    """2. (11/11) an NBA moneyline dog past +NBA_HALF_DOG_MAX that would go up at ½u, from NBA_HALF_DOG_CAP_FROM: a floor /
+    runner-up / fallback play always (½u by rule); the Dog of the Day (kind "dog") when the unit system sizes it ½u."""
+    if c.get("league") != "nba" or c.get("market", "ml") != "ml" or (c.get("odds") or 0) <= NBA_HALF_DOG_MAX \
+            or pt_day(c) < NBA_HALF_DOG_CAP_FROM:
+        return False
+    if kind != "dog":
+        return True
+    return (_units_base({"kind": "dog", "date": pt_day(c), "status": "open", "legs": [c]}) or 0) <= 0.5
+
+
+def mark_ncaaf_qb_change(games, cands):
+    """3c. (11/11) qb_changed = {"changed", "names"} on every college football moneyline dog +100..+350 the box scores can
+    read (sports_absences.qb_changed over its last GAP_QB_CHANGE_GAMES games); unknown = no mark."""
+    dogs = [c for c in cands if c.get("league") == "ncaaf" and c.get("market") == "ml"
+            and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX]
+    for c in dogs:
+        g = (games or {}).get(c.get("game_id")) or {}
+        start, team = str(g.get("start") or c.get("start") or ""), g.get(c.get("side") or "")
+        try:
+            q = sports_absences.qb_changed(games, "ncaaf", team, start, last=GAP_QB_CHANGE_GAMES) if team and start else None
+        except Exception:                                    # noqa: BLE001 - unknown = no mark, never a blocked board
+            q = None
+        if q:
+            c["qb_changed"] = q
+
+
+def gap_1111_skip(c):
+    """3. (11/11) why a college FOOTBALL dog sits out the 🔍 play from GAP_1111_FROM (None = it can post): a home dog or a
+    neutral site, or its quarterback changed in the last 2 games. (The 35-point cap reads the gap - gap_plays.)"""
+    if pt_day(c) < GAP_1111_FROM:
+        return None
+    if GAP_ROAD_ONLY and (c.get("home") or c.get("side") == "home" or c.get("neutral")):
+        return "a neutral site" if c.get("neutral") else "a home dog (the raw read overrates the home team)"
+    if (c.get("qb_changed") or {}).get("changed"):
+        return "its quarterback changed in the last 2 games"
+    return None
+
+
+def ncaab_stack_play_record(picks):
+    """🏀 college hoops spread stack - the ½u spread play's own record -> {"won", "lost", "push", "units" (net), "risked"}."""
+    w = l_ = ps = 0
+    net = risked = 0.0
+    for p in picks or []:
+        if not p.get("stack_play") or p.get("status") not in ("won", "lost", "push") or not p.get("legs"):
+            continue
+        if p["status"] == "push":
+            ps += 1
+            continue
+        u = units_for(p) or 0
+        risked += u
+        if p["status"] == "won":
+            w += 1
+            net += u * (_dec(p["legs"][0]["odds"]) - 1)
+        else:
+            l_ += 1
+            net -= u
+    return {"won": w, "lost": l_, "push": ps, "units": round(net, 2), "risked": round(risked, 2)}
+
+
+def ncaab_stack_play_quit(picks):
+    """The spread play's judge: NCAAB_STACK_PLAY_QUIT[0]+ graded (pushes out) and under NCAAB_STACK_PLAY_QUIT[1] covered
+    = no more posts."""
+    r = ncaab_stack_play_record(picks)
+    n = r["won"] + r["lost"]
+    return n >= NCAAB_STACK_PLAY_QUIT[0] and r["won"] / n < NCAAB_STACK_PLAY_QUIT[1]
+
+
+def ncaab_stack_play_ok(c):
+    """A college hoops SPREAD side that can be the ½u stack play: the stack +NCAAB_STACK_PLAY_MIN or more, a spread with a
+    line and a price never past -150 that the stack's cover rate beats (NCAAB_STACK_PLAY_COVER x the price > 1), from
+    NCAAB_STACK_PLAY_FROM."""
+    return bool(NCAAB_STACK_PLAY_ON and c.get("league") == "ncaab" and c.get("market") == "spread"
+                and c.get("line") is not None and pt_day(c) >= NCAAB_STACK_PLAY_FROM
+                and (ncaab_spread_stack(c)[0] if c.get("spread_stack") is None else c["spread_stack"]) >= NCAAB_STACK_PLAY_MIN - 1e-9
+                and c.get("dec") and (c.get("odds") or -999) >= MAX_FAV and NCAAB_STACK_PLAY_COVER * c["dec"] > 1)
+
+
+def ncaab_stack_plays(cands, avoid):
+    """4. 🏀 (11/11) THE ½u COLLEGE HOOPS SPREAD PLAY's candidates: every side ncaab_stack_play_ok passes - never a trap,
+    never a side missing players the engine doesn't weigh - the biggest stack first (then the most weights firing, then
+    the spread rank), one per game, never a game in `avoid`. post_board caps the night at NCAAB_STACK_PLAY_MAX_DAY."""
+    pool = [c for c in cands if ncaab_stack_play_ok(c) and not c.get("trap") and not c.get("hurt")]
+    out, seen = [], set(avoid)
+    for c in sorted(pool, key=lambda c: (-(c.get("spread_stack") or 0), -(c.get("spread_stack_n") or 0), -rank_p(c))):
+        if c["game_id"] not in seen:
+            seen.add(c["game_id"])
+            out.append(c)
+    return out
+
+
 NCAAB_GAP_FROM = "2026-11-04"   # 🔍🏀 THE COLLEGE HOOPS GAP PLAY (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, results/studies/
 NCAAB_GAP_MIN = 0.15            # cbb_dog_expert/): the college football play's exact twin on the EFFICIENCY read
 NCAAB_GAP_GAMES = 4             # (sports_cbb_eff - the 11/3 DEEP verdict: the raw Elo is far worse in hoops, use the
@@ -5550,6 +5731,10 @@ def gap_plays(cands, avoid):
             #                                                  form / travel / rest weights: -15.7% blind, 8 of 9 seasons red)
         gap = c["raw_own"] - c["p_market"]
         if gap >= GAP_MIN:
+            if pt_day(c) >= GAP_1111_FROM and gap >= GAP_MAX - 1e-9:
+                continue                                     # (11/11: a 35+ point gap is the ratings missing something)
+            if gap_1111_skip(c):
+                continue                                     # (11/11: road dogs only, never off a QB change)
             pool.append((gap, c, c["raw_own"]))
     out, seen = [], set(avoid)
     for gap, c, read in sorted(pool, key=lambda x: -x[0]):
@@ -6937,6 +7122,10 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
                 d1 = ctx["d1"] = sm.ncaab_d1(fin)
             nd = [g.get(s_ + "_name") for s_ in ("home", "away") if d1 is not None and g.get(s_) not in d1]
             add("d1", not nd, "" if not nd else f"{', '.join(map(str, nd))} is not a D1 school")
+    if pk.get("stack_play"):                                 # 9b. 🏀 the spread play's stack, added up again from the
+        st_, n_ = ncaab_spread_stack(leg)                    # marks on the leg (never the number the pick was built on)
+        ok_ = leg.get("market") == "spread" and lg == "ncaab" and st_ >= NCAAB_STACK_PLAY_MIN - 1e-9
+        add("stack", ok_, "" if ok_ else f"the spread stack re-adds to {st_:+.2f} on {n_} weight(s) - under +{NCAAB_STACK_PLAY_MIN:.2f}")
     reasons = [str(r) for r in leg.get("reasons") or []]     # 10. every named reason is TRUE
     false = []
     if "the stronger team" in reasons:
@@ -7005,7 +7194,7 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
     if false:
         leg["reasons"] = [r for r in (leg.get("reasons") or []) if not any(f"'{str(r)}'" in x for x in false)]
         left = [r for r in leg["reasons"]]
-        rides = pk.get("gap") is not None or pk.get("ncaab_play") or pk.get("nba_fav") or pk.get("forced")   # (these ride
+        rides = pk.get("gap") is not None or pk.get("ncaab_play") or pk.get("nba_fav") or pk.get("forced") or pk.get("stack_play")   # (these ride
         #                                                  on their own read / gate, never on a named reason: the label
         #                                                  just comes off)
         named = pk.get("kind") == "dog" or (pk.get("kind") == "play" and (pk.get("floor") or pk.get("dog_play")))
@@ -7128,8 +7317,19 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
         elif pk.get("kind") == "lock" and not pk.get("lean") and not pk.get("owner_post") and l.get("market") == "ml" \
                 and S6_LOCK_SKIP[0] <= (l.get("odds") or 0) <= S6_LOCK_SKIP[1] and (pk.get("date") or "") >= S6_FROM:
             why = "a Lock of the Day at -119..-101"          # (10/25 sweep: the 10/23 plan's band, checked at the gate too)
-        elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") not in PLAY_MARKETS:
+        elif pk.get("stack_play") and not ncaab_stack_play_ok(l):
+            why = "a college hoops spread play under its stack / past its price"   # (🏀 11/11: +0.05+, 56% x the price > 1)
+        elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") not in PLAY_MARKETS \
+                and not pk.get("stack_play"):               # (11/11, the owner's OK: the ONE spread unit play)
             why = "a value play off the moneyline"          # (the owner, 10/9: value plays are MONEYLINE only)
+        elif pk.get("kind") in ("play", "dog") and not pk.get("lean") and not pk.get("owner_post") \
+                and (_units_base(pk) or 0) <= 0.5 and nba_half_dog_capped(l):
+            why = f"an NBA ½u dog past +{NBA_HALF_DOG_MAX}"   # (11/11: +200..+350 lost 0 of 3 seasons in the replay)
+        elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") == "ml" and not pk.get("owner_post") \
+                and not (pk.get("gap") is not None or pk.get("dog_play") or pk.get("nba_fav") or pk.get("floor")
+                         or pk.get("ncaab_play") or pk.get("forced") or pk.get("was_dog")) \
+                and l.get("odds", 0) < 100 and not value_edge_ok(l):
+            why = f"a value play under {VALUE_EDGE_MIN:.0%} over its price"   # (11/11: the Bruins -142, 58.75% vs 58.68%)
         elif pk.get("kind") in ("play", "dog", "solo", "night") and not pk.get("lean") \
                 and (l.get("odds") or 0) > DOG_DAY_MAX:
             why = f"a unit play on a dog past +{DOG_DAY_MAX}"   # (the owner, 10/10: dogs +100..+300, never past)
@@ -7140,7 +7340,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             why = "a college hoops play whose whole read doesn't beat the price"   # (🏀 11/3: its read is ncaab_read)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price") and not pk.get("ncaab_play") \
-                and not pk.get("forced") \
+                and not pk.get("forced") and not pk.get("stack_play") \
                 and not (pk.get("kind") == "play" and (pk.get("floor") or pk.get("nba_fav"))):   # (a one-game day's pick /
             #                                                  the always-a-Lock backup always carry units - the owner; 10/27:
             #                                                  a floor play is a thin edge by design and the NBA favorite play
@@ -7186,6 +7386,10 @@ def sizing_check(new):
             #                                                   check flagged his 2u Wyoming against the Dog's 1u floor)
         elif pk.get("lean"):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
+        elif pk.get("units_posted") is not None and (pk.get("date") or "") >= KEEP_UNITS_FROM:
+            want = (pk["units_posted"],) * 2                 # (11/11: a Dog upgrade keeps the units both were posted at)
+        elif k == "play" and pk.get("stack_play"):
+            want = (NCAAB_STACK_PLAY_UNITS,) * 2             # 🏀 (11/11: the college hoops spread stack play, ½u)
         elif k == "play":
             want = (ncaab_play_units(pk),) * 2 if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
                 else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
@@ -7563,12 +7767,15 @@ def post_board(games, model, picks, now, day, force=False):
                             #                                                       the one-pick-a-game rule; the floor is the
                             #                                                       board's fallback and fills AFTER the real
                             #                                                       plays - the slot plays count toward its 2)
+                            ("stackplay", ncaab_stack_plays, NCAAB_STACK_PLAY_MAX_DAY),   # 🏀 11/11: the ½u college hoops
+                            #                                                       SPREAD play (the stack +0.05+), 2 a night
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and iso < DOG_PLAY_FROM \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
-                or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM:
+                or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM \
+                or kind == "stackplay" and (iso < NCAAB_STACK_PLAY_FROM or not NCAAB_STACK_PLAY_ON or ncaab_stack_play_quit(picks)):
             continue                                         # (11/4, the owner: no daily minimum on any sport)
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         twin = {}                                            # 🔍🐶 11/4: today's college hoops gap plays {game: side} -
@@ -7612,13 +7819,20 @@ def post_board(games, model, picks, now, day, force=False):
                     print(f"   floor: {c.get('team')} {c.get('odds')} sits out - {c['floor_fallback']}")   # unit play
                     continue
                 print(f"   floor fallback: {c.get('team')} {c.get('odds')} - {c['floor_fallback']}, but the board has no unit play")
+            if kind == "floor" and iso >= FLOOR_SCORE_FROM and (c.get("floor_score") if c.get("floor_score") is not None else -99) < FLOOR_SECOND_SCORE \
+                    and unit_plays_today(picks, iso) >= FLOOR_FALLBACK_MIN:   # 💰 11/11: the floor's SECOND play needs a dog
+                print(f"   floor: {c.get('team')} {c.get('odds')} sits out - a dog score of {c.get('floor_score')} "   # score of 0+
+                      f"(under {FLOOR_SECOND_SCORE:g}) only goes up when the board has no unit play")
+                continue
             if c.get("fill") and fill_hurt(games[c["game_id"]], c["side"], injuries):   # (10/2, the owner: "a lock,
                 print(f"   fill lean on {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
                 #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             c["tier"] = "lean" if kind == "lean" else play_tier(c)   # (10/29 sweep: the card is written with its label -
-            dress(b)                                                 #  a VALUE PLAY never reads "Lock it in")
-            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            if kind == "stackplay":                                  #  (🏀 11/11: the spread play rides the stack - a
+                c["tier"] = "value"                                  #   unit play's card never closes "a lean, no units")
+            dress(b)                                                #  a VALUE PLAY never reads "Lock it in")
+            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
@@ -7631,6 +7845,12 @@ def post_board(games, model, picks, now, day, force=False):
             pk["tier"] = pick_tier({**pk, "tier": None})
             if kind == "gap":                                # 🔍 its own kind of unit play, its own record
                 pk["gap"], leg["tier"], pk["tier"] = leg.get("gap"), "value", "value"
+            if kind == "stackplay":                          # 🏀 the college hoops spread stack (11/11): ½u, its own record
+                pk["stack_play"] = {"stack": leg.get("spread_stack"), "n": leg.get("spread_stack_n"), "line": leg.get("line")}
+                leg["tier"], pk["tier"] = "value", "value"
+                r_ = ncaab_stack_play_record(picks)
+                print(f"   🏀 college hoops spread stack: {leg.get('team')} {leg.get('line'):+g} ({leg.get('odds')}) - stack "
+                      f"{leg.get('spread_stack') or 0:+.2f}, ½u; its record {r_['won']}-{r_['lost']} (judge at {NCAAB_STACK_PLAY_QUIT[0]})")
             if kind == "dogplay":                            # 🐶 a Dog-of-the-Day-grade dog that isn't the Dog: ½u value
                 pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"
             if kind == "nbafav":                             # 🏀 the NBA favorite play (10/27): 1u on the study weights
@@ -7675,7 +7895,7 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     if opening and iso >= BEST_FROM:                          # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): the opening
         best = mark_best(picks, iso)                         # board's best unit play gets the star (1u at least)...
-        if best is None and cands:                           # ...and a day with no unit play at all posts the surest
+        if best is None and cands and iso < NO_FORCED_BEST_FROM:   # ...and (till 11/11) a day with no unit play at all posted the surest
             c = forced_best(cands, {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting"   # side, 1u
                                     for l in p["legs"]} | early_gids, iso)
             if c is not None and not (c["waiting"] and now < _start(c) - timedelta(minutes=DEADLINE_MIN)):
@@ -7695,6 +7915,8 @@ def post_board(games, model, picks, now, day, force=False):
                 print(f"   ⭐ no unit play today - the forced best pick: {c.get('team')} {c.get('odds')} (the surest side, 1u)")
         elif best is not None:
             print(f"   ⭐ the engine's best pick: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - {units_for(best):g}u")
+        else:                                                # (11/11, the owner's OK: no forced ⭐ - NO_FORCED_BEST_FROM)
+            print("   ⭐ no best pick today - no unit play whose read beats its price (we don't force one)")
     if not opening:                                          # 💰 a unit play added after the board went up (the owner,
         for pk in new:                                       # 10/1: the engine keeps checking the lines all day) - ONE
             if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);
@@ -7746,6 +7968,10 @@ def upgrade_dog(picks, iso, now):
     if best is None or dog_value(best) < dog_value(dog) + DOG_UPGRADE_GAP:
         return None
     stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    if iso >= KEEP_UNITS_FROM:                               # (11/11, the owner's OK: both keep the units they were
+        for p in (dog, best):                                #  posted at - never re-sized hours after people bet them)
+            if p.get("units_posted") is None:
+                p["units_posted"] = units_for(p)
     dog["kind"], dog["was_dog"] = "play", stamp
     best["kind"], best["upgraded"] = "dog", stamp
     print(f"🐶 Dog of the Day upgraded: {best['legs'][0]['team']} (+{best['legs'][0]['odds']}, value "
