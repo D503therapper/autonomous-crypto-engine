@@ -379,6 +379,69 @@ def early_ok(c, games, injuries, now):
     return not bad
 
 
+ONE_VOICE_FROM = "2026-11-12"            # 🗣️ ONE VOICE (the owner, 11/11: "I don't want the algorithm to confuse itself" - the
+#   Grizzlies +146 opening-line play read 45.8% on its own model while the 8 AM board's read on the same side was 36.5%
+#   against the 40.8% the price needs: two engine opinions on one game). For games from this Pacific day, EVERY early
+#   moneyline play (the football spots, the 🏀 opening-line play, the exam scan) posts only when the engine's MAIN read
+#   for that side - the board's own row for the game (sports.candidates -> sports.read_of: a dog's weighed read, the
+#   weighed read, else the own read), held against the price we'd bet - is NOT under what that price needs. The early
+#   model can add weight; it never overrides a main read that's fighting it. No main read for the side = no early play
+#   (unknown is never fine). The 🌍 under / ⛰️ over take no side of a game and keep their own studied rules.
+#   THE TEST (results/studies/early_1111/s11_one_voice.py - the board's blind replay rows 2023-26): the opening-line
+#   play walk-forward, 333 nights: the main read agrees 34 -> 20-14 +59.3% (z vs the price +2.9, both halves up); it
+#   fights 299 -> 147-152 +7.3% (z of the ROI 1.1; first half +9.7%, second +2.6%; the dogs' second half -11.4%) - flat,
+#   not a loser, so the gate costs a pile that ran about even to get one opinion a game. Football spot dogs under the
+#   live bar: the NFL fought 52 -> +10.2% (z 0.5), college fought 136 -> -9.4%; live, fought 9-9 / agreed 5-6.
+
+
+def main_read(c, games, model, injuries, now, cache=None):
+    """🗣️ -> (the main read, what our price needs) for an early play's side, from the board's own row for that game on
+    its Pacific day - or None when the board holds no read on it (or it's a total)."""
+    if c.get("market") == "total" or c.get("side") not in ("home", "away") or not c.get("odds"):
+        return None
+    import sports
+    try:
+        day = _t(c["start"]).astimezone(PT).date()
+    except (KeyError, ValueError):
+        return None
+    cache = cache if cache is not None else {}
+    if day not in cache:
+        try:
+            cache[day] = sports.candidates(games, model, now, day, injuries)
+        except Exception as e:                               # noqa: BLE001 - no read is a hold, never a crash
+            print(f"   one voice: the board's read failed for {day}: {str(e)[:80]}", flush=True)
+            cache[day] = []
+    for r in cache[day]:
+        if r.get("game_id") == c["game_id"] and r.get("side") == c["side"] and r.get("market") == "ml":
+            rd = sports.read_of(r)
+            if rd is not None:
+                return rd, 1.0 / sd.decimal(c["odds"])
+    return None
+
+
+def one_voice(c, games, model, injuries, now, cache=None):
+    """🗣️ May this early play post? True for a total and for a game before ONE_VOICE_FROM (the old rule); else only
+    when the main read is at or over what the price needs. Stamps the play with the two numbers (c['main'],
+    c['main_need']) so the card and the record carry one opinion."""
+    if c.get("market") == "total":
+        return True
+    try:
+        if _pt_day_of(_t(c["start"])) < ONE_VOICE_FROM:
+            return True
+    except (KeyError, ValueError):
+        return True
+    mr = main_read(c, games, model, injuries, now, cache)
+    if mr is None:
+        print(f"   one voice: no main read on {c.get('team')} {c.get('odds')} - no early play", flush=True)
+        return False
+    c["main"], c["main_need"] = round(mr[0], 4), round(mr[1], 4)
+    if mr[0] + 1e-9 < mr[1]:
+        print(f"   one voice: the main read fights {c.get('team')} {c.get('odds')} ({mr[0] * 100:.1f}% vs the "
+              f"{mr[1] * 100:.1f}% the price needs) - no early play", flush=True)
+        return False
+    return True
+
+
 def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None, lines=None):
     """Scan, post the new ones (once per game), grade the finished ones. Returns the new posts."""
     now = now or datetime.now(timezone.utc)
@@ -393,13 +456,16 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     #   so a pull the owner just made isn't undone by the next hourly run. Was: never comes back - 10/2 audit.)
     have_tot = {p["game_id"] for p in st["picks"] if p.get("market") == "total"}   # (10/5 sweep: the 🌍 under is its
     new = []                                         # own bet on the total - a side play on the same game never blocks it, nor it them)
+    voice = {}                                       # 🗣️ the board's rows by Pacific day, built once a run when needed
     for c in scan(games, model, now, injuries, trap):
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
-        if c.get("spot") in SPOTS_OFF or spot_quit(st, c.get("spot")):
+        if spot_off(c.get("spot"), c.get("start")) or spot_quit(st, c.get("spot")):
             continue                                 # ⏸️ a paused spot (the owner, 10/14) / a quit one never posts
         if not early_ok(c, games, injuries, now):
             continue
+        if not one_voice(c, games, model, injuries, now, voice):
+            continue                                 # 🗣️ 11/11: the engine's main read fights it - one opinion a game
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
         g = games.get(c["game_id"]) or {}
         inj = (injuries or {}).get(c["league"])
@@ -438,12 +504,14 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
                 min_one(games, st, now, injuries, own_of, have) + nba_open_scan(games, st, now, injuries, have):
-            if c["game_id"] in have or c.get("spot") in SPOTS_OFF or spot_quit(st, c.get("spot")):
+            if c["game_id"] in have or spot_off(c.get("spot"), c.get("start")) or spot_quit(st, c.get("spot")):
                 continue                                     # (10/26: a paused spot never posts on this path either)
             if room <= 0:
                 break                                        # (10/1 audit: never past 2 a week, both paths together)
             if not early_ok(c, games, injuries, now):
                 continue
+            if not one_voice(c, games, model, injuries, now, voice):
+                continue                                     # 🗣️ 11/11: one engine, one opinion a game
             room -= 1
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
             st["picks"].append(pick_wording(c, st))
@@ -477,7 +545,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
     watch(st, games, injuries)
-    grade(st, games, now)
+    if grade(st, games, now):                                # 📈 11/11: a play graded this run - the early plays' own
+        say = line_record_say(line_record(st, games))        # record against the close goes in the log
+        if say:
+            print("   " + say, flush=True)
     save(st, path)
     return new
 
@@ -747,7 +818,8 @@ def watch(st, games, injuries):
 
 def grade(st, games, now=None):
     now = now or datetime.now(timezone.utc)                  # (10/7: the run's clock, never the wall clock - a test's
-    for p in st["picks"]:                                    #  made-up game read as 4 days stale and voided)
+    done = 0                                                 #  made-up game read as 4 days stale and voided)
+    for p in st["picks"]:
         if p.get("result"):
             continue
         g = games.get(p["game_id"])
@@ -769,6 +841,110 @@ def grade(st, games, now=None):
         p["graded_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         p["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
         stamp_units(p)                                       # (10/25 sweep: graded at these units, forever)
+        stamp_close(p, g)                                    # 📈 11/11: the close it went off at, next to what we got
+        done += 1
+    return done
+
+
+def close_of(p, g):
+    """(the closing price on our side, the other side's) from a final game's file - (None, None) without both. A
+    total: (the closing number, None)."""
+    if p.get("market") == "total":
+        try:
+            return float(g.get("total")), None
+        except (TypeError, ValueError):
+            return None, None
+    if p.get("side") not in ("home", "away"):
+        return None, None
+    other = "away" if p["side"] == "home" else "home"
+    c, o = _int(g.get(f"ml_{p['side']}")), _int(g.get(f"ml_{other}"))
+    return (c, o) if c and o else (None, None)
+
+
+def clv(p, close, close_opp=None):
+    """📈 How far we beat the close, + = we beat it. A moneyline: points of no-vig win % (the close's read of our side
+    minus what we paid for - both prices with the juice taken out; without the other side's price at the post, the
+    raw prices). A total: points of the number (an over that closed higher / an under that closed lower = +)."""
+    if close is None:
+        return None
+    if p.get("market") == "total":
+        if p.get("line") is None:
+            return None
+        return round((close - p["line"]) * (1 if p.get("side") == "over" else -1), 1)
+    if p.get("odds") is None:
+        return None
+    if close_opp is not None and p.get("opp_odds") is not None:
+        got = _imp(p["odds"]) / (_imp(p["odds"]) + _imp(p["opp_odds"]))
+        end = _imp(close) / (_imp(close) + _imp(close_opp))
+    else:
+        got, end = _imp(p["odds"]), _imp(close)
+    return round((end - got) * 100, 1)
+
+
+def stamp_close(p, g):
+    """At the grade: keep the closing price next to the price we got (p['close'], p['close_opp'], p['clv']). Adds
+    facts to a graded play - never touches the pick, its price or its units."""
+    c, o = close_of(p, g or {})
+    if c is None:
+        return
+    p["close"] = c
+    if o is not None:
+        p["close_opp"] = o
+    v = clv(p, c, o)
+    if v is not None:
+        p["clv"] = v
+
+
+CLV_SAME = 0.25                          # inside a quarter point of the close = "same"
+MONEY_LEFT_PTS = 2.0                     # 📈 the money-left LEAD (11/11 s6 / s6c - NOT a weight): a dog whose price had run
+#   2+ points AWAY since the first fair number when we posted. The paid history's second early look: -11.0% on 290
+#   (train -13.0%, held -9.2%, 6 of 7 seasons down, both leagues) against -1.5% for the dogs inside a point - but a
+#   random 290 of those dogs did as badly 314 of 2,000 times (z -1.5): a lead. Its live record builds from p['moved'].
+
+
+def line_record(st, games=None):
+    """📈 The early plays against the close - the engine's own answer to "did we beat the line": {key: {"n", "clv" (the
+    average, + = beat it), "beat", "same", "worse", "w", "l"}} for "all", every spot, and the money-left split
+    ("money left 2+" / "money flat" / "money came 2+", from the move stamped at the post). Reads the close stamped at the
+    grade; an older graded play without one is read off `games` when given (never written back)."""
+    out = {}
+
+    def add(k, v, res):
+        d = out.setdefault(k, {"n": 0, "clv": 0.0, "beat": 0, "same": 0, "worse": 0, "w": 0, "l": 0})
+        d["n"] += 1
+        d["clv"] += v
+        d["beat" if v > CLV_SAME else "worse" if v < -CLV_SAME else "same"] += 1
+        if res in ("won", "lost"):
+            d["w" if res == "won" else "l"] += 1
+    for p in st.get("picks", []):
+        if p.get("result") not in ("won", "lost", "push"):
+            continue
+        v = p.get("clv")
+        if v is None and games is not None:
+            g = games.get(p.get("game_id")) or {}
+            if g.get("status") == "final":
+                v = clv(p, *close_of(p, g))
+        if v is None:
+            continue
+        add("all", v, p["result"])
+        add(p.get("spot") or "exam band", v, p["result"])
+        m = p.get("moved")
+        if m is not None and p.get("market") != "total":
+            add("money left 2+" if m <= -MONEY_LEFT_PTS else "money came 2+" if m >= MONEY_LEFT_PTS else "money flat",
+                v, p["result"])
+    for d in out.values():
+        d["clv"] = round(d["clv"] / d["n"], 2)
+    return out
+
+
+def line_record_say(rec):
+    """One log line off line_record."""
+    def one(k):
+        d = rec[k]
+        return f"{k} {d['clv']:+.1f} on {d['n']} (beat {d['beat']} / worse {d['worse']}, {d['w']}-{d['l']})"
+    if not rec.get("all"):
+        return ""
+    return "📈 early plays vs the close: " + "; ".join(one(k) for k in ["all"] + sorted(k for k in rec if k != "all"))
 
 
 def record(st):
@@ -880,6 +1056,15 @@ SPOTS_OFF = {"engine"}                   # ⏸️ paused spots. 10/14 the owner 
 #                                         (15+ points, rating-backed) - one bet on that read, not two. "blowout" stays ON,
 #                                         FBS wins only (BLOWOUT_FBS_ONLY). Turning "engine" back on = the owner's call.
 #                                         A paused spot's pulled plays can come back once it's on (repost_ok).
+SPOTS_OFF_FROM = {"blowout": "2026-11-12"}   # ⏸️ 11/11 FABLE: BEATING THE LINE (results/studies/early_1111/ s5b / s3b / s11; the
+#   owner, 11/11: "tighten the engine up ... on the early plays ... don't ask me anything, just fix what needs to be
+#   fixed") - THE BLOWOUT SPOT IS PAUSED for games from this Pacific day. He kept it 10/15 on "if the test looked good
+#   we keep it"; split by season the test doesn't: under the live bar the college dog off a 17+ win is +21.4% on 112
+#   in 2020-22 and -7.4% on 182 held out (by season +33% / +47% / -7% / +12% / -14% / -1% / -42%; 2026 6-18), the NFL
+#   one +25.2% -> -5.4% on 92. It BEATS THE CLOSE (+0.83 points, t 4.3; +2.8 this season, 68% of the time) and loses
+#   anyway - the money that comes to it is the public chasing last week's score: this season's 25 college dogs off a
+#   17+ win went 5-20 on our tape, live the spot is 3-11 (five of those posted on a stale number). Its quit rule
+#   (SPOT_QUIT, 25 graded under 35%) would have let it run 11 more. Back on = the owner's call.
 BLOWOUT_FBS_ONLY = True                  # 💥 the blowout spot counts a college team's blowout only over an FBS team (the
 #                                         10/16 finding: 104 of 250 FBS blowout wins this season were vs FCS tune-ups - a
 #                                         52-0 over an FCS school says nothing the books missed; the 10/1 study's +4.4% on
@@ -1189,6 +1374,33 @@ def blowout_counts(games, lg, prev, team):
     return fbs is None or opp in fbs
 
 
+FRESH_FROM = "2026-11-12"                # 📈 11/11 FABLE: BEATING THE LINE (results/studies/early_1111/ s1b / s10). THE FRESH
+STALE_WAIT_H = 15                        # NUMBER RULE, for games from this Pacific day: a football early spot posts only
+FRESH_SLACK_H = 1                        # on a number the book has RE-HUNG since the teams' last games - our line tape
+#   (it keeps a row only when a price changes) shows a change at or after the fair moment (less FRESH_SLACK_H: a game
+#   that ended early), or STALE_WAIT_H hours have gone by. WHY: the feed keeps showing the LOOK-AHEAD number hung before
+#   last week's games until the book re-hangs it (every NFL game on our tape 10/3-11/11, 71 of 71, and 60 of 240 college
+#   games; re-hung a median 1h after the fair moment in the NFL, 5h in college, 90% inside 7h / 15h; it jumps 2.2 / 3.3
+#   points on average, 5+ in 23% of college games - and TOWARD a dog that just blew somebody out 9 of 11 times, +3.5
+#   points). 8 of our 49 football early plays posted on that number inside the first hour (Alabama +130, Ole Miss +190
+#   and +130, Bengals +150, Arizona +215, Northwestern +230, Chargers +285, Steelers +150): a price nobody could bet,
+#   1-6 graded, and the whole of our "we beat the close" (+8.6 points on those 7 vs +0.4 on the 42 real numbers). A
+#   check that the price is real - like "fair prices only" - not a factor in the pick.
+
+
+def _pt_day_of(start):
+    return start.astimezone(PT).date().isoformat()
+
+
+def line_fresh(gid, r, now, hist_dir=None):
+    """Has the book re-hung this game's number since the fair moment `r`? True when our line tape holds a row at or
+    after r - FRESH_SLACK_H (a price change = the book touched it), or STALE_WAIT_H hours have passed, or there is no
+    fair moment (a season opener: nothing to be stale against)."""
+    if r is None or now >= r + timedelta(hours=STALE_WAIT_H):
+        return True
+    return first_fair(gid, r - timedelta(hours=FRESH_SLACK_H), hist_dir) is not None
+
+
 def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_dog=False):
     """-> the six spots' new candidates right now: {game_id, league, side, team, opp, odds, opp_odds, start, spot,
     spots, own}. Fair prices only, never game day, never a side with a key player out / questionable."""
@@ -1218,6 +1430,9 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
         oh, oa = _int(g.get("ml_home")), _int(g.get("ml_away"))
         if oh is None or oa is None:
             continue
+        if _pt_day_of(start) >= FRESH_FROM and not line_fresh(g["id"], r, now, hist_dir):
+            continue                                         # 📈 11/11: still the look-ahead number hung before the
+            #                                                  teams' last games - not a price anybody can bet yet
         mk_h = _imp(oh) / (_imp(oh) + _imp(oa))
         ff = None
         inj = (injuries or {}).get(lg)
@@ -1243,6 +1458,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             me_prev = _prev(sched, lg, g[side], g["start"])
             op_prev = _prev(sched, lg, g[other], g["start"])
             hit = []
+            moved_pts = None                                 # (11/11: what the price did since the first fair number,
+            #                                                  stamped on the play - the money-left lead's own record)
             dog = SPOT_DOG[0] <= odds <= SPOT_DOG[1]
             if dog and me_prev and op_prev:
                 rest = (start - _t(me_prev["start"])).days
@@ -1276,6 +1493,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                     f_opp = ff[1] if side == "home" else ff[0]
                     f_mk = _imp(f_odds) / (_imp(f_odds) + _imp(f_opp))
                     moved = (mk - f_mk) * 100                # + = the price came IN toward this side
+                    moved_pts = round(moved, 1)
                     if dog and moved >= HAMMER_PTS:
                         hit.append("hammered")
                     own = own_of(g, side) if own_of else None
@@ -1283,7 +1501,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                         hit.append("engine")
             if not hit:
                 continue
-            hit = [h for h in hit if lg in SPOTS[h][2] and h not in SPOTS_OFF]   # (10/26 daily: a paused spot
+            hit = [h for h in hit if lg in SPOTS[h][2] and not spot_off(h, start)]   # (10/26 daily: a paused spot
             #   never counts here either - only the scan() path checked SPOTS_OFF, so the "engine" spot paused 10/24
             #   still posted Old Dominion +120, UL Monroe +130, South Alabama +180 on 10/25-26)
             if any_dog and dog and not hit:
@@ -1307,7 +1525,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
                         "fades": fades, "score": round(total, 4), "why": whys[0], "whys": whys, "mkt": round(mk, 4), "own": round(own, 4),
-                        "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None})
+                        "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None,
+                        **({"moved": moved_pts} if moved_pts is not None else {})})
     sides = {}
     for c in out:
         sides.setdefault(c["game_id"], set()).add(c["side"])
@@ -1592,6 +1811,21 @@ def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model
 SPOT_QUIT = {"blowout": (25, 0.35)}    # 💥 11/11 (the Fable book study, under the owner's 11/11 "wire anything you and Fable
 #                                         recommend"): the blowout spot was 3-11 live - judged at 25 graded: under 35% won =
 #                                         it stops posting, like a paused spot (the owner can turn it back on).
+
+
+def spot_off(spot, start=None):
+    """A paused spot: in SPOTS_OFF, or dated off (SPOTS_OFF_FROM) for a game on / after its Pacific day (`start`: the
+    game's start, a datetime or the stored string; none = the date can't be read = paused)."""
+    if spot in SPOTS_OFF:
+        return True
+    d = SPOTS_OFF_FROM.get(spot)
+    if not d:
+        return False
+    try:
+        st_ = _t(start) if isinstance(start, str) else start
+        return st_ is None or _pt_day_of(st_) >= d
+    except (ValueError, TypeError):
+        return True
 
 
 def spot_quit(st, spot):
