@@ -21376,6 +21376,104 @@ def test_early_1111_one_voice_and_the_blowout_spot_paused():
          se.min_one, se.euro_unders, se.alt_overs) = keep
 
 
+def test_spreads2_1111_wong_legs_grade_at_the_teased_number_and_the_spread_leads_never_touch_the_board():
+    """11/11 FABLE - SPREADS LIKE THE PROS, part 2 (results/studies/spreads2_1111): ten studies of the number, the timing
+    and the market found NO new spread play that clears the five checks, so nothing new carries units - four LEADS go on
+    the tracker from the 11/12 Pacific game day: the Wong teaser legs (graded at the TEASED number, paid as a leg's share
+    of a -120 two-team ticket - never a posted teaser: the no-parlay rule stands), the visitor on a 5,900 ft+ college
+    hoops floor, the NFL dog getting 6+ from a favorite with a .700+ team next. The board's rules are untouched."""
+    import json as _json
+    import tempfile
+    import sports_leads as sl
+    assert sports.PLAY_MARKETS == ("ml",) and sports.NCAAB_STACK_PLAY_UNITS == 0.5 and sports.NCAAB_STACK_PLAY_MIN == 0.05
+    assert sl.SPREADS2_FROM == "2026-11-12" and sl.WONG_TEASE == 6.0 and abs((1 + sl.WONG_LEG_NET) ** 2 - (1 + 100 / 120)) < 0.002
+    keep_g, keep_p, keep_r = dict(sl._GAMES), sl.PATH, sl.RECORD
+    d = tempfile.mkdtemp()
+    sl.PATH, sl.RECORD = os.path.join(d, "lead_tracker.json"), os.path.join(d, "lead_record.json")
+    try:
+        def fin(gid, start, home, away, hs, as_, **kw):
+            return {"id": gid, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_), **kw}
+        GN = {"nfl:tn": {"id": "nfl:tn", "start": "2026-11-15T18:00Z", "status": "pre", "stype": "2", "home": "F", "away": "D",
+                         "total": "44.5"},
+              "nfl:nx": {"id": "nfl:nx", "start": "2026-11-22T18:00Z", "status": "pre", "stype": "2", "home": "N", "away": "F"}}
+        for i, (hs, as_) in enumerate(((27, 10), (24, 20), (30, 3), (17, 14), (10, 20))):       # N is 4-1 before tonight
+            GN[f"nfl:n{i}"] = fin(f"nfl:n{i}", f"2026-10-{4 + 7 * i:02d}T17:00Z", "N", f"x{i}", hs, as_)
+        sl._GAMES.clear()
+        sl._GAMES["nfl"] = GN
+        base = {"market": "spread", "league": "nfl", "game_id": "nfl:tn", "side": "away", "home": False, "odds": -110,
+                "dec": 1.909, "p": 0.5, "team": "Ds", "opp": "Fs", "start": "2026-11-15T18:00Z", "reasons": []}
+        # --- the Wong legs: the window, the date, the total ---
+        for ln, want in ((1.5, "dog"), (2.0, "dog"), (2.5, "dog"), (3.0, None), (1.0, None), (-7.5, "fav"), (-8.5, "fav"),
+                         (-7.0, None), (-9.0, None)):
+            assert sl.wong_leg({**base, "line": ln}) == want, ln
+        assert sl.wong_leg({**base, "line": 2.5, "league": "ncaaf"}) is None and sl.wong_leg({**base, "line": 2.5, "market": "ml"}) is None
+        tg = sl.tags({**base, "line": 2.5}, sports)
+        assert sl.WONG_DOG_TAG in tg and sl.WONG_TOTAL_TAG in tg and sl.WONG_FAV_TAG not in tg
+        assert sl.WONG_FAV_TAG in sl.tags({**base, "line": -7.5, "side": "home", "home": True}, sports)
+        GN["nfl:tn"]["total"] = "51.5"
+        assert sl.WONG_TOTAL_TAG not in sl.tags({**base, "line": 2.5}, sports)                    # a 49+ total: the leg, not the filter tag
+        GN["nfl:tn"]["total"] = ""
+        assert sl.tags({**base, "line": 2.5}, sports).count(sl.WONG_DOG_TAG) == 1                 # no total on file: just the leg
+        early = {**base, "line": 2.5, "start": "2026-11-12T01:00Z"}                               # 11/11 Pacific: before the rule
+        assert not [t for t in sl.tags(early, sports) if t in sl.WONG_TAGS]
+        # --- the NFL lookahead dog: a dog getting 6+, the favorite's NEXT opponent .700+ after 4+ games ---
+        la = {**base, "line": 7.0}
+        assert sl.nfl_lookahead_dog(la) and sl.NFL_LOOKAHEAD_TAG in sl.tags(la, sports)
+        assert not sl.nfl_lookahead_dog({**base, "line": 5.5})                                    # under 6: no
+        assert not sl.nfl_lookahead_dog({**la, "side": "home", "home": True})                     # the dog (D) has no game next: no
+        assert not sl.nfl_lookahead_dog({**la, "market": "ml"}) and not sl.nfl_lookahead_dog({**la, "league": "ncaaf"})
+        GN["nfl:n3"]["home_score"] = "13"                                                         # N now 3-2 (.600): no
+        assert not sl.nfl_lookahead_dog(la)
+        GN["nfl:n3"]["home_score"] = "17"
+        gone = GN.pop("nfl:n4")                                                                   # N 4-0 on 4 games: still yes
+        assert sl.nfl_lookahead_dog(la)
+        GN.pop("nfl:n0")                                                                          # 3 games: unknown = no
+        assert not sl.nfl_lookahead_dog(la)
+        GN["nfl:n0"], GN["nfl:n4"] = fin("nfl:n0", "2026-10-04T17:00Z", "N", "x0", 27, 10), gone
+        GN["nfl:nx"]["start"] = "2026-12-06T18:00Z"                                               # the next game 3 weeks out: no
+        assert not sl.nfl_lookahead_dog(la)
+        GN["nfl:nx"]["start"] = "2026-11-22T18:00Z"
+        GN["nfl:late"] = fin("nfl:late", "2026-11-16T18:00Z", "N", "x9", 0, 40)                   # a result AFTER kickoff never counts
+        assert sl.nfl_lookahead_dog(la)
+        # --- college hoops: the visitor on a 5,900 ft+ floor ---
+        sl._GAMES["ncaab"] = {"ncaab:hi": {"id": "ncaab:hi", "start": "2026-11-20T02:00Z", "status": "pre", "stype": "2",
+                                           "home": "W", "away": "V", "neutral": "0", "elev": "2184"}}
+        hv = {**base, "league": "ncaab", "game_id": "ncaab:hi", "line": 4.5, "start": "2026-11-20T02:00Z"}
+        assert sl.hoops_high_floor_visitor(hv) and sl.HOOPS_HIGH_FLOOR_TAG in sl.tags(hv, sports)
+        assert not sl.hoops_high_floor_visitor({**hv, "side": "home", "home": True})              # the home team: no
+        assert not sl.hoops_high_floor_visitor({**hv, "market": "ml"})
+        for elev, neutral in (("1655", "0"), ("", "0"), ("2184", "1")):                           # Denver-high, unknown, neutral: no
+            sl._GAMES["ncaab"]["ncaab:hi"].update(elev=elev, neutral=neutral)
+            assert not sl.hoops_high_floor_visitor(hv), (elev, neutral)
+        # --- the log stamps the tease, the grade reads the TEASED number for the Wong tags and the line for the rest ---
+        GN["nfl:tn"]["total"] = "44.5"
+        G2 = {"nfl:g1": {**GN["nfl:tn"], "id": "nfl:g1"}, "nfl:g2": {**GN["nfl:tn"], "id": "nfl:g2"},
+              "nfl:g3": {**GN["nfl:tn"], "id": "nfl:g3"}, "nfl:g4": {**GN["nfl:tn"], "id": "nfl:g4"}}
+        sl._GAMES["nfl"] = {**GN, **G2}
+        cands = [{**base, "game_id": "nfl:g1", "line": 2.5},                                       # dog +2.5, loses by 7
+                 {**base, "game_id": "nfl:g2", "line": -8.0, "side": "home", "home": True},        # fav -8, wins by 2: teased -2 = push
+                 {**base, "game_id": "nfl:g3", "line": -7.5, "side": "home", "home": True},        # fav -7.5, wins by 1: the leg loses
+                 {**base, "game_id": "nfl:g4", "line": 7.0}]                                       # the lookahead dog (no Wong leg)
+        assert sl.log("2026-11-15", cands, sports) == 4
+        rows = {r["game_id"]: r for r in _json.load(open(sl.PATH))}
+        assert rows["nfl:g1"]["tease"] == 6.0 and rows["nfl:g2"]["tease"] == 6.0 and "tease" not in rows["nfl:g4"]
+        rows["nfl:g1"]["tags"].append("a plain spread lead")                                       # (a second tag on the same row)
+        _json.dump(list(rows.values()), open(sl.PATH, "w"))
+        done = {"nfl:g1": fin("nfl:g1", "2026-11-15T18:00Z", "F", "D", 24, 17), "nfl:g2": fin("nfl:g2", "2026-11-15T18:00Z", "F", "D", 22, 20),
+                "nfl:g3": fin("nfl:g3", "2026-11-15T18:00Z", "F", "D", 21, 20), "nfl:g4": fin("nfl:g4", "2026-11-15T18:00Z", "F", "D", 30, 20)}
+        rec = sl.grade(done)
+        assert rec[sl.WONG_DOG_TAG] == {"w": 1, "l": 0, "units": sl.WONG_LEG_NET, "roi": sl.WONG_LEG_NET}       # +2.5 lost, +8.5 won
+        assert rec["a plain spread lead"]["l"] == 1 and rec["a plain spread lead"]["units"] == -1.0               # ...at the line it lost
+        assert rec[sl.WONG_FAV_TAG] == {"w": 0, "l": 1, "units": -1.0, "roi": -1.0}                               # the push grades nothing
+        assert rec[sl.WONG_TOTAL_TAG]["w"] == 1 and rec[sl.WONG_TOTAL_TAG]["l"] == 1
+        assert rec[sl.NFL_LOOKAHEAD_TAG] == {"w": 0, "l": 1, "units": -1.0, "roi": -1.0}                          # +7 lost by 10, at the line
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
+        sl.PATH, sl.RECORD = keep_p, keep_r
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

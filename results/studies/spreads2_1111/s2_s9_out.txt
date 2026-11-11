@@ -1,0 +1,78 @@
+
+== S2. NFL: 1720 games, first fair look -> the close ==
+   the line moved (abs) 0.92 points on average; a half point or more in 75% of games, 1.5+ in 25%
+   cell                                             n  points gained by the close: train | held        ATS first number (median price) all / HELD | best book HELD | the close HELD
+   every dog                                     1704    +0.11 (t +2.1) |   +0.02 (t +0.4)    -2.8% /  427-455   48.4%   -7.3% z-2.31 (1/4) |  -5.4% |  -5.2%
+   every favorite                                1704    -0.11 (t -2.1) |   -0.02 (t -0.4)    -6.0% /  455-427   51.6%   -1.4% z-0.45 (1/4) |  +1.5% |  -3.4%
+   home dog                                       660    +0.18 (t +1.9) |   +0.23 (t +3.6)    -1.4% /  167-167   50.0%   -4.4% z-0.86 (1/4) |  -2.3% |  -5.1%
+   road dog                                      1011    +0.06 (t +1.0) |   -0.12 (t -2.2)    -3.3% /  252-275   47.8%   -8.4% z-2.06 (0/4) |  -6.9% |  -4.6%
+   home favorite                                 1011    -0.06 (t -1.0) |   +0.12 (t +2.2)    -5.5% /  275-252   52.2%   -0.3% z-0.07 (1/4) |  +2.5% |  -3.7%
+   road favorite                                  660    -0.18 (t -1.9) |   -0.23 (t -3.6)    -7.5% /  167-167   50.0%   -4.4% z-0.86 (1/4) |  -1.2% |  -3.8%
+   dog +1..+3                                     625    +0.44 (t +4.3) |   +0.22 (t +3.2)    -3.9% /  167-177   48.5%   -6.4% z-1.29 (0/4) |  -4.1% |  -3.6%
+   dog +3.5..+7                                   705    +0.05 (t +0.8) |   -0.05 (t -0.8)    -1.5% /  170-189   47.4%   -9.6% z-1.97 (1/4) |  -7.8% |  -7.9%
+   dog +7.5..+14                                  345    -0.22 (t -2.1) |   -0.27 (t -2.5)    -3.2% /   84-82    50.6%   -3.3% z-0.45 (1/4) |  -2.3% |  +0.2%
+   dog +14.5+                                      19    -0.92 (t -2.5) |   -0.42 (t -0.7)    -5.0% /    3-3     50.0%   -5.9% z-0.15 (1/3) |  -6.6% |  -5.8%
+   side off a 17+ win                             445    +0.07 (t +0.8) |   +0.09 (t +1.1)    -6.3% /  119-130   47.8%   -8.7% z-1.47 (1/4) |  -7.3% |  -7.1%
+   side off a 17+ loss                            453    +0.03 (t +0.3) |   -0.08 (t -0.9)    -3.9% /  125-128   49.4%   -5.4% z-0.93 (2/4) |  -1.3% |  -8.9%
+   dog off a 17+ loss                             304    +0.12 (t +0.9) |   -0.09 (t -0.8)    +1.9% /   88-83    51.5%   -1.6% z-0.22 (2/4) |  +0.8% |  -2.2%
+   dog off a 17+ win                              162    +0.34 (t +2.2) |   +0.11 (t +1.1)    -5.1% /   48-56    46.2%  -11.5% z-1.27 (2/4) |  -9.8% |  -7.2%
+   favorite off a loss                            717    -0.14 (t -1.8) |   -0.01 (t -0.1)    -5.8% /  196-173   53.1%   +1.5% z+0.32 (1/4) |  +5.1% |  -2.7%
+   dog off a bye (12+ days)                       195    +0.53 (t +3.4) |   +0.17 (t +1.7)    -2.8% /   50-56    47.2%   -9.3% z-1.05 (1/4) |  -8.2% |  -5.8%
+   side the sharp books sit a half point toward   289    +0.32 (t +2.1) |   +0.16 (t +1.4)    -2.4% /   72-66    52.2%   -1.2% z-0.15 (2/4) |  +1.3% |  -0.1%
+   side the juice leans to (3+ cents)             486    +0.09 (t +1.1) |   +0.03 (t +0.4)    -2.7% /  132-136   49.3%   -8.0% z-1.44 (0/4) |  -6.5% |  -8.8%
+   WHAT THE MOVE IS WORTH (every side, by the points it gained by the close; ATS at the first number, median price):
+      gained -99.0..-1.5:   249   97-150   39.3%  -24.8% z-4.20
+      gained -1.5..-0.5:   492  211-268   44.1%  -15.3% z-3.63
+      gained -0.5..+0.5:   850  416-416   50.0%   -4.4% z-1.35
+      gained +0.5..+1.5:   873  457-393   53.8%   +2.3% z+0.73
+      gained +1.5..+2.5:   258  149-102   59.4%  +12.9% z+2.24
+      gained +2.5..+99.0:   164   96-66    59.3%  +13.2% z+1.81
+
+== S9. NFL: the called move, walk-forward (1195 games, seasons [2022, 2023, 2024, 2025, 2026]) ==
+   correlation called vs real move +0.156 (a shuffled target did as well 0 of 500); direction right 54.1% of the games that moved
+   the last fit's weights (per sd): home is dog +0.31, home line -0.27, best away number - market +0.19, book sd -0.09, home rest +0.08, away rest -0.07, sharp books - pack -0.06, home last margin/10 +0.06
+   called move 0.25+: real move toward us +0.31 | first number, median price   569  264-291   47.6%   -9.3% z-2.36 (1/5 up: 22:+3(150) 23:-14(127) 24:-17(132) 25:-11(131) 26:-8(29)) | best book   569  268-284   48.6%   -6.6% z-1.66 | the same side at the close -10.2%
+   called move 0.50+: real move toward us +0.41 | first number, median price   185  100-82    54.9%   +4.4% z+0.64 (3/5 up: 22:+13(58) 23:+2(28) 24:-5(57) 25:-3(36) 26:+58(6)) | best book   185  102-81    55.7%   +6.7% z+0.96 | the same side at the close +4.7%
+   called move 0.75+: real move toward us +0.80 | first number, median price    43   24-19    55.8%   +6.3% z+0.43 (3/5 up: 22:+2(15) 23:-6(6) 24:+14(15) 25:-5(6) 26:+91(1)) | best book    43   24-19    55.8%   +7.0% z+0.48 | the same side at the close +7.1%
+   called move 1.00+: real move toward us +1.29 | first number, median price     7    0-7      0.0% -100.0% z+0.00 (0/4 up: 22:-100(2) 23:-100(1) 24:-100(3) 25:-100(1)) | best book     7    0-7      0.0% -100.0% z+0.00 | the same side at the close -100.0%
+   the OTHER side at the close (wait for the number the move gives you), called 0.5+:   185   83-100   45.4%  -13.2% z-1.90
+
+== S2. NCAAF: 3023 games, first fair look -> the close ==
+   the line moved (abs) 1.03 points on average; a half point or more in 77% of games, 1.5+ in 30%
+   cell                                             n  points gained by the close: train | held        ATS first number (median price) all / HELD | best book HELD | the close HELD
+   every dog                                     3017    +0.02 (t +0.4) |   +0.18 (t +5.5)    -4.8% / 1063-1079  49.6%   -5.0% z-2.48 (0/4) |  -2.3% |  -6.0%
+   every favorite                                3017    -0.02 (t -0.4) |   -0.18 (t -5.5)    -4.0% / 1079-1063  50.4%   -3.8% z-1.87 (0/4) |  -1.9% |  -3.2%
+   home dog                                      1049    +0.07 (t +1.0) |   +0.10 (t +1.8)    -5.0% /  368-382   49.1%   -6.1% z-1.79 (0/4) |  -3.1% |  -6.5%
+   road dog                                      1738    +0.02 (t +0.3) |   +0.22 (t +5.4)    -5.0% /  622-629   49.7%   -4.8% z-1.83 (0/4) |  -2.3% |  -6.0%
+   home favorite                                 1738    -0.02 (t -0.3) |   -0.22 (t -5.4)    -3.9% /  629-622   50.3%   -4.0% z-1.49 (1/4) |  -1.9% |  -3.2%
+   road favorite                                 1049    -0.07 (t -1.0) |   -0.10 (t -1.8)    -3.9% /  382-368   50.9%   -2.8% z-0.80 (0/4) |  -1.1% |  -2.7%
+   dog +1..+3                                     595    +0.29 (t +2.3) |   +0.55 (t +6.8)    -5.7% /  199-207   49.0%   -5.7% z-1.25 (0/4) |  -3.1% |  -8.5%
+   dog +3.5..+7                                   762    +0.01 (t +0.1) |   +0.24 (t +4.6)    -2.0% /  276-283   49.4%   -5.7% z-1.42 (1/4) |  -3.5% |  -7.3%
+   dog +7.5..+14                                  804    -0.06 (t -0.7) |   +0.08 (t +1.2)    -5.4% /  281-288   49.4%   -5.6% z-1.41 (1/4) |  -2.6% |  -5.9%
+   dog +14.5+                                     848    -0.10 (t -1.5) |   -0.04 (t -0.6)    -6.5% /  303-298   50.4%   -3.6% z-0.94 (1/4) |  -0.4% |  -3.2%
+   side off a 17+ win                            1672    +0.16 (t +2.6) |   +0.07 (t +1.7)    -2.1% /  620-587   51.4%   -1.9% z-0.71 (1/4) |  +0.7% |  -3.0%
+   side off a 17+ loss                           1122    -0.03 (t -0.4) |   -0.10 (t -1.7)    -0.2% /  413-381   52.0%   -0.6% z-0.18 (2/4) |  +1.7% |  -0.6%
+   dog off a 17+ loss                             750    -0.03 (t -0.3) |   +0.14 (t +2.0)    -1.2% /  270-255   51.4%   -1.7% z-0.41 (2/4) |  +0.4% |  -3.0%
+   dog off a 17+ win                              623    +0.30 (t +2.8) |   +0.35 (t +5.2)    -0.2% /  226-217   51.0%   -2.4% z-0.55 (2/4) |  +2.2% |  -4.1%
+   favorite off a loss                           1080    -0.07 (t -0.8) |   -0.32 (t -5.6)    -4.3% /  374-393   48.8%   -6.9% z-2.01 (1/4) |  -4.6% |  -5.2%
+   dog off a bye (12+ days)                       667    -0.08 (t -0.7) |   +0.26 (t +3.5)    -2.5% /  256-243   51.3%   -1.9% z-0.45 (2/4) |  +1.0% |  -3.5%
+   side the sharp books sit a half point toward   506    +0.30 (t +2.1) |   +0.06 (t +0.7)    -1.3% /  208-199   51.1%   -2.6% z-0.56 (2/4) |  -0.1% |  -2.5%
+   side the juice leans to (3+ cents)             426    +0.22 (t +1.4) |   +0.18 (t +2.3)    -3.4% /  190-170   52.8%   -1.0% z-0.22 (3/4) |  +1.5% |  -1.4%
+   WHAT THE MOVE IS WORTH (every side, by the points it gained by the close; ATS at the first number, median price):
+      gained -99.0..-1.5:   590  252-330   43.3%  -17.0% z-4.40
+      gained -1.5..-0.5:   896  426-461   48.0%   -8.1% z-2.57
+      gained -0.5..+0.5:  1388  676-676   50.0%   -4.4% z-1.72
+      gained +0.5..+1.5:  1409  733-658   52.7%   +0.6% z+0.22
+      gained +1.5..+2.5:   550  293-245   54.5%   +3.8% z+0.96
+      gained +2.5..+99.0:   370  204-164   55.4%   +5.8% z+1.17
+
+== S9. NCAAF: the called move, walk-forward (2834 games, seasons [2022, 2023, 2024, 2025, 2026]) ==
+   correlation called vs real move +0.101 (a shuffled target did as well 0 of 500); direction right 54.5% of the games that moved
+   the last fit's weights (per sd): home is dog +0.34, home line -0.25, abs line -0.10, best home number - market -0.09, away last margin/10 -0.07, home last margin/10 +0.07, away rest -0.07, best away number - market +0.06
+   called move 0.25+: real move toward us +0.23 | first number, median price  1202  579-602   49.0%   -6.5% z-2.40 (1/5 up: 22:-5(349) 23:-9(207) 24:+8(239) 25:-18(297) 26:-9(110)) | best book  1202  586-595   49.6%   -4.6% z-1.66 | the same side at the close -7.5%
+   called move 0.50+: real move toward us +0.24 | first number, median price   358  179-173   50.9%   -3.3% z-0.66 (2/5 up: 22:-1(151) 23:+17(30) 24:+20(49) 25:-25(99) 26:-3(29)) | best book   358  180-172   51.1%   -1.7% z-0.34 | the same side at the close -4.0%
+   called move 0.75+: real move toward us +0.24 | first number, median price    80   42-38    52.5%   -0.3% z-0.03 (3/5 up: 22:+2(45) 23:+89(5) 24:+52(5) 25:-34(23) 26:-7(2)) | best book    80   42-38    52.5%   +1.0% z+0.10 | the same side at the close -2.0%
+   called move 1.00+: real move toward us +0.29 | first number, median price    17   11-6     64.7%  +22.9% z+1.04 (4/4 up: 22:+14(10) 24:+90(1) 25:+14(5) 26:+87(1)) | best book    17   11-6     64.7%  +25.5% z+1.13 | the same side at the close +24.3%
+   the OTHER side at the close (wait for the number the move gives you), called 0.5+:   358  175-177   49.7%   -5.1% z-1.03
+
+cells read: 2 leagues x (18 cells x 5 numbers + 6 move bands + 4 called-move cuts x 3 prices) = ~230
