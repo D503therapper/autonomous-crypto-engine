@@ -849,6 +849,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_road_cold(games, out)                  # 🏀 11/4 EXPERT: the road dog 6+ short of its number on the road (-2)
     mark_ncaab_turmoil(games, out)                    # 🏀 11/4 EXPERT: the team in shambles (box + news) - fields, a tracker
     mark_ncaab_shooting(games, out)                   # 🏀 11/4 EXPERT: shooting form (cold / 3P-hot) - fields, two trackers
+    mark_ncaab_spread_stack(out)                      # 🏀 11/11 FABLE: the college hoops spread fades added up (a tracker read)
     mark_ncaab_upset_winner(games, out, elo.get("ncaab"))   # 🏀 11/4 EXPERT: won last as a +150 dog over a top-25 team (a lead)
     mark_ncaab_facts(out)                             # 🏀 11/4 EXPERT: the good / bad fact lists on every college hoops dog
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
@@ -3303,6 +3304,8 @@ def rank_p(c):
             + ncaab_roster_spread_w(c)                         # (11/3 KNOWLEDGE (A): Feb-Mar, the transfer-heavy side -0.02,
             #                                                     the freshman-heavy side vs an experienced team +0.02)
             + ncaab_star_back_spread_w(c)                      # (11/4 EXPERT: the star's 2nd game back -0.03 / +0.03 across)
+            + ncaab_across_spread_w(c)                         # (11/11 FABLE: ACROSS a lucky-from-three team +0.02 / a
+            #                                                     top scorer out +0.03 - the built fades' other bench)
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
@@ -4552,6 +4555,92 @@ def weigh_ncaab_tp_net_fav(cands):
         c["ncaab_tp_net_fav"] = True
 
 
+# 🏀 11/11 FABLE - COLLEGE HOOPS PROFIT + SPREADS LIKE THE PROS (the owner: "how we can be profitable with college
+# basketball" + "check if there's any way we could be more profitable using spreads like the pros do";
+# results/studies/fable_1111/b5_hoops_spread_stack.py; SPORTS_FINDINGS "11/11 - FABLE"). THE COLLEGE HOOPS SPREAD
+# STACK: the built college hoops ATS fades (lucky from three, the hot-ATS side, the glass, the top-25 road team in
+# Nov-Dec, the top scorer out) each move a spread rank 2-3 points; ADDED UP on one game - this side's weights plus the
+# fades sitting on the side ACROSS it - a stack of +0.05 or more covered 56% : ATS +7.3% on 1,282 (2021-25; train
+# 2021-22 +1.3% 2 of 2 up, held out 2023 +12.7 / 2024 +13.7 / 2025 +6.4 = 3 of 3 up, z 2.8 vs zero, 4.5 vs the -4.5%
+# base), +0.06 or more +17.7% on 227 (2 of 2 / 3 of 3), the mirror (-0.05 or worse) -16.2%; dogs +7.0% / favorites
+# +7.7%, home +5.8% / road +8.7%, Nov-Dec +14.3% / Jan-Mar +6.4%; the same side's MONEYLINE at ESPN's open +13.0% on
+# 465 (3 of 3), the -101..-250 favorite at the close +10.6% on 358; a walk-forward ridge on the same inputs: the
+# predicted edge +1 pt or more ATS +13.8% on 575 (2023 +1.7 / 2024 +19.2 / 2025 +15.6).
+# TWO THINGS BUILT, both WEIGHTS on the spread rank, never a trigger, never units (sports.PLAY_MARKETS is the owner's):
+#   1. THE ACROSS HALF - until now the three-point luck and the top scorer out only knocked the flagged side's rank;
+#      the side ACROSS a lucky-from-three team (me not lucky) covered +2.6% on 4,492 (2 of 2 / held +2.2%) and across
+#      a top scorer out +1.2% on 1,902 vs the -4.5% base - the same finding read from the other bench:
+#      ncaab_across_spread_w, +0.02 / +0.03 (the rows the across half lifts to +0.05: +4.9% on 1,059, held +8.2% 3 of 3).
+#   2. THE STACK - c["spread_stack"] (+ spread_stack_n, the weights firing) on every college hoops side
+#      (mark_ncaab_spread_stack), the tracker's "college hoops spread side, study stack +0.05+" / "+0.06+" lines
+#      and the moneyline favorite's lead - the record the owner judges a college hoops SPREAD play on (judge at 100).
+NCAAB_ACROSS_TP_W = 0.02          # the spread side across a team lucky from three (NET +5+), itself not lucky
+NCAAB_ACROSS_TOP_OUT_W = 0.03     # the spread side across a team whose top scorer missed its last game (its own played)
+NCAAB_STACK_MIN = 0.05            # the stack the tracker follows (2+ weights, or 3 small ones) - the study's cut
+NCAAB_STACK_BIG = 0.06
+
+
+def _ncaab_across(c):
+    """(three-point across, top-scorer across) - the two one-sided college hoops fades as seen from the other bench."""
+    if c.get("league") != "ncaab":
+        return 0.0, 0.0
+    try:
+        import sports_ncaab_box as nb
+        lucky = nb.TP_NET_LUCKY
+    except Exception:                                        # noqa: BLE001
+        lucky = 0.05
+    tp = NCAAB_ACROSS_TP_W if (c.get("opp_tp_net") is not None and c["opp_tp_net"] >= lucky - 1e-9
+                               and not ncaab_tp_lucky(c)) else 0.0
+    to = NCAAB_ACROSS_TOP_OUT_W if c.get("opp_top_out") and not c.get("top_out") else 0.0
+    return tp, to
+
+
+def ncaab_across_spread_w(c):
+    """The 11/11 FABLE rank weight on a college hoops SPREAD side: + across a lucky-from-three team, + across a team
+    whose top scorer missed its last game - a weight, never a trigger (unknown = 0)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread":
+        return 0.0
+    return sum(_ncaab_across(c))
+
+
+def ncaab_spread_stack(c):
+    """(stack, weights firing) for a college hoops side - the study's sum, whatever the side's market: the top scorer
+    out (-/+0.03), lucky from three (-/+0.02), the hot-ATS gap (-/+0.03), the glass (+/-0.02), the top-25 road team
+    in Nov-Dec (-/+0.03). On a spread side it equals ncaab_top_out_spread_w + ncaab_fable_spread_w +
+    ncaab_across_spread_w (pinned by the regression test)."""
+    if c.get("league") != "ncaab":
+        return 0.0, 0
+    sp = dict(c, market="spread")
+    parts = [ncaab_top_out_spread_w(sp), *_ncaab_across(sp),
+             -NCAAB_TP_NET_SPREAD_W if ncaab_tp_lucky(sp) else 0.0]
+    if sp.get("ranked_road"):
+        parts.append(-NCAAB_RANKED_ROAD_W)
+    elif sp.get("vs_ranked_road"):
+        parts.append(NCAAB_RANKED_ROAD_W)
+    gap = sp.get("ats_gap")
+    if gap is not None:
+        parts.append(-NCAAB_ATS_GAP_W if gap >= NCAAB_ATS_GAP else NCAAB_ATS_GAP_W if gap <= -NCAAB_ATS_GAP else 0.0)
+    rg = sp.get("reb_gap")
+    if rg is not None:
+        parts.append(NCAAB_REB_W if rg >= NCAAB_REB_GAP else -NCAAB_REB_W if rg <= -NCAAB_REB_GAP else 0.0)
+    return round(sum(parts), 3), sum(1 for x in parts if x)
+
+
+def mark_ncaab_spread_stack(cands):
+    """spread_stack / spread_stack_n on every college hoops moneyline / spread side (after every college hoops mark)."""
+    for c in cands:
+        if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread"):
+            w, n = ncaab_spread_stack(c)
+            if n:
+                c["spread_stack"], c["spread_stack_n"] = w, n
+
+
+def ncaab_stack_side(c, cut=None):
+    """A college hoops side whose study stack is +NCAAB_STACK_MIN or more (the tracker's line)."""
+    cut = NCAAB_STACK_MIN if cut is None else cut
+    return c.get("league") == "ncaab" and (c.get("spread_stack") or 0) >= cut - 1e-9
+
+
 def weigh_ncaab_to_fav(cands):
     """The turnover-prone college hoops -101..-150 favorite: its weighed read goes down NCAAB_TO_FAV_W (floor own -
     FAV_CAP) - a weight, never a trigger."""
@@ -4862,6 +4951,9 @@ def mark_ncaab_shooting(games, cands):
         if net:
             c["tp_net"] = net["net"]
             c["tp_net_line"] = (net["own3"], net["opp3"])
+        onet = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home", "net"))
+        if onet:
+            c["opp_tp_net"] = onet["net"]            # 🏀 11/11 FABLE b5: the side ACROSS a lucky-from-three team
         me = seen.get((c.get("game_id"), c.get("side")))
         op = seen.get((c.get("game_id"), "away" if c.get("side") == "home" else "home"))
         if me:

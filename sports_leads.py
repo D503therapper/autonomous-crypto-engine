@@ -424,6 +424,9 @@ def tags(c, sports):
             t.append("college hoops road dog, games 1-3 (fade)")   # s7 - BUILT as a -2 dog-score weight; its live
             #   record (ML -20.0% on 581, open -26.1%, ATS -16.4%, held 3 of 3 down). The weight came OFF 11/9 (its
             #   judge at 50 tripped: +23.5% on 53 - results/studies/daily_1109/s1); the tag keeps logging the raw cell
+        if sports.ncaab_stack_side(c) and -250 <= (c.get("odds") or 0) <= -101:
+            t.append("college hoops fav -101..-250, spread stack +0.05+")   # 11/11 FABLE b5 (a LEAD, no weight): the
+            #   stack side's MONEYLINE as a favorite +10.6% on 358 at the close (held 3 of 3 up), ESPN's open +13.0% on 465
         if sports.ncaab_tp_lucky(c):
             t.append("college hoops side lucky from three, NET +5+ (fade)")   # 11/9 daily s2 - BUILT as weights (the
             #   favorite's read -2, the dog -1, the spread rank -0.02): ATS -10.1% on 5,668, held 3 of 3 down; judge at 50
@@ -963,6 +966,16 @@ def spread_tags(c, sports):
         t.append("college hoops hot-ATS side, gap 3+ (fade)")   # ATS -7.4% on 7,258 (0 of 5 / 0 of 3 up, z -6.6)
     if c.get("league") == "ncaab" and c.get("reb_gap") is not None and c["reb_gap"] <= -sports.NCAAB_REB_GAP:
         t.append("college hoops spread side out-rebounded by 6+ a game (fade)")   # the favorite ATS -10.8% on 1,009 (5 of 5)
+    # 11/11 FABLE (results/studies/fable_1111/b5): the college hoops SPREAD STACK - the built ATS fades added up, this
+    # side's plus the ones on the side across (sports.ncaab_spread_stack): +0.05 or more ATS +7.3% on 1,282 (held out
+    # 2023-25 +11.0%, 3 of 3 up), +0.06 or more +17.7% on 227 - the live cover record the owner judges a college hoops
+    # spread play on (judge at 100: under 52.4% covered = no spread play); the across half alone is BUILT as a rank weight
+    if sports.ncaab_stack_side(c):
+        t.append("college hoops spread side, study stack +0.05+")
+    if sports.ncaab_stack_side(c, sports.NCAAB_STACK_BIG):
+        t.append("college hoops spread side, study stack +0.06+")
+    if c.get("league") == "ncaab" and sum(sports._ncaab_across(c)) > 0:
+        t.append("college hoops spread side across a 3P-lucky team / a top scorer out")
     if c.get("league") == "ncaab" and public_saturday(c):
         t.append("college hoops public name on a Saturday (fade)")   # ATS -7.6% on 2,046 (0 of 5 / 0 of 3; at home
         #   -9.6%), the side across +0.2% - a hand-picked list of 30 names, a LEAD only (never a weight)
