@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T16:27Z",
+ "updated": "2026-11-11T16:28Z",
  "games": [
   {
    "id": "ncaab:401921005",
@@ -130,7 +130,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "South Florida",
-    "p": 0.673,
+    "p": 0.664,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -146,12 +146,12 @@
     "opp": "Saint Joseph's",
     "market": "spread",
     "line": -7.5,
-    "odds": -115,
+    "odds": -105,
     "p": 0.507,
-    "win_p": 0.747,
+    "win_p": 0.737,
     "reasons": [
-     "sharp money moving this way",
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -629,8 +629,8 @@
    "start": "2026-11-12T00:00Z",
    "away": "Lightning",
    "home": "Sabres",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Sabres",
     "opp": "Lightning",
@@ -659,8 +659,8 @@
    "start": "2026-11-12T00:00Z",
    "away": "Marquette",
    "home": "Michigan",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Michigan",
     "opp": "Marquette",
@@ -866,8 +866,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UMass",
-    "p": 0.751,
-    "tie": 0.033,
+    "p": 0.744,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -882,9 +882,9 @@
     "opp": "UMass",
     "market": "spread",
     "line": 10.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.554,
-    "win_p": 0.169,
+    "win_p": 0.176,
     "reasons": [
      "hotter recent form"
     ]
@@ -896,7 +896,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "West Georgia",
-    "p": 0.504,
+    "p": 0.512,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -912,9 +912,9 @@
     "opp": "UNC Asheville",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.534,
-    "win_p": 0.534,
+    "odds": -130,
+    "p": 0.545,
+    "win_p": 0.545,
     "reasons": [
      "hotter recent form"
     ]
@@ -963,8 +963,8 @@
    "start": "2026-11-12T00:00Z",
    "away": "Wizards",
    "home": "Pacers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Pacers",
     "opp": "Wizards",
@@ -1467,8 +1467,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.428,
-    "tie": 0.294,
+    "p": 0.422,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1483,12 +1483,11 @@
     "opp": "Flyers",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.66,
-    "win_p": 0.66,
+    "odds": -205,
+    "p": 0.647,
+    "win_p": 0.647,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -1498,7 +1497,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Magic",
-    "p": 0.561,
+    "p": 0.553,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1514,9 +1513,9 @@
     "opp": "Jazz",
     "market": "ml",
     "line": null,
-    "odds": -161,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -155,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "the stronger team"
     ]
@@ -1701,9 +1700,9 @@
     "team": "CA Baptist",
     "opp": "Chicago St",
     "market": "spread",
-    "line": -12.5,
-    "odds": -102,
-    "p": 0.502,
+    "line": -11.5,
+    "odds": -115,
+    "p": 0.508,
     "win_p": 0.87,
     "reasons": [
      "the stronger team",
@@ -1758,8 +1757,8 @@
    "start": "2026-11-12T03:00Z",
    "away": "Penguins",
    "home": "Sharks",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Sharks",
     "opp": "Penguins",
@@ -1786,8 +1785,8 @@
    "start": "2026-11-12T03:00Z",
    "away": "Predators",
    "home": "Ducks",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Predators",
     "opp": "Ducks",
