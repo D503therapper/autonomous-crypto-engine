@@ -80,7 +80,6 @@ LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (t
 MAX_PLAYS = 2                 # NEVER more than 2 on the board at once (the owner, 9/28): one's value goes, the next can take its slot
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
-AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game{extra}"
 DONE = ("complete", "closed", "final", "cancelled", "canceled", "postponed", "scheduled", "created")
 
 
@@ -295,19 +294,24 @@ def _get1(url):
         return json.load(r)
 
 
+def an_live_url(league, day=None):
+    """Action Network's v2 scoreboard for the live watcher (v1 retired 11/11): the consensus book only - the watcher
+    reads the status, teams and boxscore (score, clock, possession, latest_odds.live), never the pregame markets."""
+    return sd.an_url(league, day=day, books=(sd.AN_CLOSE,))
+
+
 def fetch_live(league):
-    extra = sd.AN_EXTRA.get(league, "")
     if league not in sd.AN_WEEKS:                          # day-based leagues: today's (and last night's late) games
         day = datetime.now(PT)
         out = []
         for d in (day - timedelta(days=1), day):
             try:
-                out += _get(AN.format(lg=league, extra=extra) + "&date=" + d.strftime("%Y%m%d")).get("games") or []
+                out += _get(an_live_url(league, d)).get("games") or []
             except Exception as e:                           # noqa: BLE001
                 sd.ERRORS.append(f"live {league}: {str(e)[:100]}")
         return list({g.get("id"): g for g in out}.values())       # a game can be on both days' lists
     try:
-        return _get(AN.format(lg=league, extra=extra)).get("games") or []    # football: the current week
+        return _get(an_live_url(league)).get("games") or []          # football: the current week
     except Exception as e:                                   # noqa: BLE001
         sd.ERRORS.append(f"live {league}: {str(e)[:100]}")
         return []
