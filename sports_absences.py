@@ -215,6 +215,41 @@ def qbs_used(games, league, team, before, rows=None):
     return {"n": len(names), "games": n, "names": [nm for _, nm in names]}
 
 
+def qb_changed(games, league, team, before, rows=None, last=2):
+    """🏈 11/11 (the owner's OK on the 11/7 study): did the team's quarterback CHANGE in its last `last` games - the top
+    passer (QB_MIN_ATT+ attempts) of any of them is not the top passer of the game before it? From the box scores of
+    this season's real games before `before`; None when they hold under last + 1 such games (unknown, never a guess).
+    -> {"changed": bool, "names": [the last last + 1 QBs, oldest first]} or None. `rows` as qbs_used."""
+    if league not in ("nfl", "ncaaf"):
+        return None
+    before = str(before or "")
+    if len(before) < 7:
+        return None
+    y, m = int(before[:4]), int(before[5:7])
+    since = f"{y if m >= 7 else y - 1}-07-01"
+    src = rows if rows is not None else _games(league).get(str(team), [])
+    seq = []
+    for s, gid, rs in sorted(src, key=lambda x: x[0]):
+        if not since <= s < before or str(((games or {}).get(gid) or {}).get("stype") or "2") not in sd.REAL:
+            continue
+        best, att = None, 0
+        for r in rs:
+            if r.get("group") != "passing":
+                continue
+            try:
+                a = int(str(json.loads(r.get("stats") or "{}").get("completions/passingAttempts", "0/0")).split("/")[1])
+            except (ValueError, IndexError, TypeError):
+                continue
+            if a > att:
+                best, att = (r.get("pid") or r.get("player"), r.get("player") or ""), a
+        if best is not None and att >= QB_MIN_ATT:
+            seq.append(best)
+    if len(seq) < last + 1:
+        return None
+    tail = seq[-(last + 1):]
+    return {"changed": any(tail[i][0] != tail[i + 1][0] for i in range(last)), "names": [nm for _, nm in tail]}
+
+
 INT_LUCK_MIN_GAMES = 5                                   # 🏈 11/4 daily study 1: the season INT margin needs 5+ box games
 
 

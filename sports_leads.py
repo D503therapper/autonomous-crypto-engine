@@ -974,6 +974,9 @@ def spread_tags(c, sports):
         t.append("college hoops spread side, study stack +0.05+")
     if sports.ncaab_stack_side(c, sports.NCAAB_STACK_BIG):
         t.append("college hoops spread side, study stack +0.06+")
+    if sports.ncaab_stack_play_ok(c):                        # 11/11 WIRED (the owner's OK): every side the ½u spread play
+        t.append("🏀 college hoops spread stack")            # could post (the stack +0.05+, the juice beaten, from 11/12) -
+        #   the play's own tracker line; its posted record is sports.ncaab_stack_play_record (judge at 100, off under 52.4%)
     if c.get("league") == "ncaab" and sum(sports._ncaab_across(c)) > 0:
         t.append("college hoops spread side across a 3P-lucky team / a top scorer out")
     if c.get("league") == "ncaab" and public_saturday(c):
