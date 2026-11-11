@@ -1,84 +1,43 @@
-"""Probe: LIVE tennis payloads for the live plus money feature (run it while ATP / WTA matches are being played).
-Saves the raw feeds to results/ so the parsers (sports_tennis.parse_espn / parse_bovada(live=True)) can be checked
-against the real thing, and prints what matters: live matches, which fields carry the points / the server, and
-Bovada's live tennis markets (status, prices)."""
-import gzip
-import json
-import time
-import urllib.request
-
-UA = "D503-sports-engine/1.0 (personal picks dashboard)"   # (11/2: the engine's own name - no browser disguise, the owner's rule)
-ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
-BOVADA = ["https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",
-          "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",
-          "https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&lang=en"]
-
-
-def get(url, browser):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"} if browser else {})
-    t0 = time.time()
-    with urllib.request.urlopen(req, timeout=30) as r:
-        body = r.read()
-    print(f"== {url}\n{r.status} {len(body)}B {time.time() - t0:.1f}s")
-    return json.loads(body)
-
-
-def save(name, data):
-    with gzip.open(f"results/{name}.json.gz", "wt") as f:
-        json.dump(data, f)
-    print(f"saved results/{name}.json.gz")
-
-
-for tour in ("atp", "wta"):
+"""PROBE (branch probe/an-v2 only): real Action Network v2 scoreboard payloads, trimmed, gzip+base64 into the log so the
+engine's v2 readers can be tested offline. Plain requests with the engine's own name - no browser disguise."""
+import os, base64, gzip, json, time, urllib.request, urllib.error
+from datetime import datetime, timedelta, timezone
+H = {"User-Agent": "D503-sports-engine/1.0 (personal picks dashboard)", "Accept": "application/json"}
+now = datetime.now(timezone.utc) - timedelta(hours=8)
+TD, YD = now.strftime("%Y%m%d"), (now - timedelta(days=1)).strftime("%Y%m%d")
+B2 = "https://api.actionnetwork.com/web/v2/scoreboard/"
+U = [
+    ("nba_yday", B2 + f"nba?bookIds=15,30&date={YD}"),
+    ("nba_today_h1", B2 + f"nba?bookIds=15,30&periods=event,firsthalf&date={TD}"),
+    ("ncaab_today_h1", B2 + f"ncaab?bookIds=15,30&periods=event,firsthalf&division=D1&date={TD}"),
+    ("nhl_yday", B2 + f"nhl?bookIds=15,30&date={YD}"),
+    ("nfl_2024_w3", B2 + "nfl?bookIds=15,30&season=2024&week=3&seasonType=reg"),
+    ("ncaaf_w11", B2 + "ncaaf?bookIds=15,30&season=2026&week=11&seasonType=reg&division=FBS"),
+    ("nfl_now", B2 + "nfl?bookIds=15"),
+    ("mlb_2026_0930", B2 + "mlb?bookIds=15,30&periods=event,firstfiveinnings&date=20260930"),
+]
+for name, u in U:
     try:
-        d = get(ESPN.format(tour=tour), False)
-    except Exception as e:                                   # noqa: BLE001
-        print(f"ERR espn {tour}: {e}")
-        continue
-    save(f"tennis_live_espn_{tour}", d)
-    n = 0
-    for ev in d.get("events") or []:
-        for gr in ev.get("groupings") or []:
-            for c in gr.get("competitions") or []:
-                st = ((c.get("status") or {}).get("type") or {})
-                if st.get("state") != "in":
-                    continue
-                n += 1
-                if n <= 3:                                   # the first few live matches, every field they carry
-                    print(f"LIVE {tour} {ev.get('name')} | {(gr.get('grouping') or {}).get('displayName')} | status {st}")
-                    print("  competition keys:", sorted(c))
-                    for x in c.get("competitors") or []:
-                        print("  competitor keys:", sorted(x), "| linescores:", x.get("linescores"))
-                        print("   ", {k: x[k] for k in x if k not in ("athlete", "linescores", "statistics", "records")})
-                    print("  situation:", c.get("situation"), "| status:", c.get("status"))
-    print(f"{tour}: {n} matches in progress")
+        d = json.load(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=25))
+        gs = d.get("games") or []
+        live = [g for g in gs if g.get("status") in ("inprogress", "in_progress", "halftime")]
+        fin = [g for g in gs if g.get("status") in ("complete", "closed")]
+        sch = [g for g in gs if g.get("status") == "scheduled"]
+        keep = (fin[:2] + live[:2] + sch[:2]) or gs[:3]
+        for g in keep:
+            for bk in (g.get("markets") or {}).values():
+                for per in bk.values():
+                    per.pop("core_bet_type_6_team_score", None)
+            for t in g.get("teams") or []:
+                for k in ("logo", "primary_color", "secondary_color", "url_slug", "standings"):
+                    t.pop(k, None)
+        periods = sorted({p for g in gs for bk in (g.get("markets") or {}).values() for p in bk})
+        types = sorted({t for g in gs for bk in (g.get("markets") or {}).values() for p in bk.values() for t in p})
+        os.makedirs("results/an_v2", exist_ok=True); json.dump({"games": keep}, open(f"results/an_v2/{name}.json", "w"))
+        print(f"OK {name}: {len(gs)} games ({len(fin)} final, {len(live)} live, {len(sch)} scheduled) periods {periods} types {types}")
 
-for url in BOVADA:
-    try:
-        d = get(url, True)
-    except Exception as e:                                   # noqa: BLE001
-        print(f"ERR bovada: {e}")
-        continue
-    live = [(g, e) for g in d if isinstance(g, dict) for e in g.get("events") or [] if e.get("live")]
-    print(f"{len(d)} groups, {len(live)} live events")
-    if not live:
-        continue
-    save("tennis_live_bovada", d)
-    for g, e in live[:3]:
-        print("PATH", [p.get("description") for p in g.get("path") or []], "| event keys:", sorted(e))
-        print("  competitors:", e.get("competitors"))
-        for dg in e.get("displayGroups") or []:
-            for mk in dg.get("markets") or []:
-                print("  market:", mk.get("description"), "| status", mk.get("status"), "| period", mk.get("period"),
-                      "|", [(o.get("description"), o.get("status"), (o.get("price") or {}).get("american")) for o in mk.get("outcomes") or []])
-    eid = live[0][1].get("id")
-    for su in (f"https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}",      # Bovada's own live score
-               f"https://www.bovada.lv/services/sports/results/api/v1/scores/{eid}"):          # (if it has one for tennis)
-        try:
-            s = get(su, True)
-            save("tennis_live_bovada_score", s)
-            print(json.dumps(s)[:1500])
-            break
-        except Exception as e:                               # noqa: BLE001
-            print(f"ERR {su}: {e}")
-    break
+    except urllib.error.HTTPError as e:
+        print(f"ERR {name}: HTTP {e.code}")
+    except Exception as e:
+        print(f"ERR {name}: {str(e)[:150]}")
+    time.sleep(1)
