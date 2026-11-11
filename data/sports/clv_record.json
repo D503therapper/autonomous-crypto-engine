@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 210,
-  "beat": 68,
+  "n": 212,
+  "beat": 69,
   "same": 84,
-  "worse": 58,
+  "worse": 59,
   "avg_pts": 0.13
  },
  "unit_plays": {
-  "n": 105,
-  "beat": 31,
+  "n": 106,
+  "beat": 32,
   "same": 49,
   "worse": 25,
-  "avg_pts": 0.19
+  "avg_pts": 0.21
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 105,
+   "n": 106,
    "beat": 37,
    "same": 35,
-   "worse": 33,
-   "avg_pts": 0.07
+   "worse": 34,
+   "avg_pts": 0.06
   },
   "lock": {
    "n": 14,
@@ -36,11 +36,11 @@
    "avg_pts": 1.23
   },
   "play": {
-   "n": 63,
-   "beat": 17,
+   "n": 64,
+   "beat": 18,
    "same": 32,
    "worse": 14,
-   "avg_pts": 0.16
+   "avg_pts": 0.19
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 28,
+   "n": 29,
    "beat": 12,
    "same": 11,
-   "worse": 5,
-   "avg_pts": 0.42
+   "worse": 6,
+   "avg_pts": 0.37
   },
   "ncaab": {
    "n": 5,
@@ -80,11 +80,11 @@
    "avg_pts": 0.28
   },
   "nhl": {
-   "n": 83,
-   "beat": 25,
+   "n": 84,
+   "beat": 26,
    "same": 33,
    "worse": 25,
-   "avg_pts": 0.05
+   "avg_pts": 0.07
   }
  },
  "lock_by_size": {
@@ -3032,6 +3032,20 @@
   },
   {
    "date": "2026-11-10",
+   "kind": "lean",
+   "lean": true,
+   "league": "nba",
+   "team": "Thunder",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -125,
+   "pts": -1.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-10",
    "kind": "play",
    "lean": false,
    "league": "nhl",
@@ -3041,6 +3055,20 @@
    "odds": 105,
    "close": -118,
    "pts": 5.3,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-10",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Predators",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 105,
+   "pts": 2.1,
    "units": 0.5,
    "result": "won"
   },
