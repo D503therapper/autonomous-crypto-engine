@@ -18053,3 +18053,25 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-11 20:06 UTC] stocks/trend     equity $460.52 (-7.9%) 4 open  market DOWN
 [2026-11-11 20:06 UTC] stocks/hold_spy  equity $494.94 (-1.0%) 1 open  market DOWN
    social heat top: BTC 40 (35/0/5), PENGU 37 (37/0/0), NEAR 29 (29/0/0), VVV 27 (27/0/0), AVAX 24 (24/0/0)
+   git sync: push rejected (try 1/5)
+   dex screen: UNREACHABLE MIHAO@ethereum liq $213,345 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT MUC@base liq $10,967 - liquidity $10,967 < $100,000; 24h volume $3,616 < $100,000
+   dex screen: REJECT SSV@ethereum liq $302,398 - is_mintable; owner_percent 6%; top-10 holders 79%; lp locked 0% < 95%
+   dex screen: REJECT METAC@base liq $899,276 - pool age unknown
+   dex screen: UNREACHABLE MIHAO@ethereum liq $224,047 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT NVDAC@base liq $1,793,010 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $230,340 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SPCXX@solana liq $106,828 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 79%; lp holders unknown
+   dex scanner: 2,999 pools (solana 2,326 / base 384 / ethereum 289), refresh cycle 129s (hot 125s), 2918 calls (108 feed, 429s 0, failed 0), 84,300 refreshed (5552 no pair), +98 added / -99 dropped (dead 7, stale 0, cap 92), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-11 21:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/mover     equity $201.33 (-59.7%) 1 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/social_heat equity $338.05 (-32.4%) 2 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-11 21:06 UTC] crypto/hold_btc  equity $448.98 (-10.2%) 1 open  market DOWN
+   social heat top: BTC 42 (37/0/5), SOL 35 (35/0/0), HYPE 32 (32/0/0), TAO 29 (29/0/0), ETH 27 (27/0/0)
