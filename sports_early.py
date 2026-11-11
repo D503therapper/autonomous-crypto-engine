@@ -575,9 +575,14 @@ def alt_overs(games, st, now):
     day before - never game day), the over at the number then, -150 rule. Judged at ALT_OVER_QUIT[0]: under -5% = off."""
     if alt_quit(st):
         return []
-    out, avs = [], {}
+    out, avs, avs2 = [], {}, {}
     for g in games.values():
         if g.get("league") != "ncaab" or g.get("status") != "pre" or (g.get("stype") or "2") != "2":
+            continue
+        if alt_1111(g):                                      # ⛰️ 11/11: 4,600 ft+, the read not fighting, from the
+            c = alt_over_1111(games, g, st, now, avs2)       # first number (alt_over_1111)
+            if c:
+                out.append(c)
             continue
         if str(g.get("neutral") or "0") in ("1", "True", "true") or (sm._num(g.get("elev")) or 0) < ALT_OVER_M:
             continue
@@ -607,6 +612,119 @@ def alt_overs(games, st, now):
                            + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
                     "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
     return out
+
+
+def alt_1111(g):
+    """Is this game under the 11/11 altitude rule? (its Pacific game day is ALT_1111_FROM or later)"""
+    try:
+        return bool(ALT_1111_FROM) and _t(g["start"]).astimezone(PT).date().isoformat() >= ALT_1111_FROM
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
+def alt_early_read(now_av, prev_av, g):
+    """The plain points read (no altitude bump) for the 11/11 rule: (home for + away against + away for + home
+    against) / 2 on this season's finals; a team under ALT_MIN_GAMES finals gets last season's scoring for the games
+    it's short ((n x this season + (5 - n) x last season) / 5 - last season alone before its first game). None = a
+    short team with under ALT_EARLY_PREV finals last season (no read - the engine never leans on what it can't see)."""
+    def side(t):
+        cur, prev = now_av.get(t), prev_av.get(t)
+        if cur and cur[2] >= ALT_MIN_GAMES:
+            return cur[0], cur[1]
+        if not prev or prev[2] < ALT_EARLY_PREV:
+            return None
+        k = cur[2] if cur else 0
+        f, a = (cur[0] * k, cur[1] * k) if cur else (0.0, 0.0)
+        return ((f + (ALT_MIN_GAMES - k) * prev[0]) / ALT_MIN_GAMES, (a + (ALT_MIN_GAMES - k) * prev[1]) / ALT_MIN_GAMES)
+    h, a = side(g.get("home")), side(g.get("away"))
+    if not h or not a:
+        return None
+    return (h[0] + a[1] + a[0] + h[1]) / 2
+
+
+def _alt_last(games, team, season, before):
+    """A team's last final this season before `before` - 'Wyoming beat Idaho St 82-73 last time out' - or ''."""
+    best = None
+    for x in games.values():
+        if x.get("league") != "ncaab" or x.get("status") != "final" or team not in (x.get("home"), x.get("away")):
+            continue
+        if _hoops_season(x.get("start") or "") != season or _t(x["start"]) >= before:
+            continue
+        if best is None or x["start"] > best["start"]:
+            best = x
+    if not best:
+        return ""
+    try:
+        hs, as_ = int(float(best["home_score"])), int(float(best["away_score"]))
+    except (KeyError, TypeError, ValueError):
+        return ""
+    home = best.get("home") == team
+    me, opp = (best.get("home_name"), best.get("away_name")) if home else (best.get("away_name"), best.get("home_name"))
+    ms, os_ = (hs, as_) if home else (as_, hs)
+    if not me or not opp or ms == os_:
+        return ""
+    return f"{me} {'beat' if ms > os_ else 'lost to'} {opp} {max(ms, os_)}-{min(ms, os_)} last time out ({ms + os_} points)"
+
+
+def alt_facts(games, g, now_av, read, tot, feet, st, now):
+    """⛰️ The card's fact lines for an altitude over (the owner: never vague, every line a number or a name; never a
+    win %, never the line moving): the floor's height, both teams' scoring this season (only what we hold), both last
+    games with the score, the points read when it's over the number, the spot's record, and the limits."""
+    s = _hoops_season(g["start"])
+    out = [f"⛰️ {g.get('home_name')}'s floor sits about {feet:,} feet up"]
+    for side in ("home", "away"):
+        av = now_av.get(g.get(side))
+        if av and av[2] >= 1:
+            out.append(f"{g.get(side + '_name')}'s games are averaging {av[0] + av[1]:.0f} points - scoring {av[0]:.0f}, "
+                       f"giving up {av[1]:.0f} through {av[2]} game{'s' if av[2] != 1 else ''}")
+    for side in ("home", "away"):
+        ln = _alt_last(games, g.get(side), s, now)
+        if ln:
+            out.append(ln)
+    if read is not None and read > tot:
+        out.append(f"Both teams' scoring adds up to {read:.0f} before the thin air - the number's {tot:g}")
+    w, l_, _ = spot_record(st).get("alt_over", (0, 0, 0.0))
+    out.append(f"Overs on college floors 4,600+ feet up are {ALT_REC} since 2018"
+               + (f", {w}-{l_} since we started betting it" if w + l_ else ""))
+    out.append(f"Good to {tot + ALT_GOOD_TO:g} - don't take it past that, or worse than {ALT_MAX_PRICE}")
+    return out
+
+
+def alt_over_1111(games, g, st, now, avs=None):
+    """⛰️ THE 11/11 ALTITUDE OVER (the over/under studies - the owner's brother's engine's best spot, re-tested on our
+    closes): a college regular-season game on a home floor ALT_HI_M+ (4,600 ft; never a neutral site), the OVER, ½u, its
+    own record (SPOTS 'alt_over' - the 11/3 play's record and its judge-at-50 carry on). Never one factor: the plain
+    points read (alt_early_read - last season filling in before a team has 5 finals) may sit at most ALT_FIGHT under the
+    total, which is also the total limit - a number that has run past read + 3 is no bet. Price no worse than
+    ALT_MAX_PRICE. Posted the moment a number shows, any time before the Pacific game day (the tape: the number shows
+    about a day ahead and climbs 1.3 points overnight) - never game day unless ALT_GAME_DAY (off, the owner's call),
+    never a game that started. None = no play."""
+    avs = {} if avs is None else avs
+    if str(g.get("neutral") or "0") in ("1", "True", "true") or (sm._num(g.get("elev")) or 0) < ALT_HI_M:
+        return None
+    tot, odds = sm._num(g.get("total")), _int(g.get("over_odds")) or -110
+    if tot is None or odds < ALT_MAX_PRICE:
+        return None
+    st_ = _t(g["start"])
+    if not now < st_:
+        return None                                          # never a game that started
+    if now.astimezone(PT).date() >= st_.astimezone(PT).date() and not ALT_GAME_DAY:
+        return None                                          # never game day (the owner's early-play rule)
+    s = _hoops_season(g["start"])
+    for k in (s, s - 1):
+        if k not in avs:                                     # (one pass over the finals a season)
+            avs[k] = scoring_avgs(games, "ncaab", k, now)
+    read = alt_early_read(avs[s], avs[s - 1], g)
+    if read is None or read - tot < -ALT_FIGHT:
+        return None                                          # no read / the read is fighting the over (the total limit)
+    feet = round((sm._num(g.get("elev")) or 0) * 3.281 / 100) * 100
+    facts = alt_facts(games, g, avs[s], read, tot, feet, st, now)
+    return {"game_id": g["id"], "league": "ncaab", "market": "total", "side": "over", "line": tot,
+            "team": f"Over {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
+            "start": g["start"], "spot": "alt_over", "spots": ["alt_over"], "fades": [], "read": round(read, 1),
+            "rule": "1111", "good_to": tot + ALT_GOOD_TO, "facts": facts[1:],
+            "why": f"{facts[0]}, and college overs 4,600+ feet up are {ALT_REC} since 2018.",
+            "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None}
 
 
 def watch(st, games, injuries):
@@ -741,7 +859,9 @@ SPOTS = {   # key: (label, units, leagues)
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
     "alt_over":  ("⛰️ College hoops over at altitude", 0.5, ("ncaab",)),        # 445-318 +11.1% 2018-26, 8 of 8 seasons
-    #                                                                              up - the 11/3 deep study (alt_overs)
+    #                                                                              up - the 11/3 deep study (alt_overs);
+    #                                                                              11/11: 4,600 ft+ floors, 499-342 +13.1%
+    #                                                                              (alt_over_1111) - still ½u, same record
     "nba_open":  ("🏀 NBA opening line", 0.5, ("nba",)),                       # the owner OK'd 10/23: the whole-model read
     #                                                                              at the first price, best side a night -
     #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
@@ -775,6 +895,34 @@ ALT_READ_ADJ = 1.46                      # the points read = both teams' season 
 ALT_OVER_GAP = 2.0                       # the read must sit 2+ points over the total (1+ / 3+ ran the same - not a tuned edge)
 ALT_MIN_GAMES = 5                        # both teams' finals this season before the read counts
 ALT_OVER_QUIT = (50, -0.05)              # judged at 50 graded: ROI under -5% on the units risked = it's off
+# ⛰️ 11/11 - THE OVER/UNDER STUDIES (the owner's brother's engine bets every over at seven floors 4,600+ ft up and was 9-2;
+# SPORTS_FINDINGS "11/11 - FABLE: THE OVER/UNDER STUDIES", results/studies/totals_1111/). On our closes 2018-26 the edge is
+# the FLOOR'S HEIGHT, and it starts at 4,600 ft: home floors 1,400 m+ the over 585-401 +13.1% on 993 (train 2018-21 +8.5%
+# 4 of 4 seasons up, blind 2022+ +17.3% 5 of 5, z +4.4; 0 of 500 random sets of floors did it), 1,200-1,399 m +0.8%
+# (blind +1.6%, 2 of 5) - the 11/3 play's 1,220-1,399 m leg ran +2.2% (blind -2.2%). The 11/3 "read 2+ over" gate is not
+# where the edge lives either: at 4,600 ft+ the over wins at every read gap (read under the total by up to 3: +9.1%; over
+# it: +13.4%), and in the games BEFORE both teams have 5 finals - November, where the 11/3 play could never fire and the
+# brother's engine is betting - it ran +20.5% on 137 (blind +28.5%, 5 of 5). From the Pacific game day ALT_1111_FROM:
+ALT_1111_FROM = "2026-11-12"             # the 11/11 rule starts with this Pacific game day's games (earlier = the 11/3 rule)
+ALT_HI_M = 1400                          # a home floor 1,400 m+ = 4,600 ft (Wyoming, N Arizona, Air Force, Southern Utah,
+#                                         Colorado, Denver, Colorado St, New Mexico, Montana St, Utah Valley, N Colorado)
+ALT_FIGHT = 3.0                          # never one factor: the points read (both teams' scoring, no altitude bump) may sit
+#                                         at most 3 points UNDER the total - past that the read is fighting the over and the
+#                                         number has run too far: no bet (read within 3 or over: 499-342 +13.1% on 848,
+#                                         train +10.4% 4 of 4, blind +15.5% 5 of 5; every cut -6 / -3 / 0 ran +12.5..+14% -
+#                                         not a tuned line). This is the play's TOTAL LIMIT: no over past read + 3.
+ALT_EARLY_PREV = 10                      # a team under ALT_MIN_GAMES finals gets last season's scoring filled in for the
+#                                         games it's short (needs 10+ finals last season; none = no read, no play)
+ALT_MAX_PRICE = -130                     # "don't bet worse than": every over at -130 still made +4.9% (z 1.8), at -140
+#                                         +1.7%, at -150 it loses - the play's price limit (was the board's -150 rule)
+ALT_GOOD_TO = 1.5                        # the card's "good to" number: the over at the close + 1 point +7.9%, + 2 points
+#                                         +3.3% (train -0.9%), + 3 points -2.5% - past 1.5 over our number it's gone
+ALT_GAME_DAY = False                     # OFF - the owner's call ("an early play is never posted on its own game day").
+#                                         The study is at the CLOSE, so a game-day number is the tested price; this
+#                                         season's tape (results/studies/totals_1111/s4): 9 of 9 altitude games had a
+#                                         number the day before, and it ran +1.3 points from 6 PM PT to the tip. True =
+#                                         a game with no number the day before posts on game day (never once it started).
+ALT_REC = "499-342"                      # the rule's record at the close, 2018-26 (s3 (e)) - what the card quotes
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
@@ -1504,7 +1652,8 @@ def html(st, E, now=None, show_units=None, games=None):
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small> '
                 f'<em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
-                + (f'<span>{E(no_pct(p))}</span>' if p.get("spot") in SPOTS else "") +
+                + (f'<span>{E(no_pct(p))}</span>' if p.get("spot") in SPOTS else "")
+                + "".join(f'<span>{E(x)}</span>' for x in p.get("facts") or []) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -1601,7 +1750,9 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
             tn = sports_intl._f(g.get("total")) if not p.get("result") and g.get("status") == "pre" else None   # the row
             price = f'<s>{p["line"]:g} ({am(p["odds"])})</s>' + (f'<em>➜</em><b>{tn:g}</b>' if tn is not None else "")
             if not mark and tn is not None and tn != p["line"]:   # showed a struck-out price and nothing after the arrow)
-                call = "🔥 we beat the number" if tn < p["line"] else "👀 the number went up"
+                over = p.get("side") == "over"               # (11/11: an over beats the number when it goes UP - the
+                call = ("🔥 we beat the number" if (tn > p["line"] if over else tn < p["line"])   # row read every total
+                        else f"👀 the number went {'down' if over else 'up'}")                    # as an under)
         gone = (f' data-gone="{int((_t(p["graded_at"]).timestamp() + GRADED_STAYS_H * 3600) * 1000)}"'
                 if p.get("result") and p.get("graded_at") else "")   # (10/10, the owner: Iowa's ✅ row sat on the page
         rows.append(f'<div class="egr{" gn" if gone else ""}"{gone}><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
@@ -1613,6 +1764,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                     f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
                     f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>'
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
+                    + "".join(f'<span>{E(x)}</span>' for x in (p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
