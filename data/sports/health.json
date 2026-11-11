@@ -1,9 +1,8 @@
 {
- "at": "2026-11-11T15:32Z",
+ "at": "2026-11-11T15:33Z",
  "fixes": [
-  "live board 23 min stale with games on - sports-live.yml already running",
-  "slate check problem - re-pull before the board - started sports.yml",
-  "studies overdue (10h) - started sports_studies.yml"
+  "live board 24 min stale with games on - sports-live.yml already running",
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "live tennis scores: tennis Tubello vs Maria: no points for 140s",
@@ -26,11 +25,30 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "simulator ran 9h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-11T15:33Z",
+   "fixes": [
+    "live board 24 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Tubello vs Maria: no points for 140s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-11T15:32Z",
    "fixes": [
@@ -608,11 +626,6 @@
    "fixes": [
     "live board 6 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-10T09:26Z",
-   "fixes": [],
    "problems": []
   }
  ]
