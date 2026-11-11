@@ -1,11 +1,13 @@
 {
- "at": "2026-11-11T02:40Z",
- "fixes": [],
+ "at": "2026-11-11T02:41Z",
+ "fixes": [
+  "live watch 42942625404 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
  ],
  "ok": [
-  "live watcher fresh (243s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +19,22 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 17 min ago",
+  "engine ran 19 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T02:41Z",
+   "fixes": [
+    "live watch 42942625404 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
+   ]
+  },
   {
    "at": "2026-11-11T02:40Z",
    "fixes": [],
@@ -516,13 +528,6 @@
    "at": "2026-11-09T21:27Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-09T21:17Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lizarazo vs Burillo: no points for 1766s"
-   ]
   }
  ]
 }
