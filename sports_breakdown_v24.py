@@ -474,6 +474,36 @@ def fair_am(p):
     return f"-{a}" if p >= 0.5 else f"+{a}"
 
 
+FAIR_MAX_GAP = 0.15    # 🔎 11/11 SWEEP: "our number" on a card is never more than this far from what the price needs
+
+
+def card_fair(leg, own, beat=False):
+    """OUR NUMBER as a card may print it (11/11 sweep - the owner: never false information). The Tulane +124 🔍 card of
+    11/7 closed "We got Tulane at -446, the book says +124": the RAW ratings read (82%), the one the gap rule fires on
+    and the 11/7 study found over-confident at every size (gap dogs read 74%, won 35%), printed as a fair price. A 🔍
+    play's card number is the engine's FULL read (leg["p"] - Tulane 48% = +109); any read more than FAIR_MAX_GAP from
+    what the price needs is no fair price at all (None = the closer says no number); beat=True (a value closer -
+    "they're giving us X") only when the number really is better than the price, never the same number
+    (the Bruins -142 card of 11/8: "We price Bruins at -142 - -142 is extra money")."""
+    dec = leg.get("dec")
+    if leg.get("gap") is not None and leg.get("p") is not None:
+        own = leg["p"]
+    if own is None or not dec or abs(own - 1 / dec) > FAIR_MAX_GAP:
+        return None
+    f = fair_am(own)
+    if beat and f is not None and (own * dec <= 1 or f == _am(leg.get("odds") or 0)):
+        return None
+    return f
+
+
+def fair_same(leg, own):
+    """The read and the price are the SAME number once written as a price (-142 / -142): the card says so."""
+    if leg.get("gap") is not None and leg.get("p") is not None:
+        own = leg["p"]
+    f = fair_am(own) if own is not None else None
+    return f is not None and leg.get("odds") is not None and f == _am(leg["odds"])
+
+
 def OWNER_LOCK(price, us, leg):
     """The Lock's closer in the owner's own words (10/18, the owner: "it's not really the lingo I trained you with") -
     one of his phrases per card, each family once a board (SLANG), a plain line only once they're all taken."""
@@ -1453,6 +1483,15 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Fair price on a side we trust - small bet.",
             f"✅ Bottom line: {us} to win, {price}. Price is about where we got it - ride it light."]) or
                    _short(v, price, True, ""))                           # (small, honest - never "value")
+    elif _need and _own <= _need and leg.get("is_lean") is False and leg.get("tier") in ("value", "lock"):
+        #   (11/11 sweep: a UNIT play whose read sits at / under its price - the NBA favorite play rides its study weights
+        #    on a read that starts at the books' number, the forced ⭐ too. The Celtics -124 1u card of 11/10 closed
+        #    "Could go either way. Celtics by a nose - a lean." - "a lean" / "No units" on a play with a unit on it.)
+        out.append(v.say("bottom_unit_fair", [
+            f"✅ Bottom line: {price}. The price is about fair - this one's up on the spot {us} {vb(us, 'are', 'is')} in, not on a gift from the book.",
+            f"✅ Bottom line: {price}. No gift in the number. {us} {vb(us, 'are', 'is')} the play because of the spot, and the units say how much.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Fair price, right spot - that's the bet."]) or
+                   _short(v, price, False, "A fair price on our side."))
     elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: "we like the Kraken,
         out.append(v.say("bottom_c", [                                   # just not at this price" at -108 makes no
             f"✅ Bottom line: {price}. Coin flip game - {us} by a hair. No units.",                               # sense:
@@ -1461,7 +1500,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Could go either way. {us} by a nose - a lean."]) or                       # a coin flip)
                    _short(v, price, False, "Close to a coin flip on our read."))
     elif _need and _own <= _need:                                        # read beat the price or not; ONE % only
-        _f = fair_am(_own)                                               # (10/22: our number vs theirs - the reason)
+        _f = card_fair(leg, _own)                                        # (10/22: our number vs theirs - the reason)
         out.append(v.say("bottom_n", ([f"✅ Bottom line: {price}. We make {us} {_f}; the book wants {_am(leg['odds'])}. Lean only.",
                                        f"✅ Bottom line: {price}. Our number's {_f} - at {_am(leg['odds'])} there's no money in it. A lean."]
                                       if _f and leg.get("market") == "ml" else []) + [   # when it's over 55. Never "value" on a read
@@ -1473,7 +1512,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. We'd ride {us}, but not with money at this price.",
             f"✅ Bottom line: {us} {vb(us, 'are', 'is')} our side; {price} is too rich for units. Lean it."]) or _short(v, price, False, _fact))
     elif leg.get("tier") == "lock":                                      # a lock: our whole chest, never a hedge
-        out.append(v.say("bottom_lo", OWNER_LOCK(price, us, {**leg, "_read": _own})) or v.say("bottom_l", [
+        out.append(v.say("bottom_lo", OWNER_LOCK(price, us, {**leg, "_read": _own if card_fair(leg, _own, beat=True) else None})) or v.say("bottom_l", [
             f"✅ Bottom line: {price}. The engine likes {us} more than the books do. Lock it in.",
             f"✅ Bottom line: {price} — this price is cheaper than it should be. We're all in.",
             f"✅ Bottom line: {price}. The books got this one priced wrong. Stamp it.",
@@ -1482,8 +1521,14 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}.{pos} The price didn't catch up to our read. Tap in.",
             f"✅ Bottom line: {price}. We'd lay this all day - the number's in our favor.",
             f"✅ Bottom line: {price}. The side we trust most today, at a price that pays. That's money."]) or _short(v, price, True, _fact))
+    elif fair_same(leg, _own):                                           # (11/11 sweep: the Bruins -142 / -142 card said
+        out.append(v.say("bottom_even", [                                # "-142 is extra money" - the same number is no gift)
+            f"✅ Bottom line: {price}. Our number's {_am(leg['odds'])} too - a fair price on the side we like, nothing extra in it. Small bet.",
+            f"✅ Bottom line: {price}. We make {us} {_am(leg['odds'])}, same as the book. Right side at a fair price - keep it light.",
+            f"✅ Bottom line: {price}. Fair price, not a gift: we got {us} at {_am(leg['odds'])} just like the book. Small bet on the side we trust."]) or
+                   _short(v, price, False, "A fair price on our side."))
     else:
-        out.append(v.say("bottom_so", OWNER_PLAY(price, us, fair_am(_own), leg.get("odds"))) or v.say("bottom_s", [
+        out.append(v.say("bottom_so", OWNER_PLAY(price, us, card_fair(leg, _own, beat=True), leg.get("odds"))) or v.say("bottom_s", [
             f"✅ Bottom line: {price}. The engine gives {us} a better shot than this price does. That's the bet.",
             f"✅ Bottom line: {price} pays more than it should. Tap in.",
             f"✅ Bottom line: {price}. The books are sleeping on {us}. We finna see.",
@@ -2202,8 +2247,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                         f"🧠 Don't let {rec_u} vs {rec_t} fool you — {us} have won {ws} straight, the last by {int(mg)}.",
                         f"🧠 {us} won their last {ws}, the last one by {int(mg)}. {them} at {rec_t} ain't seen that shit yet.",
                         f"🧠 {ws} straight for {us}, the last by {int(mg)} points — {rec_u} and rolling into a {rec_t} {them} team."])))
-                elif lean and fair_am(_read(leg)) and (_read(leg) or 0) * (leg.get("dec") or 0) > 1:
-                    fa = fair_am(_read(leg))                  # (a lean's units line has no number; a unit play's does -
+                elif lean and card_fair(leg, _read(leg), beat=True):   # (11/11: never the raw read 15+ points off the price)
+                    fa = card_fair(leg, _read(leg), beat=True)   # (a lean's units line has no number; a unit play's does -
                     pools.append(("w_close_rec", _ok([        #  never said twice on one card)
                         f"🧠 The records look even ({us} {rec_u}, {them} {rec_t}); our ratings make {us} {fa} — the book's at {_am(leg['odds'])}.",
                         f"🧠 {rec_u} vs {rec_t} on paper, but we price {us} at {fa} and the book hangs {_am(leg['odds'])}."])))
@@ -2290,7 +2335,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} {us} is the side, but the price is too steep for units.",
                                  lambda F: f"🧠 {F} We like {us} - just not at this price."), names))
     elif need and lean:                                   # (a unit play's units line already shows our number)
-        _fa = fair_am(own)
+        _fa = card_fair(leg, own)
         nums = ("w_num", _ok(_fx(Fs, *((lambda F: f"🧠 {F} We make {us} {_fa}.", lambda F: f"🧠 {F} Our number on {us}: {_fa}.")
                                        if _fa else (lambda F: f"🧠 {F} We lean {us}.",))), names))
     elif need:

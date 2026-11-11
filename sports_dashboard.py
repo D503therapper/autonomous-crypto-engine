@@ -395,7 +395,8 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     try:                                                     # (10/22, the owner: "Real value on a plus-money price.
         import sports as _s                                  #  Bigger bet." said nothing - the size line says OUR number
         import sports_breakdown_v24 as _v                    #  next to the book's)
-        f = _v.fair_am(_s.read_of(leg)) if leg else None
+        f = _v.card_fair(leg, _s.read_of(leg), beat=True) if leg else None   # (11/11 sweep: never the raw gap read as a
+        #                                                      price - Tulane "-446" - and never our number = theirs)
         if leg and leg.get("floor_score") is not None:       # (10/27: a floor play's read sits about even with the price -
             f = None                                         #  "we make 'em +109, the book's at +102" argued against it)
             if u == 0.5:

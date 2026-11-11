@@ -33,6 +33,7 @@ MIN_ODDS_GAMES = 80        # below this many games with odds, trust stays cautio
 TRUST_CAUTIOUS = 0.15
 TRAIN_GAMES = 8000         # fit the weights on the most recent this many games (the ratings still use all history)
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
+TUNE_KEEP = 0.001          # (11/11) the log-loss a new reaction speed / home edge has to beat the standing one by
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
 THIN_AIR_M = 1000   # below ~1000 meters the air is the same for everybody (Chicago's 179m is not an altitude game)
@@ -397,7 +398,7 @@ def tune(games, league, prev=None):
     fin = finals(games, league)
     if len(fin) < 60:
         return prev
-    best = None
+    best, held = None, None
     for km in K_MULTS:
         k = BASE_K[league] * km
         for hfa in HFA_GRID:
@@ -410,7 +411,18 @@ def tune(games, league, prev=None):
             ll = logloss([(f["p_elo"], y) for _, f, y, _ in rows[ev_from:] if y != 0.5])
             if best is None or ll < best[0]:
                 best = (ll, k, hfa, rows)
+            if prev and (k, hfa) == (prev.get("k"), prev.get("hfa")) and len(rows) - ev_from >= MIN_ODDS_GAMES:
+                held = (ll, k, hfa, rows)
+    # (11/11 sweep: THE RATINGS DON'T FLIP ON A TIE. The grid's top two sit 0.0004-0.0008 log-loss apart on 900 games -
+    #  nothing - so every final that came in flipped the pick: college football's reaction speed went 25 -> 37.5 -> 25
+    #  six times on Saturday 11/7 and eight on 10/31, hockey's 11 times in 10/20-11/5, and each flip re-rated every team
+    #  (Kansas St's raw read 68% at 25, 58% at 37.5 - the 🔍 gap play's own number, 10 points apart an hour apart with no
+    #  news). Yesterday's speed / home edge stay unless another point beats them by TUNE_KEEP or more.)
+    if held is not None and held[0] - best[0] < TUNE_KEEP:
+        best = held
     ll_elo, k, hfa, rows = best
+    warm = max(30, len(rows) // 4)
+    ev_from = max(warm, len(rows) - EVAL_GAMES)
     train = [(g, f, y, m) for g, f, y, m in rows[warm:] if y != 0.5][-TRAIN_GAMES:]   # weights: the recent seasons
     ev = [r for r in rows[ev_from:] if r[2] != 0.5]
     # 2. our own view
