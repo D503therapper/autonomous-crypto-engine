@@ -1,8 +1,8 @@
 {
- "at": "2026-11-11T23:07Z",
+ "at": "2026-11-11T23:09Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running",
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "live board 6 min stale with games on - sports-live.yml already running",
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
@@ -12,7 +12,6 @@
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
  ],
  "ok": [
-  "live watcher fresh (223s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -25,11 +24,26 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 15 min ago",
+  "engine ran 0 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-11T23:09Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-11T23:07Z",
    "fixes": [
@@ -842,18 +856,6 @@
    "at": "2026-11-10T18:30Z",
    "fixes": [
     "live board 7 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Scott: no points for 2434s",
-    "live tennis scores: tennis Masarova vs Andreescu: no points for 1328s",
-    "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-10T18:29Z",
-   "fixes": [
-    "live watch 42867764535 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
    ],
    "problems": [
     "live tennis scores: tennis Garcia vs Scott: no points for 2434s",
