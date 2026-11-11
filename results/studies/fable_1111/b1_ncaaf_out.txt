@@ -1,0 +1,38 @@
+b1_ncaaf - ncaaf: 3207 priced regular-season games with 3+ boxed games each (2021-26)
+the NUMBER's weights (points per 1 sd, fit 2021-24):  home field +3.15; net yards/play +3.35; net 1st downs/play +1.38; net 3rd-down rate +0.07; turnover margin -0.01; point margin +5.68; yard margin /10 +0.34; penalty yds net /10 +0.52; net yards/pass -0.57; net yards/rush +0.74; rest edge (days, capped 3) +0.03
+the RESIDUAL's weights (what the spread misses):       home field -0.05; net yards/play +0.28; net 1st downs/play +0.27; net 3rd-down rate -0.23; turnover margin -0.45; point margin -0.71; yard margin /10 -0.45; penalty yds net /10 +0.39; net yards/pass +0.10; net yards/rush +0.82; rest edge (days, capped 3) +0.13
+
+RMSE of the final margin, each test season:  my number | the closing spread | the spread + 20% of my gap | OLS weight on (my number - the spread)
+  2023:  16.68 |  15.28 |  15.34 | +0.014   (n 507)
+  2024:  16.44 |  15.46 |  15.42 | +0.162   (n 497)
+  2025:  16.31 |  15.05 |  15.08 | +0.034   (n 495)
+  2026:  17.13 |  15.31 |  15.33 | +0.080   (n 707)
+
+(1) 2+ off the close: on the dog                           ALL  1081   -4.7% z-1.61 | TRAIN   274  -12.5% z-2.18 up 0/1 | 2024   219   -0.7% z-0.11 | 2025   243   -6.7% z-1.10 | 2026   345   +0.5% z+0.09 | HELD   807   -2.0% z-0.60
+(1) 2+ off the close: on the favorite                      ALL   501   -4.1% z-0.97 | TRAIN    91  -12.0% z-1.21 up 0/1 | 2024   128   +8.7% z+1.04 | 2025   113   -5.1% z-0.57 | 2026   169   -9.0% z-1.23 | HELD   410   -2.4% z-0.51
+(1) 3+ off the close: on the dog                           ALL   937   -4.1% z-1.32 | TRAIN   239  -11.7% z-1.90 up 0/1 | 2024   192   -0.7% z-0.10 | 2025   207   -4.3% z-0.66 | 2026   299   -0.1% z-0.01 | HELD   698   -1.5% z-0.42
+(1) 3+ off the close: on the favorite                      ALL   389   -1.5% z-0.31 | TRAIN    72   -4.5% z-0.40 up 0/1 | 2024    98   +3.1% z+0.32 | 2025    88   -2.0% z-0.20 | 2026   131   -2.9% z-0.35 | HELD   317   -0.8% z-0.15
+(1) 4+ off the close: on the dog                           ALL   808   -2.7% z-0.80 | TRAIN   210  -10.4% z-1.58 up 0/1 | 2024   168   -0.2% z-0.02 | 2025   170   +0.8% z+0.11 | 2026   260   -0.3% z-0.06 | HELD   598   +0.0% z+0.01
+(1) 4+ off the close: on the favorite                      ALL   304   -4.7% z-0.87 | TRAIN    54  -18.8% z-1.47 up 0/1 | 2024    82   -0.0% z-0.00 | 2025    66  +13.3% z+1.14 | 2026   102  -12.7% z-1.36 | HELD   250   -1.7% z-0.28
+(1) 6+ off the close: on the dog                           ALL   545   -1.2% z-0.29 | TRAIN   136   -7.8% z-0.95 up 0/1 | 2024   108   +2.3% z+0.25 | 2025   114   -3.1% z-0.35 | 2026   187   +2.7% z+0.39 | HELD   409   +1.0% z+0.21
+(1) 6+ off the close: on the favorite                      ALL   185   -8.6% z-1.23 | TRAIN    30   -4.7% z-0.27 up 0/1 | 2024    56   +5.4% z+0.43 | 2025    32   +1.7% z+0.10 | 2026    67  -26.9% z-2.40 | HELD   155   -9.3% z-1.22
+(2) cover edge 1.0+: on the dog                            ALL   581   -3.7% z-0.94 | TRAIN   228   -2.5% z-0.39 up 0/1 | 2024   169   -8.6% z-1.18 | 2025    99   -1.8% z-0.18 | 2026    85   +0.5% z+0.05 | HELD   353   -4.5% z-0.89
+(2) cover edge 1.0+: on the favorite                       ALL   193  -14.2% z-2.09 | TRAIN    29  -27.8% z-1.62 up 0/1 | 2024    56  -28.2% z-2.28 | 2025    43  -11.1% z-0.77 | 2026    65   +1.8% z+0.16 | HELD   164  -11.8% z-1.60
+(2) cover edge 2.0+: on the dog                            ALL   152   +5.1% z+0.67 | TRAIN    80   +2.2% z+0.21 up 1/1 | 2024    50  +10.5% z+0.79 | 2025    14   -4.5% z-0.17 | 2026     8  +17.4% z+0.54 | HELD    72   +8.4% z+0.75
+(2) cover edge 2.0+: on the favorite                       ALL    27  -22.5% z-1.25 | TRAIN     4   -5.5% z-0.12 up 0/1 | 2024    15  -23.2% z-0.95 | 2025     6  -36.2% z-0.98 | 2026     2   -9.7% z-0.15 | HELD    23  -25.4% z-1.31
+(2) cover edge 3.0+: on the dog                            ALL    34  +28.7% z+1.88 | TRAIN    22  +29.6% z+1.57 up 1/1 | 2024    11  +38.7% z+1.51 | 2025     1 -100.0% z-1.00 | 2026     -               | HELD    12  +27.2% z+1.05
+(2) cover edge 3.0+: on the favorite                       ALL     4   -4.3% z-0.09 | TRAIN     -               up 0/0 | 2024     3  +27.6% z+0.53 | 2025     1 -100.0% z-1.00 | 2026     -               | HELD     4   -4.3% z-0.09
+BASE every home side ATS                                   ALL  2164   -5.0% z-2.46 | TRAIN   494   -8.7% z-2.03 up 0/1 | 2024   486   -2.3% z-0.52 | 2025   487   -5.2% z-1.21 | 2026   697   -4.3% z-1.18 | HELD  1670   -4.0% z-1.70
+KEY (1) my number 2+ off the FIRST FAIR spread (early price) ALL  1008   -6.0% z-1.99 | TRAIN   318  -12.4% z-2.32 up 0/1 | 2024   301   +1.0% z+0.17 | 2025   313   -7.1% z-1.32 | 2026    76   -2.1% z-0.19 | HELD   690   -3.1% z-0.84
+KEY (1) my number 2+ pts off the CLOSE                     ALL  1582   -4.5% z-1.88 | TRAIN   365  -12.4% z-2.49 up 0/1 | 2024   347   +2.7% z+0.54 | 2025   356   -6.2% z-1.23 | 2026   514   -2.6% z-0.63 | HELD  1217   -2.1% z-0.79
+KEY (1) my number 3+ off the FIRST FAIR spread (early price) ALL   847   -5.0% z-1.53 | TRAIN   273  -10.5% z-1.82 up 0/1 | 2024   252   -2.9% z-0.48 | 2025   251   -3.2% z-0.54 | 2026    71   +2.2% z+0.19 | HELD   574   -2.4% z-0.61
+KEY (1) my number 3+ pts off the CLOSE                     ALL  1326   -3.3% z-1.28 | TRAIN   311  -10.0% z-1.86 up 0/1 | 2024   290   +0.6% z+0.10 | 2025   295   -3.7% z-0.66 | 2026   430   -0.9% z-0.20 | HELD  1015   -1.3% z-0.43
+KEY (1) my number 4+ off the FIRST FAIR spread (early price) ALL   699   -5.1% z-1.42 | TRAIN   220  -12.3% z-1.93 up 0/1 | 2024   214   -1.7% z-0.26 | 2025   200   -1.6% z-0.23 | 2026    65   -3.0% z-0.26 | HELD   479   -1.8% z-0.42
+KEY (1) my number 4+ pts off the CLOSE                     ALL  1112   -3.2% z-1.13 | TRAIN   264  -12.1% z-2.07 up 0/1 | 2024   250   -0.1% z-0.02 | 2025   236   +4.3% z+0.69 | 2026   362   -3.8% z-0.76 | HELD   848   -0.5% z-0.14
+KEY (1) my number 6+ off the FIRST FAIR spread (early price) ALL   455   -5.5% z-1.24 | TRAIN   143   -6.6% z-0.82 up 0/1 | 2024   134   -5.8% z-0.71 | 2025   125   -6.8% z-0.79 | 2026    53   +0.9% z+0.07 | HELD   312   -5.1% z-0.94
+KEY (1) my number 6+ pts off the CLOSE                     ALL   730   -3.1% z-0.87 | TRAIN   166   -7.2% z-0.98 up 0/1 | 2024   164   +3.4% z+0.45 | 2025   146   -2.1% z-0.26 | 2026   254   -5.1% z-0.85 | HELD   564   -1.8% z-0.46
+KEY (2) predicted cover edge 1.0+ pts                      ALL   774   -6.3% z-1.85 | TRAIN   257   -5.3% z-0.90 up 0/1 | 2024   225  -13.5% z-2.13 | 2025   142   -4.6% z-0.57 | 2026   150   +1.1% z+0.14 | HELD   517   -6.8% z-1.63
+KEY (2) predicted cover edge 2.0+ pts                      ALL   179   +1.0% z+0.14 | TRAIN    84   +1.9% z+0.18 up 1/1 | 2024    65   +2.8% z+0.23 | 2025    20  -14.0% z-0.66 | 2026    10  +12.0% z+0.41 | HELD    95   +0.2% z+0.02
+KEY (2) predicted cover edge 3.0+ pts                      ALL    38  +25.2% z+1.72 | TRAIN    22  +29.6% z+1.57 up 1/1 | 2024    14  +36.3% z+1.58 | 2025     2 -100.0% z+0.00 | 2026     -               | HELD    16  +19.3% z+0.83
+
+cells: 26  (TRAIN column = 2023, the first walk-forward season; every column is out of sample)

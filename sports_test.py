@@ -20083,6 +20083,73 @@ def test_tune_1111_the_eval_window_counts_the_rows_the_replay_keeps():
         smod.replay, smod.EVAL_GAMES = real, keep_eval
 
 
+def test_fable_1111_college_hoops_spread_stack_across_half_is_a_rank_weight_never_units():
+    """11/11 FABLE (the owner: "how we can be profitable with college basketball" + "spreads like the pros";
+    results/studies/fable_1111/b5_hoops_spread_stack.py): the built college hoops ATS fades ADDED UP - this side's
+    weights plus the fades on the side across - a stack of +0.05 or more covered ATS +7.3% on 1,282 (held out 2023-25
+    +11.0%, 3 of 3 up). BUILT: the ACROSS half as a spread-rank weight (+0.02 across a lucky-from-three team, +0.03
+    across a top scorer out - the two fades that only knocked the flagged side), and the stack as a tracker read on
+    every college hoops side. Weights, never triggers; spread value plays stay OFF (PLAY_MARKETS is the owner's)."""
+    import sports_leads as sl
+    assert sports.PLAY_MARKETS == ("ml",)                                               # the owner's rule - untouched
+    assert sports.NCAAB_ACROSS_TP_W == 0.02 and sports.NCAAB_ACROSS_TOP_OUT_W == 0.03
+    assert sports.NCAAB_STACK_MIN == 0.05 and sports.NCAAB_STACK_BIG == 0.06
+    sp = {"league": "ncaab", "market": "spread", "side": "home", "home": True, "line": -3.5, "odds": -110,
+          "dec": 1.909, "p": 0.5, "reasons": [], "game_id": "ncaab:x"}
+    base = sports.rank_p(sp)
+    # across a lucky-from-three team (NET +5+), me not lucky: +0.02 on the spread rank
+    assert abs(sports.rank_p({**sp, "opp_tp_net": 0.06, "tp_net": 0.01}) - (base + 0.02)) < 1e-9
+    assert abs(sports.rank_p({**sp, "opp_tp_net": 0.06}) - (base + 0.02)) < 1e-9        # my own NET unknown: still across
+    assert sports.rank_p({**sp, "opp_tp_net": 0.049}) == base                           # under the cut: nothing
+    # both lucky: no across half - only my own fade (-0.02)
+    assert abs(sports.rank_p({**sp, "opp_tp_net": 0.06, "tp_net": 0.07}) - (base - 0.02)) < 1e-9
+    # across a top scorer out (mine played): +0.03; both out: only my own -0.03
+    assert abs(sports.rank_p({**sp, "opp_top_out": True}) - (base + 0.03)) < 1e-9
+    assert abs(sports.rank_p({**sp, "opp_top_out": True, "top_out": True}) - (base - 0.03)) < 1e-9
+    # never the moneyline's rank, never another sport
+    ml = {**sp, "market": "ml", "odds": -140, "dec": 1.714, "p": 0.58}
+    assert sports.rank_p({**ml, "opp_top_out": True, "opp_tp_net": 0.08}) == sports.rank_p(ml)
+    assert sports.ncaab_across_spread_w({**sp, "league": "nba", "opp_top_out": True, "opp_tp_net": 0.08}) == 0.0
+    # the stack = the college hoops spread weights on the side, exactly (a drift guard), whatever the market
+    combos = [{}, {"opp_tp_net": 0.06}, {"opp_top_out": True}, {"top_out": True}, {"tp_net": 0.08},
+              {"ats_gap": -4.0, "opp_tp_net": 0.07}, {"ats_gap": 3.5, "reb_gap": -7.0}, {"reb_gap": 6.5, "opp_top_out": True},
+              {"vs_ranked_road": True, "opp_tp_net": 0.05}, {"ranked_road": True, "tp_net": 0.06, "top_out": True},
+              {"ats_gap": -3.0, "reb_gap": 6.0, "opp_top_out": True, "opp_tp_net": 0.09, "vs_ranked_road": True}]
+    for extra in combos:
+        c = {**sp, **extra}
+        want = sports.ncaab_top_out_spread_w(c) + sports.ncaab_fable_spread_w(c) + sports.ncaab_across_spread_w(c)
+        got, n = sports.ncaab_spread_stack(c)
+        assert abs(got - want) < 1e-9, (extra, got, want)
+        assert sports.ncaab_spread_stack({**ml, **extra})[0] == got                    # the same read on the moneyline side
+    assert sports.ncaab_spread_stack({**sp, **combos[-1]}) == (0.13, 5)
+    assert sports.ncaab_spread_stack(sp) == (0.0, 0)
+    assert sports.ncaab_spread_stack({**sp, "league": "nba", "top_out": True}) == (0.0, 0)
+    # the mark + the tracker lines
+    a = {**sp, "ats_gap": -4.0, "opp_tp_net": 0.07}                                     # 0.03 + 0.02 = +0.05: the stack side
+    b = {**sp, "side": "away", "home": False, "ats_gap": 4.0, "tp_net": 0.07}           # the faded side: -0.05
+    big = {**sp, "ats_gap": -4.0, "opp_top_out": True}                                  # 0.06
+    fav = {**ml, "ats_gap": -4.0, "opp_tp_net": 0.07, "games_in": 12}
+    nfl = {**sp, "league": "nfl", "opp_top_out": True}
+    plain = dict(sp)
+    sports.mark_ncaab_spread_stack([a, b, big, fav, nfl, plain])
+    assert a["spread_stack"] == 0.05 and a["spread_stack_n"] == 2 and b["spread_stack"] == -0.05 and big["spread_stack"] == 0.06
+    assert fav["spread_stack"] == 0.05 and "spread_stack" not in nfl and "spread_stack" not in plain
+    assert sports.ncaab_stack_side(a) and not sports.ncaab_stack_side(b) and not sports.ncaab_stack_side(plain)
+    assert sports.ncaab_stack_side(big, sports.NCAAB_STACK_BIG) and not sports.ncaab_stack_side(a, sports.NCAAB_STACK_BIG)
+    ta, tb, tbig = sl.tags(a, sports), sl.tags(b, sports), sl.tags(big, sports)
+    assert "college hoops spread side, study stack +0.05+" in ta and "college hoops spread side, study stack +0.06+" not in ta
+    assert "college hoops spread side across a 3P-lucky team / a top scorer out" in ta
+    assert not any("study stack" in t or "across a 3P-lucky" in t for t in tb)
+    assert "college hoops spread side, study stack +0.06+" in tbig and "college hoops spread side, study stack +0.05+" in tbig
+    assert "college hoops fav -101..-250, spread stack +0.05+" in sl.tags(fav, sports)
+    assert "college hoops fav -101..-250, spread stack +0.05+" not in sl.tags({**fav, "odds": 140, "dec": 2.4}, sports)
+    assert not any("stack" in t for t in sl.tags(nfl, sports))
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "mark_ncaab_spread_stack(out)" in src and 'c["opp_tp_net"] = onet["net"]' in src
+    assert src.index("mark_ncaab_shooting(games, out)") < src.index("mark_ncaab_spread_stack(out)")   # after every mark
+    assert "+ ncaab_across_spread_w(c)" in src
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
