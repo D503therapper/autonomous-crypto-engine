@@ -1,0 +1,18 @@
+NBA regular-season games with a box 2021-26: 6307
+  stage 2 before 2022: net rating per 100 x 1.59, back-to-back -2.41, 2+ days rest +0.62, home +1.47
+  stage 2 before 2023: net rating per 100 x 1.52, back-to-back -2.48, 2+ days rest +0.60, home +1.92
+  stage 2 before 2024: net rating per 100 x 1.56, back-to-back -2.52, 2+ days rest +0.41, home +2.02
+  stage 2 before 2025: net rating per 100 x 1.61, back-to-back -2.86, 2+ days rest +0.34, home +1.92
+  stage 2 before 2026: net rating per 100 x 1.65, back-to-back -2.43, 2+ days rest +0.51, home +1.88
+  season     n   | MAE model  close | RMSE model  close | weight on (model - close), se
+  2022   1230 |  10.20    9.77 |  12.92   12.49 | +0.134  0.092
+  2023   1231 |  11.00   10.54 |  14.12   13.57 | -0.114  0.110
+  2024   1231 |  10.88   10.50 |  13.94   13.55 | +0.120  0.102
+  2025   1231 |  11.34   10.80 |  14.48   13.85 | -0.103  0.102
+  2026    154 |  11.70   11.02 |  15.07   14.26 | -0.448  0.324
+  ATS at the close (-110), the model's side by edge:
+   edge 0+  ALL  5077  50.0%   -4.5% z-3.38 | HELD 2024-26  2616  49.8%   -4.9% z-2.64 | 22:-3(1230) 23:-6(1231) 24:-3(1231) 25:-6(1231) 26:-8(154)
+   edge 1.5+  ALL  3423  49.8%   -4.9% z-3.02 | HELD 2024-26  1749  49.3%   -5.8% z-2.56 | 22:-3(852) 23:-5(822) 24:-2(828) 25:-10(817) 26:-6(104)
+   edge 2.5+  ALL  2468  50.6%   -3.3% z-1.74 | HELD 2024-26  1258  50.9%   -2.8% z-1.05 | 22:-3(633) 23:-5(577) 24:+3(591) 25:-9(593) 26:-2(74)
+   edge 4+  ALL  1368  50.1%   -4.3% z-1.66 | HELD 2024-26   700  51.2%   -2.2% z-0.61 | 22:-5(354) 23:-8(314) 24:+0(316) 25:-5(349) 26:-2(35)
+   edge 6+  ALL   526  49.3%   -5.8% z-1.39 | HELD 2024-26   281  50.0%   -4.5% z-0.79 | 22:-7(149) 23:-7(96) 24:-4(132) 25:-7(136) 26:+17(13)
