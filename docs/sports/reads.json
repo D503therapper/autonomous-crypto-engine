@@ -1,6 +1,21 @@
 {
- "updated": "2026-11-12T16:40Z",
+ "updated": "2026-11-12T17:28Z",
  "games": [
+  {
+   "id": "nhl:401891808",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-12T17:00Z",
+   "away": "Hurricanes",
+   "home": "Kraken",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaab:401920073",
    "league": "ncaab",
@@ -154,8 +169,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Avalanche",
-    "p": 0.364,
+    "team": "Senators",
+    "p": 0.35,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -171,10 +186,12 @@
     "opp": "Avalanche",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.687,
-    "win_p": 0.47,
-    "reasons": []
+    "odds": -270,
+    "p": 0.713,
+    "win_p": 0.5,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -211,7 +228,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Sacred Heart",
-    "p": 0.621,
+    "p": 0.626,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -227,9 +244,9 @@
     "opp": "C Connecticut",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -245,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team"
     ]
@@ -306,17 +323,19 @@
    "start": "2026-11-13T00:00Z",
    "away": "Capitals",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Capitals",
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -192,
     "p": 0.638,
     "win_p": 0.421,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -417,8 +436,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "West Virginia",
-    "p": 0.912,
-    "tie": 0.016,
+    "p": 0.905,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -433,9 +452,9 @@
     "opp": "West Virginia",
     "market": "spread",
     "line": 24.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.517,
-    "win_p": 0.033,
+    "win_p": 0.038,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -540,7 +559,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.658,
+    "p": 0.65,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -556,9 +575,9 @@
     "opp": "Raptors",
     "market": "spread",
     "line": -8.5,
-    "odds": -116,
+    "odds": -108,
     "p": 0.501,
-    "win_p": 0.752,
+    "win_p": 0.74,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -614,9 +633,9 @@
     "team": "Stetson",
     "opp": "Howard",
     "market": "spread",
-    "line": 10.5,
-    "odds": -115,
-    "p": 0.503,
+    "line": 9.5,
+    "odds": -102,
+    "p": 0.502,
     "win_p": 0.164,
     "reasons": [
      "better rested"
@@ -813,7 +832,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.546,
+    "p": 0.558,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -829,9 +848,9 @@
     "opp": "South Florida",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.525,
-    "win_p": 0.525,
+    "odds": -185,
+    "p": 0.539,
+    "win_p": 0.539,
     "reasons": [
      "better QB play lately",
      "rolling off a blowout win"
@@ -967,7 +986,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.519,
+    "p": 0.52,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -984,8 +1003,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.557,
-    "win_p": 0.557,
+    "p": 0.558,
+    "win_p": 0.558,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1108,7 +1127,7 @@
     "opp": "BYU",
     "market": "spread",
     "line": 22.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.515,
     "win_p": 0.047,
     "reasons": [
@@ -1196,9 +1215,9 @@
     "team": "UC Riverside",
     "opp": "San Jos\u00e9 St",
     "market": "spread",
-    "line": 9.5,
-    "odds": -118,
-    "p": 0.502,
+    "line": 8.5,
+    "odds": -105,
+    "p": 0.501,
     "win_p": 0.23,
     "reasons": [
      "hotter recent form"
@@ -1423,7 +1442,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Houston",
-    "p": 0.679,
+    "p": 0.669,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1441,7 +1460,7 @@
     "line": -9.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.68,
+    "win_p": 0.67,
     "reasons": [
      "the stronger team",
      "better QB play lately"
