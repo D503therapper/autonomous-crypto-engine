@@ -529,6 +529,7 @@ def tags(c, sports):
     t += cbb10_tags(c, sports)                               # 11/12 FABLE: 10 college hoops studies (one built weight's
     #   record + four moneyline LEADS, from the 11/13 Pacific game day)
     t += fifteen_tags(c, sports)                             # 11/12 FABLE: 15 studies - two NHL big-favorite LEADS
+    t += deep_tags(c, sports)                                # 11/12 FABLE DEEP PROGRAM: two moneyline LEADS
     return t + sharp
 
 
@@ -1094,6 +1095,8 @@ def spread_tags(c, sports):
     #   spread-rank weights' cover records + one spread LEAD (results/studies/cbb10_1112)
     t += spreads2_tags(c, sports)                            # 11/11 FABLE spreads part 2: the Wong teaser legs, the
     #   visitor on a 5,900 ft+ floor, the NFL lookahead dog - LEADS (results/studies/spreads2_1111)
+    t += deep_spread_tags(c, sports)                         # 11/12 FABLE DEEP PROGRAM: the two built rank weights' cover
+    #   records (both sides) + the college football 7-loss LEAD (results/studies/deep_1112)
     return t
 
 
@@ -1781,6 +1784,99 @@ def fifteen_tags(c, sports):
     if me and not opp:
         return [NHL_BIG_FAV_ON_B2B_TAG]
     return []
+
+
+# ---------------- 11/12 FABLE DEEP PROGRAM: SPREADS, COLLEGE HOOPS, NBA, FOOTBALL (results/studies/deep_1112) ----------------
+DEEP_FROM = "2026-11-13"         # the tags log from the 11/13 Pacific game day
+DEEP_NL_ROAD_FAV_TAG = "college hoops road favorite outside its league, Nov-Dec (fade)"   # c1b: ATS -13.4% on 1,374, 9 of
+#   9 seasons down, z -5.2, placebo 0 of 2,000 - the BUILT -0.03 spread-rank weight's record. Judge at 50: covering 50%+
+#   = the weight comes off.
+DEEP_NL_HOME_DOG_TAG = "college hoops home dog vs a non-league road favorite, Nov-Dec"   # the side across: 54.7%, +4.4% on
+#   1,374 (train +4.5%, held +3.7%, z 1.7) - the +0.02; at 50 rows covering 54%+: re-test the spread stack with it in
+DEEP_NFL_FAV_7_9_TAG = "NFL favorite laying 7.5-9.5 (fade)"   # 11/11 S5: -9.8% on 775 (27 seasons, z -2.9); b5 2018-26:
+DEEP_NFL_DOG_7_9_TAG = "NFL dog getting 7.5-9.5"              # -11.0% on 361, 0 of 9 seasons up; the dog 53.7% - the +/-0.02
+DEEP_CFB_7_LOSS_TAG = "college football team with 7+ losses in November vs a team with 6 or fewer (fade)"   # b4b: the team
+#   that can't reach six wins ATS -14.9% on 462 by the real schedule (z -3.4, 8 of 8 seasons, placebo 8 of 2,000) but
+#   -11.9% on 370 (blind z -1.4) by the 7-loss rule the live feed can see, its moneyline nothing: a LEAD, no weight
+DEEP_THU_ROAD_DOG_TAG = "NFL road dog +100..+199 on a short Thursday (fade)"   # b1: 31-63, -20.9% on 94 (1999-2014 -5.8%,
+#   2015-26 -26.7%, 3 of 12 seasons up; z -1.8; 112 cells) - a LEAD, the board never reads it
+DEEP_NHL_DOG_ABSENT_TAG = "hockey dog whose read is lifted by the favorite's missing scorers"   # a9: the dog across a
+#   hockey team missing its top point men won 37.3% against a close of 39.9% (the engine's read 45.0%) - -10.6% on 284
+#   (train -4.9%, blind -12.6%), while the FAVORITE across one is +10.7% on 281; hockey's absence points were left alone
+#   11/12 - judge at 30: under -5% = the points stop counting for a hockey dog
+DEEP_CFB_LOSSES = 7
+
+
+def _rest_days(c, side):
+    """Days since this side's last final this season (None when it has none)."""
+    _, rows = _season_before(dict(c, side=side))
+    if not rows:
+        return None
+    try:
+        return _night(c.get("start") or _game(c).get("start")) - _night(rows[-1]["start"])
+    except (TypeError, ValueError):
+        return None
+
+
+def _losses(c, side):
+    """(wins, losses) this season for this side of the candidate's game - finals only."""
+    team, rows = _season_before(dict(c, side=side))
+    w = l = 0
+    for x in rows:
+        try:
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (TypeError, ValueError):
+            continue
+        won = (hs > as_) == (x.get("home") == team)
+        w += won
+        l += not won
+    return w, l
+
+
+def deep_tags(c, sports):
+    """11/12 DEEP PROGRAM: the MONEYLINE leads (tracked only, from DEEP_FROM)."""
+    try:
+        if c.get("market") != "ml" or sports.pt_day(c) < DEEP_FROM or c.get("side") not in ("home", "away"):
+            return []
+        o, lg, t = c.get("odds") or 0, c.get("league"), []
+        if lg == "nfl" and c["side"] == "away" and 100 <= o <= 199:
+            from datetime import datetime
+            start = c.get("start") or _game(c).get("start") or ""
+            wd = datetime.fromisoformat(sports.pt_day(c)).weekday() if len(start) >= 10 else None
+            ra, rh = _rest_days(c, "away"), _rest_days(c, "home")
+            if wd == 3 and ra is not None and rh is not None and ra <= 4 and rh <= 4:
+                t.append(DEEP_THU_ROAD_DOG_TAG)
+        if lg == "nhl" and 100 <= o <= 350 and any(str(r).startswith("opponent missing key players:") for r in c.get("reasons") or []):
+            t.append(DEEP_NHL_DOG_ABSENT_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+def deep_spread_tags(c, sports):
+    """11/12 DEEP PROGRAM: the SPREAD lines (from DEEP_FROM) - the two built rank weights' cover records, both sides, and
+    the college football 7-loss lead."""
+    try:
+        if c.get("market") != "spread" or sports.pt_day(c) < DEEP_FROM or c.get("side") not in ("home", "away"):
+            return []
+        t, lg = [], c.get("league")
+        if c.get("nl_road_fav"):
+            t.append(DEEP_NL_ROAD_FAV_TAG)
+        elif c.get("vs_nl_road_fav"):
+            t.append(DEEP_NL_HOME_DOG_TAG)
+        if lg == "nfl" and c.get("line") is not None:
+            line = float(c["line"])
+            if 7.5 <= -line <= 9.5:
+                t.append(DEEP_NFL_FAV_7_9_TAG)
+            elif 7.5 <= line <= 9.5:
+                t.append(DEEP_NFL_DOG_7_9_TAG)
+        if lg == "ncaaf" and sports.pt_day(c)[5:7] in ("11", "12") and str(c.get("stype") or "2") == "2":
+            other = "away" if c["side"] == "home" else "home"
+            if _losses(c, c["side"])[1] >= DEEP_CFB_LOSSES and _losses(c, other)[1] < DEEP_CFB_LOSSES:
+                t.append(DEEP_CFB_7_LOSS_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001
+        return []
 
 
 def load():

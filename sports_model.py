@@ -412,9 +412,20 @@ def _num(x):
 
 
 # ---------------------------------------------------------------- daily tune
-def blend_stable(day=None):
-    """🎚️ 11/12: the blend's dials are fit on every game with odds, pulled to zero (BLEND_LAM) - from BLEND_STABLE_FROM."""
-    return (day or datetime.now(PT).strftime("%Y-%m-%d")) >= BLEND_STABLE_FROM
+BLEND_STABLE_SKIP = ("nfl", "ncaaf")   # 🏈 FOOTBALL'S FOUR DIALS STAY ON THE OLD FIT - THE OWNER'S CALL (a7, the replay board
+#   on today's code, both arms, 572 held-out board days 2025-04 -> 2026-11): with the dials honest, football's own read is
+#   the close, so "own read over the price" (the owner's 10/18 / 10/23 money check) shuts and the board posts almost no
+#   football unit play - college football 45-32 +27.5% on 77 under the old fit, 3-0 under the new. Everywhere else the
+#   plays the fix drops are break-even or worse (college hoops 67-51 -0.3%, baseball 19-17 -6.9%) and the ones it keeps
+#   win more (college hoops 15-3). In football the old gate was open by accident and the dog score / weighed read behind
+#   it did the picking - re-basing that check is a change to his rule, so football keeps the old fit until he says.
+#   (The cover read's big-favorite dial takes the pull in every league - no unit rides on it.)
+
+
+def blend_stable(day=None, league=None):
+    """🎚️ 11/12: the blend's dials are fit on every game with odds, pulled to zero (BLEND_LAM) - from BLEND_STABLE_FROM,
+    in every league but BLEND_STABLE_SKIP."""
+    return league not in BLEND_STABLE_SKIP and (day or datetime.now(PT).strftime("%Y-%m-%d")) >= BLEND_STABLE_FROM
 
 
 def ncaaf_fbs_rows(games, train, day=None):
@@ -479,7 +490,7 @@ def tune(games, league, prev=None, day=None):
     odds = [(g, f, y) for g, f, y, _ in ev if market_p(g) is not None]
     ll_mkt = logloss([(market_p(g), y) for g, _, y in odds]) if odds else None
     ll_final = None
-    stable = blend_stable(day)                        # 🎚️ 11/12: the dials on EVERY game with odds, pulled to zero
+    stable = blend_stable(day, league)                # 🎚️ 11/12: the dials on EVERY game with odds, pulled to zero
     b_prior, b_lam = ([0.0, 0.0, 0.0, 0.0], BLEND_LAM) if stable else ([TRUST_CAUTIOUS, 0.0, 0.0, 0.0], 8.0)
     if stable:
         params["trust"] = 0.0                         # (the ratings read's gap to the close knows nothing - A2 / A4)
@@ -529,7 +540,7 @@ def tune(games, league, prev=None, day=None):
             off = [logit(cover_p(base, f, g, "home")) for g, f, _ in ats]
             X = [[big_fav(_num(g["spread_home"]))] for g, _, _ in ats]
             sp["bfav"] = fit_logistic_offset(X, [y for _, _, y in ats], off, prior=[0.0],   # 🎚️ 11/12 (B5): the same pull
-                                             lam=BLEND_LAM if stable else 4.0)[0]          # as the blend's dials - at
+                                             lam=BLEND_LAM if blend_stable(day) else 4.0)[0]          # as the blend's dials - at
             #   lam 4 the dial was noise in the pros (the NFL's flips sign season to season, se 0.15-0.2; the side it
             #   picked on every 7.5+ NFL spread covered 47.2% on 386) and it alone chose the spread lean on every game
             #   with a big favorite (live NBA leans laying 12.5-16.5: 0-4). College hoops' is real (-0.03 to -0.05, se

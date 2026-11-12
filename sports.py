@@ -918,6 +918,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_race(games, out)                       # 🏀 11/3 KNOWLEDGE (A): Feb-Mar, 5+ back vs a contender (-3 dog)
     mark_ncaab_identity(games, out)                   # 🏀 11/3 KNOWLEDGE (A): turnover margin / offense-first from the box
     mark_ncaab_cbb10(games, out)                      # 🏀 11/12 FABLE: the rusty home side, the league leader on the road
+    mark_deep_1112(games, out)                        # 🧪 11/12 DEEP: the college hoops non-league road favorite (spread rank)
     mark_ncaab_roster_mix(games, out)                 # 🏀 11/3 KNOWLEDGE (A): transfer / freshman minute shares (Feb-Mar rank)
     mark_ncaab_star_back(games, out)                  # 🏀 11/4 EXPERT: the top scorer's 2nd game back (-3 dog / -0.03 / rank)
     mark_ncaab_road_cold(games, out)                  # 🏀 11/4 EXPERT: the road dog 6+ short of its number on the road (-2)
@@ -3399,6 +3400,8 @@ def rank_p(c):
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
             + ncaab_cbb10_spread_w(c)                          # (11/12 FABLE: the rusty home side -0.03 / its visitor +0.02,
             #                                                     the league leader with a cushion on the road -0.03 / +0.03)
+            + deep_1112_spread_w(c)                            # (11/12 DEEP: the hoops non-league road favorite -0.03 /
+            #                                                     the home dog across +0.02; the NFL favorite laying 7.5-9.5 -/+0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -5948,6 +5951,92 @@ def ncaab_cbb10_spread_w(c):
     return w
 
 
+DEEP_1112_FROM = "2026-11-13"      # 🧪 11/12 FABLE DEEP PROGRAM (results/studies/deep_1112): two SPREAD-RANK weights - they
+NCAAB_NONLEAGUE_ROAD_FAV_W = 0.03   # move which side a no-units spread lean takes, never a unit play, never a gate.
+NCAAB_NONLEAGUE_HOME_DOG_W = 0.02   # (1) 🏀 THE NON-LEAGUE ROAD FAVORITE (c1 / c1b): a college hoops team laying points on
+NCAAB_NONLEAGUE_MONTHS = ("11", "12")   # the ROAD outside its league in Nov-Dec covered 45.3% - ATS -13.4% on 1,374 (2018-26:
+#   -18 / -14 / -17 / -8 / -12 / -20 / -14 / -5 / -23, 9 of 9 down; train -13.5% 0 of 4 up, held -12.7% 0 of 4; z -5.2; a
+#   random 1,374 Nov-Dec road sides 0 of 2,000) - laying 0.5-4 -15.2%, 4.5-9.5 -8.0%, 10+ -22.1%, November -11.9%,
+#   December -14.6%, both teams 4+ games in -15.9%, past the built 11/3 small-favorite moneyline fade (laying 4.5+)
+#   -11.3% on 637; the CONTROL - the same road favorite INSIDE its league - is the base (-3.7% Nov-Dec, -4.6% Jan-Mar).
+#   The HOME DOG across covered 54.7%: +4.4% on 1,374 (train +4.5% 3 of 4, held +3.7% 3 of 4, z 1.7) - a nudge, not a
+#   bet. Not in ncaab_spread_stack (the stack keeps the weights it was tested on - re-test with this in at 50 rows).
+NFL_FAV_7_9_W = 0.02                # (2) 🏈 THE NFL FAVORITE LAYING 7.5-9.5 (11/1 WATCH -> 11/11 S5 on 27 seasons: ATS -9.8% on
+NFL_FAV_7_9 = (7.5, 9.5)            # 775, z -2.9, train -8.7% / blind -11.5%, 2 of 12 blind seasons up; b5 on our closes
+#   2018-26: -11.0% on 361, 0 of 9 seasons up; the dog getting them 53.7%). With the cover read's big-favorite dial pulled
+#   to zero (sports_model 11/12) a 7.5-9.5 NFL spread has no read at all - this is the one long-run fact on that number.
+
+
+def mark_deep_1112(games, cands):
+    """🧪 11/12: nl_road_fav on a college hoops ROAD side laying points outside its league in Nov-Dec (never a neutral
+    floor), vs_nl_road_fav on the home dog across - whose spread card gets the fact as a reason. Leagues are the
+    schedule-inferred ones (ncaab_conferences); a team in no league we can see = nothing. From DEEP_1112_FROM."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")
+             and c.get("side") in ("home", "away") and pt_day(c) >= DEEP_1112_FROM]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_knowledge as nk
+    except Exception:                                        # noqa: BLE001
+        return
+    conf, seen = {}, {}
+    for c in hoops:
+        gid = c.get("game_id")
+        if gid not in seen:
+            g = (games or {}).get(gid) or {}
+            start = str(g.get("start") or c.get("start") or "")
+            seen[gid] = None
+            try:
+                line = float(g.get("spread_home"))
+            except (TypeError, ValueError):
+                line = None
+            if line is None or line <= 0 or len(start) < 10 or str(g.get("neutral") or "0") == "1" \
+                    or nk.month_of(start) not in NCAAB_NONLEAGUE_MONTHS or not g.get("home") or not g.get("away"):
+                continue                                     # (the ROAD team lays the points: the home line is +)
+            try:
+                season = nk.season_of(start)
+                if season not in conf:
+                    conf[season] = ncaab_conferences(games, season) or {}
+                ch, ca = conf[season].get(str(g["home"])), conf[season].get(str(g["away"]))
+            except Exception:                                # noqa: BLE001 - unknown leagues = nothing
+                continue
+            if ch and ca and ch[0] != ca[0]:
+                seen[gid] = (g.get("away_name") or "the road team", line)
+        f = seen[gid]
+        if not f:
+            continue
+        if c["side"] == "away":
+            c["nl_road_fav"] = True
+        else:
+            c["vs_nl_road_fav"] = True
+            if c.get("market") == "spread":
+                c["reasons"] = c["reasons"] + [f"{f[0]} are laying {f[1]:g} on the road outside their league - road favorites "
+                                               "in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"]
+
+
+def deep_1112_spread_w(c):
+    """🧪 The 11/12 DEEP PROGRAM rank weights on a SPREAD side (0 on a moneyline / before DEEP_1112_FROM): the college
+    hoops non-league road favorite (-) / the home dog across (+); the NFL favorite laying 7.5-9.5 (-) / its dog (+)."""
+    if c.get("market") != "spread" or pt_day(c) < DEEP_1112_FROM:
+        return 0.0
+    w = 0.0
+    if c.get("league") == "ncaab":
+        if c.get("nl_road_fav"):
+            w -= NCAAB_NONLEAGUE_ROAD_FAV_W
+        elif c.get("vs_nl_road_fav"):
+            w += NCAAB_NONLEAGUE_HOME_DOG_W
+    elif c.get("league") == "nfl":
+        try:
+            line = float(c.get("line"))
+        except (TypeError, ValueError):
+            return w
+        if NFL_FAV_7_9[0] <= -line <= NFL_FAV_7_9[1]:
+            w -= NFL_FAV_7_9_W
+        elif NFL_FAV_7_9[0] <= line <= NFL_FAV_7_9[1]:
+            w += NFL_FAV_7_9_W
+    return w
+
+
 NCAAB_GAP_FROM = "2026-11-04"   # 🔍🏀 THE COLLEGE HOOPS GAP PLAY (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, results/studies/
 NCAAB_GAP_MIN = 0.15            # cbb_dog_expert/): the college football play's exact twin on the EFFICIENCY read
 NCAAB_GAP_GAMES = 4             # (sports_cbb_eff - the 11/3 DEEP verdict: the raw Elo is far worse in hoops, use the
@@ -6610,6 +6699,17 @@ def lean_rank(c):
     return (r if r is not None else c["p"]) + rank_p(c) - c["p"]
 
 
+def lean_read(c):
+    """🧪 11/12 DEEP (B5): the read a lean is judged on. A moneyline: the win % as before. A SPREAD from DEEP_1112_FROM:
+    the cover read WITH its studied rank weights (rank_p) - with the big-favorite dial pulled to zero the bare cover read
+    is 50% on most numbers, and the weights (the hoops fades and the sides across them, the NFL 7.5-9.5 favorite) are the
+    only thing the engine knows about a spread; before, a noise dial picked the side and the weights could only reorder
+    games, never choose one."""
+    if c.get("market") == "spread" and pt_day(c) >= DEEP_1112_FROM:
+        return rank_p(c)
+    return c["p"]
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -6623,9 +6723,10 @@ def viewer_leans(cands, avoid):
             return False                                     # a lean is a WHO-WINS call (no units): a favorite the
             #                                                  engine's own read still has winning 55%+ is a lean even
             #                                                  when the price is a bit high (10/1: two picks on 9 games)
-        if c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005:
+        pr = lean_read(c)                                    # (11/12: a spread = the cover read with its weights)
+        if c["market"] == "spread" and c.get("edge_own") is None and abs(pr - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
-        if c["p"] >= LEAN_PICK_P:
+        if pr >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
         #                                                      underpriced (the owner, 10/1: "we need value plays")
@@ -8337,7 +8438,8 @@ def night_pick(pool):
     pool = [c for c in pool if not fighting(c)] or pool
     if not pool:
         return None
-    c = stick(max(pool, key=lambda c: (c["p"], c["edge"])), pool)   # 📌 (10/5: the Falcons -> Saints flip)
+    c = stick(max(pool, key=lambda c: (lean_read(c), c["edge"])), pool)   # 📌 (10/5: the Falcons -> Saints flip; 11/12:
+    #                                                          a spread side by its cover read WITH its studied weights)
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
