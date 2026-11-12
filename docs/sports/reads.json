@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T04:49Z",
+ "updated": "2026-11-12T05:36Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -1174,8 +1174,8 @@
    "away": "Mammoth",
    "home": "Golden Knights",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1189,8 +1189,8 @@
    "away": "Warriors",
    "home": "Rockets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1204,8 +1204,8 @@
    "away": "Chicago St",
    "home": "CA Baptist",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1234,8 +1234,8 @@
    "away": "Miss Valley St",
    "home": "Oregon",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1249,8 +1249,8 @@
    "away": "Pacific",
    "home": "Long Beach St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1321,8 +1321,8 @@
    "away": "Thunder",
    "home": "Trail Blazers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1336,8 +1336,8 @@
    "away": "UTSA",
    "home": "Seattle U",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2380,7 +2380,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.375,
+    "p": 0.357,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2389,7 +2389,7 @@
    "start": "2026-11-13T02:00Z",
    "away": "Blues",
    "home": "Mammoth",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Blues",
@@ -2397,9 +2397,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.669,
-    "win_p": 0.451,
-    "reasons": []
+    "p": 0.703,
+    "win_p": 0.486,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
