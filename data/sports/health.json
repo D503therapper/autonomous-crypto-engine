@@ -1,6 +1,8 @@
 {
- "at": "2026-11-12T04:38Z",
+ "at": "2026-11-12T04:39Z",
  "fixes": [
+  "live watch 43151131684 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running",
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
@@ -11,7 +13,6 @@
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
  ],
  "ok": [
-  "live watcher fresh (226s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,12 +24,27 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 4 min ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T04:39Z",
+   "fixes": [
+    "live watch 43151131684 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-12T04:38Z",
    "fixes": [
@@ -905,13 +921,6 @@
     "live watch 42942625404 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T02:40Z",
-   "fixes": [],
    "problems": [
     "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
    ]
