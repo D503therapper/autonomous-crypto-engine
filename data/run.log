@@ -18380,3 +18380,34 @@ error: failed to push some refs to 'https://githu
 [2026-11-12 08:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-12 08:05 UTC] crypto/hold_btc  equity $443.78 (-11.2%) 1 open  market DOWN
    social heat top: PENGU 37 (37/0/0), SOL 27 (27/0/0), GRAM 24 (24/0/0), TAO 21 (21/0/0), BTC 19 (19/0/0)
+   dex screen: REJECT AVGOC@base liq $219,344 - pool age unknown
+   dex screen: REJECT HYPE@base liq $3,522 - liquidity $3,522 < $100,000; 24h volume $2,236 < $100,000
+   dex screen: REJECT WBTC@ethereum liq $7,594,174 - transfer_pausable; is_mintable; top-10 holders 54%; lp locked 0% < 95%
+   dex screen: REJECT CLANKER@base liq $1,495,080 - top-10 holders 51%
+   dex screen: REJECT SI@solana liq $263,885 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT JEUR@base liq $151,057 - 24h volume $13,578 < $100,000
+   dex screen: REJECT BONK@solana liq $262,696 - top-10 holders 41%; lp holders unknown
+   dex screen: REJECT CTR@base liq $615,458 - pool age unknown
+   dex screen: UNREACHABLE MIHAO@ethereum liq $148,575 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT USDE@ethereum liq $1,339,221 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 93%
+   dex screen: REJECT SEPPUKU@ethereum liq $374,832 - goplus partial data: cannot_sell_all unknown; top-10 holders 106%
+   dex screen: REJECT AERO@solana liq $803,769,847 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT ANTFUN@solana liq $14,126,876 - top-10 holders 41%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $148,575 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       64aca413453309c8285d6f07d29830bed05990df -> main (cannot lock ref 'refs/heads/main': is at 27c020608064715e6150a
+   dex screen: UNREACHABLE MIHAO@ethereum liq $148,575 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT DACITY@solana liq $214,131 - lp holders unknown; rugcheck lp locked 74% < 95%
+   dex screen: REJECT H@ethereum liq $543,192 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   dex scanner: 2,722 pools (solana 1,958 / base 424 / ethereum 340), refresh cycle 114s (hot 110s), 2996 calls (110 feed, 429s 0, failed 0), 86,523 refreshed (10796 no pair), +55 added / -50 dropped (dead 41, stale 9, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-12 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: BUY $89.57 of ONE @ 0.001663 (entry)
+[2026-11-12 09:05 UTC] crypto/mover     equity $199.38 (-60.1%) 2 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/social_heat equity $335.79 (-32.8%) 2 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 09:05 UTC] crypto/hold_btc  equity $442.98 (-11.4%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 37 (37/0/0), GRAM 27 (27/0/0), ETH 24 (24/0/0), AERO 24 (21/0/2)
