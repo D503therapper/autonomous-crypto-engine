@@ -799,6 +799,11 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
 
 
 def _why_fallback(leg):
+    import sports_card_guard                                 # (11/12: a guarded one-liner falls back to the card's first real
+    for x in leg.get("breakdown") or []:                     #  fact - a name, a score - before a generic reason tag)
+        t = str(x or "").strip()
+        if t and not t.startswith(("⚠️", "✅", "🟡")) and not sports_card_guard.problem(t, leg.get("league")):
+            return t
     rs = leg.get("reasons") or []
     for r in [x for x in rs if x != "sharp money moving this way"] + [x for x in rs if x == "sharp money moving this way"]:
         if r in WHY_TAG:
@@ -853,8 +858,8 @@ def _leg(leg, tagged=False, review="", units=None):
     why = E(pct_ok(sports_card_guard.one(leg.get("why_line"), leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
                    or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
-    tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
-           '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
+    tag = ""                                             # (11/12, the owner: the public is never a reason - no 🤡 FADING /
+    del pub                                              #  🤝 RIDING THE PUBLIC chip on a card)
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     if [x for x in leg.get("injury_alerts") or [] if "confirmed in net" not in x] and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>'
