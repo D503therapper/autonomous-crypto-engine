@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T19:50Z",
+ "updated": "2026-11-12T20:36Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -13,6 +13,21 @@
    "h1": null,
    "why": "final",
    "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920073",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-12T20:00Z",
+   "away": "Kansas City",
+   "home": "George Mason",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -187,9 +202,9 @@
     "team": "W Illinois",
     "opp": "Bakersfield",
     "market": "spread",
-    "line": 8.5,
-    "odds": -105,
-    "p": 0.501,
+    "line": 9.5,
+    "odds": -115,
+    "p": 0.502,
     "win_p": 0.222,
     "reasons": []
    }
@@ -500,7 +515,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.738,
+    "p": 0.734,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -516,13 +531,13 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -9.5,
-    "odds": -116,
+    "odds": -117,
     "p": 0.502,
-    "win_p": 0.813,
+    "win_p": 0.809,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "sharp money moving this way"
     ]
    }
   },
@@ -578,9 +593,9 @@
     "team": "Southern Utah",
     "opp": "High Point",
     "market": "spread",
-    "line": 23.5,
-    "odds": -115,
-    "p": 0.516,
+    "line": 22.5,
+    "odds": -102,
+    "p": 0.515,
     "win_p": 0.028,
     "reasons": []
    }
@@ -853,9 +868,9 @@
     "team": "Oklahoma St",
     "opp": "Texas A&M",
     "market": "spread",
-    "line": 7.5,
-    "odds": -102,
-    "p": 0.5,
+    "line": 8.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.235,
     "reasons": [
      "better rested",
@@ -1098,9 +1113,9 @@
     "team": "Montana St",
     "opp": "BYU",
     "market": "spread",
-    "line": 22.5,
-    "odds": -112,
-    "p": 0.515,
+    "line": 21.5,
+    "odds": -105,
+    "p": 0.514,
     "win_p": 0.047,
     "reasons": [
      "better rested"
@@ -1312,8 +1327,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.68,
-    "win_p": 0.68,
+    "p": 0.679,
+    "win_p": 0.679,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1356,7 +1371,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.415,
+    "p": 0.414,
     "tie": 0.295,
     "name": "1st period"
    },
