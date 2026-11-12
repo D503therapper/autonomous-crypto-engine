@@ -18647,3 +18647,49 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-12 16:06 UTC] stocks/trend     equity $462.04 (-7.6%) 4 open  market DOWN
 [2026-11-12 16:06 UTC] stocks/hold_spy  equity $495.18 (-1.0%) 1 open  market DOWN
    social heat top: BTC 29 (29/0/0), ETH 27 (27/0/0), SOL 22 (13/0/8), HYPE 21 (21/0/0), NEAR 21 (21/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT ZEC@solana liq $1,650,344,993 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $1,382,791,993 - top-10 holders 100%
+   dex screen: UNREACHABLE ZEC@solana liq $973,234,177 - goplus unreachable
+   dex screen: UNREACHABLE ZEC@solana liq $3,084,043 - goplus unreachable
+   dex screen: REJECT ONDO@ethereum liq $1,484,694 - transfer_pausable; top-10 holders 68%
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $209,272 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $209,272 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GATO@solana liq $254,538 - lp holders unknown; rugcheck lp locked 64% < 95%
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $209,272 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,711 pools (solana 1,879 / base 492 / ethereum 340), refresh cycle 126s (hot 121s), 2744 calls (109 feed, 429s 0, failed 0), 79,047 refreshed (8822 no pair), +72 added / -225 dropped (dead 215, stale 10, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $209,272 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+[2026-11-12 17:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/mover     equity $191.90 (-61.6%) 1 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/social_heat equity $334.36 (-33.1%) 2 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] crypto/hold_btc  equity $433.81 (-13.2%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-12 17:06 UTC] stocks/rsi2      equity $464.00 (-7.2%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 7, TLT 15, GLD 20, MSFT 20 BUY
+[2026-11-12 17:06 UTC] stocks/breakout52 equity $479.66 (-4.1%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: CHPT (+95% 6-mo)
+[2026-11-12 17:06 UTC] stocks/dual_momentum equity $467.08 (-6.6%) 2 open  market DOWN
+[2026-11-12 17:06 UTC] stocks/trend_ensemble equity $508.71 (+1.7%) 5 open  market UP
+[2026-11-12 17:06 UTC] stocks/rotation10 equity $504.72 (+0.9%) 2 open  market UP
+[2026-11-12 17:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-12 17:06 UTC] stocks/trend     equity $461.78 (-7.6%) 4 open  market DOWN
+[2026-11-12 17:06 UTC] stocks/hold_spy  equity $495.31 (-0.9%) 1 open  market DOWN
+   social heat top: BTC 38 (32/0/6), PENGU 29 (29/0/0), ETH 27 (27/0/0), HYPE 24 (24/0/0), ENA 21 (21/0/0)
