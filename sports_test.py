@@ -13644,7 +13644,6 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         say(_ol_leg(reasons=["hotter recent form"]), n_hot=4, rec_u="5-1", whyf=wm(n_hot=4, rec_u="5-1"), fact=""),
         say(_ol_leg(reasons=["opponent missing key players"]), key_them=[("Liam Szarka", "QB", "Out")],
             whyf=wm(key_them=[("Liam Szarka", "QB", "Out")]), fact=""),
-        say(_ol_leg(), whyf=wm(pub=(12, 35)), fact=""),
         say(_ol_leg(), whyf=wm(n_cold=3), fact=""),
         say(_ol_leg(), whyf={"their last loss": ["Tulsa just lost to Navy 38-10", "Navy hung 38 on Tulsa last time out"]}, fact=""),
         say(_ol_leg(), whyf={"home record": ["Army are 3-0 at home this year", "3-0 at home for Army this season"]}, fact=""),
@@ -13662,7 +13661,8 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         assert not cg.problem(x, "ncaaf"), (cg.problem(x, "ncaaf"), x)
         for vague in ("we know which side", "the better team on paper", "trust the algorithm", "they're just better"):
             assert vague not in x.lower(), x
-    assert "Liam Szarka" in lines[3] and "38" in lines[6] and "3-0" in lines[7] and "last night" in lines[8]
+    assert "Liam Szarka" in lines[3] and "38" in lines[5] and "3-0" in lines[6] and "last night" in lines[7]
+    assert say(_ol_leg(), whyf=wm(pub=(12, 35)), fact="") == ""          # (11/12: the public split never writes a line)
     # the sharp move alone writes nothing; a one-liner never says the open, the move or the money
     assert say(_ol_leg(reasons=["sharp money moving this way"]), whyf={}, fact="") == ""
     for bad in ("Wyoming opened +200, now +180", "money's coming in on 'em", "the line moved toward Army",
@@ -13680,7 +13680,7 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         assert w in src, w
     # a lean keeps its no-units tone: no hype on its one-liner
     import sports_breakdown as sb
-    assert not sb.HYPE.search(lines[9]), lines[9]
+    assert not sb.HYPE.search(lines[8]), lines[8]
     # a unit play never repeats the units line's number (our number vs the book is on the 💰 line already)
     close = say(_ol_leg(reasons=["the stronger team"]), rec_u="4-2", rec_t="4-3", whyf=wm(rec_u="4-2", rec_t="4-3"), fact="")
     assert not re.search(r"we make|our number|we price|on our sheet", close.lower()), close
@@ -13706,51 +13706,20 @@ def test_public_fade_one_liner_uses_real_splits_only_and_cheeks_clapped_is_one_o
         assert "% of" not in none and "📊" not in none, none
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 12, "ml_home_m": 35, "ml_away_t": 88, "ml_away_m": 65}
         line = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
-        assert ("88" in line or "65" in line) and "Air Force" in line and line.startswith("📊"), line   # (10/29: the
-        #   bets split (88%) or the money split (65%) - both real; the seeded pick moved when the tail pool grew)
+        assert "% of" not in line and "📊" not in line, line   # (11/12, the owner: a heavy split no longer writes the
+        #   one-liner either - "97% of the action is on whatever ... doesn't tell you anything"; PUBLIC_CARD)
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 40, "ml_home_m": 50, "ml_away_t": 60, "ml_away_m": 50}
         mild = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
         assert "% of" not in mild, mild                                       # 60-40 says nothing
     finally:
         sports_public.splits_for = keep
     assert "public fade" not in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(40, 50))
-    assert "public fade" in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(30, 50))
+    assert "public fade" not in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(10, 20))   # 11/12: never
     # the public is one fact among many: a key man out leads it, and a side the ratings like for its record isn't
     # a 'public' card by default (the fact order)
     assert v24.FACT_ORDER.index("opponent missing key players") < v24.FACT_ORDER.index("public fade")
     assert v24.FACT_ORDER.index("public ride") > v24.FACT_ORDER.index("the stronger team")
-    # five fades on one board, then five more the next day with the first day's memory (ten fades in all)
-    def board(day, used):
-        out = []
-        for i in range(5):
-            us, them = f"Team{day}{i}", f"Opp{day}{i}"
-            lg = _ol_leg(team=us, opp=them, side="home", odds=180, dec=2.8, raw_own=0.45, p=0.4, game_id=f"ncaaf:{day}{i}")
-            v = v24.Voice(f"d{day}-{i}", used)
-            v.names = (us, them)
-            whyf = v24.why_map("ncaaf", us, them, us, them, False, pub=(12, 35))
-            out.append((v24.why_line(lg, v, g, us, them, us, them, whyf=whyf, fact=""), (us, them)))
-        return out
-    used = set()
-    day1 = board(1, used)
-    used2 = sb.recent_grams([(t, n) for t, n in day1])     # the next day: yesterday's 4-word runs, nothing else
-    mem = set(used2)                                        # (the Voice adds to the set it's handed)
-    day2 = board(2, used2)
-    for brd in (day1, day2):
-        texts = [t for t, _ in brd]
-        assert all(texts), texts                                              # every fade gets a line
-        assert len(set(texts)) == len(texts), texts                          # no wording twice on a board
-        grams = [sb.grams(t, n) for t, n in brd]
-        for i in range(len(grams)):
-            for j in range(i + 1, len(grams)):
-                assert not (grams[i] & grams[j]), (texts[i], texts[j])        # no shared 4-word run on a board
-        tails = [re.sub(r"\b(Team|Opp)\d+\b", "_", re.split(r"[.—,]", t.strip().rstrip("."))[-1]).strip().lower() for t in texts]
-        assert len(set(tails)) == len(tails), tails                           # no kicker twice on a board
-    alltext = " ".join(t for t, _ in day1 + day2).lower()
-    assert alltext.count("cheeks clapped") <= 2, alltext
-    assert alltext.count("about to get their") <= 3, alltext
-    for t, n in day2:                                                         # nothing from day 1 said the same way
-        assert not (sb.grams(t, n) & mem), t
-
+    # (11/12: the fade wordings' variety checks are gone with the public lines - PUBLIC_CARD)
 
 def test_a_board_of_one_liners_shares_no_four_word_run_and_no_kicker():
     """10/23, the owner: "we're trying to avoid being super repetitive." A full board of eight picks with the same kind
@@ -20638,6 +20607,20 @@ def _wired_1111_post(start, patches, picks=None, n=4):
             setattr(sports, k, v)
         sports._SCHED.clear()
     return picks, buf.getvalue()
+
+
+def test_owner_1112_no_betting_split_lines_on_any_card():
+    """The owner, 11/12: "the breakdowns are terrible ... one says 97% the action is on whatever ... that's absolutely
+    retarded and doesn't tell you anything." The splits pick no winners and the read never uses them: no splits line
+    in the breakdown, no 'public fade' / 'public ride' fact or one-liner (sports_breakdown_v24.PUBLIC_CARD)."""
+    import inspect
+    import sports_breakdown_v24 as v24
+    assert v24.PUBLIC_CARD is False
+    for pub in ((3, 10), (97, 95), (20, 30)):
+        m = v24.why_map("nhl", "A", "B", "A", "B", True, pub=pub)
+        assert "public fade" not in m and "public ride" not in m, (pub, m)
+    src = inspect.getsource(v24)
+    assert "sp_ = public_split(leg) if PUBLIC_CARD else None" in src
 
 
 def test_owner_1112_no_dollar_payout_line_on_cards():
