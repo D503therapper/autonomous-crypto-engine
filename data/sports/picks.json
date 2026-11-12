@@ -40177,6 +40177,11 @@
      "us:road3in6"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "3-2",
+     "type": "so",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -40195,6 +40200,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1,0,1",
+     "h": "0,0,2,0,0"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -40246,10 +40255,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Penguins 3 @ Sharks 2",
     "season_games": null,
+    "settled": "2026-11-12T06:15Z",
     "side": "away",
     "start": "2026-11-12T03:00Z",
     "stype": "2",
@@ -40267,11 +40278,13 @@
    }
   ],
   "p_hit": 0.578,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-11-11T16:27Z",
   "round": 1,
+  "settled": "2026-11-12T06:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

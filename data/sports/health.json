@@ -1,8 +1,8 @@
 {
- "at": "2026-11-12T04:39Z",
+ "at": "2026-11-12T06:22Z",
  "fixes": [
-  "live watch 43151131684 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
+  "live watch 43162369471 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running",
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
@@ -10,7 +10,8 @@
   "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
   "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-  "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+  "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+  "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
  ],
  "ok": [
   "every finished pick graded",
@@ -19,17 +20,87 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 6 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T06:22Z",
+   "fixes": [
+    "live watch 43162369471 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running",
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-12T06:20Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-12T06:18Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-12T06:17Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
+    "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-12T06:11Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-12T04:39Z",
    "fixes": [
@@ -885,44 +956,6 @@
    ],
    "problems": [
     "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T04:28Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T04:26Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T04:25Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T04:13Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T02:41Z",
-   "fixes": [
-    "live watch 42942625404 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028728425 HTTP 404, betrivers:ncaab:1028738659 HTTP 404, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
    ]
   }
  ]

@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 215,
-  "beat": 70,
+  "n": 217,
+  "beat": 72,
   "same": 85,
   "worse": 60,
-  "avg_pts": 0.13
+  "avg_pts": 0.14
  },
  "unit_plays": {
-  "n": 106,
-  "beat": 32,
+  "n": 108,
+  "beat": 34,
   "same": 49,
   "worse": 25,
-  "avg_pts": 0.21
+  "avg_pts": 0.22
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.23
   },
   "play": {
-   "n": 64,
-   "beat": 18,
+   "n": 66,
+   "beat": 20,
    "same": 32,
    "worse": 14,
-   "avg_pts": 0.19
+   "avg_pts": 0.22
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.28
   },
   "nhl": {
-   "n": 85,
-   "beat": 26,
+   "n": 87,
+   "beat": 28,
    "same": 34,
    "worse": 25,
-   "avg_pts": 0.07
+   "avg_pts": 0.09
   }
  },
  "lock_by_size": {
@@ -3126,6 +3126,34 @@
    "close": -105,
    "pts": -1.6,
    "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Ducks",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Penguins",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 0.5,
    "result": "won"
   }
  ]

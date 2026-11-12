@@ -16945,7 +16945,7 @@ def _deep_bb_1103_altitude_body(sports, se):
     eve = datetime(2026, 11, 20, 3, 0, tzinfo=timezone.utc)        # 7 PM PT 11/19, the night before (tip 7 PM PT 11/20)
     got = se.alt_overs(games, st, eve)                              # read 150 + 1.46 = 151.5 vs 145.5: 6 over
     assert len(got) == 1 and got[0]["side"] == "over" and got[0]["line"] == 145.5 and got[0]["spot"] == "alt_over"
-    assert se.units(got[0]) == 0.5 and "445-318" in got[0]["why"] and "7,200 feet" in got[0]["why"]
+    assert se.units(got[0]) == 1.0 and "445-318" in got[0]["why"] and "7,200 feet" in got[0]["why"]
     assert abs(got[0]["read"] - 151.5) < 0.05
     assert se.alt_overs(games, st, datetime(2026, 11, 20, 18, 0, tzinfo=timezone.utc)) == []   # game day: never
     assert se.alt_overs(games, st, datetime(2026, 11, 19, 18, 0, tzinfo=timezone.utc)) == []   # 10 AM PT: too early
@@ -16965,7 +16965,7 @@ def _deep_bb_1103_altitude_body(sports, se):
             for i in range(50)]                                                              # 22-28: -14% on the units
     assert se.alt_quit({"picks": lost}) and se.alt_overs(games, {"picks": lost}, eve) == []
     assert not se.alt_quit({"picks": lost[:49]})                                             # 49 graded: not yet
-    assert se.SPOTS["alt_over"][1] == 0.5 and se.SPOTS["alt_over"][2] == ("ncaab",)
+    assert se.SPOTS["alt_over"][1] == 1.0 and se.SPOTS["alt_over"][2] == ("ncaab",)      # (11/12: 1u from 11/13)
     assert "Over 145.5" in sports.early_log_line(got[0]) and "alt_over" in sports.early_log_line(got[0])
     assert "own 40% vs price 35%" in sports.early_log_line({"team": "Bucks", "odds": 150, "league": "nba", "own": .4, "mkt": .35})
 
@@ -16981,8 +16981,8 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     (feet, both teams' scoring, last games, the record, the good-to number), never a win %. The game-day row reads an
     over's number going UP as beating it (it read every total as an under). Games before 11/12 keep the 11/3 rule."""
     import sports_early as se
-    assert se.ALT_1111_FROM == "2026-11-12" and se.ALT_HI_M == 1400 and se.ALT_MAX_PRICE == -130 and not se.ALT_GAME_DAY
-    assert se.SPOTS["alt_over"][1] == 0.5 and se.ALT_OVER_QUIT == (50, -0.05)
+    assert se.ALT_1111_FROM == "2026-11-12" and se.ALT_HI_M == 1400 and se.ALT_MAX_PRICE == -130
+    assert se.ALT_GAME_DAY and se.ALT_OVER_QUIT == (50, -0.05)      # (11/12: game day ON, 1u from 11/13 - its own test)
 
     def fin(i, h, a, hs, as_, start, hn="", an=""):
         return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
@@ -17013,7 +17013,11 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     assert "Good to 150" in txt and "-130" in txt and "%" not in txt and len(c["facts"]) >= 5
     low = (c["why"] + txt).lower()
     assert not any(w in low for w in ("line moved", "line move", "steam", "sharp"))       # never the line moving
-    assert se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc)) == []      # game day: never
+    keep_gd, se.ALT_GAME_DAY = se.ALT_GAME_DAY, False
+    try:
+        assert se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc)) == []  # the switch off: never
+    finally:
+        se.ALT_GAME_DAY = keep_gd
     assert se.alt_overs(games, st, datetime(2026, 11, 13, 3, 30, tzinfo=timezone.utc)) == []      # tipped: never
     assert se.alt_overs({**games, "ncaab:9": {**g, "total": "152"}}, st, noon) == []       # the number ran 3.5 past the read
     assert len(se.alt_overs({**games, "ncaab:9": {**g, "total": "151.5"}}, st, noon)) == 1   # 3 past: still inside
@@ -21776,6 +21780,189 @@ def test_cbb10_1112_turnover_matchup_dog_rusty_home_side_and_league_leader_on_th
     #   this season's leagues only (the bug the live replay caught - an older season's schedule joined leagues)
     stack_src = src[src.index("def ncaab_spread_stack(c):"):src.index("def mark_ncaab_spread_stack(cands):")]
     assert "rust" not in stack_src and "leader" not in stack_src and "to_net" not in stack_src
+
+
+def test_fifteen_1112_altitude_over_posts_on_game_day_and_is_one_unit_from_1113():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s14a_alt_size.py + s14c_alt_cuts.py). The owner, 11/12:
+    "Fix what you need to fix ... win more and lose less" + "add units what you need to add to". (1) ALT_GAME_DAY is ON:
+    the ⛰️ altitude over is the ONE early-box total that may post on its own game day, before the tip (the study's
+    price is the close; ~1 game in 10 shows no number the day before) - never once it started, the total limit and the
+    -130 price limit still hold, one play a game. (2) 1u for games from the 11/13 Pacific day (the rule rebuilt a third
+    time: 500-342 +13.2% on 849, 9 of 9 seasons up, a full point worse than the close still +8.2%; quarter-Kelly on the
+    win rate's low end = 2.2u) - a game before 11/13 keeps ½u and a posted play keeps the units it posted at; the
+    judge reads the units really risked."""
+    import sports_early as se
+    assert se.ALT_GAME_DAY is True and se.ALT_1U_FROM == "2026-11-13" and (se.ALT_1U, se.ALT_HALF) == (1.0, 0.5)
+    assert se.ALT_MAX_PRICE == -130 and se.ALT_FIGHT == 3.0 and se.ALT_OVER_QUIT == (50, -0.05)
+
+    def fin(i, h, a, hs, as_, start, hn="", an=""):
+        return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
+                "home_score": str(hs), "away_score": str(as_), "start": start, "home_name": hn, "away_name": an}
+    games = {}
+    for i in range(12):
+        games[f"pw{i}"] = fin(100 + i, "W", f"x{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+        games[f"pi{i}"] = fin(200 + i, "I", f"y{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+    games["w1"] = fin(1, "W", "q", 90, 80, "2026-11-08T02:00Z", "Wyoming", "Cal Poly")
+    games["i1"] = fin(2, "z", "I", 70, 85, "2026-11-08T02:00Z", "Weber St", "Idaho St")
+    g = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "home": "W", "away": "I", "neutral": "0",
+         "elev": "2184", "start": "2026-11-14T03:00Z", "total": "148.5", "over_odds": "-112", "under_odds": "-108",
+         "home_name": "Wyoming", "away_name": "Idaho St"}    # tips 7 PM PT 11/13
+    games["ncaab:9"] = g
+    st = {"picks": []}
+    day_before = datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc)
+    game_day = datetime(2026, 11, 13, 18, 0, tzinfo=timezone.utc)                         # 10 AM PT on game day
+    got = se.alt_overs(games, st, game_day)
+    assert len(got) == 1 and got[0]["spot"] == "alt_over" and got[0]["side"] == "over"     # game day: it posts now
+    assert se.units(got[0]) == 1.0 and se.stamp_units(dict(got[0]))["units"] == 1.0        # 1u from the 11/13 games
+    assert len(se.alt_overs(games, st, day_before)) == 1                                   # the day before: as ever
+    assert se.alt_overs(games, st, datetime(2026, 11, 14, 3, 5, tzinfo=timezone.utc)) == []        # tipped: never
+    assert se.alt_overs({**games, "ncaab:9": {**g, "total": "152"}}, st, game_day) == []   # the total limit holds
+    assert se.alt_overs({**games, "ncaab:9": {**g, "over_odds": "-135"}}, st, game_day) == []      # the price limit
+    assert se.alt_overs({**games, "ncaab:9": {**g, "neutral": "1"}}, st, game_day) == []
+    old = {**g, "start": "2026-11-13T03:00Z"}                                              # 7 PM PT 11/12: still ½u
+    o = se.alt_overs({**games, "ncaab:9": old}, st, datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc))
+    assert len(o) == 1 and se.units(o[0]) == 0.5
+    assert se.units(dict(got[0], units=0.5)) == 0.5                                        # a posted play keeps its size
+    assert "%" not in got[0]["why"] and "%" not in " | ".join(got[0]["facts"])
+    # the judge: the units really risked (½u and 1u plays mixed)
+    mix = [{"game_id": f"z{i}", "spot": "alt_over", "odds": -110, "units": 1.0 if i % 2 else 0.5, "start": "2026-11-20T03:00Z",
+            "result": "lost" if i < 28 else "won"} for i in range(50)]
+    assert se.alt_quit({"picks": mix}) and se.alt_overs(games, {"picks": mix}, game_day) == []
+    good = [dict(p, result="won" if i < 28 else "lost") for i, p in enumerate(mix)]
+    assert not se.alt_quit({"picks": good})
+
+
+def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s10b_nba_out_over.py + s10c_live_rule.py): the one total
+    outside college hoops that cleared the five checks. An NBA regular-season game, both teams 10+ box games in, THREE
+    or more of the six top-minutes men (three a team) listed OUT -> the OVER, ½u, its own record (354-254 +11.0% on
+    615, 8 of 8 seasons; 0 of 2,000 random sets). Never one factor: both teams' scoring may sit at most 3 under the
+    number; never worse than -115; a doubtful / questionable man never counts; a man off the report who missed the
+    team's last 5 games is gone and counts; no injury report = no play. THE CLOCK: the same 3+ must have been out on
+    our report for 50 minutes before the number is taken (the study's price is the close - never a stale total).
+    Judged at 40 graded: under -5% on the units = off. No win %, nothing about the line moving."""
+    import sports_early as se
+    import sports_nba_out as no
+    assert (no.FROM, no.NEED_OUT, no.TOP_N, no.MIN_GAMES) == ("2026-11-13", 3, 3, 10)
+    assert (no.READ_FIGHT, no.MAX_PRICE, no.GOOD_TO, no.WAIT_MIN, no.QUIT, no.UNITS) == (3.0, -115, 1.0, 50, (40, -0.05), 0.5)
+    assert se.SPOTS["nba_out_over"][1] == 0.5 and se.SPOTS["nba_out_over"][2] == ("nba",)
+    games, rows = {}, []
+    men = {"H": ["Al Able", "Bo Baker", "Cy Cole", "Dee Dunn", "Ed Earl"], "A": ["Fox Ford", "Gus Gray", "Hal Hill", "Ike Ito", "Jay Jones"]}
+    for i in range(10):                                      # ten finals each this season, 115-110 every night
+        for t, o in (("H", f"x{i}"), ("A", f"y{i}")):
+            gid, start = f"nba:{t}{i}", f"2026-10-{20 + i:02d}T23:00Z"
+            games[gid] = {"id": gid, "league": "nba", "status": "final", "stype": "2", "home": t, "away": o, "start": start,
+                          "home_score": "115", "away_score": "110", "home_name": "Hawks" if t == "H" else "Jazz", "away_name": "Opp"}
+            for k, name in enumerate(men[t]):                # minutes 36 / 34 / 32 / 12 / 10 - the top three are clear
+                rows.append({"gid": gid, "start": start, "team": t, "pid": f"{t}{k}", "player": name, "pos": "G", "group": "",
+                             "starter": "1", "stats": json.dumps({"minutes": str((36, 34, 32, 12, 10)[k])})})
+    g = {"id": "nba:9", "league": "nba", "status": "pre", "stype": "2", "home": "H", "away": "A", "neutral": "0",
+         "start": "2026-11-14T03:00Z", "total": "226.5", "over_odds": "-110", "under_odds": "-110",
+         "home_name": "Hawks", "away_name": "Jazz"}          # tips 7 PM PT 11/13; both teams' scoring adds up to 225
+    games["nba:9"] = g
+    inj = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": [("Fox Ford", "F", "Out"), ("Gus Gray", "F", "Doubtful")]}
+    t0 = datetime(2026, 11, 13, 20, 0, tzinfo=timezone.utc)
+    t1 = t0 + timedelta(minutes=55)
+    stamp0 = t0.strftime("%Y-%m-%dT%H:%MZ")
+    st = {"picks": []}
+    assert no.candidates(games, st, t0, inj, rows=rows) == [] and "nba:9" in st["nba_out_seen"]    # the clock starts
+    assert no.candidates(games, st, t0 + timedelta(minutes=30), inj, rows=rows) == []              # 30 minutes: not yet
+    got = no.candidates(games, st, t1, inj, rows=rows)
+    assert len(got) == 1
+    c = got[0]
+    assert (c["spot"], c["market"], c["side"], c["line"], c["odds"], c["league"]) == ("nba_out_over", "total", "over", 226.5, -110, "nba")
+    assert c["out"] == ["Al Able", "Bo Baker", "Fox Ford"] and c["good_to"] == 227.5 and abs(c["read"] - 225.0) < 0.01
+    assert se.units(c) == 0.5 and c["team"] == "Over 226.5"
+    txt = c["why"] + " | " + " | ".join(c["facts"])
+    assert "Three of the six" in c["why"] and no.REC in c["why"] and "Al Able" in c["why"]
+    assert "Hawks without Al Able (36 minutes a night) and Bo Baker (34 minutes a night)" in txt
+    assert "Jazz without Fox Ford (36 minutes a night)" in txt and "Gus Gray" not in txt            # doubtful never counts
+    assert "Hawks's games are averaging 225 points - scoring 115, giving up 110 through 10 games" in txt
+    assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 5
+    assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
+
+    def fresh(names=("Al Able", "Bo Baker", "Fox Ford")):
+        return {"picks": [], "nba_out_seen": {"nba:9": [stamp0, list(names)]}}
+    two = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": [("Fox Ford", "F", "Questionable")]}
+    assert no.candidates(games, fresh(), t1, two, rows=rows) == []                                  # two out: no play
+    assert no.candidates(games, fresh(), t1, None, rows=rows) == []                                 # no report = unknown
+    assert no.candidates({**games, "nba:9": {**g, "total": "228.5"}}, fresh(), t1, inj, rows=rows) == []   # 3.5 past the read
+    assert len(no.candidates({**games, "nba:9": {**g, "total": "228"}}, fresh(), t1, inj, rows=rows)) == 1  # 3 past: inside
+    assert no.candidates({**games, "nba:9": {**g, "over_odds": "-118"}}, fresh(), t1, inj, rows=rows) == []  # the price limit
+    assert len(no.candidates({**games, "nba:9": {**g, "over_odds": "-115"}}, fresh(), t1, inj, rows=rows)) == 1
+    assert no.candidates({**games, "nba:9": {**g, "total": ""}}, fresh(), t1, inj, rows=rows) == []
+    assert no.candidates({**games, "nba:9": {**g, "stype": "3"}}, fresh(), t1, inj, rows=rows) == []        # regular season
+    assert no.candidates({**games, "nba:9": {**g, "start": "2026-11-13T03:00Z"}}, fresh(),
+                         datetime(2026, 11, 12, 22, 0, tzinfo=timezone.utc), inj, rows=rows) == []        # the 11/12 games: no
+    assert no.candidates(games, fresh(), datetime(2026, 11, 14, 3, 5, tzinfo=timezone.utc), inj, rows=rows) == []   # tipped
+    assert no.candidates(games, fresh(), t1, inj, rows=rows[:-25]) == []                            # a team under 10 box games
+    # a different three (one man back, another out): the clock starts over
+    st2 = fresh()
+    swap = {"H": [("Al Able", "G", "Out"), ("Cy Cole", "G", "Out")], "A": [("Fox Ford", "F", "Out")]}
+    assert no.candidates(games, st2, t1, swap, rows=rows) == [] and st2["nba_out_seen"]["nba:9"][0] == t1.strftime("%Y-%m-%dT%H:%MZ")
+    # a fourth man ruled out late: the same three keep the clock
+    more = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out"), ("Cy Cole", "G", "Out")], "A": [("Fox Ford", "F", "Out")]}
+    assert len(no.candidates(games, fresh(), t1, more, rows=rows)) == 1
+    # traded: Hal Hill isn't on the report and missed the Jazz's last 5 games -> gone, he counts
+    late = {f"nba:A{i}" for i in range(5, 10)}
+    rows2 = [dict(r, stats=json.dumps({"minutes": "0"})) if r["player"] == "Hal Hill" and r["gid"] in late else r for r in rows]
+    only2 = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": []}
+    st3 = {"picks": []}
+    assert no.candidates(games, st3, t0, only2, rows=rows2) == []
+    got3 = no.candidates(games, st3, t1, only2, rows=rows2)
+    assert len(got3) == 1 and "Hal Hill" in got3[0]["out"]
+    assert no.candidates(games, fresh(), t1, only2, rows=rows) == []                                # he's playing: two out
+    # the judge at 40
+    lost = [{"game_id": f"z{i}", "spot": "nba_out_over", "odds": -110, "units": 0.5, "result": "lost" if i < 23 else "won"} for i in range(40)]
+    assert no.quit_now({"picks": lost}, se.units) and no.candidates(games, {**fresh(), "picks": lost}, t1, inj, rows=rows) == []
+    assert not no.quit_now({"picks": lost[:39]}, se.units)
+    assert not no.quit_now({"picks": [dict(p, result="won" if i < 23 else "lost") for i, p in enumerate(lost)]}, se.units)
+    # it grades as a total and a tipped game's clock is dropped
+    p = dict(c, units=0.5)
+    se.grade({"picks": [p]}, {"nba:9": dict(g, status="final", home_score="120", away_score="110")})
+    assert p["result"] == "won"                                                                     # 230 > 226.5
+    st4 = fresh()
+    no.candidates({**games, "nba:9": dict(g, status="final")}, st4, t1, inj, rows=rows)
+    assert "nba:9" not in st4["nba_out_seen"]
+
+
+def test_fifteen_1112_the_150_rule_stands_and_the_big_favorite_pocket_is_a_tracker_lead_only():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s1_s4_bigfav.py + v1_value_size.py). The owner asked to
+    raise -150 to -199 and to size those up. No pocket at -151..-199 cleared the five checks blind (the one that is up
+    in both halves - an NHL favorite, rested, the dog on a back-to-back: +6.4% on 387 - is z 1.7 and flat the last
+    three seasons), so the -150 rule STANDS and nothing past it carries units; that pocket and its mirror only log on
+    the tracker from the 11/13 games. No value-play subset earned 1u (336 replay plays, 56 cells; held out -6.8%): the
+    value plays stay ½u, favorites only."""
+    import sports_leads as sl
+    assert sports.MAX_FAV == -150 and sports.PLAY_UNITS == 0.5 and sports.PLAY_MARKETS == ("ml",)
+    assert sl.FIFTEEN_FROM == "2026-11-13" and sl.BIG_FAV == (-199, -151)
+    G = {"nhl:1": {"id": "nhl:1", "league": "nhl", "status": "pre", "stype": "2", "home": "H", "away": "A",
+                   "start": "2026-11-14T00:00Z", "home_name": "Stars", "away_name": "Ducks"},
+         "nhl:a": {"id": "nhl:a", "league": "nhl", "status": "final", "stype": "2", "home": "Z", "away": "A",
+                   "start": "2026-11-13T00:00Z", "home_score": "3", "away_score": "2"},       # the Ducks played last night
+         "nhl:h": {"id": "nhl:h", "league": "nhl", "status": "final", "stype": "2", "home": "H", "away": "Y",
+                   "start": "2026-11-11T00:00Z", "home_score": "4", "away_score": "1"}}       # the Stars two nights off
+    keep = dict(sl._GAMES)
+    sl._GAMES["nhl"] = G
+    try:
+        def mk(side, odds, **kw):
+            dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+            return {"league": "nhl", "market": "ml", "odds": odds, "dec": dec, "p": 0.6, "side": side, "game_id": "nhl:1",
+                    "start": "2026-11-14T00:00Z", "reasons": [], "dog_ctx": {}, "home": side == "home", **kw}
+        assert sl.fifteen_tags(mk("home", -170), sports) == [sl.NHL_BIG_FAV_B2B_TAG]
+        assert sl.NHL_BIG_FAV_B2B_TAG in sl.tags(mk("home", -170), sports)
+        assert sl.fifteen_tags(mk("home", -150), sports) == [] and sl.fifteen_tags(mk("home", -205), sports) == []   # the band only
+        assert sl.fifteen_tags(mk("away", 150), sports) == []                                  # the dog's side: no tag
+        assert sl.fifteen_tags(mk("home", -170, start="2026-11-13T00:00Z"), sports) == []      # the 11/12 Pacific day: off
+        assert sl.fifteen_tags(mk("home", -170, market="spread"), sports) == []
+        assert sl.fifteen_tags(mk("home", -170, league="nba"), sports) == []
+        G["nhl:h"]["start"] = "2026-11-13T00:30Z"                                              # both played last night: neither
+        assert sl.fifteen_tags(mk("home", -170), sports) == []
+        G["nhl:a"]["start"] = "2026-11-11T00:00Z"                                              # the favorite on the back-to-back
+        assert sl.fifteen_tags(mk("home", -170), sports) == [sl.NHL_BIG_FAV_ON_B2B_TAG]
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
 
 
 if __name__ == "__main__":
