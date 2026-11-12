@@ -1,32 +1,46 @@
 {
- "at": "2026-11-12T15:39Z",
+ "at": "2026-11-12T17:11Z",
  "fixes": [
-  "live watch 43241743310 froze (6 min) - cancelled",
-  "live board 6 min stale with games on - sports-live.yml already running"
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (10h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-  "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
+  "live tennis scores: tennis Hercog vs Tubello: no points for 1186s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 39 min ago",
+  "engine ran 42 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T17:11Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Hercog vs Tubello: no points for 1186s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-12T15:39Z",
    "fixes": [
@@ -931,13 +945,6 @@
   },
   {
    "at": "2026-11-11T13:59Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T13:58Z",
    "fixes": [],
    "problems": [
     "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
