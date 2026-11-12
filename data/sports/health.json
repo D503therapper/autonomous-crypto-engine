@@ -1,29 +1,33 @@
 {
- "at": "2026-11-12T21:21Z",
- "fixes": [
-  "live watch 43301669909 froze (6 min) - cancelled",
-  "live board 6 min stale with games on - sports-live.yml already running"
- ],
- "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
- ],
+ "at": "2026-11-12T22:52Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
+  "live watcher fresh (230s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 47 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 24 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T22:52Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-12T21:21Z",
    "fixes": [
@@ -733,22 +737,6 @@
    "at": "2026-11-11T21:20Z",
    "fixes": [
     "live board 33 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Ribera vs Carle: no points for 2432s",
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-11T21:18Z",
-   "fixes": [
-    "live board 31 min stale with games on - sports-live.yml already running",
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
