@@ -1,34 +1,3 @@
-  ctx:them:hotseat: 7 graded, said 48%, hit 29% - only 7 graded - report only (report only: forward-only tag)
-  ctx:them:out_dome: 7 graded, said 52%, hit 71% - only 7 graded - report only (report only: forward-only tag)
-  ctx:us:hotseat: 6 graded, said 42%, hit 17% - only 6 graded - report only (report only: forward-only tag)
-  price:pick'em: 5 graded, said 53%, hit 80% - only 5 graded - report only
-  talk:ours:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  talk:theirs:rivalry week: 5 graded, said 40%, hit 20% - only 5 graded - report only (report only: forward-only tag)
-  ctx:us:out_dome: 4 graded, said 52%, hit 25% - only 4 graded - report only (report only: forward-only tag)
-  talk:theirs:hot seat: 4 graded, said 52%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  talk:theirs:trash talk: 4 graded, said 56%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  talk:ours:contract year: 3 graded, said 48%, hit 0% - only 3 graded - report only (report only: forward-only tag)
-  talk:ours:hot seat: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
-  talk:ours:trash talk: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
-  ctx:them:bowl5: 2 graded, said 39%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:dome_out: 2 graded, said 56%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:ours:unhappy: 2 graded, said 52%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:contract year: 2 graded, said 48%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:must-win: 2 graded, said 50%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  talk:theirs:unhappy: 2 graded, said 43%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:bowl5: 1 graded, said 43%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: league:nhl +2%
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
    ncaab injury page: 365 schools (106 players), 365 matched, 0 unmatched
 tennis sync: 74022 matches stored, 18 calls, 0 failed
 tennis study ATP: 26310 rated matches, acc 0.644 (surface ratings alone 0.641), loss 0.6303 vs 0.6319, own weights [-0.004, 0.827, 0.074, 0.153, 0.42, 0.049, 0.05]
@@ -2998,3 +2967,34 @@ tennis odds: 4 singles matches priced (oddsapi)
 tennis reads: 6 matches
 1H line log: 28 rows (4 with a 1st-half line) from 92 AN games
 source check (4.5s): plain requests answered by 40 of 42 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132628 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 93 games got weather, 0 new stadiums located, 245s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 11 games on the page, 11 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-11, 0 failed, 0 moves
+PICK AUDIT FLAG 2026-11-11: lean Sabres 110: the card names Brayden Point. as out - he's not on the injury report it was posted with
+beat the close: unit plays 34 of 108 better than the close, avg +0.2 pts
+public splits: 103 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 6 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (103 players), 365 matched, 0 unmatched
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26315 rated matches, acc 0.644 (surface ratings alone 0.642), loss 0.6301 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.155, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6301: experience 0.6297 (+0.42 mnats, z 0.48), age 0.6281 (+1.94 mnats, z 1.38), young_vs_aging 0.6298 (+0.28 mnats, z 0.69), last_match 0.6275 (+2.59 mnats, z 1.82), streaks 0.6307 (-0.65 mnats, z -0.63), first_set 0.6294 (+0.65 mnats, z 0.98), injury 0.631 (-0.91 mnats, z -1.42), travel 0.6301 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30873 rated matches, acc 0.646 (surface ratings alone 0.648), loss 0.6221 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.073, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6191 (+2.97 mnats, z 1.76), age 0.6211 (+0.94 mnats, z 1.21), young_vs_aging 0.6218 (+0.27 mnats, z 1.69), last_match 0.6229 (-0.82 mnats, z -0.81), streaks 0.6221 (-0.01 mnats, z -0.01), first_set 0.6217 (+0.33 mnats, z 0.7), injury 0.6216 (+0.49 mnats, z 0.85), travel 0.6222 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
+tennis reads: 6 matches
+1H line log: 0 rows (0 with a 1st-half line) from 92 AN games
+source check (1.0s): plain requests answered by 40 of 42 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+CARD GUARD (a time-zone claim it can't see) dropped for Michigan: 🕐 Long trip for Marquette, time zones and all. Legs gonna be heavy.
