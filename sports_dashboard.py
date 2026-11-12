@@ -1175,8 +1175,7 @@ def _pick_card(kind, pk):
         backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
-  <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
-    <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
+  <div class="pk-o"><span class="big">{_am(pk["american"])}</span></div>
   {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0]) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
@@ -1297,7 +1296,7 @@ def _tennis():
         stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
         return f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">{PAR_TITLE[key].replace("PARLAY", f'{len(par.get("legs") or [])}-LEG PARLAY')}</span>{_chip(par["status"])}</div>
-  <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
+  <div class="pk-o"><span class="big">{_am(par['american'])}</span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{_fold("".join(row(legs[i]) for i in par["legs"] if i in legs), [{"team": legs[i]["player"], "result": legs[i].get("result"), "mk": "ML" if legs[i].get("market") != "spread" else f'{legs[i]["hcp"]:+g} games'} for i in par["legs"] if i in legs])}
 </section>"""
 

@@ -20640,6 +20640,15 @@ def _wired_1111_post(start, patches, picks=None, n=4):
     return picks, buf.getvalue()
 
 
+def test_owner_1112_no_dollar_payout_line_on_cards():
+    """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
+    '$100 wins $X' payout line on a pick or tennis parlay card."""
+    import inspect
+    import sports_dashboard as dash
+    src = inspect.getsource(dash)
+    assert "$100 wins" not in src and 'class="pay"' not in src
+
+
 def test_preboard_1111_the_body_clock_line_never_claims_a_few_hours():
     """11/11 pre-board check: the Michigan lean said Marquette played 'on a body clock a few hours off' - Milwaukee to Ann
     Arbor is ONE hour. The travel factor fires at one time zone, so no body-clock line may claim hours it can't see."""
