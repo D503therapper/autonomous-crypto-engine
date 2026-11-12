@@ -13008,6 +13008,65 @@
   "kind": "lean",
   "lean": true,
   "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892690",
+  "team": "Sabres",
+  "opp": "Lightning",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 110,
+  "posted": "2026-11-11T16:27Z",
+  "price_says": 0.476,
+  "win_p": 0.4499176327020304,
+  "own_read": 0.49,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": 0.028827028674263788,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent drama: trade drama",
+   "opponent missing key players: Brayden Point (their read -4)"
+  ],
+  "angles": [
+   "rec:0",
+   "h2h:0",
+   "drama_trade_drama:1",
+   "cx_trip:1",
+   "w_public:86",
+   "f_last:0",
+   "f_site:0",
+   "f_outs:4",
+   "f_net:1",
+   "f_last5:0",
+   "risk:8",
+   "bottom_so:5"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Konsta Helenius (C)"
+  ],
+  "theirs_out": [
+   "Brayden Point"
+  ],
+  "goalie_roles": {
+   "ours_is_1": true,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 110,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "3-8",
+  "margin": -5.0,
+  "pnl_units": 0
+ },
+ {
+  "date": "2026-11-11",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
   "league": "ncaab",
   "game_id": "ncaab:401909524",
   "team": "Michigan",

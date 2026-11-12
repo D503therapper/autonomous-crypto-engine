@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 214,
+  "n": 215,
   "beat": 70,
-  "same": 84,
+  "same": 85,
   "worse": 60,
   "avg_pts": 0.13
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 108,
+   "n": 109,
    "beat": 38,
-   "same": 35,
+   "same": 36,
    "worse": 35,
    "avg_pts": 0.05
   },
@@ -80,9 +80,9 @@
    "avg_pts": 0.28
   },
   "nhl": {
-   "n": 84,
+   "n": 85,
    "beat": 26,
-   "same": 33,
+   "same": 34,
    "worse": 25,
    "avg_pts": 0.07
   }
@@ -3099,6 +3099,20 @@
    "pts": 1.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Sabres",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 110,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   },
   {
    "date": "2026-11-11",
