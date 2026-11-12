@@ -1,0 +1,628 @@
+funnel rows (graded, deduped): 61070
+
+==== NFL: 866 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n    34 said  15.8% market  18.5% won  20.6%  z  -0.7
+    0.2-0.3: n    62 said  25.7% market  27.4% won  27.4%  z  -0.3
+    0.3-0.4: n   121 said  35.4% market  36.9% won  31.4%  z  +0.9
+    0.4-0.5: n   128 said  44.6% market  45.2% won  44.5%  z  +0.0
+    0.5-0.6: n   165 said  55.5% market  56.6% won  57.6%  z  -0.6
+    0.6-0.7: n   154 said  64.8% market  65.2% won  70.8%  z  -1.6
+    0.7-0.8: n   128 said  74.8% market  74.9% won  70.3%  z  +1.1
+    0.8-1.0: n    74 said  85.5% market  84.9% won  87.8%  z  -0.6
+    home, all        train: n   512 said  54.7% market  55.4% won  56.4%  miss  -1.8 pts (z  -0.8)
+    home, all        held : n   354 said  54.1% market  55.0% won  53.4%  miss  +0.7 pts (z  +0.3)
+    road, all        train: n   512 said  44.4% market  44.6% won  43.6%  miss  +0.8 pts (z  +0.4)
+    road, all        held : n   354 said  44.8% market  45.0% won  46.6%  miss  -1.8 pts (z  -0.7)
+    home favorite    train: n   326 said  65.6% market  66.5% won  70.6%  miss  -4.9 pts (z  -2.0)
+    home favorite    held : n   221 said  67.4% market  67.2% won  63.8%  miss  +3.6 pts (z  +1.1)
+    home dog         train: n   186 said  35.5% market  36.0% won  31.7%  miss  +3.8 pts (z  +1.1)
+    home dog         held : n   133 said  32.0% market  34.6% won  36.1%  miss  -4.1 pts (z  -1.0)
+    road favorite    train: n   206 said  62.3% market  62.7% won  66.0%  miss  -3.7 pts (z  -1.1)
+    road favorite    held : n   153 said  64.7% market  63.4% won  63.4%  miss  +1.3 pts (z  +0.3)
+    road dog         train: n   306 said  32.3% market  32.4% won  28.4%  miss  +3.9 pts (z  +1.5)
+    road dog         held : n   201 said  29.7% market  31.1% won  33.8%  miss  -4.2 pts (z  -1.2)
+    dog +100..+199   train: n   293 said  40.3% market  40.5% won  32.8%  miss  +7.6 pts (z  +2.8)
+    dog +100..+199   held : n   186 said  38.8% market  40.1% won  43.0%  miss  -4.2 pts (z  -1.2)
+    dog +200..+350   train: n   141 said  26.8% market  27.1% won  29.8%  miss  -3.0 pts (z  -0.8)
+    dog +200..+350   held : n    97 said  24.2% market  26.7% won  30.9%  miss  -6.7 pts (z  -1.4)
+    fav -150..-101   train: n   146 said  53.3% market  54.0% won  54.8%  miss  -1.5 pts (z  -0.4)
+    fav -150..-101   held : n   101 said  53.5% market  53.3% won  51.5%  miss  +2.0 pts (z  +0.4)
+    INFO train n   512: b(read - market) -0.032 (se 1.380, z -0.0), home shift +0.048 (se 0.105) | avg |read - market| 1.2 pts | logloss market 0.6016 read 0.6026
+    INFO held  n   354: b(read - market) -0.949 (se 1.161, z -0.8), home shift -0.113 (se 0.123) | avg |read - market| 1.5 pts | logloss market 0.6202 read 0.6226
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n    29 said  16.0% market  17.8% won  20.7%  z  -0.6
+    0.2-0.3: n    61 said  25.6% market  26.6% won  21.3%  z  +0.8
+    0.3-0.4: n   121 said  35.2% market  36.4% won  33.9%  z  +0.3
+    0.4-0.5: n   133 said  44.5% market  45.0% won  43.6%  z  +0.2
+    0.5-0.6: n   146 said  55.6% market  56.0% won  58.2%  z  -0.6
+    0.6-0.7: n   159 said  64.6% market  64.1% won  68.6%  z  -1.1
+    0.7-0.8: n   140 said  75.0% market  74.3% won  72.1%  z  +0.7
+    0.8-1.0: n    77 said  85.8% market  84.7% won  84.4%  z  +0.3
+    home, all        train: n   512 said  55.3% market  55.4% won  56.4%  miss  -1.2 pts (z  -0.5)
+    home, all        held : n   354 said  54.8% market  55.0% won  53.4%  miss  +1.4 pts (z  +0.5)
+    road, all        train: n   512 said  44.7% market  44.6% won  43.6%  miss  +1.2 pts (z  +0.5)
+    road, all        held : n   354 said  45.2% market  45.0% won  46.6%  miss  -1.4 pts (z  -0.5)
+    home favorite    train: n   326 said  66.5% market  66.5% won  70.6%  miss  -4.0 pts (z  -1.6)
+    home favorite    held : n   221 said  68.0% market  67.2% won  63.8%  miss  +4.2 pts (z  +1.3)
+    home dog         train: n   186 said  35.6% market  36.0% won  31.7%  miss  +3.9 pts (z  +1.2)
+    home dog         held : n   133 said  32.9% market  34.6% won  36.1%  miss  -3.2 pts (z  -0.8)
+    road favorite    train: n   206 said  63.1% market  62.7% won  66.0%  miss  -2.9 pts (z  -0.9)
+    road favorite    held : n   153 said  65.1% market  63.4% won  63.4%  miss  +1.7 pts (z  +0.4)
+    road dog         train: n   306 said  32.4% market  32.4% won  28.4%  miss  +3.9 pts (z  +1.5)
+    road dog         held : n   201 said  30.2% market  31.1% won  33.8%  miss  -3.7 pts (z  -1.1)
+    dog +100..+199   train: n   293 said  40.4% market  40.5% won  32.8%  miss  +7.6 pts (z  +2.8)
+    dog +100..+199   held : n   186 said  39.1% market  40.1% won  43.0%  miss  -3.9 pts (z  -1.1)
+    dog +200..+350   train: n   141 said  26.9% market  27.1% won  29.8%  miss  -2.9 pts (z  -0.7)
+    dog +200..+350   held : n    97 said  25.1% market  26.7% won  30.9%  miss  -5.8 pts (z  -1.2)
+    fav -150..-101   train: n   146 said  53.9% market  54.0% won  54.8%  miss  -0.9 pts (z  -0.2)
+    fav -150..-101   held : n   101 said  53.8% market  53.3% won  51.5%  miss  +2.3 pts (z  +0.5)
+    INFO train n   512: b(read - market) +0.208 (se 1.351, z +0.2), home shift +0.050 (se 0.096) | avg |read - market| 1.1 pts | logloss market 0.6016 read 0.6020
+    INFO held  n   354: b(read - market) -1.097 (se 1.336, z -0.8), home shift -0.081 (se 0.114) | avg |read - market| 1.4 pts | logloss market 0.6202 read 0.6225
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.5-0.6: n   121 said  55.7% market  57.2% won  57.9%  z  -0.5
+    0.6-0.7: n   127 said  64.6% market  64.4% won  69.3%  z  -1.1
+    0.7-0.8: n   117 said  74.5% market  73.7% won  76.1%  z  -0.4
+    0.8-1.0: n    78 said  86.4% market  84.2% won  80.8%  z  +1.3
+    home, all        train: n   275 said  67.5% market  67.7% won  72.0%  miss  -4.5 pts (z  -1.6)
+    home, all        held : n   172 said  69.9% market  69.0% won  66.9%  miss  +3.0 pts (z  +0.8)
+    road, all        train: n   165 said  64.8% market  64.1% won  69.1%  miss  -4.3 pts (z  -1.2)
+    road, all        held : n   114 said  67.6% market  65.4% won  62.3%  miss  +5.3 pts (z  +1.2)
+    home favorite    train: n   275 said  67.5% market  67.7% won  72.0%  miss  -4.5 pts (z  -1.6)
+    home favorite    held : n   172 said  69.9% market  69.0% won  66.9%  miss  +3.0 pts (z  +0.8)
+    road favorite    train: n   165 said  64.8% market  64.1% won  69.1%  miss  -4.3 pts (z  -1.2)
+    road favorite    held : n   114 said  67.6% market  65.4% won  62.3%  miss  +5.3 pts (z  +1.2)
+    fav -150..-101   train: n    98 said  54.9% market  55.2% won  57.1%  miss  -2.2 pts (z  -0.4)
+    fav -150..-101   held : n    52 said  55.7% market  55.2% won  48.1%  miss  +7.6 pts (z  +1.1)
+    INFO train n   275: b(read - market) +0.820 (se 1.085, z +0.8), home shift +0.220 (se 0.138) | avg |read - market| 2.1 pts | logloss market 0.5858 read 0.5852
+    INFO held  n   172: b(read - market) +0.478 (se 1.350, z +0.4), home shift -0.128 (se 0.178) | avg |read - market| 2.0 pts | logloss market 0.6035 read 0.6048
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n    24 said  15.4% market  21.2% won  37.5%  z  -2.2
+    0.2-0.3: n    52 said  25.9% market  31.7% won  32.7%  z  -1.0
+    0.3-0.4: n   126 said  35.6% market  39.8% won  34.9%  z  +0.2
+    0.4-0.5: n   156 said  45.1% market  46.2% won  43.6%  z  +0.4
+    0.5-0.6: n   188 said  54.7% market  56.5% won  60.1%  z  -1.5
+    0.6-0.7: n   154 said  64.7% market  65.9% won  61.7%  z  +0.8
+    0.7-0.8: n   104 said  74.5% market  73.1% won  76.9%  z  -0.6
+    0.8-1.0: n    62 said  84.6% market  81.7% won  83.9%  z  +0.1
+    home, all        train: n   512 said  53.7% market  55.4% won  56.4%  miss  -2.8 pts (z  -1.3)
+    home, all        held : n   354 said  53.7% market  55.0% won  53.4%  miss  +0.3 pts (z  +0.1)
+    road, all        train: n   512 said  46.3% market  44.6% won  43.6%  miss  +2.8 pts (z  +1.3)
+    road, all        held : n   354 said  46.3% market  45.0% won  46.6%  miss  -0.3 pts (z  -0.1)
+    home favorite    train: n   326 said  61.8% market  66.5% won  70.6%  miss  -8.8 pts (z  -3.5)
+    home favorite    held : n   221 said  62.9% market  67.2% won  63.8%  miss  -0.9 pts (z  -0.3)
+    home dog         train: n   186 said  39.5% market  36.0% won  31.7%  miss  +7.7 pts (z  +2.3)
+    home dog         held : n   133 said  38.2% market  34.6% won  36.1%  miss  +2.1 pts (z  +0.5)
+    road favorite    train: n   206 said  59.6% market  62.7% won  66.0%  miss  -6.4 pts (z  -1.9)
+    road favorite    held : n   153 said  60.8% market  63.4% won  63.4%  miss  -2.6 pts (z  -0.7)
+    road dog         train: n   306 said  37.4% market  32.4% won  28.4%  miss  +9.0 pts (z  +3.5)
+    road dog         held : n   201 said  35.3% market  31.1% won  33.8%  miss  +1.5 pts (z  +0.5)
+    dog +100..+199   train: n   293 said  44.0% market  40.5% won  32.8%  miss +11.2 pts (z  +4.1)
+    dog +100..+199   held : n   186 said  43.4% market  40.1% won  43.0%  miss  +0.4 pts (z  +0.1)
+    dog +200..+350   train: n   141 said  32.6% market  27.1% won  29.8%  miss  +2.8 pts (z  +0.7)
+    dog +200..+350   held : n    97 said  30.5% market  26.7% won  30.9%  miss  -0.5 pts (z  -0.1)
+    fav -150..-101   train: n   146 said  50.6% market  54.0% won  54.8%  miss  -4.2 pts (z  -1.0)
+    fav -150..-101   held : n   101 said  51.6% market  53.3% won  51.5%  miss  +0.1 pts (z  +0.0)
+    INFO train n   512: b(read - market) -0.091 (se 0.197, z -0.5), home shift +0.043 (se 0.096) | avg |read - market| 8.4 pts | logloss market 0.6016 read 0.6345
+    INFO held  n   354: b(read - market) -0.121 (se 0.277, z -0.4), home shift -0.081 (se 0.117) | avg |read - market| 7.3 pts | logloss market 0.6202 read 0.6448
+
+==== NCAAF: 2321 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   213 said  12.4% market  13.8% won  16.0%  z  -1.4
+    0.2-0.3: n   182 said  25.4% market  25.9% won  26.4%  z  -0.3
+    0.3-0.4: n   201 said  34.9% market  34.3% won  35.8%  z  -0.3
+    0.4-0.5: n   201 said  45.0% market  44.0% won  42.3%  z  +0.8
+    0.5-0.6: n   295 said  54.9% market  54.1% won  52.9%  z  +0.7
+    0.6-0.7: n   264 said  64.9% market  63.2% won  61.7%  z  +1.1
+    0.7-0.8: n   265 said  75.0% market  73.0% won  73.6%  z  +0.5
+    0.8-1.0: n   700 said  90.2% market  88.6% won  90.7%  z  -0.4
+    home, all        train: n  1186 said  58.3% market  57.7% won  58.0%  miss  +0.3 pts (z  +0.2)
+    home, all        held : n  1135 said  62.2% market  60.9% won  61.7%  miss  +0.5 pts (z  +0.4)
+    road, all        train: n  1186 said  41.7% market  42.3% won  42.0%  miss  -0.3 pts (z  -0.2)
+    road, all        held : n  1135 said  37.8% market  39.1% won  38.3%  miss  -0.5 pts (z  -0.4)
+    home favorite    train: n   764 said  75.0% market  73.5% won  73.3%  miss  +1.7 pts (z  +1.1)
+    home favorite    held : n   770 said  77.2% market  75.9% won  77.0%  miss  +0.2 pts (z  +0.1)
+    home dog         train: n   422 said  27.9% market  28.9% won  30.3%  miss  -2.4 pts (z  -1.1)
+    home dog         held : n   365 said  30.5% market  29.1% won  29.3%  miss  +1.2 pts (z  +0.5)
+    road favorite    train: n   484 said  69.1% market  68.3% won  67.4%  miss  +1.8 pts (z  +0.8)
+    road favorite    held : n   400 said  67.6% market  69.1% won  67.8%  miss  -0.1 pts (z  -0.1)
+    road dog         train: n   702 said  22.8% market  24.4% won  24.5%  miss  -1.7 pts (z  -1.0)
+    road dog         held : n   735 said  21.6% market  22.8% won  22.3%  miss  -0.7 pts (z  -0.5)
+    dog +100..+199   train: n   419 said  39.7% market  40.3% won  42.5%  miss  -2.8 pts (z  -1.2)
+    dog +100..+199   held : n   388 said  39.9% market  39.9% won  41.2%  miss  -1.3 pts (z  -0.5)
+    dog +200..+350   train: n   277 said  25.0% market  26.7% won  29.6%  miss  -4.6 pts (z  -1.7)
+    dog +200..+350   held : n   261 said  26.2% market  26.7% won  26.4%  miss  -0.3 pts (z  -0.1)
+    fav -150..-101   train: n   273 said  53.2% market  53.1% won  52.0%  miss  +1.2 pts (z  +0.4)
+    fav -150..-101   held : n   201 said  53.0% market  53.5% won  52.2%  miss  +0.8 pts (z  +0.2)
+    INFO train n  1156: b(read - market) -0.108 (se 0.485, z -0.2), home shift +0.020 (se 0.071) | avg |read - market| 1.7 pts | logloss market 0.5365 read 0.5386
+    INFO held  n  1124: b(read - market) -0.254 (se 0.454, z -0.6), home shift +0.067 (se 0.081) | avg |read - market| 2.1 pts | logloss market 0.5043 read 0.5074
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   209 said  12.4% market  13.6% won  15.3%  z  -1.2
+    0.2-0.3: n   185 said  25.3% market  25.8% won  27.0%  z  -0.5
+    0.3-0.4: n   204 said  35.0% market  34.4% won  35.3%  z  -0.1
+    0.4-0.5: n   202 said  45.1% market  44.2% won  43.1%  z  +0.6
+    0.5-0.6: n   293 said  55.0% market  54.1% won  51.5%  z  +1.2
+    0.6-0.7: n   265 said  65.0% market  63.3% won  63.4%  z  +0.5
+    0.7-0.8: n   268 said  75.1% market  73.2% won  73.1%  z  +0.7
+    0.8-1.0: n   695 said  90.3% market  88.7% won  90.9%  z  -0.6
+    home, all        train: n  1186 said  58.3% market  57.7% won  58.0%  miss  +0.3 pts (z  +0.2)
+    home, all        held : n  1135 said  62.2% market  60.9% won  61.7%  miss  +0.5 pts (z  +0.4)
+    road, all        train: n  1186 said  41.7% market  42.3% won  42.0%  miss  -0.3 pts (z  -0.2)
+    road, all        held : n  1135 said  37.8% market  39.1% won  38.3%  miss  -0.5 pts (z  -0.4)
+    home favorite    train: n   764 said  75.0% market  73.5% won  73.3%  miss  +1.7 pts (z  +1.1)
+    home favorite    held : n   770 said  77.3% market  75.9% won  77.0%  miss  +0.3 pts (z  +0.2)
+    home dog         train: n   422 said  28.1% market  28.9% won  30.3%  miss  -2.2 pts (z  -1.0)
+    home dog         held : n   365 said  30.4% market  29.1% won  29.3%  miss  +1.0 pts (z  +0.4)
+    road favorite    train: n   484 said  69.0% market  68.3% won  67.4%  miss  +1.6 pts (z  +0.8)
+    road favorite    held : n   400 said  67.7% market  69.1% won  67.8%  miss  -0.0 pts (z  -0.0)
+    road dog         train: n   702 said  22.9% market  24.4% won  24.5%  miss  -1.6 pts (z  -1.0)
+    road dog         held : n   735 said  21.5% market  22.8% won  22.3%  miss  -0.8 pts (z  -0.5)
+    dog +100..+199   train: n   419 said  39.8% market  40.3% won  42.5%  miss  -2.7 pts (z  -1.1)
+    dog +100..+199   held : n   388 said  39.8% market  39.9% won  41.2%  miss  -1.4 pts (z  -0.6)
+    dog +200..+350   train: n   277 said  25.1% market  26.7% won  29.6%  miss  -4.5 pts (z  -1.6)
+    dog +200..+350   held : n   261 said  26.0% market  26.7% won  26.4%  miss  -0.4 pts (z  -0.1)
+    fav -150..-101   train: n   273 said  53.2% market  53.1% won  52.0%  miss  +1.2 pts (z  +0.4)
+    fav -150..-101   held : n   201 said  53.1% market  53.5% won  52.2%  miss  +0.9 pts (z  +0.2)
+    INFO train n  1157: b(read - market) +0.036 (se 0.562, z +0.1), home shift +0.015 (se 0.072) | avg |read - market| 1.6 pts | logloss market 0.5361 read 0.5373
+    INFO held  n  1124: b(read - market) -0.259 (se 0.463, z -0.6), home shift +0.068 (se 0.081) | avg |read - market| 2.1 pts | logloss market 0.5043 read 0.5073
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.4-0.5: n    57 said  47.8% market  51.6% won  50.9%  z  -0.5
+    0.5-0.6: n   163 said  55.2% market  55.5% won  49.7%  z  +1.4
+    0.6-0.7: n   220 said  64.8% market  63.2% won  59.1%  z  +1.7
+    0.7-0.8: n   211 said  75.2% market  72.9% won  74.4%  z  +0.3
+    0.8-1.0: n   483 said  89.6% market  87.7% won  88.6%  z  +0.7
+    home, all        train: n   568 said  74.4% market  72.9% won  71.8%  miss  +2.6 pts (z  +1.4)
+    home, all        held : n   566 said  75.7% market  74.5% won  73.7%  miss  +2.1 pts (z  +1.1)
+    road, all        train: n   377 said  70.2% market  68.9% won  68.7%  miss  +1.5 pts (z  +0.6)
+    road, all        held : n   312 said  68.8% market  69.5% won  68.3%  miss  +0.6 pts (z  +0.2)
+    home favorite    train: n   568 said  74.4% market  72.9% won  71.8%  miss  +2.6 pts (z  +1.4)
+    home favorite    held : n   566 said  75.7% market  74.5% won  73.7%  miss  +2.1 pts (z  +1.1)
+    road favorite    train: n   377 said  70.2% market  68.9% won  68.7%  miss  +1.5 pts (z  +0.6)
+    road favorite    held : n   312 said  68.8% market  69.5% won  68.3%  miss  +0.6 pts (z  +0.2)
+    fav -150..-101   train: n   199 said  52.7% market  53.5% won  52.3%  miss  +0.4 pts (z  +0.1)
+    fav -150..-101   held : n   156 said  52.4% market  53.9% won  51.9%  miss  +0.5 pts (z  +0.1)
+    INFO train n   568: b(read - market) +0.930 (se 0.542, z +1.7), home shift -0.144 (se 0.109) | avg |read - market| 2.5 pts | logloss market 0.5178 read 0.5168
+    INFO held  n   566: b(read - market) -0.452 (se 0.426, z -1.1), home shift -0.007 (se 0.109) | avg |read - market| 2.9 pts | logloss market 0.4975 read 0.5078
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   133 said  13.7% market  15.3% won  15.0%  z  -0.4
+    0.2-0.3: n   145 said  25.2% market  26.8% won  28.3%  z  -0.8
+    0.3-0.4: n   219 said  35.2% market  35.6% won  35.2%  z  +0.0
+    0.4-0.5: n   242 said  45.2% market  44.2% won  44.6%  z  +0.2
+    0.5-0.6: n   298 said  55.3% market  55.1% won  51.0%  z  +1.5
+    0.6-0.7: n   337 said  64.8% market  64.7% won  65.9%  z  -0.4
+    0.7-0.8: n   405 said  75.1% market  71.6% won  72.3%  z  +1.3
+    0.8-1.0: n   542 said  88.3% market  84.5% won  87.6%  z  +0.4
+    home, all        train: n  1186 said  60.4% market  57.7% won  58.0%  miss  +2.4 pts (z  +1.7)
+    home, all        held : n  1135 said  60.9% market  60.9% won  61.7%  miss  -0.8 pts (z  -0.5)
+    road, all        train: n  1186 said  39.6% market  42.3% won  42.0%  miss  -2.4 pts (z  -1.7)
+    road, all        held : n  1135 said  39.1% market  39.1% won  38.3%  miss  +0.8 pts (z  +0.5)
+    home favorite    train: n   764 said  73.2% market  73.5% won  73.3%  miss  -0.1 pts (z  -0.1)
+    home favorite    held : n   770 said  71.2% market  75.9% won  77.0%  miss  -5.8 pts (z  -3.9)
+    home dog         train: n   422 said  37.2% market  28.9% won  30.3%  miss  +6.9 pts (z  +3.1)
+    home dog         held : n   365 said  39.2% market  29.1% won  29.3%  miss  +9.9 pts (z  +4.2)
+    road favorite    train: n   484 said  60.5% market  68.3% won  67.4%  miss  -6.9 pts (z  -3.2)
+    road favorite    held : n   400 said  59.5% market  69.1% won  67.8%  miss  -8.2 pts (z  -3.5)
+    road dog         train: n   702 said  25.2% market  24.4% won  24.5%  miss  +0.7 pts (z  +0.5)
+    road dog         held : n   735 said  28.0% market  22.8% won  22.3%  miss  +5.7 pts (z  +3.7)
+    dog +100..+199   train: n   419 said  41.5% market  40.3% won  42.5%  miss  -1.0 pts (z  -0.4)
+    dog +100..+199   held : n   388 said  41.8% market  39.9% won  41.2%  miss  +0.6 pts (z  +0.2)
+    dog +200..+350   train: n   277 said  31.2% market  26.7% won  29.6%  miss  +1.6 pts (z  +0.6)
+    dog +200..+350   held : n   261 said  32.5% market  26.7% won  26.4%  miss  +6.1 pts (z  +2.2)
+    fav -150..-101   train: n   273 said  53.1% market  53.1% won  52.0%  miss  +1.1 pts (z  +0.4)
+    fav -150..-101   held : n   201 said  52.4% market  53.5% won  52.2%  miss  +0.2 pts (z  +0.0)
+    INFO train n  1182: b(read - market) -0.079 (se 0.104, z -0.8), home shift +0.035 (se 0.072) | avg |read - market| 10.3 pts | logloss market 0.5252 read 0.5787
+    INFO held  n  1134: b(read - market) +0.070 (se 0.091, z +0.8), home shift +0.041 (se 0.072) | avg |read - market| 12.2 pts | logloss market 0.5000 read 0.5572
+
+==== NBA: 3962 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   249 said  15.0% market  15.1% won   9.2%  z  +3.1
+    0.2-0.3: n   339 said  25.3% market  25.9% won  25.1%  z  +0.1
+    0.3-0.4: n   515 said  35.1% market  36.4% won  36.7%  z  -0.8
+    0.4-0.5: n   455 said  44.2% market  45.6% won  45.5%  z  -0.5
+    0.5-0.6: n   763 said  55.0% market  56.9% won  57.0%  z  -1.1
+    0.6-0.7: n   701 said  64.9% market  67.8% won  67.0%  z  -1.2
+    0.7-0.8: n   576 said  74.9% market  78.4% won  77.8%  z  -1.7
+    0.8-1.0: n   364 said  84.0% market  87.6% won  87.6%  z  -2.1
+    home, all        train: n  2640 said  53.3% market  55.7% won  54.6%  miss  -1.3 pts (z  -1.3)
+    home, all        held : n  1322 said  53.6% market  55.2% won  55.5%  miss  -1.9 pts (z  -1.4)
+    road, all        train: n  2640 said  44.6% market  44.3% won  45.4%  miss  -0.7 pts (z  -0.8)
+    road, all        held : n  1322 said  44.9% market  44.8% won  44.5%  miss  +0.5 pts (z  +0.3)
+    home favorite    train: n  1699 said  65.5% market  68.7% won  68.0%  miss  -2.5 pts (z  -2.2)
+    home favorite    held : n   812 said  67.7% market  69.6% won  69.5%  miss  -1.7 pts (z  -1.1)
+    home dog         train: n   941 said  31.4% market  32.2% won  30.5%  miss  +0.9 pts (z  +0.6)
+    home dog         held : n   510 said  31.1% market  32.3% won  33.3%  miss  -2.2 pts (z  -1.1)
+    road favorite    train: n  1089 said  64.8% market  65.4% won  67.6%  miss  -2.8 pts (z  -2.0)
+    road favorite    held : n   577 said  65.8% market  65.6% won  65.5%  miss  +0.3 pts (z  +0.1)
+    road dog         train: n  1551 said  30.5% market  29.5% won  29.8%  miss  +0.7 pts (z  +0.6)
+    road dog         held : n   745 said  28.8% market  28.7% won  28.2%  miss  +0.6 pts (z  +0.4)
+    dog +100..+199   train: n  1209 said  39.7% market  40.0% won  40.5%  miss  -0.8 pts (z  -0.6)
+    dog +100..+199   held : n   590 said  39.5% market  40.2% won  41.0%  miss  -1.5 pts (z  -0.7)
+    dog +200..+350   train: n   700 said  27.6% market  27.0% won  25.6%  miss  +2.0 pts (z  +1.2)
+    dog +200..+350   held : n   356 said  26.6% market  26.9% won  26.4%  miss  +0.2 pts (z  +0.1)
+    fav -150..-101   train: n   691 said  52.6% market  53.0% won  53.3%  miss  -0.7 pts (z  -0.4)
+    fav -150..-101   held : n   336 said  53.0% market  53.2% won  49.7%  miss  +3.3 pts (z  +1.2)
+    INFO train n  2640: b(read - market) -0.545 (se 0.406, z -1.3), home shift -0.112 (se 0.062) | avg |read - market| 2.5 pts | logloss market 0.5848 read 0.5874
+    INFO held  n  1322: b(read - market) -1.037 (se 0.785, z -1.3), home shift -0.064 (se 0.085) | avg |read - market| 1.7 pts | logloss market 0.5771 read 0.5799
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   251 said  15.0% market  15.1% won   9.6%  z  +2.9
+    0.2-0.3: n   337 said  25.2% market  25.9% won  25.2%  z  -0.0
+    0.3-0.4: n   527 said  35.1% market  36.5% won  36.4%  z  -0.6
+    0.4-0.5: n   442 said  44.3% market  45.7% won  45.5%  z  -0.5
+    0.5-0.6: n   591 said  55.5% market  55.4% won  56.5%  z  -0.5
+    0.6-0.7: n   712 said  65.0% market  65.3% won  62.2%  z  +1.5
+    0.7-0.8: n   583 said  74.9% market  75.7% won  76.3%  z  -0.8
+    0.8-1.0: n   519 said  85.2% market  86.1% won  87.1%  z  -1.3
+    home, all        train: n  2640 said  54.9% market  55.7% won  54.6%  miss  +0.2 pts (z  +0.3)
+    home, all        held : n  1322 said  54.8% market  55.2% won  55.5%  miss  -0.8 pts (z  -0.6)
+    road, all        train: n  2640 said  45.3% market  44.3% won  45.4%  miss  -0.1 pts (z  -0.1)
+    road, all        held : n  1322 said  45.5% market  44.8% won  44.5%  miss  +1.0 pts (z  +0.7)
+    home favorite    train: n  1699 said  68.0% market  68.7% won  68.0%  miss  -0.0 pts (z  -0.0)
+    home favorite    held : n   812 said  69.6% market  69.6% won  69.5%  miss  +0.1 pts (z  +0.1)
+    home dog         train: n   941 said  31.2% market  32.2% won  30.5%  miss  +0.7 pts (z  +0.5)
+    home dog         held : n   510 said  31.2% market  32.3% won  33.3%  miss  -2.1 pts (z  -1.0)
+    road favorite    train: n  1089 said  66.5% market  65.4% won  67.6%  miss  -1.1 pts (z  -0.8)
+    road favorite    held : n   577 said  66.9% market  65.6% won  65.5%  miss  +1.4 pts (z  +0.7)
+    road dog         train: n  1551 said  30.4% market  29.5% won  29.8%  miss  +0.6 pts (z  +0.6)
+    road dog         held : n   745 said  28.8% market  28.7% won  28.2%  miss  +0.7 pts (z  +0.4)
+    dog +100..+199   train: n  1209 said  39.6% market  40.0% won  40.5%  miss  -0.9 pts (z  -0.6)
+    dog +100..+199   held : n   590 said  39.6% market  40.2% won  41.0%  miss  -1.5 pts (z  -0.7)
+    dog +200..+350   train: n   700 said  27.4% market  27.0% won  25.6%  miss  +1.9 pts (z  +1.1)
+    dog +200..+350   held : n   356 said  26.7% market  26.9% won  26.4%  miss  +0.3 pts (z  +0.1)
+    fav -150..-101   train: n   691 said  53.7% market  53.0% won  53.3%  miss  +0.4 pts (z  +0.2)
+    fav -150..-101   held : n   336 said  54.1% market  53.2% won  49.7%  miss  +4.4 pts (z  +1.6)
+    INFO train n  2640: b(read - market) -0.541 (se 0.823, z -0.7), home shift -0.073 (se 0.054) | avg |read - market| 1.1 pts | logloss market 0.5848 read 0.5851
+    INFO held  n  1322: b(read - market) -0.488 (se 1.380, z -0.4), home shift +0.004 (se 0.069) | avg |read - market| 0.8 pts | logloss market 0.5771 read 0.5776
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.5-0.6: n   490 said  56.3% market  56.5% won  58.4%  z  -0.9
+    0.6-0.7: n   647 said  64.9% market  65.0% won  63.2%  z  +0.9
+    0.7-0.8: n   583 said  74.9% market  74.7% won  75.6%  z  -0.4
+    0.8-1.0: n   573 said  85.7% market  85.5% won  85.2%  z  +0.4
+    home, all        train: n  1551 said  70.5% market  70.5% won  70.2%  miss  +0.3 pts (z  +0.2)
+    home, all        held : n   745 said  71.4% market  71.3% won  71.8%  miss  -0.4 pts (z  -0.2)
+    road, all        train: n   941 said  68.5% market  67.8% won  69.5%  miss  -1.0 pts (z  -0.6)
+    road, all        held : n   510 said  68.5% market  67.7% won  66.7%  miss  +1.8 pts (z  +0.9)
+    home favorite    train: n  1551 said  70.5% market  70.5% won  70.2%  miss  +0.3 pts (z  +0.2)
+    home favorite    held : n   745 said  71.4% market  71.3% won  71.8%  miss  -0.4 pts (z  -0.2)
+    road favorite    train: n   941 said  68.5% market  67.8% won  69.5%  miss  -1.0 pts (z  -0.6)
+    road favorite    held : n   510 said  68.5% market  67.7% won  66.7%  miss  +1.8 pts (z  +0.9)
+    fav -150..-101   train: n   415 said  55.2% market  54.9% won  55.4%  miss  -0.2 pts (z  -0.1)
+    fav -150..-101   held : n   212 said  55.3% market  54.9% won  50.5%  miss  +4.9 pts (z  +1.4)
+    INFO train n  1551: b(read - market) -2.078 (se 1.001, z -2.1), home shift -0.004 (se 0.057) | avg |read - market| 0.5 pts | logloss market 0.5775 read 0.5792
+    INFO held  n   745: b(read - market) +1.110 (se 1.408, z +0.8), home shift +0.021 (se 0.084) | avg |read - market| 0.5 pts | logloss market 0.5597 read 0.5593
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n    93 said  15.9% market  14.8% won   8.6%  z  +2.5
+    0.2-0.3: n   282 said  25.4% market  23.1% won  19.9%  z  +2.3
+    0.3-0.4: n   460 said  35.2% market  33.3% won  33.0%  z  +1.0
+    0.4-0.5: n   631 said  45.0% market  44.1% won  43.4%  z  +0.8
+    0.5-0.6: n   794 said  55.1% market  55.5% won  55.7%  z  -0.3
+    0.6-0.7: n   712 said  65.0% market  65.0% won  63.9%  z  +0.6
+    0.7-0.8: n   627 said  74.9% market  76.0% won  76.9%  z  -1.2
+    0.8-1.0: n   363 said  85.1% market  85.2% won  84.6%  z  +0.3
+    home, all        train: n  2640 said  56.0% market  55.7% won  54.6%  miss  +1.4 pts (z  +1.5)
+    home, all        held : n  1322 said  55.4% market  55.2% won  55.5%  miss  -0.2 pts (z  -0.1)
+    road, all        train: n  2640 said  44.0% market  44.3% won  45.4%  miss  -1.4 pts (z  -1.5)
+    road, all        held : n  1322 said  44.6% market  44.8% won  44.5%  miss  +0.2 pts (z  +0.1)
+    home favorite    train: n  1699 said  65.9% market  68.7% won  68.0%  miss  -2.0 pts (z  -1.8)
+    home favorite    held : n   812 said  66.3% market  69.6% won  69.5%  miss  -3.2 pts (z  -2.0)
+    home dog         train: n   941 said  38.1% market  32.2% won  30.5%  miss  +7.6 pts (z  +5.1)
+    home dog         held : n   510 said  38.0% market  32.3% won  33.3%  miss  +4.6 pts (z  +2.2)
+    road favorite    train: n  1089 said  60.0% market  65.4% won  67.6%  miss  -7.5 pts (z  -5.3)
+    road favorite    held : n   577 said  60.6% market  65.6% won  65.5%  miss  -5.0 pts (z  -2.5)
+    road dog         train: n  1551 said  32.7% market  29.5% won  29.8%  miss  +2.9 pts (z  +2.5)
+    road dog         held : n   745 said  32.3% market  28.7% won  28.2%  miss  +4.1 pts (z  +2.5)
+    dog +100..+199   train: n  1209 said  42.6% market  40.0% won  40.5%  miss  +2.1 pts (z  +1.5)
+    dog +100..+199   held : n   590 said  42.9% market  40.2% won  41.0%  miss  +1.9 pts (z  +0.9)
+    dog +200..+350   train: n   700 said  32.4% market  27.0% won  25.6%  miss  +6.9 pts (z  +4.2)
+    dog +200..+350   held : n   356 said  32.4% market  26.9% won  26.4%  miss  +5.9 pts (z  +2.5)
+    fav -150..-101   train: n   691 said  52.7% market  53.0% won  53.3%  miss  -0.6 pts (z  -0.3)
+    fav -150..-101   held : n   336 said  52.0% market  53.2% won  49.7%  miss  +2.3 pts (z  +0.8)
+    INFO train n  2640: b(read - market) -0.088 (se 0.105, z -0.8), home shift -0.050 (se 0.043) | avg |read - market| 6.8 pts | logloss market 0.5848 read 0.6071
+    INFO held  n  1322: b(read - market) -0.102 (se 0.146, z -0.7), home shift +0.016 (se 0.062) | avg |read - market| 6.9 pts | logloss market 0.5771 read 0.6009
+
+==== NCAAB: 11843 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   738 said  12.5% market  18.4% won  15.0%  z  -1.9
+    0.2-0.3: n   634 said  24.5% market  30.4% won  28.1%  z  -2.0
+    0.3-0.4: n   869 said  35.1% market  38.6% won  38.7%  z  -2.2
+    0.4-0.5: n   875 said  45.2% market  45.5% won  48.6%  z  -2.0
+    0.5-0.6: n  1286 said  55.3% market  53.4% won  53.3%  z  +1.4
+    0.6-0.7: n  1541 said  65.4% market  61.1% won  62.8%  z  +2.1
+    0.7-0.8: n  1714 said  75.2% market  69.6% won  70.8%  z  +4.1
+    0.8-1.0: n  4186 said  91.0% market  86.0% won  88.0%  z  +5.9
+    home, all        train: n  7922 said  65.0% market  63.3% won  64.6%  miss  +0.4 pts (z  +0.7)
+    home, all        held : n  3921 said  66.7% market  63.0% won  63.3%  miss  +3.4 pts (z  +4.4)
+    road, all        train: n  7922 said  35.4% market  36.7% won  35.4%  miss  +0.1 pts (z  +0.1)
+    road, all        held : n  3921 said  33.7% market  37.0% won  36.7%  miss  -3.0 pts (z  -3.9)
+    home favorite    train: n  5953 said  76.6% market  73.1% won  75.2%  miss  +1.4 pts (z  +2.6)
+    home favorite    held : n  2908 said  79.7% market  73.4% won  73.8%  miss  +5.8 pts (z  +7.2)
+    home dog         train: n  1969 said  29.9% market  33.6% won  32.7%  miss  -2.8 pts (z  -2.7)
+    home dog         held : n  1013 said  29.4% market  33.0% won  33.0%  miss  -3.6 pts (z  -2.4)
+    road favorite    train: n  2337 said  67.4% market  63.8% won  64.0%  miss  +3.4 pts (z  +3.4)
+    road favorite    held : n  1231 said  67.0% market  64.0% won  64.1%  miss  +2.9 pts (z  +2.1)
+    road dog         train: n  5585 said  22.1% market  25.3% won  23.4%  miss  -1.3 pts (z  -2.4)
+    road dog         held : n  2690 said  18.5% market  24.7% won  24.2%  miss  -5.7 pts (z  -6.9)
+    dog +100..+199   train: n  3206 said  37.3% market  40.1% won  39.4%  miss  -2.2 pts (z  -2.5)
+    dog +100..+199   held : n  1508 said  36.4% market  40.4% won  41.4%  miss  -5.1 pts (z  -4.0)
+    dog +200..+350   train: n  1863 said  22.2% market  26.9% won  25.3%  miss  -3.1 pts (z  -3.1)
+    dog +200..+350   held : n   896 said  18.6% market  26.9% won  26.7%  miss  -8.1 pts (z  -5.5)
+    fav -150..-101   train: n  1808 said  54.7% market  53.1% won  53.8%  miss  +0.9 pts (z  +0.8)
+    fav -150..-101   held : n  1005 said  54.4% market  52.8% won  51.1%  miss  +3.2 pts (z  +2.1)
+    INFO train n  7795: b(read - market) +0.443 (se 0.106, z +4.2), home shift +0.028 (se 0.029) | avg |read - market| 3.8 pts | logloss market 0.5295 read 0.5296
+    INFO held  n  3710: b(read - market) +0.054 (se 0.089, z +0.6), home shift -0.009 (se 0.043) | avg |read - market| 6.1 pts | logloss market 0.5485 read 0.5660
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   745 said  12.5% market  18.4% won  14.9%  z  -1.8
+    0.2-0.3: n   637 said  24.5% market  30.5% won  28.4%  z  -2.2
+    0.3-0.4: n   866 said  35.2% market  38.7% won  39.1%  z  -2.4
+    0.4-0.5: n   869 said  45.2% market  45.5% won  48.1%  z  -1.7
+    0.5-0.6: n  1324 said  55.3% market  53.5% won  53.7%  z  +1.2
+    0.6-0.7: n  1549 said  65.4% market  61.3% won  62.8%  z  +2.2
+    0.7-0.8: n  1713 said  75.3% market  69.8% won  71.3%  z  +3.6
+    0.8-1.0: n  4140 said  90.8% market  86.2% won  88.1%  z  +5.5
+    home, all        train: n  7922 said  64.8% market  63.3% won  64.6%  miss  +0.2 pts (z  +0.4)
+    home, all        held : n  3921 said  66.5% market  63.0% won  63.3%  miss  +3.2 pts (z  +4.2)
+    road, all        train: n  7922 said  35.4% market  36.7% won  35.4%  miss  -0.0 pts (z  -0.1)
+    road, all        held : n  3921 said  33.7% market  37.0% won  36.7%  miss  -3.0 pts (z  -3.9)
+    home favorite    train: n  5953 said  76.4% market  73.1% won  75.2%  miss  +1.2 pts (z  +2.2)
+    home favorite    held : n  2908 said  79.4% market  73.4% won  73.8%  miss  +5.6 pts (z  +6.9)
+    home dog         train: n  1969 said  29.8% market  33.6% won  32.7%  miss  -2.9 pts (z  -2.7)
+    home dog         held : n  1013 said  29.3% market  33.0% won  33.0%  miss  -3.6 pts (z  -2.5)
+    road favorite    train: n  2337 said  67.2% market  63.8% won  64.0%  miss  +3.2 pts (z  +3.2)
+    road favorite    held : n  1231 said  66.9% market  64.0% won  64.1%  miss  +2.8 pts (z  +2.0)
+    road dog         train: n  5585 said  22.0% market  25.3% won  23.4%  miss  -1.4 pts (z  -2.4)
+    road dog         held : n  2690 said  18.5% market  24.7% won  24.2%  miss  -5.7 pts (z  -6.9)
+    dog +100..+199   train: n  3206 said  37.2% market  40.1% won  39.4%  miss  -2.2 pts (z  -2.6)
+    dog +100..+199   held : n  1508 said  36.3% market  40.4% won  41.4%  miss  -5.1 pts (z  -4.0)
+    dog +200..+350   train: n  1863 said  22.1% market  26.9% won  25.3%  miss  -3.1 pts (z  -3.1)
+    dog +200..+350   held : n   896 said  18.5% market  26.9% won  26.7%  miss  -8.1 pts (z  -5.5)
+    fav -150..-101   train: n  1808 said  54.5% market  53.1% won  53.8%  miss  +0.8 pts (z  +0.7)
+    fav -150..-101   held : n  1005 said  54.2% market  52.8% won  51.1%  miss  +3.1 pts (z  +2.0)
+    INFO train n  7830: b(read - market) +0.454 (se 0.110, z +4.1), home shift +0.032 (se 0.028) | avg |read - market| 3.6 pts | logloss market 0.5277 read 0.5276
+    INFO held  n  3750: b(read - market) +0.060 (se 0.091, z +0.7), home shift -0.006 (se 0.043) | avg |read - market| 5.9 pts | logloss market 0.5433 read 0.5593
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.5-0.6: n   596 said  56.2% market  55.4% won  53.0%  z  +1.5
+    0.6-0.7: n  1081 said  65.3% market  61.4% won  63.7%  z  +1.1
+    0.7-0.8: n  1161 said  75.3% market  69.7% won  71.1%  z  +3.1
+    0.8-1.0: n  2835 said  90.5% market  85.7% won  87.7%  z  +4.6
+    home, all        train: n  3842 said  78.0% market  74.5% won  76.4%  miss  +1.6 pts (z  +2.3)
+    home, all        held : n  1837 said  81.0% market  74.7% won  75.3%  miss  +5.6 pts (z  +5.6)
+    road, all        train: n  1494 said  71.4% market  66.9% won  68.0%  miss  +3.4 pts (z  +2.8)
+    road, all        held : n   772 said  71.3% market  67.1% won  66.5%  miss  +4.8 pts (z  +2.8)
+    home favorite    train: n  3842 said  78.0% market  74.5% won  76.4%  miss  +1.6 pts (z  +2.3)
+    home favorite    held : n  1837 said  81.0% market  74.7% won  75.3%  miss  +5.6 pts (z  +5.6)
+    road favorite    train: n  1494 said  71.4% market  66.9% won  68.0%  miss  +3.4 pts (z  +2.8)
+    road favorite    held : n   772 said  71.3% market  67.1% won  66.5%  miss  +4.8 pts (z  +2.8)
+    fav -150..-101   train: n   789 said  57.0% market  55.0% won  54.6%  miss  +2.4 pts (z  +1.3)
+    fav -150..-101   held : n   441 said  56.6% market  54.8% won  52.4%  miss  +4.2 pts (z  +1.8)
+    INFO train n  3842: b(read - market) +0.360 (se 0.190, z +1.9), home shift +0.030 (se 0.057) | avg |read - market| 3.8 pts | logloss market 0.4878 read 0.4886
+    INFO held  n  1837: b(read - market) +0.040 (se 0.174, z +0.2), home shift +0.018 (se 0.095) | avg |read - market| 6.5 pts | logloss market 0.4961 read 0.5149
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.0-0.2: n   332 said  14.5% market  16.4% won  10.5%  z  +2.4
+    0.2-0.3: n   513 said  25.4% market  26.2% won  22.6%  z  +1.5
+    0.3-0.4: n   817 said  35.2% market  35.7% won  35.6%  z  -0.2
+    0.4-0.5: n  1144 said  45.3% market  44.3% won  45.9%  z  -0.4
+    0.5-0.6: n  1524 said  55.1% market  52.8% won  53.3%  z  +1.4
+    0.6-0.7: n  1808 said  65.1% market  61.6% won  62.9%  z  +1.9
+    0.7-0.8: n  2006 said  75.1% market  70.4% won  72.3%  z  +2.8
+    0.8-1.0: n  3699 said  88.5% market  85.6% won  87.3%  z  +2.2
+    home, all        train: n  7922 said  65.7% market  63.3% won  64.6%  miss  +1.0 pts (z  +1.9)
+    home, all        held : n  3921 said  65.8% market  63.0% won  63.3%  miss  +2.6 pts (z  +3.3)
+    road, all        train: n  7922 said  34.3% market  36.7% won  35.4%  miss  -1.0 pts (z  -1.9)
+    road, all        held : n  3921 said  34.2% market  37.0% won  36.7%  miss  -2.6 pts (z  -3.3)
+    home favorite    train: n  5953 said  74.6% market  73.1% won  75.2%  miss  -0.5 pts (z  -1.0)
+    home favorite    held : n  2908 said  75.2% market  73.4% won  73.8%  miss  +1.4 pts (z  +1.7)
+    home dog         train: n  1969 said  38.5% market  33.6% won  32.7%  miss  +5.8 pts (z  +5.5)
+    home dog         held : n  1013 said  38.9% market  33.0% won  33.0%  miss  +5.9 pts (z  +4.0)
+    road favorite    train: n  2337 said  58.9% market  63.8% won  64.0%  miss  -5.1 pts (z  -5.1)
+    road favorite    held : n  1231 said  58.2% market  64.0% won  64.1%  miss  -5.9 pts (z  -4.3)
+    road dog         train: n  5585 said  24.1% market  25.3% won  23.4%  miss  +0.6 pts (z  +1.1)
+    road dog         held : n  2690 said  23.2% market  24.7% won  24.2%  miss  -1.0 pts (z  -1.2)
+    dog +100..+199   train: n  3206 said  39.9% market  40.1% won  39.4%  miss  +0.5 pts (z  +0.5)
+    dog +100..+199   held : n  1508 said  39.8% market  40.4% won  41.4%  miss  -1.6 pts (z  -1.3)
+    dog +200..+350   train: n  1863 said  26.6% market  26.9% won  25.3%  miss  +1.3 pts (z  +1.3)
+    dog +200..+350   held : n   896 said  26.9% market  26.9% won  26.7%  miss  +0.2 pts (z  +0.2)
+    fav -150..-101   train: n  1808 said  52.9% market  53.1% won  53.8%  miss  -0.9 pts (z  -0.8)
+    fav -150..-101   held : n  1005 said  53.2% market  52.8% won  51.1%  miss  +2.0 pts (z  +1.3)
+    INFO train n  7893: b(read - market) +0.001 (se 0.058, z +0.0), home shift +0.070 (se 0.028) | avg |read - market| 6.7 pts | logloss market 0.5240 read 0.5431
+    INFO held  n  3911: b(read - market) -0.066 (se 0.077, z -0.9), home shift +0.029 (se 0.040) | avg |read - market| 7.3 pts | logloss market 0.5243 read 0.5513
+
+==== NHL: 4189 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.2-0.3: n    75 said  27.6% market  28.0% won  28.0%  z  -0.1
+    0.3-0.4: n   424 said  35.8% market  36.8% won  38.2%  z  -1.0
+    0.4-0.5: n  1125 said  45.1% market  45.8% won  46.6%  z  -1.0
+    0.5-0.6: n  1346 said  55.3% market  55.2% won  54.1%  z  +0.9
+    0.6-0.7: n   929 said  64.1% market  63.7% won  64.0%  z  +0.0
+    0.7-0.8: n   237 said  76.3% market  72.3% won  77.2%  z  -0.4
+    0.8-1.0: n    53 said  81.7% market  78.6% won  88.7%  z  -1.6
+    home, all        train: n  2707 said  53.6% market  53.5% won  55.0%  miss  -1.4 pts (z  -1.5)
+    home, all        held : n  1482 said  53.6% market  53.5% won  52.1%  miss  +1.5 pts (z  +1.1)
+    road, all        train: n  2707 said  46.8% market  46.5% won  45.0%  miss  +1.8 pts (z  +1.8)
+    road, all        held : n  1482 said  46.7% market  46.5% won  47.9%  miss  -1.2 pts (z  -0.9)
+    home favorite    train: n  1833 said  60.3% market  59.9% won  61.3%  miss  -1.0 pts (z  -0.9)
+    home favorite    held : n  1077 said  58.1% market  57.7% won  55.2%  miss  +2.9 pts (z  +1.9)
+    home dog         train: n   874 said  39.5% market  40.1% won  41.8%  miss  -2.3 pts (z  -1.4)
+    home dog         held : n   405 said  41.6% market  42.3% won  44.0%  miss  -2.4 pts (z  -1.0)
+    road favorite    train: n  1215 said  58.0% market  57.1% won  56.5%  miss  +1.5 pts (z  +1.1)
+    road favorite    held : n   636 said  55.8% market  54.9% won  54.2%  miss  +1.6 pts (z  +0.8)
+    road dog         train: n  1492 said  37.7% market  37.9% won  35.7%  miss  +2.0 pts (z  +1.6)
+    road dog         held : n   846 said  39.9% market  40.1% won  43.1%  miss  -3.2 pts (z  -1.9)
+    dog +100..+199   train: n  1976 said  40.8% market  40.9% won  40.8%  miss  -0.0 pts (z  -0.0)
+    dog +100..+199   held : n  1154 said  41.7% market  41.9% won  45.1%  miss  -3.4 pts (z  -2.3)
+    dog +200..+350   train: n   372 said  26.5% market  28.2% won  23.9%  miss  +2.6 pts (z  +1.2)
+    dog +200..+350   held : n    96 said  25.8% market  28.4% won  22.9%  miss  +2.9 pts (z  +0.7)
+    fav -150..-101   train: n  1479 said  53.1% market  52.9% won  53.6%  miss  -0.5 pts (z  -0.4)
+    fav -150..-101   held : n  1038 said  53.0% market  52.7% won  51.4%  miss  +1.5 pts (z  +1.0)
+    INFO train n  2707: b(read - market) +1.007 (se 0.644, z +1.6), home shift +0.060 (se 0.040) | avg |read - market| 0.8 pts | logloss market 0.6565 read 0.6560
+    INFO held  n  1482: b(read - market) +0.454 (se 0.681, z +0.7), home shift -0.060 (se 0.053) | avg |read - market| 1.1 pts | logloss market 0.6784 read 0.6786
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.2-0.3: n    75 said  27.6% market  28.0% won  28.0%  z  -0.1
+    0.3-0.4: n   424 said  35.8% market  36.8% won  38.2%  z  -1.0
+    0.4-0.5: n  1141 said  45.2% market  45.9% won  46.6%  z  -1.0
+    0.5-0.6: n  1392 said  55.2% market  55.5% won  54.2%  z  +0.8
+    0.6-0.7: n   867 said  64.0% market  64.0% won  64.6%  z  -0.4
+    0.7-0.8: n   245 said  75.9% market  72.5% won  77.6%  z  -0.6
+    0.8-1.0: n    45 said  81.5% market  78.9% won  88.9%  z  -1.6
+    home, all        train: n  2707 said  53.3% market  53.5% won  55.0%  miss  -1.6 pts (z  -1.7)
+    home, all        held : n  1482 said  53.4% market  53.5% won  52.1%  miss  +1.3 pts (z  +1.0)
+    road, all        train: n  2707 said  46.7% market  46.5% won  45.0%  miss  +1.6 pts (z  +1.7)
+    road, all        held : n  1482 said  46.6% market  46.5% won  47.9%  miss  -1.3 pts (z  -1.0)
+    home favorite    train: n  1833 said  59.9% market  59.9% won  61.3%  miss  -1.3 pts (z  -1.2)
+    home favorite    held : n  1077 said  57.8% market  57.7% won  55.2%  miss  +2.6 pts (z  +1.7)
+    home dog         train: n   874 said  39.5% market  40.1% won  41.8%  miss  -2.3 pts (z  -1.4)
+    home dog         held : n   405 said  41.6% market  42.3% won  44.0%  miss  -2.4 pts (z  -1.0)
+    road favorite    train: n  1215 said  57.7% market  57.1% won  56.5%  miss  +1.2 pts (z  +0.8)
+    road favorite    held : n   636 said  55.6% market  54.9% won  54.2%  miss  +1.3 pts (z  +0.7)
+    road dog         train: n  1492 said  37.7% market  37.9% won  35.7%  miss  +2.0 pts (z  +1.6)
+    road dog         held : n   846 said  39.9% market  40.1% won  43.1%  miss  -3.2 pts (z  -1.9)
+    dog +100..+199   train: n  1976 said  40.8% market  40.9% won  40.8%  miss  -0.0 pts (z  -0.0)
+    dog +100..+199   held : n  1154 said  41.7% market  41.9% won  45.1%  miss  -3.4 pts (z  -2.3)
+    dog +200..+350   train: n   372 said  26.5% market  28.2% won  23.9%  miss  +2.6 pts (z  +1.2)
+    dog +200..+350   held : n    96 said  25.8% market  28.4% won  22.9%  miss  +2.9 pts (z  +0.7)
+    fav -150..-101   train: n  1479 said  52.9% market  52.9% won  53.6%  miss  -0.7 pts (z  -0.5)
+    fav -150..-101   held : n  1038 said  52.8% market  52.7% won  51.4%  miss  +1.4 pts (z  +0.9)
+    INFO train n  2707: b(read - market) +1.065 (se 0.694, z +1.5), home shift +0.070 (se 0.040) | avg |read - market| 0.9 pts | logloss market 0.6565 read 0.6562
+    INFO held  n  1482: b(read - market) +0.550 (se 0.723, z +0.8), home shift -0.056 (se 0.053) | avg |read - market| 1.2 pts | logloss market 0.6784 read 0.6783
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.4-0.5: n    34 said  49.3% market  52.7% won  38.2%  z  +1.3
+    0.5-0.6: n  1055 said  55.7% market  56.4% won  54.5%  z  +0.8
+    0.6-0.7: n   884 said  64.0% market  62.9% won  63.6%  z  +0.3
+    0.7-0.8: n   302 said  74.6% market  71.2% won  77.5%  z  -1.2
+    0.8-1.0: n    42 said  81.6% market  77.2% won  92.9%  z  -2.8
+    home, all        train: n  1473 said  62.5% market  61.9% won  64.0%  miss  -1.4 pts (z  -1.2)
+    home, all        held : n   844 said  60.3% market  59.8% won  57.0%  miss  +3.3 pts (z  +2.0)
+    road, all        train: n   873 said  60.9% market  59.9% won  58.3%  miss  +2.6 pts (z  +1.6)
+    road, all        held : n   404 said  59.0% market  57.7% won  55.9%  miss  +3.1 pts (z  +1.2)
+    home favorite    train: n  1473 said  62.5% market  61.9% won  64.0%  miss  -1.4 pts (z  -1.2)
+    home favorite    held : n   844 said  60.3% market  59.8% won  57.0%  miss  +3.3 pts (z  +2.0)
+    road favorite    train: n   873 said  60.9% market  59.9% won  58.3%  miss  +2.6 pts (z  +1.6)
+    road favorite    held : n   404 said  59.0% market  57.7% won  55.9%  miss  +3.1 pts (z  +1.2)
+    fav -150..-101   train: n   827 said  55.3% market  55.1% won  56.0%  miss  -0.7 pts (z  -0.4)
+    fav -150..-101   held : n   586 said  55.1% market  54.8% won  52.6%  miss  +2.5 pts (z  +1.2)
+    INFO train n  1473: b(read - market) +1.842 (se 0.489, z +3.8), home shift +0.045 (se 0.056) | avg |read - market| 2.3 pts | logloss market 0.6422 read 0.6378
+    INFO held  n   844: b(read - market) +2.431 (se 0.623, z +3.9), home shift -0.166 (se 0.072) | avg |read - market| 2.3 pts | logloss market 0.6717 read 0.6662
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.2-0.3: n    93 said  26.4% market  30.4% won  30.1%  z  -0.8
+    0.3-0.4: n   392 said  36.2% market  39.4% won  42.3%  z  -2.5
+    0.4-0.5: n  1048 said  45.6% market  46.4% won  47.3%  z  -1.1
+    0.5-0.6: n  1432 said  54.8% market  54.4% won  52.4%  z  +1.8
+    0.6-0.7: n   913 said  64.4% market  62.6% won  65.0%  z  -0.4
+    0.7-0.8: n   276 said  73.8% market  70.7% won  71.0%  z  +1.0
+    0.8-1.0: n    33 said  81.8% market  77.4% won  87.9%  z  -1.1
+    home, all        train: n  2707 said  53.5% market  53.5% won  55.0%  miss  -1.4 pts (z  -1.5)
+    home, all        held : n  1482 said  53.9% market  53.5% won  52.1%  miss  +1.8 pts (z  +1.4)
+    road, all        train: n  2707 said  46.5% market  46.5% won  45.0%  miss  +1.4 pts (z  +1.5)
+    road, all        held : n  1482 said  46.1% market  46.5% won  47.9%  miss  -1.8 pts (z  -1.4)
+    home favorite    train: n  1833 said  59.3% market  59.9% won  61.3%  miss  -1.9 pts (z  -1.7)
+    home favorite    held : n  1077 said  57.6% market  57.7% won  55.2%  miss  +2.5 pts (z  +1.6)
+    home dog         train: n   874 said  41.4% market  40.1% won  41.8%  miss  -0.4 pts (z  -0.2)
+    home dog         held : n   405 said  44.1% market  42.3% won  44.0%  miss  +0.1 pts (z  +0.1)
+    road favorite    train: n  1215 said  56.2% market  57.1% won  56.5%  miss  -0.3 pts (z  -0.2)
+    road favorite    held : n   636 said  53.7% market  54.9% won  54.2%  miss  -0.6 pts (z  -0.3)
+    road dog         train: n  1492 said  38.6% market  37.9% won  35.7%  miss  +2.8 pts (z  +2.3)
+    road dog         held : n   846 said  40.4% market  40.1% won  43.1%  miss  -2.8 pts (z  -1.6)
+    dog +100..+199   train: n  1976 said  41.9% market  40.9% won  40.8%  miss  +1.0 pts (z  +0.9)
+    dog +100..+199   held : n  1154 said  42.5% market  41.9% won  45.1%  miss  -2.5 pts (z  -1.7)
+    dog +200..+350   train: n   372 said  28.5% market  28.2% won  23.9%  miss  +4.6 pts (z  +2.1)
+    dog +200..+350   held : n    96 said  30.3% market  28.4% won  22.9%  miss  +7.4 pts (z  +1.7)
+    fav -150..-101   train: n  1479 said  52.2% market  52.9% won  53.6%  miss  -1.4 pts (z  -1.1)
+    fav -150..-101   held : n  1038 said  52.4% market  52.7% won  51.4%  miss  +1.0 pts (z  +0.6)
+    INFO train n  2707: b(read - market) -0.083 (se 0.184, z -0.4), home shift +0.063 (se 0.040) | avg |read - market| 4.0 pts | logloss market 0.6565 read 0.6629
+    INFO held  n  1482: b(read - market) -0.189 (se 0.236, z -0.8), home shift -0.055 (se 0.053) | avg |read - market| 4.2 pts | logloss market 0.6784 read 0.6872
+
+==== MLB: 7354 games
+ -- blended (p), home side, by bucket: n / said / market / won / z(said - won)
+    0.3-0.4: n   338 said  36.9% market  35.8% won  32.0%  z  +1.9
+    0.4-0.5: n  1852 said  45.8% market  44.8% won  46.7%  z  -0.7
+    0.5-0.6: n  3834 said  54.4% market  54.6% won  53.7%  z  +1.0
+    0.6-0.7: n  1135 said  63.7% market  64.5% won  64.8%  z  -0.8
+    0.7-0.8: n   176 said  73.2% market  71.9% won  72.7%  z  +0.1
+    home, all        train: n  3730 said  54.3% market  53.3% won  53.0%  miss  +1.3 pts (z  +1.6)
+    home, all        held : n  3624 said  52.2% market  53.1% won  53.1%  miss  -0.9 pts (z  -1.0)
+    road, all        train: n  3730 said  45.2% market  46.7% won  47.0%  miss  -1.9 pts (z  -2.3)
+    road, all        held : n  3624 said  47.3% market  46.9% won  46.9%  miss  +0.3 pts (z  +0.4)
+    home favorite    train: n  2751 said  57.8% market  57.4% won  57.0%  miss  +0.7 pts (z  +0.8)
+    home favorite    held : n  2686 said  55.5% market  56.7% won  56.1%  miss  -0.6 pts (z  -0.6)
+    home dog         train: n   979 said  44.6% market  41.9% won  41.6%  miss  +3.0 pts (z  +1.9)
+    home dog         held : n   938 said  42.9% market  42.7% won  44.6%  miss  -1.6 pts (z  -1.0)
+    road favorite    train: n  1676 said  52.2% market  54.7% won  55.0%  miss  -2.8 pts (z  -2.3)
+    road favorite    held : n  1604 said  53.8% market  54.2% won  52.9%  miss  +0.9 pts (z  +0.7)
+    road dog         train: n  2054 said  39.4% market  40.2% won  40.5%  miss  -1.1 pts (z  -1.0)
+    road dog         held : n  2020 said  42.0% market  41.1% won  42.1%  miss  -0.1 pts (z  -0.1)
+    dog +100..+199   train: n  2784 said  42.3% market  41.8% won  42.3%  miss  -0.1 pts (z  -0.1)
+    dog +100..+199   held : n  2796 said  43.0% market  42.3% won  44.0%  miss  -1.0 pts (z  -1.1)
+    dog +200..+350   train: n   248 said  27.9% market  29.1% won  24.2%  miss  +3.7 pts (z  +1.3)
+    dog +200..+350   held : n   162 said  31.3% market  29.2% won  24.1%  miss  +7.2 pts (z  +2.1)
+    fav -150..-101   train: n  2698 said  51.9% market  52.6% won  52.4%  miss  -0.5 pts (z  -0.6)
+    fav -150..-101   held : n  2877 said  52.4% market  52.8% won  52.0%  miss  +0.4 pts (z  +0.4)
+    INFO train n  3730: b(read - market) -0.106 (se 0.418, z -0.3), home shift -0.008 (se 0.038) | avg |read - market| 1.7 pts | logloss market 0.6736 read 0.6749
+    INFO held  n  3624: b(read - market) +1.127 (se 0.575, z +2.0), home shift +0.039 (se 0.039) | avg |read - market| 1.3 pts | logloss market 0.6797 read 0.6793
+ -- own read (own), home side, by bucket: n / said / market / won / z(said - won)
+    0.3-0.4: n   333 said  36.9% market  35.7% won  32.1%  z  +1.9
+    0.4-0.5: n  1848 said  45.8% market  44.8% won  46.6%  z  -0.7
+    0.5-0.6: n  3676 said  54.6% market  54.4% won  53.4%  z  +1.5
+    0.6-0.7: n  1267 said  63.8% market  63.9% won  63.9%  z  -0.1
+    0.7-0.8: n   206 said  73.3% market  71.3% won  72.8%  z  +0.1
+    home, all        train: n  3730 said  54.7% market  53.3% won  53.0%  miss  +1.8 pts (z  +2.1)
+    home, all        held : n  3624 said  52.6% market  53.1% won  53.1%  miss  -0.5 pts (z  -0.6)
+    road, all        train: n  3730 said  45.3% market  46.7% won  47.0%  miss  -1.7 pts (z  -2.1)
+    road, all        held : n  3624 said  47.5% market  46.9% won  46.9%  miss  +0.6 pts (z  +0.7)
+    home favorite    train: n  2751 said  58.3% market  57.4% won  57.0%  miss  +1.3 pts (z  +1.4)
+    home favorite    held : n  2686 said  55.9% market  56.7% won  56.1%  miss  -0.1 pts (z  -0.1)
+    home dog         train: n   979 said  44.6% market  41.9% won  41.6%  miss  +3.0 pts (z  +1.9)
+    home dog         held : n   938 said  43.0% market  42.7% won  44.6%  miss  -1.6 pts (z  -1.0)
+    road favorite    train: n  1676 said  52.5% market  54.7% won  55.0%  miss  -2.5 pts (z  -2.1)
+    road favorite    held : n  1604 said  54.2% market  54.2% won  52.9%  miss  +1.2 pts (z  +1.0)
+    road dog         train: n  2054 said  39.5% market  40.2% won  40.5%  miss  -1.0 pts (z  -0.9)
+    road dog         held : n  2020 said  42.1% market  41.1% won  42.1%  miss  +0.0 pts (z  +0.0)
+    dog +100..+199   train: n  2784 said  42.3% market  41.8% won  42.3%  miss  -0.0 pts (z  -0.0)
+    dog +100..+199   held : n  2796 said  43.1% market  42.3% won  44.0%  miss  -0.9 pts (z  -1.0)
+    dog +200..+350   train: n   248 said  27.9% market  29.1% won  24.2%  miss  +3.7 pts (z  +1.4)
+    dog +200..+350   held : n   162 said  31.5% market  29.2% won  24.1%  miss  +7.4 pts (z  +2.2)
+    fav -150..-101   train: n  2698 said  52.2% market  52.6% won  52.4%  miss  -0.3 pts (z  -0.3)
+    fav -150..-101   held : n  2877 said  52.6% market  52.8% won  52.0%  miss  +0.7 pts (z  +0.7)
+    INFO train n  3730: b(read - market) -0.176 (se 0.431, z -0.4), home shift -0.002 (se 0.042) | avg |read - market| 1.9 pts | logloss market 0.6736 read 0.6752
+    INFO held  n  3624: b(read - market) +1.132 (se 0.654, z +1.7), home shift +0.024 (se 0.036) | avg |read - market| 1.0 pts | logloss market 0.6797 read 0.6794
+ -- weighed (w_p), home side, by bucket: n / said / market / won / z(said - won)
+    0.5-0.6: n  1198 said  55.0% market  56.2% won  53.2%  z  +1.2
+    0.6-0.7: n   355 said  64.5% market  65.0% won  64.2%  z  +0.1
+    0.7-0.8: n   190 said  73.2% market  70.3% won  72.6%  z  +0.2
+    home, all        train: n   899 said  60.3% market  60.1% won  59.3%  miss  +1.0 pts (z  +0.6)
+    home, all        held : n   857 said  57.3% market  58.9% won  55.9%  miss  +1.4 pts (z  +0.8)
+    road, all        train: n   346 said  55.0% market  58.3% won  54.6%  miss  +0.3 pts (z  +0.1)
+    road, all        held : n   318 said  56.4% market  57.4% won  54.4%  miss  +2.0 pts (z  +0.7)
+    home favorite    train: n   899 said  60.3% market  60.1% won  59.3%  miss  +1.0 pts (z  +0.6)
+    home favorite    held : n   857 said  57.3% market  58.9% won  55.9%  miss  +1.4 pts (z  +0.8)
+    road favorite    train: n   346 said  55.0% market  58.3% won  54.6%  miss  +0.3 pts (z  +0.1)
+    road favorite    held : n   318 said  56.4% market  57.4% won  54.4%  miss  +2.0 pts (z  +0.7)
+    fav -150..-101   train: n   616 said  53.2% market  54.9% won  51.5%  miss  +1.7 pts (z  +0.8)
+    fav -150..-101   held : n   682 said  53.6% market  54.8% won  51.5%  miss  +2.2 pts (z  +1.1)
+    INFO train n   899: b(read - market) +0.263 (se 0.677, z +0.4), home shift -0.037 (se 0.069) | avg |read - market| 1.7 pts | logloss market 0.6611 read 0.6617
+    INFO held  n   857: b(read - market) +0.173 (se 1.442, z +0.1), home shift -0.112 (se 0.116) | avg |read - market| 1.7 pts | logloss market 0.6799 read 0.6787
+ -- raw ratings (raw_own), home side, by bucket: n / said / market / won / z(said - won)
+    0.3-0.4: n   361 said  37.2% market  38.2% won  34.6%  z  +1.0
+    0.4-0.5: n  2094 said  46.1% market  46.8% won  47.7%  z  -1.5
+    0.5-0.6: n  3571 said  54.7% market  54.7% won  53.9%  z  +1.0
+    0.6-0.7: n  1193 said  63.4% market  62.7% won  63.4%  z  +0.1
+    0.7-0.8: n   128 said  72.5% market  71.3% won  71.9%  z  +0.2
+    home, all        train: n  3730 said  53.4% market  53.3% won  53.0%  miss  +0.4 pts (z  +0.5)
+    home, all        held : n  3624 said  52.8% market  53.1% won  53.1%  miss  -0.3 pts (z  -0.3)
+    road, all        train: n  3730 said  46.6% market  46.7% won  47.0%  miss  -0.4 pts (z  -0.5)
+    road, all        held : n  3624 said  47.2% market  46.9% won  46.9%  miss  +0.3 pts (z  +0.3)
+    home favorite    train: n  2751 said  56.4% market  57.4% won  57.0%  miss  -0.6 pts (z  -0.6)
+    home favorite    held : n  2686 said  55.4% market  56.7% won  56.1%  miss  -0.7 pts (z  -0.7)
+    home dog         train: n   979 said  44.8% market  41.9% won  41.6%  miss  +3.2 pts (z  +2.0)
+    home dog         held : n   938 said  45.5% market  42.7% won  44.6%  miss  +0.9 pts (z  +0.6)
+    road favorite    train: n  1676 said  52.5% market  54.7% won  55.0%  miss  -2.5 pts (z  -2.1)
+    road favorite    held : n  1604 said  52.3% market  54.2% won  52.9%  miss  -0.6 pts (z  -0.5)
+    road dog         train: n  2054 said  41.8% market  40.2% won  40.5%  miss  +1.3 pts (z  +1.2)
+    road dog         held : n  2020 said  43.1% market  41.1% won  42.1%  miss  +1.0 pts (z  +0.9)
+    dog +100..+199   train: n  2784 said  43.7% market  41.8% won  42.3%  miss  +1.3 pts (z  +1.4)
+    dog +100..+199   held : n  2796 said  44.4% market  42.3% won  44.0%  miss  +0.4 pts (z  +0.4)
+    dog +200..+350   train: n   248 said  32.9% market  29.1% won  24.2%  miss  +8.7 pts (z  +3.2)
+    dog +200..+350   held : n   162 said  34.4% market  29.2% won  24.1%  miss +10.3 pts (z  +3.1)
+    fav -150..-101   train: n  2698 said  52.0% market  52.6% won  52.4%  miss  -0.4 pts (z  -0.5)
+    fav -150..-101   held : n  2877 said  52.1% market  52.8% won  52.0%  miss  +0.1 pts (z  +0.1)
+    INFO train n  3730: b(read - market) -0.099 (se 0.162, z -0.6), home shift -0.012 (se 0.033) | avg |read - market| 4.0 pts | logloss market 0.6736 read 0.6799
+    INFO held  n  3624: b(read - market) +0.198 (se 0.170, z +1.2), home shift +0.002 (se 0.034) | avg |read - market| 3.8 pts | logloss market 0.6797 read 0.6826
+
+cells: 672

@@ -1,0 +1,242 @@
+
+==== NFL: 2088 games with a close and a walk-forward ratings read (2019-09-06 -> 2026-11-10); today's dials: trust 0.225 move +0.137 cal +0.025 hdog -0.107
+  the LONG-RUN dials (every game, no pull): trust -0.057 (se 0.115)  move_w +0.083 (se 0.150)  cal -0.012 (se 0.074)  hdog -0.079 (se 0.088)
+     to 2021: trust -0.103  move_w +0.000  cal -0.072  hdog -0.088  (n 818)
+     2022 on: trust -0.027  move_w +0.043  cal +0.049  hdog -0.073  (n 1270)
+  the honest test on 1188 games:
+    live    logloss 0.60707 (+0.00218 vs the close, z +2.0) | dials mean (sd): trust +0.000 (0.000)  move -0.036 (0.095)  cal +0.009 (0.062)  hdog -0.047 (0.031) | last fit: +0.000 +0.065 +0.051 -0.067
+    all8    logloss 0.60653 (+0.00164 vs the close, z +1.7) | dials mean (sd): trust +0.000 (0.000)  move -0.019 (0.108)  cal -0.026 (0.022)  hdog -0.049 (0.026) | last fit: +0.000 +0.103 -0.011 -0.047
+    all80   logloss 0.60513 (+0.00023 vs the close, z +0.5) | dials mean (sd): trust +0.000 (0.000)  move +0.005 (0.026)  cal -0.006 (0.015)  hdog -0.034 (0.016) | last fit: +0.000 +0.047 +0.007 -0.037
+    all400  logloss 0.60487 (-0.00003 vs the close, z -0.1) | dials mean (sd): trust +0.000 (0.000)  move +0.003 (0.007)  cal +0.002 (0.008)  hdog -0.014 (0.008) | last fit: +0.000 +0.016 +0.011 -0.019
+    win400  logloss 0.60498 (+0.00008 vs the close, z +0.3) | dials mean (sd): trust +0.000 (0.000)  move +0.003 (0.007)  cal +0.007 (0.014)  hdog -0.010 (0.007) | last fit: +0.000 +0.015 +0.021 -0.017
+    market  logloss 0.60490
+  live: home fav -150..-101, own read OVER the price         n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  live: home dog +100..+350, own read OVER the price         n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  live: road fav -150..-101, own read OVER the price         n    15     7-8      -19.9% z -0.87 | train   +0.0% (   0) | held  -19.9% (  15) | seasons up 1/2
+  live: road dog +100..+350, own read OVER the price         n    39     6-33     -37.9% z -1.59 | train   +0.0% (   0) | held  -37.9% (  39) | seasons up 0/2
+  all8: home fav -150..-101, own read OVER the price         n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all8: home dog +100..+350, own read OVER the price         n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  all8: road fav -150..-101, own read OVER the price         n     1     1-0      +89.3% z +0.00 | train   +0.0% (   0) | held  +89.3% (   1) | seasons up 1/1
+  all8: road dog +100..+350, own read OVER the price         n    24     4-20     -34.2% z -1.10 | train   +0.0% (   0) | held  -34.2% (  24) | seasons up 1/2
+  all80: home fav -150..-101, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: home dog +100..+350, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: road fav -150..-101, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: road dog +100..+350, own read OVER the price        n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  all400: home fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: home dog +100..+350, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: road fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: road dog +100..+350, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  BASE: every home fav -150..-101                            n   176    97-79      -1.8% z -0.27 | train   +0.0% (   0) | held   -1.8% ( 176) | seasons up 3/5
+  BASE: every home dog +100..+350                            n   399   134-265    -13.1% z -2.05 | train   +0.0% (   0) | held  -13.1% ( 399) | seasons up 1/5
+  BASE: every road fav -150..-101                            n   162    85-77      -5.8% z -0.82 | train   +0.0% (   0) | held   -5.8% ( 162) | seasons up 0/5
+  BASE: every road dog +100..+350                            n   591   199-392     -7.5% z -1.34 | train   +0.0% (   0) | held   -7.5% ( 591) | seasons up 1/5
+  live: favorites -150..-101 read at 56%+                    n   100    55-45      -6.7% z -0.79 | train   +0.0% (   0) | held   -6.7% ( 100) | seasons up 2/5
+        said 57.4% won 55.0%
+  live: favorites -150..-101 read at under 56%               n   238   127-111     -2.5% z -0.42 | train   +0.0% (   0) | held   -2.5% ( 238) | seasons up 2/5
+        said 52.4% won 53.4%
+  all80: favorites -150..-101 read at 56%+                   n   103    62-41      +2.0% z +0.25 | train   +0.0% (   0) | held   +2.0% ( 103) | seasons up 3/5
+        said 57.1% won 60.2%
+  all80: favorites -150..-101 read at under 56%              n   235   120-115     -6.2% z -1.04 | train   +0.0% (   0) | held   -6.2% ( 235) | seasons up 1/5
+        said 52.4% won 51.1%
+
+==== NCAAF: 6451 games with a close and a walk-forward ratings read (2018-08-25 -> 2026-11-12); today's dials: trust 0.000 move +0.140 cal -0.054 hdog +0.081
+  the LONG-RUN dials (every game, no pull): trust -0.029 (se 0.045)  move_w -0.054 (se 0.136)  cal +0.091 (se 0.032)  hdog +0.134 (se 0.057)
+     to 2021: trust +0.072  move_w +0.000  cal +0.111  hdog +0.165  (n 2539)
+     2022 on: trust -0.104  move_w -0.094  cal +0.078  hdog +0.117  (n 3912)
+  the honest test on 5551 games:
+    live    logloss 0.50565 (+0.00145 vs the close, z +1.9) | dials mean (sd): trust +0.049 (0.079)  move -0.016 (0.059)  cal +0.096 (0.060)  hdog +0.111 (0.104) | last fit: +0.000 +0.015 -0.033 +0.137
+    all8    logloss 0.50433 (+0.00013 vs the close, z +0.2) | dials mean (sd): trust +0.010 (0.017)  move -0.016 (0.045)  cal +0.107 (0.020)  hdog +0.164 (0.039) | last fit: +0.000 -0.046 +0.089 +0.130
+    all80   logloss 0.50404 (-0.00016 vs the close, z -0.4) | dials mean (sd): trust +0.009 (0.013)  move -0.007 (0.014)  cal +0.082 (0.010)  hdog +0.103 (0.013) | last fit: +0.000 -0.020 +0.079 +0.102
+    all400  logloss 0.50397 (-0.00024 vs the close, z -0.9) | dials mean (sd): trust +0.004 (0.006)  move -0.002 (0.004)  cal +0.048 (0.011)  hdog +0.040 (0.008) | last fit: +0.000 -0.005 +0.056 +0.051
+    win400  logloss 0.50422 (+0.00002 vs the close, z +0.1) | dials mean (sd): trust +0.007 (0.012)  move -0.001 (0.004)  cal +0.022 (0.014)  hdog +0.009 (0.013) | last fit: +0.000 +0.003 -0.005 +0.012
+    market  logloss 0.50420
+  live: home fav -150..-101, own read OVER the price         n    81    39-42     -10.7% z -1.03 | train  -37.7% (  12) | held   -6.0% (  69) | seasons up 2/6
+  live: home dog +100..+350, own read OVER the price         n   620   235-385     +2.4% z +0.44 | train   +8.2% ( 250) | held   -1.5% ( 370) | seasons up 5/7
+  live: road fav -150..-101, own read OVER the price         n    10     5-5      -11.3% z -0.38 | train  +86.2% (   1) | held  -22.2% (   9) | seasons up 2/4
+  live: road dog +100..+350, own read OVER the price         n    36    12-24     -13.9% z -0.65 | train   +0.0% (   0) | held  -13.9% (  36) | seasons up 1/3
+  all8: home fav -150..-101, own read OVER the price         n    87    40-47     -10.8% z -1.04 | train  -46.9% (  25) | held   +3.7% (  62) | seasons up 2/8
+  all8: home dog +100..+350, own read OVER the price         n   894   347-547     -1.1% z -0.26 | train  +11.7% ( 336) | held   -8.8% ( 558) | seasons up 3/8
+  all8: road fav -150..-101, own read OVER the price         n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all8: road dog +100..+350, own read OVER the price         n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: home fav -150..-101, own read OVER the price        n    52    20-32     -24.9% z -1.87 | train  -55.3% (  13) | held  -14.7% (  39) | seasons up 1/7
+  all80: home dog +100..+350, own read OVER the price        n   347   146-201     -2.2% z -0.36 | train  +10.5% ( 137) | held  -10.5% ( 210) | seasons up 5/8
+  all80: road fav -150..-101, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: road dog +100..+350, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: home fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: home dog +100..+350, own read OVER the price       n     1     1-0     +110.0% z +0.00 | train +110.0% (   1) | held   +0.0% (   0) | seasons up 1/1
+  all400: road fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: road dog +100..+350, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  BASE: every home fav -150..-101                            n   549   279-270     -8.6% z -2.24 | train  -19.3% ( 144) | held   -4.9% ( 405) | seasons up 1/8
+  BASE: every home dog +100..+350                            n  1374   502-872     +1.9% z +0.51 | train   +8.5% ( 424) | held   -1.0% ( 950) | seasons up 5/8
+  BASE: every road fav -150..-101                            n   500   270-230     -2.6% z -0.65 | train   -5.1% ( 140) | held   -1.7% ( 360) | seasons up 3/8
+  BASE: every road dog +100..+350                            n  1740   604-1136    -3.9% z -1.18 | train   -7.8% ( 470) | held   -2.5% (1270) | seasons up 1/8
+  live: favorites -150..-101 read at 56%+                    n   215   117-98      -6.7% z -1.15 | train   -9.5% (  59) | held   -5.6% ( 156) | seasons up 2/8
+        said 57.6% won 54.4%
+  live: favorites -150..-101 read at under 56%               n   834   432-402     -5.5% z -1.75 | train  -13.0% ( 225) | held   -2.8% ( 609) | seasons up 2/8
+        said 51.3% won 51.8%
+  all80: favorites -150..-101 read at 56%+                   n   152    83-69      -7.8% z -1.13 | train   -3.7% (  44) | held   -9.4% ( 108) | seasons up 2/8
+        said 57.1% won 54.6%
+  all80: favorites -150..-101 read at under 56%              n   897   466-431     -5.4% z -1.78 | train  -13.8% ( 240) | held   -2.4% ( 657) | seasons up 2/8
+        said 51.8% won 52.0%
+
+==== NBA: 10397 games with a close and a walk-forward ratings read (2018-10-17 -> 2026-11-12); today's dials: trust 0.022 move +0.200 cal +0.239 hdog -0.058
+  the LONG-RUN dials (every game, no pull): trust +0.022 (se 0.056)  move_w +0.200 (se 0.123)  cal -0.011 (se 0.031)  hdog -0.017 (se 0.039)
+     to 2021: trust +0.050  move_w +0.000  cal -0.048  hdog -0.043  (n 4945)
+     2022 on: trust -0.011  move_w +0.160  cal +0.024  hdog +0.005  (n 5452)
+  the honest test on 9497 games:
+    live    logloss 0.60211 (+0.00160 vs the close, z +3.2) | dials mean (sd): trust +0.078 (0.089)  move +0.049 (0.124)  cal -0.016 (0.091)  hdog -0.033 (0.099) | last fit: +0.000 +0.292 +0.172 -0.005
+    all8    logloss 0.60088 (+0.00037 vs the close, z +1.6) | dials mean (sd): trust +0.027 (0.019)  move +0.057 (0.074)  cal -0.030 (0.023)  hdog +0.004 (0.049) | last fit: +0.016 +0.181 -0.014 -0.015
+    all80   logloss 0.60073 (+0.00022 vs the close, z +1.3) | dials mean (sd): trust +0.019 (0.013)  move +0.021 (0.029)  cal -0.028 (0.019)  hdog -0.001 (0.028) | last fit: +0.007 +0.092 -0.012 -0.014
+    all400  logloss 0.60063 (+0.00012 vs the close, z +1.1) | dials mean (sd): trust +0.011 (0.007)  move +0.006 (0.009)  cal -0.020 (0.012)  hdog -0.000 (0.012) | last fit: +0.001 +0.029 -0.008 -0.010
+    win400  logloss 0.60056 (+0.00005 vs the close, z +0.5) | dials mean (sd): trust +0.006 (0.008)  move +0.003 (0.006)  cal -0.004 (0.022)  hdog -0.003 (0.015) | last fit: +0.000 +0.016 +0.050 -0.016
+    market  logloss 0.60051
+  live: home fav -150..-101, own read OVER the price         n    77    33-44     -20.6% z -1.95 | train  -22.3% (  33) | held  -19.3% (  44) | seasons up 2/9
+  live: home dog +100..+350, own read OVER the price         n   856   291-565     -3.6% z -0.76 | train   +0.5% ( 397) | held   -7.2% ( 459) | seasons up 3/9
+  live: road fav -150..-101, own read OVER the price         n   253   130-123     -8.7% z -1.54 | train   -5.9% ( 101) | held  -10.5% ( 152) | seasons up 2/7
+  live: road dog +100..+350, own read OVER the price         n   878   277-601     +0.2% z +0.04 | train  +10.8% ( 542) | held  -16.9% ( 336) | seasons up 3/7
+  all8: home fav -150..-101, own read OVER the price         n    12     4-8      -34.8% z -1.25 | train  -34.8% (  12) | held   +0.0% (   0) | seasons up 0/2
+  all8: home dog +100..+350, own read OVER the price         n   525   175-350     -1.9% z -0.30 | train   -1.4% ( 490) | held   -9.2% (  35) | seasons up 4/7
+  all8: road fav -150..-101, own read OVER the price         n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all8: road dog +100..+350, own read OVER the price         n   350    92-258     +0.9% z +0.10 | train  +10.6% ( 184) | held   -9.9% ( 166) | seasons up 4/7
+  all80: home fav -150..-101, own read OVER the price        n     3     1-2      -34.3% z -0.52 | train  -34.3% (   3) | held   +0.0% (   0) | seasons up 1/2
+  all80: home dog +100..+350, own read OVER the price        n   326   105-221     +1.2% z +0.14 | train   +0.8% ( 300) | held   +6.1% (  26) | seasons up 3/6
+  all80: road fav -150..-101, own read OVER the price        n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all80: road dog +100..+350, own read OVER the price        n   217    54-163     -1.8% z -0.16 | train  +14.1% ( 115) | held  -19.8% ( 102) | seasons up 1/6
+  all400: home fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: home dog +100..+350, own read OVER the price       n    44    15-29     +32.0% z +1.14 | train  +41.7% (  41) | held -100.0% (   3) | seasons up 1/3
+  all400: road fav -150..-101, own read OVER the price       n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  all400: road dog +100..+350, own read OVER the price       n    12     2-10     -25.0% z -0.49 | train  -10.0% (   5) | held  -35.7% (   7) | seasons up 1/4
+  BASE: every home fav -150..-101                            n  1404   718-686     -8.1% z -3.38 | train   -8.8% ( 629) | held   -7.5% ( 775) | seasons up 0/9
+  BASE: every home dog +100..+350                            n  2885  1047-1838    -4.6% z -1.89 | train   -5.0% (1277) | held   -4.3% (1608) | seasons up 5/9
+  BASE: every road fav -150..-101                            n  1305   712-593     -1.5% z -0.60 | train   +1.1% ( 578) | held   -3.6% ( 727) | seasons up 4/9
+  BASE: every road dog +100..+350                            n  4285  1501-2784    -3.3% z -1.59 | train   -0.1% (1857) | held   -5.8% (2428) | seasons up 2/9
+  live: favorites -150..-101 read at 56%+                    n   670   354-316     -9.5% z -2.86 | train   -7.3% ( 312) | held  -11.4% ( 358) | seasons up 0/9
+        said 57.7% won 52.8%
+  live: favorites -150..-101 read at under 56%               n  2039  1076-963     -3.4% z -1.70 | train   -2.9% ( 895) | held   -3.8% (1144) | seasons up 1/9
+        said 51.9% won 52.8%
+  all80: favorites -150..-101 read at 56%+                   n   506   273-233     -9.0% z -2.41 | train  -14.3% ( 224) | held   -4.9% ( 282) | seasons up 1/9
+        said 56.9% won 54.0%
+  all80: favorites -150..-101 read at under 56%              n  2203  1157-1046    -4.0% z -2.05 | train   -1.7% ( 983) | held   -5.8% (1220) | seasons up 1/9
+        said 52.3% won 52.5%
+
+==== NCAAB: 30288 games with a close and a walk-forward ratings read (2018-11-06 -> 2026-11-12); today's dials: trust 0.000 move -0.246 cal +0.103 hdog +0.235
+  the LONG-RUN dials (every game, no pull): trust +0.043 (se 0.028)  move_w -0.157 (se 0.096)  cal +0.147 (se 0.015)  hdog +0.060 (se 0.027)
+     to 2021: trust +0.076  move_w +0.000  cal +0.139  hdog +0.051  (n 13746)
+     2022 on: trust +0.016  move_w -0.176  cal +0.153  hdog +0.065  (n 16542)
+  the honest test on 29388 games:
+    live    logloss 0.52809 (-0.00033 vs the close, z -0.8) | dials mean (sd): trust +0.084 (0.109)  move -0.033 (0.103)  cal +0.142 (0.082)  hdog +0.054 (0.121) | last fit: +0.000 -0.217 +0.081 +0.152
+    all8    logloss 0.52715 (-0.00127 vs the close, z -4.1) | dials mean (sd): trust +0.052 (0.030)  move -0.051 (0.067)  cal +0.143 (0.013)  hdog +0.061 (0.031) | last fit: +0.045 -0.134 +0.146 +0.056
+    all80   logloss 0.52706 (-0.00137 vs the close, z -4.7) | dials mean (sd): trust +0.048 (0.028)  move -0.023 (0.032)  cal +0.133 (0.012)  hdog +0.048 (0.014) | last fit: +0.045 -0.081 +0.142 +0.053
+    all400  logloss 0.52708 (-0.00134 vs the close, z -5.6) | dials mean (sd): trust +0.035 (0.022)  move -0.007 (0.010)  cal +0.110 (0.021)  hdog +0.028 (0.012) | last fit: +0.038 -0.030 +0.130 +0.041
+    win400  logloss 0.52778 (-0.00065 vs the close, z -6.7) | dials mean (sd): trust +0.008 (0.013)  move -0.001 (0.004)  cal +0.036 (0.020)  hdog +0.000 (0.014) | last fit: +0.000 -0.008 +0.017 +0.013
+    market  logloss 0.52842
+  live: home fav -150..-101, own read OVER the price         n   480   273-207     +3.0% z +0.72 | train   +2.1% ( 188) | held   +3.5% ( 292) | seasons up 6/9
+  live: home dog +100..+350, own read OVER the price         n  1575   643-932     -0.4% z -0.11 | train   -0.2% ( 705) | held   -0.4% ( 870) | seasons up 5/9
+  live: road fav -150..-101, own read OVER the price         n   382   201-181     -6.6% z -1.46 | train   -8.1% ( 133) | held   -5.9% ( 249) | seasons up 3/9
+  live: road dog +100..+350, own read OVER the price         n   275    85-190    -15.2% z -1.92 | train  -42.4% (  81) | held   -3.9% ( 194) | seasons up 2/8
+  all8: home fav -150..-101, own read OVER the price         n   121    66-55      +0.4% z +0.05 | train   +8.9% (  28) | held   -2.2% (  93) | seasons up 3/7
+  all8: home dog +100..+350, own read OVER the price         n   403   195-208    +11.7% z +2.00 | train   +5.1% ( 252) | held  +22.8% ( 151) | seasons up 6/8
+  all8: road fav -150..-101, own read OVER the price         n     8     2-6      -56.2% z -1.96 | train  -16.4% (   2) | held  -69.4% (   6) | seasons up 0/3
+  all8: road dog +100..+350, own read OVER the price         n    17     4-13     -47.4% z -1.98 | train  -75.9% (  11) | held   +5.0% (   6) | seasons up 2/5
+  all80: home fav -150..-101, own read OVER the price        n    69    33-36     -12.4% z -1.11 | train  +59.4% (   6) | held  -19.2% (  63) | seasons up 2/6
+  all80: home dog +100..+350, own read OVER the price        n   144    79-65     +26.0% z +2.63 | train  +12.6% (  29) | held  +29.4% ( 115) | seasons up 6/8
+  all80: road fav -150..-101, own read OVER the price        n     5     2-3      -29.9% z -0.70 | train  -16.4% (   2) | held  -38.9% (   3) | seasons up 0/3
+  all80: road dog +100..+350, own read OVER the price        n    15     4-11     -40.3% z -1.51 | train  -75.9% (  11) | held  +57.5% (   4) | seasons up 2/5
+  all400: home fav -150..-101, own read OVER the price       n    14     5-9      -35.8% z -1.50 | train  +22.3% (   3) | held  -51.7% (  11) | seasons up 1/5
+  all400: home dog +100..+350, own read OVER the price       n    31    22-9      +69.8% z +3.24 | train +138.1% (  11) | held  +32.3% (  20) | seasons up 6/7
+  all400: road fav -150..-101, own read OVER the price       n     3     1-2      -44.3% z -0.80 | train  -16.4% (   2) | held -100.0% (   1) | seasons up 0/2
+  all400: road dog +100..+350, own read OVER the price       n    12     1-11     -77.9% z -3.53 | train  -75.9% (  11) | held -100.0% (   1) | seasons up 0/3
+  BASE: every home fav -150..-101                            n  3764  2016-1748    -4.0% z -2.76 | train   -5.8% (1653) | held   -2.7% (2111) | seasons up 2/9
+  BASE: every home dog +100..+350                            n  6510  2396-4114    -5.5% z -3.47 | train   -6.9% (2994) | held   -4.4% (3516) | seasons up 1/9
+  BASE: every road fav -150..-101                            n  3251  1710-1541    -5.1% z -3.25 | train   -3.8% (1421) | held   -6.2% (1830) | seasons up 1/9
+  BASE: every road dog +100..+350                            n 12380  4167-8213    -7.4% z -6.07 | train   -7.1% (5515) | held   -7.6% (6865) | seasons up 1/9
+  live: favorites -150..-101 read at 56%+                    n  1887  1057-830     -4.1% z -2.08 | train   -6.5% ( 847) | held   -2.1% (1040) | seasons up 2/9
+        said 58.0% won 56.0%
+  live: favorites -150..-101 read at under 56%               n  5128  2669-2459    -4.7% z -3.69 | train   -4.3% (2227) | held   -5.1% (2901) | seasons up 0/9
+        said 51.6% won 52.0%
+  all80: favorites -150..-101 read at 56%+                   n  1611   929-682     -2.1% z -1.02 | train   -4.4% ( 741) | held   -0.2% ( 870) | seasons up 3/9
+        said 57.5% won 57.7%
+  all80: favorites -150..-101 read at under 56%              n  5404  2797-2607    -5.3% z -4.23 | train   -5.0% (2333) | held   -5.4% (3071) | seasons up 0/9
+        said 52.1% won 51.8%
+
+==== NHL: 10345 games with a close and a walk-forward ratings read (2018-10-03 -> 2026-11-12); today's dials: trust 0.332 move +0.274 cal +0.204 hdog +0.013
+  the LONG-RUN dials (every game, no pull): trust +0.037 (se 0.103)  move_w +0.525 (se 0.209)  cal +0.039 (se 0.049)  hdog -0.009 (se 0.038)
+     to 2021: trust +0.101  move_w +0.000  cal +0.051  hdog -0.063  (n 4620)
+     2022 on: trust +0.020  move_w +0.576  cal +0.031  hdog +0.030  (n 5725)
+  the honest test on 9445 games:
+    live    logloss 0.66219 (+0.00045 vs the close, z +0.9) | dials mean (sd): trust +0.112 (0.131)  move +0.072 (0.133)  cal +0.023 (0.135)  hdog -0.021 (0.131) | last fit: +0.134 +0.086 +0.056 +0.037
+    all8    logloss 0.66180 (+0.00005 vs the close, z +0.2) | dials mean (sd): trust +0.085 (0.071)  move +0.071 (0.127)  cal -0.001 (0.052)  hdog -0.046 (0.031) | last fit: +0.004 +0.317 +0.034 -0.014
+    all80   logloss 0.66178 (+0.00004 vs the close, z +0.2) | dials mean (sd): trust +0.029 (0.022)  move +0.018 (0.033)  cal +0.006 (0.035)  hdog -0.036 (0.029) | last fit: +0.000 +0.096 +0.035 -0.019
+    all400  logloss 0.66174 (-0.00000 vs the close, z -0.0) | dials mean (sd): trust +0.007 (0.006)  move +0.004 (0.008)  cal +0.009 (0.017)  hdog -0.023 (0.019) | last fit: +0.000 +0.024 +0.025 -0.018
+    win400  logloss 0.66167 (-0.00008 vs the close, z -1.0) | dials mean (sd): trust +0.003 (0.005)  move +0.002 (0.004)  cal +0.005 (0.016)  hdog -0.006 (0.020) | last fit: +0.002 +0.002 +0.004 +0.004
+    market  logloss 0.66174
+  live: home fav -150..-101, own read OVER the price         n   147    66-81     -14.1% z -1.78 | train  -10.9% (  27) | held  -14.8% ( 120) | seasons up 3/8
+  live: home dog +100..+350, own read OVER the price         n   754   322-432     -0.1% z -0.02 | train   -3.6% ( 231) | held   +1.4% ( 523) | seasons up 5/7
+  live: road fav -150..-101, own read OVER the price         n   423   233-190     -1.4% z -0.33 | train   -4.4% ( 118) | held   -0.3% ( 305) | seasons up 2/6
+  live: road dog +100..+350, own read OVER the price         n   843   296-547     -6.9% z -1.54 | train   +2.2% ( 383) | held  -14.4% ( 460) | seasons up 1/8
+  all8: home fav -150..-101, own read OVER the price         n     8     2-6      -53.1% z -1.73 | train  -46.4% (   7) | held -100.0% (   1) | seasons up 0/2
+  all8: home dog +100..+350, own read OVER the price         n   195    71-124     -6.7% z -0.75 | train   -8.1% ( 192) | held  +83.0% (   3) | seasons up 3/5
+  all8: road fav -150..-101, own read OVER the price         n   153    81-72      -5.5% z -0.77 | train  -20.7% (   9) | held   -4.6% ( 144) | seasons up 2/6
+  all8: road dog +100..+350, own read OVER the price         n   445   160-285     -3.0% z -0.47 | train   -2.9% ( 440) | held  -10.6% (   5) | seasons up 4/6
+  all80: home fav -150..-101, own read OVER the price        n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  all80: home dog +100..+350, own read OVER the price        n    60    24-36      +7.0% z +0.41 | train   +3.0% (  57) | held  +83.0% (   3) | seasons up 3/4
+  all80: road fav -150..-101, own read OVER the price        n    23    11-12     -14.1% z -0.74 | train   +0.0% (   0) | held  -14.1% (  23) | seasons up 1/4
+  all80: road dog +100..+350, own read OVER the price        n   106    34-72      -5.0% z -0.37 | train   -5.7% ( 102) | held  +11.8% (   4) | seasons up 3/5
+  all400: home fav -150..-101, own read OVER the price       n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  all400: home dog +100..+350, own read OVER the price       n     4     2-2      +37.2% z +0.46 | train -100.0% (   1) | held  +83.0% (   3) | seasons up 2/3
+  all400: road fav -150..-101, own read OVER the price       n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  all400: road dog +100..+350, own read OVER the price       n     5     3-2      +34.4% z +0.63 | train +125.0% (   1) | held  +11.8% (   4) | seasons up 2/3
+  BASE: every home fav -150..-101                            n  3061  1622-1439    -4.6% z -2.80 | train   -3.1% (1261) | held   -5.6% (1800) | seasons up 1/9
+  BASE: every home dog +100..+350                            n  2880  1146-1734    -5.8% z -2.61 | train   -9.4% (1130) | held   -3.4% (1750) | seasons up 3/9
+  BASE: every road fav -150..-101                            n  2524  1366-1158    -1.5% z -0.85 | train   +0.3% ( 973) | held   -2.7% (1551) | seasons up 5/9
+  BASE: every road dog +100..+350                            n  5314  2043-3271    -5.4% z -3.24 | train   -5.7% (2154) | held   -5.2% (3160) | seasons up 4/9
+  live: favorites -150..-101 read at 56%+                    n  1252   741-511     +1.7% z +0.72 | train   -0.7% ( 499) | held   +3.3% ( 753) | seasons up 7/9
+        said 57.8% won 59.2%
+  live: favorites -150..-101 read at under 56%               n  4333  2247-2086    -4.6% z -3.30 | train   -1.9% (1735) | held   -6.4% (2598) | seasons up 1/9
+        said 51.6% won 51.9%
+  all80: favorites -150..-101 read at 56%+                   n  1216   700-516     -2.3% z -0.96 | train   -6.0% ( 408) | held   -0.4% ( 808) | seasons up 4/9
+        said 57.2% won 57.6%
+  all80: favorites -150..-101 read at under 56%              n  4369  2288-2081    -3.4% z -2.47 | train   -0.6% (1826) | held   -5.4% (2543) | seasons up 1/9
+        said 52.0% won 52.4%
+
+==== MLB: 20093 games with a close and a walk-forward ratings read (2018-03-29 -> 2026-10-29); today's dials: trust 0.339 move -0.099 cal +0.275 hdog +0.024
+  the LONG-RUN dials (every game, no pull): trust +0.117 (se 0.068)  move_w -0.050 (se 0.164)  cal +0.012 (se 0.041)  hdog -0.006 (se 0.027)
+     to 2021: trust +0.211  move_w +0.000  cal +0.023  hdog -0.036  (n 9278)
+     2022 on: trust -0.003  move_w -0.085  cal -0.007  hdog +0.021  (n 10815)
+  the honest test on 19193 games:
+    live    logloss 0.67319 (+0.00102 vs the close, z +3.3) | dials mean (sd): trust +0.154 (0.131)  move -0.008 (0.096)  cal +0.004 (0.114)  hdog -0.005 (0.103) | last fit: +0.229 -0.057 +0.224 +0.051
+    all8    logloss 0.67239 (+0.00022 vs the close, z +1.2) | dials mean (sd): trust +0.183 (0.065)  move -0.004 (0.050)  cal +0.014 (0.026)  hdog -0.038 (0.036) | last fit: +0.109 -0.035 +0.009 -0.004
+    all80   logloss 0.67227 (+0.00010 vs the close, z +1.0) | dials mean (sd): trust +0.105 (0.029)  move -0.004 (0.012)  cal +0.005 (0.012)  hdog -0.025 (0.019) | last fit: +0.084 -0.016 +0.003 -0.002
+    all400  logloss 0.67222 (+0.00005 vs the close, z +1.1) | dials mean (sd): trust +0.040 (0.011)  move -0.002 (0.003)  cal -0.001 (0.005)  hdog -0.011 (0.009) | last fit: +0.041 -0.006 -0.003 +0.001
+    win400  logloss 0.67221 (+0.00004 vs the close, z +0.9) | dials mean (sd): trust +0.005 (0.006)  move -0.000 (0.003)  cal -0.002 (0.011)  hdog +0.002 (0.018) | last fit: +0.003 -0.000 +0.011 +0.005
+    market  logloss 0.67217
+  live: home fav -150..-101, own read OVER the price         n   669   354-315     -2.1% z -0.59 | train   +0.3% ( 459) | held   -7.4% ( 210) | seasons up 4/10
+  live: home dog +100..+350, own read OVER the price         n  1663   714-949     +0.3% z +0.11 | train   +4.7% ( 747) | held   -3.2% ( 916) | seasons up 5/10
+  live: road fav -150..-101, own read OVER the price         n   988   543-445     -0.7% z -0.24 | train   +0.5% ( 646) | held   -2.9% ( 342) | seasons up 5/10
+  live: road dog +100..+350, own read OVER the price         n  2022   724-1298    -6.7% z -2.36 | train   -4.6% (1019) | held   -8.8% (1003) | seasons up 2/10
+  all8: home fav -150..-101, own read OVER the price         n   342   194-148     +2.5% z +0.52 | train   +3.4% ( 325) | held  -14.4% (  17) | seasons up 3/9
+  all8: home dog +100..+350, own read OVER the price         n   261   114-147     +6.8% z +0.89 | train   +3.7% ( 215) | held  +21.6% (  46) | seasons up 7/8
+  all8: road fav -150..-101, own read OVER the price         n   763   416-347     -1.2% z -0.36 | train   -0.6% ( 735) | held  -16.0% (  28) | seasons up 3/8
+  all8: road dog +100..+350, own read OVER the price         n  1289   489-800     -2.9% z -0.81 | train   -1.3% (1113) | held  -12.9% ( 176) | seasons up 3/10
+  all80: home fav -150..-101, own read OVER the price        n    70    44-26     +12.3% z +1.18 | train  +14.7% (  67) | held  -41.0% (   3) | seasons up 4/6
+  all80: home dog +100..+350, own read OVER the price        n    60    29-31     +23.3% z +1.35 | train   +7.9% (  38) | held  +49.8% (  22) | seasons up 5/6
+  all80: road fav -150..-101, own read OVER the price        n   457   257-200     +2.0% z +0.46 | train   +2.2% ( 447) | held   -8.6% (  10) | seasons up 4/7
+  all80: road dog +100..+350, own read OVER the price        n   414   149-265     -3.4% z -0.53 | train   +2.4% ( 333) | held  -27.4% (  81) | seasons up 4/10
+  all400: home fav -150..-101, own read OVER the price       n     3     1-2      -36.4% z -0.57 | train  +90.9% (   1) | held -100.0% (   2) | seasons up 1/2
+  all400: home dog +100..+350, own read OVER the price       n     9     6-3      +42.7% z +1.19 | train +118.0% (   1) | held  +33.2% (   8) | seasons up 2/2
+  all400: road fav -150..-101, own read OVER the price       n     9     6-3      +19.2% z +0.64 | train  +19.2% (   9) | held   +0.0% (   0) | seasons up 1/2
+  all400: road dog +100..+350, own read OVER the price       n    25     9-16     -19.2% z -0.86 | train -100.0% (   3) | held   -8.2% (  22) | seasons up 2/4
+  BASE: every home fav -150..-101                            n  7093  3800-3293    -3.2% z -2.94 | train   -0.9% (2767) | held   -4.6% (4326) | seasons up 3/10
+  BASE: every home dog +100..+350                            n  5735  2396-3339    -3.0% z -1.95 | train   -2.6% (2736) | held   -3.4% (2999) | seasons up 1/10
+  BASE: every road fav -150..-101                            n  5606  2969-2637    -3.3% z -2.69 | train   -1.0% (2250) | held   -4.8% (3356) | seasons up 3/10
+  BASE: every road dog +100..+350                            n 10798  4324-6474    -3.4% z -2.89 | train   -4.4% (4844) | held   -2.5% (5954) | seasons up 0/10
+  live: favorites -150..-101 read at 56%+                    n  2556  1440-1116    -3.2% z -1.90 | train   +1.8% (1387) | held   -9.1% (1169) | seasons up 3/10
+        said 57.7% won 56.3%
+  live: favorites -150..-101 read at under 56%               n 10143  5329-4814    -3.2% z -3.51 | train   -2.0% (3630) | held   -3.9% (6513) | seasons up 1/10
+        said 51.8% won 52.5%
+  all80: favorites -150..-101 read at 56%+                   n  2588  1476-1112    -3.0% z -1.83 | train   +0.4% (1307) | held   -6.5% (1281) | seasons up 3/10
+        said 57.2% won 57.0%
+  all80: favorites -150..-101 read at under 56%              n 10111  5293-4818    -3.3% z -3.55 | train   -1.5% (3710) | held   -4.3% (6401) | seasons up 2/10
+        said 52.1% won 52.3%
+
+cells: 174

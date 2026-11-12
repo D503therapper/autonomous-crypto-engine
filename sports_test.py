@@ -22144,6 +22144,126 @@ def test_audit_1112_tomorrows_board_shows_every_pick_not_one_per_kind():
     assert all(t in rest for t in ("DUCKS ML", "PENGUINS ML", "KINGS ML")) and len(re.findall(r'<section class="pk open"', rest)) == 3
 
 
+def test_deep_1112_the_blend_dials_are_fit_on_every_game_with_odds_and_pulled_to_zero():
+    """11/12 FABLE DEEP PROGRAM (A3 / A4): the blend's four dials (trust / the line move / cal / hdog) were re-fit every
+    morning on the LAST 900 games with odds at lam 8, the trust pulled to 0.15 - noise (the NBA's 'cal' sat at +0.24 on
+    11/12: every NBA favorite read 2-4 points over the close; walked forward the live fit lost to the plain close in five
+    leagues). From the 11/13 Pacific day they are fit on EVERY game with odds, priors 0, lam 400."""
+    import sports_model as smod
+    assert smod.BLEND_STABLE_FROM == "2026-11-13" and smod.BLEND_LAM == 400.0
+    assert not smod.blend_stable("2026-11-12") and smod.blend_stable("2026-11-13") and smod.blend_stable("2027-01-05")
+    games, _ = fake_league("nba")
+    old = smod.tune(games, "nba", day="2026-11-12")
+    new = smod.tune(games, "nba", day="2026-11-13")
+    assert old["blend"] == "last900" and new["blend"] == "stable"
+    assert (old["k"], old["hfa"], old["w"]) == (new["k"], new["hfa"], new["w"])       # the ratings side is untouched
+    assert new["odds_games"] >= old["odds_games"]
+    size = lambda p: sum(abs(p[k]) for k in ("trust", "move_w", "cal", "hdog"))      # noqa: E731
+    assert size(new) < size(old) and size(new) < 0.15, (size(old), size(new))        # 675 games can't move four dials
+    assert 0.0 <= new["trust"] <= 1.0
+    # the fit itself: a real, big bias on thousands of games still comes through the pull; the same bias on 300 games doesn't
+    rnd = random.Random(5)
+
+    def rows(n):
+        X, y, off = [], [], []
+        for _ in range(n):
+            m = min(0.9, max(0.1, rnd.gauss(0.5, 0.15)))
+            lm = smod.logit(m)
+            true = smod.sigmoid(1.3 * lm)                                             # favorites win MORE than priced
+            X.append([0.0, 0.0, lm, 0.0]); y.append(1.0 if rnd.random() < true else 0.0); off.append(lm)
+        return X, y, off
+    big = smod.fit_logistic_offset(*rows(12000), prior=[0.0] * 4, lam=smod.BLEND_LAM)
+    small = smod.fit_logistic_offset(*rows(300), prior=[0.0] * 4, lam=smod.BLEND_LAM)
+    assert big[2] > 0.12 and abs(small[2]) < 0.05 and big[2] > 4 * abs(small[2]), (big, small)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_model.py")).read()
+    assert "rows[warm:] if y != 0.5 and market_p(g) is not None" in src and "prior=b_prior, lam=b_lam" in src
+    assert "lam=BLEND_LAM if stable else 4.0" in src                                  # the cover read's big-favorite dial too
+    assert abs(new.get("bfav", 0.0)) <= abs(old.get("bfav", 0.0)) + 1e-12
+
+
+def test_deep_1112_the_college_football_read_is_fit_on_fbs_v_fbs_games():
+    """11/12 FABLE DEEP PROGRAM (A5): the college football ratings read was fit on every game - a fifth of them an FBS
+    team hosting a lower-division school (home won 93.7%) - and learned an extra home edge: on FBS-vs-FBS games it said
+    the home team wins 61.2% and it won 58.7%. From the 11/14 tune its training rows are FBS-vs-FBS only (walk-forward
+    sports_players.fbs_set); every game when the files can't say or too few are left."""
+    import sports_model as smod
+    import sports_players as spl
+    assert smod.NCAAF_FBS_FIT_FROM == "2026-11-14"
+    keep, keep_min = spl.fbs_set, smod.NCAAF_FBS_FIT_MIN
+    rows = [({"start": "2025-10-01T17:00Z", "home": str(i % 10), "away": str(i % 10 + (1 if i % 3 else 50))}, {}, 1.0, 3) for i in range(60)]
+    try:
+        spl.fbs_set = lambda games, start: {str(i) for i in range(20)}
+        smod.NCAAF_FBS_FIT_MIN = 10
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-13") is rows                    # before the date: every game
+        kept = smod.ncaaf_fbs_rows({}, rows, "2026-11-14")
+        assert len(kept) == 40 and all(int(r[0]["away"]) < 20 for r in kept)          # the lower-division games are out
+        smod.NCAAF_FBS_FIT_MIN = 41
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # too few left: every game
+        smod.NCAAF_FBS_FIT_MIN = 10
+        spl.fbs_set = lambda games, start: None
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # the files can't say: every game
+
+        def boom(games, start):
+            raise RuntimeError("no files")
+        spl.fbs_set = boom
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # never blocks the tune
+    finally:
+        spl.fbs_set, smod.NCAAF_FBS_FIT_MIN = keep, keep_min
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_model.py")).read()
+    assert 'if league == "ncaaf":' in src and "train = ncaaf_fbs_rows(games, train, day)" in src
+
+
+def test_deep_1112_the_absence_points_come_off_the_ratings_share_of_the_own_read_only():
+    """11/12 FABLE DEEP PROGRAM (A8 / A9): the absence points (NBA top scorer -9 ...) were measured against a ratings
+    read that didn't know who was out; the own read is now the books' price, which does - the points came off twice and
+    the side across read 'own read over the price' for free (NBA: the close said 60.0%, the engine 69.7%, it won 60.1% on
+    2,210; live NBA dogs riding "their read -9 / -11" 1-5). From 11/13 (college football 11/14) only the blend's trust
+    share comes off; hockey - whose read is the line + rest and whose numbers sit between - is untouched."""
+    assert sports.ABSENCE_SHARE_FROM == {"nba": "2026-11-13", "nfl": "2026-11-13", "ncaaf": "2026-11-14"}
+    assert sports.absence_share("nba", {"trust": 0.02}, "2026-11-12") == 1.0
+    assert sports.absence_share("nba", {"trust": 0.02}, "2026-11-13") == 0.02
+    assert sports.absence_share("nfl", {"trust": 0.3}, "2026-11-16") == 0.3
+    assert sports.absence_share("ncaaf", {"trust": 0.0}, "2026-11-13") == 1.0 and sports.absence_share("ncaaf", {"trust": 0.0}, "2026-11-14") == 0.0
+    assert sports.absence_share("nhl", {"trust": 0.02, "hockey": {"b2b": 0.13}}, "2026-12-01") == 1.0
+    assert sports.absence_share("nhl", {"trust": 0.02}, "2026-12-01") == 1.0 and sports.absence_share("mlb", {"trust": 0.1}, "2026-12-01") == 1.0
+    assert sports.absence_share("nba", None, "2026-11-13") == 0.0 and sports.absence_share("nba", {"trust": 7}, "2026-11-13") == 1.0
+    assert sports.absence_share("nba", {"trust": 0.02}, "") == 1.0                    # no start on the game: the old rule
+    # a fact that no longer moves the read is not a named reason; one that does still is
+    assert sports.absence_reasons("nba", (0.09 * 0.02, ["Stephen Curry"]), 0.0, 0, 0, "Warriors") == []
+    assert sports.absence_reasons("nba", (0.09, ["Stephen Curry"]), 0.0, 0, 0, "Warriors") == \
+        ["opponent missing key players: Stephen Curry (their read -9)"]
+    # through the board: the same NBA game the day before and on the day - the own read of the side across
+    import sports_absences
+    games, _ = fake_league("nba")
+    model = {"params": {"nba": {**sm.tune(games, "nba", day="2026-11-13"), "trust": 0.0, "cal": 0.0, "hdog": 0.0, "move_w": 0.0}}, "log": []}
+    last = max(games.values(), key=lambda g: g["start"])
+    keep = (sports_absences.penalty, sports.early_trust, sports.out_count, sports.waiting_on, sports.hurt)
+    out = {}
+    try:
+        sports_absences.penalty = lambda gm, g, side, inj, skip_qb=False: (0.09, ["Star Man"]) if side == "home" else (0.0, [])
+        sports.early_trust = lambda *a, **k: 1.0
+        sports.out_count = lambda *a, **k: 0
+        sports.waiting_on = lambda *a, **k: []
+        sports.hurt = lambda *a, **k: []
+        for day in ("2026-11-12", "2026-11-13"):
+            g = {**last, "id": "nba:deep", "status": "pre", "home_score": "", "away_score": "", "start": f"{day}T23:30Z",
+                 "ml_home": "-140", "ml_away": "120", "ml_home_open": "-140", "ml_away_open": "120", "stype": "2"}
+            gs = {**games, g["id"]: g}
+            now = datetime.strptime(f"{day}T16:00", "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            cs = [c for c in sports.candidates(gs, model, now, now.astimezone(sports.PT).date(), {"nba": {}})
+                  if c["game_id"] == "nba:deep" and c["market"] == "ml"]
+            out[day] = {c["side"]: c for c in cs}
+    finally:
+        sports_absences.penalty, sports.early_trust, sports.out_count, sports.waiting_on, sports.hurt = keep
+    own = lambda c: (c["edge_own"] + 1) / c["dec"]                                   # noqa: E731
+    before, after = out["2026-11-12"], out["2026-11-13"]
+    assert abs(own(before["away"]) - before["away"]["p_market"] - 0.09) < 0.02, (own(before["away"]), before["away"]["p_market"])
+    assert abs(own(after["away"]) - after["away"]["p_market"]) < 0.02, (own(after["away"]), after["away"]["p_market"])
+    assert any("opponent missing key players: Star Man" in r for r in before["away"]["reasons"])
+    assert not any("Star Man" in str(r) for r in after["away"]["reasons"])
+    assert after["home"].get("absent") == ["Star Man"]                                # the card still knows who's out
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

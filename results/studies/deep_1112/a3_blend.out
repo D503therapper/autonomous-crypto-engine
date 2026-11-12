@@ -1,0 +1,142 @@
+
+==== NFL: 2339 games with a closing moneyline, 2018-09-07 -> 2026-11-10
+  long run, train to 2021  n  1069: cal -0.015 (se 0.092)  hdog +0.008 (se 0.122)
+  long run, blind 2022 on  n  1270: cal +0.068 (se 0.092)  hdog -0.079 (se 0.110)
+  long run, all            n  2339: cal +0.024 (se 0.065)  hdog -0.041 (se 0.082)
+  long run with an open (n 989): move_w +0.069 (se 0.175)  cal -0.009 (se 0.125)  hdog -0.150 (se 0.126)
+  the rolling 900-game move_w: mean +0.009, sd 0.076, min -0.161, max +0.115 over 10 re-fits
+  the rolling 900-game cal   : mean +0.021, sd 0.066, min -0.080, max +0.165 over 10 re-fits
+  the rolling 900-game hdog  : mean -0.042, sd 0.037, min -0.102, max +0.013 over 10 re-fits
+  the honest test on 1439 games (each priced by knobs fit only on earlier games):
+    market                                 logloss 0.61234 (+0.00000 vs the close, z +0.0) | home dog: n   540 said 36.0 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 59.9 mkt 59.9 won 62.6
+    live (last 900, lam 8)                 logloss 0.61422 (+0.00188 vs the close, z +1.9) | home dog: n   540 said 34.8 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 60.0 mkt 59.9 won 62.6
+    last 900, lam 80                       logloss 0.61317 (+0.00083 vs the close, z +1.4) | home dog: n   540 said 35.2 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 60.0 mkt 59.9 won 62.6
+    last 900, lam 400                      logloss 0.61260 (+0.00025 vs the close, z +1.1) | home dog: n   540 said 35.7 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 60.0 mkt 59.9 won 62.6
+    every earlier game, lam 8              logloss 0.61317 (+0.00083 vs the close, z +1.2) | home dog: n   540 said 35.7 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 60.0 mkt 59.9 won 62.6
+    cal + hdog only, every earlier game    logloss 0.61287 (+0.00053 vs the close, z +1.5) | home dog: n   540 said 35.8 mkt 36.0 won 34.6 | home fav 55-65%: n   321 said 60.0 mkt 59.9 won 62.6
+  live (last 900, lam 8): home fav -150..-101 the blend has OVER its price n     2     1-1      -14.3% z -0.17 | train   +0.0% (   0) | held  -14.3% (   2) | seasons up 1/2
+  live (last 900, lam 8): home dog +100..+350 the blend has OVER its price n    17     4-13     -33.1% z -1.09 | train   +0.0% (   0) | held  -33.1% (  17) | seasons up 0/2
+  live (last 900, lam 8): road fav -150..-101 the blend has OVER its price n    32    15-17     -18.5% z -1.18 | train   +0.0% (   0) | held  -18.5% (  32) | seasons up 0/2
+  live (last 900, lam 8): road dog +100..+350 the blend has OVER its price n    45     7-38     -50.0% z -2.78 | train   +0.0% (   0) | held  -50.0% (  45) | seasons up 0/4
+  every earlier game, lam 8: home fav -150..-101 the blend has OVER its price n     3     2-1      +13.5% z +0.24 | train   +0.0% (   0) | held  +13.5% (   3) | seasons up 1/2
+  every earlier game, lam 8: home dog +100..+350 the blend has OVER its price n    30     8-22     -23.6% z -0.99 | train   +0.0% (   0) | held  -23.6% (  30) | seasons up 0/3
+  every earlier game, lam 8: road fav -150..-101 the blend has OVER its price n    10     4-6      -32.1% z -1.16 | train   +0.0% (   0) | held  -32.1% (  10) | seasons up 0/2
+  every earlier game, lam 8: road dog +100..+350 the blend has OVER its price n    23     5-18     -26.3% z -0.86 | train   +0.0% (   0) | held  -26.3% (  23) | seasons up 0/3
+  BASE: every home fav -150..-101                            n   211   112-99      -5.3% z -0.85 | train  -22.9% (  21) | held   -3.3% ( 190) | seasons up 2/6
+  BASE: every home dog +100..+350                            n   476   165-311     -9.8% z -1.66 | train   +8.3% (  47) | held  -11.8% ( 429) | seasons up 2/6
+  BASE: every road fav -150..-101                            n   199   105-94      -5.1% z -0.80 | train   -5.9% (  21) | held   -5.0% ( 178) | seasons up 0/6
+  BASE: every road dog +100..+350                            n   707   249-458     -2.8% z -0.54 | train  +15.6% (  78) | held   -5.1% ( 629) | seasons up 2/6
+
+==== NCAAF: 6457 games with a closing moneyline, 2018-08-25 -> 2026-11-12
+  long run, train to 2021  n  2545: cal +0.102 (se 0.050)  hdog +0.187 (se 0.088)
+  long run, blind 2022 on  n  3912: cal +0.091 (se 0.041)  hdog +0.086 (se 0.070)
+  long run, all            n  6457: cal +0.095 (se 0.032)  hdog +0.126 (se 0.055)
+  long run with an open (n 3132): move_w -0.049 (se 0.136)  cal +0.100 (se 0.046)  hdog +0.090 (se 0.078)
+  the rolling 900-game move_w: mean -0.010, sd 0.074, min -0.218, max +0.146 over 38 re-fits
+  the rolling 900-game cal   : mean +0.094, sd 0.053, min -0.007, max +0.196 over 38 re-fits
+  the rolling 900-game hdog  : mean +0.105, sd 0.106, min -0.097, max +0.316 over 38 re-fits
+  the honest test on 5557 games (each priced by knobs fit only on earlier games):
+    market                                 logloss 0.50366 (+0.00000 vs the close, z +0.0) | home dog: n  1888 said 29.3 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 59.8 mkt 59.8 won 58.3
+    live (last 900, lam 8)                 logloss 0.50430 (+0.00064 vs the close, z +0.9) | home dog: n  1888 said 30.0 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 60.7 mkt 59.8 won 58.3
+    last 900, lam 80                       logloss 0.50374 (+0.00009 vs the close, z +0.2) | home dog: n  1888 said 29.2 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 60.4 mkt 59.8 won 58.3
+    last 900, lam 400                      logloss 0.50362 (-0.00004 vs the close, z -0.3) | home dog: n  1888 said 29.1 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 60.0 mkt 59.8 won 58.3
+    every earlier game, lam 8              logloss 0.50362 (-0.00004 vs the close, z -0.1) | home dog: n  1888 said 30.8 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 60.8 mkt 59.8 won 58.3
+    cal + hdog only, every earlier game    logloss 0.50351 (-0.00015 vs the close, z -0.2) | home dog: n  1888 said 30.8 mkt 29.3 won 30.1 | home fav 55-65%: n   684 said 60.8 mkt 59.8 won 58.3
+  live (last 900, lam 8): home fav -150..-101 the blend has OVER its price n    39    17-22     -17.1% z -1.12 | train  -55.3% (  13) | held   +2.0% (  26) | seasons up 2/7
+  live (last 900, lam 8): home dog +100..+350 the blend has OVER its price n   507   193-314     +1.8% z +0.30 | train   +9.9% ( 256) | held   -6.6% ( 251) | seasons up 4/7
+  live (last 900, lam 8): road fav -150..-101 the blend has OVER its price n    10     4-6      -30.4% z -1.07 | train   +0.0% (   0) | held  -30.4% (  10) | seasons up 0/2
+  live (last 900, lam 8): road dog +100..+350 the blend has OVER its price n     3     2-1      +58.0% z +0.72 | train   +0.0% (   0) | held  +58.0% (   3) | seasons up 2/2
+  every earlier game, lam 8: home fav -150..-101 the blend has OVER its price n    83    38-45     -11.3% z -1.06 | train  -51.7% (  24) | held   +5.1% (  59) | seasons up 3/8
+  every earlier game, lam 8: home dog +100..+350 the blend has OVER its price n   826   315-511     -2.9% z -0.67 | train  +10.8% ( 342) | held  -12.7% ( 484) | seasons up 4/8
+  every earlier game, lam 8: road fav -150..-101 the blend has OVER its price n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  every earlier game, lam 8: road dog +100..+350 the blend has OVER its price n     0     0-0       +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | seasons up 0/0
+  BASE: every home fav -150..-101                            n   549   279-270     -8.6% z -2.24 | train  -19.3% ( 144) | held   -4.9% ( 405) | seasons up 1/8
+  BASE: every home dog +100..+350                            n  1374   502-872     +1.9% z +0.51 | train   +8.5% ( 424) | held   -1.0% ( 950) | seasons up 5/8
+  BASE: every road fav -150..-101                            n   500   270-230     -2.6% z -0.65 | train   -5.1% ( 140) | held   -1.7% ( 360) | seasons up 3/8
+  BASE: every road dog +100..+350                            n  1740   604-1136    -3.9% z -1.18 | train   -7.8% ( 470) | held   -2.5% (1270) | seasons up 1/8
+
+==== NBA: 10978 games with a closing moneyline, 2018-09-28 -> 2026-11-12
+  long run, train to 2021  n  5194: cal -0.067 (se 0.040)  hdog -0.040 (se 0.054)
+  long run, blind 2022 on  n  5784: cal +0.031 (se 0.039)  hdog +0.008 (se 0.052)
+  long run, all            n 10978: cal -0.016 (se 0.028)  hdog -0.015 (se 0.037)
+  long run with an open (n 4398): move_w +0.163 (se 0.119)  cal +0.047 (se 0.046)  hdog +0.005 (se 0.061)
+  the rolling 900-game move_w: mean +0.050, sd 0.116, min -0.135, max +0.550 over 68 re-fits
+  the rolling 900-game cal   : mean -0.028, sd 0.092, min -0.278, max +0.187 over 68 re-fits
+  the rolling 900-game hdog  : mean -0.024, sd 0.099, min -0.237, max +0.180 over 68 re-fits
+  the honest test on 10078 games (each priced by knobs fit only on earlier games):
+    market                                 logloss 0.60403 (+0.00000 vs the close, z +0.0) | home dog: n  3759 said 34.7 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 60.0 mkt 60.0 won 59.9
+    live (last 900, lam 8)                 logloss 0.60511 (+0.00108 vs the close, z +2.4) | home dog: n  3759 said 34.5 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 59.7 mkt 60.0 won 59.9
+    last 900, lam 80                       logloss 0.60437 (+0.00034 vs the close, z +1.3) | home dog: n  3759 said 34.7 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 59.8 mkt 60.0 won 59.9
+    last 900, lam 400                      logloss 0.60408 (+0.00004 vs the close, z +0.4) | home dog: n  3759 said 34.7 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 59.9 mkt 60.0 won 59.9
+    every earlier game, lam 8              logloss 0.60423 (+0.00020 vs the close, z +0.8) | home dog: n  3759 said 35.2 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 59.6 mkt 60.0 won 59.9
+    cal + hdog only, every earlier game    logloss 0.60430 (+0.00027 vs the close, z +1.3) | home dog: n  3759 said 35.3 mkt 34.7 won 34.3 | home fav 55-65%: n  1874 said 59.6 mkt 60.0 won 59.9
+  live (last 900, lam 8): home fav -150..-101 the blend has OVER its price n    43    20-23     -11.5% z -0.79 | train  -50.7% (   4) | held   -7.5% (  39) | seasons up 1/5
+  live (last 900, lam 8): home dog +100..+350 the blend has OVER its price n   873   306-567     -3.7% z -0.81 | train   +7.3% ( 354) | held  -11.3% ( 519) | seasons up 3/7
+  live (last 900, lam 8): road fav -150..-101 the blend has OVER its price n   301   168-133     -1.0% z -0.19 | train   +3.8% ( 134) | held   -4.8% ( 167) | seasons up 5/8
+  live (last 900, lam 8): road dog +100..+350 the blend has OVER its price n   871   255-616     -5.8% z -1.13 | train   +3.4% ( 571) | held  -23.3% ( 300) | seasons up 4/8
+  every earlier game, lam 8: home fav -150..-101 the blend has OVER its price n    16     7-9      -17.6% z -0.73 | train  -41.2% (  10) | held  +21.9% (   6) | seasons up 2/5
+  every earlier game, lam 8: home dog +100..+350 the blend has OVER its price n   525   176-349     +1.1% z +0.16 | train   +3.5% ( 465) | held  -18.2% (  60) | seasons up 4/9
+  every earlier game, lam 8: road fav -150..-101 the blend has OVER its price n    22     9-13     -25.1% z -1.28 | train   +0.0% (   0) | held  -25.1% (  22) | seasons up 1/4
+  every earlier game, lam 8: road dog +100..+350 the blend has OVER its price n   700   189-511     -1.8% z -0.29 | train  +12.6% ( 315) | held  -13.6% ( 385) | seasons up 6/8
+  BASE: every home fav -150..-101                            n  1513   773-740     -8.2% z -3.53 | train   -8.8% ( 666) | held   -7.7% ( 847) | seasons up 0/9
+  BASE: every home dog +100..+350                            n  3050  1110-1940    -4.5% z -1.90 | train   -5.2% (1351) | held   -3.9% (1699) | seasons up 4/9
+  BASE: every road fav -150..-101                            n  1393   762-631     -1.2% z -0.50 | train   +2.3% ( 612) | held   -3.9% ( 781) | seasons up 5/9
+  BASE: every road dog +100..+350                            n  4635  1640-2995    -2.7% z -1.32 | train   +0.0% (2005) | held   -4.7% (2630) | seasons up 1/9
+
+==== NCAAB: 30296 games with a closing moneyline, 2018-11-06 -> 2026-11-12
+  long run, train to 2021  n 13751: cal +0.136 (se 0.023)  hdog +0.064 (se 0.039)
+  long run, blind 2022 on  n 16545: cal +0.147 (se 0.021)  hdog +0.072 (se 0.037)
+  long run, all            n 30296: cal +0.142 (se 0.015)  hdog +0.068 (se 0.027)
+  long run with an open (n 12537): move_w -0.181 (se 0.096)  cal +0.146 (se 0.024)  hdog +0.058 (se 0.042)
+  the rolling 900-game move_w: mean -0.034, sd 0.104, min -0.408, max +0.206 over 196 re-fits
+  the rolling 900-game cal   : mean +0.137, sd 0.086, min -0.030, max +0.397 over 196 re-fits
+  the rolling 900-game hdog  : mean +0.060, sd 0.128, min -0.248, max +0.352 over 196 re-fits
+  the honest test on 29396 games (each priced by knobs fit only on earlier games):
+    market                                 logloss 0.52843 (+0.00000 vs the close, z +0.0) | home dog: n  7386 said 34.1 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 60.0 mkt 60.0 won 61.2
+    live (last 900, lam 8)                 logloss 0.52783 (-0.00060 vs the close, z -1.6) | home dog: n  7386 said 33.8 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 61.3 mkt 60.0 won 61.2
+    last 900, lam 80                       logloss 0.52745 (-0.00098 vs the close, z -4.2) | home dog: n  7386 said 33.4 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 60.9 mkt 60.0 won 61.2
+    last 900, lam 400                      logloss 0.52780 (-0.00063 vs the close, z -6.6) | home dog: n  7386 said 33.7 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 60.4 mkt 60.0 won 61.2
+    every earlier game, lam 8              logloss 0.52713 (-0.00130 vs the close, z -4.3) | home dog: n  7386 said 34.0 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 61.3 mkt 60.0 won 61.2
+    cal + hdog only, every earlier game    logloss 0.52716 (-0.00127 vs the close, z -4.2) | home dog: n  7386 said 33.9 mkt 34.1 won 33.7 | home fav 55-65%: n  4889 said 61.4 mkt 60.0 won 61.2
+  live (last 900, lam 8): home fav -150..-101 the blend has OVER its price n   230   119-111     -3.0% z -0.48 | train   -5.3% (  88) | held   -1.6% ( 142) | seasons up 5/9
+  live (last 900, lam 8): home dog +100..+350 the blend has OVER its price n  1463   597-866     -0.6% z -0.19 | train   -1.2% ( 619) | held   -0.2% ( 844) | seasons up 4/9
+  live (last 900, lam 8): road fav -150..-101 the blend has OVER its price n   354   205-149     +2.5% z +0.54 | train   +8.6% ( 111) | held   -0.3% ( 243) | seasons up 3/8
+  live (last 900, lam 8): road dog +100..+350 the blend has OVER its price n    45    12-33     -26.2% z -1.37 | train  -75.9% (  11) | held  -10.1% (  34) | seasons up 2/5
+  every earlier game, lam 8: home fav -150..-101 the blend has OVER its price n    44    26-18     +12.0% z +0.84 | train  +20.3% (  21) | held   +4.4% (  23) | seasons up 4/6
+  every earlier game, lam 8: home dog +100..+350 the blend has OVER its price n   352   165-187    +10.8% z +1.67 | train   +5.7% ( 249) | held  +23.1% ( 103) | seasons up 6/7
+  every earlier game, lam 8: road fav -150..-101 the blend has OVER its price n     5     2-3      -31.2% z -0.74 | train  -16.4% (   2) | held  -41.0% (   3) | seasons up 1/3
+  every earlier game, lam 8: road dog +100..+350 the blend has OVER its price n    16     4-12     -40.4% z -1.51 | train  -75.9% (  11) | held  +37.8% (   5) | seasons up 2/5
+  BASE: every home fav -150..-101                            n  3764  2016-1748    -4.0% z -2.76 | train   -5.8% (1653) | held   -2.7% (2111) | seasons up 2/9
+  BASE: every home dog +100..+350                            n  6509  2396-4113    -5.5% z -3.47 | train   -6.9% (2994) | held   -4.3% (3515) | seasons up 1/9
+  BASE: every road fav -150..-101                            n  3251  1710-1541    -5.1% z -3.25 | train   -3.8% (1421) | held   -6.2% (1830) | seasons up 1/9
+  BASE: every road dog +100..+350                            n 12382  4168-8214    -7.4% z -6.07 | train   -7.1% (5517) | held   -7.6% (6865) | seasons up 1/9
+
+==== NHL: 11073 games with a closing moneyline, 2018-09-17 -> 2026-11-12
+  long run, train to 2021  n  4887: cal +0.041 (se 0.071)  hdog -0.052 (se 0.056)
+  long run, blind 2022 on  n  6186: cal +0.076 (se 0.061)  hdog +0.004 (se 0.048)
+  long run, all            n 11073: cal +0.061 (se 0.046)  hdog -0.020 (se 0.037)
+  long run with an open (n 4769): move_w +0.363 (se 0.188)  cal +0.067 (se 0.075)  hdog +0.079 (se 0.056)
+  the rolling 900-game move_w: mean +0.047, sd 0.116, min -0.173, max +0.405 over 68 re-fits
+  the rolling 900-game cal   : mean +0.029, sd 0.133, min -0.239, max +0.326 over 68 re-fits
+  the rolling 900-game hdog  : mean -0.018, sd 0.121, min -0.279, max +0.280 over 68 re-fits
+  the honest test on 10173 games (each priced by knobs fit only on earlier games):
+    market                                 logloss 0.66063 (+0.00000 vs the close, z +0.0) | home dog: n  3471 said 41.9 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.6 mkt 59.6 won 59.5
+    live (last 900, lam 8)                 logloss 0.66113 (+0.00050 vs the close, z +1.1) | home dog: n  3471 said 41.1 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.8 mkt 59.6 won 59.5
+    last 900, lam 80                       logloss 0.66057 (-0.00006 vs the close, z -0.3) | home dog: n  3471 said 41.4 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.7 mkt 59.6 won 59.5
+    last 900, lam 400                      logloss 0.66055 (-0.00008 vs the close, z -1.1) | home dog: n  3471 said 41.7 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.6 mkt 59.6 won 59.5
+    every earlier game, lam 8              logloss 0.66076 (+0.00013 vs the close, z +0.6) | home dog: n  3471 said 40.9 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.6 mkt 59.6 won 59.5
+    cal + hdog only, every earlier game    logloss 0.66079 (+0.00016 vs the close, z +0.8) | home dog: n  3471 said 41.0 mkt 41.9 won 40.9 | home fav 55-65%: n  3310 said 59.5 mkt 59.6 won 59.5
+  live (last 900, lam 8): home fav -150..-101 the blend has OVER its price n    95    46-49      -9.2% z -0.95 | train  -24.7% (  10) | held   -7.4% (  85) | seasons up 0/4
+  live (last 900, lam 8): home dog +100..+350 the blend has OVER its price n   633   268-365     -0.8% z -0.17 | train   -2.3% ( 210) | held   -0.0% ( 423) | seasons up 2/7
+  live (last 900, lam 8): road fav -150..-101 the blend has OVER its price n   445   242-203     -2.6% z -0.61 | train   +0.5% ( 136) | held   -3.9% ( 309) | seasons up 2/8
+  live (last 900, lam 8): road dog +100..+350 the blend has OVER its price n   645   207-438    -11.0% z -2.11 | train   -4.5% ( 313) | held  -17.0% ( 332) | seasons up 1/8
+  every earlier game, lam 8: home fav -150..-101 the blend has OVER its price n     1     0-1     -100.0% z +0.00 | train   +0.0% (   0) | held -100.0% (   1) | seasons up 0/1
+  every earlier game, lam 8: home dog +100..+350 the blend has OVER its price n   113    46-67     +11.3% z +0.87 | train   +8.2% ( 109) | held  +96.2% (   4) | seasons up 4/5
+  every earlier game, lam 8: road fav -150..-101 the blend has OVER its price n    22     8-14     -33.8% z -1.76 | train   -4.5% (   2) | held  -36.7% (  20) | seasons up 2/7
+  every earlier game, lam 8: road dog +100..+350 the blend has OVER its price n   530   176-354     -6.1% z -1.03 | train   -6.0% ( 525) | held  -10.6% (   5) | seasons up 2/5
+  BASE: every home fav -150..-101                            n  3268  1732-1536    -4.6% z -2.92 | train   -3.4% (1363) | held   -5.5% (1905) | seasons up 2/9
+  BASE: every home dog +100..+350                            n  2991  1193-1798    -5.8% z -2.69 | train   -8.9% (1166) | held   -3.8% (1825) | seasons up 2/9
+  BASE: every road fav -150..-101                            n  2659  1431-1228    -2.0% z -1.15 | train   +0.5% (1031) | held   -3.7% (1628) | seasons up 3/9
+  BASE: every road dog +100..+350                            n  5852  2233-3619    -5.8% z -3.64 | train   -6.5% (2355) | held   -5.4% (3497) | seasons up 3/9
+
+cells: 105

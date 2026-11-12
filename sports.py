@@ -252,7 +252,7 @@ def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
     ever a named reason. A fact the read counts FOR the side is its reason; the card names who's out."""
     out = []
     pts, who = absent_opp if absent_opp else (0.0, [])
-    if pts and who:
+    if round(pts * 100) >= 1 and who:                 # (11/12: a fact that no longer moves the read is not its reason)
         out.append(f"opponent missing key players: {', '.join(str(w) for w in who[:3])} (their read -{round(pts * 100):g})")
     if depth_opp:
         out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
@@ -396,6 +396,33 @@ def out_count(g, side, injuries):
         rows = [r for r in sd._team_rows(inj, g[side], g[side + "_name"])   # on injured reserve is a fresh hole too
                 if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT) and sports_absences.match(r[0], reg)]
     return len(rows)
+
+
+ABSENCE_SHARE_FROM = {"nba": "2026-11-13", "nfl": "2026-11-13", "ncaaf": "2026-11-14"}   # 🚑 11/12 FABLE DEEP PROGRAM (A8 / A9):
+#   THE ABSENCE POINTS WERE COMING OFF TWICE. sports_absences.penalty's numbers (NBA top scorer -9 / two of the top three
+#   -11, NFL QB -8 / RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5) were measured 10/2 against a RATINGS read that did
+#   not know who was out. The own read has since become the books' price (the blend's trust is ~0 in every league but
+#   hockey, whose read is the line + rest), and the price KNOWS - so a team missing its top scorer read 9 points under a
+#   close that already had it, and the side ACROSS read 'own read over the price' for free. At the close, every game
+#   where the live rule would take the points (the same key men, walk-forward from the box scores, none of them in
+#   tonight's box): the NBA side across - the close said 60.0%, the engine's own read 69.7%, it won 60.1% on 2,210
+#   (z -9.2 against the engine; as a dog +100..+350 the close 36.6%, the engine 46.2%, won 38.4% on 544; the fresh ones
+#   -5.8% at the close, blind -15.7%); the NFL 57.0% / 62.7% / won 57.7% on 633 (z -2.6); college football 58.2% / 62.0%
+#   / won 58.8% on 893. Live the NBA dogs that rode "their read -9 / -11" went 1-5. From these days the points come off
+#   only the SHARE of the own read that is our ratings (the blend's trust - ~0.02 now); "opponent missing key players"
+#   stops being a named reason when it no longer moves the read (the 🚑 line on the card still names who's out).
+#   HOCKEY IS LEFT AS IT IS: its side across won 56.1% against a close of 53.6% and an engine read of 58.7% on 909 -
+#   between the two (z +1.5 / -1.6), the favorite across +10.7% at the close, the dog across -10.6% - a tracker watch.
+
+
+def absence_share(lg, params, day=""):
+    """🚑 The share of sports_absences.penalty's points this league's OWN read takes on `day` (the game's Pacific day): all
+    of them before ABSENCE_SHARE_FROM, in hockey, and in a league not listed; after it the blend's trust in the ratings
+    (the only part of the own read that doesn't already hold the injury)."""
+    start = ABSENCE_SHARE_FROM.get(lg)
+    if not start or (day or "") < start or (params or {}).get("hockey") is not None:
+        return 1.0
+    return min(1.0, max(0.0, float((params or {}).get("trust") or 0.0)))
 
 
 def raw_absences(games, g, injuries, key_out, absent):
@@ -693,9 +720,12 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5, NHL top scorer -6, NBA top scorer -9; MLB none)
         absent = {s_: sports_absences.penalty(games, g, s_, injuries, skip_qb=bool(key_out[s_])) if injuries else (0.0, [])
                   for s_ in ("home", "away")}
+        absent_raw = raw_absences(games, g, injuries, key_out, absent)   # (10/31: the raw read takes the QB points)
+        ab_share = absence_share(lg, params, pt_day(g))   # 🚑 11/12: the price already has the injury - the points come
+        if ab_share != 1.0:                               # off only the ratings' share of the own read (the raw read above
+            absent = {s_: (v[0] * ab_share, v[1]) for s_, v in absent.items()}   # keeps them all: it IS the ratings)
         if absent["home"][0] or absent["away"][0]:
             ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
-        absent_raw = raw_absences(games, g, injuries, key_out, absent)   # (10/31: the raw read takes the QB points)
         try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
             raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
             raw_h = min(0.99, max(0.01, raw_h - absent_raw["home"][0] + absent_raw["away"][0]))   # plays ride on (10/17)
