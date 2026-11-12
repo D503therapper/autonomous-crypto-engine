@@ -18238,3 +18238,25 @@ error: failed to push some refs to 'https://githu
 [2026-11-12 03:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-12 03:05 UTC] crypto/hold_btc  equity $444.89 (-11.0%) 1 open  market DOWN
    social heat top: BTC 37 (32/0/5), INIT 35 (35/0/0), XRP 29 (29/0/0), SOL 27 (27/0/0), ARB 24 (24/0/0)
+   dex screen: PASS DESSA@solana liq $275,727
+   dex screen: REJECT MAX@solana liq $178,062 - spike-and-fade (6h +142%, 1h -16%)
+   dex screen: REJECT PAPER@base liq $7,929,524 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: REJECT 01@ethereum liq $407,650 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $287,894 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: REJECT PLTRC@base liq $384,309 - pool age unknown
+   dex screen: REJECT SNDKC@base liq $1,833,429 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: REJECT BTC@solana liq $114,925 - lp locked 79% < 95%
+   dex screen: REJECT DACITYCOIN@solana liq $109,520 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: REJECT GDLR@ethereum liq $176,252 - transfer_pausable; is_blacklisted; lp locked 0% < 95%
+   dex screen: REJECT BIG@solana liq $100,308 - top-10 holders 40%; lp holders unknown
+   dex scanner: 3,000 pools (solana 2,258 / base 411 / ethereum 331), refresh cycle 120s (hot 116s), 3121 calls (110 feed, 429s 0, failed 0), 90,329 refreshed (10298 no pair), +76 added / -76 dropped (dead 3, stale 0, cap 73), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-12 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/mover     equity $201.31 (-59.7%) 1 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/social_heat equity $337.03 (-32.6%) 2 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 04:06 UTC] crypto/hold_btc  equity $444.88 (-11.0%) 1 open  market DOWN
+   social heat top: SOL 34 (29/0/4), VVV 32 (32/0/0), BTC 32 (27/0/5), AERO 23 (16/0/7), ONDO 21 (21/0/0)
