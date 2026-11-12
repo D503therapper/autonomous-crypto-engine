@@ -530,6 +530,8 @@ def tags(c, sports):
     #   record + four moneyline LEADS, from the 11/13 Pacific game day)
     t += fifteen_tags(c, sports)                             # 11/12 FABLE: 15 studies - two NHL big-favorite LEADS
     t += deep_tags(c, sports)                                # 11/12 FABLE DEEP PROGRAM: two moneyline LEADS
+    t += money_check_tags(c, sports)                         # 11/12 DAILY: football's re-based money check, both halves
+    t += fourth_down_tags(c, sports)                         # 11/12 DAILY Q6: the college 4th-down coach (LEADS)
     return t + sharp
 
 
@@ -1876,6 +1878,75 @@ def deep_spread_tags(c, sports):
                 t.append(DEEP_CFB_7_LOSS_TAG)
         return t
     except Exception:                                        # noqa: BLE001
+        return []
+
+
+# ---------------- 11/12 DAILY STUDIES: FOOTBALL'S MONEY CHECK (results/studies/daily_1112/mc*) ----------------
+MC_DOG_KEEP_TAG = "football dog the re-based check keeps (own read + its studies over the price)"   # mc4: of the football
+#   dogs +100..+350 today's own-read rule passes, the ones whose close + dog-score STUDY part also beats the real price
+#   (sports.weighed_dog_beats) 59-84 +13.0% on 143 (train +10.5% / held +14.5%, 4 of 4 seasons) - the board's football
+#   Dog now has to be one of these (sports.FOOTBALL_CHECK_FROM). Judge at 50: under -5% = re-check the re-base
+MC_DOG_DROP_TAG = "football dog the re-based check drops (own read over, studies under the price) (fade)"   # the rest:
+#   91-182 -11.8% on 273 (train -8.7% / held -13.2%, 0 of 4 up) - the dogs the old own read waved through
+
+
+def money_check_tags(c, sports):
+    """11/12 DAILY: the re-based football dog check's two halves (tracked; from sports.FOOTBALL_CHECK_FROM)."""
+    try:
+        if c.get("market") != "ml" or c.get("league") not in ("nfl", "ncaaf") or not c.get("dec") \
+                or sports.pt_day(c) < sports.FOOTBALL_CHECK_FROM or c.get("trap") or c.get("edge_own") is None \
+                or not 100 <= (c.get("odds") or 0) <= 350 or c["edge_own"] <= 0:
+            return []
+        return [MC_DOG_KEEP_TAG if sports.weighed_dog_beats(dict(c)) else MC_DOG_DROP_TAG]
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+CF4_FROM = "2026-11-13"     # 11/12 DAILY Q6 (results/studies/daily_1112/qs_box2.py): the tags log from the 11/13 game day
+CF4_DOG_TAG = "college dog +100..+350 whose coach goes for it on 4th down 2+ a game"   # the team box 2021-26, 4th-down
+#   tries a game this season (4+ games): the top third as a dog +9.7% on 647 vs every college dog -2.0% (train +3.8% 2 of
+#   3 up vs -4.6%; held +14.9% on 342, 3 of 3 up - 2026 +20.0% on 116; z 1.7 / ~2.3 vs the base); the matchup version (1+
+#   more a game than the opponent) +12.7% on 259. A LEAD - the board never reads it; judge at 50
+CF4_FAV_TAG = "college favorite -150..-101 whose coach goes for it under 1.45 a game (fade)"   # the bottom third as a
+#   favorite -16.7% on 142 (train -12.3% / held -22.5%, 0 of 3 train up), ATS -8.6% on 1,355 vs -4.7% - the mirror
+CF4_HI, CF4_LO, CF4_MIN_GAMES = 2.0, 1.45, 4
+_TEAMBOX = {}
+
+
+def _fourth_tries(c, side):
+    """4th-down tries a game this season for a college side (team box, finals before tonight; None under 4 games)."""
+    team, rows = _season_before(dict(c, side=side))
+    if not team or not rows:
+        return None
+    if "ncaaf" not in _TEAMBOX:
+        import sports_roster as sr
+        _TEAMBOX["ncaaf"] = {r["gid"]: r["teams"] for r in sr.team_rows("ncaaf") if r.get("teams")}
+    box, tries, n = _TEAMBOX["ncaaf"], 0.0, 0
+    for g in rows:
+        st = (box.get(g.get("id")) or {}).get(team) or {}
+        try:
+            tries += float(str(st["fourthDownEff"]).split("-")[1])
+            n += 1
+        except (KeyError, IndexError, ValueError):
+            continue
+    return tries / n if n >= CF4_MIN_GAMES else None
+
+
+def fourth_down_tags(c, sports):
+    """11/12 DAILY Q6: the college 4th-down coach LEADS (tracked only, from CF4_FROM)."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "ncaaf" or sports.pt_day(c) < CF4_FROM \
+                or c.get("side") not in ("home", "away"):
+            return []
+        o = c.get("odds") or 0
+        if 100 <= o <= 350:
+            x = _fourth_tries(c, c["side"])
+            return [CF4_DOG_TAG] if x is not None and x >= CF4_HI else []
+        if -150 <= o <= -101:
+            x = _fourth_tries(c, c["side"])
+            return [CF4_FAV_TAG] if x is not None and x <= CF4_LO else []
+        return []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 
 
