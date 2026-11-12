@@ -1,5 +1,5 @@
 {
-  "cash": 332.27953242359035,
+  "cash": 178.74000089775865,
   "positions": {
     "NVDA": {
       "qty": 0.7961974080902257,
@@ -9,6 +9,15 @@
       "stop": 0.0,
       "took_profit": false,
       "opened": 1793629800000
+    },
+    "MSFT": {
+      "qty": 0.29227112191728954,
+      "entry": 525.3325423278808,
+      "cost": 153.5395315258317,
+      "peak": 525.3325423278808,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1794493800000
     }
   },
   "peak_equity": 521.814242346566,
@@ -24,5 +33,5 @@
   },
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-11-11"
+  "last_rebalance_week": "2026-11-12"
 }

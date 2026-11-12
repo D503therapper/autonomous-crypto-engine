@@ -252,7 +252,7 @@ def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
     ever a named reason. A fact the read counts FOR the side is its reason; the card names who's out."""
     out = []
     pts, who = absent_opp if absent_opp else (0.0, [])
-    if pts and who:
+    if round(pts * 100) >= 1 and who:                 # (11/12: a fact that no longer moves the read is not its reason)
         out.append(f"opponent missing key players: {', '.join(str(w) for w in who[:3])} (their read -{round(pts * 100):g})")
     if depth_opp:
         out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
@@ -396,6 +396,33 @@ def out_count(g, side, injuries):
         rows = [r for r in sd._team_rows(inj, g[side], g[side + "_name"])   # on injured reserve is a fresh hole too
                 if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT) and sports_absences.match(r[0], reg)]
     return len(rows)
+
+
+ABSENCE_SHARE_FROM = {"nba": "2026-11-13", "nfl": "2026-11-13", "ncaaf": "2026-11-14"}   # 🚑 11/12 FABLE DEEP PROGRAM (A8 / A9):
+#   THE ABSENCE POINTS WERE COMING OFF TWICE. sports_absences.penalty's numbers (NBA top scorer -9 / two of the top three
+#   -11, NFL QB -8 / RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5) were measured 10/2 against a RATINGS read that did
+#   not know who was out. The own read has since become the books' price (the blend's trust is ~0 in every league but
+#   hockey, whose read is the line + rest), and the price KNOWS - so a team missing its top scorer read 9 points under a
+#   close that already had it, and the side ACROSS read 'own read over the price' for free. At the close, every game
+#   where the live rule would take the points (the same key men, walk-forward from the box scores, none of them in
+#   tonight's box): the NBA side across - the close said 60.0%, the engine's own read 69.7%, it won 60.1% on 2,210
+#   (z -9.2 against the engine; as a dog +100..+350 the close 36.6%, the engine 46.2%, won 38.4% on 544; the fresh ones
+#   -5.8% at the close, blind -15.7%); the NFL 57.0% / 62.7% / won 57.7% on 633 (z -2.6); college football 58.2% / 62.0%
+#   / won 58.8% on 893. Live the NBA dogs that rode "their read -9 / -11" went 1-5. From these days the points come off
+#   only the SHARE of the own read that is our ratings (the blend's trust - ~0.02 now); "opponent missing key players"
+#   stops being a named reason when it no longer moves the read (the 🚑 line on the card still names who's out).
+#   HOCKEY IS LEFT AS IT IS: its side across won 56.1% against a close of 53.6% and an engine read of 58.7% on 909 -
+#   between the two (z +1.5 / -1.6), the favorite across +10.7% at the close, the dog across -10.6% - a tracker watch.
+
+
+def absence_share(lg, params, day=""):
+    """🚑 The share of sports_absences.penalty's points this league's OWN read takes on `day` (the game's Pacific day): all
+    of them before ABSENCE_SHARE_FROM, in hockey, and in a league not listed; after it the blend's trust in the ratings
+    (the only part of the own read that doesn't already hold the injury)."""
+    start = ABSENCE_SHARE_FROM.get(lg)
+    if not start or (day or "") < start or (params or {}).get("hockey") is not None:
+        return 1.0
+    return min(1.0, max(0.0, float((params or {}).get("trust") or 0.0)))
 
 
 def raw_absences(games, g, injuries, key_out, absent):
@@ -693,9 +720,12 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5, NHL top scorer -6, NBA top scorer -9; MLB none)
         absent = {s_: sports_absences.penalty(games, g, s_, injuries, skip_qb=bool(key_out[s_])) if injuries else (0.0, [])
                   for s_ in ("home", "away")}
+        absent_raw = raw_absences(games, g, injuries, key_out, absent)   # (10/31: the raw read takes the QB points)
+        ab_share = absence_share(lg, params, pt_day(g))   # 🚑 11/12: the price already has the injury - the points come
+        if ab_share != 1.0:                               # off only the ratings' share of the own read (the raw read above
+            absent = {s_: (v[0] * ab_share, v[1]) for s_, v in absent.items()}   # keeps them all: it IS the ratings)
         if absent["home"][0] or absent["away"][0]:
             ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
-        absent_raw = raw_absences(games, g, injuries, key_out, absent)   # (10/31: the raw read takes the QB points)
         try:                                         # 🔍 the RAW ratings read (no market blend - in college the board's
             raw_h = sm.own_p(params, f)               # own read IS the market, trust 0), absences in - what the 🔍 gap
             raw_h = min(0.99, max(0.01, raw_h - absent_raw["home"][0] + absent_raw["away"][0]))   # plays ride on (10/17)
@@ -888,6 +918,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_race(games, out)                       # 🏀 11/3 KNOWLEDGE (A): Feb-Mar, 5+ back vs a contender (-3 dog)
     mark_ncaab_identity(games, out)                   # 🏀 11/3 KNOWLEDGE (A): turnover margin / offense-first from the box
     mark_ncaab_cbb10(games, out)                      # 🏀 11/12 FABLE: the rusty home side, the league leader on the road
+    mark_deep_1112(games, out)                        # 🧪 11/12 DEEP: the college hoops non-league road favorite (spread rank)
     mark_ncaab_roster_mix(games, out)                 # 🏀 11/3 KNOWLEDGE (A): transfer / freshman minute shares (Feb-Mar rank)
     mark_ncaab_star_back(games, out)                  # 🏀 11/4 EXPERT: the top scorer's 2nd game back (-3 dog / -0.03 / rank)
     mark_ncaab_road_cold(games, out)                  # 🏀 11/4 EXPERT: the road dog 6+ short of its number on the road (-2)
@@ -3369,6 +3400,8 @@ def rank_p(c):
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
             + ncaab_cbb10_spread_w(c)                          # (11/12 FABLE: the rusty home side -0.03 / its visitor +0.02,
             #                                                     the league leader with a cushion on the road -0.03 / +0.03)
+            + deep_1112_spread_w(c)                            # (11/12 DEEP: the hoops non-league road favorite -0.03 /
+            #                                                     the home dog across +0.02; the NFL favorite laying 7.5-9.5 -/+0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -5918,6 +5951,92 @@ def ncaab_cbb10_spread_w(c):
     return w
 
 
+DEEP_1112_FROM = "2026-11-13"      # 🧪 11/12 FABLE DEEP PROGRAM (results/studies/deep_1112): two SPREAD-RANK weights - they
+NCAAB_NONLEAGUE_ROAD_FAV_W = 0.03   # move which side a no-units spread lean takes, never a unit play, never a gate.
+NCAAB_NONLEAGUE_HOME_DOG_W = 0.02   # (1) 🏀 THE NON-LEAGUE ROAD FAVORITE (c1 / c1b): a college hoops team laying points on
+NCAAB_NONLEAGUE_MONTHS = ("11", "12")   # the ROAD outside its league in Nov-Dec covered 45.3% - ATS -13.4% on 1,374 (2018-26:
+#   -18 / -14 / -17 / -8 / -12 / -20 / -14 / -5 / -23, 9 of 9 down; train -13.5% 0 of 4 up, held -12.7% 0 of 4; z -5.2; a
+#   random 1,374 Nov-Dec road sides 0 of 2,000) - laying 0.5-4 -15.2%, 4.5-9.5 -8.0%, 10+ -22.1%, November -11.9%,
+#   December -14.6%, both teams 4+ games in -15.9%, past the built 11/3 small-favorite moneyline fade (laying 4.5+)
+#   -11.3% on 637; the CONTROL - the same road favorite INSIDE its league - is the base (-3.7% Nov-Dec, -4.6% Jan-Mar).
+#   The HOME DOG across covered 54.7%: +4.4% on 1,374 (train +4.5% 3 of 4, held +3.7% 3 of 4, z 1.7) - a nudge, not a
+#   bet. Not in ncaab_spread_stack (the stack keeps the weights it was tested on - re-test with this in at 50 rows).
+NFL_FAV_7_9_W = 0.02                # (2) 🏈 THE NFL FAVORITE LAYING 7.5-9.5 (11/1 WATCH -> 11/11 S5 on 27 seasons: ATS -9.8% on
+NFL_FAV_7_9 = (7.5, 9.5)            # 775, z -2.9, train -8.7% / blind -11.5%, 2 of 12 blind seasons up; b5 on our closes
+#   2018-26: -11.0% on 361, 0 of 9 seasons up; the dog getting them 53.7%). With the cover read's big-favorite dial pulled
+#   to zero (sports_model 11/12) a 7.5-9.5 NFL spread has no read at all - this is the one long-run fact on that number.
+
+
+def mark_deep_1112(games, cands):
+    """🧪 11/12: nl_road_fav on a college hoops ROAD side laying points outside its league in Nov-Dec (never a neutral
+    floor), vs_nl_road_fav on the home dog across - whose spread card gets the fact as a reason. Leagues are the
+    schedule-inferred ones (ncaab_conferences); a team in no league we can see = nothing. From DEEP_1112_FROM."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")
+             and c.get("side") in ("home", "away") and pt_day(c) >= DEEP_1112_FROM]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_knowledge as nk
+    except Exception:                                        # noqa: BLE001
+        return
+    conf, seen = {}, {}
+    for c in hoops:
+        gid = c.get("game_id")
+        if gid not in seen:
+            g = (games or {}).get(gid) or {}
+            start = str(g.get("start") or c.get("start") or "")
+            seen[gid] = None
+            try:
+                line = float(g.get("spread_home"))
+            except (TypeError, ValueError):
+                line = None
+            if line is None or line <= 0 or len(start) < 10 or str(g.get("neutral") or "0") == "1" \
+                    or nk.month_of(start) not in NCAAB_NONLEAGUE_MONTHS or not g.get("home") or not g.get("away"):
+                continue                                     # (the ROAD team lays the points: the home line is +)
+            try:
+                season = nk.season_of(start)
+                if season not in conf:
+                    conf[season] = ncaab_conferences(games, season) or {}
+                ch, ca = conf[season].get(str(g["home"])), conf[season].get(str(g["away"]))
+            except Exception:                                # noqa: BLE001 - unknown leagues = nothing
+                continue
+            if ch and ca and ch[0] != ca[0]:
+                seen[gid] = (g.get("away_name") or "the road team", line)
+        f = seen[gid]
+        if not f:
+            continue
+        if c["side"] == "away":
+            c["nl_road_fav"] = True
+        else:
+            c["vs_nl_road_fav"] = True
+            if c.get("market") == "spread":
+                c["reasons"] = c["reasons"] + [f"{f[0]} are laying {f[1]:g} on the road outside their league - road favorites "
+                                               "in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"]
+
+
+def deep_1112_spread_w(c):
+    """🧪 The 11/12 DEEP PROGRAM rank weights on a SPREAD side (0 on a moneyline / before DEEP_1112_FROM): the college
+    hoops non-league road favorite (-) / the home dog across (+); the NFL favorite laying 7.5-9.5 (-) / its dog (+)."""
+    if c.get("market") != "spread" or pt_day(c) < DEEP_1112_FROM:
+        return 0.0
+    w = 0.0
+    if c.get("league") == "ncaab":
+        if c.get("nl_road_fav"):
+            w -= NCAAB_NONLEAGUE_ROAD_FAV_W
+        elif c.get("vs_nl_road_fav"):
+            w += NCAAB_NONLEAGUE_HOME_DOG_W
+    elif c.get("league") == "nfl":
+        try:
+            line = float(c.get("line"))
+        except (TypeError, ValueError):
+            return w
+        if NFL_FAV_7_9[0] <= -line <= NFL_FAV_7_9[1]:
+            w -= NFL_FAV_7_9_W
+        elif NFL_FAV_7_9[0] <= line <= NFL_FAV_7_9[1]:
+            w += NFL_FAV_7_9_W
+    return w
+
+
 NCAAB_GAP_FROM = "2026-11-04"   # 🔍🏀 THE COLLEGE HOOPS GAP PLAY (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, results/studies/
 NCAAB_GAP_MIN = 0.15            # cbb_dog_expert/): the college football play's exact twin on the EFFICIENCY read
 NCAAB_GAP_GAMES = 4             # (sports_cbb_eff - the 11/3 DEEP verdict: the raw Elo is far worse in hoops, use the
@@ -6580,6 +6699,17 @@ def lean_rank(c):
     return (r if r is not None else c["p"]) + rank_p(c) - c["p"]
 
 
+def lean_read(c):
+    """🧪 11/12 DEEP (B5): the read a lean is judged on. A moneyline: the win % as before. A SPREAD from DEEP_1112_FROM:
+    the cover read WITH its studied rank weights (rank_p) - with the big-favorite dial pulled to zero the bare cover read
+    is 50% on most numbers, and the weights (the hoops fades and the sides across them, the NFL 7.5-9.5 favorite) are the
+    only thing the engine knows about a spread; before, a noise dial picked the side and the weights could only reorder
+    games, never choose one."""
+    if c.get("market") == "spread" and pt_day(c) >= DEEP_1112_FROM:
+        return rank_p(c)
+    return c["p"]
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -6593,9 +6723,10 @@ def viewer_leans(cands, avoid):
             return False                                     # a lean is a WHO-WINS call (no units): a favorite the
             #                                                  engine's own read still has winning 55%+ is a lean even
             #                                                  when the price is a bit high (10/1: two picks on 9 games)
-        if c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005:
+        pr = lean_read(c)                                    # (11/12: a spread = the cover read with its weights)
+        if c["market"] == "spread" and c.get("edge_own") is None and abs(pr - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
-        if c["p"] >= LEAN_PICK_P:
+        if pr >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
         #                                                      underpriced (the owner, 10/1: "we need value plays")
@@ -8307,7 +8438,8 @@ def night_pick(pool):
     pool = [c for c in pool if not fighting(c)] or pool
     if not pool:
         return None
-    c = stick(max(pool, key=lambda c: (c["p"], c["edge"])), pool)   # 📌 (10/5: the Falcons -> Saints flip)
+    c = stick(max(pool, key=lambda c: (lean_read(c), c["edge"])), pool)   # 📌 (10/5: the Falcons -> Saints flip; 11/12:
+    #                                                          a spread side by its cover read WITH its studied weights)
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 

@@ -1373,7 +1373,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     #  The 💸 LINE ALERT on a posted card (sports.py) is a separate warning and stays.)
 
     # who's betting who: the real splits (the same numbers Google shows) - unless the one-liner already said them
-    sp_ = public_split(leg)                               # (10/25: a fact - said unless the one-liner has the number)
+    sp_ = public_split(leg) if PUBLIC_CARD else None     # (10/25: a fact - said unless the one-liner has the number;
+    #                                                      11/12: never on the card - PUBLIC_CARD)
     if sp_ and (f"{sp_[0]}%" in str(leg.get("why_line") or "") or f"{100 - sp_[0]}%" in str(leg.get("why_line") or "")):
         sp_ = None
     mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}.get(leg.get("market"), "the moneyline")
@@ -2222,7 +2223,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         pools.append(S("w_hurt", whyf["opponent missing key players"], "🚑", beat=True))
     if "opponent on a back-to-back" in whyf:
         pools.append(S("w_rest", whyf["opponent on a back-to-back"], "😮‍💨"))
-    if "public fade" in whyf:                             # (the owner, 10/23: "Air Force - they're about to get their
+    if PUBLIC_CARD and "public fade" in whyf:             # (the owner, 10/23: "Air Force - they're about to get their
         pools.append(S("w_public", whyf["public fade"], "📊", beat=True))   # cheeks clapped. Shit like that")
     # ---- the engine's own reasons, each with the fact behind it ----
     for r in rsn:
@@ -2311,6 +2312,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     # ---- standalone facts about us ----
     for key, em in (("last game", "📅"), ("rolling off a blowout win", "🚀"), ("home record", "🏟️"), ("deeper bench", "🏀"),
                     ("public ride", "📊")):
+        if key.startswith("public") and not PUBLIC_CARD:
+            continue                                         # (11/12: no splits on the card)
         if key in whyf and not any(k == "w_" + key.split()[0] for k, _ in pools):
             pools.append(S("w_" + key.split()[0], whyf[key], em, beat=(key == "rolling off a blowout win")))
     # ---- the top fact + the read, the way it used to close (a fact first, always) ----
@@ -2410,6 +2413,11 @@ BENCH_GAP = 3.0        # hoops: our bench this much better than theirs (per 48, 
 REAL_LOSS = {"nhl": 3, "mlb": 4, "nba": 10, "ncaab": 10, "nfl": 10, "ncaaf": 14}   # their last L backs our side only by
 #   this much (10/27: a 2-1 / 5-4 loss is a coin flip, never a reason - the one-liner said "Canadiens beat the Jets 2-1")
 BLOWOUT = 14           # a win / loss by this many is a blowout ("beat the brakes off", "cheeks clapped") - never by 3
+PUBLIC_CARD = False    # the owner, 11/12: "the breakdowns are terrible ... one says 97% the action is on whatever - that's
+#                        absolutely retarded and doesn't tell you anything." The betting splits pick no winners (10/7 study
+#                        dead; 11/11 spreads part 2: following the public loses 4-7%, fading it loses 2-4%, every league)
+#                        and the engine's read never uses them - so no splits line, no "public fade" one-liner, no "public
+#                        ride" fact on any card. The splits stay in the data (the tracker, the sharp-money weight).
 PUBLIC_HEAVY = 70      # the public is "all over" a side at 70%+ of the bets (sports_public.HEAVY) - under that, no line
 SITE_GOOD = 0.75       # a home / road record worth a line: 3+ games, 75%+ won (ours) ...
 SITE_BAD = 0.34        # ... or 34% or less (theirs) - 2-2 says nothing
@@ -2483,7 +2491,7 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
                                 f"{T} are coming off a {sc} beating from {o2}",   # real beating, said about THEM, never
                                 f"last time out {T} took a {sc} L to {o2}",   # with a third team as the subject)
                                 f"{T} got handled {sc} by {o2} last time out"]
-    if pub and pub[0] is not None:                        # the real public split (never a guess from the price)
+    if PUBLIC_CARD and pub and pub[0] is not None:        # the real public split (never a guess from the price; 11/12 off)
         t, mo = pub
         n = 100 - t
         if t <= 100 - PUBLIC_HEAVY:                       # (a dozen wordings, no 4-word run shared between any two - a

@@ -1,0 +1,66 @@
+== nfl (7s)  reaction speed 20.0 / 20.0, home edge 40 / 40
+   trust   live file +0.2250 | old fit +0.2328 -> new fit +0.0217
+   move_w  live file +0.1366 | old fit +0.1532 -> new fit +0.0144
+   cal     live file +0.0252 | old fit +0.0281 -> new fit +0.0162
+   hdog    live file -0.1073 | old fit -0.1072 -> new fit -0.0296
+   games in the blend fit: 898 -> 2128; log loss blend / close: 0.6047 / 0.6073 -> 0.6076 / 0.608
+   blind third: old {'games': 300, 'acc': 0.6633, 'acc_market': 0.6567, 'll': 0.6154, 'll_market': 0.6158}
+                new {'games': 710, 'acc': 0.6803, 'acc_market': 0.6803, 'll': 0.6027, 'll_market': 0.603}
+== ncaaf (26s)  reaction speed 25.0 / 25.0, home edge 60 / 60
+   trust   live file +0.0000 | old fit +0.0000 -> new fit +0.0000
+   move_w  live file +0.1397 | old fit +0.1281 -> new fit -0.0054
+   cal     live file -0.0539 | old fit -0.0583 -> new fit +0.0476
+   hdog    live file +0.0806 | old fit +0.0923 -> new fit +0.0447
+   games in the blend fit: 765 -> 5881; log loss blend / close: 0.5672 / 0.5679 -> 0.4992 / 0.4997
+   blind third: old {'games': 255, 'acc': 0.7333, 'acc_market': 0.7373, 'll': 0.5514, 'll_market': 0.5387}
+                new {'games': 1961, 'acc': 0.7318, 'acc_market': 0.7313, 'll': 0.5255, 'll_market': 0.5258}
+   the ratings read's weights, old -> new:
+      intercept  +0.121 -> -0.061
+      elo        +1.288 -> +1.251
+      form       +0.069 -> +0.081
+      rest       -0.178 -> -0.074
+      b2b        +0.000 -> +0.000
+      inj        -0.178 -> -0.179
+      key        +0.000 -> +0.000
+      revenge    +0.003 -> +0.054
+      letdown    -0.174 -> -0.160
+      bye        -0.163 -> +0.066
+      short      -0.122 -> +0.005
+      intl       -0.310 -> -0.187
+      alt        +0.136 -> +0.100
+      cold       -0.008 -> -0.173
+      weather    +0.009 -> +0.016
+      travel     -0.277 -> +0.118
+   sigma 18.60 -> 16.82; strust 0.0 -> 0.05; bfav +0.0044 -> +0.0228
+== nba (30s)  reaction speed 15.0 / 15.0, home edge 40 / 40
+   trust   live file +0.0218 | old fit +0.0218 -> new fit +0.0228
+   move_w  live file +0.2002 | old fit +0.2002 -> new fit +0.0291
+   cal     live file +0.2389 | old fit +0.2389 -> new fit -0.0035
+   hdog    live file -0.0582 | old fit -0.0582 -> new fit -0.0241
+   games in the blend fit: 900 -> 9763; log loss blend / close: 0.5348 / 0.541 -> 0.5995 / 0.5996
+   blind third: old {'games': 300, 'acc': 0.69, 'acc_market': 0.6933, 'll': 0.5723, 'll_market': 0.5717}
+                new {'games': 3255, 'acc': 0.6876, 'acc_market': 0.6888, 'll': 0.5799, 'll_market': 0.5797}
+== mlb (57s)  reaction speed 3.0 / 3.0, home edge 40 / 40
+   trust   live file +0.3388 | old fit +0.3789 -> new fit +0.0388
+   move_w  live file -0.0990 | old fit -0.0919 -> new fit -0.0065
+   cal     live file +0.2754 | old fit +0.2930 -> new fit -0.0022
+   hdog    live file +0.0241 | old fit +0.0215 -> new fit +0.0099
+   games in the blend fit: 900 -> 17062; log loss blend / close: 0.6664 / 0.6688 -> 0.6727 / 0.6728
+   blind third: old {'games': 300, 'acc': 0.6233, 'acc_market': 0.61, 'll': 0.6547, 'll_market': 0.6569}
+                new {'games': 5688, 'acc': 0.5696, 'acc_market': 0.5696, 'll': 0.6763, 'll_market': 0.6763}
+== nhl (34s)  reaction speed 12.0 / 12.0, home edge 20 / 20
+   trust   live file +0.3321 | old fit +0.3793 -> new fit +0.0195
+   move_w  live file +0.2743 | old fit +0.2789 -> new fit +0.0311
+   cal     live file +0.2044 | old fit +0.2071 -> new fit +0.0332
+   hdog    live file +0.0134 | old fit +0.0104 -> new fit -0.0175
+   games in the blend fit: 900 -> 9690; log loss blend / close: 0.6584 / 0.6619 -> 0.6622 / 0.6623
+   blind third: old {'games': 300, 'acc': 0.6367, 'acc_market': 0.6167, 'll': 0.6389, 'll_market': 0.6421}
+                new {'games': 3230, 'acc': 0.5867, 'acc_market': 0.5858, 'll': 0.6654, 'll_market': 0.6651}
+== ncaab (143s)  reaction speed 22.0 / 22.0, home edge 100 / 100
+   trust   live file +0.0000 | old fit +0.0000 -> new fit +0.0441
+   move_w  live file -0.2458 | old fit -0.2458 -> new fit -0.0325
+   cal     live file +0.1030 | old fit +0.1030 -> new fit +0.1288
+   hdog    live file +0.2347 | old fit +0.2347 -> new fit +0.0360
+   games in the blend fit: 781 -> 29043; log loss blend / close: 0.4508 / 0.4537 -> 0.5263 / 0.5278
+   blind third: old {'games': 261, 'acc': 0.7816, 'acc_market': 0.7854, 'll': 0.3908, 'll_market': 0.3928}
+                new {'games': 9681, 'acc': 0.7305, 'acc_market': 0.7297, 'll': 0.5153, 'll_market': 0.5168}

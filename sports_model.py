@@ -34,6 +34,25 @@ TRUST_CAUTIOUS = 0.15
 TRAIN_GAMES = 8000         # fit the weights on the most recent this many games (the ratings still use all history)
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 TUNE_KEEP = 0.001          # (11/11) the log-loss a new reaction speed / home edge has to beat the standing one by
+BLEND_STABLE_FROM = "2026-11-13"   # 🎚️ 11/12 FABLE DEEP PROGRAM (A3 / A4 - results/studies/deep_1112): THE BLEND'S FOUR DIALS
+BLEND_LAM = 400.0                  # (trust in the ratings read, the line move, 'cal' = favorites / longshots, 'hdog' = the
+#   home dog) were re-fit every morning on the LAST 900 games with odds, lam 8, the trust pulled to 0.15 - and four
+#   dials on 900 games is noise: the NBA's 'cal' swung -0.28..+0.19 over 68 re-fits and sat at +0.24 on 11/12 (every NBA
+#   favorite read 2-4 points OVER the close, every dog under it; favorites the blend had at 56%+ won 52.8% on 670, 0 of
+#   9 seasons up), college football's 'cal' sat at -0.05 against a long-run +0.09 (se 0.03), college hoops' home-dog
+#   dial at +0.23 against +0.06. Walked forward on every close 2018-26 (each game priced by dials fit ONLY on earlier
+#   games), the live fit is WORSE than the plain close in the NFL (z +2.0), college football (+1.9), the NBA (+3.2),
+#   baseball (+3.3) and hockey (+0.9); the same four dials fit on EVERY earlier game, pulled to zero at lam 400, are level
+#   with the close in the pros (z -0.1..+1.1) and BEAT it in college hoops (z -5.6) and college football (-0.9) - where a
+#   real favorite / longshot bias lives (hoops cal +0.147, se 0.015, the same in both halves). From the 11/13 Pacific
+#   day the tune fits them that way; a read then leaves the close only where the long run (or a study weight) says so.
+NCAAF_FBS_FIT_FROM = "2026-11-14"  # 🏈 11/12 (A5): the college football ratings read ('w', and the margin fit 'sw') was fit on
+NCAAF_FBS_FIT_MIN = 1500           # EVERY game - a fifth of them an FBS team hosting a lower-division school (the home side
+#   won 93.7% of 938; the read said 74.5%), which taught it an extra home edge on top of the ratings' own: on FBS-vs-FBS
+#   games it said the home team wins 61.2% and it won 58.7%. Fit on FBS-vs-FBS games only (walk-forward, each August):
+#   59.7% said, log loss 0.5770 -> 0.5722 on the same 4,858 games (z -3.4, both halves). What it does NOT fix: the read
+#   still sits ~9 points over the close on a college HOME DOG and the close is right (its gap to the close knows nothing,
+#   b = -0.06, se 0.07) - no rule may stand on that gap. From the 11/14 games' tune (Saturday's slate).
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
 THIN_AIR_M = 1000   # below ~1000 meters the air is the same for everybody (Chicago's 179m is not an altitude game)
@@ -393,8 +412,43 @@ def _num(x):
 
 
 # ---------------------------------------------------------------- daily tune
-def tune(games, league, prev=None):
-    """Re-pick every setting for one league from its finished games. Returns a params dict."""
+BLEND_STABLE_SKIP = ("nfl", "ncaaf")   # 🏈 FOOTBALL'S FOUR DIALS STAY ON THE OLD FIT - THE OWNER'S CALL (a7, the replay board
+#   on today's code, both arms, 572 held-out board days 2025-04 -> 2026-11): with the dials honest, football's own read is
+#   the close, so "own read over the price" (the owner's 10/18 / 10/23 money check) shuts and the board posts almost no
+#   football unit play - college football 45-32 +27.5% on 77 under the old fit, 3-0 under the new. Everywhere else the
+#   plays the fix drops are break-even or worse (college hoops 67-51 -0.3%, baseball 19-17 -6.9%) and the ones it keeps
+#   win more (college hoops 15-3). In football the old gate was open by accident and the dog score / weighed read behind
+#   it did the picking - re-basing that check is a change to his rule, so football keeps the old fit until he says.
+#   (The cover read's big-favorite dial takes the pull in every league - no unit rides on it.)
+
+
+def blend_stable(day=None, league=None):
+    """🎚️ 11/12: the blend's dials are fit on every game with odds, pulled to zero (BLEND_LAM) - from BLEND_STABLE_FROM,
+    in every league but BLEND_STABLE_SKIP."""
+    return league not in BLEND_STABLE_SKIP and (day or datetime.now(PT).strftime("%Y-%m-%d")) >= BLEND_STABLE_FROM
+
+
+def ncaaf_fbs_rows(games, train, day=None):
+    """🏈 11/12: the college football training rows that are FBS-vs-FBS (sports_players.fbs_set, walk-forward) - the rows
+    as they are before NCAAF_FBS_FIT_FROM, when the files can't say, or when too few are left (a small test slate)."""
+    if (day or datetime.now(PT).strftime("%Y-%m-%d")) < NCAAF_FBS_FIT_FROM:
+        return train
+    try:
+        import sports_players as sp
+        keep = []
+        for r in train:
+            fbs = sp.fbs_set(games, r[0]["start"])
+            if fbs is not None and r[0]["home"] in fbs and r[0]["away"] in fbs:
+                keep.append(r)
+    except Exception as e:                        # noqa: BLE001 - never blocks the tune: every game, as before
+        print(f"ncaaf FBS fit skipped: {str(e)[:80]}")
+        return train
+    return keep if len(keep) >= NCAAF_FBS_FIT_MIN else train
+
+
+def tune(games, league, prev=None, day=None):
+    """Re-pick every setting for one league from its finished games. Returns a params dict. day = the Pacific day the
+    tune is for (the dated 11/12 calibration fixes read it; None = today)."""
     fin = finals(games, league)
     if len(fin) < 60:
         return prev
@@ -424,6 +478,8 @@ def tune(games, league, prev=None):
     warm = max(30, len(rows) // 4)
     ev_from = max(warm, len(rows) - EVAL_GAMES)
     train = [(g, f, y, m) for g, f, y, m in rows[warm:] if y != 0.5][-TRAIN_GAMES:]   # weights: the recent seasons
+    if league == "ncaaf":                             # 🏈 11/12: the read is fit on FBS-vs-FBS games (NCAAF_FBS_FIT_FROM)
+        train = ncaaf_fbs_rows(games, train, day)
     ev = [r for r in rows[ev_from:] if r[2] != 0.5]
     # 2. our own view
     w = fit_logistic([_own_x(f) for _, f, _, _ in train], [y for _, _, y, _ in train],
@@ -434,19 +490,27 @@ def tune(games, league, prev=None):
     odds = [(g, f, y) for g, f, y, _ in ev if market_p(g) is not None]
     ll_mkt = logloss([(market_p(g), y) for g, _, y in odds]) if odds else None
     ll_final = None
+    stable = blend_stable(day, league)                # 🎚️ 11/12: the dials on EVERY game with odds, pulled to zero
+    b_prior, b_lam = ([0.0, 0.0, 0.0, 0.0], BLEND_LAM) if stable else ([TRUST_CAUTIOUS, 0.0, 0.0, 0.0], 8.0)
+    if stable:
+        params["trust"] = 0.0                         # (the ratings read's gap to the close knows nothing - A2 / A4)
     if len(odds) >= MIN_ODDS_GAMES:
         # what Vegas misses, learned from history: how far to trust our read, line movement, Vegas's own
         # favorite/longshot bias (cal) and home underdogs (hdog)
+        if stable:
+            odds = [(g, f, y) for g, f, y, _ in rows[warm:] if y != 0.5 and market_p(g) is not None]
+            ll_mkt = logloss([(market_p(g), y) for g, _, y in odds])   # (the close on the same games as the blend)
         X = [[logit(own_p(params, f)) - logit(market_p(g)), line_move(g), logit(market_p(g)), home_dog(market_p(g), g)]
              for g, f, _ in odds]
         off = [logit(market_p(g)) for g, _, _ in odds]
-        w4 = fit_logistic_offset(X, [y for _, _, y in odds], off, prior=[TRUST_CAUTIOUS, 0.0, 0.0, 0.0], lam=8.0)
+        w4 = fit_logistic_offset(X, [y for _, _, y in odds], off, prior=b_prior, lam=b_lam)
         w4[0] = min(1.0, max(0.0, w4[0]))
         params["trust"], params["move_w"], params["cal"], params["hdog"] = w4
+        params["blend"] = "stable" if stable else "last900"
         ll_final = logloss([(sigmoid(o + sum(a * b for a, b in zip(w4, x))), y) for o, x, (_, _, y) in zip(off, X, odds)])
         # the honest test: fit the blend on the first 2/3 of these games, grade it on the last 1/3 it never saw
         cut = len(odds) * 2 // 3
-        wt = fit_logistic_offset(X[:cut], [y for _, _, y in odds[:cut]], off[:cut], prior=[TRUST_CAUTIOUS, 0.0, 0.0, 0.0], lam=8.0)
+        wt = fit_logistic_offset(X[:cut], [y for _, _, y in odds[:cut]], off[:cut], prior=b_prior, lam=b_lam)
         wt[0] = min(1.0, max(0.0, wt[0]))
         test = [(sigmoid(o + sum(a * b for a, b in zip(wt, x))), y) for o, x, (_, _, y) in zip(off[cut:], X[cut:], odds[cut:])]
         mk_test = [(sigmoid(o), y) for o, (_, _, y) in zip(off[cut:], odds[cut:])]
@@ -475,7 +539,12 @@ def tune(games, league, prev=None):
         if len(big) >= 40:
             off = [logit(cover_p(base, f, g, "home")) for g, f, _ in ats]
             X = [[big_fav(_num(g["spread_home"]))] for g, _, _ in ats]
-            sp["bfav"] = fit_logistic_offset(X, [y for _, _, y in ats], off, prior=[0.0], lam=4.0)[0]
+            sp["bfav"] = fit_logistic_offset(X, [y for _, _, y in ats], off, prior=[0.0],   # 🎚️ 11/12 (B5): the same pull
+                                             lam=BLEND_LAM if blend_stable(day) else 4.0)[0]          # as the blend's dials - at
+            #   lam 4 the dial was noise in the pros (the NFL's flips sign season to season, se 0.15-0.2; the side it
+            #   picked on every 7.5+ NFL spread covered 47.2% on 386) and it alone chose the spread lean on every game
+            #   with a big favorite (live NBA leans laying 12.5-16.5: 0-4). College hoops' is real (-0.03 to -0.05, se
+            #   0.02, the dog on a big number 51.1-51.4%) and comes through the pull.
         fav_cov = [y if big_fav(_num(g["spread_home"])) > 0 else 1 - y for g, _, y in big]
         sp["big_fav_games"] = len(big)
         sp["big_fav_cover"] = round(sum(fav_cov) / len(fav_cov), 3) if fav_cov else None

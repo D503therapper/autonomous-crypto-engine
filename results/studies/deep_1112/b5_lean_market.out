@@ -1,0 +1,100 @@
+
+==== NFL (2236 games with a moneyline and a spread)
+ A. a favorite at -101..-150 (525 games)
+   the favorite's MONEYLINE                               278-244   won 53.3%  flat  -6.2% z -1.6 | train -10.0% | blind  -3.2% | seasons up 1/9
+   the favorite laying the points                         250-274   won 47.7%  flat  -8.9% z -2.1 | train -15.7% | blind  -3.5% | seasons up 1/9
+   the dog + the points                                   274-250   won 52.3%  flat  +0.3% z +0.1 | train  +7.3% | blind  -5.3% | seasons up 4/9
+   the dog's moneyline                                    244-278   won 46.7%  flat  -1.6% z -0.3 | train  +3.3% | blind  -5.4% | seasons up 3/9
+   HOME favorite's moneyline                              140-128   won 52.2%  flat  -8.3% z -1.5 | train -14.9% | blind  -3.0% | seasons up 2/9
+   ROAD favorite's moneyline                              138-116   won 54.3%  flat  -4.0% z -0.7 | train  -4.8% | blind  -3.4% | seasons up 3/9
+ B. a favorite past -150 (1711 games) - the spread is the only lean
+   the favorite laying the points                         803-859   won 48.3%  flat  -7.4% z -3.2 | train  -9.4% | blind  -5.6% | seasons up 2/9
+   the dog + the points                                   859-803   won 51.7%  flat  -1.0% z -0.4 | train  +1.1% | blind  -2.8% | seasons up 5/9
+     laying 0-6.5: the favorite                           500-532   won 48.4%  flat  -7.2% z -2.5 | train -14.4% | blind  -2.0% | seasons up 3/9
+     getting 0-6.5: the dog                               532-500   won 51.6%  flat  -1.1% z -0.4 | train  +6.0% | blind  -6.3% | seasons up 6/9
+     laying 7-9.5: the favorite                           167-194   won 46.3%  flat -11.0% z -2.2 | train  -3.8% | blind -17.7% | seasons up 0/9
+     getting 7-9.5: the dog                               194-167   won 53.7%  flat  +2.4% z +0.5 | train  -4.8% | blind  +9.1% | seasons up 5/9
+     laying 10-16.5: the favorite                         125-128   won 49.4%  flat  -5.2% z -0.9 | train  -4.8% | blind  -5.6% | seasons up 3/9
+     getting 10-16.5: the dog                             128-125   won 50.6%  flat  -3.1% z -0.5 | train  -3.1% | blind  -3.1% | seasons up 4/9
+     the HOME dog + the points                            297-292   won 50.4%  flat  -3.4% z -0.9 | train  -2.3% | blind  -4.4% | seasons up 4/9
+     the ROAD dog + the points                            551-498   won 52.5%  flat  +0.6% z +0.2 | train  +3.5% | blind  -1.9% | seasons up 5/9
+ C. the cover read's big-favorite dial, walked forward (each season fit on the seasons before)
+   the dial by season (+ = big favorites cover more): 2020: -0.027 (se 0.226)  2021: -0.070 (se 0.197)  2022: +0.084 (se 0.168)  2023: -0.031 (se 0.157)  2024: -0.016 (se 0.147)  2025: +0.019 (se 0.141)  2026: +0.045 (se 0.134)
+   the side the dial picks on every 7.5+ spread           182-204   won 47.2%  flat  -9.8% z -2.0 | train -10.5% | blind  -9.4% | seasons up 3/7
+
+==== NCAAF (6171 games with a moneyline and a spread)
+ A. a favorite at -101..-150 (874 games)
+   the favorite's MONEYLINE                               460-414   won 52.6%  flat  -7.0% z -2.4 | train -15.7% | blind  -2.5% | seasons up 2/9
+   the favorite laying the points                         415-445   won 48.3%  flat  -7.8% z -2.4 | train -16.6% | blind  -3.2% | seasons up 2/9
+   the dog + the points                                   445-415   won 51.7%  flat  -1.2% z -0.4 | train  +7.8% | blind  -5.8% | seasons up 4/9
+   the dog's moneyline                                    414-460   won 47.4%  flat  -0.9% z -0.2 | train +10.0% | blind  -6.6% | seasons up 6/9
+   HOME favorite's moneyline                              239-224   won 51.6%  flat  -8.8% z -2.1 | train -16.3% | blind  -4.9% | seasons up 2/9
+   ROAD favorite's moneyline                              221-190   won 53.8%  flat  -5.0% z -1.2 | train -15.0% | blind  +0.2% | seasons up 2/9
+ B. a favorite past -150 (5296 games) - the spread is the only lean
+   the favorite laying the points                        2602-2604  won 50.0%  flat  -4.6% z -3.5 | train  -1.7% | blind  -6.5% | seasons up 1/9
+   the dog + the points                                  2604-2602  won 50.0%  flat  -4.5% z -3.5 | train  -7.3% | blind  -2.7% | seasons up 1/9
+     laying 0-6.5: the favorite                           691-713   won 49.2%  flat  -6.2% z -2.5 | train  -2.7% | blind  -8.3% | seasons up 3/9
+     getting 0-6.5: the dog                               713-691   won 50.8%  flat  -3.0% z -1.2 | train  -6.5% | blind  -1.0% | seasons up 2/9
+     laying 7-9.5: the favorite                           398-370   won 51.8%  flat  -0.9% z -0.3 | train  -2.4% | blind  -0.1% | seasons up 5/9
+     getting 7-9.5: the dog                               370-398   won 48.2%  flat  -7.9% z -2.4 | train  -6.5% | blind  -8.7% | seasons up 0/9
+     laying 10-16.5: the favorite                         665-680   won 49.4%  flat  -5.6% z -2.2 | train  -0.7% | blind  -8.9% | seasons up 2/9
+     getting 10-16.5: the dog                             680-665   won 50.6%  flat  -3.5% z -1.4 | train  -8.1% | blind  -0.3% | seasons up 2/9
+     laying 17-+: the favorite                            848-841   won 50.2%  flat  -4.2% z -1.8 | train  -1.5% | blind  -6.2% | seasons up 2/9
+     getting 17-+: the dog                                841-848   won 49.8%  flat  -5.0% z -2.2 | train  -7.5% | blind  -3.1% | seasons up 2/9
+     the HOME dog + the points                            866-877   won 49.7%  flat  -5.2% z -2.3 | train  -8.7% | blind  -2.6% | seasons up 3/9
+     the ROAD dog + the points                           1669-1670  won 50.0%  flat  -4.6% z -2.8 | train  -7.1% | blind  -3.0% | seasons up 1/9
+ C. the cover read's big-favorite dial, walked forward (each season fit on the seasons before)
+   the dial by season (+ = big favorites cover more): 2020: +0.053 (se 0.036)  2021: +0.024 (se 0.031)  2022: +0.023 (se 0.025)  2023: +0.018 (se 0.022)  2024: +0.008 (se 0.019)  2025: +0.005 (se 0.018)  2026: +0.005 (se 0.017)
+   the side the dial picks on every 7.5+ spread          1402-1435  won 49.4%  flat  -5.7% z -3.2 | train  -4.0% | blind  -6.2% | seasons up 0/7
+
+==== NBA (9651 games with a moneyline and a spread)
+ A. a favorite at -101..-150 (2263 games)
+   the favorite's MONEYLINE                              1213-1050  won 53.6%  flat  -5.0% z -2.7 | train  -5.0% | blind  -5.1% | seasons up 1/9
+   the favorite laying the points                        1105-1125  won 49.6%  flat  -5.2% z -2.6 | train  -3.9% | blind  -6.4% | seasons up 1/9
+   the dog + the points                                  1125-1105  won 50.4%  flat  -3.5% z -1.8 | train  -4.7% | blind  -2.3% | seasons up 2/9
+   the dog's moneyline                                   1050-1213  won 46.4%  flat  -2.7% z -1.2 | train  -2.4% | blind  -3.0% | seasons up 3/9
+   HOME favorite's moneyline                              619-557   won 52.6%  flat  -6.9% z -2.7 | train  -8.4% | blind  -5.3% | seasons up 0/9
+   ROAD favorite's moneyline                              594-493   won 54.6%  flat  -3.1% z -1.1 | train  -1.3% | blind  -4.8% | seasons up 4/9
+ B. a favorite past -150 (7388 games) - the spread is the only lean
+   the favorite laying the points                        3658-3613  won 50.3%  flat  -3.8% z -3.4 | train  -4.3% | blind  -3.4% | seasons up 1/9
+   the dog + the points                                  3613-3658  won 49.7%  flat  -4.9% z -4.4 | train  -4.5% | blind  -5.3% | seasons up 0/9
+     laying 0-5.5: the favorite                          1327-1301  won 50.5%  flat  -3.5% z -1.9 | train  -1.0% | blind  -5.8% | seasons up 2/9
+     getting 0-5.5: the dog                              1301-1327  won 49.5%  flat  -5.2% z -2.8 | train  -7.7% | blind  -2.8% | seasons up 1/9
+     laying 6-9.5: the favorite                          1420-1399  won 50.4%  flat  -3.6% z -2.0 | train  -6.0% | blind  -1.3% | seasons up 2/9
+     getting 6-9.5: the dog                              1399-1420  won 49.6%  flat  -5.0% z -2.9 | train  -2.7% | blind  -7.3% | seasons up 1/9
+     laying 10-13.5: the favorite                         675-688   won 49.5%  flat  -5.3% z -2.1 | train  -5.0% | blind  -5.6% | seasons up 2/9
+     getting 10-13.5: the dog                             688-675   won 50.5%  flat  -3.4% z -1.4 | train  -3.9% | blind  -3.1% | seasons up 3/9
+     laying 14-+: the favorite                            236-225   won 51.2%  flat  -2.1% z -0.5 | train -14.1% | blind  +2.9% | seasons up 4/9
+     getting 14-+: the dog                                225-236   won 48.8%  flat  -6.6% z -1.5 | train  +5.2% | blind -11.7% | seasons up 4/9
+     the HOME dog + the points                           1278-1308  won 49.4%  flat  -5.4% z -2.9 | train  -6.2% | blind  -4.7% | seasons up 0/9
+     the ROAD dog + the points                           2327-2337  won 49.9%  flat  -4.5% z -3.3 | train  -3.6% | blind  -5.3% | seasons up 1/9
+ C. the cover read's big-favorite dial, walked forward (each season fit on the seasons before)
+   the dial by season (+ = big favorites cover more): 2020: -0.043 (se 0.124)  2021: -0.008 (se 0.106)  2022: -0.083 (se 0.089)  2023: -0.053 (se 0.080)  2024: -0.052 (se 0.069)  2025: +0.001 (se 0.061)  2026: +0.020 (se 0.053)
+   the side the dial picks on every 7.5+ spread          1348-1349  won 50.0%  flat  -4.4% z -2.4 | train  -1.1% | blind  -5.7% | seasons up 1/7
+
+==== NCAAB (29476 games with a moneyline and a spread)
+ A. a favorite at -101..-150 (5688 games)
+   the favorite's MONEYLINE                              3076-2612  won 54.1%  flat  -4.5% z -3.9 | train  -4.6% | blind  -4.5% | seasons up 0/9
+   the favorite laying the points                        2785-2824  won 49.7%  flat  -4.9% z -3.9 | train  -4.9% | blind  -5.0% | seasons up 0/9
+   the dog + the points                                  2824-2785  won 50.3%  flat  -3.8% z -3.1 | train  -3.9% | blind  -3.8% | seasons up 1/9
+   the dog's moneyline                                   2612-3076  won 45.9%  flat  -3.6% z -2.5 | train  -2.6% | blind  -4.3% | seasons up 1/9
+   HOME favorite's moneyline                             1689-1413  won 54.4%  flat  -4.0% z -2.6 | train  -5.0% | blind  -3.3% | seasons up 2/9
+   ROAD favorite's moneyline                             1387-1199  won 53.6%  flat  -5.1% z -2.9 | train  -4.1% | blind  -6.0% | seasons up 0/9
+ B. a favorite past -150 (23778 games) - the spread is the only lean
+   the favorite laying the points                       11619-11847 won 49.5%  flat  -5.4% z -8.7 | train  -5.2% | blind  -5.5% | seasons up 0/9
+   the dog + the points                                 11847-11619 won 50.5%  flat  -3.5% z -5.6 | train  -3.6% | blind  -3.3% | seasons up 0/9
+     laying 0-5.5: the favorite                          3986-4060  won 49.5%  flat  -5.4% z -5.1 | train  -5.8% | blind  -5.1% | seasons up 0/9
+     getting 0-5.5: the dog                              4060-3986  won 50.5%  flat  -3.5% z -3.3 | train  -3.1% | blind  -3.7% | seasons up 2/9
+     laying 6-9.5: the favorite                          3591-3534  won 50.4%  flat  -3.7% z -3.3 | train  -2.0% | blind  -5.1% | seasons up 1/9
+     getting 6-9.5: the dog                              3534-3591  won 49.6%  flat  -5.2% z -4.6 | train  -6.8% | blind  -3.7% | seasons up 0/9
+     laying 10-13.5: the favorite                        1902-1991  won 48.9%  flat  -6.6% z -4.4 | train  -6.1% | blind  -7.0% | seasons up 0/9
+     getting 10-13.5: the dog                            1991-1902  won 51.1%  flat  -2.2% z -1.5 | train  -2.8% | blind  -1.7% | seasons up 1/9
+     laying 14-+: the favorite                           2140-2262  won 48.6%  flat  -7.1% z -5.0 | train  -9.3% | blind  -5.6% | seasons up 0/9
+     getting 14-+: the dog                               2262-2140  won 51.4%  flat  -1.8% z -1.2 | train  +0.4% | blind  -3.2% | seasons up 2/9
+     the HOME dog + the points                           2632-2537  won 50.9%  flat  -2.7% z -2.0 | train  -3.2% | blind  -2.2% | seasons up 1/9
+     the ROAD dog + the points                           8090-8001  won 50.3%  flat  -3.8% z -5.2 | train  -3.8% | blind  -3.9% | seasons up 0/9
+ C. the cover read's big-favorite dial, walked forward (each season fit on the seasons before)
+   the dial by season (+ = big favorites cover more): 2020: -0.027 (se 0.037)  2021: -0.020 (se 0.030)  2022: -0.052 (se 0.025)  2023: -0.046 (se 0.021)  2024: -0.037 (se 0.019)  2025: -0.026 (se 0.017)  2026: -0.031 (se 0.015)
+   the side the dial picks on every 7.5+ spread          5016-4795  won 51.1%  flat  -2.3% z -2.4 | train  -1.7% | blind  -2.5% | seasons up 1/7
+
+cells: 74

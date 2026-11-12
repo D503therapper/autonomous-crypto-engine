@@ -13645,7 +13645,6 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         say(_ol_leg(reasons=["hotter recent form"]), n_hot=4, rec_u="5-1", whyf=wm(n_hot=4, rec_u="5-1"), fact=""),
         say(_ol_leg(reasons=["opponent missing key players"]), key_them=[("Liam Szarka", "QB", "Out")],
             whyf=wm(key_them=[("Liam Szarka", "QB", "Out")]), fact=""),
-        say(_ol_leg(), whyf=wm(pub=(12, 35)), fact=""),
         say(_ol_leg(), whyf=wm(n_cold=3), fact=""),
         say(_ol_leg(), whyf={"their last loss": ["Tulsa just lost to Navy 38-10", "Navy hung 38 on Tulsa last time out"]}, fact=""),
         say(_ol_leg(), whyf={"home record": ["Army are 3-0 at home this year", "3-0 at home for Army this season"]}, fact=""),
@@ -13663,7 +13662,8 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         assert not cg.problem(x, "ncaaf"), (cg.problem(x, "ncaaf"), x)
         for vague in ("we know which side", "the better team on paper", "trust the algorithm", "they're just better"):
             assert vague not in x.lower(), x
-    assert "Liam Szarka" in lines[3] and "38" in lines[6] and "3-0" in lines[7] and "last night" in lines[8]
+    assert "Liam Szarka" in lines[3] and "38" in lines[5] and "3-0" in lines[6] and "last night" in lines[7]
+    assert say(_ol_leg(), whyf=wm(pub=(12, 35)), fact="") == ""          # (11/12: the public split never writes a line)
     # the sharp move alone writes nothing; a one-liner never says the open, the move or the money
     assert say(_ol_leg(reasons=["sharp money moving this way"]), whyf={}, fact="") == ""
     for bad in ("Wyoming opened +200, now +180", "money's coming in on 'em", "the line moved toward Army",
@@ -13681,7 +13681,7 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
         assert w in src, w
     # a lean keeps its no-units tone: no hype on its one-liner
     import sports_breakdown as sb
-    assert not sb.HYPE.search(lines[9]), lines[9]
+    assert not sb.HYPE.search(lines[8]), lines[8]
     # a unit play never repeats the units line's number (our number vs the book is on the 💰 line already)
     close = say(_ol_leg(reasons=["the stronger team"]), rec_u="4-2", rec_t="4-3", whyf=wm(rec_u="4-2", rec_t="4-3"), fact="")
     assert not re.search(r"we make|our number|we price|on our sheet", close.lower()), close
@@ -13707,51 +13707,20 @@ def test_public_fade_one_liner_uses_real_splits_only_and_cheeks_clapped_is_one_o
         assert "% of" not in none and "📊" not in none, none
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 12, "ml_home_m": 35, "ml_away_t": 88, "ml_away_m": 65}
         line = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
-        assert ("88" in line or "65" in line) and "Air Force" in line and line.startswith("📊"), line   # (10/29: the
-        #   bets split (88%) or the money split (65%) - both real; the seeded pick moved when the tail pool grew)
+        assert "% of" not in line and "📊" not in line, line   # (11/12, the owner: a heavy split no longer writes the
+        #   one-liner either - "97% of the action is on whatever ... doesn't tell you anything"; PUBLIC_CARD)
         sports_public.splits_for = lambda gid, live=None, hist=None: {"ml_home_t": 40, "ml_home_m": 50, "ml_away_t": 60, "ml_away_m": 50}
         mild = v24.why_line(leg, v24.Voice("s", set()), g, "Wyoming", "Air Force", "Wyoming", "Air Force")
         assert "% of" not in mild, mild                                       # 60-40 says nothing
     finally:
         sports_public.splits_for = keep
     assert "public fade" not in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(40, 50))
-    assert "public fade" in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(30, 50))
+    assert "public fade" not in v24.why_map("ncaaf", "A", "B", "A", "B", False, pub=(10, 20))   # 11/12: never
     # the public is one fact among many: a key man out leads it, and a side the ratings like for its record isn't
     # a 'public' card by default (the fact order)
     assert v24.FACT_ORDER.index("opponent missing key players") < v24.FACT_ORDER.index("public fade")
     assert v24.FACT_ORDER.index("public ride") > v24.FACT_ORDER.index("the stronger team")
-    # five fades on one board, then five more the next day with the first day's memory (ten fades in all)
-    def board(day, used):
-        out = []
-        for i in range(5):
-            us, them = f"Team{day}{i}", f"Opp{day}{i}"
-            lg = _ol_leg(team=us, opp=them, side="home", odds=180, dec=2.8, raw_own=0.45, p=0.4, game_id=f"ncaaf:{day}{i}")
-            v = v24.Voice(f"d{day}-{i}", used)
-            v.names = (us, them)
-            whyf = v24.why_map("ncaaf", us, them, us, them, False, pub=(12, 35))
-            out.append((v24.why_line(lg, v, g, us, them, us, them, whyf=whyf, fact=""), (us, them)))
-        return out
-    used = set()
-    day1 = board(1, used)
-    used2 = sb.recent_grams([(t, n) for t, n in day1])     # the next day: yesterday's 4-word runs, nothing else
-    mem = set(used2)                                        # (the Voice adds to the set it's handed)
-    day2 = board(2, used2)
-    for brd in (day1, day2):
-        texts = [t for t, _ in brd]
-        assert all(texts), texts                                              # every fade gets a line
-        assert len(set(texts)) == len(texts), texts                          # no wording twice on a board
-        grams = [sb.grams(t, n) for t, n in brd]
-        for i in range(len(grams)):
-            for j in range(i + 1, len(grams)):
-                assert not (grams[i] & grams[j]), (texts[i], texts[j])        # no shared 4-word run on a board
-        tails = [re.sub(r"\b(Team|Opp)\d+\b", "_", re.split(r"[.—,]", t.strip().rstrip("."))[-1]).strip().lower() for t in texts]
-        assert len(set(tails)) == len(tails), tails                           # no kicker twice on a board
-    alltext = " ".join(t for t, _ in day1 + day2).lower()
-    assert alltext.count("cheeks clapped") <= 2, alltext
-    assert alltext.count("about to get their") <= 3, alltext
-    for t, n in day2:                                                         # nothing from day 1 said the same way
-        assert not (sb.grams(t, n) & mem), t
-
+    # (11/12: the fade wordings' variety checks are gone with the public lines - PUBLIC_CARD)
 
 def test_a_board_of_one_liners_shares_no_four_word_run_and_no_kicker():
     """10/23, the owner: "we're trying to avoid being super repetitive." A full board of eight picks with the same kind
@@ -20641,6 +20610,20 @@ def _wired_1111_post(start, patches, picks=None, n=4):
     return picks, buf.getvalue()
 
 
+def test_owner_1112_no_betting_split_lines_on_any_card():
+    """The owner, 11/12: "the breakdowns are terrible ... one says 97% the action is on whatever ... that's absolutely
+    retarded and doesn't tell you anything." The splits pick no winners and the read never uses them: no splits line
+    in the breakdown, no 'public fade' / 'public ride' fact or one-liner (sports_breakdown_v24.PUBLIC_CARD)."""
+    import inspect
+    import sports_breakdown_v24 as v24
+    assert v24.PUBLIC_CARD is False
+    for pub in ((3, 10), (97, 95), (20, 30)):
+        m = v24.why_map("nhl", "A", "B", "A", "B", True, pub=pub)
+        assert "public fade" not in m and "public ride" not in m, (pub, m)
+    src = inspect.getsource(v24)
+    assert "sp_ = public_split(leg) if PUBLIC_CARD else None" in src
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
@@ -22143,6 +22126,237 @@ def test_audit_1112_tomorrows_board_shows_every_pick_not_one_per_kind():
         se.load = keep
     rest = h[h.index("TOMORROW'S BOARD"):]
     assert all(t in rest for t in ("DUCKS ML", "PENGUINS ML", "KINGS ML")) and len(re.findall(r'<section class="pk open"', rest)) == 3
+
+
+def test_deep_1112_the_blend_dials_are_fit_on_every_game_with_odds_and_pulled_to_zero():
+    """11/12 FABLE DEEP PROGRAM (A3 / A4): the blend's four dials (trust / the line move / cal / hdog) were re-fit every
+    morning on the LAST 900 games with odds at lam 8, the trust pulled to 0.15 - noise (the NBA's 'cal' sat at +0.24 on
+    11/12: every NBA favorite read 2-4 points over the close; walked forward the live fit lost to the plain close in five
+    leagues). From the 11/13 Pacific day they are fit on EVERY game with odds, priors 0, lam 400."""
+    import sports_model as smod
+    assert smod.BLEND_STABLE_FROM == "2026-11-13" and smod.BLEND_LAM == 400.0
+    assert not smod.blend_stable("2026-11-12") and smod.blend_stable("2026-11-13") and smod.blend_stable("2027-01-05")
+    assert smod.BLEND_STABLE_SKIP == ("nfl", "ncaaf")       # football's dials stay on the old fit - the owner's call (a7:
+    assert not smod.blend_stable("2026-12-01", "nfl") and not smod.blend_stable("2026-12-01", "ncaaf")   # honest dials shut
+    assert smod.blend_stable("2026-12-01", "nba") and smod.blend_stable("2026-12-01", "ncaab")           # football's unit plays)
+    fb, _ = fake_league("nfl")
+    assert smod.tune(fb, "nfl", day="2026-12-01")["blend"] == "last900"
+    games, _ = fake_league("nba")
+    old = smod.tune(games, "nba", day="2026-11-12")
+    new = smod.tune(games, "nba", day="2026-11-13")
+    assert old["blend"] == "last900" and new["blend"] == "stable"
+    assert (old["k"], old["hfa"], old["w"]) == (new["k"], new["hfa"], new["w"])       # the ratings side is untouched
+    assert new["odds_games"] >= old["odds_games"]
+    size = lambda p: sum(abs(p[k]) for k in ("trust", "move_w", "cal", "hdog"))      # noqa: E731
+    assert size(new) < size(old) and size(new) < 0.15, (size(old), size(new))        # 675 games can't move four dials
+    assert 0.0 <= new["trust"] <= 1.0
+    # the fit itself: a real, big bias on thousands of games still comes through the pull; the same bias on 300 games doesn't
+    rnd = random.Random(5)
+
+    def rows(n):
+        X, y, off = [], [], []
+        for _ in range(n):
+            m = min(0.9, max(0.1, rnd.gauss(0.5, 0.15)))
+            lm = smod.logit(m)
+            true = smod.sigmoid(1.3 * lm)                                             # favorites win MORE than priced
+            X.append([0.0, 0.0, lm, 0.0]); y.append(1.0 if rnd.random() < true else 0.0); off.append(lm)
+        return X, y, off
+    big = smod.fit_logistic_offset(*rows(12000), prior=[0.0] * 4, lam=smod.BLEND_LAM)
+    small = smod.fit_logistic_offset(*rows(300), prior=[0.0] * 4, lam=smod.BLEND_LAM)
+    assert big[2] > 0.12 and abs(small[2]) < 0.05 and big[2] > 4 * abs(small[2]), (big, small)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_model.py")).read()
+    assert "rows[warm:] if y != 0.5 and market_p(g) is not None" in src and "prior=b_prior, lam=b_lam" in src
+    assert "lam=BLEND_LAM if blend_stable(day) else 4.0" in src                                  # the cover read's big-favorite dial too
+    assert abs(new.get("bfav", 0.0)) <= abs(old.get("bfav", 0.0)) + 1e-12
+
+
+def test_deep_1112_the_college_football_read_is_fit_on_fbs_v_fbs_games():
+    """11/12 FABLE DEEP PROGRAM (A5): the college football ratings read was fit on every game - a fifth of them an FBS
+    team hosting a lower-division school (home won 93.7%) - and learned an extra home edge: on FBS-vs-FBS games it said
+    the home team wins 61.2% and it won 58.7%. From the 11/14 tune its training rows are FBS-vs-FBS only (walk-forward
+    sports_players.fbs_set); every game when the files can't say or too few are left."""
+    import sports_model as smod
+    import sports_players as spl
+    assert smod.NCAAF_FBS_FIT_FROM == "2026-11-14"
+    keep, keep_min = spl.fbs_set, smod.NCAAF_FBS_FIT_MIN
+    rows = [({"start": "2025-10-01T17:00Z", "home": str(i % 10), "away": str(i % 10 + (1 if i % 3 else 50))}, {}, 1.0, 3) for i in range(60)]
+    try:
+        spl.fbs_set = lambda games, start: {str(i) for i in range(20)}
+        smod.NCAAF_FBS_FIT_MIN = 10
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-13") is rows                    # before the date: every game
+        kept = smod.ncaaf_fbs_rows({}, rows, "2026-11-14")
+        assert len(kept) == 40 and all(int(r[0]["away"]) < 20 for r in kept)          # the lower-division games are out
+        smod.NCAAF_FBS_FIT_MIN = 41
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # too few left: every game
+        smod.NCAAF_FBS_FIT_MIN = 10
+        spl.fbs_set = lambda games, start: None
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # the files can't say: every game
+
+        def boom(games, start):
+            raise RuntimeError("no files")
+        spl.fbs_set = boom
+        assert smod.ncaaf_fbs_rows({}, rows, "2026-11-14") is rows                    # never blocks the tune
+    finally:
+        spl.fbs_set, smod.NCAAF_FBS_FIT_MIN = keep, keep_min
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_model.py")).read()
+    assert 'if league == "ncaaf":' in src and "train = ncaaf_fbs_rows(games, train, day)" in src
+
+
+def test_deep_1112_the_absence_points_come_off_the_ratings_share_of_the_own_read_only():
+    """11/12 FABLE DEEP PROGRAM (A8 / A9): the absence points (NBA top scorer -9 ...) were measured against a ratings
+    read that didn't know who was out; the own read is now the books' price, which does - the points came off twice and
+    the side across read 'own read over the price' for free (NBA: the close said 60.0%, the engine 69.7%, it won 60.1% on
+    2,210; live NBA dogs riding "their read -9 / -11" 1-5). From 11/13 (college football 11/14) only the blend's trust
+    share comes off; hockey - whose read is the line + rest and whose numbers sit between - is untouched."""
+    assert sports.ABSENCE_SHARE_FROM == {"nba": "2026-11-13", "nfl": "2026-11-13", "ncaaf": "2026-11-14"}
+    assert sports.absence_share("nba", {"trust": 0.02}, "2026-11-12") == 1.0
+    assert sports.absence_share("nba", {"trust": 0.02}, "2026-11-13") == 0.02
+    assert sports.absence_share("nfl", {"trust": 0.3}, "2026-11-16") == 0.3
+    assert sports.absence_share("ncaaf", {"trust": 0.0}, "2026-11-13") == 1.0 and sports.absence_share("ncaaf", {"trust": 0.0}, "2026-11-14") == 0.0
+    assert sports.absence_share("nhl", {"trust": 0.02, "hockey": {"b2b": 0.13}}, "2026-12-01") == 1.0
+    assert sports.absence_share("nhl", {"trust": 0.02}, "2026-12-01") == 1.0 and sports.absence_share("mlb", {"trust": 0.1}, "2026-12-01") == 1.0
+    assert sports.absence_share("nba", None, "2026-11-13") == 0.0 and sports.absence_share("nba", {"trust": 7}, "2026-11-13") == 1.0
+    assert sports.absence_share("nba", {"trust": 0.02}, "") == 1.0                    # no start on the game: the old rule
+    # a fact that no longer moves the read is not a named reason; one that does still is
+    assert sports.absence_reasons("nba", (0.09 * 0.02, ["Stephen Curry"]), 0.0, 0, 0, "Warriors") == []
+    assert sports.absence_reasons("nba", (0.09, ["Stephen Curry"]), 0.0, 0, 0, "Warriors") == \
+        ["opponent missing key players: Stephen Curry (their read -9)"]
+    # through the board: the same NBA game the day before and on the day - the own read of the side across
+    import sports_absences
+    games, _ = fake_league("nba")
+    model = {"params": {"nba": {**sm.tune(games, "nba", day="2026-11-13"), "trust": 0.0, "cal": 0.0, "hdog": 0.0, "move_w": 0.0}}, "log": []}
+    last = max(games.values(), key=lambda g: g["start"])
+    keep = (sports_absences.penalty, sports.early_trust, sports.out_count, sports.waiting_on, sports.hurt)
+    out = {}
+    try:
+        sports_absences.penalty = lambda gm, g, side, inj, skip_qb=False: (0.09, ["Star Man"]) if side == "home" else (0.0, [])
+        sports.early_trust = lambda *a, **k: 1.0
+        sports.out_count = lambda *a, **k: 0
+        sports.waiting_on = lambda *a, **k: []
+        sports.hurt = lambda *a, **k: []
+        for day in ("2026-11-12", "2026-11-13"):
+            g = {**last, "id": "nba:deep", "status": "pre", "home_score": "", "away_score": "", "start": f"{day}T23:30Z",
+                 "ml_home": "-140", "ml_away": "120", "ml_home_open": "-140", "ml_away_open": "120", "stype": "2"}
+            gs = {**games, g["id"]: g}
+            now = datetime.strptime(f"{day}T16:00", "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            cs = [c for c in sports.candidates(gs, model, now, now.astimezone(sports.PT).date(), {"nba": {}})
+                  if c["game_id"] == "nba:deep" and c["market"] == "ml"]
+            out[day] = {c["side"]: c for c in cs}
+    finally:
+        sports_absences.penalty, sports.early_trust, sports.out_count, sports.waiting_on, sports.hurt = keep
+    own = lambda c: (c["edge_own"] + 1) / c["dec"]                                   # noqa: E731
+    before, after = out["2026-11-12"], out["2026-11-13"]
+    assert abs(own(before["away"]) - before["away"]["p_market"] - 0.09) < 0.02, (own(before["away"]), before["away"]["p_market"])
+    assert abs(own(after["away"]) - after["away"]["p_market"]) < 0.02, (own(after["away"]), after["away"]["p_market"])
+    assert any("opponent missing key players: Star Man" in r for r in before["away"]["reasons"])
+    assert not any("Star Man" in str(r) for r in after["away"]["reasons"])
+    assert after["home"].get("absent") == ["Star Man"]                                # the card still knows who's out
+
+
+def test_deep_1112_the_big_favorite_dial_is_pulled_like_the_blend_and_a_spread_lean_reads_its_studied_weights():
+    """11/12 FABLE DEEP PROGRAM (B5): the cover read's 'big favorite' dial was fit at lam 4 - noise in the pros (the side
+    it picked on every 7.5+ NFL spread covered 47.2%) - and it alone chose the spread lean on a big-favorite game (live
+    NBA leans laying 12.5-16.5: 0-4); the studied spread weights could only reorder games, never choose a side. From
+    11/13 the dial takes the blend's pull, and a spread lean is judged on the cover read WITH its weights (lean_read)."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_model.py")).read()
+    assert "lam=BLEND_LAM if blend_stable(day) else 4.0" in src
+    games, _ = fake_league("nba")
+    old, new = sm.tune(games, "nba", day="2026-11-12"), sm.tune(games, "nba", day="2026-11-13")
+    assert abs(new.get("bfav", 0.0)) <= abs(old.get("bfav", 0.0)) + 1e-12
+    day = "2026-11-16T01:00Z"
+    sp = lambda team, line, **k: {**_cand(team, -110, 0.5, market="spread", line=line, league=k.pop("league", "nfl")),   # noqa: E731
+                                  "start": day, "game_id": k.pop("gid", "g1"), **k}
+    fav, dog = sp("Fav", -8.5, side="home"), sp("Dog", 8.5, side="away", home=False)
+    for c in (fav, dog):
+        c.pop("edge_own")                                    # (a real spread side carries no own read)
+    assert sports.deep_1112_spread_w(fav) == -sports.NFL_FAV_7_9_W and sports.deep_1112_spread_w(dog) == sports.NFL_FAV_7_9_W
+    assert sports.deep_1112_spread_w(sp("x", -7, side="home")) == 0 and sports.deep_1112_spread_w(sp("x", 10, side="home")) == 0
+    assert sports.deep_1112_spread_w({**dog, "start": "2026-11-12T20:00Z"}) == 0          # before the date: nothing
+    assert sports.deep_1112_spread_w({**dog, "market": "ml"}) == 0
+    assert abs(sports.lean_read(dog) - 0.52) < 1e-9 and abs(sports.lean_read(fav) - 0.48) < 1e-9
+    assert sports.lean_read({**dog, "start": "2026-11-12T20:00Z"}) == 0.5              # before the date: the bare read
+    keep = sports.stick
+    try:
+        sports.stick = lambda c, pool: c
+        leans = sports.viewer_leans([fav, dog], set())
+        assert [(c["team"], c["line"]) for c in leans] == [("Dog", 8.5)], leans           # the weight chose the side
+        coin = [sp("A", -3, side="home", gid="g2"), sp("B", 3, side="away", home=False, gid="g2")]
+        for c in coin:
+            c.pop("edge_own")
+        assert sports.viewer_leans(coin, set()) == []                                     # no weight, no read: no lean
+        old_day = [{**fav, "start": "2026-11-12T20:00Z"}, {**dog, "start": "2026-11-12T20:00Z"}]
+        assert sports.viewer_leans(old_day, set()) == []                                  # the old rule before the date
+        nb = sports.night_pick([fav, dog])
+        assert nb["lean"] and nb["legs"][0]["team"] == "Dog"
+    finally:
+        sports.stick = keep
+
+
+def test_deep_1112_hoops_non_league_road_favorite_is_a_spread_rank_weight_and_the_leads_are_tracked():
+    """11/12 FABLE DEEP PROGRAM (C3): a college hoops team laying points on the ROAD outside its league in Nov-Dec covered
+    45.3% (ATS -13.4% on 1,374, 9 of 9 seasons, z -5.2; inside its league the same favorite is the base) and the home dog
+    across 54.7% - a -0.03 / +0.02 SPREAD-RANK weight, never units, never a moneyline fact. The leads log from 11/13."""
+    import sports_leads as sl
+    keep = sports.ncaab_conferences
+    G = {"ncaab:1": {"id": "ncaab:1", "league": "ncaab", "start": "2026-11-20T00:00Z", "home": "1", "away": "2",
+                     "home_name": "Homers", "away_name": "Roadies", "neutral": "0", "spread_home": "4.5"},
+         "ncaab:2": {"id": "ncaab:2", "league": "ncaab", "start": "2026-11-20T00:00Z", "home": "3", "away": "4",
+                     "home_name": "Same", "away_name": "League", "neutral": "0", "spread_home": "4.5"},
+         "ncaab:3": {"id": "ncaab:3", "league": "ncaab", "start": "2026-11-20T00:00Z", "home": "1", "away": "2",
+                     "home_name": "Homers", "away_name": "Roadies", "neutral": "1", "spread_home": "4.5"},
+         "ncaab:4": {"id": "ncaab:4", "league": "ncaab", "start": "2027-01-20T00:00Z", "home": "1", "away": "2",
+                     "home_name": "Homers", "away_name": "Roadies", "neutral": "0", "spread_home": "4.5"},
+         "ncaab:5": {"id": "ncaab:5", "league": "ncaab", "start": "2026-11-20T00:00Z", "home": "1", "away": "9",
+                     "home_name": "Homers", "away_name": "Nobody", "neutral": "0", "spread_home": "4.5"},
+         "ncaab:6": {"id": "ncaab:6", "league": "ncaab", "start": "2026-11-20T00:00Z", "home": "2", "away": "1",
+                     "home_name": "Roadies", "away_name": "Homers", "neutral": "0", "spread_home": "-4.5"}}
+
+    def cands():
+        out = []
+        for gid, g in G.items():
+            for side, line in (("home", float(g["spread_home"])), ("away", -float(g["spread_home"]))):
+                for mk in ("spread", "ml"):
+                    out.append({"game_id": gid, "league": "ncaab", "market": mk, "side": side, "home": side == "home",
+                                "line": line if mk == "spread" else None, "start": g["start"], "reasons": [], "odds": -110,
+                                "neutral": g["neutral"] == "1"})
+        return out
+    try:
+        sports.ncaab_conferences = lambda games, season: {"1": ("A", False), "2": ("B", True), "3": ("C", False), "4": ("C", False)}
+        cs = cands()
+        sports.mark_deep_1112(G, cs)
+        by = {(c["game_id"], c["side"], c["market"]): c for c in cs}
+        road, home = by[("ncaab:1", "away", "spread")], by[("ncaab:1", "home", "spread")]
+        assert road.get("nl_road_fav") and home.get("vs_nl_road_fav")
+        assert sports.deep_1112_spread_w(road) == -0.03 and sports.deep_1112_spread_w(home) == 0.02
+        assert any("Roadies are laying 4.5 on the road outside their league" in r for r in home["reasons"]) and not road["reasons"]
+        assert by[("ncaab:1", "home", "ml")].get("vs_nl_road_fav") and by[("ncaab:1", "home", "ml")]["reasons"] == []
+        assert sports.deep_1112_spread_w(by[("ncaab:1", "home", "ml")]) == 0               # never a moneyline weight
+        for gid in ("ncaab:2", "ncaab:3", "ncaab:4", "ncaab:5", "ncaab:6"):                # same league / neutral / January /
+            for side in ("home", "away"):                                                  # a team in no league / a HOME favorite
+                c = by[(gid, side, "spread")]
+                assert not c.get("nl_road_fav") and not c.get("vs_nl_road_fav") and sports.deep_1112_spread_w(c) == 0, (gid, side)
+        assert sl.deep_spread_tags(road, sports) == [sl.DEEP_NL_ROAD_FAV_TAG] and sl.deep_spread_tags(home, sports) == [sl.DEEP_NL_HOME_DOG_TAG]
+        early = [{**c, "start": "2026-11-12T23:00Z"} for c in cands() if c["game_id"] == "ncaab:1"]
+        sports.mark_deep_1112({"ncaab:1": {**G["ncaab:1"], "start": "2026-11-12T23:00Z"}}, early)
+        assert not any(c.get("nl_road_fav") or c.get("vs_nl_road_fav") for c in early)     # before the date: nothing
+        sports.ncaab_conferences = lambda games, season: (_ for _ in ()).throw(RuntimeError("no files"))
+        cs = cands()
+        sports.mark_deep_1112(G, cs)                                                       # unknown leagues never break the board
+        assert not any(c.get("nl_road_fav") for c in cs)
+    finally:
+        sports.ncaab_conferences = keep
+    nfl = {"market": "spread", "league": "nfl", "side": "away", "start": "2026-11-16T01:00Z", "game_id": "x", "line": 8.5}
+    assert sl.deep_spread_tags(nfl, sports) == [sl.DEEP_NFL_DOG_7_9_TAG] and sl.deep_spread_tags({**nfl, "line": -8.0}, sports) == [sl.DEEP_NFL_FAV_7_9_TAG]
+    assert sl.deep_spread_tags({**nfl, "start": "2026-11-12T20:00Z"}, sports) == [] and sl.deep_spread_tags({**nfl, "line": 3.0}, sports) == []
+    hk = {"market": "ml", "league": "nhl", "odds": 130, "side": "home", "start": "2026-11-16T01:00Z", "game_id": "x",
+          "reasons": ["opponent missing key players: A B (their read -6)"]}
+    assert sl.deep_tags(hk, sports) == [sl.DEEP_NHL_DOG_ABSENT_TAG]
+    assert sl.deep_tags({**hk, "odds": -130}, sports) == [] and sl.deep_tags({**hk, "reasons": []}, sports) == []
+    assert sl.deep_tags({**hk, "start": "2026-11-12T20:00Z"}, sports) == []
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "mark_deep_1112(games, out)" in src and "+ deep_1112_spread_w(c)" in src
+    assert "deep_1112_spread_w" not in src[src.index("def ncaab_spread_stack"):src.index("def mark_ncaab_spread_stack")]   # not in the ½u stack
+    assert sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04 and sports.MAX_FAV == -150    # nothing else moved
 
 
 if __name__ == "__main__":
