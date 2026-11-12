@@ -18439,6 +18439,8 @@ def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_re
     # the college football twin still rides the raw Elo read (untouched)
     cfb = {**cand("J", 114, 0.449, None, games=(5, 5)), "league": "ncaaf", "raw_own": 0.609, "elo_edge": 10.0,
            "side": "away", "home": False}                               # (11/11 wired: from 11/12 the football play is ROAD dogs only)
+    assert [c["game_id"] for c in sports.gap_plays([cfb, play], avoid=())] == ["A"]   # (11/12 sweep: the FOOTBALL play is
+    cfb = {**cfb, "start": "2026-11-12T20:00Z"}                         #  paused from the 11/13 games - hoops' twin posts on)
     assert [c["game_id"] for c in sports.gap_plays([cfb, play], avoid=())] == ["A", "J"]   # (biggest gap first)
     assert [c["game_id"] for c in sports.gap_plays([{**cfb, "side": "home", "home": True}, play], avoid=())] == ["A"]   # (hoops keeps its home dogs)
     assert sports.posted_kind({"kind": "play", "gap": 0.18, "legs": [{"league": "ncaab"}]}) == "gap"
@@ -20736,8 +20738,8 @@ def test_wired_1111_the_college_gap_play_is_road_dogs_under_35_points_with_a_ste
     assert sports.GAP_1111_FROM == "2026-11-12" and sports.GAP_ROAD_ONLY and sports.GAP_MAX == 0.35
     assert sports.GAP_QB_CHANGE_GAMES == 2 and sports.GAP_UNITS == 1.0 and sports.GAP_MIN == 0.15
 
-    def dog(gid, gap, start="2026-11-14T20:00Z", home=False, **kw):
-        dec = sd.decimal(200)
+    def dog(gid, gap, start="2026-11-12T20:00Z", home=False, **kw):     # (11/12: the one day the rule ran - the 11/12
+        dec = sd.decimal(200)                                           #  sweep paused the football play from 11/13)
         pm = 0.32
         return {"game_id": gid, "league": "ncaaf", "market": "ml", "side": "home" if home else "away", "home": home,
                 "neutral": False, "team": gid, "opp": "x", "odds": 200, "dec": dec, "p": pm + 0.05, "p_market": pm,
@@ -21115,6 +21117,101 @@ def test_daily_1111_football_line_flip_is_a_tracker_lead_only():
         assert sl.counts(ftag, -130) and sl.counts(dtag, 120)                    # graded in the engine's band
     finally:
         sl._GAMES.clear(); sl._GAMES.update(keep)
+
+
+def test_sweep_1112_gap_play_paused_runner_up_dog_hockey_nfl_only_nba_floor_judge_and_a_pulled_early_play_stays_pulled():
+    """11/12 FABLE FULL SWEEP (the owner: "We've been bleeding units ... tighten up ... by any means necessary" + "we
+    definitely don't want another big losing Saturday"; the two weeks 10/29-11/10: 24-36 -5.0u, college football dogs
+    3-17 -8.5u). From the 11/13 games (a game's Pacific day), nothing posted touched, no size up:
+    (1) the 🔍 COLLEGE FOOTBALL gap play is paused (live 4-13 -5.9u; on the board's own replay rows the road 15+ dog
+        the 11/11 cut kept ran -14.0% on 89, held out -25.3%) - college hoops' twin still posts;
+    (2) the runner-up dog play posts in hockey / the NFL only (live 0-6: four college football HOME dogs, two NBA);
+    (3) the NBA floor stops at 20 graded under 35% won;
+    (4) a pulled early play never comes back through the file merge, even when the other job touched its row
+        (the four Saturday plays pulled 11/12: SMU, FAU, UAB, San Diego St)."""
+    assert sports.SWEEP_1112_FROM == "2026-11-13" and sports.GAP_NCAAF_OFF_FROM == "2026-11-13"
+    assert sports.DOG_PLAY_LEAGUES_1113 == ("nfl", "nhl") and sports.NBA_FLOOR_QUIT == (20, 0.35)
+    assert sports.GAP_UNITS == 1.0 and sports.DOG_PLAY_QUIT == (20, 0.35) and sports.PLAY_UNITS == 0.5   # no size moved
+    ON, OFF, LATE = "2026-11-12T20:00Z", "2026-11-14T20:00Z", "2026-11-13T03:00Z"      # LATE = 7 PM Pacific on 11/12
+
+    def dog(gid, start, lg="ncaaf", **kw):
+        pm = 0.32
+        return {"game_id": gid, "league": lg, "market": "ml", "side": "away", "home": False, "neutral": False,
+                "team": gid, "opp": "x", "odds": 200, "dec": sd.decimal(200), "p": pm + 0.05, "p_market": pm,
+                "edge": 0.0, "edge_own": 0.0, "raw_own": round(pm + 0.20, 4), "elo_edge": 1.0, "fbs_game": True,
+                "start": start, "reasons": [], **kw}
+    ids = lambda cs: [c["game_id"] for c in sports.gap_plays(cs, ())]                   # noqa: E731
+    assert ids([dog("thu", ON)]) == ["thu"] and ids([dog("late", LATE)]) == ["late"]    # 11/12 (and its night games): on
+    assert ids([dog("sat", OFF)]) == [] and ids([dog("fri", "2026-11-13T20:00Z")]) == []   # from 11/13: paused
+    keep_spots, keep_off = sports.dog_spots, sports.GAP_NCAAF_OFF_FROM
+    try:
+        sports.dog_spots = lambda c: 0.0
+        hoop = {**dog("hoop", OFF, lg="ncaab"), "eff_p": 0.60, "games_in": 6, "opp_games_in": 6}
+        assert ids([hoop]) == ["hoop"]                                                  # college hoops' twin: untouched
+        sports.GAP_NCAAF_OFF_FROM = None                                                # the owner's switch: on again
+        assert ids([dog("sat", OFF)]) == ["sat"]
+    finally:
+        sports.dog_spots, sports.GAP_NCAAF_OFF_FROM = keep_spots, keep_off
+    # (2) the runner-up dog play's leagues by the game's Pacific day
+    assert sports.dog_play_leagues({"start": ON}) == sports.DOG_PLAY_LEAGUES == ("nfl", "ncaaf", "nhl", "nba")
+    assert sports.dog_play_leagues({"start": LATE}) == sports.DOG_PLAY_LEAGUES
+    assert sports.dog_play_leagues({"start": OFF}) == ("nfl", "nhl") and sports.dog_play_leagues({}) == sports.DOG_PLAY_LEAGUES
+    keep = (sports.good, sports.beats_price, sports.dog_score, sports.dog_gate, sports.nba_half_dog_capped)
+    try:
+        sports.good = sports.beats_price = lambda c: True
+        sports.dog_score = lambda c: c.get("sc", 5.0)
+        sports.dog_gate = lambda c: True
+        sports.nba_half_dog_capped = lambda c: False
+        mk = lambda gid, lg, start, sc=5.0: {"game_id": gid, "league": lg, "market": "ml", "odds": 130, "edge": 0.02,   # noqa: E731
+                                             "start": start, "sc": sc}
+        sat = [mk("cf", "ncaaf", OFF, 9.0), mk("nba", "nba", OFF, 8.0), mk("nhl", "nhl", OFF, 7.0), mk("nfl", "nfl", OFF, 6.0)]
+        assert [c["game_id"] for c in sports.dog_plays(sat, ())] == ["nhl"]             # the best HOCKEY / NFL runner-up
+        assert [c["game_id"] for c in sports.dog_plays(sat[:2], ())] == []              # a college / NBA one: no play
+        thu = [{**c, "start": ON} for c in sat]
+        assert [c["game_id"] for c in sports.dog_plays(thu, ())] == ["cf"]              # 11/12: the rule as it ran
+    finally:
+        sports.good, sports.beats_price, sports.dog_score, sports.dog_gate, sports.nba_half_dog_capped = keep
+    # (3) the NBA floor's judge
+    nf = lambda st_: {"kind": "play", "floor": {"dog_score": 1.0, "nba": True}, "status": st_}   # noqa: E731
+    assert sports.nba_floor_record([nf("won"), nf("lost"), nf("lost"), nf("open")]) == (1, 2)
+    assert not sports.nba_floor_quit([nf("lost")] * 19)                                 # 0-19: not judged yet
+    assert sports.nba_floor_quit([nf("won")] * 6 + [nf("lost")] * 14)                   # 30% at 20: off
+    assert not sports.nba_floor_quit([nf("won")] * 7 + [nf("lost")] * 13)               # 35%: stays
+    assert not sports.nba_floor_quit([{"kind": "play", "floor": {"dog_score": 1.0, "nba": False}, "status": "lost"}] * 30)   # the
+    #                                                                                     general floor never counts
+    src = open(sports.__file__).read()
+    pb = src[src.index("def post_board("):]
+    assert 'kind == "nbafloor" and nba_floor_quit(picks)' in pb and "dog_play_quit(picks)" in pb
+    # (4) a pulled early play stays pulled through the merge driver, even when the hourly job touched its row
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("mj_1112", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "merge_json.py"))
+    mj = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mj)
+    smu = {"game_id": "ncaaf:1", "side": "home", "team": "SMU", "odds": 110, "spot": "blowout", "posted": "2026-11-08T04:55Z",
+           "result": None, "start": "2026-11-14T17:00Z", "key_out": None}
+    pit = {"game_id": "nfl:2", "side": "away", "team": "Steelers", "odds": 150, "spot": "bye", "posted": "2026-11-08T18:33Z",
+           "result": None, "start": "2026-11-16T01:20Z"}
+    base = {"picks": [smu, pit], "pulled": []}
+    ours = {"picks": [pit], "pulled": [dict(smu, pulled_at="2026-11-12T06:00Z", pulled_why="11/12 full sweep")]}
+    touched = dict(smu, key_out="QB Somebody", moved=1.2)                               # the watch stamped the row since
+    new = {"game_id": "nba:3", "side": "home", "team": "Grizzlies", "odds": 120, "posted": "2026-11-12T07:00Z", "result": None}
+    theirs = {"picks": [touched, pit, new], "pulled": []}
+    for a, b in ((ours, theirs), (theirs, ours)):
+        m = mj.merge_early(a, b, base)
+        assert sorted(p["team"] for p in m["picks"]) == ["Grizzlies", "Steelers"], m["picks"]
+        assert [p["team"] for p in m["pulled"]] == ["SMU"] and m["pulled"][0]["pulled_at"] == "2026-11-12T06:00Z"
+    again = dict(smu, posted="2026-11-13T09:00Z", odds=120)                             # a fresh re-post (a new post time) lives
+    m = mj.merge_early(ours, {"picks": [pit, again], "pulled": []}, {"picks": [pit], "pulled": ours["pulled"]})
+    assert sorted(p["team"] for p in m["picks"]) == ["SMU", "Steelers"]
+    done = dict(touched, result="lost")                                                 # a graded row is never dropped
+    assert "SMU" in [p["team"] for p in mj.merge_early(ours, {"picks": [done, pit], "pulled": []}, base)["picks"]]
+    # the pull itself, the way the engine holds a pulled play: out of "picks" (the box, the record, the ledger), in
+    # "pulled", its game closed to a re-post for PULL_COOL_H hours
+    import sports_early as se
+    st = {"picks": [pit], "pulled": ours["pulled"]}
+    assert se.spot_record(st) == {} and not se.repost_ok(st["pulled"][0], datetime(2026, 11, 12, 12, tzinfo=timezone.utc))
+    assert se.repost_ok(st["pulled"][0], datetime(2026, 11, 12, 18, tzinfo=timezone.utc))
+    assert se.spot_off("blowout", "2026-11-14T17:00Z")                                  # ...and its spot is paused anyway
 
 
 def test_early_1111_fresh_number_rule_close_stamp_and_line_leads():

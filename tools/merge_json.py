@@ -194,8 +194,8 @@ def merge_early(ours, theirs, base=None):
     """data/sports/early.json (10/9 sweep): the hourly engine posts early plays and the live watcher's quick pass grades
     them - two jobs writing one file. Without a driver a conflicting hunk went to whichever job rebased (-X theirs):
     a just-posted early play vanished off the board, or a grade was lost. One pick per (game, market, side): a graded
-    copy beats an ungraded one, a play one side pulled (unchanged on the other) stays pulled, the pulled list and the
-    first-seen prices are the union."""
+    copy beats an ungraded one, a play one side pulled stays pulled (11/12: also when the other side touched its row),
+    the pulled list and the first-seen prices are the union."""
     ours, theirs, base = ours or {}, theirs or {}, base or {}
     o_, t_ = {_ekey(p): p for p in ours.get("picks") or []}, {_ekey(p): p for p in theirs.get("picks") or []}
     gone = set()
@@ -217,6 +217,12 @@ def merge_early(ours, theirs, base=None):
     rows = sorted(out.values(), key=lambda p: (p.get("posted") or "", str(p.get("game_id"))))
     pulled = {str(x.get("game_id")): x for x in list(theirs.get("pulled") or []) + list(ours.get("pulled") or [])
               if isinstance(x, dict)}
+    gone_ = {(_ekey(x), x.get("posted")) for x in pulled.values() if x.get("posted")}
+    rows = [p for p in rows if p.get("result") or (_ekey(p), p.get("posted")) not in gone_]
+    #   (11/12 sweep: a PULLED play stays pulled even when the other job touched its row in between - the watch
+    #    stamping a key player, a new field - which made the two copies differ, so the base check above kept it and the
+    #    play sat on the board AND in the pulled list. The very post that was pulled (same game, side and post time)
+    #    never comes back through a merge; a fresh re-post carries a new post time, and a graded row is never dropped.)
     first = dict(theirs.get("first_seen") or {})
     first.update(ours.get("first_seen") or {})
     merged = {**theirs, **ours, "picks": rows}
