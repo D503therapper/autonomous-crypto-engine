@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T21:45Z",
+ "updated": "2026-11-12T21:58Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -637,8 +637,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "W Michigan",
-    "p": 0.529,
-    "tie": 0.043,
+    "p": 0.507,
+    "tie": 0.044,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -646,16 +646,16 @@
    "start": "2026-11-13T00:00Z",
    "away": "W Michigan",
    "home": "Purdue FW",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "W Michigan",
     "opp": "Purdue FW",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.57,
-    "win_p": 0.57,
+    "odds": -135,
+    "p": 0.54,
+    "win_p": 0.54,
     "reasons": [
      "hotter recent form",
      "sharp money moving this way",
@@ -727,7 +727,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.404,
+    "p": 0.397,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -736,19 +736,19 @@
    "start": "2026-11-13T01:00Z",
    "away": "Jets",
    "home": "Stars",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Stars",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.613,
-    "win_p": 0.613,
+    "team": "Jets",
+    "opp": "Stars",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -180,
+    "p": 0.627,
+    "win_p": 0.41,
     "reasons": [
-     "the stronger team",
-     "better rested"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -1270,6 +1270,37 @@
    }
   },
   {
+   "id": "ncaab:401920973",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Elon",
+    "p": 0.555,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T00:00Z",
+   "away": "Chattanooga",
+   "home": "Elon",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Elon",
+    "opp": "Chattanooga",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.601,
+    "win_p": 0.601,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401858293",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1331,6 +1362,64 @@
    }
   },
   {
+   "id": "ncaab:401911210",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "G Washington",
+    "p": 0.755,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T00:00Z",
+   "away": "Harvard",
+   "home": "G Washington",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Harvard",
+    "opp": "G Washington",
+    "market": "spread",
+    "line": 10.5,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.163,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401921191",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Hofstra",
+    "p": 0.644,
+    "tie": 0.04,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T00:00Z",
+   "away": "Iona",
+   "home": "Hofstra",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Hofstra",
+    "opp": "Iona",
+    "market": "ml",
+    "line": null,
+    "odds": -275,
+    "p": 0.714,
+    "win_p": 0.714,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nba:401909296",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -1358,6 +1447,68 @@
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401926133",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Purdue",
+    "p": 0.883,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T00:00Z",
+   "away": "Ohio",
+   "home": "Purdue",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Ohio",
+    "opp": "Purdue",
+    "market": "spread",
+    "line": 19.5,
+    "odds": -110,
+    "p": 0.512,
+    "win_p": 0.052,
+    "reasons": [
+     "hotter recent form",
+     "better rested"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920747",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Yale",
+    "p": 0.485,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T00:00Z",
+   "away": "Yale",
+   "home": "Northeastern",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Yale",
+    "opp": "Northeastern",
+    "market": "ml",
+    "line": null,
+    "odds": -122,
+    "p": 0.509,
+    "win_p": 0.509,
+    "reasons": [
+     "the stronger team",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
   },
