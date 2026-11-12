@@ -18885,3 +18885,41 @@ $NKLA: No data found, symbol may be delisted
    [alert] Today +3.96 | Total -370.86: Stocks: $469.03  today -8.61  total -30.97
 DEX: $660.11  today +12.57  total -339.89
 DEX: $660.11 (-339.89) · Scammed: 11 (-$216.49)
+   dex screen: REJECT FLC@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: UNREACHABLE MIHAO@ethereum liq $449,238 - honeypot.is unreachable
+   dex screen: REJECT SI@solana liq $16,944,118 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT WIZARD@solana liq $101,774 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: REJECT ZRO@base liq $305,715 - pool age unknown
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID A461:63B2A:15B347:1DDD3F:6AF63B0B        
+remote: Time 2026-11-12T22:17:48Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dex screen: REJECT XDP@base liq $1,640,046 - top-10 holders 93%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $461,217 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: PASS JOB@solana liq $123,538
+   dex screen: REJECT JIMOTHY@solana liq $295,686 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT SWORDCAT@solana liq $116,940 - lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT XDP@base liq $1,640,704 - top-10 holders 93%
+   dex screen: REJECT TRAC@ethereum liq $501,586 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT VCNT@base liq $190,658 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: REJECT PYUSD@ethereum liq $100,222,870 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 90%
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $344,374 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RSGP@base liq $173,026 - pool age unknown
+   dex screen: PASS STONK@solana liq $1,987,919
+   dex screen: REJECT KTA@base liq $2,980,811 - top-10 holders 66%
+   dex scanner: 2,955 pools (solana 2,042 / base 540 / ethereum 373), refresh cycle 132s (hot 128s), 2808 calls (108 feed, 429s 0, failed 1), 80,966 refreshed (10986 no pair), +66 added / -111 dropped (dead 84, stale 3, cap 24), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-12 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/mover     equity $191.42 (-61.7%) 1 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/social_heat equity $334.84 (-33.0%) 2 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 23:06 UTC] crypto/hold_btc  equity $431.91 (-13.6%) 1 open  market DOWN
+   social heat top: BTC 29 (29/0/0), PENGU 24 (24/0/0), PEPE 22 (16/0/6), NEAR 21 (21/0/0), PONS 21 (8/0/13)
