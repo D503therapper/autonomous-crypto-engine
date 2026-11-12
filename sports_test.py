@@ -13669,7 +13669,7 @@ def test_one_liners_open_with_a_fact_in_the_owners_voice_and_never_the_line_move
                 "Army's price keeps shortening since the open", "Wyoming been getting bet: +200 → +180"):
         assert v24.LINE_MOVE.search(bad), bad
     # cussing is allowed; the NEVER list still bans
-    assert cg.one("📊 88% of the tickets are on Air Force. Air Force about to get their cheeks clapped.", "ncaaf")
+    assert not cg.one("📊 88% of the tickets are on Air Force. Air Force about to get their cheeks clapped.", "ncaaf")   # (11/12: no splits)
     assert cg.one("🥊 Tulsa gave up 38 to Navy last time out. Tulsa a trash ass team right now.", "ncaaf")
     assert not cg.one("Real talk, Army all day.", "ncaaf") and not cg.one("Army is chalk here.", "ncaaf")
     for w in ("spank", "trash ass team", "fin to", "talking shit", "get their ass beat", "cheeks clapped"):
@@ -20621,6 +20621,25 @@ def test_owner_1112_no_betting_split_lines_on_any_card():
         assert "public fade" not in m and "public ride" not in m, (pub, m)
     src = inspect.getsource(v24)
     assert "sp_ = public_split(leg) if PUBLIC_CARD else None" in src
+
+
+def test_owner_1112_posted_cards_drop_split_lines_and_the_public_chip():
+    """11/12: the Red Wings card went up at 8 AM with '📊 The Panthers are holding 95% of the action, fuck it, Red Wings.'
+    The card guard drops any betting-split line from posted cards too, the one-liner falls back to the card's first
+    real fact, and no 🤡 FADING / 🤝 RIDING THE PUBLIC chip shows."""
+    import inspect
+    import sports_card_guard as cg
+    import sports_dashboard as dash
+    for x in ("📊 The Panthers are holding 95% of the action, fuck it, Red Wings.", "95% of the bets are on the Panthers.",
+              "📊 61% of the spread bets on the Vikings.", "The Panthers are the public's team tonight, 95% of bets."):
+        assert cg.problem(x, "nhl") == "a betting-split line", x
+    for x in ("🗓️ Panthers dropped 3 of their last 5.", "🍀 their shooting and save % together sit at 97.4 over the last 10",
+              "📋 Red Wings are 7-12 after a 3-2 loss to the Blues."):
+        assert cg.problem(x, "nhl") == "", x
+    leg = {"team": "Red Wings", "opp": "Panthers", "league": "nhl", "reasons": ["opponent missing key players"],
+           "breakdown": ["🚑 Panthers gotta play without Sandis Vilmanis (LW).", "🗓️ Panthers dropped 3 of their last 5."]}
+    assert dash._why_fallback(leg) == "🚑 Panthers gotta play without Sandis Vilmanis (LW)."
+    assert "FADING THE PUBLIC" not in inspect.getsource(dash)
 
 
 def test_owner_1112_no_dollar_payout_line_on_cards():

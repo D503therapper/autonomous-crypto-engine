@@ -37,6 +37,10 @@ FILLER = re.compile(r"travel just fine|just the better team|they'?re just better
 #   that opens with the verdict instead of a fact - "🧠 The engine's got Trail Blazers winning this one" - is filler)
 BROKEN = re.compile(r"\bNone\b|\bnan\b|[{}]")
 ZONES = re.compile(r"few time zones|several time zones|time zones and all|jet-lag game", re.I)
+SPLITS = re.compile(r"\b\d{1,3}% of (?:the |all )?(?:[a-z]+ )?(?:bets|tickets|action|money|cash|crowd|public)\b|public's team"
+                    r"|only \d{1,3}% of the public|public side is|public is all over|public's got \d|public's with us"
+                    r"|public's on ", re.I)   # (the owner, 11/12: "97% the action is on whatever ... doesn't tell you
+#                                               anything" - no betting-split line on any card, posted ones included)
 #   (11/12 audit: "Long trip for Marquette, time zones and all" - Milwaukee to Ann Arbor is ONE zone; the body-clock
 #    factor fires at one zone, so a card written before the fix never claims a long trip or several zones)
 WRONG_POS = {   # words that can't belong to the sport
@@ -72,6 +76,8 @@ def problem(line, league=None):
         return "a broken template"
     if ZONES.search(t):
         return "a time-zone claim it can't see"
+    if SPLITS.search(t):
+        return "a betting-split line"
     if t.lstrip().startswith("🧯"):                           # (the owner, 10/5: a retired player's death is not the
         import sports_news                                    #  team's "personal stuff")
         if sports_news.obituary(t):
