@@ -246,13 +246,13 @@
   }
  },
  "ncaab": {
-  "games": 29895,
+  "games": 29896,
   "grade": {
    "all": {
-    "hit": 0.5112,
-    "low80": 0.5048,
-    "n": 9965,
-    "roi": -0.0243
+    "hit": 0.5111,
+    "low80": 0.5047,
+    "n": 9966,
+    "roi": -0.0244
    },
    "top10": {
     "hit": 0.5492,
@@ -273,27 +273,27 @@
     "roi": 0.005
    }
   },
-  "hit_all": 0.5112,
+  "hit_all": 0.5111,
   "hit_top": 0.5269,
-  "intercept": 0.01077,
+  "intercept": 0.01083,
   "kept": [
    "lg_trend",
    "thin_air",
    "park"
   ],
-  "ll_test_base": 0.69314,
-  "ll_test_kept": 0.69252,
+  "ll_test_base": 0.69313,
+  "ll_test_kept": 0.69253,
   "ll_val_base": 0.69337,
   "ll_val_kept": 0.69231,
   "n_top": 2989,
   "norm": {
    "lg_trend": [
-    0.66072,
-    1.39367
+    0.6607,
+    1.39365
    ],
    "park": [
-    0.25929,
-    1.23007
+    0.25928,
+    1.23005
    ],
    "thin_air": [
     0.03285,
@@ -373,11 +373,11 @@
    }
   },
   "test_from": "2024-02-01",
-  "test_games": 9965,
+  "test_games": 9966,
   "weights": {
-   "lg_trend": 0.03086,
-   "park": 0.02943,
-   "thin_air": 0.06869
+   "lg_trend": 0.03083,
+   "park": 0.02942,
+   "thin_air": 0.06867
   }
  },
  "ncaaf": {
