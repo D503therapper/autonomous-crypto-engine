@@ -22154,10 +22154,10 @@ def test_deep_1112_the_blend_dials_are_fit_on_every_game_with_odds_and_pulled_to
     import sports_model as smod
     assert smod.BLEND_STABLE_FROM == "2026-11-13" and smod.BLEND_LAM == 400.0
     assert not smod.blend_stable("2026-11-12") and smod.blend_stable("2026-11-13") and smod.blend_stable("2027-01-05")
-    assert smod.BLEND_STABLE_SKIP == ("nfl", "ncaaf")       # football's dials stay on the old fit - the owner's call (a7:
-    assert not smod.blend_stable("2026-12-01", "nfl") and not smod.blend_stable("2026-12-01", "ncaaf")   # honest dials shut
-    assert smod.blend_stable("2026-12-01", "nba") and smod.blend_stable("2026-12-01", "ncaab")           # football's unit plays)
-    fb, _ = fake_league("nfl")
+    assert smod.BLEND_STABLE_SKIP == ("nfl", "ncaaf")       # football's dials stay on the old fit (a7; the 11/12 daily
+    assert not smod.blend_stable("2026-12-01", "nfl") and not smod.blend_stable("2026-12-01", "ncaaf")   # studies kept it:
+    assert smod.blend_stable("2026-12-01", "nba") and smod.blend_stable("2026-12-01", "ncaab")           # its favorites win
+    fb, _ = fake_league("nfl")                                                                           # out of sample)
     assert smod.tune(fb, "nfl", day="2026-12-01")["blend"] == "last900"
     games, _ = fake_league("nba")
     old = smod.tune(games, "nba", day="2026-11-12")
@@ -22375,6 +22375,115 @@ def test_deep_1112_hoops_non_league_road_favorite_is_a_spread_rank_weight_and_th
     assert "mark_deep_1112(games, out)" in src and "+ deep_1112_spread_w(c)" in src
     assert "deep_1112_spread_w" not in src[src.index("def ncaab_spread_stack"):src.index("def mark_ncaab_spread_stack")]   # not in the ½u stack
     assert sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04 and sports.MAX_FAV == -150    # nothing else moved
+
+
+def test_daily_1112_football_dog_check_rebased_on_its_studies_over_the_price_and_a_switch_day_retunes():
+    """11/12 DAILY STUDIES - FOOTBALL'S MONEY CHECK (the deep program's open item (c); results/studies/daily_1112/mc1-mc4).
+    Three arms on the replay board: today's (old fit + own read), the honest dials, the honest dials + a weighed check.
+    The honest dials drop football favorites that WIN out of sample (28-11 held out, live 8-4), so football keeps its dials
+    (sports_model.BLEND_STABLE_SKIP) and its favorite check; the leak is the DOG half - the old own read waves dogs through
+    on a home-dog tilt the close doesn't have. From the 11/14 Pacific game day a football dog ALSO needs its honest
+    weighed read over the real price: the close + its dog score's STUDY part (the score minus its own-read term) -
+    sports.weighed_dog_beats in dog_own_ok, every path to the Dog. Of the dogs today's rule passes it keeps 59-84 +13.0%
+    and drops 91-182 -11.8% (both halves). No size change; the NFL gate stays 8. And a dated calibration switch (the
+    11/13 dials, the 11/14 FBS fit) re-tunes the morning it starts - sports_model.calib_key."""
+    import sports_model as smod
+    import sports_leads as sl
+    assert sports.FOOTBALL_CHECK_FROM == "2026-11-14" and sports.FOOTBALL_CHECK_PARTS == ("dog",)
+    assert smod.BLEND_STABLE_SKIP == ("nfl", "ncaaf") and not smod.blend_stable("2026-11-20", "ncaaf")
+    # the calibration key moves on each switch day, so sports.run re-tunes that morning
+    k12, k13, k14 = smod.calib_key("2026-11-12"), smod.calib_key("2026-11-13"), smod.calib_key("2026-11-14")
+    assert k12 != k13 != k14 and "nba" in k13.split("|")[0].split(",") and "nba" not in k12.split("|")[0].split(",")
+    assert k14.endswith("|fbs") and not k13.endswith("|fbs") and smod.calib_key("2026-12-01") == k14
+    assert "nfl" not in k14.split("|")[0].split(",")
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'model.get("calib") != calib' in src and 'model["calib"] = calib' in src
+    assert sports.NFL_DOG_GATE_WEIGHED is None and sports.DOG_GATE == 8.0 and sports.NCAAF_DOG_GATE == 4.0
+    sat, fri = "2026-11-14T20:00Z", "2026-11-14T03:00Z"          # (Friday 7 PM Pacific = the 11/13 game day)
+    # a college home dog the OLD own read has 6 points over the close (47.5% vs 41.5%): over the +130 price (43.5%)
+    dog = {"league": "ncaaf", "market": "ml", "odds": 130, "dec": 2.3, "p": 0.45, "p_market": 0.415, "edge": 0.035,
+           "edge_own": 0.475 * 2.3 - 1, "reasons": ["x"], "dog_more": {}, "start": sat, "game_id": "ncaaf:1", "side": "home"}
+    assert abs(sports.dog_score_base(dict(dog)) - 6.0) < 1e-6
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: sports.dog_score_base(c) + 1.5    # its studies add 1.5: 41.5 + 1.5 = 43.0 < 43.5
+        assert not sports.weighed_dog_beats(dict(dog))
+        assert not sports.dog_own_ok(dict(dog)) and not sports.dog_gate(dict(dog))      # from 11/14: no Dog on the tilt
+        assert sports.dog_own_ok(dict(dog, start=fri)) and sports.dog_gate(dict(dog, start=fri))   # 11/13: today's rule
+        assert sl.money_check_tags(dict(dog), sports) == [sl.MC_DOG_DROP_TAG]
+        sports.dog_score = lambda c: sports.dog_score_base(c) + 3.0    # 41.5 + 3.0 = 44.5 > 43.5: its studies beat the price
+        assert sports.weighed_dog_beats(dict(dog)) and sports.dog_own_ok(dict(dog))
+        g = dict(dog)
+        assert sports.dog_gate(g) and abs(g["dog_p"] - (0.415 + 0.09)) < 1e-9          # (its units still ride the whole score)
+        assert sl.money_check_tags(dict(dog), sports) == [sl.MC_DOG_KEEP_TAG]
+        assert sl.money_check_tags(dict(dog, start=fri), sports) == []
+        assert not sports.dog_own_ok(dict(dog, edge_own=-0.01))       # today's own-read rule still stands under it
+        nfl = dict(dog, league="nfl", game_id="nfl:1")               # the NFL gate stays 8 (6 + 3 = 9 gates)
+        assert sports.dog_gate(dict(nfl)) and not sports.dog_gate(dict(nfl, edge_own=0.43 * 2.3 - 1))
+        hoops = dict(dog, league="nba")                              # never another sport
+        assert not sports.football_weighed(hoops, "dog") and sports.football_weighed(dict(dog), "dog")
+        assert sl.money_check_tags(hoops, sports) == []
+    finally:
+        sports.dog_score = keep
+    # the studied favorite half (a favorite's weighed read in own_beats / own_margin / thin_edge) is NOT wired
+    fav = {"league": "ncaaf", "market": "ml", "odds": -130, "dec": 1.769, "p": 0.555, "p_market": 0.555,
+           "edge_own": -0.018, "w_p": 0.585, "start": sat}
+    assert not sports.football_weighed(dict(fav), "fav") and not sports.own_beats(dict(fav))
+    keep = sports.FOOTBALL_CHECK_PARTS
+    try:
+        sports.FOOTBALL_CHECK_PARTS = ("dog", "fav")                # (one switch away: the honest-dials arm's check)
+        assert sports.own_beats(dict(fav)) and not sports.own_beats(dict(fav, start=fri))
+        assert abs(sports.own_margin(dict(fav)) - (0.585 - 1 / 1.769)) < 1e-9
+        assert not sports.thin_edge(dict(fav, w_p=0.62)) and sports.thin_edge(dict(fav, w_p=0.575))
+    finally:
+        sports.FOOTBALL_CHECK_PARTS = keep
+    # dog_score is unchanged by the refactor: its first term is dog_score_base
+    c = {"league": "nfl", "market": "ml", "odds": 150, "dec": 2.5, "edge": 0.1, "edge_own": 0.1, "p_market": 0.38,
+         "reasons": [], "dog_more": {}}
+    assert abs(sports.dog_score_base(c) - 6.0) < 1e-6
+    assert abs(sports.dog_score_base(dict(c, edge_own=0.5)) - 0.0) < 1e-6           # past OWN_CAP in the NFL: a trap, 0
+    assert abs(sports.dog_score_base(dict(c, edge_own=0.5, league="ncaaf")) - 12.0) < 1e-6
+
+
+def test_daily_1112_college_fourth_down_coach_is_a_tracker_lead_only():
+    """11/12 DAILY Q6 (results/studies/daily_1112/qs_box2.py): a college dog whose coach goes for it on 4th down 2+ a game
+    this season (the team box, 4+ games) +9.7% on 647 (held 3 of 3 seasons up), the timid favorite (under 1.45) -16.7% -
+    LEADS, tracked from the 11/13 game day; the board never reads them."""
+    import sports_leads as sl
+    keep_g, keep_b = sl._GAMES.get("ncaaf"), sl._TEAMBOX.get("ncaaf")
+    G, box = {}, {}
+    for i in range(5):
+        gid = f"ncaaf:{i}"
+        G[gid] = {"id": gid, "league": "ncaaf", "status": "final", "stype": "2", "start": f"2026-10-0{i + 1}T20:00Z",
+                  "home": "A", "away": "B", "home_score": "21", "away_score": "17"}
+        box[gid] = {"A": {"fourthDownEff": "2-3"}, "B": {"fourthDownEff": "0-1"}}
+    G["ncaaf:T"] = {"id": "ncaaf:T", "league": "ncaaf", "status": "pre", "stype": "2", "start": "2026-11-14T20:00Z",
+                    "home": "A", "away": "B", "home_score": "", "away_score": ""}
+    try:
+        sl._GAMES["ncaaf"], sl._TEAMBOX["ncaaf"] = G, box
+        c = {"league": "ncaaf", "market": "ml", "game_id": "ncaaf:T", "start": "2026-11-14T20:00Z"}
+        assert abs(sl._fourth_tries(c, "home") - 3.0) < 1e-9 and abs(sl._fourth_tries(c, "away") - 1.0) < 1e-9
+        assert sl.fourth_down_tags(dict(c, side="home", odds=150), sports) == [sl.CF4_DOG_TAG]      # the aggressive dog
+        assert sl.fourth_down_tags(dict(c, side="away", odds=-130), sports) == [sl.CF4_FAV_TAG]     # the timid favorite
+        assert sl.fourth_down_tags(dict(c, side="home", odds=-130), sports) == []
+        assert sl.fourth_down_tags(dict(c, side="home", odds=400), sports) == []                    # (the band only)
+        assert sl.fourth_down_tags(dict(c, side="home", odds=150, league="nfl"), sports) == []
+        assert sl.fourth_down_tags(dict(c, side="home", odds=150, start="2026-11-12T20:00Z"), sports) == []
+        G2 = {k: v for k, v in G.items() if k not in ("ncaaf:3", "ncaaf:4")}                     # 3 games: too few
+        sl._GAMES["ncaaf"] = G2
+        assert sl._fourth_tries(c, "home") is None and sl.fourth_down_tags(dict(c, side="home", odds=150), sports) == []
+    finally:
+        for k, v in (("ncaaf", keep_g),):
+            if v is None:
+                sl._GAMES.pop(k, None)
+            else:
+                sl._GAMES[k] = v
+        if keep_b is None:
+            sl._TEAMBOX.pop("ncaaf", None)
+        else:
+            sl._TEAMBOX["ncaaf"] = keep_b
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "fourth_down_tags" not in src and "CF4_" not in src                                    # never read by the board
 
 
 if __name__ == "__main__":

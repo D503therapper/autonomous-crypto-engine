@@ -1094,11 +1094,54 @@ DOG_OWN_RULE = {"nhl": "market", "nba": None}   # 🏒🏀 THE 10/27 FABLE FUNNE
 #   (college "between" 1-4; college hoops own-over -19.6% is the owner's ½u lead, untouched). results/audit_1027.md.
 
 
+FOOTBALL_CHECK_FROM = "2026-11-14"     # 🏈 11/12 DAILY STUDIES - FOOTBALL'S MONEY CHECK RE-BASED (results/studies/daily_1112/
+FOOTBALL_CHECK_PARTS = ("dog",)        # mc1-mc3; the deep program's open item (c)). From this Pacific game day a FOOTBALL DOG
+NFL_DOG_GATE_WEIGHED = None            # - the Dog of the Day, the one-game-day Dog, the runner-up dog play, every path
+#   dog_own_ok guards - needs, on top of today's own-read rule, its HONEST weighed read over the real price: the books'
+#   no-vig close + its dog score's STUDY part (weighed_dog_beats - the score minus its own-read term). Why: the football
+#   own read stands on the old-fit dials, which know nothing the close doesn't (b ~0) and read a home dog 7-10 points over
+#   a close that was right - "own read over the price" let dogs through on that tilt. THE THREE ARMS on the replay board
+#   (funnel3.py: every football board day 2023-10 -> 2026-11-10, the whole board competing, closes, re-tuned each July,
+#   the 11/14 rules), football unit plays: TODAY (old fit + own read) 52-36 +15.1% flat, +8.4u on 81.5u - its favorites
+#   37-16 +6.1u (held out 28-11 +5.9u, this season 21-9 +4.5u), its DOGS 15-20 +2.3u on 49u (held out -0.0u on 41u, this
+#   season 5-9 -3.7u); THE HONEST DIALS (BLEND_STABLE_SKIP = ()) 11-2 - the Locks only, the favorites they drop went 28-13
+#   +5.1u; THE HONEST DIALS + the weighed check 25-12 +14.9u on 39.5u (favorites 15-4 +3.2u; dogs 10-8 +11.7u but held
+#   out 6-6 -0.1u, this season 1-2 -3.7u). So football keeps its dials (sports_model.BLEND_STABLE_SKIP) and its favorite
+#   check, and the DOG half is re-based. Among the dogs today's check passes (old own read over the price, 416 football
+#   dogs +100..+350 on the replay days), the study part over the price KEEPS 59-84 +13.0% (train +10.5% / held +14.5%,
+#   4 of 4 seasons up) and DROPS 91-182 -11.8% (train -8.7% / held -13.2%, 0 of 4 up); on the board, the old arm's Dogs
+#   it keeps 3-2 +5.9u, drops 12-18 -3.5u; LIVE (blind, 9/27-11/8, joined to the replay rows) the football dogs it keeps
+#   7-10 +5.7u, drops 5-17 -2.8u. No size changes; the NFL Dog gate stays 8. FOOTBALL_CHECK_PARTS "fav" (a favorite's
+#   weighed read, w_p, in own_beats / own_margin / thin_edge) is the studied favorite half - NOT wired (it only means
+#   something on honest dials, and those drop the winning favorites).
+
+
+def football_weighed(c, part):
+    """🏈 Football's money check reads the weighed read for this side (part "dog" / "fav") - FOOTBALL_CHECK_FROM on."""
+    return part in FOOTBALL_CHECK_PARTS and c.get("league") in ("nfl", "ncaaf") and pt_day(c) >= FOOTBALL_CHECK_FROM
+
+
+def weighed_dog_beats(c):
+    """A dog's HONEST weighed read - the books' no-vig number plus its dog score's STUDY part (the whole score minus its
+    own-read term, dog_score_base) - over the REAL price we pay, juice in. (On honest dials the own-read term is ~0 and
+    this is the close + the whole score.)"""
+    if not c.get("dec"):
+        return False
+    try:
+        study = dog_score(c) - dog_score_base(c)
+    except (KeyError, TypeError, ZeroDivisionError):
+        return False
+    return ((c.get("p_market") or 1 / c["dec"]) + study / 100) * c["dec"] > 1
+
+
 def dog_own_ok(c):
     """The 10/23 plan's own-read rule for EVERY path to the Dog of the Day (and a dog_play): a dog whose OWN ratings read
     sits under the price is never the Dog (own over +12% / +8.7% blind on 254; under -8% / -11.6% on 133). 10/24 audit: the
     rule lived inside dog_gate only - a dog carried by a PROVEN angle (good() through proven(c)) walked past it.
     10/27: per sport (DOG_OWN_RULE) - hockey against the no-vig market, the NBA none, the rest against the real price."""
+    if DOG_NEEDS_OWN and football_weighed(c, "dog") and not weighed_dog_beats(c):
+        return False                                         # (🏈 11/12 daily: a football dog's studies have to beat the
+        #                                                      price on the close too - FOOTBALL_CHECK_FROM)
     if not DOG_NEEDS_OWN or c.get("edge_own") is None:
         return True
     rule = DOG_OWN_RULE.get(c.get("league"), "price")
@@ -1121,7 +1164,10 @@ def dog_gate(c):
     lg = c.get("league")
     if lg in ("nfl", "nhl", "ncaaf", "nba"):
         sc = round(dog_score(c), 2)
-        if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE, "nba": NBA_DOG_GATE}[lg]:
+        gate = {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE, "nba": NBA_DOG_GATE}[lg]
+        if lg == "nfl" and NFL_DOG_GATE_WEIGHED is not None and football_weighed(c, "dog"):
+            gate = NFL_DOG_GATE_WEIGHED
+        if sc >= gate:
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the weighed read)
             c["dog_score"] = sc                              # (10/16: the posted leg keeps the score its units rode on -
             return True                                      #  the sizing audit had to back it out of dog_p)
@@ -1559,16 +1605,23 @@ DAILY_DOG_MAX = 350          # (10/17: +350) ...and the every-day Dog (and the d
 LAST_RAW = []
 
 
+def dog_score_base(c):
+    """The dog score's first term: the engine's OWN read over the books' no-vig number, in points (capped at OWN_CAP; none
+    past it in OWN_TRAP leagues) - the rest of the score is the studies (dog_spots / dog_more / ...)."""
+    own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
+    sc = (own - (c.get("p_market") or own)) * 100
+    if sc > OWN_CAP:
+        sc = 0.0 if c.get("league") in OWN_TRAP else OWN_CAP
+    return sc
+
+
 def dog_score(c):
     """How much the analysis likes a dog (points of win chance over its price, give or take what 9/30's studies found):
     the engine's own read vs the price, then - playoffs: facing a favorite that just lost the last game of the series
     (baseball 50% / -14%; NBA / NHL desperate favorites -15% / -19%), or we just lost it; hockey: the money ran away
     from the dog (lost every season since 2023, -6%) or came in on it (+6% / +15% 2 of 3); the books overprice a
     better goalie (the dog WITH the better goalie -9% to -12%, the dog facing it +2%)."""
-    own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
-    sc = (own - (c.get("p_market") or own)) * 100
-    if sc > OWN_CAP:
-        sc = 0.0 if c.get("league") in OWN_TRAP else OWN_CAP
+    sc = dog_score_base(c)
     base = sc                                            # the engine's own read - everything below is the studies
     sc += dog_spots(c)
     if c.get("opp_lost_last"):
@@ -3322,6 +3375,9 @@ def thin_edge(leg):
     the units ride on - a small edge is a small bet)."""
     dec = leg.get("dec") or _dec(leg.get("odds") or 100)
     eds = [leg["edge_own"]] if leg.get("edge_own") is not None else []
+    if leg.get("w_p") is not None and football_weighed(leg, "fav"):
+        eds = []                                             # (🏈 11/12 daily, the studied favorite half - FOOTBALL_CHECK_PARTS
+        #                                                      "fav", not wired: on honest dials the own read is the close)
     r = read_of(leg)
     if r is not None:
         eds.append(r * dec - 1)
@@ -3533,6 +3589,8 @@ def own_beats(c):
     if not c.get("dec"):
         return False
     if c.get("w_p") is not None and c.get("league") in ("nhl", "nba"):   # (NBA: its favorite read starts from the books - 10/22)
+        return c["w_p"] * c["dec"] > 1
+    if c.get("w_p") is not None and football_weighed(c, "fav"):   # (🏈 football: the weighed read - FOOTBALL_CHECK_FROM)
         return c["w_p"] * c["dec"] > 1
     if c.get("edge_own") is None:                            # (no own read at all: the weighed read is all there is)
         return c.get("w_p") is not None and c["w_p"] * c["dec"] > 1
@@ -5699,7 +5757,8 @@ def own_margin(c):
     dec = c.get("dec")
     if not dec:
         return None
-    if c.get("w_p") is not None and (c.get("league") in ("nhl", "nba") or c.get("edge_own") is None):
+    if c.get("w_p") is not None and (c.get("league") in ("nhl", "nba") or c.get("edge_own") is None
+                                     or football_weighed(c, "fav")):   # (🏈 11/12 daily: football's weighed check too)
         return c["w_p"] - 1 / dec
     if c.get("edge_own") is None:
         return None
@@ -8924,11 +8983,14 @@ def run(repick=False, fetch=True):
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
                           "acc": {lg: p["accuracy"] for lg, p in model["params"].items()}}
     n_odds = sum(g["status"] == "final" and g.get("ml_home", "") != "" for g in games.values())
+    calib = sm.calib_key()                                  # (🎚️ 11/12 daily: a dated calibration switch re-tunes the
+    #                                                          morning it starts - no new final has to come in first)
     if (n_final, n_odds, n_players) != (model.get("finals_seen"), model.get("odds_seen"), model.get("players_seen")) \
-            or not model["params"]:                                     # retrain on new results / odds / player stats
+            or not model["params"] or model.get("calib") != calib:     # retrain on new results / odds / player stats
         t0 = time.time()
         sm.tune_all(games, model)
         model["finals_seen"], model["odds_seen"], model["players_seen"] = n_final, n_odds, n_players
+        model["calib"] = calib
         print(f"tuned in {time.time() - t0:.0f}s: " + ", ".join(
             f"{lg} trust {p['trust']:.0%} acc {p['accuracy']:.1%}" for lg, p in model["params"].items()))
         print("cover study: " + "; ".join(

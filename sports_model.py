@@ -418,7 +418,13 @@ BLEND_STABLE_SKIP = ("nfl", "ncaaf")   # 🏈 FOOTBALL'S FOUR DIALS STAY ON THE 
 #   football unit play - college football 45-32 +27.5% on 77 under the old fit, 3-0 under the new. Everywhere else the
 #   plays the fix drops are break-even or worse (college hoops 67-51 -0.3%, baseball 19-17 -6.9%) and the ones it keeps
 #   win more (college hoops 15-3). In football the old gate was open by accident and the dog score / weighed read behind
-#   it did the picking - re-basing that check is a change to his rule, so football keeps the old fit until he says.
+#   it did the picking - re-basing that check is a change to his rule, so football kept the old fit until it was studied.
+#   THE 11/12 DAILY STUDIES (results/studies/daily_1112/mc1-mc3 - the replay board on today's code, every football board
+#   day 2023-10 -> 2026-11, three arms) KEEP IT: the honest dials (BLEND_STABLE_SKIP = ()) shut the football Dog and most
+#   favorites, and the favorites they drop are the ones that WIN out of sample - the old fit's football favorites 28-11
+#   held out (+5.9u on 25u), 21-9 this season, live 8-4 +9.1u; the honest dials + a weighed favorite check keep 15-4
+#   (+3.2u on 9.5u). The leak was the DOG half, and that is re-based instead (sports.FOOTBALL_CHECK_FROM: a football dog
+#   also needs the close + its dog score's STUDY part over the real price - the honest weighed read).
 #   (The cover read's big-favorite dial takes the pull in every league - no unit rides on it.)
 
 
@@ -426,6 +432,15 @@ def blend_stable(day=None, league=None):
     """🎚️ 11/12: the blend's dials are fit on every game with odds, pulled to zero (BLEND_LAM) - from BLEND_STABLE_FROM,
     in every league but BLEND_STABLE_SKIP."""
     return league not in BLEND_STABLE_SKIP and (day or datetime.now(PT).strftime("%Y-%m-%d")) >= BLEND_STABLE_FROM
+
+
+def calib_key(day=None):
+    """🎚️ 11/12 DAILY STUDIES: which dated calibration switches are on for `day` (None = today, Pacific) - the blend's
+    stable dials per league and the college football FBS fit. The live tune only re-runs on new finals / odds / box
+    scores, and a switch day's 8 AM board can come before any of them (Friday night's last finals are in before midnight):
+    sports.run re-tunes whenever this key changes, so a dated fix is in the tune on the morning it starts."""
+    d = day or datetime.now(PT).strftime("%Y-%m-%d")
+    return ",".join(lg for lg in sd.LEAGUES if blend_stable(d, lg)) + "|fbs" * (d >= NCAAF_FBS_FIT_FROM)
 
 
 def ncaaf_fbs_rows(games, train, day=None):
