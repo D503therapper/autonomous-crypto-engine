@@ -526,6 +526,8 @@ def tags(c, sports):
     #   read by the board), from the 11/12 Pacific game day
     if sports.pt_day(c) >= EARLY_LINE_FROM:
         t += early_line_tags(c)
+    t += cbb10_tags(c, sports)                               # 11/12 FABLE: 10 college hoops studies (one built weight's
+    #   record + four moneyline LEADS, from the 11/13 Pacific game day)
     return t + sharp
 
 
@@ -1087,6 +1089,8 @@ def spread_tags(c, sports):
         #   back (within 10 days) from 3+ straight neutral-site games (the November / December tournament trip) ATS
         #   -11.2% on 256 (train -20.5%, 0 of 4 up; held out -11.5% / -2.3% / -16.0% / +15.8%), the road side across
         #   +2.2% (train +11.2%, 4 of 4 up) - the dog across isn't up on the moneyline; a LEAD only
+    t += cbb10_spread_tags(c, sports)                        # 11/12 FABLE: 10 college hoops studies - the two built
+    #   spread-rank weights' cover records + one spread LEAD (results/studies/cbb10_1112)
     t += spreads2_tags(c, sports)                            # 11/11 FABLE spreads part 2: the Wong teaser legs, the
     #   visitor on a 5,900 ft+ floor, the NFL lookahead dog - LEADS (results/studies/spreads2_1111)
     return t
@@ -1628,6 +1632,108 @@ def spreads2_tags(c, sports):
         t.append(HOOPS_HIGH_FLOOR_TAG)
     if nfl_lookahead_dog(c):
         t.append(NFL_LOOKAHEAD_TAG)
+    return t
+
+
+# ---------------- 11/12 FABLE: 10 COLLEGE HOOPS STUDIES (results/studies/cbb10_1112) ----------------
+CBB10_TO_DOG_TAG = "college hoops dog losing the turnover matchup by .05+ a possession (fade)"   # BUILT (-2): -17.1% on
+#   1,802 (5 of 5 seasons, the open -18.5%, z -5.5) vs -7.3%; judge at 50: at or above -7.3% = the weight comes off
+CBB10_THREE_HEAVY_TAG = "college hoops small fav, 42%+ of its shots threes (fade)"   # LEAD: -7.4% on 1,177 (5 of 5
+#   seasons down, the open -7.1%, not the turnover weight - without it -7.5%), the dose under 33% +4.1% / 33-40% -4.4% /
+#   40-45% -6.5% / 45%+ -8.9% - z -2.8, the 11/3 WATCH with a dose; never a weight until 50 live
+CBB10_THREE_LIGHT_TAG = "college hoops small fav, under 33% of its shots threes"   # LEAD: +4.1% on 678 (held +8.0%, 3 of
+#   3; the open +10.1%), the dog across it -13.8% (0 of 5 seasons up)
+CBB10_HOME_LOSS_SMALL_TAG = "college hoops dog off a home loss as a small favorite (fade)"   # LEAD: -20.2% on 504
+#   (train -23.0%, held -18.5% 0 of 4 up, z -3.6; on the road -25.5% on 339, +201..+350 -40.8% on 185); the controls
+#   sit at the base (lost on the ROAD as a small favorite -2.6%, lost at home as a DOG -5.7%)
+CBB10_HOME_LOSS_BIG_TAG = "college hoops dog off a home loss as a -300+ favorite"   # LEAD (the other end of the same
+#   dose): +12.4% on 332 (train +21.5% 3 of 4, held +5.4% 3 of 4, z 1.6) - the bigger the home upset, the better the
+#   next-game dog (-101..-150 -20% / -151..-200 -13% / -201..-299 -3% / -300..-499 +12% / -500+ +13%)
+CBB10_RUST_HOME_TAG = "college hoops home side off 7+ days vs a team in rhythm (fade)"   # BUILT (rank -0.03): ATS
+#   -13.6% on 1,027 (8 of 8 seasons down, z -4.6); judge at 50: the faded side covering 52%+ = the weight comes off
+CBB10_RUST_VISITOR_TAG = "college hoops visitor in rhythm at a home team off 7+ days"   # BUILT (rank +0.02): +4.8% on 1,027
+CBB10_LEADER_TAG = "college hoops league leader with a cushion on the road, Feb-Mar (fade)"   # BUILT (rank -0.03): ATS
+#   -20.4% on 470 (8 of 8 seasons down, z -4.7, a random 470 road sides 0 of 2,000)
+CBB10_VS_LEADER_TAG = "college hoops home side vs a league leader with a cushion, Feb-Mar"   # BUILT (rank +0.03): ATS
+#   +11.4% on 470, covered 58.3% (8 of 8 seasons up) - the line a ½u spread play would be judged on (50 live rows:
+#   55%+ covered = take the play to the board, under 52.4% = the weight comes off)
+CBB10_TO_SPREAD_TAG = "college hoops spread side losing the turnover matchup by .07+ a possession (fade)"   # LEAD: ATS
+#   -8.5% on 2,197 (0 of 2 / 0 of 3 seasons up, z -4.2) vs -4.5% - 4 points under the base, not in the ½u stack
+CBB10_TO_SPREAD = 0.07
+CBB10_THREE_HEAVY, CBB10_THREE_LIGHT = 0.42, 0.33
+CBB10_HOME_LOSS_DAYS = 10
+
+
+def hoops_home_loss_fav(c):
+    """11/12 study 7 (LEADS, tracked only): this college hoops side's last game (within CBB10_HOME_LOSS_DAYS nights) was
+    a loss on its own floor as the closing favorite -> "small" (-101..-150), "big" (-300 or shorter), else None. The
+    last game's result and closing moneyline, from the games file - nothing about tonight."""
+    if c.get("league") != "ncaab":
+        return None
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return None
+    x = rows[-1]
+    try:
+        if x.get("home") != team or str(x.get("neutral") or "0") == "1":
+            return None
+        if _night(c.get("start") or _game(c).get("start")) - _night(x["start"]) > CBB10_HOME_LOSS_DAYS:
+            return None
+        if float(x["home_score"]) >= float(x["away_score"]):
+            return None
+        ml = float(x.get("ml_home"))
+    except (TypeError, ValueError, KeyError):
+        return None
+    if -150 <= ml <= -101:
+        return "small"
+    if ml <= -300:
+        return "big"
+    return None
+
+
+def _cbb10_on(c, sports):
+    try:
+        return c.get("league") == "ncaab" and sports.pt_day(c) >= sports.CBB10_FROM
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
+def cbb10_tags(c, sports):
+    """The 11/12 college hoops studies' MONEYLINE lines (from sports.CBB10_FROM): the turnover-matchup dog (the built
+    -2's live record) and four LEADS the board never reads."""
+    if c.get("market") != "ml" or not _cbb10_on(c, sports):
+        return []
+    t, o = [], c.get("odds") or 0
+    if sports.ncaab_to_match_dog(c):
+        t.append(CBB10_TO_DOG_TAG)
+    if -150 <= o <= -101 and c.get("tp_share") is not None:
+        if c["tp_share"] >= CBB10_THREE_HEAVY:
+            t.append(CBB10_THREE_HEAVY_TAG)
+        elif c["tp_share"] < CBB10_THREE_LIGHT:
+            t.append(CBB10_THREE_LIGHT_TAG)
+    if 100 <= o <= 350:
+        k = hoops_home_loss_fav(c)
+        if k:
+            t.append(CBB10_HOME_LOSS_SMALL_TAG if k == "small" else CBB10_HOME_LOSS_BIG_TAG)
+    return t
+
+
+def cbb10_spread_tags(c, sports):
+    """The 11/12 college hoops studies' SPREAD lines (from sports.CBB10_FROM): the two built rank weights' cover records
+    (both benches) and the turnover-matchup spread LEAD."""
+    if c.get("market") != "spread" or not _cbb10_on(c, sports):
+        return []
+    t = []
+    if c.get("rust_home"):
+        t.append(CBB10_RUST_HOME_TAG)
+    elif c.get("vs_rust_home"):
+        t.append(CBB10_RUST_VISITOR_TAG)
+    if c.get("leader_road"):
+        t.append(CBB10_LEADER_TAG)
+    elif c.get("vs_leader_road"):
+        t.append(CBB10_VS_LEADER_TAG)
+    if c.get("to_net") is not None and c["to_net"] <= -CBB10_TO_SPREAD + 1e-9:
+        t.append(CBB10_TO_SPREAD_TAG)
     return t
 
 

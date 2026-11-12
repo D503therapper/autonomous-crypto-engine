@@ -116,12 +116,14 @@ def season_of(start):
     return y if m >= 7 else y - 1
 
 
-def conferences(games, season):
+def conferences(games, season, last=True):
     """{team id: (conference key, power)} inferred from the schedule: teams that played each other at home / on the
     road in Jan 3 - Mar 1 of LAST season or from this January on, sharing 3+ opponents in that pool -> connected
-    components (5+ teams); power = the component holds a POWER_ANCHORS school."""
+    components (5+ teams); power = the component holds a POWER_ANCHORS school. last=False: THIS season's league play
+    only (January on) - last season's schedule joins two leagues whenever a school changed conferences, which is
+    harmless for "are these two in a league" in November and wrong for a standings table in February."""
     adj, names = {}, {}
-    lo_last, hi_last = f"{season - 1}-01-03", f"{season - 1}-03-01"
+    lo_last, hi_last = (f"{season - 1}-01-03", f"{season - 1}-03-01") if last else ("9", "0")
     lo_now = f"{season + 1}-01-01"
     for gid, g in (games or {}).items():
         if g.get("league", "ncaab") != "ncaab" or g.get("status") != "final" or str(g.get("stype") or "2") != "2":
@@ -181,10 +183,12 @@ def standings(games, season, conf):
 
 
 def race(games, team, opp, start):
-    """{"conf_gb", "opp_conf_gb", "conf_power", "race_dog_side"} at tip: games out of first for both teams in their
+    """{"conf_gb", "opp_conf_gb", "conf_power", "race_dog_side", "conf_cushion", "opp_conf_cushion"} at tip (the
+    cushion = games clear of second place, None unless alone in first): games out of first for both teams in their
     shared league (None outside a league / under RACE_MIN_GAMES); race_dog_side = True when THIS team is 5+ back
     facing a contender within a game of first in Feb-Mar, not a power league (the price decides if it's the dog)."""
-    out = {"conf_gb": None, "opp_conf_gb": None, "conf_power": None, "race_dog_side": False}
+    out = {"conf_gb": None, "opp_conf_gb": None, "conf_power": None, "race_dog_side": False, "conf_cushion": None,
+           "opp_conf_cushion": None}
     start = str(start or "")
     if len(start) < 10:
         return out
@@ -193,7 +197,9 @@ def race(games, team, opp, start):
     if key not in _MEMO:
         _MEMO.clear()
         try:
-            conf = conferences(games, season)
+            conf = conferences(games, season, last=False)    # (11/12: THIS season's leagues only - the old table mixed
+            #   in an older season's schedule and joined every pair of leagues a school had moved between: on the
+            #   2025-26 replay the race dog fired on 39 rows where the 11/3 study's own table has ~80)
             _MEMO[key] = (conf, standings(games, season, conf))
         except (TypeError, ValueError, KeyError):
             _MEMO[key] = ({}, {})
@@ -209,9 +215,48 @@ def race(games, team, opp, start):
     lead = max(r[0] - r[1] for r in rows)
     out["conf_gb"] = (lead - (tab[team][0] - tab[team][1])) / 2
     out["opp_conf_gb"] = (lead - (tab[opp][0] - tab[opp][1])) / 2
+    diffs = sorted((r[0] - r[1] for r in rows), reverse=True)     # 11/12 FABLE (cbb10_1112 S10): the leader's CUSHION -
+    second = diffs[1] if len(diffs) > 1 else diffs[0]             # games clear of second place (None = not alone in first)
+    for key, t in (("conf_cushion", team), ("opp_conf_cushion", opp)):
+        if tab[t][0] - tab[t][1] == lead and lead > second:
+            out[key] = (lead - second) / 2
     out["race_dog_side"] = (month_of(start) in RACE_MONTHS and not conf[team][1] and out["conf_gb"] >= RACE_GB
                             and out["opp_conf_gb"] <= RACE_CONTEND)
     return out
+
+
+_MEMO_NOW = {}               # (season, id(games), len(games)) -> (this season's conferences, standings)
+
+
+def leader_cushion(games, team, opp, start):
+    """11/12 FABLE (cbb10_1112 S10): how many games clear of second place `team` is in the league it shares with `opp`
+    at tip - None unless it is ALONE in first, both teams have RACE_MIN_GAMES+ league games and the league shows 6+
+    teams. The league is read from THIS season's January-on schedule only (conferences last=False - the study's own
+    table), the standings from this season's same-league regular-season finals in the file (= before tip, live)."""
+    start = str(start or "")
+    if len(start) < 10:
+        return None
+    season = season_of(start)
+    key = (season, id(games), len(games or {}))
+    if key not in _MEMO_NOW:
+        _MEMO_NOW.clear()
+        try:
+            conf = conferences(games, season, last=False)
+            _MEMO_NOW[key] = (conf, standings(games, season, conf))
+        except (TypeError, ValueError, KeyError):
+            _MEMO_NOW[key] = ({}, {})
+    conf, tab = _MEMO_NOW[key]
+    team, opp = str(team), str(opp)
+    if team not in conf or opp not in conf or conf[team][0] != conf[opp][0]:
+        return None
+    rows = [tab[t] for t, v in conf.items() if v[0] == conf[team][0] and tab.get(t)]
+    if len(rows) < 6 or not all(sum(tab.get(t, (0, 0))) >= RACE_MIN_GAMES for t in (team, opp)):
+        return None
+    diffs = sorted((r[0] - r[1] for r in rows), reverse=True)
+    mine = tab[team][0] - tab[team][1]
+    if mine != diffs[0] or diffs[0] == diffs[1]:
+        return None
+    return (diffs[0] - diffs[1]) / 2
 
 
 def road_cover(games, team, start):

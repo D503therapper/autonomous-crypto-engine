@@ -1,103 +1,3 @@
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 7 games on the page, 7 matched, 1 confirmed
-nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
-beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
-public splits: 118 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26306 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.6301 vs 0.6317, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6301: experience 0.6298 (+0.22 mnats, z 0.24), age 0.6281 (+1.96 mnats, z 1.39), young_vs_aging 0.6298 (+0.27 mnats, z 0.67), last_match 0.6274 (+2.67 mnats, z 1.87), streaks 0.6307 (-0.60 mnats, z -0.58), first_set 0.6294 (+0.68 mnats, z 1.03), injury 0.631 (-0.95 mnats, z -1.47), travel 0.63 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30854 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.002, -0.074, 0.299, 0.024, -0.197]
-tennis study WTA life factors vs current loss 0.6221: experience 0.6194 (+2.77 mnats, z 1.62), age 0.6212 (+0.94 mnats, z 1.2), young_vs_aging 0.6219 (+0.26 mnats, z 1.6), last_match 0.623 (-0.85 mnats, z -0.84), streaks 0.6221 (+0.06 mnats, z 0.12), first_set 0.6218 (+0.35 mnats, z 0.75), injury 0.6216 (+0.52 mnats, z 0.91), travel 0.6223 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
-1H line log: 0 rows (0 with a 1st-half line) from 126 AN games
-source check (1.2s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132470 games stored, 52 calls, 0 failed, 15s
-odds history: 0 games got odds, 55 calls, 0 failed, 6s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 119 games got weather, 0 new stadiums located, 240s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 7 games on the page, 7 matched, 1 confirmed
-nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
-beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
-futures logged: nba 9, nhl 7, nfl 12, ncaaf 12
-public splits: 118 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26306 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.6301 vs 0.6317, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6301: experience 0.6298 (+0.22 mnats, z 0.24), age 0.6281 (+1.96 mnats, z 1.39), young_vs_aging 0.6298 (+0.27 mnats, z 0.67), last_match 0.6274 (+2.67 mnats, z 1.87), streaks 0.6307 (-0.60 mnats, z -0.58), first_set 0.6294 (+0.68 mnats, z 1.03), injury 0.631 (-0.95 mnats, z -1.47), travel 0.63 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30854 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.002, -0.074, 0.299, 0.024, -0.197]
-tennis study WTA life factors vs current loss 0.6221: experience 0.6194 (+2.77 mnats, z 1.62), age 0.6212 (+0.94 mnats, z 1.2), young_vs_aging 0.6219 (+0.26 mnats, z 1.6), last_match 0.623 (-0.85 mnats, z -0.84), streaks 0.6221 (+0.06 mnats, z 0.12), first_set 0.6218 (+0.35 mnats, z 0.75), injury 0.6216 (+0.52 mnats, z 0.91), travel 0.6223 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
-1H line log: 62 rows (56 with a 1st-half line) from 126 AN games
-source check (0.8s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132470 games stored, 52 calls, 0 failed, 9s
-odds history: 0 games got odds, 55 calls, 0 failed, 6s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 118 games got weather, 0 new stadiums located, 246s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 7 games on the page, 7 matched, 1 confirmed
-nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
-beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
-public splits: 118 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-tennis sync: 74022 matches stored, 18 calls, 0 failed
-tennis study ATP: 26307 rated matches, acc 0.6445 (surface ratings alone 0.641), loss 0.6302 vs 0.6318, own weights [-0.004, 0.827, 0.074, 0.152, 0.42, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6302: experience 0.6299 (+0.30 mnats, z 0.33), age 0.6282 (+1.94 mnats, z 1.38), young_vs_aging 0.6299 (+0.27 mnats, z 0.67), last_match 0.6275 (+2.69 mnats, z 1.89), streaks 0.6308 (-0.61 mnats, z -0.59), first_set 0.6295 (+0.64 mnats, z 0.97), injury 0.6311 (-0.97 mnats, z -1.49), travel 0.6302 (+0.02 mnats, z 0.47) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30854 rated matches, acc 0.6465 (surface ratings alone 0.6495), loss 0.6221 vs 0.6223, own weights [0.005, 0.904, -0.002, -0.074, 0.299, 0.024, -0.197]
-tennis study WTA life factors vs current loss 0.6221: experience 0.6194 (+2.77 mnats, z 1.62), age 0.6212 (+0.94 mnats, z 1.2), young_vs_aging 0.6219 (+0.26 mnats, z 1.6), last_match 0.623 (-0.85 mnats, z -0.84), streaks 0.6221 (+0.06 mnats, z 0.12), first_set 0.6218 (+0.35 mnats, z 0.75), injury 0.6216 (+0.52 mnats, z 0.91), travel 0.6223 (-0.13 mnats, z -0.75) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 23:00 PT slot); bovada empty)
-1H line log: 0 rows (0 with a 1st-half line) from 126 AN games
-source check (1.9s): plain requests answered by 10 of 12 sources - quiet: rotowire_ncaab, rotowire_ncaaf
-sync: 132470 games stored, 52 calls, 0 failed, 10s
-odds history: 1 games got odds, 55 calls, 0 failed, 6s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 138 games got weather, 0 new stadiums located, 169s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 7 games on the page, 7 matched, 2 confirmed
-nba rosters: 30 teams as of 2026-11-10, 0 failed, 0 moves
-beat the close: unit plays 30 of 103 better than the close, avg +0.1 pts
-SLATE CHECK (not held): Detroit Mercy @ Xavier (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): St Mary's (MD) @ Longwood (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Penn State Leh @ Lafayette (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): VA Lynchburg @ The Citadel (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Apprentice @ Hampton (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Biblical Stud @ Texas Southern (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Ecclesia @ C Arkansas (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Millsaps @ N'Western St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Southern @ Iowa State (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Livingstone @ Austin Peay (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Dallas Chrstn @ Texas A&M-CC (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Northern NM @ N Colorado (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): Newman @ Missouri St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): UT Dallas @ Tarleton St (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): York (NE) @ Omaha (NCAAB): no price - a small-school game the books skip
-SLATE CHECK (not held): UL Monroe @ TCU (NCAAB): no price - a small-school game the books skip
-everything's pulled and checked - the board goes up at 8:00 sharp (waiting 658s)
-public splits: 118 upcoming games
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (105 players), 365 matched, 0 unmatched
-   no units on Green Bay: missing J. Overway, J. Edwards
    no units on Wisconsin: missing L. Fenderson, J. Manchester
    no units on Kansas: missing M. Council Jr., G. Mordini
    no units on Maple Leafs: missing Morgan Rielly, Colton Sissons, Kirill Marchenko
@@ -2998,3 +2898,103 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 2 matches
 1H line log: 0 rows (0 with a 1st-half line) from 92 AN games
 source check (1.9s): plain requests answered by 37 of 39 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132628 games stored, 58 calls, 0 failed, 13s
+odds history: 7 games got odds, 59 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 144 games got weather, 0 new stadiums located, 143s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 6 games on the page, 6 matched, 9 confirmed
+nba rosters: 30 teams as of 2026-11-11, 0 failed, 0 moves
+beat the close: unit plays 32 of 106 better than the close, avg +0.2 pts
+tuned in 150s: mlb trust 34% acc 58.6%, nba trust 2% acc 69.9%, ncaab trust 0% acc 73.3%, ncaaf trust 0% acc 65.7%, nfl trust 23% acc 66.1%, nhl trust 33% acc 58.3%
+cover study: nba big favorites covered 50% of 3660 (adjust +0.03); ncaab big favorites covered 49% of 12771 (adjust -0.03); ncaaf big favorites covered 50% of 3689 (adjust +0.02); nfl big favorites covered 47% of 523 (adjust +0.04)
+comeback study: nfl 2337 games s=1.3 w=1.50 m=+0.0 loss 0.478->0.469; ncaaf 6453 games s=1.2 w=1.25 m=+0.0 loss 0.371->0.369; nba 10387 games s=1.7 w=1.75 m=+0.0 loss 0.507->0.472; mlb 19858 games s=0.9 w=0.75 m=+0.0 loss 0.455->0.455; nhl 10339 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 30257 games s=1.3 w=1.50 m=-0.1 loss 0.431->0.414
+halves study: nfl 2346 games: 1st half gets 51% of the edge (sd 10.25), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 6454 games: 1st half gets 60% of the edge (sd 11.84), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10387 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 30257 games: 1st half gets 62% of the edge (sd 9.12), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20092 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10339 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
+lines study: nhl 20678 team-games, loss 0.607->0.584; mlb 40186 team-games, loss 0.654->0.636
+spread/moneyline study: {'nfl': (0.5264, True), 'ncaaf': (0.4863, False), 'nba': (0.4544, False), 'ncaab': (0.4821, False)}
+hockey study: ['backup', 'b2b', 'rest', 'travel'] 0.66465 vs line 0.66525
+all: following hit 69.0% vs 68.0% the price said over 236854 (edge +0.9% older, +1.0% newer, z 10.35) -> watch only
+streak: following hit 64.2% vs 63.5% the price said over 71443 (edge +0.6% older, +0.7% newer, z 3.85) -> watch only
+rate: following hit 71.0% vs 70.0% the price said over 165411 (edge +1.0% older, +1.1% newer, z 9.93) -> watch only
+streak|total: following hit 50.2% vs 50.0% the price said over 12463 (edge +0.0% older, +0.4% newer, z 0.47) -> watch only
+streak|fav_ml: following hit 72.7% vs 71.6% the price said over 37461 (edge +0.9% older, +1.2% newer, z 4.62) -> watch only
+streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7811 (edge -1.5% older, +0.5% newer, z -0.92) -> watch only
+streak|home: following hit 62.0% vs 61.3% the price said over 13708 (edge +0.9% older, +0.4% newer, z 1.88) -> watch only
+rate|total: following hit 50.9% vs 50.0% the price said over 4003 (edge +1.3% older, +0.5% newer, z 1.12) -> watch only
+rate|fav_ml: following hit 73.8% vs 72.8% the price said over 116137 (edge +0.9% older, +1.2% newer, z 8.27) -> watch only
+rate|fav_cover: following hit 48.9% vs 50.0% the price said over 1914 (edge +0.2% older, -2.4% newer, z -0.96) -> watch only
+rate|home: following hit 66.5% vs 65.3% the price said over 43357 (edge +1.0% older, +1.3% newer, z 5.88) -> watch only
+nfl|streak: following hit 58.8% vs 59.8% the price said over 1583 (edge -2.9% older, +0.9% newer, z -0.83) -> watch only
+nfl|rate: following hit 65.3% vs 65.1% the price said over 4202 (edge -0.0% older, +0.6% newer, z 0.41) -> watch only
+ncaaf|streak: following hit 70.2% vs 69.7% the price said over 7408 (edge -0.2% older, +1.2% newer, z 0.96) -> watch only
+ncaaf|rate: following hit 72.3% vs 71.6% the price said over 23182 (edge +0.7% older, +0.7% newer, z 2.76) -> watch only
+nba|streak: following hit 61.3% vs 61.3% the price said over 9942 (edge -0.2% older, +0.2% newer, z -0.06) -> watch only
+nba|rate: following hit 68.4% vs 68.6% the price said over 24168 (edge -0.2% older, -0.1% newer, z -0.58) -> watch only
+ncaab|streak: following hit 68.1% vs 67.1% the price said over 36573 (edge +1.0% older, +0.9% newer, z 4.39) -> watch only
+ncaab|rate: following hit 72.6% vs 71.2% the price said over 103025 (edge +1.4% older, +1.4% newer, z 10.94) -> watch only
+mlb|streak: following hit 53.7% vs 53.6% the price said over 10773 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
+mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
+nhl|streak: following hit 56.9% vs 55.5% the price said over 5164 (edge +1.4% older, +1.5% newer, z 2.14) -> watch only
+nhl|rate: following hit 61.7% vs 60.9% the price said over 5472 (edge +0.1% older, +1.6% newer, z 1.34) -> watch only
+proven: ncaab|rate|fav_cover, ncaaf|rate|total
+ACTIVE nhl big favorite: favorites win 22-1 (prices said 16.7) (22 straight) -> coin flip · next: Hurricanes @ Kraken
+ACTIVE nfl away favorite: favorites win 39-15 (prices said 33.6) (13 straight) -> coin flip · next: Bills @ Jets, Texans @ Browns, Jaguars @ Titans
+ACTIVE nhl big favorite: home team wins 19-4 (prices said 15.4) (10 straight) -> coin flip · next: Hurricanes @ Kraken
+ACTIVE ncaaf wednesday: favorites win 9-1 (prices said 6.1) (7 straight) -> coin flip · next: Buffalo @ Ball State, Sacramento St @ C Michigan, UMass @ Toledo
+ACTIVE nfl big favorite: favorites win 35-12 (prices said 35.7) (11 straight) -> coin flip · next: Bills @ Jets, Jaguars @ Titans, Rams @ Cardinals
+ACTIVE mlb monday: over 146-116 (6 straight) -> coin flip
+ACTIVE ncaab tuesday: favorites win 58-14 (prices said 60.5) (11 straight) -> coin flip
+ACTIVE ncaab wednesday: over 8-2 (5 straight) -> coin flip · next: Binghamton @ Misericordia, Friends @ Wichita St, Pepperdine @ Sam Houston
+totals study: {'nfl': (0.5388, False), 'ncaaf': (0.4949, False), 'nba': (0.5049, False), 'ncaab': (0.5244, True), 'mlb': (0.4862, False), 'nhl': (0.484, False)}
+public splits: 111 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (101 players), 365 matched, 0 unmatched
+   no units on Mammoth: missing Nate Schmidt, Kailer Yamamoto, Dylan Guenther
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26315 rated matches, acc 0.644 (surface ratings alone 0.642), loss 0.6301 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.155, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6301: experience 0.6297 (+0.42 mnats, z 0.48), age 0.6281 (+1.94 mnats, z 1.38), young_vs_aging 0.6298 (+0.28 mnats, z 0.69), last_match 0.6275 (+2.59 mnats, z 1.82), streaks 0.6307 (-0.65 mnats, z -0.63), first_set 0.6294 (+0.65 mnats, z 0.98), injury 0.631 (-0.91 mnats, z -1.42), travel 0.6301 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30873 rated matches, acc 0.646 (surface ratings alone 0.648), loss 0.6221 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.073, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6191 (+2.97 mnats, z 1.76), age 0.6211 (+0.94 mnats, z 1.21), young_vs_aging 0.6218 (+0.27 mnats, z 1.69), last_match 0.6229 (-0.82 mnats, z -0.81), streaks 0.6221 (-0.01 mnats, z -0.01), first_set 0.6217 (+0.33 mnats, z 0.7), injury 0.6216 (+0.49 mnats, z 0.85), travel 0.6222 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
+tennis reads: 2 matches
+1H line log: 42 rows (25 with a 1st-half line) from 92 AN games
+source check (3.1s): plain requests answered by 37 of 39 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+sync: 132628 games stored, 52 calls, 0 failed, 11s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 141 games got weather, 0 new stadiums located, 141s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 6 games on the page, 6 matched, 9 confirmed
+nba rosters: 30 teams as of 2026-11-11, 0 failed, 0 moves
+beat the close: unit plays 32 of 106 better than the close, avg +0.2 pts
+public splits: 111 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 8 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (103 players), 365 matched, 0 unmatched
+   no units on Mammoth: missing Nate Schmidt, Kailer Yamamoto, Dylan Guenther
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26315 rated matches, acc 0.644 (surface ratings alone 0.642), loss 0.6301 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.155, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6301: experience 0.6297 (+0.42 mnats, z 0.48), age 0.6281 (+1.94 mnats, z 1.38), young_vs_aging 0.6298 (+0.28 mnats, z 0.69), last_match 0.6275 (+2.59 mnats, z 1.82), streaks 0.6307 (-0.65 mnats, z -0.63), first_set 0.6294 (+0.65 mnats, z 0.98), injury 0.631 (-0.91 mnats, z -1.42), travel 0.6301 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30873 rated matches, acc 0.646 (surface ratings alone 0.648), loss 0.6221 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.073, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6191 (+2.97 mnats, z 1.76), age 0.6211 (+0.94 mnats, z 1.21), young_vs_aging 0.6218 (+0.27 mnats, z 1.69), last_match 0.6229 (-0.82 mnats, z -0.81), streaks 0.6221 (-0.01 mnats, z -0.01), first_set 0.6217 (+0.33 mnats, z 0.7), injury 0.6216 (+0.49 mnats, z 0.85), travel 0.6222 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
+tennis reads: 2 matches
+1H line log: 0 rows (0 with a 1st-half line) from 92 AN games
+source check (3.5s): plain requests answered by 40 of 42 sources - quiet: rotowire_ncaab, rotowire_ncaaf

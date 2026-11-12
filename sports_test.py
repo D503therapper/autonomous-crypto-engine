@@ -21475,6 +21475,212 @@ def test_spreads2_1111_wong_legs_grade_at_the_teased_number_and_the_spread_leads
         sl.PATH, sl.RECORD = keep_p, keep_r
 
 
+def test_cbb10_1112_turnover_matchup_dog_rusty_home_side_and_league_leader_on_the_road_are_weights_never_units():
+    """11/12 FABLE: 10 COLLEGE HOOPS STUDIES (the owner: "Have Fable run 10 studies across college basketball";
+    results/studies/cbb10_1112/). THREE weights from the 11/13 Pacific game day, never a trigger, no units: (1) the
+    college hoops DOG that loses the turnover MATCHUP by .05+ a possession -2 (-17.1% on 1,802, 5 of 5 seasons);
+    (2) the HOME side off 7+ days hosting a team that played within 4: spread rank -0.03, its visitor +0.02 (ATS -13.6%
+    on 1,027, 8 of 8); (3) the LEAGUE LEADER a game or more clear of second, on the road in Feb-Mar: spread rank -0.03,
+    the home side across +0.03 (ATS -20.4% / +11.4% on 470, 8 of 8). The ½u spread stack keeps the weights it was
+    tested on; PLAY_MARKETS untouched; the leads (three-heavy / three-light small favorites, the home loss as a
+    favorite, the turnover matchup on the spread) only log on the tracker."""
+    import json as _json
+    import sports_leads as sl
+    import sports_ncaab_box as nb
+    import sports_ncaab_knowledge as nk
+    assert sports.PLAY_MARKETS == ("ml",) and sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04      # the owner's - untouched
+    assert sports.CBB10_FROM == "2026-11-13"
+    assert (sports.NCAAB_TO_MATCH, sports.NCAAB_TO_MATCH_PTS) == (0.05, 2)
+    assert (sports.NCAAB_RUST_DAYS, sports.NCAAB_RHYTHM_DAYS, sports.NCAAB_RUST_GAMES) == (7, 4, 4)
+    assert (sports.NCAAB_RUST_HOME_W, sports.NCAAB_RUST_VISITOR_W, sports.NCAAB_LEADER_W, sports.NCAAB_LEADER_CUSHION) == (0.03, 0.02, 0.03, 1.0)
+    ON, OFF = "2026-11-14T02:00Z", "2026-11-13T02:00Z"       # 6 PM Pacific 11/13 (on) and 11/12 (the day before: off)
+
+    def mk(gid, start, side, market, odds, **kw):
+        dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+        return {"league": "ncaab", "market": market, "odds": odds, "dec": dec, "p": 0.5, "side": side, "game_id": gid,
+                "start": start, "reasons": [], "dog_ctx": {}, "edge_own": 0.5 * dec - 1, "home": side == "home", **kw}
+    # ---- (1) the turnover-matchup dog: -2 in dog_spots, a weight inside STUDY_CAP, dated ----
+    dog = mk("ncaab:x", ON, "away", "ml", 160)
+    base = sports.dog_spots(dog)
+    assert sports.dog_spots({**dog, "to_net": -0.05}) == base - 2 and sports.dog_spots({**dog, "to_net": -0.09}) == base - 2
+    assert sports.dog_spots({**dog, "to_net": -0.049}) == base and sports.dog_spots({**dog, "to_net": 0.08}) == base
+    assert sports.dog_spots({**dog, "to_net": -0.09, "start": OFF}) == base                     # the day before: the old read
+    assert sports.dog_spots({**dog, "to_net": -0.09, "league": "nba"}) == sports.dog_spots({**dog, "league": "nba"})
+    assert not sports.ncaab_to_match_dog({**dog, "to_net": -0.09, "odds": -140})                # a favorite: never
+    assert not sports.ncaab_to_match_dog({**dog, "to_net": -0.09, "market": "spread"}) and not sports.ncaab_to_match_dog(dog)
+    assert "to_matchup" in sports.ncaab_dog_good_bad({**dog, "to_net": -0.06})["bad"] and "to_matchup" in sports.NCAAB_BAD_FACTS
+    assert "to_matchup" not in sports.ncaab_dog_good_bad(dog)["bad"]
+    assert sl.CBB10_TO_DOG_TAG in sl.tags({**dog, "to_net": -0.06}, sports) and sl.CBB10_TO_DOG_TAG not in sl.tags(dog, sports)
+    assert sl.CBB10_TO_DOG_TAG not in sl.tags({**dog, "to_net": -0.06, "start": OFF}, sports)
+    # the mark: per-possession rates from a temp team box (P coughs it up 16 and forces 8, Q 10 and 12)
+    tmp = tempfile.mkdtemp()
+    os.makedirs(os.path.join(tmp, "teamstats"))
+    GI = {}
+    with open(os.path.join(tmp, "teamstats", "ncaab.jsonl"), "w") as f:
+        for team, to, forced, tp in (("P", 16, 8, "9-27"), ("Q", 10, 12, "6-18")):
+            for i in range(6):
+                gid = f"ncaab:i{team}{i}"
+                GI[gid] = {"id": gid, "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-12-{1 + i:02d}T00:00Z",
+                           "home": team, "away": f"w{i}{team}", "home_score": "70", "away_score": "65", "neutral": "0"}
+                line = {"fieldGoalsMade-fieldGoalsAttempted": "25-60", "freeThrowsMade-freeThrowsAttempted": "15-20",
+                        "offensiveRebounds": "10", "defensiveRebounds": "25"}
+                f.write(_json.dumps({"gid": gid, "start": GI[gid]["start"], "teams": {
+                    team: {**line, "threePointFieldGoalsMade-threePointFieldGoalsAttempted": tp, "totalTurnovers": str(to)},
+                    f"w{i}{team}": {**line, "threePointFieldGoalsMade-threePointFieldGoalsAttempted": "5-20", "totalTurnovers": str(forced)}}}) + "\n")
+    keep_data, keep_min = nb.DATA, nb.LEAGUE_MIN_GAMES
+    nb.DATA, nb.LEAGUE_MIN_GAMES = tmp, 5
+    nb._BOX.clear(); nb._SEASON.clear()
+    try:
+        ip, iq = nb.identity(GI, "P", "2026-12-20T00:00Z"), nb.identity(GI, "Q", "2026-12-20T00:00Z")
+        assert abs(ip["tor"] - 16 / 75.5) < 1e-3 and abs(ip["ftor"] - 8 / 67.5) < 1e-3 and ip["tom"] == -8.0   # (rounded to 4 places)
+        assert abs(iq["tor"] - 10 / 69.5) < 1e-3 and abs(iq["ftor"] - 12 / 71.5) < 1e-3
+        assert ip["tp_share"] == 0.45 and iq["tp_share"] == 0.3
+        GF = {**GI, "ncaab:T": {"id": "ncaab:T", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:00Z",
+                                "home": "Q", "away": "P", "neutral": "0"}}
+        qf, pd_ = mk("ncaab:T", "2026-12-20T00:00Z", "home", "ml", -140), mk("ncaab:T", "2026-12-20T00:00Z", "away", "ml", 120)
+        qs = mk("ncaab:T", "2026-12-20T00:00Z", "home", "spread", -110)
+        sports.mark_ncaab_identity(GF, [qf, pd_, qs])
+        net = (8 / 67.5 - 16 / 75.5) - (12 / 71.5 - 10 / 69.5)                                 # P's side of the matchup: -0.117
+        assert abs(pd_["to_net"] - net) < 2e-4 and abs(qf["to_net"] + net) < 2e-4 and pd_["to_net"] <= -0.05
+        assert pd_["tp_share"] == 0.45 and qf["tp_share"] == 0.3
+        assert sports.ncaab_to_match_dog(pd_) and not sports.ncaab_to_match_dog(qf)
+        assert any("the turnover matchup is ours by 11.7 a 100 possessions" in r for r in qf["reasons"])   # the favorite across: the fact
+        assert not any("turnover matchup" in r for r in pd_["reasons"] + qs["reasons"])
+        assert sports.dog_spots(pd_) == sports.dog_spots({**pd_, "to_net": None}) - sports.NCAAB_TO_MATCH_PTS
+        # the leads: the three-light small favorite (Q, 30% of its shots) / the three-heavy one / the spread side
+        assert sl.CBB10_THREE_LIGHT_TAG in sl.tags(qf, sports) and sl.CBB10_THREE_HEAVY_TAG not in sl.tags(qf, sports)
+        assert sl.CBB10_THREE_HEAVY_TAG in sl.tags({**qf, "tp_share": 0.42}, sports)
+        assert not any("of its shots threes" in t for t in sl.tags({**qf, "tp_share": 0.36}, sports) + sl.tags({**qf, "odds": -190}, sports))
+        ps = mk("ncaab:T", "2026-12-20T00:00Z", "away", "spread", -110, to_net=pd_["to_net"])
+        assert sl.CBB10_TO_SPREAD_TAG in sl.spread_tags(ps, sports) and sl.CBB10_TO_SPREAD_TAG not in sl.spread_tags({**ps, "to_net": -0.06}, sports)
+        assert sports.rank_p(ps) == sports.rank_p({**ps, "to_net": None})                       # a LEAD: the spread rank never reads it
+    finally:
+        nb.DATA, nb.LEAGUE_MIN_GAMES = keep_data, keep_min
+        nb._BOX.clear(); nb._SEASON.clear()
+        shutil.rmtree(tmp, ignore_errors=True)
+    # ---- (2) the rusty home side: H last played 12/4, V played 12/18, the game 12/20 ----
+    GR = {}
+    for i in range(4):
+        GR[f"ncaab:h{i}"] = {"id": f"ncaab:h{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-12-{1 + i:02d}T00:30Z",
+                             "home": "H", "away": f"a{i}", "home_score": "70", "away_score": "60", "neutral": "0"}
+        GR[f"ncaab:v{i}"] = {"id": f"ncaab:v{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2026-12-{12 + 2 * i:02d}T00:30Z",
+                             "home": "V", "away": f"b{i}", "home_score": "70", "away_score": "60", "neutral": "0"}
+    GR["ncaab:R"] = {"id": "ncaab:R", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:30Z", "home": "H",
+                     "away": "V", "home_name": "Hosts", "away_name": "Visitors", "neutral": "0"}
+    hs, vs = mk("ncaab:R", "2026-12-20T00:30Z", "home", "spread", -110), mk("ncaab:R", "2026-12-20T00:30Z", "away", "spread", -110)
+    hm, vm = mk("ncaab:R", "2026-12-20T00:30Z", "home", "ml", -150), mk("ncaab:R", "2026-12-20T00:30Z", "away", "ml", 130)
+    b0 = sports.rank_p(hs)
+    sports.mark_ncaab_cbb10(GR, [hs, vs, hm, vm])
+    assert hs.get("rust_home") and vs.get("vs_rust_home") and hm.get("rust_home") and vm.get("vs_rust_home")
+    assert not hs.get("vs_rust_home") and not vs.get("rust_home") and not hs.get("leader_road") and not vs.get("vs_leader_road")
+    assert any("Hosts haven't played in 16 days, we played 2 days ago" in r for r in vs["reasons"])
+    assert not hs["reasons"] and not hm["reasons"] and not vm["reasons"]                         # the fact goes on the visitor's spread card only
+    assert abs(sports.rank_p(hs) - (b0 - 0.03)) < 1e-9 and abs(sports.rank_p(vs) - (b0 + 0.02)) < 1e-9
+    assert sports.rank_p(hm) == sports.rank_p({**hm, "rust_home": False})                       # never the moneyline's rank
+    assert sports.ncaab_cbb10_spread_w({**hs, "start": OFF}) == 0.0 and sports.ncaab_cbb10_spread_w({**hs, "league": "nba"}) == 0.0
+    assert sports.ncaab_spread_stack(hs) == (0.0, 0) and sports.ncaab_spread_stack(vs) == (0.0, 0)   # NOT in the ½u stack play's sum
+    assert not sports.ncaab_stack_play_ok(vs)
+    assert sl.CBB10_RUST_HOME_TAG in sl.spread_tags(hs, sports) and sl.CBB10_RUST_VISITOR_TAG in sl.spread_tags(vs, sports)
+    assert sl.CBB10_RUST_HOME_TAG not in sl.spread_tags(vs, sports) and not any("off 7+ days" in t and "home side" in t for t in sl.tags(hm, sports))
+    for change in ({"neutral": "1"}, {"start": "2026-12-09T00:30Z"}):                            # a neutral floor / only 5 days off
+        G2 = {**GR, "ncaab:R": {**GR["ncaab:R"], **change}}
+        if "start" in change:                                                                   # (V's 12/12+ games haven't happened yet: under 4 games)
+            G2 = {k: v for k, v in G2.items() if not k.startswith("ncaab:v") or v["start"] < change["start"]}
+        a, b = mk("ncaab:R", G2["ncaab:R"]["start"], "home", "spread", -110), mk("ncaab:R", G2["ncaab:R"]["start"], "away", "spread", -110)
+        sports.mark_ncaab_cbb10(G2, [a, b])
+        assert not a.get("rust_home") and not b.get("vs_rust_home"), change
+    G3 = {**GR, "ncaab:v8": {**GR["ncaab:v3"], "id": "ncaab:v8", "start": "2026-12-10T00:30Z"},   # the visitor idle too: its
+          "ncaab:v9": {**GR["ncaab:v3"], "id": "ncaab:v9", "start": "2026-12-11T00:30Z"}}          # last game 12/14, 6 days ago
+    del G3["ncaab:v3"], G3["ncaab:v2"]
+    a, b = mk("ncaab:R", "2026-12-20T00:30Z", "home", "spread", -110), mk("ncaab:R", "2026-12-20T00:30Z", "away", "spread", -110)
+    sports.mark_ncaab_cbb10(G3, [a, b])
+    assert not a.get("rust_home") and not b.get("vs_rust_home")                                   # both off 5+: no team in rhythm, no weight
+    early = mk("ncaab:R", "2026-11-12T03:00Z", "home", "spread", -110)                            # before CBB10_FROM: never marked
+    sports.mark_ncaab_cbb10({**GR, "ncaab:R": {**GR["ncaab:R"], "start": "2026-11-12T03:00Z"}}, [early])
+    assert not early.get("rust_home")
+    # ---- (3) the league leader with a cushion on the road, Feb-Mar: A is 10-0, the rest 4-6 ----
+    teams = ["A", "B", "C", "D", "E", "F"]
+    GL, k = {}, 0
+    for h in teams:
+        for a_ in teams:
+            if h == a_:
+                continue
+            k += 1
+            hw = (h == "A") or (a_ != "A")                                                       # A wins everywhere; the others hold serve
+            GL[f"ncaab:c{k}"] = {"id": f"ncaab:c{k}", "league": "ncaab", "status": "final", "stype": "2",
+                                 "start": f"2027-01-{3 + (k % 25):02d}T00:30Z", "home": h, "away": a_, "home_name": h, "away_name": a_,
+                                 "home_score": "70" if hw else "60", "away_score": "60" if hw else "70", "neutral": "0"}
+    GL["ncaab:L"] = {"id": "ncaab:L", "league": "ncaab", "status": "pre", "stype": "2", "start": "2027-02-10T00:30Z", "home": "B",
+                     "away": "A", "home_name": "Bees", "away_name": "Aces", "neutral": "0"}
+    nk._MEMO.clear()
+    r = nk.race(GL, "A", "B", "2027-02-10T00:30Z")
+    assert r["conf_gb"] == 0 and r["conf_cushion"] == 6.0 and r["opp_conf_cushion"] is None and r["opp_conf_gb"] == 6.0
+    assert nk.race(GL, "B", "C", "2027-02-10T00:30Z")["conf_cushion"] is None                    # tied for second: nobody's cushion
+    nk._MEMO_NOW.clear()
+    assert nk.leader_cushion(GL, "A", "B", "2027-02-10T00:30Z") == 6.0 and nk.leader_cushion(GL, "B", "A", "2027-02-10T00:30Z") is None
+    assert nk.leader_cushion(GL, "A", "nobody", "2027-02-10T00:30Z") is None
+    # the league is THIS season's (January on): last season's schedule would join two leagues a school moved between
+    old = {f"ncaab:o{i}": {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2025-01-{5 + i:02d}T00:30Z",
+                           "home": "A", "away": o, "home_score": "70", "away_score": "60", "neutral": "0"} for i, o in enumerate(("X", "Y", "Z", "W"))}
+    for i, (h, a_) in enumerate((("X", "Y"), ("Y", "Z"), ("Z", "W"), ("W", "X"), ("X", "Z"), ("Y", "W"), ("B", "X"), ("B", "Y"), ("B", "Z")), 10):
+        old[f"ncaab:o{i}"] = {"id": f"ncaab:o{i}", "league": "ncaab", "status": "final", "stype": "2", "start": f"2025-01-{5 + i:02d}T00:30Z",
+                              "home": h, "away": a_, "home_score": "70", "away_score": "60", "neutral": "0"}
+    both = {**GL, **old}
+    assert "X" in nk.conferences(both, 2026) and "X" not in nk.conferences(both, 2026, last=False)
+    nk._MEMO_NOW.clear()
+    assert nk.leader_cushion(both, "A", "B", "2027-02-10T00:30Z") == 6.0                         # last season's league never counts
+    ls, bs = mk("ncaab:L", "2027-02-10T00:30Z", "away", "spread", -110), mk("ncaab:L", "2027-02-10T00:30Z", "home", "spread", -110)
+    lm = mk("ncaab:L", "2027-02-10T00:30Z", "away", "ml", -180)
+    b0 = sports.rank_p(ls)
+    nk._MEMO_NOW.clear()
+    sports.mark_ncaab_cbb10(GL, [ls, bs, lm])
+    assert ls.get("leader_road") and bs.get("vs_leader_road") and lm.get("leader_road") and ls["leader_cushion"] == 6.0
+    assert not ls.get("rust_home") and not bs.get("rust_home")                                   # both idle since January: no team in rhythm
+    assert any("Aces are 6 games clear in first and on the road" in r_ for r_ in bs["reasons"]) and not ls["reasons"] and not lm["reasons"]
+    assert abs(sports.rank_p(ls) - (b0 - 0.03)) < 1e-9 and abs(sports.rank_p(bs) - (b0 + 0.03)) < 1e-9
+    assert sports.rank_p(lm) == sports.rank_p({**lm, "leader_road": False})                     # the moneyline's rank never reads it
+    assert sports.ncaab_spread_stack(bs) == (0.0, 0) and not sports.ncaab_stack_play_ok(bs)     # a rank weight - never the ½u play
+    assert sl.CBB10_LEADER_TAG in sl.spread_tags(ls, sports) and sl.CBB10_VS_LEADER_TAG in sl.spread_tags(bs, sports)
+    assert sl.CBB10_VS_LEADER_TAG not in sl.spread_tags(ls, sports)
+    for gm, why in (({**GL["ncaab:L"], "home": "A", "away": "B"}, "the leader at HOME"), ({**GL["ncaab:L"], "neutral": "1"}, "a neutral floor"),
+                    ({**GL["ncaab:L"], "home": "B", "away": "C"}, "no leader in the game")):
+        a, b = mk("ncaab:L", gm["start"], "away", "spread", -110), mk("ncaab:L", gm["start"], "home", "spread", -110)
+        nk._MEMO.clear(); nk._MEMO_NOW.clear()
+        sports.mark_ncaab_cbb10({**GL, "ncaab:L": gm}, [a, b])
+        assert not a.get("leader_road") and not b.get("vs_leader_road") and not b.get("leader_road"), why
+    nk._MEMO.clear(); nk._MEMO_NOW.clear()
+    # ---- the home-loss leads (the tracker only): lost at home as a -130 / -400 favorite two nights ago, a dog tonight ----
+    keep_games = sl._GAMES.get("ncaab")
+    try:
+        for ml, tag in (("-130", sl.CBB10_HOME_LOSS_SMALL_TAG), ("-400", sl.CBB10_HOME_LOSS_BIG_TAG), ("-200", None), ("140", None)):
+            sl._GAMES["ncaab"] = {
+                "ncaab:p": {"id": "ncaab:p", "league": "ncaab", "status": "final", "stype": "2", "start": "2026-12-18T00:30Z", "home": "T",
+                            "away": "Z", "home_score": "60", "away_score": "70", "ml_home": ml, "ml_away": "110", "neutral": "0"},
+                "ncaab:n": {"id": "ncaab:n", "league": "ncaab", "status": "pre", "stype": "2", "start": "2026-12-20T00:30Z", "home": "U",
+                            "away": "T", "neutral": "0"}}
+            c = mk("ncaab:n", "2026-12-20T00:30Z", "away", "ml", 150)
+            got = [t for t in sl.tags(c, sports) if "off a home loss" in t]
+            assert got == ([tag] if tag else []), (ml, got)
+            assert not [t for t in sl.tags({**c, "odds": -120}, sports) if "off a home loss" in t]          # a favorite tonight: no tag
+            assert not [t for t in sl.tags({**c, "side": "home"}, sports) if "off a home loss" in t]        # the other team: no tag
+        sl._GAMES["ncaab"]["ncaab:p"]["home_score"] = "80"                                                  # it WON that game: no tag
+        assert not [t for t in sl.tags(mk("ncaab:n", "2026-12-20T00:30Z", "away", "ml", 150), sports) if "off a home loss" in t]
+    finally:
+        if keep_games is None:
+            sl._GAMES.pop("ncaab", None)
+        else:
+            sl._GAMES["ncaab"] = keep_games
+    # ---- wired where it has to be: after the identity mark, before the facts; in rank_p; the stack untouched ----
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert src.index("mark_ncaab_identity(games, out)") < src.index("mark_ncaab_cbb10(games, out)") < src.index("mark_ncaab_facts(out)")
+    assert "+ ncaab_cbb10_spread_w(c)" in src and "sc -= NCAAB_TO_MATCH_PTS" in src
+    ksrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_ncaab_knowledge.py")).read()
+    assert ksrc.count("conferences(games, season, last=False)") == 2      # the race dog's standings AND the leader's cushion:
+    #   this season's leagues only (the bug the live replay caught - an older season's schedule joined leagues)
+    stack_src = src[src.index("def ncaab_spread_stack(c):"):src.index("def mark_ncaab_spread_stack(cands):")]
+    assert "rust" not in stack_src and "leader" not in stack_src and "to_net" not in stack_src
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
