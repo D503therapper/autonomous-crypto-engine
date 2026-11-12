@@ -18325,3 +18325,21 @@ error: failed to push some refs to 'https://githu
 [2026-11-12 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-12 06:05 UTC] crypto/hold_btc  equity $443.99 (-11.2%) 1 open  market DOWN
    social heat top: PENGU 35 (35/0/0), SUI 32 (32/0/0), BTC 32 (27/0/5), GRAM 29 (29/0/0), HYPE 24 (24/0/0)
+   dex screen: REJECT KGEN@base liq $253,844 - is_mintable; top-10 holders 99%; lp locked 0% < 95%
+   dex screen: REJECT MPLX@solana liq $955,715 - mint authority; top-10 holders 69%; lp holders unknown
+   listing: okx_symbols #XCVNA 'New OKX listing (XCVNA)' -> ['XCVNA']
+   listing: XCVNA: okx_symbols notice "New OKX listing (XCVNA)" -> not on Crypto.com USD
+   dex screen: REJECT RLUSD@ethereum liq $50,042,173 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 76%
+   dex screen: REJECT SUSDE@ethereum liq $1,450,426 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%
+   dex screen: REJECT ROCCO@ethereum liq $338,047 - goplus partial data: cannot_sell_all unknown; top-10 holders 109%
+   dex scanner: 2,983 pools (solana 2,199 / base 440 / ethereum 344), refresh cycle 126s (hot 122s), 2964 calls (112 feed, 429s 1, failed 1), 85,558 refreshed (9907 no pair), +62 added / -67 dropped (dead 65, stale 0, cap 2), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+[2026-11-12 07:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/mover     equity $200.12 (-60.0%) 1 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/social_heat equity $335.72 (-32.9%) 2 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 07:05 UTC] crypto/hold_btc  equity $443.73 (-11.3%) 1 open  market DOWN
+   social heat top: GRAM 37 (37/0/0), PENGU 35 (35/0/0), BTC 29 (29/0/0), INIT 24 (24/0/0), PEPE 21 (21/0/0)

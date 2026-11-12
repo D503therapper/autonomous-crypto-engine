@@ -1,32 +1,3 @@
-  ctx:game:div: 64 graded, said 52%, hit 42% - hitting well below what we said (report only: forward-only tag)
-  league:ncaaf: 63 graded, said 46%, hit 41% - a little below what we said - within noise
-  league:nfl: 45 graded, said 54%, hit 62% - hitting at or above what we said
-  ctx:them:trip1000: 41 graded, said 49%, hit 68% - hitting at or above what we said (report only: forward-only tag)
-  ctx:us:trip1000: 38 graded, said 50%, hit 50% - only 38 graded - report only (report only: forward-only tag)
-  league:mlb: 32 graded, said 54%, hit 81% - only 32 graded - report only
-  market:spread: 31 graded, said 53%, hit 42% - only 31 graded - report only
-  label:dog: 30 graded, said 41%, hit 43% - only 30 graded - report only
-  ctx:game:rival: 29 graded, said 52%, hit 38% - only 29 graded - report only (report only: forward-only tag)
-  league:nba: 29 graded, said 48%, hit 45% - only 29 graded - report only
-  drama:theirs: 26 graded, said 50%, hit 42% - only 26 graded - report only
-  label:live: 24 graded, said 57%, hit 50% - only 24 graded - report only
-  source:live: 24 graded, said 57%, hit 50% - only 24 graded - report only
-  ctx:them:week3000: 22 graded, said 50%, hit 50% - only 22 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 22 graded, said 49%, hit 64% - only 22 graded - report only (report only: forward-only tag)
-  ctx:them:east1000: 21 graded, said 50%, hit 67% - only 21 graded - report only (report only: forward-only tag)
-  price:+180+: 21 graded, said 32%, hit 38% - only 21 graded - report only
-  ctx:them:west1000: 20 graded, said 48%, hit 70% - only 20 graded - report only (report only: forward-only tag)
-  drama:ours: 18 graded, said 54%, hit 39% - only 18 graded - report only
-  ctx:us:road3in6: 17 graded, said 49%, hit 71% - only 17 graded - report only (report only: forward-only tag)
-  ctx:us:east1000: 16 graded, said 52%, hit 31% - only 16 graded - report only (report only: forward-only tag)
-  ctx:us:week3000: 16 graded, said 49%, hit 62% - only 16 graded - report only (report only: forward-only tag)
-  label:lock: 16 graded, said 57%, hit 62% - only 16 graded - report only
-  ctx:them:road3in6: 13 graded, said 46%, hit 31% - only 13 graded - report only (report only: forward-only tag)
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:us:trip2000: 9 graded, said 52%, hit 44% - only 9 graded - report only (report only: forward-only tag)
-  ctx:them:dome_out: 8 graded, said 52%, hit 75% - only 8 graded - report only (report only: forward-only tag)
-  ctx:them:trip2000: 8 graded, said 48%, hit 88% - only 8 graded - report only (report only: forward-only tag)
-  league:ncaab: 8 graded, said 58%, hit 38% - only 8 graded - report only
   ctx:them:hotseat: 7 graded, said 48%, hit 29% - only 7 graded - report only (report only: forward-only tag)
   ctx:them:out_dome: 7 graded, said 52%, hit 71% - only 7 graded - report only (report only: forward-only tag)
   ctx:us:hotseat: 6 graded, said 42%, hit 17% - only 6 graded - report only (report only: forward-only tag)
@@ -2998,3 +2969,32 @@ tennis odds: 6 singles matches priced (bovada)
 tennis reads: 6 matches
 1H line log: 28 rows (0 with a 1st-half line) from 92 AN games
 source check (0.4s): plain requests answered by 37 of 42 sources - quiet: actionnetwork_h1, bovada, bovada_nfl, rotowire_ncaab, rotowire_ncaaf
+sync: 132628 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 141 games got weather, 0 new stadiums located, 201s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 11 games on the page, 11 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-11, 0 failed, 0 moves
+PICK AUDIT FLAG 2026-11-11: lean Sabres 110: the card names Brayden Point. as out - he's not on the injury report it was posted with
+beat the close: unit plays 34 of 108 better than the close, avg +0.2 pts
+public splits: 102 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 7 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (104 players), 365 matched, 0 unmatched
+tennis sync: 74022 matches stored, 18 calls, 0 failed
+tennis study ATP: 26315 rated matches, acc 0.644 (surface ratings alone 0.642), loss 0.6301 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.155, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6301: experience 0.6297 (+0.42 mnats, z 0.48), age 0.6281 (+1.94 mnats, z 1.38), young_vs_aging 0.6298 (+0.28 mnats, z 0.69), last_match 0.6275 (+2.59 mnats, z 1.82), streaks 0.6307 (-0.65 mnats, z -0.63), first_set 0.6294 (+0.65 mnats, z 0.98), injury 0.631 (-0.91 mnats, z -1.42), travel 0.6301 (+0.02 mnats, z 0.46) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30873 rated matches, acc 0.646 (surface ratings alone 0.648), loss 0.6221 vs 0.6222, own weights [0.005, 0.904, -0.002, -0.073, 0.299, 0.024, -0.197]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6191 (+2.97 mnats, z 1.76), age 0.6211 (+0.94 mnats, z 1.21), young_vs_aging 0.6218 (+0.27 mnats, z 1.69), last_match 0.6229 (-0.82 mnats, z -0.81), streaks 0.6221 (-0.01 mnats, z -0.01), first_set 0.6217 (+0.33 mnats, z 0.7), injury 0.6216 (+0.49 mnats, z 0.85), travel 0.6222 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 4 singles matches priced (oddsapi)
+tennis reads: 6 matches
+1H line log: 28 rows (4 with a 1st-half line) from 92 AN games
+source check (4.5s): plain requests answered by 40 of 42 sources - quiet: rotowire_ncaab, rotowire_ncaaf
