@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T21:59Z",
+ "updated": "2026-11-12T22:46Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -32,66 +32,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401925631",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Bradley",
-    "p": 0.773,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-12T23:00Z",
-   "away": "Bradley",
-   "home": "Coppin St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Coppin St",
-    "opp": "Bradley",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -115,
-    "p": 0.505,
-    "win_p": 0.143,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921086",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UMBC",
-    "p": 0.64,
-    "tie": 0.04,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-12T23:00Z",
-   "away": "Morgan St",
-   "home": "UMBC",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "UMBC",
-    "opp": "Morgan St",
-    "market": "ml",
-    "line": null,
-    "odds": -265,
-    "p": 0.709,
-    "win_p": 0.709,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401917176",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -112,9 +52,9 @@
     "team": "Mercyhurst",
     "opp": "Penn State",
     "market": "spread",
-    "line": 21.5,
-    "odds": -115,
-    "p": 0.514,
+    "line": 20.5,
+    "odds": -112,
+    "p": 0.513,
     "win_p": 0.044,
     "reasons": [
      "sharp money moving this way"
@@ -593,9 +533,9 @@
     "team": "Southern Utah",
     "opp": "High Point",
     "market": "spread",
-    "line": 23.5,
-    "odds": -115,
-    "p": 0.516,
+    "line": 22.5,
+    "odds": -112,
+    "p": 0.515,
     "win_p": 0.028,
     "reasons": []
    }
@@ -606,7 +546,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Howard",
-    "p": 0.746,
+    "p": 0.74,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -624,7 +564,7 @@
     "line": 9.5,
     "odds": -105,
     "p": 0.502,
-    "win_p": 0.173,
+    "win_p": 0.18,
     "reasons": [
      "better rested",
      "sharp money moving this way"
@@ -962,9 +902,9 @@
     "team": "Southern",
     "opp": "Minnesota",
     "market": "spread",
-    "line": 25.5,
-    "odds": -108,
-    "p": 0.518,
+    "line": 26.5,
+    "odds": -112,
+    "p": 0.519,
     "win_p": 0.027,
     "reasons": []
    }
@@ -984,8 +924,8 @@
    "start": "2026-11-13T01:15Z",
    "away": "Commanders",
    "home": "Giants",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "night",
    "lean": {
     "team": "Giants",
     "opp": "Commanders",
