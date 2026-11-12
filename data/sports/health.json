@@ -1,27 +1,31 @@
 {
- "at": "2026-11-12T11:52Z",
- "fixes": [
-  "live watch 43212041485 froze (11 min) - cancelled",
-  "live board 11 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-12T13:19Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 1 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 5 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-12T13:19Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-12T11:52Z",
    "fixes": [
@@ -927,13 +931,6 @@
   },
   {
    "at": "2026-11-11T10:25Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T10:24Z",
    "fixes": [],
    "problems": [
     "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list"
