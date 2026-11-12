@@ -1,59 +1,84 @@
 {
- "fetched": "2026-11-11T23:01Z",
- "src": "oddsapi",
+ "fetched": "2026-11-12T06:15Z",
+ "src": "bovada",
  "lines": [
   {
-   "a": "Miomir Kecmanovic",
-   "b": "Holger Rune",
-   "start": "2026-11-11T18:10Z",
+   "a": "Alex Michelsen",
+   "b": "Alejandro Tabilo",
+   "start": "2026-11-12T12:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 3.5,
-   "b_hcp": -3.5,
+   "a_hcp": -4.0,
+   "b_hcp": 4.0,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -425,
+   "b_ml": 325
+  },
+  {
+   "a": "Thiago Agustin Tirante",
+   "b": "Alexander Shevchenko",
+   "start": "2026-11-12T14:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 0.5,
+   "b_hcp": -0.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 105,
+   "b_ml": -125
+  },
+  {
+   "a": "Taylor Fritz",
+   "b": "Holger Rune",
+   "start": "2026-11-12T17:30Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
    "a_sp": -120,
    "b_sp": -110,
-   "a_ml": 200,
-   "b_ml": -250
+   "a_ml": -200,
+   "b_ml": 165
   },
   {
-   "a": "Elina Svitolina",
-   "b": "Karolina Muchova",
-   "start": "2026-11-11T20:00Z",
-   "a_ml": 123,
-   "b_ml": -150,
+   "a": "Jessica Pegula",
+   "b": "Linda Noskova",
+   "start": "2026-11-12T18:00Z",
+   "src": "bovada",
    "tour": "wta",
-   "src": "oddsapi",
-   "books": 9
+   "a_hcp": 1.0,
+   "b_hcp": -1.0,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": 100,
+   "b_ml": -120
   },
   {
-   "a": "Aryna Sabalenka",
-   "b": "Mirra Andreeva",
-   "start": "2026-11-11T22:38Z",
-   "a_ml": -140,
-   "b_ml": 107,
-   "tour": "wta",
-   "src": "oddsapi",
-   "books": 7
+   "a": "Lorenzo Musetti",
+   "b": "Ugo Humbert",
+   "start": "2026-11-12T18:40Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -215,
+   "b_ml": 175
   },
   {
    "a": "Marta Kostyuk",
    "b": "Coco Gauff",
    "start": "2026-11-12T20:00Z",
-   "a_ml": 210,
-   "b_ml": -264,
+   "src": "bovada",
    "tour": "wta",
-   "src": "oddsapi",
-   "books": 9
-  },
-  {
-   "a": "Jessica Pegula",
-   "b": "Linda Noskova",
-   "start": "2026-11-12T21:10Z",
-   "a_ml": 100,
-   "b_ml": -120,
-   "tour": "wta",
-   "src": "oddsapi",
-   "books": 9
+   "a_hcp": 4.0,
+   "b_hcp": -4.0,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": 240,
+   "b_ml": -300
   }
  ]
 }
