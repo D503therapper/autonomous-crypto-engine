@@ -21831,6 +21831,139 @@ def test_fifteen_1112_altitude_over_posts_on_game_day_and_is_one_unit_from_1113(
     assert not se.alt_quit({"picks": good})
 
 
+def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s10b_nba_out_over.py + s10c_live_rule.py): the one total
+    outside college hoops that cleared the five checks. An NBA regular-season game, both teams 10+ box games in, THREE
+    or more of the six top-minutes men (three a team) listed OUT -> the OVER, ½u, its own record (354-254 +11.0% on
+    615, 8 of 8 seasons; 0 of 2,000 random sets). Never one factor: both teams' scoring may sit at most 3 under the
+    number; never worse than -115; a doubtful / questionable man never counts; a man off the report who missed the
+    team's last 5 games is gone and counts; no injury report = no play. THE CLOCK: the same 3+ must have been out on
+    our report for 50 minutes before the number is taken (the study's price is the close - never a stale total).
+    Judged at 40 graded: under -5% on the units = off. No win %, nothing about the line moving."""
+    import sports_early as se
+    import sports_nba_out as no
+    assert (no.FROM, no.NEED_OUT, no.TOP_N, no.MIN_GAMES) == ("2026-11-13", 3, 3, 10)
+    assert (no.READ_FIGHT, no.MAX_PRICE, no.GOOD_TO, no.WAIT_MIN, no.QUIT, no.UNITS) == (3.0, -115, 1.0, 50, (40, -0.05), 0.5)
+    assert se.SPOTS["nba_out_over"][1] == 0.5 and se.SPOTS["nba_out_over"][2] == ("nba",)
+    games, rows = {}, []
+    men = {"H": ["Al Able", "Bo Baker", "Cy Cole", "Dee Dunn", "Ed Earl"], "A": ["Fox Ford", "Gus Gray", "Hal Hill", "Ike Ito", "Jay Jones"]}
+    for i in range(10):                                      # ten finals each this season, 115-110 every night
+        for t, o in (("H", f"x{i}"), ("A", f"y{i}")):
+            gid, start = f"nba:{t}{i}", f"2026-10-{20 + i:02d}T23:00Z"
+            games[gid] = {"id": gid, "league": "nba", "status": "final", "stype": "2", "home": t, "away": o, "start": start,
+                          "home_score": "115", "away_score": "110", "home_name": "Hawks" if t == "H" else "Jazz", "away_name": "Opp"}
+            for k, name in enumerate(men[t]):                # minutes 36 / 34 / 32 / 12 / 10 - the top three are clear
+                rows.append({"gid": gid, "start": start, "team": t, "pid": f"{t}{k}", "player": name, "pos": "G", "group": "",
+                             "starter": "1", "stats": json.dumps({"minutes": str((36, 34, 32, 12, 10)[k])})})
+    g = {"id": "nba:9", "league": "nba", "status": "pre", "stype": "2", "home": "H", "away": "A", "neutral": "0",
+         "start": "2026-11-14T03:00Z", "total": "226.5", "over_odds": "-110", "under_odds": "-110",
+         "home_name": "Hawks", "away_name": "Jazz"}          # tips 7 PM PT 11/13; both teams' scoring adds up to 225
+    games["nba:9"] = g
+    inj = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": [("Fox Ford", "F", "Out"), ("Gus Gray", "F", "Doubtful")]}
+    t0 = datetime(2026, 11, 13, 20, 0, tzinfo=timezone.utc)
+    t1 = t0 + timedelta(minutes=55)
+    stamp0 = t0.strftime("%Y-%m-%dT%H:%MZ")
+    st = {"picks": []}
+    assert no.candidates(games, st, t0, inj, rows=rows) == [] and "nba:9" in st["nba_out_seen"]    # the clock starts
+    assert no.candidates(games, st, t0 + timedelta(minutes=30), inj, rows=rows) == []              # 30 minutes: not yet
+    got = no.candidates(games, st, t1, inj, rows=rows)
+    assert len(got) == 1
+    c = got[0]
+    assert (c["spot"], c["market"], c["side"], c["line"], c["odds"], c["league"]) == ("nba_out_over", "total", "over", 226.5, -110, "nba")
+    assert c["out"] == ["Al Able", "Bo Baker", "Fox Ford"] and c["good_to"] == 227.5 and abs(c["read"] - 225.0) < 0.01
+    assert se.units(c) == 0.5 and c["team"] == "Over 226.5"
+    txt = c["why"] + " | " + " | ".join(c["facts"])
+    assert "Three of the six" in c["why"] and no.REC in c["why"] and "Al Able" in c["why"]
+    assert "Hawks without Al Able (36 minutes a night) and Bo Baker (34 minutes a night)" in txt
+    assert "Jazz without Fox Ford (36 minutes a night)" in txt and "Gus Gray" not in txt            # doubtful never counts
+    assert "Hawks's games are averaging 225 points - scoring 115, giving up 110 through 10 games" in txt
+    assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 5
+    assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
+
+    def fresh(names=("Al Able", "Bo Baker", "Fox Ford")):
+        return {"picks": [], "nba_out_seen": {"nba:9": [stamp0, list(names)]}}
+    two = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": [("Fox Ford", "F", "Questionable")]}
+    assert no.candidates(games, fresh(), t1, two, rows=rows) == []                                  # two out: no play
+    assert no.candidates(games, fresh(), t1, None, rows=rows) == []                                 # no report = unknown
+    assert no.candidates({**games, "nba:9": {**g, "total": "228.5"}}, fresh(), t1, inj, rows=rows) == []   # 3.5 past the read
+    assert len(no.candidates({**games, "nba:9": {**g, "total": "228"}}, fresh(), t1, inj, rows=rows)) == 1  # 3 past: inside
+    assert no.candidates({**games, "nba:9": {**g, "over_odds": "-118"}}, fresh(), t1, inj, rows=rows) == []  # the price limit
+    assert len(no.candidates({**games, "nba:9": {**g, "over_odds": "-115"}}, fresh(), t1, inj, rows=rows)) == 1
+    assert no.candidates({**games, "nba:9": {**g, "total": ""}}, fresh(), t1, inj, rows=rows) == []
+    assert no.candidates({**games, "nba:9": {**g, "stype": "3"}}, fresh(), t1, inj, rows=rows) == []        # regular season
+    assert no.candidates({**games, "nba:9": {**g, "start": "2026-11-13T03:00Z"}}, fresh(),
+                         datetime(2026, 11, 12, 22, 0, tzinfo=timezone.utc), inj, rows=rows) == []        # the 11/12 games: no
+    assert no.candidates(games, fresh(), datetime(2026, 11, 14, 3, 5, tzinfo=timezone.utc), inj, rows=rows) == []   # tipped
+    assert no.candidates(games, fresh(), t1, inj, rows=rows[:-25]) == []                            # a team under 10 box games
+    # a different three (one man back, another out): the clock starts over
+    st2 = fresh()
+    swap = {"H": [("Al Able", "G", "Out"), ("Cy Cole", "G", "Out")], "A": [("Fox Ford", "F", "Out")]}
+    assert no.candidates(games, st2, t1, swap, rows=rows) == [] and st2["nba_out_seen"]["nba:9"][0] == t1.strftime("%Y-%m-%dT%H:%MZ")
+    # a fourth man ruled out late: the same three keep the clock
+    more = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out"), ("Cy Cole", "G", "Out")], "A": [("Fox Ford", "F", "Out")]}
+    assert len(no.candidates(games, fresh(), t1, more, rows=rows)) == 1
+    # traded: Hal Hill isn't on the report and missed the Jazz's last 5 games -> gone, he counts
+    late = {f"nba:A{i}" for i in range(5, 10)}
+    rows2 = [dict(r, stats=json.dumps({"minutes": "0"})) if r["player"] == "Hal Hill" and r["gid"] in late else r for r in rows]
+    only2 = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": []}
+    st3 = {"picks": []}
+    assert no.candidates(games, st3, t0, only2, rows=rows2) == []
+    got3 = no.candidates(games, st3, t1, only2, rows=rows2)
+    assert len(got3) == 1 and "Hal Hill" in got3[0]["out"]
+    assert no.candidates(games, fresh(), t1, only2, rows=rows) == []                                # he's playing: two out
+    # the judge at 40
+    lost = [{"game_id": f"z{i}", "spot": "nba_out_over", "odds": -110, "units": 0.5, "result": "lost" if i < 23 else "won"} for i in range(40)]
+    assert no.quit_now({"picks": lost}, se.units) and no.candidates(games, {**fresh(), "picks": lost}, t1, inj, rows=rows) == []
+    assert not no.quit_now({"picks": lost[:39]}, se.units)
+    assert not no.quit_now({"picks": [dict(p, result="won" if i < 23 else "lost") for i, p in enumerate(lost)]}, se.units)
+    # it grades as a total and a tipped game's clock is dropped
+    p = dict(c, units=0.5)
+    se.grade({"picks": [p]}, {"nba:9": dict(g, status="final", home_score="120", away_score="110")})
+    assert p["result"] == "won"                                                                     # 230 > 226.5
+    st4 = fresh()
+    no.candidates({**games, "nba:9": dict(g, status="final")}, st4, t1, inj, rows=rows)
+    assert "nba:9" not in st4["nba_out_seen"]
+
+
+def test_fifteen_1112_the_150_rule_stands_and_the_big_favorite_pocket_is_a_tracker_lead_only():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s1_s4_bigfav.py + v1_value_size.py). The owner asked to
+    raise -150 to -199 and to size those up. No pocket at -151..-199 cleared the five checks blind (the one that is up
+    in both halves - an NHL favorite, rested, the dog on a back-to-back: +6.4% on 387 - is z 1.7 and flat the last
+    three seasons), so the -150 rule STANDS and nothing past it carries units; that pocket and its mirror only log on
+    the tracker from the 11/13 games. No value-play subset earned 1u (336 replay plays, 56 cells; held out -6.8%): the
+    value plays stay ½u, favorites only."""
+    import sports_leads as sl
+    assert sports.MAX_FAV == -150 and sports.PLAY_UNITS == 0.5 and sports.PLAY_MARKETS == ("ml",)
+    assert sl.FIFTEEN_FROM == "2026-11-13" and sl.BIG_FAV == (-199, -151)
+    G = {"nhl:1": {"id": "nhl:1", "league": "nhl", "status": "pre", "stype": "2", "home": "H", "away": "A",
+                   "start": "2026-11-14T00:00Z", "home_name": "Stars", "away_name": "Ducks"},
+         "nhl:a": {"id": "nhl:a", "league": "nhl", "status": "final", "stype": "2", "home": "Z", "away": "A",
+                   "start": "2026-11-13T00:00Z", "home_score": "3", "away_score": "2"},       # the Ducks played last night
+         "nhl:h": {"id": "nhl:h", "league": "nhl", "status": "final", "stype": "2", "home": "H", "away": "Y",
+                   "start": "2026-11-11T00:00Z", "home_score": "4", "away_score": "1"}}       # the Stars two nights off
+    keep = dict(sl._GAMES)
+    sl._GAMES["nhl"] = G
+    try:
+        def mk(side, odds, **kw):
+            dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+            return {"league": "nhl", "market": "ml", "odds": odds, "dec": dec, "p": 0.6, "side": side, "game_id": "nhl:1",
+                    "start": "2026-11-14T00:00Z", "reasons": [], "dog_ctx": {}, "home": side == "home", **kw}
+        assert sl.fifteen_tags(mk("home", -170), sports) == [sl.NHL_BIG_FAV_B2B_TAG]
+        assert sl.NHL_BIG_FAV_B2B_TAG in sl.tags(mk("home", -170), sports)
+        assert sl.fifteen_tags(mk("home", -150), sports) == [] and sl.fifteen_tags(mk("home", -205), sports) == []   # the band only
+        assert sl.fifteen_tags(mk("away", 150), sports) == []                                  # the dog's side: no tag
+        assert sl.fifteen_tags(mk("home", -170, start="2026-11-13T00:00Z"), sports) == []      # the 11/12 Pacific day: off
+        assert sl.fifteen_tags(mk("home", -170, market="spread"), sports) == []
+        assert sl.fifteen_tags(mk("home", -170, league="nba"), sports) == []
+        G["nhl:h"]["start"] = "2026-11-13T00:30Z"                                              # both played last night: neither
+        assert sl.fifteen_tags(mk("home", -170), sports) == []
+        G["nhl:a"]["start"] = "2026-11-11T00:00Z"                                              # the favorite on the back-to-back
+        assert sl.fifteen_tags(mk("home", -170), sports) == [sl.NHL_BIG_FAV_ON_B2B_TAG]
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

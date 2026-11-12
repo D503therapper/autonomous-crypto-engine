@@ -528,6 +528,7 @@ def tags(c, sports):
         t += early_line_tags(c)
     t += cbb10_tags(c, sports)                               # 11/12 FABLE: 10 college hoops studies (one built weight's
     #   record + four moneyline LEADS, from the 11/13 Pacific game day)
+    t += fifteen_tags(c, sports)                             # 11/12 FABLE: 15 studies - two NHL big-favorite LEADS
     return t + sharp
 
 
@@ -1735,6 +1736,51 @@ def cbb10_spread_tags(c, sports):
     if c.get("to_net") is not None and c["to_net"] <= -CBB10_TO_SPREAD + 1e-9:
         t.append(CBB10_TO_SPREAD_TAG)
     return t
+
+
+# ---------------- 11/12 FABLE: 15 STUDIES - BIG FAVORITES, SPREADS, TOTALS (results/studies/fifteen_1112) ----------------
+FIFTEEN_FROM = "2026-11-13"      # the tags log from the 11/13 Pacific game day
+BIG_FAV = (-199, -151)           # the band past the -150 rule the owner asked about
+NHL_BIG_FAV_B2B_TAG = "NHL favorite -151..-199, rested, the dog on a back-to-back"   # s1: +6.4% on 387 (train +7.5%,
+#   blind +5.8%, 6 of 9 seasons up; a random 387 favorites in the band did as well 3 of 2,000 times) against -4.3% for
+#   every favorite in the band - the ONE pocket past -150 that is up in both halves, and still not a play: z 1.7 (1.2
+#   blind), the last three seasons +2% / -1% / +11% on 10, the engine-liked ones -1.5% held out, and the dose across
+#   the price is ragged (-130..-101 -1.1%, -150..-131 +10.0%, -250..-200 -2.1%). Judge at 60: +5% or better with the
+#   2026-27 season in = take a ½u exception to the -150 rule to the owner.
+NHL_BIG_FAV_ON_B2B_TAG = "NHL favorite -151..-199 on a back-to-back, the dog rested (fade)"   # s1: -18.9% on 169 (train
+#   -8.6%, blind -27.5%, 0 of 5 blind seasons up; z -3.1) - the mirror; the built hockey read already leans this way
+
+
+def _played_last_night(c, side):
+    """Did this side of the candidate's game play the night before (finals this season, any venue)?"""
+    g = _game(c)
+    _, rows = _season_before(dict(c, side=side))
+    if not rows:
+        return False
+    try:
+        return _night(c.get("start") or g.get("start")) - _night(rows[-1]["start"]) == 1
+    except (TypeError, ValueError):
+        return False
+
+
+def fifteen_tags(c, sports):
+    """11/12 - 15 studies: the NHL big-favorite LEADS on a moneyline side (tracked only - the board never reads them and
+    the -150 rule stands; from FIFTEEN_FROM)."""
+    try:
+        if c.get("league") != "nhl" or c.get("market") != "ml" or sports.pt_day(c) < FIFTEEN_FROM:
+            return []
+        o = c.get("odds")
+        if o is None or not BIG_FAV[0] <= o <= BIG_FAV[1] or c.get("side") not in ("home", "away"):
+            return []
+    except Exception:                                        # noqa: BLE001
+        return []
+    other = "away" if c["side"] == "home" else "home"
+    me, opp = _played_last_night(c, c["side"]), _played_last_night(c, other)
+    if opp and not me:
+        return [NHL_BIG_FAV_B2B_TAG]
+    if me and not opp:
+        return [NHL_BIG_FAV_ON_B2B_TAG]
+    return []
 
 
 def load():

@@ -542,6 +542,16 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             new.append(c)
     except Exception as e:                                   # noqa: BLE001 - never breaks the engine
         print(f"   altitude over failed: {str(e)[:120]}")
+    try:                                                     # 🏀 the NBA over when the main men sit (11/12, 15 studies)
+        import sports_nba_out
+        for c in sports_nba_out.candidates(games, st, now, (injuries or {}).get("nba")):
+            if c["game_id"] in have_tot or spot_off("nba_out_over", c.get("start")) or not early_ok(c, games, injuries, now):
+                continue
+            st["picks"].append(c)
+            have_tot.add(c["game_id"])
+            new.append(c)
+    except Exception as e:                                   # noqa: BLE001 - never breaks the engine
+        print(f"   nba out over failed: {str(e)[:120]}")
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
     watch(st, games, injuries)
@@ -715,11 +725,11 @@ def alt_early_read(now_av, prev_av, g):
     return (h[0] + a[1] + a[0] + h[1]) / 2
 
 
-def _alt_last(games, team, season, before):
+def _alt_last(games, team, season, before, league="ncaab"):
     """A team's last final this season before `before` - 'Wyoming beat Idaho St 82-73 last time out' - or ''."""
     best = None
     for x in games.values():
-        if x.get("league") != "ncaab" or x.get("status") != "final" or team not in (x.get("home"), x.get("away")):
+        if x.get("league") != league or x.get("status") != "final" or team not in (x.get("home"), x.get("away")):
             continue
         if _hoops_season(x.get("start") or "") != season or _t(x["start"]) >= before:
             continue
@@ -1051,6 +1061,10 @@ SPOTS = {   # key: (label, units, leagues)
     #                                                                              11/11: 4,600 ft+ floors, 499-342 +13.1%
     #                                                                              (alt_over_1111), same record; 11/12: 1u from the
     #                                                                              11/13 games (units() / ALT_1U_FROM)
+    "nba_out_over": ("🏀 NBA over, the main guys sitting", 0.5, ("nba",)),     # 11/12 (15 studies, sports_nba_out): 3+ of
+    #                                                                              the six top-minutes men out - 354-254
+    #                                                                              +11.0% on 615, 8 of 8 seasons; ½u, its
+    #                                                                              own record, judged at 40
     "nba_open":  ("🏀 NBA opening line", 0.5, ("nba",)),                       # the owner OK'd 10/23: the whole-model read
     #                                                                              at the first price, best side a night -
     #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
