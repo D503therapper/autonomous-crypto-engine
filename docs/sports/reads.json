@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T15:49Z",
+ "updated": "2026-11-12T16:02Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -165,8 +165,8 @@
    "start": "2026-11-12T23:30Z",
    "away": "Tennessee Tech",
    "home": "Indiana",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Tennessee Tech",
     "opp": "Indiana",
@@ -281,8 +281,8 @@
    "start": "2026-11-13T00:00Z",
    "away": "Canadiens",
    "home": "Bruins",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Canadiens",
     "opp": "Bruins",
@@ -377,6 +377,7 @@
     "win_p": 0.52,
     "reasons": [
      "opponent on a back-to-back",
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -728,8 +729,8 @@
    "start": "2026-11-13T00:30Z",
    "away": "Red Wings",
    "home": "Panthers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Red Wings",
     "opp": "Panthers",
@@ -738,7 +739,9 @@
     "odds": -185,
     "p": 0.618,
     "win_p": 0.401,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -831,7 +834,7 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "opponent missing key players"
     ]
    }
   },
@@ -943,8 +946,8 @@
    "start": "2026-11-13T01:00Z",
    "away": "Sabres",
    "home": "Blackhawks",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Blackhawks",
     "opp": "Sabres",
@@ -955,7 +958,8 @@
     "win_p": 0.443,
     "reasons": [
      "better rested",
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "opponent missing key players"
     ]
    }
   },
@@ -993,7 +997,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.518,
+    "p": 0.519,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1010,8 +1014,8 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.556,
-    "win_p": 0.556,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1034,8 +1038,8 @@
    "start": "2026-11-13T02:00Z",
    "away": "Blues",
    "home": "Mammoth",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Blues",
     "opp": "Mammoth",
@@ -1056,7 +1060,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Suns",
-    "p": 0.607,
+    "p": 0.608,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1073,10 +1077,11 @@
     "market": "ml",
     "line": null,
     "odds": -244,
-    "p": 0.683,
-    "win_p": 0.683,
+    "p": 0.684,
+    "win_p": 0.684,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -1103,7 +1108,7 @@
     "market": "spread",
     "line": -10.0,
     "odds": -115,
-    "p": 0.503,
+    "p": 0.502,
     "win_p": 0.686,
     "reasons": [
      "the stronger team",
