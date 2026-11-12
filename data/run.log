@@ -18434,3 +18434,35 @@ error: failed to push some refs to 'https://githu
 [2026-11-12 10:03 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-12 10:03 UTC] crypto/hold_btc  equity $442.81 (-11.4%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), TAO 37 (37/0/0), BTC 32 (32/0/0), SOL 27 (27/0/0), GRAM 21 (21/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '74756.18', 'l': '73183.82', 'a': '73409.74', 'v': '4477.9936', 'vv': '331109045.54', 'c': '-0.0042', 'b': '73405.45', 'k': '73405.46', 'oi': '0', 't': 1794477832745}
+   dex scanner: 2,681 pools (solana 1,918 / base 423 / ethereum 340), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT RENDER@solana liq $325,710 - freeze authority; mint authority; top-10 holders 47%; lp holders unknown
+   dex screen: REJECT GROW@base liq $123,867 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 60%; lp locked 0% < 95%
+   dex screen: REJECT ANSEM@solana liq $1,385,657 - top-10 holders 67%
+   dex screen: REJECT ZEC@solana liq $3,581,575 - mint authority
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $135,599 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: FM: +22.7% in 85 min on 7.4x volume @ 0.005887 spread 0.94%
+   dex screen: REJECT GHO@ethereum liq $133,213 - 24h volume $62,319 < $100,000
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $142,387 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS STONK@solana liq $2,114,532
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT CRVUSD@ethereum liq $11,253,522 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $155,050 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,597 pools (solana 1,837 / base 428 / ethereum 332), refresh cycle 103s (hot 100s), 3043 calls (128 feed, 429s 0, failed 0), 87,408 refreshed (10266 no pair), +218 added / -302 dropped (dead 287, stale 15, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-12 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/mover     equity $201.27 (-59.7%) 2 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/social_heat equity $336.13 (-32.8%) 2 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-12 11:05 UTC] crypto/hold_btc  equity $442.81 (-11.4%) 1 open  market DOWN
+   social heat top: PENGU 37 (37/0/0), BTC 35 (35/0/0), TAO 32 (32/0/0), SOL 29 (29/0/0), HYPE 21 (21/0/0)

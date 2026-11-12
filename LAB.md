@@ -4,7 +4,7 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 
 | Market | Strategy | Balance | Return | Trades |
 |---|---|---|---|---|
-| dex | dex_hunter | $651.35 | -34.9% | 70 |
+| dex | dex_hunter | $654.16 | -34.6% | 70 |
 | stocks | trend_ensemble | $503.51 | +0.7% | 21 |
 | stocks | rotation10 | $501.62 | +0.3% | 42 |
 | crypto | chaser | $500.00 | +0.0% | 0 |
@@ -19,6 +19,6 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | crypto | hold_btc | $442.81 | -11.4% | 1 |
 | crypto | momentum | $418.69 | -16.3% | 16 |
 | crypto | breakout10 | $385.19 | -23.0% | 4 |
-| crypto | social_heat | $335.97 | -32.8% | 56 |
-| crypto | mover | $196.74 | -60.7% | 122 |
+| crypto | social_heat | $336.13 | -32.8% | 56 |
+| crypto | mover | $201.27 | -59.7% | 122 |
 | crypto | early_mover (official) | $0.00 | -100.0% | 6 |
