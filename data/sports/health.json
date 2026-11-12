@@ -1,9 +1,10 @@
 {
- "at": "2026-11-12T22:52Z",
- "fixes": [],
+ "at": "2026-11-12T22:54Z",
+ "fixes": [
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (230s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,13 +17,20 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "simulator ran 3h ago",
+  "engine ran 4 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T22:54Z",
+   "fixes": [
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-12T22:52Z",
    "fixes": [],
@@ -721,22 +729,6 @@
    "at": "2026-11-11T21:22Z",
    "fixes": [
     "live board 35 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Ribera vs Carle: no points for 2432s",
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-11T21:20Z",
-   "fixes": [
-    "live board 33 min stale with games on - sports-live.yml already running",
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
