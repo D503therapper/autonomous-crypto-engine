@@ -1,9 +1,7 @@
 {
- "at": "2026-11-12T04:34Z",
+ "at": "2026-11-12T04:35Z",
  "fixes": [
-  "live watch 43150697061 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
@@ -13,6 +11,7 @@
   "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
  ],
  "ok": [
+  "live watcher fresh (56s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -24,12 +23,25 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 0 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-12T04:35Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
+    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
+   ]
+  },
   {
    "at": "2026-11-12T04:34Z",
    "fixes": [
@@ -892,15 +904,6 @@
    ],
    "problems": [
     "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-10T23:43Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-11-10 Coco Gauff) - sports.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): actionnetwork:nfl - on ESPN's game list, actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:nba - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list"
    ]
   }
  ]
