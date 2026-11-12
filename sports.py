@@ -5387,12 +5387,33 @@ def posted_kind(p):
     return p.get("kind")
 
 
+def dog_play_leagues(c):
+    """The leagues the runner-up dog play posts in for this side's Pacific game day: DOG_PLAY_LEAGUES, and from
+    SWEEP_1112_FROM hockey / the NFL only (DOG_PLAY_LEAGUES_1113 - the 11/12 sweep)."""
+    return DOG_PLAY_LEAGUES_1113 if pt_day(c) >= SWEEP_1112_FROM else DOG_PLAY_LEAGUES
+
+
+def nba_floor_record(picks):
+    """🏀 the NBA floor's own record (picks tagged floor with nba) -> (won, lost)."""
+    w = l_ = 0
+    for p in picks or []:
+        if isinstance(p.get("floor"), dict) and p["floor"].get("nba") and p.get("status") in ("won", "lost"):
+            w, l_ = (w + 1, l_) if p["status"] == "won" else (w, l_ + 1)
+    return w, l_
+
+
+def nba_floor_quit(picks):
+    """The NBA floor's judge: NBA_FLOOR_QUIT[0]+ graded and under NBA_FLOOR_QUIT[1] won = no more posts."""
+    w, l_ = nba_floor_record(picks)
+    return w + l_ >= NBA_FLOOR_QUIT[0] and w / (w + l_) < NBA_FLOOR_QUIT[1]
+
+
 def dog_plays(cands, avoid):
     """The best dog that would qualify as the Dog of the Day (make_board's own Dog pool + the dog gate) but isn't it -
-    at most DOG_PLAY_MAX a day (post_board counts the day's), DOG_PLAY_LEAGUES only, best dog score first, one per game,
-    never a game in `avoid`."""
+    at most DOG_PLAY_MAX a day (post_board counts the day's), DOG_PLAY_LEAGUES only (dog_play_leagues: hockey / the NFL
+    from the 11/13 games), best dog score first, one per game, never a game in `avoid`."""
     pool = [c for c in cands if c.get("market") == "ml" and DOG_MIN <= c.get("odds", 0) <= DAILY_DOG_MAX
-            and c.get("league") in DOG_PLAY_LEAGUES and not nba_half_dog_capped(c)   # (11/11: NBA ½u dogs to +199)
+            and c.get("league") in dog_play_leagues(c) and not nba_half_dog_capped(c)   # (11/11: NBA ½u dogs to +199)
             and not c.get("trap") and good(c) and beats_price(c) and dog_score(c) > 0 and dog_gate(dict(c))]
     out, seen = [], set(avoid)
     for c in sorted(pool, key=lambda c: (-dog_score(c), -c["edge"])):
@@ -5604,6 +5625,31 @@ FLOOR_SCORE_FROM = WIRE_1111_FROM   # 7. THE FLOOR'S SECOND PLAY needs a dog sco
 FLOOR_SECOND_SCORE = 0.0  # floor already does): a floor play goes up under it only when the board has no unit play at
 #                           all (the owner's "at least ONE unit play per day"). The 11/10 Predators +114 were the day's
 #                           second floor play at a dog score of -3.57 - the angles AGAINST it.
+
+# 🧹 11/12 FABLE FULL SWEEP: STOP THE BLEEDING (the owner, 11/12: "We've been bleeding units this past week. We really
+# need to tighten up ... by any means necessary ... run a full sweep" + "we definitely don't want another big losing
+# Saturday"; SPORTS_FINDINGS "11/12 - FABLE FULL SWEEP: STOP THE BLEEDING"; results/studies/sweep_1112/). The two weeks
+# 10/29-11/10: 24-36, -5.0u on 45u - college football dogs 3-17 -8.5u (the 🔍 play 1-7 -5.1u), NBA dogs 2-9 -4.0u,
+# everything else 19-10 +7.5u. Each rule below starts with the 11/13 games (a game's Pacific day - pt_day): no posted
+# pick, size or graded record changes; nothing is loosened; no size goes up (no max-play tier cleared the checks).
+SWEEP_1112_FROM = "2026-11-13"
+GAP_NCAAF_OFF_FROM = SWEEP_1112_FROM   # ⏸️ THE 🔍 COLLEGE FOOTBALL GAP PLAY IS PAUSED (college hoops' twin - the
+#   efficiency read - is untouched). Live 4-13, -5.9u (-34.5% flat; home 3-9, road 1-4). The 11/11 cut kept the ROAD
+#   dog on a lead from one table (won 44.3% vs 33.9% priced on 61); the board's own funnel rows say the opposite
+#   (s4_gap_one_voice: road dogs with a raw gap of 15+ 28-61, -14.0% on 89 - train +1.8%, held out -25.3%; road 15-35
+#   -9.2% on 82, held -17.4%; the home dog flips by half, -11.6% / +33.5%) - no version of the rule holds in both
+#   halves on a second source, the raw college read holds nothing the market lacks (10/15-16: fitted shrink 0.000 on
+#   6,009 games) and is tilted 11 points to the home team (11/11). Its early twin (the engine spot) has been paused
+#   since 10/24. None = on again - the owner's call (his 10/17 judge-at-50 is not thrown out: its record stands at 17).
+DOG_PLAY_LEAGUES_1113 = ("nfl", "nhl")   # 🐶 THE RUNNER-UP DOG PLAY: hockey / NFL only (no college football, no NBA).
+#   Live 0-6 (z -2.5 against its replay's +18.3%) - and every one of the six was a league the replay barely holds:
+#   college football 0-4 (all four HOME dogs - the raw read's home tilt is what clears their "own read over the price"
+#   check; replay 20 rows, 5 of them in train), the NBA 0-2 (10 replay rows). 59 of the replay's 90 are hockey
+#   (+10.6% train / +16.9% held) and hockey has not posted one live. The quit rule (DOG_PLAY_QUIT) keeps counting.
+NBA_FLOOR_QUIT = (20, 0.35)    # 🏀 THE NBA FLOOR gets the judge the runner-up dog and the blowout spot have: under 35%
+#   won at 20 graded = no more posts (the owner can turn it back on). It is 0-3 live (z -1.8 against a replay of +24.7%
+#   whose rule was chosen on those same rows); NBA dogs of every board kind are 2-8 (z -2.1 against their replay,
+#   -1.4 against the price) - too few to pause on, enough for a judge.
 
 
 def pt_day(c):
@@ -5926,6 +5972,8 @@ def gap_plays(cands, avoid):
             if gap >= NCAAB_GAP_MIN:
                 pool.append((gap, c, read))
             continue
+        if GAP_NCAAF_OFF_FROM and pt_day(c) >= GAP_NCAAF_OFF_FROM:
+            continue                                         # ⏸️ (11/12 sweep: the college FOOTBALL 🔍 play is paused)
         if c.get("raw_own") is None:
             continue
         if GAP_FBS_ONLY and c.get("fbs_game") is False:
@@ -8007,6 +8055,7 @@ def post_board(games, model, picks, now, day, force=False):
         if kind == "gap" and iso < GAP_FROM or kind == "dogplay" and (iso < DOG_PLAY_FROM or dog_play_quit(picks)) \
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
                 or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM \
+                or kind == "nbafloor" and nba_floor_quit(picks) \
                 or kind == "stackplay" and (iso < NCAAB_STACK_PLAY_FROM or not NCAAB_STACK_PLAY_ON or ncaab_stack_play_quit(picks)):
             continue                                         # (11/4, the owner: no daily minimum on any sport)
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
