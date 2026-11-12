@@ -1,37 +1,6 @@
 {
- "updated": "2026-11-12T16:35Z",
+ "updated": "2026-11-12T16:40Z",
  "games": [
-  {
-   "id": "nhl:401891808",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.462,
-    "tie": 0.288,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-12T17:00Z",
-   "away": "Hurricanes",
-   "home": "Kraken",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Hurricanes",
-    "opp": "Kraken",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -122,
-    "p": 0.515,
-    "win_p": 0.727,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
   {
    "id": "ncaab:401920073",
    "league": "ncaab",
@@ -1335,8 +1304,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.397,
-    "tie": 0.297,
+    "p": 0.432,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1347,14 +1316,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Canucks",
-    "opp": "Rangers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -200,
-    "p": 0.622,
-    "win_p": 0.401,
-    "reasons": []
+    "team": "Rangers",
+    "opp": "Canucks",
+    "market": "ml",
+    "line": null,
+    "odds": -218,
+    "p": 0.674,
+    "win_p": 0.674,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1393,8 +1365,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.408,
-    "tie": 0.296,
+    "p": 0.415,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1409,12 +1381,40 @@
     "opp": "Predators",
     "market": "ml",
     "line": null,
-    "odds": -182,
-    "p": 0.62,
-    "win_p": 0.62,
+    "odds": -192,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaaf:401868157",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Southern Utah",
+    "p": 0.708,
+    "tie": 0.028,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T03:00Z",
+   "away": "Southern Utah",
+   "home": "Portland St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Portland St",
+    "opp": "Southern Utah",
+    "market": "spread",
+    "line": 12.5,
+    "odds": -113,
+    "p": 0.506,
+    "win_p": 0.235,
+    "reasons": []
    }
   },
   {
