@@ -40019,6 +40019,11 @@
      "them:road3in6"
     ],
     "dec": 2.1,
+    "decider": {
+     "s": "8-3",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -40058,6 +40063,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": -0.23,
+    "flow": {
+     "a": "2,2,4",
+     "h": "0,2,1"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -40112,10 +40121,12 @@
      "opponent missing key players: Brayden Point (their read -4)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Lightning 8 @ Sabres 3",
     "season_games": null,
+    "settled": "2026-11-12T02:56Z",
     "side": "home",
     "start": "2026-11-12T00:00Z",
     "stype": "2",
@@ -40139,12 +40150,14 @@
    }
   ],
   "p_hit": 0.4499,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-11T16:27Z",
   "round": 1,
+  "settled": "2026-11-12T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,

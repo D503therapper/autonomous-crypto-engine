@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T02:33Z",
+ "updated": "2026-11-12T03:00Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -311,8 +311,8 @@
    "away": "Cavaliers",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -326,8 +326,8 @@
    "away": "Celtics",
    "home": "Raptors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -477,7 +477,7 @@
    "home": "Sabres",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Sabres",
@@ -491,7 +491,7 @@
      "opponent drama: trade drama",
      "opponent missing key players: Brayden Point (their read -4)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -784,8 +784,8 @@
    "away": "Pepperdine",
    "home": "Sam Houston",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -844,8 +844,8 @@
    "away": "Blackburn",
    "home": "E Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -904,8 +904,8 @@
    "away": "Macalester",
    "home": "St Thomas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -964,8 +964,8 @@
    "away": "Robert Morris",
    "home": "Arkansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1165,207 +1165,90 @@
    "lean": null
   },
   {
-   "id": "ncaab:401919734",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "CA Baptist",
-    "p": 0.784,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "id": "nhl:401892693",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
    "season": "regular season",
-   "start": "2026-11-12T03:00Z",
-   "away": "Chicago St",
-   "home": "CA Baptist",
-   "why": "coin_flip",
+   "start": "2026-11-12T02:30Z",
+   "away": "Mammoth",
+   "home": "Golden Knights",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Chicago St",
-    "opp": "CA Baptist",
-    "market": "spread",
-    "line": 11.5,
-    "odds": -110,
-    "p": 0.504,
-    "win_p": 0.135,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401925738",
-   "league": "ncaab",
+   "id": "nba:401909974",
+   "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Oregon",
-    "p": 0.925,
-    "tie": 0.014,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-12T03:00Z",
-   "away": "Miss Valley St",
-   "home": "Oregon",
-   "why": "coin_flip",
+   "start": "2026-11-12T02:30Z",
+   "away": "Warriors",
+   "home": "Rockets",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Miss Valley St",
-    "opp": "Oregon",
-    "market": "spread",
-    "line": 35.5,
-    "odds": -115,
-    "p": 0.527,
-    "win_p": 0.026,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401917523",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacific",
-    "p": 0.622,
-    "tie": 0.041,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-12T03:00Z",
-   "away": "Pacific",
-   "home": "Long Beach St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Pacific",
-    "opp": "Long Beach St",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.688,
-    "win_p": 0.688,
-    "reasons": [
-     "hotter recent form",
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892695",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Penguins",
-    "p": 0.388,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-11-12T03:00Z",
    "away": "Penguins",
    "home": "Sharks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Sharks",
-    "opp": "Penguins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.641,
-    "win_p": 0.42,
-    "reasons": []
+    "team": "Penguins",
+    "opp": "Sharks",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.578,
+    "win_p": 0.578,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892694",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.401,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-11-12T03:00Z",
    "away": "Predators",
    "home": "Ducks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Predators",
-    "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.617,
-    "win_p": 0.4,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909975",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Trail Blazers",
-    "p": 0.531,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-12T03:00Z",
-   "away": "Thunder",
-   "home": "Trail Blazers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Trail Blazers",
-    "opp": "Thunder",
+    "team": "Ducks",
+    "opp": "Predators",
     "market": "ml",
     "line": null,
-    "odds": -147,
-    "p": 0.574,
-    "win_p": 0.574,
+    "odds": -142,
+    "p": 0.599,
+    "win_p": 0.599,
     "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401917521",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Seattle U",
-    "p": 0.851,
-    "tie": 0.024,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-12T03:00Z",
-   "away": "UTSA",
-   "home": "Seattle U",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UTSA",
-    "opp": "Seattle U",
-    "market": "spread",
-    "line": 17.5,
-    "odds": -118,
-    "p": 0.51,
-    "win_p": 0.075,
-    "reasons": []
+     "opponent on a back-to-back",
+     "better rested",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
@@ -1755,8 +1638,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Lightning",
-    "p": 0.362,
+    "team": "Blue Jackets",
+    "p": 0.356,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1773,9 +1656,10 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.691,
-    "win_p": 0.474,
+    "p": 0.723,
+    "win_p": 0.513,
     "reasons": [
+     "opponent on a back-to-back",
      "opponent drama: trade drama"
     ]
    }
@@ -2300,8 +2184,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.387,
-    "tie": 0.298,
+    "p": 0.371,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2309,7 +2193,7 @@
    "start": "2026-11-13T01:00Z",
    "away": "Sabres",
    "home": "Blackhawks",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Blackhawks",
@@ -2317,9 +2201,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.642,
-    "win_p": 0.421,
-    "reasons": []
+    "p": 0.673,
+    "win_p": 0.455,
+    "reasons": [
+     "better rested",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
