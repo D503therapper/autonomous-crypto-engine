@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T21:02Z",
+ "updated": "2026-11-12T21:45Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -169,15 +169,15 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Senators",
-    "opp": "Avalanche",
+    "team": "Avalanche",
+    "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.712,
+    "odds": -278,
+    "p": 0.716,
     "win_p": 0.5,
     "reasons": [
-     "sharp money moving this way"
+     "opponent missing key players"
     ]
    }
   },
@@ -409,9 +409,9 @@
     "team": "MD Eastern",
     "opp": "Rhode Island",
     "market": "spread",
-    "line": 22.5,
-    "odds": -102,
-    "p": 0.515,
+    "line": 23.5,
+    "odds": -115,
+    "p": 0.516,
     "win_p": 0.036,
     "reasons": [
      "sharp money moving this way"
@@ -530,9 +530,9 @@
     "team": "Pistons",
     "opp": "Wizards",
     "market": "spread",
-    "line": -9.5,
-    "odds": -117,
-    "p": 0.502,
+    "line": -10.5,
+    "odds": -103,
+    "p": 0.503,
     "win_p": 0.809,
     "reasons": [
      "the stronger team",
@@ -563,7 +563,7 @@
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -269,
+    "odds": -270,
     "p": 0.701,
     "win_p": 0.701,
     "reasons": [
@@ -593,9 +593,9 @@
     "team": "Southern Utah",
     "opp": "High Point",
     "market": "spread",
-    "line": 22.5,
-    "odds": -102,
-    "p": 0.515,
+    "line": 23.5,
+    "odds": -115,
+    "p": 0.516,
     "win_p": 0.028,
     "reasons": []
    }
@@ -715,7 +715,7 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -175,
     "p": 0.618,
     "win_p": 0.401,
     "reasons": []
@@ -975,7 +975,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Giants",
-    "p": 0.515,
+    "p": 0.509,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -984,20 +984,20 @@
    "start": "2026-11-13T01:15Z",
    "away": "Commanders",
    "home": "Giants",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Giants",
     "opp": "Commanders",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -125,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
      "the stronger team",
      "cold-weather edge",
-     "sharp money moving this way"
+     "opponent missing key players"
     ]
    }
   },
@@ -1112,9 +1112,9 @@
     "team": "Montana St",
     "opp": "BYU",
     "market": "spread",
-    "line": 22.5,
-    "odds": -115,
-    "p": 0.515,
+    "line": 21.5,
+    "odds": -105,
+    "p": 0.514,
     "win_p": 0.047,
     "reasons": [
      "better rested"
@@ -1641,8 +1641,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.415,
-    "tie": 0.295,
+    "p": 0.41,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1657,9 +1657,9 @@
     "opp": "Predators",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.633,
-    "win_p": 0.633,
+    "odds": -185,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
      "the stronger team"
     ]
