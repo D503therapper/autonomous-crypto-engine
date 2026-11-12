@@ -1,6 +1,6 @@
 {
- "fetched": "2026-11-12T06:15Z",
- "src": "bovada",
+ "fetched": "2026-11-12T07:20Z",
+ "src": "oddsapi",
  "lines": [
   {
    "a": "Alex Michelsen",
@@ -42,19 +42,6 @@
    "b_ml": 165
   },
   {
-   "a": "Jessica Pegula",
-   "b": "Linda Noskova",
-   "start": "2026-11-12T18:00Z",
-   "src": "bovada",
-   "tour": "wta",
-   "a_hcp": 1.0,
-   "b_hcp": -1.0,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": 100,
-   "b_ml": -120
-  },
-  {
    "a": "Lorenzo Musetti",
    "b": "Ugo Humbert",
    "start": "2026-11-12T18:40Z",
@@ -71,14 +58,41 @@
    "a": "Marta Kostyuk",
    "b": "Coco Gauff",
    "start": "2026-11-12T20:00Z",
-   "src": "bovada",
+   "a_ml": 230,
+   "b_ml": -290,
    "tour": "wta",
-   "a_hcp": 4.0,
-   "b_hcp": -4.0,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": 240,
-   "b_ml": -300
+   "src": "oddsapi",
+   "books": 9
+  },
+  {
+   "a": "Jessica Pegula",
+   "b": "Linda Noskova",
+   "start": "2026-11-12T21:30Z",
+   "a_ml": 100,
+   "b_ml": -125,
+   "tour": "wta",
+   "src": "oddsapi",
+   "books": 9
+  },
+  {
+   "a": "Mirra Andreeva",
+   "b": "Karolina Muchova",
+   "start": "2026-11-13T20:00Z",
+   "a_ml": -184,
+   "b_ml": 150,
+   "tour": "wta",
+   "src": "oddsapi",
+   "books": 3
+  },
+  {
+   "a": "Aryna Sabalenka",
+   "b": "Elina Svitolina",
+   "start": "2026-11-13T21:30Z",
+   "a_ml": -184,
+   "b_ml": 151,
+   "tour": "wta",
+   "src": "oddsapi",
+   "books": 3
   }
  ]
 }
