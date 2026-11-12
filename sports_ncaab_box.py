@@ -6,7 +6,8 @@ to date, walk-forward, both teams 5+ box games, against ESPN's close and open. W
 
   identity(games, team, start) -> None (unknown: under TEAM_MIN_GAMES box games) or
       {"n": box games before `start`, "tom": turnover margin a game (forced minus committed),
-       "off": points per 100 possessions over the D1 average so far this season, "def": allowed per 100 over it}
+       "off": points per 100 possessions over the D1 average so far this season, "def": allowed per 100 over it,
+       "tor" / "ftor": turnovers committed / forced a possession, "tp_share": threes as a share of its shots (11/12)}
   TURNOVER-PRONE (tom <= TOM_PRONE, the bottom third): a -101..-150 moneyline favorite that coughs it up lost -9.7% on
       1,314 (train 2021-22 0 of 2 up, held out 2023-25 0 of 3; the open -7.2%; the bottom sixth -13.2%, home / away,
       Nov-Dec / Jan-Mar, both price halves all down) vs -4.2% for every small favorite - BUILT as a -2 weight on the
@@ -150,8 +151,14 @@ def identity(games, team, start):
     if not poss or not oposs:
         return None
     avg = 100 * lg[0] / lg[1]
+    fga = sum(r[8].get("fga", 0) for r in mine)
     return {"n": len(mine), "tom": round(sum(r[7] - r[6] for r in mine) / len(mine), 2),
-            "off": round(100 * pts / poss - avg, 2), "def": round(100 * opts / oposs - avg, 2)}
+            "off": round(100 * pts / poss - avg, 2), "def": round(100 * opts / oposs - avg, 2),
+            # 11/12 FABLE (results/studies/cbb10_1112): per POSSESSION, so two teams' numbers can be set against each
+            # other - "tor" turnovers a possession, "ftor" turnovers forced a possession of the opponents', and
+            # "tp_share" the share of its shots that are threes (None with no shots on file)
+            "tor": round(sum(r[6] for r in mine) / poss, 4), "ftor": round(sum(r[7] for r in mine) / oposs, 4),
+            "tp_share": round(sum(r[8].get("tpa", 0) for r in mine) / fga, 4) if fga else None}
 
 
 # ---------------- 11/4 FABLE EXPERT KNOWLEDGE: shooting form from the team box ----------------

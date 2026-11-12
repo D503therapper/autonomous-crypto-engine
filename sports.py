@@ -887,6 +887,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_ncaab_long_out(games, out)                   # 🏀 11/3 KNOWLEDGE (A): a regular out 4+ games running (-2 dog)
     mark_ncaab_race(games, out)                       # 🏀 11/3 KNOWLEDGE (A): Feb-Mar, 5+ back vs a contender (-3 dog)
     mark_ncaab_identity(games, out)                   # 🏀 11/3 KNOWLEDGE (A): turnover margin / offense-first from the box
+    mark_ncaab_cbb10(games, out)                      # 🏀 11/12 FABLE: the rusty home side, the league leader on the road
     mark_ncaab_roster_mix(games, out)                 # 🏀 11/3 KNOWLEDGE (A): transfer / freshman minute shares (Feb-Mar rank)
     mark_ncaab_star_back(games, out)                  # 🏀 11/4 EXPERT: the top scorer's 2nd game back (-3 dog / -0.03 / rank)
     mark_ncaab_road_cold(games, out)                  # 🏀 11/4 EXPERT: the road dog 6+ short of its number on the road (-2)
@@ -2442,6 +2443,12 @@ def dog_spots(c):
     if ncaab_tp_lucky(c) and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100:
         sc -= NCAAB_TP_NET_DOG_PTS       # 🏀 11/9 daily study 2: a college hoops dog that's been lucky from three this
         #                            season (NET +5+, games 6+) -12.5% on 1,412 (held 2023-25 -15.1%, 3 of 3 down). A weight.
+    if ncaab_to_match_dog(c):
+        sc -= NCAAB_TO_MATCH_PTS         # 🏀 11/12 FABLE study 8 (results/studies/cbb10_1112/s8 + s11a): a college hoops
+        #                            dog that LOSES THE TURNOVER MATCHUP by .05+ a possession (what it forces minus what
+        #                            it gives away, against the same for the favorite; both 5+ box games) -17.1% on 1,802
+        #                            (2021-25: -19 / -20 / -14 / -21 / -11, 5 of 5 down; the open -18.5%; z -5.5; a random
+        #                            1,802 dogs did it 3 of 2,000 times) vs -7.3% for every dog. A weight, never a gate.
     if ncaab_neutral_back_dog(c):
         sc -= NCAAB_NEUTRAL_BACK_PTS     # 🏀 11/5 daily study 10 (results/studies/daily_1105/s2_s10_ncaab.py + s10b):
         #                            a college hoops ROAD dog in its first game back from a neutral-site event (Nov-Dec)
@@ -3360,6 +3367,8 @@ def rank_p(c):
             + ncaab_across_spread_w(c)                         # (11/11 FABLE: ACROSS a lucky-from-three team +0.02 / a
             #                                                     top scorer out +0.03 - the built fades' other bench)
             + ncaaf_yard_luck_spread_w(c)                      # (11/10 daily: the college side 6+ a game over its yards -0.02)
+            + ncaab_cbb10_spread_w(c)                          # (11/12 FABLE: the rusty home side -0.03 / its visitor +0.02,
+            #                                                     the league leader with a cushion on the road -0.03 / +0.03)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
@@ -4568,8 +4577,18 @@ def mark_ncaab_identity(games, cands):
             c["to_margin"] = me["tom"]
             c["off_first"] = me["off"] >= nb.OFF_HI and me["def"] > nb.DEF_GOOD
             c["def_first"] = me["def"] <= nb.DEF_GOOD and me["off"] < nb.OFF_HI
+            if me.get("tp_share") is not None:
+                c["tp_share"] = me["tp_share"]               # 11/12 FABLE study 1: threes as a share of its shots (a lead)
         if op:
             c["opp_off_low"] = op["off"] <= nb.OFF_LO
+        if me and op and me.get("tor") is not None and op.get("tor") is not None:
+            # 11/12 FABLE study 8: THE TURNOVER MATCHUP per possession - my (forced - given away) minus theirs
+            c["to_net"] = round((me["ftor"] - me["tor"]) - (op["ftor"] - op["tor"]), 4)
+            if (c.get("market") == "ml" and c.get("odds", 0) < 0 and c["to_net"] >= NCAAB_TO_MATCH - 1e-9
+                    and pt_day(c) >= CBB10_FROM):
+                c["reasons"] = c["reasons"] + [f"the turnover matchup is ours by {100 * c['to_net']:.1f} a 100 possessions "
+                                               "(what each team forces against what it gives away) - the dog on the "
+                                               "wrong end of that lost -17% to its price (5 of 5 seasons)"]
 
 
 NCAAB_TP_NET_FAV_W = -0.02    # 🏀 11/9 daily study 2 (results/studies/daily_1109/s2b / s2c; sports_ncaab_box.three_net):
@@ -5072,7 +5091,8 @@ def mark_ncaab_upset_winner(games, cands, elo):
 
 NCAAB_GOOD_FACTS = ("vs_ranked_road", "glass", "def_first_vs_bad_offense", "opp_star_back", "opp_turmoil", "upset_winner")
 NCAAB_BAD_FACTS = ("top_out", "long_out", "race_dog", "rubber_dog", "skid", "ranked_road", "star_back", "road_cold",
-                   "early_road", "out_rebounded", "cold_shoot", "hot_deep_road", "new_coach_late", "transfer_heavy_late")
+                   "early_road", "out_rebounded", "cold_shoot", "hot_deep_road", "new_coach_late", "transfer_heavy_late",
+                   "to_matchup")
 
 
 def ncaab_dog_good_bad(c):
@@ -5127,6 +5147,8 @@ def ncaab_dog_good_bad(c):
         bad.append("new_coach_late")
     if c.get("roster_tin") is not None and month in NCAAB_ROSTER_MONTHS and c["roster_tin"] >= (c.get("roster_cut") or (0.28, 0.26))[0]:
         bad.append("transfer_heavy_late")
+    if ncaab_to_match_dog(c):
+        bad.append("to_matchup")                             # 11/12 FABLE study 8: loses the turnover matchup by .05+
     return {"good": good, "bad": bad}
 
 
@@ -5703,6 +5725,151 @@ def ncaab_stack_plays(cands, avoid):
             seen.add(c["game_id"])
             out.append(c)
     return out
+
+
+# 🏀 11/12 FABLE: 10 COLLEGE HOOPS STUDIES (the owner, 11/12: "Have Fable run 10 studies across college basketball";
+# results/studies/cbb10_1112/, SPORTS_FINDINGS "11/12 - FABLE: 10 COLLEGE HOOPS STUDIES"; ~620 cells at ESPN's close,
+# every input known before tip). THREE findings cleared the five checks and are WEIGHTS - never triggers, inside
+# STUDY_CAP / the rank nudge, no units - on games from the 11/13 Pacific day:
+CBB10_FROM = "2026-11-13"
+NCAAB_TO_MATCH = 0.05         # (1) THE TURNOVER MATCHUP (study 8; the team box 2021-26): per possession, what a team forces
+NCAAB_TO_MATCH_PTS = 2        # minus what it gives away, set against the same for the other bench (sports_ncaab_box
+#                               identity tor / ftor, both 5+ box games). The DOG that loses it by .05+ (about 3.5
+#                               turnovers a game) -17.1% on 1,802 (train 2021-22 -19.4% 0 of 2 up, held 2023-25 -15.6%
+#                               0 of 3; the OPEN -18.5%; z -5.5; +100..+200 -13.6% / +201..+350 -21.9%; home -18.8% /
+#                               road -16.5%; with no 5+ skid -15.8%; "theirs is good, mine ordinary" -17.1% - it is the
+#                               MATCHUP, not the built turnover-prone weight: the turnover-prone dog NOT losing the
+#                               matchup -7.3% = the base; the dose - .04-.05 -7.8%, .05-.07 -16.1%, .07+ -18.2%; a
+#                               random 1,802 dogs landed there 3 of 2,000 times) vs -7.3% for every dog; the favorite
+#                               across +2.2% on 1,802. -2 on the dog's points (so the favorite across reads +1).
+NCAAB_RUST_DAYS = 7           # (2) THE RUSTY HOME SIDE (study 5 - the 10/31 layoff lead, deeper; 2018-26): a HOME team
+NCAAB_RHYTHM_DAYS = 4         # (not a neutral floor) whose last game was 7+ days ago hosting a team that played within
+NCAAB_RUST_GAMES = 4          # 4, both 4+ games in: ATS -13.6% on 1,027, covered 45.2% (2018-25: -20 / -14 / -26 / -13 /
+NCAAB_RUST_HOME_W = 0.03      # -9 / -14 / -5 / -8, 8 of 8 down; train -17.9%, held -9.2%; z -4.6; a random 1,027 sides
+NCAAB_RUST_VISITOR_W = 0.02   # 3 of 2,000) - as a favorite -13.1%, as a dog -14.7%, the exam window -14.1%, the rest
+#                               -13.5%; the rusty ROAD side -2.6% (nothing - rust is a home-floor mispricing); the
+#                               visitor across +4.8% on 1,027 (train +8.9% 4 of 4, held +0.6%). Spread rank -0.03 on the
+#                               rusty home side, +0.02 on its visitor. (The rusty small favorite's moneyline -19.9% on
+#                               254 stays the 10/31 tracker LEAD - its train half sat at the base.)
+NCAAB_LEADER_CUSHION = 1.0    # (3) THE LEAGUE LEADER WITH A CUSHION, ON THE ROAD (study 10; 2018-26, the standings from
+NCAAB_LEADER_W = 0.03         # sports_ncaab_knowledge.leader_cushion = games clear of second place): alone in first
+NCAAB_LEADER_MONTHS = ("02", "03")   # by a game or more, a true road game in Feb-Mar league play, both teams 8+ league
+#                               games: ATS -20.4% on 470, covered 41.7% (2018-25: -20 / -18 / -28 / -15 / -30 / -22 /
+#                               -15 / -19, 8 of 8 down; train -19.3%, held -21.4%; z -4.7; a random 470 road sides 0 of
+#                               2,000) vs -4.5% for every other road team in those games; NOT the hot-ATS fade (without
+#                               it -19.5% on 294); the dose - first by under a game -8.8%, 1+ -20.4%, 2+ after Feb 15
+#                               -28.8%; at HOME the same leader -2.8% (nothing). THE HOME SIDE ACROSS covered 58.3%:
+#                               +11.4% on 470 (2018-25: +11 / +10 / +20 / +6 / +21 / +13 / +6 / +10, 8 of 8 up; train
+#                               +10.4%, held +12.2%). Spread rank -0.03 on the leader / +0.03 on the home side; the
+#                               home side's tracker line is the record a ½u spread play would be judged on.
+
+
+def ncaab_to_match_dog(c):
+    """A college hoops moneyline dog that loses the turnover matchup by NCAAB_TO_MATCH+ a possession (to_net from
+    mark_ncaab_identity; unknown = no), from CBB10_FROM."""
+    return bool(c.get("league") == "ncaab" and c.get("market", "ml") == "ml" and (c.get("odds") or 0) >= 100
+                and c.get("to_net") is not None and c["to_net"] <= -NCAAB_TO_MATCH + 1e-9 and pt_day(c) >= CBB10_FROM)
+
+
+def _ncaab_nights(games, season):
+    """{team id: [(start, the US night) of every final of that season]} - one pass over the games file."""
+    lo, hi = f"{season}-07-01", f"{season + 1}-07-01"
+    out = {}
+    for g in (games or {}).values():
+        st = str(g.get("start") or "")
+        if g.get("league", "ncaab") != "ncaab" or g.get("status") != "final" or not (lo <= st < hi):
+            continue
+        if g.get("home_score") in ("", None) or g.get("away_score") in ("", None):
+            continue
+        try:
+            n = int((datetime.fromisoformat(st.replace("Z", "+00:00")).timestamp() - 5 * 3600) // 86400)
+        except ValueError:
+            continue
+        for t in (g.get("home"), g.get("away")):
+            if t:
+                out.setdefault(str(t), []).append((st, n))
+    return out
+
+
+def mark_ncaab_cbb10(games, cands):
+    """🏀 11/12 FABLE (studies 5 / 10): rust_home on a college hoops HOME side off NCAAB_RUST_DAYS+ days hosting a team
+    that played within NCAAB_RHYTHM_DAYS (vs_rust_home on the visitor), and leader_road on a league leader
+    NCAAB_LEADER_CUSHION+ games clear of second on the road in Feb-Mar league play (vs_leader_road on the home side);
+    the side the fade favors gets the fact as a reason on its spread card. From CBB10_FROM; unknown = nothing."""
+    hoops = [c for c in cands if c.get("league") == "ncaab" and c.get("market") in ("ml", "spread")
+             and c.get("side") in ("home", "away") and pt_day(c) >= CBB10_FROM]
+    if not hoops:
+        return
+    try:
+        import sports_ncaab_knowledge as nk
+    except Exception:                                        # noqa: BLE001
+        return
+    seen, nights = {}, {}
+    for c in hoops:
+        gid = c.get("game_id")
+        g = (games or {}).get(gid) or {}
+        start = str(g.get("start") or c.get("start") or "")
+        if len(start) < 10 or not g.get("home") or not g.get("away") or str(g.get("neutral") or "0") == "1":
+            continue
+        if gid not in seen:
+            f = {}
+            try:
+                now = int((datetime.fromisoformat(start.replace("Z", "+00:00")).timestamp() - 5 * 3600) // 86400)
+                season = nk.season_of(start)
+                if season not in nights:
+                    nights[season] = _ncaab_nights(games, season)
+                hn = [n for st, n in nights[season].get(str(g["home"])) or [] if st < start]
+                an = [n for st, n in nights[season].get(str(g["away"])) or [] if st < start]
+                if len(hn) >= NCAAB_RUST_GAMES and len(an) >= NCAAB_RUST_GAMES:
+                    gap, ogap = now - max(hn), now - max(an)
+                    if gap >= NCAAB_RUST_DAYS and ogap <= NCAAB_RHYTHM_DAYS:
+                        f["rust"] = (gap, ogap)
+            except (TypeError, ValueError):
+                pass
+            if nk.month_of(start) in NCAAB_LEADER_MONTHS:
+                try:
+                    nk.RACE_MIN_GAMES = NCAAB_RACE_MIN_GAMES
+                    cu = nk.leader_cushion(games, g["away"], g["home"], start)
+                    if cu is not None and cu >= NCAAB_LEADER_CUSHION:
+                        f["leader"] = cu
+                except Exception:                            # noqa: BLE001
+                    pass
+            seen[gid] = f
+        f = seen[gid]
+        home = c["side"] == "home"
+        if f.get("rust"):
+            gap, ogap = f["rust"]
+            c["rust_home" if home else "vs_rust_home"] = True
+            if not home and c.get("market") == "spread":
+                c["reasons"] = c["reasons"] + [f"{g.get('home_name') or 'the home team'} haven't played in {gap} days, we "
+                                               f"played {ogap} day{'s' if ogap != 1 else ''} ago - a home team off a week-"
+                                               "plus hosting a team in rhythm lost -14% against the number (8 of 8 seasons)"]
+        if f.get("leader"):
+            c["vs_leader_road" if home else "leader_road"] = True
+            c["leader_cushion"] = f["leader"]
+            if home and c.get("market") == "spread":
+                c["reasons"] = c["reasons"] + [f"{g.get('away_name') or 'they'} are {f['leader']:g} game"
+                                               f"{'s' if f['leader'] != 1 else ''} clear in first and on the road - a league "
+                                               "leader with a cushion lost -20% against the number on the road in Feb-Mar "
+                                               "(8 of 8 seasons)"]
+
+
+def ncaab_cbb10_spread_w(c):
+    """The 11/12 FABLE rank weights on a college hoops SPREAD side: the rusty home side (-) / its visitor (+), the
+    league leader with a cushion on the road (-) / the home side across (+). Weights, never triggers (unknown = 0);
+    NOT part of ncaab_spread_stack (the ½u stack play keeps the weights it was tested on)."""
+    if c.get("league") != "ncaab" or c.get("market") != "spread" or pt_day(c) < CBB10_FROM:
+        return 0.0
+    w = 0.0
+    if c.get("rust_home"):
+        w -= NCAAB_RUST_HOME_W
+    elif c.get("vs_rust_home"):
+        w += NCAAB_RUST_VISITOR_W
+    if c.get("leader_road"):
+        w -= NCAAB_LEADER_W
+    elif c.get("vs_leader_road"):
+        w += NCAAB_LEADER_W
+    return w
 
 
 NCAAB_GAP_FROM = "2026-11-04"   # 🔍🏀 THE COLLEGE HOOPS GAP PLAY (11/3-4 FABLE: COLLEGE HOOPS DOG EXPERT, results/studies/
