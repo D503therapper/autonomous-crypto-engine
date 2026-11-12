@@ -16944,7 +16944,7 @@ def _deep_bb_1103_altitude_body(sports, se):
     eve = datetime(2026, 11, 20, 3, 0, tzinfo=timezone.utc)        # 7 PM PT 11/19, the night before (tip 7 PM PT 11/20)
     got = se.alt_overs(games, st, eve)                              # read 150 + 1.46 = 151.5 vs 145.5: 6 over
     assert len(got) == 1 and got[0]["side"] == "over" and got[0]["line"] == 145.5 and got[0]["spot"] == "alt_over"
-    assert se.units(got[0]) == 0.5 and "445-318" in got[0]["why"] and "7,200 feet" in got[0]["why"]
+    assert se.units(got[0]) == 1.0 and "445-318" in got[0]["why"] and "7,200 feet" in got[0]["why"]
     assert abs(got[0]["read"] - 151.5) < 0.05
     assert se.alt_overs(games, st, datetime(2026, 11, 20, 18, 0, tzinfo=timezone.utc)) == []   # game day: never
     assert se.alt_overs(games, st, datetime(2026, 11, 19, 18, 0, tzinfo=timezone.utc)) == []   # 10 AM PT: too early
@@ -16964,7 +16964,7 @@ def _deep_bb_1103_altitude_body(sports, se):
             for i in range(50)]                                                              # 22-28: -14% on the units
     assert se.alt_quit({"picks": lost}) and se.alt_overs(games, {"picks": lost}, eve) == []
     assert not se.alt_quit({"picks": lost[:49]})                                             # 49 graded: not yet
-    assert se.SPOTS["alt_over"][1] == 0.5 and se.SPOTS["alt_over"][2] == ("ncaab",)
+    assert se.SPOTS["alt_over"][1] == 1.0 and se.SPOTS["alt_over"][2] == ("ncaab",)      # (11/12: 1u from 11/13)
     assert "Over 145.5" in sports.early_log_line(got[0]) and "alt_over" in sports.early_log_line(got[0])
     assert "own 40% vs price 35%" in sports.early_log_line({"team": "Bucks", "odds": 150, "league": "nba", "own": .4, "mkt": .35})
 
@@ -16980,8 +16980,8 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     (feet, both teams' scoring, last games, the record, the good-to number), never a win %. The game-day row reads an
     over's number going UP as beating it (it read every total as an under). Games before 11/12 keep the 11/3 rule."""
     import sports_early as se
-    assert se.ALT_1111_FROM == "2026-11-12" and se.ALT_HI_M == 1400 and se.ALT_MAX_PRICE == -130 and not se.ALT_GAME_DAY
-    assert se.SPOTS["alt_over"][1] == 0.5 and se.ALT_OVER_QUIT == (50, -0.05)
+    assert se.ALT_1111_FROM == "2026-11-12" and se.ALT_HI_M == 1400 and se.ALT_MAX_PRICE == -130
+    assert se.ALT_GAME_DAY and se.ALT_OVER_QUIT == (50, -0.05)      # (11/12: game day ON, 1u from 11/13 - its own test)
 
     def fin(i, h, a, hs, as_, start, hn="", an=""):
         return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
@@ -17012,7 +17012,11 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     assert "Good to 150" in txt and "-130" in txt and "%" not in txt and len(c["facts"]) >= 5
     low = (c["why"] + txt).lower()
     assert not any(w in low for w in ("line moved", "line move", "steam", "sharp"))       # never the line moving
-    assert se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc)) == []      # game day: never
+    keep_gd, se.ALT_GAME_DAY = se.ALT_GAME_DAY, False
+    try:
+        assert se.alt_overs(games, st, datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc)) == []  # the switch off: never
+    finally:
+        se.ALT_GAME_DAY = keep_gd
     assert se.alt_overs(games, st, datetime(2026, 11, 13, 3, 30, tzinfo=timezone.utc)) == []      # tipped: never
     assert se.alt_overs({**games, "ncaab:9": {**g, "total": "152"}}, st, noon) == []       # the number ran 3.5 past the read
     assert len(se.alt_overs({**games, "ncaab:9": {**g, "total": "151.5"}}, st, noon)) == 1   # 3 past: still inside
@@ -21775,6 +21779,56 @@ def test_cbb10_1112_turnover_matchup_dog_rusty_home_side_and_league_leader_on_th
     #   this season's leagues only (the bug the live replay caught - an older season's schedule joined leagues)
     stack_src = src[src.index("def ncaab_spread_stack(c):"):src.index("def mark_ncaab_spread_stack(cands):")]
     assert "rust" not in stack_src and "leader" not in stack_src and "to_net" not in stack_src
+
+
+def test_fifteen_1112_altitude_over_posts_on_game_day_and_is_one_unit_from_1113():
+    """11/12 - FABLE: 15 STUDIES (results/studies/fifteen_1112/s14a_alt_size.py + s14c_alt_cuts.py). The owner, 11/12:
+    "Fix what you need to fix ... win more and lose less" + "add units what you need to add to". (1) ALT_GAME_DAY is ON:
+    the ⛰️ altitude over is the ONE early-box total that may post on its own game day, before the tip (the study's
+    price is the close; ~1 game in 10 shows no number the day before) - never once it started, the total limit and the
+    -130 price limit still hold, one play a game. (2) 1u for games from the 11/13 Pacific day (the rule rebuilt a third
+    time: 500-342 +13.2% on 849, 9 of 9 seasons up, a full point worse than the close still +8.2%; quarter-Kelly on the
+    win rate's low end = 2.2u) - a game before 11/13 keeps ½u and a posted play keeps the units it posted at; the
+    judge reads the units really risked."""
+    import sports_early as se
+    assert se.ALT_GAME_DAY is True and se.ALT_1U_FROM == "2026-11-13" and (se.ALT_1U, se.ALT_HALF) == (1.0, 0.5)
+    assert se.ALT_MAX_PRICE == -130 and se.ALT_FIGHT == 3.0 and se.ALT_OVER_QUIT == (50, -0.05)
+
+    def fin(i, h, a, hs, as_, start, hn="", an=""):
+        return {"id": f"ncaab:f{i}", "league": "ncaab", "status": "final", "stype": "2", "home": h, "away": a,
+                "home_score": str(hs), "away_score": str(as_), "start": start, "home_name": hn, "away_name": an}
+    games = {}
+    for i in range(12):
+        games[f"pw{i}"] = fin(100 + i, "W", f"x{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+        games[f"pi{i}"] = fin(200 + i, "I", f"y{i}", 75, 70, f"2026-01-{5 + i:02d}T02:00Z")
+    games["w1"] = fin(1, "W", "q", 90, 80, "2026-11-08T02:00Z", "Wyoming", "Cal Poly")
+    games["i1"] = fin(2, "z", "I", 70, 85, "2026-11-08T02:00Z", "Weber St", "Idaho St")
+    g = {"id": "ncaab:9", "league": "ncaab", "status": "pre", "stype": "2", "home": "W", "away": "I", "neutral": "0",
+         "elev": "2184", "start": "2026-11-14T03:00Z", "total": "148.5", "over_odds": "-112", "under_odds": "-108",
+         "home_name": "Wyoming", "away_name": "Idaho St"}    # tips 7 PM PT 11/13
+    games["ncaab:9"] = g
+    st = {"picks": []}
+    day_before = datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc)
+    game_day = datetime(2026, 11, 13, 18, 0, tzinfo=timezone.utc)                         # 10 AM PT on game day
+    got = se.alt_overs(games, st, game_day)
+    assert len(got) == 1 and got[0]["spot"] == "alt_over" and got[0]["side"] == "over"     # game day: it posts now
+    assert se.units(got[0]) == 1.0 and se.stamp_units(dict(got[0]))["units"] == 1.0        # 1u from the 11/13 games
+    assert len(se.alt_overs(games, st, day_before)) == 1                                   # the day before: as ever
+    assert se.alt_overs(games, st, datetime(2026, 11, 14, 3, 5, tzinfo=timezone.utc)) == []        # tipped: never
+    assert se.alt_overs({**games, "ncaab:9": {**g, "total": "152"}}, st, game_day) == []   # the total limit holds
+    assert se.alt_overs({**games, "ncaab:9": {**g, "over_odds": "-135"}}, st, game_day) == []      # the price limit
+    assert se.alt_overs({**games, "ncaab:9": {**g, "neutral": "1"}}, st, game_day) == []
+    old = {**g, "start": "2026-11-13T03:00Z"}                                              # 7 PM PT 11/12: still ½u
+    o = se.alt_overs({**games, "ncaab:9": old}, st, datetime(2026, 11, 12, 20, 0, tzinfo=timezone.utc))
+    assert len(o) == 1 and se.units(o[0]) == 0.5
+    assert se.units(dict(got[0], units=0.5)) == 0.5                                        # a posted play keeps its size
+    assert "%" not in got[0]["why"] and "%" not in " | ".join(got[0]["facts"])
+    # the judge: the units really risked (½u and 1u plays mixed)
+    mix = [{"game_id": f"z{i}", "spot": "alt_over", "odds": -110, "units": 1.0 if i % 2 else 0.5, "start": "2026-11-20T03:00Z",
+            "result": "lost" if i < 28 else "won"} for i in range(50)]
+    assert se.alt_quit({"picks": mix}) and se.alt_overs(games, {"picks": mix}, game_day) == []
+    good = [dict(p, result="won" if i < 28 else "lost") for i, p in enumerate(mix)]
+    assert not se.alt_quit({"picks": good})
 
 
 if __name__ == "__main__":

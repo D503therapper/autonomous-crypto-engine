@@ -596,7 +596,9 @@ def alt_quit(st):
     """The judge: ALT_OVER_QUIT[0]+ graded and the ROI on the units risked under ALT_OVER_QUIT[1] = no more posts."""
     w, l_, u = spot_record(st).get("alt_over", (0, 0, 0.0))
     n = w + l_
-    return n >= ALT_OVER_QUIT[0] and u / (n * SPOTS["alt_over"][1]) < ALT_OVER_QUIT[1]
+    risk = sum(units(p) for p in st.get("picks", []) if p.get("spot") == "alt_over" and p.get("result") in ("won", "lost"))
+    return n >= ALT_OVER_QUIT[0] and risk > 0 and u / risk < ALT_OVER_QUIT[1]      # (11/12: the units really risked -
+    #                                                                                 the plays are ½u and 1u now)
 
 
 def _hoops_season(start):
@@ -768,7 +770,7 @@ def alt_over_1111(games, g, st, now, avs=None):
     points read (alt_early_read - last season filling in before a team has 5 finals) may sit at most ALT_FIGHT under the
     total, which is also the total limit - a number that has run past read + 3 is no bet. Price no worse than
     ALT_MAX_PRICE. Posted the moment a number shows, any time before the Pacific game day (the tape: the number shows
-    about a day ahead and climbs 1.3 points overnight) - never game day unless ALT_GAME_DAY (off, the owner's call),
+    about a day ahead and climbs 1.3 points overnight) - game day too since 11/12 (ALT_GAME_DAY - the one early total that may),
     never a game that started. None = no play."""
     avs = {} if avs is None else avs
     if str(g.get("neutral") or "0") in ("1", "True", "true") or (sm._num(g.get("elev")) or 0) < ALT_HI_M:
@@ -1006,10 +1008,20 @@ def units(p):
         return NBA_OPEN_HALF_UNITS                           # 🏀 (11/2: back to ½u - the 2020-23 seasons didn't back it)
     if p.get("spot") == "nba_open" and NBA_OPEN_UNITS_FROM and (p.get("posted") or "") >= NBA_OPEN_UNITS_FROM:
         return NBA_OPEN_UNITS                                # 🏀 (10/30: the opening-line play at 1u flat - no margin ladder)
+    if p.get("spot") == "alt_over":                          # ⛰️ 11/12: 1u for games from the ALT_1U_FROM Pacific day
+        return ALT_1U if alt_1u(p) else ALT_HALF             # (earlier games keep the ½u they were built at)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
         return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
     import sports
     return sports.kelly_units(p.get("own"), p["odds"])
+
+
+def alt_1u(p):
+    """⛰️ Is this altitude over under the 11/12 size (its Pacific game day is ALT_1U_FROM or later)?"""
+    try:
+        return bool(ALT_1U_FROM) and _t(p["start"]).astimezone(PT).date().isoformat() >= ALT_1U_FROM
+    except (KeyError, TypeError, ValueError):
+        return False
 
 
 def stamp_units(c):
@@ -1034,10 +1046,11 @@ SPOTS = {   # key: (label, units, leagues)
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
-    "alt_over":  ("⛰️ College hoops over at altitude", 0.5, ("ncaab",)),        # 445-318 +11.1% 2018-26, 8 of 8 seasons
+    "alt_over":  ("⛰️ College hoops over at altitude", 1.0, ("ncaab",)),        # 445-318 +11.1% 2018-26, 8 of 8 seasons
     #                                                                              up - the 11/3 deep study (alt_overs);
     #                                                                              11/11: 4,600 ft+ floors, 499-342 +13.1%
-    #                                                                              (alt_over_1111) - still ½u, same record
+    #                                                                              (alt_over_1111), same record; 11/12: 1u from the
+    #                                                                              11/13 games (units() / ALT_1U_FROM)
     "nba_open":  ("🏀 NBA opening line", 0.5, ("nba",)),                       # the owner OK'd 10/23: the whole-model read
     #                                                                              at the first price, best side a night -
     #                                                                              282 bets +13.7% blind 2023-25 (sports_nba_open)
@@ -1102,11 +1115,23 @@ ALT_MAX_PRICE = -130                     # "don't bet worse than": every over at
 #                                         +1.7%, at -150 it loses - the play's price limit (was the board's -150 rule)
 ALT_GOOD_TO = 1.5                        # the card's "good to" number: the over at the close + 1 point +7.9%, + 2 points
 #                                         +3.3% (train -0.9%), + 3 points -2.5% - past 1.5 over our number it's gone
-ALT_GAME_DAY = False                     # OFF - the owner's call ("an early play is never posted on its own game day").
-#                                         The study is at the CLOSE, so a game-day number is the tested price; this
-#                                         season's tape (results/studies/totals_1111/s4): 9 of 9 altitude games had a
-#                                         number the day before, and it ran +1.3 points from 6 PM PT to the tip. True =
-#                                         a game with no number the day before posts on game day (never once it started).
+ALT_GAME_DAY = True                      # ON from 11/12 (the owner, 11/12: "Fix what you need to fix ... win more and lose
+#                                         less" - built and tested 11/11, left off for his OK). The altitude over is the
+#                                         ONE early-box total that may post on its own game day, before the tip: the
+#                                         study's price IS the close, so a game-day number is the tested price, and
+#                                         about 1 game in 10 shows no number the day before (11/11: both of his
+#                                         brother's plays). Never a started game; the total limit (read + 3) and the
+#                                         -130 price limit still hold; one play a game (have_tot).
+ALT_1U_FROM = "2026-11-13"               # ⛰️ 1u from this Pacific game day (the owner, 11/12: "add units what you need to add
+ALT_1U, ALT_HALF = 1.0, 0.5              # to ... do everything that we need to be profitable"). THE SIZING CHECK
+#                                         (results/studies/fifteen_1112/s14a_alt_size.py - the rule built a third time
+#                                         from scratch): 500-342 +13.2% on 849, train +10.4% 4 of 4 seasons up, blind
+#                                         +15.7% 5 of 5, z +4.1; a full point WORSE than the close still +8.2% (9 of 9
+#                                         seasons up), 1.5 worse +5.9%; 0 of 2,000 random low-ground sets matched it.
+#                                         Quarter-Kelly on the win rate's 5% low end (56.6%) = 2.2u - 1u is under half
+#                                         of that. At 1u: +111.8u on 849, worst stretch -8.0u, the worst 30 in a row
+#                                         -5.2u, the worst SEASON +3.4u. Games before 11/13 keep ½u; a posted play
+#                                         keeps the units it posted at. The judge (ALT_OVER_QUIT) reads the units risked.
 ALT_REC = "499-342"                      # the rule's record at the close, 2018-26 (s3 (e)) - what the card quotes
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
