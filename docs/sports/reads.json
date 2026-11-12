@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T02:09Z",
+ "updated": "2026-11-12T02:11Z",
  "games": [
   {
    "id": "ncaab:401919759",
@@ -562,8 +562,8 @@
    "away": "OK Panhandle",
    "home": "Alabama St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1135,69 +1135,6 @@
    "lean": null
   },
   {
-   "id": "nhl:401892693",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.37,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-12T02:30Z",
-   "away": "Mammoth",
-   "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Mammoth",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.679,
-    "win_p": 0.462,
-    "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909974",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.623,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-12T02:30Z",
-   "away": "Warriors",
-   "home": "Rockets",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Warriors",
-    "market": "ml",
-    "line": null,
-    "odds": -249,
-    "p": 0.705,
-    "win_p": 0.705,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401919734",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1394,9 +1331,9 @@
     "team": "UTSA",
     "opp": "Seattle U",
     "market": "spread",
-    "line": 16.5,
-    "odds": -102,
-    "p": 0.509,
+    "line": 17.5,
+    "odds": -118,
+    "p": 0.51,
     "win_p": 0.075,
     "reasons": []
    }
