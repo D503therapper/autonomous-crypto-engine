@@ -1,12 +1,14 @@
 {
- "at": "2026-11-12T15:37Z",
- "fixes": [],
+ "at": "2026-11-12T15:39Z",
+ "fixes": [
+  "live watch 43241743310 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
   "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
   "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
  ],
  "ok": [
-  "live watcher fresh (237s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,11 +22,22 @@
   "every upcoming game has its real teams",
   "studies ran 9h ago",
   "simulator ran 8h ago",
-  "engine ran 38 min ago",
+  "engine ran 39 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-12T15:39Z",
+   "fixes": [
+    "live watch 43241743310 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
+    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
+   ]
+  },
   {
    "at": "2026-11-12T15:37Z",
    "fixes": [],
@@ -928,14 +941,6 @@
    "fixes": [],
    "problems": [
     "sources down (the backups took over): actionnetwork:ncaaf - on ESPN's game list, actionnetwork:nfl - on ESPN's game list, actionnetwork:nhl - on ESPN's game list, actionnetwork:ncaab - on ESPN's game list, actionnetwork:mlb - on ESPN's game list, actionnetwork:nba - on ESPN's game list"
-   ]
-  },
-  {
-   "at": "2026-11-11T12:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
