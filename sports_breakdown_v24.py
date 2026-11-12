@@ -1126,9 +1126,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                  f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
         said.add("nasty weather helps us")
     if "opponent's body clock is off" in rsn:
-        out.append(v.say("jetlag", [f"🕐 {_cap(the_them)} crossed a few time zones for this one. Body clock's all messed up.",
-                                     f"🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
-                                     f"🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy."]))
+        out.append(v.say("jetlag", [f"🕐 {_cap(the_them)} are playing off their home time zone. Body clock's off.",   # (11/12
+                                     f"🕐 {_cap(the_them)} crossed a time zone for this one. Their body clock's off.",   # audit:
+                                     f"🕐 Body-clock problems for {the_them} — they're off their home time zone."]))   # one zone)
         said.add("opponent's body clock is off")
     drama_r = next((r for r in rsn if r.startswith("opponent drama:")), None)
     if drama_r and leg.get("their_drama"):

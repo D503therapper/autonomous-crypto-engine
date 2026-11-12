@@ -1334,6 +1334,15 @@ NOTES = {
         "Nothing on the slate is worth our units.", "{Algo} checked every game and nothing beat its price.",
         "Every favorite is priced too high for what {algo} sees.", "No pick earned the Lock - we don't fake one.",
     ),
+    # 🔒 ...on a day value plays ARE up (11/12 audit: "Every favorite is priced too high" sat right above two -142
+    # favorite value plays - a no-Lock line never says nothing's worth our units when the board has unit plays on it)
+    "lock_why_plays": T(
+        "Nothing on the board met our Lock standard.", "No pick earned the Lock - we don't fake one.",
+        "Nothing cleared the Lock bar today.", "No pick on the board hit the Lock standard.",
+    ),
+    "lock_close_plays": T(
+        "We don't force it.", "We don't force a Lock.", "No forced Lock over here.", "We don't fake it.",
+    ),
     # 🐺 no Dog of the Day: no underdog with a proven edge today (the owner, 9/28: say so, don't force one)
     "dog_open": T(
         "No Dog of the Day today.", "No dog today.", "Dog's off today.", "No bark today.", "No Dog of the Day.",
@@ -1375,9 +1384,13 @@ def short_note(n, seed):
                  (NOTE_CAP["short"][0] + len(it) - 1 + len(str(n)) - 1, NOTE_CAP["short"][1]))
 
 
-def lock_note(seed):
-    """The note where the Lock of the Day would go, on a day nothing's worth it."""
+def lock_note(seed, plays=False):
+    """The note where the Lock of the Day would go, on a day nothing's worth it. plays: unit plays ARE on the board -
+    then the why only says no pick met the Lock standard (never "nothing's worth our units" over a value play)."""
     s = f"lock{seed}"
+    if plays:
+        return _note([_part("lock_open", s), _part("lock_why_plays", s + "w"), _part("lock_close_plays", s + "c")],
+                     NOTE_CAP["dog"])
     return _note([_part("lock_open", s), _part("lock_why", s + "w"), _part("close", s + "c")], NOTE_CAP["dog"])
 
 

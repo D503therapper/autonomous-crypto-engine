@@ -50,7 +50,9 @@ def _money(x, sign=False):
 
 def _time(iso):
     t = datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT)
-    return t.strftime("%-I:%M %p").replace(":00 ", " ") + " PT"
+    day = f" {t:%a} {t.month}/{t.day}" if t.date() > datetime.now(PT).date() else ""   # (11/12 audit: the 11/11 tennis
+    #   card said "Starts at 12 PM PT" at 11 PM - the match was the NEXT day at noon; a later day says which day)
+    return t.strftime("%-I:%M %p").replace(":00 ", " ") + " PT" + day
 
 
 def _chip(status):
@@ -545,6 +547,42 @@ def green_day(picks, today, w=None, l=None, k=0, early=None):
                     f"😤 {w}-{l}, the leans got cooked. The plays the algorithm actually bet went {ww}-{len(rows) - ww} - {u}, still green."])
 
 
+def _day_units(picks, today, early=None):
+    """The day's graded plays with units: (won, lost, net units) - None when there are none."""
+    import sports
+    import sports_early
+    early = (sports_early.load().get("picks") or []) if early is None else early
+    rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today and r[1] > 0]
+    if not rows:
+        return None
+    return sum(r[2] > 0 for r in rows), sum(r[2] < 0 for r in rows), sum(r[2] for r in rows)
+
+
+def day_brag_ok(picks, today, w, l, early=None):
+    """The brain's ✅ brag ("We crushed today", "The whole hood eating") only on a day that really won: more W's than L's
+    and the plays with units on them not down (11/12 audit: 3-3 with the unit plays 1-2, -1.1u said "The whole hood
+    eating" - the owner, 11/12: "we look like clowns")."""
+    if w <= l:
+        return False
+    du = _day_units(picks, today, early)
+    return du is None or du[2] >= 0
+
+
+def day_split_line(picks, today, w, l, k, early=None):
+    """The brain's line on an even day, or a winning record with the unit plays down - said straight, with the numbers."""
+    du = _day_units(picks, today, early)
+    if du is None:
+        return _rot(k, [f"➖ {w}-{l} on the day, a split.", f"➖ Even day, {w}-{l}. Nothing to brag about."])
+    uw, ul, net = du
+    u = f"{'+' if net >= 0 else '-'}{abs(net):.1f}u"
+    if net < 0:
+        return _rot(k, [f"😐 {w}-{l} on the day, but the bets with units on them went {uw}-{ul}, {u}. We gotta be better.",
+                        f"😐 {w}-{l} on the board, {uw}-{ul} and {u} on the unit plays. Tomorrow we bounce back.",
+                        f"😐 Went {w}-{l}, but the money plays went {uw}-{ul} for {u}. Not good enough."])
+    return _rot(k, [f"➖ {w}-{l}, a split day. The unit plays went {uw}-{ul}, {u}.",
+                    f"➖ Even day, {w}-{l}. The bets with units on them went {uw}-{ul}, {u}."])
+
+
 def day_wait_line(picks, today, now, k, early=None):
     """The brain's line at 0-0 with picks still to play: nothing's started yet (and when the first one goes), or how many
     are playing right now - never "more tickets still cooking" before a game's kicked off (the owner, 10/1). Our early
@@ -626,7 +664,9 @@ def engine_weights():
                         + ("one ping each" if se.PINGS else "no phone ping - it's on the dashboard")   # (10/4: no pings)
                         if se.SPOT_MAX_WEEK is None else f"max {se.SPOT_MAX_WEEK} a week") + f", dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "
                        "favorites on game day), the spots + believed leads + college rain / snow weighed, both teams' "
-                       "injury reports checked; 1u off a bye, ½u the other spots" + ("" if se.SPOT_MIN_WEEK else
+                       "injury reports checked; " + " and ".join(v[0] for k, v in se.SPOTS.items() if v[1] >= 1 and not se.spot_off(k))
+                       + " 1u, ½u the other spots (paused: " + (", ".join(se.SPOTS[k][0] for k in se.SPOTS if se.spot_off(k)) or "none")
+                       + ")" + ("" if se.SPOT_MIN_WEEK else   # (11/12 audit: said "1u off a bye" only - the ⛰️ over is 1u now)
                        " - never forced (the one-a-week minimum is paused)"),
         "daily double check": "every study's data loaded, every team's results in (a gap = no pick on that game), "
                               "every pick checked against the rules before the board posts"}
@@ -875,7 +915,8 @@ def _lock_note(day, day_picks):
     live = [p for p in day_picks if p.get("status") != "waiting"]
     if not live or any(p["kind"] in ("lock", "solo") and not p.get("lean") for p in live):
         return ""
-    return f'<div class="drop leanday">🔒 {E(sports_lingo.lock_note(day))}</div>'
+    plays = any(not p.get("lean") for p in live)             # (11/12 audit: "Every favorite is priced too high" over two
+    return f'<div class="drop leanday">🔒 {E(sports_lingo.lock_note(day, plays=plays))}</div>'   # -142 value plays)
 
 
 def _cards(day, day_picks, cards_by_kind, gone=None, after_lock="", day_all=None, lean_day=False):
@@ -1337,6 +1378,18 @@ def _tn_count(shown, tour_of):
 _GAMES_ = [{}]                   # the games file for the reviews' box-score lookups (set once per build)
 
 
+def _lean_leg(p, l):
+    """Is this posted leg a LEAN (no units - the 🟡 record)? A lean pick, or a lean-tier leg that carries no units - never
+    the Lock / the Dog, never a play with units on it (11/12 audit: the Flames 10/10, a ½u value play whose leg kept the
+    tier "lean", counted in the 🟡 leans record AND the 💰 unit plays record, and dropped out of the NHL results list)."""
+    import sports
+    if p.get("lean"):
+        return True
+    if l.get("tier") != "lean" or p.get("kind") in ("lock", "dog"):
+        return False
+    return not sports.leg_units(p, l)
+
+
 def _history(picks, early_rows=None):
     """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
     import sports
@@ -1492,7 +1545,7 @@ def _history(picks, early_rows=None):
             k = (p["date"], l["game_id"], l["side"], l.get("market"))
             e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": [], "lean": True})
             e["cards"].append(kinds.get(p["kind"], p["kind"]))
-            e["lean"] = e["lean"] and bool(p.get("lean") or (l.get("tier") == "lean" and p["kind"] not in ("lock", "dog")))
+            e["lean"] = e["lean"] and _lean_leg(p, l)        # (11/12 audit: a unit play is never a lean here)
             #   (a lean anywhere it's posted - never the Lock or the Dog of the Day: 10/1 audit, the Kings Dog showed as one)
     by = {}
     for e in legs.values():
@@ -1796,12 +1849,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
         board = _short_note(today, day_all) + board          # a short board says so too
 
     tmr = datetime.strptime(today, "%Y-%m-%d").date() + timedelta(days=1)
-    tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
-    tmr_real = [p for p in tomorrows.values() if p["status"] != "waiting"]
+    tomorrows = [p for p in board_cards(picks, tmr.isoformat(), now_utc) if p["kind"] in LOOK]   # (11/12 audit: was
+    #   {kind: pick} - three value plays
+    tmr_real = [p for p in tomorrows if p["status"] != "waiting"]   #   tomorrow showed as ONE card)
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
                 + (_lean_note(tmr.isoformat()) if tmr_real and all(p.get("lean") for p in tmr_real)
-                   else _short_note(tmr.isoformat(), list(tomorrows.values())))
-                + _cards(tmr.isoformat(), list(tomorrows.values()), [(k, _pick_card(k, tomorrows[k])) for k in LOOK if k in tomorrows])) if tomorrows else ""
+                   else _short_note(tmr.isoformat(), tomorrows))
+                + _cards(tmr.isoformat(), tomorrows, [(p["kind"], _pick_card(p["kind"], p)) for p in tomorrows])) if tomorrows else ""
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
     done = [p for p in graded_all if sports.in_record(p)]         # our record (leans keep their own - the owner, 9/30)
@@ -1887,7 +1941,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 elif p["kind"] == "dog":                     # the Dog of the Day is a value play (the owner, 9/30)
                     t = "value"
                 elif l.get("tier") in ("lock", "value", "lean"):
-                    t = l["tier"]
+                    t = l["tier"] if l["tier"] != "lean" or _lean_leg(p, l) else "value"   # (11/12 audit: a ½u play
+                    #   tagged tier "lean" - the Flames 10/10, the Dog moved to a value play - counted in BOTH records)
+                    if t == "lean" and p.get("kind") in sports.PARLAY_KINDS:
+                        continue                         # (11/12 audit: a no-units leg inside a 9/29-9/30 parlay was
+                        #   never a posted lean - the 🟡 record said 63-62 while its own results list said 60-59)
                 else:                                    # older picks: the rule back then (minus money = lock)
                     t = "lock" if l["odds"] < 0 else "value"
                 key = (p["date"], l["game_id"], l["side"])
@@ -2068,6 +2126,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"🔥 {w_}-0. Today was a grace from Jesus. Let's fucking go!",
                               f"🔥 Perfect day, {w_}-0. Books are crying right now.",
                               f"🔥 {w_}-0. Swept the whole board - the engine is goated."]))
+    elif w_ >= l_ and not day_brag_ok(picks, today, w_, l_):   # (11/12 audit: "✅ 3-3 ... The whole hood eating" on a
+        lines.append(day_split_line(picks, today, w_, l_, k))   # day the unit plays went 1-2, -1.1u - never brag on that)
     elif w_ >= l_:
         lines.append(_rot(k, [f"✅ {w_}-{l_}. We crushed today — let's fucking go!",
                               f"✅ {w_}-{l_}. We smacked today. Let's go!",
@@ -2244,7 +2304,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#ffc233}}
 .hr .hp small{{color:#fff;font-weight:700}} .hr .hp em{{display:block;font-style:normal;font-weight:800;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#fff}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
-.spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
+.spc{{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;background:var(--card2);
   border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
 .spc b{{display:block;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .spc small{{display:block;font-size:13px;font-weight:700;color:#ffc233;white-space:nowrap}}

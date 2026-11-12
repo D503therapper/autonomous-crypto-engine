@@ -1922,6 +1922,23 @@ def now_line(p, games):
     return f"📈 Got it at {am(p['odds'])} ➜ now {am(now_odds)}" + (f" · {call}" if call else "")
 
 
+_REC_RE = re.compile(r"\b\d+-\d+\b")
+
+
+def fresh_facts(facts, why=""):
+    """An early row's fact lines minus what its why line already said (11/12 audit: the ⛰️ altitude over's row read
+    "college overs 4,600+ feet up are 499-342 since 2018" in the why and again as a fact - never the same line twice on
+    a card). A clause whose records (W-L) are all in the why goes; what's left of the line stays ("3-1 since we started
+    betting it")."""
+    out = []
+    for x in facts or []:
+        keep = [c for c in x.split(", ") if not (_REC_RE.search(c) and all(r in (why or "") for r in _REC_RE.findall(c)))]
+        if keep:
+            s = ", ".join(keep)
+            out.append(s if len(keep) == len(x.split(", ")) else s[:1].upper() + s[1:])
+    return out
+
+
 def html(st, E, now=None, show_units=None, games=None):
     """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
     they're no longer early plays - they leave the box; no grading shown here)."""
@@ -1940,7 +1957,7 @@ def html(st, E, now=None, show_units=None, games=None):
                 f'<em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                 + (f'<span>{E(no_pct(p))}</span>' if p.get("spot") in SPOTS else "")
-                + "".join(f'<span>{E(x)}</span>' for x in p.get("facts") or []) +   # ⛰️ (11/11: the fact lines)
+                + "".join(f'<span>{E(x)}</span>' for x in fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS else "")) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -2046,10 +2063,13 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                     f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                     # (10/7, the owner: "I never saw any live score that whole game" - the row's time is the board's
                     #  live tag now: 🔴 LIVE + the score under it, FINAL / ✅ HIT the second it ends)
-                    + f'<div class="lt egt"><span class="tm" data-start="{E(g.get("start") or p["start"])}" '
-                    f'data-gid="{E(p["game_id"])}" data-side="{E(p.get("side", ""))}" '
-                    f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
-                    f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>'
+                    + ('<div class="lt egt"><span class="fnb">🏁 Final</span></div>' if mark else   # (11/12 audit: a
+                       #   graded ❌ row still carried the live tag - with no score feed the page called it 🔴 LIVE for
+                       #   6 hours after the start; a graded row is final, like a graded card's leg)
+                       f'<div class="lt egt"><span class="tm" data-start="{E(g.get("start") or p["start"])}" '
+                       f'data-gid="{E(p["game_id"])}" data-side="{E(p.get("side", ""))}" '
+                       f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
+                       f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>')
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + "".join(f'<span>{E(x)}</span>' for x in (p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%

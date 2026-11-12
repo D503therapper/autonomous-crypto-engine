@@ -1085,11 +1085,11 @@ T = {
         "🌧️ [Ugly|Nasty|Rough] [conditions|weather]: {what}. [Fewer big plays.|Grind-it-out game.|Coin-flip chaos.]",
     ],
     "jetlag": [
-        "🕐 {The_them} crossed a few time zones for this one. Body clock's all messed up.",
-        "🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
-        "🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy.",
-        "🕐 {The_them} [flew|traveled] across [a few|several] time zones. [Body clocks are off.|Sleep's off.|Clocks don't adjust that fast.]",
-        "🕐 [Time-zone|Jet-lag|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
+        # (11/12 audit: the "long trip" line on Marquette - Milwaukee to Ann Arbor is ONE time zone; the
+        #  factor fires at one, so no line claims a long trip, jet lag or "a few" / "several" zones it can't see)
+        "🕐 {The_them} [are playing|play] off their home time zone. [Body clock's off.|The body clock feels it.]",
+        "🕐 {The_them} crossed a time zone for this one. [Their body clock's off.|Clocks don't adjust that fast.]",
+        "🕐 [Time-zone|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
         "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|off their home time zone]. [That matters.|Legs feel it.|It adds up.]",
     ],
     "drama_coach_fired": [
@@ -1672,11 +1672,11 @@ T.update({
         "🥶 {The_them} [come from|live in] the warm. [Tonight|Kickoff] is {temp}°F.",
     ],
     "jetlag": [
-        "🕐 {The_them} crossed a few time zones for this one. Body clock's all [messed up|off].",
-        "🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
-        "🕐 Long trip for {the_them}, time zones and all. Legs gonna be [heavy|slow].",
-        "🕐 {The_them} [flew|traveled] across [a few|several] time zones. [Body clocks are off.|Sleep's off.|Clocks don't adjust that fast.]",
-        "🕐 [Time-zone|Jet-lag|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
+        # (11/12 audit: the "long trip" line on Marquette - Milwaukee to Ann Arbor is ONE time zone; the
+        #  factor fires at one, so no line claims a long trip, jet lag or "a few" / "several" zones it can't see)
+        "🕐 {The_them} [are playing|play] off their home time zone. [Body clock's off.|The body clock feels it.]",
+        "🕐 {The_them} crossed a time zone for this one. [Their body clock's off.|Clocks don't adjust that fast.]",
+        "🕐 [Time-zone|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
         "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|off their home time zone]. [That matters.|Legs feel it.|It adds up.]",
     ],
     "revenge": [

@@ -36,6 +36,9 @@ FILLER = re.compile(r"travel just fine|just the better team|they'?re just better
 #   are 85-77 right now - the rest is on the field" just repeats the record the line above already said; 10/21: a 🧠 line
 #   that opens with the verdict instead of a fact - "🧠 The engine's got Trail Blazers winning this one" - is filler)
 BROKEN = re.compile(r"\bNone\b|\bnan\b|[{}]")
+ZONES = re.compile(r"few time zones|several time zones|time zones and all|jet-lag game", re.I)
+#   (11/12 audit: "Long trip for Marquette, time zones and all" - Milwaukee to Ann Arbor is ONE zone; the body-clock
+#    factor fires at one zone, so a card written before the fix never claims a long trip or several zones)
 WRONG_POS = {   # words that can't belong to the sport
     "nfl": re.compile(r"\bwalking bucket\b|\bgoalie|\bgoaltend|\bpitcher\b|\bdefenseman\b", re.I),
     "ncaaf": re.compile(r"\bwalking bucket\b|\bgoalie|\bgoaltend|\bpitcher\b|\bdefenseman\b", re.I),
@@ -67,6 +70,8 @@ def problem(line, league=None):
         return "filler with no fact"
     if BROKEN.search(t):
         return "a broken template"
+    if ZONES.search(t):
+        return "a time-zone claim it can't see"
     if t.lstrip().startswith("🧯"):                           # (the owner, 10/5: a retired player's death is not the
         import sports_news                                    #  team's "personal stuff")
         if sports_news.obituary(t):

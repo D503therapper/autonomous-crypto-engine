@@ -9010,7 +9010,8 @@ def test_audit_batch_10_1():
     assert "2 * w > len(last3)" in bsrc and "r_ours = [x for x in s_ours if" in bsrc and "heat = _streak(s_ours, tid)" in bsrc
     assert "it ain't close" not in bsrc and '"k_rival"' not in bsrc
     dsrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert 'p["kind"] not in ("lock", "dog")' in dsrc
+    assert 'p["kind"] not in ("lock", "dog")' in dsrc or 'or p.get("kind") in ("lock", "dog"):' in dsrc   # (11/12: _lean_leg -
+    #   the Lock / the Dog are never a lean, nor a play with units on it)
 
 
 def _summ(hs, as_, plays=(), per=4, detail="Final", lines=None, key="scoringPlays", drives=None):
@@ -21962,6 +21963,176 @@ def test_fifteen_1112_the_150_rule_stands_and_the_big_favorite_pocket_is_a_track
     finally:
         sl._GAMES.clear()
         sl._GAMES.update(keep)
+
+
+def _audit_1112_leg(team, gid, res, odds, tier, lg="nhl", day="2026-10-10"):
+    return {"team": team, "opp": "Opp", "league": lg, "game_id": gid, "side": "home", "market": "ml", "odds": odds,
+            "result": res, "tier": tier, "p": 0.5, "start": f"{day}T23:00Z", "score": "Opp 2 @ X 3"}
+
+
+def _audit_1112_pick(kind, legs, status, day, **kw):
+    return {"date": day, "kind": kind, "legs": legs, "status": status, "american": legs[0]["odds"], "dec": 2.0,
+            "stake": 100.0, "posted": f"{day}T15:00Z", "settled": f"{day}T23:59Z", **kw}
+
+
+def test_audit_1112_records_a_unit_play_is_never_a_lean_and_the_by_sport_chip_fits_one_row():
+    """11/12 dashboard audit (the owner: "we look like clowns"): (1) the Flames 10/10 - the Dog moved to a ½u value play,
+    its leg still tagged tier "lean" - counted in the 🟡 LEANS record AND the 💰 unit plays record, and fell out of the
+    NHL results list (26-18 there, 26-19 on the chip); (2) the no-units legs inside the 9/29-9/30 parlays counted in the
+    🟡 record (63-62) while the 🟡 results list said 60-59; (3) each By sport chip's ▾ wrapped onto its own row."""
+    import sports_dashboard as sdb
+    P, L = _audit_1112_pick, _audit_1112_leg
+    picks = [P("play", [L("Flames", "nhl:1", "lost", 102, "lean")], "lost", "2026-10-10", lean=False, tier="lean", units=0.5),
+             P("lean", [L("Wild", "nhl:2", "won", -125, "lean")], "won", "2026-10-10", lean=True, units=0),
+             P("four", [L("Oilers", "nhl:3", "won", -120, "lean", day="2026-09-29"),
+                        L("Padres", "mlb:4", "won", 130, "value", "mlb", "2026-09-29")], "won", "2026-09-29")]
+    assert sdb._lean_leg(picks[1], picks[1]["legs"][0]) and not sdb._lean_leg(picks[0], picks[0]["legs"][0])
+    assert sdb._lean_leg(picks[2], picks[2]["legs"][0])                 # (a no-units parlay leg: never a unit play)
+    import sports_early as se
+    keep = se.load
+    se.load = lambda *a, **k: {"picks": []}                             # (only these picks - never an earlier test's)
+    try:
+        h = sdb.render(picks, {}, {}, [], 100000.0, int(time.time() * 1000))
+    finally:
+        se.load = keep
+    flat = re.sub(r"<[^>]+>", " ", h)
+    i = flat.index("LEANS RECORD")
+    assert re.match(r"LEANS RECORD\s+1-0\s+1 won · 0 lost", flat[i:]), flat[i:i + 80]   # the Wild only
+    i = flat.index("UNIT PLAYS RECORD")
+    assert re.match(r"UNIT PLAYS RECORD\s+1-1\s", flat[i:]), flat[i:i + 80]           # the Flames + the Padres leg
+    hs = dict(re.findall(r"<summary><b>([^<]+)</b><span>([^<]+)</span>", h))
+    assert hs.get("🏒 NHL", "").startswith("0-1") and hs.get("🟡 Leans", "").startswith("1-0"), hs
+    chips = re.findall(r'<div class="spc[^"]*" data-hs="([^"]+)"', h)
+    assert "🏒 NHL" in chips and ".spc{display:grid;grid-template-columns:minmax(0,1fr) auto auto;" in h, chips
+
+
+def test_audit_1112_no_lock_note_never_says_nothing_is_worth_our_units_over_a_value_play():
+    """11/12 audit: the no-Lock note read "Every favorite is priced too high for what the model sees" right above two
+    -142 favorite value plays. With unit plays on the board the note only says no pick met the Lock standard."""
+    import sports_lingo
+    import sports_dashboard as sdb
+    bad = ("priced too high", "worth our units", "beat its price", "less is more", "sitting out")
+    for d in range(60):
+        day = (datetime(2026, 11, 1) + timedelta(days=d)).date().isoformat()
+        n = sports_lingo.lock_note(day, plays=True)
+        assert n and not any(b in n.lower() for b in bad), n
+    play = {"kind": "play", "status": "open", "lean": False, "legs": [{"team": "Ducks"}]}
+    lean = {"kind": "lean", "status": "open", "lean": True, "legs": [{"team": "Pacers"}]}
+    for d in range(60):
+        day = (datetime(2026, 11, 1) + timedelta(days=d)).date().isoformat()
+        note = sdb._lock_note(day, [play, lean])
+        assert note and not any(b in note.lower() for b in bad), note
+    assert sdb._lock_note("2026-11-11", [lean]) == f'<div class="drop leanday">🔒 {html_mod_escape(sports_lingo.lock_note("2026-11-11"))}</div>'
+
+
+def html_mod_escape(s):
+    import html as _h
+    return _h.escape(s)
+
+
+def test_audit_1112_the_brain_never_brags_on_a_split_day_or_with_the_unit_plays_down():
+    """11/12 audit: 11/11 went 3-3 (leans in) with the unit plays 1-2, -1.1u, and the brain said "✅ 3-3 on the day. The
+    whole hood eating." The ✅ brag needs more W's than L's AND the unit plays not down; else a straight line with the
+    numbers."""
+    import sports_dashboard as sdb
+    P, L = _audit_1112_pick, _audit_1112_leg
+    d = "2026-11-11"
+    picks = [P("play", [L("Ducks", "nhl:1", "lost", -142, "value", day=d)], "lost", d, lean=False, units=1.0),
+             P("play", [L("Penguins", "nhl:2", "won", -142, "value", day=d)], "won", d, lean=False, units=0.5),
+             P("play", [L("Kings", "nhl:5", "lost", -142, "value", day=d)], "lost", d, lean=False, units=0.5),
+             P("lean", [L("Pacers", "nba:3", "won", -148, "lean", "nba", d)], "won", d, lean=True, units=0),
+             P("lean", [L("Michigan", "ncaab:4", "won", -112, "lean", "ncaab", d)], "won", d, lean=True, units=0)]
+    assert not sdb.day_brag_ok(picks, d, 3, 3, early=[])                       # a split: never a brag
+    assert not sdb.day_brag_ok(picks, d, 4, 2, early=[])                       # winning record, unit plays -1.1u
+    line = sdb.day_split_line(picks, d, 3, 3, 0, early=[])
+    assert "3-3" in line and "1-2" in line and "-1.1u" in line and "✅" not in line and "eating" not in line, line
+    win = [dict(p, status="won", legs=[dict(p["legs"][0], result="won")]) for p in picks]
+    assert sdb.day_brag_ok(win, d, 5, 0, early=[]) and sdb.day_brag_ok(win, d, 4, 1, early=[])
+    assert not sdb.day_brag_ok([], d, 2, 2, early=[]) and sdb.day_brag_ok([], d, 3, 2, early=[])   # (no unit plays: the record)
+    assert "elif w_ >= l_ and not day_brag_ok(picks, today, w_, l_):" in open(sdb.__file__).read()
+
+
+def test_audit_1112_early_box_graded_row_is_final_facts_never_repeat_and_later_days_say_the_day():
+    """11/12 audit: (1) the graded ❌ Grizzlies row in 🎯 WE GOT IN EARLY still carried the live tag - with no score
+    feed the page called it 🔴 LIVE for 6 hours after the start; a graded row says 🏁 Final; (2) the ⛰️ altitude over's
+    future row said "college overs 4,600+ feet up are 499-342 since 2018" in its why AND as a fact; (3) the 11/11 tennis
+    card said "Starts at 12 PM PT" at 11 PM - the match was the next day; a later day says which; (4) the brain's early
+    plays line said only the bye spot is 1u."""
+    import html as _h
+    import sports_early as se
+    import sports_dashboard as sdb
+    now = datetime(2026, 11, 12, 6, 55, tzinfo=timezone.utc)                    # 10:55 PM PT 11/11
+    g = {"game_id": "nba:1", "league": "nba", "side": "home", "team": "Grizzlies", "opp": "Nuggets", "odds": 146,
+         "start": "2026-11-12T01:00Z", "spot": "nba_open", "units": 0.5, "posted": "2026-11-11T16:00Z"}
+    graded = dict(g, result="lost", graded_at="2026-11-12T04:00Z", score="Nuggets 123 @ Grizzlies 118")
+    keep = se.ON
+    se.ON = True
+    try:
+        out = se.gameday_html({"picks": [graded]}, {"nba:1": {"status": "final", "start": g["start"]}}, _h.escape, now=now,
+                              day="2026-11-11")
+        assert "🏁 Final" in out and 'class="tm"' not in out and "❌" in out, out
+        out = se.gameday_html({"picks": [g]}, {"nba:1": {"status": "pre", "start": g["start"]}}, _h.escape,
+                              now=datetime(2026, 11, 11, 20, 0, tzinfo=timezone.utc), day="2026-11-11")
+        assert 'class="tm"' in out and "🏁 Final" not in out                    # still to play: the live tag stays
+        why = "⛰️ Wyoming's floor sits about 7,200 feet up, and college overs 4,600+ feet up are 499-342 since 2018."
+        facts = ["Wyoming beat Cal Poly 90-80 last time out (170 points)",
+                 "Overs on college floors 4,600+ feet up are 499-342 since 2018, 3-1 since we started betting it",
+                 "Good to 150 - don't take it past that, or worse than -130"]
+        assert se.fresh_facts(facts, why) == [facts[0], "3-1 since we started betting it", facts[2]]
+        assert se.fresh_facts(facts[:1] + facts[2:], why) == facts[:1] + facts[2:]
+        alt = {"game_id": "ncaab:9", "league": "ncaab", "market": "total", "side": "over", "line": 148.5,
+               "team": "Over 148.5", "opp": "Idaho St @ Wyoming", "odds": -112, "start": "2026-11-15T03:00Z",
+               "spot": "alt_over", "facts": facts, "why": why, "posted": "2026-11-12T06:00Z", "result": None}
+        box = _h.unescape(se.html({"picks": [alt]}, _h.escape, now=now, games={}))
+        assert box.count("499-342") == 1 and "Good to 150" in box and "3-1 since we started betting it" in box, box
+    finally:
+        se.ON = keep
+    assert sdb._time("2026-09-30T02:00Z") == "7 PM PT"                          # a past day: as it was
+    nxt = (datetime.now(timezone.utc) + timedelta(days=2)).replace(hour=20, minute=0)
+    t = nxt.astimezone(sdb.PT)
+    assert sdb._time(nxt.strftime("%Y-%m-%dT%H:%MZ")) == f"{t:%-I %p} PT {t:%a} {t.month}/{t.day}".replace(":00 ", " ")
+    ew = sdb.engine_weights()["early plays"]
+    assert "⛰️ College hoops over at altitude" in ew and "1u, ½u the other spots" in ew and "paused:" in ew, ew
+
+
+def test_audit_1112_the_body_clock_line_never_claims_a_long_trip_or_several_zones():
+    """11/12 audit: the 11/11 Michigan lean said "Long trip for Marquette, time zones and all" - Milwaukee to Ann Arbor
+    is ONE time zone (the 11/11 fix took out "a few hours" only). The factor fires at one zone, so no jet-lag line may
+    claim a long trip, jet lag or "a few" / "several" zones."""
+    import inspect
+    import sports_breakdown_v24 as v24
+    import sports_breakdown as sb
+    src = inspect.getsource(v24) + inspect.getsource(sb)
+    for bad in ("few time zones", "time zones and all", "Jet-lag game", "[a few|several] time zones", "Jet-lag|"):
+        assert bad not in src, bad
+    assert "off their home time zone" in inspect.getsource(v24) and "crossed a time zone for this one" in src
+    import sports_card_guard as cg                                          # a card written before the fix: dropped
+    assert cg.problem("🕐 Long trip for Marquette, time zones and all. Legs gonna be heavy.", "ncaab")
+    assert cg.problem("🕐 Marquette crossed a few time zones for this one. Body clock's all messed up.", "ncaab")
+    assert not cg.problem("🕐 Marquette crossed a time zone for this one. Their body clock's off.", "ncaab")
+
+
+def test_audit_1112_tomorrows_board_shows_every_pick_not_one_per_kind():
+    """11/12 audit: TOMORROW'S BOARD was built from {kind: pick} - three value plays posted for tomorrow showed as ONE
+    card (the last one). Every pick gets its card."""
+    import sports_dashboard as sdb
+    today = sdb.board_day(datetime.now(sdb.PT), [])
+    tmr = (datetime.strptime(today, "%Y-%m-%d") + timedelta(days=1)).date().isoformat()
+    leg = lambda t, g: {"team": t, "opp": "Opp", "league": "nhl", "game_id": g, "side": "home", "market": "ml",   # noqa: E731
+                        "odds": -130, "home": True, "p": 0.6, "dec": 1.77, "tier": "value", "start": f"{tmr}T23:00Z",
+                        "reasons": []}
+    picks = [{"date": tmr, "kind": "play", "legs": [leg(t, f"nhl:{i}")], "status": "open", "american": -130, "dec": 1.77,
+              "stake": 100.0, "posted": f"{today}T15:00Z", "lean": False, "units": 0.5, "tier": "value"}
+             for i, t in enumerate(("Ducks", "Penguins", "Kings"))]
+    import sports_early as se
+    keep = se.load
+    se.load = lambda *a, **k: {"picks": []}
+    try:
+        h = sdb.render(picks, {}, {}, [], 100000.0, int(time.time() * 1000))
+    finally:
+        se.load = keep
+    rest = h[h.index("TOMORROW'S BOARD"):]
+    assert all(t in rest for t in ("DUCKS ML", "PENGUINS ML", "KINGS ML")) and len(re.findall(r'<section class="pk open"', rest)) == 3
 
 
 if __name__ == "__main__":
