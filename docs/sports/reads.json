@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T20:05Z",
+ "updated": "2026-11-13T20:14Z",
  "games": [
   {
    "id": "ncaab:401928807",
@@ -13,6 +13,21 @@
    "h1": null,
    "why": "final",
    "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401921167",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-13T20:00Z",
+   "away": "West Florida",
+   "home": "Cleveland St",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -409,8 +424,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hofstra",
-    "p": 0.663,
-    "tie": 0.039,
+    "p": 0.653,
+    "tie": 0.04,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -418,18 +433,19 @@
    "start": "2026-11-14T00:00Z",
    "away": "Iona",
    "home": "Hofstra",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Iona",
-    "opp": "Hofstra",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -112,
-    "p": 0.5,
-    "win_p": 0.266,
+    "team": "Hofstra",
+    "opp": "Iona",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.724,
+    "win_p": 0.724,
     "reasons": [
-     "hotter recent form"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -842,7 +858,7 @@
     "opp": "Liberty",
     "market": "spread",
     "line": 16.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.509,
     "win_p": 0.074,
     "reasons": [
@@ -1124,7 +1140,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.633,
+    "p": 0.627,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1140,13 +1156,13 @@
     "opp": "Bulls",
     "market": "ml",
     "line": null,
-    "odds": -290,
-    "p": 0.724,
-    "win_p": 0.724,
+    "odds": -277,
+    "p": 0.716,
+    "win_p": 0.716,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "better rested"
+     "better rested",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1232,7 +1248,7 @@
     "opp": "Texas St",
     "market": "spread",
     "line": 10.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.503,
     "win_p": 0.158,
     "reasons": [
@@ -2880,7 +2896,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama",
-    "p": 0.769,
+    "p": 0.763,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -2896,9 +2912,9 @@
     "opp": "Alabama",
     "market": "spread",
     "line": 15.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.5,
-    "win_p": 0.171,
+    "win_p": 0.177,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -3414,8 +3430,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Austin Peay",
-    "p": 0.626,
-    "tie": 0.032,
+    "p": 0.634,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -3429,10 +3445,10 @@
     "team": "Austin Peay",
     "opp": "Abilene Chrstn",
     "market": "spread",
-    "line": -7.0,
-    "odds": -124,
-    "p": 0.515,
-    "win_p": 0.672,
+    "line": -7.5,
+    "odds": -118,
+    "p": 0.514,
+    "win_p": 0.681,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -3919,7 +3935,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Delaware",
-    "p": 0.555,
+    "p": 0.542,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -3935,9 +3951,9 @@
     "opp": "FIU",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.588,
-    "win_p": 0.588,
+    "odds": -185,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -5800,7 +5816,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Wyoming",
-    "p": 0.647,
+    "p": 0.64,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -5809,16 +5825,16 @@
    "start": "2026-11-15T03:00Z",
    "away": "Wyoming",
    "home": "UTEP",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Wyoming",
     "opp": "UTEP",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -108,
-    "p": 0.509,
-    "win_p": 0.658,
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.649,
+    "win_p": 0.649,
     "reasons": [
      "the stronger team"
     ]
