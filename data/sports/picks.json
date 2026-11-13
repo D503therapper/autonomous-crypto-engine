@@ -41305,6 +41305,15 @@
      "game:div"
     ],
     "dec": 1.8,
+    "decider": {
+     "c": "0:57",
+     "k": "td",
+     "p": "Stefon Diggs",
+     "s": "24-21",
+     "type": "late",
+     "win": "away",
+     "y": null
+    },
     "depth_gap": 1,
     "depth_pts": 0.5,
     "dog_ctx": {
@@ -41355,6 +41364,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,10,7,7",
+     "h": "0,7,7,7"
+    },
     "form_state": [
      8.0,
      2,
@@ -41421,10 +41434,12 @@
      "opponent missing key players: WR Treylon Burks (their read -3)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Commanders 24 @ Giants 21",
     "season_games": null,
+    "settled": "2026-11-13T04:20Z",
     "side": "home",
     "stale": [
      "Cam Skattebo",
@@ -41461,11 +41476,13 @@
    }
   ],
   "p_hit": 0.5424,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-12T22:45Z",
   "round": 1,
+  "settled": "2026-11-13T04:20Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]
