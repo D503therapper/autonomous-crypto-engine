@@ -40782,6 +40782,11 @@
      "us:west1000"
     ],
     "dec": 2.0,
+    "decider": {
+     "s": "1-0",
+     "type": "so",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -40828,6 +40833,10 @@
     "first_timer": false,
     "floor_fallback": "our raw read likes it more than the full read does",
     "floor_score": 5.14,
+    "flow": {
+     "a": "0,0,0,0,1",
+     "h": "0,0,0,0,0"
+    },
     "form_state": [
      1.0,
      1,
@@ -40878,10 +40887,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Blues 1 @ Mammoth 0",
     "season_games": null,
+    "settled": "2026-11-13T05:47Z",
     "side": "away",
     "start": "2026-11-13T02:00Z",
     "stype": "2",
@@ -40898,12 +40909,14 @@
    }
   ],
   "p_hit": 0.5216,
-  "pnl": 0.0,
+  "pnl": 100.0,
   "posted": "2026-11-12T16:00Z",
   "round": 1,
+  "settled": "2026-11-13T05:47Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
