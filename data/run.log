@@ -19328,3 +19328,34 @@ error: failed to push some refs to 'https://githu
 [2026-11-13 13:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-13 13:05 UTC] crypto/hold_btc  equity $419.88 (-16.0%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), XRP 32 (32/0/0), SOL 29 (29/0/0), PENGU 24 (24/0/0), AERO 21 (21/0/0)
+   dex screen: REJECT RENDER@solana liq $1,709,831,026 - top-10 holders 100%
+   dex screen: REJECT PONS@base liq $0 - no price; liquidity $0 < $100,000; 24h volume $0 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NOCK@base liq $751,347 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   dex screen: REJECT H@ethereum liq $520,902 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 86%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: INJ: +5.0% in 15 min on 5.6x volume @ 8.282 spread 0.30%
+   take-off: BUY INJ (scanner mover): INJ: +5.0% in 15 min on 5.6x volume @ 8.282 spread 0.30%
+   >> crypto/mover: BUY $84.05 of INJ @ 8.29028 (scanner mover)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT LIT@ethereum liq $581,204 - top-10 holders 61%; lp locked 0% < 95%
+   dex screen: REJECT KTA@base liq $2,931,149 - top-10 holders 66%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,586 pools (solana 1,850 / base 419 / ethereum 317), refresh cycle 110s (hot 106s), 2962 calls (109 feed, 429s 0, failed 0), 85,586 refreshed (10870 no pair), +67 added / -91 dropped (dead 85, stale 6, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-13 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/mover     equity $186.02 (-62.8%) 1 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/social_heat equity $334.83 (-33.0%) 2 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 14:06 UTC] crypto/hold_btc  equity $421.76 (-15.6%) 1 open  market DOWN
+   social heat top: HYPE 38 (35/0/4), BTC 37 (37/0/0), SOL 30 (29/0/1), PENGU 24 (24/0/0), NEAR 21 (21/0/0)
