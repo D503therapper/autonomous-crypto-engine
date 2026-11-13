@@ -19359,3 +19359,45 @@ error: failed to push some refs to 'https://githu
 [2026-11-13 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-13 14:06 UTC] crypto/hold_btc  equity $421.76 (-15.6%) 1 open  market DOWN
    social heat top: HYPE 38 (35/0/4), BTC 37 (37/0/0), SOL 30 (29/0/1), PENGU 24 (24/0/0), NEAR 21 (21/0/0)
+   dex screen: PASS GIGA@solana liq $1,279,472
+   dex screen: REJECT NVDA@solana liq $494 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 70%; lp holders unknown
+   dex screen: REJECT BEC@base liq $10,002 - liquidity $10,002 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT SPX@solana liq $1,814,256 - mint authority
+   dex screen: REJECT PLAY@base liq $218,600 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT ENA@ethereum liq $2,268,016 - is_mintable; top-10 holders 59%
+   dex screen: REJECT CIRBTC@ethereum liq $5,257,363 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 78%
+   >> stocks/trend: SELL $27.31 of LLY @ 1425.95, P/L $+0.06 (stop hit (live check))
+   dex screen: REJECT TBTC@ethereum liq $5,631,620 - is_mintable; honeypot_with_same_creator; top-10 holders 77%
+   dex scanner: 2,595 pools (solana 1,860 / base 418 / ethereum 317), refresh cycle 112s (hot 108s), 2889 calls (108 feed, 429s 0, failed 0), 83,428 refreshed (10635 no pair), +55 added / -46 dropped (dead 43, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-13 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/mover     equity $185.35 (-62.9%) 1 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/social_heat equity $333.86 (-33.2%) 2 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 15:06 UTC] crypto/hold_btc  equity $418.71 (-16.3%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $129.14 of NVDA @ 162.199, P/L $-36.33 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $153.44 of XLB @ 52.1961 (entry)
+[2026-11-13 15:07 UTC] stocks/rsi2      equity $460.26 (-7.9%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 2, TLT 3, GLD 7, MSTR 7
+[2026-11-13 15:07 UTC] stocks/breakout52 equity $479.62 (-4.1%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-13 15:07 UTC] stocks/dual_momentum equity $461.53 (-7.7%) 2 open  market DOWN
+[2026-11-13 15:07 UTC] stocks/trend_ensemble equity $506.02 (+1.2%) 5 open  market UP
+[2026-11-13 15:07 UTC] stocks/rotation10 equity $504.75 (+0.9%) 2 open  market UP
+[2026-11-13 15:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: BUY $68.13 of UBER @ 69.5748 (entry)
+[2026-11-13 15:07 UTC] stocks/trend     equity $461.18 (-7.8%) 4 open  market DOWN
+[2026-11-13 15:07 UTC] stocks/hold_spy  equity $490.74 (-1.9%) 1 open  market DOWN
+   social heat top: BTC 29 (29/0/0), SHIB 27 (27/0/0), HYPE 26 (24/0/2), AERO 20 (5/0/14), PUMP 19 (13/0/6)
