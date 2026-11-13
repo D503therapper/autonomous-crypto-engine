@@ -1,12 +1,14 @@
 {
- "at": "2026-11-13T15:56Z",
- "fixes": [],
+ "at": "2026-11-13T17:27Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "studies last ran 10h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (141s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,12 +19,23 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 22 min ago",
+  "studies ran 2h ago",
+  "engine ran 48 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-13T17:27Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-13T15:56Z",
    "fixes": [],
@@ -506,20 +519,6 @@
    "at": "2026-11-12T07:54Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T07:53Z",
-   "fixes": [
-    "live board 20 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
