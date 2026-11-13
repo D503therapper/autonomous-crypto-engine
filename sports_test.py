@@ -22803,6 +22803,66 @@ def test_daily_1113_the_goalie_pages_unconfirmed_name_comes_before_our_projectio
     finally:
         sg.load = keep
 
+def test_daily_1113_nba_bad_home_spread_fav_weight_the_early_spread_fade_judged_off_and_four_tracker_leads():
+    """11/13 DAILY STUDIES (results/studies/daily_1113/): (1) THE TRACKER'S OWN JUDGE - the 11/2 NBA early-season spread
+    favorite fade ('judge at 50: covering 52%+ = the weight comes off') covered 38 of 66 (57.6%): OFF from the 11/14 games
+    (sports.NBA_EARLY_SPREAD_OFF_FROM), its tag keeps logging. (2) S10 BUILT: an NBA HOME spread favorite .400 or worse after
+    10+ games covered 45.6% (ATS -13.1% on 546, train 0 of 4 up, held 3 of 4 down, placebo 18 of 2,000) - -0.02 on its
+    spread rank from the 11/14 games; never on the road (that one covers), never the moneyline, no dog bump. (3) LEADS,
+    tracked only: its moneyline side, college football's last-season meeting (the winner by 17+ / the payback side), the
+    NBA back-to-back side off a 20+ loss."""
+    import sports_leads as sl
+    base = {"league": "nba", "market": "spread", "line": -6.5, "odds": -110, "dec": 1.909, "p": 0.55, "side": "home",
+            "home": True, "season_games": 4, "game_id": "g1", "team": "A", "opp": "B", "reasons": [],
+            "dog_more": {"record": (2, 2)}}
+    # (1) the 11/2 early spread fade: on through 11/13, off from 11/14 (its tracker tag stays)
+    early = {**base, "start": "2026-11-14T03:00Z"}                       # 7 PM PT 11/13
+    late = {**base, "start": "2026-11-14T20:00Z"}                        # noon PT 11/14
+    assert sports.nba_early_spread_fav(early) and sports.early_spread_w(early) == -sports.NBA_EARLY_SPREAD_W
+    assert sports.nba_early_spread_fav(late) and sports.early_spread_w(late) == 0.0
+    assert "NBA spread fav 3.5-12.5, games 1-20 (fade)" in sl.spread_tags(late, sports)
+    keep = sports.NBA_EARLY_SPREAD_OFF_FROM
+    try:
+        sports.NBA_EARLY_SPREAD_OFF_FROM = "9999"
+        assert sports.early_spread_w(late) == -sports.NBA_EARLY_SPREAD_W   # the switch back
+    finally:
+        sports.NBA_EARLY_SPREAD_OFF_FROM = keep
+    # (2) the bad NBA home spread favorite: -0.02 on the rank from 11/14
+    bad = {**base, "season_games": 30, "start": "2026-11-20T00:30Z", "dog_more": {"record": (4, 8)}}   # .333
+    assert sports.nba_bad_home_fav(bad) and sports.daily_1113_spread_w(bad) == -sports.NBA_BAD_HOME_FAV_W == -0.02
+    assert abs(sports.rank_p(bad) - (bad["p"] - 0.02 + sports.cover_run_w(bad) + sports.coach_w(bad)
+                                     + sports.season_w(bad))) < 1e-9
+    for k, v in (("dog_more", {"record": (5, 5)}), ("dog_more", {"record": (3, 5)}), ("dog_more", {}),
+                 ("home", False), ("neutral", True), ("line", 4.5), ("market", "ml"), ("league", "ncaab")):
+        assert not sports.nba_bad_home_fav({**bad, k: v}), (k, v)    # .500, under 10 games, unknown, the road, a neutral
+        #                                                                floor, the dog, a moneyline, another league
+    assert sports.nba_bad_home_fav({**bad, "dog_more": {"record": (4, 6)}})            # exactly .400 after 10
+    assert sports.daily_1113_spread_w({**bad, "start": "2026-11-13T20:00Z"}) == 0.0     # before 11/14
+    assert sl.daily_1113_spread_tags(bad, sports) == [sl.NBA_BAD_HOME_FAV_TAG]
+    assert sl.daily_1113_spread_tags({**bad, "start": "2026-11-13T20:00Z"}, sports) == []
+    ml = {**bad, "market": "ml", "odds": -130, "line": None}
+    assert sl.daily_1113_tags(ml, sports) == [sl.NBA_BAD_HOME_FAV_ML_TAG]
+    assert sl.daily_1113_tags({**ml, "odds": -160}, sports) == [] and sl.daily_1113_tags({**ml, "home": False}, sports) == []
+    assert sports.daily_1113_spread_w(ml) == 0.0                  # never the moneyline
+    # (3) college football: last season's meeting, from the games file (results only)
+    G = {"f0": {"status": "final", "stype": "2", "start": "2025-10-04T19:00Z", "home": "7", "away": "9",
+                "home_score": "41", "away_score": "10"},
+         "f1": {"status": "pre", "stype": "2", "start": "2026-11-14T20:00Z", "home": "9", "away": "7",
+                "home_score": "", "away_score": ""},
+         "f2": {"status": "pre", "stype": "2", "start": "2026-11-14T20:00Z", "home": "9", "away": "5",
+                "home_score": "", "away_score": ""}}
+    keep_g = dict(sl._GAMES)
+    try:
+        sl._GAMES["ncaaf"] = G
+        cf = {"league": "ncaaf", "market": "spread", "game_id": "f1", "line": 6.5, "odds": -110, "start": "2026-11-14T20:00Z"}
+        assert sl._last_season_meet({**cf, "side": "away"}) == 31 and sl._last_season_meet({**cf, "side": "home"}) == -31
+        assert sl.daily_1113_spread_tags({**cf, "side": "away"}, sports) == [sl.NCAAF_MEET_WON_TAG]
+        assert sl.daily_1113_spread_tags({**cf, "side": "home"}, sports) == [sl.NCAAF_PAYBACK_TAG]
+        assert sl._last_season_meet({**cf, "game_id": "f2", "side": "home"}) is None        # never met last season
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
+
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

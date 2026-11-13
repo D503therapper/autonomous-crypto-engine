@@ -2763,9 +2763,50 @@ def nba_early_spread_fav(c):
     return n is not None and n + 1 <= NBA_EARLY_SPREAD_GAMES and lo <= -float(c["line"]) <= hi
 
 
+NBA_EARLY_SPREAD_OFF_FROM = "2026-11-14"   # ⏹️ 11/13 DAILY STUDIES (the lead tracker): the weight's OWN judge fired - set
+#   11/2 as "judge at 50: covering 52%+ = the weight comes off", the faded favorites covered 38 of 66 (57.6%, +9.9% at
+#   -110) on the live tracker (32-23 at the 11/11 read). Off from the 11/14 Pacific games; the tracker tag keeps
+#   logging (sports_leads "NBA spread fav 3.5-12.5, games 1-20 (fade)"). "9999" = the weight back on.
+
+
 def early_spread_w(c):
-    """The 11/2 NBA early-season spread-favorite weight (a fade on the rank, never a gate)."""
+    """The 11/2 NBA early-season spread-favorite weight (a fade on the rank, never a gate) - OFF from
+    NBA_EARLY_SPREAD_OFF_FROM by its own judge (11/13)."""
+    if pt_day(c) >= NBA_EARLY_SPREAD_OFF_FROM:
+        return 0.0
     return -NBA_EARLY_SPREAD_W if nba_early_spread_fav(c) else 0.0
+
+
+DAILY_1113_FROM = "2026-11-14"     # 🏀 11/13 DAILY STUDIES S10 (results/studies/daily_1113/s3_s10.py s10 + s_placebos.py):
+NBA_BAD_HOME_FAV_PCT = 0.400       # an NBA HOME spread favorite whose record is .400 or worse after 10+ games covered
+NBA_BAD_HOME_FAV_GAMES = 10        # 45.6% - ATS -13.1% on 546 at the close 2018-26 vs -4.4% for every home spread
+NBA_BAD_HOME_FAV_W = 0.02          # favorite (train 2018-21 -16.5%, 0 of 4 seasons up; held 2022 / 23 / 24 -16.9 / -22.5 /
+#   -17.0%, 2025 +19.0%; placebo: 18 of 2,000 random same-size sets of home spread favorites did as badly); the dose steps
+#   at .400 (.000-.300 -12.3%, .300-.400 -14.5%, .400-.500 -1.7%). The same team favored on the ROAD covers (+8.5% on
+#   236) and its moneyline (-14.0% vs -8.7% for every home favorite, placebo 264 of 2,000) doesn't clear - so ONE small
+#   WEIGHT on the spread rank (the lean line), -0.02, never a gate, no dog bump across (the road dog +2.2%), no
+#   moneyline weight; its moneyline side is a tracker LEAD (sports_leads.daily_1113_tags). From the 11/14 Pacific games.
+
+
+def nba_bad_home_fav(c):
+    """An NBA SPREAD favorite at home whose record (this season, regular season, before tonight) is .400 or worse after
+    NBA_BAD_HOME_FAV_GAMES+ games - from its own dog_more['record'] (no record = unknown = no)."""
+    if c.get("league") != "nba" or c.get("market") != "spread" or not c.get("home") or c.get("neutral"):
+        return False
+    try:
+        if float(c.get("line")) >= 0:
+            return False
+        w, l_ = (c.get("dog_more") or {}).get("record") or (None, None)
+        return w is not None and w + l_ >= NBA_BAD_HOME_FAV_GAMES and w / (w + l_) <= NBA_BAD_HOME_FAV_PCT + 1e-9
+    except (TypeError, ValueError, ZeroDivisionError):
+        return False
+
+
+def daily_1113_spread_w(c):
+    """The 11/13 daily studies' spread-rank weight (0 before DAILY_1113_FROM): the bad NBA home favorite -0.02."""
+    if c.get("market") != "spread" or pt_day(c) < DAILY_1113_FROM:
+        return 0.0
+    return -NBA_BAD_HOME_FAV_W if nba_bad_home_fav(c) else 0.0
 
 
 def season_starts(games, now):
@@ -3463,6 +3504,7 @@ def rank_p(c):
             #                                                     the league leader with a cushion on the road -0.03 / +0.03)
             + deep_1112_spread_w(c)                            # (11/12 DEEP: the hoops non-league road favorite -0.03 /
             #                                                     the home dog across +0.02; the NFL favorite laying 7.5-9.5 -/+0.02)
+            + daily_1113_spread_w(c)                           # (11/13 daily S10: the .400-or-worse NBA home spread favorite -0.02)
             - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
