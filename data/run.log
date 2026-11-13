@@ -19436,3 +19436,49 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-13 15:14 UTC] stocks/trend     equity $459.93 (-8.0%) 4 open  market DOWN
 [2026-11-13 15:14 UTC] stocks/hold_spy  equity $488.97 (-2.2%) 1 open  market DOWN
    social heat top: SHIB 29 (29/0/0), HYPE 26 (16/0/10), BTC 24 (24/0/0), PENGU 21 (21/0/0), SOL 19 (19/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '72153.11', 'l': '67526.91', 'a': '68747.64', 'v': '6376.9332', 'vv': '448180090.89', 'c': '-0.0364', 'b': '68747.21', 'k': '68747.22', 'oi': '0', 't': 1794582856981}
+   dex screen: REJECT VELVET@base liq $999,821 - pool age unknown
+   dex screen: PASS GLITCH@solana liq $106,763
+   dex screen: REJECT DACITYCOIN@solana liq $327,532 - lp holders unknown; rugcheck lp locked 62% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT WASTED@ethereum liq $117,579 - goplus: no data
+   dex screen: REJECT ELSA@base liq $475,828 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       e489a3dfc47a062d07323209d8b80fa870d7e9e5 -> main (cannot lock ref 'refs/heads/main': is at 049968998017e97e412a5
+   dex screen: REJECT AERO@base liq $3,926,855 - is_mintable; top-10 holders 90%
+   dex scanner: 2,614 pools (solana 1,847 / base 426 / ethereum 341), refresh cycle 108s (hot 104s), 2417 calls (107 feed, 429s 0, failed 0), 69,270 refreshed (9469 no pair), +212 added / -192 dropped (dead 185, stale 7, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-13 16:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/mover     equity $185.77 (-62.8%) 1 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/social_heat equity $333.55 (-33.3%) 2 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] crypto/hold_btc  equity $417.67 (-16.5%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-11-13 16:05 UTC] stocks/rsi2      equity $460.74 (-7.9%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 2, TLT 3, GLD 7, MSTR 7
+[2026-11-13 16:05 UTC] stocks/breakout52 equity $473.65 (-5.3%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-13 16:05 UTC] stocks/dual_momentum equity $458.08 (-8.4%) 2 open  market DOWN
+[2026-11-13 16:05 UTC] stocks/trend_ensemble equity $507.70 (+1.5%) 5 open  market UP
+[2026-11-13 16:05 UTC] stocks/rotation10 equity $503.00 (+0.6%) 2 open  market UP
+[2026-11-13 16:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-13 16:05 UTC] stocks/trend     equity $459.37 (-8.1%) 4 open  market DOWN
+[2026-11-13 16:05 UTC] stocks/hold_spy  equity $488.30 (-2.3%) 1 open  market DOWN
+   social heat top: PENGU 29 (29/0/0), HYPE 29 (19/0/10), BTC 24 (24/0/0), SHIB 21 (21/0/0), XRP 16 (16/0/0)
