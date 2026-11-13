@@ -186,6 +186,21 @@ def starter(gid, side, now=None):
     return v if v and v.get("status") in KNOWN and v.get("name") else None
 
 
+GUESS_STATUSES = ("projected", "unconfirmed")   # 🥅 11/13 (daily studies S2): the page's own morning GUESS
+
+
+def guess(gid, side, now=None):
+    """🥅 11/13 DAILY STUDIES S2 (results/studies/daily_1113/s1_s2_goalie_projection.py - the page's name at the last
+    snapshot before the 8 AM PT board, 39 days of this repo's history 10/6-11/13, against who started): the page's
+    'unconfirmed' name was right 77.3% of 476 sides, our own box-score projection (sports_players.projected_starter)
+    62.2%; where the two disagreed (145) the page was right 107 times, ours 35. So the page's guess beats ours - it is
+    still a GUESS: it never counts as known (starter() / the roles weight / the questionable-goalie hold never read it),
+    the card still says 'projected', and it only replaces our own projection in sports_players.starter_for.
+    {'name', 'status', ...} or None."""
+    v = ((load(now).get("games") or {}).get(gid) or {}).get(side)
+    return v if v and v.get("status") in GUESS_STATUSES and v.get("name") else None
+
+
 def confirmed(gid, side, now=None):
     v = starter(gid, side, now)
     return v if v and v["status"] == "confirmed" else None

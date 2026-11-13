@@ -336,6 +336,10 @@ PROJ_GAMES = 10         # 🥅 11/6: the projected goalie reads the team's last 
 PROJ_MIN = 3            # ...with 3+ of them on file (fewer: the last starter, as before)
 PROJ_B2B_DAYS = 1.5     # the team played within 36 hours: the 2nd night of a back-to-back
 PROJ_SAT = 2            # a #1 who didn't start either of the team's last 2 games stays out of the projection
+PAGE_GUESS_FROM = "2026-11-13"   # 🥅 11/13 DAILY STUDIES S2: with no confirmed / likely starter, the goalie page's own
+#   'unconfirmed' name comes BEFORE our projection (sports_goalies.guess - right 77.3% vs 62.2% on 476 morning sides
+#   10/6-11/13; where they disagreed 107-35 the page's way). A GUESS still: the card says 'projected', the roles weight
+#   and the questionable-goalie hold never read it. "9999" = our projection first again.
 
 
 def _hours(a, b):
@@ -394,6 +398,9 @@ def starter_for(rows, g, side):
         try:
             import sports_goalies
             k = sports_goalies.starter(g.get("id"), side)
+            if not k and (g.get("start") or "")[:10] >= PAGE_GUESS_FROM:
+                k = sports_goalies.guess(g.get("id"), side)  # (11/13: the page's own 'unconfirmed' name beats our
+                #                                              projection - 77% vs 62% right; still a guess, never known)
         except Exception:                                    # noqa: BLE001 - unknown: the old guess
             k = None
         if k and k.get("name"):

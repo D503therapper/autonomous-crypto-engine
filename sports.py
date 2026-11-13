@@ -8779,7 +8779,14 @@ def fresh_card_facts(games, legs, injuries):
                     side_ = "home" if team == str(g["home"]) else "away"
                     if nm in body and now_.get(side_) and _nm_key(now_[side_])[0] != _nm_key(nm)[0] and nm not in stale:
                         stale.append(nm)
-                        fresh.append(f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}.")
+                        try:                                 # (11/13: a goalie nobody has confirmed yet - the page's
+                            import sports_goalies            #  guess or our projection - is never said as fact)
+                            sure = sports_goalies.starter(g.get("id"), side_) is not None
+                        except Exception:                    # noqa: BLE001
+                            sure = False
+                        fresh.append(f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}."
+                                     if sure else f"🔄 Update: {now_[side_]} is projected in net for the "
+                                     f"{g[side_ + '_name']} now, not {nm} (not confirmed yet).")
         if stale != list(leg.get("stale") or []):
             leg["stale"], leg["fresh"] = stale, fresh[-4:]
             try:

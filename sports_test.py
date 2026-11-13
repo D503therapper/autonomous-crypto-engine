@@ -20726,13 +20726,17 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
             {"gid": "x0", "start": "2026-05-17T00:00Z", "team": "2", "player": "Alex Lyon", "role": "G"},
             {"gid": "x2", "start": "2026-11-08T01:00Z", "team": "4", "player": "Spencer Knight", "role": "G"}]
     keep_c, keep_s = sports.sp.CACHE.get("nhl"), sports.sp.starter_for
+    import sports_goalies as _sg
+    keep_k = _sg.starter
     try:
         sports.sp.CACHE["nhl"] = rows
         sports.sp.starter_for = lambda r, g_, s_: {"home": "Spencer Knight", "away": "Alex Lyon"}[s_]
-        sports.fresh_card_facts({"nhl:2": hg}, [hl], {"nhl": None})
+        _sg.starter = lambda gid, side, now=None: {"name": "Alex Lyon", "status": "confirmed"} if side == "away" else None
+        sports.fresh_card_facts({"nhl:2": hg}, [hl], {"nhl": None})   # (11/13: confirmed - said as fact)
     finally:
         sports.sp.CACHE["nhl"] = keep_c
         sports.sp.starter_for = keep_s
+        _sg.starter = keep_k
         if keep_c is None:
             sports.sp.CACHE.pop("nhl", None)
     assert hl["stale"] == ["Colten Ellis"], hl.get("stale")
@@ -22741,6 +22745,63 @@ def test_leans_1113_a_college_hoops_spread_lean_needs_a_studied_weight_and_the_l
     assert sl.LEANS_DIAL_TAG in sl.spread_tags(dog, sports)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "leans_1113_spread_tags" not in src                                            # never read by the board
+
+def test_daily_1113_the_goalie_pages_unconfirmed_name_comes_before_our_projection():
+    """11/13 DAILY STUDIES S1 / S2 (results/studies/daily_1113/s1_s2_goalie_projection.py). The 11/12 Blackhawks card named
+    Colten Ellis for the Sabres: NOT a projection bug - Ukko-Pekka Luukkonen started the night before (pulled, 14 shots /
+    5 goals), so on the 2nd night of the back-to-back our rule took the other goalie of the last 10 (Ellis); Alex Lyon had
+    no start this season (a 3rd goalie - the rule is 0 for 106 on those 2023-26). S2: the goalie page's own 'unconfirmed'
+    name at the 8 AM board was right 77.3% of 476 sides vs our projection's 62.2% (where they disagreed, 107-35 the page's
+    way) - from the 11/13 games starter_for takes the page's guess before ours. A GUESS still: starter() (known) never
+    returns it, so the roles weight / the questionable hold / 'confirmed' card words never read it, and a posted card's
+    goalie update says 'projected ... (not confirmed yet)' unless the new man is confirmed / likely."""
+    import sports_goalies as sg
+    import sports_players as sp_
+    page = {"seen": "2026-11-13T15:45Z", "games": {
+        "nhl:9": {"away": {"name": "Alex Lyon", "status": "unconfirmed"}, "home": {"name": "Spencer Knight", "status": "likely"}},
+        "nhl:8": {"away": {"name": "Alex Lyon", "status": "unconfirmed"}, "home": {"name": "", "status": "unconfirmed"}}}}
+    rows = [{"gid": "a", "start": "2026-11-06T00:00Z", "team": "2", "player": "Ukko-Pekka Luukkonen", "role": "G"},
+            {"gid": "b", "start": "2026-11-08T20:30Z", "team": "2", "player": "Colten Ellis", "role": "G"},
+            {"gid": "c", "start": "2026-11-12T00:00Z", "team": "2", "player": "Ukko-Pekka Luukkonen", "role": "G"},
+            {"gid": "x0", "start": "2026-05-17T00:00Z", "team": "2", "player": "Alex Lyon", "role": "G"},
+            {"gid": "d", "start": "2026-11-08T01:00Z", "team": "4", "player": "Spencer Knight", "role": "G"},
+            {"gid": "e", "start": "2026-11-10T01:00Z", "team": "4", "player": "Arvid Soderblom", "role": "G"}]
+    rows.sort(key=lambda r: r["start"])
+    g = {"id": "nhl:9", "league": "nhl", "home": "4", "away": "2", "start": "2026-11-13T01:00Z", "status": "pre",
+         "home_name": "Blackhawks", "away_name": "Sabres"}
+    keep = sg.load
+    try:
+        sg.load = lambda now=None: page
+        assert sg.starter("nhl:9", "away") is None                       # unconfirmed is never KNOWN
+        assert sg.guess("nhl:9", "away")["name"] == "Alex Lyon"
+        assert sg.guess("nhl:9", "home") is None and sg.starter("nhl:9", "home")["name"] == "Spencer Knight"
+        assert sg.guess("nhl:8", "home") is None                          # (no name: no guess)
+        assert sp_.projected_starter(rows, "2", g["start"]) == "Colten Ellis"   # our b2b rule: the other goalie
+        assert sp_.starter_for(rows, g, "away") == "Alex Lyon"            # the page's guess first (box spelling)
+        assert sp_.starter_for(rows, g, "home") == "Spencer Knight"       # likely still wins
+        assert sp_.starter_for(rows, {**g, "start": "2026-11-12T01:00Z"}, "away") == "Colten Ellis"   # before 11/13
+        keep_from = sp_.PAGE_GUESS_FROM
+        try:
+            sp_.PAGE_GUESS_FROM = "9999"
+            assert sp_.starter_for(rows, g, "away") == "Colten Ellis"     # the switch back
+        finally:
+            sp_.PAGE_GUESS_FROM = keep_from
+        # a posted card that named the projection gets an honest update - never a guess said as fact
+        hl = {"game_id": "nhl:9", "league": "nhl", "team": "Blackhawks", "opp": "Sabres", "side": "home",
+              "breakdown": ["🥅 Colten Ellis, projected to start for the Sabres (not confirmed yet), 0.868 save %."]}
+        keep_c = sports.sp.CACHE.get("nhl")
+        try:
+            sports.sp.CACHE["nhl"] = rows
+            sports.fresh_card_facts({"nhl:9": g}, [hl], {"nhl": None})
+        finally:
+            sports.sp.CACHE["nhl"] = keep_c
+            if keep_c is None:
+                sports.sp.CACHE.pop("nhl", None)
+        assert hl.get("stale") == ["Colten Ellis"], hl.get("stale")
+        assert hl["fresh"][-1] == ("🔄 Update: Alex Lyon is projected in net for the Sabres now, not Colten Ellis "
+                                   "(not confirmed yet)."), hl["fresh"]
+    finally:
+        sg.load = keep
 
 
 if __name__ == "__main__":
