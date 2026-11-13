@@ -18,19 +18,32 @@ from sports_vocab import SLOTS, variants
 from sports_vocab import supply as _supply
 
 BANNED = re.compile(r"real talk|chalk", re.I)
+# 11/12 (the owner: "the lingo just keeps sounding so retarded"): made-up slang he never says - a roll with any of it is
+# thrown out (his own words live in sports_owner_lingo.OWNER and stay). Public-crowd talk is out too (the split is never
+# the story).
+MADE_UP = re.compile(
+    r"keep stacking|bag secured|\bsay less\b|nice nice|told y'?all|\bsmh\b|chin up|short memory|run it back|another one\b|"
+    r"we own it|stay fading|still fading|\bpain\.|\bsick\.|\bbrutal\b|dog (?:didn'?t|did not) bark|dog barked|"
+    r"stayed on the porch|bought the dip|buy the dip|kept dipping|underdog (?:energy|money|season)|let'?s go\b|"
+    r"paid is paid|we'?ll take it|lucky\? maybe|heart in our throat|\bsheep\b|\bherd\b|\bsquares?\b|\bcasuals\b|"
+    r"\bclowns?\b|real ones know|built different|cheat code|just living in it|watch (?:him|her) (?:work|go)|"
+    r"light work|book it|mark it down|clock in|different breed|a menace|that dog in|whole chest|top floor|\bup top\b|"
+    r"blood in the water|kick 'em while|make 'em pay|somebody gotta pay|we knew it|called it|pay up|guess who cashed|"
+    r"easy fade|\bpublic\b|\bthe crowd\b|moneyline crowd|got burnt|went red|clean ticket|did what favorites do|"
+    r"a whisker|skin of our teeth|bad read|wrong side|didn'?t see that coming|rough one|not our day|\bit happens\b|"
+    r"next one\b|on to the next|part of it|every l stays up|we bounce back|that'?s on us|our bad|is what it is|"
+    r"can'?t win em all|no excuses?\b|stamp it|another w\b|(?:^|[.!] )(?:paid|money|cashed)\.", re.I)
 LEAN_BAN = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer|smash|whole hood|\beat(s|ing|in')?\b|\bate\b|bag|"
                       r"money energy|can'?t lose|guaranteed|told y'all|say less|stamp it|book it|light work|"
                       r"levels to this|cook\b|tail it", re.I)
 
 # our own pools: "%name%" in a template -> [a|b|c] (never put one inside [..] - no nesting)
 PAL = {
-    "wk": ["Told y'all.", "Nice nice.", "Light work.", "Another one.", "Paid.", "Bag secured.", "We smacked.",
-           "Say less.", "Levels to this.", "Easy money.", "The whole hood eating.", "Stamp it.", "Keep stacking.", "Money.",
-           "Run it back.", "That's how it's done.", "Cashed.", "Another W.", "", "", ""],
-    "lk": ["Our bad.", "That's on us.", "Is what it is.", "It happens.", "Next one.", "SMH.", "No excuses.",
-           "We own it.", "Every L stays up.", "We bounce back.", "Short memory.", "On to the next.",
-           "Can't win em all.", "Part of it.", "Chin up.", "", ""],   # (9/30: no 'Tip the cap' after OUR side let it slip,
-    #                                                  no 'Bad read. Bad read.' - both live in the lines that fit them)
+    # 11/12 (the owner: "Keep stacking is retarded ... the lingo just keeps sounding so retarded"): no canned sign-off
+    # after a review - "Keep stacking.", "Bag secured.", "Say less.", "SMH.", "Chin up." said nothing. The review ends on
+    # what happened in the game.
+    "wk": [""],
+    "lk": [""],
     "go": ["Get in", "Tail it", "Hammer it", "Tap in", "We buying", "Say less", "Take it", "Buy the dip"],
     "go_": ["get in", "tail it", "hammer it", "tap in", "we buying", "say less", "take it", "buy the dip"],
     "dn": ["down", "down", "behind by", "trailing by", "in a hole by"],
@@ -90,7 +103,7 @@ def roll(templates, seed, cap, n=40, lower=False, ban=None, **kw):
             continue
         line = _put(r, tok, kw)
         line = re.sub(r"(?<!\.)\.\.(?!\.)", ".", line)            # "Bain Jr.." -> "Bain Jr."
-        if BANNED.search(line) or (ban is not None and ban.search(line)):
+        if BANNED.search(line) or MADE_UP.search(line) or (ban is not None and ban.search(line)):
             continue
         out.append(line)
         if len(out) >= n:
@@ -323,6 +336,7 @@ REVIEWS = {
         "{t} [shocked|stunned|upset] {o}. [Plus money|The dog|The value] [hit|cashed].",
         "We got paid [on the dog|at plus money]: {t} over {o}.",
         "Scared money don't make no money. {t} over {o} at plus money. %wk%",
+        "{t} [cashed|smacked] at plus money. The whole hood eating.",   # (his line, 11/12: it left with the sign-offs)
         "No risk, no reward. {t} [cashed|paid|came through] at plus money. %wk%",
     )),
     ("dog", "lost"): (87, 2, T(
@@ -1332,16 +1346,16 @@ NOTES = {
     ),
     "lock_why": T(
         "Nothing on the slate is worth our units.", "{Algo} checked every game and nothing beat its price.",
-        "Every favorite is priced too high for what {algo} sees.", "No pick earned the Lock - we don't fake one.",
+        "Every favorite is priced too high for what {algo} sees.",
     ),
     # 🔒 ...on a day value plays ARE up (11/12 audit: "Every favorite is priced too high" sat right above two -142
     # favorite value plays - a no-Lock line never says nothing's worth our units when the board has unit plays on it)
     "lock_why_plays": T(
-        "Nothing on the board met our Lock standard.", "No pick earned the Lock - we don't fake one.",
+        "Nothing on the board met our Lock standard.",
         "Nothing cleared the Lock bar today.", "No pick on the board hit the Lock standard.",
     ),
     "lock_close_plays": T(
-        "We don't force it.", "We don't force a Lock.", "No forced Lock over here.", "We don't fake it.",
+        "We don't force it.",     # (11/12: "we don't fake one. We don't force a Lock." said it three times)
     ),
     # 🐺 no Dog of the Day: no underdog with a proven edge today (the owner, 9/28: say so, don't force one)
     "dog_open": T(

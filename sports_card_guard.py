@@ -138,11 +138,47 @@ def agree(line, *teams):
     return t
 
 
+# 11/12 (the owner: "the lingo just keeps sounding so retarded"): the canned tail sentences that ride on the end of a
+# fact line and say nothing - "⚠️ Blackhawks have dropped 6 straight. We see it. Ain't scared of it." keeps the fact and
+# loses the tail. Whole sentences only; a line left with no fact goes.
+TAILS = re.compile(
+    r"^(?:we see it|ain'?t scared of it|not us|we'?ll take (?:it|that|that matchup|our chances)|bodies missing over there|"
+    r"that'?s real depth gone|we ain'?t blind to it - we just like our side more|we been better|we finna see|"
+    r"road trips ain'?t their thing|road trips been rough on 'em|they win in other people'?s houses|true|"
+    r"still ain'?t enough to flip us|that'?s who we'?re going against|scoreboard says us|we on the other side|"
+    r"we eating|hostile crowd\?|they don'?t care|they been getting it done|both feeling good, one leaves pissed|"
+    r"that don'?t last|that part don'?t help us, not gonna lie|let the public have 'em|aggressive wins|"
+    r"short-handed against us|we'?ll live with it|we know it, and we still like the side|somebody'?s streak ends (?:tonight|today)|"
+    r"bus-trip team|that snaps back|ask the teams that came through|say less|they don'?t travel|they hate leaving the house|"
+    r"their own crowd'?s been watching 'em lose|tough out in their own house|the books are sleeping on that|"
+    r"one of 'em gets right (?:tonight|today)|both got something to prove|our d shows up|fun to ride, not a money play|"
+    r"keep stacking|the public'?s eating with us on this one|same side as the public on this one|"
+    r"(?-i:Still [A-Z][\w.' -]{1,30}))[.!?]?$", re.I)
+_SENTS = re.compile(r"(?<=[.!?])\s+")
+
+
+def strip_tails(line):
+    """The line without its filler tail sentences ('' when nothing with a fact is left)."""
+    t = str(line or "")
+    if not t.strip():
+        return t
+    m = re.match(r"^(\W*\s*)", t)
+    lead = m.group(1) if m else ""
+    parts = _SENTS.split(t[len(lead):])
+    keep = [x for x in parts if not TAILS.match(x.strip())]
+    if len(keep) == len(parts):
+        return t
+    body = " ".join(keep).strip()
+    return (lead + body) if body else ""
+
+
 def clean(lines, league=None, who="", opp=""):
     """The card's lines with every one that repeats a known mistake taken out (the bottom line cut back, never lost),
-    the team verbs agreeing with the names (agree - ours and the opponent's)."""
+    the team verbs agreeing with the names (agree - ours and the opponent's), the filler tails cut (strip_tails)."""
     out = []
-    for x in lines or []:
+    for x in [strip_tails(y) if isinstance(y, str) else y for y in lines or []]:
+        if isinstance(x, str) and not x.strip():
+            continue
         why = problem(x, league)
         if not why:
             out.append(agree(x, who, opp) if isinstance(x, str) else x)
