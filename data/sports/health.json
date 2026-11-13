@@ -1,15 +1,12 @@
 {
- "at": "2026-11-13T15:54Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
- ],
+ "at": "2026-11-13T15:56Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Mandlik vs Samson: no points for 2605s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (75s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +18,19 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "simulator ran 9h ago",
-  "engine ran 21 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-13T15:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-13T15:54Z",
    "fixes": [
@@ -522,22 +527,6 @@
     "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
     "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
     "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T06:22Z",
-   "fixes": [
-    "live watch 43162369471 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found",
-    "sources down (the backups took over): betrivers:ncaab:1029056344 HTTP 404"
    ]
   }
  ]
