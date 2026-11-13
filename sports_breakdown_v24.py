@@ -987,8 +987,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     # last games: just the latest scores - and only when they back the pick (the owner, 9/30: "Kings L 1-5 vs Avalanche"
     # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
     if s_ours and _line(s_ours[-1], tid).startswith("W") and (not s_theirs or _line(s_theirs[-1], oid).startswith("L")):
-        last_us = _line(s_ours[-1], tid)                  # (this season's last game - never last year's)
-        both = f"{us} {last_us}" + (f" · {them} {_line(s_theirs[-1], oid)}" if s_theirs else "")
+        _nd = lambda g_, t_: " (a non-D1 school)" if non_d1(lg, _opp_id(g_, t_)) else ""   # (11/13: "Idaho W 108-69
+        last_us = _line(s_ours[-1], tid) + _nd(s_ours[-1], tid)   # vs Lincoln (CA)" never said it was a tune-up)
+        both = f"{us} {last_us}" + (f" · {them} {_line(s_theirs[-1], oid)}{_nd(s_theirs[-1], oid)}" if s_theirs else "")
         out.append(v.say("latest", [f"📅 Latest: {both}.", f"📅 Last time out: {both}.", f"📅 Last game for each: {both}.",
                                      f"📅 Where they're coming from: {both}.", f"📅 Last week's tape: {both}." if lg in ("nfl", "ncaaf")
                                      else f"📅 Last outing: {both}.", f"📅 How they came in: {both}.", f"📅 Fresh off: {both}."]))
