@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T02:39Z",
+ "updated": "2026-11-13T02:41Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -216,8 +216,8 @@
    "away": "Capitals",
    "home": "Devils",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -246,8 +246,8 @@
    "away": "Lightning",
    "home": "Blue Jackets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -426,8 +426,8 @@
    "away": "Wild",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -738,64 +738,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nhl:401892705",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kings",
-    "p": 0.364,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-13T03:00Z",
-   "away": "Islanders",
-   "home": "Kings",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Islanders",
-    "opp": "Kings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.689,
-    "win_p": 0.472,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401911471",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "San Jos\u00e9 St",
-    "p": 0.692,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-13T03:00Z",
-   "away": "UC Riverside",
-   "home": "San Jos\u00e9 St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UC Riverside",
-    "opp": "San Jos\u00e9 St",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -108,
-    "p": 0.502,
-    "win_p": 0.231,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
   },
   {
    "id": "ncaab:401921721",
