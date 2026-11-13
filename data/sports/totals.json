@@ -123,13 +123,13 @@
   }
  },
  "nba": {
-  "games": 10293,
+  "games": 10294,
   "grade": {
    "all": {
-    "hit": 0.4984,
-    "low80": 0.4875,
-    "n": 3431,
-    "roi": -0.0479
+    "hit": 0.4985,
+    "low80": 0.4876,
+    "n": 3432,
+    "roi": -0.0477
    },
    "top10": {
     "hit": 0.4752,
@@ -150,21 +150,21 @@
     "roi": -0.0358
    }
   },
-  "hit_all": 0.4984,
+  "hit_all": 0.4985,
   "hit_top": 0.5053,
-  "intercept": 0.01341,
+  "intercept": 0.01321,
   "kept": [
    "b2b"
   ],
-  "ll_test_base": 0.69316,
+  "ll_test_base": 0.69317,
   "ll_test_kept": 0.6936,
   "ll_val_base": 0.69306,
   "ll_val_kept": 0.6927,
   "n_top": 1029,
   "norm": {
    "b2b": [
-    0.30973,
-    0.5444
+    0.30969,
+    0.54439
    ]
   },
   "proven": false,
@@ -240,9 +240,9 @@
    }
   },
   "test_from": "2024-01-28",
-  "test_games": 3431,
+  "test_games": 3432,
   "weights": {
-   "b2b": 0.0195
+   "b2b": 0.01961
   }
  },
  "ncaab": {
