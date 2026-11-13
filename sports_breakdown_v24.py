@@ -2337,6 +2337,10 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} Still, we've got {us} close to a coin flip - a hair better, not enough for units.",
                                  lambda F: f"🧠 {F} Even so it's close to 50-50 on our read, {us} by a hair.",
                                  lambda F: f"🧠 {F} Close to 50-50 for us, {us} by a nose."), names))   # is the reason)
+    elif need and own <= need and not lean:               # (11/13, the owner on the Predators ½u floor play: "we like
+        nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} Small bet on {us} - half a unit at about a fair price.",   # Predators
+                                 lambda F: f"🧠 {F} {us} at about a fair price, so it's a light bet."), names))    # just not at
+        #   this price makes zero sense" - a play WITH units never says the price is wrong for units)
     elif need and own <= need:
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} {us} is the side, but the price is too steep for units.",
                                  lambda F: f"🧠 {F} We like {us} - just not at this price."), names))
