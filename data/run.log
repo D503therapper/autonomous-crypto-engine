@@ -19226,3 +19226,29 @@ error: failed to push some refs to 'https://githu
 [2026-11-13 09:21 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-13 09:21 UTC] crypto/hold_btc  equity $418.21 (-16.4%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), ETH 35 (35/0/0), SOL 32 (32/0/0), ENA 29 (29/0/0), NEAR 27 (27/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '73560.18', 'l': '67526.91', 'a': '68786.11', 'v': '6749.4300', 'vv': '479332034.55', 'c': '-0.0601', 'b': '68788.91', 'k': '68788.92', 'oi': '0', 't': 1794561726120}
+   dex screen: REJECT 1WIN@solana liq $881,174 - top-10 holders 85%; lp holders unknown
+   dex screen: REJECT SOL@ethereum liq $1,306,085 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy
+   dex screen: REJECT ICP@ethereum liq $279,599 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS SPX@ethereum liq $9,472,474
+   dex screen: PASS PEPE@ethereum liq $28,061,713
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NPC@ethereum liq $3,488,626 - top-10 holders 40%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,908 pools (solana 2,019 / base 523 / ethereum 366), refresh cycle 109s (hot 106s), 2090 calls (79 feed, 429s 1, failed 1), 60,319 refreshed (8393 no pair), +80 added / -34 dropped (dead 32, stale 2, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-13 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/mover     equity $187.52 (-62.5%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/social_heat equity $333.19 (-33.4%) 2 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 10:05 UTC] crypto/hold_btc  equity $420.09 (-16.0%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), XRP 32 (32/0/0), SOL 32 (32/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0)
