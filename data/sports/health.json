@@ -1,11 +1,9 @@
 {
- "at": "2026-11-13T01:59Z",
+ "at": "2026-11-13T02:10Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:ncaab:1028837336 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (48s)",
+  "live watcher fresh (75s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,16 +11,30 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 11 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
+  "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-13T02:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-13T02:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-11-13T01:59Z",
    "fixes": [],
@@ -676,34 +688,6 @@
   },
   {
    "at": "2026-11-11T23:07Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-11T23:06Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-11T23:04Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"

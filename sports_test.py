@@ -20662,6 +20662,11 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
                          "⚠️ Giants go without Cam Skattebo (RB). That part don't help us, not gonna lie.",
                          "🟡 Bottom line: Giants (-125). Giants to win."]}
     keep = (copy.deepcopy(leg), leg["odds"], leg["side"])
+    at_post = {"nfl": {"19": [("Cam Skattebo", "RB", "Out"), ("Colton Hood", "CB", "Out"), ("J.J. McCarthy", "QB", "Questionable")],
+                       "28": [("Treylon Burks", "WR", "Out")]}}
+    leg["on_report"] = sports.on_report(leg, g, at_post)              # (stamped when the card posts)
+    assert leg["on_report"] == ["Cam Skattebo", "Colton Hood", "J.J. McCarthy", "Treylon Burks"]
+    keep = (copy.deepcopy(leg), leg["odds"], leg["side"])
     inj = {"nfl": {"19": [("Colton Hood", "CB", "Out"), ("Malik Harrison", "LB", "Questionable")],
                    "28": [("Treylon Burks", "WR", "Out")]}}
     sports.fresh_card_facts({"nfl:1": g}, [leg], inj)
@@ -20679,6 +20684,27 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
         l2 = copy.deepcopy(keep[0])
         sports.fresh_card_facts({"nfl:1": g}, [l2], bad)
         assert not l2.get("stale"), bad
+    # a name the card got from the box scores and the report never had (11/12: Patrick Kane / Sandis Vilmanis sat the
+    # last games, never listed) is never called 'playing'
+    l4 = {**copy.deepcopy(keep[0]), "outs": ["Patrick Kane"], "opp_outs": [], "waiting": [], "absent": [], "on_report": []}
+    sports.fresh_card_facts({"nfl:1": g}, [l4], inj)
+    assert not l4.get("stale"), l4.get("stale")
+    # ...and the 4th-down line says the real plays, never "way more" (Victor, 11/12: "where does it get that info?")
+    import sports_go4 as g4
+    import sports_card_guard as cg
+    keep_g4 = dict(g4._CACHE)
+    try:
+        g4._CACHE["d"] = {"counts": {"Giants": [4, 5], "Commanders": [3, 6], "Jets": [1, 2]},
+                          "counts_prev": {"Giants": [7, 9], "Commanders": [4, 6]}}
+        assert g4.card_line("Giants", "Commanders") == ("🎲 4th and short between their own 40 and the other 30 this season: "
+                                                        "Giants went for it 4 of 5 times, Commanders 3 of 6 (last season 7 of 9 vs 4 of 6).")
+        assert g4.card_line("Giants", "Jets") == ""                   # too few plays = no line
+    finally:
+        g4._CACHE.clear()
+        g4._CACHE.update(keep_g4)
+    assert cg.problem("🎲 Giants' coach goes for it on 4th down way more than Commanders' coach. We like a coach with some nuts.", "nfl")
+    # the cold-weather edge is only NAMED on a real climate gap (the Commanders are no warm-weather team)
+    assert abs(sports.COLD_NAME_MIN - 10 / 30) < 1e-9
     # a started game is frozen at puck drop / kickoff
     l3 = copy.deepcopy(keep[0])
     sports.fresh_card_facts({"nfl:1": {**g, "status": "in"}}, [l3], inj)

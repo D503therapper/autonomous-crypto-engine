@@ -232,7 +232,7 @@ def _reasons(side, f, g, league, params, p_side=None):
             out.append((0.4 + w[name], label))
     for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us"),
                         ("travel", "opponent's body clock is off")):
-        if f.get(name, 0) * s > 0.05 and w.get(name, 0) >= 0.1:
+        if f.get(name, 0) * s > (COLD_NAME_MIN if name == "cold" else 0.05) and w.get(name, 0) >= 0.1:
             out.append((0.4 + w[name] * abs(f[name]), label))
     if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
         out.append((0.4 - w["letdown"], "rolling off a blowout win"))
@@ -240,6 +240,11 @@ def _reasons(side, f, g, league, params, p_side=None):
         out.append((f["key"] * s, {"mlb": "better starting pitcher", "nhl": "hotter goalie"}.get(league, "better QB play lately")))
     out.sort(key=lambda r: -r[0])
     return [r[1] for r in out[:3]]
+
+
+COLD_NAME_MIN = 10 / 30   # 11/12: the 'cold-weather edge' is NAMED (card: "a warm-weather team in a freezer") only when
+#   the other side's home games run 10°F+ warmer than ours - it fired on a ~1.5°F gap and called the Commanders (Landover,
+#   MD) a warm-weather team at the Giants. The weight in the read is unchanged; only the claim needs a real gap.
 
 
 def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
@@ -8120,6 +8125,10 @@ def post_board(games, model, picks, now, day, force=False):
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
             leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
+            try:
+                leg["on_report"] = on_report(leg, g, injuries)               # (11/12: who the report had at posting)
+            except Exception:                                                # noqa: BLE001
+                pass
             card_extras(leg, g, injuries)                       # 🚑 who's out · 🏀 the roster read · 🥅 who's in net
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
@@ -8677,13 +8686,31 @@ def _on_list(name, names):
     return False
 
 
+def report_names(leg):
+    """Every man the card lists out / questionable (its who's-out lists, the waiting list, the absence penalty's)."""
+    posted = [_named(x) for k in ("outs", "opp_outs", "waiting") for x in leg.get(k) or []]
+    posted += [_named(x) for x in leg.get("absent") or []]
+    return list(dict.fromkeys(n for n in posted if n))
+
+
+def on_report(leg, g, injuries):
+    """The card's names that ARE on the injury report right now - stamped when the card posts, so a later run can
+    tell 'came off the report' from 'never was on it' (sports.fresh_card_facts)."""
+    inj = (injuries or {}).get(leg.get("league"))
+    if not inj:
+        return []
+    listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
+    return sorted(n for n in report_names(leg) if _on_list(n, listed))
+
+
 def fresh_card_facts(games, legs, injuries):
     """🔄 THE CARD KEEPS UP WITH THE NEWS (11/12 - Victor: "One of the write ups has bad information ... outdated
     information", the owner: "Skattebo is playing" / "JJ is playing as well"). A card is written when it posts and its
     names stayed frozen all day: the 2u Blackhawks Dog said Colten Ellis, 'projected to start for the Sabres', couldn't
     keep the puck out - Ellis started the night before and ESPN moved the Sabres to Alex Lyon at 3:44 PM PT; the Giants
     night card had RB Cam Skattebo out and QB J.J. McCarthy questionable - both came off the report and played.
-    Every run until the game starts: a man the card lists out / questionable who is OFF the report now, and a goalie a
+    Every run until the game starts: a man the card lists out / questionable who WAS on the report (stamped at posting,
+    leg['on_report'], and every run after) and is OFF it now, and a goalie a
     🥅 / 🧱 line names who is no longer either side's starter, go on leg['stale']; leg['fresh'] says what changed and
     leg['inj_now'] is the side's 🚑 line as the report reads now. The dashboard drops every line naming a stale man and
     shows the update (sports_dashboard._breakdown). The pick, its units and its record never change - only the facts.
@@ -8699,12 +8726,14 @@ def fresh_card_facts(games, legs, injuries):
         if inj is not None and leg["league"] in sd.INJ_LEAGUES:
             listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
             if listed:                                       # (a report with nobody on it for either side: a hiccup -
-                posted = [_named(x) for k in ("outs", "opp_outs", "waiting") for x in leg.get(k) or []]   # never 'cleared')
-                posted += [_named(x) for x in leg.get("absent") or []]
-                for nm in dict.fromkeys(n for n in posted if n):
-                    if not _on_list(nm, listed) and nm not in stale:
-                        stale.append(nm)
-                        fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")
+                seen = set(leg.get("on_report") or [])       #  never 'cleared')
+                for nm in report_names(leg):
+                    if _on_list(nm, listed):
+                        seen.add(nm)
+                    elif nm in seen and nm not in stale:     # ONLY a man the report HAD and dropped: a name the card
+                        stale.append(nm)                     # got from the box scores (Kane / Vilmanis sat the last
+                        fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")   # games, never
+                leg["on_report"] = sorted(seen)              # on the report) is never called 'playing' - that'd be false
         if leg["league"] == "nhl":
             rows = sp.CACHE.get("nhl") or []
             if rows:

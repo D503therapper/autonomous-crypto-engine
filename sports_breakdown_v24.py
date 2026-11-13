@@ -1967,10 +1967,13 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
         import sports_go4 as _g4
         gg = mo["go4_gap"]
         if gg >= _g4.GAP_HI:
-            add.append(v.say("f_go4", [f"🎲 {_cap(_pos(us))} coach goes for it on 4th down way more than {_pos(them)} coach. We like a coach with some nuts.",
-                                       f"🎲 On 4th down, {us} keep the offense out there way more often than {them}. We like a coach with balls."]))
+            g4 = _g4.card_line(us, them)                  # (11/12: the real plays, never a bare "way more" -
+            if g4:                                        #  no count on file / too few plays = no line)
+                add.append(g4)
         elif gg <= _g4.GAP_LO:
-            v.knock(1, f"{them}' coach goes for it on 4th down a lot more than {us}' coach does")
+            g4 = _g4.card_line(them, us)
+            if g4:                                        # (11/12: the knock says the plays too, or nothing)
+                v.knock(1, g4[2:].strip().rstrip("."))
 
     # head to head this season, when the 🆚 line above didn't print (we lost it, or split)
     if last_vs and not any(str(x).startswith("🆚") for x in out):
