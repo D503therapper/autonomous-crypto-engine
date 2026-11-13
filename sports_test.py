@@ -20841,6 +20841,28 @@ def test_owner_1112_the_brain_ships_with_every_grade_and_says_what_the_page_says
     assert not any("94%" in x for x in b) and "⚠️ Blackhawks have dropped 6 straight." in b
 
 
+def test_owner_1113_a_unit_play_never_says_not_at_this_price():
+    """11/13 (the owner on the Predators +136 ½u floor play: "we like Predators just not at this price makes zero
+    sense"): the one-liner's own-read-under-the-price wording ("We like X - just not at this price", "too steep for
+    units") is a LEAN's; a play with units gets a small-bet line, and a posted one falls back to the card's first fact."""
+    import inspect
+    import sports_breakdown_v24 as v24
+    import sports_dashboard as dash
+    src = inspect.getsource(v24.why_line)
+    i = src.index("elif need and own <= need and not lean:")
+    assert "just not at this price" not in src[i:src.index("elif need and own <= need:", i + 10)]
+    leg = {"team": "Predators", "opp": "Golden Knights", "league": "nhl", "market": "ml", "odds": 136, "side": "away",
+           "tier": "value", "is_lean": False, "game_id": "nhl:1", "start": "2026-11-14T03:00Z", "line": None, "home": False,
+           "why_line": "🧠 The Predators have won 6 straight. We like Predators - just not at this price.",
+           "breakdown": ["🧱 Juuse Saros has a 0.977 save % (2 goals on 86 shots) over his last 3 starts.",
+                         "✅ Bottom line: Predators at +136. Half a unit and that's it."]}
+    assert dash.NOT_FOR_UNITS.search(leg["why_line"])
+    h = dash._leg(leg)
+    assert "just not at this price" not in h and "Juuse Saros" in h
+    lean = dict(leg, is_lean=True, tier="lean")
+    assert "just not at this price" in dash._leg(lean)               # a lean keeps its own wording
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""

@@ -868,6 +868,11 @@ def _early_line(leg):
     return f'<div class="why">{E(line)}</div>'
 
 
+NOT_FOR_UNITS = re.compile(r"just not at this price|too steep for units|not enough for units|no units at this price", re.I)
+#   11/13 (the owner on the Predators ½u floor play: "we like Predators just not at this price makes zero sense") - a
+#   lean's wording never rides on a play with units; a posted one falls back to the card's first fact
+
+
 def _leg(leg, tagged=False, review="", units=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
@@ -881,7 +886,10 @@ def _leg(leg, tagged=False, review="", units=None):
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
     import sports_card_guard
-    why = E(pct_ok(sports_card_guard.one("" if stale_in(leg.get("why_line"), leg) else leg.get("why_line"),
+    _wl = leg.get("why_line")
+    if _wl and not leg.get("is_lean") and lt_ not in ("lean", "strong") and NOT_FOR_UNITS.search(_wl):
+        _wl = ""                                             # (11/13: a posted unit play's "just not at this price" line)
+    why = E(pct_ok(sports_card_guard.one("" if stale_in(_wl, leg) else _wl,
                                          leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
                    or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
