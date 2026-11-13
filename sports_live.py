@@ -2116,6 +2116,83 @@ def grade_in_background(msg):
     return True
 
 
+CARD_NEWS_S = 5 * 60          # 11/13 (the owner: "the goalie info on the Predators card needs to update as soon as he's
+CARD_NEWS_AHEAD_H = 4         # ruled to play ... always up to date"): while the watch runs, every 5 minutes the posted
+#                               cards whose games start within 4 hours re-read the goalie page and the injury report
+#                               (the hourly engine run did it alone - a goalie confirmed at 3:10 showed at 4:00)
+
+
+def card_news_due(games, picks, now=None):
+    """The open posted legs whose games haven't started and start within CARD_NEWS_AHEAD_H hours."""
+    now = now or datetime.now(timezone.utc)
+    out = []
+    for p in picks or []:
+        if p.get("status") != "open":
+            continue
+        for l in p.get("legs") or []:
+            g = (games or {}).get(l.get("game_id"))
+            if not g or g.get("status") != "pre" or not g.get("start"):
+                continue
+            try:
+                t = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
+            if 0 <= (t - now).total_seconds() <= CARD_NEWS_AHEAD_H * 3600:
+                out.append(l)
+    return out
+
+
+def publish_card_news(msg):
+    """Re-check the posted cards' goalie / injury names now (sports.fresh_card_facts), rebuild the page and push when
+    a card changed. Runs in the background slot, like the grader."""
+    import importlib
+    import sports
+    try:
+        pull()
+        importlib.reload(sports)
+        games = sd.load_games()
+        path = os.path.join(sd.DATA, "picks.json")
+        picks = json.load(open(path))
+        legs = card_news_due(games, picks)
+        if not legs:
+            return
+        sp.CACHE = sp.load()
+        if any(l.get("league") == "nhl" for l in legs):
+            import sports_goalies
+            sports_goalies.sync(games)
+        injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs} if lg in sd.INJ_LEAGUES}
+        key = lambda: json.dumps([(l.get("stale"), l.get("fresh"), l.get("confirmed")) for l in legs], sort_keys=True)
+        before = key()
+        sports.fresh_card_facts(games, legs, injuries)
+        if key() == before:
+            return
+        sports._save("picks.json", picks)
+        sports.quick()                                       # (rebuilds the page and the brain from the saved picks)
+    except Exception as e:                                   # noqa: BLE001 - never stop watching over this
+        print(f"card news failed: {e}", flush=True)
+        return
+    paths = [os.path.join(sd.DATA, "picks.json"), os.path.join(sd.DATA, "nhl_goalies.json"), "docs/sports/index.html",
+             "docs/sports/brain.json", "docs/sports/reads.json"]
+    _git("add", *[p for p in paths if os.path.exists(p)])
+    if _git("diff", "--cached", "--quiet").returncode == 0:
+        return
+    _git("commit", "-qm", msg)
+    for _ in range(4):
+        pull()
+        if _git("push", "-q").returncode == 0:
+            return
+        time.sleep(3)
+
+
+def card_news_in_background(msg):
+    import subprocess
+    if grading():
+        return False
+    GRADER[0] = subprocess.Popen([sys.executable, "-u", "-c", f"import sports_live; sports_live.publish_card_news({msg!r})"])
+    GRADER_AT[0] = time.time()
+    return True
+
+
 def grading():
     """Is the background grader still going? One stuck past GRADER_MAX_S is killed (and the next one can start)."""
     g = GRADER[0]
@@ -2283,6 +2360,7 @@ def loop(minutes, every_s=1):
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     last_pull, last_scores, last_grade, regrade_until = 0.0, None, 0.0, 0.0
     finals_seen = None
+    last_news = [0.0]
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     BEAT[0] = time.time() + 120                                 # (startup gets 2 extra minutes)
     watchdog()
@@ -2345,6 +2423,13 @@ def loop(minutes, every_s=1):
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
             if push_live():
                 last_board, last_scores, last_push = board, scores, time.time()
+        if time.time() - last_news[0] > CARD_NEWS_S and not grading():   # 🔄 11/13: posted cards keep up with the news
+            try:
+                if card_news_due(games, json.load(open(os.path.join(sd.DATA, "picks.json")))):
+                    card_news_in_background(f"card news {datetime.now(timezone.utc):%H:%M}")
+            except (OSError, ValueError):
+                pass
+            last_news[0] = time.time()
         if _log_key() != last_log and not grading():            # (git one job at a time)
             publish(f"live log {datetime.now(timezone.utc):%H:%M}")
             last_log = _log_key()

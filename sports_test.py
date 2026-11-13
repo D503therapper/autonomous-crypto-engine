@@ -20875,6 +20875,44 @@ def test_pre_1113_the_latest_line_labels_a_non_d1_opponent():
     assert "non-D1" in src[i - 200:i + 300]
 
 
+def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads_confirmed():
+    """11/13 (the owner: "The goalie info on the Predators card needs to update as soon as he's ruled to play - these
+    types of information need to always be up to date"): the posted cards re-read the goalie page and the injury report
+    every 5 minutes while the live watch runs (games within 4 hours), not once an hour; and a projected goalie the page
+    then CONFIRMS reads 'confirmed in net', never '(not confirmed yet)'."""
+    import inspect
+    from datetime import datetime, timezone
+    import sports_live as sl
+    import sports_dashboard as dash
+    assert sl.CARD_NEWS_S <= 5 * 60 and "card_news_in_background" in inspect.getsource(sl.loop)
+    now = datetime(2026, 11, 14, 0, 0, tzinfo=timezone.utc)
+    games = {"nhl:1": {"status": "pre", "start": "2026-11-14T03:00Z"}, "nhl:2": {"status": "pre", "start": "2026-11-14T09:00Z"},
+             "nhl:3": {"status": "in", "start": "2026-11-13T23:00Z"}}
+    picks = [{"status": "open", "legs": [{"game_id": g} for g in games]}, {"status": "won", "legs": [{"game_id": "nhl:1"}]}]
+    assert [l["game_id"] for l in sl.card_news_due(games, picks, now)] == ["nhl:1"]
+    g = {"id": "nhl:1", "league": "nhl", "status": "pre", "home": "8", "away": "27", "home_name": "Golden Knights",
+         "away_name": "Predators", "start": "2026-11-14T03:00Z"}
+    leg = {"game_id": "nhl:1", "league": "nhl", "team": "Predators", "opp": "Golden Knights", "side": "away",
+           "breakdown": ["🧱 Juuse Saros, projected to start for the Predators (not confirmed yet), has been a brick wall — a 0.977 save %."]}
+    import sports_goalies
+    keep = (sports.sp.CACHE.get("nhl"), sports.sp.starter_for, sports_goalies.confirmed)
+    try:
+        sports.sp.CACHE["nhl"] = [{"gid": "a", "start": "2026-11-12T00:00Z", "team": "27", "player": "Juuse Saros", "role": "G"}]
+        sports.sp.starter_for = lambda r, g_, s_: {"away": "Juuse Saros", "home": "Adin Hill"}[s_]
+        sports_goalies.confirmed = lambda gid, side, now=None: {"name": "Juuse Saros", "status": "confirmed"} if side == "away" else None
+        sports.fresh_card_facts({"nhl:1": g}, [leg], {"nhl": None})
+    finally:
+        sports.sp.CACHE["nhl"], sports.sp.starter_for, sports_goalies.confirmed = keep
+        if keep[0] is None:
+            sports.sp.CACHE.pop("nhl", None)
+    assert leg["confirmed"] == ["Juuse Saros"] and not leg.get("stale")
+    shown = dash.fresh_lines(leg, leg["breakdown"])
+    assert shown[0] == "✅ Update: Juuse Saros is confirmed in net for the Predators."
+    assert shown[1].startswith("🧱 Juuse Saros, confirmed in net for the Predators,") and "not confirmed" not in shown[1]
+    assert dash._confirmed_now("🧱 Joel Hofer — the Blues' projected starter, nobody's confirmed yet — is standing on his head.",
+                               {"confirmed": ["Joel Hofer"]}) == "🧱 Joel Hofer — confirmed in net for the Blues — is standing on his head."
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
