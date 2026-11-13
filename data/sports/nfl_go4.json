@@ -1,39 +1,295 @@
 {
- "updated": "2026-11-12T22:57Z",
+ "updated": "2026-11-13T02:06Z",
  "season": 2026,
  "league": 0.6288,
  "teams": {
-  "Bengals": 0.4138,
-  "Jaguars": 0.6319,
-  "Packers": 0.6295,
-  "Saints": 0.6884,
-  "Colts": 0.5749,
-  "Browns": 0.5728,
-  "Broncos": 0.5031,
-  "Panthers": 0.7365,
-  "Jets": 0.5674,
-  "Ravens": 0.6536,
-  "Giants": 0.7272,
-  "Cardinals": 0.4822,
-  "Commanders": 0.5787,
-  "Bills": 0.7938,
-  "Dolphins": 0.7459,
-  "Cowboys": 0.682,
-  "Lions": 0.6614,
-  "Falcons": 0.6796,
-  "Steelers": 0.5369,
-  "Seahawks": 0.5707,
-  "Chargers": 0.4692,
-  "Rams": 0.6977,
-  "Eagles": 0.7603,
-  "49ers": 0.6705,
-  "Chiefs": 0.6953,
-  "Buccaneers": 0.6216,
-  "Patriots": 0.6559,
-  "Raiders": 0.5853,
-  "Bears": 0.7009,
   "Vikings": 0.6234,
+  "Packers": 0.6295,
+  "Broncos": 0.5031,
+  "Colts": 0.5749,
+  "Giants": 0.7272,
+  "Bills": 0.7938,
+  "Eagles": 0.7603,
+  "Cardinals": 0.4822,
+  "Buccaneers": 0.6216,
+  "Falcons": 0.6796,
+  "Chiefs": 0.6953,
+  "49ers": 0.6705,
+  "Jets": 0.5674,
+  "Dolphins": 0.7459,
+  "Seahawks": 0.5707,
+  "Titans": 0.5148,
+  "Ravens": 0.6536,
   "Texans": 0.4711,
-  "Titans": 0.5148
+  "Commanders": 0.5787,
+  "Bears": 0.7009,
+  "Lions": 0.6614,
+  "Panthers": 0.7365,
+  "Bengals": 0.4138,
+  "Saints": 0.6884,
+  "Steelers": 0.5369,
+  "Browns": 0.5728,
+  "Patriots": 0.6559,
+  "Chargers": 0.4692,
+  "Jaguars": 0.6319,
+  "Rams": 0.6977,
+  "Raiders": 0.5853,
+  "Cowboys": 0.682
+ },
+ "counts": {
+  "Cardinals": [
+   1,
+   4
+  ],
+  "Steelers": [
+   3,
+   6
+  ],
+  "Bills": [
+   5,
+   5
+  ],
+  "Panthers": [
+   6,
+   8
+  ],
+  "Chiefs": [
+   5,
+   7
+  ],
+  "Packers": [
+   4,
+   8
+  ],
+  "Raiders": [
+   2,
+   4
+  ],
+  "Patriots": [
+   4,
+   7
+  ],
+  "Seahawks": [
+   2,
+   3
+  ],
+  "Saints": [
+   3,
+   4
+  ],
+  "Lions": [
+   3,
+   5
+  ],
+  "Jets": [
+   4,
+   8
+  ],
+  "Titans": [
+   1,
+   5
+  ],
+  "49ers": [
+   3,
+   4
+  ],
+  "Commanders": [
+   3,
+   6
+  ],
+  "Eagles": [
+   6,
+   7
+  ],
+  "Falcons": [
+   4,
+   5
+  ],
+  "Bengals": [
+   1,
+   6
+  ],
+  "Texans": [
+   2,
+   5
+  ],
+  "Colts": [
+   5,
+   9
+  ],
+  "Chargers": [
+   1,
+   5
+  ],
+  "Dolphins": [
+   4,
+   4
+  ],
+  "Vikings": [
+   5,
+   7
+  ],
+  "Bears": [
+   4,
+   5
+  ],
+  "Cowboys": [
+   3,
+   4
+  ],
+  "Browns": [
+   2,
+   4
+  ],
+  "Jaguars": [
+   1,
+   2
+  ],
+  "Broncos": [
+   2,
+   6
+  ],
+  "Buccaneers": [
+   1,
+   2
+  ],
+  "Rams": [
+   4,
+   6
+  ],
+  "Giants": [
+   4,
+   5
+  ]
+ },
+ "counts_prev": {
+  "Bills": [
+   9,
+   11
+  ],
+  "Browns": [
+   5,
+   9
+  ],
+  "Cowboys": [
+   8,
+   11
+  ],
+  "Lions": [
+   9,
+   12
+  ],
+  "Chiefs": [
+   12,
+   16
+  ],
+  "Raiders": [
+   5,
+   8
+  ],
+  "Commanders": [
+   4,
+   6
+  ],
+  "49ers": [
+   9,
+   14
+  ],
+  "Falcons": [
+   6,
+   10
+  ],
+  "Broncos": [
+   5,
+   9
+  ],
+  "Vikings": [
+   5,
+   11
+  ],
+  "Colts": [
+   5,
+   9
+  ],
+  "Jaguars": [
+   7,
+   10
+  ],
+  "Chargers": [
+   5,
+   9
+  ],
+  "Rams": [
+   8,
+   9
+  ],
+  "Titans": [
+   7,
+   10
+  ],
+  "Patriots": [
+   7,
+   9
+  ],
+  "Steelers": [
+   5,
+   11
+  ],
+  "Seahawks": [
+   3,
+   8
+  ],
+  "Saints": [
+   7,
+   10
+  ],
+  "Packers": [
+   8,
+   10
+  ],
+  "Cardinals": [
+   2,
+   5
+  ],
+  "Panthers": [
+   14,
+   17
+  ],
+  "Texans": [
+   6,
+   17
+  ],
+  "Eagles": [
+   4,
+   5
+  ],
+  "Jets": [
+   4,
+   6
+  ],
+  "Ravens": [
+   5,
+   7
+  ],
+  "Bears": [
+   7,
+   10
+  ],
+  "Giants": [
+   7,
+   9
+  ],
+  "Bengals": [
+   2,
+   4
+  ],
+  "Buccaneers": [
+   5,
+   7
+  ],
+  "Dolphins": [
+   0,
+   1
+  ]
  }
 }

@@ -87,6 +87,42 @@ def rates(cur, prev=()):
     return out, league
 
 
+def tally(tr):
+    """{team nickname: [went for it, go-able 4th downs]} - the raw plays behind a rate."""
+    out = {}
+    for t, _, g in tr:
+        if t:
+            a = out.setdefault(NICK.get(t, t), [0, 0])
+            a[0] += int(bool(g))
+            a[1] += 1
+    return out
+
+
+COUNT_MIN = 4          # a card names the plays only when both teams have this many go-able 4th downs this season
+
+
+def plays(team_name):
+    """(went, tries, went last season, tries last season) - None when the saved file has no counts for the team."""
+    d = load()
+    for nick in (d.get("counts") or {}):
+        if team_name and (sd._same(nick, team_name) or sd._same(team_name, nick)):
+            c, pv = d["counts"][nick], (d.get("counts_prev") or {}).get(nick) or [0, 0]
+            return c[0], c[1], pv[0], pv[1]
+    return None
+
+
+def card_line(us, them):
+    """🎲 The 4th-down line in real plays (11/12 - Victor on the Giants card, 'Dan Quinn is the type of coach to go
+    for it ... where does it get that info?': the old line said "goes for it way more" off a smoothed rate standing on
+    5 and 6 plays). '' unless both teams have COUNT_MIN+ go-able 4th downs this season."""
+    a, b = plays(us), plays(them)
+    if not a or not b or a[1] < COUNT_MIN or b[1] < COUNT_MIN:
+        return ""
+    last = f" (last season {a[2]} of {a[3]} vs {b[2]} of {b[3]})" if a[3] and b[3] else ""
+    return (f"🎲 4th and short between their own 40 and the other 30 this season: {us} went for it {a[0]} of {a[1]} "
+            f"times, {them} {b[0]} of {b[1]}{last}.")
+
+
 def refresh(now=None, force=False):
     """Pull the current (and last) season's play-by-play and save every team's go rate - at most once a day."""
     now = now or datetime.now(timezone.utc)
@@ -107,7 +143,8 @@ def refresh(now=None, force=False):
         return old
     r, league = rates(cur, prev)
     data = {"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "season": y, "league": round(league, 4),
-            "teams": {NICK.get(t, t): round(v, 4) for t, v in r.items()}}
+            "teams": {NICK.get(t, t): round(v, 4) for t, v in r.items()},
+            "counts": tally(cur), "counts_prev": tally(prev)}   # (11/12: the card says the real plays, never "way more")
     with open(PATH + ".tmp", "w") as f:
         json.dump(data, f, indent=1)
     os.replace(PATH + ".tmp", PATH)

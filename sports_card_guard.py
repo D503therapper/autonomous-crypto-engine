@@ -31,6 +31,10 @@ FILLER = re.compile(r"travel just fine|just the better team|they'?re just better
                     r"the more rested squad|well-rested and ready|extra days to get right|rest edge goes to|"
                     r"sometimes the public gotta win|public'?s usually (wrong|on the wrong side)|for once the casuals|"
                     r"crowd can'?t make up its mind|nobody knows nothing|"
+                    # (11/12, Victor on the Giants card: "where does it get that info?" - a 4th-down claim with no plays
+                    #  behind it; the line says the real counts now, sports_go4.card_line)
+                    r"goes for it on 4th down way more|keep the offense out there way more often|"
+                    r"goes for it on 4th down a lot more than|"
                     r"^\W*🧠\s*(the engine|our read|we'?ve got|we like|close to 50-50|the numbers)\b", re.I)
 #   (10/2: "we got our own reasons." with no reason after it is filler - the owner's never-vague rule; 10/5: "Guardians
 #   are 85-77 right now - the rest is on the field" just repeats the record the line above already said; 10/21: a 🧠 line
