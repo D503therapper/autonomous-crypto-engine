@@ -1,26 +1,30 @@
 {
- "at": "2026-11-13T09:46Z",
+ "at": "2026-11-13T10:05Z",
  "fixes": [],
- "problems": [
-  "question box down (502): {\"error\":\"ai unavailable\",\"why\":\"503 503 credential validation failed\"}",
-  "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
+  "question box answers",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
+  "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 2 min ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-13T10:05Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-13T09:46Z",
    "fixes": [],
@@ -567,19 +571,6 @@
   },
   {
    "at": "2026-11-12T04:36Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:35Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
