@@ -312,7 +312,8 @@ def wording(line, cx, leg):
         else:
             keep.append(s)
     names = [n for n in (leg.get("team"), leg.get("opp")) if n]
-    if keep != parts and not any(re.search(r"\d", k) or any(n in k for n in names) for k in keep):
+    if keep != parts and not any(re.search(r"\d", k) or any(n in k for n in names) or re.search(r".\b[A-Z][a-z]", k.strip())
+                                 for k in keep):
         keep = []                                            # (nothing with a fact left: "That's just facts." alone goes)
     out = _join(lead, keep) if keep != parts else t
     if head_bad:
@@ -425,6 +426,31 @@ def _finals(games, lg):
     return _FIN[key]
 
 
+_TF, _FIN_BEFORE, _IDX = {}, {}, {}
+
+
+def reset():
+    """Forget the game-file caches (a new build: the games dict is updated in place as games go final)."""
+    _FIN.clear()
+    _TF.clear()
+    _FIN_BEFORE.clear()
+    _IDX.clear()
+
+
+def _team_index(games, lg):
+    """{team id: its finals, oldest first} for one league (once a games dict)."""
+    key = (id(games), len(games), lg)
+    if key not in _IDX:
+        if len(_IDX) > 12:
+            _IDX.clear()
+        idx = {}
+        for x in _finals(games, lg):
+            idx.setdefault(x["home"], []).append(x)
+            idx.setdefault(x["away"], []).append(x)
+        _IDX[key] = idx
+    return _IDX[key]
+
+
 def team_facts(games, leg, which):
     """What the game files say about one side going into this game ('us' / 'them'): the season record (regular season),
     home / road records, the last 5, the streak, the last games, the days since the last one. None = can't check;
@@ -442,11 +468,20 @@ def team_facts(games, leg, which):
     if which == "them":
         side = "away" if side == "home" else "home"
     tid, lg = g.get(side), leg.get("league")
+    key = (id(games), len(games), g.get("id"), side)
+    if key in _TF:
+        return _TF[key]
     start = v._t(g["start"])
-    fin = [x for x in _finals(games, lg) if v._t(x["start"]) < start]
-    if not v.seen_all(fin, tid, start, lg):
-        return {"unseen": True}
-    s = v._season(v._team_games(fin, tid), start)
+    if lg in ("ncaaf", "ncaab"):                           # (college: is every game of theirs on file? one list a start
+        fk = (id(games), len(games), lg, g["start"])        #  time, so seen_all's season memo hits)
+        if fk not in _FIN_BEFORE:
+            if len(_FIN_BEFORE) > 64:
+                _FIN_BEFORE.clear()
+            _FIN_BEFORE[fk] = [x for x in _finals(games, lg) if x["start"] < g["start"]]
+        if not v.seen_all(_FIN_BEFORE[fk], tid, start, lg):
+            _TF[key] = {"unseen": True}
+            return _TF[key]
+    s = v._season([x for x in _team_index(games, lg).get(tid, []) if x["start"] < g["start"]], start)
     reg = [x for x in s if str(x.get("stype") or "2") == "2"]
     lines = [v._line(x, tid) for x in s]
     home = [v._line(x, tid) for x in reg if x.get("home") == tid and str(x.get("neutral")) not in ("1", "True", "true")]
@@ -465,9 +500,12 @@ def team_facts(games, leg, which):
         w = sum(x.startswith("W") for x in ls)
         lo = sum(x.startswith("L") for x in ls)
         return (w, lo, len(ls) - w - lo)
-    return {"rec": {rec([v._line(x, tid) for x in reg]), rec(lines)}, "home": rec(home), "road": rec(road),
-            "last5": rec(lines[-5:]), "streak": streak, "lines": lines, "rest": v._days(start, v._t(s[-1]["start"])) if s else None,
-            "n": len(s)}
+    if len(_TF) > 2000:
+        _TF.clear()
+    _TF[key] = {"rec": {rec([v._line(x, tid) for x in reg]), rec(lines)}, "home": rec(home), "road": rec(road),
+                "last5": rec(lines[-5:]), "streak": streak, "lines": lines,
+                "rest": v._days(start, v._t(s[-1]["start"])) if s else None, "n": len(s)}
+    return _TF[key]
 
 
 REC = re.compile(r"(?<![\d.:/+-])(\d{1,3})-(\d{1,3})(?:-(\d{1,2}))?(?![\d%:/]|\.\d|-\d)")
@@ -772,6 +810,7 @@ def save(path=None, keep_days=30):
 def pre_post(new, games=None):
     """🧾 Before a pick posts (sports.post_board, after the rule check): every new card's one-liner and breakdown run the
     whole check and are rewritten before anybody sees them. Never holds a pick. Returns {pick key: lines changed}."""
+    reset()
     out = {}
     for pk in new or []:
         n = 0

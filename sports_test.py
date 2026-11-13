@@ -22987,6 +22987,18 @@ def test_card_audit_1113_the_card_check_wording_vs_the_bet_and_the_lingo():
     assert "extra money" not in out and out.startswith("✅ Bottom line: Bruins (-142).") and "own price" in why
     # never a lean's 🟡 on a unit play's bottom line
     assert cc.wording("🟡 Bottom line: Celtics (-124). Celtics on the road: 3-2.", unit, leg)[0].startswith("✅")
+    # "the better team" only when the read has them winning; a lone "That's just facts." never stands
+    dog = {**half, "odds": 142, "implied": 0.413, "read": 0.43, "p": 0.43}
+    vk = {"team": "Vikings", "opp": "Lions", "market": "ml", "odds": 142, "league": "nfl"}
+    assert cc.wording("💪 Vikings (6-0) over Lions (4-2) on the record — the better team.", dog, vk)[0] == \
+        "💪 Vikings (6-0) over Lions (4-2) on the record."
+    assert cc.wording("💪 Predators 8-9, Kings 5-10. Better squad on our side.", dog, {**vk, "team": "Predators"})[0] == \
+        "💪 Predators 8-9, Kings 5-10."
+    assert cc.wording("💪 Bruins (12-5) vs Panthers (9-8) — the better team is on our side.", half, br)[1] == ""
+    # the line under a pick never talks the line moving (the owner, 10/23)
+    assert cc.check_one(None, {"team": "Navy", "opp": "Army", "odds": 114, "market": "ml"},
+                        "🧠 Navy beat Air Force 31-10. The price drifted out since the first number - we get the better one.") \
+        == "🧠 Navy beat Air Force 31-10."
 
 
 def test_card_audit_1113_the_card_check_facts_vs_the_game_files():

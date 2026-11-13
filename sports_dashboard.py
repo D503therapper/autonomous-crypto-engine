@@ -1843,6 +1843,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     import sports
     WHY_USED.clear()
     _GAMES_[0] = games or {}
+    try:                                                     # 🧾 the card check reads the game files fresh each build
+        import sports_card_check
+        sports_card_check.reset()
+    except Exception:                                        # noqa: BLE001
+        pass
     try:                                                     # ⏰ which of today's picks we already got in early on
         import sports_early
         EARLY_IN.clear()
