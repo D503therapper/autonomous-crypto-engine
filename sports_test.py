@@ -2828,7 +2828,9 @@ def test_past_results_vocab():
         assert len(x) <= caps["good"][0], x
     # a big supply: hundreds to thousands of ways for every review
     sup = sl.supply()
-    assert all(v >= 300 for k, v in sup.items() if k.startswith("review") and "push" not in k), sup
+    assert all(v >= 15 for k, v in sup.items() if k.startswith("review") and "push" not in k), sup
+    #   (11/12, the owner: "Keep stacking is retarded" - the 300+ came from ~20 canned sign-offs multiplied onto every
+    #    line; the variety that counts is the no-4-word-run-twice check above, over the whole Past Results section)
     assert sl.note_supply()["leans"] > 100000 and sup["good"] > 5000
 
 
@@ -4084,7 +4086,7 @@ def test_owner_lingo_is_live_everywhere():
         assert not any("cooked" in t for t in SL.LINES[k][2]), k
     assert any("got cooked" in t for t in SL.LINES["tn:lost"][2]) and any("shit the bed" in t for t in SL.LINES["tn:lost"][2])
     # 9/30: "+200 moneyline, we smacked" / "the 49ers smacked" - a WIN; never "cooked" for a winner
-    assert "We smacked." in SL.PAL["wk"] and any("smacked" in t for t in SL.REVIEWS[("dog", "won")][2])
+    assert any("smacked" in t for t in SL.REVIEWS[("dog", "won")][2])   # (11/12: the sign-off pool is gone)
     assert not any("cooked" in t for t in SL.REVIEWS[("dog", "won")][2])
 
 
@@ -20764,6 +20766,48 @@ def test_owner_1112_a_stuck_grader_is_killed_and_slow_steps_never_trip_the_watch
     i_pull, i_load = src.index("pull()"), src.index("_data(reload=True)")
     assert "BEAT[0] = time.time()" in src[i_pull:i_load]           # the pull's clock resets before the load
     assert "BEAT[0] = time.time()" in src[i_load:src.index("backstop()")]
+
+
+def test_owner_1112_no_canned_signoffs_no_filler_tails_no_public_reviews():
+    """11/12 (the owner: "Keep stacking is retarded ... the lingo just keeps sounding so retarded"): no canned sign-off
+    after a review ('Keep stacking.', 'Bag secured.', 'Say less.', 'SMH.', 'Chin up.'), none of the made-up slang he never
+    says ever rolls, no review about the public, and a card's filler tail sentences ('We see it. Ain't scared of it.',
+    'Still Red Wings.', 'The books are sleeping on that.') come off - posted cards too. His own words stay."""
+    import sports_lingo as lg
+    import sports_card_guard as cg
+    import sports_dashboard as dash
+    import sports_owner_lingo as ol
+    assert lg.PAL["wk"] == [""] and lg.PAL["lk"] == [""]
+    assert not dash.PUBLIC_REVIEW
+    for x in ("Keep stacking.", "Bag secured.", "Say less.", "Nice nice.", "SMH.", "Chin up.", "Told y'all.",
+              "The clowns loved Air Force.", "(That's the moneyline crowd.)", "Fade the public, get paid: the Nets.",
+              "Dog stayed on the porch.", "Bought the dip on the Mets and it kept dipping.", "Real ones know Brunson nice.",
+              "Ryan Donato scored in overtime to win it 3-2. Keep stacking.", "Paid."):
+        assert lg.MADE_UP.search(x), x
+    for k in ("cheeks clapped", "somebody give this man his flowers", "cash it, baby", "levels to this", "tap in",
+              "smacked", "got cooked", "that's just facts", "the whole hood eating", "easy money", "shit the bed"):
+        assert k in ol.OWNER and not lg.MADE_UP.search(k), k                # his own words never get cut
+    for x in ("Ryan Donato scored in overtime to win it 3-2.", "Andre Szmyt's 32-yarder with 0:00 left won it.",
+              "Had a 3-goal lead. Lost 5-4."):
+        assert not lg.MADE_UP.search(x), x
+    cases = {"⚠️ Blackhawks have dropped 6 straight. We see it. Ain't scared of it.": "⚠️ Blackhawks have dropped 6 straight.",
+             "⚠️ Heads up: Red Wings have dropped 4 straight. Still Red Wings.": "⚠️ Heads up: Red Wings have dropped 4 straight.",
+             "🎲 By goals scored and allowed, Red Wings should be about 6 points better than their record. The books are sleeping on that.":
+                 "🎲 By goals scored and allowed, Red Wings should be about 6 points better than their record.",
+             "🏟️ Bruins are 8-1 at home this year. Tough out in their own house.": "🏟️ Bruins are 8-1 at home this year.",
+             "📅 Two games back. Still tied after two.": "📅 Two games back. Still tied after two.",   # a real sentence stays
+             "We see it.": ""}
+    for a, b in cases.items():
+        assert cg.strip_tails(a) == b, (a, cg.strip_tails(a))
+    assert cg.clean(["⚠️ Blues lost 3 straight. We see it. Ain't scared of it.", "We'll take it."], "nhl", "Blues", "Mammoth") \
+        == ["⚠️ Blues lost 3 straight."]
+    seen = set()
+    for kind, res in (("dog", "won"), ("dog", "lost"), ("fav", "won"), ("fav", "lost"), ("collapse", "lost"), ("lucky", "won")):
+        for sd_ in range(25):
+            r = lg.review(kind, res, f"s{sd_}", set(), t="the Nets", o="the Knicks", d=12, pro="they")
+            assert not lg.MADE_UP.search(r or ""), r
+            seen.add(r)
+    assert len(seen) > 20                                              # still plenty of different ways to say it
 
 
 def test_owner_1112_no_dollar_payout_line_on_cards():

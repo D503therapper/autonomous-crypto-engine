@@ -1381,6 +1381,9 @@ def _jl(path, default):
 LEG_REVIEWS = {}   # (date, "game|side|market") -> that pick's review (filled by _history, shown on today's graded cards)
 
 
+PUBLIC_REVIEW = False   # 11/12: "Fade the public, get paid", "The clowns loved Air Force", "(That's the moneyline crowd.)"
+
+
 def _rev_text(pk, leg):
     """A graded pick's after-game review ("" before it's graded)."""
     if leg.get("result") not in ("won", "lost", "push"):
@@ -1511,8 +1514,8 @@ def _history(picks, early_rows=None):
             kind = "lucky"                                   # covered by a hair: we got lucky - a win is a win
         elif r == "lost" and mg is not None and mg < 0 and abs(mg) >= BIG.get(lg, 99):
             kind = "big"                                     # (10/1 audit: an 8-4 / 35-6 loss read "the public got lucky")
-        elif l.get("public") == "fade":                   # 🤡 we faded the public: that's the story, win or lose
-            kind = "fade"
+        elif l.get("public") == "fade" and PUBLIC_REVIEW:  # (11/12, the owner: the public split is never the story -
+            kind = "fade"                                 #  the review says how the game was won or lost)
         elif mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
             kind = "big"
         elif mg is not None and abs(mg) <= CLOSE.get(lg, 0) and kind != "spread":
