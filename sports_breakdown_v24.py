@@ -11,6 +11,7 @@ import sports_data as sd
 import sports_lingo
 import sports_model as sm
 import sports_players as sp
+import sports_breakdown as _sb_mod                       # (11/13: coin_side - sports_breakdown imports us only inside functions)
 
 PT = ZoneInfo("America/Los_Angeles")
 VERSION = 24          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
@@ -359,11 +360,19 @@ def _site_side(g, side):
     return None if str((g or {}).get("neutral")) in ("1", "True", "true") else side
 
 
+def _neutral(g):
+    """A game played at a neutral site (no home crowd for either side)."""
+    return str((g or {}).get("neutral")) in ("1", "True", "true")
+
+
 def _site_rec(gs, tid, side):
     """('home' / 'road', games, wins, '3-0') - the team's record at this game's site this season, or None."""
     if side is None:
         return None
-    at = [x for x in gs or [] if x.get("home" if side == "home" else "away") == tid]
+    at = [x for x in gs or [] if x.get("home" if side == "home" else "away") == tid and not _neutral(x)]
+    #   (11/13 card audit: a NEUTRAL-site game is no home or road game - Ole Miss "5-0 in their own building" counted the
+    #    Louisville game in Atlanta, Michigan "1-1 at home" the UConn game, the 49ers "2-0 on the road" the neutral Rams
+    #    game, the Commanders "1-1-1 at home" the neutral Colts game)
     if not at:
         return None
     w = sum(1 for x in at if _line(x, tid).startswith("W"))
@@ -442,10 +451,11 @@ def dashboard_texts(skip=()):
     return out
 
 
-SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", "We on it.", "Book it.", "Stamp it.",
-           "Say less.", "We locked in.", "All day.", "Bank it.", "Cash it."]
-SHORT_S = ["Tap in.", "Give me that.", "Trust the algorithm.", "We finna see.", "We gon' see.", "Get in.", "Right side.",
-           "Good number.", "Say less.", "Ride it.", "Let it ride.", "Smart side."]
+SHORT_L = ["Lock it in.", "Easy money.", "Trust the algorithm.", "Free money.", "We on it.", "We locked in.", "All day.",
+           "Bank it.", "Cash it."]
+SHORT_S = ["Tap in.", "Give me that.", "Trust the algorithm.", "Get in.", "Ride it.", "Let it ride.", "Smart side."]
+#   (11/13 card audit: "Book it." / "Stamp it." / "Say less." / "We finna see." are made-up slang (sports_lingo.MADE_UP)
+#    and "Right side." / "Good number." a canned tail with no fact - sports_card_check.TAILS strips them off posted cards)
 
 
 def _read(leg):
@@ -531,14 +541,14 @@ def OWNER_PLAY(price, us, fair=None, odds=None):
     if fair and odds is not None:
         o = _am(odds)
         return [f"✅ Bottom line: {price}. We make {us} {fair} - the book's paying {o}. Tap in.",
-                f"✅ Bottom line: {price}. Our number's {fair}; they're giving us {o}. Say less.",
+                f"✅ Bottom line: {price}. Our number's {fair}; they're giving us {o}.",
                 f"✅ Bottom line: {price}. We'd play {us} down to {fair} and they're paying {o}. The whole hood eating with this one.",
                 f"✅ Bottom line: {price}. {fair} on our sheet, {o} at the book. Trust the algorithm.",
-                f"✅ Bottom line: {price}. We price {us} at {fair}, the book's at {o}. We'll take it.",
+                f"✅ Bottom line: {price}. We price {us} at {fair}, the book's at {o}.",
                 f"✅ Bottom line: {price}. Fair on {us} is {fair} to us and the book's hanging {o}. Give me {us}.",
-                f"✅ Bottom line: {price}. We got {us} at {fair}, the book says {o}. We finna see."] + \
+                f"✅ Bottom line: {price}. We make {us} {fair}, the book says {o}."] + \
                ([f"✅ Bottom line: {price}. Line makers ain't showing no respect to {us} at {o} - we make 'em {fair}.",
-                 f"✅ Bottom line: {price}. Fishy line - {us} at {o} when we make 'em {fair}. We'll take it."]   # (11/4, the
+                 f"✅ Bottom line: {price}. Fishy line - {us} at {o} when we make 'em {fair}."]   # (11/4, the
                 #                                              owner's D503 Call on the Cavs: 'a very fishy line')
                 if (odds or 0) > 0 else [])
     return [f"✅ Bottom line: {price}. The books are sleeping on {us}. Tap in.",
@@ -920,7 +930,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                       f"📋 {rec_u} for {us}, {rec_t} for {them}. We got the better squad on paper.",
                                       f"📋 {us} come in {rec_u}, {them} {rec_t}.",
                                       f"📋 {us} {rec_u}, {them} {rec_t}. Our side's been winning more, that's just facts.",
-                                      f"📋 {them} are {rec_t}. {us} are {rec_u}. Do the math."]))
+                                      f"📋 {them} are {rec_t}. {us} are {rec_u}."]))
         elif rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) < _wsh(rec_t):   # (10/27: their better record
             v.knock(3, f"{them} come in {rec_t} to {_pos(us)} {rec_u}")                  #  is a knock, never a reason)
             if last_said:
@@ -1160,7 +1170,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     if "coming off a bye" in rsn:
         out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
                                   f"🛌 {us} had the bye last week. Two weeks to cook up a plan.",
-                                  f"🛌 Bye week in the rearview for {us}. Fresh legs, full playbook."]))
+                                  f"🛌 Bye week in the rearview for {us}."]))
         said.add("coming off a bye")
     if "opponent on a short week" in rsn:
         out.append(v.say("short", [f"⏱️ {them} are on a short week. Not much time to prep.",
@@ -1179,7 +1189,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     if str(g.get("intl")) == "1" or _site_side(g, side) is None:
         pass                                            # no real home crowd overseas / at a neutral site (11/4 audit)
     elif side == "home":
-        _hm = [x for x in r_ours if x.get("home") == tid]
+        _hm = [x for x in r_ours if x.get("home") == tid and not _neutral(x)]   # (11/13: a neutral site is no home game)
         if len(_hm) >= 2:                                # (10/1: never vague - the home record, or nothing)
             _hr = _record(_hm, tid)
             _w = sum(1 for x in _hm if _line(x, tid).startswith("W"))
@@ -1197,14 +1207,14 @@ def breakdown(leg, games, elo, injuries, used=None):
                 out.append(v.tag(v.say("home", [f"🏟️ {us} are {_hr} at home so far.",
                                                  f"🏟️ {_hr} at home this year for {us}."]), "neutral"))
     else:
-        _rd = [x for x in r_ours if x.get("away") == tid]
+        _rd = [x for x in r_ours if x.get("away") == tid and not _neutral(x)]
         if len(_rd) >= 2:                                # (10/1: "they travel just fine" said nothing - the record does)
             _rr = _record(_rd, tid)
             _w = sum(1 for x in _rd if _line(x, tid).startswith("W"))
             if 2 * _w > len(_rd):
                 out.append(v.say("road", [f"🧳 {us} are {_rr} on the road this year. They win in other people's houses.",
                                            f"🧳 Road game, no problem: {us} are {_rr} away from home this season.",
-                                           f"🧳 {_rr} on the road for {us}. Other people's buildings don't scare 'em.",
+                                           f"🧳 {_rr} on the road for {us}.",
                                            f"🧳 {us} been winning on the road: {_rr}.",
                                            f"🧳 Hostile crowd? {us} {vb(us, 'are', 'is')} {_rr} away from home. They don't care."]))
             elif 2 * _w < len(_rd):                      # (10/27: an 0-3 road record is the knock, never a body line)
@@ -1493,7 +1503,9 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. No gift in the number. {us} {vb(us, 'are', 'is')} the play because of the spot, and the units say how much.",
             f"✅ Bottom line: {us} at {_am(leg['odds'])}. Fair price, right spot - that's the bet."]) or
                    _short(v, price, False, "A fair price on our side."))
-    elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: "we like the Kraken,
+    elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml" \
+            and _sb_mod.coin_side(leg, _own):                                # (11/13: never at a -148 price / a 60% win %)
+        #   (10/1, the owner: "we like the Kraken,
         out.append(v.say("bottom_c", [                                   # just not at this price" at -108 makes no
             f"✅ Bottom line: {price}. Coin flip game - {us} by a hair. No units.",                               # sense:
             f"✅ Bottom line: {price}. Close to 50-50 for us, {us} a hair better. Just a lean.",                  # the real
@@ -1705,12 +1717,12 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
             wt = _line(s_theirs[-1], oid).startswith("W")
             if wu and wt and any(a in str(x) for x in out):   # (10/29: the 📋 record line already said our last game -
                 add.append(v.tag(v.say("f_last", [f"📅 {_cap(the_them)} won their last one too, a {b}.",
-                                                   f"📅 {them} are off a {b} themselves. One of 'em takes an L tonight.",   # never the same
+                                                   f"📅 {them} are off a {b} themselves.",   # never the same
                                                    f"📅 {_cap(the_them)} come in off a {b}, so they feeling themselves too.",
                                                    f"📅 And {the_them}? A {b} last time out."]), "neutral"))   # score twice)
             elif wu and wt:
                 add.append(v.tag(v.say("f_last", [f"📅 Both won last time - {us} a {a}, {them} a {b}.",
-                                                   f"📅 {us} off a {a}, {them} off a {b}. Somebody's taking an L tonight.",
+                                                   f"📅 {us} off a {a}, {them} off a {b}.",
                                                    f"📅 Last time out: {us} a {a}, {them} a {b}. Both feeling good, one leaves pissed.",
                                                    f"📅 {_cap(the_us)} are off a {a}, {the_them} off a {b}."]), "neutral"))
             elif not wu and not wt:
@@ -1750,7 +1762,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                         else f"🧳 {ts[3]} {where} for {them} this season. They hate leaving the house.",
                                         f"🏟️ {them} {where} this season: {ts[3]}. Their own crowd's been watching 'em lose." if ts[0] == "home"
                                         else f"🧳 {them} {where} this season: {ts[3]}. Road trips ain't their thing.",
-                                        f"🏟️ {ts[3]} {where} for {them}. Come right on in." if ts[0] == "home"
+                                        f"🏟️ {ts[3]} {where} for {them}." if ts[0] == "home"
                                         else f"🧳 {ts[3]} {where} for {them}. Road trips been rough on 'em."]))
         elif 2 * ts[2] > ts[1]:                            # their good record at this site: the knock
             v.knock(3, f"{them} are {ts[3]} {where} this year")
@@ -1788,7 +1800,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
             if d_us > d_them:                              # (the 2+ day edge printed above; this is the one-day edge)
                 add.append(v.say("f_rest", [f"⏳ {us} got the extra day: {D(d_us)} off to {_pos(them)} {D(d_them)}.",
                                             f"⏳ Fresher legs on our side - {us} had {D(d_us)} off, {them} {D(d_them)}.",
-                                            f"⏳ {us} come in on {D(d_us)} rest; {them} are on {D(d_them)}. Little extra juice in the legs."]))
+                                            f"⏳ {us} come in on {D(d_us)} rest; {them} are on {D(d_them)}."]))
             elif d_us < d_them:
                 v.knock(2, f"{them} had {D(d_them)} off to {_pos(us)} {D(d_us)}")
             #   (even rest: no line - "both sides had 2 days between games" told the owner nothing, 10/27)
@@ -1877,7 +1889,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                        f"📊 {us} put up {pu[0]} a game and give up {pu[1]} over their last {pu[2]}. {them}: {pt[0]} and {pt[1]}. Scoreboard says us.",
                                        f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}. We been better.",
                                        f"📊 Over the last {pu[2]}, {us} are a {net_u:+d} team a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)." if net_u > 0 else
-                                       f"📊 Lately {us} score {pu[0]} and allow {pu[1]} a game; {them} score {pt[0]} and allow {pt[1]}. Edge us on the scoreboard."]))
+                                       f"📊 Lately {us} score {pu[0]} and allow {pu[1]} a game; {them} score {pt[0]} and allow {pt[1]}."]))
         elif net_t > net_u:
             v.knock(3, f"{them} have outscored teams {pt[0]} to {pt[1]} a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against"
                     if net_t > 0 else f"{them} have been the better side on the scoreboard lately - {pt[0]} for, {pt[1]} against "
@@ -1895,7 +1907,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                      f"🗓️ {l5u[0]} of the last 5 went {_pos(us)} way."]))
     if l5t and l5t[1] > l5t[0] and f"{l5t[0]}-{l5t[1]}" not in body and not heat_t.startswith("lost") \
             and not any(str(x).startswith("🗑️") for x in out):
-        add.append(v.say("f_last5", [f"🗓️ {them} are {l5t[0]}-{l5t[1]} over their last 5. Nobody's scared of that.",
+        add.append(v.say("f_last5", [f"🗓️ {them} are {l5t[0]}-{l5t[1]} over their last 5.",
                                      f"🗓️ Last 5 for {them}: {l5t[0]}-{l5t[1]}. They been losing more than winning.",
                                      f"🗓️ {them} dropped {l5t[1]} of their last 5.",
                                      f"🗓️ {l5t[0]}-{l5t[1]} in their last 5 - {them} been sliding."]))
@@ -1994,7 +2006,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     if lg in ("nfl", "ncaaf") and ours and theirs and "bye" not in body and "short week" not in body:
         d_us, d_them = _days(start, _t(ours[-1]["start"])), _days(start, _t(theirs[-1]["start"]))
         if d_us >= 13 and d_them <= 8:
-            add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago. Fresh legs, full game plan.",
+            add.append(v.say("f_bye", [f"🛌 {us} are off a bye ({D(d_us)} since their last game); {them} played {D(d_them)} ago.",
                                        f"🛌 {D(d_us)} between games for {us}, {D(d_them)} for {them}. Rest is on our side."]))
         elif d_them <= 5 < d_us:
             add.append(v.say("f_short", [f"⏱️ {them} are on a short week - {D(d_them)} since their last game. {us} had {D(d_us)}.",
@@ -2018,8 +2030,8 @@ def risk_line(v, us, them, the_us):
     #    "Priced in. We still riding", "The rest of this card outweighs it", "Don't get it twisted ... We saw it") were
     #    the same corporate shrug on every card. One fact, said like a dude who bets: short, a different frame each card.)
     return v.say("risk", [f"⚠️ Biggest knock on {us}: {fact}.",
-                          f"⚠️ {F}. That's the one thing that could burn us.",
-                          f"⚠️ Gotta keep it honest - {fact}. Still riding {us}.",
+                          f"⚠️ {F}.",
+                          f"⚠️ Gotta keep it honest - {fact}.",
                           f"⚠️ What could fuck this up: {fact}.",
                           f"⚠️ {F}. We see it. Ain't scared of it.",
                           f"⚠️ What scares us a little: {fact}.",
@@ -2333,7 +2345,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     elif leg.get("near_price"):
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🔒 {F} We trust {us} to win this one - priced about right, so it's a small bet.",
                                  lambda F: f"🔒 {F} {us} to win at a fair price. A light bet, not a big one."), names))
-    elif need and own <= need and COIN_FLIP[0] <= own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: the Kraken at -108 - a near coin flip
+    elif need and own <= need and COIN_FLIP[0] <= own < 0.56 and leg.get("market") == "ml" and _sb_mod.coin_side(leg, own):   # (10/1, the owner: the Kraken at -108 - a near coin flip
         nums = ("w_num", _ok(_fx(Fs, lambda F: f"🧠 {F} Still, we've got {us} close to a coin flip - a hair better, not enough for units.",
                                  lambda F: f"🧠 {F} Even so it's close to 50-50 on our read, {us} by a hair.",
                                  lambda F: f"🧠 {F} Close to 50-50 for us, {us} by a nose."), names))   # is the reason)

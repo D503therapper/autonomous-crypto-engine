@@ -2895,12 +2895,14 @@ def pick_tier(pk):
     if pk.get("lean"):
         return "lean"
     if pk.get("tier"):
-        return pk["tier"]
+        return "value" if pk["tier"] == "lock" and pk.get("kind") == "play" else pk["tier"]
     tiers = [l.get("tier") or leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}) for l in pk.get("legs") or []]
     if tiers == ["ou"]:
         return "ou"
     if tiers and all(t == "lock" for t in tiers):
-        return "lock"
+        return "value" if pk.get("kind") == "play" else "lock"   # (11/13 card audit: the Browns -130 ½u PLAY of 10/25 still
+        #                                                         wore the 🔒 LOCK chip - a value play is never a Lock, the
+        #                                                         owner 10/28; play_tier fixed new plays, this every posted one)
     return "value" if "value" in tiers else "lean"
 
 
@@ -7922,6 +7924,23 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
     return probs
 
 
+def card_check(new, rep, games):
+    """🧾 11/13 THE CARD CHECK (the owner: "These are bugs - this information and breakdowns, [we] cannot keep this crap
+    up"): every new card's words vs its bet, its facts vs the game files, the lingo - rewritten before it posts
+    (sports_card_check.pre_post). Never holds a pick; the pick check's report says what it fixed ("card")."""
+    try:
+        import sports_card_check
+        fixed = sports_card_check.pre_post(new, games)
+        for r in rep:
+            r.setdefault("checks", {})["card"] = "pass"
+        for k, n in (fixed or {}).items():
+            for r in rep:
+                if r.get("key") == k and n:
+                    r["checks"]["card"] = f"fixed: {n} line(s) rewritten or dropped"
+    except Exception as e:                                   # noqa: BLE001 - the words never block a post
+        print(f"card check failed: {e}", flush=True)
+
+
 def sizing_check(new):
     """🔎 THE SIZING CHECK (the owner, 10/2: "is our sizing system checked properly?"): every pick about to post carries
     the units the unit system says - a lean 0, a value play ½u, the Dog 1u, the backup Lock ½u, a Lock ½u-10u (½u on a
@@ -8484,6 +8503,7 @@ def post_board(games, model, picks, now, day, force=False):
         best = mark_best(picks, iso)                         # (11/4 audit: the check pulled the ⭐ - the next best
         if best is not None:                                 #  unit play that passed takes it)
             print(f"   ⭐ the engine's best pick (after the check): {best['legs'][0].get('team')} - {units_for(best):g}u")
+    card_check(new, rep, games)                              # 🧾 11/13: every new card's words checked before it posts
     if rep:
         held = [r for r in rep if r["held"]]
         print(f"PICK CHECK: {len(rep)} pick(s) checked, {len(held)} held"

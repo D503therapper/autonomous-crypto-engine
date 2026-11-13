@@ -6609,7 +6609,9 @@ def _six_early_spots_rest(se, G, now, agree, rams, got, escape):
         h = se.html(st, escape, now)
     finally:
         se.ON = keep_on
-    assert "Utah" in h and "The line moved away from them" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "Utah" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "The line moved away from them" not in h      # (11/13 card check: the line under a pick never talks the line
+    #                                                       moving - the owner, 10/23; the spot's name says what it is)
 
 
 def test_dog_findings_weighed_never_auto():
@@ -22885,6 +22887,317 @@ def test_daily_1113_nba_bad_home_spread_fav_weight_the_early_spread_fade_judged_
     finally:
         sl._GAMES.clear()
         sl._GAMES.update(keep_g)
+
+
+
+
+def _cc_games():
+    """A tiny NHL season for the card check's fact tests: the Wild (id 1) 3-1 going into 11/10 - W, W, L at home vs the
+    Kings, then a NEUTRAL-site win (no home or road game) - and the Kings (id 2)."""
+    rows = []
+
+    def g(i, start, home, away, hs, as_, neutral="0"):
+        names = {"1": "Wild", "2": "Kings", "3": "Ducks", "4": "Sharks"}
+        rows.append({"id": f"nhl:{i}", "league": "nhl", "start": start, "status": "final", "home": home, "away": away,
+                     "home_name": names[home], "away_name": names[away], "home_score": str(hs), "away_score": str(as_),
+                     "stype": "2", "neutral": neutral})
+    g(1, "2026-11-01T02:00Z", "1", "3", 4, 2)          # Wild W 4-2 vs Ducks (home)
+    g(2, "2026-11-03T02:00Z", "4", "1", 1, 3)          # Wild W 3-1 @ Sharks (road)
+    g(3, "2026-11-05T02:00Z", "1", "2", 2, 5)          # Wild L 2-5 vs Kings (home)
+    g(4, "2026-11-07T02:00Z", "1", "4", 6, 3, "1")     # Wild W 6-3 vs Sharks - NEUTRAL site
+    g(5, "2026-11-06T02:00Z", "2", "3", 3, 2)          # Kings W 3-2 vs Ducks
+    games = {r["id"]: r for r in rows}
+    games["nhl:9"] = {"id": "nhl:9", "league": "nhl", "start": "2026-11-10T02:00Z", "status": "pre", "home": "1",
+                      "away": "2", "home_name": "Wild", "away_name": "Kings", "home_score": "", "away_score": "",
+                      "stype": "2", "neutral": "0"}
+    return games
+
+
+def test_card_audit_1113_the_card_check_wording_vs_the_bet_and_the_lingo():
+    """11/13 (the owner: "These are bugs - this information and breakdowns, [we] cannot keep this crap up"): the card
+    audit of every card posted 10/25-11/13 found the same classes again and again - a lean's words on a unit play
+    ("Could go either way. Celtics by a nose - a lean." on the 1u Celtics -124), "coin flip" on a -148 favorite, hype on a
+    ½u play ("49ers all day"), the bottom line's number not the units line's ("We got Tulane at -446" on a +124 dog; "We
+    price Bruins at -142 - -142 is extra money"), the owner's banned frames and canned tails still on posted cards ("let's
+    eat", "Vikings go on the road and win", "Nothing scary about that", "Still riding Suns"), a 4th-down claim with no
+    plays, "outscoring teams 23 to 29", "a 8-3 loss", "Hawks's the side". sports_card_check rewrites or drops each one -
+    before a card posts and every time the page renders. It never touches the pick."""
+    import sports_card_check as cc
+    unit = {"units": 1, "kind": "play", "lean": False, "unit": True, "thin": False, "lock": False, "market": "ml",
+            "odds": -124, "read": 0.55, "p": 0.55, "implied": 0.554, "date": "2026-11-10"}
+    half = {**unit, "units": 0.5, "thin": True, "odds": -142, "implied": 0.587, "read": 0.6, "p": 0.6}
+    lean = {**unit, "units": 0, "kind": "lean", "lean": True, "unit": False, "odds": -148, "implied": 0.597,
+            "read": 0.53, "p": 0.6}
+    leg = {"team": "Celtics", "opp": "76ers", "market": "ml", "odds": -124, "dec": 1.806, "league": "nba", "p": 0.55}
+    # a unit play never says a lean's words / calls itself a coin flip; the bottom line is rebuilt, never lost
+    out, why = cc.wording("✅ Bottom line: Celtics (-124). Could go either way. Celtics by a nose - a lean.", unit, leg)
+    assert out.startswith("✅ Bottom line: Celtics (-124).") and "lean" not in out and "either way" not in out and why
+    out, why = cc.wording("🧠 The Predators have won 6 straight. We like Predators - just not at this price.", unit,
+                          {**leg, "team": "Predators"})
+    assert out == "🧠 The Predators have won 6 straight." and "lean's words" in why
+    # a lean never says a unit play's words ("no units on it" is a lean's words - it stays)
+    assert cc.wording("🧠 Grizzlies 3-0 vs a 1-2 Jazz. Tap in.", lean, leg)[0] == "🧠 Grizzlies 3-0 vs a 1-2 Jazz."
+    assert cc.wording("🟡 Bottom line: Grizzlies (-112). 50-50 type game. The engine leans Grizzlies - no units on it.",
+                      {**lean, "odds": -112, "implied": 0.528, "p": 0.53}, leg)[1] == ""
+    # a thin ½u play never hypes; only the Lock says LOCK
+    assert cc.wording("💪 A 6-0 team against a 2-4 team. 49ers all day.", half, leg)[0] == "💪 A 6-0 team against a 2-4 team."
+    assert cc.wording("🔥 Lightning are 10-5. Lock it in.", {**unit, "lock": False}, leg)[0] == "🔥 Lightning are 10-5."
+    assert cc.wording("🔥 Lightning are 10-5. Lock it in.", {**unit, "lock": True, "kind": "lock"}, leg)[1] == ""
+    assert cc.wording("✅ Bottom line: Avalanche (-148). We make 'em -149 - a hair of value, not a Lock.", half,
+                      {**leg, "odds": -148, "dec": 1.676})[0].count("not a Lock") == 1
+    # "coin flip" only for a side whose read AND price sit near even - never a -148 favorite; a spread may
+    out, why = cc.wording("🟡 Bottom line: Seahawks (-148). We've got this game close to a coin flip - Seahawks by a hair, "
+                          "not enough to put money on.", lean, {**leg, "team": "Seahawks", "odds": -148, "dec": 1.676, "p": 0.6})
+    assert "coin flip" not in out and out.startswith("🟡 Bottom line: Seahawks (-148).") and "coin flip" in why
+    sp = {**lean, "market": "spread", "odds": -110, "implied": 0.524, "read": 0.52, "p": 0.52}
+    assert cc.wording("🟡 Bottom line: Spurs -12.5 (-109). A coin flip on Spurs covering -12.5 - by a hair, no units.", sp,
+                      {**leg, "market": "spread", "line": -12.5})[1] == ""
+    assert cc.coin_ok({"market": "ml", "read": 0.37, "p": 0.38, "implied": 0.38}) is False   # (the Panthers +164 floor)
+    # the owner's banned frames and the canned tails come off - the fact stays
+    for a, b in (("😮‍💨 Say less — the Panthers played last night and the Bruins didn't.",
+                  "😮‍💨 The Panthers played last night and the Bruins didn't."),
+                 ("🧳 Vikings go on the road and win: 3-0 away from home.", "🧳 Vikings on the road: 3-0 away from home."),
+                 ("📅 The Falcons come in off a 29-20 win over the 49ers themselves - two winners walk in, one walks out.",
+                  "📅 The Falcons come in off a 29-20 win over the 49ers themselves."),
+                 ("🏟️ Kings at home this season: 0-3. Nothing scary about that.", "🏟️ Kings at home this season: 0-3."),
+                 ("⚠️ Gotta keep it honest - Suns have dropped 3 straight. Still riding Suns.",
+                  "⚠️ Gotta keep it honest - Suns have dropped 3 straight."),
+                 ("📋 UCF 4-3, Baylor 4-3. Same record, different reasons - keep reading.", "📋 UCF 4-3, Baylor 4-3."),
+                 ("⚠️ Golden Knights come in on a 4-game heater. That's the one thing that could burn us.",
+                  "⚠️ Golden Knights come in on a 4-game heater.")):
+        assert cc.wording(a, unit, leg)[0] == b, (a, cc.wording(a, unit, leg))
+    # grammar the owner never talks: "a 8-3", "outscoring teams 23 to 29", "Hawks's the side"
+    assert cc._grammar("📅 Sabres off a 8-3 loss to the Lightning.", leg) == "📅 Sabres off an 8-3 loss to the Lightning."
+    assert cc._grammar("🔥 Miami is 8-0 and on a 8-game heater.", leg) == "🔥 Miami is 8-0 and on an 8-game heater."
+    assert cc._grammar("📊 Last 3: Kansas St is outscoring teams 23 to 29 a game.", leg) == \
+        "📊 Last 3: Kansas St is scoring 23 and allowing 29 a game."
+    assert "outscoring teams 115 to 93" in cc._grammar("📊 Last 3: Celtics are outscoring teams 115 to 93 a game.", leg)
+    assert "Hawks are the side" in cc._grammar("A coin flip game - if you're playing it, Hawks's the side.", leg)
+    # a 4th-down claim needs the real plays (11/12, Victor: "where does it get that info?")
+    nfl = {**leg, "league": "nfl"}
+    assert cc.wording("🎲 4th-down nerve: Eagles' coach goes for it a lot more than Commanders' coach does.", unit, nfl)[0] == ""
+    assert cc.wording("🎲 4th down: Giants went for it 4 of 5, Commanders 3 of 6.", unit, nfl)[1] == ""
+    # the bottom line's number is the units line's number; a raw-gap read or the book's own price never posts as ours
+    tl = {"team": "Tulane", "opp": "Tulsa", "market": "ml", "odds": 124, "dec": 2.24, "league": "ncaaf", "p": 0.48,
+          "gap": 0.4}
+    tu = {**unit, "odds": 124, "implied": 0.446, "read": 0.48, "p": 0.48}
+    out, why = cc.wording("✅ Bottom line: Tulane (+124). We got Tulane at -446, the book says +124.", tu, tl)
+    assert "-446" not in out and out.startswith("✅ Bottom line: Tulane (+124).") and why
+    br = {"team": "Bruins", "opp": "Panthers", "market": "ml", "odds": -142, "dec": 1.704, "league": "nhl", "p": 0.587}
+    out, why = cc.wording("✅ Bottom line: Bruins (-142). We price Bruins at -142 - -142 is extra money.", half, br)
+    assert "extra money" not in out and out.startswith("✅ Bottom line: Bruins (-142).") and "own price" in why
+    # never a lean's 🟡 on a unit play's bottom line
+    assert cc.wording("🟡 Bottom line: Celtics (-124). Celtics on the road: 3-2.", unit, leg)[0].startswith("✅")
+    # "the better team" only when the read has them winning; a lone "That's just facts." never stands
+    dog = {**half, "odds": 142, "implied": 0.413, "read": 0.43, "p": 0.43}
+    vk = {"team": "Vikings", "opp": "Lions", "market": "ml", "odds": 142, "league": "nfl"}
+    assert cc.wording("💪 Vikings (6-0) over Lions (4-2) on the record — the better team.", dog, vk)[0] == \
+        "💪 Vikings (6-0) over Lions (4-2) on the record."
+    assert cc.wording("💪 Predators 8-9, Kings 5-10. Better squad on our side.", dog, {**vk, "team": "Predators"})[0] == \
+        "💪 Predators 8-9, Kings 5-10."
+    assert cc.wording("💪 Bruins (12-5) vs Panthers (9-8) — the better team is on our side.", half, br)[1] == ""
+    # the line under a pick never talks the line moving (the owner, 10/23)
+    assert cc.check_one(None, {"team": "Navy", "opp": "Army", "odds": 114, "market": "ml"},
+                        "🧠 Navy beat Air Force 31-10. The price drifted out since the first number - we get the better one.") \
+        == "🧠 Navy beat Air Force 31-10."
+
+
+def test_card_audit_1113_the_card_check_facts_vs_the_game_files():
+    """11/13 card audit - FACTS: every record, home / road record, streak, last-game score and rest-days line is
+    re-verified against the game files the way the breakdown computes them; a fact that doesn't match is dropped (no
+    fact = no line). The audit's real catch: a NEUTRAL-site game counted as a home / road game (Ole Miss "5-0 in their
+    own building" with the Louisville game in Atlanta, Michigan "1-1 at home", the 49ers "2-0 on the road", the
+    Commanders "1-1-1 at home") - sports_breakdown_v24._site_rec and the home / road lines skip a neutral site now."""
+    import sports_card_check as cc
+    import sports_breakdown_v24 as v24
+    games = _cc_games()
+    leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml"}
+    ok = ["📋 Wild are 3-1, Kings 2-0.", "🔥 Wild (3-1) took the last one.", "🏟️ Wild are 1-1 at home this year.",
+          "🧳 1-0 on the road for Wild.", "📅 Last time out: Wild W 6-3 vs Sharks.",
+          "📅 Wild just took a 6-3 win over the Sharks.", "🥊 The Kings got 5-2 on the Wild inside their last 5.",
+          "⏳ Wild come in on 3 days rest."]
+    for x in ok:
+        assert cc.facts(x, leg, games) == "", (x, cc.facts(x, leg, games))
+    bad = {"📋 Wild are 4-0, Kings 2-0.": "Wild 4-0",
+           "🏟️ Home cooking for Wild - 2-1 in their own building this season.": "at home",   # (the neutral game counted)
+           "🔥 Wild have won 3 straight.": "straight",
+           "📅 Last time out: Wild W 5-2 vs Sharks.": "last game",
+           "📋 Kings are 2-0 after a 4-1 win over the Ducks.": "last game"}
+    for x, w in bad.items():
+        assert w in cc.facts(x, leg, games), (x, cc.facts(x, leg, games))
+    # the root: the home / road record never counts a neutral-site game
+    wild = [g for g in sorted(games.values(), key=lambda g: g["start"]) if g["status"] == "final" and "1" in (g["home"], g["away"])]
+    assert v24._site_rec(wild, "1", "home")[3] == "1-1" and v24._site_rec(wild, "1", "road")[3] == "1-0"
+    # a card line with a bad fact comes off the card; the bottom line never does
+    pk = {"date": "2026-11-09", "kind": "play", "status": "open", "units_posted": 0.5, "floor": True,
+          "legs": [{**leg, "odds": 120, "dec": 2.2, "p": 0.47, "floor_score": 1.0}]}
+    lines = ["📋 Wild are 4-0, Kings 2-0.", "🏟️ Wild are 1-1 at home this year.",
+             "✅ Bottom line: Wild (+120). Best dog on the slate by our angles. Half a unit, don't go crazy."]
+    got = cc.check(pk, pk["legs"][0], lines, games)
+    assert got == lines[1:], got
+
+
+def test_card_audit_1113_every_card_passes_the_check_before_it_posts_and_on_the_page():
+    """11/13: the check runs on EVERY card before it posts (sports.post_board after the rule check -
+    sports_card_check.pre_post rewrites the lines, never holds a pick, and logs what it caught to the run log and
+    data/sports/pick_audit.json "card_check") and again when the page renders (sports_dashboard._leg / _breakdown, posted
+    cards included; the brain too). On the page: the one-liner is never repeated in the breakdown, a 🚑 line that only
+    repeats the 'missing' chip goes, a void card says VOID (never 'NO UNITS - JUST A LEAN' under a Dog of the Day), a ½u
+    PLAY never wears the 🔒 LOCK chip, a review never says the half-time score twice."""
+    import html
+    import inspect
+    import sports
+    import sports_audit
+    import sports_card_check as cc
+    import sports_dashboard as dash
+    assert "card_check(new, rep, games)" in inspect.getsource(sports.post_board)
+    assert "sports_card_check.pre_post(new, games)" in inspect.getsource(sports.card_check)
+    assert "card_check" in inspect.getsource(sports_audit.run)
+    games = _cc_games()
+    leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml",
+           "odds": -124, "dec": 1.806, "p": 0.55, "home": True, "start": "2026-11-10T02:00Z", "tier": "value",
+           "is_lean": False, "opp_outs": ["Drew Doughty (D)"],
+           "why_line": "🧠 Wild are 3-1 on the year. We like Wild - just not at this price.",
+           "breakdown": ["📋 Wild are 4-0, Kings 1-0.", "🚑 Out for Kings: Drew Doughty (D).", "🧳 1-0 on the road for Wild.",
+                         "⚠️ Wild lost to the Kings 5-2. We weighed it, and Wild are still the side.",
+                         "✅ Bottom line: Wild (-124). Could go either way. Wild by a nose - a lean."]}
+    pk = {"date": "2026-11-09", "kind": "play", "status": "open", "units_posted": 1, "nba_fav": True, "legs": [leg],
+          "stake": 100.0, "dec": 1.806, "american": -124, "tier": "value"}
+    tmp = tempfile.mkdtemp()
+    keep = sports_audit.PATH
+    sports_audit.PATH = os.path.join(tmp, "pick_audit.json")
+    try:
+        import copy
+        new = [copy.deepcopy(pk)]
+        fixed = cc.pre_post(new, games)
+        l2 = new[0]["legs"][0]
+        assert fixed and list(fixed.values())[0] >= 3, fixed
+        assert l2["why_line"] == "🧠 Wild are 3-1 on the year."
+        assert "📋 Wild are 4-0, Kings 1-0." not in l2["breakdown"]
+        assert "⚠️ Wild lost to the Kings 5-2." in l2["breakdown"]
+        assert not any("lean" in x or "either way" in x for x in l2["breakdown"])
+        assert new[0]["legs"][0]["team"] == "Wild" and new[0]["units_posted"] == 1    # the pick never moves
+        log = json.load(open(sports_audit.PATH))
+        assert any("Wild" in x for x in log["2026-11-09"]["card_check"])
+        # the page: the same check on a card posted before it existed
+        dash._GAMES_[0] = games
+        dash.WHY_USED.clear()
+        h = dash._pick_card("play", pk)
+        txt = html.unescape(re.sub(r"<[^>]+>", "\n", h))
+        assert "just not at this price" not in txt and "a lean" not in txt and "4-0" not in txt
+        assert txt.count("Drew Doughty") == 1                   # (the chip says it once)
+        assert "🔒 LOCK" not in txt
+        void = {**pk, "status": "void", "kind": "dog", "units": 0}
+        assert "VOID — NO ACTION" in dash._pick_card("dog", void) and "JUST A LEAN" not in dash._pick_card("dog", void)
+        lockplay = {**pk, "tier": None, "legs": [{**leg, "tier": "lock"}]}
+        assert sports.pick_tier(lockplay) == "value" and "🔒 LOCK" not in dash._pick_card("play", lockplay)
+        assert sports.pick_tier({**lockplay, "kind": "lock"}) == "lock"
+        # the one-liner falls back to a fact and that fact isn't said again in the breakdown
+        nowhy = {**pk, "legs": [{**leg, "why_line": "", "breakdown": ["🧳 1-0 on the road for Wild.", "📋 Kings are 1-0."]}]}
+        t2 = html.unescape(re.sub(r"<[^>]+>", "\n", dash._pick_card("play", nowhy)))
+        assert t2.count("1-0 on the road for Wild") == 1
+        assert dash.with_fact("Up 66-54 at the half, 134-99 final. Never close.", "Celtics led 66-54 at the half and won 134-99.") \
+            == "Up 66-54 at the half, 134-99 final. Never close."
+    finally:
+        sports_audit.PATH = keep
+        dash._GAMES_[0] = {}
+        cc.CAUGHT[:] = []
+
+
+def test_card_audit_1113_the_generators_say_it_right_at_the_root():
+    """11/13 card audit - fixed where the words are written, not only at the check: (1) a lean's bottom line says
+    'coin flip' only when its read, win % and price all sit near even (sports_breakdown.coin_side - the Seahawks -148 /
+    Pacers -148 leans read 'close to a coin flip'); (2) the bottom lines / units lines say OUR number as ours ("We make
+    'em +164"), never "We got 'em at +164" (it read like the price we bet); (3) no canned tail with no fact and no
+    made-up slang in a generator pool ('Say less.', 'Book it.', 'We finna see.', 'Right side.', 'Good number.', 'Do the
+    math.', 'Come right on in.', 'Still riding X.', "That's the one thing that could burn us.")."""
+    import ast
+    import sports_breakdown as sb
+    import sports_card_check as cc
+    import sports_card_guard as cg
+    import sports_dashboard as dash
+    leg = {"team": "Seahawks", "opp": "Chiefs", "market": "ml", "odds": -148, "dec": 1.676, "p": 0.6, "league": "nfl",
+           "edge_own": -0.11}
+    assert not sb.coin_side(leg, 0.53)
+    assert not any(re.search(r"coin flip|50-50|toss-up|either way", x, re.I) for x in sb.lean_ends(leg))
+    assert sb.coin_side({**leg, "odds": -110, "dec": 1.909, "p": 0.53}, 0.52)
+    assert sb.coin_side({**leg, "market": "spread", "line": 3.5}, 0.51)
+    assert not any("We got 'em" in x or "we got 'em" in x for pool in dash.NUM_WHY.values() for x in pool)
+    for fn in ("sports_breakdown_v24.py", "sports_breakdown.py", "sports_dashboard.py"):
+        tree = ast.parse(open(fn).read())
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Constant) and isinstance(n.value, str):
+                t = n.value
+            elif isinstance(n, ast.JoinedStr):
+                t = "".join(v.value if isinstance(v, ast.Constant) else "X" for v in n.values)
+            else:
+                continue
+            for s in cg._SENTS.split(t):
+                assert not cc.TAILS.match(s.strip()), (fn, n.lineno, s)
+    import sports_breakdown_v24 as v24
+    assert not [x for x in v24.SHORT_L + v24.SHORT_S if cc._banned(x) or cc.TAILS.match(x)]
+
+
+def test_card_audit_1113_real_past_cards_render_with_zero_violations():
+    """11/13: the batch - every card posted 10/25-11/13 (data/sports/picks.json) rendered through TODAY's renderer
+    passes the card check with zero violations: no line on the page says a lean's words on a unit play, a unit play's
+    words on a lean, hype on a ½u play, Lock words off the Lock, a coin flip that isn't one, a banned frame, a canned
+    tail, a 4th-down claim with no plays, a bottom-line number that isn't ours, a 'missing' chip twice, the same line
+    twice, or a fact the game files don't back. The audit's worst cards are named: the Celtics -124 1u ('a lean'), the
+    Tulane +124 1u ('-446'), the Bruins -142 ½u ('-142 - -142'), the Seahawks -148 lean ('coin flip'), Ole Miss ('5-0 in
+    their own building')."""
+    import html
+    import sports_card_check as cc
+    import sports_dashboard as dash
+    try:
+        picks = json.load(open(os.path.join(sd.DATA, "picks.json")))
+    except (OSError, ValueError):
+        return
+    picks = [p for p in picks if "2026-10-25" <= (p.get("date") or "") <= "2026-11-13" and len(p.get("legs") or []) == 1]
+    if not picks:
+        return
+    games = sd.load_games()
+    dash._GAMES_[0] = games
+    bad = []
+    try:
+        for pk in picks:
+            dash.WHY_USED.clear()
+            h = dash._pick_card(pk["kind"], pk)
+            leg = pk["legs"][0]
+            body = re.search(r'<div class="bd-s">(.*?)</div></details>', h, re.S)
+            lines = [html.unescape(x) for x in re.findall(r"<p>(.*?)</p>", body.group(1))] if body else []
+            why = re.findall(r'<div class="why rvy">(.*?)</div>', h, re.S)
+            shown = [html.unescape(x) for x in why if not x.startswith("📝")]
+            cx = cc.ctx_of(pk, leg)
+            seen = set()
+            for x in lines + shown:
+                y, w = cc.wording(x, cx, leg)
+                f = "" if cc.BOTTOM.match(x) else cc.facts(x, leg, games)
+                if w or f or y != x:
+                    bad.append((pk["date"], leg["team"], w or f or "rewritten", x[:90]))
+                k = re.sub(r"\W+", " ", x).strip().lower()
+                if k in seen:
+                    bad.append((pk["date"], leg["team"], "twice", x[:90]))
+                seen.add(k)
+            for x in lines:
+                if cc.chip_repeat(x, leg) and leg.get("opp_outs"):
+                    bad.append((pk["date"], leg["team"], "chip twice", x[:90]))
+            txt = html.unescape(re.sub(r"<[^>]+>", "\n", h))
+            t = (pk["date"], leg["team"])
+            if t == ("2026-11-10", "Celtics"):
+                assert "a lean" not in txt and "either way" not in txt
+            if t == ("2026-11-07", "Tulane"):
+                assert "-446" not in txt
+            if t == ("2026-11-08", "Bruins"):
+                assert "-142 - -142" not in txt
+            if t == ("2026-10-25", "Seahawks"):
+                assert "coin flip" not in txt
+            if t == ("2026-11-07", "Ole Miss"):
+                assert "5-0 in their own building" not in txt
+    finally:
+        dash._GAMES_[0] = {}
+        cc.CAUGHT[:] = []
+    assert not bad, bad[:10]
 
 
 if __name__ == "__main__":
