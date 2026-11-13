@@ -795,6 +795,18 @@ def _confirmed_now(line, leg):
     return t
 
 
+def _confirmed_lead(leg):
+    """Our OWN goalie, confirmed in, with a hot line on the card (🧱): that line, said his way, is the header line - the
+    freshest fact on the card. '' otherwise (a cold goalie of theirs stays in the breakdown)."""
+    for x in leg.get("breakdown") or []:
+        t = str(x or "")
+        if t.startswith("🧱") and any(n in t for n in leg.get("confirmed") or []):
+            t = _confirmed_now(t, leg)
+            if " is in for " in t:
+                return t
+    return ""
+
+
 def fresh_lines(leg, secs):
     """🔄 11/12 (Victor: "outdated information" - the Sabres goalie and the Giants' Skattebo / McCarthy): every line
     naming a man whose status changed after the card posted comes out; the side's 🚑 line is the report as it reads
@@ -927,7 +939,9 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
     import sports_card_check                                 # 🧾 11/13: the one-liner through the card check too
     _wl = sports_card_check.check_one(pk, leg, sports_card_guard.one("" if stale_in(_wl, leg) else _wl, leg.get("league"),
                                                                      leg.get("team", ""), leg.get("opp", "")), _GAMES_[0])
-    _shown = pct_ok(_wl or _why_fallback(leg, pk))
+    _top = _confirmed_lead(leg) if not res else ""           # (11/13, the owner: the header said Saros "might play",
+    _shown = pct_ok(_top or _wl or _why_fallback(leg, pk))   #  then the Saros line was gone - our confirmed hot goalie
+    #                                                          leads the card: "Juuse Saros is in ... he been a brick wall")
     why = E(_shown)                                      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
     tag = ""                                             # (11/12, the owner: the public is never a reason - no 🤡 FADING /

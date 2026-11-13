@@ -20926,6 +20926,10 @@ def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads
         if keep[0] is None:
             sports.sp.CACHE.pop("nhl", None)
     assert hl["fresh"] == ["🔄 Update: Adin Hill is the Golden Knights goalie now, not Carter Hart."], hl["fresh"]
+    # ...and our confirmed hot goalie LEADS the card (the owner, 11/13: "I'm talking about the header - it said he might
+    # play at first, now it's completely gone")
+    assert dash._confirmed_lead(leg) == "🧱 Juuse Saros is in for the Predators, and he been a brick wall — a 0.977 save %."
+    assert dash._confirmed_lead({"breakdown": leg["breakdown"], "confirmed": []}) == ""
     assert dash._confirmed_now("🧱 Joel Hofer — the Blues' projected starter, nobody's confirmed yet — is standing on his head.",
                                {"confirmed": ["Joel Hofer"]}) == "🧱 Joel Hofer is in for the Blues, and he's standing on his head."
 

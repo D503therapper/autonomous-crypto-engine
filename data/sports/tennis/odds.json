@@ -1,20 +1,7 @@
 {
- "fetched": "2026-11-13T15:35Z",
+ "fetched": "2026-11-13T23:32Z",
  "src": "oddsapi",
  "lines": [
-  {
-   "a": "Alejandro Tabilo",
-   "b": "Thiago Agustin Tirante",
-   "start": "2026-11-13T13:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": -1.5,
-   "b_hcp": 1.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": -145,
-   "b_ml": 120
-  },
   {
    "a": "Mirra Andreeva",
    "b": "Karolina Muchova",
@@ -28,48 +15,62 @@
   {
    "a": "Aryna Sabalenka",
    "b": "Elina Svitolina",
-   "start": "2026-11-13T21:10Z",
-   "a_ml": -220,
-   "b_ml": 175,
+   "start": "2026-11-13T21:15Z",
+   "a_ml": 2500,
+   "b_ml": -8500,
    "tour": "wta",
    "src": "oddsapi",
-   "books": 9
+   "books": 6
   },
   {
    "a": "Jessica Pegula",
    "b": "Mirra Andreeva",
-   "start": "2026-11-14T20:00Z",
-   "a_ml": 162,
-   "b_ml": -177,
+   "start": "2026-11-14T15:00Z",
+   "a_ml": 180,
+   "b_ml": -215,
    "tour": "wta",
    "src": "oddsapi",
-   "books": 2
+   "books": 4
   },
   {
    "a": "Alexander Zverev",
    "b": "Rafael Jodar",
    "start": "2026-11-15T13:00Z",
-   "src": "bovada",
+   "a_ml": -227,
+   "b_ml": 186,
    "tour": "atp",
-   "a_hcp": -2.5,
-   "b_hcp": 2.5,
-   "a_sp": -135,
-   "b_sp": 105,
-   "a_ml": -220,
-   "b_ml": 180
+   "src": "oddsapi",
+   "books": 1
   },
   {
    "a": "Ben Shelton",
    "b": "Arthur Fils",
    "start": "2026-11-15T19:30Z",
-   "src": "bovada",
+   "a_ml": -170,
+   "b_ml": 146,
    "tour": "atp",
-   "a_hcp": -1.5,
-   "b_hcp": 1.5,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": -150,
-   "b_ml": 125
+   "src": "oddsapi",
+   "books": 1
+  },
+  {
+   "a": "Carlos Alcaraz",
+   "b": "Frances Tiafoe",
+   "start": "2026-11-16T13:00Z",
+   "a_ml": -700,
+   "b_ml": 505,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 1
+  },
+  {
+   "a": "Daniil Medvedev",
+   "b": "Flavio Cobolli",
+   "start": "2026-11-16T19:30Z",
+   "a_ml": -506,
+   "b_ml": 369,
+   "tour": "atp",
+   "src": "oddsapi",
+   "books": 1
   }
  ]
 }
