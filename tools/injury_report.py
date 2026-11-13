@@ -18,7 +18,8 @@ def main(day_iso=None):
     day = day_iso or datetime.now(timezone.utc).astimezone(sports.PT).date().isoformat()
     games = sd.load_games()
     sp.CACHE = sp.load()
-    slate = [g for g in games.values() if g.get("status") == "pre" and g.get("start") and str(g.get("ml_home", "")) != ""
+    slate = [g for g in games.values() if g.get("status") in ("pre", "live", "in") and g.get("start")   # (11/12: a game
+             #   under way still has its report - the owner checks a card against it during the game) and str(g.get("ml_home", "")) != ""
              and datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
              .astimezone(sports.PT).date().isoformat() == day]
     out = [f"INJURY REPORT for {day} - pulled {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC ({len(slate)} priced games)"]
