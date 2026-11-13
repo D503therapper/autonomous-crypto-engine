@@ -20736,6 +20736,35 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
     assert dash.stale_in("Cam Skattebo (RB)", leg2) and not dash.stale_in("Treylon Burks (WR)", leg2)
 
 
+def test_owner_1112_a_stuck_grader_is_killed_and_slow_steps_never_trip_the_watchdog():
+    """11/12 (the owner: "Not updating, it should be"): from 03:35 UTC nothing was graded for half an hour - the background
+    grader had no time limit, so grading() said 'busy' forever (no pulls, no grades) while the live board's heartbeat kept
+    the health check happy; then a slow GitHub pull (the 60s git limit) + a 30s data load tripped the 90s watchdog and the
+    watch restarted itself over and over before it reached a game. A grader past GRADER_MAX_S is killed; each startup
+    step gets its own watchdog clock."""
+    import inspect
+    import subprocess
+    import time as _t
+    import sports_live as sl
+    keep = (sl.GRADER[0], sl.GRADER_AT[0])
+    try:
+        sl.GRADER[0] = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"])
+        sl.GRADER_AT[0] = _t.time()
+        assert sl.grading()                                        # a fresh grader is busy
+        sl.GRADER_AT[0] = _t.time() - sl.GRADER_MAX_S - 1
+        proc = sl.GRADER[0]
+        assert not sl.grading()                                    # past the limit: killed, free for the next
+        assert sl.GRADER[0] is None
+        proc.wait(timeout=10)
+        assert proc.returncode is not None
+    finally:
+        sl.GRADER[0], sl.GRADER_AT[0] = keep
+    src = inspect.getsource(sl.loop)
+    i_pull, i_load = src.index("pull()"), src.index("_data(reload=True)")
+    assert "BEAT[0] = time.time()" in src[i_pull:i_load]           # the pull's clock resets before the load
+    assert "BEAT[0] = time.time()" in src[i_load:src.index("backstop()")]
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
