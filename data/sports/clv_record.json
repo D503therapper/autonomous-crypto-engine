@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 218,
+  "n": 220,
   "beat": 72,
-  "same": 86,
-  "worse": 60,
-  "avg_pts": 0.14
+  "same": 87,
+  "worse": 61,
+  "avg_pts": 0.12
  },
  "unit_plays": {
-  "n": 108,
+  "n": 109,
   "beat": 34,
   "same": 49,
-  "worse": 25,
-  "avg_pts": 0.22
+  "worse": 26,
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -22,9 +22,9 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 110,
+   "n": 111,
    "beat": 38,
-   "same": 37,
+   "same": 38,
    "worse": 35,
    "avg_pts": 0.05
   },
@@ -36,11 +36,11 @@
    "avg_pts": 1.23
   },
   "play": {
-   "n": 66,
+   "n": 67,
    "beat": 20,
    "same": 32,
-   "worse": 14,
-   "avg_pts": 0.22
+   "worse": 15,
+   "avg_pts": 0.15
   }
  },
  "by_sport": {
@@ -80,11 +80,11 @@
    "avg_pts": 0.28
   },
   "nhl": {
-   "n": 87,
+   "n": 89,
    "beat": 28,
-   "same": 34,
-   "worse": 25,
-   "avg_pts": 0.09
+   "same": 35,
+   "worse": 26,
+   "avg_pts": 0.04
   }
  },
  "lock_by_size": {
@@ -3160,6 +3160,20 @@
    "date": "2026-11-12",
    "kind": "lean",
    "lean": true,
+   "league": "nhl",
+   "team": "Bruins",
+   "market": "ml",
+   "line": null,
+   "odds": -125,
+   "close": -125,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-12",
+   "kind": "lean",
+   "lean": true,
    "league": "ncaab",
    "team": "Tennessee Tech",
    "market": "spread",
@@ -3169,6 +3183,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-11-12",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Red Wings",
+   "market": "ml",
+   "line": null,
+   "odds": 142,
+   "close": 170,
+   "pts": -4.3,
+   "units": 0.5,
+   "result": "lost"
   }
  ]
 }
