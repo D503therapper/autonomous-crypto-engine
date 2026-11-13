@@ -2900,10 +2900,19 @@ def write(picks, model, games, series, start_bank, path=PAGE):
 
 
 def _leg_brain(l):
-    return {k: l.get(k) for k in ("league", "team", "opp", "market", "line", "odds", "p", "tier", "result", "score",
-                                  "start", "breakdown", "outs", "opp_outs", "injury_alerts", "reasons", "game_id", "side")
-            if l.get(k) not in (None, [], "")} | ({"season": {"1": "preseason", "2": "regular season", "3": "playoffs"}
-                                                  .get(str(l.get("stype")), "regular season")} if l.get("stype") else {})
+    out = {k: l.get(k) for k in ("league", "team", "opp", "market", "line", "odds", "p", "tier", "result", "score",
+                                 "start", "breakdown", "outs", "opp_outs", "injury_alerts", "reasons", "game_id", "side")
+           if l.get(k) not in (None, [], "")} | ({"season": {"1": "preseason", "2": "regular season", "3": "playoffs"}
+                                                 .get(str(l.get("stype")), "regular season")} if l.get("stype") else {})
+    if out.get("breakdown"):                                 # (11/12, the owner: "Brain not updated" - the question box
+        import sports_card_guard                             #  read the card as it POSTED: the stale Ellis goalie line,
+        out["breakdown"] = [x for x in sports_card_guard.clean(   # the split lines, the filler; it says what the page
+            fresh_lines(l, out["breakdown"]), l.get("league"), l.get("team", ""), l.get("opp", "")) if x]   # says now)
+    if out.get("opp_outs") and l.get("stale"):
+        out["opp_outs"] = [x for x in out["opp_outs"] if not stale_in(x, l)]
+    if out.get("outs") and l.get("stale"):
+        out["outs"] = [x for x in out["outs"] if not stale_in(x, l)]
+    return out
 
 
 def write_brain(picks, games, path=BRAIN):

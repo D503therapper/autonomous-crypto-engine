@@ -2154,6 +2154,7 @@ def publish_results(msg):
         print(f"quick grade failed: {e}", flush=True)
         return
     paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
+             "docs/sports/brain.json",   # (11/12, the owner: "Brain not updated" - the grader rebuilt it and never shipped it)
              os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH,
              os.path.join(sd.DATA, "early.json"), os.path.join(sd.DATA, "compound.json")]
     _git("add", *[p for p in paths if os.path.exists(p)])
