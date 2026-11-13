@@ -8848,16 +8848,21 @@ def fresh_card_facts(games, legs, injuries):
                     if nm in body and conf and _nm_key(conf["name"])[0] == _nm_key(nm)[0] and nm not in confirmed_:
                         confirmed_.append(nm)
                         fresh.append(f"✅ Update: {nm} is confirmed in net for the {g[side_ + '_name']}.")
-                    if nm in body and now_.get(side_) and _nm_key(now_[side_])[0] != _nm_key(nm)[0] and nm not in stale:
-                        stale.append(nm)
+                    if nm in body and now_.get(side_) and _nm_key(now_[side_])[0] != _nm_key(nm)[0]:
+                        if nm not in stale:
+                            stale.append(nm)
                         try:                                 # (11/13: a goalie nobody has confirmed yet - the page's
                             import sports_goalies            #  guess or our projection - is never said as fact)
                             sure = sports_goalies.starter(g.get("id"), side_) is not None
                         except Exception:                    # noqa: BLE001
                             sure = False
-                        fresh.append(f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}."
-                                     if sure else f"🔄 Update: {now_[side_]} is projected in net for the "
-                                     f"{g[side_ + '_name']} now, not {nm} (not confirmed yet).")
+                        msg = (f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}."
+                               if sure else f"🔄 Update: {now_[side_]} is projected in net for the "
+                               f"{g[side_ + '_name']} now, not {nm} (not confirmed yet).")
+                        # (11/13: the morning "Adin Hill is projected ... (not confirmed yet)" stayed after the page
+                        #  confirmed him - the update line is rebuilt every check, never left stale itself)
+                        fresh = [x for x in fresh if not (x.startswith("🔄 Update:") and x.endswith((f"not {nm}.",
+                                 f"not {nm} (not confirmed yet).")))] + [msg]
         if confirmed_ != list(leg.get("confirmed") or []):
             leg["confirmed"] = confirmed_
         if stale != list(leg.get("stale") or []) or fresh != list(leg.get("fresh") or []):
