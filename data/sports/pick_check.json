@@ -1,28 +1,11 @@
 {
- "day": "2026-11-12",
+ "day": "2026-11-13",
  "picks": {
-  "dog|nhl:401892702|home|ml": {
-   "key": "dog|nhl:401892702|home|ml",
-   "kind": "dog",
-   "team": "Blackhawks",
-   "odds": 130,
-   "league": "nhl",
-   "units": 2.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "play|nhl:401892699|away|ml": {
-   "key": "play|nhl:401892699|away|ml",
+  "play|nhl:401892707|away|ml": {
+   "key": "play|nhl:401892707|away|ml",
    "kind": "floor",
-   "team": "Red Wings",
-   "odds": 142,
+   "team": "Predators",
+   "odds": 136,
    "league": "nhl",
    "units": 0.5,
    "lean": false,
@@ -35,45 +18,11 @@
     "injuries": "pass"
    }
   },
-  "lean|nhl:401892696|home|ml": {
-   "key": "lean|nhl:401892696|home|ml",
+  "lean|ncaab:401920973|home|ml": {
+   "key": "lean|ncaab:401920973|home|ml",
    "kind": "lean",
-   "team": "Bruins",
-   "odds": -125,
-   "league": "nhl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "lean|nhl:401892704|away|ml": {
-   "key": "lean|nhl:401892704|away|ml",
-   "kind": "lean",
-   "team": "Blues",
-   "odds": 100,
-   "league": "nhl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass"
-   }
-  },
-  "lean|ncaab:401916288|away|spread": {
-   "key": "lean|ncaab:401916288|away|spread",
-   "kind": "lean",
-   "team": "Tennessee Tech",
-   "odds": -115,
+   "team": "Elon",
+   "odds": -135,
    "league": "ncaab",
    "units": 0,
    "lean": true,
@@ -87,8 +36,45 @@
     "college_games": "pass",
     "d1": "pass"
    }
+  },
+  "lean|ncaab:401920123|home|ml": {
+   "key": "lean|ncaab:401920123|home|ml",
+   "kind": "lean",
+   "team": "Idaho",
+   "odds": -120,
+   "league": "ncaab",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass"
+   }
+  },
+  "lean|ncaaf:401856860|away|spread": {
+   "key": "lean|ncaaf:401856860|away|spread",
+   "kind": "lean",
+   "team": "Houston",
+   "odds": -110,
+   "league": "ncaaf",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "college_games": "pass"
+   }
   }
  },
- "updated": "2026-11-12T16:00Z",
+ "updated": "2026-11-13T16:00Z",
  "held": []
 }
