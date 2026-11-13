@@ -1,9 +1,11 @@
 {
- "at": "2026-11-13T08:59Z",
- "fixes": [],
+ "at": "2026-11-13T12:01Z",
+ "fixes": [
+  "live watch 43415690135 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,13 +15,46 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-13T12:01Z",
+   "fixes": [
+    "live watch 43415690135 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-13T11:39Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-13T10:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-13T09:46Z",
+   "fixes": [],
+   "problems": [
+    "question box down (502): {\"error\":\"ai unavailable\",\"why\":\"503 503 credential validation failed\"}",
+    "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
+   ]
+  },
+  {
+   "at": "2026-11-13T09:44Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
+   ]
+  },
   {
    "at": "2026-11-13T08:59Z",
    "fixes": [],
@@ -526,73 +561,6 @@
    "fixes": [
     "live watch 43151131684 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:38Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:36Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:35Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:34Z",
-   "fixes": [
-    "live watch 43150697061 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-12T04:22Z",
-   "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
    "problems": [
