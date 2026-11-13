@@ -372,6 +372,9 @@ def with_fact(text, fact):
         return text
     if re.search(r"\b\d+-\d+\b", text or ""):
         fact = re.split(r"(?: and won|, then|;) ", fact)[0] + "."
+        nums = re.findall(r"\b\d+-\d+\b", fact)
+        if nums and all(n in (text or "") for n in nums):    # (11/13 card audit: "Up 66-54 at the half, 134-99 final.
+            return text                                      #  Never close. Celtics led 66-54 at the half." - once is enough)
     return f"{text} {fact}".strip()
 
 
@@ -1225,7 +1228,7 @@ def _pick_card(kind, pk):
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span></div>
-  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0]) if len(pk["legs"]) == 1 else ""}
+  {('<div class="un">➖ VOID — NO ACTION</div>' if pk.get("status") == "void" or pk.get("void") else _units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0])) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
@@ -2913,9 +2916,14 @@ def write(picks, model, games, series, start_bank, path=PAGE):
         write_brain(picks, games, os.path.join(os.path.dirname(path), "brain.json"))
     except Exception as e:                                   # noqa: BLE001 - the page never waits on the brain
         print(f"brain.json failed: {e}")
+    try:                                                     # 🧾 11/13: what the card check caught on this build goes in
+        import sports_card_check                             # data/sports/pick_audit.json (the daily review reads it) -
+        sports_card_check.save(path=None if path == PAGE else os.path.join(os.path.dirname(path), "pick_audit.json"))
+    except Exception as e:                                   # noqa: BLE001 - written only when something new was caught
+        print(f"card check log failed: {e}")
 
 
-def _leg_brain(l):
+def _leg_brain(l, pk=None):
     out = {k: l.get(k) for k in ("league", "team", "opp", "market", "line", "odds", "p", "tier", "result", "score",
                                  "start", "breakdown", "outs", "opp_outs", "injury_alerts", "reasons", "game_id", "side")
            if l.get(k) not in (None, [], "")} | ({"season": {"1": "preseason", "2": "regular season", "3": "playoffs"}
@@ -2924,6 +2932,8 @@ def _leg_brain(l):
         import sports_card_guard                             #  read the card as it POSTED: the stale Ellis goalie line,
         out["breakdown"] = [x for x in sports_card_guard.clean(   # the split lines, the filler; it says what the page
             fresh_lines(l, out["breakdown"]), l.get("league"), l.get("team", ""), l.get("opp", "")) if x]   # says now)
+        import sports_card_check                             # (11/13: and the card check - the same lines the page shows)
+        out["breakdown"] = [x for x in sports_card_check.check(pk, l, out["breakdown"], _GAMES_[0], where="brain") if x]
     if out.get("opp_outs") and l.get("stale"):
         out["opp_outs"] = [x for x in out["opp_outs"] if not stale_in(x, l)]
     if out.get("outs") and l.get("stale"):
@@ -2943,7 +2953,7 @@ def write_brain(picks, games, path=BRAIN):
     now = datetime.now(PT)
     today, tmr = now.date().isoformat(), (now + timedelta(days=1)).date().isoformat()
     board = [{"date": p["date"], "kind": p["kind"], "status": p["status"], "odds": p.get("american"),
-              "legs": [_leg_brain(l) for l in p["legs"]], "waiting_on": p.get("waiting")}
+              "legs": [_leg_brain(l, p if len(p["legs"]) == 1 else None) for l in p["legs"]], "waiting_on": p.get("waiting")}
              for p in picks if p["date"] in (today, tmr)]
     recent = [{"date": p["date"], "kind": p["kind"], "status": p["status"], "lean": bool(p.get("lean")),
                "legs": [f"{l['team']} {l['market']}{'' if l.get('line') is None else ' ' + format(l['line'], '+g')} "

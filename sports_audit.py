@@ -172,6 +172,8 @@ def run(picks, games, days):
         r = audit_day(picks, games, d)
         if r["checked"]:
             r["at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+            if (st.get(d) or {}).get("card_check"):          # (11/13: the card check's catches for the day stay)
+                r["card_check"] = st[d]["card_check"]
             st[d] = r
             for x in r["flags"]:
                 print(f"PICK AUDIT FLAG {d}: {x}", flush=True)

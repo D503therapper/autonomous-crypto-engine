@@ -218,7 +218,17 @@ def bottom_line(leg, cx):
     if leg.get("market") == "total":
         bet = f"{'Over' if leg.get('side') == 'over' else 'Under'} {leg.get('line'):g}" if leg.get("line") is not None else team
     head = f"{'🟡' if cx.get('lean') else '✅'} Bottom line: {bet}" + (f" ({am})" if am else "") + "."
-    if cx.get("lean"):
+    if cx.get("lean"):                                       # a lean: its own closer, re-picked under today's rules
+        try:                                                 # (sports_breakdown.lean_ends - the coin flip only in band)
+            import sports_breakdown as sb
+            pool = sb.lean_ends(leg)
+            for k in range(len(pool)):
+                x = pool[(sum(map(ord, team + str(o))) + k) % len(pool)]
+                y, w = wording(x, {**cx, "_rebuilt": True}, leg)
+                if y and not w:
+                    return y
+        except Exception:                                    # noqa: BLE001
+            pass
         return head + " No units - just a lean."
     f = _fair(leg) if leg.get("market") == "ml" and leg.get("floor_score") is None else None
     return head + (f" We make 'em {f}, the book's at {am}." if f and am else "")
@@ -241,6 +251,8 @@ def wording(line, cx, leg):
             continue
         if cx.get("unit") and LEAN_TALK.search(s0):
             why = "a lean's words on a unit play"
+        elif cx.get("unit") and COIN.search(s0) and not re.search(r"\bprice\b|\bnumber\b", s0, re.I):
+            why = "a coin-flip line on a unit play"          # ("Could go either way." on the 1u Celtics -124)
         elif cx.get("lean") and UNIT_TALK.search(s0):
             why = "a unit play's words on a lean"
         elif cx.get("thin") and HYPE.search(s0):
@@ -266,7 +278,7 @@ def wording(line, cx, leg):
         out, w2 = _bottom_number(out, leg, cx)
         if w2:
             whys.append(w2)
-        if whys and (not out or len(_sentences(out)[1]) <= 1):
+        if whys and not cx.get("_rebuilt") and (not out or len(_sentences(out)[1]) <= 1 or cx.get("lean")):
             out = bottom_line(leg, cx)                       # (a bottom line is never lost - rebuilt from the facts)
         if cx.get("unit") and out.lstrip().startswith("🟡"):
             out = out.replace("🟡", "✅", 1)
@@ -599,10 +611,23 @@ def _dupe(x, seen):
     return False
 
 
-def _names_in(line):
-    body = re.sub(r"^.*?(?:missing|without|out|dressing for [\w.' ]+|out for [\w.' ]+|go without|goes without)[: ]+", "",
-                  str(line), flags=re.I)
-    return {re.sub(r"\s*\(.*?\)", "", x).strip(" .") for x in re.split(r",| and ", body) if x.strip(" .")}
+_INJ_WORDS = {"out", "for", "missing", "without", "is", "are", "the", "not", "dressing", "won't", "wont", "suit", "up",
+              "go", "goes", "on", "injury", "report", "sitting", "sit", "and", "won", "t", "will", "be", "tonight"}
+
+
+def chip_repeat(line, leg):
+    """A 🚑 line about the other side whose every name is already in the card's '🚑 X missing:' chip."""
+    t = str(line or "")
+    opp = leg.get("opp") or ""
+    if not t.lstrip().startswith("🚑") or not opp or opp not in t or "questionable" in t.lower():
+        return False
+    chip = " ".join(leg.get("opp_outs") or [])
+    if not chip:
+        return False
+    body = re.sub(r"\([^)]*\)", " ", t.replace(opp, " "))
+    toks = [w for w in re.findall(r"[A-Za-z][\w.'-]*", body) if w.lower().strip(".") not in _INJ_WORDS]
+    have = set(re.findall(r"[A-Za-z][\w.'-]*", re.sub(r"\([^)]*\)", " ", chip)))
+    return bool(toks) and all(w.strip(".") in have or w in have for w in toks)
 
 
 def check(pk, leg, lines, games=None, why="", where="render"):
@@ -613,20 +638,18 @@ def check(pk, leg, lines, games=None, why="", where="render"):
     out, seen = [], set()
     if why:
         _dupe(why, seen)
-    chip = {re.sub(r"\s*\(.*?\)", "", x).strip() for x in leg.get("opp_outs") or []} if where == "render" else set()
     for x in lines or []:
         if not isinstance(x, str):
             out.append(x)
             continue
         new, w = wording(x, cx, leg)
-        if not w and new == x and not BOTTOM.match(x):
-            fw = facts(x, leg, games)
+        if new and not BOTTOM.match(new):
+            fw = facts(new, leg, games)
             if fw:
-                new, w = "", "a fact the game files don't back: " + fw
+                new, w = "", "; ".join(y for y in (w, "a fact the game files don't back: " + fw) if y)
         if new and _dupe(new, seen):
             new, w = "", w or "the same line twice on the card"
-        if new and chip and new.lstrip().startswith("🚑") and leg.get("opp", "") in new \
-                and _names_in(new) and _names_in(new) <= chip:
+        if new and where == "render" and chip_repeat(new, leg):
             new, w = "", w or "the 🚑 chip's names again"
         if w:
             note(cx["date"], leg, w, x, where)
@@ -664,7 +687,9 @@ def save(path=None, keep_days=30):
     """data/sports/pick_audit.json: this run's catches under each pick's date ("card_check"), merged, deduped."""
     if not CAUGHT:
         return {}
-    path = path or os.path.join(sd.DATA, "pick_audit.json")
+    if path is None:                                         # (the pick audit's own file - sports_audit.PATH - so a
+        import sports_audit                                  #  test run that moves it moves this too)
+        path = sports_audit.PATH
     try:
         with open(path) as f:
             st = json.load(f)
@@ -692,9 +717,10 @@ def save(path=None, keep_days=30):
 
 def pre_post(new, games=None):
     """🧾 Before a pick posts (sports.post_board, after the rule check): every new card's one-liner and breakdown run the
-    whole check and are rewritten before anybody sees them. Never holds a pick. Returns the number of lines changed."""
-    n = 0
+    whole check and are rewritten before anybody sees them. Never holds a pick. Returns {pick key: lines changed}."""
+    out = {}
     for pk in new or []:
+        n = 0
         for leg in pk.get("legs") or []:
             bd = leg.get("breakdown")
             if bd:
@@ -706,11 +732,16 @@ def pre_post(new, games=None):
                 if w != leg["why_line"]:
                     n += 1
                     leg["why_line"] = w
+        l0 = (pk.get("legs") or [{}])[0]
+        out[f"{pk.get('kind')}|{l0.get('game_id')}|{l0.get('side')}|{l0.get('market')}"] = n
+    if any(out.values()):
+        print(f"CARD CHECK: {sum(out.values())} line(s) rewritten or dropped on {sum(1 for v in out.values() if v)} new "
+              f"card(s) before they posted", flush=True)
     try:
         save()
     except Exception as e:                                   # noqa: BLE001 - the log never blocks a post
         print(f"card check save failed: {e}", flush=True)
-    return n
+    return out
 
 
 def audit(picks, games, since, until=None):
