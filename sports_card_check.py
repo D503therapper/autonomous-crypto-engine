@@ -66,6 +66,10 @@ COIN_BAND = (0.42, 0.58)        # a moneyline side may be called a coin flip onl
 #    coin flip" on the Panthers +164 at a 36.6% read; "Toss-up, close to even" on the Pacers -148. sports_breakdown_v24
 #    .COIN_FLIP keeps the generator's band; this is the last stop for every card, posted ones too)
 BOTTOM = re.compile(r"^\W*(?:✅|🟡)\s*Bottom line:")
+LINE_MOVE = re.compile(r"line moved|number got bigger|price drifted|drifted out|since (?:it|the first number) opened|"
+                       r"since the first number|moved [\w.' ]+ shorter|the money'?s on 'em|money followed us|"
+                       r"the line (?:ran|went) from|line'?s moving|before the line moves", re.I)
+#   (the owner, 10/23: "when the line moves it doesn't really matter" - the line under a pick never talks line movement)
 AM = re.compile(r"(?<![\d.])([+-]\d{3,4})(?![\d.])")
 
 # ---- 3. LINGO --------------------------------------------------------------------------------------------------------
@@ -430,7 +434,7 @@ def team_facts(games, leg, which):
 REC = re.compile(r"(?<![\d.:/+-])(\d{1,3})-(\d{1,3})(?:-(\d{1,2}))?(?![\d%:/]|\.\d|-\d)")
 SCORE_AFTER = re.compile(r"^\s*(?:win|loss|victory|beating|final|in overtime|in a shootout|(?:@|vs\.?) (?-i:[A-Z])|\.\s*that'?s what|(?:over|by) (?:the )?(?-i:[A-Z]))", re.I)
 SCORE_BEFORE = re.compile(r"(?:(?-i:\b[WL])|\ban?|\bput|\bby|\bbrakes off [\w.' ]+,|"
-                          r"(?:smacked|spanked|clapped|embarrassed|cooked|buried|beat|took|blanked|whipped|handled) [\w.' ]{0,30}?|"
+                          r"(?:smacked|spanked|clapped|embarrassed|cooked|buried|beat|took|blanked|whipped|handled|lost to|fell to|loss to|win over|won over) [\w.' ]{0,30}?|"
                           r"\bwon|\blost|\bended)\s*$", re.I)
 SCORE_VERB = re.compile(r"spank|smack|\bbeat\b|beat the brakes|clapped|embarrass|\bput\b|did to|cooked|buried|"
                         r"\btook\b|\bwin over\b|\bloss to\b|\bwon\b|\blost\b|beating", re.I)
@@ -660,11 +664,22 @@ def check(pk, leg, lines, games=None, why="", where="render"):
     return out
 
 
+def _no_move(line):
+    """The line without its line-movement sentences (the line under a pick never talks the line moving)."""
+    lead, parts = _sentences(str(line or ""))
+    keep = [x for x in parts if not LINE_MOVE.search(x)]
+    return (line, "") if keep == parts else (_join(lead, keep), "line-move talk in the line under the pick")
+
+
 def check_one(pk, leg, line, games=None, where="render"):
     """The line under the pick: itself, rewritten, or '' (then the card falls back to its first real fact)."""
     if not line:
         return ""
     cx = ctx_of(pk, leg)
+    line0 = line
+    line, mv = _no_move(line)
+    if mv:
+        note(cx["date"], leg, mv, line0, where)
     new, w = wording(line, cx, leg)
     if new and not w:
         fw = facts(new, leg, games)
@@ -770,3 +785,29 @@ if __name__ == "__main__":                              # python sports_card_che
     _d._history(pk_)
     rows = _cc.audit(pk_, g_, sys.argv[1] if len(sys.argv) > 1 else "2026-10-25")
     print(sum(len(x[2]) for x in rows), "catches on", len(rows), "cards", datetime.now(timezone.utc).isoformat())
+
+
+def early_lines(p, lines, where="render"):
+    """🎯 / ⏰ an early play's row lines (its why line and fact lines): an early play always carries units, so it never
+    says a lean's words; the owner's banned frames / canned tails come off; the why line never talks line movement."""
+    try:
+        import sports_early
+        u = sports_early.units(p)
+    except Exception:                                        # noqa: BLE001
+        u = 0.5
+    o = p.get("odds")
+    imp = (100 / (o + 100) if o > 0 else -o / (-o + 100)) if isinstance(o, (int, float)) and o else None
+    cx = {"units": u or 0.5, "kind": "early", "lean": False, "unit": True, "thin": (u or 0.5) <= 0.5, "lock": False,
+          "floor": False, "market": p.get("market") or "ml", "odds": o, "read": p.get("own"), "p": p.get("own"),
+          "implied": imp, "date": (p.get("start") or "")[:10]}
+    leg = {"team": p.get("team"), "opp": p.get("opp"), "odds": o, "market": cx["market"], "league": p.get("league"),
+           "game_id": p.get("game_id"), "side": p.get("side")}
+    out = []
+    for x in lines or []:
+        y, mv = _no_move(x)
+        y, w = wording(y, cx, leg) if y else (y, "")
+        if mv or w:
+            note(cx["date"], leg, "; ".join(z for z in (mv, w) if z), x, where)
+        if y:
+            out.append(y)
+    return out

@@ -833,8 +833,8 @@ def _why_fallback(leg, pk=None):
     import sports_card_check                                 #  fact - a name, a score - before a generic reason tag)
     for x in leg.get("breakdown") or []:
         t = str(x or "").strip()
-        if t and not t.startswith(("⚠️", "✅", "🟡", "🔄", "🚑")) and not stale_in(t, leg) \
-                and not sports_card_guard.problem(t, leg.get("league")):
+        if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
+                and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg):
             t = sports_card_check.check_one(pk, leg, sports_card_guard.strip_tails(t), _GAMES_[0], where="fallback")
             if t:                                            # (11/13: the fallback passes the card check too)
                 return t
@@ -895,8 +895,9 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
     import sports_card_guard
     _wl = leg.get("why_line")
-    if _wl and not leg.get("is_lean") and lt_ not in ("lean", "strong") and NOT_FOR_UNITS.search(_wl):
-        _wl = ""                                             # (11/13: a posted unit play's "just not at this price" line)
+    if _wl and pk is None and not leg.get("is_lean") and lt_ not in ("lean", "strong") and NOT_FOR_UNITS.search(_wl):
+        _wl = ""                                             # (11/13: a posted unit play's "just not at this price" line -
+        #                                                      with the pick in hand the card check cuts just that sentence)
     import sports_card_check                                 # 🧾 11/13: the one-liner through the card check too
     _wl = sports_card_check.check_one(pk, leg, sports_card_guard.one("" if stale_in(_wl, leg) else _wl, leg.get("league"),
                                                                      leg.get("team", ""), leg.get("opp", "")), _GAMES_[0])

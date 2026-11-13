@@ -23035,7 +23035,8 @@ def test_card_audit_1113_every_card_passes_the_check_before_it_posts_and_on_the_
     import sports_audit
     import sports_card_check as cc
     import sports_dashboard as dash
-    assert "sports_card_check.pre_post(new, games)" in inspect.getsource(sports.post_board)
+    assert "card_check(new, rep, games)" in inspect.getsource(sports.post_board)
+    assert "sports_card_check.pre_post(new, games)" in inspect.getsource(sports.card_check)
     assert "card_check" in inspect.getsource(sports_audit.run)
     games = _cc_games()
     leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml",

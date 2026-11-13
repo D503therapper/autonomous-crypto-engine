@@ -1939,6 +1939,15 @@ def fresh_facts(facts, why=""):
     return out
 
 
+def _cc_lines(p, lines):
+    """🧾 11/13: an early row's lines through the card check (sports_card_check.early_lines) - never breaks the box."""
+    try:
+        import sports_card_check
+        return sports_card_check.early_lines(p, [x for x in lines or [] if x])
+    except Exception:                                        # noqa: BLE001
+        return [x for x in lines or [] if x]
+
+
 def html(st, E, now=None, show_units=None, games=None):
     """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
     they're no longer early plays - they leave the box; no grading shown here)."""
@@ -1956,8 +1965,8 @@ def html(st, E, now=None, show_units=None, games=None):
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small> '
                 f'<em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
-                + (f'<span>{E(no_pct(p))}</span>' if p.get("spot") in SPOTS else "")
-                + "".join(f'<span>{E(x)}</span>' for x in fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS else "")) +   # ⛰️ (11/11: the fact lines)
+                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)] if p.get("spot") in SPOTS else []))
+                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS else ""))) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -2071,7 +2080,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                        f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
                        f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>')
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
-                    + "".join(f'<span>{E(x)}</span>' for x in (p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
+                    + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
