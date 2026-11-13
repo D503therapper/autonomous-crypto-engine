@@ -20810,6 +20810,27 @@ def test_owner_1112_no_canned_signoffs_no_filler_tails_no_public_reviews():
     assert len(seen) > 20                                              # still plenty of different ways to say it
 
 
+def test_owner_1112_the_brain_ships_with_every_grade_and_says_what_the_page_says():
+    """11/12 (the owner: "Brain not updated"): the grader rebuilt docs/sports/brain.json every few minutes and never
+    committed it (only the hourly run did), and the brain carried the card as it POSTED - the stale Colten Ellis goalie
+    line, the split lines, the filler tails. It ships with every grade now and holds the card the page shows."""
+    import inspect
+    import sports_live as sl
+    import sports_dashboard as dash
+    assert "docs/sports/brain.json" in inspect.getsource(sl.publish_results)
+    leg = {"league": "nhl", "team": "Blackhawks", "opp": "Sabres", "market": "ml", "odds": 130,
+           "stale": ["Colten Ellis"], "fresh": ["🔄 Update: Alex Lyon is in net for the Sabres, not Colten Ellis."],
+           "opp_outs": ["Konsta Helenius (C)"],
+           "breakdown": ["🥅 Colten Ellis, projected to start for the Sabres (not confirmed yet), can't keep the puck out lately: a 0.868 save %.",
+                         "📊 94% of the moneyline bets on the Sabres. Let the public have 'em.",
+                         "⚠️ Blackhawks have dropped 6 straight. We see it. Ain't scared of it.",
+                         "✅ Bottom line: Blackhawks (+130). We make Blackhawks -101 - the book's paying +130. Tap in."]}
+    b = dash._leg_brain(leg)["breakdown"]
+    assert b[0].startswith("🔄 Update: Alex Lyon")
+    assert not any("Colten Ellis" in x and not x.startswith("🔄") for x in b)
+    assert not any("94%" in x for x in b) and "⚠️ Blackhawks have dropped 6 straight." in b
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
