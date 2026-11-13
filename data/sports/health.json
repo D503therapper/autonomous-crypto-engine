@@ -1,14 +1,12 @@
 {
- "at": "2026-11-13T17:27Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-11-13T17:32Z",
+ "fixes": [],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Andreescu vs Hercog: no points for 285s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (141s)",
+  "live watcher fresh (69s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +18,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
-  "engine ran 48 min ago",
+  "simulator ran 0h ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-13T17:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Hercog: no points for 285s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-13T17:27Z",
    "fixes": [
@@ -514,19 +521,6 @@
    "at": "2026-11-12T08:35Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-12T07:54Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
   }
  ]
 }
