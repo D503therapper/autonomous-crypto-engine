@@ -2098,21 +2098,39 @@ def push_live():
 
 
 GRADER = [None]              # the background grading job (a game ended): the live board never waits on it
+GRADER_AT = [0.0]            # when it started
+GRADER_MAX_S = 8 * 60        # 11/12 (the owner: "Not updating, it should be"): a grader stuck past this is killed - it
+#                              held git 'busy' with no limit, so the watch never pulled or graded again while the live
+#                              board's heartbeat kept the health check happy (03:35-04:04 UTC, nothing graded)
 
 
 def grade_in_background(msg):
     """Grade + rebuild the page in a separate process - it can take minutes on the runner, and the live board must keep
     updating every few seconds meanwhile. One at a time."""
     import subprocess
-    if GRADER[0] is not None and GRADER[0].poll() is None:
+    if grading():
         return False
     GRADER[0] = subprocess.Popen([sys.executable, "-u", "-c", f"import sports_live; sports_live.publish_results({msg!r})"])
+    GRADER_AT[0] = time.time()
     print(f"{datetime.now(timezone.utc):%H:%M:%S} grading in the background", flush=True)
     return True
 
 
 def grading():
-    return GRADER[0] is not None and GRADER[0].poll() is None
+    """Is the background grader still going? One stuck past GRADER_MAX_S is killed (and the next one can start)."""
+    g = GRADER[0]
+    if g is None or g.poll() is not None:
+        return False
+    if time.time() - GRADER_AT[0] > GRADER_MAX_S:
+        try:
+            g.kill()
+        except Exception:                                    # noqa: BLE001
+            pass
+        sd.ERRORS.append(f"grader stuck {(time.time() - GRADER_AT[0]) / 60:.0f} min - killed")
+        print(f"{datetime.now(timezone.utc):%H:%M:%S} grader stuck - killed, the next one starts fresh", flush=True)
+        GRADER[0] = None
+        return False
+    return True
 
 
 def publish_results(msg):
@@ -2281,6 +2299,9 @@ def loop(minutes, every_s=1):
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
             if not grading():                                # (the grader has git busy - pull next time)
                 pull()
+            BEAT[0] = time.time()                            # (11/12: each step gets its own clock - a 60s pull + a 30s
+            #                                                  load tripped the 90s watchdog and the watch restarted
+            #                                                  itself over and over, never reaching a game)
             if _code_hash() != code and not grading():      # new live code landed: restart on it right now, so a fix
                 left = max(1.0, (end - time.time()) / 60)   # never waits behind a watch running the old code
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} new code - restarting on it ({left:.0f} min left)", flush=True)
@@ -2290,7 +2311,9 @@ def loop(minutes, every_s=1):
                 games, _ = _data(reload=True)
             except Exception as e:                           # noqa: BLE001 - (10/2 audit: a bad reload killed the
                 print(f"data reload failed, keeping the last copy: {str(e)[:80]}", flush=True)   # whole watch)
+            BEAT[0] = time.time()
             backstop()
+            BEAT[0] = time.time()
         if any_live_soon(games, STAY_MIN) and not queued:       # the next watch lines up behind this one
             queued = queue_next()
         if not any_live_soon(games, STAY_MIN):
