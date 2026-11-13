@@ -6608,7 +6608,9 @@ def _six_early_spots_rest(se, G, now, agree, rams, got, escape):
         h = se.html(st, escape, now)
     finally:
         se.ON = keep_on
-    assert "Utah" in h and "The line moved away from them" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "Utah" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "The line moved away from them" not in h      # (11/13 card check: the line under a pick never talks the line
+    #                                                       moving - the owner, 10/23; the spot's name says what it is)
 
 
 def test_dog_findings_weighed_never_auto():

@@ -50,7 +50,7 @@ LEAN_TALK = re.compile(
     r"not enough for units|no units at this price|not a unit play|price is too fair to bet|too fair to bet|"
     r"we ain'?t (?:betting|paying for|putting money)|no value at this number|no profit in it|parlay piece|"
     r"isn'?t quite big enough for units|if you gotta (?:pick one|have a side)|ain'?t putting money on it|"
-    r"\bno money on it\b|not by enough for units|too close for units", re.I)
+    r"\bno money on it\b|not by enough for units|too close for units|\bnot the price\b", re.I)
 UNIT_TALK = re.compile(
     r"\btap in\b|\block it in\b|half a unit|\bfull unit\b|(?<!no )\bunits? on (?:it|this|him|them)\b|\bbigger bet\b|"
     r"\bbig bet\b|\bload up\b|\beasy money\b|\bfree money\b|\bhammer\b|\bsmash\b|trust the algorithm|"
@@ -70,6 +70,9 @@ LINE_MOVE = re.compile(r"line moved|number got bigger|price drifted|drifted out|
                        r"since the first number|moved [\w.' ]+ shorter|the money'?s on 'em|money followed us|"
                        r"the line (?:ran|went) from|line'?s moving|before the line moves", re.I)
 #   (the owner, 10/23: "when the line moves it doesn't really matter" - the line under a pick never talks line movement)
+BETTER = re.compile(r"\bbetter (?:team|squad|side|club|roster)\b(?! (?:on paper|by the records))|\bstronger (?:team|side|squad)\b|"
+                    r"\bthe better team is on our side\b", re.I)
+#   (the owner's never-false rule: "the better team" only when the engine's read has them winning)
 AM = re.compile(r"(?<![\d.])([+-]\d{3,4})(?![\d.])")
 
 # ---- 3. LINGO --------------------------------------------------------------------------------------------------------
@@ -91,7 +94,7 @@ TAILS = re.compile(
     r"good number|right side)[.!?]?$", re.I)
 #   (a whole sentence only: "⚠️ Suns have dropped 3 straight. Still riding Suns." keeps the fact)
 OUTSCORE = re.compile(r"\b(is|are|has|have|been)\s+(outscoring|outscored)\s+teams\s+(\d+)\s+to\s+(\d+)", re.I)
-A_AN = re.compile(r"\b([Aa]) (8|11|18|8\d|8\d\d|11\d)(?=[-\s])")
+A_AN = re.compile(r"\b([Aa]) (8|11|18|8\d|8\d\d)(?=[-\s])")      # ("a 110" stays - a hundred ten)
 POSS_SIDE = re.compile(r"\b([A-Z][\w.' ]{1,30}?s)'s the side\b")
 FOURTH = re.compile(r"4th[- ]down|fourth[- ]down|goes for it", re.I)
 FOURTH_NUM = re.compile(r"\d+ of \d+")
@@ -111,6 +114,25 @@ def _join(lead, parts):
     if not body:
         return ""
     return lead + body[:1].upper() + body[1:] if lead.strip() else body[:1].upper() + body[1:]
+
+
+def _drop_clause(sentence, rx):
+    """The sentence without the ' - ' / ' — ' / ', ' clause that matches rx ('' when no fact is left)."""
+    parts = re.split(r"(\s[-—]\s|,\s)", sentence)
+    out, i = [], 0
+    while i < len(parts):
+        seg = parts[i]
+        if rx.search(seg):
+            if out and re.fullmatch(r"\s[-—]\s|,\s", out[-1] or ""):
+                out.pop()
+            i += 2
+            continue
+        out.append(seg)
+        i += 1
+    s = "".join(out).strip(" ,-—")
+    if not re.search(r"\d", s):
+        return ""
+    return s if s.endswith((".", "!", "?")) else s + "."
 
 
 def _banned_hit(sentence):
@@ -246,11 +268,15 @@ def wording(line, cx, leg):
     whys = []
     bottom = bool(BOTTOM.match(t))
     lead, parts = _sentences(t)
-    keep = []
+    keep, head_bad = [], False
     for i, s in enumerate(parts):
         why = ""
         s0 = s.strip()
-        if bottom and i == 0:                                # ("Bottom line: Celtics (-124)." - the head stays)
+        if bottom and i == 0:                                # ("Bottom line: Celtics (-124)." - the head stays, unless
+            if (cx.get("unit") and LEAN_TALK.search(s0)) or (cx.get("lean") and UNIT_TALK.search(s0)) \
+                    or (COIN.search(s0) and not coin_ok(cx)):   #  it says the wrong bet: then the whole line is rebuilt)
+                whys.append("the bottom line's head says the wrong bet")
+                head_bad = True
             keep.append(s)
             continue
         if cx.get("unit") and LEAN_TALK.search(s0):
@@ -265,6 +291,14 @@ def wording(line, cx, leg):
             why = "Lock words on a pick that isn't the Lock"
         elif COIN.search(s0) and not coin_ok(cx):
             why = "a coin flip said of a side that isn't one"
+        elif BETTER.search(s0) and cx.get("market") == "ml" and (cx.get("p") or 0.5) < 0.5 \
+                and (cx.get("read") or 0.5) < 0.5:
+            why = "a 'better team' claim the read doesn't back"   # (the read has them under 50% to win)
+            rest = _drop_clause(s0, BETTER)
+            if rest:                                         # ("Vikings (6-0) over Lions (4-2) on the record" stays)
+                whys.append(why)
+                keep.append(rest)
+                continue
         elif TAILS.match(s0):
             why = "a canned tail with no fact"
         else:
@@ -277,7 +311,12 @@ def wording(line, cx, leg):
             whys.append(why)
         else:
             keep.append(s)
+    names = [n for n in (leg.get("team"), leg.get("opp")) if n]
+    if keep != parts and not any(re.search(r"\d", k) or any(n in k for n in names) for k in keep):
+        keep = []                                            # (nothing with a fact left: "That's just facts." alone goes)
     out = _join(lead, keep) if keep != parts else t
+    if head_bad:
+        out = ""
     if bottom:
         out, w2 = _bottom_number(out, leg, cx)
         if w2:
@@ -295,9 +334,9 @@ def wording(line, cx, leg):
     if out and FOURTH.search(out) and leg.get("league") in ("nfl", "ncaaf") and not FOURTH_NUM.search(out):
         whys.append("a 4th-down claim with no plays behind it")
         out = ""
-    if out and WARM.search(out):
-        whys.append("a climate claim (the 11/12 rule says it with the degrees or not at all)")
-        out = "" if not re.search(r"\d+\s*°|\d+ degrees", out) else out
+    if out and WARM.search(out) and not re.search(r"\d+\s*°|\d+ degrees", out):
+        whys.append("a climate claim with no degrees behind it (the 11/12 rule)")
+        out = ""
     return out, "; ".join(dict.fromkeys(whys))
 
 
@@ -489,7 +528,7 @@ def facts(line, leg, games):
     t = str(line or "")
     if not t.strip() or BOTTOM.match(t) and not REC.search(t):
         return ""
-    if t.lstrip().startswith(("🚑", "🔄", "🧯", "🤒", "📣", "🌟", "🏀", "🥅", "🧱", "🎯", "🗑️ ")) and not REC.search(t.split("—")[0]):
+    if t.lstrip().startswith(("🚑", "🔄", "🧯", "🤒", "📣", "🌟")):   # (who's out / the news - checked elsewhere)
         return ""
     us, them = leg.get("team") or "", leg.get("opp") or ""
     names = [us, them]
