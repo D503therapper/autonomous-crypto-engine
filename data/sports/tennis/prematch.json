@@ -1,16 +1,4 @@
 {
-"atp:186522": {
-"bo": 3,
-"model_p1": 0.7635,
-"p1": "10645",
-"p1_name": "Toby Samuel",
-"p2": "7600",
-"p2_name": "Leo Borg",
-"seen": "2026-11-09T19:45",
-"start": "2026-11-09T19:55Z",
-"tour": "atp",
-"tourney": "Bybit Stockholm Open"
-},
 "atp:186525": {
 "bo": 3,
 "model_p1": 0.3503,
@@ -182,23 +170,29 @@
 },
 "atp:186546": {
 "bo": 3,
-"model_p1": 0.3606,
+"mkt_p1": 0.4344,
+"ml": [
+120,
+-145
+],
+"model_p1": 0.3605,
 "p1": "4010",
 "p1_name": "Thiago Agustin Tirante",
 "p2": "2970",
 "p2_name": "Alejandro Tabilo",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-13T13:00Z",
 "tour": "atp",
 "tourney": "Bybit Stockholm Open"
 },
 "atp:186547": {
 "bo": 3,
-"p1": "-4",
-"p1_name": "TBD",
+"model_p1": 0.5433,
+"p1": "3764",
+"p1_name": "Lorenzo Musetti",
 "p2": "2946",
 "p2_name": "Taylor Fritz",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-13T16:00Z",
 "tour": "atp",
 "tourney": "Bybit Stockholm Open"
@@ -340,41 +334,6 @@
 "p2_name": "Lucia Bronzetti",
 "seen": "2026-11-10T14:58",
 "start": "2026-11-10T15:30Z",
-"tour": "wta",
-"tourney": "DIRECTV Open Presentado por Compesar"
-},
-"wta:186754": {
-"bo": 3,
-"model_p1": 0.553,
-"p1": "2599",
-"p1_name": "Julia Grabher",
-"p2": "3034",
-"p2_name": "Tamara Zidansek",
-"seen": "2026-11-09T18:38",
-"start": "2026-11-09T18:50Z",
-"tour": "wta",
-"tourney": "DIRECTV Open Presentado por Compesar"
-},
-"wta:186755": {
-"bo": 3,
-"model_p1": 0.2727,
-"p1": "2146",
-"p1_name": "Yuliana Lizarazo",
-"p2": "4546",
-"p2_name": "Irene Burillo",
-"seen": "2026-11-09T19:45",
-"start": "2026-11-09T19:55Z",
-"tour": "wta",
-"tourney": "DIRECTV Open Presentado por Compesar"
-},
-"wta:186756": {
-"bo": 3,
-"p1": "19366",
-"p1_name": "Antonella Esquivel Useche",
-"p2": "14562",
-"p2_name": "Sofia Costoulas",
-"seen": "2026-11-09T18:38",
-"start": "2026-11-09T18:45Z",
 "tour": "wta",
 "tourney": "DIRECTV Open Presentado por Compesar"
 },
@@ -551,7 +510,7 @@
 "p1_name": "TBD",
 "p2": "-3",
 "p2_name": "TBD",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-14T05:00Z",
 "tour": "wta",
 "tourney": "DIRECTV Open Presentado por Compesar"
@@ -563,19 +522,20 @@
 "p1_name": "Elizabeth Mandlik",
 "p2": "15069",
 "p2_name": "Laura Samson",
-"seen": "2026-11-12T18:21",
-"start": "2026-11-13T05:00Z",
+"seen": "2026-11-13T01:06",
+"start": "2026-11-13T15:00Z",
 "tour": "wta",
 "tourney": "DIRECTV Open Presentado por Compesar"
 },
 "wta:186774": {
 "bo": 3,
-"p1": "-4",
-"p1_name": "TBD",
+"model_p1": 0.7725,
+"p1": "2979",
+"p1_name": "Bianca Andreescu",
 "p2": "1095",
 "p2_name": "Polona Hercog",
-"seen": "2026-11-12T18:21",
-"start": "2026-11-13T05:00Z",
+"seen": "2026-11-13T01:06",
+"start": "2026-11-13T16:30Z",
 "tour": "wta",
 "tourney": "DIRECTV Open Presentado por Compesar"
 },
@@ -591,7 +551,7 @@
 "p1_name": "Coco Gauff",
 "p2": "3382",
 "p2_name": "Marta Kostyuk",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-12T19:38",
 "start": "2026-11-12T20:00Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
@@ -632,18 +592,18 @@
 },
 "wta:187376": {
 "bo": 3,
-"mkt_p1": 0.5263,
+"mkt_p1": 0.5427,
 "ml": [
--125,
-100
+-130,
+110
 ],
-"model_p1": 0.4501,
+"model_p1": 0.45,
 "p1": "6970",
 "p1_name": "Linda Noskova",
 "p2": "2113",
 "p2_name": "Jessica Pegula",
-"seen": "2026-11-12T18:21",
-"start": "2026-11-12T21:30Z",
+"seen": "2026-11-12T21:51",
+"start": "2026-11-12T21:55Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
 },
@@ -666,9 +626,9 @@
 },
 "wta:187379": {
 "bo": 3,
-"mkt_p1": 0.3724,
+"mkt_p1": 0.3678,
 "ml": [
-155,
+160,
 -195
 ],
 "model_p1": 0.3111,
@@ -676,48 +636,24 @@
 "p1_name": "Elina Svitolina",
 "p2": "3038",
 "p2_name": "Aryna Sabalenka",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-13T21:30Z",
-"tour": "wta",
-"tourney": "FAGE WTA Finals Indian Wells"
-},
-"wta:187381": {
-"bo": 3,
-"model_p1": 0.4357,
-"p1": "3039",
-"p1_name": "Karolina Muchova",
-"p2": "3038",
-"p2_name": "Aryna Sabalenka",
-"seen": "2026-11-09T19:45",
-"start": "2026-11-09T20:00Z",
-"tour": "wta",
-"tourney": "FAGE WTA Finals Indian Wells"
-},
-"wta:187382": {
-"bo": 3,
-"model_p1": 0.5054,
-"p1": "1797",
-"p1_name": "Elina Svitolina",
-"p2": "9820",
-"p2_name": "Mirra Andreeva",
-"seen": "2026-11-09T21:53",
-"start": "2026-11-09T22:00Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
 },
 "wta:187384": {
 "bo": 3,
-"mkt_p1": 0.3108,
+"mkt_p1": 0.2988,
 "ml": [
-207,
--260
+220,
+-275
 ],
 "model_p1": 0.4631,
 "p1": "3039",
 "p1_name": "Karolina Muchova",
 "p2": "9820",
 "p2_name": "Mirra Andreeva",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-13T20:00Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
@@ -745,7 +681,7 @@
 "p1_name": "TBD",
 "p2": "-3",
 "p2_name": "TBD",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-14T05:00Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
@@ -756,7 +692,7 @@
 "p1_name": "TBD",
 "p2": "-3",
 "p2_name": "TBD",
-"seen": "2026-11-12T18:21",
+"seen": "2026-11-13T01:06",
 "start": "2026-11-14T05:00Z",
 "tour": "wta",
 "tourney": "FAGE WTA Finals Indian Wells"
