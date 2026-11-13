@@ -20727,13 +20727,17 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
             {"gid": "x0", "start": "2026-05-17T00:00Z", "team": "2", "player": "Alex Lyon", "role": "G"},
             {"gid": "x2", "start": "2026-11-08T01:00Z", "team": "4", "player": "Spencer Knight", "role": "G"}]
     keep_c, keep_s = sports.sp.CACHE.get("nhl"), sports.sp.starter_for
+    import sports_goalies as _sg
+    keep_k = _sg.starter
     try:
         sports.sp.CACHE["nhl"] = rows
         sports.sp.starter_for = lambda r, g_, s_: {"home": "Spencer Knight", "away": "Alex Lyon"}[s_]
-        sports.fresh_card_facts({"nhl:2": hg}, [hl], {"nhl": None})
+        _sg.starter = lambda gid, side, now=None: {"name": "Alex Lyon", "status": "confirmed"} if side == "away" else None
+        sports.fresh_card_facts({"nhl:2": hg}, [hl], {"nhl": None})   # (11/13: confirmed - said as fact)
     finally:
         sports.sp.CACHE["nhl"] = keep_c
         sports.sp.starter_for = keep_s
+        _sg.starter = keep_k
         if keep_c is None:
             sports.sp.CACHE.pop("nhl", None)
     assert hl["stale"] == ["Colten Ellis"], hl.get("stale")
@@ -22742,6 +22746,123 @@ def test_leans_1113_a_college_hoops_spread_lean_needs_a_studied_weight_and_the_l
     assert sl.LEANS_DIAL_TAG in sl.spread_tags(dog, sports)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "leans_1113_spread_tags" not in src                                            # never read by the board
+
+def test_daily_1113_the_goalie_pages_unconfirmed_name_comes_before_our_projection():
+    """11/13 DAILY STUDIES S1 / S2 (results/studies/daily_1113/s1_s2_goalie_projection.py). The 11/12 Blackhawks card named
+    Colten Ellis for the Sabres: NOT a projection bug - Ukko-Pekka Luukkonen started the night before (pulled, 14 shots /
+    5 goals), so on the 2nd night of the back-to-back our rule took the other goalie of the last 10 (Ellis); Alex Lyon had
+    no start this season (a 3rd goalie - the rule is 0 for 106 on those 2023-26). S2: the goalie page's own 'unconfirmed'
+    name at the 8 AM board was right 77.3% of 476 sides vs our projection's 62.2% (where they disagreed, 107-35 the page's
+    way) - from the 11/13 games starter_for takes the page's guess before ours. A GUESS still: starter() (known) never
+    returns it, so the roles weight / the questionable hold / 'confirmed' card words never read it, and a posted card's
+    goalie update says 'projected ... (not confirmed yet)' unless the new man is confirmed / likely."""
+    import sports_goalies as sg
+    import sports_players as sp_
+    page = {"seen": "2026-11-13T15:45Z", "games": {
+        "nhl:9": {"away": {"name": "Alex Lyon", "status": "unconfirmed"}, "home": {"name": "Spencer Knight", "status": "likely"}},
+        "nhl:8": {"away": {"name": "Alex Lyon", "status": "unconfirmed"}, "home": {"name": "", "status": "unconfirmed"}}}}
+    rows = [{"gid": "a", "start": "2026-11-06T00:00Z", "team": "2", "player": "Ukko-Pekka Luukkonen", "role": "G"},
+            {"gid": "b", "start": "2026-11-08T20:30Z", "team": "2", "player": "Colten Ellis", "role": "G"},
+            {"gid": "c", "start": "2026-11-12T00:00Z", "team": "2", "player": "Ukko-Pekka Luukkonen", "role": "G"},
+            {"gid": "x0", "start": "2026-05-17T00:00Z", "team": "2", "player": "Alex Lyon", "role": "G"},
+            {"gid": "d", "start": "2026-11-08T01:00Z", "team": "4", "player": "Spencer Knight", "role": "G"},
+            {"gid": "e", "start": "2026-11-10T01:00Z", "team": "4", "player": "Arvid Soderblom", "role": "G"}]
+    rows.sort(key=lambda r: r["start"])
+    g = {"id": "nhl:9", "league": "nhl", "home": "4", "away": "2", "start": "2026-11-13T01:00Z", "status": "pre",
+         "home_name": "Blackhawks", "away_name": "Sabres"}
+    keep = sg.load
+    try:
+        sg.load = lambda now=None: page
+        assert sg.starter("nhl:9", "away") is None                       # unconfirmed is never KNOWN
+        assert sg.guess("nhl:9", "away")["name"] == "Alex Lyon"
+        assert sg.guess("nhl:9", "home") is None and sg.starter("nhl:9", "home")["name"] == "Spencer Knight"
+        assert sg.guess("nhl:8", "home") is None                          # (no name: no guess)
+        assert sp_.projected_starter(rows, "2", g["start"]) == "Colten Ellis"   # our b2b rule: the other goalie
+        assert sp_.starter_for(rows, g, "away") == "Alex Lyon"            # the page's guess first (box spelling)
+        assert sp_.starter_for(rows, g, "home") == "Spencer Knight"       # likely still wins
+        assert sp_.starter_for(rows, {**g, "start": "2026-11-12T01:00Z"}, "away") == "Colten Ellis"   # before 11/13
+        keep_from = sp_.PAGE_GUESS_FROM
+        try:
+            sp_.PAGE_GUESS_FROM = "9999"
+            assert sp_.starter_for(rows, g, "away") == "Colten Ellis"     # the switch back
+        finally:
+            sp_.PAGE_GUESS_FROM = keep_from
+        # a posted card that named the projection gets an honest update - never a guess said as fact
+        hl = {"game_id": "nhl:9", "league": "nhl", "team": "Blackhawks", "opp": "Sabres", "side": "home",
+              "breakdown": ["🥅 Colten Ellis, projected to start for the Sabres (not confirmed yet), 0.868 save %."]}
+        keep_c = sports.sp.CACHE.get("nhl")
+        try:
+            sports.sp.CACHE["nhl"] = rows
+            sports.fresh_card_facts({"nhl:9": g}, [hl], {"nhl": None})
+        finally:
+            sports.sp.CACHE["nhl"] = keep_c
+            if keep_c is None:
+                sports.sp.CACHE.pop("nhl", None)
+        assert hl.get("stale") == ["Colten Ellis"], hl.get("stale")
+        assert hl["fresh"][-1] == ("🔄 Update: Alex Lyon is projected in net for the Sabres now, not Colten Ellis "
+                                   "(not confirmed yet)."), hl["fresh"]
+    finally:
+        sg.load = keep
+
+def test_daily_1113_nba_bad_home_spread_fav_weight_the_early_spread_fade_judged_off_and_four_tracker_leads():
+    """11/13 DAILY STUDIES (results/studies/daily_1113/): (1) THE TRACKER'S OWN JUDGE - the 11/2 NBA early-season spread
+    favorite fade ('judge at 50: covering 52%+ = the weight comes off') covered 38 of 66 (57.6%): OFF from the 11/14 games
+    (sports.NBA_EARLY_SPREAD_OFF_FROM), its tag keeps logging. (2) S10 BUILT: an NBA HOME spread favorite .400 or worse after
+    10+ games covered 45.6% (ATS -13.1% on 546, train 0 of 4 up, held 3 of 4 down, placebo 18 of 2,000) - -0.02 on its
+    spread rank from the 11/14 games; never on the road (that one covers), never the moneyline, no dog bump. (3) LEADS,
+    tracked only: its moneyline side, college football's last-season meeting (the winner by 17+ / the payback side), the
+    NBA back-to-back side off a 20+ loss."""
+    import sports_leads as sl
+    base = {"league": "nba", "market": "spread", "line": -6.5, "odds": -110, "dec": 1.909, "p": 0.55, "side": "home",
+            "home": True, "season_games": 4, "game_id": "g1", "team": "A", "opp": "B", "reasons": [],
+            "dog_more": {"record": (2, 2)}}
+    # (1) the 11/2 early spread fade: on through 11/13, off from 11/14 (its tracker tag stays)
+    early = {**base, "start": "2026-11-14T03:00Z"}                       # 7 PM PT 11/13
+    late = {**base, "start": "2026-11-14T20:00Z"}                        # noon PT 11/14
+    assert sports.nba_early_spread_fav(early) and sports.early_spread_w(early) == -sports.NBA_EARLY_SPREAD_W
+    assert sports.nba_early_spread_fav(late) and sports.early_spread_w(late) == 0.0
+    assert "NBA spread fav 3.5-12.5, games 1-20 (fade)" in sl.spread_tags(late, sports)
+    keep = sports.NBA_EARLY_SPREAD_OFF_FROM
+    try:
+        sports.NBA_EARLY_SPREAD_OFF_FROM = "9999"
+        assert sports.early_spread_w(late) == -sports.NBA_EARLY_SPREAD_W   # the switch back
+    finally:
+        sports.NBA_EARLY_SPREAD_OFF_FROM = keep
+    # (2) the bad NBA home spread favorite: -0.02 on the rank from 11/14
+    bad = {**base, "season_games": 30, "start": "2026-11-20T00:30Z", "dog_more": {"record": (4, 8)}}   # .333
+    assert sports.nba_bad_home_fav(bad) and sports.daily_1113_spread_w(bad) == -sports.NBA_BAD_HOME_FAV_W == -0.02
+    assert abs(sports.rank_p(bad) - (bad["p"] - 0.02 + sports.cover_run_w(bad) + sports.coach_w(bad)
+                                     + sports.season_w(bad))) < 1e-9
+    for k, v in (("dog_more", {"record": (5, 5)}), ("dog_more", {"record": (3, 5)}), ("dog_more", {}),
+                 ("home", False), ("neutral", True), ("line", 4.5), ("market", "ml"), ("league", "ncaab")):
+        assert not sports.nba_bad_home_fav({**bad, k: v}), (k, v)    # .500, under 10 games, unknown, the road, a neutral
+        #                                                                floor, the dog, a moneyline, another league
+    assert sports.nba_bad_home_fav({**bad, "dog_more": {"record": (4, 6)}})            # exactly .400 after 10
+    assert sports.daily_1113_spread_w({**bad, "start": "2026-11-13T20:00Z"}) == 0.0     # before 11/14
+    assert sl.daily_1113_spread_tags(bad, sports) == [sl.NBA_BAD_HOME_FAV_TAG]
+    assert sl.daily_1113_spread_tags({**bad, "start": "2026-11-13T20:00Z"}, sports) == []
+    ml = {**bad, "market": "ml", "odds": -130, "line": None}
+    assert sl.daily_1113_tags(ml, sports) == [sl.NBA_BAD_HOME_FAV_ML_TAG]
+    assert sl.daily_1113_tags({**ml, "odds": -160}, sports) == [] and sl.daily_1113_tags({**ml, "home": False}, sports) == []
+    assert sports.daily_1113_spread_w(ml) == 0.0                  # never the moneyline
+    # (3) college football: last season's meeting, from the games file (results only)
+    G = {"f0": {"status": "final", "stype": "2", "start": "2025-10-04T19:00Z", "home": "7", "away": "9",
+                "home_score": "41", "away_score": "10"},
+         "f1": {"status": "pre", "stype": "2", "start": "2026-11-14T20:00Z", "home": "9", "away": "7",
+                "home_score": "", "away_score": ""},
+         "f2": {"status": "pre", "stype": "2", "start": "2026-11-14T20:00Z", "home": "9", "away": "5",
+                "home_score": "", "away_score": ""}}
+    keep_g = dict(sl._GAMES)
+    try:
+        sl._GAMES["ncaaf"] = G
+        cf = {"league": "ncaaf", "market": "spread", "game_id": "f1", "line": 6.5, "odds": -110, "start": "2026-11-14T20:00Z"}
+        assert sl._last_season_meet({**cf, "side": "away"}) == 31 and sl._last_season_meet({**cf, "side": "home"}) == -31
+        assert sl.daily_1113_spread_tags({**cf, "side": "away"}, sports) == [sl.NCAAF_MEET_WON_TAG]
+        assert sl.daily_1113_spread_tags({**cf, "side": "home"}, sports) == [sl.NCAAF_PAYBACK_TAG]
+        assert sl._last_season_meet({**cf, "game_id": "f2", "side": "home"}) is None        # never met last season
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep_g)
 
 
 if __name__ == "__main__":

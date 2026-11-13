@@ -532,6 +532,7 @@ def tags(c, sports):
     t += deep_tags(c, sports)                                # 11/12 FABLE DEEP PROGRAM: two moneyline LEADS
     t += money_check_tags(c, sports)                         # 11/12 DAILY: football's re-based money check, both halves
     t += fourth_down_tags(c, sports)                         # 11/12 DAILY Q6: the college 4th-down coach (LEADS)
+    t += daily_1113_tags(c, sports)                          # 11/13 DAILY: the bad NBA home favorite's moneyline (LEAD)
     return t + sharp
 
 
@@ -1100,6 +1101,7 @@ def spread_tags(c, sports):
     t += deep_spread_tags(c, sports)                         # 11/12 FABLE DEEP PROGRAM: the two built rank weights' cover
     #   records (both sides) + the college football 7-loss LEAD (results/studies/deep_1112)
     t += leans_1113_spread_tags(c, sports)                   # 11/13 FABLE: the college hoops leans - the cut's record + two LEADS
+    t += daily_1113_spread_tags(c, sports)                   # 11/13 DAILY: one built weight's record + three spread LEADS
     return t
 
 
@@ -1118,6 +1120,99 @@ LEANS_WEIGHTS_TAG = "college hoops spread side, studied weights +0.05+ outside t
 LEANS_BIG_DOG = 25.0
 LEANS_WEIGHTS_MIN = 0.05
 LEANS_DIAL_MIN = 0.505           # the lean rule's own floor for a spread with no read (viewer_leans: half a point off 50%)
+
+
+# ---------------- 11/13 DAILY STUDIES (results/studies/daily_1113) ----------------
+DAILY_1113_FROM = "2026-11-14"   # the tags log from the 11/14 Pacific game day
+NBA_BAD_HOME_FAV_TAG = "NBA home spread favorite, .400 or worse after 10+ (fade)"   # S10 - BUILT as a -0.02 spread-rank
+#   weight (sports.nba_bad_home_fav): ATS -13.1% on 546 (train 0 of 4 up, held 3 of 4 down, placebo 18 of 2,000). Judge
+#   at 50: the flagged favorite covering 52%+ = the weight comes off.
+NBA_BAD_HOME_FAV_ML_TAG = "NBA home favorite -101..-150, .400 or worse after 10+ (fade)"   # S10 - a LEAD: -14.0% on 263
+#   (train -17.2%, held -9.5%) but every home favorite in the band is -8.7% (placebo 264 of 2,000) - judge at 50.
+NCAAF_MEET_WON_TAG = "college football spread side that won last season's meeting by 17+ (fade)"   # S4 - a LEAD: ATS
+#   -8.9% on 1,286 (train 2018-21 -4.1% = the vig; held 2022-26 -13.5%, 5 of 5 seasons down; placebo 74 of 2,000) - the
+#   transfer-portal years only; won it by 1+ -8.2% on 3,103 (placebo 7 of 2,000), the NFL doesn't confirm. Judge at 50.
+NCAAF_PAYBACK_TAG = "college football payback side (lost last season's meeting by 17+)"   # S4's other side: ATS -0.3%
+#   (train -5.0%, held +4.2%, placebo 55 of 2,000) - a LEAD, judge at 50.
+NBA_B2B_OFF_BEATDOWN_TAG = "NBA spread side on a back-to-back, lost by 20+ last night"   # S6 - a LEAD: ATS +6.9% on
+#   301 (train +3.7%, 2 of 4 up; held +9.8%: 2022 +15.9 / 2023 -6.9 / 2024 +0.8 / 2025 +23.6; placebo 26 of 2,000);
+#   the side across -15.7% - judge at 50.
+NCAAF_MEET_BIG = 17
+NBA_BEATDOWN = 20
+
+
+def _last_season_meet(c):
+    """This side's margin in the LAST meeting of the two teams in the PREVIOUS season (regular season, the games file -
+    results only), or None (they didn't meet)."""
+    lg, gid = c.get("league"), c.get("game_id")
+    if lg not in _GAMES:
+        try:
+            _GAMES[lg] = sd.load_games(lg)
+        except Exception:                                    # noqa: BLE001
+            _GAMES[lg] = {}
+    G = _GAMES[lg]
+    g = G.get(gid) or {}
+    side = c.get("side")
+    if side not in ("home", "away") or not g.get("start"):
+        return None
+    team, opp = g.get(side), g.get("away" if side == "home" else "home")
+    y, m = int(g["start"][:4]), int(g["start"][5:7])
+    season = y if m >= 7 else y - 1
+    lo, hi = f"{season - 1}-07-01", f"{season}-07-01"
+    rows = [x for x in G.values() if x.get("status") == "final" and str(x.get("stype") or "2") == "2"
+            and lo <= (x.get("start") or "") < hi and {x.get("home"), x.get("away")} == {team, opp}
+            and x.get("home_score") not in ("", None) and x.get("away_score") not in ("", None)]
+    if not rows:
+        return None
+    x = max(rows, key=lambda r: r["start"])
+    try:
+        mg = float(x["home_score"]) - float(x["away_score"])
+    except (TypeError, ValueError):
+        return None
+    return mg if x["home"] == team else -mg
+
+
+def daily_1113_tags(c, sports):
+    """11/13 DAILY: the moneyline LEAD (tracked only): the bad NBA home favorite -101..-150."""
+    try:
+        if c.get("league") != "nba" or c.get("market") != "ml" or sports.pt_day(c) < DAILY_1113_FROM:
+            return []
+        o = c.get("odds")
+        if o is None or not -150 <= o <= -101 or not c.get("home") or c.get("neutral"):
+            return []
+        w, l_ = (c.get("dog_more") or {}).get("record") or (None, None)
+        if w is not None and w + l_ >= sports.NBA_BAD_HOME_FAV_GAMES and w / (w + l_) <= sports.NBA_BAD_HOME_FAV_PCT + 1e-9:
+            return [NBA_BAD_HOME_FAV_ML_TAG]
+        return []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+def daily_1113_spread_tags(c, sports):
+    """11/13 DAILY: the spread lines (from DAILY_1113_FROM) - the bad NBA home favorite (the built weight's record),
+    college football's last-season meeting (both sides, LEADS), the NBA back-to-back side off a 20+ loss (LEAD)."""
+    try:
+        if c.get("market") != "spread" or sports.pt_day(c) < DAILY_1113_FROM or c.get("side") not in ("home", "away"):
+            return []
+        t, lg = [], c.get("league")
+        if sports.nba_bad_home_fav(c):
+            t.append(NBA_BAD_HOME_FAV_TAG)
+        if lg == "ncaaf":
+            m = _last_season_meet(c)
+            if m is not None and m >= NCAAF_MEET_BIG:
+                t.append(NCAAF_MEET_WON_TAG)
+            elif m is not None and m <= -NCAAF_MEET_BIG:
+                t.append(NCAAF_PAYBACK_TAG)
+        if lg == "nba" and _played_last_night(c, c["side"]):
+            team, rows = _season_before(c)
+            if rows:
+                x = rows[-1]
+                me, op = ("home", "away") if x["home"] == team else ("away", "home")
+                if float(x[op + "_score"]) - float(x[me + "_score"]) >= NBA_BEATDOWN:
+                    t.append(NBA_B2B_OFF_BEATDOWN_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 def leans_1113_spread_tags(c, sports):
