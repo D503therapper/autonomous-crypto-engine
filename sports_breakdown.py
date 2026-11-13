@@ -291,6 +291,23 @@ def _same_fact(fact, line):
     return bool(words) and sum(w in low for w in words) >= max(2, 0.6 * len(words))
 
 
+COIN_BAND = (0.42, 0.58)   # 🧾 11/13 card audit: "coin flip / 50-50 / toss-up" only when the read, the win % AND the price
+#                            all sit in here - "close to a coin flip - Seahawks by a hair" went up on a -148 STRONG LEAN
+#                            (60% win, the price 60%), "Toss-up, close to even" on the Pacers -148. The own read sat
+#                            under 56% so the coin-flip pool won; the price says 3 in 5 - that's no coin flip.
+
+
+def coin_side(leg, own=None):
+    """May a card call this side a coin flip? A spread's cover read always may (it sits near 50-50 by design); a
+    moneyline side only when its read, its win % and its price all sit inside COIN_BAND."""
+    if leg.get("market") == "spread":
+        return True
+    lo, hi = COIN_BAND
+    o = leg.get("odds")
+    imp = (100 / (o + 100) if o > 0 else -o / (-o + 100)) if isinstance(o, (int, float)) and o else None
+    return all(x is None or lo <= x <= hi for x in (own, leg.get("p"), imp))
+
+
 def _lean_pool(leg, team, price, o, own):
     if leg.get("market") == "spread" and leg.get("line") is not None:   # (10/2 audit: a spread lean's read is the
         ln = f"{leg['line']:+g}"                                         #  chance to COVER - never "win" / "underdog")
@@ -316,7 +333,7 @@ def _lean_pool(leg, team, price, o, own):
                 f"🟡 Bottom line: {price}. Live dog, just not live enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
                 f"🟡 Bottom line: {price}. Underdog lean - we see a shot, we ain't paying for it."]
-    if own < LEAN_CLOSE:                                      # (10/21, the owner: the same bottom line on 3 cards -
+    if own < LEAN_CLOSE and coin_side(leg, own):              # (10/21, the owner: the same bottom line on 3 cards -
         return [f"🟡 Bottom line: {price}. Straight coin flip - {team} by a hair, not enough to put money on.",
                 f"🟡 Bottom line: {price}. 50-50 for us. We tilt {team}, no units.",
                 f"🟡 Bottom line: {price}. Could go either way - 50-50 for us, {team} a hair better. Lean only.",
@@ -1132,7 +1149,7 @@ T = {
     "bye": [
         "🛌 {us} are fresh off a bye — rested and [game-planned up|ready|healthy].",
         "🛌 Extra week to prep for {us}. [That matters.|Big deal.|It shows.]",
-        "🛌 Bye week in the rearview for {us}. Fresh legs, full playbook.",
+        "🛌 Bye week in the rearview for {us}.",
         "🛌 {us} had [a week off|the bye|extra time] — [fresh legs|healthy bodies|full prep|a full game plan].",
         "🛌 [Post-bye|Off a bye], {us} [come in|show up] [rested|fresh|with fresh legs].",
         "🛌 Extra time to [prep|game-plan|get healthy] for {us}. [That's big.|Matters.|Rested up.]",

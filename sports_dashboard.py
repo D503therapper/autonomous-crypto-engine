@@ -255,12 +255,12 @@ WHY_USED = set()                 # the unit reasons already on the page this bui
 NUM_WHY = {   # (11/4) the size line with our number next to the book's - a few ways per size, none repeated on a board
     "half": ("We make 'em {f}, the book's at {o}. Small bet.", "Our number's {f}, they're hanging {o}. Keep it small.",
              "{f} on our sheet, {o} at the book. Half a unit does it.", "Book says {o}, we say {f}. Light bet.",
-             "We got 'em at {f} - {o} is a little extra. Small one."),
+             "We make 'em {f} - {o} is a little extra. Small one."),
     "full": ("We make 'em {f}, the book's at {o}. Full unit.", "Our number's {f} and the book's at {o}. Full unit on it.",
              "{f} for us, {o} at the book. That's a full unit.", "Book's at {o}, we're at {f}. One full unit."),
     "bigger": ("We make 'em {f}, the book's at {o}. Bigger bet.", "Our number's {f}, the book's giving {o}. We go bigger.",
                "{f} on our sheet, {o} at the book. Scared money don't make no money.",
-               "The book hangs {o}, we got 'em {f}. Bigger bet."),
+               "The book hangs {o}, we make 'em {f}. Bigger bet."),
     "big": ("We make 'em {f}, the book's at {o}. Big bet.", "{f} for us, {o} at the book. Load up.",
             "Our number's {f} and they're hanging {o}. We going big.")}
 FLOOR_WHY = ("Best dog on the slate by our angles. Half a unit, don't go crazy.",
@@ -788,7 +788,7 @@ def fresh_lines(leg, secs):
     return list(leg.get("fresh") or []) + out
 
 
-def _breakdown(leg):
+def _breakdown(leg, pk=None, shown=""):
     secs = leg.get("breakdown")
     if not secs:
         return ""
@@ -797,6 +797,8 @@ def _breakdown(leg):
     import sports_card_guard                                 # 🛡️ the last stop: a card written before a fix never
     lines = [pct_ok(x) for x in sports_card_guard.clean(    # shows the mistake either (the owner, 10/1)
         [x for x in secs if isinstance(x, str) and latest_ok(x)], leg.get("league"), leg.get("team", ""), leg.get("opp", ""))]
+    import sports_card_check                                 # 🧾 11/13 THE CARD CHECK: wording vs the bet, the facts vs
+    lines = sports_card_check.check(pk, leg, lines, _GAMES_[0], why=shown)   # the game files, the lingo, no line twice
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -823,13 +825,16 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
 }
 
 
-def _why_fallback(leg):
+def _why_fallback(leg, pk=None):
     import sports_card_guard                                 # (11/12: a guarded one-liner falls back to the card's first real
-    for x in leg.get("breakdown") or []:                     #  fact - a name, a score - before a generic reason tag)
+    import sports_card_check                                 #  fact - a name, a score - before a generic reason tag)
+    for x in leg.get("breakdown") or []:
         t = str(x or "").strip()
-        if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
+        if t and not t.startswith(("⚠️", "✅", "🟡", "🔄", "🚑")) and not stale_in(t, leg) \
                 and not sports_card_guard.problem(t, leg.get("league")):
-            return t
+            t = sports_card_check.check_one(pk, leg, sports_card_guard.strip_tails(t), _GAMES_[0], where="fallback")
+            if t:                                            # (11/13: the fallback passes the card check too)
+                return t
     rs = leg.get("reasons") or []
     for r in [x for x in rs if x != "sharp money moving this way"] + [x for x in rs if x == "sharp money moving this way"]:
         if r in WHY_TAG:
@@ -873,7 +878,7 @@ NOT_FOR_UNITS = re.compile(r"just not at this price|too steep for units|not enou
 #   lean's wording never rides on a play with units; a posted one falls back to the card's first fact
 
 
-def _leg(leg, tagged=False, review="", units=None):
+def _leg(leg, tagged=False, review="", units=None, pk=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -889,9 +894,11 @@ def _leg(leg, tagged=False, review="", units=None):
     _wl = leg.get("why_line")
     if _wl and not leg.get("is_lean") and lt_ not in ("lean", "strong") and NOT_FOR_UNITS.search(_wl):
         _wl = ""                                             # (11/13: a posted unit play's "just not at this price" line)
-    why = E(pct_ok(sports_card_guard.one("" if stale_in(_wl, leg) else _wl,
-                                         leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
-                   or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
+    import sports_card_check                                 # 🧾 11/13: the one-liner through the card check too
+    _wl = sports_card_check.check_one(pk, leg, sports_card_guard.one("" if stale_in(_wl, leg) else _wl, leg.get("league"),
+                                                                     leg.get("team", ""), leg.get("opp", "")), _GAMES_[0])
+    _shown = pct_ok(_wl or _why_fallback(leg, pk))
+    why = E(_shown)                                      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
     tag = ""                                             # (11/12, the owner: the public is never a reason - no 🤡 FADING /
     del pub                                              #  🤝 RIDING THE PUBLIC chip on a card)
@@ -907,7 +914,7 @@ def _leg(leg, tagged=False, review="", units=None):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units, leg.get("team", ""), leg.get("odds")) if units is not None else ""}{_early_line(leg) if not res else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units, leg.get("team", ""), leg.get("odds")) if units is not None else ""}{_early_line(leg) if not res else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg, pk, "" if review else _shown)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -1187,7 +1194,8 @@ def _pick_card(kind, pk):
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
     legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg),     # a parlay: each pick in it
-                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else None) for leg in pk["legs"])   # has its units   # graded: the
+                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else None,
+                        pk=pk if len(pk["legs"]) == 1 else None) for leg in pk["legs"])   # has its units   # graded: the
     #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
