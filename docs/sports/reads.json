@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T22:17Z",
+ "updated": "2026-11-13T22:20Z",
  "games": [
   {
    "id": "ncaab:401928807",
@@ -2337,7 +2337,7 @@
     "opp": "Illinois St",
     "market": "spread",
     "line": -12.5,
-    "odds": -112,
+    "odds": -113,
     "p": 0.508,
     "win_p": 0.75,
     "reasons": [
@@ -2926,8 +2926,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama",
-    "p": 0.763,
-    "tie": 0.025,
+    "p": 0.748,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2938,15 +2938,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Vanderbilt",
-    "opp": "Alabama",
+    "team": "Alabama",
+    "opp": "Vanderbilt",
     "market": "spread",
-    "line": 15.5,
-    "odds": -110,
+    "line": -14.5,
+    "odds": -108,
     "p": 0.5,
-    "win_p": 0.177,
+    "win_p": 0.768,
     "reasons": [
-     "sharp money moving this way"
+     "the stronger team",
+     "better QB play lately"
     ]
    }
   },
@@ -4840,6 +4841,36 @@
    }
   },
   {
+   "id": "ncaab:401917529",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pacific",
+    "p": 0.803,
+    "tie": 0.029,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T21:00Z",
+   "away": "Air Force",
+   "home": "Pacific",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Air Force",
+    "opp": "Pacific",
+    "market": "spread",
+    "line": 13.0,
+    "odds": -108,
+    "p": 0.506,
+    "win_p": 0.116,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401868091",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -4895,6 +4926,64 @@
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401909728",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Wake Forest",
+    "p": 0.885,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T21:00Z",
+   "away": "Southern Utah",
+   "home": "Wake Forest",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Southern Utah",
+    "opp": "Wake Forest",
+    "market": "spread",
+    "line": 19.0,
+    "odds": -107,
+    "p": 0.511,
+    "win_p": 0.049,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401928804",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Toledo",
+    "p": 0.722,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T21:00Z",
+   "away": "Toledo",
+   "home": "Detroit Mercy",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Detroit Mercy",
+    "opp": "Toledo",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -113,
+    "p": 0.502,
+    "win_p": 0.196,
+    "reasons": [
+     "Toledo are laying 9.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -4966,7 +5055,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma",
-    "p": 0.487,
+    "p": 0.497,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -4982,9 +5071,9 @@
     "opp": "Ole Miss",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.505,
-    "win_p": 0.505,
+    "odds": -118,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately"
@@ -4997,8 +5086,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington",
-    "p": 0.547,
-    "tie": 0.033,
+    "p": 0.518,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -5013,11 +5102,43 @@
     "opp": "Michigan St",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.538,
-    "win_p": 0.538,
+    "odds": -148,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401927387",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oakland",
+    "p": 0.491,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T22:00Z",
+   "away": "Northern Iowa",
+   "home": "Oakland",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Oakland",
+    "opp": "Northern Iowa",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.517,
+    "win_p": 0.517,
+    "reasons": [
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
+     "coughing it up 6.8 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -5051,6 +5172,34 @@
      "better QB play lately",
      "rolling off a blowout win"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401918055",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "California",
+    "p": 0.847,
+    "tie": 0.024,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T22:00Z",
+   "away": "Utah Tech",
+   "home": "California",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Utah Tech",
+    "opp": "California",
+    "market": "spread",
+    "line": 15.5,
+    "odds": -110,
+    "p": 0.508,
+    "win_p": 0.078,
+    "reasons": []
    }
   },
   {
@@ -5117,6 +5266,65 @@
    }
   },
   {
+   "id": "ncaab:401909534",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Providence",
+    "p": 0.729,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T23:00Z",
+   "away": "Colorado",
+   "home": "Providence",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Colorado",
+    "opp": "Providence",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.191,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920750",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Marshall",
+    "p": 0.485,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T23:00Z",
+   "away": "Marshall",
+   "home": "Youngstown St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Marshall",
+    "opp": "Youngstown St",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.51,
+    "win_p": 0.51,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401860914",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -5175,6 +5383,37 @@
     "win_p": 0.19,
     "reasons": [
      "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401926777",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Fresno St",
+    "p": 0.603,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T23:00Z",
+   "away": "UC Riverside",
+   "home": "Fresno St",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Fresno St",
+    "opp": "UC Riverside",
+    "market": "ml",
+    "line": null,
+    "odds": -210,
+    "p": 0.662,
+    "win_p": 0.662,
+    "reasons": [
+     "the stronger team",
+     "better rested"
     ]
    }
   },
@@ -6085,7 +6324,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "N Dakota St",
-    "p": 0.611,
+    "p": 0.62,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -6101,9 +6340,9 @@
     "opp": "Hawai'i",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.615,
-    "win_p": 0.615,
+    "odds": -270,
+    "p": 0.626,
+    "win_p": 0.626,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
