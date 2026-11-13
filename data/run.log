@@ -19719,3 +19719,34 @@ $SAVA: No data found, symbol may be delisted
    [alert] Today +1.66 | Total -369.20: Stocks: $467.90  today -1.12  total -32.10
 DEX: $662.89  today +2.78  total -337.11
 DEX: $662.89 (-337.11) · Scammed: 11 (-$216.49)
+   dex screen: REJECT BA@solana liq $158,288 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 88%; lp holders unknown
+   dex screen: UNREACHABLE MIHAO@ethereum liq $405,171 - honeypot.is unreachable
+   dex screen: REJECT IBM@solana liq $123,915 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 79%; lp holders unknown
+   dex screen: PASS SPX@ethereum liq $9,345,801
+   dex screen: UNREACHABLE MIHAO@ethereum liq $404,768 - honeypot.is unreachable
+   dex screen: REJECT XDP@base liq $1,671,660 - top-10 holders 93%
+   dex screen: REJECT HLX@ethereum liq $388,309 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT SWORDCAT@solana liq $107,734 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $412,425 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT XDP@base liq $1,672,133 - top-10 holders 93%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT SI@solana liq $16,944,147 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SI@solana liq $271,119 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT PYUSD@ethereum liq $100,213,728 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 90%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $341,426 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex scanner: 2,540 pools (solana 1,861 / base 362 / ethereum 317), refresh cycle 110s (hot 106s), 2877 calls (108 feed, 429s 0, failed 0), 83,070 refreshed (11081 no pair), +89 added / -67 dropped (dead 62, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: UNREACHABLE GTA6@ethereum liq $189,748 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+[2026-11-13 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/mover     equity $183.96 (-63.2%) 1 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/social_heat equity $331.99 (-33.6%) 2 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 23:06 UTC] crypto/hold_btc  equity $415.21 (-17.0%) 1 open  market DOWN
+   social heat top: BTC 35 (35/0/0), HYPE 27 (27/0/0), AERO 25 (21/0/4), MON 24 (24/0/0), LTC 21 (21/0/0)

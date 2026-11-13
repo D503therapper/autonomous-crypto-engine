@@ -20907,8 +20907,9 @@ def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads
             sports.sp.CACHE.pop("nhl", None)
     assert leg["confirmed"] == ["Juuse Saros"] and not leg.get("stale")
     shown = dash.fresh_lines(leg, leg["breakdown"])
-    assert shown[0] == "✅ Update: Juuse Saros is confirmed in net for the Predators."
-    assert shown[1].startswith("🧱 Juuse Saros, confirmed in net for the Predators,") and "not confirmed" not in shown[1]
+    assert leg["fresh"] == ["✅ Update: Juuse Saros is confirmed in net for the Predators."]
+    # the owner, 11/13: "the card should say he in and he been a brick wall" - and the ✅ line isn't said twice
+    assert shown == ["🧱 Juuse Saros is in for the Predators, and he been a brick wall — a 0.977 save %."], shown
     # the morning's "projected (not confirmed yet)" update is rebuilt once the page confirms the new man (Adin Hill)
     hl = {"game_id": "nhl:1", "league": "nhl", "team": "Predators", "opp": "Golden Knights", "side": "away",
           "stale": ["Carter Hart"], "breakdown": ["🥅 Carter Hart, projected to start for the Golden Knights (not confirmed yet), has a 0.880 save %."],
@@ -20926,7 +20927,7 @@ def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads
             sports.sp.CACHE.pop("nhl", None)
     assert hl["fresh"] == ["🔄 Update: Adin Hill is the Golden Knights goalie now, not Carter Hart."], hl["fresh"]
     assert dash._confirmed_now("🧱 Joel Hofer — the Blues' projected starter, nobody's confirmed yet — is standing on his head.",
-                               {"confirmed": ["Joel Hofer"]}) == "🧱 Joel Hofer — confirmed in net for the Blues — is standing on his head."
+                               {"confirmed": ["Joel Hofer"]}) == "🧱 Joel Hofer is in for the Blues, and he's standing on his head."
 
 
 def test_owner_1112_no_dollar_payout_line_on_cards():

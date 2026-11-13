@@ -773,10 +773,15 @@ def stale_in(text, leg):
     return any(n and n in t for n in leg.get("stale") or [])
 
 
-_PROJ = ((re.compile(r",? projected to start for (the [^,(]+?) \(not confirmed yet\),?"), r", confirmed in net for \1,"),
-         (re.compile(r" — ((?:the )?[^—]+?)'s? projected starter, nobody's confirmed yet —"), r" — confirmed in net for \1 —"),
-         (re.compile(r"\(expected in net for ([^)]+)\)"), r"(confirmed in net for \1)"),
+_PROJ = ((re.compile(r",? projected to start for (the [^,(]+?) \(not confirmed yet\),? (?:has been|is) "), r" is in for \1, and he been "),
+         (re.compile(r",? projected to start for (the [^,(]+?) \(not confirmed yet\),? "), r" is in for \1, and he "),
+         (re.compile(r" — ((?:the )?[^—]+?)'s? projected starter, nobody's confirmed yet — has been "), r" is in for \1, and he been "),
+         (re.compile(r" — ((?:the )?[^—]+?)'s? projected starter, nobody's confirmed yet — is "), r" is in for \1, and he's "),
+         (re.compile(r" — ((?:the )?[^—]+?)'s? projected starter, nobody's confirmed yet — "), r" is in for \1 — "),
+         (re.compile(r"\(expected in net for ([^)]+)\)"), r"(in net for \1 tonight)"),
          (re.compile(r" \(not confirmed yet\)"), ""))
+#   11/13 (the owner on "Juuse Saros, confirmed in net for the Predators, has been a brick wall": "the card should say he
+#   in and he been a brick wall") - a confirmed goalie's line says it his way
 
 
 def _confirmed_now(line, leg):
@@ -795,8 +800,11 @@ def fresh_lines(leg, secs):
     naming a man whose status changed after the card posted comes out; the side's 🚑 line is the report as it reads
     now (when it still has anyone); the update lines go on top. Only the facts move - never the pick or its units."""
     secs = [_confirmed_now(x, leg) for x in secs or []]
+    said_in = [n for n in leg.get("confirmed") or [] if any(n in str(x) and " is in for " in str(x) for x in secs)]
+    fresh_ = [x for x in leg.get("fresh") or [] if not (x.startswith("✅ Update:") and any(n in x for n in said_in))]
+    #   (the "✅ X is confirmed" update is dropped when his own line already says he's in - never said twice)
     if not leg.get("stale"):
-        return list(leg.get("fresh") or []) + list(secs) if leg.get("confirmed") else list(secs)
+        return fresh_ + list(secs) if leg.get("confirmed") else list(secs)
     now_ = leg.get("inj_now") or {}
     out = []
     for x in secs or []:
@@ -806,7 +814,7 @@ def fresh_lines(leg, secs):
             rep = next((v for v in now_.values() if v and str(x).startswith(v.split(" out:")[0].split(" questionable:")[0])), "")
             if rep and not stale_in(rep, leg) and rep not in out:
                 out.append(rep)
-    return list(leg.get("fresh") or []) + out
+    return fresh_ + out
 
 
 def _breakdown(leg, pk=None, shown=""):
@@ -850,7 +858,7 @@ def _why_fallback(leg, pk=None):
     import sports_card_guard                                 # (11/12: a guarded one-liner falls back to the card's first real
     import sports_card_check                                 #  fact - a name, a score - before a generic reason tag)
     for x in leg.get("breakdown") or []:
-        t = str(x or "").strip()
+        t = _confirmed_now(str(x or "").strip(), leg)        # (11/13: a confirmed goalie reads "is in" up top too)
         if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
                 and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg):
             t = sports_card_check.check_one(pk, leg, sports_card_guard.strip_tails(t), _GAMES_[0], where="fallback")
