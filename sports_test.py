@@ -20642,6 +20642,74 @@ def test_owner_1112_posted_cards_drop_split_lines_and_the_public_chip():
     assert "FADING THE PUBLIC" not in inspect.getsource(dash)
 
 
+def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
+    """11/12 (Victor: 'one of the write ups has bad information ... outdated'; the owner: 'Skattebo is playing', 'JJ is
+    playing as well'): the 2u Blackhawks card named Colten Ellis as the Sabres' projected goalie after ESPN moved to Alex
+    Lyon; the Giants card had Cam Skattebo out and J.J. McCarthy questionable after both came off the report. Until the
+    game starts a posted card re-checks its names: a man off the report / a goalie no longer the starter goes stale, the
+    dashboard drops every line naming him and says what changed. The pick never changes."""
+    import copy
+    import sports_dashboard as dash
+    g = {"id": "nfl:1", "league": "nfl", "status": "pre", "home": "19", "away": "28", "home_name": "Giants",
+         "away_name": "Commanders", "start": "2026-11-13T01:15Z"}
+    leg = {"game_id": "nfl:1", "league": "nfl", "team": "Giants", "opp": "Commanders", "side": "home", "odds": -125,
+           "outs": ["Cam Skattebo (RB)", "Colton Hood (CB)"], "opp_outs": ["Treylon Burks (WR)"],
+           "waiting": ["J.J. McCarthy (QB) questionable"], "absent": ["RB Cam Skattebo"],
+           "why_line": "⚠️ Giants go without Cam Skattebo.",
+           "breakdown": ["🚑 Giants out: RB Cam Skattebo (starter) · questionable: QB J.J. McCarthy (starter), LB Malik Harrison.",
+                         "📅 Last time out: Giants W 19-11 @ Eagles · Commanders L 13-20 vs Rams.",
+                         "⚠️ Giants go without Cam Skattebo (RB). That part don't help us, not gonna lie.",
+                         "🟡 Bottom line: Giants (-125). Giants to win."]}
+    keep = (copy.deepcopy(leg), leg["odds"], leg["side"])
+    inj = {"nfl": {"19": [("Colton Hood", "CB", "Out"), ("Malik Harrison", "LB", "Questionable")],
+                   "28": [("Treylon Burks", "WR", "Out")]}}
+    sports.fresh_card_facts({"nfl:1": g}, [leg], inj)
+    assert leg["stale"] == ["Cam Skattebo", "J.J. McCarthy"], leg.get("stale")
+    assert any("Skattebo is off the injury report" in x for x in leg["fresh"])
+    assert (leg["odds"], leg["side"]) == keep[1:]                     # the pick never moves
+    shown = dash.fresh_lines(leg, leg["breakdown"])
+    assert not any("Skattebo" in x and not x.startswith("🔄") for x in shown), shown
+    assert not any("McCarthy" in x and not x.startswith("🔄") for x in shown), shown
+    assert "📅 Last time out: Giants W 19-11 @ Eagles · Commanders L 13-20 vs Rams." in shown
+    assert any(x.startswith("🟡 Bottom line") for x in shown)
+    assert "Skattebo" not in dash._why_fallback(leg)
+    # a report that didn't come back (None) or came back empty for both sides never 'clears' anybody
+    for bad in ({"nfl": None}, {"nfl": {}}):
+        l2 = copy.deepcopy(keep[0])
+        sports.fresh_card_facts({"nfl:1": g}, [l2], bad)
+        assert not l2.get("stale"), bad
+    # a started game is frozen at puck drop / kickoff
+    l3 = copy.deepcopy(keep[0])
+    sports.fresh_card_facts({"nfl:1": {**g, "status": "in"}}, [l3], inj)
+    assert not l3.get("stale")
+    # 🥅 the goalie a card names who isn't either side's starter any more
+    hg = {"id": "nhl:2", "league": "nhl", "status": "pre", "home": "4", "away": "2", "home_name": "Blackhawks",
+          "away_name": "Sabres", "start": "2026-11-13T01:00Z"}
+    hl = {"game_id": "nhl:2", "league": "nhl", "team": "Blackhawks", "opp": "Sabres", "side": "home",
+          "breakdown": ["🥅 Colten Ellis, projected to start for the Sabres (not confirmed yet), can't keep the puck out lately: a 0.868 save %.",
+                        "🥊 The Lightning spanked the Sabres 8-3 within their last 5 games."]}
+    rows = [{"gid": "x1", "start": "2026-11-12T00:00Z", "team": "2", "player": "Colten Ellis", "role": "G"},
+            {"gid": "x0", "start": "2026-05-17T00:00Z", "team": "2", "player": "Alex Lyon", "role": "G"},
+            {"gid": "x2", "start": "2026-11-08T01:00Z", "team": "4", "player": "Spencer Knight", "role": "G"}]
+    keep_c, keep_s = sports.sp.CACHE.get("nhl"), sports.sp.starter_for
+    try:
+        sports.sp.CACHE["nhl"] = rows
+        sports.sp.starter_for = lambda r, g_, s_: {"home": "Spencer Knight", "away": "Alex Lyon"}[s_]
+        sports.fresh_card_facts({"nhl:2": hg}, [hl], {"nhl": None})
+    finally:
+        sports.sp.CACHE["nhl"] = keep_c
+        sports.sp.starter_for = keep_s
+        if keep_c is None:
+            sports.sp.CACHE.pop("nhl", None)
+    assert hl["stale"] == ["Colten Ellis"], hl.get("stale")
+    shown = dash.fresh_lines(hl, hl["breakdown"])
+    assert shown[0] == "🔄 Update: Alex Lyon is the Sabres goalie now, not Colten Ellis."
+    assert not any(x.startswith("🥅") for x in shown) and "🥊 The Lightning spanked the Sabres 8-3 within their last 5 games." in shown
+    # the 'missing' chip never lists a man back in the lineup
+    leg2 = {**copy.deepcopy(keep[0]), "opp_outs": ["Treylon Burks (WR)", "Cam Skattebo (RB)"], "stale": ["Cam Skattebo"]}
+    assert dash.stale_in("Cam Skattebo (RB)", leg2) and not dash.stale_in("Treylon Burks (WR)", leg2)
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""

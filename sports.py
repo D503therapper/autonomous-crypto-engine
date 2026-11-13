@@ -8643,7 +8643,87 @@ def injury_watch(games, picks, push=True):
         leg["key_seen"] = now_
     for a in alerts:
         print(f"🚑 injury alert: {a}")
+    try:
+        fresh_card_facts(games, legs, injuries)
+    except Exception as e:                                   # noqa: BLE001 - the write-up check never blocks the run
+        print(f"fresh card facts failed: {e}")
     return alerts
+
+
+FRESH_CARD = True     # 11/12 (Victor, then the owner: "outdated information") - see fresh_card_facts
+
+
+def _nm_key(name):
+    """('cam skattebo', 'c', 'skattebo') - a name matched the way the report and the box scores both spell it."""
+    p = sd._plain(name).split()
+    return (" ".join(p), p[0][:1] if p else "", p[-1] if p else "")
+
+
+def _named(entry):
+    """The player in a card's who's-out entry: 'Cam Skattebo (RB)', 'RB Cam Skattebo', 'J.J. McCarthy (QB) questionable'."""
+    s = str(entry or "").split(" (")[0].replace(" questionable", "").strip()
+    w = s.split()
+    if len(w) > 2 and w[0].isupper() and len(w[0]) <= 3:      # 'RB Cam Skattebo' (the absence penalty's form)
+        s = " ".join(w[1:])
+    return s
+
+
+def _on_list(name, names):
+    full, ini, last = _nm_key(name)
+    for n in names:
+        f2, i2, l2 = _nm_key(n)
+        if full == f2 or (last == l2 and ini == i2):
+            return True
+    return False
+
+
+def fresh_card_facts(games, legs, injuries):
+    """🔄 THE CARD KEEPS UP WITH THE NEWS (11/12 - Victor: "One of the write ups has bad information ... outdated
+    information", the owner: "Skattebo is playing" / "JJ is playing as well"). A card is written when it posts and its
+    names stayed frozen all day: the 2u Blackhawks Dog said Colten Ellis, 'projected to start for the Sabres', couldn't
+    keep the puck out - Ellis started the night before and ESPN moved the Sabres to Alex Lyon at 3:44 PM PT; the Giants
+    night card had RB Cam Skattebo out and QB J.J. McCarthy questionable - both came off the report and played.
+    Every run until the game starts: a man the card lists out / questionable who is OFF the report now, and a goalie a
+    🥅 / 🧱 line names who is no longer either side's starter, go on leg['stale']; leg['fresh'] says what changed and
+    leg['inj_now'] is the side's 🚑 line as the report reads now. The dashboard drops every line naming a stale man and
+    shows the update (sports_dashboard._breakdown). The pick, its units and its record never change - only the facts.
+    A league whose report didn't come back this run is left alone (unknown is never 'healthy')."""
+    if not FRESH_CARD:
+        return
+    for leg in legs:
+        g = games.get(leg["game_id"])
+        inj = (injuries or {}).get(leg["league"])
+        if not g or g.get("status") != "pre":
+            continue
+        stale, fresh = list(leg.get("stale") or []), list(leg.get("fresh") or [])
+        if inj is not None and leg["league"] in sd.INJ_LEAGUES:
+            listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
+            if listed:                                       # (a report with nobody on it for either side: a hiccup -
+                posted = [_named(x) for k in ("outs", "opp_outs", "waiting") for x in leg.get(k) or []]   # never 'cleared')
+                posted += [_named(x) for x in leg.get("absent") or []]
+                for nm in dict.fromkeys(n for n in posted if n):
+                    if not _on_list(nm, listed) and nm not in stale:
+                        stale.append(nm)
+                        fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")
+        if leg["league"] == "nhl":
+            rows = sp.CACHE.get("nhl") or []
+            if rows:
+                now_ = {s_: sp.starter_for(rows, g, s_) for s_ in ("home", "away")}
+                body = " ".join(str(x) for x in leg.get("breakdown") or [] if str(x).startswith(("🥅", "🧱")))
+                goalies = {r["player"]: str(r["team"]) for r in rows[-4000:]
+                           if str(r["team"]) in (str(g["home"]), str(g["away"])) and r.get("role", "G") == "G"}
+                for nm, team in goalies.items():
+                    side_ = "home" if team == str(g["home"]) else "away"
+                    if nm in body and now_.get(side_) and _nm_key(now_[side_])[0] != _nm_key(nm)[0] and nm not in stale:
+                        stale.append(nm)
+                        fresh.append(f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}.")
+        if stale != list(leg.get("stale") or []):
+            leg["stale"], leg["fresh"] = stale, fresh[-4:]
+            try:
+                leg["inj_now"] = {s_: injury_line(g, s_, injuries) for s_ in ("home", "away")}
+            except Exception:                                # noqa: BLE001
+                pass
+            print(f"🔄 card facts changed ({leg.get('team')}): {', '.join(fresh)}")
 
 
 def _same_leg(a, b):

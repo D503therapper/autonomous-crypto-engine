@@ -764,11 +764,36 @@ def latest_ok(line):
     return res[0] == "W" and (len(res) < 2 or res[1] == "L")
 
 
+def stale_in(text, leg):
+    """True when a line names a man whose status changed after the card posted (sports.fresh_card_facts)."""
+    t = str(text or "")
+    return any(n and n in t for n in leg.get("stale") or [])
+
+
+def fresh_lines(leg, secs):
+    """🔄 11/12 (Victor: "outdated information" - the Sabres goalie and the Giants' Skattebo / McCarthy): every line
+    naming a man whose status changed after the card posted comes out; the side's 🚑 line is the report as it reads
+    now (when it still has anyone); the update lines go on top. Only the facts move - never the pick or its units."""
+    if not leg.get("stale"):
+        return list(secs or [])
+    now_ = leg.get("inj_now") or {}
+    out = []
+    for x in secs or []:
+        if not stale_in(x, leg):
+            out.append(x)
+        elif str(x).startswith("🚑"):
+            rep = next((v for v in now_.values() if v and str(x).startswith(v.split(" out:")[0].split(" questionable:")[0])), "")
+            if rep and not stale_in(rep, leg) and rep not in out:
+                out.append(rep)
+    return list(leg.get("fresh") or []) + out
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
         return ""
     done = leg.get("result") in ("won", "lost", "push")
+    secs = fresh_lines(leg, secs)                            # 🔄 11/12: the news moved after it posted
     import sports_card_guard                                 # 🛡️ the last stop: a card written before a fix never
     lines = [pct_ok(x) for x in sports_card_guard.clean(    # shows the mistake either (the owner, 10/1)
         [x for x in secs if isinstance(x, str) and latest_ok(x)], leg.get("league"), leg.get("team", ""), leg.get("opp", ""))]
@@ -802,7 +827,8 @@ def _why_fallback(leg):
     import sports_card_guard                                 # (11/12: a guarded one-liner falls back to the card's first real
     for x in leg.get("breakdown") or []:                     #  fact - a name, a score - before a generic reason tag)
         t = str(x or "").strip()
-        if t and not t.startswith(("⚠️", "✅", "🟡")) and not sports_card_guard.problem(t, leg.get("league")):
+        if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
+                and not sports_card_guard.problem(t, leg.get("league")):
             return t
     rs = leg.get("reasons") or []
     for r in [x for x in rs if x != "sharp money moving this way"] + [x for x in rs if x == "sharp money moving this way"]:
@@ -855,12 +881,14 @@ def _leg(leg, tagged=False, review="", units=None):
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
     import sports_card_guard
-    why = E(pct_ok(sports_card_guard.one(leg.get("why_line"), leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
+    why = E(pct_ok(sports_card_guard.one("" if stale_in(leg.get("why_line"), leg) else leg.get("why_line"),
+                                         leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
                    or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
     tag = ""                                             # (11/12, the owner: the public is never a reason - no 🤡 FADING /
     del pub                                              #  🤝 RIDING THE PUBLIC chip on a card)
-    outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
+    opp_outs = [x for x in leg.get("opp_outs") or [] if not stale_in(x, leg)]   # (11/12: a man back on the floor
+    outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(opp_outs))}</div>' if opp_outs else ""   # isn't 'missing')
     if [x for x in leg.get("injury_alerts") or [] if "confirmed in net" not in x] and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>'
                         for a in [x for x in leg["injury_alerts"] if "confirmed in net" not in x][-3:])
