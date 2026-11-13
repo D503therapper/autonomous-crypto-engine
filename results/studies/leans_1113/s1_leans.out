@@ -1,0 +1,135 @@
+rows graded: 119696 college hoops sides (60246 moneyline, 59450 spread), 1131 board days, seasons 2018-2026
+the base: every college hoops side in the rows
+   every ml side                                              30123-30123 50.0%  ROI  -8.6% z -16.0 | train  -8.2% on 35290 | held  -9.2% on 24956 | seasons up 0/9 | placebo 0/2000
+   every spread side                                          29725-29725 50.0%  ROI  -4.5% (at -110  -4.5%) z -11.4 | train  -4.5% on 34730 | held  -4.4% on 24720 | seasons up 0/9 | placebo 0/2000
+   every spread DOG (getting points)                          14931-14663 50.5%  ROI  -3.6% (at -110  -3.7%) z -6.5 | train  -3.6% on 17244 | held  -3.6% on 12350 | seasons up 1/9 | placebo 29/2000
+   every spread dog getting 15+                                1947-1839  51.4%  ROI  -1.7% (at -110  -1.8%) z -1.1 | train  -0.1% on 1951 | held  -3.4% on 1835 | seasons up 2/9 | placebo 62/2000
+   every spread dog getting 25+                                 349-377   48.1%  ROI  -8.1% (at -110  -8.2%) z -2.3 | train  -7.7% on 271 | held  -8.4% on 455 | seasons up 0/9 | placebo 1697/2000
+
+==== A. THE LEANS THE BOARD WOULD SHOW (2 a day, after the unit plays): 2104 graded, 1099 days
+   ALL                                                         1159-945   55.1%  ROI  +1.4% z +0.7 | train  +4.3% on 1269 | held  -2.9% on 835 | seasons up 6/9 | placebo 1/2000
+ -- ML
+   ml: all                                                      419-280   59.9%  ROI  +2.8% z +0.9 | train  +4.2% on 395 | held  +0.9% on 304 | seasons up 6/9 | placebo 37/2000 | at the OPEN  +1.6% on 304
+   ml: favorites (-150..-101)                                   418-280   59.9%  ROI  +2.6% z +0.8 | train  +3.9% on 394 | held  +0.9% on 304 | seasons up 6/9 | placebo 36/2000 | at the OPEN  +1.6% on 304
+   ml: favorites -150..-130                                     381-241   61.3%  ROI  +4.3% z +1.3 | train  +5.2% on 353 | held  +3.2% on 269 | seasons up 6/9 | placebo 22/2000 | at the OPEN  +3.8% on 269
+   ml: favorites -129..-101                                      37-39    48.7%  ROI -12.0% z -1.2 | train  -7.5% on 41 | held -17.2% on 35 | seasons up 3/7 | placebo 1097/2000 | at the OPEN -15.1% on 35
+   ml: dogs (+100 and up)                                     only 1 (1-0)
+   ml: home side                                                305-210   59.2%  ROI  +1.8% z +0.5 | train  -0.1% on 293 | held  +4.3% on 222 | seasons up 6/9 | placebo 104/2000 | at the OPEN  +5.2% on 222
+   ml: road side                                                 72-31    69.9%  ROI +18.7% z +2.4 | train +21.2% on 63 | held +14.6% on 40 | seasons up 6/8 | placebo 63/2000 | at the OPEN +15.2% on 40
+   by season phase (ml)
+   ml: Nov                                                       40-25    61.5%  ROI  +5.6% z +0.5 | train  +0.9% on 22 | held  +8.0% on 43 | seasons up 4/8 | placebo 359/2000 | at the OPEN +10.2% on 43
+   ml: Dec                                                       50-49    50.5%  ROI -13.2% z -1.5 | train -22.5% on 60 | held  +1.2% on 39 | seasons up 2/8 | placebo 1210/2000 | at the OPEN  +0.8% on 39
+   ml: Jan-Apr (league play)                                    329-206   61.5%  ROI  +5.4% z +1.5 | train  +9.6% on 313 | held  -0.5% on 222 | seasons up 6/8 | placebo 23/2000 | at the OPEN  +0.1% on 222
+   ml: EARLY WINDOW Nov 1 - Dec 15                               64-48    57.1%  ROI  -2.1% z -0.3 | train  -7.8% on 50 | held  +2.5% on 62 | seasons up 4/8 | placebo 546/2000 | at the OPEN  +4.3% on 62
+   ml: early window, a team under 5 games in                     33-26    55.9%  ROI  -3.9% z -0.4 | train -11.8% on 29 | held  +3.6% on 30 | seasons up 4/8 | placebo 685/2000 | at the OPEN  +6.5% on 30
+   ml: early window, a team under 4 games in                     27-23    54.0%  ROI  -7.2% z -0.6 | train  -7.4% on 24 | held  -7.1% on 26 | seasons up 4/8 | placebo 836/2000 | at the OPEN  -4.4% on 26
+   ml: early window, both teams 5+ games in                      31-22    58.5%  ROI  +0.0% z +0.0 | train  -2.2% on 21 | held  +1.5% on 32 | seasons up 3/6 | placebo 558/2000 | at the OPEN  +2.2% on 32
+ -- SPREAD
+   spread: all                                                  740-665   52.7%  ROI  +0.8% (at -110  +0.5%) z +0.3 | train  +4.3% on 874 | held  -5.1% on 531 | seasons up 4/9 | placebo 34/2000
+   spread: dog getting 25+                                       70-69    50.4%  ROI  -3.7% (at -110  -3.9%) z -0.5 | train +25.7% on 38 | held -14.7% on 101 | seasons up 4/9 | placebo 920/2000
+   spread: dog getting 20-24.5                                   37-42    46.8%  ROI -10.5% (at -110 -10.6%) z -1.0 | train  -2.0% on 37 | held -17.9% on 42 | seasons up 3/8 | placebo 1399/2000
+   spread: dog getting 15-19.5                                   64-59    52.0%  ROI  -0.2% (at -110  -0.7%) z -0.0 | train +18.1% on 65 | held -20.7% on 58 | seasons up 5/8 | placebo 609/2000
+   spread: dog getting 7.5-14.5                                 159-137   53.7%  ROI  +2.6% (at -110  +2.5%) z +0.5 | train  +4.1% on 200 | held  -0.3% on 96 | seasons up 5/8 | placebo 170/2000
+   spread: dog getting 0.5-7                                    244-182   57.3%  ROI  +9.7% (at -110  +9.3%) z +2.1 | train  +7.1% on 300 | held +15.7% on 126 | seasons up 6/9 | placebo 1/2000
+   spread: favorite laying 0.5-7                                103-123   45.6%  ROI -12.8% (at -110 -13.0%) z -2.0 | train -14.6% on 150 | held  -9.2% on 76 | seasons up 1/8 | placebo 1791/2000
+   spread: favorite laying 7.5+                                  59-52    53.2%  ROI  +1.5% (at -110  +1.5%) z +0.2 | train  +9.6% on 80 | held -19.1% on 31 | seasons up 4/7 | placebo 529/2000
+   spread: every dog getting 15+                                171-170   50.1%  ROI  -4.0% (at -110  -4.3%) z -0.8 | train +14.9% on 140 | held -17.1% on 201 | seasons up 5/9 | placebo 945/2000
+   spread: every dog getting 20+                                107-111   49.1%  ROI  -6.1% (at -110  -6.3%) z -0.9 | train +12.0% on 75 | held -15.7% on 143 | seasons up 4/9 | placebo 1182/2000
+   spread: small numbers (inside 7 either way)                  351-306   53.4%  ROI  +2.3% (at -110  +2.0%) z +0.6 | train  +0.3% on 454 | held  +6.7% on 203 | seasons up 4/9 | placebo 80/2000
+   spread: every favorite                                       162-175   48.1%  ROI  -8.1% (at -110  -8.2%) z -1.5 | train  -6.2% on 230 | held -12.1% on 107 | seasons up 1/8 | placebo 1495/2000
+   spread: a STUDIED WEIGHT on the side (rank weights moved it)   546-505   52.0%  ROI  -0.6% (at -110  -0.8%) z -0.2 | train  +1.4% on 630 | held  -3.4% on 421 | seasons up 4/9 | placebo 179/2000
+   spread: NO studied weight (the big-favorite dial alone)      194-160   54.8%  ROI  +4.7% (at -110  +4.6%) z +0.9 | train +12.0% on 244 | held -11.3% on 110 | seasons up 3/9 | placebo 54/2000
+   spread: studied weights +0.03 or more                        396-329   54.6%  ROI  +4.6% (at -110  +4.3%) z +1.3 | train  +5.3% on 414 | held  +3.6% on 311 | seasons up 6/9 | placebo 7/2000
+   spread: studied weights +0.05 or more                        190-139   57.8%  ROI +10.8% (at -110 +10.3%) z +2.1 | train  +5.9% on 170 | held +16.0% on 159 | seasons up 7/9 | placebo 3/2000
+   spread: lean read 53%+                                       650-573   53.1%  ROI  +1.7% (at -110  +1.5%) z +0.6 | train  +3.9% on 793 | held  -2.3% on 430 | seasons up 4/9 | placebo 27/2000
+   spread: lean read 55%+                                       425-355   54.5%  ROI  +4.2% (at -110  +4.0%) z +1.2 | train  +5.3% on 572 | held  +1.4% on 208 | seasons up 6/9 | placebo 12/2000
+   spread: price -105 or better                                  69-56    55.2%  ROI  +8.3% (at -110  +5.4%) z +1.0 | train  +7.7% on 62 | held  +8.9% on 63 | seasons up 5/9 | placebo 153/2000
+   spread: price -113 or worse                                   55-61    47.4%  ROI -11.3% (at -110  -9.5%) z -1.3 | train  -0.1% on 73 | held -30.4% on 43 | seasons up 3/9 | placebo 1602/2000
+   by season phase (spread)
+   spread: Nov                                                  164-154   51.6%  ROI  -1.4% (at -110  -1.5%) z -0.3 | train  +4.5% on 181 | held  -9.2% on 137 | seasons up 4/9 | placebo 573/2000
+   spread: Dec                                                  164-161   50.5%  ROI  -3.5% (at -110  -3.7%) z -0.7 | train  +2.6% on 205 | held -13.9% on 120 | seasons up 3/8 | placebo 845/2000
+   spread: Jan-Apr (league play)                                412-350   54.1%  ROI  +3.5% (at -110  +3.2%) z +1.0 | train  +5.0% on 488 | held  +0.8% on 274 | seasons up 5/8 | placebo 18/2000
+   spread: EARLY WINDOW Nov 1 - Dec 15                          257-236   52.1%  ROI  -0.3% (at -110  -0.5%) z -0.1 | train  +5.5% on 290 | held  -8.6% on 203 | seasons up 4/9 | placebo 333/2000
+   spread: early window, a team under 5 games in                131-119   52.4%  ROI  +0.3% (at -110  +0.0%) z +0.0 | train  +5.9% on 150 | held  -8.1% on 100 | seasons up 6/9 | placebo 431/2000
+   spread: early window, a team under 4 games in                108-105   50.7%  ROI  -3.0% (at -110  -3.2%) z -0.5 | train  +3.3% on 124 | held -11.7% on 89 | seasons up 5/9 | placebo 784/2000
+   spread: early window, both teams 5+ games in                 126-117   51.9%  ROI  -0.9% (at -110  -1.0%) z -0.2 | train  +5.0% on 140 | held  -9.0% on 103 | seasons up 3/7 | placebo 562/2000
+   spread: early window, dog getting 15+                        106-102   51.0%  ROI  -2.5% (at -110  -2.7%) z -0.4 | train  +8.6% on 81 | held  -9.5% on 127 | seasons up 6/9 | placebo 762/2000
+   spread: early window, dog getting 20+                         81-80    50.3%  ROI  -3.8% (at -110  -4.0%) z -0.5 | train  +2.8% on 52 | held  -6.9% on 109 | seasons up 4/9 | placebo 940/2000
+   spread: early window, dog getting 25+                         56-53    51.4%  ROI  -1.7% (at -110  -1.9%) z -0.2 | train +13.3% on 27 | held  -6.6% on 82 | seasons up 4/9 | placebo 747/2000
+   spread: early window under 5 games, dog getting 25+           41-45    47.7%  ROI  -8.8% (at -110  -9.0%) z -0.9 | train +15.1% on 20 | held -16.0% on 66 | seasons up 3/9 | placebo 1292/2000
+   spread: Nov 1-14 (the live leans' two weeks), dog getting 25+    22-33    40.0%  ROI -23.4% (at -110 -23.6%) z -1.8 | train -28.2% on 8 | held -22.6% on 47 | seasons up 2/8 | placebo 1847/2000
+   spread: Nov 1-14, every lean                                  54-71    43.2%  ROI -17.2% (at -110 -17.5%) z -2.0 | train -22.2% on 59 | held -12.8% on 66 | seasons up 0/8 | placebo 1845/2000
+ -- by season (all leans): 2018: 158-123 +3.5%  2019: 138-106 +3.6%  2020: 121-90 +3.8%  2021: 157-106 +10.3%  2022: 143-127 +0.4%  2023: 153-118 +2.9%  2024: 135-134 -7.3%  2025: 146-127 -2.1%  2026: 8-14 -30.9%
+
+==== B. THE LEAN RULE'S WHOLE POOL (its side in every game, no 2-a-day cap): 17477 graded, 1099 days
+   ALL                                                         9103-8374  52.1%  ROI  -1.3% z -1.9 | train  -2.1% on 11426 | held  +0.2% on 6051 | seasons up 2/9 | placebo 0/2000
+ -- ML
+   ml: all                                                     1136-878   56.4%  ROI  -0.7% z -0.4 | train  -0.5% on 1217 | held  -1.1% on 797 | seasons up 4/9 | placebo 7/2000 | at the OPEN  +0.5% on 797
+   ml: favorites (-150..-101)                                  1133-870   56.6%  ROI  -0.5% z -0.3 | train  -0.6% on 1213 | held  -0.5% on 790 | seasons up 4/9 | placebo 4/2000 | at the OPEN  +1.1% on 790
+   ml: favorites -150..-130                                     756-504   60.0%  ROI  +2.8% z +1.2 | train  +2.7% on 787 | held  +2.9% on 473 | seasons up 5/9 | placebo 8/2000 | at the OPEN  +3.9% on 473
+   ml: favorites -129..-101                                     375-360   51.0%  ROI  -5.7% z -1.7 | train  -6.9% on 425 | held  -4.1% on 310 | seasons up 3/9 | placebo 553/2000 | at the OPEN  -1.5% on 310
+   ml: dogs (+100 and up)                                     only 11 (3-8)
+   ml: home side                                                878-699   55.7%  ROI  -1.6% z -0.7 | train  -2.2% on 951 | held  -0.6% on 626 | seasons up 4/9 | placebo 39/2000 | at the OPEN  +1.2% on 626
+   ml: road side                                                151-98    60.6%  ROI  +4.0% z +0.8 | train  -0.0% on 159 | held +11.1% on 90 | seasons up 6/8 | placebo 156/2000 | at the OPEN +11.9% on 90
+   by season phase (ml)
+   ml: Nov                                                       93-63    59.6%  ROI  +4.3% z +0.6 | train  +6.6% on 69 | held  +2.4% on 87 | seasons up 6/9 | placebo 230/2000 | at the OPEN  +5.1% on 87
+   ml: Dec                                                      133-120   52.6%  ROI  -7.0% z -1.3 | train -10.2% on 145 | held  -2.7% on 108 | seasons up 4/8 | placebo 824/2000 | at the OPEN  -0.8% on 108
+   ml: Jan-Apr (league play)                                    910-695   56.7%  ROI  -0.2% z -0.1 | train  +0.4% on 1003 | held  -1.4% on 602 | seasons up 4/8 | placebo 17/2000 | at the OPEN  +0.1% on 602
+   ml: EARLY WINDOW Nov 1 - Dec 15                              163-120   57.6%  ROI  +0.9% z +0.2 | train  +2.3% on 140 | held  -0.5% on 143 | seasons up 3/9 | placebo 257/2000 | at the OPEN  +1.8% on 143
+   ml: early window, a team under 5 games in                     74-59    55.6%  ROI  -2.9% z -0.4 | train  -2.4% on 66 | held  -3.5% on 67 | seasons up 5/9 | placebo 581/2000 | at the OPEN  -0.7% on 67
+   ml: early window, a team under 4 games in                     62-52    54.4%  ROI  -5.3% z -0.6 | train  +1.3% on 55 | held -11.4% on 59 | seasons up 4/9 | placebo 721/2000 | at the OPEN  -9.0% on 59
+   ml: early window, both teams 5+ games in                      89-61    59.3%  ROI  +4.3% z +0.6 | train  +6.5% on 74 | held  +2.2% on 76 | seasons up 4/8 | placebo 228/2000 | at the OPEN  +4.1% on 76
+ -- SPREAD
+   spread: all                                                 7967-7496  51.5%  ROI  -1.4% (at -110  -1.6%) z -1.8 | train  -2.3% on 10209 | held  +0.4% on 5254 | seasons up 2/9 | placebo 0/2000
+   spread: dog getting 25+                                      309-332   48.2%  ROI  -7.8% (at -110  -8.0%) z -2.1 | train  -7.1% on 222 | held  -8.2% on 419 | seasons up 0/9 | placebo 1625/2000
+   spread: dog getting 20-24.5                                  384-332   53.6%  ROI  +2.6% (at -110  +2.4%) z +0.7 | train  +8.4% on 332 | held  -2.4% on 384 | seasons up 6/9 | placebo 42/2000
+   spread: dog getting 15-19.5                                  631-595   51.5%  ROI  -1.6% (at -110  -1.7%) z -0.6 | train  -2.4% on 695 | held  -0.6% on 531 | seasons up 4/9 | placebo 287/2000
+   spread: dog getting 7.5-14.5                                1585-1480  51.7%  ROI  -1.0% (at -110  -1.3%) z -0.6 | train  -1.4% on 1942 | held  -0.5% on 1123 | seasons up 3/9 | placebo 37/2000
+   spread: dog getting 0.5-7                                   2359-2211  51.6%  ROI  -1.2% (at -110  -1.5%) z -0.9 | train  -2.8% on 3272 | held  +2.8% on 1298 | seasons up 3/9 | placebo 17/2000
+   spread: favorite laying 0.5-7                               1638-1619  50.3%  ROI  -3.7% (at -110  -4.0%) z -2.2 | train  -6.3% on 2206 | held  +1.7% on 1051 | seasons up 3/8 | placebo 665/2000
+   spread: favorite laying 7.5+                                1018-894   53.2%  ROI  +1.9% (at -110  +1.6%) z +0.9 | train  +1.2% on 1467 | held  +4.0% on 445 | seasons up 4/8 | placebo 0/2000
+   spread: every dog getting 15+                               1324-1259  51.3%  ROI  -2.0% (at -110  -2.1%) z -1.1 | train  -0.4% on 1249 | held  -3.5% on 1334 | seasons up 2/9 | placebo 163/2000
+   spread: every dog getting 20+                                693-664   51.1%  ROI  -2.3% (at -110  -2.5%) z -0.9 | train  +2.2% on 554 | held  -5.4% on 803 | seasons up 3/9 | placebo 405/2000
+   spread: small numbers (inside 7 either way)                 4040-3863  51.1%  ROI  -2.2% (at -110  -2.4%) z -2.0 | train  -4.0% on 5551 | held  +2.3% on 2352 | seasons up 3/9 | placebo 17/2000
+   spread: every favorite                                      2656-2513  51.4%  ROI  -1.7% (at -110  -1.9%) z -1.2 | train  -3.3% on 3673 | held  +2.4% on 1496 | seasons up 4/8 | placebo 25/2000
+   spread: a STUDIED WEIGHT on the side (rank weights moved it)  4425-3971  52.7%  ROI  +0.9% (at -110  +0.6%) z +0.9 | train  -0.6% on 4993 | held  +3.2% on 3403 | seasons up 5/9 | placebo 0/2000
+   spread: NO studied weight (the big-favorite dial alone)     3542-3525  50.1%  ROI  -4.2% (at -110  -4.3%) z -3.7 | train  -4.0% on 5216 | held  -4.9% on 1851 | seasons up 1/9 | placebo 800/2000
+   spread: studied weights +0.03 or more                       2147-1847  53.8%  ROI  +3.0% (at -110  +2.6%) z +2.0 | train  +0.4% on 2420 | held  +7.1% on 1574 | seasons up 7/9 | placebo 0/2000
+   spread: studied weights +0.05 or more                        504-375   57.3%  ROI +10.0% (at -110  +9.5%) z +3.1 | train  +5.0% on 447 | held +15.3% on 432 | seasons up 7/9 | placebo 0/2000
+   spread: lean read 53%+                                      3490-3125  52.8%  ROI  +0.9% (at -110  +0.7%) z +0.8 | train  +0.5% on 4863 | held  +2.1% on 1752 | seasons up 4/9 | placebo 0/2000
+   spread: lean read 55%+                                      1321-1138  53.7%  ROI  +2.7% (at -110  +2.6%) z +1.4 | train  +3.1% on 2035 | held  +0.8% on 424 | seasons up 8/9 | placebo 0/2000
+   spread: price -105 or better                                 772-630   55.1%  ROI  +8.0% (at -110  +5.1%) z +3.1 | train  -1.7% on 747 | held +19.2% on 655 | seasons up 4/9 | placebo 0/2000
+   spread: price -113 or worse                                  553-618   47.2%  ROI -11.7% (at -110  -9.8%) z -4.3 | train  -7.3% on 755 | held -19.5% on 416 | seasons up 3/9 | placebo 1993/2000
+   by season phase (spread)
+   spread: Nov                                                 1802-1787  50.2%  ROI  -4.0% (at -110  -4.1%) z -2.5 | train  -5.1% on 2155 | held  -2.4% on 1434 | seasons up 2/9 | placebo 757/2000
+   spread: Dec                                                 1452-1341  52.0%  ROI  -0.6% (at -110  -0.8%) z -0.3 | train  +0.2% on 1870 | held  -2.3% on 923 | seasons up 4/8 | placebo 33/2000
+   spread: Jan-Apr (league play)                               4713-4368  51.9%  ROI  -0.6% (at -110  -0.9%) z -0.6 | train  -2.2% on 6184 | held  +2.6% on 2897 | seasons up 2/8 | placebo 0/2000
+   spread: EARLY WINDOW Nov 1 - Dec 15                         2584-2489  50.9%  ROI  -2.6% (at -110  -2.8%) z -2.0 | train  -3.5% on 3168 | held  -1.2% on 1905 | seasons up 3/9 | placebo 133/2000
+   spread: early window, a team under 5 games in               1487-1496  49.8%  ROI  -4.7% (at -110  -4.8%) z -2.7 | train  -5.6% on 1817 | held  -3.4% on 1166 | seasons up 1/9 | placebo 1148/2000
+   spread: early window, a team under 4 games in               1260-1266  49.9%  ROI  -4.6% (at -110  -4.8%) z -2.4 | train  -4.8% on 1515 | held  -4.5% on 1011 | seasons up 1/9 | placebo 1092/2000
+   spread: early window, both teams 5+ games in                1097-993   52.5%  ROI  +0.3% (at -110  +0.2%) z +0.2 | train  -0.6% on 1351 | held  +2.1% on 739 | seasons up 4/8 | placebo 28/2000
+   spread: early window, dog getting 15+                        868-825   51.3%  ROI  -2.0% (at -110  -2.1%) z -0.9 | train  +0.9% on 803 | held  -4.6% on 890 | seasons up 4/9 | placebo 282/2000
+   spread: early window, dog getting 20+                        506-485   51.1%  ROI  -2.4% (at -110  -2.5%) z -0.8 | train  +1.1% on 399 | held  -4.7% on 592 | seasons up 2/9 | placebo 494/2000
+   spread: early window, dog getting 25+                        239-265   47.4%  ROI  -9.3% (at -110  -9.5%) z -2.2 | train -13.6% on 168 | held  -7.2% on 336 | seasons up 0/9 | placebo 1761/2000
+   spread: early window under 5 games, dog getting 25+          191-213   47.3%  ROI  -9.6% (at -110  -9.7%) z -2.0 | train -12.1% on 126 | held  -8.5% on 278 | seasons up 1/9 | placebo 1739/2000
+   spread: Nov 1-14 (the live leans' two weeks), dog getting 25+   131-151   46.5%  ROI -11.2% (at -110 -11.3%) z -2.0 | train -13.5% on 64 | held -10.5% on 218 | seasons up 1/8 | placebo 1751/2000
+   spread: Nov 1-14, every lean                                 781-754   50.9%  ROI  -2.7% (at -110  -2.9%) z -1.1 | train  -2.7% on 745 | held  -2.7% on 790 | seasons up 2/8 | placebo 456/2000
+ -- by season (all leans): 2018: 1208-1124 -1.9%  2019: 1272-1151 -0.7%  2020: 600-556 -2.5%  2021: 1233-1222 -4.8%  2022: 1593-1467 -1.2%  2023: 1001-988 -5.0%  2024: 1049-882 +3.2%  2025: 1028-863 +3.2%  2026: 119-121 -5.3%
+
+==== C. THE HOT HAND: the replay's 25+ dog leans cover 50.4%. At that rate 4 of 5 or better happens 19% of the time - a 4-1 run says nothing either way.
+
+==== D. THE COLLEGE HOOPS UNIT PLAYS IN THE SAME REPLAY (today's code): the first day each fires, by season
+   floor                                                         18-20    47.4%  ROI  +5.9% z +0.3 | train  +9.2% on 29 | held  -4.7% on 9 | seasons up 4/7 | placebo 440/2000
+        first day: 2018: 11-20  2019: 01-06  2020: 11-30  2021: 02-13  2023: 11-17  2024: 11-13  2025: 11-14 | a season: 2018: 8  2019: 6  2020: 14  2021: 1  2023: 2  2024: 5  2025: 2
+   gap                                                           72-63    53.3%  ROI +20.1% z +2.1 | train +23.0% on 101 | held +11.3% on 34 | seasons up 7/8 | placebo 22/2000
+        first day: 2018: 11-18  2019: 11-23  2020: 12-06  2021: 11-21  2022: 11-23  2023: 11-24  2024: 11-25  2025: 11-23 | a season: 2018: 21  2019: 15  2020: 35  2021: 22  2022: 8  2023: 17  2024: 5  2025: 12
+   lock                                                          86-32    72.9%  ROI +26.0% z +3.7 | train +25.1% on 68 | held +27.4% on 50 | seasons up 7/8 | placebo 9/2000
+        first day: 2018: 11-25  2019: 11-24  2020: 12-20  2021: 12-02  2022: 11-30  2023: 11-25  2024: 12-04  2025: 12-29 | a season: 2018: 5  2019: 12  2020: 13  2021: 14  2022: 24  2023: 20  2024: 13  2025: 17
+   ncaabplay                                                     99-99    50.0%  ROI  +6.3% z +0.8 | train  -0.3% on 160 | held +34.0% on 38 | seasons up 5/8 | placebo 110/2000
+        first day: 2018: 11-19  2019: 11-17  2020: 12-16  2021: 11-25  2022: 11-20  2023: 11-20  2024: 11-29  2025: 11-24 | a season: 2018: 31  2019: 37  2020: 40  2021: 27  2022: 25  2023: 11  2024: 15  2025: 12
+   play                                                       only 2 (2-0)
+        first day: 2021: 01-15  2025: 01-17 | a season: 2021: 1  2025: 1
+   stackplay                                                    392-316   55.4%  ROI  +5.7% z +1.6 | train  -0.8% on 277 | held  +9.9% on 431 | seasons up 4/5 | placebo 2/2000
+        first day: 2021: 11-25  2022: 11-20  2023: 11-19  2024: 11-20  2025: 11-22 | a season: 2021: 139  2022: 138  2023: 144  2024: 140  2025: 147
+
+cells: 104
