@@ -18923,3 +18923,40 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-12 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-12 23:06 UTC] crypto/hold_btc  equity $431.91 (-13.6%) 1 open  market DOWN
    social heat top: BTC 29 (29/0/0), PENGU 24 (24/0/0), PEPE 22 (16/0/6), NEAR 21 (21/0/0), PONS 21 (8/0/13)
+   dex screen: REJECT ICNT@base liq $119,937 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 48%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $348,820 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listing: kraken_pairs #PEARL 'New Kraken listing (PEARL)' -> ['PEARL']
+   listing: PEARL: kraken_pairs notice "New Kraken listing (PEARL)" -> not on Crypto.com USD
+   dex screen: REJECT JEANPHIL@solana liq $252,751 - lp holders unknown; rugcheck lp locked 77% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ZEN@base liq $1,382,128 - is_mintable; top-10 holders 65%; lp locked 0% < 95%
+   dex screen: REJECT MSTRC@base liq $49,809 - liquidity $49,809 < $100,000; 24h volume $33,064 < $100,000
+   dex screen: REJECT SPCX@solana liq $2,625,604 - freeze authority; mint authority; balance_mutable_authority; transfer hook
+   dex screen: REJECT SPCX@solana liq $2,740,325,765 - top-10 holders 100%; lp holders unknown
+   dex screen: UNREACHABLE SPCX@solana liq $1,247,432,364 - goplus unreachable
+   dex screen: UNREACHABLE SPCX@solana liq $452,655,934 - goplus unreachable
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $348,074 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RUSH@solana liq $712,872 - mint authority; top-10 holders 95%; lp holders unknown
+   dex screen: REJECT AERO@base liq $5,620 - liquidity $5,620 < $100,000; 24h volume $1,922 < $100,000
+   dex screen: REJECT FLOAT@solana liq $323,574 - lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $1,588,323
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MSFTC@base liq $506,656 - pool age unknown
+   dex screen: REJECT CATE@solana liq $73,764,192 - top-10 holders 100%
+   dex screen: REJECT CATE@solana liq $1,477,161 - top-10 holders 100%
+   dex scanner: 2,962 pools (solana 2,049 / base 543 / ethereum 370), refresh cycle 128s (hot 124s), 2885 calls (108 feed, 429s 0, failed 0), 83,309 refreshed (11256 no pair), +75 added / -68 dropped (dead 55, stale 13, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-13 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/mover     equity $190.77 (-61.8%) 1 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/social_heat equity $335.23 (-33.0%) 2 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 00:06 UTC] crypto/hold_btc  equity $432.17 (-13.6%) 1 open  market DOWN
+   social heat top: SOL 44 (29/0/14), BTC 32 (32/0/0), PENGU 27 (27/0/0), XRP 24 (24/0/0), HYPE 19 (5/0/14)
