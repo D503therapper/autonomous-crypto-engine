@@ -19526,3 +19526,48 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-13 17:05 UTC] stocks/trend     equity $459.09 (-8.2%) 4 open  market DOWN
 [2026-11-13 17:05 UTC] stocks/hold_spy  equity $489.04 (-2.2%) 1 open  market DOWN
    social heat top: BTC 29 (29/0/0), NEAR 27 (27/0/0), HYPE 26 (24/0/2), PENGU 19 (19/0/0), UNI 16 (16/0/0)
+   dex screen: REJECT USPR@solana liq $16 - creator holds 100%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT DJT@solana liq $117,362 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 47%; lp holders unknown
+   dex screen: REJECT ZEC@solana liq $1,650,345,022 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $1,382,791,959 - top-10 holders 100%
+   dex screen: UNREACHABLE ZEC@solana liq $973,234,139 - goplus unreachable
+   dex screen: UNREACHABLE ZEC@solana liq $3,084,009 - goplus unreachable
+   dex screen: REJECT FRXUSD@ethereum liq $1,005,645 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       adfa1b2f79a207248fce7ba304470d0a289e8072 -> main (cannot lock ref 'refs/heads/main': is at e9cad0ec20ac0632e6c18
+   dex screen: REJECT CTM@ethereum liq $1,941,965 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: UNREACHABLE MIHAO@ethereum liq $375,818 - honeypot.is unreachable
+   dex screen: REJECT TEMO@ethereum liq $106,621 - goplus partial data: cannot_sell_all unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT NEXO@ethereum liq $1,136,973 - owner_percent 9%; top-10 holders 94%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $379,127 - honeypot.is unreachable
+   dex scanner: 2,625 pools (solana 1,841 / base 432 / ethereum 352), refresh cycle 114s (hot 110s), 2914 calls (110 feed, 429s 0, failed 0), 84,117 refreshed (10850 no pair), +81 added / -162 dropped (dead 153, stale 9, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT SHIB@solana liq $158,422 - mint authority; top-10 holders 87%; lp holders unknown
+[2026-11-13 18:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/mover     equity $185.61 (-62.9%) 1 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/social_heat equity $333.19 (-33.4%) 2 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] crypto/hold_btc  equity $418.60 (-16.3%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-11-13 18:05 UTC] stocks/rsi2      equity $461.05 (-7.8%) 2 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 2, TLT 3, GLD 7, MSTR 7
+[2026-11-13 18:05 UTC] stocks/breakout52 equity $473.47 (-5.3%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-13 18:05 UTC] stocks/dual_momentum equity $459.88 (-8.0%) 2 open  market DOWN
+[2026-11-13 18:05 UTC] stocks/trend_ensemble equity $507.67 (+1.5%) 5 open  market UP
+[2026-11-13 18:05 UTC] stocks/rotation10 equity $503.10 (+0.6%) 2 open  market UP
+[2026-11-13 18:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-13 18:05 UTC] stocks/trend     equity $459.46 (-8.1%) 4 open  market DOWN
+[2026-11-13 18:05 UTC] stocks/hold_spy  equity $489.61 (-2.1%) 1 open  market DOWN
+   social heat top: BTC 32 (32/0/0), PENGU 29 (29/0/0), INJ 27 (27/0/0), SOL 21 (21/0/0), AERO 19 (16/0/3)
