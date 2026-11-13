@@ -8819,6 +8819,7 @@ def fresh_card_facts(games, legs, injuries):
         if not g or g.get("status") != "pre":
             continue
         stale, fresh = list(leg.get("stale") or []), list(leg.get("fresh") or [])
+        confirmed_ = list(leg.get("confirmed") or [])
         if inj is not None and leg["league"] in sd.INJ_LEAGUES:
             listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
             if listed:                                       # (a report with nobody on it for either side: a hiccup -
@@ -8839,6 +8840,14 @@ def fresh_card_facts(games, legs, injuries):
                            if str(r["team"]) in (str(g["home"]), str(g["away"])) and r.get("role", "G") == "G"}
                 for nm, team in goalies.items():
                     side_ = "home" if team == str(g["home"]) else "away"
+                    try:                                     # (11/13, the owner: "the goalie info on the Predators
+                        import sports_goalies                #  card needs to update as soon as he's ruled to play")
+                        conf = sports_goalies.confirmed(g.get("id"), side_)
+                    except Exception:                        # noqa: BLE001
+                        conf = None
+                    if nm in body and conf and _nm_key(conf["name"])[0] == _nm_key(nm)[0] and nm not in confirmed_:
+                        confirmed_.append(nm)
+                        fresh.append(f"✅ Update: {nm} is confirmed in net for the {g[side_ + '_name']}.")
                     if nm in body and now_.get(side_) and _nm_key(now_[side_])[0] != _nm_key(nm)[0] and nm not in stale:
                         stale.append(nm)
                         try:                                 # (11/13: a goalie nobody has confirmed yet - the page's
@@ -8849,7 +8858,9 @@ def fresh_card_facts(games, legs, injuries):
                         fresh.append(f"🔄 Update: {now_[side_]} is the {g[side_ + '_name']} goalie now, not {nm}."
                                      if sure else f"🔄 Update: {now_[side_]} is projected in net for the "
                                      f"{g[side_ + '_name']} now, not {nm} (not confirmed yet).")
-        if stale != list(leg.get("stale") or []):
+        if confirmed_ != list(leg.get("confirmed") or []):
+            leg["confirmed"] = confirmed_
+        if stale != list(leg.get("stale") or []) or fresh != list(leg.get("fresh") or []):
             leg["stale"], leg["fresh"] = stale, fresh[-4:]
             try:
                 leg["inj_now"] = {s_: injury_line(g, s_, injuries) for s_ in ("home", "away")}

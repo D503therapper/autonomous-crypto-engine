@@ -773,12 +773,30 @@ def stale_in(text, leg):
     return any(n and n in t for n in leg.get("stale") or [])
 
 
+_PROJ = ((re.compile(r",? projected to start for (the [^,(]+?) \(not confirmed yet\),?"), r", confirmed in net for \1,"),
+         (re.compile(r" — ((?:the )?[^—]+?)'s? projected starter, nobody's confirmed yet —"), r" — confirmed in net for \1 —"),
+         (re.compile(r"\(expected in net for ([^)]+)\)"), r"(confirmed in net for \1)"),
+         (re.compile(r" \(not confirmed yet\)"), ""))
+
+
+def _confirmed_now(line, leg):
+    """A 🥅 / 🧱 line about a goalie the page has since CONFIRMED reads confirmed, not projected (11/13, the owner: the
+    goalie info "needs to update as soon as he's ruled to play")."""
+    t = str(line or "")
+    if not leg.get("confirmed") or not t.startswith(("🥅", "🧱")) or not any(n in t for n in leg["confirmed"]):
+        return line
+    for rx, rep in _PROJ:
+        t = rx.sub(rep, t)
+    return t
+
+
 def fresh_lines(leg, secs):
     """🔄 11/12 (Victor: "outdated information" - the Sabres goalie and the Giants' Skattebo / McCarthy): every line
     naming a man whose status changed after the card posted comes out; the side's 🚑 line is the report as it reads
     now (when it still has anyone); the update lines go on top. Only the facts move - never the pick or its units."""
+    secs = [_confirmed_now(x, leg) for x in secs or []]
     if not leg.get("stale"):
-        return list(secs or [])
+        return list(leg.get("fresh") or []) + list(secs) if leg.get("confirmed") else list(secs)
     now_ = leg.get("inj_now") or {}
     out = []
     for x in secs or []:
