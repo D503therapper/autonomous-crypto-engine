@@ -20865,6 +20865,16 @@ def test_owner_1113_a_unit_play_never_says_not_at_this_price():
     assert "just not at this price" in dash._leg(lean)               # a lean keeps its own wording
 
 
+def test_pre_1113_the_latest_line_labels_a_non_d1_opponent():
+    """11/13 board: the Idaho lean's '📅 Latest: Idaho W 108-69 vs Lincoln (CA)' never said Lincoln (CA) is a non-D1
+    school - every other line names the tune-up as one (_said_d1). The latest-games line does too now."""
+    import inspect
+    import sports_breakdown_v24 as v24
+    src = inspect.getsource(v24.breakdown)
+    i = src.index("last_us = _line(s_ours[-1], tid)")
+    assert "non-D1" in src[i - 200:i + 300]
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
