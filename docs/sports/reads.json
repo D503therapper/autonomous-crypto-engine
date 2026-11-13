@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T01:19Z",
+ "updated": "2026-11-13T01:48Z",
  "games": [
   {
    "id": "nhl:401891808",
@@ -41,8 +41,8 @@
    "away": "Bradley",
    "home": "Coppin St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -86,8 +86,8 @@
    "away": "Mercyhurst",
    "home": "Penn State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -102,7 +102,7 @@
    "home": "Indiana",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Tennessee Tech",
@@ -115,7 +115,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -261,8 +261,8 @@
    "away": "Loyola MD",
    "home": "Towson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -396,8 +396,8 @@
    "away": "VA Lynchburg",
    "home": "Coastal",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -459,6 +459,21 @@
    }
   },
   {
+   "id": "nhl:401892703",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-13T01:00Z",
+   "away": "Jets",
+   "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917524",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -467,6 +482,21 @@
    "start": "2026-11-13T01:00Z",
    "away": "LMU",
    "home": "South Alabama",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909978",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-13T01:00Z",
+   "away": "Mavericks",
+   "home": "Timberwolves",
    "h1": null,
    "why": "started",
    "done": false,
@@ -610,151 +640,28 @@
    "id": "nhl:401892704",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blues",
-    "p": 0.39,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-11-13T02:00Z",
    "away": "Blues",
    "home": "Mammoth",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Mammoth",
-    "opp": "Blues",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.637,
-    "win_p": 0.417,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909979",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Suns",
-    "p": 0.597,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-13T02:00Z",
-   "away": "Hornets",
-   "home": "Suns",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Suns",
-    "opp": "Hornets",
+    "team": "Blues",
+    "opp": "Mammoth",
     "market": "ml",
     "line": null,
-    "odds": -229,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": 100,
+    "p": 0.522,
+    "win_p": 0.522,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401869969",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Louisiana",
-    "p": 0.684,
-    "tie": 0.029,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-13T02:00Z",
-   "away": "Louisiana",
-   "home": "UL Monroe",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Louisiana",
-    "opp": "UL Monroe",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.686,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921741",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "BYU",
-    "p": 0.889,
-    "tie": 0.019,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-13T02:00Z",
-   "away": "Montana St",
-   "home": "BYU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Montana St",
-    "opp": "BYU",
-    "market": "spread",
-    "line": 21.5,
-    "odds": -105,
-    "p": 0.514,
-    "win_p": 0.047,
-    "reasons": [
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401911533",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UTEP",
-    "p": 0.602,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-13T02:00Z",
-   "away": "New Mexico St",
-   "home": "UTEP",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "UTEP",
-    "opp": "New Mexico St",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.661,
-    "win_p": 0.661,
-    "reasons": [
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
+     "opponent on a back-to-back",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
