@@ -490,8 +490,14 @@ def test_full_cycle_offline():
             sports.datetime = keep_dt
         kinds = {p["kind"] for p in picks}
         assert kinds, "the fake slate has at least one real play"
+        def floor_ok(p, l):                                   # (11/13: from the 11/13 Pacific day the honest blend dials
+            return bool(p.get("floor")) and sports.DOG_MIN <= l["odds"] <= sports.DAILY_DOG_MAX and bool(l.get("reasons")) \
+                and not sports.fighting(l) and not l.get("trap") and sports.units_for(p) == sports.FLOOR_UNITS
+        #   leave this fake slate no gated play, so the ½u DAILY FLOOR fills the board - a floor play is a real unit play
+        #   by the floor's own bar (a dog +100..+350, a named reason, never fighting, never a trap, ½u), not by good();
+        #   the old assert knew only good() / by_analysis / a lean and went red on the 11/13 clock)
         bad = [(p["kind"], p.get("lean"), l["team"], l["odds"], round(l["p"], 3)) for p in picks for l in p["legs"]
-               if not (sports.good(l) or l.get("by_analysis") or p.get("lean"))]
+               if not (sports.good(l) or l.get("by_analysis") or p.get("lean") or floor_ok(p, l))]
         assert not bad, bad
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
@@ -22673,6 +22679,69 @@ def test_daily_1112_college_fourth_down_coach_is_a_tracker_lead_only():
             sl._TEAMBOX["ncaaf"] = keep_b
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "fourth_down_tags" not in src and "CF4_" not in src                                    # never read by the board
+
+
+def test_leans_1113_a_college_hoops_spread_lean_needs_a_studied_weight_and_the_leans_carry_no_units():
+    """11/13 FABLE - SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (the owner, 11/12: "the engine's been hitting these college
+    basketball leans left and right. But they're just leans. They're not units"; results/studies/leans_1113 - the board
+    replay on today's code, every college hoops day 2018-26). NO: the leans the board would show 1,159-945, +1.4% (train
+    +4.3% / held -2.9%); the live ones (dogs getting 25+) are the worst cell - the big-favorite dial alone leans them and
+    they cover 48.2% (0 of 9 seasons up). Nothing new earns units; the one lean cell that wins (studied weights +0.05+) IS
+    the ½u spread stack play. THE FIX: from the 11/14 games a college hoops SPREAD lean needs a studied weight FOR the side
+    (sports.lean_spread_bare) - the dial alone is a coin. Other leagues, the moneyline leans, night football: untouched."""
+    import sports_leads as sl
+    day = "2026-11-20T01:00Z"
+
+    def sp(team, line, p, gid="g1", league="ncaab", **k):
+        c = {**_cand(team, -110, p, market="spread", line=line, league=league), "start": day, "game_id": gid, **k}
+        c.pop("edge_own")                                    # (a real spread side carries no own read)
+        return c
+    dog, fav = sp("BigDog", 28.5, 0.53, side="away", home=False), sp("BigFav", -28.5, 0.47, side="home")
+    assert sports.spread_weights(dog) == 0 and sports.lean_spread_bare(dog) and sports.lean_spread_bare(fav)
+    keep = sports.stick
+    try:
+        sports.stick = lambda c, pool: c
+        assert sports.viewer_leans([dog, fav], set()) == []                               # the dial alone: a coin, no lean
+        old = [{**dog, "start": "2026-11-13T20:00Z"}, {**fav, "start": "2026-11-13T20:00Z"}]
+        assert not sports.lean_spread_bare(old[0])
+        assert [c["team"] for c in sports.viewer_leans(old, set())] == ["BigDog"]         # before the date: the old rule
+        # a studied weight FOR the side: the home side across a top-25 road team in Nov-Dec (+0.03)
+        wdog = {**dog, "vs_ranked_road": True}
+        assert abs(sports.spread_weights(wdog) - sports.NCAAB_RANKED_ROAD_W) < 1e-9 and not sports.lean_spread_bare(wdog)
+        assert [c["team"] for c in sports.viewer_leans([wdog, fav], set())] == ["BigDog"]
+        # a studied weight AGAINST the side the dial likes: never the lean (the dial 54%, the weight -0.03 = 51%)
+        bad = {**dog, "p": 0.54, "ranked_road": True}
+        assert sports.spread_weights(bad) < 0 and sports.lean_read(bad) > 0.505 and sports.lean_spread_bare(bad)
+        assert sports.viewer_leans([bad, fav], set()) == []
+        # other leagues keep their rule (the board fills to five on small slates - the owner's call)
+        for lg in ("nba", "nfl", "ncaaf"):
+            o = [sp("D", 14.5, 0.53, gid="g2", league=lg, side="away", home=False), sp("F", -14.5, 0.47, gid="g2", league=lg, side="home")]
+            assert not sports.lean_spread_bare(o[0]) and [c["team"] for c in sports.viewer_leans(o, set())] == ["D"], lg
+        # the who-wins moneyline lean is untouched
+        ml = {**_cand("Fav", -125, 0.57, league="ncaab"), "start": day, "game_id": "g3"}
+        assert [c["team"] for c in sports.viewer_leans([ml, dog, fav], set())] == ["Fav"]
+        # night football reads lean_read, never this rule
+        nf = [sp("D", 8.5, 0.5, gid="g4", league="nfl", side="away", home=False), sp("F", -8.5, 0.5, gid="g4", league="nfl", side="home")]
+        assert sports.night_pick(nf)["legs"][0]["team"] == "D"
+    finally:
+        sports.stick = keep
+    # NOTHING EARNED UNITS: a lean carries none, value plays stay moneyline only, the stack play stays the one spread play
+    assert sports.units_for({"kind": "lean", "date": "2026-11-20", "lean": True, "legs": [dict(wdog)], "status": "open"}) == 0
+    assert sports.PLAY_MARKETS == ("ml",) and sports.LEAN_SPREAD_WEIGHT_LEAGUES == ("ncaab",) and sports.LEANS_1113_FROM == "2026-11-14"
+    assert not [n for n in dir(sports) if "LEAN_PLAY" in n]
+    # the tracker: the cut's own record + two leads (tracked only, from 11/14)
+    assert sl.leans_1113_spread_tags(dog, sports) == [sl.LEANS_DIAL_TAG, sl.LEANS_BIG_DOG_TAG]
+    assert sl.leans_1113_spread_tags(fav, sports) == []
+    assert sl.leans_1113_spread_tags(sp("x", 12.5, 0.51, side="away", home=False), sports) == [sl.LEANS_DIAL_TAG]
+    assert sl.leans_1113_spread_tags(sp("x", 3.5, 0.50, side="away", home=False), sports) == []
+    w5 = sp("x", 4.5, 0.5, side="home", vs_ranked_road=True, vs_nl_road_fav=True)       # +0.03 +0.02, no stack on the leg
+    assert abs(sports.spread_weights(w5) - 0.05) < 1e-9 and sl.leans_1113_spread_tags(w5, sports) == [sl.LEANS_WEIGHTS_TAG]
+    assert sl.leans_1113_spread_tags({**w5, "spread_stack": 0.05}, sports) == []          # the stack play's own side
+    assert sl.leans_1113_spread_tags({**dog, "start": "2026-11-13T20:00Z"}, sports) == []
+    assert sl.leans_1113_spread_tags({**dog, "league": "nba"}, sports) == [] and sl.leans_1113_spread_tags({**dog, "market": "ml"}, sports) == []
+    assert sl.LEANS_DIAL_TAG in sl.spread_tags(dog, sports)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "leans_1113_spread_tags" not in src                                            # never read by the board
 
 
 if __name__ == "__main__":

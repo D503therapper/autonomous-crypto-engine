@@ -6774,6 +6774,38 @@ def lean_read(c):
     return c["p"]
 
 
+LEANS_1113_FROM = "2026-11-14"     # 🟡 11/13 FABLE: SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (results/studies/leans_1113/ -
+LEAN_SPREAD_WEIGHT_LEAGUES = ("ncaab",)   # the board replay on today's code, every college hoops day 2018-26, 119,696
+#   sides at the close; SPORTS_FINDINGS "11/13 - FABLE: SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS"). NO - and the leans
+#   the owner watched go 4-1 (college dogs getting 25-35 points) are the lean rule's worst cell: a college hoops SPREAD
+#   side with NO studied weight for it is picked by the cover read's big-favorite dial alone (-0.03 a touchdown past 7:
+#   every big number leans the dog), and that side is a coin that pays the vig - the lean pool's dial-only sides covered
+#   50.1%, -4.2% on 7,067 (1 of 9 seasons up, train -4.0% / held -4.9%), the dogs getting 25+ 48.2%, -7.8% on 641 (0 of
+#   9), every college dog getting 25+ 48.1% on 726 (0 of 9), the board's own spread leans in a season's first two weeks 54-71.
+#   The 11/12 rule ("a spread with no studied weight on it is a coin and gets no lean") only caught numbers inside ~12 -
+#   past that the pulled dial still reads 50.5%+. From the 11/14 games a college hoops spread lean needs a studied weight
+#   FOR the side (rank_p over the bare cover read); the who-wins moneyline leans and the fill are untouched, night
+#   football (night_pick) is untouched, no unit play reads this. Other leagues: the dial's side loses there too (11/12
+#   B5: NFL 47.2%, college football 49.4%, the NBA 50.0% on every 7.5+ spread) but their slates are small and the board
+#   fills to five - left alone, the owner's call.
+
+
+def spread_weights(c):
+    """The studied weights on a spread side: what rank_p adds to (or takes off) the bare cover read. 0 = the cover read
+    alone - the close plus the big-favorite dial - picked nothing."""
+    try:
+        return round(rank_p(c) - c["p"], 6)
+    except (KeyError, TypeError):
+        return 0.0
+
+
+def lean_spread_bare(c):
+    """🟡 11/13: a college hoops SPREAD side with no studied weight FOR it, in a game on / after LEANS_1113_FROM (its
+    Pacific day) - a coin (the dial alone), never the lean."""
+    return (c.get("market") == "spread" and c.get("league") in LEAN_SPREAD_WEIGHT_LEAGUES
+            and pt_day(c) >= LEANS_1113_FROM and spread_weights(c) <= 1e-9)
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -6790,6 +6822,8 @@ def viewer_leans(cands, avoid):
         pr = lean_read(c)                                    # (11/12: a spread = the cover read with its weights)
         if c["market"] == "spread" and c.get("edge_own") is None and abs(pr - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
+        if lean_spread_bare(c):
+            return False                                     # (11/13: a college hoops spread the dial alone picked - a coin)
         if pr >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is

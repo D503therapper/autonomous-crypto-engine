@@ -1099,7 +1099,43 @@ def spread_tags(c, sports):
     #   visitor on a 5,900 ft+ floor, the NFL lookahead dog - LEADS (results/studies/spreads2_1111)
     t += deep_spread_tags(c, sports)                         # 11/12 FABLE DEEP PROGRAM: the two built rank weights' cover
     #   records (both sides) + the college football 7-loss LEAD (results/studies/deep_1112)
+    t += leans_1113_spread_tags(c, sports)                   # 11/13 FABLE: the college hoops leans - the cut's record + two LEADS
     return t
+
+
+# ---------------- 11/13 FABLE: SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (results/studies/leans_1113) ----------------
+LEANS_FROM = "2026-11-14"        # the tags log from the 11/14 Pacific game day
+LEANS_DIAL_TAG = "college hoops spread side the big-favorite dial alone leans (no studied weight)"   # the lean rule's side
+#   on a number with no studied weight: 50.1%, -4.2% on 7,067 in the board replay 2018-26 (1 of 9 seasons up) - a coin, CUT
+#   from the leans 11/14 (sports.lean_spread_bare). Judge at 100: covering 53%+ = the cut comes off
+LEANS_BIG_DOG_TAG = "college hoops spread dog getting 25+ (fade)"   # every one 2018-26: 349-377, 48.1%, -8.1% on 726 (0 of
+#   9 seasons up, train -7.7% / held -8.4%, z -2.3) - what the live leans were 11/3-11/12 (4-3). A LEAD, no weight: the
+#   favorite laying 25+ covers 51.9% and still pays the vig
+LEANS_WEIGHTS_TAG = "college hoops spread side, studied weights +0.05+ outside the stack"   # every spread-rank weight on the
+#   side (sports.spread_weights) +0.05 or more while the ½u stack play's own stack is under +0.05: 56.6%, +8.1% on 1,236
+#   (train +7.0% / held +9.7%, 8 of 9 seasons, z 3.0) - but the weights were set on these seasons and the non-Feb-Mar
+#   half is -1.1% in train: a LEAD. Judge at 50: covering 55%+ = the owner's call on widening the ½u spread play to it
+LEANS_BIG_DOG = 25.0
+LEANS_WEIGHTS_MIN = 0.05
+LEANS_DIAL_MIN = 0.505           # the lean rule's own floor for a spread with no read (viewer_leans: half a point off 50%)
+
+
+def leans_1113_spread_tags(c, sports):
+    """11/13 FABLE: the college hoops SPREAD lines of the lean study (tracked only, from LEANS_FROM)."""
+    try:
+        if c.get("league") != "ncaab" or c.get("market") != "spread" or sports.pt_day(c) < LEANS_FROM \
+                or c.get("line") is None:
+            return []
+        t, w = [], sports.spread_weights(c)
+        if abs(w) <= 1e-9 and (c.get("p") or 0) >= LEANS_DIAL_MIN - 1e-9:
+            t.append(LEANS_DIAL_TAG)
+        if float(c["line"]) >= LEANS_BIG_DOG:
+            t.append(LEANS_BIG_DOG_TAG)
+        if w >= LEANS_WEIGHTS_MIN - 1e-9 and not sports.ncaab_stack_side(c):
+            t.append(LEANS_WEIGHTS_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 PUBLIC_NAMES = {"Duke", "Kentucky", "Kansas", "North Carolina", "UCLA", "Michigan St", "Indiana", "Syracuse", "Gonzaga",
