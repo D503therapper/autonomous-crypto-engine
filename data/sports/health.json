@@ -1,10 +1,9 @@
 {
- "at": "2026-11-12T22:54Z",
- "fixes": [
-  "live board 6 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-13T00:25Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (222s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +12,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 1 backup sources answering",
+  "all 7 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 4 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 30 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-13T00:25Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-12T22:54Z",
    "fixes": [
@@ -718,22 +722,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": [
-    "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN mlb 2026-11-11: HTTP Error 404: Not Found",
-    "slate check: data pull failed: AN nhl 2026-11-10: HTTP Error 404: Not Found"
-   ]
-  },
-  {
-   "at": "2026-11-11T21:22Z",
-   "fixes": [
-    "live board 35 min stale with games on - sports-live.yml already running",
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Ribera vs Carle: no points for 2432s",
     "slate check: data pull failed: AN nba 2026-11-10: HTTP Error 404: Not Found",
     "slate check: data pull failed: AN nba 2026-11-11: HTTP Error 404: Not Found",
     "slate check: data pull failed: AN mlb 2026-11-10: HTTP Error 404: Not Found",
