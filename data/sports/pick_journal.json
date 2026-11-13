@@ -13231,6 +13231,65 @@
  },
  {
   "date": "2026-11-12",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892702",
+  "team": "Blackhawks",
+  "opp": "Sabres",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 130,
+  "posted": "2026-11-12T16:00Z",
+  "price_says": 0.435,
+  "win_p": 0.4433062017608759,
+  "own_read": 0.503,
+  "weighed": null,
+  "dog_p": 0.5033,
+  "edge_own": 0.019604264050014475,
+  "near_lock": false,
+  "units": 2.0,
+  "reasons": [
+   "better rested",
+   "opponent on a back-to-back",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:0",
+   "G_cold:0",
+   "b2b:2",
+   "w_rest:92",
+   "splits_f:4",
+   "f_last:1",
+   "f_outs:5",
+   "f_theirL:3",
+   "f_pdo:0",
+   "risk:4",
+   "bottom_so:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Patrick Kane"
+  ],
+  "theirs_out": [
+   "Konsta Helenius (C)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 130,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "3-2",
+  "margin": 1.0,
+  "pnl_units": 2.6
+ },
+ {
+  "date": "2026-11-12",
   "kind": "lean",
   "lean": true,
   "tier": "lean",
@@ -13386,5 +13445,67 @@
   "score": "4-5",
   "margin": -1.0,
   "pnl_units": -0.5
+ },
+ {
+  "date": "2026-11-12",
+  "kind": "night",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873052",
+  "team": "Giants",
+  "opp": "Commanders",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -125,
+  "posted": "2026-11-12T22:45Z",
+  "price_says": 0.556,
+  "win_p": 0.5423559025460637,
+  "own_read": 0.563,
+  "weighed": 0.5628,
+  "dog_p": null,
+  "edge_own": -0.022927270978127745,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "cold-weather edge",
+   "opponent missing key players",
+   "opponent missing key players: WR Treylon Burks (their read -3)"
+  ],
+  "angles": {
+   "fades": [
+    "coach's first season"
+   ],
+   "go4_gap": 0.1485,
+   "last_margin": 8.0,
+   "last_pts": 19.0,
+   "neutral": false,
+   "record": [
+    5,
+    3
+   ],
+   "win_pct": 0.625,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Cam Skattebo (RB)",
+   "Colton Hood (CB)"
+  ],
+  "theirs_out": [
+   "Lucas Patrick (G)",
+   "Treylon Burks (WR)",
+   "Colson Yankoff (TE)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -122,
+  "beat_close_pts": -0.6,
+  "result": "lost",
+  "score": "21-24",
+  "margin": -3.0,
+  "pnl_units": 0
  }
 ]
