@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T03:07Z",
+ "updated": "2026-11-14T03:10Z",
  "games": [
   {
    "id": "ncaab:401928807",
@@ -574,8 +574,8 @@
    "away": "Alcorn St",
    "home": "Tarleton St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -634,8 +634,8 @@
    "away": "FDU",
    "home": "Oklahoma",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -649,8 +649,8 @@
    "away": "GA Southern",
    "home": "UCF",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1141,66 +1141,6 @@
      "better QB play lately"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "ncaab:401920345",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "CA Baptist",
-    "p": 0.838,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-14T03:30Z",
-   "away": "AR-Pine Bluff",
-   "home": "CA Baptist",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "AR-Pine Bluff",
-    "opp": "CA Baptist",
-    "market": "spread",
-    "line": 14.5,
-    "odds": -105,
-    "p": 0.507,
-    "win_p": 0.086,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909304",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.604,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-14T03:30Z",
-   "away": "Thunder",
-   "home": "Clippers",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Clippers",
-    "market": "ml",
-    "line": null,
-    "odds": -237,
-    "p": 0.675,
-    "win_p": 0.675,
-    "reasons": [
-     "the stronger team"
-    ]
    }
   },
   {
