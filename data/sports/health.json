@@ -1,9 +1,9 @@
 {
- "at": "2026-11-14T07:31Z",
+ "at": "2026-11-14T07:32Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (57s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +16,17 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 46 min ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T07:32Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-14T07:31Z",
    "fixes": [],
@@ -462,16 +467,6 @@
    "fixes": [
     "simulator overdue (10h) - started sports_sims.yml"
    ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-12T17:15Z",
-   "fixes": [],
    "problems": [
     "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
