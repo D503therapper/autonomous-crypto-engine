@@ -20169,3 +20169,26 @@ error: failed to push some refs to 'https://githu
 [2026-11-14 14:30 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 14:30 UTC] crypto/hold_btc  equity $404.71 (-19.1%) 1 open  market DOWN
    social heat top: KAVA 40 (40/0/0), BTC 37 (37/0/0), HYPE 35 (35/0/0), SOL 32 (32/0/0), MON 29 (29/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '69432.77', 'l': '65932.15', 'a': '66282.33', 'v': '7406.1822', 'vv': '503036795.95', 'c': '-0.0410', 'b': '66282.32', 'k': '66282.33', 'oi': '0', 't': 1794666627168}
+   dex screen: REJECT SPX@solana liq $1,628,524 - mint authority
+   dex screen: REJECT CIRBTC@ethereum liq $5,137,492 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 77%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT CARDS@solana liq $3,194,191 - top-10 holders 72%
+   dex screen: REJECT IMD@ethereum liq $1,164,965 - goplus partial data: cannot_sell_all unknown; top-10 holders 64%
+   dex screen: REJECT MORPHO@base liq $449,256 - pool age unknown
+   dex scanner: 2,872 pools (solana 2,018 / base 484 / ethereum 370), refresh cycle 109s (hot 105s), 1626 calls (75 feed, 429s 1, failed 1), 46,519 refreshed (5574 no pair), +198 added / -43 dropped (dead 42, stale 1, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT TBTC@ethereum liq $5,354,274 - is_mintable; honeypot_with_same_creator; top-10 holders 76%
+   dex screen: REJECT NPC@ethereum liq $3,359,776 - top-10 holders 40%
+[2026-11-14 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/social_heat equity $325.40 (-34.9%) 3 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-14 15:06 UTC] crypto/hold_btc  equity $403.24 (-19.4%) 1 open  market DOWN
+   social heat top: KAVA 40 (40/0/0), BTC 37 (37/0/0), HYPE 35 (35/0/0), SOL 32 (32/0/0), XRP 29 (29/0/0)
