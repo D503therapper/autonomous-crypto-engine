@@ -1,9 +1,9 @@
 {
- "at": "2026-11-14T09:48Z",
+ "at": "2026-11-14T09:49Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (54s)",
+  "live watcher fresh (125s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,11 +15,16 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 24 min ago",
+  "engine ran 26 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-14T09:49Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-14T09:48Z",
    "fixes": [],
@@ -443,18 +448,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Ribera vs Andreescu: no points for 967s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-12T17:20Z",
-   "fixes": [
-    "live watch 43260054527 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running",
-    "1 finished pick(s) not graded (tennis 2026-11-12 Taylor Fritz) - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
