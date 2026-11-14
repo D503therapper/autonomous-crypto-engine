@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T21:37Z",
+ "updated": "2026-11-14T21:43Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -536,8 +536,8 @@
    "away": "East Carolina",
    "home": "Charlotte",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1832,127 +1832,30 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920567",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Loyola MD",
-    "p": 0.481,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-14T22:00Z",
-   "away": "Morgan St",
-   "home": "Loyola MD",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Loyola MD",
-    "opp": "Morgan St",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.504,
-    "win_p": 0.504,
-    "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401927387",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Oakland",
-    "p": 0.492,
-    "tie": 0.044,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-14T22:00Z",
    "away": "Northern Iowa",
    "home": "Oakland",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Oakland",
-    "opp": "Northern Iowa",
+    "team": "Northern Iowa",
+    "opp": "Oakland",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": 102,
+    "p": 0.474,
+    "win_p": 0.474,
     "reasons": [
-     "opponent on a back-to-back",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
-     "coughing it up 6.8 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401871099",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Louisiana Tech",
-    "p": 0.773,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-14T22:00Z",
-   "away": "Southern Miss",
-   "home": "Louisiana Tech",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Louisiana Tech",
-    "opp": "Southern Miss",
-    "market": "spread",
-    "line": -17.5,
-    "odds": -108,
-    "p": 0.524,
-    "win_p": 0.834,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401918055",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "California",
-    "p": 0.831,
-    "tie": 0.026,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-14T22:00Z",
-   "away": "Utah Tech",
-   "home": "California",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah Tech",
-    "opp": "California",
-    "market": "spread",
-    "line": 14.5,
-    "odds": -115,
-    "p": 0.508,
-    "win_p": 0.091,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+     "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
+    ],
+    "result": null
    }
   },
   {
