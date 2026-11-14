@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T20:22Z",
+ "updated": "2026-11-14T20:28Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -236,8 +236,8 @@
    "away": "Northwestern",
    "home": "Ohio State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -296,8 +296,8 @@
    "away": "Syracuse",
    "home": "NC State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -626,8 +626,8 @@
    "away": "Marshall",
    "home": "Youngstown St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1534,6 +1534,36 @@
    }
   },
   {
+   "id": "ncaaf:401869148",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Incarnate Word",
+    "p": 0.843,
+    "tie": 0.019,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T21:00Z",
+   "away": "Nicholls",
+   "home": "Incarnate Word",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Incarnate Word",
+    "opp": "Nicholls",
+    "market": "spread",
+    "line": -26.5,
+    "odds": -108,
+    "p": 0.509,
+    "win_p": 0.9,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401925889",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2292,7 +2322,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.374,
+    "p": 0.381,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2309,8 +2339,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.671,
-    "win_p": 0.453,
+    "p": 0.659,
+    "win_p": 0.441,
     "reasons": []
    }
   },
@@ -2732,9 +2762,9 @@
     "team": "Portland St",
     "opp": "San Francisco",
     "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.501,
+    "line": 8.5,
+    "odds": -115,
+    "p": 0.502,
     "win_p": 0.206,
     "reasons": [
      "sharp money moving this way"
@@ -4105,36 +4135,6 @@
    }
   },
   {
-   "id": "ncaaf:401860917",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Washington St",
-    "p": 0.68,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-15T03:45Z",
-   "away": "Colorado St",
-   "home": "Washington St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Colorado St",
-    "opp": "Washington St",
-    "market": "spread",
-    "line": 8.5,
-    "odds": -112,
-    "p": 0.51,
-    "win_p": 0.262,
-    "reasons": [
-     "better QB play lately"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401864537",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -4681,7 +4681,7 @@
     "opp": "Seattle U",
     "market": "spread",
     "line": 16.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.51,
     "win_p": 0.078,
     "reasons": [
