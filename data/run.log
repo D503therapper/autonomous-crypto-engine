@@ -20034,3 +20034,32 @@ error: failed to push some refs to 'https://githu
 [2026-11-14 10:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 10:06 UTC] crypto/hold_btc  equity $410.48 (-17.9%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), TAO 37 (37/0/0), HYPE 37 (27/0/10), PENGU 32 (32/0/0), ENA 24 (24/0/0)
+   dex screen: REJECT BSDETH@base liq $356,191 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 120%; lp holders unknown
+   dex screen: UNREACHABLE SP@ethereum liq $253,948 - honeypot.is unreachable
+   dex screen: REJECT GULD@ethereum liq $1,334,563 - top-10 holders 63%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ZEC@solana liq $3,708,085 - mint authority
+   dex screen: UNREACHABLE ANSEM@solana liq $1,200,172 - goplus unreachable
+   dex screen: REJECT RSGP@base liq $148,049 - pool age unknown
+   dex screen: REJECT BEAM@ethereum liq $3,058,740 - is_mintable; owner_change_balance; top-10 holders 60%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ANSEM@solana liq $1,193,668 - top-10 holders 67%
+   dex screen: PASS FARTCOIN @solana liq $5,411,034
+   dex screen: REJECT AMZNC@base liq $34,612 - liquidity $34,612 < $100,000; 24h volume $5,882 < $100,000
+   dex screen: REJECT CRVUSD@ethereum liq $9,081,114 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex screen: REJECT STETH@ethereum liq $71,671,217 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; sell tax unknown; top-10 holders 63%
+   dex scanner: 2,598 pools (solana 1,854 / base 421 / ethereum 323), refresh cycle 106s (hot 101s), 3064 calls (109 feed, 429s 0, failed 0), 88,648 refreshed (10902 no pair), +27 added / -53 dropped (dead 53, stale 0, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-14 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/mover     equity $183.47 (-63.3%) 1 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/social_heat equity $329.17 (-34.2%) 3 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-14 11:06 UTC] crypto/hold_btc  equity $410.05 (-18.0%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), HYPE 35 (35/0/0), LINEA 32 (19/0/14), ETH 32 (32/0/0), TAO 29 (29/0/0)
