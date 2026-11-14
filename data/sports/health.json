@@ -1,25 +1,129 @@
 {
- "at": "2026-11-14T09:49Z",
+ "at": "2026-11-14T18:10Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Mandlik vs Andreescu: no points for 2471s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (125s)",
+  "live watcher fresh (297s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "slate check: all 203 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 26 min ago",
+  "studies ran 0h ago",
+  "simulator ran 2h ago",
+  "engine ran 21 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T18:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 2471s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T18:09Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 2471s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T18:06Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 2323s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T17:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 1716s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T17:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 1095s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T17:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 668s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T16:07Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-14T14:33Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-14T14:24Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-14T14:22Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T13:38Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T12:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T12:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T11:21Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-14T09:49Z",
    "fixes": [],
@@ -368,88 +472,6 @@
     "live board 6 min stale with games on - sports-live.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-11-12T22:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:21Z",
-   "fixes": [
-    "live watch 43301669909 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-12T21:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:15Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:09Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T20:55Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T19:23Z",
-   "fixes": [
-    "live watch 43281815171 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T19:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T19:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T19:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T18:54Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ribera vs Andreescu: no points for 967s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }
