@@ -1,15 +1,12 @@
 {
- "at": "2026-11-14T16:07Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-11-14T17:38Z",
+ "fixes": [],
  "problems": [
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Mandlik vs Andreescu: no points for 668s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (59s)",
+  "live watcher fresh (50s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,15 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "engine ran 28 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T17:38Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 668s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-14T16:07Z",
    "fixes": [
@@ -454,11 +461,6 @@
   },
   {
    "at": "2026-11-12T21:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:15Z",
    "fixes": [],
    "problems": []
   }
