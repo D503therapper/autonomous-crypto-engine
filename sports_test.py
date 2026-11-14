@@ -22831,6 +22831,9 @@ def test_cbb_profit_1114_a_home_dog_without_the_15_point_gap_reads_one_less_in_t
         sports.dog_spots = lambda c: 3.5
         assert sports.ncaab_dog_read(hi) == 4.5 and sports.ncaab_dog_read_ok(hi)                 # a 5+ read still posts
         assert not sports.ncaab_home_dog_short({**new, "league": "nba"})                         # college hoops only
+        import sports_leads as sl                                                                 # the cut's own record
+        assert sl.home_dog_cut(n, sports) and not sl.home_dog_cut(hi, sports)
+        assert not sl.home_dog_cut({**new, "dog_read": 2.0, "dog_read_parts": {**n["dog_read_parts"]}}, sports)
     finally:
         sports.dog_spots = keep
 
