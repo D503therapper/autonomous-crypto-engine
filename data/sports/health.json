@@ -1,27 +1,35 @@
 {
- "at": "2026-11-14T06:52Z",
+ "at": "2026-11-14T07:05Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
+ ],
  "ok": [
-  "live watcher fresh (19s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 76 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
-  "simulator ran 7h ago",
-  "engine ran 7 min ago",
+  "simulator ran 0h ago",
+  "engine ran 21 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T07:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-11-14T06:52Z",
    "fixes": [],
@@ -472,19 +480,6 @@
    "problems": [
     "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-12T17:11Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1186s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
     "studies last ran 10h ago - restarted",
     "simulator last ran 10h ago - restarted"
    ]
