@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T21:08Z",
+ "updated": "2026-11-14T21:10Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -581,8 +581,8 @@
    "away": "Harvard",
    "home": "Penn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1001,8 +1001,8 @@
    "away": "Miami OH",
    "home": "Evansville",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1106,8 +1106,8 @@
    "away": "Stonehill",
    "home": "Texas Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1667,6 +1667,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401934189",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T21:00Z",
+   "away": "Montreat",
+   "home": "UNC Wilmington",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401869148",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1740,97 +1755,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaaf:401867853",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Youngstown St",
-    "p": 0.726,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-14T21:30Z",
-   "away": "Illinois St",
-   "home": "Youngstown St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Youngstown St",
-    "opp": "Illinois St",
-    "market": "spread",
-    "line": -13.5,
-    "odds": -112,
-    "p": 0.505,
-    "win_p": 0.783,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920741",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Campbell",
-    "p": 0.719,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-14T21:30Z",
-   "away": "SC Upstate",
-   "home": "Campbell",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "SC Upstate",
-    "opp": "Campbell",
-    "market": "spread",
-    "line": 9.5,
-    "odds": -115,
-    "p": 0.503,
-    "win_p": 0.201,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401862828",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rice",
-    "p": 0.579,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-14T21:30Z",
-   "away": "Tulane",
-   "home": "Rice",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Rice",
-    "opp": "Tulane",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
-    "reasons": [
-     "sharp money moving this way",
-     "better QB play lately"
-    ]
-   }
   },
   {
    "id": "ncaab:401920567",
