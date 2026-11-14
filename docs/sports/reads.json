@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T21:26Z",
+ "updated": "2026-11-14T21:37Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -506,8 +506,8 @@
    "away": "Delaware St",
    "home": "Howard",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -566,8 +566,8 @@
    "away": "Grambling",
    "home": "Bethune",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -656,8 +656,8 @@
    "away": "NC A&T",
    "home": "Hampton",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1061,8 +1061,8 @@
    "away": "Rice",
    "home": "SF Austin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1121,8 +1121,8 @@
    "away": "The Citadel",
    "home": "North Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1802,6 +1802,36 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401867853",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T21:30Z",
+   "away": "Illinois St",
+   "home": "Youngstown St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401862828",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T21:30Z",
+   "away": "Tulane",
+   "home": "Rice",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401920567",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1993,7 +2023,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Marshall",
-    "p": 0.488,
+    "p": 0.492,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2008,10 +2038,10 @@
     "team": "Marshall",
     "opp": "App State",
     "market": "spread",
-    "line": 1.5,
-    "odds": -112,
-    "p": 0.523,
-    "win_p": 0.506,
+    "line": -1.5,
+    "odds": -102,
+    "p": 0.516,
+    "win_p": 0.511,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -3253,8 +3283,8 @@
     "market": "spread",
     "line": -17.5,
     "odds": -112,
-    "p": 0.535,
-    "win_p": 0.841,
+    "p": 0.534,
+    "win_p": 0.838,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -3366,15 +3396,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "UNLV",
-    "opp": "New Mexico",
+    "team": "New Mexico",
+    "opp": "UNLV",
     "market": "spread",
-    "line": 17.5,
-    "odds": -108,
+    "line": -17.5,
+    "odds": -112,
     "p": 0.501,
-    "win_p": 0.145,
+    "win_p": 0.835,
     "reasons": [
-     "better QB play lately"
+     "the stronger team",
+     "sharp money moving this way",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -3505,7 +3537,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.494,
+    "p": 0.497,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3521,9 +3553,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -125,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
      "the stronger team"
     ]
@@ -3644,7 +3676,7 @@
     "opp": "UC Davis",
     "market": "spread",
     "line": -8.5,
-    "odds": -110,
+    "odds": -116,
     "p": 0.5,
     "win_p": 0.704,
     "reasons": [
@@ -4051,7 +4083,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana",
-    "p": 0.643,
+    "p": 0.642,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -4234,8 +4266,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nebraska",
-    "p": 0.68,
-    "tie": 0.038,
+    "p": 0.671,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4249,10 +4281,10 @@
     "team": "Boise St",
     "opp": "Nebraska",
     "market": "spread",
-    "line": 9.5,
-    "odds": -110,
-    "p": 0.503,
-    "win_p": 0.246,
+    "line": 8.5,
+    "odds": -108,
+    "p": 0.502,
+    "win_p": 0.256,
     "reasons": []
    }
   },
@@ -4356,8 +4388,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Louisville",
-    "p": 0.694,
-    "tie": 0.037,
+    "p": 0.689,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -4371,13 +4403,13 @@
     "team": "Memphis",
     "opp": "Louisville",
     "market": "spread",
-    "line": 8.5,
-    "odds": -102,
-    "p": 0.502,
-    "win_p": 0.227,
+    "line": 9.5,
+    "odds": -118,
+    "p": 0.503,
+    "win_p": 0.233,
     "reasons": [
      "hotter recent form",
-     "Louisville are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "Louisville are laying 9.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -4636,7 +4668,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa",
-    "p": 0.575,
+    "p": 0.58,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -4652,9 +4684,9 @@
     "opp": "Creighton",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.627,
-    "win_p": 0.627,
+    "odds": -185,
+    "p": 0.633,
+    "win_p": 0.633,
     "reasons": [
      "the stronger team"
     ]
@@ -4712,7 +4744,7 @@
     "opp": "Seattle U",
     "market": "spread",
     "line": 16.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.51,
     "win_p": 0.078,
     "reasons": [
@@ -4975,7 +5007,7 @@
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -155,
+    "odds": -142,
     "p": 0.634,
     "win_p": 0.808,
     "reasons": [
