@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 224,
+  "n": 225,
   "beat": 73,
   "same": 89,
-  "worse": 62,
-  "avg_pts": 0.15
+  "worse": 63,
+  "avg_pts": 0.14
  },
  "unit_plays": {
   "n": 110,
@@ -22,11 +22,11 @@
    "avg_pts": -0.26
   },
   "lean": {
-   "n": 114,
+   "n": 115,
    "beat": 39,
    "same": 39,
-   "worse": 36,
-   "avg_pts": 0.11
+   "worse": 37,
+   "avg_pts": 0.1
   },
   "lock": {
    "n": 14,
@@ -59,11 +59,11 @@
    "avg_pts": 0.39
   },
   "ncaab": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 4,
-   "worse": 1,
-   "avg_pts": 0.17
+   "worse": 2,
+   "avg_pts": 0.06
   },
   "ncaaf": {
    "n": 55,
@@ -3237,6 +3237,20 @@
    "odds": -125,
    "close": -122,
    "pts": -0.6,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-13",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaab",
+   "team": "Elon",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -130,
+   "pts": -0.9,
    "units": 0,
    "result": "lost"
   },
