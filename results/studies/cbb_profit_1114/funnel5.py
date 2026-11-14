@@ -46,6 +46,8 @@ for mod in (sports, sm):
         elif "_FROM" in k and isinstance(v, dict) and v and all(isinstance(x, str) and x[:4] == "2026" for x in v.values()):
             setattr(mod, k, {a: "0000" for a in v})
             OPENED.append(k)
+if os.environ.get("HOME_DOG_OFF"):                  # (11/14: the check on the slot BEFORE the home-dog weight)
+    sports.NCAAB_HOME_DOG_FROM = "9999"
 sports.stick = lambda c, pool: c            # (no lean memory in a replay - and never a write to data/sports/lean_sides.json)
 PT = sports.PT
 
