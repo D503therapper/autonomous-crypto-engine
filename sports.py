@@ -6647,8 +6647,10 @@ def ncaab_dog_read(c, facts=None):
     k = sum(NCAAB_DOG_FACTS[n] for n in held)
     h = NCAAB_HOME_DOG_READ_PTS if ncaab_home_dog_short(c, read) else 0
     c["dog_read"] = round(w + r + k + h, 2)
-    c["dog_read_parts"] = {"weights": w, "ratings": r, "knowledge": k, "facts": sorted(held), "home": h,
+    c["dog_read_parts"] = {"weights": w, "ratings": r, "knowledge": k, "facts": sorted(held),
                            "games_ok": min(c.get("games_in") or 0, c.get("opp_games_in") or 0) >= NCAAB_DOG_READ_GAMES}
+    if h:
+        c["dog_read_parts"]["home"] = h                      # (11/14: the home dog without the 15-point gap)
     return c["dog_read"]
 
 

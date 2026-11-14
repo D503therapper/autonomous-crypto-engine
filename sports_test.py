@@ -22838,6 +22838,25 @@ def test_cbb_profit_1114_a_home_dog_without_the_15_point_gap_reads_one_less_in_t
         sports.dog_spots = keep
 
 
+def _home_dog_rule_off(fn):
+    """(11/14) the 11/4 dog-slot tests check the read's mechanics on HOME dogs dated after 11/14 - they run with the
+    11/14 home-dog weight shut; the weight has its own test (test_cbb_profit_1114_*)."""
+    def run():
+        keep = sports.NCAAB_HOME_DOG_FROM
+        sports.NCAAB_HOME_DOG_FROM = "9999"
+        try:
+            fn()
+        finally:
+            sports.NCAAB_HOME_DOG_FROM = keep
+    return run
+
+
+test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words = \
+    _home_dog_rule_off(test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words)
+test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge = \
+    _home_dog_rule_off(test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge)
+
+
 def test_leans_1113_a_college_hoops_spread_lean_needs_a_studied_weight_and_the_leans_carry_no_units():
     """11/13 FABLE - SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (the owner, 11/12: "the engine's been hitting these college
     basketball leans left and right. But they're just leans. They're not units"; results/studies/leans_1113 - the board
