@@ -749,23 +749,43 @@ def _alt_last(games, team, season, before, league="ncaab"):
     return f"{me} {'beat' if ms > os_ else 'lost to'} {opp} {max(ms, os_)}-{min(ms, os_)} last time out ({ms + os_} points)"
 
 
-def alt_facts(games, g, now_av, read, tot, feet, st, now):
+def _alt_side(now_av, prev_av, t):
+    """(points for, points against, games this season, filled from last season?) - the same blend alt_early_read uses."""
+    cur, prev = now_av.get(t), (prev_av or {}).get(t)
+    if cur and cur[2] >= ALT_MIN_GAMES:
+        return cur[0], cur[1], cur[2], False
+    if not prev or prev[2] < ALT_EARLY_PREV:
+        return None
+    k = cur[2] if cur else 0
+    f, a = (cur[0] * k, cur[1] * k) if cur else (0.0, 0.0)
+    return ((f + (ALT_MIN_GAMES - k) * prev[0]) / ALT_MIN_GAMES, (a + (ALT_MIN_GAMES - k) * prev[1]) / ALT_MIN_GAMES, k, True)
+
+
+def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
     """⛰️ The card's fact lines for an altitude over (the owner: never vague, every line a number or a name; never a
-    win %, never the line moving): the floor's height, both teams' scoring this season (only what we hold), both last
-    games with the score, the points read when it's over the number, the spot's record, and the limits."""
+    win %, never the line moving). 11/14 (the owner: "it says this team averages this, and the other team averages that.
+    Neither team averages what that over is"): the card says what the bet is about in ONE projection - what each team
+    should score against the other's defense, the same blend the read uses (last season filling in for a team under 5
+    games, said so), the total that adds up to, and the thin air on top; a last game shows only when it went over this
+    number (a 124-point game argues the under)."""
     s = _hoops_season(g["start"])
     out = [f"⛰️ {g.get('home_name')}'s floor sits about {feet:,} feet up"]
-    for side in ("home", "away"):
-        av = now_av.get(g.get(side))
-        if av and av[2] >= 1:
-            out.append(f"{g.get(side + '_name')}'s games are averaging {av[0] + av[1]:.0f} points - scoring {av[0]:.0f}, "
-                       f"giving up {av[1]:.0f} through {av[2]} game{'s' if av[2] != 1 else ''}")
+    hn, an = g.get("home_name"), g.get("away_name")
+    h, a = _alt_side(now_av, prev_av, g.get("home")), _alt_side(now_av, prev_av, g.get("away"))
+    if h and a:
+        eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2
+        out.append(f"{hn} should score about {eh:.0f} against {an}'s defense and {an} about {ea:.0f} against {hn}'s - "
+                   f"{eh + ea:.0f} before the thin air, the number's {tot:g}")
+        short = [(n, x[2]) for n, x in ((hn, h), (an, a)) if x[3]]
+        if short:
+            out.append(" and ".join(f"{n} {'has played ' + str(k) + ' game' + ('s' if k != 1 else '') if k else 'has not played yet'}"
+                                    for n, k in short) + " this season, so last season's scoring fills in the rest")
+    out.append(f"Games this high run about 4 points over both teams' norms, and the books only price in about 1.5 of it")
     for side in ("home", "away"):
         ln = _alt_last(games, g.get(side), s, now)
-        if ln:
+        m = re.search(r"\((\d+) points\)$", ln or "")
+        if ln and m and float(m.group(1)) > tot:             # (only a last game that went over this number)
             out.append(ln)
-    if read is not None and read > tot:
-        out.append(f"Both teams' scoring adds up to {read:.0f} before the thin air - the number's {tot:g}")
     w, l_, _ = spot_record(st).get("alt_over", (0, 0, 0.0))
     out.append(f"Overs on college floors 4,600+ feet up are {ALT_REC} since 2018"
                + (f", {w}-{l_} since we started betting it" if w + l_ else ""))
@@ -801,7 +821,7 @@ def alt_over_1111(games, g, st, now, avs=None):
     if read is None or read - tot < -ALT_FIGHT:
         return None                                          # no read / the read is fighting the over (the total limit)
     feet = round((sm._num(g.get("elev")) or 0) * 3.281 / 100) * 100
-    facts = alt_facts(games, g, avs[s], read, tot, feet, st, now)
+    facts = alt_facts(games, g, avs[s], read, tot, feet, st, now, prev_av=avs[s - 1])
     return {"game_id": g["id"], "league": "ncaab", "market": "total", "side": "over", "line": tot,
             "team": f"Over {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
             "start": g["start"], "spot": "alt_over", "spots": ["alt_over"], "fades": [], "read": round(read, 1),

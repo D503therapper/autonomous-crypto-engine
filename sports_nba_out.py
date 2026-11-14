@@ -162,12 +162,14 @@ def candidates(games, st, now, inj, rows=None, se=None):
         for nm, o in ((g.get("home_name"), oh), (g.get("away_name"), oa)):
             if o:
                 facts.append(f"{nm} without " + " and ".join(f"{n} ({m:.0f} minutes a night)" for n, m in o))
-        for side, av in (("home", h), ("away", a)):
-            facts.append(f"{g.get(side + '_name')}'s games are averaging {av[0] + av[1]:.0f} points - scoring {av[0]:.0f}, "
-                         f"giving up {av[1]:.0f} through {av[2]} games")
+        hn, an = g.get("home_name"), g.get("away_name")
+        eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2       # (11/14, the owner: "neither team averages what that over
+        facts.append(f"{hn} should score about {eh:.0f} against {an}'s defense and {an} about {ea:.0f} against "   # is" -
+                     f"{hn}'s - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
         for side in ("home", "away"):
             ln = se._alt_last(games, g.get(side), s, now, league="nba")
-            if ln:
+            m = re.search(r"\((\d+) points\)$", ln or "")
+            if ln and m and float(m.group(1)) > tot:         # (only a last game that went over this number)
                 facts.append(ln)
         w = sum(1 for p in st.get("picks", []) if p.get("spot") == "nba_out_over" and p.get("result") == "won")
         l_ = sum(1 for p in st.get("picks", []) if p.get("spot") == "nba_out_over" and p.get("result") == "lost")
