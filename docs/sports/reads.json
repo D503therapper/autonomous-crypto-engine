@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T12:09Z",
+ "updated": "2026-11-14T12:18Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -1383,6 +1383,34 @@
    }
   },
   {
+   "id": "ncaab:401919847",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas Tech",
+    "p": 0.927,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T18:00Z",
+   "away": "Stonehill",
+   "home": "Texas Tech",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Stonehill",
+    "opp": "Texas Tech",
+    "market": "spread",
+    "line": 40.5,
+    "odds": -110,
+    "p": 0.534,
+    "win_p": 0.024,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401866691",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2098,6 +2126,37 @@
    }
   },
   {
+   "id": "ncaab:401922230",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Queens",
+    "p": 0.663,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T19:00Z",
+   "away": "Wofford",
+   "home": "Queens",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Queens",
+    "opp": "Wofford",
+    "market": "ml",
+    "line": null,
+    "odds": -300,
+    "p": 0.736,
+    "win_p": 0.736,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401921038",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2481,7 +2540,7 @@
     "opp": "Wyoming @ Denver",
     "market": "total",
     "line": 148.5,
-    "odds": -113,
+    "odds": -110,
     "p": 0.593,
     "win_p": 0.593,
     "reasons": [
@@ -5967,7 +6026,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Utah",
-    "p": 0.542,
+    "p": 0.554,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -5983,9 +6042,9 @@
     "opp": "Washington",
     "market": "ml",
     "line": null,
-    "odds": -154,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -162,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "hotter recent form",
      "altitude edge",
