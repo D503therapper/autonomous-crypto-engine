@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T13:27Z",
+ "updated": "2026-11-14T13:40Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -83,8 +83,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "C Connecticut",
-    "p": 0.696,
-    "tie": 0.029,
+    "p": 0.706,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -99,11 +99,12 @@
     "opp": "Long Island",
     "market": "spread",
     "line": -10.0,
-    "odds": -118,
+    "odds": -124,
     "p": 0.503,
-    "win_p": 0.71,
+    "win_p": 0.721,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
@@ -756,8 +757,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Clemson",
-    "p": 0.717,
-    "tie": 0.028,
+    "p": 0.728,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -774,7 +775,7 @@
     "line": -15.5,
     "odds": -110,
     "p": 0.516,
-    "win_p": 0.774,
+    "win_p": 0.786,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1383,34 +1384,6 @@
    }
   },
   {
-   "id": "ncaab:401919847",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas Tech",
-    "p": 0.927,
-    "tie": 0.014,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-14T18:00Z",
-   "away": "Stonehill",
-   "home": "Texas Tech",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Stonehill",
-    "opp": "Texas Tech",
-    "market": "spread",
-    "line": 40.5,
-    "odds": -110,
-    "p": 0.534,
-    "win_p": 0.024,
-    "reasons": []
-   }
-  },
-  {
    "id": "ncaaf:401866691",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1732,7 +1705,7 @@
     "opp": "South Carolina",
     "market": "spread",
     "line": 27.5,
-    "odds": -115,
+    "odds": -108,
     "p": 0.521,
     "win_p": 0.023,
     "reasons": []
@@ -2095,6 +2068,34 @@
    }
   },
   {
+   "id": "ncaab:401919847",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas Tech",
+    "p": 0.927,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T19:00Z",
+   "away": "Stonehill",
+   "home": "Texas Tech",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Stonehill",
+    "opp": "Texas Tech",
+    "market": "spread",
+    "line": 40.5,
+    "odds": -110,
+    "p": 0.534,
+    "win_p": 0.024,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401922220",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2132,8 +2133,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Queens",
-    "p": 0.663,
-    "tie": 0.039,
+    "p": 0.676,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2141,20 +2142,17 @@
    "start": "2026-11-14T19:00Z",
    "away": "Wofford",
    "home": "Queens",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Queens",
-    "opp": "Wofford",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.736,
-    "win_p": 0.736,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
+    "team": "Wofford",
+    "opp": "Queens",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.251,
+    "reasons": []
    }
   },
   {
@@ -4317,8 +4315,8 @@
     "team": "Nuggets",
     "opp": "Pelicans",
     "market": "spread",
-    "line": -11.5,
-    "odds": -117,
+    "line": -12.5,
+    "odds": -103,
     "p": 0.502,
     "win_p": 0.823,
     "reasons": [
@@ -4448,7 +4446,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Air Force",
-    "p": 0.707,
+    "p": 0.713,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -4463,10 +4461,10 @@
     "team": "Air Force",
     "opp": "San Jos\u00e9 St",
     "market": "spread",
-    "line": -13.5,
-    "odds": -110,
-    "p": 0.511,
-    "win_p": 0.764,
+    "line": -14.0,
+    "odds": -105,
+    "p": 0.51,
+    "win_p": 0.77,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -5625,7 +5623,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington St",
-    "p": 0.693,
+    "p": 0.687,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -5643,7 +5641,7 @@
     "line": 9.5,
     "odds": -112,
     "p": 0.51,
-    "win_p": 0.247,
+    "win_p": 0.254,
     "reasons": [
      "better QB play lately"
     ]
