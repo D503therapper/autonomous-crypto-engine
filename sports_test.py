@@ -23298,6 +23298,39 @@ def test_card_audit_1113_real_past_cards_render_with_zero_violations():
     assert not bad, bad[:10]
 
 
+def test_sizing_1114_no_size_up_earned_the_star_rule_stands_and_a_floor_dog_stays_half():
+    """💰 11/14 SIZING + THE ⭐ STUDY (the owner, 11/13: "The engine likes best picks suck ass" - the ⭐ 3-5 live - and "we
+    should have had 2 units on the Predators today. Instead, we have a weak-ass half unit"; results/studies/sizing_1114/).
+    Two replay boards (the 10/30 rows and today's code, 2023-26): no ⭐ ranking beat today's in both halves on both boards
+    AND a random eligible play (the ⭐ is an average good play, not a hidden better one - live 3-5 vs 3.8 wins the prices
+    expected); 44 size-up cells named before looking - the floor's hockey dogs by score / the favorite on a b2b / a hot
+    goalie / price, the 2u Dog at 3u, the long Dog, the own read by a lot, every other kind - none won more than the rest
+    of its kind in both halves on both boards and beat the placebo. Nothing changes: the sizes stay and a size never goes
+    up on one result. This pins it: a Predators-type floor hockey dog (dog score under 0, its read under the price) is ½u
+    and never the ⭐; a 2u Dog at a dog score of 8+ stays 2u; the ⭐ raises to 1u, never past."""
+    assert sports.FLOOR_UNITS == 0.5 and sports.DOG_SHORT_UNITS == 2.0 and sports.DOG_LONG_UNITS == 0.5
+    assert sports.BEST_MIN_UNITS == 1.0
+    assert sports.BEST_KIND_RANK["lock"] == 0 and sports.BEST_KIND_RANK["dog"] == 1 and sports.BEST_KIND_RANK["backup"] == 8
+    day = "2026-11-15"
+    pred = {"league": "nhl", "market": "ml", "odds": 136, "dec": 2.36, "edge_own": -0.03, "edge": -0.03, "p": 0.411, "p_market": 0.4066,
+            "team": "Predators", "opp": "Golden Knights", "game_id": "nhl:p", "side": "away", "start": "2026-11-16T03:00Z"}
+    floor = {"kind": "play", "date": day, "status": "open", "legs": [pred], "floor": {"dog_score": -5.56, "nba": False},
+             "tier": "value", "dec": 2.36}
+    assert sports.units_for(floor) == 0.5                                  # ½u, not 2u
+    assert sports.best_pool([floor], day) == []                            # its read sits under the price: never the ⭐
+    dog_leg = {"league": "nhl", "market": "ml", "odds": 130, "dec": 2.3, "edge_own": 0.02 * 2.3, "edge": 0.02, "p": 0.45, "p_market": 0.417,
+               "dog_p": 0.5033, "dog_score": 8.63, "team": "Blackhawks", "opp": "X", "game_id": "nhl:b", "side": "home",
+               "start": "2026-11-16T01:00Z"}
+    dog = {"kind": "dog", "date": day, "status": "open", "legs": [dog_leg], "dec": 2.3}
+    assert sports.units_for(dog) == 2.0                                    # a dog score 8+ is no 3u cell
+    assert sports.best_pool([dog, floor], day) == [dog] and sports.mark_best([dog, floor], day) is dog
+    assert sports.units_for(dog) == 2.0                                    # the ⭐ on a 2u play keeps 2u
+    val_leg = {**pred, "odds": -130, "dec": 1.769, "edge_own": 0.6 * 1.769 - 1, "edge": 0.6 * 1.769 - 1, "w_p": 0.6, "p_market": 0.55,
+               "team": "Stars", "game_id": "nhl:s"}
+    val = {"kind": "play", "date": day, "status": "open", "legs": [val_leg], "tier": "value", "dec": 1.769}
+    assert sports.units_for(val) == 0.5 and sports.mark_best([val], day) is val and sports.units_for(val) == 1.0   # 1u, never more
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
