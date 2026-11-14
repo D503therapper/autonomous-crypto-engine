@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T20:54Z",
+ "updated": "2026-11-14T20:57Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -386,8 +386,8 @@
    "away": "Georgia Tech",
    "home": "Clemson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -416,8 +416,8 @@
    "away": "The Citadel",
    "home": "VMI",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -611,8 +611,8 @@
    "away": "Lafayette",
    "home": "Colgate",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1592,34 +1592,6 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401856886",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Auburn",
-    "p": 0.513,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-14T21:15Z",
-   "away": "Auburn",
-   "home": "Mississippi St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Auburn",
-    "opp": "Mississippi St",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.526,
-    "win_p": 0.526,
-    "reasons": []
-   }
-  },
-  {
    "id": "ncaaf:401867853",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2541,7 +2513,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Fairfield",
-    "p": 0.784,
+    "p": 0.778,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2559,7 +2531,7 @@
     "line": 11.5,
     "odds": -105,
     "p": 0.505,
-    "win_p": 0.134,
+    "win_p": 0.14,
     "reasons": []
    }
   },
