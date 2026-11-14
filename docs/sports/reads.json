@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T04:20Z",
+ "updated": "2026-11-14T04:29Z",
  "games": [
   {
    "id": "ncaab:401928807",
@@ -829,8 +829,8 @@
    "away": "Arizona",
    "home": "Auburn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -844,8 +844,8 @@
    "away": "Ball State",
    "home": "SMU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -992,8 +992,8 @@
    "away": "Xavier",
    "home": "Mississippi St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1022,8 +1022,8 @@
    "away": "Miss Valley St",
    "home": "Oregon St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1178,6 +1178,42 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T03:30Z",
+   "away": "AR-Pine Bluff",
+   "home": "CA Baptist",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909304",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-14T03:30Z",
+   "away": "Thunder",
+   "home": "Clippers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856886",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Auburn",
+    "p": 0.5,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "College Football",
    "season": "regular season",
    "start": "2026-11-14T03:30Z",
    "away": "AR-Pine Bluff",
