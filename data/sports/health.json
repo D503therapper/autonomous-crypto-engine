@@ -1,11 +1,11 @@
 {
- "at": "2026-11-14T02:04Z",
- "fixes": [
-  "live watch 43539916854 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
+ "at": "2026-11-14T03:39Z",
+ "fixes": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
  ],
- "problems": [],
  "ok": [
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +13,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 16 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 6 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 35 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T03:39Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-14T02:04Z",
    "fixes": [
@@ -500,11 +506,6 @@
     "live tennis scores: tennis Garcia vs Mandlik: no points for 1298s",
     "live tennis scores: tennis Burillo vs Samson: no points for 1167s"
    ]
-  },
-  {
-   "at": "2026-11-12T13:54Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
