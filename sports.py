@@ -5906,6 +5906,19 @@ def ncaab_stack_play_record(picks):
     return {"won": w, "lost": l_, "push": ps, "units": round(net, 2), "risked": round(risked, 2)}
 
 
+NCAAB_STACK_PLAY_MAX_3_FROM = "2026-11-15"   # 🏀 THE OWNER, 11/14 ("If 3 is going to make money ... I don't see any
+NCAAB_STACK_PLAY_MAX_3 = 3                  # negative to 3"; his open 11/13 call (a)): from the 11/15 Pacific games the
+#   ½u college hoops spread stack play goes up to 3 a night, the biggest stack first (the 11/14 college hoops profit
+#   studies s5: the 3rd+ side a night on the held-out 2023-25 re-run 224-166 +9.9% on 390, 3 of 3 seasons up; train
+#   +2.7% on 67). The quit rule (100 graded, under 52.4% covered) still judges the whole play. "9999" = 2 a night again.
+
+
+def ncaab_stack_play_cap(iso):
+    """How many ½u college hoops spread stack plays a night: NCAAB_STACK_PLAY_MAX_3 from NCAAB_STACK_PLAY_MAX_3_FROM
+    (the owner, 11/14), NCAAB_STACK_PLAY_MAX_DAY before."""
+    return NCAAB_STACK_PLAY_MAX_3 if iso >= NCAAB_STACK_PLAY_MAX_3_FROM else NCAAB_STACK_PLAY_MAX_DAY
+
+
 def ncaab_stack_play_quit(picks):
     """The spread play's judge: NCAAB_STACK_PLAY_QUIT[0]+ graded (pushes out) and under NCAAB_STACK_PLAY_QUIT[1] covered
     = no more posts."""
@@ -5927,7 +5940,7 @@ def ncaab_stack_play_ok(c):
 def ncaab_stack_plays(cands, avoid):
     """4. 🏀 (11/11) THE ½u COLLEGE HOOPS SPREAD PLAY's candidates: every side ncaab_stack_play_ok passes - never a trap,
     never a side missing players the engine doesn't weigh - the biggest stack first (then the most weights firing, then
-    the spread rank), one per game, never a game in `avoid`. post_board caps the night at NCAAB_STACK_PLAY_MAX_DAY."""
+    the spread rank), one per game, never a game in `avoid`. post_board caps the night at ncaab_stack_play_cap (2; 3 from 11/15)."""
     pool = [c for c in cands if ncaab_stack_play_ok(c) and not c.get("trap") and not c.get("hurt")]
     out, seen = [], set(avoid)
     for c in sorted(pool, key=lambda c: (-(c.get("spread_stack") or 0), -(c.get("spread_stack_n") or 0), -rank_p(c))):
@@ -8397,8 +8410,8 @@ def post_board(games, model, picks, now, day, force=False):
                             #                                                       the one-pick-a-game rule; the floor is the
                             #                                                       board's fallback and fills AFTER the real
                             #                                                       plays - the slot plays count toward its 2)
-                            ("stackplay", ncaab_stack_plays, NCAAB_STACK_PLAY_MAX_DAY),   # 🏀 11/11: the ½u college hoops
-                            #                                                       SPREAD play (the stack +0.05+), 2 a night
+                            ("stackplay", ncaab_stack_plays, ncaab_stack_play_cap(iso)),   # 🏀 11/11: the ½u college hoops
+                            #                                                       SPREAD play (the stack +0.05+), 2 a night (3 from 11/15)
                             ("nbafav", nba_fav_plays, MAX_PLAYS), ("nbafloor", nba_floor_plays, 1),
                             ("floor", floor_plays, FLOOR_MIN),
                             ("lean", viewer_leans, MAX_LEANS)):   # (10/24 audit: one dog_play a day, counted over the day's runs)
