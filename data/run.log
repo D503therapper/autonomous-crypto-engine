@@ -19914,3 +19914,24 @@ DEX: $662.89 (-337.11) · Scammed: 11 (-$216.49)
 [2026-11-14 05:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 05:05 UTC] crypto/hold_btc  equity $408.47 (-18.3%) 1 open  market DOWN
    social heat top: AERO 47 (35/0/12), BTC 40 (40/0/0), PENGU 32 (32/0/0), ETH 29 (29/0/0), ADA 27 (27/0/0)
+   dex screen: UNREACHABLE SP@ethereum liq $109,645 - honeypot.is unreachable
+   dex screen: REJECT WECX@solana liq $1,084,955 - mint authority; top-10 holders 87%
+   dex screen: REJECT $WIF@solana liq $111,370 - top-10 holders 47%; lp locked 0% < 95%
+   dex screen: REJECT FOLD@ethereum liq $910,654 - goplus partial data: cannot_sell_all unknown; is_mintable; honeypot_with_same_creator; owner_percent 38%; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $269,090 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: REJECT TRUMP@solana liq $3,859,652 - top-10 holders 88%
+   dex screen: REJECT USDS@ethereum liq $55,007,014 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,558 pools (solana 1,820 / base 416 / ethereum 322), refresh cycle 106s (hot 102s), 2970 calls (110 feed, 429s 0, failed 0), 85,797 refreshed (11698 no pair), +124 added / -59 dropped (dead 55, stale 4, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT HYPE@solana liq $2,651,407 - mint authority
+   dex screen: REJECT RAY@solana liq $1,643,909 - top-10 holders 83%
+[2026-11-14 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/mover     equity $186.16 (-62.8%) 1 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/social_heat equity $329.73 (-34.1%) 3 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-14 06:05 UTC] crypto/hold_btc  equity $410.29 (-17.9%) 1 open  market DOWN
+   social heat top: HYPE 40 (27/0/14), BTC 40 (40/0/0), PENGU 37 (37/0/0), NEAR 29 (29/0/0), ONDO 24 (24/0/0)
