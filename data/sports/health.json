@@ -1,12 +1,12 @@
 {
- "at": "2026-11-14T17:38Z",
+ "at": "2026-11-14T17:46Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Mandlik vs Andreescu: no points for 668s",
+  "live tennis scores: tennis Mandlik vs Andreescu: no points for 1095s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (181s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,12 +19,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 54 min ago",
+  "engine ran 61 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T17:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mandlik vs Andreescu: no points for 1095s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-14T17:38Z",
    "fixes": [],
@@ -456,11 +464,6 @@
   },
   {
    "at": "2026-11-12T21:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T21:16Z",
    "fixes": [],
    "problems": []
   }
