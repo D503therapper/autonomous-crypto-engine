@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T20:01Z",
+ "updated": "2026-11-14T20:04Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -26,8 +26,8 @@
    "away": "Bryant",
    "home": "Sacred Heart",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -521,8 +521,8 @@
    "away": "Drexel",
    "home": "Maine",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -671,8 +671,8 @@
    "away": "Northwest U",
    "home": "Washington St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -701,8 +701,8 @@
    "away": "St Thomas",
    "home": "Army",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1180,6 +1180,66 @@
    "start": "2026-11-14T19:30Z",
    "away": "Shenandoah",
    "home": "Radford",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871060",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T20:00Z",
+   "away": "FIU",
+   "home": "Delaware",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401870796",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T20:00Z",
+   "away": "New Mexico St",
+   "home": "Missouri St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856888",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-14T20:00Z",
+   "away": "Tennessee",
+   "home": "Texas A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924921",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T20:00Z",
+   "away": "Wyoming",
+   "home": "Denver",
    "h1": null,
    "why": "started",
    "done": false,
@@ -3518,7 +3578,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.577,
+    "p": 0.583,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -3534,9 +3594,9 @@
     "opp": "Cavaliers",
     "market": "ml",
     "line": null,
-    "odds": -196,
-    "p": 0.636,
-    "win_p": 0.636,
+    "odds": -204,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
@@ -3820,7 +3880,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.491,
+    "p": 0.494,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3836,9 +3896,9 @@
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -119,
-    "p": 0.514,
-    "win_p": 0.514,
+    "odds": -122,
+    "p": 0.518,
+    "win_p": 0.518,
     "reasons": [
      "the stronger team"
     ]
