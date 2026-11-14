@@ -16986,8 +16986,10 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     assert abs(c["read"] - 148.5) < 0.05 and c["rule"] == "1111" and c["good_to"] == 150.0 and se.units(c) == 0.5
     assert "7,200 feet" in c["why"] and se.ALT_REC in c["why"] and "%" not in c["why"]
     txt = " | ".join(c["facts"])
-    assert "Wyoming's games are averaging 170 points - scoring 90, giving up 80 through 1 game" in txt
-    assert "Wyoming beat Cal Poly 90-80 last time out (170 points)" in txt
+    assert re.search(r"Wyoming should score about 7\d against Idaho St's defense and Idaho St about 7\d against Wyoming's - "
+                     r"14[89] before the thin air, the number's 148\.5", txt), txt
+    assert "Wyoming has played 1 game and Idaho St has played 1 game this season" in txt
+    assert "Wyoming beat Cal Poly 90-80 last time out (170 points)" in txt   # (over 148.5: shown)
     assert "Idaho St beat Weber St 85-70 last time out (155 points)" in txt
     assert "Good to 150" in txt and "-130" in txt and "%" not in txt and len(c["facts"]) >= 5
     low = (c["why"] + txt).lower()
@@ -20933,6 +20935,34 @@ def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads
                                {"confirmed": ["Joel Hofer"]}) == "🧱 Joel Hofer is in for the Blues, and he's standing on his head."
 
 
+def test_owner_1114_the_altitude_over_card_says_the_projection_not_two_team_averages():
+    """11/14 (the owner on the Wyoming @ Denver over 148.5: "it says this team averages this, and then the other team
+    averages that. Neither team averages what that over is"): the card had 'Denver's games are averaging 134' / 'Wyoming's
+    146' / 'adds up to 150' (the read blends in last season, the lines didn't) and two last games of 124 and 139 points.
+    Now: what each team should score against the other's defense - the read's own blend, adding up to the read - who's
+    short of games (last season fills in), the thin air, and a last game only when it went over this number."""
+    import sports_early as se
+    g = {"id": "x", "league": "ncaab", "home": "D", "away": "W", "home_name": "Denver", "away_name": "Wyoming",
+         "start": "2026-11-14T20:00Z"}
+    now_av = {"D": (64.0, 70.0, 2), "W": (84.0, 62.0, 3)}
+    prev_av = {"D": (72.0, 74.0, 30), "W": (75.0, 70.0, 31)}
+    read = se.alt_early_read(now_av, prev_av, g)
+    from datetime import datetime, timezone
+    facts = se.alt_facts({}, g, now_av, read, 148.5, 5300, {}, datetime(2026, 11, 14, tzinfo=timezone.utc), prev_av=prev_av)
+    body = " | ".join(facts)
+    assert "games are averaging" not in body
+    proj = [x for x in facts if x.startswith("Denver should score about")]
+    assert proj and proj[0].endswith(f"{read:.0f} before the thin air, the number's 148.5")
+    import re as _re
+    a, b = (int(x) for x in _re.findall(r"about (\d+)", proj[0]))
+    assert abs((a + b) - read) <= 1                                  # the two teams add up to the read
+    assert any("last season's scoring fills in" in x for x in facts)
+    games = {"l": {"league": "ncaab", "status": "final", "home": "D", "away": "R", "home_name": "Denver",
+                   "away_name": "UC Riverside", "home_score": "60", "away_score": "64", "start": "2026-11-10T03:00Z"}}
+    facts2 = se.alt_facts(games, g, now_av, read, 148.5, 5300, {}, datetime(2026, 11, 14, tzinfo=timezone.utc), prev_av=prev_av)
+    assert not any("124 points" in x for x in facts2)                # a 124-point game argues the under: not shown
+
+
 def test_owner_1112_no_dollar_payout_line_on_cards():
     """The owner, 11/12: 'you can change the $100 to $70 or whatever. We don't need that.' - cards show units only, no
     '$100 wins $X' payout line on a pick or tennis parlay card."""
@@ -22179,7 +22209,7 @@ def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
     assert "Three of the six" in c["why"] and no.REC in c["why"] and "Al Able" in c["why"]
     assert "Hawks without Al Able (36 minutes a night) and Bo Baker (34 minutes a night)" in txt
     assert "Jazz without Fox Ford (36 minutes a night)" in txt and "Gus Gray" not in txt            # doubtful never counts
-    assert "Hawks's games are averaging 225 points - scoring 115, giving up 110 through 10 games" in txt
+    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks's - 225 with everybody" in txt
     assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 5
     assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
 
