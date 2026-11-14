@@ -116,6 +116,8 @@ def s1_s3():
             d = me["out"] - op["out"]
             db = "<=-2" if d <= -2 else "+3+" if d >= 3 else f"{d:+d}"
             o.add(f"S1 diff {db}", g["season"], pr, odds)
+            if bd and d >= 1:
+                o.add(f"S1 {bd} missing 1+ MORE regulars than the opponent", g["season"], pr, odds)
             if bd:
                 o.add(f"S1 {bd} diff {db}", g["season"], pr, odds)
                 if me["out"] >= 2:
@@ -147,7 +149,10 @@ def s1_s3():
             if info[g["home"]]["out3"] + info[g["away"]]["out3"] >= 2:
                 o.add(f"S3 {'over' if over else 'under'} 2+ top-3 men out", g["season"], pr)
     o.show()
-    for c, pool, fade in (("S1 dog own 2+ out (the hurt rule)", "BASE dog", True),
+    for c, pool, fade in (("S1 dog missing 1+ MORE regulars than the opponent", "BASE dog", True),
+                          ("S1 fav missing 1+ MORE regulars than the opponent", "BASE fav", True),
+                          ("S1 dog diff +1", "BASE dog", True),
+                          ("S1 dog own 2+ out (the hurt rule)", "BASE dog", True),
                           ("S1 fav own 2+ out (the hurt rule)", "BASE fav", True),
                           ("S1 dog diff +3+", "BASE dog", True), ("S1 fav diff +3+", "BASE fav", True),
                           ("S1 dog diff <=-2", "BASE dog", False), ("S1 fav diff <=-2", "BASE fav", False),
