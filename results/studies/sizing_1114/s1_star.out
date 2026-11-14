@@ -1,0 +1,150 @@
+============================== BOARD R1: 1114 board days, 1042 with a unit play, 1991 unit plays
+  the board with NO ⭐ (no raise)                             | train +103.0u/ 852u +12.1% worst -13.9 | held  +76.0u/ 626u +12.1% worst -13.6 | ALL +179.1u/1478u +12.1% worst -13.9 up 4/4 | live 20-14  +6.9u
+  days with a ⭐ under today's rule: 644; kinds {'dog': 217, 'floor': 206, 'lock': 157, 'play': 51, 'floorfb': 6, 'nbafloor': 4, 'nbafav': 2, 'dogplay': 1}; leagues {'mlb': 213, 'nhl': 181, 'ncaab': 170, 'ncaaf': 31, 'nba': 28, 'nfl': 21}
+-- the ⭐ PICK itself, flat 1u (is it the board's best play?)
+  every ELIGIBLE unit play (the ⭐ pool)                n 1089 594-495 flat  +11.2% z +3.36 | train  +12.5% (651) | held   +9.3% (438) | up 3/4 | live 18-10 +36%
+  every unit play on the board                         n 1957 1017-940 flat   +9.9% z +3.91 | train  +10.5% (1095) | held   +9.2% (862) | up 4/4 | live 20-14 +28%
+  S0 TODAY (kind trust, size, read edge)               n  633 339-294 flat  +12.7% z +2.88 | train  +13.1% (381) | held  +12.3% (252) | up 4/4 | live 9-2 +80%
+  S1 the biggest edge on the read its units ride on    n  633 325-308 flat  +10.9% z +2.50 | train   +9.1% (381) | held  +13.7% (252) | up 3/4 | live 5-6 +14%
+  S2 the biggest OWN-read margin over the price        n  633 339-294 flat  +11.3% z +2.73 | train  +11.9% (381) | held  +10.5% (252) | up 4/4 | live 7-4 +47%
+  S3 the Dog first, then the NBA fav play, the Lock ... n  633 329-304 flat  +13.3% z +2.99 | train  +14.6% (381) | held  +11.2% (252) | up 3/4 | live 6-5 +34%
+  S4 a price -150..+150 first, then today's            n  633 345-288 flat  +14.0% z +3.15 | train  +13.4% (381) | held  +14.8% (252) | up 4/4 | live 9-2 +67%
+  S5 hockey first, then today's                        n  633 331-302 flat  +13.6% z +2.99 | train  +14.4% (381) | held  +12.3% (252) | up 4/4 | live 8-3 +65%
+  S6 the biggest dog score (dogs), else today's        n  633 332-301 flat  +14.8% z +3.23 | train  +15.1% (381) | held  +14.4% (252) | up 3/4 | live 6-5 +36%
+  S7 the surest (rank_p)                               n  633 349-284 flat  +13.8% z +3.12 | train  +12.7% (381) | held  +15.4% (252) | up 4/4 | live 8-3 +43%
+  S8 favorites first, then today's                     n  633 345-288 flat  +12.9% z +3.00 | train  +13.0% (381) | held  +12.7% (252) | up 4/4 | live 9-2 +76%
+  S9 the biggest size first, then the read edge        n  633 336-297 flat  +13.3% z +3.03 | train  +12.5% (381) | held  +14.5% (252) | up 4/4 | live 5-6 +14%
+  S10 both reads over the price (own + its read) first n  633 346-287 flat  +14.0% z +3.25 | train  +14.2% (381) | held  +13.7% (252) | up 4/4 | live 8-3 +62%
+-- the ⭐ at the units it posts at (raised to 1u+), and the board with that ⭐
+  S0 TODAY (kind trust, size, read edge) [units]       n  633 339-294 units  +15.3% z +2.88 | train  +15.4% (381) | held  +15.2% (252) | up 4/4 | live 9-2 +90% | +132.4u on 866u
+     the board with this ⭐                                   | train +113.6u/ 954u +11.9% worst -16.9 | held  +80.4u/ 690u +11.7% worst -14.0 | ALL +194.0u/1643u +11.8% worst -16.9 up 4/4 | live 20-14  +8.4u
+  S1 the biggest edge on the read its units ride on [units] n  633 325-308 units  +13.3% z +2.50 | train  +10.8% (381) | held  +17.1% (252) | up 3/4 | live 5-6 +14% | +111.9u on 841u
+     the board with this ⭐                                   | train +111.9u/ 970u +11.5% worst -17.3 | held  +81.0u/ 699u +11.6% worst -14.3 | ALL +192.9u/1668u +11.6% worst -17.3 up 4/4 | live 20-14  +7.3u
+  S2 the biggest OWN-read margin over the price [units] n  633 339-294 units  +14.1% z +2.73 | train  +13.8% (381) | held  +14.5% (252) | up 4/4 | live 7-4 +41% | +115.8u on 824u
+     the board with this ⭐                                   | train +115.2u/ 968u +11.9% worst -17.1 | held  +80.2u/ 702u +11.4% worst -14.3 | ALL +195.3u/1670u +11.7% worst -17.1 up 4/4 | live 20-14  +9.0u
+  S3 the Dog first, then the NBA fav play, the Lock ... [units] n  633 329-304 units  +14.5% z +2.99 | train  +15.8% (381) | held  +12.6% (252) | up 3/4 | live 6-5 +26% | +127.5u on 878u
+     the board with this ⭐                                   | train +116.8u/ 961u +12.2% worst -17.4 | held  +80.2u/ 694u +11.6% worst -14.3 | ALL +197.0u/1654u +11.9% worst -17.4 up 4/4 | live 20-14  +8.4u
+  S4 a price -150..+150 first, then today's [units]    n  633 345-288 units  +16.2% z +3.15 | train  +15.6% (381) | held  +17.1% (252) | up 4/4 | live 9-2 +79% | +140.4u on 866u
+     the board with this ⭐                                   | train +113.8u/ 954u +11.9% worst -16.9 | held  +83.7u/ 690u +12.1% worst -14.0 | ALL +197.5u/1644u +12.0% worst -16.9 up 4/4 | live 20-14  +7.6u
+  S5 hockey first, then today's [units]                n  633 331-302 units  +14.6% z +2.99 | train  +15.3% (381) | held  +13.5% (252) | up 4/4 | live 8-3 +66% | +127.8u on 873u
+     the board with this ⭐                                   | train +117.0u/ 962u +12.2% worst -17.4 | held  +81.2u/ 694u +11.7% worst -14.2 | ALL +198.2u/1655u +12.0% worst -17.4 up 4/4 | live 20-14  +8.4u
+  S6 the biggest dog score (dogs), else today's [units] n  633 332-301 units  +14.9% z +3.23 | train  +15.4% (381) | held  +14.3% (252) | up 3/4 | live 6-5 +23% | +130.0u on 870u
+     the board with this ⭐                                   | train +119.7u/ 964u +12.4% worst -17.4 | held  +85.9u/ 696u +12.3% worst -14.2 | ALL +205.6u/1660u +12.4% worst -17.4 up 4/4 | live 20-14  +9.0u
+  S7 the surest (rank_p) [units]                       n  633 349-284 units  +14.9% z +3.12 | train  +13.9% (381) | held  +16.6% (252) | up 4/4 | live 8-3 +54% | +124.8u on 835u
+     the board with this ⭐                                   | train +117.0u/ 962u +12.2% worst -17.1 | held  +87.2u/ 697u +12.5% worst -13.0 | ALL +204.3u/1660u +12.3% worst -17.1 up 4/4 | live 20-14  +7.1u
+  S8 favorites first, then today's [units]             n  633 345-288 units  +15.1% z +3.00 | train  +14.8% (381) | held  +15.7% (252) | up 4/4 | live 9-2 +87% | +128.2u on 849u
+     the board with this ⭐                                   | train +115.5u/ 958u +12.1% worst -17.1 | held  +81.4u/ 694u +11.7% worst -13.6 | ALL +196.9u/1652u +11.9% worst -17.1 up 4/4 | live 20-14  +8.2u
+  S9 the biggest size first, then the read edge [units] n  633 336-297 units  +15.3% z +3.03 | train  +14.6% (381) | held  +16.3% (252) | up 4/4 | live 5-6 +14% | +135.7u on 889u
+     the board with this ⭐                                   | train +111.7u/ 954u +11.7% worst -16.9 | held  +81.4u/ 690u +11.8% worst -14.0 | ALL +193.1u/1643u +11.8% worst -16.9 up 4/4 | live 20-14  +7.3u
+  S10 both reads over the price (own + its read) first [units] n  633 346-287 units  +16.4% z +3.25 | train  +16.3% (381) | held  +16.6% (252) | up 4/4 | live 8-3 +66% | +139.6u on 849u
+     the board with this ⭐                                   | train +116.4u/ 960u +12.1% worst -17.4 | held  +82.0u/ 692u +11.9% worst -13.8 | ALL +198.4u/1652u +12.0% worst -17.4 up 4/4 | live 20-14  +8.6u
+-- the PLACEBO: a random eligible play a day as the ⭐, 2,000 times (flat ROI, train / held)
+   random ⭐ train: median +14.3%, 5th-95th +10.2% .. +18.1%
+   random ⭐ held: median +13.3%, 5th-95th +7.9% .. +18.4%
+   S0 TODAY (kind trust, size, read edge)               train  +13.1% (random did as well 1384/2000) | held  +12.3% (1280/2000)
+   S1 the biggest edge on the read its units ride on    train   +9.1% (random did as well 1969/2000) | held  +13.7% ( 901/2000)
+   S2 the biggest OWN-read margin over the price        train  +11.9% (random did as well 1685/2000) | held  +10.5% (1612/2000)
+   S3 the Dog first, then the NBA fav play, the Lock ... train  +14.6% (random did as well  885/2000) | held  +11.2% (1489/2000)
+   S4 a price -150..+150 first, then today's            train  +13.4% (random did as well 1258/2000) | held  +14.8% ( 632/2000)
+   S5 hockey first, then today's                        train  +14.4% (random did as well  973/2000) | held  +12.3% (1251/2000)
+   S6 the biggest dog score (dogs), else today's        train  +15.1% (random did as well  747/2000) | held  +14.4% ( 733/2000)
+   S7 the surest (rank_p)                               train  +12.7% (random did as well 1493/2000) | held  +15.4% ( 486/2000)
+   S8 favorites first, then today's                     train  +13.0% (random did as well 1415/2000) | held  +12.7% (1160/2000)
+   S9 the biggest size first, then the read edge        train  +12.5% (random did as well 1530/2000) | held  +14.5% ( 711/2000)
+   S10 both reads over the price (own + its read) first train  +14.2% (random did as well 1024/2000) | held  +13.7% ( 899/2000)
+-- the ⭐ by kind under today's rule (flat)
+     ⭐ on a dog                                        n  211 111-100 flat  +21.4% z +2.87 | train  +14.4% (130) | held  +32.7% ( 81) | up 3/4 | live 5-1 +103%
+     ⭐ on a dogplay                                    n    1   0-1   flat -100.0% z -0.91 | train   +0.0% (  0) | held -100.0% (  1) | up 0/1 | live 0-0 +0%
+     ⭐ on a floor                                      n  206 101-105 flat  +13.8% z +1.67 | train  +18.5% (119) | held   +7.5% ( 87) | up 4/4 | live 0-0 +0%
+     ⭐ on a floorfb                                    n    5   3-2   flat  +37.6% z +0.70 | train  +10.0% (  4) | held +148.0% (  1) | up 2/2 | live 1-0 +156%
+     ⭐ on a lock                                       n  154  94-60  flat   +4.8% z +0.71 | train   +5.6% ( 91) | held   +3.6% ( 63) | up 4/4 | live 3-0 +69%
+     ⭐ on a nbafav                                     n    2   2-0   flat  +78.6% z +1.25 | train  +82.6% (  1) | held  +74.6% (  1) | up 2/2 | live 0-0 +0%
+     ⭐ on a nbafloor                                   n    3   2-1   flat  +86.7% z +1.13 | train  +86.7% (  3) | held   +0.0% (  0) | up 1/1 | live 0-1 -100%
+     ⭐ on a play                                       n   51  26-25  flat  -10.9% z -0.90 | train   +0.2% ( 33) | held  -31.3% ( 18) | up 2/4 | live 0-0 +0%
+-- the ⭐ by league / price under today's rule (flat)
+     ⭐ in mlb                                          n  212 106-106 flat  +12.9% z +1.55 | train  +16.7% (122) | held   +7.7% ( 90) | up 4/4 | live 1-0 +156%
+     ⭐ in nba                                          n   26  17-9   flat  +54.9% z +2.51 | train  +44.0% ( 20) | held  +91.3% (  6) | up 3/3 | live 1-1 +10%
+     ⭐ in ncaab                                        n  170 101-69  flat   +2.4% z +0.37 | train   +6.9% (108) | held   -5.6% ( 62) | up 2/3 | live 0-0 +0%
+     ⭐ in ncaaf                                        n   27  17-10  flat  +37.2% z +1.89 | train  +66.7% (  3) | held  +33.5% ( 24) | up 3/3 | live 4-0 +108%
+     ⭐ in nfl                                          n   21   9-12  flat   -4.7% z -0.12 | train   -3.1% ( 17) | held  -11.6% (  4) | up 2/4 | live 0-0 +0%
+     ⭐ in nhl                                          n  177  89-88  flat  +14.7% z +1.73 | train  +10.5% (111) | held  +21.8% ( 66) | up 3/3 | live 3-1 +68%
+     ⭐ at -150..-101                                   n  207 122-85  flat   +1.6% z +0.29 | train   +4.8% (125) | held   -3.2% ( 82) | up 3/4 | live 3-0 +69%
+     ⭐ at +100..+150                                   n  322 178-144 flat  +23.0% z +3.65 | train  +23.6% (198) | held  +22.1% (124) | up 4/4 | live 4-1 +79%
+     ⭐ at +151..+350                                   n  104  39-65  flat   +3.0% z +0.22 | train   -5.0% ( 58) | held  +13.1% ( 46) | up 2/4 | live 2-1 +94%
+-- what the ⭐ raise ADDS (the extra units on plays raised from ½u to 1u) under today's rule
+     the extra ½u (raised plays only)                  n  330 158-172 units   +9.1% z +1.32 | train  +10.4% (204) | held   +7.0% (126) | up 4/4 | live 3-2 +60% | +15.0u on 165u
+     the ⭐ on a play already 1u+ (no extra units)      n  303 181-122 units  +19.1% z +2.78 | train  +18.5% (177) | held  +20.1% (126) | up 4/4 | live 6-0 +106% | +102.5u on 536u
+
+============================== BOARD R2: 1126 board days, 1014 with a unit play, 1664 unit plays
+  the board with NO ⭐ (no raise)                             | train  +63.3u/ 628u +10.1% worst -25.1 | held  +60.2u/ 506u +11.9% worst -11.3 | ALL +123.4u/1134u +10.9% worst -25.1 up 4/4 | live 21-23  +9.2u
+  days with a ⭐ under today's rule: 303; kinds {'dog': 277, 'play': 9, 'floor': 7, 'lock': 5, 'dogplay': 3, 'nbafav': 2}; leagues {'nhl': 273, 'nba': 25, 'ncaab': 3, 'mlb': 2}
+-- the ⭐ PICK itself, flat 1u (is it the board's best play?)
+  every ELIGIBLE unit play (the ⭐ pool)                n  360 183-177 flat  +13.4% z +2.36 | train  +12.2% (213) | held  +15.3% (147) | up 4/4 | live 15-10 +28%
+  every unit play on the board                         n 1620 791-829 flat  +10.1% z +3.56 | train   +8.5% (891) | held  +12.1% (729) | up 4/4 | live 21-23 +6%
+  S0 TODAY (kind trust, size, read edge)               n  284 141-143 flat  +12.6% z +1.88 | train   +8.7% (174) | held  +18.7% (110) | up 4/4 | live 11-8 +26%
+  S1 the biggest edge on the read its units ride on    n  284 138-146 flat  +11.0% z +1.67 | train   +8.3% (174) | held  +15.2% (110) | up 4/4 | live 11-8 +26%
+  S2 the biggest OWN-read margin over the price        n  284 141-143 flat  +12.1% z +1.83 | train  +12.5% (174) | held  +11.5% (110) | up 4/4 | live 13-6 +45%
+  S3 the Dog first, then the NBA fav play, the Lock ... n  284 141-143 flat  +12.6% z +1.91 | train   +8.7% (174) | held  +18.7% (110) | up 4/4 | live 11-8 +26%
+  S4 a price -150..+150 first, then today's            n  284 143-141 flat  +13.6% z +1.98 | train  +10.8% (174) | held  +18.0% (110) | up 4/4 | live 12-7 +37%
+  S5 hockey first, then today's                        n  284 141-143 flat  +12.7% z +1.89 | train   +9.0% (174) | held  +18.7% (110) | up 4/4 | live 11-8 +26%
+  S6 the biggest dog score (dogs), else today's        n  284 141-143 flat  +12.6% z +1.91 | train   +8.7% (174) | held  +18.7% (110) | up 4/4 | live 11-8 +26%
+  S7 the surest (rank_p)                               n  284 142-142 flat  +10.6% z +1.61 | train  +11.7% (174) | held   +8.8% (110) | up 3/4 | live 12-7 +34%
+  S8 favorites first, then today's                     n  284 143-141 flat  +12.4% z +1.90 | train  +11.1% (174) | held  +14.6% (110) | up 4/4 | live 13-6 +45%
+  S9 the biggest size first, then the read edge        n  284 142-142 flat  +13.7% z +2.04 | train  +10.5% (174) | held  +18.7% (110) | up 4/4 | live 11-8 +26%
+  S10 both reads over the price (own + its read) first n  284 142-142 flat  +12.7% z +1.91 | train   +9.7% (174) | held  +17.4% (110) | up 4/4 | live 12-7 +35%
+-- the ⭐ at the units it posts at (raised to 1u+), and the board with that ⭐
+  S0 TODAY (kind trust, size, read edge) [units]       n  284 141-143 units  +12.2% z +1.88 | train  +10.2% (174) | held  +15.1% (110) | up 4/4 | live 11-8 +32% | +58.3u on 477u
+     the board with this ⭐                                   | train  +63.5u/ 660u  +9.6% worst -25.1 | held  +65.7u/ 519u +12.7% worst -10.4 | ALL +129.2u/1178u +11.0% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S1 the biggest edge on the read its units ride on [units] n  284 138-146 units  +11.1% z +1.67 | train  +10.6% (174) | held  +11.8% (110) | up 4/4 | live 11-8 +32% | +50.8u on 459u
+     the board with this ⭐                                   | train  +62.9u/ 664u  +9.5% worst -25.1 | held  +65.6u/ 524u +12.5% worst -11.4 | ALL +128.4u/1188u +10.8% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S2 the biggest OWN-read margin over the price [units] n  284 141-143 units  +12.0% z +1.83 | train  +14.4% (174) | held   +8.3% (110) | up 4/4 | live 13-6 +49% | +54.2u on 452u
+     the board with this ⭐                                   | train  +65.0u/ 664u  +9.8% worst -25.1 | held  +65.1u/ 526u +12.4% worst -11.0 | ALL +130.0u/1191u +10.9% worst -25.1 up 4/4 | live 21-23 +10.5u
+  S3 the Dog first, then the NBA fav play, the Lock ... [units] n  284 141-143 units  +12.2% z +1.91 | train  +10.2% (174) | held  +15.1% (110) | up 4/4 | live 11-8 +32% | +58.3u on 477u
+     the board with this ⭐                                   | train  +63.5u/ 660u  +9.6% worst -25.1 | held  +65.7u/ 519u +12.7% worst -10.4 | ALL +129.2u/1178u +11.0% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S4 a price -150..+150 first, then today's [units]    n  284 143-141 units  +12.8% z +1.98 | train  +11.5% (174) | held  +14.7% (110) | up 4/4 | live 12-7 +39% | +61.3u on 477u
+     the board with this ⭐                                   | train  +65.4u/ 660u  +9.9% worst -25.1 | held  +65.3u/ 519u +12.6% worst -10.9 | ALL +130.7u/1178u +11.1% worst -25.1 up 4/4 | live 21-23 +10.2u
+  S5 hockey first, then today's [units]                n  284 141-143 units  +12.3% z +1.89 | train  +10.4% (174) | held  +15.1% (110) | up 4/4 | live 11-8 +32% | +58.8u on 477u
+     the board with this ⭐                                   | train  +63.8u/ 660u  +9.7% worst -25.1 | held  +65.7u/ 519u +12.7% worst -10.4 | ALL +129.4u/1178u +11.0% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S6 the biggest dog score (dogs), else today's [units] n  284 141-143 units  +12.2% z +1.91 | train  +10.2% (174) | held  +15.1% (110) | up 4/4 | live 11-8 +32% | +58.3u on 477u
+     the board with this ⭐                                   | train  +63.5u/ 660u  +9.6% worst -25.1 | held  +65.7u/ 519u +12.7% worst -10.4 | ALL +129.2u/1178u +11.0% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S7 the surest (rank_p) [units]                       n  284 142-142 units   +9.4% z +1.61 | train  +12.0% (174) | held   +5.4% (110) | up 3/4 | live 12-7 +40% | +42.7u on 453u
+     the board with this ⭐                                   | train  +66.6u/ 662u +10.1% worst -25.1 | held  +64.7u/ 528u +12.3% worst -11.4 | ALL +131.3u/1190u +11.0% worst -25.1 up 4/4 | live 21-23 +10.0u
+  S8 favorites first, then today's [units]             n  284 143-141 units  +11.8% z +1.90 | train  +12.2% (174) | held  +11.2% (110) | up 4/4 | live 13-6 +49% | +54.8u on 465u
+     the board with this ⭐                                   | train  +65.1u/ 661u  +9.8% worst -25.1 | held  +65.4u/ 524u +12.5% worst -10.5 | ALL +130.5u/1184u +11.0% worst -25.1 up 4/4 | live 21-23 +10.5u
+  S9 the biggest size first, then the read edge [units] n  284 142-142 units  +12.9% z +2.04 | train  +11.3% (174) | held  +15.1% (110) | up 4/4 | live 11-8 +32% | +61.5u on 477u
+     the board with this ⭐                                   | train  +65.1u/ 660u  +9.9% worst -25.1 | held  +65.7u/ 519u +12.7% worst -10.4 | ALL +130.8u/1178u +11.1% worst -25.1 up 4/4 | live 21-23  +9.2u
+  S10 both reads over the price (own + its read) first [units] n  284 142-142 units  +12.3% z +1.91 | train  +11.2% (174) | held  +13.9% (110) | up 4/4 | live 12-7 +38% | +58.0u on 471u
+     the board with this ⭐                                   | train  +63.9u/ 660u  +9.7% worst -25.1 | held  +65.8u/ 522u +12.6% worst -10.5 | ALL +129.7u/1182u +11.0% worst -25.1 up 4/4 | live 21-23 +10.1u
+-- the PLACEBO: a random eligible play a day as the ⭐, 2,000 times (flat ROI, train / held)
+   random ⭐ train: median +13.6%, 5th-95th +8.8% .. +18.3%
+   random ⭐ held: median +13.2%, 5th-95th +7.1% .. +19.7%
+   S0 TODAY (kind trust, size, read edge)               train   +8.7% (random did as well 1906/2000) | held  +18.7% ( 171/2000)
+   S1 the biggest edge on the read its units ride on    train   +8.3% (random did as well 1932/2000) | held  +15.2% ( 600/2000)
+   S2 the biggest OWN-read margin over the price        train  +12.5% (random did as well 1283/2000) | held  +11.5% (1341/2000)
+   S3 the Dog first, then the NBA fav play, the Lock ... train   +8.7% (random did as well 1906/2000) | held  +18.7% ( 171/2000)
+   S4 a price -150..+150 first, then today's            train  +10.8% (random did as well 1653/2000) | held  +18.0% ( 215/2000)
+   S5 hockey first, then today's                        train   +9.0% (random did as well 1884/2000) | held  +18.7% ( 171/2000)
+   S6 the biggest dog score (dogs), else today's        train   +8.7% (random did as well 1906/2000) | held  +18.7% ( 171/2000)
+   S7 the surest (rank_p)                               train  +11.7% (random did as well 1510/2000) | held   +8.8% (1759/2000)
+   S8 favorites first, then today's                     train  +11.1% (random did as well 1627/2000) | held  +14.6% ( 724/2000)
+   S9 the biggest size first, then the read edge        train  +10.5% (random did as well 1708/2000) | held  +18.7% ( 171/2000)
+   S10 both reads over the price (own + its read) first train   +9.7% (random did as well 1809/2000) | held  +17.4% ( 288/2000)
+-- the ⭐ by kind under today's rule (flat)
+     ⭐ on a dog                                        n  259 128-131 flat  +13.6% z +1.88 | train  +10.2% (163) | held  +19.2% ( 96) | up 4/4 | live 10-8 +20%
+     ⭐ on a dogplay                                    n    3   1-2   flat   +5.0% z +0.03 | train   +5.0% (  3) | held   +0.0% (  0) | up 1/2 | live 0-0 +0%
+     ⭐ on a floor                                      n    6   2-4   flat  -20.3% z -0.24 | train  -47.2% (  5) | held +114.0% (  1) | up 1/2 | live 1-0 +136%
+     ⭐ on a lock                                       n    5   2-3   flat  -32.4% z -0.77 | train   +0.0% (  0) | held  -32.4% (  5) | up 0/1 | live 0-0 +0%
+     ⭐ on a nbafav                                     n    2   2-0   flat  +78.6% z +1.25 | train  +82.6% (  1) | held  +74.6% (  1) | up 2/2 | live 0-0 +0%
+     ⭐ on a play                                       n    9   6-3   flat  +18.2% z +0.59 | train   -9.0% (  2) | held  +26.0% (  7) | up 2/3 | live 0-0 +0%
+-- the ⭐ by league / price under today's rule (flat)
+     ⭐ in mlb                                          n    2   2-0   flat  +71.2% z +1.19 | train   +0.0% (  0) | held  +71.2% (  2) | up 1/1 | live 0-0 +0%
+     ⭐ in nba                                          n   21  13-8   flat  +40.8% z +1.75 | train  +30.2% ( 16) | held  +74.9% (  5) | up 3/3 | live 2-2 +14%
+     ⭐ in ncaab                                        n    3   3-0   flat  +73.8% z +1.49 | train   +0.0% (  0) | held  +73.8% (  3) | up 1/1 | live 0-0 +0%
+     ⭐ in nhl                                          n  258 123-135 flat   +9.1% z +1.21 | train   +6.5% (158) | held  +13.2% (100) | up 4/4 | live 9-6 +29%
+     ⭐ at -150..-101                                   n   16  10-6   flat   +9.9% z +0.46 | train  +21.5% (  3) | held   +7.3% ( 13) | up 2/4 | live 0-0 +0%
+     ⭐ at +100..+150                                   n  202 106-96  flat  +16.4% z +2.01 | train  +16.0% (120) | held  +16.9% ( 82) | up 4/4 | live 11-6 +41%
+     ⭐ at +151..+350                                   n   66  25-41  flat   +1.5% z +0.14 | train   -9.4% ( 51) | held  +38.5% ( 15) | up 2/3 | live 0-2 -100%
+-- what the ⭐ raise ADDS (the extra units on plays raised from ½u to 1u) under today's rule
+     the extra ½u (raised plays only)                  n   89  41-48  units  +12.9% z +1.14 | train   +0.8% ( 64) | held  +44.0% ( 25) | up 3/4 | live 3-4 -1% | +5.8u on 44u
+     the ⭐ on a play already 1u+ (no extra units)      n  195 100-95  units  +12.1% z +1.50 | train  +13.0% (110) | held  +10.9% ( 85) | up 4/4 | live 8-4 +42% | +46.8u on 388u
+
