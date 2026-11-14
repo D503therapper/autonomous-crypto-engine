@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T19:30Z",
+ "updated": "2026-11-14T19:32Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -4869,7 +4869,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.578,
+    "p": 0.576,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -4885,9 +4885,9 @@
     "opp": "Falcons",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.633,
-    "win_p": 0.633,
+    "odds": -166,
+    "p": 0.629,
+    "win_p": 0.629,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -5114,6 +5114,36 @@
    }
   },
   {
+   "id": "ncaab:401925812",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "La Salle",
+    "p": 0.503,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T19:00Z",
+   "away": "Temple",
+   "home": "La Salle",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "La Salle",
+    "opp": "Temple",
+    "market": "ml",
+    "line": null,
+    "odds": -122,
+    "p": 0.532,
+    "win_p": 0.532,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401921760",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -5321,6 +5351,36 @@
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920681",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "St John's",
+    "p": 0.78,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-16T00:00Z",
+   "away": "Syracuse",
+   "home": "St John's",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Syracuse",
+    "opp": "St John's",
+    "market": "spread",
+    "line": 11.0,
+    "odds": -105,
+    "p": 0.504,
+    "win_p": 0.137,
+    "reasons": [
+     "better rested"
     ]
    }
   },
