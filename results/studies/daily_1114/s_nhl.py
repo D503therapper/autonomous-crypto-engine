@@ -84,6 +84,9 @@ def back_count(team, start, season, seas, tonight):
     return sum(1 for p in missed if p in tonight)
 
 
+MV = defaultdict(list)
+
+
 def s1_s3():
     o = h.Out("s1_s3_nhl_regulars", (2021, 2022), [2023, 2024, 2025, 2026])
     o.p("S1-S3 NHL REGULARS OUT / BACK (box TOI 2021-26; train 2021-22 / held 2023 / 2024 / 2025 / now 2026)")
@@ -118,6 +121,13 @@ def s1_s3():
             o.add(f"S1 diff {db}", g["season"], pr, odds)
             if bd and d >= 1:
                 o.add(f"S1 {bd} missing 1+ MORE regulars than the opponent", g["season"], pr, odds)
+            ms = lib.morning_side(MO, g["id"], side)
+            if ms and bd:
+                pcl = lib.nv(g["mlh"], g["mla"]) if side == "home" else 1 - lib.nv(g["mlh"], g["mla"])
+                k = "1+ more out" if d >= 1 else "1+ fewer out" if d <= -1 else "even"
+                MV[k].append(pcl - ms[2])
+                o.add(f"S1m {bd} {k} at the paid MORNING price", g["season"], lib.profit(won, ms[1]), odds)
+                o.add(f"S1m {bd} {k} at the close (same games)", g["season"], pr, odds)
             if bd:
                 o.add(f"S1 {bd} diff {db}", g["season"], pr, odds)
                 if me["out"] >= 2:
@@ -149,6 +159,8 @@ def s1_s3():
             if info[g["home"]]["out3"] + info[g["away"]]["out3"] >= 2:
                 o.add(f"S3 {'over' if over else 'under'} 2+ top-3 men out", g["season"], pr)
     o.show()
+    for k, v in MV.items():
+        o.p(f"  morning -> close move of the side's no-vig %, {k}: mean {statistics.mean(v)*100:+.2f} pts on {len(v)}")
     for c, pool, fade in (("S1 dog missing 1+ MORE regulars than the opponent", "BASE dog", True),
                           ("S1 fav missing 1+ MORE regulars than the opponent", "BASE fav", True),
                           ("S1 dog diff +1", "BASE dog", True),
