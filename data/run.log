@@ -20123,3 +20123,28 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-11-14 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 13:06 UTC] crypto/hold_btc  equity $408.06 (-18.4%) 1 open  market DOWN
    social heat top: HYPE 42 (29/0/13), BTC 40 (40/0/0), KAVA 38 (37/0/1), SOL 35 (35/0/0), QNT 32 (32/0/0)
+   dex screen: REJECT ANTHROPIC@base liq $11,124,476 - goplus partial data: cannot_sell_all unknown; buy tax unknown; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: REJECT EDEL@base liq $13,222 - liquidity $13,222 < $100,000; 24h volume $33,578 < $100,000
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CHILLGUY@solana liq $966,384 - top-10 holders 49%; lp locked 0% < 95%
+   dex screen: REJECT PAID@solana liq $218,037 - 24h volume $87,446 < $100,000
+   dex screen: REJECT CBBTC@base liq $3,792,122 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT CBBTC@solana liq $113,072 - freeze authority; mint authority; top-10 holders 60%; lp holders unknown
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]              99e84fbfe943abd40c6deec86b39dc25a8739d09 -> main (fetch first)
+error: failed to push some refs to 'https://githu
+   dex screen: REJECT RSC@base liq $149,157 - pool age unknown
+   dex screen: REJECT NOCK@base liq $734,228 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $1,998,559
+   dex scanner: 2,708 pools (solana 1,964 / base 420 / ethereum 324), refresh cycle 110s (hot 106s), 3037 calls (108 feed, 429s 0, failed 0), 87,867 refreshed (10052 no pair), +83 added / -65 dropped (dead 61, stale 4, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-14 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   >> crypto/mover: SELL $78.00 of INJ @ 7.6943, P/L $-6.69 (time limit)
+[2026-11-14 14:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/social_heat equity $327.24 (-34.6%) 3 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-14 14:06 UTC] crypto/hold_btc  equity $404.91 (-19.0%) 1 open  market DOWN
+   social heat top: KAVA 40 (40/0/0), BTC 37 (37/0/0), SOL 35 (35/0/0), HYPE 29 (29/0/0), ETH 27 (27/0/0)
