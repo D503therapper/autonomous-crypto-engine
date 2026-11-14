@@ -19956,3 +19956,22 @@ error: failed to push some refs to 'https://githu
 [2026-11-14 07:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 07:05 UTC] crypto/hold_btc  equity $410.48 (-17.9%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), INJ 35 (35/0/0), SOL 32 (32/0/0), ETH 29 (29/0/0), XRP 27 (27/0/0)
+   dex screen: REJECT IMD@ethereum liq $286,622 - goplus partial data: cannot_sell_all unknown; top-10 holders 114%; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $2,093,379 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT RNDR@ethereum liq $201,055 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT GTA6@solana liq $154,227 - lp holders unknown; rugcheck lp locked 54% < 95%
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ELSA@base liq $450,119 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: PASS CBUCKS@solana liq $199,577
+   dex scanner: 2,566 pools (solana 1,832 / base 413 / ethereum 321), refresh cycle 105s (hot 101s), 3001 calls (110 feed, 429s 0, failed 0), 86,729 refreshed (10690 no pair), +86 added / -61 dropped (dead 56, stale 5, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+   dex screen: REJECT GATO@ethereum liq $223,647 - goplus partial data: cannot_sell_all unknown; top-10 holders 121%
+[2026-11-14 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/mover     equity $183.97 (-63.2%) 1 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/social_heat equity $328.72 (-34.3%) 3 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-14 08:05 UTC] crypto/hold_btc  equity $409.65 (-18.1%) 1 open  market DOWN
+   social heat top: PONS 40 (27/0/14), BTC 40 (40/0/0), PENGU 35 (35/0/0), XRP 32 (32/0/0), HYPE 29 (29/0/0)

@@ -170,6 +170,8 @@ def tags(c, sports):
         try:
             if sports.ncaab_dog_read_ok(c):
                 t.append("college hoops dog read 4+")        # +16.5% on 600 at the close (5/5 train, 3/3 held, open +11.5%)
+            elif home_dog_cut(c, sports):
+                t.append(HOME_DOG_CUT_TAG)
         except Exception:                                    # noqa: BLE001
             pass
     # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (B) (results/studies/cbb_knowledge_b/ s3 / s6): the owner's 'good slight
@@ -1103,6 +1105,21 @@ def spread_tags(c, sports):
     t += leans_1113_spread_tags(c, sports)                   # 11/13 FABLE: the college hoops leans - the cut's record + two LEADS
     t += daily_1113_spread_tags(c, sports)                   # 11/13 DAILY: one built weight's record + three spread LEADS
     return t
+
+
+# ---------------- 11/14 COLLEGE HOOPS PROFIT STUDIES (results/studies/cbb_profit_1114) ----------------
+HOME_DOG_CUT_TAG = "college hoops home dog the 11/14 home-dog weight took under the dog read gate (the cut's record)"
+#   sports.ncaab_home_dog_short: a home dog without the 15-point efficiency gap reads 1 less - the slot's home dogs at a
+#   read of 4-5 ran -7.3% on 91 (train -6.8% / held -10.4%). This line is the cut's own record (judge at 50: the dropped
+#   dogs running +5% or better = re-check the cut).
+
+
+def home_dog_cut(c, sports):
+    """A college hoops moneyline dog the 11/14 home-dog weight took under the dog read's gate (it would have cleared
+    without it, both teams NCAAB_DOG_READ_GAMES+ games in)."""
+    r, parts = c.get("dog_read"), c.get("dog_read_parts") or {}
+    return bool(r is not None and parts.get("home") and parts.get("games_ok") and r < sports.NCAAB_DOG_READ_GATE
+                and r - parts["home"] >= sports.NCAAB_DOG_READ_GATE - 1e-9)
 
 
 # ---------------- 11/13 FABLE: SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (results/studies/leans_1113) ----------------
