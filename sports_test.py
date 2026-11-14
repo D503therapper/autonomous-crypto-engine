@@ -22807,6 +22807,34 @@ def test_daily_1112_college_fourth_down_coach_is_a_tracker_lead_only():
     assert "fourth_down_tags" not in src and "CF4_" not in src                                    # never read by the board
 
 
+def test_cbb_profit_1114_a_home_dog_without_the_15_point_gap_reads_one_less_in_the_dog_slot():
+    """11/14 COLLEGE HOOPS PROFIT STUDIES (results/studies/cbb_profit_1114/ s1b / s1c): the dog slot's one leak that holds
+    in both halves - a HOME dog (true home floor) whose efficiency read is not 15+ points over the no-vig price: posted
+    43-53, -5.7% (train -6.3% / held -2.7%) while the rest of the slot ran +16.6% (+13.1% / +37.0%). From the 11/14
+    Pacific game day the dog read takes -1 on that dog (a weight, never a block): a read of 4 falls under the gate, a 5+
+    read still posts; a home dog WITH the 15-point gap (the gap play's twin), road and neutral-site dogs are untouched."""
+    keep = sports.dog_spots
+    try:
+        sports.dog_spots = lambda c: 2.0                    # (the study angles: +2 - the read is the ratings' doing)
+        base = {"league": "ncaab", "market": "ml", "odds": 130, "dec": 2.3, "p_market": 0.42, "eff_p": 0.53,
+                "games_in": 6, "opp_games_in": 6, "home": True, "neutral": False, "side": "home", "reasons": []}
+        new, old = {**base, "start": "2026-11-21T01:00Z"}, {**base, "start": "2026-11-13T01:00Z"}
+        assert sports.ncaab_home_dog_short(new) and not sports.ncaab_home_dog_short(old)        # (the date gate)
+        assert sports.ncaab_dog_read(dict(old)) == 4 and sports.ncaab_dog_read_ok(dict(old))   # backed +2, weights +2
+        n = dict(new)
+        assert sports.ncaab_dog_read(n) == 3 and not sports.ncaab_dog_read_ok(n) and n["dog_read_parts"]["home"] == -1
+        assert sports.ncaab_dog_read({**new, "home": False, "side": "away"}) == 4                # a road dog: untouched
+        assert sports.ncaab_dog_read({**new, "neutral": True}) == 4                              # a neutral floor: untouched
+        twin = {**new, "eff_p": 0.58}                                                            # the 15-point gap: +2 more,
+        assert not sports.ncaab_home_dog_short(twin) and sports.ncaab_dog_read(dict(twin)) == 6  # untouched (2u stays)
+        hi = {**new}
+        sports.dog_spots = lambda c: 3.5
+        assert sports.ncaab_dog_read(hi) == 4.5 and sports.ncaab_dog_read_ok(hi)                 # a 5+ read still posts
+        assert not sports.ncaab_home_dog_short({**new, "league": "nba"})                         # college hoops only
+    finally:
+        sports.dog_spots = keep
+
+
 def test_leans_1113_a_college_hoops_spread_lean_needs_a_studied_weight_and_the_leans_carry_no_units():
     """11/13 FABLE - SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (the owner, 11/12: "the engine's been hitting these college
     basketball leans left and right. But they're just leans. They're not units"; results/studies/leans_1113 - the board

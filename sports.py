@@ -6645,10 +6645,41 @@ def ncaab_dog_read(c, facts=None):
             r += NCAAB_DOG_RATING_PTS[2]
     held = ncaab_dog_facts(c, facts)
     k = sum(NCAAB_DOG_FACTS[n] for n in held)
-    c["dog_read"] = round(w + r + k, 2)
-    c["dog_read_parts"] = {"weights": w, "ratings": r, "knowledge": k, "facts": sorted(held),
+    h = NCAAB_HOME_DOG_READ_PTS if ncaab_home_dog_short(c, read) else 0
+    c["dog_read"] = round(w + r + k + h, 2)
+    c["dog_read_parts"] = {"weights": w, "ratings": r, "knowledge": k, "facts": sorted(held), "home": h,
                            "games_ok": min(c.get("games_in") or 0, c.get("opp_games_in") or 0) >= NCAAB_DOG_READ_GAMES}
     return c["dog_read"]
+
+
+NCAAB_HOME_DOG_FROM = "2026-11-14"   # 🏠 11/14 COLLEGE HOOPS PROFIT STUDIES (results/studies/cbb_profit_1114/ s1 / s1b /
+NCAAB_HOME_DOG_READ_PTS = -1         # s1c; SPORTS_FINDINGS "11/14 - COLLEGE HOOPS PROFIT STUDIES"): THE HOME DOG IN THE
+#                                      DOG SLOT. The slot on today's code, replayed 2018-26 at the close (the slot rebuilt
+#                                      on the 11/13 funnel rows - 192 of its 195 real picks + 97 gap-play twins): 146-145,
+#                                      +9.3% flat / +12.8% on its units (train +6.7%, held +23.5%). Its one leak that holds
+#                                      in both halves: a HOME dog (a true home floor) WITHOUT the gap play's 15-point
+#                                      efficiency gap - posted 43-53, -5.7% (train -6.3% / held -2.7%; at a read of 4-5
+#                                      40-51, -7.3%: -6.8% / -10.4%); it won 46.2% against 44.7% priced while its read said
+#                                      48.7% - the efficiency read's home edge (the 11/12 deep program: a college home dog
+#                                      reads ~9 points over a close that is right) carries it over the gate. Everything
+#                                      else the slot posts: 103-92, +16.6% (train +13.1% / held +37.0%, 7 of 8 seasons up);
+#                                      a random cut of the same size did as badly 109 of 2,000 times. A WEIGHT on the dog
+#                                      read, never a block: -1 on a home dog the ratings don't back by 15+ points, so a
+#                                      read of 4-5 falls under the gate and a 5+ read still posts (1u - 2u at 6+ needs 7);
+#                                      a home dog with the 15-point gap (the gap play's twin, +17.8%) and road / neutral
+#                                      dogs are untouched. From the 11/14 Pacific game day (a cut of a losing cell).
+
+
+def ncaab_home_dog_short(c, read=None):
+    """🏠 (11/14) a college hoops moneyline dog on its own floor (not neutral) whose efficiency read is NOT NCAAB_GAP_MIN+
+    points over the no-vig price, from NCAAB_HOME_DOG_FROM - its dog read takes NCAAB_HOME_DOG_READ_PTS."""
+    if not NCAAB_HOME_DOG_FROM or c.get("league") != "ncaab" or not c.get("home") or c.get("neutral"):
+        return False
+    if (pt_day(c) or "") < NCAAB_HOME_DOG_FROM:
+        return False
+    if read is None:
+        read, _ = ncaab_gap_read(c)
+    return not (read is not None and c.get("p_market") is not None and read - c["p_market"] >= NCAAB_GAP_MIN - 1e-9)
 
 
 def ncaab_dog_read_ok(c):
