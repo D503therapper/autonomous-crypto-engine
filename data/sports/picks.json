@@ -41887,6 +41887,7 @@
      "game:conf"
     ],
     "dec": 1.8333333333333335,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -41924,6 +41925,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "38,45",
+     "h": "32,42"
+    },
     "form_state": [
      39.0,
      1,
@@ -41976,7 +41981,7 @@
      "better rested"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -41985,7 +41990,9 @@
     ],
     "roster_new": 0.327,
     "roster_tin": 0.342,
+    "score": "Cal Poly 83 @ Idaho 74",
     "season_games": null,
+    "settled": "2026-11-14T04:13Z",
     "side": "home",
     "start": "2026-11-14T01:00Z",
     "stype": "2",
@@ -42003,12 +42010,14 @@
    }
   ],
   "p_hit": 0.5271,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-13T16:00Z",
   "round": 1,
+  "settled": "2026-11-14T04:13Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -110,
