@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T22:04Z",
+ "updated": "2026-11-14T22:06Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -821,8 +821,8 @@
    "away": "C Arkansas",
    "home": "E Kentucky",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1151,8 +1151,8 @@
    "away": "Jackson St",
    "home": "Winthrop",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1847,6 +1847,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401920567",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T22:00Z",
+   "away": "Morgan St",
+   "home": "Loyola MD",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401927387",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -2211,8 +2226,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kentucky",
-    "p": 0.534,
-    "tie": 0.033,
+    "p": 0.525,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2220,16 +2235,16 @@
    "start": "2026-11-14T23:15Z",
    "away": "Florida",
    "home": "Kentucky",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Kentucky",
     "opp": "Florida",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.562,
-    "win_p": 0.562,
+    "odds": -148,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
