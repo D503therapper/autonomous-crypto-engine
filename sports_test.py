@@ -23417,6 +23417,32 @@ def test_football_1114_the_floor_skips_the_nfl_home_dog_from_the_11_15_games():
         sports.dog_score = keep
 
 
+def test_owner_1114_the_college_hoops_spread_stack_play_goes_three_a_night_from_the_11_15_games():
+    """THE OWNER, 11/14 ("If 3 is going to make money ... I don't see any negative to 3" - his open 11/13 call (a), on
+    the 11/14 college hoops profit studies s5: the 3rd+ stack side a night held out 2023-25 224-166 +9.9% on 390, 3 of 3
+    seasons up, train +2.7% on 67): from the 11/15 Pacific games the ½u college hoops spread stack play posts up to 3 a
+    night (the biggest stack first); before that, 2. post_board takes the night's cap from ncaab_stack_play_cap(iso)."""
+    assert sports.NCAAB_STACK_PLAY_MAX_DAY == 2 and sports.NCAAB_STACK_PLAY_MAX_3 == 3
+    assert sports.NCAAB_STACK_PLAY_MAX_3_FROM == "2026-11-15"
+    assert sports.ncaab_stack_play_cap("2026-11-12") == 2 and sports.ncaab_stack_play_cap("2026-11-14") == 2
+    assert sports.ncaab_stack_play_cap("2026-11-15") == 3 and sports.ncaab_stack_play_cap("2027-01-10") == 3
+    src = open(sports.__file__).read()
+    pb = src[src.index("def post_board("):]
+    assert '("stackplay", ncaab_stack_plays, ncaab_stack_play_cap(iso))' in pb
+    keep = sports.NCAAB_STACK_PLAY_MAX_3_FROM
+    try:
+        sports.NCAAB_STACK_PLAY_MAX_3_FROM = "9999"                                       # the switch back
+        assert sports.ncaab_stack_play_cap("2026-11-20") == 2
+    finally:
+        sports.NCAAB_STACK_PLAY_MAX_3_FROM = keep
+    # four sides clearing the stack on one night: the play's own picker ranks them, the cap takes the top 3
+    four = [{"league": "ncaab", "market": "spread", "line": -2.5, "odds": -110, "dec": 1.909, "side": "home",
+             "start": "2026-11-20T01:00Z", "game_id": g, "team": g, "spread_stack": st, "breakdown": [], "p": 0.5}
+            for g, st in (("a", 0.05), ("b", 0.09), ("c", 0.07), ("d", 0.06))]
+    got = [x["game_id"] for x in sports.ncaab_stack_plays(four, ())]
+    assert got[:sports.ncaab_stack_play_cap("2026-11-20")] == ["b", "c", "d"]
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
