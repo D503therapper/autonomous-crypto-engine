@@ -1,0 +1,59 @@
+NFL dogs +100..+350: 1898 (home 744, road 1138); board unit plays on them 172
+
+-- the board's NFL dog unit plays, home vs road, by kind
+  HOME all                                                   15-33   flat  -27.0% z -1.68 |   -4.8u on  33.5u | train 9-23  -34.5% | held 6-10  -12.1% | up 2/8 | 2026 0-0 +0.0u
+      placebo (as badly): 430 of 2000
+  HOME dog                                                    5-10   flat  -20.5% z -0.68 |   -0.3u on  16.5u | train 4-9  -26.5% | held 1-1  +19.0% | up 2/6 | 2026 0-0 +0.0u
+  HOME dogplay                                                2-2    flat  +23.7% z +0.33 |   +0.5u on   2.0u | train 2-2  +23.7% | held 0-0   +0.0% | up 2/3 | 2026 0-0 +0.0u
+  HOME floor                                                  6-20   flat  -46.2% z -2.28 |   -6.0u on  13.0u | train 1-11  -80.8% | held 5-9  -16.6% | up 2/7 | 2026 0-0 +0.0u
+  HOME lock                                                   2-1    flat  +39.0% z +0.56 |   +1.1u on   2.0u | train 2-1  +39.0% | held 0-0   +0.0% | up 1/1 | 2026 0-0 +0.0u
+  HOME +100..+150                                            11-13   flat   -0.6% z -0.03 |   +1.7u on  21.5u | train 6-9  -11.4% | held 5-4  +17.3% | up 4/7 | 2026 0-0 +0.0u
+  HOME +151..+200                                             3-8    flat  -30.2% z -0.84 |   -1.7u on   5.5u | train 3-4   +9.7% | held 0-4 -100.0% | up 2/5 | 2026 0-0 +0.0u
+  HOME +201..+350                                             1-12   flat  -73.1% z -2.71 |   -4.8u on   6.5u | train 0-10 -100.0% | held 1-2  +16.7% | up 1/7 | 2026 0-0 +0.0u
+  HOME Sep-Oct                                                5-20   flat  -51.0% z -2.48 |   -5.8u on  15.5u | train 1-15  -85.6% | held 4-5  +10.4% | up 2/7 | 2026 0-0 +0.0u
+  HOME Nov                                                    5-5    flat  +20.2% z +0.50 |   +3.1u on   6.5u | train 4-3  +41.7% | held 1-2  -30.0% | up 3/6 | 2026 0-0 +0.0u
+  HOME Dec-Jan                                                5-8    flat  -17.2% z -0.56 |   -2.0u on  11.5u | train 4-5   -2.8% | held 1-3  -49.5% | up 1/5 | 2026 0-0 +0.0u
+  ROAD all                                                   58-61   flat  +26.9% z +2.15 |  +22.7u on  67.0u | train 29-20  +43.9% | held 29-41  +15.0% | up 8/9 | 2026 4-10 -1.4u
+      placebo (as well): 11 of 2000
+  ROAD dog                                                    6-6    flat  +30.2% z +0.76 |   +8.5u on  13.5u | train 6-4  +56.3% | held 0-2 -100.0% | up 3/4 | 2026 0-0 +0.0u
+  ROAD dogplay                                                1-0    flat +158.0% z +0.00 |   +0.8u on   0.5u | train 1-0 +158.0% | held 0-0   +0.0% | up 1/1 | 2026 0-0 +0.0u
+  ROAD floor                                                 51-54   flat  +26.5% z +1.98 |  +13.9u on  52.5u | train 22-15  +41.4% | held 29-39  +18.4% | up 8/9 | 2026 4-10 -1.4u
+  ROAD solo                                                   0-1    flat -100.0% z +0.00 |   -0.5u on   0.5u | train 0-1 -100.0% | held 0-0   +0.0% | up 0/1 | 2026 0-0 +0.0u
+  ROAD +100..+150                                            34-31   flat  +15.7% z +1.13 |  +11.8u on  40.0u | train 20-9  +52.4% | held 14-22  -14.0% | up 7/9 | 2026 2-5 -1.1u
+  ROAD +151..+200                                            10-16   flat   +5.6% z +0.21 |   +0.7u on  13.0u | train 5-6  +22.4% | held 5-10   -6.7% | up 5/9 | 2026 0-3 -1.5u
+  ROAD +201..+350                                            14-14   flat  +72.9% z +2.16 |  +10.2u on  14.0u | train 4-5  +42.8% | held 10-9  +87.2% | up 7/8 | 2026 2-2 +1.2u
+  ROAD Sep-Oct                                               38-38   flat  +26.0% z +1.73 |  +16.0u on  42.5u | train 19-7  +76.2% | held 19-31   -0.1% | up 6/9 | 2026 4-8 -0.4u
+  ROAD Nov                                                   11-12   flat  +41.2% z +1.22 |   +4.7u on  11.5u | train 4-7   -2.3% | held 7-5  +81.1% | up 5/7 | 2026 0-2 -1.0u
+  ROAD Dec-Jan                                                9-11   flat  +14.1% z +0.47 |   +1.9u on  13.0u | train 6-6  +16.4% | held 3-5  +10.6% | up 4/6 | 2026 0-0 +0.0u
+
+-- every NFL dog (not just the board's): home vs road, by the reads
+  HOME every dog                                            256-488  flat   -9.6% z -2.04 |   -4.8u on  33.5u | train 148-271   -7.2% | held 108-217  -12.6% | up 2/9 | 2026 13-31 +0.0u
+  HOME own read over the price                               74-152  flat  -13.3% z -1.58 |   -0.6u on  24.5u | train 68-139  -13.6% | held 6-13   -9.7% | up 2/8 | 2026 0-0 +0.0u
+  HOME dog_own_ok (own + the weighed check)                  28-48   flat   -3.9% z -0.26 |   +1.4u on  21.5u | train 25-40   -1.2% | held 3-8  -19.7% | up 3/8 | 2026 0-0 +0.0u
+  HOME dog score 4+                                          53-85   flat   -2.3% z -0.22 |   -0.1u on  24.0u | train 47-69   +3.2% | held 6-16  -31.6% | up 5/8 | 2026 0-0 +0.0u
+  HOME dog score 4+, dog_own_ok                              24-42   flat   -9.0% z -0.58 |   +1.4u on  21.5u | train 22-35   -2.6% | held 2-7  -49.1% | up 3/8 | 2026 0-0 +0.0u
+  HOME floor-shaped: a named reason, not fighting, thin own edge   73-148  flat  -14.0% z -1.64 |   -8.7u on  17.0u | train 34-51   +2.2% | held 39-97  -24.1% | up 3/9 | 2026 0-3 +0.0u
+      the raw ratings read minus the no-vig close: mean +4.62 points on 744
+      the own read minus the price: mean -0.83 points
+  ROAD every dog                                            411-727  flat   -0.8% z -0.19 |  +22.7u on  67.0u | train 249-415   +1.8% | held 162-312   -4.3% | up 4/9 | 2026 22-44 -1.4u
+  ROAD own read over the price                               75-123  flat   +3.3% z +0.34 |  +12.7u on  26.5u | train 58-99   +2.0% | held 17-24   +8.4% | up 4/8 | 2026 0-0 +0.0u
+  ROAD dog_own_ok (own + the weighed check)                  48-63   flat  +19.9% z +1.47 |  +11.3u on  22.5u | train 36-47  +21.4% | held 12-16  +15.5% | up 5/8 | 2026 0-0 +0.0u
+  ROAD dog score 4+                                          92-110  flat  +25.6% z +2.54 |  +12.4u on  37.0u | train 59-66  +29.7% | held 33-44  +19.0% | up 7/9 | 2026 1-4 -0.9u
+  ROAD dog score 4+, dog_own_ok                              43-53   flat  +22.6% z +1.56 |   +9.6u on  21.5u | train 32-37  +28.5% | held 11-16   +7.4% | up 5/8 | 2026 0-0 +0.0u
+  ROAD floor-shaped: a named reason, not fighting, thin own edge  167-277  flat   +3.1% z +0.47 |  +16.6u on  56.0u | train 66-91   +6.3% | held 101-186   +1.3% | up 4/9 | 2026 15-30 -1.4u
+      the raw ratings read minus the no-vig close: mean +2.66 points on 1138
+      the own read minus the price: mean -1.69 points
+
+-- the game files (every priced regular-season NFL game 2018-26 at the close): the market base
+home dog +100..+350                                        ALL   726  -10.3% z-2.15 | TRAIN   326   -7.2% z-1.01 up 1/4 | 2022    85   -6.9% z-0.50 | 2023    85   -6.8% z-0.49 | 2024    98  -35.7% z-2.95 | 2025    88   +8.3% z+0.56 | 2026    44  -26.9% z-1.53 | HELD   400  -12.8% z-1.99
+road dog +100..+350                                        ALL  1071   -1.0% z-0.23 | TRAIN   481   +3.4% z+0.55 up 2/4 | 2022   136   -6.6% z-0.60 | 2023   137  -11.8% z-1.04 | 2024   136   -9.1% z-0.77 | 2025   116  +12.0% z+0.89 | 2026    65   -4.8% z-0.28 | HELD   590   -4.5% z-0.81
+home dog +100..+150                                        ALL   334   -9.1% z-1.51 | TRAIN   130   +3.6% z+0.36 up 3/4 | 2022    43   -6.5% z-0.38 | 2023    57  -22.4% z-1.59 | 2024    43  -43.0% z-2.89 | 2025    38   -1.3% z-0.08 | 2026    23   -2.1% z-0.09 | HELD   204  -17.2% z-2.27
+road dog +100..+150                                        ALL   410   +1.4% z+0.25 | TRAIN   156  +12.6% z+1.39 up 3/4 | 2022    59   +3.2% z+0.22 | 2023    66  -28.2% z-2.17 | 2024    57   -5.3% z-0.36 | 2025    46  +14.8% z+0.87 | 2026    26   -3.6% z-0.16 | HELD   254   -5.5% z-0.78
+
+-- what a cut does to the board (the NFL dog unit plays without the HOME floor dog / without every HOME dog)
+  today: every NFL dog unit play                             75-97   flat  +10.9% z +1.09 |  +17.8u on 103.0u | train 38-44  +11.6% | held 37-53  +10.4% | up 6/9 | 2026 5-11 -1.1u
+  without the HOME floor dog                                 69-77   flat  +21.1% z +1.91 |  +23.8u on  90.0u | train 37-33  +27.4% | held 32-44  +15.3% | up 7/9 | 2026 5-11 -1.1u
+  without any HOME dog unit play                             60-64   flat  +25.6% z +2.10 |  +22.6u on  69.5u | train 29-21  +41.0% | held 31-43  +15.2% | up 7/9 | 2026 5-11 -1.1u
+  the HOME floor dogs alone                                   6-20   flat  -46.2% z -2.28 |   -6.0u on  13.0u | train 1-11  -80.8% | held 5-9  -16.6% | up 2/7 | 2026 0-0 +0.0u
+      placebo (as badly): 176 of 2000
+  the HOME Dogs of the Day alone                              5-10   flat  -20.5% z -0.68 |   -0.3u on  16.5u | train 4-9  -26.5% | held 1-1  +19.0% | up 2/6 | 2026 0-0 +0.0u

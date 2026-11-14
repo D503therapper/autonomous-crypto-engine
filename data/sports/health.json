@@ -1,9 +1,9 @@
 {
- "at": "2026-11-13T23:56Z",
+ "at": "2026-11-14T07:32Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (133s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,89 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
-  "engine ran 8 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T07:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T07:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T07:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-14T06:52Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T05:19Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T05:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T05:13Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T03:41Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-14T03:39Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-14T03:39Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-11-14T02:04Z",
+   "fixes": [
+    "live watch 43539916854 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T01:29Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-13T23:56Z",
    "fixes": [],
@@ -401,105 +473,6 @@
     "studies last ran 10h ago - restarted",
     "simulator last ran 10h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-11-12T17:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-12T17:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1379s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-12T17:11Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Hercog vs Tubello: no points for 1186s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:39Z",
-   "fixes": [
-    "live watch 43241743310 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:37Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:35Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:34Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:33Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1536s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1405s"
-   ]
-  },
-  {
-   "at": "2026-11-12T15:29Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Mandlik: no points for 1298s",
-    "live tennis scores: tennis Burillo vs Samson: no points for 1167s"
-   ]
-  },
-  {
-   "at": "2026-11-12T13:54Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T13:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-12T13:19Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

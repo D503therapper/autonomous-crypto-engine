@@ -1,0 +1,571 @@
+R1: hockey unit plays 430, with a b2b fact 430, with our goalie's last 3 425
+R2: hockey unit plays 511, with a b2b fact 511, with our goalie's last 3 507
+
+============================== (0) WHAT EACH KIND EARNS NOW (flat 1u, and at its own size) - both boards
+-- R1
+  lock                                                 n  154  94-60  flat   +4.8% z +0.71 | train   +5.6% ( 91) | held   +3.6% ( 63) | up 4/4 | live 3-0 +69%
+  lock at its size                                     n  154  94-60  units   +6.8% z +0.71 | train   +8.5% ( 91) | held   +3.6% ( 63) | up 4/4 | live 3-0 +69% | +16.4u on 241u
+  dog                                                  n  286 145-141 flat  +17.2% z +2.67 | train  +13.5% (171) | held  +22.7% (115) | up 3/4 | live 5-4 +36%
+  dog at its size                                      n  286 145-141 units  +19.3% z +2.67 | train  +17.4% (171) | held  +22.0% (115) | up 3/4 | live 5-4 +20% | +85.2u on 440u
+  nbafav                                               n   76  54-22  flat  +22.7% z +2.34 | train   +9.8% ( 52) | held  +50.7% ( 24) | up 3/3 | live 0-0 +0%
+  nbafav at its size                                   n   76  54-22  units  +22.7% z +2.34 | train   +9.8% ( 52) | held  +50.7% ( 24) | up 3/3 | live 0-0 +0% | +17.3u on 76u
+  dogplay                                              n   60  30-30  flat  +11.3% z +0.88 | train   +7.5% ( 36) | held  +16.9% ( 24) | up 3/4 | live 2-1 +53%
+  dogplay at its size                                  n   60  30-30  units  +11.3% z +0.88 | train   +7.5% ( 36) | held  +16.9% ( 24) | up 3/4 | live 2-1 +53% | +3.4u on 30u
+  play                                                 n  328 190-138 flat   +1.6% z +0.37 | train   +7.3% (196) | held   -6.8% (132) | up 2/4 | live 5-3 +10%
+  play at its size                                     n  328 190-138 units   +1.6% z +0.37 | train   +7.3% (196) | held   -6.8% (132) | up 2/4 | live 5-3 +10% | +2.6u on 164u
+  nbafloor                                             n  128  65-63  flat  +24.7% z +2.15 | train  +26.7% ( 93) | held  +19.7% ( 35) | up 3/3 | live 2-3 -11%
+  nbafloor at its size                                 n  128  65-63  units  +24.7% z +2.15 | train  +26.7% ( 93) | held  +19.7% ( 35) | up 3/3 | live 2-3 -11% | +15.8u on 64u
+  floor                                                n  918 434-484 flat   +8.0% z +1.91 | train   +8.6% (451) | held   +7.3% (467) | up 4/4 | live 2-3 +15%
+  floor at its size                                    n  918 434-484 units   +8.0% z +1.91 | train   +8.6% (451) | held   +7.3% (467) | up 4/4 | live 2-3 +15% | +36.5u on 459u
+  floorfb                                              n    5   3-2   flat  +37.6% z +0.70 | train  +10.0% (  4) | held +148.0% (  1) | up 2/2 | live 1-0 +156%
+  floorfb at its size                                  n    5   3-2   units  +37.6% z +0.70 | train  +10.0% (  4) | held +148.0% (  1) | up 2/2 | live 1-0 +156% | +0.9u on 2u
+  solo                                                 n    2   2-0   flat  +85.5% z +1.31 | train  +87.7% (  1) | held  +83.3% (  1) | up 2/2 | live 0-0 +0%
+  solo at its size                                     n    2   2-0   units  +85.5% z +1.31 | train  +87.7% (  1) | held  +83.3% (  1) | up 2/2 | live 0-0 +0% | +0.9u on 1u
+  Dog of the Day, nhl                                  n  232 117-115 flat  +15.6% z +2.07 | train  +11.3% (146) | held  +22.9% ( 86) | up 3/3 | live 3-2 +35%
+  Dog of the Day, nba                                  n   23  14-9   flat  +47.3% z +2.00 | train  +34.1% ( 18) | held  +94.6% (  5) | up 3/3 | live 1-0 +120%
+  Dog of the Day, nfl                                  n    4   1-3   flat  -40.5% z -0.39 | train  -40.5% (  4) | held   +0.0% (  0) | up 0/1 | live 0-0 +0%
+  Dog of the Day, ncaaf                                n   27  13-14  flat  +13.6% z +0.90 | train  +66.7% (  3) | held   +7.0% ( 24) | up 2/3 | live 1-2 +9%
+-- R2
+  lock                                                 n    5   2-3   flat  -32.4% z -0.77 | train   +0.0% (  0) | held  -32.4% (  5) | up 0/1 | live 0-0 +0%
+  lock at its size                                     n    5   2-3   units  -32.4% z -0.77 | train   +0.0% (  0) | held  -32.4% (  5) | up 0/1 | live 0-0 +0% | -3.2u on 10u
+  dog                                                  n  261 128-133 flat  +12.7% z +1.76 | train  +10.2% (163) | held  +16.8% ( 98) | up 4/4 | live 10-8 +20%
+  dog at its size                                      n  261 128-133 units  +12.0% z +1.76 | train  +11.8% (163) | held  +12.2% ( 98) | up 4/4 | live 10-8 +35% | +49.9u on 416u
+  nbafav                                               n   63  49-14  flat  +34.1% z +3.20 | train  +26.0% ( 37) | held  +45.7% ( 26) | up 3/3 | live 1-0 +81%
+  nbafav at its size                                   n   63  49-14  units  +34.1% z +3.20 | train  +26.0% ( 37) | held  +45.7% ( 26) | up 3/3 | live 1-0 +81% | +21.5u on 63u
+  dogplay                                              n   61  33-28  flat  +22.1% z +1.64 | train  +19.3% ( 37) | held  +26.5% ( 24) | up 2/3 | live 2-2 +12%
+  dogplay at its size                                  n   61  33-28  units  +22.1% z +1.64 | train  +19.3% ( 37) | held  +26.5% ( 24) | up 2/3 | live 2-2 +12% | +6.8u on 30u
+  play                                                 n   23  16-7   flat  +21.6% z +1.19 | train  +51.5% (  7) | held   +8.5% ( 16) | up 2/3 | live 2-0 +77%
+  play at its size                                     n   23  16-7   units  +21.6% z +1.19 | train  +51.5% (  7) | held   +8.5% ( 16) | up 2/3 | live 2-0 +77% | +2.5u on 12u
+  nbafloor                                             n  139  71-68  flat  +22.3% z +2.22 | train  +27.5% ( 94) | held  +11.4% ( 45) | up 3/3 | live 1-5 -66%
+  nbafloor at its size                                 n  139  71-68  units  +22.3% z +2.22 | train  +27.5% ( 94) | held  +11.4% ( 45) | up 3/3 | live 1-5 -66% | +15.5u on 70u
+  floor                                                n 1067 491-576 flat   +5.6% z +1.39 | train   +2.3% (553) | held   +9.3% (514) | up 3/4 | live 5-8 -0%
+  floor at its size                                    n 1067 491-576 units   +5.6% z +1.39 | train   +2.3% (553) | held   +9.3% (514) | up 3/4 | live 5-8 -0% | +30.1u on 534u
+  solo                                                 n    1   1-0   flat  +83.3% z +0.91 | train   +0.0% (  0) | held  +83.3% (  1) | up 1/1 | live 0-0 +0%
+  solo at its size                                     n    1   1-0   units  +83.3% z +0.91 | train   +0.0% (  0) | held  +83.3% (  1) | up 1/1 | live 0-0 +0% | +0.4u on 0u
+  Dog of the Day, nhl                                  n  242 117-125 flat  +10.8% z +1.43 | train   +8.6% (148) | held  +14.3% ( 94) | up 4/4 | live 8-6 +22%
+  Dog of the Day, nba                                  n   19  11-8   flat  +36.8% z +1.43 | train  +26.7% ( 15) | held  +75.0% (  4) | up 3/3 | live 2-2 +14%
+
+============================== (A) THE FLOOR'S HOCKEY DOGS (½u today) - the Predators question
+-- R1: the floor's hockey dogs, by the facts
+  all                                                  n  108  53-55  flat  +12.5% z +1.17 | train   +6.2% ( 74) | held  +26.0% ( 34) | up 3/4 | live 0-1 -100%
+  dog score -99..-3                                    n   10   4-6   flat   -5.5% z -0.12 | train  +43.0% (  5) | held  -54.0% (  5) | up 2/4 | live 0-0 +0%
+  dog score -3..0                                      n   13   8-5   flat  +38.4% z +1.32 | train  -16.8% (  8) | held +126.6% (  5) | up 2/3 | live 0-0 +0%
+  dog score 0..3                                       n   27  15-12  flat  +23.0% z +1.21 | train   +6.8% ( 17) | held  +50.5% ( 10) | up 3/4 | live 0-0 +0%
+  dog score 3..6                                       n   58  26-32  flat   +4.8% z +0.19 | train   +6.0% ( 44) | held   +1.1% ( 14) | up 2/3 | live 0-1 -100%
+  dog score 6..99                                      n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  the favorite on a b2b (we're rested)                 n   18   7-11  flat  -13.2% z -0.28 | train  -25.1% ( 15) | held  +46.0% (  3) | up 2/3 | live 0-0 +0%
+  we're on a b2b                                       n   10   4-6   flat  -15.0% z -0.33 | train  +28.0% (  5) | held  -58.0% (  5) | up 2/3 | live 0-0 +0%
+  our goalie hot (last 3 .930+)                        n   22   9-13  flat  -10.1% z -0.31 | train  -31.6% ( 13) | held  +21.0% (  9) | up 2/4 | live 0-0 +0%
+  our goalie not hot                                   n   84  43-41  flat  +18.6% z +1.48 | train  +14.7% ( 59) | held  +27.8% ( 25) | up 4/4 | live 0-1 -100%
+  +100..+150                                           n   84  42-42  flat   +8.6% z +0.80 | train   +9.3% ( 54) | held   +7.4% ( 30) | up 3/4 | live 0-1 -100%
+  +151..+350                                           n   24  11-13  flat  +25.9% z +0.99 | train   -2.1% ( 20) | held +165.5% (  4) | up 2/3 | live 0-0 +0%
+  own read within 2 of the price                       n   63  32-31  flat  +18.1% z +1.31 | train  +15.9% ( 39) | held  +21.5% ( 24) | up 4/4 | live 0-1 -100%
+  own read 2+ under the price                          n   45  21-24  flat   +4.6% z +0.26 | train   -4.6% ( 35) | held  +36.7% ( 10) | up 2/3 | live 0-0 +0%
+  the fallback (the day had no other unit play)        n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  PREDATORS-TYPE: score under 0, goalie hot            n    6   4-2   flat  +48.0% z +1.21 | train  +50.3% (  3) | held  +45.7% (  3) | up 2/2 | live 0-0 +0%
+-- R2: the floor's hockey dogs, by the facts
+  all                                                  n  161  72-89  flat   +3.0% z +0.44 | train   +0.7% (106) | held   +7.3% ( 55) | up 2/4 | live 2-4 -17%
+  dog score -99..-3                                    n   12   6-6   flat  +13.2% z +0.48 | train  +35.9% ( 10) | held -100.0% (  2) | up 1/3 | live 0-0 +0%
+  dog score -3..0                                      n   17   8-9   flat  +11.6% z +0.47 | train   +5.8% (  9) | held  +18.3% (  8) | up 2/4 | live 0-1 -100%
+  dog score 0..3                                       n   51  22-29  flat   -4.4% z -0.03 | train  -10.2% ( 27) | held   +2.1% ( 24) | up 1/4 | live 1-1 +18%
+  dog score 3..6                                       n   81  36-45  flat   +4.2% z +0.24 | train   -1.0% ( 60) | held  +19.1% ( 21) | up 2/3 | live 1-2 -13%
+  dog score 6..99                                      n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  the favorite on a b2b (we're rested)                 n   25   7-18  flat  -36.7% z -1.38 | train  -37.8% ( 22) | held  -28.7% (  3) | up 1/4 | live 1-0 +136%
+  we're on a b2b                                       n   13   5-8   flat  -15.8% z -0.38 | train  -31.4% (  7) | held   +2.5% (  6) | up 1/3 | live 0-0 +0%
+  our goalie hot (last 3 .930+)                        n   25  11-14  flat   -2.2% z -0.00 | train   -2.0% ( 16) | held   -2.7% (  9) | up 2/4 | live 0-1 -100%
+  our goalie not hot                                   n  134  60-74  flat   +3.9% z +0.48 | train   +1.2% ( 88) | held   +9.2% ( 46) | up 2/4 | live 2-3 -1%
+  +100..+150                                           n  122  58-64  flat   +5.0% z +0.51 | train   +8.7% ( 78) | held   -1.6% ( 44) | up 3/4 | live 1-4 -53%
+  +151..+350                                           n   39  14-25  flat   -3.3% z -0.03 | train  -21.4% ( 28) | held  +42.7% ( 11) | up 2/4 | live 1-0 +160%
+  own read within 2 of the price                       n  113  48-65  flat   -1.4% z -0.04 | train   -4.5% ( 67) | held   +3.2% ( 46) | up 3/4 | live 2-4 -17%
+  own read 2+ under the price                          n   48  24-24  flat  +13.1% z +0.85 | train   +9.7% ( 39) | held  +28.1% (  9) | up 3/4 | live 0-0 +0%
+  the fallback (the day had no other unit play)        n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  PREDATORS-TYPE: score under 0, goalie hot            n    7   4-3   flat  +26.1% z +0.61 | train  +76.6% (  5) | held -100.0% (  2) | up 1/3 | live 0-1 -100%
+
+  >> (a) floor hockey dog at 1u+: dog score 3+
+  R1 the cell                                          n   58  26-32  flat   +4.8% z +0.19 | train   +6.0% ( 44) | held   +1.1% ( 14) | up 2/3 | live 0-1 -100%
+  R1 the rest of its kind                              n   50  27-23  flat  +21.3% z +1.51 | train   +6.5% ( 30) | held  +43.4% ( 20) | up 4/4 | live 0-0 +0%
+     R1 placebo: a random 57 of its kind did as well 1558 of 2,000
+  R2 the cell                                          n   81  36-45  flat   +4.2% z +0.24 | train   -1.0% ( 60) | held  +19.1% ( 21) | up 2/3 | live 1-2 -13%
+  R2 the rest of its kind                              n   80  36-44  flat   +1.7% z +0.38 | train   +2.9% ( 46) | held   -0.1% ( 34) | up 3/4 | live 1-2 -21%
+     R2 placebo: a random 78 of its kind did as well 870 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: dog score 0+
+  R1 the cell                                          n   85  41-44  flat  +10.6% z +0.84 | train   +6.2% ( 61) | held  +21.7% ( 24) | up 3/4 | live 0-1 -100%
+  R1 the rest of its kind                              n   23  12-11  flat  +19.3% z +0.91 | train   +6.2% ( 13) | held  +36.3% ( 10) | up 3/4 | live 0-0 +0%
+     R1 placebo: a random 84 of its kind did as well 1237 of 2,000
+  R2 the cell                                          n  132  58-74  flat   +0.9% z +0.17 | train   -3.9% ( 87) | held  +10.1% ( 45) | up 3/4 | live 2-3 -1%
+  R2 the rest of its kind                              n   29  14-15  flat  +12.3% z +0.67 | train  +21.6% ( 19) | held   -5.4% ( 10) | up 3/4 | live 0-1 -100%
+     R2 placebo: a random 127 of its kind did as well 1403 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: the favorite on a b2b, we're rested
+  R1 the cell                                          n   18   7-11  flat  -13.2% z -0.28 | train  -25.1% ( 15) | held  +46.0% (  3) | up 2/3 | live 0-0 +0%
+  R1 the rest of its kind                              n   90  46-44  flat  +17.6% z +1.40 | train  +14.2% ( 59) | held  +24.0% ( 31) | up 3/4 | live 0-1 -100%
+     R1 placebo: a random 18 of its kind did as well 1700 of 2,000
+  R2 the cell                                          n   25   7-18  flat  -36.7% z -1.38 | train  -37.8% ( 22) | held  -28.7% (  3) | up 1/4 | live 1-0 +136%
+  R2 the rest of its kind                              n  136  65-71  flat  +10.2% z +1.06 | train  +10.8% ( 84) | held   +9.3% ( 52) | up 3/4 | live 1-4 -48%
+     R2 placebo: a random 24 of its kind did as well 1949 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: our goalie hot (last 3 .930+)
+  R1 the cell                                          n   22   9-13  flat  -10.1% z -0.31 | train  -31.6% ( 13) | held  +21.0% (  9) | up 2/4 | live 0-0 +0%
+  R1 the rest of its kind                              n   86  44-42  flat  +18.2% z +1.47 | train  +14.3% ( 61) | held  +27.8% ( 25) | up 4/4 | live 0-1 -100%
+     R1 placebo: a random 22 of its kind did as well 1699 of 2,000
+  R2 the cell                                          n   25  11-14  flat   -2.2% z -0.00 | train   -2.0% ( 16) | held   -2.7% (  9) | up 2/4 | live 0-1 -100%
+  R2 the rest of its kind                              n  136  61-75  flat   +3.9% z +0.48 | train   +1.2% ( 90) | held   +9.2% ( 46) | up 2/4 | live 2-3 -1%
+     R2 placebo: a random 24 of its kind did as well 1211 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: +100..+150
+  R1 the cell                                          n   84  42-42  flat   +8.6% z +0.80 | train   +9.3% ( 54) | held   +7.4% ( 30) | up 3/4 | live 0-1 -100%
+  R1 the rest of its kind                              n   24  11-13  flat  +25.9% z +0.99 | train   -2.1% ( 20) | held +165.5% (  4) | up 2/3 | live 0-0 +0%
+     R1 placebo: a random 83 of its kind did as well 1494 of 2,000
+  R2 the cell                                          n  122  58-64  flat   +5.0% z +0.51 | train   +8.7% ( 78) | held   -1.6% ( 44) | up 3/4 | live 1-4 -53%
+  R2 the rest of its kind                              n   39  14-25  flat   -3.3% z -0.03 | train  -21.4% ( 28) | held  +42.7% ( 11) | up 2/4 | live 1-0 +160%
+     R2 placebo: a random 117 of its kind did as well 712 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: own read within 2 of the price
+  R1 the cell                                          n   63  32-31  flat  +18.1% z +1.31 | train  +15.9% ( 39) | held  +21.5% ( 24) | up 4/4 | live 0-1 -100%
+  R1 the rest of its kind                              n   45  21-24  flat   +4.6% z +0.26 | train   -4.6% ( 35) | held  +36.7% ( 10) | up 2/3 | live 0-0 +0%
+     R1 placebo: a random 62 of its kind did as well 569 of 2,000
+  R2 the cell                                          n  113  48-65  flat   -1.4% z -0.04 | train   -4.5% ( 67) | held   +3.2% ( 46) | up 3/4 | live 2-4 -17%
+  R2 the rest of its kind                              n   48  24-24  flat  +13.1% z +0.85 | train   +9.7% ( 39) | held  +28.1% (  9) | up 3/4 | live 0-0 +0%
+     R2 placebo: a random 107 of its kind did as well 1551 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: dog score 0+ AND +100..+150
+  R1 the cell                                          n   66  32-34  flat   +4.7% z +0.43 | train   +6.4% ( 45) | held   +1.0% ( 21) | up 2/4 | live 0-1 -100%
+  R1 the rest of its kind                              n   42  21-21  flat  +24.7% z +1.34 | train   +6.1% ( 29) | held  +66.2% ( 13) | up 4/4 | live 0-0 +0%
+     R1 placebo: a random 65 of its kind did as well 1628 of 2,000
+  R2 the cell                                          n  100  46-54  flat   +0.8% z +0.13 | train   -1.1% ( 65) | held   +4.2% ( 35) | up 2/4 | live 1-3 -41%
+  R2 the rest of its kind                              n   61  26-35  flat   +6.6% z +0.55 | train   +3.6% ( 41) | held  +12.6% ( 20) | up 3/4 | live 1-1 +30%
+     R2 placebo: a random 96 of its kind did as well 1224 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: the favorite on a b2b AND +100..+150
+  R1 the cell                                          n   12   6-6   flat   +8.2% z +0.29 | train   -4.4% (  9) | held  +46.0% (  3) | up 1/2 | live 0-0 +0%
+  R1 the rest of its kind                              n   96  47-49  flat  +13.0% z +1.14 | train   +7.7% ( 65) | held  +24.0% ( 31) | up 3/4 | live 0-1 -100%
+     R1 placebo: a random 12 of its kind did as well 1125 of 2,000
+  R2 the cell                                          n   16   6-10  flat  -17.6% z -0.63 | train  -15.0% ( 13) | held  -28.7% (  3) | up 1/4 | live 1-0 +136%
+  R2 the rest of its kind                              n  145  66-79  flat   +5.2% z +0.67 | train   +2.9% ( 93) | held   +9.3% ( 52) | up 3/4 | live 1-4 -48%
+     R2 placebo: a random 15 of its kind did as well 1592 of 2,000
+     => no
+
+  >> (a) floor hockey dog at 1u+: goalie hot AND score under 0 (the Predators)
+  R1 the cell                                          n    6   4-2   flat  +48.0% z +1.21 | train  +50.3% (  3) | held  +45.7% (  3) | up 2/2 | live 0-0 +0%
+  R1 the rest of its kind                              n  102  49-53  flat  +10.4% z +0.91 | train   +4.4% ( 71) | held  +24.1% ( 31) | up 3/4 | live 0-1 -100%
+     R1 placebo: a random 6 of its kind did as well - of 2,000
+  R2 the cell                                          n    7   4-3   flat  +26.1% z +0.61 | train  +76.6% (  5) | held -100.0% (  2) | up 1/3 | live 0-1 -100%
+  R2 the rest of its kind                              n  154  68-86  flat   +1.9% z +0.32 | train   -3.0% (101) | held  +11.3% ( 53) | up 3/4 | live 2-3 -1%
+     R2 placebo: a random 6 of its kind did as well - of 2,000
+     => no
+
+============================== (B) THE DOG OF THE DAY'S 2u BAND - is there a 3u cell now?
+
+  >> (b) the 2u Dog at 3u: dog score 8+
+  R1 the cell                                          n   31  20-11  flat  +39.4% z +2.01 | train  +35.6% ( 13) | held  +42.1% ( 18) | up 4/4 | live 1-2 -29%
+  R1 the rest of its kind                              n  167  88-79  flat  +17.1% z +1.90 | train  +17.6% ( 97) | held  +16.4% ( 70) | up 4/4 | live 2-1 +53%
+     R1 placebo: a random 28 of its kind did as well 314 of 2,000
+  R2 the cell                                          n   29  17-12  flat  +26.5% z +1.30 | train  +17.3% ( 13) | held  +33.9% ( 16) | up 3/3 | live 2-1 +40%
+  R2 the rest of its kind                              n  161  79-82  flat   +9.0% z +0.95 | train  +12.0% ( 96) | held   +4.6% ( 65) | up 3/4 | live 6-3 +43%
+     R2 placebo: a random 26 of its kind did as well 437 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: dog score 10+
+  R1 the cell                                          n    6   4-2   flat  +44.7% z +0.96 | train +138.0% (  1) | held  +26.0% (  5) | up 3/3 | live 0-2 -100%
+  R1 the rest of its kind                              n  192 104-88  flat  +19.8% z +2.41 | train  +18.6% (109) | held  +21.4% ( 83) | up 4/4 | live 3-1 +68%
+     R1 placebo: a random 4 of its kind did as well - of 2,000
+  R2 the cell                                          n    3   2-1   flat  +36.7% z +0.62 | train   +0.0% (  0) | held  +36.7% (  3) | up 1/1 | live 0-0 +0%
+  R2 the rest of its kind                              n  187  94-93  flat  +11.3% z +1.32 | train  +12.7% (109) | held   +9.4% ( 78) | up 4/4 | live 8-4 +42%
+     R2 placebo: a random 3 of its kind did as well - of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: own read 1+ over the price
+  R1 the cell                                          n   43  23-20  flat  +16.9% z +1.02 | train  +63.9% (  7) | held   +7.7% ( 36) | up 4/4 | live 1-2 -29%
+  R1 the rest of its kind                              n  155  85-70  flat  +21.6% z +2.34 | train  +16.7% (103) | held  +31.3% ( 52) | up 3/3 | live 2-1 +53%
+     R1 placebo: a random 40 of its kind did as well 1222 of 2,000
+  R2 the cell                                          n   28  14-14  flat   +9.1% z +0.46 | train  +81.8% (  5) | held   -6.7% ( 23) | up 1/2 | live 1-0 +114%
+  R2 the rest of its kind                              n  162  82-80  flat  +12.1% z +1.31 | train   +9.3% (104) | held  +17.2% ( 58) | up 4/4 | live 7-4 +36%
+     R2 placebo: a random 27 of its kind did as well 1111 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: own read 2+ over the price
+  R1 the cell                                          n   15   7-8   flat   +0.7% z +0.03 | train +138.0% (  1) | held   -9.1% ( 14) | up 2/3 | live 0-2 -100%
+  R1 the rest of its kind                              n  183 101-82  flat  +22.2% z +2.64 | train  +18.6% (109) | held  +27.5% ( 74) | up 4/4 | live 3-1 +68%
+     R1 placebo: a random 13 of its kind did as well 1581 of 2,000
+  R2 the cell                                          n   12   5-7   flat  -12.0% z -0.34 | train   +0.0% (  0) | held  -12.0% ( 12) | up 0/1 | live 0-0 +0%
+  R2 the rest of its kind                              n  178  91-87  flat  +13.3% z +1.52 | train  +12.7% (109) | held  +14.3% ( 69) | up 4/4 | live 8-4 +42%
+     R2 placebo: a random 12 of its kind did as well 1627 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: +130..+150
+  R1 the cell                                          n   64  37-27  flat  +38.6% z +2.58 | train  +50.1% ( 40) | held  +19.6% ( 24) | up 3/3 | live 1-1 +25%
+  R1 the rest of its kind                              n  134  71-63  flat  +11.9% z +1.32 | train   +2.4% ( 70) | held  +22.4% ( 64) | up 3/4 | live 2-2 +6%
+     R1 placebo: a random 62 of its kind did as well 102 of 2,000
+  R2 the cell                                          n   58  33-25  flat  +36.7% z +2.33 | train  +60.6% ( 36) | held   -2.3% ( 22) | up 2/3 | live 1-0 +150%
+  R2 the rest of its kind                              n  132  63-69  flat   +0.7% z +0.13 | train  -11.0% ( 73) | held  +15.1% ( 59) | up 2/4 | live 7-4 +32%
+     R2 placebo: a random 57 of its kind did as well 36 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: +100..+129
+  R1 the cell                                          n  134  71-63  flat  +11.9% z +1.32 | train   +2.4% ( 70) | held  +22.4% ( 64) | up 3/4 | live 2-2 +6%
+  R1 the rest of its kind                              n   64  37-27  flat  +38.6% z +2.58 | train  +50.1% ( 40) | held  +19.6% ( 24) | up 3/3 | live 1-1 +25%
+     R1 placebo: a random 130 of its kind did as well 1890 of 2,000
+  R2 the cell                                          n  132  63-69  flat   +0.7% z +0.13 | train  -11.0% ( 73) | held  +15.1% ( 59) | up 2/4 | live 7-4 +32%
+  R2 the rest of its kind                              n   58  33-25  flat  +36.7% z +2.33 | train  +60.6% ( 36) | held   -2.3% ( 22) | up 2/3 | live 1-0 +150%
+     R2 placebo: a random 121 of its kind did as well 1964 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: the favorite on a b2b, we're rested
+  R1 the cell                                          n   49  25-24  flat  +11.5% z +0.73 | train  +30.2% ( 24) | held   -6.5% ( 25) | up 2/3 | live 1-1 +7%
+  R1 the rest of its kind                              n  149  83-66  flat  +23.6% z +2.51 | train  +16.8% ( 86) | held  +32.8% ( 63) | up 4/4 | live 2-2 +15%
+     R1 placebo: a random 47 of its kind did as well 1519 of 2,000
+  R2 the cell                                          n   51  26-25  flat  +11.3% z +0.70 | train  +32.0% ( 22) | held   -4.4% ( 29) | up 3/4 | live 2-2 +5%
+  R2 the rest of its kind                              n  139  70-69  flat  +11.8% z +1.20 | train   +7.8% ( 87) | held  +18.7% ( 52) | up 3/3 | live 6-2 +61%
+     R2 placebo: a random 47 of its kind did as well 1048 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: our goalie hot
+  R1 the cell                                          n   18   9-9   flat  +11.1% z +0.33 | train  -10.3% ( 10) | held  +37.9% (  8) | up 1/3 | live 1-0 +110%
+  R1 the rest of its kind                              n  180  99-81  flat  +21.5% z +2.57 | train  +22.7% (100) | held  +20.0% ( 80) | up 4/4 | live 2-3 -7%
+     R1 placebo: a random 17 of its kind did as well 1292 of 2,000
+  R2 the cell                                          n   17   8-9   flat   +4.7% z +0.07 | train  +12.1% (  8) | held   -1.9% (  9) | up 1/3 | live 2-0 +108%
+  R2 the rest of its kind                              n  173  88-85  flat  +12.4% z +1.43 | train  +12.7% (101) | held  +11.9% ( 72) | up 4/4 | live 6-4 +29%
+     R2 placebo: a random 15 of its kind did as well 1173 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: hockey
+  R1 the cell                                          n  182  97-85  flat  +18.1% z +2.12 | train  +17.8% (108) | held  +18.5% ( 74) | up 3/3 | live 3-1 +68%
+  R1 the rest of its kind                              n   16  11-5   flat  +48.8% z +1.79 | train +121.5% (  2) | held  +38.4% ( 14) | up 4/4 | live 0-2 -100%
+     R1 placebo: a random 178 of its kind did as well 1649 of 2,000
+  R2 the cell                                          n  190  96-94  flat  +11.7% z +1.39 | train  +12.7% (109) | held  +10.4% ( 81) | up 4/4 | live 8-4 +42%
+  R2 the rest of its kind                              n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+     R2 placebo: a random 178 of its kind did as well - of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: at home
+  R1 the cell                                          n   35  22-13  flat  +36.9% z +1.95 | train  +26.2% ( 16) | held  +45.9% ( 19) | up 4/4 | live 0-3 -100%
+  R1 the rest of its kind                              n  163  86-77  flat  +17.1% z +1.90 | train  +18.6% ( 94) | held  +15.0% ( 69) | up 4/4 | live 3-0 +125%
+     R1 placebo: a random 32 of its kind did as well 338 of 2,000
+  R2 the cell                                          n   24  13-11  flat  +19.5% z +0.76 | train  +13.2% ( 14) | held  +28.4% ( 10) | up 3/3 | live 1-2 -32%
+  R2 the rest of its kind                              n  166  83-83  flat  +10.6% z +1.19 | train  +12.6% ( 95) | held   +7.9% ( 71) | up 3/3 | live 7-2 +67%
+     R2 placebo: a random 21 of its kind did as well 721 of 2,000
+     => no
+
+  >> (b) the 2u Dog at 3u: its read 8+ points over the price
+  R1 the cell                                          n    4   4-0   flat +121.8% z +2.20 | train +138.0% (  1) | held +116.3% (  3) | up 3/3 | live 0-2 -100%
+  R1 the rest of its kind                              n  194 104-90  flat  +18.5% z +2.25 | train  +18.6% (109) | held  +18.3% ( 85) | up 4/4 | live 3-1 +68%
+     R1 placebo: a random 2 of its kind did as well - of 2,000
+  R2 the cell                                          n    4   3-1   flat  +58.5% z +1.09 | train   +0.0% (  0) | held  +58.5% (  4) | up 1/1 | live 0-0 +0%
+  R2 the rest of its kind                              n  186  93-93  flat  +10.7% z +1.24 | train  +12.7% (109) | held   +7.9% ( 77) | up 4/4 | live 8-4 +42%
+     R2 placebo: a random 4 of its kind did as well - of 2,000
+     => no
+-- and the ½u long Dog (+151..+350): any cell worth 1u+?
+
+  >> (b) the long Dog at 1u+: dog score 8+
+  R1 the cell                                          n   11   3-8   flat  -29.6% z -0.37 | train  -47.2% (  5) | held  -15.0% (  6) | up 2/4 | live 1-0 +226%
+  R1 the rest of its kind                              n   54  20-34  flat   +1.6% z +0.07 | train   -6.3% ( 38) | held  +20.2% ( 16) | up 2/4 | live 0-1 -100%
+     R1 placebo: a random 10 of its kind did as well 1617 of 2,000
+  R2 the cell                                          n    4   3-1   flat  +93.5% z +1.49 | train  +32.0% (  2) | held +155.0% (  2) | up 2/2 | live 0-0 +0%
+  R2 the rest of its kind                              n   48  18-30  flat   +0.4% z +0.02 | train   -4.7% ( 37) | held  +17.6% ( 11) | up 1/3 | live 0-2 -100%
+     R2 placebo: a random 4 of its kind did as well - of 2,000
+     => no
+
+  >> (b) the long Dog at 1u+: own read 2+ over
+  R1 the cell                                          n    7   0-7   flat -100.0% z -1.70 | train -100.0% (  1) | held -100.0% (  6) | up 0/2 | live 1-0 +226%
+  R1 the rest of its kind                              n   58  23-35  flat   +7.9% z +0.47 | train   -8.9% ( 42) | held  +52.1% ( 16) | up 2/3 | live 0-1 -100%
+     R1 placebo: a random 6 of its kind did as well - of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n   52  21-31  flat   +7.6% z +0.44 | train   -2.8% ( 39) | held  +38.8% ( 13) | up 1/3 | live 0-2 -100%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (b) the long Dog at 1u+: +151..+199
+  R1 the cell                                          n   55  21-34  flat   +2.3% z +0.15 | train   -4.4% ( 40) | held  +20.3% ( 15) | up 2/4 | live 0-1 -100%
+  R1 the rest of its kind                              n   10   2-8   flat  -37.0% z -0.59 | train -100.0% (  3) | held  -10.0% (  7) | up 1/4 | live 1-0 +226%
+     R1 placebo: a random 54 of its kind did as well 474 of 2,000
+  R2 the cell                                          n   52  21-31  flat   +7.6% z +0.44 | train   -2.8% ( 39) | held  +38.8% ( 13) | up 1/3 | live 0-2 -100%
+  R2 the rest of its kind                              n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+     R2 placebo: a random 50 of its kind did as well - of 2,000
+     => no
+
+  >> (b) the long Dog at 1u+: the favorite on a b2b
+  R1 the cell                                          n   14   6-8   flat  +12.3% z +0.40 | train  -19.2% ( 10) | held  +91.0% (  4) | up 2/3 | live 0-1 -100%
+  R1 the rest of its kind                              n   51  17-34  flat   -8.1% z -0.30 | train   -8.6% ( 33) | held   -7.2% ( 18) | up 2/4 | live 1-0 +226%
+     R1 placebo: a random 13 of its kind did as well 689 of 2,000
+  R2 the cell                                          n   12   6-6   flat  +31.0% z +0.86 | train   +1.0% (  8) | held  +91.0% (  4) | up 2/3 | live 0-1 -100%
+  R2 the rest of its kind                              n   40  15-25  flat   +0.6% z +0.03 | train   -3.8% ( 31) | held  +15.6% (  9) | up 2/3 | live 0-1 -100%
+     R2 placebo: a random 11 of its kind did as well 571 of 2,000
+     => no
+
+============================== (C) THE OWN READ OVER THE PRICE BY A LOT vs A LITTLE (points of win chance)
+-- R1
+  favorites: own read -99..-3 over                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorites: own read -3..0 over                       n   42  31-11  flat  +27.4% z +2.09 | train  +14.5% ( 27) | held  +50.6% ( 15) | up 3/3 | live 0-0 +0%
+  favorites: own read 0..1 over                        n   26  17-9   flat  +12.5% z +0.78 | train  -13.5% ( 16) | held  +54.2% ( 10) | up 1/3 | live 0-0 +0%
+  favorites: own read 1..3 over                        n  280 166-114 flat   +3.4% z +0.69 | train   +6.0% (196) | held   -2.9% ( 84) | up 2/4 | live 2-1 +19%
+  favorites: own read 3..5 over                        n  136  81-55  flat   +3.5% z +0.47 | train  +14.4% ( 83) | held  -13.6% ( 53) | up 1/4 | live 3-0 +72%
+  favorites: own read 5..8 over                        n   63  37-26  flat   +2.4% z +0.22 | train   +4.3% ( 17) | held   +1.7% ( 46) | up 2/4 | live 3-1 +29%
+  favorites: own read 8..99 over                       n   13   8-5   flat   +8.5% z +0.40 | train -100.0% (  1) | held  +17.6% ( 12) | up 1/3 | live 0-1 -100%
+  dogs: own read -99..-3 over                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dogs: own read -3..0 over                            n 1036 494-542 flat   +9.5% z +2.47 | train   +9.0% (561) | held  +10.0% (475) | up 4/4 | live 7-5 +40%
+  dogs: own read 0..1 over                             n  250 132-118 flat  +24.0% z +3.17 | train  +26.7% (145) | held  +20.2% (105) | up 4/4 | live 0-4 -100%
+  dogs: own read 1..3 over                             n   99  47-52  flat   +8.0% z +0.68 | train   +0.6% ( 47) | held  +14.6% ( 52) | up 3/4 | live 4-0 +136%
+  dogs: own read 3..5 over                             n    4   2-2   flat  +15.2% z +0.31 | train  +19.0% (  2) | held  +11.5% (  2) | up 2/3 | live 0-0 +0%
+  dogs: own read 5..8 over                             n    3   1-2   flat  -32.7% z -0.23 | train   +0.0% (  0) | held  -32.7% (  3) | up 0/1 | live 0-1 -100%
+  dogs: own read 8..99 over                            n    5   1-4   flat  -56.0% z -0.52 | train   +0.0% (  0) | held  -56.0% (  5) | up 0/1 | live 1-1 +63%
+  every play: its OWN units' read -99..0 over          n  411 219-192 flat  +15.5% z +2.77 | train  +10.7% (236) | held  +22.1% (175) | up 3/4 | live 2-2 +36%
+  every play: its OWN units' read 0..2 over            n  697 347-350 flat   +6.2% z +1.41 | train  +10.1% (360) | held   +2.0% (337) | up 3/4 | live 4-1 +53%
+  every play: its OWN units' read 2..5 over            n  661 351-310 flat  +11.1% z +2.54 | train  +12.8% (411) | held   +8.4% (250) | up 3/4 | live 9-4 +41%
+  every play: its OWN units' read 5..10 over           n  178  95-83  flat   +8.1% z +0.98 | train   +1.3% ( 88) | held  +14.8% ( 90) | up 2/4 | live 4-4 +9%
+  every play: its OWN units' read 10..99 over          n   10   5-5   flat   -7.5% z +0.43 | train   +0.0% (  0) | held   -7.5% ( 10) | up 1/2 | live 1-3 -19%
+-- R2
+  favorites: own read -99..-3 over                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorites: own read -3..0 over                       n   64  50-14  flat  +34.9% z +3.28 | train  +26.0% ( 37) | held  +47.1% ( 27) | up 3/3 | live 1-0 +81%
+  favorites: own read 0..1 over                        n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorites: own read 1..3 over                        n   28  18-10  flat  +12.0% z +0.76 | train  +51.5% (  7) | held   -1.2% ( 21) | up 2/3 | live 2-0 +77%
+  favorites: own read 3..5 over                        n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorites: own read 5..8 over                        n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorites: own read 8..99 over                       n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dogs: own read -99..-3 over                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dogs: own read -3..0 over                            n 1454 686-768 flat   +8.8% z +2.73 | train   +7.2% (815) | held  +10.8% (639) | up 4/4 | live 15-20 -1%
+  dogs: own read 0..1 over                             n   39  18-21  flat   +5.6% z +0.32 | train  -11.4% ( 24) | held  +32.8% ( 15) | up 1/3 | live 2-3 -12%
+  dogs: own read 1..3 over                             n   35  19-16  flat  +22.5% z +1.15 | train  +78.4% (  8) | held   +6.0% ( 27) | up 2/2 | live 1-0 +114%
+  dogs: own read 3..5 over                             n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dogs: own read 5..8 over                             n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dogs: own read 8..99 over                            n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  every play: its OWN units' read -99..0 over          n  809 391-418 flat   +7.0% z +1.73 | train   +4.1% (423) | held  +10.2% (386) | up 3/4 | live 2-6 -52%
+  every play: its OWN units' read 0..2 over            n  364 183-181 flat  +15.0% z +2.43 | train  +24.1% (185) | held   +5.5% (179) | up 3/4 | live 4-4 +20%
+  every play: its OWN units' read 2..5 over            n  387 188-199 flat  +11.2% z +2.02 | train   +5.0% (248) | held  +22.2% (139) | up 3/4 | live 13-9 +31%
+  every play: its OWN units' read 5..10 over           n   60  29-31  flat  +15.3% z +1.02 | train   +3.4% ( 35) | held  +32.0% ( 25) | up 4/4 | live 2-4 -30%
+  every play: its OWN units' read 10..99 over          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+
+  >> (c) every unit play, own read 3+ over
+  R1 the cell                                          n  224 130-94  flat   +1.9% z +0.53 | train  +11.7% (103) | held   -6.5% (121) | up 2/4 | live 7-4 +23%
+  R1 the rest of its kind                              n 1733 887-846 flat  +11.0% z +3.97 | train  +10.4% (992) | held  +11.7% (741) | up 4/4 | live 13-10 +30%
+     R1 placebo: a random 213 of its kind did as well 1747 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n 1620 791-829 flat  +10.1% z +3.56 | train   +8.5% (891) | held  +12.1% (729) | up 4/4 | live 21-23 +6%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (c) every unit play, own read 5+ over
+  R1 the cell                                          n   84  47-37  flat   -1.4% z +0.19 | train   -1.5% ( 18) | held   -1.3% ( 66) | up 2/4 | live 4-4 +5%
+  R1 the rest of its kind                              n 1873 970-903 flat  +10.4% z +3.96 | train  +10.7% (1077) | held  +10.0% (796) | up 4/4 | live 16-10 +35%
+     R1 placebo: a random 76 of its kind did as well 1657 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n 1620 791-829 flat  +10.1% z +3.56 | train   +8.5% (891) | held  +12.1% (729) | up 4/4 | live 21-23 +6%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (c) favorites, own read 3+ over
+  R1 the cell                                          n  212 126-86  flat   +3.5% z +0.60 | train  +11.6% (101) | held   -3.9% (111) | up 2/4 | live 6-2 +29%
+  R1 the rest of its kind                              n  348 214-134 flat   +6.9% z +1.56 | train   +5.7% (239) | held   +9.7% (109) | up 4/4 | live 2-1 +19%
+     R1 placebo: a random 204 of its kind did as well 1382 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n   92  68-24  flat  +27.9% z +3.16 | train  +30.1% ( 44) | held  +26.0% ( 48) | up 4/4 | live 3-0 +78%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (c) dogs, own read 3+ over
+  R1 the cell                                          n   12   4-8   flat  -26.4% z -0.25 | train  +19.0% (  2) | held  -35.5% ( 10) | up 2/3 | live 1-2 +9%
+  R1 the rest of its kind                              n 1385 673-712 flat  +12.0% z +3.66 | train  +11.9% (753) | held  +12.1% (632) | up 4/4 | live 11-9 +31%
+     R1 placebo: a random 9 of its kind did as well 1745 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n 1528 723-805 flat   +9.0% z +2.89 | train   +7.4% (847) | held  +11.1% (681) | up 4/4 | live 18-23 +0%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (c) dogs, own read 0+ over (not under the price)
+  R1 the cell                                          n  361 183-178 flat  +17.9% z +2.95 | train  +20.3% (194) | held  +15.1% (167) | up 3/4 | live 5-6 +16%
+  R1 the rest of its kind                              n 1036 494-542 flat   +9.5% z +2.47 | train   +9.0% (561) | held  +10.0% (475) | up 4/4 | live 7-5 +40%
+     R1 placebo: a random 350 of its kind did as well 243 of 2,000
+  R2 the cell                                          n   74  37-37  flat  +13.6% z +1.03 | train  +11.1% ( 32) | held  +15.6% ( 42) | up 2/3 | live 3-3 +9%
+  R2 the rest of its kind                              n 1454 686-768 flat   +8.8% z +2.73 | train   +7.2% (815) | held  +10.8% (639) | up 4/4 | live 15-20 -1%
+     R2 placebo: a random 68 of its kind did as well 685 of 2,000
+     => no
+
+============================== (D) EVERY OTHER KIND - a bigger size anywhere?
+
+  >> (d) the Lock (2u/1u): price -135..-101
+  R1 the cell                                          n   34  20-14  flat   +5.1% z +0.33 | train   +9.2% ( 18) | held   +0.5% ( 16) | up 2/4 | live 0-0 +0%
+  R1 the rest of its kind                              n  120  74-46  flat   +4.7% z +0.63 | train   +4.7% ( 73) | held   +4.6% ( 47) | up 3/4 | live 3-0 +69%
+     R1 placebo: a random 34 of its kind did as well 1060 of 2,000
+  R2 the cell                                          n    3   0-3   flat -100.0% z -1.94 | train   +0.0% (  0) | held -100.0% (  3) | up 0/1 | live 0-0 +0%
+  R2 the rest of its kind                              n    2   2-0   flat  +69.0% z +1.18 | train   +0.0% (  0) | held  +69.0% (  2) | up 1/1 | live 0-0 +0%
+     R2 placebo: a random 3 of its kind did as well - of 2,000
+     => no
+
+  >> (d) the Lock: own read 3+ over the price
+  R1 the cell                                          n  115  67-48  flat   +0.1% z +0.02 | train   +2.4% ( 62) | held   -2.5% ( 53) | up 2/4 | live 3-0 +69%
+  R1 the rest of its kind                              n   39  27-12  flat  +18.5% z +1.38 | train  +12.5% ( 29) | held  +35.8% ( 10) | up 3/4 | live 0-0 +0%
+     R1 placebo: a random 112 of its kind did as well 1706 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n    5   2-3   flat  -32.4% z -0.77 | train   +0.0% (  0) | held  -32.4% (  5) | up 0/1 | live 0-0 +0%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (d) the Lock: hockey
+  R1 the cell                                          n    1   1-0   flat  +71.4% z +0.85 | train   +0.0% (  0) | held  +71.4% (  1) | up 1/1 | live 0-0 +0%
+  R1 the rest of its kind                              n  153  93-60  flat   +4.3% z +0.65 | train   +5.6% ( 91) | held   +2.5% ( 62) | up 3/4 | live 3-0 +69%
+     R1 placebo: a random 1 of its kind did as well - of 2,000
+  R2 the cell                                          n    4   1-3   flat  -57.1% z -1.26 | train   +0.0% (  0) | held  -57.1% (  4) | up 0/1 | live 0-0 +0%
+  R2 the rest of its kind                              n    1   1-0   flat  +66.7% z +0.82 | train   +0.0% (  0) | held  +66.7% (  1) | up 1/1 | live 0-0 +0%
+     R2 placebo: a random 4 of its kind did as well - of 2,000
+     => no
+
+  >> (d) value plays (½u): own read 3+ over
+  R1 the cell                                          n   97  59-38  flat   +7.5% z +0.86 | train  +26.3% ( 39) | held   -5.1% ( 58) | up 2/4 | live 3-2 +5%
+  R1 the rest of its kind                              n  231 131-100 flat   -0.9% z -0.12 | train   +2.6% (157) | held   -8.2% ( 74) | up 2/4 | live 2-1 +19%
+     R1 placebo: a random 92 of its kind did as well 417 of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n   23  16-7   flat  +21.6% z +1.19 | train  +51.5% (  7) | held   +8.5% ( 16) | up 2/3 | live 2-0 +77%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (d) value plays (½u): -135..-101
+  R1 the cell                                          n  166  86-80  flat   -6.1% z -0.90 | train   +1.2% (100) | held  -17.2% ( 66) | up 1/4 | live 4-2 +19%
+  R1 the rest of its kind                              n  162 104-58  flat   +9.5% z +1.44 | train  +13.6% ( 96) | held   +3.5% ( 66) | up 3/4 | live 1-1 -16%
+     R1 placebo: a random 160 of its kind did as well 1884 of 2,000
+  R2 the cell                                          n   11   8-3   flat  +30.5% z +1.13 | train  +79.0% (  4) | held   +2.9% (  7) | up 2/3 | live 1-0 +80%
+  R2 the rest of its kind                              n   12   8-4   flat  +13.4% z +0.57 | train  +15.0% (  3) | held  +12.9% (  9) | up 3/3 | live 1-0 +74%
+     R2 placebo: a random 10 of its kind did as well 446 of 2,000
+     => no
+
+  >> (d) value plays (½u): hockey
+  R1 the cell                                          n   20  10-10  flat  -12.9% z -0.64 | train  +42.2% (  5) | held  -31.3% ( 15) | up 1/2 | live 1-0 +80%
+  R1 the rest of its kind                              n  308 180-128 flat   +2.5% z +0.54 | train   +6.4% (191) | held   -3.7% (117) | up 2/4 | live 4-3 +0%
+     R1 placebo: a random 19 of its kind did as well 1602 of 2,000
+  R2 the cell                                          n   17  10-7   flat   +2.7% z +0.13 | train  +47.3% (  6) | held  -21.6% ( 11) | up 1/2 | live 2-0 +77%
+  R2 the rest of its kind                              n    6   6-0   flat  +75.2% z +2.12 | train  +76.9% (  1) | held  +74.8% (  5) | up 3/3 | live 0-0 +0%
+     R2 placebo: a random 15 of its kind did as well 1938 of 2,000
+     => no
+
+  >> (d) the NBA floor (½u): +100..+150
+  R1 the cell                                          n   76  38-38  flat  +12.8% z +0.95 | train  +19.4% ( 53) | held   -2.3% ( 23) | up 1/3 | live 2-3 -11%
+  R1 the rest of its kind                              n   52  27-25  flat  +42.2% z +2.25 | train  +36.3% ( 40) | held  +61.8% ( 12) | up 3/3 | live 0-0 +0%
+     R1 placebo: a random 71 of its kind did as well 1800 of 2,000
+  R2 the cell                                          n   87  48-39  flat  +23.8% z +1.97 | train  +25.8% ( 57) | held  +20.0% ( 30) | up 3/3 | live 1-5 -66%
+  R2 the rest of its kind                              n   52  23-29  flat  +19.7% z +1.07 | train  +30.1% ( 37) | held   -5.9% ( 15) | up 2/3 | live 0-0 +0%
+     R2 placebo: a random 81 of its kind did as well 889 of 2,000
+     => no
+
+  >> (d) the NBA floor (½u): dog score 3+
+  R1 the cell                                          n   29  15-14  flat  +25.7% z +1.17 | train  +19.6% ( 24) | held  +54.8% (  5) | up 3/3 | live 0-2 -100%
+  R1 the rest of its kind                              n   99  50-49  flat  +24.5% z +1.81 | train  +29.1% ( 69) | held  +13.8% ( 30) | up 3/3 | live 2-1 +48%
+     R1 placebo: a random 27 of its kind did as well 961 of 2,000
+  R2 the cell                                          n   26  16-10  flat  +48.7% z +2.12 | train  +58.9% ( 21) | held   +5.8% (  5) | up 3/3 | live 0-1 -100%
+  R2 the rest of its kind                              n  113  55-58  flat  +16.2% z +1.44 | train  +18.5% ( 73) | held  +12.1% ( 40) | up 2/3 | live 1-4 -59%
+     R2 placebo: a random 25 of its kind did as well 240 of 2,000
+     => no
+
+  >> (d) the NBA floor (½u): the favorite on a b2b
+  R1 the cell                                          n   20  13-7   flat  +51.8% z +1.99 | train  +53.5% ( 13) | held  +48.4% (  7) | up 3/3 | live 1-0 +140%
+  R1 the rest of its kind                              n  108  52-56  flat  +19.7% z +1.48 | train  +22.3% ( 80) | held  +12.5% ( 28) | up 3/3 | live 1-3 -49%
+     R1 placebo: a random 19 of its kind did as well 293 of 2,000
+  R2 the cell                                          n   33  18-15  flat  +32.5% z +1.51 | train  +26.9% ( 24) | held  +47.3% (  9) | up 3/3 | live 0-2 -100%
+  R2 the rest of its kind                              n  106  53-53  flat  +19.1% z +1.69 | train  +27.7% ( 70) | held   +2.4% ( 36) | up 3/3 | live 1-3 -49%
+     R2 placebo: a random 31 of its kind did as well 605 of 2,000
+     => no
+
+  >> (d) the NBA favorite play (1u): own read 3+ over
+  R1 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R1 the rest of its kind                              n   76  54-22  flat  +22.7% z +2.34 | train   +9.8% ( 52) | held  +50.7% ( 24) | up 3/3 | live 0-0 +0%
+     R1 placebo: a random 0 of its kind did as well - of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n   63  49-14  flat  +34.1% z +3.20 | train  +26.0% ( 37) | held  +45.7% ( 26) | up 3/3 | live 1-0 +81%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (d) the NBA favorite play (1u): -130..-101
+  R1 the cell                                          n   15   9-6   flat   +8.1% z +0.34 | train   -1.7% ( 11) | held  +35.2% (  4) | up 2/3 | live 0-0 +0%
+  R1 the rest of its kind                              n   61  45-16  flat  +26.3% z +2.45 | train  +12.9% ( 41) | held  +53.8% ( 20) | up 3/3 | live 0-0 +0%
+     R1 placebo: a random 15 of its kind did as well 1537 of 2,000
+  R2 the cell                                          n   11   7-4   flat  +14.6% z +0.53 | train  +19.8% (  6) | held   +8.3% (  5) | up 3/3 | live 1-0 +81%
+  R2 the rest of its kind                              n   52  42-10  flat  +38.3% z +3.27 | train  +27.2% ( 31) | held  +54.6% ( 21) | up 3/3 | live 0-0 +0%
+     R2 placebo: a random 10 of its kind did as well 1583 of 2,000
+     => no
+
+  >> (d) the runner-up dog (½u): +100..+150
+  R1 the cell                                          n   52  28-24  flat  +18.4% z +1.21 | train   +8.1% ( 31) | held  +33.6% ( 21) | up 2/3 | live 2-1 +53%
+  R1 the rest of its kind                              n    8   2-6   flat  -35.0% z -0.71 | train   +4.0% (  5) | held -100.0% (  3) | up 1/4 | live 0-0 +0%
+     R1 placebo: a random 49 of its kind did as well 261 of 2,000
+  R2 the cell                                          n   51  29-22  flat  +24.4% z +1.65 | train  +18.1% ( 28) | held  +32.0% ( 23) | up 2/3 | live 2-2 +12%
+  R2 the rest of its kind                              n   10   4-6   flat  +10.8% z +0.33 | train  +23.1% (  9) | held -100.0% (  1) | up 2/3 | live 0-0 +0%
+     R2 placebo: a random 47 of its kind did as well 719 of 2,000
+     => no
+
+  >> (d) the runner-up dog (½u): dog score 8+
+  R1 the cell                                          n    3   2-1   flat  +52.0% z +0.81 | train   +7.0% (  2) | held +142.0% (  1) | up 2/2 | live 0-0 +0%
+  R1 the rest of its kind                              n   57  28-29  flat   +9.1% z +0.72 | train   +7.6% ( 34) | held  +11.4% ( 23) | up 3/4 | live 2-1 +53%
+     R1 placebo: a random 3 of its kind did as well - of 2,000
+  R2 the cell                                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  R2 the rest of its kind                              n   61  33-28  flat  +22.1% z +1.64 | train  +19.3% ( 37) | held  +26.5% ( 24) | up 2/3 | live 2-2 +12%
+     R2 placebo: a random 0 of its kind did as well - of 2,000
+     => no
+
+  >> (d) the general floor (½u, every league): +100..+150
+  R1 the cell                                          n  782 378-404 flat   +6.2% z +1.54 | train   +7.9% (380) | held   +4.6% (402) | up 4/4 | live 1-1 +18%
+  R1 the rest of its kind                              n  141  59-82  flat  +18.8% z +1.40 | train  +12.2% ( 75) | held  +26.3% ( 66) | up 2/4 | live 2-2 +49%
+     R1 placebo: a random 780 of its kind did as well 1771 of 2,000
+  R2 the cell                                          n  871 409-462 flat   +2.8% z +0.74 | train   +5.3% (438) | held   +0.4% (433) | up 3/4 | live 2-5 -37%
+  R2 the rest of its kind                              n  196  82-114 flat  +18.1% z +1.74 | train   -9.1% (115) | held  +56.8% ( 81) | up 3/4 | live 3-3 +43%
+     R2 placebo: a random 864 of its kind did as well 1909 of 2,000
+     => no
+
+  >> (d) the general floor (½u): dog score 3+
+  R1 the cell                                          n  320 157-163 flat  +12.5% z +1.81 | train  +19.9% (176) | held   +3.5% (144) | up 4/4 | live 2-2 +23%
+  R1 the rest of its kind                              n  603 280-323 flat   +5.8% z +1.10 | train   +1.5% (279) | held   +9.5% (324) | up 4/4 | live 1-1 +70%
+     R1 placebo: a random 316 of its kind did as well 403 of 2,000
+  R2 the cell                                          n  151  66-85  flat   +4.1% z +0.50 | train   -3.8% (103) | held  +21.2% ( 48) | up 2/4 | live 2-3 +3%
+  R2 the rest of its kind                              n  916 425-491 flat   +5.9% z +1.30 | train   +3.7% (450) | held   +8.0% (466) | up 3/4 | live 3-5 -2%
+     R2 placebo: a random 146 of its kind did as well 1153 of 2,000
+     => no
+
+============================== VERDICTS
+  no      (a) floor hockey dog at 1u+: dog score 3+
+  no      (a) floor hockey dog at 1u+: dog score 0+
+  no      (a) floor hockey dog at 1u+: the favorite on a b2b, we're rested
+  no      (a) floor hockey dog at 1u+: our goalie hot (last 3 .930+)
+  no      (a) floor hockey dog at 1u+: +100..+150
+  no      (a) floor hockey dog at 1u+: own read within 2 of the price
+  no      (a) floor hockey dog at 1u+: dog score 0+ AND +100..+150
+  no      (a) floor hockey dog at 1u+: the favorite on a b2b AND +100..+150
+  no      (a) floor hockey dog at 1u+: goalie hot AND score under 0 (the Predators)
+  no      (b) the 2u Dog at 3u: dog score 8+
+  no      (b) the 2u Dog at 3u: dog score 10+
+  no      (b) the 2u Dog at 3u: own read 1+ over the price
+  no      (b) the 2u Dog at 3u: own read 2+ over the price
+  no      (b) the 2u Dog at 3u: +130..+150
+  no      (b) the 2u Dog at 3u: +100..+129
+  no      (b) the 2u Dog at 3u: the favorite on a b2b, we're rested
+  no      (b) the 2u Dog at 3u: our goalie hot
+  no      (b) the 2u Dog at 3u: hockey
+  no      (b) the 2u Dog at 3u: at home
+  no      (b) the 2u Dog at 3u: its read 8+ points over the price
+  no      (b) the long Dog at 1u+: dog score 8+
+  no      (b) the long Dog at 1u+: own read 2+ over
+  no      (b) the long Dog at 1u+: +151..+199
+  no      (b) the long Dog at 1u+: the favorite on a b2b
+  no      (c) every unit play, own read 3+ over
+  no      (c) every unit play, own read 5+ over
+  no      (c) favorites, own read 3+ over
+  no      (c) dogs, own read 3+ over
+  no      (c) dogs, own read 0+ over (not under the price)
+  no      (d) the Lock (2u/1u): price -135..-101
+  no      (d) the Lock: own read 3+ over the price
+  no      (d) the Lock: hockey
+  no      (d) value plays (½u): own read 3+ over
+  no      (d) value plays (½u): -135..-101
+  no      (d) value plays (½u): hockey
+  no      (d) the NBA floor (½u): +100..+150
+  no      (d) the NBA floor (½u): dog score 3+
+  no      (d) the NBA floor (½u): the favorite on a b2b
+  no      (d) the NBA favorite play (1u): own read 3+ over
+  no      (d) the NBA favorite play (1u): -130..-101
+  no      (d) the runner-up dog (½u): +100..+150
+  no      (d) the runner-up dog (½u): dog score 8+
+  no      (d) the general floor (½u, every league): +100..+150
+  no      (d) the general floor (½u): dog score 3+
