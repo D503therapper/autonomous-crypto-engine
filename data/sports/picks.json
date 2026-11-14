@@ -42230,6 +42230,7 @@
      "game:nonconf"
     ],
     "dec": 1.9090909090909092,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -42246,6 +42247,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "17,45",
+     "h": "46,43"
+    },
     "form_state": [
      -35.0,
      -2,
@@ -42298,7 +42303,7 @@
     "raw_own": 0.0358,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -42307,7 +42312,9 @@
     ],
     "roster_new": 0.12,
     "roster_tin": 0.58,
+    "score": "Prairie View 62 @ Vanderbilt 89",
     "season_games": null,
+    "settled": "2026-11-14T01:47Z",
     "side": "away",
     "start": "2026-11-14T00:00Z",
     "stype": "2",
@@ -42323,11 +42330,13 @@
    }
   ],
   "p_hit": 0.5299,
-  "pnl": 0.0,
+  "pnl": 90.91,
   "posted": "2026-11-13T16:44Z",
   "round": 1,
+  "settled": "2026-11-14T01:47Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]
