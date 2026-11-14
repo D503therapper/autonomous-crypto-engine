@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-14T01:59Z",
+ "updated": "2026-11-14T02:02Z",
  "games": [
   {
    "id": "ncaab:401928807",
@@ -414,8 +414,8 @@
    "away": "Ohio",
    "home": "Purdue",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -833,6 +833,21 @@
    }
   },
   {
+   "id": "ncaab:401906760",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-14T02:00Z",
+   "away": "Seton Hall",
+   "home": "Alabama",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917526",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -897,8 +912,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.708,
-    "tie": 0.031,
+    "p": 0.714,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -913,13 +928,13 @@
     "opp": "Warriors",
     "market": "spread",
     "line": -12.5,
-    "odds": -103,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.813,
+    "win_p": 0.82,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
