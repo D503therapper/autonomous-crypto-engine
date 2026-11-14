@@ -23331,6 +23331,42 @@ def test_sizing_1114_no_size_up_earned_the_star_rule_stands_and_a_floor_dog_stay
     assert sports.units_for(val) == 0.5 and sports.mark_best([val], day) is val and sports.units_for(val) == 1.0   # 1u, never more
 
 
+def test_football_1114_the_floor_skips_the_nfl_home_dog_from_the_11_15_games():
+    """11/14 FOOTBALL PROFIT STUDIES R6 (results/studies/football_1114/r6_nfl_home_dog.py - the football replay board on
+    today's code, every football day 2018-26): the board's NFL HOME floor dogs went 6-20, -46.2% (train 1-11 / held 5-9),
+    its NFL ROAD floor dogs 51-54 +26.5% (8 of 9 seasons up); every NFL home dog at the close -10.3% on 726. From the 11/15
+    Pacific games the general floor skips an NFL home dog - it drops to the floor's fallback list (up only when the board
+    has no unit play at all), like the college football dog. Road NFL dogs, a neutral site, the Dog of the Day, other
+    leagues and games before 11/15 are untouched."""
+    assert sports.NFL_HOME_FLOOR_OFF_FROM == "2026-11-15"
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        mk = lambda gid, sc, home=True, lg="nfl", start="2026-11-15T18:00Z": {
+            **_cand(gid, 140, 0.40, league=lg), "waiting": [], "sc": sc, "home": home, "side": "home" if home else "away",
+            "start": start, "neutral": False}
+        h, r, n = mk("h", 5.0), mk("r", 3.0, home=False), {**mk("n", 4.0), "neutral": True}
+        early = mk("e", 6.0, start="2026-11-14T18:00Z")        # Saturday 11/14 (Pacific) - the old floor
+        nhl = mk("k", 2.0, lg="nhl")
+        assert sports.nfl_home_floor_off(h) and not sports.nfl_home_floor_off(r) and not sports.nfl_home_floor_off(n)
+        assert not sports.nfl_home_floor_off(early) and not sports.nfl_home_floor_off(nhl)
+        assert not sports.nfl_home_floor_off({**h, "market": "spread"}) and not sports.nfl_home_floor_off({**h, "odds": -130})
+        assert sports.floor_skip(h) == "an NFL home dog sits out the floor (the books' home dogs lose to their price)"
+        assert sports.floor_skip(r) is None and sports.floor_skip(n) is None and sports.floor_skip(early) is None
+        got = sports.floor_plays([h, r, n, early, nhl], set())
+        assert [c["game_id"] for c in got] == ["e", "n", "r", "k", "h"], [c["game_id"] for c in got]   # kept by score, the
+        assert got[-1].get("floor_fallback") and not any(c.get("floor_fallback") for c in got[:-1])  # home dog last, flagged
+        assert sports.floor_plays([h], set())[0]["floor_fallback"]   # alone on the slate it is still the one-a-day fallback
+        k2 = sports.NFL_HOME_FLOOR_OFF_FROM
+        try:
+            sports.NFL_HOME_FLOOR_OFF_FROM = "9999"                  # the switch back
+            assert sports.floor_skip(h) is None
+        finally:
+            sports.NFL_HOME_FLOOR_OFF_FROM = k2
+    finally:
+        sports.dog_score = keep
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

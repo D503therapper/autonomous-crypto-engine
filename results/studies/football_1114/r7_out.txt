@@ -1,0 +1,54 @@
+
+-- NFL favorite unit plays (62)
+  all                                                        37-25   flat   +3.9% z +0.35 |   -1.9u on  38.5u | train 26-19   +1.0% | held 11-6  +11.5% | up 6/9 | 2026 2-1 +0.2u
+  lock at 0.5u                                               28-13   flat  +17.4% z +1.38 |   +3.6u on  20.5u | train 19-9  +16.9% | held 9-4  +18.5% | up 7/9 | 2026 2-1 +0.2u
+  lock at 1.0u                                                5-10   flat  -41.3% z -1.86 |   -6.2u on  15.0u | train 4-8  -40.6% | held 1-2  -44.1% | up 1/5 | 2026 0-0 +0.0u
+  play at 0.5u                                                4-1    flat  +48.9% z +1.31 |   +1.2u on   2.5u | train 3-1  +39.6% | held 1-0  +86.2% | up 2/3 | 2026 0-0 +0.0u
+  solo at 0.5u                                                0-1    flat -100.0% z +0.00 |   -0.5u on   0.5u | train 0-1 -100.0% | held 0-0   +0.0% | up 0/1 | 2026 0-0 +0.0u
+  own read 0..1 points over the price                        11-6    flat  +10.9% z +0.53 |   +0.9u on   8.5u | train 10-5  +14.3% | held 1-1  -14.8% | up 4/7 | 2026 1-0 +0.4u
+  own read 1..3 points over the price                        16-11   flat   +4.3% z +0.25 |   -0.9u on  18.5u | train 11-8   +1.6% | held 5-3  +10.6% | up 5/7 | 2026 1-1 -0.1u
+  own read 3..6 points over the price                         3-4    flat  -20.5% z -0.55 |   -2.3u on   6.0u | train 3-4  -20.5% | held 0-0   +0.0% | up 1/2 | 2026 0-0 +0.0u
+  own read 6..99 points over the price                        0-0    flat   +0.0% z +0.00 |   +0.0u on   0.0u | train 0-0   +0.0% | held 0-0   +0.0% | up 0/0 | 2026 0-0 +0.0u
+  own read -99..3 over the no-vig market                     16-9    flat   +9.3% z +0.55 |   +1.2u on  12.5u | train 10-6   +7.6% | held 6-3  +12.2% | up 7/9 | 2026 1-0 +0.4u
+  own read 3..7 over the no-vig market                       20-16   flat   -2.2% z -0.15 |   -3.5u on  25.5u | train 15-13   -5.8% | held 5-3  +10.6% | up 4/7 | 2026 1-1 -0.1u
+  own read 7..99 over the no-vig market                       1-0    flat  +85.5% z +0.00 |   +0.4u on   0.5u | train 1-0  +85.5% | held 0-0   +0.0% | up 1/1 | 2026 0-0 +0.0u
+  blend 0.00..0.56                                            3-2    flat   +7.9% z +0.18 |   +0.2u on   2.5u | train 2-2  -10.9% | held 1-0  +83.3% | up 2/4 | 2026 0-0 +0.0u
+  blend 0.56..0.60                                           30-19   flat   +6.8% z +0.55 |   -0.3u on  30.0u | train 22-15   +4.2% | held 8-4  +14.8% | up 7/9 | 2026 2-0 +0.7u
+  blend 0.60..1.00                                            4-4    flat  -16.3% z -0.52 |   -1.8u on   6.0u | train 2-2  -16.2% | held 2-2  -16.4% | up 3/5 | 2026 0-1 -0.5u
+      placebo: a random same-size set of these favorite plays did as BADLY as the 1u ones 55 of 2000
+
+-- NCAAF favorite unit plays (57)
+  all                                                        39-18   flat  +17.4% z +1.63 |   +4.3u on  38.5u | train 18-12   +3.3% | held 21-6  +33.0% | up 8/9 | 2026 13-5 +2.8u
+  lock at 0.5u                                               23-7    flat  +31.2% z +2.32 |   +4.7u on  15.0u | train 12-6  +15.8% | held 11-1  +54.2% | up 7/9 | 2026 4-0 +1.4u
+  lock at 1.0u                                               11-9    flat   -6.1% z -0.31 |   -1.2u on  20.0u | train 5-6  -22.9% | held 6-3  +14.5% | up 2/4 | 2026 6-3 +1.3u
+  play at 0.5u                                                4-2    flat  +15.4% z +0.42 |   +0.5u on   3.0u | train 1-0  +66.7% | held 3-2   +5.1% | up 2/2 | 2026 3-2 +0.1u
+  solo at 0.5u                                                1-0    flat  +83.3% z +0.00 |   +0.4u on   0.5u | train 0-0   +0.0% | held 1-0  +83.3% | up 1/1 | 2026 0-0 +0.0u
+  own read 0..1 points over the price                         4-1    flat  +36.1% z +1.06 |   +0.9u on   2.5u | train 3-1  +28.2% | held 1-0  +67.6% | up 3/4 | 2026 1-0 +0.3u
+  own read 1..3 points over the price                         9-5    flat  +10.1% z +0.45 |   +0.6u on   8.0u | train 7-5   +0.5% | held 2-0  +67.8% | up 4/5 | 2026 2-0 +0.7u
+  own read 3..6 points over the price                        10-5    flat  +14.8% z +0.68 |   +2.1u on  12.5u | train 4-4  -12.3% | held 6-1  +45.9% | up 2/3 | 2026 6-1 +3.4u
+  own read 6..99 points over the price                        5-6    flat  -20.1% z -0.72 |   -2.5u on   9.5u | train 2-2  -14.8% | held 3-4  -23.1% | up 0/2 | 2026 3-4 -1.9u
+  own read -99..3 over the no-vig market                     12-2    flat  +45.2% z +2.74 |   +3.2u on   7.0u | train 2-1  +12.4% | held 10-1  +54.1% | up 5/6 | 2026 2-0 +0.7u
+  own read 3..7 over the no-vig market                       17-7    flat  +22.1% z +1.35 |   +2.7u on  14.5u | train 12-7   +9.6% | held 5-0  +69.5% | up 5/6 | 2026 5-0 +2.4u
+  own read 7..99 over the no-vig market                      10-9    flat   -9.1% z -0.45 |   -1.5u on  17.0u | train 4-4  -15.1% | held 6-5   -4.8% | up 0/3 | 2026 6-5 -0.3u
+  blend 0.00..0.56                                            8-6    flat   +1.7% z +0.07 |   +0.1u on   7.0u | train 7-6   -4.6% | held 1-0  +83.3% | up 4/6 | 2026 0-0 +0.0u
+  blend 0.56..0.60                                           22-10   flat  +16.3% z +1.16 |   +0.9u on  22.0u | train 8-5   +4.1% | held 14-5  +24.6% | up 7/8 | 2026 8-4 +0.9u
+  blend 0.60..1.00                                            9-2    flat  +40.5% z +1.92 |   +3.3u on   9.5u | train 3-1  +26.2% | held 6-1  +48.6% | up 3/3 | 2026 5-1 +1.9u
+      placebo: a random same-size set of these favorite plays did as BADLY as the 1u ones 358 of 2000
+
+-- FOOTBALL favorite unit plays (119)
+  all                                                        76-43   flat  +10.3% z +1.35 |   +2.4u on  77.0u | train 44-31   +1.9% | held 32-12  +24.7% | up 7/9 | 2026 15-6 +3.0u
+  lock at 0.5u                                               51-20   flat  +23.2% z +2.52 |   +8.2u on  35.5u | train 31-15  +16.5% | held 20-5  +35.7% | up 8/9 | 2026 6-1 +1.6u
+  lock at 1.0u                                               16-19   flat  -21.2% z -1.44 |   -7.4u on  35.0u | train 9-14  -32.2% | held 7-5   -0.1% | up 1/6 | 2026 6-3 +1.3u
+  play at 0.5u                                                8-3    flat  +30.6% z +1.20 |   +1.7u on   5.5u | train 4-1  +45.0% | held 4-2  +18.6% | up 4/5 | 2026 3-2 +0.1u
+  solo at 0.5u                                                1-1    flat   -8.3% z -0.09 |   -0.1u on   1.0u | train 0-1 -100.0% | held 1-0  +83.3% | up 1/2 | 2026 0-0 +0.0u
+  own read 0..1 points over the price                        15-7    flat  +16.6% z +0.96 |   +1.8u on  11.0u | train 13-6  +17.2% | held 2-1  +12.7% | up 4/7 | 2026 2-0 +0.7u
+  own read 1..3 points over the price                        25-16   flat   +6.3% z +0.47 |   -0.4u on  26.5u | train 18-13   +1.2% | held 7-3  +22.0% | up 7/8 | 2026 3-1 +0.6u
+  own read 3..6 points over the price                        13-9    flat   +3.6% z +0.19 |   -0.3u on  18.5u | train 7-8  -16.1% | held 6-1  +45.9% | up 1/3 | 2026 6-1 +3.4u
+  own read 6..99 points over the price                        5-6    flat  -20.1% z -0.72 |   -2.5u on   9.5u | train 2-2  -14.8% | held 3-4  -23.1% | up 0/2 | 2026 3-4 -1.9u
+  own read -99..3 over the no-vig market                     28-11   flat  +22.2% z +1.78 |   +4.3u on  19.5u | train 12-7   +8.4% | held 16-4  +35.3% | up 8/9 | 2026 3-0 +1.0u
+  own read 3..7 over the no-vig market                       37-23   flat   +7.5% z +0.68 |   -0.8u on  40.0u | train 27-20   +0.4% | held 10-3  +33.2% | up 6/8 | 2026 6-1 +2.3u
+  own read 7..99 over the no-vig market                      11-9    flat   -4.4% z -0.22 |   -1.1u on  17.5u | train 5-4   -4.0% | held 6-5   -4.8% | up 0/3 | 2026 6-5 -0.3u
+  blend 0.00..0.56                                           11-8    flat   +3.3% z +0.16 |   +0.3u on   9.5u | train 9-8   -6.1% | held 2-0  +83.3% | up 4/7 | 2026 0-0 +0.0u
+  blend 0.56..0.60                                           52-29   flat  +10.5% z +1.14 |   +0.6u on  52.0u | train 30-20   +4.1% | held 22-9  +20.8% | up 7/9 | 2026 10-4 +1.6u
+  blend 0.60..1.00                                           13-6    flat  +16.5% z +0.88 |   +1.5u on  15.5u | train 5-3   +5.0% | held 8-3  +24.9% | up 6/7 | 2026 5-2 +1.4u
+      placebo: a random same-size set of these favorite plays did as BADLY as the 1u ones 26 of 2000

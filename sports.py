@@ -5588,6 +5588,8 @@ def floor_skip(c):
         return ("the NBA has its own floor" if c.get("league") == "nba"
                 else "college hoops sits out the floor (its dogs run the dog slot)" if c.get("league") == "ncaab"
                 else "college football sits out the floor")
+    if nfl_home_floor_off(c):                                # (🏈 11/14 football studies R6: the NFL HOME dog)
+        return "an NFL home dog sits out the floor (the books' home dogs lose to their price)"
     if FLOOR_THIN_ONLY and not thin_edge(c):
         return "our raw read likes it more than the full read does"
     return None
@@ -5691,6 +5693,27 @@ FLOOR_LEAGUES_OFF = ("nba", "ncaaf", "ncaab")   # thin edge plays"): the 10/30 f
 #    train / +1.1u held - the vig, and the South Dakota +124 of 11/4 was one; the college hoops dog slot (NCAAB_PLAY_*) is
 #    that sport's dog path now. Without them the floor's cells are the ones up in BOTH halves: MLB +13.7u / +13.4u,
 #    NFL +2.1u / +4.9u, NHL +3.4u / +5.3u.)
+NFL_HOME_FLOOR_OFF_FROM = "2026-11-15"   # 🏈 11/14 FOOTBALL PROFIT STUDIES R6 (results/studies/football_1114/r6_nfl_home_dog.py,
+#   the football replay board on today's code, every football day 2018-26): THE GENERAL FLOOR TAKES NO NFL HOME DOG from
+#   the 11/15 games (it goes to the floor's fallback list - up only when the board would carry no unit play at all, like
+#   the college football dog). The board's NFL HOME floor dogs went 6-20, -46.2% flat, -6.0u on 13u (train 2018-22 1-11,
+#   held 2023-26 5-9 -16.6%; 2 of 7 seasons up; z -2.3) while its NFL ROAD floor dogs went 51-54 +26.5% (8 of 9 seasons up).
+#   The market says why: every NFL home dog +100..+350 at the close 2018-26 -10.3% on 726 (every held season down), the
+#   road dog -1.0%; the old-fit raw read sits 4.6 points over the close on a home dog (2.7 on a road dog), and the floor
+#   reads that pool with no Dog gate - the floor-shaped home dogs (a named reason, not fighting, a thin own edge) -14.0% on
+#   221 (held -24.1%), the road ones +3.1%. Without the home floor dog the board's NFL dog unit plays run +21.1% vs +10.9%
+#   (+6.0u over nine seasons), 7 of 9 seasons up. "9999" = the old floor. The road NFL floor dog, the NFL Dog of the Day
+#   (home or road - 5-10 at home, +0.0u at its sizes, not cut) and every other path are untouched; live has posted no
+#   NFL home floor dog yet (the two live NFL floor dogs were road teams).
+
+
+def nfl_home_floor_off(c):
+    """🏈 11/14 R6: an NFL HOME (not neutral-site) moneyline dog, on / after NFL_HOME_FLOOR_OFF_FROM (its Pacific day) -
+    the daily floor skips it (floor_skip)."""
+    return (c.get("league") == "nfl" and c.get("market", "ml") == "ml" and bool(c.get("home")) and not c.get("neutral")
+            and (c.get("odds") or 0) >= 100 and pt_day(c) >= NFL_HOME_FLOOR_OFF_FROM)
+
+
 FLOOR_THIN_ONLY = True         # the hot hockey dog weight, the 2-point fallback hockey Dog, the no-thin-Lock rule; train 2023-25,
 FLOOR_FALLBACK_MIN = 1         # held out 2025-27; ~45 versions tried) says the floor's losers are (1) a SECOND NBA dog a night
 #                                (the 🏀 NBA floor already takes the best one: 12-29 train / 4-15 held, -5% / -41%), (2) the college
