@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 232,
-  "beat": 76,
+  "n": 233,
+  "beat": 77,
   "same": 92,
   "worse": 64,
   "avg_pts": 0.16
  },
  "unit_plays": {
-  "n": 114,
-  "beat": 36,
+  "n": 115,
+  "beat": 37,
   "same": 52,
   "worse": 26,
-  "avg_pts": 0.2
+  "avg_pts": 0.21
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 0.11
   },
   "lock": {
-   "n": 14,
-   "beat": 8,
+   "n": 15,
+   "beat": 9,
    "same": 4,
    "worse": 2,
-   "avg_pts": 1.23
+   "avg_pts": 1.21
   },
   "play": {
    "n": 70,
@@ -73,11 +73,11 @@
    "avg_pts": 0.08
   },
   "nfl": {
-   "n": 26,
-   "beat": 9,
+   "n": 27,
+   "beat": 10,
    "same": 11,
    "worse": 6,
-   "avg_pts": 0.25
+   "avg_pts": 0.28
   },
   "nhl": {
    "n": 95,
@@ -96,11 +96,11 @@
    "avg_pts": 0.88
   },
   "1-2u": {
-   "n": 2,
-   "beat": 2,
+   "n": 3,
+   "beat": 3,
    "same": 0,
    "worse": 0,
-   "avg_pts": 2.25
+   "avg_pts": 1.83
   },
   "2-4u": {
    "n": 2,
@@ -3365,6 +3365,20 @@
    "pts": 2.2,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-11-15",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Packers",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }
