@@ -23539,6 +23539,35 @@ def test_owner_1115_the_over_cards_write_a_plural_teams_possessive_right():
         assert "}'s defense" not in src and "}'s - " not in src, m.__name__   # (no f-string tacks on a bare 's)
 
 
+def test_owner_1115_a_play_posted_on_its_game_day_never_sits_under_we_got_in_early():
+    """THE OWNER, 11/15, on the 🏀 Cavaliers / Mavericks over 227.5 posted 12 minutes before the tip in the 🎯 WE GOT IN
+    EARLY box: "How tf is it early play". A play posted on its own game day (the main-guys-sit over, an altitude over
+    with no number the day before) reads as a regular 🔥 VALUE PLAY (the owner: \"It should just be value play regular unless it
+    was posted live\"); a real early play stays under WE GOT IN EARLY;
+    the ping waits for whichever box shows the play."""
+    import sports_early as se
+    saved = se.ON
+    se.ON = True
+    try:
+        now = datetime(2026, 11, 15, 0, 20, tzinfo=timezone.utc)                 # Saturday 4:20 PM PT
+        early = {"game_id": "nfl:x", "league": "nfl", "side": "away", "team": "Steelers", "opp": "Bengals", "odds": 150,
+                 "start": "2026-11-15T01:20Z", "posted": "2026-11-08T18:33Z", "result": None, "spot": "bye"}
+        total = {"game_id": "nba:y", "league": "nba", "side": "over", "team": "Over 227.5", "opp": "Mavericks @ Cavaliers",
+                 "odds": -110, "line": 227.5, "market": "total", "start": "2026-11-15T00:30Z",
+                 "posted": "2026-11-15T00:18Z", "result": None, "spot": "nba_out_over"}
+        assert se.posted_same_day(total) and not se.posted_same_day(early)
+        h = se.gameday_html({"picks": [early, total]}, {}, lambda x: x, now, day="2026-11-14")
+        ea, gd = h.split(se.GAMEDAY_BOX)
+        assert "WE GOT IN EARLY" in ea and "Steelers" in ea and "Over 227.5" not in ea, h
+        assert "Over 227.5" in gd and "Steelers" not in gd
+        only = se.gameday_html({"picks": [total]}, {}, lambda x: x, now, day="2026-11-14")
+        assert "WE GOT IN EARLY" not in only and se.GAMEDAY_BOX in only and se.GAMEDAY_BOX == "VALUE PLAY"
+        src = open(se.__file__).read()
+        assert 'for title in ("EARLY VALUE PLAYS", GAMEDAY_BOX):' in src            # the ping finds it in its box
+    finally:
+        se.ON = saved
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

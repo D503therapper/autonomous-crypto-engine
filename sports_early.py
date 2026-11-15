@@ -2069,11 +2069,13 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
     if not ON:
         return ""
     today = date.fromisoformat(day) if day else now.astimezone(PT).date()
-    rows = []
+    rows, day_rows = [], []
     for p in sorted(st.get("picks") or [], key=lambda p: p["start"]):
         t = _t(p["start"]).astimezone(PT)
         if t.date() != today:
             continue
+        same_day = posted_same_day(p)                        # (11/15, the owner: "How tf is it early play" - a total
+        #   posted on its own game day goes up as a regular 🔥 VALUE PLAY, never under WE GOT IN EARLY)
         if p.get("result") and p.get("graded_at") and now - _t(p["graded_at"]) > timedelta(hours=GRADED_STAYS_H):
             continue
         g = games.get(p["game_id"]) or {}
@@ -2094,7 +2096,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                         else f"👀 the number went {'down' if over else 'up'}")                    # as an under)
         gone = (f' data-gone="{int((_t(p["graded_at"]).timestamp() + GRADED_STAYS_H * 3600) * 1000)}"'
                 if p.get("result") and p.get("graded_at") else "")   # (10/10, the owner: Iowa's ✅ row sat on the page
-        rows.append(f'<div class="egr{" gn" if gone else ""}"{gone}><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
+        (day_rows if same_day else rows).append(f'<div class="egr{" gn" if gone else ""}"{gone}><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
                     f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                     # (10/7, the owner: "I never saw any live score that whole game" - the row's time is the board's
                     #  live tag now: 🔴 LIVE + the score under it, FINAL / ✅ HIT the second it ends)
@@ -2112,11 +2114,29 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
-    if not rows:
-        return ""
-    return ('<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span>'
-            '<span class="pk-l evt">WE GOT IN EARLY</span></div><div class="egh">WE GOT IT AT ➜ NOW</div>'
-            + "".join(rows) + '</section>')
+    out = ""
+    if rows:
+        out += ('<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span>'
+                '<span class="pk-l evt">WE GOT IN EARLY</span></div><div class="egh">WE GOT IT AT ➜ NOW</div>'
+                + "".join(rows) + '</section>')
+    if day_rows:
+        out += ('<section class="pk gdx" style="--c1:#ff8a00;--c2:#ffc233"><div class="pk-h"><span class="pk-i evi">🔥</span>'
+                f'<span class="pk-l evt">{GAMEDAY_BOX}</span></div><div class="egh">WE GOT IT AT ➜ NOW</div>'
+                + "".join(day_rows) + '</section>')   # (the board's 🔥 VALUE PLAY colors - sports_dashboard.KIND "play")
+    return out
+
+
+GAMEDAY_BOX = "VALUE PLAY"   # (11/15, the owner: "It should just be value play regular unless it was posted live") - the
+#   ⛰️ altitude over / 🏀 main-guys-sit over posted on the day of the game read as a regular 🔥 VALUE PLAY
+
+
+def posted_same_day(p):
+    """Was this early-box play posted on its own game day (Pacific)? The ⛰️ altitude over may post before the tip when no
+    number showed the day before, and the 🏀 main-guys-sit over is game-day news - neither is 'early'."""
+    try:
+        return _t(p["posted"]).astimezone(PT).date() == _t(p["start"]).astimezone(PT).date()
+    except (KeyError, TypeError, ValueError):
+        return False
 
 
 PINGS_PATH = os.path.join(sd.DATA, "early_pings.json")
@@ -2152,9 +2172,11 @@ def send_queued(page, now=None, path=None, send_fn=None):
     if not q.get("pings") or now - _t(q["at"]) > timedelta(minutes=PING_FRESH_MIN):
         return []
     plays = [c for c in q["pings"] if c]
-    box = page[page.find("EARLY VALUE PLAYS"):] if "EARLY VALUE PLAYS" in page else ""
-    box = box[:box.find("</section>")] if "</section>" in box else box   # (10/2 audit: the box only, never the
-    #                                                                       results further down the page)
+    box = ""
+    for title in ("EARLY VALUE PLAYS", GAMEDAY_BOX):          # (11/15: a game-day total pings once ITS box shows it)
+        b = page[page.find(title):] if title in page else ""
+        box += b[:b.find("</section>")] if "</section>" in b else b   # (10/2 audit: the box only, never the
+    #                                                                   results further down the page)
     if not plays or not all(c["team"] in box for c in plays):
         return []                                        # not live yet: wait (the caller checks again)
     send_fn = send_fn or send
