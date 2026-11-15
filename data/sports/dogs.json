@@ -2527,51 +2527,51 @@
   "cells": {
    "+100-139|all": {
     "n_new": 342,
-    "n_old": 260,
+    "n_old": 261,
     "proven": false,
-    "roi_new": -0.1061,
-    "roi_old": 0.0383,
+    "roi_new": -0.112,
+    "roi_old": 0.042,
     "trap": false,
-    "vs_fair": -0.0007,
-    "win_rate": 0.439,
-    "z": -0.99,
-    "z_fair": -0.03
+    "vs_fair": -0.0014,
+    "win_rate": 0.438,
+    "z": -1.03,
+    "z_fair": -0.07
    },
    "+100-139|away": {
     "n_new": 179,
-    "n_old": 140,
+    "n_old": 141,
     "proven": false,
-    "roi_new": -0.0923,
-    "roi_old": 0.106,
+    "roi_new": -0.1035,
+    "roi_old": 0.1123,
     "trap": false,
-    "vs_fair": 0.0158,
-    "win_rate": 0.455,
-    "z": -0.09,
-    "z_fair": 0.57
+    "vs_fair": 0.0144,
+    "win_rate": 0.453,
+    "z": -0.14,
+    "z_fair": 0.52
    },
    "+100-139|away from dog": {
-    "n_new": 202,
+    "n_new": 203,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.1321,
+    "roi_new": -0.1364,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": -0.0398,
-    "win_rate": 0.396,
-    "z": -1.74,
-    "z_fair": -1.16
+    "vs_fair": -0.0417,
+    "win_rate": 0.394,
+    "z": -1.81,
+    "z_fair": -1.22
    },
    "+100-139|away|even rest": {
     "n_new": 179,
-    "n_old": 140,
+    "n_old": 141,
     "proven": false,
-    "roi_new": -0.0923,
-    "roi_old": 0.106,
+    "roi_new": -0.1035,
+    "roi_old": 0.1123,
     "trap": false,
-    "vs_fair": 0.0158,
-    "win_rate": 0.455,
-    "z": -0.09,
-    "z_fair": 0.57
+    "vs_fair": 0.0144,
+    "win_rate": 0.453,
+    "z": -0.14,
+    "z_fair": 0.52
    },
    "+100-139|home": {
     "n_new": 163,
@@ -2863,51 +2863,51 @@
    },
    "all|all": {
     "n_new": 1006,
-    "n_old": 1005,
+    "n_old": 1006,
     "proven": false,
-    "roi_new": -0.0995,
-    "roi_old": 0.0109,
+    "roi_new": -0.1015,
+    "roi_old": 0.0118,
     "trap": false,
-    "vs_fair": 0.0004,
-    "win_rate": 0.349,
-    "z": -1.46,
-    "z_fair": 0.04
+    "vs_fair": 0.0002,
+    "win_rate": 0.348,
+    "z": -1.47,
+    "z_fair": 0.02
    },
    "all|away": {
     "n_new": 605,
-    "n_old": 617,
+    "n_old": 618,
     "proven": false,
-    "roi_new": -0.0711,
-    "roi_old": 0.0571,
+    "roi_new": -0.0744,
+    "roi_old": 0.0586,
     "trap": false,
-    "vs_fair": 0.0131,
-    "win_rate": 0.354,
-    "z": -0.16,
-    "z_fair": 0.97
+    "vs_fair": 0.0127,
+    "win_rate": 0.353,
+    "z": -0.18,
+    "z_fair": 0.95
    },
    "all|away from dog": {
-    "n_new": 627,
+    "n_new": 628,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.0583,
+    "roi_new": -0.0598,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": -0.0137,
-    "win_rate": 0.332,
-    "z": -1.04,
-    "z_fair": -0.73
+    "vs_fair": -0.0143,
+    "win_rate": 0.331,
+    "z": -1.07,
+    "z_fair": -0.77
    },
    "all|even rest": {
     "n_new": 1006,
-    "n_old": 1005,
+    "n_old": 1006,
     "proven": false,
-    "roi_new": -0.0995,
-    "roi_old": 0.0109,
+    "roi_new": -0.1015,
+    "roi_old": 0.0118,
     "trap": false,
-    "vs_fair": 0.0004,
-    "win_rate": 0.349,
-    "z": -1.46,
-    "z_fair": 0.04
+    "vs_fair": 0.0002,
+    "win_rate": 0.348,
+    "z": -1.47,
+    "z_fair": 0.02
    },
    "all|home": {
     "n_new": 401,
@@ -2934,11 +2934,11 @@
     "z_fair": -1.11
    }
   },
-  "dogs": 2011,
+  "dogs": 2012,
   "price": {
-   "games": 2338,
-   "ll_book": 0.60284,
-   "ll_fixed": 0.6038,
+   "games": 2339,
+   "ll_book": 0.60281,
+   "ll_fixed": 0.60379,
    "proven": false,
    "shifts": {},
    "table": {
@@ -2964,8 +2964,8 @@
     },
     "50%-60%": {
      "book_said": 0.557,
-     "games": 404,
-     "really_won": 0.54
+     "games": 405,
+     "really_won": 0.541
     },
     "60%-70%": {
      "book_said": 0.646,

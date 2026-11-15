@@ -4275,8 +4275,10 @@
    }
   ],
   "skipped": {
+   "game live": 2,
    "game void": 1,
-   "line moved / no closing price": 15
+   "line moved / no closing price": 15,
+   "not closed yet": 3
   },
   "summary": {
    "all": {
@@ -7452,19 +7454,19 @@
   "nfl": {
    "cells": {
     "ml|fade|any size|all": {
-     "edge_new": 0.0082,
+     "edge_new": 0.0073,
      "edge_old": -0.0252,
      "from": "2023-09-08",
-     "n_new": 488,
+     "n_new": 489,
      "n_old": 486,
      "proven": false,
-     "roi_new": -0.0534,
+     "roi_new": -0.0553,
      "roi_old": -0.0989,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.3901,
-     "z": -0.57,
-     "z_profit": -1.8
+     "win": 0.3897,
+     "z": -0.6,
+     "z_profit": -1.83
     },
     "ml|fade|any size|toward the dog": {
      "edge_new": 0.023,
@@ -7482,19 +7484,19 @@
      "z_profit": -0.29
     },
     "ml|fade|any size|toward the favorite": {
-     "edge_new": 0.003,
+     "edge_new": 0.0018,
      "edge_old": -0.0377,
      "from": "2023-09-10",
-     "n_new": 361,
+     "n_new": 362,
      "n_old": 372,
      "proven": false,
-     "roi_new": -0.0698,
+     "roi_new": -0.0724,
      "roi_old": -0.1224,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.3097,
-     "z": -1.05,
-     "z_profit": -1.8
+     "win": 0.3093,
+     "z": -1.09,
+     "z_profit": -1.82
     },
     "ml|fade|large|all": {
      "edge_new": 0.0002,
@@ -7542,19 +7544,19 @@
      "z_profit": -2.04
     },
     "ml|fade|medium|all": {
-     "edge_new": 0.0234,
+     "edge_new": 0.0204,
      "edge_old": -0.0061,
      "from": "2023-09-08",
-     "n_new": 149,
+     "n_new": 150,
      "n_old": 175,
      "proven": false,
-     "roi_new": 0.0126,
+     "roi_new": 0.0059,
      "roi_old": -0.0233,
-     "to": "2026-11-08",
-     "watch_only": true,
-     "win": 0.4568,
-     "z": 0.28,
-     "z_profit": -0.1
+     "to": "2026-11-15",
+     "watch_only": false,
+     "win": 0.4554,
+     "z": 0.23,
+     "z_profit": -0.14
     },
     "ml|fade|medium|toward the dog": {
      "edge_new": -0.0273,
@@ -7572,19 +7574,19 @@
      "z_profit": -0.63
     },
     "ml|fade|medium|toward the favorite": {
-     "edge_new": 0.0467,
+     "edge_new": 0.0421,
      "edge_old": -0.018,
      "from": "2023-09-10",
-     "n_new": 102,
+     "n_new": 103,
      "n_old": 118,
      "proven": false,
-     "roi_new": 0.0587,
+     "roi_new": 0.0484,
      "roi_old": -0.0273,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.3818,
-     "z": 0.37,
-     "z_profit": 0.13
+     "win": 0.3801,
+     "z": 0.31,
+     "z_profit": 0.09
     },
     "ml|fade|small|all": {
      "edge_new": 0.0059,
@@ -7632,19 +7634,19 @@
      "z_profit": -0.8
     },
     "ml|follow|any size|all": {
-     "edge_new": -0.0082,
+     "edge_new": -0.0073,
      "edge_old": 0.0252,
      "from": "2023-09-08",
-     "n_new": 488,
+     "n_new": 489,
      "n_old": 486,
      "proven": false,
-     "roi_new": -0.0578,
+     "roi_new": -0.0563,
      "roi_old": -0.0035,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.6099,
-     "z": 0.57,
-     "z_profit": -1.1
+     "win": 0.6103,
+     "z": 0.6,
+     "z_profit": -1.08
     },
     "ml|follow|any size|toward the dog": {
      "edge_new": -0.023,
@@ -7662,19 +7664,19 @@
      "z_profit": -1.08
     },
     "ml|follow|any size|toward the favorite": {
-     "edge_new": -0.003,
+     "edge_new": -0.0018,
      "edge_old": 0.0377,
      "from": "2023-09-10",
-     "n_new": 361,
+     "n_new": 362,
      "n_old": 372,
      "proven": false,
-     "roi_new": -0.049,
+     "roi_new": -0.047,
      "roi_old": 0.0245,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.6903,
-     "z": 1.05,
-     "z_profit": -0.46
+     "win": 0.6907,
+     "z": 1.09,
+     "z_profit": -0.42
     },
     "ml|follow|large|all": {
      "edge_new": -0.0002,
@@ -7722,19 +7724,19 @@
      "z_profit": -0.06
     },
     "ml|follow|medium|all": {
-     "edge_new": -0.0234,
+     "edge_new": -0.0204,
      "edge_old": 0.0061,
      "from": "2023-09-08",
-     "n_new": 149,
+     "n_new": 150,
      "n_old": 175,
      "proven": false,
-     "roi_new": -0.0783,
+     "roi_new": -0.0733,
      "roi_old": -0.0288,
-     "to": "2026-11-08",
-     "watch_only": true,
-     "win": 0.5432,
-     "z": -0.28,
-     "z_profit": -0.98
+     "to": "2026-11-15",
+     "watch_only": false,
+     "win": 0.5446,
+     "z": -0.23,
+     "z_profit": -0.94
     },
     "ml|follow|medium|toward the dog": {
      "edge_new": 0.0273,
@@ -7752,19 +7754,19 @@
      "z_profit": -0.33
     },
     "ml|follow|medium|toward the favorite": {
-     "edge_new": -0.0467,
+     "edge_new": -0.0421,
      "edge_old": 0.018,
      "from": "2023-09-10",
-     "n_new": 102,
+     "n_new": 103,
      "n_old": 118,
      "proven": false,
-     "roi_new": -0.1194,
+     "roi_new": -0.1117,
      "roi_old": -0.002,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.6182,
-     "z": -0.37,
-     "z_profit": -1.1
+     "win": 0.6199,
+     "z": -0.31,
+     "z_profit": -1.04
     },
     "ml|follow|small|all": {
      "edge_new": -0.0059,
@@ -7812,19 +7814,19 @@
      "z_profit": 0.66
     },
     "spread|fade|any size|all": {
-     "edge_new": -0.0019,
+     "edge_new": -0.0029,
      "edge_old": -0.0113,
      "from": "2023-09-08",
-     "n_new": 483,
+     "n_new": 484,
      "n_old": 472,
      "proven": false,
-     "roi_new": -0.0462,
+     "roi_new": -0.0482,
      "roi_old": -0.0659,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.4921,
-     "z": -0.4,
-     "z_profit": -1.8
+     "win": 0.4916,
+     "z": -0.43,
+     "z_profit": -1.83
     },
     "spread|fade|any size|toward the dog": {
      "edge_new": -0.0158,
@@ -7842,19 +7844,19 @@
      "z_profit": -0.95
     },
     "spread|fade|any size|toward the favorite": {
-     "edge_new": 0.003,
+     "edge_new": 0.0017,
      "edge_old": -0.0147,
      "from": "2023-09-10",
-     "n_new": 357,
+     "n_new": 358,
      "n_old": 362,
      "proven": false,
-     "roi_new": -0.037,
+     "roi_new": -0.0397,
      "roi_old": -0.0725,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.4924,
-     "z": -0.32,
-     "z_profit": -1.53
+     "win": 0.4917,
+     "z": -0.35,
+     "z_profit": -1.57
     },
     "spread|fade|large|all": {
      "edge_new": -0.0067,
@@ -7902,19 +7904,19 @@
      "z_profit": -1.97
     },
     "spread|fade|medium|all": {
-     "edge_new": 0.0325,
+     "edge_new": 0.029,
      "edge_old": 0.0191,
      "from": "2023-09-08",
-     "n_new": 145,
+     "n_new": 146,
      "n_old": 168,
      "proven": false,
-     "roi_new": 0.021,
+     "roi_new": 0.014,
      "roi_old": -0.005,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.524,
-     "z": 0.89,
-     "z_profit": 0.13
+     "win": 0.5223,
+     "z": 0.84,
+     "z_profit": 0.07
     },
     "spread|fade|medium|toward the dog": {
      "edge_new": -0.0647,
@@ -7932,19 +7934,19 @@
      "z_profit": -1.65
     },
     "spread|fade|medium|toward the favorite": {
-     "edge_new": 0.0777,
+     "edge_new": 0.0721,
      "edge_old": 0.0544,
      "from": "2023-09-10",
-     "n_new": 99,
+     "n_new": 100,
      "n_old": 114,
      "proven": false,
-     "roi_new": 0.1083,
+     "roi_new": 0.0972,
      "roi_old": 0.0635,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.5634,
-     "z": 1.91,
-     "z_profit": 1.29
+     "win": 0.5607,
+     "z": 1.84,
+     "z_profit": 1.21
     },
     "spread|fade|small|all": {
      "edge_new": -0.0498,
@@ -7992,19 +7994,19 @@
      "z_profit": -2.13
     },
     "spread|follow|any size|all": {
-     "edge_new": 0.0019,
+     "edge_new": 0.0029,
      "edge_old": 0.0113,
      "from": "2023-09-08",
-     "n_new": 483,
+     "n_new": 484,
      "n_old": 472,
      "proven": false,
-     "roi_new": -0.0394,
+     "roi_new": -0.0376,
      "roi_old": -0.0228,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.5079,
-     "z": 0.4,
-     "z_profit": -1.01
+     "win": 0.5084,
+     "z": 0.43,
+     "z_profit": -0.98
     },
     "spread|follow|any size|toward the dog": {
      "edge_new": 0.0158,
@@ -8022,19 +8024,19 @@
      "z_profit": -0.42
     },
     "spread|follow|any size|toward the favorite": {
-     "edge_new": -0.003,
+     "edge_new": -0.0017,
      "edge_old": 0.0147,
      "from": "2023-09-10",
-     "n_new": 357,
+     "n_new": 358,
      "n_old": 362,
      "proven": false,
-     "roi_new": -0.0495,
+     "roi_new": -0.0471,
      "roi_old": -0.0163,
-     "to": "2026-11-10",
+     "to": "2026-11-15",
      "watch_only": false,
-     "win": 0.5076,
-     "z": 0.32,
-     "z_profit": -0.92
+     "win": 0.5083,
+     "z": 0.35,
+     "z_profit": -0.89
     },
     "spread|follow|large|all": {
      "edge_new": 0.0067,
@@ -8082,19 +8084,19 @@
      "z_profit": 0.02
     },
     "spread|follow|medium|all": {
-     "edge_new": -0.0325,
+     "edge_new": -0.029,
      "edge_old": -0.0191,
      "from": "2023-09-08",
-     "n_new": 145,
+     "n_new": 146,
      "n_old": 168,
      "proven": false,
-     "roi_new": -0.1036,
+     "roi_new": -0.0972,
      "roi_old": -0.0782,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.476,
-     "z": -0.89,
-     "z_profit": -1.66
+     "win": 0.4777,
+     "z": -0.84,
+     "z_profit": -1.61
     },
     "spread|follow|medium|toward the dog": {
      "edge_new": 0.0647,
@@ -8112,19 +8114,19 @@
      "z_profit": 0.75
     },
     "spread|follow|medium|toward the favorite": {
-     "edge_new": -0.0777,
+     "edge_new": -0.0721,
      "edge_old": -0.0544,
      "from": "2023-09-10",
-     "n_new": 99,
+     "n_new": 100,
      "n_old": 114,
      "proven": false,
-     "roi_new": -0.1899,
+     "roi_new": -0.1797,
      "roi_old": -0.1446,
-     "to": "2026-11-08",
+     "to": "2026-11-15",
      "watch_only": true,
-     "win": 0.4366,
-     "z": -1.91,
-     "z_profit": -2.54
+     "win": 0.4393,
+     "z": -1.84,
+     "z_profit": -2.48
     },
     "spread|follow|small|all": {
      "edge_new": 0.0498,
@@ -8172,7 +8174,7 @@
      "z_profit": 1.29
     }
    },
-   "moved_games": 976,
+   "moved_games": 977,
    "proven": []
   },
   "nhl": {
