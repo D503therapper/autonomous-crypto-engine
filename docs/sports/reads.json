@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T23:09Z",
+ "updated": "2026-11-15T23:10Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1292,8 +1292,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTEP",
-    "p": 0.882,
-    "tie": 0.02,
+    "p": 0.877,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1308,9 +1308,9 @@
     "opp": "UTEP",
     "market": "spread",
     "line": 19.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.513,
-    "win_p": 0.053,
+    "win_p": 0.057,
     "reasons": []
    }
   },
@@ -1425,9 +1425,9 @@
     "team": "Richmond",
     "opp": "Virginia Tech",
     "market": "spread",
-    "line": 14.5,
-    "odds": -118,
-    "p": 0.508,
+    "line": 13.5,
+    "odds": -110,
+    "p": 0.507,
     "win_p": 0.092,
     "reasons": []
    }
@@ -1458,6 +1458,7 @@
     "p": 0.578,
     "win_p": 0.578,
     "reasons": [
+     "sharp money moving this way",
      "out-rebounding people by -2.6 a game to their -8.8 - the books don't price the glass (5 of 5 seasons)",
      "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
@@ -1484,9 +1485,9 @@
     "team": "The Citadel",
     "opp": "Clemson",
     "market": "spread",
-    "line": 24.5,
-    "odds": -105,
-    "p": 0.518,
+    "line": 23.5,
+    "odds": -108,
+    "p": 0.517,
     "win_p": 0.025,
     "reasons": [
      "hotter recent form"
@@ -1727,6 +1728,34 @@
    }
   },
   {
+   "id": "ncaab:401920808",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas A&M",
+    "p": 0.93,
+    "tie": 0.014,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T01:30Z",
+   "away": "SE Louisiana",
+   "home": "Texas A&M",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "SE Louisiana",
+    "opp": "Texas A&M",
+    "market": "spread",
+    "line": 33.5,
+    "odds": -110,
+    "p": 0.527,
+    "win_p": 0.024,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401892727",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1754,6 +1783,36 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401929192",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Oregon St",
+    "p": 0.858,
+    "tie": 0.023,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T02:30Z",
+   "away": "East Texas A&M",
+   "home": "Oregon St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "East Texas A&M",
+    "opp": "Oregon St",
+    "market": "spread",
+    "line": 17.5,
+    "odds": -105,
+    "p": 0.511,
+    "win_p": 0.07,
+    "reasons": [
+     "hotter recent form"
     ]
    }
   },
