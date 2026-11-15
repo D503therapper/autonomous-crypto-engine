@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 228,
-  "beat": 74,
-  "same": 91,
-  "worse": 63,
-  "avg_pts": 0.14
+  "n": 231,
+  "beat": 75,
+  "same": 92,
+  "worse": 64,
+  "avg_pts": 0.15
  },
  "unit_plays": {
-  "n": 112,
+  "n": 113,
   "beat": 35,
-  "same": 51,
+  "same": 52,
   "worse": 26,
-  "avg_pts": 0.19
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
-   "n": 29,
+   "n": 30,
    "beat": 6,
-   "same": 14,
+   "same": 15,
    "worse": 9,
-   "avg_pts": -0.26
+   "avg_pts": -0.25
   },
   "lean": {
-   "n": 116,
-   "beat": 39,
+   "n": 118,
+   "beat": 40,
    "same": 40,
-   "worse": 37,
-   "avg_pts": 0.1
+   "worse": 38,
+   "avg_pts": 0.11
   },
   "lock": {
    "n": 14,
@@ -80,11 +80,11 @@
    "avg_pts": 0.25
   },
   "nhl": {
-   "n": 92,
-   "beat": 29,
-   "same": 37,
-   "worse": 26,
-   "avg_pts": 0.12
+   "n": 95,
+   "beat": 30,
+   "same": 38,
+   "worse": 27,
+   "avg_pts": 0.13
   }
  },
  "lock_by_size": {
@@ -3293,6 +3293,48 @@
    "odds": -110,
    "close": -110,
    "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flyers",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": 114,
+   "pts": 0.0,
+   "units": 2.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -120,
+   "close": -135,
+   "pts": 2.9,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -108,
+   "pts": -1.6,
    "units": 0,
    "result": "won"
   },
