@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T22:19Z",
+ "updated": "2026-11-15T22:32Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -474,8 +474,8 @@
    "away": "Baylor",
    "home": "Texas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -504,8 +504,8 @@
    "away": "Creighton",
    "home": "Iowa",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -519,8 +519,8 @@
    "away": "High Point",
    "home": "Saint Louis",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -856,7 +856,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.568,
+    "p": 0.544,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -872,9 +872,9 @@
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -184,
-    "p": 0.632,
-    "win_p": 0.632,
+    "odds": -157,
+    "p": 0.596,
+    "win_p": 0.596,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -904,7 +904,7 @@
     "opp": "Mavericks",
     "market": "spread",
     "line": -14.5,
-    "odds": -117,
+    "odds": -116,
     "p": 0.503,
     "win_p": 0.85,
     "reasons": [
@@ -920,8 +920,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.648,
-    "tie": 0.034,
+    "p": 0.656,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -938,7 +938,7 @@
     "line": -8.5,
     "odds": -107,
     "p": 0.501,
-    "win_p": 0.735,
+    "win_p": 0.745,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1026,9 +1026,9 @@
     "team": "Coastal",
     "opp": "Wisconsin",
     "market": "spread",
-    "line": 28.5,
-    "odds": -115,
-    "p": 0.522,
+    "line": 27.5,
+    "odds": -105,
+    "p": 0.521,
     "win_p": 0.02,
     "reasons": []
    }
