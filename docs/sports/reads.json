@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T05:35Z",
+ "updated": "2026-11-15T05:37Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -3054,8 +3054,8 @@
    "away": "Islanders",
    "home": "Ducks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -4697,8 +4697,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.391,
-    "tie": 0.298,
+    "p": 0.373,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4714,9 +4714,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -175,
-    "p": 0.639,
-    "win_p": 0.421,
-    "reasons": []
+    "p": 0.673,
+    "win_p": 0.455,
+    "reasons": [
+     "better rested",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
