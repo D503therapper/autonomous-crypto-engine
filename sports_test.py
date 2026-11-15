@@ -22211,7 +22211,7 @@ def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
     assert "Three of the six" in c["why"] and no.REC in c["why"] and "Al Able" in c["why"]
     assert "Hawks without Al Able (36 minutes a night) and Bo Baker (34 minutes a night)" in txt
     assert "Jazz without Fox Ford (36 minutes a night)" in txt and "Gus Gray" not in txt            # doubtful never counts
-    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks's - 225 with everybody" in txt
+    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks' - 225 with everybody" in txt
     assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 5
     assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
 
@@ -23527,6 +23527,16 @@ def test_owner_1115_college_trash_talk_never_counts_losses_to_better_teams():
     assert not any("dropped 5" in x or "0-5 over their last 5" in x or "been sliding" in x for x in tough), tough
     soft = card(1350.0)                                               # beaten by teams rated under us: fair game
     assert any(x.startswith("🗑️") or x.startswith("🥊") or "last 5" in x for x in soft), soft
+
+
+def test_owner_1115_the_over_cards_write_a_plural_teams_possessive_right():
+    """11/15: the Cavaliers / Mavericks over card said "against Mavericks's defense". A name ending in s takes a bare
+    apostrophe on both over cards (the ⛰️ altitude over, the 🏀 main-guys-sit over)."""
+    import sports_nba_out, sports_early
+    for m in (sports_nba_out, sports_early):
+        assert m._poss("Mavericks") == "Mavericks'" and m._poss("Denver") == "Denver's" and m._poss("") == "'s"
+        src = open(m.__file__).read()
+        assert "}'s defense" not in src and "}'s - " not in src, m.__name__   # (no f-string tacks on a bare 's)
 
 
 if __name__ == "__main__":

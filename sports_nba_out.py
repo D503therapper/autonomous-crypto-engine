@@ -37,6 +37,12 @@ REC = "267-182"                 # the rule's record at the close, 2018-26 (s10b:
 UNITS = 0.5
 
 
+
+def _poss(name):
+    """A team's possessive the way people write it: "Mavericks' defense", "Denver's defense" (11/15: "Mavericks's")."""
+    name = str(name or "")
+    return name + ("'" if name.endswith("s") else "'s")
+
 def _nm(x):
     return " ".join(re.sub(r"[^a-z ]", "", str(x or "").lower().replace(" jr", "").replace(" iii", "")
                            .replace(" ii", "")).split())
@@ -164,8 +170,8 @@ def candidates(games, st, now, inj, rows=None, se=None):
                 facts.append(f"{nm} without " + " and ".join(f"{n} ({m:.0f} minutes a night)" for n, m in o))
         hn, an = g.get("home_name"), g.get("away_name")
         eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2       # (11/14, the owner: "neither team averages what that over
-        facts.append(f"{hn} should score about {eh:.0f} against {an}'s defense and {an} about {ea:.0f} against "   # is" -
-                     f"{hn}'s - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
+        facts.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against "   # is" -
+                     f"{_poss(hn)} - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
         for side in ("home", "away"):
             ln = se._alt_last(games, g.get(side), s, now, league="nba")
             m = re.search(r"\((\d+) points\)$", ln or "")
