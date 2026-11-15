@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 233,
-  "beat": 77,
+  "n": 234,
+  "beat": 78,
   "same": 92,
   "worse": 64,
-  "avg_pts": 0.16
+  "avg_pts": 0.17
  },
  "unit_plays": {
   "n": 115,
@@ -22,11 +22,11 @@
    "avg_pts": -0.25
   },
   "lean": {
-   "n": 118,
-   "beat": 40,
+   "n": 119,
+   "beat": 41,
    "same": 40,
    "worse": 38,
-   "avg_pts": 0.11
+   "avg_pts": 0.12
   },
   "lock": {
    "n": 15,
@@ -73,11 +73,11 @@
    "avg_pts": 0.08
   },
   "nfl": {
-   "n": 27,
-   "beat": 10,
+   "n": 28,
+   "beat": 11,
    "same": 11,
    "worse": 6,
-   "avg_pts": 0.28
+   "avg_pts": 0.33
   },
   "nhl": {
    "n": 95,
@@ -3364,6 +3364,20 @@
    "close": 146,
    "pts": 2.2,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-11-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Browns",
+   "market": "spread",
+   "line": 4.5,
+   "odds": -112,
+   "close": -120,
+   "pts": 1.7,
+   "units": 0,
    "result": "won"
   },
   {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T21:14Z",
+ "updated": "2026-11-15T21:30Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -131,8 +131,8 @@
    "away": "Dolphins",
    "home": "Colts",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -221,8 +221,8 @@
    "away": "Ole Miss",
    "home": "Oklahoma",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -267,7 +267,7 @@
    "home": "Browns",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Browns",
@@ -282,7 +282,7 @@
      "cold-weather edge",
      "opponent the more banged-up side: 2 regulars out to 1 for us"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1146,7 +1146,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.56,
+    "p": 0.559,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1296,6 +1296,34 @@
    }
   },
   {
+   "id": "ncaab:401929419",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UTEP",
+    "p": 0.881,
+    "tie": 0.02,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-16T19:00Z",
+   "away": "Florida A&M",
+   "home": "UTEP",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Florida A&M",
+    "opp": "UTEP",
+    "market": "spread",
+    "line": 19.5,
+    "odds": -112,
+    "p": 0.513,
+    "win_p": 0.053,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401892726",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1329,7 +1357,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.597,
+    "p": 0.598,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1346,8 +1374,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.668,
-    "win_p": 0.668,
+    "p": 0.67,
+    "win_p": 0.67,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",

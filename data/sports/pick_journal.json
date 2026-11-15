@@ -14108,6 +14108,67 @@
  },
  {
   "date": "2026-11-15",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401873056",
+  "team": "Browns",
+  "opp": "Texans",
+  "home": true,
+  "market": "spread",
+  "line": 4.5,
+  "odds": -112,
+  "posted": "2026-11-15T16:00Z",
+  "price_says": 0.528,
+  "win_p": 0.5193022466179733,
+  "own_read": 0.519,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": null,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent missing key players",
+   "cold-weather edge",
+   "opponent the more banged-up side: 2 regulars out to 1 for us"
+  ],
+  "angles": {
+   "fades": [
+    "coach's first season"
+   ],
+   "go4_gap": 0.1019,
+   "last_margin": -1.0,
+   "last_pts": 22.0,
+   "neutral": false,
+   "record": [
+    5,
+    4
+   ],
+   "win_pct": 0.556,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Ronnie Hickman (S)"
+  ],
+  "theirs_out": [
+   "Danielle Hunter (DE)",
+   "Azeez Al-Shaair (LB)",
+   "David Montgomery (RB)",
+   "Keylan Rutledge (G)"
+  ],
+  "goalie_roles": null,
+  "public": "fade",
+  "close": -120,
+  "beat_close_pts": 1.7,
+  "result": "won",
+  "score": "27-24",
+  "margin": 3.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-11-15",
   "kind": "lock",
   "lean": false,
   "tier": "lock",
