@@ -1,42 +1,3 @@
-streak|fav_cover: following hit 49.5% vs 50.0% the price said over 7811 (edge -1.5% older, +0.5% newer, z -0.92) -> watch only
-streak|home: following hit 62.0% vs 61.3% the price said over 13757 (edge +1.0% older, +0.4% newer, z 1.87) -> watch only
-rate|total: following hit 50.9% vs 50.0% the price said over 4003 (edge +1.3% older, +0.5% newer, z 1.12) -> watch only
-rate|fav_ml: following hit 73.8% vs 72.8% the price said over 116393 (edge +0.9% older, +1.2% newer, z 8.3) -> watch only
-rate|fav_cover: following hit 48.9% vs 50.0% the price said over 1914 (edge +0.2% older, -2.4% newer, z -0.96) -> watch only
-rate|home: following hit 66.5% vs 65.3% the price said over 43499 (edge +1.0% older, +1.2% newer, z 5.86) -> watch only
-nfl|streak: following hit 58.8% vs 59.8% the price said over 1583 (edge -2.9% older, +0.9% newer, z -0.83) -> watch only
-nfl|rate: following hit 65.3% vs 65.1% the price said over 4202 (edge -0.0% older, +0.6% newer, z 0.41) -> watch only
-ncaaf|streak: following hit 70.2% vs 69.7% the price said over 7412 (edge -0.2% older, +1.2% newer, z 0.98) -> watch only
-ncaaf|rate: following hit 72.3% vs 71.6% the price said over 23201 (edge +0.7% older, +0.8% newer, z 2.82) -> watch only
-nba|streak: following hit 61.3% vs 61.3% the price said over 9962 (edge -0.2% older, +0.2% newer, z -0.01) -> watch only
-nba|rate: following hit 68.5% vs 68.6% the price said over 24203 (edge -0.3% older, -0.0% newer, z -0.49) -> watch only
-ncaab|streak: following hit 68.1% vs 67.1% the price said over 36694 (edge +1.1% older, +0.9% newer, z 4.37) -> watch only
-ncaab|rate: following hit 72.7% vs 71.2% the price said over 103341 (edge +1.4% older, +1.4% newer, z 10.91) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10773 (edge +0.6% older, -0.4% newer, z 0.16) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.9% vs 55.5% the price said over 5166 (edge +1.4% older, +1.5% newer, z 2.14) -> watch only
-nhl|rate: following hit 61.7% vs 60.8% the price said over 5500 (edge +0.2% older, +1.5% newer, z 1.3) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl big favorite: favorites win 23-1 (prices said 17.4) (23 straight) -> coin flip · next: Kraken @ Hurricanes, Canucks @ Golden Knights
-ACTIVE nfl away favorite: favorites win 39-15 (prices said 33.6) (13 straight) -> coin flip · next: Bills @ Jets, Texans @ Browns, Jaguars @ Titans
-ACTIVE ncaaf wednesday: favorites win 12-1 (prices said 8.3) (10 straight) -> coin flip · next: Akron @ UMass, C Michigan @ Buffalo
-ACTIVE nba big favorite: favorites win 63-10 (prices said 56.6) (9 straight) -> coin flip · next: Warriors @ Spurs, Trail Blazers @ Kings, Thunder @ Clippers
-ACTIVE nba back-to-back: favorites win 42-7 (prices said 32.7) (6 straight) -> coin flip · next: Mavericks @ Celtics, Magic @ Celtics, Grizzlies @ Wizards
-ACTIVE nfl big favorite: favorites win 35-12 (prices said 35.7) (11 straight) -> coin flip · next: Bills @ Jets, Jaguars @ Titans, Rams @ Cardinals
-ACTIVE ncaab big favorite: home team wins 317-47 (prices said 315.5) (10 straight) -> coin flip · next: Chicago St @ San Diego, Miss Valley St @ Oregon St, UIC @ Saint Mary's
-ACTIVE nba away favorite: favorites win 54-15 (prices said 45.5) (6 straight) -> coin flip · next: Trail Blazers @ Kings, Thunder @ Clippers
-totals study: {'nfl': (0.5365, False), 'ncaaf': (0.4949, False), 'nba': (0.5053, False), 'ncaab': (0.5274, True), 'mlb': (0.4862, False), 'nhl': (0.4826, False)}
-public splits: 106 upcoming games
-self-check: 294 graded picks - we said 50%, they hit 52% (hitting at or above what we said)
-  source:pregame: 270 graded, said 50%, hit 52% - hitting at or above what we said
-  market:ml: 260 graded, said 50%, hit 53% - hitting at or above what we said
-  drama:none: 249 graded, said 50%, hit 54% - hitting at or above what we said
-  label:parlay leg: 222 graded, said 51%, hit 52% - hitting at or above what we said
-  price:-149..-101: 168 graded, said 55%, hit 58% - hitting at or above what we said
-  ctx:game:conf: 112 graded, said 48%, hit 53% - hitting at or above what we said (report only: forward-only tag)
-  league:nhl: 100 graded, said 50%, hit 48% - a little below what we said - within noise
-  price:+101..+179: 99 graded, said 47%, hit 42% - a little below what we said - within noise
-  ctx:game:div: 71 graded, said 51%, hit 41% - hitting well below what we said (report only: forward-only tag)
   ctx:game:nonconf: 71 graded, said 51%, hit 56% - hitting at or above what we said (report only: forward-only tag)
   league:ncaaf: 63 graded, said 46%, hit 41% - a little below what we said - within noise
   league:nfl: 46 graded, said 54%, hit 61% - hitting at or above what we said
@@ -2995,6 +2956,45 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 3 matches
 1H line log: 47 rows (45 with a 1st-half line) from 79 AN games
 source check (2.1s): plain requests answered by 81 of 83 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+CARD CHECK (render) 2026-11-15: Packers -142: the 🚑 chip's names again: 🚑 Vikings are without Kyler Murray (QB), Blake Cashman (LB), T.J. Hockenson (TE).
+CARD CHECK (render) 2026-11-15: Hornets -113: the 🚑 chip's names again: 🚑 Clippers are without Brandon Ingram (F), Yanic Konan Niederhauser (C), Bradley Beal (G), Jordan Miller (G).
+CARD CHECK (render) 2026-11-15: Cardinals -105: the 🚑 chip's names again: 🚑 Out for Rams: Puka Nacua (WR).
+sync: 132969 games stored, 52 calls, 0 failed, 11s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 142 games got weather, 0 new stadiums located, 20s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 5 games on the page, 5 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-15, 0 failed, 0 moves
+beat the close: unit plays 36 of 114 better than the close, avg +0.2 pts
+public splits: 115 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 178 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 178 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 6 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (107 players), 365 matched, 0 unmatched
+   no units on Iowa State: missing C. Wiggins, K. Toure
+   no units on Louisville: missing D. Montgomery, G. Dynes
+   no units on Michigan: missing J. Hartman, L. Cosby, B. McCoy Jr.
+   no units on Missouri: missing J. Carey, A. Chronister, A. Boateng
+   no units on New Mexico St: missing S. Payne, G. Warren
+   no units on Wisconsin: missing L. Fenderson, J. Manchester
+   no units on Stars: missing Miro Heiskanen, Kyle Capobianco, Lian Bichsel
+tennis sync: 74072 matches stored, 18 calls, 0 failed
+tennis study ATP: 26322 rated matches, acc 0.6435 (surface ratings alone 0.642), loss 0.6303 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.157, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6303: experience 0.6298 (+0.48 mnats, z 0.55), age 0.6286 (+1.65 mnats, z 1.17), young_vs_aging 0.63 (+0.29 mnats, z 0.71), last_match 0.6275 (+2.73 mnats, z 1.92), streaks 0.6309 (-0.63 mnats, z -0.62), first_set 0.6296 (+0.70 mnats, z 1.06), injury 0.6312 (-0.89 mnats, z -1.39), travel 0.6302 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30885 rated matches, acc 0.646 (surface ratings alone 0.6475), loss 0.6228 vs 0.6232, own weights [0.005, 0.904, -0.001, -0.072, 0.297, 0.025, -0.197]
+tennis study WTA life factors vs current loss 0.6228: experience 0.6197 (+3.08 mnats, z 1.83), age 0.6218 (+0.99 mnats, z 1.27), young_vs_aging 0.6225 (+0.30 mnats, z 1.87), last_match 0.6236 (-0.77 mnats, z -0.75), streaks 0.6228 (+0.01 mnats, z 0.03), first_set 0.6225 (+0.31 mnats, z 0.66), injury 0.6222 (+0.64 mnats, z 1.1), travel 0.6229 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+tennis reads: 3 matches
+1H line log: 0 rows (0 with a 1st-half line) from 79 AN games
+source check (0.4s): plain requests answered by 79 of 83 sources - quiet: bovada, bovada_nfl, rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-15: Packers -142: the 🚑 chip's names again: 🚑 Vikings are without Kyler Murray (QB), Blake Cashman (LB), T.J. Hockenson (TE).
 CARD CHECK (render) 2026-11-15: Hornets -113: the 🚑 chip's names again: 🚑 Clippers are without Brandon Ingram (F), Yanic Konan Niederhauser (C), Bradley Beal (G), Jordan Miller (G).
 CARD CHECK (render) 2026-11-15: Cardinals -105: the 🚑 chip's names again: 🚑 Out for Rams: Puka Nacua (WR).
