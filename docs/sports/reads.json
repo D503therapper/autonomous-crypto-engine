@@ -1,6 +1,21 @@
 {
- "updated": "2026-11-15T14:32Z",
+ "updated": "2026-11-15T14:56Z",
  "games": [
+  {
+   "id": "nfl:401873053",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-15T14:30Z",
+   "away": "Patriots",
+   "home": "Lions",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaab:401924858",
    "league": "ncaab",
@@ -246,7 +261,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.757,
+    "p": 0.754,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -264,7 +279,7 @@
     "line": 10.5,
     "odds": -105,
     "p": 0.511,
-    "win_p": 0.135,
+    "win_p": 0.137,
     "reasons": [
      "coming off a bye",
      "revenge game"
@@ -336,7 +351,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia St",
-    "p": 0.787,
+    "p": 0.793,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -354,7 +369,7 @@
     "line": 12.5,
     "odds": -108,
     "p": 0.506,
-    "win_p": 0.131,
+    "win_p": 0.126,
     "reasons": []
    }
   },
@@ -665,7 +680,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UAlbany",
-    "p": 0.537,
+    "p": 0.556,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -681,9 +696,9 @@
     "opp": "Holy Cross",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -170,
+    "p": 0.606,
+    "win_p": 0.606,
     "reasons": []
    }
   },
@@ -1174,7 +1189,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hornets",
-    "p": 0.482,
+    "p": 0.491,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1190,10 +1205,11 @@
     "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -109,
-    "p": 0.51,
-    "win_p": 0.51,
+    "odds": -113,
+    "p": 0.52,
+    "win_p": 0.52,
     "reasons": [
+     "sharp money moving this way",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -1219,9 +1235,9 @@
     "team": "New Haven",
     "opp": "Penn State",
     "market": "spread",
-    "line": 23.5,
-    "odds": -105,
-    "p": 0.517,
+    "line": 24.5,
+    "odds": -115,
+    "p": 0.518,
     "win_p": 0.023,
     "reasons": []
    }
@@ -1277,9 +1293,9 @@
     "team": "Pepperdine",
     "opp": "Oregon",
     "market": "spread",
-    "line": 12.5,
-    "odds": -102,
-    "p": 0.506,
+    "line": 13.5,
+    "odds": -115,
+    "p": 0.507,
     "win_p": 0.127,
     "reasons": [
      "sharp money moving this way"
@@ -1430,7 +1446,7 @@
     "opp": "Mavericks",
     "market": "spread",
     "line": -13.5,
-    "odds": -116,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.833,
     "reasons": [
@@ -1713,8 +1729,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Jos\u00e9 St",
-    "p": 0.795,
-    "tie": 0.03,
+    "p": 0.799,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1729,9 +1745,9 @@
     "opp": "San Jos\u00e9 St",
     "market": "spread",
     "line": 13.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.507,
-    "win_p": 0.125,
+    "win_p": 0.12,
     "reasons": [
      "hotter recent form"
     ]
