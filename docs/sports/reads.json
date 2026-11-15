@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T21:30Z",
+ "updated": "2026-11-15T21:44Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -384,8 +384,8 @@
    "away": "Princeton",
    "home": "Rhode Island",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -702,6 +702,21 @@
    "lean": null
   },
   {
+   "id": "nfl:401873063",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-15T21:25Z",
+   "away": "49ers",
+   "home": "Cowboys",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909987",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -731,6 +746,36 @@
    }
   },
   {
+   "id": "ncaab:401917175",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:30Z",
+   "away": "New Haven",
+   "home": "Penn State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401923393",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:30Z",
+   "away": "W Michigan",
+   "home": "S Indiana",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401926073",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -744,37 +789,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909988",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Spurs",
-    "p": 0.766,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-15T22:00Z",
-   "away": "Spurs",
-   "home": "Jazz",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Spurs",
-    "opp": "Jazz",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -112,
-    "p": 0.503,
-    "win_p": 0.875,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
   },
   {
    "id": "ncaab:401911017",
@@ -843,8 +857,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Knicks",
-    "p": 0.592,
-    "tie": 0.035,
+    "p": 0.568,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -859,13 +873,13 @@
     "opp": "Raptors",
     "market": "ml",
     "line": null,
-    "odds": -216,
-    "p": 0.666,
-    "win_p": 0.666,
+    "odds": -184,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
-     "sharp money moving this way"
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
   },
@@ -875,8 +889,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.729,
-    "tie": 0.03,
+    "p": 0.742,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -890,14 +904,14 @@
     "team": "Celtics",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -14.5,
-    "odds": -110,
+    "line": -15.5,
+    "odds": -108,
     "p": 0.503,
-    "win_p": 0.838,
+    "win_p": 0.851,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
-     "better rested"
+     "opponent missing key players"
     ]
    }
   },
