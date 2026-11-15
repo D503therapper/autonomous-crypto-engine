@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T21:04Z",
+ "updated": "2026-11-15T21:06Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -429,8 +429,8 @@
    "away": "UAlbany",
    "home": "Holy Cross",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -444,8 +444,8 @@
    "away": "William & Mary",
    "home": "Michigan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -654,38 +654,6 @@
      "opponent missing key players: WR Puka Nacua (their read -1)"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nfl:401873063",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "49ers",
-    "p": 0.611,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-15T21:25Z",
-   "away": "49ers",
-   "home": "Cowboys",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "49ers",
-    "opp": "Cowboys",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.68,
-    "win_p": 0.68,
-    "reasons": [
-     "the stronger team",
-     "rolling off a blowout win",
-     "opponent missing key players"
-    ]
    }
   },
   {
