@@ -381,13 +381,13 @@
   }
  },
  "ncaaf": {
-  "games": 6001,
+  "games": 6003,
   "grade": {
    "all": {
-    "hit": 0.5082,
-    "low80": 0.4939,
+    "hit": 0.5077,
+    "low80": 0.4934,
     "n": 2001,
-    "roi": -0.0305
+    "roi": -0.0315
    },
    "top10": {
     "hit": 0.475,
@@ -408,21 +408,21 @@
     "roi": -0.0526
    }
   },
-  "hit_all": 0.5082,
+  "hit_all": 0.5077,
   "hit_top": 0.4967,
-  "intercept": -0.02034,
+  "intercept": -0.01966,
   "kept": [
    "wind"
   ],
-  "ll_test_base": 0.6931,
-  "ll_test_kept": 0.69354,
-  "ll_val_base": 0.69539,
-  "ll_val_kept": 0.6946,
+  "ll_test_base": 0.69311,
+  "ll_test_kept": 0.69355,
+  "ll_val_base": 0.69545,
+  "ll_val_kept": 0.69466,
   "n_top": 600,
   "norm": {
    "wind": [
-    9.84403,
-    4.47824
+    9.84408,
+    4.47765
    ]
   },
   "proven": false,
@@ -433,16 +433,16 @@
     "note": "no data"
    },
    "cold": {
-    "gain": 2e-05,
-    "ll": 0.69537
+    "gain": 1e-05,
+    "ll": 0.69543
    },
    "drama": {
     "ll": null,
     "note": "no data"
    },
    "form": {
-    "gain": -3e-05,
-    "ll": 0.69541
+    "gain": -4e-05,
+    "ll": 0.69548
    },
    "inj": {
     "ll": null,
@@ -454,53 +454,53 @@
    },
    "lg_trend": {
     "gain": -0.00028,
-    "ll": 0.69566
+    "ll": 0.69572
    },
    "ou_away": {
-    "gain": -0.00084,
-    "ll": 0.69623
+    "gain": -0.00086,
+    "ll": 0.69631
    },
    "ou_home": {
-    "gain": 6e-05,
-    "ll": 0.69532
+    "gain": 7e-05,
+    "ll": 0.69538
    },
    "park": {
-    "gain": -0.00077,
-    "ll": 0.69615
+    "gain": -0.00084,
+    "ll": 0.69629
    },
    "public": {
     "ll": null,
     "note": "no data"
    },
    "rain": {
-    "gain": -0.00061,
-    "ll": 0.696
+    "gain": -0.00064,
+    "ll": 0.69609
    },
    "rest": {
-    "gain": -0.00088,
-    "ll": 0.69626
+    "gain": -0.00086,
+    "ll": 0.69631
    },
    "starter": {
     "ll": null,
     "note": "no data"
    },
    "thin_air": {
-    "gain": -0.00036,
-    "ll": 0.69575
+    "gain": -0.00035,
+    "ll": 0.6958
    },
    "travel": {
     "gain": -1e-05,
-    "ll": 0.6954
+    "ll": 0.69545
    },
    "wind": {
     "gain": 0.00079,
-    "ll": 0.6946
+    "ll": 0.69466
    }
   },
   "test_from": "2024-08-31",
   "test_games": 2001,
   "weights": {
-   "wind": -0.03248
+   "wind": -0.03245
   }
  },
  "nfl": {
