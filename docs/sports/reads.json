@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T20:29Z",
+ "updated": "2026-11-15T20:46Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -236,8 +236,8 @@
    "away": "Pacers",
    "home": "76ers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -324,8 +324,8 @@
    "away": "New Hampshire",
    "home": "Boston College",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -555,199 +555,17 @@
    "lean": null
   },
   {
-   "id": "ncaab:401934396",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Pacific",
-    "p": 0.792,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "Air Force",
-   "home": "Pacific",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Air Force",
-    "opp": "Pacific",
-    "market": "spread",
-    "line": 11.5,
-    "odds": -102,
-    "p": 0.505,
-    "win_p": 0.127,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401917531",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "LMU",
-    "p": 0.867,
-    "tie": 0.022,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "Chicago St",
-   "home": "LMU",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Chicago St",
-    "opp": "LMU",
-    "market": "spread",
-    "line": 18.5,
-    "odds": -112,
-    "p": 0.512,
-    "win_p": 0.064,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401917528",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Seattle U",
-    "p": 0.838,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "Idaho St",
-   "home": "Seattle U",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Idaho St",
-    "opp": "Seattle U",
-    "market": "spread",
-    "line": 15.5,
-    "odds": -110,
-    "p": 0.509,
-    "win_p": 0.086,
-    "reasons": [
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909986",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Lakers",
-    "p": 0.548,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "Lakers",
-   "home": "Suns",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lakers",
-    "opp": "Suns",
-    "market": "ml",
-    "line": null,
-    "odds": -161,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401919825",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "James Madison",
-    "p": 0.809,
-    "tie": 0.028,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "Mercyhurst",
-   "home": "James Madison",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Mercyhurst",
-    "opp": "James Madison",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -110,
-    "p": 0.506,
-    "win_p": 0.111,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401928789",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "San Diego St",
-    "p": 0.795,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T21:00Z",
-   "away": "New Mexico St",
-   "home": "San Diego St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "New Mexico St",
-    "opp": "San Diego St",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -115,
-    "p": 0.506,
-    "win_p": 0.124,
-    "reasons": []
-   }
-  },
-  {
    "id": "nfl:401873061",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rams",
-    "p": 0.712,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-11-15T21:05Z",
    "away": "Rams",
    "home": "Cardinals",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Cardinals",
@@ -755,42 +573,12 @@
     "market": "spread",
     "line": 9.5,
     "odds": -105,
-    "p": 0.515,
-    "win_p": 0.183,
+    "p": 0.504,
+    "win_p": 0.504,
     "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401873062",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Seahawks",
-    "p": 0.66,
-    "tie": 0.035,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-15T21:05Z",
-   "away": "Seahawks",
-   "home": "Raiders",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Seahawks",
-    "opp": "Raiders",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.745,
-    "win_p": 0.745,
-    "reasons": [
-     "the stronger team",
-     "revenge game"
-    ]
+     "opponent missing key players: WR Puka Nacua (their read -1)"
+    ],
+    "result": null
    }
   },
   {
@@ -1424,7 +1212,7 @@
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -148,
+    "odds": -155,
     "p": 0.635,
     "win_p": 0.809,
     "reasons": [
