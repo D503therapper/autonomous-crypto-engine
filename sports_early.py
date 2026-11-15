@@ -1031,6 +1031,30 @@ NBA_OPEN_HALF_UNITS = 0.5            # nba_odds_1102/s1): BACK TO ½u from this 
 #                                      seasons give the model's read no support, and the 10/30 bar for a bigger size is
 #                                      "won more in BOTH halves". ½u (its 10/23 lead size) with its own record (judge at 40,
 #                                      under -5% = off). Posted plays keep their units; None = stays 1u.
+EXAM_FLAT_FROM = "2026-11-16"        # 🎓 11/15 FABLE - SIZING + BEST PICKS (results/studies/sizing_1115/e2_exam_size.out,
+EXAM_FLAT_UNITS = 0.5                # e3_exam_paid.out): THE EXAM-SCAN EARLY DOG IS ½u FLAT from this date's posts - never
+#                                      a quarter of Kelly on the RAW own read (Georgia St +170 went up 1.5u and lost 34-17;
+#                                      Minnesota +114 went up 2u on 11/15 with the MAIN read 0.4 over its price). The scan
+#                                      posts a dog whose raw read is 4-8 points over the early price, so Kelly sizes every
+#                                      one of them 1u-2.5u (1.75u on average - the biggest average size on the engine) on
+#                                      the one read the 11/12 program found knows nothing past the close. Two rebuilds of
+#                                      the scan's plays in college football (the only league whose band passes the exam):
+#                                      (1) the exam walk-forward at the open, 2023-26: 41-65 -0.4% flat on 106, 2 of 4
+#                                      seasons (2026: 8-21); (2) the paid odds history at the first fair look, 2020-26:
+#                                      86-127 +10.3% on 213 (z +1.3; 2020-22 -10.3% / 2023-26 +21.9%, 4 of 7 seasons).
+#                                      NO DOSE in either: the Kelly sizes dealt at RANDOM over the same plays did as well
+#                                      or better 311 and 1,587 of 2,000 times; Kelly's biggest sizes (2.5u+) ran -7.9% on
+#                                      45; Kelly's worst stretch -24.9u / -30.3u against -6.3u / -8.2u at ½u, for the same
+#                                      or a lower return on the units (+3.8% vs -0.4%; +8.1% vs +10.3%; the last three
+#                                      seasons alone on the paid history: Kelly +19.1% a unit, flat +21.9%). The size
+#                                      Kelly adds is only "bet more". A lead whose level the two rebuilds don't agree on
+#                                      (-0.4% vs +10.3%) is a ½u play like every other unproven early spot. FLAT 1u is
+#                                      the OWNER'S option, not wired: on the paid history's last three seasons the band
+#                                      ran +21.9% on 136 (3 of 4 seasons; 2026 2-6) - +29.8u at 1u, +14.9u at ½u; the
+#                                      worst stretch over all seven seasons -16.4u at 1u, -8.2u at ½u (Kelly -30.3u).
+#                                      Home vs road dogs flip between the two
+#                                      rebuilds - no cut. A posted play keeps the units it posted at (Minnesota stays
+#                                      2u). None = Kelly again.
 
 
 def units(p):
@@ -1048,6 +1072,8 @@ def units(p):
         return ALT_1U if alt_1u(p) else ALT_HALF             # (earlier games keep the ½u they were built at)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
         return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
+    if not p.get("spot") and EXAM_FLAT_FROM and (p.get("posted") or "") >= EXAM_FLAT_FROM:
+        return EXAM_FLAT_UNITS                               # 🎓 (11/15: the exam-scan dog, ½u flat - never Kelly on the raw read)
     import sports
     return sports.kelly_units(p.get("own"), p["odds"])
 

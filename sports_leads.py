@@ -543,7 +543,39 @@ def tags(c, sports):
     t += money_check_tags(c, sports)                         # 11/12 DAILY: football's re-based money check, both halves
     t += fourth_down_tags(c, sports)                         # 11/12 DAILY Q6: the college 4th-down coach (LEADS)
     t += daily_1113_tags(c, sports)                          # 11/13 DAILY: the bad NBA home favorite's moneyline (LEAD)
+    t += sizing_1115_tags(c, sports)                         # 11/15 FABLE: sizing + best picks - the funnel's two LEADS
     return t + sharp
+
+
+SIZING_1115_FROM = "2026-11-16"   # 11/15 FABLE - SIZING + BEST PICKS (results/studies/sizing_1115/): the funnel's two
+#   kept-off cells that were up in both halves on both replay boards log from the 11/16 Pacific game day. LEADS ONLY -
+#   never read by the board:
+SIZING_1115_FAV_TAG = "small fav, own read under the price, weighed read over it (lead)"   # + " - <sport>": a -150..-101
+#   favorite the own-read rule (the owner, 10/18) keeps off while the weighed read beats the price - 76-43 +11.0% on the
+#   10/30 rows (train +11.2% / held +10.3%), 51-26 +14.8% on today's code (+13.8% / +17.2%), a random draw of the
+#   own-read-under favorites as good 39 / 28 of 2,000; the weights were fit on those seasons. Judge at 60 a sport.
+SIZING_1115_NHL_NEXT_TAG = "hockey dog, named reason, thin, score 4-6 (the next hockey dog - lead)"   # the floor's kind of
+#   dog one notch under the Dog gate: +24.3% on 83 / +59.0% on 66 kept off on the 2023-26 boards, but the floor's own
+#   posted ones flat (18-24 / 27-34) and 65-93 -1.0% on the 2020-23 seasons no weight saw (-7.2% under the gate) - the
+#   forward record settles it. Judge at 60.
+
+
+def sizing_1115_tags(c, sports):
+    """11/15 SIZING + BEST PICKS: the funnel's two moneyline LEADS (tracked only, from SIZING_1115_FROM)."""
+    try:
+        if c.get("market") != "ml" or sports.pt_day(c) < SIZING_1115_FROM:
+            return []
+        o, lg, t = c.get("odds") or 0, c.get("league"), []
+        dec = c.get("dec") or sports._dec(o)
+        if -150 <= o <= -101 and c.get("w_p") is not None and c.get("edge_own") is not None \
+                and c["edge_own"] <= 0 and c["w_p"] * dec > 1:
+            t.append(f"{SIZING_1115_FAV_TAG} - {lg}")
+        if lg == "nhl" and 100 <= o <= 350 and c.get("reasons") and not c.get("trap") and not sports.fighting(c) \
+                and sports.thin_edge(c) and 4.0 <= sports.dog_score(c) < sports.NHL_DOG_GATE:
+            t.append(SIZING_1115_NHL_NEXT_TAG)
+        return t
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 EARLY_LINE_FROM = "2026-11-12"   # 11/11 early-line studies: the three lead tags log from the 11/12 Pacific game day

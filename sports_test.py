@@ -23664,6 +23664,126 @@ def test_ten_1115_the_nfl_dog_facing_a_bye_team_reads_3_less_and_the_bye_dogs_ow
     assert sports.ncaab_play_dog(ok) is not None                 # the same dog without either flag is the slot's
 
 
+def test_sizing_1115_no_other_size_or_gate_moved_the_board_kinds_stay_as_the_replays_and_unseen_seasons_left_them():
+    """💰 11/15 FABLE - SIZING + BEST PICKS (results/studies/sizing_1115/). Every unit kind on both replay boards, the
+    funnel of what the board keeps off, and - new - the seasons no rule or weight ever saw (the paid 2020-23 hockey / NBA
+    prices, the football replay board's 2018-22). What they said, pinned here so a later session doesn't re-open it on one
+    result: (1) today's sizes beat a re-fit of the sizes by kind, flat units and Kelly on the read on the held-out half at
+    the same risk; a daily risk cap makes no money; (2) the one kept-off cell the 2023-26 boards liked - a hockey dog
+    that passes the floor's checks at a dog score of 4-6 (+24% / +59%) - went 65-93 -1.0% on the unseen seasons (-7.2%
+    under the gate) and the floor's own posted 4+ dogs were flat: NOT a play; (3) the NBA favorite play (+23% / +34% on
+    the boards) ran +1.8% on 89 unseen: it stays 1u, never 2u; the NBA floor +7.7% unseen: ½u; (4) the Dog's price band:
+    with the unseen seasons the long Dog (+151..+350) is no worse than the short (521 Dogs: short +14.8%, long +26.0%),
+    but the last three hockey seasons keep the split (short 3 of 3 up, long 1 of 3) and the ⭐ already raises the Dog to
+    1u unless a Lock is up (the board moves +3u / 0u) - left as is; (5) the football Lock at ½u is the owner's call."""
+    assert sports.DOG_SHORT_UNITS == 2.0 and sports.DOG_LONG_UNITS == 0.5 and sports.DOG_SHORT_MAX == 150
+    assert sports.NBA_FAV_UNITS == 1.0 and sports.FLOOR_UNITS == 0.5 and sports.PLAY_UNITS == 0.5
+    assert sports.LOCK_UNITS_1031 == 2.0 and sports.LOCK_FOOTBALL_UNITS == 1.0 and sports.BEST_MIN_UNITS == 1.0
+    assert sports.FLOOR_MIN == 2 and sports.DOG_PLAY_MAX == 1 and sports.NHL_BEST_DOG_MIN == 3.0
+    assert not hasattr(sports, "NHL_NEXT_DOG_FROM") and not hasattr(sports, "nhl_next_dog_plays")    # (2): never built
+    day = "2026-11-16"
+
+    def dog(lg, odds, **kw):
+        d = sports._dec(odds)
+        leg = {"league": lg, "market": "ml", "odds": odds, "dec": d, "p": 1 / d + 0.03, "p_market": 1 / d, "edge": 0.05,
+               "edge_own": 0.05, "dog_p": 1 / d + 0.05, "dog_score": 7.0, "team": "T" + lg, "opp": "O", "game_id": f"{lg}:{odds}",
+               "side": "away", "start": day + "T23:00Z"}
+        return {"kind": "dog", "date": day, "status": "open", "legs": [leg], "dec": d, **kw}
+    long_, short = dog("nhl", 180), dog("nhl", 140)
+    assert sports.units_for(long_) == 0.5 and sports.units_for(short) == 2.0                 # the price band stays
+    assert sports.units_for(dog("ncaaf", 250)) == 0.5 and sports.units_for(dog("nfl", 180)) == 0.5
+    assert sports.mark_best([long_], day) is long_ and sports.units_for(long_) == 1.0        # ... and the ⭐ lifts a long Dog
+    lock_leg = {"league": "nhl", "market": "ml", "odds": -140, "dec": sports._dec(-140), "p": 0.62, "p_market": 0.57, "w_p": 0.62,
+                "edge": 0.06, "edge_own": 0.62 * sports._dec(-140) - 1, "team": "L", "opp": "M", "game_id": "nhl:l", "side": "home",
+                "start": day + "T23:00Z"}
+    lock, long2 = {"kind": "lock", "date": day, "status": "open", "legs": [lock_leg], "dec": lock_leg["dec"]}, dog("nhl", 190)
+    assert sports.mark_best([lock, long2], day) is lock and sports.units_for(long2) == 0.5   # a Lock day: the Lock is the ⭐
+    fav = {"kind": "play", "date": day, "status": "open", "nba_fav": {"x": 0.02}, "tier": "value", "dec": 1.74,
+           "legs": [{"league": "nba", "market": "ml", "odds": -135, "dec": 1.74, "p": 0.6, "p_market": 0.56, "edge": 0.04,
+                     "edge_own": -0.01, "team": "N", "opp": "O", "game_id": "nba:f", "side": "home", "start": day + "T23:00Z"}]}
+    assert sports.units_for(fav) == 1.0                                                      # the NBA favorite play: 1u
+
+
+def test_sizing_1115_the_exam_scan_early_dog_is_half_a_unit_flat_never_kelly_on_the_raw_read():
+    """🎓 11/15 FABLE - SIZING + BEST PICKS (results/studies/sizing_1115/e2_exam_size.out, e3_exam_paid.out). The exam-scan
+    early plays were sized a quarter of Kelly on the RAW own read: Georgia St +170 went up 1.5u (lost 34-17), Minnesota
+    +114 2u on 11/15 with the main read 0.4 over its price. The scan only posts a raw read 4-8 points over the price, so
+    Kelly made every one 1u-2.5u (1.75u on average). Rebuilt twice in college football (the one band that passes the
+    exam): at the open 2023-26 41-65 -0.4% on 106; on the paid odds history 2020-26 86-127 +10.3% on 213 with the halves
+    flipping - and no dose in either: the same Kelly sizes dealt at random did as well 311 / 1,587 of 2,000 times, and
+    Kelly's worst stretch ran -24.9u / -30.3u against -6.3u / -8.2u at ½u. From the 11/16 posts an exam-scan dog is ½u
+    flat; a posted play keeps its units; every spot keeps its own size."""
+    import sports_early as se
+    assert se.EXAM_FLAT_FROM == "2026-11-16" and se.EXAM_FLAT_UNITS == 0.5
+    minn = {"league": "ncaaf", "team": "Minnesota", "odds": 114, "own": 0.5142, "mkt": 0.4463, "posted": "2026-11-16T09:04Z"}
+    gast = {"league": "ncaaf", "team": "Georgia St", "odds": 170, "own": 0.4041, "mkt": 0.3553, "posted": "2026-11-17T19:45Z"}
+    assert se.units(minn) == 0.5 and se.units(gast) == 0.5                              # ½u flat from 11/16
+    assert se.units({**minn, "own": 0.70}) == 0.5 and se.units({**minn, "odds": 260, "own": 0.45}) == 0.5   # any read / price
+    assert se.units({**minn, "posted": "2026-11-15T09:04Z"}) == 2.0                    # 11/15: as it was sized (2u)
+    assert se.units({**gast, "posted": "2026-11-11T19:45Z"}) == 1.5                    # Georgia St: 1.5u
+    assert se.units({**minn, "posted": "2026-11-15T09:04Z", "units": 2.0}) == 2.0      # the posted Minnesota play keeps 2u
+    assert se.units({**minn, "units": 2.0}) == 2.0                                     # a stamped size never changes
+    assert se.stamp_units(dict(minn))["units"] == 0.5                                  # frozen at post
+    assert se.units({"odds": 124, "own": 0.5703}) == 5                                 # no posted stamp (old rows): Kelly
+    for spot, (_label, u, _lgs) in se.SPOTS.items():                                   # every spot keeps its own size
+        if spot in ("nba_open", "alt_over"):
+            continue
+        assert se.units({"spot": spot, "odds": 150, "own": 0.6, "posted": "2026-11-17T10:00Z"}) == u, spot
+    assert se.units({"spot": "nba_open", "odds": 150, "own": 0.6, "posted": "2026-11-17T10:00Z"}) == se.NBA_OPEN_HALF_UNITS
+    keep = se.EXAM_FLAT_FROM
+    try:
+        se.EXAM_FLAT_FROM = None                                                        # the switch: Kelly again
+        assert se.units(minn) == 2.0
+    finally:
+        se.EXAM_FLAT_FROM = keep
+
+
+def test_sizing_1115_two_tracker_leads_only():
+    """11/15 FABLE - SIZING + BEST PICKS, the funnel (results/studies/sizing_1115/s3_funnel.out, s4_candidates.out,
+    s6_hockey.out, s7_hockey_oos.out): the two kept-off cells up in both halves on both replay boards go on the lead
+    tracker from the 11/16 Pacific game day and NOWHERE else - (1) a -150..-101 favorite whose own read is under the price
+    while its weighed read is over it (the owner's 10/18 own-read rule keeps it off; 76-43 / 51-26 on the boards), by
+    sport; (2) the next hockey dog - named reason, clean, thin, a dog score of 4-6 (+24% / +59% kept off on the 2023-26
+    boards, 65-93 -1.0% on the 2020-23 seasons no weight saw). Tracked, never a pick: no board rule reads them."""
+    import inspect
+    import sports_leads as sl
+    assert sl.SIZING_1115_FROM == "2026-11-16"
+    d = sports._dec(-130)
+    fav = {"league": "ncaab", "market": "ml", "odds": -130, "dec": d, "p": 0.58, "p_market": 0.55, "w_p": 0.60,
+           "edge": 0.0, "edge_own": 0.55 * d - 1, "reasons": ["x"], "side": "home", "team": "A", "opp": "B", "game_id": "ncaab:1",
+           "start": "2026-11-17T03:00Z"}                                         # (7 PM Pacific on 11/16)
+    tag = f"{sl.SIZING_1115_FAV_TAG} - ncaab"
+    assert sl.sizing_1115_tags(fav, sports) == [tag]
+    assert sl.sizing_1115_tags({**fav, "league": "nfl"}, sports) == [f"{sl.SIZING_1115_FAV_TAG} - nfl"]   # by sport
+    assert sl.sizing_1115_tags({**fav, "edge_own": 0.60 * d - 1}, sports) == []          # own read over: a normal play
+    assert sl.sizing_1115_tags({**fav, "w_p": 0.55}, sports) == []                      # weighed read under the price
+    assert sl.sizing_1115_tags({**fav, "w_p": None}, sports) == []
+    assert sl.sizing_1115_tags({**fav, "odds": -160, "dec": sports._dec(-160)}, sports) == []   # past -150
+    assert sl.sizing_1115_tags({**fav, "market": "spread"}, sports) == []
+    assert sl.sizing_1115_tags({**fav, "start": "2026-11-16T03:00Z"}, sports) == []     # the 11/15 Pacific day: not yet
+    dd = sports._dec(125)
+    dog = {"league": "nhl", "market": "ml", "odds": 125, "dec": dd, "p": 0.44, "p_market": 0.43, "edge": -0.01,
+           "edge_own": 0.435 * dd - 1, "reasons": ["the favorite is on a back-to-back"], "side": "away", "team": "D", "opp": "E",
+           "game_id": "nhl:1", "start": "2026-11-17T03:00Z", "sc": 4.6}
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c["sc"]
+        assert sl.sizing_1115_tags(dog, sports) == [sl.SIZING_1115_NHL_NEXT_TAG]
+        assert sl.sizing_1115_tags({**dog, "sc": 3.9}, sports) == [] and sl.sizing_1115_tags({**dog, "sc": 6.0}, sports) == []
+        assert sl.sizing_1115_tags({**dog, "sc": 4.0}, sports) == [sl.SIZING_1115_NHL_NEXT_TAG]
+        assert sl.sizing_1115_tags({**dog, "reasons": []}, sports) == []                # no named reason
+        assert sl.sizing_1115_tags({**dog, "trap": True}, sports) == []
+        assert sl.sizing_1115_tags({**dog, "edge_own": 0.50 * dd - 1}, sports) == []    # not thin (the raw read 3c+ over)
+        assert sl.sizing_1115_tags({**dog, "edge_own": 0.38 * dd - 1}, sports) == []    # the own read is fighting it
+        assert sl.sizing_1115_tags({**dog, "league": "nba"}, sports) == []
+        assert sl.sizing_1115_tags({**dog, "start": "2026-11-15T23:00Z"}, sports) == []
+    finally:
+        sports.dog_score = keep
+    assert "sizing_1115_tags(c, sports)" in inspect.getsource(sl.tags)                  # logged with every other lead
+    for src in (inspect.getsource(sports), inspect.getsource(__import__("sports_early"))):
+        assert "sizing_1115_tags" not in src and "SIZING_1115_FAV_TAG" not in src and "SIZING_1115_NHL_NEXT_TAG" not in src
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
