@@ -1,25 +1,115 @@
 {
- "at": "2026-11-15T11:33Z",
- "fixes": [],
+ "at": "2026-11-15T18:00Z",
+ "fixes": [
+  "tennis slate due (8am PT) and not up - sports.yml already running"
+ ],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Alvarez vs Trevisan: no points for 1641s",
+  "live tennis scores: tennis Contreras vs Geerlings: no points for 1100s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (93s)",
+  "live watcher fresh (94s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "slate check: all 70 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 2 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
-  "simulator ran 4h ago",
-  "engine ran 15 min ago",
+  "studies ran 3h ago",
+  "simulator ran 1h ago",
+  "engine ran 10 min ago",
   "pacer running",
-  "tennis slate on time"
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-15T18:00Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Alvarez vs Trevisan: no points for 1641s",
+    "live tennis scores: tennis Contreras vs Geerlings: no points for 1100s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-15T17:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T17:29Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T16:45Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Osborne vs Cherubini: no points for 2122s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-15T16:44Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml",
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Osborne vs Cherubini: no points for 2122s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-15T15:13Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-15T15:12Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-15T13:40Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-15T13:39Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-15T13:05Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-15T11:33Z",
    "fixes": [],
@@ -395,62 +485,6 @@
    "at": "2026-11-13T23:37Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-13T22:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T22:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T21:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T19:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T19:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T19:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T19:39Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T18:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T17:34Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Hercog: no points for 285s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-13T17:32Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreescu vs Hercog: no points for 285s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }

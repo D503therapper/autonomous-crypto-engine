@@ -1,13 +1,13 @@
 {
- "day": "2026-11-14",
+ "day": "2026-11-15",
  "picks": {
-  "dog|nhl:401892715|away|ml": {
-   "key": "dog|nhl:401892715|away|ml",
-   "kind": "dog",
-   "team": "Flyers",
-   "odds": 114,
-   "league": "nhl",
-   "units": 2.0,
+  "lock|nfl:401873060|home|ml": {
+   "key": "lock|nfl:401873060|home|ml",
+   "kind": "lock",
+   "team": "Packers",
+   "odds": -142,
+   "league": "nfl",
+   "units": 1.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -19,30 +19,10 @@
     "card": "pass"
    }
   },
-  "play|ncaab:401927387|away|ml": {
-   "key": "play|ncaab:401927387|away|ml",
-   "kind": "ncaabplay",
-   "team": "Northern Iowa",
-   "odds": 102,
-   "league": "ncaab",
-   "units": 1.0,
-   "lean": false,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
-    "card": "fixed: 2 line(s) rewritten or dropped"
-   }
-  },
-  "play|nba:401909982|home|ml": {
-   "key": "play|nba:401909982|home|ml",
+  "play|nba:401909990|home|ml": {
+   "key": "play|nba:401909990|home|ml",
    "kind": "nbafloor",
-   "team": "Heat",
+   "team": "Raptors",
    "odds": 160,
    "league": "nba",
    "units": 0.5,
@@ -57,12 +37,12 @@
     "card": "pass"
    }
   },
-  "lean|nhl:401892714|away|ml": {
-   "key": "lean|nhl:401892714|away|ml",
+  "lean|nba:401909987|away|ml": {
+   "key": "lean|nba:401909987|away|ml",
    "kind": "lean",
-   "team": "Devils",
-   "odds": -120,
-   "league": "nhl",
+   "team": "Hornets",
+   "odds": -113,
+   "league": "nba",
    "units": 0,
    "lean": true,
    "held": false,
@@ -75,12 +55,30 @@
     "card": "pass"
    }
   },
-  "lean|nhl:401892716|away|ml": {
-   "key": "lean|nhl:401892716|away|ml",
+  "lean|nfl:401873061|home|spread": {
+   "key": "lean|nfl:401873061|home|spread",
    "kind": "lean",
-   "team": "Panthers",
-   "odds": -115,
-   "league": "nhl",
+   "team": "Cardinals",
+   "odds": -105,
+   "league": "nfl",
+   "units": 0,
+   "lean": true,
+   "held": false,
+   "why": "",
+   "checks": {
+    "game": "pass",
+    "read": "pass",
+    "price_fresh": "pass",
+    "injuries": "pass",
+    "card": "pass"
+   }
+  },
+  "lean|nfl:401873056|home|spread": {
+   "key": "lean|nfl:401873056|home|spread",
+   "kind": "lean",
+   "team": "Browns",
+   "odds": -112,
+   "league": "nfl",
    "units": 0,
    "lean": true,
    "held": false,
@@ -94,6 +92,6 @@
    }
   }
  },
- "updated": "2026-11-14T16:00Z",
+ "updated": "2026-11-15T16:00Z",
  "held": []
 }
