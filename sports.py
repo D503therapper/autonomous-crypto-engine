@@ -197,6 +197,23 @@ def stronger_team(f, s, p_side=None):
     return p_side is None or p_side >= 0.5
 
 
+REST_REASON_FROM = "2026-11-16"   # 🛌 11/15 FABLE FULL ENGINE AUDIT: the owner's 11/15 card rule (sports_breakdown_v24.
+#   REST_B2B_ONLY - in the NBA / college hoops / hockey / baseball rest is talked about ONLY on a back-to-back) took the
+#   "better rested" LINE off the card, but the pick's named-reason gate still counted a 2-day rest gap as a reason in
+#   those leagues - a pick could post on a reason its own card is no longer allowed to say (and hockey's read weighs
+#   rest 0.011 a week - nothing; its real edge, the back-to-back, has its own reason). For games from this Pacific day
+#   "better rested" is no named reason in those leagues; football keeps it. No unit pick since 10/20 stood on it alone.
+
+
+def rest_no_reason(league, g):
+    """🛌 Is a plain rest gap NOT a named reason for this game (an every-other-night league, from REST_REASON_FROM)?"""
+    try:
+        import sports_breakdown_v24 as _v24
+        return league in _v24.REST_B2B_ONLY and pt_day(g) >= REST_REASON_FROM
+    except Exception:                                    # noqa: BLE001 - never blocks a read
+        return False
+
+
 def _reasons(side, f, g, league, params, p_side=None):
     """Short plain-English reasons the engine likes this side, strongest first. p_side = the engine's current read
     on the side when known (the stronger-team label needs it on its side - 11/4)."""
@@ -214,7 +231,8 @@ def _reasons(side, f, g, league, params, p_side=None):
         out.append((f["elo_pts"] * s / 40, "the stronger team"))
     if f["form"] * s >= 0.08 and counts("form"):
         out.append((f["form"] * s * 4, "hotter recent form"))
-    if f["rest"] * 7 * s >= 2 and counts("rest"):     # a real rest gap only (one extra day means nothing)
+    if f["rest"] * 7 * s >= 2 and counts("rest") and not rest_no_reason(league, g):   # a real rest gap only (one extra
+        #   day means nothing; 11/15 audit: in the every-other-night leagues never a reason at all - REST_REASON_FROM)
         out.append((f["rest"] * 7 * s / 3, "better rested"))
     if f["b2b"] * s > 0 and counts("b2b"):
         out.append((0.8, "opponent on a back-to-back"))
@@ -262,6 +280,40 @@ def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
     if depth_opp:
         out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
     return out
+
+
+INJ_KEY_FROM = "2026-11-16"   # 🚑 11/15 FABLE FULL ENGINE AUDIT: "opponent missing key players" WAS A HEAD COUNT. The plain
+#   label in _reasons fires when ESPN lists one more body Out / Doubtful across the way than on our side (f["inj"] - the
+#   raw count sports.post_board stamps on the game): the 11/15 Steelers read called the Bengals short "key players" on one
+#   safety plus four men on injured reserve since September - nobody the engine itself weighs. And it is a NAMED REASON:
+#   it was the ONLY named reason on three ½u floor plays in a week (Sharks +120 11/9 won, Red Wings +142 11/12 lost, Heat
+#   +160 11/14 won) - a floor play "never posts without a named reason", and no replay ever
+#   saw this one (the replays run without injury reports), so the floor's record was earned without it. For games from
+#   this Pacific day: (1) the plain label stands only when the opponent's STARTING QB / goalie is out (sd.team_key_out)
+#   and the read names nobody - when sports_absences names who's out ("opponent missing key players: WR X (their read
+#   -3)") that line IS the reason and the plain one beside it (the 11/12 Giants card carried both) is dropped; a head
+#   count alone is no reason. (2) the count stamped on the game (the learned 'inj' weight's input) is out_count's - men
+#   who actually play (the last 3 box scores), never a season-long absence - not every name on the list. "9999" = before.
+
+
+def inj_count(g, side, injuries, day):
+    """🚑 The count of a side's men out that post_board stamps on the game (the 'inj' factor's input): from INJ_KEY_FROM
+    the men who actually play and are out (out_count - regulars by the box scores, no season-long absence), before it
+    every Out / Doubtful name on the list."""
+    if (day or "") >= INJ_KEY_FROM:
+        return out_count(g, side, injuries)
+    return len(sd.team_injuries((injuries or {}).get(g["league"]), g[side], g[f"{side}_name"]))
+
+
+def key_label(reasons, opp_key_out, day):
+    """🚑 11/15: the reasons with the plain "opponent missing key players" kept only when it's TRUE - the opponent's
+    starting QB / goalie is out and no named-absence line already says who. Before INJ_KEY_FROM: as they were."""
+    plain = "opponent missing key players"
+    if (day or "") < INJ_KEY_FROM or plain not in reasons:
+        return reasons
+    if opp_key_out and not any(str(r).startswith(plain + ":") for r in reasons):
+        return reasons
+    return [r for r in reasons if r != plain]
 
 
 POS_BY_DEFAULT = {"form": 1.0, "rest": 1.0, "b2b": 1.0, "inj": 1.0, "key": 1.0}   # no learned weights at hand (a bare
@@ -831,6 +883,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
             base["reasons"] = base["reasons"] + absence_reasons(lg, absent[other], depth[other], n_out[side], n_out[other],
                                                                 g[other + "_name"])   # (10/28: a fact the own read counts)
+            base["reasons"] = key_label(base["reasons"], key_out[other], pt_day(g))   # (11/15: never off a raw count)
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
                 base["absent"] = absent[side][1]
@@ -1489,6 +1542,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         kind = "solo"
         if solo and solo["market"] in ("ml", "spread") and good(solo) and lock_ok(solo) and \
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo) \
+                and not lock_no_dog(solo) \
                 and not (solo["market"] == "ml" and S6_LOCK_SKIP[0] <= solo["odds"] <= S6_LOCK_SKIP[1]):   # (10/25 sweep:
             kind = "lock"                                    #  the 10/23 plan's "no Lock of the Day at -119..-101" held on
             #                                                  the board's Lock pool and the backup, not the one-game day's
@@ -1512,7 +1566,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # every sport, moneyline or spread, favorite or dog - as long as a moneyline is no shorter than -135
         # ...and it has to be a LOCK: 52%+, no longer than +125 (the owner, 9/28: a +156 at 40% is no lock of anything)
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
-                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c)
+                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c) and not lock_no_dog(c)
                  and not (c["market"] == "ml" and S6_LOCK_SKIP[0] <= c["odds"] <= S6_LOCK_SKIP[1])]   # (10/23 plan: the
     #                                                   Lock of the Day never at -119..-101 - those went 46% in the replay)
         # the owner, 9/30: "any moron could take the biggest favorite closest to -150." The Lock has to be a pick the
@@ -2854,6 +2908,22 @@ def own_agrees(c):
     return (c["edge_own"] + 1) / c["dec"] >= c["p_market"]
 
 
+LOCK_FAV_FROM = "2026-11-16"   # 🔒 11/15 FABLE FULL ENGINE AUDIT: THE LOCK IS FAVORITES ONLY - BY THE PRICE TOO. The owner
+#   turned the underdog Lock off 10/18 (DOG_LOCK False: "the Lock is favorites only"), and the 10/23 plan bars a Lock at
+#   -119..-101 (46% in the replay) - but lock_ok still let a PLUS-money side through to +125 (PLUS_LOCK_MAX, from 9/28)
+#   whenever the read had it 56%+: a -105 favorite could not be the Lock and the +105 dog across it could. On the 11/14
+#   football replay board (958 board days on today's code) 9 of 116 Locks were plus-money sides (+100..+110, all 2019-20,
+#   5-4: Giants +102, Army +110, Navy +100 ...). Today's dials make it rare (a read 56%+ on a plus price needs the old
+#   football fit), not impossible. For games from this Pacific day a plus-money moneyline is never the Lock of the Day,
+#   the backup Lock or a one-game day's Lock - it can still be the Dog or a play by their own rules. "9999" = before.
+
+
+def lock_no_dog(c):
+    """🔒 True = this side may NOT be a Lock: a plus-money moneyline while the underdog Lock is off (LOCK_FAV_FROM on)."""
+    return (not DOG_LOCK and c.get("market") == "ml" and (c.get("odds") or 0) >= 100
+            and pt_day(c) >= LOCK_FAV_FROM)
+
+
 def lock_ok(c):
     """A LOCK: a real play the engine gives 56%+ to win (the study: those hit ~56-60%), never plus money past +125."""
     return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_P and not nba_week_one(c)
@@ -3614,7 +3684,7 @@ def backup_lock(cands):
     pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
             and not hockey_fav_bad(c) and not nba_week_one(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
-            and real_value(c)
+            and real_value(c) and not lock_no_dog(c)
             and not (S6_LOCK_SKIP[0] <= c["odds"] <= S6_LOCK_SKIP[1])]   # (10/24 audit: the 10/23 plan's "no Lock at
     #                                                                      -119..-101" skipped the backup path - 46% in the replay)
     if not pool:
@@ -3758,6 +3828,21 @@ NBA_FAV_W = {             # 10/22 NBA favorite study (-150..-100 at the close, t
 }
 
 
+NBA_OPP_TOP2_OFF_FROM = "2026-11-16"   # 🏀 11/15 FABLE FULL ENGINE AUDIT (results/studies/audit_1115/s5): THE "OPPONENT MISSING
+#   A TOP-2 MAN" FADE (-2 on an NBA favorite's weighed read, the 10/22 study: -7.1% / -14.4%, "the books over-move") IS
+#   OFF for games from this Pacific day. Three reads against it: (1) its live tag - "NBA fav vs a team missing a top-2
+#   man (fade)" - has the faded favorites 39-13 +4.3% on 52: past 50 with the fade's side WINNING (the judge that took
+#   the college hoops early road dog fade off 11/9 and the NBA early spread fade off 11/13); (2) re-read on every NBA
+#   close 2018-26 from the box scores (top-2 by minutes, 10+ games in): the -150..-101 favorite across a team missing
+#   one -5.9% on 493 against -5.2% for every favorite in the band (a random 493 as bad 854 times in 2,000; train -2.6% /
+#   held -11.6% - it flips; missing BOTH the favorite went +14.5% on 52; any price -4.6% on 2,671 vs -3.8%); (3) the
+#   11/12 deep program: the close has a missing top scorer exactly (the side across won 60.1% vs a close of 60.0% on
+#   2,210). And with the 11/13 weighed-under lean rule the -2 was a BLOCK: every NBA favorite across a short-handed
+#   team read 2 under the market and could not even be a lean. The fact still rides on the read at weight 0, so the
+#   tracker's tag keeps logging it. "own_top2_out" (the favorite missing its OWN man) stays: live 21-12 -9.8% on 33,
+#   the right way - judge at 50. "9999" = the -2 back.
+
+
 def nba_fav_facts(fav, dog):
     """Which of the 10/22 NBA favorite weights apply: {key: weight}."""
     mo = fav.get("dog_more") or {}
@@ -3773,7 +3858,8 @@ def nba_fav_facts(fav, dog):
         w["home_dog_mid"] = NBA_FAV_W["home_dog_mid"]
     for k in ("star_back", "own_top2_out", "opp_top2_out"):
         if fav.get(k):
-            w[k] = NBA_FAV_W[k]
+            w[k] = 0.0 if k == "opp_top2_out" and pt_day(fav) >= NBA_OPP_TOP2_OFF_FROM else NBA_FAV_W[k]
+            #   (11/15 audit: the fact stays on the read for the tracker's tag; its weight is 0 from that day)
     if mo.get("pace") is not None and mo.get("opp_pace") is not None and mo["pace"] - mo["opp_pace"] >= NBA_PACE_GAP:
         w["faster"] = NBA_FAV_W["faster"]                    # (11/3 FABLE NBA deep dive - the fast favorite)
     if fav.get("home") and (mo.get("home_after_trip") or 0) >= 4:
@@ -8246,7 +8332,7 @@ def post_board(games, model, picks, now, day, force=False):
             continue
         inj = injuries[g["league"]]
         for side in ("home", "away"):
-            g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
+            g[f"inj_{side}"] = inj_count(g, side, injuries, day.isoformat())
     raw_cands = candidates(games, model, now, day, injuries)   # (the checks read every side the engine looked at)
     global LAST_RAW
     LAST_RAW = raw_cands                                     # (the dry-run preview's every-dog list - 10/5)

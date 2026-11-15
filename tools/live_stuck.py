@@ -21,17 +21,37 @@ def board_age():
         return None
 
 
+COOL_S = 15 * 60     # 11/15 FABLE AUDIT: one cancel, then the fresh watch gets this long before another. The pacer runs
+#                      the backstop every 5 minutes: on 11/14 night (a 25-game Saturday, every live check slower than the
+#                      watch's own watchdog) the board never got pushed, so EVERY backstop pass saw "running 5+ min, board
+#                      5+ min old" and cancelled the watch that had just started - a cancel kills the background grader
+#                      mid-run too. A watch that can't push within 15 minutes of a cancel is cancelled again; never a
+#                      cancel every pass.
+
+
+def _age_s(iso, now):
+    try:
+        return (now - datetime.fromisoformat(str(iso).replace("Z", "+00:00"))).total_seconds()
+    except (TypeError, ValueError):
+        return None
+
+
 def stuck_runs(age=None, runs=None, now=None):
     age = board_age() if age is None else age
     if age is None or age < STUCK_S:
         return []
     if runs is None:
         out = subprocess.run(["gh", "run", "list", "--workflow", "sports-live.yml", "--limit", "10", "--json",
-                              "databaseId,status,startedAt"], capture_output=True, text=True, timeout=60).stdout
+                              "databaseId,status,startedAt,conclusion,updatedAt"], capture_output=True, text=True,
+                             timeout=60).stdout
         runs = json.loads(out or "[]")
     now = now or datetime.now(timezone.utc)
+    for r in runs:                                       # a watch was cancelled minutes ago: its replacement gets time
+        a = _age_s(r.get("updatedAt"), now) if r.get("conclusion") == "cancelled" else None
+        if a is not None and 0 <= a < COOL_S:
+            return []
     return [r["databaseId"] for r in runs if r.get("status") == "in_progress" and r.get("startedAt")
-            and (now - datetime.fromisoformat(r["startedAt"].replace("Z", "+00:00"))).total_seconds() > STUCK_S]
+            and (_age_s(r["startedAt"], now) or 0) > STUCK_S]
 
 
 if __name__ == "__main__":

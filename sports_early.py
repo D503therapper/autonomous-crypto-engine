@@ -406,6 +406,17 @@ def main_read(c, games, model, injuries, now, cache=None):
     if c.get("market") == "total" or c.get("side") not in ("home", "away") or not c.get("odds"):
         return None
     import sports
+    r = main_row(c, games, model, injuries, now, cache)
+    if r is not None:
+        rd = sports.read_of(r)
+        if rd is not None:
+            return rd, 1.0 / sd.decimal(c["odds"])
+    return None
+
+
+def main_row(c, games, model, injuries, now, cache=None):
+    """The board's own moneyline row for an early play's side on its Pacific day (sports.candidates) - or None."""
+    import sports
     try:
         day = _t(c["start"]).astimezone(PT).date()
     except (KeyError, ValueError):
@@ -419,10 +430,89 @@ def main_read(c, games, model, injuries, now, cache=None):
             cache[day] = []
     for r in cache[day]:
         if r.get("game_id") == c["game_id"] and r.get("side") == c["side"] and r.get("market") == "ml":
-            rd = sports.read_of(r)
-            if rd is not None:
-                return rd, 1.0 / sd.decimal(c["odds"])
+            return r
     return None
+
+
+EXAM_1116_FROM = "2026-11-16"            # 🧪 11/15 FABLE FULL ENGINE AUDIT (results/studies/audit_1115/ s1 / s2): THE EXAM-SCAN
+#   PLAY'S GATE (scan() - an early dog with no "spot": the raw ratings read 4-8 points over the early price, the one band
+#   of 18 the exam passes). Its SIZE is the 11/15 sizing study's (EXAM_FLAT_FROM / EXAM_FLAT_UNITS below - ½u flat, the
+#   same finding from both runs: no dose in the Kelly size). THE GATE: its only check against the board was ONE VOICE,
+#   and for a college home dog that read is the close + the old football fit's home-dog tilt (Minnesota +114: the board's
+#   47.1% against the 46.7% the price needs - the whole 0.4 is that tilt; its dog score's study part is -4.0, the angles
+#   AGAINST it). Walked forward 2018-26 (each season's read learned on the three before it): at the EARLY price (opens on
+#   file 2023-26) the band went 41-65 -0.4% on 106, 2 of 4 seasons, this season 8-21 -26.6%, a random 106 dogs as good
+#   385 times in 2,000. Joined to the 11/14 football replay board: the band's dogs whose HONEST weighed read (sports.
+#   weighed_dog_beats - the no-vig price + the dog score's study part, over the price we pay) clears went 16-16 +29.6%
+#   on 32 at the early price (3 of 4 seasons) / 42-49 +22.4% on 91 at the close (7 of 9); the rest 23-48 -18.3% on 71 /
+#   80-143 -3.6% on 223 - the same split the 11/12 daily studies found on the board's football dogs (and it carries the
+#   home dog: the home dog that fails it 8-24 -35.8% / 38-74 -11.7%). FROM THIS DATE'S POSTS (the same clock as the size)
+#   a FOOTBALL exam dog posts only when the board's row for the side passes the honest weighed check at the price we'd
+#   bet (the board's own 11/14 football dog rule, on the one path that walked past it), and every exam play carries a
+#   line (exam_words). "9999" = the old scan.
+
+
+def exam_1116(now=None, posted=None):
+    """🧪 Is this post under the 11/15 audit's exam-scan rules (posted on / after EXAM_1116_FROM - read like
+    EXAM_FLAT_FROM, off the post's own stamp)?"""
+    try:
+        s = posted or (now or datetime.now(timezone.utc)).strftime("%Y-%m-%dT%H:%MZ")
+        return bool(EXAM_1116_FROM) and str(s) >= EXAM_1116_FROM
+    except (TypeError, ValueError):
+        return False
+
+
+EXAM_READS = ("🧠 {t} at {pr}: our read beats the price and the dog angles back it.",
+              "🧠 Our numbers like {t} more than {pr} does, and the dog angles agree.",
+              "🧠 {pr} sells {t} short on our read - the dog angles say the same.")
+
+
+def exam_words(c, games, now):
+    """🧪 11/15 audit: an exam-scan play went up with NO line under it (Minnesota +114 2u read "Minnesota ML +114 vs
+    Northwestern" and nothing else - the box only wrote a why for the spots). From EXAM_1116_FROM it carries one: the
+    read in words (it only posts when the read AND the study angles beat the price) + both teams' last games with the
+    scores. A fact we can't see = no fact, never a guess."""
+    o = c.get("odds") or 0
+    pr = f"+{o}" if o > 0 else str(o)
+    read = EXAM_READS[sum(map(ord, str(c.get("game_id", "")))) % len(EXAM_READS)].format(t=c.get("team", ""), pr=pr)
+    said = []
+    try:
+        import sports_breakdown_v24 as v24
+        g = games[c["game_id"]]
+        sched = _schedule(games)
+        pro = c.get("league") in ("nfl", "nba", "mlb", "nhl")
+        for side in (c["side"], "away" if c["side"] == "home" else "home"):
+            p = _prev(sched, c["league"], g[side], g["start"])
+            if not p or p.get("status") != "final" or (_t(g["start"]) - _t(p["start"])).days > 21:
+                continue
+            said.append(f"{g[side + '_name']} {'are' if pro else 'is'} off a {v24._said(p, g[side], pro)} {ago(p['start'], now)}")
+    except Exception:                                        # noqa: BLE001 - no fact, never a crash or a guess
+        said = []
+    c["why"] = read + (" " + said[0] + "." if said else "")
+    if len(said) > 1:
+        c["facts"] = [said[1] + "."]
+    return c
+
+
+def exam_honest(c, games, model, injuries, now, cache=None):
+    """🧪 11/15: may this exam-scan dog post? Before EXAM_1116_FROM, a spot play and a non-football dog: yes (their own
+    rules). A football exam dog: only when the board's row for the side has its HONEST weighed read over the price we'd
+    bet (sports.weighed_dog_beats). No row = no play."""
+    if c.get("spot") or c.get("market") == "total" or c.get("league") not in ("nfl", "ncaaf") or not exam_1116(now):
+        return True
+    import sports
+    r = main_row(c, games, model, injuries, now, cache)
+    ok = False
+    if r is not None and c.get("odds"):
+        try:
+            ok = bool(sports.weighed_dog_beats({**r, "dec": sd.decimal(c["odds"])}))
+        except Exception as e:                               # noqa: BLE001 - unknown is a hold, never a crash
+            print(f"   exam scan: the honest check failed on {c.get('team')}: {str(e)[:80]}", flush=True)
+    c["honest"] = ok
+    if not ok:
+        print(f"   exam scan: {c.get('team')} {c.get('odds')} - the raw read likes it, the studies don't beat the price "
+              f"- no early play", flush=True)
+    return ok
 
 
 def one_voice(c, games, model, injuries, now, cache=None):
@@ -472,6 +562,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             continue
         if not one_voice(c, games, model, injuries, now, voice):
             continue                                 # 🗣️ 11/11: the engine's main read fights it - one opinion a game
+        if not exam_honest(c, games, model, injuries, now, voice):
+            continue                                 # 🧪 11/15: a football exam dog needs the honest weighed read too
+        if exam_1116(now) and not c.get("spot"):
+            exam_words(c, games, now)                # (11/15: it says why - the read in words + both last games)
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
         g = games.get(c["game_id"]) or {}
         inj = (injuries or {}).get(c["league"])
@@ -1011,7 +1105,6 @@ def send(c):
     sd.web_push(None, title, body, ref=f"early:{c['game_id']}" if c else "early:launch")
 
 
-UNITS_MAX = 10
 NBA_OPEN_UNITS_FROM = "2026-10-31"   # 🏀 10/30 NBA UNIT-PLAY STUDIES (the owner, 10/30: "find ways to get good unit plays -
 NBA_OPEN_UNITS = 1.0                 # 1u, 2u, 3u plays"): the opening-line play goes to 1u FLAT from this date's posts
 #                                      (was ½u, the 10/23 lead size). The sizing-by-margin study (SPORTS_FINDINGS 10/30,
@@ -1058,10 +1151,10 @@ EXAM_FLAT_UNITS = 0.5                # e3_exam_paid.out): THE EXAM-SCAN EARLY DO
 
 
 def units(p):
-    """⏰ An early play's units - the ENGINE's call (the owner, 9/30): sized by how far its own read beats the price we got
-    (a quarter of the Kelly stake, 1u = 1% of the bankroll), ½u to 10u. The sizing study (5 seasons it never saw): at the
-    opening price a bigger engine edge won more AND moved the line more (NFL: the biggest edges moved our way 80% of the
-    time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
+    """⏰ An early play's units: the size frozen on it at post; else its spot's fixed size (SPOTS, the 🏀 opening-line and
+    ⛰️ altitude rules); an exam-scan play (no spot) is ½u flat from EXAM_FLAT_FROM. Before that date it was a quarter of
+    the Kelly stake on the raw own read (sports.kelly_units, ½u-5u) - the 9/30 sizing study behind that graded the NFL's
+    look-ahead opens (the 10/1 audit) and the 11/15 walk-forward found no dose in it; old rows keep what they posted at."""
     if p.get("units") is not None:                           # (10/25 sweep: a posted play keeps the units it posted at -
         return float(p["units"])                             #  a spot's size changing later never re-sizes the record)
     if p.get("spot") == "nba_open" and NBA_OPEN_HALF_FROM and (p.get("posted") or "") >= NBA_OPEN_HALF_FROM:
@@ -2017,8 +2110,9 @@ def html(st, E, now=None, show_units=None, games=None):
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small> '
                 f'<em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
-                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)] if p.get("spot") in SPOTS else []))
-                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS else ""))) +   # ⛰️ (11/11: the fact lines)
+                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)] if p.get("spot") in SPOTS or p.get("why") else []))
+                #   (11/15 audit: an exam-scan play with a why line shows it too - it had no line at all)
+                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS or p.get("why") else ""))) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -2133,7 +2227,9 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                        f'data-gid="{E(p["game_id"])}" data-side="{E(p.get("side", ""))}" '
                        f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
                        f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>')
-                    + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
+                    + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else
+                       "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)])) if p.get("why") and not p.get("result")
+                       else "")                              # (11/15 audit: the exam-scan play's own why line)
                     + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
@@ -2199,7 +2295,9 @@ def send_queued(page, now=None, path=None, send_fn=None):
         return []
     plays = [c for c in q["pings"] if c]
     box = ""
-    for title in ("EARLY VALUE PLAYS", GAMEDAY_BOX):          # (11/15: a game-day total pings once ITS box shows it)
+    for title in ("EARLY VALUE PLAYS", f'evt">{GAMEDAY_BOX}<'):   # (11/15: a game-day total pings once ITS box shows it -
+        #   the box's own header tag: a bare "VALUE PLAY" is also inside "EARLY VALUE PLAYS" and on every board value
+        #   card, so the search landed on the first of those and never on the game-day box - 11/15 audit)
         b = page[page.find(title):] if title in page else ""
         box += b[:b.find("</section>")] if "</section>" in b else b   # (10/2 audit: the box only, never the
     #                                                                   results further down the page)
