@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T05:04Z",
+ "updated": "2026-11-15T05:15Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -2994,8 +2994,8 @@
    "away": "Sharks",
    "home": "Mammoth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -4908,8 +4908,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Predators",
-    "p": 0.405,
-    "tie": 0.297,
+    "p": 0.421,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4917,7 +4917,7 @@
    "start": "2026-11-16T02:00Z",
    "away": "Predators",
    "home": "Sharks",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Predators",
@@ -4925,11 +4925,12 @@
     "market": "ml",
     "line": null,
     "odds": -170,
-    "p": 0.621,
-    "win_p": 0.621,
+    "p": 0.653,
+    "win_p": 0.653,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
