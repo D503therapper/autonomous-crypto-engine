@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T19:20Z",
+ "updated": "2026-11-15T19:31Z",
  "games": [
   {
    "id": "tennis:wta:187442",
@@ -47,6 +47,32 @@
     "odds": 660,
     "p": 0.126,
     "win_p": 0.126,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187512",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-16T19:30Z",
+   "away": "Flavio Cobolli",
+   "home": "Daniil Medvedev",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Flavio Cobolli",
+    "opp": "Daniil Medvedev",
+    "market": "ml",
+    "line": null,
+    "odds": 280,
+    "p": 0.253,
+    "win_p": 0.253,
     "reasons": [
      "on hard court",
      "Nitto ATP Finals"
