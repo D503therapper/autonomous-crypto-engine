@@ -172,6 +172,8 @@ def tags(c, sports):
                 t.append("college hoops dog read 4+")        # +16.5% on 600 at the close (5/5 train, 3/3 held, open +11.5%)
             elif home_dog_cut(c, sports):
                 t.append(HOME_DOG_CUT_TAG)
+            elif dog_read_3_4(c, sports):
+                t.append(DOG_READ_3_4_TAG)
         except Exception:                                    # noqa: BLE001
             pass
     # 11/3 FABLE - COLLEGE HOOPS KNOWLEDGE (B) (results/studies/cbb_knowledge_b/ s3 / s6): the owner's 'good slight
@@ -340,6 +342,10 @@ def tags(c, sports):
             t.append("East home dog vs West favorite (fade)")
         if c.get("key_out_me") and lg in ("nfl", "ncaaf"):
             t.append("football dog, key player out (fade)")
+        if lg == "nfl" and mo.get("vs_bye"):                  # 11/15 FABLE 10 STUDIES S1 (nflverse closes 2006-26): the NFL
+            t.append(NFL_VS_BYE_TAG)                          # dog on a normal week facing a team off its bye -18.8% on 234
+            #   (train -15.1% / held -23.5%, 15 of 21 seasons down, won 29.9% vs 35.6% priced) - the -3 weight's forward
+            #   record (sports.NFL_VS_BYE_PTS, from the 11/16 games)
         if lg == "nfl" and (c.get("depth_gap") or 0) >= 2:    # 11/11 THE BOOK, study 8 (nflverse reports x snaps,
             t.append("NFL dog, 2+ more regulars out than the favorite (fade)")   # 2016-26): the dog missing 2+ starters'
             #   worth more than the favorite won 28.9% vs the close's 33.5% on 415, 9 of 11 seasons down - the depth
@@ -1120,6 +1126,25 @@ def home_dog_cut(c, sports):
     r, parts = c.get("dog_read"), c.get("dog_read_parts") or {}
     return bool(r is not None and parts.get("home") and parts.get("games_ok") and r < sports.NCAAB_DOG_READ_GATE
                 and r - parts["home"] >= sports.NCAAB_DOG_READ_GATE - 1e-9)
+
+
+# ---------------- 11/15 FABLE: 10 STUDIES (NFL / COLLEGE HOOPS / NBA) (results/studies/ten_1115) ----------------
+NFL_VS_BYE_TAG = "NFL dog vs a team off its bye (fade)"   # S1: the built -3 weight's forward record (judge at 40: these
+#   dogs at +0% or better against their prices = the weight comes off)
+DOG_READ_3_4_TAG = "college hoops dog read 3-4 (the slot's next band)"   # S5 - a LEAD, tracked only, never a play: a college
+#   hoops dog +100..+350 whose dog read is 3-4 (under the slot's gate of 4), both teams 4+ games: +19.1% on 273 on the
+#   11/13 replay rows 2018-26 (train +20.4% on 151 / held +17.4% on 122) and +17% on 334 in the 11/3 dog expert's own
+#   build - as good as the slot's 4+ - but the slot-shaped ones (not a trap / fighting, the read clearing the price) held
+#   out +0.6% on 36 (2024 -9%, 2025 -20%), the dose is ragged (4-5 +6.1%, under 3-4) and the read's weights were set on
+#   these seasons. Judge at 60 live: +5% or better = lower the slot's gate to 3 (the owner's "more dogs" ask)
+
+
+def dog_read_3_4(c, sports):
+    """A college hoops moneyline dog +100..+350 whose dog read sits 3 to under the slot's gate, both teams
+    NCAAB_DOG_READ_GAMES+ games in (the 11/15 S5 lead's row)."""
+    r, parts = c.get("dog_read"), c.get("dog_read_parts") or {}
+    return bool(r is not None and parts.get("games_ok") and 3 <= r < sports.NCAAB_DOG_READ_GATE
+                and 100 <= (c.get("odds") or 0) <= 350 and c.get("market", "ml") == "ml")
 
 
 # ---------------- 11/13 FABLE: SHOULD THE COLLEGE HOOPS LEANS CARRY UNITS (results/studies/leans_1113) ----------------

@@ -23582,6 +23582,75 @@ def test_owner_1115_a_slow_saturday_check_never_trips_the_watchdog_and_the_grade
     assert "BEAT[0] = time.time()" in lp[r - 200:r]
 
 
+def test_ten_1115_the_nfl_dog_facing_a_bye_team_reads_3_less_and_the_bye_dogs_own_3_comes_off():
+    """11/15 FABLE: 10 STUDIES (NFL / COLLEGE HOOPS / NBA), S1 (results/studies/ten_1115/s1_s2_nfl.py / s1b_vs_bye.py -
+    nflverse's closing moneylines 2006-26): the NFL dog on a normal week FACING a team off its bye lost -18.8% on 234
+    (train -15.1% / held -23.5%, 15 of 21 seasons down; it won 29.9% vs 35.6% priced) - a -3 WEIGHT on its study points
+    from the 11/16 Pacific games (inside STUDY_CAP, never a gate), a tracker tag; and the NFL dog OFF its bye is an
+    ordinary dog at the close (-7.7% on 184 over 21 seasons) - its +3 on the board's dog score comes off the same day.
+    College keeps its +2; games before 11/16 and sides with no start keep the old rule; the early bye spot is untouched.
+    S5's lead: a college hoops dog read of 3-4 is tracked, never a play."""
+    assert sports.NFL_VS_BYE_FROM == "2026-11-16" and sports.NFL_VS_BYE_PTS == 3
+    assert sports.NFL_BYE_DOG_OFF_FROM == "2026-11-16" and sports.NFL_BYE_DOG_PTS == 3
+    new, old = "2026-11-17T01:15Z", "2026-11-15T18:00Z"          # Monday night 11/16 (Pacific) / Sunday 11/15
+    base = {"league": "nfl", "odds": 150, "dog_ctx": {}}
+    vs = {**base, "dog_more": {"vs_bye": True}}
+    assert sports.dog_spots({**vs, "start": new}) == -3 and sports.nfl_vs_bye({**vs, "start": new})
+    assert sports.dog_spots({**vs, "start": old}) == 0 and not sports.nfl_vs_bye({**vs, "start": old})
+    assert sports.dog_spots(vs) == 0                             # no start = the old rule
+    assert sports.dog_spots({**vs, "start": new, "league": "ncaaf"}) == 0      # the NFL only
+    assert not sports.nfl_vs_bye({**vs, "start": new, "odds": -130})           # a dog's weight
+    bye = {**base, "dog_more": {"bye": True}}
+    assert sports.dog_spots({**bye, "start": old}) == 3 and sports.dog_spots(bye) == 3
+    assert sports.dog_spots({**bye, "start": new}) == 0          # the NFL bye dog's own +3 is off from 11/16
+    assert sports.dog_spots({**bye, "start": new, "league": "ncaaf"}) == 2     # college keeps its +2
+    assert "off a bye against a team that played last week" in sports.dog_study_facts({**bye, "start": old})
+    assert "off a bye against a team that played last week" not in sports.dog_study_facts({**bye, "start": new})
+    assert "off a bye against a team that played last week" in sports.dog_study_facts({**bye, "start": new, "league": "ncaaf"})
+    k1, k2 = sports.NFL_VS_BYE_FROM, sports.NFL_BYE_DOG_OFF_FROM
+    try:
+        sports.NFL_VS_BYE_FROM = sports.NFL_BYE_DOG_OFF_FROM = "9999"          # the switches back
+        assert sports.dog_spots({**vs, "start": new}) == 0 and sports.dog_spots({**bye, "start": new}) == 3
+    finally:
+        sports.NFL_VS_BYE_FROM, sports.NFL_BYE_DOG_OFF_FROM = k1, k2
+    # a weight inside the cap, never a gate: the dog score moves by 3 and stays within STUDY_CAP of its own read
+    c = {**_cand("g", 150, 0.42, league="nfl"), "dog_ctx": {}, "start": new}
+    s0 = sports.dog_score({**c, "dog_more": {}})
+    s1 = sports.dog_score({**c, "dog_more": {"vs_bye": True}})
+    assert round(s0 - s1, 6) == 3 and s1 >= sports.dog_score_base(c) - sports.STUDY_CAP
+    # the flag comes from the schedule: A played 7 days ago, B (the favorite) 14 days ago
+    games = {"p1": {"id": "p1", "league": "nfl", "start": "2026-11-15T18:00Z", "status": "final", "stype": "2", "home": "A",
+                    "away": "C", "home_score": 20, "away_score": 17},
+             "p2": {"id": "p2", "league": "nfl", "start": "2026-11-08T18:00Z", "status": "final", "stype": "2", "home": "B",
+                    "away": "D", "home_score": 24, "away_score": 10}}
+    g = {"id": "n", "league": "nfl", "start": "2026-11-22T18:00Z", "status": "pre", "stype": "2", "home": "B", "away": "A",
+         "home_name": "Bs", "away_name": "As", "ml_home": "-170", "ml_away": "145"}
+    games["n"] = g
+    sports._SCHED.clear()
+    mo = sports._dog_more(games, g, "away", "home", "nfl")
+    assert mo.get("vs_bye") is True and not mo.get("bye")
+    mo_b = sports._dog_more(games, g, "home", "away", "nfl")
+    assert mo_b.get("bye") is True and not mo_b.get("vs_bye")
+    games["p2"]["start"] = "2026-11-15T21:00Z"                   # both on a normal week: no flag
+    sports._SCHED.clear()
+    assert not sports._dog_more(games, g, "away", "home", "nfl").get("vs_bye")
+    sports._SCHED.clear()
+    # the tracker: the fade's forward record, and S5's lead (a college hoops dog read of 3-4, both teams 4+ games)
+    import sports_leads
+    tag = sports_leads.NFL_VS_BYE_TAG
+    d = {**_cand("g2", 150, 0.40, league="nfl"), "dog_ctx": {}, "dog_more": {"vs_bye": True}, "start": new}
+    assert tag in sports_leads.tags(d, sports)
+    assert tag not in sports_leads.tags({**d, "dog_more": {}}, sports)
+    assert tag not in sports_leads.tags({**d, "league": "ncaaf"}, sports)
+    h = {**_cand("g3", 140, 0.41, league="ncaab"), "dog_ctx": {}, "dog_read": 3.4, "dog_read_parts": {"games_ok": True}}
+    assert sports_leads.dog_read_3_4(h, sports) and sports_leads.DOG_READ_3_4_TAG in sports_leads.tags(h, sports)
+    assert not sports_leads.dog_read_3_4({**h, "dog_read": 4.0}, sports)       # 4+ is the slot's own tag
+    assert not sports_leads.dog_read_3_4({**h, "dog_read": 2.9}, sports)
+    assert not sports_leads.dog_read_3_4({**h, "dog_read_parts": {"games_ok": False}}, sports)
+    assert not sports_leads.dog_read_3_4({**h, "odds": 380}, sports)
+    assert sports.NCAAB_DOG_READ_GATE == 4                       # the lead is tracked - the slot's gate did not move
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
