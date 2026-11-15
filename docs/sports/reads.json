@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T20:01Z",
+ "updated": "2026-11-15T20:07Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -116,8 +116,8 @@
    "away": "Dartmouth",
    "home": "Boston U",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -146,8 +146,8 @@
    "away": "Harvard",
    "home": "American",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -191,8 +191,8 @@
    "away": "Niagara",
    "home": "Iowa State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -465,6 +465,51 @@
    "lean": null
   },
   {
+   "id": "ncaab:401921168",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T20:00Z",
+   "away": "Cleveland St",
+   "home": "Alabama A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926068",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T20:00Z",
+   "away": "Purdue FW",
+   "home": "E Illinois",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926216",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T20:00Z",
+   "away": "Wright St-Lake",
+   "home": "Tennessee Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401934396",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -709,8 +754,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "49ers",
-    "p": 0.621,
-    "tie": 0.036,
+    "p": 0.616,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -726,12 +771,12 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.694,
-    "win_p": 0.694,
+    "p": 0.688,
+    "win_p": 0.688,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
-     "rolling off a blowout win"
+     "rolling off a blowout win",
+     "sharp money moving this way"
     ]
    }
   },
