@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T22:04Z",
+ "updated": "2026-11-15T22:19Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -489,8 +489,8 @@
    "away": "Cleveland St",
    "home": "Alabama A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -534,8 +534,8 @@
    "away": "Purdue FW",
    "home": "E Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -806,35 +806,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401911017",
-   "league": "ncaab",
+   "id": "nba:401909988",
+   "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Buffalo",
-    "p": 0.82,
-    "tie": 0.027,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
+   "sport": "NBA",
    "season": "regular season",
-   "start": "2026-11-15T22:30Z",
-   "away": "Canisius",
-   "home": "Buffalo",
-   "why": "coin_flip",
+   "start": "2026-11-15T22:00Z",
+   "away": "Spurs",
+   "home": "Jazz",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Canisius",
-    "opp": "Buffalo",
-    "market": "spread",
-    "line": 13.5,
-    "odds": -110,
-    "p": 0.507,
-    "win_p": 0.101,
-    "reasons": [
-     "sharp money moving this way",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401920124",
@@ -904,8 +888,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.748,
-    "tie": 0.028,
+    "p": 0.74,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -919,14 +903,14 @@
     "team": "Celtics",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -15.5,
-    "odds": -106,
+    "line": -14.5,
+    "odds": -117,
     "p": 0.503,
-    "win_p": 0.858,
+    "win_p": 0.85,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
+     "opponent missing key players",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1358,8 +1342,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kent State",
-    "p": 0.744,
-    "tie": 0.034,
+    "p": 0.761,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1373,10 +1357,10 @@
     "team": "E Kentucky",
     "opp": "Kent State",
     "market": "spread",
-    "line": 11.5,
-    "odds": -115,
-    "p": 0.505,
-    "win_p": 0.175,
+    "line": 10.5,
+    "odds": -102,
+    "p": 0.504,
+    "win_p": 0.158,
     "reasons": [
      "hotter recent form"
     ]
@@ -1388,8 +1372,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.8,
-    "tie": 0.029,
+    "p": 0.831,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1403,10 +1387,10 @@
     "team": "Richmond",
     "opp": "Virginia Tech",
     "market": "spread",
-    "line": 13.5,
-    "odds": -102,
-    "p": 0.507,
-    "win_p": 0.119,
+    "line": 14.5,
+    "odds": -118,
+    "p": 0.508,
+    "win_p": 0.092,
     "reasons": []
    }
   },
@@ -1446,7 +1430,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.61,
+    "p": 0.615,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1462,9 +1446,9 @@
     "opp": "Western KY",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.672,
-    "win_p": 0.672,
+    "odds": -225,
+    "p": 0.678,
+    "win_p": 0.678,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1505,8 +1489,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Drake",
-    "p": 0.743,
-    "tie": 0.034,
+    "p": 0.751,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1523,7 +1507,7 @@
     "line": 11.5,
     "odds": -115,
     "p": 0.505,
-    "win_p": 0.176,
+    "win_p": 0.168,
     "reasons": []
    }
   },
@@ -1589,8 +1573,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.764,
-    "tie": 0.032,
+    "p": 0.788,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1605,12 +1589,11 @@
     "opp": "Northwestern",
     "market": "spread",
     "line": 12.5,
-    "odds": -120,
+    "odds": -118,
     "p": 0.506,
-    "win_p": 0.154,
+    "win_p": 0.131,
     "reasons": [
-     "rolling off a blowout win",
-     "sharp money moving this way"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1620,8 +1603,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kansas St",
-    "p": 0.812,
-    "tie": 0.028,
+    "p": 0.842,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1638,7 +1621,7 @@
     "line": 15.5,
     "odds": -115,
     "p": 0.509,
-    "win_p": 0.109,
+    "win_p": 0.082,
     "reasons": []
    }
   },
@@ -1711,8 +1694,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Saint Mary's",
-    "p": 0.861,
-    "tie": 0.023,
+    "p": 0.868,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1729,7 +1712,7 @@
     "line": 17.5,
     "odds": -102,
     "p": 0.511,
-    "win_p": 0.068,
+    "win_p": 0.062,
     "reasons": [
      "hotter recent form"
     ]
