@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T16:44Z",
+ "updated": "2026-11-15T16:47Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -22,8 +22,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.729,
-    "tie": 0.031,
+    "p": 0.726,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -31,19 +31,19 @@
    "start": "2026-11-15T18:00Z",
    "away": "Bills",
    "home": "Jets",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Jets",
     "opp": "Bills",
     "market": "spread",
     "line": 8.5,
     "odds": -115,
-    "p": 0.51,
-    "win_p": 0.164,
+    "p": 0.515,
+    "win_p": 0.168,
     "reasons": [
-     "revenge game",
-     "opponent missing key players"
+     "opponent missing key players",
+     "revenge game"
     ]
    }
   },
@@ -250,7 +250,7 @@
     "opp": "Jaguars",
     "market": "spread",
     "line": 10.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.503,
     "win_p": 0.132,
     "reasons": [
@@ -443,7 +443,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.58,
+    "p": 0.579,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1180,7 +1180,6 @@
     "win_p": 0.509,
     "reasons": [
      "opponent missing key players",
-     "sharp money moving this way",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -1591,8 +1590,8 @@
    "start": "2026-11-16T01:00Z",
    "away": "Hawks",
    "home": "Bucks",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Hawks",
     "opp": "Bucks",
