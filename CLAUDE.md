@@ -105,7 +105,7 @@ every session:
   shows it - the owner, 10/1; leans and the 8 AM board never ping) - plus
   one-time announcements the owner asks for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-5u, 5u = the max play (the owner 10/16, was 10u); 1 unit = $1,000 flat on a $100,000 start, +$500 per full $50,000 ($1,500 at $150,000) - the owner, 10/22; was 1% of a $1,000 roll): early
-  value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. From 10/2 every
+  value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. AN EXAM-SCAN EARLY DOG IS ½u FLAT from the 11/16 posts (11/15 FABLE - sizing + best picks; sports_early.EXAM_FLAT_FROM / EXAM_FLAT_UNITS): a quarter of Kelly on the RAW own read sized every one 1u-2.5u (Georgia St +170 1.5u, Minnesota +114 2u) with no dose behind it - rebuilt at the open 2023-26 the scan's college dogs ran -0.4% on 106, on the paid odds history 2020-26 +10.3% on 213 with the halves flipping, and the same Kelly sizes dealt at random did as well 311 / 1,587 of 2,000 times (worst stretch -25u / -30u vs -6u / -8u at ½u); flat 1u is the owner's option; a posted play keeps its units. From 10/2 every
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
   over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). THE UNIT SYSTEM
   (the 10/2 sizing replay, 712 board days - the owner: "wire it in when you figure out the sizing"): the Lock sized by
