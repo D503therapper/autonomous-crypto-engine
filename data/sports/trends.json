@@ -354,7 +354,16 @@
     "ncaab:401920681",
     "ncaab:401920896",
     "ncaab:401911472",
-    "ncaab:401929419"
+    "ncaab:401929419",
+    "ncaab:401911240",
+    "ncaab:401918075",
+    "ncaab:401928841",
+    "ncaab:401927364",
+    "ncaab:401909798",
+    "ncaab:401917917",
+    "ncaab:401917964",
+    "ncaab:401920735",
+    "ncaab:401917532"
    ],
    "upcoming_names": [
     "Canisius @ Buffalo",
@@ -362,7 +371,16 @@
     "Syracuse @ St John's",
     "Coastal @ Wisconsin",
     "Alabama St @ San Jos\u00e9 St",
-    "Florida A&M @ UTEP"
+    "Florida A&M @ UTEP",
+    "Richmond @ Virginia Tech",
+    "The Citadel @ Clemson",
+    "E Kentucky @ Kent State",
+    "Tarleton St @ Drake",
+    "Montana @ Kansas St",
+    "C Arkansas @ Oklahoma St",
+    "Abilene Chrstn @ Missouri St",
+    "Columbia @ Northwestern",
+    "Portland St @ Saint Mary's"
    ],
    "verdict": "coin flip"
   },
@@ -425,14 +443,12 @@
    "strength": 3.37,
    "trend": "underdogs cover",
    "upcoming": [
-    "nba:401909988",
     "nba:401909989",
     "nba:401909991",
     "nba:401909992",
     "nba:401909993"
    ],
    "upcoming_names": [
-    "Spurs @ Jazz",
     "Mavericks @ Celtics",
     "Rockets @ Wizards",
     "Hawks @ Bucks",
@@ -520,7 +536,16 @@
     "ncaab:401920681",
     "ncaab:401920896",
     "ncaab:401911472",
-    "ncaab:401929419"
+    "ncaab:401929419",
+    "ncaab:401911240",
+    "ncaab:401918075",
+    "ncaab:401928841",
+    "ncaab:401927364",
+    "ncaab:401909798",
+    "ncaab:401917917",
+    "ncaab:401917964",
+    "ncaab:401920735",
+    "ncaab:401917532"
    ],
    "upcoming_names": [
     "Canisius @ Buffalo",
@@ -528,7 +553,16 @@
     "Syracuse @ St John's",
     "Coastal @ Wisconsin",
     "Alabama St @ San Jos\u00e9 St",
-    "Florida A&M @ UTEP"
+    "Florida A&M @ UTEP",
+    "Richmond @ Virginia Tech",
+    "The Citadel @ Clemson",
+    "E Kentucky @ Kent State",
+    "Tarleton St @ Drake",
+    "Montana @ Kansas St",
+    "C Arkansas @ Oklahoma St",
+    "Abilene Chrstn @ Missouri St",
+    "Columbia @ Northwestern",
+    "Portland St @ Saint Mary's"
    ],
    "verdict": "coin flip"
   },
@@ -1020,6 +1054,7 @@
     "ncaaf:401858306",
     "ncaaf:401862835",
     "ncaaf:401856748",
+    "ncaaf:401856752",
     "ncaaf:401858310",
     "ncaaf:401871080",
     "ncaaf:401862832",
@@ -1057,6 +1092,7 @@
     "Pitt @ Louisville",
     "North Texas @ Tulane",
     "Vanderbilt @ Florida",
+    "Texas A&M @ Oklahoma",
     "Wake Forest @ Georgia Tech",
     "Western KY @ Liberty",
     "Charlotte @ Tulsa",
@@ -1248,14 +1284,12 @@
    "strength": 1.44,
    "trend": "favorites win",
    "upcoming": [
-    "nba:401909988",
     "nba:401909990",
     "nba:401909991",
     "nba:401909992",
     "nba:401909993"
    ],
    "upcoming_names": [
-    "Spurs @ Jazz",
     "Knicks @ Raptors",
     "Rockets @ Wizards",
     "Hawks @ Bucks",
@@ -1418,14 +1452,12 @@
    "strength": 1.0,
    "trend": "favorites win",
    "upcoming": [
-    "nba:401909988",
     "nba:401909989",
     "nba:401909991",
     "nba:401909992",
     "nba:401909993"
    ],
    "upcoming_names": [
-    "Spurs @ Jazz",
     "Mavericks @ Celtics",
     "Rockets @ Wizards",
     "Hawks @ Bucks",
@@ -1480,7 +1512,6 @@
    "strength": 0.98,
    "trend": "favorites win",
    "upcoming": [
-    "nba:401909988",
     "nba:401909989",
     "nba:401909990",
     "nba:401909991",
@@ -1488,7 +1519,6 @@
     "nba:401909993"
    ],
    "upcoming_names": [
-    "Spurs @ Jazz",
     "Mavericks @ Celtics",
     "Knicks @ Raptors",
     "Rockets @ Wizards",
@@ -1609,6 +1639,44 @@
    "families": [
     "rate"
    ],
+   "league": "ncaab",
+   "outcome": "home",
+   "price_said": 30.8,
+   "record": "33-14",
+   "season": 2026,
+   "side": 1,
+   "situation": "sunday",
+   "streak": 2,
+   "strength": 0.72,
+   "trend": "home team wins",
+   "upcoming": [
+    "ncaab:401911017",
+    "ncaab:401920124",
+    "ncaab:401926733",
+    "ncaab:401920681",
+    "ncaab:401926772",
+    "ncaab:401920896",
+    "ncaab:401925718",
+    "ncaab:401929200",
+    "ncaab:401911472"
+   ],
+   "upcoming_names": [
+    "Canisius @ Buffalo",
+    "Cal Poly @ Montana St",
+    "Ecclesia @ UT Martin",
+    "Syracuse @ St John's",
+    "AR-Pine Bluff @ USC",
+    "Coastal @ Wisconsin",
+    "Paine @ Bethune",
+    "Texas St @ UTSA",
+    "Alabama St @ San Jos\u00e9 St"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
    "league": "nhl",
    "outcome": "fav_ml",
    "price_said": 15.5,
@@ -1632,44 +1700,6 @@
     "Flames @ Ducks",
     "Canucks @ Golden Knights",
     "Predators @ Sharks"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaab",
-   "outcome": "home",
-   "price_said": 30.3,
-   "record": "32-14",
-   "season": 2026,
-   "side": 1,
-   "situation": "sunday",
-   "streak": 1,
-   "strength": 0.59,
-   "trend": "home team wins",
-   "upcoming": [
-    "ncaab:401911017",
-    "ncaab:401920124",
-    "ncaab:401926733",
-    "ncaab:401920681",
-    "ncaab:401926772",
-    "ncaab:401920896",
-    "ncaab:401925718",
-    "ncaab:401929200",
-    "ncaab:401911472"
-   ],
-   "upcoming_names": [
-    "Canisius @ Buffalo",
-    "Cal Poly @ Montana St",
-    "Ecclesia @ UT Martin",
-    "Syracuse @ St John's",
-    "AR-Pine Bluff @ USC",
-    "Coastal @ Wisconsin",
-    "Paine @ Bethune",
-    "Texas St @ UTSA",
-    "Alabama St @ San Jos\u00e9 St"
    ],
    "verdict": "coin flip"
   },
@@ -2187,6 +2217,44 @@
    "families": [
     "rate"
    ],
+   "league": "ncaab",
+   "outcome": "fav_ml",
+   "price_said": 32.6,
+   "record": "32-15",
+   "season": 2026,
+   "side": 1,
+   "situation": "sunday",
+   "streak": 2,
+   "strength": -0.2,
+   "trend": "favorites win",
+   "upcoming": [
+    "ncaab:401911017",
+    "ncaab:401920124",
+    "ncaab:401926733",
+    "ncaab:401920681",
+    "ncaab:401926772",
+    "ncaab:401920896",
+    "ncaab:401925718",
+    "ncaab:401929200",
+    "ncaab:401911472"
+   ],
+   "upcoming_names": [
+    "Canisius @ Buffalo",
+    "Cal Poly @ Montana St",
+    "Ecclesia @ UT Martin",
+    "Syracuse @ St John's",
+    "AR-Pine Bluff @ USC",
+    "Coastal @ Wisconsin",
+    "Paine @ Bethune",
+    "Texas St @ UTSA",
+    "Alabama St @ San Jos\u00e9 St"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
    "league": "nba",
    "outcome": "fav_ml",
    "price_said": 26.6,
@@ -2217,44 +2285,6 @@
    "trend": "home team wins",
    "upcoming": [],
    "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaab",
-   "outcome": "fav_ml",
-   "price_said": 32.0,
-   "record": "31-15",
-   "season": 2026,
-   "side": 1,
-   "situation": "sunday",
-   "streak": 1,
-   "strength": -0.35,
-   "trend": "favorites win",
-   "upcoming": [
-    "ncaab:401911017",
-    "ncaab:401920124",
-    "ncaab:401926733",
-    "ncaab:401920681",
-    "ncaab:401926772",
-    "ncaab:401920896",
-    "ncaab:401925718",
-    "ncaab:401929200",
-    "ncaab:401911472"
-   ],
-   "upcoming_names": [
-    "Canisius @ Buffalo",
-    "Cal Poly @ Montana St",
-    "Ecclesia @ UT Martin",
-    "Syracuse @ St John's",
-    "AR-Pine Bluff @ USC",
-    "Coastal @ Wisconsin",
-    "Paine @ Bethune",
-    "Texas St @ UTSA",
-    "Alabama St @ San Jos\u00e9 St"
-   ],
    "verdict": "coin flip"
   },
   {
@@ -2531,6 +2561,58 @@
    ],
    "league": "ncaab",
    "outcome": "fav_ml",
+   "price_said": 421.0,
+   "record": "416-87",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 2,
+   "strength": -0.65,
+   "trend": "favorites win",
+   "upcoming": [
+    "ncaab:401911017",
+    "ncaab:401920124",
+    "ncaab:401920681",
+    "ncaab:401920896",
+    "ncaab:401911472",
+    "ncaab:401929419",
+    "ncaab:401911240",
+    "ncaab:401918075",
+    "ncaab:401925864",
+    "ncaab:401928841",
+    "ncaab:401927364",
+    "ncaab:401909798",
+    "ncaab:401917917",
+    "ncaab:401917964",
+    "ncaab:401920735",
+    "ncaab:401917532"
+   ],
+   "upcoming_names": [
+    "Canisius @ Buffalo",
+    "Cal Poly @ Montana St",
+    "Syracuse @ St John's",
+    "Coastal @ Wisconsin",
+    "Alabama St @ San Jos\u00e9 St",
+    "Florida A&M @ UTEP",
+    "Richmond @ Virginia Tech",
+    "The Citadel @ Clemson",
+    "Western KY @ Tulsa",
+    "E Kentucky @ Kent State",
+    "Tarleton St @ Drake",
+    "Montana @ Kansas St",
+    "C Arkansas @ Oklahoma St",
+    "Abilene Chrstn @ Missouri St",
+    "Columbia @ Northwestern",
+    "Portland St @ Saint Mary's"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "ncaab",
+   "outcome": "fav_ml",
    "price_said": 77.7,
    "record": "75-30",
    "season": 2026,
@@ -2570,6 +2652,7 @@
     "ncaaf:401858306",
     "ncaaf:401862835",
     "ncaaf:401856748",
+    "ncaaf:401856752",
     "ncaaf:401858310",
     "ncaaf:401871080",
     "ncaaf:401862832",
@@ -2607,6 +2690,7 @@
     "Pitt @ Louisville",
     "North Texas @ Tulane",
     "Vanderbilt @ Florida",
+    "Texas A&M @ Oklahoma",
     "Wake Forest @ Georgia Tech",
     "Western KY @ Liberty",
     "Charlotte @ Tulsa",
@@ -2630,38 +2714,6 @@
     "Utah @ TCU",
     "San Diego St @ Boise St",
     "Utah State @ Oregon St"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "ncaab",
-   "outcome": "fav_ml",
-   "price_said": 420.4,
-   "record": "415-87",
-   "season": 2026,
-   "side": 1,
-   "situation": "home favorite",
-   "streak": 1,
-   "strength": -0.71,
-   "trend": "favorites win",
-   "upcoming": [
-    "ncaab:401911017",
-    "ncaab:401920124",
-    "ncaab:401920681",
-    "ncaab:401920896",
-    "ncaab:401911472",
-    "ncaab:401929419"
-   ],
-   "upcoming_names": [
-    "Canisius @ Buffalo",
-    "Cal Poly @ Montana St",
-    "Syracuse @ St John's",
-    "Coastal @ Wisconsin",
-    "Alabama St @ San Jos\u00e9 St",
-    "Florida A&M @ UTEP"
    ],
    "verdict": "coin flip"
   },
@@ -2791,19 +2843,19 @@
  "cells": {
   "all": {
    "edge": 0.009,
-   "edge_new": 0.0094,
+   "edge_new": 0.0095,
    "edge_old": 0.0086,
    "from": "2018-03-31",
    "hit": 0.6898,
    "hit_new": 0.6915,
    "hit_old": 0.6881,
-   "n": 238495,
-   "n_new": 119248,
-   "n_old": 119247,
+   "n": 238498,
+   "n_new": 119249,
+   "n_old": 119249,
    "said": 0.6808,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 10.2
+   "z": 10.21
   },
   "mlb|all": {
    "edge": 0.0043,
@@ -3133,13 +3185,13 @@
    "hit": 0.7146,
    "hit_new": 0.717,
    "hit_old": 0.7122,
-   "n": 140525,
-   "n_new": 70263,
-   "n_old": 70262,
+   "n": 140528,
+   "n_new": 70264,
+   "n_old": 70264,
    "said": 0.7017,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 11.46
+   "z": 11.47
   },
   "ncaab|rate": {
    "edge": 0.014,
@@ -3149,8 +3201,8 @@
    "hit": 0.7266,
    "hit_new": 0.7276,
    "hit_old": 0.7255,
-   "n": 103748,
-   "n_new": 51874,
+   "n": 103749,
+   "n_new": 51875,
    "n_old": 51874,
    "said": 0.7126,
    "status": "watch only",
@@ -3179,10 +3231,10 @@
    "edge_old": 0.0146,
    "from": "2018-11-07",
    "hit": 0.7522,
-   "hit_new": 0.753,
+   "hit_new": 0.7531,
    "hit_old": 0.7513,
-   "n": 70208,
-   "n_new": 35104,
+   "n": 70209,
+   "n_new": 35105,
    "n_old": 35104,
    "said": 0.7373,
    "status": "watch only",
@@ -3222,20 +3274,20 @@
    "z": 1.43
   },
   "ncaab|streak": {
-   "edge": 0.0097,
-   "edge_new": 0.0088,
-   "edge_old": 0.0107,
+   "edge": 0.0098,
+   "edge_new": 0.0089,
+   "edge_old": 0.0106,
    "from": "2018-11-08",
    "hit": 0.6808,
-   "hit_new": 0.6856,
-   "hit_old": 0.676,
-   "n": 36777,
-   "n_new": 18389,
-   "n_old": 18388,
+   "hit_new": 0.6857,
+   "hit_old": 0.6759,
+   "n": 36779,
+   "n_new": 18390,
+   "n_old": 18389,
    "said": 0.6711,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 4.31
+   "z": 4.33
   },
   "ncaab|streak|fav_cover": {
    "edge": -0.0018,
@@ -3261,13 +3313,13 @@
    "hit": 0.7669,
    "hit_new": 0.7701,
    "hit_old": 0.7638,
-   "n": 20109,
+   "n": 20110,
    "n_new": 10055,
-   "n_old": 10054,
+   "n_old": 10055,
    "said": 0.7507,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 5.6
+   "z": 5.61
   },
   "ncaab|streak|home": {
    "edge": 0.0093,
@@ -3286,20 +3338,20 @@
    "z": 2.0
   },
   "ncaab|streak|total": {
-   "edge": -0.0065,
-   "edge_new": -0.0118,
+   "edge": -0.0064,
+   "edge_new": -0.0116,
    "edge_old": -0.0011,
    "from": "2018-11-08",
-   "hit": 0.4935,
-   "hit_new": 0.4882,
+   "hit": 0.4936,
+   "hit_new": 0.4884,
    "hit_old": 0.4989,
-   "n": 4482,
-   "n_new": 2241,
+   "n": 4483,
+   "n_new": 2242,
    "n_old": 2241,
    "said": 0.5,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": -0.87
+   "z": -0.85
   },
   "ncaaf|all": {
    "edge": 0.0064,
@@ -3800,14 +3852,14 @@
   "rate": {
    "edge": 0.0101,
    "edge_new": 0.011,
-   "edge_old": 0.0093,
+   "edge_old": 0.0092,
    "from": "2018-03-31",
    "hit": 0.7105,
    "hit_new": 0.7125,
    "hit_old": 0.7085,
-   "n": 166651,
+   "n": 166652,
    "n_new": 83326,
-   "n_old": 83325,
+   "n_old": 83326,
    "said": 0.7004,
    "status": "watch only",
    "to": "2026-11-15",
@@ -3837,13 +3889,13 @@
    "hit": 0.7381,
    "hit_new": 0.7388,
    "hit_old": 0.7375,
-   "n": 117007,
+   "n": 117008,
    "n_new": 58504,
-   "n_old": 58503,
+   "n_old": 58504,
    "said": 0.728,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 8.09
+   "z": 8.1
   },
   "rate|home": {
    "edge": 0.0113,
@@ -3879,19 +3931,19 @@
   },
   "streak": {
    "edge": 0.0065,
-   "edge_new": 0.0075,
+   "edge_new": 0.0076,
    "edge_old": 0.0054,
    "from": "2018-04-06",
    "hit": 0.6417,
    "hit_new": 0.645,
    "hit_old": 0.6385,
-   "n": 71844,
-   "n_new": 35922,
-   "n_old": 35922,
+   "n": 71846,
+   "n_new": 35923,
+   "n_old": 35923,
    "said": 0.6353,
    "status": "watch only",
    "to": "2026-11-15",
-   "z": 3.85
+   "z": 3.86
   },
   "streak|fav_cover": {
    "edge": -0.0042,
@@ -3917,8 +3969,8 @@
    "hit": 0.7266,
    "hit_new": 0.7301,
    "hit_old": 0.7232,
-   "n": 37674,
-   "n_new": 18837,
+   "n": 37675,
+   "n_new": 18838,
    "n_old": 18837,
    "said": 0.7166,
    "status": "watch only",
@@ -3943,14 +3995,14 @@
   },
   "streak|total": {
    "edge": 0.0021,
-   "edge_new": 0.0032,
+   "edge_new": 0.0033,
    "edge_old": 0.001,
    "from": "2018-04-06",
    "hit": 0.5021,
-   "hit_new": 0.5032,
+   "hit_new": 0.5033,
    "hit_old": 0.501,
-   "n": 12484,
-   "n_new": 6242,
+   "n": 12485,
+   "n_new": 6243,
    "n_old": 6242,
    "said": 0.5,
    "status": "watch only",
@@ -3961,7 +4013,7 @@
  "follow_ups": {
   "mlb": 16135,
   "nba": 34244,
-  "ncaab": 140525,
+  "ncaab": 140528,
   "ncaaf": 31096,
   "nfl": 5812,
   "nhl": 10683
@@ -3977,5 +4029,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-11-15T21:42Z"
+ "updated": "2026-11-15T22:02Z"
 }
