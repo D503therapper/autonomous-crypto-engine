@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T21:06Z",
+ "updated": "2026-11-15T21:07Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -414,8 +414,8 @@
    "away": "Temple",
    "home": "La Salle",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -657,6 +657,21 @@
    }
   },
   {
+   "id": "nfl:401873062",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
+   "season": "regular season",
+   "start": "2026-11-15T21:05Z",
+   "away": "Seahawks",
+   "home": "Raiders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909987",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -709,9 +724,9 @@
     "team": "New Haven",
     "opp": "Penn State",
     "market": "spread",
-    "line": 24.5,
-    "odds": -115,
-    "p": 0.518,
+    "line": 23.5,
+    "odds": -105,
+    "p": 0.517,
     "win_p": 0.032,
     "reasons": []
    }
