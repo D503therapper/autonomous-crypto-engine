@@ -24140,6 +24140,18 @@ def test_sizing_1115_two_tracker_leads_only():
         assert "sizing_1115_tags" not in src and "SIZING_1115_FAV_TAG" not in src and "SIZING_1115_NHL_NEXT_TAG" not in src
 
 
+def test_audit_1115_health_reads_the_live_board_without_burning_githubs_anonymous_limit():
+    """11/15: health.json showed "live board check failed: HTTP Error 403: rate limit exceeded" (and the live tennis
+    points check) three times in a day - two checks read live-data/live.json through api.github.com with no token, and
+    GitHub's shared runners run out of the 60-an-hour anonymous allowance. Both read the raw file now (no such limit),
+    the API with the run's own token only as a fallback."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+    assert "def live_board():" in src and src.count("board = live_board()") == 2
+    fn = src[src.index("def live_board():"):src.index("if needed:\n    age = None")]
+    assert "raw.githubusercontent.com" in fn and "Authorization" in fn and "GH_TOKEN" in fn
+    assert src.count('contents/live.json?ref=live-data') == 1          # (only the token fallback calls the API)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
