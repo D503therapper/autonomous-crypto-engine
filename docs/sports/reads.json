@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T16:47Z",
+ "updated": "2026-11-15T16:53Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -22,8 +22,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.726,
-    "tie": 0.032,
+    "p": 0.732,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -31,16 +31,16 @@
    "start": "2026-11-15T18:00Z",
    "away": "Bills",
    "home": "Jets",
-   "why": "on_board",
-   "board": "lean",
+   "why": "coin_flip",
+   "board": null,
    "lean": {
     "team": "Jets",
     "opp": "Bills",
     "market": "spread",
     "line": 8.5,
     "odds": -115,
-    "p": 0.515,
-    "win_p": 0.168,
+    "p": 0.511,
+    "win_p": 0.162,
     "reasons": [
      "opponent missing key players",
      "revenge game"
@@ -81,7 +81,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Chiefs",
-    "p": 0.587,
+    "p": 0.582,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -98,12 +98,12 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.645,
-    "win_p": 0.645,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
-     "better QB play lately"
+     "better QB play lately",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -172,7 +172,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colts",
-    "p": 0.575,
+    "p": 0.577,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -189,11 +189,12 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.638,
-    "win_p": 0.638,
+    "p": 0.641,
+    "win_p": 0.641,
     "reasons": [
      "sharp money moving this way",
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -234,7 +235,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.759,
+    "p": 0.757,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -250,9 +251,9 @@
     "opp": "Jaguars",
     "market": "spread",
     "line": 10.5,
-    "odds": -108,
-    "p": 0.503,
-    "win_p": 0.132,
+    "odds": -105,
+    "p": 0.507,
+    "win_p": 0.135,
     "reasons": [
      "coming off a bye",
      "revenge game"
@@ -383,7 +384,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.623,
+    "p": 0.636,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -392,16 +393,16 @@
    "start": "2026-11-15T18:00Z",
    "away": "Pacers",
    "home": "76ers",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Pacers",
-    "market": "ml",
-    "line": null,
-    "odds": -277,
-    "p": 0.705,
-    "win_p": 0.705,
+    "market": "spread",
+    "line": -7.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.723,
     "reasons": [
      "the stronger team"
     ]
@@ -413,7 +414,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.481,
+    "p": 0.488,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -427,13 +428,14 @@
    "lean": {
     "team": "Saints",
     "opp": "Panthers",
-    "market": "spread",
-    "line": -1.5,
-    "odds": 100,
-    "p": 0.501,
-    "win_p": 0.501,
+    "market": "ml",
+    "line": null,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -474,7 +476,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.548,
+    "p": 0.54,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -490,13 +492,13 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.598,
-    "win_p": 0.598,
+    "odds": -142,
+    "p": 0.587,
+    "win_p": 0.587,
     "reasons": [
      "better QB play lately",
      "cold-weather edge",
-     "opponent missing key players"
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1180,6 +1182,7 @@
     "win_p": 0.509,
     "reasons": [
      "opponent missing key players",
+     "sharp money moving this way",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
@@ -1590,8 +1593,8 @@
    "start": "2026-11-16T01:00Z",
    "away": "Hawks",
    "home": "Bucks",
-   "why": "on_board",
-   "board": "lean",
+   "why": "coin_flip",
+   "board": null,
    "lean": {
     "team": "Hawks",
     "opp": "Bucks",
