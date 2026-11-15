@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T03:52Z",
+ "updated": "2026-11-15T03:59Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -2727,8 +2727,8 @@
    "away": "UNLV",
    "home": "New Mexico",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2802,8 +2802,8 @@
    "away": "N'Western St",
    "home": "Little Rock",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2848,7 +2848,7 @@
    "home": "Heat",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Heat",
@@ -2861,7 +2861,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -2874,8 +2874,8 @@
    "away": "Sabres",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2934,8 +2934,8 @@
    "away": "Furman",
    "home": "Belmont",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -3128,6 +3128,21 @@
    "start": "2026-11-15T03:30Z",
    "away": "Utah",
    "home": "Arizona",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401860917",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-11-15T03:45Z",
+   "away": "Colorado St",
+   "home": "Washington St",
    "h1": null,
    "why": "started",
    "done": false,
@@ -4636,8 +4651,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.392,
-    "tie": 0.298,
+    "p": 0.374,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -4653,8 +4668,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.638,
-    "win_p": 0.42,
+    "p": 0.671,
+    "win_p": 0.453,
     "reasons": []
    }
   },
