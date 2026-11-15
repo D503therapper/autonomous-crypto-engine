@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T01:30Z",
+ "updated": "2026-11-15T01:46Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -1898,8 +1898,8 @@
    "away": "Southern Miss",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2123,8 +2123,8 @@
    "away": "Penn",
    "home": "Saint Joseph's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2225,8 +2225,8 @@
    "away": "Earlham",
    "home": "Indiana St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2925,128 +2925,19 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868091",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "E Washington",
-    "p": 0.566,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-15T02:00Z",
-   "away": "E Washington",
-   "home": "Utah Tech",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "E Washington",
-    "opp": "Utah Tech",
-    "market": "ml",
-    "line": null,
-    "odds": -199,
-    "p": 0.554,
-    "win_p": 0.554,
-    "reasons": [
-     "opponent's body clock is off"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401922031",
+   "id": "ncaab:401920760",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Montana",
-    "p": 0.483,
-    "tie": 0.044,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-15T02:00Z",
-   "away": "Montana",
-   "home": "North Dakota",
-   "why": "coin_flip",
+   "start": "2026-11-15T01:30Z",
+   "away": "Furman",
+   "home": "Belmont",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Montana",
-    "opp": "North Dakota",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.506,
-    "win_p": 0.506,
-    "reasons": [
-     "sharp money moving this way",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401862827",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "North Texas",
-    "p": 0.508,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-15T02:00Z",
-   "away": "North Texas",
-   "home": "UTSA",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "North Texas",
-    "opp": "UTSA",
-    "market": "ml",
-    "line": null,
-    "odds": -135,
-    "p": 0.51,
-    "win_p": 0.51,
-    "reasons": [
-     "sharp money moving this way",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892718",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.41,
-    "tie": 0.296,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-15T02:00Z",
-   "away": "Sharks",
-   "home": "Mammoth",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Mammoth",
-    "opp": "Sharks",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.624,
-    "win_p": 0.624,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401856863",
