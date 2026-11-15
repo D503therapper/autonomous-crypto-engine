@@ -20916,3 +20916,22 @@ DEX: $662.45 (-337.55) · Scammed: 11 (-$216.49)
 [2026-11-15 18:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-15 18:05 UTC] crypto/hold_btc  equity $395.49 (-20.9%) 1 open  market DOWN
    social heat top: BTC 27 (27/0/0), PENGU 24 (24/0/0), ETH 21 (21/0/0), ONDO 19 (19/0/0), HYPE 19 (19/0/0)
+   dex screen: REJECT NPC@ethereum liq $3,269,100 - top-10 holders 40%
+   dex screen: REJECT CBBTC@ethereum liq $11,024,444 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%
+   dex screen: REJECT TTWO@solana liq $1,070,199 - freeze authority; mint authority; balance_mutable_authority; transfer hook
+   dex screen: REJECT MIHAO@solana liq $431,677 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex screen: REJECT SUPER@ethereum liq $2,522,969 - is_mintable; top-10 holders 54%
+   dex screen: REJECT LIT@ethereum liq $549,059 - top-10 holders 61%; lp locked 0% < 95%
+   dex screen: REJECT ADI@ethereum liq $2,848,309 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dex scanner: 2,262 pools (solana 1,645 / base 354 / ethereum 263), refresh cycle 95s (hot 91s), 2962 calls (110 feed, 429s 0, failed 0), 85,558 refreshed (16695 no pair), +74 added / -69 dropped (dead 65, stale 4, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-15 19:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+   >> crypto/social_heat: SELL $52.99 of HYPE @ 66.3666, P/L $-9.91 (time limit)
+[2026-11-15 19:05 UTC] crypto/social_heat equity $321.29 (-35.7%) 2 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-15 19:05 UTC] crypto/hold_btc  equity $396.63 (-20.7%) 1 open  market DOWN
+   social heat top: BTC 27 (27/0/0), PENGU 24 (24/0/0), QNT 20 (16/0/4), JUP 19 (19/0/0), ETH 16 (16/0/0)
