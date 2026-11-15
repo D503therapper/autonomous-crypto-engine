@@ -66,6 +66,24 @@ try:
 except Exception as e:                                   # noqa: BLE001
     games, needed = {}, False
     problems.append(f"couldn't load games: {str(e)[:80]}")
+
+
+def live_board():
+    """The live board (live-data/live.json). 11/15: two checks read it through api.github.com with no token - GitHub's
+    shared runners ran out of the 60-an-hour anonymous allowance ("HTTP Error 403: rate limit exceeded", 3 runs in a
+    day). The raw file has no such limit (the age check above already reads it there); the API with the run's own
+    token is the fallback."""
+    try:
+        return json.loads(urllib.request.urlopen(
+            f"https://raw.githubusercontent.com/{REPO}/live-data/live.json?t={int(time.time())}", timeout=20).read())
+    except Exception:                                    # noqa: BLE001 - fall back to the API, with the token
+        hdr = {"Accept": "application/vnd.github.raw"}
+        if os.environ.get("GH_TOKEN"):
+            hdr["Authorization"] = f"Bearer {os.environ['GH_TOKEN']}"
+        return json.loads(urllib.request.urlopen(urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data", headers=hdr), timeout=20).read())
+
+
 if needed:
     age = None
     try:
@@ -162,9 +180,7 @@ except Exception as e:                                   # noqa: BLE001
 #     book's point-by-point for a live match, and the watcher hasn't flagged a match without them
 if needed:
     try:
-        board = json.loads(urllib.request.urlopen(urllib.request.Request(
-            f"https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",
-            headers={"Accept": "application/vnd.github.raw"}), timeout=20).read())
+        board = live_board()
         tn_live = [k for k, v in (board.get("scores") or {}).items() if k.startswith("tennis:") and v.get("live")]
         flagged = [h for h in board.get("health") or [] if h.startswith("tennis ") and
                    ("no points" in h or "no server" in h or "frozen" in h)]
@@ -230,9 +246,7 @@ except Exception as e:                                   # noqa: BLE001
 # 6. the live board's insides while games are on
 if needed:
     try:
-        board = json.loads(urllib.request.urlopen(urllib.request.Request(
-            f"https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",
-            headers={"Accept": "application/vnd.github.raw"}), timeout=20).read())
+        board = live_board()
         books = str((board.get("tennis") or {}).get("books") or "")
         if " 0 fresh" in books and not books.startswith("0 "):
             problems.append(f"tennis live prices all stale ({books}) - no live tennis plays can go up")
