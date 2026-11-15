@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T13:47Z",
+ "updated": "2026-11-15T13:55Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -67,7 +67,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.721,
+    "p": 0.724,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -85,7 +85,7 @@
     "line": 8.5,
     "odds": -118,
     "p": 0.508,
-    "win_p": 0.174,
+    "win_p": 0.17,
     "reasons": [
      "revenge game"
     ]
@@ -383,7 +383,7 @@
     "opp": "Georgia St",
     "market": "spread",
     "line": 12.5,
-    "odds": -108,
+    "odds": -102,
     "p": 0.506,
     "win_p": 0.143,
     "reasons": [
@@ -488,7 +488,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.599,
+    "p": 0.598,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -612,7 +612,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rhode Island",
-    "p": 0.689,
+    "p": 0.685,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -628,9 +628,9 @@
     "opp": "Rhode Island",
     "market": "spread",
     "line": 7.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.501,
-    "win_p": 0.237,
+    "win_p": 0.24,
     "reasons": []
    }
   },
@@ -880,7 +880,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Saint Louis",
-    "p": 0.636,
+    "p": 0.648,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -896,9 +896,9 @@
     "opp": "High Point",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.704,
-    "win_p": 0.704,
+    "odds": -278,
+    "p": 0.719,
+    "win_p": 0.719,
     "reasons": [
      "the stronger team"
     ]
@@ -1206,8 +1206,8 @@
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "Clippers",
-    "p": 0.486,
+    "team": "Hornets",
+    "p": 0.482,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1219,14 +1219,16 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Clippers",
-    "opp": "Hornets",
+    "team": "Hornets",
+    "opp": "Clippers",
     "market": "ml",
     "line": null,
-    "odds": -113,
-    "p": 0.507,
-    "win_p": 0.507,
-    "reasons": []
+    "odds": -109,
+    "p": 0.51,
+    "win_p": 0.51,
+    "reasons": [
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
    }
   },
   {
@@ -1682,8 +1684,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Texas St",
-    "p": 0.58,
-    "tie": 0.042,
+    "p": 0.556,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1691,16 +1693,16 @@
    "start": "2026-11-16T01:00Z",
    "away": "Texas St",
    "home": "UTSA",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Texas St",
     "opp": "UTSA",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.637,
-    "win_p": 0.637,
+    "odds": -166,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
      "the stronger team",
      "hotter recent form"
