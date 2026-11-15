@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T02:09Z",
+ "updated": "2026-11-15T02:11Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -2985,67 +2985,6 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401856863",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Oklahoma St",
-    "p": 0.584,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-15T02:30Z",
-   "away": "Texas Tech",
-   "home": "Oklahoma St",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Oklahoma St",
-    "opp": "Texas Tech",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
-    "reasons": [
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401860915",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah State",
-    "p": 0.523,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-11-15T02:30Z",
-   "away": "Utah State",
-   "home": "San Diego St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah State",
-    "opp": "San Diego St",
-    "market": "ml",
-    "line": null,
-    "odds": -148,
-    "p": 0.516,
-    "win_p": 0.516,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892720",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -3232,7 +3171,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Utah",
-    "p": 0.485,
+    "p": 0.499,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3246,13 +3185,14 @@
    "lean": {
     "team": "Utah",
     "opp": "Arizona",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.501,
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.506,
+    "win_p": 0.506,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
