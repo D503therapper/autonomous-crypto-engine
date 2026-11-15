@@ -20639,3 +20639,28 @@ DEX: $662.45 (-337.55) · Scammed: 11 (-$216.49)
 [2026-11-15 08:02 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-15 08:02 UTC] crypto/hold_btc  equity $392.13 (-21.6%) 1 open  market DOWN
    social heat top: HYPE 44 (35/0/10), BTC 40 (40/0/0), KAVA 37 (37/0/0), LINK 32 (32/0/0), XRP 27 (27/0/0)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT GOOGLC@base liq $1,625,038 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $2,051,243
+   dex screen: REJECT XAUT@ethereum liq $487,584 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: PASS CBUCKS@solana liq $195,699
+   dex scanner: 2,353 pools (solana 1,735 / base 349 / ethereum 269), refresh cycle 90s (hot 87s), 3213 calls (116 feed, 429s 0, failed 0), 92,763 refreshed (22625 no pair), +58 added / -105 dropped (dead 102, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-15 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/social_heat equity $321.94 (-35.6%) 3 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-15 09:06 UTC] crypto/hold_btc  equity $399.83 (-20.0%) 1 open  market DOWN
+   social heat top: KAVA 40 (40/0/0), HYPE 37 (37/0/0), SOL 35 (35/0/0), BTC 32 (32/0/0), ETH 27 (27/0/0)
