@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T19:51Z",
+ "updated": "2026-11-15T19:54Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -648,7 +648,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.718,
+    "p": 0.712,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -666,8 +666,10 @@
     "line": 9.5,
     "odds": -105,
     "p": 0.515,
-    "win_p": 0.177,
-    "reasons": []
+    "win_p": 0.183,
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -676,7 +678,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.663,
+    "p": 0.66,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -693,11 +695,10 @@
     "market": "ml",
     "line": null,
     "odds": -298,
-    "p": 0.749,
-    "win_p": 0.749,
+    "p": 0.745,
+    "win_p": 0.745,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
      "revenge game"
     ]
    }
@@ -1396,7 +1397,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -10.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.792,
     "reasons": [
