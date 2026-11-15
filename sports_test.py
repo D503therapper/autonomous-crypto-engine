@@ -23562,8 +23562,17 @@ def test_owner_1115_a_play_posted_on_its_game_day_never_sits_under_we_got_in_ear
         assert "Over 227.5" in gd and "Steelers" not in gd
         only = se.gameday_html({"picks": [total]}, {}, lambda x: x, now, day="2026-11-14")
         assert "WE GOT IN EARLY" not in only and se.GAMEDAY_BOX in only and se.GAMEDAY_BOX == "VALUE PLAY"
-        src = open(se.__file__).read()
-        assert 'for title in ("EARLY VALUE PLAYS", GAMEDAY_BOX):' in src            # the ping finds it in its box
+        # the ping finds it in ITS box (11/15 audit: a bare "VALUE PLAY" search landed on "EARLY VALUE PLAYS" or on a board
+        # value card first - never on the game-day box - so a game-day play's ping, and every ping queued with it, never sent)
+        import json as _j
+        page = ('<section><span class="pk-l evt">EARLY VALUE PLAYS</span>Steelers</section>'
+                '<section><span class="pk-l">VALUE PLAY</span>Bruins</section>' + only)
+        with tempfile.TemporaryDirectory() as dd:
+            qp = os.path.join(dd, "q.json")
+            sent = []
+            _j.dump({"at": now.strftime("%Y-%m-%dT%H:%MZ"), "pings": [{"team": "Over 227.5"}]}, open(qp, "w"))
+            assert se.send_queued(page, now, qp, sent.append) == [{"team": "Over 227.5"}] and len(sent) == 1
+            assert se.send_queued(page.replace(only, ""), now, qp, sent.append) == [] and len(sent) == 1   # not up yet: wait
     finally:
         se.ON = saved
 
@@ -23581,6 +23590,354 @@ def test_owner_1115_a_slow_saturday_check_never_trips_the_watchdog_and_the_grade
     assert "BEAT[0] = time.time()" in lp[q:q + 200]
     r = lp.index("            run()\n")
     assert "BEAT[0] = time.time()" in lp[r - 200:r]
+
+
+def test_audit_1115_the_exam_scan_play_is_half_a_unit_and_a_football_one_needs_the_honest_read():
+    """11/15 FABLE FULL ENGINE AUDIT: the early exam-scan play (sports_early.scan - no "spot") was sized by quarter-Kelly
+    on the RAW ratings read (Georgia St +170 1.5u, lost 34-17; Minnesota +114 2u while the board's read cleared its price
+    by 0.4 - the old football fit's home-dog tilt, with the study angles 4 points AGAINST the dog). Walk-forward the band
+    is a coin at the early price (41-65 -0.4% on 106), the Kelly size has no dose, and the honest weighed read splits it
+    (+29.6% on 32 / -18.3% on 71). From the 11/16 posts: ½u flat (the 11/15 sizing study's EXAM_FLAT_*, the same call
+    from both runs), and a football exam dog posts only when the
+    board's row passes sports.weighed_dog_beats at the price we'd bet. A posted play keeps its units; spots untouched."""
+    import json as _j
+    import sports_early as se
+    assert se.EXAM_1116_FROM == "2026-11-16" == se.EXAM_FLAT_FROM and se.EXAM_FLAT_UNITS == 0.5   # one clock, one size
+    mn = {"game_id": "ncaaf:9", "league": "ncaaf", "side": "home", "team": "Minnesota", "opp": "Northwestern", "odds": 114,
+          "opp_odds": -135, "start": "2026-11-21T17:00Z", "own": 0.5142, "mkt": 0.4463, "gap": 0.0679}
+    # the size: Kelly on the raw read before the date (what posted), ½u flat from the 11/16 Pacific day, every league
+    assert se.units({**mn, "posted": "2026-11-15T09:04Z"}) == 2.0                 # as it posted - never re-sized
+    assert se.units({**mn, "posted": "2026-11-15T09:04Z", "units": 2.0}) == 2.0
+    assert se.units({**mn, "posted": "2026-11-15T23:59Z"}) == 2.0                 # the last minute of the old rule
+    assert se.units({**mn, "posted": "2026-11-16T00:00Z"}) == 0.5                 # the 11/16 posts (the sizing study's clock)
+    assert se.units({**mn, "league": "mlb", "posted": "2026-11-20T18:00Z"}) == 0.5
+    assert se.units({**mn, "spot": "bye", "posted": "2026-11-20T18:00Z"}) == se.SPOTS["bye"][1]   # a spot keeps its size
+    assert se.exam_1116(datetime(2026, 11, 16, 0, tzinfo=timezone.utc)) and not se.exam_1116(datetime(2026, 11, 15, 23, 59, tzinfo=timezone.utc))
+    assert se.exam_1116(posted="2026-11-16T00:00Z") and not se.exam_1116(posted="2026-11-15T09:04Z")
+    # the gate: the board's row for the side - no-vig 44.6%, the old own read 47.1% (over the 46.7% the price needs), the
+    # study part of its dog score -4 (a fade on it): ONE VOICE lets it through, the honest read (40.6%) does not
+    row = {"game_id": "ncaaf:9", "side": "home", "market": "ml", "league": "ncaaf", "odds": 114, "dec": 2.14,
+           "p_market": 0.4463, "edge": 0.0078, "edge_own": 0.0078, "p": 0.471, "date": "2026-11-21"}
+    rows = [dict(row)]
+    keep = (sports.candidates, se.spot_scan, se.with_book_lines, se.ON, se.scan, se.nba_open_scan, se.early_ok,
+            se.min_one, se.euro_unders, se.alt_overs, sports.dog_spots)
+    study = [-4.0]
+
+    def run(scan, now):
+        se.scan = lambda *a, **k: [dict(c) for c in scan]
+        with tempfile.TemporaryDirectory() as dd:
+            path = os.path.join(dd, "early.json")
+            _j.dump({"picks": []}, open(path, "w"))
+            return se.post({}, {}, now=now, injuries={}, path=path, ping=None)
+    try:
+        sports.candidates = lambda games, model, now=None, day=None, injuries=None: [dict(r) for r in rows]
+        sports.dog_spots = lambda c: study[0]
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        se.early_ok = lambda *a, **k: True
+        se.spot_scan = se.nba_open_scan = se.min_one = se.euro_unders = se.alt_overs = lambda *a, **k: []
+        before, after = datetime(2026, 11, 15, 18, tzinfo=timezone.utc), datetime(2026, 11, 16, 18, tzinfo=timezone.utc)
+        assert not sports.weighed_dog_beats(rows[0])
+        old = run([mn], before)                                                    # 11/15: the scan as it ran
+        assert len(old) == 1 and old[0]["units"] == 2.0 and old[0]["main"] > old[0]["main_need"]
+        assert run([mn], after) == []                                              # 11/16: the studies don't beat the price
+        assert not se.exam_honest(dict(mn), {}, {}, {}, after, {}) and se.exam_honest(dict(mn), {}, {}, {}, before, {})
+        study[0] = 3.0                                                             # the studies carry it: 47.6% vs 46.7%
+        assert sports.weighed_dog_beats(rows[0])
+        new = run([mn], after)
+        assert len(new) == 1 and new[0]["units"] == 0.5 and new[0]["honest"] is True
+        # it says why (the 2u Minnesota row had NO line under it): the read in words; no game file = no made-up fact
+        assert new[0]["why"].startswith("🧠") and "+114" in new[0]["why"] and "%" not in new[0]["why"] and "facts" not in new[0]
+        gm = lambda i, s, h, a, hn, an, st_="final", hs="", as_="": {
+            "id": i, "league": "ncaaf", "stype": "2", "status": st_, "start": s, "home": h, "away": a, "home_name": hn,
+            "away_name": an, "home_score": hs, "away_score": as_}
+        G = {"a": gm("a", "2026-11-14T18:00Z", "PSU", "MIN", "Penn State", "Minnesota", hs="42", as_="14"),
+             "b": gm("b", "2026-11-14T20:00Z", "NW", "OSU", "Northwestern", "Ohio State", hs="19", as_="28"),
+             "ncaaf:9": gm("ncaaf:9", "2026-11-21T17:00Z", "MIN", "NW", "Minnesota", "Northwestern", st_="pre")}
+        w = se.exam_words(dict(mn), G, after)
+        assert w["why"].endswith("Minnesota is off a 42-14 loss to Penn State on Saturday 11/14.")
+        assert w["facts"] == ["Northwestern is off a 28-19 loss to Ohio State on Saturday 11/14."]
+        box = se.html({"picks": [{**w, "posted": "2026-11-16T18:00Z", "result": None, "units": 0.5}]}, lambda x: x, now=after, games=G)
+        assert "our read" in box and "42-14 loss to Penn State" in box and "28-19 loss to Ohio State" in box
+        rows[:] = []                                                               # no board row = unknown = no play
+        assert run([mn], after) == []
+        # a spot play and a non-football exam dog keep their own rules (the honest check is football's)
+        assert se.exam_honest({**mn, "spot": "bye"}, {}, {}, {}, after, {})
+        assert se.exam_honest({**mn, "league": "mlb"}, {}, {}, {}, after, {})
+    finally:
+        (sports.candidates, se.spot_scan, se.with_book_lines, se.ON, se.scan, se.nba_open_scan, se.early_ok,
+         se.min_one, se.euro_unders, se.alt_overs, sports.dog_spots) = keep
+
+
+def test_audit_1115_opponent_missing_key_players_is_never_a_head_count():
+    """11/15 FABLE FULL ENGINE AUDIT: the plain "opponent missing key players" reason fired off ESPN's raw count of names
+    Out / Doubtful (the 11/15 Steelers read: the Bengals "missing key players" on one safety + four men on injured
+    reserve) - and it is a NAMED reason: the only one on three ½u floor plays in a week. From the 11/16 games the plain
+    label stands only when the opponent's starting QB / goalie is out and no named-absence line says who; the count
+    stamped on the game is the men who actually play (out_count), not every name on the list."""
+    plain = "opponent missing key players"
+    assert sports.INJ_KEY_FROM == "2026-11-16"
+    named = plain + ": WR Treylon Burks (their read -3)"
+    # a head count alone: no reason (the floor's "named reason" can't be it)
+    assert sports.key_label([plain], [], "2026-11-16") == []
+    assert sports.key_label(["the stronger team", plain, "better rested"], [], "2026-11-16") == ["the stronger team", "better rested"]
+    # the starting QB / goalie really out, nobody named: the label is true and stays
+    assert sports.key_label([plain], [("Joe Burrow", "QB", "Out")], "2026-11-16") == [plain]
+    # the absences already name who's out: that line is the reason, never the two side by side (the 11/12 Giants card)
+    assert sports.key_label([plain, named], [], "2026-11-16") == [named]
+    assert sports.key_label([plain, named], [("Joe Burrow", "QB", "Out")], "2026-11-16") == [named]
+    # dated: a game before 11/16 reads as it did (no posted pick's reasons re-written)
+    assert sports.key_label([plain, named], [], "2026-11-15") == [plain, named] and sports.key_label([plain], [], "") == [plain]
+    assert sports.key_label(["better rested"], [], "2026-11-16") == ["better rested"]
+    # the count on the game: every Out name before, the men who play from 11/16 (no season-long absence)
+    g = {"league": "nhl", "home": "H9", "away": "A9", "home_name": "Bengalz", "away_name": "Steelerz", "start": "2026-11-16T03:00Z"}
+    inj = {"nhl": {"H9": [("A Safety", "D", "Out"), ("IR One", "C", "Out For Season"), ("IR Two", "LW", "Out For Season")]}}
+    assert sports.inj_count(g, "home", inj, "2026-11-15") == 3 and sports.inj_count(g, "home", inj, "2026-11-16") == 1
+    assert sports.inj_count(g, "away", inj, "2026-11-16") == 0
+    src = open(sports.__file__).read()
+    assert 'g[f"inj_{side}"] = inj_count(g, side, injuries, day.isoformat())' in src
+    assert 'key_label(base["reasons"], key_out[other], pt_day(g))' in src
+
+
+def test_audit_1115_a_plus_money_side_is_never_the_lock():
+    """11/15 FABLE FULL ENGINE AUDIT: the owner turned the underdog Lock off 10/18 ("the Lock is favorites only") and
+    the 10/23 plan bars a Lock at -119..-101, but lock_ok let a plus-money side through to +125 on a 56%+ read - 9 of
+    the 116 Locks on the 11/14 football replay board were +100..+110 sides. From the 11/16 games a plus-money moneyline
+    is never the Lock, the backup Lock or the one-game day's Lock; a favorite's Lock is untouched; dated."""
+    assert sports.LOCK_FAV_FROM == "2026-11-16" and sports.DOG_LOCK is False
+
+    def c(odds, start, own=0.60):
+        dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+        return {"game_id": "nfl:1", "league": "nfl", "side": "home", "market": "ml", "odds": odds, "dec": dec, "p": 0.58,
+                "p_market": 0.47 if odds > 0 else 0.55, "edge": own * dec - 1, "edge_own": own * dec - 1,
+                "reasons": ["the stronger team"], "start": start, "team": "Giants", "opp": "Bills", "waiting": [],
+                "trap": False, "hurt": []}
+    before, after = "2026-11-15T21:00Z", "2026-11-16T21:00Z"
+    assert not sports.lock_no_dog(c(105, before)) and sports.lock_no_dog(c(105, after)) and sports.lock_no_dog(c(100, after))
+    assert not sports.lock_no_dog(c(-125, after)) and not sports.lock_no_dog({**c(105, after), "market": "spread"})
+    assert sports.backup_lock([c(105, before)]) is not None                      # as it ran
+    assert sports.backup_lock([c(105, after)]) is None                           # a +105 side: no Lock of any kind
+    fav = sports.backup_lock([c(105, after), c(-125, after)])
+    assert fav is not None and fav["odds"] == -125                               # the favorite still is
+    keep = sports.DOG_LOCK
+    try:
+        sports.DOG_LOCK = True                                                   # the owner's switch still rules
+        assert not sports.lock_no_dog(c(105, after))
+    finally:
+        sports.DOG_LOCK = keep
+    src = open(sports.__file__).read()
+    assert src.count("not lock_no_dog(") == 3                                    # the Lock pool, the backup, the one-game day
+
+
+def test_audit_1115_the_nba_fade_on_a_favorite_across_a_short_handed_team_is_off():
+    """11/15 FABLE FULL ENGINE AUDIT (s5): the -2 on an NBA favorite's weighed read when the OPPONENT is missing a top-2
+    man (10/22) is off from the 11/16 games - its live tag has the faded favorites 39-13 +4.3% on 52 (past 50, the wrong
+    way), the re-read on 2018-26 is the band's own base (-5.9% on 493 vs -5.2%, placebo 854 of 2,000), the 11/12 study
+    says the close has the injury - and with the weighed-under lean rule the -2 alone blocked every such favorite from
+    being even a lean. The fact stays on the read at weight 0 (the tracker's tag still logs); the favorite missing its
+    OWN man keeps its -2; dated."""
+    assert sports.NBA_OPP_TOP2_OFF_FROM == "2026-11-16" and sports.NBA_FAV_W["opp_top2_out"] == -0.02
+    fav = {"league": "nba", "market": "ml", "odds": -130, "dec": 1.769, "p_market": 0.55, "opp_top2_out": ["A Star"],
+           "dog_more": {}, "home": False}
+    dog = {"league": "nba", "home": True, "season_games": 15}
+    old = sports.nba_fav_facts({**fav, "start": "2026-11-16T02:00Z"}, dog)        # 6 PM PT 11/15: as it was
+    new = sports.nba_fav_facts({**fav, "start": "2026-11-17T02:00Z"}, dog)        # the 11/16 Pacific day
+    assert old == {"opp_top2_out": -0.02} and new == {"opp_top2_out": 0.0}
+    assert sports.nba_fav_facts({**fav, "start": "2026-11-17T02:00Z", "own_top2_out": ["B"]}, dog) == \
+        {"own_top2_out": -0.02, "opp_top2_out": 0.0}                              # our own missing man still counts
+    # the block it was: at -2 the favorite sits exactly 2 under the market - no lean; at 0 it is the market's read
+    lean = lambda w: sports.lean_weighed_under({**fav, "start": "2026-11-17T02:00Z", "w_p": round(0.55 + sum(w.values()), 4)})
+    assert lean(old) and not lean(new)
+    import sports_leads
+    src = open(sports_leads.__file__).read()
+    assert '"opp_top2_out": "NBA fav vs a team missing a top-2 man (fade)"' in src and "for k in c[\"nba_fav_w\"]:" in src
+
+
+def test_audit_1115_a_merge_never_wipes_the_main_guys_sit_clock():
+    """11/15 FABLE FULL ENGINE AUDIT: the 🏀 main-guys-sit over waits 50 minutes from the first report with the same 3+
+    out (early.json "nba_out_seen"). The grader rewrites early.json too; when its copy (loaded before the engine stamped
+    the clock) met the engine's in a merge, the whole key went to one side and the clock was wiped - the wait started
+    over an hour later (the first play, 11/14, posted 12 minutes before the tip). The merge keeps every game's clock,
+    the earliest stamp."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json as mj
+    eng = {"picks": [], "nba_out_seen": {"nba:1": ["2026-11-14T23:17Z", ["A", "B", "C"]]}}
+    grd = {"picks": [], "nba_out_seen": {}}
+    for ours, theirs in ((grd, eng), (eng, grd)):
+        assert mj.merge_early(ours, theirs, {"picks": []})["nba_out_seen"] == eng["nba_out_seen"]
+    later = {"picks": [], "nba_out_seen": {"nba:1": ["2026-11-15T00:17Z", ["A", "B", "C"]], "nba:2": ["2026-11-15T00:17Z", ["D", "E", "F"]]}}
+    m = mj.merge_early(later, eng, None)["nba_out_seen"]
+    assert m["nba:1"][0] == "2026-11-14T23:17Z" and m["nba:2"][0] == "2026-11-15T00:17Z"
+    assert "nba_out_seen" not in mj.merge_early({"picks": []}, {"picks": []}, None)      # nothing to carry: no key made up
+    assert mj.merge_early({"picks": [], "nba_out_seen": {"x": "bad"}}, eng, None)["nba_out_seen"]["nba:1"][0] == "2026-11-14T23:17Z"
+
+
+def test_audit_1115_two_records_side_by_side_are_never_read_as_a_score():
+    """11/15 FABLE FULL ENGINE AUDIT: the card check read "💪 2-2 to 0-5. Oakland about to get their ass beat." (two
+    RECORDS, ours first) as "a 2-2 score for Oakland that isn't in their last 6 games" - the word "beat" made the first
+    record a score - and dropped a true line off the Northern Iowa card (pick_audit 11/14). "X-Y to X-Y" is two records;
+    a wrong record in that shape is still caught."""
+    import sports_card_check as cc
+    games = _cc_games()
+    leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml"}
+    for x in ("💪 3-1 to 2-0. Kings about to get their ass beat.", "💪 3-1 vs 2-0. Kings about to get their ass beat."):
+        assert cc.facts(x, leg, games) == "", (x, cc.facts(x, leg, games))
+    assert "Wild 4-0" in cc.facts("💪 4-0 to 2-0. Kings about to get their ass beat.", leg, games)   # a wrong record: caught
+    assert "last game" in cc.facts("📅 Last time out: Wild W 5-2 vs Sharks.", leg, games)             # a wrong score: caught
+
+
+def test_audit_1115_the_live_watch_cannot_storm_and_the_grader_cannot_starve():
+    """11/15 FABLE FULL ENGINE AUDIT (the 11/14 night freeze: the watch restarted every ~3 minutes for 3.5 hours and a won
+    play sat ungraded). Four holes behind the fixed watchdog clock: (1) the pacer's backstop runs every 5 minutes and
+    cancelled ANY watch 5+ minutes old while the board was 5+ minutes stale - now one cancel, then the fresh watch gets 15
+    minutes; (2) a check that is just slow tripped the same 120s limit on every restart - each restart inside a job gets
+    one more WATCHDOG_S (the workflow counts them); (3) the grade sat BEHIND the first live check - a watch grades first;
+    a grader the last watch left running counts as busy (never two on one checkout); (4) the hourly bug check read
+    picks.json only - an ungraded early-box play was invisible to it."""
+    import subprocess
+    import time as _tm
+    import sports_live as sl
+    root = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, os.path.join(root, "tools"))
+    import live_stuck
+    now = datetime(2026, 11, 15, 5, 0, tzinfo=timezone.utc)
+    run = {"databaseId": 7, "status": "in_progress", "startedAt": "2026-11-15T04:50:00Z", "conclusion": None,
+           "updatedAt": "2026-11-15T04:59:00Z"}
+    assert live_stuck.stuck_runs(age=400, runs=[run], now=now) == [7]                 # frozen: cancel it
+    gone = {"databaseId": 6, "status": "completed", "conclusion": "cancelled", "startedAt": "2026-11-15T04:40:00Z",
+            "updatedAt": "2026-11-15T04:49:00Z"}
+    assert live_stuck.stuck_runs(age=400, runs=[run, gone], now=now) == []            # one was cancelled 11 min ago: wait
+    gone["updatedAt"] = "2026-11-15T04:44:00Z"
+    assert live_stuck.stuck_runs(age=400, runs=[run, gone], now=now) == [7]           # 16 minutes on and still frozen
+    ok_run = {**gone, "conclusion": "success", "updatedAt": "2026-11-15T04:59:00Z"}
+    assert live_stuck.stuck_runs(age=400, runs=[run, ok_run], now=now) == [7]         # a clean finish is no cooldown
+    assert live_stuck.COOL_S >= 3 * live_stuck.STUCK_S
+    # (2) the watchdog's room grows with each restart inside the job, capped
+    assert sl.watchdog_limit(0) == sl.WATCHDOG_S == 120 and sl.watchdog_limit(1) == 240 and sl.watchdog_limit(2) == 360
+    assert sl.watchdog_limit(9) == sl.WATCHDOG_MAX_S == 480 and sl.watchdog_limit(-3) == 120
+    keep_env = os.environ.get("WATCHDOG_TRIPS")
+    try:
+        os.environ["WATCHDOG_TRIPS"] = "1"
+        assert sl.watchdog_limit() == 240
+        os.environ["WATCHDOG_TRIPS"] = "x"
+        assert sl.watchdog_limit() == 120
+    finally:
+        os.environ.pop("WATCHDOG_TRIPS", None)
+        if keep_env is not None:
+            os.environ["WATCHDOG_TRIPS"] = keep_env
+    wf = open(os.path.join(root, ".github/workflows/sports-live.yml")).read()
+    assert "WATCHDOG_TRIPS=$trips" in wf and "trips=$(( trips + 1 ))" in wf
+    # (3) a watch grades BEFORE its first live check; a grader left by the watch before is "grading"
+    src = open(sl.__file__).read()
+    lp = src[src.index("def loop("):]
+    assert lp.index("if finals_seen is None and not graded_first and not grading():") < lp.index("            run()\n")
+    assert "graded_first = grade_in_background(" in lp and lp.count("finals_seen, last_grade = set(FINALS), time.time()") == 1
+    # (3b) time's up with the grader still going: the watch keeps checking (a short tail), never a 7-minute frozen wait
+    assert "while time.time() < end or (own_grader_running() and time.time() < end + GRADE_TAIL_S):" in lp
+    assert "GRADER[0].wait(timeout=420 if resting else GRADE_END_WAIT_S)" in lp
+    assert sl.GRADE_TAIL_S + sl.GRADE_END_WAIT_S < 5 * 60                             # inside the workflow's spare 5 minutes
+    assert "timeout $(( left + 5 ))m" in wf
+    keep = (sl.GRADER[0], sl.GRADER_AT[0], sl.GRADER_PID)
+    proc = None
+    try:
+        sl.GRADER_PID = os.path.join(tempfile.mkdtemp(), "g.pid")
+        sl.GRADER[0] = None
+        assert not sl.grading() and not sl.orphan_grading()                           # no file: nothing running
+        proc = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"])
+        sl._grader_pid(proc.pid)
+        assert sl.orphan_grading() and sl.grading()                                   # the last watch's grader: busy
+        assert not sl.orphan_grading(now=_tm.time() + sl.GRADER_MAX_S + 5)            # past the limit: no longer waits
+        sl.GRADER[0] = proc                                                           # our own child is not an orphan
+        assert not sl.orphan_grading() and sl.own_grader_running()
+        sl.GRADER[0] = None
+        proc.kill(); proc.wait(timeout=10)
+        assert not sl.orphan_grading() and not sl.grading()                           # it ended: free
+    finally:
+        if proc is not None and proc.poll() is None:
+            proc.kill()
+        sl.GRADER[0], sl.GRADER_AT[0], sl.GRADER_PID = keep
+    # (4) the bug check reads the early box too
+    hs = open(os.path.join(root, "tools/health.py")).read()
+    assert "late += late_early(" in hs
+    ns = {"timedelta": timedelta, "_t": lambda iso: datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)}
+    exec(hs[hs.index("def late_early("):hs.index("late = []")], ns)
+    G = {"nba:1": {"status": "final", "start": "2026-11-14T23:00Z"}, "nba:2": {"status": "final", "start": "2026-11-15T03:30Z"},
+         "nba:3": {"status": "in", "start": "2026-11-14T20:00Z"}}
+    plays = [{"game_id": "nba:1", "team": "Over 227.5", "result": None}, {"game_id": "nba:1", "team": "X", "result": "won"},
+             {"game_id": "nba:2", "team": "Y", "result": None}, {"game_id": "nba:3", "team": "Z", "result": None},
+             {"game_id": "gone", "team": "Q", "result": None}]
+    assert ns["late_early"](plays, G, now) == ["early 2026-11-14 Over 227.5"]
+
+
+def test_audit_1115_the_watch_loop_grades_first_and_keeps_checking_while_its_grader_finishes():
+    """11/15 FABLE FULL ENGINE AUDIT - the live loop itself, run on stubs (no network, no git): the first thing a watch
+    with games on does is start a grade - BEFORE its first live check; and when its time is up with that grader still
+    going it keeps checking and pushing (never the old frozen wait for the grader), then ends when the grader does."""
+    import time as _tm
+    import json as _j
+    import sports_live as sl
+    names = ("_git", "sync_log", "pull", "_data", "backstop", "queue_next", "any_live_soon", "run", "push_live",
+             "_board_key", "_scores_key", "_log_key", "publish", "card_news_due", "watchdog", "_code_hash",
+             "grade_in_background", "LIVE_JSON", "GRADER_PID", "GRADE_TAIL_S")
+    keep = {n: getattr(sl, n) for n in names}
+    keep_g, keep_f, keep_b = (sl.GRADER[0], sl.GRADER_AT[0]), set(sl.FINALS), sl.BEAT[0]
+    calls = []
+
+    class Res:
+        returncode, stdout, stderr = 1, "", ""
+
+    class Proc:
+        pid = 999999
+
+        def __init__(self, secs):
+            self.t = _tm.time() + secs
+
+        def poll(self):
+            return None if _tm.time() < self.t else 0
+
+        def wait(self, timeout=None):
+            calls.append("wait")
+
+        def kill(self):
+            pass
+
+    def grade(msg):
+        if sl.grading():
+            return False
+        sl.GRADER[0], sl.GRADER_AT[0] = Proc(1.5), _tm.time()
+        calls.append("GRADE")
+        return True
+    d = tempfile.mkdtemp()
+    try:
+        sl._git = lambda *a, **k: Res()
+        sl.sync_log = sl.publish = sl.watchdog = lambda *a, **k: None
+        sl.pull = lambda *a, **k: calls.append("pull")
+        sl._data = lambda reload=False: ({}, None)
+        sl.backstop = lambda: None
+        sl.queue_next = lambda: True
+        sl.any_live_soon = lambda games, m: True
+        sl.run = lambda: calls.append("run")
+        sl.push_live = lambda: calls.append("push") or True
+        sl._board_key = lambda: len(calls)
+        sl._scores_key = sl._log_key = lambda: 0
+        sl.card_news_due = lambda *a, **k: []
+        sl._code_hash = lambda: "x"
+        sl.grade_in_background = grade
+        sl.LIVE_JSON, sl.GRADER_PID, sl.GRADE_TAIL_S = os.path.join(d, "live.json"), os.path.join(d, "g.pid"), 5
+        _j.dump({"plays": [], "updated": 0}, open(sl.LIVE_JSON, "w"))
+        sl.GRADER[0] = None
+        t0 = _tm.time()
+        sl.loop(0.3 / 60, every_s=0.2)                       # a 0.3-second watch whose grader runs 1.5 seconds
+        took = _tm.time() - t0
+        assert calls.index("GRADE") < calls.index("run"), calls[:6]            # graded before the first live check
+        assert 1.2 < took < 4.5, took                                          # it outlived its clock for the grader...
+        assert calls.count("run") >= 3 and "wait" not in calls                 # ...and kept checking - no frozen wait
+    finally:
+        for n, v in keep.items():
+            setattr(sl, n, v)
+        sl.GRADER[0], sl.GRADER_AT[0] = keep_g
+        sl.FINALS.clear(); sl.FINALS.update(keep_f)
+        sl.BEAT[0] = keep_b
 
 
 def test_ten_1115_the_nfl_dog_facing_a_bye_team_reads_3_less_and_the_bye_dogs_own_3_comes_off():

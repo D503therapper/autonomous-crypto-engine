@@ -24,6 +24,7 @@ import math
 import os
 import re
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -2115,7 +2116,48 @@ def grade_in_background(msg):
         return False
     GRADER[0] = subprocess.Popen([sys.executable, "-u", "-c", f"import sports_live; sports_live.publish_results({msg!r})"])
     GRADER_AT[0] = time.time()
+    _grader_pid(GRADER[0].pid)
     print(f"{datetime.now(timezone.utc):%H:%M:%S} grading in the background", flush=True)
+    return True
+
+
+GRADER_PID = os.path.join(tempfile.gettempdir(), "d503_grader.pid")   # 11/15 FABLE AUDIT: the grader a watch started
+#   outlives that watch when the watchdog restarts it (os._exit) - the new watch knew nothing of it and started a second
+#   grader on the same checkout (two git commits / pushes at once). The pid is on disk: a grader still alive from the
+#   watch before counts as "grading" until it ends or passes GRADER_MAX_S.
+
+
+def _grader_pid(pid=None):
+    """Write the running grader's pid (pid given) - or read back (pid, started) of the last one, None when unreadable."""
+    try:
+        if pid is not None:
+            with open(GRADER_PID, "w") as f:
+                f.write(f"{pid} {time.time():.0f}")
+            return None
+        a, b = open(GRADER_PID).read().split()
+        return int(a), float(b)
+    except (OSError, ValueError):
+        return None
+
+
+def orphan_grading(now=None):
+    """Is a grader a watch BEFORE this one started still running (alive, younger than GRADER_MAX_S)?"""
+    got = _grader_pid()
+    if not got or (GRADER[0] is not None and GRADER[0].pid == got[0]):
+        return False
+    pid, at = got
+    if (now or time.time()) - at > GRADER_MAX_S:
+        return False
+    try:
+        os.kill(pid, 0)                                      # (signal 0: is it there?)
+    except (OSError, ProcessLookupError):
+        return False
+    try:                                                     # (a finished child nobody reaped is a zombie - not grading)
+        with open(f"/proc/{pid}/stat") as f:
+            if f.read().rsplit(")", 1)[-1].split()[0] == "Z":
+                return False
+    except (OSError, IndexError):
+        pass
     return True
 
 
@@ -2193,6 +2235,7 @@ def card_news_in_background(msg):
         return False
     GRADER[0] = subprocess.Popen([sys.executable, "-u", "-c", f"import sports_live; sports_live.publish_card_news({msg!r})"])
     GRADER_AT[0] = time.time()
+    _grader_pid(GRADER[0].pid)
     return True
 
 
@@ -2200,7 +2243,7 @@ def grading():
     """Is the background grader still going? One stuck past GRADER_MAX_S is killed (and the next one can start)."""
     g = GRADER[0]
     if g is None or g.poll() is not None:
-        return False
+        return orphan_grading()                              # (11/15: a grader the watch before this one left running)
     if time.time() - GRADER_AT[0] > GRADER_MAX_S:
         try:
             g.kill()
@@ -2337,6 +2380,30 @@ STAY_MIN = 120     # a game within 2 hours keeps the watch up (idling) - it neve
 
 
 BEAT = [0.0]      # when the watch last started a check (the watchdog reads it)
+WATCHDOG_MAX_S = 480   # 11/15 FABLE AUDIT: the limit grows with each watchdog restart inside one job (the workflow counts
+#                        them in WATCHDOG_TRIPS): 120s, 240s, 360s, 480s. A HUNG call is cured by the first restart; a check
+#                        that is just SLOW (11/14: 25 games, 60-90s a check; a 50-game Saturday can pass 120s) tripped the
+#                        same limit again every time - the watch never finished a check, never pushed the board and never
+#                        reached the grader. The second try gets twice the room, so a slow night can't loop.
+
+
+GRADE_TAIL_S = 240     # a watch whose time is up keeps checking this long while its own grader finishes (inside the
+GRADE_END_WAIT_S = 45  # workflow's 5 spare minutes); after that the frozen wait for the grader is this short with games on
+
+
+def own_grader_running():
+    """Is the grader THIS watch started still going?"""
+    g = GRADER[0]
+    return g is not None and g.poll() is None
+
+
+def watchdog_limit(trips=None):
+    """The watchdog's limit for this watch: WATCHDOG_S, one more WATCHDOG_S for each restart the job has already had."""
+    try:
+        n = int(os.environ.get("WATCHDOG_TRIPS") or 0) if trips is None else int(trips)
+    except ValueError:
+        n = 0
+    return min(WATCHDOG_MAX_S, WATCHDOG_S * (1 + max(0, n)))
 
 
 def watchdog(limit=None):
@@ -2344,10 +2411,12 @@ def watchdog(limit=None):
     workflow starts a fresh watch right away. Never a frozen board with games on."""
     import threading
 
+    limit = limit or watchdog_limit()
+
     def run():
         while True:
             time.sleep(5)
-            if BEAT[0] and time.time() - BEAT[0] > (limit or WATCHDOG_S):
+            if BEAT[0] and time.time() - BEAT[0] > limit:
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} watchdog: a check hung {time.time() - BEAT[0]:.0f}s - restarting",
                       flush=True)
                 os._exit(75)
@@ -2373,7 +2442,13 @@ def loop(minutes, every_s=1):
     if board.returncode == 0 and board.stdout.strip():
         with open(LIVE_JSON, "w") as f:
             f.write(board.stdout)
-    while time.time() < end:
+    resting, graded_first = False, False
+    while time.time() < end or (own_grader_running() and time.time() < end + GRADE_TAIL_S):
+        #   (11/15 audit: a grade still running at the end of the watch - the watch keeps CHECKING until it finishes, up to
+        #    GRADE_TAIL_S, instead of standing still: the old wind-down waited up to 7 minutes on the grader with the board
+        #    frozen and the next watch stuck behind it - a board 5+ minutes stale gets the run cancelled by the bug check,
+        #    and the grader dies with it. The bug check logged "froze (5 min) - cancelled" on 11/14 02:04 / 21:31 and
+        #    11/15 03:19 / 08:18 UTC - the last one after the watchdog fix; the run logs weren't at hand to pin each one.)
         t0 = time.time()
         BEAT[0] = t0
         if games is None or t0 - last_pull > 600:                      # pull the latest games/model every ~10 min
@@ -2404,10 +2479,16 @@ def loop(minutes, every_s=1):
             if (not started or time.time() - idle_since > 5 * 60) and time.time() >= regrade_until:   # nothing on (and
                 #                                              nothing left to grade): don't burn the clock
                 print("live: nothing on - resting")
+                resting = True
                 break
         else:
             idle_since = None
         started = True
+        if finals_seen is None and not graded_first and not grading():   # (11/15 audit) A WATCH GRADES FIRST: whatever
+            #   ended while no watch was up is graded BEFORE the first live check - on 11/14 the checks never finished, so
+            #   the grade that sat behind them never started and a won play stayed open for 3+ hours. (The grade after the
+            #   first check still runs as before - it is the one that marks the finals seen.)
+            graded_first = grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
         BEAT[0] = time.time()                                    # (11/15: the live check gets its own clock)
         try:
             run()
@@ -2452,9 +2533,9 @@ def loop(minutes, every_s=1):
                 last_grade = time.time()
         time.sleep(max(0.2, every_s - (time.time() - t0)))    # as tight as the feeds allow: a fresh look every second
     BEAT[0] = 0.0                                                 # (the wind-down isn't a hung check)
-    if grading():                                                 # let a background grade finish before the job ends
-        try:
-            GRADER[0].wait(timeout=420)
+    if grading():                                                 # let a background grade finish before the job ends -
+        try:                                                      # minutes when nothing's on, seconds when games are (the
+            GRADER[0].wait(timeout=420 if resting else GRADE_END_WAIT_S)   # next watch is waiting and it grades first)
         except Exception:                                         # noqa: BLE001
             pass
     if os.path.exists(LIVE_JSON):                                 # end of watch: an empty board if nothing's on

@@ -232,6 +232,16 @@ def merge_early(ours, theirs, base=None):
         merged["first_seen"] = first
     if ours.get("launched") or theirs.get("launched"):
         merged["launched"] = ours.get("launched") or theirs.get("launched")
+    seen = {}                                                # 🏀 11/15 audit: the main-guys-sit over's 50-minute clock
+    for src in (theirs, ours):                               # ("nba_out_seen" {game: [first seen, the men]}) went to
+        for gid, v in (src.get("nba_out_seen") or {}).items():   # whichever copy was "ours" - the grader's copy, loaded
+            try:                                             # before the engine stamped the clock, wiped it and the
+                if gid not in seen or str(v[0]) < str(seen[gid][0]):   # wait started over an hour later (a play that
+                    seen[gid] = v                            # should post an hour before the tip posted minutes before
+            except (TypeError, IndexError, KeyError):        # it, or not at all). The union, the earliest stamp a game.
+                continue
+    if seen or "nba_out_seen" in ours or "nba_out_seen" in theirs:
+        merged["nba_out_seen"] = seen
     return merged
 
 

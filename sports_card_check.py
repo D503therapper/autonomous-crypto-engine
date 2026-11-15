@@ -618,7 +618,9 @@ def facts(line, leg, games):
             kind = "rec"                                     # ("A 3-8 team")
         elif SCORE_AFTER.search(after[:20]) or SCORE_BEFORE.search(before[-45:]) or max(a, b) > 30 \
                 or (SCORE_VERB.search(t) and not re.search(r"\b(?:is|are|sit|sits|come in|comes in|at|record)\s*$", before)
-                    and not re.match(r"\s*(?:at home|on the road|away|in their|for\b|,|;|\.|\s*$| vs \d| against \d| to \w+'? \d)", after)):
+                    and not re.match(r"\s*(?:at home|on the road|away|in their|for\b|,|;|\.|\s*$| vs \d| against \d| to \d| to \w+'? \d)", after)):
+            #   (11/15 audit: " to \d" - "💪 2-2 to 0-5. Oakland about to get their ass beat." is two RECORDS; the "beat"
+            #    made the first one a score, "a 2-2 score that isn't in their last 6 games", and a true line was dropped)
             kind = "score"
         else:
             kind = "rec"

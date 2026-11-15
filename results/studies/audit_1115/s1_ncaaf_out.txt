@@ -1,0 +1,78 @@
+2018 rows 258 k 37.5 hfa 60
+2019 rows 314 k 37.5 hfa 80
+2020 rows 195 k 50.0 hfa 80
+2021 rows 354 k 50.0 hfa 60
+2022 rows 361 k 37.5 hfa 60
+2023 rows 556 k 37.5 hfa 60
+2024 rows 562 k 50.0 hfa 80
+2025 rows 611 k 37.5 hfa 80
+2026 rows 791 k 50.0 hfa 80
+
+=== ncaaf dogs +100..+280 at the early price, walk-forward 2018-26 (906 dog sides) ===
+  every dog                                                  309-597  won 34.1% (priced 36.7%)  ROI -10.6% (-96.1u on 906.0u)  train - / held -10.6% on 906  seasons up 0/4
+  own read -100..+0 over the no-vig price                    148-264  won 35.9% (priced 37.6%)  ROI -7.6% (-31.2u on 412.0u)  train - / held -7.6% on 412  seasons up 1/4
+  own read +0..+4 over the no-vig price                      39-57  won 40.6% (priced 36.6%)  ROI +10.9% (+10.5u on 96.0u)  train - / held +10.9% on 96  seasons up 2/4
+  own read +4..+8 over the no-vig price                      41-65  won 38.7% (priced 37.0%)  ROI -0.4% (-0.4u on 106.0u)  train - / held -0.4% on 106  seasons up 2/4
+  own read +8..+12 over the no-vig price                     27-58  won 31.8% (priced 36.7%)  ROI -17.3% (-14.7u on 85.0u)  train - / held -17.3% on 85  seasons up 0/4
+  own read +12..+100 over the no-vig price                   54-153  won 26.1% (priced 34.9%)  ROI -29.2% (-60.4u on 207.0u)  train - / held -29.2% on 207  seasons up 0/4
+ -- the band the scan posts (+4..8), 106 --
+  flat 1u                                                    41-65  won 38.7% (priced 37.0%)  ROI -0.4% (-0.4u on 106.0u)  train - / held -0.4% on 106  seasons up 2/4
+  sized like the scan (quarter-Kelly on the raw own read)    41-65  won 38.7% (priced 37.0%)  ROI +3.8% (+7.0u on 186.0u)  train - / held -0.4% on 106  seasons up 2/4
+    the Kelly size 0.5u (flat ROI)                           n=0
+    the Kelly size 1.0u (flat ROI)                           7-13  won 35.0% (priced 36.1%)  ROI -5.5% (-1.1u on 20.0u)  train - / held -5.5% on 20  seasons up 1/4
+    the Kelly size 1.5u (flat ROI)                           9-20  won 31.0% (priced 35.9%)  ROI -16.1% (-4.7u on 29.0u)  train - / held -16.1% on 29  seasons up 2/4
+    the Kelly size 2.0u (flat ROI)                           14-21  won 40.0% (priced 36.0%)  ROI +4.8% (+1.7u on 35.0u)  train - / held +4.8% on 35  seasons up 3/4
+    the Kelly size 2.5u (flat ROI)                           11-10  won 52.4% (priced 40.7%)  ROI +22.3% (+4.7u on 21.0u)  train - / held +22.3% on 21  seasons up 2/4
+    Kelly size 1.5u+ (flat)                                  34-51  won 40.0% (priced 37.1%)  ROI +2.0% (+1.7u on 85.0u)  train - / held +2.0% on 85  seasons up 2/4
+    Kelly size under 1.5u (flat)                             7-14  won 33.3% (priced 36.4%)  ROI -10.0% (-2.1u on 21.0u)  train - / held -10.0% on 21  seasons up 1/4
+  HOME dog (true home)                                       13-28  won 31.7% (priced 37.3%)  ROI -16.9% (-6.9u on 41.0u)  train - / held -16.9% on 41  seasons up 2/4
+  ROAD dog (true road)                                       24-31  won 43.6% (priced 36.5%)  ROI +11.9% (+6.6u on 55.0u)  train - / held +11.9% on 55  seasons up 3/4
+  neutral site                                               4-6  won 40.0% (priced 38.1%)  ROI -0.3% (-0.0u on 10.0u)  train - / held -0.3% on 10  seasons up 2/3
+  FBS vs FBS                                                 37-58  won 38.9% (priced 37.2%)  ROI -0.6% (-0.6u on 95.0u)  train - / held -0.6% on 95  seasons up 2/4
+  FBS vs FBS, HOME dog                                       13-25  won 34.2% (priced 37.2%)  ROI -10.3% (-3.9u on 38.0u)  train - / held -10.3% on 38  seasons up 2/4
+  FBS vs FBS, ROAD dog                                       20-27  won 42.6% (priced 36.9%)  ROI +7.1% (+3.3u on 47.0u)  train - / held +7.1% on 47  seasons up 2/4
+  price +100..+149                                           20-23  won 46.5% (priced 43.2%)  ROI +3.3% (+1.4u on 43.0u)  train - / held +3.3% on 43  seasons up 3/4
+  price +150..+199                                           15-26  won 36.6% (priced 35.2%)  ROI +0.4% (+0.1u on 41.0u)  train - / held +0.4% on 41  seasons up 3/4
+  price +200..+280                                           6-16  won 27.3% (priced 28.1%)  ROI -8.9% (-2.0u on 22.0u)  train - / held -8.9% on 22  seasons up 2/4
+    season 2023                                              7-12  won 36.8% (priced 35.7%)  ROI -4.7% (-0.9u on 19.0u)  train - / held -4.7% on 19  seasons up 0/1
+    season 2024                                              11-13  won 45.8% (priced 35.6%)  ROI +17.5% (+4.2u on 24.0u)  train - / held +17.5% on 24  seasons up 1/1
+    season 2025                                              15-19  won 44.1% (priced 37.4%)  ROI +11.8% (+4.0u on 34.0u)  train - / held +11.8% on 34  seasons up 1/1
+    season 2026                                              8-21  won 27.6% (priced 38.4%)  ROI -26.6% (-7.7u on 29.0u)  train - / held -26.6% on 29  seasons up 0/1
+  placebo: a random 106 dogs at this price does as well 385 times in 2,000
+
+=== ncaaf dogs +100..+280 at the close price, walk-forward 2018-26 (3096 dog sides) ===
+  every dog                                                  1163-1933  won 37.6% (priced 36.3%)  ROI -1.1% (-35.0u on 3096.0u)  train -0.5% on 1482 / held -1.7% on 1614  seasons up 3/9
+  own read -100..+0 over the no-vig price                    492-791  won 38.3% (priced 37.0%)  ROI -1.4% (-17.9u on 1283.0u)  train +0.1% on 626 / held -2.9% on 657  seasons up 6/9
+  own read +0..+4 over the no-vig price                      133-217  won 38.0% (priced 35.9%)  ROI +1.4% (+5.0u on 350.0u)  train +1.6% on 155 / held +1.3% on 195  seasons up 6/9
+  own read +4..+8 over the no-vig price                      129-197  won 39.6% (priced 35.7%)  ROI +6.1% (+19.9u on 326.0u)  train -3.9% on 152 / held +14.9% on 174  seasons up 7/9
+  own read +8..+12 over the no-vig price                     92-204  won 31.1% (priced 36.1%)  ROI -19.0% (-56.4u on 296.0u)  train -28.3% on 122 / held -12.6% on 174  seasons up 1/9
+  own read +12..+100 over the no-vig price                   317-524  won 37.7% (priced 35.8%)  ROI +1.7% (+14.4u on 841.0u)  train +6.9% on 427 / held -3.6% on 414  seasons up 7/9
+ -- the band the scan posts (+4..8), 326 --
+  flat 1u                                                    129-197  won 39.6% (priced 35.7%)  ROI +6.1% (+19.9u on 326.0u)  train -3.9% on 152 / held +14.9% on 174  seasons up 7/9
+  sized like the scan (quarter-Kelly on the raw own read)    129-197  won 39.6% (priced 35.7%)  ROI +4.6% (+26.5u on 572.0u)  train -3.9% on 152 / held +14.9% on 174  seasons up 7/9
+    the Kelly size 0.5u (flat ROI)                           n=0
+    the Kelly size 1.0u (flat ROI)                           21-36  won 36.8% (priced 34.8%)  ROI +6.2% (+3.6u on 57.0u)  train -19.9% on 27 / held +29.7% on 30  seasons up 5/9
+    the Kelly size 1.5u (flat ROI)                           48-61  won 44.0% (priced 34.9%)  ROI +22.5% (+24.5u on 109.0u)  train +19.3% on 53 / held +25.5% on 56  seasons up 5/9
+    the Kelly size 2.0u (flat ROI)                           32-67  won 32.3% (priced 35.2%)  ROI -13.5% (-13.4u on 99.0u)  train -22.8% on 50 / held -4.0% on 49  seasons up 3/9
+    the Kelly size 2.5u (flat ROI)                           27-32  won 45.8% (priced 38.4%)  ROI +8.7% (+5.2u on 59.0u)  train +2.7% on 20 / held +11.8% on 39  seasons up 5/9
+    Kelly size 1.5u+ (flat)                                  108-161  won 40.1% (priced 35.9%)  ROI +6.1% (+16.3u on 269.0u)  train -0.5% on 125 / held +11.8% on 144  seasons up 6/9
+    Kelly size under 1.5u (flat)                             21-36  won 36.8% (priced 34.8%)  ROI +6.2% (+3.6u on 57.0u)  train -19.9% on 27 / held +29.7% on 30  seasons up 5/9
+  HOME dog (true home)                                       59-91  won 39.3% (priced 35.9%)  ROI +2.4% (+3.6u on 150.0u)  train +4.1% on 71 / held +0.9% on 79  seasons up 6/9
+  ROAD dog (true road)                                       59-95  won 38.3% (priced 35.4%)  ROI +5.9% (+9.0u on 154.0u)  train -12.0% on 68 / held +19.9% on 86  seasons up 5/9
+  neutral site                                               11-11  won 50.0% (priced 36.2%)  ROI +33.1% (+7.3u on 22.0u)  train -5.6% on 13 / held +89.0% on 9  seasons up 6/8
+  FBS vs FBS                                                 106-154  won 40.8% (priced 35.5%)  ROI +9.4% (+24.4u on 260.0u)  train +4.1% on 112 / held +13.4% on 148  seasons up 6/8
+  FBS vs FBS, HOME dog                                       49-68  won 41.9% (priced 35.1%)  ROI +10.3% (+12.1u on 117.0u)  train +24.4% on 51 / held -0.5% on 66  seasons up 6/8
+  FBS vs FBS, ROAD dog                                       47-76  won 38.2% (priced 35.7%)  ROI +4.8% (+5.9u on 123.0u)  train -12.7% on 50 / held +16.7% on 73  seasons up 4/8
+  price +100..+149                                           52-56  won 48.1% (priced 43.5%)  ROI +5.8% (+6.2u on 108.0u)  train -12.3% on 50 / held +21.3% on 58  seasons up 4/9
+  price +150..+199                                           39-63  won 38.2% (priced 35.2%)  ROI +4.0% (+4.0u on 102.0u)  train -0.2% on 49 / held +7.8% on 53  seasons up 3/9
+  price +200..+280                                           38-78  won 32.8% (priced 28.8%)  ROI +8.3% (+9.6u on 116.0u)  train +0.5% on 53 / held +14.9% on 63  seasons up 5/9
+    season 2018                                              8-21  won 27.6% (priced 36.2%)  ROI -24.1% (-7.0u on 29.0u)  train -24.1% on 29 / held -  seasons up 0/1
+    season 2019                                              13-29  won 31.0% (priced 35.8%)  ROI -17.6% (-7.4u on 42.0u)  train -17.6% on 42 / held -  seasons up 0/1
+    season 2020                                              5-8  won 38.5% (priced 35.1%)  ROI +6.9% (+0.9u on 13.0u)  train +6.9% on 13 / held -  seasons up 1/1
+    season 2021                                              11-15  won 42.3% (priced 35.0%)  ROI +14.3% (+3.7u on 26.0u)  train +14.3% on 26 / held -  seasons up 1/1
+    season 2022                                              17-25  won 40.5% (priced 36.0%)  ROI +9.1% (+3.8u on 42.0u)  train +9.1% on 42 / held -  seasons up 1/1
+    season 2023                                              15-17  won 46.9% (priced 32.2%)  ROI +36.2% (+11.6u on 32.0u)  train - / held +36.2% on 32  seasons up 1/1
+    season 2024                                              13-18  won 41.9% (priced 36.9%)  ROI +4.2% (+1.3u on 31.0u)  train - / held +4.2% on 31  seasons up 1/1
+    season 2025                                              25-29  won 46.3% (priced 35.7%)  ROI +23.5% (+12.7u on 54.0u)  train - / held +23.5% on 54  seasons up 1/1
+    season 2026                                              22-35  won 38.6% (priced 36.8%)  ROI +0.5% (+0.3u on 57.0u)  train - / held +0.5% on 57  seasons up 1/1
+  placebo: a random 326 dogs at this price does as well 287 times in 2,000

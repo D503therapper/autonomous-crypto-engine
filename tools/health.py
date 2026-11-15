@@ -85,6 +85,17 @@ if needed:
         ok.append(f"live watcher fresh ({age:.0f}s)")
 
 # 2. grading: finished games whose picks still sit open
+def late_early(plays, games, now, hours=5):
+    """The early box's plays (early.json) still ungraded with their game final and `hours` past its start."""
+    out = []
+    for p in plays[-40:]:
+        g = games.get(p.get("game_id"))
+        if p.get("result") is None and g and g.get("status") == "final" and g.get("start") and \
+                now - _t(g["start"]) > timedelta(hours=hours):
+            out.append(f"early {str(g['start'])[:10]} {p.get('team')}")
+    return out
+
+
 late = []
 try:
     picks = json.load(open(os.path.join(sd.DATA, "picks.json")))
@@ -96,6 +107,10 @@ try:
                 late.append(f"{p['date']} {p['kind']} {l.get('team')}")
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"picks unreadable: {str(e)[:60]}")
+try:                                                     # (11/15 audit: the early box's plays too - the Cavaliers /
+    late += late_early(json.load(open(os.path.join(sd.DATA, "early.json"))).get("picks") or [], games, now)   # Mavericks
+except Exception as e:                                   # noqa: BLE001   over of 11/14 sat ungraded 3+ hours and this
+    problems.append(f"early plays unreadable: {str(e)[:60]}")   # check, reading picks.json alone, said "every pick graded")
 try:
     import sports_tennis as st
     rows = []

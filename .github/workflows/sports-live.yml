@@ -36,11 +36,12 @@ jobs:
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
           git config merge.sportscsv.driver "python tools/merge_csv.py %O %A %B"
-          end=$(( $(date +%s) + 45*60 ))
+          end=$(( $(date +%s) + 45*60 )); trips=0
           while :; do                                  # the watchdog exits 75 when a check hangs: start a fresh watch
             left=$(( (end - $(date +%s)) / 60 ))
             [ "$left" -ge 2 ] || break
-            code=0; timeout $(( left + 5 ))m python -u sports_live.py --loop "$left" || code=$?
+            code=0; WATCHDOG_TRIPS=$trips timeout $(( left + 5 ))m python -u sports_live.py --loop "$left" || code=$?
             [ "$code" = 75 ] || [ "$code" = 124 ] || exit "$code"
+            trips=$(( trips + 1 ))                     # (11/15: each restart gets a longer watchdog - a slow night can't loop)
             echo "watch restarted (exit $code)"
           done

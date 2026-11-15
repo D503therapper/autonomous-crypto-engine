@@ -1,0 +1,19 @@
+406 football replay rows the board made a pick of; kinds: {'dog': 101, 'lock': 116, 'dogplay': 5, 'floor': 156, 'solo': 14, 'play': 11, 'night': 3}
+  dog: sizes {0.5: 51, 2.0: 50}
+  lock: sizes {0.5: 79, 1.0: 37}
+  dogplay: sizes {0.5: 5}
+  floor: sizes {0.5: 156}
+  solo: sizes {0.5: 14}
+  play: sizes {0.5: 11}
+  night: sizes {1.0: 3}
+BROKEN - a Lock that is a dog: 9
+      ('2019-09-15', 'Giants', 102)
+      ('2019-10-05', 'Army', 110)
+      ('2019-11-28', 'Mississippi St', 105)
+      ('2019-12-22', 'Dolphins', 107)
+      ('2019-12-29', 'Ravens', 110)
+      ('2020-09-07', 'Navy', 100)
+      ('2020-10-03', 'Georgia St', 101)
+      ('2020-11-27', 'California', 104)
+BROKEN - two moneyline unit plays on one game: 1
+      (('2023-10-29', 'nfl:401547503'), [('floor', 'away', 'ml', 0.5), ('floor', 'away', 'ml', 0.5)])
