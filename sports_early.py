@@ -49,6 +49,12 @@ LEAD_H = 2                              # the game at least this many hours away
 AHEAD_D = 8                             # look this many days ahead (the NFL posts a week out)
 
 
+
+def _poss(name):
+    """A team's possessive the way people write it: "Mavericks' defense", "Denver's defense" (11/15: "Mavericks's")."""
+    name = str(name or "")
+    return name + ("'" if name.endswith("s") else "'s")
+
 def load(path=None):
     try:
         with open(path or PATH) as f:
@@ -774,7 +780,7 @@ def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
     h, a = _alt_side(now_av, prev_av, g.get("home")), _alt_side(now_av, prev_av, g.get("away"))
     if h and a:
         eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2
-        out.append(f"{hn} should score about {eh:.0f} against {an}'s defense and {an} about {ea:.0f} against {hn}'s - "
+        out.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against {_poss(hn)} - "
                    f"{eh + ea:.0f} before the thin air, the number's {tot:g}")
         short = [(n, x[2]) for n, x in ((hn, h), (an, a)) if x[3]]
         if short:
