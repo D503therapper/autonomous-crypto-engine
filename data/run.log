@@ -20493,3 +20493,33 @@ DEX: $662.45 (-337.55) · Scammed: 11 (-$216.49)
 [2026-11-15 02:13 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-15 02:13 UTC] crypto/hold_btc  equity $391.23 (-21.8%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), HYPE 37 (37/0/0), PUMP 35 (35/0/0), SOL 32 (32/0/0), ETH 29 (29/0/0)
+   scanner: 969 tickers, sample: {'i': 'BTC_USD', 'h': '68186.69', 'l': '61960.80', 'a': '64013.43', 'v': '7508.9400', 'vv': '492220769.92', 'c': '-0.0607', 'b': '64005.14', 'k': '64005.15', 'oi': '0', 't': 1794708807396}
+   dex screen: REJECT ANSEM@solana liq $317,701,563 - top-10 holders 100%
+   dex screen: UNREACHABLE ANSEM@solana liq $262,454,335 - goplus unreachable
+   listings: okx_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   dex screen: REJECT JELLYJELLY@solana liq $3,558,222 - top-10 holders 75%
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT JITOSOL@base liq $100,564 - goplus partial data: cannot_sell_all unknown; top-10 holders 99%; lp locked 0% < 95%
+   dex screen: REJECT NVDAC@base liq $1,400,838 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT SPCXC@base liq $1,010,545 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT USDG@ethereum liq $1,813,191 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%
+   dex screen: REJECT PUMP@solana liq $19,343,408 - transfer hook; top-10 holders 59%
+   dex screen: REJECT SPCX@solana liq $2,737,054 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 45%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 2,345 pools (solana 1,748 / base 353 / ethereum 244), refresh cycle 95s (hot 92s), 2527 calls (92 feed, 429s 0, failed 0), 72,967 refreshed (18009 no pair), +44 added / -211 dropped (dead 192, stale 19, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-15 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/social_heat equity $322.49 (-35.5%) 3 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-15 03:06 UTC] crypto/hold_btc  equity $400.81 (-19.8%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), SOL 37 (37/0/0), ETH 35 (32/0/3), NEAR 35 (35/0/0), HYPE 29 (29/0/0)
