@@ -43109,6 +43109,7 @@
      "game:conf"
     ],
     "dec": 2.6,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 1,
@@ -43168,6 +43169,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.43,
+    "flow": {
+     "a": "39,21,26,31",
+     "h": "37,31,35,34"
+    },
     "form_state": [
      12.0,
      3,
@@ -43228,10 +43233,12 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Pistons 117 @ Heat 137",
     "season_games": 12,
+    "settled": "2026-11-15T03:55Z",
     "side": "home",
     "start": "2026-11-15T01:00Z",
     "stype": "2",
@@ -43248,11 +43255,13 @@
    }
   ],
   "p_hit": 0.3636,
-  "pnl": 0.0,
+  "pnl": 160.0,
   "posted": "2026-11-14T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T03:55Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

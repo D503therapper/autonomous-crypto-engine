@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 231,
-  "beat": 75,
+  "n": 232,
+  "beat": 76,
   "same": 92,
   "worse": 64,
-  "avg_pts": 0.15
+  "avg_pts": 0.16
  },
  "unit_plays": {
-  "n": 113,
-  "beat": 35,
+  "n": 114,
+  "beat": 36,
   "same": 52,
   "worse": 26,
-  "avg_pts": 0.18
+  "avg_pts": 0.2
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.23
   },
   "play": {
-   "n": 69,
-   "beat": 21,
+   "n": 70,
+   "beat": 22,
    "same": 33,
    "worse": 15,
-   "avg_pts": 0.16
+   "avg_pts": 0.19
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 30,
-   "beat": 13,
+   "n": 31,
+   "beat": 14,
    "same": 11,
    "worse": 6,
-   "avg_pts": 0.39
+   "avg_pts": 0.45
   },
   "ncaab": {
    "n": 11,
@@ -3351,6 +3351,20 @@
    "pts": 1.0,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Heat",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 146,
+   "pts": 2.2,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

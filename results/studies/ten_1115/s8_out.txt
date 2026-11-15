@@ -1,0 +1,142 @@
+
+================ R1 ================
+  every NBA unit play                                  n  227 133-94  units  +25.0% z +3.61 | train  +18.6% (163) | held  +40.8% ( 64) | up 3/3 | live 3-3 +11% | +38.0u on 152u
+  every NBA unit play (flat)                           n  227 133-94  flat  +26.3% z +3.61 | train  +22.1% (163) | held  +37.2% ( 64) | up 3/3 | live 3-3 +11%
+  kind dog                                             n   23  14-9   flat  +47.3% z +2.00 | train  +34.1% ( 18) | held  +94.6% (  5) | up 3/3 | live 1-0 +120%
+  kind nbafav                                          n   76  54-22  flat  +22.7% z +2.34 | train   +9.8% ( 52) | held  +50.7% ( 24) | up 3/3 | live 0-0 +0%
+  kind nbafloor                                        n  128  65-63  flat  +24.7% z +2.15 | train  +26.7% ( 93) | held  +19.7% ( 35) | up 3/3 | live 2-3 -11%
+  dogs                                                 n  151  79-72  flat  +28.2% z +2.76 | train  +27.9% (111) | held  +29.0% ( 40) | up 3/3 | live 3-3 +11%
+  favorites                                            n   76  54-22  flat  +22.7% z +2.34 | train   +9.8% ( 52) | held  +50.7% ( 24) | up 3/3 | live 0-0 +0%
+ -- venue
+  dog, home                                            n   20   9-11  flat   +8.6% z +0.28 | train  +34.8% ( 14) | held  -52.5% (  6) | up 1/3 | live 1-2 -20%
+  dog, road                                            n  131  70-61  flat  +31.2% z +2.85 | train  +26.9% ( 97) | held  +43.4% ( 34) | up 3/3 | live 2-1 +42%
+  favorite, home                                       n   13  11-2   flat  +44.7% z +1.91 | train  +32.5% (  9) | held  +72.1% (  4) | up 3/3 | live 0-0 +0%
+  favorite, road                                       n   63  43-20  flat  +18.2% z +1.70 | train   +5.0% ( 43) | held  +46.4% ( 20) | up 3/3 | live 0-0 +0%
+ -- price
+  dog +100..+130                                       n   53  29-24  flat  +18.0% z +1.17 | train  +22.6% ( 37) | held   +7.3% ( 16) | up 3/3 | live 2-3 -15%
+  dog +131..+160                                       n   53  27-26  flat  +25.8% z +1.54 | train  +20.1% ( 41) | held  +45.2% ( 12) | up 2/3 | live 1-0 +140%
+  dog +161..+199                                       n   44  23-21  flat  +46.3% z +2.24 | train  +47.9% ( 32) | held  +41.8% ( 12) | up 3/3 | live 0-0 +0%
+  dog +200..+350                                       n    1   0-1   flat -100.0% z -0.58 | train -100.0% (  1) | held   +0.0% (  0) | up 0/1 | live 0-0 +0%
+  favorite -150..-131                                  n   54  40-14  flat  +26.3% z +2.32 | train  +13.8% ( 36) | held  +51.2% ( 18) | up 3/3 | live 0-0 +0%
+  favorite -130..-101                                  n   22  14-8   flat  +13.9% z +0.73 | train   +0.8% ( 16) | held  +49.1% (  6) | up 2/3 | live 0-0 +0%
+ -- dog score (dogs)
+  dog score -99..0                                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dog score 0..2                                       n   75  38-37  flat  +25.7% z +1.67 | train  +27.1% ( 55) | held  +22.0% ( 20) | up 3/3 | live 1-1 +2%
+  dog score 2..4                                       n   52  26-26  flat  +20.3% z +1.19 | train  +26.1% ( 38) | held   +4.6% ( 14) | up 3/3 | live 1-1 +20%
+  dog score 4..6                                       n   19  13-6   flat  +68.3% z +2.58 | train  +49.2% ( 13) | held +109.5% (  6) | up 3/3 | live 1-0 +120%
+  dog score 6..99                                      n    5   2-3   flat   -5.2% z -0.12 | train   -5.2% (  5) | held   +0.0% (  0) | up 1/2 | live 0-1 -100%
+ -- rest
+  dog, the favorite on a b2b                           n   30  18-12  flat  +42.9% z +2.06 | train  +42.3% ( 21) | held  +44.3% (  9) | up 3/3 | live 1-0 +140%
+  dog, itself on a b2b                                 n    5   1-4   flat  -50.0% z -0.98 | train  -37.5% (  4) | held -100.0% (  1) | up 0/3 | live 0-0 +0%
+  dog, neither / both                                  n  116  60-56  flat  +27.7% z +2.31 | train  +27.4% ( 86) | held  +28.7% ( 30) | up 3/3 | live 2-3 -15%
+  favorite, the dog on a b2b                           n    5   4-1   flat  +36.2% z +0.98 | train  +28.6% (  4) | held  +66.7% (  1) | up 3/3 | live 0-0 +0%
+  favorite, itself on a b2b                            n    6   5-1   flat  +45.4% z +1.28 | train  +30.5% (  4) | held  +75.2% (  2) | up 3/3 | live 0-0 +0%
+ -- month / games in
+  dog, Oct-Nov                                         n   35  22-13  flat  +46.4% z +2.46 | train  +48.1% ( 28) | held  +39.6% (  7) | up 3/3 | live 3-3 +11%
+  dog, Dec                                             n   23  10-13  flat   +9.7% z +0.23 | train  +16.8% ( 17) | held  -10.2% (  6) | up 1/3 | live 0-0 +0%
+  dog, Jan                                             n   22  11-11  flat  +21.2% z +0.81 | train  +19.9% ( 16) | held  +24.7% (  6) | up 3/3 | live 0-0 +0%
+  dog, Feb                                             n    6   4-2   flat  +72.5% z +1.30 | train  +42.5% (  4) | held +132.5% (  2) | up 3/3 | live 0-0 +0%
+  dog, Mar-Apr                                         n   37  18-19  flat  +23.7% z +1.04 | train  +37.5% ( 28) | held  -19.0% (  9) | up 2/3 | live 0-0 +0%
+  dog, team games 0-9                                  n   25  12-13  flat  +19.1% z +0.80 | train  +14.9% ( 21) | held  +41.2% (  4) | up 2/3 | live 3-3 +11%
+  dog, team games 10-40                                n   50  29-21  flat  +37.0% z +2.23 | train  +46.5% ( 37) | held   +9.7% ( 13) | up 3/3 | live 0-0 +0%
+  dog, team games 41+                                  n   76  38-38  flat  +25.4% z +1.62 | train  +20.0% ( 53) | held  +37.8% ( 23) | up 3/3 | live 0-0 +0%
+ -- the dog kinds by venue
+  dog dog, home                                        n    4   2-2   flat  +24.0% z +0.46 | train  +24.0% (  4) | held   +0.0% (  0) | up 2/2 | live 0-0 +0%
+  dog dog, road                                        n   19  12-7   flat  +52.2% z +1.99 | train  +37.0% ( 14) | held  +94.6% (  5) | up 3/3 | live 1-0 +120%
+  nbafloor dog, home                                   n   16   7-9   flat   +4.8% z +0.09 | train  +39.1% ( 10) | held  -52.5% (  6) | up 1/3 | live 1-2 -20%
+  nbafloor dog, road                                   n  112  58-54  flat  +27.6% z +2.27 | train  +25.2% ( 83) | held  +34.6% ( 29) | up 3/3 | live 1-1 +2%
+   placebo home dogs: 1563 of 2000 random board NBA dogs did as well
+   placebo road dogs: 423 of 2000 random board NBA dogs did as well
+   placebo dogs, fav on a b2b: 484 of 2000 random board NBA dogs did as well
+   placebo dogs +161..+199: 256 of 2000 random board NBA dogs did as well
+ -- S10: the WIDER pool (every NBA moneyline dog row, floor-shaped: dog score 0+, +100..+199, a reason, not fighting / trap)
+  floor-shaped NBA dogs (all)                          n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    the favorite on a b2b, the dog rested              n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+     placebo: None of 2000
+    the dog on a b2b, the favorite rested              n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    home                                               n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    road                                               n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 0-2                                      n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 2-4                                      n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 4+                                       n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  EVERY NBA dog row +100..+350                         n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    the favorite on a b2b, the dog rested              n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    home                                               n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    road                                               n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score -99..-4                                  n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score -4..-2                                   n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score -2..0                                    n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 0..2                                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 2..4                                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+    dog score 4..99                                    n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+
+================ R2 ================
+  every NBA unit play                                  n  221 131-90  units  +28.5% z +3.89 | train  +26.8% (146) | held  +31.6% ( 75) | up 3/3 | live 4-7 -15% | +40.5u on 142u
+  every NBA unit play (flat)                           n  221 131-90  flat  +26.9% z +3.89 | train  +27.0% (146) | held  +26.7% ( 75) | up 3/3 | live 4-7 -23%
+  kind dog                                             n   19  11-8   flat  +36.8% z +1.43 | train  +26.7% ( 15) | held  +75.0% (  4) | up 3/3 | live 2-2 +14%
+  kind nbafav                                          n   63  49-14  flat  +34.1% z +3.20 | train  +26.0% ( 37) | held  +45.7% ( 26) | up 3/3 | live 1-0 +81%
+  kind nbafloor                                        n  139  71-68  flat  +22.3% z +2.22 | train  +27.5% ( 94) | held  +11.4% ( 45) | up 3/3 | live 1-5 -66%
+  dogs                                                 n  158  82-76  flat  +24.0% z +2.58 | train  +27.4% (109) | held  +16.6% ( 49) | up 3/3 | live 3-7 -34%
+  favorites                                            n   63  49-14  flat  +34.1% z +3.20 | train  +26.0% ( 37) | held  +45.7% ( 26) | up 3/3 | live 1-0 +81%
+ -- venue
+  dog, home                                            n   56  29-27  flat  +22.8% z +1.47 | train  +39.4% ( 36) | held   -7.1% ( 20) | up 2/3 | live 0-4 -100%
+  dog, road                                            n  102  53-49  flat  +24.7% z +2.12 | train  +21.5% ( 73) | held  +32.9% ( 29) | up 3/3 | live 3-3 +10%
+  favorite, home                                       n   13  11-2   flat  +44.2% z +1.91 | train  +26.9% (  8) | held  +71.9% (  5) | up 2/3 | live 0-0 +0%
+  favorite, road                                       n   50  38-12  flat  +31.5% z +2.62 | train  +25.7% ( 29) | held  +39.5% ( 21) | up 3/3 | live 1-0 +81%
+ -- price
+  dog +100..+130                                       n   58  34-24  flat  +25.6% z +1.80 | train  +24.3% ( 38) | held  +28.1% ( 20) | up 3/3 | live 2-5 -39%
+  dog +131..+160                                       n   61  32-29  flat  +29.1% z +1.88 | train  +30.9% ( 47) | held  +23.2% ( 14) | up 3/3 | live 1-2 -21%
+  dog +161..+199                                       n   39  16-23  flat  +13.7% z +0.62 | train  +25.5% ( 24) | held   -5.1% ( 15) | up 2/3 | live 0-0 +0%
+  dog +200..+350                                       n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  favorite -150..-131                                  n   46  37-9   flat  +37.1% z +3.00 | train  +26.4% ( 27) | held  +52.3% ( 19) | up 3/3 | live 0-0 +0%
+  favorite -130..-101                                  n   17  12-5   flat  +26.2% z +1.22 | train  +25.0% ( 10) | held  +27.9% (  7) | up 3/3 | live 1-0 +81%
+ -- dog score (dogs)
+  dog score -99..0                                     n    0   0-0   flat   +0.0% z +0.00 | train   +0.0% (  0) | held   +0.0% (  0) | up 0/0 | live 0-0 +0%
+  dog score 0..2                                       n   86  42-44  flat  +17.4% z +1.31 | train  +24.8% ( 60) | held   +0.1% ( 26) | up 3/3 | live 1-4 -59%
+  dog score 2..4                                       n   51  27-24  flat  +26.3% z +1.64 | train  +29.6% ( 33) | held  +20.2% ( 18) | up 3/3 | live 0-1 -100%
+  dog score 4..6                                       n   15   9-6   flat  +42.9% z +1.48 | train  +17.0% ( 12) | held +146.7% (  3) | up 2/3 | live 1-2 -21%
+  dog score 6..99                                      n    6   4-2   flat  +53.0% z +1.15 | train  +78.3% (  4) | held   +2.5% (  2) | up 3/3 | live 1-0 +120%
+ -- rest
+  dog, the favorite on a b2b                           n   36  19-17  flat  +28.1% z +1.36 | train  +26.4% ( 26) | held  +32.6% ( 10) | up 3/3 | live 0-2 -100%
+  dog, itself on a b2b                                 n    6   2-4   flat  -25.5% z -0.47 | train  +11.8% (  4) | held -100.0% (  2) | up 1/3 | live 0-0 +0%
+  dog, neither / both                                  n  116  61-55  flat  +25.3% z +2.36 | train  +28.5% ( 79) | held  +18.5% ( 37) | up 3/3 | live 3-5 -17%
+  favorite, the dog on a b2b                           n    7   5-2   flat  +21.7% z +0.72 | train  +28.6% (  4) | held  +12.5% (  3) | up 3/3 | live 0-0 +0%
+  favorite, itself on a b2b                            n    5   5-0   flat  +74.5% z +1.93 | train  +74.0% (  3) | held  +75.2% (  2) | up 3/3 | live 0-0 +0%
+ -- month / games in
+  dog, Oct-Nov                                         n   39  21-18  flat  +26.3% z +1.44 | train  +47.7% ( 27) | held  -21.9% ( 12) | up 2/3 | live 3-7 -34%
+  dog, Dec                                             n   27  16-11  flat  +40.1% z +1.83 | train  +37.8% ( 22) | held  +50.2% (  5) | up 2/3 | live 0-0 +0%
+  dog, Jan                                             n   20  11-9   flat  +32.5% z +1.26 | train  +26.7% ( 15) | held  +49.6% (  5) | up 3/3 | live 0-0 +0%
+  dog, Feb                                             n   11   4-7   flat  -11.0% z -0.34 | train  -35.8% (  8) | held  +55.0% (  3) | up 2/3 | live 0-0 +0%
+  dog, Mar-Apr                                         n   36  16-20  flat   +6.2% z +0.35 | train  +17.0% ( 21) | held   -8.9% ( 15) | up 2/3 | live 0-0 +0%
+  dog, team games 0-9                                  n   28  14-14  flat  +20.8% z +0.95 | train  +31.8% ( 20) | held   -6.6% (  8) | up 1/3 | live 3-7 -34%
+  dog, team games 10-40                                n   54  32-22  flat  +38.0% z +2.50 | train  +41.9% ( 41) | held  +26.0% ( 13) | up 3/3 | live 0-0 +0%
+  dog, team games 41+                                  n   76  36-40  flat  +15.3% z +1.03 | train  +13.2% ( 48) | held  +18.8% ( 28) | up 3/3 | live 0-0 +0%
+ -- the dog kinds by venue
+  dog dog, home                                        n   10   7-3   flat  +65.9% z +1.85 | train  +59.7% (  9) | held +122.0% (  1) | up 3/3 | live 0-2 -100%
+  dog dog, road                                        n    9   4-5   flat   +4.6% z +0.13 | train  -22.8% (  6) | held  +59.3% (  3) | up 2/3 | live 2-0 +128%
+  nbafloor dog, home                                   n   46  22-24  flat  +13.4% z +0.76 | train  +32.6% ( 27) | held  -13.9% ( 19) | up 1/3 | live 0-2 -100%
+  nbafloor dog, road                                   n   93  49-44  flat  +26.7% z +2.18 | train  +25.4% ( 67) | held  +29.8% ( 26) | up 3/3 | live 1-3 -49%
+   placebo home dogs: 1068 of 2000 random board NBA dogs did as well
+   placebo road dogs: 919 of 2000 random board NBA dogs did as well
+   placebo dogs, fav on a b2b: 786 of 2000 random board NBA dogs did as well
+   placebo dogs +161..+199: 1459 of 2000 random board NBA dogs did as well
+ -- S10: the WIDER pool (every NBA moneyline dog row, floor-shaped: dog score 0+, +100..+199, a reason, not fighting / trap)
+  floor-shaped NBA dogs (all)                          n  294 139-155 flat  +13.4% z +1.92 | train  +16.5% (204) | held   +6.4% ( 90) | up 3/3 | live 6-14 -28%
+    the favorite on a b2b, the dog rested              n   66  32-34  flat  +17.7% z +1.10 | train  +13.5% ( 50) | held  +30.6% ( 16) | up 2/3 | live 1-3 -40%
+     placebo: 747 of 2000
+    the dog on a b2b, the favorite rested              n   12   3-9   flat  -42.9% z -1.18 | train  -50.3% (  9) | held  -20.7% (  3) | up 0/3 | live 0-0 +0%
+    home                                               n  102  45-57  flat   +3.9% z +0.38 | train   +7.6% ( 66) | held   -3.0% ( 36) | up 1/3 | live 1-8 -73%
+    road                                               n  192  94-98  flat  +18.5% z +2.10 | train  +20.7% (138) | held  +12.7% ( 54) | up 3/3 | live 5-6 +9%
+    dog score 0-2                                      n  165  71-94  flat   +3.0% z +0.34 | train  +10.7% (111) | held  -12.9% ( 54) | up 2/3 | live 3-7 -31%
+    dog score 2-4                                      n   88  46-42  flat  +26.4% z +1.99 | train  +27.9% ( 60) | held  +23.1% ( 28) | up 3/3 | live 1-2 -4%
+    dog score 4+                                       n   41  22-19  flat  +27.4% z +1.56 | train  +15.0% ( 33) | held  +78.6% (  8) | up 3/3 | live 2-5 -35%
+  EVERY NBA dog row +100..+350                         n 2855 1005-1850 flat   -4.5% z -1.69 | train   -4.6% (1909) | held   -4.3% (946) | up 0/3 | live 38-82 -17%
+    the favorite on a b2b, the dog rested              n  274 103-171 flat   +0.2% z +0.20 | train   +2.6% (193) | held   -5.5% ( 81) | up 1/3 | live 2-12 -67%
+    home                                               n 1180 427-753 flat   -4.8% z -1.04 | train   -8.1% (768) | held   +1.4% (412) | up 2/3 | live 13-37 -34%
+    road                                               n 1675 578-1097 flat   -4.3% z -1.33 | train   -2.3% (1141) | held   -8.7% (534) | up 0/3 | live 25-45 -5%
+    dog score -99..-4                                  n 1453 478-975 flat  -10.9% z -2.90 | train  -11.4% (974) | held  -10.0% (479) | up 0/3 | live 9-28 -35%
+    dog score -4..-2                                   n  515 183-332 flat   +0.1% z -0.59 | train   -1.5% (349) | held   +3.5% (166) | up 2/3 | live 5-21 -55%
+    dog score -2..0                                    n  420 143-277 flat   -8.7% z -1.02 | train   -5.6% (270) | held  -14.2% (150) | up 1/3 | live 12-16 +15%
+    dog score 0..2                                     n  271 112-159 flat   +9.9% z +1.28 | train  +15.7% (179) | held   -1.4% ( 92) | up 2/3 | live 7-9 +25%
+    dog score 2..4                                     n  138  60-78  flat  +18.1% z +1.67 | train  +10.5% ( 96) | held  +35.3% ( 42) | up 2/3 | live 3-2 +49%
+    dog score 4..99                                    n   58  29-29  flat  +23.8% z +1.75 | train  +11.9% ( 41) | held  +52.6% ( 17) | up 2/3 | live 2-6 -43%

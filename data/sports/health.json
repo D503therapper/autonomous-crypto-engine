@@ -1,29 +1,73 @@
 {
- "at": "2026-11-15T03:19Z",
- "fixes": [
-  "live watch 43668053432 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-11-15T09:52Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (128s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "slate check: all 203 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 10 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 5h ago",
-  "engine ran 28 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 53 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-15T09:52Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T09:50Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T08:18Z",
+   "fixes": [
+    "live watch 43690756763 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T06:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T06:45Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T06:40Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T05:07Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T05:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T04:51Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-15T03:19Z",
    "fixes": [
@@ -417,63 +461,6 @@
     "live tennis scores: tennis Mandlik vs Samson: no points for 2605s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-13T15:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-13T13:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T13:37Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (2 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-13T13:33Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T12:01Z",
-   "fixes": [
-    "live watch 43415690135 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T11:39Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T10:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T09:46Z",
-   "fixes": [],
-   "problems": [
-    "question box down (502): {\"error\":\"ai unavailable\",\"why\":\"503 503 credential validation failed\"}",
-    "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
-   ]
-  },
-  {
-   "at": "2026-11-13T09:44Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
    ]
   }
  ]

@@ -1349,7 +1349,7 @@ def dog_study_facts(c):
     """The dog studies that ADDED points to this football dog's score, in words (the card's facts, the score's reason)."""
     lg, mo, x = c.get("league"), c.get("dog_more") or {}, c.get("dog_ctx") or {}
     out = []
-    if mo.get("bye"):
+    if mo.get("bye") and (lg != "nfl" or nfl_bye_dog_pts(c)):   # (11/15: the NFL bye adds nothing from the 11/16 games)
         out.append("off a bye against a team that played last week")
     if (mo.get("last_margin") or 0) >= 17:
         out.append(f"off a {mo['last_margin']:g}-point win")
@@ -1955,6 +1955,9 @@ def _dog_more(games, g, side, other, lg):
             if prev and op_prev and se.REST_BYE <= (start - se._t(prev["start"])).days <= 30 \
                     and (start - se._t(op_prev["start"])).days <= se.REST_NORMAL:
                 out["bye"] = True                               # off a bye vs a team that played
+            if lg == "nfl" and prev and op_prev and se.REST_BYE <= (start - se._t(op_prev["start"])).days <= 30 \
+                    and (start - se._t(prev["start"])).days <= se.REST_NORMAL:
+                out["vs_bye"] = True                            # 11/15: a normal week, FACING a team off its bye
             if lg == "nfl" and start.astimezone(ZoneInfo("America/New_York")).weekday() == 0:
                 out["mnf"] = True                               # Monday night
             mine = [x for st_, x in sched.get((lg, g[side]), []) if st_ < g["start"] and x.get("status") == "final"]
@@ -2455,8 +2458,12 @@ def dog_spots(c):
         sc += 2                    # a college dog off a 17+ win: +9% on 327 (all college dogs ~even), +9% early; an NFL
         #                            dog that blew someone out: +7.9%, the engine agreeing +13%, 5 of 6 (10/1 audit)
     if mo.get("bye"):
-        sc += 3 if lg == "nfl" else 2   # off a bye vs a team that played: NFL +26.7% on 49 (5 of 6), college +7.5% on
-        #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
+        sc += nfl_bye_dog_pts(c) if lg == "nfl" else 2   # off a bye vs a team that played: NFL +26.7% on 49 (5 of 6),
+        #                            college +7.5% on 242 (4 of 6) at fair prices - discounted: the line moves to them
+        #                            60-65% by kickoff (the NFL +3 is OFF from the 11/16 games - NFL_BYE_DOG_OFF_FROM)
+    if nfl_vs_bye(c):
+        sc -= NFL_VS_BYE_PTS       # 11/15 TEN STUDIES S1: the NFL dog on a normal week FACING a team off its bye -18.8% on
+        #                            234 at the close 2006-26 (train -15.1% / held -23.5%, 15 of 21 seasons down)
     if mo.get("mnf"):
         sc += 1                    # a Monday night NFL dog: +21.4% on 119 overall, but only +3.3% on 80 inside the
         #                            +100..+220 band at the first fair price (10/1 daily study) - halved
@@ -5693,6 +5700,37 @@ FLOOR_LEAGUES_OFF = ("nba", "ncaaf", "ncaab")   # thin edge plays"): the 10/30 f
 #    train / +1.1u held - the vig, and the South Dakota +124 of 11/4 was one; the college hoops dog slot (NCAAB_PLAY_*) is
 #    that sport's dog path now. Without them the floor's cells are the ones up in BOTH halves: MLB +13.7u / +13.4u,
 #    NFL +2.1u / +4.9u, NHL +3.4u / +5.3u.)
+NFL_VS_BYE_FROM = "2026-11-16"   # 🏈 11/15 FABLE: 10 STUDIES, S1 (results/studies/ten_1115/s1_s2_nfl.py / s1b_vs_bye.py /
+NFL_VS_BYE_PTS = 3               # s1c_vs_bye_espn.py - nflverse's closing moneylines 2006-26, 21 seasons): THE NFL DOG ON A
+NFL_BYE_DOG_PTS = 3              # NORMAL WEEK FACING A TEAM OFF ITS BYE (the favorite 13+ days since its last game, the dog 8
+NFL_BYE_DOG_OFF_FROM = "2026-11-16"   # or fewer) -18.8% on 234 in +100..+350 (z -2.2; train 2006-16 -15.1%, 4 of 11 seasons
+#   up / held out 2017-26 -23.5%, 2 of 10 up), any plus price -26.0% on 283 (z -3.2; -25.7% / -26.3%, 3 of 21 seasons up);
+#   it won 29.9% against a no-vig close of 35.6% (31.3 vs 36.4 / 28.2 vs 34.6 - the same 5-6 points in both halves); a
+#   random 234 dogs did as badly 41 of 2,000 times; the step is the bye itself (facing a team on 9-12 days -2.2%); on our
+#   own files (ESPN's close 2018-26) -24.4% on 94; 2026 0-11. The other side of it: the bye team as a FAVORITE +5.6% on
+#   301 (both halves up). A WEIGHT, never a gate: -NFL_VS_BYE_PTS on that dog's study points (dog_spots, inside
+#   STUDY_CAP) for a game on / after NFL_VS_BYE_FROM (its Pacific day); "9999" = off. Tracker tag "NFL dog vs a team off
+#   its bye (fade)". AND THE NFL BYE DOG'S OWN +3 COMES OFF THE BOARD'S DOG SCORE (NFL_BYE_DOG_OFF_FROM; "9999" = +3
+#   again): the dog OFF its bye at the close -7.7% on 184 over the same 21 seasons (train -3.4% / held -12.9%, 10 of 21
+#   seasons up; a random 184 dogs did as well 1,452 of 2,000 times) - an ordinary dog; the +26.7% on 49 it was built on
+#   was 2020-26, whose closes went 20-29 +12% (2023's 7-4 carries it) while 2006-19 went -20u on 135. College keeps its
+#   +2 (not re-read here); the ⏰ early bye spot (its price is the first fair number, its own record, 1u) is NOT touched
+#   - its size is the owner's call (SPORTS_FINDINGS 11/15).
+
+
+def nfl_vs_bye(c):
+    """🏈 11/15 S1: an NFL moneyline dog on a normal week facing a team off its bye (dog_more 'vs_bye', set by
+    _dog_more from the schedule), in a game on / after NFL_VS_BYE_FROM - the -NFL_VS_BYE_PTS weight's flag."""
+    return (c.get("league") == "nfl" and (c.get("odds") or 0) >= 100 and bool((c.get("dog_more") or {}).get("vs_bye"))
+            and pt_day(c) >= NFL_VS_BYE_FROM)
+
+
+def nfl_bye_dog_pts(c):
+    """The board's points for an NFL dog off its bye: NFL_BYE_DOG_PTS before NFL_BYE_DOG_OFF_FROM (and for a side with no
+    start - the old rule holds), 0 from it (11/15 S1: 21 seasons of closes say it is an ordinary dog)."""
+    return 0 if pt_day(c) >= NFL_BYE_DOG_OFF_FROM else NFL_BYE_DOG_PTS
+
+
 NFL_HOME_FLOOR_OFF_FROM = "2026-11-15"   # 🏈 11/14 FOOTBALL PROFIT STUDIES R6 (results/studies/football_1114/r6_nfl_home_dog.py,
 #   the football replay board on today's code, every football day 2018-26): THE GENERAL FLOOR TAKES NO NFL HOME DOG from
 #   the 11/15 games (it goes to the floor's fallback list - up only when the board would carry no unit play at all, like
