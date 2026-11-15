@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T23:39Z",
+ "updated": "2026-11-15T23:40Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -726,8 +726,8 @@
    "away": "Doane",
    "home": "South Dakota",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -906,67 +906,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "nba:401909991",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Rockets",
-    "p": 0.649,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-16T00:00Z",
-   "away": "Rockets",
-   "home": "Wizards",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Rockets",
-    "opp": "Wizards",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -118,
-    "p": 0.5,
-    "win_p": 0.735,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401920681",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "St John's",
-    "p": 0.797,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-16T00:00Z",
-   "away": "Syracuse",
-   "home": "St John's",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Syracuse",
-    "opp": "St John's",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -120,
-    "p": 0.506,
-    "win_p": 0.123,
-    "reasons": [
-     "better rested"
-    ]
-   }
   },
   {
    "id": "nhl:401892721",
