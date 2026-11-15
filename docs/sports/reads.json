@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T18:12Z",
+ "updated": "2026-11-15T18:23Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -220,6 +220,21 @@
    "start": "2026-11-15T18:00Z",
    "away": "Ole Miss",
    "home": "Oklahoma",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401909985",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-15T18:00Z",
+   "away": "Pacers",
+   "home": "76ers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1174,8 +1189,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.72,
-    "tie": 0.03,
+    "p": 0.733,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1189,14 +1204,14 @@
     "team": "Celtics",
     "opp": "Mavericks",
     "market": "spread",
-    "line": -13.5,
-    "odds": -111,
+    "line": -14.5,
+    "odds": -110,
     "p": 0.503,
-    "win_p": 0.827,
+    "win_p": 0.842,
     "reasons": [
      "the stronger team",
-     "better rested",
-     "opponent missing key players"
+     "sharp money moving this way",
+     "better rested"
     ]
    }
   },
