@@ -1,32 +1,36 @@
 {
- "at": "2026-11-15T19:56Z",
+ "at": "2026-11-15T21:28Z",
  "fixes": [
-  "live watch 43750571437 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [
-  "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 2540s"
- ],
+ "problems": [],
  "ok": [
+  "live watcher fresh (30s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "slate check: all 70 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 11 backup sources answering",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 0 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 27 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-15T21:28Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-15T19:56Z",
    "fixes": [
@@ -489,11 +493,6 @@
   },
   {
    "at": "2026-11-14T01:29Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T23:56Z",
    "fixes": [],
    "problems": []
   }
