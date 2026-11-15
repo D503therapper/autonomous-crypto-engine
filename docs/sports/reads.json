@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T16:53Z",
+ "updated": "2026-11-15T17:05Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -10,6 +10,21 @@
    "start": "2026-11-15T14:30Z",
    "away": "Patriots",
    "home": "Lions",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924858",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T17:00Z",
+   "away": "Quinnipiac",
+   "home": "C Connecticut",
    "h1": null,
    "why": "started",
    "done": false,
@@ -172,7 +187,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colts",
-    "p": 0.577,
+    "p": 0.573,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -188,9 +203,9 @@
     "opp": "Dolphins",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.641,
-    "win_p": 0.641,
+    "odds": -218,
+    "p": 0.635,
+    "win_p": 0.635,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -235,8 +250,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.757,
-    "tie": 0.029,
+    "p": 0.753,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -253,7 +268,7 @@
     "line": 10.5,
     "odds": -105,
     "p": 0.507,
-    "win_p": 0.135,
+    "win_p": 0.139,
     "reasons": [
      "coming off a bye",
      "revenge game"
@@ -266,8 +281,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Louisville",
-    "p": 0.699,
-    "tie": 0.037,
+    "p": 0.713,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -282,9 +297,9 @@
     "opp": "Louisville",
     "market": "spread",
     "line": 9.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.503,
-    "win_p": 0.222,
+    "win_p": 0.206,
     "reasons": [
      "hotter recent form",
      "Louisville are laying 9.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
@@ -384,8 +399,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.636,
-    "tie": 0.034,
+    "p": 0.649,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -399,12 +414,13 @@
     "team": "76ers",
     "opp": "Pacers",
     "market": "spread",
-    "line": -7.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.723,
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.74,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -414,7 +430,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.488,
+    "p": 0.482,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -428,11 +444,11 @@
    "lean": {
     "team": "Saints",
     "opp": "Panthers",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "market": "spread",
+    "line": -1.5,
+    "odds": 105,
+    "p": 0.512,
+    "win_p": 0.502,
     "reasons": [
      "sharp money moving this way",
      "opponent missing key players"
@@ -476,7 +492,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.54,
+    "p": 0.545,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -492,9 +508,9 @@
     "opp": "Vikings",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.587,
-    "win_p": 0.587,
+    "odds": -148,
+    "p": 0.595,
+    "win_p": 0.595,
     "reasons": [
      "better QB play lately",
      "cold-weather edge",
@@ -523,9 +539,9 @@
     "team": "New Hampshire",
     "opp": "Boston College",
     "market": "spread",
-    "line": 21.5,
-    "odds": -115,
-    "p": 0.515,
+    "line": 20.5,
+    "odds": -105,
+    "p": 0.514,
     "win_p": 0.044,
     "reasons": [
      "sharp money moving this way"
@@ -1070,7 +1086,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.712,
+    "p": 0.715,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1088,7 +1104,7 @@
     "line": 9.5,
     "odds": -105,
     "p": 0.516,
-    "win_p": 0.184,
+    "win_p": 0.18,
     "reasons": []
    }
   },
@@ -1453,7 +1469,7 @@
     "opp": "Wizards",
     "market": "spread",
     "line": -8.5,
-    "odds": -112,
+    "odds": -107,
     "p": 0.501,
     "win_p": 0.751,
     "reasons": [
@@ -1615,7 +1631,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.375,
+    "p": 0.37,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1631,9 +1647,9 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
-    "p": 0.671,
-    "win_p": 0.453,
+    "odds": -218,
+    "p": 0.68,
+    "win_p": 0.462,
     "reasons": [
      "opponent missing key players"
     ]
@@ -1847,7 +1863,7 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -265,
     "p": 0.695,
     "win_p": 0.481,
     "reasons": []
@@ -1891,8 +1907,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.506,
-    "tie": 0.277,
+    "p": 0.5,
+    "tie": 0.279,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1900,16 +1916,16 @@
    "start": "2026-11-17T02:30Z",
    "away": "Canucks",
    "home": "Mammoth",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Mammoth",
     "opp": "Canucks",
     "market": "spread",
-    "line": -1.5,
-    "odds": -135,
-    "p": 0.607,
-    "win_p": 0.79,
+    "line": -2.5,
+    "odds": 114,
+    "p": 0.593,
+    "win_p": 0.781,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
