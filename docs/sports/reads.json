@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T19:34Z",
+ "updated": "2026-11-15T19:42Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -450,154 +450,19 @@
    "lean": null
   },
   {
-   "id": "ncaab:401906866",
+   "id": "ncaab:401909525",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas",
-    "p": 0.562,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-15T20:00Z",
-   "away": "Baylor",
-   "home": "Texas",
-   "why": "no_value",
+   "start": "2026-11-15T19:30Z",
+   "away": "Marquette",
+   "home": "Missouri",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Texas",
-    "opp": "Baylor",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.611,
-    "win_p": 0.611,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401921168",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Alabama A&M",
-    "p": 0.54,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T20:00Z",
-   "away": "Cleveland St",
-   "home": "Alabama A&M",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Alabama A&M",
-    "opp": "Cleveland St",
-    "market": "ml",
-    "line": null,
-    "odds": -148,
-    "p": 0.582,
-    "win_p": 0.582,
-    "reasons": [
-     "the stronger team",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401909493",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Iowa",
-    "p": 0.587,
-    "tie": 0.042,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T20:00Z",
-   "away": "Creighton",
-   "home": "Iowa",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Iowa",
-    "opp": "Creighton",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.643,
-    "win_p": 0.643,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401911251",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Saint Louis",
-    "p": 0.672,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T20:00Z",
-   "away": "High Point",
-   "home": "Saint Louis",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "High Point",
-    "opp": "Saint Louis",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -105,
-    "p": 0.501,
-    "win_p": 0.256,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaab:401926068",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Purdue FW",
-    "p": 0.545,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T20:00Z",
-   "away": "Purdue FW",
-   "home": "E Illinois",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Purdue FW",
-    "opp": "E Illinois",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.591,
-    "win_p": 0.591,
-    "reasons": [
-     "their top scorer Demar Burton (14.0 a game) missed their last game - the books under-price that (4 of 4 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401934396",
@@ -1150,8 +1015,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.656,
-    "tie": 0.033,
+    "p": 0.648,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1165,10 +1030,10 @@
     "team": "Rockets",
     "opp": "Wizards",
     "market": "spread",
-    "line": -8.5,
-    "odds": -102,
-    "p": 0.501,
-    "win_p": 0.744,
+    "line": -7.5,
+    "odds": -117,
+    "p": 0.5,
+    "win_p": 0.735,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1530,7 +1395,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -10.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.792,
     "reasons": [
