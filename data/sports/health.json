@@ -1,9 +1,9 @@
 {
- "at": "2026-11-15T04:51Z",
+ "at": "2026-11-15T05:06Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (60s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 12 min ago",
+  "engine ran 28 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-15T05:06Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-15T04:51Z",
    "fixes": [],
@@ -463,14 +468,6 @@
    "at": "2026-11-13T10:05Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-13T09:46Z",
-   "fixes": [],
-   "problems": [
-    "question box down (502): {\"error\":\"ai unavailable\",\"why\":\"503 503 credential validation failed\"}",
-    "workflow failed: sports 2026-11-13T08:59 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/43397558975"
-   ]
   }
  ]
 }
