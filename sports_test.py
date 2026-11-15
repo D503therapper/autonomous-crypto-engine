@@ -14078,7 +14078,8 @@ def test_full_breakdown_is_thorough_10_25():
     assert "98.3" in joined and "PDO" not in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
     #   (10/29: the puck-luck line says the number in plain words - "shooting plus save %" - never "PDO")
     assert "Kaprizov" in joined, canucks
-    assert len(canucks) - 1 >= 7, canucks
+    assert len(canucks) - 1 >= v24.FLOOR_UNIT, canucks   # (11/15: was 7 - its "more days off" line, no back-to-back,
+    #   left with REST_B2B_ONLY; the card still meets the unit floor)
     assert "FULL BREAKDOWN is thorough" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CLAUDE.md")).read()
     # a fact line is never starved: with every wording's tag already used, the Voice still says it
     v = v24.Voice("x", used={f"f_last:{i}" for i in range(6)})
@@ -23441,6 +23442,90 @@ def test_owner_1114_the_college_hoops_spread_stack_play_goes_three_a_night_from_
             for g, st in (("a", 0.05), ("b", 0.09), ("c", 0.07), ("d", 0.06))]
     got = [x["game_id"] for x in sports.ncaab_stack_plays(four, ())]
     assert got[:sports.ncaab_stack_play_cap("2026-11-20")] == ["b", "c", "d"]
+
+
+def test_owner_1115_rest_talk_only_on_a_back_to_back_in_the_every_other_night_leagues():
+    """THE OWNER'S CREW, 11/15 (Victor: "If 2 teams off 2+ days of rest, and one of them is 4+ days of rest. That's not an
+    advantage 99% of the time ... Both teams rested"): in the NBA / college hoops / hockey / baseball a card talks rest
+    ONLY when one side played last night - never "4 days off to their 2", never a one-day edge, never a rest knock, never
+    the "better rested" reason. A real back-to-back still gets its line; football keeps its rest lines."""
+    import sports_breakdown_v24 as v24
+    assert v24.REST_B2B_ONLY == ("nba", "ncaab", "nhl", "mlb") and v24.b2b_only("nhl") and not v24.b2b_only("nfl")
+
+    def card(lg, our_last, their_last, start="2026-11-20T00:00Z"):
+        G = {}
+        def gm(i, day, a, h, sa, sh):
+            G[f"{lg}:{i}"] = {"id": f"{lg}:{i}", "league": lg, "start": day, "status": "final", "home": h, "away": a,
+                              "home_name": h, "away_name": a, "home_score": str(sh), "away_score": str(sa), "stype": "2",
+                              "neutral": "0", "elev": "100"}
+        i = 0
+        for d in range(1, 15, 3):                                   # a few earlier games for both sides
+            i += 1
+            gm(i, f"2026-11-{d:02d}T00:00Z", "AAA", "X1", 2, 3)
+            i += 1
+            gm(i, f"2026-11-{d:02d}T00:00Z", "BBB", "X2", 3, 2)
+        gm(90, our_last, "AAA", "X3", 4, 1)
+        gm(91, their_last, "BBB", "X4", 1, 4)
+        G["g"] = {"id": "g", "league": lg, "start": start, "status": "pre", "home": "BBB", "away": "AAA",
+                  "home_name": "BBB", "away_name": "AAA", "home_score": "", "away_score": "", "stype": "2",
+                  "neutral": "0", "elev": "100"}
+        leg = {"game_id": "g", "league": lg, "side": "away", "team": "AAA", "opp": "BBB", "market": "ml", "odds": 120,
+               "dec": 2.2, "p": 0.47, "edge_own": 0.47 * 2.2 - 1, "tier": "value", "reasons": ["better rested"]}
+        lg_ = dict(leg)
+        return v24.breakdown(lg_, G, {}, {}, set()), lg_
+
+    rest_words = ("days off", "days of rest", "extra day", "Fresher legs", "more days", "come in on", "days to get right")
+    for lg in ("nba", "nhl"):
+        bd, leg = card(lg, "2026-11-16T00:00Z", "2026-11-18T00:00Z")   # 4 days off to their 2: both rested
+        txt = " ".join(bd)
+        assert not any(w in txt for w in rest_words), (lg, bd)
+        assert "better rested" not in leg["reasons"], leg["reasons"]
+        bd, leg = card(lg, "2026-11-17T00:00Z", "2026-11-19T00:00Z")   # 3 to their 1: still no back-to-back
+        assert not any(w in " ".join(bd) for w in rest_words), (lg, bd)
+    src = open(v24.__file__).read()                               # the three gates, and the back-to-back lines untouched
+    assert 'elif d_us - d_them >= 2 and d_us <= 10 and not b2b_only(lg):' in src
+    assert 'elif not rested and d_us <= 12 and d_them <= 12 and not b2b_only(lg):' in src
+    assert 'if h_them <= B2B_HOURS < h_us:' in src and 'elif h_us <= B2B_HOURS < h_them:' in src
+
+
+def test_owner_1115_college_trash_talk_never_counts_losses_to_better_teams():
+    """THE OWNER'S CREW, 11/15 (Victor on the Northern Iowa card: "Said Oakland was 🗑️ word for word, Oakland just played
+    4 of 5 opening games against power 5 schools ... No angle there but that was its whole write up, essentially say
+    Oakland trash cuz 0-5"; the owner: "We can't be looking like some clowns"). In college hoops / football the trash
+    line, the "last 5" slide and the 🥊 beatdown line count only games against teams NOT rated above us - Oakland's
+    0-5 (Michigan, Stanford, UCSB, Alabama, Boise St, all on the road) says nothing about Northern Iowa."""
+    import sports_breakdown_v24 as v24
+    assert v24.SCHEDULE_FAIR == ("ncaab", "ncaaf")
+
+    import sports_model as sm_
+
+    def E(r):
+        e_ = sm_.Elo(20, 60, "ncaab")
+        e_.r.update(r)
+        return e_
+
+    def card(opp_rating):
+        G = {}
+        def gm(i, day, a, h, sa, sh):
+            G[f"ncaab:{i}"] = {"id": f"ncaab:{i}", "league": "ncaab", "start": day, "status": "final", "home": h,
+                               "away": a, "home_name": h, "away_name": a, "home_score": str(sh), "away_score": str(sa),
+                               "stype": "2", "neutral": "0", "elev": "100"}
+        for i, d in enumerate(("02", "05", "07", "09", "11")):         # Oakland 0-5, every loss by 20+ on the road
+            gm(i, f"2026-11-{d}T00:00Z", "OAK", f"BIG{i}", 60, 100)
+            gm(10 + i, f"2026-11-{d}T01:00Z", f"SM{i}", "UNI", 60, 75)  # Northern Iowa's games
+        G["g"] = {"id": "g", "league": "ncaab", "start": "2026-11-14T22:00Z", "status": "pre", "home": "OAK", "away": "UNI",
+                  "home_name": "Oakland", "away_name": "Northern Iowa", "home_score": "", "away_score": "", "stype": "2",
+                  "neutral": "0", "elev": "100"}
+        r = {"UNI": 1550.0, "OAK": 1400.0, **{f"BIG{i}": opp_rating for i in range(5)}, **{f"SM{i}": 1400.0 for i in range(5)}}
+        leg = {"game_id": "g", "league": "ncaab", "side": "away", "team": "Northern Iowa", "opp": "Oakland", "market": "ml",
+               "odds": 102, "dec": 2.02, "p": 0.51, "edge_own": 0.51 * 2.02 - 1, "tier": "value", "reasons": []}
+        return v24.breakdown(dict(leg), G, {"ncaab": E(r)}, {}, set())
+
+    tough = card(1700.0)                                              # beaten by the big schools: no trash, no 🥊
+    assert not any(x.startswith("🗑️") or x.startswith("🥊") for x in tough), tough
+    assert not any("dropped 5" in x or "0-5 over their last 5" in x or "been sliding" in x for x in tough), tough
+    soft = card(1350.0)                                               # beaten by teams rated under us: fair game
+    assert any(x.startswith("🗑️") or x.startswith("🥊") or "last 5" in x for x in soft), soft
 
 
 if __name__ == "__main__":

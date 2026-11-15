@@ -67,6 +67,17 @@ REVENGE_DAYS = 400     # (10/15 truth audit) a "revenge game" needs a meeting th
 H2H_DAYS = 730         # "2 of the last 3 meetings" counts meetings within two years - never 2018-2024 (Texans-Cowboys)
 SCHED_MAX_L = 6        # "their L's came against X, Y" names EVERY loss, so only a short season (football) - never 78 L's
 B2B_HOURS = 29         # a back-to-back is the next night (the model's 1.2 days) - two nights off is NOT "short rest"
+REST_B2B_ONLY = ("nba", "ncaab", "nhl", "mlb")   # (11/15, the owner's crew - Victor: "If 2 teams off 2+ days of rest, and
+#   one of them is 4+ days of rest. That's not an advantage 99% of the time ... Both teams rested"): in the leagues that
+#   play every other night, the card talks rest ONLY when one side is on a back-to-back (the next night, B2B_HOURS) - the
+#   studies agree: the NBA's rested favorite LOSES against its price (the books over-move for rest), hockey's edge is the
+#   back-to-back. "3 days off to their 2" is no edge - no line, no knock, no "better rested" reason. Football keeps its
+#   lines (the bye is a studied spot; a short week is a real gap).
+
+
+def b2b_only(lg):
+    """Rest talk only on a back-to-back in this league (REST_B2B_ONLY)."""
+    return lg in REST_B2B_ONLY
 COIN_FLIP = (0.45, 0.55)  # "coin flip" / "close to even" on a card only for a read inside this band (10/30 daily review: the
 #                          Panthers +164 floor play 10/29 read "our read says coin flip" at a 36.6% read - the floor
 #                          closers meant the PRICE was about fair; a 37% team is no coin flip). The floor closers say "the
@@ -131,6 +142,29 @@ def non_d1(lg, tid):
 
 def _opp_id(g, tid):
     return g["away"] if g["home"] == tid else g["home"]
+
+
+SCHEDULE_FAIR = ("ncaab", "ncaaf")   # (11/15, the owner's crew - Victor on the Northern Iowa card: "Said Oakland was 🗑️ word
+#   for word, Oakland just played 4 of 5 opening games against power 5 schools ... they're a tiny D1 school. No angle there
+#   but that was its whole write up, essentially say Oakland trash cuz 0-5"; the owner: "We can't be looking like some
+#   clowns"): in college, where the early schedule is buy games on the road, a loss to a team rated ABOVE us says nothing
+#   about this game - the opponent's record for trash talk, its "last 5" slide and the 🥊 beatdown line count only games
+#   against teams NOT rated above us (sports Elo, which counts the schedule).
+
+
+def _tougher(x, tid, our_id, e):
+    """In game x, was tid's opponent rated above our team (our_id)? No ratings = no (the old reading)."""
+    if e is None:
+        return False
+    return e.r.get(_opp_id(x, tid), 1500.0) > e.r.get(our_id, 1500.0)
+
+
+def _fair_games(games_, tid, our_id, e, lg):
+    """tid's games that say something about this matchup: in SCHEDULE_FAIR leagues, never one against a team rated above
+    us; elsewhere all of them."""
+    if lg not in SCHEDULE_FAIR:
+        return list(games_ or [])
+    return [x for x in games_ or [] if not _tougher(x, tid, our_id, e)]
 
 
 def _said_d1(g, tid, pro, lg):
@@ -778,8 +812,10 @@ def breakdown(leg, games, elo, injuries, used=None):
     v.names = (us, them)                                  # team names blanked when comparing wordings to yesterday's
     pro = lg in ("nfl", "nba", "mlb", "nhl")
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
-    if ours and theirs and _days(start, _t(ours[-1]["start"])) - _days(start, _t(theirs[-1]["start"])) < 2:
-        leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
+    if ours and theirs and (_days(start, _t(ours[-1]["start"])) - _days(start, _t(theirs[-1]["start"])) < 2
+                            or b2b_only(lg) and not ((start - _t(theirs[-1]["start"])).total_seconds() / 3600 <= B2B_HOURS
+                                                     < (start - _t(ours[-1]["start"])).total_seconds() / 3600)):
+        leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]   # (11/15: no b2b = no rest edge)
     # (10/15 truth audit) "revenge game" only means something when the last meeting was recent: the Cardinals' card said
     # "Giants won the last meeting ... they haven't forgotten" about a 2023 game, the Panthers' about a 2023 Lions game.
     # The weight is the model's; the WORDS need a meeting this season or last (REVENGE_DAYS) - else the label goes
@@ -949,6 +985,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.tag(v.say("rec", [f"📋 {us} are {rec_u} on the year.", f"📋 {us} sit {rec_u} so far."]), "neutral"))
 
     # talk our talk when the other side's been bad (only when the numbers back it up)
+    r_theirs_all = r_theirs
+    r_theirs = _fair_games(r_theirs, oid, tid, e, lg)                 # (11/15: college - games vs teams not rated above us)
     if r_theirs:
         w = sum(1 for x in r_theirs if _line(x, oid).startswith("W"))
         rating_them = e.r.get(oid, 1500.0) if e is not None else 1500.0
@@ -983,6 +1021,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🗑️ {them} ({rec}) fin to get their cheeks clapped.",
             f"🗑️ {rec}. Lame ass team right now, that's {them}.",
             f"🗑️ {them} are in shambles - {rec}."]))                                   #  record right there)
+    r_theirs = r_theirs_all                                           # (the rest of the card reads every game)
 
     # last games: just the latest scores - and only when they back the pick (the owner, 9/30: "Kings L 1-5 vs Avalanche"
     # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
@@ -1233,7 +1272,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("b2b", [f"😴 {them} played last night; {us} had {d_us} day{'s' if d_us != 1 else ''} off.",
                                       f"😴 Second night of a back-to-back for {them}. {us} are rested.",
                                       f"😴 {them} on a back-to-back, {us} on {d_us} day{'s' if d_us != 1 else ''} of rest."]))
-        elif d_us - d_them >= 2 and d_us <= 10:              # (a season-opener gap isn't "rest")
+        elif d_us - d_them >= 2 and d_us <= 10 and not b2b_only(lg):   # (a season-opener gap isn't "rest"; 11/15:
+            #   in the every-other-night leagues 4 days off to 2 is no edge - REST_B2B_ONLY)
             gap_d = d_us - d_them
             out.append(v.say("rest", [f"🛌 {us} had {gap_d} more days off than {them}.",   # (10/21: every wording
                                        f"🛌 Rest edge: {us} got {gap_d} extra days to recover.",   # carries the number -
@@ -1434,7 +1474,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     # say - both last games with the scores, the skids, both home / road records, the rest days, the trip, who's out on
     # BOTH sides, the goalies / QBs with their numbers, the points lately, puck luck. Each only from real data.
     added = more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
-                       ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs)
+                       ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs, e=e)
     out += added
     # ⚠️ THE ONE RISK LINE (10/27, the owner: "there's a lot of facts that support the opposing team"): every fact that
     # favors the other side went into v.knocks instead of the body; the single biggest posts here, framed as the risk,
@@ -1696,7 +1736,7 @@ def who_plays_only(names, lg, team_id, before):
 
 
 def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ours, s_theirs, r_ours, r_theirs,
-               ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs):
+               ours, theirs, FORM, inj, lg, side, other, out, heat, heat_t, last_vs, e=None):
     """The facts the card hasn't said yet (10/25) - every line a score, a record, a name or a count from the leg or the
     game data; nothing here guesses. A fact the lines above already carry (its number is in the body) isn't repeated.
     (10/27, the owner: "a lot of facts that support the opposing team") Every fact here knows which side it favors: the
@@ -1797,7 +1837,7 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
         elif h_us <= B2B_HOURS < h_them:
             a = _said(ours[-1], tid, pro)
             v.knock(7, f"{us} played last night (a {a}) and {them} sat {D(d_them)}")
-        elif not rested and d_us <= 12 and d_them <= 12:
+        elif not rested and d_us <= 12 and d_them <= 12 and not b2b_only(lg):   # (11/15: REST_B2B_ONLY)
             if d_us > d_them:                              # (the 2+ day edge printed above; this is the one-day edge)
                 add.append(v.say("f_rest", [f"⏳ {us} got the extra day: {D(d_us)} off to {_pos(them)} {D(d_them)}.",
                                             f"⏳ Fresher legs on our side - {us} had {D(d_us)} off, {them} {D(d_them)}.",
@@ -1901,6 +1941,9 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
 
     # the last 5 (ours when we've won more than we lost, theirs when they've lost more) - fresh facts for a thin card
     l5u, l5t = _last_n(s_ours, tid), _last_n(s_theirs, oid)
+    if lg in SCHEDULE_FAIR and l5t and any(_tougher(x, oid, tid, e) for x in (s_theirs or [])[-5:]
+                                          if _line(x, oid).startswith("L")):
+        l5t = None                                   # (11/15: a college slide that includes losses to better teams - no line)
     if l5u and l5u[0] > l5u[1] and f"{l5u[0]}-{l5u[1]}" not in body and not heat.startswith("won"):
         add.append(v.say("f_last5", [f"🗓️ {us} are {l5u[0]}-{l5u[1]} over their last 5.",
                                      f"🗓️ Last 5 for {us}: {l5u[0]}-{l5u[1]}. They been getting it done.",
@@ -1918,7 +1961,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     for x in reversed((s_theirs or [])[-5:]):
         o2, res, sc = _last_parts(x, oid, pro)
         hi, lo = [int(y) for y in sc.split("-")]
-        if res == "L" and hi - lo >= big and sc not in body:
+        if res == "L" and hi - lo >= big and sc not in body \
+                and not (lg in SCHEDULE_FAIR and _tougher(x, oid, tid, e)):   # (11/15: Alabama 109-68 says nothing)
             add.append(v.say("f_theirL", [f"🥊 {_cap(the_them)} got their cheeks clapped {sc} by {o2} inside their last 5.",
                                           f"🥊 {_cap(o2)} put {sc} on {the_them} in one of their last 5.",
                                           f"🥊 {_cap(the_them)} got smacked {sc} by {o2} inside their last 5. That's who we're going against.",
