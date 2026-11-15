@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T22:41Z",
+ "updated": "2026-11-15T22:54Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -821,6 +821,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401911017",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T22:30Z",
+   "away": "Canisius",
+   "home": "Buffalo",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nba:401909990",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
@@ -899,9 +914,9 @@
     "team": "Syracuse",
     "opp": "St John's",
     "market": "spread",
-    "line": 12.5,
-    "odds": -118,
-    "p": 0.506,
+    "line": 11.5,
+    "odds": 100,
+    "p": 0.505,
     "win_p": 0.123,
     "reasons": [
      "better rested"
@@ -1270,6 +1285,36 @@
    }
   },
   {
+   "id": "ncaab:401921087",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Iona",
+    "p": 0.532,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-16T23:00Z",
+   "away": "Iona",
+   "home": "UMBC",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Iona",
+    "opp": "UMBC",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.574,
+    "win_p": 0.574,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401928841",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1300,6 +1345,36 @@
    }
   },
   {
+   "id": "ncaab:401906783",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Georgia",
+    "p": 0.902,
+    "tie": 0.018,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T00:00Z",
+   "away": "Jacksonville",
+   "home": "Georgia",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Jacksonville",
+    "opp": "Georgia",
+    "market": "spread",
+    "line": 23.5,
+    "odds": -115,
+    "p": 0.517,
+    "win_p": 0.04,
+    "reasons": [
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401911240",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1321,10 +1396,41 @@
     "opp": "Virginia Tech",
     "market": "spread",
     "line": 13.5,
-    "odds": -105,
+    "odds": -120,
     "p": 0.507,
     "win_p": 0.092,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401919807",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "St Thomas",
+    "p": 0.534,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T00:00Z",
+   "away": "St Thomas",
+   "home": "Long Island",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "St Thomas",
+    "opp": "Long Island",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.577,
+    "win_p": 0.577,
+    "reasons": [
+     "out-rebounding people by -2.6 a game to their -8.8 - the books don't price the glass (5 of 5 seasons)",
+     "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+    ]
    }
   },
   {
@@ -1437,9 +1543,9 @@
     "team": "Tarleton St",
     "opp": "Drake",
     "market": "spread",
-    "line": 11.5,
-    "odds": -115,
-    "p": 0.505,
+    "line": 10.5,
+    "odds": -110,
+    "p": 0.504,
     "win_p": 0.168,
     "reasons": []
    }
@@ -1649,6 +1755,34 @@
     "reasons": [
      "hotter recent form"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401920373",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UC San Diego",
+    "p": 0.857,
+    "tie": 0.023,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T03:00Z",
+   "away": "Texas Southern",
+   "home": "UC San Diego",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Texas Southern",
+    "opp": "UC San Diego",
+    "market": "spread",
+    "line": 18.5,
+    "odds": -110,
+    "p": 0.512,
+    "win_p": 0.071,
+    "reasons": []
    }
   }
  ]
