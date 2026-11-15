@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T21:01Z",
+ "updated": "2026-11-15T21:04Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -339,8 +339,8 @@
    "away": "Bakersfield",
    "home": "N Dakota St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -399,8 +399,8 @@
    "away": "SC State",
    "home": "Charleston",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -548,6 +548,81 @@
    "start": "2026-11-15T20:00Z",
    "away": "Wright St-Lake",
    "home": "Tennessee Tech",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401934396",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:00Z",
+   "away": "Air Force",
+   "home": "Pacific",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917531",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:00Z",
+   "away": "Chicago St",
+   "home": "LMU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401917528",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:00Z",
+   "away": "Idaho St",
+   "home": "Seattle U",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401919825",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:00Z",
+   "away": "Mercyhurst",
+   "home": "James Madison",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928353",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T21:00Z",
+   "away": "UC Merced",
+   "home": "Santa Barbara",
    "h1": null,
    "why": "started",
    "done": false,
@@ -724,8 +799,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.766,
-    "tie": 0.027,
+    "p": 0.762,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -740,9 +815,9 @@
     "opp": "Jazz",
     "market": "spread",
     "line": -14.5,
-    "odds": -107,
+    "odds": -112,
     "p": 0.503,
-    "win_p": 0.875,
+    "win_p": 0.872,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1302,7 +1377,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.593,
+    "p": 0.596,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1319,8 +1394,8 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "p": 0.668,
+    "win_p": 0.668,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
