@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T19:42Z",
+ "updated": "2026-11-15T19:51Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -101,8 +101,8 @@
    "away": "Colgate",
    "home": "Delaware",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -206,8 +206,8 @@
    "away": "Norfolk St",
    "home": "Georgia St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -648,7 +648,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.714,
+    "p": 0.718,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -666,7 +666,7 @@
     "line": 9.5,
     "odds": -105,
     "p": 0.515,
-    "win_p": 0.181,
+    "win_p": 0.177,
     "reasons": []
    }
   },
@@ -676,7 +676,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.657,
+    "p": 0.663,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -693,10 +693,11 @@
     "market": "ml",
     "line": null,
     "odds": -298,
-    "p": 0.741,
-    "win_p": 0.741,
+    "p": 0.749,
+    "win_p": 0.749,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "revenge game"
     ]
    }
@@ -845,7 +846,7 @@
     "opp": "Oregon",
     "market": "spread",
     "line": 13.5,
-    "odds": -110,
+    "odds": -108,
     "p": 0.507,
     "win_p": 0.127,
     "reasons": [
@@ -1030,9 +1031,9 @@
     "team": "Rockets",
     "opp": "Wizards",
     "market": "spread",
-    "line": -7.5,
-    "odds": -117,
-    "p": 0.5,
+    "line": -8.5,
+    "odds": -103,
+    "p": 0.501,
     "win_p": 0.735,
     "reasons": [
      "the stronger team",
@@ -1162,7 +1163,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawks",
-    "p": 0.639,
+    "p": 0.646,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1180,7 +1181,7 @@
     "line": -8.5,
     "odds": -106,
     "p": 0.501,
-    "win_p": 0.725,
+    "win_p": 0.734,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1395,7 +1396,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -10.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.501,
     "win_p": 0.792,
     "reasons": [
