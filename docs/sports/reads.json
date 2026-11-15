@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T17:34Z",
+ "updated": "2026-11-15T17:37Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -414,7 +414,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.637,
+    "p": 0.629,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -423,16 +423,16 @@
    "start": "2026-11-15T18:00Z",
    "away": "Pacers",
    "home": "76ers",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Pacers",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -102,
-    "p": 0.501,
-    "win_p": 0.724,
+    "market": "ml",
+    "line": null,
+    "odds": -288,
+    "p": 0.713,
+    "win_p": 0.713,
     "reasons": [
      "the stronger team"
     ]
@@ -1357,9 +1357,9 @@
     "team": "Canisius",
     "opp": "Buffalo",
     "market": "spread",
-    "line": 14.5,
-    "odds": -118,
-    "p": 0.508,
+    "line": 13.5,
+    "odds": -110,
+    "p": 0.507,
     "win_p": 0.101,
     "reasons": [
      "sharp money moving this way",
@@ -1860,8 +1860,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Canadiens",
-    "p": 0.359,
+    "team": "Rangers",
+    "p": 0.354,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1873,13 +1873,13 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Rangers",
-    "opp": "Canadiens",
+    "team": "Canadiens",
+    "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
     "odds": -265,
-    "p": 0.695,
-    "win_p": 0.481,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": []
    }
   },
@@ -1930,14 +1930,14 @@
    "start": "2026-11-17T02:30Z",
    "away": "Canucks",
    "home": "Mammoth",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Mammoth",
     "opp": "Canucks",
     "market": "spread",
-    "line": -2.5,
-    "odds": 114,
+    "line": -1.5,
+    "odds": -135,
     "p": 0.593,
     "win_p": 0.781,
     "reasons": [
