@@ -1,15 +1,14 @@
 {
- "at": "2026-11-15T18:00Z",
+ "at": "2026-11-15T19:32Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Alvarez vs Trevisan: no points for 1641s",
-  "live tennis scores: tennis Contreras vs Geerlings: no points for 1100s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 1314s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (94s)",
+  "live watcher fresh (81s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,16 +16,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 10 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 1h ago",
-  "engine ran 10 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-15T19:32Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 1314s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-15T18:00Z",
    "fixes": [
@@ -478,11 +487,6 @@
   },
   {
    "at": "2026-11-13T23:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T23:37Z",
    "fixes": [],
    "problems": []
   }
