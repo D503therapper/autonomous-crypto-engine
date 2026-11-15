@@ -23649,6 +23649,18 @@ def test_ten_1115_the_nfl_dog_facing_a_bye_team_reads_3_less_and_the_bye_dogs_ow
     assert not sports_leads.dog_read_3_4({**h, "dog_read_parts": {"games_ok": False}}, sports)
     assert not sports_leads.dog_read_3_4({**h, "odds": 380}, sports)
     assert sports.NCAAB_DOG_READ_GATE == 4                       # the lead is tracked - the slot's gate did not move
+    # S5c's lead (the owner's open call): a read-4+ dog the slot's 'never a trap / fighting' rules leave out is TRACKED
+    # under its own tag - and the slot still leaves it out (nothing changed on the board)
+    ok = {**_cand("g4", 140, 0.41, league="ncaab"), "dog_ctx": {}, "dog_read": 4.5, "dog_read_parts": {"games_ok": True},
+          "games_in": 6, "opp_games_in": 6, "p_market": 0.40, "reasons": ["x"]}
+    out_tag = sports_leads.DOG_READ_LEFT_OUT_TAG
+    assert "college hoops dog read 4+" in sports_leads.tags(ok, sports) and out_tag not in sports_leads.tags(ok, sports)
+    trap = {**ok, "trap": True}
+    assert out_tag in sports_leads.tags(trap, sports) and "college hoops dog read 4+" in sports_leads.tags(trap, sports)
+    fight = {**ok, "edge_own": -0.20}                            # the own read far under the price
+    assert sports.fighting(fight) and out_tag in sports_leads.tags(fight, sports)
+    assert sports.ncaab_play_dog(trap) is None and sports.ncaab_play_dog(fight) is None
+    assert sports.ncaab_play_dog(ok) is not None                 # the same dog without either flag is the slot's
 
 
 if __name__ == "__main__":

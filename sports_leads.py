@@ -170,6 +170,8 @@ def tags(c, sports):
         try:
             if sports.ncaab_dog_read_ok(c):
                 t.append("college hoops dog read 4+")        # +16.5% on 600 at the close (5/5 train, 3/3 held, open +11.5%)
+                if dog_read_left_out(c, sports):
+                    t.append(DOG_READ_LEFT_OUT_TAG)
             elif home_dog_cut(c, sports):
                 t.append(HOME_DOG_CUT_TAG)
             elif dog_read_3_4(c, sports):
@@ -1137,6 +1139,27 @@ DOG_READ_3_4_TAG = "college hoops dog read 3-4 (the slot's next band)"   # S5 - 
 #   build - as good as the slot's 4+ - but the slot-shaped ones (not a trap / fighting, the read clearing the price) held
 #   out +0.6% on 36 (2024 -9%, 2025 -20%), the dose is ragged (4-5 +6.1%, under 3-4) and the read's weights were set on
 #   these seasons. Judge at 60 live: +5% or better = lower the slot's gate to 3 (the owner's "more dogs" ask)
+
+
+DOG_READ_LEFT_OUT_TAG = "college hoops dog read 4+ the slot leaves out (a trap / the own read or the money against it)"
+#   S5c - THE OWNER'S OPEN CALL (11/15), tracked only: the dog slot takes a read of 4+ only when the side is not a 'trap'
+#   (sports_dogs' price-band verdict) and not one the engine is 'fighting' (the own read 3+ points under the price, or
+#   the money ran from it since the open) - two rules the 11/3 dog expert's cell (every read-4+ dog, +16.5% on 600) never
+#   had. On the 11/13 replay rows 2018-26 the dogs those two rules LEAVE OUT went 103-116, +21.1% on 219 (train +22.8% /
+#   held +19.7%, 7 of 8 seasons up, a random 219 dogs did as well 2 of 2,000 times) against +8.9% on 326 for the ones the
+#   slot keeps; the slot without the two rules (the best two a night, 1u / 2u at 6+) +100.4u on 574u (+17.5%, 7 of 8
+#   seasons) vs +44.3u on 347u today - and in the held-out seasons the two rules block about two of every three
+#   read-4+ dogs (44 slot plays in three seasons, 151 without them). Judge at 40 live: +5% or better and the owner's OK
+#   = the slot takes them
+
+
+def dog_read_left_out(c, sports):
+    """A college hoops dog at the dog read's gate (both teams 4+ games) that the slot's 'never a trap / fighting' rules
+    leave out (the 11/15 S5c lead's row)."""
+    try:
+        return bool(c.get("trap") or sports.fighting(c))
+    except (KeyError, TypeError):
+        return False
 
 
 def dog_read_3_4(c, sports):

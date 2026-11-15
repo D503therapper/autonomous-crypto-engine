@@ -1,0 +1,55 @@
+EVERY DOG AT A READ OF 4+ (both teams 4+ games)
+   all                                                         266-279  48.8% ROI  +13.8% z +2.7 | train  +11.1% n378 | held  +20.0% n167 | up 6/8 | placebo 0/2000 | 18:+3 19:-3 20:-1 21:+33 22:+23 23:+19 24:+26 25:+15
+     not a trap, not fighting, clears the price (the slot's pool)  163-163  50.0% ROI   +8.9% z +1.5 | train   +7.0% n281 | held  +20.8% n45  | up 6/8 | placebo 42/2000 | 18:+1 19:-4 20:+2 21:+20 22:+28 23:-11 24:+60 25:+16
+     LEFT OUT by those three                                   103-116  47.0% ROI  +21.1% z +2.3 | train  +22.8% n97  | held  +19.7% n122 | up 7/8 | placebo 2/2000 | 18:+12 19:+2 20:-27 21:+50 22:+15 23:+29 24:+11 25:+14
+     a TRAP                                                     54-72   42.9% ROI  +25.3% z +1.9 | train  +26.9% n80  | held  +22.5% n46  | up 6/8 | placebo 5/2000 | 18:+12 19:+2 20:-27 21:+51 22:+55 23:+36 24:+48 25:-17
+     FIGHTING (the own read fights the side), not a trap        49-44   52.7% ROI  +15.4% z +1.3 | train   +3.8% n17  | held  +17.9% n76  | up 3/5 | placebo 112/2000 | 21:+47 22:-44 23:+24 24:-3 25:+35
+        fighting, home                                           9-10   47.4% ROI   +7.1% z +0.3 | train   +nan% n0   | held   +7.1% n19  | up 2/3 | 23:-13 24:+12 25:+27
+        fighting, road                                          34-30   53.1% ROI  +14.9% z +1.1 | train   +1.8% n15  | held  +18.9% n49  | up 3/5 | placebo 193/2000 | 21:+55 22:-44 23:+40 24:-15 25:+35
+        fighting, neutral                                        6-4    60.0% ROI  +34.3% z +1.0 | train  +18.5% n2   | held  +38.3% n8   | up 4/4 | 21:+19 23:+5 24:+42 25:+57
+        fighting, +100..+150                                    48-43   52.7% ROI  +15.0% z +1.3 | train   +3.8% n17  | held  +17.6% n74  | up 3/5 | placebo 97/2000 | 21:+47 22:-44 23:+28 24:-3 25:+29
+        fighting, +151..+350                                  only 2 (1-1, +30.0%)
+        fighting, read 4-5                                      28-28   50.0% ROI   +9.3% z +0.6 | train  -25.3% n9   | held  +16.0% n47  | up 4/5 | placebo 370/2000 | 21:+49 22:-62 23:+15 24:+1 25:+30
+        fighting, read 5+                                       21-16   56.8% ROI  +24.5% z +1.4 | train  +36.5% n8   | held  +21.2% n29  | up 4/5 | placebo 176/2000 | 21:+45 22:+10 23:+38 24:-8 25:+48
+        fighting, league game                                   35-30   53.8% ROI  +17.2% z +1.3 | train   -9.2% n12  | held  +23.2% n53  | up 3/5 | placebo 147/2000 | 21:+44 22:-62 23:+34 24:-8 25:+54
+        fighting, non-league                                    14-14   50.0% ROI  +11.0% z +0.5 | train  +34.8% n5   | held   +5.9% n23  | up 4/5 | 21:+51 22:+10 23:-11 24:+11 25:+15
+  price-free: the fighting dogs won 52.7% vs the no-vig 43.6% (93); own read 43.3%
+  the fighting dogs' own edge: min -0.118 median -0.055 max 0.027
+
+BY THE OWN READ'S EDGE (read 4+, not a trap)
+   own edge -9.00..-0.10                                      only 2 (0-2, -100.0%)
+   own edge -0.10..-0.06                                        33-24   57.9% ROI  +30.2% z +2.0 | train  +14.6% n32  | held  +50.1% n25  | up 4/6 | placebo 26/2000 | 20:-7 21:+39 22:-23 23:+45 24:+42 25:+118
+   own edge -0.06..-0.03                                        83-87   48.8% ROI   +7.7% z +0.9 | train   +9.5% n122 | held   +3.3% n48  | up 5/8 | placebo 159/2000 | 18:+12 19:-9 20:+11 21:+26 22:+3 23:-5 24:-9 25:+31
+   own edge -0.03..+0.00                                        81-85   48.8% ROI   +4.3% z +0.5 | train   +0.4% n137 | held  +22.8% n29  | up 5/8 | placebo 351/2000 | 18:-5 19:+1 20:-5 21:-9 22:+52 23:+14 24:+19 25:+32
+   own edge +0.00..+9.00                                        15-9    62.5% ROI  +33.1% z +1.6 | train  +52.7% n7   | held  +25.1% n17  | up 5/6 | 20:+102 21:+122 22:+29 23:-30 24:+114 25:+6
+
+THE 'FIGHTING' DOGS APART (read 4+, not a trap): the own read 3+ points under what the price needs, or the money ran from it
+   fighting by the OWN READ (3+ points under the price)         19-17   52.8% ROI  +15.2% z +0.8 | train   +3.8% n17  | held  +25.5% n19  | up 3/5 | placebo 298/2000 | 21:+47 22:-44 23:+44 24:-14 25:+11
+   fighting by the money only (own read inside 3)               30-27   52.6% ROI  +15.4% z +1.1 | train   +nan% n0   | held  +15.4% n57  | up 2/3 | placebo 229/2000 | 23:+10 24:-1 25:+38
+     own-read fighters, own read within 2 points of the NO-VIG market   18-13   58.1% ROI  +26.2% z +1.4 | train  +10.2% n16  | held  +43.2% n15  | up 4/5 | placebo 141/2000 | 21:+47 22:-36 23:+36 24:+44 25:+122
+     own-read fighters, own read 2+ under the no-vig market      1-4    20.0% ROI  -52.8% z -1.3 | train -100.0% n1   | held  -41.0% n4   | up 1/4 | 22:-100 23:+136 24:-100 25:-100
+
+THE TRAPS APART (read 4+)
+   trap, home                                                    9-11   45.0% ROI  +41.2% z +1.2 | train  +16.9% n18  | held +259.0% n2   | up 4/7 | 18:+97 19:+75 20:-42 21:-5 22:-100 23:+330 25:+188
+   trap, road                                                   37-41   47.4% ROI  +29.6% z +1.9 | train  +31.0% n42  | held  +27.9% n36  | up 6/8 | placebo 23/2000 | 18:+22 19:-13 20:+3 21:+27 22:+73 23:+40 24:+65 25:-20
+   trap, neutral                                                 8-20   28.6% ROI   +1.9% z +0.1 | train  +27.2% n20  | held  -61.3% n8   | up 2/8 | 18:-39 19:-100 20:-100 21:+162 22:+202 23:-38 24:-100 25:-100
+   trap, +100..+150                                             14-12   53.8% ROI  +31.4% z +1.3 | train  +37.8% n16  | held  +21.2% n10  | up 4/8 | 18:+63 19:-100 20:-20 21:+85 22:+84 23:+73 24:-100 25:-100
+   trap, +151..+250                                             33-48   40.7% ROI  +18.1% z +1.1 | train  +24.0% n51  | held   +8.2% n30  | up 5/8 | placebo 100/2000 | 18:+6 19:+52 20:-29 21:+41 22:+61 23:-13 24:+61 25:-3
+   trap, +251..+350                                              7-12   36.8% ROI  +47.2% z +1.1 | train  +24.8% n13  | held  +95.8% n6   | up 3/5 | 18:-8 21:+57 22:-100 23:+104 24:+80
+   trap, read 4-5                                               32-47   40.5% ROI  +15.3% z +1.0 | train   +8.7% n49  | held  +26.1% n30  | up 4/8 | placebo 136/2000 | 18:-16 19:-48 20:-29 21:+22 22:+93 23:+20 24:+105 25:-12
+   trap, read 5+                                                22-25   46.8% ROI  +42.0% z +1.8 | train  +55.5% n31  | held  +15.7% n16  | up 5/8 | placebo 15/2000 | 18:+37 19:+250 20:-20 21:+101 22:+2 23:+64 24:-36 25:-28
+   trap and not fighting                                        15-22   40.5% ROI  +18.8% z +0.8 | train  +18.7% n35  | held  +21.0% n2   | up 4/7 | placebo 233/2000 | 18:+12 19:+30 20:-3 21:+80 22:-100 23:+142 25:-100
+   EVERY trap dog (any read, both 4+ games)                   3030-7475 28.8% ROI   -9.5% z -6.7 | train  -10.7% n6235| held   -7.7% n4270| up 1/8 | placebo 1999/2000 | 18:-12 19:-10 20:+0 21:-18 22:-11 23:-9 24:-11 25:-4
+   EVERY non-trap dog (any read, both 4+ games)               3085-4022 43.4% ROI   -2.6% z -1.9 | train   -2.5% n4347| held   -2.7% n2760| up 3/8 | placebo 1/2000 | 18:+1 19:-3 20:-2 21:+0 22:-8 23:-4 24:-4 25:+1
+  price-free: the read-4+ traps won 42.9% vs the no-vig 33.5% (126)
+
+THE SLOT (the best two a night, 1u / 2u at a read of 6+) WITH AND WITHOUT THE TWO RULES
+   today: never a trap, never fighting                         146-145  50.2% ROI   +9.3% z +1.4 | train   +6.7% n247 | held  +23.5% n44  | up 5/8 | +44.3u on 347u (+12.8%) | placebo 40/2000 | 18:-0 19:-6 20:+8 21:+12 22:+29 23:-11 24:+60 25:+26
+   fighting allowed (trap still out)                           191-182  51.2% ROI  +11.7% z +2.1 | train   +7.8% n261 | held  +20.9% n112 | up 6/8 | +67.5u on 453u (+14.9%) | placebo 8/2000 | 18:-0 19:-6 20:+8 21:+20 22:+20 23:+14 24:+21 25:+30
+        the plays it adds                                       48-40   54.5% ROI  +19.5% z +1.7 | train  +17.6% n15  | held  +19.9% n73  | up 3/5 | +23.8u on 112u (+21.2%) | placebo 51/2000 | 21:+47 22:-26 23:+30 24:-3 25:+35
+   traps allowed (fighting still out)                          156-159  49.5% ROI  +10.7% z +1.7 | train   +8.5% n269 | held  +23.4% n46  | up 6/8 | +56.2u on 385u (+14.6%) | placebo 17/2000 | 18:+3 19:-8 20:+9 21:+24 22:+21 23:-2 24:+60 25:+16
+        the plays it adds                                       12-21   36.4% ROI   +6.5% z +0.3 | train   +5.5% n31  | held  +21.0% n2   | up 3/7 | +6.5u on 48u (+13.6%) | placebo 535/2000 | 18:-10 19:-100 20:+45 21:+80 22:-100 23:+142 25:-100
+   both allowed - the 11/3 study's own rule                    227-237  48.9% ROI  +13.5% z +2.4 | train   +9.6% n313 | held  +21.6% n151 | up 7/8 | +100.4u on 574u (+17.5%) | placebo 0/2000 | 18:+3 19:-8 20:+6 21:+23 22:+26 23:+22 24:+25 25:+18
+        the plays it adds                                       91-105  46.4% ROI  +17.9% z +1.9 | train  +14.8% n83  | held  +20.2% n113 | up 5/8 | +53.5u on 252u (+21.2%) | placebo 8/2000 | 18:-10 19:-30 20:-19 21:+43 22:+19 23:+33 24:+3 25:+18
+
+cells read: 39
