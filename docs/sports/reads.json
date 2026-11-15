@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T22:32Z",
+ "updated": "2026-11-15T22:41Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -821,97 +821,30 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920124",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Montana St",
-    "p": 0.656,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T23:00Z",
-   "away": "Cal Poly",
-   "home": "Montana St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Montana St",
-    "opp": "Cal Poly",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.728,
-    "win_p": 0.728,
-    "reasons": [
-     "altitude edge"
-    ]
-   }
-  },
-  {
    "id": "nba:401909990",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Knicks",
-    "p": 0.544,
-    "tie": 0.036,
-    "name": "1st half"
-   },
    "sport": "NBA",
    "season": "regular season",
    "start": "2026-11-15T23:00Z",
    "away": "Knicks",
    "home": "Raptors",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Knicks",
-    "opp": "Raptors",
+    "team": "Raptors",
+    "opp": "Knicks",
     "market": "ml",
     "line": null,
-    "odds": -157,
-    "p": 0.596,
-    "win_p": 0.596,
+    "odds": 160,
+    "p": 0.364,
+    "win_p": 0.364,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909989",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Celtics",
-    "p": 0.74,
-    "tie": 0.029,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-15T23:00Z",
-   "away": "Mavericks",
-   "home": "Celtics",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Celtics",
-    "opp": "Mavericks",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -116,
-    "p": 0.503,
-    "win_p": 0.85,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "sharp money moving this way"
-    ]
+     "the NBA dog score backs it: +0.5 (our read -0.5 points on the price, every NBA dog study weighed)"
+    ],
+    "result": null
    }
   },
   {
@@ -1387,9 +1320,9 @@
     "team": "Richmond",
     "opp": "Virginia Tech",
     "market": "spread",
-    "line": 14.5,
-    "odds": -118,
-    "p": 0.508,
+    "line": 13.5,
+    "odds": -105,
+    "p": 0.507,
     "win_p": 0.092,
     "reasons": []
    }
