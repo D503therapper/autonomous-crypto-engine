@@ -23567,6 +23567,21 @@ def test_owner_1115_a_play_posted_on_its_game_day_never_sits_under_we_got_in_ear
         se.ON = saved
 
 
+def test_owner_1115_a_slow_saturday_check_never_trips_the_watchdog_and_the_grader_runs():
+    """11/15 (the owner: "Value play needs graded" - the Cavaliers / Mavericks over sat ungraded): on a 25-game Saturday
+    night one live check took 60-90s and the next-watch queue call ran on the SAME watchdog clock, so the 90s watchdog
+    fired every ~3 minutes, the watch restarted (and the health check cancelled the 'frozen' runs), the grader never ran
+    and the board sat stale for 3+ hours. Each step gets its own clock and the limit is 120s."""
+    import sports_live as sl
+    assert 120 <= sl.WATCHDOG_S <= 120
+    src = open(sl.__file__).read()
+    lp = src[src.index("def loop("):]
+    q = lp.index("queued = queue_next()")
+    assert "BEAT[0] = time.time()" in lp[q:q + 200]
+    r = lp.index("            run()\n")
+    assert "BEAT[0] = time.time()" in lp[r - 200:r]
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

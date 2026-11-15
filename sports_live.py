@@ -69,7 +69,10 @@ LINE_MAX_AGE_S = 60           # a live price the book last touched 60+ seconds a
                               # cache): no new play, no alert; one that's up shows "line paused", then comes down
 MOVE_TOL = 0.03               # the price may lag the score a bit, never go the other way (against_the_score)
 HEARTBEAT_S = 15              # live.json goes out at least this often (the page drops a play not re-checked in 45s)
-WATCHDOG_S = 90               # one check stuck this long (a feed or git call hung): the watch restarts itself
+WATCHDOG_S = 120              # one check stuck this long (a feed or git call hung): the watch restarts itself
+#   (11/15: was 90 - a 25-game Saturday night check takes 60-90s on its own, so with the next-watch queue on the same
+#   clock the watch "hung" every 3 minutes, restarted, never reached the grader, and the board sat stale 3+ hours;
+#   each step has its own clock now. The page still drops a price not re-checked in PLAY_FRESH_S - never a frozen price)
 # 10/1 LIVE CHECK (every line score 2018-26, the live curve at each period's end vs what happened; learned on 2018-23,
 # checked on 2024-26): the curve is right in the NFL / NBA / college hoops; a few spots run high, the same way in both:
 # MLB trailing pregame favorites (said 38-39%, won 36%), college football tied favorites (57% / 51%) and trailing
@@ -2395,6 +2398,7 @@ def loop(minutes, every_s=1):
             BEAT[0] = time.time()
         if any_live_soon(games, STAY_MIN) and not queued:       # the next watch lines up behind this one
             queued = queue_next()
+            BEAT[0] = time.time()                                # (11/15: the queue call gets its own clock)
         if not any_live_soon(games, STAY_MIN):
             idle_since = idle_since or time.time()
             if (not started or time.time() - idle_since > 5 * 60) and time.time() >= regrade_until:   # nothing on (and
@@ -2404,6 +2408,7 @@ def loop(minutes, every_s=1):
         else:
             idle_since = None
         started = True
+        BEAT[0] = time.time()                                    # (11/15: the live check gets its own clock)
         try:
             run()
         except Exception as e:                                      # noqa: BLE001 - keep watching, and say why
