@@ -1,38 +1,6 @@
 {
- "updated": "2026-11-15T14:03Z",
+ "updated": "2026-11-15T14:28Z",
  "games": [
-  {
-   "id": "nfl:401873053",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.514,
-    "tie": 0.039,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-11-15T14:30Z",
-   "away": "Patriots",
-   "home": "Lions",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Lions",
-    "opp": "Patriots",
-    "market": "ml",
-    "line": null,
-    "odds": -148,
-    "p": 0.55,
-    "win_p": 0.55,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team",
-     "revenge game"
-    ]
-   }
-  },
   {
    "id": "ncaab:401924858",
    "league": "ncaab",
@@ -185,7 +153,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Boston U",
-    "p": 0.548,
+    "p": 0.56,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -201,11 +169,12 @@
     "opp": "Dartmouth",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -162,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -246,7 +215,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "American",
-    "p": 0.482,
+    "p": 0.487,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -262,9 +231,9 @@
     "opp": "Harvard",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.505,
-    "win_p": 0.505,
+    "odds": -115,
+    "p": 0.512,
+    "win_p": 0.512,
     "reasons": [
      "hotter recent form",
      "better rested"
@@ -323,13 +292,13 @@
     "team": "Memphis",
     "opp": "Louisville",
     "market": "spread",
-    "line": 8.5,
-    "odds": -108,
-    "p": 0.502,
+    "line": 9.5,
+    "odds": -115,
+    "p": 0.503,
     "win_p": 0.222,
     "reasons": [
      "hotter recent form",
-     "Louisville are laying 8.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "Louisville are laying 9.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -383,12 +352,10 @@
     "opp": "Georgia St",
     "market": "spread",
     "line": 12.5,
-    "odds": -102,
+    "odds": -108,
     "p": 0.506,
-    "win_p": 0.143,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "win_p": 0.131,
+    "reasons": []
    }
   },
   {
@@ -640,7 +607,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Charleston",
-    "p": 0.871,
+    "p": 0.864,
     "tie": 0.022,
     "name": "1st half"
    },
@@ -655,10 +622,10 @@
     "team": "SC State",
     "opp": "Charleston",
     "market": "spread",
-    "line": 17.5,
-    "odds": -108,
-    "p": 0.511,
-    "win_p": 0.061,
+    "line": 18.5,
+    "odds": -110,
+    "p": 0.512,
+    "win_p": 0.065,
     "reasons": []
    }
   },
@@ -985,9 +952,9 @@
     "team": "Chicago St",
     "opp": "LMU",
     "market": "spread",
-    "line": 17.5,
-    "odds": -110,
-    "p": 0.511,
+    "line": 18.5,
+    "odds": -112,
+    "p": 0.512,
     "win_p": 0.064,
     "reasons": [
      "hotter recent form"
@@ -1000,8 +967,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Seattle U",
-    "p": 0.848,
-    "tie": 0.024,
+    "p": 0.843,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1015,10 +982,10 @@
     "team": "Idaho St",
     "opp": "Seattle U",
     "market": "spread",
-    "line": 16.5,
-    "odds": -115,
-    "p": 0.51,
-    "win_p": 0.078,
+    "line": 15.5,
+    "odds": -105,
+    "p": 0.509,
+    "win_p": 0.082,
     "reasons": [
      "better rested"
     ]
@@ -1076,7 +1043,7 @@
     "opp": "James Madison",
     "market": "spread",
     "line": 15.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.509,
     "win_p": 0.078,
     "reasons": []
@@ -1088,7 +1055,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Diego St",
-    "p": 0.8,
+    "p": 0.804,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1103,10 +1070,10 @@
     "team": "New Mexico St",
     "opp": "San Diego St",
     "market": "spread",
-    "line": 13.5,
-    "odds": -120,
-    "p": 0.507,
-    "win_p": 0.12,
+    "line": 12.5,
+    "odds": -110,
+    "p": 0.506,
+    "win_p": 0.116,
     "reasons": []
    }
   },
@@ -1252,9 +1219,9 @@
     "team": "New Haven",
     "opp": "Penn State",
     "market": "spread",
-    "line": 24.5,
-    "odds": -110,
-    "p": 0.518,
+    "line": 23.5,
+    "odds": -105,
+    "p": 0.517,
     "win_p": 0.023,
     "reasons": []
    }
@@ -1310,9 +1277,9 @@
     "team": "Pepperdine",
     "opp": "Oregon",
     "market": "spread",
-    "line": 13.5,
-    "odds": -118,
-    "p": 0.507,
+    "line": 12.5,
+    "odds": -102,
+    "p": 0.506,
     "win_p": 0.127,
     "reasons": [
      "sharp money moving this way"
@@ -1746,8 +1713,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "San Jos\u00e9 St",
-    "p": 0.784,
-    "tie": 0.031,
+    "p": 0.795,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1761,10 +1728,10 @@
     "team": "Alabama St",
     "opp": "San Jos\u00e9 St",
     "market": "spread",
-    "line": 12.5,
-    "odds": -102,
-    "p": 0.506,
-    "win_p": 0.135,
+    "line": 13.5,
+    "odds": -118,
+    "p": 0.507,
+    "win_p": 0.125,
     "reasons": [
      "hotter recent form"
     ]
@@ -1855,9 +1822,9 @@
     "opp": "Kings",
     "market": "spread",
     "line": -10.5,
-    "odds": -112,
+    "odds": -110,
     "p": 0.501,
-    "win_p": 0.791,
+    "win_p": 0.792,
     "reasons": [
      "the stronger team"
     ]
