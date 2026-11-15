@@ -1414,10 +1414,15 @@
    "gap": 0.0488,
    "start": "2026-11-14T20:30Z",
    "posted": "2026-11-11T19:45Z",
-   "result": null,
+   "result": "lost",
    "out_at_post": [],
    "units": 1.5,
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-11-14T23:56Z",
+   "score": "GA Southern 34 @ Georgia St 17",
+   "close": 185,
+   "close_opp": -225,
+   "clv": -1.9
   },
   {
    "game_id": "ncaab:401924921",
@@ -1447,8 +1452,46 @@
    ],
    "why": "\u26f0\ufe0f Denver's floor sits about 5,300 feet up, and college overs 4,600+ feet up are 499-342 since 2018.",
    "posted": "2026-11-13T21:55Z",
+   "result": "lost",
+   "units": 1.0,
+   "graded_at": "2026-11-14T21:49Z",
+   "score": "Wyoming 76 @ Denver 53",
+   "close": 149.5,
+   "clv": 1.0
+  },
+  {
+   "game_id": "nba:401909981",
+   "league": "nba",
+   "market": "total",
+   "side": "over",
+   "line": 227.5,
+   "team": "Over 227.5",
+   "opp": "Mavericks @ Cavaliers",
+   "odds": -110,
+   "start": "2026-11-15T00:30Z",
+   "spot": "nba_out_over",
+   "spots": [
+    "nba_out_over"
+   ],
+   "fades": [],
+   "read": 228.9,
+   "good_to": 228.5,
+   "out": [
+    "Donovan Mitchell",
+    "Evan Mobley",
+    "James Harden"
+   ],
+   "facts": [
+    "Cavaliers without Donovan Mitchell (33 minutes a night) and James Harden (33 minutes a night) and Evan Mobley (32 minutes a night)",
+    "Cavaliers should score about 114 against Mavericks's defense and Mavericks about 114 against Cavaliers's - 229 with everybody, the number's 227.5",
+    "Cavaliers lost to Heat 133-121 last time out (254 points)",
+    "NBA overs with three or more of the six top-minutes guys out are 267-182 since 2018",
+    "Good to 228.5 - don't take it past that, or worse than -115"
+   ],
+   "why": "\ud83c\udfc0 Three of the six guys who play the most in this one are out (Donovan Mitchell, Evan Mobley, James Harden), and NBA overs are 267-182 since 2018 when that many of the main guys sit.",
+   "posted": "2026-11-15T00:18Z",
    "result": null,
-   "units": 1.0
+   "units": 0.5
   }
  ],
  "first_seen": {
@@ -2696,5 +2739,14 @@
    "pulled_why": "11/12 full sweep (the owner, 11/12: \"If we need to get rid of some early plays for Saturday ... that's what we need to do\"; 10/17: an early play a Fable audit says should come off gets pulled without asking): posted on the BLOWOUT spot, paused 11/11 for games from 11/12, and the engine's main read fights it (35.1% vs the 37.0% +170 needs - no early play under the 11/11 one-voice rule). The price ran away, +170 -> +180."
   }
  ],
- "nba_out_seen": {}
+ "nba_out_seen": {
+  "nba:401909981": [
+   "2026-11-14T23:07Z",
+   [
+    "Donovan Mitchell",
+    "Evan Mobley",
+    "James Harden"
+   ]
+  ]
+ }
 }

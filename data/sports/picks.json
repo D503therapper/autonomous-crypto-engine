@@ -42871,6 +42871,7 @@
      "game:nonconf"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_bad": [],
     "dog_ctx": {
      "cw5": 0,
@@ -42920,6 +42921,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "42,34",
+     "h": "46,34"
+    },
     "form_state": [
      -34.0,
      -1,
@@ -42984,7 +42989,7 @@
      "the dog read is 4 (our efficiency ratings have them the better team on this floor, the study angles add 2 points) - dogs reading 4+ beat their price every season 2018-25"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
     "roster_cut": [
@@ -42993,7 +42998,9 @@
     ],
     "roster_new": 0.244,
     "roster_tin": 0.588,
+    "score": "Northern Iowa 76 @ Oakland 80",
     "season_games": null,
+    "settled": "2026-11-15T00:07Z",
     "side": "away",
     "start": "2026-11-14T22:00Z",
     "stype": "2",
@@ -43020,12 +43027,14 @@
    "slot": "dog"
   },
   "p_hit": 0.4735,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-14T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T00:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": 160,
@@ -43147,16 +43156,15 @@
     "hot_key": false,
     "hurt": [],
     "injury_alerts": [
-     "Giannis Antetokounmpo (Heat F) is now day-to-day \u2014 our pick: Heat ML"
+     "Giannis Antetokounmpo (Heat F) is now day-to-day \u2014 our pick: Heat ML",
+     "Giannis Antetokounmpo (Heat F) is off the injury report \u2014 our pick: Heat ML",
+     "Klay Thompson (Heat G) is off the injury report \u2014 our pick: Heat ML"
     ],
     "intl": false,
     "is_lean": false,
     "key_edge": null,
     "key_out_me": false,
-    "key_seen": {
-     "Giannis Antetokounmpo (Heat F)": "Day-To-Day",
-     "Klay Thompson (Heat G)": "Day-To-Day"
-    },
+    "key_seen": {},
     "league": "nba",
     "line": null,
     "lost_last": false,

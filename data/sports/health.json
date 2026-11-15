@@ -1,12 +1,12 @@
 {
- "at": "2026-11-14T19:43Z",
+ "at": "2026-11-14T23:25Z",
  "fixes": [],
  "problems": [
   "live tennis points check failed: HTTP Error 403: rate limit exceeded",
   "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (197s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,14 +14,59 @@
   "no failed workflows",
   "alerts: engine key works",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
+  "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran 16 min ago",
+  "engine ran 17 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-14T23:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-11-14T23:07Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T23:05Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T23:03Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-14T21:31Z",
+   "fixes": [
+    "live watch 43639739616 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-14T21:30Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-11-14T21:14Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-14T19:43Z",
    "fixes": [],
@@ -427,46 +472,6 @@
    "at": "2026-11-13T04:08Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-13T04:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T04:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T03:54Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T03:44Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T02:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T02:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-13T01:59Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab:1028837336 HTTP 404"
-   ]
   }
  ]
 }
