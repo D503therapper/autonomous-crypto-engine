@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T11:35Z",
+ "updated": "2026-11-15T11:42Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.514,
+    "p": 0.51,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -23,9 +23,9 @@
     "opp": "Patriots",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.55,
-    "win_p": 0.55,
+    "odds": -142,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
@@ -1028,7 +1028,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.543,
+    "p": 0.535,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1044,9 +1044,9 @@
     "opp": "Suns",
     "market": "ml",
     "line": null,
-    "odds": -156,
-    "p": 0.585,
-    "win_p": 0.585,
+    "odds": -148,
+    "p": 0.573,
+    "win_p": 0.573,
     "reasons": [
      "the stronger team"
     ]
@@ -1142,7 +1142,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.667,
+    "p": 0.656,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1151,17 +1151,20 @@
    "start": "2026-11-15T21:05Z",
    "away": "Seahawks",
    "home": "Raiders",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Raiders",
-    "opp": "Seahawks",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -105,
-    "p": 0.511,
-    "win_p": 0.238,
-    "reasons": []
+    "team": "Seahawks",
+    "opp": "Raiders",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.738,
+    "win_p": 0.738,
+    "reasons": [
+     "the stronger team",
+     "revenge game"
+    ]
    }
   },
   {
