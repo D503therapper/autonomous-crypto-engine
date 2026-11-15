@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T06:49Z",
+ "updated": "2026-11-15T07:00Z",
  "games": [
   {
    "id": "ncaab:401924720",
@@ -3197,6 +3197,34 @@
    }
   },
   {
+   "id": "ncaab:401924858",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Quinnipiac",
+    "p": 0.567,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T17:00Z",
+   "away": "Quinnipiac",
+   "home": "C Connecticut",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Quinnipiac",
+    "opp": "C Connecticut",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.62,
+    "win_p": 0.62,
+    "reasons": []
+   }
+  },
+  {
    "id": "nfl:401873054",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -3382,7 +3410,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "American",
-    "p": 0.479,
+    "p": 0.482,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3398,9 +3426,9 @@
     "opp": "Harvard",
     "market": "ml",
     "line": null,
-    "odds": -110,
-    "p": 0.501,
-    "win_p": 0.501,
+    "odds": -112,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "hotter recent form",
      "better rested"
@@ -3475,7 +3503,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Iowa State",
-    "p": 0.929,
+    "p": 0.93,
     "tie": 0.014,
     "name": "1st half"
    },
@@ -3531,7 +3559,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oklahoma",
-    "p": 0.499,
+    "p": 0.523,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -3548,8 +3576,8 @@
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.519,
-    "win_p": 0.519,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately"
@@ -3617,40 +3645,12 @@
    }
   },
   {
-   "id": "ncaab:401924858",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Quinnipiac",
-    "p": 0.567,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-15T18:00Z",
-   "away": "Quinnipiac",
-   "home": "C Connecticut",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Quinnipiac",
-    "opp": "C Connecticut",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.62,
-    "win_p": 0.62,
-    "reasons": []
-   }
-  },
-  {
    "id": "nfl:401873056",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.598,
+    "p": 0.599,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -3792,7 +3792,7 @@
     "line": 7.5,
     "odds": -110,
     "p": 0.501,
-    "win_p": 0.236,
+    "win_p": 0.237,
     "reasons": []
    }
   },
@@ -3972,6 +3972,36 @@
     "odds": -225,
     "p": 0.675,
     "win_p": 0.675,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401921168",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Alabama A&M",
+    "p": 0.565,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-15T20:00Z",
+   "away": "Cleveland St",
+   "home": "Alabama A&M",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Alabama A&M",
+    "opp": "Cleveland St",
+    "market": "ml",
+    "line": null,
+    "odds": -166,
+    "p": 0.614,
+    "win_p": 0.614,
     "reasons": [
      "the stronger team"
     ]
@@ -4251,7 +4281,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.662,
+    "p": 0.664,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -4260,20 +4290,17 @@
    "start": "2026-11-15T21:05Z",
    "away": "Seahawks",
    "home": "Raiders",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Seahawks",
-    "opp": "Raiders",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.746,
-    "win_p": 0.746,
-    "reasons": [
-     "the stronger team",
-     "revenge game"
-    ]
+    "team": "Raiders",
+    "opp": "Seahawks",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -108,
+    "p": 0.51,
+    "win_p": 0.242,
+    "reasons": []
    }
   },
   {
@@ -4549,7 +4576,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.727,
+    "p": 0.725,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -4567,7 +4594,7 @@
     "line": -13.5,
     "odds": -111,
     "p": 0.503,
-    "win_p": 0.835,
+    "win_p": 0.833,
     "reasons": [
      "the stronger team",
      "better rested",
@@ -4581,7 +4608,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.685,
+    "p": 0.68,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -4599,10 +4626,9 @@
     "line": -9.5,
     "odds": -110,
     "p": 0.501,
-    "win_p": 0.782,
+    "win_p": 0.776,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -4642,7 +4668,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.393,
+    "p": 0.394,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -4659,7 +4685,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.629,
+    "p": 0.628,
     "win_p": 0.409,
     "reasons": []
    }
@@ -4714,9 +4740,9 @@
     "opp": "Ducks",
     "market": "spread",
     "line": 1.5,
-    "odds": -175,
+    "odds": -185,
     "p": 0.639,
-    "win_p": 0.421,
+    "win_p": 0.422,
     "reasons": []
    }
   },
@@ -4878,7 +4904,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.519,
+    "p": 0.52,
     "tie": 0.274,
     "name": "1st period"
    },
