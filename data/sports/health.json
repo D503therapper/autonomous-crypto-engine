@@ -1,9 +1,9 @@
 {
- "at": "2026-11-15T09:52Z",
+ "at": "2026-11-15T11:23Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (128s)",
+  "live watcher fresh (142s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,13 +13,18 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 53 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-15T11:23Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-15T09:52Z",
    "fixes": [],
@@ -448,17 +453,6 @@
    "at": "2026-11-13T15:56Z",
    "fixes": [],
    "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-13T15:54Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Mandlik vs Samson: no points for 2605s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "studies last ran 10h ago - restarted"
    ]
