@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T23:52Z",
+ "updated": "2026-11-15T23:54Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -670,7 +670,7 @@
    "home": "Cardinals",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Cardinals",
@@ -683,7 +683,7 @@
     "reasons": [
      "opponent missing key players: WR Puka Nacua (their read -1)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1246,8 +1246,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTEP",
-    "p": 0.882,
-    "tie": 0.02,
+    "p": 0.877,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Basketball",
