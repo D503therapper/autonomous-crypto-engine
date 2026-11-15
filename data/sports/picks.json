@@ -43950,6 +43950,7 @@
      "them:dome_out"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "depth_gap": -2,
     "dog_ctx": {
      "cw5": 0,
@@ -43999,6 +44000,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,7,3,10",
+     "h": "0,0,10,0"
+    },
     "form_state": [
      18.0,
      2,
@@ -44072,10 +44077,12 @@
      "opponent the more banged-up side: 3 regulars out to 1 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Vikings 30 @ Packers 10",
     "season_games": null,
+    "settled": "2026-11-15T20:59Z",
     "side": "home",
     "start": "2026-11-15T18:00Z",
     "stype": "2",
@@ -44094,12 +44101,14 @@
    }
   ],
   "p_hit": 0.5888,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T20:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 1.0
  },
  {
   "american": 160,
