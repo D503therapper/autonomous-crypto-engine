@@ -1,42 +1,3 @@
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 5 rows - not used
-   ncaaf injury page: 156 stale rows dropped (a note dated before a game the player played since)
-   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
-   ncaab web injuries: only 5 rows - not used
-   ncaab injury page: 6 stale rows dropped (a note dated before a game the player played since)
-   ncaab injury page: 365 schools (107 players), 365 matched, 0 unmatched
-tennis sync: 74037 matches stored, 18 calls, 0 failed
-tennis study ATP: 26320 rated matches, acc 0.643 (surface ratings alone 0.6415), loss 0.6306 vs 0.6319, own weights [-0.004, 0.826, 0.073, 0.157, 0.42, 0.05, 0.049]
-tennis study ATP life factors vs current loss 0.6306: experience 0.6301 (+0.49 mnats, z 0.56), age 0.6289 (+1.75 mnats, z 1.24), young_vs_aging 0.6303 (+0.29 mnats, z 0.7), last_match 0.628 (+2.62 mnats, z 1.83), streaks 0.6313 (-0.63 mnats, z -0.62), first_set 0.63 (+0.66 mnats, z 1.0), injury 0.6315 (-0.88 mnats, z -1.38), travel 0.6306 (+0.02 mnats, z 0.44) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis study WTA: 30882 rated matches, acc 0.646 (surface ratings alone 0.6475), loss 0.6229 vs 0.6233, own weights [0.005, 0.904, -0.001, -0.072, 0.297, 0.024, -0.197]
-tennis study WTA life factors vs current loss 0.6229: experience 0.6198 (+3.10 mnats, z 1.84), age 0.6219 (+0.99 mnats, z 1.28), young_vs_aging 0.6226 (+0.28 mnats, z 1.75), last_match 0.6237 (-0.80 mnats, z -0.78), streaks 0.6228 (+0.02 mnats, z 0.05), first_set 0.6226 (+0.30 mnats, z 0.63), injury 0.6222 (+0.61 mnats, z 1.05), travel 0.623 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 15:00 PT slot); bovada empty)
-tennis reads: 1 matches
-1H line log: 63 rows (2 with a 1st-half line) from 138 AN games
-source check (0.4s): plain requests answered by 42 of 46 sources - quiet: bovada, bovada_nfl, rotowire_ncaab, rotowire_ncaaf
-CARD CHECK (render) 2026-11-13: Predators 136: a lean's words on a unit play: 🧠 The Predators have won 6 straight. We like Predators - just not at this price.
-CARD CHECK (render) 2026-11-13: Predators 136: the same line twice on the card: 🧱 Juuse Saros is in for the Predators, and he been a brick wall — a 0.977 save % (2 goals on 86 shots) over hi
-CARD CHECK (render) 2026-11-13: Predators 136: the 🚑 chip's names again: 🚑 Out for Golden Knights: Noah Hanifin (D).
-CARD CHECK (render) 2026-11-13: Houston -110: a canned tail with no fact: ⚠️ Houston goes without Carmycah Glass (LB). That's the one thing that could burn us.
-CARD CHECK (render) 2026-11-13: Prairie View -110: the 🚑 chip's names again: 🚑 Vanderbilt is without G. Nesmith (G).
-CARD CHECK (render) 2026-11-13: Prairie View -110: a canned tail with no fact: ⚠️ Prairie View has dropped 2 straight. That's the one thing that could burn us.
-sync: 132880 games stored, 52 calls, 0 failed, 10s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 1 box scores added, 1 to fetch, 0 failed, 1s
-weather: 254 games got weather, 0 new stadiums located, 14s
-4th-down rates: 32 NFL teams
-news: 2 new drama tags
-goalies failed to load: HTTP Error 403: Forbidden
-nba rosters: 30 teams as of 2026-11-13, 0 failed, 0 moves
-settled 2026-11-13 lean: lost -100.00
-PICK AUDIT FLAG 2026-11-11: lean Sabres 110: the card names Brayden Point. as out - he's not on the injury report it was posted with
-beat the close: unit plays 34 of 110 better than the close, avg +0.2 pts
-tuned in 100s: mlb trust 4% acc 58.6%, nba trust 2% acc 70.2%, ncaab trust 4% acc 74.7%, ncaaf trust 0% acc 65.6%, nfl trust 22% acc 66.0%, nhl trust 2% acc 58.7%
-cover study: nba big favorites covered 50% of 3667 (adjust +0.01); ncaab big favorites covered 49% of 12836 (adjust -0.03); ncaaf big favorites covered 50% of 3692 (adjust +0.01); nfl big favorites covered 47% of 523 (adjust +0.00)
 comeback study: nfl 2338 games s=1.3 w=1.50 m=+0.0 loss 0.478->0.469; ncaaf 6459 games s=1.2 w=1.25 m=+0.0 loss 0.371->0.369; nba 10407 games s=1.7 w=1.75 m=+0.0 loss 0.507->0.472; mlb 19858 games s=0.9 w=0.75 m=+0.0 loss 0.455->0.455; nhl 10356 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 30361 games s=1.3 w=1.50 m=-0.1 loss 0.430->0.414
 halves study: nfl 2347 games: 1st half gets 51% of the edge (sd 10.25), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 6460 games: 1st half gets 60% of the edge (sd 11.83), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10407 games: 1st half gets 60% of the edge (sd 10.86), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 30361 games: 1st half gets 62% of the edge (sd 9.12), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20092 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10356 games: 1st period gets 28% of the edge (sd 1.3), 2nd 77%; 1st period leader wins 74%, tied 34%
 lines study: nhl 20712 team-games, loss 0.607->0.584; mlb 40186 team-games, loss 0.654->0.636
@@ -2995,6 +2956,45 @@ tennis odds: no new prices this run - the last prices stay (odds api: not due (p
 tennis reads: 3 matches
 1H line log: 46 rows (44 with a 1st-half line) from 79 AN games
 source check (3.0s): plain requests answered by 84 of 86 sources - quiet: rotowire_ncaab, rotowire_ncaaf
+CARD CHECK (render) 2026-11-15: Packers -142: the 🚑 chip's names again: 🚑 Vikings are without Kyler Murray (QB), Blake Cashman (LB), T.J. Hockenson (TE).
+CARD CHECK (render) 2026-11-15: Hornets -113: the 🚑 chip's names again: 🚑 Clippers are without Brandon Ingram (F), Yanic Konan Niederhauser (C), Bradley Beal (G), Jordan Miller (G).
+CARD CHECK (render) 2026-11-15: Cardinals -105: the 🚑 chip's names again: 🚑 Out for Rams: Puka Nacua (WR).
+sync: 132969 games stored, 52 calls, 0 failed, 11s
+odds history: 0 games got odds, 55 calls, 0 failed, 7s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 142 games got weather, 0 new stadiums located, 36s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 5 games on the page, 5 matched, 1 confirmed
+nba rosters: 30 teams as of 2026-11-15, 0 failed, 0 moves
+beat the close: unit plays 36 of 114 better than the close, avg +0.2 pts
+public splits: 115 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 181 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 181 stale rows dropped (a note dated before a game the player played since)
+   ncaaf injury page: 138 schools (588 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 6 stale rows dropped (a note dated before a game the player played since)
+   ncaab injury page: 365 schools (106 players), 365 matched, 0 unmatched
+   no units on Iowa State: missing C. Wiggins, K. Toure
+   no units on Louisville: missing D. Montgomery, G. Dynes
+   no units on Michigan: missing J. Hartman, L. Cosby, B. McCoy Jr.
+   no units on Missouri: missing J. Carey, A. Chronister, A. Boateng
+   no units on New Mexico St: missing S. Payne, G. Warren
+   no units on Wisconsin: missing L. Fenderson, J. Manchester
+   no units on Stars: missing Miro Heiskanen, Kyle Capobianco, Lian Bichsel
+tennis sync: 74072 matches stored, 18 calls, 0 failed
+tennis study ATP: 26322 rated matches, acc 0.6435 (surface ratings alone 0.642), loss 0.6303 vs 0.6315, own weights [-0.004, 0.826, 0.073, 0.157, 0.42, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6303: experience 0.6298 (+0.48 mnats, z 0.55), age 0.6286 (+1.65 mnats, z 1.17), young_vs_aging 0.63 (+0.29 mnats, z 0.71), last_match 0.6275 (+2.73 mnats, z 1.92), streaks 0.6309 (-0.63 mnats, z -0.62), first_set 0.6296 (+0.70 mnats, z 1.06), injury 0.6312 (-0.89 mnats, z -1.39), travel 0.6302 (+0.02 mnats, z 0.45) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis study WTA: 30885 rated matches, acc 0.646 (surface ratings alone 0.6475), loss 0.6228 vs 0.6232, own weights [0.005, 0.904, -0.001, -0.072, 0.297, 0.025, -0.197]
+tennis study WTA life factors vs current loss 0.6228: experience 0.6197 (+3.08 mnats, z 1.83), age 0.6218 (+0.99 mnats, z 1.27), young_vs_aging 0.6225 (+0.30 mnats, z 1.87), last_match 0.6236 (-0.77 mnats, z -0.75), streaks 0.6228 (+0.01 mnats, z 0.03), first_set 0.6225 (+0.31 mnats, z 0.66), injury 0.6222 (+0.64 mnats, z 1.1), travel 0.6229 (-0.11 mnats, z -0.63) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis odds: no new prices this run - the last prices stay (odds api: not due (pulled since the 07:00 PT slot); bovada empty)
+tennis reads: 3 matches
+1H line log: 0 rows (0 with a 1st-half line) from 79 AN games
+source check (2.5s): plain requests answered by 84 of 86 sources - quiet: rotowire_ncaab, rotowire_ncaaf
 CARD CHECK (render) 2026-11-15: Packers -142: the 🚑 chip's names again: 🚑 Vikings are without Kyler Murray (QB), Blake Cashman (LB), T.J. Hockenson (TE).
 CARD CHECK (render) 2026-11-15: Hornets -113: the 🚑 chip's names again: 🚑 Clippers are without Brandon Ingram (F), Yanic Konan Niederhauser (C), Bradley Beal (G), Jordan Miller (G).
 CARD CHECK (render) 2026-11-15: Cardinals -105: the 🚑 chip's names again: 🚑 Out for Rams: Puka Nacua (WR).
