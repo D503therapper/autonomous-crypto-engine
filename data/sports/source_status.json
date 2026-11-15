@@ -2,55 +2,73 @@
  "rule": "plain requests only - no browser User-Agent, no Referer / Origin (the owner's no-disguise rule, 11/2)",
  "sources": {
   "actionnetwork_h1": {
-   "at": "2026-11-15T15:12Z",
+   "at": "2026-11-15T16:02Z",
    "how": "plain request",
    "n": 45,
    "ok": true
   },
   "actionnetwork_odds": {
-   "at": "2026-11-15T15:07Z",
+   "at": "2026-11-15T15:45Z",
    "how": "plain request (v2 scoreboard)",
-   "n": 1066,
+   "n": 1073,
    "ok": true
   },
   "actionnetwork_splits": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "how": "plain request",
    "n": 0,
    "ok": true
   },
   "betrivers": {
-   "at": "2026-11-15T15:12Z",
+   "at": "2026-11-15T16:02Z",
    "how": "plain request",
    "n": 9,
    "ok": true
   },
   "betrivers:pre:ncaaf": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 0,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397887": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027397888": {
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397889": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397890": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397898": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027397907": {
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027397912": {
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -68,25 +86,37 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397918": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397928": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027397929": {
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397930": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027397931": {
    "at": "2026-11-15T15:11Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027432398": {
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -109,8 +139,14 @@
    "n": 1,
    "ok": true
   },
+  "betrivers:pre:ncaaf:1027432406": {
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
   "betrivers:pre:ncaaf:1027432874": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -122,49 +158,55 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027432876": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
+   "err": null,
+   "n": 1,
+   "ok": true
+  },
+  "betrivers:pre:ncaaf:1027432878": {
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027432881": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507800": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507801": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507803": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507804": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507805": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507806": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -188,7 +230,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027507828": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -344,7 +386,7 @@
    "ok": true
   },
   "betrivers:pre:ncaaf:1027569735": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "err": null,
    "n": 1,
    "ok": true
@@ -404,40 +446,40 @@
    "ok": true
   },
   "betrivers_nfl": {
-   "at": "2026-11-15T15:12Z",
+   "at": "2026-11-15T16:02Z",
    "how": "plain request",
    "n": 25,
    "ok": true
   },
   "bovada": {
-   "at": "2026-11-15T15:12Z",
-   "how": "plain request - answered EMPTY (no events: refused or down)",
-   "n": 0,
-   "ok": false
+   "at": "2026-11-15T16:02Z",
+   "how": "plain request",
+   "n": 9,
+   "ok": true
   },
   "bovada_nfl": {
-   "at": "2026-11-15T15:12Z",
+   "at": "2026-11-15T16:02Z",
    "how": "plain request",
    "n": 13,
    "ok": true
   },
   "covers_ncaab": {
-   "at": "2026-11-15T08:06Z",
+   "at": "2026-11-15T16:00Z",
    "how": "plain request",
    "n": 365,
    "ok": true
   },
   "covers_ncaaf": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "how": "plain request",
    "n": 138,
    "ok": true
   },
   "dailyfaceoff": {
-   "at": "2026-11-15T15:11Z",
-   "err": "HTTP 403",
-   "how": "plain request - the goalies stay unknown (no weight)",
-   "ok": false
+   "at": "2026-11-15T15:46Z",
+   "how": "plain request",
+   "n": 5,
+   "ok": true
   },
   "drbob": {
    "at": "2026-11-15T13:54Z",
@@ -446,18 +488,18 @@
    "ok": true
   },
   "rotowire_ncaab": {
-   "at": "2026-11-15T08:06Z",
+   "at": "2026-11-15T16:00Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   },
   "rotowire_ncaaf": {
-   "at": "2026-11-15T15:11Z",
+   "at": "2026-11-15T16:00Z",
    "how": "plain request - under 20 rows, not used (the other college injury sources carry it)",
    "n": 5,
    "ok": false
   }
  },
  "ua": "D503-sports-engine/1.0 (personal picks dashboard)",
- "updated": "2026-11-15T15:12Z"
+ "updated": "2026-11-15T16:02Z"
 }
