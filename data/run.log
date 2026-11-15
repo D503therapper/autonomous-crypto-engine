@@ -20388,3 +20388,33 @@ DEX: $662.45 (-337.55) · Scammed: 11 (-$216.49)
 [2026-11-14 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-14 23:06 UTC] crypto/hold_btc  equity $390.47 (-21.9%) 1 open  market DOWN
    social heat top: BTC 45 (40/0/5), SOL 35 (32/0/3), HYPE 35 (35/0/0), NEAR 29 (29/0/0), ETH 27 (27/0/1)
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex re-screen: RAMBO@solana:KMifrkYm data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT GTR@solana liq $1,575,382 - top-10 holders 99%
+   dex screen: REJECT JEANPHIL@solana liq $215,893 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT PONS@base liq $0 - no price; liquidity $0 < $100,000; 24h volume $0 < $100,000
+   dex screen: REJECT XDP@base liq $1,664,214 - top-10 holders 93%
+   dex screen: REJECT SPCX@solana liq $2,944,427,916 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SPCX@solana liq $2,740,325,696 - top-10 holders 100%; lp holders unknown
+   dex screen: UNREACHABLE SPCX@solana liq $1,247,432,351 - goplus unreachable
+   dex screen: UNREACHABLE SPCX@solana liq $452,655,903 - goplus unreachable
+   scanner: FUL: +103.9% in 60 min on 4650.8x volume @ 0.00091425 spread 0.08%
+   take-off: FUL vetoed by pump guard: already +33% in 24h
+   dex screen: PASS JOB@solana liq $109,923
+   scanner: FUL: +86.4% in 60 min on 4798.4x volume @ 0.00083567 spread 1.03%
+   take-off: FUL vetoed by pump guard: blocked 23 more min
+   scanner: FUL: +52.8% in 60 min on 4835.7x volume @ 0.00068524 spread 0.42%
+   take-off: FUL vetoed by pump guard: blocked 19 more min
+   dex scanner: 2,509 pools (solana 1,826 / base 397 / ethereum 286), refresh cycle 103s (hot 99s), 3031 calls (108 feed, 429s 0, failed 0), 87,690 refreshed (17135 no pair), +72 added / -70 dropped (dead 63, stale 7, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT FLOAT@solana liq $300,188 - lp locked 0% < 95%
+[2026-11-15 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/social_heat equity $318.65 (-36.3%) 3 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-15 00:06 UTC] crypto/hold_btc  equity $392.91 (-21.4%) 1 open  market DOWN
+   social heat top: SOL 51 (37/0/14), BTC 40 (40/0/0), HYPE 35 (35/0/0), UNI 32 (32/0/0), XRP 27 (27/0/0)
