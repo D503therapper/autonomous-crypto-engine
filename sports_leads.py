@@ -575,6 +575,8 @@ def max_1116_tags(c, sports):
 
 
 FORENSICS_1116_FROM = "2026-11-16"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
+# (11/16, THE OWNER'S CALL: in football the thin Lock-grade favorite IS the Lock at ½u from the 11/16 games -
+#  sports.FB_THIN_LOCK_FROM; the "thin edge" tag below is now that Lock's own forward record, judge at 40.)
 FORENSICS_1116_NFL_TAG = "NFL Lock-grade favorite, not thin (the ½u Lock's judge)"   # Lock by its edge, tracked from the
 FORENSICS_1116_THIN_TAG = "football Lock-grade favorite, thin edge (the Lock rule turns it away)"   # 11/17 Pacific games.
 #   (1) the NFL favorite the board can make the Lock (56%+, the own read agrees, a real play, NOT a thin edge): 6-10

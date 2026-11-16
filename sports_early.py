@@ -63,8 +63,39 @@ def load(path=None):
         return {"picks": []}
 
 
+NEVER_PULL_AT = "2026-11-16T22:45"   # 📌 ONCE A PLAY IS POSTED, IT STAYS (the owner, 11/16, on the open Minnesota +114 2u:
+#   "don't pull Minnesota because we're not pulling plays anymore. Once a play is posted, it stays. Otherwise, we look
+#   like some clowns."). This replaces his 10/17 "an early play a Fable audit says should come off gets pulled without
+#   asking". No code path pulls an early play: a check may stop a play BEFORE it posts, a posted row's words may update
+#   (key_out, the card), the play itself - side, price, units - stays and is graded. The pulls made before this hour
+#   (UTC) stay pulled (the "pulled" list; repost_ok still reads it); a pull stamped later is ignored everywhere.
+
+
+def keep_posted(st, before):
+    """📌 The 11/16 rule's net at the save: every posted early play in `before` (the file as it stands) that `st` no
+    longer carries - and that was not pulled before NEVER_PULL_AT - goes back in, as it was. -> the rows put back."""
+    key = lambda p: (str(p.get("game_id")), p.get("market") or "ml", str(p.get("side")), p.get("posted"))   # noqa: E731
+    have = {key(p) for p in st.get("picks") or []}
+    old = {key(x) for x in (st.get("pulled") or []) + ((before or {}).get("pulled") or [])
+           if isinstance(x, dict) and str(x.get("pulled_at") or x.get("pulled") or "")[:16] < NEVER_PULL_AT}
+    back = [p for p in (before or {}).get("picks") or []
+            if isinstance(p, dict) and p.get("posted") and key(p) not in have and key(p) not in old]
+    if back:
+        st.setdefault("picks", []).extend(back)
+        st["picks"].sort(key=lambda p: (p.get("posted") or "", str(p.get("game_id"))))
+        for p in back:
+            print(f"📌 EARLY PLAY KEPT: {p.get('team')} {p.get('odds')} was missing from the save - once a play is "
+                  "posted, it stays (the owner, 11/16)", flush=True)
+    return back
+
+
 def save(st, path=None):
     path = path or PATH
+    try:                                                     # 📌 11/16: a posted play is never saved off the board
+        with open(path) as f:
+            keep_posted(st, json.load(f))
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
     with open(path + ".tmp", "w") as f:
         json.dump(st, f, indent=1)
     os.replace(path + ".tmp", path)
@@ -1150,6 +1181,25 @@ EXAM_FLAT_UNITS = 0.5                # e3_exam_paid.out): THE EXAM-SCAN EARLY DO
 #                                      2u). None = Kelly again.
 
 
+BYE_HALF_FROM = "2026-11-17T08:00"    # 🛌 THE ⏰ BYE SPOT IS ½u (the owner, 11/16: "Yes, add all that" - the 11/15 ten studies' S1):
+BYE_OLD_UNITS = 1.0                   # for plays POSTED from the 11/17 Pacific day (this stamp is midnight Pacific in UTC, the
+#   post stamps' clock). It was the one early spot at 1u, on the 10/1 odds-history study's "+29% NFL / +16% college";
+#   nflverse's closing moneylines 2006-26 say the NFL dog off its bye is an ordinary dog (-7.7% on 184 over 21 seasons -
+#   the board's own +3 for it came off 11/16, sports.NFL_BYE_DOG_OFF_FROM) and the paid history's bye rows (NFL +15.6% on
+#   52, college +6.0% on 186) earn no bigger size than the other spots. A size is bigger only where the bigger-size
+#   cell won more in both halves - so ½u like every other spot. A posted play keeps the units it posted at (the stamp
+#   on the row; an older row with no stamp reads 1u). None = 1u again.
+
+
+def bye_units(p, now=None):
+    """🛌 The bye spot's size by when the play posted (post() stamps the time before the size; a row with no post stamp
+    is a candidate - today's size, or the size at `now` when one is handed in)."""
+    at = p.get("posted") or (now.strftime("%Y-%m-%dT%H:%MZ") if now is not None else None)
+    if not BYE_HALF_FROM:
+        return BYE_OLD_UNITS
+    return SPOTS["bye"][1] if at is None or str(at)[:16] >= BYE_HALF_FROM else BYE_OLD_UNITS
+
+
 def units(p):
     """⏰ An early play's units: the size frozen on it at post; else its spot's fixed size (SPOTS, the 🏀 opening-line and
     ⛰️ altitude rules); an exam-scan play (no spot) is ½u flat from EXAM_FLAT_FROM. Before that date it was a quarter of
@@ -1163,6 +1213,8 @@ def units(p):
         return NBA_OPEN_UNITS                                # 🏀 (10/30: the opening-line play at 1u flat - no margin ladder)
     if p.get("spot") == "alt_over":                          # ⛰️ 11/12: 1u for games from the ALT_1U_FROM Pacific day
         return ALT_1U if alt_1u(p) else ALT_HALF             # (earlier games keep the ½u they were built at)
+    if p.get("spot") == "bye":                               # 🛌 11/16, the owner: ½u for plays posted from 11/17
+        return bye_units(p)
     if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
         return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
     if not p.get("spot") and EXAM_FLAT_FROM and (p.get("posted") or "") >= EXAM_FLAT_FROM:
@@ -1192,7 +1244,9 @@ def stamp_units(c):
 # FAIR price (posted after both teams' last games ended) - live, small, each with its OWN record so the real ones show.
 # The one that held every honest test gets 1 unit; the leads get ½ unit until they prove it (30-40 live bets each).
 SPOTS = {   # key: (label, units, leagues)
-    "bye":       ("🛌 Off a bye vs a team that played", 1.0, ("nfl", "ncaaf")),   # NFL +29% / college +16% (fair)
+    "bye":       ("🛌 Off a bye vs a team that played", 0.5, ("nfl", "ncaaf")),   # NFL +29% / college +16% (fair); ½u for
+    #                                                                              plays posted from 11/17 (BYE_HALF_FROM -
+    #                                                                              was 1u; units())
     "hammered":  ("🔨 Hammered early", 0.5, ("nfl", "ncaaf")),                  # in 4+ win-% pts since the first fair price
     "mnf":       ("🏈 Monday night dog", 0.5, ("nfl",)),                          # NFL +21%, 5 of 6
     "eastwest":  ("✈️ East Coast team flying West", 0.5, ("nfl",)),              # NFL +17%, 6 of 6
@@ -1704,7 +1758,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             total = round(gap + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
-            main = max(hit, key=lambda h: SPOTS[h][1])
+            main = max(hit, key=lambda h: (SPOTS[h][1], -SPOT_ORDER.index(h) if h in SPOT_ORDER else -99))   # (the bigger
+            #                                                  size, then the spots' own order - the bye first, as it was at 1u)
             whys = spot_why(sched, g, side, other, lg, main, now, own, odds)
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
