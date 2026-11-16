@@ -21616,3 +21616,44 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-16 16:06 UTC] stocks/trend     equity $458.23 (-8.4%) 4 open  market DOWN
 [2026-11-16 16:06 UTC] stocks/hold_spy  equity $486.68 (-2.7%) 1 open  market DOWN
    social heat top: SOL 43 (29/0/14), HYPE 34 (27/0/8), BTC 32 (32/0/0), PENGU 24 (24/0/0), ETH 21 (21/0/0)
+   dex screen: REJECT ROCCO@solana liq $111,103 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT ICP@ethereum liq $262,135 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT ELSA@base liq $417,095 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   listings: okx_symbols failed (1x, retry in 30s): URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1018)>
+   dex screen: REJECT VINE@solana liq $1,524,840 - top-10 holders 45%
+   dex screen: REJECT GATO@solana liq $247,589 - lp holders unknown; rugcheck lp locked 66% < 95%
+   dex screen: REJECT VVV@base liq $6,463,372 - is_mintable; owner_percent 30%; top-10 holders 61%
+   dex screen: REJECT GTA@solana liq $105,311 - lp holders unknown; rugcheck lp locked 89% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: PASS CATE@solana liq $1,277,115
+   dex scanner: 2,686 pools (solana 1,856 / base 499 / ethereum 331), refresh cycle 116s (hot 112s), 2873 calls (108 feed, 429s 0, failed 0), 82,948 refreshed (9657 no pair), +59 added / -65 dropped (dead 62, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-16 17:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/mover     equity $176.35 (-64.7%) 1 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/social_heat equity $321.65 (-35.7%) 2 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] crypto/hold_btc  equity $397.25 (-20.5%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-11-16 17:06 UTC] stocks/rsi2      equity $459.77 (-8.0%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 1, TLT 2, MSTR 5, GLD 13
+[2026-11-16 17:06 UTC] stocks/breakout52 equity $470.44 (-5.9%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-16 17:06 UTC] stocks/dual_momentum equity $455.47 (-8.9%) 2 open  market DOWN
+[2026-11-16 17:06 UTC] stocks/trend_ensemble equity $507.60 (+1.5%) 5 open  market UP
+[2026-11-16 17:06 UTC] stocks/rotation10 equity $501.51 (+0.3%) 2 open  market UP
+[2026-11-16 17:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-16 17:06 UTC] stocks/trend     equity $457.18 (-8.6%) 4 open  market DOWN
+[2026-11-16 17:06 UTC] stocks/hold_spy  equity $485.86 (-2.8%) 1 open  market DOWN
+   social heat top: BTC 35 (35/0/0), HYPE 33 (21/0/12), PENGU 29 (29/0/0), SOL 24 (24/0/0), AAVE 18 (8/0/10)
