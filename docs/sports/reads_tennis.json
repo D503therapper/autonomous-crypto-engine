@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T12:57Z",
+ "updated": "2026-11-16T14:01Z",
  "games": [
   {
    "id": "tennis:atp:187512",
@@ -21,6 +21,32 @@
     "odds": 275,
     "p": 0.255,
     "win_p": 0.255,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187508",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-17T13:00Z",
+   "away": "Rafael Jodar",
+   "home": "Arthur Fils",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Rafael Jodar",
+    "opp": "Arthur Fils",
+    "market": "ml",
+    "line": null,
+    "odds": -134,
+    "p": 0.546,
+    "win_p": 0.546,
     "reasons": [
      "on hard court",
      "Nitto ATP Finals"
