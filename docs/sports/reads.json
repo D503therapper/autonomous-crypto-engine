@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T04:52Z",
+ "updated": "2026-11-16T04:57Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1097,8 +1097,8 @@
    "away": "Canucks",
    "home": "Golden Knights",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1317,7 +1317,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.647,
+    "p": 0.648,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1332,10 +1332,10 @@
     "team": "Celtics",
     "opp": "Magic",
     "market": "spread",
-    "line": -8.5,
-    "odds": -117,
+    "line": -9.5,
+    "odds": -115,
     "p": 0.501,
-    "win_p": 0.737,
+    "win_p": 0.738,
     "reasons": [
      "the stronger team"
     ]
@@ -1438,7 +1438,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.674,
+    "p": 0.673,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1573,9 +1573,9 @@
     "team": "Tarleton St",
     "opp": "Drake",
     "market": "spread",
-    "line": 9.5,
-    "odds": -105,
-    "p": 0.503,
+    "line": 10.5,
+    "odds": -118,
+    "p": 0.504,
     "win_p": 0.163,
     "reasons": []
    }
@@ -1854,8 +1854,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.5,
-    "tie": 0.279,
+    "p": 0.516,
+    "tie": 0.275,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1871,11 +1871,12 @@
     "market": "spread",
     "line": -1.5,
     "odds": -135,
-    "p": 0.593,
-    "win_p": 0.781,
+    "p": 0.628,
+    "win_p": 0.804,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent on a back-to-back"
     ]
    }
   },
