@@ -1060,7 +1060,12 @@ def breakdown(leg, games, elo, injuries, used=None):
                 return g.get("sp_" + team_side) or None
             if role == "G":                                   # (10/15: the card talks about the goalie the WEIGHT used -
                 return sp.starter_for(rows, g, team_side)     #  the confirmed / likely starter, not whoever started last)
-            return sp.last_starter(rows, tid_, g["start"])
+            name_ = sp.qb_for(rows, tid_, g["start"])        # (11/15: the Carson Wentz card - a QB change is
+            outs_ = leg.get("outs" if tid_ == tid else "opp_outs") or []   # unknown, and a man on the out list
+            if name_ and (g["start"] or "")[:10] >= sp.QB_SETTLED_FROM and any(      # never plays on the card)
+                    str(x).split(" (")[0].strip().lower() == name_.lower() for x in outs_):
+                return None
+            return name_
 
         def known(team_side):                                 # 10/16 NHL checkup: is tonight's goalie KNOWN (confirmed /
             if role != "G":                                   # likely - sports_goalies)? The last starter is tonight's

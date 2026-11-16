@@ -1,15 +1,11 @@
 {
- "at": "2026-11-15T18:00Z",
+ "at": "2026-11-15T23:49Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [
-  "live tennis scores: tennis Alvarez vs Trevisan: no points for 1641s",
-  "live tennis scores: tennis Contreras vs Geerlings: no points for 1100s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (94s)",
+  "live watcher fresh (142s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,16 +13,93 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
+  "studies ran 1h ago",
   "simulator ran 1h ago",
   "engine ran 10 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-15T23:49Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T23:48Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T23:12Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T21:44Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T21:41Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T21:40Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T21:34Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T21:28Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-15T19:56Z",
+   "fixes": [
+    "live watch 43750571437 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 2540s"
+   ]
+  },
+  {
+   "at": "2026-11-15T19:32Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 1314s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-15T18:00Z",
    "fixes": [
@@ -424,65 +497,6 @@
   },
   {
    "at": "2026-11-14T05:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T05:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T05:13Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T03:41Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-14T03:39Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-14T03:39Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaaf:1027569749 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-14T02:04Z",
-   "fixes": [
-    "live watch 43539916854 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T01:29Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T23:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T23:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-13T23:37Z",
    "fixes": [],
    "problems": []
   }

@@ -1,58 +1,6 @@
 {
- "updated": "2026-11-15T17:57Z",
+ "updated": "2026-11-16T00:50Z",
  "games": [
-  {
-   "id": "tennis:atp:187506",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-15T19:30Z",
-   "away": "Ben Shelton",
-   "home": "Arthur Fils",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Ben Shelton",
-    "opp": "Arthur Fils",
-    "market": "ml",
-    "line": null,
-    "odds": -182,
-    "p": 0.615,
-    "win_p": 0.615,
-    "reasons": [
-     "on hard court",
-     "Nitto ATP Finals"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:187442",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-11-15T20:00Z",
-   "away": "Mirra Andreeva",
-   "home": "Elina Svitolina",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Mirra Andreeva",
-    "opp": "Elina Svitolina",
-    "market": "ml",
-    "line": null,
-    "odds": -275,
-    "p": 0.701,
-    "win_p": 0.701,
-    "reasons": [
-     "on hard court",
-     "FAGE WTA Finals Indian Wells"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:187511",
    "league": "tennis",
@@ -70,9 +18,35 @@
     "opp": "Carlos Alcaraz",
     "market": "ml",
     "line": null,
-    "odds": 660,
+    "odds": 661,
     "p": 0.126,
     "win_p": 0.126,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187512",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-16T19:30Z",
+   "away": "Flavio Cobolli",
+   "home": "Daniil Medvedev",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Flavio Cobolli",
+    "opp": "Daniil Medvedev",
+    "market": "ml",
+    "line": null,
+    "odds": 280,
+    "p": 0.252,
+    "win_p": 0.252,
     "reasons": [
      "on hard court",
      "Nitto ATP Finals"

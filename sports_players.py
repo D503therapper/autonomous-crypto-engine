@@ -332,6 +332,39 @@ def last_starter(rows, team, before):
     return None
 
 
+QB_SETTLED_FROM = "2026-11-16"   # 🏈 11/15, THE OWNER ("These fucking mistakes ... false information and outdated
+QB_SETTLED_GAMES = 2             # bullshit is costing people a lot of money"): the Packers Lock's card said "Carson Wentz
+#   has 0 TDs, 2 picks and 81 yards in his last 1 game for Vikings" - Wentz threw in the Vikings' last game only because
+#   Kyler Murray (4 of the 5 starts before it) was hurt, and KIRK COUSINS started 11/15 (Vikings 30-10). The QB was "the
+#   top passer of the last box score" and always read as known, so the card line, the "better QB play lately" reason and
+#   the key-player weight all stood on a man who didn't play. From games on this date a QB is KNOWN only when the SAME
+#   man started the team's last QB_SETTLED_GAMES games (and the card checks he isn't on the out list); anything else is
+#   UNKNOWN - no QB line, no QB edge in the read. "9999" = the last starter again.
+
+
+def qb_settled(rows, team, before):
+    """The team's QB only when it's settled: the same top passer in each of its last QB_SETTLED_GAMES games before
+    `before` (fewer games on file: the ones there are, all the same man). A change = None (unknown, never a guess)."""
+    names, seen = [], set()
+    for r in reversed(rows):
+        if r["team"] == team and r["start"] < before and r.get("gid") not in seen:
+            seen.add(r.get("gid"))
+            names.append(r["player"])
+            if len(names) >= QB_SETTLED_GAMES:
+                break
+    if not names or len(set(names)) > 1:
+        return None
+    return names[0]
+
+
+def qb_for(rows, team, before):
+    """Who the engine names / weighs at QB for a game starting `before`: the settled QB from QB_SETTLED_FROM, before it the
+    last starter (the old reading, kept for the replays)."""
+    if (before or "")[:10] >= QB_SETTLED_FROM:
+        return qb_settled(rows, team, before)
+    return last_starter(rows, team, before)
+
+
 PROJ_GAMES = 10         # 🥅 11/6: the projected goalie reads the team's last 10 starts THIS season (sports_goalies' #1 window)
 PROJ_MIN = 3            # ...with 3+ of them on file (fewer: the last starter, as before)
 PROJ_B2B_DAYS = 1.5     # the team played within 36 hours: the 2nd night of a back-to-back
@@ -464,7 +497,7 @@ def key_edges(games, players):
                 elif role == "G":
                     who = starter_for(rows, g, side)         # (the confirmed / likely goalie when known)
                 else:
-                    who = last_starter(rows, g[side], start)
+                    who = qb_for(rows, g[side], start)        # (11/15: a QB change = unknown, never the last passer)
                 names[side] = who
             if not names["home"] or not names["away"]:
                 continue

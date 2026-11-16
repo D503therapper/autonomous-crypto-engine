@@ -24153,6 +24153,39 @@ def test_audit_1115_health_reads_the_live_board_without_burning_githubs_anonymou
     assert src.count('contents/live.json?ref=live-data') == 1          # (only the token fallback calls the API)
 
 
+def test_owner_1115_a_qb_change_is_unknown_never_the_last_passer():
+    """THE OWNER, 11/15 ("These fucking mistakes that this AI is making with this false information and outdated bullshit
+    is costing people a lot of money"): the Packers Lock's card said "Carson Wentz has 0 TDs, 2 picks and 81 yards in his
+    last 1 game for Vikings" and the read carried "better QB play lately" - Wentz threw in the Vikings' last game only
+    because Kyler Murray was hurt, and Kirk Cousins started 11/15 (Vikings 30-10). From the 11/16 games a QB is known only
+    when the same man started the team's last 2 games; a change = unknown (no QB line, no key-player edge), and a man on
+    the out list never plays on the card."""
+    import sports_players as sp_
+    rows = [{"gid": "a", "team": "16", "player": "Kyler Murray", "start": "2026-10-25T17:00Z"},
+            {"gid": "b", "team": "16", "player": "Kyler Murray", "start": "2026-11-01T18:00Z"},
+            {"gid": "c", "team": "16", "player": "Carson Wentz", "start": "2026-11-10T01:15Z"},
+            {"gid": "d", "team": "9", "player": "Jordan Love", "start": "2026-11-01T18:00Z"},
+            {"gid": "e", "team": "9", "player": "Jordan Love", "start": "2026-11-08T21:25Z"}]
+    assert sp_.QB_SETTLED_FROM == "2026-11-16" and sp_.QB_SETTLED_GAMES == 2
+    assert sp_.last_starter(rows, "16", "2026-11-16T18:00Z") == "Carson Wentz"           # the old reading named Wentz
+    assert sp_.qb_settled(rows, "16", "2026-11-16T18:00Z") is None                       # Murray -> Wentz: unknown
+    assert sp_.qb_settled(rows, "9", "2026-11-16T18:00Z") == "Jordan Love"               # settled
+    assert sp_.qb_for(rows, "16", "2026-11-16T18:00Z") is None
+    assert sp_.qb_for(rows, "16", "2026-11-15T18:00Z") == "Carson Wentz"                 # games before the date: unchanged
+    assert sp_.qb_settled(rows, "16", "2026-11-02T00:00Z") == "Kyler Murray"
+    # the weight: a game whose QB is unknown carries no key-player edge
+    games = {"nfl:x": {"id": "nfl:x", "league": "nfl", "start": "2026-11-16T18:00Z", "status": "pre", "home": "9",
+                       "away": "16"}}
+    keep = dict(sp_.ROLE)
+    try:
+        sp_.ROLE.clear(); sp_.ROLE.update({"nfl": "QB"})
+        assert "nfl:x" not in sp_.key_edges(games, {"nfl": rows})
+    finally:
+        sp_.ROLE.clear(); sp_.ROLE.update(keep)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "sp.qb_for(rows, tid_, g[\"start\"])" in src and "opp_outs" in src[src.index("sp.qb_for(rows, tid_"):][:300]
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

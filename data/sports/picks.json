@@ -43305,6 +43305,7 @@
      "game:nonconf"
     ],
     "dec": 1.8849557522123894,
+    "decider": {},
     "depth_gap": 1,
     "dog_ctx": {
      "cw5": 0,
@@ -43363,6 +43364,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "21,31,31,22",
+     "h": "22,29,33,29"
+    },
     "form_state": [
      -5.0,
      -1,
@@ -43430,10 +43435,12 @@
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Hornets 105 @ Clippers 113",
     "season_games": 12,
+    "settled": "2026-11-15T23:57Z",
     "side": "away",
     "start": "2026-11-15T21:30Z",
     "stype": "2",
@@ -43450,12 +43457,14 @@
    }
   ],
   "p_hit": 0.5208,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T23:57Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -43502,6 +43511,12 @@
      "them:out_dome"
     ],
     "dec": 1.9523809523809523,
+    "decider": {
+     "h": "17-6",
+     "s": "34-6",
+     "type": "blowout",
+     "win": "away"
+    },
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -43533,6 +43548,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,14,14,3",
+     "h": "6,0,0,0"
+    },
     "form_state": [
      -14.0,
      -1,
@@ -43597,10 +43616,12 @@
      "opponent missing key players: WR Puka Nacua (their read -1)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Rams 34 @ Cardinals 6",
     "season_games": null,
+    "settled": "2026-11-15T23:51Z",
     "side": "home",
     "start": "2026-11-15T21:05Z",
     "stype": "2",
@@ -43617,12 +43638,14 @@
    }
   ],
   "p_hit": 0.5039,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T23:51Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
@@ -43686,6 +43709,15 @@
      "them:trip1000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {
+     "c": "0:53",
+     "k": "td",
+     "p": "Quinshon Judkins",
+     "s": "27-24",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "depth_gap": -1,
     "dog_ctx": {
      "cw5": 0,
@@ -43734,6 +43766,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,7,0,7",
+     "h": "0,10,10,7"
+    },
     "form_state": [
      -1.0,
      -2,
@@ -43798,10 +43834,12 @@
      "opponent the more banged-up side: 2 regulars out to 1 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Texans 24 @ Browns 27",
     "season_games": null,
+    "settled": "2026-11-15T21:19Z",
     "side": "home",
     "start": "2026-11-15T18:00Z",
     "stype": "2",
@@ -43818,12 +43856,14 @@
    }
   ],
   "p_hit": 0.5193,
-  "pnl": 0.0,
+  "pnl": 89.29,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T21:19Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
@@ -43892,6 +43932,7 @@
      "them:dome_out"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "depth_gap": -2,
     "dog_ctx": {
      "cw5": 0,
@@ -43941,6 +43982,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,7,3,10",
+     "h": "0,0,10,0"
+    },
     "form_state": [
      18.0,
      2,
@@ -44014,10 +44059,12 @@
      "opponent the more banged-up side: 3 regulars out to 1 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Vikings 30 @ Packers 10",
     "season_games": null,
+    "settled": "2026-11-15T20:59Z",
     "side": "home",
     "start": "2026-11-15T18:00Z",
     "stype": "2",
@@ -44036,12 +44083,14 @@
    }
   ],
   "p_hit": 0.5888,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-15T20:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 1.0
  },
  {
   "american": 160,
@@ -44164,6 +44213,9 @@
      false,
      0
     ],
+    "fresh": [
+     "\ud83d\udd04 Update: Scottie Barnes is off the injury report now - expected to play."
+    ],
     "g_role_me": null,
     "g_role_opp": null,
     "game_id": "nba:401909990",
@@ -44171,6 +44223,10 @@
     "home": true,
     "hot_key": false,
     "hurt": [],
+    "inj_now": {
+     "away": "",
+     "home": "\ud83d\ude91 Raptors out: C Nate Bittle, F Kawhi Leonard \u00b7 questionable: G Kevin McCullar Jr.."
+    },
     "intl": false,
     "is_lean": false,
     "key_edge": null,
@@ -44219,6 +44275,9 @@
     "road_opener": false,
     "season_games": 12,
     "side": "home",
+    "stale": [
+     "Scottie Barnes"
+    ],
     "start": "2026-11-15T23:00Z",
     "stype": "2",
     "talk_ours": [],
