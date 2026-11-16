@@ -21236,3 +21236,23 @@ error: failed to push some refs to 'https://githu
 [2026-11-16 04:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-16 04:06 UTC] crypto/hold_btc  equity $398.14 (-20.4%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), PENGU 27 (27/0/0), CC 24 (24/0/0), AERO 22 (19/0/3), SOL 21 (21/0/0)
+   dex screen: REJECT UODF@solana liq $32,128,275 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: UNREACHABLE MIHAO@ethereum liq $256,605 - honeypot.is unreachable
+   dex screen: REJECT SOGNI@base liq $412,566 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 104%; lp locked 0% < 95%
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: REJECT POD@base liq $3,157,734 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   dex screen: REJECT ONDO@ethereum liq $1,322,292 - transfer_pausable; top-10 holders 68%
+   dex screen: PASS CATE@solana liq $1,256,557
+   dex screen: REJECT PUMP@solana liq $1,542,358 - transfer hook; top-10 holders 59%
+   dex scanner: 2,977 pools (solana 2,013 / base 588 / ethereum 376), refresh cycle 174s (hot 169s), 2135 calls (79 feed, 429s 2, failed 2), 61,648 refreshed (7430 no pair), +37 added / -54 dropped (dead 36, stale 18, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-16 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/mover     equity $177.43 (-64.5%) 1 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/social_heat equity $321.22 (-35.8%) 2 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-16 05:06 UTC] crypto/hold_btc  equity $395.89 (-20.8%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), SOL 36 (21/0/15), VVV 35 (35/0/0), TAO 27 (27/0/0), SKR 24 (24/0/0)
