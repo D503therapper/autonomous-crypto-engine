@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T18:30Z",
+ "updated": "2026-11-16T18:45Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -45,34 +45,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401929419",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UTEP",
-    "p": 0.886,
-    "tie": 0.02,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-16T19:00Z",
-   "away": "Florida A&M",
-   "home": "UTEP",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Florida A&M",
-    "opp": "UTEP",
-    "market": "spread",
-    "line": 20.5,
-    "odds": -112,
-    "p": 0.514,
-    "win_p": 0.05,
-    "reasons": []
-   }
   },
   {
    "id": "ncaab:401921087",
@@ -679,7 +651,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.544,
+    "p": 0.55,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -695,9 +667,9 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -161,
+    "p": 0.603,
+    "win_p": 0.603,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -834,8 +806,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.848,
-    "tie": 0.024,
+    "p": 0.844,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -850,12 +822,12 @@
     "opp": "Oregon St",
     "market": "spread",
     "line": 15.5,
-    "odds": -108,
+    "odds": -118,
     "p": 0.509,
-    "win_p": 0.078,
+    "win_p": 0.082,
     "reasons": [
-     "hotter recent form",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "hotter recent form"
     ]
    }
   },
@@ -1087,9 +1059,9 @@
     "team": "Illinois",
     "opp": "Duke",
     "market": "spread",
-    "line": 5.5,
-    "odds": -105,
-    "p": 0.5,
+    "line": 7.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.234,
     "reasons": [
      "hotter recent form"
@@ -1102,7 +1074,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.386,
+    "p": 0.391,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -1111,7 +1083,7 @@
    "start": "2026-11-18T00:00Z",
    "away": "Kings",
    "home": "Bruins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Kings",
@@ -1119,11 +1091,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.649,
-    "win_p": 0.432,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "p": 0.638,
+    "win_p": 0.421,
+    "reasons": []
    }
   },
   {
@@ -1242,6 +1212,36 @@
     "p": 0.685,
     "win_p": 0.469,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401909708",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Pitt",
+    "p": 0.497,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T00:00Z",
+   "away": "Villanova",
+   "home": "Pitt",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Pitt",
+    "opp": "Villanova",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.525,
+    "win_p": 0.525,
+    "reasons": [
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1399,7 +1399,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Michigan St",
-    "p": 0.535,
+    "p": 0.561,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1408,18 +1408,19 @@
    "start": "2026-11-18T02:00Z",
    "away": "Michigan St",
    "home": "Tennessee",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Michigan St",
     "opp": "Tennessee",
     "market": "ml",
     "line": null,
-    "odds": -154,
-    "p": 0.579,
-    "win_p": 0.579,
+    "odds": -175,
+    "p": 0.612,
+    "win_p": 0.612,
     "reasons": [
      "hotter recent form",
+     "sharp money moving this way",
      "rolling off a blowout win"
     ]
    }
