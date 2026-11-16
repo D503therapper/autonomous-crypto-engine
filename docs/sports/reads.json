@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T02:45Z",
+ "updated": "2026-11-16T02:46Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1191,6 +1191,36 @@
    }
   },
   {
+   "id": "nba:401909995",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Cavaliers",
+    "p": 0.665,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T00:00Z",
+   "away": "Bulls",
+   "home": "Cavaliers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Cavaliers",
+    "opp": "Bulls",
+    "market": "spread",
+    "line": -9.5,
+    "odds": -111,
+    "p": 0.501,
+    "win_p": 0.761,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401928841",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1404,6 +1434,36 @@
    }
   },
   {
+   "id": "nba:401909997",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "76ers",
+    "p": 0.61,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T00:30Z",
+   "away": "76ers",
+   "home": "Nets",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "76ers",
+    "opp": "Nets",
+    "market": "ml",
+    "line": null,
+    "odds": -250,
+    "p": 0.682,
+    "win_p": 0.682,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892726",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1612,8 +1672,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.517,
-    "tie": 0.037,
+    "p": 0.528,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1628,9 +1688,9 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -131,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": -141,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "opponent drama: trade drama",
