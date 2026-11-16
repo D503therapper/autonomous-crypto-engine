@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T17:12Z",
+ "updated": "2026-11-16T17:20Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -909,9 +909,9 @@
     "team": "Texas Southern",
     "opp": "UC San Diego",
     "market": "spread",
-    "line": 19.5,
-    "odds": -110,
-    "p": 0.513,
+    "line": 18.5,
+    "odds": -108,
+    "p": 0.512,
     "win_p": 0.056,
     "reasons": []
    }
@@ -1005,6 +1005,36 @@
     "p": 0.659,
     "win_p": 0.442,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401909566",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Duke",
+    "p": 0.692,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T00:00Z",
+   "away": "Illinois",
+   "home": "Duke",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Illinois",
+    "opp": "Duke",
+    "market": "spread",
+    "line": 8.0,
+    "odds": -106,
+    "p": 0.501,
+    "win_p": 0.233,
+    "reasons": [
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1264,6 +1294,37 @@
     "win_p": 0.62,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401906851",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Michigan St",
+    "p": 0.535,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:00Z",
+   "away": "Michigan St",
+   "home": "Tennessee",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Michigan St",
+    "opp": "Tennessee",
+    "market": "ml",
+    "line": null,
+    "odds": -154,
+    "p": 0.579,
+    "win_p": 0.579,
+    "reasons": [
+     "hotter recent form",
+     "rolling off a blowout win"
     ]
    }
   },
