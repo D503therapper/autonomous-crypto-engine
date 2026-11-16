@@ -44374,5 +44374,621 @@
   "status": "lost",
   "tier": "value",
   "units": 0.5
+ },
+ {
+  "american": 120,
+  "date": "2026-11-16",
+  "dec": 2.2,
+  "floor": {
+   "dog_score": 3.26,
+   "fallback": "college hoops sits out the floor (its dogs run the dog slot)",
+   "nba": false
+  },
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "b2b_me": false,
+    "bd_tags": [
+     "rec:2",
+     "cx_trip:2",
+     "home:1",
+     "healthy:4",
+     "w_their_road:112",
+     "f_last:2",
+     "f_site:3",
+     "f_pts:1",
+     "bottom_floor:3"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcca UMBC put up 73 a game and give up 66 over their last 3. Iona: 65 and 81.",
+     "\u2705 Nobody big missing for UMBC.",
+     "\ud83c\udfdf\ufe0f UMBC takes care of home: 2-0 in their building so far.",
+     "\ud83d\udccb UMBC 2-3, Iona 2-3 - same spot in the standings, not the same team.",
+     "\u2705 Bottom line: UMBC at +120. The dog angles like it, the price is about fair. Half a unit and we'll see."
+    ],
+    "bv": 63,
+    "coach": [
+     17,
+     false
+    ],
+    "coach_name": "Jim Ferry",
+    "coach_tenure": 6,
+    "cold_shoot": false,
+    "country": "",
+    "ctx": [
+     {
+      "dir": null,
+      "k": "trip",
+      "mi": 0,
+      "road6": 3,
+      "who": "them",
+      "wk": 207
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:road3in6"
+    ],
+    "dec": 2.2,
+    "def_first": true,
+    "dog_bad": [],
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_good": [
+     "def_first_vs_bad_offense"
+    ],
+    "dog_more": {},
+    "dog_read": 3.0,
+    "dog_read_parts": {
+     "facts": [
+      "def_first_vs_bad_off"
+     ],
+     "games_ok": true,
+     "home": -1,
+     "knowledge": 2,
+     "ratings": 0,
+     "weights": 2.0
+    },
+    "drift": -0.0195,
+    "edge": -0.01272600910358368,
+    "edge_own": -0.012046455668505818,
+    "eff_p": 0.4627,
+    "efg_gap": 0.0,
+    "elo_edge": 145.5,
+    "elo_raw": 45.5,
+    "fact": "Iona are 0-3 on the road this year.",
+    "facts": [
+     [
+      "Iona are 0-3 on the road this year.",
+      "0-3 on the road for Iona this season.",
+      "Iona haven't won on the road this year (0-3).",
+      "Iona on the road this season: 0-3."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "floor_fallback": "college hoops sits out the floor (its dogs run the dog slot)",
+    "floor_score": 3.26,
+    "form_state": [
+     -26.0,
+     -1,
+     340,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaab:401921087",
+    "games_in": 5,
+    "home": true,
+    "hot_deep": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": false,
+    "key_edge": null,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaab",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "ncaab_skid": 1,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": 120,
+    "off_first": false,
+    "on_report": [],
+    "opp": "Iona",
+    "opp_cold_shoot": false,
+    "opp_efg_gap": 0.0,
+    "opp_games_in": 5,
+    "opp_hot_deep": false,
+    "opp_lost_last": false,
+    "opp_off_low": true,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "opp_road_cm": -0.83,
+    "opp_roster_new": 0.2,
+    "opp_tp_net": -0.018,
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4487609049529165,
+    "p_market": 0.43650793650793646,
+    "pdo": null,
+    "public": "fade",
+    "pyth_luck": null,
+    "raw_own": 0.569,
+    "reasons": [
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337"
+    ],
+    "reb_gap": -3.4,
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "roster_cut": [
+     0.28,
+     0.26
+    ],
+    "roster_new": 0.482,
+    "roster_tin": 0.141,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-16T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "UMBC",
+    "team_id": "2378",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "to_margin": -1.4,
+    "to_net": 0.0644,
+    "tp_gap": 0.0,
+    "tp_net": 0.014,
+    "tp_net_line": [
+     0.297,
+     0.284
+    ],
+    "tp_share": 0.4669,
+    "trap": false,
+    "turmoil": 0,
+    "turmoil_who": [],
+    "vs_nl_road_fav": true,
+    "waiting": [],
+    "why_line": "\ud83e\uddf3 UMBC, and it ain't a question \u2014 Iona on the road this season: 0-3."
+   }
+  ],
+  "p_hit": 0.4488,
+  "pnl": 0.0,
+  "posted": "2026-11-16T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -112,
+  "date": "2026-11-16",
+  "dec": 1.8929,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -4,
+    "b2b_me": false,
+    "bd_tags": [
+     "better:3",
+     "trash:14",
+     "h2h1:2",
+     "QB_cold:3",
+     "cx_trip:1",
+     "cx_hotseat:1",
+     "talk_q:1",
+     "w_better:3",
+     "k_trip:0",
+     "f_last:0",
+     "f_site:1",
+     "f_rest:0",
+     "f_outs:1",
+     "f_theirL:2",
+     "f_gpg:2",
+     "risk:6",
+     "bottom_n:5"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\ude91 Out for Chargers: Isas Waxter (CB).",
+     "\u23f3 Ravens got the extra day: 11 days off to Chargers' 8 days.",
+     "\ud83d\uddd1\ufe0f Justin Herbert looks lost out there: 1 TD, 4 picks and 654 yards in his last 3 games.",
+     "\ud83d\udcca Ravens at 21 points a game this year. Chargers at 15. Ours scores more, that's just facts.",
+     "\ud83d\udd25 8 losses in a row for the Chargers. Coaching staff feeling the heat.",
+     "\ud83e\uddf3 0-4 on the road for Chargers this season.",
+     "\ud83e\udd4a The Chargers got smacked 44-22 by the Texans inside their last 5.",
+     "\ud83d\uddd1\ufe0f 0-8 lately \u2014 they ass. Chargers straight ass right now.",
+     "\ud83e\uddf3 Travel check on the Chargers: 2,320-mile trip east.",
+     "\ud83d\udcc5 Both took an L last time - Ravens a 33-10 loss to the Jaguars, Chargers a 44-22 loss to the Texans.",
+     "\u26a0\ufe0f Not perfect - Lamar Jackson is out and the Ravens roll with the backup quarterback.",
+     "\ud83d\udfe1 Bottom line: Ravens -4.5 (-112). Ravens -4.5 is about 50-50 to cover. Lean only."
+    ],
+    "bv": 63,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 2323,
+      "road6": 1,
+      "who": "them",
+      "wk": 2323
+     },
+     {
+      "k": "hotseat",
+      "n": 8,
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:east1000",
+     "them:hotseat",
+     "them:trip1000",
+     "them:trip2000"
+    ],
+    "dec": 1.8928571428571428,
+    "depth_gap": -1,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [
+      "ice cold",
+      "coach's first season"
+     ],
+     "go4_gap": 0.1842,
+     "last_margin": -23.0,
+     "last_pts": 10.0,
+     "mnf": true,
+     "neutral": false,
+     "record": [
+      4,
+      5
+     ],
+     "win_pct": 0.444,
+     "win_streak": 0
+    },
+    "drift": -0.064,
+    "edge": -0.04537582265327311,
+    "elo_edge": 142.7,
+    "elo_raw": 102.7,
+    "fact": "The Ravens are 4-5, the Chargers 0-8.",
+    "facts": [
+     [
+      "The Ravens are 4-5, the Chargers 0-8.",
+      "The Ravens 4-5 on the year, the Chargers 0-8.",
+      "It's 4-5 (the Ravens) against 0-8 (the Chargers).",
+      "The Ravens sit 4-5; the Chargers sit 0-8."
+     ],
+     [
+      "The Chargers have lost 8 straight.",
+      "8 straight losses for the Chargers.",
+      "The Chargers are on a 8-game skid.",
+      "The Chargers haven't won in 8."
+     ],
+     [
+      "The Chargers just got beat 44-22 by the Texans.",
+      "The Chargers are coming off a 44-22 beating from the Texans.",
+      "Last time out the Chargers took a 44-22 L to the Texans.",
+      "The Chargers got handled 44-22 by the Texans last time out."
+     ]
+    ],
+    "fbs_game": null,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -23.0,
+     -4,
+     350,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nfl:401873065",
+    "games_in": null,
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": null,
+    "key_out_me": true,
+    "key_seen": {
+     "Lamar Jackson (Ravens QB)": "Injured Reserve"
+    },
+    "league": "nfl",
+    "line": -4.5,
+    "lost_last": false,
+    "market": "spread",
+    "mkt_trend": null,
+    "n1_sat": null,
+    "neutral": false,
+    "neutral_back": null,
+    "odds": -112,
+    "on_report": [
+     "Branson Taylor",
+     "Isas Waxter",
+     "Jaylinn Hawkins",
+     "Kendall Williamson",
+     "Ladd McConkey"
+    ],
+    "opp": "Chargers",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [
+     "Isas Waxter (CB)",
+     "Ladd McConkey (WR)",
+     "Branson Taylor (G)",
+     "Kendall Williamson (S)"
+    ],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Jaylinn Hawkins (S)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5043297540699689,
+    "p_market": 0.5283018867924528,
+    "pdo": null,
+    "public": null,
+    "pyth_luck": null,
+    "raw_own": 0.6647,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent missing key players: WR Ladd McConkey (their read -1)",
+     "opponent the more banged-up side: 1 regulars out to 0 for us"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "home",
+    "start": "2026-11-17T01:15Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [
+     {
+      "headline": "Chargers' Jim Harbaugh frustrated with Broncos after nixed Daiyan Henley trade",
+      "kind": "unhappy"
+     }
+    ],
+    "team": "Ravens",
+    "team_id": "33",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Ravens 4-5, Chargers 0-8. We lean Ravens. Plus Chargers flew 2,320 miles for this.",
+    "yard_luck": -5.3
+   }
+  ],
+  "p_hit": 0.5043,
+  "pnl": 0.0,
+  "posted": "2026-11-16T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -115,
+  "date": "2026-11-16",
+  "dec": 1.8696,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "absent": [
+     "Josh Anderson"
+    ],
+    "ats_run": 0,
+    "b2b_me": false,
+    "bd_tags": [
+     "better:1",
+     "G_hot:0",
+     "road:3",
+     "w_num:1",
+     "k_trip:1",
+     "f_net:1",
+     "f_last5:1",
+     "f_gpg:3",
+     "f_h2h:2",
+     "risk:2",
+     "bottom_c:2"
+    ],
+    "big_cover": false,
+    "breakdown": [
+     "\ud83d\udcaa Records are tight (12-8 / 12-9); the ratings like Canadiens.",
+     "\ud83e\uddf3 Canadiens been winning on the road: 7-2.",
+     "\ud83d\uddd3\ufe0f Last 5 for Canadiens: 3-2.",
+     "\ud83d\udcca Canadiens put up 3.4 a game on the year; Rangers can only find 3.0.",
+     "\ud83e\uddf1 Jacob Fowler, projected to start for the Canadiens (not confirmed yet), has been a brick wall \u2014 a 0.929 save % (6 goals on 84 shots) over his last 3 starts.",
+     "\ud83e\udd45 Joonas Korpisalo, projected, not confirmed for Rangers, has a 0.931 save % (4 goals on 58 shots) over his last 2 starts.",
+     "\u26a0\ufe0f Gotta keep it honest - Rangers have won 2 straight.",
+     "\ud83d\udfe1 Bottom line: Canadiens (-115). 50-50 type game. The engine leans Canadiens - no units on it."
+    ],
+    "bv": 63,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 2528,
+      "road6": 2,
+      "who": "them",
+      "wk": 3777
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:east1000",
+     "them:trip1000",
+     "them:trip2000",
+     "them:week3000"
+    ],
+    "dec": 1.8695652173913042,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "ss_gap": -0.0434,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0326,
+    "edge": -0.024952239938569876,
+    "edge_own": -0.029035612156665502,
+    "elo_edge": 31.7,
+    "elo_raw": 51.7,
+    "fact": "The Canadiens are 12-8, the Rangers 12-9.",
+    "facts": [
+     [
+      "The Canadiens are 12-8, the Rangers 12-9.",
+      "The Canadiens 12-8 on the year, the Rangers 12-9.",
+      "It's 12-8 (the Canadiens) against 12-9 (the Rangers).",
+      "The Canadiens sit 12-8; the Rangers sit 12-9."
+     ],
+     [
+      "The Canadiens are 7-2 on the road this year.",
+      "7-2 on the road for the Canadiens this season.",
+      "The Canadiens are 7-2 on the road.",
+      "The Canadiens on the road this year: 7-2."
+     ],
+     [
+      "Jacob Fowler has a 0.929 save % (6 goals on 84 shots) over his last 3 starts.",
+      "Jacob Fowler: a 0.929 save % (6 goals on 84 shots) over his last 3 starts.",
+      "A 0.929 save % (6 goals on 84 shots) over his last 3 starts for Jacob Fowler."
+     ]
+    ],
+    "fbs_game": null,
+    "fill": true,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -3.0,
+     -1,
+     -130,
+     false,
+     1
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892726",
+    "games_in": null,
+    "home": false,
+    "hot_key": false,
+    "hurt": [
+     "Mike Matheson",
+     "Josh Anderson",
+     "Chris Kreider"
+    ],
+    "intl": false,
+    "is_lean": true,
+    "key_edge": -0.27140198511166336,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "mkt_trend": 0.0218,
+    "n1_sat": 1,
+    "neutral": false,
+    "neutral_back": null,
+    "nhl_fast_start_fav": true,
+    "odds": -115,
+    "on_report": [
+     "Josh Anderson",
+     "Mike Matheson"
+    ],
+    "opp": "Rangers",
+    "opp_games_in": null,
+    "opp_lost_last": false,
+    "opp_ot_last": null,
+    "opp_outs": [],
+    "ot_last": null,
+    "our_drama": [],
+    "outs": [
+     "Josh Anderson",
+     "Mike Matheson (D)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5215371739863464,
+    "p1_excess": 0.283,
+    "p_market": 0.5108342361863489,
+    "pdo": 1046.3068110126935,
+    "public": null,
+    "pyth_luck": 0.046,
+    "raw_own": 0.5268,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "season_games": null,
+    "side": "away",
+    "start": "2026-11-17T00:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Canadiens",
+    "team_id": "10",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5094,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 The Canadiens are 12-8, the Rangers 12-9. Even so it's close to 50-50 on our read, Canadiens by a hair."
+   }
+  ],
+  "p_hit": 0.5215,
+  "pnl": 0.0,
+  "posted": "2026-11-16T16:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
