@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T01:34Z",
+ "updated": "2026-11-16T01:47Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1073,130 +1073,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401911472",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "San Jos\u00e9 St",
-    "p": 0.804,
-    "tie": 0.029,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-16T02:00Z",
-   "away": "Alabama St",
-   "home": "San Jos\u00e9 St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Alabama St",
-    "opp": "San Jos\u00e9 St",
-    "market": "spread",
-    "line": 13.5,
-    "odds": -110,
-    "p": 0.507,
-    "win_p": 0.116,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892724",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.52,
-    "tie": 0.274,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-16T02:00Z",
-   "away": "Canucks",
-   "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Canucks",
-    "market": "spread",
-    "line": -1.5,
-    "odds": -155,
-    "p": 0.635,
-    "win_p": 0.809,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892725",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Predators",
-    "p": 0.421,
-    "tie": 0.295,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-16T02:00Z",
-   "away": "Predators",
-   "home": "Sharks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Predators",
-    "opp": "Sharks",
-    "market": "ml",
-    "line": null,
-    "odds": -170,
-    "p": 0.654,
-    "win_p": 0.654,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
-   }
-  },
-  {
-   "id": "nba:401909993",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Thunder",
-    "p": 0.719,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-16T02:00Z",
-   "away": "Thunder",
-   "home": "Kings",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Thunder",
-    "opp": "Kings",
-    "market": "spread",
-    "line": -12.5,
-    "odds": -112,
-    "p": 0.502,
-    "win_p": 0.823,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401929419",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1311,6 +1187,36 @@
     "win_p": 0.04,
     "reasons": [
      "rolling off a blowout win"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909994",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Celtics",
+    "p": 0.668,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T00:00Z",
+   "away": "Magic",
+   "home": "Celtics",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Celtics",
+    "opp": "Magic",
+    "market": "spread",
+    "line": -10.0,
+    "odds": -105,
+    "p": 0.501,
+    "win_p": 0.764,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -1529,8 +1435,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oklahoma St",
-    "p": 0.886,
-    "tie": 0.02,
+    "p": 0.894,
+    "tie": 0.019,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1547,7 +1453,7 @@
     "line": 21.5,
     "odds": -112,
     "p": 0.515,
-    "win_p": 0.05,
+    "win_p": 0.045,
     "reasons": []
    }
   },
@@ -1615,7 +1521,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.519,
+    "p": 0.511,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1624,16 +1530,16 @@
    "start": "2026-11-17T01:00Z",
    "away": "Trail Blazers",
    "home": "Timberwolves",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Timberwolves",
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -143,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -133,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
