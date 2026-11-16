@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T17:41Z",
+ "updated": "2026-11-16T17:49Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -918,6 +918,36 @@
    }
   },
   {
+   "id": "ncaab:401906773",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Florida",
+    "p": 0.832,
+    "tie": 0.026,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T21:30Z",
+   "away": "Notre Dame",
+   "home": "Florida",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Notre Dame",
+    "opp": "Florida",
+    "market": "spread",
+    "line": 13.5,
+    "odds": -110,
+    "p": 0.507,
+    "win_p": 0.091,
+    "reasons": [
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401866465",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -986,7 +1016,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.365,
+    "p": 0.375,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -995,7 +1025,7 @@
    "start": "2026-11-18T00:00Z",
    "away": "Blue Jackets",
    "home": "Islanders",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Blue Jackets",
@@ -1003,11 +1033,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.69,
-    "win_p": 0.472,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "p": 0.671,
+    "win_p": 0.453,
+    "reasons": []
    }
   },
   {
@@ -1166,7 +1194,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.352,
+    "p": 0.359,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1182,9 +1210,9 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -286,
-    "p": 0.708,
-    "win_p": 0.495,
+    "odds": -238,
+    "p": 0.695,
+    "win_p": 0.48,
     "reasons": []
    }
   },
@@ -1194,8 +1222,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.411,
-    "tie": 0.296,
+    "p": 0.396,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1203,18 +1231,18 @@
    "start": "2026-11-18T00:30Z",
    "away": "Capitals",
    "home": "Lightning",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Lightning",
-    "opp": "Capitals",
-    "market": "ml",
-    "line": null,
+    "team": "Capitals",
+    "opp": "Lightning",
+    "market": "spread",
+    "line": 1.5,
     "odds": -185,
-    "p": 0.626,
-    "win_p": 0.626,
+    "p": 0.628,
+    "win_p": 0.411,
     "reasons": [
-     "the stronger team"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1280,8 +1308,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.408,
-    "tie": 0.296,
+    "p": 0.415,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1296,11 +1324,12 @@
     "opp": "Predators",
     "market": "ml",
     "line": null,
-    "odds": -182,
-    "p": 0.62,
-    "win_p": 0.62,
+    "odds": -192,
+    "p": 0.634,
+    "win_p": 0.634,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
