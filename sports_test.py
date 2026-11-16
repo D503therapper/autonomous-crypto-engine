@@ -19299,7 +19299,7 @@ def test_max_1116_the_hockey_dog_on_the_b2b_spot_at_a_score_of_8_is_the_3u_max_p
     import copy
     import sports_dashboard as sdb
     import sports_leads as sl
-    assert sports.MAX_PLAY_FROM == "2026-11-17" and sports.MAX_PLAY_UNITS == 3.0 and sports.MAX_PLAY_SCORE == 8.0
+    assert sports.MAX_PLAY_FROM == "2026-11-16" and sports.MAX_PLAY_UNITS == 3.0 and sports.MAX_PLAY_SCORE == 8.0
     assert sports.MAX_PLAY_LEAGUES == ("nhl",) and sports.MAX_PLAY_QUIT == (25, 0.44) and sports.MAX_PLAY_UNITS <= 4
 
     def leg(odds=128, score=8.63, b2b=True, lg="nhl", start="2026-11-18T00:30Z", team="Blackhawks"):
@@ -19323,10 +19323,11 @@ def test_max_1116_the_hockey_dog_on_the_b2b_spot_at_a_score_of_8_is_the_3u_max_p
     for bad in (leg(score=7.9), leg(b2b=False), leg(lg="nba"), leg(lg="nfl"), leg(odds=360), leg(odds=-110)):
         b = pk(bad)
         assert not sports.max_play_leg(bad) and sports.mark_max([b], [b], "2026-11-17") is None and not b.get("max_play"), bad
-    # dated by the PACIFIC game day: the 11/16 games (a 7 PM Pacific puck drop is 11/17 in UTC) stay as they were
-    old = pk(leg(start="2026-11-17T03:00Z"), day="2026-11-16")
-    assert sports.mark_max([old], [old], "2026-11-16") is None and sports.units_for(old) == 2.0
-    assert sports.units_for({**pk(leg(start="2026-11-17T03:00Z"), day="2026-11-16"), "max_play": True}) == 2.0
+    # dated by the PACIFIC game day (the owner 11/16: "Mondays board reflects all changes" - from the 11/16 games): the
+    #   11/15 games (a 7 PM Pacific puck drop is 11/16 in UTC) stay as they were
+    old = pk(leg(start="2026-11-16T03:00Z"), day="2026-11-15")
+    assert sports.mark_max([old], [old], "2026-11-15") is None and sports.units_for(old) == 2.0
+    assert sports.units_for({**pk(leg(start="2026-11-16T03:00Z"), day="2026-11-15"), "max_play": True}) == 2.0
     # never a posted pick: only a Dog posted in THIS run; never the owner's post, a lean, a Dog that keeps posted units
     up = pk(leg())
     assert sports.mark_max([], [up], "2026-11-17") is None and sports.units_for(up) == 2.0
@@ -19387,14 +19388,14 @@ def test_max_1116_the_hockey_dog_on_the_b2b_spot_at_a_score_of_8_is_the_3u_max_p
     rec = sdb.unit_record([won], "2026-11-17", early=[])
     assert "💎 max plays 1-0 · +3.8 units" in rec, rec
     # the tracker: the spot and its control, from the 11/17 games
-    assert sl.MAX_1116_FROM == "2026-11-17"
+    assert sl.MAX_1116_FROM == "2026-11-16"
     keep_ds = sports.dog_score
     try:
         sports.dog_score = lambda c: c.get("dog_score") or 0
         assert sl.max_1116_tags(leg(), sports) == [sl.MAX_1116_TAG]
         assert sl.max_1116_tags(leg(score=6.5), sports) == [sl.MAX_1116_UNDER_TAG]
         assert sl.max_1116_tags(leg(b2b=False), sports) == [] and sl.max_1116_tags(leg(lg="nba"), sports) == []
-        assert sl.max_1116_tags(leg(start="2026-11-17T03:00Z"), sports) == []
+        assert sl.max_1116_tags(leg(start="2026-11-16T03:00Z"), sports) == []          # (11/15 Pacific: before)
     finally:
         sports.dog_score = keep_ds
     # nothing else moved: the Dog's own sizes, the Lock's, the floor's, the ⭐ minimum, the hockey gate
@@ -24947,7 +24948,7 @@ def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early
     opening-line play (3-5 live) and the hammered spot (1-4) get a judge like every other test play's."""
     import sports_early as se
     import sports_leads as sl
-    assert sports.LOCK_NFL_HALF_FROM == "2026-11-17" and sports.LOCK_NFL_UNITS == 0.5 and sports.LOCK_FOOTBALL_UNITS == 1.0
+    assert sports.LOCK_NFL_HALF_FROM == "2026-11-16" and sports.LOCK_NFL_UNITS == 0.5 and sports.LOCK_FOOTBALL_UNITS == 1.0
 
     def leg(lg, start, odds=-142, own=0.634, mkt=0.563):
         dec = sports._dec(odds)
@@ -24966,7 +24967,7 @@ def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early
     assert sports.sizing_check([pk(leg("nfl", after), "2026-11-22")]) == []          # the sizing check reads the same size
     assert sports.units_for({**pk(leg("nfl", after), "2026-11-22"), "status": "won", "units": 1.0}) == 1.0   # graded: kept
     # a Monday-night game (7 PM Pacific = the next day in UTC) is dated by its Pacific day
-    assert sports.units_for(pk(leg("nfl", "2026-11-17T01:15Z"), "2026-11-16")) == 1.0    # the 11/16 Monday game: as it was
+    assert sports.units_for(pk(leg("nfl", "2026-11-16T01:20Z"), "2026-11-15")) == 1.0    # the 11/15 Sunday night game: as it was
     assert sports.units_for(pk(leg("nfl", "2026-11-18T01:15Z"), "2026-11-17")) == 0.5
     # the ⭐ never goes on the NFL Lock; a hockey Dog on the same board takes it; with nothing else there is no ⭐
     day = "2026-11-22"
@@ -25002,7 +25003,7 @@ def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early
     assert not se.spot_quit({"picks": [ep("hammered", "won", 200)] * 5 + [ep("hammered", "lost", 200)] * 15}, "hammered")
     assert not se.spot_quit({"picks": [ep("bye", "lost", 200)] * 40}, "bye")         # only the spots listed
     # the tracker: the football Lock-grade favorite, thin and not thin (from the 11/17 games)
-    assert sl.FORENSICS_1116_FROM == "2026-11-17"
+    assert sl.FORENSICS_1116_FROM == "2026-11-16"
     keep_good = sports.good
     try:
         sports.good = lambda c: True
@@ -25021,6 +25022,190 @@ def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early
     finally:
         sports.good = keep_good
     assert "forensics_1116_tags(c, sports)" in open(sl.__file__).read()
+
+
+def test_maxcol_1116_the_college_hoops_max_play_is_the_lock_test_on_the_weighed_read_two_units_one_a_night():  # noqa: C901
+    """💎 11/16 FABLE - THE MAX PLAY HUNT (COLLEGE) (results/studies/maxcol_1116/; the owner: "one pick with like 3-4 units
+    on it ... like the sharp professional bettors do. They pick their spots" + "I don't want Fable to stop until we find
+    a solid edge"). 51 named cells. The one that clears: the engine's best college cell - the college hoops Lock, 86-32
+    +26.0% in the 11/14 replay - could never post: with the honest dials a college hoops favorite's own read IS the
+    close, so its edge is always thin and the no-thin-Lock rule drops it (110 of the replay's 118). From the 11/17
+    Pacific games a college hoops moneyline favorite -150..-101 that passes the Lock's own test on its WEIGHED read
+    (56%+, a real play, the weighed read over the no-vig market and over the real price) posts as the 💎 MAX PLAY - the
+    best one a night, 2u (a quarter of Kelly on the low end of the held-out win rate: 2.4u; NOT 3-4u - nothing earns
+    it), 1u before game 10, its own record and tracker tag, off at 25 graded under 60% won. The replay as wired: 91-37
+    +21.9% (train +20.0% / held 39-15 +24.5%, 7 of 8 seasons, placebo 2 of 2,000, a dime worse +18.5%; the second
+    replay 35-15 +20.1%). Never the Lock's title on a thin edge (the owner's 10/28 rule stands); never an extra forced
+    pick; "the studies lift it 2+ points" is a knife-edge (17-4 on one replay, 11-6 on the other) and is NOT the rule."""
+    import sports_dashboard as sdb
+    import sports_leads as sl
+    assert sports.NCAAB_MAX_PLAY_FROM == "2026-11-16" and sports.NCAAB_MAX_PLAY_ON and sports.NCAAB_MAX_PLAY_LEAGUES == ("ncaab",)
+    assert sports.NCAAB_MAX_PLAY_UNITS == 2.0 and sports.NCAAB_MAX_PLAY_EARLY_UNITS == 1.0 and sports.NCAAB_MAX_PLAY_MAX_DAY == 1
+    assert sports.NCAAB_MAX_PLAY_QUIT == (25, 0.60)
+    assert sports.NO_THIN_LOCK_FROM == "2026-10-29" and sports.THIN_EDGE == 0.03        # the owner's thin rules untouched
+    assert sports.MAX_FAV == -150 and sports.LOCK_P == 0.56 and sports.STUDY_CAP == 6 and sports.FAV_CAP == 0.04
+    NEW, OLD = "2026-11-17T03:00Z", "2026-11-16T03:00Z"                                  # 7 PM Pacific on 11/16 / on 11/15
+    dec = sd.decimal(-140)
+
+    def fav(**kw):
+        c = {"game_id": "ncaab:m1", "league": "ncaab", "side": "home", "team": "Drexel", "opp": "Delaware", "home": True,
+             "start": NEW, "reasons": ["the stronger team"], "market": "ml", "line": None, "odds": -140, "dec": dec,
+             "p": 0.575, "p_market": 0.57, "edge": 0.575 * dec - 1, "edge_own": 0.572 * dec - 1, "w_p": 0.595,
+             "games_in": 19, "opp_games_in": 20, "trap": False}
+        c.update(kw)
+        return c
+    c = fav()
+    assert c["edge_own"] < 0 and sports.thin_edge(c)                                    # the own read is under the price: "thin"
+    assert sports.ncaab_max_play_ok(c)                                                        # ...and the weighed read clears the Lock test
+    assert not sports.value_edge_ok(c)                                                  # (never a value play: the own read isn't a point over)
+    for why, bad in (("another league", fav(league="nba")), ("college football", fav(league="ncaaf")),
+                     ("past -150", fav(odds=-155, dec=sd.decimal(-155))), ("plus money", fav(odds=105, dec=sd.decimal(105))),
+                     ("a spread", fav(market="spread", line=-2.5)), ("under 56%", fav(p=0.555)),
+                     ("no weighed read", fav(w_p=None)), ("the weighed read under the market", fav(w_p=0.565, odds=-125, dec=sd.decimal(-125))),
+                     ("the weighed read under the price", fav(w_p=0.58)), ("a trap", fav(trap=True)),
+                     ("no named reason", fav(reasons=[])), ("the own read fighting it", fav(edge_own=0.53 * dec - 1)),
+                     ("a team in its first 2 games", fav(games_in=2)), ("the 11/16 games", fav(start=OLD))):
+        assert not sports.ncaab_max_play_ok(bad), why
+    assert sports.ncaab_max_play_ok(fav(odds=-150, dec=sd.decimal(-150), p=0.60, p_market=0.59, w_p=0.61, edge_own=0.592 * sd.decimal(-150) - 1))
+    keep = sports.NCAAB_MAX_PLAY_ON
+    try:
+        sports.NCAAB_MAX_PLAY_ON = False
+        assert not sports.ncaab_max_play_ok(c)                                                # the switch
+    finally:
+        sports.NCAAB_MAX_PLAY_ON = keep
+    # the size: 2u; 1u while either team has played under 10 games; never the thin ½u, never 3u+
+    mk = lambda l, kind="play", **kw: {"date": "2026-11-17", "kind": kind, "status": "open", "lean": False, "dec": l["dec"],   # noqa: E731
+                                       "american": l["odds"], "legs": [l], "ncaab_max": {"read": l.get("w_p")}, **kw}
+    assert sports.units_for(mk(c)) == 2.0 == sports.ncaab_max_play_units(c)
+    assert sports.units_for(mk(fav(games_in=7))) == 1.0 and sports.units_for(mk(fav(opp_games_in=9))) == 1.0
+    assert sports.units_for(mk(c, kind="lock")) == 2.0                                  # today's Lock that is the max play
+    assert sports.units_for({**mk(c, kind="lock"), "ncaab_max": None}) == 0.5            # (a thin Lock without it: ½u, as before)
+    assert sports.units_for({**mk(c), "ncaab_max": None}) == sports.PLAY_UNITS           # (a plain value play: ½u)
+    assert sports.units_for({**mk(c), "status": "won", "units": 2.0}) == 2.0
+    assert sports.sizing_check([mk(c)]) == [] and sports.sizing_check([mk(c, kind="lock")]) == []
+    assert sports.posted_kind(mk(c)) == "ncaabmax" and sports.BEST_KIND_RANK["ncaabmax"] == 0
+    # the candidates: the bigger weighed edge first, one a game, never a game we're on, never a banged-up side
+    pool = [fav(game_id="a", w_p=0.59), fav(game_id="b", w_p=0.61), fav(game_id="b", side="away", w_p=0.60),
+            fav(game_id="h", w_p=0.62, hurt=["3 players out"]), fav(game_id="n", w_p=0.58)]
+    assert [x["game_id"] for x in sports.ncaab_max_plays(pool, ())] == ["b", "a"]
+    assert [x["game_id"] for x in sports.ncaab_max_plays(pool, {"b"})] == ["a"]
+    # the board: one a night, kind "play" with its tag, 2u, passes the rule check and the sizing check
+    real = sports.ncaab_max_plays
+
+    def doctored(cands, avoid):
+        for x in cands:
+            if x.get("league") == "ncaab" and x.get("market") == "ml" and x.get("side") == "home" and x["game_id"] in ("ncaab:w1", "ncaab:w2"):
+                d = x["dec"]
+                x.update(p=0.575 if x["game_id"] == "ncaab:w1" else 0.57, w_p=0.60 if x["game_id"] == "ncaab:w1" else 0.59,
+                         edge_own=0.56 * d - 1, reasons=["the stronger team"], trap=False)
+                x["edge"] = x["p"] * d - 1
+        return real(cands, avoid)
+    picks, log = _wired_1111_post(NEW, {"ncaab_max_plays": doctored})
+    mp = [p for p in picks if p.get("ncaab_max")]
+    assert [(p["kind"], p["legs"][0]["game_id"], p["legs"][0]["side"], p["legs"][0]["market"], sports.units_for(p)) for p in mp] == \
+        [("play", "ncaab:w1", "home", "ml", 2.0)], (log[-2500:], [(p["kind"], p["legs"][0]["game_id"]) for p in picks])
+    p0 = mp[0]
+    assert not p0["lean"] and p0["tier"] == "value" and p0["legs"][0]["tier"] == "value" and sports.posted_kind(p0) == "ncaabmax"
+    assert "💎 max play: H1 -130" in log and "2u" in log
+    rep = {r["key"]: r for r in sports.LAST_PICK_CHECK}
+    assert not rep["play|ncaab:w1|home|ml"]["held"] and rep["play|ncaab:w1|home|ml"]["kind"] == "ncaabmax", rep
+    assert not any(p["kind"] == "lock" for p in picks)                                  # never titled the Lock of the Day
+    again, _ = _wired_1111_post(NEW, {"ncaab_max_plays": doctored}, picks=picks)              # a later run: still one a night
+    assert len([p for p in again if p.get("ncaab_max")]) == 1
+    old, _ = _wired_1111_post(OLD, {"ncaab_max_plays": doctored})                             # the 11/16 board: none
+    assert not any(p.get("ncaab_max") for p in old)
+    # its own record, and the judge: 25 graded, under 60% won = off
+    graded = lambda w, l_, push=0: ([{**mk(c), "status": "won", "units": 2.0}] * w + [{**mk(c), "status": "lost", "units": 2.0}] * l_   # noqa: E731
+                                    + [{**mk(c), "status": "push", "units": 2.0}] * push
+                                    + [{**mk(c), "ncaab_max": None, "status": "lost", "units": 0.5}] * 4)   # (a plain play is not in it)
+    r = sports.ncaab_max_play_record(graded(15, 10, 2))
+    assert (r["won"], r["lost"], r["push"], r["risked"]) == (15, 10, 2, 50.0) and abs(r["units"] - (30 * (dec - 1) - 20)) < 0.01
+    assert not sports.ncaab_max_play_quit(graded(15, 10)) and sports.ncaab_max_play_quit(graded(14, 11))
+    assert not sports.ncaab_max_play_quit(graded(10, 14)) and not sports.ncaab_max_play_quit(graded(10, 14, 5))   # 24 graded: not judged yet
+    quit_, _ = _wired_1111_post(NEW, {"ncaab_max_plays": doctored}, picks=graded(14, 11))     # the judge tripped: no more posts
+    assert not any(p.get("ncaab_max") and p["status"] == "open" for p in quit_)
+    # the rule check: a max play stands on its weighed read (the value play's own-read point is not its rule); one that
+    # no longer passes the test is pulled; a plain value play on the same read is still pulled
+    thin = f"a value play under {sports.VALUE_EDGE_MIN:.0%} over its price"
+    assert sports.rule_check([], [mk(c)], "2026-11-17") == []
+    assert any(thin in x for x in sports.rule_check([], [{**mk(c), "ncaab_max": None}], "2026-11-17"))
+    assert any("doesn't pass the Lock test" in x for x in sports.rule_check([], [mk(fav(p=0.55))], "2026-11-17"))
+    assert any("doesn't pass the Lock test" in x or "doesn't beat" in x for x in sports.rule_check([], [mk(fav(w_p=0.58))], "2026-11-17"))
+    assert any("past -150" in x for x in sports.rule_check([], [mk(fav(odds=-155, dec=sd.decimal(-155)))], "2026-11-17"))
+    # the ⭐ may sit on it (its read beats its price) - never raised, never shrunk
+    star = mk(c)
+    assert sports.best_pool([star], "2026-11-17") == [star] and sports.units_for({**star, "best": True}) == 2.0
+    # the card: the 💎 label and note, 2 UNITS, never "thin edge" / a lean's words; the closer swaps a small-bet line
+    card = sdb._pick_card("play", p0)
+    assert "💎 MAX PLAY" in card and "2 UNITS" in card and "THIN EDGE" not in card and "NO UNITS" not in card, card[:900]
+    import html
+    txt = html.unescape(card)
+    assert p0["legs"][0].get("ncaab_max") is True and any(w in txt for w in sdb.NCAAB_MAX_WHY), txt[:900]   # the size line says the spot
+    assert "We make 'em" not in txt and "on our sheet" not in txt and "Bigger bet." not in txt      # ...never a number gap
+    assert sdb._pick_card("play", {**p0, "best": True}).count("slate-note") == 1          # ⭐ + 💎: one note box, the 💎's
+    near = mk(fav(w_p=0.5840, breakdown=["✅ Bottom line: Drexel (-140). Fair on Drexel is -141 to us and the book's hanging -140. Give me Drexel."]))
+    sports.ncaab_max_closer(near)                                                             # our number a cent from theirs: it comes off
+    assert "Fair on" not in near["legs"][0]["breakdown"][-1] and "Give me Drexel." in near["legs"][0]["breakdown"][-1]
+    far = mk(fav(w_p=0.61, breakdown=["✅ Bottom line: Drexel (-140). We price Drexel at -156, the book's at -140."]))
+    sports.ncaab_max_closer(far)                                                              # a real gap stays on the card
+    assert "We price Drexel at -156" in far["legs"][0]["breakdown"][-1] and "💎" in far["legs"][0]["breakdown"][-1]
+    pk = mk(fav(breakdown=["📋 Drexel are 12-7.", "✅ Bottom line: Drexel (-140). Our number's -140 too. Small bet."]))
+    sports.ncaab_max_closer(pk)
+    last = pk["legs"][0]["breakdown"][-1]
+    assert "💎" in last and "2 units" in last and "Small bet" not in last and last.startswith("✅ Bottom line: Drexel (-140)."), last
+    sports.ncaab_max_closer(pk)
+    assert pk["legs"][0]["breakdown"][-1] == last                                       # once
+    early = mk(fav(games_in=6, breakdown=["✅ Bottom line: Drexel (-140). Half a unit."]))
+    sports.ncaab_max_closer(early)
+    assert "1 unit" in early["legs"][0]["breakdown"][-1] and "Half a unit" not in early["legs"][0]["breakdown"][-1]
+    import sports_owner_lingo as ol
+    for line in list(sports.NCAAB_MAX_SAYS) + list(sdb.NCAAB_MAX_NOTE):
+        low = line.lower()
+        assert not any(w in low for w in ol.NEVER) and "%" not in line and "line mov" not in low and "lock" not in low, line
+    # the records: its own line in the unit plays box
+    src_d = open(sdb.__file__).read()
+    assert "💎 max plays" in src_d and '"💎 Max plays"' in src_d
+    # the tracker: the whole pool's tag, and the next band (under 56%) as a lead
+    assert sl.ncaab_max_play_tags(c, sports) == [sl.NCAAB_MAX_PLAY_TAG]
+    assert sl.ncaab_max_play_tags(fav(p=0.55), sports) == [sl.NCAAB_MAX_PLAY_NEXT_TAG]
+    assert sl.ncaab_max_play_tags(fav(start=OLD), sports) == [] and sl.ncaab_max_play_tags(fav(league="nba"), sports) == []
+    assert sl.ncaab_max_play_tags(fav(w_p=0.58, p=0.55), sports) == []
+    # the wiring: first among the unit plays; the thin Lock is still dropped; a Lock that qualifies carries the label
+    src = open(sports.__file__).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert pb.index('("ncaabmax", ncaab_max_plays') < pb.index('("play", plays, MAX_PLAYS)') < pb.index('("floor", floor_plays')
+    assert 'if kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best):' in pb
+    assert 'pk["ncaab_max"] = {"read": l_.get("w_p"), "p": l_.get("p"), "lock": True}' in pb
+    assert "ncaab_max_play_ok" not in src[src.index("def make_board("):src.index("def _combo(")] if "def _combo(" in src else True
+    # TWO MAX PLAYS, SIDE BY SIDE (the merge with the 11/16 PROS hunt): the hockey Dog's names and rule untouched, the
+    # college one on its own names, flag and judge; ONE record line counts both; the hockey max play takes the ⭐
+    assert sports.MAX_PLAY_UNITS == 3.0 and sports.MAX_PLAY_LEAGUES == ("nhl",) and sports.MAX_PLAY_QUIT == (25, 0.44)
+    assert sports.NCAAB_MAX_PLAY_UNITS == 2.0 and sports.NCAAB_MAX_PLAY_LEAGUES == ("ncaab",) and sports.NCAAB_MAX_PLAY_QUIT == (25, 0.60)
+    assert callable(sports.max_play_leg) and callable(sports.mark_max) and not sports.max_play_leg(c)
+    hockey = {"date": "2026-11-17", "kind": "dog", "status": "won", "lean": False, "max_play": True, "units": 3.0,
+              "legs": [{"league": "nhl", "odds": 130, "market": "ml"}]}
+    both = [hockey] * 3 + [{**mk(c), "status": "lost", "units": 2.0}] * 2
+    assert sports.max_play_record(both) == (3, 0)                                        # the hockey judge: its own picks only
+    r2 = sports.ncaab_max_play_record(both)
+    assert (r2["won"], r2["lost"]) == (0, 2)                                            # the college judge: its own picks only
+    assert not sports.max_play_quit([{**mk(c), "status": "lost", "units": 2.0}] * 30)    # 30 college losses never trip the hockey judge
+    assert not sports.ncaab_max_play_quit([{**hockey, "status": "lost"}] * 30)          # ...nor the other way
+    assert "max_play" not in mk(c) and "ncaab_max" not in hockey                        # two flags, never mixed
+    assert sports.units_for({**mk(c), "max_play": True}) == 2.0                          # (a stray hockey flag never re-sizes it)
+    opn = {"date": "2026-11-17", "kind": "dog", "status": "open", "lean": False, "max_play": True, "dec": 2.3, "american": 130,
+           "legs": [{"league": "nhl", "odds": 130, "dec": 2.3, "market": "ml", "team": "Sharks", "p": 0.45, "edge": 0.03, "edge_own": 0.03}]}
+    assert sports.best_rank(opn)[0] == -1 < sports.best_rank(mk(c))[0] == 0             # the ⭐: the hockey max play first
+    assert src_d.count('r[0].get("max_play") or r[0].get("ncaab_max")') == 2            # ONE 💎 line (record box + bankroll), both kinds
+    assert src_d.count("💎 max plays {mw}") == 1 and src_d.count('line("💎 Max plays"') == 1
+    for line in list(sports.NCAAB_MAX_SAYS) + list(sdb.NCAAB_MAX_NOTE) + list(sdb.NCAAB_MAX_WHY):
+        assert "biggest" not in line.lower(), line                                      # (2u is not the board's biggest bet - the hockey one is 3u)
+    # the study files are on file
+    here = os.path.dirname(os.path.abspath(sports.__file__))
+    for f in ("mlib.py", "h1_cbb_cells.out", "h2_lock_live.out", "h3_lock_why.out", "h4_best_bet.out", "h5_football.out",
+              "h6_weighed_edge.out", "h7_as_wired.out", "h8_two_replays.out"):
+        assert os.path.exists(os.path.join(here, "results", "studies", "maxcol_1116", f)), f
+    out = open(os.path.join(here, "results", "studies", "maxcol_1116", "h7_as_wired.out")).read()
+    assert "91-37" in out and "39-15" in out and "35-15" in out
 
 
 if __name__ == "__main__":

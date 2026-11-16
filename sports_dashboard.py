@@ -252,6 +252,10 @@ BIG_WHY = {   # 4u+
 
 WHY_USED = set()                 # the unit reasons already on the page this build (reset in render)
 
+NCAAB_MAX_WHY = (      # 💎 11/16: the college hoops max play's size line - the spot, never "our number vs theirs" (the
+    #              weighed read moves 4 points at most, so the two numbers always sit close; the size is the spot's record)
+    "Max play. This is the spot we wait for.", "Max play — we pick our spots, and this is one.",
+    "A max play goes right here.", "Max play. Scared money don't make no money.")
 NUM_WHY = {   # (11/4) the size line with our number next to the book's - a few ways per size, none repeated on a board
     "half": ("We make 'em {f}, the book's at {o}. Small bet.", "Our number's {f}, they're hanging {o}. Keep it small.",
              "{f} on our sheet, {o} at the book. Half a unit does it.", "Book says {o}, we say {f}. Light bet.",
@@ -406,6 +410,9 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
             f = None                                         #  "we make 'em +109, the book's at +102" argued against it)
             if u == 0.5:
                 why = _pick_why(FLOOR_WHY, key)
+        if leg and leg.get("ncaab_max") and not lean:         # 💎 (11/16: the college hoops max play says the spot, not a number gap)
+            f = None
+            why = _pick_why(NCAAB_MAX_WHY, key)
         if f and odds is not None:                           # (11/4, the owner: "I have not liked the damn lingo" - the
             o = f"+{odds}" if odds > 0 else str(odds)        #  same "We make 'em X, the book's at Y. Small bet." on every
             sz = "half" if u == 0.5 else "full" if u < 2 else "bigger" if u < 4 else "big"   # card; our number next to
@@ -447,7 +454,8 @@ def unit_record(picks, today=None, early=None):
     bw, bl, bnet, bbet = sum(r[2] > 0 for r in br), sum(r[2] < 0 for r in br), sum(r[2] for r in br), sum(r[1] for r in br)
     best = (f'<div class="ovr-s">⭐ engine\'s best picks {bw}-{bl} · {"+" if bnet >= 0 else "-"}{abs(bnet):.1f} units · ROI {bnet / bbet:+.0%}</div>'
             if bw + bl else "")
-    mr = [r for r in rows if r[0].get("max_play")]           # 💎 the max plays (11/16): their own line
+    mr = [r for r in rows if r[0].get("max_play") or r[0].get("ncaab_max")]   # 💎 the max plays (11/16): ONE line, both kinds -
+    #                                                          the 3u hockey Dog spot and the 2u college hoops favorite
     mw, ml_, mnet, mbet = sum(r[2] > 0 for r in mr), sum(r[2] < 0 for r in mr), sum(r[2] for r in mr), sum(r[1] for r in mr)
     if mw + ml_:
         best += f'<div class="ovr-s">💎 max plays {mw}-{ml_} · {"+" if mnet >= 0 else "-"}{abs(mnet):.1f} units · ROI {mnet / mbet:+.0%}</div>'
@@ -479,7 +487,7 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + line("⭐ Engine's best picks", [r for r in rows if r[0].get("best")])   # (11/4: its own line, counted once at its raised units)
-           + line("💎 Max plays", [r for r in rows if r[0].get("max_play")])       # (11/16: the 3u hockey Dog spot, its own line)
+           + line("💎 Max plays", [r for r in rows if r[0].get("max_play") or r[0].get("ncaab_max")])   # (11/16: one line - the 3u hockey Dog spot + the 2u college hoops max play)
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
                      (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"))))   # Dog of the Day is a value play)
     #   (10/18, the owner: three rows only - "it's value or lock or early play": no leans row, the 🔍 plays are value plays)
@@ -1211,6 +1219,14 @@ BEST_FORCED = [   # ...and on a day nothing clears a unit-play bar, the engine's
     "⭐ ENGINE'S BEST PICK — no play made the bar today; this is the side the engine is surest on. One unit, every day.",
     "⭐ ENGINE'S BEST PICK — the slate gave us no value play, so here's the engine's surest call at one unit. We post one every day.",
 ]
+NCAAB_MAX_NOTE = [      # 💎 the owner, 11/16: "one pick with like 3-4 units on it ... like the sharp professional bettors do. They
+    #               pick their spots" - the college hoops max play: 2 units, only when the spot is there (the 3u hockey
+    #               Dog max play has its own note above - MAX_NOTE)
+    "💎 MAX PLAY — we pick our spots, and this is one.",
+    "💎 MAX PLAY — the college hoops spot the engine waits for.",
+    "💎 MAX PLAY — this don't come around every night. When it does, we bet it bigger.",
+    "💎 MAX PLAY — the spot the engine waits for in college hoops, that's just facts.",
+]
 BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day standard, there's no Lock of the Day -
     #               the best call goes up as a plain LOCK, with this box above it
     "🔒 Nothing on today's board met our Lock of the Day standard — so no Lock of the Day. Here's our top lock.",
@@ -1283,7 +1299,11 @@ def _pick_card(kind, pk):
         backup += '<div class="slate-note best-note max-note">' + _rot(spin, MAX_NOTE) + '</div>\n'   # it says the ⭐ too
     elif pk.get("best") and not pk.get("lean"):              # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
         label = f"{label} · ⭐ ENGINE'S BEST PICK"            # day's best unit play, 1u at least - its own kind stays
-        backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
+        if not pk.get("ncaab_max"):                          # (💎 11/16: a college max play's own note says it - one box, not two)
+            backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
+    if pk.get("ncaab_max") and not pk.get("max_play") and not pk.get("lean"):   # 💎 THE COLLEGE HOOPS MAX PLAY (11/16): the
+        label = f"{label} · 💎 MAX PLAY"                      # favorite the engine waits for - 2u, the same 💎 record line
+        backup += '<div class="slate-note best-note max-note">' + _rot(spin, NCAAB_MAX_NOTE) + '</div>\n'
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span></div>

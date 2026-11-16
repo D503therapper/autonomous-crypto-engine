@@ -544,12 +544,13 @@ def tags(c, sports):
     t += fourth_down_tags(c, sports)                         # 11/12 DAILY Q6: the college 4th-down coach (LEADS)
     t += daily_1113_tags(c, sports)                          # 11/13 DAILY: the bad NBA home favorite's moneyline (LEAD)
     t += sizing_1115_tags(c, sports)                         # 11/15 FABLE: sizing + best picks - the funnel's two LEADS
+    t += ncaab_max_play_tags(c, sports)                            # 💎 11/16 FABLE: the college hoops max play + its next band
     t += forensics_1116_tags(c, sports)                      # 11/16 FABLE: why we lose - the football Lock, thin / not thin
     t += max_1116_tags(c, sports)                            # 11/16 FABLE: the max play hunt - the 💎 spot + its control
     return t + sharp
 
 
-MAX_1116_FROM = "2026-11-17"   # 11/16 FABLE - THE MAX PLAY HUNT (PROS) (results/studies/max_pro_1116/): from the 11/17 games
+MAX_1116_FROM = "2026-11-16"   # 11/16 FABLE - THE MAX PLAY HUNT (PROS) (results/studies/max_pro_1116/): from the 11/17 games
 MAX_1116_TAG = "hockey dog, rested vs a b2b favorite, dog score 8+ (the 💎 max play's spot)"   # every hockey dog +100..+350
 #   on the spot the 💎 MAX PLAY sizes 3u (sports.max_play_leg), posted or not: 34-24 +39.1% on the 2020-23 paid-odds rig
 #   at the morning price (3 of 3 seasons - the cut was never chosen there), 50-34 +38.4% with the 2023-26 board rows. The
@@ -573,7 +574,7 @@ def max_1116_tags(c, sports):
         return []
 
 
-FORENSICS_1116_FROM = "2026-11-17"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
+FORENSICS_1116_FROM = "2026-11-16"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
 FORENSICS_1116_NFL_TAG = "NFL Lock-grade favorite, not thin (the ½u Lock's judge)"   # Lock by its edge, tracked from the
 FORENSICS_1116_THIN_TAG = "football Lock-grade favorite, thin edge (the Lock rule turns it away)"   # 11/17 Pacific games.
 #   (1) the NFL favorite the board can make the Lock (56%+, the own read agrees, a real play, NOT a thin edge): 6-10
@@ -622,6 +623,33 @@ SIZING_1115_NHL_NEXT_TAG = "hockey dog, named reason, thin, score 4-6 (the next 
 #   dog one notch under the Dog gate: +24.3% on 83 / +59.0% on 66 kept off on the 2023-26 boards, but the floor's own
 #   posted ones flat (18-24 / 27-34) and 65-93 -1.0% on the 2020-23 seasons no weight saw (-7.2% under the gate) - the
 #   forward record settles it. Judge at 60.
+
+
+NCAAB_MAX_PLAY_TAG = "💎 college hoops max play (a 56%+ favorite, the weighed read over the price)"   # 11/16 FABLE - THE MAX
+#   PLAY HUNT (COLLEGE) (results/studies/maxcol_1116/): every side sports.ncaab_max_play_ok passes, posted or not (a night's
+#   2nd one, a game we're already on) - the replay 100-39 +23.4% on 139 (train +20.9% / held +27.1%, 7 of 8 seasons).
+#   The play's own judge is sports.ncaab_max_play_quit (25 graded, under 60% won = off); this line is the whole pool's record.
+NCAAB_MAX_PLAY_NEXT_TAG = "college hoops small fav under 56%, the weighed read over the price (the max play's next band - lead)"
+#   the same test without the Lock's 56% bar: 37-20 +16.5% on 57 in the replay (train +26.2% on 37 / held 11-9, -1.3%;
+#   the two replays agree on it, 2023-25: 53-24 / 52-24 with the 56%+ ones in) - tracked only. Judge at 40: +5% or
+#   better = the max play's bar could come down to "the weighed read over the price".
+
+
+def ncaab_max_play_tags(c, sports):
+    """💎 11/16 MAX PLAY: the play's whole pool and its next band (tracked only; the board posts the best one a night)."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "ncaab" or sports.pt_day(c) < sports.NCAAB_MAX_PLAY_FROM:
+            return []
+        if sports.ncaab_max_play_ok(c):
+            return [NCAAB_MAX_PLAY_TAG]
+        o = c.get("odds") or 0
+        dec = c.get("dec") or sports._dec(o)
+        if -150 <= o <= -101 and c.get("w_p") is not None and c["w_p"] * dec > 1 and (c.get("p") or 0) < sports.LOCK_P \
+                and not c.get("trap") and not sports.fighting(c) and not sports.nba_week_one(c):
+            return [NCAAB_MAX_PLAY_NEXT_TAG]
+        return []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 def sizing_1115_tags(c, sports):
