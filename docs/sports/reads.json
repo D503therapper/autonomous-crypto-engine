@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T18:45Z",
+ "updated": "2026-11-16T19:00Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -41,8 +41,8 @@
    "away": "Fisk",
    "home": "North Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -160,7 +160,7 @@
     "opp": "Kentucky",
     "market": "spread",
     "line": 28.5,
-    "odds": -108,
+    "odds": -115,
     "p": 0.522,
     "win_p": 0.021,
     "reasons": [
@@ -220,9 +220,9 @@
     "team": "Jacksonville",
     "opp": "Georgia",
     "market": "spread",
-    "line": 21.5,
-    "odds": -108,
-    "p": 0.515,
+    "line": 22.5,
+    "odds": -118,
+    "p": 0.516,
     "win_p": 0.04,
     "reasons": [
      "rolling off a blowout win"
@@ -388,8 +388,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "76ers",
-    "p": 0.578,
-    "tie": 0.036,
+    "p": 0.593,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -397,16 +397,16 @@
    "start": "2026-11-17T00:30Z",
    "away": "76ers",
    "home": "Nets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "76ers",
     "opp": "Nets",
     "market": "ml",
     "line": null,
-    "odds": -197,
-    "p": 0.637,
-    "win_p": 0.637,
+    "odds": -217,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "the stronger team"
     ]
@@ -683,7 +683,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.608,
+    "p": 0.604,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -699,9 +699,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.684,
-    "win_p": 0.684,
+    "odds": -230,
+    "p": 0.678,
+    "win_p": 0.678,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -822,7 +822,7 @@
     "opp": "Oregon St",
     "market": "spread",
     "line": 15.5,
-    "odds": -118,
+    "odds": -115,
     "p": 0.509,
     "win_p": 0.082,
     "reasons": [
@@ -890,6 +890,34 @@
    }
   },
   {
+   "id": "ncaab:401927381",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Murray St",
+    "p": 0.727,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T17:00Z",
+   "away": "Hofstra",
+   "home": "Murray St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Hofstra",
+    "opp": "Murray St",
+    "market": "spread",
+    "line": 9.5,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.194,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401920511",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -911,7 +939,7 @@
     "opp": "Houston",
     "market": "spread",
     "line": 15.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.509,
     "win_p": 0.078,
     "reasons": []
@@ -1044,7 +1072,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duke",
-    "p": 0.691,
+    "p": 0.697,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1060,9 +1088,9 @@
     "opp": "Duke",
     "market": "spread",
     "line": 7.5,
-    "odds": -118,
+    "odds": -112,
     "p": 0.501,
-    "win_p": 0.234,
+    "win_p": 0.228,
     "reasons": [
      "hotter recent form"
     ]
@@ -1220,7 +1248,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pitt",
-    "p": 0.497,
+    "p": 0.514,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1236,11 +1264,12 @@
     "opp": "Villanova",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.525,
-    "win_p": 0.525,
+    "odds": -130,
+    "p": 0.547,
+    "win_p": 0.547,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -1312,7 +1341,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.384,
+    "p": 0.388,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -1328,9 +1357,9 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.647,
-    "win_p": 0.428,
+    "odds": -192,
+    "p": 0.639,
+    "win_p": 0.419,
     "reasons": []
    }
   },
@@ -1340,7 +1369,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.375,
+    "p": 0.381,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1356,9 +1385,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.67,
-    "win_p": 0.453,
+    "odds": -205,
+    "p": 0.658,
+    "win_p": 0.441,
     "reasons": []
    }
   },
@@ -1475,7 +1504,7 @@
     "opp": "Sharks",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -245,
     "p": 0.69,
     "win_p": 0.472,
     "reasons": []
