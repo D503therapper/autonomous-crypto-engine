@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T03:34Z",
+ "updated": "2026-11-16T03:35Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1256,8 +1256,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.597,
-    "tie": 0.035,
+    "p": 0.566,
+    "tie": 0.036,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1272,9 +1272,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -223,
-    "p": 0.663,
-    "win_p": 0.663,
+    "odds": -180,
+    "p": 0.617,
+    "win_p": 0.617,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -1287,8 +1287,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia",
-    "p": 0.902,
-    "tie": 0.018,
+    "p": 0.908,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1305,7 +1305,7 @@
     "line": 23.5,
     "odds": -115,
     "p": 0.517,
-    "win_p": 0.04,
+    "win_p": 0.036,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -1375,7 +1375,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.534,
+    "p": 0.519,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1391,13 +1391,13 @@
     "opp": "Long Island",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.578,
-    "win_p": 0.578,
+    "odds": -142,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
-     "sharp money moving this way",
      "out-rebounding people by -2.6 a game to their -8.8 - the books don't price the glass (5 of 5 seasons)",
-     "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+     "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
   },
@@ -1438,7 +1438,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.682,
+    "p": 0.673,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -1456,7 +1456,7 @@
     "line": 7.5,
     "odds": -115,
     "p": 0.501,
-    "win_p": 0.244,
+    "win_p": 0.254,
     "reasons": []
    }
   },
@@ -1558,7 +1558,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Drake",
-    "p": 0.752,
+    "p": 0.756,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1574,9 +1574,9 @@
     "opp": "Drake",
     "market": "spread",
     "line": 10.5,
-    "odds": -110,
+    "odds": -118,
     "p": 0.504,
-    "win_p": 0.167,
+    "win_p": 0.163,
     "reasons": []
    }
   },
@@ -1642,8 +1642,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.789,
-    "tie": 0.03,
+    "p": 0.799,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1660,7 +1660,7 @@
     "line": 12.5,
     "odds": -118,
     "p": 0.506,
-    "win_p": 0.131,
+    "win_p": 0.121,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -1817,6 +1817,37 @@
    }
   },
   {
+   "id": "nba:401910001",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Nuggets",
+    "p": 0.645,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T02:00Z",
+   "away": "Suns",
+   "home": "Nuggets",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Nuggets",
+    "opp": "Suns",
+    "market": "spread",
+    "line": -10.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.734,
+    "reasons": [
+     "the stronger team",
+     "altitude edge"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892727",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1913,8 +1944,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC San Diego",
-    "p": 0.857,
-    "tie": 0.023,
+    "p": 0.865,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1928,10 +1959,10 @@
     "team": "Texas Southern",
     "opp": "UC San Diego",
     "market": "spread",
-    "line": 18.5,
+    "line": 19.5,
     "odds": -110,
-    "p": 0.512,
-    "win_p": 0.071,
+    "p": 0.513,
+    "win_p": 0.065,
     "reasons": []
    }
   }
