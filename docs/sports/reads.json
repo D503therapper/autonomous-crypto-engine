@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T00:38Z",
+ "updated": "2026-11-16T00:40Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -860,8 +860,8 @@
    "away": "Ecclesia",
    "home": "UT Martin",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -951,154 +951,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401920896",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Wisconsin",
-    "p": 0.939,
-    "tie": 0.012,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Coastal",
-   "home": "Wisconsin",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Coastal",
-    "opp": "Wisconsin",
-    "market": "spread",
-    "line": 27.5,
-    "odds": -105,
-    "p": 0.521,
-    "win_p": 0.02,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401892723",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.391,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Flames",
-   "home": "Ducks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Flames",
-    "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.638,
-    "win_p": 0.422,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nba:401909992",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Hawks",
-    "p": 0.651,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Hawks",
-   "home": "Bucks",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Hawks",
-    "opp": "Bucks",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -111,
-    "p": 0.501,
-    "win_p": 0.74,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892722",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.37,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Panthers",
-   "home": "Stars",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Panthers",
-    "opp": "Stars",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.68,
-    "win_p": 0.462,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaab:401929200",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Texas St",
-    "p": 0.551,
-    "tie": 0.043,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Texas St",
-   "home": "UTSA",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Texas St",
-    "opp": "UTSA",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.599,
-    "win_p": 0.599,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
   },
   {
    "id": "nfl:401873064",
@@ -1247,7 +1099,7 @@
     "opp": "Kings",
     "market": "spread",
     "line": -11.5,
-    "odds": -108,
+    "odds": -105,
     "p": 0.502,
     "win_p": 0.792,
     "reasons": [
