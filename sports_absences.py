@@ -403,7 +403,14 @@ def penalty(games, g, side, injuries, skip_qb=False):
             pts = 10 if len(kinds) >= 2 else 8 if "QB" in kinds else 3 if kinds else 0
         else:
             pts = 5 if len(kinds) >= 2 else 3 if "QB" in kinds else 0
-        return pts / 100, [f"{r} {p}" for r, p in gone]
+        #   (11/16 EVERY FACT TRUE: the 11/15 Packers read said "WR T.J. Hockenson" - a tight end; a top-2 pass catcher
+        #    the report lists at another spot is named by the report's own position, never a made-up one)
+        rpos = {_nm(r[0]): str(r[1] or "").upper() for r in rows}
+
+        def label(r, p):
+            hit = next((v for k, v in rpos.items() if match(p, {k})), "")
+            return hit if r != "QB" and hit in ("TE", "RB", "WR", "FB", "HB") else r
+        return pts / 100, [f"{label(r, p)} {p}" for r, p in gone]
     top = kp.get("top") or []
     gone = [p for p in top if is_out(p)]
     if not gone:

@@ -41,6 +41,16 @@ def main(day_iso=None):
                     st = sd.STARTER_OF(lg, g[side], r[0]) if (key and sd.STARTER_OF) else None
                     tag = ("KEY - verified starter" if st else "KEY - backup (box scores)" if st is False
                            else "KEY - starter unknown" if key else "")
+                    if key and st is False and lg in ("nfl", "ncaaf"):   # (11/16: Kyler Murray, 4 of the Vikings'
+                        try:                                           #  last 5 starts, read "backup" the week
+                            import sports_qb                           #  Wentz filled in - the tag says what he is)
+                            role = sports_qb.role(sp.CACHE.get(lg) or [], lg, g[side], r[0], g["start"])
+                        except Exception:                              # noqa: BLE001
+                            role = None
+                        if role == "regular starter":
+                            tag = "KEY - the regular starter, sat the last game (box scores)"
+                        elif role == "chart starter":
+                            tag = "KEY - first on the depth chart, didn't start the last game"
                     out.append(f"      {r[0]} ({r[1] or '?'}) - {r[2]}" + (f"  [{tag}]" if tag else ""))
     txt = "\n".join(out)
     os.makedirs("results", exist_ok=True)

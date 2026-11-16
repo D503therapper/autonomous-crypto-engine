@@ -357,12 +357,22 @@ def qb_settled(rows, team, before):
     return names[0]
 
 
-def qb_for(rows, team, before):
-    """Who the engine names / weighs at QB for a game starting `before`: the settled QB from QB_SETTLED_FROM, before it the
-    last starter (the old reading, kept for the replays)."""
-    if (before or "")[:10] >= QB_SETTLED_FROM:
-        return qb_settled(rows, team, before)
-    return last_starter(rows, team, before)
+def qb_for(rows, team, before, league=None, team_name=""):
+    """Who the engine names / weighs at QB for a game starting `before`: from QB_SETTLED_FROM the man the box scores AND
+    the depth chart agree on (sports_qb.call - 11/16: the chart's first healthy quarterback started the team's last
+    game; no chart on file = the settled QB of the last 2 box scores, off the out list); before it the last starter
+    (the old reading, kept for the replays). None = unknown - no QB line, no QB edge."""
+    day = (before or "")[:10]
+    if day < QB_SETTLED_FROM:
+        return last_starter(rows, team, before)
+    try:
+        import sports_qb
+        if day >= sports_qb.QB_CHART_FROM:
+            lg = league or str((rows[0].get("gid") if rows else "") or "").split(":")[0]
+            return sports_qb.call(rows, lg, team, before, team_name=team_name)["name"]
+    except Exception:                                        # noqa: BLE001 - the chart never breaks a board
+        pass
+    return qb_settled(rows, team, before)
 
 
 PROJ_GAMES = 10         # 🥅 11/6: the projected goalie reads the team's last 10 starts THIS season (sports_goalies' #1 window)
@@ -470,11 +480,14 @@ def edge_units(role, home, away):
     return (home - away) * 50             # .020 of save % ~ one unit
 
 
-def key_edges(games, players):
+def key_edges(games, players, only=None):
     """{game id: key player edge} for every game in stored leagues (finished: the actual starters; upcoming: the
-    announced starting pitcher, else the team's most recent starter)."""
+    announced starting pitcher, else the team's most recent starter). `only`: just these leagues' UPCOMING games (the
+    board re-reads football's once this run's injury report is in - sports.post_board)."""
     out = {}
     for lg, role in ROLE.items():
+        if only is not None and lg not in only:
+            continue
         rows = players.get(lg) or []
         if not rows:
             continue
@@ -485,7 +498,7 @@ def key_edges(games, players):
         for r in rows:
             by_player.setdefault(r["player"], []).append(r)
         for g in games.values():
-            if g["league"] != lg:
+            if g["league"] != lg or (only is not None and g["status"] == "final"):
                 continue
             start = g["start"]
             names = {}
@@ -497,7 +510,8 @@ def key_edges(games, players):
                 elif role == "G":
                     who = starter_for(rows, g, side)         # (the confirmed / likely goalie when known)
                 else:
-                    who = qb_for(rows, g[side], start)        # (11/15: a QB change = unknown, never the last passer)
+                    who = qb_for(rows, g[side], start, lg, g.get(side + "_name") or "")   # (11/15: a QB change =
+                    #                                           unknown; 11/16: the depth chart has to agree - sports_qb)
                 names[side] = who
             if not names["home"] or not names["away"]:
                 continue

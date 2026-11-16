@@ -214,6 +214,35 @@ def rest_no_reason(league, g):
         return False
 
 
+BYE_REAL_FROM = "2026-11-16"     # 🛌 11/16 FABLE - EVERY FACT TRUE: the model's 'bye' input is "10+ days since the last
+BYE_REAL_WEEKS = (2, 4)          # game", so a Thursday-to-Monday week (11 days) read "coming off a bye" - the 11/2 Bears
+#   card: "A bye week for the Bears last week" (they beat the Patriots 30-24 on Thursday 10/22 and played Monday 11/2 -
+#   no bye), and a team in its season opener against one that played week 0 read the same. From games on this date the
+#   NAMED reason "coming off a bye" (and so every bye line on a card) stands only when a whole football week (Tuesday to
+#   Monday) passed with no game: the side's last game sits 2-4 football weeks back (a Sunday then a Thursday 11 days
+#   later IS a bye; a Thursday then a Monday 11 days later is not). The learned weight still counts what it was fit on.
+#   "9999" = off.
+
+
+def real_bye(f, s, g):
+    """Is the side (s = +1 home / -1 away) really off a bye - a whole football week with no game before this one? Before
+    BYE_REAL_FROM, or with no day count on the features: the old reading (True). A season opener: never."""
+    if pt_day(g) < BYE_REAL_FROM:
+        return True
+    d = f.get("days_home" if s > 0 else "days_away", "none")
+    if d == "none":
+        return True
+    if d is None:
+        return False
+    try:
+        import sports_breakdown_v24 as _v24
+        start = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        wk = _v24._week(start) - _v24._week(start - timedelta(days=d))
+    except Exception:                                    # noqa: BLE001 - can't tell = no bye talk
+        return False
+    return BYE_REAL_WEEKS[0] <= wk <= BYE_REAL_WEEKS[1]
+
+
 def _reasons(side, f, g, league, params, p_side=None):
     """Short plain-English reasons the engine likes this side, strongest first. p_side = the engine's current read
     on the side when known (the stronger-team label needs it on its side - 11/4)."""
@@ -247,6 +276,8 @@ def _reasons(side, f, g, league, params, p_side=None):
     for name, label in (("revenge", "revenge game"), ("letdown", "letdown spot for the opponent"),
                         ("bye", "coming off a bye"), ("short", "opponent on a short week")):
         if f.get(name, 0) * s > 0 and w.get(name, 0) >= 0.1:
+            if name == "bye" and not real_bye(f, s, g):      # (11/16: a Thursday-to-Monday week is no bye)
+                continue
             out.append((0.4 + w[name], label))
     for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us"),
                         ("travel", "opponent's body clock is off")):
@@ -8324,6 +8355,7 @@ def post_board(games, model, picks, now, day, force=False):
     if not todo and not nights and full:
         return []
     injuries = {lg: sd.fetch_injuries(lg) for lg in sd.LEAGUES}
+    qb_refresh(games, injuries, now)                         # 🏈 11/16: the QB call reads this run's injury report
     for g in games.values():
         if g["status"] != "pre" or not injuries.get(g["league"]):
             continue
@@ -8992,6 +9024,39 @@ def on_report(leg, g, injuries):
     return sorted(n for n in report_names(leg) if _on_list(n, listed))
 
 
+def qb_refresh(games, injuries, now=None):
+    """🏈 11/16 (EVERY FACT TRUE): once this run's injury report is in, the quarterback call (sports_qb.call - the depth
+    chart + the box scores + who's ruled out) is re-read for every upcoming football game and the key-player edge with
+    it: a QB ruled out, questionable or no longer the chart's man carries no edge. Logs the calls (qb_calls.json)."""
+    try:
+        import sports_qb
+        sports_qb.note_injuries(injuries)
+        fb = [k for k, g in games.items() if g["league"] in sports_qb.LEAGUES and g["status"] != "final"]
+        fresh = sp.key_edges(games, sp.CACHE, only=sports_qb.LEAGUES)
+        for k in fb:
+            sm.KEY_EDGE.pop(k, None)
+        sm.KEY_EDGE.update(fresh)
+        sports_qb.record(games, sp.CACHE, now)
+    except Exception as e:                                   # noqa: BLE001 - never blocks the board
+        print(f"qb refresh failed: {str(e)[:80]}")
+
+
+def qb_names_on(leg, g, rows):
+    """The quarterbacks a card's lines give numbers for: {name: 'home' / 'away'} (this season's starters of the two teams
+    whose name sits in a line with a TD / pick / yards count)."""
+    import re
+    body = " ".join(str(x) for x in (leg.get("breakdown") or []) + [leg.get("why_line") or ""]
+                    if re.search(r"\d+ TDs?, \d+ picks?", str(x)))
+    out = {}
+    if not body:
+        return out
+    floor = (g.get("start") or "")[:4] + "-07-01" if (g.get("start") or "")[5:7] >= "07" else str(int((g.get("start") or "2026")[:4]) - 1) + "-07-01"
+    for r in rows[-6000:]:
+        if r["start"] >= floor and str(r["team"]) in (str(g["home"]), str(g["away"])) and r["player"] in body:
+            out[r["player"]] = "home" if str(r["team"]) == str(g["home"]) else "away"
+    return out
+
+
 def fresh_card_facts(games, legs, injuries):
     """🔄 THE CARD KEEPS UP WITH THE NEWS (11/12 - Victor: "One of the write ups has bad information ... outdated
     information", the owner: "Skattebo is playing" / "JJ is playing as well"). A card is written when it posts and its
@@ -9024,6 +9089,24 @@ def fresh_card_facts(games, legs, injuries):
                         stale.append(nm)                     # got from the box scores (Kane / Vilmanis sat the last
                         fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")   # games, never
                 leg["on_report"] = sorted(seen)              # on the report) is never called 'playing' - that'd be false
+        if leg["league"] in ("nfl", "ncaaf"):               # 🏈 11/16: a quarterback the card gives numbers for who is
+            rows = sp.CACHE.get(leg["league"]) or []         # no longer the engine's call (ruled out, questionable, the
+            try:                                             # chart moved on) comes off the card with an update line
+                import sports_qb
+                if rows and pt_day(g) >= sports_qb.QB_CHART_FROM:
+                    sports_qb.note_injuries(injuries)
+                    for nm, side_ in qb_names_on(leg, g, rows).items():
+                        c = sports_qb.call(rows, leg["league"], g[side_], g["start"], team_name=g.get(side_ + "_name") or "")
+                        if c["name"] and sports_qb.same(c["name"], nm):
+                            continue
+                        if nm in stale:
+                            continue
+                        stale.append(nm)
+                        why_ = {"out": "is ruled out", "questionable": "is questionable"}.get(c["how"], "isn't confirmed as the starter")
+                        fresh.append(f"🔄 Update: {nm} {why_} for the {g[side_ + '_name']}"
+                                     + (f" - {c['name']} is the quarterback now." if c["name"] else "."))
+            except Exception as e:                           # noqa: BLE001 - never blocks the board
+                print(f"qb card check failed: {str(e)[:60]}")
         if leg["league"] == "nhl":
             rows = sp.CACHE.get("nhl") or []
             if rows:
@@ -9345,6 +9428,12 @@ def run(repick=False, fetch=True):
             sports_goalies.sync(games, now)              # Faceoff, a public page) - fails soft: unknown = no weight
         except Exception as e:                           # noqa: BLE001 - never blocks the board
             print(f"goalies failed: {str(e)[:60]}")
+        try:                                             # 🏈 11/16: who starts at QB - ESPN's team depth charts (a
+            import sports_qb                             # plain request); fails soft: no chart = the box-score rule
+            t0 = time.time()
+            print(f"qb depth charts: {sports_qb.sync(games, now)} read, {time.time() - t0:.0f}s")
+        except Exception as e:                           # noqa: BLE001 - never blocks the board
+            print(f"qb depth charts failed: {str(e)[:60]}")
         try:                                             # 🏀 every NBA roster, once a day (the owner, 10/20: "who's
             ro = sports_nba_roster.refresh(games, now)   # playing, who the teams traded and who they got") - fails soft
             mv = (ro or {}).get("moves") or []

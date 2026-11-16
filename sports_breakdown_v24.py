@@ -167,6 +167,16 @@ def _fair_games(games_, tid, our_id, e, lg):
     return [x for x in games_ or [] if not _tougher(x, tid, our_id, e)]
 
 
+def unfair_losses(games_, tid, our_id, e, lg):
+    """(11/16 EVERY FACT TRUE - the rest of the Oakland 0-5 class) tid's LOSSES to teams rated above us, in SCHEDULE_FAIR
+    leagues: with any of these in it, its record / losing streak is no yardstick against OUR team - the 💪 / 📋 'better
+    record' lines, "the stronger team" said by the records and the 🧊 losing-streak line all go quiet (the 11/14 Northern
+    Iowa card also read "💪 2-2 to 0-5. Oakland about to get their ass beat."). Elsewhere, or with no ratings: []."""
+    if lg not in SCHEDULE_FAIR or e is None:
+        return []
+    return [x for x in games_ or [] if _line(x, tid).startswith("L") and _tougher(x, tid, our_id, e)]
+
+
 def _said_d1(g, tid, pro, lg):
     """_said, with '(a non-D1 school)' after a non-D1 college hoops opponent - never a tune-up dressed as a result."""
     s = _said(g, tid, pro)
@@ -789,6 +799,11 @@ def _stale(games, lg, team, name, before):
 
 def breakdown(leg, games, elo, injuries, used=None):
     """A plain-talk case for one leg: a list of short bullets ending with the bottom line."""
+    try:                                                 # (11/16: the QB call reads the report this card is built on)
+        import sports_qb
+        sports_qb.note_injuries(injuries)
+    except Exception:                                    # noqa: BLE001
+        pass
     g = games[leg["game_id"]]
     lg, side = leg["league"], leg["side"]
     other = "away" if side == "home" else "home"
@@ -829,7 +844,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     leg["bd_tags"] = v.mine        # which wordings this breakdown used (so the rest of the board avoids them)
     FORM = {}                      # (ours?, "hot"/"cold") -> (starter, his numbers) for the card's "why"
     rec_t = gap = None
-    n_cold = 0
+    rec_t_cmp = None               # (11/16) their record as a yardstick against us - None in college when its losses
+    n_cold = 0                     #  include one to a team rated above us (unfair_losses)
 
     # form
     rec_u = _record(r_ours, tid) if r_ours else None
@@ -863,6 +879,10 @@ def breakdown(leg, games, elo, injuries, used=None):
         rec_t = _record(r_theirs, oid)
         cold = _streak(s_theirs, oid)
         n_cold = int(cold.split()[1]) if cold.startswith("lost") else 0
+        _unfair = unfair_losses(r_theirs, oid, tid, elo.get(lg), lg)
+        rec_t_cmp = None if _unfair else rec_t
+        if n_cold and unfair_losses((s_theirs or [])[-n_cold:], oid, tid, elo.get(lg), lg):
+            n_cold = 0                                   # (11/16: a skid through teams rated above us says nothing)
         w_t = sum(1 for x in r_theirs if _line(x, oid).startswith("W"))
         rating_t = elo[lg].r.get(oid, 1500.0) if elo.get(lg) is not None else 1500.0
         trash = (len(r_theirs) >= 3 and w_t / len(r_theirs) < 0.35) or n_cold >= 3 or rating_t < 1420
@@ -889,6 +909,10 @@ def breakdown(leg, games, elo, injuries, used=None):
         said.add("the stronger team")                   # said here either way (better / even / worse): not again later
         _ru = _record(r_ours, tid) if len(r_ours) >= 2 else None    # (10/21: 1-0 vs 0-1 compares nothing; two games in,
         _rt = _record(r_theirs, oid) if len(r_theirs) >= 2 else None   #  football's schedule line is already a real fact)
+        if lg in SCHEDULE_FAIR and rec_t and not rec_t_cmp and _ru and _rt and \
+                (lambda a, b: a[0] * (b[0] + b[1]) > b[0] * (a[0] + a[1]))(
+                    [int(x) for x in _ru.split("-")[:2]], [int(x) for x in _rt.split("-")[:2]]):
+            _rt = None                                   # (11/16: our better record vs a record full of buy-game losses)
         if _ru and _rt:                                  # (10/1, the owner: "they're just better" says nothing -
             _w = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
             if gap > 15 and raw_gap > 0 and _w(_ru) > _w(_rt):   # the records do)  "the better team" - South Dakota 11/4)
@@ -961,7 +985,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     if rec_line and not any(x and x[:1] in "💪🐺⚖" for x in out):
         last_said = _said(s_ours[-1], tid, pro) if s_ours else ""
         _wsh = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
-        if rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) > _wsh(rec_t):
+        if rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) > _wsh(rec_t) and lg in SCHEDULE_FAIR and not rec_t_cmp:
+            out.append(v.tag(v.say("rec", [f"📋 {us} are {rec_u} on the year.", f"📋 {us} sit {rec_u} so far."]), "neutral"))
+        elif rec_t and len(r_theirs) >= MIN_REC_GAMES and _wsh(rec_u) > _wsh(rec_t):
             out.append(v.say("rec", [f"📋 {us} sit {rec_u}; {them} are {rec_t}. Better record's on our side.",
                                       f"📋 {rec_u} for {us}, {rec_t} for {them}. We got the better squad on paper.",
                                       f"📋 {us} come in {rec_u}, {them} {rec_t}.",
@@ -991,6 +1017,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         w = sum(1 for x in r_theirs if _line(x, oid).startswith("W"))
         rating_them = e.r.get(oid, 1500.0) if e is not None else 1500.0
         n_cold = int(_streak(s_theirs, oid).split()[1]) if _streak(s_theirs, oid).startswith("lost") else 0
+        if n_cold and unfair_losses((s_theirs or [])[-n_cold:], oid, tid, e, lg):
+            n_cold = 0                                   # (11/16: a skid through teams rated above us says nothing)
         better = e is None or e.r.get(tid, 1500.0) > rating_them   # (10/1, the owner: a record doesn't show who they
         losing = len(r_theirs) >= 3 and w < len(r_theirs) - w       # (10/15: "Canucks ... a JV squad (1-1)", "Guardians are
         #   trash right now (85-77)" - trash talk needs a LOSING record too, not just a rating or a 3-game skid)
@@ -1000,7 +1028,13 @@ def breakdown(leg, games, elo, injuries, used=None):
         if better and losing and not _ours_worse and ((w / len(r_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420):
             #   played - trash talk only when the engine's ratings, which count the schedule, have us better)
             rec = _record(r_theirs, oid)
-            out.append(v.say("trash", [f"🗑️ {them} have been complete ass lately — {rec} and it ain't getting prettier.",
+            if len(r_theirs) != len(r_theirs_all):       # (11/16 EVERY FACT TRUE: the record of the FAIR games is never
+                out.append(v.say("trash", [               #  shown as their season record - the line says what it counts)
+                    f"🗑️ Take away the teams rated above {us} and {them} are still {rec}. Straight ass.",
+                    f"🗑️ {them} are {rec} against teams that ain't rated above {us}. Trash right now.",
+                    f"🗑️ {rec} for {them} against everybody not rated above {us}. They been ass."]))
+            else:
+              out.append(v.say("trash", [f"🗑️ {them} have been complete ass lately — {rec} and it ain't getting prettier.",
                                         f"🗑️ Straight up, {them} are trash right now ({rec}).",
                                         f"🗑️ {them} can't get out of their own way ({rec}).",
                                         f"🗑️ {them} are a mess right now. {rec} says it all.",
@@ -1060,7 +1094,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                 return g.get("sp_" + team_side) or None
             if role == "G":                                   # (10/15: the card talks about the goalie the WEIGHT used -
                 return sp.starter_for(rows, g, team_side)     #  the confirmed / likely starter, not whoever started last)
-            name_ = sp.qb_for(rows, tid_, g["start"])        # (11/15: the Carson Wentz card - a QB change is
+            name_ = sp.qb_for(rows, tid_, g["start"], lg, us if tid_ == tid else them)   # (11/15: the Carson Wentz card - a QB change is
             outs_ = leg.get("outs" if tid_ == tid else "opp_outs") or []   # unknown, and a man on the out list
             if name_ and (g["start"] or "")[:10] >= sp.QB_SETTLED_FROM and any(      # never plays on the card)
                     str(x).split(" (")[0].strip().lower() == name_.lower() for x in outs_):
@@ -1072,10 +1106,12 @@ def breakdown(leg, games, elo, injuries, used=None):
                 return True                                   # starter only 45% of the time (2023-26 box scores), and 5 of
             try:                                              # the season's 7 🥅 lines named a goalie who didn't play -
                 import sports_goalies                         # an unknown starter is said as what he is: in net LAST time
-                if sports_goalies.starter(g.get("id"), team_side) is not None:
+                if sports_goalies.confirmed(g.get("id"), team_side) is not None:
                     return True
-            except Exception:                                 # noqa: BLE001
-                pass
+                if sports_goalies.starter(g.get("id"), team_side) is not None:
+                    return "likely"                           # (11/16: 'likely' / 'expected' is the page's word, not a
+            except Exception:                                 #  fact - the Kraken's 'likely' Joey Daccord sat 11/14;
+                pass                                          #  only a CONFIRMED goalie is said as tonight's man)
             # 11/6: unknown -> the weights read the PROJECTED starter (sports_players.projected_starter - the #1 rested,
             # the other goalie on a b2b). Named and NOT the last starter = "projected", never "in net last time out"
             # (that would be false) and never stated as tonight's man; the last starter himself stays "in net last time out".
@@ -1109,6 +1145,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                     "G": [f"🥅 {_poss(the_them)} goalie {name} has been giving up a lot of goals — {txt}.",
                           f"🥅 {_poss(the_them)} goalie {name} can't keep the puck out lately: {txt}.",
                           f"🥅 Pucks keep getting past {_possm(the_them)} goalie, {name} — {txt}."] if kn is True else
+                         [f"🥅 {name}, expected in net for {the_them} (not confirmed yet), can't keep the puck out lately: {txt}.",
+                          f"🥅 {name} — expected to start for {the_them}, not confirmed yet — has been giving up a lot of goals: {txt}."]
+                         if kn == "likely" else
                          [f"🥅 {name}, projected to start for {the_them} (not confirmed yet), can't keep the puck out lately: {txt}.",
                           f"🥅 {name} — {_possm(the_them)} projected starter, nobody's confirmed yet — has been giving up a lot of goals: {txt}."]
                          if kn == "projected" else
@@ -1130,6 +1169,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                     "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",
                           f"🧱 {name} is standing on his head: {txt}.",
                           f"🧱 Good luck scoring on {name} — {txt}."] if kn is True else
+                         [f"🧱 {name}, expected in net for {the_us} (not confirmed yet), has been a brick wall — {txt}.",
+                          f"🧱 {name} — expected to start for {the_us}, not confirmed yet — is standing on his head: {txt}."]
+                         if kn == "likely" else
                          [f"🧱 {name}, projected to start for {the_us} (not confirmed yet), has been a brick wall — {txt}.",
                           f"🧱 {name} — {_possm(the_us)} projected starter, nobody's confirmed yet — is standing on his head: {txt}."]
                          if kn == "projected" else
@@ -1370,7 +1412,10 @@ def breakdown(leg, games, elo, injuries, used=None):
     _pub = public_split(leg)                              # (10/23: the real split is a fact the one-liner can open with)
     _site = _site_rec(r_ours, tid, _site_side(g, side))                  # our home / road record, theirs
     _tsite = _site_rec(r_theirs, oid, _site_side(g, other))
-    whyf = why_map(lg, us, them, the_us, the_them, pro, rec_u=rec_u, rec_t=rec_t, n_hot=n_hot, their_hot=their_hot,
+    _rt_w = rec_t if (lg not in SCHEDULE_FAIR or rec_t_cmp or not (rec_u and rec_t)) else (   # (11/16: the one-liner
+        rec_t if (lambda a, b: a[0] * (b[0] + b[1]) <= b[0] * (a[0] + a[1]))(                    #  never sells our record
+            [int(x) for x in rec_u.split("-")[:2]], [int(x) for x in rec_t.split("-")[:2]]) else None)   # over buy-game L's)
+    whyf = why_map(lg, us, them, the_us, the_them, pro, rec_u=rec_u, rec_t=_rt_w, n_hot=n_hot, their_hot=their_hot,
                    n_cold=n_cold, key_them=_kt, key_us=_ku, b2b=_b2b, gap_d=_gap_d if 2 <= _gap_d <= 10 else 0,
                    last_vs=[x for x in last_vs if (start - _t(x["start"])).days <= REVENGE_DAYS],   # (never a 2023 game)
                    tid=tid, oid=oid, s_ours=s_ours, s_theirs=s_theirs, nba_f=nba_f, form=FORM,
@@ -1380,7 +1425,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     leg["fact"] = leg["facts"][0][0] if leg["facts"] else ""
     # the line under the pick is written HERE, before the money / public lines pick their "because" - it gets first
     # call on the wording, and whatever reason it says is `said` (the 💸 / 🤡 lines name a different fact, never the same)
-    leg["why_line"] = why_line(leg, v, g, us, them, the_us, the_them, rec_u=rec_u, n_hot=n_hot, rec_t=rec_t,
+    leg["why_line"] = why_line(leg, v, g, us, them, the_us, the_them, rec_u=rec_u, n_hot=n_hot, rec_t=_rt_w,
                                n_cold=n_cold, gap=gap, form=FORM, key_them=_kt, key_us=_ku,
                                whyf=whyf, fact=leg["fact"], nba_f=nba_f, facts=leg["facts"][0] if leg["facts"] else ())
     _wl = str(leg["why_line"] or "").lower()
@@ -1884,26 +1929,30 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     role = sp.ROLE.get(lg)
     mine, his = next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if o_), None), \
         next(((n, t, k) for (o_, m_), (n, t, k) in FORM.items() if not o_), None)
-    tag = lambda k: "expected in net" if k is True else "projected, not confirmed" if k == "projected" else "in net last time out"
-    note = lambda k: "" if k is True else ", projected, not confirmed" if k == "projected" else ", in net last time out"
+    #   (11/16 EVERY FACT TRUE: "Goalies - Bruins: Jeremy Swayman ..." (DiPietro started), "Golden Knights' goalie Carter
+    #    Hart has ..." (Adin Hill started) - three of these lines carried no tag, so a guess read as tonight's starter.
+    #    Every goalie line now says what he is: confirmed, expected (the page's 'likely'), projected, or last time out.)
+    tag = lambda k: ("confirmed in net" if k is True else "expected in net, not confirmed" if k == "likely"
+                     else "projected, not confirmed" if k == "projected" else "in net last time out")
+    note = lambda k: ("" if k is True else ", expected in net, not confirmed" if k == "likely"
+                      else ", projected, not confirmed" if k == "projected" else ", in net last time out")
     if role == "G" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
         sm_, sh_ = _sv(mine[1]), _sv(his[1])
         if sm_ is not None and sh_ is not None and sm_ > sh_ + 0.005:
             add.append(v.say("f_net", [f"🥅 Goalie edge is ours: {mine[0]} ({tag(mine[2])} for {us}) has {mine[1]}; {his[0]} ({tag(his[2])} for {them}) has {his[1]}.",
-                                       f"🥅 {mine[0]} has been the better goalie - {mine[1]} for {us}. {his[0]} for {them}: {his[1]}.",
-                                       f"🥅 In net, {us} got {mine[0]}: {mine[1]}. {them} got {his[0]}: {his[1]}. Edge us.",
-                                       f"🥅 {his[0]} ({them}) has {his[1]}; our guy {mine[0]} has {mine[1]}. We like our goalie more."]))
+                                       f"🥅 {mine[0]} ({tag(mine[2])} for {us}) has been the better goalie - {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
+                                       f"🥅 {his[0]} ({them}{note(his[2])}) has {his[1]}; {mine[0]} ({us}{note(mine[2])}) has {mine[1]}. We like our goalie more."]))
         elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005:
             v.knock(6, f"{his[0]} ({them}{note(his[2])}) is at a {sh_:.3f} save % over his last 3 starts to {mine[0]}'s "
-                       f"{sm_:.3f}{'' if mine[2] is True else ' (our projected guy, not confirmed)' if mine[2] == 'projected' else ' (our guy in net last time out)'}")   # (11/5 pre-board
+                       f"{sm_:.3f}{'' if mine[2] is True else ' (our guy expected in net, not confirmed)' if mine[2] == 'likely' else ' (our projected guy, not confirmed)' if mine[2] == 'projected' else ' (our guy in net last time out)'}")   # (11/5 pre-board
             #   check: an unconfirmed starter is the LAST starter - the Ducks card named Brossoit while the goalie page had
             #   Dostal projected; the line says whose numbers they are, never that he's in net tonight)
         else:
             add.append(v.tag(v.say("f_net", [f"🥅 {mine[0]} ({tag(mine[2])} for {us}): {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
-                                             f"🥅 Goalies - {us}: {mine[0]}, {mine[1]}. {them}: {his[0]}, {his[1]}. A wash in net."]), "neutral"))
+                                             f"🥅 Goalies - {us}: {mine[0]} ({tag(mine[2])}), {mine[1]}. {them}: {his[0]} ({tag(his[2])}), {his[1]}. A wash in net."]), "neutral"))
     elif role == "G" and his and his[0].lower() not in body:
         add.append(v.tag(v.say("f_net", [f"🥅 {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
-                                         f"🥅 {them}' goalie {his[0]} has {his[1]}."]), "neutral"))
+                                         f"🥅 {his[0]}, {tag(his[2])} for {them}, has {his[1]}."]), "neutral"))
     elif role == "QB" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
         qm, qh = _qb_nums(mine[1]), _qb_nums(his[1])
         ours_better = qm and qh and (qm[0] - qm[1], qm[2]) > (qh[0] - qh[1], qh[2]) and qm[2] >= qh[2]
@@ -2347,6 +2396,10 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 pools.append(("w_goalie", _ok([
                     f"🧱 {hot[0]}, projected to start for {us} (not confirmed yet), has been a brick wall — {hot[1]}.",
                     f"🧱 {hot[0]} ({_pos(us)} projected starter, not confirmed) has been a brick wall — {hot[1]}."], names)))
+            elif hot and len(hot) > 2 and hot[2] == "likely":    # (11/16: the page's 'likely' is not 'confirmed')
+                pools.append(("w_goalie", _ok([
+                    f"🧱 {hot[0]}, expected in net for {us} (not confirmed yet), has been a brick wall — {hot[1]}.",
+                    f"🧱 {hot[0]} ({_pos(us)} expected starter, not confirmed) has been a brick wall — {hot[1]}."], names)))
             elif hot and len(hot) > 2 and not hot[2]:         # (10/16: the starter isn't confirmed - he was in net LAST time)
                 pools.append(("w_goalie", _ok([
                     f"🧱 {hot[0]}, in net last time out for {us}, has been a brick wall — {hot[1]}.",

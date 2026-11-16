@@ -1,5 +1,5 @@
 {
- "at": "2026-11-15T23:49Z",
+ "at": "2026-11-16T04:55Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -13,16 +13,90 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 10 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-16T04:55Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T04:54Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T04:47Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T04:47Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T03:15Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T03:00Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T02:55Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab HTTP 410, betrivers:nfl HTTP 410, betrivers:nhl HTTP 410, betrivers:nba HTTP 410, betrivers:tennis HTTP 410"
+   ]
+  },
+  {
+   "at": "2026-11-16T02:54Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:ncaab HTTP 410, betrivers:nfl HTTP 410, betrivers:nhl HTTP 410, betrivers:nba HTTP 410, betrivers:tennis HTTP 410"
+   ]
+  },
+  {
+   "at": "2026-11-16T01:21Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-16T01:20Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-15T23:49Z",
    "fixes": [
@@ -444,59 +518,6 @@
   },
   {
    "at": "2026-11-14T12:06Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T12:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T11:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T09:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T09:48Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T09:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T07:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T07:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T07:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-11-14T06:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T05:19Z",
    "fixes": [],
    "problems": []
   }

@@ -44145,6 +44145,15 @@
      "game:div"
     ],
     "dec": 2.6,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": null,
+     "s": "112-108",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "depth_gap": 1,
     "dog_ctx": {
      "cw5": 0,
@@ -44206,6 +44215,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 0.47,
+    "flow": {
+     "a": "23,24,20,28,17",
+     "h": "17,26,31,21,13"
+    },
     "form_state": [
      -11.0,
      -3,
@@ -44270,10 +44283,12 @@
      "the NBA dog score backs it: +0.5 (our read -0.5 points on the price, every NBA dog study weighed)"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Knicks 112 @ Raptors 108",
     "season_games": 12,
+    "settled": "2026-11-16T02:08Z",
     "side": "home",
     "stale": [
      "Scottie Barnes"
@@ -44293,11 +44308,13 @@
    }
   ],
   "p_hit": 0.3638,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-15T16:00Z",
   "round": 1,
+  "settled": "2026-11-16T02:08Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
