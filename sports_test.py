@@ -19287,6 +19287,121 @@ def test_plays_every_day_1104_gated_hockey_dog_names_its_score_floor_back_on_and
     assert sports.NO_THIN_LOCK_FROM == "2026-10-29" and sports.S6_LOCK_SKIP == (-119, -101) and sports.DOG_LOCK is False
 
 
+def test_max_1116_the_hockey_dog_on_the_b2b_spot_at_a_score_of_8_is_the_3u_max_play_dated_judged_never_a_posted_pick():
+    """11/16 FABLE - THE MAX PLAY HUNT (PROS) (the owner: "one pick with like 3-4 units on it ... like the sharp professional
+    bettors do. They pick their spots" + "We need units every day"; results/studies/max_pro_1116/): of ~230 cells on the
+    raw NHL / NBA / NFL rigs, the pooled hockey Dog and the boards, ONE cleared the bar - the hockey Dog of the Day when
+    the dog is rested, the favorite played last night and the dog score is 8+: 34-24 +39.1% on the 2020-23 paid-odds rig
+    (the seasons the cut never saw, 3 of 3), 50-34 +38.4% with the boards. It is a LABEL and a size (3u) on the day's Dog -
+    never an extra pick, never a pick already posted, never the owner's post; dated by the Pacific game day; its own
+    record line; a quit rule at 25 graded under 44%; it takes the ⭐; nothing else on the board changes size."""
+    import copy
+    import sports_dashboard as sdb
+    import sports_leads as sl
+    assert sports.MAX_PLAY_FROM == "2026-11-17" and sports.MAX_PLAY_UNITS == 3.0 and sports.MAX_PLAY_SCORE == 8.0
+    assert sports.MAX_PLAY_LEAGUES == ("nhl",) and sports.MAX_PLAY_QUIT == (25, 0.44) and sports.MAX_PLAY_UNITS <= 4
+
+    def leg(odds=128, score=8.63, b2b=True, lg="nhl", start="2026-11-18T00:30Z", team="Blackhawks"):
+        d = sports._dec(odds)
+        pm = 1 / d - 0.02
+        return {"league": lg, "market": "ml", "odds": odds, "dec": d, "p": pm + 0.01, "p_market": pm, "edge": (pm + 0.01) * d - 1,
+                "edge_own": (pm + 0.03) * d - 1, "dog_p": round(pm + score / 100, 4), "dog_score": score, "rested_vs_b2b": b2b,
+                "team": team, "opp": "Wild", "game_id": f"{lg}:{team}", "side": "away", "start": start, "reasons": ["r"],
+                "waiting": [], "trap": False}
+
+    def pk(l, day="2026-11-17", **kw):
+        return {"kind": "dog", "date": day, "status": "open", "lean": False, "legs": [l], "dec": l["dec"], "american": l["odds"], **kw}
+    # the spot: a new Dog on / after the 11/17 Pacific day
+    a = pk(leg())
+    assert sports.units_for(a) == 2.0 and sports.max_play_leg(a["legs"][0])
+    assert sports.mark_max([a], [a], "2026-11-17") is a and a["max_play"] is True
+    assert sports.units_for(a) == 3.0 and sports.sizing_check([a]) == []
+    long_ = pk(leg(odds=170))
+    assert sports.units_for(long_) == 0.5 and sports.mark_max([long_], [long_], "2026-11-17") is long_ and sports.units_for(long_) == 3.0
+    # never one factor: the b2b spot alone, the score alone, another league, a price past the Dog's band
+    for bad in (leg(score=7.9), leg(b2b=False), leg(lg="nba"), leg(lg="nfl"), leg(odds=360), leg(odds=-110)):
+        b = pk(bad)
+        assert not sports.max_play_leg(bad) and sports.mark_max([b], [b], "2026-11-17") is None and not b.get("max_play"), bad
+    # dated by the PACIFIC game day: the 11/16 games (a 7 PM Pacific puck drop is 11/17 in UTC) stay as they were
+    old = pk(leg(start="2026-11-17T03:00Z"), day="2026-11-16")
+    assert sports.mark_max([old], [old], "2026-11-16") is None and sports.units_for(old) == 2.0
+    assert sports.units_for({**pk(leg(start="2026-11-17T03:00Z"), day="2026-11-16"), "max_play": True}) == 2.0
+    # never a posted pick: only a Dog posted in THIS run; never the owner's post, a lean, a Dog that keeps posted units
+    up = pk(leg())
+    assert sports.mark_max([], [up], "2026-11-17") is None and sports.units_for(up) == 2.0
+    for kw in ({"owner_post": True, "units": 1.0}, {"lean": True}, {"units_posted": 0.5}, {"status": "waiting"}, {"kind": "play"}):
+        x = pk(leg(), **kw)
+        assert sports.mark_max([x], [x], "2026-11-17") is None and not x.get("max_play"), kw
+    # graded: the units it was graded at, forever; an upgraded-away max play keeps what it was posted at
+    assert sports.units_for({**a, "status": "lost", "units": 3.0}) == 3.0
+    assert sports.units_for({**a, "kind": "play", "units_posted": 3.0}) == 3.0
+
+    # the quit rule: 25 graded under 44% = off (the Dog posts at its own size)
+    def graded(w, l_):
+        return ([{**pk(leg()), "max_play": True, "status": "won", "units": 3.0}] * w
+                + [{**pk(leg()), "max_play": True, "status": "lost", "units": 3.0}] * l_)
+    assert sports.max_play_record(graded(3, 2)) == (3, 2)
+    assert not sports.max_play_quit(graded(2, 10)) and not sports.max_play_quit(graded(11, 14)) and sports.max_play_quit(graded(10, 15))
+    q = pk(leg())
+    assert sports.mark_max([q], graded(10, 15) + [q], "2026-11-17") is None and sports.units_for(q) == 2.0
+    # it takes the ⭐ over a Lock on the same board
+    d = sports._dec(-140)
+    lock = {"kind": "lock", "date": "2026-11-17", "status": "open", "lean": False, "dec": d, "american": -140,
+            "legs": [{"league": "nhl", "market": "ml", "odds": -140, "dec": d, "p": 0.60, "p_market": 0.565, "edge": 0.60 * d - 1,
+                      "edge_own": 0.615 * d - 1, "team": "Stars", "opp": "Kings", "game_id": "nhl:2", "side": "home",
+                      "start": "2026-11-18T01:00Z", "reasons": ["r"], "waiting": [], "trap": False}]}
+    b1, b2 = pk(leg()), copy.deepcopy(lock)
+    assert sports.mark_best([b2, pk(leg())], "2026-11-17") is b2                       # without the mark: the Lock, as before
+    b2.pop("best", None)
+    sports.mark_max([b1], [b1, b2], "2026-11-17")
+    assert sports.mark_best([b2, b1], "2026-11-17") is b1 and sports.units_for(b1) == 3.0 and sports.units_for(b2) == 2.0
+    # the switch
+    keep = sports.MAX_PLAY_FROM
+    try:
+        sports.MAX_PLAY_FROM = "9999"
+        z = pk(leg())
+        assert sports.mark_max([z], [z], "2026-11-17") is None and sports.units_for({**z, "max_play": True}) == 2.0
+    finally:
+        sports.MAX_PLAY_FROM = keep
+    # wired where the board posts, before the ⭐
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert "mx = mark_max(new, picks, iso)" in pb and pb.index("mark_max(new, picks, iso)") < pb.index("best = mark_best(picks, iso)")
+    # the card: the label + a note that names the spot, in his words; never a win %, never the line moving
+    real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1
+                and p.get("kind") == "dog" and not p.get("lean") and p["legs"][0].get("league") == "nhl")
+    real = {**copy.deepcopy(real), "status": "open", "result": None, "review": None}
+    card = sdb._pick_card("dog", {**copy.deepcopy(real), "max_play": True, "best": True})
+    assert "💎 MAX PLAY" in card and "max-note" in card and "ENGINE'S BEST PICK" not in card, card[:400]
+    assert "MAX PLAY" not in sdb._pick_card("dog", copy.deepcopy(real))
+    import sports_owner_lingo as ol
+    assert len(sdb.MAX_NOTE) >= 4 and len(set(sdb.MAX_NOTE)) == len(sdb.MAX_NOTE)
+    for ln in sdb.MAX_NOTE:
+        low = ln.lower()
+        assert ln.startswith("💎 MAX PLAY") and "3 units" in low and "%" not in ln, ln
+        assert ("last night" in low or "back-to-back" in low) and "line mov" not in low and "steam" not in low, ln
+        assert not any(str(w).lower() in low for w in ol.NEVER), ln
+    won = {**pk(leg()), "max_play": True, "best": True, "status": "won", "units": 3.0, "tier": "value"}
+    won["legs"][0].update(result="won", tier="value")
+    rec = sdb.unit_record([won], "2026-11-17", early=[])
+    assert "💎 max plays 1-0 · +3.8 units" in rec, rec
+    # the tracker: the spot and its control, from the 11/17 games
+    assert sl.MAX_1116_FROM == "2026-11-17"
+    keep_ds = sports.dog_score
+    try:
+        sports.dog_score = lambda c: c.get("dog_score") or 0
+        assert sl.max_1116_tags(leg(), sports) == [sl.MAX_1116_TAG]
+        assert sl.max_1116_tags(leg(score=6.5), sports) == [sl.MAX_1116_UNDER_TAG]
+        assert sl.max_1116_tags(leg(b2b=False), sports) == [] and sl.max_1116_tags(leg(lg="nba"), sports) == []
+        assert sl.max_1116_tags(leg(start="2026-11-17T03:00Z"), sports) == []
+    finally:
+        sports.dog_score = keep_ds
+    # nothing else moved: the Dog's own sizes, the Lock's, the floor's, the ⭐ minimum, the hockey gate
+    assert (sports.DOG_SHORT_UNITS, sports.DOG_LONG_UNITS, sports.LOCK_UNITS_1031, sports.FLOOR_UNITS, sports.PLAY_UNITS,
+            sports.BEST_MIN_UNITS, sports.NHL_DOG_GATE) == (2.0, 0.5, 2.0, 0.5, 0.5, 1.0, 6.0)
+    assert sports.units_for(pk(leg(score=7.0))) == 2.0 and sports.units_for(pk(leg(odds=170, score=7.0))) == 0.5
+
+
 def test_lingo_1104_no_stiff_frames_in_any_pool_or_card():
     """11/4, the owner: "I have not liked the damn lingo. These breakdowns have not been in my lingo how I want it to
     be." The ⚠️ risk line said the same corporate shrug on every card ("We weighed it, and Rangers are still the side",
