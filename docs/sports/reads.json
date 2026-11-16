@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T18:18Z",
+ "updated": "2026-11-16T18:20Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -951,8 +951,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Florida",
-    "p": 0.832,
-    "tie": 0.026,
+    "p": 0.838,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -969,7 +969,7 @@
     "line": 13.5,
     "odds": -110,
     "p": 0.507,
-    "win_p": 0.091,
+    "win_p": 0.086,
     "reasons": [
      "hotter recent form"
     ]
@@ -1072,8 +1072,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duke",
-    "p": 0.692,
-    "tie": 0.037,
+    "p": 0.685,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1087,10 +1087,10 @@
     "team": "Illinois",
     "opp": "Duke",
     "market": "spread",
-    "line": 8.0,
-    "odds": -106,
-    "p": 0.501,
-    "win_p": 0.233,
+    "line": 5.5,
+    "odds": -105,
+    "p": 0.5,
+    "win_p": 0.241,
     "reasons": [
      "hotter recent form"
     ]
@@ -1222,7 +1222,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.359,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1239,8 +1239,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.695,
-    "win_p": 0.48,
+    "p": 0.685,
+    "win_p": 0.469,
     "reasons": []
    }
   },
@@ -1393,6 +1393,34 @@
    }
   },
   {
+   "id": "ncaab:401909787",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Kansas",
+    "p": 0.864,
+    "tie": 0.022,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:30Z",
+   "away": "UNLV",
+   "home": "Kansas",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UNLV",
+    "opp": "Kansas",
+    "market": "spread",
+    "line": 16.5,
+    "odds": -110,
+    "p": 0.51,
+    "win_p": 0.066,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401892738",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1426,7 +1454,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.365,
+    "p": 0.375,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1442,10 +1470,40 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.69,
-    "win_p": 0.472,
+    "odds": -238,
+    "p": 0.671,
+    "win_p": 0.453,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920512",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Auburn",
+    "p": 0.496,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T04:59Z",
+   "away": "West Virginia",
+   "home": "Auburn",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Auburn",
+    "opp": "West Virginia",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.524,
+    "win_p": 0.524,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+    ]
    }
   }
  ]
