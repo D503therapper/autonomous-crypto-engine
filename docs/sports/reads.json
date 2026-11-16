@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T03:44Z",
+ "updated": "2026-11-16T03:46Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1022,8 +1022,8 @@
    "away": "Panthers",
    "home": "Stars",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1138,8 +1138,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTEP",
-    "p": 0.886,
-    "tie": 0.02,
+    "p": 0.877,
+    "tie": 0.021,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1156,7 +1156,7 @@
     "line": 19.5,
     "odds": -110,
     "p": 0.513,
-    "win_p": 0.05,
+    "win_p": 0.057,
     "reasons": []
    }
   },
@@ -1226,8 +1226,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kent State",
-    "p": 0.766,
-    "tie": 0.032,
+    "p": 0.752,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1244,7 +1244,7 @@
     "line": 10.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.153,
+    "win_p": 0.167,
     "reasons": [
      "hotter recent form"
     ]
@@ -1287,8 +1287,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Georgia",
-    "p": 0.908,
-    "tie": 0.017,
+    "p": 0.902,
+    "tie": 0.018,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1305,7 +1305,7 @@
     "line": 23.5,
     "odds": -115,
     "p": 0.517,
-    "win_p": 0.036,
+    "win_p": 0.04,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -1317,8 +1317,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.648,
-    "tie": 0.034,
+    "p": 0.661,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1333,9 +1333,9 @@
     "opp": "Magic",
     "market": "spread",
     "line": -9.5,
-    "odds": -115,
+    "odds": -105,
     "p": 0.501,
-    "win_p": 0.738,
+    "win_p": 0.755,
     "reasons": [
      "the stronger team"
     ]
@@ -1347,8 +1347,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.814,
-    "tie": 0.028,
+    "p": 0.831,
+    "tie": 0.026,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1365,7 +1365,7 @@
     "line": 12.5,
     "odds": -105,
     "p": 0.506,
-    "win_p": 0.107,
+    "win_p": 0.092,
     "reasons": []
    }
   },
@@ -1375,7 +1375,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.519,
+    "p": 0.534,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1391,13 +1391,13 @@
     "opp": "Long Island",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.557,
-    "win_p": 0.557,
+    "odds": -155,
+    "p": 0.578,
+    "win_p": 0.578,
     "reasons": [
+     "sharp money moving this way",
      "out-rebounding people by -2.6 a game to their -8.8 - the books don't price the glass (5 of 5 seasons)",
-     "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+     "the turnover matchup is ours by 6.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -1438,8 +1438,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Tulsa",
-    "p": 0.673,
-    "tie": 0.038,
+    "p": 0.66,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1447,17 +1447,21 @@
    "start": "2026-11-17T00:00Z",
    "away": "Western KY",
    "home": "Tulsa",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Western KY",
-    "opp": "Tulsa",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.254,
-    "reasons": []
+    "team": "Tulsa",
+    "opp": "Western KY",
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.733,
+    "win_p": 0.733,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1558,7 +1562,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Drake",
-    "p": 0.756,
+    "p": 0.752,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1574,9 +1578,9 @@
     "opp": "Drake",
     "market": "spread",
     "line": 10.5,
-    "odds": -118,
+    "odds": -110,
     "p": 0.504,
-    "win_p": 0.163,
+    "win_p": 0.167,
     "reasons": []
    }
   },
@@ -1642,8 +1646,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Northwestern",
-    "p": 0.799,
-    "tie": 0.029,
+    "p": 0.789,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1660,7 +1664,7 @@
     "line": 12.5,
     "odds": -118,
     "p": 0.506,
-    "win_p": 0.121,
+    "win_p": 0.131,
     "reasons": [
      "rolling off a blowout win"
     ]
@@ -1700,7 +1704,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.51,
+    "p": 0.511,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1716,9 +1720,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -132,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -133,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
@@ -1730,7 +1734,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.54,
+    "p": 0.529,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1746,13 +1750,13 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -152,
-    "p": 0.589,
-    "win_p": 0.589,
+    "odds": -141,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent drama: trade drama"
+     "opponent drama: trade drama",
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
    }
   },
@@ -1944,8 +1948,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UC San Diego",
-    "p": 0.865,
-    "tie": 0.022,
+    "p": 0.857,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1959,10 +1963,10 @@
     "team": "Texas Southern",
     "opp": "UC San Diego",
     "market": "spread",
-    "line": 19.5,
+    "line": 18.5,
     "odds": -110,
-    "p": 0.513,
-    "win_p": 0.065,
+    "p": 0.512,
+    "win_p": 0.071,
     "reasons": []
    }
   }
