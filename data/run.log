@@ -21256,3 +21256,25 @@ error: failed to push some refs to 'https://githu
 [2026-11-16 05:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-16 05:06 UTC] crypto/hold_btc  equity $395.89 (-20.8%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), SOL 36 (21/0/15), VVV 35 (35/0/0), TAO 27 (27/0/0), SKR 24 (24/0/0)
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 30 min)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: PASS TROLL@solana liq $1,946,405
+   dex screen: REJECT AAVE@ethereum liq $273,126 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       8466b7d3aa8a7df9a61ba0c5e52c983a1b9525f6 -> main (cannot lock ref 'refs/heads/main': is at 169757fb4435dca5922a1
+   dex screen: PASS BLOB@solana liq $201,041
+   dex scanner: 2,981 pools (solana 2,023 / base 584 / ethereum 374), refresh cycle 125s (hot 120s), 2972 calls (108 feed, 429s 0, failed 0), 85,919 refreshed (10229 no pair), +112 added / -108 dropped (dead 107, stale 1, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-16 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/mover     equity $177.52 (-64.5%) 1 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/social_heat equity $321.00 (-35.8%) 2 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-16 06:06 UTC] crypto/hold_btc  equity $394.77 (-21.0%) 1 open  market DOWN
+   social heat top: BTC 48 (40/0/8), VVV 37 (37/0/0), PENGU 35 (35/0/0), SKR 32 (32/0/0), HYPE 31 (19/0/12)
