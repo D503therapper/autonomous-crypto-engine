@@ -1997,9 +1997,19 @@ def nba_open_scan(games, st, now=None, injuries=None, have=(), board=None, model
     return out
 
 
-SPOT_QUIT = {"blowout": (25, 0.35)}    # 💥 11/11 (the Fable book study, under the owner's 11/11 "wire anything you and Fable
+SPOT_QUIT = {"blowout": (25, 0.35),    # 💥 11/11 (the Fable book study, under the owner's 11/11 "wire anything you and Fable
 #                                         recommend"): the blowout spot was 3-11 live - judged at 25 graded: under 35% won =
 #                                         it stops posting, like a paused spot (the owner can turn it back on).
+             "nba_open": (20, 0.40),   # 🧾 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/cause_out.txt): the two
+             "hammered": (20, 0.25)}   # early spots still running with a losing live record and NO judge. The 🏀 NBA
+#   opening-line play is 3-5, -1.5u live (its prices need ~47%); its one test on seasons nothing saw - the paid 2020-23
+#   odds - lost (-6.9% on 361 at the earliest price, 11/2), and the 11/12 one-voice rule has let none post since. The
+#   hammered spot (the money came 4+ points to the dog since the first fair number) is 1-4, -0.5u, all five college (0-3
+#   on 11/7, all three posted before the fresh-number / one-voice rules; its prices need ~31%). (The 11/15 sizing study's
+#   "HAMMERED" row - e4_spots_paid - graded a dog that LOST BY 21+ its last game, a different thing; the live spot has
+#   no row on the paid history yet.) Neither record proves anything (3.7 and 1.6 wins were expected) - so no pause, a JUDGE like every other test
+#   play's: at 20 graded, the NBA opening-line play under 40% won / the hammered spot under 25% = no more posts (the
+#   owner can turn either back on).
 
 
 def spot_off(spot, start=None):

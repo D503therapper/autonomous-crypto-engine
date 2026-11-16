@@ -243,6 +243,41 @@ def real_bye(f, s, g):
     return BYE_REAL_WEEKS[0] <= wk <= BYE_REAL_WEEKS[1]
 
 
+REASON_TRUTH_FROM = "2026-11-16"   # 🧾 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/): A REASON THE CARD'S OWN
+#   TRUTH RULE DELETES NEVER PICKS A PLAY. The 10/15 truth audit takes "revenge game" off a card when the two teams' last
+#   meeting is over a season back (sports_breakdown_v24.REVENGE_DAYS - "never a 2023 game") - but it ran in the card
+#   writer, AFTER the board had chosen the pick: the floor's "a named reason" gate, good() and the Lock pool all read the
+#   label first. The 11/16 Monday board, re-built with the Ravens' fill-in QB read as unknown: the Chargers +185 floor
+#   play's one named reason became "revenge game" (their last meeting: 11/25/2024), the card then dropped it, and a ½u
+#   play would have posted with NO named reason - "no floor play without a named reason, ever". For a game on / after this
+#   Pacific day the label is dropped where the reasons are built (candidates), and the pre-post check holds a floor play
+#   left with no named reason (pick_checks "reasons"). The model's weight on the last meeting is untouched (a weight,
+#   never a named reason by itself). "9999" = the card writer alone.
+
+
+def stale_revenge(games, g):
+    """🧾 True = "revenge game" is no named reason for this game: the two teams' last finished meeting is over
+    REVENGE_DAYS back, or not on file (the card's own 10/15 truth rule, read where the reasons are built)."""
+    try:
+        import sports_breakdown_v24 as _v24
+        pair, lg, start = {g["home"], g["away"]}, g.get("league"), g.get("start") or ""
+        last = max((x["start"] for x in games.values() if x.get("league") == lg and x.get("status") == "final"
+                    and {x.get("home"), x.get("away")} == pair and (x.get("start") or "") < start), default=None)
+        if last is None:
+            return True
+        return (_v24._t(start) - _v24._t(last)).days > _v24.REVENGE_DAYS
+    except Exception:                                    # noqa: BLE001 - can't tell = the card writer's check still runs
+        return False
+
+
+def true_reasons(reasons, games, g):
+    """🧾 11/16: the named reasons a side keeps where they are built - never "revenge game" off a meeting the card's
+    truth rule won't name (stale_revenge), for a game on / after REASON_TRUTH_FROM."""
+    if "revenge game" in reasons and games is not None and pt_day(g) >= REASON_TRUTH_FROM and stale_revenge(games, g):
+        return [r for r in reasons if r != "revenge game"]
+    return reasons
+
+
 def _reasons(side, f, g, league, params, p_side=None):
     """Short plain-English reasons the engine likes this side, strongest first. p_side = the engine's current read
     on the side when known (the stronger-team label needs it on its side - 11/4)."""
@@ -870,8 +905,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "fbs_game": fbs_game,
                     "raw_own": None if raw_h is None else round(raw_h if side == "home" else 1 - raw_h, 4),
                     "home": side == "home", "neutral": str(g.get("neutral")) == "1",   # (11/3: ncaab_big_home_fav)
-                    "start": g["start"], "reasons": _reasons(side, f, g, lg, params,
-                                                             p_side=None if ph is None else (ph if side == "home" else 1 - ph)),
+                    "start": g["start"], "reasons": true_reasons(_reasons(side, f, g, lg, params,
+                                                                          p_side=None if ph is None else (ph if side == "home" else 1 - ph)),
+                                                                 games, g),   # (11/16: never a stale "revenge game")
                     "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
@@ -3244,6 +3280,8 @@ def best_pool(picks, iso):
             continue
         if p.get("stack_play"):                              # (11/11: the ½u college hoops spread play rides the stack,
             continue                                         #  never a read over its price - it never carries the ⭐)
+        if p.get("kind") == "lock" and nfl_lock_half(l):     # (🏈 11/16: the NFL Lock is the replay's losing Lock at 1u -
+            continue                                         #  ½u, never the ⭐'s full unit - LOCK_NFL_HALF_FROM)
         out.append(p)
     return out
 
@@ -3476,10 +3514,32 @@ DOG_LONG_UNITS = 0.5             # +151..+350
 DOG_LEAGUES_OFF = ("ncaab",)     # no Dog of the Day in these (make_board's dog pool)
 
 
+LOCK_NFL_HALF_FROM = "2026-11-17"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
+LOCK_NFL_UNITS = 0.5                # football replay board, today's code, 2018-26 at the close): THE NFL LOCK IS ½u AND NEVER
+#   THE ⭐. The Lock the board really posts in football is the NOT-thin one (a thin edge is never the Lock - 10/29), and at
+#   1u it is the replay's losing Lock: NFL 6-10, -32.1% flat (train 5-8 -29.3% / held 1-2 -44.1%, 1 of 5 seasons up; a
+#   random 16 of the board's NFL Locks did as badly 62 of 2,000 times) while the thin / backup ones at ½u went 29-14
+#   +16.9% (+16.1% / +18.5%, 7 of 9 seasons). The dose runs the wrong way - the further football's old-fit own read
+#   sits over the price, the worse: under 3c 25-12 +15.7%, 3-6c 8-8 -11.5%, 6-10c 0-3 (the 11/15 Packers -142: +8c, the
+#   Lock, the ⭐ at 1u, lost 30-10). The 10/30 rows said the same at the close (NFL Locks -10.4% / -1.3%), and the 11/14
+#   and 11/15 studies left it as an open call twice. A size is bigger only where the bigger-size cell won MORE in both
+#   halves - the 1u NFL Lock won less in both, so it is ½u for a game on / after this Pacific day (a posted pick keeps
+#   its units), and the ⭐ - a full unit on the engine's best - never goes on it (best_pool). College football Locks
+#   stay 1u (12-9 -0.8%, held +14.5%, 6-3 this season - no both-halves case; a random set did as badly 288 of 2,000).
+#   "9999" = 1u and ⭐ again.
+
+
+def nfl_lock_half(leg):
+    """🏈 Is this an NFL Lock under the 11/16 size (a game on / after LOCK_NFL_HALF_FROM, its Pacific day)?"""
+    return leg.get("league") == "nfl" and pt_day(leg) >= LOCK_NFL_HALF_FROM
+
+
 def lock_units_1031(leg):
     """💰 10/30 SIZING: the Lock's units from SIZING_1031_FROM - football 1u; else 2u when its own read sits under
     LOCK_BIG_GAP points over the no-vig market, 1u at it or past it (or with no read / market to judge)."""
     if leg.get("league") in LOCK_FOOTBALL:
+        if nfl_lock_half(leg):                               # (🏈 11/16: the NFL Lock ½u from the 11/17 games)
+            return LOCK_NFL_UNITS
         return LOCK_FOOTBALL_UNITS
     if ncaab_early_lock(leg) == "half":                      # (11/3: a college hoops Lock before game 10 = ½u)
         return 0.5
@@ -7870,6 +7930,12 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
         if unit and inj and lg in ("nfl", "ncaaf"):          # 5. the starting QB (the last game's starter) on OUR side
             tid = g.get(leg.get("side"))
             st_ = sp.recent_starters(lg, tid, n=1) or set()
+            try:                                             # (🏈 11/16: ...and the season's REGULAR, whoever threw last -
+                reg_ = sp._regular_now(lg, tid)              #  Kansas St +200 went up 1u on 11/7 with Avery Johnson, 6
+                if reg_:                                     #  starts, on the out list read as a backup)
+                    st_ = set(st_) | {sp._nm(reg_)}
+            except Exception:                                # noqa: BLE001 - the last starter alone, as before
+                pass
             for r in sd._team_rows(inj, tid, leg.get("team") or "") or []:
                 if str(r[1]).upper() != "QB" or not any(_qb_same(r[0], s_) for s_ in st_):
                     continue
@@ -7980,6 +8046,10 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
         #                                                  was made on a bug - South Dakota 11/4)
         add("reasons", not held, "; ".join(false) + ((" - the pick was chosen on it" if left else
                                                       " - and nothing true is left to stand on") if held else " (taken off)"))
+    elif unit and pk.get("kind") == "play" and pk.get("floor") and not (leg.get("reasons") or []) \
+            and (pk.get("date") or "") >= REASON_TRUTH_FROM:
+        add("reasons", False, "a floor play with no named reason left on it (the card's truth rules took its last one "
+                              "off) - no floor play without a named reason, ever")   # (11/16: the Chargers +185 shape)
     txt = " ".join([str(x) for x in leg.get("breakdown") or []] + [str(leg.get("why_line") or "")])   # 11. the card
     if g is not None and str(g.get("neutral")) in ("1", "True", "true"):   # (11/4: E Michigan "2-2 at home" at Ford Field)
         import re as _re
@@ -9139,6 +9209,22 @@ def fresh_card_facts(games, legs, injuries):
                         #  confirmed him - the update line is rebuilt every check, never left stale itself)
                         fresh = [x for x in fresh if not (x.startswith("🔄 Update:") and x.endswith((f"not {nm}.",
                                  f"not {nm} (not confirmed yet).")))] + [msg]
+        if leg["league"] in ("nfl", "ncaaf"):                # 🏈 11/16 FABLE - WHY WE LOSE: a QB line the card posted with
+            rows = sp.CACHE.get(leg["league"]) or []         # (🎯 / 🗑️ / 🧓) names a man the engine can no longer call
+            if rows:                                         # the starter - a fill-in behind the season's regular, a
+                body = " ".join(str(x) for x in leg.get("breakdown") or []   # change (sp.qb_for: unknown) - comes off
+                                if str(x).startswith(("🎯", "🗑️", "🧓")))     # the card with an update (the Wentz class)
+                if body:
+                    for s_ in ("home", "away"):
+                        try:
+                            known_ = sp.qb_for(rows, g[s_], g["start"])
+                        except Exception:                    # noqa: BLE001 - can't tell = the card stays as it is
+                            continue
+                        for nm in sorted({r["player"] for r in rows[-3000:] if r["team"] == g[s_] and r["player"] in body}):
+                            if known_ != nm and nm not in stale:
+                                stale.append(nm)
+                                fresh.append(f"🔄 Update: who starts at quarterback for {'the ' if leg['league'] == 'nfl' else ''}"
+                                             f"{g[s_ + '_name']} isn't settled - the {nm} line comes off.")
         if confirmed_ != list(leg.get("confirmed") or []):
             leg["confirmed"] = confirmed_
         if stale != list(leg.get("stale") or []) or fresh != list(leg.get("fresh") or []):

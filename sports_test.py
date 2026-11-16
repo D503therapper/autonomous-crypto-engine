@@ -18796,8 +18796,9 @@ def _daily_1104_slot_before_floor_body():
             for c in sorted((c for c in cands if up(c)), key=lambda c: -reads[c["game_id"]]):
                 if c["game_id"] not in avoid:
                     c["floor_score"] = reads[c["game_id"]]
-                    out.append(c)
-            return out
+                    c["reasons"] = c.get("reasons") or ["the dog studies back it"]   # (11/16: the real floor never posts
+                    out.append(c)                                                    #  without a named reason - the
+            return out                                                               #  pre-post check holds one that does)
         sports.ncaab_play_dog, sports.floor_plays = fake_dog, fake_floor
         sports.ncaab_play_fav = lambda c: None
         sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
@@ -24645,6 +24646,265 @@ def test_fable_1116_the_back_to_back_weights_read_the_clock_not_the_utc_date():
     assert sf.played_yesterday(st, "nba", "Z", "2026-11-22T23:00Z") is False     # no game on file
     assert sf.played_yesterday(st, "nba", "C", "2026-11-15T20:00Z") is True      # (before the date: the old flag, the replays)
     assert sf.played_yesterday(st, "nba", "C", "2026-11-15T00:30Z") is True
+
+
+def test_forensics_1116_a_fill_in_qb_is_unknown_and_the_regular_on_the_out_list_is_the_starter():
+    """11/16 FABLE - WHY WE LOSE: (1) the 11/15 night rule named a fill-in once he had two starts - the 11/16 Monday
+    board's Chargers +185 carried "better QB play lately" against the Ravens' Joe Fagnano (2 starts) with Lamar Jackson
+    (4) behind him; a settled FILL-IN started the next game 76% (NFL) / 71% (college) of the time on 2018-26 against
+    92% / 89% for the settled regular. From the 11/16 games a QB is known only when he is settled AND the season's
+    regular. (2) "The starter is whoever started the last game" read Kyler Murray (5 starts) as a backup after Wentz's
+    fill-in games, so the board's 'starting QB out -> go by the market' rule never fired on the Packers Lock (59.1% as
+    posted, 55.9% with Murray read as the starter - no Lock). The season's regular (3+ starts) on the out list is the
+    starting QB; Cooper Rush's two fill-in starts still make him nobody's starter (the owner, 10/5)."""
+    import sports_players as sp_
+    assert sp_.QB_REGULAR_FROM == "2026-11-16" and sp_.QB_REGULAR_MIN == 3
+    rav = [{"gid": f"r{i}", "team": "33", "player": n, "start": s, "role": "QB"} for i, (n, s) in enumerate([
+        ("Lamar Jackson", "2026-09-13T17:00Z"), ("Lamar Jackson", "2026-09-20T17:00Z"), ("Lamar Jackson", "2026-09-27T17:00Z"),
+        ("Lamar Jackson", "2026-10-04T17:00Z"), ("Tyler Huntley", "2026-10-12T00:15Z"), ("Tyler Huntley", "2026-10-18T17:00Z"),
+        ("Tyler Huntley", "2026-10-25T17:00Z"), ("Joe Fagnano", "2026-11-01T18:00Z"), ("Joe Fagnano", "2026-11-06T01:15Z")])]
+    lac = [{"gid": f"c{i}", "team": "24", "player": "Justin Herbert", "start": f"2026-10-{4 + 7 * i:02d}T17:00Z", "role": "QB"}
+           for i in range(4)]
+    rows = sorted(({**r, "att": "30", "cmp": "20", "yds": "210", "td": "1", "int": "1"} for r in rav + lac), key=lambda r: r["start"])
+    t = "2026-11-17T01:15Z"
+    assert sp_.qb_settled(rows, "33", t) == "Joe Fagnano"                    # the 11/15 rule alone: the fill-in, "known"
+    assert sp_.qb_regular(rows, "33", t) == "Lamar Jackson"
+    assert sp_.qb_starts(rows, "33", t)[0] == {"Lamar Jackson": 4, "Tyler Huntley": 3, "Joe Fagnano": 2}
+    assert sp_.qb_for(rows, "33", t) is None                                 # a fill-in: unknown
+    assert sp_.qb_for(rows, "24", t) == "Justin Herbert"                     # settled and the regular: known
+    assert sp_.qb_for(rows, "33", "2026-10-05T00:00Z") == "Lamar Jackson"    # (dated by the game: 10/4 is before both rules)
+    assert sp_.qb_for(rows, "33", "2026-11-15T18:00Z") == "Joe Fagnano"      # a game before 11/16: the last starter, as it ran
+    # a fill-in who passes the regular in starts IS the regular (a tie: the man who started most recently)
+    more = rows + [{"gid": f"f{i}", "team": "33", "player": "Joe Fagnano", "start": f"2026-11-{17 + 7 * i}T18:00Z", "role": "QB"}
+                   for i in range(2)]
+    assert sp_.qb_regular(more, "33", "2026-12-05T18:00Z") == "Joe Fagnano" and sp_.qb_for(more, "33", "2026-12-05T18:00Z") == "Joe Fagnano"
+    # last season's man is nobody's regular: week 1 = unknown
+    assert sp_.qb_regular(rows, "33", "2027-09-12T17:00Z") is None and sp_.qb_for(rows, "33", "2027-09-12T17:00Z") is None
+    games = {"nfl:x": {"id": "nfl:x", "league": "nfl", "start": t, "status": "pre", "home": "33", "away": "24"}}
+    keep = dict(sp_.ROLE)
+    try:
+        sp_.ROLE.clear(); sp_.ROLE.update({"nfl": "QB"})
+        assert "nfl:x" not in sp_.key_edges(games, {"nfl": rows})            # no key-player edge on a fill-in
+        old = sp_.QB_REGULAR_FROM
+        try:
+            sp_.QB_REGULAR_FROM = "9999"
+            assert "nfl:x" in sp_.key_edges(games, {"nfl": rows})            # ("9999" = the 11/15 night rule alone)
+        finally:
+            sp_.QB_REGULAR_FROM = old
+    finally:
+        sp_.ROLE.clear(); sp_.ROLE.update(keep)
+    # (2) the regular on the out list is the starting QB - the Vikings: Murray 5 starts, then Wentz
+    vik = [{"gid": f"v{i}", "team": "16", "player": n, "start": f"2026-{s}T17:00Z", "role": "QB"} for i, (n, s) in enumerate([
+        ("Kyler Murray", "09-13"), ("Kyler Murray", "09-20"), ("Kyler Murray", "09-27"), ("Kyler Murray", "10-25"),
+        ("Kyler Murray", "11-01"), ("Carson Wentz", "11-09")])]
+    falc = [{"gid": "a", "start": "2026-09-14T17:00Z", "team": "1", "player": "Cooper Rush", "role": "QB"},
+            {"gid": "b", "start": "2026-09-20T17:00Z", "team": "1", "player": "Cooper Rush", "role": "QB"},
+            {"gid": "c", "start": "2026-09-25T00:15Z", "team": "1", "player": "Michael Penix Jr.", "role": "QB"}]
+    keep_c, keep_now, keep_hook = sp_.CACHE, sp_.REGULAR_NOW, sd.STARTER_OF
+    try:
+        sp_.CACHE, sd.STARTER_OF = {"nfl": vik + falc}, sp_._starter_of
+        sp_.REGULAR_NOW = "2026-11-15T12:00Z"                                # the day before: the last starter only
+        assert sp_._starter_of("nfl", "16", "Kyler Murray") is False and sp_._starter_of("nfl", "16", "Carson Wentz") is True
+        sp_.REGULAR_NOW = "2026-11-16T12:00Z"
+        assert sp_._regular_now("nfl", "16") == "Kyler Murray"
+        assert sp_._starter_of("nfl", "16", "Kyler Murray") is True          # the regular: the starting QB
+        assert sp_._starter_of("nfl", "16", "Carson Wentz") is True          # (and the man who started last still is)
+        assert sp_._starter_of("nfl", "16", "Kirk Cousins") is False
+        inj = {"16": [("Kyler Murray", "QB", "Out"), ("T.J. Hockenson", "TE", "Out")]}
+        assert [r[0] for r in sd.team_key_out(inj, "16", "Vikings", "nfl")] == ["Kyler Murray"]   # -> the read goes by the market
+        assert sp_._regular_now("nfl", "1") is None                          # 2 starts make nobody the regular
+        assert sp_._starter_of("nfl", "1", "Cooper Rush") is False and sp_._starter_of("nfl", "1", "Michael Penix Jr.") is True
+        # the pre-post check reads the regular too: a unit play on a side whose regular QB is out and the read never saw it
+        gm = {"nfl:v": {"id": "nfl:v", "league": "nfl", "status": "pre", "stype": "2", "start": "2026-11-23T18:00Z", "home": "9",
+                        "away": "16", "home_name": "Packers", "away_name": "Vikings", "ml_home": "-142", "ml_away": "120",
+                        "odds_time": "2026-11-16T12:00Z", "home_score": "", "away_score": ""}}
+        dv = sports._dec(120)
+        vk = {"date": "2026-11-22", "kind": "play", "status": "open", "lean": False, "dec": dv, "floor": {"dog_score": 1.0, "nba": False},
+              "legs": [{"league": "nfl", "game_id": "nfl:v", "side": "away", "team": "Vikings", "opp": "Packers", "market": "ml",
+                        "odds": 120, "dec": dv, "p": 0.44, "p_market": 0.437, "edge_own": 0.0, "edge": 0.0, "tier": "value",
+                        "reasons": ["cold-weather edge"], "waiting": [], "key_out_me": False}]}
+        chk = dict((n, (r, w)) for n, r, w in sports.pick_checks(vk, gm, {"nfl": {"16": inj["16"], "9": []}},
+                                                                 datetime(2026, 11, 16, 16, 5, tzinfo=timezone.utc), {}))
+        assert chk["qb"][0] == "fail" and "Kyler Murray" in chk["qb"][1], chk.get("qb")
+        sp_.REGULAR_NOW = "2026-11-15T12:00Z"                                # before the rule: the last starter only
+        chk = dict((n, r) for n, r, w in sports.pick_checks(vk, gm, {"nfl": {"16": inj["16"], "9": []}},
+                                                            datetime(2026, 11, 16, 16, 5, tzinfo=timezone.utc), {}))
+        assert "qb" not in chk
+    finally:
+        sp_.CACHE, sp_.REGULAR_NOW, sd.STARTER_OF = keep_c, keep_now, keep_hook
+    src = open(sports.__file__).read()                                       # (the rule the regular now trips)
+    assert 'if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)' in src
+
+
+def test_forensics_1116_a_posted_card_drops_a_qb_line_on_a_man_the_engine_cant_call_the_starter():
+    """11/16 FABLE - WHY WE LOSE: a card posted with a QB line (🎯 / 🗑️ / 🧓) keeps up like the goalie lines do - when
+    the man it names is no longer the QB the engine can call (a fill-in behind the season's regular, a change), the line
+    comes off with a 🔄 update. The pick never changes; a card whose QB is the settled regular is left alone."""
+    import copy
+    import sports_dashboard as dash
+    import sports_players as sp_
+    rav = [("Lamar Jackson", "2026-09-13T17:00Z"), ("Lamar Jackson", "2026-09-20T17:00Z"), ("Lamar Jackson", "2026-09-27T17:00Z"),
+           ("Lamar Jackson", "2026-10-04T17:00Z"), ("Joe Fagnano", "2026-11-01T18:00Z"), ("Joe Fagnano", "2026-11-06T01:15Z")]
+    rows = [{"gid": f"r{i}", "team": "33", "player": n, "start": s, "role": "QB"} for i, (n, s) in enumerate(rav)] + \
+           [{"gid": f"c{i}", "team": "24", "player": "Justin Herbert", "start": f"2026-10-{4 + 7 * i:02d}T17:00Z", "role": "QB"}
+            for i in range(4)]
+    rows.sort(key=lambda r: r["start"])
+    g = {"id": "nfl:9", "league": "nfl", "status": "pre", "home": "33", "away": "24", "home_name": "Ravens",
+         "away_name": "Chargers", "start": "2026-11-17T01:15Z"}
+    leg = {"game_id": "nfl:9", "league": "nfl", "team": "Chargers", "opp": "Ravens", "side": "away", "odds": 185,
+           "breakdown": ["🗑️ Joe Fagnano has been straight ass — 0 TDs, 3 picks and 151 yards in his last 2 for Ravens.",
+                         "🎯 Justin Herbert is slinging it — 1 TD and 450 yards in his last 2 for Chargers.",
+                         "📅 Last time out: Ravens L 10-33 @ Jaguars.",
+                         "✅ Bottom line: Chargers (+185). Half a unit."]}
+    keep_c, keep = sp_.CACHE, copy.deepcopy(leg)
+    try:
+        sp_.CACHE = {"nfl": rows}
+        sports.fresh_card_facts({"nfl:9": g}, [leg], {"nfl": None})
+        assert leg.get("stale") == ["Joe Fagnano"], leg.get("stale")                  # the fill-in: off the card
+        assert any("quarterback for the Ravens isn't settled" in x and "Joe Fagnano" in x for x in leg["fresh"]), leg["fresh"]
+        assert (leg["odds"], leg["side"], leg["team"]) == (185, "away", "Chargers")   # the pick never moves
+        shown = dash.fresh_lines(leg, leg["breakdown"])
+        assert not any("Fagnano" in x and not x.startswith("🔄") for x in shown), shown
+        assert any("Justin Herbert" in x for x in shown) and any(x.startswith("✅ Bottom line") for x in shown)
+        n = len(leg["fresh"])
+        sports.fresh_card_facts({"nfl:9": g}, [leg], {"nfl": None})                   # the next run: said once
+        assert len(leg["fresh"]) == n
+        # a game before the rule's date, a started game, a card with no QB line: left alone
+        for g2, l2 in (({**g, "start": "2026-11-15T18:00Z"}, copy.deepcopy(keep)), ({**g, "status": "in"}, copy.deepcopy(keep)),
+                       (g, {**copy.deepcopy(keep), "breakdown": keep["breakdown"][2:]})):
+            sports.fresh_card_facts({"nfl:9": g2}, [l2], {"nfl": None})
+            assert not l2.get("stale"), (g2["start"], g2["status"])
+    finally:
+        sp_.CACHE = keep_c
+
+
+def test_forensics_1116_a_stale_revenge_game_never_picks_a_play_and_a_floor_play_keeps_a_named_reason():
+    """11/16 FABLE - WHY WE LOSE: the 10/15 truth audit takes "revenge game" off a card when the teams' last meeting is
+    over a season back - but in the card writer, after the board had chosen the pick on the label. Re-built 11/16 with
+    the Ravens' fill-in QB unknown, the Chargers +185 floor play's one named reason was "revenge game" (last meeting
+    11/25/2024); the card dropped it and a ½u play would have posted with no named reason. From the 11/16 games the
+    label is dropped where the reasons are built and the pre-post check holds a floor play with no named reason."""
+    assert sports.REASON_TRUTH_FROM == "2026-11-16"
+    g = {"id": "nfl:n", "league": "nfl", "status": "pre", "stype": "2", "start": "2026-11-17T01:15Z", "home": "33", "away": "24",
+         "home_name": "Ravens", "away_name": "Chargers"}
+    old = {"id": "nfl:o", "league": "nfl", "status": "final", "start": "2024-11-26T01:15Z", "home": "24", "away": "33",
+           "home_score": "23", "away_score": "30"}
+    new = {**old, "id": "nfl:p", "start": "2025-12-07T18:00Z"}
+    other = {**old, "id": "nba:q", "league": "nba", "start": "2026-11-01T00:00Z"}     # (another league's ids never count)
+    assert sports.stale_revenge({"nfl:n": g, "nfl:o": old}, g) is True                 # two seasons back
+    assert sports.stale_revenge({"nfl:n": g}, g) is True                               # no meeting on file
+    assert sports.stale_revenge({"nfl:n": g, "nfl:o": old, "nba:q": other}, g) is True
+    assert sports.stale_revenge({"nfl:n": g, "nfl:o": old, "nfl:p": new}, g) is False  # last season: a real one
+    rs = ["revenge game", "cold-weather edge"]
+    assert sports.true_reasons(rs, {"nfl:n": g, "nfl:o": old}, g) == ["cold-weather edge"]
+    assert sports.true_reasons(rs, {"nfl:n": g, "nfl:o": old, "nfl:p": new}, g) == rs
+    before = {**g, "start": "2026-11-15T18:00Z"}                                       # a game before the date: as it ran
+    assert sports.true_reasons(rs, {"nfl:n": before, "nfl:o": old}, before) == rs
+    assert sports.true_reasons(["the stronger team"], {"nfl:n": g}, g) == ["the stronger team"]
+    src = open(sports.__file__).read()
+    assert '"reasons": true_reasons(_reasons(side, f, g, lg, params,' in src           # read where the reasons are built
+    # the backstop: a floor play with no named reason left never posts (dated)
+    now = datetime(2026, 11, 16, 16, 5, tzinfo=timezone.utc)
+
+    def floor_pick(date, reasons):
+        leg = {"league": "nfl", "game_id": "nfl:n", "side": "away", "team": "Chargers", "opp": "Ravens", "market": "ml",
+               "odds": 185, "dec": sports._dec(185), "p": 0.312, "p_market": 0.336, "edge_own": 0.335 * sports._dec(185) - 1,
+               "waiting": [], "edge": -0.11, "tier": "value", "reasons": reasons}
+        return {"date": date, "kind": "play", "status": "open", "lean": False, "dec": leg["dec"],
+                "floor": {"dog_score": 0.84, "nba": False}, "legs": [leg]}
+    chk = dict((n, (r, w)) for n, r, w in sports.pick_checks(floor_pick("2026-11-16", []), None, None, now, {}))
+    assert chk["reasons"][0] == "fail" and "no named reason" in chk["reasons"][1], chk.get("reasons")
+    chk = dict((n, r) for n, r, w in sports.pick_checks(floor_pick("2026-11-16", ["cold-weather edge"]), None, None, now, {}))
+    assert chk.get("reasons") != "fail"
+    chk = dict((n, r) for n, r, w in sports.pick_checks(floor_pick("2026-11-15", []), None, None, now, {}))
+    assert chk.get("reasons") != "fail"                                                # a pick before the date: untouched
+    lean = {**floor_pick("2026-11-16", []), "lean": True, "kind": "lean"}
+    lean.pop("floor")
+    assert dict((n, r) for n, r, w in sports.pick_checks(lean, None, None, now, {})).get("reasons") != "fail"
+
+
+def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early_spots_get_a_judge():
+    """11/16 FABLE - WHY WE LOSE: (1) the Lock the board really posts in the NFL (never a thin edge - 10/29) went 6-10
+    -32.1% at 1u on the 11/14 football replay board (both halves down, placebo 62 of 2,000) while the ½u ones went 29-14
+    - the 1u NFL Lock won LESS in both halves, so from the 11/17 games it is ½u and the ⭐ (a full unit on the engine's
+    best) never goes on it; college football Locks stay 1u; a posted pick keeps its units; dated. (2) the 🏀 NBA
+    opening-line play (3-5 live) and the hammered spot (1-4) get a judge like every other test play's."""
+    import sports_early as se
+    import sports_leads as sl
+    assert sports.LOCK_NFL_HALF_FROM == "2026-11-17" and sports.LOCK_NFL_UNITS == 0.5 and sports.LOCK_FOOTBALL_UNITS == 1.0
+
+    def leg(lg, start, odds=-142, own=0.634, mkt=0.563):
+        dec = sports._dec(odds)
+        return {"league": lg, "market": "ml", "odds": odds, "dec": dec, "p": 0.59, "p_market": mkt, "edge": 0.59 * dec - 1,
+                "edge_own": own * dec - 1, "team": "Packers", "opp": "Vikings", "game_id": f"{lg}:1", "side": "home",
+                "start": start, "reasons": ["cold-weather edge"], "waiting": [], "trap": False}
+    before, after = "2026-11-15T18:00Z", "2026-11-22T18:00Z"
+
+    def pk(l, day, **kw):
+        return {"kind": "lock", "date": day, "status": "open", "legs": [l], "dec": l["dec"], **kw}
+    assert not sports.thin_edge(leg("nfl", after))                                   # the Packers shape: +8c on the own read
+    assert sports.units_for(pk(leg("nfl", before), "2026-11-15")) == 1.0             # as it ran
+    assert sports.units_for(pk(leg("nfl", after), "2026-11-22")) == 0.5              # the NFL Lock: ½u
+    assert sports.units_for(pk(leg("ncaaf", after), "2026-11-21")) == 1.0            # college football: 1u still
+    assert sports.units_for(pk(leg("nhl", after, own=0.615), "2026-11-22")) == 2.0   # every other Lock: untouched
+    assert sports.sizing_check([pk(leg("nfl", after), "2026-11-22")]) == []          # the sizing check reads the same size
+    assert sports.units_for({**pk(leg("nfl", after), "2026-11-22"), "status": "won", "units": 1.0}) == 1.0   # graded: kept
+    # a Monday-night game (7 PM Pacific = the next day in UTC) is dated by its Pacific day
+    assert sports.units_for(pk(leg("nfl", "2026-11-17T01:15Z"), "2026-11-16")) == 1.0    # the 11/16 Monday game: as it was
+    assert sports.units_for(pk(leg("nfl", "2026-11-18T01:15Z"), "2026-11-17")) == 0.5
+    # the ⭐ never goes on the NFL Lock; a hockey Dog on the same board takes it; with nothing else there is no ⭐
+    day = "2026-11-22"
+    nfl = pk(leg("nfl", after), day)
+    d = sports._dec(130)
+    dog = {"kind": "dog", "date": day, "status": "open", "dec": d,
+           "legs": [{"league": "nhl", "market": "ml", "odds": 130, "dec": d, "p": 0.46, "p_market": 0.42, "edge": 0.06,
+                     "edge_own": 0.06, "dog_p": 0.47, "dog_score": 7.0, "team": "Jets", "opp": "Wild", "game_id": "nhl:2",
+                     "side": "away", "start": after, "reasons": ["r"]}]}
+    assert sports.best_pool([nfl], day) == [] and sports.mark_best([nfl], day) is None and not nfl.get("best")
+    assert sports.best_pool([nfl, dog], day) == [dog] and sports.mark_best([nfl, dog], day) is dog
+    col = pk(leg("ncaaf", "2026-11-21T20:00Z"), "2026-11-21")
+    assert sports.mark_best([col], "2026-11-21") is col and sports.units_for(col) == 1.0       # a college Lock still can
+    old = pk(leg("nfl", before), "2026-11-15")
+    assert sports.mark_best([old], "2026-11-15") is old                                        # as it ran on 11/15
+    keep = sports.LOCK_NFL_HALF_FROM
+    try:
+        sports.LOCK_NFL_HALF_FROM = "9999"                                                     # the switch back
+        n2 = pk(leg("nfl", after), day)
+        assert sports.units_for(n2) == 1.0 and sports.mark_best([n2], day) is n2
+    finally:
+        sports.LOCK_NFL_HALF_FROM = keep
+    # (2) the judges
+    assert se.SPOT_QUIT == {"blowout": (25, 0.35), "nba_open": (20, 0.40), "hammered": (20, 0.25)}
+
+    def ep(spot, res, odds):
+        return {"spot": spot, "result": res, "odds": odds, "units": 0.5, "posted": "2026-11-01T00:00Z"}
+    live = [ep("nba_open", "won", -107)] * 3 + [ep("nba_open", "lost", 139)] * 5
+    assert not se.spot_quit({"picks": live}, "nba_open")                             # 3-5 today: no pause, still posting
+    assert se.spot_quit({"picks": [ep("nba_open", "won", -107)] * 7 + [ep("nba_open", "lost", 139)] * 13}, "nba_open")   # 7-13
+    assert not se.spot_quit({"picks": [ep("nba_open", "won", -107)] * 8 + [ep("nba_open", "lost", 139)] * 12}, "nba_open")   # 8-12 = 40%
+    assert se.spot_quit({"picks": [ep("hammered", "won", 200)] * 4 + [ep("hammered", "lost", 200)] * 16}, "hammered")    # 4-16
+    assert not se.spot_quit({"picks": [ep("hammered", "won", 200)] * 5 + [ep("hammered", "lost", 200)] * 15}, "hammered")
+    assert not se.spot_quit({"picks": [ep("bye", "lost", 200)] * 40}, "bye")         # only the spots listed
+    # the tracker: the football Lock-grade favorite, thin and not thin (from the 11/17 games)
+    assert sl.FORENSICS_1116_FROM == "2026-11-17"
+    keep_good = sports.good
+    try:
+        sports.good = lambda c: True
+        big = leg("nfl", after)
+        assert sl.forensics_1116_tags(big, sports) == [sl.FORENSICS_1116_NFL_TAG]
+        thin = leg("nfl", after, own=0.590)                                           # +0.5c on the own read: thin
+        assert sports.thin_edge(thin) and sl.forensics_1116_tags(thin, sports) == [sl.FORENSICS_1116_THIN_TAG + " - nfl"]
+        assert sl.forensics_1116_tags(leg("ncaaf", after), sports) == []              # a college not-thin Lock: no tag
+        assert sl.forensics_1116_tags(leg("ncaaf", after, own=0.590), sports) == [sl.FORENSICS_1116_THIN_TAG + " - ncaaf"]
+        assert sl.forensics_1116_tags(leg("nfl", before), sports) == []               # dated
+        assert sl.forensics_1116_tags(leg("nhl", after), sports) == []
+        assert sl.forensics_1116_tags({**big, "odds": 120, "dec": 2.2}, sports) == []
+        assert sl.forensics_1116_tags(leg("nba", after), sports) == [sl.FORENSICS_1116_NBA_TAG]     # -142: the lean band (a lead)
+        assert sl.forensics_1116_tags(leg("nba", after, odds=-125), sports) == []
+        assert sl.forensics_1116_tags(leg("nba", before), sports) == []
+    finally:
+        sports.good = keep_good
+    assert "forensics_1116_tags(c, sports)" in open(sl.__file__).read()
 
 
 if __name__ == "__main__":

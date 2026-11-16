@@ -640,8 +640,9 @@ def engine_weights():
                       "Dog": "a real-value dog the whole dog score likes best (no college hoops Dog)",
                       "units": "only when the read beats the real price (the money check), sized by what won in the "
                                f"replay (10/30): the Lock {sports.LOCK_UNITS_1031:g}u, {sports.LOCK_BIG_GAP_UNITS:g}u when "
-                               f"its own read runs {sports.LOCK_BIG_GAP:g}+ points over the market, football Locks "
-                               f"{sports.LOCK_FOOTBALL_UNITS:g}u (a Lock needs {round(sports.LOCK_P * 100)}%+); the Dog "
+                               f"its own read runs {sports.LOCK_BIG_GAP:g}+ points over the market, college football Locks "
+                               f"{sports.LOCK_FOOTBALL_UNITS:g}u, NFL Locks {sports.LOCK_NFL_UNITS:g}u and never the star "
+                               f"(11/16; a Lock needs {round(sports.LOCK_P * 100)}%+); the Dog "
                                f"{sports.DOG_SHORT_UNITS:g}u at +100..+{sports.DOG_SHORT_MAX}, {sports.DOG_LONG_UNITS:g}u "
                                f"longer; every value play {sports.PLAY_UNITS:g}u, moneyline only",
                       "leans": "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "

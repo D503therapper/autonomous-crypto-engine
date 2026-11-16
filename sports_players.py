@@ -141,6 +141,25 @@ def nba_starters(team_id, n=10, need=3):
     return {p for p, k in count.items() if k >= min(need, len(keep))}
 
 
+REGULAR_NOW = None      # (tests / a replay: the clock _regular_now reads - None = the real one)
+
+
+def _regular_now(lg, tid, now=None):
+    """🏈 The team's regular QB this season as of now (qb_regular on the loaded box scores) - None before
+    QB_REGULAR_FROM, with no box scores, or with fewer than QB_REGULAR_MIN starts to his name (a game or two makes
+    nobody the regular: Cooper Rush's 2 fill-in starts never made him the Falcons' starter - the owner, 10/5)."""
+    from datetime import datetime, timezone
+    now = now or REGULAR_NOW or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    if now[:10] < QB_REGULAR_FROM:
+        return None
+    rows = [r for r in CACHE.get(lg) or [] if str(r.get("team")) == str(tid)]
+    if not rows:
+        return None
+    team = rows[0]["team"]
+    reg = qb_regular(rows, team, now)
+    return reg if reg and qb_starts(rows, team, now)[0].get(reg, 0) >= QB_REGULAR_MIN else None
+
+
 def _starter_of(lg, tid, name):
     st = nba_starters(tid) if lg == "nba" else recent_starters(lg, tid, n=1 if lg in ("nfl", "ncaaf") else 3)
     #   (10/5, the owner: "⚠️ Cooper Rush (Falcons QB) is now out" - Rush started 2 of the Falcons' last 3, but Penix
@@ -148,6 +167,10 @@ def _starter_of(lg, tid, name):
     #   split starts)
     if st is None:
         return None
+    if lg in ("nfl", "ncaaf"):                          # 🏈 11/16: ...and the season's REGULAR starter is the starting
+        reg = _regular_now(lg, tid)                     # QB too, whoever threw last (Kyler Murray on the out list read
+        if reg:                                         # 'backup' after one Wentz fill-in game - QB_REGULAR_FROM)
+            st = set(st) | {_nm(reg)}
     if _nm(name) in st:
         return True
     #   (10/31 college sweep: Covers' college page - the report behind most FBS schools - lists "J. Knuth", the box
@@ -357,22 +380,82 @@ def qb_settled(rows, team, before):
     return names[0]
 
 
+QB_REGULAR_FROM = "2026-11-16"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/qb_fillin.py, reboard.py):
+#   THE FILL-IN IS NOT THE QUARTERBACK. The 11/15 night rule ("the same man started the last 2 = known") still names a
+#   fill-in once he has two starts - the 11/16 Monday board's only unit play (Chargers +185) carried "better QB play
+#   lately" against the Ravens' Joe Fagnano (2 starts, 151 yards) with Lamar Jackson (4 starts) and Tyler Huntley (3)
+#   behind him on the report and the Ravens priced -225. Every team-game on file 2018-26 (the box score's top passer):
+#   the settled man who is ALSO the season's regular (most starts) started the next game 92.2% of 4,129 in the NFL
+#   (93.0% / 90.6% by half) and 89.3% of 12,885 in college; the settled FILL-IN (another QB has more starts this season)
+#   76.4% of 352 (71.8% / 82.9%) and 71.0% of 892 (71.7% / 69.9%) - no better than a QB change (78.4% / 76.2%), which the
+#   11/15 rule already calls unknown. From games on this date a QB is known only when he is settled AND the season's
+#   regular; a fill-in = unknown (no QB line, no key-player edge). AND THE REGULAR ON THE OUT LIST IS THE STARTING QB OUT
+#   (_starter_of): "the starter is the man who started the LAST game" read Kyler Murray - 5 of the Vikings' 8 starts,
+#   Wentz the last of them - as a backup, so the board's own rule for a missing starting QB (go by the market,
+#   sports.candidates) never fired on the 11/15 Packers game: re-built from the posting commit with Murray read as the
+#   starter the Packers are 55.9%, under the Lock's 56% - a lean, no units (as it ran: 59.1%, the Lock, the ⭐ 1u, lost
+#   30-10). "9999" = the 11/15 night rule alone.
+QB_REGULAR_MIN = 3               # starts this season before a man on the out list reads as "the starting QB" off his
+#                                  season alone (the last game's starter always does)
+
+
+def qb_starts(rows, team, before):
+    """{QB: starts} for `team` this season (from July 1) before `before` - one a game, the box score's top passer -
+    and the order they last started in (the most recent last)."""
+    b = (before or "")[:10]
+    try:
+        y = int(b[:4]) - (1 if b[5:7] < "07" else 0)
+    except ValueError:
+        return {}, []
+    lo, count, order, seen = f"{y}-07-01", {}, [], set()
+    for r in rows:
+        if r["team"] == team and lo <= r["start"] < before and r.get("gid") not in seen:
+            seen.add(r.get("gid"))
+            count[r["player"]] = count.get(r["player"], 0) + 1
+            order.append((r["start"], r["player"]))
+    return count, [n for _, n in sorted(order)]
+
+
+def qb_regular(rows, team, before):
+    """The team's REGULAR quarterback this season: the man with the most starts before `before` (a tie: the one who
+    started most recently). None = no start on file this season."""
+    count, order = qb_starts(rows, team, before)
+    if not count:
+        return None
+    top = max(count.values())
+    for n in reversed(order):
+        if count[n] == top:
+            return n
+    return None
+
+
 def qb_for(rows, team, before, league=None, team_name=""):
     """Who the engine names / weighs at QB for a game starting `before`: from QB_SETTLED_FROM the man the box scores AND
-    the depth chart agree on (sports_qb.call - 11/16: the chart's first healthy quarterback started the team's last
-    game; no chart on file = the settled QB of the last 2 box scores, off the out list); before it the last starter
-    (the old reading, kept for the replays). None = unknown - no QB line, no QB edge."""
+    the depth chart agree on (sports_qb.call - 11/16 every-fact-true: the chart's first healthy quarterback started the
+    team's last game); with NO chart on file the settled QB of the last 2 box scores, off the out list - and from
+    QB_REGULAR_FROM only when he is also the season's regular (11/16 why-we-lose: a settled fill-in started the next game
+    76% / 71%, no better than a change; the chart, today's own word, overrides that). Before QB_SETTLED_FROM the last
+    starter (the old reading, kept for the replays). None = unknown - no QB line, no QB edge."""
     day = (before or "")[:10]
     if day < QB_SETTLED_FROM:
         return last_starter(rows, team, before)
+    got = None
     try:
         import sports_qb
         if day >= sports_qb.QB_CHART_FROM:
             lg = league or str((rows[0].get("gid") if rows else "") or "").split(":")[0]
-            return sports_qb.call(rows, lg, team, before, team_name=team_name)["name"]
+            got = sports_qb.call(rows, lg, team, before, team_name=team_name)
     except Exception:                                        # noqa: BLE001 - the chart never breaks a board
-        pass
-    return qb_settled(rows, team, before)
+        got = None
+    if got is not None:
+        name = got.get("name")
+        if not name or str(got.get("how") or "").startswith("chart"):
+            return name                                      # the chart's call (or unknown) stands
+    else:
+        name = qb_settled(rows, team, before)
+    if name and day >= QB_REGULAR_FROM and qb_regular(rows, team, before) != name:
+        return None                                          # a settled fill-in with no chart behind him: unknown
+    return name
 
 
 PROJ_GAMES = 10         # 🥅 11/6: the projected goalie reads the team's last 10 starts THIS season (sports_goalies' #1 window)
