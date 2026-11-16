@@ -3247,7 +3247,7 @@ BEST_OVER_FROM = "2026-11-05"  # ⭐ 11/5 (the owner, on the 11/5 preview's ⭐ 
 #                                play whose read beats its price (beats_price - the read its units ride on, the juice in),
 #                                the forced pick too. Nothing clears it = no ⭐ that day - never a full unit forced onto a
 #                                price the engine says is too high.
-BEST_KIND_RANK = {"lock": 0, "dog": 1, "nbafav": 2, "gap": 3, "dogplay": 3, "ncaabplay": 4, "nbafloor": 4, "solo": 5,
+BEST_KIND_RANK = {"lock": 0, "ncaabmax": 0, "dog": 1, "nbafav": 2, "gap": 3, "dogplay": 3, "ncaabplay": 4, "nbafloor": 4, "solo": 5,
                   "night": 5, "floor": 6, "play": 7, "backup": 8}
 
 
@@ -3398,6 +3398,8 @@ def _units_base(pk):
         return dog_units(pk)                                 # 💰 10/30 SIZING: the Dog sizes on its PRICE, thin or not
         #                                                      (the replay: the thin short Dog wins as much as the
         #                                                      real-edge one; the long Dog is the loser) - dog_units
+    if kind == "lock" and pk.get("ncaab_max") and (pk.get("date") or "") >= NCAAB_MAX_PLAY_FROM:
+        return ncaab_max_play_units(legs[0])                       # 💎 (11/16: a Lock of the Day that is the college hoops max play)
     if kind in ("lock", "dog") and (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(legs[0]):
         return 0.5                                           # (10/23, the owner: "the whole thin edge thing is sketchy -
         #                                                      those seem to lose a lot ... you need to fix this": live,
@@ -3412,6 +3414,8 @@ def _units_base(pk):
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
             return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
+            if pk.get("ncaab_max"):
+                return ncaab_max_play_units(legs[0])               # 💎 (11/16: the college hoops max play, 2u; 1u before game 10)
             if pk.get("stack_play"):
                 return NCAAB_STACK_PLAY_UNITS                # 🏀 (11/11: the college hoops spread stack play, ½u)
             if pk.get("ncaab_play"):
@@ -3518,7 +3522,7 @@ DOG_LONG_UNITS = 0.5             # +151..+350
 DOG_LEAGUES_OFF = ("ncaab",)     # no Dog of the Day in these (make_board's dog pool)
 
 
-LOCK_NFL_HALF_FROM = "2026-11-17"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
+LOCK_NFL_HALF_FROM = "2026-11-16"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
 LOCK_NFL_UNITS = 0.5                # football replay board, today's code, 2018-26 at the close): THE NFL LOCK IS ½u AND NEVER
 #   THE ⭐. The Lock the board really posts in football is the NOT-thin one (a thin edge is never the Lock - 10/29), and at
 #   1u it is the replay's losing Lock: NFL 6-10, -32.1% flat (train 5-8 -29.3% / held 1-2 -44.1%, 1 of 5 seasons up; a
@@ -3538,7 +3542,7 @@ def nfl_lock_half(leg):
     return leg.get("league") == "nfl" and pt_day(leg) >= LOCK_NFL_HALF_FROM
 
 
-MAX_PLAY_FROM = "2026-11-17"   # 💎 THE MAX PLAY (11/16 FABLE - THE MAX PLAY HUNT, PROS; the owner, 11/16: "one pick with like
+MAX_PLAY_FROM = "2026-11-16"   # 💎 THE MAX PLAY (11/16 FABLE - THE MAX PLAY HUNT, PROS; the owner, 11/16: "one pick with like
 MAX_PLAY_UNITS = 3.0           # 3-4 units on it ... like the sharp professional bettors do. They pick their spots" + "We need
 MAX_PLAY_SCORE = 8.0           # units every day"; results/studies/max_pro_1116/). A LABEL and a size on the day's HOCKEY DOG OF
 MAX_PLAY_LEAGUES = ("nhl",)    # THE DAY - never an extra pick, the day's other unit plays post as always - when the dog is
@@ -5767,6 +5771,8 @@ def posted_kind(p):
         return "ncaabplay"                                     # 🏀 11/3: the college hoops slot plays - their own cap a day
     if p.get("kind") == "play" and p.get("stack_play"):
         return "stackplay"                                     # 🏀 11/11: the ½u college hoops spread play - 2 a night
+    if p.get("kind") == "play" and p.get("ncaab_max"):
+        return "ncaabmax"                                       # 💎 11/16: the college hoops max play - one a night
     if p.get("kind") == "play" and p.get("dog_play"):
         return "dogplay"
     if p.get("kind") == "play" and p.get("nba_fav"):
@@ -6228,6 +6234,149 @@ def ncaab_stack_plays(cands, avoid):
             seen.add(c["game_id"])
             out.append(c)
     return out
+
+
+# 💎 11/16 FABLE - THE MAX PLAY HUNT (COLLEGE) (the owner, 11/16: "improve the engine ... more units, more wins ... one
+# pick with like 3-4 units on it ... like the sharp professional bettors do. They pick their spots" + "I don't want Fable
+# to stop until we find a solid edge"; results/studies/maxcol_1116/, SPORTS_FINDINGS "11/16 - FABLE: THE MAX PLAY HUNT
+# (COLLEGE)"). 51 named cells in college hoops and college football. THE ONE THAT CLEARS: the engine's best cell on file
+# - "the college hoops Lock", 86-32 +26.0% in the 11/14 replay - HAS NEVER BEEN ABLE TO POST. With the honest dials
+# (11/13) a college hoops favorite's OWN read is the close, so its edge is always "thin" (under 3c) and post_board's
+# no-thin-Lock rule drops it (110 of the replay's 118 Locks; live it is not a value play either - the own read is not a
+# point over the price). What wins is the WEIGHED read: the own read moved by the studies on the dog across (and the
+# favorite's own fades). THE RULE (ncaab_max_play_ok - the Lock's own test, nothing new picked): a college hoops MONEYLINE
+# favorite -150..-101 the engine gives 56%+ (lock_ok: both teams 3+ games), a real play (good: a named reason, never a
+# trap, never a side the own read is fighting), its weighed read over the no-vig market (own_agrees) AND over the real
+# price (real_value) - the best one a night (the bigger weighed edge). ON THE REPLAY ROWS (the board at ESPN's close
+# 2018-26, h7_as_wired.out): 91-37 (71.1% against 58.4% needed), +21.9% flat, z 3.2 - train 2018-22 +20.0% on 74, held
+# out 2023-26 39-15 +24.5%, 7 of 8 seasons up (the 8th -0%), a random same-size set of -150..-101 favorites as good 2
+# of 2,000; a dime worse +18.5%, 20 cents worse +15.5%; the SECOND replay (the 11/14 code's own run, 2023-26) 35-15
+# +20.1%, 3 of 3 seasons, 50 of the 54 plays the same. League games 86-32 +25.0% (8 of 8); January 37-10. The dose is
+# the weighed read against the price (56%+ favorites: 3c+ under -6.5% on 971, 0-1c under +9.5%, over it +23.4% on 139);
+# "the studies lift it 2+ points" read 17-4 on one replay and 11-6 on the other - a knife-edge, NOT used.
+# THE SIZE: a quarter of Kelly on the 5% low end of the HELD-OUT win rate (39-15 = 72.2%, low end 62.2% at -139) = 2.4u
+# (Wilson 1.9u; the second replay's 35-15 gives 0.6u, all eight seasons 3.5u) -> NCAAB_MAX_PLAY_UNITS 2u (under the 3u
+# hockey Dog max play - MAX_PLAY_UNITS), NOT 3-4u: no college cell earns 3u+ by that rule (a fourth "no 3u tier" - 10/30, 11/11, 11/12). 1u while either
+# team has played under 10 games (the early-Lock rule, NCAAB_HALF_LOCK_GAMES). At its units the replay is +51.5u on 240u,
+# the worst losing stretch -8u, 16 a season (December on - the fades it rides are league-play facts).
+# THE LEAK, said plainly: the study weights on the dog across were fit with these seasons seen (only the read's params
+# are blind) - the train / held split is not a clean out-of-sample test, the reason for the low-end size and the judge.
+# HOW IT POSTS: its own unit play ("💎 MAX PLAY", kind "play", pk["ncaab_max"]) from the 11/17 Pacific games, at most
+# one a night, before the value plays take their games; a day whose Lock of the Day IS a qualifying college hoops
+# favorite (not thin - 8 of 118) carries the label and the size on the Lock itself. Never an extra forced pick: no
+# qualifying favorite = no max play. Never past -150, never against a posted side, its own record line (ncaab_max_play_record)
+# and tracker tag (sports_leads.NCAAB_MAX_PLAY_TAG). TWO MAX PLAYS, SIDE BY SIDE (the merge with the 11/16 PROS hunt): the
+# hockey Dog max play keeps MAX_PLAY_* / max_play_leg / mark_max / pk["max_play"] (3u, 25 graded under 44% = off, takes
+# the ⭐); this one is NCAAB_MAX_PLAY_* / pk["ncaab_max"] / posted_kind "ncaabmax" (2u, its own judge). ONE "💎 max
+# plays" record line counts both. The ⭐: a hockey max play always takes it; the college max play ranks with the Lock
+# (BEST_KIND_RANK 0) - it can carry the ⭐ on a day with no hockey max play, never raised by it (it is already 2u). THE QUIT RULE: judged at 25 graded - under 60% won = off (ncaab_max_play_quit;
+# the price needs ~58.4%: a true 73% trips it 1 time in 20, a no-edge 58% half the time). "A thin edge is never the
+# Lock" (the owner, 10/28) stands - this is never titled the Lock of the Day and the Lock spot still says so.
+NCAAB_MAX_PLAY_FROM = "2026-11-16"       # games from this Pacific day ("9999" = off)
+NCAAB_MAX_PLAY_ON = True                 # the switch
+NCAAB_MAX_PLAY_LEAGUES = ("ncaab",)      # college hoops only (the college football twin: 34 Lock-grade plays in nine seasons)
+NCAAB_MAX_PLAY_UNITS = 2.0               # a quarter of Kelly on the low end of the held-out win rate (2.4u), rounded down
+NCAAB_MAX_PLAY_EARLY_UNITS = 1.0         # ...half of it while either team has played under NCAAB_HALF_LOCK_GAMES games
+NCAAB_MAX_PLAY_MAX_DAY = 1               # one a night - "they pick their spots"
+NCAAB_MAX_PLAY_QUIT = (25, 0.60)         # judged at 25 graded: under 60% won = off
+
+
+def ncaab_max_play_ok(c):
+    """💎 11/16 MAX PLAY: a college hoops moneyline favorite -150..-101 that passes the Lock's own test on its WEIGHED read
+    - 56%+ (lock_ok), a real play (good), the weighed read over the no-vig market (own_agrees) and over the real price
+    (real_value) - from NCAAB_MAX_PLAY_FROM. The no-thin-Lock rule never let these post (the own read is the close)."""
+    try:
+        return bool(NCAAB_MAX_PLAY_ON and c.get("league") in NCAAB_MAX_PLAY_LEAGUES and c.get("market") == "ml"
+                    and MAX_FAV <= (c.get("odds") or 0) <= -101 and pt_day(c) >= NCAAB_MAX_PLAY_FROM
+                    and c.get("w_p") is not None and c.get("edge_own") is not None and c.get("p_market") is not None
+                    and c.get("dec") and lock_ok(c) and good(c) and own_agrees(c) and real_value(c))
+    except (KeyError, TypeError):
+        return False
+
+
+def ncaab_max_play_units(leg):
+    """💎 The max play's units: NCAAB_MAX_PLAY_UNITS; NCAAB_MAX_PLAY_EARLY_UNITS while either team has played under 10 games."""
+    return NCAAB_MAX_PLAY_EARLY_UNITS if ncaab_early_lock(leg) == "half" else NCAAB_MAX_PLAY_UNITS
+
+
+def ncaab_max_plays(cands, avoid):
+    """💎 The night's max play candidates: every side ncaab_max_play_ok passes that isn't missing players the engine doesn't
+    weigh - the bigger weighed edge over the price first (then the surer read), one per game, never a game in `avoid`.
+    post_board posts NCAAB_MAX_PLAY_MAX_DAY (1) a night."""
+    pool = [c for c in cands if ncaab_max_play_ok(c) and not c.get("hurt") and c["game_id"] not in avoid]
+    out, seen = [], set()
+    for c in sorted(pool, key=lambda c: (-round(c["w_p"] * c["dec"], 4), -rank_p(c))):
+        if c["game_id"] not in seen:
+            seen.add(c["game_id"])
+            out.append(c)
+    return out
+
+
+def ncaab_max_play_record(picks):
+    """💎 The max play's own record -> {"won", "lost", "push", "units" (net), "risked"}."""
+    w = l_ = ps = 0
+    net = risked = 0.0
+    for p in picks or []:
+        if not p.get("ncaab_max") or p.get("lean") or p.get("status") not in ("won", "lost", "push") or not p.get("legs"):
+            continue
+        if p["status"] == "push":
+            ps += 1
+            continue
+        u = units_for(p) or 0
+        risked += u
+        if p["status"] == "won":
+            w += 1
+            net += u * (_dec(p["legs"][0]["odds"]) - 1)
+        else:
+            l_ += 1
+            net -= u
+    return {"won": w, "lost": l_, "push": ps, "units": round(net, 2), "risked": round(risked, 2)}
+
+
+def ncaab_max_play_quit(picks):
+    """The max play's judge: NCAAB_MAX_PLAY_QUIT[0]+ graded (pushes out) and under NCAAB_MAX_PLAY_QUIT[1] won = no more posts."""
+    r = ncaab_max_play_record(picks)
+    n = r["won"] + r["lost"]
+    return n >= NCAAB_MAX_PLAY_QUIT[0] and r["won"] / n < NCAAB_MAX_PLAY_QUIT[1]
+
+
+NCAAB_MAX_SAYS = ["💎 Max play - {u} on it.", "💎 This is a max play - {u} on {t}.",
+                  "💎 Max play tonight: {u} on {t}.", "💎 We pick our spots - this is one. {u} on {t}."]
+_SMALL_SAID = ("half a unit", "half-unit", "half unit", "small bet", "thin edge", "keep it light", "tread light")
+_NUM_SAID = ("we make", "fair on", "we'd play", "our number", "we price", "on our sheet", "to us")   # the bottom line's
+NCAAB_MAX_NUM_GAP = 0.01               # "our number vs the book's" sentence - off a max play's card when the two sit within a cent
+#                                  on the dollar ("Fair on Houston is -150 to us and the book's hanging -149" under a 2u
+#                                  max play reads like the thin edge it isn't: the weighed read moves 4 points at most
+#                                  (FAV_CAP) while these favorites won 13 points over their price)
+
+
+def ncaab_max_closer(pk):
+    """💎 The card is written before the max play's size goes on (best_closer's reason): a sentence that names a small
+    bet comes off the bottom line and the 💎 line - the units, in words - takes its place. The facts stay."""
+    import re
+    if not pk.get("ncaab_max") or pk.get("lean"):
+        return
+    u = units_for(pk)
+    if not u:
+        return
+    ut = "1 unit" if u == 1 else f"{u:g} units"
+    for leg in (pk.get("legs") or [])[:1]:
+        bd = leg.get("breakdown")
+        if not bd:
+            continue
+        say = NCAAB_MAX_SAYS[sum(map(ord, str(leg.get("team") or ""))) % len(NCAAB_MAX_SAYS)].format(u=ut, t=leg.get("team") or "it")
+        for i in range(len(bd) - 1, -1, -1):
+            line = str(bd[i])
+            if "Bottom line" not in line:
+                continue
+            if "💎" in line:
+                return
+            parts = re.split(r"(?<=[.!])\s+", line)
+            close = leg.get("w_p") is not None and leg.get("dec") and leg["w_p"] * leg["dec"] - 1 < NCAAB_MAX_NUM_GAP
+            keep = [x for j, x in enumerate(parts) if not any(h in x.lower() for h in _SMALL_SAID)
+                    and not (j and close and any(h in x.lower() for h in _NUM_SAID))]
+            bd[i] = " ".join(keep + [say])
+            return
 
 
 # 🏀 11/12 FABLE: 10 COLLEGE HOOPS STUDIES (the owner, 11/12: "Have Fable run 10 studies across college basketball";
@@ -8102,7 +8251,7 @@ def pick_checks(pk, games=None, injuries=None, now=None, ctx=None, unit=None):
     if false:
         leg["reasons"] = [r for r in (leg.get("reasons") or []) if not any(f"'{str(r)}'" in x for x in false)]
         left = [r for r in leg["reasons"]]
-        rides = pk.get("gap") is not None or pk.get("ncaab_play") or pk.get("nba_fav") or pk.get("forced") or pk.get("stack_play")   # (these ride
+        rides = pk.get("gap") is not None or pk.get("ncaab_play") or pk.get("nba_fav") or pk.get("forced") or pk.get("stack_play") or pk.get("ncaab_max")   # (these ride
         #                                                  on their own read / gate, never on a named reason: the label
         #                                                  just comes off)
         named = pk.get("kind") == "dog" or (pk.get("kind") == "play" and (pk.get("floor") or pk.get("dog_play")))
@@ -8231,6 +8380,8 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             why = "a Lock of the Day at -119..-101"          # (10/25 sweep: the 10/23 plan's band, checked at the gate too)
         elif pk.get("stack_play") and not ncaab_stack_play_ok(l):
             why = "a college hoops spread play under its stack / past its price"   # (🏀 11/11: +0.05+, 56% x the price > 1)
+        elif pk.get("ncaab_max") and pk.get("kind") == "play" and not ncaab_max_play_ok(l):
+            why = "a max play that doesn't pass the Lock test on its weighed read"   # (💎 11/16: 56%+, weighed over the price)
         elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") not in PLAY_MARKETS \
                 and not pk.get("stack_play"):               # (11/11, the owner's OK: the ONE spread unit play)
             why = "a value play off the moneyline"          # (the owner, 10/9: value plays are MONEYLINE only)
@@ -8239,7 +8390,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             why = f"an NBA ½u dog past +{NBA_HALF_DOG_MAX}"   # (11/11: +200..+350 lost 0 of 3 seasons in the replay)
         elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") == "ml" and not pk.get("owner_post") \
                 and not (pk.get("gap") is not None or pk.get("dog_play") or pk.get("nba_fav") or pk.get("floor")
-                         or pk.get("ncaab_play") or pk.get("forced") or pk.get("was_dog")) \
+                         or pk.get("ncaab_play") or pk.get("forced") or pk.get("was_dog") or pk.get("ncaab_max")) \
                 and l.get("odds", 0) < 100 and not value_edge_ok(l):
             why = f"a value play under {VALUE_EDGE_MIN:.0%} over its price"   # (11/11: the Bruins -142, 58.75% vs 58.68%)
         elif pk.get("kind") in ("play", "dog", "solo", "night") and not pk.get("lean") \
@@ -8317,6 +8468,8 @@ def sizing_check(new):
             want = (0, 0) if k != "solo" else (0.5, UNIT_MAX)
         elif pk.get("units_posted") is not None and (pk.get("date") or "") >= KEEP_UNITS_FROM:
             want = (pk["units_posted"],) * 2                 # (11/11: a Dog upgrade keeps the units both were posted at)
+        elif k in ("play", "lock") and pk.get("ncaab_max") and (pk.get("date") or "") >= NCAAB_MAX_PLAY_FROM:
+            want = (ncaab_max_play_units(l),) * 2                  # 💎 (11/16: the college hoops max play, 2u; 1u before game 10)
         elif k == "play" and pk.get("stack_play"):
             want = (NCAAB_STACK_PLAY_UNITS,) * 2             # 🏀 (11/11: the college hoops spread stack play, ½u)
         elif k == "play":
@@ -8653,6 +8806,13 @@ def post_board(games, model, picks, now, day, force=False):
             if pk["lean"]:                                    # no edge = no hype: an honest lean read
                 leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}{kind}")
         pk["tier"] = pick_tier({**pk, "tier": None})
+        if kind == "lock" and not pk["lean"] and len(pk["legs"]) == 1 and iso >= NCAAB_MAX_PLAY_FROM and ncaab_max_play_ok(pk["legs"][0]) \
+                and not ncaab_max_play_quit(picks) and not any(p["date"] == iso and p.get("ncaab_max") for p in picks):
+            l_ = pk["legs"][0]                               # 💎 11/16: today's Lock IS the college hoops max play - the
+            pk["ncaab_max"] = {"read": l_.get("w_p"), "p": l_.get("p"), "lock": True}   # label and its size ride on the Lock
+            l_["ncaab_max"] = True
+            ncaab_max_closer(pk)
+            print(f"   💎 max play: the Lock of the Day {l_.get('team')} {l_.get('odds')} - {units_for(pk):g}u")
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
@@ -8692,7 +8852,9 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
-    for kind, pool, cap in (("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
+    for kind, pool, cap in (("ncaabmax", ncaab_max_plays, NCAAB_MAX_PLAY_MAX_DAY),   # 💎 11/16: the college hoops max play - first,
+                            #                                              so a ½u value play never takes its game
+                            ("play", plays, MAX_PLAYS), ("gap", gap_plays, MAX_PLAYS), ("dogplay", dog_plays, DOG_PLAY_MAX),
                             ("ncaabplay", ncaab_play_plays, NCAAB_PLAY_MAX_DAY),   # 🏀 11/3-4: the college hoops slot plays -
                             #                                                       BEFORE the floor (11/4 daily check: the
                             #                                                       floor ranks dogs by score, so the ½u floor
@@ -8710,7 +8872,8 @@ def post_board(games, model, picks, now, day, force=False):
                 or kind in ("nbafav", "nbafloor", "floor") and iso < FLOOR_FROM \
                 or kind in ("nbafloor", "floor") and FLOOR_OFF_FROM and iso >= FLOOR_OFF_FROM \
                 or kind == "nbafloor" and nba_floor_quit(picks) \
-                or kind == "stackplay" and (iso < NCAAB_STACK_PLAY_FROM or not NCAAB_STACK_PLAY_ON or ncaab_stack_play_quit(picks)):
+                or kind == "stackplay" and (iso < NCAAB_STACK_PLAY_FROM or not NCAAB_STACK_PLAY_ON or ncaab_stack_play_quit(picks)) \
+                or kind == "ncaabmax" and (iso < NCAAB_MAX_PLAY_FROM or not NCAAB_MAX_PLAY_ON or ncaab_max_play_quit(picks)):
             continue                                         # (11/4, the owner: no daily minimum on any sport)
         today_ = [p for p in picks if p["date"] == iso and p["status"] != "waiting"]
         twin = {}                                            # 🔍🐶 11/4: today's college hoops gap plays {game: side} -
@@ -8724,6 +8887,8 @@ def post_board(games, model, picks, now, day, force=False):
                 [c for c in cands_ if c["game_id"] not in t_ or c["side"] == t_[c["game_id"]]], used_, tuple(r_), r_))
         room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"
         #                                                        with its tag - counted by the tag, or the cap never bit)
+        if kind == "ncaabmax":                                 # 💎 (a Lock of the Day carrying the label is the night's one)
+            room = cap - sum(bool(p.get("ncaab_max")) for p in today_)
         if kind == "nbafloor":                                # 🏀 10/27, the owner: NBA unit plays - an NBA day with no NBA
             room = 1 - unit_plays_today(picks, iso, "nba")    # unit play gets the best NBA dog by score (score 0+), ½u
             if started and nba_started(games, day, now):      # (10/28: an early hockey / college tip never closes the NBA
@@ -8767,7 +8932,7 @@ def post_board(games, model, picks, now, day, force=False):
             if kind == "stackplay":                                  #  (🏀 11/11: the spread play rides the stack - a
                 c["tier"] = "value"                                  #   unit play's card never closes "a lean, no units")
             dress(b)                                                #  a VALUE PLAY never reads "Lock it in")
-            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+            pk = {"date": iso, "kind": "play" if kind in ("gap", "dogplay", "nbafav", "nbafloor", "floor", "ncaabplay", "stackplay", "ncaabmax") else kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
                   "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
@@ -8786,6 +8951,14 @@ def post_board(games, model, picks, now, day, force=False):
                 r_ = ncaab_stack_play_record(picks)
                 print(f"   🏀 college hoops spread stack: {leg.get('team')} {leg.get('line'):+g} ({leg.get('odds')}) - stack "
                       f"{leg.get('spread_stack') or 0:+.2f}, ½u; its record {r_['won']}-{r_['lost']} (judge at {NCAAB_STACK_PLAY_QUIT[0]})")
+            if kind == "ncaabmax":                            # 💎 the college hoops max play (11/16): 2u, its own record
+                pk["ncaab_max"] = {"read": leg.get("w_p"), "p": leg.get("p"), "own": round((leg["edge_own"] + 1) / leg["dec"], 4),
+                                  "need": round(1 / leg["dec"], 4)}
+                leg["tier"], pk["tier"], leg["ncaab_max"] = "value", "value", True
+                ncaab_max_closer(pk)
+                r_ = ncaab_max_play_record(picks)
+                print(f"   💎 max play: {leg.get('team')} {leg.get('odds')} - the weighed read {leg.get('w_p'):.3f} vs {1 / leg['dec']:.3f} "
+                      f"needed, {units_for(pk):g}u; its record {r_['won']}-{r_['lost']} (judge at {NCAAB_MAX_PLAY_QUIT[0]})")
             if kind == "dogplay":                            # 🐶 a Dog-of-the-Day-grade dog that isn't the Dog: ½u value
                 pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"
             if kind == "nbafav":                             # 🏀 the NBA favorite play (10/27): 1u on the study weights
@@ -9338,6 +9511,9 @@ def add_breakdowns(games, model, picks):
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)
+    for p in picks:                                          # 💎 (11/16: a rewritten max play card keeps its closer)
+        if p.get("status") == "open" and p.get("ncaab_max"):
+            ncaab_max_closer(p)
 
 
 def bankroll_series(picks):
