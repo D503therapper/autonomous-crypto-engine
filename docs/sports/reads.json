@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T02:57Z",
+ "updated": "2026-11-16T02:58Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1196,7 +1196,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.665,
+    "p": 0.663,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1211,10 +1211,10 @@
     "team": "Cavaliers",
     "opp": "Bulls",
     "market": "spread",
-    "line": -9.5,
-    "odds": -111,
+    "line": -10.5,
+    "odds": -110,
     "p": 0.501,
-    "win_p": 0.761,
+    "win_p": 0.758,
     "reasons": [
      "the stronger team"
     ]
@@ -1286,8 +1286,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.661,
-    "tie": 0.033,
+    "p": 0.648,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1302,9 +1302,9 @@
     "opp": "Magic",
     "market": "spread",
     "line": -9.5,
-    "odds": -105,
+    "odds": -115,
     "p": 0.501,
-    "win_p": 0.755,
+    "win_p": 0.738,
     "reasons": [
      "the stronger team"
     ]
@@ -1495,6 +1495,37 @@
    }
   },
   {
+   "id": "nba:401909998",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Rockets",
+    "p": 0.526,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T00:30Z",
+   "away": "Rockets",
+   "home": "Heat",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Rockets",
+    "opp": "Heat",
+    "market": "ml",
+    "line": null,
+    "odds": -141,
+    "p": 0.572,
+    "win_p": 0.572,
+    "reasons": [
+     "the stronger team",
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaab:401927364",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1642,7 +1673,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Timberwolves",
-    "p": 0.511,
+    "p": 0.51,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -1658,9 +1689,9 @@
     "opp": "Trail Blazers",
     "market": "ml",
     "line": null,
-    "odds": -133,
-    "p": 0.544,
-    "win_p": 0.544,
+    "odds": -132,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
     ]
