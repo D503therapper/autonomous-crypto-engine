@@ -21708,3 +21708,42 @@ $SAVA: No data found, symbol may be delisted
    dex screen: REJECT NOCK@base liq $719,297 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
    dex screen: REJECT GATO@ethereum liq $365,120 - goplus partial data: cannot_sell_all unknown; top-10 holders 107%
    dex screen: REJECT ADI@ethereum liq $2,862,358 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-11-16 19:01 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/mover     equity $174.57 (-65.1%) 1 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/social_heat equity $321.60 (-35.7%) 2 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-16 19:01 UTC] crypto/hold_btc  equity $397.92 (-20.4%) 1 open  market DOWN
+
+1 Failed download:
+['EEM']: OperationalError('database is locked')
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-16 19:01 UTC] stocks/rsi2      equity $457.36 (-8.5%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): IEF 1, TLT 2, MSTR 5, GLD 13
+[2026-11-16 19:01 UTC] stocks/breakout52 equity $466.97 (-6.6%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-16 19:01 UTC] stocks/dual_momentum equity $453.43 (-9.3%) 2 open  market DOWN
+[2026-11-16 19:01 UTC] stocks/trend_ensemble equity $506.30 (+1.3%) 5 open  market UP
+[2026-11-16 19:01 UTC] stocks/rotation10 equity $498.40 (-0.3%) 2 open  market UP
+[2026-11-16 19:01 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: BUY $133.18 of LLY @ 1442.92 (entry)
+[2026-11-16 19:01 UTC] stocks/trend     equity $454.82 (-9.0%) 4 open  market DOWN
+[2026-11-16 19:01 UTC] stocks/hold_spy  equity $483.78 (-3.2%) 1 open  market DOWN
+   social heat top: BTC 32 (32/0/0), SOL 29 (29/0/0), HYPE 24 (24/0/0), PENGU 21 (21/0/0), SUI 19 (19/0/0)
