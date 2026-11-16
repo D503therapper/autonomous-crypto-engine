@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 235,
-  "beat": 78,
+  "n": 236,
+  "beat": 79,
   "same": 92,
   "worse": 65,
-  "avg_pts": 0.16
+  "avg_pts": 0.18
  },
  "unit_plays": {
-  "n": 115,
-  "beat": 37,
+  "n": 116,
+  "beat": 38,
   "same": 52,
   "worse": 26,
-  "avg_pts": 0.21
+  "avg_pts": 0.25
  },
  "by_kind": {
   "dog": {
@@ -36,11 +36,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 70,
-   "beat": 22,
+   "n": 71,
+   "beat": 23,
    "same": 33,
    "worse": 15,
-   "avg_pts": 0.19
+   "avg_pts": 0.25
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": -0.18
   },
   "nba": {
-   "n": 32,
-   "beat": 14,
+   "n": 33,
+   "beat": 15,
    "same": 11,
    "worse": 7,
-   "avg_pts": 0.4
+   "avg_pts": 0.53
   },
   "ncaab": {
    "n": 11,
@@ -3406,6 +3406,20 @@
    "close": -148,
    "pts": 1.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-15",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Raptors",
+   "market": "ml",
+   "line": null,
+   "odds": 160,
+   "close": 132,
+   "pts": 4.6,
+   "units": 0.5,
    "result": "lost"
   }
  ]
