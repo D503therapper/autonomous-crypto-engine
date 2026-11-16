@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T01:56Z",
+ "updated": "2026-11-16T02:10Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -876,7 +876,7 @@
    "home": "Raptors",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Raptors",
@@ -889,7 +889,7 @@
     "reasons": [
      "the NBA dog score backs it: +0.5 (our read -0.5 points on the price, every NBA dog study weighed)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -917,8 +917,8 @@
    "away": "AR-Pine Bluff",
    "home": "USC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -947,8 +947,8 @@
    "away": "Syracuse",
    "home": "St John's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1066,6 +1066,36 @@
    "start": "2026-11-16T01:20Z",
    "away": "Steelers",
    "home": "Bengals",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401911472",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-16T02:00Z",
+   "away": "Alabama St",
+   "home": "San Jos\u00e9 St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892724",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-16T02:00Z",
+   "away": "Canucks",
+   "home": "Golden Knights",
    "h1": null,
    "why": "started",
    "done": false,
