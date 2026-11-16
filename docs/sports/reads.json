@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T22:29Z",
+ "updated": "2026-11-16T23:03Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -62,35 +62,45 @@
    "lean": null
   },
   {
+   "id": "ncaab:401916298",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-16T23:00Z",
+   "away": "Alcorn St",
+   "home": "Maryland",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401921087",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Iona",
-    "p": 0.517,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
    "start": "2026-11-16T23:00Z",
    "away": "Iona",
    "home": "UMBC",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Iona",
-    "opp": "UMBC",
+    "team": "UMBC",
+    "opp": "Iona",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.554,
-    "win_p": 0.554,
+    "odds": 120,
+    "p": 0.449,
+    "win_p": 0.449,
     "reasons": [
-     "hotter recent form",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "coughing it up 5.8 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
-    ]
+     "1 thing the studies like on this dog and nothing against it - that kind of dog paid +14.5% on 337"
+    ],
+    "result": null
    }
   },
   {
@@ -99,7 +109,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.637,
+    "p": 0.636,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -115,7 +125,7 @@
     "opp": "Bulls",
     "market": "spread",
     "line": -8.5,
-    "odds": -113,
+    "odds": -106,
     "p": 0.501,
     "win_p": 0.723,
     "reasons": [
@@ -251,7 +261,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.641,
+    "p": 0.646,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -267,9 +277,9 @@
     "opp": "Magic",
     "market": "spread",
     "line": -8.5,
-    "odds": -113,
+    "odds": -118,
     "p": 0.501,
-    "win_p": 0.729,
+    "win_p": 0.736,
     "reasons": [
      "the stronger team"
     ]
@@ -462,7 +472,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.513,
+    "p": 0.514,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -806,7 +816,7 @@
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -135,
+    "odds": -130,
     "p": 0.625,
     "win_p": 0.803,
     "reasons": [
