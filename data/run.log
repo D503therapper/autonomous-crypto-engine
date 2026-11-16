@@ -21127,3 +21127,10 @@ error: failed to push some refs to 'https://githu
 [2026-11-16 01:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-16 01:06 UTC] crypto/hold_btc  equity $397.23 (-20.6%) 1 open  market DOWN
    social heat top: PENGU 37 (37/0/0), HYPE 35 (35/0/0), SOL 32 (32/0/0), HBAR 29 (29/0/0), BTC 27 (27/0/0)
+   dex screen: REJECT TRAC@ethereum liq $469,774 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $16,944,102 - top-10 holders 100%; lp holders unknown
+   dex screen: UNREACHABLE WASTED@ethereum liq $191,509 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT METAC@base liq $844,852 - pool age unknown
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       2f1111d217aeaf6ba3c697f2c9ea343e42ee2f35 -> main (cannot lock ref 'refs/heads/main': is at 164a7e054df1b56638823
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
