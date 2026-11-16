@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T23:18Z",
+ "updated": "2026-11-16T23:36Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -199,7 +199,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.542,
+    "p": 0.557,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -215,9 +215,9 @@
     "opp": "Wizards",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.584,
-    "win_p": 0.584,
+    "odds": -170,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": [
      "the stronger team",
      "opponent on a back-to-back"
@@ -261,8 +261,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Celtics",
-    "p": 0.646,
-    "tie": 0.034,
+    "p": 0.652,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -279,7 +279,7 @@
     "line": -9.5,
     "odds": -107,
     "p": 0.501,
-    "win_p": 0.736,
+    "win_p": 0.744,
     "reasons": [
      "the stronger team"
     ]
@@ -367,7 +367,7 @@
     "opp": "Clemson",
     "market": "spread",
     "line": 24.5,
-    "odds": -112,
+    "odds": -105,
     "p": 0.518,
     "win_p": 0.037,
     "reasons": [
@@ -519,7 +519,7 @@
     "opp": "Drake",
     "market": "spread",
     "line": 8.5,
-    "odds": -108,
+    "odds": -102,
     "p": 0.502,
     "win_p": 0.196,
     "reasons": []
@@ -768,7 +768,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nuggets",
-    "p": 0.657,
+    "p": 0.662,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -784,13 +784,13 @@
     "opp": "Suns",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -114,
     "p": 0.501,
-    "win_p": 0.75,
+    "win_p": 0.757,
     "reasons": [
      "the stronger team",
-     "altitude edge",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "altitude edge"
     ]
    }
   },
@@ -1030,6 +1030,34 @@
      "the stronger team",
      "rolling off a blowout win"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401909697",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Florida St",
+    "p": 0.918,
+    "tie": 0.015,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T00:00Z",
+   "away": "Ball State",
+   "home": "Florida St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Ball State",
+    "opp": "Florida St",
+    "market": "spread",
+    "line": 24.5,
+    "odds": -110,
+    "p": 0.518,
+    "win_p": 0.03,
+    "reasons": []
    }
   },
   {
@@ -1542,7 +1570,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.396,
+    "p": 0.401,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1558,9 +1586,9 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
-    "p": 0.628,
-    "win_p": 0.411,
+    "odds": -180,
+    "p": 0.619,
+    "win_p": 0.402,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -1649,6 +1677,34 @@
     "odds": -205,
     "p": 0.658,
     "win_p": 0.441,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401918970",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "SMU",
+    "p": 0.932,
+    "tie": 0.013,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T01:00Z",
+   "away": "Oral Roberts",
+   "home": "SMU",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Oral Roberts",
+    "opp": "SMU",
+    "market": "spread",
+    "line": 26.5,
+    "odds": -110,
+    "p": 0.52,
+    "win_p": 0.023,
     "reasons": []
    }
   },
