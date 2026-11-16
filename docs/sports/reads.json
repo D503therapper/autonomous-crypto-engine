@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T03:18Z",
+ "updated": "2026-11-16T03:20Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -1138,8 +1138,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UTEP",
-    "p": 0.877,
-    "tie": 0.021,
+    "p": 0.886,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1156,7 +1156,7 @@
     "line": 19.5,
     "odds": -110,
     "p": 0.513,
-    "win_p": 0.057,
+    "win_p": 0.05,
     "reasons": []
    }
   },
@@ -1226,8 +1226,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kent State",
-    "p": 0.752,
-    "tie": 0.033,
+    "p": 0.766,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1244,9 +1244,40 @@
     "line": 10.5,
     "odds": -110,
     "p": 0.504,
-    "win_p": 0.167,
+    "win_p": 0.153,
     "reasons": [
      "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "nba:401909996",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Grizzlies",
+    "p": 0.597,
+    "tie": 0.035,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T00:00Z",
+   "away": "Grizzlies",
+   "home": "Wizards",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Grizzlies",
+    "opp": "Wizards",
+    "market": "ml",
+    "line": null,
+    "odds": -223,
+    "p": 0.663,
+    "win_p": 0.663,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -1316,8 +1347,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.831,
-    "tie": 0.026,
+    "p": 0.814,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1334,7 +1365,7 @@
     "line": 12.5,
     "odds": -105,
     "p": 0.506,
-    "win_p": 0.092,
+    "win_p": 0.107,
     "reasons": []
    }
   },
@@ -1699,7 +1730,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Warriors",
-    "p": 0.528,
+    "p": 0.54,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1715,13 +1746,13 @@
     "opp": "Pelicans",
     "market": "ml",
     "line": null,
-    "odds": -141,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -152,
+    "p": 0.589,
+    "win_p": 0.589,
     "reasons": [
      "the stronger team",
-     "opponent drama: trade drama",
-     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+     "sharp money moving this way",
+     "opponent drama: trade drama"
     ]
    }
   },
@@ -1808,7 +1839,7 @@
     "market": "spread",
     "line": -1.5,
     "odds": -135,
-    "p": 0.593,
+    "p": 0.594,
     "win_p": 0.781,
     "reasons": [
      "the stronger team",
