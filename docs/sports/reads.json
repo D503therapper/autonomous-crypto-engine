@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T01:13Z",
+ "updated": "2026-11-16T01:14Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -998,36 +998,6 @@
    "lean": null
   },
   {
-   "id": "nba:401909992",
-   "league": "nba",
-   "emoji": "\ud83c\udfc0",
-   "sport": "NBA",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Hawks",
-   "home": "Bucks",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nhl:401892722",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-11-16T01:00Z",
-   "away": "Panthers",
-   "home": "Stars",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
    "id": "ncaab:401929200",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1230,7 +1200,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kent State",
-    "p": 0.757,
+    "p": 0.752,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1246,9 +1216,9 @@
     "opp": "Kent State",
     "market": "spread",
     "line": 10.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.504,
-    "win_p": 0.162,
+    "win_p": 0.167,
     "reasons": [
      "hotter recent form"
     ]
@@ -1574,6 +1544,36 @@
     "p": 0.509,
     "win_p": 0.082,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401909999",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Timberwolves",
+    "p": 0.519,
+    "tie": 0.037,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-17T01:00Z",
+   "away": "Trail Blazers",
+   "home": "Timberwolves",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Timberwolves",
+    "opp": "Trail Blazers",
+    "market": "ml",
+    "line": null,
+    "odds": -143,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
    }
   },
   {
