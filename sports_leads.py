@@ -1266,6 +1266,8 @@ DOG_READ_3_4_TAG = "college hoops dog read 3-4 (the slot's next band)"   # S5 - 
 
 
 DOG_READ_LEFT_OUT_TAG = "college hoops dog read 4+ the slot leaves out (a trap / the own read or the money against it)"
+#   11/16, THE OWNER'S CALL: "Yes, add all that" - from the 11/16 games the dog slot TAKES these dogs (sports.NCAAB_DOG_SLOT_OPEN_FROM);
+#   the tag keeps logging them as the forward record of that call (judge at 50 with the slot: under -5% = the two rules back on).
 #   S5c - THE OWNER'S OPEN CALL (11/15), tracked only: the dog slot takes a read of 4+ only when the side is not a 'trap'
 #   (sports_dogs' price-band verdict) and not one the engine is 'fighting' (the own read 3+ points under the price, or
 #   the money ran from it since the open) - two rules the 11/3 dog expert's cell (every read-4+ dog, +16.5% on 600) never

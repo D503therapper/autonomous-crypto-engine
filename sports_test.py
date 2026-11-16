@@ -25207,6 +25207,134 @@ def test_maxcol_1116_the_college_hoops_max_play_is_the_lock_test_on_the_weighed_
     assert "91-37" in out and "39-15" in out and "35-15" in out
 
 
+def test_owner_1116_the_college_hoops_dog_slot_takes_its_read_4_dogs_a_trap_or_a_fought_side_posts_through_the_pre_post_checks():
+    """THE OWNER, 11/16 ("Yes, add all that" + "if any plays need to be added for today, then add them" - the 11/15 ten
+    studies' S5b / S5c open call): from the 11/16 Pacific games the college hoops DOG slot no longer leaves out a
+    read-4+ dog as a 'trap' or as a side the engine is 'fighting' (103-116 +21.1% on 219, both halves, 7 of 8 seasons,
+    placebo 2 of 2,000). Everything else about the slot stays; the FAVORITE slot keeps both rules; the tracker tag
+    keeps logging. END TO END: such a dog goes through post_board's real pre-post checks (pick_checks / rule_check)
+    and POSTS."""
+    import sports_leads
+    d = sd.decimal
+    assert sports.NCAAB_DOG_SLOT_OPEN_FROM == "2026-11-16"
+    ok = {**_cand("g4", 140, 0.41, league="ncaab"), "dog_ctx": {}, "dog_read": 4.5, "dog_read_parts": {"games_ok": True},
+          "games_in": 6, "opp_games_in": 6, "p_market": 0.40, "reasons": ["x"], "start": "2026-11-17T03:00Z"}   # 7 PM PT 11/16
+    trap, fight = {**ok, "trap": True}, {**ok, "edge_own": -0.20}
+    assert sports.fighting(fight) and sports.pt_day(ok) == "2026-11-16" and sports.ncaab_dog_slot_open(ok)
+    want = sports.ncaab_play_dog(ok)
+    assert want is not None and sports.ncaab_play_dog(trap) == want and sports.ncaab_play_dog(fight) == want
+    assert sports.ncaab_play_dog({**trap, "edge_own": -0.20}) == want                    # both at once
+    # ... dated: a 11/15 game (and a side with no start) keeps the old rule; None in the constant = the two rules back on
+    old = "2026-11-16T03:00Z"                                                            # 7 PM PT on 11/15
+    assert sports.ncaab_play_dog({**ok, "start": old}) is not None
+    assert sports.ncaab_play_dog({**trap, "start": old}) is None and sports.ncaab_play_dog({**fight, "start": old}) is None
+    keep = sports.NCAAB_DOG_SLOT_OPEN_FROM
+    try:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        assert sports.ncaab_play_dog(trap) is None and sports.ncaab_play_dog(fight) is None and sports.ncaab_play_dog(ok) is not None
+    finally:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+    # ... everything else about the slot stays
+    assert sports.ncaab_play_dog({**trap, "dog_read": 3.9}) is None                      # the read 4+
+    assert sports.ncaab_play_dog({**trap, "games_in": 3}) is None and sports.ncaab_play_dog({**trap, "opp_games_in": 3}) is None
+    assert sports.ncaab_play_dog({**trap, "dog_read_parts": {"games_ok": False}}) is None
+    assert sports.ncaab_play_dog({**trap, "odds": 400, "dec": d(400)}) is None and sports.ncaab_play_dog({**trap, "odds": -105, "dec": d(-105)}) is None
+    for fade in sports.NCAAB_DOG_FADES:
+        assert sports.ncaab_play_dog({**trap, fade: True}) is None, fade                 # never a side carrying a dog fade
+    assert sports.ncaab_play_dog({**trap, "ncaab_skid": sports.NCAAB_SKID}) is None
+    assert sports.ncaab_play_dog({**trap, "waiting": True}) is None and sports.ncaab_play_dog({**trap, "market": "spread"}) is None
+    assert sports.ncaab_play_dog({**trap, "reasons": []}) is None                        # a named reason, still
+    assert sports.NCAAB_PLAY_SLOT_MAX == {"fav": 1, "dog": 2} and sports.NCAAB_DOG_READ_GATE == 4
+    assert (sports.NCAAB_PLAY_DOG_UNITS, sports.NCAAB_PLAY_DOG_UNITS_2U, sports.NCAAB_PLAY_DOG_BAND) == (1.0, 2.0, (100, 350))
+    got = sports.ncaab_play_plays([{**trap, "game_id": f"t{i}", "dog_read": 4.0 + i} for i in range(4)], ())
+    assert [c["game_id"] for c in got] == ["t3", "t2"]                                   # the best two reads a night
+    assert [c["game_id"] for c in sports.ncaab_play_plays([trap, {**fight, "side": "away"}], ())] == ["g4"]   # one pick a game
+    # ... the FAVORITE slot keeps both rules (the study was the dog slot's)
+    assert sports._ncaab_side_ok({**ok, "odds": -130, "dec": d(-130)}) and not sports._ncaab_side_ok({**ok, "odds": -130, "dec": d(-130), "trap": True})
+    assert not sports._ncaab_side_ok(trap) and sports._ncaab_side_ok(trap, dog=True)
+    assert not sports._ncaab_side_ok({**trap, "odds": -130, "dec": d(-130)}, dog=True)   # (a favorite is never the dog slot's)
+    # ... the 11/15 tracker tag keeps logging the dogs the two rules used to leave out
+    out_tag = sports_leads.DOG_READ_LEFT_OUT_TAG
+    assert out_tag in sports_leads.tags(trap, sports) and out_tag in sports_leads.tags(fight, sports)
+    assert out_tag not in sports_leads.tags(ok, sports)
+    # END TO END - post_board with its REAL pre-post checks: four read-4+ dogs, every one a trap AND fought by the own
+    # read; the real ncaab_play_dog picks, rule_check / pick_checks pass them, the best two post with their units
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(4):
+        gid = f"ncaab:up{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T00:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    real_dog = sports.ncaab_play_dog
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    reads = {"ncaab:up0": 4.0, "ncaab:up1": 7.0, "ncaab:up2": 5.0, "ncaab:up3": 6.5}
+    seen_left_out = []
+
+    def dressed(c):                                          # the dog as the slot's read sees it - a trap, the own read far
+        if not (c.get("game_id", "").startswith("ncaab:up") and c.get("market") == "ml" and c.get("odds", 0) > 0):   # under
+            return None
+        c.update(trap=True, edge_own=-0.25, edge=-0.25, dog_read=reads[c["game_id"]], dog_read_parts={"games_ok": True},
+                 games_in=6, opp_games_in=6, ncaab_skid=0, reasons=c.get("reasons") or ["the glass"])
+        for k in sports.NCAAB_DOG_FADES:
+            c[k] = False
+        assert c["trap"] and sports.fighting(c)
+        x = real_dog(c)                                      # THE REAL SLOT RULE
+        if x is not None:
+            seen_left_out.append(c["game_id"])
+        return x
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        sports.ncaab_play_dog = dressed
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = [p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        assert [(p["legs"][0]["game_id"], p["ncaab_play"]["dog_read"], sports.units_for(p)) for p in dogs] == \
+            [("ncaab:up1", 7.0, 2.0), ("ncaab:up3", 6.5, 2.0)], ([(p["kind"], p.get("ncaab_play")) for p in picks], sports.LAST_PICK_CHECK)
+        assert all(p["status"] == "open" and p["kind"] == "play" and p["legs"][0].get("trap") for p in dogs)
+        assert all(sports.fighting(p["legs"][0]) for p in dogs), "the posted dogs are the ones the two rules left out"
+        assert set(seen_left_out) >= {"ncaab:up1", "ncaab:up3"}
+        held = [r for r in sports.LAST_PICK_CHECK if r.get("held") and str(r.get("key", "")).split("|")[1].startswith("ncaab:up")]
+        assert not held, held                                # the pre-post check held none of them
+        # ... and with the two rules back on (None) the same board posts no dog slot play
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        picks2 = []
+        sports.post_board(games, model, picks2, now, day, force=True)
+        assert not [p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+    finally:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
+def _dog_slot_two_rules_on(fn):
+    """(11/16) the 11/4 dog-slot tests check the slot's OLD 'never a trap / fighting' rules on dogs dated after 11/16 -
+    they run with the two rules on (NCAAB_DOG_SLOT_OPEN_FROM None); the 11/16 rule has its own test (test_owner_1116_*)."""
+    def run():
+        keep = sports.NCAAB_DOG_SLOT_OPEN_FROM
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        try:
+            fn()
+        finally:
+            sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+    return run
+
+
+for _n in ("test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words",
+           "test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each_normal_value_plays_and_the_judge"):
+    globals()[_n] = _dog_slot_two_rules_on(globals()[_n])
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

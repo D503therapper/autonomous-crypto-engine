@@ -6803,18 +6803,39 @@ def ncaab_fav_fade(c):
     return None
 
 
-def _ncaab_side_ok(c):
+NCAAB_DOG_SLOT_OPEN_FROM = "2026-11-16"   # 🐶 THE DOG SLOT TAKES THE DOGS ITS READ LIKES (the owner, 11/16: "Yes, add all
+#   that" + "if any plays need to be added for today, then add them" - the 11/15 ten studies' S5b / S5c open call): from
+#   the 11/16 Pacific games the college hoops DOG slot no longer leaves out a read-4+ dog as a 'trap' (sports_dogs'
+#   price-band verdict) or as one the engine is 'fighting' (the own read 3+ under the price / the money ran from it) -
+#   two rules the dog expert's cell (every read-4+ dog, +16.5% on 600) never had. The left-out dogs on the 11/13 replay
+#   rows 2018-26: 103-116, +21.1% on 219 (train +22.8% / held +19.7%, 7 of 8 seasons, placebo 2 of 2,000) vs +8.9% on
+#   326 for the kept ones; the slot without the two rules +100.4u on 574u vs +44.3u on 347u. Everything else stays: the
+#   read 4+, both teams 4+ games, two a night, 1u / 2u at 6+, never a dog fade, one pick a game, +100..+350, the 11/14
+#   home-dog -1, a named reason. The FAVORITE slot keeps both rules. None = the two rules back on (the owner's call).
+
+
+def ncaab_dog_slot_open(c):
+    """True when this side is a college hoops dog from the day the dog slot dropped its trap / fighting rules
+    (NCAAB_DOG_SLOT_OPEN_FROM, by the Pacific game day)."""
+    return bool(NCAAB_DOG_SLOT_OPEN_FROM and c.get("league") == "ncaab" and (c.get("odds") or 0) >= 100
+                and (pt_day(c) or "") >= NCAAB_DOG_SLOT_OPEN_FROM)
+
+
+def _ncaab_side_ok(c, dog=False):
     """What both slots need: college hoops, the moneyline, not waiting on news, never a trap, never one the own read
-    is fighting, a named reason (a built college hoops edge firing counts as one)."""
-    if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("trap") or c.get("waiting"):
+    is fighting, a named reason (a built college hoops edge firing counts as one). `dog` = the DOG slot's check: from
+    NCAAB_DOG_SLOT_OPEN_FROM the trap / fighting rules don't apply to it (the dog read decides)."""
+    open_ = dog and ncaab_dog_slot_open(c)
+    if c.get("league") != "ncaab" or c.get("market") != "ml" or (c.get("trap") and not open_) or c.get("waiting"):
         return False
     if c.get("p_market") is None or not c.get("dec"):
         return False
-    try:
-        if fighting(c):
+    if not open_:
+        try:
+            if fighting(c):
+                return False
+        except (KeyError, TypeError):
             return False
-    except (KeyError, TypeError):
-        return False
     return bool(c.get("reasons")) or bool(ncaab_play_fired(c))
 
 
@@ -6836,7 +6857,7 @@ def ncaab_play_fav(c):
 
 def ncaab_play_dog(c):
     """(2) THE DOG SLOT's read -> (read, edge per dollar, dog score), or None when the side isn't it."""
-    if not _ncaab_side_ok(c) or not NCAAB_PLAY_DOG_BAND[0] <= c.get("odds", 0) <= NCAAB_PLAY_DOG_BAND[1]:
+    if not _ncaab_side_ok(c, dog=True) or not NCAAB_PLAY_DOG_BAND[0] <= c.get("odds", 0) <= NCAAB_PLAY_DOG_BAND[1]:
         return None
     if ncaab_dog_fade(c):
         return None
