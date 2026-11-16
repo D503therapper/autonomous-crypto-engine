@@ -28,6 +28,13 @@ What it checks, card by card (each one a class the 11/13 audit found - SPORTS_FI
      - canned tails with no fact ("Nothing scary about that.", "Still riding Suns.", "Do the math.")
      - "outscoring teams 23 to 29" (outscored), "a 8-3 loss" (an), "Hawks's the side"
      - the same line twice on a card (the one-liner repeated in the breakdown, the 🚑 chip's names again)
+  4. WHO PLAYS (11/16 FABLE - EVERY FACT TRUE; while the game hasn't started - who_plays)
+     - a quarterback's numbers only for the man the engine can call the starter (sports_qb.call - the depth chart and
+       the box scores agree, and he isn't out / questionable): "Carson Wentz has 0 TDs, 2 picks and 81 yards ... for
+       Vikings" the day Kirk Cousins started; Gardner Minshew II's numbers on a card that also said he was out
+     - a goalie said as tonight's starter only when the goalie page has CONFIRMED him; every other goalie line has to
+       say what he is (projected / expected, not confirmed / in net last time out)
+     - "a bye" only when a whole football week passed with no game (the 11/2 Bears: Thursday, then Monday)
 A line that fails is rewritten or dropped (the bottom line is rebuilt from the pick, its price and our number - never
 lost). Nothing here ever holds a pick: wording is never a reason to pull a bet.
 
@@ -504,7 +511,8 @@ def team_facts(games, leg, which):
         _TF.clear()
     _TF[key] = {"rec": {rec([v._line(x, tid) for x in reg]), rec(lines)}, "home": rec(home), "road": rec(road),
                 "last5": rec(lines[-5:]), "streak": streak, "lines": lines,
-                "rest": v._days(start, v._t(s[-1]["start"])) if s else None, "n": len(s)}
+                "rest": v._days(start, v._t(s[-1]["start"])) if s else None, "n": len(s),
+                "weeks": (v._week(start) - v._week(v._t(s[-1]["start"]))) if s else None}
     return _TF[key]
 
 
@@ -518,7 +526,7 @@ SCORE_VERB = re.compile(r"spank|smack|\bbeat\b|beat the brakes|clapped|embarrass
 NO_CHECK = re.compile(r"last (?:season|year)|a year ago|year ago|since 20\d\d|these two met|all-time|\bATS\b|against the "
                       r"spread|as a dog|as a favorite|\bin (?:one|two)-score|\bh2h\b|head[- ]to[- ]head|last meeting|"
                       r"\bseries\b|\bbowl\b|\bcareer\b|\bstarts?\b|\bsave %|\bTDs?\b|\bpicks?\b|\byards\b|minutes|per 48|"
-                      r"\bsince\b|\bquarter\b|\bperiods?\b", re.I)
+                      r"\bsince\b|\bquarter\b|\bperiods?\b|rated above", re.I)
 HOME_W = re.compile(r"at home|home this|home so far|their (?:own )?building|in the crib|protects? the crib|"
                     r"takes care of home|home cooking|own building|\bhome\b", re.I)
 ROAD_W = re.compile(r"on the road|road this|away from home|road game|other people'?s|\broad\b|\baway\b", re.I)
@@ -529,6 +537,7 @@ STREAK_W = re.compile(r"(?:(\d+) straight (?:W'?s|wins|Ws)\b|won (\d+) (?:straig
 STREAK_L = re.compile(r"(?:(?:dropped|lost) (\d+) (?:straight|in a row)|(\d+) straight L'?s|(\d+) losses in a row|"
                       r"(\d+) L'?s in a row|taking L'?s\W+(\d+) straight|lost (\d+) straight)", re.I)
 REST_W = re.compile(r"(\d+) days?(?: of)?(?: rest| off|' rest)?\b", re.I)
+BYE_W = re.compile(r"\bbye\b", re.I)
 LASTGAME = re.compile(r"last time out|last outing|previous game|latest|fresh off|last game for each|most recent|"
                       r"how they came in|where they'?re coming from|\bjust took\b|\bjust beat\b|\bcome(?:s)? in off\b|"
                       r"\boff a\b|\bafter a\b|last played|last one|took an? L last time|last time\b|"
@@ -576,6 +585,11 @@ def facts(line, leg, games):
         if i not in fx:
             fx[i] = team_facts(games, leg, "us" if i == 0 else "them")
         return fx[i]
+    if BYE_W.search(t) and leg.get("league") in ("nfl", "ncaaf"):      # (11/16: a bye is a whole week with no game)
+        i = _anchor(t, BYE_W.search(t).start(), names)
+        f = F(i) if i is not None else None
+        if f and not f.get("unseen") and f.get("weeks") is not None and f["weeks"] < 2:
+            return f"says a bye for {names[i]} - their last game was {f['rest']} days back, the week before this one"
     if NO_CHECK.search(t):
         return ""
     # streaks
@@ -685,6 +699,85 @@ def facts(line, leg, games):
     return ""
 
 
+# ---- 4. WHO PLAYS ----------------------------------------------------------------------------------------------------
+WHO_CHECK = True
+QB_STAT = re.compile(r"\d+ TDs?, \d+ picks? and [\d,]+ yards")
+GOALIE_STAT = re.compile(r"save %")
+GOALIE_HEDGE = re.compile(r"project|not confirmed|last time out|last starter|if he goes again|expected in net|"
+                          r"expected to start|confirmed in net|in net last", re.I)
+WHO_GAMES = 8                   # a team's quarterbacks / goalies = the starters of its last 8 box scores
+
+
+def _recent_starters(rows, team, before, n=WHO_GAMES):
+    names, seen = [], set()
+    for r in reversed(rows):
+        if str(r.get("team")) != str(team) or r.get("start", "") >= before:
+            continue
+        if r.get("gid") not in seen:
+            seen.add(r.get("gid"))
+            if len(seen) > n:
+                break
+        if r["player"] not in names:
+            names.append(r["player"])
+    return names
+
+
+def who_plays(line, leg, games):
+    """'' when the line may stand, else why not: a quarterback's numbers for a man the engine can't call the starter, a
+    goalie said as tonight's man with nobody confirming him. Only while the game hasn't started (a played game's card
+    is history) and only for lines that carry the man's numbers."""
+    if not WHO_CHECK or not games:
+        return ""
+    t = str(line or "")
+    lg = leg.get("league")
+    is_qb = lg in ("nfl", "ncaaf") and QB_STAT.search(t)
+    is_g = lg == "nhl" and GOALIE_STAT.search(t)
+    if not (is_qb or is_g):
+        return ""
+    g = games.get(leg.get("game_id"))
+    if not g or g.get("status") != "pre" or not g.get("start"):
+        return ""
+    try:
+        import sports_players as sp
+        rows = sp.CACHE.get(lg) or []
+    except Exception:                                        # noqa: BLE001
+        return ""
+    if not rows:
+        return ""
+    if is_qb:
+        try:
+            import sports_qb
+        except Exception:                                    # noqa: BLE001
+            return ""
+        if g["start"][:10] < sports_qb.QB_CHART_FROM:
+            return ""
+        for side in ("home", "away"):
+            c = None
+            for nm in _recent_starters(rows, g[side], g["start"]):
+                if nm not in t:
+                    continue
+                c = c or sports_qb.call(rows, lg, g[side], g["start"], team_name=g.get(side + "_name") or "")
+                if not c["name"] or not sports_qb.same(c["name"], nm):
+                    why = {"out": "he's ruled out", "questionable": "he's questionable", "change": "the starter changed",
+                           "chart disagrees": "the depth chart has another man first"}.get(c["how"], "unknown")
+                    return f"a quarterback's numbers for {nm}, who the engine can't call {g.get(side + '_name')}'s starter ({why})"
+        return ""
+    if GOALIE_HEDGE.search(t):
+        return ""
+    try:
+        import sports_goalies
+    except Exception:                                        # noqa: BLE001
+        return ""
+    for side in ("home", "away"):
+        for nm in _recent_starters(rows, g[side], g["start"], n=15):
+            if nm not in t:
+                continue
+            conf = sports_goalies.confirmed(g.get("id"), side)
+            if not conf or sd._plain(conf.get("name")).split()[-1:] != sd._plain(nm).split()[-1:]:
+                return f"{nm} said as tonight's goalie for the {g.get(side + '_name')} with nobody confirming him"
+    return ""
+
+
 # ---- the whole card ---------------------------------------------------------------------------------------------------
 def _dupe(x, seen):
     k = re.sub(r"\W+", " ", str(x)).strip().lower()
@@ -730,6 +823,10 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             fw = facts(new, leg, games)
             if fw:
                 new, w = "", "; ".join(y for y in (w, "a fact the game files don't back: " + fw) if y)
+        if new:
+            pw = who_plays(new, leg, games)
+            if pw:
+                new, w = "", "; ".join(y for y in (w, pw) if y)
         if new and _dupe(new, seen):
             new, w = "", w or "the same line twice on the card"
         if new and where == "render" and chip_repeat(new, leg):
@@ -764,6 +861,10 @@ def check_one(pk, leg, line, games=None, where="render"):
         fw = facts(new, leg, games)
         if fw:
             new, w = "", "a fact the game files don't back: " + fw
+    if new and not w:
+        pw = who_plays(new, leg, games)
+        if pw:
+            new, w = "", pw
     if w:
         note(cx["date"], leg, w, line, where)
     return new

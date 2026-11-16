@@ -212,6 +212,8 @@ class Elo:
             "revenge": revenge(h, a) - revenge(a, h),
             "letdown": float(self.last_big.get(a, False)) - float(self.last_big.get(h, False)),   # + = away flat spot
             "bye": (float(rh_d >= 10) - float(ra_d >= 10)) if football else 0.0,
+            "days_home": ((t - self.last[h]) / 86400) if h in self.last else None,   # (11/16: the real days since each
+            "days_away": ((t - self.last[a]) / 86400) if a in self.last else None,   #  side's last game - never capped)
             "short": (float(ra_d <= 5) - float(rh_d <= 5)) if football else 0.0,
             "intl": 1.0 if str(g.get("intl")) == "1" else 0.0,      # overseas game: how the "home" side really does
             "alt": thin_air(a) - thin_air(h),                          # + = the visitors are the ones in thin air

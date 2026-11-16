@@ -202,10 +202,32 @@ def last_starts(games):
     return out
 
 
+B2B_CLOCK_FROM = "2026-11-16"   # 😮‍💨 11/16 FABLE - EVERY FACT TRUE: the back-to-back the WEIGHTS read counted UTC calendar
+B2B_HOURS = 29                  # dates. A 7 PM Eastern tip is 00:00Z - 'tomorrow' in UTC - so a Friday night game and a
+#   Sunday afternoon game (44 hours apart) sat one UTC date apart and read "played last night", and a Saturday matinee
+#   followed by a Sunday night game (a real back-to-back) sat two apart and was missed. NBA / NHL 2021-26: 41% of the
+#   games the flag called a back-to-back were two nights apart (1,235 of 3,038 NBA, 1,225 of 3,002 NHL), and it missed 16%
+#   / 12% of the real ones (results/studies/facts_1116/b2b_clock.py); live 11/1-11/15 six read inputs were wrong (the
+#   11/15 Hornets and Raptors read "rested vs their back-to-back" 42 and 47 hours after the other side's last game). The
+#   card always said it by the clock (sports_breakdown_v24.B2B_HOURS) - the weights now read the same fact: the last game
+#   started inside 29 hours. Games before this date keep the old flag (the replays). "9999" = the old flag.
+
+
 def played_yesterday(starts, league, team, start):
-    """Did this team play the day before this game (a back-to-back)?"""
+    """Did this team play the night before this game (a back-to-back)? From B2B_CLOCK_FROM by the clock - its last game
+    started inside B2B_HOURS; before it, the old UTC-date reading."""
     prev = [s for s in starts.get((league, team), []) if s < start]
-    return bool(prev) and _days(prev[-1], start) == 1
+    if not prev:
+        return False
+    if str(start)[:10] >= B2B_CLOCK_FROM:
+        from datetime import datetime
+        try:
+            hrs = (datetime.strptime(start[:16], "%Y-%m-%dT%H:%M")
+                   - datetime.strptime(prev[-1][:16], "%Y-%m-%dT%H:%M")).total_seconds() / 3600
+        except (TypeError, ValueError):
+            return False
+        return hrs <= B2B_HOURS
+    return _days(prev[-1], start) == 1
 
 
 # PUCK LUCK (9/30 study, every NHL box score 2021-26, closing prices): PDO = shooting % + save % over the last 10 games

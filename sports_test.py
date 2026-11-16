@@ -24182,7 +24182,469 @@ def test_owner_1115_a_qb_change_is_unknown_never_the_last_passer():
     finally:
         sp_.ROLE.clear(); sp_.ROLE.update(keep)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
-    assert "sp.qb_for(rows, tid_, g[\"start\"])" in src and "opp_outs" in src[src.index("sp.qb_for(rows, tid_"):][:300]
+    assert "sp.qb_for(rows, tid_, g[\"start\"]" in src and "opp_outs" in src[src.index("sp.qb_for(rows, tid_"):][:300]
+
+
+def test_fable_1116_the_qb_call_needs_the_depth_chart_and_the_box_score_to_agree():
+    """11/16 FABLE - EVERY FACT TRUE (the owner, 11/15: "These fucking mistakes ... false information and outdated bullshit
+    is costing people a lot of money"). The Packers Lock named Carson Wentz for the Vikings off one fill-in start (Kirk
+    Cousins started); the Cardinals card gave Gardner Minshew II's numbers AND said he was out (Carson Beck started). The
+    quarterback is now a CALL (sports_qb.call): named only when ESPN's depth chart (its first quarterback who isn't ruled
+    out) and the box scores (he started the last game) agree - a settled man confirmed, or a NEW starter confirmed; a
+    disagreement, an out / questionable man or a change with no chart is UNKNOWN (no QB line, no key-player edge). The
+    chart alone never names a man. The source is a plain request that goes quiet when it answers nothing."""
+    import json
+    import sports_qb as sq
+    import sports_players as sp_
+    import sports_http as sh_
+    assert sq.QB_CHART_FROM == "2026-11-16" and sq.QB_CHART_ALONE is False
+    assert not sh_.browser_like(sh_.JSON_HDR) and "site.api.espn.com" in sq.DEPTH      # a plain read of ESPN's own API
+    # ---- the chart reader: the site API's shape, a list shape, junk
+    site = {"depthchart": [{"name": "3WR 1TE", "positions": {
+        "wr": {"athletes": [{"displayName": "Justin Jefferson"}]},
+        "qb": {"position": {"abbreviation": "QB"}, "athletes": [{"displayName": "Kirk Cousins"}, {"displayName": "Carson Wentz"},
+                                                               {"displayName": "Kyler Murray"}]}}}]}
+    assert sq.parse_depth(site) == ["Kirk Cousins", "Carson Wentz", "Kyler Murray"]
+    lst = {"items": [{"positions": [{"position": {"abbreviation": "QB"},
+                                      "athletes": [{"rank": 2, "athlete": {"displayName": "B Two"}},
+                                                   {"rank": 1, "athlete": {"displayName": "A One"}}]}]}]}
+    assert sq.parse_depth(lst) == ["A One", "B Two"]
+    for junk in ({}, {"depthchart": []}, {"depthchart": [{"positions": {"wr": {"athletes": []}}}]}, None, {"items": "x"}):
+        assert sq.parse_depth(junk) == []
+    # ---- the call
+    R = lambda gid, st, team, who: {"gid": gid, "start": st, "team": team, "player": who, "role": "QB"}
+    rows = [R("nfl:a", "2026-10-25T17:00Z", "16", "Kyler Murray"), R("nfl:b", "2026-11-01T18:00Z", "16", "Kyler Murray"),
+            R("nfl:c", "2026-11-10T01:15Z", "16", "Carson Wentz"),
+            R("nfl:d", "2026-11-01T18:00Z", "9", "Jordan Love"), R("nfl:e", "2026-11-08T21:25Z", "9", "Jordan Love"),
+            R("nfl:f", "2026-11-01T18:00Z", "22", "Gardner Minshew II"), R("nfl:g", "2026-11-08T18:00Z", "22", "Gardner Minshew II")]
+    rows.sort(key=lambda r: r["start"])
+    T = "2026-11-16T18:00Z"
+    none = lambda nm: ""                                                         # nobody on the report
+    C = lambda team, depth, st=none: sq.call(rows, "nfl", team, T, depth=depth, status=st)
+    # the Vikings: Murray, Murray, Wentz - and Cousins arrives
+    c = C("16", ["Kirk Cousins", "Carson Wentz", "Kyler Murray"])
+    assert c["name"] is None and c["how"] == "chart disagrees" and c["chart_top"] == "Kirk Cousins", c   # never Wentz
+    c = C("16", ["Carson Wentz", "Kirk Cousins"])
+    assert c["name"] == "Carson Wentz" and c["how"] == "chart + last start", c           # the new man, confirmed
+    c = C("16", ["Kyler Murray", "Carson Wentz"], lambda nm: "out" if nm == "Kyler Murray" else "")
+    assert c["name"] == "Carson Wentz" and c["how"] == "chart + last start", c           # QB1 ruled out: the next man up
+    c = C("16", ["Kyler Murray", "Carson Wentz"])
+    assert c["name"] is None and c["how"] == "chart disagrees", c                        # Murray back? unknown, never a guess
+    assert C("16", None)["name"] is None and C("16", None)["how"] == "change"            # no chart: the 11/15 rule
+    # the Packers: settled
+    assert C("9", ["Jordan Love", "Malik Willis"])["name"] == "Jordan Love" and C("9", ["Jordan Love"])["how"] == "chart + box"
+    assert C("9", None)["name"] == "Jordan Love" and C("9", None)["how"] == "box"
+    assert C("9", ["Malik Willis", "Jordan Love"])["name"] is None                       # a benching the box can't see
+    assert C("9", ["Jordan Love"], lambda nm: "unsure")["how"] == "questionable"
+    assert C("9", None, lambda nm: "unsure")["name"] is None
+    assert C("9", ["Jordan Love"], lambda nm: "out")["name"] is None
+    # the Cardinals: Minshew II started the last 2 and sits on injured reserve
+    keep_inj = dict(sq.INJ)
+    try:
+        sq.INJ.clear()
+        assert sq.status_of("nfl", "22", "Gardner Minshew II") is None                   # no report this run: not known
+        sq.note_injuries({"nfl": {"22": [("Gardner Minshew", "QB", "Injured Reserve"), ("Trey McBride", "TE", "Questionable")]}})
+        assert sq.status_of("nfl", "22", "Gardner Minshew II") == "out" and sq.status_of("nfl", "22", "Trey McBride") == "unsure"
+        assert sq.status_of("nfl", "22", "Kyler Murray") == ""
+        c = sq.call(rows, "nfl", "22", T, depth=None)
+        assert c["name"] is None and c["how"] == "out", c
+        assert sp_.qb_for(rows, "22", T) is None                                           # the card and the weight: silent
+        assert sp_.qb_for(rows, "22", "2026-11-15T18:00Z") == "Gardner Minshew II"         # (before the date: unchanged)
+        assert sp_.qb_for(rows, "9", T) == "Jordan Love"
+    finally:
+        sq.INJ.clear()
+        sq.INJ.update(keep_inj)
+    # ---- the saved chart feeds qb_for / key_edges; a stale chart is no chart
+    keep = (sq.PATH, dict(sq._CACHE), dict(sp_.ROLE))
+    sq.PATH = os.path.join(tempfile.mkdtemp(), "qb_depth.json")
+    try:
+        now = datetime.now(timezone.utc)
+        fresh, old = now.strftime("%Y-%m-%dT%H:%MZ"), (now - timedelta(hours=sq.FRESH_H + 2)).strftime("%Y-%m-%dT%H:%MZ")
+        with open(sq.PATH, "w") as f:
+            json.dump({"nfl": {"16": {"qbs": ["Carson Wentz", "Kirk Cousins"], "at": fresh},
+                               "9": {"qbs": ["Malik Willis", "Jordan Love"], "at": old}}}, f)
+        sq._CACHE.clear()
+        assert sq.chart("nfl", "16") == ["Carson Wentz", "Kirk Cousins"] and sq.chart("nfl", "9") is None
+        assert sp_.qb_for(rows, "16", T) == "Carson Wentz"                                # chart + last start
+        assert sp_.qb_for(rows, "9", T) == "Jordan Love"                                  # the stale chart is ignored
+        games = {"nfl:x": {"id": "nfl:x", "league": "nfl", "start": T, "status": "pre", "home": "9", "away": "16",
+                           "home_name": "Packers", "away_name": "Vikings"},
+                 "nfl:old": {"id": "nfl:old", "league": "nfl", "start": "2026-11-01T18:00Z", "status": "final", "home": "9",
+                             "away": "16"}}
+        sp_.ROLE.clear(); sp_.ROLE.update({"nfl": "QB"})
+        rows2 = rows + [R("nfl:old", "2026-11-01T18:00Z", "9", "Jordan Love"), R("nfl:old", "2026-11-01T18:00Z", "16", "Kyler Murray")]
+        rows2.sort(key=lambda r: r["start"])
+        for r in rows2:
+            r.update({"att": "30", "cmp": "20", "yds": "220", "td": "2", "int": "1"})
+        ke = sp_.key_edges(games, {"nfl": rows2})
+        assert "nfl:x" in ke and "nfl:old" in ke
+        only = sp_.key_edges(games, {"nfl": rows2}, only=("nfl",))                         # the board's re-read: upcoming only
+        assert set(only) == {"nfl:x"}
+        with open(sq.PATH, "w") as f:
+            json.dump({"nfl": {"16": {"qbs": ["Kirk Cousins", "Carson Wentz"], "at": fresh}}}, f)
+        sq._CACHE.clear()
+        assert "nfl:x" not in sp_.key_edges(games, {"nfl": rows2})                         # Cousins arrives: no QB edge
+        # ---- the reader: a plain request per team, quiet after a run of empties, the status says so
+        seen = []
+
+        def get(url):
+            seen.append(url)
+            assert "/teams/" in url and url.endswith("/depthcharts")
+            return site if "/teams/16/" in url else {}
+        up = {"nfl:y": {"id": "nfl:y", "league": "nfl", "start": (now + timedelta(days=2)).strftime("%Y-%m-%dT%H:%MZ"),
+                        "status": "pre", "home": "9", "away": "16"}}
+        os.remove(sq.PATH)
+        sq._CACHE.clear()
+        sh_.SEEN.pop("espn_depth_nfl", None)
+        got = sq.sync(up, now, get=get)
+        assert got == {"nfl": 1} and len(seen) == 2, (got, seen)
+        assert sq.chart("nfl", "16", now) == ["Kirk Cousins", "Carson Wentz", "Kyler Murray"] and sq.chart("nfl", "9", now) is None
+        assert sh_.SEEN["espn_depth_nfl"]["ok"] is True
+        n0 = len(seen)
+        sq.sync(up, now, get=get)                                                           # read minutes ago: not again
+        assert len(seen) == n0
+        many = {f"nfl:m{i}": {"id": f"nfl:m{i}", "league": "nfl", "start": (now + timedelta(days=2)).strftime("%Y-%m-%dT%H:%MZ"),
+                              "status": "pre", "home": str(100 + i), "away": str(200 + i)} for i in range(12)}
+        seen.clear()
+        sq.sync(many, now, get=lambda url: seen.append(url) or {})
+        assert len(seen) == sq.QUIET_AFTER, len(seen)                                       # no chart anywhere: stop asking
+        assert sh_.SEEN["espn_depth_nfl"]["ok"] is False and "never a guess" in sh_.SEEN["espn_depth_nfl"]["how"]
+        assert sq.ON[0] or sq.sync(up, now) == {}                                           # (tests never reach ESPN)
+    finally:
+        sq.PATH = keep[0]
+        sq._CACHE.clear(); sq._CACHE.update(keep[1])
+        sp_.ROLE.clear(); sp_.ROLE.update(keep[2])
+    # ---- the injury report's tag: Murray is the regular starter who sat, never a 'backup'
+    assert sq.role(rows, "nfl", "16", "Carson Wentz", T) == "starter"
+    more = [R("nfl:h", "2026-10-11T17:00Z", "16", "Kyler Murray"), R("nfl:i", "2026-10-18T17:00Z", "16", "Kyler Murray")] + rows
+    more.sort(key=lambda r: r["start"])
+    assert sq.role(more, "nfl", "16", "Kyler Murray", T) == "regular starter"
+    assert sq.role(more, "nfl", "16", "Sam Howell", T) == "backup" and sq.role([], "nfl", "16", "Kyler Murray", T) is None
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "injury_report.py")).read()
+    assert "sports_qb.role(" in src and "the regular starter, sat the last game" in src
+    # ---- the call log: the chart earns its record before it ever names a man alone
+    keep_calls = sq.CALLS
+    sq.CALLS = os.path.join(tempfile.mkdtemp(), "qb_calls.json")
+    try:
+        log = {"nfl:z": {"away": {"start": T, "box": ["Carson Wentz"], "chart": ["Kirk Cousins"], "chart_top": "Kirk Cousins",
+                                  "called": None, "how": "chart disagrees", "actual": "Kirk Cousins"},
+                         "home": {"start": T, "box": ["Jordan Love"], "chart": ["Jordan Love"], "chart_top": "Jordan Love",
+                                  "called": "Jordan Love", "how": "chart + box", "actual": "Jordan Love"}}}
+        g_ = sq.grade(log)
+        assert g_["called"] == [1, 1] and g_["chart_top"] == [2, 2] and g_["last_starter"] == [1, 2], g_
+    finally:
+        sq.CALLS = keep_calls
+    # ---- wired: the run reads the charts, the board re-reads football's QB edge with this run's injury report
+    s_src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "sports_qb.sync(games, now)" in s_src and "qb_refresh(games, injuries, now)" in s_src
+    b_src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "sports_qb.note_injuries(injuries)" in b_src
+
+
+def test_fable_1116_the_card_check_drops_a_quarterback_or_goalie_the_engine_cant_call():
+    """11/16 FABLE - EVERY FACT TRUE: the card check's WHO PLAYS rule (sports_card_check.who_plays), on every card whose
+    game hasn't started - a quarterback's numbers only for the man the engine can call the starter; a goalie said as
+    tonight's starter only when the goalie page has CONFIRMED him (a hedged line - projected / expected, not confirmed /
+    in net last time out - stands). A played game's card is history and is left alone."""
+    import json
+    import sports_card_check as cc
+    import sports_qb as sq
+    import sports_goalies as sg
+    R = lambda gid, st, team, who, role="QB": {"gid": gid, "start": st, "team": team, "player": who, "role": role}
+    rows = [R("nfl:a", "2026-11-01T18:00Z", "16", "Kyler Murray"), R("nfl:c", "2026-11-10T01:15Z", "16", "Carson Wentz"),
+            R("nfl:d", "2026-11-01T18:00Z", "9", "Jordan Love"), R("nfl:e", "2026-11-08T21:25Z", "9", "Jordan Love")]
+    rows.sort(key=lambda r: r["start"])
+    games = {"nfl:x": {"id": "nfl:x", "league": "nfl", "start": "2026-11-16T18:00Z", "status": "pre", "home": "9", "away": "16",
+                       "home_name": "Packers", "away_name": "Vikings"}}
+    leg = {"game_id": "nfl:x", "league": "nfl", "side": "home", "team": "Packers", "opp": "Vikings", "market": "ml", "odds": -142}
+    wentz = ("🎯 Our quarterback's been better: Jordan Love has 8 TDs, 2 picks and 934 yards in his last 3 games for Packers; "
+             "Carson Wentz has 0 TDs, 2 picks and 81 yards in his last 1 game for Vikings.")
+    love = "🎯 Under center for Packers, Jordan Love has 8 TDs, 2 picks and 934 yards in his last 3 games."
+    keep = (sp.CACHE, sq.PATH, dict(sq._CACHE), dict(sq.INJ), sg.PATH)
+    sq.PATH = os.path.join(tempfile.mkdtemp(), "qb_depth.json")
+    sq._CACHE.clear()
+    sq.INJ.clear()
+    try:
+        sp.CACHE = {"nfl": rows}
+        why = cc.who_plays(wentz, leg, games)
+        assert "Carson Wentz" in why and "the starter changed" in why, why                # the 11/15 card line: dropped
+        assert cc.who_plays(love, leg, games) == ""
+        assert cc.who_plays("📋 Packers are 6-3 after a 45-27 win over the Patriots.", leg, games) == ""
+        sq.note_injuries({"nfl": {"9": [("Jordan Love", "QB", "Out")]}})
+        assert "ruled out" in cc.who_plays(love, leg, games)                              # numbers for a man who's out
+        sq.INJ.clear()
+        done = {"nfl:x": {**games["nfl:x"], "status": "final"}}
+        assert cc.who_plays(wentz, leg, done) == ""                                       # a played game: history
+        old = {"nfl:x": {**games["nfl:x"], "start": "2026-11-15T18:00Z"}}
+        assert cc.who_plays(wentz, leg, old) == ""                                        # before the rule's date
+        # ---- goalies
+        G = lambda gid, st, team, who: R(gid, st, team, who, "G")
+        grow = [G("nhl:1", "2026-11-10T00:00Z", "B", "Carter Hart"), G("nhl:2", "2026-11-12T00:00Z", "B", "Adin Hill"),
+                G("nhl:3", "2026-11-12T00:00Z", "A", "Juuse Saros")]
+        sp.CACHE = {"nhl": grow}
+        gms = {"nhl:up": {"id": "nhl:up", "league": "nhl", "start": "2026-11-16T03:00Z", "status": "pre", "home": "A", "away": "B",
+                          "home_name": "Predators", "away_name": "Golden Knights"}}
+        gleg = {"game_id": "nhl:up", "league": "nhl", "side": "home", "team": "Predators", "opp": "Golden Knights", "market": "ml"}
+        plain = "🥅 Golden Knights' goalie Carter Hart has a 0.914 save % (6 goals on 70 shots) over his last 3 starts."
+        hedged = "🥅 Carter Hart, projected to start for the Golden Knights (not confirmed yet), has a 0.914 save % over his last 3 starts."
+        sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+        sg._CACHE.clear()
+        assert "nobody confirming him" in cc.who_plays(plain, gleg, gms)                  # the 11/13 card: Adin Hill started
+        assert cc.who_plays(hedged, gleg, gms) == ""
+        seen = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        for status, ok in (("likely", False), ("confirmed", True)):
+            with open(sg.PATH, "w") as f:
+                json.dump({"seen": seen, "games": {"nhl:up": {"away": {"name": "Carter Hart", "status": status, "at": seen}}}}, f)
+            sg._CACHE.clear()
+            assert (cc.who_plays(plain, gleg, gms) == "") is ok, status                   # 'likely' is not 'confirmed'
+        with open(sg.PATH, "w") as f:
+            json.dump({"seen": seen, "games": {"nhl:up": {"away": {"name": "Adin Hill", "status": "confirmed", "at": seen}}}}, f)
+        sg._CACHE.clear()
+        assert "Carter Hart" in cc.who_plays(plain, gleg, gms)                            # another man is confirmed
+    finally:
+        sp.CACHE, sq.PATH, sg.PATH = keep[0], keep[1], keep[4]
+        sq._CACHE.clear(); sq._CACHE.update(keep[2])
+        sq.INJ.clear(); sq.INJ.update(keep[3])
+        sg._CACHE.clear()
+
+
+def test_fable_1116_a_goalie_line_always_says_what_he_is():
+    """11/16 FABLE - EVERY FACT TRUE: three goalie lines carried no tag, so a guess read as tonight's starter - "Goalies -
+    Bruins: Jeremy Swayman ..." (11/5, DiPietro started), "Golden Knights' goalie Carter Hart has ..." (11/13, Adin Hill
+    started). And the page's 'likely' is not 'confirmed' (the Kraken's 'likely' Joey Daccord sat 11/14): only a CONFIRMED
+    goalie is said as tonight's man; 'likely' reads "expected in net ... not confirmed"."""
+    import json
+    import sports_breakdown_v24 as v24
+    import sports_goalies as sg
+    src = open(v24.__file__).read()
+    assert "A wash in net" in src and "{mine[0]} ({tag(mine[2])}), {mine[1]}" in src        # (the Swayman line: tagged)
+    assert "' goalie {his[0]} has {his[1]}" not in src and "{his[0]}, {tag(his[2])} for {them}, has {his[1]}" in src
+    assert "our guy {mine[0]} has" not in src and "In net, {us} got {mine[0]}" not in src
+    assert 'sports_goalies.confirmed(g.get("id"), team_side)' in src and 'return "likely"' in src
+    G = lambda gid, st, team, who, ga="2": {"gid": gid, "start": st, "team": team, "player": who, "role": "G", "sa": "30", "ga": ga}
+    cold = [G(f"nhl:c{k}", f"2026-09-{22 + k:02d}T23:00Z", "B", "Cold Guy", "5") for k in range(6)] + \
+           [G("nhl:c7", "2026-10-01T23:30Z", "B", "Cold Guy", "5")]
+    keep_path, keep_cache = sg.PATH, sp.CACHE
+    sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+    sg._CACHE.clear()
+    try:
+        sp.CACHE = {"nhl": sorted(cold, key=lambda r: r["start"])}
+        hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-01T23:30Z", "B", "D", 1, 4)]
+        seen = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        HEDGE = ("not confirmed", "last time out", "last starter", "projected", "if he goes again")
+        for status in (None, "likely", "confirmed"):
+            if status:
+                with open(sg.PATH, "w") as f:
+                    json.dump({"seen": seen, "games": {"nhl:up": {"away": {"name": "Cold Guy", "status": status, "at": seen}}}}, f)
+            sg._CACHE.clear()
+            leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+            bd = v24.breakdown(leg, games, elo, None)
+            net = [x for x in bd if "Cold Guy" in x]
+            assert net, (status, bd)
+            if status == "confirmed":
+                assert not any("not confirmed" in x or "last time out" in x for x in net), net
+            elif status == "likely":
+                assert all("not confirmed" in x for x in net) and any("expected" in x for x in net), net
+            else:
+                assert all(any(h in x for h in HEDGE) for x in net), net
+    finally:
+        sg.PATH, sp.CACHE = keep_path, keep_cache
+        sg._CACHE.clear()
+
+
+def test_fable_1116_a_bye_is_a_whole_week_with_no_game():
+    """11/16 FABLE - EVERY FACT TRUE: the 11/2 Bears card said "A bye week for the Bears last week" and "Bears are fresh off
+    a bye" with "coming off a bye" a named reason - the Bears beat the Patriots on THURSDAY 10/22 and played MONDAY 11/2
+    (11 days, no bye). The model's 'bye' input is "10+ days since the last game"; from the 11/16 games the NAMED reason
+    stands only when a whole football week (Tuesday-Monday) passed with no game (sports.real_bye), and the card check
+    drops a bye line the game files don't back."""
+    import sports_card_check as cc
+    assert sports.BYE_REAL_FROM == "2026-11-16" and sports.BYE_REAL_WEEKS == (2, 4)
+    g = {"id": "nfl:m", "league": "nfl", "start": "2026-11-17T01:15Z", "home": "S", "away": "B"}      # Monday night 11/16
+    thu = (datetime(2026, 11, 17, 1, 15) - datetime(2026, 11, 6, 1, 15)).days                          # Thursday 11/5: 11 days
+    assert thu == 11
+    assert sports.real_bye({"days_away": 11.0, "days_home": 7.0}, -1, g) is False                      # Thursday -> Monday
+    assert sports.real_bye({"days_away": 14.3, "days_home": 7.0}, -1, g) is True                       # a real week off
+    assert sports.real_bye({"days_away": None, "days_home": 7.0}, -1, g) is False                      # a season opener
+    assert sports.real_bye({"days_home": 7.0}, -1, g) is True                                          # (no count: old reading)
+    g2 = {"id": "nfl:t", "league": "nfl", "start": "2026-11-20T01:15Z", "home": "S", "away": "B"}      # Thursday night 11/19
+    assert sports.real_bye({"days_away": 11.3}, -1, g2) is True                 # Sunday 11/8, off the week of 11/15: a bye
+    old = {"id": "nfl:o", "league": "nfl", "start": "2026-11-03T01:15Z", "home": "S", "away": "B"}
+    assert sports.real_bye({"days_away": 11.0}, -1, old) is True                                       # before the date
+    # the named reason
+    f = {"elo_pts": 0, "elo_raw": 0, "form": 0, "rest": 0, "b2b": 0, "inj": 0, "bye": -1.0, "short": 0, "key": 0,
+         "days_home": 7.0, "days_away": 11.0}
+    params = {"weights": {"bye": 0.165}}
+    assert "coming off a bye" not in sports._reasons("away", f, g, "nfl", params)
+    assert "coming off a bye" in sports._reasons("away", {**f, "days_away": 14.0}, g, "nfl", params)
+    assert "coming off a bye" in sports._reasons("away", f, old, "nfl", params)                        # (the replays: unchanged)
+    # the model hands the real day counts to the reasons
+    import sports_model as sm_
+    src = open(sm_.__file__).read()
+    assert '"days_home"' in src and '"days_away"' in src
+    # the card check, on the real shape: Thursday 10/22, then Monday 11/2
+    games = {}
+    def gm(i, st, a, h, sa, sh, status="final"):
+        games[f"nfl:{i}"] = {"id": f"nfl:{i}", "league": "nfl", "start": st, "status": status, "home": h, "away": a,
+                             "home_name": h, "away_name": a, "home_score": str(sh), "away_score": str(sa), "stype": "2", "neutral": "0"}
+    gm(1, "2026-10-18T17:00Z", "Bears", "Falcons", 31, 23)
+    gm(2, "2026-10-23T00:15Z", "Patriots", "Bears", 24, 30)
+    gm(3, "2026-10-25T20:25Z", "Chiefs", "Seahawks", 3, 20)
+    gm(4, "2026-11-03T01:15Z", "Bears", "Seahawks", "", "", "pre")
+    gm(5, "2026-10-11T17:00Z", "Lions", "Rams", 20, 17)
+    gm(6, "2026-10-26T00:20Z", "Rams", "Lions", "", "", "pre")                                         # the Rams: a real bye
+    leg = {"game_id": "nfl:4", "league": "nfl", "side": "away", "team": "Bears", "opp": "Seahawks", "market": "spread", "odds": 100}
+    cc.reset()
+    assert "says a bye for Bears" in cc.facts("🛌 Bears are fresh off a bye — rested and game-planned up.", leg, games)
+    assert "says a bye for Bears" in cc.facts("🧠 A bye week for the Bears last week. Our number on Bears: -104.", leg, games)
+    leg2 = {"game_id": "nfl:6", "league": "nfl", "side": "away", "team": "Rams", "opp": "Lions", "market": "ml", "odds": 110}
+    assert cc.facts("🛌 Rams are fresh off a bye — rested and game-planned up.", leg2, games) == ""
+    cc.reset()
+
+
+def test_fable_1116_college_skids_and_records_through_better_teams_say_nothing():
+    """11/16 FABLE - EVERY FACT TRUE, the rest of the Oakland 0-5 class (11/15: SCHEDULE_FAIR took the 🗑️ trash line, the
+    last-5 slide and the 🥊 beatdown): the same card also read "💪 2-2 to 0-5. Oakland about to get their ass beat." In
+    college, a record whose losses include one to a team rated above us is no yardstick against us - no 💪 / 📋 'better
+    record' line, no "the stronger team" said by the records, no 🧊 losing-streak line; and a trash line built on the fair
+    games says what it counts, never a part of the schedule dressed as the season record."""
+    import sports_breakdown_v24 as v24
+    import sports_model as sm_
+
+    def E(r):
+        e_ = sm_.Elo(20, 60, "ncaab")
+        e_.r.update(r)
+        return e_
+
+    def card(opp_rating, why=False, fair_losses=0):
+        G = {}
+        def gm(i, day, a, h, sa, sh):
+            G[f"ncaab:{i}"] = {"id": f"ncaab:{i}", "league": "ncaab", "start": day, "status": "final", "home": h,
+                               "away": a, "home_name": h, "away_name": a, "home_score": str(sh), "away_score": str(sa),
+                               "stype": "2", "neutral": "0", "elev": "100"}
+        for i, d in enumerate(("02", "05", "07", "09", "11")):         # Oakland 0-5 on the road, NI 5-0
+            gm(i, f"2026-11-{d}T00:00Z", "OAK", f"BIG{i}", 60, 68)
+            gm(10 + i, f"2026-11-{d}T01:00Z", f"SM{i}", "UNI", 60, 75)
+        for i in range(fair_losses):                                   # ... plus losses to teams rated under us
+            gm(20 + i, f"2026-10-{27 + i}T00:00Z", "OAK", f"SM{i}", 60, 70)
+        G["g"] = {"id": "g", "league": "ncaab", "start": "2026-11-14T22:00Z", "status": "pre", "home": "OAK", "away": "UNI",
+                  "home_name": "Oakland", "away_name": "Northern Iowa", "home_score": "", "away_score": "", "stype": "2",
+                  "neutral": "0", "elev": "100"}
+        r = {"UNI": 1550.0, "OAK": 1400.0, **{f"BIG{i}": opp_rating for i in range(5)}, **{f"SM{i}": 1400.0 for i in range(5)}}
+        leg = {"game_id": "g", "league": "ncaab", "side": "away", "team": "Northern Iowa", "opp": "Oakland", "market": "ml",
+               "odds": 102, "dec": 2.02, "p": 0.51, "edge_own": 0.51 * 2.02 - 1, "tier": "value",
+               "reasons": ["the stronger team"]}
+        leg = dict(leg)
+        bd = v24.breakdown(leg, G, {"ncaab": E(r)}, {}, set())
+        return bd + [leg.get("why_line") or ""]
+
+    e = E({"UNI": 1550.0, "BIG": 1700.0, "SM": 1400.0})
+    L = lambda opp: {"home": opp, "away": "OAK", "home_name": opp, "away_name": "OAK", "home_score": "70", "away_score": "60"}
+    assert len(v24.unfair_losses([L("BIG"), L("SM")], "OAK", "UNI", e, "ncaab")) == 1
+    assert v24.unfair_losses([L("BIG")], "OAK", "UNI", e, "nba") == [] and v24.unfair_losses([L("BIG")], "OAK", "UNI", None, "ncaab") == []
+    tough = card(1700.0)                                              # five losses to teams rated above us
+    bad = [x for x in tough if x.startswith(("🧊", "🗑️", "🥊")) or ("0-5" in x and x.startswith(("💪", "📋")))
+           or "straight L" in x or "in a row" in x and "Oakland" in x or "lost 5 straight" in x or "5-game skid" in x]
+    assert not bad, bad
+    assert not any("Oakland" in x and "0-5" in x and ("better" in x.lower() or "ass beat" in x or "Levels" in x) for x in tough), tough
+    soft = card(1350.0)                                               # the same record against teams rated under us
+    assert any("0-5" in x for x in soft), soft                        # fair game: the record / the skid can be said
+    mixed = card(1700.0, fair_losses=3)                               # 0-8: three fair losses, five buy games
+    tr = [x for x in mixed if x.startswith("🗑️")]
+    assert tr, mixed
+    assert all("0-3" in x and "rated above" in x and "0-8" not in x for x in tr), tr
+    import sports_card_check as cc
+    assert cc.NO_CHECK.search("🗑️ Oakland are 0-3 against teams that ain't rated above Northern Iowa. Trash right now.")
+
+
+def test_fable_1116_a_missing_pass_catcher_is_named_at_his_real_position():
+    """11/16 FABLE - EVERY FACT TRUE: the 11/15 Packers read said "opponent missing key players: QB Kyler Murray, WR T.J.
+    Hockenson" - Hockenson is a tight end. A top-2 pass catcher the injury report lists at another spot is named by the
+    report's own position."""
+    import sports_absences as sa
+    keep = sa.key_players
+    sa.key_players = lambda games, lg, team, before: {"qb": "Kyler Murray", "rb": "Aaron Jones", "wr": ["T.J. Hockenson", "Justin Jefferson"]}
+    try:
+        g = {"id": "nfl:x", "league": "nfl", "home": "9", "away": "16", "home_name": "Packers", "away_name": "Vikings",
+             "start": "2026-11-15T18:00Z"}
+        inj = {"nfl": {"16": [("Kyler Murray", "QB", "Out"), ("T.J. Hockenson", "TE", "Out"), ("Justin Jefferson", "WR", "Out")]}}
+        pts, who = sa.penalty({}, g, "away", inj)
+        assert who == ["QB Kyler Murray", "TE T.J. Hockenson", "WR Justin Jefferson"] and pts == 0.10, (pts, who)
+    finally:
+        sa.key_players = keep
+
+
+def test_fable_1116_a_posted_card_drops_a_quarterback_who_is_no_longer_the_call():
+    """11/16 FABLE - EVERY FACT TRUE (the owner, 11/12: "This needs to be updated always"): a posted football card whose
+    line gives a quarterback's numbers re-checks him every run until kickoff - ruled out, questionable or no longer the
+    depth chart's man, he comes off the card with a 🔄 Update line (sports.fresh_card_facts). The pick never changes."""
+    import sports_qb as sq
+    R = lambda gid, st, team, who: {"gid": gid, "start": st, "team": team, "player": who, "role": "QB"}
+    rows = sorted([R("nfl:d", "2026-11-01T18:00Z", "9", "Jordan Love"), R("nfl:e", "2026-11-08T21:25Z", "9", "Jordan Love"),
+                   R("nfl:f", "2026-11-01T18:00Z", "22", "Gardner Minshew II"), R("nfl:g", "2026-11-08T18:00Z", "22", "Gardner Minshew II")],
+                  key=lambda r: r["start"])
+    games = {"nfl:x": {"id": "nfl:x", "league": "nfl", "start": "2026-11-16T21:05Z", "status": "pre", "home": "22", "away": "9",
+                       "home_name": "Cardinals", "away_name": "Packers"}}
+    leg = {"game_id": "nfl:x", "league": "nfl", "side": "away", "team": "Packers", "opp": "Cardinals", "market": "ml", "odds": -130,
+           "breakdown": ["🎯 The quarterbacks - Jordan Love (Packers): 6 TDs, 1 pick and 610 yards in his last 2 games. "
+                         "Gardner Minshew II (Cardinals): 3 TDs, 0 picks and 354 yards in his last 2 games."]}
+    keep = (sp.CACHE, dict(sq.INJ), sq.PATH, dict(sq._CACHE), sports.FRESH_CARD)
+    sq.PATH = os.path.join(tempfile.mkdtemp(), "qb_depth.json")
+    sq._CACHE.clear()
+    try:
+        sports.FRESH_CARD = True
+        sp.CACHE = {"nfl": rows}
+        assert sports.qb_names_on(leg, games["nfl:x"], rows) == {"Jordan Love": "away", "Gardner Minshew II": "home"}
+        sports.fresh_card_facts(games, [leg], {"nfl": {"9": [("Some Guard", "G", "Out")]}})
+        assert not leg.get("stale"), leg.get("stale")                                     # both still the call: nothing
+        before = (leg["team"], leg["odds"], leg["side"])
+        sports.fresh_card_facts(games, [leg], {"nfl": {"22": [("Gardner Minshew II", "QB", "Injured Reserve")],
+                                                       "9": [("Some Guard", "G", "Out")]}})
+        assert leg["stale"] == ["Gardner Minshew II"], leg.get("stale")
+        assert any("Gardner Minshew II is ruled out for the Cardinals" in x for x in leg["fresh"]), leg["fresh"]
+        assert (leg["team"], leg["odds"], leg["side"]) == before                          # never the pick
+    finally:
+        sp.CACHE, sq.PATH, sports.FRESH_CARD = keep[0], keep[2], keep[4]
+        sq.INJ.clear(); sq.INJ.update(keep[1])
+        sq._CACHE.clear(); sq._CACHE.update(keep[3])
+
+
+def test_fable_1116_the_nba_opening_line_card_talks_rest_only_on_a_back_to_back():
+    """11/16 FABLE - EVERY FACT TRUE: the 11/7 Pelicans opening-line card read "2 days off to Clippers's 4" - rest talk the
+    11/15 rule (REST_B2B_ONLY) took off every board card, and a bad possessive. The 🏀 opening-line play's line says the
+    back-to-back, or nothing about rest."""
+    import sports_early as se
+    c = {"team": "Pelicans", "opp": "Clippers", "odds": -112}
+    fx = {"rec": "4-5", "opp_rec": "1-7", "last": "lost their last by 6", "rest": 2, "opp_rest": 4}
+    ways = se.nba_open_why(c, fx)
+    assert ways and all("days off" not in w and "Clippers's" not in w and "night before" not in w for w in ways), ways
+    assert all("Pelicans are 4-5, Clippers 1-7; Pelicans lost their last by 6." in w for w in ways), ways
+    b2b = se.nba_open_why(c, {**fx, "rest": 3, "opp_rest": 1})
+    assert all("Clippers played the night before" in w for w in b2b), b2b
+    ours = se.nba_open_why(c, {**fx, "rest": 1, "opp_rest": 2})
+    assert all("Pelicans played the night before" in w for w in ours), ours
+    both = se.nba_open_why(c, {**fx, "rest": 1, "opp_rest": 1})
+    assert all("night before" not in w for w in both), both
+
+
+def test_fable_1116_the_back_to_back_weights_read_the_clock_not_the_utc_date():
+    """11/16 FABLE - EVERY FACT TRUE: sports_form.played_yesterday (the 'rested vs their back-to-back' dog weights, the
+    hockey Dog's edge) counted UTC dates - a Friday 7 PM Eastern game (00:00Z Saturday) and a Sunday 3 PM game read as a
+    back-to-back 44 hours apart; a Saturday matinee and a Sunday night game (a real one) were missed. 41% of the flagged
+    games 2021-26 were two nights apart; the 11/15 Hornets / Raptors reads carried it at 42 / 47 hours. From the 11/16
+    games the weights read what the card says: the last game started inside 29 hours."""
+    import sports_form as sf
+    assert sf.B2B_CLOCK_FROM == "2026-11-16" and sf.B2B_HOURS == 29
+    import sports_breakdown_v24 as v24
+    assert v24.B2B_HOURS == sf.B2B_HOURS                                  # the card and the weights: one rule
+    st = {("nba", "A"): ["2026-11-21T00:00Z"], ("nba", "B"): ["2026-11-21T18:00Z"], ("nba", "C"): ["2026-11-14T00:00Z"]}
+    assert sf.played_yesterday(st, "nba", "A", "2026-11-22T20:00Z") is False     # Friday night -> Sunday 3 PM: 44 hours
+    assert sf.played_yesterday(st, "nba", "A", "2026-11-22T00:30Z") is True      # the next night: 24.5 hours
+    assert sf.played_yesterday(st, "nba", "B", "2026-11-23T00:00Z") is False     # 30 hours: not a back-to-back
+    assert sf.played_yesterday(st, "nba", "B", "2026-11-22T23:00Z") is True      # a matinee, then the next evening: 29 h
+    assert sf.played_yesterday(st, "nba", "Z", "2026-11-22T23:00Z") is False     # no game on file
+    assert sf.played_yesterday(st, "nba", "C", "2026-11-15T20:00Z") is True      # (before the date: the old flag, the replays)
+    assert sf.played_yesterday(st, "nba", "C", "2026-11-15T00:30Z") is True
 
 
 if __name__ == "__main__":
@@ -24192,6 +24654,10 @@ if __name__ == "__main__":
     _sh.PATH = os.path.join(tempfile.mkdtemp(), "source_status.json")   # (nor touch the real source_status.json)
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
+    import sports_qb as _sq                              # (11/16: nor the real depth charts / QB call log, nor ESPN)
+    _sq.ON[0] = False
+    _sq.PATH = os.path.join(tempfile.mkdtemp(), "qb_depth.json")
+    _sq.CALLS = os.path.join(tempfile.mkdtemp(), "qb_calls.json")
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
     sports.PICK_CHECK_PATH = os.path.join(tempfile.mkdtemp(), "pick_check.json")      # (nor the real pick check - 11/4)

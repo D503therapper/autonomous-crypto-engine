@@ -1,0 +1,104 @@
+claim type                                  true false can't-check
+scoring average                              176     0     0
+out                                          130     5    17
+season record                                147     0     0
+last-game score                              127     0     0
+read input: home / away                       88     0     0
+recent score                                  82     0     0
+streak                                        52     0     0
+read input: rested vs their back-to-back      46     5     0
+public split                                  31     0    20
+road record                                   43     0     0
+read input: the side's record                 37     1     0
+read input: the side's win streak             38     0     0
+read input: the last game's margin            38     0     0
+home record                                   31     3     0
+derived stat (luck / bench / 4th down)         0     0    31
+goalie stats                                  26     0     0
+read input: we're on a back-to-back           22     1     0
+QB stats                                      20     0     1
+QB named                                      19     2     0
+'full squad' claim                            19     0     0
+goalie 'in net last time out'                 16     0     0
+back-to-back                                  15     0     0
+reason: opponent missing a named key man      12     0     1
+last-5 record                                 13     0     0
+questionable                                   0     0    12
+reason: opponent on a back-to-back            12     0     0
+rest days                                     11     0     0
+goalie named as tonight's (plain)              8     3     0
+last season's record                          10     0     0
+goalie 'projected' (a guess, said as one)      0     0    10
+reason: better rested                          9     0     0
+star in lineup                                 9     0     0
+last 5                                         8     0     0
+travel miles                                   8     0     0
+schedule spot                                  7     0     0
+reason: better QB play lately                  5     1     0
+read input: our key man out (absence weight)     3     2     0
+reason: rolling off a blowout win              5     0     0
+weather                                        5     0     0
+h2h score                                      4     0     0
+reason: hotter recent form                     0     0     4
+rest gap                                       3     0     0
+news line                                      0     0     3
+bye                                            0     2     0
+reason: coming off a bye                       0     1     0
+goalie named as tonight's (confirmed)          1     0     0
+ALL                                         1336    26    99
+
+GOALIES NAMED vs WHO STARTED: {'confirmed right': 1, 'last starter wrong': 8, 'last starter right': 8, 'plain wrong': 3, 'plain right': 8, 'projected wrong': 3, 'projected right': 7}
+
+FALSE:
+ 2026-11-01 nfl Eagles [home record] Commanders (1, 1, 1) counts a neutral-site game - the games say (1, 0, 1)
+      🧳 The Commanders are 1-1-1 at home this year. We got Eagles here.
+ 2026-11-01 nba Nets [read input: rested vs their back-to-back] 46 vs 46 hours, the leg says True
+      READ INPUT
+ 2026-11-02 nfl Bears [reason: coming off a bye] Bears: 11 days since their last game
+      REASON: coming off a bye
+ 2026-11-02 nfl Bears [bye] Bears - 11 days since the last game
+      🧠 A bye week for the Bears last week. Our number on Bears: -104.
+ 2026-11-02 nfl Bears [bye] Bears - 11 days since the last game
+      🛌 Bears are fresh off a bye — rested and game-planned up.
+ 2026-11-02 nhl Golden Knights [goalie named as tonight's (plain)] Michael DiPietro for Bruins - Jeremy Swayman started
+      ⚠️ Yeah, Michael DiPietro (Bruins) is at a 0.938 save % over his last 3 starts to Adin Hill's 0.875. That's the part that could bite us. We'll live with it.
+ 2026-11-02 nba Knicks [read input: rested vs their back-to-back] 73 vs 26 hours, the leg says False
+      READ INPUT
+ 2026-11-02 nba Knicks [out] Jose Alvarado listed out for Knicks - he PLAYED
+      ⚠️ The risk: Knicks go without Jose Alvarado (G). We ain't blind to it - we just like our side more.
+ 2026-11-02 nba Heat [out] Ziaire Williams listed out for Lakers - he PLAYED
+      🚑 Out for Lakers: Ziaire Williams (F), Adou Thiero (F). That's real depth gone.
+ 2026-11-05 nhl Bruins [goalie named as tonight's (plain)] Jeremy Swayman for Bruins - Michael DiPietro started
+      🥅 Goalies - Bruins: Jeremy Swayman, a 0.887 save % (8 goals on 71 shots) over his last 3 starts. Penguins: Arturs Silovs, a 0.892 save % (9 goals on 83 shots) over his last 3 starts. A wash in net.
+ 2026-11-07 nhl Rangers [read input: we're on a back-to-back] Rangers: 46 hours since the last game, the leg says True
+      READ INPUT
+ 2026-11-07 ncaaf Ole Miss [home record] Ole Miss (5, 0, 0) counts a neutral-site game - the games say (4, 0, 0)
+      🏟️ Home cooking for Ole Miss - 5-0 in their own building this season.
+ 2026-11-08 nhl Jets [read input: rested vs their back-to-back] 71 vs 22 hours, the leg says False
+      READ INPUT
+ 2026-11-11 ncaab Michigan [home record] Michigan (1, 1, 0) counts a neutral-site game - the games say (1, 0, 0)
+      🏟️ Michigan is 1-1 at home so far.
+ 2026-11-12 nhl Blackhawks [read input: our key man out (absence weight)] Patrick Kane PLAYED
+      READ INPUT
+ 2026-11-12 nhl Red Wings [out] Sandis Vilmanis listed out for Panthers - he PLAYED
+      🚑 Panthers gotta play without Sandis Vilmanis (LW).
+ 2026-11-12 nfl Giants [read input: the side's record] Giants [5, 3] vs the games (5, 2, 1)
+      READ INPUT
+ 2026-11-12 nfl Giants [read input: our key man out (absence weight)] Cam Skattebo PLAYED
+      READ INPUT
+ 2026-11-12 nfl Giants [out] Cam Skattebo listed out for Giants - he PLAYED
+      🚑 Giants out: RB Cam Skattebo (starter) · questionable: QB J.J. McCarthy (starter), LB Malik Harrison.
+ 2026-11-12 nfl Giants [out] Cam Skattebo listed out for Giants - he PLAYED
+      ⚠️ Giants go without Cam Skattebo (RB). That part don't help us, not gonna lie.
+ 2026-11-13 nhl Predators [goalie named as tonight's (plain)] Carter Hart for Golden Knights - Adin Hill started
+      🥅 Golden Knights' goalie Carter Hart has a 0.914 save % (6 goals on 70 shots) over his last 3 starts.
+ 2026-11-15 nba Hornets [read input: rested vs their back-to-back] 68 vs 42 hours, the leg says True
+      READ INPUT
+ 2026-11-15 nfl Cardinals [QB named] Gardner Minshew II named for Cardinals - Carson Beck started
+      🎯 The quarterbacks - Gardner Minshew II (Cardinals): 3 TDs, 0 picks and 354 yards in his last 2 games. Matthew Stafford (Rams): 5 TDs, 3 picks and 580 yards in his last 3 games.
+ 2026-11-15 nfl Packers [reason: better QB play lately] Vikings: weighed Carson Wentz, Kirk Cousins started
+      REASON: better QB play lately
+ 2026-11-15 nfl Packers [QB named] Carson Wentz named for Vikings - Kirk Cousins started
+      🎯 Our quarterback's been better: Jordan Love has 8 TDs, 2 picks and 934 yards in his last 3 games for Packers; Carson Wentz has 0 TDs, 2 picks and 81 yards in his last 1 game for Vikings.
+ 2026-11-15 nba Raptors [read input: rested vs their back-to-back] 71 vs 47 hours, the leg says True
+      READ INPUT

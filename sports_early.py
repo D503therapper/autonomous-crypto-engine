@@ -1868,8 +1868,13 @@ def nba_open_why(c, fx):
         bits.append(f"{me} are {fx['rec']}, {c['opp']} {fx['opp_rec']}")
     if fx.get("last"):
         bits.append(f"{me} {fx['last']}")
-    if fx.get("rest") is not None and fx.get("opp_rest") is not None and fx["rest"] != fx["opp_rest"]:
-        bits.append(f"{fx['rest']} day{'s' if fx['rest'] != 1 else ''} off to {c['opp']}'s {fx['opp_rest']}")
+    if fx.get("rest") is not None and fx.get("opp_rest") is not None and fx["rest"] != fx["opp_rest"] \
+            and 1 in (fx["rest"], fx["opp_rest"]):
+        #   (11/16 EVERY FACT TRUE: the 11/7 Pelicans card read "2 days off to Clippers's 4" - the 11/15 rule
+        #    (sports_breakdown_v24.REST_B2B_ONLY: in the NBA a card talks rest ONLY on a back-to-back; the 10/30 study:
+        #    the rested NBA favorite loses to its price) never reached this line. Now the back-to-back, or nothing.)
+        tired = me if fx["rest"] == 1 else c["opp"]
+        bits.append(f"{tired} played the night before")
     fact = ("; ".join(bits) + ".") if bits else ""
     return [(r.format(t=me, pr=pr) + (" " + fact if fact else "")).strip() for r in NBA_OPEN_READS]
 
