@@ -1,15 +1,15 @@
 {
- "at": "2026-11-16T17:06Z",
+ "at": "2026-11-16T18:39Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Brancaccio vs Costoulas: no points for 1781s",
-  "live tennis scores: tennis Trevisan vs De Reales: no points for 1781s",
+  "live tennis scores: tennis Oz vs Gormaz: no points for 1369s",
+  "live tennis scores: tennis Monnet vs Kasintseva: no points for 1369s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (53s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,16 +17,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 0h ago",
-  "engine ran 62 min ago",
+  "studies ran 4h ago",
+  "simulator ran 2h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-16T18:39Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Oz vs Gormaz: no points for 1369s",
+    "live tennis scores: tennis Monnet vs Kasintseva: no points for 1369s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-16T17:06Z",
    "fixes": [
@@ -513,13 +524,6 @@
     "live watch 43639739616 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-11-14T21:30Z",
-   "fixes": [],
    "problems": [
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
