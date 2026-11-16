@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T01:07Z",
+ "updated": "2026-11-16T01:09Z",
  "games": [
   {
    "id": "nfl:401873053",
@@ -902,8 +902,8 @@
    "away": "Mavericks",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -991,6 +991,21 @@
    "start": "2026-11-16T01:00Z",
    "away": "Flames",
    "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892722",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-16T01:00Z",
+   "away": "Panthers",
+   "home": "Stars",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1111,8 +1126,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Thunder",
-    "p": 0.692,
-    "tie": 0.032,
+    "p": 0.718,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -1126,12 +1141,13 @@
     "team": "Thunder",
     "opp": "Kings",
     "market": "spread",
-    "line": -11.5,
+    "line": -12.5,
     "odds": -105,
     "p": 0.502,
-    "win_p": 0.792,
+    "win_p": 0.823,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
