@@ -21178,3 +21178,32 @@ error: failed to push some refs to 'https://githu
 [2026-11-16 02:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-16 02:07 UTC] crypto/hold_btc  equity $396.18 (-20.8%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), PENGU 35 (35/0/0), SUI 27 (27/0/0), QNT 19 (19/0/0), AERO 19 (19/0/0)
+   dex screen: REJECT HOGE@solana liq $102,570 - holders unknown; lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: UNREACHABLE WASTED@ethereum liq $228,400 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SDLR@ethereum liq $212,067 - transfer_pausable; is_blacklisted; top-10 holders 50%; lp locked 0% < 95%
+   dex screen: UNREACHABLE MIHAO@ethereum liq $314,909 - honeypot.is unreachable
+   dex screen: PASS STONK@solana liq $1,944,092
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT ANSEM@solana liq $317,701,577 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,340 - top-10 holders 100%
+   dex screen: REJECT JELLYJELLY@solana liq $3,642,209 - top-10 holders 75%
+   dex screen: REJECT NVDAC@base liq $1,390,958 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT SPCXC@base liq $944,085 - pool age unknown
+   dex screen: UNREACHABLE WASTED@ethereum liq $213,602 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SPCX@solana liq $2,609,443 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 42%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE WASTED@ethereum liq $213,340 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 3,013 pools (solana 2,028 / base 603 / ethereum 382), refresh cycle 182s (hot 176s), 2057 calls (78 feed, 429s 2, failed 2), 59,340 refreshed (7208 no pair), +60 added / -44 dropped (dead 12, stale 0, cap 32), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-16 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/mover     equity $180.83 (-63.8%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/social_heat equity $322.38 (-35.5%) 2 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-16 03:06 UTC] crypto/hold_btc  equity $398.75 (-20.2%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 37 (37/0/0), SOL 35 (35/0/0), AERO 24 (24/0/0), JUP 24 (24/0/0)
