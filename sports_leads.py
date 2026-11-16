@@ -544,7 +544,46 @@ def tags(c, sports):
     t += fourth_down_tags(c, sports)                         # 11/12 DAILY Q6: the college 4th-down coach (LEADS)
     t += daily_1113_tags(c, sports)                          # 11/13 DAILY: the bad NBA home favorite's moneyline (LEAD)
     t += sizing_1115_tags(c, sports)                         # 11/15 FABLE: sizing + best picks - the funnel's two LEADS
+    t += forensics_1116_tags(c, sports)                      # 11/16 FABLE: why we lose - the football Lock, thin / not thin
     return t + sharp
+
+
+FORENSICS_1116_FROM = "2026-11-17"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
+FORENSICS_1116_NFL_TAG = "NFL Lock-grade favorite, not thin (the ½u Lock's judge)"   # Lock by its edge, tracked from the
+FORENSICS_1116_THIN_TAG = "football Lock-grade favorite, thin edge (the Lock rule turns it away)"   # 11/17 Pacific games.
+#   (1) the NFL favorite the board can make the Lock (56%+, the own read agrees, a real play, NOT a thin edge): 6-10
+#   -32.1% on the 11/14 football replay board at 1u (train -29.3% / held -44.1%) - ½u and never the ⭐ from the 11/17
+#   games (sports.LOCK_NFL_HALF_FROM); this tag is that size's judge at 30: winning 56%+ = the 1u question re-opens.
+#   (2) the same favorite in the NFL / college football with a THIN edge (the 10/29 rule: never the Lock - a ½u value
+#   play when the play bar clears): 54-24 +20.1% as Locks on the same board (train +12.7% / held +35.7%, 7 of 9
+#   seasons) - a LEAD for the owner's 10/28 thin-Lock rule in football, his call; judge at 40.
+FORENSICS_1116_NBA_TAG = "NBA favorite -150..-130 (the lean band's lead)"   # (3) lean_cells / nba_lean_band: the board's
+#   NBA moneyline favorite leans at -150..-130 went 170-157 -10.7% on today's dials 2023-26 (train -7.6% / held -16.3%)
+#   against +5.0% at -129..-101, and EVERY NBA favorite in the band at ESPN's close 2018-26 is -6.6% on 1,227 (1 of 9
+#   seasons up) - the band college football (10/10) and hockey (10/28) leans already skip. THIS season runs the other
+#   way (+8% on the pool, the live NBA favorite leans 10-6), so it fails the current-season check: a LEAD, not a rule;
+#   every NBA favorite in the band is logged, judge at 100.
+
+
+def forensics_1116_tags(c, sports):
+    """11/16 FABLE - WHY WE LOSE: the football Lock-grade favorite, thin and not thin; the NBA favorite in the lean band
+    (tracked only)."""
+    try:
+        if c.get("market") == "ml" and c.get("league") == "nba" and sports.pt_day(c) >= FORENSICS_1116_FROM \
+                and -150 <= (c.get("odds") or 0) <= -130:
+            return [FORENSICS_1116_NBA_TAG]
+        if c.get("market") != "ml" or c.get("league") not in ("nfl", "ncaaf") or sports.pt_day(c) < FORENSICS_1116_FROM:
+            return []
+        o = c.get("odds") or 0
+        if not sports.MAX_FAV <= o < 0 or sports.S6_LOCK_SKIP[0] <= o <= sports.S6_LOCK_SKIP[1]:
+            return []
+        if c.get("trap") or not c.get("reasons") or not sports.lock_ok(c) or not sports.own_agrees(c) or not sports.good(dict(c)):
+            return []
+        if sports.thin_edge(c):
+            return [f"{FORENSICS_1116_THIN_TAG} - {c['league']}"]
+        return [FORENSICS_1116_NFL_TAG] if c["league"] == "nfl" else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 SIZING_1115_FROM = "2026-11-16"   # 11/15 FABLE - SIZING + BEST PICKS (results/studies/sizing_1115/): the funnel's two
