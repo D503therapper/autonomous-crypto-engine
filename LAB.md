@@ -17,8 +17,8 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | stocks | rsi2 (official) | $461.25 | -7.8% | 50 |
 | stocks | trend | $459.06 | -8.2% | 116 |
 | crypto | momentum | $418.69 | -16.3% | 16 |
-| crypto | hold_btc | $396.96 | -20.6% | 1 |
+| crypto | hold_btc | $394.37 | -21.1% | 1 |
 | crypto | breakout10 | $385.19 | -23.0% | 4 |
-| crypto | social_heat | $321.20 | -35.8% | 58 |
-| crypto | mover | $177.38 | -64.5% | 127 |
+| crypto | social_heat | $320.49 | -35.9% | 58 |
+| crypto | mover | $180.05 | -64.0% | 127 |
 | crypto | early_mover (official) | $0.00 | -100.0% | 6 |
