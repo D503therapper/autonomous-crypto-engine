@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T17:28Z",
+ "updated": "2026-11-16T17:41Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -834,7 +834,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oregon St",
-    "p": 0.853,
+    "p": 0.848,
     "tie": 0.024,
     "name": "1st half"
    },
@@ -852,9 +852,10 @@
     "line": 15.5,
     "odds": -108,
     "p": 0.509,
-    "win_p": 0.074,
+    "win_p": 0.078,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -879,9 +880,9 @@
     "team": "Portland St",
     "opp": "Saint Mary's",
     "market": "spread",
-    "line": 18.5,
-    "odds": -115,
-    "p": 0.512,
+    "line": 17.5,
+    "odds": -105,
+    "p": 0.511,
     "win_p": 0.054,
     "reasons": [
      "hotter recent form"
@@ -985,7 +986,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.381,
+    "p": 0.365,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -994,17 +995,19 @@
    "start": "2026-11-18T00:00Z",
    "away": "Blue Jackets",
    "home": "Islanders",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Blue Jackets",
     "opp": "Islanders",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.659,
-    "win_p": 0.442,
-    "reasons": []
+    "odds": -230,
+    "p": 0.69,
+    "win_p": 0.472,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1043,8 +1046,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.395,
-    "tie": 0.297,
+    "p": 0.386,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1052,17 +1055,19 @@
    "start": "2026-11-18T00:00Z",
    "away": "Kings",
    "home": "Bruins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Kings",
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -200,
-    "p": 0.63,
-    "win_p": 0.413,
-    "reasons": []
+    "odds": -218,
+    "p": 0.649,
+    "win_p": 0.432,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1102,8 +1107,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Panthers",
-    "p": 0.359,
+    "team": "Oilers",
+    "p": 0.35,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1119,10 +1124,12 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.7,
-    "win_p": 0.483,
-    "reasons": []
+    "odds": -245,
+    "p": 0.716,
+    "win_p": 0.5,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1131,7 +1138,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.37,
+    "p": 0.363,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1147,9 +1154,9 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.675,
-    "win_p": 0.458,
+    "odds": -245,
+    "p": 0.689,
+    "win_p": 0.473,
     "reasons": []
    }
   },
@@ -1233,9 +1240,9 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
-    "p": 0.648,
-    "win_p": 0.429,
+    "odds": -205,
+    "p": 0.647,
+    "win_p": 0.428,
     "reasons": []
    }
   },
