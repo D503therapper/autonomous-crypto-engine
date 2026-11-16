@@ -1,27 +1,46 @@
 {
- "at": "2026-11-16T15:06Z",
- "fixes": [],
+ "at": "2026-11-16T16:41Z",
+ "fixes": [
+  "simulator overdue (9h) - started sports_sims.yml",
+  "tennis slate due (8am PT) and not up - sports.yml already running"
+ ],
  "problems": [
+  "live tennis scores: tennis Brancaccio vs Costoulas: no points for 254s",
+  "live tennis scores: tennis Trevisan vs De Reales: no points for 254s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "studies last ran 9h ago - restarted"
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (20s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "slate check: all 44 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 8h ago",
-  "engine ran 60 min ago",
+  "studies ran 2h ago",
+  "engine ran 37 min ago",
   "pacer running",
-  "tennis slate on time"
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-16T16:41Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs Costoulas: no points for 254s",
+    "live tennis scores: tennis Trevisan vs De Reales: no points for 254s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-16T15:06Z",
    "fixes": [],
@@ -499,14 +518,6 @@
    "at": "2026-11-14T21:14Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-11-14T19:43Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
   }
  ]
 }
