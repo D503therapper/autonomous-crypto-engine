@@ -3260,6 +3260,8 @@ def best_rank(pk):
         k = "backup"
     u = _units_base(pk) or 0
     v = dog_value(pk)
+    if pk.get("max_play") and (pk.get("date") or "") >= MAX_PLAY_FROM:   # 💎 11/16: the max play IS the engine's best pick
+        return (-1, -u, -(v if v is not None else -9))
     return (BEST_KIND_RANK.get(k, 9), -u, -(v if v is not None else -9))
 
 
@@ -3453,6 +3455,8 @@ def dog_units(pk):
     lg = leg.get("league")
     day = pk.get("date") or ""
     k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
+    if pk.get("max_play") and day >= MAX_PLAY_FROM:          # 💎 11/16: the max-play spot (mark_max) - 3u, any Dog price
+        return MAX_PLAY_UNITS
     if day >= SIZING_1031_FROM and lg != "nba":              # 💰 10/30 SIZING: by the price - 2u at +100..+150, ½u longer
         if lg in DOG_LEAGUES_OFF:                            # (never posted - no college hoops Dog; its old ½u if one is)
             return DOG_UNITS_BY.get(lg, DOG_UNITS)
@@ -3532,6 +3536,67 @@ LOCK_NFL_UNITS = 0.5                # football replay board, today's code, 2018-
 def nfl_lock_half(leg):
     """🏈 Is this an NFL Lock under the 11/16 size (a game on / after LOCK_NFL_HALF_FROM, its Pacific day)?"""
     return leg.get("league") == "nfl" and pt_day(leg) >= LOCK_NFL_HALF_FROM
+
+
+MAX_PLAY_FROM = "2026-11-17"   # 💎 THE MAX PLAY (11/16 FABLE - THE MAX PLAY HUNT, PROS; the owner, 11/16: "one pick with like
+MAX_PLAY_UNITS = 3.0           # 3-4 units on it ... like the sharp professional bettors do. They pick their spots" + "We need
+MAX_PLAY_SCORE = 8.0           # units every day"; results/studies/max_pro_1116/). A LABEL and a size on the day's HOCKEY DOG OF
+MAX_PLAY_LEAGUES = ("nhl",)    # THE DAY - never an extra pick, the day's other unit plays post as always - when the dog is
+MAX_PLAY_QUIT = (25, 0.44)     # RESTED, THE FAVORITE PLAYED LAST NIGHT, and the dog score is 8+ (the b2b spot + the own read +
+#   the other study angles at their cap - several things agreeing, never one factor): 3u. The 8+ Dog was a tracker LEAD
+#   three times (10/30, 11/12, 11/14: 20-11 on the 2023-26 board rows, too few to tell from luck). The new evidence is the
+#   11/2 paid-odds rig - 2020-23, the MORNING price, three seasons the cut never saw: 34-24, 58.6% against 43.2% needed,
+#   +39.1%, 3 of 3 seasons (the same picks +36.4% at the close; picked at the open 30-16) while the other Dogs there went
+#   +2.2% and the b2b-spot Dogs UNDER 8 18-31. With the boards: 50-34, 59.5% at about +128 on 84 (+38.4%, z +2.9; today's
+#   code 51-36), every season it fired up (5 of 5; 2024-25 had none - that season's hockey read carried no b2b weight);
+#   a random same-size draw of the other Dogs as good 28 of 2,000 (1 of 2,000 against every hockey dog); 15 cents worse
+#   still +30.8%; live 2-1. THE SIZE: a quarter of Kelly on the low end of the held-out win rate - 3.9u one standard
+#   error under, 2.5u at 1.5, 1.1u at two (pooled 4.6 / 3.4 / 2.2) - 3u, not 4: the dose is a step, not a slope (the
+#   7-8 band is 5-19 on 24), so the middle of the range. About 17 a hockey season - a spot, not a daily play. It takes the ⭐
+#   (best_rank). THE QUIT RULE: at 25 graded under 44% won (its break-even at +128) = off, the Dog back to its own
+#   size (max_play_quit). A posted pick keeps its units - only a Dog posted NEW on / after this Pacific game day is
+#   marked (mark_max); an upgraded Dog (upgrade_dog) keeps the units it was posted at. "9999" = off.
+
+
+def max_play_leg(leg):
+    """💎 Is this side the max-play spot: a hockey dog +100..+350, rested against a favorite that played last night, a
+    dog score of MAX_PLAY_SCORE+, a game on / after MAX_PLAY_FROM (its Pacific day)?"""
+    return bool(leg.get("league") in MAX_PLAY_LEAGUES and leg.get("market", "ml") == "ml"
+                and DOG_MIN <= (leg.get("odds") or 0) <= DAILY_DOG_MAX and leg.get("rested_vs_b2b")
+                and (leg.get("dog_score") or 0) >= MAX_PLAY_SCORE and pt_day(leg) >= MAX_PLAY_FROM)
+
+
+def max_play_record(picks):
+    """💎 the max play's own record (picks tagged max_play) -> (won, lost)."""
+    w = l_ = 0
+    for p in picks or []:
+        if p.get("max_play") and p.get("status") in ("won", "lost"):
+            w, l_ = (w + 1, l_) if p["status"] == "won" else (w, l_ + 1)
+    return w, l_
+
+
+def max_play_quit(picks):
+    """The max play's judge: MAX_PLAY_QUIT[0]+ graded and under MAX_PLAY_QUIT[1] won = no more max plays (the Dog keeps
+    posting at its own size)."""
+    w, l_ = max_play_record(picks)
+    return w + l_ >= MAX_PLAY_QUIT[0] and w / (w + l_) < MAX_PLAY_QUIT[1]
+
+
+def mark_max(new, picks, iso):
+    """💎 THE MAX PLAY: a Dog of the Day posted in THIS run that is the max-play spot (max_play_leg) gets
+    pk["max_play"] = True - dog_units then sizes it MAX_PLAY_UNITS. Never a pick already up (a posted pick keeps its
+    units), never the owner's own post, never a lean, never after the quit rule. Returns the pick or None."""
+    if iso < MAX_PLAY_FROM or max_play_quit(picks):
+        return None
+    for pk in new or []:
+        legs = pk.get("legs") or []
+        if pk.get("kind") != "dog" or pk.get("lean") or pk.get("status") != "open" or len(legs) != 1 \
+                or pk.get("owner_post") or pk.get("units_posted") is not None:
+            continue
+        if max_play_leg(legs[0]) and not fighting(legs[0]):
+            pk["max_play"] = True
+            return pk
+    return None
 
 
 def lock_units_1031(leg):
@@ -8763,6 +8828,10 @@ def post_board(games, model, picks, now, day, force=False):
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         new.append(pk)
+    mx = mark_max(new, picks, iso)                            # 💎 THE MAX PLAY (11/16): a hockey Dog posted this run on the
+    if mx is not None:                                       # b2b spot at a dog score of 8+ - 3u, a label on the Dog
+        print(f"   💎 MAX PLAY: {mx['legs'][0].get('team')} {mx['legs'][0].get('odds')} - dog score "
+              f"{mx['legs'][0].get('dog_score')}, rested vs a back-to-back favorite - {units_for(mx):g}u")
     if opening and iso >= BEST_FROM:                          # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): the opening
         best = mark_best(picks, iso)                         # board's best unit play gets the star (1u at least)...
         if best is None and cands and iso < NO_FORCED_BEST_FROM:   # ...and (till 11/11) a day with no unit play at all posted the surest

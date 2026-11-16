@@ -1,0 +1,128 @@
+
+================ NHL - every regular-season side at the close, train 2018-2021 / held 2022-2026 ================
+  BASE every dog +100..+350                                          n  8364 3248-5116  38.8% (needs 41.0)   -5.6% z -4.14 | train   -7.0% (3724) | held   -4.5% (4640) 39.3% z -2.24 | up 2/9 (held 1/5)
+  BASE every dog +100..+150                                          n  5252 2272-2980  43.3% (needs 45.1)   -3.9% z -2.67 | train   -6.0% (2337) | held   -2.2% (2915) 44.0% z -1.10 | up 2/9 (held 1/5)
+  BASE every favorite -150..-101                                     n  5681 3048-2633  53.7% (needs 55.2)   -3.0% z -2.42 | train   -1.7% (2550) | held   -4.0% (3131) 53.1% z -2.40 | up 2/9 (held 0/5)
+ -- H1 the rested dog against a favorite on a back-to-back, and what stacks on it
+  H1 dog, fav on a b2b, dog not                                      n   539  240-299   44.5% (needs 42.4)   +6.3% z +1.02 | train   +4.2% ( 237) | held   +8.0% ( 302) 45.4% z +1.10 | up 7/9 (held 4/5)
+  H1 ... +100..+150                                                  n   387  182-205   47.0% (needs 45.3)   +4.6% z +0.68 | train   -0.6% ( 176) | held   +9.1% ( 211) 49.3% z +1.12 | up 6/9 (held 5/5)
+  H1a ... +100..+150, dog at HOME                                    n   253  120-133   47.4% (needs 45.5)   +5.2% z +0.63 | train   -5.5% ( 111) | held  +13.6% ( 142) 51.4% z +1.42 | up 8/9 (held 5/5)
+  H1b ... +100..+150, dog rested 2+ days                             n   387  182-205   47.0% (needs 45.3)   +4.6% z +0.68 | train   -0.6% ( 176) | held   +9.1% ( 211) 49.3% z +1.12 | up 6/9 (held 5/5)
+  H1c ... +100..+150, fav played on the ROAD last night              n   272  135-137   49.6% (needs 45.3)  +10.4% z +1.44 | train   +5.8% ( 128) | held  +14.5% ( 144) 51.4% z +1.48 | up 6/9 (held 3/5)
+  H1d ... +100..+150, fav 3rd game in 4 nights                       n   223  102-121   45.7% (needs 45.3)   +2.1% z +0.14 | train   +5.7% ( 106) | held   -1.2% ( 117) 44.4% z -0.21 | up 6/9 (held 3/5)
+  H1e ... +100..+150, fav's last night went to OT                    n    71   31-40    43.7% (needs 45.4)   -4.4% z -0.29 | train  -15.5% (  29) | held   +3.2% (  42) 47.6% z +0.24 | up 5/9 (held 3/5)
+  H1f ... +100..+150, dog not hot (streak under 3)                   n   361  170-191   47.1% (needs 45.3)   +4.9% z +0.70 | train   +0.2% ( 164) | held   +8.8% ( 197) 49.2% z +1.06 | up 6/9 (held 5/5)
+  H1g ... +100..+150, home + rested 2+ + fav on the road last night  n   184   92-92    50.0% (needs 45.5)  +11.0% z +1.22 | train   +1.4% (  83) | held  +18.9% ( 101) 53.5% z +1.64 | up 6/9 (held 4/5)
+ -- H2 the dog confluence COUNT (one point each, named before looking)
+  H2 dog +100..+350 count == -2                                      n    77   30-47    39.0% (needs 42.1)   -5.8% z -0.56 | train   +2.0% (  39) | held  -13.7% (  38) 34.2% z -0.84 | up 3/9 (held 2/5)
+  H2 dog +100..+350 count == -1                                      n   642  231-411   36.0% (needs 41.3)  -13.3% z -2.77 | train  -13.4% ( 278) | held  -13.1% ( 364) 36.3% z -2.02 | up 3/9 (held 2/5)
+  H2 dog +100..+350 count == 0                                       n  1966  757-1209  38.5% (needs 40.9)   -6.1% z -2.21 | train   -4.4% ( 907) | held   -7.5% (1059) 37.9% z -1.90 | up 4/9 (held 2/5)
+  H2 dog +100..+350 count == 1                                       n  2343  912-1431  38.9% (needs 41.2)   -5.6% z -2.30 | train  -11.1% (1000) | held   -1.5% (1343) 40.6% z -0.44 | up 2/9 (held 2/5)
+  H2 dog +100..+350 count == 2                                       n  1865  726-1139  38.9% (needs 40.9)   -5.8% z -1.74 | train   -9.6% ( 810) | held   -3.0% (1055) 40.0% z -0.52 | up 2/9 (held 1/5)
+  H2 dog +100..+350 count == 3                                       n  1002  395-607   39.4% (needs 41.0)   -3.3% z -1.03 | train   -2.4% ( 467) | held   -4.1% ( 535) 39.4% z -0.68 | up 3/9 (held 1/5)
+  H2 dog +100..+350 count == 4                                       n   349  149-200   42.7% (needs 40.3)   +5.0% z +0.94 | train   +6.1% ( 173) | held   +3.9% ( 176) 42.6% z +0.64 | up 5/9 (held 3/5)
+  H2 dog +100..+350 count == 5                                       n    97   39-58    40.2% (needs 41.0)   -4.2% z -0.15 | train   -1.2% (  38) | held   -6.1% (  59) 39.0% z -0.38 | up 4/9 (held 2/5)
+  H2 dog +100..+150 count >= 2                                       n  2054  927-1127  45.1% (needs 45.2)   -0.1% z -0.05 | train   -2.9% ( 931) | held   +2.2% (1123) 46.2% z +0.69 | up 6/9 (held 4/5)
+      placebo vs every short dog: 55 of 2000
+      size: held 46.2% on 1123 (se 1.5) at avg dec 2.213 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +100..+150 count >= 3                                       n   900  405-495   45.0% (needs 45.3)   -0.1% z -0.16 | train   -2.5% ( 416) | held   +2.0% ( 484) 45.9% z +0.32 | up 5/9 (held 3/5)
+      placebo vs every short dog: 274 of 2000
+      size: held 45.9% on 484 (se 2.3) at avg dec 2.215 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +100..+150 count >= 4                                       n   270  135-135   50.0% (needs 45.2)  +11.4% z +1.60 | train  +18.4% ( 127) | held   +5.2% ( 143) 47.6% z +0.54 | up 5/9 (held 2/5)
+      placebo vs every short dog: 21 of 2000
+      size: held 47.6% on 143 (se 4.2) at avg dec 2.208 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +151..+350 count >= 3                                       n   571  187-384   32.7% (needs 33.9)   -3.4% z -0.58 | train   +4.8% ( 274) | held  -10.9% ( 297) 30.3% z -1.27 | up 4/9 (held 1/5)
+  H2 dog +151..+350 count >= 4                                       n   199   62-137   31.2% (needs 34.2)   -9.1% z -0.92 | train   -9.7% (  96) | held   -8.4% ( 103) 32.0% z -0.49 | up 3/9 (held 2/5)
+ -- H3 the FAVORITE -150..-101 with the fades stacked on the dog across (the count)
+  H3a fav -150..-101, rested, dog on a b2b                           n   581  319-262   54.9% (needs 55.6)   -1.9% z -0.35 | train   +3.0% ( 269) | held   -6.0% ( 312) 52.6% z -1.09 | up 5/9 (held 2/5)
+  H3b fav -150..-101, the dog on a 3+ win streak                     n   694  375-319   54.0% (needs 54.9)   -1.7% z -0.48 | train   -2.6% ( 310) | held   -0.9% ( 384) 54.4% z -0.16 | up 5/9 (held 4/5)
+  H3c fav -150..-101, the dog's record lucky (4+ pts over its goals) n   767  414-353   54.0% (needs 55.2)   -2.7% z -0.69 | train   -1.5% ( 342) | held   -3.6% ( 425) 53.4% z -0.78 | up 2/9 (held 1/5)
+  H3 fav count == -1                                                 n   188  106-82    56.4% (needs 55.0)   +2.9% z +0.38 | train  +13.6% (  80) | held   -5.0% ( 108) 51.9% z -0.63 | up 5/9 (held 2/5)
+  H3 fav count == 0                                                  n  1412  759-653   53.8% (needs 55.0)   -2.2% z -0.96 | train   -2.4% ( 615) | held   -2.1% ( 797) 54.0% z -0.65 | up 3/9 (held 2/5)
+  H3 fav count == 1                                                  n  2227 1171-1056  52.6% (needs 55.3)   -5.0% z -2.56 | train   -3.8% ( 992) | held   -5.9% (1235) 52.0% z -2.25 | up 3/9 (held 2/5)
+  H3 fav count == 2                                                  n  1208  664-544   55.0% (needs 55.4)   -0.8% z -0.30 | train   +0.3% ( 545) | held   -1.8% ( 663) 54.4% z -0.48 | up 5/9 (held 2/5)
+  H3 fav count == 3                                                  n   501  278-223   55.5% (needs 55.4)   -0.5% z +0.02 | train   +2.2% ( 242) | held   -3.1% ( 259) 54.1% z -0.47 | up 4/9 (held 1/5)
+  H3 fav count == 4                                                  n   119   55-64    46.2% (needs 55.4)  -16.9% z -2.03 | train   -8.8% (  61) | held  -25.4% (  58) 41.4% z -2.14 | up 2/9 (held 0/5)
+  H3 fav count >= 2                                                  n  1854 1012-842   54.6% (needs 55.4)   -1.7% z -0.71 | train   -0.3% ( 863) | held   -3.0% ( 991) 53.9% z -0.97 | up 4/9 (held 2/5)
+      placebo vs every fav in band: 470 of 2000
+      size: held 53.9% on 991 (se 1.6) at avg dec 1.805 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H3 fav count >= 3                                                  n   646  348-298   53.9% (needs 55.4)   -3.3% z -0.79 | train   -1.3% ( 318) | held   -5.3% ( 328) 52.7% z -0.99 | up 2/9 (held 0/5)
+      placebo vs every fav in band: 1122 of 2000
+      size: held 52.7% on 328 (se 2.8) at avg dec 1.803 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H3 fav count >= 4                                                  n   145   70-75    48.3% (needs 55.3)  -13.1% z -1.72 | train  -12.4% (  76) | held  -13.9% (  69) 47.8% z -1.25 | up 3/9 (held 1/5)
+      placebo vs every fav in band: 1835 of 2000
+      size: held 47.8% on 69 (se 6.0) at avg dec 1.808 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+ -- H4 situational extremes
+  H4a any side: opp 3rd in 4 AND on a b2b, we rested 2+              n   650  319-331   49.1% (needs 49.2)   +0.3% z -0.07 | train   +4.4% ( 314) | held   -3.4% ( 336) 47.0% z -0.75 | up 3/9 (held 1/5)
+  H4b any side -150..+150: opp 4th game in 6 nights on a b2b, we rested 2+ n   435  209-226   48.0% (needs 51.8)   -6.9% z -1.57 | train   -6.0% ( 193) | held   -7.7% ( 242) 47.5% z -1.34 | up 2/9 (held 1/5)
+  H4c home dog +100..+150 off 3+ days rest vs a fav on a b2b         n    87   42-45    48.3% (needs 45.6)   +7.3% z +0.50 | train   -6.2% (  38) | held  +17.8% (  49) 53.1% z +1.06 | up 6/9 (held 4/5)
+  H4d fav -150..-101 at home, 5+ game homestand, the dog 4+ straight on the road n    33   15-18    45.5% (needs 55.3)  -18.3% z -1.13 | train   -9.4% (  18) | held  -29.0% (  15) 40.0% z -1.27 | up 3/9 (held 2/5)
+  H4e dog +100..+150 on a 4+ game LOSING skid, at home               n   226   99-127   43.8% (needs 45.2)   -3.0% z -0.42 | train   -8.9% ( 118) | held   +3.4% ( 108) 46.3% z +0.32 | up 5/9 (held 3/5)
+  H4f fav -150..-101 off 2 straight losses by a blowout margin       n   479  270-209   56.4% (needs 55.0)   +2.3% z +0.62 | train   +9.3% ( 220) | held   -3.7% ( 259) 52.9% z -0.66 | up 4/9 (held 0/5)
+  H4g Elo likes the dog: +100..+150 with the walk-forward Elo 6+ pts over the no-vig close n   857  352-505   41.1% (needs 44.7)   -8.0% z -2.14 | train   -8.0% ( 330) | held   -8.0% ( 527) 41.0% z -1.70 | up 2/9 (held 0/5)
+  H4h Elo likes the fav: -150..-101 with Elo 6+ over the close       n   381  189-192   49.6% (needs 54.3)   -8.9% z -1.86 | train   -8.3% ( 139) | held   -9.3% ( 242) 49.6% z -1.52 | up 2/9 (held 2/5)
+
+================ NBA - every regular-season side at the close, train 2018-2021 / held 2022-2026 ================
+  BASE every dog +100..+350                                          n  7241 2572-4669  35.5% (needs 37.0)   -4.2% z -2.71 | train   -2.6% (3499) | held   -5.7% (3742) 35.0% z -2.56 | up 1/9 (held 0/5)
+  BASE every dog +100..+150                                          n  3002 1291-1711  43.0% (needs 44.8)   -4.1% z -2.02 | train   -2.7% (1455) | held   -5.5% (1547) 42.3% z -1.89 | up 2/9 (held 0/5)
+  BASE every favorite -150..-101                                     n  2764 1453-1311  52.6% (needs 55.5)   -5.3% z -3.15 | train   -4.7% (1353) | held   -5.9% (1411) 52.2% z -2.46 | up 1/9 (held 1/5)
+ -- H1 the rested dog against a favorite on a back-to-back, and what stacks on it
+  H1 dog, fav on a b2b, dog not                                      n   733  275-458   37.5% (needs 37.9)   -0.4% z -0.20 | train   +4.2% ( 353) | held   -4.6% ( 380) 36.3% z -0.53 | up 4/9 (held 1/5)
+  H1 ... +100..+150                                                  n   336  140-196   41.7% (needs 45.0)   -8.2% z -1.23 | train   -8.2% ( 165) | held   -8.3% ( 171) 41.5% z -0.91 | up 1/9 (held 1/5)
+  H1a ... +100..+150, dog at HOME                                    n   164   67-97    40.9% (needs 44.9)   -9.2% z -1.04 | train  -18.1% (  81) | held   -0.6% (  83) 44.6% z -0.03 | up 3/9 (held 2/5)
+  H1b ... +100..+150, dog rested 2+ days                             n   336  140-196   41.7% (needs 45.0)   -8.2% z -1.23 | train   -8.2% ( 165) | held   -8.3% ( 171) 41.5% z -0.91 | up 1/9 (held 1/5)
+  H1c ... +100..+150, fav played on the ROAD last night              n   183   73-110   39.9% (needs 44.7)  -11.9% z -1.32 | train  -10.7% (  89) | held  -13.1% (  94) 39.4% z -1.01 | up 3/9 (held 2/5)
+  H1d ... +100..+150, fav 3rd game in 4 nights                       n   250  108-142   43.2% (needs 45.1)   -4.8% z -0.60 | train   -9.5% ( 121) | held   -0.4% ( 129) 45.0% z -0.01 | up 4/9 (held 3/5)
+  H1e ... +100..+150, fav's last night went to OT                    n    16   10-6     62.5% (needs 45.6)  +34.9% z +1.36 | train  +28.0% (   5) | held  +38.0% (  11) 63.6% z +1.18 | up 5/6 (held 4/4)
+  H1f ... +100..+150, dog not hot (streak under 3)                   n   301  121-180   40.2% (needs 45.1)  -11.6% z -1.70 | train   -9.8% ( 146) | held  -13.3% ( 155) 39.4% z -1.42 | up 0/9 (held 0/5)
+  H1g ... +100..+150, home + rested 2+ + fav on the road last night  n   106   39-67    36.8% (needs 44.6)  -17.4% z -1.62 | train  -25.4% (  48) | held  -10.7% (  58) 39.7% z -0.71 | up 4/9 (held 3/5)
+ -- H2 the dog confluence COUNT (one point each, named before looking)
+  H2 dog +100..+350 count == -2                                      n    56   19-37    33.9% (needs 37.5)   -8.5% z -0.56 | train  +25.8% (  26) | held  -38.2% (  30) 23.3% z -1.70 | up 5/9 (held 1/5)
+  H2 dog +100..+350 count == -1                                      n   431  141-290   32.7% (needs 37.2)  -13.9% z -1.97 | train   -9.0% ( 200) | held  -18.2% ( 231) 30.7% z -1.80 | up 0/9 (held 0/5)
+  H2 dog +100..+350 count == 0                                       n  1550  560-990   36.1% (needs 37.2)   -3.0% z -0.92 | train   +0.1% ( 749) | held   -6.0% ( 801) 34.6% z -1.59 | up 4/9 (held 1/5)
+  H2 dog +100..+350 count == 1                                       n  2041  696-1345  34.1% (needs 37.4)   -8.8% z -3.09 | train   -9.2% (1024) | held   -8.3% (1017) 34.5% z -2.09 | up 0/9 (held 0/5)
+  H2 dog +100..+350 count == 2                                       n  1606  597-1009  37.2% (needs 37.0)   +0.0% z +0.19 | train   -2.9% ( 774) | held   +2.7% ( 832) 38.5% z +0.96 | up 3/9 (held 2/5)
+  H2 dog +100..+350 count == 3                                       n  1041  376-665   36.1% (needs 36.3)   -0.6% z -0.14 | train   +2.0% ( 473) | held   -2.7% ( 568) 34.9% z -0.44 | up 3/9 (held 1/5)
+  H2 dog +100..+350 count == 4                                       n   359  122-237   34.0% (needs 36.7)   -5.5% z -1.10 | train  +11.5% ( 175) | held  -21.7% ( 184) 28.8% z -2.26 | up 5/9 (held 2/5)
+  H2 dog +100..+350 count == 5                                       n   132   52-80    39.4% (needs 36.3)  +11.2% z +0.74 | train  +13.8% (  63) | held   +8.8% (  69) 39.1% z +0.55 | up 6/9 (held 3/5)
+  H2 dog +100..+150 count >= 2                                       n  1250  548-702   43.8% (needs 44.9)   -2.5% z -0.76 | train   -5.3% ( 618) | held   +0.3% ( 632) 45.3% z +0.16 | up 3/9 (held 2/5)
+      placebo vs every short dog: 516 of 2000
+      size: held 45.3% on 632 (se 2.0) at avg dec 2.226 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +100..+150 count >= 3                                       n   600  257-343   42.8% (needs 44.8)   -4.6% z -0.98 | train   -3.2% ( 293) | held   -6.0% ( 307) 42.3% z -0.85 | up 5/9 (held 3/5)
+      placebo vs every short dog: 1070 of 2000
+      size: held 42.3% on 307 (se 2.8) at avg dec 2.235 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +100..+150 count >= 4                                       n   208   86-122   41.3% (needs 44.7)   -7.4% z -0.96 | train  -10.5% ( 100) | held   -4.6% ( 108) 42.6% z -0.41 | up 4/9 (held 3/5)
+      placebo vs every short dog: 1339 of 2000
+      size: held 42.6% on 108 (se 4.8) at avg dec 2.245 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H2 dog +151..+350 count >= 3                                       n   957  302-655   31.6% (needs 31.2)   +1.5% z +0.27 | train  +10.6% ( 433) | held   -6.1% ( 524) 29.0% z -0.91 | up 4/9 (held 2/5)
+  H2 dog +151..+350 count >= 4                                       n   308   97-211   31.5% (needs 31.2)   +2.4% z +0.11 | train  +24.6% ( 153) | held  -19.4% ( 155) 24.5% z -1.74 | up 5/9 (held 1/5)
+ -- H3 the FAVORITE -150..-101 with the fades stacked on the dog across (the count)
+  H3a fav -150..-101, rested, dog on a b2b                           n   349  178-171   51.0% (needs 55.4)   -7.9% z -1.65 | train   -5.3% ( 186) | held  -10.8% ( 163) 49.7% z -1.51 | up 2/9 (held 1/5)
+  H3b fav -150..-101, the dog on a 3+ win streak                     n   367  187-180   51.0% (needs 55.3)   -7.8% z -1.67 | train   -6.3% ( 181) | held   -9.2% ( 186) 50.0% z -1.40 | up 3/9 (held 1/5)
+  H3c fav -150..-101, the dog's record lucky (4+ pts over its goals) n   426  230-196   54.0% (needs 55.5)   -2.7% z -0.62 | train   -5.2% ( 235) | held   +0.3% ( 191) 55.5% z +0.09 | up 3/8 (held 2/4)
+  H3 fav count == -1                                                 n    90   49-41    54.4% (needs 55.0)   -1.0% z -0.11 | train  -10.7% (  41) | held   +7.1% (  49) 59.2% z +0.54 | up 5/9 (held 3/5)
+  H3 fav count == 0                                                  n   688  365-323   53.1% (needs 55.5)   -4.6% z -1.30 | train   -1.0% ( 350) | held   -8.3% ( 338) 50.9% z -1.68 | up 4/9 (held 2/5)
+  H3 fav count == 1                                                  n  1038  536-502   51.6% (needs 55.7)   -7.1% z -2.62 | train   -9.2% ( 487) | held   -5.2% ( 551) 52.5% z -1.41 | up 3/9 (held 2/5)
+  H3 fav count == 2                                                  n   612  322-290   52.6% (needs 55.4)   -5.0% z -1.38 | train   -4.9% ( 291) | held   -5.0% ( 321) 52.6% z -0.99 | up 2/9 (held 1/5)
+  H3 fav count == 3                                                  n   250  142-108   56.8% (needs 55.7)   +2.2% z +0.35 | train   +8.8% ( 134) | held   -5.5% ( 116) 52.6% z -0.63 | up 4/9 (held 1/5)
+  H3 fav count == 4                                                  n    71   33-38    46.5% (needs 55.5)  -16.3% z -1.53 | train  -15.3% (  41) | held  -17.6% (  30) 46.7% z -1.00 | up 2/9 (held 1/5)
+  H3 fav count >= 2                                                  n   948  503-445   53.1% (needs 55.5)   -4.3% z -1.49 | train   -2.2% ( 475) | held   -6.4% ( 473) 52.0% z -1.50 | up 2/9 (held 0/5)
+      placebo vs every fav in band: 673 of 2000
+      size: held 52.0% on 473 (se 2.3) at avg dec 1.804 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H3 fav count >= 3                                                  n   336  181-155   53.9% (needs 55.6)   -3.1% z -0.64 | train   +2.1% ( 184) | held   -9.4% ( 152) 50.7% z -1.21 | up 4/9 (held 1/5)
+      placebo vs every fav in band: 603 of 2000
+      size: held 50.7% on 152 (se 4.1) at avg dec 1.801 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+  H3 fav count >= 4                                                  n    86   39-47    45.3% (needs 55.3)  -18.3% z -1.87 | train  -15.8% (  50) | held  -21.8% (  36) 44.4% z -1.35 | up 1/9 (held 1/5)
+      placebo vs every fav in band: 1807 of 2000
+      size: held 44.4% on 36 (se 8.3) at avg dec 1.798 -> quarter-Kelly on the low end (-1 se) 0.00u, (-2 se) 0.00u
+ -- H4 situational extremes
+  H4a any side: opp 3rd in 4 AND on a b2b, we rested 2+              n   791  338-453   42.7% (needs 43.8)   -1.3% z -0.59 | train   +2.3% ( 395) | held   -4.9% ( 396) 41.2% z -0.89 | up 4/9 (held 2/5)
+  H4b any side -150..+150: opp 4th game in 6 nights on a b2b, we rested 2+ n   411  193-218   47.0% (needs 50.3)   -6.7% z -1.36 | train   -8.2% ( 213) | held   -5.1% ( 198) 47.5% z -0.74 | up 3/9 (held 3/5)
+  H4c home dog +100..+150 off 3+ days rest vs a fav on a b2b         n    38   21-17    55.3% (needs 45.5)  +21.7% z +1.20 | train  +40.8% (  19) | held   +2.5% (  19) 47.4% z +0.11 | up 7/8 (held 3/4)
+  H4d fav -150..-101 at home, 5+ game homestand, the dog 4+ straight on the road n    13    7-6     53.8% (needs 55.3)   -4.5% z -0.11 | train   -9.8% (   6) | held   -0.0% (   7) 57.1% z +0.02 | up 3/6 (held 2/3)
+  H4e dog +100..+150 on a 4+ game LOSING skid, at home               n   139   68-71    48.9% (needs 44.6)   +9.7% z +1.04 | train  +16.2% (  68) | held   +3.5% (  71) 46.5% z +0.34 | up 6/9 (held 3/5)
+  H4f fav -150..-101 off 2 straight losses by a blowout margin       n   162   79-83    48.8% (needs 55.1)  -11.9% z -1.63 | train   -8.6% (  83) | held  -15.3% (  79) 46.8% z -1.45 | up 2/9 (held 0/5)
+  H4g Elo likes the dog: +100..+150 with the walk-forward Elo 6+ pts over the no-vig close n   961  405-556   42.1% (needs 44.9)   -6.2% z -1.74 | train   -4.1% ( 470) | held   -8.2% ( 491) 41.1% z -1.60 | up 2/9 (held 1/5)
+  H4h Elo likes the fav: -150..-101 with Elo 6+ over the close       n   763  384-379   50.3% (needs 55.4)   -9.0% z -2.82 | train   +0.8% ( 363) | held  -17.9% ( 400) 45.2% z -4.05 | up 3/9 (held 0/5)
+
+cells printed: 90

@@ -1,0 +1,57 @@
+
+================ BOARD R1: 1095 train / 862 held-out unit plays ================
+  every unit play, flat: train n 1095 572-523  52.2% (needs 47.6)  +10.5% z +3.09 | held n  862 445-417  51.6% (needs 47.6)   +9.2% z +2.41
+ (A) THE FITTED RANKING (ridge logistic on the train half; rank = its win chance x the price)
+    train (in sample): days with 2+ unit plays 340 | the model's #1 n  340 171-169  50.3% (needs 43.8)  +16.3% z +2.44 | the day's other plays n  504 283-221  56.2% (needs 51.5)   +9.0% z +2.09 | a random one a day did as well 336 of 2,000
+       its top  5% of all plays n   54  27-27   50.0% (needs 33.2)  +53.1% z +2.63 | placebo 5 of 2,000
+       its top 10% of all plays n  109  51-58   46.8% (needs 35.2)  +34.9% z +2.55 | placebo 16 of 2,000
+       its top 25% of all plays n  273 131-142  48.0% (needs 38.5)  +25.6% z +3.23 | placebo 9 of 2,000
+    HELD OUT: days with 2+ unit plays 311 | the model's #1 n  311 149-162  47.9% (needs 44.1)   +8.7% z +1.37 | the day's other plays n  426 232-194  54.5% (needs 50.7)   +8.2% z +1.57 | a random one a day did as well 1133 of 2,000
+       its top  5% of all plays n   43  16-27   37.2% (needs 34.5)   +5.3% z +0.37 | placebo 1206 of 2,000
+       its top 10% of all plays n   86  39-47   45.3% (needs 36.9)  +21.2% z +1.63 | placebo 319 of 2,000
+       its top 25% of all plays n  215 103-112  47.9% (needs 41.1)  +17.1% z +2.05 | placebo 222 of 2,000
+ (B) THE COUNT OF THINGS AGREEING on a unit play
+    count == 0: train n   42  18-24   42.9% (needs 35.8)  +22.2% z +0.95 | held n   25  12-13   48.0% (needs 36.7)  +29.6% z +1.18
+    count == 1: train n  191  94-97   49.2% (needs 43.7)  +13.8% z +1.54 | held n  220 112-108  50.9% (needs 45.2)  +13.6% z +1.70
+    count == 2: train n  177  77-100  43.5% (needs 43.8)   +1.1% z -0.09 | held n  138  57-81   41.3% (needs 44.5)   -7.9% z -0.75
+    count == 3: train n  302 168-134  55.6% (needs 48.5)  +15.2% z +2.51 | held n  200 108-92   54.0% (needs 49.2)   +9.3% z +1.38
+    count == 4: train n  224 122-102  54.5% (needs 51.1)   +6.7% z +1.03 | held n  162  87-75   53.7% (needs 49.1)  +11.2% z +1.19
+    count == 5: train n  149  88-61   59.1% (needs 53.8)  +10.4% z +1.31 | held n   98  59-39   60.2% (needs 54.3)  +13.7% z +1.19
+    count == 6: train n   10   5-5    50.0% (needs 45.0)  +11.9% z +0.32 | held n   19  10-9    52.6% (needs 46.8)  +12.6% z +0.51
+    count >= 4: train n  383 215-168  56.1% (needs 52.0)   +8.3% z +1.65 | held n  279 156-123  55.9% (needs 50.8)  +12.2% z +1.74
+    count >= 5: train n  159  93-66   58.5% (needs 53.2)  +10.5% z +1.35 | held n  117  69-48   59.0% (needs 53.0)  +13.5% z +1.29
+ (C) THE HOCKEY DOG AT 8+ against the day's other unit plays (days it fires)
+    train: days 14 | the 8+ hockey Dog n   14   8-6    57.1% (needs 45.1)  +27.8% z +0.91 | the same days' other unit plays n   43  27-16   62.8% (needs 54.2)  +19.3% z +1.14
+    held: days 16 | the 8+ hockey Dog n   16  11-5    68.8% (needs 45.9)  +52.1% z +1.84 | the same days' other unit plays n   21  18-3    85.7% (needs 51.9)  +70.1% z +3.14
+  every kind (held out), for scale: dog  62-53   53.9% (needs 43.6)  +22.7% z +2.24 | lock  38-25   60.3% (needs 58.2)   +3.6% z +0.35 | nbafav  21-3    87.5% (needs 57.9)  +50.7% z +2.94 | dogplay  13-11   54.2% (needs 44.9)  +16.9% z +0.92 | nbafloor  17-18   48.6% (needs 41.9)  +19.7% z +0.80 | floor 222-245  47.5% (needs 44.5)   +7.3% z +1.32 | play  70-62   53.0% (needs 56.8)   -6.8% z -0.88
+
+================ BOARD R2: 891 train / 729 held-out unit plays ================
+  every unit play, flat: train n  891 424-467  47.6% (needs 43.8)   +8.5% z +2.28 | held n  729 367-362  50.3% (needs 45.3)  +12.1% z +2.78
+ (A) THE FITTED RANKING (ridge logistic on the train half; rank = its win chance x the price)
+    train (in sample): days with 2+ unit plays 314 | the model's #1 n  314 150-164  47.8% (needs 42.0)  +13.2% z +2.09 | the day's other plays n  324 153-171  47.2% (needs 46.0)   +2.1% z +0.43 | a random one a day did as well 201 of 2,000
+       its top  5% of all plays n   44  17-27   38.6% (needs 32.6)  +20.5% z +0.87 | placebo 488 of 2,000
+       its top 10% of all plays n   89  37-52   41.6% (needs 35.1)  +18.1% z +1.28 | placebo 390 of 2,000
+       its top 25% of all plays n  222 102-120  45.9% (needs 40.0)  +12.7% z +1.84 | placebo 541 of 2,000
+    HELD OUT: days with 2+ unit plays 291 | the model's #1 n  291 138-153  47.4% (needs 43.7)   +9.4% z +1.28 | the day's other plays n  309 156-153  50.5% (needs 47.0)   +7.8% z +1.24 | a random one a day did as well 722 of 2,000
+       its top  5% of all plays n   36  16-20   44.4% (needs 35.9)  +28.9% z +1.08 | placebo 350 of 2,000
+       its top 10% of all plays n   72  36-36   50.0% (needs 40.0)  +25.3% z +1.75 | placebo 302 of 2,000
+       its top 25% of all plays n  182 102-80   56.0% (needs 43.5)  +30.9% z +3.48 | placebo 10 of 2,000
+ (B) THE COUNT OF THINGS AGREEING on a unit play
+    count == 0: train n   85  36-49   42.4% (needs 35.4)  +23.0% z +1.36 | held n   56  29-27   51.8% (needs 36.4)  +47.1% z +2.40
+    count == 1: train n  302 134-168  44.4% (needs 44.4)   -1.0% z -0.01 | held n  302 148-154  49.0% (needs 45.2)   +8.8% z +1.34
+    count == 2: train n  225 108-117  48.0% (needs 44.1)   +8.5% z +1.17 | held n  166  78-88   47.0% (needs 45.6)   +3.7% z +0.35
+    count == 3: train n  186  98-88   52.7% (needs 45.3)  +15.7% z +2.04 | held n  104  56-48   53.8% (needs 47.4)  +11.0% z +1.33
+    count == 4: train n   58  28-30   48.3% (needs 45.1)   +6.5% z +0.49 | held n   56  29-27   51.8% (needs 45.8)  +13.3% z +0.90
+    count == 5: train n   26  15-11   57.7% (needs 48.0)  +18.6% z +0.99 | held n   29  18-11   62.1% (needs 51.5)  +22.4% z +1.15
+    count == 6: train n    9   5-4    55.6% (needs 45.6)  +24.3% z +0.60 | held n   16   9-7    56.2% (needs 47.0)  +21.2% z +0.74
+    count >= 4: train n   93  48-45   51.6% (needs 45.9)  +11.6% z +1.10 | held n  101  56-45   55.4% (needs 47.6)  +17.2% z +1.59
+    count >= 5: train n   35  20-15   57.1% (needs 47.4)  +20.1% z +1.16 | held n   45  27-18   60.0% (needs 49.9)  +22.0% z +1.37
+ (C) THE HOCKEY DOG AT 8+ against the day's other unit plays (days it fires)
+    train: days 15 | the 8+ hockey Dog n   15   8-7    53.3% (needs 45.1)  +19.3% z +0.64 | the same days' other unit plays n   15  12-3    80.0% (needs 47.4)  +68.8% z +2.55
+    held: days 18 | the 8+ hockey Dog n   18  12-6    66.7% (needs 46.1)  +47.4% z +1.76 | the same days' other unit plays n   20  15-5    75.0% (needs 49.2)  +52.3% z +2.34
+  every kind (held out), for scale: dog  51-47   52.0% (needs 44.6)  +16.8% z +1.48 | lock   2-3    40.0% (needs 57.0)  -32.4% z -0.77 | nbafav  22-4    84.6% (needs 57.8)  +45.7% z +2.77 | dogplay  14-10   58.3% (needs 45.4)  +26.5% z +1.28 | nbafloor  21-24   46.7% (needs 41.9)  +11.4% z +0.65 | floor 246-268  47.9% (needs 44.5)   +9.3% z +1.53 | play  10-6    62.5% (needs 57.3)   +8.5% z +0.42
+
+================ LIVE - the NBA Dog of the Day and the gated NBA dogs (the 2020-26 replays say +47% on 51 / 14-8 / 11-8) ================
+  live nba Dogs of the Day: n    4   2-2    50.0% (needs 42.4)  +21.0% z +0.31
+  live nhl Dogs of the Day: n   21   9-12   42.9% (needs 43.7)   -5.3% z -0.08
+  live nfl Dogs of the Day: n    2   1-1    50.0% (needs 44.5)  +10.0% z +0.16

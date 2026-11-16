@@ -447,6 +447,10 @@ def unit_record(picks, today=None, early=None):
     bw, bl, bnet, bbet = sum(r[2] > 0 for r in br), sum(r[2] < 0 for r in br), sum(r[2] for r in br), sum(r[1] for r in br)
     best = (f'<div class="ovr-s">⭐ engine\'s best picks {bw}-{bl} · {"+" if bnet >= 0 else "-"}{abs(bnet):.1f} units · ROI {bnet / bbet:+.0%}</div>'
             if bw + bl else "")
+    mr = [r for r in rows if r[0].get("max_play")]           # 💎 the max plays (11/16): their own line
+    mw, ml_, mnet, mbet = sum(r[2] > 0 for r in mr), sum(r[2] < 0 for r in mr), sum(r[2] for r in mr), sum(r[1] for r in mr)
+    if mw + ml_:
+        best += f'<div class="ovr-s">💎 max plays {mw}-{ml_} · {"+" if mnet >= 0 else "-"}{abs(mnet):.1f} units · ROI {mnet / mbet:+.0%}</div>'
     return (f'<div class="ovr ovu"><div class="ovr-t">💰 UNIT PLAYS RECORD</div><div class="ovr-r">{rec}</div>'
             f'<div class="ovr-p {"up" if net >= 0 else "dn"}">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS · ROI {net / bet:+.0%}</div>'
             f'<div class="ovr-s ovw">The good bets we put money on</div>'
@@ -475,6 +479,7 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + line("⭐ Engine's best picks", [r for r in rows if r[0].get("best")])   # (11/4: its own line, counted once at its raised units)
+           + line("💎 Max plays", [r for r in rows if r[0].get("max_play")])       # (11/16: the 3u hockey Dog spot, its own line)
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
                      (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"))))   # Dog of the Day is a value play)
     #   (10/18, the owner: three rows only - "it's value or lock or early play": no leans row, the 🔍 plays are value plays)
@@ -645,6 +650,11 @@ def engine_weights():
                                f"(11/16; a Lock needs {round(sports.LOCK_P * 100)}%+); the Dog "
                                f"{sports.DOG_SHORT_UNITS:g}u at +100..+{sports.DOG_SHORT_MAX}, {sports.DOG_LONG_UNITS:g}u "
                                f"longer; every value play {sports.PLAY_UNITS:g}u, moneyline only",
+                      "max play": f"💎 {sports.MAX_PLAY_UNITS:g}u - the hockey Dog of the Day when the dog is rested, the "
+                                  f"favorite played last night and the dog score is {sports.MAX_PLAY_SCORE:g}+ (several "
+                                  "things agreeing, never one factor); a label on the Dog, never an extra pick; about 17 a "
+                                  f"hockey season; off at {sports.MAX_PLAY_QUIT[0]} graded under "
+                                  f"{round(sports.MAX_PLAY_QUIT[1] * 100)}% won (11/16)",
                       "leans": "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "
                                f"{sports.LEAN_NCAAF_FAV_BAND[0]}..{sports.LEAN_NCAAF_FAV_BAND[1]}"},   # (10/11 sweep: the
         #   old line still promised ½u on a 55%+ lean - units_for has paid leans 0 since THIN_FROM, 10/2)
@@ -1186,6 +1196,16 @@ BEST_NOTE = [     # ⭐ the owner, 11/4: "every day we have ... the best play th
     "⭐ ENGINE'S BEST PICK — if you're betting one game today, this is it. Never under a full unit.",
     "⭐ ENGINE'S BEST PICK — the play the engine likes best on today's slate, a full unit or more.",
 ]
+MAX_NOTE = [      # 💎 THE MAX PLAY (11/16 FABLE - sports.MAX_PLAY_*; the owner, 11/16: "one pick with like 3-4 units on it ...
+    #               like the sharp professional bettors do. They pick their spots"): the hockey Dog of the Day when the dog
+    #               is rested, the favorite played last night and the dog score is 8+. Every line says the spot (never
+    #               vague), no win %, nothing about the line moving.
+    "💎 MAX PLAY — 3 units, the biggest bet we make. The favorite played last night, our dog didn't, and the rest of the read backs the dog too. We wait for this spot.",
+    "💎 MAX PLAY — 3 units. Tired favorite on the second night of a back-to-back, rested dog, and everything else the engine tracks points the same way. That's just facts.",
+    "💎 MAX PLAY — the engine's strongest spot: a rested dog at plus money against a favorite that played last night, with the other angles stacked behind it. 3 units, scared money don't make no money.",
+    "💎 MAX PLAY — 3 units on the dog. They played last night, we didn't, and nothing in the read is fighting it. This is the one we pick our spot for.",
+    "💎 MAX PLAY — our best pick today and our biggest size, 3 units. A back-to-back for the favorite, fresh legs for the dog, and the whole read agrees. Tap in.",
+]
 BEST_FORCED = [   # ...and on a day nothing clears a unit-play bar, the engine's surest side goes up at 1u (his call: every day)
     "⭐ ENGINE'S BEST PICK — nothing cleared a unit-play bar today, so this is the engine's surest side. One unit, because we post one every day.",
     "⭐ ENGINE'S BEST PICK — no play made the bar today; this is the side the engine is surest on. One unit, every day.",
@@ -1258,7 +1278,10 @@ def _pick_card(kind, pk):
     if kind == "lock" and len(pk["legs"]) == 1 and pk["legs"][0].get("near_price") and not pk.get("lean"):
         label = "LOCK"                                       # (the owner, 10/2: not the Lock of the Day - just a Lock,
         backup = '<div class="slate-note backup-note">' + _rot(spin, BACKUP_LOCK) + '</div>\n'   # its own box above)
-    if pk.get("best") and not pk.get("lean"):                # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
+    if pk.get("max_play") and not pk.get("lean"):            # 💎 THE MAX PLAY (11/16 - the owner: "one pick with like 3-4
+        label = f"{label} · 💎 MAX PLAY"                     # units on it ... they pick their spots"): a label on the Dog -
+        backup += '<div class="slate-note best-note max-note">' + _rot(spin, MAX_NOTE) + '</div>\n'   # it says the ⭐ too
+    elif pk.get("best") and not pk.get("lean"):              # ⭐ THE ENGINE'S BEST PICK (the owner, 11/4): a label on the
         label = f"{label} · ⭐ ENGINE'S BEST PICK"            # day's best unit play, 1u at least - its own kind stays
         backup += '<div class="slate-note best-note">' + _rot(spin, BEST_FORCED if pk.get("forced") else BEST_NOTE) + '</div>\n'
     return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">

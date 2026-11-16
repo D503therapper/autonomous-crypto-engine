@@ -545,7 +545,32 @@ def tags(c, sports):
     t += daily_1113_tags(c, sports)                          # 11/13 DAILY: the bad NBA home favorite's moneyline (LEAD)
     t += sizing_1115_tags(c, sports)                         # 11/15 FABLE: sizing + best picks - the funnel's two LEADS
     t += forensics_1116_tags(c, sports)                      # 11/16 FABLE: why we lose - the football Lock, thin / not thin
+    t += max_1116_tags(c, sports)                            # 11/16 FABLE: the max play hunt - the 💎 spot + its control
     return t + sharp
+
+
+MAX_1116_FROM = "2026-11-17"   # 11/16 FABLE - THE MAX PLAY HUNT (PROS) (results/studies/max_pro_1116/): from the 11/17 games
+MAX_1116_TAG = "hockey dog, rested vs a b2b favorite, dog score 8+ (the 💎 max play's spot)"   # every hockey dog +100..+350
+#   on the spot the 💎 MAX PLAY sizes 3u (sports.max_play_leg), posted or not: 34-24 +39.1% on the 2020-23 paid-odds rig
+#   at the morning price (3 of 3 seasons - the cut was never chosen there), 50-34 +38.4% with the 2023-26 board rows. The
+#   max play's own quit rule (sports.MAX_PLAY_QUIT, 25 graded under 44%) reads the posted picks; this line is the spot.
+MAX_1116_UNDER_TAG = "hockey dog, rested vs a b2b favorite, dog score under 8 (the max play's control)"   # the same b2b
+#   spot WITHOUT the other angles: 18-31 -6.6% as the Dog on the 2020-23 rig (the boards' b2b dogs under the cap -16% /
+#   -12%). If this line wins as much as the 8+ one, the "8+" is not what's doing the work. Judge both at 40.
+
+
+def max_1116_tags(c, sports):
+    """11/16 FABLE - THE MAX PLAY HUNT: the hockey dog on the b2b spot at a dog score of 8+ (the 💎 spot) and under it
+    (its control). Tracked only - the board reads sports.max_play_leg, never this."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "nhl" or sports.pt_day(c) < MAX_1116_FROM:
+            return []
+        if not 100 <= (c.get("odds") or 0) <= sports.DAILY_DOG_MAX or not c.get("rested_vs_b2b") or c.get("trap") \
+                or sports.fighting(c):
+            return []
+        return [MAX_1116_TAG if sports.dog_score(c) >= sports.MAX_PLAY_SCORE else MAX_1116_UNDER_TAG]
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 FORENSICS_1116_FROM = "2026-11-17"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
