@@ -1,5 +1,5 @@
 {
- "at": "2026-11-16T19:00Z",
+ "at": "2026-11-16T19:01Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -9,7 +9,7 @@
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (63s)",
+  "live watcher fresh (137s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,11 +22,22 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 2h ago",
-  "engine ran 11 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-16T19:01Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Oz vs Gormaz: no points for 2615s",
+    "live tennis scores: tennis Monnet vs Kasintseva: no points for 2615s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-16T19:00Z",
    "fixes": [
@@ -521,11 +532,6 @@
   },
   {
    "at": "2026-11-14T23:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-14T23:03Z",
    "fixes": [],
    "problems": []
   }
