@@ -6498,7 +6498,7 @@ def _six_early_spots():
     agree = own_by(0.02)
     se._COACH["exp"] = {}                                                   # (no coach history in the test)
     got = {(c["team"], c["spot"]): c for c in se.spot_scan(G, now, own_of=agree, hist_dir=tempfile.mkdtemp())}
-    assert ("Bills", "bye") in got and se.units(got[("Bills", "bye")]) == 1.0
+    assert ("Bills", "bye") in got and se.units(got[("Bills", "bye")]) == se.SPOTS["bye"][1] == 0.5   # (11/16: ½u, was 1u)
     assert not any(c["team"] == "Rams" for c in got.values())      # (10/17: the blowout spot is off in the NFL - the
     #                                                                Rams' Monday spot + 2 pts no longer clears the bar)
     rams = [c for c in se.spot_scan(G, now, own_of=own_by(0.04), hist_dir=tempfile.mkdtemp()) if c["team"] == "Rams"][0]
@@ -13914,16 +13914,15 @@ def test_sweep_1025_early_plays_keep_the_units_they_posted_at():
     grade() stamp the units on, and units() reads the stamp first."""
     import sports_early as se
     p = {"game_id": "g", "league": "nfl", "side": "away", "team": "T", "opp": "O", "odds": 150,
-         "start": "2026-10-25T17:00Z", "spot": "bye", "result": None}
+         "start": "2026-10-25T17:00Z", "spot": "bye", "result": None, "posted": "2026-10-20T16:00Z"}
     assert se.units(p) == 1.0
-    keep = dict(se.SPOTS)
-    try:
-        se.SPOTS["bye"] = ("x", 0.5, ("nfl", "ncaaf"))
+    keep = se.BYE_OLD_UNITS                                   # (11/16: the bye spot's size is dated - BYE_HALF_FROM; a
+    try:                                                      #  row posted before it reads the old size)
+        se.BYE_OLD_UNITS = 0.5
         assert se.units({**p, "units": 1.0}) == 1.0           # the stamp wins over today's size
-        assert se.units(p) == 0.5                             # (an unstamped row still follows SPOTS - the old rows)
+        assert se.units(p) == 0.5                             # (an unstamped row still follows the rule - the old rows)
     finally:
-        se.SPOTS.clear()
-        se.SPOTS.update(keep)
+        se.BYE_OLD_UNITS = keep
     games = {"g": {"status": "final", "home_score": "20", "away_score": "27", "home_name": "O", "away_name": "T"}}
     st = {"picks": [dict(p)]}
     se.grade(st, games, now=datetime(2026, 10, 25, 22, tzinfo=timezone.utc))
@@ -25206,6 +25205,474 @@ def test_maxcol_1116_the_college_hoops_max_play_is_the_lock_test_on_the_weighed_
         assert os.path.exists(os.path.join(here, "results", "studies", "maxcol_1116", f)), f
     out = open(os.path.join(here, "results", "studies", "maxcol_1116", "h7_as_wired.out")).read()
     assert "91-37" in out and "39-15" in out and "35-15" in out
+
+
+def test_owner_1116_the_college_hoops_dog_slot_takes_its_read_4_dogs_a_trap_or_a_fought_side_posts_through_the_pre_post_checks():
+    """THE OWNER, 11/16 ("Yes, add all that" + "if any plays need to be added for today, then add them" - the 11/15 ten
+    studies' S5b / S5c open call): from the 11/16 Pacific games the college hoops DOG slot no longer leaves out a
+    read-4+ dog as a 'trap' or as a side the engine is 'fighting' (103-116 +21.1% on 219, both halves, 7 of 8 seasons,
+    placebo 2 of 2,000). Everything else about the slot stays; the FAVORITE slot keeps both rules; the tracker tag
+    keeps logging. END TO END: such a dog goes through post_board's real pre-post checks (pick_checks / rule_check)
+    and POSTS."""
+    import sports_leads
+    d = sd.decimal
+    assert sports.NCAAB_DOG_SLOT_OPEN_FROM == "2026-11-16"
+    ok = {**_cand("g4", 140, 0.41, league="ncaab"), "dog_ctx": {}, "dog_read": 4.5, "dog_read_parts": {"games_ok": True},
+          "games_in": 6, "opp_games_in": 6, "p_market": 0.40, "reasons": ["x"], "start": "2026-11-17T03:00Z"}   # 7 PM PT 11/16
+    trap, fight = {**ok, "trap": True}, {**ok, "edge_own": -0.20}
+    assert sports.fighting(fight) and sports.pt_day(ok) == "2026-11-16" and sports.ncaab_dog_slot_open(ok)
+    want = sports.ncaab_play_dog(ok)
+    assert want is not None and sports.ncaab_play_dog(trap) == want and sports.ncaab_play_dog(fight) == want
+    assert sports.ncaab_play_dog({**trap, "edge_own": -0.20}) == want                    # both at once
+    # ... dated: a 11/15 game (and a side with no start) keeps the old rule; None in the constant = the two rules back on
+    old = "2026-11-16T03:00Z"                                                            # 7 PM PT on 11/15
+    assert sports.ncaab_play_dog({**ok, "start": old}) is not None
+    assert sports.ncaab_play_dog({**trap, "start": old}) is None and sports.ncaab_play_dog({**fight, "start": old}) is None
+    keep = sports.NCAAB_DOG_SLOT_OPEN_FROM
+    try:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        assert sports.ncaab_play_dog(trap) is None and sports.ncaab_play_dog(fight) is None and sports.ncaab_play_dog(ok) is not None
+    finally:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+    # ... everything else about the slot stays
+    assert sports.ncaab_play_dog({**trap, "dog_read": 3.9}) is None                      # the read 4+
+    assert sports.ncaab_play_dog({**trap, "games_in": 3}) is None and sports.ncaab_play_dog({**trap, "opp_games_in": 3}) is None
+    assert sports.ncaab_play_dog({**trap, "dog_read_parts": {"games_ok": False}}) is None
+    assert sports.ncaab_play_dog({**trap, "odds": 400, "dec": d(400)}) is None and sports.ncaab_play_dog({**trap, "odds": -105, "dec": d(-105)}) is None
+    for fade in sports.NCAAB_DOG_FADES:
+        assert sports.ncaab_play_dog({**trap, fade: True}) is None, fade                 # never a side carrying a dog fade
+    assert sports.ncaab_play_dog({**trap, "ncaab_skid": sports.NCAAB_SKID}) is None
+    assert sports.ncaab_play_dog({**trap, "waiting": True}) is None and sports.ncaab_play_dog({**trap, "market": "spread"}) is None
+    assert sports.ncaab_play_dog({**trap, "reasons": []}) is None                        # a named reason, still
+    assert sports.NCAAB_PLAY_SLOT_MAX == {"fav": 1, "dog": 2} and sports.NCAAB_DOG_READ_GATE == 4
+    assert (sports.NCAAB_PLAY_DOG_UNITS, sports.NCAAB_PLAY_DOG_UNITS_2U, sports.NCAAB_PLAY_DOG_BAND) == (1.0, 2.0, (100, 350))
+    got = sports.ncaab_play_plays([{**trap, "game_id": f"t{i}", "dog_read": 4.0 + i} for i in range(4)], ())
+    assert [c["game_id"] for c in got] == ["t3", "t2"]                                   # the best two reads a night
+    assert [c["game_id"] for c in sports.ncaab_play_plays([trap, {**fight, "side": "away"}], ())] == ["g4"]   # one pick a game
+    # ... the FAVORITE slot keeps both rules (the study was the dog slot's)
+    assert sports._ncaab_side_ok({**ok, "odds": -130, "dec": d(-130)}) and not sports._ncaab_side_ok({**ok, "odds": -130, "dec": d(-130), "trap": True})
+    assert not sports._ncaab_side_ok(trap) and sports._ncaab_side_ok(trap, dog=True)
+    assert not sports._ncaab_side_ok({**trap, "odds": -130, "dec": d(-130)}, dog=True)   # (a favorite is never the dog slot's)
+    # ... the 11/15 tracker tag keeps logging the dogs the two rules used to leave out
+    out_tag = sports_leads.DOG_READ_LEFT_OUT_TAG
+    assert out_tag in sports_leads.tags(trap, sports) and out_tag in sports_leads.tags(fight, sports)
+    assert out_tag not in sports_leads.tags(ok, sports)
+    # END TO END - post_board with its REAL pre-post checks: four read-4+ dogs, every one a trap AND fought by the own
+    # read; the real ncaab_play_dog picks, rule_check / pick_checks pass them, the best two post with their units
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(4):
+        gid = f"ncaab:up{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T00:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    real_dog = sports.ncaab_play_dog
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    reads = {"ncaab:up0": 4.0, "ncaab:up1": 7.0, "ncaab:up2": 5.0, "ncaab:up3": 6.5}
+    seen_left_out = []
+
+    def dressed(c):                                          # the dog as the slot's read sees it - a trap, the own read far
+        if not (c.get("game_id", "").startswith("ncaab:up") and c.get("market") == "ml" and c.get("odds", 0) > 0):   # under
+            return None
+        c.update(trap=True, edge_own=-0.25, edge=-0.25, dog_read=reads[c["game_id"]], dog_read_parts={"games_ok": True},
+                 games_in=6, opp_games_in=6, ncaab_skid=0, reasons=c.get("reasons") or ["the glass"])
+        for k in sports.NCAAB_DOG_FADES:
+            c[k] = False
+        assert c["trap"] and sports.fighting(c)
+        x = real_dog(c)                                      # THE REAL SLOT RULE
+        if x is not None:
+            seen_left_out.append(c["game_id"])
+        return x
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        sports.ncaab_play_dog = dressed
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = [p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        assert [(p["legs"][0]["game_id"], p["ncaab_play"]["dog_read"], sports.units_for(p)) for p in dogs] == \
+            [("ncaab:up1", 7.0, 2.0), ("ncaab:up3", 6.5, 2.0)], ([(p["kind"], p.get("ncaab_play")) for p in picks], sports.LAST_PICK_CHECK)
+        assert all(p["status"] == "open" and p["kind"] == "play" and p["legs"][0].get("trap") for p in dogs)
+        assert all(sports.fighting(p["legs"][0]) for p in dogs), "the posted dogs are the ones the two rules left out"
+        assert set(seen_left_out) >= {"ncaab:up1", "ncaab:up3"}
+        held = [r for r in sports.LAST_PICK_CHECK if r.get("held") and str(r.get("key", "")).split("|")[1].startswith("ncaab:up")]
+        assert not held, held                                # the pre-post check held none of them
+        # ... and with the two rules back on (None) the same board posts no dog slot play
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        picks2 = []
+        sports.post_board(games, model, picks2, now, day, force=True)
+        assert not [p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+    finally:
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
+def _dog_slot_two_rules_on(fn):
+    """(11/16) the 11/4 dog-slot tests check the slot's OLD 'never a trap / fighting' rules on dogs dated after 11/16 -
+    they run with the two rules on (NCAAB_DOG_SLOT_OPEN_FROM None); the 11/16 rule has its own test (test_owner_1116_*)."""
+    def run():
+        keep = sports.NCAAB_DOG_SLOT_OPEN_FROM
+        sports.NCAAB_DOG_SLOT_OPEN_FROM = None
+        try:
+            fn()
+        finally:
+            sports.NCAAB_DOG_SLOT_OPEN_FROM = keep
+    return run
+
+
+for _n in ("test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words",
+           "test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each_normal_value_plays_and_the_judge"):
+    globals()[_n] = _dog_slot_two_rules_on(globals()[_n])
+
+
+def test_owner_1116_in_football_a_thin_lock_grade_favorite_is_the_lock_at_half_a_unit_other_sports_keep_the_no_thin_lock_rule():  # noqa: C901
+    """THE OWNER, 11/16 ("Yes, add all that" + "if any plays need to be added for today, then add them" - option (a) of
+    the 11/16 forensics): the 10/29 no-thin-Lock rule kept the losing football Locks and turned away the winners (the
+    thin / backup Lock-grade football favorites 54-24 +20.1% on the 11/14 football replay board, 52 of the 78 off the
+    live board entirely - 35-17 +16.3%; the not-thin ones 18-19 -14.3%; results/studies/owner_1116/fb_thin_lock.py).
+    From the 11/16 Pacific games an NFL / college football moneyline FAVORITE that passes the Lock test on a thin edge
+    IS the Lock of the Day at ½u - never past -150, never plus money, one Lock a day; the NFL Lock stays ½u and never
+    the ⭐; a not-thin college football Lock keeps its 1u; every other sport keeps the 10/29 rule."""
+    d = sd.decimal
+    assert sports.FB_THIN_LOCK_FROM == "2026-11-16" and sports.FB_THIN_LOCK_UNITS == 0.5
+    assert sports.NO_THIN_LOCK_FROM == "2026-10-29" and sports.LOCK_NFL_HALF_FROM == "2026-11-16" and sports.LOCK_FAV_FROM == "2026-11-16"
+
+    def leg(lg, odds=-140, own=0.59, start="2026-11-17T01:15Z", **kw):       # (5:15 PM PT on 11/16)
+        dec = d(odds)
+        return {"league": lg, "market": "ml", "odds": odds, "dec": dec, "p": 0.60, "edge_own": own * dec - 1, "edge": 0.60 * dec - 1,
+                "p_market": 0.57, "game_id": f"{lg}:x", "side": "home", "team": "T", "opp": "O", "start": start, "reasons": ["x"],
+                "waiting": [], **kw}
+    b = lambda l: {"legs": [l]}                                              # noqa: E731
+    thin_nfl, thin_cfb = leg("nfl"), leg("ncaaf")
+    assert sports.thin_lock(b(thin_nfl)) and sports.fb_thin_lock(b(thin_nfl)) and sports.fb_thin_lock(b(thin_cfb))
+    assert sports.thin_lock(b(leg("nhl"))) and not sports.fb_thin_lock(b(leg("nhl")))        # every other sport: the 10/29 rule
+    assert not sports.fb_thin_lock(b(leg("nba"))) and not sports.fb_thin_lock(b(leg("ncaab"))) and not sports.fb_thin_lock(b(leg("mlb")))
+    assert not sports.fb_thin_lock(b(leg("nfl", own=0.66)))                                  # not thin: the Lock as always
+    assert not sports.fb_thin_lock(b(leg("nfl", odds=105, own=0.50)))                        # never plus money
+    assert not sports.fb_thin_lock(b(leg("nfl", odds=-160, own=0.625)))                      # never past -150
+    assert not sports.fb_thin_lock(b({**thin_nfl, "market": "spread"}))                      # the moneyline favorite
+    assert not sports.fb_thin_lock(b(leg("nfl", start="2026-11-16T01:15Z")))                 # a 11/15 game: the old rule
+    assert not sports.fb_thin_lock({"legs": [thin_nfl, thin_cfb]}) and not sports.fb_thin_lock(None)
+    keep = sports.FB_THIN_LOCK_FROM
+    try:
+        sports.FB_THIN_LOCK_FROM = None
+        assert not sports.fb_thin_lock(b(thin_nfl))                                          # None = the 10/29 rule in football
+    finally:
+        sports.FB_THIN_LOCK_FROM = keep
+    # the size: the stamped thin football Lock ½u; a not-thin college football Lock keeps 1u; the NFL Lock ½u thin or not
+    pk = lambda l: {"date": "2026-11-16", "kind": "lock", "lean": False, "status": "open", "dec": l["dec"], "american": l["odds"],  # noqa: E731
+                    "legs": [l], "tier": "lock"}
+    assert sports.units_for(pk({**thin_cfb, "fb_thin_lock": True})) == 0.5 and sports.units_for(pk({**thin_nfl, "fb_thin_lock": True})) == 0.5
+    assert sports.sizing_check([pk({**thin_cfb, "fb_thin_lock": True}), pk({**thin_nfl, "game_id": "nfl:y", "fb_thin_lock": True})]) == []
+    fat_cfb, fat_nfl = leg("ncaaf", own=0.66, p=0.66), leg("nfl", own=0.66, p=0.66)
+    assert not sports.thin_edge(fat_cfb) and sports.units_for(pk(fat_cfb)) == sports.LOCK_FOOTBALL_UNITS == 1.0
+    assert sports.units_for(pk(fat_nfl)) == sports.LOCK_NFL_UNITS == 0.5
+    src = open(sports.__file__).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert 'if kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best):' in pb and "if fb_thin_lock(best):" in pb
+    assert pb.index("if fb_thin_lock(best):") < pb.index('thin_dropped = best["legs"][0]')
+    bp = src[src.index("def best_pool("):src.index("def mark_best(")] if "def best_pool(" in src else src
+    assert "nfl_lock_half" in bp                                                             # the NFL Lock is never the ⭐ - kept
+    # END TO END - post_board, its real pre-post checks: the day's Lock candidate is a thin NFL favorite -> it POSTS as
+    # the Lock at ½u; the same candidate in hockey -> no Lock (10/29); the best is a thin hockey favorite and football
+    # has a thin Lock-grade favorite behind it -> football's is the Lock; FB_THIN_LOCK_FROM None -> no Lock
+    games, strength = fake_league("nfl", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 22, 16, 30, tzinfo=timezone.utc)                # a Sunday
+    day = now.astimezone(sports.PT).date()
+    order = sorted(strength, key=strength.get)                               # (the home favorite really is the stronger team)
+    for i in range(2):
+        gid = f"nfl:up{i}"
+        games[gid] = {**games["nfl:1"], "id": gid, "status": "pre", "home": order[-1 - i], "away": order[i],
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-22T21:00Z", "ml_home": "-140", "ml_away": "120", "ml_home_open": "-140",
+                      "ml_away_open": "120", "spread_home": "-2.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    keep_fn = (sports.make_board, sports.plays, sports.dog_plays, sports.gap_plays, sports.floor_plays, sports.viewer_leans,
+               sports.nba_fav_plays, sports.nba_floor_plays, sports.save_lock_miss)
+    real_board = sports.make_board
+    mode = {"first": "nfl"}
+    hockey = {**leg("nhl", start="2026-11-23T01:00Z"), "game_id": "nhl:zz", "team": "Avalanche", "opp": "Devils"}
+
+    def thin_fb(cands):                                      # the slate's NFL favorite, made a thin Lock-grade favorite
+        c = next((c for c in cands if c["game_id"] == "nfl:up0" and c["market"] == "ml" and c["side"] == "home"), None)
+        if c is None:
+            return None
+        c.update(p=0.60, edge_own=round(0.59 * c["dec"] - 1, 4), edge=round(0.60 * c["dec"] - 1, 4), waiting=[], reasons=c.get("reasons") or ["the stronger team"])
+        c.pop("w_p", None)
+        c.pop("hurt", None)
+        assert sports.thin_edge(c) and sports.beats_price(c)
+        return {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
+
+    def fake_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fixed=None):
+        cands = list(cands)
+        mode["n"] = mode.get("n", 0) + 1                     # (a run's calls: 1 the lean-day look, 2 the Lock, 3 the
+        if "nfl:up0" in avoid:                               #  football look after a thin Lock of another sport fell)
+            return {}
+        if mode["first"] == "nhl" and mode["n"] <= 2:
+            return {"lock": {"legs": [dict(hockey)], "dec": hockey["dec"], "p_hit": 0.6}}
+        if mode["first"] == "nhl" and not (mode["n"] == 3 and mode.get("fallback")):
+            return {}
+        if mode["first"] == "nhl":
+            assert all(c.get("league") in sports.LOCK_FOOTBALL for c in cands)   # (the football-only look)
+        lock = thin_fb(cands)
+        return {"lock": lock} if lock else {}
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        sports.make_board = fake_board
+        sports.plays = sports.dog_plays = sports.gap_plays = sports.viewer_leans = lambda cands, avoid: []
+        sports.nba_fav_plays = sports.nba_floor_plays = lambda cands, avoid: []
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.save_lock_miss = lambda *a, **k: None
+        lock_of = lambda ps: [p for p in ps if p.get("kind") == "lock" and p.get("status") == "open" and p["date"] == day.isoformat()]  # noqa: E731
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        locks = lock_of(picks)
+        assert len(locks) == 1, ([(p["kind"], p["status"]) for p in picks], sports.LAST_PICK_CHECK)
+        L = locks[0]
+        assert L["legs"][0]["game_id"] == "nfl:up0" and L["legs"][0]["odds"] == -140 and L["legs"][0].get("fb_thin_lock") is True
+        assert sports.units_for(L) == 0.5 and not L.get("lean") and L["tier"] == "lock" and L["legs"][0]["tier"] == "lock"
+        assert not L.get("best"), "the NFL Lock is never the ⭐"
+        assert sports.sizing_check(picks) == []
+        again = list(picks)                                  # one Lock a day: a second run adds no second Lock
+        sports.post_board(games, model, again, now + timedelta(minutes=30), day, force=True)
+        assert len(lock_of(again)) == 1
+        # the 10/29 rule in football again (None): the thin favorite is no Lock
+        sports.FB_THIN_LOCK_FROM = None
+        p2 = []
+        sports.post_board(games, model, p2, now, day, force=True)
+        assert lock_of(p2) == []
+        sports.FB_THIN_LOCK_FROM = keep
+        # the best by the Lock's order is a thin HOCKEY favorite: no Lock (10/29) ...
+        mode.update(first="nhl", fallback=False, n=0)
+        p3 = []
+        sports.post_board(games, model, p3, now, day, force=True)
+        assert lock_of(p3) == [] and mode["n"] >= 3
+        # ... unless football has a thin Lock-grade favorite of its own - then that one is the Lock, ½u
+        mode.update(fallback=True, n=0)
+        p4 = []
+        sports.post_board(games, model, p4, now, day, force=True)
+        assert [(p["legs"][0]["game_id"], sports.units_for(p)) for p in lock_of(p4)] == [("nfl:up0", 0.5)]
+    finally:
+        sports.FB_THIN_LOCK_FROM = keep
+        sd.fetch_injuries = keep_f
+        (sports.make_board, sports.plays, sports.dog_plays, sports.gap_plays, sports.floor_plays, sports.viewer_leans,
+         sports.nba_fav_plays, sports.nba_floor_plays, sports.save_lock_miss) = keep_fn
+    assert real_board is sports.make_board
+
+
+def test_owner_1116_the_nfl_bye_early_spot_is_half_a_unit_for_plays_posted_from_1117_a_posted_play_keeps_its_units():
+    """THE OWNER, 11/16 ("Yes, add all that" - the 11/15 ten studies' S1): the ⏰ bye spot was the one early spot at 1u;
+    21 seasons of closing moneylines say the NFL dog off its bye is an ordinary dog (-7.7% on 184) - ½u like every other
+    spot for plays POSTED from the 11/17 Pacific day (sports_early.BYE_HALF_FROM, midnight Pacific in UTC). A posted
+    play keeps the units it posted at; an older row with no stamp still reads 1u."""
+    import sports_early as se
+    assert se.SPOTS["bye"][1] == 0.5 and se.BYE_HALF_FROM == "2026-11-17T08:00" and se.BYE_OLD_UNITS == 1.0
+    bye = {"spot": "bye", "league": "nfl", "odds": 130, "own": 0.47}
+    assert se.units({**bye, "posted": "2026-11-17T08:00Z"}) == 0.5 and se.units({**bye, "posted": "2026-11-22T16:00Z"}) == 0.5
+    assert se.units({**bye, "posted": "2026-11-17T07:59Z"}) == 1.0 and se.units({**bye, "posted": "2026-11-08T13:15Z"}) == 1.0
+    assert se.units({**bye, "league": "ncaaf", "posted": "2026-11-18T01:00Z"}) == 0.5        # the spot, both football leagues
+    # a posted play keeps the units it posted at - whatever the spot's size is today
+    assert se.units({**bye, "posted": "2026-11-08T13:15Z", "units": 1.0}) == 1.0
+    assert se.units({**bye, "posted": "2026-11-20T13:15Z", "units": 1.0}) == 1.0 and se.units({**bye, "posted": "2026-11-01T00:00Z", "units": 0.5}) == 0.5
+    old = se.stamp_units({**bye, "posted": "2026-11-09T16:00Z"})             # an older row graded later: stamped 1u, forever
+    assert old["units"] == 1.0 and se.units(old) == 1.0
+    new = se.stamp_units({**bye, "posted": "2026-11-17T16:00Z"})
+    assert new["units"] == 0.5
+    # a row with no post stamp is a candidate (post() stamps the time before the size): today's size, or the size at `now`
+    assert se.units(bye) == se.bye_units(bye) == 0.5
+    assert se.bye_units(bye, now=datetime(2026, 11, 17, 7, 59, tzinfo=timezone.utc)) == 1.0
+    psrc = src_ = open(se.__file__).read()
+    assert psrc.index('c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)') < psrc.index("stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)")
+    assert se.bye_units(bye, now=datetime(2026, 11, 17, 8, 0, tzinfo=timezone.utc)) == 0.5
+    keep = se.BYE_HALF_FROM
+    try:
+        se.BYE_HALF_FROM = None                                              # None = 1u again
+        assert se.units({**bye, "posted": "2026-11-22T16:00Z"}) == 1.0
+    finally:
+        se.BYE_HALF_FROM = keep
+    # no other spot's size moved, and the bye still names the play when it shares a side with another spot
+    assert {k: v[1] for k, v in se.SPOTS.items() if k != "bye"} == {
+        "hammered": 0.5, "mnf": 0.5, "eastwest": 0.5, "blowout": 0.5, "engine": 0.5, "best": 0.5, "euro_under": 0.5,
+        "alt_over": 1.0, "nba_out_over": 0.5, "nba_open": 0.5}
+    assert se.units({"spot": "hammered", "posted": "2026-11-20T00:00Z"}) == 0.5 and se.units({"spot": "mnf", "posted": "2026-11-01T00:00Z"}) == 0.5
+    src = open(se.__file__).read()
+    assert "main = max(hit, key=lambda h: (SPOTS[h][1], -SPOT_ORDER.index(h)" in src and se.SPOT_ORDER[0] == "bye"
+    # the open Minnesota +114 2u (the exam scan, posted 11/15) is untouched by any of this
+    assert se.units({"spot": None, "posted": "2026-11-15T09:04Z", "units": 2.0, "odds": 114, "own": 0.55}) == 2.0
+
+
+def test_owner_1116_once_a_play_is_posted_it_stays_never_pulled_by_any_path():  # noqa: C901
+    """THE OWNER, 11/16: "don't pull Minnesota because we're not pulling plays anymore. Once a play is posted, it stays.
+    Otherwise, we look like some clowns." A pre-post check may still stop a play BEFORE it posts and a posted card's
+    words may update - the play itself (side, price, units) stays on the board and in the record, and is graded. Every
+    path that could take a posted play down: rule_check (flags a pick that was already up, never removes it), --repick
+    (clears only the cards waiting on news), the picks save (puts back a posted pick the list lost), the de-dupe (the
+    gap / dog-slot twin is two picks), the merge drivers (a posted pick / early play one job's copy lost stays; only a
+    pull made before he said it still counts), the early plays' save, the Dog upgrade (labels swap, nothing leaves)."""
+    import tempfile
+    import sports_early as se
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json as mj
+    d = sd.decimal
+    assert sports.NEVER_PULL_FROM == mj.NEVER_PULL_FROM == "2026-11-16" and se.NEVER_PULL_AT == mj.NEVER_PULL_AT == "2026-11-16T22:45"
+
+    def pick(gid, kind="play", odds=120, date="2026-11-17", posted="2026-11-17T16:00Z", status="open", side="home", lg="nhl", **kw):
+        dec = d(odds)
+        leg = {"game_id": gid, "side": side, "market": "ml", "odds": odds, "dec": dec, "league": lg, "team": gid.upper(),
+               "opp": "x", "start": "2026-11-18T03:00Z", "p": 0.5, "edge_own": 0.05, "edge": 0.05, "reasons": ["x"]}
+        return {"date": date, "kind": kind, "posted": posted, "round": 1, "legs": [leg], "dec": dec, "american": odds,
+                "status": status, "lean": kind == "lean", "pnl": 0.0, **kw}
+    # 1. RULE CHECK: a candidate that breaks a rule is stopped before it posts; a pick that was ALREADY UP is flagged, and stays
+    now = datetime(2026, 11, 17, 20, 0, tzinfo=timezone.utc)
+    cand = pick("a", odds=-170, posted="2026-11-17T20:00Z")                  # past -150, posting this run
+    new = [cand]
+    probs = sports.rule_check([cand], new, "2026-11-17", now=now)
+    assert new == [] and any(x.startswith("pulled play A") and "past -150" in x for x in probs), probs
+    up = pick("a", odds=-170, posted="2026-11-17T16:00Z")                    # the same pick, up since the morning
+    allp, new = [up], [up]
+    probs = sports.rule_check(allp, new, "2026-11-17", now=now)
+    assert new == [up] and allp == [up], "a posted pick is never taken down by the check"
+    assert any(x.startswith("flagged (posted - it stays) play A") and "past -150" in x for x in probs), probs
+    assert sports.LAST_PICK_CHECK == [] or True
+    old = pick("a", odds=-170, date="2026-11-10", posted="2026-11-10T16:00Z")   # (dated before the rule: the check as it was)
+    new = [old]
+    sports.rule_check([old], new, "2026-11-10", now=now)
+    assert new == []
+    # 2. THE SAVE'S NET: a posted pick the list lost goes back in; a waiting card, a pick dated before the rule, a second
+    #    copy of a bet we still hold do not
+    keepD = sports.DATA
+    tmp = tempfile.mkdtemp()
+    try:
+        sports.DATA = tmp
+        a, b, lean = pick("a", kind="dog", odds=140), pick("b"), pick("c", kind="lean", odds=-115)
+        wait = {"date": "2026-11-17", "kind": "lock", "status": "waiting", "legs": [], "waiting": ["x"]}
+        hist = pick("h", date="2026-11-10", posted="2026-11-10T16:00Z")
+        graded = pick("g", status="lost")
+        sports._save("picks.json", [a, b, lean, wait, hist, graded])
+        lost = [dict(b)]                                     # a run's list that lost the Dog, the lean, the graded play...
+        back = sports.keep_posted(list(lost), json.load(open(os.path.join(tmp, "picks.json"))))
+        assert sorted(p["legs"][0]["game_id"] for p in back) == ["a", "c", "g"]
+        sports._save("picks.json", lost)                     # ...and the save itself puts them back, as they were
+        on_file = json.load(open(os.path.join(tmp, "picks.json")))
+        ids = sorted(p["legs"][0]["game_id"] for p in on_file if p.get("legs"))
+        assert ids == ["a", "b", "c", "g"], ids              # the waiting card and the 11/10 pick are not this rule's
+        got_a = next(p for p in on_file if p["legs"][0]["game_id"] == "a")
+        assert (got_a["kind"], got_a["american"], got_a["legs"][0]["side"], got_a["status"]) == ("dog", 140, "home", "open")
+        # the Dog upgrade's re-label and a double post's second copy are the SAME bet - never put back twice
+        relabel = [{**a, "kind": "play", "was_dog": "2026-11-17T18:00Z"}, b, lean, graded]
+        assert sports.keep_posted(list(relabel), on_file) == []
+        assert sports.keep_posted([a, b, lean, graded], on_file + [dict(b)]) == []
+        # the 🔍 college hoops gap play and the dog slot on the SAME dog are two picks: each needs its own copy
+        gap = pick("t", lg="ncaab", odds=160, gap=0.17)
+        slot = pick("t", lg="ncaab", odds=160, ncaab_play={"slot": "dog", "read": 0.45, "dog_read": 5.0})
+        assert sports.ncaab_twin(gap, slot)
+        assert [p.get("ncaab_play") is not None for p in sports.keep_posted([gap], [gap, slot])] == [True]
+        assert [p.get("gap") for p in sports.keep_posted([slot], [gap, slot])] == [0.17]
+        assert sports.keep_posted([gap, slot], [gap, slot]) == []
+        assert len(sports.dedupe_picks([gap, slot])) == 2 and len(sports.dedupe_picks([gap, slot, dict(slot)])) == 2
+        assert len(mj.merge_picks([gap, slot], [gap, slot], [gap, slot])) == 2
+        assert len(mj.merge_picks([gap, slot], [gap], [gap])) == 2
+    finally:
+        sports.DATA = keepD
+    # 3. --repick clears only the cards still waiting on news
+    src = open(sports.__file__).read()
+    rp = src[src.index("    if repick:"):src.index("    picks[:] = [p for p in picks if not (p[\"status\"] == \"waiting\" and p[\"date\"] < day.isoformat())]")]
+    assert 'p["status"] != "waiting"' in rp and '("open", "waiting")' not in rp
+    rc = src[src.index("def rule_check("):src.index("def sizing_check(")] if "def sizing_check(" in src else src
+    assert "flagged (posted - it stays)" in rc
+    # 4. THE DOG UPGRADE: the labels swap - both picks stay, each at the units it posted at
+    dog = pick("d1", kind="dog", odds=120, date="2026-11-17")
+    dog["legs"][0].update(dog_p=0.47)
+    better = pick("d2", odds=150, date="2026-11-17")
+    better["legs"][0].update(dog_p=0.47)
+    both = [dog, better]
+    u0 = [sports.units_for(p) for p in both]
+    sports.upgrade_dog(both, "2026-11-17", datetime(2026, 11, 17, 19, 0, tzinfo=timezone.utc))
+    assert len(both) == 2 and {p["legs"][0]["game_id"] for p in both} == {"d1", "d2"}
+    if dog.get("was_dog"):                                   # (the swap happened: sizes kept - KEEP_UNITS_FROM)
+        assert [sports.units_for(p) for p in both] == u0 and [p["american"] for p in both] == [120, 150]
+    # 5. THE MERGE DRIVER, picks.json: one job's copy lost a posted pick, the other never touched it -> it STAYS
+    a, b = pick("a", kind="dog", odds=140), pick("b")
+    out = mj.merge_picks([b], [a, b], [a, b])
+    assert sorted(p["legs"][0]["game_id"] for p in out) == ["a", "b"]
+    out = mj.merge_picks([a, b], [b], [a, b])
+    assert sorted(p["legs"][0]["game_id"] for p in out) == ["a", "b"]
+    out = mj.merge_picks([b], [b], [a, b])                   # (even when both copies lost it)
+    assert sorted(p["legs"][0]["game_id"] for p in out) == ["a", "b"]
+    # ... a Dog upgrade on one side is a re-label, never a second copy; a waiting card and a pre-rule pick go as before
+    up_a, up_b = {**a, "kind": "play", "was_dog": "x"}, {**b, "kind": "dog", "upgraded": "x"}
+    out = mj.merge_picks([up_a, up_b], [a, b], [a, b])
+    assert sorted((p["legs"][0]["game_id"], p["kind"]) for p in out) == [("a", "play"), ("b", "dog")], out
+    wait = {"date": "2026-11-17", "kind": "lock", "status": "waiting", "legs": [], "waiting": ["x"]}
+    assert [p["legs"][0]["game_id"] for p in mj.merge_picks([b], [b, wait], [b, wait]) if p.get("legs")] == ["b"]
+    assert not [p for p in mj.merge_picks([b], [b, wait], [b, wait]) if p.get("status") == "waiting"]
+    h = pick("h", date="2026-11-10", posted="2026-11-10T16:00Z")
+    assert [p["legs"][0]["game_id"] for p in mj.merge_picks([b], [h, b], [h, b])] == ["b"]   # (a pull made before the rule)
+    # 6. THE MERGE DRIVER, early.json: a posted early play one copy lost stays - with or without a "pulled" entry
+    #    stamped after he said it; a pull made BEFORE it stays pulled
+    minn = {"game_id": "ncaaf:401858530", "league": "ncaaf", "side": "home", "team": "Minnesota", "odds": 114, "units": 2.0,
+            "posted": "2026-11-15T09:04Z", "start": "2026-11-21T17:00Z", "result": None}
+    tul = {"game_id": "ncaaf:9", "league": "ncaaf", "side": "away", "team": "Tulane", "odds": 195, "units": 0.5,
+           "posted": "2026-11-16T00:31Z", "start": "2026-11-21T17:00Z", "result": None, "spot": "hammered"}
+    base = {"picks": [minn, tul], "pulled": []}
+    for ours, theirs in (({"picks": [tul], "pulled": []}, base), (base, {"picks": [tul], "pulled": []}),
+                         ({"picks": [tul], "pulled": [{**minn, "pulled_at": "2026-11-17T05:00Z"}]}, base),
+                         ({"picks": [tul], "pulled": [{**minn, "pulled_at": "2026-11-17T05:00Z"}]}, {"picks": [tul, {**minn, "key_out": None}], "pulled": []})):
+        m = mj.merge_early(ours, theirs, base)
+        got = [p for p in m["picks"] if p["team"] == "Minnesota"]
+        assert len(got) == 1 and (got[0]["odds"], got[0]["units"], got[0]["side"]) == (114, 2.0, "home"), m
+    oldp = {**minn, "team": "SMU", "game_id": "ncaaf:1", "posted": "2026-11-08T04:55Z"}
+    m = mj.merge_early({"picks": [tul], "pulled": [{**oldp, "pulled_at": "2026-11-12T06:00Z"}]}, {"picks": [tul, {**oldp, "key_out": None}]},
+                       {"picks": [tul, oldp]})
+    assert [p["team"] for p in m["picks"]] == ["Tulane"] and len(m["pulled"]) == 1        # the 11/12 pulls stay pulled
+    # 7. THE EARLY PLAYS' SAVE: a posted play the state lost goes back in; an old pull does not come back
+    path = os.path.join(tempfile.mkdtemp(), "early.json")
+    se.save({"picks": [dict(minn), dict(tul)], "pulled": [{**oldp, "pulled_at": "2026-11-12T06:00Z"}]}, path)
+    se.save({"picks": [dict(tul)], "pulled": [{**oldp, "pulled_at": "2026-11-12T06:00Z"}]}, path)
+    st = se.load(path)
+    assert sorted(p["team"] for p in st["picks"]) == ["Minnesota", "Tulane"]
+    mn = next(p for p in st["picks"] if p["team"] == "Minnesota")
+    assert (mn["odds"], mn["units"], mn["side"], mn["posted"]) == (114, 2.0, "home", "2026-11-15T09:04Z")
+    se.save({"picks": [dict(tul)], "pulled": [{**minn, "pulled_at": "2026-11-17T05:00Z"}]}, path)   # a pull stamped after the rule
+    assert sorted(p["team"] for p in se.load(path)["picks"]) == ["Minnesota", "Tulane"]
+    se.save({"picks": [dict(minn), dict(tul), dict(oldp)], "pulled": []}, path)
+    se.save({"picks": [dict(minn), dict(tul)], "pulled": [{**oldp, "pulled_at": "2026-11-12T06:00Z"}]}, path)   # (pulled before the rule)
+    assert sorted(p["team"] for p in se.load(path)["picks"]) == ["Minnesota", "Tulane"]
+    # ... a graded row keeps its grade through the save, and grading still works on a kept play
+    graded = {**tul, "result": "won"}
+    se.save({"picks": [dict(minn), graded], "pulled": []}, path)
+    assert {p["team"]: p["result"] for p in se.load(path)["picks"]} == {"Minnesota": None, "Tulane": "won"}
+    # 8. NO CODE PULLS: the early engine never writes the pulled list or takes a row out of its picks; the watch only
+    #    stamps a key player on the row; the card paths only touch words
+    esrc = open(se.__file__).read()
+    assert '"pulled"].append' not in esrc and "['pulled'].append" not in esrc and 'st["picks"].remove' not in esrc
+    assert 'st["picks"] = [' not in esrc and "pulled_at\"] =" not in esrc
+    w = esrc[esrc.index("def watch("):esrc.index("def grade(")]
+    assert "The play itself never changes" in w and ".remove(" not in w and "del " not in w
+    for fn in ("def fresh_card_facts(", "def card_check("):
+        body = src[src.index(fn):src.index("\ndef ", src.index(fn) + 10)]
+        assert ".remove(" not in body and "picks[:]" not in body, fn
+    # 9. MINNESOTA +114 2u STAYS AS POSTED (the owner's own example) - in the real file, forever
+    real = json.load(open(os.path.join(sd.DATA, "early.json")))
+    mn = [p for p in real["picks"] if p.get("game_id") == "ncaaf:401858530" and p.get("posted") == "2026-11-15T09:04Z"]
+    assert len(mn) == 1 and (mn[0]["team"], mn[0]["odds"], mn[0]["units"], mn[0]["side"]) == ("Minnesota", 114, 2.0, "home"), mn
+    assert not any(x.get("game_id") == "ncaaf:401858530" for x in real.get("pulled") or [])
+    cl = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CLAUDE.md")).read()
+    assert "Once a play is posted, it stays" in cl and "gets pulled without asking" not in cl and "Minnesota +114" in cl
 
 
 if __name__ == "__main__":

@@ -575,6 +575,8 @@ def max_1116_tags(c, sports):
 
 
 FORENSICS_1116_FROM = "2026-11-16"   # 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py): the football
+# (11/16, THE OWNER'S CALL: in football the thin Lock-grade favorite IS the Lock at ½u from the 11/16 games -
+#  sports.FB_THIN_LOCK_FROM; the "thin edge" tag below is now that Lock's own forward record, judge at 40.)
 FORENSICS_1116_NFL_TAG = "NFL Lock-grade favorite, not thin (the ½u Lock's judge)"   # Lock by its edge, tracked from the
 FORENSICS_1116_THIN_TAG = "football Lock-grade favorite, thin edge (the Lock rule turns it away)"   # 11/17 Pacific games.
 #   (1) the NFL favorite the board can make the Lock (56%+, the own read agrees, a real play, NOT a thin edge): 6-10
@@ -1266,6 +1268,8 @@ DOG_READ_3_4_TAG = "college hoops dog read 3-4 (the slot's next band)"   # S5 - 
 
 
 DOG_READ_LEFT_OUT_TAG = "college hoops dog read 4+ the slot leaves out (a trap / the own read or the money against it)"
+#   11/16, THE OWNER'S CALL: "Yes, add all that" - from the 11/16 games the dog slot TAKES these dogs (sports.NCAAB_DOG_SLOT_OPEN_FROM);
+#   the tag keeps logging them as the forward record of that call (judge at 50 with the slot: under -5% = the two rules back on).
 #   S5c - THE OWNER'S OPEN CALL (11/15), tracked only: the dog slot takes a read of 4+ only when the side is not a 'trap'
 #   (sports_dogs' price-band verdict) and not one the engine is 'fighting' (the own read 3+ points under the price, or
 #   the money ran from it since the open) - two rules the 11/3 dog expert's cell (every read-4+ dog, +16.5% on 600) never

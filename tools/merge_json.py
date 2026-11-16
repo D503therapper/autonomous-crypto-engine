@@ -22,11 +22,67 @@ def _load(path):
         return None
 
 
+NEVER_PULL_FROM = "2026-11-16"          # 📌 ONCE A PLAY IS POSTED, IT STAYS (the owner, 11/16: "we're not pulling plays
+NEVER_PULL_AT = "2026-11-16T22:45"      # anymore. Once a play is posted, it stays. Otherwise, we look like some clowns."):
+#   a merge never drops a POSTED board pick dated from NEVER_PULL_FROM because one job's copy no longer has it, and an
+#   early play is never dropped for a pull stamped at / after NEVER_PULL_AT (the hour he said it, UTC) - the pulls made
+#   before it stay pulled (nothing comes back). The one thing a merge still removes is a second copy of a bet we still
+#   hold (the same day + game: two jobs posting at once, the Dog upgrade's stale copy).
+
+
 def _pkey(p):
     if p.get("status") == "waiting":
         return (p.get("date"), p.get("kind"), "waiting")
     games = tuple(sorted(str(l.get("game_id")) + "|" + str(l.get("side")) for l in p.get("legs") or []))
-    return (p.get("date"), p.get("kind"), p.get("round") or 1, games)   # (10/2: two runs posted the same board 8
+    if p.get("kind") == "play" and (p.get("ncaab_play") or {}).get("slot") == "dog":   # (11/16: the 🔍 college hoops gap play
+        return (p.get("date"), p.get("kind"), p.get("round") or 1, games, "slot")       #  and the dog slot on the SAME dog are
+    #                                                                                      two picks - one key kept only one)
+    return (p.get("date"), p.get("kind"), p.get("round") or 1, games)
+
+
+def _twin(a, b):
+    """The 🔍 college hoops gap play and the college hoops dog slot play on the SAME dog (sports.ncaab_twin): both count."""
+    la, lb = (a.get("legs") or [{}])[0], (b.get("legs") or [{}])[0]
+    if la.get("league") != "ncaab" or lb.get("league") != "ncaab" or la.get("game_id") != lb.get("game_id") \
+            or la.get("side") != lb.get("side"):
+        return False
+    tag = lambda p: "gap" if p.get("gap") is not None else "dog" if (p.get("ncaab_play") or {}).get("slot") == "dog" else None  # noqa: E731
+    return {tag(a), tag(b)} == {"gap", "dog"}
+
+
+def _is_posted(p):
+    return bool(isinstance(p, dict) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
+
+
+def _held(p, rows):
+    """Is this posted pick's bet still in `rows`? A straight pick: any pick that day on the same game (the same pick,
+    its re-labelled copy after a Dog upgrade, the copy a double post left) - a twin needs its own copy. A parlay: the
+    same day + kind + round."""
+    legs = p.get("legs") or []
+    if len(legs) == 1:
+        tw = (p.get("ncaab_play") or {}).get("slot") == "dog" or p.get("gap") is not None
+        for q in rows:
+            if q.get("status") == "waiting" or q.get("date") != p.get("date"):
+                continue
+            if any(l.get("game_id") == legs[0].get("game_id") for l in q.get("legs") or []):
+                if not tw or not _twin(p, q):
+                    return True
+        if p.get("kind") in ("lock", "dog"):                 # (one Lock / Dog a round - one_per_game's own second key)
+            return any(q.get("status") != "waiting" and q.get("date") == p.get("date") and q.get("kind") == p.get("kind")
+                       and (q.get("round") or 1) == (p.get("round") or 1) for q in rows)
+        return False
+    return any(q.get("status") != "waiting" and q.get("date") == p.get("date") and q.get("kind") == p.get("kind")
+               and (q.get("round") or 1) == (p.get("round") or 1) for q in rows)
+
+
+def keep_posted(rows, before):
+    """📌 The 11/16 rule's net: every POSTED pick in `before` (the copy both jobs started from) whose bet `rows` no
+    longer holds goes back in, as it was. -> (rows, the picks put back)."""
+    back = []
+    for p in before or []:
+        if _is_posted(p) and not _held(p, rows) and not _held(p, back):
+            back.append(p)
+    return (rows + back if back else rows), back   # (10/2: two runs posted the same board 8
     #   minutes apart - with the post time in the key both copies stayed: the dashboard showed every pick twice) (10/1: two leans
     #   posted the same minute shared one key - the merge kept the Steelers and dropped the Kraken; the game is in it)
 
@@ -71,6 +127,10 @@ def merge_picks(ours, theirs, base=None):
     rows = [p for p in rows if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")   # Dog copy goes
                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
     rows = one_per_game(rows)
+    rows, back = keep_posted(rows, base)                     # 📌 11/16: a posted pick is never dropped by a merge
+    for p in back:
+        print(f"merge: kept the posted {p.get('kind')} {(p.get('legs') or [{}])[0].get('team')} of {p.get('date')} - "
+              "once a play is posted, it stays", file=sys.stderr)
     return sorted(rows, key=lambda p: (p.get("date") or "", p.get("posted") or "", p.get("kind") or ""))
 
 
@@ -87,7 +147,9 @@ def one_per_game(rows):
     """10/17: two jobs posted the board a minute apart and both copies stayed (two Locks, Wisconsin twice). One
     straight pick per game a day and one Lock / Dog per round: the first one posted stays (same as sports.one_per_game)."""
     def keys(p):
-        ks = [(p.get("date"), "game", p["legs"][0].get("game_id"))]
+        ks = [(p.get("date"), "game", p["legs"][0].get("game_id")) +
+              (("slot",) if p.get("kind") == "play" and (p.get("ncaab_play") or {}).get("slot") == "dog" else ())]   # (11/16: the
+        #                                                  college hoops dog slot's twin of a 🔍 gap play is its own pick)
         if p.get("kind") in ("lock", "dog"):
             ks.append((p.get("date"), p.get("kind"), p.get("round") or 1))
         return ks
@@ -199,9 +261,19 @@ def merge_early(ours, theirs, base=None):
     ours, theirs, base = ours or {}, theirs or {}, base or {}
     o_, t_ = {_ekey(p): p for p in ours.get("picks") or []}, {_ekey(p): p for p in theirs.get("picks") or []}
     gone = set()
+    pulled = {str(x.get("game_id")): x for x in list(theirs.get("pulled") or []) + list(ours.get("pulled") or [])
+              if isinstance(x, dict)}
+    old_pulls = {(_ekey(x), x.get("posted")) for x in pulled.values()
+                 if x.get("posted") and str(x.get("pulled_at") or x.get("pulled") or "")[:16] < NEVER_PULL_AT}
+    #   📌 11/16, the owner: "Once a play is posted, it stays." Only a pull made BEFORE he said it still counts; a row a
+    #   job's copy lost since then (or a pull stamped later) never takes a posted early play off the board.
     for k, p in {_ekey(p): p for p in base.get("picks") or []}.items():
         if (k not in o_ and t_.get(k, p) == p) or (k not in t_ and o_.get(k, p) == p):
-            gone.add(k)
+            if not p.get("posted") or (k, p.get("posted")) in old_pulls:
+                gone.add(k)
+            else:
+                print(f"merge: kept the posted early play {p.get('team')} {p.get('odds')} - once a play is posted, it stays",
+                      file=sys.stderr)
     out = {}
     for k in list(o_) + [k for k in t_ if k not in o_]:
         if k in gone:
@@ -214,11 +286,11 @@ def merge_early(ours, theirs, base=None):
         merged = dict(other)
         merged.update(win)                                   # (the graded copy wins; anything only the other had stays)
         out[k] = merged
+    for k, p in {_ekey(p): p for p in base.get("picks") or []}.items():   # (a posted base row neither copy carries: back)
+        if k not in out and k not in gone and p.get("posted"):
+            out[k] = dict(p)
     rows = sorted(out.values(), key=lambda p: (p.get("posted") or "", str(p.get("game_id"))))
-    pulled = {str(x.get("game_id")): x for x in list(theirs.get("pulled") or []) + list(ours.get("pulled") or [])
-              if isinstance(x, dict)}
-    gone_ = {(_ekey(x), x.get("posted")) for x in pulled.values() if x.get("posted")}
-    rows = [p for p in rows if p.get("result") or (_ekey(p), p.get("posted")) not in gone_]
+    rows = [p for p in rows if p.get("result") or (_ekey(p), p.get("posted")) not in old_pulls]
     #   (11/12 sweep: a PULLED play stays pulled even when the other job touched its row in between - the watch
     #    stamping a key player, a new field - which made the two copies differ, so the base check above kept it and the
     #    play sat on the board AND in the pulled list. The very post that was pulled (same game, side and post time)

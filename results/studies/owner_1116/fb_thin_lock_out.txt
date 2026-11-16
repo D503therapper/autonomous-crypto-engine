@@ -1,0 +1,38 @@
+115 football Locks on the replay board; odds -150 .. 110 | plus money: 9 | at -119..-101: 0
+the rows by the size the replay gave them x what today's thin_lock() says of the row:
+   league ncaaf  units 0.5  thin_lock False  backup False : 10
+   league ncaaf  units 0.5  thin_lock True  backup False : 25
+   league ncaaf  units 1.0  thin_lock False  backup False : 21
+   league nfl  units 0.5  thin_lock False  backup False : 3
+   league nfl  units 0.5  thin_lock True  backup False : 40
+   league nfl  units 1.0  thin_lock False  backup False : 16
+== nfl
+  the forensics cell: the ½u (thin / backup) Lock-grade favorites    29-14 flat  +16.9% | train  +16.1% on 30 | held  +18.5% on 13 | up 7/9 | +7.3u on 43.0u
+     ...today's thin_lock() True (the rule turned them away)         27-13 flat  +15.8% | train  +16.9% on 28 | held  +13.1% on 12 | up 7/9 | +6.3u on 40.0u
+     ...today's thin_lock() not True                                 2-1 flat  +31.1% | train   +5.0% on 2 | held  +83.3% on 1 | up 2/2 | +0.9u on 3.0u
+  the not-thin Locks                                                 6-10 flat  -32.1% | train  -29.3% on 13 | held  -44.1% on 3 | up 1/5 | -5.1u on 16.0u
+     ...today's thin_lock() True                                     n 0
+  BEFORE - what posts (not-thin Locks + thin ones clearing the play bar) 17-15 flat   -4.9% | train   -6.2% on 25 | held   -0.3% on 7 | up 3/7 | -0.8u on 16.0u
+     the thin ones the board never posted (off the board)            18-9 flat  +13.6% | train  +14.3% on 18 | held  +12.2% on 9 | up 6/9 | +1.8u on 13.5u
+  AFTER  - every Lock-grade favorite is the Lock (thin ½u, NFL ½u, CFB 1u) 35-24 flat   +3.6% | train   +2.4% on 43 | held   +6.8% on 16 | up 6/9 | +1.1u on 29.5u
+     AFTER, plus money / -119..-101 left out (lock_no_dog, S6_LOCK_SKIP) 33-23 flat   +1.7% | train   -0.3% on 40 | held   +6.8% on 16 | up 6/9 | +0.5u on 28.0u
+== ncaaf
+  the forensics cell: the ½u (thin / backup) Lock-grade favorites    25-10 flat  +24.0% | train   +8.3% on 23 | held  +54.2% on 12 | up 7/9 | +8.4u on 35.0u
+     ...today's thin_lock() True (the rule turned them away)         20-5 flat  +35.9% | train  +19.0% on 13 | held  +54.2% on 12 | up 8/9 | +9.0u on 25.0u
+     ...today's thin_lock() not True                                 5-5 flat   -5.7% | train   -5.7% on 10 | held   +0.0% on 0 | up 2/4 | -0.6u on 10.0u
+  the not-thin Locks                                                 12-9 flat   -0.8% | train  -12.3% on 12 | held  +14.5% on 9 | up 2/4 | -0.2u on 21.0u
+     ...today's thin_lock() True                                     n 0
+  BEFORE - what posts (not-thin Locks + thin ones clearing the play bar) 23-16 flat   +4.2% | train   -3.8% on 28 | held  +24.5% on 11 | up 4/6 | +0.7u on 30.0u
+     the thin ones the board never posted (off the board)            14-3 flat  +38.9% | train  +21.4% on 7 | held  +51.2% on 10 | up 6/7 | +3.3u on 8.5u
+  AFTER  - every Lock-grade favorite is the Lock (thin ½u, NFL ½u, CFB 1u) 37-19 flat  +14.7% | train   +1.2% on 35 | held  +37.2% on 21 | up 8/9 | +4.0u on 38.5u
+     AFTER, plus money / -119..-101 left out (lock_no_dog, S6_LOCK_SKIP) 34-16 flat  +16.3% | train   +1.1% on 29 | held  +37.2% on 21 | up 8/9 | +3.5u on 35.0u
+== football
+  the forensics cell: the ½u (thin / backup) Lock-grade favorites    54-24 flat  +20.1% | train  +12.7% on 53 | held  +35.7% on 25 | up 7/9 | +15.7u on 78.0u
+     ...today's thin_lock() True (the rule turned them away)         47-18 flat  +23.5% | train  +17.6% on 41 | held  +33.7% on 24 | up 8/9 | +15.3u on 65.0u
+     ...today's thin_lock() not True                                 7-6 flat   +2.8% | train   -3.9% on 12 | held  +83.3% on 1 | up 3/5 | +0.4u on 13.0u
+  the not-thin Locks                                                 18-19 flat  -14.3% | train  -21.1% on 25 | held   -0.1% on 12 | up 2/6 | -5.3u on 37.0u
+     ...today's thin_lock() True                                     n 0
+  BEFORE - what posts (not-thin Locks + thin ones clearing the play bar) 40-31 flat   +0.1% | train   -4.9% on 53 | held  +14.9% on 18 | up 5/8 | -0.0u on 46.0u
+     the thin ones the board never posted (off the board)            32-12 flat  +23.4% | train  +16.3% on 25 | held  +32.7% on 19 | up 7/9 | +5.1u on 22.0u
+  AFTER  - every Lock-grade favorite is the Lock (thin ½u, NFL ½u, CFB 1u) 72-43 flat   +9.0% | train   +1.9% on 78 | held  +24.1% on 37 | up 7/9 | +5.1u on 68.0u
+     AFTER, plus money / -119..-101 left out (lock_no_dog, S6_LOCK_SKIP) 67-39 flat   +8.6% | train   +0.3% on 69 | held  +24.1% on 37 | up 6/9 | +3.9u on 63.0u

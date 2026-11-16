@@ -101,9 +101,65 @@ def _load(name, default):
     return data
 
 
+NEVER_PULL_FROM = "2026-11-16"   # 📌 ONCE A PLAY IS POSTED, IT STAYS - NEVER PULLED (the owner, 11/16: "don't pull Minnesota
+#   because we're not pulling plays anymore. Once a play is posted, it stays. Otherwise, we look like some clowns.").
+#   A pre-post check may still stop a play BEFORE it posts (rule_check / pick_checks / the card check - that is how the
+#   board stays honest) and a posted card's words may update (🔄 Update lines, card fixes) - the play itself, its side,
+#   price and units, stays on the board and in the record, and it is graded. For board picks dated from this day:
+#   --repick never clears a posted pick, rule_check only flags a pick that was already up, and the save itself puts
+#   back any posted pick the list lost (keep_posted). The one thing still removed is a second COPY of a bet we still
+#   hold (dedupe_picks - two jobs posting at once, the Dog upgrade's stale copy). Early plays: sports_early.NEVER_PULL_AT.
+
+
+def _posted_pick(p):
+    return bool(isinstance(p, dict) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
+
+
+def _bet_held(p, rows):
+    """Is this posted pick's bet still in `rows`? A straight pick: any pick that day on the same game (itself, its
+    re-labelled copy after a Dog upgrade, the copy a double post left; the college hoops gap / dog-slot twin needs its
+    own copy). A parlay: the same day + kind + round."""
+    legs = p.get("legs") or []
+    if len(legs) != 1:
+        return any(q.get("status") != "waiting" and q.get("date") == p.get("date") and q.get("kind") == p.get("kind")
+                   and (q.get("round") or 1) == (p.get("round") or 1) for q in rows)
+    tw = (p.get("ncaab_play") or {}).get("slot") == "dog" or p.get("gap") is not None
+    for q in rows:
+        if q.get("status") == "waiting" or q.get("date") != p.get("date"):
+            continue
+        if any(l.get("game_id") == legs[0].get("game_id") for l in q.get("legs") or []):
+            if not (tw and len(q.get("legs") or []) == 1 and ncaab_twin(p, q)):
+                return True
+    if p.get("kind") in ("lock", "dog"):                     # (one Lock / Dog a round - one_per_game's own second key: the
+        return any(q.get("status") != "waiting" and q.get("date") == p.get("date") and q.get("kind") == p.get("kind")   # copy
+                   and (q.get("round") or 1) == (p.get("round") or 1) for q in rows)   # a double post left is that bet's)
+    return False
+
+
+def keep_posted(picks, before):
+    """📌 The 11/16 rule's net: every POSTED pick in `before` (the file as it stands) whose bet `picks` no longer holds
+    goes back in, as it was (in place: `picks` is the list about to be saved). -> the picks put back."""
+    back = []
+    for p in before or []:
+        if _posted_pick(p) and not _bet_held(p, picks) and not _bet_held(p, back):
+            back.append(p)
+    for p in back:
+        picks.append(p)
+        print(f"📌 PICK KEPT: the posted {p.get('kind')} {(p.get('legs') or [{}])[0].get('team')} "
+              f"{(p.get('legs') or [{}])[0].get('odds')} of {p.get('date')} was missing from the save - once a play is "
+              "posted, it stays (the owner, 11/16)", flush=True)
+    return back
+
+
 def _save(name, obj):
     p = os.path.join(DATA, name)
     os.makedirs(os.path.dirname(p), exist_ok=True)
+    if name == "picks.json" and isinstance(obj, list) and os.path.exists(p):   # 📌 11/16: never saved off the board
+        try:
+            with open(p) as f:
+                keep_posted(obj, json.load(f))
+        except (OSError, ValueError, TypeError, AttributeError) as e:
+            print(f"keep_posted failed: {str(e)[:80]}")
     with open(p + ".tmp", "w") as f:
         json.dump(obj, f, indent=1, sort_keys=True)
     os.replace(p + ".tmp", p)
@@ -3398,6 +3454,8 @@ def _units_base(pk):
         return dog_units(pk)                                 # 💰 10/30 SIZING: the Dog sizes on its PRICE, thin or not
         #                                                      (the replay: the thin short Dog wins as much as the
         #                                                      real-edge one; the long Dog is the loser) - dog_units
+    if kind == "lock" and legs[0].get("fb_thin_lock"):
+        return FB_THIN_LOCK_UNITS                            # 🏈 (11/16, the owner: football's thin Lock-grade favorite = the Lock, ½u)
     if kind == "lock" and pk.get("ncaab_max") and (pk.get("date") or "") >= NCAAB_MAX_PLAY_FROM:
         return ncaab_max_play_units(legs[0])                       # 💎 (11/16: a Lock of the Day that is the college hoops max play)
     if kind in ("lock", "dog") and (pk.get("date") or "") >= THIN_HALF_FROM and thin_edge(legs[0]):
@@ -3653,6 +3711,33 @@ def thin_lock(b):
     """A Lock candidate whose single leg is a thin edge - never titled the Lock (NO_THIN_LOCK_FROM)."""
     legs = (b or {}).get("legs") or []
     return len(legs) == 1 and thin_edge(legs[0])
+
+
+FB_THIN_LOCK_FROM = "2026-11-16"   # 🏈 IN FOOTBALL EVERY LOCK-GRADE FAVORITE IS THE LOCK - A THIN EDGE AT ½u (the owner, 11/16:
+FB_THIN_LOCK_UNITS = 0.5           # "Yes, add all that" + "if any plays need to be added for today, then add them" - option
+#   (a) of the 11/16 forensics): the no-thin-Lock rule (10/29) is right where the own read is honest, but football's own
+#   read is still the old fit - there the rule kept the Lock cell that loses and turned away the one that wins. On the
+#   11/14 football replay board (today's code, 2018-26, the close; results/studies/owner_1116/fb_thin_lock.py re-check):
+#   the thin / backup Lock-grade football favorites 54-24 +20.1% (train +12.7% / held +35.7%, 7 of 9 seasons; NFL 29-14,
+#   college 25-10) against 18-19 -14.3% for the not-thin ones; 52 of those 78 never reached the live board at all (35-17
+#   +16.3%) - only the ones clearing the value-play bar rode, as ½u value plays. From the 11/16 Pacific games an NFL /
+#   college football moneyline FAVORITE that passes the Lock test on a thin edge IS the Lock of the Day at ½u - never past
+#   -150, never plus money (LOCK_FAV_FROM), never at -119..-101 (S6_LOCK_SKIP), one Lock a day (the best by the Lock's own
+#   order; when that one is a thin favorite of another sport - no Lock there, the 10/29 rule stands - football's best
+#   thin Lock-grade favorite takes the spot). The NFL Lock is ½u thin or not and never the ⭐ (LOCK_NFL_HALF_FROM); a
+#   not-thin college football Lock keeps its 1u. Every other sport: a thin edge is never the Lock. None = the 10/29 rule
+#   in football again (the owner's call).
+
+
+def fb_thin_lock(b):
+    """🏈 A thin-edge Lock candidate that is still the Lock (½u): an NFL / college football moneyline favorite in a game
+    on / after FB_THIN_LOCK_FROM (its Pacific day)."""
+    legs = (b or {}).get("legs") or []
+    if not FB_THIN_LOCK_FROM or len(legs) != 1:
+        return False
+    l = legs[0]
+    return bool(l.get("league") in LOCK_FOOTBALL and l.get("market", "ml") == "ml" and MAX_FAV <= (l.get("odds") or 0) < 0
+                and (pt_day(l) or "") >= FB_THIN_LOCK_FROM and thin_edge(l))
 
 
 def thin_edge(leg):
@@ -6803,18 +6888,39 @@ def ncaab_fav_fade(c):
     return None
 
 
-def _ncaab_side_ok(c):
+NCAAB_DOG_SLOT_OPEN_FROM = "2026-11-16"   # 🐶 THE DOG SLOT TAKES THE DOGS ITS READ LIKES (the owner, 11/16: "Yes, add all
+#   that" + "if any plays need to be added for today, then add them" - the 11/15 ten studies' S5b / S5c open call): from
+#   the 11/16 Pacific games the college hoops DOG slot no longer leaves out a read-4+ dog as a 'trap' (sports_dogs'
+#   price-band verdict) or as one the engine is 'fighting' (the own read 3+ under the price / the money ran from it) -
+#   two rules the dog expert's cell (every read-4+ dog, +16.5% on 600) never had. The left-out dogs on the 11/13 replay
+#   rows 2018-26: 103-116, +21.1% on 219 (train +22.8% / held +19.7%, 7 of 8 seasons, placebo 2 of 2,000) vs +8.9% on
+#   326 for the kept ones; the slot without the two rules +100.4u on 574u vs +44.3u on 347u. Everything else stays: the
+#   read 4+, both teams 4+ games, two a night, 1u / 2u at 6+, never a dog fade, one pick a game, +100..+350, the 11/14
+#   home-dog -1, a named reason. The FAVORITE slot keeps both rules. None = the two rules back on (the owner's call).
+
+
+def ncaab_dog_slot_open(c):
+    """True when this side is a college hoops dog from the day the dog slot dropped its trap / fighting rules
+    (NCAAB_DOG_SLOT_OPEN_FROM, by the Pacific game day)."""
+    return bool(NCAAB_DOG_SLOT_OPEN_FROM and c.get("league") == "ncaab" and (c.get("odds") or 0) >= 100
+                and (pt_day(c) or "") >= NCAAB_DOG_SLOT_OPEN_FROM)
+
+
+def _ncaab_side_ok(c, dog=False):
     """What both slots need: college hoops, the moneyline, not waiting on news, never a trap, never one the own read
-    is fighting, a named reason (a built college hoops edge firing counts as one)."""
-    if c.get("league") != "ncaab" or c.get("market") != "ml" or c.get("trap") or c.get("waiting"):
+    is fighting, a named reason (a built college hoops edge firing counts as one). `dog` = the DOG slot's check: from
+    NCAAB_DOG_SLOT_OPEN_FROM the trap / fighting rules don't apply to it (the dog read decides)."""
+    open_ = dog and ncaab_dog_slot_open(c)
+    if c.get("league") != "ncaab" or c.get("market") != "ml" or (c.get("trap") and not open_) or c.get("waiting"):
         return False
     if c.get("p_market") is None or not c.get("dec"):
         return False
-    try:
-        if fighting(c):
+    if not open_:
+        try:
+            if fighting(c):
+                return False
+        except (KeyError, TypeError):
             return False
-    except (KeyError, TypeError):
-        return False
     return bool(c.get("reasons")) or bool(ncaab_play_fired(c))
 
 
@@ -6836,7 +6942,7 @@ def ncaab_play_fav(c):
 
 def ncaab_play_dog(c):
     """(2) THE DOG SLOT's read -> (read, edge per dollar, dog score), or None when the side isn't it."""
-    if not _ncaab_side_ok(c) or not NCAAB_PLAY_DOG_BAND[0] <= c.get("odds", 0) <= NCAAB_PLAY_DOG_BAND[1]:
+    if not _ncaab_side_ok(c, dog=True) or not NCAAB_PLAY_DOG_BAND[0] <= c.get("odds", 0) <= NCAAB_PLAY_DOG_BAND[1]:
         return None
     if ncaab_dog_fade(c):
         return None
@@ -8409,7 +8515,15 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             #                                                  a floor play is a thin edge by design and the NBA favorite play
             #                                                  rides the study weights on a read that starts AT the price)
             why = "units on a price its read doesn't beat"
-        if why:
+        if why and now is not None and (pk.get("date") or "") >= NEVER_PULL_FROM and pk.get("posted") \
+                and str(pk["posted"])[:16] < now.strftime("%Y-%m-%dT%H:%M"):
+            #   📌 11/16, the owner: "Once a play is posted, it stays." A pick that was ALREADY UP before this run is
+            #   never taken down by the check - it is flagged in the log and the pick-check file, and it stays.
+            probs.append(f"flagged (posted - it stays) {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
+            if rep:
+                rep[-1].update(held=False, why="", flagged=why)
+            seen[l.get("game_id")] = pk
+        elif why:
             probs.append(f"pulled {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
             new.remove(pk)
             if pk in picks:
@@ -8767,10 +8881,23 @@ def post_board(games, model, picks, now, day, force=False):
             #                                                  short, the backup Lock can be a banged-up side - ½u,
             #                                                  its card names who's out (never a blind one)
         if kind == "lock" and best and iso >= NO_THIN_LOCK_FROM and thin_lock(best):
-            print(f"   no thin-edge Lock: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - "
-                  "a thin edge is never a Lock (the owner, 10/28)")
-            thin_dropped = best["legs"][0]                    # (10/29: the question box names THIS pick, not near_lock's)
-            best = None
+            if fb_thin_lock(best):                            # 🏈 11/16, the owner: in football a thin Lock-grade favorite
+                print(f"   🏈 thin-edge football Lock: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - "   # IS the Lock, ½u
+                      f"the Lock at {FB_THIN_LOCK_UNITS:g}u (the owner, 11/16)")
+            else:
+                print(f"   no thin-edge Lock: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - "
+                      "a thin edge is never a Lock (the owner, 10/28)")
+                thin_dropped = best["legs"][0]                # (10/29: the question box names THIS pick, not near_lock's)
+                best = None
+                if FB_THIN_LOCK_FROM and not replacing:       # 🏈 (the best by the Lock's order was another sport's thin
+                    fb = make_board([c for c in cands if c.get("league") in LOCK_FOOTBALL], lock_game,   # favorite: football's
+                                    avoid=avoid, fixed=fixed).get("lock")                               # best thin one is the Lock)
+                    if fb and fb_thin_lock(fb):
+                        print(f"   🏈 thin-edge football Lock: {fb['legs'][0].get('team')} {fb['legs'][0].get('odds')} - "
+                              f"the Lock at {FB_THIN_LOCK_UNITS:g}u (the owner, 11/16)")
+                        best = fb
+            if best:
+                best["legs"][0]["fb_thin_lock"] = True        # (the size rides on the leg: ½u, whatever the read does later)
         if replacing:                                         # a lean never repeats a game we're already on today
             if best and any(l["game_id"] in avoid for l in best["legs"]):
                 best = None
@@ -9674,7 +9801,9 @@ def dedupe_picks(picks):
     seen, out = set(), []
     for p in picks:
         k = (p.get("date"), p.get("kind"), p.get("round") or 1,
-             tuple((l.get("game_id"), l.get("side"), l.get("market"), l.get("line")) for l in p.get("legs") or []))
+             tuple((l.get("game_id"), l.get("side"), l.get("market"), l.get("line")) for l in p.get("legs") or [])) + _slot_twin(p)
+        #   (11/16: the 🔍 college hoops gap play and the dog slot on the SAME dog are two picks - the same key read the
+        #    second as a double post and dropped a posted pick on the next run)
         if p.get("legs") and k in seen:
             continue
         seen.add(k)
@@ -9695,7 +9824,7 @@ def one_per_game(picks):
         if p.get("status") == "waiting" or len(legs) != 1 or (p.get("date") or "") < RACE_FROM \
                 or p.get("upgraded") or p.get("was_dog") or legs[0].get("result"):
             continue
-        for k in ((p.get("date"), "game", legs[0].get("game_id")),
+        for k in ((p.get("date"), "game", legs[0].get("game_id")) + _slot_twin(p),
                   (p.get("date"), p.get("kind"), p.get("round") or 1) if p.get("kind") in ("lock", "dog") else None):
             if k is not None:
                 first.setdefault(k, id(p))
@@ -9705,12 +9834,18 @@ def one_per_game(picks):
         if p.get("status") == "waiting" or len(legs) != 1 or (p.get("date") or "") < RACE_FROM \
                 or p.get("upgraded") or p.get("was_dog") or legs[0].get("result"):
             continue
-        ks = [(p.get("date"), "game", legs[0].get("game_id"))]
+        ks = [(p.get("date"), "game", legs[0].get("game_id")) + _slot_twin(p)]
         if p.get("kind") in ("lock", "dog"):
             ks.append((p.get("date"), p.get("kind"), p.get("round") or 1))
         if any(first.get(k, id(p)) != id(p) for k in ks):
             drop.add(id(p))
     return [p for p in picks if id(p) not in drop]
+
+
+def _slot_twin(p):
+    """(11/16) The college hoops dog slot play's own key part: it may share its game with the 🔍 gap play on the same
+    dog (ncaab_twin - both count), so the one-pick-a-game dedupe never reads the pair as a double post."""
+    return ("slot",) if p.get("kind") == "play" and (p.get("ncaab_play") or {}).get("slot") == "dog" else ()
 
 
 def drop_stale_dogs(picks):
@@ -9859,8 +9994,12 @@ def run(repick=False, fetch=True):
             model["ls_seen"] = n_ls
         except Exception as e:                                          # noqa: BLE001 - never block the board
             print(f"comeback study failed: {e}")
-    if repick:
-        picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
+    if repick:                                               # 📌 11/16, the owner: "Once a play is posted, it stays" -
+        #                                                      --repick re-runs the board; it only clears the cards still
+        #                                                      WAITING on news, never a posted pick (it cleared every
+        #                                                      open pick of the day)
+        picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] != "waiting"
+                    or day.isoformat() < NEVER_PULL_FROM]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
     local = datetime.now(timezone.utc).astimezone(PT)        # ⏰ ON TIME (10/2, the owner's friend: "the board doesn't
     if (local.hour == POST_FROM_HOUR_PT - 1 and local.minute >= BOARD_EARLY_MIN and local.date() == day  # usually go up
