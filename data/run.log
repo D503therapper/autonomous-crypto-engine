@@ -22509,3 +22509,50 @@ $BITF: possibly delisted; no price data found  (period=407d)
 [2026-11-17 15:07 UTC] stocks/trend     equity $452.12 (-9.6%) 3 open  market DOWN
 [2026-11-17 15:07 UTC] stocks/hold_spy  equity $481.61 (-3.7%) 1 open  market DOWN
    social heat top: HYPE 37 (37/0/0), BTC 32 (32/0/0), PENGU 27 (27/0/0), INJ 24 (24/0/0), BREV 21 (21/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE GTA6@ethereum liq $291,795 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE GTA6@ethereum liq $294,967 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: UNREACHABLE GTA6@ethereum liq $307,753 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT INFI@ethereum liq $176,808 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 65%; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT BILL@solana liq $246,703,970 - top-10 holders 100%
+   dex screen: REJECT DRB@base liq $895,080 - lp locked 0% < 95%
+   dex screen: REJECT INFI@base liq $646,959 - pool age unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $300,810 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,311 pools (solana 1,649 / base 370 / ethereum 292), refresh cycle 106s (hot 103s), 2718 calls (104 feed, 429s 0, failed 0), 78,228 refreshed (9603 no pair), +66 added / -80 dropped (dead 77, stale 3, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-17 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/mover     equity $174.40 (-65.1%) 1 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/social_heat equity $321.88 (-35.6%) 2 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] crypto/hold_btc  equity $393.80 (-21.2%) 1 open  market DOWN
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+
+3 Failed downloads:
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-17 16:07 UTC] stocks/rsi2      equity $450.28 (-9.9%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 2, TLT 4, COIN 5, XLB 6 BUY
+[2026-11-17 16:07 UTC] stocks/breakout52 equity $457.04 (-8.6%) 5 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-17 16:07 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 53.05 vs its 200-day average 65.69: BELOW (cash)
+[2026-11-17 16:07 UTC] stocks/dual_momentum equity $448.05 (-10.4%) 2 open  market DOWN
+[2026-11-17 16:07 UTC] stocks/trend_ensemble equity $500.31 (+0.1%) 5 open  market DOWN
+[2026-11-17 16:07 UTC] stocks/rotation10 equity $495.44 (-0.9%) 2 open  market DOWN
+[2026-11-17 16:07 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-17 16:07 UTC] stocks/trend     equity $450.96 (-9.8%) 3 open  market DOWN
+[2026-11-17 16:07 UTC] stocks/hold_spy  equity $478.55 (-4.3%) 1 open  market DOWN
+   social heat top: SOL 40 (37/0/2), HYPE 35 (35/0/0), BREV 32 (32/0/0), BTC 29 (29/0/0), PENGU 27 (27/0/0)
