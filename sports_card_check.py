@@ -1537,12 +1537,33 @@ NEG_US = re.compile(r"\b(unlucky|snakebit|can'?t buy|leaky|bad bounces|puck luck
 
 
 def knocks_us(text, leg):
-    """Does this line say something bad about OUR side (the pick's team)? Only clauses that name our team count - a
-    knock on the other side is fine."""
+    """Does this line say something bad about OUR side (the pick's team)? A knock clause that names the OTHER team
+    (and not us) is fine; any other knock clause in a line about us is a knock on us - the subject carries over
+    ("10-8 for Capitals, last time out a 7-4 loss to the Devils")."""
     t = str(text or "")
     team = str((leg or {}).get("team") or "").strip()
+    opp = str((leg or {}).get("opp") or "").strip()
     if not t or not team:
         return False
+
+    def names(x):
+        out = {x.lower()} if x else set()
+        if " " in x:
+            out.add(x.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
+        return out
+    us_n, them_n = names(team), names(opp)
+    low_all = t.lower()
+    about_us = any(n in low_all for n in us_n)
+    if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
+        return about_us                                   # ("Both took an L last time" - that's us too)
+    for clause in re.split(r"[.;:!?,\u2014]| - ", t):
+        if not NEG_US.search(clause):
+            continue
+        low = clause.lower()
+        us_here, them_here = any(n in low for n in us_n), any(n in low for n in them_n)
+        if us_here or (about_us and not them_here):
+            return True
+    return False
     names = {team.lower()}
     if " " in team:
         names.add(team.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
