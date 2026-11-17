@@ -1,32 +1,42 @@
 {
- "at": "2026-11-17T18:52Z",
+ "at": "2026-11-17T19:41Z",
  "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Erjavec vs Carle: no points for 2836s",
+  "live tennis points check failed: The read operation timed out"
  ],
  "ok": [
-  "live watcher fresh (13s)",
+  "live watcher fresh (69s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 6 live cards, 17 lines - nothing false, outdated or senseless",
+  "card audit: 7 live cards, 26 lines - nothing false, outdated or senseless",
   "slate check: all 87 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
-  "engine ran 6 min ago",
+  "simulator ran 1h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-17T19:41Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Carle: no points for 2836s",
+    "live tennis points check failed: The read operation timed out"
+   ]
+  },
   {
    "at": "2026-11-17T18:52Z",
    "fixes": [
@@ -504,13 +514,6 @@
   },
   {
    "at": "2026-11-15T21:44Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T21:41Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
