@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T04:52Z",
+ "updated": "2026-11-17T05:10Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -338,23 +338,10 @@
    "away": "Canadiens",
    "home": "Rangers",
    "h1": null,
-   "why": "on_board",
+   "why": "final",
    "done": true,
-   "board": "lean",
-   "lean": {
-    "team": "Canadiens",
-    "opp": "Rangers",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.522,
-    "win_p": 0.522,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ],
-    "result": "lost"
-   }
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401926153",
@@ -546,24 +533,10 @@
    "away": "Chargers",
    "home": "Ravens",
    "h1": null,
-   "why": "on_board",
+   "why": "final",
    "done": true,
-   "board": "lean",
-   "lean": {
-    "team": "Ravens",
-    "opp": "Chargers",
-    "market": "spread",
-    "line": -4.5,
-    "odds": -112,
-    "p": 0.504,
-    "win_p": 0.504,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players: WR Ladd McConkey (their read -1)"
-    ],
-    "result": "lost"
-   }
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaab:401917981",
@@ -665,8 +638,8 @@
    "away": "Portland St",
    "home": "Saint Mary's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -695,8 +668,8 @@
    "away": "UC Col Springs",
    "home": "Denver",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -946,8 +919,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Akron",
-    "p": 0.794,
-    "tie": 0.03,
+    "p": 0.785,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -961,12 +934,13 @@
     "team": "Bucknell",
     "opp": "Akron",
     "market": "spread",
-    "line": 14.5,
-    "odds": -118,
-    "p": 0.507,
-    "win_p": 0.122,
+    "line": 13.5,
+    "odds": -108,
+    "p": 0.506,
+    "win_p": 0.131,
     "reasons": [
-     "Akron are laying 14.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+     "sharp money moving this way",
+     "Akron are laying 13.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
     ]
    }
   },
@@ -1761,7 +1735,7 @@
     "opp": "UMass",
     "market": "spread",
     "line": 11.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.504,
     "win_p": 0.153,
     "reasons": []
@@ -2162,7 +2136,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "North Dakota",
-    "p": 0.538,
+    "p": 0.547,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2178,9 +2152,9 @@
     "opp": "SIUE",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.58,
-    "win_p": 0.58,
+    "odds": -155,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
      "hotter recent form"
     ]
@@ -2351,9 +2325,9 @@
     "opp": "Sam Houston @ Wyoming",
     "market": "total",
     "line": 149.5,
-    "odds": -107,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -110,
+    "p": 0.582,
+    "win_p": 0.582,
     "reasons": [
      "the engine's scoring read"
     ]
