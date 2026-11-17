@@ -1383,7 +1383,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🚑 {them} are dealing with injuries: {_names(theirs_out)}.",
             f"🚑 {them} are short-handed ({_names(theirs_out)}).",
             f"🚑 {_pos(them)} trainer's room is packed: {_names(theirs_out)}."]))
-        elif not ours_out and not theirs_out and not team_unsure(inj, tid, us):
+        elif not ours_out and not theirs_out and not team_unsure(inj, tid, us) and sd.covered(inj, lg, tid, us):
+            # (11/17: a team the injury data doesn't cover is UNKNOWN, never 'healthy' - no "full squad" line for it)
             # (10/16 truth audit: "Wild questionable: D Zach Bogosian, LW Marcus Foligno" and "Wild have everybody
             #  available" sat on the same card - a side with anyone questionable is never 'full squad')
             out.append(v.say("healthy", [f"✅ {us} are healthy — nobody important sitting.",
@@ -1716,8 +1717,9 @@ HOT_MIN = 3                      # (10/29) a "heater" / "rolling" line needs 3+ 
 FLOOR_UNIT, FLOOR_LEAN = 6, 5    # (10/25, the owner) fact lines a unit pick / a lean posts with, when the facts exist
 
 
-def _pts3(gs, tid, n=3):
-    """(scored, allowed) a game over the team's last n games on file, rounded - or None."""
+def _pts3(gs, tid, n=3, dec=0):
+    """(scored, allowed) a game over the team's last n games on file, rounded - or None. dec=1: one decimal (hockey /
+    baseball - 11/17: whole goals said "Stars average 4 for / 4 against ... Blue Jackets 3 for / 3 against", nothing)."""
     last = (gs or [])[-n:]
     if len(last) < 2:
         return None
@@ -1726,6 +1728,8 @@ def _pts3(gs, tid, n=3):
         home = x["home"] == tid
         f += int(x["home_score"] if home else x["away_score"])
         a += int(x["away_score"] if home else x["home_score"])
+    if dec:
+        return round(f / len(last), dec), round(a / len(last), dec), len(last)
     return round(f / len(last)), round(a / len(last)), len(last)
 
 
@@ -1971,25 +1975,31 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
         add.append(v.tag(v.say("f_qb", [f"🎯 {mine[0]} for {us}: {mine[1]}.", f"🎯 Under center for {us}, {mine[0]} has {mine[1]}."]), "neutral"))
 
     # points lately, both sides - for us when we've been the better side on the scoreboard, the knock when they have
-    pu, pt = _pts3(s_ours, tid), _pts3(s_theirs, oid)
+    #   (11/17 THE BREAKDOWN SWEEP: hockey / baseball say one decimal - whole goals read "Stars average 4 for / 4 against;
+    #    Blue Jackets 3 for / 3 against" - and a margin of zero is never said as "+0 a game": the plain numbers instead)
+    _dec = 1 if nhl or lg == "mlb" else 0
+    pu, pt = _pts3(s_ours, tid, dec=_dec), _pts3(s_theirs, oid, dec=_dec)
+    if pu and pt:
+        pu, pt = (f"{pu[0]:g}", f"{pu[1]:g}", pu[2], round(pu[0] - pu[1], 1)), (f"{pt[0]:g}", f"{pt[1]:g}", pt[2], round(pt[0] - pt[1], 1))
     if pu and pt and f"{pu[0]} and " not in body:
-        net_u, net_t = pu[0] - pu[1], pt[0] - pt[1]
+        net_u, net_t = pu[3], pt[3]
+        _net = net_u != 0 and net_t != 0                # (both margins say something)
         if net_u > net_t and net_u <= 0:                # (11/1: the Kansas St card said "outscoring teams 23 to 29 a
             #   game" - 23 scored, 29 allowed is getting OUTSCORED. A side under water lately but less than the other
             #   one says the plain numbers - never "outscoring", never "scoreboard says us")
-            add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} score {pu[0]} and give up {pu[1]} a game; {them} score {pt[0]} and give up {pt[1]}.",
-                                       f"📊 Over the last {pu[2]}, {us} are {net_u:+d} a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)."]))
+            add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} score {pu[0]} and give up {pu[1]} a game; {them} score {pt[0]} and give up {pt[1]}."]
+                             + ([f"📊 Over the last {pu[2]}, {us} are {net_u:+g} a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+g} ({pt[0]} for, {pt[1]} against)."] if _net else [])))
         elif net_u > net_t:
             add.append(v.say("f_pts", [f"📊 Last {pu[2]}: {us} are outscoring teams {pu[0]} to {pu[1]} a game; {them} sit at {pt[0]} for, {pt[1]} against.",
                                        f"📊 {us} put up {pu[0]} a game and give up {pu[1]} over their last {pu[2]}. {them}: {pt[0]} and {pt[1]}. Scoreboard says us.",
                                        f"📊 Scoreboard lately - {us}: {pu[0]} scored, {pu[1]} allowed a game (last {pu[2]}). {them}: {pt[0]} and {pt[1]}. We been better.",
-                                       f"📊 Over the last {pu[2]}, {us} are a {net_u:+d} team a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+d} ({pt[0]} for, {pt[1]} against)." if net_u > 0 else
+                                       f"📊 Over the last {pu[2]}, {us} are a {net_u:+g} team a game ({pu[0]} for, {pu[1]} against); {them} are {net_t:+g} ({pt[0]} for, {pt[1]} against)." if net_u > 0 and _net else
                                        f"📊 Lately {us} score {pu[0]} and allow {pu[1]} a game; {them} score {pt[0]} and allow {pt[1]}."]))
         elif net_t > net_u:
             v.knock(3, f"{them} have outscored teams {pt[0]} to {pt[1]} a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against"
                     if net_t > 0 else f"{them} have been the better side on the scoreboard lately - {pt[0]} for, {pt[1]} against "
                     f"a game over their last {pt[2]}; {us} sit {pu[0]} for, {pu[1]} against")
-        elif (pu[0], pu[1]) != (pt[0], pt[1]):        # (the same numbers both sides say nothing - no line)
+        elif (pu[0], pu[1]) != (pt[0], pt[1]) and _net:  # (the same numbers both sides - or two even sides - say nothing)
             add.append(v.tag(v.say("f_pts", [f"📊 Last {pu[2]} games: {us} scored {pu[0]} and gave up {pu[1]} {unit} a game; {them} {pt[0]} and {pt[1]}.",
                                              f"📊 {us} average {pu[0]} for / {pu[1]} against over their last {pu[2]}; {them} {pt[0]} for / {pt[1]} against."]), "neutral"))
 
@@ -2096,7 +2106,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                                        f"🆚 These two already met - {us} took a {a}.",
                                        f"🆚 Head to head: {us} are {w}-{n - w} against {them} this year, the last one a {a}."]))
         elif _line(last_vs[-1], tid).startswith("L"):
-            v.knock(3, f"{them} got {us} last time these two met, a {a}")
+            _sc = _last_parts(last_vs[-1], tid, pro)[2]    # (11/17: it read "Islanders got Devils last time these two
+            v.knock(3, f"{them} beat {us} {_sc} the last time these two met")   # met, a 6-0 loss to the Islanders")
         else:
             add.append(v.tag(v.say("f_h2h", [f"🆚 Last meeting: a {a} for {us}.",
                                              f"🆚 These two already played to a {a}."]), "neutral"))

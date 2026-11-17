@@ -9052,6 +9052,10 @@ def post_board(games, model, picks, now, day, force=False):
             except Exception:                                                # noqa: BLE001
                 pass
             card_extras(leg, g, injuries)                       # 🚑 who's out · 🏀 the roster read · 🥅 who's in net
+            try:                                                # (11/17: the report's word on every man the card names)
+                leg["rep_status"] = card_report_status(leg, g, injuries)
+            except Exception:                                   # noqa: BLE001
+                pass
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
 
@@ -9587,6 +9591,9 @@ def line_watch(games, picks):
     return out
 
 
+LAST_REPORT = sd.__dict__.setdefault("LAST_REPORT", {})   # this run's injury report by league (the card audit's)
+
+
 def injury_watch(games, picks, push=True):
     """After a pick is up, keep checking its game's injury report every run. If a key player's status changes (a
     questionable QB ruled out, a star goalie scratched...), push an alert and put it on the card. The pick itself
@@ -9596,6 +9603,8 @@ def injury_watch(games, picks, push=True):
     if not legs:
         return []
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
+    LAST_REPORT.clear()                                      # (11/17: the card audit reads this run's report - no
+    LAST_REPORT.update(injuries)                             #  second pull - tools/card_audit.py via sports_dashboard.write)
     days = {games[l["game_id"]]["start"][:10] for l in legs if l["league"] == "mlb"}
     lineups = {}                                             # baseball's confirmed lineups (hours before first pitch)
     for d in days:
@@ -9683,6 +9692,33 @@ def on_report(leg, g, injuries):
     return sorted(n for n in report_names(leg) if _on_list(n, listed))
 
 
+def _rep_class(status):
+    """'out' (out / doubtful / injured reserve / suspended), 'q' (questionable / game-time / day-to-day) or ''."""
+    t = str(status or "").lower()
+    if any(x in t for x in sd.SHORT_TERM + sd.LONG_OUT):
+        return "out"
+    return "q" if any(x in t for x in sd.UNSURE) else ""
+
+
+def card_report_status(leg, g, injuries):
+    """🔄 11/17 THE BREAKDOWN SWEEP: {player: 'out' / 'q'} - the report's word, right now, on every man the card NAMES
+    (its who's-out lists AND any line - the 🚑 line's questionable men, a 🏀 'game-time call', a 🌟 star 'in the
+    lineup', a risk line). None when the league's report didn't come back. Stamped at posting (leg['rep_status']) and
+    re-read every run until the game starts (fresh_card_facts): a status that MOVED is news the card has to say."""
+    inj = (injuries or {}).get(leg.get("league"))
+    if inj is None:
+        return None
+    body = " ".join(str(x) for x in (leg.get("breakdown") or []) + [leg.get("why_line") or ""])
+    named = report_names(leg)
+    out = {}
+    for s_ in ("home", "away"):
+        for r in sd._team_rows(inj, g[s_], g[s_ + "_name"]):
+            c = _rep_class(r[2])
+            if c and r[0] and (r[0] in body or _on_list(r[0], named)):
+                out[r[0]] = c
+    return out
+
+
 def qb_refresh(games, injuries, now=None):
     """🏈 11/16 (EVERY FACT TRUE): once this run's injury report is in, the quarterback call (sports_qb.call - the depth
     chart + the box scores + who's ruled out) is re-read for every upcoming football game and the key-player edge with
@@ -9736,6 +9772,7 @@ def fresh_card_facts(games, legs, injuries):
         if not g or g.get("status") != "pre":
             continue
         stale, fresh = list(leg.get("stale") or []), list(leg.get("fresh") or [])
+        stale_lines = list(leg.get("stale_lines") or [])
         confirmed_ = list(leg.get("confirmed") or [])
         if inj is not None and leg["league"] in sd.INJ_LEAGUES:
             listed = [r[0] for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])]
@@ -9748,6 +9785,52 @@ def fresh_card_facts(games, legs, injuries):
                         stale.append(nm)                     # got from the box scores (Kane / Vilmanis sat the last
                         fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")   # games, never
                 leg["on_report"] = sorted(seen)              # on the report) is never called 'playing' - that'd be false
+                # 🔄 11/17 THE BREAKDOWN SWEEP (the owner: "false, outdated information of injuries and stuff ... always
+                # accurate and up to date"): the check above only read the card's who's-out LISTS. Every man the card
+                # names anywhere is re-read now - questionable -> OUT, out -> questionable, a man the card has playing
+                # (a 🌟 star 'in the lineup', a 🏀 line) who is on the report now, a man off it - and a "full squad"
+                # line comes off the minute the report lists anyone for that side.
+                try:
+                    now_st = card_report_status(leg, g, injuries) or {}
+                    was = leg.get("rep_status")
+                    side_of = {r[0]: s_ for s_ in ("home", "away") for r in sd._team_rows(inj, g[s_], g[s_ + "_name"])}
+                    the_ = "the " if leg["league"] in sd.PRO else ""
+                    if was is None:                          # (a card posted before 11/17: start from here, no update)
+                        was = dict(now_st)
+                    else:
+                        for nm, c in now_st.items():
+                            old = was.get(nm)
+                            if old == c:
+                                continue
+                            tn = g[side_of.get(nm, leg["side"]) + "_name"]
+                            if old is None and _on_list(nm, report_names(leg)):
+                                was[nm] = c                  # (the card already lists him - its lists said so at posting)
+                                continue
+                            msg = (f"🔄 Update: {nm} is OUT now for {the_}{tn}." if c == "out" else
+                                   f"🔄 Update: {nm} is questionable now for {the_}{tn}"
+                                   + (" - not ruled out anymore." if old == "out" else "."))
+                            if nm not in stale:
+                                stale.append(nm)
+                            fresh = [x for x in fresh if f"Update: {nm} is " not in x] + [msg]
+                            was[nm] = c
+                        for nm in [n for n in was if n not in now_st]:
+                            if not _on_list(nm, listed):     # (off the report: he's expected to play)
+                                if nm not in stale:
+                                    stale.append(nm)
+                                    fresh.append(f"🔄 Update: {nm} is off the injury report now - expected to play.")
+                                was.pop(nm, None)
+                    leg["rep_status"] = was
+                    import sports_card_check as _cc
+                    mine = [r for r in sd._team_rows(inj, g[leg["side"]], g[leg["side"] + "_name"])
+                            if any(x in str(r[2]).lower() for x in sd.SHORT_TERM + sd.UNSURE)]
+                    for x in leg.get("breakdown") or []:
+                        if mine and _cc.HEALTHY.search(str(x)) and x not in stale_lines:
+                            r = who_plays_first(g, leg["side"], mine)[0]
+                            stale_lines.append(x)
+                            fresh.append(f"🔄 Update: no more full squad for {the_}{g[leg['side'] + '_name']} - {r[0]} is "
+                                         f"{'out' if _rep_class(r[2]) == 'out' else 'questionable'} now.")
+                except Exception as e:                       # noqa: BLE001 - never blocks the board
+                    print(f"card report check failed: {str(e)[:60]}")
         if leg["league"] in ("nfl", "ncaaf"):               # 🏈 11/16: a quarterback the card gives numbers for who is
             rows = sp.CACHE.get(leg["league"]) or []         # no longer the engine's call (ruled out, questionable, the
             try:                                             # chart moved on) comes off the card with an update line
@@ -9758,9 +9841,12 @@ def fresh_card_facts(games, legs, injuries):
                         c = sports_qb.call(rows, leg["league"], g[side_], g["start"], team_name=g.get(side_ + "_name") or "")
                         if c["name"] and sports_qb.same(c["name"], nm):
                             continue
-                        if nm in stale:
+                        mine_ = [x for x in fresh if x.startswith((f"🔄 Update: {nm} is OUT now", f"🔄 Update: {nm} is questionable now"))]
+                        if nm in stale and not mine_:
                             continue
-                        stale.append(nm)
+                        fresh = [x for x in fresh if x not in mine_]   # (11/17: the report check's plain line gives way
+                        if nm not in stale:                            #  to this one - it names who's the quarterback now)
+                            stale.append(nm)
                         why_ = {"out": "is ruled out", "questionable": "is questionable"}.get(c["how"], "isn't confirmed as the starter")
                         fresh.append(f"🔄 Update: {nm} {why_} for the {g[side_ + '_name']}"
                                      + (f" - {c['name']} is the quarterback now." if c["name"] else "."))
@@ -9770,7 +9856,8 @@ def fresh_card_facts(games, legs, injuries):
             rows = sp.CACHE.get("nhl") or []
             if rows:
                 now_ = {s_: sp.starter_for(rows, g, s_) for s_ in ("home", "away")}
-                body = " ".join(str(x) for x in leg.get("breakdown") or [] if str(x).startswith(("🥅", "🧱")))
+                body = " ".join(str(x) for x in leg.get("breakdown") or [] if str(x).startswith(("🥅", "🧱"))
+                                or "save %" in str(x))       # (11/17: a goalie in a risk line is re-checked too)
                 goalies = {r["player"]: str(r["team"]) for r in rows[-4000:]
                            if str(r["team"]) in (str(g["home"]), str(g["away"])) and r.get("role", "G") == "G"}
                 for nm, team in goalies.items():
@@ -9816,8 +9903,10 @@ def fresh_card_facts(games, legs, injuries):
                                              f"{g[s_ + '_name']} isn't settled - the {nm} line comes off.")
         if confirmed_ != list(leg.get("confirmed") or []):
             leg["confirmed"] = confirmed_
+        if stale_lines != list(leg.get("stale_lines") or []):
+            leg["stale_lines"] = stale_lines
         if stale != list(leg.get("stale") or []) or fresh != list(leg.get("fresh") or []):
-            leg["stale"], leg["fresh"] = stale, fresh[-4:]
+            leg["stale"], leg["fresh"] = stale, fresh[-5:]
             try:
                 leg["inj_now"] = {s_: injury_line(g, s_, injuries) for s_ in ("home", "away")}
             except Exception:                                # noqa: BLE001
@@ -9855,6 +9944,13 @@ def add_breakdowns(games, model, picks):
             if id(leg) in leans:
                 leg["breakdown"] = sports_breakdown.lean_tone(leg["breakdown"], leg, leans[id(leg)])
             card_extras(leg, games[leg["game_id"]], injuries)   # (10/21: the rewrite kept 🚑 / 🏀 / 🥅 - it dropped them)
+        try:                                              # (11/17: the rewritten card's names, stamped with the report's
+            st_ = card_report_status(leg, games[leg["game_id"]], injuries)   # word as it reads now - never a made-up
+            if st_ is not None:                                               # "update" off the old card's stamp)
+                leg["rep_status"] = st_
+                leg.pop("stale_lines", None)
+        except Exception:                                # noqa: BLE001
+            pass
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)

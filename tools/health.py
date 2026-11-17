@@ -201,6 +201,24 @@ if needed:
     except Exception as e:                               # noqa: BLE001
         problems.append(f"live tennis points check failed: {str(e)[:60]}")
 
+# 3c2. 🧾 the card audit (11/17, the owner: "make sure that these breakdowns are always accurate and up to date"): every
+#       live card's facts re-derived each page build (tools/card_audit.py -> card_audit.json) - a line that is false,
+#       outdated or makes no sense on a card people can see is a problem here
+try:
+    ca = json.load(open(os.path.join(sd.DATA, "card_audit.json")))
+    bad = [p for p in ca.get("problems") or [] if p.get("class") != "lingo"]
+    if (now - _t(ca["at"])).total_seconds() <= 3 * 3600:
+        if bad:
+            problems.extend(f"card audit: {p['class'].upper()} on the {p['team']} card ({p['date']}): {p['why']}"[:220]
+                            for p in bad[:6])
+        else:
+            ok.append(f"card audit: {ca.get('cards', 0)} live cards, {ca.get('lines', 0)} lines - nothing false, "
+                      "outdated or senseless")
+except FileNotFoundError:
+    pass                                                 # (first run after the 11/17 build: the engine writes it)
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"card audit unreadable: {str(e)[:60]}")
+
 # 3d. 🔎 the slate check (the 7 AM run and the 8 AM post): no game missed, nothing broken before the board goes up
 try:
     sc = json.load(open(os.path.join(sd.DATA, "slate_check.json")))
