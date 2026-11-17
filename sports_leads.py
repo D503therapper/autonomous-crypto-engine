@@ -551,6 +551,7 @@ def tags(c, sports):
     t += forensics_1116_tags(c, sports)                      # 11/16 FABLE: why we lose - the football Lock, thin / not thin
     t += max_1116_tags(c, sports)                            # 11/16 FABLE: the max play hunt - the 💎 spot + its control
     t += dogs_1117_tags(c, sports)                           # 11/17 FABLE: the underdog edge - the long college Dog's cell + the NFL road-dog lead
+    t += daily_1117_tags(c, sports)                          # 11/17 daily studies: the NHL bad-record dog on a tough schedule (a lead)
     return t + sharp
 
 
@@ -583,6 +584,64 @@ def dogs_1117_tags(c, sports):
         if c.get("home") or c.get("side") == "home" or c.get("neutral") or sports.fighting(c):
             return []
         return [NFL_ROAD_DOG_LEAD_TAG] if sports.dog_score(dict(c)) >= 4 and sports.weighed_dog_beats(dict(c)) else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+DAILY_1117_FROM = "2026-11-18"   # 11/17 daily studies (results/studies/daily_1117/ s5 / s5b): logs from the 11/18 games
+NHL_TOUGH_BAD_DOG_TAG = "NHL dog, .400- record on a tough schedule (opponents .550+), games 5-30 (lead)"   # a LEAD,
+#   tracked only, never a weight: an NHL dog +100..+350 whose record is .400 or worse after 5-30 games while its
+#   opponents so far carry a .550+ record (their records before tonight) - the record undersells it. At the close
+#   2018-26: +13.0% on 256 (train 2018-21 +7.2%, 2 of 4 seasons up / held 2022-26 +18.2% on 134, 4 of 5 up), a point
+#   worse than the close +10.0%, a random 256 hockey dogs as good 4 of 2,000; the hockey read is the line + b2b / rest,
+#   no schedule. NOT built: the second check fails (the same cut in the NBA -3.2% on 297, college hoops -11.6% on 1,148)
+#   and train is 2 of 4. Judge at 60 graded: +10% or better against its prices = take it to the five checks again.
+NHL_TOUGH_GAMES = (5, 30)
+NHL_TOUGH_REC = 0.40
+NHL_TOUGH_OPPS = 0.55
+
+
+def nhl_tough_schedule_bad(c):
+    """The NHL side's record (games 5-30) is .400 or worse while its opponents so far are over .550 - from the games
+    file, finals of this regular season before tonight's start only. None when it can't be read."""
+    team, rows = _season_before(c)
+    if not team or not NHL_TOUGH_GAMES[0] <= len(rows) <= NHL_TOUGH_GAMES[1]:
+        return None
+    G = _GAMES.get(c.get("league")) or {}
+    now = (G.get(c.get("game_id")) or {}).get("start") or c.get("start") or ""
+    y, m = int(now[:4]), int(now[5:7])
+    since = f"{y if m >= 9 else y - 1}-09-01"                # (the same season window as _season_before)
+    rec = {}
+    for x in G.values():                                     # every team's record this season, before tonight
+        if x.get("status") != "final" or str(x.get("stype") or "2") != "2" or not (since <= (x.get("start") or "") < now):
+            continue
+        try:
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if hs == as_:
+            continue
+        for t_, won in ((x["home"], hs > as_), (x["away"], as_ > hs)):
+            r = rec.setdefault(t_, [0, 0])
+            r[0 if won else 1] += 1
+    me = rec.get(team)
+    if not me or sum(me) < NHL_TOUGH_GAMES[0]:
+        return None
+    opps = [x["away"] if x["home"] == team else x["home"] for x in rows]
+    ow = [rec[o][0] / sum(rec[o]) for o in opps if sum(rec.get(o, [0, 0]))]
+    if len(ow) < NHL_TOUGH_GAMES[0]:
+        return None
+    return me[0] / sum(me) <= NHL_TOUGH_REC and sum(ow) / len(ow) > NHL_TOUGH_OPPS
+
+
+def daily_1117_tags(c, sports):
+    """11/17 daily studies: the NHL dog with a bad record built on a tough schedule (a LEAD - tracked only)."""
+    try:
+        if c.get("market") != "ml" or c.get("league") != "nhl" or sports.pt_day(c) < DAILY_1117_FROM:
+            return []
+        if not 100 <= (c.get("odds") or 0) <= 350:
+            return []
+        return [NHL_TOUGH_BAD_DOG_TAG] if nhl_tough_schedule_bad(c) else []
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 

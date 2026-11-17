@@ -26963,6 +26963,54 @@ def test_owner_1117_the_phone_layout_check_catches_anything_cropped_or_off_the_s
             assert r.returncode == want, (name, r.returncode, r.stdout[-800:], r.stderr[-400:])
     assert ".pk-h{{display:flex;flex-wrap:wrap;" in src, "a card header wraps (BET IT NOW ran off a 320px phone)"
 
+
+def test_daily_1117_nhl_bad_record_on_a_tough_schedule_dog_is_a_tracker_lead_only():
+    """11/17 daily studies (results/studies/daily_1117/ s5 / s5b): an NHL dog +100..+350 at .400 or worse after 5-30
+    games whose opponents so far carry a .550+ record went +13.0% on 256 at the close 2018-26 (placebo 4 of 2,000) - but
+    train is 2 of 4 seasons up and the NBA / college hoops twins lose, so it is a LEAD: a tracker tag from the 11/18
+    games, never a weight. Records from this season's finals before tonight only."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, hs, as_):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_)}
+        G, k = {}, 0
+        # three strong opponents (A, B, C) beat up on filler teams X first, then T goes 1-5 against them
+        for opp in ("A", "B", "C"):
+            for j in range(4):
+                G[f"nhl:{k}"] = fg(f"nhl:{k}", f"2026-10-{5 + j:02d}T23:{k % 60:02d}Z", opp, f"X{j}", 4, 1)
+                k += 1
+        for j, (h, a, hs, as_) in enumerate([("T", "A", 1, 3), ("B", "T", 5, 2), ("T", "C", 2, 4), ("A", "T", 3, 0),
+                                             ("T", "B", 4, 3), ("C", "T", 6, 1)]):
+            G[f"nhl:t{j}"] = fg(f"nhl:t{j}", f"2026-10-{12 + j:02d}T23:00Z", h, a, hs, as_)
+        G["nhl:old"] = fg("nhl:old", "2026-04-01T23:00Z", "T", "Z", 9, 0)          # last season never counts
+        G["nhl:now"] = {"id": "nhl:now", "start": "2026-11-19T00:00Z", "status": "pre", "stype": "2", "home": "T", "away": "D"}
+        sl._GAMES["nhl"] = G
+        dog = {"market": "ml", "league": "nhl", "game_id": "nhl:now", "side": "home", "odds": 140, "team": "Ts",
+               "opp": "Ds", "start": "2026-11-19T00:00Z"}
+        assert sl.nhl_tough_schedule_bad(dog) is True                              # 1-5, opponents 4-0 + their games vs T
+        assert sl.NHL_TOUGH_BAD_DOG_TAG in sl.daily_1117_tags(dog, sports)
+        assert sl.NHL_TOUGH_BAD_DOG_TAG in sl.tags(dog, sports)
+        assert not sl.daily_1117_tags({**dog, "odds": -130}, sports)                # a favorite: no
+        assert not sl.daily_1117_tags({**dog, "odds": 400}, sports)                 # past +350: no
+        assert not sl.daily_1117_tags({**dog, "start": "2026-11-17T23:00Z"}, sports)  # before the 11/18 games: no
+        assert not sl.daily_1117_tags({**dog, "league": "nba"}, sports)             # hockey only
+        G["nhl:t0"] = fg("nhl:t0", "2026-10-12T23:00Z", "T", "A", 3, 1)
+        G["nhl:t1"] = fg("nhl:t1", "2026-10-13T23:00Z", "B", "T", 2, 5)            # now 3-3: not a bad record
+        assert sl.nhl_tough_schedule_bad(dog) is False
+        G["nhl:t0"] = fg("nhl:t0", "2026-10-12T23:00Z", "T", "A", 1, 3)
+        G["nhl:t1"] = fg("nhl:t1", "2026-10-13T23:00Z", "B", "T", 5, 2)            # 1-5 again ...
+        for i_ in range(12):                                                        # ... but the opponents lost every
+            G[f"nhl:{i_}"]["home_score"], G[f"nhl:{i_}"]["away_score"] = "1", "4"   # other game: a soft schedule, no tag
+        assert sl.nhl_tough_schedule_bad(dog) is False
+        assert not sl.daily_1117_tags(dog, sports)
+        assert not hasattr(sports, "NHL_TOUGH_BAD_W") and not hasattr(sports, "TOUGH_SCHEDULE_W")   # tracked, never weighed
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
