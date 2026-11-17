@@ -1,9 +1,12 @@
 {
- "at": "2026-11-17T14:19Z",
+ "at": "2026-11-17T14:56Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Semenistaja vs Burillo: no points for 2036s",
+  "live tennis scores: tennis Lepchenko vs Podoroska: no points for 2036s"
+ ],
  "ok": [
-  "live watcher fresh (114s)",
+  "live watcher fresh (268s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,12 +19,20 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 7h ago",
-  "simulator ran 6h ago",
+  "simulator ran 7h ago",
   "engine ran 15 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-17T14:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Semenistaja vs Burillo: no points for 2036s",
+    "live tennis scores: tennis Lepchenko vs Podoroska: no points for 2036s"
+   ]
+  },
   {
    "at": "2026-11-17T14:19Z",
    "fixes": [],
@@ -492,13 +503,6 @@
     "live tennis scores: tennis Contreras vs Geerlings: no points for 1100s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-11-15T17:30Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
   }
  ]
 }
