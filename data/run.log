@@ -22086,3 +22086,10 @@ error: failed to push some refs to 'https://githu
 [2026-11-17 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-17 06:05 UTC] crypto/hold_btc  equity $396.65 (-20.7%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), PENGU 32 (32/0/0), DOGE 21 (21/0/0), NEAR 19 (19/0/0), VVV 19 (19/0/0)
+   dex screen: REJECT WTAO@ethereum liq $2,024,699 - is_mintable
+   dex screen: REJECT $WIF@solana liq $103,235 - 24h volume $69,922 < $100,000
+   dex screen: REJECT MOODENG@solana liq $1,822,920 - top-10 holders 57%
+   dex screen: PASS JOB@solana liq $143,096
+   dex screen: UNREACHABLE ROCCO@ethereum liq $221,985 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   listing: okx_symbols #XPANW 'New OKX listing (XPANW)' -> ['XPANW']
+   listing: XPANW: okx_symbols notice "New OKX listing (XPANW)" -> not on Crypto.com USD
