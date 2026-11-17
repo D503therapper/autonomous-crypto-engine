@@ -1,16 +1,15 @@
 {
- "at": "2026-11-17T17:21Z",
+ "at": "2026-11-17T18:52Z",
  "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Linana vs Bronzetti: no points for 2612s",
-  "live tennis scores: tennis Bulgaru vs Hercog: no points for 2612s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "studies last ran 10h ago - restarted"
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (160s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +21,23 @@
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 9h ago",
-  "engine ran 2 min ago",
+  "studies ran 2h ago",
+  "engine ran 6 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-17T18:52Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml",
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-17T17:21Z",
    "fixes": [
@@ -501,13 +511,6 @@
   },
   {
    "at": "2026-11-15T21:41Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T21:40Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
