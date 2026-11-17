@@ -27043,7 +27043,8 @@ def test_owner_1117_the_one_liner_never_knocks_our_own_side():
     caps = {"team": "Capitals", "opp": "Lightning", "league": "nhl"}
     for bad in ("🍀 Capitals been unlucky, not bad: add their shooting % and save % over the last 10 and you get 96.0.",
                 "🍀 Puck luck's been shit for Capitals: 290 shots their last 10 games, 21 goals.",
-                "⚠️ Not perfect - Capitals have dropped 2 straight.", "Capitals go without Ovechkin tonight."):
+                "⚠️ Not perfect - Capitals have dropped 2 straight.", "Capitals go without Ovechkin tonight.",
+                "📅 Both took an L last time - Capitals a 7-4 loss to the Devils, Lightning a 2-0 loss to the Red Wings."):
         assert cc.knocks_us(bad, caps), bad
     for ok in ("🚑 Lightning gotta play without Kucherov.", "🔥 Capitals have won 4 of their last 5.",
                "Lightning have lost 4 straight, Capitals the side.", "🧳 Road game, no problem: Capitals are 6-2 away."):
