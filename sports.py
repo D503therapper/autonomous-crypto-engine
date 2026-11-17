@@ -98,6 +98,7 @@ def _load(name, default):
                     seen.add(leg.get("game_id"))
                     legs.append(leg)
             pk["legs"] = legs
+        strip_leans(data)                                    # 🚫 11/16: no leans, ever (LEANS_GONE)
     return data
 
 
@@ -111,8 +112,53 @@ NEVER_PULL_FROM = "2026-11-16"   # 📌 ONCE A PLAY IS POSTED, IT STAYS - NEVER 
 #   hold (dedupe_picks - two jobs posting at once, the Dog upgrade's stale copy). Early plays: sports_early.NEVER_PULL_AT.
 
 
+LEANS_GONE = True   # 🚫 NO LEANS - TAKEN OUT OF EXISTENCE (the owner, 11/16: "Let's remove the leans in the leans record ...
+#   basically taking the leans out of existence"). The engine posts no lean (no viewer leans, no lean fallback in a
+#   Lock / Dog / play slot, no lean on a Monday / Thursday football game - a night game gets a pick only when it's a
+#   unit play), the 🟡 Leans record is gone, and every lean already in picks.json comes off the board and out of the
+#   results (kept only in data/sports/leans_removed.json, out of sight). A pick with units is never a lean here.
+LEANS_ARCHIVE = "leans_removed.json"
+
+
+def is_lean_pick(p):
+    """A posted NO-UNITS lean: flagged a lean (or every leg lean-tier) and carrying no units. Parlays (no units by rule)
+    and waiting slots are never leans; a ½u 'confident lean' of 10/1-10/2 carries units, so it is a unit play."""
+    if not isinstance(p, dict) or p.get("status") == "waiting" or not p.get("legs") or p.get("kind") in PARLAY_KINDS:
+        return False
+    legs = p.get("legs") or []
+    flagged = bool(p.get("lean")) or p.get("kind") == "lean" or all(l.get("tier") == "lean" for l in legs)
+    if not flagged:
+        return False
+    try:
+        return not units_for(p)
+    except Exception:                                        # (an odd old row: no units known = treat as a lean)
+        return True
+
+
+def strip_leans(rows):
+    """🚫 11/16: take every no-units lean out of `rows` IN PLACE (callers hold the list) -> the leans taken out, which
+    go to data/sports/leans_removed.json (out of sight, never on the page or in a record)."""
+    if not LEANS_GONE or not isinstance(rows, list):
+        return []
+    gone = [p for p in rows if is_lean_pick(p)]
+    if gone:
+        rows[:] = [p for p in rows if not is_lean_pick(p)]
+        try:
+            p_ = os.path.join(DATA, LEANS_ARCHIVE)
+            old = json.load(open(p_)) if os.path.exists(p_) else []
+            key = lambda q: (q.get("date"), q.get("kind"), q.get("round"), tuple(l.get("game_id") for l in q.get("legs") or []))
+            have = {key(q) for q in old}
+            old += [q for q in gone if key(q) not in have]
+            with open(p_ + ".tmp", "w") as f:
+                json.dump(old, f, indent=1, sort_keys=True)
+            os.replace(p_ + ".tmp", p_)
+        except (OSError, ValueError, TypeError) as e:
+            print(f"lean archive failed: {str(e)[:80]}")
+    return gone
+
+
 def _posted_pick(p):
-    return bool(isinstance(p, dict) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
+    return bool(isinstance(p, dict) and not (LEANS_GONE and is_lean_pick(p)) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
 
 
 def _bet_held(p, rows):
@@ -154,6 +200,8 @@ def keep_posted(picks, before):
 def _save(name, obj):
     p = os.path.join(DATA, name)
     os.makedirs(os.path.dirname(p), exist_ok=True)
+    if name == "picks.json" and isinstance(obj, list):
+        strip_leans(obj)                                     # 🚫 11/16: no leans, ever (LEANS_GONE)
     if name == "picks.json" and isinstance(obj, list) and os.path.exists(p):   # 📌 11/16: never saved off the board
         try:
             with open(p) as f:
@@ -7458,6 +7506,8 @@ def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
     the pricey hockey favorite - on games we're not playing; the big games first, 2 a sport."""
+    if LEANS_GONE:                                           # 🚫 11/16: no leans (the owner)
+        return []
     def ok(c):
         if c["market"] not in ("ml", "spread") or c["odds"] < MAX_FAV or c.get("trap") or nhl_pricey(c) \
                 or hockey_fav_bad(c) or c["game_id"] in avoid:
@@ -8860,7 +8910,7 @@ def post_board(games, model, picks, now, day, force=False):
     lean_day = not any(p["date"] == iso and p["status"] != "waiting" for p in picks) and bool(cands) and \
         not any(make_board(all_cands).get(k) for k in ("lock", "dog", "solo")) and not plays(cands, ())
     if lean_day:
-        print(f"{iso}: nothing clears the value bar - leans only today")
+        print(f"{iso}: nothing clears the value bar - " + ("no leans either (LEANS_GONE)" if LEANS_GONE else "leans only today"))
     thin_dropped = None                                       # the Lock the no-thin-Lock rule took down today, if any
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
@@ -8940,6 +8990,8 @@ def post_board(games, model, picks, now, day, force=False):
             l_["ncaab_max"] = True
             ncaab_max_closer(pk)
             print(f"   💎 max play: the Lock of the Day {l_.get('team')} {l_.get('odds')} - {units_for(pk):g}u")
+        if LEANS_GONE and is_lean_pick(pk):                  # 🚫 11/16: a slot with no unit play stays empty - never a lean
+            continue
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
@@ -9102,6 +9154,8 @@ def post_board(games, model, picks, now, day, force=False):
                 if leg.get("odds", 0) >= 100 and leg.get("ncaab_read") is not None:   # (11/4: a normal value play - the
                     leg["dog_p"], leg["dog_score"] = leg["ncaab_read"], leg.get("ncaab_score")   # card's units line reads the
                     #                                                  whole read the play rides on, like a gated Dog's)
+            if LEANS_GONE and is_lean_pick(pk):              # 🚫 11/16: no leans
+                continue
             picks.append(pk)
             new.append(pk)
             room -= 1
@@ -9126,6 +9180,8 @@ def post_board(games, model, picks, now, day, force=False):
         if pk["lean"]:
             leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}night{gid}")
         pk["tier"] = pick_tier({**pk, "tier": None})
+        if LEANS_GONE and is_lean_pick(pk):                  # 🚫 11/16: no lean on a night game either
+            continue
         picks.append(pk)
         new.append(pk)
     mx = mark_max(new, picks, iso)                            # 💎 THE MAX PLAY (11/16): a hockey Dog posted this run on the
@@ -9263,6 +9319,8 @@ def night_pick(pool):
     if real:                                                 # price - went up labeled LOCK with 0 units)
         c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))
         return {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
+    if LEANS_GONE:                                           # 🚫 11/16: no leans - a night game with no unit play gets
+        return None                                          #  no pick (the owner: leans out of existence)
     pool = [c for c in pool if not fighting(c)] or pool
     if not pool:
         return None

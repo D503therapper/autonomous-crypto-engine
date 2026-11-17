@@ -663,8 +663,10 @@ def engine_weights():
                                   "things agreeing, never one factor); a label on the Dog, never an extra pick; about 17 a "
                                   f"hockey season; off at {sports.MAX_PLAY_QUIT[0]} graded under "
                                   f"{round(sports.MAX_PLAY_QUIT[1] * 100)}% won (11/16)",
-                      "leans": "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "
-                               f"{sports.LEAN_NCAAF_FAV_BAND[0]}..{sports.LEAN_NCAAF_FAV_BAND[1]}"},   # (10/11 sweep: the
+                      "leans": ("NONE - the engine posts no leans and keeps no leans record (the owner, 11/16: "
+                                "leans out of existence); every pick on the board carries units" if sports.LEANS_GONE else
+                                "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "
+                                f"{sports.LEAN_NCAAF_FAV_BAND[0]}..{sports.LEAN_NCAAF_FAV_BAND[1]}")},   # (10/11 sweep: the
         #   old line still promised ½u on a 55%+ lean - units_for has paid leans 0 since THIN_FROM, 10/2)
         "dog gates (the whole dog score)": {"NFL": f"{sports.DOG_GATE:g}+", "NHL": f"{sports.NHL_DOG_GATE:g}+ (or the best "
                                             "hockey dog that beats its price)", "college football": f"{sports.NCAAF_DOG_GATE:g}+",
@@ -1925,6 +1927,8 @@ def write_sw(path):
 
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
+    if sports.LEANS_GONE:                                    # 🚫 11/16 (the owner): leans out of existence - never a card,
+        picks = [p for p in picks if not sports.is_lean_pick(p)]   # a record or a results row
     WHY_USED.clear()
     _GAMES_[0] = games or {}
     try:                                                     # 🧾 the card check reads the game files fresh each build
@@ -2115,7 +2119,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     def wlt(w, l):
         return f"{w}-{l}"
     RECORDS.update({"unit plays (the bets with units on them - Locks, Dogs, value plays, early plays)": UNIT_REC.get("text", "none yet"),
-                    "leans (no units - their own record)": wlt(lw, ll), "today (every pick, leans in)": wlt(tw, tl),
+                    **({} if sports.LEANS_GONE else {"leans (no units - their own record)": wlt(lw, ll)}),
+                    "today (every pick)": wlt(tw, tl),
                     "locks": wlt(sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])),
                     "value": wlt(sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])),
                     "live plus money (own record, not ours)": wlt(sum(e["result"] == "won" for e in lrs), sum(e["result"] == "lost" for e in lrs))})
@@ -2635,7 +2640,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>💰 Unit plays:</b> the good bets we actually put money on — every Lock, Dog of the Day, value play and early play. <b>🟡 Leans:</b> no units, just our lean. Live plus money and tennis keep their own records. Every W, every L, right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>💰 Unit plays:</b> the good bets we actually put money on — every Lock, Dog of the Day, value play and early play. Live plus money and tennis keep their own records. Every W, every L, right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>

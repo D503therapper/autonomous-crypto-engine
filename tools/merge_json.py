@@ -317,6 +317,19 @@ def merge_early(ours, theirs, base=None):
     return merged
 
 
+PARLAYS = ("two", "three", "four", "eight")
+
+
+def _lean_row(p):
+    """🚫 11/16 (the owner: leans out of existence): a posted no-units lean - sports.is_lean_pick's light twin (this
+    merge runs without the engine): flagged a lean, or every leg lean-tier, with no units on it."""
+    if not isinstance(p, dict) or p.get("status") == "waiting" or not p.get("legs") or p.get("kind") in PARLAYS:
+        return False
+    legs = p.get("legs") or []
+    flagged = bool(p.get("lean")) or p.get("kind") == "lean" or all(isinstance(l, dict) and l.get("tier") == "lean" for l in legs)
+    return flagged and not (p.get("units") or p.get("units_posted"))
+
+
 def main(base, ours_path, theirs_path):
     ours, theirs = _load(ours_path), _load(theirs_path)
     if _is_early(ours) or _is_early(theirs):
@@ -329,6 +342,8 @@ def main(base, ours_path, theirs_path):
         b_ = _load(base) if base else None
         merged = merge_picks(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [],
                              b_ if isinstance(b_, list) else None)
+        merged = [p for p in merged if not _lean_row(p)]    # 🚫 11/16: no leans, ever (sports.LEANS_GONE) - an older
+        #                                                    run's copy never brings one back
     else:
         merged = merge_log(ours, theirs)
     with open(ours_path, "w") as f:

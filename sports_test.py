@@ -4616,7 +4616,7 @@ def test_what_counts_says_all_locks():
     phrase. The leans box sits with our records, never under 'not in our record'."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "<b>💰 Unit plays:</b> the good bets we actually put money on — every Lock, Dog of the Day, value play and early play" in src
-    assert "<b>🟡 Leans:</b> no units, just our lean" in src                                        # (10/2: no overall)
+    assert "<b>🟡 Leans:</b>" not in src                                                         # (11/16: no leans at all)
     assert "What counts" not in src and "leans (own record, not ours)" not in src
     i = src.index("# their own categories, never in our record")
     assert 'TIER_LOOK["lean"]' not in src[i:i + 900]
@@ -25674,6 +25674,78 @@ def test_owner_1116_once_a_play_is_posted_it_stays_never_pulled_by_any_path():  
     assert "Once a play is posted, it stays" in cl and "gets pulled without asking" not in cl and "Minnesota +114" in cl
 
 
+
+def test_owner_1116_leans_are_out_of_existence_never_posted_never_saved_never_on_the_page():
+    """🚫 11/16, the owner: "remove the leans in the leans record ... basically taking the leans out of existence"."""
+    was = sports.LEANS_GONE
+    sports.LEANS_GONE = True
+    try:
+        _leans_gone_checks()
+    finally:
+        sports.LEANS_GONE = was
+
+
+def _leans_gone_checks():
+    import copy, tempfile, sports_dashboard as dash_
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json as mj_
+    leg = {"league": "nhl", "game_id": "nhl:9", "side": "away", "market": "ml", "odds": -115, "p": 0.55, "tier": "lean",
+           "team": "Canadiens"}
+    lean = {"date": "2026-11-16", "kind": "lean", "lean": True, "status": "open", "round": 1, "legs": [dict(leg)]}
+    slot = {"date": "2026-11-16", "kind": "lock", "lean": True, "status": "won", "round": 1, "legs": [dict(leg, game_id="nhl:8")]}
+    play = {"date": "2026-11-16", "kind": "play", "lean": False, "status": "open", "round": 1, "units": 0.5,
+            "legs": [dict(leg, game_id="nhl:7", tier="value", odds=120)]}
+    parlay = {"date": "2026-09-29", "kind": "two", "status": "lost", "legs": [dict(leg), dict(leg, game_id="nhl:6")]}
+    wait = {"date": "2026-11-16", "kind": "lean", "status": "waiting", "legs": []}
+    assert sports.is_lean_pick(lean) and sports.is_lean_pick(slot), "a no-units lean (any slot) is a lean"
+    assert not sports.is_lean_pick(play) and not sports.is_lean_pick(parlay) and not sports.is_lean_pick(wait)
+    for p in (lean, slot, play, parlay, wait):
+        assert sports.is_lean_pick(p) == mj_._lean_row(p), "the merge's twin agrees"
+    old = sports.DATA
+    with tempfile.TemporaryDirectory() as d:
+        sports.DATA = d
+        try:
+            with open(os.path.join(d, "picks.json"), "w") as f:
+                json.dump([lean, play], f)                   # a posted lean in the file is NOT put back (keep_posted)
+            rows = [copy.deepcopy(x) for x in (lean, slot, play, parlay, wait)]
+            sports._save("picks.json", rows)
+            got = json.load(open(os.path.join(d, "picks.json")))
+            assert not any(sports.is_lean_pick(p) for p in got) and len(got) == 3, got
+            arch = json.load(open(os.path.join(d, sports.LEANS_ARCHIVE)))
+            assert len(arch) == 2, "the leans taken out are kept out of sight, once each"
+            with open(os.path.join(d, "picks.json"), "w") as f:
+                json.dump([lean, play], f)
+            assert [p["kind"] for p in sports._load("picks.json", [])] == ["play"], "a load never hands a lean back"
+            sports._save("picks.json", [copy.deepcopy(lean)])
+            assert len(json.load(open(os.path.join(d, sports.LEANS_ARCHIVE)))) == 2, "no double copy in the archive"
+        finally:
+            sports.DATA = old
+    m = [p for p in mj_.merge_picks([copy.deepcopy(play)], [copy.deepcopy(lean), copy.deepcopy(play)], None)
+         if not mj_._lean_row(p)]
+    assert not any(mj_._lean_row(p) for p in m)
+    assert sports.viewer_leans([{"market": "ml", "odds": 120, "game_id": "x"}], set()) == []
+    import inspect
+    assert "if LEANS_GONE:" in inspect.getsource(sports.night_pick), "a night game with no unit play gets no lean"
+    src = inspect.getsource(sports.post_board)
+    assert src.count("if LEANS_GONE and is_lean_pick(pk):") == 3, "every post path skips a lean"
+    rs = inspect.getsource(dash_.render)
+    assert "sports.is_lean_pick(p)" in rs and "🟡 Leans:</b>" not in open(dash_.__file__).read()
+    now = datetime(2026, 9, 27, 12, 0, tzinfo=timezone.utc)   # the engine end to end: the slate that posted a Lock-slot
+    games, _ = fake_league("mlb", days=120)                   # lean and the viewer leans (test_post_when_settled_...)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    for i, (h, a_) in enumerate([(-140, 120), (150, -170), (-110, -110), (260, -320), (-125, 105), (135, -155)]):
+        gid = f"mlb:up{i}"
+        games[gid] = {**games["mlb:1"], "id": gid, "status": "pre", "home": str(2 * i % 16), "away": str((2 * i + 1) % 16),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": (now + timedelta(hours=10)).strftime("%Y-%m-%dT%H:%MZ"), "ml_home": str(h), "ml_away": str(a_),
+                      "ml_home_open": str(h), "ml_away_open": str(a_), "sp_home": "Ace", "sp_away": "Ace"}
+    sd.fetch_injuries = lambda lg: {}
+    picks = []
+    sports.post_board(games, model, picks, now + timedelta(hours=8), now.astimezone(sports.PT).date())
+    assert not any(sports.is_lean_pick(p) for p in picks), [(p["kind"], p.get("lean")) for p in picks]
+    assert all(sports.units_for(p) > 0 for p in picks if p["status"] == "open"), "every posted pick carries units"
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
@@ -25702,6 +25774,8 @@ if __name__ == "__main__":
     import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")              # (nor the Lock near-miss)
     sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "lean_sides.json")           # (nor the lean memory)
+    sports.LEANS_GONE = False            # (11/16: leans are OFF in the engine - the older tests check the lean mechanics
+    #                                      written before; test_owner_1116_leans_* switches it on and checks it's all gone)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)
