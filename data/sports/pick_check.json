@@ -1,13 +1,13 @@
 {
- "day": "2026-11-16",
+ "day": "2026-11-17",
  "picks": {
-  "play|ncaab:401921087|home|ml": {
-   "key": "play|ncaab:401921087|home|ml",
-   "kind": "floor",
-   "team": "UMBC",
-   "odds": 120,
-   "league": "ncaab",
-   "units": 0.5,
+  "dog|nhl:401892729|away|ml": {
+   "key": "dog|nhl:401892729|away|ml",
+   "kind": "dog",
+   "team": "Capitals",
+   "odds": 136,
+   "league": "nhl",
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -16,48 +16,11 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
-    "card": "fixed: 1 line(s) rewritten or dropped"
-   }
-  },
-  "lean|nfl:401873065|home|spread": {
-   "key": "lean|nfl:401873065|home|spread",
-   "kind": "lean",
-   "team": "Ravens",
-   "odds": -112,
-   "league": "nfl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
-    "card": "pass"
-   }
-  },
-  "lean|nhl:401892726|away|ml": {
-   "key": "lean|nhl:401892726|away|ml",
-   "kind": "lean",
-   "team": "Canadiens",
-   "odds": -115,
-   "league": "nhl",
-   "units": 0,
-   "lean": true,
-   "held": false,
-   "why": "",
-   "checks": {
-    "game": "pass",
-    "read": "pass",
-    "price_fresh": "pass",
-    "injuries": "pass",
+    "goalies": "pass",
     "card": "pass"
    }
   }
  },
- "updated": "2026-11-16T16:00Z",
+ "updated": "2026-11-17T16:00Z",
  "held": []
 }

@@ -26919,6 +26919,50 @@ def test_money_1117_the_runner_up_dog_judge_counts_only_the_sports_it_still_post
     bad = [pk("nhl", "lost")] * 14 + [pk("nfl", "won")] * 6
     assert sports.dog_play_quit(bad) and not sports.dog_play_quit(bad[:19])
 
+
+def test_owner_1117_the_early_box_never_runs_off_the_side_on_a_phone():
+    """11/17, the owner: 'on the WE GOT IN EARLY ... it's like cropped out on the side' - the got-it-at -> now price
+    column was nowrap beside a long fact list and ran past a phone's edge. The row wraps: the price drops under the
+    facts when they don't fit side by side, and its note can wrap."""
+    import sports_dashboard as dash_, inspect
+    src = inspect.getsource(dash_)
+    assert ".egr{{display:flex;flex-wrap:wrap;" in src and ".egl{{flex:1 1 220px;min-width:0}}" in src
+    assert ".egp{{text-align:right;white-space:nowrap;margin-left:auto;flex:0 0 auto;max-width:100%}}" in src
+    assert ".egp i{{display:block;white-space:normal;" in src
+
+
+LAYOUT_FIXTURE_1117 = '<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span><span class="pk-l evt">WE GOT IN EARLY</span></div><div class="egh">WE GOT IT AT ➜ NOW</div><div class="egr"><div class="egl"><b>Over 150.5</b> <small></small><span>Sam Houston @ Wyoming · NCAAB</span><div class="lt egt"><span class="tm" data-start="2026-11-18T01:30Z" data-gid="ncaab:401924922" data-side="over" data-mk="total">Today · game starts at 5:30 PM PT</span></div><span>⛰️ College hoops over at altitude</span><span>Wyoming should score about 82 against Sam Houston&#x27;s defense and Sam Houston about 74 against Wyoming&#x27;s - 156 before the thin air, the number&#x27;s 150.5</span><span>Wyoming has played 4 games and Sam Houston has played 4 games this season, so last season&#x27;s scoring fills in the rest</span><span>Games this high run about 4 points over both teams&#x27; norms, and the books only price in about 1.5 of it</span><span>Sam Houston lost to Illinois 108-86 last time out (194 points)</span><span>Overs on college floors 4,600+ feet up are 499-342 since 2018, 0-1 since we started betting it</span><span>Good to 152 - don&#x27;t take it past that, or worse than -130</span><div class="un"><span class="mb">💰</span> 1 UNIT<span class="unw">Not too expensive — worth a full unit.</span></div></div><div class="egp"><s>150.5 (-110)</s><em>➜</em><b>149.5</b><i>👀 the number went down</i></div></div></section><div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>'   # the real 🎯 box (11/17, the cropped Wyoming over) + the LIVE PLUS MONEY header
+
+
+def test_owner_1117_the_phone_layout_check_catches_anything_cropped_or_off_the_screen():
+    """11/17, the owner: "We never want this type of bug to happen again, ever." tools/layout_check.js loads a page at
+    320 / 360 / 390 / 430 px and fails on anything past the screen or cut off by its card (overflow hidden = cropped;
+    only a box made to scroll sideways is exempt). Here: the dashboard's CSS as the code has it now + the real 🎯 box
+    and live header must pass, and the same markup under the old CSS (the bug) must fail. Needs node + playwright
+    (this container has them; the GitHub run of this suite skips it - the layout-check workflow covers the live page)."""
+    import shutil, subprocess, tempfile, sports_dashboard as dash_
+    node = shutil.which("node")
+    root = os.path.dirname(os.path.abspath(__file__))
+    if not node or subprocess.run([node, "-e", "require('playwright')"], capture_output=True, cwd=root).returncode:
+        print("   (skipped: no node / playwright here)")
+        return
+    src = open(dash_.__file__).read()
+    css = src[src.index("<style>") + 7:src.index("</style>")].replace("{{", "{").replace("}}", "}")
+    def page(c):
+        return ('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,'
+                'initial-scale=1"><style>' + c + '</style></head><body><main>' + LAYOUT_FIXTURE_1117 + '</main></body></html>')
+    old = (css.replace(".egr{display:flex;flex-wrap:wrap;", ".egr{display:flex;").replace(".egl{flex:1 1 220px;min-width:0}", "")
+              .replace(".egp{text-align:right;white-space:nowrap;margin-left:auto;flex:0 0 auto;max-width:100%}",
+                       ".egp{text-align:right;white-space:nowrap}"))
+    with tempfile.TemporaryDirectory() as d:
+        for name, c, want in (("now", css, 0), ("old", old, 1)):
+            p_ = os.path.join(d, name + ".html")
+            open(p_, "w").write(page(c))
+            r = subprocess.run([node, os.path.join(root, "tools", "layout_check.js"), p_, os.path.join(d, name + ".json")],
+                               capture_output=True, text=True, cwd=root, timeout=240)
+            assert r.returncode == want, (name, r.returncode, r.stdout[-800:], r.stderr[-400:])
+    assert ".pk-h{{display:flex;flex-wrap:wrap;" in src, "a card header wraps (BET IT NOW ran off a 320px phone)"
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

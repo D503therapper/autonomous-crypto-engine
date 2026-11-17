@@ -2483,7 +2483,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .leg.lost .pick{{text-decoration:line-through;text-decoration-color:var(--dn);text-decoration-thickness:3px}}
 .lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
-.pk-h{{display:flex;align-items:center;gap:10px}}
+.pk-h{{display:flex;flex-wrap:wrap;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:17px;font-weight:900;letter-spacing:.08em;color:#fff}}
 .evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
 .unw{{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
@@ -2501,11 +2501,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
 .unr{{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800;color:#fff;padding:6px 0;border-top:1px solid var(--line)}}
 .evx{{margin-top:14px}} .gdx{{margin-top:14px}} .egh{{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}}
-.egr{{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}}
+.egr{{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}} .egl{{flex:1 1 220px;min-width:0}}
 .egl b{{color:#fff;font-size:19px;font-weight:900}} .egl small{{color:#fff;font-weight:800}} .egl span{{display:block;font-size:14.5px;font-weight:800;color:#fff;margin-top:2px}}
 .egt{{display:block;letter-spacing:0;margin-top:2px}} .egt>.tm{{font-size:14.5px;font-weight:900;color:#ffc233}} .egl u{{display:block;text-decoration:none;font-size:14.5px;font-weight:900;color:#ffc233;margin-top:2px}}
-.egp{{text-align:right;white-space:nowrap}} .egp s{{text-decoration:none;font-size:17px;font-weight:900;color:#fff}} .egp em{{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}}
-.egp b{{font-size:20px;font-weight:900;color:#fff}} .egp i{{display:block;font-style:normal;font-size:13.5px;font-weight:900;color:#fff;margin-top:3px}} .pk-l.evt{{font-size:clamp(17px,5vw,23px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
+.egp{{text-align:right;white-space:nowrap;margin-left:auto;flex:0 0 auto;max-width:100%}} .egp s{{text-decoration:none;font-size:17px;font-weight:900;color:#fff}} .egp em{{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}}
+.egp b{{font-size:20px;font-weight:900;color:#fff}} .egp i{{display:block;white-space:normal;font-style:normal;font-size:13.5px;font-weight:900;color:#fff;margin-top:3px}} .pk-l.evt{{font-size:clamp(17px,5vw,23px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
 .pk-i.evi{{width:46px;height:46px;font-size:24px;border-radius:13px}} .evs{{font-size:13px;font-weight:800;color:#fff;margin:10px 0 6px}} .evs b{{color:#ffc233}}
 .evb{{margin:12px 0 6px;padding:8px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(11px,3.3vw,15px);
 letter-spacing:.03em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);background:linear-gradient(90deg,#d90000,#ff3b3b,#ff7a00,#ff3b3b,#d90000);background-size:200% 100%;
