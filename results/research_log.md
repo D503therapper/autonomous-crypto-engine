@@ -681,3 +681,15 @@ Season 5: $1,000 (10-14) -> $684.30 (11-01 05:00). 32 buys since 10-18: -41% ($6
 DOAS rugged). Sell rules (15, 17) earned ~$115 on the coins that ran. Fresh-pump entry OFF (config entry mode
 "survivor"); sell rules kept. Stocks since 09-28: official ~$479.65 vs hold SPY $490.10. Recommendation to the owner:
 move the DEX money to the stock side (his call - account sizes); DEX stays survivor-only meanwhile.
+
+### 2026-11-17 DEX ENTRY GRID (owner: "refresh the money ... run studies and figure it out") - dex_entry_grid_study.py, results/dex_entry_grid_study.txt
+Q: is there ANY DEX entry with an edge? 10,947 scanner pools 09-26..11-17, $100k+ liquidity, 174 cells (chain / age /
+liquidity / 24h / 1h and pairs), first hour a pool meets a cell, live exit simulated 7 days, train 09-26..10-27 vs test
+10-27..11-17. Fixes on the way: feed glitches (1e6x) dropped; a pool the scanner stopped tracking counts as lost (it was
+being held at its last price - inflated every cell). RESULT: baseline -2.5% per $1; 25 of 174 cells positive in both
+halves (chance level for this many cells); best Ethereum 24h>+200% (+52% / +133%, n 93/73), Base 24h>+200% (+42% / +31%).
+DECISION: not adopted. Live Ethereum/Base fresh pumps (exp 18, n 18) lost 43%; the simulation can't see honeypots (a
+coin nobody can sell shows a rising price), intrahour dumps or contract switches (GROKLET, ZGAP, SXSI) - exactly the
+coins in the best cells. Season 6 keeps survivor-only + the sell rules. Stocks: the most robust big-gain line on file is
+moonshot2's "TQQQ above its 200-day average, else cash": +37.5%/yr 2011-2026, both halves (+33.7 / +41.2), max DD 48%,
+3 trades/yr, one ETF (no hindsight stock list) - proposed to the owner in place of rsi2 (live -8.7% since 09-28 vs SPY -3.3%).
