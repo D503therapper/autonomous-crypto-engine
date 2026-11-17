@@ -1,0 +1,25 @@
+# 📱 THE PHONE LAYOUT CHECK (the owner, 11/17: the WE GOT IN EARLY box was "cropped out on the side" - "We never want this
+# type of bug to happen again, ever"). Every 30 minutes the LIVE dashboard (as the engine last built it) is loaded
+# at four phone widths (320 / 360 / 390 / 430) with every section opened; anything running past the screen or cropped by
+# its card fails this run, and a failed run is a PROBLEM on the hourly bug check (tools/health.py "failed workflows").
+# Read only - nothing is committed. The details are in the run log (LAYOUT CHECK: ...).
+name: layout-check
+on:
+  schedule:
+    - cron: "11,41 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: layout-check
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm install --no-save --no-audit --no-fund playwright@1.48.2 && npx playwright install --with-deps chromium
+      - run: timeout 5m node tools/layout_check.js docs/sports/index.html /tmp/layout_check.json
