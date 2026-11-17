@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T05:10Z",
+ "updated": "2026-11-17T05:18Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -533,10 +533,24 @@
    "away": "Chargers",
    "home": "Ravens",
    "h1": null,
-   "why": "final",
+   "why": "on_board",
    "done": true,
-   "board": null,
-   "lean": null
+   "board": "lean",
+   "lean": {
+    "team": "Ravens",
+    "opp": "Chargers",
+    "market": "spread",
+    "line": -4.5,
+    "odds": -112,
+    "p": 0.504,
+    "win_p": 0.504,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent missing key players: WR Ladd McConkey (their read -1)"
+    ],
+    "result": "lost"
+   }
   },
   {
    "id": "ncaab:401917981",
@@ -623,8 +637,8 @@
    "away": "Long Beach St",
    "home": "UCLA",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -653,8 +667,8 @@
    "away": "Texas Southern",
    "home": "UC San Diego",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2325,9 +2339,9 @@
     "opp": "Sam Houston @ Wyoming",
     "market": "total",
     "line": 149.5,
-    "odds": -110,
-    "p": 0.582,
-    "win_p": 0.582,
+    "odds": -107,
+    "p": 0.584,
+    "win_p": 0.584,
     "reasons": [
      "the engine's scoring read"
     ]
