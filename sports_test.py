@@ -25317,6 +25317,93 @@ def test_owner_1116_the_college_hoops_dog_slot_takes_its_read_4_dogs_a_trap_or_a
         sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
 
 
+def test_sizing_1117_the_college_hoops_dog_slot_is_2u_at_a_dog_read_of_5_stamped_at_the_post_a_posted_play_keeps_its_units():
+    """11/17 - SIZING (the owner, 11/16: "The half a units is just retarded ... I feel like we could do better with the
+    sizing"; results/studies/sizing_1117/): ONE size earned it - the college hoops DOG SLOT is 2u at a dog read of 5+
+    (was 6+) for a slot dog posted for a game on / after 11/17 (the read-5 dogs 26-19 +35.6%, train +35.3% / held +35.9%,
+    7 of 8 seasons - the 6+ band's twin, not the read-4 band's). The read that earns 2u is STAMPED on the pick when it
+    posts (ncaab_play.two_at), so a play posted before the change keeps its units. END TO END through post_board."""
+    assert sports.SIZE_1117_FROM == "2026-11-17" and sports.NCAAB_SLOT_2U_READ_1117 == 5 and sports.NCAAB_DOG_READ_2U == 6
+    assert sports.ncaab_slot_2u_read("2026-11-17") == 5 and sports.ncaab_slot_2u_read("2026-12-25") == 5
+    assert sports.ncaab_slot_2u_read("2026-11-16") == 6 and sports.ncaab_slot_2u_read(None) == 6 and sports.ncaab_slot_2u_read("") == 6
+    leg = {**_cand("g5", 140, 0.41, league="ncaab"), "dog_read": 5.0}
+
+    def pk(read, two_at="none", date="2026-11-18", slot="dog"):
+        t = {"slot": slot, "dog_read": read}
+        if two_at != "none":
+            t["two_at"] = two_at
+        return {"date": date, "kind": "play", "status": "open", "ncaab_play": t, "legs": [{**leg, "dog_read": read}]}
+    # ... the stamp decides: 5+ with the 11/17 stamp is 2u; 4-5 stays 1u; never 3u
+    assert sports.ncaab_play_units(pk(5.0, 5)) == sports.units_for(pk(5.0, 5)) == 2.0
+    assert sports.ncaab_play_units(pk(5.5, 5)) == 2.0 and sports.ncaab_play_units(pk(6.0, 5)) == 2.0 and sports.ncaab_play_units(pk(12.0, 5)) == 2.0
+    assert sports.ncaab_play_units(pk(4.9, 5)) == sports.units_for(pk(4.9, 5)) == 1.0 and sports.ncaab_play_units(pk(4.0, 5)) == 1.0
+    # ... A POSTED PLAY KEEPS ITS UNITS: a pick with no stamp (posted before the change - any date) or the old stamp reads 6+
+    assert sports.ncaab_play_units(pk(5.0)) == sports.units_for(pk(5.0)) == 1.0 and sports.ncaab_play_units(pk(5.9)) == 1.0
+    assert sports.ncaab_play_units(pk(6.0)) == 2.0 and sports.ncaab_play_units(pk(5.0, 6)) == 1.0 and sports.ncaab_play_units(pk(6.0, 6)) == 2.0
+    assert sports.ncaab_play_units(pk(5.0, date="2026-11-14")) == 1.0
+    # ... the favorite slot stays half a unit; the gap play's ladder stays at 6+ (no dose by the read in the gap's pool)
+    assert sports.ncaab_play_units(pk(9.0, 5, slot="fav")) == 0.5 == sports.NCAAB_PLAY_UNITS
+    gap = {"date": "2026-11-18", "kind": "play", "gap": 0.2, "legs": [{**leg, "dog_read": 5.5}]}
+    assert sports.gap_units(gap) == sports.GAP_UNITS == 1.0
+    assert sports.gap_units({**gap, "legs": [{**leg, "dog_read": 6.0}]}) == sports.NCAAB_GAP_UNITS_2U == 2.0
+    # ... nothing else moved: the study found no other size-up cell (30 on the boards, the slot's 4 band, 3u at 6+)
+    assert (sports.NCAAB_PLAY_DOG_UNITS, sports.NCAAB_PLAY_DOG_UNITS_2U, sports.NCAAB_DOG_READ_GATE) == (1.0, 2.0, 4)
+    assert (sports.PLAY_UNITS, sports.FLOOR_UNITS, sports.NBA_FAV_UNITS, sports.DOG_SHORT_UNITS, sports.DOG_LONG_UNITS) == (0.5, 0.5, 1.0, 2.0, 0.5)
+    assert (sports.LOCK_UNITS_1031, sports.LOCK_BIG_GAP_UNITS, sports.LOCK_FOOTBALL_UNITS, sports.LOCK_NFL_UNITS) == (2.0, 1.0, 1.0, 0.5)
+    assert (sports.MAX_PLAY_UNITS, sports.NCAAB_MAX_PLAY_UNITS, sports.NCAAB_STACK_PLAY_UNITS, sports.BEST_MIN_UNITS) == (3.0, 2.0, 0.5, 1.0)
+    # END TO END - post_board on a 11/20 board: reads 5.0 and 4.5 post, the 5.0 at 2u (stamped 5), the 4.5 at 1u
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(2):
+        gid = f"ncaab:sz{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T00:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    reads = {"ncaab:sz0": 5.0, "ncaab:sz1": 4.5}
+    keep_f = sd.fetch_injuries
+    real_dog = sports.ncaab_play_dog
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    keep_from = sports.SIZE_1117_FROM
+
+    def dressed(c):
+        if not (c.get("game_id", "").startswith("ncaab:sz") and c.get("market") == "ml" and c.get("odds", 0) > 0):
+            return None
+        c.update(dog_read=reads[c["game_id"]], dog_read_parts={"games_ok": True}, games_in=6, opp_games_in=6, ncaab_skid=0,
+                 reasons=c.get("reasons") or ["the glass"])
+        for k in sports.NCAAB_DOG_FADES:
+            c[k] = False
+        return real_dog(c)
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        sports.ncaab_play_dog = dressed
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = sorted([p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"], key=lambda p: p["legs"][0]["game_id"])
+        assert [(p["legs"][0]["game_id"], p["ncaab_play"]["dog_read"], p["ncaab_play"].get("two_at"), sports.units_for(p)) for p in dogs] == \
+            [("ncaab:sz0", 5.0, 5, 2.0), ("ncaab:sz1", 4.5, 5, 1.0)], ([(p["kind"], p.get("ncaab_play")) for p in picks], sports.LAST_PICK_CHECK)
+        # ... the switch off (None): the picks ALREADY posted keep their 2u whatever the constant says afterwards (the
+        # stamp is on the pick), and the same board posted fresh puts the read-5 dog up at 1u, stamped 6
+        sports.SIZE_1117_FROM = None
+        assert sports.units_for(dogs[0]) == 2.0
+        picks2 = []
+        sports.post_board(games, model, picks2, now, day, force=True)
+        d2 = sorted([p for p in picks2 if (p.get("ncaab_play") or {}).get("slot") == "dog"], key=lambda p: p["legs"][0]["game_id"])
+        assert [(p["ncaab_play"].get("two_at"), sports.units_for(p)) for p in d2] == [(6, 1.0), (6, 1.0)]
+    finally:
+        sports.SIZE_1117_FROM = keep_from
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
 def _dog_slot_two_rules_on(fn):
     """(11/16) the 11/4 dog-slot tests check the slot's OLD 'never a trap / fighting' rules on dogs dated after 11/16 -
     they run with the two rules on (NCAAB_DOG_SLOT_OPEN_FROM None); the 11/16 rule has its own test (test_owner_1116_*)."""
