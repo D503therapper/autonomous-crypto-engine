@@ -1,33 +1,42 @@
 {
- "at": "2026-11-17T21:17Z",
+ "at": "2026-11-17T22:48Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Erjavec vs Carle: no points for 2599s",
-  "live tennis scores: tennis Samson vs Papamichail: no points for 2599s"
+  "live tennis scores: tennis Garcia vs Gatica: no points for 2614s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (141s)",
+  "live watcher fresh (81s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
   "card audit: 8 live cards, 26 lines - nothing false, outdated or senseless",
   "slate check: all 87 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
+  "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 8 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-17T22:48Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Garcia vs Gatica: no points for 2614s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-17T21:17Z",
    "fixes": [
@@ -514,13 +523,6 @@
   },
   {
    "at": "2026-11-15T23:49Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T23:48Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
