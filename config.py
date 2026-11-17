@@ -339,7 +339,7 @@ DEX = {
     # data/dex/archive/2026-10-06/ (it ran $1,000 -> ~$417: 5 of 15 coins dumped to ~0, CLAUS 3.7x then 0.8x).
     # Owner 2026-10-14: season 5 at $1,000 ("we lost everything, refresh"); season 4 archived in
     # data/dex/archive/2026-10-09/ ($1,000 -> ~$587: every momentum-rule coin dumped to ~0 after peaks up to 6x).
-    "season": "2026-10-14-s5", "season_cash": 1000.0,
+    "season": "2026-11-17-s6", "season_cash": 1000.0,   # owner 11-17: "refresh the money and try again"
     # EXPERIMENT 10 (10-06): data-only re-screen flags (holders / LP data unknown, "LP locked 0%") no longer sell a held
     # coin - season 2 sold AGENTCAT at 1.84x (went 19.9x) and AGENCY at 0.59x (went 16.2x) on them.
     "data_flag_exit": False,
