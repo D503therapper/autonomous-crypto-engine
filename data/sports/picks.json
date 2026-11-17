@@ -44858,6 +44858,7 @@
      "them:road3in6"
     ],
     "dec": 2.2,
+    "decider": {},
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -44902,6 +44903,10 @@
     "first_timer": false,
     "floor_fallback": "college hoops sits out the floor (its dogs run the dog slot)",
     "floor_score": 3.26,
+    "flow": {
+     "a": "27,40",
+     "h": "30,45"
+    },
     "form_state": [
      -26.0,
      -1,
@@ -44962,7 +44967,7 @@
     ],
     "reb_gap": -3.4,
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -44971,7 +44976,9 @@
     ],
     "roster_new": 0.482,
     "roster_tin": 0.141,
+    "score": "Iona 67 @ UMBC 75",
     "season_games": null,
+    "settled": "2026-11-17T00:59Z",
     "side": "home",
     "start": "2026-11-16T23:00Z",
     "stype": "2",
@@ -45000,11 +45007,13 @@
    }
   ],
   "p_hit": 0.4488,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-11-16T16:00Z",
   "round": 1,
+  "settled": "2026-11-17T00:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]
