@@ -1532,7 +1532,8 @@ def early_lines(p, lines, where="render", games=None):
 # "what scares us" line. Checked on every render (sports_dashboard._leg / _why_fallback) and by the card audit.
 NEG_US = re.compile(r"\b(unlucky|snakebit|can'?t buy|leaky|bad bounces|puck luck|slump\w*|cold|skid\w*|losing streak|"
                     r"lost \d+ (?:straight|in a row|of)|dropped \d+|struggl\w*|been bad|ain'?t going in|let in|banged[- ]up|"
-                    r"missing|without|short[- ]handed|scares us|risk)\b", re.I)
+                    r"missing|without|short[- ]handed|scares us|risk|loss|losses|lost|losing|took an l|got beat|blown out|"
+                    r"dropped|fell)\b", re.I)
 
 
 def knocks_us(text, leg):
@@ -1545,6 +1546,8 @@ def knocks_us(text, leg):
     names = {team.lower()}
     if " " in team:
         names.add(team.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
+    if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
+        return True                                       # ("Both took an L last time" - that's us too)
     for clause in re.split(r"[.;:!?,\u2014]| - ", t):
         low = clause.lower()
         if any(n in low for n in names) and NEG_US.search(clause):
