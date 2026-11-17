@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T02:36Z",
+ "updated": "2026-11-17T02:38Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -308,8 +308,8 @@
    "away": "Western KY",
    "home": "Tulsa",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1888,19 +1888,17 @@
    "start": "2026-11-18T01:30Z",
    "away": "Sam Houston",
    "home": "Wyoming",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Over",
-    "opp": "Sam Houston @ Wyoming",
-    "market": "total",
-    "line": 150.5,
+    "team": "Sam Houston",
+    "opp": "Wyoming",
+    "market": "spread",
+    "line": 11.5,
     "odds": -110,
-    "p": 0.581,
-    "win_p": 0.581,
-    "reasons": [
-     "the engine's scoring read"
-    ]
+    "p": 0.505,
+    "win_p": 0.141,
+    "reasons": []
    }
   },
   {
