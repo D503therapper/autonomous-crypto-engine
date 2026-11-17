@@ -238,6 +238,7 @@ PDO_BAD, PDO_GOOD = 985, 1015
 
 PDO_SPAN_D = 60
 LAST_SV = {}                 # {nhl team: save % over its last 10 (8+) games} - filled by pdo_states
+PDO_PARTS = {}               # {nhl team: (shooting %, save %, goals, shots, goals against, shots against) over its last 10}
 SV_MIN_G = 8
 SV_SLUMP_MAX = 0.876         # 10/1 study: last season's bottom quarter of last-10 save % - a favorite with a slumping
 #                              goalie beat its price 5 of 5 seasons (+7.9 pts on 852, 2023+ 3 of 3); the dog facing it
@@ -276,6 +277,7 @@ def pdo_states(games, now_iso):
                 last[t] = g["start"]
     out = {}
     LAST_SV.clear()
+    PDO_PARTS.clear()
     for t, L in log.items():
         L = [x for x in L if _days(x[4], now_iso) <= PDO_SPAN_D][-10:]   # (10/1 audit: the last 10 reached back to
         if len(L) >= SV_MIN_G and _days(last[t], now_iso) <= FRESH_D:     # last April early in a new season)
@@ -285,6 +287,7 @@ def pdo_states(games, now_iso):
         if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:
             gf, sf_, ga, sa = (sum(x[k] for x in L) for k in range(4))
             out[t] = (gf / sf_ + 1 - ga / sa) * 1000
+            PDO_PARTS[t] = (gf / sf_, 1 - ga / sa, int(gf), int(sf_), int(ga), int(sa))   # (11/17: the card says the parts)
     return out
 
 

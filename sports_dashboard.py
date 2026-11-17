@@ -905,7 +905,8 @@ def _why_fallback(leg, pk=None):
     for x in leg.get("breakdown") or []:
         t = _confirmed_now(str(x or "").strip(), leg)        # (11/13: a confirmed goalie reads "is in" up top too)
         if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
-                and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg):
+                and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg) \
+                and not sports_card_check.knocks_us(t, leg):   # (11/17: never a knock on our side up top)
             t = sports_card_check.check_one(pk, leg, sports_card_guard.strip_tails(t), _GAMES_[0], where="fallback")
             if t:                                            # (11/13: the fallback passes the card check too)
                 return t
@@ -972,6 +973,8 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
     import sports_card_check                                 # 🧾 11/13: the one-liner through the card check too
     _wl = sports_card_check.check_one(pk, leg, sports_card_guard.one("" if stale_in(_wl, leg) else _wl, leg.get("league"),
                                                                      leg.get("team", ""), leg.get("opp", "")), _GAMES_[0])
+    if _wl and sports_card_check.knocks_us(_wl, leg):     # 👍 11/17, the owner: "We can't be saying nothing bad about
+        _wl = ""                                         #  the Capitals when we're picking them in the one-liner"
     _top = _confirmed_lead(leg) if not res else ""           # (11/13, the owner: the header said Saros "might play",
     _shown = pct_ok(_top or _wl or _why_fallback(leg, pk))   #  then the Saros line was gone - our confirmed hot goalie
     #                                                          leads the card: "Juuse Saros is in ... he been a brick wall")

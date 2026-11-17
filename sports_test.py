@@ -14044,7 +14044,7 @@ def test_full_breakdown_is_thorough_10_25():
                 "tier": "lean" if lean else kw.pop("tier", "play"), "is_lean": lean, "reasons": kw.pop("reasons", []),
                 "ctx": kw.pop("ctx", []), **kw}
     board = [
-        leg("nhl", game("nhl", "Canucks", "Wild", 160, -190), "home", 160, tier="dog", pdo=983.0, pyth_luck=-0.114,   # (10/27: 987 is average luck - no line; a bad-bounces PDO is the fact)
+        leg("nhl", game("nhl", "Canucks", "Wild", 160, -190), "home", 160, tier="dog", pdo=983.0, pdo_parts=(0.083, 0.900, 24, 290, 31, 310), pyth_luck=-0.114,   # (10/27: 987 is average luck - no line; a bad-bounces PDO is the fact)
             opp_outs=["Kirill Kaprizov (LW)"], outs=[], ctx=[{"k": "trip", "mi": 0, "road6": 4, "who": "them"}],
             reasons=["opponent on a back-to-back"]),
         leg("nfl", game("nfl", "Falcons", "49ers", 125, -142), "away", -142, tier="lock", opp_outs=["Divine Deablo (LB)"],
@@ -14074,7 +14074,7 @@ def test_full_breakdown_is_thorough_10_25():
     assert len(texts) == len(set(texts)), [x for x in texts if texts.count(x) > 1]       # (never the same line twice)
     canucks = board[0]["breakdown"]
     joined = " ".join(canucks)
-    assert "98.3" in joined and "PDO" not in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
+    assert "290 shots" in joined and "98.3" not in joined and "PDO" not in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
     #   (10/29: the puck-luck line says the number in plain words - "shooting plus save %" - never "PDO")
     assert "Kaprizov" in joined, canucks
     assert len(canucks) - 1 >= v24.FLOOR_UNIT, canucks   # (11/15: was 7 - its "more days off" line, no back-to-back,
@@ -27009,6 +27009,75 @@ def test_daily_1117_nhl_bad_record_on_a_tough_schedule_dog_is_a_tracker_lead_onl
         sl._GAMES.clear()
         sl._GAMES.update(keep)
 
+
+
+def test_owner_1117_puck_luck_in_plain_words_never_a_formula():
+    """11/17, the owner on the Capitals card ("add their shooting % and save % over the last 10 and you get 96.0, under
+    the 100 a normal team runs"): "don't make no sense ... layman's terms, not all this technical jargon ... permanently
+    fixed". The line says real counts ("21 goals on 290 shots", "stopping about 89 of every 100") against what most teams
+    do, claims only what the parts show, and the card check catches any formula talk on any card (STIFF / MATH_TALK)."""
+    import inspect, sports_owner_lingo as ol, sports_card_check as cc, sports_breakdown_v24 as v24, sports_breakdown as sb
+    old = "🍀 Capitals been unlucky, not bad: add their shooting % and save % over the last 10 and you get 96.0, under the 100 a normal team runs."
+    assert cc._banned_hit(old)[0], "the old line is caught on any card, posted or not"
+    for w in ("and you get", "100 is normal", "a normal team runs", "shooting plus save"):
+        assert w in ol.MATH_TALK and w in ol.STIFF
+    src = inspect.getsource(v24)
+    for w in ol.MATH_TALK:
+        for line in src.splitlines():
+            low = line.lower().replace('"f_pdo"', "")
+            if line.strip().startswith(("f\"", "f'", "[f\"", "add.append", "v.knock")):
+                assert w not in low or "math_talk" in low, (w, line.strip()[:120])
+    for w in ("of every 100", "% of their shots", "save %"):           # (the owner, 11/17: "7 of every 100 shots is
+        assert w not in src[src.index('parts = leg.get("pdo_parts")'):src.index('pl = leg.get("pyth_luck")')], w   # retarded")
+    assert "shots on net their last 10 games and only {gf} went in" in src and sb.VERSION >= 65
+    new = "🍀 Capitals been snakebit: 290 shots on net their last 10 games and only 21 went in, and their goalie's let in 33. That luck turns."
+    assert not cc._banned_hit(new)[0]
+
+
+def test_owner_1117_the_one_liner_never_knocks_our_own_side():
+    """11/17, the owner: "We can't be saying nothing bad about the Capitals when we're picking them in the one-liner.
+    We don't ever want to do that with our picks." A line that knocks OUR team never sits under the pick (the posted
+    why line or the fallback fact); a knock on the other side is fine."""
+    import sports_card_check as cc, sports_dashboard as dash_, inspect
+    caps = {"team": "Capitals", "opp": "Lightning", "league": "nhl"}
+    for bad in ("🍀 Capitals been unlucky, not bad: add their shooting % and save % over the last 10 and you get 96.0.",
+                "🍀 Puck luck's been shit for Capitals: 290 shots their last 10 games, 21 goals.",
+                "⚠️ Not perfect - Capitals have dropped 2 straight.", "Capitals go without Ovechkin tonight."):
+        assert cc.knocks_us(bad, caps), bad
+    for ok in ("🚑 Lightning gotta play without Kucherov.", "🔥 Capitals have won 4 of their last 5.",
+               "Lightning have lost 4 straight, Capitals the side.", "🧳 Road game, no problem: Capitals are 6-2 away."):
+        assert not cc.knocks_us(ok, caps), ok
+    leg = {**caps, "why_line": "🍀 Capitals been snakebit: 290 shots on net their last 10 games and only 21 went in.",
+           "breakdown": ["🍀 Capitals been snakebit: 290 shots on net their last 10 games and only 21 went in.",
+                         "🔥 Capitals have won 4 of their last 5 at home."]}
+    fb = dash_._why_fallback(leg)
+    assert "snakebit" not in fb, fb
+    src = inspect.getsource(dash_._leg)
+    assert "knocks_us(_wl, leg)" in src
+
+
+def test_owner_1117_a_man_ruled_out_after_the_card_posted_gets_on_the_card():
+    """11/17, the owner on the Trail Blazers card: "We got to make sure all the injuries and the information is all
+    correct." The card listed four Timberwolves out; Donte DiVincenzo was ruled OUT after it posted and the card never
+    said so. Every run until the tip, a man out now that the card doesn't name gets one 🔄 Update line (NBA / hockey),
+    never twice; the pick never changes."""
+    g = {"id": "nba:9", "league": "nba", "status": "pre", "home": "16", "away": "22", "home_name": "Timberwolves",
+         "away_name": "Trail Blazers", "start": "2026-11-18T01:00Z"}
+    leg = {"game_id": "nba:9", "league": "nba", "team": "Trail Blazers", "opp": "Timberwolves", "side": "away", "odds": 110,
+           "outs": ["Chris Youngblood (G)"], "opp_outs": ["Jonathan Kuminga (F)", "Anthony Edwards (G)"],
+           "breakdown": ["🚑 Timberwolves gotta play without Jonathan Kuminga (F), Anthony Edwards (G)."]}
+    at_post = {"nba": {"16": [("Jonathan Kuminga", "F", "Out"), ("Anthony Edwards", "G", "Out")],
+                       "22": [("Chris Youngblood", "G", "Out")]}}
+    leg["on_report"] = sports.on_report(leg, g, at_post)
+    now = {"nba": {"16": [("Jonathan Kuminga", "F", "Out"), ("Anthony Edwards", "G", "Out"), ("Donte DiVincenzo", "G", "Out")],
+                   "22": [("Chris Youngblood", "G", "Out")]}}
+    sports.fresh_card_facts({"nba:9": g}, [leg], now)
+    ups = [x for x in leg.get("fresh") or [] if "DiVincenzo" in x]
+    assert ups == ["🔄 Update: Donte DiVincenzo is out for the Timberwolves too."], leg.get("fresh")
+    sports.fresh_card_facts({"nba:9": g}, [leg], now)
+    assert len([x for x in leg.get("fresh") or [] if "DiVincenzo" in x]) == 1, "never twice"
+    assert not any("Kuminga" in x or "Youngblood" in x for x in leg.get("fresh") or []), "the card already names them"
+    assert (leg["odds"], leg["side"]) == (110, "away")
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
