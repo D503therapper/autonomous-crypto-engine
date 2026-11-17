@@ -22022,3 +22022,26 @@ error: failed to push some refs to 'https://githu
 [2026-11-17 03:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-17 03:05 UTC] crypto/hold_btc  equity $395.38 (-20.9%) 1 open  market DOWN
    social heat top: TAO 32 (32/0/0), HYPE 29 (29/0/0), BTC 27 (27/0/0), CASHCAT 25 (13/0/12), AAVE 24 (24/0/0)
+   scanner: FUL: +40.0% in 15 min on 81.7x volume @ 0.0009945 spread 0.00%
+   scanner: FUL: +16.7% in 15 min on 82.2x volume @ 0.00082926 spread 0.00%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]       d0730648f4ec0e76c3298ae1d67c4be96e70b9e1 -> main (cannot lock ref 'refs/heads/main': is at 3977fd4c7b9f35e8cd1e7
+   scanner: FUL: +82.0% in 30 min on 61.1x volume @ 0.00129285 spread 0.20%
+   dex screen: REJECT BONK@solana liq $235,433 - top-10 holders 41%; lp holders unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $195,196 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RAY@solana liq $1,521,844 - top-10 holders 83%
+   dex screen: REJECT CTM@ethereum liq $1,942,327 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: REJECT SNDKC@base liq $1,718,803 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex scanner: 2,134 pools (solana 1,569 / base 305 / ethereum 260), refresh cycle 90s (hot 86s), 2975 calls (110 feed, 429s 0, failed 0), 85,837 refreshed (15585 no pair), +53 added / -71 dropped (dead 67, stale 4, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-17 04:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+   early_mover: FUL vetoed by pump guard: spike-and-fade in the last hour (+51% then gave back 113%)
+   >> crypto/mover: SELL $88.48 of CASHCAT @ 0.0503, P/L $+6.75 (time limit)
+[2026-11-17 04:05 UTC] crypto/mover     equity $174.76 (-65.0%) 1 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/social_heat equity $322.67 (-35.5%) 2 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-17 04:05 UTC] crypto/hold_btc  equity $397.95 (-20.4%) 1 open  market DOWN
+   social heat top: PENGU 35 (35/0/0), BTC 29 (29/0/0), HYPE 27 (27/0/0), SOL 27 (27/0/0), LINK 24 (24/0/0)
