@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 238,
+  "n": 239,
   "beat": 79,
-  "same": 94,
+  "same": 95,
   "worse": 65,
   "avg_pts": 0.18
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.25
   },
   "lean": {
-   "n": 121,
+   "n": 122,
    "beat": 41,
-   "same": 41,
+   "same": 42,
    "worse": 39,
    "avg_pts": 0.11
   },
@@ -73,11 +73,11 @@
    "avg_pts": 0.08
   },
   "nfl": {
-   "n": 28,
+   "n": 29,
    "beat": 11,
-   "same": 11,
+   "same": 12,
    "worse": 6,
-   "avg_pts": 0.33
+   "avg_pts": 0.32
   },
   "nhl": {
    "n": 96,
@@ -3420,6 +3420,20 @@
    "close": 132,
    "pts": 4.6,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-16",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Ravens",
+   "market": "spread",
+   "line": -4.5,
+   "odds": -112,
+   "close": -112,
+   "pts": 0.0,
+   "units": 0,
    "result": "lost"
   },
   {
