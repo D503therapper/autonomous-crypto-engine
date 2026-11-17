@@ -23004,24 +23004,23 @@
     "bd_tags": [
      "rec:1",
      "road:1",
-     "healthy:2",
+     "healthy:5",
      "f_last:0",
-     "f_net:1",
-     "f_pdo:2",
+     "f_net:0",
      "risk:6",
-     "bottom_so:5"
+     "bottom_so:8"
     ],
     "big_cover": false,
     "breakdown": [
-     "\u2705 Capitals have everybody available.",
+     "\u2705 Nobody on Capitals' injury report. Whole squad's suiting up.",
+     "\ud83e\udd45 Logan Thompson (projected, not confirmed for Capitals): a 0.893 save % (9 goals on 84 shots) over his last 3 starts. Andrei Vasilevskiy (expected in net, not confirmed for Lightning): a 0.896 save % (8 goals on 77 shots) over his last 3 starts.",
      "\ud83d\udcc5 Both took an L last time - Capitals a 7-4 loss to the Devils, Lightning a 2-0 loss to the Red Wings.",
-     "\ud83e\udd45 Goalies - Capitals: Logan Thompson (projected, not confirmed), a 0.893 save % (9 goals on 84 shots) over his last 3 starts. Lightning: Andrei Vasilevskiy (expected in net, not confirmed), a 0.896 save % (8 goals on 77 shots) over his last 3 starts. A wash in net.",
      "\ud83d\udccb 10-8 for Capitals, last time out a 7-4 loss to the Devils.",
      "\ud83e\uddf3 3-3 away from home this year for Capitals.",
      "\u26a0\ufe0f Not perfect - Capitals have dropped 2 straight.",
-     "\u2705 Bottom line: Capitals (+136). Fair on Capitals is +112 to us and the book's hanging +136. Give me Capitals."
+     "\u2705 Bottom line: Capitals (+136). Fishy line - Capitals at +136 when we make 'em +112."
     ],
-    "bv": 64,
+    "bv": 65,
     "coach": [
      null,
      false
@@ -23118,7 +23117,7 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83c\udf40 Capitals been unlucky, not bad: add their shooting % and save % over the last 10 and you get 96.0, under the 100 a normal team runs. Capitals the side."
+    "why_line": ""
    }
   ],
   "p_hit": 0.4111,
@@ -23141,28 +23140,28 @@
   "lean": false,
   "legs": [
    {
+    "added_outs": [
+     "Donte DiVincenzo"
+    ],
     "ats_run": -1,
     "b2b_me": false,
     "bd_tags": [
      "rec:0",
-     "road:1",
-     "w_home:53",
+     "road:2",
      "f_outs:4",
-     "f_last5:0",
-     "risk:5",
-     "bottom_floor:0"
+     "f_last5:1",
+     "risk:5"
     ],
     "big_cover": false,
     "breakdown": [
      "\ud83d\ude91 Timberwolves gotta play without Jonathan Kuminga (F), Jaylen Clark (G), Zyon Pullin (G), Anthony Edwards (G).",
-     "\ud83e\uddf3 Road game, no problem: Trail Blazers are 6-2 away from home this season.",
-     "\ud83d\uddd3\ufe0f Trail Blazers are 3-2 over their last 5.",
+     "\ud83e\uddf3 6-2 on the road for Trail Blazers.",
+     "\ud83d\uddd3\ufe0f Last 5 for Trail Blazers: 3-2.",
      "\ud83d\udccb Trail Blazers are 9-4 after a 106-98 loss to the Timberwolves.",
-     "\ud83c\udfc0 Trail Blazers: their bench outscored teams by 4.9 per 48 minutes last season - deep squad \u00b7 the coach plays 8 guys real minutes \u00b7 Deni Avdija is cooking - the team's +6.4 per 48 with him on the floor lately, -0.4 last season \u00b7 Donovan Clingan is cooking - the team's +6.3 per 48 with him on the floor lately, -0.5 last season.",
      "\u26a0\ufe0f What scares us a little: Trail Blazers go without Chris Youngblood (G), Vit Krejci (G), Ja Morant (G), Shaedon Sharpe (G).",
-     "\u2705 Bottom line: Trail Blazers (+110). The price is about right - Trail Blazers grade out best of every dog on the slate, that's why it's up. Half a unit."
+     "\u2705 Bottom line: Trail Blazers (+110). The dog angles like it. Trust the algorithm."
     ],
-    "bv": 64,
+    "bv": 65,
     "coach": [
      null,
      true
@@ -23246,7 +23245,8 @@
      0
     ],
     "fresh": [
-     "\ud83d\udd04 Update: Deni Avdija is questionable now for the Trail Blazers."
+     "\ud83d\udd04 Update: Deni Avdija is questionable now for the Trail Blazers.",
+     "\ud83d\udd04 Update: Donte DiVincenzo is out for the Timberwolves too."
     ],
     "g_role_me": null,
     "g_role_opp": null,
@@ -23320,7 +23320,6 @@
     "rep_status": {
      "Anthony Edwards": "out",
      "Chris Youngblood": "out",
-     "Deni Avdija": "q",
      "Ja Morant": "out",
      "Jaylen Clark": "out",
      "Jonathan Kuminga": "out",
@@ -23348,7 +23347,7 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83c\udfdf\ufe0f The Trail Blazers are 6-2 on the road, we riding Trail Blazers."
+    "why_line": "\ud83d\ude91 Timberwolves gotta play without Jonathan Kuminga (F), Jaylen Clark (G), Zyon Pullin (G), Anthony Edwards (G). Riding Trail Blazers."
    }
   ],
   "midday": true,
