@@ -1,26 +1,32 @@
 {
- "at": "2026-11-17T12:46Z",
+ "at": "2026-11-17T14:18Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 3 live matches",
   "card audit: 5 live cards, 10 lines - nothing false, outdated or senseless",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 52 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-17T14:18Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-17T12:46Z",
    "fixes": [],
@@ -495,17 +501,6 @@
     "tennis slate due (8am PT) and not up - started sports.yml"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-11-15T16:45Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Osborne vs Cherubini: no points for 2122s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
-   ]
   }
  ]
 }
