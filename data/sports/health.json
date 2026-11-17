@@ -1,30 +1,40 @@
 {
- "at": "2026-11-17T15:03Z",
- "fixes": [],
+ "at": "2026-11-17T16:35Z",
+ "fixes": [
+  "tennis slate due (8am PT) and not up - sports.yml already running"
+ ],
  "problems": [
-  "live tennis scores: tennis Semenistaja vs Burillo: no points for 2592s",
-  "live tennis scores: tennis Lepchenko vs Podoroska: no points for 2592s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (152s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
-  "card audit: 5 live cards, 10 lines - nothing false, outdated or senseless",
+  "card audit: 6 live cards, 17 lines - nothing false, outdated or senseless",
+  "slate check: all 87 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 7h ago",
-  "simulator ran 7h ago",
-  "engine ran 23 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 7 min ago",
   "pacer running",
-  "tennis slate on time"
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-17T16:35Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-17T15:03Z",
    "fixes": [],
@@ -489,17 +499,6 @@
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": []
-  },
-  {
-   "at": "2026-11-15T19:56Z",
-   "fixes": [
-    "live watch 43750571437 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Strakhova vs Kulambayeva: no points for 2540s"
-   ]
   }
  ]
 }
