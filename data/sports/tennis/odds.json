@@ -1,46 +1,45 @@
 {
- "fetched": "2026-11-17T16:00Z",
- "src": "oddsapi",
+ "fetched": "2026-11-17T19:27Z",
+ "src": "bovada",
  "lines": [
-  {
-   "a": "Arthur Fils",
-   "b": "Rafael Jodar",
-   "start": "2026-11-17T13:00Z",
-   "a_ml": -105,
-   "b_ml": -115,
-   "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
-  },
   {
    "a": "Alexander Zverev",
    "b": "Ben Shelton",
-   "start": "2026-11-17T19:30Z",
-   "a_ml": -204,
-   "b_ml": 172,
+   "start": "2026-11-17T19:45Z",
+   "src": "bovada",
    "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
+   "a_hcp": -2.0,
+   "b_hcp": 2.0,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -200,
+   "b_ml": 165
   },
   {
-   "a": "Carlos Alcaraz",
+   "a": "Carlos Alcaraz\u00a0",
    "b": "Daniil Medvedev",
    "start": "2026-11-18T13:00Z",
-   "a_ml": -392,
-   "b_ml": 304,
+   "src": "bovada",
    "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
+   "a_hcp": -4.0,
+   "b_hcp": 4.0,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -400,
+   "b_ml": 300
   },
   {
    "a": "Flavio Cobolli",
    "b": "Frances Tiafoe",
    "start": "2026-11-18T19:30Z",
-   "a_ml": 110,
-   "b_ml": -137,
+   "src": "bovada",
    "tour": "atp",
-   "src": "oddsapi",
-   "books": 8
+   "a_hcp": 1.0,
+   "b_hcp": -1.0,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 110,
+   "b_ml": -130
   }
  ]
 }

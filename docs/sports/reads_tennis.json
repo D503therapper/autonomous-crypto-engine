@@ -1,32 +1,6 @@
 {
- "updated": "2026-11-17T18:29Z",
+ "updated": "2026-11-17T19:43Z",
  "games": [
-  {
-   "id": "tennis:atp:187503",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-17T19:30Z",
-   "away": "Alexander Zverev",
-   "home": "Ben Shelton",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Alexander Zverev",
-    "opp": "Ben Shelton",
-    "market": "ml",
-    "line": null,
-    "odds": -204,
-    "p": 0.646,
-    "win_p": 0.646,
-    "reasons": [
-     "on hard court",
-     "Nitto ATP Finals"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:187509",
    "league": "tennis",
@@ -42,11 +16,37 @@
    "lean": {
     "team": "Daniil Medvedev",
     "opp": "Carlos Alcaraz",
+    "market": "spread",
+    "line": 4.0,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.238,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187514",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-18T19:30Z",
+   "away": "Frances Tiafoe",
+   "home": "Flavio Cobolli",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Frances Tiafoe",
+    "opp": "Flavio Cobolli",
     "market": "ml",
     "line": null,
-    "odds": 304,
-    "p": 0.237,
-    "win_p": 0.237,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "on hard court",
      "Nitto ATP Finals"

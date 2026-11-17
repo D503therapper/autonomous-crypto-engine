@@ -120,6 +120,12 @@ EAT_BAN = ("we ate", "we eat", "we're eating", "we are eating", "let's eat", "le
            "the public ate", "public's eating", "eating with us", "eating with 'em", "tomorrow we eat", "time to eat",
            "dogs eat", "vegas eats", "eating good", "we feast", "homies riding", "eatin'")
 STIFF = STIFF + EAT_BAN
+# 🚫 11/17, the owner on the Capitals card ("add their shooting % and save % over the last 10 and you get 96.0, under the
+# 100 a normal team runs"): "don't make no sense ... permanently fix this". No card line ever hands the reader math to do
+# or a made-up combined number - say the real stat (goals on shots, save %), never a formula.
+MATH_TALK = ("and you get", "add their", "added up", "100 is normal", "100 is average", "a normal team runs",
+             "shooting plus save", "shooting and save %", "shooting % and save %")
+STIFF = STIFF + MATH_TALK
 
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",

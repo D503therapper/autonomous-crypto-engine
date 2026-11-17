@@ -1523,3 +1523,30 @@ def early_lines(p, lines, where="render", games=None):
         if y:
             out.append(y)
     return out
+
+
+# 👍 11/17, the owner on the Capitals card's one-liner ("Capitals been unlucky ... their goalie's let in ..."): "We can't
+# be saying nothing bad about the Capitals when we're picking them in the one-liner. We don't ever want to do that with
+# our picks." The line right under a pick only ever talks our side UP (or the other side down). A sentence that puts a
+# knock on OUR team - cold, unlucky, a skid, who we're missing - never sits there; it belongs in the full breakdown's
+# "what scares us" line. Checked on every render (sports_dashboard._leg / _why_fallback) and by the card audit.
+NEG_US = re.compile(r"\b(unlucky|snakebit|can'?t buy|leaky|bad bounces|puck luck|slump\w*|cold|skid\w*|losing streak|"
+                    r"lost \d+ (?:straight|in a row|of)|dropped \d+|struggl\w*|been bad|ain'?t going in|let in|banged[- ]up|"
+                    r"missing|without|short[- ]handed|scares us|risk)\b", re.I)
+
+
+def knocks_us(text, leg):
+    """Does this line say something bad about OUR side (the pick's team)? Only clauses that name our team count - a
+    knock on the other side is fine."""
+    t = str(text or "")
+    team = str((leg or {}).get("team") or "").strip()
+    if not t or not team:
+        return False
+    names = {team.lower()}
+    if " " in team:
+        names.add(team.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
+    for clause in re.split(r"[.;:!?,\u2014]| - ", t):
+        low = clause.lower()
+        if any(n in low for n in names) and NEG_US.search(clause):
+            return True
+    return False

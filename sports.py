@@ -1044,6 +1044,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
+                    "pdo_parts": sports_form.PDO_PARTS.get(g[side]) if lg == "nhl" else None,   # (11/17: plain-words card)
                     "pyth_luck": pyth_luck(games, g, side) if lg == "nhl" else None,
                     "ot_last": ot_last(games, g, side) if lg == "nhl" else None,
                     "season_games": season_games(games, g, side) if lg == "nba" else None,
@@ -9907,6 +9908,10 @@ def qb_names_on(leg, g, rows):
     return out
 
 
+NEW_OUT_LEAGUES = ("nba", "nhl")   # 🔄 11/17: a man ruled out after posting gets his own Update line - the pro hoops /
+#   hockey cards list everyone out; football cards list only the regulars (college reports carry walk-ons - 10/3)
+
+
 def fresh_card_facts(games, legs, injuries):
     """🔄 THE CARD KEEPS UP WITH THE NEWS (11/12 - Victor: "One of the write ups has bad information ... outdated
     information", the owner: "Skattebo is playing" / "JJ is playing as well"). A card is written when it posts and its
@@ -9984,6 +9989,22 @@ def fresh_card_facts(games, legs, injuries):
                             stale_lines.append(x)
                             fresh.append(f"🔄 Update: no more full squad for {the_}{g[leg['side'] + '_name']} - {r[0]} is "
                                          f"{'out' if _rep_class(r[2]) == 'out' else 'questionable'} now.")
+                    # 🔄 11/17 (the owner on the Trail Blazers card: "We got to make sure all the injuries and the
+                    # information is all correct"): a man ruled OUT after the card posted who the card never names
+                    # (Donte DiVincenzo for the Timberwolves) is news too - one 🔄 Update line, either side, same
+                    # filters as the card's own 🚑 line (short-term out, not season-long, not a man who sat lately).
+                    named = list(report_names(leg)) + list(leg.get("added_outs") or []) + list(now_st) + list(was)
+                    added = list(leg.get("added_outs") or [])
+                    for s_ in (("home", "away") if leg["league"] in NEW_OUT_LEAGUES else ()):
+                        for r in sd._team_rows(inj, g[s_], g[s_ + "_name"]):
+                            if any(x in str(r[2]).lower() for x in sd.SHORT_TERM) and "season" not in str(r[2]).lower() \
+                                    and not _sat_lately(g, s_, r[0]) and not _on_list(r[0], named) \
+                                    and not any(r[0] in str(x) for x in fresh + list(leg.get("breakdown") or [])):
+                                fresh.append(f"🔄 Update: {r[0]} is out for {the_}{g[s_ + '_name']} too.")
+                                added.append(r[0])
+                                named.append(r[0])
+                    if added:
+                        leg["added_outs"] = added
                 except Exception as e:                       # noqa: BLE001 - never blocks the board
                     print(f"card report check failed: {str(e)[:60]}")
         if leg["league"] in ("nfl", "ncaaf"):               # 🏈 11/16: a quarterback the card gives numbers for who is

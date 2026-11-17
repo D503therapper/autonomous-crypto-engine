@@ -2053,16 +2053,26 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     # hockey: puck luck, the unlucky record, the 40-shot night
     if nhl:
         pdo = leg.get("pdo")
-        if pdo is not None and "pdo" not in body:
+        parts = leg.get("pdo_parts")
+        if pdo is not None and "pdo" not in body and parts and len(parts) >= 6 and parts[3] and parts[5]:
             import sports_form as _sf
-            if pdo <= _sf.PDO_BAD:                        # (bad bounces = due; a lucky stretch = the knock; average = nothing)
-                #   (10/29, the owner: "the lingo still sucks" - no "PDO", no bare "98.4": plain words, the number
-                #    said against the 100 that's normal - shooting % and save % added up over the last 10 games)
-                add.append(v.say("f_pdo", [f"🍀 The bounces have been going against {us}: their shooting and save % together sit at {pdo / 10:.1f} over the last 10, and 100 is normal. That evens out.",
-                                           f"🍀 Puck luck's been shit for {us} - shooting plus save % at {pdo / 10:.1f} over the last 10 games (100 is average). That don't last.",
-                                           f"🍀 {us} been unlucky, not bad: add their shooting % and save % over the last 10 and you get {pdo / 10:.1f}, under the 100 a normal team runs."]))
+            #   (10/29, the owner: "the lingo still sucks" - no "PDO". 11/17, the owner on the Capitals card's combined-number
+            #    line: "don't make no sense ... layman's terms" - never a formula, a rate or per-hundred talk: just the real
+            #    counts, shots and goals, the way you'd say it, and nothing claimed that the counts don't show)
+            sh, sv, gf, sf_, ga, sa = parts[:6]
+            sc, st = round(sh * 100), round(sv * 100)     # (11/17, the owner: no rates, no per-hundred talk - the real counts)
+            if pdo <= _sf.PDO_BAD and sc <= 10 and st <= 91:   # (bad bounces = due; only said what the counts show)
+                add.append(v.say("f_pdo", [f"🍀 {us} been snakebit: {sf_} shots on net their last 10 games and only {gf} went in, and their goalie's let in {ga}. That luck turns.",
+                                           f"🍀 {us} keep firing and it ain't going in - {gf} goals on {sf_} shots their last 10. Their goalie's given up {ga} too. That evens out.",
+                                           f"🍀 Puck luck's been shit for {us}: {sf_} shots their last 10 games, {gf} goals, and {ga} let in on the other end. That don't last."]))
+            elif pdo <= _sf.PDO_BAD and sc <= 10:
+                add.append(v.say("f_pdo", [f"🍀 {us} can't buy a goal: {sf_} shots on net their last 10 games and only {gf} went in. That turns around.",
+                                           f"🍀 {us} keep firing and it ain't going in - {gf} goals on {sf_} shots their last 10. That evens out."]))
+            elif pdo <= _sf.PDO_BAD:
+                add.append(v.say("f_pdo", [f"🍀 {us}' goalie's been getting beat: {ga} goals on {sa} shots their last 10 games. That turns around.",
+                                           f"🍀 Bad bounces in net for {us} - {ga} goals let in on {sa} shots their last 10. That evens out."]))
             elif pdo >= _sf.PDO_GOOD:
-                v.knock(1, f"{us} have been running hot on the bounces (shooting plus save % at {pdo / 10:.1f} over their last 10, where 100 is normal)")
+                v.knock(1, f"{us} have been getting the bounces: {gf} goals on {sf_} shots their last 10 games, and only {ga} let in")
         pl = leg.get("pyth_luck")
         if pl is not None and pl <= -0.05:
             pts = round(-pl * 100)
