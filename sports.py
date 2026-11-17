@@ -3593,6 +3593,9 @@ def dog_units(pk):
     if day >= SIZING_1031_FROM and lg != "nba":              # 💰 10/30 SIZING: by the price - 2u at +100..+150, ½u longer
         if lg in DOG_LEAGUES_OFF:                            # (never posted - no college hoops Dog; its old ½u if one is)
             return DOG_UNITS_BY.get(lg, DOG_UNITS)
+        if pk.get("long_1u") and lg in NCAAF_DOG_LONG_LEAGUES and (leg.get("odds") or 0) > DOG_SHORT_MAX:
+            return NCAAF_DOG_LONG_UNITS_1117                 # 🐶 11/17: the college football Dog past +150 is 1u (stamped
+            #                                                  at the post - mark_dogs_1117; the 8-season football board)
         return DOG_SHORT_UNITS if (leg.get("odds") or 999) <= DOG_SHORT_MAX else DOG_LONG_UNITS
     if day >= DOG_BIG_FROM:                                 # (the owner, 10/16: every sport's Dog sizes by the read, its
         u = min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
@@ -3649,6 +3652,47 @@ DOG_SHORT_MAX = 150              # the short Dog: +100..+150
 DOG_SHORT_UNITS = 2.0
 DOG_LONG_UNITS = 0.5             # +151..+350
 DOG_LEAGUES_OFF = ("ncaab",)     # no Dog of the Day in these (make_board's dog pool)
+
+
+DOGS_1117_FROM = "2026-11-17"       # 🐶 11/17 FABLE - THE UNDERDOG EDGE (the owner, 11/16: "run Fable, do a full sweep ...
+NCAAF_DOG_LONG_UNITS_1117 = 1.0     # make the engine better on these picks, especially our edge that we do on our
+NCAAF_DOG_LONG_LEAGUES = ("ncaaf",)  # underdog, since that's the way we profit ... on plus money"; results/studies/
+#   dogs_1117/, SPORTS_FINDINGS "11/17 - THE UNDERDOG EDGE"). None = both rules below off (a posted pick keeps its units).
+#   (1) THE COLLEGE FOOTBALL DOG OF THE DAY AT +151..+350 IS 1u (was ½u) for a Dog posted NEW for a game on / after this
+#   Pacific day. The 10/30 price split (2u short / ½u long) was set on a board that was nearly all hockey (12 college
+#   Dogs past +150 on it). On the football replay board (football_1114 rows: every college board day 2018-26 on the
+#   11/14 code, the re-based dog check in; s7_sizing.py) the long college Dog went 18-17, 51.4% against 32.0% needed,
+#   +64.3% (2018-21 +65.7% / 2022-26 +62.8%, 6 of 7 seasons, a point worse than the close +59.1%; a random 35 college
+#   dogs at +151..+350 did as well 16 of 2,000 times) against +24.9% for the short one (+12.8% / +37.7%). Against its
+#   OWN kind (a random 35 of the 74 college Dogs) it is as good 230 of 2,000 times - not provably better than the short
+#   Dog, so NOT 2u; 1u is the size the 2022-26 half proves at its 5% end (a quarter of Kelly: 0.8u). The college Dog's
+#   money +30.7u on 95.5u -> +41.9u on 113u, the worst stretch -5.6u -> -6.0u. The NFL long Dog (4-12, -29.3%) and the
+#   hockey long Dog stay ½u. The size is STAMPED on the pick when it posts (pk["long_1u"], mark_dogs_1117) - a Dog
+#   already up keeps its units.
+#   (2) THE COLLEGE HOOPS DOG SLOT TAKES A TRUE ROAD DOG AT A READ OF 3, ½u - NCAAB_ROAD_DOG_* below (ncaab_dog_read_gate).
+
+
+def ncaaf_dog_long_1u(leg, day):
+    """🐶 (11/17) is this the college football Dog of the Day's long price under the 11/17 size: a college football
+    moneyline dog past +DOG_SHORT_MAX, a game on / after DOGS_1117_FROM?"""
+    return bool(DOGS_1117_FROM and (day or "") >= DOGS_1117_FROM and leg.get("league") in NCAAF_DOG_LONG_LEAGUES
+                and leg.get("market", "ml") == "ml" and DOG_SHORT_MAX < (leg.get("odds") or 0) <= DAILY_DOG_MAX)
+
+
+def mark_dogs_1117(new, iso):
+    """🐶 (11/17) stamp the 11/17 size on a Dog of the Day posted in THIS run: a college football Dog at +151..+350
+    gets pk["long_1u"] = True (dog_units -> NCAAF_DOG_LONG_UNITS_1117). Never a pick already up (a posted pick keeps
+    its units), never the owner's own post, never a lean. Returns the picks it stamped."""
+    out = []
+    for pk in new or []:
+        legs = pk.get("legs") or []
+        if pk.get("kind") != "dog" or pk.get("lean") or pk.get("status") != "open" or len(legs) != 1 \
+                or pk.get("owner_post") or pk.get("units_posted") is not None or pk.get("max_play"):
+            continue
+        if ncaaf_dog_long_1u(legs[0], iso):
+            pk["long_1u"] = True
+            out.append(pk)
+    return out
 
 
 LOCK_NFL_HALF_FROM = "2026-11-16"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
@@ -7122,6 +7166,9 @@ def ncaab_play_units(pk):
         return NCAAB_PLAY_UNITS
     leg = (pk.get("legs") or [{}])[0]
     r = t.get("dog_read") if t.get("dog_read") is not None else leg.get("dog_read")
+    if t.get("road3"):
+        return NCAAB_ROAD_DOG_UNITS_1117                     # 🐶 (11/17: a true road dog in the slot at a read of 3 - ½u,
+        #                                                      STAMPED on the pick when it posts - post_board)
     two_at = t.get("two_at") or NCAAB_DOG_READ_2U           # (11/17 sizing: the read that earns 2u is STAMPED on the pick
     #                                                         when it posts - a play posted before the stamp keeps 6+)
     return NCAAB_PLAY_DOG_UNITS_2U if (r or 0) >= two_at else NCAAB_PLAY_DOG_UNITS
@@ -7330,11 +7377,60 @@ def ncaab_home_dog_short(c, read=None):
     return not (read is not None and c.get("p_market") is not None and read - c["p_market"] >= NCAAB_GAP_MIN - 1e-9)
 
 
+NCAAB_ROAD_DOG_GATE_1117 = 3         # 🐶 11/17 FABLE - THE UNDERDOG EDGE (results/studies/dogs_1117/s5_cbb.py): THE COLLEGE
+NCAAB_ROAD_DOG_UNITS_1117 = 0.5      # HOOPS DOG SLOT TAKES A TRUE ROAD DOG AT A DOG READ OF 3 (home / neutral stay 4), ½u,
+#                                      for a game on / after DOGS_1117_FROM (None = the gate is 4 everywhere again). The
+#                                      read is the whole weighed read (weights + ratings + knowledge) - this moves where
+#                                      its bar sits for one venue, never a new trigger: the 11/14 study found the read
+#                                      runs HIGH on a home floor (the home dog reads 1 less since); this is the other
+#                                      side of the same finding - on the road the read is honest a point sooner. The
+#                                      2018-26 rows (the slot as live: the 11/16 open slot, the home-dog -1 in), every
+#                                      true road dog at a read of 3, both teams 4+ games, the read clears the price:
+#                                      85-82, 50.9% against 41.9% needed, +21.1% (train 2018-22 +17.9% / held 2023-26
+#                                      +24.9%, 6 of 8 seasons, a point worse than the close +18.2%; a random 167 road
+#                                      dogs did as well 4 of 2,000 times) - the home dog at a read of 3 -0.6%, neutral
+#                                      +4.8% (train -13.3%). In the slot (two a night, the read-4+ dogs first): 122
+#                                      added plays, 63-59 +23.0% (train +19.5% / held +27.4%, 6 of 8 seasons; placebo 8
+#                                      of 2,000 against road dogs), about 15 a season; the slot +125.8u on 527u ->
+#                                      +139.8u on 588u at ½u, the worst stretch -9.4u -> -10.5u. HALF A UNIT: the added
+#                                      plays are no better than the slot's others (a random set of slot plays is as good
+#                                      738 of 2,000 times), the read's weights were fit with these seasons seen, and the
+#                                      held half proves 0.4u at its 5% end. HONEST: 2018 was 3-5 / -49% (8 plays) and
+#                                      2024 -1%; the non-conference ones 8-16 (24 plays - a watch, not a cut). Tracker:
+#                                      sports_leads.ROAD_DOG_READ_3_TAG, judged at 40 - under -5% = the gate goes back.
+
+
+def ncaab_road_dog(c):
+    """🐶 (11/17) a college hoops moneyline dog on a TRUE road floor (not home, not a neutral site) for a game on / after
+    DOGS_1117_FROM - the dog slot's gate for it is NCAAB_ROAD_DOG_GATE_1117."""
+    if not DOGS_1117_FROM or c.get("league") != "ncaab" or c.get("market", "ml") != "ml" or (c.get("odds") or 0) < DOG_MIN:
+        return False
+    if c.get("home") or c.get("side") == "home" or c.get("neutral"):
+        return False
+    if not (c.get("home") is False or c.get("side") == "away"):
+        return False                                         # (no venue on the side = not known to be a road dog)
+    return (pt_day(c) or "") >= DOGS_1117_FROM
+
+
+def ncaab_road3(c):
+    """🐶 (11/17) a college hoops dog that is in the slot ONLY on the road gate: a true road dog (ncaab_road_dog) whose
+    dog read sits at NCAAB_ROAD_DOG_GATE_1117 but under NCAAB_DOG_READ_GATE - the slot's ½u play."""
+    r = c.get("dog_read")
+    return bool(r is not None and NCAAB_ROAD_DOG_GATE_1117 <= r < NCAAB_DOG_READ_GATE and ncaab_road_dog(c))
+
+
+def ncaab_dog_read_gate(c):
+    """The dog read a college hoops dog needs for the dog slot: NCAAB_DOG_READ_GATE (4); a true road dog from the 11/17
+    games NCAAB_ROAD_DOG_GATE_1117 (3)."""
+    return NCAAB_ROAD_DOG_GATE_1117 if ncaab_road_dog(c) else NCAAB_DOG_READ_GATE
+
+
 def ncaab_dog_read_ok(c):
-    """The dog read clears its gate (NCAAB_DOG_READ_GATE) with both teams NCAAB_DOG_READ_GAMES+ games in - the college
-    hoops dog slot's gate (NCAAB_PLAY_DOG_RULE "dog_read", the best read on the night first, up to two a night)."""
+    """The dog read clears its gate (ncaab_dog_read_gate: NCAAB_DOG_READ_GATE, 3 for a true road dog from 11/17) with both
+    teams NCAAB_DOG_READ_GAMES+ games in - the college hoops dog slot's gate (NCAAB_PLAY_DOG_RULE "dog_read", the best
+    read on the night first, up to two a night)."""
     r = c.get("dog_read") if c.get("dog_read") is not None else ncaab_dog_read(c)
-    return r is not None and r >= NCAAB_DOG_READ_GATE and bool((c.get("dog_read_parts") or {}).get("games_ok"))
+    return r is not None and r >= ncaab_dog_read_gate(c) and bool((c.get("dog_read_parts") or {}).get("games_ok"))
 
 
 def mark_ncaab_dog_read(cands):
@@ -7356,8 +7452,9 @@ def mark_ncaab_dog_read(cands):
             bits.append(f"the study angles add {parts['weights']:g} points")
         if "def_first_vs_bad_off" in parts["facts"]:
             bits.append("a defense-first team against a bottom-third offense")
-        c["reasons"] = c["reasons"] + [f"the dog read is {r:g} ({', '.join(bits) or 'the whole picture'}) - "
-                                       "dogs reading 4+ beat their price every season 2018-25"]
+        tail = "dogs reading 4+ beat their price every season 2018-25" if r >= NCAAB_DOG_READ_GATE else \
+            "road dogs reading 3 beat their price in 6 of 8 seasons 2018-25"   # (🐶 11/17: the road dog's gate of 3)
+        c["reasons"] = c["reasons"] + [f"the dog read is {r:g} ({', '.join(bits) or 'the whole picture'}) - {tail}"]
 
 
 LEAN_WINNER_OWN = 0.55
@@ -9209,6 +9306,8 @@ def post_board(games, model, picks, now, day, force=False):
                                   "dog_read": leg.get("dog_read")}   # a dog 1u / 2u at a read of 6+ (ncaab_play_units)
                 if leg.get("ncaab_slot") == "dog":           # 💰 11/17 sizing: 2u at a read of 5+ from the 11/17 games -
                     pk["ncaab_play"]["two_at"] = ncaab_slot_2u_read(iso)   # stamped, so a posted play keeps its units
+                    if ncaab_road3(leg):                     # 🐶 11/17: a true road dog in on the road gate of 3 - ½u, stamped
+                        pk["ncaab_play"]["road3"] = True
                 leg["tier"], pk["tier"] = "value", "value"
                 if leg.get("odds", 0) >= 100 and leg.get("ncaab_read") is not None:   # (11/4: a normal value play - the
                     leg["dog_p"], leg["dog_score"] = leg["ncaab_read"], leg.get("ncaab_score")   # card's units line reads the
@@ -9243,6 +9342,8 @@ def post_board(games, model, picks, now, day, force=False):
             continue
         picks.append(pk)
         new.append(pk)
+    for d17 in mark_dogs_1117(new, iso):                      # 🐶 11/17: a college football Dog past +150 posted this run - 1u
+        print(f"   🐶 college football Dog at {d17['legs'][0].get('odds')}: {units_for(d17):g}u (the 11/17 size - was ½u past +{DOG_SHORT_MAX})")
     mx = mark_max(new, picks, iso)                            # 💎 THE MAX PLAY (11/16): a hockey Dog posted this run on the
     if mx is not None:                                       # b2b spot at a dog score of 8+ - 3u, a label on the Dog
         print(f"   💎 MAX PLAY: {mx['legs'][0].get('team')} {mx['legs'][0].get('odds')} - dog score "
