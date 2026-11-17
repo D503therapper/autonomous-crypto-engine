@@ -14,6 +14,52 @@ going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
 
+## 11/17 - THE MOST-MONEY STUDY (the owner: "I want what's going to make us the most money and not lose units ... bigger size units on the winners ... We don't ever want losers" + "when I see a play that has more units on it, that means I'll put more money on it"): NO KIND TO CUT, SIZING BY A KIND'S RECORD AND FEWER / BIGGER BETS BOTH FAIL, ONE SIZE WIRED - THE HOCKEY RUNNER-UP DOG AT +100..+150 IS 1u (results/studies/money_1117/ - README.md (the tables), mlib.py (the rig), s1_kinds, s2_cut, s3_kind_size, s4_concentrate, s5_options, s6_runnerup_oos, s7_plan + *.out; test test_money_1118_*)
+
+The rig: dogs_1117's R3 rows (the board on TODAY's code, 2023-10 -> 2026-11, the close) shaped like the live post (a
+thin Lock outside football is no Lock; today's sizes; the ⭐ raise) - 1,192 unit plays, train to 6/30/2025, held out
+after, live apart. Checked against the two older boards, the paid 2020-23 hockey seasons nothing saw, the long football
+/ college hoops rigs. The bar: both halves, most seasons, a placebo under 5%, the worst stretch within x1.5 - and the
+owner's 11/17 rule: a bigger size only on a kind that really won more against its price out of sample.
+
+- **Today's board**: 587-521 (53.0%), +169.1u on 1,150u (+14.7%), train +71.0u / held +98.0u, the worst stretch
+  -22.3u, 4 of 4 seasons, about +56u a year. Nobody picks only winners; the 53 pay more than the 47 cost.
+- **CUT THE LOSERS - nothing to cut.** No kind is down in both halves. The five kinds that lost in the train half (the
+  💎 3u, the NFL / hockey floor dogs, the hockey favorite value play, the 1u gap play) made +34.1u on 117u in the held
+  half; a random cut of the same size does as well 1,209 times in 2,000. The board without the floor: +4.0u and ROI
+  +16.3%, but a unit play on 59% of the rig's days instead of 71%. THE FLOOR is the soft kind (64-101, -5.5%: train
+  -15.9% / held +14.7%; the unseen seasons' hockey floor -7.0% on 610; the older boards +8% / +6%; live 8-6) - about
+  -1.5u a year at ½u, the price of a play every day. Never to be sized up. DEAD END: "cut what lost last year".
+- **SIZE BY THE KIND'S OWN RECORD - dead end.** A quarter of Kelly on each kind's train record, judged on the held
+  half (and the mirror): every version that wins more does it by risking more (+119u on 578u against +89u on 414u; at
+  equal risk +85u); the same sizes dealt at random do as well 932 / 651 times in 2,000. The link between a kind's train
+  ROI and its held ROI is -0.08. It would have put 3u on the NBA floor (+25.6% -> +3.4%) and cut the kinds that then won.
+- **FEWER, BIGGER BETS - dead end.** The plays a top-1 / top-2 / top-3 a day rule leaves off win +18.5% / +25.7% /
+  +20.8% in both halves. Only the top play at 3u: +173u for a worst stretch of -45.5u (x2.04). The top play 2u at
+  least: worst x1.69. No ranking of the day's plays holds from one half to the other.
+- **WIRED - the hockey runner-up dog at +100..+150 is 1u (was ½u), from the 11/18 games.** The Dog of the Day's twin
+  (the same gate of 6+, the same checks, one a day). R3L 34-20, 63.0% against 45.8% needed, +36.9% (train +37.5% / held
+  17-10 +36.2%); R1 28-23 +20.7% (+11.7% / +33.6%); R2 29-22 +24.4% (+18.1% / +32.0%); the unseen 2020-23 seasons at the
+  morning price every runner-up 12-13 +15.9%, 3 of 3 (the short ones 9-6) - the gated hockey dog's own +14.4% there.
+  Placebo (the extra ½u dealt to a random 54, five seeds): the ½u plays 3.9%, every hockey dog 3.5%, the gated hockey
+  dogs 5.1% (at the line; the older boards show no separation from its siblings - it is provably not a ½u play, not
+  provably better than the Dog). The board +169.1u -> +179.0u (+3.3u a year), ROI +15.2%, the worst stretch SMALLER
+  (-22.3u -> -21.7u). Past +150 stays ½u (2-6 on R1, 3-7 unseen); the NFL one stays ½u; never 2u. sports.MONEY_1118_FROM
+  / DOG_PLAY_SHORT_UNITS_1118 / dog_play_short_1u / dog_play_1u, stamped pk["dog_play_1u"] at the post.
+- **THE SIZE TIERS, held out (under the plan)**: ½u 118-92 +16.1% · 1u 58-31 +32.9% · 2u 49-45 +13.9% · 3u 10-5 +48.0%
+  (train 7-9). On today's code the 2u tier does not win more than the 1u tier: 165 of its 232 plays are the hockey Dog
+  +100..+150 at +6.4% (+6.5% / +6.2%; its own worst stretch -21.3u). That 2u stands on the unseen seasons (+13.6%, 3 of
+  3) and the older boards (+12% / +21%). LEAD / the owner's option: the hockey Dog +100..+150 at 1u = -3.5u a year, ROI
+  +16.1%, the worst stretch -19.3u.
+- **NOT EARNED (the owner's options)**: every ½u play at 1u (+26.2u on 252u more, +10.4% a unit against the board's
+  +14.7%, worst x1.31); all but the floor (clears as a bundle, placebo 21 - but it is the NBA floor (held +3.4%, live
+  1-4) and the hockey favorites (train -1.4%): a bigger size on kinds flat in a half); the ⭐ at 2u (+27.6u, train +3.7%
+  a unit, worst x1.41, a random 183 plays as good 846 of 2,000); the runner-up at 2u (worst x1.13); the NBA favorite
+  play at 2u (placebo 444; unseen +1.8%); the read-4 slot dog at 2u (placebo 452); the NBA floor at 1u; the college
+  football thin Lock at 1u (one play changes on this rig - the ⭐ already has the rest at 1u).
+- **WATCHES**: the NBA floor (held +3.4%, live 1-4); the 💎 3u (7-9 in train on today's code); the ⭐ on a hockey
+  favorite value play (train -8.8% on 47); DOG_PLAY_QUIT counts the 1-7 from NBA / college runner-ups that no longer post.
+
 ## 11/17 - THE BREAKDOWN SWEEP (the owner: "My buddy keeps complaining about the breakdowns and says they make no sense and false, outdated information of injuries and stuff ... make sure that these breakdowns are always accurate and up to date"): 60 BAD LINES ON 44 OF 113 CARDS AS WRITTEN, 0 AS THE PAGE SHOWS THEM NOW; A GOALIE'S NUMBERS ONLY ONCE HE'S CONFIRMED; EVERY NAME AND NUMBER RE-READ; A STANDING AUDIT (results/studies/cards_1117/README.md; tools/card_audit.py; tests test_cards_1117_* (six))
 
 **What was tested.** Every card posted 11/1-11/16 - 45 board cards, the 46 leans that came off the board 11/16, 22 early plays: 113 cards, 888 lines - each line re-derived from the game files, the box scores (who started, who played) and the period scores. `python tools/card_audit.py --since 2026-11-01 --with-leans --raw` (as written) / without `--raw` (as the page shows them today).

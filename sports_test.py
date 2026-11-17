@@ -21100,7 +21100,7 @@ def test_book_1111_quit_rules_for_the_runner_up_dog_play_and_the_blowout_spot():
     """11/11 (the Fable book study): the runner-up dog play stops at 20 graded under 35% won; the blowout early spot
     at 25 graded under 35% won. Short of the count, or at 35%+, they keep posting."""
     import sports_early as se
-    dp = lambda st_: {"dog_play": True, "status": st_}            # noqa: E731
+    dp = lambda st_: {"dog_play": True, "status": st_, "legs": [{"league": "nhl"}]}   # noqa: E731 (11/17: judged by sport)
     assert not sports.dog_play_quit([dp("lost")] * 19)             # 0-19: not judged yet
     assert sports.dog_play_quit([dp("won")] * 6 + [dp("lost")] * 14)        # 6-14 = 30% at 20 -> off
     assert not sports.dog_play_quit([dp("won")] * 7 + [dp("lost")] * 13)    # 7-13 = 35% -> stays
@@ -25519,6 +25519,113 @@ def test_dogs_1117_the_college_hoops_dog_slot_takes_a_true_road_dog_at_a_read_of
         sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
 
 
+def test_money_1118_the_hockey_runner_up_dog_at_100_to_150_is_1u_stamped_at_the_post_a_posted_play_keeps_its_units():
+    """11/17 FABLE - THE MOST-MONEY STUDY (the owner, 11/17: "We need bigger size units on the winners" / "when I see a
+    play that has more units on it, that means I'll put more money on it"; results/studies/money_1117/): ONE size cleared
+    the bar - the HOCKEY runner-up dog (the Dog-of-the-Day-grade dog that lost the Dog spot) at +100..+150 is 1u (was ½u)
+    for one posted for a board on / after 11/18: 34-20 +36.9% on today's code (train +37.5% / held +36.2%), up in both
+    halves on the two older boards, +15.9% on the seasons nothing saw, the board's worst stretch smaller. Past +150 it
+    stays ½u, the NFL one stays ½u, never 2u. STAMPED when it posts (pk["dog_play_1u"]) - a play already up keeps its
+    units. END TO END through post_board."""
+    assert sports.MONEY_1118_FROM == "2026-11-18" and sports.DOG_PLAY_SHORT_UNITS_1118 == 1.0 and sports.DOG_PLAY_SHORT_LEAGUES_1118 == ("nhl",)
+    assert (sports.DOG_SHORT_MAX, sports.PLAY_UNITS, sports.DOG_PLAY_MAX) == (150, 0.5, 1)
+
+    def leg(odds=130, lg="nhl"):
+        d = sports._dec(odds)
+        pm = 1 / d - 0.02
+        return {"league": lg, "market": "ml", "odds": odds, "dec": d, "p": pm + 0.01, "p_market": pm, "edge": (pm + 0.01) * d - 1,
+                "edge_own": (pm + 0.03) * d - 1, "dog_p": round(pm + 0.07, 4), "dog_score": 7.0, "team": "Flames", "opp": "Sharks",
+                "game_id": f"{lg}:t", "side": "away", "home": False, "start": "2026-11-20T03:00Z", "reasons": ["r"], "waiting": [], "trap": False}
+
+    def pk(l, day="2026-11-19", **kw):
+        return {"kind": "play", "date": day, "status": "open", "lean": False, "dog_play": True, "legs": [l], "dec": l["dec"],
+                "american": l["odds"], **kw}
+    # the cell: hockey, a moneyline dog at +100..+150, a board on / after 11/18
+    for o, want in ((100, True), (130, True), (150, True), (151, False), (220, False), (-110, False)):
+        assert sports.dog_play_short_1u(leg(o), "2026-11-19") is want, o
+    assert sports.dog_play_short_1u(leg(), "2026-11-18") and not sports.dog_play_short_1u(leg(), "2026-11-17")
+    assert not sports.dog_play_short_1u(leg(), None) and not sports.dog_play_short_1u(leg(), "")
+    assert not sports.dog_play_short_1u(leg(lg="nfl"), "2026-11-19") and not sports.dog_play_short_1u(leg(lg="nba"), "2026-11-19")
+    assert not sports.dog_play_short_1u({**leg(), "market": "spread"}, "2026-11-19")
+    # the stamp decides the size: 1u with it, ½u without (a play posted before the change - any date - keeps ½u)
+    a = pk(leg())
+    assert sports.units_for(a) == 0.5 and sports.sizing_check([a]) == []
+    a["dog_play_1u"] = True
+    assert sports.dog_play_1u(a) and sports.units_for(a) == 1.0 and sports.sizing_check([a]) == []
+    # a stamp on anything but the cell is ignored: a long price, the NFL, a spread, a play that is no runner-up dog
+    for bad in (pk(leg(151), dog_play_1u=True), pk(leg(250), dog_play_1u=True), pk(leg(lg="nfl"), dog_play_1u=True),
+                pk({**leg(), "market": "spread"}, dog_play_1u=True), {**pk(leg(), dog_play_1u=True), "dog_play": False}):
+        assert not sports.dog_play_1u(bad) and sports.units_for(bad) == 0.5, bad["legs"][0]["odds"]
+    # a floor play never reads the stamp; the Dog of the Day's own sizes did not move; never 2u
+    assert sports.units_for({**pk(leg()), "dog_play": False, "floor": {"dog_score": 1.0}, "dog_play_1u": True}) == 0.5
+    assert sports.units_for({"kind": "dog", "date": "2026-11-19", "status": "open", "lean": False, "legs": [leg()]}) == 2.0
+    assert sports.units_for({"kind": "dog", "date": "2026-11-19", "status": "open", "lean": False, "legs": [leg(190)]}) == 0.5
+    # graded: the units it was graded at, forever; the ⭐ leaves 1u at 1u; a Dog upgrade keeps the posted units
+    assert sports.units_for({**a, "status": "lost", "units": 0.5}) == 0.5 and sports.units_for({**a, "best": True}) == 1.0
+    assert sports.units_for({**a, "units_posted": 0.5}) == 0.5
+    assert sports.best_rank(a)[1] == -1.0                         # (the ⭐'s order reads the stamped size)
+    # the switch: None = no stamp on a new play; a play stamped before keeps its 1u
+    keep = sports.MONEY_1118_FROM
+    try:
+        sports.MONEY_1118_FROM = None
+        assert not sports.dog_play_short_1u(leg(), "2026-11-19") and sports.units_for(a) == 1.0
+    finally:
+        sports.MONEY_1118_FROM = keep
+    # wired where the board posts the runner-up dog
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert 'if dog_play_short_1u(leg, iso):' in pb and 'pk["dog_play_1u"] = True' in pb
+    assert pb.index('pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"') < pb.index('pk["dog_play_1u"] = True')
+    # END TO END - post_board on an 11/19 hockey board: the runner-up dog the pool hands over posts at 1u (+130) / ½u (+190)
+    games, _ = fake_league("nhl", days=120)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 19, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    keep_f = sd.fetch_injuries
+    names = ("dog_plays", "plays", "gap_plays", "floor_plays", "nba_fav_plays", "nba_floor_plays", "ncaab_play_plays", "ncaab_stack_plays",
+             "make_board")
+    keep_fn = {n: getattr(sports, n) for n in names}
+
+    def run(ml_away, from_=keep):
+        gid = "nhl:mm0"
+        games[gid] = {**games["nhl:1"], "id": gid, "status": "pre", "home": "0", "away": "1", "home_name": "H0", "away_name": "A0",
+                      "home_score": "", "away_score": "", "start": "2026-11-20T03:00Z", "ml_home": "-150" if ml_away < 151 else "-230",
+                      "ml_away": str(ml_away), "ml_home_open": "-150" if ml_away < 151 else "-230", "ml_away_open": str(ml_away)}
+
+        def pool(cands, avoid):
+            got_ = [c for c in cands if c["game_id"] == gid and c["market"] == "ml" and c["odds"] >= 100 and gid not in avoid][:1]
+            for c in got_:                             # (the real pool only hands over a gated dog whose read beats its price)
+                c.update(dog_p=round(1 / c["dec"] + 0.06, 4), dog_score=7.0, reasons=c.get("reasons") or ["out-shooting them"])
+            return got_
+        none = lambda cands, avoid, *a, **k: []        # noqa: E731
+        try:
+            sd.fetch_injuries = lambda lg: {str(t): [] for t in range(40)}
+            sports.MONEY_1118_FROM = from_
+            for n in keep_fn:
+                setattr(sports, n, none)
+            sports.dog_plays = pool
+            sports.make_board = lambda *a, **k: {}
+            picks = []
+            sports.post_board(games, model, picks, now, day, force=True)
+            return [p for p in picks if p.get("dog_play")]
+        finally:
+            sports.MONEY_1118_FROM = keep
+            sd.fetch_injuries = keep_f
+            for n, f in keep_fn.items():
+                setattr(sports, n, f)
+    got = run(130)
+    # (_units_base = the kind's own size: the day's one unit play also takes the ⭐, which reads 1u at least either way)
+    assert len(got) == 1 and got[0]["kind"] == "play" and got[0].get("dog_play_1u") is True and sports._units_base(got[0]) == 1.0, \
+        (got, sports.LAST_PICK_CHECK)
+    assert sports.units_for(got[0]) == 1.0 and sports.sizing_check([{**got[0], "best": False}]) == []
+    long_ = run(190)
+    assert len(long_) == 1 and not long_[0].get("dog_play_1u") and sports._units_base(long_[0]) == 0.5, (long_, sports.LAST_PICK_CHECK)
+    off = run(130, from_=None)
+    assert len(off) == 1 and not off[0].get("dog_play_1u") and sports._units_base(off[0]) == 0.5
+    assert sports._units_base(got[0]) == 1.0                      # (the play posted before the switch went off keeps its 1u)
+
+
 def test_dogs_1117_the_college_football_dog_past_150_is_1u_stamped_at_the_post_nfl_and_hockey_long_dogs_stay_half():
     """11/17 FABLE - THE UNDERDOG EDGE (results/studies/dogs_1117/s7_sizing.py): the 10/30 price split (the Dog 2u at
     +100..+150, ½u past it) was set on a board that was nearly all hockey. On the football replay board 2018-26 the
@@ -26525,6 +26632,18 @@ def test_cards_1117_the_standing_card_audit_and_the_real_cards():
         cc.reset()
         cc._STARTED.clear()
 
+
+
+def test_money_1117_the_runner_up_dog_judge_counts_only_the_sports_it_still_posts_in():
+    """11/17 (the money study's flag): the runner-up dog's quit rule started at 1-7, all NBA / college runner-ups that
+    stopped posting 11/13 - the hockey / NFL ones would have had to win 6 of their first 12 to stay on."""
+    def pk(lg, st):
+        return {"dog_play": True, "status": st, "legs": [{"league": lg}]}
+    old = [pk("nba", "lost")] * 10 + [pk("ncaaf", "lost")] * 9 + [pk("nba", "won")]
+    assert sports.dog_play_record(old) == (1, 19)
+    assert not sports.dog_play_quit(old + [pk("nhl", "won")]), "cut sports never judge the hockey / NFL runner-up"
+    bad = [pk("nhl", "lost")] * 14 + [pk("nfl", "won")] * 6
+    assert sports.dog_play_quit(bad) and not sports.dog_play_quit(bad[:19])
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
