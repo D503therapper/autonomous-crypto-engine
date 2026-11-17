@@ -124,6 +124,7 @@ def audit_day(picks, games, day):
         if not pk.get("lean") and pk.get("kind") != "dog" and u > 0.5 and day >= sports.THIN_FROM \
                 and not (pk.get("best") and day >= sports.BEST_FROM) \
                 and not (pk.get("nba_fav") or pk.get("gap") is not None or pk.get("ncaab_play")) \
+                and not (sports.thin_lock_1u(pk) or sports.dog_play_2u(pk) or sports.dog_play_1u(pk)) \
                 and sports.thin_edge(pk["legs"][0]):        # (11/11 sweep: the NBA favorite play is 1u BY ITS RULE - its
             #                                                read starts at the books' price, NBA_FAV_UNITS; the 🔍 gap play
             #                                                1u and the college hoops dog slot 1u-2u size by their own

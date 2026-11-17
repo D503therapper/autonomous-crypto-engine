@@ -14,6 +14,50 @@ going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
 
+## 11/17 - THE MAX-PROFIT SIZING PLAN (the owner: "whatever Fable recommends for the biggest returns on the best bets, the largest sizes ... wire that into the engine ... maximize profits" + "when I see a play that has more units on it, that means I'll put more money on it. And none of these picks can be costing me or my friends money"): THREE SIZES WIRED FROM THE 11/17 GAMES - THE HOCKEY RUNNER-UP DOG 2u, THE COLLEGE FOOTBALL THIN LOCK 1u, THE ⭐ 2u ON A LOCK / DOG / 1u+ PLAY AT +150 OR SHORTER (results/studies/profit_1117/ - README.md (the tables), plib.py, s1_pieces, s2_bundles, s3_star, s4_plan + *.out; test test_profit_1117_*)
+
+The rig: money_1117's board (today's code, 2023-10 -> 2026-11, the close; 1,192 unit plays, train to 6/30/2025, held out
+after) with every size option as a switchable piece and the ⭐ re-picked on the new sizes - the options interact, so they
+were judged TOGETHER. The rule: the most units won, up in both halves and every season, the worst stretch within today's
+x1.5, no bigger size on a group that loses held out, no piece whose added units lose in a half.
+
+| | units a year | ROI | train | held out | worst stretch | worst season |
+|---|---|---|---|---|---|---|
+| TODAY (11/17 code) | +59.1u | +15.2% | +76.1u | +102.9u | -21.7u | +6.4u |
+| every ½u at 1u, floor in | +64.4u | +13.9% | +84.4u | +110.8u | x1.35 | +5.3u |
+| every ½u at 1u but the floor | +66.1u | +15.1% | +93.5u | +106.8u | x1.10 | +6.3u |
+| the runner-up 2u | +65.7u | +16.2% | +86.2u | +112.7u | x1.03 | +6.6u |
+| the ⭐ 2u on every play | +68.2u | +15.2% | +80.7u | +125.9u | x1.42 | +10.3u |
+| every ½u but the floor + the runner-up 2u + the ⭐ 2u | +81.8u | +15.9% | +108.3u | +139.5u | x1.49 | +10.5u |
+| everything | +80.1u | +14.8% | +99.2u | +143.6u | **x1.74 - fails** | +9.5u |
+| **WIRED: the runner-up 2u + the college thin Lock 1u + the ⭐ 2u on a Lock / Dog / 1u+ play at +150 or shorter** | **+70.5u** | **+16.9%** | **+92.3u** | **+121.2u** | **-24.3u (x1.12)** | **+10.5u** |
+
+- **BUILT (sports.PROFIT_1117_FROM = "2026-11-17", stamped at the post):** the hockey runner-up dog +100..+150 2u
+  (dog_play_2u; 34-20 +36.9%, +37.5% / +36.2%, the added unit +19.9u); the college football thin Lock 1u (thin_lock_1u;
+  11-2 +42.6%, held 4-0; the 9-season football board 20-5 +35.9%, 8 of 9); the ⭐ 2u (best_2u / best_2u_ok) when it sits
+  on a Lock, a Dog of the Day or a play 1u+ by its own size at +150 or shorter - 29 ⭐s, the extra unit +14.3u, +49.2%
+  (train +35.7% / held +68.3%), a random 29 of the ⭐s as good 2.7% of the time. The units the plan adds: +34.5u on
+  83.5u, +41.3%; 4 of 4 seasons up (+51.8, +40.5, +110.7, +10.5).
+- **"EVERY ½u AT 1u" IS TWO GROUPS THAT FAIL:** 165 NBA floor dogs (train +25.6%, held +3.4%, held + the live-replay
+  weeks 25-39 **-6.4%**, by season +19.2u / +10.6u / +1.7u / -5.7u, live 1-4) and 152 hockey favorite value plays (train
+  -1.4%; the half unit 1u adds loses held out, -3.3% - the ⭐ already has the good ones). What passes inside it is the
+  college football thin Lock. The NFL Lock loses held out (-4.0%); the floor loses 5u more at 1u (never sized up).
+- **THE ⭐ AT 2u ON EVERY PLAY IS NOT EARNED:** +3.7% in the first half, a random 183 plays as good a third of the time.
+  The ⭐s it would size up that the wired rule leaves at 1u - a ½u value play, a floor play, a dog past +150 - went 52-57,
+  -1.3% in train (held 30-15 +32.9%): the long dog 16-32 -7.9%, the hockey favorite value play 25-22 -8.8%. A thin edge
+  is NOT the line (the thin-edge ⭐s beat the real-edge ones in both halves); the kind and the price are.
+- **NOT BUILT, the next to earn it:** the NBA favorite play at 2u (+6.3u a year here, held 22-4; the unseen seasons
+  +1.8%) and the college hoops read-4 slot dog at 2u (+6.1u; held 9-10 +13.6%; the 8-season rig +10.3%, train +3.8%).
+- **THE TIERS AFTER (held out):** by the kind ½u 114-92 +15.1%, 1u 45-21 +33.7%, 2u 66-55 +18.8%, 3u 10-5 +48.0%; as the
+  board shows them ½u 83-79 +9.3%, 1u 65-33 +30.7%, 2u 77-56 +23.3%, 3u 10-5 +48.0%. Still weak on today's code and not
+  touched here: the hockey Lock at 2u (2-3), the 💎 3u's first half (7-9), the hockey Dog's 2u (+6% - where the worst
+  stretch comes from).
+- **CARD RULE:** a card that carries 1u or more never says a small bet's words (sports_card_check.SMALL_TALK) - the card
+  is written before the stamp goes on (the college football thin Lock said "small bet, not a big one").
+- Honest limits: the dog score's weights saw these seasons; the 2u ⭐ is about ten plays a year, mostly college football
+  Locks and NBA Dogs; no hockey runner-up has posted live yet.
+
+
 ## 11/17 - THE MOST-MONEY STUDY (the owner: "I want what's going to make us the most money and not lose units ... bigger size units on the winners ... We don't ever want losers" + "when I see a play that has more units on it, that means I'll put more money on it"): NO KIND TO CUT, SIZING BY A KIND'S RECORD AND FEWER / BIGGER BETS BOTH FAIL, ONE SIZE WIRED - THE HOCKEY RUNNER-UP DOG AT +100..+150 IS 1u (results/studies/money_1117/ - README.md (the tables), mlib.py (the rig), s1_kinds, s2_cut, s3_kind_size, s4_concentrate, s5_options, s6_runnerup_oos, s7_plan + *.out; test test_money_1118_*)
 
 The rig: dogs_1117's R3 rows (the board on TODAY's code, 2023-10 -> 2026-11, the close) shaped like the live post (a
