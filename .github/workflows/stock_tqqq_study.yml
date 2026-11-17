@@ -1,0 +1,28 @@
+# Owner 11-17 "run studies and figure it out": TQQQ above its 200-day average back to 2000 on a rebuilt 3x fund (stock_tqqq_study.py)
+name: stock-tqqq-study
+on:
+  push:
+    branches: [main]
+    paths: ["stock_tqqq_study.py", ".github/workflows/stock_tqqq_study.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: stock_tqqq_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u stock_tqqq_study.py 2>&1 | tee results/stock_tqqq_study.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "stock-tqqq-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done

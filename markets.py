@@ -2,7 +2,7 @@
 and its own $500 paper account per strategy."""
 import config
 from social import SocialHeat
-from stock_strategies import Breakout52, DualMomentum, TrendEnsemble
+from stock_strategies import Breakout52, DualMomentum, TrendEnsemble, TrendHold
 from strategy import (BreakoutHunter, DonchianRotation, EarlyMover, HoldBenchmark, MomentumRotation,
                       RSI2MeanReversion, TrendFollower, WeeklyMomentum)
 
@@ -57,6 +57,11 @@ MARKETS = {
         "strategies": [
             RSI2MeanReversion(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),
             Breakout52(config.STOCK_HIBETA, 7),                 # official: 52-week-high breakouts, top 5
+            # EXPERIMENT 19 (2026-11-17), TEST account only: TQQQ while it closes above its 200-day average,
+            # else cash. Proposed for the official account in place of rsi2 and NOT adopted: stock_tqqq_study
+            # (results/stock_tqqq_study.txt) - 2010-2026 +30.8%/yr, but 2000-2010 on a rebuilt 3x fund -8%/yr with
+            # an 80% drawdown, and the 150 / 250-day versions earn about half. Judge ~2027-02-17.
+            TrendHold(7),
             # lab walk-forward picks (results/lab_stocks.txt), target-weight accounts (test):
             DualMomentum(7),                                    # monthly index-ETF momentum vs IEF
             TrendEnsemble(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),  # weekly trend top-5

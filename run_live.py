@@ -183,6 +183,14 @@ def full_cycle(mname, client):
                       + (", ".join(f"{s} ({r:+.0%} 6-mo)" for r, s in hi[:8]) or "none"))
             except Exception as e:
                 print(f"   breakout52 watch failed: {e}")
+        if st.name == "tqqq200":                       # the test account's switch: the fund vs its own long average
+            try:
+                g = st.analyze(coins.get(st.symbol))
+                print(f"   tqqq200: {st.symbol} " + ("no data" if not g else f"not enough history ({st.days} closes needed)"
+                      if g["avg"] is None else f"last close {g['close']:.2f} vs its {st.days}-day average {g['avg']:.2f}: "
+                      f"{'ABOVE (holds it)' if g['buy'] else 'BELOW (cash)'}"))
+            except Exception as e:
+                print(f"   tqqq200 watch failed: {e}")
     if mname == "crypto":
         try:
             for coin in check_new_listings(client):

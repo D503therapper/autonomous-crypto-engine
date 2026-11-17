@@ -3553,6 +3553,8 @@ def _units_base(pk):
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
                 return FLOOR_UNITS                           # 💰 (10/27: a floor play, ½u - the thin edge)
+            if dog_play_1u(pk):
+                return DOG_PLAY_SHORT_UNITS_1118             # 💰 (11/18: the hockey runner-up dog at +100..+150, 1u - stamped at the post)
             return gap_units(pk) if pk.get("gap") else PLAY_UNITS                           # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
         if not u or thin_edge(legs[0]):                      # only thing that doesn't get units is leans") - ½u
@@ -3693,6 +3695,41 @@ def mark_dogs_1117(new, iso):
             pk["long_1u"] = True
             out.append(pk)
     return out
+
+
+MONEY_1118_FROM = "2026-11-18"      # 💰 11/17 FABLE - THE MOST-MONEY STUDY (the owner, 11/17: "I want what's going to make
+DOG_PLAY_SHORT_UNITS_1118 = 1.0     # us the most money and not lose units ... We need bigger size units on the winners"
+DOG_PLAY_SHORT_LEAGUES_1118 = ("nhl",)   # + "when I see a play that has more units on it, that means I'll put more money on
+#   it"; results/studies/money_1117/, SPORTS_FINDINGS "11/17 - THE MOST-MONEY STUDY"). None = off (a posted pick keeps its
+#   units). ONE size cleared the bar: THE HOCKEY RUNNER-UP DOG AT +100..+150 IS 1u (was ½u) for one posted NEW for a game
+#   on / after this Pacific day. The runner-up dog (dog_plays) is a Dog-of-the-Day-grade hockey dog - the same gate (a dog
+#   score of 6+), the same checks - that lost the Dog spot to another one; the Dog carries 2u at that price and its twin
+#   carried a quarter of it. On the board today's code builds (R3L, 2023-26, the close): the short runner-up 34-20, 63.0%
+#   against 45.8% needed, +36.9% (train +37.5% / held 17-10 +36.2%); on the two older boards 28-23 +20.7% (+11.7% /
+#   +33.6%) and 29-22 +24.4% (+18.1% / +32.0%) - six half-cells of six up; on the three seasons no weight ever saw (the
+#   paid 2020-23 morning prices) every runner-up 12-13 +15.9%, 3 of 3 seasons, the short ones 9-6 - the gated hockey dog's
+#   own +14.4% there, the kind the Dog's 2u stands on. The extra ½u dealt to a random 54 of the board's ½u plays wins as
+#   much 3.9% of the time (its own kind, the gated hockey dogs: 5.1% - AT the line, said plainly; the older boards show no
+#   separation from its siblings, only that it wins). The board: +169.1u -> +179.0u over three replay years (+3.3u a
+#   year), ROI +14.7% -> +15.2%, THE WORST STRETCH SMALLER (-22.3u -> -21.7u). Past +150 it stays ½u (the Dog's own price
+#   split: 2-6 on the oldest board, 3-7 on the unseen seasons); the NFL runner-up stays ½u (no sample). NOT 2u: it is
+#   not provably better than the Dog, only provably not a ½u play. Its judge is the runner-up dog's own (DOG_PLAY_QUIT).
+#   The size is STAMPED on the pick when it posts (pk["dog_play_1u"], post_board) - a play already up keeps its units.
+
+
+def dog_play_short_1u(leg, day):
+    """💰 (11/17 most-money study) is this the runner-up dog play's 1u cell: a HOCKEY moneyline dog at +100..+DOG_SHORT_MAX,
+    a board on / after MONEY_1118_FROM?"""
+    return bool(MONEY_1118_FROM and (day or "") >= MONEY_1118_FROM and leg.get("league") in DOG_PLAY_SHORT_LEAGUES_1118
+                and leg.get("market", "ml") == "ml" and DOG_MIN <= (leg.get("odds") or 0) <= DOG_SHORT_MAX)
+
+
+def dog_play_1u(pk):
+    """💰 a runner-up dog play carrying the 11/18 size: tagged dog_play, STAMPED dog_play_1u when it posted, and still the
+    cell (hockey, +100..+150) - a stamp on anything else is ignored."""
+    leg = (pk.get("legs") or [{}])[0]
+    return bool(pk.get("dog_play") and pk.get("dog_play_1u") and leg.get("league") in DOG_PLAY_SHORT_LEAGUES_1118
+                and leg.get("market", "ml") == "ml" and DOG_MIN <= (leg.get("odds") or 0) <= DOG_SHORT_MAX)
 
 
 LOCK_NFL_HALF_FROM = "2026-11-16"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
@@ -5947,10 +5984,12 @@ DOG_PLAY_QUIT = (20, 0.35)     # 🐶 11/11 (the Fable book study, under the own
 #                                judged at 20 graded: under 35% won = no more posts (the owner can turn it back on).
 
 
-def dog_play_record(picks):
-    """🐶 the runner-up dog play's own record (picks tagged dog_play) -> (won, lost)."""
+def dog_play_record(picks, leagues=None):
+    """🐶 the runner-up dog play's own record (picks tagged dog_play) -> (won, lost); `leagues`: only those sports."""
     w = l_ = 0
     for p in picks or []:
+        if leagues is not None and ((p.get("legs") or [{}])[0].get("league") not in leagues):
+            continue
         if p.get("dog_play") and p.get("status") in ("won", "lost"):
             w, l_ = (w + 1, l_) if p["status"] == "won" else (w, l_ + 1)
     return w, l_
@@ -5958,8 +5997,8 @@ def dog_play_record(picks):
 
 def dog_play_quit(picks):
     """The runner-up dog play's judge: DOG_PLAY_QUIT[0]+ graded and under DOG_PLAY_QUIT[1] won = no more posts."""
-    w, l_ = dog_play_record(picks)
-    return w + l_ >= DOG_PLAY_QUIT[0] and w / (w + l_) < DOG_PLAY_QUIT[1]
+    w, l_ = dog_play_record(picks, DOG_PLAY_LEAGUES_1113)    # (11/17: judged on the sports it still posts in - the 1-7
+    return w + l_ >= DOG_PLAY_QUIT[0] and w / (w + l_) < DOG_PLAY_QUIT[1]   #  it started at was NBA / college runner-ups cut 11/13)
 
 
 def posted_kind(p):
@@ -8786,7 +8825,8 @@ def sizing_check(new):
         elif k == "play":
             want = (ncaab_play_units(pk),) * 2 if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
                 else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
-                else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") else (PLAY_UNITS, PLAY_UNITS)
+                else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") \
+                else (DOG_PLAY_SHORT_UNITS_1118,) * 2 if dog_play_1u(pk) else (PLAY_UNITS, PLAY_UNITS)   # (💰 11/18: the short hockey runner-up 1u)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
             want = (dog_units(pk),) * 2                      # (10/30 sizing: the Dog by its price, thin or not)
         elif k == "dog":
@@ -9298,6 +9338,10 @@ def post_board(games, model, picks, now, day, force=False):
                       f"needed, {units_for(pk):g}u; its record {r_['won']}-{r_['lost']} (judge at {NCAAB_MAX_PLAY_QUIT[0]})")
             if kind == "dogplay":                            # 🐶 a Dog-of-the-Day-grade dog that isn't the Dog: ½u value
                 pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"
+                if dog_play_short_1u(leg, iso):              # 💰 11/18 (the most-money study): a hockey runner-up at
+                    pk["dog_play_1u"] = True                 # +100..+150 is 1u - stamped, so a posted play keeps its units
+                    print(f"   🐶 hockey runner-up dog: {leg.get('team')} {leg.get('odds')} - {DOG_PLAY_SHORT_UNITS_1118:g}u "
+                          f"(the 11/18 size - was ½u; past +{DOG_SHORT_MAX} stays ½u)")
             if kind == "nbafav":                             # 🏀 the NBA favorite play (10/27): 1u on the study weights
                 pk["nba_fav"], leg["tier"], pk["tier"] = dict(leg.get("nba_fav_w") or {}), "value", "value"
             if kind in ("floor", "nbafloor"):                # 💰 the daily floor (10/27): ½u, a thin edge that says so

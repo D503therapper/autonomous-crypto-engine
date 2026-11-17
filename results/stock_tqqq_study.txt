@@ -1,0 +1,81 @@
+=== TQQQ-above-its-200-day-average study: cost 0.05%/side, signal at the close, trade at the next open ===
+  QQQ: 6966 days from 1999-03-10
+  SPY: 7042 days from 1998-11-17
+  TQQQ: 4217 days from 2010-02-11
+  QLD: 5134 days from 2006-06-21
+  UPRO: 4376 days from 2009-06-25
+  ^IRX: 7034 days from 1998-11-17
+
+=== 1) Is the rebuilt 3x fund honest? Rebuilt vs the REAL fund on the days both exist (buy and hold) ===
+  TQQQ: real +39.4%/yr   rebuilt +39.7%/yr   (2010-02-11 .. 2026-11-16)
+  QLD: real +23.7%/yr   rebuilt +24.0%/yr   (2006-06-21 .. 2026-11-16)
+
+span 2000-03-20 .. 2026-11-16; eras: 2000-03-20 .. 2010-02-10 | 2010-02-11 .. 2018-06-29 | 2018-07-02 .. 2026-11-16
+
+=== 2) REBUILT 3x Nasdaq fund from QQQ, 2000 -> today (each era from a flat start) ===
+rule                           full CAGR  maxDD trd/yr | 2000-2010   DD | 2010-2018   DD | 2018-2026   DD | $1,000 -> full
+--------------------------------------------------------------------------------------------------------------------------
+hold QQQ                           +7.6%    83%    0.0 |     -8.9%  83% |    +19.3%  16% |    +18.4%  35% |        7,079
+hold 3x                            -4.4%   100%    0.0 |    -50.0% 100% |    +52.2%  45% |    +29.4%  81% |          302
+3x own200  (LIVE CANDIDATE)       +15.7%    80%    6.5 |     -8.1%  80% |    +29.7%  55% |    +35.8%  48% |       48,011
+3x own100                          +5.0%    89%   13.4 |     -8.8%  89% |    +19.1%  46% |     +9.7%  56% |        3,702
+3x own150                          +7.8%    84%    9.9 |     -9.2%  84% |    +20.8%  52% |    +18.0%  62% |        7,325
+3x own250                          +9.7%    90%    5.6 |    -14.9%  90% |    +24.5%  57% |    +30.9%  63% |       11,819
+3x qqq200                          +7.9%    94%    7.1 |    -15.2%  94% |    +23.3%  63% |    +26.1%  58% |        7,641
+3x own200 one day late            +13.3%    87%    6.5 |    -11.6%  87% |    +30.3%  53% |    +31.0%  48% |       27,825
+3x own200 3x costs                +14.9%    81%    6.5 |     -8.8%  81% |    +28.8%  55% |    +35.1%  48% |       40,336
+2x own200                         +12.7%    76%    6.4 |     -4.8%  76% |    +22.4%  38% |    +26.9%  44% |       24,159
+QQQ own200 (no leverage)           +6.6%    54%    7.1 |     -1.6%  54% |    +10.1%  26% |    +13.6%  23% |        5,505
+
+=== 3) Per-year returns (rebuilt fund) ===
+rule                               0     1     2     3     4     5     6     7     8     9    10    11    12    13
+hold QQQ                        -47%  -33%  -37%  +50%  +11%   +2%   +7%  +19%  -42%  +55%  +20%   +3%  +18%  +37%
+hold 3x                         -94%  -89%  -86% +169%  +18%   -8%   +2%  +38%  -88% +198%  +52%   -8%  +51% +139%
+3x own200  (LIVE CANDIDATE)     -68%   +0%   +0%  +93%  -16%  -31%   +4%   -2%  -21%  +84%   -9%  -29%  +29% +118%
+3x qqq200                       -80%  -37%  -20%  +96%   -6%  -32%   +2%  +38%  -32% +102%   -4%  -36%  +26% +123%
+2x own200                       -71%   +0%   +0%  +84%   -2%  -12%   +4%  +24%  -25%  +60%   +3%  -19%  +15%  +70%
+rule                              14    15    16    17    18    19    20    21    22    23    24    25    26
+hold QQQ                        +19%   +9%   +7%  +33%   -0%  +39%  +48%  +27%  -33%  +55%  +26%  +21%   +8%
+hold 3x                         +57%  +17%  +11% +118%  -20% +134% +113%  +84%  -79% +200%  +60%  +36%   +2%
+3x own200  (LIVE CANDIDATE)     +44%   -2%   -1% +118%  +17%  +47%  +91%  +84%  -19%  +88%  +44%  +21%   +2%
+3x qqq200                       +57%  -25%  -14% +118%  -17%  +39%  +89%  +84%  -44% +105%  +60%  +25%   -9%
+2x own200                       +37%   +2%   +5%  +70%  +12%  +38%  +52%  +55%  -14%  +49%  +32%  +25%  +12%
+
+=== 4) Start any day with $1,000 (windows overlap) ===
+--- after 6 months ---
+hold QQQ                       bad    858  median  1,088  good  1,219  worst    400  best  1,632  lost half+   0%  2x   0%
+hold 3x                        bad    491  median  1,182  good  1,660  worst     30  best  3,642  lost half+  10%  2x   3%
+3x own200  (LIVE CANDIDATE)    bad    809  median  1,063  good  1,532  worst    271  best  2,324  lost half+   0%  2x   0%
+3x qqq200                      bad    695  median  1,085  good  1,577  worst    166  best  2,491  lost half+   1%  2x   1%
+2x own200                      bad    874  median  1,069  good  1,362  worst    255  best  1,870  lost half+   0%  2x   0%
+--- after 12 months ---
+hold QQQ                       bad    724  median  1,165  good  1,395  worst    303  best  1,904  lost half+   2%  2x   0%
+hold 3x                        bad    227  median  1,351  good  2,232  worst      8  best  5,269  lost half+  15%  2x  18%
+3x own200  (LIVE CANDIDATE)    bad    792  median  1,178  good  1,980  worst    271  best  2,996  lost half+   1%  2x   9%
+3x qqq200                      bad    644  median  1,131  good  2,031  worst    166  best  3,903  lost half+   1%  2x  11%
+2x own200                      bad    888  median  1,153  good  1,638  worst    255  best  2,509  lost half+   0%  2x   1%
+
+=== 5) The REAL funds, same rules (real opens / closes; their whole listed life) ===
+  TQQQ above its 150-day avg: +17.1%/yr, maxDD 62% | older half +12.9% / 50% | newer half +21.4% / 58%   (2011-02-22 .. 2026-11-16)
+  TQQQ above its 200-day avg: +30.8%/yr, maxDD 48% | older half +24.7% / 47% | newer half +37.1% / 48%   (2011-02-22 .. 2026-11-16)
+  TQQQ above its 250-day avg: +27.5%/yr, maxDD 62% | older half +20.1% / 53% | newer half +35.2% / 62%   (2011-02-22 .. 2026-11-16)
+  TQQQ buy and hold: +36.2%/yr, maxDD 82%
+  TQQQ today: close 53.03, 200-day avg 65.52 -> BELOW (cash)
+  QLD above its 150-day avg: +15.2%/yr, maxDD 47% | older half +9.8% / 47% | newer half +20.8% / 38%   (2007-07-03 .. 2026-11-16)
+  QLD above its 200-day avg: +21.1%/yr, maxDD 46% | older half +14.1% / 41% | newer half +28.6% / 46%   (2007-07-03 .. 2026-11-16)
+  QLD above its 250-day avg: +18.6%/yr, maxDD 44% | older half +13.0% / 42% | newer half +24.4% / 44%   (2007-07-03 .. 2026-11-16)
+  QLD buy and hold: +22.8%/yr, maxDD 83%
+  QLD today: close 75.08, 200-day avg 83.59 -> BELOW (cash)
+  UPRO above its 150-day avg: +15.4%/yr, maxDD 59% | older half +19.2% / 50% | newer half +11.7% / 48%   (2010-07-07 .. 2026-11-16)
+  UPRO above its 200-day avg: +19.3%/yr, maxDD 57% | older half +27.1% / 39% | newer half +11.9% / 56%   (2010-07-07 .. 2026-11-16)
+  UPRO above its 250-day avg: +17.6%/yr, maxDD 56% | older half +25.6% / 38% | newer half +9.9% / 56%   (2010-07-07 .. 2026-11-16)
+  UPRO buy and hold: +30.9%/yr, maxDD 77%
+  UPRO today: close 130.68, 200-day avg 134.35 -> BELOW (cash)
+
+=== 6) VERDICT against the bar written before the run ===
+  first era (2000-03-20 .. 2010-02-10): rule -8.1%/yr, maxDD 80%; hold QQQ -8.9%/yr, maxDD 83%
+  (a) did not lose money: FAIL   (b) beat holding QQQ: PASS   (c) never fell more than 65%: FAIL
+  neighbours (150 / 250-day) positive in the later eras: PASS; not losing in the first era: FAIL
+  => NOT ALL PASS
+
+Caveats: the rebuilt fund is a model (real 3x funds also lose a little to swaps and tracking - see part 1); daily bars; one index (the Nasdaq-100 was the best big index of the last 15 years - its future is not promised); windows overlap.
