@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T17:01Z",
+ "updated": "2026-11-17T17:15Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -25,6 +25,21 @@
    "start": "2026-11-17T17:00Z",
    "away": "Hofstra",
    "home": "Murray St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401928360",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T17:00Z",
+   "away": "LA Christian",
+   "home": "Southern",
    "h1": null,
    "why": "started",
    "done": false,
@@ -158,7 +173,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Army",
-    "p": 0.486,
+    "p": 0.491,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -174,9 +189,9 @@
     "opp": "Marist",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.51,
-    "win_p": 0.51,
+    "odds": -118,
+    "p": 0.517,
+    "win_p": 0.517,
     "reasons": [
      "hotter recent form",
      "sharp money moving this way"
@@ -461,8 +476,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Davidson",
-    "p": 0.569,
-    "tie": 0.043,
+    "p": 0.573,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -477,9 +492,9 @@
     "opp": "Charlotte",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.619,
-    "win_p": 0.619,
+    "odds": -175,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -986,7 +1001,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Villanova",
-    "p": 0.491,
+    "p": 0.496,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1002,9 +1017,9 @@
     "opp": "Pitt",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.518,
-    "win_p": 0.518,
+    "odds": -125,
+    "p": 0.524,
+    "win_p": 0.524,
     "reasons": [
      "sharp money moving this way",
      "rolling off a blowout win",
@@ -1541,7 +1556,7 @@
     "opp": "Pistons",
     "market": "spread",
     "line": -9.5,
-    "odds": -110,
+    "odds": -116,
     "p": 0.501,
     "win_p": 0.755,
     "reasons": [
@@ -1676,7 +1691,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Southern Miss",
-    "p": 0.539,
+    "p": 0.522,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1692,9 +1707,9 @@
     "opp": "UT Arlington",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.58,
-    "win_p": 0.58,
+    "odds": -135,
+    "p": 0.559,
+    "win_p": 0.559,
     "reasons": [
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
@@ -1749,9 +1764,9 @@
     "team": "Nicholls",
     "opp": "Ole Miss",
     "market": "spread",
-    "line": 27.5,
-    "odds": -105,
-    "p": 0.52,
+    "line": 28.5,
+    "odds": -112,
+    "p": 0.521,
     "win_p": 0.023,
     "reasons": []
    }
@@ -2177,7 +2192,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.365,
+    "p": 0.361,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2194,8 +2209,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.69,
-    "win_p": 0.472,
+    "p": 0.696,
+    "win_p": 0.479,
     "reasons": []
    }
   },
