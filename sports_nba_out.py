@@ -105,6 +105,56 @@ def outs(team_id, team_name, tm, inj):
     return got
 
 
+def back(p, g, inj):
+    """🔄 11/17 sweep (the owner, 11/12: a posted card keeps up with the news): the men this posted over named as OUT
+    who are NOT out on the report now - listed again as questionable / probable / doubtful, or (a man the report had
+    out when we posted - 'out_listed') off the report altogether. The play never changes; its card stops saying he sits.
+    None = no report = we don't know (nothing changes)."""
+    if inj is None or not g:
+        return None
+    import sports_nba_roster as nr
+    rep, loaded = {}, set()
+    for side in ("home", "away"):
+        r_ = nr.report_chances(inj, g.get(side), g.get(f"{side}_name"))
+        rep.update(r_)
+        if r_:                                               # (this team's report has rows: a man missing from it
+            nm = str(g.get(f"{side}_name") or "")            #  really came off - an EMPTY team report may be a feed
+            for x in p.get("facts") or []:                   #  that didn't load, never read as 'everybody plays')
+                if nm and x.startswith(nm + " without "):
+                    loaded |= {nr._nm(m.split(" (")[0]) for m in x.split(" without ", 1)[1].split(" and ")}
+    listed = {nr._nm(n) for n in p.get("out_listed") or []}
+    got = []
+    for name in p.get("out") or []:
+        k = nr._nm(name)
+        c = rep.get(k)
+        if (c is not None and c[0] > 0.0) or (c is None and k in listed and k in loaded):
+            got.append(name)
+    return got
+
+
+def card_facts(p):
+    """The posted over's fact lines as they stand NOW: a man who is no longer out comes off the 'X without ...' line
+    (the line goes when nobody is left on it) and a 🔄 Update line says so. No one back = the lines as posted."""
+    facts = list(p.get("facts") or [])
+    bk = [n for n in p.get("back") or [] if n]
+    if not bk:
+        return facts
+    gone = {_nm(n) for n in bk}
+    out = []
+    for x in facts:
+        if " without " in x:
+            head, rest = x.split(" without ", 1)
+            men = [m for m in rest.split(" and ") if _nm(m.split(" (")[0]) not in gone]
+            if not men:
+                continue
+            x = head + " without " + " and ".join(men)
+        out.append(x)
+    who = " and ".join(bk)
+    out.append(f"🔄 Update: {who} {'is' if len(bk) == 1 else 'are'} no longer listed out - "
+               f"{'he was' if len(bk) == 1 else 'they were'} when this went up. The play stays.")
+    return out
+
+
 def quit_now(st, units_of):
     """The judge: QUIT[0]+ graded and the ROI on the units risked under QUIT[1] = no more posts."""
     ps = [p for p in st.get("picks", []) if p.get("spot") == "nba_out_over" and p.get("result") in ("won", "lost")]
@@ -148,6 +198,11 @@ def candidates(games, st, now, inj, rows=None, se=None):
             seen.pop(g["id"], None)                          # (a man came back: the clock starts over)
             continue
         names = sorted(n for n, _ in oh + oa)
+        rep_ = {}
+        for side in ("home", "away"):                        # (11/17 sweep: who the REPORT had out at the post - a man
+            import sports_nba_roster as nr                   #  gone / traded is out without being listed)
+            rep_.update(nr.report_chances(inj, g.get(side), g.get(f"{side}_name")))
+        listed = [n for n in names if nr._nm(n) in rep_]
         was = seen.get(g["id"])
         stamp = now.strftime("%Y-%m-%dT%H:%MZ")
         still = sorted(set(was[1]) & set(names)) if was else []
@@ -187,7 +242,7 @@ def candidates(games, st, now, inj, rows=None, se=None):
         out.append({"game_id": g["id"], "league": "nba", "market": "total", "side": "over", "line": tot,
                     "team": f"Over {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
                     "start": g["start"], "spot": "nba_out_over", "spots": ["nba_out_over"], "fades": [],
-                    "read": round(read, 1), "good_to": tot + GOOD_TO, "out": names, "facts": facts,
+                    "read": round(read, 1), "good_to": tot + GOOD_TO, "out": names, "out_listed": listed, "facts": facts,
                     "why": f"🏀 {word} of the six guys who play the most in this one are out ({', '.join(names)}), and NBA "
                            f"overs are {REC} since 2018 when that many of the main guys sit.",
                     "posted": stamp, "result": None})

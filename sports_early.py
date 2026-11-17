@@ -970,6 +970,14 @@ def watch(st, games, injuries):
             p["key_out"] = f"{p['sp']} (SP)"                 # the owner, 9/30: a last-minute pitcher swap blows up the
             continue                                         # line - our starter isn't going: don't chase it
         inj = (injuries or {}).get(p["league"])
+        if p.get("spot") == "nba_out_over" and not p.get("result") and g and g.get("status") == "pre" and inj is not None:
+            try:                                             # 🔄 11/17 sweep: the 🏀 over names who sits - a man the
+                import sports_nba_out                        # report no longer has out comes off its card (the owner,
+                bk = sports_nba_out.back(p, g, inj)          # 11/12: "outdated information ... needs to be updated
+                if bk is not None:                           # always"); the play never changes
+                    p["back"] = bk or None
+            except Exception as e:                           # noqa: BLE001 - never breaks the watch
+                print(f"nba over news check failed: {str(e)[:60]}")
         if p.get("result") or not g or g.get("status") != "pre" or inj is None or p.get("market") == "total":
             continue
         out = sd.team_key_out(inj, g.get(p["side"]), g.get(f"{p['side']}_name") or p["team"], p["league"])
@@ -1420,10 +1428,12 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
              "eastwest": [f"{me} flying from the East Coast out West.", f"{me} crossing the country to play out West.",
                           f"East Coast team, West Coast kickoff - {me} make the trip."],
              "hammered": [f"The money hit {me} early.", f"Early money already came in on {me}.",
-                          f"The books moved {me} shorter early - the money's on 'em."],
-             "engine": ["The line moved away from them - better price for us.",
-                        "The price drifted out since the first number - we get the better one.",
-                        "Their number got bigger since it opened - more money for us."]}.get(spot, [""] * 3)
+                          f"The first bets of the week landed on {me}."],
+             #   (11/17 sweep: the third wording was "The books moved {me} shorter early - the money's on 'em." - line-move
+             #    talk under a pick (the owner, 10/23: never); the card check cut it off the Wyoming +245 card on every
+             #    build. Fixed at the root: the pool never writes it. The paused college "engine" spot's three facts were
+             #    ALL "the line moved away / the price drifted / their number got bigger" - it says its read alone now.)
+             "engine": ["", "", ""]}.get(spot, [""] * 3)
     try:
         if spot == "blowout" and p:
             mine = p["home"] == g[side]
@@ -2154,6 +2164,17 @@ def fresh_facts(facts, why=""):
     return out
 
 
+def card_facts(p):
+    """An early row's fact lines as they stand now (🔄 11/17 sweep: the 🏀 NBA over drops a man who is no longer out)."""
+    if p.get("spot") == "nba_out_over" and p.get("back"):
+        try:
+            import sports_nba_out
+            return sports_nba_out.card_facts(p)
+        except Exception:                                    # noqa: BLE001
+            pass
+    return p.get("facts") or []
+
+
 def _cc_lines(p, lines):
     """🧾 11/13: an early row's lines through the card check (sports_card_check.early_lines) - never breaks the box."""
     try:
@@ -2182,7 +2203,7 @@ def html(st, E, now=None, show_units=None, games=None):
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                 + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)] if p.get("spot") in SPOTS or p.get("why") else []))
                 #   (11/15 audit: an exam-scan play with a why line shows it too - it had no line at all)
-                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(p.get("facts"), no_pct(p) if p.get("spot") in SPOTS or p.get("why") else ""))) +   # ⛰️ (11/11: the fact lines)
+                + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(card_facts(p), no_pct(p) if p.get("spot") in SPOTS or p.get("why") else ""))) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -2300,7 +2321,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else
                        "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, [no_pct(p)])) if p.get("why") and not p.get("result")
                        else "")                              # (11/15 audit: the exam-scan play's own why line)
-                    + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, p.get("facts") or []) if not p.get("result"))   # ⛰️ 11/11
+                    + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, card_facts(p)) if not p.get("result"))   # ⛰️ 11/11
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")

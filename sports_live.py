@@ -948,7 +948,10 @@ def locked_sides(log, now):
     out = {}
     try:
         with open(os.path.join(sd.DATA, "picks.json")) as f:
+            import sports as _sp
             for pk in json.load(f):
+                if _sp.LEANS_GONE and _sp.is_lean_pick(pk):  # 🚫 11/17 sweep: a lean no longer exists - a row a stale
+                    continue                                 # copy of the file still holds never locks a side
                 if pk.get("date") in days and pk.get("status") != "waiting":
                     for leg in pk.get("legs") or []:
                         if leg.get("market") != "total":     # (an over/under isn't a side)
