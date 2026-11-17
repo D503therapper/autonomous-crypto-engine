@@ -35,6 +35,16 @@ What it checks, card by card (each one a class the 11/13 audit found - SPORTS_FI
      - a goalie said as tonight's starter only when the goalie page has CONFIRMED him; every other goalie line has to
        say what he is (projected / expected, not confirmed / in net last time out)
      - "a bye" only when a whole football week passed with no game (the 11/2 Bears: Thursday, then Monday)
+     - (11/17) a goalie's numbers only once the goalie page has CONFIRMED him - a hedge ("in net last time out",
+       "projected") named the wrong man 14 times in 39; once the box score is in, only the man who started
+     - (11/17) on a graded card, a man listed out who is in the box score isn't "missing" (played_anyway)
+  5. DERIVED FACTS + SENSE (11/17 THE BREAKDOWN SWEEP - results/studies/cards_1117)
+     - points a game (lately / on the year), who played last night, the road-trip count, the last meeting: re-read
+       off the game files (stats / played_last_night / road_trip / last_meeting)
+     - a line that says nothing: "+0 a game", "4 for / 4 against ... 3 for / 3 against", a garbled last meeting,
+       another sport's word, rest talk with no back-to-back (sense / rest_talk); a card that fights itself - "full
+       squad" beside its own men out, a man out for the wrong team (card_sense)
+     - an early play's record / last-game sentence that moved since it posted (early_fact)
 A line that fails is rewritten or dropped (the bottom line is rebuilt from the pick, its price and our number - never
 lost). Nothing here ever holds a pick: wording is never a reason to pull a bet.
 
@@ -462,6 +472,7 @@ def reset():
     _TF.clear()
     _FIN_BEFORE.clear()
     _IDX.clear()
+    _BOXP.clear()
 
 
 def _team_index(games, lg):
@@ -532,7 +543,10 @@ def team_facts(games, leg, which):
     _TF[key] = {"rec": {rec([v._line(x, tid) for x in reg]), rec(lines)}, "home": rec(home), "road": rec(road),
                 "last5": rec(lines[-5:]), "streak": streak, "lines": lines,
                 "rest": v._days(start, v._t(s[-1]["start"])) if s else None, "n": len(s),
-                "weeks": (v._week(start) - v._week(v._t(s[-1]["start"]))) if s else None}
+                "weeks": (v._week(start) - v._week(v._t(s[-1]["start"]))) if s else None,
+                # (11/17 - the breakdown sweep: what the derived-fact checks read)
+                "tid": tid, "season": s, "reg": reg,
+                "hours": (start - v._t(s[-1]["start"])).total_seconds() / 3600 if s else None}
     return _TF[key]
 
 
@@ -650,7 +664,7 @@ def facts(line, leg, games):
             kind = "rec"                                     # ("Wild (8-5) won 2 in a row" - a record in parens)
         elif re.match(r"\s*(?:team|overall|on the (?:year|season)|this (?:year|season)|record|apiece|squad)", after, re.I):
             kind = "rec"                                     # ("A 3-8 team")
-        elif SCORE_AFTER.search(after[:20]) or SCORE_BEFORE.search(before[-45:]) or max(a, b) > 30 \
+        elif SCORE_AFTER.search(after[:20]) or SCORE_BEFORE.search(before[-45:]) or (max(a, b) > 30 and leg.get("league") != "mlb") \
                 or (SCORE_VERB.search(t) and not re.search(r"\b(?:is|are|sit|sits|come in|comes in|at|record)\s*$", before)
                     and not re.match(r"\s*(?:at home|on the road|away|in their|for\b|,|;|\.|\s*$| vs \d| against \d| to \d| to \w+'? \d)", after)):
             #   (11/15 audit: " to \d" - "💪 2-2 to 0-5. Oakland about to get their ass beat." is two RECORDS; the "beat"
@@ -665,8 +679,12 @@ def facts(line, leg, games):
         m, a, b, c, kind, before, after = r
         i = _anchor(t, m.start(), names)
         mm = re.match(r"\s*(?:\(|for (?:the )?)(" + "|".join(re.escape(n) for n in names if n) + r")\b", after)
+        ms = re.match(r"\s*(?:win over|loss to|victory over|beating from|tie with) (?:the )?[\w.'& -]{2,30}? for (?:the )?("
+                      + "|".join(re.escape(n) for n in names if n) + r")\b", after) if kind == "score" else None
         if mm and kind == "rec":                             # ("10-6 for Mammoth", "2-1 (Elon)")
             i = names.index(mm.group(1))
+        elif ms:                                             # (11/17: "a 38-21 loss to the Cowboys for Eagles, a 23-17 loss
+            i = names.index(ms.group(1))                     #  to the 49ers for Commanders" - the score is the team's AFTER it)
         elif kind == "rec" and r in bare and len(bare) == 2 and not mm:
             i = bare.index(r)                                # ("💪 7-6 vs 2-7" / "(5-2 / 4-3)" - ours first)
         if i is None:
@@ -742,10 +760,95 @@ def _recent_starters(rows, team, before, n=WHO_GAMES):
     return names
 
 
-def who_plays(line, leg, games):
+GOALIE_SURE_FROM = "2026-11-17"   # 🥅 11/17 THE BREAKDOWN SWEEP: on the 11/1-11/16 cards 18 of the 51 goalie lines with a
+#   save % named a man who did NOT start that night - "in net last time out" 11 of 26 wrong, "projected, not confirmed"
+#   3 of 13, said flat 4 of 12. A hedge doesn't make a guess true: from the 11/18 games a goalie's numbers show on a card
+#   only once the goalie page has CONFIRMED him (the line is kept on the card and shown the minute he's confirmed), and a
+#   played game's card only keeps the man the box score says started. Quarterbacks the same once the box score is in.
+_STARTED, _BOXP = {}, {}
+
+
+def started(lg, gid):
+    """{team id: the quarterback / goalie the box score says started this game} ({} = no box score yet)."""
+    try:
+        import sports_players as sp
+        rows = sp.CACHE.get(lg) or []
+        if not rows and not _STARTED.get("loaded"):
+            _STARTED["loaded"] = True
+            sp.CACHE.update(sp.load())
+            rows = sp.CACHE.get(lg) or []
+    except Exception:                                        # noqa: BLE001
+        return {}
+    key = (lg, id(rows), len(rows))
+    if key not in _STARTED:
+        idx = {}
+        for r in rows:
+            if r.get("role", "") in ("QB", "G", ""):
+                idx.setdefault(r.get("gid"), {}).setdefault(str(r.get("team")), r.get("player"))
+        _STARTED[key] = idx
+    return _STARTED[key].get(gid) or {}
+
+
+def box_played(lg, gid, team):
+    """The men who PLAYED in a finished game for one team, by the box score (None = no box score on file)."""
+    if lg not in _BOXP:
+        by = {}
+        try:
+            import sports_absences as sa
+            for tid, gs in sa._games(lg).items():
+                for _, g_, rs in gs[-12:]:
+                    for r in rs:
+                        if lg in ("nba", "ncaab"):           # (hoops lists the whole bench: only a man with minutes)
+                            m = re.search(r'"minutes":"(\d+)', r.get("stats") or "")
+                            if not m or int(m.group(1)) <= 0:
+                                continue
+                        by.setdefault((g_, str(tid)), set()).add(sa._nm(r["player"]))
+        except Exception:                                    # noqa: BLE001
+            by = {}
+        _BOXP[lg] = by
+    return _BOXP[lg].get((gid, str(team)))
+
+
+def played(leg, name, games):
+    """True when a man the card lists out is in this game's box score - he played (a finished game only)."""
+    g = (games or {}).get(leg.get("game_id"))
+    if not g or g.get("status") != "final":
+        return False
+    try:
+        import sports_absences as sa
+        for side in ("home", "away"):
+            pool = box_played(leg.get("league"), g.get("id"), g[side])
+            if pool and sa.match(name, pool):
+                return True
+    except Exception:                                        # noqa: BLE001
+        pass
+    return False
+
+
+OUT_SAID = re.compile(r"\bout\b|\bwithout\b|\bmissing\b|\bdown\b|won'?t suit up|not dressing|\bno\b|gotta play", re.I)
+
+
+def played_anyway(line, leg, games):
+    """'' or why not: a graded card's line that lists a man OUT who is in the game's box score."""
+    t = str(line or "")
+    if not t.lstrip().startswith(("🚑", "⚠️", "🌟")) or not OUT_SAID.search(t):
+        return ""
+    g = (games or {}).get(leg.get("game_id"))
+    if not g or g.get("status") != "final":
+        return ""
+    head = re.split(r"questionable:", t, flags=re.I)[0]
+    if t.lstrip().startswith("🌟") and " · " in t:           # ("X is in the lineup tonight · Y is out" - the out part)
+        head = t.split(" · ", 1)[1]
+    for nm in _card_names(list(leg.get("outs") or []) + list(leg.get("absent") or []) + list(leg.get("opp_outs") or [])):
+        if nm in head and played(leg, nm, games):
+            return f"{nm} listed out - the box score says he played"
+    return ""
+
+
+def who_plays(line, leg, games, where="render"):
     """'' when the line may stand, else why not: a quarterback's numbers for a man the engine can't call the starter, a
-    goalie said as tonight's man with nobody confirming him. Only while the game hasn't started (a played game's card
-    is history) and only for lines that carry the man's numbers."""
+    goalie's numbers with nobody confirming him (GOALIE_SURE_FROM), and - once the box score is in - numbers for a man
+    who didn't start. Only for lines that carry the man's numbers."""
     if not WHO_CHECK or not games:
         return ""
     t = str(line or "")
@@ -755,16 +858,27 @@ def who_plays(line, leg, games):
     if not (is_qb or is_g):
         return ""
     g = games.get(leg.get("game_id"))
-    if not g or g.get("status") != "pre" or not g.get("start"):
+    if not g or not g.get("start"):
         return ""
+    pre = g.get("status") == "pre"
     try:
         import sports_players as sp
+        box = started(lg, g.get("id")) if not pre else {}
         rows = sp.CACHE.get(lg) or []
     except Exception:                                        # noqa: BLE001
         return ""
     if not rows:
         return ""
+    if box:                                                  # the game's on / over: the man who really started
+        for side in ("home", "away"):
+            real = box.get(str(g[side]))
+            for nm in _recent_starters(rows, g[side], g["start"], n=15):
+                if real and nm in t and sd._plain(real) != sd._plain(nm):
+                    return f"{nm}'s numbers on the card for {g.get(side + '_name')} - {real} started"
+        return ""
     if is_qb:
+        if not pre:
+            return ""
         try:
             import sports_qb
         except Exception:                                    # noqa: BLE001
@@ -782,7 +896,11 @@ def who_plays(line, leg, games):
                            "chart disagrees": "the depth chart has another man first"}.get(c["how"], "unknown")
                     return f"a quarterback's numbers for {nm}, who the engine can't call {g.get(side + '_name')}'s starter ({why})"
         return ""
-    if GOALIE_HEDGE.search(t):
+    sure = g["start"][:10] >= GOALIE_SURE_FROM
+    hedged = bool(GOALIE_HEDGE.search(t))
+    if hedged and (not sure or where == "pre-post"):         # (a card being written keeps the line - the page shows it
+        return ""                                            #  the minute the goalie page confirms him)
+    if not pre and not sure:
         return ""
     try:
         import sports_goalies
@@ -792,10 +910,317 @@ def who_plays(line, leg, games):
         for nm in _recent_starters(rows, g[side], g["start"], n=15):
             if nm not in t:
                 continue
-            conf = sports_goalies.confirmed(g.get("id"), side)
+            if nm in (leg.get("confirmed") or []):
+                continue
+            conf = sports_goalies.confirmed(g.get("id"), side) if pre else None
             if not conf or sd._plain(conf.get("name")).split()[-1:] != sd._plain(nm).split()[-1:]:
-                return f"{nm} said as tonight's goalie for the {g.get(side + '_name')} with nobody confirming him"
+                return (f"{nm}'s numbers on the card for the {g.get(side + '_name')} with nobody confirming him in net"
+                        if hedged else
+                        f"{nm} said as tonight's goalie for the {g.get(side + '_name')} with nobody confirming him")
     return ""
+
+
+# ---- 5. DERIVED FACTS + SENSE (11/17 - THE BREAKDOWN SWEEP) -----------------------------------------------------------
+# The owner, 11/17: "My buddy keeps complaining about the breakdowns and says they make no sense and false, outdated
+# information of injuries and stuff ... make sure that these breakdowns are always accurate and up to date." The fact
+# check above re-reads records / streaks / last scores / rest days. These re-read every OTHER number a card says off the
+# game files - points a game (lately and on the year), who played last night, the road-trip count, the last meeting -
+# and catch a line that says nothing or contradicts the rest of its card. Same rule: a line that fails comes off.
+DERIVED_CHECK = True
+_NUM = re.compile(r"(?<![\w.,])[+-]?\d+(?:\.\d+)?(?![\w]|\.\d|,\d)")
+PER_GAME = re.compile(r"\ba game\b(?!-)|\bfor ?[,/] ?\d|\d+ for,? ", re.I)
+LAST_N = re.compile(r"\blast (\d)\b|\blately\b", re.I)
+ON_YEAR = re.compile(r"this (?:year|season)|on the (?:year|season)", re.I)
+NOT_STATS = re.compile(r"%|\bTDs?\b|per 48|minutes|\bmin a night|last (?:season|year)|a year ago|\bshots?\b|points? better|"
+                       r"\bwent \d|per game\)|\d-\d|rebound|turnover|assist|\byards\b|\bsacks?\b|\bglass\b|free throws?|"
+                       r"\b3s\b|threes|three-point|possessions|\bpace\b|penalt|power play|face-?off", re.I)
+EVEN_PAIR = re.compile(r"(\d+(?:\.\d+)?) for(?: /|,)? (\d+(?:\.\d+)?) against")   # ("4 for / 4 against; ... 3 for / 3 against")
+REST_TALK = re.compile(r"extra day|\bdays? off\b|\bdays?(?: of)? rest\b|fresher legs|fresh legs|better rested|more rest\b|"
+                       r"well[- ]rested|\brested\b|more days off", re.I)
+ZERO_NET = re.compile(r"(?<![\d.])[+-]0(?:\.0)?(?![\d.])")
+H2H_W = re.compile(r"last time these two met|the last meeting|these two already (?:met|played)|^🆚", re.I)
+H2H_GARBLE = re.compile(r"\bgot [\w.' ]+ last time these two met, an? \d+-\d+ loss to\b")
+_TEAM_RX = r"([A-Z][\w.'&-]*(?: [A-Z0-9][\w.'&-]*){0,3}?)"
+B2B_SAID = re.compile(r"(?:\b[Tt]he )?" + _TEAM_RX + r" (?:played|were on the ice) (?:last night|yesterday)|"
+                      r"[Ss]econd night (?:in a row|of a back-to-back) for (?:the )?" + _TEAM_RX + r"(?=[,. ]|$)|"
+                      r"(?:\b[Tt]he )?" + _TEAM_RX + r" (?:is |are )?on a back-to-back")
+B2B_ANY = re.compile(r"played (?:last night|yesterday)|on the ice last night|second night (?:in a row|of a back-to-back)|"
+                     r"on a back-to-back", re.I)
+ROAD_NTH = re.compile(r"(\d)(?:st|nd|rd|th) road game in 6 days")
+ROAD_N = re.compile(r"(\d) road games in (?:the last )?6 days")
+_HOOPS_NO = r"(?<!field )\bgoals?\b|\bpucks?\b|\bin net\b(?! rating| margin| points)|\bgoalies?\b|\btouchdowns?\b|\bquarterbacks?\b|\binnings?\b|\bsave %"
+_FB_NO = r"\bpucks?\b|\bin net\b|\bgoalies?\b|\bsave %|\binnings?\b|\bgoals a game\b"
+SPORT_WORDS = {   # a word from another sport on a card (a quoted headline is left alone)
+    "nba": _HOOPS_NO, "ncaab": _HOOPS_NO, "nfl": _FB_NO, "ncaaf": _FB_NO,
+    "nhl": r"\btouchdowns?\b|\bquarterbacks?\b|\bpoints a game\b|\binnings?\b|\bunder center\b",
+    "mlb": r"\bpucks?\b|\bin net\b|\bgoalies?\b|\btouchdowns?\b|\bquarterbacks?\b|\bsave %"}
+HEALTHY = re.compile(r"^✅ .*(?:healthy|[Ff]ull squad|everybody available|full strength|[Nn]obody big missing|"
+                     r"[Nn]obody on .* injury report|nobody important sitting)")
+GO_WITHOUT = re.compile(r"\b(?:go|goes|going|play|plays) without\b|\bis out\b|\bare out\b|\bwon'?t suit up\b", re.I)
+
+
+def _strip_names(t, names):
+    for n in sorted((x for x in names if x), key=len, reverse=True):
+        t = t.replace(n, " ")
+    return t
+
+
+def stats(line, leg, games):
+    """'' when every scoring number in a points-a-game line is what the game files say, else why not - the breakdown's
+    own arithmetic (sports_breakdown_v24._pts3 / _per_game) on the games before this one."""
+    if not DERIVED_CHECK or not games:
+        return ""
+    t = str(line or "")
+    if not PER_GAME.search(t) or NOT_STATS.search(t) or '"' in t or "“" in t:
+        return ""
+    lastn, year = LAST_N.search(t), ON_YEAR.search(t)
+    if not (lastn or year) or (lastn and year) or (lastn and lastn.group(1) and lastn.group(1) not in "23"):
+        return ""                                            # (the pool says the last 3 - or 2, early in a season)
+    try:
+        import sports_breakdown_v24 as v
+    except Exception:                                        # noqa: BLE001
+        return ""
+    us, them = leg.get("team") or "", leg.get("opp") or ""
+    if us not in t and them not in t:
+        return ""
+    ok = set()
+    for which in ("us", "them"):
+        f = team_facts(games, leg, which)
+        if not f:
+            return ""
+        if f.get("unseen"):
+            return f"points a game for {us if which == 'us' else them}, whose games we don't all hold"
+        tid = f["tid"]
+        if lastn:
+            for gs in (f["season"], f["reg"]):
+                for n in (3, 2):
+                    for p in (v._pts3(gs, tid, n), v._pts3(gs, tid, n, 1)):
+                        if p:
+                            ok |= {float(p[0]), float(p[1]), round(abs(p[0] - p[1]), 1), float(p[2])}
+        else:
+            for gs in (f["reg"], f["season"]):
+                pg = v._per_game(gs, tid)
+                if pg:
+                    ok |= {float(round(pg[0])), float(round(pg[1])), round(pg[0], 1), round(pg[1], 1)}
+    body = _strip_names(t, [us, them])
+    bad = [x for x in (abs(float(y)) for y in _NUM.findall(body)) if not any(abs(x - y) < 0.051 for y in ok)]
+    if bad:
+        return f"says {bad[0]:g} a game - the game files say otherwise"
+    return ""
+
+
+def sense(line, leg):
+    """'' when the line says something, else why it doesn't: a "+0 a game" margin, the garbled last-meeting knock, a word
+    from another sport."""
+    if not DERIVED_CHECK:
+        return ""
+    t = str(line or "")
+    if PER_GAME.search(t) and ZERO_NET.search(t):
+        return "a +0 margin - a number that says nothing"
+    if H2H_GARBLE.search(t):
+        return "the last-meeting line is garbled (who lost to whom)"
+    ev = EVEN_PAIR.findall(t)
+    if len(ev) >= 2 and all(a == b for a, b in ev):
+        return "both sides dead even on the scoreboard - a line that says nothing"
+    rx = SPORT_WORDS.get(leg.get("league"))
+    if rx and '"' not in t and "“" not in t and not t.lstrip().startswith(("🧯", "📣")):
+        m = re.search(rx, t, re.I)
+        if m:
+            return f"a word from another sport ('{m.group(0).lower()}')"
+    return ""
+
+
+def _who(name, leg):
+    """0 (us) / 1 (them) / None for a team name as a line says it."""
+    n = str(name or "").strip()
+    for i, x in enumerate((leg.get("team") or "", leg.get("opp") or "")):
+        if x and (n == x or n.endswith(" " + x)):
+            return i
+    return None
+
+
+def played_last_night(line, leg, games):
+    """'' when a back-to-back line names the team that really played last night (inside sports_breakdown_v24.B2B_HOURS
+    of this start, by the game files), else why not."""
+    if not DERIVED_CHECK or not games:
+        return ""
+    t = str(line or "")
+    if not B2B_ANY.search(t) or '"' in t:
+        return ""
+    try:
+        import sports_breakdown_v24 as v
+    except Exception:                                        # noqa: BLE001
+        return ""
+    fs = [team_facts(games, leg, w) for w in ("us", "them")]
+    if any(f is None for f in fs):
+        return ""
+    names = [leg.get("team") or "", leg.get("opp") or ""]
+    if any(f.get("unseen") for f in fs):
+        return "a back-to-back for a team whose games we don't all hold"
+    b2b = [f.get("hours") is not None and f["hours"] <= v.B2B_HOURS for f in fs]
+    said = set()
+    for m in B2B_SAID.finditer(t):
+        i = _who(next(x for x in m.groups() if x), leg)
+        if i is not None:
+            said.add(i)
+    if not said:                                             # (no team we can pin it on: somebody has to have played)
+        return "" if any(b2b) else "says a back-to-back - neither team played last night"
+    for i in sorted(said):
+        if not b2b[i]:
+            h = fs[i].get("hours")
+            return (f"says {names[i]} played last night - their last game was "
+                    f"{'%.0f hours' % h if h is not None else 'not on file'} before this one")
+    return ""
+
+
+def rest_talk(line, leg, games):
+    """'' or why not: REST TALK ONLY ON A BACK-TO-BACK in the every-other-night leagues (11/15, Victor: "Both teams rested
+    lol" - sports_breakdown_v24.REST_B2B_ONLY). The breakdown stopped writing it 11/15; this takes it off a card that
+    already had it ("Flyers got the extra day: 3 days off to Blue Jackets' 2 days") - no back-to-back, no rest line."""
+    if not DERIVED_CHECK or not games:
+        return ""
+    t = str(line or "")
+    if not REST_TALK.search(t) or B2B_ANY.search(t) or '"' in t:
+        return ""
+    try:
+        import sports_breakdown_v24 as v
+    except Exception:                                        # noqa: BLE001
+        return ""
+    if leg.get("league") not in v.REST_B2B_ONLY:
+        return ""
+    fs = [team_facts(games, leg, w) for w in ("us", "them")]
+    if any(f is None or f.get("unseen") for f in fs):
+        return ""
+    if any(f.get("hours") is not None and f["hours"] <= v.B2B_HOURS for f in fs):
+        return ""
+    return "rest talk with no back-to-back"
+
+
+def road_trip(line, leg, games):
+    """'' when "3rd road game in 6 days" / "3 road games in 6 days" matches the schedule (sports_context._travel's
+    count), else why not."""
+    if not DERIVED_CHECK or not games:
+        return ""
+    t = str(line or "")
+    m1, m2 = ROAD_NTH.search(t), ROAD_N.search(t)
+    if not (m1 or m2):
+        return ""
+    try:
+        import sports_breakdown_v24 as v
+    except Exception:                                        # noqa: BLE001
+        return ""
+    m = m1 or m2
+    names = [leg.get("team") or "", leg.get("opp") or ""]
+    i = _anchor(t, m.start(), names)
+    if i is None:
+        i = 1
+    f = team_facts(games, leg, "us" if i == 0 else "them")
+    g = games.get(leg.get("game_id"))
+    if not f or f.get("unseen") or not g:
+        return ""
+    tid, start = f["tid"], v._t(g["start"])
+    side = leg.get("side") if i == 0 else ("away" if leg.get("side") == "home" else "home")
+    neutral = str(g.get("neutral")) in ("1", "True", "true")
+    n = 0
+    for x in reversed(_team_index(games, leg.get("league")).get(tid, [])):
+        if x["start"] >= g["start"]:
+            continue
+        if (start - v._t(x["start"])).total_seconds() > 6 * 86400:
+            break
+        n += x["away"] == tid and str(x.get("neutral")) not in ("1", "True", "true")
+    if m1:
+        if side != "away" or neutral:
+            return f"says a road game for {names[i]} - they're not the road team"
+        n += 1
+    said = int(m.group(1))
+    if said != n:
+        return f"says {said} road games in 6 days for {names[i]} - the schedule says {n}"
+    return ""
+
+
+def last_meeting(line, leg, games):
+    """'' when a last-meeting line's score (and who won it) is the last game these two played, else why not."""
+    if not DERIVED_CHECK or not games:
+        return ""
+    t = str(line or "")
+    if not H2H_W.search(t) or '"' in t:
+        return ""
+    f = team_facts(games, leg, "us")
+    g = games.get(leg.get("game_id"))
+    if not f or not g or f.get("unseen"):
+        return ""
+    tid = f["tid"]
+    oid = g["away"] if g["home"] == tid else g["home"]
+    met = [x for x in _team_index(games, leg.get("league")).get(tid, []) if x["start"] < g["start"]
+           and oid in (x["home"], x["away"])]
+    if not met:
+        return "a last meeting the game files don't have"
+    m = REC.search(t)
+    if not m:
+        return ""
+    last = met[-1]
+    hs, as_ = int(last["home_score"]), int(last["away_score"])
+    if {int(m.group(1)), int(m.group(2))} != {hs, as_} and not re.search(r"this year|head to head", t, re.I):
+        return f"says the last meeting ended {m.group(1)}-{m.group(2)} - the game files say {max(hs, as_)}-{min(hs, as_)}"
+    we_won = (hs > as_) == (last["home"] == tid)
+    us, them = re.escape(leg.get("team") or ""), re.escape(leg.get("opp") or "")
+    if re.search(rf"{them} (?:got|beat) (?:the )?{us}", t) and we_won:
+        return "says they won the last meeting - we did"
+    if re.search(rf"{us} (?:got|beat) (?:the )?{them}|{us} took an? \d+-\d+ win", t) and not we_won:
+        return "says we won the last meeting - they did"
+    return ""
+
+
+def derived(line, leg, games):
+    """Every derived-fact check on one line: '' or the first reason it can't stand."""
+    for fn in (stats, played_last_night, rest_talk, road_trip, last_meeting):
+        try:
+            w = fn(line, leg, games)
+        except Exception as e:                               # noqa: BLE001 - a check that breaks never drops a line
+            print(f"card check ({fn.__name__}) failed: {str(e)[:80]}", flush=True)
+            w = ""
+        if w:
+            return w
+    return ""
+
+
+def _card_names(entries):
+    out = []
+    for x in entries or []:
+        s = str(x or "").split(" (")[0].replace(" questionable", "").strip()
+        w = s.split()
+        if len(w) > 2 and w[0].isupper() and len(w[0]) <= 3:
+            s = " ".join(w[1:])
+        if s:
+            out.append(s)
+    return out
+
+
+def card_sense(leg, lines):
+    """What on a card contradicts the rest of it: {line: why}. A "full squad" line beside the card's own list of that
+    side's men out; a man named out for the WRONG team; a star "in the lineup" the same card lists out."""
+    bad = {}
+    if not DERIVED_CHECK:
+        return bad
+    us, them = leg.get("team") or "", leg.get("opp") or ""
+    gone_ = set(leg.get("stale") or [])
+    ours = [n for n in _card_names(list(leg.get("outs") or []) + list(leg.get("absent") or [])) if n not in gone_]
+    theirs = [n for n in _card_names(leg.get("opp_outs")) if n not in gone_]
+    strs = [str(x) for x in lines or [] if isinstance(x, str)]
+    body = " ".join(strs)
+    us_out_said = any(x.startswith(("⚠️", "🚑", "🌟")) and us in x and GO_WITHOUT.search(x) for x in strs)
+    for x in strs:
+        if HEALTHY.search(x) and us in x and (us_out_said or any(n in body for n in ours)):
+            bad[x] = f"says {us} are at full strength - the same card lists their men out"
+        elif x.startswith("🚑") and not x.startswith(f"🚑 {us}") and them in x and us not in x:
+            wrong = [n for n in ours if n in x and n not in theirs]
+            if wrong:
+                bad[x] = f"lists {wrong[0]} out for {them} - he's {us}'s man"
+        elif x.startswith("🌟") and "in the lineup" in x:
+            gone = [n for n in ours + theirs if n in x.split(" · ")[0].split("in the lineup")[0]]
+            if gone:
+                bad[x] = f"says {gone[0]} is in the lineup - the same card lists him out"
+    return bad
 
 
 # ---- the whole card ---------------------------------------------------------------------------------------------------
@@ -834,6 +1259,10 @@ def check(pk, leg, lines, games=None, why="", where="render"):
     out, seen = [], set()
     if why:
         _dupe(why, seen)
+    try:                                                     # (11/17: a line that contradicts the rest of its card)
+        contra = card_sense(leg, lines)
+    except Exception:                                        # noqa: BLE001
+        contra = {}
     for x in lines or []:
         if not isinstance(x, str):
             out.append(x)
@@ -844,9 +1273,13 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             if fw:
                 new, w = "", "; ".join(y for y in (w, "a fact the game files don't back: " + fw) if y)
         if new:
-            pw = who_plays(new, leg, games)
+            pw = who_plays(new, leg, games, where) or played_anyway(new, leg, games)
             if pw:
                 new, w = "", "; ".join(y for y in (w, pw) if y)
+        if new and not BOTTOM.match(new):                   # (11/17: the derived facts + the sense check)
+            dw = sense(new, leg) or derived(new, leg, games) or contra.get(x) or contra.get(new)
+            if dw:
+                new, w = "", "; ".join(y for y in (w, dw) if y)
         if new and _dupe(new, seen):
             new, w = "", w or "the same line twice on the card"
         if new and where == "render" and chip_repeat(new, leg):
@@ -882,9 +1315,13 @@ def check_one(pk, leg, line, games=None, where="render"):
         if fw:
             new, w = "", "a fact the game files don't back: " + fw
     if new and not w:
-        pw = who_plays(new, leg, games)
+        pw = who_plays(new, leg, games, where) or played_anyway(new, leg, games)
         if pw:
             new, w = "", pw
+    if new and not w:                                        # (11/17: the derived facts + the sense check)
+        dw = sense(new, leg) or derived(new, leg, games)
+        if dw:
+            new, w = "", dw
     if w:
         note(cx["date"], leg, w, line, where)
     return new
@@ -988,9 +1425,58 @@ if __name__ == "__main__":                              # python sports_card_che
     print(sum(len(x[2]) for x in rows), "catches on", len(rows), "cards", datetime.now(timezone.utc).isoformat())
 
 
-def early_lines(p, lines, where="render"):
+LAST_BY = re.compile(r"\b(won|lost) their last by (\d+)")
+WEEK_OFF = re.compile(r"got the week off|had the week off|off (?:a|the|their) bye|coming off a bye", re.I)
+
+
+def _early_leg(p):
+    return {"team": p.get("team"), "opp": p.get("opp"), "odds": p.get("odds"), "market": p.get("market") or "ml",
+            "league": p.get("league"), "game_id": p.get("game_id"), "side": p.get("side")}
+
+
+def early_fact(p, line, games):
+    """🔄 11/17 (the breakdown sweep): an early play posts days ahead, and its line was frozen - "Pistons are 6-1, 76ers
+    7-1; Pistons won their last by 33" stayed up after both teams played again. '' when every record / last-game margin
+    / week-off in the line is what the game files say NOW, else why not."""
+    if not DERIVED_CHECK or not games or (p.get("market") or "ml") == "total" or p.get("side") not in ("home", "away"):
+        return ""
+    t = str(line or "")
+    leg = _early_leg(p)
+    try:
+        w = facts(t, leg, games) or derived(t, leg, games)
+    except Exception:                                        # noqa: BLE001
+        w = ""
+    if w:
+        return w
+    names = [leg["team"] or "", leg["opp"] or ""]
+    for m in LAST_BY.finditer(t):
+        i = _anchor(t, m.start(), names)
+        f = team_facts(games, leg, "us" if i == 0 else "them") if i is not None else None
+        if not f or f.get("unseen") or not f.get("lines"):
+            continue
+        a, b = map(int, f["lines"][-1].split()[1].split("-"))
+        if (m.group(1) == "won") != (a > b) or abs(a - b) != int(m.group(2)):
+            return (f"says {names[i]} {m.group(1)} their last by {m.group(2)} - their last game now is "
+                    f"{f['lines'][-1]}")
+    m = WEEK_OFF.search(t)
+    if m and leg["league"] in ("nfl", "ncaaf"):
+        i = _anchor(t, m.start(), names)
+        f = team_facts(games, leg, "us" if i == 0 else "them") if i is not None else None
+        if f and not f.get("unseen") and f.get("weeks") is not None and f["weeks"] < 2:
+            return f"says {names[i]} had the week off - they played the week before this one"
+    return ""
+
+
+def early_lines(p, lines, where="render", games=None):
     """🎯 / ⏰ an early play's row lines (its why line and fact lines): an early play always carries units, so it never
-    says a lean's words; the owner's banned frames / canned tails come off; the why line never talks line movement."""
+    says a lean's words; the owner's banned frames / canned tails come off; the why line never talks line movement;
+    and (11/17) a sentence whose record / last-game fact moved since the play posted comes off (early_fact)."""
+    if games is None:
+        try:
+            import sports_dashboard
+            games = sports_dashboard._GAMES_[0]
+        except Exception:                                    # noqa: BLE001
+            games = None
     try:
         import sports_early
         u = sports_early.units(p)
@@ -1007,6 +1493,17 @@ def early_lines(p, lines, where="render"):
     for x in lines or []:
         y, mv = _no_move(x)
         y, w = wording(y, cx, leg) if y else (y, "")
+        if y and games and not p.get("result"):              # (a graded play's row is history - left as it posted)
+            lead, parts = _sentences(y)
+            keep = []
+            for sent in parts:
+                ew = early_fact(p, sent, games)
+                if ew:
+                    w = "; ".join(z for z in (w, "a fact that moved since it posted: " + ew) if z)
+                else:
+                    keep.append(sent)
+            if len(keep) != len(parts):
+                y = _join(lead, keep)
         if mv or w:
             note(cx["date"], leg, "; ".join(z for z in (mv, w) if z), x, where)
         if y:

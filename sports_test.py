@@ -26222,6 +26222,310 @@ def test_sweep_1117_a_long_dogs_line_never_calls_a_blowout_or_a_sure_thing():
     assert cc.wording(line, cc.ctx_of({**pk, "legs": [short], "floor": None, "kind": "dog", "best": False}, short), short) == (line, "")
 
 
+
+def test_cards_1117_every_number_on_a_card_is_re_read_off_the_game_files():
+    """11/17 THE BREAKDOWN SWEEP (the owner: "My buddy keeps complaining about the breakdowns and says they make no sense
+    and false, outdated information of injuries and stuff ... make sure that these breakdowns are always accurate and up
+    to date"). The card check re-read records / streaks / last scores; these lines went unchecked: points a game (lately
+    and on the year), who played last night, the road-trip count, the last meeting. And the lines that say nothing: "+0 a
+    game" (three real cards), "Islanders got Devils last time these two met, a 6-0 loss to the Islanders" (four), a word
+    from another sport. Fixed at the source too: hockey says one decimal, a zero margin is never "+0", the last-meeting
+    knock says who beat whom."""
+    import inspect
+    import sports_card_check as cc
+    import sports_breakdown_v24 as v24
+    games = _cc_games()
+    leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml"}
+    # points a game: the Wild's last 3 are 3-1, 2-5, 6-3 (3.7 for, 3.0 against); the Kings' two are 5-2, 3-2 (4 and 2)
+    ok = ["📊 Wild average 3.7 for / 3 against over their last 3; Kings 4 for / 2 against.",
+          "📊 Last 3: Wild score 4 and give up 3 a game; Kings score 4 and give up 2.",
+          "📊 Wild score 3.8 goals a game this year; Kings manage 4.0.",
+          "🛡️ On the year Wild allow 2.8 a game, Kings 2.0.",
+          "📊 The Wild got 68% of the tickets (98% of the money).",                 # (a split is no scoring line)
+          "🏀 Last season Wild went 45-37 and outscored teams by 1.5 a game."]      # (last year: not this check)
+    for x in ok:
+        assert cc.stats(x, leg, games) == "", (x, cc.stats(x, leg, games))
+    for x in ("📊 Wild average 5 for / 3 against over their last 3; Kings 4 for / 2 against.",
+              "📊 Wild score 4.6 goals a game this year; Kings manage 4.0."):
+        assert "a game - the game files say otherwise" in cc.stats(x, leg, games), x
+        assert cc.check(None, leg, [x], games) == [], x                         # ...and it comes off the card
+    # a number that says nothing / a garbled line / another sport's word
+    assert "+0" in cc.sense("📊 Over the last 3, Flyers are +0 a game (3 for, 3 against); Blue Jackets are -3 (1 for, 4 against).", leg)
+    assert "garbled" in cc.sense("⚠️ Not perfect - Islanders got Devils last time these two met, a 6-0 loss to the Islanders.", leg)
+    assert "another sport" in cc.sense("📊 Heat put up 118 goals a game.", {**leg, "league": "nba"})
+    assert cc.sense("🥅 Pucks keep getting past the Kings' goalie.", leg) == ""
+    assert cc.sense('🧯 Kings in the papers: "Quarterback visits the room"', leg) == ""    # (a headline is left alone)
+    # who played last night: nobody here did (the Wild 72 hours back, the Kings 96)
+    assert "last night" in cc.played_last_night("😮‍💨 The Kings played last night and the Wild didn't.", leg, games)
+    assert "last night" in cc.played_last_night("😴 Second night of a back-to-back for Kings. Wild are rested.", leg, games)
+    g2 = dict(games)
+    g2["nhl:8"] = {**games["nhl:5"], "id": "nhl:8", "start": "2026-11-09T03:00Z"}                # the Kings, 23 hours before
+    cc.reset()
+    assert cc.played_last_night("😮‍💨 The Kings played last night and the Wild didn't.", leg, g2) == ""
+    assert "Wild played last night" in cc.played_last_night("⏳ Wild played last night (a 6-3 win over the Sharks).", leg, g2)
+    cc.reset()
+    # rest talk only on a back-to-back (hockey / hoops / baseball) - Victor: "Both teams rested lol"
+    assert "no back-to-back" in cc.rest_talk("⏳ Wild got the extra day: 3 days off to Kings' 2 days.", leg, games)
+    assert "no back-to-back" in cc.rest_talk("⏳ Fresher legs on our side - Wild had 3 days off, Kings 2 days.", leg, games)
+    assert cc.rest_talk("⏳ Wild got the extra day: 3 days off to Kings' 2 days.", leg, g2) == ""       # (the Kings' b2b)
+    assert cc.rest_talk("⏳ Packers come in on 7 days rest; Vikings are on 6 days.", {**leg, "league": "nfl"}, games) == ""
+    assert "says nothing" in cc.sense("📊 Stars average 4 for / 4 against over their last 3; Blue Jackets 3 for / 3 against.", leg)
+    assert cc.sense("📊 Wild average 3.7 for / 3 against over their last 3; Kings 4 for / 2 against.", leg) == ""
+    cc.reset()
+    # the road trip: the Kings' 2nd road game in 6 days (11/5 at the Wild, tonight) - never the 3rd; the Wild are home
+    assert cc.road_trip("🧳 Travel check on the Kings: 2nd road game in 6 days.", leg, games) == ""
+    assert "schedule says 2" in cc.road_trip("🧳 Travel check on the Kings: 3rd road game in 6 days.", leg, games)
+    assert "not the road team" in cc.road_trip("🧳 Wild: 3rd road game in 6 days.", leg, games)
+    # the last meeting: the Kings won it 5-2
+    assert cc.last_meeting("⚠️ Kings beat Wild 5-2 the last time these two met.", leg, games) == ""
+    assert "5-2" in cc.last_meeting("⚠️ Kings beat Wild 4-1 the last time these two met.", leg, games)
+    assert "they did" in cc.last_meeting("🆚 Wild got Kings last time, a 5-2 win over the Kings.", leg, games)
+    # the source: one decimal in hockey, no "+0", the knock says who beat whom
+    wild = [g for g in sorted(games.values(), key=lambda g: g["start"]) if g["status"] == "final" and "1" in (g["home"], g["away"])]
+    assert v24._pts3(wild, "1") == (4, 3, 3) and v24._pts3(wild, "1", dec=1) == (3.7, 3.0, 3)
+    src = inspect.getsource(v24.more_facts)
+    assert "{net_u:+d}" not in src and "last time these two met, a {a}" not in src
+    assert "_net = net_u != 0 and net_t != 0" in src and "the last time these two met" in src
+    # "full squad" only for a team the injury data really covers (unknown is never healthy)
+    assert "sd.covered(inj, lg, tid, us)" in inspect.getsource(v24.breakdown)
+
+
+def test_cards_1117_a_card_never_fights_itself_and_a_man_who_played_isnt_out():
+    """11/17: a "full squad" line beside the same team's men out, a man listed out for the wrong team, a star "in the
+    lineup" the same card lists out - the line comes off (sports_card_check.card_sense). And once the box score is in, a
+    man the card listed OUT who PLAYED (11/2 Ziaire Williams and Jose Alvarado, 11/12 Sandis Vilmanis) is no longer
+    'missing' on the graded card (played_anyway / played)."""
+    import sports_card_check as cc
+    leg = {"team": "Heat", "opp": "Pistons", "league": "nba", "market": "ml", "outs": ["Tyler Herro (G)"],
+           "opp_outs": ["Jalen Duren (C)"]}
+    lines = ["✅ Full squad for Heat.", "⚠️ Heat go without Tyler Herro (G).", "🚑 Pistons gotta play without Tyler Herro (G).",
+             "🌟 Heat: Tyler Herro (2026 All-Star) is in the lineup tonight.",
+             "🌟 Pistons: Cade Cunningham (All-NBA 2026) is in the lineup tonight · Jalen Duren is out.",
+             "🚑 Pistons gotta play without Jalen Duren (C)."]
+    bad = cc.card_sense(leg, lines)
+    assert set(bad) == set(lines[:1] + lines[2:4]), bad
+    assert "full strength" in bad[lines[0]] and "Heat's man" in bad[lines[2]] and "lists him out" in bad[lines[3]]
+    assert cc.card_sense({**leg, "outs": []}, ["✅ Full squad for Heat.", lines[5]]) == {}
+    games = {"nba:1": {"id": "nba:1", "league": "nba", "status": "final", "home": "14", "away": "8", "home_name": "Heat",
+                       "away_name": "Pistons", "start": "2026-11-15T01:00Z"}}
+    keep = cc._BOXP.get("nba")
+    try:
+        cc._BOXP["nba"] = {("nba:1", "8"): {"jalen duren", "cade cunningham"}, ("nba:1", "14"): {"bam adebayo"}}
+        lg2 = {**leg, "game_id": "nba:1", "side": "home"}
+        assert cc.played(lg2, "Jalen Duren", games) and not cc.played(lg2, "Tyler Herro", games)
+        assert "he played" in cc.played_anyway("🚑 Pistons gotta play without Jalen Duren (C).", lg2, games)
+        assert cc.played_anyway("⚠️ Heat go without Tyler Herro (G).", lg2, games) == ""
+        assert cc.played_anyway("🚑 Pistons questionable: C Jalen Duren.", lg2, games) == ""      # (questionable: he might)
+        games["nba:1"]["status"] = "pre"                                     # (before the game there's no box score)
+        assert cc.played_anyway("🚑 Pistons gotta play without Jalen Duren (C).", lg2, games) == ""
+    finally:
+        if keep is None:
+            cc._BOXP.pop("nba", None)
+        else:
+            cc._BOXP["nba"] = keep
+
+
+def test_cards_1117_a_goalies_numbers_only_once_he_is_confirmed():
+    """11/17 - the biggest "outdated" class on the real cards: 18 of the 51 goalie lines with a save % on the 11/1-11/16
+    cards named a man who did NOT start that night ("in net last time out" 11 of 26 wrong, "projected, not confirmed" 3
+    of 13, said flat 4 of 12 - Nedeljkovic / Askarov, Oettinger / DeSmith, Talbot / Greaves ...). A hedge doesn't make a
+    guess true. From the 11/17 games (sports_card_check.GOALIE_SURE_FROM) a goalie's numbers show only once the goalie
+    page CONFIRMS him - the line is kept when the card is written and shows the minute he's confirmed; a played game's
+    card keeps only the man the box score says started (quarterbacks too)."""
+    import sports_card_check as cc
+    import sports_goalies
+    import sports_players as sp
+    g = {"id": "nhl:1", "league": "nhl", "status": "pre", "home": "8", "away": "27", "home_name": "Sharks",
+         "away_name": "Flames", "start": "2026-11-19T03:00Z"}
+    games = {"nhl:1": g}
+    leg = {"game_id": "nhl:1", "league": "nhl", "team": "Flames", "opp": "Sharks", "side": "away", "market": "ml"}
+    last = "🥅 Pucks keep getting past Alex Nedeljkovic, who was in net last time out for the Sharks — a 0.882 save % over his last 3 starts."
+    proj = "🥅 Alex Nedeljkovic, projected to start for the Sharks (not confirmed yet), can't keep the puck out lately: a 0.882 save %."
+    keep = (sp.CACHE.get("nhl"), sports_goalies.confirmed)
+    try:
+        sp.CACHE["nhl"] = [{"gid": "a", "start": "2026-11-16T03:00Z", "team": "8", "player": "Alex Nedeljkovic", "role": "G"},
+                           {"gid": "b", "start": "2026-11-14T03:00Z", "team": "8", "player": "Yaroslav Askarov", "role": "G"}]
+        sports_goalies.confirmed = lambda gid, side, now=None: None
+        for x in (last, proj):
+            assert "nobody confirming him" in cc.who_plays(x, leg, games), x          # the page: hidden
+            assert cc.who_plays(x, leg, games, "pre-post") == ""                      # the card being written: kept
+            assert cc.check(None, leg, [x], games, where="pre-post") == [x] and cc.check(None, leg, [x], games) == []
+        sports_goalies.confirmed = lambda gid, side, now=None: {"name": "Alex Nedeljkovic", "status": "confirmed"} if side == "home" else None
+        assert cc.who_plays(last, leg, games) == "" and cc.who_plays(proj, leg, games) == ""   # confirmed: it shows
+        sports_goalies.confirmed = lambda gid, side, now=None: {"name": "Yaroslav Askarov", "status": "confirmed"} if side == "home" else None
+        assert "nobody confirming him" in cc.who_plays(last, leg, games)                # the other man confirmed
+        # before 11/18 a hedged line stood before the game (the old rule) - a posted card isn't rewritten by a date
+        old = {"nhl:1": {**g, "start": "2026-11-12T03:00Z"}}
+        sports_goalies.confirmed = lambda gid, side, now=None: None
+        assert cc.who_plays(last, leg, old) == ""
+        # the game's over and the box score says Askarov started: Nedeljkovic's line is off the graded card - any date
+        sp.CACHE["nhl"] = sp.CACHE["nhl"] + [{"gid": "nhl:1", "start": "2026-11-19T03:00Z", "team": "8", "player": "Yaroslav Askarov", "role": "G"}]
+        done = {"nhl:1": {**g, "status": "final"}}
+        assert "Yaroslav Askarov started" in cc.who_plays(last, leg, done)
+        assert cc.who_plays(last.replace("Alex Nedeljkovic", "Yaroslav Askarov"), leg, done) == ""
+    finally:
+        sports_goalies.confirmed = keep[1]
+        if keep[0] is None:
+            sp.CACHE.pop("nhl", None)
+        else:
+            sp.CACHE["nhl"] = keep[0]
+        cc._STARTED.clear()
+
+
+def test_cards_1117_the_card_keeps_up_with_every_name_on_it():
+    """11/17 - "outdated information of injuries": the 11/12 freshness check only re-read the card's who's-out LISTS for
+    men who came OFF the report. Now every man the card names anywhere is stamped with the report's word at posting
+    (sports.card_report_status -> leg['rep_status']) and re-read every run until the game starts: questionable -> OUT,
+    out -> questionable, a man the card has PLAYING (a 🌟 star 'in the lineup') who is out now, a 🏀 'game-time call'
+    that got decided - each gets a 🔄 Update line and the line about him comes off; a "full squad" line comes off the
+    minute the report lists anyone for that side. The pick, its price and its units never change."""
+    import copy
+    import sports_dashboard as dash
+    g = {"id": "nba:1", "league": "nba", "status": "pre", "home": "14", "away": "8", "home_name": "Heat",
+         "away_name": "Pistons", "start": "2026-11-19T01:00Z"}
+    leg = {"game_id": "nba:1", "league": "nba", "team": "Heat", "opp": "Pistons", "side": "home", "odds": 160,
+           "outs": [], "opp_outs": ["Jalen Duren (C)"], "why_line": "🧠 The Heat hasn't lost in 3.",
+           "breakdown": ["🚑 Pistons gotta play without Jalen Duren (C).",
+                         "🏀 Heat: the coach plays 8 guys real minutes · Pelle Larsson a game-time call.",
+                         "🌟 Heat: Giannis Antetokounmpo (All-NBA 2025, top-5 MVP) is in the lineup tonight.",
+                         "✅ Bottom line: Heat (+160). Half a unit."]}
+    at_post = {"nba": {"14": [("Pelle Larsson", "G", "Game-Time Decision")], "8": [("Jalen Duren", "C", "Out")]}}
+    leg["on_report"] = sports.on_report(leg, g, at_post)
+    leg["rep_status"] = sports.card_report_status(leg, g, at_post)
+    assert leg["rep_status"] == {"Pelle Larsson": "q", "Jalen Duren": "out"}, leg["rep_status"]
+    assert sports.card_report_status(leg, g, {"nba": None}) is None             # (no report = unknown, never 'cleared')
+    same = copy.deepcopy(leg)
+    sports.fresh_card_facts({"nba:1": g}, [same], at_post)                       # nothing moved: nothing said
+    assert not same.get("stale") and not same.get("fresh") and same["breakdown"] == leg["breakdown"]
+    later = {"nba": {"14": [("Pelle Larsson", "G", "Out"), ("Giannis Antetokounmpo", "F", "Out")],
+                     "8": [("Jalen Duren", "C", "Questionable")]}}
+    sports.fresh_card_facts({"nba:1": g}, [leg], later)
+    assert set(leg["stale"]) == {"Pelle Larsson", "Giannis Antetokounmpo", "Jalen Duren"}, leg.get("stale")
+    said = " | ".join(leg["fresh"])
+    assert "🔄 Update: Pelle Larsson is OUT now for the Heat." in said
+    assert "🔄 Update: Giannis Antetokounmpo is OUT now for the Heat." in said
+    assert "🔄 Update: Jalen Duren is questionable now for the Pistons - not ruled out anymore." in said
+    shown = dash.fresh_lines(leg, leg["breakdown"])
+    body = [x for x in shown if not x.startswith("🔄")]
+    assert "🏀 Heat: the coach plays 8 guys real minutes." in body               # only the part about the man goes
+    assert not any(n in x for x in body for n in ("Larsson", "Giannis", "Duren")), body
+    assert (leg["odds"], leg["side"], leg["team"]) == (160, "home", "Heat")       # the pick never changes
+    n = len(leg["fresh"])
+    sports.fresh_card_facts({"nba:1": g}, [leg], later)                           # the same news is said once
+    assert len(leg["fresh"]) == n
+    # a card posted before 11/17 (no stamp): it starts from the report as it reads now - no made-up "update"
+    old = {**copy.deepcopy(same), "rep_status": None}
+    old.pop("rep_status")
+    sports.fresh_card_facts({"nba:1": g}, [old], later)
+    assert not old.get("stale") and old["rep_status"]["Pelle Larsson"] == "out"
+    # "full squad" - and then the report lists a man for that side
+    hl = {"game_id": "nba:1", "league": "nba", "team": "Heat", "opp": "Pistons", "side": "home", "odds": 160, "outs": [],
+          "opp_outs": ["Jalen Duren (C)"], "breakdown": ["✅ Full squad for Heat.", "🚑 Pistons gotta play without Jalen Duren (C)."]}
+    post2 = {"nba": {"14": [], "8": [("Jalen Duren", "C", "Out")]}}
+    hl["on_report"], hl["rep_status"] = sports.on_report(hl, g, post2), sports.card_report_status(hl, g, post2)
+    sports.fresh_card_facts({"nba:1": g}, [hl], post2)
+    assert not hl.get("stale_lines") and dash.fresh_lines(hl, hl["breakdown"]) == hl["breakdown"]
+    sports.fresh_card_facts({"nba:1": g}, [hl], {"nba": {"14": [("Bam Adebayo", "C", "Out")], "8": [("Jalen Duren", "C", "Out")]}})
+    assert hl["stale_lines"] == ["✅ Full squad for Heat."], hl.get("stale_lines")
+    assert hl["fresh"] == ["🔄 Update: no more full squad for the Heat - Bam Adebayo is out now."], hl["fresh"]
+    shown = dash.fresh_lines(hl, hl["breakdown"])
+    assert shown == ["🔄 Update: no more full squad for the Heat - Bam Adebayo is out now.",
+                     "🚑 Pistons gotta play without Jalen Duren (C)."], shown
+    # a game that started is left as it stood
+    l3 = copy.deepcopy(same)
+    sports.fresh_card_facts({"nba:1": {**g, "status": "in"}}, [l3], later)
+    assert not l3.get("stale")
+
+
+def test_cards_1117_an_early_plays_line_is_re_read_until_the_game():
+    """11/17: an early play posts days ahead and its line was frozen - "Pistons are 6-1, 76ers 7-1; Pistons won their last
+    by 33" would stay up after both teams played again. Every page build re-reads the record / last-game sentence
+    against the game files as they stand now and drops it once it moved (sports_card_check.early_fact / early_lines);
+    the read sentence and a still-true fact stay. A graded play's row is history."""
+    import sports_card_check as cc
+    games = _cc_games()
+    cc.reset()
+    p = {"team": "Wild", "opp": "Kings", "league": "nhl", "game_id": "nhl:9", "side": "home", "odds": -120,
+         "market": "ml", "start": "2026-11-10T02:00Z", "units": 0.5,
+         "why": "🧠 Wild at -120 on the first number - our read at the open beats it. Wild are 2-1, Kings 2-0; Wild lost their last by 3."}
+    assert "Wild 2-1" in cc.early_fact(p, p["why"], games)
+    assert cc.early_lines(p, [p["why"]], where="test", games=games) == \
+        ["🧠 Wild at -120 on the first number - our read at the open beats it."]
+    true = p["why"].replace("2-1", "3-1").replace("lost their last by 3", "won their last by 3")
+    assert cc.early_fact(p, true, games) == "" and cc.early_lines(p, [true], where="test", games=games) == [true]
+    assert "last game now" in cc.early_fact(p, "Wild are 3-1, Kings 2-0; Wild won their last by 8.", games)
+    assert cc.early_lines({**p, "result": "won"}, [p["why"]], where="test", games=games) == [p["why"]]   # history
+    tot = {**p, "team": "Under 5.5", "market": "total", "side": None}
+    assert cc.early_fact(tot, "🌍 Wild are 9-9.", games) == ""                     # (a total's row has its own rules)
+    cc.reset()
+
+
+def test_cards_1117_the_standing_card_audit_and_the_real_cards():
+    """11/17 - the standing self-audit (tools/card_audit.py): every live card as the page shows it, its facts re-derived
+    from the game files and the injury report; what's wrong is FALSE / STALE / NONSENSE. sports_dashboard.write runs it
+    every page build (card_audit.json) and tools/health.py reads it - a bad line on a live card is a PROBLEM line on the
+    hourly bug check. And the real cards: every card posted 11/1-11/16 (the leans that came off the board too), as the
+    page shows it today, carries nothing the audit can call false, outdated or senseless (as written: 6 false, 22 stale,
+    23 nonsense lines on 888)."""
+    import inspect
+    import json
+    import os
+    import tempfile
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import card_audit as ca
+    import sports_card_check as cc
+    import sports_dashboard as dash
+    games = _cc_games()
+    leg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml",
+           "odds": -120, "start": "2026-11-10T02:00Z", "home": True, "outs": [], "opp_outs": ["Drew Doughty (D)"],
+           "why_line": "😮‍💨 The Kings played last night and the Wild didn't.",
+           "breakdown": ["📋 Wild are 4-0, Kings 2-0.", "✅ Full squad for Wild.", "🚑 Kings gotta play without Drew Doughty (D).",
+                         "📊 Over the last 3, Wild are +0 a game (3 for, 3 against); Kings are -3 (1 for, 4 against).",
+                         "✅ Bottom line: Wild (-120). We make Wild -135, the book's at -120."]}
+    pk = {"date": "2026-11-09", "kind": "play", "status": "open", "units": 1.0, "legs": [leg]}
+    inj = {"nhl": {"1": [("Kirill Kaprizov", "LW", "Out")], "2": [("Somebody Else", "D", "Out")]}}
+    keep = (dash._GAMES_[0], cc.FACT_CHECK)
+    try:
+        raw = ca.run([pk], {}, games, inj, as_shown=False)
+        got = {(p["class"], p["why"][:28]) for p in raw["problems"]}
+        assert ("false", "says Wild 4-0 - the games sa") in got, got                          # a wrong record
+        assert ("false", "says Kings played last night") in got, got                          # nobody played last night
+        assert ("nonsense", "a +0 margin - a number that ") in got, got
+        assert any(c == "stale" and "Drew Doughty listed out" in w and "off the injury report" in w
+                   for c, w in ((p["class"], p["why"]) for p in raw["problems"])), raw["problems"]
+        assert any(c == "stale" and "'full squad' for Wild" in w for c, w in ((p["class"], p["why"]) for p in raw["problems"]))
+        assert raw["cards"] == 1 and raw["bad_cards"] == 1 and raw["by_class"]["false"] >= 2
+        assert all("PROBLEM" not in x and x.split(" ")[0] in ("FALSE", "STALE", "NONSENSE") for x in ca.words(raw))
+        # as the page shows it: the card check already took the false / senseless lines off; the report's news is what's left
+        shown = ca.run([pk], {}, games, inj)
+        assert {p["class"] for p in shown["problems"]} == {"stale"}, shown["problems"]
+        assert ca.run([{**pk, "status": "won"}], {}, games, inj)["cards"] == 0               # live cards only
+        with tempfile.TemporaryDirectory() as d:
+            ca.save(raw, os.path.join(d, "card_audit.json"))
+            assert json.load(open(os.path.join(d, "card_audit.json")))["problems"] == raw["problems"]
+        # wired in: every page build, and the hourly bug check reads it
+        assert "card_audit(picks, games, path)" in inspect.getsource(dash.write) and dash.CARD_AUDIT
+        assert "card_audit.json" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+        assert "LAST_REPORT.update(injuries)" in inspect.getsource(sports.injury_watch)
+        # the real cards, 11/1 - 11/16
+        real = sd.load_games()
+        sports.sp.CACHE.update(sports.sp.load())
+        picks = [p for f in ("picks.json", "leans_removed.json") if os.path.exists(os.path.join(sd.DATA, f))
+                 for p in json.load(open(os.path.join(sd.DATA, f))) if "2026-11-01" <= (p.get("date") or "") <= "2026-11-16"]
+        if len(picks) >= 60 and real:
+            cc.reset()
+            rep = ca.run(picks, {}, real, None, since="2026-11-01", live_only=False)
+            bad = [p for p in rep["problems"] if p["class"] != "lingo"]
+            assert rep["cards"] >= 60 and not bad, bad[:5]
+            asis = ca.run(picks, {}, real, None, since="2026-11-01", live_only=False, as_shown=False)
+            n = asis["by_class"]
+            assert n.get("stale", 0) >= 15 and n.get("nonsense", 0) >= 15 and n.get("false", 0) >= 4, n
+    finally:
+        dash._GAMES_[0], cc.FACT_CHECK = keep
+        cc.reset()
+        cc._STARTED.clear()
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

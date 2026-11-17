@@ -832,17 +832,23 @@ def fresh_lines(leg, secs):
     """🔄 11/12 (Victor: "outdated information" - the Sabres goalie and the Giants' Skattebo / McCarthy): every line
     naming a man whose status changed after the card posted comes out; the side's 🚑 line is the report as it reads
     now (when it still has anyone); the update lines go on top. Only the facts move - never the pick or its units."""
-    secs = [_confirmed_now(x, leg) for x in secs or []]
+    gone_ = set(leg.get("stale_lines") or [])                # (11/17: a "full squad" line the report no longer backs)
+    secs = [_confirmed_now(x, leg) for x in secs or [] if x not in gone_]
     said_in = [n for n in leg.get("confirmed") or [] if any(n in str(x) and " is in for " in str(x) for x in secs)]
     fresh_ = [x for x in leg.get("fresh") or [] if not (x.startswith("✅ Update:") and any(n in x for n in said_in))]
     #   (the "✅ X is confirmed" update is dropped when his own line already says he's in - never said twice)
     if not leg.get("stale"):
-        return fresh_ + list(secs) if leg.get("confirmed") else list(secs)
+        return fresh_ + list(secs) if leg.get("confirmed") or gone_ else list(secs)
     now_ = leg.get("inj_now") or {}
     out = []
     for x in secs or []:
         if not stale_in(x, leg):
             out.append(x)
+        elif str(x).startswith(("🏀", "🌟")) and ": " in str(x) and " · " in str(x):
+            head, rest = str(x).split(": ", 1)               # (11/17: a 🏀 / 🌟 line is several facts - only the part
+            keep = [p_ for p_ in rest.rstrip(".").split(" · ") if not stale_in(p_, leg)]   # about the man goes)
+            if keep:
+                out.append(f"{head}: {' · '.join(keep)}.")
         elif str(x).startswith("🚑"):
             rep = next((v for v in now_.values() if v and str(x).startswith(v.split(" out:")[0].split(" questionable:")[0])), "")
             if rep and not stale_in(rep, leg) and rep not in out:
@@ -968,6 +974,9 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
     tag = ""                                             # (11/12, the owner: the public is never a reason - no 🤡 FADING /
     del pub                                              #  🤝 RIDING THE PUBLIC chip on a card)
     opp_outs = [x for x in leg.get("opp_outs") or [] if not stale_in(x, leg)]   # (11/12: a man back on the floor
+    if res:                                                  # (11/17: nor is a man the box score says played)
+        opp_outs = [x for x in opp_outs
+                    if not sports_card_check.played(leg, (sports_card_check._card_names([x]) or [""])[0], _GAMES_[0])]
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(opp_outs))}</div>' if opp_outs else ""   # isn't 'missing')
     if [x for x in leg.get("injury_alerts") or [] if "confirmed in net" not in x] and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>'
@@ -3025,6 +3034,38 @@ def write(picks, model, games, series, start_bank, path=PAGE):
         sports_card_check.save(path=None if path == PAGE else os.path.join(os.path.dirname(path), "pick_audit.json"))
     except Exception as e:                                   # noqa: BLE001 - written only when something new was caught
         print(f"card check log failed: {e}")
+    card_audit(picks, games, path)
+
+
+CARD_AUDIT = True      # 🧾 11/17 (the owner: "make sure that these breakdowns are always accurate and up to date")
+
+
+def card_audit(picks, games, path=PAGE):
+    """The standing self-audit, every page build: each live card as the page shows it, its facts re-derived from the game
+    files and this run's injury report (tools/card_audit.py). Writes data/sports/card_audit.json (next to the page in a
+    test build); what's wrong prints as a CARD AUDIT line and is a PROBLEM on the hourly bug check (tools/health.py).
+    Never changes a card, never blocks the page."""
+    if not CARD_AUDIT:
+        return None
+    try:
+        import sys
+        tools = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools")
+        if tools not in sys.path:
+            sys.path.insert(0, tools)
+        import card_audit as ca
+        try:
+            with open(os.path.join(sd.DATA, "early.json")) as f:
+                early = json.load(f)
+        except (OSError, ValueError):
+            early = {}
+        rep = ca.run(picks, early, games, getattr(sd, "LAST_REPORT", None) or None)
+        ca.save(rep, ca.OUT if path == PAGE else os.path.join(os.path.dirname(path), "card_audit.json"))
+        for x in ca.words(rep):
+            print(f"CARD AUDIT: {x}", flush=True)
+        return rep
+    except Exception as e:                                   # noqa: BLE001 - the audit never blocks the page
+        print(f"card audit failed: {str(e)[:100]}")
+        return None
 
 
 def _leg_brain(l, pk=None):
