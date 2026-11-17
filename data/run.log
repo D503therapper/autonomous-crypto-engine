@@ -21891,3 +21891,22 @@ DEX: $660.71 (-339.29) · Scammed: 11 (-$216.49)
 [2026-11-16 23:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-16 23:06 UTC] crypto/hold_btc  equity $399.27 (-20.1%) 1 open  market DOWN
    social heat top: SOL 41 (37/0/4), BTC 35 (35/0/0), TAO 32 (32/0/0), AERO 29 (29/0/0), PENGU 27 (27/0/0)
+   dex screen: REJECT CBUCKS@solana liq $50,937,146 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT GATO@base liq $109,121 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; creator_percent 15%; lp locked 0% < 95%
+   dex screen: REJECT JLP@solana liq $457,124 - freeze authority; mint authority; top-10 holders 82%; lp holders unknown
+   dex screen: REJECT XDP@base liq $1,632,328 - top-10 holders 93%
+   dex screen: REJECT SPCX@solana liq $2,740,325,752 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT PAID@solana liq $217,829 - lp holders unknown; rugcheck lp locked 87% < 95%
+   dex screen: REJECT AMDC@base liq $24,670 - liquidity $24,670 < $100,000; 24h volume $16,155 < $100,000
+   dex scanner: 2,247 pools (solana 1,669 / base 340 / ethereum 238), refresh cycle 94s (hot 91s), 3036 calls (109 feed, 429s 0, failed 0), 87,810 refreshed (14160 no pair), +57 added / -97 dropped (dead 80, stale 17, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-17 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/mover     equity $176.66 (-64.7%) 2 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/social_heat equity $321.45 (-35.7%) 2 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-17 00:06 UTC] crypto/hold_btc  equity $397.04 (-20.6%) 1 open  market DOWN
+   social heat top: SOL 37 (37/0/0), PONS 34 (21/0/13), HYPE 32 (32/0/0), SUI 29 (29/0/0), BTC 27 (27/0/0)
