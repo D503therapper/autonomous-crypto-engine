@@ -3525,7 +3525,7 @@ def _units_base(pk):
             if pk.get("stack_play"):
                 return NCAAB_STACK_PLAY_UNITS                # 🏀 (11/11: the college hoops spread stack play, ½u)
             if pk.get("ncaab_play"):
-                return ncaab_play_units(pk)                  # 🏀 (11/4: the favorite slot ½u, the dog slot 1u / 2u at a read of 6+)
+                return ncaab_play_units(pk)                  # 🏀 (11/4: the favorite slot ½u, the dog slot 1u / 2u at a read of 6+; 5+ from 11/17)
             if pk.get("nba_fav") and (pk.get("date") or "") >= NBA_FAV_FROM:
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
@@ -6861,7 +6861,8 @@ NCAAB_PLAY_ON = True
 NCAAB_PLAY_FROM = "2026-11-04"      # the first board it can post on
 NCAAB_PLAY_UNITS = 0.5              # the favorite slot: half a unit (the owner, 11/3)
 NCAAB_PLAY_DOG_UNITS = 1.0          # the dog slot: 1u (the owner, 11/4: "more dogs and more units on college basketball")...
-NCAAB_PLAY_DOG_UNITS_2U = 2.0       # ...and 2u at a dog read of NCAAB_DOG_READ_2U+ (6+ beat 4-6 in both halves) - never 3u
+NCAAB_PLAY_DOG_UNITS_2U = 2.0       # ...and 2u at a dog read of NCAAB_DOG_READ_2U+ (6+ beat 4-6 in both halves) - never 3u;
+#                                     FROM THE 11/17 GAMES 2u at a read of 5+ (the 11/17 sizing study - ncaab_slot_2u_read)
 NCAAB_PLAY_SLOTS = ("fav", "dog")
 NCAAB_PLAY_SLOT_MAX = {"fav": 1, "dog": 2}   # a day: one favorite, up to two dogs (the owner, 11/4: "more dogs")
 NCAAB_PLAY_MAX_DAY = sum(NCAAB_PLAY_SLOT_MAX.values())
@@ -7098,7 +7099,33 @@ def ncaab_play_units(pk):
         return NCAAB_PLAY_UNITS
     leg = (pk.get("legs") or [{}])[0]
     r = t.get("dog_read") if t.get("dog_read") is not None else leg.get("dog_read")
-    return NCAAB_PLAY_DOG_UNITS_2U if (r or 0) >= NCAAB_DOG_READ_2U else NCAAB_PLAY_DOG_UNITS
+    two_at = t.get("two_at") or NCAAB_DOG_READ_2U           # (11/17 sizing: the read that earns 2u is STAMPED on the pick
+    #                                                         when it posts - a play posted before the stamp keeps 6+)
+    return NCAAB_PLAY_DOG_UNITS_2U if (r or 0) >= two_at else NCAAB_PLAY_DOG_UNITS
+
+
+SIZE_1117_FROM = "2026-11-17"       # 💰 THE 11/17 SIZING STUDY (the owner, 11/16: "The half a units is just retarded ... that
+NCAAB_SLOT_2U_READ_1117 = 5         # basketball today pick was a lock. We should have had 3 units on that ... I feel like we
+#                                     could do better with the sizing"; results/studies/sizing_1117/, SPORTS_FINDINGS "11/17
+#                                     - SIZING"): ONE size earned it - THE COLLEGE HOOPS DOG SLOT IS 2u AT A DOG READ OF 5+
+#                                     (was 6+) for a slot dog posted for a game on / after SIZE_1117_FROM (None = 6+ again).
+#                                     The slot as live (the 11/16 open slot + the 11/14 home-dog -1) on the 2018-26 rows: the
+#                                     read-5 dogs 26-19, 57.8% against 42.8% needed, +35.6% (train +35.3% / held 14-11
+#                                     +35.9%, 7 of 8 seasons) - the 6+ band's twin (+32.9%; a random 45 of the 6+ plays did
+#                                     as badly 1,159 of 2,000 times), not the read-4 band's (+10.3%, train +3.8%; a random
+#                                     45 of the read-4 plays did as well 106 of 2,000). Read 5+ together 85-68 +33.7% (train
+#                                     +36.9% / held +28.2%, 8 of 8 seasons, a random 153 slot plays as good 71 of 2,000).
+#                                     The slot: +109.7u on 482u (worst stretch -9.2u) -> +125.8u on 527u (-9.4u), every
+#                                     season up or level but 2019 (-1.0u). NOT earned: the read-4 band at 2u (train +3.8%),
+#                                     3u at 6+ (the held-out low end sizes it 1.1u), the gap play at 5+ (no dose by the
+#                                     read in the gap's pool). A posted play keeps its units - the read that earns 2u is
+#                                     stamped on the pick at the post (ncaab_play.two_at).
+
+
+def ncaab_slot_2u_read(day):
+    """The dog read at which a college hoops DOG SLOT play is 2u, by the pick's Pacific game day: NCAAB_SLOT_2U_READ_1117
+    (5) from SIZE_1117_FROM, NCAAB_DOG_READ_2U (6) before / with the switch off."""
+    return NCAAB_SLOT_2U_READ_1117 if SIZE_1117_FROM and (day or "") >= SIZE_1117_FROM else NCAAB_DOG_READ_2U
 
 
 def ncaab_play_record(picks, slot=None):
@@ -9150,6 +9177,8 @@ def post_board(games, model, picks, now, day, force=False):
                 pk["ncaab_play"] = {"slot": leg.get("ncaab_slot"), "read": leg.get("ncaab_read"), "edge": leg.get("ncaab_edge"),
                                   "score": leg.get("ncaab_score"), "fired": list(leg.get("ncaab_fired") or []),
                                   "dog_read": leg.get("dog_read")}   # a dog 1u / 2u at a read of 6+ (ncaab_play_units)
+                if leg.get("ncaab_slot") == "dog":           # 💰 11/17 sizing: 2u at a read of 5+ from the 11/17 games -
+                    pk["ncaab_play"]["two_at"] = ncaab_slot_2u_read(iso)   # stamped, so a posted play keeps its units
                 leg["tier"], pk["tier"] = "value", "value"
                 if leg.get("odds", 0) >= 100 and leg.get("ncaab_read") is not None:   # (11/4: a normal value play - the
                     leg["dog_p"], leg["dog_score"] = leg["ncaab_read"], leg.get("ncaab_score")   # card's units line reads the
