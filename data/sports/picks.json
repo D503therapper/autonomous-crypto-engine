@@ -44390,6 +44390,7 @@
      "them:trip2000"
     ],
     "dec": 1.8928571428571428,
+    "decider": {},
     "depth_gap": -1,
     "dog_ctx": {
      "cw5": 0,
@@ -44442,6 +44443,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,7,3,3",
+     "h": "0,10,3,7"
+    },
     "form_state": [
      -23.0,
      -4,
@@ -44509,10 +44514,12 @@
      "opponent the more banged-up side: 1 regulars out to 0 for us"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Chargers 23 @ Ravens 20",
     "season_games": null,
+    "settled": "2026-11-17T04:29Z",
     "side": "home",
     "start": "2026-11-17T01:15Z",
     "stype": "2",
@@ -44534,12 +44541,14 @@
    }
   ],
   "p_hit": 0.5043,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-16T16:00Z",
   "round": 1,
+  "settled": "2026-11-17T04:29Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -44606,6 +44615,7 @@
      "them:week3000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -44643,6 +44653,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,1,0",
+     "h": "0,2,1"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -44713,10 +44727,12 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Canadiens 1 @ Rangers 3",
     "season_games": null,
+    "settled": "2026-11-17T03:42Z",
     "side": "away",
     "stale": [],
     "start": "2026-11-17T00:30Z",
@@ -44735,12 +44751,14 @@
    }
   ],
   "p_hit": 0.5215,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-16T16:00Z",
   "round": 1,
+  "settled": "2026-11-17T03:42Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 120,
@@ -44800,6 +44818,7 @@
      "them:road3in6"
     ],
     "dec": 2.2,
+    "decider": {},
     "def_first": true,
     "dog_bad": [],
     "dog_ctx": {
@@ -44844,6 +44863,10 @@
     "first_timer": false,
     "floor_fallback": "college hoops sits out the floor (its dogs run the dog slot)",
     "floor_score": 3.26,
+    "flow": {
+     "a": "27,40",
+     "h": "30,45"
+    },
     "form_state": [
      -26.0,
      -1,
@@ -44904,7 +44927,7 @@
     ],
     "reb_gap": -3.4,
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -44913,7 +44936,9 @@
     ],
     "roster_new": 0.482,
     "roster_tin": 0.141,
+    "score": "Iona 67 @ UMBC 75",
     "season_games": null,
+    "settled": "2026-11-17T00:59Z",
     "side": "home",
     "start": "2026-11-16T23:00Z",
     "stype": "2",
@@ -44942,11 +44967,13 @@
    }
   ],
   "p_hit": 0.4488,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-11-16T16:00Z",
   "round": 1,
+  "settled": "2026-11-17T00:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

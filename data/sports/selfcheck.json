@@ -6,15 +6,15 @@
   "all": {
    "extra_edge": 0.0,
    "hit": 0.516,
-   "n": 308,
+   "n": 310,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.53,
-   "n": 117,
-   "said": 0.477,
+   "hit": 0.525,
+   "n": 118,
+   "said": 0.478,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:game:div": {
@@ -26,8 +26,8 @@
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
-   "hit": 0.547,
-   "n": 75,
+   "hit": 0.553,
+   "n": 76,
    "said": 0.512,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
@@ -61,10 +61,10 @@
   },
   "ctx:them:east1000": {
    "extra_edge": 0.0,
-   "hit": 0.696,
-   "n": 23,
-   "said": 0.499,
-   "verdict": "only 23 graded - report only (report only: forward-only tag)"
+   "hit": 0.667,
+   "n": 24,
+   "said": 0.5,
+   "verdict": "only 24 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:hotseat": {
    "extra_edge": 0.0,
@@ -82,31 +82,31 @@
   },
   "ctx:them:road3in6": {
    "extra_edge": 0.0,
-   "hit": 0.312,
-   "n": 16,
-   "said": 0.467,
-   "verdict": "only 16 graded - report only (report only: forward-only tag)"
+   "hit": 0.353,
+   "n": 17,
+   "said": 0.466,
+   "verdict": "only 17 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
-   "hit": 0.698,
-   "n": 43,
-   "said": 0.492,
+   "hit": 0.682,
+   "n": 44,
+   "said": 0.493,
    "verdict": "hitting at or above what we said (report only: forward-only tag)"
   },
   "ctx:them:trip2000": {
    "extra_edge": 0.0,
-   "hit": 0.875,
-   "n": 8,
-   "said": 0.485,
-   "verdict": "only 8 graded - report only (report only: forward-only tag)"
+   "hit": 0.778,
+   "n": 9,
+   "said": 0.489,
+   "verdict": "only 9 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:week3000": {
    "extra_edge": 0.0,
-   "hit": 0.52,
-   "n": 25,
-   "said": 0.51,
-   "verdict": "only 25 graded - report only (report only: forward-only tag)"
+   "hit": 0.5,
+   "n": 26,
+   "said": 0.511,
+   "verdict": "only 26 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:west1000": {
    "extra_edge": 0.0,
@@ -188,7 +188,7 @@
   "drama:none": {
    "extra_edge": 0.0,
    "hit": 0.532,
-   "n": 263,
+   "n": 265,
    "said": 0.504,
    "verdict": "hitting at or above what we said"
   },
@@ -230,7 +230,7 @@
   "label:parlay leg": {
    "extra_edge": 0.0,
    "hit": 0.517,
-   "n": 234,
+   "n": 236,
    "said": 0.505,
    "verdict": "hitting at or above what we said"
   },
@@ -257,10 +257,10 @@
   },
   "league:ncaab": {
    "extra_edge": 0.0,
-   "hit": 0.429,
-   "n": 14,
-   "said": 0.565,
-   "verdict": "only 14 graded - report only"
+   "hit": 0.467,
+   "n": 15,
+   "said": 0.557,
+   "verdict": "only 15 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -278,8 +278,8 @@
   },
   "league:nhl": {
    "extra_edge": 0.02,
-   "hit": 0.5,
-   "n": 104,
+   "hit": 0.495,
+   "n": 105,
    "said": 0.504,
    "verdict": "a little below what we said - within noise"
   },
@@ -293,8 +293,8 @@
   "market:ml": {
    "extra_edge": 0.0,
    "hit": 0.524,
-   "n": 271,
-   "said": 0.501,
+   "n": 273,
+   "said": 0.5,
    "verdict": "hitting at or above what we said"
   },
   "market:spread": {
@@ -306,8 +306,8 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.433,
-   "n": 104,
+   "hit": 0.438,
+   "n": 105,
    "said": 0.471,
    "verdict": "a little below what we said - within noise"
   },
@@ -320,8 +320,8 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.571,
-   "n": 177,
+   "hit": 0.567,
+   "n": 178,
    "said": 0.545,
    "verdict": "hitting at or above what we said"
   },
@@ -341,9 +341,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.518,
-   "n": 284,
-   "said": 0.499,
+   "hit": 0.517,
+   "n": 286,
+   "said": 0.498,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:contract year": {
@@ -432,5 +432,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-11-16T21:59Z"
+ "updated": "2026-11-17T04:16Z"
 }
