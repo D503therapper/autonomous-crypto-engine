@@ -18181,8 +18181,10 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
         assert 1 <= len(tests) <= 3 and slots_up.count("fav") <= 1 and slots_up.count("dog") <= 2, [(p["kind"], p.get("ncaab_play")) for p in picks]
         for p in tests:                                      # (11/4: the favorite ½u, a dog 1u / 2u at a read of 6+)
             assert p["kind"] == "play" and p["tier"] == "value" and p["legs"][0]["tier"] == "value"
-            assert sports.units_for(p) == sports.ncaab_play_units(p) == (0.5 if p["ncaab_play"]["slot"] == "fav" else
-                                                                          2.0 if (p["ncaab_play"].get("dog_read") or 0) >= 6 else 1.0)
+            assert sports._units_base(p) == sports.ncaab_play_units(p) == (0.5 if p["ncaab_play"]["slot"] == "fav" else
+                                                                           2.0 if (p["ncaab_play"].get("dog_read") or 0) >= 6 else 1.0)
+            #   (_units_base = the slot's own size - from 11/17 a 1u dog slot play that takes the ⭐ carries 2u: PROFIT_1117_FROM)
+            assert sports.units_for(p) == (2.0 if p.get("best_2u") else sports.ncaab_play_units(p))
             assert p["legs"][0]["ncaab_slot"] == p["ncaab_play"]["slot"] and p["ncaab_play"]["read"] == (0.6 if p["ncaab_play"]["slot"] == "fav" else 0.5)
         assert len({l["game_id"] for p in picks if p["status"] != "waiting" for l in p["legs"]}) == \
             sum(1 for p in picks if p["status"] != "waiting"), "one pick a game - never the other side of a posted pick"
@@ -24978,7 +24980,8 @@ def test_forensics_1116_the_nfl_lock_is_half_a_unit_and_never_the_star_two_early
     assert sports.best_pool([nfl], day) == [] and sports.mark_best([nfl], day) is None and not nfl.get("best")
     assert sports.best_pool([nfl, dog], day) == [dog] and sports.mark_best([nfl, dog], day) is dog
     col = pk(leg("ncaaf", "2026-11-21T20:00Z"), "2026-11-21")
-    assert sports.mark_best([col], "2026-11-21") is col and sports.units_for(col) == 1.0       # a college Lock still can
+    assert sports.mark_best([col], "2026-11-21") is col and sports._units_base(col) == 1.0     # a college Lock still can
+    assert col.get("best_2u") is True and sports.units_for(col) == 2.0                         # (11/17 max profit: the ⭐ on a Lock is 2u)
     old = pk(leg("nfl", before), "2026-11-15")
     assert sports.mark_best([old], "2026-11-15") is old                                        # as it ran on 11/15
     keep = sports.LOCK_NFL_HALF_FROM
@@ -25587,6 +25590,8 @@ def test_money_1118_the_hockey_runner_up_dog_at_100_to_150_is_1u_stamped_at_the_
              "make_board")
     keep_fn = {n: getattr(sports, n) for n in names}
 
+    keep_p17 = sports.PROFIT_1117_FROM
+
     def run(ml_away, from_=keep):
         gid = "nhl:mm0"
         games[gid] = {**games["nhl:1"], "id": gid, "status": "pre", "home": "0", "away": "1", "home_name": "H0", "away_name": "A0",
@@ -25602,6 +25607,7 @@ def test_money_1118_the_hockey_runner_up_dog_at_100_to_150_is_1u_stamped_at_the_
         try:
             sd.fetch_injuries = lambda lg: {str(t): [] for t in range(40)}
             sports.MONEY_1118_FROM = from_
+            sports.PROFIT_1117_FROM = None             # (11/17 max profit made the cell 2u - this is the 11/18 rule alone)
             for n in keep_fn:
                 setattr(sports, n, none)
             sports.dog_plays = pool
@@ -25611,6 +25617,7 @@ def test_money_1118_the_hockey_runner_up_dog_at_100_to_150_is_1u_stamped_at_the_
             return [p for p in picks if p.get("dog_play")]
         finally:
             sports.MONEY_1118_FROM = keep
+            sports.PROFIT_1117_FROM = keep_p17
             sd.fetch_injuries = keep_f
             for n, f in keep_fn.items():
                 setattr(sports, n, f)
@@ -25624,6 +25631,272 @@ def test_money_1118_the_hockey_runner_up_dog_at_100_to_150_is_1u_stamped_at_the_
     off = run(130, from_=None)
     assert len(off) == 1 and not off[0].get("dog_play_1u") and sports._units_base(off[0]) == 0.5
     assert sports._units_base(got[0]) == 1.0                      # (the play posted before the switch went off keeps its 1u)
+
+
+def test_profit_1117_runner_up_2u_college_thin_lock_1u_and_the_star_2u_stamped_at_the_post_a_posted_pick_keeps_its_units():  # noqa: C901
+    """11/17 FABLE - THE MAX-PROFIT SIZING PLAN (the owner, 11/17: "whatever Fable recommends for the biggest returns on
+    the best bets, the largest sizes ... wire that into the engine" + "when I see a play that has more units on it, that
+    means I'll put more money on it. And none of these picks can be costing me or my friends money";
+    results/studies/profit_1117/): the options run TOGETHER on today's-code board, the bundle with the most units whose
+    every piece is up in both halves - (1) the hockey runner-up dog at +100..+150 is 2u, (2) the college football thin
+    Lock is 1u, (3) the ⭐ is 2u when it sits on a Lock / a Dog of the Day / a play 1u+ by its own size at +150 or
+    shorter. The ⭐ on a ½u value play / a floor play / a dog past +150 stays 1u; the floor, the NBA floor, the hockey
+    favorite value play, the NFL Lock stay ½u. Each size is STAMPED at the post - a pick already up keeps its units -
+    and a card that carries 1u or more never says a small bet's words. END TO END through post_board."""
+    import sports_breakdown_v24 as v24
+    import sports_card_check as cc
+    assert sports.PROFIT_1117_FROM == "2026-11-17" and sports.DOG_PLAY_SHORT_UNITS_1117 == 2.0
+    assert sports.NCAAF_THIN_LOCK_UNITS_1117 == 1.0 and sports.BEST_UNITS_1117 == 2.0 and sports.BEST_2U_MAX_ODDS == 150
+    assert sports.BEST_MIN_UNITS == 1.0 and sports.FLOOR_UNITS == 0.5 and sports.PLAY_UNITS == 0.5 and sports.LOCK_NFL_UNITS == 0.5
+    assert sports.UNIT_MAX == 5 and sports.MAX_FAV == -150                # (the 5u cap and the -150 rule stand)
+    D = "2026-11-19"
+
+    def leg(odds=130, lg="nhl", **kw):
+        d = sports._dec(odds)
+        pm = 1 / d - 0.02
+        return {"league": lg, "market": "ml", "odds": odds, "dec": d, "p": pm + 0.04, "p_market": pm, "edge": (pm + 0.04) * d - 1,
+                "edge_own": (pm + 0.06) * d - 1, "dog_p": round(pm + 0.07, 4), "dog_score": 7.0, "team": "Flames", "opp": "Sharks",
+                "game_id": f"{lg}:t", "side": "away", "home": False, "start": "2026-11-20T03:00Z", "reasons": ["r"], "waiting": [],
+                "trap": False, **kw}
+
+    def pk(l, kind="play", day=D, **kw):
+        return {"kind": kind, "date": day, "status": "open", "lean": False, "legs": [l], "dec": l["dec"], "american": l["odds"], **kw}
+    # ---- (1) the hockey runner-up dog at +100..+150: 2u with the stamp
+    for o, want in ((100, True), (130, True), (150, True), (151, False), (220, False), (-110, False)):
+        assert sports.dog_play_short_2u(leg(o), D) is want, o
+    assert sports.dog_play_short_2u(leg(), "2026-11-17") and not sports.dog_play_short_2u(leg(), "2026-11-16")
+    assert not sports.dog_play_short_2u(leg(lg="nfl"), D) and not sports.dog_play_short_2u(leg(lg="nba"), D)
+    ru = pk(leg(), dog_play=True)
+    assert sports.units_for(ru) == 0.5                                     # no stamp (posted before): ½u
+    assert sports.units_for({**ru, "dog_play_1u": True}) == 1.0            # the 11/18 stamp alone: 1u
+    ru2 = {**ru, "dog_play_2u": True}
+    assert sports.dog_play_2u(ru2) and sports.units_for(ru2) == 2.0 and sports.sizing_check([ru2]) == []
+    for bad in (pk(leg(151), dog_play=True, dog_play_2u=True), pk(leg(lg="nfl"), dog_play=True, dog_play_2u=True),
+                pk({**leg(), "market": "spread"}, dog_play=True, dog_play_2u=True), pk(leg(), dog_play_2u=True)):
+        assert not sports.dog_play_2u(bad) and sports.units_for(bad) == 0.5, bad["legs"][0]
+    assert sports.units_for(pk(leg(), floor={"dog_score": 1.0}, dog_play_2u=True)) == 0.5        # a floor play never reads it
+    assert sports.units_for({**ru2, "status": "lost", "units": 0.5}) == 0.5                       # graded: forever
+    assert sports.units_for({**ru2, "units_posted": 0.5}) == 0.5                                  # a Dog upgrade keeps the posted units
+    # ---- (2) the college football thin Lock: 1u with the stamp; the NFL Lock never
+    def lock_leg(lg, odds=-140, own=0.59, **kw):
+        dec = sports._dec(odds)
+        return {"league": lg, "market": "ml", "odds": odds, "dec": dec, "p": 0.60, "edge_own": own * dec - 1, "edge": 0.60 * dec - 1,
+                "p_market": 0.57, "game_id": f"{lg}:x", "side": "home", "team": "Tulane", "opp": "Army", "start": "2026-11-22T00:30Z",
+                "reasons": ["x"], "waiting": [], **kw}
+    cfb = pk(lock_leg("ncaaf", fb_thin_lock=True), "lock", "2026-11-21", tier="lock")
+    nfl = pk(lock_leg("nfl", fb_thin_lock=True), "lock", "2026-11-22", tier="lock")
+    assert sports.units_for(cfb) == 0.5 and sports.units_for(nfl) == 0.5                          # no stamp: ½u
+    assert sports.mark_profit_1117([cfb, nfl], "2026-11-21") == [cfb] and cfb.get("thin_lock_1u") is True and not nfl.get("thin_lock_1u")
+    assert sports.thin_lock_1u(cfb) and sports.units_for(cfb) == 1.0 and sports.sizing_check([cfb]) == []
+    assert sports.units_for({**nfl, "thin_lock_1u": True}) == 0.5 and not sports.thin_lock_1u({**nfl, "thin_lock_1u": True})
+    fat = pk(lock_leg("ncaaf", own=0.66, p=0.66), "lock", "2026-11-21", tier="lock")             # not thin: its own 1u, no stamp
+    assert sports.mark_profit_1117([fat], "2026-11-21") == [] and sports.units_for(fat) == sports.LOCK_FOOTBALL_UNITS == 1.0
+    old = pk(lock_leg("ncaaf", fb_thin_lock=True), "lock", "2026-11-16", tier="lock")
+    assert sports.mark_profit_1117([old], "2026-11-16") == [] and sports.units_for(old) == 0.5    # a 11/16 Lock: the old size
+    for skip in ({"lean": True}, {"status": "won"}, {"owner_post": "x"}, {"units_posted": 0.5}):
+        x = {**pk(lock_leg("ncaaf", fb_thin_lock=True), "lock", "2026-11-21"), **skip}
+        assert sports.mark_profit_1117([x], "2026-11-21") == [], skip
+    # ---- (3) the ⭐ at 2u: a Lock / a Dog of the Day / a play 1u+ by its own size, at +150 or shorter
+    nba_dog = pk(leg(130, "nba", edge_own=0.0), "dog")
+    nba_fav = pk(leg(-130, "nba"), nba_fav={"w": 1})
+    value = pk(leg(-130))                                                                         # a ½u value play
+    floor = pk(leg(120), floor={"dog_score": 2.0})
+    long_dog = pk(leg(190), "dog")
+    assert sports._units_base(nba_fav) == 1.0 and sports._units_base(value) == 0.5 and sports._units_base(floor) == 0.5
+    assert sports._units_base(long_dog) == 0.5 and sports._units_base(pk(leg(130), "dog")) == 2.0
+    for p_, want in ((cfb, True), (nba_dog, True), (nba_fav, True), (ru2, True), (pk(leg(130), "dog"), True),
+                     (value, False), (floor, False), (long_dog, False), (pk(leg(190), dog_play=True), False),
+                     (pk(lock_leg("ncaaf", backup_lock=True), "lock"), False), ({**nba_fav, "forced": True}, False),
+                     ({**nba_fav, "lean": True}, False), ({**nba_fav, "date": "2026-11-16"}, False),
+                     (pk(leg(151, "nba"), nba_fav={"w": 1}), False)):
+        assert sports.best_2u_ok(p_) is want, (p_["kind"], p_["legs"][0]["odds"], p_["legs"][0]["league"])
+    assert sports.units_for({**nba_fav, "best": True}) == 1.0                                     # the ⭐ with no stamp (posted before): 1u
+    assert sports.units_for({**nba_fav, "best": True, "best_2u": True}) == 2.0
+    assert sports.units_for({**nba_fav, "best_2u": True}) == 1.0                                  # the stamp without the ⭐: nothing
+    assert sports.units_for({**cfb, "best": True, "best_2u": True}) == 2.0 and sports.sizing_check([{**cfb, "best": True, "best_2u": True}]) == []
+    assert sports.units_for({**value, "best": True}) == 1.0 and sports.units_for({**floor, "best": True}) == 1.0
+    assert sports.units_for({**long_dog, "best": True}) == 1.0
+    assert sports.units_for({**long_dog, "best": True, "best_2u": True}) == 1.0                   # a stamp past +150 is ignored
+    assert sports.units_for({**nba_fav, "best": True, "best_2u": True, "status": "won", "units": 1.0}) == 1.0   # graded: forever
+    mx = {**pk(leg(130), "dog"), "max_play": True, "best": True, "best_2u": True}
+    assert sports.units_for(mx) == sports.MAX_PLAY_UNITS == 3.0                                   # the 💎 3u stays 3u (never under)
+    # mark_best stamps it once, at the post; a ⭐ already up keeps what it has
+    day_picks = [dict(value, legs=[dict(value["legs"][0], game_id="nhl:a")]), dict(nba_fav, legs=[dict(nba_fav["legs"][0], game_id="nba:b")])]
+    b = sports.mark_best(day_picks, D)
+    assert b is day_picks[1] and b.get("best") and b.get("best_2u") is True and sports.units_for(b) == 2.0
+    assert sports.units_for(day_picks[0]) == 0.5 and sports.sizing_check(day_picks) == []
+    only_value = [dict(value, legs=[dict(value["legs"][0], game_id="nhl:a")])]
+    b = sports.mark_best(only_value, D)
+    assert b is only_value[0] and not b.get("best_2u") and sports.units_for(b) == 1.0 and sports.sizing_check(only_value) == []
+    posted = [dict(nba_fav, best=True, legs=[dict(nba_fav["legs"][0], game_id="nba:b")])]         # the ⭐ went up before the change
+    assert sports.mark_best(posted, D) is posted[0] and not posted[0].get("best_2u") and sports.units_for(posted[0]) == 1.0
+    keep = sports.PROFIT_1117_FROM
+    try:                                                                                          # the switch: None = no new stamp...
+        sports.PROFIT_1117_FROM = None
+        assert not sports.dog_play_short_2u(leg(), D) and not sports.best_2u_ok(nba_fav)
+        assert sports.mark_profit_1117([pk(lock_leg("ncaaf", fb_thin_lock=True), "lock", "2026-11-21")], "2026-11-21") == []
+        assert sports.units_for(ru2) == 2.0 and sports.units_for(cfb) == 1.0                      # ...a stamped play keeps its size
+        assert sports.units_for({**nba_fav, "best": True, "best_2u": True}) == 2.0
+    finally:
+        sports.PROFIT_1117_FROM = keep
+    # ---- the words: a card with 1u or more never says a small bet's words; a ½u card may
+    cl = lock_leg("ncaaf", fb_thin_lock=True)
+    lines = ["✅ Bottom line: Tulane (-140). Our Lock today, priced about right - small bet, not a big one.",
+             "✅ Bottom line: Tulane (-140). Tulane won 31-17 last week. Half a unit, keep it light.",
+             "🔒 Tulane beat Army 31-17 last week. We trust Tulane to win this one - priced about right, so it's a small bet."]
+    cx1 = cc.ctx_of({**cfb, "legs": [cl]}, cl)
+    cx_half = cc.ctx_of(pk(cl, "lock", "2026-11-16", tier="lock"), cl)
+    assert cx1["units"] == 1.0 and cx_half["units"] == 0.5
+    for t in lines:
+        out, why = cc.wording(t, cx1, cl)
+        assert out and not cc.SMALL_TALK.search(out) and "small bet" in why, (t, out, why)
+        assert cc.wording(t, cx_half, cl) == (t, ""), t
+    assert cc.wording(lines[1], cx1, cl)[0] == "✅ Bottom line: Tulane (-140). Tulane won 31-17 last week."
+    half_card = pk(dict(leg(-130, "nba"), breakdown=["✅ Bottom line: Flames (-130). Flames won 4 straight. Half a unit, no more."]), nba_fav={"w": 1})
+    half_card.update(best=True, best_2u=True)
+    sports.best_closer(half_card)                                                                 # the ⭐ line names the real size
+    bl = half_card["legs"][0]["breakdown"][0]
+    assert "Half a unit" not in bl and "2 units" in bl and "full unit" not in bl, bl
+    # the day audit never flags a stamped size as "a thin edge - should be ½u"; the brain's sizing line says the new sizes
+    import sports_audit
+    import sports_dashboard as dsh_
+    won = {**cfb, "status": "won", "units": 1.0}
+    assert sports_audit.audit_day([won], {}, "2026-11-21")["flags"] == []
+    assert any("should be ½u" in f for f in sports_audit.audit_day([{**won, "thin_lock_1u": False}], {}, "2026-11-21")["flags"])
+    assert sports_audit.audit_day([{**ru2, "status": "won", "units": 2.0, "legs": [dict(ru2["legs"][0], edge_own=0.01)]}], {}, D)["flags"] == []
+    said = dsh_.engine_weights()["the board"]["units"]
+    assert "runner-up dog at +100..+150 2u" in said and "college football thin Lock 1u" in said and "the star 2u on a Lock" in said
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert 'if dog_play_short_2u(leg, iso):' in pb and 'pk["dog_play_2u"] = True' in pb and "mark_profit_1117(new, iso)" in pb
+    assert pb.index("mark_profit_1117(new, iso)") < pb.index("best = mark_best(picks, iso)")       # (the ⭐'s order reads the stamped size)
+    # ---- END TO END (a) - post_board on an 11/17 hockey board: the runner-up dog the pool hands over posts at 2u (+130),
+    # ½u at +190 (and as the day's one unit play it takes the ⭐ at 1u - never 2u past +150); off = ½u
+    games, _ = fake_league("nhl", days=120)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 17, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    keep_f = sd.fetch_injuries
+    names = ("dog_plays", "plays", "gap_plays", "floor_plays", "nba_fav_plays", "nba_floor_plays", "ncaab_play_plays", "ncaab_stack_plays",
+             "make_board")
+    keep_fn = {n: getattr(sports, n) for n in names}
+
+    def run(ml_away, from_=keep):
+        gid = "nhl:mp0"
+        games[gid] = {**games["nhl:1"], "id": gid, "status": "pre", "home": "0", "away": "1", "home_name": "H0", "away_name": "A0",
+                      "home_score": "", "away_score": "", "start": "2026-11-18T03:00Z", "ml_home": "-150" if ml_away < 151 else "-230",
+                      "ml_away": str(ml_away), "ml_home_open": "-150" if ml_away < 151 else "-230", "ml_away_open": str(ml_away)}
+
+        def pool(cands, avoid):
+            got_ = [c for c in cands if c["game_id"] == gid and c["market"] == "ml" and c["odds"] >= 100 and gid not in avoid][:1]
+            for c in got_:                             # (the real pool only hands over a gated dog whose read beats its price)
+                c.update(dog_p=round(1 / c["dec"] + 0.06, 4), dog_score=7.0, reasons=c.get("reasons") or ["out-shooting them"])
+            return got_
+        none = lambda cands, avoid, *a, **k: []        # noqa: E731
+        try:
+            sd.fetch_injuries = lambda lg: {str(t): [] for t in range(40)}
+            sports.PROFIT_1117_FROM = from_
+            for n in keep_fn:
+                setattr(sports, n, none)
+            sports.dog_plays = pool
+            sports.make_board = lambda *a, **k: {}
+            picks = []
+            sports.post_board(games, model, picks, now, day, force=True)
+            assert sports.sizing_check(picks) == [], sports.sizing_check(picks)
+            return [p for p in picks if p.get("dog_play")]
+        finally:
+            sports.PROFIT_1117_FROM = keep
+            sd.fetch_injuries = keep_f
+            for n, f in keep_fn.items():
+                setattr(sports, n, f)
+    got = run(130)
+    assert len(got) == 1 and got[0]["kind"] == "play" and got[0].get("dog_play_2u") is True and not got[0].get("dog_play_1u"), \
+        (got, sports.LAST_PICK_CHECK)
+    assert sports._units_base(got[0]) == 2.0 and sports.units_for(got[0]) == 2.0
+    for ln in list(got[0]["legs"][0].get("breakdown") or []) + [got[0]["legs"][0].get("why_line") or ""]:
+        assert not cc.SMALL_TALK.search(str(ln)), ln                       # (the 2u card never says "half a unit, keep it light")
+    long_ = run(190)
+    assert len(long_) == 1 and not long_[0].get("dog_play_2u") and sports._units_base(long_[0]) == 0.5, (long_, sports.LAST_PICK_CHECK)
+    if long_[0].get("best"):
+        assert not long_[0].get("best_2u") and sports.units_for(long_[0]) == 1.0
+    off = run(130, from_=None)
+    assert len(off) == 1 and not off[0].get("dog_play_2u") and sports._units_base(off[0]) == 0.5
+    assert sports.units_for(off[0]) <= 1.0 and sports.units_for(got[0]) == 2.0     # (the play posted before the switch went off keeps its 2u)
+    again = [dict(p) for p in off]                                         # a play already up (½u, no stamp) is never re-sized by a later run
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(40)}
+        for n in keep_fn:
+            setattr(sports, n, lambda cands, avoid, *a, **k: [])
+        sports.make_board = lambda *a, **k: {}
+        sports.post_board(games, model, again, now + timedelta(minutes=30), day, force=True)
+    finally:
+        sd.fetch_injuries = keep_f
+        for n, f in keep_fn.items():
+            setattr(sports, n, f)
+    kept = [p for p in again if p.get("dog_play")]
+    assert len(kept) == 1 and not kept[0].get("dog_play_2u") and sports._units_base(kept[0]) == 0.5
+    # ---- END TO END (b) - post_board on a college football Saturday: the thin Lock-grade favorite posts as the Lock at
+    # 1u (stamped), takes the ⭐ and carries 2u; its card says no small bet; the same favorite in the NFL stays ½u, no ⭐
+    for lg, sat in (("ncaaf", datetime(2026, 11, 21, 16, 30, tzinfo=timezone.utc)), ("nfl", datetime(2026, 11, 22, 16, 30, tzinfo=timezone.utc))):
+        games, strength = fake_league(lg, days=120)
+        for x in games.values():
+            x["stype"] = "2"
+        model = {"params": {}, "log": []}
+        sm.tune_all(games, model)
+        day = sat.astimezone(sports.PT).date()
+        order = sorted(strength, key=strength.get)
+        gid = f"{lg}:up0"
+        games[gid] = {**games[f"{lg}:1"], "id": gid, "status": "pre", "home": order[-1], "away": order[0], "home_name": "H0", "away_name": "A0",
+                      "home_score": "", "away_score": "", "start": sat.strftime("%Y-%m-%dT21:00Z"), "ml_home": "-140", "ml_away": "120",
+                      "ml_home_open": "-140", "ml_away_open": "120", "spread_home": "-2.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+
+        def fake_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fixed=None, gid=gid):
+            c = next((c for c in cands if c["game_id"] == gid and c["market"] == "ml" and c["side"] == "home"), None)
+            if c is None or gid in avoid:
+                return {}
+            c.update(p=0.60, edge_own=round(0.59 * c["dec"] - 1, 4), edge=round(0.60 * c["dec"] - 1, 4), waiting=[],
+                     reasons=c.get("reasons") or ["the stronger team"])
+            c.pop("w_p", None)
+            c.pop("hurt", None)
+            assert sports.thin_edge(c) and sports.beats_price(c)
+            return {"lock": {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}}
+        keep_all = {n: getattr(sports, n) for n in ("make_board", "plays", "dog_plays", "gap_plays", "floor_plays", "viewer_leans",
+                                                     "nba_fav_plays", "nba_floor_plays", "save_lock_miss")}
+        keep_seen = v24.seen_all
+        try:
+            sd.fetch_injuries = lambda lg_: {str(t): [] for t in range(40)}
+            v24.seen_all = lambda *a, **k: True                            # (the fake league holds every game)
+            sports.make_board = fake_board
+            sports.plays = sports.dog_plays = sports.gap_plays = sports.viewer_leans = lambda cands, avoid: []
+            sports.nba_fav_plays = sports.nba_floor_plays = lambda cands, avoid: []
+            sports.floor_plays = lambda cands, avoid, filtered=True: []
+            sports.save_lock_miss = lambda *a, **k: None
+            picks = []
+            sports.post_board(games, model, picks, sat, day, force=True)
+            locks = [p for p in picks if p.get("kind") == "lock" and p.get("status") == "open"]
+            assert len(locks) == 1, (lg, [(p["kind"], p["status"]) for p in picks], sports.LAST_PICK_CHECK)
+            L = locks[0]
+            assert L["legs"][0].get("fb_thin_lock") is True and sports.sizing_check(picks) == [], sports.sizing_check(picks)
+            if lg == "ncaaf":
+                assert L.get("thin_lock_1u") is True and sports._units_base(L) == 1.0
+                assert L.get("best") and L.get("best_2u") is True and sports.units_for(L) == 2.0
+                for ln in list(L["legs"][0].get("breakdown") or []) + [L["legs"][0].get("why_line") or ""]:
+                    assert not cc.SMALL_TALK.search(str(ln)), ln
+                sports.PROFIT_1117_FROM = None                             # off: the 11/16 size, the ⭐ at 1u
+                p2 = []
+                sports.post_board(games, model, p2, sat, day, force=True)
+                L2 = [p for p in p2 if p.get("kind") == "lock" and p.get("status") == "open"][0]
+                assert not L2.get("thin_lock_1u") and sports._units_base(L2) == 0.5 and not L2.get("best_2u") and sports.units_for(L2) == 1.0
+                assert sports.units_for(L) == 2.0                          # (the Lock posted before the switch went off keeps its size)
+            else:
+                assert not L.get("thin_lock_1u") and sports.units_for(L) == 0.5 and not L.get("best"), "the NFL Lock: ½u, never the ⭐"
+        finally:
+            sports.PROFIT_1117_FROM = keep
+            sd.fetch_injuries = keep_f
+            v24.seen_all = keep_seen
+            for n, f in keep_all.items():
+                setattr(sports, n, f)
 
 
 def test_dogs_1117_the_college_football_dog_past_150_is_1u_stamped_at_the_post_nfl_and_hockey_long_dogs_stay_half():

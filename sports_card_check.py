@@ -15,6 +15,8 @@ What it checks, card by card (each one a class the 11/13 audit found - SPORTS_FI
      - only the Lock of the Day says LOCK ("lock it in", "our lock")
      - "coin flip / 50-50 / close to even / toss-up" only on a moneyline side whose read AND price sit near even
        (COIN_BAND) - never a -148 favorite, never a 37% dog
+     - a play that carries 1u or more never says a small bet's words ("half a unit", "small bet", "thin edge", "keep it
+       light" - 11/17: the sizes stamped at the post)
      - the bottom line's OUR NUMBER is the units line's number (sports_breakdown_v24.card_fair) - never a raw-gap price
        ("We got Tulane at -446" on a +124 dog) and never the book's own number as value ("-142 - -142 is extra money")
   2. FACTS vs THE DATA (re-verified against data/sports/games at check time - FACT_CHECK)
@@ -72,6 +74,11 @@ UNIT_TALK = re.compile(
     r"\btap in\b|\block it in\b|half a unit|\bfull unit\b|(?<!no )\bunits? on (?:it|this|him|them)\b|\bbigger bet\b|"
     r"\bbig bet\b|\bload up\b|\beasy money\b|\bfree money\b|\bhammer\b|\bsmash\b|trust the algorithm|"
     r"\bwhole hood\b|\bmax play\b|\bwe riding\b|\bstill riding\b|\blet'?s eat\b", re.I)
+SMALL_TALK = re.compile(r"half a unit|half-unit|half unit|\bsmall bet\b|\bthin edge\b|keep it (?:light|small)|tread light|"
+                        r"\blight bet\b|small (?:stake|money|swing)|don'?t (?:go|get) crazy|\bnot a big one\b", re.I)
+#   (11/17 max profit: a small bet's words on a play that carries 1u or more - the card is written before a size stamp /
+#    the ⭐ goes on, so the college football thin Lock at 1u said "small bet, not a big one" and a 2u runner-up dog "Half a
+#    unit, keep it light". The owner bets what the units say - the words under them never say a smaller bet.)
 HYPE = re.compile(r"\ball day\b|\bhammer\b|\bload up\b|\bmax play\b|\bbig(?:ger)? bet\b|\block it in\b|\bfree money\b|"
                   r"\beasy money\b|\bcan'?t lose\b|\bsmash\b|\bwe going big\b", re.I)
 SURE = re.compile(r"beat the brakes off|cheeks clapped|smack that ass|about to spank|fin to get spanked|"
@@ -320,6 +327,13 @@ def wording(line, cx, leg):
             why = "a coin-flip line on a unit play"          # ("Could go either way." on the 1u Celtics -124)
         elif cx.get("lean") and UNIT_TALK.search(s0):
             why = "a unit play's words on a lean"
+        elif cx.get("unit") and (cx.get("units") or 0) >= 1 and SMALL_TALK.search(s0):
+            why = "a small bet's words on a play with 1u or more"
+            rest = _drop_clause(s0, SMALL_TALK)
+            if rest:                                         # (the fact stays, the "half a unit" goes)
+                whys.append(why)
+                keep.append(rest)
+                continue
         elif cx.get("thin") and HYPE.search(s0):
             why = "hype on a thin ½u play"
         elif not cx.get("lean") and SURE.search(s0) and long_dog_cx(cx):

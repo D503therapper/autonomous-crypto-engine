@@ -3429,6 +3429,8 @@ def mark_best(picks, iso):
         return None
     best = min(pool, key=best_rank)
     best["best"] = True
+    if best_2u_ok(best):                                     # 💰 11/17 MAX PROFIT: the ⭐ on a Lock / a Dog of the Day / a play
+        best["best_2u"] = True                               # 1u+ by its own size, at +150 or shorter, is 2u - stamped
     best_closer(best)
     return best
 
@@ -3476,9 +3478,10 @@ def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
     picks in a parlay carry their own - leg_units). ⭐ The engine's best pick (11/4) carries BEST_MIN_UNITS at least."""
     u = _units_base(pk)
-    if pk.get("best") and not pk.get("lean") and (pk.get("date") or "") >= BEST_FROM and u and u < BEST_MIN_UNITS \
+    m = best_min_units(pk)                                   # (💰 11/17: 2u on a ⭐ stamped best_2u at the post, else 1u)
+    if pk.get("best") and not pk.get("lean") and (pk.get("date") or "") >= BEST_FROM and u and u < m \
             and not (pk.get("units") is not None and pk.get("status") in ("won", "lost", "push", "void")):
-        return BEST_MIN_UNITS                                # (a graded pick keeps the units it was graded at)
+        return m                                             # (a graded pick keeps the units it was graded at)
     return u
 
 
@@ -3526,6 +3529,8 @@ def _units_base(pk):
         #                                                      (the replay: the thin short Dog wins as much as the
         #                                                      real-edge one; the long Dog is the loser) - dog_units
     if kind == "lock" and legs[0].get("fb_thin_lock"):
+        if thin_lock_1u(pk):
+            return NCAAF_THIN_LOCK_UNITS_1117                # 💰 (11/17 max profit: the college football thin Lock, 1u - stamped at the post)
         return FB_THIN_LOCK_UNITS                            # 🏈 (11/16, the owner: football's thin Lock-grade favorite = the Lock, ½u)
     if kind == "lock" and pk.get("ncaab_max") and (pk.get("date") or "") >= NCAAB_MAX_PLAY_FROM:
         return ncaab_max_play_units(legs[0])                       # 💎 (11/16: a Lock of the Day that is the college hoops max play)
@@ -3553,6 +3558,8 @@ def _units_base(pk):
                 return NBA_FAV_UNITS                         # 🏀 (10/27: the NBA favorite play, 1u)
             if pk.get("floor") and (pk.get("date") or "") >= FLOOR_FROM:
                 return FLOOR_UNITS                           # 💰 (10/27: a floor play, ½u - the thin edge)
+            if dog_play_2u(pk):
+                return DOG_PLAY_SHORT_UNITS_1117             # 💰 (11/17 max profit: the hockey runner-up dog at +100..+150, 2u - stamped at the post)
             if dog_play_1u(pk):
                 return DOG_PLAY_SHORT_UNITS_1118             # 💰 (11/18: the hockey runner-up dog at +100..+150, 1u - stamped at the post)
             return gap_units(pk) if pk.get("gap") else PLAY_UNITS                           # 7/2023 +10.5u vs today's sizing -57u overall
@@ -3730,6 +3737,102 @@ def dog_play_1u(pk):
     leg = (pk.get("legs") or [{}])[0]
     return bool(pk.get("dog_play") and pk.get("dog_play_1u") and leg.get("league") in DOG_PLAY_SHORT_LEAGUES_1118
                 and leg.get("market", "ml") == "ml" and DOG_MIN <= (leg.get("odds") or 0) <= DOG_SHORT_MAX)
+
+
+PROFIT_1117_FROM = "2026-11-17"     # 💰 11/17 FABLE - THE MAX-PROFIT SIZING PLAN (the owner, 11/17, his OK on the options the
+DOG_PLAY_SHORT_UNITS_1117 = 2.0     # most-money study left as his: "whatever Fable recommends for the biggest returns on the
+NCAAF_THIN_LOCK_UNITS_1117 = 1.0    # best bets, the largest sizes, whatever. We're going to wire that into the engine ... to
+BEST_UNITS_1117 = 2.0               # make the engine better and maximize profits. And tomorrow's board or today's board will
+BEST_2U_MAX_ODDS = 150              # reflect this. Go now." + "when I see a play that has more units on it, that means I'll put
+#   more money on it. And none of these picks can be costing me or my friends money."; results/studies/profit_1117/,
+#   SPORTS_FINDINGS "11/17 - THE MAX-PROFIT SIZING PLAN"). None = all three off (a posted pick keeps its units). The options
+#   were run TOGETHER on the board today's code builds (2023-26, the close - they interact through the ⭐) and the bundle
+#   with the most units was kept, every piece up in BOTH halves, no bigger size on a group that loses held out:
+#   (1) THE HOCKEY RUNNER-UP DOG AT +100..+150 IS 2u (1u from the 11/18 rule, ½u before) - the Dog of the Day's twin at the
+#       Dog's own size: 34-20, +36.9% (train +37.5% / held 17-10 +36.2%); the added unit +19.9u in three years, the worst
+#       stretch x1.03. Past +150 it stays ½u; the NFL runner-up stays ½u.
+#   (2) THE COLLEGE FOOTBALL THIN LOCK IS 1u (was ½u): 11-2 +42.6% on this board (train +31.3% / held 4-0), 20-5 +35.9% on
+#       the 9-season football board, 8 of 9 seasons. The NFL Lock stays ½u (held out -4.0% - never a bigger number on it).
+#   (3) THE ⭐ IS 2u (was 1u at least) WHEN IT SITS ON A LOCK, A DOG OF THE DAY OR A PLAY THAT IS 1u+ BY ITS OWN SIZE, AT
+#       +150 OR SHORTER (best_2u_ok): those ⭐s' added unit +14.3u on 29u, +49.2% (train +35.7% / held +68.3%), and a
+#       random 29 of the ⭐s does as well about 3% of the time. The ⭐ on a ½u value play / a floor play / a dog past
+#       +150 STAYS 1u: that group lost in the first half (52-57, -1.3% on 109; a 2u ⭐ on every play is +4.4u a year
+#       more for a worst stretch x1.36 instead of x1.12).
+#   The board: +59.1u a year (+15.2%) -> +70.5u a year (+16.9%), train +92.3u / held +121.2u, 4 of 4 seasons up, the worst
+#   stretch -21.7u -> -24.3u (x1.12). LEFT ½u, on purpose: the floor (the price of a play every day, never sized up), the NBA
+#   floor (held out + the live weeks 25-39, -6.4%), the hockey favorite value play (its added ½u loses held out), the NFL
+#   Lock, the hockey Dog past +150. Each size is STAMPED on the pick when it posts (dog_play_2u / thin_lock_1u / best_2u)
+#   - a pick already up has no stamp and keeps its units.
+
+
+def profit_1117(day):
+    """💰 is the 11/17 max-profit sizing on for a pick dated `day` (its Pacific game day)?"""
+    return bool(PROFIT_1117_FROM and (day or "") >= PROFIT_1117_FROM)
+
+
+def dog_play_short_2u(leg, day):
+    """💰 (11/17 max profit) the runner-up dog play's 2u cell: a HOCKEY moneyline dog at +100..+DOG_SHORT_MAX, a board on /
+    after PROFIT_1117_FROM."""
+    return bool(profit_1117(day) and leg.get("league") in DOG_PLAY_SHORT_LEAGUES_1118
+                and leg.get("market", "ml") == "ml" and DOG_MIN <= (leg.get("odds") or 0) <= DOG_SHORT_MAX)
+
+
+def dog_play_2u(pk):
+    """💰 a runner-up dog play carrying the 11/17 size: tagged dog_play, STAMPED dog_play_2u when it posted, and still the
+    cell (hockey, +100..+150) - a stamp on anything else is ignored."""
+    leg = (pk.get("legs") or [{}])[0]
+    return bool(pk.get("dog_play") and pk.get("dog_play_2u") and leg.get("league") in DOG_PLAY_SHORT_LEAGUES_1118
+                and leg.get("market", "ml") == "ml" and DOG_MIN <= (leg.get("odds") or 0) <= DOG_SHORT_MAX)
+
+
+def thin_lock_1u(pk):
+    """💰 a college football thin Lock carrying the 11/17 size: the Lock, STAMPED thin_lock_1u when it posted, its leg the
+    football thin-Lock leg (fb_thin_lock) of a COLLEGE game - a stamp on anything else (the NFL Lock) is ignored."""
+    leg = (pk.get("legs") or [{}])[0]
+    return bool(pk.get("kind") == "lock" and pk.get("thin_lock_1u") and leg.get("fb_thin_lock") and leg.get("league") == "ncaaf")
+
+
+def mark_profit_1117(new, iso):
+    """💰 (11/17 max profit) stamp the 1u on a college football thin Lock posted in THIS run (pk["thin_lock_1u"]). Never a
+    pick already up, never the owner's own post, never a lean, never the NFL Lock. Returns the picks it stamped."""
+    out = []
+    if not profit_1117(iso):
+        return out
+    for pk in new or []:
+        legs = pk.get("legs") or []
+        if pk.get("kind") != "lock" or pk.get("lean") or pk.get("status") != "open" or len(legs) != 1 \
+                or pk.get("owner_post") or pk.get("units_posted") is not None:
+            continue
+        if legs[0].get("fb_thin_lock") and legs[0].get("league") == "ncaaf":
+            pk["thin_lock_1u"] = True
+            out.append(pk)
+    return out
+
+
+def best_2u_ok(pk):
+    """💰 (11/17 max profit) may this ⭐ carry 2u? A Lock (never the backup Lock), a Dog of the Day, or a play that is 1u or
+    more by its OWN size (the NBA favorite play, the college hoops dog slot, the 🔍 play, the short hockey runner-up, a
+    Lock-grade night / one-game pick) - at +150 or shorter. Never a ½u value play, a floor play or a dog past +150: the ⭐
+    on those stays 1u (that group lost in the replay's first half)."""
+    legs = pk.get("legs") or []
+    if not profit_1117(pk.get("date")) or pk.get("lean") or pk.get("forced") or len(legs) != 1:
+        return False
+    l = legs[0]
+    if (l.get("odds") or 0) > BEST_2U_MAX_ODDS or pk.get("floor"):
+        return False
+    if pk.get("kind") == "lock":
+        return not (l.get("backup_lock") or l.get("near_price"))
+    if pk.get("kind") == "dog":
+        return True
+    return (_units_base(pk) or 0) >= 1.0
+
+
+def best_min_units(pk):
+    """⭐ the least the engine's best pick carries: BEST_UNITS_1117 when it was stamped best_2u at the post (11/17 max
+    profit) and its price is still +150 or shorter, else BEST_MIN_UNITS (1u)."""
+    if pk.get("best_2u") and (((pk.get("legs") or [{}])[0].get("odds")) or 0) <= BEST_2U_MAX_ODDS:   # (the stamp decides - the switch only stops NEW stamps)
+        return BEST_UNITS_1117
+    return BEST_MIN_UNITS
 
 
 LOCK_NFL_HALF_FROM = "2026-11-16"   # 🏈 11/16 FABLE - WHY WE LOSE (results/studies/forensics_1116/fb_lock.py on the 11/14
@@ -8826,7 +8929,8 @@ def sizing_check(new):
             want = (ncaab_play_units(pk),) * 2 if pk.get("ncaab_play") else (gap_units(pk), gap_units(pk)) if pk.get("gap") \
                 else (NBA_FAV_UNITS, NBA_FAV_UNITS) if pk.get("nba_fav") \
                 else (FLOOR_UNITS, FLOOR_UNITS) if pk.get("floor") \
-                else (DOG_PLAY_SHORT_UNITS_1118,) * 2 if dog_play_1u(pk) else (PLAY_UNITS, PLAY_UNITS)   # (💰 11/18: the short hockey runner-up 1u)
+                else (DOG_PLAY_SHORT_UNITS_1117,) * 2 if dog_play_2u(pk) \
+                else (DOG_PLAY_SHORT_UNITS_1118,) * 2 if dog_play_1u(pk) else (PLAY_UNITS, PLAY_UNITS)   # (💰 11/17: the short hockey runner-up 2u; 11/18's 1u)
         elif k == "dog" and (pk.get("date") or "") >= SIZING_1031_FROM and l.get("league") != "nba":
             want = (dog_units(pk),) * 2                      # (10/30 sizing: the Dog by its price, thin or not)
         elif k == "dog":
@@ -8837,7 +8941,8 @@ def sizing_check(new):
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
         elif k == "lock" and (pk.get("date") or "") >= SIZING_1031_FROM:
-            want = (0.5, 0.5) if thin_edge(l) or l.get("backup_lock") else (lock_units_1031(l),) * 2   # (10/30 sizing)
+            want = (NCAAF_THIN_LOCK_UNITS_1117,) * 2 if thin_lock_1u(pk) \
+                else (0.5, 0.5) if thin_edge(l) or l.get("backup_lock") else (lock_units_1031(l),) * 2   # (10/30 sizing; 💰 11/17: the college football thin Lock 1u)
         elif k == "lock":
             want = (0.5, 0.5) if thin_edge(l) else (0.5, LOCK_MAX_UNITS if (pk.get("date") or "") >= S6_FROM else UNIT_MAX)
         elif k in ("solo", "night") and (pk.get("date") or "") >= SIZING_1031_FROM and not pk.get("lean"):
@@ -8845,7 +8950,7 @@ def sizing_check(new):
         elif k in ("solo", "night"):
             want = (0.5, UNIT_MAX) if not pk.get("lean") else (0, 0)   # (10/25 sweep: the 5u max play, was 10)
         if want and pk.get("best") and (pk.get("date") or "") >= BEST_FROM and not pk.get("lean"):
-            want = (max(want[0], BEST_MIN_UNITS), max(want[1], BEST_MIN_UNITS))   # ⭐ the engine's best pick: 1u at least
+            want = (max(want[0], best_min_units(pk)), max(want[1], best_min_units(pk)))   # ⭐ the engine's best pick: 1u at least (💰 11/17: 2u stamped)
         if want and not want[0] <= u <= want[1]:
             out.append(f"sizing: {k} {l.get('team')} {l.get('odds')} at {u:g}u - the unit system says "
                        f"{want[0]:g}u" + (f"-{want[1]:g}u" if want[1] != want[0] else ""))
@@ -9338,7 +9443,11 @@ def post_board(games, model, picks, now, day, force=False):
                       f"needed, {units_for(pk):g}u; its record {r_['won']}-{r_['lost']} (judge at {NCAAB_MAX_PLAY_QUIT[0]})")
             if kind == "dogplay":                            # 🐶 a Dog-of-the-Day-grade dog that isn't the Dog: ½u value
                 pk["dog_play"], leg["tier"], pk["tier"] = True, "value", "value"
-                if dog_play_short_1u(leg, iso):              # 💰 11/18 (the most-money study): a hockey runner-up at
+                if dog_play_short_2u(leg, iso):              # 💰 11/17 (max profit): a hockey runner-up at +100..+150
+                    pk["dog_play_2u"] = True                 # is 2u, the Dog's own size - stamped (a posted play keeps its units)
+                    print(f"   🐶 hockey runner-up dog: {leg.get('team')} {leg.get('odds')} - {DOG_PLAY_SHORT_UNITS_1117:g}u "
+                          f"(the 11/17 max-profit size; past +{DOG_SHORT_MAX} stays ½u)")
+                elif dog_play_short_1u(leg, iso):            # 💰 11/18 (the most-money study): a hockey runner-up at
                     pk["dog_play_1u"] = True                 # +100..+150 is 1u - stamped, so a posted play keeps its units
                     print(f"   🐶 hockey runner-up dog: {leg.get('team')} {leg.get('odds')} - {DOG_PLAY_SHORT_UNITS_1118:g}u "
                           f"(the 11/18 size - was ½u; past +{DOG_SHORT_MAX} stays ½u)")
@@ -9392,6 +9501,8 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     for d17 in mark_dogs_1117(new, iso):                      # 🐶 11/17: a college football Dog past +150 posted this run - 1u
         print(f"   🐶 college football Dog at {d17['legs'][0].get('odds')}: {units_for(d17):g}u (the 11/17 size - was ½u past +{DOG_SHORT_MAX})")
+    for p17 in mark_profit_1117(new, iso):                    # 💰 11/17 max profit: a college football thin Lock posted this run - 1u
+        print(f"   🔒 college football thin Lock {p17['legs'][0].get('team')} {p17['legs'][0].get('odds')}: {units_for(p17):g}u (the 11/17 max-profit size - was ½u)")
     mx = mark_max(new, picks, iso)                            # 💎 THE MAX PLAY (11/16): a hockey Dog posted this run on the
     if mx is not None:                                       # b2b spot at a dog score of 8+ - 3u, a label on the Dog
         print(f"   💎 MAX PLAY: {mx['legs'][0].get('team')} {mx['legs'][0].get('odds')} - dog score "

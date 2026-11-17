@@ -657,7 +657,13 @@ def engine_weights():
                                f"{sports.LOCK_FOOTBALL_UNITS:g}u, NFL Locks {sports.LOCK_NFL_UNITS:g}u and never the star "
                                f"(11/16; a Lock needs {round(sports.LOCK_P * 100)}%+); the Dog "
                                f"{sports.DOG_SHORT_UNITS:g}u at +100..+{sports.DOG_SHORT_MAX}, {sports.DOG_LONG_UNITS:g}u "
-                               f"longer; every value play {sports.PLAY_UNITS:g}u, moneyline only",
+                               f"longer; every value play {sports.PLAY_UNITS:g}u, moneyline only"
+                               + (f"; from {sports.PROFIT_1117_FROM[5:].replace('-', '/')} (the max-profit sizing): the hockey "
+                                  f"runner-up dog at +100..+{sports.DOG_SHORT_MAX} {sports.DOG_PLAY_SHORT_UNITS_1117:g}u, the "
+                                  f"college football thin Lock {sports.NCAAF_THIN_LOCK_UNITS_1117:g}u, the star "
+                                  f"{sports.BEST_UNITS_1117:g}u on a Lock / a Dog of the Day / a play that is 1u+ by its own size "
+                                  f"at +{sports.BEST_2U_MAX_ODDS} or shorter ({sports.BEST_MIN_UNITS:g}u at least on anything else)"
+                                  if sports.PROFIT_1117_FROM else ""),
                       "max play": f"💎 {sports.MAX_PLAY_UNITS:g}u - the hockey Dog of the Day when the dog is rested, the "
                                   f"favorite played last night and the dog score is {sports.MAX_PLAY_SCORE:g}+ (several "
                                   "things agreeing, never one factor); a label on the Dog, never an extra pick; about 17 a "
