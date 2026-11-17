@@ -1339,6 +1339,18 @@ NOTES = {
         "Leans only, [no more|nothing more]. Which way {algo} leans:", "Just the leans — where {algo} tilts:",
         "Leans, not picks. Which way {algo} leans:",
     ),
+    # 🚫 11/17 sweep: a board that went up with NOTHING on it (no leans any more - the owner, 11/16): the page says so,
+    # and that the engine keeps looking (it kept saying "picks drop at 8 AM" all day)
+    "noplay_open": T(
+        "No plays on today's board yet.", "Nothing's up on today's board yet.", "Today's board is empty so far.",
+        "No plays yet today.", "The board's empty so far today.", "Zero plays on the board so far today.",
+    ),
+    "noplay_tail": T(
+        "The engine checks the lines every hour - a play that clears goes up right here.",
+        "The engine's back on the lines every hour. If a play clears, it goes up here.",
+        "Every hour the engine runs the slate again - the second a play clears, it's on this board.",
+        "The engine keeps checking all day. A play that beats its price goes up here with its units.",
+    ),
     # 🔒 no Lock of the Day: nothing's worth our units (the owner, 10/1: never a fake Lock, never a lean called the Lock)
     "lock_open": T(
         "No Lock of the Day today.", "No Lock today.", "The Lock's sitting this one out.", "No Lock on this slate.",
@@ -1422,6 +1434,14 @@ def dog_note(seed, _fresh=True):
             pass
     parts = [[x for x in p if x.strip() not in avoid] or p for p in parts]
     return _note(parts, NOTE_CAP["dog"])
+
+
+def noplay_note(seed):
+    """🚫 The note on a day the board ran and nothing cleared the bar (no leans - the owner, 11/16): no plays YET, why,
+    and that the engine keeps checking - never "picks drop at 8 AM" after 8 AM."""
+    s = f"noplay{seed}"
+    return _note([_part("noplay_open", s), _part("lean_why", s + "w"), _part("close", s + "c"), _part("noplay_tail", s + "t")],
+                 NOTE_CAP["lean"])
 
 
 def lean_note(seed):

@@ -157,6 +157,29 @@ def strip_leans(rows):
     return gone
 
 
+BOARD_RAN_KEEP = 4             # days of "the board ran" stamps kept in model.json
+
+
+def board_ran(model, iso):
+    """🚫 11/17 sweep: when today's board was first BUILT ('YYYY-MM-DDTHH:MMZ', None = not yet) - model["board_ran"].
+    With no leans a board can go up with nothing on it, and nothing in picks.json says it ran: the page kept saying
+    "picks drop at 8 AM" all day, the bug check kept re-starting the engine ("main board not up") and the day's first
+    play, found later, was treated as the 8 AM board (no phone ping)."""
+    try:
+        return ((model or {}).get("board_ran") or {}).get(iso)
+    except AttributeError:
+        return None
+
+
+def note_board_ran(model, iso, now):
+    if not isinstance(model, dict):
+        return
+    ran = model.setdefault("board_ran", {})
+    ran.setdefault(iso, now.strftime("%Y-%m-%dT%H:%MZ"))
+    for k in sorted(ran)[:-BOARD_RAN_KEEP]:
+        ran.pop(k, None)
+
+
 def _posted_pick(p):
     return bool(isinstance(p, dict) and not (LEANS_GONE and is_lean_pick(p)) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
 
@@ -8862,6 +8885,8 @@ def post_board(games, model, picks, now, day, force=False):
     except Exception as e:                                   # noqa: BLE001 - the tracker never blocks the board
         print(f"lead tracker failed: {str(e)[:80]}")
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
+    ran_before = board_ran(model, iso)                       # 🚫 11/17 sweep: an earlier run already built today's board
+    #                                                          (with no leans, a board can go up with NOTHING on it)
     if opening:                                              # 🔎 the opening board: nothing missed, nothing broken
         #                                                      (11/4 audit: SPORTS_POST_NOW's force skipped this whole
         #                                                       check - force means "post now", never "skip the checks")
@@ -8874,6 +8899,7 @@ def post_board(games, model, picks, now, day, force=False):
             print(f"holding the board: the slate check found {len(probs)} problem(s) - the engine re-pulls and tries "
                   f"again (last try 8:30 PT)")
             return []
+    note_board_ran(model, iso, now)                          # (past the slate check: this run builds the board)
     gaps = data_gaps(games, all_cands, now)                  # never a pick off half the picture (the owner, 10/1)
     if gaps:
         for x in gaps.values():
@@ -8942,6 +8968,10 @@ def post_board(games, model, picks, now, day, force=False):
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
         replacing = kind in posted or lean_day                # the opening board is value only; replacements may lean
+        if replacing and LEANS_GONE:                          # 🚫 11/17 sweep: a replacement is ALWAYS a lean - with no
+            continue                                          # leans there is none (it wrote a card, used up the day's
+        #                                                       wording and could leave a 'waiting on news' slot for a
+        #                                                       pick that can never post)
         if kind in ("dog", "lock") and replacing:
             continue                                          # never a lean / replacement Lock or Dog of the Day (the
             #                                                   owner, 10/1: "if it's a lean, it's just a lean") - the
@@ -9241,7 +9271,9 @@ def post_board(games, model, picks, now, day, force=False):
             print(f"   ⭐ the engine's best pick: {best['legs'][0].get('team')} {best['legs'][0].get('odds')} - {units_for(best):g}u")
         else:                                                # (11/11, the owner's OK: no forced ⭐ - NO_FORCED_BEST_FROM)
             print("   ⭐ no best pick today - no unit play whose read beats its price (we don't force one)")
-    if not opening:                                          # 💰 a unit play added after the board went up (the owner,
+    if not opening or (LEANS_GONE and ran_before):           # 💰 a unit play added after the board went up (the owner,
+        #   (🚫 11/17 sweep: ...or after an 8 AM board that went up EMPTY - the leans used to make every later add
+        #    'not the opening board'; with none, the day's first play found at 11 AM rang nobody's phone)
         for pk in new:                                       # 10/1: the engine keeps checking the lines all day) - ONE
             if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);
                 pk["midday"] = True                          # leans never ping

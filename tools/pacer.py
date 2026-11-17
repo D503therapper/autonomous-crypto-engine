@@ -82,7 +82,21 @@ def posted_today(now, path=None):
         picks = json.load(open(path or os.path.join(sd.DATA, "picks.json")))
     except (OSError, ValueError):
         return False
-    return any(p.get("date") == today and p.get("status") != "waiting" for p in picks)
+    if any(p.get("date") == today and p.get("status") != "waiting" for p in picks):
+        return True
+    if any(p.get("date") == today and p.get("status") == "waiting" for p in picks):
+        return False                                     # (a card still waiting on news: the 8 AM hour keeps trying)
+    return board_ran(today, None if path is None else os.path.join(os.path.dirname(path), "model.json"))
+
+
+def board_ran(today, path=None):
+    """🚫 11/17 sweep: the engine built today's board and nothing cleared (no leans any more - a board can go up empty):
+    that is a board that is UP, never one to re-start the engine for every 9 minutes (sports.note_board_ran)."""
+    import sports_data as sd
+    try:
+        return bool((json.load(open(path or os.path.join(sd.DATA, "model.json"))).get("board_ran") or {}).get(today))
+    except (OSError, ValueError, AttributeError):
+        return False
 
 
 def games_today(now):

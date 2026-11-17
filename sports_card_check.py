@@ -64,6 +64,12 @@ UNIT_TALK = re.compile(
     r"\bwhole hood\b|\bmax play\b|\bwe riding\b|\bstill riding\b|\blet'?s eat\b", re.I)
 HYPE = re.compile(r"\ball day\b|\bhammer\b|\bload up\b|\bmax play\b|\bbig(?:ger)? bet\b|\block it in\b|\bfree money\b|"
                   r"\beasy money\b|\bcan'?t lose\b|\bsmash\b|\bwe going big\b", re.I)
+SURE = re.compile(r"beat the brakes off|cheeks clapped|smack that ass|about to spank|fin to get spanked|"
+                  r"get their ass beat|\beasy call\b|ain'?t a question|no hesitation|\ball day\b|fin to handle that|"
+                  r"\bdone talking\b", re.I)
+#   (11/17 sweep: a blowout / sure-thing call. Never on a LONG DOG - a moneyline side at +150 or longer the engine's own
+#    read has under 40% (sports_breakdown_v24.long_dog): the dry run's Ball State +350 at a 23% read said "Ball State
+#    about to beat the brakes off 'em". The pool no longer writes it; this is the last stop for a posted card.)
 LOCK_TALK = re.compile(r"\block it in\b|\bour lock\b|\bthis (?:is )?a lock\b|\bit'?s a lock\b|\ba lock\b(?! of)", re.I)
 NOT_LOCK = re.compile(r"\b(?:not|no|never) (?:a |the )?lock\b", re.I)
 COIN = re.compile(r"coin[- ]flip|\b50-50\b|close to even|\btoss-up\b|could go either way|either way|"
@@ -221,6 +227,18 @@ def ctx_of(pk, leg):
             "implied": (1 / dec) if dec else None, "date": (pk or {}).get("date") or (leg.get("start") or "")[:10]}
 
 
+def long_dog_cx(cx):
+    """A long dog (sports_breakdown_v24.long_dog) from the card's context: +150 or longer, the read under 40%."""
+    try:
+        import sports_breakdown_v24 as v
+        if cx.get("market") != "ml" or (cx.get("odds") or 0) < v.LONG_DOG_ODDS:
+            return False
+        r = cx.get("read") if cx.get("read") is not None else cx.get("p")
+        return r is not None and r < v.LONG_DOG_READ
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
 def coin_ok(cx):
     """May this side be called a coin flip / 50-50? Only a moneyline side whose read and price both sit near even."""
     if cx.get("market") != "ml":
@@ -294,6 +312,8 @@ def wording(line, cx, leg):
             why = "a unit play's words on a lean"
         elif cx.get("thin") and HYPE.search(s0):
             why = "hype on a thin ½u play"
+        elif not cx.get("lean") and SURE.search(s0) and long_dog_cx(cx):
+            why = "a blowout / sure-thing call on a long dog"
         elif not cx.get("lock") and LOCK_TALK.search(s0) and not NOT_LOCK.search(s0):
             why = "Lock words on a pick that isn't the Lock"
         elif COIN.search(s0) and not coin_ok(cx):

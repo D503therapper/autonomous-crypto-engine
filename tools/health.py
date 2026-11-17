@@ -359,6 +359,11 @@ try:
     games_today = [g for g in (games or {}).values() if g.get("start") and
                    _t(g["start"]).astimezone(ZoneInfo("America/Los_Angeles")).date().isoformat() == today]
     posted = any(p.get("date") == today for p in json.load(open(os.path.join(sd.DATA, "picks.json"))))
+    if not posted:                                       # 🚫 11/17 sweep: a board that ran and found nothing IS up (no
+        try:                                             # leans any more) - never re-start the engine all day for it
+            posted = bool((json.load(open(os.path.join(sd.DATA, "model.json"))).get("board_ran") or {}).get(today))
+        except (OSError, ValueError, AttributeError):
+            pass
     late = (pt.hour, pt.minute) >= BOARD_LATE
     if late and games_today and not posted:
         dispatch("sports.yml", f"main board not up at {pt:%-I:%M %p} PT with {len(games_today)} games today")

@@ -2196,16 +2196,44 @@ def _score_gap(way):
     return abs(int(m.group(1)) - int(m.group(2))) if m else 0
 
 
-def _tails(lean, us, them, trash=False, beat=False):
+LONG_DOG_ODDS = 150    # 11/17 sweep (the dry run's Ball State +350, a 23% read, two straight losses: "Ball State about to beat
+LONG_DOG_READ = 0.40   # the brakes off 'em"): a moneyline dog at +150 or longer that the engine's own read has winning under
+#   40% of the time is a price play - its line never calls a blowout or a sure thing ("beat the brakes off", "cheeks
+#   clapped", "easy call", "ain't a question", "all day"). The owner's lingo the way he uses it: "beat the brakes off" is
+#   "a mismatch we see coming" - never said of a side we have losing 3 times in 4. sports_card_check.SURE is the last stop.
+
+
+def long_dog(leg, read=None):
+    """A long dog by the price AND the read: a moneyline side +LONG_DOG_ODDS or longer the engine has under LONG_DOG_READ."""
+    try:
+        if leg.get("market") != "ml" or (leg.get("odds") or 0) < LONG_DOG_ODDS:
+            return False
+        r = read if read is not None else leg.get("p")
+        return r is not None and r < LONG_DOG_READ
+    except (TypeError, AttributeError):
+        return False
+
+
+def _tails(lean, us, them, trash=False, beat=False, long=False):
     """What the one-liner says after the fact (the owner, 10/23: "throw out cuss words and use our lingo ... talk about
     the team itself getting their cheeks clapped or spanked"). lean: no hype, no units talk (the units line has it).
     trash: a fact says the other side's been bad (a skid, a blowout loss) - "trash ass team" is fair. beat: a beatdown
-    read (a big record gap, the public heavy on a side we're fading) - "cheeks clapped" and the like are fair."""
+    read (a big record gap, the public heavy on a side we're fading) - "cheeks clapped" and the like are fair.
+    long: a long dog (long_dog) - a price play: never a blowout call, never a sure thing."""
     if lean:
         return [f"We lean {us}.", f"{us} the side here.", f"We tilt {us}.", f"{us} if you're playing it.",
                 f"Lean {us}, keep it light.", f"Good parlay piece: {us}.", f"We got {us} here.",
                 f"{them} don't scare us. {us} lean.", f"{us} by a little on our read.", f"Lean {us}.",
                 f"If you gotta pick one, {us}.", f"Slight lean {us}."]
+    if long:
+        out = [f"We'll take the plus money on {us}.", f"{us} can steal this one.", f"Live dog. We got {us}.",
+               f"Give me {us} at that price.", f"We on {us}.", f"We got {us}.", f"Fuck it, {us}.", f"Ride {us}.",
+               f"That's a shit spot for {them}.", f"Not touching {them}.", f"{us} got a real shot at that price.",
+               f"Plus money on {us}, we'll take our shot."]
+        if trash:
+            out += [f"{them} a trash ass team right now.", f"{them} straight ass right now.", f"{them} been trash as fuck.",
+                    f"{them} are in shambles."]
+        return out
     out = [f"Tap in.", f"{us} all day.", f"We on {us}.", f"We riding {us}.", f"Say less.", f"{us} {vb(us, 'are', 'is')} the side, that's just facts.",
            f"{them} ain't ready for this shit.", f"That's a shit spot for {them}.", f"{us} fin to handle that.",
            f"We like {us} a lot.", f"{them} fin to get spanked.", f"{us} about to spank 'em.", f"{them} about to get their ass beat.",
@@ -2222,9 +2250,9 @@ def _tails(lean, us, them, trash=False, beat=False):
     return out
 
 
-def _spin(key, ways, lean, us, them, em, trash=False, beat=False, names=()):
+def _spin(key, ways, lean, us, them, em, trash=False, beat=False, names=(), long=False):
     """Every way to say a fact x every tail, in a few shapes (the owner, 10/23: never 'Team fact. Kicker.' every time)."""
-    tails = _tails(lean, us, them, trash=trash, beat=beat)
+    tails = _tails(lean, us, them, trash=trash, beat=beat, long=long)
     opts, tags = [], []
     for i, w in enumerate(ways):
         W = w.strip().rstrip(".") + "."
@@ -2330,7 +2358,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     except Exception:                                     # noqa: BLE001
         own = leg.get("p") or 0.5
     need = 1 / leg["dec"] if leg.get("dec") else None
-    S = lambda key, ways, em, **kw: (key, _spin(key, ways, lean, us, them, em, names=names, **kw))
+    _long = long_dog(leg, own)                            # (11/17 sweep: a long dog's line never calls a blowout)
+    S = lambda key, ways, em, **kw: (key, _spin(key, ways, lean, us, them, em, names=names, long=_long, **kw))
     pools = []
     # ---- the other side's hole first: their key man out, a back-to-back, a heavy public we're fading ----
     if "opponent missing key players" in whyf and (not key_us):

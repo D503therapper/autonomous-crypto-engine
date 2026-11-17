@@ -25834,6 +25834,193 @@ def _leans_gone_checks():
     assert not any(sports.is_lean_pick(p) for p in picks), [(p["kind"], p.get("lean")) for p in picks]
     assert all(sports.units_for(p) > 0 for p in picks if p["status"] == "open"), "every posted pick carries units"
 
+def test_sweep_1117_an_empty_board_says_so_is_up_for_the_bug_check_and_its_first_late_play_pings():
+    """🚫 11/17 sweep (the lean removal, end to end): with no leans a board can go up with NOTHING on it. Nothing in
+    picks.json said it ran: the page kept "picks drop at 8 AM" up all day, the bug check / the pacer kept re-starting the
+    engine ("main board not up") and the day's first play, found at 11 AM, was treated as the 8 AM board - no ping."""
+    was = sports.LEANS_GONE
+    sports.LEANS_GONE = True
+    try:
+        _sweep_1117_empty_board_checks()
+    finally:
+        sports.LEANS_GONE = was
+
+
+def _sweep_1117_empty_board_checks():
+    import inspect, html as html_, sports_dashboard as dash_, sports_lingo as sl_
+    m = {}
+    t0 = datetime(2026, 11, 17, 16, 0, tzinfo=timezone.utc)
+    assert sports.board_ran(m, "2026-11-17") is None and sports.board_ran(None, "2026-11-17") is None
+    sports.note_board_ran(m, "2026-11-17", t0)
+    sports.note_board_ran(m, "2026-11-17", t0 + timedelta(hours=3))
+    assert sports.board_ran(m, "2026-11-17") == "2026-11-17T16:00Z", "the FIRST build of the day is the stamp"
+    for k in range(1, 8):
+        sports.note_board_ran(m, f"2026-11-{17 + k}", t0 + timedelta(days=k))
+    assert len(m["board_ran"]) == sports.BOARD_RAN_KEEP and "2026-11-24" in m["board_ran"], "only the last few days are kept"
+    # the page: the board ran today and nothing is on it -> it says so (never "picks drop at 8 AM" after 8 AM)
+    now_pt = datetime.now(dash_.PT)
+    today = now_pt.date().isoformat()
+    tmp, keep = tempfile.mkdtemp(), sd.DATA
+    sd.DATA = tmp
+    try:
+        page_ran = dash_.render([], {"params": {}, "board_ran": {today: "x"}}, {}, [], 1000, int(time.time() * 1000))
+        page_not = dash_.render([], {"params": {}}, {}, [], 1000, int(time.time() * 1000))
+    finally:
+        sd.DATA = keep
+    note = html_.unescape(dash_._noplay_note(today))
+    assert "🚫" in note and "8 AM" not in note and "lean" not in sl_.noplay_note(today).lower(), note
+    assert any(x in note for x in ("every hour", "Every hour", "all day")), "it says the engine keeps looking"
+    if dash_.board_day(now_pt, []) == today:
+        assert dash_._noplay_note(today) in page_ran, "an empty board says no plays yet"
+        assert dash_._drop_note(today) not in page_ran, "never the before-the-board note once the board ran"
+    assert dash_._noplay_note(today) not in page_not and dash_._drop_note(dash_.board_day(now_pt, [])) in page_not, \
+        "before the board runs the 8 AM note stays"
+    for d in range(1, 29):                                   # the note never talks leans, a different wording day to day
+        n = sl_.noplay_note(f"2026-12-{d:02d}")
+        assert "lean" not in n.lower() and "🟡" not in n, n
+    assert len({sl_.noplay_note(f"2026-12-{d:02d}") for d in range(1, 29)}) >= 10
+    # the pacer / the bug check: a board that ran and found nothing IS up
+    pc = _tool("pacer")
+    d = tempfile.mkdtemp()
+    now = datetime.now(timezone.utc)
+    day = now.astimezone(pc.PT).date().isoformat()
+    json.dump([], open(os.path.join(d, "picks.json"), "w"))
+    assert pc.posted_today(now, os.path.join(d, "picks.json")) is False
+    json.dump({"board_ran": {day: "x"}}, open(os.path.join(d, "model.json"), "w"))
+    assert pc.posted_today(now, os.path.join(d, "picks.json")) is True, "the pacer stops re-starting the engine"
+    json.dump([{"date": day, "kind": "lock", "status": "waiting", "legs": []}], open(os.path.join(d, "picks.json"), "w"))
+    assert pc.posted_today(now, os.path.join(d, "picks.json")) is False, "a card waiting on news: the 8 AM hour keeps trying"
+    root = os.path.dirname(os.path.abspath(__file__))
+    assert '.get("board_ran")' in open(os.path.join(root, "tools", "health.py")).read(), "the bug check reads it too"
+    # a stale lean row (another job's copy of the file) never locks a live side
+    lean = {"date": day, "kind": "lean", "lean": True, "status": "open", "round": 1,
+            "legs": [{"game_id": "nhl:9", "side": "away", "market": "ml", "odds": -115, "tier": "lean", "team": "A", "league": "nhl"}]}
+    play = {"date": day, "kind": "play", "lean": False, "status": "open", "round": 1, "units": 0.5,
+            "legs": [{"game_id": "nhl:7", "side": "home", "market": "ml", "odds": 120, "tier": "value", "team": "B", "league": "nhl"}]}
+    tmp2, keep = tempfile.mkdtemp(), sd.DATA
+    json.dump([lean, play], open(os.path.join(tmp2, "picks.json"), "w"))
+    sd.DATA = tmp2
+    try:
+        locked = sports_live.locked_sides({"plays": {}}, now)
+    finally:
+        sd.DATA = keep
+    assert locked.get("nhl:7") == "home" and "nhl:9" not in locked, locked
+    # post_board end to end: the first build stamps the day; a play found by a LATER build of an empty board pings
+    src = inspect.getsource(sports.post_board)
+    assert "if replacing and LEANS_GONE:" in src, "no replacement lean is built (a card, a 'waiting' slot) to be thrown away"
+    t = datetime(2026, 9, 27, 12, 0, tzinfo=timezone.utc)
+    games, _ = fake_league("mlb", days=120)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    for i, (h, a_) in enumerate([(-140, 120), (150, -170), (-110, -110), (260, -320), (-125, 105), (135, -155)]):
+        gid = f"mlb:up{i}"
+        games[gid] = {**games["mlb:1"], "id": gid, "status": "pre", "home": str(2 * i % 16), "away": str((2 * i + 1) % 16),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": (t + timedelta(hours=10)).strftime("%Y-%m-%dT%H:%MZ"), "ml_home": str(h), "ml_away": str(a_),
+                      "ml_home_open": str(h), "ml_away_open": str(a_), "sp_home": "Ace", "sp_away": "Ace"}
+    sd.fetch_injuries = lambda lg: {}
+    iso = t.astimezone(sports.PT).date().isoformat()
+    first = []
+    sports.post_board(games, model, first, t + timedelta(hours=8), t.astimezone(sports.PT).date())
+    assert sports.board_ran(model, iso), "the build stamps the day in model.json"
+    assert not [p for p in first if p["status"] != "waiting"], "this slate clears nothing: with no leans the board is EMPTY"
+    keep_plays = sports.plays                                # the next build finds a play (the line moved / news settled)
+    one = lambda cands, avoid: [c for c in cands if c["market"] == "ml" and -150 <= c["odds"] < 0   # noqa: E731
+                                and c["game_id"] not in avoid and not c["waiting"]][:1]
+    sports.plays = one
+    keep_from = sports.SIZING_FROM
+    sports.SIZING_FROM = "2026-09-01"                        # (the test slate is 9/27: a value play is ½u, as today)
+    try:
+        fresh, late = [], []
+        sports.post_board(games, {"params": model["params"], "log": []}, fresh, t + timedelta(hours=8), t.astimezone(sports.PT).date())
+        up = [p for p in fresh if p["status"] == "open"]
+        assert up and not any(p.get("midday") for p in up), "a play on the day's FIRST build is the 8 AM board: no ping"
+        model2 = {**model, "board_ran": {iso: "2026-09-27T15:00Z"}}    # the 8 AM build found nothing; this one finds it
+        sports.post_board(games, model2, late, t + timedelta(hours=8, minutes=30), t.astimezone(sports.PT).date())
+        up = [p for p in late if p["status"] == "open" and p["kind"] in sports.MIDDAY_KINDS]
+        assert up and all(p.get("midday") for p in up), "the first play of an empty board, found later, rings the phones"
+        assert sports.board_ran(model2, iso) == "2026-09-27T15:00Z", "the day's first build stays the stamp"
+    finally:
+        sports.plays, sports.SIZING_FROM = keep_plays, keep_from
+
+
+def test_sweep_1117_the_nba_over_card_drops_a_man_who_is_no_longer_out_and_the_early_pool_never_talks_the_line_moving():
+    """🔄 11/17 sweep: the 🏀 NBA over names the main guys who sit - a man the report no longer has out stayed on the
+    card all day (the owner, 11/12: "outdated information ... needs to be updated always"). And the ⏰ hammered spot's
+    third wording ("The books moved Wyoming shorter early - the money's on 'em") was line-move talk under a pick: the
+    card check cut it on every build - the pool never writes it now."""
+    import sports_early as se, sports_nba_out as no, sports_card_check as cc
+    g = {"id": "nba:1", "league": "nba", "status": "pre", "home": "1", "away": "2", "home_name": "Mavericks", "away_name": "Nuggets",
+         "start": "2026-11-18T01:00Z"}
+    p = {"game_id": "nba:1", "league": "nba", "market": "total", "side": "over", "line": 227.5, "odds": -110, "spot": "nba_out_over",
+         "team": "Over 227.5", "opp": "Nuggets @ Mavericks", "start": g["start"], "result": None,
+         "out": ["Al Star", "Bo Wing", "Cy Big"], "out_listed": ["Al Star", "Bo Wing"],
+         "facts": ["Mavericks without Al Star (36 minutes a night) and Bo Wing (31 minutes a night)",
+                   "Nuggets without Cy Big (33 minutes a night)", "Good to 228.5 - don't take it past that, or worse than -115"]}
+    inj_same = {"1": [("Al Star", "G", "Out"), ("Bo Wing", "F", "Out")], "2": []}
+    assert no.back(p, g, inj_same) == [], "the same men out (Cy Big was gone, never listed): nothing changes"
+    assert no.back(p, g, None) is None, "no report = we don't know"
+    inj_q = {"1": [("Al Star", "G", "Questionable"), ("Bo Wing", "F", "Out")], "2": []}
+    assert no.back(p, g, inj_q) == ["Al Star"], "listed questionable now = no longer out"
+    inj_off = {"1": [("Bo Wing", "F", "Out")], "2": []}
+    assert no.back(p, g, inj_off) == ["Al Star"], "a man the report had out at the post, off it now = playing"
+    assert no.back(p, g, {"1": [], "2": []}) == [], "an EMPTY team report (a feed that didn't load) never reads as 'he plays'"
+    st = {"picks": [p]}
+    se.watch(st, {"nba:1": g}, {"nba": inj_q})
+    assert p["back"] == ["Al Star"]
+    lines = se.card_facts(p)
+    assert lines[0] == "Mavericks without Bo Wing (31 minutes a night)" and "Al Star" not in lines[0], lines
+    assert any(x.startswith("🔄 Update: Al Star is no longer listed out") and "The play stays" in x for x in lines), lines
+    p2 = {**p, "back": ["Cy Big"]}
+    assert not any(x.startswith("Nuggets without") for x in se.card_facts(p2)), "a line with nobody left on it goes"
+    se.watch(st, {"nba:1": g}, {"nba": inj_same})
+    assert p.get("back") is None and se.card_facts(p) == p["facts"], "he's out again: the card as posted"
+    assert p["out"] == ["Al Star", "Bo Wing", "Cy Big"] and p["odds"] == -110 and p["line"] == 227.5, "the play never changes"
+    # the early pool: no wording of any spot talks the line moving
+    G = {"home": "1", "away": "2", "home_name": "Wyoming", "away_name": "Nevada", "start": "2026-11-21T20:00Z", "league": "ncaaf"}
+    for spot in ("hammered", "engine", "mnf", "eastwest", "bye", "blowout"):
+        for w in se.spot_why({}, G, "home", "away", "ncaaf", spot, datetime(2026, 11, 17, tzinfo=timezone.utc), 0.40, 245):
+            assert not cc.LINE_MOVE.search(w), (spot, w)
+            assert cc._no_move(w)[1] == "", (spot, w)
+
+
+def test_sweep_1117_a_long_dogs_line_never_calls_a_blowout_or_a_sure_thing():
+    """🥊 11/17 sweep: the dry run's one play, Ball State +350 (a 23% read, two straight losses, "the price is about fair
+    and the dog angles are mixed"), read "Ball State about to beat the brakes off 'em". The owner's lingo the way he
+    uses it: "beat the brakes off" is a mismatch we see coming - never a side we have losing 3 times in 4. A moneyline
+    dog at +150 or longer under a 40% read is a price play: the pool writes no blowout / sure-thing tail for it and the
+    card check is the last stop for a posted card."""
+    import inspect, sports_breakdown_v24 as b, sports_card_check as cc
+    long_leg = {"market": "ml", "odds": 350, "p": 0.24, "dec": 4.5, "team": "Ball State", "opp": "Ohio", "league": "ncaaf"}
+    assert b.long_dog(long_leg) and b.long_dog(long_leg, 0.233)
+    assert not b.long_dog({**long_leg, "odds": 140}), "a short dog is no long dog"
+    assert not b.long_dog({**long_leg, "p": 0.46}, 0.46), "a +150 dog the engine has near even is no long dog"
+    assert not b.long_dog({**long_leg, "market": "spread"}) and not b.long_dog({**long_leg, "odds": -142, "p": 0.62})
+    for trash in (False, True):
+        tails = b._tails(False, "Ball State", "Ohio", trash=trash, beat=True, long=True)
+        assert tails and not any(cc.SURE.search(t) for t in tails), [t for t in tails if cc.SURE.search(t)]
+    assert any(cc.SURE.search(t) for t in b._tails(False, "Bears", "Eagles", beat=True)), "a real mismatch still talks its shit"
+    opts = b._spin("w_their_loss", ["Ohio got handled 34-17 by Miami OH last time out"], False, "Ball State", "Ohio", "🥊",
+                   trash=True, beat=True, long=True)
+    opts = opts[0] if isinstance(opts, tuple) else opts
+    assert opts and not any(cc.SURE.search(o) for o in opts), [o for o in opts if cc.SURE.search(o)]
+    assert all("34-17" in o for o in opts), "the fact stays in every wording"
+    assert "long=_long" in inspect.getsource(b.why_line) and "long_dog(leg, own)" in inspect.getsource(b.why_line)
+    # the card check, the last stop: a posted long dog's line loses the call; a favorite's / a short dog's keeps it
+    pk = {"kind": "play", "date": "2026-11-17", "legs": [long_leg], "floor": {"dog_score": -0.0}, "best": True, "status": "open",
+          "lean": False}
+    cx = cc.ctx_of(pk, long_leg)
+    out, why = cc.wording("🥊 Ball State about to beat the brakes off 'em — Ohio got handled 34-17 by Miami OH last time out.", cx, long_leg)
+    assert out == "" and "long dog" in why, (out, why)
+    out, why = cc.wording("🥊 Ohio got handled 34-17 by Miami OH last time out. Ball State all day.", cx, long_leg)
+    assert out == "🥊 Ohio got handled 34-17 by Miami OH last time out." and "long dog" in why, (out, why)
+    fav = {**long_leg, "odds": -142, "p": 0.62, "dec": 1.704}
+    line = "🥊 Ohio got handled 34-17 by Miami OH last time out. Ball State about to beat the brakes off 'em."
+    assert cc.wording(line, cc.ctx_of({**pk, "legs": [fav], "floor": None, "best": False}, fav), fav) == (line, "")
+    short = {**long_leg, "odds": 120, "p": 0.47, "dec": 2.2}
+    assert cc.wording(line, cc.ctx_of({**pk, "legs": [short], "floor": None, "kind": "dog", "best": False}, short), short) == (line, "")
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

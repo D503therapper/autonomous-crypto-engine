@@ -1195,6 +1195,12 @@ def _drop_note(day):
     return " ".join(DROP_PARTS[k][i] for k, i in enumerate(_drop_parts(day))).replace(" —", " —", 1)
 
 
+def _noplay_note(day):
+    """🚫 11/17 sweep: the board ran today and nothing is on it (with no leans a board can go up empty) - say so, and
+    that the engine keeps looking; the "picks drop at 8 AM" note is for BEFORE the board."""
+    return f'<div class="drop leanday">🚫 {E(sports_lingo.noplay_note(day))}</div>'
+
+
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
     return f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}</div>'      # one note - no second disclaimer under it
@@ -1981,8 +1987,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     day_all = [p for p in picks if p["date"] == today]       # every pick that day, graded and gone included
     lean_day = bool(todays) and all(p.get("lean") for p in day_all if p["status"] != "waiting") \
         and any(p["status"] != "waiting" for p in todays)    # a leans-only day: ONE note up top says so
+    noplay = not day_all and today == now.date().isoformat() and bool(sports.board_ran(model, today))   # 🚫 11/17 sweep:
+    #   today's board was built and nothing cleared (no leans any more) - never "picks drop at 8 AM" after 8 AM
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p), gone_ms(p)) for p in active],
-                   after_lock=early_today, day_all=day_all, lean_day=lean_day) if active else early_today + drop
+                   after_lock=early_today, day_all=day_all, lean_day=lean_day) if active else \
+        early_today + (_noplay_note(today) if noplay else drop)
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
         board += f'<template id="dropnote">{drop}</template>'   # the moment the last one's 3 hours are up
     if lean_day:
@@ -3085,8 +3094,14 @@ def write_brain(picks, games, path=BRAIN):
                        "start": l.get("start")} for l in sl.get("picks") or []],
             "parlays": {k: {"odds": v.get("american"), "status": v.get("status"), "legs": len(v.get("legs") or [])}
                         for k, v in pars.items() if v}})
+    import sports
+    ran = sports.board_ran(_j(os.path.join(sd.DATA, "model.json"), {}) or {}, today)   # 🚫 11/17 sweep: an empty board
     brain = {"updated": now.strftime("%Y-%m-%d %I:%M %p PT"), "today": today, "tomorrow": tmr,
              "records": RECORDS, "board (today + tomorrow)": board, "recent graded picks": recent,
+             **({"today's board": "the engine built today's board and NOTHING cleared the bar so far - no plays up, no "
+                                  "leans (the engine posts none); it re-checks the lines every hour and adds a play "
+                                  "the moment one clears"}
+                if ran and not any(p["date"] == today for p in picks) else {}),
              "no Lock today - what it would have been (NOT a pick, no units, not in our record)":
                  {k: v for k, v in (_j(os.path.join(sd.DATA, "lock_miss.json"), {}) or {}).items() if k in (today, tmr)},
              "every game's read (not our picks)": (_j("docs/sports/reads.json", {}) or {}).get("games", []),
