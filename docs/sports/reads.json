@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T03:14Z",
+ "updated": "2026-11-17T03:44Z",
  "games": [
   {
    "id": "ncaab:401920962",
@@ -339,7 +339,7 @@
    "home": "Rangers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Canadiens",
@@ -353,7 +353,7 @@
      "the stronger team",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -411,8 +411,8 @@
    "away": "Abilene Chrstn",
    "home": "Missouri St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -501,8 +501,8 @@
    "away": "Trail Blazers",
    "home": "Timberwolves",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -531,8 +531,8 @@
    "away": "Warriors",
    "home": "Pelicans",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -575,8 +575,8 @@
    "away": "Dallas Chrstn",
    "home": "UL Monroe",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -590,8 +590,8 @@
    "away": "SE Louisiana",
    "home": "Texas A&M",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -641,6 +641,21 @@
    "lean": null
   },
   {
+   "id": "ncaab:401924265",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T03:00Z",
+   "away": "Long Beach St",
+   "home": "UCLA",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaab:401917532",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -649,6 +664,36 @@
    "start": "2026-11-17T03:00Z",
    "away": "Portland St",
    "home": "Saint Mary's",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920373",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T03:00Z",
+   "away": "Texas Southern",
+   "home": "UC San Diego",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401926228",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-17T03:00Z",
+   "away": "UC Col Springs",
+   "home": "Denver",
    "h1": null,
    "why": "started",
    "done": false,
