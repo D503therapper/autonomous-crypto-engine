@@ -168,7 +168,10 @@ def tags(c, sports):
     if dog and lg == "ncaab":                                # 🔍🏀 11/4 DOG EXPERT: the college hoops gap play's bands
         t.extend(gap_band(c))                                #   (its 50-play judge by gap) and the dog read's gate
         try:
-            if sports.ncaab_dog_read_ok(c):
+            if road_dog_read_3(c, sports):                   # 🐶 11/17: the slot's road gate of 3 (its own forward record -
+                t.append(ROAD_DOG_READ_3_TAG)                #   never the "read 4+" tag, whose cell is every 4+ dog)
+                t.append(DOG_READ_3_4_TAG)                   #   (the 11/15 lead's row keeps logging the whole 3-4 band)
+            elif sports.ncaab_dog_read_ok(c):
                 t.append("college hoops dog read 4+")        # +16.5% on 600 at the close (5/5 train, 3/3 held, open +11.5%)
                 if dog_read_left_out(c, sports):
                     t.append(DOG_READ_LEFT_OUT_TAG)
@@ -547,7 +550,41 @@ def tags(c, sports):
     t += ncaab_max_play_tags(c, sports)                            # 💎 11/16 FABLE: the college hoops max play + its next band
     t += forensics_1116_tags(c, sports)                      # 11/16 FABLE: why we lose - the football Lock, thin / not thin
     t += max_1116_tags(c, sports)                            # 11/16 FABLE: the max play hunt - the 💎 spot + its control
+    t += dogs_1117_tags(c, sports)                           # 11/17 FABLE: the underdog edge - the long college Dog's cell + the NFL road-dog lead
     return t + sharp
+
+
+DOGS_1117_LEADS_FROM = "2026-11-17"   # 11/17 FABLE - THE UNDERDOG EDGE (results/studies/dogs_1117/): from the 11/17 games
+NCAAF_LONG_DOG_TAG = "college football gated dog at +151..+350 (the 1u long Dog's cell)"   # s7_sizing: every college dog
+#   the Dog gate passes (a real play - the score, the own-read rule, the 11/14 weighed check, a named reason) at
+#   +151..+350, the Dog of the Day or not: 41-50, +40.8% on the 2018-26 football board (2018-21 +43.2% / 2022-26
+#   +38.5%, 6 of 7 seasons); the Dog itself there 18-17 +64.3% - 1u from the 11/17 games (sports.NCAAF_DOG_LONG_UNITS_1117,
+#   was ½u). Judge at 30: under -5% against its prices = the long college Dog goes back to ½u (sports.DOGS_1117_FROM).
+NFL_ROAD_DOG_LEAD_TAG = "NFL road dog, dog score 4+, the studies beat the price (the gate is 8 - a lead)"   # s4_held: a
+#   LEAD, tracked only, never a play. On the 2018-26 football board an NFL ROAD dog at a dog score of 4+ whose studies
+#   beat the price went 88-101, +28.3% on 189 (2018-21 +38.2% / 2022-26 +19.6%, 7 of 9 seasons; the 130 that never
+#   posted +30.1% in both halves) while the gate of 8 posted 27 Dogs at +2.1% - but the score's NFL weights were fit
+#   with those seasons seen (a score-picked cell is not a clean test), the same angles hand-counted on nflverse's
+#   2006-26 closes are +11.0% at z 1.45, and the live NFL floor's road dogs are 0-2. Judge at 40 live: +10% or better
+#   against its prices = lower the NFL Dog gate / add the road dog as a ½u play (the owner's "more dogs").
+
+
+def dogs_1117_tags(c, sports):
+    """11/17 FABLE - THE UNDERDOG EDGE: the college football gated dog at +151..+350 (the 1u long Dog's forward record)
+    and the NFL road dog at a score of 4+ whose studies beat the price (a LEAD). Tracked only."""
+    try:
+        if c.get("market") != "ml" or c.get("league") not in ("ncaaf", "nfl") or sports.pt_day(c) < DOGS_1117_LEADS_FROM:
+            return []
+        odds = c.get("odds") or 0
+        if not 100 <= odds <= sports.DAILY_DOG_MAX or c.get("trap"):
+            return []
+        if c["league"] == "ncaaf":
+            return [NCAAF_LONG_DOG_TAG] if odds > sports.DOG_SHORT_MAX and sports.good(dict(c)) else []
+        if c.get("home") or c.get("side") == "home" or c.get("neutral") or sports.fighting(c):
+            return []
+        return [NFL_ROAD_DOG_LEAD_TAG] if sports.dog_score(dict(c)) >= 4 and sports.weighed_dog_beats(dict(c)) else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
 
 
 MAX_1116_FROM = "2026-11-16"   # 11/16 FABLE - THE MAX PLAY HUNT (PROS) (results/studies/max_pro_1116/): from the 11/17 games
@@ -1265,6 +1302,25 @@ DOG_READ_3_4_TAG = "college hoops dog read 3-4 (the slot's next band)"   # S5 - 
 #   build - as good as the slot's 4+ - but the slot-shaped ones (not a trap / fighting, the read clearing the price) held
 #   out +0.6% on 36 (2024 -9%, 2025 -20%), the dose is ragged (4-5 +6.1%, under 3-4) and the read's weights were set on
 #   these seasons. Judge at 60 live: +5% or better = lower the slot's gate to 3 (the owner's "more dogs" ask)
+
+
+ROAD_DOG_READ_3_TAG = "college hoops TRUE ROAD dog at a dog read of 3 (the slot takes it at ½u from 11/17)"   # 11/17 FABLE -
+#   THE UNDERDOG EDGE (results/studies/dogs_1117/s5_cbb.py): the forward record of sports.NCAAB_ROAD_DOG_GATE_1117 - every
+#   true road college hoops dog +100..+350 whose dog read is 3 to under 4, both teams 4+ games (85-82, +21.1% on the
+#   2018-26 rows, train +17.9% / held +24.9%, 6 of 8 seasons). Judge at 40: under -5% against its prices = the road gate
+#   goes back to 4 (sports.DOGS_1117_FROM / NCAAB_ROAD_DOG_GATE_1117).
+
+
+def road_dog_read_3(c, sports):
+    """A college hoops moneyline dog +100..+350 on a true road floor whose dog read sits at the 11/17 road gate (3) but
+    under the slot's gate of 4, both teams NCAAB_DOG_READ_GAMES+ games in, a game on / after sports.DOGS_1117_FROM."""
+    r, parts = c.get("dog_read"), c.get("dog_read_parts") or {}
+    try:
+        road = sports.ncaab_road_dog(c)
+    except Exception:                                        # noqa: BLE001
+        return False
+    return bool(road and r is not None and parts.get("games_ok") and sports.NCAAB_ROAD_DOG_GATE_1117 <= r < sports.NCAAB_DOG_READ_GATE
+                and 100 <= (c.get("odds") or 0) <= 350)
 
 
 DOG_READ_LEFT_OUT_TAG = "college hoops dog read 4+ the slot leaves out (a trap / the own read or the money against it)"

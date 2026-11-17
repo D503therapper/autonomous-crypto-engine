@@ -1,0 +1,281 @@
+
+===== nhl: 3801 dogs with parts; every dog -3.9% (train -6.6% / held +1.1%)
+  ctx.hits_top [+] pts [2.0]                   n   912  379-533  41.6% (needs 40.3)   +2.3% z +0.75 | train   -0.6% ( 604) | held   +8.0% ( 308) | up 2/3 | 1pt worse   -0.2% | live 18-20 +13%
+        vs the sport's dogs: train +6.0 / held +6.9 pts -> earns; placebo 67 of 2,000
+  ctx.opp_won [+] pts [3.5]                    n   862  380-482  44.1% (needs 41.0)   +6.2% z +1.86 | train   +4.7% ( 567) | held   +9.0% ( 295) | up 3/4 | 1pt worse   +3.6% | live 17-33 -22%
+        vs the sport's dogs: train +11.2 / held +8.0 pts -> earns; placebo 11 of 2,000
+  ctx.ss_gap [+] pts [3.0]                     n   896  419-477  46.8% (needs 43.7)   +7.9% z +1.86 | train   +3.9% ( 588) | held  +15.6% ( 308) | up 3/3 | 1pt worse   +5.5% | live 21-29 -9%
+        vs the sport's dogs: train +10.5 / held +14.5 pts -> earns; placebo 0 of 2,000
+  ctx.ss_gap [-] pts [-3.0]                    n  1673  595-1078 35.6% (needs 39.6)  -11.3% z -3.40 | train  -12.5% (1112) | held   -9.0% ( 561) | up 0/4 | 1pt worse  -13.6% | live 36-76 -21%
+        vs the sport's dogs: train -6.0 / held -10.0 pts -> earns; placebo 1 of 2,000
+  ctx.won [+] pts [3.5]                        n   862  380-482  44.1% (needs 41.0)   +6.2% z +1.86 | train   +4.7% ( 567) | held   +9.0% ( 295) | up 3/4 | 1pt worse   +3.6% | live 17-33 -22%
+        vs the sport's dogs: train +11.2 / held +8.0 pts -> earns; placebo 11 of 2,000
+  drift [+] pts [2.0, 3.0]                     n   574  261-313  45.5% (needs 43.6)   +4.4% z +0.93 | train   -4.8% ( 307) | held  +15.0% ( 267) | up 2/4 | 1pt worse   +2.1% | live 12-16 -4%
+        vs the sport's dogs: train +1.8 / held +14.0 pts -> earns; placebo 69 of 2,000
+  drift [-] pts [-4.0]                         n  1426  533-893  37.4% (needs 40.7)   -8.9% z -2.59 | train   -7.6% ( 937) | held  -11.5% ( 489) | up 0/4 | 1pt worse  -11.2% | live 36-78 -24%
+        vs the sport's dogs: train -1.0 / held -12.6 pts -> earns; placebo 38 of 2,000
+  fired_on [+] pts [2.0]                       n   314  131-183  41.7% (needs 40.9)   +0.7% z +0.32 | train   +1.6% ( 288) | held   -9.5% (  26) | up 1/3 | 1pt worse   -1.7% | live 0-0 +0%
+        vs the sport's dogs: train +8.2 / held -10.6 pts -> flips; placebo 469 of 2,000
+  form_state [-] pts [-2.0]                    n   320  127-193  39.7% (needs 42.8)   -8.1% z -1.13 | train  -15.2% ( 190) | held   +2.3% ( 130) | up 1/4 | 1pt worse  -10.2% | live 10-10 +12%
+        vs the sport's dogs: train -8.6 / held +1.2 pts -> flips; placebo 534 of 2,000
+  hot_key [-] pts [-3.0, -1.0]                 n   311  120-191  38.6% (needs 41.0)   -7.3% z -0.87 | train  -15.7% ( 210) | held  +10.0% ( 101) | up 1/4 | 1pt worse   -9.6% | live 7-12 -19%
+        vs the sport's dogs: train -9.1 / held +9.0 pts -> flips; placebo 623 of 2,000
+  key_edge [+] pts [1.0]                       n  1267  544-723  42.9% (needs 40.7)   +4.6% z +1.60 | train   +3.8% ( 841) | held   +6.2% ( 426) | up 3/4 | 1pt worse   +2.1% | live 30-44 -2%
+        vs the sport's dogs: train +10.4 / held +5.2 pts -> earns; placebo 1 of 2,000
+  key_edge [-] pts [-2.0]                      n   696  270-426  38.8% (needs 42.3)   -8.8% z -1.88 | train  -11.4% ( 414) | held   -5.1% ( 282) | up 0/4 | 1pt worse  -11.0% | live 16-27 -15%
+        vs the sport's dogs: train -4.8 / held -6.1 pts -> earns; placebo 221 of 2,000
+  lost_last [+] pts [3.0]                      n    97   37-60   38.1% (needs 42.2)  -11.2% z -0.81 | train  -14.4% (  66) | held   -4.3% (  31) | up 0/3 | 1pt worse  -13.2% | live 0-0 +0%
+        vs the sport's dogs: train -7.9 / held -5.3 pts -> DEAD (wrong way both halves); placebo 1418 of 2,000
+  n1_sat [-] pts [-1.0]                        n   165   57-108  34.5% (needs 40.6)  -16.8% z -1.59 | train  -12.9% ( 122) | held  -27.8% (  43) | up 1/3 | 1pt worse  -18.8% | live 3-6 -21%
+        vs the sport's dogs: train -6.3 / held -28.9 pts -> earns; placebo 164 of 2,000
+  opp_lost_last [+] pts [3.0]                  n    76   33-43   43.4% (needs 44.0)   -4.3% z -0.11 | train   -7.5% (  55) | held   +4.1% (  21) | up 2/3 | 1pt worse   -6.3% | live 0-0 +0%
+        vs the sport's dogs: train -0.9 / held +3.1 pts -> flips; placebo 989 of 2,000
+  opp_ot_last [+] pts [2.0]                    n   261  124-137  47.5% (needs 42.0)  +12.5% z +1.81 | train   +6.7% ( 160) | held  +21.8% ( 101) | up 3/4 | 1pt worse   +9.9% | live 6-11 -17%
+        vs the sport's dogs: train +13.3 / held +20.7 pts -> earns; placebo 26 of 2,000
+  opp_sv_slump [-] pts [-2.0]                  n   574  216-358  37.6% (needs 41.5)   -9.9% z -1.90 | train  -13.5% ( 296) | held   -6.2% ( 278) | up 0/3 | 1pt worse  -12.1% | live 14-33 -27%
+        vs the sport's dogs: train -6.9 / held -7.3 pts -> earns; placebo 190 of 2,000
+  ot_last [+] pts [1.0]                        n   263  115-148  43.7% (needs 41.5)   +3.9% z +0.74 | train   +6.7% ( 163) | held   -0.6% ( 100) | up 3/4 | 1pt worse   +1.5% | live 2-12 -69%
+        vs the sport's dogs: train +13.3 / held -1.7 pts -> flips; placebo 267 of 2,000
+  ot_last [-] pts [-2.0]                       n   407  149-258  36.6% (needs 41.7)  -11.9% z -2.09 | train  -14.4% ( 246) | held   -8.0% ( 161) | up 0/4 | 1pt worse  -14.0% | live 9-15 -10%
+        vs the sport's dogs: train -7.9 / held -9.1 pts -> earns; placebo 155 of 2,000
+  outshot_me [-] pts [-2.0]                    n   188   56-132  29.8% (needs 39.0)  -23.2% z -2.62 | train  -25.4% ( 130) | held  -18.1% (  58) | up 1/4 | 1pt worse  -25.2% | live 2-3 -11%
+        vs the sport's dogs: train -18.9 / held -19.2 pts -> earns; placebo 24 of 2,000
+  outshot_opp [+] pts [1.0]                    n    90   51-39   56.7% (needs 42.5)  +31.6% z +2.73 | train  +18.9% (  66) | held  +66.6% (  24) | up 3/3 | 1pt worse  +28.6% | live 2-0 +131%
+        vs the sport's dogs: train +25.5 / held +65.5 pts -> earns; placebo 4 of 2,000
+  pdo [+] pts [2.0]                            n  1167  482-685  41.3% (needs 40.2)   +1.2% z +0.78 | train   +0.3% ( 800) | held   +3.3% ( 367) | up 2/3 | 1pt worse   -1.2% | live 21-36 -9%
+        vs the sport's dogs: train +6.9 / held +2.2 pts -> earns; placebo 56 of 2,000
+  pdo [-] pts [-3.0]                           n   836  328-508  39.2% (needs 42.5)   -8.4% z -1.93 | train  -14.1% ( 530) | held   +1.4% ( 306) | up 1/3 | 1pt worse  -10.6% | live 13-17 -7%
+        vs the sport's dogs: train -7.5 / held +0.3 pts -> flips; placebo 213 of 2,000
+  pyth_luck [+] pts [2.0]                      n    60   34-26   56.7% (needs 40.4)  +40.1% z +2.60 | train  +35.7% (  31) | held  +44.8% (  29) | up 4/4 | 1pt worse  +36.6% | live 7-19 -37%
+        vs the sport's dogs: train +42.3 / held +43.8 pts -> earns; placebo 5 of 2,000
+  rested_vs_b2b [+] pts [3.0]                  n   224   96-128  42.9% (needs 42.7)   +0.5% z +0.06 | train   -2.4% ( 148) | held   +6.2% (  76) | up 2/4 | 1pt worse   -1.8% | live 5-3 +46%
+        vs the sport's dogs: train +4.1 / held +5.2 pts -> earns; placebo 555 of 2,000
+  tired_vs_rested [-] pts [-3.0]               n   491  159-332  32.4% (needs 39.5)  -18.4% z -3.25 | train  -25.1% ( 295) | held   -8.4% ( 196) | up 0/4 | 1pt worse  -20.5% | live 9-17 -18%
+        vs the sport's dogs: train -18.5 / held -9.5 pts -> earns; placebo 2 of 2,000
+
+===== nba: 3001 dogs with parts; every dog -4.5% (train -4.6% / held -4.3%)
+  ctx.cw5 [-] pts [-3.0]                       n   174   50-124  28.7% (needs 37.3)  -20.3% z -2.38 | train  -23.6% ( 131) | held  -10.5% (  43) | up 0/3 | 1pt worse  -22.6% | live 0-2 -100%
+        vs the sport's dogs: train -18.9 / held -6.2 pts -> earns; placebo 104 of 2,000
+  ctx.opp_won [-] pts [-2.0]                   n   534  179-355  33.5% (needs 38.1)  -10.8% z -2.22 | train  -13.2% ( 347) | held   -6.4% ( 187) | up 0/3 | 1pt worse  -13.2% | live 7-8 +31%
+        vs the sport's dogs: train -8.6 / held -2.1 pts -> earns; placebo 233 of 2,000
+  ctx.won [-] pts [-2.0]                       n   534  179-355  33.5% (needs 38.1)  -10.8% z -2.22 | train  -13.2% ( 347) | held   -6.4% ( 187) | up 0/3 | 1pt worse  -13.2% | live 7-8 +31%
+        vs the sport's dogs: train -8.6 / held -2.1 pts -> earns; placebo 233 of 2,000
+  drift [-] pts [-4.0]                         n  1315  455-860  34.6% (needs 36.3)   -5.6% z -1.29 | train   -3.9% ( 918) | held   -9.3% ( 397) | up 0/3 | 1pt worse   -8.2% | live 20-41 -11%
+        vs the sport's dogs: train +0.7 / held -5.0 pts -> flips; placebo 690 of 2,000
+  elo_edge [-] pts [-2.0]                      n    92   29-63   31.5% (needs 29.9)   +4.7% z +0.33 | train   -5.4% (  66) | held  +30.4% (  26) | up 2/3 | 1pt worse   +1.3% | live 2-0 +246%
+        vs the sport's dogs: train -0.8 / held +34.7 pts -> flips; placebo 1513 of 2,000
+  fired_on [-] pts [-3.0]                      n   111   31-80   27.9% (needs 35.7)  -24.0% z -1.72 | train  -23.6% (  78) | held  -24.8% (  33) | up 0/3 | 1pt worse  -26.1% | live 0-0 +0%
+        vs the sport's dogs: train -19.0 / held -20.5 pts -> earns; placebo 95 of 2,000
+  form_state [+] pts [5.0]                     n   100   44-56   44.0% (needs 38.3)  +11.3% z +1.19 | train   +2.1% (  68) | held  +30.8% (  32) | up 2/3 | 1pt worse   +8.5% | live 2-0 +146%
+        vs the sport's dogs: train +6.7 / held +35.1 pts -> earns; placebo 217 of 2,000
+  hot_key [-] pts [-3.0]                       n   339  114-225  33.6% (needs 35.9)   -5.6% z -0.87 | train   -2.2% ( 221) | held  -11.9% ( 118) | up 1/3 | 1pt worse   -8.3% | live 2-15 -68%
+        vs the sport's dogs: train +2.4 / held -7.6 pts -> flips; placebo 901 of 2,000
+  lost_last [+] pts [3.0]                      n    90   36-54   40.0% (needs 35.9)   +8.4% z +0.82 | train   +6.6% (  60) | held  +11.9% (  30) | up 2/3 | 1pt worse   +5.4% | live 0-0 +0%
+        vs the sport's dogs: train +11.2 / held +16.2 pts -> earns; placebo 358 of 2,000
+  lost_man [-] pts [-2.0]                      n   284   87-197  30.6% (needs 35.6)  -15.8% z -1.76 | train  -13.5% ( 219) | held  -23.4% (  65) | up 0/3 | 1pt worse  -18.2% | live 0-0 +0%
+        vs the sport's dogs: train -8.9 / held -19.1 pts -> earns; placebo 123 of 2,000
+  mkt_trend [-] pts [-2.0]                     n   676  214-462  31.7% (needs 36.2)  -12.3% z -2.48 | train  -12.4% ( 488) | held  -11.9% ( 188) | up 0/3 | 1pt worse  -14.8% | live 10-16 +8%
+        vs the sport's dogs: train -7.8 / held -7.6 pts -> earns; placebo 96 of 2,000
+  more.blew_lead [-] pts [-2.0]                n    61   19-42   31.1% (needs 36.3)  -14.3% z -0.85 | train  -19.8% (  41) | held   -3.2% (  20) | up 0/3 | 1pt worse  -16.7% | live 2-3 +3%
+        vs the sport's dogs: train -15.1 / held +1.1 pts -> flips; placebo 557 of 2,000
+  more.comeback [-] pts [-2.0]                 n    91   30-61   33.0% (needs 37.9)   -8.6% z -0.98 | train  -12.7% (  66) | held   +2.5% (  25) | up 1/3 | 1pt worse  -11.2% | live 0-3 -100%
+        vs the sport's dogs: train -8.1 / held +6.8 pts -> flips; placebo 785 of 2,000
+  more.games_in [-] pts [-2.0]                 n   159   55-104  34.6% (needs 38.1)   -9.0% z -0.92 | train   +0.9% ( 102) | held  -26.8% (  57) | up 1/3 | 1pt worse  -11.5% | live 10-20 -11%
+        vs the sport's dogs: train +5.5 / held -22.5 pts -> flips; placebo 682 of 2,000
+  more.home_after_trip [-] pts [-2.0]          n    88   30-58   34.1% (needs 36.9)  -10.8% z -0.56 | train  -17.4% (  63) | held   +5.7% (  25) | up 1/3 | 1pt worse  -13.2% | live 0-4 -100%
+        vs the sport's dogs: train -12.8 / held +10.0 pts -> flips; placebo 676 of 2,000
+  more.last_margin [-] pts [-2.0]              n   395  157-238  39.7% (needs 38.3)   +4.5% z +0.62 | train   -6.3% ( 248) | held  +22.8% ( 147) | up 1/3 | 1pt worse   +1.7% | live 8-8 +22%
+        vs the sport's dogs: train -1.7 / held +27.1 pts -> flips; placebo 1839 of 2,000
+  more.last_ot [-] pts [-2.0]                  n   128   38-90   29.7% (needs 36.8)  -23.3% z -1.69 | train  -33.0% (  86) | held   -3.5% (  42) | up 0/3 | 1pt worse  -25.3% | live 1-7 -75%
+        vs the sport's dogs: train -28.4 / held +0.8 pts -> flips; placebo 83 of 2,000
+  more.last_pts [-] pts [-2.0]                 n   268   96-172  35.8% (needs 37.9)   -5.9% z -0.72 | train  -16.3% ( 155) | held   +8.3% ( 113) | up 1/3 | 1pt worse   -8.4% | live 3-8 -32%
+        vs the sport's dogs: train -11.7 / held +12.6 pts -> flips; placebo 859 of 2,000
+  more.last_year_wp [-] pts [-2.0]             n   159   55-104  34.6% (needs 38.1)   -9.0% z -0.92 | train   +0.9% ( 102) | held  -26.8% (  57) | up 1/3 | 1pt worse  -11.5% | live 10-20 -11%
+        vs the sport's dogs: train +5.5 / held -22.5 pts -> flips; placebo 682 of 2,000
+  more.lose_streak [-] pts [-2.0]              n    85   31-54   36.5% (needs 33.8)   +0.5% z +0.52 | train  +16.7% (  53) | held  -26.4% (  32) | up 1/3 | 1pt worse   -2.3% | live 3-7 -4%
+        vs the sport's dogs: train +21.4 / held -22.1 pts -> flips; placebo 1286 of 2,000
+  more.meet_margin [+] pts [2.0]               n   385  136-249  35.3% (needs 34.7)   +0.7% z +0.25 | train   +0.9% ( 257) | held   +0.3% ( 128) | up 2/3 | 1pt worse   -2.2% | live 5-5 +25%
+        vs the sport's dogs: train +5.5 / held +4.6 pts -> earns; placebo 405 of 2,000
+  more.opp_comeback [+] pts [2.0]              n    77   38-39   49.4% (needs 36.2)  +38.1% z +2.44 | train  +24.6% (  50) | held  +63.3% (  27) | up 3/3 | 1pt worse  +34.2% | live 2-1 +79%
+        vs the sport's dogs: train +29.2 / held +67.6 pts -> earns; placebo 4 of 2,000
+  more.opp_last_margin [-] pts [-2.0]          n   371  110-261  29.6% (needs 35.2)  -14.6% z -2.28 | train   -7.0% ( 245) | held  -29.4% ( 126) | up 1/3 | 1pt worse  -17.1% | live 7-14 -15%
+        vs the sport's dogs: train -2.4 / held -25.1 pts -> earns; placebo 120 of 2,000
+  more.opp_last_ot [+] pts [2.0]               n   122   48-74   39.3% (needs 37.8)   -0.3% z +0.36 | train   +2.1% (  88) | held   -6.3% (  34) | up 1/3 | 1pt worse   -2.8% | live 4-4 +37%
+        vs the sport's dogs: train +6.7 / held -2.0 pts -> flips; placebo 694 of 2,000
+  more.opp_last_pts [-] pts [-2.0]             n   133   40-93   30.1% (needs 37.1)  -22.4% z -1.71 | train  -26.9% (  89) | held  -13.2% (  44) | up 0/3 | 1pt worse  -24.4% | live 3-6 -7%
+        vs the sport's dogs: train -22.3 / held -8.9 pts -> earns; placebo 101 of 2,000
+  more.opp_rest [-] pts [-2.0]                 n   178   64-114  36.0% (needs 36.2)   -3.7% z -0.07 | train  -10.1% ( 126) | held  +11.7% (  52) | up 2/3 | 1pt worse   -6.4% | live 2-4 +6%
+        vs the sport's dogs: train -5.5 / held +16.0 pts -> flips; placebo 1066 of 2,000
+  more.opp_trip_game [-] pts [-2.0]            n   142   50-92   35.2% (needs 37.4)  -11.0% z -0.55 | train   -6.7% (  98) | held  -20.5% (  44) | up 1/3 | 1pt worse  -13.3% | live 0-5 -100%
+        vs the sport's dogs: train -2.1 / held -16.2 pts -> earns; placebo 571 of 2,000
+  more.record [-] pts [-2.0]                   n   358  109-249  30.4% (needs 33.6)   -9.4% z -1.27 | train  -17.9% ( 227) | held   +5.4% ( 131) | up 1/3 | 1pt worse  -12.1% | live 2-7 -39%
+        vs the sport's dogs: train -13.2 / held +9.7 pts -> flips; placebo 488 of 2,000
+  more.rest [-] pts [-2.0]                     n   178   64-114  36.0% (needs 36.2)   -3.7% z -0.07 | train  -10.1% ( 126) | held  +11.7% (  52) | up 2/3 | 1pt worse   -6.4% | live 2-4 +6%
+        vs the sport's dogs: train -5.5 / held +16.0 pts -> flips; placebo 1066 of 2,000
+  more.slate [+] pts [2.0]                     n   447  175-272  39.1% (needs 36.7)   +5.9% z +1.07 | train   +2.2% ( 341) | held  +17.9% ( 106) | up 2/3 | 1pt worse   +3.0% | live 15-24 +1%
+        vs the sport's dogs: train +6.8 / held +22.2 pts -> earns; placebo 69 of 2,000
+  more.spread_gap [+] pts [2.0]                n   418  189-229  45.2% (needs 38.9)  +14.9% z +2.66 | train  +11.1% ( 211) | held  +18.8% ( 207) | up 3/3 | 1pt worse  +12.0% | live 21-37 -9%
+        vs the sport's dogs: train +15.7 / held +23.1 pts -> earns; placebo 4 of 2,000
+  more.total_vs_league [-] pts [-2.0]          n   667  237-430  35.5% (needs 36.7)   -3.4% z -0.65 | train   -9.0% ( 454) | held   +8.5% ( 213) | up 1/3 | 1pt worse   -6.1% | live 8-25 -29%
+        vs the sport's dogs: train -4.4 / held +12.8 pts -> flips; placebo 1193 of 2,000
+  more.win_streak [-] pts [-2.0]               n   333  117-216  35.1% (needs 37.7)   -6.7% z -0.97 | train  -10.7% ( 228) | held   +1.8% ( 105) | up 1/3 | 1pt worse   -9.3% | live 5-8 +3%
+        vs the sport's dogs: train -6.1 / held +6.1 pts -> flips; placebo 726 of 2,000
+  opp_lost_last [+] pts [3.0]                  n    84   30-54   35.7% (needs 37.7)   -6.4% z -0.38 | train  -22.6% (  53) | held  +21.3% (  31) | up 1/3 | 1pt worse   -8.8% | live 0-0 +0%
+        vs the sport's dogs: train -18.0 / held +25.6 pts -> flips; placebo 1091 of 2,000
+  rested_vs_b2b [+] pts [3.0]                  n   272  101-171  37.1% (needs 37.0)   -1.0% z +0.04 | train   +2.0% ( 192) | held   -8.1% (  80) | up 1/3 | 1pt worse   -3.7% | live 3-14 -57%
+        vs the sport's dogs: train +6.6 / held -3.8 pts -> flips; placebo 648 of 2,000
+  season_games [+] pts [2.0, 4.0]              n   150   69-81   46.0% (needs 41.8)   +9.4% z +1.05 | train   +9.4% ( 104) | held   +9.3% (  46) | up 3/3 | 1pt worse   +6.8% | live 8-19 -30%
+        vs the sport's dogs: train +14.0 / held +13.6 pts -> earns; placebo 191 of 2,000
+  season_games [-] pts [-2.0]                  n   444  153-291  34.5% (needs 37.6)   -8.1% z -1.36 | train   -6.9% ( 284) | held  -10.4% ( 160) | up 1/3 | 1pt worse  -10.6% | live 0-0 +0%
+        vs the sport's dogs: train -2.2 / held -6.1 pts -> earns; placebo 548 of 2,000
+
+===== nfl: 769 dogs with parts; every dog -5.6% (train -13.9% / held +7.1%)
+  ctx.opp_won [+] pts [2.0]                    n   279  103-176  36.9% (needs 37.8)   +1.7% z -0.29 | train   -7.9% ( 172) | held  +17.1% ( 107) | up 1/4 | 1pt worse   -1.2% | live 4-11 -29%
+        vs the sport's dogs: train +6.1 / held +10.0 pts -> earns; placebo 252 of 2,000
+  ctx.opp_won [-] pts [-3.0]                   n   160   50-110  31.2% (needs 35.0)  -13.1% z -1.02 | train  -28.7% (  95) | held   +9.6% (  65) | up 1/4 | 1pt worse  -15.6% | live 7-11 -2%
+        vs the sport's dogs: train -14.7 / held +2.5 pts -> flips; placebo 457 of 2,000
+  ctx.won [-] pts [-3.0]                       n   160   50-110  31.2% (needs 35.0)  -13.1% z -1.02 | train  -28.7% (  95) | held   +9.6% (  65) | up 1/4 | 1pt worse  -15.6% | live 7-11 -2%
+        vs the sport's dogs: train -14.7 / held +2.5 pts -> flips; placebo 457 of 2,000
+  form_state [+] pts [3.0, 6.0]                n    78   32-46   41.0% (needs 34.7)  +27.4% z +1.19 | train   -0.2% (  52) | held  +82.7% (  26) | up 3/4 | 1pt worse  +23.3% | live 1-7 -57%
+        vs the sport's dogs: train +13.7 / held +75.5 pts -> earns; placebo 28 of 2,000
+  more.east_west [+] pts [3.0]                 n    55   19-36   34.5% (needs 37.5)   -4.6% z -0.46 | train   -6.5% (  31) | held   -2.3% (  24) | up 2/4 | 1pt worse   -7.3% | live 1-1 +20%
+        vs the sport's dogs: train +7.4 / held -9.4 pts -> flips; placebo 912 of 2,000
+  more.fades [-] pts [-6.0, -3.0]              n   219   76-143  34.7% (needs 37.0)   -2.9% z -0.70 | train   -8.3% ( 136) | held   +5.8% (  83) | up 2/4 | 1pt worse   -5.7% | live 8-15 -6%
+        vs the sport's dogs: train +5.7 / held -1.3 pts -> flips; placebo 1318 of 2,000
+  more.go4_gap [+] pts [1.0]                   n   164   57-107  34.8% (needs 38.8)   -9.8% z -1.08 | train  -16.5% ( 104) | held   +1.8% (  60) | up 1/4 | 1pt worse  -12.2% | live 1-7 -70%
+        vs the sport's dogs: train -2.5 / held -5.3 pts -> DEAD (wrong way both halves); placebo 1337 of 2,000
+  more.go4_gap [-] pts [-1.0]                  n   220   63-157  28.6% (needs 36.0)  -17.1% z -2.32 | train  -28.3% ( 124) | held   -2.6% (  96) | up 1/4 | 1pt worse  -19.6% | live 3-9 -29%
+        vs the sport's dogs: train -14.4 / held -9.8 pts -> earns; placebo 139 of 2,000
+  more.last_margin [+] pts [2.0]               n    91   32-59   35.2% (needs 40.1)  -11.8% z -0.96 | train  -32.0% (  56) | held  +20.4% (  35) | up 1/4 | 1pt worse  -14.1% | live 0-2 -100%
+        vs the sport's dogs: train -18.1 / held +13.3 pts -> flips; placebo 1319 of 2,000
+  more.last_pts [+] pts [1.0]                  n   106   43-63   40.6% (needs 34.9)  +21.8% z +1.23 | train   -7.5% (  65) | held  +68.2% (  41) | up 3/4 | 1pt worse  +18.1% | live 2-8 -44%
+        vs the sport's dogs: train +6.4 / held +61.1 pts -> earns; placebo 39 of 2,000
+  more.mnf [+] pts [1.0]                       n    57   24-33   42.1% (needs 36.4)  +17.4% z +0.91 | train  +16.5% (  34) | held  +18.6% (  23) | up 3/4 | 1pt worse  +14.0% | live 1-3 -40%
+        vs the sport's dogs: train +30.4 / held +11.5 pts -> earns; placebo 167 of 2,000
+  more.win_streak [+] pts [1.0]                n    83   32-51   38.6% (needs 40.1)   -2.7% z -0.29 | train   -4.2% (  54) | held   +0.1% (  29) | up 2/4 | 1pt worse   -5.2% | live 0-5 -100%
+        vs the sport's dogs: train +9.7 / held -7.1 pts -> flips; placebo 775 of 2,000
+
+===== ncaaf: 1729 dogs with parts; every dog +0.7% (train +3.2% / held -2.0%)
+  big_cover [-] pts [-2.0]                     n   102   28-74   27.5% (needs 35.8)  -23.8% z -1.79 | train  -40.0% (  58) | held   -2.4% (  44) | up 1/4 | 1pt worse  -26.0% | live 9-19 -18%
+        vs the sport's dogs: train -43.2 / held -0.3 pts -> earns; placebo 43 of 2,000
+  ctx.opp_won [+] pts [2.0]                    n   494  198-296  40.1% (needs 36.8)   +8.0% z +1.55 | train  +13.7% ( 272) | held   +1.1% ( 222) | up 3/4 | 1pt worse   +5.1% | live 58-117 -9%
+        vs the sport's dogs: train +10.5 / held +3.2 pts -> earns; placebo 135 of 2,000
+  ctx.opp_won [-] pts [-3.0]                   n   294   98-196  33.3% (needs 35.4)   -2.9% z -0.75 | train   -5.7% ( 136) | held   -0.6% ( 158) | up 2/4 | 1pt worse   -5.8% | live 35-49 +26%
+        vs the sport's dogs: train -8.9 / held +1.4 pts -> flips; placebo 635 of 2,000
+  ctx.won [-] pts [-3.0]                       n   294   98-196  33.3% (needs 35.4)   -2.9% z -0.75 | train   -5.7% ( 136) | held   -0.6% ( 158) | up 2/4 | 1pt worse   -5.8% | live 35-49 +26%
+        vs the sport's dogs: train -8.9 / held +1.4 pts -> flips; placebo 635 of 2,000
+  form_state [+] pts [3.0, 6.0]                n    97   42-55   43.3% (needs 35.4)  +23.6% z +1.64 | train  +17.2% (  52) | held  +30.9% (  45) | up 3/4 | 1pt worse  +20.0% | live 8-13 +16%
+        vs the sport's dogs: train +14.0 / held +33.0 pts -> earns; placebo 98 of 2,000
+  form_state [-] pts [-3.0]                    n    55   17-38   30.9% (needs 36.6)  -15.4% z -0.89 | train  -52.7% (  35) | held  +50.0% (  20) | up 2/4 | 1pt worse  -17.7% | live 6-30 -50%
+        vs the sport's dogs: train -55.9 / held +52.0 pts -> flips; placebo 385 of 2,000
+  int_unlucky [+] pts [2.0]                    n   179   76-103  42.5% (needs 37.0)  +17.4% z +1.52 | train  +22.0% ( 121) | held   +7.7% (  58) | up 4/4 | 1pt worse  +14.1% | live 30-31 +44%
+        vs the sport's dogs: train +18.8 / held +9.7 pts -> earns; placebo 83 of 2,000
+  more.bye [+] pts [2.0]                       n   104   41-63   39.4% (needs 35.5)  +13.1% z +0.84 | train  +54.1% (  59) | held  -40.6% (  45) | up 2/4 | 1pt worse   +9.8% | live 16-16 +51%
+        vs the sport's dogs: train +50.8 / held -38.5 pts -> flips; placebo 334 of 2,000
+  more.conservative [-] pts [-2.0]             n   125   62-63   49.6% (needs 39.0)  +26.2% z +2.46 | train  +27.8% (  61) | held  +24.8% (  64) | up 4/4 | 1pt worse  +23.0% | live 7-12 +2%
+        vs the sport's dogs: train +24.6 / held +26.8 pts -> DEAD (wrong way both halves); placebo 1968 of 2,000
+  more.fades [-] pts [-4.0, -3.0]              n   429  146-283  34.0% (needs 35.6)   -4.2% z -0.71 | train   +3.0% ( 247) | held  -14.0% ( 182) | up 2/4 | 1pt worse   -7.0% | live 49-90 +11%
+        vs the sport's dogs: train -0.3 / held -12.0 pts -> earns; placebo 399 of 2,000
+  more.fast [-] pts [-2.0]                     n    43   12-31   27.9% (needs 38.7)  -28.3% z -1.47 | train  -20.9% (  24) | held  -37.6% (  19) | up 0/4 | 1pt worse  -30.2% | live 1-4 -59%
+        vs the sport's dogs: train -24.1 / held -35.6 pts -> earns; placebo 171 of 2,000
+  more.last_margin [+] pts [2.0]               n   268   97-171  36.2% (needs 37.4)   -3.3% z -0.40 | train   -6.4% ( 116) | held   -0.9% ( 152) | up 2/4 | 1pt worse   -5.9% | live 18-29 +7%
+        vs the sport's dogs: train -9.6 / held +1.2 pts -> flips; placebo 1386 of 2,000
+  more.record [-] pts [-2.0]                   n   192   70-122  36.5% (needs 34.3)   +7.6% z +0.63 | train  +15.7% ( 106) | held   -2.4% (  86) | up 3/4 | 1pt worse   +4.3% | live 27-63 -13%
+        vs the sport's dogs: train +12.4 / held -0.4 pts -> flips; placebo 1535 of 2,000
+  more.win_pct [+] pts [1.5]                   n   282  107-175  37.9% (needs 37.6)   -0.1% z +0.13 | train   -1.7% ( 158) | held   +1.9% ( 124) | up 2/4 | 1pt worse   -2.8% | live 14-37 -21%
+        vs the sport's dogs: train -4.9 / held +3.9 pts -> flips; placebo 1096 of 2,000
+  yard_lucky [-] pts [-1.0]                    n   195   69-126  35.4% (needs 36.6)   -2.5% z -0.37 | train   -2.3% (  97) | held   -2.6% (  98) | up 1/4 | 1pt worse   -5.2% | live 13-37 -28%
+        vs the sport's dogs: train -5.5 / held -0.5 pts -> earns; placebo 728 of 2,000
+
+===== ncaab: 524 dogs with parts; every dog -3.0% (train -13.7% / held -0.8%)
+  ctx.opp_won [+] pts [2.0]                    n   219   94-125  42.9% (needs 38.0)  +10.9% z +1.52 | train  -32.5% (  14) | held  +13.8% ( 205) | up 1/2 | 1pt worse   +7.9% | live 0-0 +0%
+        vs the sport's dogs: train -18.8 / held +14.6 pts -> flips; placebo 39 of 2,000
+  ctx.opp_won [-] pts [-3.0]                   n   141   42-99   29.8% (needs 36.2)  -17.4% z -1.60 | train  -76.7% (   9) | held  -13.3% ( 132) | up 0/2 | 1pt worse  -19.7% | live 0-0 +0%
+        vs the sport's dogs: train -63.0 / held -12.5 pts -> earns; placebo 138 of 2,000
+  ctx.won [-] pts [-3.0]                       n   141   42-99   29.8% (needs 36.2)  -17.4% z -1.60 | train  -76.7% (   9) | held  -13.3% ( 132) | up 0/2 | 1pt worse  -19.7% | live 0-0 +0%
+        vs the sport's dogs: train -63.0 / held -12.5 pts -> earns; placebo 138 of 2,000
+  reb_gap [-] pts [-1.0]                       n    75   21-54   28.0% (needs 34.4)  -18.5% z -1.18 | train   +0.0% (   0) | held  -18.5% (  75) | up 0/1 | 1pt worse  -20.8% | live 0-0 +0%
+        vs the sport's dogs: train +13.7 / held -17.7 pts -> flips; placebo 253 of 2,000
+  to_net [-] pts [-2.0]                        n    59   22-37   37.3% (needs 35.8)   +3.1% z +0.25 | train   +0.0% (   0) | held   +3.1% (  59) | up 1/1 | 1pt worse   +0.1% | live 0-0 +0%
+        vs the sport's dogs: train +13.7 / held +3.9 pts -> DEAD (wrong way both halves); placebo 1276 of 2,000
+  top_out [-] pts [-3.0, -2.0]                 n    40   10-30   25.0% (needs 35.1)  -29.7% z -1.35 | train   +0.0% (   0) | held  -29.7% (  40) | up 0/1 | 1pt worse  -31.7% | live 0-0 +0%
+        vs the sport's dogs: train +13.7 / held -28.9 pts -> flips; placebo 180 of 2,000
+  tp_net [-] pts [-1.0]                        n    47   16-31   34.0% (needs 36.6)   -8.7% z -0.37 | train   +0.0% (   0) | held   -8.7% (  47) | up 0/1 | 1pt worse  -11.2% | live 0-0 +0%
+        vs the sport's dogs: train +13.7 / held -7.9 pts -> flips; placebo 765 of 2,000
+
+===== VERDICTS (n 40+): the weights that are the WRONG WAY in both halves
+  nhl    lost_last                    [+] [3.0]              n    97  -11.2% | vs the sport's dogs train -7.9 / held -5.3 | placebo 1418
+  nfl    more.go4_gap                 [+] [1.0]              n   164   -9.8% | vs the sport's dogs train -2.5 / held -5.3 | placebo 1337
+  ncaaf  more.conservative            [-] [-2.0]             n   125  +26.2% | vs the sport's dogs train +24.6 / held +26.8 | placebo 1968
+  ncaab  to_net                       [-] [-2.0]             n    59   +3.1% | vs the sport's dogs train +13.7 / held +3.9 | placebo 1276
+
+===== the weights that earn their sign in both halves AND beat the placebo (under 100 of 2,000)
+  nhl    ctx.hits_top                 [+] [2.0]              n   912   +2.3% | train +6.0 / held +6.9 | placebo 67
+  nhl    ctx.opp_won                  [+] [3.5]              n   862   +6.2% | train +11.2 / held +8.0 | placebo 11
+  nhl    ctx.ss_gap                   [+] [3.0]              n   896   +7.9% | train +10.5 / held +14.5 | placebo 0
+  nhl    ctx.ss_gap                   [-] [-3.0]             n  1673  -11.3% | train -6.0 / held -10.0 | placebo 1
+  nhl    ctx.won                      [+] [3.5]              n   862   +6.2% | train +11.2 / held +8.0 | placebo 11
+  nhl    drift                        [+] [2.0, 3.0]         n   574   +4.4% | train +1.8 / held +14.0 | placebo 69
+  nhl    drift                        [-] [-4.0]             n  1426   -8.9% | train -1.0 / held -12.6 | placebo 38
+  nhl    key_edge                     [+] [1.0]              n  1267   +4.6% | train +10.4 / held +5.2 | placebo 1
+  nhl    opp_ot_last                  [+] [2.0]              n   261  +12.5% | train +13.3 / held +20.7 | placebo 26
+  nhl    outshot_me                   [-] [-2.0]             n   188  -23.2% | train -18.9 / held -19.2 | placebo 24
+  nhl    outshot_opp                  [+] [1.0]              n    90  +31.6% | train +25.5 / held +65.5 | placebo 4
+  nhl    pdo                          [+] [2.0]              n  1167   +1.2% | train +6.9 / held +2.2 | placebo 56
+  nhl    pyth_luck                    [+] [2.0]              n    60  +40.1% | train +42.3 / held +43.8 | placebo 5
+  nhl    tired_vs_rested              [-] [-3.0]             n   491  -18.4% | train -18.5 / held -9.5 | placebo 2
+  nba    fired_on                     [-] [-3.0]             n   111  -24.0% | train -19.0 / held -20.5 | placebo 95
+  nba    mkt_trend                    [-] [-2.0]             n   676  -12.3% | train -7.8 / held -7.6 | placebo 96
+  nba    more.opp_comeback            [+] [2.0]              n    77  +38.1% | train +29.2 / held +67.6 | placebo 4
+  nba    more.slate                   [+] [2.0]              n   447   +5.9% | train +6.8 / held +22.2 | placebo 69
+  nba    more.spread_gap              [+] [2.0]              n   418  +14.9% | train +15.7 / held +23.1 | placebo 4
+  nfl    form_state                   [+] [3.0, 6.0]         n    78  +27.4% | train +13.7 / held +75.5 | placebo 28
+  nfl    more.last_pts                [+] [1.0]              n   106  +21.8% | train +6.4 / held +61.1 | placebo 39
+  ncaaf  big_cover                    [-] [-2.0]             n   102  -23.8% | train -43.2 / held -0.3 | placebo 43
+  ncaaf  form_state                   [+] [3.0, 6.0]         n    97  +23.6% | train +14.0 / held +33.0 | placebo 98
+  ncaaf  int_unlucky                  [+] [2.0]              n   179  +17.4% | train +18.8 / held +9.7 | placebo 83
+
+===== flips (one half each way)
+  nhl    fired_on                     [+] [2.0]              n   314   +0.7% | train +8.2 / held -10.6 | placebo 469
+  nhl    form_state                   [-] [-2.0]             n   320   -8.1% | train -8.6 / held +1.2 | placebo 534
+  nhl    hot_key                      [-] [-3.0, -1.0]       n   311   -7.3% | train -9.1 / held +9.0 | placebo 623
+  nhl    opp_lost_last                [+] [3.0]              n    76   -4.3% | train -0.9 / held +3.1 | placebo 989
+  nhl    ot_last                      [+] [1.0]              n   263   +3.9% | train +13.3 / held -1.7 | placebo 267
+  nhl    pdo                          [-] [-3.0]             n   836   -8.4% | train -7.5 / held +0.3 | placebo 213
+  nba    drift                        [-] [-4.0]             n  1315   -5.6% | train +0.7 / held -5.0 | placebo 690
+  nba    elo_edge                     [-] [-2.0]             n    92   +4.7% | train -0.8 / held +34.7 | placebo 1513
+  nba    hot_key                      [-] [-3.0]             n   339   -5.6% | train +2.4 / held -7.6 | placebo 901
+  nba    more.blew_lead               [-] [-2.0]             n    61  -14.3% | train -15.1 / held +1.1 | placebo 557
+  nba    more.comeback                [-] [-2.0]             n    91   -8.6% | train -8.1 / held +6.8 | placebo 785
+  nba    more.games_in                [-] [-2.0]             n   159   -9.0% | train +5.5 / held -22.5 | placebo 682
+  nba    more.home_after_trip         [-] [-2.0]             n    88  -10.8% | train -12.8 / held +10.0 | placebo 676
+  nba    more.last_margin             [-] [-2.0]             n   395   +4.5% | train -1.7 / held +27.1 | placebo 1839
+  nba    more.last_ot                 [-] [-2.0]             n   128  -23.3% | train -28.4 / held +0.8 | placebo 83
+  nba    more.last_pts                [-] [-2.0]             n   268   -5.9% | train -11.7 / held +12.6 | placebo 859
+  nba    more.last_year_wp            [-] [-2.0]             n   159   -9.0% | train +5.5 / held -22.5 | placebo 682
+  nba    more.lose_streak             [-] [-2.0]             n    85   +0.5% | train +21.4 / held -22.1 | placebo 1286
+  nba    more.opp_last_ot             [+] [2.0]              n   122   -0.3% | train +6.7 / held -2.0 | placebo 694
+  nba    more.opp_rest                [-] [-2.0]             n   178   -3.7% | train -5.5 / held +16.0 | placebo 1066
+  nba    more.record                  [-] [-2.0]             n   358   -9.4% | train -13.2 / held +9.7 | placebo 488
+  nba    more.rest                    [-] [-2.0]             n   178   -3.7% | train -5.5 / held +16.0 | placebo 1066
+  nba    more.total_vs_league         [-] [-2.0]             n   667   -3.4% | train -4.4 / held +12.8 | placebo 1193
+  nba    more.win_streak              [-] [-2.0]             n   333   -6.7% | train -6.1 / held +6.1 | placebo 726
+  nba    opp_lost_last                [+] [3.0]              n    84   -6.4% | train -18.0 / held +25.6 | placebo 1091
+  nba    rested_vs_b2b                [+] [3.0]              n   272   -1.0% | train +6.6 / held -3.8 | placebo 648
+  nfl    ctx.opp_won                  [-] [-3.0]             n   160  -13.1% | train -14.7 / held +2.5 | placebo 457
+  nfl    ctx.won                      [-] [-3.0]             n   160  -13.1% | train -14.7 / held +2.5 | placebo 457
+  nfl    more.east_west               [+] [3.0]              n    55   -4.6% | train +7.4 / held -9.4 | placebo 912
+  nfl    more.fades                   [-] [-6.0, -3.0]       n   219   -2.9% | train +5.7 / held -1.3 | placebo 1318
+  nfl    more.last_margin             [+] [2.0]              n    91  -11.8% | train -18.1 / held +13.3 | placebo 1319
+  nfl    more.win_streak              [+] [1.0]              n    83   -2.7% | train +9.7 / held -7.1 | placebo 775
+  ncaaf  ctx.opp_won                  [-] [-3.0]             n   294   -2.9% | train -8.9 / held +1.4 | placebo 635
+  ncaaf  ctx.won                      [-] [-3.0]             n   294   -2.9% | train -8.9 / held +1.4 | placebo 635
+  ncaaf  form_state                   [-] [-3.0]             n    55  -15.4% | train -55.9 / held +52.0 | placebo 385
+  ncaaf  more.bye                     [+] [2.0]              n   104  +13.1% | train +50.8 / held -38.5 | placebo 334
+  ncaaf  more.last_margin             [+] [2.0]              n   268   -3.3% | train -9.6 / held +1.2 | placebo 1386
+  ncaaf  more.record                  [-] [-2.0]             n   192   +7.6% | train +12.4 / held -0.4 | placebo 1535
+  ncaaf  more.win_pct                 [+] [1.5]              n   282   -0.1% | train -4.9 / held +3.9 | placebo 1096
+  ncaab  ctx.opp_won                  [+] [2.0]              n   219  +10.9% | train -18.8 / held +14.6 | placebo 39
+  ncaab  reb_gap                      [-] [-1.0]             n    75  -18.5% | train +13.7 / held -17.7 | placebo 253
+  ncaab  top_out                      [-] [-3.0, -2.0]       n    40  -29.7% | train +13.7 / held -28.9 | placebo 180
+  ncaab  tp_net                       [-] [-1.0]             n    47   -8.7% | train +13.7 / held -7.9 | placebo 765

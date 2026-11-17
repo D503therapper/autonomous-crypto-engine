@@ -25403,6 +25403,208 @@ def test_sizing_1117_the_college_hoops_dog_slot_is_2u_at_a_dog_read_of_5_stamped
         sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
 
 
+def test_dogs_1117_the_college_hoops_dog_slot_takes_a_true_road_dog_at_a_read_of_3_half_a_unit_home_and_neutral_stay_4():
+    """11/17 FABLE - THE UNDERDOG EDGE (the owner, 11/16: "make the engine better on these picks, especially our edge that
+    we do on our underdog, since that's the way we profit ... on plus money"; results/studies/dogs_1117/s5_cbb.py): the
+    college hoops dog read runs high on a home floor (the 11/14 home-dog -1) and is honest a point sooner on the road -
+    every TRUE ROAD dog at a read of 3 (both teams 4+ games, the read clears the price) 85-82 +21.1% on the 2018-26 rows
+    (train +17.9% / held +24.9%, 6 of 8 seasons, placebo 4 of 2,000 against road dogs); the home dog at 3 -0.6%, neutral
+    +4.8% (train -13.3%). From the 11/17 Pacific games the DOG SLOT takes a true road dog at a read of 3 at HALF a unit
+    (two a night still, the read-4+ dogs first); home and neutral-site dogs keep the gate of 4; 1u at 4, 2u at 5+ as
+    before. END TO END through post_board."""
+    import sports_leads as sl
+    assert sports.DOGS_1117_FROM == "2026-11-17" and sports.NCAAB_ROAD_DOG_GATE_1117 == 3 and sports.NCAAB_ROAD_DOG_UNITS_1117 == 0.5
+    assert sports.NCAAB_DOG_READ_GATE == 4 and sports.NCAAB_PLAY_SLOT_MAX["dog"] == 2
+
+    def side(home=False, start="2026-11-19T00:00Z", odds=140, lg="ncaab", market="ml", read=3.0, games_ok=True, **kw):
+        d = sd.decimal(odds)
+        return {"league": lg, "market": market, "odds": odds, "dec": d, "p_market": 1 / d - 0.02, "home": home,
+                "side": "home" if home else "away", "start": start, "dog_read": read, "dog_read_parts": {"games_ok": games_ok},
+                "game_id": "ncaab:x", "team": "T", "opp": "O", **kw}
+    # the true road dog from the 11/17 Pacific games: the gate is 3; everyone else 4
+    assert sports.ncaab_road_dog(side()) and sports.ncaab_dog_read_gate(side()) == 3
+    assert sports.ncaab_road_dog(side(start="2026-11-18T03:00Z"))                      # 7 PM Pacific on 11/17: in
+    for other in (side(home=True), side(neutral=True), side(start="2026-11-17T03:00Z"),   # home / neutral / 7 PM Pacific 11/16
+                  side(lg="nba"), side(odds=-120), side(market="spread"), {**side(), "home": None, "side": None}):
+        assert not sports.ncaab_road_dog(other) and sports.ncaab_dog_read_gate(other) == 4, other
+    assert sports.ncaab_dog_read_ok(side(read=3.0)) and sports.ncaab_dog_read_ok(side(read=3.5)) and sports.ncaab_dog_read_ok(side(read=4.0))
+    assert not sports.ncaab_dog_read_ok(side(read=2.99)) and not sports.ncaab_dog_read_ok(side(read=3.0, games_ok=False))
+    assert not sports.ncaab_dog_read_ok(side(home=True, read=3.9)) and sports.ncaab_dog_read_ok(side(home=True, read=4.0))
+    assert not sports.ncaab_dog_read_ok(side(neutral=True, read=3.9)) and not sports.ncaab_dog_read_ok(side(start="2026-11-17T03:00Z", read=3.5))
+    # the size: half a unit under 4; 1u at 4; 2u at 5+ (the 11/17 stamp); never the favorite slot's business
+    leg = {**_cand("g5", 140, 0.41, league="ncaab"), "home": False, "side": "away"}
+
+    def pk(read, two_at=5, slot="dog", road3=None):
+        t = {"slot": slot, "dog_read": read, "two_at": two_at}
+        if road3:
+            t["road3"] = True
+        return {"date": "2026-11-18", "kind": "play", "status": "open", "ncaab_play": t, "legs": [{**leg, "dog_read": read}]}
+    assert sports.ncaab_road3(side(read=3.0)) and sports.ncaab_road3(side(read=3.9)) and not sports.ncaab_road3(side(read=4.0))
+    assert not sports.ncaab_road3(side(read=2.9)) and not sports.ncaab_road3(side(home=True, read=3.5)) and not sports.ncaab_road3(side(read=None))
+    assert sports.ncaab_play_units(pk(3.0, road3=True)) == sports.units_for(pk(3.0, road3=True)) == 0.5
+    assert sports.ncaab_play_units(pk(3.9, road3=True)) == 0.5 and sports.ncaab_play_units(pk(3.0, slot="fav")) == 0.5
+    assert sports.ncaab_play_units(pk(4.0)) == 1.0 and sports.ncaab_play_units(pk(5.0)) == 2.0
+    assert sports.ncaab_play_units(pk(3.0)) == 1.0           # (no stamp = not the road-gate play: the size is on the pick)
+    assert sports.sizing_check([pk(3.0, road3=True)]) == [] and sports.sizing_check([pk(4.5)]) == []
+    # the tracker: the road dog at 3 has its own forward record (never the "read 4+" tag)
+    assert sl.road_dog_read_3(side(read=3.0), sports) and sl.road_dog_read_3(side(read=3.9), sports)
+    assert not sl.road_dog_read_3(side(read=4.0), sports) and not sl.road_dog_read_3(side(home=True, read=3.5), sports)
+    assert not sl.road_dog_read_3(side(read=3.5, games_ok=False), sports) and not sl.road_dog_read_3(side(start="2026-11-17T03:00Z"), sports)
+    assert "ROAD" in sl.ROAD_DOG_READ_3_TAG and sl.ROAD_DOG_READ_3_TAG != sl.DOG_READ_3_4_TAG
+    # END TO END - post_board on a 11/20 board
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+
+    def add(i, home_dog=False):
+        gid = f"ncaab:rd{i}"
+        fav, dog = ("-190", "160")
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "", "neutral": "0",
+                      "start": "2026-11-21T00:00Z", "ml_home": dog if home_dog else fav, "ml_away": fav if home_dog else dog,
+                      "ml_home_open": dog if home_dog else fav, "ml_away_open": fav if home_dog else dog,
+                      "spread_home": "4.5" if home_dog else "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+        return gid
+    add(0)                      # a ROAD dog at a read of 3.0 - posts, half a unit
+    add(1, home_dog=True)       # a HOME dog at a read of 3.5 - under its gate of 4, never posts
+    add(2)                      # a road dog at 4.5 - posts, 1u (as before)
+    reads = {"ncaab:rd0": 3.0, "ncaab:rd1": 3.5, "ncaab:rd2": 4.5, "ncaab:rd3": 5.0}
+    keep_f = sd.fetch_injuries
+    real_dog = sports.ncaab_play_dog
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    keep_from = sports.DOGS_1117_FROM
+
+    def dressed(c):
+        if not (c.get("game_id", "").startswith("ncaab:rd") and c.get("market") == "ml" and c.get("odds", 0) > 0):
+            return None
+        c.update(dog_read=reads[c["game_id"]], dog_read_parts={"games_ok": True}, games_in=6, opp_games_in=6, ncaab_skid=0,
+                 reasons=c.get("reasons") or ["the glass"])
+        for k in sports.NCAAB_DOG_FADES:
+            c[k] = False
+        return real_dog(c)
+
+    def run():
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        dogs = sorted([p for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"], key=lambda p: p["legs"][0]["game_id"])
+        return [(p["legs"][0]["game_id"], p["legs"][0].get("home"), p["ncaab_play"]["dog_read"], sports.units_for(p)) for p in dogs], picks
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        sports.ncaab_play_dog = dressed
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = sports.gap_plays = lambda cands, avoid: []
+        got, picks = run()
+        assert got == [("ncaab:rd0", False, 3.0, 0.5), ("ncaab:rd2", False, 4.5, 1.0)], (got, sports.LAST_PICK_CHECK)
+        assert [bool((p.get("ncaab_play") or {}).get("road3")) for p in sorted(picks, key=lambda p: p["legs"][0]["game_id"])
+                if (p.get("ncaab_play") or {}).get("slot") == "dog"] == [True, False]
+        # ... A POSTED PLAY KEEPS ITS UNITS when the switch goes off afterwards (the size reads the read on the pick)
+        sports.DOGS_1117_FROM = None
+        assert [sports.units_for(p) for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"].count(0.5) == 1
+        # ... the switch off (None): the same board posted fresh - the gate is 4 everywhere, only the 4.5 posts
+        got, _ = run()
+        assert got == [("ncaab:rd2", False, 4.5, 1.0)], got
+        sports.DOGS_1117_FROM = keep_from
+        # ... two a night, the best reads first: a third road dog at 5.0 takes the read-3 dog's spot (never the reverse)
+        add(3)
+        got, _ = run()
+        assert got == [("ncaab:rd2", False, 4.5, 1.0), ("ncaab:rd3", False, 5.0, 2.0)], got
+    finally:
+        sports.DOGS_1117_FROM = keep_from
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
+def test_dogs_1117_the_college_football_dog_past_150_is_1u_stamped_at_the_post_nfl_and_hockey_long_dogs_stay_half():
+    """11/17 FABLE - THE UNDERDOG EDGE (results/studies/dogs_1117/s7_sizing.py): the 10/30 price split (the Dog 2u at
+    +100..+150, ½u past it) was set on a board that was nearly all hockey. On the football replay board 2018-26 the
+    COLLEGE FOOTBALL Dog past +150 went 18-17, +64.3% (2018-21 +65.7% / 2022-26 +62.8%, 6 of 7 seasons, placebo 16 of
+    2,000 against college dogs at that price) - 1u from the 11/17 games (not 2u: against its own kind it is as good 230
+    of 2,000 times). The NFL long Dog (4-12) and the hockey long Dog stay ½u. STAMPED when the Dog posts
+    (pk["long_1u"], mark_dogs_1117) - a Dog already up keeps its units."""
+    assert sports.DOGS_1117_FROM == "2026-11-17" and sports.NCAAF_DOG_LONG_UNITS_1117 == 1.0 and sports.NCAAF_DOG_LONG_LEAGUES == ("ncaaf",)
+    assert (sports.DOG_SHORT_MAX, sports.DOG_SHORT_UNITS, sports.DOG_LONG_UNITS) == (150, 2.0, 0.5)
+
+    def leg(odds=190, lg="ncaaf", start="2026-11-22T00:30Z"):
+        d = sports._dec(odds)
+        pm = 1 / d - 0.02
+        return {"league": lg, "market": "ml", "odds": odds, "dec": d, "p": pm + 0.01, "p_market": pm, "edge": (pm + 0.01) * d - 1,
+                "edge_own": (pm + 0.05) * d - 1, "dog_p": round(pm + 0.08, 4), "dog_score": 8.2, "team": "Tulane", "opp": "Navy",
+                "game_id": f"{lg}:t", "side": "home", "home": True, "start": start, "reasons": ["r"], "waiting": [], "trap": False}
+
+    def pk(l, day="2026-11-21", **kw):
+        return {"kind": "dog", "date": day, "status": "open", "lean": False, "legs": [l], "dec": l["dec"], "american": l["odds"], **kw}
+    # a NEW college football Dog past +150 on / after 11/17: stamped, 1u (was ½u); the check agrees
+    a = pk(leg())
+    assert sports.units_for(a) == 0.5 and sports.ncaaf_dog_long_1u(a["legs"][0], "2026-11-21")
+    assert sports.mark_dogs_1117([a], "2026-11-21") == [a] and a["long_1u"] is True
+    assert sports.units_for(a) == sports.dog_units(a) == 1.0 and sports.sizing_check([a]) == []
+    for o in (151, 250, 350):
+        x = pk(leg(odds=o))
+        assert sports.mark_dogs_1117([x], "2026-11-21") == [x] and sports.units_for(x) == 1.0, o
+    # the short college Dog keeps 2u; the NFL and hockey long Dogs keep ½u (stamped by mistake or not)
+    sh = pk(leg(odds=150))
+    assert sports.mark_dogs_1117([sh], "2026-11-21") == [] and sports.units_for(sh) == 2.0
+    for lg in ("nfl", "nhl"):
+        x = pk(leg(lg=lg))
+        assert sports.mark_dogs_1117([x], "2026-11-21") == [] and sports.units_for(x) == 0.5, lg
+        assert sports.units_for({**x, "long_1u": True}) == 0.5, lg
+    assert sports.units_for({**pk(leg(odds=140)), "long_1u": True}) == 2.0
+    # never a posted pick: only a Dog posted in THIS run; a Dog already up (no stamp) keeps ½u whatever its date
+    up = pk(leg())
+    assert sports.mark_dogs_1117([], "2026-11-21") == [] and sports.units_for(up) == 0.5
+    for kw in ({"owner_post": True, "units": 2.0}, {"lean": True}, {"units_posted": 0.5}, {"status": "waiting"}, {"kind": "play"},
+               {"max_play": True}):
+        x = pk(leg(), **kw)
+        assert sports.mark_dogs_1117([x], "2026-11-21") == [] and not x.get("long_1u"), kw
+    # dated by the board's Pacific day: an 11/16 board is not stamped
+    old = pk(leg(start="2026-11-17T01:00Z"), day="2026-11-16")
+    assert sports.mark_dogs_1117([old], "2026-11-16") == [] and sports.units_for(old) == 0.5
+    # graded: the units it was graded at, forever; the ⭐ raise still reads 1u at least (no double raise)
+    assert sports.units_for({**a, "status": "won", "units": 1.0}) == 1.0 and sports.units_for({**a, "best": True}) == 1.0
+    # the switch: None = no stamp on a new Dog; a Dog stamped before keeps its 1u
+    keep = sports.DOGS_1117_FROM
+    try:
+        sports.DOGS_1117_FROM = None
+        z = pk(leg())
+        assert sports.mark_dogs_1117([z], "2026-11-21") == [] and sports.units_for(z) == 0.5
+        assert sports.units_for(a) == 1.0
+    finally:
+        sports.DOGS_1117_FROM = keep
+    # wired where the board posts, before the max play and the ⭐
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    pb = src[src.index("def post_board("):src.index("MIDDAY_KINDS = (")]
+    assert "mark_dogs_1117(new, iso)" in pb and pb.index("mark_dogs_1117(new, iso)") < pb.index("best = mark_best(picks, iso)")
+    # the tracker: the long college Dog's cell (every gated college dog past +150) and the NFL road-dog LEAD (never a play)
+    import sports_leads as sl
+    keep_fn = (sports.good, sports.dog_score, sports.weighed_dog_beats, sports.fighting)
+    try:
+        sports.good = lambda c: True
+        assert sl.dogs_1117_tags(leg(), sports) == [sl.NCAAF_LONG_DOG_TAG]
+        assert sl.dogs_1117_tags(leg(odds=140), sports) == [] and sl.dogs_1117_tags(leg(start="2026-11-17T03:00Z"), sports) == []
+        assert sl.dogs_1117_tags({**leg(), "trap": True}, sports) == [] and sl.dogs_1117_tags({**leg(), "market": "spread"}, sports) == []
+        sports.good = lambda c: False
+        assert sl.dogs_1117_tags(leg(), sports) == []
+        sports.dog_score, sports.weighed_dog_beats, sports.fighting = (lambda c: 4.5), (lambda c: True), (lambda c: False)
+        road = {**leg(lg="nfl"), "home": False, "side": "away"}
+        assert sl.dogs_1117_tags(road, sports) == [sl.NFL_ROAD_DOG_LEAD_TAG]
+        assert sl.dogs_1117_tags(leg(lg="nfl"), sports) == [] and sl.dogs_1117_tags({**road, "neutral": True}, sports) == []   # home / neutral
+        sports.weighed_dog_beats = lambda c: False
+        assert sl.dogs_1117_tags(road, sports) == []
+        sports.weighed_dog_beats, sports.dog_score = (lambda c: True), (lambda c: 3.9)
+        assert sl.dogs_1117_tags(road, sports) == [] and sl.dogs_1117_tags({**road, "league": "nhl"}, sports) == []
+    finally:
+        sports.good, sports.dog_score, sports.weighed_dog_beats, sports.fighting = keep_fn
+    assert "lead" in sl.NFL_ROAD_DOG_LEAD_TAG and sl.DOGS_1117_LEADS_FROM == "2026-11-17"
+    # nothing else moved
+    assert (sports.MAX_PLAY_UNITS, sports.FLOOR_UNITS, sports.PLAY_UNITS, sports.NBA_FAV_UNITS, sports.BEST_MIN_UNITS) == (3.0, 0.5, 0.5, 1.0, 1.0)
+    assert (sports.DOG_GATE, sports.NHL_DOG_GATE, sports.NBA_DOG_GATE, sports.NCAAF_DOG_GATE, sports.STUDY_CAP) == (8.0, 6.0, 4.0, 4.0, 6)
+
+
 def _dog_slot_two_rules_on(fn):
     """(11/16) the 11/4 dog-slot tests check the slot's OLD 'never a trap / fighting' rules on dogs dated after 11/16 -
     they run with the two rules on (NCAAB_DOG_SLOT_OPEN_FROM None); the 11/16 rule has its own test (test_owner_1116_*)."""

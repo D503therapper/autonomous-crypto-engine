@@ -1,0 +1,454 @@
+R3: 50070 moneyline rows, 17110 dogs +100..+350, 2023-10-01 -> 2026-11-15
+
+===== A. EVERY DOG (the vig) - sport x price band x home / road
+  nhl: every dog                                             n  3598 1438-2160 40.0% (needs 41.3)   -3.9% z -1.60 | train   -6.6% (2348) | held   +1.1% (1250) | up 1/4 | 1pt worse   -6.2% | live 72-131 -17%
+     +100..+150                                              n  2339 1040-1299 44.5% (needs 45.0)   -1.3% z -0.56 | train   -4.3% (1417) | held   +3.5% ( 922) | up 2/4 | 1pt worse   -3.4% | live 56-82 -11%
+     +151..+250                                              n  1112  366-746  32.9% (needs 35.4)   -7.7% z -1.73 | train   -8.6% ( 813) | held   -5.2% ( 299) | up 0/4 | 1pt worse  -10.2% | live 15-44 -31%
+     +251..+350                                              n   147   32-115  21.8% (needs 25.7)  -17.7% z -1.09 | train  -19.2% ( 118) | held  -11.3% (  29) | up 0/4 | 1pt worse  -20.7% | live 1-5 -30%
+     home                                                    n  1274  541-733  42.5% (needs 42.6)   -0.2% z -0.08 | train   +0.1% ( 870) | held   -0.8% ( 404) | up 1/4 | 1pt worse   -2.5% | live 30-49 -13%
+     road                                                    n  2314  894-1420 38.6% (needs 40.5)   -5.8% z -1.88 | train  -10.2% (1471) | held   +1.8% ( 843) | up 1/4 | 1pt worse   -8.1% | live 42-80 -19%
+     neutral                                                 n    10    3-7    30.0% (needs 44.2)  -35.2% z -0.91 | train  -69.4% (   7) | held  +44.7% (   3) | up 1/3 | 1pt worse  -36.6% | live 0-2 -100%
+     home +100..+150                                         n   943  421-522  44.6% (needs 45.3)   -1.5% z -0.40 | train   -2.3% ( 607) | held   -0.1% ( 336) | up 2/4 | 1pt worse   -3.7% | live 24-38 -15%
+     road +100..+150                                         n  1388  616-772  44.4% (needs 44.9)   -1.0% z -0.37 | train   -5.4% ( 804) | held   +5.2% ( 584) | up 2/4 | 1pt worse   -3.1% | live 32-44 -7%
+     home +151..+250                                         n   309  114-195  36.9% (needs 35.4)   +3.7% z +0.53 | train   +4.1% ( 245) | held   +1.9% (  64) | up 2/4 | 1pt worse   +0.8% | live 6-11 -2%
+     road +151..+250                                         n   801  252-549  31.5% (needs 35.4)  -11.9% z -2.31 | train  -14.0% ( 567) | held   -6.7% ( 234) | up 0/4 | 1pt worse  -14.3% | live 9-32 -41%
+     home +251..+350                                         n    22    6-16   27.3% (needs 25.9)   +2.1% z +0.15 | train  +24.8% (  18) | held -100.0% (   4) | up 2/3 | 1pt worse   -1.6% | live 0-0 +0%
+     road +251..+350                                         n   125   26-99   20.8% (needs 25.7)  -21.2% z -1.24 | train  -27.1% ( 100) | held   +2.8% (  25) | up 1/4 | 1pt worse  -24.0% | live 1-4 -16%
+  nba: every dog                                             n  2855 1005-1850 35.2% (needs 36.7)   -4.5% z -1.69 | train   -4.6% (1909) | held   -4.3% ( 946) | up 0/3 | 1pt worse   -7.2% | live 45-101 -17%
+     +100..+150                                              n  1130  484-646  42.8% (needs 44.7)   -4.5% z -1.29 | train   -6.4% ( 747) | held   -0.7% ( 383) | up 0/3 | 1pt worse   -6.6% | live 23-43 -21%
+     +151..+250                                              n  1193  392-801  32.9% (needs 34.3)   -5.1% z -1.03 | train   -5.6% ( 813) | held   -4.2% ( 380) | up 0/3 | 1pt worse   -7.8% | live 19-36 +4%
+     +251..+350                                              n   532  129-403  24.2% (needs 25.1)   -3.2% z -0.46 | train   +1.4% ( 349) | held  -12.0% ( 183) | up 1/3 | 1pt worse   -6.9% | live 3-22 -55%
+     home                                                    n  1176  426-750  36.2% (needs 37.6)   -4.6% z -1.00 | train   -7.8% ( 766) | held   +1.3% ( 410) | up 2/3 | 1pt worse   -7.2% | live 18-45 -22%
+     road                                                    n  1666  576-1090 34.6% (needs 36.0)   -4.1% z -1.26 | train   -2.2% (1135) | held   -8.2% ( 531) | up 0/3 | 1pt worse   -6.8% | live 27-55 -13%
+     neutral                                                 n    13    3-10   23.1% (needs 40.5)  -45.0% z -1.28 | train  -38.4% (   8) | held  -55.6% (   5) | up 0/3 | 1pt worse  -46.3% | live 0-1 -100%
+     home +100..+150                                         n   513  230-283  44.8% (needs 45.0)   -0.6% z -0.06 | train   -2.0% ( 323) | held   +1.7% ( 190) | up 2/3 | 1pt worse   -2.8% | live 9-20 -29%
+     road +100..+150                                         n   608  252-356  41.4% (needs 44.6)   -7.0% z -1.55 | train   -9.0% ( 418) | held   -2.8% ( 190) | up 0/3 | 1pt worse   -9.1% | live 14-23 -14%
+     home +151..+250                                         n   478  152-326  31.8% (needs 34.6)   -8.9% z -1.28 | train  -15.8% ( 321) | held   +5.2% ( 157) | up 1/3 | 1pt worse  -11.5% | live 6-14 -13%
+     road +151..+250                                         n   711  239-472  33.6% (needs 34.1)   -2.5% z -0.26 | train   +1.0% ( 490) | held  -10.0% ( 221) | up 1/3 | 1pt worse   -5.2% | live 13-22 +13%
+     home +251..+350                                         n   185   44-141  23.8% (needs 25.1)   -4.8% z -0.42 | train   -2.3% ( 122) | held   -9.6% (  63) | up 1/3 | 1pt worse   -8.5% | live 3-11 -20%
+     road +251..+350                                         n   347   85-262  24.5% (needs 25.1)   -2.4% z -0.26 | train   +3.4% ( 227) | held  -13.2% ( 120) | up 1/3 | 1pt worse   -6.1% | live 0-10 -100%
+  nfl: every dog                                             n   717  248-469  34.6% (needs 37.4)   -5.6% z -1.57 | train  -13.9% ( 434) | held   +7.1% ( 283) | up 2/4 | 1pt worse   -8.3% | live 13-39 -36%
+     +100..+150                                              n   334  134-200  40.1% (needs 44.4)  -10.1% z -1.56 | train  -18.9% ( 212) | held   +5.3% ( 122) | up 2/4 | 1pt worse  -12.0% | live 8-13 -13%
+     +151..+250                                              n   262   77-185  29.4% (needs 34.1)  -13.6% z -1.62 | train  -20.2% ( 153) | held   -4.3% ( 109) | up 1/4 | 1pt worse  -16.1% | live 4-19 -51%
+     +251..+350                                              n   121   37-84   30.6% (needs 25.2)  +24.0% z +1.36 | train  +15.4% (  69) | held  +35.5% (  52) | up 4/4 | 1pt worse  +19.2% | live 1-7 -54%
+     home                                                    n   288  102-186  35.4% (needs 38.5)   -6.5% z -1.09 | train  -14.6% ( 172) | held   +5.6% ( 116) | up 3/4 | 1pt worse   -9.0% | live 4-20 -60%
+     road                                                    n   422  142-280  33.6% (needs 36.5)   -5.6% z -1.25 | train  -14.1% ( 259) | held   +7.7% ( 163) | up 2/4 | 1pt worse   -8.4% | live 9-19 -16%
+     neutral                                                 n     7    4-3    57.1% (needs 42.9)  +31.9% z +0.77 | train  +37.3% (   3) | held  +27.8% (   4) | up 4/4 | 1pt worse  +28.8% | live 0-0 +0%
+     home +100..+150                                         n   147   58-89   39.5% (needs 44.7)  -12.6% z -1.27 | train  -21.9% (  94) | held   +3.8% (  53) | up 1/4 | 1pt worse  -14.5% | live 3-8 -36%
+     road +100..+150                                         n   182   73-109  40.1% (needs 44.1)   -9.1% z -1.08 | train  -17.9% ( 115) | held   +6.0% (  67) | up 1/4 | 1pt worse  -11.1% | live 5-5 +12%
+     home +151..+250                                         n   103   32-71   31.1% (needs 34.5)  -10.3% z -0.73 | train  -12.0% (  57) | held   -8.1% (  46) | up 1/4 | 1pt worse  -12.8% | live 1-10 -76%
+     road +151..+250                                         n   157   44-113  28.0% (needs 33.9)  -16.4% z -1.55 | train  -25.1% (  96) | held   -2.8% (  61) | up 1/4 | 1pt worse  -18.9% | live 3-9 -27%
+     home +251..+350                                         n    38   12-26   31.6% (needs 25.6)  +27.8% z +0.85 | train  +11.2% (  21) | held  +48.2% (  17) | up 3/4 | 1pt worse  +22.8% | live 0-2 -100%
+     road +251..+350                                         n    83   25-58   30.1% (needs 25.1)  +22.3% z +1.06 | train  +17.2% (  48) | held  +29.3% (  35) | up 4/4 | 1pt worse  +17.6% | live 1-5 -38%
+  ncaaf: every dog                                           n  1345  489-856  36.4% (needs 36.3)   +0.7% z +0.05 | train   +3.2% ( 696) | held   -2.0% ( 649) | up 3/4 | 1pt worse   -2.2% | live 140-244 +5%
+     +100..+150                                              n   515  232-283  45.0% (needs 44.8)   +0.5% z +0.10 | train   +5.1% ( 276) | held   -4.9% ( 239) | up 2/4 | 1pt worse   -1.7% | live 48-94 -25%
+     +151..+250                                              n   537  178-359  33.1% (needs 34.1)   -2.8% z -0.46 | train   -5.6% ( 272) | held   +0.1% ( 265) | up 2/4 | 1pt worse   -5.6% | live 65-89 +24%
+     +251..+350                                              n   293   79-214  27.0% (needs 25.3)   +7.4% z +0.66 | train  +15.8% ( 148) | held   -1.2% ( 145) | up 2/4 | 1pt worse   +3.2% | live 27-61 +20%
+     home                                                    n   527  183-344  34.7% (needs 36.3)   -3.1% z -0.74 | train   -2.7% ( 275) | held   -3.6% ( 252) | up 2/4 | 1pt worse   -5.9% | live 66-107 +13%
+     road                                                    n   705  255-450  36.2% (needs 36.2)   -0.6% z -0.02 | train   +1.6% ( 352) | held   -2.7% ( 353) | up 1/4 | 1pt worse   -3.4% | live 74-133 +1%
+     neutral                                                 n   113   51-62   45.1% (needs 36.9)  +25.9% z +1.83 | train  +34.8% (  69) | held  +11.9% (  44) | up 4/4 | 1pt worse  +22.3% | live 0-4 -100%
+     home +100..+150                                         n   191   79-112  41.4% (needs 45.1)   -8.4% z -1.04 | train   +1.6% ( 100) | held  -19.4% (  91) | up 1/4 | 1pt worse  -10.4% | live 19-46 -37%
+     road +100..+150                                         n   278  131-147  47.1% (needs 44.8)   +5.1% z +0.79 | train   +7.2% ( 148) | held   +2.6% ( 130) | up 3/4 | 1pt worse   +2.8% | live 29-46 -12%
+     home +151..+250                                         n   229   74-155  32.3% (needs 34.1)   -5.0% z -0.56 | train   -9.8% ( 114) | held   -0.2% ( 115) | up 1/4 | 1pt worse   -7.7% | live 33-41 +34%
+     road +151..+250                                         n   263   84-179  31.9% (needs 34.0)   -5.7% z -0.70 | train  -13.9% ( 129) | held   +2.2% ( 134) | up 1/4 | 1pt worse   -8.4% | live 32-47 +17%
+     home +251..+350                                         n   107   30-77   28.0% (needs 25.2)  +10.5% z +0.67 | train   +3.8% (  61) | held  +19.4% (  46) | up 3/4 | 1pt worse   +6.3% | live 14-20 +63%
+     road +251..+350                                         n   164   40-124  24.4% (needs 25.3)   -1.9% z -0.26 | train  +17.1% (  75) | held  -17.8% (  89) | up 2/4 | 1pt worse   -5.7% | live 13-40 -6%
+  ncaab: every dog                                           n  7574 2635-4939 34.8% (needs 36.8)   -6.1% z -3.72 | train   -7.5% (5132) | held   -3.3% (2442) | up 0/3 | 1pt worse   -8.7% | live 98-138 +13%
+     +100..+150                                              n  3062 1332-1730 43.5% (needs 44.9)   -3.2% z -1.51 | train   -4.7% (2076) | held   +0.0% ( 986) | up 1/3 | 1pt worse   -5.3% | live 56-48 +19%
+     +151..+250                                              n  3117  983-2134 31.5% (needs 34.2)   -7.9% z -3.09 | train   -9.2% (2125) | held   -5.1% ( 992) | up 0/3 | 1pt worse  -10.6% | live 22-53 -15%
+     +251..+350                                              n  1395  320-1075 22.9% (needs 25.2)   -8.7% z -1.93 | train   -9.7% ( 931) | held   -6.5% ( 464) | up 0/3 | 1pt worse  -12.2% | live 20-37 +40%
+     home                                                    n  2254  818-1436 36.3% (needs 38.3)   -6.4% z -1.98 | train   -7.9% (1493) | held   -3.3% ( 761) | up 0/3 | 1pt worse   -8.8% | live 34-35 +13%
+     road                                                    n  4321 1453-2868 33.6% (needs 36.0)   -6.6% z -3.32 | train   -8.0% (2966) | held   -3.6% (1355) | up 0/3 | 1pt worse   -9.3% | live 56-78 +25%
+     neutral                                                 n   999  364-635  36.4% (needs 37.0)   -3.4% z -0.39 | train   -4.0% ( 673) | held   -2.2% ( 326) | up 1/3 | 1pt worse   -6.0% | live 8-25 -34%
+     home +100..+150                                         n  1079  485-594  44.9% (needs 45.2)   -0.4% z -0.19 | train   -0.9% ( 719) | held   +0.6% ( 360) | up 2/3 | 1pt worse   -2.5% | live 29-18 +33%
+     road +100..+150                                         n  1582  652-930  41.2% (needs 44.7)   -8.1% z -2.76 | train   -9.7% (1093) | held   -4.7% ( 489) | up 0/3 | 1pt worse  -10.1% | live 24-18 +29%
+     home +151..+250                                         n   839  262-577  31.2% (needs 34.5)  -10.0% z -2.00 | train  -13.8% ( 566) | held   -2.2% ( 273) | up 0/3 | 1pt worse  -12.5% | live 4-12 -25%
+     road +151..+250                                         n  1829  584-1245 31.9% (needs 34.0)   -6.3% z -1.86 | train   -7.2% (1248) | held   -4.5% ( 581) | up 0/3 | 1pt worse   -9.0% | live 14-31 -10%
+     home +251..+350                                         n   336   71-265  21.1% (needs 25.4)  -16.4% z -1.80 | train  -16.1% ( 208) | held  -17.0% ( 128) | up 1/3 | 1pt worse  -19.6% | live 1-5 -40%
+     road +251..+350                                         n   910  217-693  23.8% (needs 25.1)   -4.7% z -0.86 | train   -6.9% ( 625) | held   +0.1% ( 285) | up 1/3 | 1pt worse   -8.4% | live 18-29 +55%
+
+===== B. THE BOARD'S DOG PLAYS (kind x sport), flat 1u and at today's units
+  dog / nhl                                                  n   240  113-127  47.1% (needs 43.9)   +7.6% z +1.00 | train   +3.7% ( 150) | held  +14.1% (  90) | up 2/3 | 1pt worse   +5.2% | live 8-5 +35%
+        placebo vs every nhl dog: 134 of 2,000
+          at today's units ([0.5, 2.0])                    | train  +12.3u/246.0u  +5.0% | held  +18.7u/163.5u +11.4% | ALL  +31.0u/ 409.5u  +7.6% worst -23.2u up 2/3 | live 8-5 +10.7u
+        +100..+150                                           n   193   94-99   48.7% (needs 45.5)   +7.5% z +0.91 | train   +5.6% ( 114) | held  +10.4% (  79) | up 3/3 | 1pt worse   +5.2% | live 8-4 +47%
+        +151..+250                                           n    47   19-28   40.4% (needs 37.5)   +7.8% z +0.41 | train   -2.3% (  36) | held  +40.9% (  11) | up 2/3 | 1pt worse   +5.0% | live 0-1 -100%
+        +251..+350                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        home                                                 n    28   14-14   50.0% (needs 45.2)  +12.8% z +0.52 | train   -3.1% (  19) | held  +46.2% (   9) | up 1/2 | 1pt worse  +10.2% | live 3-3 +12%
+        road                                                 n   210   98-112  46.7% (needs 43.7)   +6.9% z +0.87 | train   +5.5% ( 130) | held   +9.2% (  80) | up 2/3 | 1pt worse   +4.5% | live 5-2 +56%
+  nbafloor / nba                                             n   165   81-84   49.1% (needs 41.5)  +19.0% z +2.00 | train  +25.6% ( 116) | held   +3.4% (  49) | up 3/3 | 1pt worse  +16.2% | live 4-11 -38%
+        placebo vs every nba dog: 25 of 2,000
+          at today's units ([0.5])                         | train  +14.9u/ 58.0u +25.6% | held   +0.8u/ 24.5u  +3.4% | ALL  +15.7u/  82.5u +19.0% worst  -3.6u up 3/3 | live 4-11 -2.9u
+        +100..+150                                           n    97   51-46   52.6% (needs 44.5)  +18.6% z +1.59 | train  +21.0% (  67) | held  +13.4% (  30) | up 3/3 | 1pt worse  +16.0% | live 4-11 -38%
+        +151..+250                                           n    68   30-38   44.1% (needs 37.0)  +19.5% z +1.21 | train  +31.9% (  49) | held  -12.4% (  19) | up 2/3 | 1pt worse  +16.4% | live 0-0 +0%
+        +251..+350                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        home                                                 n    58   27-31   46.6% (needs 42.1)  +10.3% z +0.68 | train  +21.4% (  37) | held   -9.0% (  21) | up 1/3 | 1pt worse   +7.8% | live 2-6 -39%
+        road                                                 n   105   54-51   51.4% (needs 41.1)  +26.1% z +2.16 | train  +29.2% (  78) | held  +16.9% (  27) | up 3/3 | 1pt worse  +23.0% | live 2-5 -37%
+  ncaabplay / ncaab                                          n   105   56-49   53.3% (needs 41.6)  +28.5% z +2.46 | train  +31.8% (  79) | held  +18.5% (  26) | up 3/3 | 1pt worse  +25.3% | live 0-0 +0%
+        placebo vs every ncaab dog: 18 of 2,000
+          at today's units ([0.5])                         | train  +12.6u/ 39.5u +31.8% | held   +2.4u/ 13.0u +18.5% | ALL  +15.0u/  52.5u +28.5% worst  -3.3u up 3/3 | live 0-0 +0.0u
+        +100..+150                                           n    71   43-28   60.6% (needs 45.5)  +32.3% z +2.56 | train  +33.5% (  56) | held  +27.8% (  15) | up 3/3 | 1pt worse  +29.5% | live 0-0 +0%
+        +151..+250                                           n    28   10-18   35.7% (needs 35.3)   +4.3% z +0.05 | train   +3.4% (  17) | held   +5.7% (  11) | up 2/3 | 1pt worse   +1.3% | live 0-0 +0%
+        +251..+350                                           n     6    3-3    50.0% (needs 25.3)  +95.8% z +1.39 | train  +95.8% (   6) | held   +0.0% (   0) | up 2/2 | 1pt worse  +88.4% | live 0-0 +0%
+        home                                                 n     4    4-0    100.0% (needs 38.6) +183.2% z +2.58 | train +181.7% (   3) | held +188.0% (   1) | up 3/3 | 1pt worse +174.7% | live 0-0 +0%
+        road                                                 n    84   44-40   52.4% (needs 41.9)  +24.9% z +1.96 | train  +27.6% (  62) | held  +17.2% (  22) | up 3/3 | 1pt worse  +21.9% | live 0-0 +0%
+  floor / nhl                                                n    79   32-47   40.5% (needs 43.5)   -5.5% z -0.54 | train  -14.7% (  54) | held  +14.5% (  25) | up 1/4 | 1pt worse   -7.7% | live 2-4 -9%
+        placebo vs every nhl dog: 1051 of 2,000
+          at today's units ([0.5])                         | train   -4.0u/ 27.0u -14.7% | held   +1.8u/ 12.5u +14.5% | ALL   -2.2u/  39.5u  -5.5% worst  -7.0u up 1/4 | live 2-4 -0.3u
+        +100..+150                                           n    61   21-40   34.4% (needs 45.4)  -25.6% z -1.72 | train  -22.5% (  42) | held  -32.7% (  19) | up 0/4 | 1pt worse  -27.2% | live 0-4 -100%
+        +151..+250                                           n    18   11-7    61.1% (needs 37.2)  +62.8% z +2.10 | train  +12.2% (  12) | held +163.8% (   6) | up 3/4 | 1pt worse  +58.5% | live 2-0 +172%
+        +251..+350                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        home                                                 n    29   14-15   48.3% (needs 45.0)   +6.4% z +0.36 | train  -14.0% (  20) | held  +51.9% (   9) | up 1/4 | 1pt worse   +4.1% | live 1-1 +43%
+        road                                                 n    49   18-31   36.7% (needs 42.6)  -10.6% z -0.84 | train  -12.6% (  33) | held   -6.6% (  16) | up 0/4 | 1pt worse  -12.8% | live 1-3 -35%
+  dogplay / nhl                                              n    71   42-29   59.2% (needs 43.5)  +34.1% z +2.67 | train  +33.1% (  42) | held  +35.6% (  29) | up 4/4 | 1pt worse  +31.1% | live 4-1 +74%
+        placebo vs every nhl dog: 9 of 2,000
+          at today's units ([0.5])                         | train   +7.0u/ 21.0u +33.1% | held   +5.2u/ 14.5u +35.6% | ALL  +12.1u/  35.5u +34.1% worst  -2.0u up 4/4 | live 4-1 +1.9u
+        +100..+150                                           n    54   34-20   63.0% (needs 45.8)  +36.9% z +2.54 | train  +37.5% (  27) | held  +36.2% (  27) | up 3/4 | 1pt worse  +33.9% | live 4-0 +118%
+        +151..+250                                           n    17    8-9    47.1% (needs 36.5)  +25.4% z +0.91 | train  +25.2% (  15) | held  +27.0% (   2) | up 3/3 | 1pt worse  +22.1% | live 0-1 -100%
+        +251..+350                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        home                                                 n     6    4-2    66.7% (needs 43.1)  +53.8% z +1.17 | train  +53.7% (   3) | held  +54.0% (   3) | up 3/3 | 1pt worse  +50.4% | live 0-0 +0%
+        road                                                 n    65   38-27   58.5% (needs 43.6)  +32.3% z +2.43 | train  +31.5% (  39) | held  +33.5% (  26) | up 3/3 | 1pt worse  +29.3% | live 4-1 +74%
+  floor / nfl                                                n    62   23-39   37.1% (needs 38.8)   -1.1% z -0.27 | train  -18.1% (  39) | held  +27.7% (  23) | up 1/4 | 1pt worse   -3.8% | live 1-2 +13%
+        placebo vs every nfl dog: 774 of 2,000
+          at today's units ([0.5])                         | train   -3.5u/ 19.5u -18.1% | held   +3.2u/ 11.5u +27.7% | ALL   -0.3u/  31.0u  -1.1% worst  -4.0u up 1/4 | live 1-2 +0.2u
+        +100..+150                                           n    34   13-21   38.2% (needs 44.7)  -15.9% z -0.76 | train  -24.6% (  20) | held   -3.4% (  14) | up 1/4 | 1pt worse  -17.7% | live 0-1 -100%
+        +151..+250                                           n    21    8-13   38.1% (needs 33.7)  +16.6% z +0.42 | train   -2.5% (  13) | held  +47.6% (   8) | up 3/4 | 1pt worse  +13.1% | live 1-1 +70%
+        +251..+350                                           n     7    2-5    28.6% (needs 25.2)  +17.4% z +0.21 | train  -30.0% (   6) | held +302.0% (   1) | up 2/3 | 1pt worse  +12.8% | live 0-0 +0%
+        home                                                 n     2    0-2     0.0% (needs 31.7) -100.0% z -0.97 | train -100.0% (   2) | held   +0.0% (   0) | up 0/1 | 1pt worse -100.0% | live 0-0 +0%
+        road                                                 n    57   21-36   36.8% (needs 38.8)   -0.7% z -0.31 | train  -17.0% (  36) | held  +27.1% (  21) | up 1/4 | 1pt worse   -3.5% | live 1-2 +13%
+  gap / ncaab                                                n    34   17-17   50.0% (needs 44.1)  +11.3% z +0.70 | train   +0.3% (  22) | held  +31.4% (  12) | up 2/3 | 1pt worse   +8.8% | live 0-0 +0%
+        placebo vs every ncaab dog: 436 of 2,000
+          at today's units ([1.0, 2.0])                    | train   +1.9u/ 29.0u  +6.7% | held   +6.7u/ 16.0u +41.6% | ALL   +8.6u/  45.0u +19.1% worst  -5.0u up 2/3 | live 0-0 +0.0u
+        +100..+150                                           n    30   16-14   53.3% (needs 44.9)  +17.4% z +0.93 | train  +16.1% (  19) | held  +19.7% (  11) | up 3/3 | 1pt worse  +14.9% | live 0-0 +0%
+        +151..+250                                           n     4    1-3    25.0% (needs 37.8)  -35.0% z -0.53 | train -100.0% (   3) | held +160.0% (   1) | up 1/2 | 1pt worse  -36.6% | live 0-0 +0%
+        +251..+350                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        home                                                 n    13    5-8    38.5% (needs 42.5)  -12.3% z -0.30 | train   +1.6% (   9) | held  -43.5% (   4) | up 1/3 | 1pt worse  -14.3% | live 0-0 +0%
+        road                                                 n    15    8-7    53.3% (needs 45.6)  +15.5% z +0.60 | train   -1.3% (  11) | held  +61.5% (   4) | up 2/3 | 1pt worse  +13.0% | live 0-0 +0%
+  dog / ncaaf                                                n    16   10-6    62.5% (needs 43.2)  +47.9% z +1.57 | train   +0.0% (   0) | held  +47.9% (  16) | up 2/2 | 1pt worse  +44.4% | live 3-4 +15%
+        placebo vs every ncaaf dog: 185 of 2,000
+          at today's units ([0.5, 2.0])                    | train   +0.0u/  0.0u  +0.0% | held  +11.9u/ 26.0u +45.7% | ALL  +11.9u/  26.0u +45.7% worst  -4.5u up 2/2 | live 3-4 -0.8u
+  dog / nba                                                  n    18   10-8    55.6% (needs 41.7)  +31.3% z +1.20 | train  +10.6% (  13) | held  +85.0% (   5) | up 3/3 | 1pt worse  +28.2% | live 1-0 +120%
+        placebo vs every nba dog: 249 of 2,000
+          at today's units ([0.5])                         | train   +0.7u/  6.5u +10.6% | held   +2.1u/  2.5u +85.0% | ALL   +2.8u/   9.0u +31.3% worst  -2.0u up 3/3 | live 1-0 +0.6u
+  floor / ncaab                                              n    11    5-6    45.5% (needs 45.7)   +1.6% z -0.02 | train  -21.3% (   9) | held +105.0% (   2) | up 1/3 | 1pt worse   -0.6% | live 0-0 +0%
+        placebo vs every ncaab dog: 831 of 2,000
+          at today's units ([0.5])                         | train   -1.0u/  4.5u -21.3% | held   +1.1u/  1.0u +105.0% | ALL   +0.1u/   5.5u  +1.6% worst  -1.2u up 1/3 | live 0-0 +0.0u
+  floor / ncaaf                                              n     9    3-6    33.3% (needs 40.4)  -28.0% z -0.44 | train  -13.2% (   5) | held  -46.5% (   4) | up 1/3 | 1pt worse  -29.5% | live 0-1 -100%
+        placebo vs every ncaaf dog: None of 2,000
+          at today's units ([0.5])                         | train   -0.3u/  2.5u -13.2% | held   -0.9u/  2.0u -46.5% | ALL   -1.3u/   4.5u -28.0% worst  -2.0u up 1/3 | live 0-1 -0.5u
+  floor / nba                                                n     4    1-3    25.0% (needs 39.8)  -42.5% z -0.61 | train  +15.0% (   2) | held -100.0% (   2) | up 1/3 | 1pt worse  -43.8% | live 0-0 +0%
+        placebo vs every nba dog: None of 2,000
+          at today's units ([0.5])                         | train   +0.1u/  1.0u +15.0% | held   -1.0u/  1.0u -100.0% | ALL   -0.9u/   2.0u -42.5% worst  -1.5u up 1/3 | live 0-0 +0.0u
+  dog / nfl                                                  n     3    1-2    33.3% (needs 39.4)  -20.7% z -0.22 | train  -20.7% (   3) | held   +0.0% (   0) | up 1/2 | 1pt worse  -22.5% | live 0-0 +0%
+        placebo vs every nfl dog: None of 2,000
+          at today's units ([0.5, 2.0])                    | train   +0.3u/  4.5u  +5.8% | held   +0.0u/  0.0u  +0.0% | ALL   +0.3u/   4.5u  +5.8% worst  -2.0u up 1/2 | live 0-0 +0.0u
+  EVERY POSTED DOG PLAY                                      n   817  394-423  48.2% (needs 42.5)  +13.6% z +3.30 | train  +10.8% ( 534) | held  +18.9% ( 283) | up 3/4 | 1pt worse  +10.9% | live 23-28 +7%
+  EVERY POSTED DOG PLAY at today's units                   | train  +40.9u/459.0u  +8.9% | held  +51.8u/288.0u +18.0% | ALL  +92.7u/ 747.0u +12.4% worst -17.1u up 4/4 | live 23-28 +8.9u
+     nhl                                                   | train  +15.3u/294.0u  +5.2% | held  +25.7u/190.5u +13.5% | ALL  +40.9u/ 484.5u  +8.4% worst -19.4u up 3/4 | live 14-10 +12.3u
+     nba                                                   | train  +15.7u/ 65.5u +24.0% | held   +2.0u/ 28.0u  +7.0% | ALL  +17.6u/  93.5u +18.9% worst  -4.5u up 3/3 | live 5-11 -2.3u
+     nfl                                                   | train   -3.3u/ 24.0u -13.6% | held   +3.2u/ 11.5u +27.7% | ALL   -0.1u/  35.5u  -0.2% worst  -4.0u up 1/4 | live 1-2 +0.2u
+     ncaaf                                                 | train   -0.3u/  2.5u -13.2% | held  +10.9u/ 28.0u +39.1% | ALL  +10.6u/  30.5u +34.8% worst  -4.5u up 3/4 | live 3-5 -1.3u
+     ncaab                                                 | train  +13.5u/ 73.0u +18.5% | held  +10.1u/ 30.0u +33.7% | ALL  +23.6u/ 103.0u +22.9% worst  -5.7u up 3/3 | live 0-0 +0.0u
+     posted +100..+150                                       n   583  297-286  50.9% (needs 45.3)  +12.4% z +2.77 | train  +11.3% ( 367) | held  +14.3% ( 216) | up 3/4 | 1pt worse   +9.9% | live 18-23 -3%
+     posted +100..+150 at today's units                    | train  +34.2u/374.0u  +9.1% | held  +38.1u/253.0u +15.1% | ALL  +72.3u/ 627.0u +11.5% worst -15.7u up 4/4 | live 18-23 +6.6u
+     posted +151..+250                                       n   219   92-127  42.0% (needs 36.5)  +15.5% z +1.68 | train   +8.7% ( 154) | held  +31.7% (  65) | up 4/4 | 1pt worse  +12.4% | live 5-3 +84%
+     posted +151..+250 at today's units                    | train   +5.2u/ 78.5u  +6.7% | held  +12.7u/ 34.0u +37.3% | ALL  +17.9u/ 112.5u +15.9% worst  -6.8u up 4/4 | live 5-3 +3.4u
+     posted +251..+350                                       n    15    5-10   33.3% (needs 24.9)  +33.1% z +0.75 | train  +22.7% (  13) | held +101.0% (   2) | up 2/3 | 1pt worse  +28.0% | live 0-2 -100%
+     posted +251..+350 at today's units                    | train   +1.5u/  6.5u +22.7% | held   +1.0u/  1.0u +101.0% | ALL   +2.5u/   7.5u +33.1% worst  -2.2u up 2/3 | live 0-2 -1.0u
+     posted home                                             n   173   86-87   49.7% (needs 42.9)  +16.2% z +1.82 | train  +11.5% ( 109) | held  +24.0% (  64) | up 4/4 | 1pt worse  +13.5% | live 9-14 -2%
+     posted road                                             n   611  293-318  48.0% (needs 42.5)  +13.3% z +2.76 | train  +11.5% ( 403) | held  +16.8% ( 208) | up 3/4 | 1pt worse  +10.7% | live 14-14 +15%
+     posted nhl home                                         n    63   32-31   50.8% (needs 44.9)  +13.7% z +0.95 | train   -4.3% (  42) | held  +49.8% (  21) | up 2/4 | 1pt worse  +11.2% | live 4-4 +19%
+     posted nhl road                                         n   324  154-170  47.5% (needs 43.5)   +9.3% z +1.46 | train   +7.5% ( 202) | held  +12.3% ( 122) | up 3/4 | 1pt worse   +6.9% | live 10-6 +39%
+     posted nba home                                         n    68   32-36   47.1% (needs 41.9)  +11.7% z +0.86 | train  +21.4% (  45) | held   -7.3% (  23) | up 1/3 | 1pt worse   +9.1% | live 2-6 -39%
+     posted nba road                                         n   117   60-57   51.3% (needs 41.2)  +25.1% z +2.23 | train  +26.7% (  85) | held  +20.6% (  32) | up 3/3 | 1pt worse  +22.0% | live 3-5 -17%
+     posted nfl home                                         n     4    1-3    25.0% (needs 37.0)  -40.5% z -0.50 | train  -40.5% (   4) | held   +0.0% (   0) | up 0/2 | 1pt worse  -41.9% | live 0-0 +0%
+     posted nfl road                                         n    58   21-37   36.2% (needs 38.7)   -2.4% z -0.40 | train  -19.2% (  37) | held  +27.1% (  21) | up 1/4 | 1pt worse   -5.1% | live 1-2 +13%
+     posted ncaaf home                                       n    19   10-9    52.6% (needs 42.3)  +23.7% z +0.92 | train  -48.8% (   4) | held  +43.1% (  15) | up 2/4 | 1pt worse  +20.8% | live 3-4 +15%
+     posted ncaaf road                                       n     6    3-3    50.0% (needs 42.1)  +10.5% z +0.40 | train +129.0% (   1) | held  -13.2% (   5) | up 2/3 | 1pt worse   +8.1% | live 0-1 -100%
+     posted ncaab home                                       n    19   11-8    57.9% (needs 41.8)  +44.4% z +1.44 | train  +59.2% (  14) | held   +2.8% (   5) | up 3/3 | 1pt worse  +40.7% | live 0-0 +0%
+     posted ncaab road                                       n   106   55-51   51.9% (needs 42.8)  +21.4% z +1.91 | train  +18.4% (  78) | held  +29.8% (  28) | up 3/3 | 1pt worse  +18.6% | live 0-0 +0%
+
+===== C. THE DOG SCORE, THE OWN READ, THE HONEST WEIGHED READ - every dog, by sport
+-- nhl
+     dog score -99..-4                                       n  1402  459-943  32.7% (needs 39.1)  -17.2% z -4.91 | train  -19.6% ( 912) | held  -12.8% ( 490) | up 0/4 | 1pt worse  -19.3% | live 29-73 -31%
+     dog score -4..-2                                        n   448  186-262  41.5% (needs 41.7)   +1.0% z -0.07 | train   +1.2% ( 294) | held   +0.5% ( 154) | up 2/4 | 1pt worse   -1.5% | live 10-12 +3%
+     dog score -2..0                                         n   436  182-254  41.7% (needs 42.2)   -0.7% z -0.21 | train   +2.6% ( 281) | held   -6.6% ( 155) | up 2/4 | 1pt worse   -3.0% | live 8-11 -6%
+     dog score 0..2                                          n   401  171-230  42.6% (needs 42.8)   -1.0% z -0.07 | train  -10.7% ( 252) | held  +15.3% ( 149) | up 1/4 | 1pt worse   -3.3% | live 4-11 -35%
+     dog score 2..4                                          n   287  131-156  45.6% (needs 42.9)   +6.1% z +0.95 | train   -0.6% ( 205) | held  +22.7% (  82) | up 3/4 | 1pt worse   +3.6% | live 5-13 -32%
+     dog score 4..6                                          n   296  143-153  48.3% (needs 43.2)  +11.7% z +1.78 | train   +8.2% ( 201) | held  +19.1% (  95) | up 3/4 | 1pt worse   +9.2% | live 4-4 +15%
+     dog score 6..8                                          n   291  145-146  49.8% (needs 43.6)  +14.2% z +2.16 | train  +13.0% ( 184) | held  +16.2% ( 107) | up 3/4 | 1pt worse  +11.6% | live 9-6 +30%
+     dog score 8..10                                         n    34   19-15   55.9% (needs 45.1)  +24.9% z +1.26 | train   +5.4% (  19) | held  +49.5% (  15) | up 3/3 | 1pt worse  +22.1% | live 3-1 +62%
+     dog score 10..99                                        n     3    2-1    66.7% (needs 48.8)  +36.7% z +0.62 | train   +0.0% (   0) | held  +36.7% (   3) | up 1/1 | 1pt worse  +33.9% | live 0-0 +0%
+   the STUDY part alone (score - its own-read term)
+     study part -99..-4                                      n  1212  382-830  31.5% (needs 39.0)  -20.9% z -5.42 | train  -23.1% ( 795) | held  -16.7% ( 417) | up 0/4 | 1pt worse  -22.9% | live 26-66 -32%
+     study part -4..-2                                       n   507  207-300  40.8% (needs 41.3)   +0.6% z -0.20 | train   +1.7% ( 324) | held   -1.3% ( 183) | up 2/4 | 1pt worse   -1.9% | live 11-12 +13%
+     study part -2..0                                        n   445  189-256  42.5% (needs 41.6)   +1.9% z +0.35 | train   +1.0% ( 291) | held   +3.7% ( 154) | up 2/4 | 1pt worse   -0.5% | live 6-14 -31%
+     study part 0..0.01                                      n   200   81-119  40.5% (needs 42.6)   -3.9% z -0.61 | train  -14.3% ( 124) | held  +13.0% (  76) | up 2/4 | 1pt worse   -6.2% | live 5-5 +13%
+     study part 0.01..2                                      n   274  113-161  41.2% (needs 42.3)   -1.6% z -0.37 | train   +1.4% ( 170) | held   -6.4% ( 104) | up 1/4 | 1pt worse   -3.9% | live 4-12 -40%
+     study part 2..4                                         n   325  149-176  45.8% (needs 42.6)   +6.4% z +1.20 | train   -4.0% ( 224) | held  +29.5% ( 101) | up 3/4 | 1pt worse   +4.0% | live 5-11 -27%
+     study part 4..6                                         n   249  114-135  45.8% (needs 43.4)   +6.6% z +0.77 | train   +2.1% ( 163) | held  +15.1% (  86) | up 2/4 | 1pt worse   +4.1% | live 2-4 -22%
+     study part 6..7                                         n   386  203-183  52.6% (needs 43.9)  +19.7% z +3.44 | train  +16.4% ( 257) | held  +26.3% ( 129) | up 4/4 | 1pt worse  +17.0% | live 13-7 +41%
+   the OWN read over the no-vig close (points)
+     own - market -99..-3                                    n   280   77-203  27.5% (needs 32.2)  -16.2% z -1.72 | train  -22.3% ( 183) | held   -4.8% (  97) | up 0/4 | 1pt worse  -18.8% | live 1-13 -83%
+     own - market -3..-1                                     n   497  178-319  35.8% (needs 38.8)   -7.5% z -1.38 | train   -9.0% ( 293) | held   -5.4% ( 204) | up 0/4 | 1pt worse   -9.9% | live 11-22 -14%
+     own - market -1..0                                      n   848  370-478  43.6% (needs 44.4)   -1.6% z -0.44 | train   +0.9% ( 586) | held   -7.4% ( 262) | up 1/4 | 1pt worse   -3.8% | live 21-33 -14%
+     own - market 0..1                                       n  1829  752-1077 41.1% (needs 41.7)   -2.3% z -0.55 | train   -7.1% (1218) | held   +7.4% ( 611) | up 2/4 | 1pt worse   -4.6% | live 34-60 -16%
+     own - market 1..2                                       n    17    4-13   23.5% (needs 35.1)  -30.1% z -1.00 | train  -36.9% (  14) | held   +1.7% (   3) | up 1/3 | 1pt worse  -32.1% | live 1-1 +43%
+     own - market 2..4                                       n   115   51-64   44.3% (needs 43.6)   +1.5% z +0.17 | train   -1.6% (  54) | held   +4.2% (  61) | up 1/3 | 1pt worse   -0.8% | live 4-2 +47%
+     own - market 4..8                                       n    12    6-6    50.0% (needs 48.5)   +4.6% z +0.10 | train   +0.0% (   0) | held   +4.6% (  12) | up 1/1 | 1pt worse   +2.4% | live 0-0 +0%
+     own - market 8..99                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+   the OWN read over the PRICE (cents on the dollar: under / thin 0-3 / 3+)
+     own read under the price                                n  3451 1375-2076 39.8% (needs 41.2)   -4.1% z -1.63 | train   -6.5% (2282) | held   +0.7% (1169) | up 1/4 | 1pt worse   -6.4% | live 67-128 -20%
+     own read 0-3 over (thin)                                n   143   61-82   42.7% (needs 43.0)   -1.1% z -0.09 | train   -9.9% (  64) | held   +6.0% (  79) | up 1/3 | 1pt worse   -3.4% | live 5-3 +46%
+     own read 3+ over                                        n     4    2-2    50.0% (needs 37.4)  +34.5% z +0.52 | train  +57.5% (   2) | held  +11.5% (   2) | up 2/2 | 1pt worse  +30.9% | live 0-0 +0%
+     studies beat the price (weighed_dog_beats)              n   968  467-501  48.2% (needs 43.1)  +11.8% z +3.23 | train   +5.9% ( 649) | held  +23.7% ( 319) | up 4/4 | 1pt worse   +9.2% | live 20-22 +6%
+     studies do NOT beat the price                           n  2630  971-1659 36.9% (needs 40.6)   -9.7% z -3.86 | train  -11.3% (1699) | held   -6.7% ( 931) | up 0/4 | 1pt worse  -11.9% | live 52-109 -23%
+     studies beat the price, home                            n   286  150-136  52.4% (needs 43.9)  +19.7% z +2.91 | train  +15.6% ( 214) | held  +32.1% (  72) | up 4/4 | 1pt worse  +17.0% | live 4-6 -11%
+     studies beat the price, road                            n   676  315-361  46.6% (needs 42.8)   +8.7% z +2.02 | train   +2.0% ( 431) | held  +20.5% ( 245) | up 4/4 | 1pt worse   +6.2% | live 16-16 +11%
+     studies beat the price, +100..+150                      n   733  370-363  50.5% (needs 45.2)  +11.5% z +2.85 | train   +5.7% ( 458) | held  +21.0% ( 275) | up 4/4 | 1pt worse   +9.0% | live 18-16 +15%
+     studies beat the price, +151..+250                      n   232   96-136  41.4% (needs 36.7)  +12.5% z +1.49 | train   +7.4% ( 189) | held  +35.2% (  43) | up 3/4 | 1pt worse   +9.5% | live 2-6 -34%
+     studies beat the price, +251..+350                      n     3    1-2    33.3% (needs 26.6)  +27.3% z +0.26 | train -100.0% (   2) | held +282.0% (   1) | up 1/2 | 1pt worse  +22.6% | live 0-0 +0%
+     passes the Dog gate (dog_gate)                          n   323  162-161  50.2% (needs 43.8)  +14.4% z +2.31 | train  +10.8% ( 199) | held  +20.0% ( 124) | up 4/4 | 1pt worse  +11.8% | live 12-7 +37%
+     fighting                                                n  1421  519-902  36.5% (needs 39.5)   -8.8% z -2.32 | train   -8.5% ( 885) | held   -9.2% ( 536) | up 0/4 | 1pt worse  -11.1% | live 31-77 -31%
+     trap                                                    n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     a named reason (after score_reason)                     n  1080  470-610  43.5% (needs 42.4)   +1.7% z +0.72 | train   -3.3% ( 715) | held  +11.6% ( 365) | up 1/4 | 1pt worse   -0.6% | live 22-22 +13%
+     no named reason                                         n  2518  968-1550 38.4% (needs 40.8)   -6.3% z -2.39 | train   -8.0% (1633) | held   -3.3% ( 885) | up 0/4 | 1pt worse   -8.6% | live 50-109 -25%
+-- nba
+     dog score -99..-4                                       n  1456  481-975  33.0% (needs 36.5)  -10.4% z -2.81 | train  -10.4% ( 977) | held  -10.4% ( 479) | up 0/3 | 1pt worse  -12.9% | live 11-36 -33%
+     dog score -4..-2                                        n   523  185-338  35.4% (needs 36.7)   -0.7% z -0.63 | train   -3.6% ( 354) | held   +5.5% ( 169) | up 2/3 | 1pt worse   -3.5% | live 7-29 -50%
+     dog score -2..0                                         n   419  141-278  33.7% (needs 36.6)   -9.8% z -1.27 | train   -7.7% ( 265) | held  -13.4% ( 154) | up 0/3 | 1pt worse  -12.3% | live 16-15 +35%
+     dog score 0..2                                          n   268  114-154  42.5% (needs 37.4)  +13.7% z +1.75 | train  +20.8% ( 180) | held   -0.8% (  88) | up 2/3 | 1pt worse  +10.6% | live 6-13 -7%
+     dog score 2..4                                          n   134   57-77   42.5% (needs 36.6)  +14.9% z +1.44 | train   +9.0% (  96) | held  +29.6% (  38) | up 2/3 | 1pt worse  +11.7% | live 4-3 +41%
+     dog score 4..6                                          n    41   21-20   51.2% (needs 39.4)  +25.9% z +1.55 | train   -1.4% (  29) | held  +92.0% (  12) | up 2/3 | 1pt worse  +22.8% | live 0-5 -100%
+     dog score 6..8                                          n    14    6-8    42.9% (needs 38.3)   +3.4% z +0.35 | train  +16.6% (   8) | held  -14.2% (   6) | up 1/3 | 1pt worse   +0.9% | live 1-0 +120%
+     dog score 8..10                                         n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     dog score 10..99                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+   the STUDY part alone (score - its own-read term)
+     study part -99..-4                                      n  1356  428-928  31.6% (needs 36.2)  -13.4% z -3.58 | train  -11.7% ( 926) | held  -17.0% ( 430) | up 0/3 | 1pt worse  -15.8% | live 8-27 -32%
+     study part -4..-2                                       n   537  197-340  36.7% (needs 36.5)   +3.3% z +0.11 | train   -1.0% ( 371) | held  +12.9% ( 166) | up 2/3 | 1pt worse   +0.3% | live 4-25 -63%
+     study part -2..0                                        n   444  157-287  35.4% (needs 36.9)   -6.4% z -0.70 | train   -7.4% ( 274) | held   -4.7% ( 170) | up 0/3 | 1pt worse   -8.9% | live 14-23 +1%
+     study part 0..0.01                                      n   212   84-128  39.6% (needs 38.0)   +6.0% z +0.48 | train  +25.9% ( 127) | held  -23.7% (  85) | up 2/3 | 1pt worse   +3.1% | live 11-12 +26%
+     study part 0.01..2                                      n   111   49-62   44.1% (needs 39.1)  +10.7% z +1.09 | train   +0.3% (  75) | held  +32.4% (  36) | up 2/3 | 1pt worse   +7.9% | live 1-2 -21%
+     study part 2..4                                         n   140   64-76   45.7% (needs 37.1)  +21.4% z +2.14 | train   +9.5% ( 100) | held  +51.3% (  40) | up 2/3 | 1pt worse  +18.1% | live 5-5 +30%
+     study part 4..6                                         n    36   16-20   44.4% (needs 39.3)  +11.1% z +0.64 | train   -4.3% (  25) | held  +46.1% (  11) | up 2/3 | 1pt worse   +8.3% | live 1-3 -44%
+     study part 6..7                                         n    19   10-9    52.6% (needs 39.4)  +25.3% z +1.19 | train  +27.2% (  11) | held  +22.8% (   8) | up 3/3 | 1pt worse  +22.4% | live 1-4 -56%
+   the OWN read over the no-vig close (points)
+     own - market -99..-3                                    n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     own - market -3..-1                                     n     6    2-4    33.3% (needs 47.0)  -26.3% z -0.67 | train -100.0% (   1) | held  -11.6% (   5) | up 0/2 | 1pt worse  -27.9% | live 0-0 +0%
+     own - market -1..0                                      n   685  293-392  42.8% (needs 41.8)   +1.7% z +0.52 | train   -5.5% ( 342) | held   +8.9% ( 343) | up 2/3 | 1pt worse   -0.7% | live 26-49 -14%
+     own - market 0..1                                       n  2109  695-1414 33.0% (needs 35.2)   -6.5% z -2.21 | train   -4.1% (1515) | held  -12.4% ( 594) | up 1/3 | 1pt worse   -9.2% | live 19-52 -21%
+     own - market 1..2                                       n    55   15-40   27.3% (needs 28.9)   -5.1% z -0.27 | train  -11.0% (  51) | held  +70.0% (   4) | up 1/3 | 1pt worse   -8.4% | live 0-0 +0%
+     own - market 2..4                                       n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     own - market 4..8                                       n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     own - market 8..99                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+   the OWN read over the PRICE (cents on the dollar: under / thin 0-3 / 3+)
+     own read under the price                                n  2821  999-1822 35.4% (needs 36.9)   -4.2% z -1.61 | train   -4.2% (1879) | held   -4.3% ( 942) | up 0/3 | 1pt worse   -6.9% | live 45-101 -17%
+     own read 0-3 over (thin)                                n    34    6-28   17.6% (needs 24.2)  -26.9% z -0.90 | train  -30.3% (  30) | held   -1.2% (   4) | up 1/3 | 1pt worse  -29.8% | live 0-0 +0%
+     own read 3+ over                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     studies beat the price (weighed_dog_beats)              n   198   89-109  44.9% (needs 37.2)  +17.5% z +2.28 | train   +9.1% ( 137) | held  +36.3% (  61) | up 2/3 | 1pt worse  +14.4% | live 7-13 -11%
+     studies do NOT beat the price                           n  2657  916-1741 34.5% (needs 36.7)   -6.2% z -2.38 | train   -5.7% (1772) | held   -7.1% ( 885) | up 0/3 | 1pt worse   -8.8% | live 38-88 -18%
+     studies beat the price, home                            n    73   36-37   49.3% (needs 39.3)  +25.2% z +1.77 | train  +11.1% (  49) | held  +53.8% (  24) | up 3/3 | 1pt worse  +21.9% | live 3-10 -45%
+     studies beat the price, road                            n   124   53-71   42.7% (needs 36.0)  +13.9% z +1.59 | train   +8.0% (  88) | held  +28.4% (  36) | up 2/3 | 1pt worse  +10.9% | live 4-3 +52%
+     studies beat the price, +100..+150                      n    84   50-34   59.5% (needs 44.3)  +34.3% z +2.82 | train  +43.9% (  58) | held  +12.9% (  26) | up 3/3 | 1pt worse  +31.4% | live 5-9 -17%
+     studies beat the price, +151..+250                      n    80   31-49   38.8% (needs 35.1)   +9.4% z +0.68 | train  -14.0% (  58) | held  +71.2% (  22) | up 2/3 | 1pt worse   +6.4% | live 2-2 +52%
+     studies beat the price, +251..+350                      n    34    8-26   23.5% (needs 24.7)   -5.1% z -0.16 | train  -23.0% (  21) | held  +24.0% (  13) | up 2/3 | 1pt worse   -8.7% | live 0-2 -100%
+     passes the Dog gate (dog_gate)                          n    52   24-28   46.2% (needs 38.9)  +13.9% z +1.08 | train   -4.8% (  35) | held  +52.6% (  17) | up 2/3 | 1pt worse  +11.2% | live 1-5 -63%
+     fighting                                                n  1102  367-735  33.3% (needs 36.3)   -9.3% z -2.13 | train   -8.0% ( 778) | held  -12.3% ( 324) | up 0/3 | 1pt worse  -11.8% | live 17-34 -12%
+     trap                                                    n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     a named reason (after score_reason)                     n  1361  497-864  36.5% (needs 37.0)   -1.8% z -0.37 | train   -2.2% ( 931) | held   -0.7% ( 430) | up 1/3 | 1pt worse   -4.5% | live 22-51 -20%
+     no named reason                                         n  1494  508-986  34.0% (needs 36.4)   -7.0% z -1.99 | train   -6.9% ( 978) | held   -7.3% ( 516) | up 0/3 | 1pt worse   -9.6% | live 23-50 -15%
+-- nfl
+     dog score -99..-4                                       n   156   50-106  32.1% (needs 35.6)   -9.2% z -0.93 | train  -21.1% (  90) | held   +7.0% (  66) | up 1/4 | 1pt worse  -11.8% | live 7-17 -26%
+     dog score -4..-2                                        n   106   30-76   28.3% (needs 36.3)  -24.5% z -1.73 | train  -31.4% (  60) | held  -15.6% (  46) | up 1/4 | 1pt worse  -26.6% | live 1-9 -80%
+     dog score -2..0                                         n   130   39-91   30.0% (needs 37.0)  -17.5% z -1.68 | train  -36.0% (  71) | held   +4.8% (  59) | up 1/4 | 1pt worse  -19.8% | live 2-6 -33%
+     dog score 0..2                                          n   133   50-83   37.6% (needs 38.7)   +2.6% z -0.28 | train   -5.2% (  78) | held  +13.6% (  55) | up 3/4 | 1pt worse   -0.3% | live 3-4 +16%
+     dog score 2..4                                          n   101   47-54   46.5% (needs 39.4)  +20.7% z +1.48 | train  +21.5% (  68) | held  +18.9% (  33) | up 4/4 | 1pt worse  +17.4% | live 0-2 -100%
+     dog score 4..6                                          n    60   18-42   30.0% (needs 37.4)  -10.8% z -1.20 | train  -32.2% (  41) | held  +35.4% (  19) | up 1/4 | 1pt worse  -13.5% | live 0-1 -100%
+     dog score 6..8                                          n    26   13-13   50.0% (needs 40.3)  +29.4% z +1.02 | train  +38.9% (  21) | held  -10.4% (   5) | up 2/3 | 1pt worse  +26.0% | live 0-0 +0%
+     dog score 8..10                                         n     4    0-4     0.0% (needs 34.2) -100.0% z -1.46 | train -100.0% (   4) | held   +0.0% (   0) | up 0/2 | 1pt worse -100.0% | live 0-0 +0%
+     dog score 10..99                                        n     1    1-0    100.0% (needs 42.0) +138.0% z +1.17 | train +138.0% (   1) | held   +0.0% (   0) | up 1/1 | 1pt worse +132.5% | live 0-0 +0%
+   the STUDY part alone (score - its own-read term)
+     study part -99..-4                                      n    73   23-50   31.5% (needs 36.5)  -16.5% z -0.90 | train  -15.5% (  42) | held  -17.8% (  31) | up 2/4 | 1pt worse  -18.8% | live 4-8 -9%
+     study part -4..-2                                       n   109   30-79   27.5% (needs 35.0)  -21.9% z -1.65 | train  -34.4% (  73) | held   +3.4% (  36) | up 1/4 | 1pt worse  -24.2% | live 4-7 -19%
+     study part -2..0                                        n   122   34-88   27.9% (needs 37.1)  -22.8% z -2.13 | train  -34.9% (  72) | held   -5.4% (  50) | up 1/4 | 1pt worse  -25.0% | live 1-8 -69%
+     study part 0..0.01                                      n    89   31-58   34.8% (needs 38.6)   -9.2% z -0.73 | train  -25.0% (  50) | held  +10.9% (  39) | up 2/4 | 1pt worse  -11.7% | live 1-7 -68%
+     study part 0.01..2                                      n    80   29-51   36.2% (needs 38.2)   -1.5% z -0.36 | train  +15.4% (  47) | held  -25.7% (  33) | up 3/4 | 1pt worse   -4.3% | live 0-4 -100%
+     study part 2..4                                         n   153   66-87   43.1% (needs 38.5)  +16.6% z +1.18 | train   +2.6% (  97) | held  +40.9% (  56) | up 3/4 | 1pt worse  +13.3% | live 3-3 +35%
+     study part 4..6                                         n    65   23-42   35.4% (needs 38.2)   -3.7% z -0.47 | train   -2.0% (  37) | held   -5.9% (  28) | up 2/4 | 1pt worse   -6.4% | live 0-1 -100%
+     study part 6..7                                         n    26   12-14   46.2% (needs 36.3)  +38.7% z +1.06 | train   -0.9% (  16) | held +102.2% (  10) | up 2/3 | 1pt worse  +34.5% | live 0-1 -100%
+   the OWN read over the no-vig close (points)
+     own - market -99..-3                                    n    32   15-17   46.9% (needs 35.8)  +37.1% z +1.32 | train  -23.1% (  11) | held  +68.7% (  21) | up 3/4 | 1pt worse  +33.0% | live 1-8 -74%
+     own - market -3..-1                                     n   245   85-160  34.7% (needs 36.0)   -0.9% z -0.42 | train   +2.4% ( 107) | held   -3.5% ( 138) | up 1/4 | 1pt worse   -3.8% | live 8-22 -28%
+     own - market -1..0                                      n   212   74-138  34.9% (needs 37.9)   -7.4% z -0.91 | train  -24.6% ( 123) | held  +16.4% (  89) | up 2/4 | 1pt worse   -9.9% | live 4-6 -7%
+     own - market 0..1                                       n   136   45-91   33.1% (needs 38.3)  -13.5% z -1.26 | train  -15.1% ( 110) | held   -6.8% (  26) | up 0/4 | 1pt worse  -15.8% | live 0-3 -100%
+     own - market 1..2                                       n    57   16-41   28.1% (needs 38.4)  -23.2% z -1.62 | train  -24.4% (  49) | held  -15.2% (   8) | up 1/4 | 1pt worse  -25.3% | live 0-0 +0%
+     own - market 2..4                                       n    31   12-19   38.7% (needs 40.8)   -3.2% z -0.24 | train   +0.0% (  30) | held -100.0% (   1) | up 1/3 | 1pt worse   -5.7% | live 0-0 +0%
+     own - market 4..8                                       n     4    1-3    25.0% (needs 41.8)  -40.5% z -0.68 | train  -40.5% (   4) | held   +0.0% (   0) | up 0/2 | 1pt worse  -41.9% | live 0-0 +0%
+     own - market 8..99                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+   the OWN read over the PRICE (cents on the dollar: under / thin 0-3 / 3+)
+     own read under the price                                n   657  226-431  34.4% (needs 37.4)   -6.0% z -1.60 | train  -16.6% ( 377) | held   +8.3% ( 280) | up 2/4 | 1pt worse   -8.6% | live 13-39 -36%
+     own read 0-3 over (thin)                                n    58   21-37   36.2% (needs 37.4)   -2.3% z -0.20 | train   +3.0% (  55) | held -100.0% (   3) | up 2/3 | 1pt worse   -5.0% | live 0-0 +0%
+     own read 3+ over                                        n     2    1-1    50.0% (needs 38.0)  +19.0% z +0.35 | train  +19.0% (   2) | held   +0.0% (   0) | up 1/1 | 1pt worse  +16.2% | live 0-0 +0%
+     studies beat the price (weighed_dog_beats)              n   252  104-148  41.3% (needs 37.8)  +14.5% z +1.16 | train   +2.1% ( 157) | held  +34.9% (  95) | up 2/4 | 1pt worse  +11.2% | live 3-6 -10%
+     studies do NOT beat the price                           n   465  144-321  31.0% (needs 37.2)  -16.5% z -2.81 | train  -23.0% ( 277) | held   -6.9% ( 188) | up 1/4 | 1pt worse  -18.8% | live 10-33 -41%
+     studies beat the price, home                            n    81   37-44   45.7% (needs 37.7)  +26.4% z +1.50 | train   +7.8% (  51) | held  +57.9% (  30) | up 2/4 | 1pt worse  +22.8% | live 1-3 -43%
+     studies beat the price, road                            n   167   65-102  38.9% (needs 37.7)   +8.9% z +0.34 | train   -2.8% ( 104) | held  +28.3% (  63) | up 2/4 | 1pt worse   +5.8% | live 2-3 +16%
+     studies beat the price, +100..+150                      n   126   55-71   43.7% (needs 44.3)   -2.3% z -0.15 | train  -10.0% (  80) | held  +11.2% (  46) | up 2/4 | 1pt worse   -4.4% | live 2-1 +57%
+     studies beat the price, +151..+250                      n    82   31-51   37.8% (needs 34.5)  +12.2% z +0.63 | train  +10.7% (  51) | held  +14.7% (  31) | up 2/4 | 1pt worse   +8.9% | live 1-4 -32%
+     studies beat the price, +251..+350                      n    44   18-26   40.9% (needs 25.0)  +66.6% z +2.43 | train  +22.4% (  26) | held +130.4% (  18) | up 4/4 | 1pt worse  +60.0% | live 0-1 -100%
+     passes the Dog gate (dog_gate)                          n     5    1-4    20.0% (needs 35.8)  -52.4% z -0.74 | train  -52.4% (   5) | held   +0.0% (   0) | up 0/2 | 1pt worse  -53.5% | live 0-0 +0%
+     fighting                                                n   183   67-116  36.6% (needs 38.3)   -4.1% z -0.46 | train  -13.0% (  73) | held   +1.8% ( 110) | up 2/4 | 1pt worse   -6.7% | live 7-24 -46%
+     trap                                                    n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     a named reason (after score_reason)                     n   448  154-294  34.4% (needs 37.8)   -7.1% z -1.50 | train  -14.9% ( 270) | held   +4.8% ( 178) | up 1/4 | 1pt worse   -9.6% | live 11-21 -10%
+     no named reason                                         n   269   94-175  34.9% (needs 36.8)   -3.2% z -0.62 | train  -12.3% ( 164) | held  +11.1% ( 105) | up 3/4 | 1pt worse   -5.9% | live 2-18 -78%
+-- ncaaf
+     dog score -99..-4                                       n   313   99-214  31.6% (needs 33.9)   -4.3% z -0.86 | train  -16.7% ( 162) | held   +9.2% ( 151) | up 2/4 | 1pt worse   -7.2% | live 55-94 +15%
+     dog score -4..-2                                        n   223   85-138  38.1% (needs 35.1)   +9.3% z +0.97 | train  +19.9% ( 133) | held   -6.4% (  90) | up 3/4 | 1pt worse   +6.1% | live 19-33 +1%
+     dog score -2..0                                         n   296  100-196  33.8% (needs 36.6)   -7.4% z -1.02 | train   +2.6% ( 165) | held  -20.1% ( 131) | up 1/4 | 1pt worse  -10.0% | live 22-36 +11%
+     dog score 0..2                                          n   256  103-153  40.2% (needs 37.3)   +7.8% z +0.98 | train   +9.5% ( 139) | held   +5.9% ( 117) | up 4/4 | 1pt worse   +4.9% | live 11-24 -23%
+     dog score 2..4                                          n   154   55-99   35.7% (needs 38.7)   -7.4% z -0.77 | train   -3.4% (  75) | held  -11.3% (  79) | up 1/4 | 1pt worse   -9.9% | live 14-22 +1%
+     dog score 4..6                                          n    60   31-29   51.7% (needs 38.6)  +35.0% z +2.11 | train  +27.2% (  19) | held  +38.7% (  41) | up 3/4 | 1pt worse  +31.5% | live 4-15 -34%
+     dog score 6..8                                          n    27    8-19   29.6% (needs 40.3)  -28.9% z -1.14 | train  +93.3% (   3) | held  -44.1% (  24) | up 1/3 | 1pt worse  -30.6% | live 9-7 +42%
+     dog score 8..10                                         n     6    4-2    66.7% (needs 43.2)  +46.7% z +1.17 | train   +0.0% (   0) | held  +46.7% (   6) | up 2/2 | 1pt worse  +43.5% | live 3-1 +87%
+     dog score 10..99                                        n    10    4-6    40.0% (needs 36.9)  -11.2% z +0.21 | train   +0.0% (   0) | held  -11.2% (  10) | up 0/1 | 1pt worse  -13.1% | live 3-12 -37%
+   the STUDY part alone (score - its own-read term)
+     study part -99..-4                                      n   174   53-121  30.5% (needs 35.0)   -9.2% z -1.26 | train  -11.3% (  91) | held   -6.9% (  83) | up 2/4 | 1pt worse  -11.9% | live 21-42 -3%
+     study part -4..-2                                       n   228   79-149  34.6% (needs 35.6)   -3.4% z -0.31 | train   -3.2% ( 109) | held   -3.6% ( 119) | up 1/4 | 1pt worse   -6.2% | live 24-63 -14%
+     study part -2..0                                        n   215   82-133  38.1% (needs 36.4)   +3.8% z +0.52 | train   -4.2% ( 122) | held  +14.4% (  93) | up 2/4 | 1pt worse   +1.0% | live 20-34 +16%
+     study part 0..0.01                                      n   219   69-150  31.5% (needs 35.9)  -13.9% z -1.36 | train   +3.8% ( 115) | held  -33.5% ( 104) | up 1/4 | 1pt worse  -16.3% | live 19-21 +31%
+     study part 0.01..2                                      n   137   54-83   39.4% (needs 36.5)  +11.6% z +0.71 | train  +18.4% (  63) | held   +5.7% (  74) | up 4/4 | 1pt worse   +8.3% | live 14-23 +7%
+     study part 2..4                                         n   266   95-171  35.7% (needs 37.3)   -0.8% z -0.54 | train   -7.5% ( 136) | held   +6.2% ( 130) | up 2/4 | 1pt worse   -3.6% | live 34-42 +19%
+     study part 4..6                                         n    99   54-45   54.5% (needs 37.8)  +41.4% z +3.48 | train  +63.6% (  57) | held  +11.2% (  42) | up 3/4 | 1pt worse  +37.6% | live 7-18 -21%
+     study part 6..7                                         n     7    3-4    42.9% (needs 34.1)   +6.3% z +0.49 | train  -28.7% (   3) | held  +32.5% (   4) | up 2/3 | 1pt worse   +3.7% | live 1-1 +40%
+   the OWN read over the no-vig close (points)
+     own - market -99..-3                                    n   144   55-89   38.2% (needs 31.7)  +24.4% z +1.71 | train  +26.6% (  65) | held  +22.5% (  79) | up 2/2 | 1pt worse  +20.2% | live 56-101 +7%
+     own - market -3..-1                                     n   453  150-303  33.1% (needs 34.3)   -2.7% z -0.54 | train   -1.5% ( 267) | held   -4.4% ( 186) | up 1/3 | 1pt worse   -5.6% | live 27-32 +37%
+     own - market -1..0                                      n   363  155-208  42.7% (needs 39.8)   +7.8% z +1.14 | train  +10.6% ( 237) | held   +2.7% ( 126) | up 3/4 | 1pt worse   +5.1% | live 10-19 -5%
+     own - market 0..1                                       n    92   22-70   23.9% (needs 31.2)  -29.0% z -1.54 | train  -37.7% (  48) | held  -19.5% (  44) | up 0/4 | 1pt worse  -31.2% | live 13-20 +5%
+     own - market 1..2                                       n   144   53-91   36.8% (needs 37.3)   -0.7% z -0.13 | train   +2.5% (  79) | held   -4.4% (  65) | up 3/4 | 1pt worse   -3.4% | live 4-15 -43%
+     own - market 2..4                                       n   114   42-72   36.8% (needs 40.3)   -7.1% z -0.76 | train   +0.0% (   0) | held   -7.1% ( 114) | up 1/2 | 1pt worse   -9.5% | live 18-18 +36%
+     own - market 4..8                                       n    28    9-19   32.1% (needs 41.3)  -22.8% z -1.00 | train   +0.0% (   0) | held  -22.8% (  28) | up 1/2 | 1pt worse  -24.7% | live 9-29 -40%
+     own - market 8..99                                      n     7    3-4    42.9% (needs 36.2)   -4.6% z +0.37 | train   +0.0% (   0) | held   -4.6% (   7) | up 0/1 | 1pt worse   -6.7% | live 3-10 -28%
+   the OWN read over the PRICE (cents on the dollar: under / thin 0-3 / 3+)
+     own read under the price                                n  1146  416-730  36.3% (needs 36.0)   +1.1% z +0.24 | train   +3.2% ( 696) | held   -2.1% ( 450) | up 3/4 | 1pt worse   -1.8% | live 110-185 +9%
+     own read 0-3 over (thin)                                n   174   65-109  37.4% (needs 38.0)   +0.9% z -0.18 | train   +0.0% (   0) | held   +0.9% ( 174) | up 1/2 | 1pt worse   -1.8% | live 20-29 +12%
+     own read 3+ over                                        n    25    8-17   32.0% (needs 38.6)  -21.9% z -0.69 | train   +0.0% (   0) | held  -21.9% (  25) | up 0/1 | 1pt worse  -23.9% | live 10-30 -30%
+     studies beat the price (weighed_dog_beats)              n   387  154-233  39.8% (needs 36.3)  +10.8% z +1.45 | train  +10.7% ( 200) | held  +11.0% ( 187) | up 2/4 | 1pt worse   +7.7% | live 37-61 +5%
+     studies do NOT beat the price                           n   958  335-623  35.0% (needs 36.3)   -3.4% z -0.86 | train   +0.2% ( 496) | held   -7.3% ( 462) | up 2/4 | 1pt worse   -6.2% | live 103-183 +5%
+     studies beat the price, home                            n   124   54-70   43.5% (needs 36.5)  +22.1% z +1.65 | train   +9.0% (  63) | held  +35.6% (  61) | up 3/4 | 1pt worse  +18.6% | live 13-17 +27%
+     studies beat the price, road                            n   237   89-148  37.6% (needs 36.4)   +2.9% z +0.38 | train  +11.7% ( 123) | held   -6.5% ( 114) | up 3/4 | 1pt worse   +0.1% | live 24-42 -1%
+     studies beat the price, +100..+150                      n   154   71-83   46.1% (needs 44.8)   +2.6% z +0.33 | train   +5.2% (  87) | held   -0.7% (  67) | up 3/4 | 1pt worse   +0.4% | live 12-23 -23%
+     studies beat the price, +151..+250                      n   146   57-89   39.0% (needs 33.8)  +14.2% z +1.34 | train  +11.5% (  69) | held  +16.5% (  77) | up 3/4 | 1pt worse  +10.9% | live 22-21 +51%
+     studies beat the price, +251..+350                      n    87   26-61   29.9% (needs 25.4)  +19.9% z +0.95 | train  +20.5% (  44) | held  +19.3% (  43) | up 3/4 | 1pt worse  +15.2% | live 3-17 -43%
+     passes the Dog gate (dog_gate)                          n    51   24-27   47.1% (needs 38.7)  +20.1% z +1.25 | train   +0.0% (   0) | held  +20.1% (  51) | up 1/2 | 1pt worse  +17.0% | live 13-16 +28%
+     fighting                                                n   455  164-291  36.0% (needs 34.1)   +7.7% z +0.87 | train   +7.2% ( 306) | held   +8.7% ( 149) | up 2/3 | 1pt worse   +4.4% | live 78-123 +15%
+     trap                                                    n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     a named reason (after score_reason)                     n   930  342-588  36.8% (needs 36.8)   +0.4% z +0.01 | train   -1.7% ( 497) | held   +2.7% ( 433) | up 1/4 | 1pt worse   -2.4% | live 91-151 +7%
+     no named reason                                         n   415  147-268  35.4% (needs 35.2)   +1.4% z +0.08 | train  +15.3% ( 199) | held  -11.5% ( 216) | up 2/4 | 1pt worse   -1.6% | live 49-93 +2%
+
+===== D. THE LINE: the money left the dog (+) / came to it (-), open -> close no-vig points
+-- nhl (3801 dogs with an opener)
+     drift -100.0..-4.0                                      n   216  103-113  47.7% (needs 44.0)   +9.2% z +1.10 | train   +2.3% (  94) | held  +14.6% ( 122) | up 2/3 | 1pt worse   +6.8% | live 7-6 +24%
+     drift -4.0..-2.0                                        n   352  156-196  44.3% (needs 43.3)   +2.0% z +0.41 | train   -8.2% ( 211) | held  +17.2% ( 141) | up 2/4 | 1pt worse   -0.4% | live 4-9 -33%
+     drift -2.0..-0.5                                        n   464  201-263  43.3% (needs 42.1)   +3.5% z +0.53 | train   +4.3% ( 295) | held   +2.1% ( 169) | up 2/4 | 1pt worse   +1.0% | live 7-12 -19%
+     drift -0.5..+0.5                                        n   409  167-242  40.8% (needs 40.6)   -2.6% z +0.09 | train   -9.3% ( 297) | held  +14.9% ( 112) | up 1/4 | 1pt worse   -5.0% | live 8-8 +12%
+     drift +0.5..+2.0                                        n   731  278-453  38.0% (needs 40.4)   -6.2% z -1.33 | train  -10.3% ( 514) | held   +3.4% ( 217) | up 2/4 | 1pt worse   -8.6% | live 10-18 -18%
+     drift +2.0..+4.0                                        n   715  262-453  36.6% (needs 40.7)  -10.4% z -2.24 | train   -9.1% ( 497) | held  -13.5% ( 218) | up 0/4 | 1pt worse  -12.6% | live 13-27 -26%
+     drift +4.0..+100.0                                      n   711  271-440  38.1% (needs 40.7)   -7.5% z -1.42 | train   -5.9% ( 440) | held   -9.9% ( 271) | up 1/4 | 1pt worse   -9.7% | live 23-51 -23%
+-- nba (3001 dogs with an opener)
+     drift -100.0..-4.0                                      n   369  142-227  38.5% (needs 38.4)   +0.0% z +0.05 | train   -5.4% ( 262) | held  +13.4% ( 107) | up 1/3 | 1pt worse   -2.6% | live 4-6 +16%
+     drift -4.0..-2.0                                        n   291  102-189  35.1% (needs 37.4)   -6.8% z -0.85 | train   -8.2% ( 190) | held   -4.3% ( 101) | up 0/3 | 1pt worse   -9.4% | live 6-13 -20%
+     drift -2.0..-0.5                                        n   288  108-180  37.5% (needs 36.5)   +3.4% z +0.37 | train   -1.3% ( 181) | held  +11.2% ( 107) | up 2/3 | 1pt worse   +0.4% | live 9-14 +10%
+     drift -0.5..+0.5                                        n   250   89-161  35.6% (needs 36.2)   -2.6% z -0.20 | train  -10.3% ( 157) | held  +10.4% (  93) | up 2/3 | 1pt worse   -5.3% | live 2-18 -78%
+     drift +0.5..+2.0                                        n   342  109-233  31.9% (needs 36.5)  -11.5% z -1.79 | train   -1.9% ( 201) | held  -25.1% ( 141) | up 1/3 | 1pt worse  -14.0% | live 4-9 -23%
+     drift +2.0..+4.0                                        n   408  158-250  38.7% (needs 36.4)   +6.4% z +0.99 | train   +7.8% ( 258) | held   +3.8% ( 150) | up 3/3 | 1pt worse   +3.4% | live 5-14 -24%
+     drift +4.0..+100.0                                      n   907  297-610  32.7% (needs 36.2)  -10.9% z -2.22 | train   -8.5% ( 660) | held  -17.2% ( 247) | up 0/3 | 1pt worse  -13.4% | live 15-27 -6%
+-- nfl (769 dogs with an opener)
+     drift -100.0..-4.0                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -4.0..-2.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -2.0..-0.5                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -0.5..+0.5                                        n   717  248-469  34.6% (needs 37.4)   -5.6% z -1.57 | train  -13.9% ( 434) | held   +7.1% ( 283) | up 2/4 | 1pt worse   -8.3% | live 13-39 -36%
+     drift +0.5..+2.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift +2.0..+4.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift +4.0..+100.0                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+-- ncaaf (1729 dogs with an opener)
+     drift -100.0..-4.0                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -4.0..-2.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -2.0..-0.5                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift -0.5..+0.5                                        n  1345  489-856  36.4% (needs 36.3)   +0.7% z +0.05 | train   +3.2% ( 696) | held   -2.0% ( 649) | up 3/4 | 1pt worse   -2.2% | live 140-244 +5%
+     drift +0.5..+2.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift +2.0..+4.0                                        n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     drift +4.0..+100.0                                      n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+-- ncaab (7810 dogs with an opener)
+     drift -100.0..-4.0                                      n   685  252-433  36.8% (needs 38.4)   -6.6% z -0.88 | train   -6.3% ( 343) | held   -6.9% ( 342) | up 0/3 | 1pt worse   -9.0% | live 13-16 +18%
+     drift -4.0..-2.0                                        n   809  269-540  33.3% (needs 36.6)   -8.8% z -2.03 | train  -11.4% ( 495) | held   -4.6% ( 314) | up 0/3 | 1pt worse  -11.3% | live 10-11 +20%
+     drift -2.0..-0.5                                        n   903  290-613  32.1% (needs 36.3)  -13.0% z -2.67 | train  -13.7% ( 601) | held  -11.6% ( 302) | up 0/3 | 1pt worse  -15.4% | live 14-11 +51%
+     drift -0.5..+0.5                                        n   757  256-501  33.8% (needs 36.5)   -8.9% z -1.55 | train  -13.3% ( 490) | held   -0.7% ( 267) | up 0/3 | 1pt worse  -11.4% | live 9-9 +29%
+     drift +0.5..+2.0                                        n  1117  400-717  35.8% (needs 36.2)   -0.9% z -0.27 | train   -3.4% ( 793) | held   +5.0% ( 324) | up 1/3 | 1pt worse   -3.7% | live 22-28 +17%
+     drift +2.0..+4.0                                        n  1418  479-939  33.8% (needs 37.0)   -8.2% z -2.59 | train   -8.7% (1039) | held   -6.9% ( 379) | up 0/3 | 1pt worse  -10.7% | live 9-23 -15%
+     drift +4.0..+100.0                                      n  1885  689-1196 36.6% (needs 36.9)   -2.0% z -0.32 | train   -3.0% (1371) | held   +0.7% ( 514) | up 1/3 | 1pt worse   -4.6% | live 21-40 +0%
+
+===== E. EARLY-SEASON: the dog team's games in (NBA: season_games; hockey / NBA from the parts' context)
+-- nba (3001 with a games count)
+     games in 0..2                                           n   109   41-68   37.6% (needs 36.7)   +4.2% z +0.19 | train   -9.9% (  70) | held  +29.6% (  39) | up 2/3 | 1pt worse   +1.2% | live 10-21 -21%
+        posted                                               n     7    4-3    57.1% (needs 43.1)  +37.9% z +0.75 | train   -9.0% (   5) | held +155.0% (   2) | up 2/3 | 1pt worse  +34.6% | live 1-4 -59%
+     games in 3..5                                           n   114   44-70   38.6% (needs 37.6)   +0.8% z +0.23 | train  +16.5% (  76) | held  -30.4% (  38) | up 2/3 | 1pt worse   -1.8% | live 14-26 -8%
+        posted                                               n    12    5-7    41.7% (needs 39.7)   +4.9% z +0.14 | train  +79.9% (   7) | held -100.0% (   5) | up 2/3 | 1pt worse   +2.3% | live 3-3 +16%
+     games in 6..10                                          n   176   62-114  35.2% (needs 36.3)   -5.8% z -0.30 | train   -2.8% ( 120) | held  -12.3% (  56) | up 1/3 | 1pt worse   -8.4% | live 16-36 -14%
+        posted                                               n    14    6-8    42.9% (needs 41.8)   -2.5% z +0.08 | train   +1.8% (  11) | held  -18.3% (   3) | up 1/3 | 1pt worse   -4.7% | live 0-2 -100%
+     games in 11..20                                         n   330  114-216  34.5% (needs 36.5)   -7.1% z -0.76 | train  -10.8% ( 230) | held   +1.4% ( 100) | up 1/3 | 1pt worse   -9.7% | live 5-18 -36%
+        posted                                               n    24   14-10   58.3% (needs 43.6)  +33.0% z +1.47 | train  +40.3% (  18) | held  +11.0% (   6) | up 3/3 | 1pt worse  +30.0% | live 1-2 -18%
+     games in 21..40                                         n   676  245-431  36.2% (needs 36.7)   +0.4% z -0.23 | train   -5.3% ( 446) | held  +11.3% ( 230) | up 2/3 | 1pt worse   -2.5% | live 0-0 +0%
+        posted                                               n    39   22-17   56.4% (needs 41.3)  +36.1% z +1.92 | train  +39.1% (  31) | held  +24.5% (   8) | up 3/3 | 1pt worse  +32.9% | live 0-0 +0%
+     games in 41..98                                         n  1450  499-951  34.4% (needs 36.7)   -7.1% z -1.86 | train   -4.3% ( 967) | held  -12.7% ( 483) | up 1/3 | 1pt worse   -9.7% | live 0-0 +0%
+        posted                                               n    91   41-50   45.1% (needs 41.0)  +11.4% z +0.79 | train  +11.3% (  59) | held  +11.7% (  32) | up 2/3 | 1pt worse   +8.7% | live 0-0 +0%
+-- nhl (0 with a games count)
+     games in 0..2                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     games in 3..5                                           n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     games in 6..10                                          n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     games in 11..20                                         n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     games in 21..40                                         n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+     games in 41..98                                         n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+-- ncaab (7810 with a games count)
+     games in 0..2                                           n   338  115-223  34.0% (needs 37.1)  -12.7% z -1.18 | train  -10.2% ( 235) | held  -18.3% ( 103) | up 1/3 | 1pt worse  -15.0% | live 64-93 +10%
+        posted                                               n     2    0-2     0.0% (needs 47.6) -100.0% z -1.35 | train -100.0% (   2) | held   +0.0% (   0) | up 0/2 | 1pt worse -100.0% | live 0-0 +0%
+     games in 3..5                                           n   453  166-287  36.6% (needs 36.3)   +2.2% z +0.14 | train   +5.1% ( 302) | held   -3.6% ( 151) | up 1/3 | 1pt worse   -0.7% | live 34-45 +20%
+        posted                                               n    22   10-12   45.5% (needs 42.0)   +5.1% z +0.33 | train   -8.1% (  15) | held  +33.6% (   7) | up 2/3 | 1pt worse   +2.7% | live 0-0 +0%
+     games in 6..10                                          n   930  328-602  35.3% (needs 36.9)   -4.8% z -1.04 | train   -1.3% ( 627) | held  -11.9% ( 303) | up 1/3 | 1pt worse   -7.4% | live 0-0 +0%
+        posted                                               n    44   22-22   50.0% (needs 41.8)  +14.3% z +1.11 | train   +3.3% (  31) | held  +40.6% (  13) | up 2/3 | 1pt worse  +11.7% | live 0-0 +0%
+     games in 11..20                                         n  2492  862-1630 34.6% (needs 36.9)   -6.7% z -2.45 | train   -8.3% (1689) | held   -3.2% ( 803) | up 0/3 | 1pt worse   -9.2% | live 0-0 +0%
+        posted                                               n    35   23-12   65.7% (needs 42.2)  +55.9% z +2.83 | train  +81.0% (  25) | held   -7.0% (  10) | up 2/3 | 1pt worse  +52.2% | live 0-0 +0%
+     games in 21..40                                         n  3361 1164-2197 34.6% (needs 36.8)   -6.6% z -2.61 | train   -9.9% (2279) | held   +0.4% (1082) | up 1/3 | 1pt worse   -9.2% | live 0-0 +0%
+        posted                                               n    47   23-24   48.9% (needs 43.2)  +19.0% z +0.80 | train  +14.1% (  37) | held  +37.4% (  10) | up 2/3 | 1pt worse  +16.1% | live 0-0 +0%
+     games in 41..98                                         n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+        posted                                               n     0    0-0     0.0% (needs  0.0)   +0.0% z +0.00 | train   +0.0% (   0) | held   +0.0% (   0) | up 0/0 | 1pt worse   +0.0% | live 0-0 +0%
+
+===== F. BY MONTH (the posted dog plays)
+     nhl month 10                                            n    47   22-25   46.8% (needs 43.9)   +6.6% z +0.41 | train   -7.9% (  27) | held  +26.1% (  20) | up 2/4 | 1pt worse   +4.2% | live 7-5 +35%
+     nhl month 11                                            n    59   29-30   49.2% (needs 43.8)  +14.3% z +0.83 | train  +14.6% (  35) | held  +13.7% (  24) | up 3/3 | 1pt worse  +11.6% | live 7-5 +30%
+     nhl month 12                                            n    71   35-36   49.3% (needs 43.6)  +11.5% z +0.97 | train   -4.8% (  46) | held  +41.6% (  25) | up 2/3 | 1pt worse   +9.0% | live 0-0 +0%
+     nhl month 01                                            n    61   30-31   49.2% (needs 44.2)  +14.5% z +0.78 | train  +25.2% (  38) | held   -3.0% (  23) | up 2/3 | 1pt worse  +11.9% | live 0-0 +0%
+     nhl month 02                                            n    27   15-12   55.6% (needs 42.8)  +28.4% z +1.34 | train  +50.8% (  23) | held -100.0% (   4) | up 1/3 | 1pt worse  +25.5% | live 0-0 +0%
+     nhl month 03                                            n    62   23-39   37.1% (needs 43.5)  -16.3% z -1.02 | train  -41.5% (  34) | held  +14.2% (  28) | up 1/3 | 1pt worse  -18.2% | live 0-0 +0%
+     nhl month 04                                            n    49   27-22   55.1% (needs 43.7)  +24.6% z +1.61 | train  +15.3% (  34) | held  +45.5% (  15) | up 3/3 | 1pt worse  +21.8% | live 0-0 +0%
+     nba month 10                                            n    15    6-9    40.0% (needs 41.1)   -0.5% z -0.08 | train   +9.1% (   9) | held  -15.0% (   6) | up 2/3 | 1pt worse   -3.0% | live 3-5 -17%
+     nba month 11                                            n    37   21-16   56.8% (needs 42.8)  +30.6% z +1.72 | train  +49.1% (  28) | held  -27.0% (   9) | up 2/3 | 1pt worse  +27.7% | live 2-6 -40%
+     nba month 12                                            n    33   17-16   51.5% (needs 41.0)  +25.8% z +1.23 | train  +21.0% (  26) | held  +43.6% (   7) | up 2/3 | 1pt worse  +22.8% | live 0-0 +0%
+     nba month 01                                            n    20   12-8    60.0% (needs 41.2)  +46.1% z +1.71 | train  +50.3% (  16) | held  +29.5% (   4) | up 3/3 | 1pt worse  +42.6% | live 0-0 +0%
+     nba month 02                                            n    11    4-7    36.4% (needs 41.4)  -11.0% z -0.34 | train  -35.8% (   8) | held  +55.0% (   3) | up 2/3 | 1pt worse  -13.1% | live 0-0 +0%
+     nba month 03                                            n    20    9-11   45.0% (needs 41.8)   +8.2% z +0.29 | train  +18.7% (  12) | held   -7.6% (   8) | up 1/3 | 1pt worse   +5.6% | live 0-0 +0%
+     nba month 04                                            n    26    9-17   34.6% (needs 40.0)  -13.6% z -0.56 | train   -0.3% (  16) | held  -34.8% (  10) | up 1/3 | 1pt worse  -15.7% | live 0-0 +0%
+     nfl month 10                                            n    25   10-15   40.0% (needs 41.1)   +1.8% z -0.11 | train  -17.1% (  16) | held  +35.4% (   9) | up 3/4 | 1pt worse   -0.8% | live 1-1 +70%
+     nfl month 11                                            n    12    6-6    50.0% (needs 36.2)  +46.9% z +1.01 | train  +12.0% (  10) | held +221.5% (   2) | up 2/3 | 1pt worse  +42.4% | live 0-1 -100%
+     ncaaf month 10                                          n    15    7-8    46.7% (needs 41.9)   +0.7% z +0.38 | train  -13.2% (   5) | held   +7.6% (  10) | up 3/4 | 1pt worse   -1.5% | live 2-3 +8%
+     ncaab month 11                                          n    34   16-18   47.1% (needs 42.0)   +8.6% z +0.61 | train  -16.5% (  24) | held  +69.1% (  10) | up 1/3 | 1pt worse   +6.1% | live 0-0 +0%
+     ncaab month 12                                          n    44   22-22   50.0% (needs 42.1)  +14.2% z +1.07 | train  +20.7% (  31) | held   -1.4% (  13) | up 1/3 | 1pt worse  +11.6% | live 0-0 +0%
+     ncaab month 01                                          n    26   16-10   61.5% (needs 42.8)  +44.6% z +1.94 | train  +78.8% (  17) | held  -20.0% (   9) | up 2/3 | 1pt worse  +41.2% | live 0-0 +0%
+     ncaab month 02                                          n    35   20-15   57.1% (needs 43.0)  +43.6% z +1.71 | train  +38.7% (  28) | held  +63.4% (   7) | up 2/3 | 1pt worse  +39.9% | live 0-0 +0%
+     ncaab month 03                                          n     9    3-6    33.3% (needs 43.3)  -27.8% z -0.61 | train  -47.5% (   8) | held +130.0% (   1) | up 1/3 | 1pt worse  -29.3% | live 0-0 +0%
