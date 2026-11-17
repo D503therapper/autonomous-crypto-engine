@@ -56,6 +56,12 @@ BREAKOUT52 = {"slots": 5,            # up to 5 names, each 1/5 of the account, n
               "exit_sma": 50,        # sell a close below the 50-day average...
               "trail": 0.20}         # ...or 20% below the highest close since the buy
 
+# "tqqq200" TEST account (EXPERIMENT 19, 2026-11-17; stock_strategies.TrendHold): hold the 3x Nasdaq fund only while it
+# closes above its own 200-day average, else cash. NOT official: results/stock_tqqq_study.txt - 2010-2026 +30.8%/yr, but
+# on a 3x fund rebuilt back to 2000 it lost 8%/yr with an 80% drawdown in 2000-2010, and the 150 / 250-day neighbours
+# earn about half. Its symbol rides in the core Yahoo download (data_source.YahooClient.groups).
+TREND_HOLD = {"symbol": "TQQQ", "days": 200}
+
 # --- Early mover hunter (all Crypto.com coins) -----------------------------
 EARLY_MOVER = {
     "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume

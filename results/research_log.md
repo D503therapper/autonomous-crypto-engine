@@ -139,6 +139,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 16 | 2026-10-19 | DEX: the fresh-pump (momentum) rule skips pump.fun launches (Solana addresses ending "pump"; config entry skip_pump). Survivor rule unchanged. | ~2026-11-01 (with 14 / 15) | dex_lottery_study entry splits (n 157, live exit): pump.fun n 47, 60% rugged, -49.6% per $1 (-53.5 / -45.8); not pump.fun n 110, 25% rugged, +6.1% (+1.2 / +11.0). Live seasons 1-5: Solana pump.fun 39 trades -54% of cost (the worst bucket). Also seen, not acted on yet: Solana non-pump -42.6% (n 45, both halves negative) vs Base +118% (n 24) / Ethereum -6% (n 41). | MOOT 11-01 (fresh-pump entry off); pump.fun skip stays in config for any future fresh-pump rule. |
 | 17 | 2026-10-20 | DEX exit: once a coin has reached 3x, sell all on a 40% drop from its high (config exit trail_steps [(3.0, 0.40)]); 80% at 5x stays | ~2026-11-01 (with 14-16) | STARTUPSI 3.15x -> 0.09x. dex_lottery_study re-run (3.5 weeks; fills at the lower of 2 snapshots): non-pump.fun fresh pumps n 110 +12.6% vs +6.4% per $1 (halves +0.9 / +24.2 vs +1.2 / +11.7); all 157 -0.9% vs -10.8% (-11.9 / +10.0 vs -14.9 / -6.8). The 10-08 study (10 days) failed the older half; now even/better in both. | KEPT 11-01: JPMD +$25 (4.4x -> 2.3x), ZERO +$16 (3.2x -> 1.9x). Re-test 11-01 on 243 pools: arm 2x -14.4% vs 3x -14.5% per $1 (halves -1.4/-27.2 vs -3.3/-25.6) - no reason to move it to 2x. |
 | 18 | 2026-10-20 | DEX: the fresh-pump rule skips ALL Solana coins (config entry fresh_skip_chains); fresh pumps only on Base / Ethereum; survivors on every chain | ~2026-11-01 (with 14-17) | dex_lottery_study with the live exit (80% at 5x, 3x/40% trail): Solana non-pump.fun n 45 -32.0% per $1 (-43.4 / -16.4), Base n 24 +118.7% (+150 / +100), Ethereum n 41 -1.1% (-8.6 / +6.0). Live seasons 1-5 Solana non-pump 10 trades -17%; exp 14 Solana buys YOKAI 0.64x, NPC 0.87x, DARK 0.83x. Buy rate will drop - watch it. | MOOT 11-01: Base/Ethereum-only fresh pumps -43% live (n 18); the 243-pool re-run shows Eth/Base turning negative in the newer half (-8%). Fresh-pump entry off. |
+| 19 | 2026-11-17 | STOCKS: the proposal "replace rsi2 in the official account with TQQQ-above-its-200-day-average" was STUDIED AND NOT ADOPTED - the official account stays rsi2 + breakout52. The rule runs as a TEST account only, "tqqq200" (stock_strategies.TrendHold, config.TREND_HOLD: once a trading day on completed closes - TQQQ closing above its own 200-day average = all in, not above = all cash; no stops; a data gap never trades). DEX season 6: no rule change (survivor entry only + the sell rules; nothing in the 11-17 entry grid survives live evidence). | ~2027-02-17 (tqqq200 vs rsi2, breakout52, hold QQQ / SPY since 11-17; with exp 13 on 2027-01-14) | stock_tqqq_study (results/stock_tqqq_study.txt; signal at the close, fill next open, 0.05%/side): real TQQQ 2011-2026 +30.8%/yr (halves +24.7 / +37.1, max DD 48%) - but its 150 / 250-day neighbours +17.1% / +27.5% (DD 62%), and on a 3x Nasdaq fund rebuilt from QQQ back to 2000 (rebuild matches the real TQQQ: +39.7 vs +39.4%/yr) the rule made -8.1%/yr with an 80% drawdown in 2000-2010 (-68% in 2000), full 2000-2026 +15.7%/yr (neighbours +7.8 / +9.7, QQQ-signal +7.9, 2x +12.7; hold QQQ +7.6). Bar written before the run (2000-2010: no loss, beat QQQ, DD under 65%, neighbours agree): 2 of 3 FAIL, neighbours FAIL. rsi2 for comparison: 2002-2026 +22.3% / +25.2% per half, DD 25% (+13.0 / +8.6 without the hindsight names), 2008 included. Live 11-17: rsi2 $456 (-8.7% since 09-28), breakout52 $468 (-8.1% since 10-14), official $462, hold SPY $483; TQQQ is BELOW its 200-day average today (the test account starts in cash). | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -693,3 +694,42 @@ coin nobody can sell shows a rising price), intrahour dumps or contract switches
 coins in the best cells. Season 6 keeps survivor-only + the sell rules. Stocks: the most robust big-gain line on file is
 moonshot2's "TQQQ above its 200-day average, else cash": +37.5%/yr 2011-2026, both halves (+33.7 / +41.2), max DD 48%,
 3 trades/yr, one ETF (no hindsight stock list) - proposed to the owner in place of rsi2 (live -8.7% since 09-28 vs SPY -3.3%).
+
+### 2026-11-17 TQQQ ABOVE ITS 200-DAY AVERAGE, BACK TO 2000 (owner: "do whatever Fable thinks is the best idea") - stock_tqqq_study.py, results/stock_tqqq_study.txt
+Q: should the official stocks account swap rsi2 for "TQQQ only while it closes above its 200-day average, else cash"
+(moonshot2: +37.5%/yr 2011-2026)? TQQQ was born in 2010 - every number on file sits inside one Nasdaq bull market.
+METHOD: Yahoo daily QQQ 1999-2026 + ^IRX; a 3x daily-reset fund rebuilt from QQQ (3x the day's move minus the 0.95% fee
+and borrowing 2x at the T-bill rate + 0.4%; check: rebuilt +39.7%/yr vs the real TQQQ +39.4% over 2010-2026, QLD +24.0
+vs +23.7). Signal at the close, trade at the next open, 0.05%/side, cash earns 0. Rules fixed in advance: own 200-day
+average (the candidate), 100 / 150 / 250-day neighbours, QQQ's 200-day as the switch, a 2x fund, one day late, 3x
+costs. Eras 2000-2010 (never seen by any earlier study) | 2010-2018 | 2018-2026. THE BAR, written before the run:
+on 2000-2010 no loss, beat hold QQQ, max drawdown under 65%, and the 150 / 250-day neighbours agree.
+RESULT (CAGR / max DD per era; full 2000-2026):
+  3x own200 (candidate)   -8.1% / 80% | +29.7% / 55% | +35.8% / 48%   full +15.7%, DD 80%, 6.5 trades/yr, $1,000 -> $48,011
+  3x own150               -9.2% / 84% | +20.8% / 52% | +18.0% / 62%   full  +7.8%
+  3x own250              -14.9% / 90% | +24.5% / 57% | +30.9% / 63%   full  +9.7%
+  3x own100               -8.8% / 89% | +19.1% / 46% |  +9.7% / 56%   full  +5.0%
+  3x, QQQ's 200-day      -15.2% / 94% | +23.3% / 63% | +26.1% / 58%   full  +7.9%
+  3x own200 one day late -11.6% / 87% | +30.3% / 53% | +31.0% / 48%   full +13.3%;  3x costs: full +14.9%
+  2x own200               -4.8% / 76% | +22.4% / 38% | +26.9% / 44%   full +12.7%
+  QQQ own200, no leverage -1.6% / 54% | +10.1% / 26% | +13.6% / 23%   full  +6.6%
+  hold QQQ                -8.9% / 83% | +19.3% / 16% | +18.4% / 35%   full  +7.6%;  hold 3x: -50% / 100% first era
+  real TQQQ 2011-2026: 200-day +30.8% (halves +24.7 / +37.1, DD 48%), 150-day +17.1% (DD 62%), 250-day +27.5% (DD 62%),
+  buy and hold +36.2% (DD 82%). Real QLD 200-day +21.1% (DD 46%), UPRO 200-day +19.3% (halves +27.1 / +11.9).
+  Years of the candidate: 2000 -68%, 2001-02 0% (in cash), 2003 +93%, 2004 -16%, 2005 -31%, 2008 -21%, 2011 -29%,
+  2022 -19%; 2013 / 2017 +118%, 2020 +91%. Today (11-16): TQQQ 53.03 vs its 200-day 65.52 = BELOW, the rule is in cash.
+VERDICT against the bar: no loss FAIL (-57% over the decade), beat QQQ PASS (by 0.8 a year), drawdown FAIL (80%),
+neighbours FAIL. The average does not save a 3x fund from the start of a crash (it falls 3x a day before the average
+turns: -68% in 2000) or from choppy years (2004-05, 2011, 2015-16), and "200" is a lucky spot - the same rule at 150 or
+250 days earns about half. The +37.5% was a bull market plus a lucky parameter.
+DECISION: NOT adopted for the official account. rsi2 stays (2002-2026 incl. 2008: +22.3% / +25.2% per half, DD 25%;
++13.0 / +8.6 without the hindsight names - better than the candidate's honest long-run +8..16% at a quarter of the
+drawdown; its live -8.7% in 7 falling weeks is inside its tested 25% drawdown). breakout52 stays to its 2027-01-14
+judge (one month live is no evidence either way; its SPY filter stops new buys in a falling market). The rule runs as
+the TEST account "tqqq200" (EXPERIMENT 19: stock_strategies.TrendHold, parity with moonshot2_study.trend_hold and the
+study's simulator in stock_strategies_test.py) so the judge has live numbers; TQQQ rides in the core Yahoo download.
+DEX season 6: unchanged (survivor entry only, 80% at 5x, after 3x a 40% drop sells, 7-day limit) - the 11-17 grid's
+best cells are the ones live trading already lost on; no evidence to loosen anything.
+Honest bottom line for the owner: no stock rule on file has evidence of "way more money" outside the 2010-2026 bull
+market. The two official stock strategies are the best-tested ones we have; the market has been falling since
+September and both are down less than their tested worst case.

@@ -466,6 +466,119 @@ def test_join_official_and_average():
     print("  join_official: the new account starts at the official balance; _average: continuous line")
 
 
+def test_trend_hold_setup():
+    """EXPERIMENT 19: tqqq200 is a TEST account (the official pair is unchanged), carries the study's
+    parameters, has no live trail, and its fund rides in the core Yahoo download."""
+    import config
+    import markets
+    from data_source import YahooClient
+    st = ss.TrendHold(BPD)
+    assert (st.name, st.symbol, st.days, st.universe) == ("tqqq200", "TQQQ", 200, ["TQQQ"])
+    assert st.weekly and st.rebalance_key == "%Y-%m-%d" and st.cash_reserve == 0.0 and st.position_pct == 1.0
+    assert st.max_positions == 1 and st.regime(None) and st.regime_days == 0
+    assert not hasattr(st, "trail"), "run_live.fast_check would trail it live; the study's only exit is the daily close"
+    assert st.min_candles >= (200 + 2) * BPD and int((st.min_candles + 10) * 3 / 14) + 15 < 729
+    m = markets.MARKETS["stocks"]
+    assert tuple(m["main"]) == ("rsi2", "breakout52"), "the study did NOT clear tqqq200 for the official account"
+    names = [x.name for x in m["strategies"]]
+    assert names.count("tqqq200") == 1 and "rsi2" in names and "breakout52" in names
+    assert max(x.min_candles for x in m["strategies"]) >= st.min_candles          # no longer download needed
+    core = YahooClient.groups()[0]
+    assert "TQQQ" in core and "SPY" in core
+    rsi2 = next(x for x in m["strategies"] if x.name == "rsi2")
+    assert "TQQQ" not in rsi2.universe, "the leveraged fund must not leak into the dip-buyer's list"
+    print("  tqqq200 setup ok: test account only, official pair unchanged, TQQQ in the core download")
+
+
+def test_trend_hold_parity(ctx, hourly, sym="QQQ", days=200):
+    """Three ways of running the same rule on the same synthetic prices must agree on every day: the lab
+    (moonshot2_study.trend_hold through lab.simulate), the study's own simulator's signal
+    (stock_tqqq_study: in the fund on day j iff close[j-1] > its average) and the live class through
+    engine.step, one cycle a trading day."""
+    import bisect
+    import moonshot2_study as m2
+    import stock_tqqq_study as tq
+    fn, first, seen = m2.trend_hold(sym, days), 260, {}
+
+    def rec(c, i, held, pp):
+        seen[i] = set(held)
+        return fn(c, i, held, pp)
+    lab.simulate(ctx, rec, {}, first, ctx.n, 0.0)
+    closes = ctx.c[sym]
+    k0 = next(j for j, x in enumerate(closes) if x is not None)       # a symbol listed after the table starts
+    assert k0 + days < first and None not in closes[k0:]
+    avg = [None] * k0 + tq.sma(closes[k0:], days)
+    strat = ss.TrendHold(BPD, name="t", symbol=sym, days=days)
+    dd = [b["t"] // DAY_MS for b in hourly[sym]]
+    pf, bad, held_days = Portfolio(cash=500.0, fee=0.0, slippage=0.0), [], 0
+    for i in range(first, ctx.n - 1):
+        k = bisect.bisect_right(dd, ctx.days[i])
+        bars = hourly[sym][:k] + [dict(hourly[sym][k - 1], t=ctx.days[i + 1] * DAY_MS + 14 * HOUR)]
+        step(pf, {sym: bars}, strat, strat.regime(None))
+        want = closes[i] > avg[i]                             # the study: signal[i] decides day i+1
+        if i > first:                                         # the lab's first day starts flat
+            assert (sym in seen[i + 1]) == want, ctx.dates[i]
+        held_days += want
+        if (sym in pf.positions) != want:
+            bad.append((ctx.dates[i], want, sorted(pf.positions)))
+        if want:
+            assert pf.cash < 1e-6, "all in: no cash reserve"
+        else:
+            assert not pf.positions and pf.cash > 0
+    n = ctx.n - 1 - first
+    sells = {t["reason"] for t in pf.trades if t["side"] == "SELL"}
+    print(f"  trend_hold       {sym} above its {days}-day avg: {n - len(bad)}/{n} days identical ({held_days} holding, "
+          f"{len(pf.trades)} trades)")
+    assert not bad, bad[:3]
+    assert len(pf.trades) >= 4 and 0 < held_days < n, "too little activity to be meaningful"
+    assert sells == {f"closed below its {days}-day average"}, sells
+    # the study simulator trades exactly where the signal flips (one trade per flip, from a flat start)
+    sig = [None if avg[j] is None else closes[j] > avg[j] for j in range(ctx.n)]
+    o = [ctx.o[sym][j] for j in range(ctx.n)] if hasattr(ctx, "o") else closes
+    _, n_tr = tq.run(o[first:], closes[first:], sig[first:], cost=0.0)
+    flips = sum(bool(sig[j]) != bool(sig[j - 1]) for j in range(first + 1, ctx.n - 1)) + bool(sig[first])
+    assert n_tr == flips == len(pf.trades), (n_tr, flips, len(pf.trades))
+
+
+def test_trend_hold_gaps_and_restart():
+    """A short download (no 200-day average) never sells the holding and never buys; the daily gate and the
+    holding survive a restart (portfolio.json); nothing happens between the daily cycles."""
+    import os, tempfile
+    st = ss.TrendHold(1, name="t", symbol="A", days=5)
+
+    def bars(closes, d0=20_000):
+        return [{"t": (d0 + i) * DAY_MS + 15 * HOUR, "o": c, "h": c, "l": c, "c": c, "v": 1.0} for i, c in enumerate(closes)]
+    up = bars([10, 11, 12, 13, 14, 15, 16])                   # completed closes 10..15 (the last bar is "today")
+    g = st.analyze(up)
+    assert g["buy"] and not g["below_avg"] and g["close"] == 15 and g["avg"] == 13.0 and g["stop"] == 0.0
+    flat = st.analyze(bars([10, 10, 10, 10, 10, 10, 10]))
+    assert not flat["buy"] and flat["below_avg"], "a close AT the average is not above it (study: c > m)"
+    short = st.analyze(bars([10, 11, 12, 13]))
+    assert short["avg"] is None and not short["buy"] and not short["below_avg"]
+    assert st.analyze([]) is None and st.analyze(None) is None
+    pf = Portfolio(cash=500.0, fee=0.0, slippage=0.0)
+    step(pf, {"A": bars([10, 11, 12, 13])}, st, True)         # too little history: no buy
+    assert not pf.positions
+    step(pf, {"A": up}, st, True)
+    assert set(pf.positions) == {"A"} and pf.cash < 1e-9 and pf.positions["A"]["stop"] == 0.0
+    path = os.path.join(tempfile.mkdtemp(), "portfolio.json")
+    pf.save(path)
+    pf = Portfolio.load(path, fee=0.0, slippage=0.0)          # the engine restarts
+    down_today = up[:-1] + [dict(up[-1], c=1.0, l=1.0)]       # today's bar crashes: not a completed close
+    n = len(pf.trades)
+    step(pf, {"A": down_today}, st, True)
+    assert set(pf.positions) == {"A"} and len(pf.trades) == n, "nothing between the daily cycles"
+    nxt = bars([10, 11, 12, 13, 14, 15, 16, 17])[-3:]         # next day, but only 2 completed closes arrived
+    step(pf, {"A": nxt}, st, True)
+    assert set(pf.positions) == {"A"}, "a data gap must never sell the holding"
+    step(pf, {}, st, True)                                     # no data at all
+    assert set(pf.positions) == {"A"}
+    drop = bars([10, 11, 12, 13, 14, 15, 16, 17, 9, 9, 9])    # day +10: completed closes end 17, 9, 9 -> below
+    step(pf, {"A": drop}, st, True)
+    assert not pf.positions and pf.trades[-1]["reason"] == "closed below its 5-day average" and pf.cash > 0
+    print("  trend_hold gaps / restart: no average = no trade; daily gate and holding survive a restart")
+
+
 if __name__ == "__main__":
     print("stock_strategies_test")
     assert hasattr(__import__("engine"), "rebalance_to"), \
@@ -485,6 +598,11 @@ if __name__ == "__main__":
     test_breakout52_regime()
     test_breakout52_state_survives_restart()
     test_join_official_and_average()
+    test_trend_hold_setup()
+    test_trend_hold_gaps_and_restart()
+    full = [x for x in ctx.syms if None not in ctx.c[x]]       # listed for the whole synthetic table
+    test_trend_hold_parity(ctx, hourly, full[0], 200)
+    test_trend_hold_parity(ctx, hourly, full[-1], 50)
     ctx2, hourly2 = synthetic_hibeta()
     print(f"  synthetic high-beta: {len(ctx2.syms)} symbols, {ctx2.n} days")
     test_breakout52_parity(ctx2, hourly2)

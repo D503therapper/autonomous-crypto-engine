@@ -98,9 +98,10 @@ class YahooClient:
     @staticmethod
     def groups():
         """Symbols are downloaded in bulk per group: the core list (the official rsi2 account, the ETF
-        strategies) and the high-beta list of the breakout52 account. A failed group never costs the
+        strategies, the tqqq200 test account's fund) and the high-beta list of the breakout52 account. A failed group never costs the
         other its bars (one yfinance call per group and hour; a failure is remembered for the hour)."""
-        core = sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS))
+        core = sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)
+                      | ({config.TREND_HOLD["symbol"]} if getattr(config, "TREND_HOLD", None) else set()))
         extra = sorted(set(getattr(config, "STOCK_HIBETA", [])) - set(core))
         return [core, extra] if extra else [core]
 

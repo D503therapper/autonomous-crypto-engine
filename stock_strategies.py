@@ -264,3 +264,59 @@ class Breakout52:
         if hc is not None and s["close"] < hc * (1 - self.trail_pct):
             return 1.0, s["price"], f"gave back {self.trail_pct:.0%} from its highest close"
         return None
+
+
+class TrendHold:
+    """One fund, held only while it closes above its own long average, else cash (EXPERIMENT 19, 2026-11-17:
+    the "tqqq200" TEST account - config.TREND_HOLD, TQQQ / 200 days) = moonshot2_study.trend_hold(sym, n) and
+    stock_tqqq_study.py's "own200" rule. NOT an official account: results/stock_tqqq_study.txt - +30.8%/yr on the
+    real TQQQ 2011-2026 (both halves), but -8%/yr with an 80% drawdown on a 3x fund rebuilt for 2000-2010, and
+    the 150 / 250-day neighbours earn about half (200 is a lucky spot). It runs live to be judged, not trusted.
+
+    Once a trading day, on completed daily closes (the first hourly cycle after the open, like breakout52):
+      holding and the last close is NOT above the average of the last `days` closes -> sell everything;
+      in cash and the last close IS above it -> buy with all the cash (no reserve; study: 100% in or out).
+    With fewer than `days` completed closes (a short Yahoo download) there is no average and NOTHING happens:
+    a data gap never sells the holding and never buys. No stops between cycles (`stop` 0, no `trail`
+    attribute: run_live.fast_check must not trail it live) - the study's only exit is the daily close.
+
+    State across the engine's 6-hourly restarts: only the daily gate (Portfolio.last_rebalance_week) and the
+    position itself, both in portfolio.json; the signal is recomputed from the bars every cycle.
+    Parity with the study functions: stock_strategies_test.py."""
+    weekly = True
+    rebalance_key = "%Y-%m-%d"      # evaluate once per trading day (first cycle after the open)
+
+    def __init__(self, bars_per_day, name=None, **overrides):
+        p = dict(config.TREND_HOLD, **overrides)
+        self.P, self.bpd = p, bars_per_day
+        self.symbol, self.days = p["symbol"], p["days"]
+        self.name = name or f"{self.symbol.lower()}{self.days}"
+        self.universe = [self.symbol]
+        self.max_positions = 1
+        self.regime_days = 0        # no benchmark regime: the fund's own average is the only switch
+        self.cash_reserve = 0.0
+        self.position_pct = self.max_position_pct = 1.0
+        self.min_candles = (self.days + 8) * bars_per_day
+        self.window = self.min_candles + 2 * bars_per_day
+
+    def regime(self, bench_candles):
+        return True                 # run_live asks; SPY's trend plays no part in this rule
+
+    def analyze(self, candles, market_ok=True):
+        if not candles:
+            return None
+        daily = _daily_closes(candles)
+        if not daily:
+            return None
+        closes = [x[1] for x in daily[-self.days:]]
+        avg = _sma(closes, self.days)
+        sig = _base(candles)
+        sig.update(rank=0.0, stop=0.0, close=closes[-1], day=daily[-1][0], avg=avg,
+                   buy=avg is not None and closes[-1] > avg,
+                   below_avg=avg is not None and not closes[-1] > avg)
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        if rebalance and s["below_avg"]:
+            return 1.0, s["price"], f"closed below its {self.days}-day average"
+        return None
