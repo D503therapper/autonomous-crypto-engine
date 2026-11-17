@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T08:38Z",
+ "updated": "2026-11-17T08:41Z",
  "games": [
   {
    "id": "ncaab:401927381",
@@ -2132,6 +2132,34 @@
    }
   },
   {
+   "id": "nhl:401892739",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Red Wings",
+    "p": 0.354,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-19T00:30Z",
+   "away": "Bruins",
+   "home": "Red Wings",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Bruins",
+    "opp": "Red Wings",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -286,
+    "p": 0.709,
+    "win_p": 0.493,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401866469",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2159,6 +2187,62 @@
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "nhl:401892740",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Devils",
+    "p": 0.408,
+    "tie": 0.296,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-19T00:30Z",
+   "away": "Canadiens",
+   "home": "Devils",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Devils",
+    "opp": "Canadiens",
+    "market": "ml",
+    "line": null,
+    "odds": -182,
+    "p": 0.62,
+    "win_p": 0.62,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892741",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Avalanche",
+    "p": 0.355,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-11-19T03:00Z",
+   "away": "Avalanche",
+   "home": "Mammoth",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Mammoth",
+    "opp": "Avalanche",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -278,
+    "p": 0.704,
+    "win_p": 0.49,
+    "reasons": []
    }
   }
  ]
