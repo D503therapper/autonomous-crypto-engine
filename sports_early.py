@@ -924,6 +924,11 @@ def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
     return out
 
 
+POST_LEAD_MIN = 35   # 🕐 11/18 (the owner: "It didn't post before the game" - the Hornets / Lakers over was decided 7:34 PM PT,
+#   reached the page 7:46, tip 8:00): a game-day play is made 35+ minutes before the start or not at all - a run takes about
+#   12 minutes to reach the page, and people need time to bet it (sports.MIN_LEAD_MIN is the board's twin)
+
+
 def alt_over_1111(games, g, st, now, avs=None):
     """⛰️ THE 11/11 ALTITUDE OVER (the over/under studies - the owner's brother's engine's best spot, re-tested on our
     closes): a college regular-season game on a home floor ALT_HI_M+ (4,600 ft; never a neutral site), the OVER, ½u, its
@@ -940,8 +945,8 @@ def alt_over_1111(games, g, st, now, avs=None):
     if tot is None or odds < ALT_MAX_PRICE:
         return None
     st_ = _t(g["start"])
-    if not now < st_:
-        return None                                          # never a game that started
+    if not now < st_ - timedelta(minutes=POST_LEAD_MIN):
+        return None                                          # never a game that started - nor one about to (11/18)
     if now.astimezone(PT).date() >= st_.astimezone(PT).date() and not ALT_GAME_DAY:
         return None                                          # never game day (the owner's early-play rule)
     s = _hoops_season(g["start"])

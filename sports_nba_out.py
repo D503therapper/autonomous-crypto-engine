@@ -21,7 +21,7 @@ after the news. A total can sit stale for a few minutes when a man is ruled out,
 3+ have been out on our report for WAIT_MIN (the next hourly run) before it takes the number - never a stale one.
 ½u, its own record, judged at QUIT[0] graded: under QUIT[1] on the units = it's off."""
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 FROM = "2026-11-13"             # games from this Pacific game day
 MIN_GAMES = 10                  # both teams' box games this season before the top three mean anything
@@ -189,8 +189,8 @@ def candidates(games, st, now, inj, rows=None, se=None):
         if g.get("league") != "nba" or g.get("status") != "pre" or (g.get("stype") or "2") != "2" or not g.get("start"):
             continue
         st_ = se._t(g["start"])
-        if not now < st_ or st_.astimezone(se.PT).date().isoformat() < FROM:
-            continue                                         # never a started game; games from FROM
+        if not now < st_ - timedelta(minutes=se.POST_LEAD_MIN) or st_.astimezone(se.PT).date().isoformat() < FROM:
+            continue                                         # never a started game - nor one 35 min out (11/18); from FROM
         tot, odds = se.sm._num(g.get("total")), se._int(g.get("over_odds")) or -110
         if tot is None or odds < MAX_PRICE:
             continue
