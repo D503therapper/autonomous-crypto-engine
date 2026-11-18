@@ -318,6 +318,14 @@ def merge_early(ours, theirs, base=None):
 
 
 PARLAYS = ("two", "three", "four", "eight")
+OWNER_REMOVED = (("2026-11-18", "ncaab:401911377", "gap"),)   # sports.OWNER_REMOVED's twin (this merge runs without the engine)
+
+
+def _owner_removed(p):
+    if not isinstance(p, dict) or not p.get("legs"):
+        return False
+    k = "gap" if p.get("gap") is not None else "slot" if (p.get("ncaab_play") or {}).get("slot") == "dog" else p.get("kind")
+    return any(p.get("date") == d and ((p["legs"][0] or {}).get("game_id")) == g and k == kd for d, g, kd in OWNER_REMOVED)
 
 
 def _lean_row(p):
@@ -342,7 +350,7 @@ def main(base, ours_path, theirs_path):
         b_ = _load(base) if base else None
         merged = merge_picks(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [],
                              b_ if isinstance(b_, list) else None)
-        merged = [p for p in merged if not _lean_row(p)]    # 🚫 11/16: no leans, ever (sports.LEANS_GONE) - an older
+        merged = [p for p in merged if not _lean_row(p) and not _owner_removed(p)]    # 🚫 11/16: no leans, ever (sports.LEANS_GONE) - an older
         #                                                    run's copy never brings one back
     else:
         merged = merge_log(ours, theirs)
