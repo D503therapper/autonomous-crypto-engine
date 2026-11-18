@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T01:33Z",
+ "updated": "2026-11-18T01:51Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -146,8 +146,8 @@
    "away": "Lipscomb",
    "home": "Purdue",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -161,8 +161,8 @@
    "away": "Maine Augusta",
    "home": "Dartmouth",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -611,8 +611,8 @@
    "away": "VTSU Lyndon",
    "home": "C Connecticut",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1076,95 +1076,49 @@
    "lean": null
   },
   {
-   "id": "ncaab:401911521",
+   "id": "ncaab:401920720",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "UC Davis",
-    "p": 0.785,
-    "tie": 0.031,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-18T02:00Z",
-   "away": "Alabama St",
-   "home": "UC Davis",
-   "why": "coin_flip",
+   "start": "2026-11-18T01:30Z",
+   "away": "E Washington",
+   "home": "Utah",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Alabama St",
-    "opp": "UC Davis",
-    "market": "spread",
-    "line": 12.5,
-    "odds": -115,
-    "p": 0.505,
-    "win_p": 0.134,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401906851",
+   "id": "ncaab:401925064",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Michigan St",
-    "p": 0.522,
-    "tie": 0.043,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-18T02:00Z",
-   "away": "Michigan St",
-   "home": "Tennessee",
-   "why": "tight",
+   "start": "2026-11-18T01:30Z",
+   "away": "Nicholls",
+   "home": "Ole Miss",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Michigan St",
-    "opp": "Tennessee",
-    "market": "ml",
-    "line": null,
-    "odds": -142,
-    "p": 0.56,
-    "win_p": 0.56,
-    "reasons": [
-     "hotter recent form",
-     "rolling off a blowout win",
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaab:401920426",
+   "id": "ncaab:401924922",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Virginia",
-    "p": 0.914,
-    "tie": 0.016,
-    "name": "1st half"
-   },
    "sport": "College Basketball",
    "season": "regular season",
-   "start": "2026-11-18T02:00Z",
-   "away": "Old Dominion",
-   "home": "Virginia",
-   "why": "coin_flip",
+   "start": "2026-11-18T01:30Z",
+   "away": "Sam Houston",
+   "home": "Wyoming",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Old Dominion",
-    "opp": "Virginia",
-    "market": "spread",
-    "line": 26.5,
-    "odds": -115,
-    "p": 0.519,
-    "win_p": 0.032,
-    "reasons": [
-     "sharp money moving this way",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaab:401909787",
@@ -1189,7 +1143,7 @@
     "market": "spread",
     "line": 16.5,
     "odds": -115,
-    "p": 0.509,
+    "p": 0.51,
     "win_p": 0.071,
     "reasons": [
      "sharp money moving this way"
@@ -1247,7 +1201,7 @@
     "market": "spread",
     "line": 8.5,
     "odds": -115,
-    "p": 0.501,
+    "p": 0.502,
     "win_p": 0.23,
     "reasons": []
    }
@@ -1344,7 +1298,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Lakers",
-    "p": 0.618,
+    "p": 0.613,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1360,9 +1314,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -299,
-    "p": 0.698,
-    "win_p": 0.698,
+    "odds": -288,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "the stronger team"
     ]
@@ -1391,7 +1345,7 @@
     "market": "spread",
     "line": 23.5,
     "odds": -115,
-    "p": 0.516,
+    "p": 0.517,
     "win_p": 0.044,
     "reasons": [
      "sharp money moving this way",
@@ -1491,7 +1445,8 @@
     "win_p": 0.548,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
-     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
+     "coughing it up 2.2 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -1609,7 +1564,7 @@
     "market": "spread",
     "line": 16.5,
     "odds": -116,
-    "p": 0.509,
+    "p": 0.51,
     "win_p": 0.078,
     "reasons": []
    }
@@ -1620,7 +1575,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.562,
+    "p": 0.56,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1636,9 +1591,9 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -200,
-    "p": 0.619,
-    "win_p": 0.619,
+    "odds": -196,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team"
     ]
@@ -1698,9 +1653,40 @@
     "market": "spread",
     "line": 17.5,
     "odds": -105,
-    "p": 0.51,
+    "p": 0.511,
     "win_p": 0.074,
     "reasons": []
+   }
+  },
+  {
+   "id": "nba:401910008",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Rockets",
+    "p": 0.621,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Rockets",
+   "home": "Pacers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Rockets",
+    "opp": "Pacers",
+    "market": "ml",
+    "line": null,
+    "odds": -264,
+    "p": 0.707,
+    "win_p": 0.707,
+    "reasons": [
+     "the stronger team",
+     "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
+    ]
    }
   },
   {
@@ -1842,7 +1828,7 @@
     "market": "spread",
     "line": 27.5,
     "odds": -105,
-    "p": 0.52,
+    "p": 0.521,
     "win_p": 0.023,
     "reasons": [
      "hotter recent form"
@@ -1902,7 +1888,7 @@
     "market": "spread",
     "line": 24.5,
     "odds": -110,
-    "p": 0.517,
+    "p": 0.518,
     "win_p": 0.031,
     "reasons": []
    }
@@ -1930,7 +1916,7 @@
     "market": "spread",
     "line": 22.5,
     "odds": -105,
-    "p": 0.515,
+    "p": 0.516,
     "win_p": 0.04,
     "reasons": []
    }
@@ -1971,8 +1957,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bradley",
-    "p": 0.652,
-    "tie": 0.04,
+    "p": 0.666,
+    "tie": 0.039,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1980,19 +1966,17 @@
    "start": "2026-11-19T01:00Z",
    "away": "Purdue FW",
    "home": "Bradley",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Bradley",
-    "opp": "Purdue FW",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.724,
-    "win_p": 0.724,
-    "reasons": [
-     "the stronger team"
-    ]
+    "team": "Purdue FW",
+    "opp": "Bradley",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -112,
+    "p": 0.501,
+    "win_p": 0.262,
+    "reasons": []
    }
   },
   {
@@ -2077,7 +2061,7 @@
     "market": "spread",
     "line": 25.5,
     "odds": -115,
-    "p": 0.518,
+    "p": 0.519,
     "win_p": 0.027,
     "reasons": []
    }
@@ -2105,7 +2089,7 @@
     "market": "spread",
     "line": 14.5,
     "odds": -102,
-    "p": 0.507,
+    "p": 0.508,
     "win_p": 0.094,
     "reasons": []
    }
@@ -2164,7 +2148,7 @@
     "market": "spread",
     "line": 32.5,
     "odds": -110,
-    "p": 0.525,
+    "p": 0.526,
     "win_p": 0.023,
     "reasons": []
    }
@@ -2223,7 +2207,7 @@
     "market": "spread",
     "line": 7.5,
     "odds": -110,
-    "p": 0.5,
+    "p": 0.501,
     "win_p": 0.252,
     "reasons": []
    }
@@ -2281,7 +2265,7 @@
     "market": "spread",
     "line": 19.5,
     "odds": -110,
-    "p": 0.512,
+    "p": 0.513,
     "win_p": 0.06,
     "reasons": []
    }
