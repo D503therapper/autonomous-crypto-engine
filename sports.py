@@ -8783,11 +8783,12 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
     lines, one pick per game, a Lock / Dog always carries units, the Dog never past its cap, units only when the read
     beats the real price. A pick that breaks one is pulled before it posts (and the log says why). Also flags a
     Monday / Thursday NFL game left without its pick. Returns the problems."""
-    probs, seen = [], {}
+    probs, seen, n_on = [], {}, {}                          # (n_on: picks a game already carries - a twin is a pair)
     for p in picks:
         if p["date"] == iso and p["status"] != "waiting" and p not in new and p.get("kind") not in PARLAY_KINDS:
             for l in p["legs"]:
                 seen[l["game_id"]] = p
+                n_on[l["game_id"]] = n_on.get(l["game_id"], 0) + 1
     ctx, rep = {}, []
     LAST_PICK_CHECK[:] = []
     for pk in list(new):
@@ -8816,7 +8817,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             why = "past -150"
         elif l.get("league") in ("nhl", "mlb") and l.get("market") not in ("ml", "total"):
             why = "a puck line / run line"
-        elif l.get("game_id") in seen and not ncaab_twin(pk, seen[l["game_id"]]):
+        elif l.get("game_id") in seen and (not ncaab_twin(pk, seen[l["game_id"]]) or n_on.get(l["game_id"], 0) >= 2):
             why = "a second pick on a game we're already on"   # (11/4: the 🔍 college hoops gap play and the dog slot
             #                                                  may land on the SAME dog - both count, the owner's 10/4 rule)
         elif pk.get("kind") in ("lock", "dog") and not pk.get("lean") and not units_for(pk):
@@ -8865,6 +8866,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
             if rep:
                 rep[-1].update(held=False, why="", flagged=why)
             seen[l.get("game_id")] = pk
+            n_on[l.get("game_id")] = n_on.get(l.get("game_id"), 0) + 1
         elif why:
             probs.append(f"pulled {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
             new.remove(pk)
@@ -8874,6 +8876,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None, injuries=None, r
                 rep[-1].update(held=True, why=why)
         else:
             seen[l.get("game_id")] = pk
+            n_on[l.get("game_id")] = n_on.get(l.get("game_id"), 0) + 1   # (11/18: never a THIRD pick through the twin door)
         for n, r, w in chk:
             if r == "warn":
                 print(f"PICK CHECK note: {l.get('team')} {l.get('odds')}: {n} - {w}", flush=True)
@@ -9366,8 +9369,13 @@ def post_board(games, model, picks, now, day, force=False):
             room_ = ncaab_play_room(picks, iso)                 # off on its own judge; the switch off = none
             if not room_:
                 continue
+            slot_on = {l["game_id"] for p in today_ if (p.get("ncaab_play") or {}).get("slot") == "dog" for l in p["legs"]}
             twin = {l["game_id"]: l["side"] for p in today_ if p.get("gap") is not None   # the dog slot may take the
-                    for l in p["legs"] if l.get("league") == "ncaab"}                       # SAME dog (never the other side)
+                    for l in p["legs"] if l.get("league") == "ncaab"                        # SAME dog (never the other side)
+                    and l["game_id"] not in slot_on}         # (11/18 daily check: ONCE - a game whose twin is already up
+            #                                                  stays closed; re-opened every hourly run, the slot re-proposed
+            #                                                  Charleston So +105 each hour, the rule check held it as a
+            #                                                  second pick, and the slot's second dog of the night never posted)
             pool = (lambda cands_, used_, r_=room_, t_=twin: ncaab_play_plays(
                 [c for c in cands_ if c["game_id"] not in t_ or c["side"] == t_[c["game_id"]]], used_, tuple(r_), r_))
         room = cap - sum(posted_kind(p) == kind for p in today_)   # (10/24 audit: a 🔍 / dog_play is saved as kind "play"

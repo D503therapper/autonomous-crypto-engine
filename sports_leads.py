@@ -552,6 +552,8 @@ def tags(c, sports):
     t += max_1116_tags(c, sports)                            # 11/16 FABLE: the max play hunt - the 💎 spot + its control
     t += dogs_1117_tags(c, sports)                           # 11/17 FABLE: the underdog edge - the long college Dog's cell + the NFL road-dog lead
     t += daily_1117_tags(c, sports)                          # 11/17 daily studies: the NHL bad-record dog on a tough schedule (a lead)
+    t += daily_1118_tags(c, sports)                          # 11/18 daily studies: the NHL cheap-win dog + the college hoops
+    #                                                          dog vs a favorite off a 1-2 point win (two LEADS)
     return t + sharp
 
 
@@ -642,6 +644,123 @@ def daily_1117_tags(c, sports):
         if not 100 <= (c.get("odds") or 0) <= 350:
             return []
         return [NHL_TOUGH_BAD_DOG_TAG] if nhl_tough_schedule_bad(c) else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+DAILY_1118_FROM = "2026-11-19"   # 11/18 daily studies (results/studies/daily_1118/): two LEADS, logs from the 11/19 games
+NHL_CHEAP_WIN_DOG_TAG = "NHL dog off a win over a sub-.450 team, rested, no 3+ streak, under +220 (lead)"   # a LEAD,
+#   tracked only, never a weight (s9 -> fB -> fB2): an NHL dog whose last game was a WIN over a team under .450 (8+
+#   games, its record before that game) went -15.3% on 1,262 at the close 2018-26 (train -15.3% / held -15.2%, 8 of 9
+#   seasons down, a price-matched placebo 7 of 2,000) with a clean dose (wins over .650+ -1.1%, .550-.650 -1.3%,
+#   .450-.550 -2.8%, .350-.450 -14.7%, .350- -17.3%) - but the engine's built weights carry it: with the hot dog (3+
+#   streak, -2), the back-to-back dog and the long dog (+220, -3) taken out it is -6.8% on 723 (z -1.6; ESPN's open
+#   -4.7% on 254) against +0.1% on 1,150 for the same dogs off a win over a .450+ team; the NBA (-2.5%) and college
+#   hoops (-7.8% vs -7.4% off any win) twins say nothing. This line is the residual. Judge at 60 graded: -10% or worse
+#   against its prices = take it to the five checks as a -1 / -2 weight.
+NCAAB_CLOSE_WIN_FAV_TAG = "college hoops dog vs a favorite off a 1-2 point win (lead)"   # a LEAD, tracked only (s3 ->
+#   fC): a college hoops dog +100..+350 whose opponent won its last game by 1-2 points went -18.0% on 992 at the close
+#   2018-26 (train -10.8%, 3 of 4 down / held -24.9%, 4 of 4 down; ESPN's open -27.9% on 330; ATS -6.6% vs -3.9%; a
+#   price-matched placebo 4 of 2,000) - but NO dose (off a 3-5 win -4.1%, 6-10 -10.2%, 11+ -8.8%; any win -9.2% vs any
+#   loss -2.5%, which the dog slot already reads as "the favorite lost its last"), November +2.2% on 71 (it lives in
+#   December-March), and the NBA twin is +2.3%. Judge at 60 graded (conference play): -10% or worse = the five checks.
+NHL_CHEAP_WIN_OPP = 0.45
+NHL_CHEAP_WIN_MIN_GAMES = 8
+NHL_CHEAP_WIN_MAX_ODDS = 219
+
+
+def _record_before(G, team, before, since):
+    """(wins, losses) for `team` in this season's regular-season finals that started before `before`."""
+    w = l_ = 0
+    for x in G.values():
+        if x.get("status") != "final" or str(x.get("stype") or "2") != "2" or team not in (x.get("home"), x.get("away")):
+            continue
+        if not (since <= (x.get("start") or "") < before):
+            continue
+        try:
+            hs, as_ = float(x["home_score"]), float(x["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if hs == as_:
+            continue
+        if (hs > as_) == (x["home"] == team):
+            w += 1
+        else:
+            l_ += 1
+    return w, l_
+
+
+def _margin(x, team):
+    try:
+        hs, as_ = float(x["home_score"]), float(x["away_score"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    return (hs - as_) if x["home"] == team else (as_ - hs)
+
+
+def _utc(s):
+    from datetime import datetime
+    return datetime.strptime(s[:16], "%Y-%m-%dT%H:%M")
+
+
+def nhl_cheap_win_dog(c):
+    """The NHL side's last game this season was a WIN over a team under .450 (8+ decisions before that game), it is NOT
+    on a back-to-back and NOT on a 3+ game win streak - from the games file, finals before tonight only. None unread."""
+    team, rows = _season_before(c)
+    if not team or not rows:
+        return None
+    G = _GAMES.get(c.get("league")) or {}
+    now = (G.get(c.get("game_id")) or {}).get("start") or c.get("start") or ""
+    last = rows[-1]
+    m = _margin(last, team)
+    if m is None or m <= 0:
+        return False
+    try:
+        if (_utc(now) - _utc(last["start"])).total_seconds() < 1.6 * 86400:
+            return False                                     # a back-to-back: the built rest weights read it
+    except (TypeError, ValueError):
+        return None
+    streak = 0
+    for x in reversed(rows):
+        mm = _margin(x, team)
+        if mm is None or mm <= 0:
+            break
+        streak += 1
+    if streak >= 3:
+        return False                                         # the hot dog: the built -2 reads it
+    y, mo = int(now[:4]), int(now[5:7])
+    since = f"{y if mo >= 9 else y - 1}-09-01"
+    opp = last["away"] if last["home"] == team else last["home"]
+    w, l_ = _record_before(G, opp, last["start"], since)
+    if w + l_ < NHL_CHEAP_WIN_MIN_GAMES:
+        return None
+    return w / (w + l_) < NHL_CHEAP_WIN_OPP
+
+
+def fav_off_close_win(c):
+    """The OTHER side's (the favorite's) last game this season was a 1-2 point WIN - None unread."""
+    other = {"home": "away", "away": "home"}.get(c.get("side") or "")
+    if not other:
+        return None
+    team, rows = _season_before({**c, "side": other})
+    if not team or not rows:
+        return None
+    m = _margin(rows[-1], team)
+    return None if m is None else 1 <= m <= 2
+
+
+def daily_1118_tags(c, sports):
+    """11/18 daily studies: the NHL dog off a cheap win (the residual the built weights leave) and the college hoops
+    dog vs a favorite off a 1-2 point win - two LEADS, tracked only, never read by the board."""
+    try:
+        if c.get("market") != "ml" or sports.pt_day(c) < DAILY_1118_FROM:
+            return []
+        odds = c.get("odds") or 0
+        if c.get("league") == "nhl" and 100 <= odds <= NHL_CHEAP_WIN_MAX_ODDS:
+            return [NHL_CHEAP_WIN_DOG_TAG] if nhl_cheap_win_dog(c) else []
+        if c.get("league") == "ncaab" and 100 <= odds <= 350:
+            return [NCAAB_CLOSE_WIN_FAV_TAG] if fav_off_close_win(c) else []
+        return []
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 
