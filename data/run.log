@@ -23251,3 +23251,27 @@ crypto scanner failed: HTTP Error 404: Not Found
 [2026-11-18 12:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-18 12:05 UTC] crypto/hold_btc  equity $392.90 (-21.4%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), BTC 37 (37/0/0), SOL 29 (29/0/0), PONS 28 (16/0/12), MON 24 (24/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT WOJAK@solana liq $207,525 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: REJECT MAX@solana liq $149,857 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT ORBS@ethereum liq $242,460 - top-10 holders 91%; lp locked 0% < 95%
+   dex screen: REJECT STETH@ethereum liq $17,411,799 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; sell tax unknown; top-10 holders 63%
+   dex screen: REJECT MOCA@base liq $51,128 - liquidity $51,128 < $100,000; pool age unknown; 24h volume $25,100 < $100,000
+   dex screen: REJECT CRVUSD@ethereum liq $8,507,508 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex screen: REJECT AMZNC@base liq $28,517 - liquidity $28,517 < $100,000; 24h volume $6,699 < $100,000
+   dex screen: REJECT TRAC@ethereum liq $458,502 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT HOGE@solana liq $152,481 - lp holders unknown; rugcheck lp locked 55% < 95%
+   dex scanner: 2,466 pools (solana 1,773 / base 372 / ethereum 321), refresh cycle 99s (hot 96s), 3051 calls (110 feed, 429s 0, failed 0), 88,228 refreshed (12483 no pair), +97 added / -63 dropped (dead 62, stale 1, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-18 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/mover     equity $173.97 (-65.2%) 1 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/social_heat equity $322.40 (-35.5%) 1 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-18 13:06 UTC] crypto/hold_btc  equity $392.72 (-21.5%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 32 (32/0/0), ARB 29 (29/0/0), HYPE 24 (24/0/0), XRP 24 (24/0/0)
