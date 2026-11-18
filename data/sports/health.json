@@ -1,32 +1,39 @@
 {
- "at": "2026-11-18T01:16Z",
+ "at": "2026-11-18T02:47Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Rivera vs Labrana: no points for 2782s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (157s)",
+  "live watcher fresh (38s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 8 live cards, 27 lines - nothing false, outdated or senseless",
+  "card audit: 6 live cards, 11 lines - nothing false, outdated or senseless",
   "slate check: all 87 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 17 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 0h ago",
-  "simulator ran 4h ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
   "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T02:47Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-18T01:16Z",
    "fixes": [
@@ -525,13 +532,6 @@
   },
   {
    "at": "2026-11-16T04:54Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T04:47Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
