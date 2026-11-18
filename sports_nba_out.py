@@ -105,11 +105,12 @@ def outs(team_id, team_name, tm, inj):
     return got
 
 
-def back(p, g, inj):
+def back_how(p, g, inj):
     """🔄 11/17 sweep (the owner, 11/12: a posted card keeps up with the news): the men this posted over named as OUT
-    who are NOT out on the report now - listed again as questionable / probable / doubtful, or (a man the report had
-    out when we posted - 'out_listed') off the report altogether. The play never changes; its card stops saying he sits.
-    None = no report = we don't know (nothing changes)."""
+    who are NOT out on the report now -> {name: "listed" (on the report again as questionable / probable / doubtful -
+    the report's own word) | "off" (a man the report had out when we posted - 'out_listed' - missing from it now)}.
+    None = no report = we don't know (nothing changes). 11/18: sports_early.watch takes "listed" at once and "off" only
+    after two runs in a row before the tip - one run off ESPN's list is a feed gap, never 'he plays'."""
     if inj is None or not g:
         return None
     import sports_nba_roster as nr
@@ -123,13 +124,21 @@ def back(p, g, inj):
                 if nm and x.startswith(nm + " without "):
                     loaded |= {nr._nm(m.split(" (")[0]) for m in x.split(" without ", 1)[1].split(" and ")}
     listed = {nr._nm(n) for n in p.get("out_listed") or []}
-    got = []
+    got = {}
     for name in p.get("out") or []:
         k = nr._nm(name)
         c = rep.get(k)
-        if (c is not None and c[0] > 0.0) or (c is None and k in listed and k in loaded):
-            got.append(name)
+        if c is not None and c[0] > 0.0:
+            got[name] = "listed"
+        elif c is None and k in listed and k in loaded:
+            got[name] = "off"
     return got
+
+
+def back(p, g, inj):
+    """The names of back_how (every man no longer out on this one read of the report), or None with no report."""
+    how = back_how(p, g, inj)
+    return None if how is None else list(how)
 
 
 def card_facts(p):

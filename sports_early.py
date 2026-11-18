@@ -685,7 +685,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         print(f"   nba out over failed: {str(e)[:120]}")
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
-    watch(st, games, injuries)
+    watch(st, games, injuries, now)
     if grade(st, games, now):                                # 📈 11/11: a play graded this run - the early plays' own
         say = line_record_say(line_record(st, games))        # record against the close goes in the log
         if say:
@@ -961,30 +961,198 @@ def alt_over_1111(games, g, st, now, avs=None):
             "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None}
 
 
-def watch(st, games, injuries):
-    """A posted play's key player (QB, goalie...) ruled out after we posted: the price blows up for a reason the early
-    read never saw. The play itself never changes (the owner's rule) - its rows say it plain: don't chase it."""
+WATCH_STATUS = ("pre", "live", "in")     # 🚑 11/18 (Victor: "It gives out plays hella early but we don't even know injuries
+#   yet"; the owner: "These bugs are unacceptable"): a posted early play's key men are watched EVERY run until the game
+#   ENDS (sports.WATCH_STATUS - the board's rule), not only until the kickoff
+KEY_RANK = {None: 0, "questionable": 1, "out": 2}
+
+
+def _report_class(status):
+    s = str(status or "").lower()
+    if any(x in s for x in sd.SHORT_TERM + sd.LONG_OUT):
+        return "out"
+    return "questionable" if any(x in s for x in sd.UNSURE) else None
+
+
+def key_men_now(g, side, league, inj, games=None):
+    """🚑 Our side's KEY men who are on the injury report right now: {name: (pos, "out" | "questionable")}.
+    Football: the verified starting quarterback (sd.team_key_out / team_unsure - a backup is never one) and the box
+    scores' lead ball carrier and top two pass catchers (sports_absences.key_players - the men the absence penalty
+    weighs). The NBA: a top-3 scorer or a verified starter (sports.nba_key_man, the 10/28 definition). Hockey: the
+    starting goalie. Baseball: the team's best bats. Unknown is never key - a man we can't place is never named."""
+    name = g.get(f"{side}_name") or ""
+    out = {}
+    try:
+        for r in sd.team_key_out(inj, g.get(side), name, league):
+            out[r[0]] = (r[1], "out")
+        for r in sd.team_unsure(inj, g.get(side), name, league):
+            out.setdefault(r[0], (r[1], "questionable"))
+    except Exception:                                        # noqa: BLE001 - unknown stays unknown
+        pass
+    rows = sd._team_rows(inj, g.get(side), name)
+    if league in ("nfl", "ncaaf"):
+        try:
+            import sports_absences
+            kp = sports_absences.key_players(games or {}, league, g.get(side), g.get("start") or "9") or {}
+            pool = {sports_absences._nm(x) for x in [kp.get("rb")] + list(kp.get("wr") or []) if x}
+            for r in rows:
+                c = _report_class(r[2])
+                if c and r[0] not in out and r[1] != "QB" and sports_absences.match(r[0], pool):
+                    out[r[0]] = (r[1], c)
+        except Exception:                                    # noqa: BLE001
+            pass
+    elif league == "nba":
+        try:
+            import sports
+            for r in rows:
+                s_ = str(r[2] or "").lower()
+                c = _report_class(r[2])
+                if c and not (c == "out" and "season" in s_) and sports.nba_key_man(g, side, r[0]):
+                    out[r[0]] = (r[1], c)
+        except Exception:                                    # noqa: BLE001
+            pass
+    return out
+
+
+def open_leagues(st=None):
+    """The leagues of the open early SIDE plays - the run pulls their injury reports so the watch can read them."""
+    st = st if st is not None else load()
+    return {p.get("league") for p in st.get("picks") or [] if not p.get("result") and p.get("market") != "total"} - {None}
+
+
+def watch(st, games, injuries, now=None):
+    """🚑 THE EARLY CARD KEEPS UP WITH THE INJURY NEWS (11/18 - Victor: "It gives out plays hella early but we don't even
+    know injuries yet"). An early play posts days before the week's injury reports, so every run until its game ENDS
+    (WATCH_STATUS) our side's key men (key_men_now) are read against the report:
+      - a key man OUT or QUESTIONABLE now who wasn't when we posted (p['key_at_post'] - that was in the price) goes on
+        p['key_news'] {name: {st, pos, at}} and the card shows a loud ⚠️ line (news_lines); p['key_out'] / p['key_q']
+        name the first of each (the game-day row's label reads key_out);
+      - THE NEWEST WORD WINS: questionable -> out, out -> questionable replace the man's line; a man the report lists
+        again with a clean status (probable / active) comes off at once;
+      - A ONE-RUN GAP NEVER SAYS "PLAYING": a man missing from the report stays on the card until he's missing TWO runs
+        in a row before the game (the 11/18 Avdija feed gap), and after the start a missing name never clears (ESPN's
+        feed flaps once the game is on); a report with nobody on it for either team is a feed that didn't load;
+      - a league whose report didn't come back this run is left alone (unknown is never 'healthy').
+    The play itself never changes (the owner's rule - NEVER_PULL_AT): the card says it plain and loud, the bettor
+    decides. Every piece of news is logged on the play (p['key_log']) so the alert builds its own record."""
+    now = now or datetime.now(timezone.utc)
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
     for p in st["picks"]:
         g = games.get(p["game_id"])
         if p.get("sp") and g and not p.get("result") and g.get(f"sp_{p['side']}") and g[f"sp_{p['side']}"] != p["sp"]:
             p["key_out"] = f"{p['sp']} (SP)"                 # the owner, 9/30: a last-minute pitcher swap blows up the
             continue                                         # line - our starter isn't going: don't chase it
         inj = (injuries or {}).get(p["league"])
-        if p.get("spot") == "nba_out_over" and not p.get("result") and g and g.get("status") == "pre" and inj is not None:
+        if p.get("spot") == "nba_out_over" and not p.get("result") and g and g.get("status") in WATCH_STATUS and inj is not None:
             try:                                             # 🔄 11/17 sweep: the 🏀 over names who sits - a man the
                 import sports_nba_out                        # report no longer has out comes off its card (the owner,
-                bk = sports_nba_out.back(p, g, inj)          # 11/12: "outdated information ... needs to be updated
-                if bk is not None:                           # always"); the play never changes
-                    p["back"] = bk or None
+                how = sports_nba_out.back_how(p, g, inj)     # 11/12: "outdated information ... needs to be updated
+                if how is not None:                          # always"); the play never changes
+                    wait, ok = p.setdefault("back_wait", {}), []
+                    for n, h in how.items():
+                        if h == "listed" or n in (p.get("back") or []):
+                            ok.append(n)                     # (the report says so in words / already cleared twice)
+                        elif g.get("status") == "pre" and wait.get(n):
+                            ok.append(n)                     # (11/18: off the report two runs in a row, before the tip)
+                        else:
+                            wait[n] = 1                      # (one run off the list may be a feed gap; after the tip
+                    for n in [n for n in wait if n not in how or n in ok]:   # the feed flaps - never "he plays")
+                        wait.pop(n, None)
+                    p["back"] = ok or None
             except Exception as e:                           # noqa: BLE001 - never breaks the watch
                 print(f"nba over news check failed: {str(e)[:60]}")
-        if p.get("result") or not g or g.get("status") != "pre" or inj is None or p.get("market") == "total":
+        if p.get("result") or not g or g.get("status") not in WATCH_STATUS or inj is None or p.get("market") == "total":
             continue
-        out = sd.team_key_out(inj, g.get(p["side"]), g.get(f"{p['side']}_name") or p["team"], p["league"])
-        if "out_at_post" not in p:                   # who was already out when it posted: priced in, not news
-            p["out_at_post"] = [r[0] for r in out]
-        new = [r for r in out if r[0] not in p["out_at_post"]]
-        p["key_out"] = f"{new[0][0]} ({new[0][1]})" if new else None
+        side, other = p["side"], "away" if p["side"] == "home" else "home"
+        rows = sd._team_rows(inj, g.get(side), g.get(f"{side}_name") or p["team"])
+        now_ = key_men_now({**g, f"{side}_name": g.get(f"{side}_name") or p["team"]}, side, p["league"], inj, games)
+        if "key_at_post" not in p:                   # who was already out / questionable when it posted: priced in,
+            if "out_at_post" in p:                   # not news (a play from before 11/18: start from here)
+                p["key_at_post"] = {**{n: c for n, (_, c) in now_.items() if c == "questionable"},
+                                    **{n: "out" for n in p["out_at_post"]}}
+            else:
+                p["key_at_post"] = {n: c for n, (_, c) in now_.items()}
+                p["out_at_post"] = [n for n, (_, c) in now_.items() if c == "out"]
+        at_post, news = p["key_at_post"], dict(p.get("key_news") or {})
+        wait, back = p.setdefault("key_wait", {}), list(p.get("key_back") or [])
+        pre = g.get("status") == "pre"
+        for n, (pos, c) in now_.items():
+            wait.pop(n, None)
+            if KEY_RANK[c] <= KEY_RANK[at_post.get(n)]:
+                news.pop(n, None)                    # (back to where he was when we posted: no news anymore)
+                continue
+            if (news.get(n) or {}).get("st") != c:   # the newest word on a man replaces the old
+                news[n] = {"st": c, "pos": pos, "at": stamp}
+                p.setdefault("key_log", []).append({"t": stamp, "who": n, "pos": pos, "st": c, "odds": _int(g.get(f"ml_{side}"))})
+                print(f"⚠️ early play injury alert: {n} ({pos}) is {c} - {p.get('team')} {p.get('odds')} ({p['league']})", flush=True)
+            back = [x for x in back if x != n]
+        if rows or sd._team_rows(inj, g.get(other), g.get(f"{other}_name")):   # (nobody listed for either team: a feed
+            for n in [n for n in news if n not in now_]:                        #  that didn't load - never 'cleared')
+                row = next((r for r in rows if r[0] == n), None)
+                if row is not None and _report_class(row[2]):
+                    continue                         # (still listed out / questionable: the alert stands)
+                if row is None and (not pre or not wait.get(n)):
+                    wait[n] = 1                      # one run off the list is maybe a feed gap; after the start, never
+                    continue
+                news.pop(n)                          # listed clean, or off the report twice in a row before the game
+                wait.pop(n, None)
+                if n not in back:
+                    back.append(n)
+                p.setdefault("key_log", []).append({"t": stamp, "who": n, "st": "back"})
+        for n in [n for n in wait if n not in news]:
+            wait.pop(n, None)
+        p["key_news"] = news or None
+        p["key_back"] = back or None
+        first = lambda c: next((f"{n} ({v['pos']})" if v.get("pos") else n for n, v in news.items() if v["st"] == c), None)   # noqa: E731
+        p["key_out"], p["key_q"] = first("out"), first("questionable")
+
+
+def news_lines(p):
+    """⚠️ The loud lines an early card shows when the injury news moved after we posted (watch fills them): one a man,
+    his newest word only. [] for a graded play (history) - and never a word about the pick changing: it doesn't."""
+    if p.get("result"):
+        return []
+    out = []
+    team = p.get("team") or "them"
+    if p.get("sp") and str(p.get("key_out") or "").endswith("(SP)"):
+        return [f"⚠️ INJURY ALERT: {p['sp']} isn't starting for {team} anymore - scratched since we posted it. "
+                "The pick stays - don't chase it at a new price."]
+    for n, v in (p.get("key_news") or {}).items():
+        who = f"{n} ({v['pos']})" if v.get("pos") else n
+        if v.get("st") == "out":
+            out.append(f"⚠️ INJURY ALERT: {who} ruled out since we posted it - {team} play without him. "
+                       "The pick stays - don't chase it at a new price.")
+        else:
+            out.append(f"⚠️ INJURY ALERT: {who} is questionable for {team} now - he wasn't on the report when we posted it. "
+                       "The pick stays - watch his status before you add to it.")
+    if not p.get("key_news") and p.get("key_out"):           # (a row stamped by the old watch: the name only)
+        out.append(f"⚠️ INJURY ALERT: {p['key_out']} ruled out since we posted it. The pick stays - don't chase it at a new price.")
+    for n in p.get("key_back") or []:
+        out.append(f"🔄 Update: {n} is off the injury report now - expected to play.")
+    return out
+
+
+ALERT_STYLE = "color:#ff2d2d;font-weight:900"                # the card's loud line: red, heavy (never dull gray)
+
+
+def news_html(p, E):
+    return "".join('<span class="eva"' + ("" if x.startswith("🔄") else f' style="{ALERT_STYLE}"') + f'>{E(x)}</span>'
+                   for x in news_lines(p))
+
+
+def news_record(st):
+    """📋 The alert's own record (11/18 study S2: the NFL dog whose key man went out after the number, 68-137 -9.8% on
+    205 at the early price - no worse than a random set, so a tracker line, never a rule): graded early side plays
+    that ever carried a key-man OUT alert vs the rest -> {"alert": (w, l, units), "clean": (w, l, units)}."""
+    out = {"alert": [0, 0, 0.0], "clean": [0, 0, 0.0]}
+    for p in st.get("picks") or []:
+        if p.get("market") == "total" or p.get("result") not in ("won", "lost") or "out_at_post" not in p:
+            continue
+        k = "alert" if any(e.get("st") == "out" for e in p.get("key_log") or []) or p.get("key_out") else "clean"
+        u = units(p)
+        out[k][0 if p["result"] == "won" else 1] += 1
+        out[k][2] += u * (_dec(p["odds"]) - 1) if p["result"] == "won" else -u
+    return {k: (v[0], v[1], round(v[2], 2)) for k, v in out.items()}
 
 
 def grade(st, games, now=None):
@@ -2206,7 +2374,7 @@ def html(st, E, now=None, show_units=None, games=None):
                 + "".join(f'<span>{E(x)}</span>' for x in _cc_lines(p, fresh_facts(card_facts(p), no_pct(p) if p.get("spot") in SPOTS or p.get("why") else ""))) +   # ⛰️ (11/11: the fact lines)
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
-                + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
+                + news_html(p, E)                            # ⚠️ 11/18: a key man out / questionable since we posted
                 + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \
         '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
@@ -2325,6 +2493,7 @@ def gameday_html(st, games, E, now=None, show_units=None, day=None):
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
+                    + news_html(p, E)                        # ⚠️ 11/18: the injury news since we posted, loud
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     out = ""

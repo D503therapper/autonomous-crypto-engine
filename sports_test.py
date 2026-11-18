@@ -27139,6 +27139,166 @@ def test_owner_1118_a_one_run_gap_never_says_he_plays_and_the_newest_word_wins()
     assert dash_.latest_alerts(leg3["injury_alerts"]) == [a for a in leg3["injury_alerts"] if "is now out" in a][-1:], leg3["injury_alerts"]
     assert not any("off the injury report" in a for a in leg3["injury_alerts"])
 
+
+def test_early_injury_1118_the_early_card_alerts_loud_on_a_key_man_out_or_questionable_after_the_post():
+    """11/18, Victor (the owner: "These bugs are unacceptable"): "It gives out plays hella early but we don't even know
+    injuries yet." The early watch only caught a starting QB ruled OUT, only until the kickoff, cleared the line the
+    first run he was missing from the feed, and said it in one quiet line. Now every run until the game ENDS: a key man
+    of OURS (the QB, the lead back, the top two catchers) out OR questionable since we posted is a loud ⚠️ line on the
+    early card and the game-day row, the newest word on a man replaces the old, one run off the feed never clears him
+    (two in a row before the game; after the start, never), a feed with nobody on it is a feed that didn't load - and
+    the pick never changes."""
+    import sports_early as se, sports_absences as ab
+    now = datetime(2026, 11, 19, 20, tzinfo=timezone.utc)
+    g = {"id": "nfl:9", "league": "nfl", "home": "3", "away": "21", "home_name": "Bears", "away_name": "Eagles",
+         "status": "pre", "start": "2026-11-22T18:00Z", "ml_home": "150", "ml_away": "-180"}
+    games = {"nfl:9": g}
+
+    def play():
+        return {"game_id": "nfl:9", "league": "nfl", "side": "home", "team": "Bears", "opp": "Eagles", "odds": 150,
+                "opp_odds": -180, "start": g["start"], "spot": "bye", "spots": ["bye"], "why": "🧠 +150 undersells Bears on our read.",
+                "own": 0.45, "mkt": 0.38, "posted": "2026-11-16T07:00Z", "result": None, "units": 0.5}
+    E = lambda x: x                                           # noqa: E731
+    keep_kp, keep_st, keep_on = ab.key_players, sd.STARTER_OF, se.ON
+    ab.key_players = lambda games, lg, team, before: {"qb": "Caleb Williams", "rb": "Top Back", "wr": ["Wr One", "Wr Two"]}
+    sd.STARTER_OF = lambda lg, tid, name: True
+    se.ON = True
+    them = [("Some Eagle", "LB", "Out")]
+    QQ, QO = ("Caleb Williams", "QB", "Questionable"), ("Caleb Williams", "QB", "Out")
+    try:
+        p = play()
+        st = {"picks": [p]}
+        se.watch(st, games, {"nfl": {"3": [("Deep Bench", "RB", "Out")], "21": them}}, now)
+        assert p["key_at_post"] == {} and not p.get("key_news") and "INJURY ALERT" not in se.html(st, E, now), \
+            "a backup on the report is nobody's news"
+        se.watch(st, games, {"nfl": None}, now)               # the report didn't come back: left alone
+        assert not p.get("key_news")
+        se.watch(st, games, {"nfl": {"3": [QQ], "21": them}}, now)
+        h = se.html(st, E, now)
+        assert p["key_q"] == "Caleb Williams (QB)" and p["key_out"] is None
+        assert "⚠️ INJURY ALERT: Caleb Williams (QB) is questionable for Bears now" in h and "The pick stays" in h, h
+        assert se.ALERT_STYLE in h, "loud: red and heavy, never a quiet gray line"
+        se.watch(st, games, {"nfl": {"3": [QO], "21": them}}, now + timedelta(hours=1))
+        lines = se.news_lines(p)
+        assert len(lines) == 1 and "Caleb Williams (QB) ruled out since we posted it" in lines[0] and "questionable" not in lines[0], \
+            f"the newest word on a man replaces the old: {lines}"
+        assert p["key_out"] == "Caleb Williams (QB)" and p["key_q"] is None
+        assert [e["st"] for e in p["key_log"]] == ["questionable", "out"]
+        se.watch(st, games, {"nfl": {"3": [], "21": them}}, now)                  # ONE run off the feed
+        assert p["key_out"] == "Caleb Williams (QB)" and "ruled out since we posted" in se.html(st, E, now), \
+            "a one-run gap on the feed never says he plays"
+        se.watch(st, games, {"nfl": {"3": [QO], "21": them}}, now)                # back on it: the gap was a hiccup
+        assert not p.get("key_wait")
+        for _ in range(3):                                                        # a feed with nobody on it for either team
+            se.watch(st, games, {"nfl": {"3": [], "21": []}}, now)                # never loaded - never 'cleared'
+        assert p["key_out"] == "Caleb Williams (QB)"
+        g["status"] = "live"                                                      # after the start the feed flaps:
+        for _ in range(3):                                                        # a missing name never clears
+            se.watch(st, games, {"nfl": {"3": [], "21": them}}, now)
+        assert p["key_out"] == "Caleb Williams (QB)" and not p.get("key_back")
+        assert (p["odds"], p["side"], p["units"], p["result"]) == (150, "home", 0.5, None), "the pick never changes"
+        # ruled out AT the kickoff (the game is on): still caught - the watch runs until the game ends
+        p2 = play()
+        st2 = {"picks": [p2]}
+        g["status"] = "pre"
+        se.watch(st2, games, {"nfl": {"3": [], "21": them}}, now)
+        g["status"] = "live"
+        se.watch(st2, games, {"nfl": {"3": [QO], "21": them}}, now)
+        assert p2["key_out"] == "Caleb Williams (QB)" and "live" in se.WATCH_STATUS and se.WATCH_STATUS == sports.WATCH_STATUS
+        g["status"] = "final"
+        se.watch(st2, games, {"nfl": {"3": [], "21": them}}, now)
+        se.watch(st2, games, {"nfl": {"3": [], "21": them}}, now)
+        assert p2["key_out"] == "Caleb Williams (QB)", "a finished game is never re-read"
+        # two runs in a row off the report BEFORE the game: then it's real, and the card says so
+        g["status"] = "pre"
+        p3 = play()
+        st3 = {"picks": [p3]}
+        se.watch(st3, games, {"nfl": {"3": [], "21": them}}, now)
+        se.watch(st3, games, {"nfl": {"3": [QQ], "21": them}}, now)
+        se.watch(st3, games, {"nfl": {"3": [], "21": them}}, now)
+        assert p3["key_q"] == "Caleb Williams (QB)"
+        se.watch(st3, games, {"nfl": {"3": [], "21": them}}, now)
+        assert p3["key_q"] is None and p3["key_news"] is None and p3["key_back"] == ["Caleb Williams"]
+        h3 = se.html(st3, E, now)
+        assert "INJURY ALERT" not in h3 and "🔄 Update: Caleb Williams is off the injury report now - expected to play." in h3
+        se.watch(st3, games, {"nfl": {"3": [QO], "21": them}}, now)               # ...and out after all: the newest word
+        assert p3["key_out"] == "Caleb Williams (QB)" and not p3.get("key_back")
+        assert len(se.news_lines(p3)) == 1
+        se.watch(st3, games, {"nfl": {"3": [("Caleb Williams", "QB", "Probable")], "21": them}}, now)
+        assert p3["key_out"] is None and p3["key_back"] == ["Caleb Williams"], "the report's own clean word clears him at once"
+        # a man already out when we posted is in the price - never news; questionable at the post, OUT later is
+        p4 = play()
+        st4 = {"picks": [p4]}
+        tb = ("Top Back", "RB", "Out")
+        se.watch(st4, games, {"nfl": {"3": [tb, ("Wr One", "WR", "Questionable")], "21": them}}, now)
+        assert p4["out_at_post"] == ["Top Back"] and p4["key_at_post"] == {"Top Back": "out", "Wr One": "questionable"}
+        assert not se.news_lines(p4)
+        se.watch(st4, games, {"nfl": {"3": [tb, ("Wr One", "WR", "Out"), ("Wr Two", "WR", "Questionable"),
+                                            ("Third String", "WR", "Out")], "21": them}}, now)
+        l4 = se.news_lines(p4)
+        assert len(l4) == 2 and any("Wr One (WR) ruled out since we posted it" in x for x in l4) \
+            and any("Wr Two (WR) is questionable for Bears now" in x for x in l4) and not any("Third String" in x or "Top Back" in x for x in l4), l4
+        # a play stamped by the old watch (out_at_post only): starts from here, the old alert still shows
+        p5 = {**play(), "out_at_post": [], "key_out": None}
+        se.watch({"picks": [p5]}, games, {"nfl": {"3": [QQ], "21": them}}, now)
+        assert p5["key_at_post"] == {"Caleb Williams": "questionable"} and not se.news_lines(p5)
+        assert se.news_lines({**play(), "key_out": "Old Row (QB)"})[0].startswith("⚠️ INJURY ALERT: Old Row (QB) ruled out since we posted it")
+        # the game-day row carries it too; a graded row is history
+        g["start"] = p["start"] = "2026-11-19T23:00Z"
+        g["status"] = "pre"
+        row = se.gameday_html(st, games, E, now)
+        assert "⚠️ INJURY ALERT: Caleb Williams (QB) ruled out since we posted it" in row and "Caleb Williams out - don't chase it" in row, row
+        p["result"], p["graded_at"] = "lost", now.strftime("%Y-%m-%dT%H:%MZ")
+        assert "INJURY ALERT" not in se.gameday_html(st, games, E, now)
+        rec = se.news_record(st)
+        assert rec["alert"] == (0, 1, -0.5) and rec["clean"] == (0, 0, 0.0), rec
+        assert se.open_leagues({"picks": [play(), {**play(), "league": "nhl"}, {**play(), "league": "nba", "market": "total"},
+                                          {**play(), "league": "mlb", "result": "won"}]}) == {"nfl", "nhl"}
+    finally:
+        ab.key_players, sd.STARTER_OF, se.ON = keep_kp, keep_st, keep_on
+    # the timing is NOT changed (the 11/18 study: the same NFL spot dogs at the after-the-report price -2.1% a bet,
+    # waiting paid in 1 of 6 seasons; the hold-and-skip made +20.8u vs +20.4u - a wash): still inside 3 days of the
+    # first fair number, never game day
+    assert se.SPOT_WINDOW_H == 72 and not hasattr(se, "INJ_HOLD_FROM")
+
+
+def test_early_injury_1118_the_nba_over_card_waits_two_runs_before_a_man_off_the_report_plays():
+    """11/18: the 🏀 main-guys-sit over took a man off its card the first run he was missing from ESPN's feed (the
+    Avdija gap: one run off the list, then OUT). Off the report now needs two runs in a row before the tip; after the
+    tip a missing name never reads as playing; the report's own word (questionable again) still counts at once."""
+    import sports_early as se, sports_nba_out as no
+    g = {"id": "nba:1", "league": "nba", "status": "pre", "home": "1", "away": "2", "home_name": "Mavericks", "away_name": "Nuggets",
+         "start": "2026-11-20T01:00Z"}
+    p = {"game_id": "nba:1", "league": "nba", "market": "total", "side": "over", "line": 227.5, "odds": -110, "spot": "nba_out_over",
+         "team": "Over 227.5", "opp": "Nuggets @ Mavericks", "start": g["start"], "result": None,
+         "out": ["Al Star", "Bo Wing", "Cy Big"], "out_listed": ["Al Star", "Bo Wing"],
+         "facts": ["Mavericks without Al Star (36 minutes a night) and Bo Wing (31 minutes a night)",
+                   "Nuggets without Cy Big (33 minutes a night)", "Good to 228.5 - don't take it past that, or worse than -115"]}
+    off = {"1": [("Bo Wing", "F", "Out")], "2": []}
+    full = {"1": [("Al Star", "G", "Out"), ("Bo Wing", "F", "Out")], "2": []}
+    assert no.back_how(p, g, off) == {"Al Star": "off"} and no.back(p, g, off) == ["Al Star"]
+    assert no.back_how(p, g, {"1": [("Al Star", "G", "Questionable"), ("Bo Wing", "F", "Out")], "2": []}) == {"Al Star": "listed"}
+    st = {"picks": [p]}
+    se.watch(st, {"nba:1": g}, {"nba": off})
+    assert p["back"] is None and se.card_facts(p) == p["facts"], "one run off the feed never says he plays"
+    se.watch(st, {"nba:1": g}, {"nba": full})
+    se.watch(st, {"nba:1": g}, {"nba": off})
+    assert p["back"] is None, "back on the list in between: the count starts over"
+    se.watch(st, {"nba:1": g}, {"nba": off})
+    assert p["back"] == ["Al Star"], "two runs in a row: he's off it"
+    g["status"] = "live"
+    se.watch(st, {"nba:1": g}, {"nba": off})
+    assert p["back"] == ["Al Star"], "already cleared before the tip: stays"
+    p2 = {**p, "back": None}
+    p2.pop("back_wait", None)
+    st2 = {"picks": [p2]}
+    for _ in range(3):
+        se.watch(st2, {"nba:1": g}, {"nba": off})
+    assert p2["back"] is None, "after the tip a man missing from the feed never reads as playing"
+    se.watch(st2, {"nba:1": g}, {"nba": {"1": [("Al Star", "G", "Questionable"), ("Bo Wing", "F", "Out")], "2": []}})
+    assert p2["back"] == ["Al Star"], "the report's own word still counts"
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
