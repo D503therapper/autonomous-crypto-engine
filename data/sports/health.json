@@ -1,16 +1,16 @@
 {
- "at": "2026-11-18T23:10Z",
+ "at": "2026-11-18T23:11Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Samson vs Geerlings: no points for 455s",
+  "live tennis scores: tennis Samson vs Geerlings: no points for 554s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
   "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
  ],
  "ok": [
-  "live watcher fresh (55s)",
+  "live watcher fresh (20s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,12 +23,24 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T23:11Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Samson vs Geerlings: no points for 554s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
+    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
+   ]
+  },
   {
    "at": "2026-11-18T23:10Z",
    "fixes": [
@@ -602,11 +614,6 @@
   },
   {
    "at": "2026-11-17T08:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-17T06:59Z",
    "fixes": [],
    "problems": []
   }
