@@ -23502,3 +23502,42 @@ $SAVA: No data found, symbol may be delisted
 [2026-11-18 18:06 UTC] stocks/trend     equity $452.85 (-9.4%) 3 open  market DOWN
 [2026-11-18 18:06 UTC] stocks/hold_spy  equity $477.85 (-4.4%) 1 open  market DOWN
    social heat top: TRUMP 32 (32/0/0), BTC 27 (27/0/0), PENGU 24 (24/0/0), AERO 19 (19/0/0), SOL 16 (16/0/0)
+   dex screen: PASS CYBERLEEK@solana liq $322,801
+   dex screen: REJECT OUSD@base liq $128,678 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $1,320,813
+   dex screen: REJECT TTWO@solana liq $619,528 - freeze authority; mint authority; balance_mutable_authority; transfer hook; lp holders unknown
+   dex screen: PASS TIBBIR@base liq $2,024,274
+   dex screen: REJECT MIHAO@solana liq $318,609 - lp holders unknown; rugcheck lp locked 41% < 95%
+   dex screen: REJECT BEAM@ethereum liq $2,705,110 - is_mintable; owner_change_balance; top-10 holders 60%
+   dex screen: REJECT WGNK@ethereum liq $154,870 - lp locked 0% < 95%
+   dex screen: REJECT ADI@ethereum liq $2,843,183 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dex scanner: 2,485 pools (solana 1,776 / base 380 / ethereum 329), refresh cycle 110s (hot 105s), 2821 calls (108 feed, 429s 0, failed 0), 81,388 refreshed (12534 no pair), +75 added / -73 dropped (dead 71, stale 2, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-18 19:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/mover     equity $173.25 (-65.3%) 1 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/social_heat equity $321.87 (-35.6%) 1 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-18 19:05 UTC] crypto/hold_btc  equity $387.00 (-22.6%) 1 open  market DOWN
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF']: possibly delisted; no price data found  (period=407d)
+['NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-11-18 19:06 UTC] stocks/rsi2      equity $452.45 (-9.5%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 1, XLRE 2 BUY, XLB 2, COIN 3
+[2026-11-18 19:06 UTC] stocks/breakout52 equity $461.50 (-7.7%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: none
+[2026-11-18 19:06 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 51.87 vs its 200-day average 65.48: BELOW (cash)
+[2026-11-18 19:06 UTC] stocks/dual_momentum equity $449.10 (-10.2%) 2 open  market DOWN
+[2026-11-18 19:06 UTC] stocks/trend_ensemble equity $497.46 (-0.5%) 5 open  market DOWN
+[2026-11-18 19:06 UTC] stocks/rotation10 equity $498.74 (-0.3%) 2 open  market DOWN
+[2026-11-18 19:06 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-18 19:06 UTC] stocks/trend     equity $453.52 (-9.3%) 3 open  market DOWN
+[2026-11-18 19:06 UTC] stocks/hold_spy  equity $477.78 (-4.4%) 1 open  market DOWN
+   social heat top: TRUMP 35 (35/0/0), PENGU 29 (29/0/0), BTC 27 (27/0/0), QNT 24 (24/0/0), AERO 23 (19/0/4)
