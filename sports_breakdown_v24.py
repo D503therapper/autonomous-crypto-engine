@@ -1771,13 +1771,40 @@ def _per_game(gs, tid):
     return f / len(gs), a / len(gs)
 
 
+def nba_who_matters(names, team_id, before):
+    """🏀 11/18: an NBA out list cut to the men who MATTER - a top-3 scorer over the last 10 box scores or a verified
+    starter (sports.nba_key_man's test). A bench man, or one out so long the box scores no longer carry him, is never a
+    card's knock or reason. No box scores: the list as it is."""
+    try:
+        import sports_absences
+        import sports_data as sd_
+        top = (sports_absences.key_players({}, "nba", team_id, before) or {}).get("top") or []
+    except Exception:                                     # noqa: BLE001
+        return names
+    if not top:
+        return names
+    keys = {sports_absences._nm(p) for p in top}
+    out = []
+    for x in names:
+        nm = str(x).split(" (")[0]
+        try:
+            starter = sd_.STARTER_OF is not None and sd_.STARTER_OF("nba", team_id, nm) is True
+        except Exception:                                 # noqa: BLE001
+            starter = False
+        if sports_absences.match(nm, keys) or starter:
+            out.append(x)
+    return out
+
+
 def who_plays_only(names, lg, team_id, before):
     """Football: the out list ("Name (POS)") cut to the men the team's box scores say PLAY (sports_absences.regulars -
     the QB, top backs / catchers / tacklers of the last 3 games). 10/31 college sweep: the Kansas St card's risk line
     read "goes without D. Duff (QB), G. Oakley (TE), A. Morrell (TE), W. Anciaux (TE)" - four men who never show up in
     its box scores, a backup QB first - and "That's real depth gone" can say the same of walk-ons. No box scores / not
     football: the list as it is. The 🚑 list on the card keeps everyone (who_plays_first only orders it)."""
-    if lg not in ("nfl", "ncaaf"):
+    if lg == "nba":                                       # 🏀 11/18 (the owner on the Nuggets card's "Biggest knock: Nuggets
+        return nba_who_matters(names, team_id, before)    #  go without Julian Strawther": "Strawther's been out for a hot
+    if lg not in ("nfl", "ncaaf"):                        #  minute, and he's not even a key player")
         return names
     try:
         import sports_absences
