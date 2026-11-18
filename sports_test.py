@@ -27321,6 +27321,123 @@ def test_owner_1118_altitude_in_feet_rain_in_inches_never_metric():
         code = re.sub(r'"""(.|\n)*?"""', "", code)
         assert " meters" not in code and " mm of rain" not in code, mod.__name__
 
+def test_daily_1118_the_slot_twin_reopens_a_game_once_never_every_hour():
+    """11/18 DAILY CHECK (the board check): the 🔍 college hoops gap play and the dog slot posted on the same dog
+    (Charleston So +114, 2u each - allowed, both count). But post_board re-opened the gap play's game to the dog slot on
+    EVERY later run: the slot re-proposed Charleston So each hour (+114, then +105), the rule check held it as a second
+    pick (slate_check's problems), and with one dog's room left the slot's second dog of the night could never post - the
+    held twin ate the room. Fixed: a game whose twin is already up stays closed to the slot."""
+    src = open(sports.__file__).read()
+    assert "and l[\"game_id\"] not in slot_on}" in src
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 11, 20, 16, 30, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    for i in range(3):
+        gid = f"ncaab:up{i}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": "2026-11-21T03:00Z", "ml_home": "-190", "ml_away": "160", "ml_home_open": "-190",
+                      "ml_away_open": "160", "spread_home": "-4.5", "spread_home_odds": "-110", "spread_away_odds": "-110"}
+    keep_f = sd.fetch_injuries
+    keep_fn = (sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays)
+    keep_rc = sports.rule_check
+    try:
+        sd.fetch_injuries = lambda lg: {str(t): [] for t in range(16)}
+        up = lambda c: c.get("game_id", "").startswith("ncaab:up") and c.get("market") == "ml" and c.get("odds", 0) > 0
+        reads = {"ncaab:up1": 7.0}
+
+        def fake_dog(c):
+            if not up(c) or c["game_id"] not in reads:
+                return None
+            c["dog_read"] = reads[c["game_id"]]
+            return (0.5, round(0.5 * c["dec"] - 1, 4), c["dog_read"])
+        sports.ncaab_play_dog = fake_dog
+        sports.ncaab_play_fav = lambda c: None
+        sports.floor_plays = lambda cands, avoid, filtered=True: []
+        sports.plays = sports.dog_plays = lambda cands, avoid: []
+        sports.gap_plays = lambda cands, avoid: [{**c, "gap": 0.17, "dog_read": 7.0, "edge_own": round(0.5 * c["dec"] - 1, 4)}
+                                                 for c in cands if up(c) and c["game_id"] == "ncaab:up1" and c["game_id"] not in avoid]
+        picks = []
+        sports.post_board(games, model, picks, now, day, force=True)
+        on1 = [p for p in picks if p["legs"][0]["game_id"] == "ncaab:up1" and p["status"] != "waiting"]
+        assert len(on1) == 2 and sum(bool(p.get("ncaab_play")) for p in on1) == 1     # the twin: both count
+        slot1 = next(p for p in on1 if p.get("ncaab_play"))
+        dup = {**slot1, "posted": "later", "legs": [dict(slot1["legs"][0])]}            # never a THIRD through the twin door
+        assert any("second pick" in x for x in sports.rule_check(picks + [dup], [dup], day.isoformat()))
+        reads["ncaab:up2"] = 5.0                                # a second slot dog shows up an hour later
+        probs = []
+
+        def spy(*a, **k):
+            out = keep_rc(*a, **k)
+            probs.extend(out)
+            return out
+        sports.rule_check = spy
+        sports.post_board(games, model, picks, now + timedelta(hours=1), day, force=True)
+        slot = [p["legs"][0]["game_id"] for p in picks if (p.get("ncaab_play") or {}).get("slot") == "dog"]
+        assert slot == ["ncaab:up1", "ncaab:up2"], slot          # the second dog posts; the twin game isn't re-proposed
+        assert not [x for x in probs if "second pick" in x], probs
+    finally:
+        sports.rule_check = keep_rc
+        sd.fetch_injuries = keep_f
+        sports.ncaab_play_dog, sports.ncaab_play_fav, sports.floor_plays, sports.plays, sports.dog_plays, sports.gap_plays = keep_fn
+
+
+def test_daily_1118_cheap_win_dog_and_close_win_favorite_are_tracker_leads_only():
+    """11/18 daily studies (results/studies/daily_1118/): ten new angles, nothing clears the five checks, nothing weighed.
+    Two LEADS go on the tracker from the 11/19 games: (1) the NHL dog off a WIN over a sub-.450 team (-15.3% on 1,262,
+    a clean dose - but the built hot dog / back-to-back / long dog weights carry it; the residual, rested, no 3+ streak,
+    under +220, is -6.8% on 723 vs +0.1% off a win over a .450+ team) and (2) the college hoops dog vs a favorite off a
+    1-2 point win (-18.0% on 992, no dose). Finals before tonight only; never read by the board."""
+    import sports_leads as sl
+    keep = dict(sl._GAMES)
+    try:
+        def fg(i, start, home, away, hs, as_):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_)}
+        G = {}
+        for j in range(9):                                   # W (the weak team) goes 1-8 against filler teams
+            G[f"nhl:w{j}"] = fg(f"nhl:w{j}", f"2026-10-{5 + j:02d}T23:00Z", "W", f"X{j}", 1 if j else 3, 4 if j else 1)
+        G["nhl:t0"] = fg("nhl:t0", "2026-10-20T23:00Z", "T", "Y", 1, 4)                # T lost, then ...
+        G["nhl:t1"] = fg("nhl:t1", "2026-10-25T23:00Z", "W", "T", 2, 3)                # ... beat 1-8 W on the road
+        G["nhl:old"] = fg("nhl:old", "2026-04-01T23:00Z", "T", "W", 0, 5)             # last season never counts
+        G["nhl:now"] = {"id": "nhl:now", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "T", "away": "D"}
+        sl._GAMES["nhl"] = G
+        dog = {"market": "ml", "league": "nhl", "game_id": "nhl:now", "side": "home", "odds": 150, "team": "Ts",
+               "opp": "Ds", "start": "2026-11-20T00:00Z"}
+        assert sl.nhl_cheap_win_dog(dog) is True
+        assert sl.NHL_CHEAP_WIN_DOG_TAG in sl.daily_1118_tags(dog, sports) and sl.NHL_CHEAP_WIN_DOG_TAG in sl.tags(dog, sports)
+        assert not sl.daily_1118_tags({**dog, "odds": 220}, sports)                  # the long dog: the built -3 reads it
+        assert not sl.daily_1118_tags({**dog, "odds": -130}, sports)                 # a favorite: no
+        assert not sl.daily_1118_tags({**dog, "start": "2026-11-18T23:00Z"}, sports)   # before the 11/19 games: no
+        G["nhl:now"]["start"] = "2026-10-26T23:00Z"                                    # the night after: a back-to-back
+        assert sl.nhl_cheap_win_dog({**dog, "start": "2026-10-26T23:00Z"}) is False
+        G["nhl:now"]["start"] = "2026-11-20T00:00Z"
+        G["nhl:t0"] = fg("nhl:t0", "2026-10-20T23:00Z", "T", "Y", 4, 1)
+        G["nhl:t2"] = fg("nhl:t2", "2026-10-18T23:00Z", "T", "Z", 4, 1)
+        assert sl.nhl_cheap_win_dog(dog) is False                                      # 3 straight wins: the hot dog's
+        del G["nhl:t2"]
+        for j in range(1, 9):
+            G[f"nhl:w{j}"]["home_score"], G[f"nhl:w{j}"]["away_score"] = "5", "1"   # W is 9-0: no cheap win
+        assert sl.nhl_cheap_win_dog(dog) is False
+        # the college hoops dog vs a favorite off a 1-2 point win
+        H = {"ncaab:f0": fg("ncaab:f0", "2026-11-14T00:00Z", "F", "Q", 70, 69),
+             "ncaab:now": {"id": "ncaab:now", "start": "2026-11-20T00:00Z", "status": "pre", "stype": "2", "home": "F", "away": "U"}}
+        sl._GAMES["ncaab"] = H
+        cd = {"market": "ml", "league": "ncaab", "game_id": "ncaab:now", "side": "away", "odds": 180, "start": "2026-11-20T00:00Z"}
+        assert sl.fav_off_close_win(cd) is True and sl.NCAAB_CLOSE_WIN_FAV_TAG in sl.daily_1118_tags(cd, sports)
+        H["ncaab:f0"]["home_score"] = "75"                                             # a 6-point win: no
+        assert sl.fav_off_close_win(cd) is False and not sl.daily_1118_tags(cd, sports)
+        for name in ("NHL_CHEAP_WIN_W", "CHEAP_WIN_DOG_W", "CLOSE_WIN_FAV_W"):
+            assert not hasattr(sports, name), "tracked, never weighed"
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
