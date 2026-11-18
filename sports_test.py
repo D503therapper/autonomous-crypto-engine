@@ -27125,6 +27125,19 @@ def test_owner_1118_a_one_run_gap_never_says_he_plays_and_the_newest_word_wins()
     sports.sd.STARTER_OF = real_st
     assert any("off the injury report" in a for a in leg2.get("injury_alerts") or []), leg2.get("injury_alerts")
     assert "live" in sports.WATCH_STATUS
+    # after the tip a man missing from the feed (it flaps: Avdija OUT, gone, OUT) is never "off the injury report"
+    g["status"] = "live"
+    leg3 = {"game_id": "nfl:1", "league": "nfl", "team": "Bears", "opp": "Eagles", "side": "home", "market": "ml",
+            "odds": 110, "key_seen": {}}
+    sports.sd.STARTER_OF = lambda lg, tid, name: True
+    try:
+        for rep in ({"3": [("Caleb Williams", "QB", "Out")]}, {"3": []}, {"3": []}, {"3": [("Caleb Williams", "QB", "Out")]}):
+            sports.sd.fetch_injuries = lambda lg, rep=rep: rep
+            sports.injury_watch({"nfl:1": g}, [{"status": "open", "legs": [leg3]}], push=False)
+    finally:
+        sports.sd.fetch_injuries, sports.sd.STARTER_OF = real, real_st
+    assert dash_.latest_alerts(leg3["injury_alerts"]) == [a for a in leg3["injury_alerts"] if "is now out" in a][-1:], leg3["injury_alerts"]
+    assert not any("off the injury report" in a for a in leg3["injury_alerts"])
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

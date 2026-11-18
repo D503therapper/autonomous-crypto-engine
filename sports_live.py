@@ -2172,6 +2172,7 @@ CARD_NEWS_AHEAD_H = 4         # ruled to play ... always up to date"): while the
 
 def card_news_due(games, picks, now=None):
     """The open posted legs whose games haven't started and start within CARD_NEWS_AHEAD_H hours."""
+    import sports
     now = now or datetime.now(timezone.utc)
     out = []
     for p in picks or []:
@@ -2179,7 +2180,7 @@ def card_news_due(games, picks, now=None):
             continue
         for l in p.get("legs") or []:
             g = (games or {}).get(l.get("game_id"))
-            if not g or g.get("status") != "pre" or not g.get("start"):
+            if not g or g.get("status") not in sports.WATCH_STATUS or not g.get("start"):   # (11/18: through the game)
                 continue
             try:
                 t = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
