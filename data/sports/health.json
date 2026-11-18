@@ -1,13 +1,10 @@
 {
- "at": "2026-11-18T17:46Z",
+ "at": "2026-11-18T17:48Z",
  "fixes": [
-  "live watch 44353717491 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
-  "slate check problem - re-pull before the board - started sports.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Hercog vs Masarova: no points for 2424s",
+  "live tennis scores: tennis Hercog vs Masarova: no points for 2586s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
   "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
@@ -15,6 +12,7 @@
   "simulator last ran 10h ago - restarted"
  ],
  "ok": [
+  "live watcher fresh (214s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -25,12 +23,26 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 2h ago",
-  "engine ran -0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T17:48Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Hercog vs Masarova: no points for 2586s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
+    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
+    "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-18T17:46Z",
    "fixes": [
@@ -528,11 +540,6 @@
   },
   {
    "at": "2026-11-17T02:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-17T00:33Z",
    "fixes": [],
    "problems": []
   }
