@@ -137,14 +137,28 @@ def is_lean_pick(p):
         return True
 
 
+OWNER_REMOVED = (("2026-11-18", "ncaab:401911377", "gap"),)   # ✋ posted picks the OWNER said to take down (his explicit OK -
+#   CLAUDE.md "never change a posted pick without the owner's explicit OK"): 11/18, Charleston So +114 posted twice, the 🔍
+#   gap play 2u and the dog slot 2u on the same dog - the owner: "There's a duplicate play" / "Fix it". The gap play copy
+#   comes off (the dog slot play stays, 2u, counted once). (date, game, kind) - kind: gap / slot / the pick's kind.
+
+
+def owner_removed(p):
+    """Is this one of the posted picks the owner said to take down (OWNER_REMOVED)?"""
+    if not isinstance(p, dict) or not p.get("legs"):
+        return False
+    k = "gap" if p.get("gap") is not None else "slot" if (p.get("ncaab_play") or {}).get("slot") == "dog" else p.get("kind")
+    return any(p.get("date") == d and (p["legs"][0] or {}).get("game_id") == gid and k == kind for d, gid, kind in OWNER_REMOVED)
+
+
 def strip_leans(rows):
     """🚫 11/16: take every no-units lean out of `rows` IN PLACE (callers hold the list) -> the leans taken out, which
     go to data/sports/leans_removed.json (out of sight, never on the page or in a record)."""
-    if not LEANS_GONE or not isinstance(rows, list):
+    if not isinstance(rows, list):
         return []
-    gone = [p for p in rows if is_lean_pick(p)]
+    gone = [p for p in rows if (LEANS_GONE and is_lean_pick(p)) or owner_removed(p)]
     if gone:
-        rows[:] = [p for p in rows if not is_lean_pick(p)]
+        rows[:] = [p for p in rows if p not in gone]
         try:
             p_ = os.path.join(DATA, LEANS_ARCHIVE)
             old = json.load(open(p_)) if os.path.exists(p_) else []
@@ -183,7 +197,7 @@ def note_board_ran(model, iso, now):
 
 
 def _posted_pick(p):
-    return bool(isinstance(p, dict) and not (LEANS_GONE and is_lean_pick(p)) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
+    return bool(isinstance(p, dict) and not (LEANS_GONE and is_lean_pick(p)) and not owner_removed(p) and p.get("status") != "waiting" and p.get("legs") and (p.get("date") or "") >= NEVER_PULL_FROM)
 
 
 def _bet_held(p, rows):
@@ -7288,10 +7302,17 @@ def ncaab_play_plays(cands, avoid, slots=NCAAB_PLAY_SLOTS, room=None):
     return out
 
 
+TWIN_OFF_FROM = "2026-11-19"   # 🚫 11/18, the owner on Charleston So +114 posted twice (the 🔍 gap play 2u + the dog slot
+#   2u, same dog): "There's a duplicate play." From the 11/19 games one side of a game gets ONE play - the gap play and the
+#   dog slot never both post the same dog (the first to post keeps it; the slot moves on to its next dog). None = twins back.
+
+
 def ncaab_twin(a, b):
     """True when `a` and `b` are the 🔍 college hoops gap play and the college hoops dog slot play on the SAME dog (the
     same game, the same side): the one game a day may carry both - each with its units (the owner, 10/4: "Jaguars can
     be both"; 11/4). Anything else on a game we're already on is a second pick."""
+    if TWIN_OFF_FROM and max(a.get("date") or "", b.get("date") or "") >= TWIN_OFF_FROM:
+        return False                                      # (11/18: one play a side - never the same bet twice)
     la, lb = (a.get("legs") or [{}])[0], (b.get("legs") or [{}])[0]
     if la.get("league") != "ncaab" or lb.get("league") != "ncaab":
         return False
@@ -9370,7 +9391,8 @@ def post_board(games, model, picks, now, day, force=False):
             if not room_:
                 continue
             slot_on = {l["game_id"] for p in today_ if (p.get("ncaab_play") or {}).get("slot") == "dog" for l in p["legs"]}
-            twin = {l["game_id"]: l["side"] for p in today_ if p.get("gap") is not None   # the dog slot may take the
+            twin = {} if (TWIN_OFF_FROM and iso >= TWIN_OFF_FROM) else \
+                {l["game_id"]: l["side"] for p in today_ if p.get("gap") is not None   # the dog slot may take the
                     for l in p["legs"] if l.get("league") == "ncaab"                        # SAME dog (never the other side)
                     and l["game_id"] not in slot_on}         # (11/18 daily check: ONCE - a game whose twin is already up
             #                                                  stays closed; re-opened every hourly run, the slot re-proposed

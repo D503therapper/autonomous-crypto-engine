@@ -18207,6 +18207,17 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
 
 
 def test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words():
+    """(11/18: the twin rule's own mechanics - checked with the twin back on, TWIN_OFF_FROM None; from the 11/19 games
+    one side of a game gets one play - test_owner_1118_one_play_a_side_never_the_same_dog_twice)"""
+    was = sports.TWIN_OFF_FROM
+    sports.TWIN_OFF_FROM = None
+    try:
+        _test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words_impl()
+    finally:
+        sports.TWIN_OFF_FROM = was
+
+
+def _test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_fades_out_the_judge_no_test_words_impl():
     """🐶🏀 THE COLLEGE HOOPS DOG SLOT ON THE DOG EXPERT'S READ (the owner, 11/4: "more dogs and more units on college
     basketball ... just wire it into the engine"): NCAAB_PLAY_DOG_RULE "dog_read" (the default; "weights2" / "strict"
     selectable) - the dog slot takes every dog +100..+350 that sports.ncaab_dog_read_ok passes (the dog read 4+ with
@@ -18372,6 +18383,17 @@ def test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6_
 
 
 def test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge():
+    """(11/18: the twin rule's own mechanics - checked with the twin back on, TWIN_OFF_FROM None; from the 11/19 games
+    one side of a game gets one play - test_owner_1118_one_play_a_side_never_the_same_dog_twice)"""
+    was = sports.TWIN_OFF_FROM
+    sports.TWIN_OFF_FROM = None
+    try:
+        _test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge_impl()
+    finally:
+        sports.TWIN_OFF_FROM = was
+
+
+def _test_cbb_dog_expert_1104_gap_play_twin_on_the_efficiency_read_and_the_dog_read_adds_weights_ratings_knowledge_impl():
     """11/3-4 FABLE - COLLEGE HOOPS DOG EXPERT (results/studies/cbb_dog_expert/): (1) the 🔍 college hoops GAP PLAY - the
     college football play's twin on the EFFICIENCY read (sports_cbb_eff, never the raw Elo - DEAD in hoops at +0.7%): a
     dog +100..+350 whose efficiency read sits 15+ points over the no-vig price, the ratings backing the dog on this floor
@@ -19779,6 +19801,17 @@ def test_audit_1104_post_now_force_never_skips_a_check():
 
 
 def test_audit_1104_twin_counts_twice_spread_card_reads_its_cover_and_fair_open_builds_once():
+    """(11/18: the twin rule's own mechanics - checked with the twin back on, TWIN_OFF_FROM None; from the 11/19 games
+    one side of a game gets one play - test_owner_1118_one_play_a_side_never_the_same_dog_twice)"""
+    was = sports.TWIN_OFF_FROM
+    sports.TWIN_OFF_FROM = None
+    try:
+        _test_audit_1104_twin_counts_twice_spread_card_reads_its_cover_and_fair_open_builds_once_impl()
+    finally:
+        sports.TWIN_OFF_FROM = was
+
+
+def _test_audit_1104_twin_counts_twice_spread_card_reads_its_cover_and_fair_open_builds_once_impl():
     """11/4 AUDIT, three more: (1) the 🏀 dog slot on the SAME dog as the 🔍 college hoops gap play ("both count, each
     with its units") shared the ledger key - the 💰 record / BY SPORT / bankroll kept only the first; (2) a spread lean's
     card said "our ratings make SMU -362 — the book's at -110": the leg carries the side's moneyline raw_own, and the
@@ -27322,6 +27355,17 @@ def test_owner_1118_altitude_in_feet_rain_in_inches_never_metric():
         assert " meters" not in code and " mm of rain" not in code, mod.__name__
 
 def test_daily_1118_the_slot_twin_reopens_a_game_once_never_every_hour():
+    """(11/18: the twin rule's own mechanics - checked with the twin back on, TWIN_OFF_FROM None; from the 11/19 games
+    one side of a game gets one play - test_owner_1118_one_play_a_side_never_the_same_dog_twice)"""
+    was = sports.TWIN_OFF_FROM
+    sports.TWIN_OFF_FROM = None
+    try:
+        _test_daily_1118_the_slot_twin_reopens_a_game_once_never_every_hour_impl()
+    finally:
+        sports.TWIN_OFF_FROM = was
+
+
+def _test_daily_1118_the_slot_twin_reopens_a_game_once_never_every_hour_impl():
     """11/18 DAILY CHECK (the board check): the 🔍 college hoops gap play and the dog slot posted on the same dog
     (Charleston So +114, 2u each - allowed, both count). But post_board re-opened the gap play's game to the dog slot on
     EVERY later run: the slot re-proposed Charleston So each hour (+114, then +105), the rule check held it as a second
@@ -27437,6 +27481,38 @@ def test_daily_1118_cheap_win_dog_and_close_win_favorite_are_tracker_leads_only(
         sl._GAMES.clear()
         sl._GAMES.update(keep)
 
+
+
+def test_owner_1118_one_play_a_side_never_the_same_dog_twice():
+    """11/18, the owner on Charleston So +114 posted as the 🔍 gap play 2u AND the dog slot 2u: "There's a duplicate
+    play." From the 11/19 games the gap play and the dog slot never both post the same dog; before that the twin stood."""
+    import inspect
+    leg = {"league": "ncaab", "game_id": "ncaab:1", "side": "home"}
+    gap = {"date": "2026-11-19", "gap": {"g": 0.2}, "legs": [dict(leg)]}
+    slot = {"date": "2026-11-19", "ncaab_play": {"slot": "dog"}, "legs": [dict(leg)]}
+    assert not sports.ncaab_twin(gap, slot), "one play a side from 11/19"
+    assert sports.ncaab_twin({**gap, "date": "2026-11-18"}, {**slot, "date": "2026-11-18"}), "a posted 11/18 twin stands"
+    assert "twin = {} if (TWIN_OFF_FROM and iso >= TWIN_OFF_FROM)" in inspect.getsource(sports.post_board)
+    # the owner's "Fix it": the posted duplicate (the gap play copy) comes off - never put back, never merged back
+    import copy, tempfile
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json as mj_
+    lg_ = {"league": "ncaab", "game_id": "ncaab:401911377", "side": "home", "team": "Charleston So", "odds": 114}
+    dup = {"date": "2026-11-18", "kind": "play", "status": "open", "gap": 0.17, "legs": [dict(lg_)]}
+    keep = {"date": "2026-11-18", "kind": "play", "status": "open", "ncaab_play": {"slot": "dog"}, "legs": [dict(lg_)]}
+    assert sports.owner_removed(dup) and not sports.owner_removed(keep) and mj_._owner_removed(dup)
+    old = sports.DATA
+    with tempfile.TemporaryDirectory() as d:
+        sports.DATA = d
+        try:
+            with open(os.path.join(d, "picks.json"), "w") as f:
+                json.dump([dup, keep], f)
+            rows = [copy.deepcopy(keep)]
+            sports._save("picks.json", rows)                 # (keep_posted never puts the removed copy back)
+            got = json.load(open(os.path.join(d, "picks.json")))
+            assert len(got) == 1 and not sports.owner_removed(got[0]), got
+        finally:
+            sports.DATA = old
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
