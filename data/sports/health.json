@@ -1,9 +1,9 @@
 {
- "at": "2026-11-18T10:03Z",
+ "at": "2026-11-18T11:38Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (145s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,13 +14,18 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
+  "engine ran 32 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-18T11:38Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-18T10:03Z",
    "fixes": [],
@@ -528,19 +533,6 @@
     "live tennis scores: tennis Brancaccio vs Costoulas: no points for 1781s",
     "live tennis scores: tennis Trevisan vs De Reales: no points for 1781s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-16T16:41Z",
-   "fixes": [
-    "simulator overdue (9h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Brancaccio vs Costoulas: no points for 254s",
-    "live tennis scores: tennis Trevisan vs De Reales: no points for 254s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
