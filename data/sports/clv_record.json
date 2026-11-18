@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 118,
+  "n": 119,
   "beat": 38,
   "same": 54,
-  "worse": 26,
-  "avg_pts": 0.24
+  "worse": 27,
+  "avg_pts": 0.18
  },
  "unit_plays": {
-  "n": 118,
+  "n": 119,
   "beat": 38,
   "same": 54,
-  "worse": 26,
-  "avg_pts": 0.24
+  "worse": 27,
+  "avg_pts": 0.18
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 72,
+   "n": 73,
    "beat": 23,
    "same": 34,
-   "worse": 15,
-   "avg_pts": 0.25
+   "worse": 16,
+   "avg_pts": 0.14
   }
  },
  "by_sport": {
@@ -45,11 +45,11 @@
    "avg_pts": 0.55
   },
   "nba": {
-   "n": 13,
+   "n": 14,
    "beat": 7,
    "same": 5,
-   "worse": 1,
-   "avg_pts": 0.85
+   "worse": 2,
+   "avg_pts": 0.24
   },
   "ncaab": {
    "n": 2,
@@ -1761,6 +1761,20 @@
    "close": 136,
    "pts": 0.0,
    "units": 2.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-17",
+   "kind": "play",
+   "lean": false,
+   "league": "nba",
+   "team": "Trail Blazers",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 150,
+   "pts": -7.6,
+   "units": 0.5,
    "result": "lost"
   }
  ]
