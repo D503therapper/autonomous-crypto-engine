@@ -10562,8 +10562,9 @@ def run(repick=False, fetch=True):
         print(f"line history failed: {e}")
     try:                                                                # ⏰ early value plays: posted the second the
         import sports_early                                             # engine finds one, before the line moves
-        inj = {lg: sd.fetch_injuries(lg) for lg in set(sports_early.passed()) | {"nfl", "ncaaf", "nba"}} \
-            if sports_early.ON else None                 # (10/1 audit: the spots are football - with injuries only
+        inj = {lg: sd.fetch_injuries(lg) for lg in (set(sports_early.passed()) | {"nfl", "ncaaf", "nba"}
+                                                    | (sports_early.open_leagues() & set(sd.INJ_LEAGUES)))} \
+            if sports_early.ON else None                 # (11/18: + every league with an open early play - its watch)                 # (10/1 audit: the spots are football - with injuries only
         #                                                  ("nba" 10/23: the 🏀 opening-line play reads the NBA report)
         #                                                  for the exam's leagues, a dog whose QB is out could post)
         queue = []                                                      # (pinged only once the dashboard shows them:

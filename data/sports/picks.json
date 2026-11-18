@@ -22980,6 +22980,7 @@
      "game:conf"
     ],
     "dec": 2.3600000000000003,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -23000,6 +23001,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1",
+     "h": "3,1,1"
+    },
     "form_state": [
      -3.0,
      -2,
@@ -23061,10 +23066,12 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Capitals 2 @ Lightning 5",
     "season_games": null,
+    "settled": "2026-11-18T03:14Z",
     "side": "away",
     "stale": [],
     "start": "2026-11-18T00:30Z",
@@ -23082,12 +23089,14 @@
    }
   ],
   "p_hit": 0.4111,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-17T16:00Z",
   "round": 1,
+  "settled": "2026-11-18T03:14Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 110,
@@ -23138,6 +23147,7 @@
      "us:road3in6"
     ],
     "dec": 2.1,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -23198,6 +23208,10 @@
     "fired_on": null,
     "first_timer": false,
     "floor_score": 1.92,
+    "flow": {
+     "a": "17,31,31,26",
+     "h": "29,20,30,27"
+    },
     "form_state": [
      -8.0,
      -1,
@@ -23293,10 +23307,12 @@
      "Zyon Pullin": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Trail Blazers 105 @ Timberwolves 106",
     "season_games": 13,
+    "settled": "2026-11-18T03:43Z",
     "side": "away",
     "stale": [
      "Deni Avdija"
@@ -23317,11 +23333,13 @@
   ],
   "midday": true,
   "p_hit": 0.4566,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-17T19:12Z",
   "round": 1,
+  "settled": "2026-11-18T03:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 0.5
  }
 ]
