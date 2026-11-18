@@ -953,6 +953,21 @@ NOT_FOR_UNITS = re.compile(r"just not at this price|too steep for units|not enou
 #   lean's wording never rides on a play with units; a posted one falls back to the card's first fact
 
 
+def latest_alerts(alerts):
+    """🚑 11/18 (the owner: "Deni is out, card says he is in" - the Blazers card showed 'day-to-day' AND 'off the injury
+    report' for the same man): only each man's NEWEST alert shows (the text before ' is '), goalie confirmations off."""
+    last = {}
+    for a in [x for x in alerts or [] if "confirmed in net" not in x]:
+        last[a.split(" is ", 1)[0]] = a
+    seen, out = set(), []
+    for a in reversed([x for x in alerts or [] if "confirmed in net" not in x]):
+        k = a.split(" is ", 1)[0]
+        if k not in seen and last.get(k) == a:
+            seen.add(k)
+            out.append(a)
+    return out[::-1]
+
+
 def _leg(leg, tagged=False, review="", units=None, pk=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
@@ -987,9 +1002,9 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
         opp_outs = [x for x in opp_outs
                     if not sports_card_check.played(leg, (sports_card_check._card_names([x]) or [""])[0], _GAMES_[0])]
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(opp_outs))}</div>' if opp_outs else ""   # isn't 'missing')
-    if [x for x in leg.get("injury_alerts") or [] if "confirmed in net" not in x] and not res:            # a status changed after we posted it: loud, right on the card
-        outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>'
-                        for a in [x for x in leg["injury_alerts"] if "confirmed in net" not in x][-3:])
+    alerts_ = latest_alerts(leg.get("injury_alerts"))
+    if alerts_ and not res:                                  # a status changed after we posted it: loud, right on the card
+        outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in alerts_[-3:])
         #   (10/6, the owner: no goalie confirmations on the cards - the engine weighs them, the card doesn't say it)
     if leg.get("line_alerts") and not res:              # the money ran away from us after we posted: loud, on the card
         outs += "".join(f'<div class="outs">💸 LINE ALERT: {E(a)}</div>' for a in leg["line_alerts"][-1:])
