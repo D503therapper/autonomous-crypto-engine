@@ -22868,3 +22868,32 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-18 00:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-18 00:05 UTC] crypto/hold_btc  equity $397.01 (-20.6%) 1 open  market DOWN
    social heat top: PENGU 40 (40/0/0), VVV 35 (35/0/0), SOL 32 (32/0/0), BTC 29 (29/0/0), ETH 27 (27/0/0)
+   dex screen: REJECT TRIPLET@solana liq $278,164 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: REJECT AEON@base liq $424,780 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; top-10 holders 42%; lp locked 0% < 95%
+   dex screen: REJECT QUID@base liq $740,080 - goplus partial data: cannot_sell_all unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex screen: PASS JOB@solana liq $161,828
+   dex screen: REJECT MPLX@solana liq $2,222,397 - mint authority; top-10 holders 69%
+   dex screen: REJECT AERO@base liq $2,479 - liquidity $2,479 < $100,000; 24h volume $933 < $100,000
+   dex screen: REJECT MSTRC@base liq $66,943 - liquidity $66,943 < $100,000; 24h volume $7,263 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT CATE@solana liq $73,764,166 - top-10 holders 100%
+   dex screen: REJECT CATE@solana liq $1,477,142 - top-10 holders 100%
+   dex screen: REJECT FOLD@ethereum liq $876,749 - goplus partial data: cannot_sell_all unknown; is_mintable; honeypot_with_same_creator; owner_percent 38%; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT BUTTHOLE@solana liq $153,832 - top-10 holders 47%; lp holders unknown
+   dex screen: UNREACHABLE GTA6@ethereum liq $388,430 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT REI@base liq $1,045,889 - lp locked 0% < 95%
+   dex screen: REJECT FLOAT@solana liq $281,891 - lp locked 0% < 95%
+   dex scanner: 2,402 pools (solana 1,722 / base 374 / ethereum 306), refresh cycle 108s (hot 104s), 2917 calls (110 feed, 429s 0, failed 0), 84,203 refreshed (12362 no pair), +108 added / -235 dropped (dead 219, stale 16, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-18 01:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/mover     equity $175.06 (-65.0%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/social_heat equity $322.84 (-35.4%) 1 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-18 01:05 UTC] crypto/hold_btc  equity $395.84 (-20.8%) 1 open  market DOWN
+   social heat top: PENGU 40 (40/0/0), BTC 37 (37/0/0), PONS 33 (21/0/12), XRP 32 (32/0/0), VVV 24 (24/0/0)
