@@ -23011,3 +23011,27 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-18 05:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-18 05:05 UTC] crypto/hold_btc  equity $394.20 (-21.2%) 1 open  market DOWN
    social heat top: BREV 40 (40/0/0), PENGU 35 (35/0/0), NEAR 32 (32/0/0), VVV 29 (29/0/0), AKT 27 (27/0/0)
+   footprint: SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +5.1%, 4 volume hikes, 15% quiet hours @ 74.81
+   footprint: BUY SOL (footprint 3/4 drift+hikes+rising_lows): SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +5.1%, 4 volume hikes, 15% quiet hours @ 74.81
+   >> crypto/mover: BUY $78.46 of SOL @ 74.8848 (footprint 3/4 drift+hikes+rising_lows)
+   dex screen: REJECT WBTC@ethereum liq $28,701,278 - transfer_pausable; is_mintable; top-10 holders 55%
+   dex screen: REJECT BP@solana liq $1,249,791,718 - top-10 holders 100%
+   dex screen: REJECT SPCX@solana liq $2,710,006 - freeze authority; mint authority; balance_mutable_authority; transfer hook
+   dex screen: REJECT AAVE@ethereum liq $279,330 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: REJECT PROS@base liq $843,557 - pool age unknown
+   dex screen: REJECT NEAR@ethereum liq $788,376 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $224,293 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,600 pools (solana 1,811 / base 433 / ethereum 356), refresh cycle 108s (hot 104s), 3002 calls (110 feed, 429s 0, failed 0), 86,758 refreshed (11613 no pair), +85 added / -67 dropped (dead 66, stale 1, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XPFE 'New OKX listing (XPFE)' -> ['XPFE']
+   listing: XPFE: okx_symbols notice "New OKX listing (XPFE)" -> not on Crypto.com USD
+   dex screen: REJECT PUMP@solana liq $18,546,338 - transfer hook; top-10 holders 59%
+[2026-11-18 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/mover     equity $174.82 (-65.0%) 1 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/social_heat equity $323.04 (-35.4%) 1 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-18 06:05 UTC] crypto/hold_btc  equity $395.70 (-20.9%) 1 open  market DOWN
+   social heat top: BREV 40 (40/0/0), BTC 37 (37/0/0), MON 32 (32/0/0), TAO 24 (24/0/0), AKT 21 (21/0/0)
