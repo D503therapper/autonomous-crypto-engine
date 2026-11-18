@@ -1,9 +1,9 @@
 {
- "at": "2026-11-18T13:30Z",
+ "at": "2026-11-18T13:56Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (68s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,17 +11,22 @@
   "card audit: 6 live cards, 11 lines - nothing false, outdated or senseless",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (bovada 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 6h ago",
+  "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 14 min ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-18T13:56Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-18T13:30Z",
    "fixes": [],
@@ -503,13 +508,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Tikhonova vs Strakhova: no points for 468s"
-   ]
-  },
-  {
-   "at": "2026-11-16T20:33Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
