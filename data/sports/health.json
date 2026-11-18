@@ -1,9 +1,9 @@
 {
- "at": "2026-11-18T09:57Z",
+ "at": "2026-11-18T10:02Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (20s)",
+  "live watcher fresh (73s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,11 +16,16 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 61 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-18T10:02Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-18T09:57Z",
    "fixes": [],
@@ -538,19 +543,6 @@
    "fixes": [],
    "problems": [
     "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-16T15:04Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Zolotareva vs Scott: no points for 2608s",
-    "live tennis scores: tennis Cherubini vs Masarova: no points for 2608s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "sources down (the backups took over): betrivers:tennis HTTP 410",
     "studies last ran 9h ago - restarted"
    ]
   }
