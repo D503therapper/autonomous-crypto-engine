@@ -8016,6 +8016,12 @@ def injury_line(g, side, injuries):
     the players who play first (who_plays_first)."""
     inj = (injuries or {}).get(g["league"])
     rows = who_plays_first(g, side, sd._team_rows(inj, g[side], g[side + "_name"]))
+    try:                                                  # 🚑 11/18 (cards_1118 - the owner on the Nuggets card: "Strawther
+        import sports_absences                            #  is not a key player"): the card's list names only men who
+        rows = [r for r in rows if "suspen" in r[2].lower() or sports_absences.matters(   # MATTER by the box scores
+            None, g["league"], g[side], r[0], g.get("start") or "9") is not False]        # (sports_absences.who_matters
+    except Exception:                                     # noqa: BLE001                    - every league), never a man
+        pass                                              #  out so long the team's results already hold it
     tag = who_matters(g, side, rows)                      # (10/21, the owner: say who MATTERS, when the data says so)
     gone = [f"{r[1]} {r[0]}{tag.get(r[0], '')}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
             and "season" not in r[2].lower() and not _sat_lately(g, side, r[0])]
@@ -10171,6 +10177,14 @@ def add_breakdowns(games, model, picks):
     used = {t for p in picks for l in p["legs"] if id(l) not in redo for t in l.get("bd_tags", [])}
     used |= sports_breakdown.memory(picks, skip={(l.get("game_id"), l.get("side"), l.get("market")) for l in legs})
     elo, done = sm.ratings(games, model), []
+    if any(l["league"] == "nba" for l in legs) and sports_nba_roster.cached() is None:
+        # 🏀 11/18 (the owner: the Nuggets card lost its bench line and its 🌟 Jamal Murray line in a rewrite - "short
+        # and vague"): the roster read is built only when the NBA board is; a rewrite run that skipped it found no
+        # roster and card_extras wrote neither line. A rewrite builds it.
+        try:
+            sports_nba_roster.current(games, (injuries or {}).get("nba"))
+        except Exception:                                # noqa: BLE001 - the extras never block a card
+            pass
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)
         if same:                                      # the same pick reads the same everywhere it shows up

@@ -214,6 +214,13 @@ try:
         else:
             ok.append(f"card audit: {ca.get('cards', 0)} live cards, {ca.get('lines', 0)} lines - nothing false, "
                       "outdated or senseless")
+        #   🧹 11/18 the card-quality score (results/studies/cards_1118): a 'quality' problem above = a line that knocks our
+        #   own pick / repeats / talks jargon still on the page, a write-up that put 3+ bad lines on a live card, or a thin
+        #   unit card. The score itself is said every hour so a slide shows before it's a problem.
+        q_ = ca.get("quality") or {}
+        if q_.get("cards"):
+            ok.append(f"card quality: {q_.get('score')}/100 on {q_.get('cards')} live cards (bad lines the write-up put "
+                      f"on them: {sum((q_.get('written') or {}).values())}, thin cards: {q_.get('thin', 0)})")
 except FileNotFoundError:
     pass                                                 # (first run after the 11/17 build: the engine writes it)
 except Exception as e:                                   # noqa: BLE001

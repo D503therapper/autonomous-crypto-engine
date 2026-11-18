@@ -487,6 +487,7 @@ def reset():
     _FIN_BEFORE.clear()
     _IDX.clear()
     _BOXP.clear()
+    _MAT.clear()
 
 
 def _team_index(games, lg):
@@ -1015,7 +1016,8 @@ def stats(line, leg, games):
             for gs in (f["reg"], f["season"]):
                 pg = v._per_game(gs, tid)
                 if pg:
-                    ok |= {float(round(pg[0])), float(round(pg[1])), round(pg[0], 1), round(pg[1], 1)}
+                    ok |= {float(round(pg[0])), float(round(pg[1])), round(pg[0], 1), round(pg[1], 1),
+                           round(abs(pg[0] - pg[1]), 1), float(round(abs(pg[0] - pg[1])))}   # (11/18: the season margin)
     body = _strip_names(t, [us, them])
     bad = [x for x in (abs(float(y)) for y in _NUM.findall(body)) if not any(abs(x - y) < 0.051 for y in ok)]
     if bad:
@@ -1298,6 +1300,13 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             aw = for_us(new, leg, why)                      #  the breakdown where it doesn't make the Nuggets look good")
             if aw:
                 new, w = "", "; ".join(y for y in (w, aw) if y)
+        if new and not BOTTOM.match(new):                   # 🧹 11/18 (cards_1118): who's out = men who matter, in
+            try:                                            #  every league - a non-key name comes off the line, a line
+                new2, mw = absent_matters(new, leg, games)  #  of only non-key men goes
+            except Exception:                               # noqa: BLE001
+                new2, mw = new, ""
+            if mw:
+                new, w = new2, "; ".join(y for y in (w, mw) if y)
         if new and _dupe(new, seen):
             new, w = "", w or "the same line twice on the card"
         if new and where == "render" and chip_repeat(new, leg):
@@ -1306,6 +1315,14 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             note(cx["date"], leg, w, x, where)
         if new:
             out.append(new)
+    try:                                                     # 🧹 11/18 (cards_1118): nothing said twice on a card - the
+        kept = said_twice(leg, out, why, games)              #  one-liner's fact again, the same game in two lines
+        for x in out:
+            if isinstance(x, str) and x not in kept:
+                note(cx["date"], leg, Q_REPEAT, x, where)
+        out = kept
+    except Exception:                                        # noqa: BLE001 - the check never breaks a card
+        pass
     if not any(BOTTOM.match(str(x)) for x in out if isinstance(x, str)) and any(BOTTOM.match(str(x)) for x in lines or [] if isinstance(x, str)):
         out.append(bottom_line(leg, cx))
     return out
@@ -1340,6 +1357,13 @@ def check_one(pk, leg, line, games=None, where="render"):
         dw = sense(new, leg) or derived(new, leg, games)
         if dw:
             new, w = "", dw
+    if new and not w:                                        # 🧹 11/18 (cards_1118): the one-liner names only men who
+        try:                                                 #  matter, and never talks jargon
+            new, w = absent_matters(new, leg, games)
+        except Exception:                                    # noqa: BLE001
+            pass
+        if new and not w and CARD_JARGON.search(new) and '"' not in new:
+            new, w = "", Q_JARGON
     if w:
         note(cx["date"], leg, w, line, where)
     return new
@@ -1522,11 +1546,60 @@ def early_lines(p, lines, where="render", games=None):
                     keep.append(sent)
             if len(keep) != len(parts):
                 y = _join(lead, keep)
+        if y and not p.get("result"):                                              # 🧹 11/18 (cards_1118): an early row argues for our side too
+            y2, qw = early_for_us(y, leg, games)
+            if qw:
+                y, w = y2, "; ".join(z for z in (w, qw) if z)
         if mv or w:
             note(cx["date"], leg, "; ".join(z for z in (mv, w) if z), x, where)
         if y:
             out.append(y)
     return out
+
+
+_LIVE_REC = re.compile(r"(?:\s*[-,]\s*)?\b(\d+)-(\d+) since we started betting it")
+_SS = re.compile(r"\b([A-Z][\w.]*s)'s\b")
+
+
+def early_for_us(line, leg, games=None):
+    """(the early row's line as it may stand, why): a clause that knocks OUR side comes off ("Grizzlies lost their last
+    by 31" under a Grizzlies pick), so does rest talk with no back-to-back ("2 days off to Clippers's 4"), a LOSING live
+    record of the play itself ("0-1 since we started betting it" - the records live in the records), and "Mavericks's"
+    reads "Mavericks'"."""
+    t = str(line or "")
+    why = []
+    t2 = _SS.sub(r"\1'", t)
+    if t2 != t:
+        t, why = t2, ["a possessive nobody writes ('s's)"]
+    m = _LIVE_REC.search(t)
+    if m and int(m.group(1)) < int(m.group(2)):
+        t = (t[:m.start()] + t[m.end():]).strip()
+        t = re.sub(r"^[.\s]+$", "", t)
+        why.append(Q_KNOCK + " - a losing live record of the play")
+    lead, parts = _sentences(t)
+    keep, cut = [], False
+    for sent in parts:
+        end = "." if sent.rstrip().endswith(".") else ""
+        cl = [c for c in sent.rstrip().rstrip(".").split("; ")]
+        ok = [c for c in cl if not knocks_us(c, leg) and not (b2b_league(leg) and REST_TALK.search(c) and not B2B_ANY.search(c))]
+        if len(ok) != len(cl):
+            cut = True
+            if ok:
+                keep.append("; ".join(ok) + end)
+        else:
+            keep.append(sent)
+    if cut:
+        t = _join(lead, keep)
+        why.append(Q_KNOCK)
+    return t, "; ".join(why)
+
+
+def b2b_league(leg):
+    try:
+        import sports_breakdown_v24 as v
+        return v.b2b_only(leg.get("league"))
+    except Exception:                                        # noqa: BLE001
+        return False
 
 
 # 👍 11/17, the owner on the Capitals card's one-liner ("Capitals been unlucky ... their goalie's let in ..."): "We can't
@@ -1540,6 +1613,9 @@ NEG_US = re.compile(r"\b(unlucky|snakebit|can'?t buy|leaky|bad bounces|puck luck
                     r"dropped|fell)\b", re.I)
 
 
+_NOT_NEG = re.compile(r"\b(?:hasn'?t|haven'?t|ain'?t|not|never|didn'?t|don'?t|won'?t|without an?)\s+(?:lost|lose|losing|loss|dropped|drop|fell|fall)\b", re.I)
+
+
 def knocks_us(text, leg):
     """Does this line say something bad about OUR side (the pick's team)? A knock clause that names the OTHER team
     (and not us) is fine; any other knock clause in a line about us is a knock on us - the subject carries over
@@ -1550,12 +1626,13 @@ def knocks_us(text, leg):
     if not t or not team:
         return False
 
-    def names(x):
+    def names(x, other=""):
         out = {x.lower()} if x else set()
-        if " " in x:
-            out.add(x.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
+        if " " in x and x.split()[-1].lower() not in other.lower():   # (11/18: "Kansas St" vs "Oklahoma St" - the
+            out.add(x.split()[-1].lower())               #  shared last word names nobody; "Trail Blazers" -> "blazers")
         return out
-    us_n, them_n = names(team), names(opp)
+    us_n, them_n = names(team, opp), names(opp, team)
+    t = _NOT_NEG.sub(" ", t)                              # (11/18: "hasn't lost in 3" is no knock)
     low_all = t.lower()
     about_us = any(n in low_all for n in us_n)
     if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
@@ -1597,9 +1674,244 @@ def for_us(line, leg, why=""):
     t = str(line or "")
     if not t or t.startswith(KNOCK_OK):
         return ""
-    if knocks_us(t, leg):
-        return "a body line that knocks our own side (only the ⚠️ line may)"
+    if knocks_us(t, leg) or our_bad_numbers(t, leg):
+        return Q_KNOCK
     sig = _sig_numbers(t)
     if why and sig and sig <= _sig_numbers(why):
         return "the one-liner's fact said again"
+    if OPP_UP.search(t) or their_good_news(t, leg):
+        return Q_OPP
+    if NOTHING.search(t) and "plus money" not in t.lower():
+        return Q_NOTHING
+    if even_site(t, leg):
+        return Q_NOTHING
+    if CARD_JARGON.search(t) and '"' not in t and "“" not in t:
+        return Q_JARGON
     return ""
+
+
+# 🧹 11/18 CARD QUALITY (results/studies/cards_1118 - the owner: "I've talked to you about our breakdowns making mistakes
+# and being stupid and not right. This needs to be fixed permanently"). The audit of every card 11/1-11/18 re-written by
+# the engine found five kinds of bad line the fact checks above can't see (every one of them TRUE - and still wrong on a
+# card). Each has a rule here, run on every render, and a count in tools/card_audit.py's card-quality score:
+#   Q_KNOCK    a body line that knocks OUR side - a loss, a skid, a losing record, our own bad numbers
+#   Q_OPP      a body line that argues for THEM - "the Kraken won their last one too", "so they feeling themselves too",
+#              "Both teams are rolling", their heater / their win in our body
+#   Q_NOTHING  a line that says nothing for our side - "1-1 at home", "A wash on the records", "Dead even on the record"
+#   Q_REPEAT   said twice - the one-liner's fact again, the same game in two lines, the same men out twice
+#   Q_JARGON   a stat nobody uses or a formula's answer - "per 48 minutes", "a +2.3 team a game", "-7 a game", "should be
+#              about 13 points better than their record"
+#   Q_ABSENT   a man named OUT who doesn't matter (sports_absences.who_matters - every league) or who has been out so
+#              long it's old news
+Q_KNOCK = "a body line that knocks our own side (only the ⚠️ line may)"
+Q_OPP = "a body line that argues for the other side"
+Q_NOTHING = "a line that says nothing for our side"
+Q_REPEAT = "said twice on the card"
+Q_JARGON = "jargon / a stat a bettor doesn't use"
+Q_ABSENT = "names a man out who doesn't matter"
+QUALITY = {"knocks us": (Q_KNOCK,), "argues for them": (Q_OPP,), "says nothing": (Q_NOTHING,),
+           "repeats": (Q_REPEAT, "the one-liner's fact said again", "the same line twice on the card",
+                       "the 🚑 chip's names again"),
+           "jargon": (Q_JARGON,), "non-key absence": (Q_ABSENT,)}
+OPP_UP = re.compile(r"won their last one too|feeling themselves|both won last|both teams are rolling|heater vs heater|"
+                    r"neither team has lost|both feeling good|\bare off an? [\w.' -]*\bwin\b[^.]* themselves", re.I)
+NOTHING = re.compile(r"a wash (?:on the records|in net)|dead even on the record|nothing in it on paper|"
+                     r"nothing between 'em on the records|same record, |same spot in the standings|both took an l|"
+                     r"both pissed off|one of 'em gets right", re.I)
+CARD_JARGON = re.compile(r"per 48\b|\bPDO\b|[+-]\d+(?:\.\d+)? team a game|\b(?:is|are) [+-]\d+(?:\.\d+)? a game\b|"
+                         r"points? better than (?:their|its|this) record|\bgoal totals say\b|points under what their goals|"
+                         r"\bno-vig\b|\bnet rating\b|per 100 possessions|\bexpected goals\b|\bxG\b|"
+                         r"\befficiency (?:read|rating|margin)\b|\bregress(?:es|ion)?\b|\bPythag|in point margin|"
+                         r"[+-]\d+(?:\.\d+)? scoring edge", re.I)
+_SITE_REC = re.compile(r"(?<![\d-])(\d{1,2})-(\d{1,2})(?![\d-])")
+_SITE_W = re.compile(r"at home|on the road|away from home|own building|in their building|the crib", re.I)
+_PUT_UP = re.compile(r"\b(?:score|scores|put up|puts up|average|averages)\b[^.;\d]{0,12}(\d+(?:\.\d+)?)[^.;]*?"
+                     r"\b(?:give up|gives up|allow|allows|allowed)\b[^.;\d]{0,6}(\d+(?:\.\d+)?)", re.I)
+_WIN_SAID = re.compile(r"\b(?:won|win|wins|victory|beat|heater|rolling)\b", re.I)
+
+
+def _names_of(team):
+    t = str(team or "").strip().lower()
+    return {t, t.split()[-1]} if t else set()
+
+
+def our_bad_numbers(line, leg):
+    """A body line that puts OUR bad numbers up: "Flyers score 3.3 and give up 4 a game" (we score less than we allow), a
+    LOSING record of ours said alone ("E Michigan sits 4-5 so far"), a losing home / road record of ours."""
+    t = str(line or "")
+    us, them = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    if not us or us not in t:
+        return False
+    for clause in re.split(r"[.;]", t):
+        if us in clause and (not them or them not in clause):
+            m = _PUT_UP.search(clause)
+            if m and float(m.group(1)) < float(m.group(2)):
+                return True
+    if t.startswith(("📋", "🏟", "🧳")) and (not them or them not in t):
+        for a, b in _SITE_REC.findall(t):
+            if int(a) < int(b) and int(a) + int(b) <= 90 and not re.search(r"last 5", t):
+                return True
+    return False
+
+
+def even_site(line, leg):
+    """"1-1 at home this year for Suns", "2-2 away from home this year for Capitals": our .500 record somewhere."""
+    t = str(line or "")
+    us, them = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    if not t.startswith(("🏟", "🧳")) or not us or us not in t or (them and them in t) or not _SITE_W.search(t):
+        return False
+    return any(a == b for a, b in _SITE_REC.findall(t))
+
+
+def their_good_news(line, leg):
+    """A 📅 / 🔥 body line that is only about THEM and says they won / are hot."""
+    t = str(line or "")
+    us, them = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    if not t.startswith(("📅", "🔥")) or not them or them not in t:
+        return False
+    low = t.lower()
+    if any(n in low for n in _names_of(us)):
+        return False
+    return bool(_WIN_SAID.search(t)) and not re.search(r"\bloss\b|\blost\b|\bL\b|\bbeating from\b|straight L|losses|hot seat|"
+                                                       r"feeling the heat|fishbowl|jobs on the line", t)
+
+
+_MAT = {}
+
+
+def _matters(lg, tid, name, before):
+    k = (lg, str(tid), name, before)
+    if k not in _MAT:
+        if len(_MAT) > 5000:
+            _MAT.clear()
+        try:
+            import sports_absences
+            _MAT[k] = sports_absences.matters(None, lg, tid, name, before)
+        except Exception:                                    # noqa: BLE001
+            _MAT[k] = None
+    return _MAT[k]
+
+
+ABSENT_CHECK = True
+_OUT_LINE = re.compile(r"\bout\b|\bwithout\b|\bmissing\b|\bdown\b|won'?t suit up|not dressing|\bno\b|gotta play|"
+                       r"banged up|short-handed|injur|trainer'?s room", re.I)
+
+
+def _drop_name(t, nm):
+    """The line without one man: his name, a position before or after it, and the comma that hung on him."""
+    t2 = re.sub(rf"(?:\b[A-Z]{{1,3}} )?{re.escape(nm)}(?: \([^)]*\))?", "\x00", t, count=1)
+    t2 = re.sub(r",\s*\x00|\x00\s*,\s*|\s+and\s+\x00|\x00\s+and\s+", lambda m: " " if m.group(0).lstrip().startswith("\x00") else "", t2)
+    t2 = t2.replace("\x00", "")
+    return re.sub(r"\s{2,}", " ", t2).replace(" .", ".").replace(" ,", ",").replace("( ", "(").strip()
+
+
+def absent_matters(line, leg, games):
+    """(the line as it may stand, why) - a 🚑 line, the ⚠️ knock or a one-liner that names men OUT keeps only the ones who
+    matter (sports_absences.matters: NBA top-3 scorer / starter, college hoops top-5 minutes, hockey top-6 forward /
+    top-4 D / the #1 goalie, football a regular - and never a man who sat the team's last 5 box scores, 2 in football).
+    Every man named gone = the line goes. No box scores for the team = nothing is claimed, the line stands."""
+    t = str(line or "")
+    if not ABSENT_CHECK or not games or not t or not _OUT_LINE.search(t) or t.startswith(("🔄", "✅", "🌟", "🏀")):
+        return t, ""
+    if "questionable" in t.lower() and t.startswith("🚑"):
+        return t, ""                                         # (the 🚑 chip's game-time men are the board's business)
+    g = (games or {}).get(leg.get("game_id"))
+    side = leg.get("side")
+    if not g or side not in ("home", "away") or not g.get("start"):
+        return t, ""
+    other = "away" if side == "home" else "home"
+    lg = leg.get("league")
+    named = []
+    for tid, lst in ((g.get(side), list(leg.get("outs") or []) + list(leg.get("absent") or [])),
+                     (g.get(other), leg.get("opp_outs") or [])):
+        for nm in dict.fromkeys(_card_names(lst)):
+            if nm and nm in t and not any(nm == n for n, _ in named):
+                named.append((nm, tid))
+    if not named:
+        return t, ""
+    bad = [nm for nm, tid in named if _matters(lg, tid, nm, g["start"]) is False]
+    if not bad:
+        return t, ""
+    if len(bad) == len(named):
+        return "", f"{Q_ABSENT}: {', '.join(bad[:3])}"
+    new = t
+    for nm in bad:
+        new = _drop_name(new, nm)
+    return new, f"{Q_ABSENT}: {', '.join(bad[:3])} (the name came off the line)"
+
+
+def said_twice(leg, lines, why, games):
+    """The card's lines with nothing said twice (sports_breakdown_v24.no_repeats - the generator's own rule, run again on
+    every render so an older card or a new pool line can't bring a repeat back)."""
+    import sports_breakdown_v24 as v
+    known, recs = set(), []
+    for which in ("us", "them"):
+        f = team_facts(games, leg, which) if games else None
+        if not f or f.get("unseen"):
+            continue
+        for x in (f.get("season") or [])[-5:]:
+            try:
+                known.add(tuple(sorted((int(x["home_score"]), int(x["away_score"])), reverse=True)))
+            except (KeyError, TypeError, ValueError):
+                pass
+        recs += [f"{r[0]}-{r[1]}" for r in f.get("rec") or ()]
+    return v.no_repeats(list(lines), why, known, recs, leg.get("team") or "")
+
+
+THIN_BODY = 2          # a unit play's card with fewer fact lines than this (after every cut) is a thin card
+
+
+def kind_of(why):
+    """Which card-quality kind a check's catch is ('' = not a quality catch - a fact / wording / freshness one)."""
+    w = str(why or "")
+    return next((k for k, pats in QUALITY.items() if any(p in w for p in pats)), "")
+
+
+def quality(leg, why, lines, games=None):
+    """🧹 THE CARD-QUALITY READ of one card (its one-liner + its breakdown lines, as given): [(kind, line)] for every
+    line that knocks us / argues for them / says nothing / repeats / talks jargon / names a man out who doesn't
+    matter. [] = a clean card. tools/card_audit.py scores a card on it; the check itself (check / check_one) cuts the
+    same lines on every render."""
+    out = []
+    wl = str(why or "")
+    if wl:
+        if knocks_us(wl, leg):
+            out.append(("knocks us", wl))
+        elif CARD_JARGON.search(wl) and '"' not in wl:
+            out.append(("jargon", wl))
+        else:
+            try:
+                if absent_matters(wl, leg, games)[1]:
+                    out.append(("non-key absence", wl))
+            except Exception:                                # noqa: BLE001
+                pass
+    body, seen = [], set()
+    if wl:
+        _dupe(wl, seen)
+    for x in lines or []:
+        if not isinstance(x, str) or BOTTOM.match(x):
+            continue
+        k = kind_of(for_us(x, leg, wl))
+        if not k:
+            try:
+                k = "non-key absence" if absent_matters(x, leg, games)[1] else ""
+            except Exception:                                # noqa: BLE001
+                k = ""
+        if not k and _dupe(x, seen):
+            k = "repeats"
+        if k:
+            out.append((k, x))
+        else:
+            body.append(x)
+    try:
+        kept = said_twice(leg, body, wl, games)
+        out += [("repeats", x) for x in body if x not in kept]
+    except Exception:                                        # noqa: BLE001
+        pass
+    return out
+
+
+def fact_lines(lines):
+    """How many lines of a card's breakdown argue the case (not the ⚠️ / bottom / update / roster lines)."""
+    return sum(1 for x in lines or [] if isinstance(x, str) and not BOTTOM.match(x)
+               and not x.startswith(("⚠️", "🔄", "✅ Update", "🌟", "🟡", "🔒", "💎")))

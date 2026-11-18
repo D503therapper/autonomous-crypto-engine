@@ -677,8 +677,10 @@ def card_line(g, side, cur):
     nm = g[side + "_name"]
     b = (cur.get("bench") or {}).get(tid)
     if b is not None and abs(b) >= BENCH_SAY:
-        parts.append(f"their bench outscored teams by {b:g} per 48 minutes last season - deep squad" if b > 0 else
-                     f"their bench got outscored by {-b:g} per 48 minutes last season - thin squad")
+        #   (11/18, cards_1118 - the owner: "layman's terms, not all this technical jargon": "per 48 minutes" is a stat
+        #    sheet's unit - 48 minutes is one full game, so the card says "a full game")
+        parts.append(f"their bench outscored teams by {b:g} points for every full game it played last season - deep squad" if b > 0 else
+                     f"their bench got outscored by {-b:g} points for every full game it played last season - thin squad")
     st = (cur.get("styles") or {}).get(tid)
     if st and st.get("depth"):
         parts.append(f"the coach plays {int(round(st['depth']))} guys real minutes")
@@ -686,8 +688,9 @@ def card_line(g, side, cur):
     fm = cur.get("form") or {}
     for pid in [k for k in fm if k in roster_pids and fm[k]["tag"]][:2]:
         f = fm[pid]
-        parts.append(f"{f['name']} {'is cooking' if f['tag'] == 'hot' else 'is in a slump'} - the team's {f['recent']:+g} "
-                     f"per 48 with him on the floor lately, {f['usual']:+g} last season")
+        ud = lambda x: f"{'up' if x >= 0 else 'down'} {abs(x):g}"   # noqa: E731
+        parts.append(f"{f['name']} {'is cooking' if f['tag'] == 'hot' else 'is in a slump'} - with him on the floor lately "
+                     f"the team's {ud(f['recent'])} points a full game (last season: {ud(f['usual'])})")
     fl = (cur.get("flags") or {}).get(tid) or {}
     if fl.get("restricted"):
         parts.append(f"{', '.join(fl['restricted'][:2])} on a minutes limit (about {RESTRICTED_MIN:g} tonight)")
@@ -776,12 +779,12 @@ def _gap(d, k=0):
         return "broke even on points"
     a = abs(d)
     up = [f"outscored teams by {a:g} a game", f"won by {a:g} points a night on average", f"beat teams by {a:g} per game",
-          f"finished +{a:g} in point margin", f"put up {a:g} more points than they gave up a game",
-          f"outscored the other side by {a:g} nightly", f"ran a +{a:g} scoring edge",
+          f"came out {a:g} points a game to the good", f"put up {a:g} more points than they gave up a game",
+          f"outscored the other side by {a:g} nightly", f"were {a:g} points a game better than the teams they played",
           f"came out {a:g} ahead on the scoreboard most nights"]
     dn = [f"got outscored by {a:g} a game", f"lost by {a:g} points a night on average", f"got beat by {a:g} per game",
-          f"finished -{a:g} in point margin", f"gave up {a:g} more points than they scored a game",
-          f"got outscored by the other side by {a:g} nightly", f"ran a -{a:g} scoring edge",
+          f"came out {a:g} points a game in the hole", f"gave up {a:g} more points than they scored a game",
+          f"got outscored by the other side by {a:g} nightly", f"were {a:g} points a game worse than the teams they played",
           f"came out {a:g} behind on the scoreboard most nights"]
     return (up if d > 0 else dn)[k % 8]
 

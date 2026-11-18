@@ -362,4 +362,5 @@ def facts(row, side):
     lm = t["last_margin"]
     return {"rec": rec(t), "opp_rec": rec(o),
             "last": (f"won their last by {int(lm)}" if lm and lm > 0 else f"lost their last by {int(-lm)}" if lm else None),
+            "opp_last": (f"lost their last by {int(-o['last_margin'])}" if o.get("last_margin") and o["last_margin"] < 0 else None),
             "rest": int(t["rest"]) if t.get("rest") is not None else None, "opp_rest": int(o["rest"]) if o.get("rest") is not None else None}
