@@ -46,12 +46,17 @@
    "proven": false
   },
   "nfl": {
-   "old": null,
+   "old": {
+    "n": 100,
+    "won": 0.4,
+    "close": 0.3749,
+    "roi_close": 0.0037
+   },
    "new": {
-    "n": 129,
-    "won": 0.4419,
-    "close": 0.3819,
-    "roi_close": 0.1555
+    "n": 78,
+    "won": 0.4359,
+    "close": 0.3861,
+    "roi_close": 0.1476
    },
    "proven": false
   },
@@ -72,16 +77,16 @@
   },
   "ncaaf": {
    "old": {
-    "n": 113,
-    "won": 0.4248,
-    "close": 0.4186,
-    "roi_close": -0.0555
+    "n": 215,
+    "won": 0.4372,
+    "close": 0.4051,
+    "roi_close": -0.026
    },
    "new": {
-    "n": 345,
-    "won": 0.4145,
-    "close": 0.3692,
-    "roi_close": 0.0134
+    "n": 239,
+    "won": 0.4142,
+    "close": 0.3705,
+    "roi_close": 0.0292
    },
    "proven": false
   }
