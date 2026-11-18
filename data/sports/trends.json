@@ -836,6 +836,40 @@
   },
   {
    "families": [
+    "streak"
+   ],
+   "league": "nba",
+   "outcome": "fav_cover",
+   "price_said": 60.5,
+   "record": "60-61",
+   "season": 2026,
+   "side": 0,
+   "situation": "home favorite",
+   "streak": 5,
+   "strength": 2.41,
+   "trend": "underdogs cover",
+   "upcoming": [
+    "nba:401910007",
+    "nba:401910009",
+    "nba:401910011",
+    "nba:401910012",
+    "nba:401910014",
+    "nba:401910016",
+    "nba:401910017"
+   ],
+   "upcoming_names": [
+    "Grizzlies @ Cavaliers",
+    "Bucks @ Heat",
+    "Bulls @ Nets",
+    "Wizards @ Raptors",
+    "Hawks @ Thunder",
+    "Warriors @ Mavericks",
+    "Jazz @ Lakers"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
     "rate"
    ],
    "league": "nhl",
@@ -1470,13 +1504,13 @@
    ],
    "league": "nba",
    "outcome": "fav_ml",
-   "price_said": 72.4,
-   "record": "75-18",
+   "price_said": 73.1,
+   "record": "76-18",
    "season": 2026,
    "side": 1,
    "situation": "big favorite",
-   "streak": 0,
-   "strength": 0.66,
+   "streak": 1,
+   "strength": 0.73,
    "trend": "favorites win",
    "upcoming": [
     "nba:401910008",
@@ -1540,13 +1574,13 @@
    ],
    "league": "nba",
    "outcome": "fav_ml",
-   "price_said": 81.5,
-   "record": "84-36",
+   "price_said": 82.2,
+   "record": "85-36",
    "season": 2026,
    "side": 1,
    "situation": "home favorite",
-   "streak": 0,
-   "strength": 0.5,
+   "streak": 1,
+   "strength": 0.55,
    "trend": "favorites win",
    "upcoming": [
     "nba:401910007",
@@ -1796,6 +1830,24 @@
     "Texas Southern @ San Diego St",
     "Fullerton @ UCLA"
    ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nba",
+   "outcome": "fav_ml",
+   "price_said": 11.8,
+   "record": "12-6",
+   "season": 2026,
+   "side": 1,
+   "situation": "tuesday",
+   "streak": 1,
+   "strength": 0.12,
+   "trend": "favorites win",
+   "upcoming": [],
+   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -3056,15 +3108,15 @@
  "cells": {
   "all": {
    "edge": 0.0089,
-   "edge_new": 0.0094,
+   "edge_new": 0.0095,
    "edge_old": 0.0084,
    "from": "2018-03-31",
    "hit": 0.6899,
    "hit_new": 0.692,
    "hit_old": 0.6879,
-   "n": 239100,
-   "n_new": 119550,
-   "n_old": 119550,
+   "n": 239103,
+   "n_new": 119552,
+   "n_old": 119551,
    "said": 0.681,
    "status": "watch only",
    "to": "2026-11-17",
@@ -3217,34 +3269,34 @@
   "nba|all": {
    "edge": -0.0015,
    "edge_new": -0.001,
-   "edge_old": -0.0021,
+   "edge_old": -0.002,
    "from": "2018-10-18",
    "hit": 0.6634,
    "hit_new": 0.6693,
    "hit_old": 0.6575,
-   "n": 34315,
-   "n_new": 17158,
-   "n_old": 17157,
+   "n": 34318,
+   "n_new": 17159,
+   "n_old": 17159,
    "said": 0.6649,
    "status": "watch only",
    "to": "2026-11-17",
-   "z": -0.64
+   "z": -0.63
   },
   "nba|rate": {
    "edge": -0.0018,
-   "edge_new": -0.0011,
+   "edge_new": -0.001,
    "edge_old": -0.0026,
    "from": "2018-10-18",
    "hit": 0.6843,
-   "hit_new": 0.6904,
+   "hit_new": 0.6905,
    "hit_old": 0.6782,
-   "n": 24296,
-   "n_new": 12148,
-   "n_old": 12148,
+   "n": 24299,
+   "n_new": 12150,
+   "n_old": 12149,
    "said": 0.6862,
    "status": "watch only",
    "to": "2026-11-17",
-   "z": -0.65
+   "z": -0.64
   },
   "nba|rate|fav_cover": {
    "edge": -0.0314,
@@ -3263,20 +3315,20 @@
    "z": -1.5
   },
   "nba|rate|fav_ml": {
-   "edge": -0.0015,
-   "edge_new": 0.0012,
-   "edge_old": -0.0041,
+   "edge": -0.0014,
+   "edge_new": 0.0013,
+   "edge_old": -0.0042,
    "from": "2018-10-18",
    "hit": 0.7047,
-   "hit_new": 0.7114,
-   "hit_old": 0.698,
-   "n": 20788,
-   "n_new": 10394,
-   "n_old": 10394,
-   "said": 0.7061,
+   "hit_new": 0.7115,
+   "hit_old": 0.6979,
+   "n": 20791,
+   "n_new": 10396,
+   "n_old": 10395,
+   "said": 0.7062,
    "status": "watch only",
    "to": "2026-11-17",
-   "z": -0.48
+   "z": -0.46
   },
   "nba|rate|home": {
    "edge": -0.0033,
@@ -4065,18 +4117,18 @@
   "rate": {
    "edge": 0.01,
    "edge_new": 0.0103,
-   "edge_old": 0.0097,
+   "edge_old": 0.0098,
    "from": "2018-03-31",
    "hit": 0.7106,
    "hit_new": 0.7122,
    "hit_old": 0.709,
-   "n": 167080,
-   "n_new": 83540,
-   "n_old": 83540,
+   "n": 167083,
+   "n_new": 83542,
+   "n_old": 83541,
    "said": 0.7006,
    "status": "watch only",
    "to": "2026-11-17",
-   "z": 9.67
+   "z": 9.68
   },
   "rate|fav_cover": {
    "edge": -0.0112,
@@ -4096,19 +4148,19 @@
   },
   "rate|fav_ml": {
    "edge": 0.01,
-   "edge_new": 0.0107,
+   "edge_new": 0.0108,
    "edge_old": 0.0092,
    "from": "2018-03-31",
    "hit": 0.7382,
    "hit_new": 0.7387,
    "hit_old": 0.7376,
-   "n": 117296,
-   "n_new": 58648,
-   "n_old": 58648,
+   "n": 117299,
+   "n_new": 58650,
+   "n_old": 58649,
    "said": 0.7282,
    "status": "watch only",
    "to": "2026-11-17",
-   "z": 8.02
+   "z": 8.03
   },
   "rate|home": {
    "edge": 0.0112,
@@ -4225,7 +4277,7 @@
  },
  "follow_ups": {
   "mlb": 16135,
-  "nba": 34315,
+  "nba": 34318,
   "ncaab": 140997,
   "ncaaf": 31107,
   "nfl": 5831,
@@ -4242,5 +4294,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-11-18T07:06Z"
+ "updated": "2026-11-18T07:18Z"
 }
