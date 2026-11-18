@@ -6998,7 +6998,8 @@ def test_both_teams_hot_never_called_our_heater():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
     i = src.index("their_hot = ")
     blk = src[i:src.index("elif rec_u and n_hot >= HOT_MIN:", i)]
-    assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
+    assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{their_hot}-game heater" in blk and "v.knock(5" in blk
+    #   (11/18, cards_1118: their heater is said - as the ⚠️ knock, never in our body; the why still never sells ours)
 
 
 def test_missing_key_players_move_the_own_read():
@@ -7176,8 +7177,8 @@ def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     """10/2, the owner: "we need a lock, we need a dog, and we need three leans, no matter what." With the injury reports
     in, a banged-up side can't carry units - but the backup Lock still goes up (it can be that side, ½u) and a lean can be
     that side, and the card names who's out."""
-    g = {"league": "ncaaf", "home": "259", "away": "221", "home_name": "Virginia Tech", "away_name": "Pitt"}
-    inj = {"ncaaf": {"259": [("Justin Terry", "OL", "Out"), ("Emmett Laws", "DL", "Out"),
+    g = {"league": "ncaaf", "home": "t259", "away": "221", "home_name": "Virginia Tech", "away_name": "Pitt"}
+    inj = {"ncaaf": {"t259": [("Justin Terry", "OL", "Out"), ("Emmett Laws", "DL", "Out"),
                              ("Bill Davis", "RB", "Questionable")]}}
     line = sports.injury_line(g, "home", inj)
     assert line.startswith("🚑 Virginia Tech out: OL Justin Terry, DL Emmett Laws") and "RB Bill Davis" in line
@@ -11888,8 +11889,9 @@ def test_injury_line_names_the_players_who_play_first():
                ("Top Wideout", "WR", "Doubtful"), ("Another Lineman", "OL", "Out")]
         inj = {"ncaaf": {"135": rep}}
         line = sports.injury_line(g, "home", inj)
-        assert line.startswith("🚑 Minnesota out: RB Star Back (starter), WR Top Wideout (starter), QB Michael Merdinger, "
-                               "OL Walk On +3 more"), line                   # (10/21: the regulars tagged - who matters)
+        assert line.startswith("🚑 Minnesota out: RB Star Back (starter), WR Top Wideout (starter) · questionable"), line
+        #   (10/21: the regulars tagged - who matters. 11/18, the owner: "Strawther is not a key player" - the men the box
+        #    scores say never play (the backup QB, the walk-on) are no longer named on the card at all)
         assert "questionable: QB D. Lindsey (starter)" in line, line        # the starter's short name still matches
         first = sports.who_plays_first(g, "home", sd.team_injuries(inj["ncaaf"], "135", "Minnesota"))
         assert [r[0] for r in first][:3] == ["Star Back", "Top Wideout", "Michael Merdinger"], first
@@ -12154,6 +12156,7 @@ def test_truth_audit_10_16_records_close_means_close():
     hist = [("2026-09-06T17:00Z", "A", "C", 20, 24), ("2026-09-13T17:00Z", "D", "A", 10, 30), ("2026-09-20T17:00Z", "A", "E", 31, 7),
             ("2026-09-06T17:00Z", "B", "E", 24, 20), ("2026-09-13T17:00Z", "B", "D", 30, 10), ("2026-09-20T17:00Z", "C", "B", 31, 7)]
     leg, games, elo = _audit_fixture("nfl", hist, "2026-10-04T17:00Z", ratings={"A": 1505, "B": 1500}, hfa=0)
+    leg["odds"], leg["market"] = 110, "ml"                     # (11/18: "even" is said for a plus-money side only)
     assert any(x.startswith("⚖️") for x in v24.breakdown(leg, games, elo, None))          # 2-1 vs 2-1, ratings even: close
     hist2 = hist + [("2026-09-27T17:00Z", "A", "D", 30, 10), ("2026-09-27T17:00Z", "E", "B", 30, 10),
                     ("2026-10-01T17:00Z", "A", "E", 30, 10), ("2026-10-01T17:00Z", "D", "B", 30, 10)]
@@ -13121,9 +13124,9 @@ def test_nba_roster_prior_in_the_read_softer_pull_and_fallback():
         assert "Joel Embiid game-time decision" in w and sports.waiting_on(g, inj, maybe=False) == []
         line = nr.card_line(g, "home", cur)
         # (10/21, the owner: "men 6-10 ... a 48 minutes" was jargon - plain words, same numbers)
-        assert line.startswith("🏀 76ers:") and "bench outscored teams by 4.2 per 48 minutes" in line \
+        assert line.startswith("🏀 76ers:") and "bench outscored teams by 4.2 points for every full game it played" in line \
             and "plays 8 guys real minutes" in line and "men 6-10" not in line
-        assert "LeBron James is cooking - the team's +9.5 per 48" in line and "Joel Embiid a game-time call" in line
+        assert "LeBron James is cooking - with him on the floor lately the team's up 9.5 points a full game" in line and "Joel Embiid a game-time call" in line
         away = nr.card_line(g, "away", cur)
         assert "bench" not in away and "Jalen Brunson on a minutes limit" in away      # a 0.5 bench isn't worth a word
         assert nr.card_line(g, "home", None) == "" and nr.card_line({**g, "home": "99"}, "home", cur) == ""
@@ -14063,7 +14066,7 @@ def test_full_breakdown_is_thorough_10_25():
         floor = v24.FLOOR_LEAN if l["is_lean"] else v24.FLOOR_UNIT
         # (10/27: the facts that favored the other side left the body - a card that lost them to the one ⚠️ risk line
         #  may sit under the floor; a short card beats one that argues for the other team)
-        assert len(bd) - 1 >= floor or (len(bd) - 1 >= 3 and any(x.startswith("⚠️") for x in bd)), (l["team"], len(bd), bd)
+        assert len(bd) - 1 >= floor or (len(bd) - 1 >= 1 and any(x.startswith("⚠️") for x in bd)), (l["team"], len(bd), bd)
         for x in bd:
             assert re.search(r"\d|[A-Z][a-z]+", x.split(" ", 1)[-1]), ("a line with no number or name", x)
             assert not sports_card_guard.FILLER.search(x), x
@@ -14074,10 +14077,10 @@ def test_full_breakdown_is_thorough_10_25():
     assert len(texts) == len(set(texts)), [x for x in texts if texts.count(x) > 1]       # (never the same line twice)
     canucks = board[0]["breakdown"]
     joined = " ".join(canucks)
-    assert "290 shots" in joined and "98.3" not in joined and "PDO" not in joined and "11 points" in joined and "4th road game in 6 days" in joined, canucks
+    assert "290 shots" in joined and "98.3" not in joined and "PDO" not in joined and "4th road game in 6 days" in joined, canucks
     #   (10/29: the puck-luck line says the number in plain words - "shooting plus save %" - never "PDO")
     assert "Kaprizov" in joined, canucks
-    assert len(canucks) - 1 >= v24.FLOOR_UNIT, canucks   # (11/15: was 7 - its "more days off" line, no back-to-back,
+    assert len(canucks) - 1 >= 4, canucks     # (11/15: was 7 - its "more days off" line, no back-to-back,
     #   left with REST_B2B_ONLY; the card still meets the unit floor)
     assert "FULL BREAKDOWN is thorough" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CLAUDE.md")).read()
     # a fact line is never starved: with every wording's tag already used, the Voice still says it
@@ -15310,8 +15313,8 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
     assert b._poss("the Blue Jackets") == "The Blue Jackets'"
     assert "{_possm(the_us)} last starter in net" in src and "{_possm(the_them)} last starter in net" in src
     # the same last score never lands on two lines of one card: the W-W line skips our score when the record line said it
-    i = src.index("if wu and wt and any(a in str(x) for x in out)")
-    assert "won their last one too, a {b}" in src[i:i + 500]                 # (11/4 lingo pass: their score only)
+    assert "said_a = sc_a in body" in src and "if not said_a:" in src      # (11/18: a score the card carries is never said again,
+    assert "won their last one too, a {b}" not in src                        #  and THEIR win is a knock - never our body line)
     # the early card's "we beat the line" says it plain: we got the better number
     assert all("better number" in w or "better one" in w for w in sports_early.MOVE_SAY["🔥 we beat the line"])
     # no bottom line repeats across one board: two floor cards sharing a board's memory say it two ways
@@ -19155,8 +19158,9 @@ def test_sd_1104_a_non_d1_blowout_moves_nothing_and_the_stronger_team_needs_the_
            "dec": 2.24, "market": "ml", "p": 0.4325, "p_market": 0.428, "edge": -0.031, "edge_own": -0.0317,
            "reasons": [], "outs": [], "opp_outs": [], "is_lean": False, "tier": "value", "floor_score": 0.43,
            "floor": {"dog_score": 0.43}, "eff_p": 0.399, "home": True}
-    out = v24.breakdown(dict(leg), G, elo, {"ncaab": {"T0": [], "T1": []}}, set())
-    card = " ".join(out)
+    _lg = dict(leg)
+    out = v24.breakdown(_lg, G, elo, {"ncaab": {"T0": [], "T1": []}}, set())
+    card = " ".join(out + [_lg.get("why_line") or ""])       # (11/18: the one-liner is the card too - a fact it says isn't said again)
     assert "N (a no-name non-D1 school)" in card, card                              # the tune-up is named for what it is
     assert "🚀" not in card and "cheeks clapped" not in card, card           # never a blowout-win line off it
     assert "better team" not in card and "ratings like" not in card and "ratings have" not in card, card
@@ -23336,7 +23340,7 @@ def test_card_audit_1113_the_card_check_facts_vs_the_game_files():
     lines = ["📋 Wild are 4-0, Kings 2-0.", "🏟️ Wild are 1-1 at home this year.",
              "✅ Bottom line: Wild (+120). Best dog on the slate by our angles. Half a unit, don't go crazy."]
     got = cc.check(pk, pk["legs"][0], lines, games)
-    assert got == lines[1:], got
+    assert got == lines[2:], got                             # (11/18: "1-1 at home" is true and says nothing - it goes too)
 
 
 def test_card_audit_1113_every_card_passes_the_check_before_it_posts_and_on_the_page():
@@ -23807,10 +23811,11 @@ def test_audit_1115_the_exam_scan_play_is_half_a_unit_and_a_football_one_needs_t
              "b": gm("b", "2026-11-14T20:00Z", "NW", "OSU", "Northwestern", "Ohio State", hs="19", as_="28"),
              "ncaaf:9": gm("ncaaf:9", "2026-11-21T17:00Z", "MIN", "NW", "Minnesota", "Northwestern", st_="pre")}
         w = se.exam_words(dict(mn), G, after)
-        assert w["why"].endswith("Minnesota is off a 42-14 loss to Penn State on Saturday 11/14.")
-        assert w["facts"] == ["Northwestern is off a 28-19 loss to Ohio State on Saturday 11/14."]
+        #   (11/18, cards_1118: the line under OUR pick never says our own loss - "Minnesota is off a 42-14 loss to Penn
+        #    State" is gone; THEIR loss is the fact)
+        assert w["why"].endswith("Northwestern is off a 28-19 loss to Ohio State on Saturday 11/14.") and "facts" not in w
         box = se.html({"picks": [{**w, "posted": "2026-11-16T18:00Z", "result": None, "units": 0.5}]}, lambda x: x, now=after, games=G)
-        assert "our read" in box and "42-14 loss to Penn State" in box and "28-19 loss to Ohio State" in box
+        assert "our read" in box and "42-14 loss to Penn State" not in box and "28-19 loss to Ohio State" in box
         rows[:] = []                                                               # no board row = unknown = no play
         assert run([mn], after) == []
         # a spot play and a non-football exam dog keep their own rules (the honest check is football's)
@@ -24570,8 +24575,8 @@ def test_fable_1116_a_goalie_line_always_says_what_he_is():
     import sports_breakdown_v24 as v24
     import sports_goalies as sg
     src = open(v24.__file__).read()
-    assert "A wash in net" in src and "{mine[0]} ({tag(mine[2])}), {mine[1]}" in src        # (the Swayman line: tagged)
-    assert "' goalie {his[0]} has {his[1]}" not in src and "{his[0]}, {tag(his[2])} for {them}, has {his[1]}" in src
+    assert "A wash in net.\"" not in src                  # (11/18, cards_1118: two goalies even on the numbers = no line)
+    assert "' goalie {his[0]} has {his[1]}" not in src
     assert "our guy {mine[0]} has" not in src and "In net, {us} got {mine[0]}" not in src
     assert 'sports_goalies.confirmed(g.get("id"), team_side)' in src and 'return "likely"' in src
     G = lambda gid, st, team, who, ga="2": {"gid": gid, "start": st, "team": team, "player": who, "role": "G", "sa": "30", "ga": ga}
@@ -24771,11 +24776,11 @@ def test_fable_1116_the_nba_opening_line_card_talks_rest_only_on_a_back_to_back(
     fx = {"rec": "4-5", "opp_rec": "1-7", "last": "lost their last by 6", "rest": 2, "opp_rest": 4}
     ways = se.nba_open_why(c, fx)
     assert ways and all("days off" not in w and "Clippers's" not in w and "night before" not in w for w in ways), ways
-    assert all("Pelicans are 4-5, Clippers 1-7; Pelicans lost their last by 6." in w for w in ways), ways
+    assert all(w.endswith("Pelicans are 4-5, Clippers 1-7.") for w in ways), ways   # (11/18: never OUR loss under our pick)
     b2b = se.nba_open_why(c, {**fx, "rest": 3, "opp_rest": 1})
     assert all("Clippers played the night before" in w for w in b2b), b2b
     ours = se.nba_open_why(c, {**fx, "rest": 1, "opp_rest": 2})
-    assert all("Pelicans played the night before" in w for w in ours), ours
+    assert all("night before" not in w for w in ours), ours    # (11/18: OUR back-to-back is no line under our pick)
     both = se.nba_open_why(c, {**fx, "rest": 1, "opp_rest": 1})
     assert all("night before" not in w for w in both), both
 
@@ -26913,10 +26918,10 @@ def test_cards_1117_the_standing_card_audit_and_the_real_cards():
                    for c, w in ((p["class"], p["why"]) for p in raw["problems"])), raw["problems"]
         assert any(c == "stale" and "'full squad' for Wild" in w for c, w in ((p["class"], p["why"]) for p in raw["problems"]))
         assert raw["cards"] == 1 and raw["bad_cards"] == 1 and raw["by_class"]["false"] >= 2
-        assert all("PROBLEM" not in x and x.split(" ")[0] in ("FALSE", "STALE", "NONSENSE") for x in ca.words(raw))
+        assert all("PROBLEM" not in x and x.split(" ")[0] in ("FALSE", "STALE", "NONSENSE", "QUALITY") for x in ca.words(raw))
         # as the page shows it: the card check already took the false / senseless lines off; the report's news is what's left
         shown = ca.run([pk], {}, games, inj)
-        assert {p["class"] for p in shown["problems"]} == {"stale"}, shown["problems"]
+        assert {p["class"] for p in shown["problems"]} <= {"stale", "quality"} and "stale" in {p["class"] for p in shown["problems"]}, shown["problems"]
         assert ca.run([{**pk, "status": "won"}], {}, games, inj)["cards"] == 0               # live cards only
         with tempfile.TemporaryDirectory() as d:
             ca.save(raw, os.path.join(d, "card_audit.json"))
@@ -27067,7 +27072,7 @@ def test_owner_1117_puck_luck_in_plain_words_never_a_formula():
                 assert w not in low or "math_talk" in low, (w, line.strip()[:120])
     for w in ("of every 100", "% of their shots", "save %"):           # (the owner, 11/17: "7 of every 100 shots is
         assert w not in src[src.index('parts = leg.get("pdo_parts")'):src.index('pl = leg.get("pyth_luck")')], w   # retarded")
-    assert "shots on net their last 10 games and only {gf} went in" in src and sb.VERSION >= 65
+    assert "{sf_} shots on net their last 10 games" in src and "and only {gf} went in" not in src and sb.VERSION >= 65   # (11/18: the shots, said FOR us)
     new = "🍀 Capitals been snakebit: 290 shots on net their last 10 games and only 21 went in, and their goalie's let in 33. That luck turns."
     assert not cc._banned_hit(new)[0]
 
@@ -27543,6 +27548,278 @@ def test_owner_1118_the_breakdown_makes_the_case_for_our_side():
         sa_.key_players, sports.sd.STARTER_OF = was, was_st
     assert got == ["Jamal Murray (G)"], got
     assert "nba_who_matters(names, team_id, before)" in inspect.getsource(v24.who_plays_only) and sb.VERSION >= 66
+
+
+def _box_rows_1118(lg, team, games_n, players):
+    """Fake box scores for sports_absences: players = {name: (pos, per-game stats dict, [game indexes he played])}."""
+    out = []
+    for i in range(games_n):
+        rs = [{"gid": f"{lg}:b{i}", "start": f"2026-11-{i + 1:02d}T02:00Z", "team": team, "player": nm, "pos": pos,
+               "starter": "1" if st.get("starter") else "0", "stats": json.dumps({k: v for k, v in st.items() if k != "starter"})}
+              for nm, (pos, st, played) in players.items() if i in played]
+        out.append((f"2026-11-{i + 1:02d}T02:00Z", f"{lg}:b{i}", rs))
+    return out
+
+
+def test_cards_1118_a_cut_is_never_the_end_the_card_refills_with_real_facts_for_our_side():
+    """11/18, the owner, after the knocks were cut off the Nuggets card: "Now you just took out the lines that I said were
+    trash, and it's just short and fucking vague and a real shitty fucking breakdown. This is a fucking permanent bug that
+    we need to fix." (1) A card under its floor refills from the real facts the engine holds for OUR side - our top
+    scorer with his numbers (the box scores), our scoreboard lately / on the year, theirs when it's bad, the price in
+    plain words (fill_facts) - never filler, never a knock. (2) The 🏀 bench line and the 🌟 star line vanished in a
+    rewrite because the roster read is built only with the NBA board: a rewrite builds it."""
+    import inspect, sports_breakdown_v24 as v24, sports_absences as sa_, sports_nba_roster as nr_
+    keep = sa_._TEAM.get("nba")
+    all_ = list(range(10))
+    sa_._TEAM["nba"] = {"7": _box_rows_1118("nba", "7", 10, {
+        "Jamal Murray": ("G", {"points": "26", "minutes": "35", "starter": 1}, all_),
+        "Bench Guy": ("G", {"points": "4", "minutes": "9"}, all_),
+        "Hurt Star": ("F", {"points": "31", "minutes": "36", "starter": 1}, all_[:9])})}     # (sat the last game)
+    try:
+        assert v24.top_scorer("nba", "7", "2026-11-19T02:30Z")[0] == "Jamal Murray"          # (in the last box score)
+        assert v24.top_scorer("nba", "7", "2026-11-19T02:30Z", skip=["Jamal Murray (G)"]) is None   # never a man on a list
+        assert v24.top_scorer("nfl", "7", "2026-11-19T02:30Z") is None
+        fin = []
+        for i, (hs, as_) in enumerate([(120, 110), (118, 104), (125, 112), (111, 101), (119, 108)]):
+            fin.append({"id": f"nba:{i}", "home": "7", "away": "9", "home_score": str(hs), "away_score": str(as_),
+                        "start": f"2026-11-{i + 1:02d}T02:00Z"})
+        v = v24.Voice("t|1118")
+        leg = {"odds": 120, "dec": 2.2, "market": "ml", "outs": []}
+        got = v24.fill_facts(leg, v, {"start": "2026-11-19T02:30Z"}, "Nuggets", "Celtics", "7", "9", "nba", fin, [], fin, [],
+                             "🧠 the one-liner", own=0.49)
+        assert any(x.startswith("💯") and "Jamal Murray" in x and "26 a night" in x for x in got), got
+        assert any(x.startswith("📊") and "last 3" in x for x in got) and any("year" in x or "season" in x for x in got), got
+        assert any(x.startswith("💵") and "+120" in x for x in got), got                     # the price in plain words
+        import sports_card_check as cc
+        legc = {"team": "Nuggets", "opp": "Celtics", "league": "nba"}
+        assert not [x for x in got if cc.for_us(x, legc, "")], got                            # none knocks us / is jargon
+        # a fact already on the card is not said again
+        again = v24.fill_facts(leg, v24.Voice("t2"), {"start": "2026-11-19T02:30Z"}, "Nuggets", "Celtics", "7", "9", "nba",
+                               fin, [], fin, [], "💯 Jamal Murray ... 📊 over their last 3 ... 📊 this year ... +104", own=0.49)
+        assert not any("Jamal Murray" in x or "last 3" in x for x in again), again
+    finally:
+        if keep is None:
+            sa_._TEAM.pop("nba", None)
+        else:
+            sa_._TEAM["nba"] = keep
+    src = inspect.getsource(v24.breakdown)
+    assert "fill_facts(leg, v, g, us, them, tid, oid, lg" in src and "_nf(lines) < _fl" in src
+    assert v24.FLOOR_UNIT == 6
+    # the rewrite builds the roster read when the run hasn't (the 🏀 bench line + the 🌟 star line come back)
+    src = inspect.getsource(sports.add_breakdowns)
+    assert "sports_nba_roster.cached() is None" in src and "sports_nba_roster.current(games" in src
+    was = (nr_.cached, nr_.current, sports.sd.fetch_injuries, sports.sports_breakdown.breakdown, sports.card_extras, sm.ratings,
+           sports.card_report_status)
+    built = []
+    nr_.cached = lambda: None
+    nr_.current = lambda games, inj=None, now=None: built.append(1)
+    sports.sd.fetch_injuries = lambda lg: {}
+    sports.sports_breakdown.breakdown = lambda *a, **k: ["✅ Bottom line: x"]
+    sports.card_extras = lambda *a, **k: None
+    sm.ratings = lambda *a, **k: {}
+    sports.card_report_status = lambda *a, **k: None
+    try:
+        g = {"id": "nba:1", "league": "nba", "status": "pre", "start": "2026-11-19T02:30Z", "home": "7", "away": "9",
+             "home_name": "Nuggets", "away_name": "Celtics"}
+        lg_ = {"league": "nba", "game_id": "nba:1", "side": "home", "market": "ml", "team": "Nuggets", "opp": "Celtics", "bv": 1}
+        sports.add_breakdowns({"nba:1": g}, {}, [{"date": "2026-11-18", "kind": "dog", "status": "open", "legs": [lg_]}])
+        assert built == [1] and lg_["bv"] == sports.sports_breakdown.VERSION
+    finally:
+        (nr_.cached, nr_.current, sports.sd.fetch_injuries, sports.sports_breakdown.breakdown, sports.card_extras, sm.ratings,
+         sports.card_report_status) = was
+    assert sports.sports_breakdown.VERSION >= 67
+
+
+def test_cards_1118_every_body_line_argues_for_us_and_says_something():
+    """11/18 CARD QUALITY (results/studies/cards_1118 - the owner: "I've talked to you about our breakdowns making mistakes
+    and being stupid and not right. This needs to be fixed permanently"): the kinds of bad line the fact checks can't see
+    - each has a rule in the card check (every render) and its pool fixed at the root."""
+    import inspect, sports_card_check as cc, sports_breakdown_v24 as v24
+    leg = {"team": "Nuggets", "opp": "Celtics", "league": "nba"}
+    for x, why in (("📋 Nuggets sit 4-5 so far.", cc.Q_KNOCK),                                # our losing record alone
+                   ("📊 Last 3: Nuggets score 101 and give up 112 a game; Celtics score 99 and give up 120.", cc.Q_KNOCK),
+                   ("🧳 Nuggets are 1-4 on the road this year.", cc.Q_KNOCK),
+                   ("📅 The Celtics won their last one too, a 127-121 win over the Bulls.", cc.Q_OPP),
+                   ("📅 The Celtics come in off a 131-125 win over the Raptors, so they feeling themselves too.", cc.Q_OPP),
+                   ("📅 And the Celtics? A 127-121 win over the Bulls last time out.", cc.Q_OPP),
+                   ("🔥 Both teams are rolling: Nuggets have won 5 straight, Celtics 5.", cc.Q_OPP),
+                   ("🏟️ 1-1 at home this year for Nuggets.", cc.Q_NOTHING),
+                   ("⚖️ Nuggets 10-8, Celtics 9-9. A wash on the records.", cc.Q_NOTHING),
+                   ("📋 Nuggets 10-5, Celtics 12-6. Dead even on the record.", cc.Q_NOTHING),
+                   ("🏀 Nuggets: their bench outscored teams by 6.1 per 48 minutes last season - deep squad.", cc.Q_JARGON),
+                   ("📊 Over the last 3, Nuggets are a +2.3 team a game (113 for, 110 against); Celtics are +2.", cc.Q_JARGON),
+                   ("🎲 By goals scored and allowed, Nuggets should be about 13 points better than their record.", cc.Q_JARGON)):
+        assert cc.for_us(x, leg, "") == why, (x, cc.for_us(x, leg, ""))
+    for x in ("🧳 Road game, no problem: Nuggets are 6-2 away from home this season.",
+              "📅 The Celtics come in off a 115-105 loss to the Magic.",
+              "📋 Celtics come in 4-9 on the year.", "📋 7-9 for Celtics this season - more L's than W's.",
+              "📊 Celtics have been outscored 118 to 104 a game over their last 3.",
+              "⚖️ Nuggets 7-5, Celtics 7-5 - a wash on paper, and the book's paying us plus money to take Nuggets.",
+              "💯 Jamal Murray is giving Nuggets 26 a night over the last 10 games he's played.",
+              "🔥 Celtics have lost 3 straight — that coach is on the hot seat.",
+              "😤 Revenge game — Celtics got Nuggets 120-101 the last time these two met. Nuggets haven't forgotten.",
+              "🍀 Nuggets are getting their looks - 290 shots on net their last 10 games. Keep shooting like that and the goals come.",
+              "⚠️ Biggest knock on Nuggets: Nuggets have dropped 3 straight."):
+        assert cc.for_us(x, leg, "") == "", (x, cc.for_us(x, leg, ""))
+    # a knock needs OUR name: "Kansas St" and "Oklahoma St" share a last word; "hasn't lost in 3" is no knock
+    ks = {"team": "Kansas St", "opp": "Oklahoma St"}
+    assert not cc.knocks_us("📅 Oklahoma St off a 51-49 loss to Iowa State last time out.", ks)
+    assert cc.knocks_us("📅 Kansas St off a 27-24 loss to Colorado.", ks)
+    assert not cc.knocks_us("🧠 The Heat hasn't lost in 3. Small bet on Heat.", {"team": "Heat", "opp": "Pistons"})
+    assert cc.knocks_us("Heat lost 3 straight.", {"team": "Heat", "opp": "Pistons"})
+    # nothing said twice: the one-liner's sentence / miles / men again, the same game in two lines
+    known = {(45, 27), (23, 6)}
+    why = "🚑 Tap in — Kyler Murray, the Vikings' starting quarterback, is out. Plus Vikings flew 1,760 miles for this."
+    lines = ["🚀 The Patriots got their cheeks clapped by Packers last time out, 45-27.",
+             "📅 Last game for each: Packers W 45-27 @ Patriots · Vikings L 6-23 vs Bills.",
+             "📋 Packers are 6-3 after a 45-27 win over the Patriots.",
+             "🥊 The Bills put 23-6 on the Vikings in one of their last 5.",
+             "🚑 Vikings are down their starting quarterback, Kyler Murray.",
+             "🧳 The Vikings put in the miles to get here (1,760-mile trip west).",
+             "🏟️ 3-1 in their own building - Packers win more than they lose there.",
+             "⚠️ The other side's best argument: Packers go without Josh Jacobs (RB).",
+             "✅ Bottom line: Packers (-142). Our number on Packers is -197."]
+    got = v24.no_repeats(lines, why, known, ["6-3", "4-5"], "Packers")
+    assert got == [lines[0], "📋 Packers are 6-3 on the year.", lines[3], lines[6], lines[7], lines[8]], got
+    half = v24.no_repeats(["🚀 Packers smacked the Patriots 45-27 last time out.",
+                           "📅 Last game for each: Packers W 45-27 @ Patriots · Vikings L 6-23 vs Bills."], "", known, [], "Packers")
+    assert half[1] == "📅 Vikings L 6-23 vs Bills last time out.", half                        # the half that is news
+    assert "no_repeats(lines, _wl, _known" in inspect.getsource(v24.breakdown)
+    assert "said_twice(leg, out, why, games)" in inspect.getsource(cc.check)
+    assert v24._an(8) == "an" and v24._an(11) == "an" and v24._an(18) == "an" and v24._an(3) == "a" and v24._an(80) == "an"
+    # the pools: the lines that argued against our own pick are gone at the root
+    src = inspect.getsource(v24.more_facts) + inspect.getsource(v24.breakdown)
+    for dead in ("won their last one too", "feeling themselves too", "Both won last time", "Both took an L last time",
+                 "Both teams are rolling", "A wash on the records", "Dead even on the record", "A wash in net",
+                 "team a game (", "points better than their record", "been snakebit", "at home so far"):
+        assert dead not in src.replace("#", "\n#").split("\n#")[0] or all(
+            dead not in ln.split("#")[0] for ln in src.splitlines()), dead
+    import sports_nba_roster as nr_
+    assert "per 48" not in "".join(ln.split("#")[0] for ln in inspect.getsource(nr_.card_line).splitlines())
+    assert "booty cheeks so far" not in "".join(ln.split("#")[0] for ln in open("sports_lingo.py").read().splitlines())
+    # the knock when the two teams just played each other says the game once
+    assert 'f"{them} beat {us} {sc_b} last time out"' in inspect.getsource(v24.more_facts)
+    # a headline about THEM winning is never our body line
+    assert v24.GOOD_NEWS.search("Back on home ice after trade request, Kucherov has two assists in Lightning wins")
+    assert not v24.GOOD_NEWS.search("Panthers fire defensive coordinator after 2-6 start")
+
+
+def test_cards_1118_a_man_named_out_matters_in_every_league_and_isnt_old_news():
+    """11/18, the owner: "Strawther is not a key player" - the idea in EVERY league (sports_absences.who_matters): NBA a
+    top-3 scorer / a starter; college hoops the top-5 minutes men; hockey a top-6 forward / top-4 D by ice time or the #1
+    goalie; football a regular. Never a man who sat the team's last 5 box scores (2 in football) - old news. On every
+    render a non-key name comes off the line; a line of only non-key men goes (sports_card_check.absent_matters)."""
+    import inspect, sports_absences as sa_, sports_card_check as cc, sports_breakdown_v24 as v24
+    keep = {k: sa_._TEAM.get(k) for k in ("nhl", "ncaab")}
+    ten = list(range(10))
+    pl = {f"Fwd {chr(65 + i)}": ("C", {"timeOnIce": f"{20 - i}:00", "goals": "0", "assists": "0"}, ten) for i in range(9)}
+    pl.update({f"Def {chr(65 + i)}": ("D", {"timeOnIce": f"{24 - i}:00"}, ten) for i in range(6)})
+    pl["Gone Star"] = ("C", {"timeOnIce": "23:00"}, ten[:5])                                   # (sat the last 5)
+    pl["Fresh Hurt"] = ("C", {"timeOnIce": "22:30"}, ten[:8])                                  # (sat the last 2 only)
+    pl["Starter G"] = ("G", {"timeOnIce": "60:00", "starter": 1}, ten[:8])
+    pl["Backup G"] = ("G", {"timeOnIce": "60:00", "starter": 1}, ten[8:])
+    sa_._TEAM["nhl"] = {"1": _box_rows_1118("nhl", "1", 10, pl)}
+    sa_._TEAM["ncaab"] = {"5": _box_rows_1118("ncaab", "5", 5, {f"Man {chr(65 + i)}": ("G", {"minutes": str(35 - 3 * i), "points": "5"}, list(range(5)))
+                                                               for i in range(8)})}
+    try:
+        b = "2026-11-19T02:00Z"
+        m = lambda n: sa_.matters(None, "nhl", "1", n, b)                                      # noqa: E731
+        assert m("Fresh Hurt") is True and m("Fwd B") is True and m("Def D") is True and m("Starter G") is True
+        assert m("Fwd I") is False and m("Def F") is False and m("Backup G") is False               # the bottom six / pair / backup
+        assert m("Gone Star") is False and sa_.gone_long(None, "nhl", "1", "Gone Star", b)    # old news
+        assert sa_.matters(None, "nhl", "99", "Anybody", b) is None                           # no box scores: no claim
+        assert sa_.matters(None, "ncaab", "5", "Man A", b) is True and sa_.matters(None, "ncaab", "5", "Man G", b) is False
+        assert v24.who_plays_only(["Fwd I (C)", "Fresh Hurt (C)", "Gone Star (C)"], "nhl", "1", b) == ["Fresh Hurt (C)"]
+        assert v24.who_plays_only(["Fwd I (C)"], "nhl", "99", b) == ["Fwd I (C)"]                    # (no box scores: as it is)
+        games = {"nhl:9": {"id": "nhl:9", "league": "nhl", "start": b, "status": "pre", "home": "2", "away": "1",
+                           "home_name": "Kings", "away_name": "Wild"}}
+        leg = {"game_id": "nhl:9", "side": "home", "team": "Kings", "opp": "Wild", "league": "nhl",
+               "opp_outs": ["Fwd I (C)", "Fresh Hurt (C)", "Gone Star (C)"], "outs": []}
+        cc._MAT.clear()
+        new, w = cc.absent_matters("🚑 Wild gotta play without Fwd I (C), Fresh Hurt (C), Gone Star (C).", leg, games)
+        assert new == "🚑 Wild gotta play without Fresh Hurt (C)." and cc.Q_ABSENT in w, (new, w)
+        new, w = cc.absent_matters("🚑 No Fwd I (C) for Wild.", leg, games)
+        assert new == "" and cc.Q_ABSENT in w
+        assert cc.absent_matters("🚑 Wild are without Fresh Hurt (C).", leg, games) == ("🚑 Wild are without Fresh Hurt (C).", "")
+        legu = {**leg, "side": "away", "team": "Wild", "opp": "Kings", "outs": ["Fwd I (C)"], "opp_outs": []}
+        assert cc.absent_matters("⚠️ Biggest knock on Wild: Wild go without Fwd I (C).", legu, games)[0] == ""
+    finally:
+        cc._MAT.clear()
+        for k, v_ in keep.items():
+            if v_ is None:
+                sa_._TEAM.pop(k, None)
+            else:
+                sa_._TEAM[k] = v_
+    assert "absent_matters(new, leg, games)" in inspect.getsource(cc.check)
+    assert "absent_matters(new, leg, games)" in inspect.getsource(cc.check_one)
+    assert "sports_absences.matters(" in inspect.getsource(sports.injury_line)                # the 🚑 list on the card too
+    assert "gone_long" in inspect.getsource(v24.who_plays_only)
+    assert cc._drop_name("🚑 Suns out: F Rasheer Fleming, C Mark Williams.", "Mark Williams") == "🚑 Suns out: F Rasheer Fleming."
+
+
+def test_cards_1118_the_early_rows_argue_for_us_too_and_the_card_quality_score_watches():
+    """11/18: the 🏀 opening-line play's one-liner read "Grizzlies are 6-3, Raptors 5-4; Grizzlies lost their last by 31"
+    under a Grizzlies pick; an ⛰️ over's row said "0-1 since we started betting it". Fixed at the root (nba_open_why, the
+    live record only when it's a winning one) and on every render (early_for_us). And the standing check: tools/card_audit
+    scores every card on quality - a bad line still on the page, a write-up that put 3+ bad lines on a live card, or a
+    thin unit card is a PROBLEM on the hourly bug check."""
+    import inspect, sports_card_check as cc, sports_early as se
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import card_audit as ca
+    c = {"team": "Grizzlies", "opp": "Raptors", "odds": 117}
+    ws = se.nba_open_why(c, {"rec": "6-3", "opp_rec": "5-4", "last": "lost their last by 31", "opp_last": "lost their last by 9",
+                             "rest": 1, "opp_rest": 2})
+    assert all("Grizzlies lost" not in w and "played the night before" not in w for w in ws), ws
+    assert all("Grizzlies are 6-3, Raptors 5-4" in w and "Raptors lost their last by 9" in w for w in ws), ws
+    ws = se.nba_open_why(c, {"rec": "4-5", "opp_rec": "7-1", "last": "won their last by 12", "rest": 2, "opp_rest": 1})
+    assert all("4-5" not in w and "Grizzlies won their last by 12" in w and "Raptors played the night before" in w for w in ws), ws
+    leg = {"team": "Pelicans", "opp": "Clippers", "league": "nba"}
+    new, w = cc.early_for_us("🧠 The open sells Pelicans short at -112: our whole read says more. Pelicans are 4-5, Clippers 1-7; "
+                             "Pelicans lost their last by 6; 2 days off to Clippers's 4.", leg)
+    assert new == "🧠 The open sells Pelicans short at -112: our whole read says more. Pelicans are 4-5, Clippers 1-7." and w, new
+    tot = {"team": "Over 153.5", "opp": "Portland @ Colorado", "league": "ncaab"}
+    assert cc.early_for_us("0-1 since we started betting it", tot)[0] == ""
+    assert cc.early_for_us("Good to 155, 3-1 since we started betting it", tot)[0] == "Good to 155, 3-1 since we started betting it"
+    assert cc.early_for_us("Cavaliers should score about 114 against Mavericks's defense", tot)[0].count("Mavericks' defense") == 1
+    assert "early_for_us(y, leg, games)" in inspect.getsource(cc.early_lines)
+    assert 'if w > l_ else' in inspect.getsource(se) and "since we started betting it\" if w + l_" not in inspect.getsource(se)
+    # the quality read of the card that set this off (as it was posted): every kind the owner named
+    nug = {"team": "Nuggets", "opp": "Celtics", "league": "nba", "outs": ["Julian Strawther (G)"], "opp_outs": []}
+    why = "🧠 The Celtics gotta breathe 5,300 feet up. Nuggets fin to handle that. Plus Celtics flew 1,760 miles for this."
+    card = ["🧳 The Celtics put in the miles to get here (1,760-mile trip west).", "🗓️ Nuggets are 3-2 over their last 5.",
+            "🏔️ Thin air — 5,300 feet up. The Celtics gonna be sucking wind by the second half.",
+            "📋 Nuggets are 7-5 after a 117-105 loss to the Suns.",
+            "📅 The Celtics come in off a 115-105 loss to the Magic; the Nuggets off a 117-105 loss to the Suns.",
+            "🏀 Nuggets: their bench outscored teams by 6.1 per 48 minutes last season - deep squad · the coach plays 7 guys real minutes.",
+            "✅ Bottom line: Nuggets (+120). We price Nuggets at +103, the book's at +120."]
+    q = cc.quality(nug, why, card)
+    kinds = [k for k, _ in q]
+    assert kinds.count("repeats") == 2 and kinds.count("knocks us") == 2 and kinds.count("jargon") == 1, q
+    assert cc.quality(nug, why, ["🗓️ Nuggets are 3-2 over their last 5.", card[-1]]) == []
+    assert cc.kind_of(cc.Q_ABSENT + ": X") == "non-key absence" and cc.kind_of("a fact the game files don't back") == ""
+    # the score + the PROBLEM lines
+    games = _cc_games()
+    lg = {"game_id": "nhl:9", "side": "home", "team": "Wild", "opp": "Kings", "league": "nhl", "market": "ml", "odds": -120,
+          "start": "2026-11-10T02:00Z", "home": True, "outs": [], "opp_outs": [], "tier": "value",
+          "why_line": "💪 Wild are 3-1 and the Kings got handled 5-2 by nobody.",
+          "breakdown": ["📅 The Kings won their last one too, a 3-2 win over the Ducks.",
+                        "🏟️ 1-1 at home this year for Wild.",
+                        "📊 Over the last 3, Wild are a +1 team a game (4 for, 3 against); Kings are +2.",
+                        "✅ Bottom line: Wild (-120). We make Wild -135, the book's at -120."]}
+    pk = {"date": "2026-11-09", "kind": "play", "status": "open", "units": 1.0, "legs": [lg]}
+    keep = ca.cc.FACT_CHECK
+    try:
+        qd = ca.card_quality(pk, lg, games)
+        assert len(qd["written"]) == 3 and qd["shown"] == [] and qd["thin"] and qd["score"] == 100 - 3 * ca.Q_WRITTEN - ca.Q_THIN, qd
+        rep = ca.run([pk], {}, games, {})
+        ql = [p for p in rep["problems"] if p["class"] == "quality"]
+        assert any("the write-up put 3 bad lines on this card" in p["why"] for p in ql), rep["problems"]
+        assert any("a thin card" in p["why"] for p in ql), rep["problems"]
+        assert rep["quality"]["score"] == qd["score"] and rep["quality"]["written"] == {"argues for them": 1, "says nothing": 1, "jargon": 1}
+        assert any(x.startswith("QUALITY on the Wild card") for x in ca.words(rep))
+    finally:
+        ca.cc.FACT_CHECK = keep
+    assert "quality" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

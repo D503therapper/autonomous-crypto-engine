@@ -1001,7 +1001,7 @@ LINES.update({
     "lv:better": ((105, 3), False, T(
         "{i} {us} %dn% {m}? Rough start, but they're %bt% and we get 'em at %pm%. %go%.",
         "{i} Everybody jumping off {us} %dn% {m}. Not us. Better team, %pm% — tap in.",
-        "{i} {us} been booty cheeks so far, %dn% {m}. That don't last. [Way better team|Better squad] — they about to go to work.",
+        "{i} {us} %dn% {m} after a slow start. That don't last. [Way better team|Better squad] — they about to go to work.",   # (11/18: never "been booty cheeks" about OUR side)
         "{i} %Dn% {m} ain't done. {us} got way too much for {them}, and {book} is handing us %pm%.",
         "{i} {them} up {m} and they must think they're good. They ain't. {us} about to smack that ass.",
         "{i} Slow start, %dn% {m}. {us} still the [better team|stronger side]. %go%.",

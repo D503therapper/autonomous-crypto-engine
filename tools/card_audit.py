@@ -59,10 +59,16 @@ def shown(pk, leg, games):
         lines = [dash.pct_ok(x) for x in sports_card_guard.clean(
             [x for x in dash.fresh_lines(leg, leg.get("breakdown") or []) if isinstance(x, str) and dash.latest_ok(x)],
             leg.get("league"), leg.get("team", ""), leg.get("opp", ""))]
-        lines = cc.check(pk, leg, lines, games, why="")
         wl = leg.get("why_line") or ""
         wl = cc.check_one(pk, leg, sports_card_guard.one("" if dash.stale_in(wl, leg) else wl, leg.get("league"),
                                                          leg.get("team", ""), leg.get("opp", "")), games)
+        if wl and cc.knocks_us(wl, leg):                     # (11/18: exactly the page's order - sports_dashboard._leg:
+            wl = ""                                          #  the one-liner first (never a knock on us; the card's
+        try:                                                 #  first real fact when it falls), then the body checked
+            wl = dash.pct_ok(wl or dash._why_fallback(leg, pk))   # AGAINST it, so the one-liner's fact isn't said twice)
+        except Exception:                                    # noqa: BLE001
+            pass
+        lines = cc.check(pk, leg, lines, games, why=wl)
     finally:
         cc.note = quiet
     return wl, lines
@@ -252,6 +258,49 @@ def audit_leg(pk, leg, games, injuries=None, as_shown=True):
     return uniq, len(allc)
 
 
+# ---- 🧹 the card-quality score (11/18, results/studies/cards_1118) ---------------------------------------------------------
+# The owner, 11/18, on the Nuggets card: "the breakdown just sucks ... This has been a major problem with these breakdowns
+# ... This needs to be fixed permanently." Every line on that card was TRUE - the fact audit above passed it. What was wrong
+# is what a card is FOR: it argued against its own pick, said the one-liner twice and named a bench man as the knock. So a
+# card is also scored on how well it makes its case (sports_card_check.quality): every line that knocks us / argues for
+# them / says nothing / repeats / talks jargon / names a man out who doesn't matter.
+#   100 = clean. -15 for each bad line the write-up put on the card (the check cuts it on the page - but the pool wrote
+#   it), -25 for each one a reader can still SEE, -20 for a unit play left with fewer than 2 fact lines.
+# A PROBLEM on the hourly bug check: a bad line still on the page; a live card whose write-up put 3+ bad lines on it (a
+# pool went bad - fix it at the root); a live unit play with a thin card.
+Q_WRITTEN, Q_SHOWN, Q_THIN, Q_ROOT = 15, 25, 20, 3
+
+
+def card_quality(pk, leg, games):
+    """{'score', 'written': [(kind, line)], 'shown': [(kind, line)], 'facts': n} for one board card."""
+    w_why, w_lines = raw(leg)
+    written = cc.quality(leg, w_why, w_lines, games)
+    try:
+        s_why, s_lines = shown(pk, leg, games)
+    except Exception:                                        # noqa: BLE001
+        s_why, s_lines = w_why, w_lines
+    still = cc.quality(leg, s_why, s_lines, games)
+    facts = cc.fact_lines(s_lines)
+    unit = not (pk.get("lean") or leg.get("is_lean") or leg.get("tier") in ("lean", "strong"))
+    thin = unit and facts < cc.THIN_BODY
+    score = max(0, 100 - Q_WRITTEN * len(written) - Q_SHOWN * len(still) - (Q_THIN if thin else 0))
+    return {"score": score, "written": written, "shown": still, "facts": facts, "thin": bool(thin)}
+
+
+def early_quality(p, lines, games):
+    """[(kind, line)] for an early row's lines: a clause that knocks our own side, a losing live record, rest talk."""
+    leg = cc._early_leg(p)
+    out = []
+    for x in lines or []:
+        try:
+            w = cc.early_for_us(x, leg, games)[1]
+        except Exception:                                    # noqa: BLE001
+            w = ""
+        if w and cc.Q_KNOCK in w:
+            out.append(("knocks us", x))
+    return out
+
+
 def audit_early(p, games):
     """An early play's lines (its why + fact lines): a record / last-game margin that moved since it posted."""
     out = []
@@ -269,6 +318,7 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
     cc.reset()
     rep = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "cards": 0, "lines": 0, "problems": [],
            "by_class": {}, "bad_cards": 0, "shown": bool(as_shown)}
+    Q = {"n": 0, "sum": 0, "thin": 0, "written": {}, "shown": {}, "cards": []}
     if not live_only:                                        # (a history run reads the graded cards' 📝 reviews too)
         try:
             import sports_dashboard as dash
@@ -289,6 +339,35 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
                 probs, n = audit_leg(pk, leg, games, injuries, as_shown)
             except Exception as e:                           # noqa: BLE001 - the audit never breaks a run
                 probs, n = [("error", f"the audit broke on this card: {str(e)[:80]}", "")], 0
+            try:                                             # 🧹 11/18: the card-quality score
+                q = card_quality(pk, leg, games)
+            except Exception:                                # noqa: BLE001
+                q = None
+            if q:
+                Q["n"] += 1
+                Q["sum"] += q["score"]
+                Q["thin"] += q["thin"]
+                for k, _ in q["written"]:
+                    Q["written"][k] = Q["written"].get(k, 0) + 1
+                for k, _ in q["shown"]:
+                    Q["shown"][k] = Q["shown"].get(k, 0) + 1
+                if q["score"] < 100:
+                    Q["cards"].append({"date": pk.get("date"), "team": leg.get("team"), "league": leg.get("league"),
+                                       "score": q["score"], "facts": q["facts"],
+                                       "written": [[k, str(x)[:200]] for k, x in q["written"]][:8],
+                                       "shown": [[k, str(x)[:200]] for k, x in q["shown"]][:8]})
+                for k, x in (q["shown"] if as_shown else []):   # (a bad line a reader can still see: always a problem)
+                    probs.append(("quality", f"a line that {k} is still on the page", x))
+                if live_only and len(q["written"]) >= Q_ROOT:
+                    kinds = {}
+                    for k, _ in q["written"]:
+                        kinds[k] = kinds.get(k, 0) + 1
+                    probs.append(("quality", f"the write-up put {len(q['written'])} bad lines on this card ("
+                                  + ", ".join(f"{n_} {k}" for k, n_ in sorted(kinds.items(), key=lambda z: -z[1]))
+                                  + f") - the check cut them; card quality {q['score']}/100, fix the pool", q["written"][0][1]))
+                if live_only and q["thin"]:
+                    probs.append(("quality", f"a thin card: {q['facts']} fact line{'s' if q['facts'] != 1 else ''} "
+                                             "left for a unit play", ""))
             rep["cards"] += 1
             rep["lines"] += n
             rep["bad_cards"] += bool([p for p in probs if p[0] != "lingo"])
@@ -302,6 +381,15 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
         if live_only and (p.get("result") or not g or g.get("status") != "pre"):
             continue
         lines = audit_early(p, games)
+        eq_w = early_quality(p, lines, games)                # 🧹 11/18: an early row argues for our side too
+        Q["n"] += 1
+        Q["sum"] += max(0, 100 - Q_WRITTEN * len(eq_w))
+        for k, x in eq_w:
+            Q["written"][k] = Q["written"].get(k, 0) + 1
+        if eq_w:
+            Q["cards"].append({"date": (p.get("start") or "")[:10], "team": p.get("team"), "league": p.get("league"),
+                               "score": max(0, 100 - Q_WRITTEN * len(eq_w)), "facts": len(lines),
+                               "written": [[k, str(x)[:200]] for k, x in eq_w], "shown": []})
         if as_shown:
             quiet = cc.note
             cc.note = lambda *a, **k: None
@@ -324,6 +412,9 @@ def run(picks, early, games, injuries=None, since=None, as_shown=True, live_only
         rep["bad_cards"] += bad
     for p in rep["problems"]:
         rep["by_class"][p["class"]] = rep["by_class"].get(p["class"], 0) + 1
+    rep["quality"] = {"score": round(Q["sum"] / Q["n"]) if Q["n"] else 100, "cards": Q["n"], "thin": Q["thin"],
+                      "written": Q["written"], "shown": Q["shown"],
+                      "worst": sorted(Q["cards"], key=lambda c: c["score"])[:12]}
     return rep
 
 
@@ -374,6 +465,9 @@ if __name__ == "__main__":
         save(rep_, out)
     print(f"card audit: {rep_['cards']} cards, {rep_['lines']} lines, {len(rep_['problems'])} problems "
           f"{rep_['by_class']} on {rep_['bad_cards']} cards")
+    q_ = rep_.get("quality") or {}
+    print(f"card quality: {q_.get('score')}/100 on {q_.get('cards')} cards - bad lines the write-up put on them {q_.get('written')}, "
+          f"still on the page {q_.get('shown')}, thin cards {q_.get('thin')}")
     for p_ in rep_["problems"]:
         if p_["class"] != "lingo" or "--all" in a:
             print(f"  {p_['class'].upper():8} {p_['date']} {p_['team']}: {p_['why']}\n           {p_['line'][:200]}")

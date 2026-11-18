@@ -516,6 +516,10 @@ def exam_words(c, games, now):
             p = _prev(sched, c["league"], g[side], g["start"])
             if not p or p.get("status") != "final" or (_t(g["start"]) - _t(p["start"])).days > 21:
                 continue
+            won = v24._line(p, g[side]).startswith("W")      # 👍 11/18 (cards_1118): the line under an early pick argues
+            if won != (side == c["side"]):                   #  for us - OUR last game only when we won it, THEIRS only
+                continue                                     #  when they lost it ("Minnesota is off a 42-14 loss" under
+            #                                                   a Minnesota pick was a knock on our own side)
             said.append(f"{g[side + '_name']} {'are' if pro else 'is'} off a {v24._said(p, g[side], pro)} {ago(p['start'], now)}")
     except Exception:                                        # noqa: BLE001 - no fact, never a crash or a guess
         said = []
@@ -728,7 +732,7 @@ def euro_unders(games, st, now):
                     "start": g["start"], "spot": "euro_under", "spots": ["euro_under"], "fades": [],
                     "why": f"🌍 {city}, {st_.astimezone(PT):%-I:%M %p} PT kickoff. NFL games in Europe that start "
                            f"this early went 17-9 to the under since 2018"
-                           + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
+                           + (f" - {w}-{l_} since we started betting it." if w > l_ else "."),
                     "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
     return out
 
@@ -823,7 +827,7 @@ def alt_overs(games, st, now):
                            f"books don't fully price. Our points read has this one at {read:.0f}, the number's {tot:g}. "
                            f"College games 4,000+ feet up with our read 2+ over the total went 445-318 to the over "
                            f"since 2018"
-                           + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
+                           + (f" - {w}-{l_} since we started betting it." if w > l_ else "."),
                     "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
     return out
 
@@ -919,7 +923,7 @@ def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
             out.append(ln)
     w, l_, _ = spot_record(st).get("alt_over", (0, 0, 0.0))
     out.append(f"Overs on college floors 4,600+ feet up are {ALT_REC} since 2018"
-               + (f", {w}-{l_} since we started betting it" if w + l_ else ""))
+               + (f", {w}-{l_} since we started betting it" if w > l_ else ""))
     out.append(f"Good to {tot + ALT_GOOD_TO:g} - don't take it past that, or worse than {ALT_MAX_PRICE}")
     return out
 
@@ -2102,12 +2106,20 @@ def nba_open_why(c, fx):
     game's margin, the rest. No win % (10/7). -> the wordings (pick_wording takes one no open card is using)."""
     me, pr = c["team"], (f"+{c['odds']}" if c["odds"] > 0 else str(c["odds"]))
     bits = []
-    if fx.get("rec") and fx.get("opp_rec"):
+    #   👍 11/18 (cards_1118 - the owner, 11/17: "we can't be saying nothing bad about the Capitals when we're picking
+    #   them in the one-liner"): this line read "Grizzlies are 6-3, Raptors 5-4; Grizzlies lost their last by 31" and
+    #   "Pelicans lost their last by 6" - a knock on our own side under the pick. Every piece now argues for us: the
+    #   records only when ours is the better one, OUR last game only when we won it, THEIR last game only when they
+    #   lost it, the back-to-back only when it is theirs.
+    _ws = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in str(r).split("-")[:2]])   # noqa: E731
+    if fx.get("rec") and fx.get("opp_rec") and _ws(fx["rec"]) > _ws(fx["opp_rec"]):
         bits.append(f"{me} are {fx['rec']}, {c['opp']} {fx['opp_rec']}")
-    if fx.get("last"):
+    if fx.get("last") and str(fx["last"]).startswith("won"):
         bits.append(f"{me} {fx['last']}")
+    if fx.get("opp_last") and str(fx["opp_last"]).startswith("lost"):
+        bits.append(f"{c['opp']} {fx['opp_last']}")
     if fx.get("rest") is not None and fx.get("opp_rest") is not None and fx["rest"] != fx["opp_rest"] \
-            and 1 in (fx["rest"], fx["opp_rest"]):
+            and fx["opp_rest"] == 1:
         #   (11/16 EVERY FACT TRUE: the 11/7 Pelicans card read "2 days off to Clippers's 4" - the 11/15 rule
         #    (sports_breakdown_v24.REST_B2B_ONLY: in the NBA a card talks rest ONLY on a back-to-back; the 10/30 study:
         #    the rested NBA favorite loses to its price) never reached this line. Now the back-to-back, or nothing.)

@@ -30,7 +30,13 @@ def _games(league):
     if league not in _TEAM:
         by = {}
         try:
-            rows = sr.load(league)
+            if league == "ncaab":                            # (11/18: college hoops is read for who MATTERS only - the
+                import os                                    #  last box scores; this season's file, never six seasons)
+                labs = sorted(f[len("ncaab_"):-7] for f in os.listdir(sr.DIR)
+                              if f.startswith("ncaab_") and f.endswith(".csv.gz"))
+                rows = sr.load(league, seasons=labs[-1:]) if labs else []
+            else:
+                rows = sr.load(league)
         except Exception:                                    # noqa: BLE001
             rows = []
         for r in rows:
@@ -422,3 +428,97 @@ def penalty(games, g, side, injuries, skip_qb=False):
     else:
         pts = min(max(9 if is_out(top[0]) else 0, 11 if len(gone) >= 2 else 0), 12)
     return pts / 100, gone
+
+
+# 🚑 11/18, the owner on the Nuggets card ("⚠️ Biggest knock on Nuggets: Nuggets go without Julian Strawther (G)" - a bench
+# guard who had been out for weeks): "Strawther is not a key player ... This needs to be fixed permanently." A card names a
+# man as OUT - as our knock or as a reason against them - only when he MATTERS, in every league, and never when he has
+# been gone so long the team's results already hold it:
+#   NBA            a top-3 scorer of the last 10 box scores, or a man who started 3+ of them
+#   college hoops  one of the 5 men with the most minutes over the last 5 box scores
+#   hockey         a top-6 forward / top-4 defenseman by ice time over the last 10 box scores, or the goalie who started
+#                  the most of them
+#   football       the box scores' regulars (the QB, top 2 backs, top 4 catchers, top 11 tacklers - regulars)
+#   long-term      he played in none of the team's last LONG_GONE box scores: old news, never a card line
+MATTERS_WINDOW = {"nba": 10, "ncaab": 5, "nhl": 10}
+MATTERS_TOP = {"nba": 3, "ncaab": 5}
+NHL_TOP_F, NHL_TOP_D = 6, 4
+LONG_GONE = {"nba": 5, "ncaab": 5, "nhl": 5, "nfl": 2, "ncaaf": 2}
+
+
+def _real(games, league, team, before):
+    return [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
+            if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
+
+
+def _toi(x):
+    try:
+        m, s = str(x or "0:0").split(":")[:2]
+        return int(m) + int(s) / 60
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def who_matters(games, league, team, before):
+    """Normalized names of the men whose absence is worth a card line (the table above). None = no box scores on file
+    for the team / a league this doesn't cover - nothing is claimed either way."""
+    if league in ("nfl", "ncaaf"):
+        return regulars(games, league, team, before)
+    n = MATTERS_WINDOW.get(league)
+    if not n:
+        return None
+    last = _real(games, league, team, before)[-n:]
+    if not last:
+        return None
+    tot, starts, pos_of = {}, {}, {}
+    for _, _, rs in last:
+        for r in rs:
+            try:
+                st = json.loads(r.get("stats") or "{}")
+            except ValueError:
+                continue
+            p = _nm(r["player"])
+            pos_of[p] = str(r.get("pos") or "").upper()
+            t = tot.setdefault(p, {"pts": 0.0, "min": 0.0, "toi": 0.0, "gp": 0})
+            t["pts"] += _num(st.get("points"))
+            t["min"] += _num(st.get("minutes"))
+            t["toi"] += _toi(st.get("timeOnIce"))
+            if _num(st.get("minutes")) > 0 or _toi(st.get("timeOnIce")) > 0:
+                t["gp"] += 1
+            if str(r.get("starter")) == "1":
+                starts[p] = starts.get(p, 0) + 1
+    if not tot:
+        return None
+    top = lambda ps, k, m: {p for p in sorted(ps, key=lambda q: -tot[q][k])[:m] if tot[p][k] > 0}   # noqa: E731
+    if league == "nba":
+        return top(tot, "pts", MATTERS_TOP["nba"]) | {p for p, k in starts.items() if k >= min(3, len(last))}
+    if league == "ncaab":
+        return top(tot, "min", MATTERS_TOP["ncaab"])
+    per = lambda p: tot[p]["toi"] / max(1, tot[p]["gp"])     # noqa: E731 (ice time a game he dressed for)
+    reg = [p for p in tot if pos_of.get(p) != "G" and tot[p]["gp"] >= max(1, round(0.3 * len(last)))]
+    fwd = sorted((p for p in reg if pos_of.get(p) != "D"), key=lambda p: -per(p))[:NHL_TOP_F]
+    dmen = sorted((p for p in reg if pos_of.get(p) == "D"), key=lambda p: -per(p))[:NHL_TOP_D]
+    g1 = sorted((p for p in tot if pos_of.get(p) == "G"), key=lambda p: (-starts.get(p, 0), -tot[p]["toi"]))[:1]
+    return set(fwd) | set(dmen) | set(g1)
+
+
+def gone_long(games, league, team, name, before):
+    """Has he sat the team's last LONG_GONE box scores (old news - the team's results already hold it)? False when we
+    hold fewer box scores than that."""
+    n = LONG_GONE.get(league)
+    if not n:
+        return False
+    real = _real(games, league, team, before)
+    if len(real) < n:
+        return False
+    return not any(match(name, {_nm(r["player"]) for r in rs}) for _, _, rs in real[-n:])
+
+
+def matters(games, league, team, name, before):
+    """Is this man's absence worth a card line: True / False, or None when the box scores can't say."""
+    pool = who_matters(games, league, team, before)
+    if pool is None:
+        return None
+    if gone_long(games, league, team, name, before):
+        return False
+    return bool(match(name, pool))

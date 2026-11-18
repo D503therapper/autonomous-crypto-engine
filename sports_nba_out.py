@@ -244,7 +244,7 @@ def candidates(games, st, now, inj, rows=None, se=None):
         w = sum(1 for p in st.get("picks", []) if p.get("spot") == "nba_out_over" and p.get("result") == "won")
         l_ = sum(1 for p in st.get("picks", []) if p.get("spot") == "nba_out_over" and p.get("result") == "lost")
         facts.append(f"NBA overs with three or more of the six top-minutes guys out are {REC} since 2018"
-                     + (f", {w}-{l_} since we started betting it" if w + l_ else ""))
+                     + (f", {w}-{l_} since we started betting it" if w > l_ else ""))
         facts.append(f"Good to {tot + GOOD_TO:g} - don't take it past that, or worse than {MAX_PRICE}")
         n_out = len(oh) + len(oa)
         word = {3: "Three", 4: "Four", 5: "Five", 6: "All six"}.get(n_out, str(n_out))
