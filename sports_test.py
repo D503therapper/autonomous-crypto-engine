@@ -20801,6 +20801,8 @@ def test_owner_1112_posted_card_facts_keep_up_with_the_news():  # noqa: C901
     inj = {"nfl": {"19": [("Colton Hood", "CB", "Out"), ("Malik Harrison", "LB", "Questionable")],
                    "28": [("Treylon Burks", "WR", "Out")]}}
     sports.fresh_card_facts({"nfl:1": g}, [leg], inj)
+    assert not leg.get("stale"), "one run off the list could be a feed hiccup (11/18, Avdija) - not yet"
+    sports.fresh_card_facts({"nfl:1": g}, [leg], inj)                 # (the second run in a row: it's real)
     assert leg["stale"] == ["Cam Skattebo", "J.J. McCarthy"], leg.get("stale")
     assert any("Skattebo is off the injury report" in x for x in leg["fresh"])
     assert (leg["odds"], leg["side"]) == keep[1:]                     # the pick never moves
@@ -26812,10 +26814,13 @@ def test_cards_1117_the_card_keeps_up_with_every_name_on_it():
     shown = dash.fresh_lines(hl, hl["breakdown"])
     assert shown == ["🔄 Update: no more full squad for the Heat - Bam Adebayo is out now.",
                      "🚑 Pistons gotta play without Jalen Duren (C)."], shown
-    # a game that started is left as it stood
-    l3 = copy.deepcopy(same)
-    sports.fresh_card_facts({"nba:1": {**g, "status": "in"}}, [l3], later)
-    assert not l3.get("stale")
+    # 11/18 (the owner: "Deni is out, card says he is in" - Avdija was ruled out at the tip): a game that STARTED still
+    # follows the injury report, exactly as before the tip (was: left as it stood)
+    l3, l4 = copy.deepcopy(same), copy.deepcopy(same)
+    for _ in range(2):
+        sports.fresh_card_facts({"nba:1": {**g, "status": "in"}}, [l3], later)
+        sports.fresh_card_facts({"nba:1": g}, [l4], later)
+    assert l3.get("stale") == l4.get("stale") and l3.get("fresh") == l4.get("fresh"), (l3.get("fresh"), l4.get("fresh"))
 
 
 def test_cards_1117_an_early_plays_line_is_re_read_until_the_game():
@@ -27081,6 +27086,46 @@ def test_owner_1117_a_man_ruled_out_after_the_card_posted_gets_on_the_card():
     assert len([x for x in leg.get("fresh") or [] if "DiVincenzo" in x]) == 1, "never twice"
     assert not any("Kuminga" in x or "Youngblood" in x for x in leg.get("fresh") or []), "the card already names them"
     assert (leg["odds"], leg["side"]) == (110, "away")
+
+
+def test_owner_1118_a_one_run_gap_never_says_he_plays_and_the_newest_word_wins():
+    """11/18, the owner: "Deni is out, card says he is in." Deni Avdija went day-to-day after the Blazers card posted,
+    dropped off ESPN's feed for ONE run (the card said 'off the injury report'), then came back OUT at the tip - and the
+    watch had stopped at the tip. Now: off the report needs two runs in a row, the newest word on a man replaces the
+    old (alerts and 🔄 lines), and the watch runs until the game ends. The pick never changes."""
+    import sports_dashboard as dash_
+    g = {"id": "nfl:1", "league": "nfl", "home": "3", "away": "21", "home_name": "Bears", "away_name": "Eagles", "status": "pre"}
+    leg = {"game_id": "nfl:1", "league": "nfl", "team": "Bears", "opp": "Eagles", "side": "home", "market": "ml",
+           "odds": 110, "key_seen": {}}
+    picks = [{"status": "open", "legs": [leg]}]
+    real, real_st = sports.sd.fetch_injuries, sports.sd.STARTER_OF
+    sports.sd.STARTER_OF = lambda lg, tid, name: True       # (a verified starter, like the main run sets)
+    seq = [{"3": [("Caleb Williams", "QB", "Questionable")]}, {"3": []}, {"3": [("Caleb Williams", "QB", "Out")]}]
+    try:
+        for i, rep in enumerate(seq):
+            if i == 2:
+                g["status"] = "live"                         # (ruled out at the tip: still on the card)
+            sports.sd.fetch_injuries = lambda lg, rep=rep: rep
+            sports.injury_watch({"nfl:1": g}, picks, push=False)
+            if i == 1:
+                assert not any("off the injury report" in a for a in leg.get("injury_alerts") or []), leg["injury_alerts"]
+    finally:
+        sports.sd.fetch_injuries = real
+    shown = dash_.latest_alerts(leg["injury_alerts"])
+    assert len([a for a in shown if "Caleb Williams" in a]) == 1 and "is now out" in shown[-1], shown
+    # two runs in a row off the list: then it's real
+    g["status"] = "pre"
+    leg2 = {"game_id": "nfl:1", "league": "nfl", "team": "Bears", "opp": "Eagles", "side": "home", "market": "ml",
+            "odds": 110, "key_seen": {}}
+    try:
+        for rep in ({"3": [("Caleb Williams", "QB", "Questionable")]}, {"3": []}, {"3": []}):
+            sports.sd.fetch_injuries = lambda lg, rep=rep: rep
+            sports.injury_watch({"nfl:1": g}, [{"status": "open", "legs": [leg2]}], push=False)
+    finally:
+        sports.sd.fetch_injuries = real
+    sports.sd.STARTER_OF = real_st
+    assert any("off the injury report" in a for a in leg2.get("injury_alerts") or []), leg2.get("injury_alerts")
+    assert "live" in sports.WATCH_STATUS
 
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)

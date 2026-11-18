@@ -1,32 +1,131 @@
 {
- "at": "2026-11-17T19:41Z",
+ "at": "2026-11-18T01:16Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Erjavec vs Carle: no points for 2836s",
-  "live tennis points check failed: The read operation timed out"
+  "live tennis scores: tennis Rivera vs Labrana: no points for 2782s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (69s)",
+  "live watcher fresh (157s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 7 live cards, 26 lines - nothing false, outdated or senseless",
+  "card audit: 8 live cards, 27 lines - nothing false, outdated or senseless",
   "slate check: all 87 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 17 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 2 min ago",
+  "studies ran 0h ago",
+  "simulator ran 4h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T01:16Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Labrana: no points for 2782s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-18T01:14Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Labrana: no points for 2614s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-18T01:06Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Labrana: no points for 2353s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-18T00:56Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Labrana: no points for 1739s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-18T00:45Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Rivera vs Labrana: no points for 1111s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-17T23:11Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Garcia vs Gatica: no points for 1328s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-17T22:49Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-17T22:48Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Garcia vs Gatica: no points for 2614s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-17T21:17Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Carle: no points for 2599s",
+    "live tennis scores: tennis Samson vs Papamichail: no points for 2599s"
+   ]
+  },
+  {
+   "at": "2026-11-17T21:16Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Carle: no points for 2599s",
+    "live tennis scores: tennis Samson vs Papamichail: no points for 2599s"
+   ]
+  },
   {
    "at": "2026-11-17T19:41Z",
    "fixes": [
@@ -440,80 +539,6 @@
   },
   {
    "at": "2026-11-16T04:47Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T03:15Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T03:00Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T02:55Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab HTTP 410, betrivers:nfl HTTP 410, betrivers:nhl HTTP 410, betrivers:nba HTTP 410, betrivers:tennis HTTP 410"
-   ]
-  },
-  {
-   "at": "2026-11-16T02:54Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): betrivers:ncaab HTTP 410, betrivers:nfl HTTP 410, betrivers:nhl HTTP 410, betrivers:nba HTTP 410, betrivers:tennis HTTP 410"
-   ]
-  },
-  {
-   "at": "2026-11-16T01:21Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T01:20Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T23:49Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T23:48Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T23:12Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-15T21:44Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
