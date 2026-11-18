@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T06:32Z",
+ "updated": "2026-11-18T06:46Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -1424,6 +1424,34 @@
    }
   },
   {
+   "id": "ncaab:401920947",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "E Michigan",
+    "p": 0.782,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T23:30Z",
+   "away": "Detroit Mercy",
+   "home": "E Michigan",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Detroit Mercy",
+    "opp": "E Michigan",
+    "market": "spread",
+    "line": 11.5,
+    "odds": -102,
+    "p": 0.505,
+    "win_p": 0.136,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401917181",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1725,8 +1753,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "UIC",
-    "p": 0.894,
-    "tie": 0.019,
+    "p": 0.904,
+    "tie": 0.017,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1740,10 +1768,10 @@
     "team": "Chicago St",
     "opp": "UIC",
     "market": "spread",
-    "line": 21.5,
-    "odds": -110,
-    "p": 0.515,
-    "win_p": 0.044,
+    "line": 22.5,
+    "odds": -112,
+    "p": 0.516,
+    "win_p": 0.038,
     "reasons": []
    }
   },
@@ -1753,8 +1781,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "La Salle",
-    "p": 0.82,
-    "tie": 0.027,
+    "p": 0.841,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -1767,11 +1795,11 @@
    "lean": {
     "team": "Coppin St",
     "opp": "La Salle",
-    "market": "ml",
-    "line": null,
-    "odds": 725,
-    "p": 0.101,
-    "win_p": 0.101,
+    "market": "spread",
+    "line": 14.5,
+    "odds": -115,
+    "p": 0.508,
+    "win_p": 0.083,
     "reasons": []
    }
   },
@@ -2035,6 +2063,34 @@
     "odds": -285,
     "p": 0.725,
     "win_p": 0.725,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920075",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "George Mason",
+    "p": 0.934,
+    "tie": 0.013,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "NC Central",
+   "home": "George Mason",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "NC Central",
+    "opp": "George Mason",
+    "market": "spread",
+    "line": 26.5,
+    "odds": -112,
+    "p": 0.521,
+    "win_p": 0.022,
     "reasons": []
    }
   },
@@ -2695,7 +2751,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.581,
+    "p": 0.576,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -2711,9 +2767,9 @@
     "opp": "Warriors",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.647,
-    "win_p": 0.647,
+    "odds": -222,
+    "p": 0.639,
+    "win_p": 0.639,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2913,9 +2969,9 @@
     "team": "Portland",
     "opp": "Colorado",
     "market": "spread",
-    "line": 14.5,
-    "odds": -102,
-    "p": 0.508,
+    "line": 15.5,
+    "odds": -118,
+    "p": 0.509,
     "win_p": 0.087,
     "reasons": []
    }
@@ -3094,6 +3150,37 @@
     "win_p": 0.068,
     "reasons": [
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "nba:401910017",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Lakers",
+    "p": 0.713,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-19T03:00Z",
+   "away": "Jazz",
+   "home": "Lakers",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Lakers",
+    "opp": "Jazz",
+    "market": "spread",
+    "line": -12.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.819,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
