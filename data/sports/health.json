@@ -1,5 +1,5 @@
 {
- "at": "2026-11-18T02:47Z",
+ "at": "2026-11-18T02:51Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
@@ -7,7 +7,7 @@
   "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (273s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,11 +20,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "engine ran 4 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T02:51Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
+   ]
+  },
   {
    "at": "2026-11-18T02:47Z",
    "fixes": [
@@ -532,13 +541,6 @@
   },
   {
    "at": "2026-11-16T04:54Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-16T04:47Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
