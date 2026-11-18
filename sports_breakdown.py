@@ -471,13 +471,13 @@ def _breakdown_vocab(leg, games, elo, injuries, used=None):
         said.add("rolling off a blowout win")
     temp, wind, rain = g.get("wx_temp", ""), g.get("wx_wind", ""), g.get("wx_rain", "")
     if "altitude edge" in rsn and (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
-        out.append(_say(v, "alt", elev=g.get("elev"), The_them=_cap(the_them), the_them=the_them))
+        out.append(_say(v, "alt", elev=__import__("sports_breakdown_v24").feet(g.get("elev")), The_them=_cap(the_them), the_them=the_them))
         said.add("altitude edge")
     if "cold-weather edge" in rsn:
         out.append(_say(v, "cold_w", temp=temp, The_them=_cap(the_them), the_them=the_them, the_us=the_us))
         said.add("cold-weather edge")
     if "nasty weather helps us" in rsn:
-        what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{rain} mm of rain"
+        what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{__import__('sports_breakdown_v24').inches(rain)} of rain"
         out.append(_say(v, "wx", what=what))
         said.add("nasty weather helps us")
     if "opponent's body clock is off" in rsn:
@@ -1076,13 +1076,13 @@ T = {
         "🚀 {us} [smoked|ran over|blew out] their last opponent. [Momentum's on our side.|That carries.]",
     ],
     "alt": [
-        "🏔️ Thin air — {elev} meters up. {The_them} gonna be sucking wind by the [second half|end].",
+        "🏔️ Thin air — {elev} up. {The_them} gonna be sucking wind by the [second half|end].",
         "🏔️ Altitude game. {The_them} ain't used to [breathing|playing] up there.",
         "🏔️ Mile-high problems for {the_them}. Legs get [heavy|tired] fast at that [elevation|height].",
-        "🏔️ {elev} meters [up|above sea level]. {The_them} [will|gonna] feel it [late|in the legs].",
-        "🏔️ Thin air at {elev} meters — [lungs burn|legs go|gas tanks drain] fast for {the_them}.",
-        "🏔️ {The_them} [visiting|playing] at {elev} meters. [Oxygen's|Air's] [thin|scarce] up there.",
-        "🏔️ [Altitude|Elevation] check: {elev} meters. {The_them} ain't [built|ready] for it.",
+        "🏔️ {elev} [up|above sea level]. {The_them} [will|gonna] feel it [late|in the legs].",
+        "🏔️ Thin air at {elev} — [lungs burn|legs go|gas tanks drain] fast for {the_them}.",
+        "🏔️ {The_them} [visiting|playing] at {elev}. [Oxygen's|Air's] [thin|scarce] up there.",
+        "🏔️ [Altitude|Elevation] check: {elev}. {The_them} ain't [built|ready] for it.",
     ],
     "cold_w": [
         "🥶 {temp}°F at kickoff. {The_them} are a warm-weather [squad|team] walking into a freezer.",
@@ -1671,13 +1671,13 @@ T.update({
         "🧱 [Hot|Sharp|Big] [stretch|run|streak] in net for {name}: {txt}.",
     ],
     "alt": [
-        "🏔️ Thin air — {elev} meters up. {The_them} gonna be sucking wind by the [second half|end|late going].",
+        "🏔️ Thin air — {elev} up. {The_them} gonna be sucking wind by the [second half|end|late going].",
         "🏔️ Altitude game. {The_them} ain't used to [breathing|playing|running] up there.",
         "🏔️ Mile-high problems for {the_them}. Legs get [heavy|tired|dead] fast at that [elevation|height].",
-        "🏔️ {elev} meters [up|above sea level]. {The_them} [will|gonna] feel it [late|in the legs|in the lungs].",
-        "🏔️ Thin air at {elev} meters — [lungs burn|legs go|gas tanks drain] fast for {the_them}.",
-        "🏔️ {The_them} [visiting|playing] at {elev} meters. [Oxygen's|Air's] [thin|scarce|short] up there.",
-        "🏔️ [Altitude|Elevation] check: {elev} meters. {The_them} ain't [built|ready] for it.",
+        "🏔️ {elev} [up|above sea level]. {The_them} [will|gonna] feel it [late|in the legs|in the lungs].",
+        "🏔️ Thin air at {elev} — [lungs burn|legs go|gas tanks drain] fast for {the_them}.",
+        "🏔️ {The_them} [visiting|playing] at {elev}. [Oxygen's|Air's] [thin|scarce|short] up there.",
+        "🏔️ [Altitude|Elevation] check: {elev}. {The_them} ain't [built|ready] for it.",
     ],
     "cold_w": [
         "🥶 {temp}°F at kickoff. {The_them} are a warm-weather [squad|team] walking into a [freezer|fridge].",
@@ -2202,7 +2202,7 @@ _DENSE = {   # skeletons with a pick in every 4-word window: they can come back 
     "revenge": ["😤 {us} [dropped|lost|blew] the last [one|meeting|matchup] [to|against] {them}. [Payback|Get-back|Revenge] [time|spot|game]."],
     "letdown": ["🪤 {them} [just|recently] [blew out|ran over|smacked|rolled] [somebody|a team|their last opponent]. [Letdown|Trap|Hangover|Flat] [spot|alert|game] [here|now|tonight]."],
     "momentum": ["🚀 {us} [blew out|smoked|ran over|rolled] [somebody|a team|their last opponent] [last time|last game|last out]. [Momentum|Confidence|Juice] [carries|stays|is real]."],
-    "alt": ["🏔️ [Thin|Light|Mountain] air [at|up at] {elev} meters — [lungs|legs|gas tanks] [burn|go|drain] [fast|quick|early] for {the_them}."],
+    "alt": ["🏔️ [Thin|Light|Mountain] air [at|up at] {elev} — [lungs|legs|gas tanks] [burn|go|drain] [fast|quick|early] for {the_them}."],
     "cold_w": ["🥶 [Freezing|Frigid|Cold] [night|game|one]: {temp}°F. {The_them} [won't like it|ain't built for it|are out of their element]."],
     "G_hot": ["🧱 [Nothing|Not much|Barely anything] [getting|going|sneaking] [past|by] {name} {rn}: {txt}."],
     "intl": ["🌍 [Overseas|International|Neutral-site] [game|trip|spot] ({where}). {Algo} [wanted|needed|demanded] [extra|more|a bigger] [value|cushion|edge] [to take it|to play it|for it]."],

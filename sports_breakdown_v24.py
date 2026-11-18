@@ -1207,7 +1207,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         said.add("rolling off a blowout win")
     temp, wind, rain = g.get("wx_temp", ""), g.get("wx_wind", ""), g.get("wx_rain", "")
     if "altitude edge" in rsn and (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
-        out.append(v.say("alt", [f"🏔️ Thin air — {g.get('elev')} meters up. {_cap(the_them)} gonna be sucking wind by the second half.",
+        out.append(v.say("alt", [f"🏔️ Thin air — {feet(g.get('elev'))} up. {_cap(the_them)} gonna be sucking wind by the second half.",
                                   f"🏔️ Altitude game. {_cap(the_them)} ain't used to breathing up there.",
                                   f"🏔️ Mile-high problems for {the_them}. Legs get heavy fast at that elevation."]))
         said.add("altitude edge")
@@ -1217,7 +1217,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                      f"🥶 Cold one ({temp}°F). Welcome to real weather, {the_them}."]))
         said.add("cold-weather edge")
     if "nasty weather helps us" in rsn:
-        what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{rain} mm of rain"
+        what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{inches(rain)} of rain"
         out.append(v.say("wx", [f"🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how a dog steals one.",
                                  f"🌬️ {what}. Ugly weather drags everybody down to the same level.",
                                  f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
@@ -2721,12 +2721,12 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
     #   (11/11 pre-board check: the old "hours off" line said it of Marquette at Michigan - ONE hour; the travel
     #   factor fires at one zone, so no line claims more than "crossed time zones")
     if (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
-        m["altitude edge"] = [f"{T} are playing {g.get('elev')} meters up", f"{g.get('elev')} meters of altitude for {T} to breathe"]
+        m["altitude edge"] = [f"{T} are playing {feet(g.get('elev'))} up", f"{T} gotta breathe {feet(g.get('elev'))} up"]
     wind, rain = g.get("wx_wind", ""), g.get("wx_rain", "")
     if str(wind) not in ("", "0") and float(wind or 0) >= 15:
         m["nasty weather helps us"] = [f"{wind} mph winds keep it sloppy", f"a {wind} mph wind drags the game down"]
     elif str(rain) not in ("", "0"):
-        m["nasty weather helps us"] = [f"{rain} mm of rain keeps it sloppy", f"{rain} mm of rain in the forecast"]
+        m["nasty weather helps us"] = [f"{inches(rain)} of rain keeps it sloppy", f"{inches(rain)} of rain in the forecast"]
     return m
 
 
@@ -2967,3 +2967,21 @@ def _odds_words(p):
     if n <= 1:
         return f"about 1 in {round(1 / p)}"
     return f"about {n} in 10"
+
+
+def feet(elev_m):
+    """🏔️ 11/18 (the pre-board check: the Nuggets card's altitude line was in meters - layman's terms, 11/17): a floor's
+    height in feet, the way people here say it - '5,300 feet'."""
+    try:
+        return f"{int(round(float(elev_m) * 3.281 / 100.0) * 100):,} feet"
+    except (TypeError, ValueError):
+        return ""
+
+
+def inches(rain_mm):
+    """🌧️ rain in inches ('0.4 inches') - never metric on a card."""
+    try:
+        x = float(rain_mm) / 25.4
+    except (TypeError, ValueError):
+        return ""
+    return f"{x:.1f} inches" if x >= 0.1 else "a little"

@@ -27309,6 +27309,17 @@ def test_owner_1118_no_play_posts_inside_35_minutes_of_the_start():
     assert "now < st_ - timedelta(minutes=POST_LEAD_MIN)" in inspect.getsource(se_.alt_over_1111)
     assert "timedelta(minutes=se.POST_LEAD_MIN)" in inspect.getsource(no_)
 
+
+def test_owner_1118_altitude_in_feet_rain_in_inches_never_metric():
+    """11/18 pre-board check: the Nuggets one-liner read "1609 meters of altitude for the Celtics to breathe" - the owner
+    wants layman's terms (11/17). Cards say feet and inches."""
+    import inspect, re, sports_breakdown_v24 as v24, sports_breakdown as sb
+    assert v24.feet(1609) == "5,300 feet" and v24.inches(10) == "0.4 inches"
+    for mod in (v24, sb):
+        code = "\n".join(l for l in inspect.getsource(mod).splitlines() if not l.strip().startswith("#"))
+        code = re.sub(r'"""(.|\n)*?"""', "", code)
+        assert " meters" not in code and " mm of rain" not in code, mod.__name__
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
