@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T01:51Z",
+ "updated": "2026-11-18T02:14Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -311,8 +311,8 @@
    "away": "Cheyney (PA)",
    "home": "Delaware St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -341,8 +341,8 @@
    "away": "ETSU",
    "home": "Marshall",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -551,8 +551,8 @@
    "away": "Sacred Heart",
    "home": "Providence",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -581,8 +581,8 @@
    "away": "Spring Hill",
    "home": "South Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -626,8 +626,8 @@
    "away": "Villanova",
    "home": "Pitt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -641,8 +641,8 @@
    "away": "W Carolina",
    "home": "Butler",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1121,36 +1121,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401909787",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Kansas",
-    "p": 0.856,
-    "tie": 0.023,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-18T02:30Z",
-   "away": "UNLV",
-   "home": "Kansas",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UNLV",
-    "opp": "Kansas",
-    "market": "spread",
-    "line": 16.5,
-    "odds": -115,
-    "p": 0.51,
-    "win_p": 0.071,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892738",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1212,7 +1182,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.365,
+    "p": 0.37,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1229,8 +1199,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.69,
-    "win_p": 0.472,
+    "p": 0.679,
+    "win_p": 0.462,
     "reasons": []
    }
   },
@@ -1972,10 +1942,38 @@
     "team": "Purdue FW",
     "opp": "Bradley",
     "market": "spread",
-    "line": 7.5,
-    "odds": -112,
-    "p": 0.501,
+    "line": 6.5,
+    "odds": -108,
+    "p": 0.5,
     "win_p": 0.262,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nba:401910016",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Mavericks",
+    "p": 0.566,
+    "tie": 0.036,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-19T01:00Z",
+   "away": "Warriors",
+   "home": "Mavericks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Mavericks",
+    "opp": "Warriors",
+    "market": "ml",
+    "line": null,
+    "odds": -208,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": []
    }
   },
