@@ -9793,6 +9793,9 @@ def injury_watch(games, picks, push=True):
             if leg["key_seen"].get(who) == "Confirmed in net":
                 continue                                     # (the page went stale / changed its mind: unknown again is
             #                                                  never "off the injury report"; a new starter gets his own line)
+            if games[leg["game_id"]]["status"] != "pre":     # 🚑 11/18: after the tip ESPN's feed flaps (Avdija OUT at
+                wait[who] = 1                                #  5:43 and 6:40 PM, gone at 6:14 / 6:26) - a man missing
+                continue                                     #  from it is never "off the report" once the game is on
             if not wait.get(who):                            # 🚑 11/18 (the owner: "Deni is out, card says he is in"):
                 wait[who] = 1                                #  Avdija dropped off ESPN's feed for ONE run, then came back
                 continue                                     #  OUT - "off the report" now needs two runs in a row
@@ -9957,8 +9960,9 @@ def fresh_card_facts(games, legs, injuries):
                     if _on_list(nm, listed):
                         seen.add(nm)
                         offw.pop(nm, None)
-                    elif nm in seen and nm not in stale and not offw.get(nm):
-                        offw[nm] = 1                         # (11/18: one run off the list is maybe a feed hiccup)
+                    elif nm in seen and nm not in stale and (not offw.get(nm) or g.get("status") != "pre"):
+                        offw[nm] = 1                         # (11/18: one run off the list is maybe a feed hiccup;
+                        #                                      after the tip the feed flaps - never "expected to play")
                     elif nm in seen and nm not in stale:     # ONLY a man the report HAD and dropped: a name the card
                         stale.append(nm)                     # got from the box scores (Kane / Vilmanis sat the last
                         fresh = [x for x in fresh if f"Update: {nm} is " not in x] + \
@@ -9995,9 +9999,9 @@ def fresh_card_facts(games, legs, injuries):
                             was[nm] = c
                         for nm in [n for n in was if n not in now_st]:
                             if not _on_list(nm, listed):     # (off the report: he's expected to play)
-                                if not offw.get(nm):         # (11/18: Avdija - one run off ESPN's list, then OUT:
-                                    offw[nm] = 1             #  wait for a second run before saying he plays)
-                                    continue
+                                if not offw.get(nm) or g.get("status") != "pre":   # (11/18: Avdija - one run off
+                                    offw[nm] = 1             #  ESPN's list, then OUT: wait for a second run before
+                                    continue                 #  saying he plays; after the tip, never)
                                 if nm not in stale:
                                     stale.append(nm)
                                 fresh = [x for x in fresh if f"Update: {nm} is " not in x] + \
