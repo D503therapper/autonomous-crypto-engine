@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T04:57Z",
+ "updated": "2026-11-18T05:22Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -1175,8 +1175,8 @@
    "away": "UNLV",
    "home": "Kansas",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1220,8 +1220,8 @@
    "away": "Seattle U",
    "home": "CA Baptist",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1622,7 +1622,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Merrimack",
-    "p": 0.61,
+    "p": 0.615,
     "tie": 0.041,
     "name": "1st half"
    },
@@ -1638,9 +1638,9 @@
     "opp": "Boston U",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.672,
-    "win_p": 0.672,
+    "odds": -225,
+    "p": 0.678,
+    "win_p": 0.678,
     "reasons": [
      "the stronger team"
     ]
@@ -1884,7 +1884,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Duquesne",
-    "p": 0.64,
+    "p": 0.648,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -1893,17 +1893,19 @@
    "start": "2026-11-19T00:00Z",
    "away": "Howard",
    "home": "Duquesne",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Duquesne",
     "opp": "Howard",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.709,
-    "win_p": 0.709,
-    "reasons": []
+    "odds": -278,
+    "p": 0.719,
+    "win_p": 0.719,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -1912,7 +1914,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Towson",
-    "p": 0.561,
+    "p": 0.56,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -2373,7 +2375,7 @@
     "market": "spread",
     "line": 27.5,
     "odds": -105,
-    "p": 0.522,
+    "p": 0.521,
     "win_p": 0.023,
     "reasons": []
    }
@@ -2428,7 +2430,7 @@
     "opp": "Oklahoma",
     "market": "spread",
     "line": 23.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.517,
     "win_p": 0.035,
     "reasons": [
@@ -2586,7 +2588,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.637,
+    "p": 0.639,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2595,16 +2597,16 @@
    "start": "2026-11-19T01:00Z",
    "away": "Pistons",
    "home": "Pelicans",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Pistons",
     "opp": "Pelicans",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.721,
-    "win_p": 0.721,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -111,
+    "p": 0.501,
+    "win_p": 0.723,
     "reasons": [
      "the stronger team",
      "opponent drama: trade drama"
@@ -3145,7 +3147,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Hawai'i",
-    "p": 0.485,
+    "p": 0.499,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -3161,11 +3163,12 @@
     "opp": "Washington St",
     "market": "ml",
     "line": null,
-    "odds": -112,
-    "p": 0.509,
-    "win_p": 0.509,
+    "odds": -120,
+    "p": 0.527,
+    "win_p": 0.527,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
