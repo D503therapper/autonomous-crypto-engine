@@ -27,8 +27,8 @@
    "league": "ncaab",
    "units": 2.0,
    "lean": false,
-   "held": false,
-   "why": "",
+   "held": true,
+   "why": "a second pick on a game we're already on",
    "checks": {
     "game": "pass",
     "read": "pass",
@@ -40,6 +40,8 @@
    }
   }
  },
- "updated": "2026-11-18T16:00Z",
- "held": []
+ "updated": "2026-11-18T16:15Z",
+ "held": [
+  "ncaabplay Charleston So 114: a second pick on a game we're already on"
+ ]
 }
