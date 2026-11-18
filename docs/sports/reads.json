@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T13:13Z",
+ "updated": "2026-11-18T13:17Z",
  "games": [
   {
    "id": "ncaab:401920513",
@@ -994,17 +994,19 @@
    "start": "2026-11-19T00:30Z",
    "away": "Bruins",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Bruins",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.689,
-    "win_p": 0.471,
-    "reasons": []
+    "p": 0.738,
+    "win_p": 0.532,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
