@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T02:08Z",
+ "updated": "2026-11-18T02:16Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -206,8 +206,8 @@
    "away": "Ball State",
    "home": "Florida St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -266,8 +266,8 @@
    "away": "C Michigan",
    "home": "Dayton",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -371,8 +371,8 @@
    "away": "Ft Lauderdale",
    "home": "North Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -491,8 +491,8 @@
    "away": "Norfolk St",
    "home": "Georgia Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -656,8 +656,8 @@
    "away": "Wagner",
    "home": "Saint Joseph's",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1136,7 +1136,22 @@
    "lean": null
   },
   {
-   "id": "ncaab:401924922",
+   "id": "ncaab:401906851",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:00Z",
+   "away": "Michigan St",
+   "home": "Tennessee",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401920426",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "sport": "College Basketball",
@@ -1149,36 +1164,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaab:401909787",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Kansas",
-    "p": 0.856,
-    "tie": 0.023,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-18T02:30Z",
-   "away": "UNLV",
-   "home": "Kansas",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UNLV",
-    "opp": "Kansas",
-    "market": "spread",
-    "line": 16.5,
-    "odds": -115,
-    "p": 0.509,
-    "win_p": 0.071,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
   },
   {
    "id": "nhl:401892738",
@@ -1344,9 +1329,9 @@
     "opp": "Hornets",
     "market": "ml",
     "line": null,
-    "odds": -288,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -289,
+    "p": 0.692,
+    "win_p": 0.692,
     "reasons": [
      "the stronger team"
     ]
@@ -1389,8 +1374,8 @@
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
    "h1": {
-    "team": "West Virginia",
-    "p": 0.478,
+    "team": "Auburn",
+    "p": 0.482,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1402,16 +1387,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "West Virginia",
-    "opp": "Auburn",
+    "team": "Auburn",
+    "opp": "West Virginia",
     "market": "ml",
     "line": null,
     "odds": -112,
-    "p": 0.5,
-    "win_p": 0.5,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
-     "hotter recent form",
-     "sharp money moving this way",
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
