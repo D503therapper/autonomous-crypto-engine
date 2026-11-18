@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T02:56Z",
+ "updated": "2026-11-18T03:06Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -833,8 +833,8 @@
    "away": "E Illinois",
    "home": "Vanderbilt",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -848,8 +848,8 @@
    "away": "Embry Rid (AZ)",
    "home": "N Arizona",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1246,7 +1246,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Gonzaga",
-    "p": 0.894,
+    "p": 0.895,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -1277,7 +1277,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Auburn",
-    "p": 0.482,
+    "p": 0.483,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1294,8 +1294,8 @@
     "market": "ml",
     "line": null,
     "odds": -112,
-    "p": 0.505,
-    "win_p": 0.505,
+    "p": 0.506,
+    "win_p": 0.506,
     "reasons": [
      "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
@@ -1365,6 +1365,65 @@
    }
   },
   {
+   "id": "ncaab:401920974",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Chattanooga",
+    "p": 0.482,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T23:30Z",
+   "away": "Chattanooga",
+   "home": "Winthrop",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Chattanooga",
+    "opp": "Winthrop",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.506,
+    "win_p": 0.506,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401909516",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Georgetown",
+    "p": 0.904,
+    "tie": 0.017,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T23:30Z",
+   "away": "Navy",
+   "home": "Georgetown",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Navy",
+    "opp": "Georgetown",
+    "market": "spread",
+    "line": 22.5,
+    "odds": -110,
+    "p": 0.516,
+    "win_p": 0.038,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401922283",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1391,6 +1450,37 @@
     "win_p": 0.724,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401922292",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Tennessee Tech",
+    "p": 0.528,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T23:30Z",
+   "away": "Tennessee Tech",
+   "home": "UNC Asheville",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Tennessee Tech",
+    "opp": "UNC Asheville",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.569,
+    "win_p": 0.569,
+    "reasons": [
+     "out-rebounding people by +10.2 a game to their +0.6 - the books don't price the glass (5 of 5 seasons)",
+     "the turnover matchup is ours by 10.0 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
     ]
    }
   },
@@ -1456,12 +1546,98 @@
    }
   },
   {
+   "id": "ncaab:401911277",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Lafayette",
+    "p": 0.541,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Binghamton",
+   "home": "Lafayette",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Lafayette",
+    "opp": "Binghamton",
+    "market": "ml",
+    "line": null,
+    "odds": -150,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401923401",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Merrimack",
+    "p": 0.601,
+    "tie": 0.042,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Boston U",
+   "home": "Merrimack",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Merrimack",
+    "opp": "Boston U",
+    "market": "ml",
+    "line": null,
+    "odds": -210,
+    "p": 0.661,
+    "win_p": 0.661,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401911309",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Brown",
+    "p": 0.62,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Brown",
+   "home": "Holy Cross",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Brown",
+    "opp": "Holy Cross",
+    "market": "ml",
+    "line": null,
+    "odds": -250,
+    "p": 0.687,
+    "win_p": 0.687,
+    "reasons": []
+   }
+  },
+  {
    "id": "nba:401910009",
    "league": "nba",
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Heat",
-    "p": 0.721,
+    "p": 0.725,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1479,10 +1655,66 @@
     "line": -12.5,
     "odds": -114,
     "p": 0.502,
-    "win_p": 0.829,
+    "win_p": 0.833,
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401919735",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UIC",
+    "p": 0.895,
+    "tie": 0.019,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Chicago St",
+   "home": "UIC",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Chicago St",
+    "opp": "UIC",
+    "market": "spread",
+    "line": 21.5,
+    "odds": -110,
+    "p": 0.515,
+    "win_p": 0.044,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401925632",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "La Salle",
+    "p": 0.82,
+    "tie": 0.027,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Coppin St",
+   "home": "La Salle",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Coppin St",
+    "opp": "La Salle",
+    "market": "ml",
+    "line": null,
+    "odds": 725,
+    "p": 0.101,
+    "win_p": 0.101,
+    "reasons": []
    }
   },
   {
@@ -1511,6 +1743,36 @@
     "p": 0.51,
     "win_p": 0.077,
     "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401922212",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "FAU",
+    "p": 0.656,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "FGCU",
+   "home": "FAU",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "FAU",
+    "opp": "FGCU",
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.728,
+    "win_p": 0.728,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -1549,7 +1811,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Cavaliers",
-    "p": 0.56,
+    "p": 0.567,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1565,12 +1827,40 @@
     "opp": "Grizzlies",
     "market": "ml",
     "line": null,
-    "odds": -196,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -205,
+    "p": 0.626,
+    "win_p": 0.626,
     "reasons": [
      "the stronger team"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401925782",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Duquesne",
+    "p": 0.628,
+    "tie": 0.041,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Howard",
+   "home": "Duquesne",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Duquesne",
+    "opp": "Howard",
+    "market": "ml",
+    "line": null,
+    "odds": -250,
+    "p": 0.694,
+    "win_p": 0.694,
+    "reasons": []
    }
   },
   {
@@ -1579,7 +1869,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Towson",
-    "p": 0.58,
+    "p": 0.581,
     "tie": 0.042,
     "name": "1st half"
    },
@@ -1602,6 +1892,34 @@
      "the stronger team",
      "rolling off a blowout win"
     ]
+   }
+  },
+  {
+   "id": "ncaab:401928347",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Presbyterian",
+    "p": 0.541,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Mercer",
+   "home": "Presbyterian",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Presbyterian",
+    "opp": "Mercer",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": []
    }
   },
   {
@@ -1664,12 +1982,137 @@
    }
   },
   {
+   "id": "ncaab:401919808",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "UNC Wilmington",
+    "p": 0.747,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "UNC Wilmington",
+   "home": "Long Island",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Long Island",
+    "opp": "UNC Wilmington",
+    "market": "spread",
+    "line": 10.5,
+    "odds": -110,
+    "p": 0.504,
+    "win_p": 0.169,
+    "reasons": [
+     "their top scorer Patrick Wessler (22.3 a game) missed their last game - the books under-price that (4 of 4 seasons)",
+     "UNC Wilmington are laying 10.5 on the road outside their league - road favorites in a non-league game covered 45% in Nov-Dec, down 9 seasons of 9"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401922047",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Longwood",
+    "p": 0.654,
+    "tie": 0.039,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "VMI",
+   "home": "Longwood",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Longwood",
+    "opp": "VMI",
+    "market": "ml",
+    "line": null,
+    "odds": -275,
+    "p": 0.725,
+    "win_p": 0.725,
+    "reasons": [
+     "the stronger team",
+     "the turnover matchup is ours by 7.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920694",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Yale",
+    "p": 0.527,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Vermont",
+   "home": "Yale",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Yale",
+    "opp": "Vermont",
+    "market": "ml",
+    "line": null,
+    "odds": -140,
+    "p": 0.564,
+    "win_p": 0.564,
+    "reasons": [
+     "the stronger team",
+     "coughing it up 3.0 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401911377",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Wofford",
+    "p": 0.527,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T00:00Z",
+   "away": "Wofford",
+   "home": "Charleston So",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Wofford",
+    "opp": "Charleston So",
+    "market": "ml",
+    "line": null,
+    "odds": -150,
+    "p": 0.567,
+    "win_p": 0.567,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)",
+     "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons",
+     "coughing it up 2.6 more a game than it forces - the turnover-prone small favorite loses to its price (5 of 5 seasons)"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892739",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.379,
+    "p": 0.371,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1685,9 +2128,9 @@
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
-    "p": 0.662,
-    "win_p": 0.445,
+    "odds": -270,
+    "p": 0.678,
+    "win_p": 0.46,
     "reasons": []
    }
   },
@@ -1755,7 +2198,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.397,
+    "p": 0.396,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1841,7 +2284,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Oklahoma",
-    "p": 0.916,
+    "p": 0.917,
     "tie": 0.016,
     "name": "1st half"
    },
@@ -1922,6 +2365,34 @@
    }
   },
   {
+   "id": "ncaab:401929201",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Texas St",
+    "p": 0.862,
+    "tie": 0.023,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T01:00Z",
+   "away": "Incarnate Word",
+   "home": "Texas St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Incarnate Word",
+    "opp": "Texas St",
+    "market": "spread",
+    "line": 18.5,
+    "odds": -118,
+    "p": 0.512,
+    "win_p": 0.066,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaab:401927357",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1955,7 +2426,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Mavericks",
-    "p": 0.566,
+    "p": 0.581,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1971,10 +2442,12 @@
     "opp": "Warriors",
     "market": "ml",
     "line": null,
-    "odds": -208,
-    "p": 0.625,
-    "win_p": 0.625,
-    "reasons": []
+    "odds": -230,
+    "p": 0.647,
+    "win_p": 0.647,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2232,8 +2705,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -258,
-    "p": 0.728,
-    "win_p": 0.516,
+    "p": 0.727,
+    "win_p": 0.515,
     "reasons": [
      "the stronger team"
     ]
@@ -2245,7 +2718,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Nevada",
-    "p": 0.87,
+    "p": 0.871,
     "tie": 0.022,
     "name": "1st half"
    },
