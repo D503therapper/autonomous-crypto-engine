@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T17:53Z",
+ "updated": "2026-11-18T17:54Z",
  "games": [
   {
    "id": "ncaab:401909753",
@@ -2449,8 +2449,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.388,
-    "tie": 0.298,
+    "p": 0.402,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2461,14 +2461,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Blackhawks",
-    "opp": "Blue Jackets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.639,
-    "win_p": 0.42,
-    "reasons": []
+    "team": "Blue Jackets",
+    "opp": "Blackhawks",
+    "market": "ml",
+    "line": null,
+    "odds": -166,
+    "p": 0.615,
+    "win_p": 0.615,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ]
    }
   },
   {
