@@ -23067,3 +23067,25 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-18 07:04 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-18 07:04 UTC] crypto/hold_btc  equity $395.74 (-20.9%) 1 open  market DOWN
    social heat top: BTC 40 (40/0/0), SOL 37 (37/0/0), VVV 29 (29/0/0), BREV 27 (27/0/0), RENDER 24 (24/0/0)
+   listing: okx_symbols #XBWET 'New OKX listing (XBWET)' -> ['XBWET']
+   listing: XBWET: okx_symbols notice "New OKX listing (XBWET)" -> not on Crypto.com USD
+   dex screen: REJECT OSETH@ethereum liq $10,203,021 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 96%
+   dex screen: REJECT SPX@solana liq $1,659,975 - mint authority
+   dex screen: REJECT SNDKC@base liq $1,581,284 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 85%; lp locked 0% < 95%
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   listing: okx_symbols #XCYPH 'New OKX listing (XCYPH)' -> ['XCYPH']
+   listing: XCYPH: okx_symbols notice "New OKX listing (XCYPH)" -> not on Crypto.com USD
+   dex screen: REJECT PLAY@base liq $211,298 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT PIPPIN@solana liq $3,067,870 - top-10 holders 71%
+   dex screen: UNREACHABLE GTA6@ethereum liq $176,012 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex scanner: 2,567 pools (solana 1,804 / base 416 / ethereum 347), refresh cycle 105s (hot 101s), 3037 calls (112 feed, 429s 0, failed 0), 87,747 refreshed (11286 no pair), +82 added / -91 dropped (dead 91, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-18 08:04 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/mover     equity $174.90 (-65.0%) 1 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/social_heat equity $323.09 (-35.4%) 1 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-18 08:04 UTC] crypto/hold_btc  equity $396.78 (-20.6%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), SOL 37 (37/0/0), PENGU 29 (29/0/0), ETH 27 (27/0/0), BREV 22 (8/0/14)
