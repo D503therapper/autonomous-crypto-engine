@@ -998,8 +998,8 @@
    "away": "Predators",
    "home": "Wild",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1044,7 +1044,7 @@
    "home": "Timberwolves",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Trail Blazers",
@@ -1057,7 +1057,7 @@
     "reasons": [
      "the NBA dog score backs it: +1.9 (our read -0.1 points on the price, every NBA dog study weighed)"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -1264,6 +1264,21 @@
    "start": "2026-11-18T03:00Z",
    "away": "UC Irvine",
    "home": "Stanford",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401910006",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-18T03:30Z",
+   "away": "Jazz",
+   "home": "Clippers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2111,7 +2126,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.371,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2127,9 +2142,9 @@
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.678,
-    "win_p": 0.46,
+    "odds": -225,
+    "p": 0.662,
+    "win_p": 0.445,
     "reasons": []
    }
   },
