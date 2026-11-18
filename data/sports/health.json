@@ -1,34 +1,46 @@
 {
- "at": "2026-11-18T17:49Z",
+ "at": "2026-11-18T19:21Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
+  "slate check problem - re-pull before the board - started sports.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Hercog vs Masarova: no points for 2586s",
+  "live tennis scores: tennis Podoroska vs Gormaz: no points for 2093s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-  "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on",
-  "workflow failed: layout-check 2026-11-18T17:32 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/44359762140",
-  "simulator last ran 10h ago - restarted"
+  "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
  ],
  "ok": [
-  "live watcher fresh (292s)",
+  "live watcher fresh (132s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "card audit: 9 live cards, 37 lines - nothing false, outdated or senseless",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "engine ran 2 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T19:21Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Podoroska vs Gormaz: no points for 2093s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
+    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
+   ]
+  },
   {
    "at": "2026-11-18T17:49Z",
    "fixes": [
@@ -544,11 +556,6 @@
   },
   {
    "at": "2026-11-17T03:38Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-17T02:06Z",
    "fixes": [],
    "problems": []
   }
