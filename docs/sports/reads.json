@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T02:14Z",
+ "updated": "2026-11-18T02:08Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -296,8 +296,8 @@
    "away": "Charlotte",
    "home": "Davidson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -326,8 +326,8 @@
    "away": "Cleveland St",
    "home": "Xavier",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -356,8 +356,8 @@
    "away": "Fordham",
    "home": "Manhattan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -431,8 +431,8 @@
    "away": "Lehigh",
    "home": "Mount St Marys",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -596,8 +596,8 @@
    "away": "Tennessee St",
    "home": "South Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1119,6 +1119,66 @@
    "done": false,
    "board": null,
    "lean": null
+  },
+  {
+   "id": "ncaab:401911521",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:00Z",
+   "away": "Alabama St",
+   "home": "UC Davis",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401924922",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:00Z",
+   "away": "Old Dominion",
+   "home": "Virginia",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401909787",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Kansas",
+    "p": 0.856,
+    "tie": 0.023,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-18T02:30Z",
+   "away": "UNLV",
+   "home": "Kansas",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "UNLV",
+    "opp": "Kansas",
+    "market": "spread",
+    "line": 16.5,
+    "odds": -115,
+    "p": 0.509,
+    "win_p": 0.071,
+    "reasons": [
+     "sharp money moving this way"
+    ]
+   }
   },
   {
    "id": "nhl:401892738",
