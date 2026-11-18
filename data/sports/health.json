@@ -1,32 +1,46 @@
 {
- "at": "2026-11-18T21:38Z",
+ "at": "2026-11-18T23:10Z",
  "fixes": [
   "slate check problem - re-pull before the board - started sports.yml"
  ],
  "problems": [
+  "live tennis scores: tennis Samson vs Geerlings: no points for 455s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
   "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
  ],
  "ok": [
-  "live watcher fresh (40s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 8 live cards, 29 lines - nothing false, outdated or senseless",
+  "card audit: 8 live cards, 25 lines - nothing false, outdated or senseless",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 0 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-18T23:10Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Samson vs Geerlings: no points for 455s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
+    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
+   ]
+  },
   {
    "at": "2026-11-18T21:38Z",
    "fixes": [
@@ -593,11 +607,6 @@
   },
   {
    "at": "2026-11-17T06:59Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-11-17T06:58Z",
    "fixes": [],
    "problems": []
   }
