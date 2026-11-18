@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T04:33Z",
+ "updated": "2026-11-18T04:42Z",
  "games": [
   {
    "id": "ncaab:401920904",
@@ -1316,36 +1316,6 @@
    "lean": null
   },
   {
-   "id": "ncaab:401920512",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Auburn",
-    "p": 0.483,
-    "tie": 0.044,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-18T04:59Z",
-   "away": "West Virginia",
-   "home": "Auburn",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Auburn",
-    "opp": "West Virginia",
-    "market": "ml",
-    "line": null,
-    "odds": -112,
-    "p": 0.506,
-    "win_p": 0.506,
-    "reasons": [
-     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
-    ]
-   }
-  },
-  {
    "id": "ncaab:401920513",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1942,7 +1912,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Towson",
-    "p": 0.569,
+    "p": 0.561,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1958,9 +1928,9 @@
     "opp": "James Madison",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.619,
-    "win_p": 0.619,
+    "odds": -162,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -2017,7 +1987,7 @@
     "opp": "Ohio",
     "market": "spread",
     "line": 17.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.511,
     "win_p": 0.078,
     "reasons": []
@@ -2616,7 +2586,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Bradley",
-    "p": 0.666,
+    "p": 0.659,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -2625,17 +2595,19 @@
    "start": "2026-11-19T01:00Z",
    "away": "Purdue FW",
    "home": "Bradley",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Purdue FW",
-    "opp": "Bradley",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -102,
-    "p": 0.5,
-    "win_p": 0.262,
-    "reasons": []
+    "team": "Bradley",
+    "opp": "Purdue FW",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.732,
+    "win_p": 0.732,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
