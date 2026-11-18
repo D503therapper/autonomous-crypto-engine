@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T15:35Z",
+ "updated": "2026-11-18T16:03Z",
  "games": [
   {
    "id": "ncaab:401909753",
@@ -35,7 +35,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Notre Dame",
-    "p": 0.559,
+    "p": 0.56,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -397,7 +397,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Brown",
-    "p": 0.638,
+    "p": 0.649,
     "tie": 0.04,
     "name": "1st half"
    },
@@ -406,17 +406,19 @@
    "start": "2026-11-19T00:00Z",
    "away": "Brown",
    "home": "Holy Cross",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Brown",
     "opp": "Holy Cross",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.711,
-    "win_p": 0.711,
-    "reasons": []
+    "odds": -285,
+    "p": 0.725,
+    "win_p": 0.725,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -688,7 +690,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Presbyterian",
-    "p": 0.538,
+    "p": 0.521,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -704,9 +706,9 @@
     "opp": "Mercer",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.579,
-    "win_p": 0.579,
+    "odds": -135,
+    "p": 0.557,
+    "win_p": 0.557,
     "reasons": [
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
@@ -925,8 +927,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Longwood",
-    "p": 0.669,
-    "tie": 0.039,
+    "p": 0.675,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -934,21 +936,17 @@
    "start": "2026-11-19T00:00Z",
    "away": "VMI",
    "home": "Longwood",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Longwood",
-    "opp": "VMI",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.744,
-    "win_p": 0.744,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "the turnover matchup is ours by 7.5 a 100 possessions (what each team forces against what it gives away) - the dog on the wrong end of that lost -17% to its price (5 of 5 seasons)"
-    ]
+    "team": "VMI",
+    "opp": "Longwood",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -115,
+    "p": 0.501,
+    "win_p": 0.254,
+    "reasons": []
    }
   },
   {
@@ -997,8 +995,8 @@
    "start": "2026-11-19T00:00Z",
    "away": "Wofford",
    "home": "Charleston So",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "Wofford",
     "opp": "Charleston So",
@@ -1029,17 +1027,19 @@
    "start": "2026-11-19T00:30Z",
    "away": "Bruins",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Bruins",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.689,
-    "win_p": 0.471,
-    "reasons": []
+    "p": 0.738,
+    "win_p": 0.532,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -1135,7 +1135,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Kansas",
-    "p": 0.715,
+    "p": 0.716,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -1153,7 +1153,7 @@
     "line": 8.5,
     "odds": -108,
     "p": 0.502,
-    "win_p": 0.203,
+    "win_p": 0.202,
     "reasons": []
    }
   },
@@ -1178,9 +1178,9 @@
     "team": "N Illinois",
     "opp": "Marquette",
     "market": "spread",
-    "line": 27.5,
-    "odds": -108,
-    "p": 0.522,
+    "line": 28.5,
+    "odds": -115,
+    "p": 0.523,
     "win_p": 0.022,
     "reasons": []
    }
@@ -1237,9 +1237,9 @@
     "team": "Youngstown St",
     "opp": "Cincinnati",
     "market": "spread",
-    "line": 28.5,
-    "odds": -115,
-    "p": 0.523,
+    "line": 27.5,
+    "odds": -105,
+    "p": 0.522,
     "win_p": 0.022,
     "reasons": []
    }
@@ -1356,7 +1356,7 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": 19.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.513,
     "win_p": 0.045,
     "reasons": [
@@ -1444,7 +1444,7 @@
     "opp": "Texas St",
     "market": "spread",
     "line": 17.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.511,
     "win_p": 0.062,
     "reasons": []
@@ -1486,7 +1486,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Pistons",
-    "p": 0.619,
+    "p": 0.62,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1606,7 +1606,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wichita St",
-    "p": 0.489,
+    "p": 0.49,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1884,8 +1884,8 @@
     "market": "ml",
     "line": null,
     "odds": -166,
-    "p": 0.615,
-    "win_p": 0.615,
+    "p": 0.614,
+    "win_p": 0.614,
     "reasons": [
      "UConn is a top-25 team on the road in Nov-Dec - those lost to the number 7 of 8 seasons (-19%)"
     ]
@@ -1934,8 +1934,8 @@
    "start": "2026-11-19T02:30Z",
    "away": "Celtics",
    "home": "Nuggets",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Celtics",
     "opp": "Nuggets",

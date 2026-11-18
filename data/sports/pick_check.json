@@ -1,12 +1,12 @@
 {
- "day": "2026-11-17",
+ "day": "2026-11-18",
  "picks": {
-  "dog|nhl:401892729|away|ml": {
-   "key": "dog|nhl:401892729|away|ml",
+  "dog|nba:401910015|home|ml": {
+   "key": "dog|nba:401910015|home|ml",
    "kind": "dog",
-   "team": "Capitals",
-   "odds": 136,
-   "league": "nhl",
+   "team": "Nuggets",
+   "odds": 120,
+   "league": "nba",
    "units": 2.0,
    "lean": false,
    "held": false,
@@ -16,17 +16,16 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "goalies": "pass",
     "card": "pass"
    }
   },
-  "play|nba:401910003|away|ml": {
-   "key": "play|nba:401910003|away|ml",
-   "kind": "nbafloor",
-   "team": "Trail Blazers",
-   "odds": 110,
-   "league": "nba",
-   "units": 0.5,
+  "play|ncaab:401911377|home|ml": {
+   "key": "play|ncaab:401911377|home|ml",
+   "kind": "ncaabplay",
+   "team": "Charleston So",
+   "odds": 114,
+   "league": "ncaab",
+   "units": 2.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -35,10 +34,12 @@
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
+    "college_games": "pass",
+    "d1": "pass",
     "card": "pass"
    }
   }
  },
- "updated": "2026-11-17T19:12Z",
+ "updated": "2026-11-18T16:00Z",
  "held": []
 }
