@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T09:19Z",
+ "updated": "2026-11-18T10:11Z",
  "games": [
   {
    "id": "ncaab:401920513",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Notre Dame",
-    "p": 0.559,
+    "p": 0.567,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -23,9 +23,9 @@
     "opp": "Rutgers",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.607,
-    "win_p": 0.607,
+    "odds": -170,
+    "p": 0.618,
+    "win_p": 0.618,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -801,7 +801,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Rockets",
-    "p": 0.628,
+    "p": 0.633,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -817,9 +817,9 @@
     "opp": "Pacers",
     "market": "ml",
     "line": null,
-    "odds": -279,
-    "p": 0.717,
-    "win_p": 0.717,
+    "odds": -290,
+    "p": 0.724,
+    "win_p": 0.724,
     "reasons": [
      "the stronger team",
      "wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"
@@ -848,7 +848,7 @@
     "opp": "St John's",
     "market": "spread",
     "line": 29.5,
-    "odds": -110,
+    "odds": -115,
     "p": 0.524,
     "win_p": 0.019,
     "reasons": []
@@ -922,7 +922,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Yale",
-    "p": 0.549,
+    "p": 0.561,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -938,9 +938,9 @@
     "opp": "Vermont",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -162,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -981,7 +981,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.371,
+    "p": 0.365,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -990,17 +990,19 @@
    "start": "2026-11-19T00:30Z",
    "away": "Bruins",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Bruins",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.678,
-    "win_p": 0.461,
-    "reasons": []
+    "odds": -285,
+    "p": 0.738,
+    "win_p": 0.532,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -1228,7 +1230,7 @@
     "opp": "Oklahoma",
     "market": "spread",
     "line": 23.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.517,
     "win_p": 0.035,
     "reasons": [
@@ -1853,8 +1855,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Avalanche",
-    "p": 0.357,
+    "team": "Mammoth",
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1863,7 +1865,7 @@
    "start": "2026-11-19T03:00Z",
    "away": "Avalanche",
    "home": "Mammoth",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Avalanche",
@@ -1871,11 +1873,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -258,
-    "p": 0.727,
-    "win_p": 0.515,
-    "reasons": [
-     "the stronger team"
-    ]
+    "p": 0.711,
+    "win_p": 0.495,
+    "reasons": []
    }
   },
   {
@@ -2111,8 +2111,7 @@
     "p": 0.696,
     "win_p": 0.696,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
