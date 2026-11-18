@@ -1294,6 +1294,10 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             dw = sense(new, leg) or derived(new, leg, games) or contra.get(x) or contra.get(new)
             if dw:
                 new, w = "", "; ".join(y for y in (w, dw) if y)
+        if new and not BOTTOM.match(new):                   # 👍 11/18 (the owner on the Nuggets card: "a few things in
+            aw = for_us(new, leg, why)                      #  the breakdown where it doesn't make the Nuggets look good")
+            if aw:
+                new, w = "", "; ".join(y for y in (w, aw) if y)
         if new and _dupe(new, seen):
             new, w = "", w or "the same line twice on the card"
         if new and where == "render" and chip_repeat(new, leg):
@@ -1574,3 +1578,28 @@ def knocks_us(text, leg):
         if any(n in low for n in names) and NEG_US.search(clause):
             return True
     return False
+
+
+KNOCK_OK = ("⚠️", "🔄", "✅", "🟡", "🔒", "💎", "🌟")   # the one ⚠️ risk line (and updates / the bottom line) may say a knock
+
+
+def _sig_numbers(t):
+    """The numbers in a line that pin a FACT (3+ digits: a score, a distance, a height) - '1,760', '5,300', '117'."""
+    return {n.replace(",", "") for n in re.findall(r"\d[\d,]*\d|\d", str(t or "")) if len(n.replace(",", "")) >= 3}
+
+
+def for_us(line, leg, why=""):
+    """👍 11/18, the owner on the Nuggets card ("the breakdown just sucks ... where it doesn't make the Nuggets look good"
+    / "This needs to be fixed permanently"): a breakdown makes the case for our side. Every render, a body line is cut
+    when it (a) knocks OUR team - a loss, a skid, who we're missing (knocks_us) - only the one ⚠️ risk line may say a
+    knock; or (b) only repeats the fact the one-liner already says (its numbers - '5,300 feet', '1,760 miles' - all in
+    the one-liner). -> why it was cut, or ''."""
+    t = str(line or "")
+    if not t or t.startswith(KNOCK_OK):
+        return ""
+    if knocks_us(t, leg):
+        return "a body line that knocks our own side (only the ⚠️ line may)"
+    sig = _sig_numbers(t)
+    if why and sig and sig <= _sig_numbers(why):
+        return "the one-liner's fact said again"
+    return ""

@@ -27514,6 +27514,37 @@ def test_owner_1118_one_play_a_side_never_the_same_dog_twice():
         finally:
             sports.DATA = old
 
+
+def test_owner_1118_the_breakdown_makes_the_case_for_our_side():
+    """11/18, the owner on the Nuggets card: "Strawther is not a key player ... there's a few things in the breakdown where
+    it doesn't make the Nuggets look good ... This needs to be fixed permanently." Every render: a body line that knocks
+    our side, or only repeats the one-liner's fact, is cut (only the one ⚠️ line may knock); an NBA out list names only
+    a top-3 scorer or a verified starter (a bench man out for weeks is never the knock)."""
+    import inspect, sports_card_check as cc, sports_breakdown_v24 as v24, sports_breakdown as sb
+    leg = {"team": "Nuggets", "opp": "Celtics", "league": "nba"}
+    why = "🧠 The Celtics gotta breathe 5,300 feet up. Nuggets fin to handle that. Plus Celtics flew 1,760 miles for this."
+    cut = ["🧳 The Celtics put in the miles to get here (1,760-mile trip west).",
+           "🏔️ Thin air — 5,300 feet up. The Celtics gonna be sucking wind by the second half.",
+           "📋 Nuggets are 7-5 after a 117-105 loss to the Suns.",
+           "📅 The Celtics come in off a 115-105 loss to the Magic; the Nuggets off a 117-105 loss to the Suns."]
+    keep = ["🗓️ Nuggets are 3-2 over their last 5.", "🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup tonight.",
+            "⚠️ Biggest knock on Nuggets: the Celtics won 4 of their last 5.", "🚑 Celtics are without Jayson Tatum."]
+    for x in cut:
+        assert cc.for_us(x, leg, why), x
+    for x in keep:
+        assert not cc.for_us(x, leg, why), x
+    assert "aw = for_us(new, leg, why)" in inspect.getsource(cc.check)
+    import sports_absences as sa_
+    was, was_st = sa_.key_players, sports.sd.STARTER_OF
+    sa_.key_players = lambda *a, **k: {"top": ["Nikola Jokic", "Jamal Murray", "Aaron Gordon"]}
+    sports.sd.STARTER_OF = lambda lg, tid, name: False     # (Strawther: no starter, not a top-3 scorer)
+    try:
+        got = v24.nba_who_matters(["Julian Strawther (G)", "Jamal Murray (G)"], "7", "2026-11-19")
+    finally:
+        sa_.key_players, sports.sd.STARTER_OF = was, was_st
+    assert got == ["Jamal Murray (G)"], got
+    assert "nba_who_matters(names, team_id, before)" in inspect.getsource(v24.who_plays_only) and sb.VERSION >= 66
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
