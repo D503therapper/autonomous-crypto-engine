@@ -27299,6 +27299,16 @@ def test_early_injury_1118_the_nba_over_card_waits_two_runs_before_a_man_off_the
     assert p2["back"] == ["Al Star"], "the report's own word still counts"
 
 
+
+def test_owner_1118_no_play_posts_inside_35_minutes_of_the_start():
+    """11/18, the owner on the Hornets / Lakers over (decided 7:34 PM PT, on the page 7:46, tip 8:00): "It didn't post
+    before the game." A run takes ~12 minutes to reach the page and people need time to bet: every play - the board's
+    mid-day adds, the ⛰️ altitude over, the 🏀 NBA over - is made 35+ minutes before the start or not at all."""
+    import inspect, sports_early as se_, sports_nba_out as no_
+    assert sports.MIN_LEAD_MIN >= 35 and se_.POST_LEAD_MIN >= 35
+    assert "now < st_ - timedelta(minutes=POST_LEAD_MIN)" in inspect.getsource(se_.alt_over_1111)
+    assert "timedelta(minutes=se.POST_LEAD_MIN)" in inspect.getsource(no_)
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

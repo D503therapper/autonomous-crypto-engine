@@ -47,7 +47,9 @@ POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DA
 DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
                                # 3 hours before the play's first game (then only from games that are settled).
                                # A posted play is final: it never changes.
-MIN_LEAD_MIN = 20              # only games starting at least this long after the board goes up
+MIN_LEAD_MIN = 35              # only games starting at least this long after the pick is made (11/18, the owner on the
+#                                Hornets / Lakers over: "It didn't post before the game" - decided 7:34 PM PT, on the page
+#                                7:46, tip 8:00: a run takes ~12 minutes to reach the page, and people need time to bet)
 MIN_KNOWN = 5                  # both teams need this many rated games
 MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter than this
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
