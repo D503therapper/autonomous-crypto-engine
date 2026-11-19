@@ -24038,3 +24038,26 @@ crypto scanner failed: HTTP Error 404: Not Found
 [2026-11-19 12:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-19 12:06 UTC] crypto/hold_btc  equity $391.15 (-21.8%) 1 open  market DOWN
    social heat top: BTC 32 (32/0/0), PENGU 27 (27/0/0), HYPE 27 (21/0/5), LUNC 24 (24/0/0), SOL 19 (19/0/0)
+   dex screen: REJECT AUDABROS@solana liq $47,880 - liquidity $47,880 < $100,000
+   dex screen: REJECT NOS@solana liq $574,494 - top-10 holders 42%; lp holders unknown
+   dex screen: REJECT QUBIC@solana liq $99,690,694 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT VELVET@solana liq $82,327,946 - top-10 holders 100%
+   dex screen: REJECT VELVET@base liq $1,116,320 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 67%; lp locked 0% < 95%
+   dex screen: REJECT NPC@ethereum liq $3,061,087 - top-10 holders 40%
+   dex screen: UNREACHABLE LUCIA@ethereum liq $322,839 - goplus partial data: cannot_sell_all unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT CRVUSD@ethereum liq $8,507,334 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 80%
+   dex screen: PASS XTO@solana liq $293,748
+   dex screen: REJECT XTO@solana liq $1,215,047 - lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   dex screen: UNREACHABLE XTO@solana liq $749,225 - goplus unreachable
+   dex screen: REJECT HOGE@solana liq $129,833 - lp holders unknown; rugcheck lp locked 80% < 95%
+   dex scanner: 3,000 pools (solana 2,210 / base 449 / ethereum 341), refresh cycle 128s (hot 124s), 2927 calls (108 feed, 429s 0, failed 0), 84,569 refreshed (10994 no pair), +89 added / -88 dropped (dead 18, stale 0, cap 70), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-19 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/mover     equity $173.63 (-65.3%) 1 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/social_heat equity $322.87 (-35.4%) 1 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 13:06 UTC] crypto/hold_btc  equity $391.57 (-21.7%) 1 open  market DOWN
+   social heat top: TRUMP 32 (32/0/0), PENGU 27 (27/0/0), SOL 24 (11/0/14), SKY 24 (24/0/0), HYPE 21 (21/0/0)
