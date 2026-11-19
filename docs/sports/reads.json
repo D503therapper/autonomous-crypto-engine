@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T20:06Z",
+ "updated": "2026-11-19T20:49Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -22,8 +22,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Auburn",
-    "p": 0.576,
-    "tie": 0.042,
+    "p": 0.569,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -38,9 +38,9 @@
     "opp": "Notre Dame",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.629,
-    "win_p": 0.629,
+    "odds": -166,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -286,8 +286,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Quinnipiac",
-    "p": 0.747,
-    "tie": 0.034,
+    "p": 0.735,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -302,9 +302,9 @@
     "opp": "Quinnipiac",
     "market": "spread",
     "line": 8.5,
-    "odds": -108,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.174,
+    "win_p": 0.186,
     "reasons": []
    }
   },
@@ -385,9 +385,9 @@
     "team": "Robert Morris",
     "opp": "Toledo",
     "market": "spread",
-    "line": 6.5,
-    "odds": -105,
-    "p": 0.5,
+    "line": 7.5,
+    "odds": -118,
+    "p": 0.501,
     "win_p": 0.263,
     "reasons": [
      "sharp money moving this way"
@@ -929,7 +929,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.733,
+    "p": 0.732,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -947,7 +947,7 @@
     "line": -12.5,
     "odds": -106,
     "p": 0.501,
-    "win_p": 0.84,
+    "win_p": 0.839,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1318,7 +1318,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Santa Clara",
-    "p": 0.522,
+    "p": 0.515,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1327,16 +1327,16 @@
    "start": "2026-11-20T03:30Z",
    "away": "VCU",
    "home": "Santa Clara",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Santa Clara",
     "opp": "VCU",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.558,
-    "win_p": 0.558,
+    "odds": -130,
+    "p": 0.548,
+    "win_p": 0.548,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1486,7 +1486,7 @@
     "opp": "Clemson",
     "market": "spread",
     "line": -13.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.504,
     "win_p": 0.782,
     "reasons": [
@@ -1572,15 +1572,15 @@
    "start": "2026-11-21T01:00Z",
    "away": "UTEP",
    "home": "Air Force",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Air Force",
     "opp": "UTEP",
     "market": "spread",
-    "line": -22.5,
+    "line": -21.5,
     "odds": -110,
-    "p": 0.548,
+    "p": 0.55,
     "win_p": 0.904,
     "reasons": [
      "the stronger team",
@@ -1595,7 +1595,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.648,
+    "p": 0.641,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1604,19 +1604,18 @@
    "start": "2026-11-21T02:00Z",
    "away": "New Mexico",
    "home": "Wyoming",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Wyoming",
-    "opp": "New Mexico",
-    "market": "spread",
-    "line": 7.5,
-    "odds": -115,
-    "p": 0.508,
-    "win_p": 0.303,
+    "team": "New Mexico",
+    "opp": "Wyoming",
+    "market": "ml",
+    "line": null,
+    "odds": -290,
+    "p": 0.689,
+    "win_p": 0.689,
     "reasons": [
-     "sharp money moving this way",
-     "altitude edge"
+     "the stronger team"
     ]
    }
   },
