@@ -1,31 +1,40 @@
 {
- "at": "2026-11-19T21:00Z",
- "fixes": [],
+ "at": "2026-11-19T21:33Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - started sports.yml"
+ ],
  "problems": [
   "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (10s)",
-  "every finished pick graded",
+  "live watcher fresh (17s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
   "card quality: 100/100 on 9 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 2.2, unit cards under the floor: 1)",
   "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 19 min ago",
+  "simulator ran 1h ago",
+  "engine ran -0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T21:33Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - started sports.yml"
+   ],
+   "problems": [
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-19T21:00Z",
    "fixes": [],
@@ -636,13 +645,6 @@
   },
   {
    "at": "2026-11-18T06:17Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T04:44Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
