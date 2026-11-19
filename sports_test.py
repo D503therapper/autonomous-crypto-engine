@@ -28655,6 +28655,16 @@ def test_sweep_1119_an_early_row_is_healed_once_stays_on_the_page_after_midnight
     assert sports_tennis.MIN_LEAD_MIN >= 35, "tennis too: no pick inside 35 minutes of the start"
 
 
+def test_ask_box_1119_never_says_lean():
+    """11/19 (the sweep): leans are gone (the owner, 11/16: "taking the leans out of existence") - the question box's
+    read on an off-board game says edge / like, never "lean"."""
+    import re as _re
+    import sports_dashboard
+    src = open(sports_dashboard.__file__, encoding="utf-8").read()
+    a, b = src.index("function vibe(p,id)"), src.index("function show(g)")
+    assert not _re.search(r"\blean", src[a:b], _re.I), src[a:b]
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)

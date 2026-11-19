@@ -2888,8 +2888,8 @@ var WHY={{steep:["They should win, but that price is way too steep. We ain’t l
 var OUT=["You’re on your own with this one. Good luck — hope it smacks. 🤞","Your call, not ours. Hope it cashes. 🤞",
  "We ain’t on it, so you’re riding solo. Hope it hits. 🤞","If you tail it, that’s on you. Hope it smacks. 🤞"];
 function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handle business.","They should take care of business.","Engine’s feeling good about this side.","They got the better squad and it shows."]:
- p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
- ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
+ p>=0.55?["Slight edge this way — nothing crazy.","Small edge, but it’s there.","Tilts this way, not banging the table.","A lil edge — don’t go crazy on it."]:
+ ["Barely an edge. Proceed with caution.","Basically a toss-up — tiny edge.","A hair of an edge. Be careful with this one.","Barely there. Don’t bet the rent."])}}
 var WHYL={{"the stronger team":"💪 {{u}} are just the better team tonight.","hotter recent form":"🔥 {{u}} are playing better ball lately.",
  "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.",
  "better rested":"🛌 {{u}} got the extra rest. Fresh legs.","opponent on a back-to-back":"😮‍💨 {{o}} played last night — tired legs.",
@@ -2897,7 +2897,7 @@ var WHYL={{"the stronger team":"💪 {{u}} are just the better team tonight.","h
  "better QB play lately":"🎯 {{u}} got the better QB play lately.","revenge game":"😤 {{u}} owe these guys one."}};
 function whyl(L,g){{var o=L.team===g.home?g.away:g.home;   // a read's top reason in our lingo - never a bare tag (the owner, 9/29)
  for(var i=0;i<L.reasons.length;i++){{var w=WHYL[L.reasons[i]];if(w)return w.replace("{{u}}",L.team).replace("{{o}}",o)}}
- return "🧠 The engine's numbers lean "+L.team+".";}}
+ return "🧠 The engine's numbers like "+L.team+".";}}
 function show(g){{
   var L=g.lean||{{market:"ml",reasons:[]}}, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
