@@ -1582,7 +1582,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     # ⚠️ THE ONE RISK LINE (10/27, the owner: "there's a lot of facts that support the opposing team"): every fact that
     # favors the other side went into v.knocks instead of the body; the single biggest posts here, framed as the risk,
     # right before the bottom line. Nothing else on the card argues for them.
-    risk = risk_line(v, us, them, the_us)
+    #   🚫 11/19 (the owner: "I don't want bad shit in the breakdowns"): from NO_KNOCK_FROM no card carries the risk line -
+    #   the facts against our side still weigh in the read and stay out of the write-up (v.knocks is kept for the checks).
+    risk = risk_line(v, us, them, the_us) if (g.get("start") or "")[:10] < NO_KNOCK_FROM else ""
     if risk:
         out.append(risk)
 
@@ -2988,7 +2990,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
             add.append(v.say("f_net", [f"🥅 Goalie edge is ours: {mine[0]} ({tag(mine[2])} for {us}) has {mine[1]}; {his[0]} ({tag(his[2])} for {them}) has {his[1]}.",
                                        f"🥅 {mine[0]} ({tag(mine[2])} for {us}) has been the better goalie - {mine[1]}. {his[0]} ({tag(his[2])} for {them}): {his[1]}.",
                                        f"🥅 {his[0]} ({them}{note(his[2])}) has {his[1]}; {mine[0]} ({us}{note(mine[2])}) has {mine[1]}. We like our goalie more."]))
-        elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005:
+        elif sm_ is not None and sh_ is not None and sh_ > sm_ + 0.005 and not (
+                hot_overpay(leg) and (g.get("start") or "")[:10] >= HOT_RUN_LINE_FROM):   # (11/19: his hot run IS our
             v.knock(6, f"{his[0]} ({them}{note(his[2])}) is at a {sh_:.3f} save % over his last 3 starts to {mine[0]}'s "
                        f"{sm_:.3f}{'' if mine[2] is True else ' (our guy expected in net, not confirmed)' if mine[2] == 'likely' else ' (our projected guy, not confirmed)' if mine[2] == 'projected' else ' (our guy in net last time out)'}")   # (11/5 pre-board
             #   check: an unconfirmed starter is the LAST starter - the Ducks card named Brossoit while the goalie page had
@@ -3401,9 +3404,14 @@ def lead_line(lines, v, us):
     FOR US - never a line the Voice tagged "neutral" (the record-after-a-loss line, 10/27's direction tagging), never one
     that knocks us (knocks_us), never the risk / bottom lines. None = no line (no pro-us fact = no line)."""
     body = [x for x in (lines or [])[:-1] if x and not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))]
-    for fill in (False, True):                            # (11/18: a refill line - 💯 / 💵 - leads only when nothing else can)
-        for x in body:
-            if (str(x).startswith(("💯", "💵")) or x in getattr(v, "fill", ())) != fill:
+    def _meh(x):                                          # 🗓️ 11/19 (the Flyers card: "3-2 over their last 5" led):
+        m_ = re.search(r"\b(\d)-(\d)\b", str(x))       # a record up by one is no reason - it never leads the card
+        return str(x).startswith("🗓️") and (not m_ or int(m_.group(1)) - int(m_.group(2)) < 2)
+    for fill in (False, True, None):                      # (11/18: a refill line - 💯 / 💵 - leads only when nothing else can;
+        for x in body:                                    #  11/19: a lukewarm record only after both)
+            if (fill is None) != _meh(x):
+                continue
+            if fill is not None and (str(x).startswith(("💯", "💵")) or x in getattr(v, "fill", ())) != fill:
                 continue
             if (v.dirs.get(x, "us") if v is not None else "us") == "us" and not knocks_us(x, us):
                 return x
@@ -3465,6 +3473,16 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         pools.append(S("w_hurt_named", named[0], "🚑", beat=True))
     if "opponent missing key players" in whyf and (not key_us):
         pools.append(S("w_hurt", whyf["opponent missing key players"], "🚑", beat=True))
+    #   🧱 11/19 (the owner on the Flyers +150 card - "Flyers are 3-2 over their last 5. Flyers the side.": "Flyers one
+    #   liner is terrible wtf"): the hockey dog score's own angle, said as the fact it stands on - the other goalie's hot
+    #   run the books overpay for (+4.3% on 1,260 dogs, both halves - goalie_timing_1119), with his real numbers.
+    _gh = next((x for (o_, m_), x in sorted(form.items(), key=lambda kv: kv[0][1] != "hot") if not o_), None)
+    if _gh and lg == "nhl" and hot_overpay(leg) and (g.get("start") or "")[:10] >= HOT_RUN_LINE_FROM:
+        _gn, _gt, _gk = _gh
+        names = names + (_gn,)
+        pools.append(S("w_hot_run", [f"the books are paying for {_gn}'s hot run - {_gt}",
+                                     f"{the_them} are priced off {_gn}'s last 3 starts - {_gt}",
+                                     f"{_gn} has {_gt}, and the books pay too much for a goalie's hot run"], "🧱"))
     if "opponent on a back-to-back" in whyf:
         pools.append(S("w_rest", whyf["opponent on a back-to-back"], "😮‍💨"))
     if PUBLIC_CARD and "public fade" in whyf:             # (the owner, 10/23: "Air Force - they're about to get their
@@ -4146,3 +4164,13 @@ def named_out_ways(leg, g, them, the_them, b2b=False):
             f"no {W} for {T}" + (f" - {lbl}" if lbl else "") + tail[1],
             f"{T} gotta play without {W}" + (f", {lbl}" if lbl else "") + tail[0]]
     return [cut(w) for w in ways], [re.sub(r"^(QB|RB|WR|TE|FB|HB) ", "", w) for w in who]
+
+
+HOT_RUN_LINE_FROM = "2026-11-19"
+NO_KNOCK_FROM = "2026-11-19"   # 🚫 no ⚠️ risk line on a card from this game day (the owner, 11/19)   # 🧱 the other goalie's hot run (the dog score's angle) said as the reason (why_line)
+
+
+def hot_overpay(leg):
+    """Does the pick stand on 'the books overpay for the other goalie's hot run' (sports._dog_reasons, alone or inside
+    the hockey dog score's reason)?"""
+    return any("overpay for the other goalie's hot run" in str(r) for r in (leg.get("reasons") or []))
