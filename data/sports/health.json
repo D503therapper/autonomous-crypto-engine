@@ -1,18 +1,18 @@
 {
- "at": "2026-11-19T16:05Z",
- "fixes": [],
+ "at": "2026-11-19T17:37Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
-  "studies last ran 9h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (143s)",
+  "live watcher fresh (139s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.4, unit cards under the floor: 1)",
+  "card audit: 8 live cards, 31 lines - nothing false, outdated or senseless",
+  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.5, unit cards under the floor: 0)",
   "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -20,13 +20,22 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "simulator ran 8h ago",
-  "engine ran 2 min ago",
+  "studies ran 2h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T17:37Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-19T16:05Z",
    "fixes": [],
@@ -632,15 +641,6 @@
   },
   {
    "at": "2026-11-18T02:51Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-18T02:47Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
