@@ -4290,7 +4290,7 @@ def lock_miss(cands, all_cands=None, thin=None):
         return {"team": thin.get("team"), "opp": thin.get("opp"), "league": thin.get("league"), "odds": thin.get("odds"),
                 "game_id": thin.get("game_id"), "start": thin.get("start"), "engine's own read %": round(own * 100),
                 "the price needs %": round(need * 100, 1),
-                "why it's not the Lock": (f"our read beats the price by only {round((own - need) * 100, 1)} points - a thin "
+                "why it's not the Lock": (f"the edge on it is only {round((own - need) * 100, 1)} points - a thin "
                                           "edge (under 3 cents on the dollar) is never the Lock; it's a half-unit value "
                                           "play at most (the owner, 10/28)")}
     c = near_lock([dict(x) for x in cands])                  # the same pick the forced Lock made (10/2: Virginia
@@ -4304,8 +4304,8 @@ def lock_miss(cands, all_cands=None, thin=None):
     return {"team": c.get("team"), "opp": c.get("opp"), "league": c.get("league"), "odds": c.get("odds"),
             "game_id": c.get("game_id"), "start": c.get("start"), "engine's own read %": round(own * 100),
             "the price needs %": round(need * 100, 1),
-            "why it's not the Lock": (f"our read only beats the price by {gap} points - not enough for the Lock" if gap > 0
-                                      else f"our read is {abs(gap)} points under what the price needs - no value at that price")}
+            "why it's not the Lock": (f"the edge on it is only {gap} points - not enough for the Lock" if gap > 0
+                                      else f"it sits {abs(gap)} points short of what the price needs - no value at that price")}
 
 
 def save_lock_miss(iso, miss, path=None):

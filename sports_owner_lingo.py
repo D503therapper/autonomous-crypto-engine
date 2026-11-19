@@ -2,8 +2,8 @@
 how I talk to you with my lingo and my slang and add it into the engine").
 
 Every phrase here is one he's used himself. Each one must be live somewhere in the write-ups (sports_test checks), and
-where it fits matters as much as the words: "facts" goes after a claim ("better team - that's just facts"), never
-after a number; "cheeks clapped" is for a real beatdown, not a coin flip. New slang he uses in chat gets added here
+where it fits matters as much as the words ("that's just facts" came OFF this list 11/19 - the owner: "That's just
+facts sounds retarded" - it is a NEVER word now); "cheeks clapped" is for a real beatdown, not a coin flip. New slang he uses in chat gets added here
 AND into the pools where it fits (CLAUDE.md says so, so every session does it)."""
 
 OWNER = {
@@ -19,7 +19,6 @@ OWNER = {
     "the whole hood eating": "a win, or a play everybody's on ('the whole hood eating with this one') - once a board "
                              "at most (sports_breakdown_v24.SLANG 'hood'), never on a lean",
     "super value": "a lock at plus money",
-    "that's just facts": "after a claim ('just the better team')",
     # the other side getting beat
     "cheeks clapped": "a beatdown (tennis straight sets, a blowout) - either side: 'New Mexico State got their cheeks "
                       "clapped' (10/7, our early play lost 22-3) is a blowout LOSS review; 10/23: a side we see getting "
@@ -90,7 +89,7 @@ CUSS_OK = ("fuck", "shit", "ass", "cheeks clapped", "get their ass beat", "trash
 SHOW_PCT_OVER = 100   # the owner, 10/7: "we don't need to see win percentages ever" (was 55 - 9/30); a pick's win
 #                       chance is always said in words. Records (W-L · %) are records, not win %s - they stay.
 
-NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
+NEVER = ("real talk", "chalk", "just facts", "guaranteed", "broken clock", "circled on both calendars", "leaky",
          "class of this", "give him flowers", "give this man flowers", "give her flowers", "only one that counts", "only this one matters", "what counts", "clean slate tonight",
          "keep stacking")   # (11/12: "Keep stacking is retarded")   # (10/1: "that don't make no sense")   # (9/30: it's always
 #                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)
@@ -130,3 +129,30 @@ STIFF = STIFF + MATH_TALK
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",
            "sports_decider.py")
+
+
+# 🚫 11/19 WE DON'T OUT-PRICE THE LINE MAKERS (the owner, on the Ducks card's "-166 on our sheet": "we can't say that
+# we're better at pricing the lines than the fucking line makers"). No card anywhere - the body, the line under the
+# pick, the bottom line, the units line, an early row, the question box - says our own fair price or that the book has
+# it wrong. The pick, the price it pays and the matchup reason; never our number next to theirs. A sentence that matches
+# is cut on every render (sports_card_guard.scrub, logged by sports_card_check) and no pool writes one.
+PRICE_CLAIM = (
+    r"\bwe(?:'d| would)? (?:make|price|play|lay)\b[^.!?]*[+-]\d{3}",
+    r"\bwe (?:make|price) (?:'em|them|it)\b", r"\bwe say [+-]?\d{3}",
+    r"\bour (?:own )?(?:number|numbers|read|whole read|sheet|math|price|line)\b", r"\bon our (?:sheet|end|numbers|read)\b",
+    r"\bby our (?:math|numbers)\b", r"\bin our (?:book|numbers)\b",
+    r"\bfair (?:price )?on [^.!?]* to us\b", r"[+-]\d{3} (?:for|to) us\b",
+    r"\bbooks? (?:are |is |been )?(?:sleeping|napping|wrong|off)\b", r"\bbooks? (?:got|have|has) [^.!?]{0,40}(?:wrong|priced)",
+    r"\bbooks? (?:undersold|sell|sells|selling|are selling|is selling|'s selling)\b", r"\bundersells?\b", r"\bsells? [^.!?]{0,30} short\b",
+    r"\bselling [^.!?]{0,30} short\b", r"\bline makers?\b", r"\bfishy line\b", r"\bpriced wrong\b",
+    r"\b(?:is|are|'s) (?:a |giving us a )gift\b", r"\bgiving us a gift\b", r"\ba gift (?:on|from)\b",
+    r"\btoo generous\b", r"\bpays? more than it should\b", r"\bcheaper than it should\b",
+    r"\bnumber'?s too big\b", r"\bthat number'?s too\b", r"\bprice (?:is|'s) too (?:big|good)\b",
+    r"\bbetter than this (?:price|number) says\b", r"\bbetter shot than this price\b", r"\bmore than the books do\b",
+    r"\b(?:beats?|better than) (?:this|the) (?:price|number)\b", r"\bprice didn'?t catch up\b",
+    r"\bnumber'?s in our favor\b", r"\bvalue'?s on our side\b", r"\bthe (?:real|true) number is\b",
+    r"\bmore (?:often )?than [+-]\d{3} (?:does|pays|says)", r"\bmore than (?:this price|the price) (?:does|pays|says)",
+    r"\bbooks? (?:only |don'?t (?:fully )?|didn'?t )price", r"\bour points read\b",
+    r"\b(?:paying|payout'?s|pays) (?:more|bigger) than it should\b", r"\bprice gives us an edge\b",
+    r"\bshouldn'?t be [+-]\d{3}\b", r"\bpays like (?:they|he|she)(?:'re| are| got)\b", r"\bpriced like a team\b",
+)

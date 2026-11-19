@@ -493,9 +493,9 @@ def exam_1116(now=None, posted=None):
         return False
 
 
-EXAM_READS = ("🧠 {t} at {pr}: our read beats the price and the dog angles back it.",
-              "🧠 Our numbers like {t} more than {pr} does, and the dog angles agree.",
-              "🧠 {pr} sells {t} short on our read - the dog angles say the same.")
+EXAM_READS = ("🧠 {t} at {pr}: the dog angles back it.",        # (11/19, the owner: never our number against the line
+              "🧠 {t} at {pr} - every dog angle we grade likes it.",   #  makers' - the read sentence says the pick and why)
+              "🧠 We got in early on {t} at {pr}: the dog angles say so.")
 
 
 def exam_words(c, games, now):
@@ -828,8 +828,7 @@ def alt_overs(games, st, now):
         out.append({"game_id": g["id"], "league": "ncaab", "market": "total", "side": "over", "line": tot,
                     "team": f"Over {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
                     "start": g["start"], "spot": "alt_over", "spots": ["alt_over"], "fades": [], "read": round(read, 1),
-                    "why": f"⛰️ {g.get('home_name')} plays about {feet:,} feet up - the thin air adds points the "
-                           f"books don't fully price. Our points read has this one at {read:.0f}, the number's {tot:g}. "
+                    "why": f"⛰️ {g.get('home_name')} plays about {feet:,} feet up - the thin air adds points. "
                            f"College games 4,000+ feet up with our read 2+ over the total went 445-318 to the over "
                            f"since 2018"
                            + (f" - {w}-{l_} since we started betting it." if w > l_ else "."),
@@ -920,7 +919,7 @@ def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
         if short:
             out.append(" and ".join(f"{n} {'has played ' + str(k) + ' game' + ('s' if k != 1 else '') if k else 'has not played yet'}"
                                     for n, k in short) + " this season, so last season's scoring fills in the rest")
-    out.append(f"Games this high run about 4 points over both teams' norms, and the books only price in about 1.5 of it")
+    out.append("Games this high run about 4 points over both teams' norms")   # (11/19: never what the books do or do not have in the number)
     for side in ("home", "away"):
         ln = _alt_last(games, g.get(side), s, now)
         m = re.search(r"\((\d+) points\)$", ln or "")
@@ -1641,18 +1640,15 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
                  f"🧠 {pc}% for {me} on our read, and {pr} on the board. That's the gap.",
                  f"🧠 {pr} undersells {me} - our numbers say {pc}%."]
     else:
-        reads = [f"🧠 Our numbers like {me} more than {pr} does.", f"🧠 {me} at {pr} is a gift on our read.",
-                 f"🧠 The books got {me} as the dog; our read says they're better than that.",
-                 f"🧠 {pr} undersells {me} on our read.",
-                 f"🧠 Our read says {me} wins this more often than {pr} pays for.",
-                 f"🧠 On our numbers, {me} shouldn't be {pr} - that's value."]
+        reads = [f"🧠 We got in early on {me} at {pr}.", f"🧠 {me} at {pr}, early.",      # (11/19: never our number
+                 f"🧠 Early number on {me}: {pr}.", f"🧠 {me} at {pr} - we took it early.",   #  against the line makers')
+                 f"🧠 {pr} on {me}, before the week moves it.", f"🧠 We're on {me} at {pr}."]
     facts = (list(facts) * 2)[:len(reads)]                   # (10/5: 6 wordings - 7 open cards ran out of 3)
     return [(r + (" " + f if f else "")).strip() for r, f in zip(reads, facts)]
 
 
 _PCT_RE = re.compile(r"\d{1,2}%")
-NO_PCT_READS = ("🧠 Our numbers like {t} more than {pr} pays for.", "🧠 {t} at {pr}: our read beats the price.",
-                "🧠 The books sell {t} short at {pr} - our numbers say so.")
+NO_PCT_READS = ("🧠 We got in early on {t} at {pr}.", "🧠 {t} at {pr}, early.", "🧠 Early number on {t}: {pr}.")
 
 
 def no_pct(p):
@@ -2153,9 +2149,9 @@ def min_one(games, st, now, injuries, own_of, have=()):
 # ---------------------------------------------------------------- 🏀 THE NBA OPENING-LINE PLAY (the owner OK'd it 10/23)
 BOARD_PATH = os.path.join(sd.DATA, "picks.json")
 NBA_OPEN_READS = (
-    "🧠 Our numbers at the opening line like {t} more than {pr} does.",
-    "🧠 {t} at {pr} on the first number - our read at the open beats it.",
-    "🧠 The open sells {t} short at {pr}: our whole read says more.",
+    "🧠 {t} at {pr} on the first number.",                       # (11/19: never our number against the line makers')
+    "🧠 We took {t} at {pr} the hour the line went up.",
+    "🧠 First number up: {t} at {pr}.",
 )
 
 

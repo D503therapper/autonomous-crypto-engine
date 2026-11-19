@@ -3966,7 +3966,8 @@ def test_facts_only_after_a_claim():
     for pool in (stn.T_FAV, stn.T_SMALLFAV):
         for line in pool:
             assert "{pct}%. Facts" not in line and "%.] Facts" not in line
-    assert "That's just facts." in open(v24.__file__).read()
+    import sports_owner_lingo as ol                      # (11/19, the owner: "That's just facts sounds retarded" - a NEVER
+    assert "just facts" in ol.NEVER                      #  word now: test_cards_1119_thats_just_facts_is_a_never_word)
 
 
 def test_started_game_is_live_never_final():
@@ -8333,7 +8334,7 @@ def test_lock_miss_names_the_closest_pick():
     finally:
         sports.money_against = old
     assert m and m["team"] == "Virginia Tech" and m["odds"] == -130 and "near_price" not in c
-    assert m["engine's own read %"] == 57 and "beats the price by" in m["why it's not the Lock"]
+    assert m["engine's own read %"] == 57 and "the edge on it is only" in m["why it's not the Lock"]
     p = os.path.join(_t.mkdtemp(), "m.json")
     for d in range(1, 10):
         sports.save_lock_miss(f"2026-10-{d:02d}", m, p)
@@ -8351,7 +8352,7 @@ def test_lock_miss_names_the_closest_pick():
     finally:
         sports.money_against = old
     under = dict(c, edge_own=0.55 * c["dec"] - 1, p=0.55)              # VT 55% vs the 56.5% -130 needs
-    assert "under what the price needs" in sports.lock_miss([under])["why it's not the Lock"]
+    assert "short of what the price needs" in sports.lock_miss([under])["why it's not the Lock"]
 
 
 def test_health_restarts_a_skipped_engine():
@@ -10840,13 +10841,15 @@ def test_breakdowns_carry_facts_not_filler_10_22():
         assert bad not in src, bad
     assert v.fair_am(0.502) == "-101" and v.fair_am(0.45) == "+122" and v.fair_am(None) is None
     lines = v.OWNER_PLAY("Predators (+120)", "Predators", v.fair_am(0.502), 120)
-    assert all("-101" in x and "+120" in x for x in lines)
+    #   (11/19, the owner: "we can't say that we're better at pricing the lines than the fucking line makers" - the
+    #    closers say the pick and the price, never our number next to the book's)
+    assert all("-101" not in x and "+120" in x for x in lines)
     lock = v.OWNER_LOCK("Bruins (-130)", "Bruins", {"odds": -130, "_read": 0.6})
-    assert any("-150" in x for x in lock)
+    assert not any("-150" in x for x in lock)
     import sports_dashboard as D
     import html as _h
     html = _h.unescape(D._units_line(2.0, "Predators", 120, leg={"odds": 120, "dog_p": 0.502, "dec": 2.2}))
-    assert "We make 'em -101, the book's at +120" in html and "Real value on a plus-money price" not in html
+    assert "-101" not in html and "We make" not in html and "2 UNITS" in html   # (11/19: never our number on the size line)
 
 
 def test_an_owner_posted_play_keeps_his_units_and_never_takes_the_dog_spot():
@@ -12142,7 +12145,7 @@ def test_truth_audit_10_16_full_squad_never_with_questionables():
     assert not any(x.startswith("✅") and x != bd[-1] for x in bd), bd       # (the ✅ bottom line is the last one)
     leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
     bd = v24.breakdown(leg, games, elo, {"nhl": {"A": [], "B": []}})
-    assert any(x.startswith("✅") and x != bd[-1] for x in bd), bd            # nobody listed: the healthy line's fine
+    assert not any(x.startswith("✅") and x != bd[-1] for x in bd), bd        # (11/19: "at full strength" alone is no line)
     assert [r[0] for r in v24.team_unsure(inj["nhl"], "A", "A")] == ["Zach Bogosian", "Marcus Foligno"]
 
 
@@ -15294,9 +15297,9 @@ def test_sweep_1029b_lingo_no_stat_jargon_real_verbs_and_a_heater_is_3_straight(
     assert "dog check" not in dsh
     # team verbs: a plural name takes the plural verb, a one-word mascot the singular
     tails = b._tails(False, "Warriors", "Heat")
-    assert "Warriors are the side, that's just facts." in tails and "Warriors get it done." in tails and "Warriors take this one." in tails
+    assert "Warriors are the side." in tails and "Warriors get it done." in tails and "Warriors take this one." in tails
     heat = b._tails(False, "Heat", "Warriors")
-    assert "Heat is the side, that's just facts." in heat and "Heat gets it done." in heat
+    assert "Heat is the side." in heat and "Heat gets it done." in heat
     assert not any("Warriors is " in t or "Warriors gets " in t or "Warriors takes " in t for t in tails)
     # the risk line never says the other side's record then "everything above is why we take it"; the verb agrees
     v = b.Voice("cbj-1029")
@@ -18132,7 +18135,7 @@ def test_ncaab_play_1104_college_hoops_favorite_slot_and_dog_slot_half_unit_each
     bank = dsh.units_box(bad, "2026-11-21")
     assert "🔥 Value plays" in bank and "College hoops" not in bank and "test" not in bank.lower()
     line = dsh._units_line(0.5, "k", 160, leg={**leg, "dog_p": 0.45})
-    assert "+122" in line and "+160" in line and "½ UNIT" in line and "test" not in line.lower()   # (11/4: the wording rolls)
+    assert "+122" not in line and "½ UNIT" in line and "test" not in line.lower()   # (11/19: never our number on the size line)
     card = dsh._pick_card("play", {**pk, "american": 160})
     assert "VALUE PLAY" in card and "TEST" not in card and "ncaab-note" not in card
     # the records page: a normal value play in every record - the 💰 unit plays, the 🔥 value plays box, the sport's chip
@@ -18331,7 +18334,7 @@ def _test_ncaab_dog_slot_1104_the_dog_read_picks_the_dogs_two_a_night_1u_2u_at_6
     bank = dsh.units_box(bad, "2026-11-19")
     assert "🔥 Value plays" in bank and "test" not in bank.lower()
     line = dsh._units_line(2.0, "k", 160, leg={**legB, "dog_p": 0.43})
-    assert "2 UNITS" in line and "+160" in line and "test" not in line.lower()   # (11/4 lingo pass: the wording rolls)
+    assert "2 UNITS" in line and "test" not in line.lower()   # (11/19: the size line says the size, never our number)
     card = dsh._pick_card("play", {**pkB, "american": 160})
     assert "VALUE PLAY" in card and "TEST" not in card and "ncaab-note" not in card
     # THE BOARD: post_board posts up to two dogs a day (1u / 2u by the read), never a third, a second run adds none;
@@ -20960,7 +20963,7 @@ def test_owner_1112_no_canned_signoffs_no_filler_tails_no_public_reviews():
               "Ryan Donato scored in overtime to win it 3-2. Keep stacking.", "Paid."):
         assert lg.MADE_UP.search(x), x
     for k in ("cheeks clapped", "somebody give this man his flowers", "cash it, baby", "levels to this", "tap in",
-              "smacked", "got cooked", "that's just facts", "the whole hood eating", "easy money", "shit the bed"):
+              "smacked", "got cooked", "the whole hood eating", "easy money", "shit the bed"):
         assert k in ol.OWNER and not lg.MADE_UP.search(k), k                # his own words never get cut
     for x in ("Ryan Donato scored in overtime to win it 3-2.", "Andre Szmyt's 32-yarder with 0:00 left won it.",
               "Had a 3-goal lead. Lost 5-4."):
@@ -23823,7 +23826,7 @@ def test_audit_1115_the_exam_scan_play_is_half_a_unit_and_a_football_one_needs_t
         #    State" is gone; THEIR loss is the fact)
         assert w["why"].endswith("Northwestern is off a 28-19 loss to Ohio State on Saturday 11/14.") and "facts" not in w
         box = se.html({"picks": [{**w, "posted": "2026-11-16T18:00Z", "result": None, "units": 0.5}]}, lambda x: x, now=after, games=G)
-        assert "our read" in box and "42-14 loss to Penn State" not in box and "28-19 loss to Ohio State" in box
+        assert "our read" not in box and "dog angle" in box and "42-14 loss to Penn State" not in box and "28-19 loss to Ohio State" in box
         rows[:] = []                                                               # no board row = unknown = no play
         assert run([mn], after) == []
         # a spot play and a non-football exam dog keep their own rules (the honest check is football's)
@@ -26878,10 +26881,10 @@ def test_cards_1117_an_early_plays_line_is_re_read_until_the_game():
     cc.reset()
     p = {"team": "Wild", "opp": "Kings", "league": "nhl", "game_id": "nhl:9", "side": "home", "odds": -120,
          "market": "ml", "start": "2026-11-10T02:00Z", "units": 0.5,
-         "why": "🧠 Wild at -120 on the first number - our read at the open beats it. Wild are 2-1, Kings 2-0; Wild lost their last by 3."}
+         "why": "🧠 Wild at -120 on the first number. Wild are 2-1, Kings 2-0; Wild lost their last by 3."}
     assert "Wild 2-1" in cc.early_fact(p, p["why"], games)
     assert cc.early_lines(p, [p["why"]], where="test", games=games) == \
-        ["🧠 Wild at -120 on the first number - our read at the open beats it."]
+        ["🧠 Wild at -120 on the first number."]
     true = p["why"].replace("2-1", "3-1").replace("lost their last by 3", "won their last by 3")
     assert cc.early_fact(p, true, games) == "" and cc.early_lines(p, [true], where="test", games=games) == [true]
     assert "last game now" in cc.early_fact(p, "Wild are 3-1, Kings 2-0; Wild won their last by 8.", games)
@@ -26929,7 +26932,8 @@ def test_cards_1117_the_standing_card_audit_and_the_real_cards():
         assert all("PROBLEM" not in x and x.split(" ")[0] in ("FALSE", "STALE", "NONSENSE", "QUALITY", "SHORT") for x in ca.words(raw))
         # as the page shows it: the card check already took the false / senseless lines off; the report's news is what's left
         shown = ca.run([pk], {}, games, inj)
-        assert {p["class"] for p in shown["problems"]} <= {"stale", "quality", "short"} and "stale" in {p["class"] for p in shown["problems"]}, shown["problems"]
+        #   (11/19: "Full squad for Wild" alone is filler now - the page cuts it before the report can call it stale)
+        assert {p["class"] for p in shown["problems"]} <= {"stale", "quality", "short"}, shown["problems"]
         assert ca.run([{**pk, "status": "won"}], {}, games, inj)["cards"] == 0               # live cards only
         with tempfile.TemporaryDirectory() as d:
             ca.save(raw, os.path.join(d, "card_audit.json"))
@@ -27595,7 +27599,7 @@ def test_owner_1118_the_breakdown_makes_the_case_for_our_side():
            "🏔️ Thin air — 5,300 feet up. The Celtics gonna be sucking wind by the second half.",
            "📋 Nuggets are 7-5 after a 117-105 loss to the Suns.",
            "📅 The Celtics come in off a 115-105 loss to the Magic; the Nuggets off a 117-105 loss to the Suns."]
-    keep = ["🗓️ Nuggets are 3-2 over their last 5.", "🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup tonight.",
+    keep = ["🗓️ Nuggets are 4-1 over their last 5.", "🌟 Nuggets: Jamal Murray (All-NBA 2026) is in the lineup tonight.",
             "⚠️ Biggest knock on Nuggets: the Celtics won 4 of their last 5.", "🚑 Celtics are without Jayson Tatum."]
     for x in cut:
         assert cc.for_us(x, leg, why), x
@@ -27653,7 +27657,7 @@ def test_cards_1118_a_cut_is_never_the_end_the_card_refills_with_real_facts_for_
                              "🧠 the one-liner", own=0.49)
         assert any(x.startswith("💯") and "Jamal Murray" in x and "26 a night" in x for x in got), got
         assert any(x.startswith("📊") and "last 3" in x for x in got) and any("year" in x or "season" in x for x in got), got
-        assert any(x.startswith("💵") and "+120" in x for x in got), got                     # the price in plain words
+        assert not any(x.startswith("💵") for x in got), got                 # (11/19: price math is no fact line)
         import sports_card_check as cc
         legc = {"team": "Nuggets", "opp": "Celtics", "league": "nba"}
         assert not [x for x in got if cc.for_us(x, legc, "")], got                            # none knocks us / is jargon
@@ -27869,7 +27873,8 @@ def test_cards_1118_the_early_rows_argue_for_us_too_and_the_card_quality_score_w
     q = cc.quality(nug, why, card)
     kinds = [k for k, _ in q]
     assert kinds.count("repeats") == 2 and kinds.count("knocks us") == 2 and kinds.count("jargon") == 1, q
-    assert cc.quality(nug, why, ["🗓️ Nuggets are 3-2 over their last 5.", card[-1]]) == []
+    assert cc.quality(nug, why, ["🗓️ Nuggets are 4-1 over their last 5.", "✅ Bottom line: Nuggets (+120). Tap in."]) == []
+    assert cc.quality(nug, why, ["🗓️ Nuggets are 4-1 over their last 5.", card[-1]])[0][0] == "filler"   # (11/19: our number vs the book's)
     assert cc.kind_of(cc.Q_ABSENT + ": X") == "non-key absence" and cc.kind_of("a fact the game files don't back") == ""
     # the score + the PROBLEM lines
     games = _cc_games()
@@ -27879,7 +27884,7 @@ def test_cards_1118_the_early_rows_argue_for_us_too_and_the_card_quality_score_w
           "breakdown": ["📅 The Kings won their last one too, a 3-2 win over the Ducks.",
                         "🏟️ 1-1 at home this year for Wild.",
                         "📊 Over the last 3, Wild are a +1 team a game (4 for, 3 against); Kings are +2.",
-                        "✅ Bottom line: Wild (-120). We make Wild -135, the book's at -120."]}
+                        "✅ Bottom line: Wild (-120). Tap in."]}
     pk = {"date": "2026-11-09", "kind": "play", "status": "open", "units": 1.0, "legs": [lg]}
     keep = ca.cc.FACT_CHECK
     try:
@@ -27980,7 +27985,7 @@ def test_cards_1118_the_deep_refill_says_the_facts_the_engine_held_and_never_sai
         # the order: a name with numbers first, the price last; the switch
         pool = v24.fill_facts(leg, v24.Voice("deep|3"), {"start": "2026-11-19T02:30Z"}, "T7", "T9", "7", "9", "nba",
                               ours, ours, ours, ours, "", own=0.45, fin=ours)
-        assert len(pool) >= 12 and pool[0].startswith("📉") and pool[-1].startswith("💵"), pool
+        assert len(pool) >= 11 and pool[0].startswith("📉") and not any(x.startswith("💵") for x in pool), pool   # (11/19: no price math)
         v24.DEEP_FILL = False
         assert len(v24.fill_facts(leg, v24.Voice("deep|4"), {"start": "2026-11-19T02:30Z"}, "T7", "T9", "7", "9", "nba",
                                   ours, ours, ours, ours, "", own=0.45, fin=ours)) < len(pool)
@@ -28023,7 +28028,7 @@ def test_cards_1118_a_cut_on_the_page_pulls_a_spare_fact_in_and_a_short_card_is_
     base = ["🚪 Kings gave up 4 or more goals in 3 of their last 5 games.",
             "📅 The Kings won their last one too, a 3-2 win over the Ducks.",          # argues for them: cut on the page
             "🏟️ 1-1 at home this year for Wild.",                                      # says nothing: cut
-            "✅ Bottom line: Wild (-120). We make Wild -135, the book's at -120."]
+            "✅ Bottom line: Wild (-120). Tap in."]
     spare = ["⏱️ Kings gave up 12 goals in the third period over their last 10 and only got 5 back.",
              "📅 The Kings won their last one too, a 3-2 win over the Ducks.",        # a bad spare never gets in
              "🧾 Kings won 1 of 6 against teams with a winning record this year.",
@@ -28104,6 +28109,219 @@ def test_cards_1119_one_form_line_a_plain_record_only_when_its_good_and_the_benc
     assert "full game it played" not in line and "per 48" not in line and "the coach plays" not in line
     assert nr_._whole(6.1) == "6" and nr_._whole(0.4) == "0.4"
     assert "for every full game it played" not in inspect.getsource(v24.why_map)
+
+_IDS_1119 = {"Flyers": "15", "Senators": "14"}
+_FLYERS_1119 = (   # the Flyers' and the Senators' real 2026-27 results going into 11/19 (data/sports/games/nhl), away @ home
+    "10-08 Flyers 1 Senators 2|10-17 Senators 1 Flyers 3|10-19 Avalanche 2 Flyers 3|10-21 Flyers 3 Sabres 1|"
+    "10-24 Ducks 5 Flyers 4|10-27 Blue Jackets 4 Flyers 3|10-28 Flyers 2 Capitals 5|11-01 Mammoth 3 Flyers 6|"
+    "11-04 Wild 4 Flyers 2|11-06 Flyers 2 Rangers 3|11-09 Flyers 3 Flames 4|11-10 Flyers 3 Canucks 1|"
+    "11-12 Flyers 2 Oilers 3|11-15 Flyers 4 Blue Jackets 3|11-16 Oilers 5 Flyers 2|11-18 Sabres 3 Flyers 4")
+_SENS_1119 = (
+    "10-03 Senators 3 Maple Leafs 2|10-05 Senators 4 Bruins 1|10-06 Senators 3 Red Wings 5|10-08 Flyers 1 Senators 2|"
+    "10-10 Predators 2 Senators 3|10-12 Senators 4 Devils 1|10-13 Blues 7 Senators 2|10-15 Islanders 1 Senators 2|"
+    "10-17 Senators 1 Flyers 3|10-21 Panthers 1 Senators 5|10-22 Sharks 6 Senators 2|10-24 Rangers 4 Senators 7|"
+    "10-28 Senators 1 Golden Knights 4|10-30 Senators 5 Kings 6|10-31 Senators 5 Sharks 1|11-02 Senators 3 Ducks 6|"
+    "11-05 Senators 2 Sabres 1|11-08 Mammoth 2 Senators 4|11-11 Capitals 3 Senators 2|11-13 Avalanche 3 Senators 4|"
+    "11-15 Senators 4 Penguins 1|11-18 Senators 2 Jets 1")
+
+
+def _games_1119(text):
+    out = []
+    for row in text.split("|"):
+        m = re.match(r"(\d\d)-(\d\d) (.+?) (\d+) (.+?) (\d+)$", row.strip())
+        mo, d, an, as_, hn, hs = m.groups()
+        out.append({"id": f"nhl:{mo}{d}{an[:3]}{hn[:3]}", "league": "nhl", "start": f"2026-{mo}-{int(d) + 1:02d}T00:00Z", "stype": "2",
+                    "neutral": "0", "status": "final", "away": _IDS_1119.get(an, an), "home": _IDS_1119.get(hn, hn),
+                    "away_name": an, "home_name": hn, "away_score": as_, "home_score": hs})
+    return out
+
+
+_FLYERS_POSTED_1119 = [   # the live card the owner called trash, 11/19, word for word
+    "💵 Plus money: at +150, Flyers winning about 4 times in 10 is all we need.",
+    "✅ Flyers are at full strength.",
+    "💯 Jamie Drysdale has 9 points in his last 10 games for Flyers.",
+    "💵 We price Flyers at +123. The book's paying +150.",
+    "📅 Flyers come off a 4-3 win over the Sabres.",
+    "🗓️ Flyers are 3-2 over their last 5.",
+    "✅ Bottom line: Flyers (+150). Our read beats this price. Ride it."]
+_FLYERS_WHY_1119 = "💯 Matvei Michkov been producing for Flyers: 9 points over the last 10. Flyers the side."
+
+
+def test_cards_1119_the_story_of_the_game_the_flyers_card():
+    """11/19, the owner on the Flyers +150 2u card: "It's like, oh, this guy's in gold and this guy's in gold. Don't tell
+    us shit. It's like, oh, we price flyers at this. Don't tell us shit. Like, the breakdowns are just trash" / "run Fable
+    and fucking permanently fix these fucking breakdowns". The card was two scorer lines, the price said twice as price
+    math, "at full strength" and "3-2 over their last 5" - true, and nothing about why the Flyers win THIS game. The
+    files held the story: the Flyers beat the Senators 3-1 on 10/17, 7 of the Senators' 14 wins came by one goal, the
+    Senators got run 7-2 and 6-2 in their own building, the Flyers won 2 of their last 3 on the road and outshot teams
+    270 to 241 over their last 10 (sports_breakdown_v24.matchup_facts). The matchup fact leads; a scorer's points never
+    do while one exists; price math is in no pool."""
+    import inspect, sports_breakdown_v24 as v24, sports_card_guard as gd
+    assert v24.STORY and v24.STAR_ONE and v24.CARD_MAX == 9
+    ours, theirs = _games_1119(_FLYERS_1119), _games_1119(_SENS_1119)
+    g = {"id": "nhl:401892743", "start": "2026-11-20T00:00Z", "home": "14", "away": "15", "neutral": "0"}
+    leg = {"odds": 150, "market": "ml", "league": "nhl", "team": "Flyers", "opp": "Senators", "side": "away"}
+    v = v24.Voice("flyers|1119")
+    got = v24.matchup_facts(leg, v, g, "Flyers", "Senators", "the Flyers", "the Senators", True, "15", "14", "nhl",
+                            "away", "home", ours, theirs, "")
+    txt = " ".join(got)
+    h2h = next(x for x in got if x.startswith("🆚"))
+    assert "3-1 win at home" in h2h and "10/17" in h2h and "this year" in h2h, h2h           # the game, the score, the day
+    assert "own" not in h2h and gd.problem(h2h, "nhl") == "", h2h                             # a fact - it passes the guard
+    assert gd.problem("🆚 Flyers own this matchup — won 2 of the last 3.", "nhl") == "head-to-head history"   # the 10/5 rule stands
+    thin = next(x for x in got if x.startswith("🎬"))
+    assert "7 of" in thin and "14 wins" in thin and "one goal" in thin and "4-3 over the Avalanche" in thin and "2-1 over the Jets" in thin, thin
+    rout = next(x for x in got if x.startswith("🥊"))
+    assert "own building" in rout and "7-2 by the Blues" in rout and "6-2 by the Sharks" in rout, rout
+    site = next(x for x in got if x.startswith("🧳"))
+    assert "last 3 on the road" in site and "3-1 win at the Canucks" in site and "4-3 win at the Blue Jackets" in site, site
+    assert "💵" not in txt and "💯" not in txt and not re.search(r"[+-]\d{3}", txt), txt      # no price, no player points
+    # the line under the pick: the strongest matchup fact - never the scorer, the close 4-3 win or "3 of their last 5"
+    body = got + ["💯 Matvei Michkov been producing for Flyers: 9 points over the last 10.",
+                  "📅 Fresh off a 4-3 win over the Sabres for Flyers.", "🗓️ Flyers won 3 of their last 5.", "✅ Bottom line: Flyers (+150)."]
+    assert v24.lead_line(body, v, "Flyers", "nhl") == h2h
+    weak = body[len(got):]
+    assert v24.lead_line(weak, v, "Flyers", "nhl").startswith("💯")       # nothing team-level: the one scorer line
+    assert v24.lead_line(weak[1:], v, "Flyers", "nhl") is None             # a close result / a record up by one never leads
+    assert v24.lead_rank("🚑 x") < v24.lead_rank("🆚 x") < v24.lead_rank("🎬 x") < v24.lead_rank("📊 x") < v24.lead_rank("💯 x")
+    # they lost the last meeting: no 🆚 line; a team with a winning road record: the record line says it, not this one
+    flip = [dict(x, home_score=x["away_score"], away_score=x["home_score"]) if x["start"].startswith("2026-10-18") else x for x in ours]
+    got2 = v24.matchup_facts(leg, v24.Voice("f|2"), g, "Flyers", "Senators", "the Flyers", "the Senators", True, "15", "14",
+                             "nhl", "away", "home", flip, theirs, "")
+    assert not any(x.startswith("🆚") for x in got2), got2
+    # the refill: one scorer line, last; no price math, no second scorer
+    fill = v24.fill_facts(leg, v24.Voice("f|3"), g, "Flyers", "Senators", "15", "14", "nhl", ours, theirs, ours, theirs, "🧠 x", own=0.45)
+    assert not any(str(x).startswith("💵") for x in fill) and not any("times in" in str(x) or "We price" in str(x) for x in fill), fill
+    assert sum(str(x).startswith("💯") for x in fill) <= 1
+    src = inspect.getsource(v24)
+    assert "elif not STORY and not ours_out and not theirs_out" in src          # "at full strength" alone is no line
+    assert "l5u[0] - l5u[1] >= _up" in src and "l5t[1] - l5t[0] >= _up" in src   # a record up by one is no line
+    assert "OUTSHOT_MIN" in inspect.getsource(v24.more_facts)                    # the puck-luck reason, said as the shots
+    # the same score is not the same game: "a 4-3 win over the Sabres" stays beside "a 4-3 win at the Blue Jackets"
+    card = [site, "📅 Fresh off a 4-3 win over the Sabres for Flyers.", "📅 Flyers got a 4-3 win at the Blue Jackets."]
+    kept = v24.no_repeats(card, h2h, {(4, 3), (3, 1)}, [], "Flyers")
+    assert card[1] in kept and card[2] not in kept, kept                         # (a game a line already carries still goes)
+    # the write-up's last step: the matchup first, the scorer last, never a line the page calls filler
+    leg2 = {"why_line": h2h + " Flyers the side."}
+    done = v24.story_close(["💯 Matvei Michkov been producing for Flyers: 9 points over the last 10.", "✅ Flyers are at full strength.",
+                            "🗓️ Flyers won 3 of their last 5.", thin, rout, "✅ Bottom line: Flyers (+150). +123 on our sheet, +150 at the book. Trust the algorithm."],
+                           leg2, "Flyers", "Senators", g, "away")
+    assert done[:3] == [rout, thin, "💯 Matvei Michkov been producing for Flyers: 9 points over the last 10."], done
+    assert done[-1] == "✅ Bottom line: Flyers (+150). Already beat 'em once this year. Trust the algorithm.", done
+
+
+def test_cards_1119_the_page_cuts_filler_and_a_matchup_fact_leads():
+    """The standing check (sports_card_check, every render): the posted Flyers card as the page shows it - no price
+    math, no second scorer line, no "full strength" alone, no record up by one; and a one-liner that is a scorer's
+    points / the price / a close result / a record up by one never leads a card that holds a matchup fact."""
+    import sports_card_check as cc
+    pk = {"date": "2026-11-19", "kind": "play", "lean": False, "units": 2.0, "tier": "value", "status": "open"}
+    leg = {"team": "Flyers", "opp": "Senators", "odds": 150, "market": "ml", "league": "nhl", "side": "away", "tier": "value",
+           "game_id": "nhl:x", "p": 0.39, "dec": 2.5, "breakdown": list(_FLYERS_POSTED_1119), "why_line": _FLYERS_WHY_1119}
+    keep = cc.note
+    caught = []
+    cc.note = lambda day, leg_, why, line, where: caught.append((why, line))
+    try:
+        out = cc.check(pk, leg, list(_FLYERS_POSTED_1119), None, why="")
+        assert not any(x.startswith("💵") for x in out), out
+        assert not any("full strength" in x or "3-2" in x for x in out), out
+        assert "📅 Flyers come off a 4-3 win over the Sabres." in out and sum(x.startswith("💯") for x in out) == 1, out
+        bottom = out[-1]
+        assert bottom.startswith("✅ Bottom line: Flyers (+150).") and "read beats" not in bottom and "Ride it." in bottom, bottom
+        assert any(cc.Q_FILLER in w for w, _ in caught) and any(cc.Q_PRICE in w for w, _ in caught), caught   # logged
+        two = cc.check(pk, leg, ["💯 A has 9 points in his last 10 games for Flyers.", "💯 B has 8 points in his last 10 games for Flyers.",
+                                 "✅ Bottom line: Flyers (+150)."], None)
+        assert sum(x.startswith("💯") for x in two) == 1 and any(cc.Q_STAR2 in w for w, _ in caught), two
+        # the line under the pick
+        assert cc.check_one(pk, leg, _FLYERS_WHY_1119, None) == _FLYERS_WHY_1119       # the card holds nothing better
+        strong = "🆚 Flyers already beat the Senators this year - a 3-1 win at home on 10/17."
+        leg2 = dict(leg, breakdown=[strong] + list(_FLYERS_POSTED_1119))
+        assert cc.check_one(pk, leg2, _FLYERS_WHY_1119, None) == "" and any(cc.Q_LEAD in w for w, _ in caught)
+        assert cc.check_one(pk, leg2, "💵 We price Flyers at +123. The book's paying +150. Flyers the side.", None) == ""
+        assert cc.check_one(pk, leg2, "📅 Flyers come off a 4-3 win over the Sabres. Flyers the side.", None) == ""
+        assert cc.check_one(pk, leg2, "🗓️ Flyers are 3-2 over their last 5. Flyers the side.", None) == ""
+        assert cc.check_one(pk, leg2, strong + " Flyers the side.", None).startswith("🆚")
+        assert cc.strong_line(strong, leg) and not cc.strong_line("💯 A has 9 points.", leg) and not cc.strong_line(
+            "📅 Flyers come off a 4-3 win over the Sabres.", leg)
+        assert cc.close_result("📅 Fresh off a 6-2 win over the Canucks for Flyers.", leg) is False   # a real win may lead
+    finally:
+        cc.note = keep
+    assert cc.filler("💵 +120 at the book on a side we make +103.") and cc.filler("✅ Flyers are at full strength.")
+    assert cc.filler("🗓️ Flyers won 3 of their last 5.") and not cc.filler("🗓️ Flyers won 4 of their last 5.")
+    assert not cc.filler("✅ Update: Joseph Woll is confirmed in net for the Flyers.") and not cc.filler("✅ Bottom line: Flyers (+150).")
+    q = cc.quality(leg, _FLYERS_WHY_1119, _FLYERS_POSTED_1119)
+    assert sum(1 for k, _ in q if k == "filler") >= 5, q            # the audit counts them (tools/card_audit.py)
+    assert "filler" in cc.QUALITY
+
+
+def test_cards_1119_no_card_says_our_price_against_the_line_makers():
+    """11/19, the owner on the Ducks card's "-166 on our sheet": "we can't say that we're better at pricing the lines
+    than the fucking line makers." No line anywhere says our own fair price or that the book has it wrong: the pools
+    don't write one (NO_OUR_NUMBER), the bottom line is the pick, the price and the matchup reason (story_close), and
+    sports_card_guard.scrub cuts the sentence off any older card on every render (logged by the card check)."""
+    import inspect, sports_breakdown_v24 as v24, sports_card_guard as gd, sports_owner_lingo as ol, sports_early as se
+    import sports_breakdown as sb_, sports_dashboard as dash
+    assert v24.NO_OUR_NUMBER and ol.PRICE_CLAIM
+    said = ["We'd play Ducks down to -166 and they're paying +110.", "Fair on Ducks is +112 to us.", "We make 'em -106, the book says +114.",
+            "+123 on our sheet, +150 at the book.", "We price Flyers at +123, the book's at +150.", "Our number on Ducks is -166.",
+            "Our read beats this price.", "The books are sleeping on Flyers.", "Books got this one wrong.", "The books are giving us a gift on Flyers.",
+            "That number's too generous.", "Fishy line - Capitals at +136 when we make 'em +112.", "Line makers ain't showing no respect to Flyers at +150.",
+            "Our numbers like Ole Miss more than +130 does.", "+280 undersells Utah State on our read.", "The engine likes Flyers more than the books do."]
+    for s_ in said:
+        line, why = gd.scrub("✅ Bottom line: Flyers (+150). " + s_ + " Ride it.")
+        assert line == "✅ Bottom line: Flyers (+150). Ride it." and "price" in why, (s_, line)
+        assert gd.scrub("💵 " + s_) == ("", "says our price against the book's") or not gd.scrub("💵 " + s_)[0].strip("💵 "), s_
+    assert gd.scrub("📅 Flyers come off a 4-3 win over the Sabres.") == ("📅 Flyers come off a 4-3 win over the Sabres.", "")
+    assert gd.scrub("🧠 +280 undersells Utah State on our read. Utah State had last week off; Oregon St played.")[0] == \
+        "🧠 Utah State had last week off; Oregon St played."
+    assert gd.scrub("Games this high run about 4 points over both teams' norms, and the books only price in about 1.5 of it")[0] == \
+        "Games this high run about 4 points over both teams' norms."
+    # the pools: no closer says our number
+    for pool in (v24.OWNER_PLAY("Flyers (+150)", "Flyers", "+123", 150), v24.OWNER_PLAY("Flyers (+150)", "Flyers"),
+                 v24.OWNER_LOCK("Bruins (-142)", "Bruins", {"_read": 0.62, "odds": -142}), se.EXAM_READS, se.NO_PCT_READS, se.NBA_OPEN_READS):
+        for x in pool:
+            assert not gd.PRICE_CLAIM.search(x) and "just facts" not in x.lower(), x
+    assert "not _v.NO_OUR_NUMBER" in inspect.getsource(dash) and "None if _v.NO_OUR_NUMBER" in inspect.getsource(sb_)
+    assert "only price in" not in inspect.getsource(se) and "Our points read" not in inspect.getsource(se)
+    # the bottom line: the pick, the price, the matchup reason, a closer
+    leg = {"why_line": "🆚 Flyers already beat the Senators this year - a 3-1 win at home on 10/17. Flyers the side."}
+    out = v24.story_close(["💯 x", "✅ Bottom line: Flyers (+150). Our read beats this price. Ride it."], leg, "Flyers", "Senators", {"id": "g"}, "away")
+    assert out[-1] == "✅ Bottom line: Flyers (+150). Already beat 'em once this year. Ride it.", out
+    out = v24.story_close(["✅ Bottom line: Ducks (+110). We'd play Ducks down to -166 and they're paying +110."],
+                          {"why_line": "🚑 The Avalanche gotta play without Cale Makar. Fuck it, Ducks."}, "Ducks", "Avalanche", {"id": "g"}, "away")
+    assert out[-1].startswith("✅ Bottom line: Ducks (+110). Avalanche is short-handed. ") and "-166" not in out[-1], out
+    assert out[-1].split(". ")[-1].rstrip(".") in [c.format(us="Ducks").rstrip(".") for c in v24.BOTTOM_CLOSE], out
+    many = [f"📊 fact {i}" for i in range(12)] + ["✅ Bottom line: Ducks (+110). Tap in."]
+    leg = {"why_line": ""}
+    out = v24.story_close(many, leg, "Ducks", "Avalanche", {"id": "g"}, "away")
+    assert len(out) == v24.CARD_MAX + 1 and len(leg["spare"]) == 3                    # 6-9 fact lines; the rest ride as spares
+    # the early rows lose the sentence too
+    import sports_card_check as cc
+    p = {"team": "Ole Miss", "opp": "Auburn", "odds": 130, "league": "ncaaf", "market": "ml", "side": "home", "game_id": "x", "start": "2026-11-21T20:00Z"}
+    keep, cc.note = cc.note, lambda *a, **k: None
+    try:
+        rows = cc.early_lines(p, ["🧠 Our numbers like Ole Miss more than +130 does. They beat Auburn 45-15 on Saturday 10/31."], games={})
+    finally:
+        cc.note = keep
+    assert rows == ["🧠 They beat Auburn 45-15 on Saturday 10/31."], rows
+
+
+def test_cards_1119_thats_just_facts_is_a_never_word():
+    """11/19, the owner: "That's just facts sounds retarded." It is off the lingo list and on NEVER; no pool says it; a
+    card written before the fix loses the tail and keeps its fact."""
+    import sports_owner_lingo as ol, sports_card_guard as gd, sports_breakdown_v24 as v24, sports_dashboard as dash, sports_tennis as st_
+    assert "just facts" in ol.NEVER and "that's just facts" not in ol.OWNER
+    for mod in (v24, dash, st_):
+        src = open(mod.__file__).read().replace('"facts": r"just facts"', "")
+        assert "just facts" not in src.lower().replace("that's just facts sounds", ""), mod.__name__
+    assert gd.no_facts_tail("💪 Kraken are 5-4, Red Wings are 3-5. Better team, better price — that's just facts.") == \
+        "💪 Kraken are 5-4, Red Wings are 3-5. Better team, better price."
+    assert gd.no_facts_tail("💪 Blue Jackets (2-2) over Panthers (2-4). That's just facts.") == "💪 Blue Jackets (2-2) over Panthers (2-4)."
+    assert gd.clean(["📊 Ducks at 3.8 goals a game this year. Predators at 3.1. Ours scores more, that's just facts."], "nhl", "Ducks", "Predators") == \
+        ["📊 Ducks at 3.8 goals a game this year. Predators at 3.1. Ours scores more."]
+    assert gd.problem("Flyers the side, just facts.", "nhl") == "a NEVER word"
+    assert not any("just facts" in x.lower() for x in v24._tails(False, "Warriors", "Heat"))
+
 
 def _oline_1119_file(teams):
     """A snap-count starters file in a temp dir (sports_starters.PATH) - returns the undo."""
@@ -28719,7 +28937,7 @@ def test_hot_run_1119_the_flyers_line_never_praises_their_goalie():
     pick = lambda lines: v24.lead_line(lines, None, "Flyers")   # noqa: E731
     assert pick(["🗓️ Flyers are 3-2 over their last 5.", "💯 Matvei Michkov: 9 points over the last 10.", "✅ x"]).startswith("💯")
     assert pick(["🗓️ Flyers are 4-1 over their last 5.", "💯 M: 9 points.", "✅ x"]).startswith("🗓️")
-    assert pick(["🗓️ Flyers are 3-2 over their last 5.", "✅ x"]).startswith("🗓️")   # (nothing else: still a fact)
+    assert pick(["🗓️ Flyers are 3-2 over their last 5.", "✅ x"]) is None   # (11/19: a record up by one never leads)
     flyers = ["📅 Flyers come off a 4-3 win over the Sabres.", "💵 Plus money: at +150, Flyers winning about 4 times in 10 is all we need.",
               "💯 Matvei Michkov been producing for Flyers: 9 points over the last 10.", "✅ Flyers are at full strength.", "✅ Bottom"]
     assert v24.lead_line(flyers, None, "Flyers", "nhl").startswith("💯 Matvei Michkov")   # (the live card, 11/19 noon)

@@ -283,6 +283,8 @@ def _fair(leg):
     try:
         import sports
         import sports_breakdown_v24 as v
+        if v.NO_OUR_NUMBER:                                  # (11/19, the owner: never our number against the line makers')
+            return None
         return v.card_fair(leg, sports.read_of(leg), beat=True)
     except Exception:                                        # noqa: BLE001
         return None
@@ -751,7 +753,10 @@ def facts(line, leg, games):
 
             def sc(x):
                 return tuple(sorted(map(int, x.split()[1].split("-")), reverse=True))
-            got = [x for x in f["lines"][-6:] if sc(x) == win]
+            wide = re.search(r"this (?:year|season)|last 3 (?:at home|on the road)|both saw|same opponent", t, re.I)
+            #   (📖 11/19: a matchup line names a game from anywhere in the season - "got run in their own building
+            #    twice already this year - 7-2 by the Blues" - so its score is checked against the whole season)
+            got = [x for x in (f["lines"] if wide else f["lines"][-6:]) if sc(x) == win]
             if LASTGAME.search(before[-80:] + after[:30]) and not re.search(r"last 5|within|inside|in one of|not long ago", t, re.I):
                 lastg = f["lines"][-1:]
                 if not [x for x in lastg if sc(x) == win]:
@@ -1298,9 +1303,24 @@ def check(pk, leg, lines, games=None, why="", where="render"):
         contra = card_sense(leg, lines)
     except Exception:                                        # noqa: BLE001
         contra = {}
+    stars = [0]
+
     def one(x):
         """One line through every check -> (the line as it may post or '', what was caught)."""
-        new, w = wording(x, cx, leg)
+        try:                                                 # 🚫 11/19: never our price against the line makers'
+            import sports_card_guard as _gd
+            x1, sw = _gd.scrub(x)
+        except Exception:                                    # noqa: BLE001
+            x1, sw = x, ""
+        if sw and not x1:
+            return "", Q_PRICE
+        new, w = wording(x1, cx, leg)
+        if sw:
+            w = "; ".join(y for y in (Q_PRICE if "price" in sw else sw, w) if y)
+        if new and STORY_CHECK and str(new).startswith("💯"):   # 📖 11/19: one scorer line a card
+            stars[0] += 1
+            if stars[0] > 1:
+                return "", "; ".join(y for y in (w, Q_STAR2) if y)
         if new and not BOTTOM.match(new):
             fw = facts(new, leg, games)
             if fw:
@@ -1420,6 +1440,21 @@ def check_one(pk, leg, line, games=None, where="render"):
     line, mv = _no_move(line)
     if mv:
         note(cx["date"], leg, mv, line0, where)
+    try:                                                     # 🚫 11/19: never our price against the line makers'
+        import sports_card_guard as _gd
+        line1, sw = _gd.scrub(line)
+    except Exception:                                        # noqa: BLE001
+        line1, sw = line, ""
+    if sw:
+        note(cx["date"], leg, Q_PRICE if "price" in sw else sw, line, where)
+        line = line1
+        if not line:
+            return ""
+    wl_ = weak_lead(line, leg, where)                        # 📖 11/19: a matchup fact leads, never filler
+    if wl_:
+        if where != "fallback":
+            note(cx["date"], leg, wl_, line, where)
+        return ""
     new, w = wording(line, cx, leg)
     #   (11/19 sweep: every check below ran only when the wording check had caught NOTHING - a line whose tail got cut
     #    ("... Close to 50-50 for us, Penguins by a nose.") skipped the fact check, the who-plays check and the rest
@@ -1617,6 +1652,15 @@ def early_lines(p, lines, where="render", games=None):
     out = []
     for x in lines or []:
         y, mv = _no_move(x)
+        try:                                                 # 🚫 11/19: never our price against the line makers'
+            import sports_card_guard as _gd
+            y, sw = _gd.scrub(y) if y else (y, "")
+            if sw and y and not re.sub(r"[\W_]+", "", y):
+                y = ""
+            if sw:
+                mv = "; ".join(z for z in (mv, Q_PRICE if "price" in sw else sw) if z)
+        except Exception:                                    # noqa: BLE001
+            pass
         y, w = wording(y, cx, leg) if y else (y, "")
         if y and games and not p.get("result"):              # (a graded play's row is history - left as it posted)
             lead, parts = _sentences(y)
@@ -1759,6 +1803,78 @@ def _sig_numbers(t):
     return {n.replace(",", "") for n in re.findall(r"\d[\d,]*\d|\d", str(t or "")) if len(n.replace(",", "")) >= 3}
 
 
+# 📖 11/19 THE STORY OF THE GAME (results/studies/cards_1119 - the owner on the Flyers +150 card: "this guy's in gold and
+# this guy's in gold. Don't tell us shit. It's like, oh, we price flyers at this. Don't tell us shit ... the breakdowns
+# are just trash" / "permanently fix these fucking breakdowns"). Filler dressed as a fact is cut on every render:
+#   Q_FILLER  price math in the body ("💵 We price Flyers at +123", "winning about 4 times in 10 is all we need"),
+#             "at full strength" by itself, a record up by one ("3-2 over their last 5", "won 3 of their last 5")
+#   Q_STAR2   a second scorer line (💯) - one a card, the last thing a card reaches for
+#   Q_PRICE   a sentence that says our own price or that the book has it wrong (the owner, 11/19: "we can't say that
+#             we're better at pricing the lines than the fucking line makers") - sports_card_guard.scrub
+#   Q_LEAD    the line under the pick is a scorer's points / the price / a close last result / a record up by one
+Q_FILLER = "filler dressed as a fact (price math, 'full strength' alone, a record up by one)"
+Q_STAR2 = "a second scorer line on the card"
+Q_PRICE = "says our price against the book's"
+Q_LEAD = "a weak line under the pick (a scorer's points / the price / a close result / a record up by one)"
+PRICE_MATH = re.compile(r"^\W*💵|\btimes? in (?:10|3|4)\b|for (?:the|this) bet to pay|\bis all (?:we need|it takes)\b", re.I)
+UP_BY_ONE = re.compile(r"\b(?:3-2|2-3)\b|\b(?:won|dropped|lost) 3 of (?:their|the) last 5\b|\b3 of the last 5\b|"
+                       r"\b3 wins in (?:their|the) last 5\b", re.I)
+STORY_CHECK = True
+
+
+def filler(line, leg=None):
+    """Is this body line filler dressed as a fact (see Q_FILLER)? -> why, or ''."""
+    t = str(line or "")
+    if not STORY_CHECK or not t or BOTTOM.match(t) or t.startswith(("⚠️", "🔄", "✅ Update", "🌟", "🔒", "💎")):
+        return ""
+    if PRICE_MATH.search(t):
+        return Q_FILLER
+    if HEALTHY.search(t):
+        return Q_FILLER
+    if t.startswith("🗓") and UP_BY_ONE.search(t):
+        return Q_FILLER
+    if t.startswith("📋"):                                   # ("📋 Louisiana Tech sits 3-2 so far." - one record, up by one)
+        recs = re.findall(r"(?<![\d-])(\d{1,2})-(\d{1,2})(?![\d-])", t)
+        if len(recs) == 1 and int(recs[0][0]) - int(recs[0][1]) == 1 and not re.search(r"\bwin\b|\bbeat\b|\bloss\b", t):
+            return Q_FILLER
+    return ""
+
+
+def close_result(line, leg):
+    """A 📅 last-game line whose score was close (under sports_breakdown_v24.REAL_LOSS) - it never leads a card."""
+    t = str(line or "")
+    if not t.startswith("📅"):
+        return False
+    try:
+        import sports_breakdown_v24 as v24
+        need = v24.REAL_LOSS.get((leg or {}).get("league"))
+        gaps = [abs(int(a) - int(b)) for a, b in re.findall(r"(?<![\d-])(\d{1,3})-(\d{1,3})(?![\d-])", t)]
+        return bool(need and gaps and max(gaps) < need)
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
+def strong_line(x, leg):
+    """A body line that can lead a card: a team-level matchup fact for our side."""
+    t = str(x or "")
+    if not t or BOTTOM.match(t) or t.startswith(("⚠️", "🔄", "✅", "🟡", "🔒", "💎", "🌟", "💯", "💵", "🏀")):
+        return False
+    return not (filler(t, leg) or close_result(t, leg) or knocks_us(t, leg))
+
+
+def weak_lead(line, leg, where="render"):
+    """The line under the pick is never the price, a close last result or a record up by one - and a scorer's points
+    only when the card holds no team-level fact (sports_breakdown_v24.lead_line at the pool; this is the page's stop)."""
+    t = str(line or "")
+    if not STORY_CHECK or not t:
+        return ""
+    if PRICE_MATH.search(t) or close_result(t, leg) or (t.startswith("🗓") and UP_BY_ONE.search(t)):
+        return Q_LEAD
+    if t.startswith("💯") and where != "fallback" and any(strong_line(x, leg) for x in (leg or {}).get("breakdown") or []):
+        return Q_LEAD
+    return ""
+
+
 def for_us(line, leg, why=""):
     """👍 11/18, the owner on the Nuggets card ("the breakdown just sucks ... where it doesn't make the Nuggets look good"
     / "This needs to be fixed permanently"): a breakdown makes the case for our side. Every render, a body line is cut
@@ -1766,6 +1882,8 @@ def for_us(line, leg, why=""):
     knock; or (b) only repeats the fact the one-liner already says (its numbers - '5,300 feet', '1,760 miles' - all in
     the one-liner). -> why it was cut, or ''."""
     t = str(line or "")
+    if t and HEALTHY.search(t) and filler(t, leg):          # (📖 11/19: "at full strength" alone - a ✅ line, cut all the same)
+        return Q_FILLER
     if not t or t.startswith(KNOCK_OK):
         return ""
     if knocks_us(t, leg) or our_bad_numbers(t, leg):
@@ -1781,7 +1899,7 @@ def for_us(line, leg, why=""):
         return Q_NOTHING
     if CARD_JARGON.search(t) and '"' not in t and "“" not in t:
         return Q_JARGON
-    return ""
+    return filler(t, leg)
 
 
 # 🧹 11/18 CARD QUALITY (results/studies/cards_1118 - the owner: "I've talked to you about our breakdowns making mistakes
@@ -1803,7 +1921,7 @@ Q_NOTHING = "a line that says nothing for our side"
 Q_REPEAT = "said twice on the card"
 Q_JARGON = "jargon / a stat a bettor doesn't use"
 Q_ABSENT = "names a man out who doesn't matter"
-QUALITY = {"knocks us": (Q_KNOCK,), "argues for them": (Q_OPP,), "says nothing": (Q_NOTHING,),
+QUALITY = {"filler": (Q_FILLER, Q_STAR2, Q_PRICE, Q_LEAD), "knocks us": (Q_KNOCK,), "argues for them": (Q_OPP,), "says nothing": (Q_NOTHING,),
            "repeats": (Q_REPEAT, "the one-liner's fact said again", "the same line twice on the card",
                        "the 🚑 chip's names again"),
            "jargon": (Q_JARGON,), "non-key absence": (Q_ABSENT,)}
@@ -1991,9 +2109,24 @@ def quality(leg, why, lines, games=None):
     body, seen = [], set()
     if wl:
         _dupe(wl, seen)
+    try:
+        import sports_card_guard as _gd
+    except Exception:                                        # noqa: BLE001
+        _gd = None
+    if wl and (weak_lead(wl, {**(leg or {}), "breakdown": lines}) or (_gd and _gd.scrub(wl)[1])):
+        out.append(("filler", wl))
+    n_star = 0
     for x in lines or []:
+        if isinstance(x, str) and _gd and _gd.scrub(x)[1]:   # (a price claim / "that's just facts" - the bottom line too)
+            out.append(("filler", x))
+            continue
         if not isinstance(x, str) or BOTTOM.match(x):
             continue
+        if x.startswith("💯"):
+            n_star += 1
+            if n_star > 1:
+                out.append(("filler", x))
+                continue
         k = kind_of(for_us(x, leg, wl))
         if not k:
             try:
