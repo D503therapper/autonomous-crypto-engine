@@ -24208,3 +24208,50 @@ $NKLA: No data found, symbol may be delisted
 [2026-11-19 16:05 UTC] stocks/trend     equity $451.22 (-9.8%) 2 open  market DOWN
 [2026-11-19 16:05 UTC] stocks/hold_spy  equity $476.94 (-4.6%) 1 open  market DOWN
    social heat top: TRUMP 37 (37/0/0), SKY 29 (29/0/0), PENGU 24 (24/0/0), BTC 21 (21/0/0), VVV 21 (8/0/13)
+   dex screen: REJECT UNI@ethereum liq $653,748 - goplus partial data: cannot_sell_all unknown; owner_percent 26%; top-10 holders 41%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT DCTY@solana liq $509,534 - lp holders unknown; rugcheck lp locked 33% < 95%
+   dex screen: REJECT BILL@solana liq $246,703,999 - top-10 holders 100%
+   dex screen: REJECT REUSD@ethereum liq $1,138,036 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 100%
+   dex screen: PASS LEONIDA@solana liq $123,184
+   dex screen: REJECT CTR@base liq $660,410 - pool age unknown
+   dex screen: REJECT GMEX@solana liq $481,305 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 97%; lp holders unknown
+   dex screen: REJECT KTA@base liq $2,776,158 - top-10 holders 66%
+   dex screen: REJECT ELSA@base liq $414,523 - goplus partial data: cannot_sell_all unknown; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: REJECT NOCK@base liq $866,940 - goplus partial data: cannot_sell_all unknown; is_mintable; lp locked 0% < 95%
+   listing: binance #830c320848af4257812d5b6e 'Binance Exchange Adds Anthropic (ANTB) bStocks Trading Pairs on Binance Spot/Convert - 202' -> ['ANTB']
+   listing: ANTB: binance notice "Binance Exchange Adds Anthropic (ANTB) bStocks Trading Pairs on Binance Spot/Con" 125s ago -> not on Crypto.com USD
+   dex scanner: 3,000 pools (solana 2,101 / base 509 / ethereum 390), refresh cycle 131s (hot 127s), 2862 calls (110 feed, 429s 0, failed 1), 82,530 refreshed (9863 no pair), +82 added / -82 dropped (dead 7, stale 0, cap 75), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT GATO@solana liq $140,956 - lp holders unknown; rugcheck lp locked 86% < 95%
+[2026-11-19 17:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/mover     equity $157.95 (-68.4%) 2 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/social_heat equity $321.26 (-35.7%) 1 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 17:05 UTC] crypto/hold_btc  equity $385.51 (-22.9%) 1 open  market DOWN
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+[2026-11-19 17:05 UTC] stocks/rsi2      equity $446.87 (-10.6%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 0, GLD 1, XLB 1, COIN 2
+[2026-11-19 17:05 UTC] stocks/breakout52 equity $454.00 (-9.2%) 4 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-19 17:05 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 52.47 vs its 200-day average 65.47: BELOW (cash)
+[2026-11-19 17:05 UTC] stocks/dual_momentum equity $443.07 (-11.4%) 2 open  market DOWN
+[2026-11-19 17:05 UTC] stocks/trend_ensemble equity $489.36 (-2.1%) 5 open  market DOWN
+[2026-11-19 17:05 UTC] stocks/rotation10 equity $465.87 (-6.8%) 2 open  market DOWN
+[2026-11-19 17:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+   >> stocks/trend: SELL $104.88 of AVGO @ 348.859, P/L $+3.14 (stop hit)
+   >> stocks/trend: SELL $30.16 of AMZN @ 264.258, P/L $-0.37 (stop hit)
+   >> stocks/trend: BUY $87.85 of AVGO @ 349.208 (entry)
+[2026-11-19 17:05 UTC] stocks/trend     equity $447.29 (-10.5%) 1 open  market DOWN
+[2026-11-19 17:05 UTC] stocks/hold_spy  equity $471.11 (-5.8%) 1 open  market DOWN
+   social heat top: TRUMP 35 (35/0/0), SKY 32 (32/0/0), HYPE 24 (24/0/0), PENGU 21 (21/0/0), BTC 16 (16/0/0)
