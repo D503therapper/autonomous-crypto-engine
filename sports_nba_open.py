@@ -37,6 +37,12 @@ MIN_TEAM_GAMES = 1          # both teams have PLAYED this season (a record and a
 #                             three weeks of the season; the spot's own record judges it (40 plays, under -5% = off).
 MIN_TRAIN_SEASONS = 2       # a fit needs two full prior seasons with prices, or there's no model
 MIN_SEASON_ROWS = 800       # ...a "full" season = 800+ priced regular-season sides
+TZ_STD = True               # 🕐 11/19 DAILY S1c: the time zones a road team crossed are read on STANDARD time (sm.std_tz).
+#                             The raw wall-clock offset moves an hour every March and November while a team's "home
+#                             offset" was the most common one of its home games (the winter one): in October and from
+#                             mid-March on EVERY road team read one zone off - Boston at New York "crossed 1", the
+#                             Lakers at Boston 4, Boston at the Lakers 2 (2,880 of 11,900 road sides 2016-26). A saved
+#                             model fit on the old read is refit once (load / "tz": "std"). False = the raw read.
 ELO_K, ELO_HFA = 20, 70     # the NBA Elo the study used (sports_model's defaults for the NBA)
 FEATURES = ["logit_mp", "is_home", "is_dog", "home_dog", "g1_5", "g6_10", "g11_20", "g31_60", "g61", "home_dog_g6_20",
             "home_dog_g31_60", "rest_diff", "t_b2b", "o_b2b", "t_3in4", "o_3in4", "t_4in6", "o_4in6", "t_trip4", "o_trip4",
@@ -88,6 +94,17 @@ def _mp(ml_a, ml_b):
     return pa / (pa + pb)
 
 
+def _tz(g):
+    """The venue's clock offset - on standard time when TZ_STD (🕐 11/19 daily S1c), else the raw wall clock."""
+    tz = _num(g.get("tzo"))
+    if tz is None or not TZ_STD:
+        return tz
+    try:
+        return sm.std_tz(tz, sm._ts(g["start"]))
+    except (KeyError, TypeError, ValueError):
+        return tz
+
+
 def table(games):
     """Every real NBA game (finals and upcoming, in order) -> {gid: row}: season, prices, the result, the Elo read and
     each team's pre-game schedule facts (h / a) - from the games BEFORE it only. An upcoming game reads the state after
@@ -105,7 +122,7 @@ def table(games):
     for g in rows:                                           # each team's home time zone / altitude (its home games)
         if str(g.get("neutral")) == "1":
             continue
-        tz, el = _num(g.get("tzo")), _num(g.get("elev"))
+        tz, el = _tz(g), _num(g.get("elev"))
         if tz is not None:
             home_tz.setdefault(g["home"], {}).setdefault(tz, 0)
             home_tz[g["home"]][tz] += 1
@@ -138,7 +155,7 @@ def table(games):
             tr = trip.get(tm, 0)
             trip_game = tr + 1 if side == "away" else 0
             home_after = tr if side == "home" and prev and prev[-1][1] == "away" and prev[-1][3] == s else 0
-            tzo = _num(g.get("tzo"))
+            tzo = _tz(g)
             tz_cross = abs(tzo - home_tz[tm]) if side == "away" and tzo is not None and tm in home_tz else 0.0
             elev = _num(g.get("elev")) or 0.0
             alt = 1.0 if side == "away" and elev >= 1000 and (home_elev.get(tm) or 0) < 1000 else 0.0
@@ -270,7 +287,7 @@ def fit(games, season, path=None, tab=None):
     Xs = [[(x[j] - mu[j]) / sdv[j] for j in range(k)] for x in X]
     w = _fit_ridge(Xs, y, LAM)
     model = {"season": season, "features": FEATURES, "mu": mu, "sd": sdv, "w": w, "lam": LAM, "rows": len(X),
-             "train_seasons": sorted(seasons), "fitted_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")}
+             "tz": "std" if TZ_STD else "raw", "train_seasons": sorted(seasons), "fitted_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")}
     if path is not False:
         save(model, path)
     return model
@@ -287,6 +304,8 @@ def load(path=None):
     try:
         with open(path or MODEL_PATH) as f:
             m = json.load(f)
+        if TZ_STD and m.get("tz") != "std":
+            return None                                  # (🕐 11/19: fit on the raw clock read - refit once on TZ_STD)
         return m if m.get("features") == FEATURES and len(m.get("w") or []) == len(FEATURES) + 1 else None
     except (OSError, ValueError):
         return None

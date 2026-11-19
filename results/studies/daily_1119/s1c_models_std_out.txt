@@ -1,0 +1,48 @@
+S1c - the same raw-clock read inside two FITTED models (the 11/19 sweep's open item): sports_nba_open's tz_cross
+(the 🏀 NBA opening-line play) and sports_totals' travel (the totals reads). Each model is fit and graded twice -
+the raw wall-clock read (TZ_STD False) and standard time (TZ_STD True) - nothing else changed.
+NBA open: walk-forward, the model for season S fit on the seasons before S only; graded on S at the CLOSE (log loss, every
+side) and at ESPN's OPEN where it is on file (the play: score 4+ points over the open's no-vig number, -150..+300).
+Totals: sports_totals.study_league per league (learn / validate / test in time order).
+
+NBA OPEN, TZ_STD=False: 12292 regular-season rows, road sides reading 1+ zones crossed: 8557
+  season 2020: log loss 0.62826 on 2160 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz -0.0211 o_tz +0.0179
+  season 2021: log loss 0.61365 on 2460 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz +0.0023 o_tz -0.0045
+  season 2022: log loss 0.62218 on 2460 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz -0.0035 o_tz +0.0018
+  season 2023: log loss 0.58819 on 2462 sides; plays at the open 229 -23.8u (-10.4%); weights t_tz +0.0053 o_tz -0.0068
+  season 2024: log loss 0.58605 on 2462 sides; plays at the open 162 +19.4u (+12.0%); weights t_tz +0.0196 o_tz -0.0211
+  season 2025: log loss 0.57405 on 2462 sides; plays at the open 160 +9.9u (+6.2%); weights t_tz +0.0182 o_tz -0.0189
+  season 2026: log loss 0.57435 on 444 sides; plays at the open 41 -0.6u (-1.5%); weights t_tz +0.0179 o_tz -0.0187
+  ALL: log loss 0.60070; plays 592 +4.8u (+0.8%)
+
+NBA OPEN, TZ_STD=True: 12292 regular-season rows, road sides reading 1+ zones crossed: 7775
+  season 2020: log loss 0.62827 on 2160 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz -0.0176 o_tz +0.0158
+  season 2021: log loss 0.61367 on 2460 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz +0.0094 o_tz -0.0109
+  season 2022: log loss 0.62211 on 2460 sides; plays at the open 0 +0.0u (+0.0%); weights t_tz +0.0057 o_tz -0.0064
+  season 2023: log loss 0.58806 on 2462 sides; plays at the open 231 -25.4u (-11.0%); weights t_tz +0.0103 o_tz -0.0108
+  season 2024: log loss 0.58621 on 2462 sides; plays at the open 165 +16.7u (+10.1%); weights t_tz +0.0241 o_tz -0.0244
+  season 2025: log loss 0.57409 on 2462 sides; plays at the open 156 +18.0u (+11.5%); weights t_tz +0.0190 o_tz -0.0190
+  season 2026: log loss 0.57432 on 444 sides; plays at the open 41 +1.2u (+2.8%); weights t_tz +0.0177 o_tz -0.0177
+  ALL: log loss 0.60071; plays 593 +10.4u (+1.8%)
+
+NBA OPEN plays: raw 592, standard 593, the same 570; only raw 22 (-0.0u), only standard 23 (+5.5u); log loss raw 0.60070 vs standard 0.60071
+
+TOTALS nfl:
+  TZ_STD=False: 2342 rows, travel > 0 on 1454; kept ['wind', 'rain', 'rest']; test log loss base 0.69867 kept 0.69664; travel alone on the validation slice: {'ll': 0.69049, 'gain': -0.00122}; top 30% hit 0.5342 roi 0.0215 on 234; proven False
+  TZ_STD=True: 2342 rows, travel > 0 on 1377; kept ['wind', 'rain', 'rest']; test log loss base 0.69867 kept 0.69664; travel alone on the validation slice: {'ll': 0.69004, 'gain': -0.00076}; top 30% hit 0.5342 roi 0.0215 on 234; proven False
+
+TOTALS nba:
+  TZ_STD=False: 10342 rows, travel > 0 on 6396; kept ['b2b']; test log loss base 0.69312 kept 0.69359; travel alone on the validation slice: {'ll': 0.69308, 'gain': 1e-05}; top 30% hit 0.5097 roi -0.0275 on 1034; proven False
+  TZ_STD=True: 10342 rows, travel > 0 on 6337; kept ['b2b']; test log loss base 0.69312 kept 0.69359; travel alone on the validation slice: {'ll': 0.69313, 'gain': -4e-05}; top 30% hit 0.5097 roi -0.0275 on 1034; proven False
+
+TOTALS nhl:
+  TZ_STD=False: 10075 rows, travel > 0 on 5772; kept ['form']; test log loss base 0.69312 kept 0.69515; travel alone on the validation slice: {'ll': 0.69445, 'gain': -0.0013}; top 30% hit 0.4727 roi -0.1359 on 1007; proven False
+  TZ_STD=True: 10075 rows, travel > 0 on 5637; kept ['form']; test log loss base 0.69312 kept 0.69515; travel alone on the validation slice: {'ll': 0.69428, 'gain': -0.00113}; top 30% hit 0.4727 roi -0.1359 on 1007; proven False
+
+TOTALS ncaaf:
+  TZ_STD=False: 6007 rows, travel > 0 on 2872; kept ['wind']; test log loss base 0.69311 kept 0.69353; travel alone on the validation slice: {'ll': 0.69545, 'gain': -1e-05}; top 30% hit 0.4983 roi -0.0494 on 600; proven False
+  TZ_STD=True: 6007 rows, travel > 0 on 2365; kept ['wind']; test log loss base 0.69311 kept 0.69353; travel alone on the validation slice: {'ll': 0.69551, 'gain': -7e-05}; top 30% hit 0.4983 roi -0.0494 on 600; proven False
+
+TOTALS ncaab:
+  TZ_STD=False: 30134 rows, travel > 0 on 10498; kept ['lg_trend', 'thin_air', 'ou_away']; test log loss base 0.69314 kept 0.69282; travel alone on the validation slice: {'ll': 0.69347, 'gain': -7e-05}; top 30% hit 0.5224 roi -0.0035 on 3013; proven False
+  TZ_STD=True: 30134 rows, travel > 0 on 9875; kept ['lg_trend', 'thin_air', 'ou_away']; test log loss base 0.69314 kept 0.69282; travel alone on the validation slice: {'ll': 0.69348, 'gain': -8e-05}; top 30% hit 0.5224 roi -0.0035 on 3013; proven False

@@ -28743,6 +28743,246 @@ def inspect_source(obj):
     return inspect.getsource(obj)
 
 
+def test_daily_1119_the_nfl_east_to_west_trip_reads_the_real_clock():
+    """11/19 DAILY S1 (results/studies/daily_1119/s1_east_west.py): the ✈️ East-to-West early spot, the dog score's "East
+    Coast team out West" +3 and the West Coast road favorite's +2 compared two RAW wall-clock offsets - a team's "home
+    offset" was the most common tzo of its home games (so the Bears / Packers / Texans / Titans / Vikings read as East
+    Coast teams and the Chiefs / Cowboys / Saints did not) and the venue's moved an hour with the clocks (Denver joined
+    "the West" every November; a Central venue was "the East" until then). The study: the Eastern team 3 clock-hours west
+    is the whole spot (first fair +19.1% on 64, both halves; the close +15.0% on 163 over 21 seasons) and everything else
+    the raw read let in is nothing (first fair -3.1% on 37, held -64.3%). From the games of sports_early.EW_STD_FROM the
+    trip is read on standard time; before it the old read stands (history replays the same)."""
+    import sports_early as se
+    assert se.EW_STD_FROM == "2026-11-20"
+
+    def gm(gid, start, home, away, tzo, neutral="0", status="final"):
+        return {"id": gid, "league": "nfl", "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "tzo": tzo, "neutral": neutral}
+    G = {}
+    for i, (d, tz) in enumerate((("2026-09-13", "-4.0"), ("2026-09-27", "-4.0"), ("2026-10-11", "-4.0"), ("2026-11-15", "-5.0"))):
+        G[f"e{i}"] = gm(f"e{i}", d + "T17:00Z", "E", "x", tz)                 # an Eastern team: -4 on the summer clock, -5 after
+    for i, (d, tz) in enumerate((("2026-09-13", "-5.0"), ("2026-09-27", "-5.0"), ("2026-10-11", "-5.0"), ("2026-11-15", "-6.0"))):
+        G[f"c{i}"] = gm(f"c{i}", d + "T17:00Z", "C", "x", tz)                 # a Central team: its RAW mode is -5 ("East")
+    for i, (d, tz) in enumerate((("2026-09-13", "-7.0"), ("2026-09-27", "-7.0"), ("2026-10-11", "-7.0"), ("2026-11-15", "-8.0"))):
+        G[f"p{i}"] = gm(f"p{i}", d + "T20:00Z", "P", "x", tz)                 # a Pacific team: raw mode -7
+    raw, std = se._home_tz(G), se.home_tz_std(G)
+    assert raw[("nfl", "E")] == -4 and raw[("nfl", "C")] == -5 and raw[("nfl", "P")] == -7
+    assert std[("nfl", "E")] == -5 and std[("nfl", "C")] == -6 and std[("nfl", "P")] == -8   # the same zone all year
+
+    def trip(team, start, tzo):
+        return se.east_to_west(gm("g", start, "h", team, tzo, status="pre"), team, raw, std)
+    # standard time, after EW_STD_FROM (a late-November Sunday)
+    assert trip("E", "2026-11-22T21:00Z", "-8.0")                              # Eastern team at a Pacific venue: the spot
+    assert not trip("C", "2026-11-22T21:00Z", "-8.0")                          # a Central team is no East Coast team
+    assert not trip("E", "2026-11-22T21:00Z", "-7.0")                          # Denver / Arizona in winter: 2 hours, no
+    # daylight time, after EW_STD_FROM (next September)
+    assert trip("E", "2027-09-19T20:00Z", "-7.0")                              # a Pacific venue on the summer clock
+    assert not trip("E", "2027-09-19T20:00Z", "-6.0")                          # Denver in September: 2 hours, no
+    assert not trip("C", "2027-09-19T20:00Z", "-7.0")
+    # before EW_STD_FROM the old raw read stands (the Central team at a Pacific venue counted; so did Denver in November)
+    assert trip("C", "2026-10-04T20:00Z", "-7.0") and trip("E", "2026-11-08T21:00Z", "-7.0")
+    assert not se.east_to_west(gm("g", "2026-11-22T21:00Z", "h", "E", "", status="pre"), "E", raw, std)   # no offset: no
+    # the West Coast favorite in the East: an EASTERN venue on standard time, never a Central one
+    def east(start, tzo):
+        return se.west_to_east(gm("g", start, "h", "P", tzo, status="pre"), "P", raw)
+    assert east("2027-09-19T17:00Z", "-4.0") and east("2026-11-22T18:00Z", "-5.0")
+    assert not east("2027-09-19T17:00Z", "-5.0")                               # a Central venue in September: no
+    assert east("2026-10-04T17:00Z", "-5.0")                                   # (before the date: the old read)
+    assert not se.west_to_east(gm("g", "2026-11-22T18:00Z", "h", "E", "-5.0", status="pre"), "E", raw)   # not a West team
+    # the spot scan, the board's dog flag and the favorite's weight all go through the two helpers
+    import inspect
+    assert "east_to_west(g, g[side], htz, htz_std)" in inspect.getsource(se.spot_scan)
+    assert "se.east_to_west(" in inspect.getsource(sports._dog_more)
+    assert "west_to_east(" in inspect.getsource(sports.weigh_west_coast_road_fav)
+    keep = dict(sports._SCHED)
+    try:
+        games = {"g": gm("g", "2027-09-19T17:00Z", "NYG", "SF", "-5.0", status="pre")}     # a CENTRAL-clock building
+        sports._SCHED.update(ref=games, k=id(games), s={}, tz={("nfl", "SF"): -7.0}, tz_std={("nfl", "SF"): -8.0})
+        fav = {**_cand("g", -140, 0.58, league="nfl"), "home": False, "side": "away"}
+        dog = {**_cand("g", 120, 0.42, league="nfl"), "home": True, "side": "home", "dog_ctx": {}}
+        sports.weigh_west_coast_road_fav(games, [fav, dog])
+        assert abs(fav["p"] - 0.58) < 1e-9 and not dog.get("west_trip_dog")     # no weight at a Central venue
+        games["g"]["tzo"] = "-4.0"                                               # an Eastern one
+        sports.weigh_west_coast_road_fav(games, [fav, dog])
+        assert abs(fav["p"] - 0.60) < 1e-9 and dog.get("west_trip_dog")
+        assert sports._htz_std(games) == {("nfl", "SF"): -8.0}
+    finally:
+        sports._SCHED.clear(); sports._SCHED.update(keep)
+
+
+def test_daily_1119_the_fitted_models_read_the_trip_on_standard_time():
+    """11/19 DAILY S1c: the same raw-clock read sat inside two FITTED models - sports_nba_open's tz_cross (a team's
+    "home offset" = the most common one of its home games, the winter one, so in October and from mid-March on every
+    road team read one zone off: Boston at New York "crossed 1") and sports_totals' travel (a road team whose last home
+    game was before the clock change read one zone off until it got home). Refit both ways on every season: the NBA
+    open's log loss 0.60070 vs 0.60071, 570 of 592 plays the same; "travel" is not a kept factor in any league's totals
+    fit either way - so the standard-time read goes in as the true one, and a saved NBA open model fit on the raw read is
+    refit once."""
+    import sports_nba_open as no
+    import sports_totals as st
+    assert no.TZ_STD is True and st.TZ_STD is True
+
+    def g(i, start, home, away, tzo, status="final"):
+        return {"id": i, "league": "nba", "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": home, "away_name": away, "home_score": "110" if status == "final" else "",
+                "away_score": "100" if status == "final" else "", "tzo": tzo, "neutral": "0", "elev": "10",
+                "total": "220.5", "ml_home": "-150", "ml_away": "130"}
+    keep = (no.TZ_STD, st.TZ_STD)
+    try:
+        G = {x["id"]: x for x in (g("a", "2026-01-10T00:00Z", "E", "X", "-5.0"), g("a2", "2026-01-12T00:00Z", "E", "X", "-5.0"),
+                                  g("a3", "2026-10-22T23:00Z", "E", "X", "-4.0"), g("n", "2026-01-11T00:00Z", "N", "X", "-5.0"),
+                                  g("n2", "2026-01-13T00:00Z", "N", "X", "-5.0"),
+                                  g("b", "2026-10-27T23:00Z", "N", "E", "-4.0", status="pre"))}   # East at East in October
+        assert no.table(G)["b"]["a"]["tz_cross"] == 0.0                         # no zone crossed
+        no.TZ_STD = False
+        assert no.table(G)["b"]["a"]["tz_cross"] == 1.0                         # (the old read: one)
+        no.TZ_STD = True
+        tr = st.Tracker("nba", {}, {})
+        tr.update(g("a", "2026-10-28T23:00Z", "E", "X", "-4.0"))                # E's last home game: the summer clock
+        tr.update(g("c", "2026-10-27T23:00Z", "N", "Y", "-4.0"))
+        nxt = g("b", "2026-11-04T00:00Z", "N", "E", "-5.0", status="pre")       # the clocks changed 11/1; still Eastern
+        assert tr.features(nxt)["travel"] == 0.0
+        st.TZ_STD = False
+        tr2 = st.Tracker("nba", {}, {})
+        tr2.update(g("a", "2026-10-28T23:00Z", "E", "X", "-4.0"))
+        tr2.update(g("c", "2026-10-27T23:00Z", "N", "Y", "-4.0"))
+        assert tr2.features(nxt)["travel"] == 1.0
+    finally:
+        no.TZ_STD, st.TZ_STD = keep
+    # a saved model fit on the raw read is not loaded (the live run refits it once); one fit on standard time is
+    d = tempfile.mkdtemp()
+    path = os.path.join(d, "m.json")
+    model = {"season": 2026, "features": no.FEATURES, "w": [0.0] * (len(no.FEATURES) + 1), "mu": [], "sd": []}
+    with open(path, "w") as f:
+        json.dump(model, f)
+    assert no.load(path) is None
+    with open(path, "w") as f:
+        json.dump({**model, "tz": "std"}, f)
+    assert no.load(path) is not None
+
+
+def test_daily_1119_three_misplaced_cities_are_not_thin_air():
+    """11/19 DAILY S2 (the neutral-site altitude study): the geocoder put "Maui" on Haleakala's slope (1,619 m - the
+    Maui Invitational is played at sea level in Lahaina; 70 college hoops games read as thin air), "Vancouver" in the
+    middle of Vancouver Island (1,128 m - every Canucks home game since 2016, 445 of them) and "Santo Domingo" in the
+    hills (1,459 m). sports_data.VENUE_FIX corrects them where the games are read, where the venue file is read and
+    where it is written. The neutral-site altitude weight itself is NOT changed: 4 NFL and 12 NBA games ever (Mexico
+    City), and in college hoops the side it favors won 71 of 108 against 59 expected - nothing to stand a change on."""
+    import sports_context as sc
+    assert round(sd.VENUE_FIX["Maui|HI|"][2]) == 10 and round(sd.VENUE_FIX["Vancouver|BC|Canada"][2]) == 5
+    assert all(fx[2] < 100 for fx in sd.VENUE_FIX.values())
+    assert sd.venue_fix({"city": "Vancouver", "state": "BC", "country": "Canada"})[2] == 5.0
+    assert sd.venue_fix({"city": "Denver", "state": "CO", "country": "USA"}) is None
+    keep = sd.DATA
+    d = tempfile.mkdtemp()
+    try:
+        sd.DATA = d
+        os.makedirs(os.path.join(d, "games", "nhl"))
+        with open(os.path.join(d, "games", "nhl", "2026-11.csv"), "w") as f:
+            f.write("id,league,start,home,away,city,state,country,elev\n"
+                    "nhl:1,nhl,2026-11-20T03:00Z,VAN,SEA,Vancouver,BC,Canada,1128\n"
+                    "nhl:2,nhl,2026-11-20T02:00Z,COL,ANA,Denver,CO,USA,1609\n"
+                    "nhl:3,nhl,2026-11-21T03:00Z,VAN,CGY,Vancouver,BC,Canada,\n")
+        G = sd.load_games("nhl")
+        assert G["nhl:1"]["elev"] == "5" and G["nhl:2"]["elev"] == "1609"      # Denver is real thin air
+        assert G["nhl:3"]["elev"] == ""                                          # a blank stays blank (the weather job fills it)
+        assert (float(G["nhl:1"]["elev"]) or 0) < sm.THIN_AIR_M
+    finally:
+        sd.DATA = keep
+    vp = os.path.join(d, "venues.json")
+    with open(vp, "w") as f:
+        json.dump({"Maui|HI|": [20.77024, -156.26816, 1619.0, "Pacific/Honolulu"], "Denver|CO|": [39.74, -104.98, 1609.0, "America/Denver"]}, f)
+    ven = sc.venues(vp)
+    assert ven["Maui|HI|"][2] == 10.0 and ven["Denver|CO|"][2] == 1609.0
+    import inspect
+    import sports_weather as sw
+    src = inspect.getsource(sw.sync)
+    assert "sd.VENUE_FIX" in src and "sd.venue_fix(g)" in src                   # the venue file and the game rows heal
+    # the read: a neutral-site game still reads the gap between the two home elevations (unchanged - the study held
+    # nothing either way), and a game in a fixed city reads no altitude at all
+    e = sm.Elo(20, 60, "ncaab")
+    e.home_elev.update({"A": 20.0, "B": 400.0})
+    g = {"id": "x", "league": "ncaab", "start": "2026-11-24T22:00Z", "home": "A", "away": "B", "neutral": "1", "elev": "10"}
+    assert e.features(g)["alt"] == 0.0                                           # Maui at its real height: no thin air
+    assert abs(e.features({**g, "elev": "1619"})["alt"] - (-0.38)) < 1e-9        # (what the bad height did)
+
+
+def test_daily_1119_wire_dog_and_two_scorer_dog_are_tracker_leads_only():
+    """11/19 daily studies (results/studies/daily_1119/): ten new angles; nothing new is weighed. Two LEADS go on the
+    tracker from the 11/20 games: (1) the NHL dog off a wire-to-wire win against a team that never led and lost
+    (-19.4% on 314, 0 of 9 seasons up - the built hot-dog / back-to-back / long-dog weights carry most of it; the
+    residual -13.0% on 187) and (2) the hoops dog whose top 2 scorers carry a top-fifth share of its points against a
+    balanced team (the NBA -25.1% on 111, college hoops -15.2% on 378, both halves in both). Never read by the board."""
+    import gzip
+    import sports_leads as sl
+    keep, keep_data, keep_box = dict(sl._GAMES), sd.DATA, dict(sl._BOX_PTS)
+    try:
+        def fg(i, start, home, away, hs, as_, lh, la):
+            return {"id": i, "start": start, "status": "final", "stype": "2", "home": home, "away": away,
+                    "home_score": str(hs), "away_score": str(as_), "ls_home": lh, "ls_away": la}
+        G = {"nhl:d0": fg("nhl:d0", "2026-11-15T00:00Z", "D", "x", 4, 1, "1,2,1", "0,0,1"),      # D led after 1 and 2, won
+             "nhl:f0": fg("nhl:f0", "2026-11-16T00:00Z", "y", "F", 3, 1, "1,1,1", "0,0,1"),      # F trailed after both, lost
+             "nhl:now": {"id": "nhl:now", "start": "2026-11-21T00:00Z", "status": "pre", "stype": "2", "home": "F", "away": "D"}}
+        sl._GAMES["nhl"] = G
+        dog = {"market": "ml", "league": "nhl", "game_id": "nhl:now", "side": "away", "odds": 140, "start": "2026-11-21T00:00Z"}
+        assert sl.wire_state(G["nhl:d0"], "D") == "W" and sl.wire_state(G["nhl:d0"], "x") == "L"
+        assert sl.nhl_wire_dog(dog) is True
+        assert sl.NHL_WIRE_DOG_TAG in sl.daily_1119_tags(dog, sports) and sl.NHL_WIRE_DOG_TAG in sl.tags(dog, sports)
+        assert not sl.daily_1119_tags({**dog, "odds": 220}, sports)                   # the long dog: the built -3 reads it
+        assert not sl.daily_1119_tags({**dog, "odds": -120}, sports)                  # a favorite: no
+        assert not sl.daily_1119_tags({**dog, "start": "2026-11-19T23:00Z"}, sports)  # before the 11/20 games: no
+        G["nhl:d0"]["ls_home"] = "0,3,1"                                              # tied after one: not wire to wire
+        assert sl.nhl_wire_dog(dog) is False
+        G["nhl:d0"]["ls_home"] = "1,2,1"
+        G["nhl:f0"]["ls_away"] = "1,0,0"                                              # F was level after one: no
+        assert sl.nhl_wire_dog(dog) is False
+        G["nhl:f0"]["ls_away"] = "0,0,1"
+        G["nhl:now"]["start"] = "2026-11-16T01:00Z"                                    # the night after D's game: a back-to-back
+        assert sl.nhl_wire_dog({**dog, "start": "2026-11-16T01:00Z"}) is False
+        G["nhl:now"]["start"] = "2026-11-21T00:00Z"
+        G["nhl:d1"] = fg("nhl:d1", "2026-11-13T00:00Z", "D", "z", 2, 1, "1,0,1", "0,1,0")
+        G["nhl:d2"] = fg("nhl:d2", "2026-11-11T00:00Z", "D", "z", 2, 1, "1,0,1", "0,1,0")
+        assert sl.nhl_wire_dog(dog) is False                                          # 3 straight wins: the hot dog's
+        del G["nhl:d0"]["ls_home"]
+        assert sl.nhl_wire_dog(dog) is None                                           # no line score: unread, no tag
+        # the hoops dog riding two scorers against a balanced team
+        d = tempfile.mkdtemp()
+        os.makedirs(os.path.join(d, "roster"))
+        sd.DATA = d
+        sl._BOX_PTS.clear()
+        with gzip.open(os.path.join(d, "roster", "ncaab_2026.csv.gz"), "wt", newline="") as f:
+            f.write("gid,start,team,pid,player,pos,group,starter,stats\n")
+            for k in range(6):
+                st_ = f"2026-11-{3 + 2 * k:02d}T00:00Z"
+                for pid, pts in (("a", 30), ("b", 25), ("c", 8), ("d", 7), ("e", 5)):       # T: 55 of 75 from two men
+                    f.write(f'ncaab:t{k},{st_},T,{pid},{pid},G,,1,"{{""points"":""{pts}""}}"\n')
+                for pid in "vwxyz":                                                          # B: five men, 14 each
+                    f.write(f'ncaab:b{k},{st_},B,{pid},{pid},G,,1,"{{""points"":""14""}}"\n')
+        assert abs(sl.top2_share("ncaab", "T", "2026-11-21T00:00Z") - 55 / 75) < 1e-9
+        assert abs(sl.top2_share("ncaab", "B", "2026-11-21T00:00Z") - 0.4) < 1e-9
+        assert sl.top2_share("ncaab", "T", "2026-11-08T00:00Z") is None                  # under 5 boxed games: unread
+        H = {"ncaab:now": {"id": "ncaab:now", "start": "2026-11-21T00:00Z", "status": "pre", "stype": "2", "home": "B", "away": "T"}}
+        sl._GAMES["ncaab"] = H
+        cd = {"market": "ml", "league": "ncaab", "game_id": "ncaab:now", "side": "away", "odds": 180, "start": "2026-11-21T00:00Z"}
+        assert sl.hoops_two_man_dog(cd) is False                                          # B at .400 is not a balanced team
+        keep_two = dict(sl.TWO_MAN)
+        try:
+            sl.TWO_MAN["ncaab"] = (5, 0.437, 0.41)
+            assert sl.hoops_two_man_dog(cd) is True
+            assert sl.HOOPS_TWO_MAN_DOG_TAG in sl.daily_1119_tags(cd, sports) and sl.HOOPS_TWO_MAN_DOG_TAG in sl.tags(cd, sports)
+            assert not sl.daily_1119_tags({**cd, "odds": -130}, sports)                  # the favorite: no
+            assert sl.hoops_two_man_dog({**cd, "side": "home"}) is False                  # the balanced team is no two-man dog
+        finally:
+            sl.TWO_MAN.clear(); sl.TWO_MAN.update(keep_two)
+        assert sl.TWO_MAN == {"nba": (10, 0.374, 0.298), "ncaab": (5, 0.437, 0.350)}     # the study's fifths
+        for name in ("NHL_WIRE_DOG_W", "WIRE_DOG_W", "TWO_MAN_DOG_W", "HOOPS_TWO_MAN_W"):
+            assert not hasattr(sports, name), "tracked, never weighed"
+    finally:
+        sl._GAMES.clear(); sl._GAMES.update(keep)
+        sl._BOX_PTS.clear(); sl._BOX_PTS.update(keep_box)
+        sd.DATA = keep_data
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh

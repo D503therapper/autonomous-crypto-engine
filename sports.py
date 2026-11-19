@@ -2133,8 +2133,15 @@ def _sched(games):
     """The schedule + each team's home time zone, built once per games dict (sports_early's helpers)."""
     if _SCHED.get("ref") is not games:                   # (10/1: keyed by id() alone, a new dict at a freed
         import sports_early                              # address read the old schedule - hold the dict itself)
-        _SCHED.update(ref=games, k=id(games), s=sports_early._schedule(games), tz=sports_early._home_tz(games))
+        _SCHED.update(ref=games, k=id(games), s=sports_early._schedule(games), tz=sports_early._home_tz(games),
+                      tz_std=sports_early.home_tz_std(games))
     return _SCHED["s"], _SCHED["tz"]
+
+
+def _htz_std(games):
+    """Each team's home clock on STANDARD time (🕐 11/19 daily S1 - sports_early.EW_STD_FROM), built with _sched."""
+    _sched(games)
+    return _SCHED.get("tz_std") or {}
 
 
 CFB_CONSERVATIVE_4TH = 1.3      # 4th-down tries a game - the bottom quarter of college teams (10/1 round 3)
@@ -2386,12 +2393,9 @@ def _dog_more(games, g, side, other, lg):
             out["last_margin"] = margin
             out["last_pts"] = last_pts if margin is not None else None
             if lg == "nfl" and side == "away" and str(g.get("neutral")) != "1":
-                mine = htz.get((lg, g[side]))
-                try:
-                    gtz = float(g.get("tzo"))
-                except (TypeError, ValueError):
-                    gtz = None
-                out["east_west"] = mine is not None and gtz is not None and mine >= -5 and gtz <= -7
+                out["east_west"] = se.east_to_west({**g, "league": lg}, g[side], htz, _htz_std(games))   # (🕐 11/19 daily S1: the real
+                #                                                 clock from sports_early.EW_STD_FROM - an Eastern team
+                #                                                 3 hours west, never a Central team / Denver)
             if lg == "ncaaf":
                 stl = _cfb_style().get(str(g[side]))
                 if stl:
@@ -6116,12 +6120,10 @@ def weigh_west_coast_road_fav(games, cands):
         if c.get("league") != "nfl" or c.get("market") != "ml" or c.get("home") or not -150 <= c.get("odds", 0) < 0:
             continue
         g = games.get(c["game_id"]) or {}
-        try:
-            gtz = float(g.get("tzo"))
-        except (TypeError, ValueError):
-            continue
-        if str(g.get("neutral")) == "1" or (htz.get(("nfl", g.get("away"))) or 0) > -7 or gtz < -5:
-            continue
+        import sports_early as se
+        if str(g.get("neutral")) == "1" or not se.west_to_east(dict(g, league="nfl"), g.get("away"), htz):
+            continue                                         # (🕐 11/19 daily S1: an EASTERN venue on standard time
+            #                                                  from sports_early.EW_STD_FROM - never a Central one)
         c["p"] = min(0.95, c["p"] + NFL_WEST_FAV_W)
         c["edge"] = c["p"] * c["dec"] - 1
         if c.get("edge_own") is not None:

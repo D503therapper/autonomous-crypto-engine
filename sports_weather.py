@@ -75,6 +75,9 @@ def sync(games, budget_s=240):
     if os.path.exists(PATH):
         with open(PATH) as f:
             venues = json.load(f)
+    for k, fx in sd.VENUE_FIX.items():                    # (🏔️ 11/19 daily S2: three cities the geocoder put on a
+        if k in venues or any(sd.venue_key(g) == k for g in games.values() if g.get("city") == k.split("|")[0]):
+            venues[k] = list(fx)                          #  mountain - the venue file heals itself)
     deadline = time.time() + budget_s
     need = sorted(k for k in {_key(g) for g in games.values() if g.get("city")}
                   if k not in venues or (venues[k] and len(venues[k]) < 4))          # new, or cached before time zones
@@ -87,8 +90,8 @@ def sync(games, budget_s=240):
     from zoneinfo import ZoneInfo
     for g in games.values():
         v = venues.get(_key(g))
-        if v and g.get("elev", "") == "":
-            g["elev"] = round(v[2])
+        if v and (g.get("elev", "") == "" or (sd.venue_fix(g) and str(g.get("elev")) != str(round(v[2])))):
+            g["elev"] = round(v[2])                       # (a blank, or a VENUE_FIX city stamped with the old height)
         if v and len(v) > 3 and v[3] and g.get("tzo", "") == "":
             try:
                 at = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
