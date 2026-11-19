@@ -1,17 +1,20 @@
 {
- "at": "2026-11-19T15:21Z",
+ "at": "2026-11-19T16:04Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - sports.yml already running"
+  "studies overdue (9h) - started sports_studies.yml"
  ],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (67s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 6 live cards, 9 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
+  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.4, unit cards under the floor: 1)",
   "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -19,13 +22,24 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
+  "simulator ran 8h ago",
   "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T16:04Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-11-19T15:21Z",
    "fixes": [
@@ -632,16 +646,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Rivera vs Labrana: no points for 2782s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T01:14Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 2614s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
