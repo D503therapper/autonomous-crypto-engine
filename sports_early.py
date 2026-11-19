@@ -1712,6 +1712,81 @@ def _home_tz(games):
     return {k: max(set(v), key=v.count) for k, v in tz.items()}
 
 
+EW_STD_FROM = "2026-11-20"   # 🕐 11/19 DAILY S1 (the 11/19 sweep's open item - "a studied spot: a Fable study should say
+#   which definition the study meant"): THE NFL EAST-TO-WEST SPOT (and the board's two reads of the same trip - the
+#   dog score's "East Coast team out West" +3 and the West Coast road favorite's +2) READ THE REAL CLOCK from the games
+#   of this UTC day. The old read compared two RAW wall-clock offsets: the road team's "home offset" was the most
+#   common tzo of its home games (-4 for 13 Eastern teams, -5 for the Bengals / Bills / Eagles / Ravens AND the Bears /
+#   Packers / Texans / Titans / Vikings, -6 for the Chiefs / Cowboys / Saints - whichever half of the season had more
+#   home games on file), the venue's was the game day's - so "East Coast team flying West" took five Central teams,
+#   never three others, and added Denver the week the clocks changed. THE STUDY (results/studies/daily_1119/
+#   s1_east_west.py - nflverse's closes 2006-26 + the paid history's first fair number 2020-26, road dogs
+#   +100..+350): the Eastern team at a venue whose clock is 3 HOURS behind (a Pacific venue; Arizona while the rest
+#   of the country is on daylight time) is the whole spot - first fair +19.1% on 64 (train +25.0% / held +14.8%,
+#   5 of 7 seasons), the close +15.0% on 163 over 21 seasons (13 up); everything else the raw read let in (Central
+#   teams, Denver, Arizona on standard time) -3.1% on 37 at the first fair number (train +43.5% / HELD -64.3%, 1 of 6
+#   seasons up) and +0.4% on 97 at the close (7 of 21). The West favorite's twin: at an EASTERN venue +8.7% on 50
+#   (-150..-101), at a Central venue -9.6% on 34 - the raw read took Central venues before the clocks changed.
+#   Fewer plays (about 8 a season, not 12), the same weight and size. None = the raw read again.
+
+
+def home_tz_std(games):
+    """{(league, team): its home clock on STANDARD time} - the most common sm.std_tz of its home games (never a neutral
+    site). Eastern -5, Central -6, Mountain -7, Pacific -8 whatever the month (🕐 EW_STD_FROM)."""
+    tz = {}
+    for g in games.values():
+        if str(g.get("neutral")) != "1" and g.get("tzo") not in (None, "") and g.get("start"):
+            try:
+                tz.setdefault((g.get("league"), g["home"]), []).append(sm.std_tz(float(g["tzo"]), sm._ts(g["start"])))
+            except (ValueError, TypeError):
+                pass
+    return {k: max(sorted(set(v)), key=v.count) for k, v in tz.items()}
+
+
+def ew_std(g):
+    """Does this game read the trip on the real clock (🕐 EW_STD_FROM)?"""
+    return bool(EW_STD_FROM and (g.get("start") or "")[:10] >= EW_STD_FROM)
+
+
+def venue_std(g):
+    """The venue's clock on standard time (None when the game has no offset / start)."""
+    try:
+        return sm.std_tz(float(g.get("tzo")), sm._ts(g["start"]))
+    except (TypeError, ValueError, KeyError):
+        return None
+
+
+def east_to_west(g, team, htz, htz_std=None):
+    """✈️ An EASTERN-time team in a building whose clock is 3 hours behind (🕐 EW_STD_FROM; never a neutral site - the
+    callers check). Before EW_STD_FROM (or with no standard-time table): the old raw read - the team's raw home offset
+    >= -5 and the venue's raw offset <= -7."""
+    lg = g.get("league")
+    if ew_std(g) and htz_std is not None:
+        mine, v = htz_std.get((lg, team)), venue_std(g)
+        return mine is not None and v is not None and mine >= -5 and v <= -8
+    mine = htz.get((lg, team))
+    try:
+        gtz = float(g.get("tzo"))
+    except (TypeError, ValueError):
+        return False
+    return mine is not None and mine >= -5 and gtz <= -7
+
+
+def west_to_east(g, team, htz):
+    """The West Coast team (raw home offset <= -7: the Pacific teams + Arizona) in an EASTERN-time building: from
+    EW_STD_FROM the venue is read on standard time (Eastern only, any month); before it the raw read (>= -5 on the
+    wall clock - which took Central venues until the clocks changed)."""
+    if (htz.get((g.get("league"), team)) or 0) > -7:
+        return False
+    if ew_std(g):
+        v = venue_std(g)
+        return v is not None and v >= -5
+    try:
+        return float(g.get("tzo")) >= -5
+    except (TypeError, ValueError):
+        return False
+
+
 def first_fair(gid, since, hist_dir=None):
     """The first price we recorded for this game at or after `since`: (home ml, away ml) - from the line history the
     engine keeps every hour (sports_data.record_lines)."""
@@ -1837,6 +1912,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
     now = now or datetime.now(timezone.utc)
     sched = _schedule(games)
     htz = _home_tz(games)
+    htz_std = home_tz_std(games) if EW_STD_FROM else None
     out = []
     cfin = None
     for g in games.values():
@@ -1899,12 +1975,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             if dog and lg == "nfl" and et.weekday() == 0:
                 hit.append("mnf")
             if dog and lg == "nfl" and str(g.get("neutral")) != "1" and side == "away":
-                mine, gtz = htz.get((lg, g[side])), _int(g.get("tzo"))
-                try:
-                    gtz = float(g.get("tzo"))
-                except (TypeError, ValueError):
-                    gtz = None
-                if mine is not None and gtz is not None and mine >= -5 and gtz <= -7:
+                if east_to_west(g, g[side], htz, htz_std):   # (🕐 11/19 daily S1: the real clock - EW_STD_FROM)
                     hit.append("eastwest")
             if dog and me_prev and me_prev.get("status") == "final" and \
                     (_t(g["start"]) - _t(me_prev["start"])).days <= 21:

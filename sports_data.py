@@ -313,6 +313,31 @@ def _month_file(league, start):
     return os.path.join(DATA, "games", league, f"{start[:7]}.csv")
 
 
+VENUE_FIX = {   # 🏔️ 11/19 DAILY S2: three cities the geocoder put on a mountain - (lat, lon, elevation m, time zone).
+    # "Maui" landed on Haleakala's slope (1,619 m - the Maui Invitational is played at sea level in Lahaina: 70 college
+    # hoops games read as thin air, the week of Thanksgiving every year), "Vancouver" in the middle of Vancouver Island
+    # (1,128 m - EVERY Canucks home game since 2016, 445 of them, was a thin-air game to the ratings) and "Santo
+    # Domingo" in the Dominican hills (1,459 m). Fixed where the games are read (load_games), where the venue file is
+    # written (sports_weather.sync heals venues.json and the game rows) and where it is read (sports_context.venues).
+    "Maui|HI|": (20.9, -156.68, 10.0, "Pacific/Honolulu"),
+    "Maui|HI|USA": (20.9, -156.68, 10.0, "Pacific/Honolulu"),
+    "Vancouver|BC|": (49.2778, -123.1089, 5.0, "America/Vancouver"),
+    "Vancouver|BC|Canada": (49.2778, -123.1089, 5.0, "America/Vancouver"),
+    "Santo Domingo||": (18.4861, -69.9312, 14.0, "America/Santo_Domingo"),
+    "Santo Domingo||Dominican Republic": (18.4861, -69.9312, 14.0, "America/Santo_Domingo"),
+}
+_FIX_CITIES = {k.split("|")[0] for k in VENUE_FIX}
+
+
+def venue_key(g):
+    return f'{g.get("city", "")}|{g.get("state", "")}|{g.get("country", "")}'
+
+
+def venue_fix(g):
+    """The corrected (lat, lon, elevation, time zone) for a game in one of VENUE_FIX's cities, else None."""
+    return VENUE_FIX.get(venue_key(g)) if g.get("city") in _FIX_CITIES else None
+
+
 def load_games(league=None):
     """{game id: game} for one league (or all)."""
     games = {}
@@ -320,6 +345,10 @@ def load_games(league=None):
     for p in sorted(glob.glob(pattern)):
         with open(p) as f:
             for row in csv.DictReader(f):
+                if row.get("city") in _FIX_CITIES and row.get("elev", "") != "":   # (🏔️ 11/19: VENUE_FIX)
+                    fx = VENUE_FIX.get(venue_key(row))
+                    if fx:
+                        row["elev"] = str(round(fx[2]))
                 games[row["id"]] = row
     return games
 

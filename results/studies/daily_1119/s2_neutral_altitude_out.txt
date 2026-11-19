@@ -1,0 +1,67 @@
+S2 (asked) - THE ALTITUDE WEIGHT AT A NEUTRAL SITE. The read's "alt" input is thin_air(visitors) - thin_air(home):
+each team's climb above ITS OWN building (km), counted only in real thin air (1,000 m+). In a true home game that is
+"the visitors came up to our altitude". At a neutral site BOTH teams climbed - what is left is the gap between two
+home elevations (Mexico City 11/22: the 49ers live at sea level, the Vikings 250 m up - 'alt' = 0.25 for the Vikings).
+Does that gap say anything? Every final on file, the live ratings replayed (sm.replay with today's k / hfa):
+ (1) the weight the fit gives 'alt' in TRUE HOME games vs at NEUTRAL sites (a one-input logistic on top of the ratings,
+     and on top of the closing price); (2) the side the gap favors at a neutral site in thin air, against the close.
+
+===== nfl: 2863 finals; the live fit's weight on 'alt' +0.265 per km (a 1 km gap = 6.6 points of win chance near a coin flip)
+  TRUE HOME games in thin air (the visitors climbed): 87 games, mean |alt| 1.45 km; on top of the RATINGS b = +0.182 (se 0.156, z +1.17); on top of the CLOSE b = +0.149 (se 0.175, z +0.85) on 73 priced
+  NEUTRAL sites in thin air (both climbed): 4 games - too few
+  NEUTRAL, ONE team lives in thin air (1,000 m+) and the other doesn't: 0 games - too few
+  NEUTRAL, NEITHER team lives in thin air (two lowland teams): 4 games - too few
+  neutral, thin air, [any] home-elevation gap 0.0 km+: the side the weight favors won 3 of 4 (the ratings alone expect 2.3); moneyline -33.3% on 2; ATS -4.5% on 2 (covered 50%)
+  neutral, thin air, [any] home-elevation gap 0.1 km+: the side the weight favors won 1 of 2 (the ratings alone expect 1.0); moneyline -33.3% on 2; ATS -4.5% on 2 (covered 50%)
+  neutral, thin air, [any] home-elevation gap 0.3 km+: the side the weight favors won 0 of 1 (the ratings alone expect 0.4); moneyline -100.0% on 1; ATS -100.0% on 1 (covered 0%)
+  neutral, thin air, [lowland] home-elevation gap 0.0 km+: the side the weight favors won 3 of 4 (the ratings alone expect 2.3); moneyline -33.3% on 2; ATS -4.5% on 2 (covered 50%)
+  neutral, thin air, [lowland] home-elevation gap 0.1 km+: the side the weight favors won 1 of 2 (the ratings alone expect 1.0); moneyline -33.3% on 2; ATS -4.5% on 2 (covered 50%)
+  where: Mexico City (2240 m) x4
+  THE MEXICO CITY GAME (Vikings @ 49ers, 2240 m): alt -0.230 km (home elevations: 49ers 23 m, Vikings 253 m) -> -0.061 on the own read's logit = -1.5 points of win chance for the home side; travel -0.67 x -0.266, intl +1 x +0.047
+
+===== ncaaf: 10406 finals; the live fit's weight on 'alt' +0.126 per km (a 1 km gap = 3.1 points of win chance near a coin flip)
+  TRUE HOME games in thin air (the visitors climbed): 576 games, mean |alt| 1.04 km; on top of the RATINGS b = +0.121 (se 0.078, z +1.55); on top of the CLOSE b = +0.225 (se 0.101, z +2.24) on 429 priced
+  NEUTRAL sites in thin air (both climbed): 23 games, mean |alt| 0.51 km; on top of the RATINGS b = -0.986 (se 0.676, z -1.46); on top of the CLOSE b = -1.088 (se 0.895, z -1.22) on 15 priced
+  NEUTRAL, ONE team lives in thin air (1,000 m+) and the other doesn't: 7 games, mean |alt| 1.28 km; on top of the RATINGS b = -1.003 (se 0.704, z -1.43); on top of the CLOSE b = -1.306 (se 0.952, z -1.37) on 5
+  NEUTRAL, NEITHER team lives in thin air (two lowland teams): 13 games, mean |alt| 0.19 km; on top of the RATINGS b = -1.523 (se 2.538, z -0.60); on top of the CLOSE b = +1.741 (se 3.723, z +0.47) on 8
+  neutral, thin air, [any] home-elevation gap 0.0 km+: the side the weight favors won 11 of 23 (the ratings alone expect 11.6); moneyline -13.9% on 15; ATS +40.0% on 15 (covered 73%)
+  neutral, thin air, [any] home-elevation gap 0.1 km+: the side the weight favors won 6 of 17 (the ratings alone expect 8.3); moneyline -24.3% on 11; ATS +38.8% on 11 (covered 73%)
+  neutral, thin air, [any] home-elevation gap 0.3 km+: the side the weight favors won 2 of 8 (the ratings alone expect 4.1); moneyline -49.0% on 5; ATS +14.5% on 5 (covered 60%)
+  neutral, thin air, [one high] home-elevation gap 0.0 km+: the side the weight favors won 2 of 7 (the ratings alone expect 3.6); moneyline -49.0% on 5; ATS +14.5% on 5 (covered 60%)
+  neutral, thin air, [lowland] home-elevation gap 0.0 km+: the side the weight favors won 6 of 13 (the ratings alone expect 6.4); moneyline -3.0% on 8; ATS +43.2% on 8 (covered 75%)
+  neutral, thin air, [lowland] home-elevation gap 0.1 km+: the side the weight favors won 4 of 10 (the ratings alone expect 4.7); moneyline -3.6% on 6; ATS +59.1% on 6 (covered 83%)
+  where: El Paso (1133 m) x9; Albuquerque (1511 m) x8; Denver (1609 m) x5; Reno (1373 m) x1
+
+===== ncaab: 55145 finals; the live fit's weight on 'alt' +0.244 per km (a 1 km gap = 6.1 points of win chance near a coin flip)
+  TRUE HOME games in thin air (the visitors climbed): 2184 games, mean |alt| 1.05 km; on top of the RATINGS b = +0.242 (se 0.044, z +5.48); on top of the CLOSE b = +0.073 (se 0.054, z +1.36) on 1486 priced
+  NEUTRAL sites in thin air (both climbed): 108 games, mean |alt| 0.50 km; on top of the RATINGS b = +0.642 (se 0.327, z +1.97); on top of the CLOSE b = +0.936 (se 0.520, z +1.80) on 52 priced
+  NEUTRAL, ONE team lives in thin air (1,000 m+) and the other doesn't: 33 games, mean |alt| 1.03 km; on top of the RATINGS b = +0.357 (se 0.352, z +1.01); on top of the CLOSE b = +0.396 (se 0.530, z +0.75) on 13
+  NEUTRAL, NEITHER team lives in thin air (two lowland teams): 70 games, mean |alt| 0.27 km; on top of the RATINGS b = +2.084 (se 0.916, z +2.27); on top of the CLOSE b = +3.134 (se 1.349, z +2.32) on 37
+  neutral, thin air, [any] home-elevation gap 0.0 km+: the side the weight favors won 71 of 108 (the ratings alone expect 59.1); moneyline +24.8% on 52; ATS +21.2% on 52 (covered 64%)
+  neutral, thin air, [any] home-elevation gap 0.1 km+: the side the weight favors won 55 of 83 (the ratings alone expect 45.8); moneyline +32.1% on 42; ATS +22.7% on 42 (covered 64%)
+  neutral, thin air, [any] home-elevation gap 0.3 km+: the side the weight favors won 38 of 58 (the ratings alone expect 31.6); moneyline +18.9% on 28; ATS +2.3% on 28 (covered 54%)
+  neutral, thin air, [one high] home-elevation gap 0.0 km+: the side the weight favors won 18 of 33 (the ratings alone expect 15.3); moneyline +11.4% on 13; ATS -11.9% on 13 (covered 46%)
+  neutral, thin air, [lowland] home-elevation gap 0.0 km+: the side the weight favors won 49 of 70 (the ratings alone expect 41.4); moneyline +28.8% on 37; ATS +29.0% on 37 (covered 68%)
+  neutral, thin air, [lowland] home-elevation gap 0.1 km+: the side the weight favors won 35 of 48 (the ratings alone expect 29.0); moneyline +41.6% on 27; ATS +34.3% on 27 (covered 70%)
+  where: Salt Lake City (1299 m) x30; El Paso (1133 m) x23; Reno (1373 m) x19; Denver (1609 m) x13; Colorado Springs (1832 m) x7; Albuquerque (1511 m) x3; Idaho Falls (1434 m) x3; Stateline (1915 m) x3; Flagstaff (2104 m) x2; Bozeman (1468 m) x2; Fort Bliss (1186 m) x1; Prescott Valley (1532 m) x1; Ogden (1311 m) x1
+
+===== nba: 13074 finals; the live fit's weight on 'alt' +0.145 per km (a 1 km gap = 3.6 points of win chance near a coin flip)
+  TRUE HOME games in thin air (the visitors climbed): 863 games, mean |alt| 1.28 km; on top of the RATINGS b = +0.160 (se 0.058, z +2.75); on top of the CLOSE b = +0.084 (se 0.066, z +1.27) on 694 priced
+  NEUTRAL sites in thin air (both climbed): 12 games, mean |alt| 0.34 km; on top of the RATINGS b = -0.853 (se 1.028, z -0.83); on top of the CLOSE b = -0.573 (se 1.042, z -0.55) on 8 priced
+  NEUTRAL, ONE team lives in thin air (1,000 m+) and the other doesn't: 2 games - too few
+  NEUTRAL, NEITHER team lives in thin air (two lowland teams): 10 games, mean |alt| 0.14 km; on top of the RATINGS b = -2.635 (se 3.511, z -0.75); on top of the CLOSE b = +0.301 (se 4.961, z +0.06) on 6
+  neutral, thin air, [any] home-elevation gap 0.0 km+: the side the weight favors won 4 of 12 (the ratings alone expect 5.9); moneyline -46.4% on 8; ATS -36.4% on 6 (covered 33%)
+  neutral, thin air, [any] home-elevation gap 0.1 km+: the side the weight favors won 3 of 8 (the ratings alone expect 4.2); moneyline -40.8% on 5; ATS -36.4% on 3 (covered 33%)
+  neutral, thin air, [any] home-elevation gap 0.3 km+: the side the weight favors won 1 of 3 (the ratings alone expect 2.1); moneyline -34.6% on 2; ATS -4.5% on 2 (covered 50%)
+  neutral, thin air, [one high] home-elevation gap 0.0 km+: the side the weight favors won 1 of 2 (the ratings alone expect 1.4); moneyline -34.6% on 2; ATS -4.5% on 2 (covered 50%)
+  neutral, thin air, [lowland] home-elevation gap 0.0 km+: the side the weight favors won 3 of 10 (the ratings alone expect 4.4); moneyline -50.3% on 6; ATS -52.3% on 4 (covered 25%)
+  neutral, thin air, [lowland] home-elevation gap 0.1 km+: the side the weight favors won 2 of 6 (the ratings alone expect 2.7); moneyline -45.0% on 3; ATS -100.0% on 1 (covered 0%)
+  where: Mexico City (2240 m) x12
+
+EVERY LEAGUE TOGETHER, the side the weight favors at a neutral site in thin air:
+  [any] gap 0.0 km+: won 89 of 147 (ratings expect 78.8); ML +8.4% on 77 (z +0.76); ATS +19.6% on 75 (z +1.84, covered 63%)
+  [any] gap 0.1 km+: won 65 of 110 (ratings expect 59.2); ML +13.5% on 60 (z +1.05); ATS +21.8% on 58 (z +1.81, covered 64%)
+  [any] gap 0.3 km+: won 41 of 70 (ratings expect 38.1); ML +3.2% on 36 (z +0.21); ATS +0.8% on 36 (z +0.05, covered 53%)
+  [lowland] gap 0.0 km+: won 61 of 97 (ratings expect 54.5); ML +12.7% on 53 (z +0.95); ATS +23.5% on 51 (z +1.84, covered 65%)
+  [lowland] gap 0.1 km+: won 42 of 66 (ratings expect 37.3); ML +23.7% on 38 (z +1.46); ATS +32.6% on 36 (z +2.22, covered 69%)
+  [one high] gap 0.0 km+: won 21 of 42 (ratings expect 20.3); ML -8.3% on 20 (z -0.37); ATS -4.5% on 20 (z -0.21, covered 50%)

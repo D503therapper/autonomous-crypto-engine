@@ -207,6 +207,9 @@ def venues(path=None):
                 _VEN[p] = json.load(f)
         except (OSError, ValueError):
             _VEN[p] = {}
+        for k, fx in sd.VENUE_FIX.items():                # (🏔️ 11/19 daily S2: three cities the geocoder misplaced)
+            if k in _VEN[p]:
+                _VEN[p][k] = list(fx)
     return _VEN[p]
 
 

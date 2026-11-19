@@ -41,6 +41,9 @@ PARK_K = 40            # park: act like 40 games of "no effect" on top of what t
 STARTER_K = 3          # starter: act like 3 average starts on top of his last 5
 STARTS = 5
 DRAMA_DAYS = 5
+TZ_STD = True          # 🕐 11/19 DAILY S1c: "travel" (the zones the road team is from home) on STANDARD time (sm.std_tz) -
+#                        the raw wall-clock offset moved an hour at every clock change, so a road team whose last home
+#                        game was before it read one zone off until it got home. False = the raw read.
 GAP_H = 6              # a game only counts as "before" once it started 6+ hours earlier (it's over by then)
 BREAKEVEN = 0.524
 Z80 = 1.2816           # one-sided 80%: the low end of the range around the hit rate
@@ -58,6 +61,17 @@ def _f(v):
         return float(v) if v not in (None, "") else None
     except (TypeError, ValueError):
         return None
+
+
+def _tz(g):
+    """The venue's clock offset - on standard time when TZ_STD (🕐 11/19 daily S1c), else the raw wall clock."""
+    tz = _f(g.get("tzo"))
+    if tz is None or not TZ_STD:
+        return tz
+    try:
+        return sm.std_tz(tz, sm._ts(g["start"]))
+    except (KeyError, TypeError, ValueError):
+        return tz
 
 
 def _t(s):
@@ -112,7 +126,7 @@ class Tracker:
         temp, wind, rain = _f(g.get("wx_temp")), _f(g.get("wx_wind")), _f(g.get("wx_rain"))
         pk = self.park.get(h, (0.0, 0))
         rest = {s: min(7.0, (t - self.last[s]).total_seconds() / 86400) if s in self.last else 7.0 for s in (h, w)}
-        tzo = _f(g.get("tzo"))
+        tzo = _tz(g)
         travel = abs(tzo - self.home_tz[w]) if tzo is not None and w in self.home_tz else 0.0
         pub = self.public.get(g.get("id")) or {}
         pm, pt = pub.get("tot_over_m"), pub.get("tot_over_t")
@@ -171,7 +185,7 @@ class Tracker:
                 self.inj_usual[s] = self.inj_usual.get(s, i) + 0.2 * (i - self.inj_usual.get(s, i))
         t = _t(g["start"])
         self.last[h], self.last[w] = t, t
-        tzo = _f(g.get("tzo"))
+        tzo = _tz(g)
         if tzo is not None and str(g.get("neutral") or "0") != "1":
             self.home_tz[h] = tzo
 

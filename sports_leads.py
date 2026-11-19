@@ -560,6 +560,8 @@ def tags(c, sports):
     #                                                          dog vs a favorite off a 1-2 point win (two LEADS)
     t += goalie_1119_tags(c, sports)                         # 11/19 FABLE - HOCKEY GOALIES: the dog across a net that
     #                                                          isn't the favorite's #1, and its control (a LEAD)
+    t += daily_1119_tags(c, sports)                          # 11/19 daily studies: the NHL dog off a wire-to-wire win vs
+    #                                                          a team that never led, the hoops two-scorer dog (two LEADS)
     return t + sharp
 
 
@@ -818,6 +820,160 @@ def goalie_1119_tags(c, sports):
             return []
         net = nhl_other_net(c)
         return [NHL_VS_BACKUP_TAG] if net == "bk" else [NHL_VS_N1_TAG] if net == "n1" else []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+DAILY_1119_FROM = "2026-11-20"   # 11/19 daily studies (results/studies/daily_1119/): two LEADS, logs from the 11/20 games
+NHL_WIRE_DOG_TAG = "NHL dog off a wire-to-wire win vs a team that never led and lost, rested, no 3+ streak, under +220 (lead)"
+#   a LEAD, tracked only, never a weight (s9 -> fA): an NHL dog whose last game was a win it LED after the 1st and the
+#   2nd period, against a team whose last game was a loss it TRAILED after both - -19.4% on 314 at the close 2016-26
+#   (train -25.3% / held -12.3%, 0 of 9 seasons up, a price-matched placebo 25 of 2,000). The built weights carry most
+#   of it: with the hot dog (3+ streak, -2), the back-to-back dog and the long dog (+220) taken out it is -13.0% on 187
+#   (train -19.5% / held -5.9%, z -1.6, price-matched placebo 200 of 2,000) against -1.8% for every such dog; either
+#   half of the pair alone is the base (-5.5% / -0.7%); ESPN's open -7.7% on 98, the paid morning -35.9% on 43. The NBA
+#   twin flips (train +0.2% / held -24.4%). This line is the residual. Judge at 60 graded: -10% or worse against its
+#   prices = the five checks as a -1 / -2 weight.
+HOOPS_TWO_MAN_DOG_TAG = "hoops dog riding its top 2 scorers vs a balanced team (lead)"   # a LEAD, tracked only (s10): a
+#   dog +100..+350 whose top 2 scorers have a top-fifth share of its points this season, against a team in the
+#   bottom fifth - the NBA -25.1% on 111 (train -31.3% / held -19.9%, placebo 90 of 2,000; 10+ boxed games, shares
+#   .374+ vs .298-), college hoops -15.2% on 378 (train -14.9% / held -15.6%, placebo 251; 5+ games, .437+ vs
+#   .350-); the balanced favorite across +10.2% on 63 / +7.9% on 147. The same sign in two leagues and both halves,
+#   but small and inside ~70 cells - neither league clears the placebo bar. A two-scorer dog by itself is the base.
+#   Judge at 60 graded: -10% or worse = the five checks as a weight on the dog score / the dog read.
+NHL_WIRE_MAX_ODDS = 219
+TWO_MAN = {"nba": (10, 0.374, 0.298), "ncaab": (5, 0.437, 0.350)}   # league: (boxed games, top-heavy share, balanced share)
+_BOX_PTS = {}
+
+
+def _periods(x, side):
+    try:
+        return [int(v) for v in str(x.get("ls_" + side) or "").split(",")]
+    except ValueError:
+        return None
+
+
+def wire_state(x, team):
+    """'W' = `team` led after the 1st AND the 2nd period of this NHL final and won; 'L' = it trailed after both and
+    lost; '' otherwise; None when the line score is unread."""
+    ph, pa = _periods(x, "home"), _periods(x, "away")
+    m = _margin(x, team)
+    if not ph or not pa or len(ph) < 3 or len(pa) < 3 or m is None or m == 0:
+        return None
+    sign = 1 if x["home"] == team else -1
+    l1, l2 = sign * (ph[0] - pa[0]), sign * (ph[0] + ph[1] - pa[0] - pa[1])
+    return "W" if (l1 > 0 and l2 > 0 and m > 0) else "L" if (l1 < 0 and l2 < 0 and m < 0) else ""
+
+
+def nhl_wire_dog(c):
+    """The NHL side's last game (inside 10 days) was a wire-to-wire WIN, the other side's a never-led LOSS, and the
+    side is rested and not on a 3+ game win streak - from the games file, finals before tonight only. None unread."""
+    other = {"home": "away", "away": "home"}.get(c.get("side") or "")
+    if not other:
+        return None
+    team, rows = _season_before(c)
+    opp, orows = _season_before({**c, "side": other})
+    if not team or not rows or not opp or not orows:
+        return None
+    G = _GAMES.get(c.get("league")) or {}
+    now = (G.get(c.get("game_id")) or {}).get("start") or c.get("start") or ""
+    try:
+        d_me = (_utc(now) - _utc(rows[-1]["start"])).total_seconds() / 86400
+        d_op = (_utc(now) - _utc(orows[-1]["start"])).total_seconds() / 86400
+    except (TypeError, ValueError):
+        return None
+    if d_me > 10 or d_op > 10:
+        return False
+    a, b = wire_state(rows[-1], team), wire_state(orows[-1], opp)
+    if a is None or b is None:
+        return None
+    if a != "W" or b != "L" or d_me < 1.6:
+        return False                                         # (a back-to-back: the built rest weights read it)
+    streak = 0
+    for x in reversed(rows):
+        mm = _margin(x, team)
+        if mm is None or mm <= 0:
+            break
+        streak += 1
+    return streak < 3                                        # (the hot dog: the built -2 reads it)
+
+
+def _box_points(lg, season):
+    """{team id: [(start, {player id: points})] oldest first} off the saved box scores of one hoops season (cached on
+    the file's mtime)."""
+    import csv
+    import gzip
+    import json
+    import os
+    path = os.path.join(sd.DATA, "roster", f"{lg}_{season}.csv.gz")
+    try:
+        mt = os.path.getmtime(path)
+    except OSError:
+        return {}
+    hit = _BOX_PTS.get((lg, season))
+    if hit and hit[0] == mt:
+        return hit[1]
+    by = {}
+    with gzip.open(path, "rt", newline="") as f:
+        for r in csv.DictReader(f):
+            try:
+                pts = float(json.loads(r.get("stats") or "{}").get("points") or 0)
+            except (ValueError, TypeError):
+                continue
+            by.setdefault(r["team"], {}).setdefault((r["start"], r["gid"]), {})[r["pid"]] = pts
+    out = {t: [(k[0], v) for k, v in sorted(d.items())] for t, d in by.items()}
+    _BOX_PTS[(lg, season)] = (mt, out)
+    return out
+
+
+def top2_share(lg, team, start):
+    """The share of `team`'s points this season (boxed games before `start`) scored by its top 2 scorers, or None
+    under the league's games floor (TWO_MAN)."""
+    if lg not in TWO_MAN or len(start or "") < 7:
+        return None
+    y, m = int(start[:4]), int(start[5:7])
+    box = _box_points(lg, y if m >= 7 else y - 1).get(str(team)) or []
+    tot, n = {}, 0
+    for st, pl in box:
+        if st >= start:
+            break
+        n += 1
+        for pid, v in pl.items():
+            tot[pid] = tot.get(pid, 0.0) + v
+    allp = sum(tot.values())
+    if n < TWO_MAN[lg][0] or allp <= 0:
+        return None
+    return sum(sorted(tot.values(), reverse=True)[:2]) / allp
+
+
+def hoops_two_man_dog(c):
+    """A hoops side whose top 2 scorers carry a top-fifth share of its points against a team in the bottom fifth
+    (TWO_MAN) - None unread."""
+    lg = c.get("league")
+    g = _game(c)
+    side = c.get("side")
+    if lg not in TWO_MAN or not g or side not in ("home", "away"):
+        return None
+    other = "away" if side == "home" else "home"
+    mine, his = top2_share(lg, g.get(side), g.get("start") or ""), top2_share(lg, g.get(other), g.get("start") or "")
+    if mine is None or his is None:
+        return None
+    return mine >= TWO_MAN[lg][1] and his <= TWO_MAN[lg][2]
+
+
+def daily_1119_tags(c, sports):
+    """11/19 daily studies: the NHL dog off a wire-to-wire win against a team that never led (the residual the built
+    weights leave) and the hoops dog riding two scorers against a balanced team - two LEADS, tracked only, never read
+    by the board."""
+    try:
+        if not DAILY_1119_FROM or c.get("market") != "ml" or sports.pt_day(c) < DAILY_1119_FROM:
+            return []
+        odds = c.get("odds") or 0
+        if c.get("league") == "nhl" and 100 <= odds <= NHL_WIRE_MAX_ODDS:
+            return [NHL_WIRE_DOG_TAG] if nhl_wire_dog(c) else []
+        if c.get("league") in TWO_MAN and 100 <= odds <= 350:
+            return [HOOPS_TWO_MAN_DOG_TAG] if hoops_two_man_dog(c) else []
+        return []
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 
