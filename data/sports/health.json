@@ -1,9 +1,11 @@
 {
- "at": "2026-11-19T11:32Z",
- "fixes": [],
+ "at": "2026-11-19T12:14Z",
+ "fixes": [
+  "live watch 44508616567 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (136s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +19,19 @@
   "every upcoming game has its real teams",
   "studies ran 5h ago",
   "simulator ran 4h ago",
-  "engine ran 12 min ago",
+  "engine ran 55 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T12:14Z",
+   "fixes": [
+    "live watch 44508616567 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-11-19T11:32Z",
    "fixes": [],
@@ -641,15 +651,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Garcia vs Gatica: no points for 1328s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-17T22:49Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
