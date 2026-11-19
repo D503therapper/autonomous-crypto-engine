@@ -1279,10 +1279,8 @@ def check(pk, leg, lines, games=None, why="", where="render"):
         contra = card_sense(leg, lines)
     except Exception:                                        # noqa: BLE001
         contra = {}
-    for x in lines or []:
-        if not isinstance(x, str):
-            out.append(x)
-            continue
+    def one(x):
+        """One line through every check -> (the line as it may post or '', what was caught)."""
         new, w = wording(x, cx, leg)
         if new and not BOTTOM.match(new):
             fw = facts(new, leg, games)
@@ -1311,6 +1309,13 @@ def check(pk, leg, lines, games=None, why="", where="render"):
             new, w = "", w or "the same line twice on the card"
         if new and where == "render" and chip_repeat(new, leg):
             new, w = "", w or "the 🚑 chip's names again"
+        return new, w
+
+    for x in lines or []:
+        if not isinstance(x, str):
+            out.append(x)
+            continue
+        new, w = one(x)
         if w:
             note(cx["date"], leg, w, x, where)
         if new:
@@ -1323,8 +1328,60 @@ def check(pk, leg, lines, games=None, why="", where="render"):
         out = kept
     except Exception:                                        # noqa: BLE001 - the check never breaks a card
         pass
+    try:                                                     # 🧱 11/18 (night): a cut is never the end - the card's
+        out = refill(leg, out, one, cx, why, games)          #  spare facts come in until it's back at its floor
+    except Exception:                                        # noqa: BLE001 - the check never breaks a card
+        pass
     if not any(BOTTOM.match(str(x)) for x in out if isinstance(x, str)) and any(BOTTOM.match(str(x)) for x in lines or [] if isinstance(x, str)):
         out.append(bottom_line(leg, cx))
+    return out
+
+
+def card_floor(cx):
+    """The fact lines a card posts with when the facts exist: 6 a unit play, 5 a lean (sports_breakdown_v24.FLOOR_*)."""
+    import sports_breakdown_v24 as v24
+    return v24.FLOOR_LEAN if cx.get("lean") else v24.FLOOR_UNIT
+
+
+def refill(leg, out, one, cx, why="", games=None):
+    """🧱 11/18 (night) THE STANDING REFILL (the owner, after the page cut the Nuggets card's knocks and left three
+    lines: "it's just short and fucking vague ... This is a fucking permanent bug" / "permanent fix for everything going
+    forward"). The write-up keeps the real facts for our side it didn't need (leg["spare"], sports_breakdown_v24
+    .fill_facts / deep_facts). Whenever a card comes out of the check under its floor - a line cut for the news, a
+    knock, a repeat, the line that moved up to be the one-liner - the spares come in, each one through the SAME checks
+    as any card line, until the card is back at its floor. Never filler: no spare left = the card stays short and the
+    audit names it (tools/card_audit.py)."""
+    spare = [x for x in leg.get("spare") or [] if isinstance(x, str) and x.strip()]
+    floor = card_floor(cx)
+    if not spare or fact_lines(out) >= floor or not any(BOTTOM.match(str(x)) for x in out if isinstance(x, str)):
+        return out
+    try:
+        import sports_dashboard as dash
+        import sports_card_guard
+    except Exception:                                        # noqa: BLE001
+        return out
+    for x in spare:
+        if fact_lines(out) >= floor:
+            break
+        if x in out or x == why:
+            continue
+        try:
+            if dash.stale_in(x, leg) or not dash.latest_ok(x):   # (a man whose status moved since the card was written)
+                continue
+            got = sports_card_guard.clean([x], leg.get("league"), leg.get("team", ""), leg.get("opp", ""))
+        except Exception:                                    # noqa: BLE001
+            continue
+        new = one(dash.pct_ok(got[0]))[0] if got else ""
+        if not new or new in out:
+            continue
+        at = next((i for i, y in enumerate(out) if isinstance(y, str) and (y.startswith("⚠️") or BOTTOM.match(y))), len(out))
+        cand = out[:at] + [new] + out[at:]
+        try:
+            if len(said_twice(leg, cand, why, games)) != len(cand):
+                continue                                     # (it says what the card already says)
+        except Exception:                                    # noqa: BLE001
+            continue
+        out = cand
     return out
 
 
@@ -1613,6 +1670,7 @@ NEG_US = re.compile(r"\b(unlucky|snakebit|can'?t buy|leaky|bad bounces|puck luck
                     r"dropped|fell)\b", re.I)
 
 
+_GENERIC = {"state", "tech", "city", "college", "university", "united", "southern", "northern", "eastern", "western"}
 _NOT_NEG = re.compile(r"\b(?:hasn'?t|haven'?t|ain'?t|not|never|didn'?t|don'?t|won'?t|without an?)\s+(?:lost|lose|losing|loss|dropped|drop|fell|fall)\b", re.I)
 
 
@@ -1628,31 +1686,23 @@ def knocks_us(text, leg):
 
     def names(x, other=""):
         out = {x.lower()} if x else set()
-        if " " in x and x.split()[-1].lower() not in other.lower():   # (11/18: "Kansas St" vs "Oklahoma St" - the
+        if " " in x and x.split()[-1].lower() not in other.lower() and len(x.split()[-1]) >= 4 and x.split()[-1].lower() not in _GENERIC:   # (11/18: "Kansas St" vs "Oklahoma St" - the
             out.add(x.split()[-1].lower())               #  shared last word names nobody; "Trail Blazers" -> "blazers")
         return out
     us_n, them_n = names(team, opp), names(opp, team)
     t = _NOT_NEG.sub(" ", t)                              # (11/18: "hasn't lost in 3" is no knock)
     low_all = t.lower()
-    about_us = any(n in low_all for n in us_n)
+    has = lambda n, s: re.search(rf"(?<![a-z]){re.escape(n)}(?![a-z])", s) is not None   # noqa: E731 (11/18: a NAME, never
+    #   a piece of a word - "New Mexico St" -> "st" sat inside "lost" and every loss on the card read as ours)
+    about_us = any(has(n, low_all) for n in us_n)
     if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
         return about_us                                   # ("Both took an L last time" - that's us too)
     for clause in re.split(r"[.;:!?,\u2014]| - ", t):
         if not NEG_US.search(clause):
             continue
         low = clause.lower()
-        us_here, them_here = any(n in low for n in us_n), any(n in low for n in them_n)
+        us_here, them_here = any(has(n, low) for n in us_n), any(has(n, low) for n in them_n)
         if us_here or (about_us and not them_here):
-            return True
-    return False
-    names = {team.lower()}
-    if " " in team:
-        names.add(team.split()[-1].lower())               # ("Trail Blazers" -> "blazers")
-    if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
-        return True                                       # ("Both took an L last time" - that's us too)
-    for clause in re.split(r"[.;:!?,\u2014]| - ", t):
-        low = clause.lower()
-        if any(n in low for n in names) and NEG_US.search(clause):
             return True
     return False
 

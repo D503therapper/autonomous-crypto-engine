@@ -902,7 +902,10 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
 def _why_fallback(leg, pk=None):
     import sports_card_guard                                 # (11/12: a guarded one-liner falls back to the card's first real
     import sports_card_check                                 #  fact - a name, a score - before a generic reason tag)
-    for x in leg.get("breakdown") or []:
+    bd = [x for x in leg.get("breakdown") or [] if not str(x or "").startswith(f"🚑 {leg.get('team')} ")]   # (never our
+    #   own who's-out list up top). 11/18: a refill line (💯 our scorer, 💵 the price) leads only when no first-hand
+    #   line can - the Buffalo dry-run card led with "Antoine Lorick III: 16 a night" over its own home record
+    for x in [y for y in bd if not str(y or "").startswith(("💯", "💵"))] + [y for y in bd if str(y or "").startswith(("💯", "💵"))]:
         t = _confirmed_now(str(x or "").strip(), leg)        # (11/13: a confirmed goalie reads "is in" up top too)
         if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
                 and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg) \

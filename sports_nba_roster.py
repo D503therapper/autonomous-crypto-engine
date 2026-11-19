@@ -665,6 +665,11 @@ def adjust(f, g, elo, cur, n_home, n_away):
 BENCH_SAY = 3.0         # the card talks about a bench only when it's clearly good or bad (+/- 3 a 48 minutes)
 
 
+def _whole(x):
+    """A bench margin the way it's said out loud: '6', never '6.1' (under 1 keeps its decimal)."""
+    return f"{x:.0f}" if x >= 1 else f"{x:g}"
+
+
 def card_line(g, side, cur):
     """🏀 The card's roster line for an NBA side - only facts with numbers (the owner: never vague): the bench, how deep
     the coach plays, who's hot / in a slump, a minutes limit, a game-time decision. "" = nothing to say."""
@@ -679,11 +684,12 @@ def card_line(g, side, cur):
     if b is not None and abs(b) >= BENCH_SAY:
         #   (11/18, cards_1118 - the owner: "layman's terms, not all this technical jargon": "per 48 minutes" is a stat
         #    sheet's unit - 48 minutes is one full game, so the card says "a full game")
-        parts.append(f"their bench outscored teams by {b:g} points for every full game it played last season - deep squad" if b > 0 else
-                     f"their bench got outscored by {-b:g} points for every full game it played last season - thin squad")
+        #   (11/19, the Nuggets card: "for every full game it played" read clunky - said the way a bettor says it)
+        parts.append(f"their bench outscored teams by {_whole(b)} a game last season - deep squad" if b > 0 else
+                     f"their bench got outscored by {_whole(-b)} a game last season - thin squad")
     st = (cur.get("styles") or {}).get(tid)
     if st and st.get("depth"):
-        parts.append(f"the coach plays {int(round(st['depth']))} guys real minutes")
+        parts.append(f"{int(round(st['depth']))} guys play real minutes")
     roster_pids = {p.get("pid") for p in cur["teams"][tid]}
     fm = cur.get("form") or {}
     for pid in [k for k in fm if k in roster_pids and fm[k]["tag"]][:2]:
