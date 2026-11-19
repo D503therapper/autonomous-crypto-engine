@@ -1887,7 +1887,14 @@ def absent_matters(line, leg, games):
     new = t
     for nm in bad:
         new = _drop_name(new, nm)
+    if HOLE_SAID.search(new):                                # 🧱 11/19: "Both starting tackles out - backups protecting
+        new = HOLE_SAID.sub("", new).strip()                 # the QB." stands only with every man it was said of
+        new = new if new.endswith((".", "!", "?")) else new + "."
     return new, f"{Q_ABSENT}: {', '.join(bad[:3])} (the name came off the line)"
+
+
+HOLE_SAID = re.compile(r"\s*(?:- )?(?:both starting (?:tackles|corners) out|\d+ starting offensive linemen out|"
+                       r"\d+ starters out (?:of the secondary|up front on defense))[^.]*\.?", re.I)
 
 
 def said_twice(leg, lines, why, games):

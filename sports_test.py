@@ -28097,6 +28097,207 @@ def test_cards_1119_one_form_line_a_plain_record_only_when_its_good_and_the_benc
     assert nr_._whole(6.1) == "6" and nr_._whole(0.4) == "0.4"
     assert "for every full game it played" not in inspect.getsource(v24.why_map)
 
+def _oline_1119_file(teams):
+    """A snap-count starters file in a temp dir (sports_starters.PATH) - returns the undo."""
+    import sports_starters as ss
+    keep = (ss.PATH, dict(ss._CACHE))
+    ss.PATH = os.path.join(tempfile.mkdtemp(), "nfl_snaps.json")
+    with open(ss.PATH, "w") as f:
+        json.dump({"at": "2026-11-18T10:00Z", "season": 2026, "teams": teams}, f)
+    ss._CACHE.clear()
+
+    def undo():
+        ss.PATH = keep[0]
+        ss._CACHE.clear()
+        ss._CACHE.update(keep[1])
+    return undo
+
+
+def test_oline_1119_the_snap_counts_say_who_starts_where_a_box_score_cannot():
+    """11/19, the owner on the Colts +525 at the Texans (both starting tackles out and the engine counted the Colts as
+    the healthier side): "The starting fucking edges are key because then there's no pass protection ... This is not
+    okay that we're not looking at this." sports_starters reads who starts off the snap counts: 70%+ of the snaps in 2+
+    of the team's last 4 games (50%+ up front on defense) - by the game, never an average, so the game a man leaves
+    hurt can't unmake him (Raimann played 10% of his last game, Travis 41% of his)."""
+    import sports_starters as ss
+    rows = []
+
+    def add(week, day, player, pos, off=0, de=0, team="IND"):
+        rows.append({"pfr_game_id": day + "0clt", "week": str(week), "player": player, "position": pos, "team": team,
+                     "offense_pct": str(off), "defense_pct": str(de)})
+    for wk, day in ((7, "20261025"), (8, "20261101"), (9, "20261108"), (10, "20261115")):
+        add(wk, day, "Bernhard Raimann", "T", off=0.10 if wk == 10 else 1.0)          # hurt early in his last game
+        if wk < 10:
+            add(wk, day, "Jalen Travis", "T", off=0.41 if wk == 9 else 1.0)           # hurt in week 9, sat week 10
+        add(wk, day, "Luke Tenuta", "T", off=0.9 if wk == 10 else 0.1)                # the backup: one start is no starter
+        add(wk, day, "Jerry Tillery", "DT", de=0.33)                                   # a rotation man up front
+        add(wk, day, "Grover Stewart", "DT", de=0.58)                                  # a starter up front (50%+)
+        add(wk, day, "Charvarius Ward", "CB", de=0.95)
+        add(wk, day, "Will Mallory", "TE", off=0.34)
+        add(wk, day, "Daniel Jones", "QB", off=1.0)                                    # the box score has him already
+    add(1, "20260913", "Old Starter", "G", off=1.0)                                    # week 1 only: outside the last 4
+    teams = ss.reduce(rows)
+    men = teams["11"]["men"]
+    assert teams["11"]["last"] == "2026-11-15" and teams["11"]["games"] == 4, teams["11"]
+    assert set(men) == {"bernhard raimann", "jalen travis", "grover stewart", "charvarius ward"}, sorted(men)
+    assert men["bernhard raimann"][1:3] == ["T", "OL"] and men["charvarius ward"][2] == "DB" and men["grover stewart"][2] == "DL"
+    undo = _oline_1119_file(teams)
+    try:
+        st = ss.starters("nfl", "11", "2026-11-20T01:15Z")
+        assert st and ss.find(st, "Bernhard Raimann")[1] == "T" and ss.find(st, "B. Raimann")[0] == "Bernhard Raimann"
+        assert ss.find(st, "Jerry Tillery") is None
+        # never a look-ahead (a replay of an older game), never a stale file, never another league / an unknown team
+        assert ss.starters("nfl", "11", "2026-11-15T18:00Z") is None and ss.starters("nfl", "11", "2026-11-08T18:00Z") is None
+        assert ss.starters("nfl", "11", "2026-12-06T18:00Z") is None
+        assert ss.starters("nfl", "99", "2026-11-20T01:15Z") is None and ss.starters("nba", "11", "2026-11-20T01:15Z") is None
+    finally:
+        undo()
+    # plain words, and a hole is said only when it is more than one man deep
+    assert ss.word("T") == "starting tackle" and ss.word("CB") == "starting corner" and ss.word("DE") == "starting defensive end"
+    assert ss.holes([("A", "T", "OL"), ("B", "T", "OL"), ("C", "CB", "DB")]) == "both starting tackles out - backups protecting the QB"
+    assert ss.holes([("A", "T", "OL"), ("B", "G", "OL")]) == "2 starting offensive linemen out - backups protecting the QB"
+    assert ss.holes([("A", "CB", "DB"), ("B", "CB", "DB")]) == "both starting corners out"
+    assert ss.holes([("A", "T", "OL"), ("C", "CB", "DB"), ("D", "DT", "DL")]) == ""
+    # the download is a plain one under our own name, and a failed read changes nothing (quiet, never worked around)
+    assert "User-Agent" in open("sports_starters.py").read() and "sh.UA" in open("sports_starters.py").read()
+    undo = _oline_1119_file({})
+    try:
+        def boom(url):
+            raise OSError("refused")
+        assert ss.sync(datetime(2026, 11, 19, tzinfo=timezone.utc), get=boom) == 0
+        import sports_http
+        assert sports_http.SEEN["nflverse_snaps"]["ok"] is False
+        csv_text = "pfr_game_id,week,player,position,team,offense_pct,defense_pct\n" + "\n".join(
+            f"{r['pfr_game_id']},{r['week']},{r['player']},{r['position']},{r['team']},{r['offense_pct']},{r['defense_pct']}" for r in rows)
+        assert ss.sync(datetime(2026, 11, 19, tzinfo=timezone.utc), get=lambda url: csv_text) == 1
+        assert "bernhard raimann" in json.load(open(ss.PATH))["teams"]["11"]["men"]
+    finally:
+        undo()
+
+
+def test_oline_1119_a_starting_tackle_out_is_counted_weighed_and_named():
+    """11/19: the banged-up count, the depth weight and every card see a starting lineman / corner / defensive end the
+    box score can't show. The COUNT and the thin-line WEIGHT start with the 11/20 games (sports.OLINE_FROM; None =
+    off); the cards name the men from the first run. The weight: an NFL DOG with 2+ more starting linemen out than the
+    favorite reads 2 points less on its own read, on top of the depth weight, the two capped at 4 - never a favorite,
+    never one lineman, never college (results/studies/oline_1119)."""
+    import sports_absences
+    import sports_starters as ss
+    men = {"bernhard raimann": ["Bernhard Raimann", "T", "OL", 0.95, 3], "jalen travis": ["Jalen Travis", "T", "OL", 1.0, 2],
+           "charvarius ward": ["Charvarius Ward", "CB", "DB", 0.95, 4], "sauce gardner": ["Sauce Gardner", "CB", "DB", 0.9, 3]}
+    undo = _oline_1119_file({"11": {"last": "2026-11-22", "games": 4, "men": men},
+                             "34": {"last": "2026-11-22", "games": 4,
+                                    "men": {"danielle hunter": ["Danielle Hunter", "DE", "DL", 0.8, 4]}}})
+    keep = (sports_absences.regulars, sports.OLINE_FROM)
+    sports_absences.regulars = lambda games, league, team, before: {"woody marks", "some tackler"}   # (the box score)
+    try:
+        g = {"id": "nfl:x", "league": "nfl", "home": "34", "away": "11", "home_name": "Texans", "away_name": "Colts",
+             "start": "2026-11-27T01:15Z", "status": "pre"}                       # (a Pacific 11/26 game)
+        inj = {"nfl": {"11": [("Charvarius Ward", "CB", "Out"), ("Jerry Tillery", "DT", "Out"), ("Bernhard Raimann", "OT", "Out"),
+                              ("Will Mallory", "TE", "Out"), ("Jalen Travis", "OT", "Injured Reserve"),
+                              ("Sauce Gardner", "CB", "Questionable")],
+                       "34": [("Danielle Hunter", "DE", "Out"), ("Woody Marks", "RB", "Out"), ("Brevin Jordan", "TE", "Out")]}}
+        # THE COUNT: the two tackles and the corner count for the Colts, the defensive end for the Texans; a depth man
+        # (Tillery, Mallory) and a questionable starter never do
+        assert sports.out_count(g, "away", inj) == 3 and sports.out_count(g, "home", inj) == 1   # (a starter up front on
+        assert sports.COUNT_GROUPS == ("OL", "DB")           #  defense - Hunter - is named on the card, not in the weight)
+        assert sports.ol_out(g, "away", inj) == 2 and sports.ol_out(g, "home", inj) == 0
+        assert [m[0] for m in sports.starters_out(g, "away", inj)] == ["Charvarius Ward", "Bernhard Raimann", "Jalen Travis"]
+        sports.OLINE_FROM = None                                                   # the switch: off = the box score alone
+        assert sports.out_count(g, "away", inj) == 0 and sports.out_count(g, "home", inj) == 1
+        sports.OLINE_FROM = keep[1]
+        old = {**g, "start": "2026-11-20T01:15Z"}                                 # Thursday 11/19 Pacific: before the date
+        assert sports.pt_day(old) == "2026-11-19" < sports.OLINE_FROM == "2026-11-20"
+        # THE WEIGHT: the dog 2+ linemen short of the favorite, never the favorite, never one man, never before the date
+        day = sports.pt_day(g)
+        assert sports.ol_gap_penalty("nfl", 2, 0, day, dog=True) == sports.OL_GAP_PTS == 0.02
+        assert sports.ol_gap_penalty("nfl", 2, 0, day, dog=False) == 0 and sports.ol_gap_penalty("nfl", 1, 0, day) == 0
+        assert sports.ol_gap_penalty("nfl", 3, 1, day) == 0.02 and sports.ol_gap_penalty("nfl", 2, 1, day) == 0
+        assert sports.ol_gap_penalty("ncaaf", 3, 0, day) == 0 and sports.ol_gap_penalty("nfl", 2, 0, "2026-11-19") == 0
+        both = min(sports.DEPTH_OL_CAP, sports.depth_penalty("nfl", 5, 0, day) + sports.ol_gap_penalty("nfl", 2, 0, day))
+        assert both == 0.04 <= sports.FAV_CAP and both * 100 <= sports.STUDY_CAP, both   # never overweighted
+        r = sports.absence_reasons("nfl", None, 0.03, 2, 3, "Colts", ol=(2, 0))
+        assert r == ["opponent the more banged-up side: 3 regulars out to 2 for us",
+                     "opponent's offensive line is short: 2 starting linemen out to 0 for us"], r
+        assert sports.absence_reasons("nfl", None, 0.02, 3, 3, "Colts", ol=(2, 0)) == [
+            "opponent's offensive line is short: 2 starting linemen out to 0 for us"]   # (never a false 'more banged-up')
+        # THE CARD names them in plain words - the starting tackles lead the list, a tackle on injured reserve included
+        assert sports.side_holes(g, "away", inj)[0] == "both starting tackles out - backups protecting the QB"
+        assert sports.side_holes(g, "home", inj) == ("", [])
+        outs = sports.card_outs({}, g, "away", "Colts", inj)
+        assert outs[:2] == ["Bernhard Raimann (OT)", "Jalen Travis (OT)"] and "Charvarius Ward (CB)" in outs, outs
+        line = sports.injury_line(g, "away", inj)
+        assert "OT Bernhard Raimann (starting tackle)" in line and "CB Charvarius Ward (starting corner)" in line, line
+        assert "Sauce Gardner (starting corner)" in line.split("questionable:")[1] and "Tillery" not in line, line
+        assert "DE Danielle Hunter (starting defensive end)" in sports.injury_line(g, "home", inj)
+        assert sports_absences.matters(None, "nfl", "11", "Bernhard Raimann", g["start"]) is True
+        assert not sports_absences.matters(None, "nfl", "11", "Jerry Tillery", g["start"])
+        assert sports_absences.missed_lately({}, "nfl", "11", "Jalen Travis", g["start"]) is False
+        import sports_breakdown_v24 as v24
+        named = v24.who_plays_only(["Bernhard Raimann (OT)", "Jerry Tillery (DT)", "Jalen Travis (OT)"], "nfl", "11", g["start"])
+        assert named == ["Bernhard Raimann (OT)", "Jalen Travis (OT)"], named
+        # ...and the card check keeps the line while the men matter, and takes the claim off with the men
+        import sports_card_check as cc
+        cc._MAT.clear()
+        leg = {"team": "Texans", "opp": "Colts", "side": "home", "league": "nfl", "game_id": "nfl:x", "outs": [],
+               "opp_outs": ["Bernhard Raimann (OT)", "Jalen Travis (OT)"], "market": "ml", "odds": -150}
+        said = "🚑 Colts are without Bernhard Raimann (OT), Jalen Travis (OT). Both starting tackles out - backups protecting the QB."
+        assert cc.absent_matters(said, leg, {"nfl:x": g}) == (said, "")
+        undo2 = _oline_1119_file({"11": {"last": "2026-11-22", "games": 4, "men": {"bernhard raimann": men["bernhard raimann"]}}})
+        cc._MAT.clear()
+        try:                                                                       # (Travis is no starter in this file)
+            t, why = cc.absent_matters(said, leg, {"nfl:x": g})
+        finally:
+            undo2()
+            cc._MAT.clear()
+        assert t == "🚑 Colts are without Bernhard Raimann (OT)." and "Jalen Travis" in why, (t, why)
+    finally:
+        sports_absences.regulars, sports.OLINE_FROM = keep
+        undo()
+    import sports_leads
+    src = open("sports_leads.py").read()
+    assert 'c.get("ol_gap") or 0) >= 2' in src and "NFL dog, 2+ more starting linemen out than the favorite (fade)" in src
+
+
+def test_oline_1119_the_depth_chart_first_string_is_the_fallback():
+    """11/19: when the snap counts are quiet (or the league has none - college), the starters a box score can't show
+    come from ESPN's depth chart's first string - the same payload sports_qb already reads, no extra request - and only
+    from a chart read inside the 8 days before the game. No chart = nothing is claimed."""
+    import sports_qb
+    import sports_starters as ss
+    payload = {"depthchart": [
+        {"name": "Base 4-3 D", "positions": {"lde": {"athletes": [{"displayName": "Laiatu Latu", "rank": 1}]},
+                                              "lcb": {"athletes": [{"displayName": "Sauce Gardner"}, {"displayName": "Backup Corner"}]}}},
+        {"name": "3WR 1TE", "positions": {"qb": {"athletes": [{"displayName": "Daniel Jones"}]},
+                                           "lt": {"athletes": [{"displayName": "Backup Tackle", "rank": 2},
+                                                               {"displayName": "Bernhard Raimann", "rank": 1}]},
+                                           "rt": {"athletes": [{"athlete": {"displayName": "Jalen Travis"}}]},
+                                           "wr": {"athletes": [{"displayName": "Some Catcher"}]}}}]}
+    first = sports_qb.parse_first(payload)
+    assert first == {"lde": "Laiatu Latu", "lcb": "Sauce Gardner", "lt": "Bernhard Raimann", "rt": "Jalen Travis"}, first
+    assert sports_qb.parse_first({}) == {} and sports_qb.parse_first({"depthchart": "x"}) == {}
+    assert sports_qb.parse_depth(payload) == ["Daniel Jones"]                    # (the QB read is untouched)
+    keep_c, keep_s = dict(sports_qb._CACHE), (ss.PATH, dict(ss._CACHE))
+    ss.PATH = os.path.join(tempfile.mkdtemp(), "none.json")
+    ss._CACHE.clear()
+    sports_qb._CACHE["d"] = {"ncaaf": {"333": {"at": "2026-11-18T10:00Z", "qbs": [], "first": first}},
+                             "nfl": {"11": {"at": "2026-11-18T10:00Z", "qbs": ["Daniel Jones"], "first": first},
+                                     "12": {"at": "2026-11-18T10:00Z", "qbs": ["A"]}}}
+    try:
+        st = ss.starters("ncaaf", "333", "2026-11-21T20:00Z")
+        assert st["bernhard raimann"] == ("Bernhard Raimann", "T", "OL") and st["sauce gardner"][1:] == ("CB", "DB"), st
+        assert ss.starters("nfl", "11", "2026-11-20T01:15Z")["laiatu latu"][1:] == ("DE", "DL")
+        assert ss.starters("nfl", "11", "2026-11-30T01:15Z") is None            # the chart is too old for that game
+        assert ss.starters("nfl", "11", "2026-11-17T01:15Z") is None            # ...or was read after it (a replay)
+        assert ss.starters("nfl", "12", "2026-11-20T01:15Z") is None            # no first string on file: unknown
+    finally:
+        sports_qb._CACHE.clear()
+        sports_qb._CACHE.update(keep_c)
+        ss.PATH = keep_s[0]
+        ss._CACHE.clear()
+        ss._CACHE.update(keep_s[1])
+
+
 if __name__ == "__main__":
     os.environ.pop("ODDS_API_KEY", None)                 # (11/2: tests never spend the owner's Odds API credits)
     import sports_http as _sh
@@ -28125,6 +28326,9 @@ if __name__ == "__main__":
     import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")              # (nor the Lock near-miss)
     sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "lean_sides.json")           # (nor the lean memory)
+    import sports_starters               # (11/19: never the real snap-count file, never a real download)
+    sports_starters.PATH = os.path.join(tempfile.mkdtemp(), "nfl_snaps.json")
+    sports_starters.ON[0] = False
     sports.LEANS_GONE = False            # (11/16: leans are OFF in the engine - the older tests check the lean mechanics
     #                                      written before; test_owner_1116_leans_* switches it on and checks it's all gone)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list

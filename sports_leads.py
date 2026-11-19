@@ -355,6 +355,10 @@ def tags(c, sports):
             t.append("NFL dog, 2+ more regulars out than the favorite (fade)")   # 2016-26): the dog missing 2+ starters'
             #   worth more than the favorite won 28.9% vs the close's 33.5% on 415, 9 of 11 seasons down - the depth
             #   weight went to 1 point a regular (sports.DEPTH_PTS_1113); this is its forward record
+        if lg == "nfl" and (c.get("ol_gap") or 0) >= 2:       # 11/19 FABLE - THE OFFENSIVE LINE (results/studies/oline_1119):
+            t.append("NFL dog, 2+ more starting linemen out than the favorite (fade)")   # that dog -29.8% on 96 at the
+            #   close 2016-26 (train -20.1% / held -39.6%, 9 of 11 seasons down, won 25.3% vs 34.3% priced) - the thin-line
+            #   weight's forward record (sports.OL_GAP_PTS, from the 11/20 games)
         g4 = mo.get("go4_gap")
         if g4 is not None:
             import sports_go4

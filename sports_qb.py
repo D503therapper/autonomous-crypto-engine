@@ -127,13 +127,53 @@ def parse_depth(payload):
     return []
 
 
+FIRST_SPOTS = ("lt", "lg", "c", "rg", "rt", "te", "lcb", "rcb", "ss", "fs", "lde", "rde", "ldt", "rdt", "nt", "de", "dt",
+               "wlb", "mlb", "slb", "lilb", "rilb", "lolb", "rolb")
+_FIRST = {}                      # (league, team id) -> {spot: the first-string man} off the chart just read
+
+
+def parse_first(payload):
+    """🧱 11/19 (sports_starters - the men a box score can't show): ESPN's depth chart -> {spot: the FIRST man listed}
+    for the lines, the secondary and the front seven ({'lt': 'Bernhard Raimann', 'lcb': ...}). Reads the same shapes as
+    parse_depth, every formation block; {} when the payload carries none (unknown, never a guess)."""
+    if not isinstance(payload, dict):
+        return {}
+    charts = payload.get("depthchart") or payload.get("depthCharts") or payload.get("items") or []
+    if isinstance(charts, dict):
+        charts = [charts]
+    out = {}
+    for ch in charts:
+        pos = (ch or {}).get("positions") if isinstance(ch, dict) else None
+        if isinstance(pos, list):
+            pos = {str(((p.get("position") or {}).get("abbreviation") or p.get("abbreviation") or "")).lower(): p
+                   for p in pos if isinstance(p, dict)}
+        if not isinstance(pos, dict):
+            continue
+        for k, v in pos.items():
+            k = str(k).lower()
+            if k not in FIRST_SPOTS or k in out or not isinstance(v, dict):
+                continue
+            aths = [a for a in v.get("athletes") or [] if _ath_name(a)]
+            aths = [a for _, _, a in sorted((_rank(a, i), i, a) for i, a in enumerate(aths))]
+            if aths:
+                out[k] = _ath_name(aths[0])
+    return out
+
+
 def fetch_depth(league, tid, get=None):
-    """One team's chart: [quarterbacks in order], [] = ESPN has no QB chart for it; raises on a failed read."""
+    """One team's chart: [quarterbacks in order], [] = ESPN has no QB chart for it; raises on a failed read. The same
+    payload's first string at the other spots is kept in _FIRST (sync saves it as "first")."""
     url = DEPTH.format(path=sd.LEAGUES[league][0], tid=tid)
     if get is not None:
-        return parse_depth(get(url))
-    with urllib.request.urlopen(urllib.request.Request(url, headers=sh.JSON_HDR), timeout=12) as r:
-        return parse_depth(json.load(r))
+        payload = get(url)
+    else:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=sh.JSON_HDR), timeout=12) as r:
+            payload = json.load(r)
+    try:
+        _FIRST[(league, str(tid))] = parse_first(payload)
+    except Exception:                                        # noqa: BLE001 - the QB read never fails on it
+        _FIRST.pop((league, str(tid)), None)
+    return parse_depth(payload)
 
 
 def load():
@@ -212,6 +252,8 @@ def sync(games, now=None, get=None, budget_s=40, workers=6):
                     box[tid] = {"qbs": names[:4], "at": _iso(now)}
                 elif names is not None:                      # ESPN answered with no chart: remember we asked
                     box[tid] = {"qbs": [], "at": _iso(now)}
+                if names is not None and _FIRST.get((lg, str(tid))):   # 🧱 11/19: the first string at the other spots
+                    box[tid]["first"] = _FIRST[(lg, str(tid))]         # (sports_starters' fallback - no extra request)
         got[lg] = state["ok"]
         sh.note(f"espn_depth_{lg}", state["ok"] > 0, n=state["ok"], err=state["err"],
                 how="plain request - the team depth charts (who starts at QB)"

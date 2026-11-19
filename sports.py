@@ -474,7 +474,7 @@ COLD_NAME_MIN = 10 / 30   # 11/12: the 'cold-weather edge' is NAMED (card: "a wa
 #   MD) a warm-weather team at the Giants. The weight in the read is unchanged; only the claim needs a real gap.
 
 
-def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
+def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name, ol=None):
     """🚑 10/28 (THE NAMED REASON - New Mexico St +130 passed every Dog check and sat on "no named reason"): the facts the
     engine's OWN read really counts for a side that _reasons could never see. _reasons reads the model's factor dict, and
     the "opponent missing key players" line there is ESPN's raw injury COUNT behind the learned 'inj' weight - negative
@@ -486,8 +486,10 @@ def absence_reasons(lg, absent_opp, depth_opp, n_out_me, n_out_opp, opp_name):
     pts, who = absent_opp if absent_opp else (0.0, [])
     if round(pts * 100) >= 1 and who:                 # (11/12: a fact that no longer moves the read is not its reason)
         out.append(f"opponent missing key players: {', '.join(str(w) for w in who[:3])} (their read -{round(pts * 100):g})")
-    if depth_opp:
+    if depth_opp and n_out_opp > n_out_me:
         out.append(f"opponent the more banged-up side: {n_out_opp} regulars out to {n_out_me} for us")
+    if ol and depth_opp:                              # 🧱 11/19: `ol` = (their starting linemen out, ours) - the thin line
+        out.append(f"opponent's offensive line is short: {ol[0]} starting linemen out to {ol[1]} for us")
     return out
 
 
@@ -621,6 +623,102 @@ def depth_penalty(lg, n_me, n_opp, day=""):
     return min(DEPTH_CAP, round(pts[lg] * max(0, (n_me or 0) - (n_opp or 0)), 6))
 
 
+# 🧱 11/19 FABLE - THE OFFENSIVE LINE (the owner on the Colts +525 at the Texans, both starting tackles + a starting corner
+# + a defensive tackle out, and the count read the Colts as the HEALTHIER side - 2 regulars out to 1: "The starting
+# fucking edges are key because then there's no pass protection ... Fable needs to run studies on this as well and get
+# this all sorted out. This is not okay that we're not looking at this."). results/studies/oline_1119/ - nflverse's snap
+# counts x injury reports x closing moneylines / spreads, 4,870 team-games 2016-26, 74 cells, run under two rules for
+# who starts (they agree):
+#   * ONE starting lineman out is in the price (that side won 49.7% vs the close's 49.4% on 1,578); so is a starting
+#     corner (45.7% vs 46.8% on 1,106), 2+ of the secondary (44.3% vs 45.7% on 352), a man up front on defense (47.4% vs
+#     47.0% on 860), a tackle out against a top-third pass rush (46.7% vs 46.1% on 302) and "our tackle out, their edge
+#     rushers all in" (46.7% vs 46.1% on 270). BOTH tackles out is nothing special by itself (37.7% vs 41.0% on 69):
+#     what counts is how many linemen MORE than the other side. Nothing past the close in any of these.
+#   * THE DOG WITH TWO OR MORE STARTING LINEMEN MORE OUT THAN THE FAVORITE is not priced: it won 21.5% where the close
+#     said 34.2% (135, z -3.2) - the bet on it -40.9% on 136 (train 2016-21 -23.8% / held out 2022-26 -56.5%, 10 of
+#     11 seasons down, 4 of 2,000 random sets of dogs as bad), -44.7% at the first fair price (the market moves a point
+#     against it by the close, not far enough); the favorite across +15.9% on the moneyline, +14.2% a point worse than
+#     the close (both halves up, 8 of 11 seasons). Under the first rule for who starts: 25.3% vs 34.3% on 95, -29.8%,
+#     both halves. A gap of ONE lineman is nothing (48.3% vs 47.5% on 1,035); a FAVORITE with the thin line is nothing
+#     (66.3% vs 63.7% on 83).
+# WIRED, games from OLINE_FROM (the Pacific day; None = off):
+#   (1) THE COUNT SEES THEM: the banged-up count (out_count -> the depth weight, the stamped injury count, the tracker's
+#       depth gap) counts the starting offensive linemen and corners / safeties the snap counts name (COUNT_GROUPS)
+#       beside the box score's regulars (sports_absences.unseen). One man, one count.
+#   (2) THE THIN LINE: an NFL DOG with OL_GAP_MIN+ MORE starting offensive linemen out than the favorite reads
+#       OL_GAP_PTS less on its OWN read, on top of the depth weight, the two together capped at DEPTH_OL_CAP (4 points -
+#       inside FAV_CAP / STUDY_CAP; the study's gap is 9-13, taken at well under half). A WEIGHT, never a block, never a
+#       trigger: the favorite across still has to clear every check. Tracker tag "NFL dog, 2+ more starting linemen
+#       out than the favorite (fade)".
+# The cards name these men from the first run on (no date - a view, not a weight): sports.who_matters / injury_line /
+# card_outs / side_holes, sports_breakdown_v24.who_plays_only.
+OLINE_FROM = "2026-11-20"
+COUNT_GROUPS = ("OL", "DB")   # the unseen starters the banged-up COUNT takes: on top of the closing line a lineman out
+#   runs +1.0 / +1.9 points a man (train / held) and a corner / safety +0.7 / +1.1 - the size of the depth weight; a
+#   defensive lineman's number flips (-2.7 / +2.7) and the side missing two of them covered MORE often (the bet against
+#   it -22.5% against the spread on 95), so the front is named on the card and left out of the weight.
+OL_GAP_MIN = 2
+OL_GAP_PTS = 0.02
+DEPTH_OL_CAP = 0.04
+
+
+def oline_on(day):
+    return bool(OLINE_FROM) and (day or "") >= OLINE_FROM
+
+
+def starters_out(g, side, injuries):
+    """[(name, position, group, the report's name for him, the report's position)] - this side's starters the box score
+    can't show (sports_absences.unseen: the snap counts / the depth chart) that the report rules out (out / doubtful /
+    injured reserve / suspended). [] when we can't see them."""
+    if g.get("league") not in ("nfl", "ncaaf"):
+        return []
+    import sports_absences
+    st = sports_absences.unseen(g["league"], g[side], g.get("start") or "9")
+    if not st:
+        return []
+    import sports_starters
+    out, seen = [], set()
+    for r in sd._team_rows((injuries or {}).get(g["league"]), g[side], g[side + "_name"]):
+        if not any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT):
+            continue
+        m = sports_starters.find(st, r[0])
+        if m and m[0] not in seen:
+            seen.add(m[0])
+            out.append((m[0], m[1], m[2], r[0], r[1]))
+    return out
+
+
+def side_holes(g, side, injuries):
+    """🧱 The plain-words line for a side whose lineup is more than one starter short at one spot ("both starting
+    tackles out - backups protecting the QB"; sports_starters.holes), and the report names of the men behind it.
+    ("", []) when there is no such hole or we can't see who starts."""
+    try:
+        import sports_starters
+        so = starters_out(g, side, injuries)
+        words = sports_starters.holes(so)
+    except Exception:                                        # noqa: BLE001 - the card never fails on it
+        return "", []
+    if not words:
+        return "", []
+    n = {}
+    for m in so:
+        n[m[2]] = n.get(m[2], 0) + 1
+    return words, [m for m in so if m[2] in ("OL", "DB", "DL") and n[m[2]] >= 2]
+
+
+def ol_out(g, side, injuries):
+    """How many of this side's STARTING offensive linemen are out."""
+    return sum(1 for m in starters_out(g, side, injuries) if m[2] == "OL")
+
+
+def ol_gap_penalty(lg, n_me, n_opp, day="", dog=True):
+    """🧱 Points of win chance off an NFL DOG's OWN read for having OL_GAP_MIN+ more starting offensive linemen out than
+    the favorite (OL_GAP_PTS, games from OLINE_FROM); 0 otherwise - a favorite with the thin line is in the price."""
+    if lg != "nfl" or not oline_on(day) or not dog:
+        return 0.0
+    return OL_GAP_PTS if (n_me or 0) - (n_opp or 0) >= OL_GAP_MIN else 0.0
+
+
 def hurt(g, side, injuries):
     """Players out / doubtful (2+) or questionable (4+) the engine doesn't weigh yet (10/2, the owner: "if the running
     backs are out and the wide receivers are out and they got a bunch of backups, that changes everything"): a side like
@@ -648,6 +746,17 @@ def hurt(g, side, injuries):
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
 
 
+def counted_men(g, side, reg):
+    """🧱 11/19: the men the banged-up count reads - the box score's regulars plus, in the NFL from OLINE_FROM, the
+    starters a box score can't show at the spots the count takes (COUNT_GROUPS: the offensive line, the corners /
+    safeties - the Colts' two tackles were nobody). The men up front on defense are NAMED on the card, not counted."""
+    if not reg or g["league"] != "nfl" or not oline_on(pt_day(g)):
+        return reg
+    import sports_absences
+    return set(reg) | {k for k, v in sports_absences.unseen("nfl", g[side], g.get("start") or "9").items()
+                       if v[2] in COUNT_GROUPS}
+
+
 def out_count(g, side, injuries):
     """How many players out / doubtful count against a side in the banged-up test (MAX_EXTRA_OUT): the same list hurt()
     reads - football only players who actually play (sports_absences.regulars), never a season-long absence (already in
@@ -658,6 +767,7 @@ def out_count(g, side, injuries):
     rows = [r for r in sd.team_injuries(inj, g[side], g[side + "_name"]) if "season" not in r[2].lower()]
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
+    reg = counted_men(g, side, reg)   # (11/19)
     if reg:                                                  # who plays is known: a regular who just PLAYED and is now
         rows = [r for r in sd._team_rows(inj, g[side], g[side + "_name"])   # on injured reserve is a fresh hole too
                 if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT) and sports_absences.match(r[0], reg)]
@@ -1004,6 +1114,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
         weighed = {s_: depth_weighed(g, s_) for s_ in ("home", "away")}
         depth = {s_: depth_penalty(lg, n_out[s_], n_out["away" if s_ == "home" else "home"], pt_day(g)) if weighed[s_] else 0.0
                  for s_ in ("home", "away")}   # (11/11 THE BOOK: 1 point a regular in the NFL from the 11/13 games)
+        n_ol = {s_: ol_out(g, s_, injuries) if lg == "nfl" and oline_on(pt_day(g)) and weighed[s_] else 0
+                for s_ in ("home", "away")}    # 🧱 11/19: the thin offensive line (2+ more starting linemen out than the
+        ol_pts = {s_: ol_gap_penalty(lg, n_ol[s_], n_ol["away" if s_ == "home" else "home"], pt_day(g),   # favorite) -
+                                     dog=mkt is not None and (mkt if s_ == "home" else 1 - mkt) < 0.5)
+                  for s_ in ("home", "away")}  # the DOG reads OL_GAP_PTS less, with the depth weight capped at 4
+        if ol_pts["home"] or ol_pts["away"]:
+            depth = {s_: min(DEPTH_OL_CAP, round(depth[s_] + ol_pts[s_], 6)) for s_ in ("home", "away")}
         if depth["home"] or depth["away"]:
             ph_own = min(0.99, max(0.01, ph_own - depth["home"] + depth["away"]))
         # the studies' PROVEN angles (context factors, situational spots, the explorer): the single strongest one
@@ -1093,7 +1210,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
             base["reasons"] = base["reasons"] + absence_reasons(lg, absent[other], depth[other], n_out[side], n_out[other],
-                                                                g[other + "_name"])   # (10/28: a fact the own read counts)
+                                                                g[other + "_name"],   # (10/28: a fact the own read counts)
+                                                                ol=(n_ol[other], n_ol[side]) if ol_pts[other] else None)
             base["reasons"] = key_label(base["reasons"], key_out[other], pt_day(g))   # (11/15: never off a raw count)
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
@@ -1102,6 +1220,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 base["depth_pts"] = round(depth[side] * 100, 1)
             if weighed[side] and weighed[other]:          # (11/11 THE BOOK: regulars out beyond the opponent's - the
                 base["depth_gap"] = n_out[side] - n_out[other]   # tracker's "NFL dog, 2+ more regulars out" tag)
+                if n_ol[side] or n_ol[other]:             # (11/19: starting offensive linemen out beyond the opponent's)
+                    base["ol_gap"] = n_ol[side] - n_ol[other]
             base["drift"] = round(((mkt_open - mkt) if side == "home" else (mkt - mkt_open)), 4) \
                 if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])
@@ -7892,8 +8012,8 @@ def who_plays_first(g, side, rows):
     🚑 line with a backup QB, and a college report runs 10-16 names, so a starting back ruled out could sit in '+5
     more' behind four linemen who never play.) Nothing is dropped - only the order changes."""
     import sports_absences
-    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9") or set()
-    keys = sd.KEY_POS.get(g["league"])
+    reg = sports_absences.plays(None, g["league"], g[side], g.get("start") or "9") or set()   # (11/19: plays() -
+    keys = sd.KEY_POS.get(g["league"])                    #  the starting linemen / corners the box score can't show too)
     keys = keys if isinstance(keys, set) else set()
 
     def rank(r):
@@ -7928,7 +8048,11 @@ def who_matters(g, side, rows):
     elif lg in ("nfl", "ncaaf"):
         reg = sports_absences.regulars(None, lg, g[side], g.get("start") or "9") or set()
         for r in rows:
-            if reg and sports_absences.match(r[0], reg):
+            m = sports_absences.snap_starter(lg, g[side], r[0], g.get("start") or "9")   # 🧱 11/19: a starter the box
+            if m:                                           # score can't show is named by what he is, in plain words -
+                import sports_starters                      # "OT Bernhard Raimann (starting tackle)"
+                out[r[0]] = f" ({sports_starters.word(m[1]) or 'starter'})"
+            elif reg and sports_absences.match(r[0], reg):
                 out[r[0]] = " (starter)"
     return out
 
@@ -8007,7 +8131,21 @@ def card_outs(games, g, side, name, injuries, n=4):
         if nm.lower() not in have and not _sat_lately(g, side, nm):
             extra.append(f"{nm} ({role})" if role else nm)
             have.add(nm.lower())
-    return (extra + named)[:n]
+    # 🧱 11/19 (the owner, the Colts' two tackles): a starter the box score can't show who went on injured reserve this
+    # week is on the list too, and the men behind a hole the card SAYS ("both starting tackles out") always lead it -
+    # never cut off behind four tacklers
+    lead = []
+    try:
+        hole_men = side_holes(g, side, injuries)[1]
+        for m in starters_out(g, side, injuries):
+            if m[3].lower() not in have:
+                named.append(f"{m[3]} ({m[4]})" if m[4] else m[3])
+                have.add(m[3].lower())
+        lead = [x for x in extra + named if any(x.split(" (")[0].lower() == m[3].lower() for m in hole_men)]
+    except Exception:                                        # noqa: BLE001
+        lead = []
+    rest = [x for x in extra + named if x not in lead]
+    return (lead + rest)[:max(n, min(len(lead), 6))]
 
 
 def injury_line(g, side, injuries):
@@ -9213,6 +9351,10 @@ def post_board(games, model, picks, now, day, force=False):
             other = "away" if leg["side"] == "home" else "home"
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
                 leg[key] = card_outs(games, g, side, name, injuries)   # (10/16: the ones who play first)
+                hw = side_holes(g, side, injuries)[0]    # 🧱 11/19: "both starting tackles out - backups protecting
+                leg.pop("holes" if key == "outs" else "opp_holes", None)   # the QB" - said with the names (v24)
+                if hw:
+                    leg["holes" if key == "outs" else "opp_holes"] = hw
             elo = elo or sm.ratings(games, model)
             same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
@@ -10468,6 +10610,11 @@ def run(repick=False, fetch=True):
             print(f"qb depth charts: {sports_qb.sync(games, now)} read, {time.time() - t0:.0f}s")
         except Exception as e:                           # noqa: BLE001 - never blocks the board
             print(f"qb depth charts failed: {str(e)[:60]}")
+        try:                                             # 🧱 11/19: who starts on the lines / in the secondary - the
+            import sports_starters                       # season's snap counts (a plain download, twice a day at most);
+            print(f"nfl starters (snap counts): {sports_starters.sync(now)} teams read")   # fails soft: the depth chart,
+        except Exception as e:                           # noqa: BLE001                      then the box score alone
+            print(f"nfl starters failed: {str(e)[:60]}")
         try:                                             # 🏀 every NBA roster, once a day (the owner, 10/20: "who's
             ro = sports_nba_roster.refresh(games, now)   # playing, who the teams traded and who they got") - fails soft
             mv = (ro or {}).get("moves") or []
