@@ -1,14 +1,9 @@
 {
- "at": "2026-11-19T07:42Z",
- "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
- ],
- "problems": [
-  "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
-  "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
- ],
+ "at": "2026-11-19T09:13Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (193s)",
+  "live watcher fresh (163s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,14 +15,18 @@
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 1h ago",
-  "simulator ran 7h ago",
-  "engine ran 8 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 34 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T09:13Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-19T07:42Z",
    "fixes": [
@@ -672,17 +671,6 @@
    "problems": [
     "live tennis scores: tennis Erjavec vs Carle: no points for 2836s",
     "live tennis points check failed: The read operation timed out"
-   ]
-  },
-  {
-   "at": "2026-11-17T18:52Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
