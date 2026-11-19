@@ -1704,6 +1704,12 @@ def breakdown(leg, games, elo, injuries, used=None):
             lines = [x for x in lines if not (str(x).startswith(body_em) and   # last meeting - said once, under the pick;
                                               (body_em != "📅" or _scores(x) & _scores(_wl) or not _scores(x)))]
             #   (10/25: a 📅 line that carries a score the one-liner didn't - our last game - stays: the owner wants both)
+    try:                                                  # 🚑 11/19: the named men the body left to the line under
+        _ld = (named_out_ways(leg, g, them, them) or (None, []))[1]   # the pick - if that line didn't say them, the body does
+        if _ld and not all(w in _wl for w in _ld):
+            lines.insert(0, f"🚑 {them} are without {_and(_ld)}.")
+    except Exception:                                     # noqa: BLE001
+        pass
     if rec_u and rec_u in _wl:                            # (the why line carries the record: no 📋 line too)
         lines = [x for x in lines if not str(x).startswith("📋")]
     try:                                                  # 👍 11/18 (cards_1118): nothing said twice - see no_repeats
@@ -2917,11 +2923,20 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     _who_plays = lambda names, team_id: who_plays_only(names, lg, team_id, g.get("start") or "9")   # noqa: E731
     theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
     theirs_out = _who_plays([x for x in theirs_out if x.split(" (")[0].lower() not in body], oid)[:4]
+    #   🚑 11/19: the men the line under the pick names (named_out_ways) are said there, once - this line takes the rest
+    _lead = (named_out_ways(leg, g, them, them) or (None, []))[1]
+    _ln = lambda x: re.sub(r"[^a-z]", "", str(x).split(" (")[0].lower())   # noqa: E731
+    _also = bool(_lead) and any(_ln(x) in {_ln(w) for w in _lead} for x in theirs_out)
+    if _lead:
+        theirs_out = [x for x in theirs_out if _ln(x) not in {_ln(w) for w in _lead}]
     # 🧱 11/19 (the owner on the Colts' two tackles: "there's no pass protection ... backups ... teams could get eat
     # up"): a lineup more than one starter short at one spot is SAID in plain words with the names - "Both starting
     # tackles out - backups protecting the QB." Theirs rides the 🚑 line; ours is only ever the ⚠️ knock.
     _hole = lambda k: (lambda h: f" {h[0].upper()}{h[1:]}." if h else "")(str(leg.get(k) or "").strip())   # noqa: E731
-    if theirs_out:
+    if theirs_out and _also:
+        add.append(v.say("f_outs_also", [f"🚑 Also out for {them}: {', '.join(theirs_out)}.{_hole('opp_holes')}",
+                                         f"🚑 {them} are down {', '.join(theirs_out)} too.{_hole('opp_holes')}"]))
+    elif theirs_out:
         nm = ", ".join(theirs_out)
         hw = _hole("opp_holes")
         add.append(v.say("f_outs", [f"🚑 {them} are without {nm}.{hw}",
@@ -2950,6 +2965,23 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
                      else "projected, not confirmed" if k == "projected" else "in net last time out")
     note = lambda k: ("" if k is True else ", expected in net, not confirmed" if k == "likely"
                       else ", projected, not confirmed" if k == "projected" else ", in net last time out")
+    #   🥅 11/19 (the owner on the Ducks card: "talk about ... goalie" - Blackwood was in net for the Avalanche in Utah
+    #   the night before, so tonight's net goes to the other man): THEIR goalie in net last night on a back-to-back and a
+    #   different man projected / expected tonight is said plainly, the man's tag kept (never stated as confirmed).
+    try:
+        if role == "G" and his and his[2] is not True and (g.get("start") or "")[:10] >= GOALIE_B2B_FROM:
+            _rows = sp.CACHE.get(lg) or []
+            _oside = "away" if leg.get("side") == "home" else "home"
+            _prev = [r for r in _rows if str(r["team"]) == str(g.get(_oside)) and r["start"] < g["start"]
+                     and r.get("role", "G") == "G"]
+            if _prev and _prev[-1]["player"] != his[0] and sp._hours(_prev[-1]["start"], g["start"]) < 30:
+                _l = _prev[-1]["player"]
+                add.append(v.say("f_net_b2b", [
+                    f"🥅 {_l} was in net for {them} last night, so it's {his[0]} ({tag(his[2])}) tonight.",
+                    f"🥅 {them} used {_l} last night - {his[0]} ({tag(his[2])}) gets this one.",
+                    f"🥅 {_l} played last night for {them}; {his[0]} ({tag(his[2])}) is the next man up."]))
+    except Exception:                                     # noqa: BLE001 - no box scores: no line
+        pass
     if role == "G" and mine and his and mine[0].lower() not in body and his[0].lower() not in body:
         sm_, sh_ = _sv(mine[1]), _sv(his[1])
         if sm_ is not None and sh_ is not None and sm_ > sh_ + 0.005:
@@ -3422,6 +3454,15 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     S = lambda key, ways, em, **kw: (key, _spin(key, ways, lean, us, them, em, names=names, long=_long, **kw))
     pools = []
     # ---- the other side's hole first: their key man out, a back-to-back, a heavy public we're fading ----
+    #   🚑 11/19 (the owner on the Ducks 3u card, MacKinnon AND Makar out for the Avalanche while the line under the pick
+    #   said only "the Avalanche played last night": "The breakdown should say the Avalanche has their best two players
+    #   out in the main line" / "Get the breakdowns right permanently"): the NAMED absence the engine's own read counts
+    #   (sports.absence_reasons - "opponent missing key players: A, B (their read -7)") is the biggest fact a card holds
+    #   and leads the line under the pick, with who they are ("their top two scorers") and the back-to-back folded in.
+    named = named_out_ways(leg, g, them, the_them, "opponent on a back-to-back" in whyf) if not key_us else None
+    if named:
+        names = names + tuple(named[1])
+        pools.append(S("w_hurt_named", named[0], "🚑", beat=True))
     if "opponent missing key players" in whyf and (not key_us):
         pools.append(S("w_hurt", whyf["opponent missing key players"], "🚑", beat=True))
     if "opponent on a back-to-back" in whyf:
@@ -4051,3 +4092,57 @@ def inches(rain_mm):
     except (TypeError, ValueError):
         return ""
     return f"{x:.1f} inches" if x >= 0.1 else "a little"
+
+
+NAMED_OUT_FROM = "2026-11-19"
+GOALIE_B2B_FROM = "2026-11-19"   # 🥅 their goalie on a back-to-back said plainly (more_facts) from this game day   # 🚑 the named-absence line leads the one-liner (see why_line) from this game day
+
+
+def _and(xs):
+    xs = [str(x) for x in xs if x]
+    return xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " and " + xs[-1] if xs else ""
+
+
+def named_out_ways(leg, g, them, the_them, b2b=False):
+    """🚑 11/19: (ways to say it, [names]) for the opponent's key men the engine's OWN read takes off (the named reason
+    "opponent missing key players: A, B (their read -N)"), or None. Hockey / the NBA say WHO they are by this team's
+    box scores (the top 3 in points over its last 10 games - sports_absences.key_players): "their top two scorers",
+    "their leading scorer", "two of their top three scorers". Football names carry the spot ("QB X"). Never a man the
+    read doesn't count, never a guess about rank (no box scores = names only)."""
+    if not g or (str(g.get("start") or "")[:10] or "9") < NAMED_OUT_FROM:
+        return None
+    rs = next((str(r) for r in (leg.get("reasons") or []) if str(r).startswith("opponent missing key players:")), None)
+    if not rs:
+        return None
+    body = re.sub(r"\s*\(their read[^)]*\)\s*$", "", rs.split(":", 1)[1]).strip()
+    who = [x.strip() for x in body.split(",") if x.strip()][:3]
+    if not who:
+        return None
+    lg = leg.get("league")
+    lbl = ""
+    if lg in ("nhl", "nba"):
+        try:
+            import sports_absences as sa
+            oside = "away" if leg.get("side") == "home" else "home"
+            top = (sa.key_players({}, lg, g.get(oside), g.get("start") or "9") or {}).get("top") or []
+            nm = lambda x: re.sub(r"[^a-z]", "", str(x).lower())          # noqa: E731
+            rank = sorted(i for i, p in enumerate(top) if any(nm(p) == nm(w) for w in who))
+            nba = lg == "nba"                             # (the owner's words: "their best two players")
+            n_ = {1: "", 2: "two ", 3: "three "}
+            if len(rank) == len(who):
+                if rank == list(range(len(rank))):
+                    lbl = (f"their leading scorer" if len(rank) == 1 else f"their top {n_[len(rank)]}scorers") if nba \
+                        else (f"their best player" if len(rank) == 1 else f"their {n_[len(rank)]}best players")
+                else:
+                    k = {1: "one", 2: "two", 3: "three"}[len(rank)]
+                    lbl = f"{k} of their top three scorers" if nba else f"{k} of their three best players"
+        except Exception:                                 # noqa: BLE001 - no rank = the names alone
+            lbl = ""
+    W = _and(who)
+    T = the_them
+    cut = lambda x: x                                     # noqa: E731
+    tail = [", and they played last night", " - and on a back-to-back"] if b2b else ["", ""]
+    ways = [f"{T} are without {W}" + (f", {lbl}" if lbl else "") + tail[0],
+            f"no {W} for {T}" + (f" - {lbl}" if lbl else "") + tail[1],
+            f"{T} gotta play without {W}" + (f", {lbl}" if lbl else "") + tail[0]]
+    return [cut(w) for w in ways], [re.sub(r"^(QB|RB|WR|TE|FB|HB) ", "", w) for w in who]

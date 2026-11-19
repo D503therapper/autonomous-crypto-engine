@@ -28665,6 +28665,43 @@ def test_ask_box_1119_never_says_lean():
     assert not _re.search(r"\blean", src[a:b], _re.I), src[a:b]
 
 
+def test_named_out_1119_their_best_men_out_lead_the_line_under_the_pick():
+    """11/19, the owner on the Ducks +110 3u card (MacKinnon AND Makar out for the Avalanche; the line under the pick
+    said only that the Avalanche played last night): "The breakdown should say the Avalanche has their best two players
+    out in the main line" / "Get the breakdowns right permanently." The named absence the engine's own read counts leads
+    the line under the pick - who they are by the box scores, the back-to-back folded in - and the body never says them
+    twice."""
+    import sports_breakdown_v24 as v24, sports_absences as sa
+    g = {"id": "nhl:401892751", "league": "nhl", "start": "2026-11-20T02:00Z", "home": "17", "away": "25",
+         "home_name": "Avalanche", "away_name": "Ducks"}
+    leg = {"team": "Ducks", "opp": "Avalanche", "league": "nhl", "side": "away", "p": 0.62, "dec": 2.10, "tier": "dog",
+           "ctx": [], "reasons": ["opponent on a back-to-back",
+                                  "opponent missing key players: Cale Makar, Nathan MacKinnon (their read -7)"]}
+    keep = sa.key_players
+    sa.key_players = lambda games, lg, team, before: {"top": ["Nathan MacKinnon", "Cale Makar", "Martin Necas"]} \
+        if str(team) == "17" else {}
+    try:
+        w = v24.named_out_ways(leg, g, "Avalanche", "the Avalanche", b2b=True)
+        assert w and "Cale Makar and Nathan MacKinnon" in w[0][0] and "their two best players" in w[0][0], w
+        assert "played last night" in w[0][0] and w[1] == ["Cale Makar", "Nathan MacKinnon"]
+        line = v24.why_line(leg, v24.Voice("n1", set()), g, "Ducks", "Avalanche", "the Ducks", "the Avalanche",
+                            whyf={"opponent on a back-to-back": ["the Avalanche played last night and the Ducks didn't"]})
+        assert line.startswith("🚑") and "MacKinnon" in line and "Makar" in line, line
+        assert len(line) <= v24.LINE_MAX
+        sa.key_players = lambda games, lg, team, before: {"top": ["Martin Necas", "Nathan MacKinnon", "Cale Makar"]}
+        w2 = v24.named_out_ways(leg, g, "Avalanche", "the Avalanche")
+        assert "two of their three best players" in w2[0][0], w2
+        sa.key_players = lambda games, lg, team, before: {}
+        assert "best players" not in v24.named_out_ways(leg, g, "Avalanche", "the Avalanche")[0][0]   # no rank: names only
+        assert v24.named_out_ways({**leg, "reasons": ["opponent on a back-to-back"]}, g, "Avalanche", "x") is None
+        assert v24.named_out_ways(leg, {**g, "start": "2026-11-18T02:00Z"}, "Avalanche", "x") is None   # before the fix
+        nfl = {**leg, "league": "nfl", "reasons": ["opponent missing key players: QB C.J. Stroud, RB Woody Marks (their read -10)"]}
+        w3 = v24.named_out_ways(nfl, {**g, "league": "nfl"}, "Texans", "the Texans")
+        assert "QB C.J. Stroud and RB Woody Marks" in w3[0][0] and w3[1] == ["C.J. Stroud", "Woody Marks"], w3
+    finally:
+        sa.key_players = keep
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)

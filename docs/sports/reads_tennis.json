@@ -1,32 +1,6 @@
 {
- "updated": "2026-11-19T10:10Z",
+ "updated": "2026-11-19T16:10Z",
  "games": [
-  {
-   "id": "tennis:atp:187507",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-11-19T13:00Z",
-   "away": "Ben Shelton",
-   "home": "Rafael Jodar",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Ben Shelton",
-    "opp": "Rafael Jodar",
-    "market": "ml",
-    "line": null,
-    "odds": -240,
-    "p": 0.679,
-    "win_p": 0.679,
-    "reasons": [
-     "on hard court",
-     "Nitto ATP Finals"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:187504",
    "league": "tennis",
@@ -36,7 +10,7 @@
    "away": "Alexander Zverev",
    "home": "Arthur Fils",
    "vs": true,
-   "why": "tight",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -44,9 +18,35 @@
     "opp": "Arthur Fils",
     "market": "ml",
     "line": null,
-    "odds": -275,
-    "p": 0.701,
-    "win_p": 0.701,
+    "odds": -265,
+    "p": 0.696,
+    "win_p": 0.696,
+    "reasons": [
+     "on hard court",
+     "Nitto ATP Finals"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:187510",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-11-20T13:00Z",
+   "away": "Flavio Cobolli",
+   "home": "Carlos Alcaraz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Flavio Cobolli",
+    "opp": "Carlos Alcaraz",
+    "market": "ml",
+    "line": null,
+    "odds": 400,
+    "p": 0.192,
+    "win_p": 0.192,
     "reasons": [
      "on hard court",
      "Nitto ATP Finals"

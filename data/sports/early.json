@@ -1647,12 +1647,27 @@
    "why_t": 2,
    "units": 0.5,
    "out_at_post": [],
-   "key_out": null,
+   "key_out": "Tyler Hughes (QB)",
    "key_at_post": {},
    "key_wait": {},
-   "key_news": null,
+   "key_news": {
+    "Tyler Hughes": {
+     "st": "out",
+     "pos": "QB",
+     "at": "2026-11-19T14:09Z"
+    }
+   },
    "key_back": null,
-   "key_q": null
+   "key_q": null,
+   "key_log": [
+    {
+     "t": "2026-11-19T14:09Z",
+     "who": "Tyler Hughes",
+     "pos": "QB",
+     "st": "out",
+     "odds": 245
+    }
+   ]
   },
   {
    "game_id": "ncaab:401924922",
@@ -1842,7 +1857,10 @@
    "result": null,
    "units": 0.5,
    "back_wait": {},
-   "back": null
+   "back": [
+    "Cade Cunningham",
+    "RJ Barrett"
+   ]
   }
  ],
  "first_seen": {

@@ -1,27 +1,101 @@
 {
- "at": "2026-11-19T09:59Z",
+ "at": "2026-11-19T16:05Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+  "studies last ran 9h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (220s)",
+  "live watcher fresh (143s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 6 live cards, 10 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
+  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.4, unit cards under the floor: 1)",
+  "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 9 min ago",
+  "simulator ran 8h ago",
+  "engine ran 2 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T16:05Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-19T16:04Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2599s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-11-19T15:21Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-19T15:20Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Monnet vs Bronzetti: no points for 2373s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-11-19T13:48Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-19T13:47Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-19T12:14Z",
+   "fixes": [
+    "live watch 44508616567 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-11-19T11:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-11-19T11:31Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-19T09:59Z",
    "fixes": [],
@@ -572,95 +646,6 @@
    ],
    "problems": [
     "sources down (the backups took over): betrivers:nhl:1028410061 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-11-18T01:16Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 2782s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T01:14Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 2614s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T01:06Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 2353s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T00:56Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 1739s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T00:45Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 1111s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-17T23:11Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Gatica: no points for 1328s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-17T22:49Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-17T22:48Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Garcia vs Gatica: no points for 2614s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-17T21:17Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Erjavec vs Carle: no points for 2599s",
-    "live tennis scores: tennis Samson vs Papamichail: no points for 2599s"
    ]
   }
  ]
