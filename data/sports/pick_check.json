@@ -1,13 +1,13 @@
 {
- "day": "2026-11-18",
+ "day": "2026-11-19",
  "picks": {
-  "dog|nba:401910015|home|ml": {
-   "key": "dog|nba:401910015|home|ml",
+  "dog|nhl:401892751|away|ml": {
+   "key": "dog|nhl:401892751|away|ml",
    "kind": "dog",
-   "team": "Nuggets",
-   "odds": 120,
-   "league": "nba",
-   "units": 2.0,
+   "team": "Ducks",
+   "odds": 110,
+   "league": "nhl",
+   "units": 3.0,
    "lean": false,
    "held": false,
    "why": "",
@@ -19,29 +19,25 @@
     "card": "pass"
    }
   },
-  "play|ncaab:401911377|home|ml": {
-   "key": "play|ncaab:401911377|home|ml",
-   "kind": "ncaabplay",
-   "team": "Charleston So",
-   "odds": 105,
-   "league": "ncaab",
+  "play|nhl:401892743|away|ml": {
+   "key": "play|nhl:401892743|away|ml",
+   "kind": "dogplay",
+   "team": "Flyers",
+   "odds": 150,
+   "league": "nhl",
    "units": 2.0,
    "lean": false,
-   "held": true,
-   "why": "a second pick on a game we're already on",
+   "held": false,
+   "why": "",
    "checks": {
     "game": "pass",
     "read": "pass",
     "price_fresh": "pass",
     "injuries": "pass",
-    "college_games": "pass",
-    "d1": "pass",
     "card": "pass"
    }
   }
  },
- "updated": "2026-11-18T17:51Z",
- "held": [
-  "ncaabplay Charleston So 105: a second pick on a game we're already on"
- ]
+ "updated": "2026-11-19T16:00Z",
+ "held": []
 }
