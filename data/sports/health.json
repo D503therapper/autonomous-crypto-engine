@@ -1,9 +1,9 @@
 {
- "at": "2026-11-19T09:58Z",
+ "at": "2026-11-19T09:59Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (91s)",
+  "live watcher fresh (220s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,11 +17,16 @@
   "every upcoming game has its real teams",
   "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 7 min ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T09:59Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-19T09:58Z",
    "fixes": [],
@@ -650,16 +655,6 @@
   },
   {
    "at": "2026-11-17T21:17Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Erjavec vs Carle: no points for 2599s",
-    "live tennis scores: tennis Samson vs Papamichail: no points for 2599s"
-   ]
-  },
-  {
-   "at": "2026-11-17T21:16Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
