@@ -268,11 +268,9 @@ def candidates(games, st, now, inj, rows=None, se=None):
             if o:
                 facts.append(f"{nm} without " + _men(f"{n} ({m:.0f} minutes a night)" for n, m in o))
         hn, an = g.get("home_name"), g.get("away_name")
-        eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2       # (11/14, the owner: "neither team averages what that over
-        if round(eh + ea) >= tot:                            # (11/19 sweep: "225 with everybody, the number's 227.5" on
-            #   an OVER card argues the under - the projection is a line only when it is at or over the number)
-            facts.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against "   # is" -
-                         f"{_poss(hn)} - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
+        #   (11/19, the owner on the Ducks card's "-166 on our sheet": "we can't say that we're better at pricing the lines
+        #    than the fucking line makers" - no projection against the number on an over card either; the facts are who's
+        #    out, how often these teams' games went over this number, a last game over it)
         for side in ("home", "away"):                        # (and what the files do hold for the over: how often
             ov = went_over(games, g.get(side), s, now, tot)  #  each team's games have gone over THIS number lately)
             if ov and ov[0] * 10 >= ov[1] * 6 and ov[1] >= 5:

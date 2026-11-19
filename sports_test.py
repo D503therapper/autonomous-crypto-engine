@@ -16996,9 +16996,7 @@ def test_totals_1111_altitude_over_4600_feet_read_not_fighting_first_number_pric
     assert abs(c["read"] - 148.5) < 0.05 and c["rule"] == "1111" and c["good_to"] == 150.0 and se.units(c) == 0.5
     assert "7,200 feet" in c["why"] and se.ALT_REC in c["why"] and "%" not in c["why"]
     txt = " | ".join(c["facts"])
-    assert re.search(r"Wyoming should score about 7\d against Idaho St's defense and Idaho St about 7\d against Wyoming's - "
-                     r"14[89] before the thin air, the number's 148\.5", txt), txt
-    assert "Wyoming has played 1 game and Idaho St has played 1 game this season" in txt
+    assert "should score about" not in txt, txt          # (11/19: no scoring projection against the number)
     assert "Wyoming beat Cal Poly 90-80 last time out (170 points)" in txt   # (over 148.5: shown)
     assert "Idaho St beat Weber St 85-70 last time out (155 points)" in txt
     assert "Good to 150" in txt and "-130" in txt and "%" not in txt and len(c["facts"]) >= 5
@@ -21116,12 +21114,7 @@ def test_owner_1114_the_altitude_over_card_says_the_projection_not_two_team_aver
     facts = se.alt_facts({}, g, now_av, read, 148.5, 5300, {}, datetime(2026, 11, 14, tzinfo=timezone.utc), prev_av=prev_av)
     body = " | ".join(facts)
     assert "games are averaging" not in body
-    proj = [x for x in facts if x.startswith("Denver should score about")]
-    assert proj and proj[0].endswith(f"{read:.0f} before the thin air, the number's 148.5")
-    import re as _re
-    a, b = (int(x) for x in _re.findall(r"about (\d+)", proj[0]))
-    assert abs((a + b) - read) <= 1                                  # the two teams add up to the read
-    assert any("last season's scoring fills in" in x for x in facts)
+    assert not any("should score about" in x for x in facts)       # (11/19: no projection against the number)
     games = {"l": {"league": "ncaab", "status": "final", "home": "D", "away": "R", "home_name": "Denver",
                    "away_name": "UC Riverside", "home_score": "60", "away_score": "64", "start": "2026-11-10T03:00Z"}}
     facts2 = se.alt_facts(games, g, now_av, read, 148.5, 5300, {}, datetime(2026, 11, 14, tzinfo=timezone.utc), prev_av=prev_av)
@@ -22377,8 +22370,7 @@ def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
     assert "with everybody" not in txt, "11/19 sweep: 225 projected under a 226.5 number argues the under - not on an over card"
     c224 = no.candidates({**games, "nba:9": {**g, "total": "224.5"}}, {"picks": [], "nba_out_seen": {"nba:9": [stamp0, c["out"]]}},
                          t1, inj, rows=rows)[0]
-    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks' - 225 with everybody, the number's 224.5" \
-        in " | ".join(c224["facts"])
+    assert "should score about" not in " | ".join(c224["facts"])   # (11/19: no projection against the number)
     assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 4
     assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
 
@@ -27858,7 +27850,7 @@ def test_cards_1118_the_early_rows_argue_for_us_too_and_the_card_quality_score_w
     tot = {"team": "Over 153.5", "opp": "Portland @ Colorado", "league": "ncaab"}
     assert cc.early_for_us("0-1 since we started betting it", tot)[0] == ""
     assert cc.early_for_us("Good to 155, 3-1 since we started betting it", tot)[0] == "Good to 155, 3-1 since we started betting it"
-    assert cc.early_for_us("Cavaliers should score about 114 against Mavericks's defense", tot)[0].count("Mavericks' defense") == 1
+    assert cc.early_for_us("Cavaliers have held Mavericks's offense to 101 a game", tot)[0].count("Mavericks' offense") == 1
     assert "early_for_us(y, leg, games)" in inspect.getsource(cc.early_lines)
     assert 'if w > l_ else' in inspect.getsource(se) and "since we started betting it\" if w + l_" not in inspect.getsource(se)
     # the quality read of the card that set this off (as it was posted): every kind the owner named
@@ -28570,7 +28562,7 @@ def test_sweep_1119_the_nba_over_posts_on_its_own_game_day_only_and_its_card_arg
     st2 = {"picks": [], "nba_out_seen": {"nba:9": ["2026-11-20T17:00Z", ["Al Able", "Bo Baker", "Fox Ford"]]}}
     got2 = no.candidates(games2, st2, fri, inj, rows=rows2)
     txt2 = " | ".join(got2[0]["facts"])
-    assert "225 with everybody, the number's 223.5" in txt2
+    assert "with everybody" not in txt2                   # (11/19: no projection against the number, over or under)
     assert "10 of Hawks' last 10 games went over 223.5" in txt2 and "10 of Jazz's last 10 games went over 223.5" in txt2, txt2
     assert no.went_over(games, "H", 2026, fri, 226.5) == (0, 10) and no.went_over(games, "H", 2026, fri, 200) == (10, 10)
     assert no.went_over(games, "nobody", 2026, fri, 200) is None
@@ -28579,9 +28571,9 @@ def test_sweep_1119_the_nba_over_posts_on_its_own_game_day_only_and_its_card_arg
     bad = "Pistons should score about 114 against Raptors' defense and Raptors about 111 against Pistons' - 225 with everybody, the number's 227.5"
     new, why = cc.early_for_us(bad, leg)
     assert new == "" and "projection under the number" in why
-    ok = bad.replace("227.5", "223.5")
+    ok = "10 of Hawks' last 10 games went over 223.5"
     assert cc.early_for_us(ok, leg) == (ok, "")
-    assert cc.early_for_us(bad, {**leg, "side": "under"})[0] == bad, "on an under that line is FOR us"
+    assert cc.early_for_us(bad, {**leg, "side": "under"})[0] == "", "11/19: no projection against the number on any card"
 
 
 def test_sweep_1119_a_home_team_is_never_off_its_own_clock_when_the_clocks_change():
