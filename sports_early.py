@@ -411,9 +411,40 @@ def early_ok(c, games, injuries, now):
     except Exception as e:                                   # noqa: BLE001
         chk = [("checker", "fail", str(e)[:80])]
     bad = [f"{n} - {w}" for n, r, w in chk if r == "fail"]
+    q = qb_unsettled(c, games)
+    if q:
+        bad.append(q)
     if bad:
         print(f"   early play held by the pick check: {c.get('team')} {odds}: {'; '.join(bad)}", flush=True)
     return not bad
+
+
+QB_EARLY_FROM = "2026-11-19"   # 🏈 11/19 (the owner on the Wyoming +245 early play - posted 11/16, its QB Tyler Hughes ruled
+#   out 11/19: "if these two cost us money we can't let this happen again"): the QB was ALREADY unsettled when it went up
+#   - Hughes threw 9 passes on 11/8 and sat 11/15 (Landon Sims started). A football early side whose quarterback changed
+#   in its last QB_EARLY_GAMES games (sports_absences.qb_changed - the 🔍 gap play's rule: those dogs -12.0% on 73 vs
+#   +9.2% on 202) never posts early: the week's news can't be read off a QB room in flux. Posts from this UTC day.
+QB_EARLY_GAMES = 2
+
+
+def qb_unsettled(c, games, now=None):
+    """'' or why the early football side's quarterback is unsettled (changed in its last QB_EARLY_GAMES games)."""
+    if c.get("league") not in ("nfl", "ncaaf") or c.get("market") == "total" or c.get("side") not in ("home", "away"):
+        return ""
+    if (now or datetime.now(timezone.utc)).strftime("%Y-%m-%d") < QB_EARLY_FROM:
+        return ""
+    g = (games or {}).get(c.get("game_id")) or {}
+    team, start = g.get(c["side"]), g.get("start") or c.get("start")
+    if not team or not start:
+        return ""
+    try:
+        import sports_absences
+        q = sports_absences.qb_changed(games, c["league"], team, start, last=QB_EARLY_GAMES)
+    except Exception:                                        # noqa: BLE001 - unknown: the old rule
+        return ""
+    if q and q.get("changed"):
+        return f"qb unsettled - the quarterback changed in the last {QB_EARLY_GAMES} games ({' -> '.join(q.get('names') or [])})"
+    return ""
 
 
 ONE_VOICE_FROM = "2026-11-12"            # 🗣️ ONE VOICE (the owner, 11/11: "I don't want the algorithm to confuse itself" - the
