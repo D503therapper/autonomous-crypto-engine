@@ -1,9 +1,9 @@
 {
- "at": "2026-11-19T13:47Z",
+ "at": "2026-11-19T13:48Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (73s)",
+  "live watcher fresh (148s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,11 +18,16 @@
   "every upcoming game has its real teams",
   "studies ran 7h ago",
   "simulator ran 6h ago",
-  "engine ran 14 min ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T13:48Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-11-19T13:47Z",
    "fixes": [],
@@ -635,16 +640,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Rivera vs Labrana: no points for 1739s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T00:45Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 1111s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
