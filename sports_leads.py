@@ -554,6 +554,8 @@ def tags(c, sports):
     t += daily_1117_tags(c, sports)                          # 11/17 daily studies: the NHL bad-record dog on a tough schedule (a lead)
     t += daily_1118_tags(c, sports)                          # 11/18 daily studies: the NHL cheap-win dog + the college hoops
     #                                                          dog vs a favorite off a 1-2 point win (two LEADS)
+    t += goalie_1119_tags(c, sports)                         # 11/19 FABLE - HOCKEY GOALIES: the dog across a net that
+    #                                                          isn't the favorite's #1, and its control (a LEAD)
     return t + sharp
 
 
@@ -761,6 +763,57 @@ def daily_1118_tags(c, sports):
         if c.get("league") == "ncaab" and 100 <= odds <= 350:
             return [NCAAB_CLOSE_WIN_FAV_TAG] if fav_off_close_win(c) else []
         return []
+    except Exception:                                        # noqa: BLE001 - a lead never breaks the board
+        return []
+
+
+GOALIE_1119_FROM = "2026-11-20"   # 11/19 FABLE - HOCKEY GOALIES x WHEN THE PRICE IS BEST (results/studies/goalie_timing_1119/):
+#   a LEAD and its control, tracked only, never read by the board, from the 11/20 Pacific games. None = off.
+NHL_VS_BACKUP_TAG = "NHL dog, the favorite's goalie tonight is NOT its #1 (lead)"   # the one goalie cell that moved: on
+#   the R3 board 2023-26 the engine's posted hockey dogs went 51-44 +24.2% when the favorite started somebody other
+#   than its #1 and 52-74 -5.1% when it started the #1 (the pulled-starter trap out - 24+ shots on the man on file;
+#   train +17.0% / -5.9%, held +24.4% / +0.5%; with the trap in, a random same-size set of posted dogs as good 57 of 2,000), every hockey
+#   dog 2023-26 +1.0% on 658 vs -14.7% on 1,249. NOT wired: every dog 2018-23 says nothing (-9.3% vs -10.6% - the gap
+#   is about 0 in four of five seasons and +22 / +18 in 2023-25), the same split on the 2020-23 paid-odds rig's engine
+#   dogs runs the OTHER way under the gate (score 0-6: their backup -16.3% on 172 vs their #1 +1.7% on 258) and is
+#   small at it (+14.9% on 59 vs +7.2% on 67), and read off what 8 AM knows (the projection) the posted dogs don't
+#   split at all (+11.7% on 73 vs +12.5% on 238). The tag reads the goalie the engine reads at its first look (the
+#   known starter, else the goalie page's 8 AM name, else our projection - sports_players.starter_for) against the
+#   team's clear #1 (sports_goalies.number_one). Judge both lines at 100 graded: the backup line 10+ points of ROI over
+#   the #1 line = take it to the five checks as a weight on the hockey dog score at the confirmation.
+NHL_VS_N1_TAG = "NHL dog, the favorite's goalie tonight IS its #1 (the lead's control)"
+
+
+def nhl_other_net(c):
+    """'bk' / 'n1' / None for an NHL side: is the goalie the engine reads for the OTHER team tonight (the known
+    starter, else the goalie page's 8 AM name, else our own projection) that team's clear #1? None = no clear #1 /
+    nobody to read / no box scores loaded."""
+    import sports_goalies as sg
+    import sports_players as sp
+    g = _game(c)
+    rows = sp.CACHE.get("nhl") or []
+    side = c.get("side")
+    if not g or not rows or side not in ("home", "away"):
+        return None
+    other = "away" if side == "home" else "home"
+    n1 = sg.number_one(rows, g.get(other), g.get("start") or "9")
+    who = sp.starter_for(rows, {**g, "league": "nhl"}, other)
+    if not n1 or not who:
+        return None
+    return "n1" if sg._nm(who) == sg._nm(n1[0]) else "bk"
+
+
+def goalie_1119_tags(c, sports):
+    """11/19 FABLE - HOCKEY GOALIES: every NHL moneyline dog +100..+350 by the other net at the first look - the
+    favorite's goalie is not its #1 (the LEAD) / is its #1 (the control). Tracked only - the board never reads it."""
+    try:
+        if not GOALIE_1119_FROM or c.get("market") != "ml" or c.get("league") != "nhl" \
+                or sports.pt_day(c) < GOALIE_1119_FROM:
+            return []
+        if not 100 <= (c.get("odds") or 0) <= sports.DAILY_DOG_MAX:
+            return []
+        net = nhl_other_net(c)
+        return [NHL_VS_BACKUP_TAG] if net == "bk" else [NHL_VS_N1_TAG] if net == "n1" else []
     except Exception:                                        # noqa: BLE001 - a lead never breaks the board
         return []
 

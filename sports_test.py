@@ -27486,6 +27486,62 @@ def test_daily_1118_cheap_win_dog_and_close_win_favorite_are_tracker_leads_only(
         sl._GAMES.update(keep)
 
 
+def test_goalie_1119_the_other_net_is_a_tracker_lead_and_nothing_on_the_board_reads_it():
+    """11/19 FABLE - HOCKEY GOALIES x WHEN THE PRICE IS BEST (results/studies/goalie_timing_1119/): nothing cleared the
+    bar, so nothing on the board changed - no goalie weight was added or pulled, no size follows the goalie, no hockey
+    post waits for the confirmation, no loud alert when our own goalie flips (our backup in net is no worse a bet).
+    ONE lead goes on the tracker from the 11/20 games: the hockey dog across a net that is NOT the favorite's #1, and
+    its control (the #1 is in) - read off the goalie the engine reads at its first look. Tracked, never weighed."""
+    import sports_leads as sl
+    import sports_goalies as sg
+    keep, keep_rows = dict(sl._GAMES), sp.CACHE.get("nhl")
+    try:
+        def row(i, start, who):
+            return {"gid": f"nhl:f{i}", "start": start, "team": "F", "player": who, "role": "G", "sa": 30.0, "ga": 2.0}
+        rows = [row(i, f"2026-11-{2 + 2 * i:02d}T00:00Z", "Backup B" if i in (2, 5, 8) else "Number One")
+                for i in range(10)]                          # 10 starts this season: Number One 7, Backup B 3
+        sp.CACHE["nhl"] = rows
+        sl._GAMES["nhl"] = {"nhl:now": {"id": "nhl:now", "league": "nhl", "start": "2026-11-23T00:00Z", "status": "pre",
+                                        "stype": "2", "home": "F", "away": "D", "home_name": "Favs", "away_name": "Dogs"}}
+        dog = {"market": "ml", "league": "nhl", "game_id": "nhl:now", "side": "away", "odds": 130, "team": "Dogs",
+               "opp": "Favs", "start": "2026-11-23T00:00Z"}
+        assert sg.number_one(rows, "F", "2026-11-23T00:00Z")[0] == "Number One"
+        assert sl.nhl_other_net(dog) == "n1"                 # a rested night: the #1 is the 8 AM read
+        assert sl.goalie_1119_tags(dog, sports) == [sl.NHL_VS_N1_TAG] and sl.NHL_VS_N1_TAG in sl.tags(dog, sports)
+        sl._GAMES["nhl"]["nhl:now"]["start"] = dog["start"] = "2026-11-21T02:00Z"      # the night after its last game:
+        assert sl.nhl_other_net(dog) == "bk"                 #   the 2nd night of a back-to-back - the other goalie
+        assert sl.goalie_1119_tags(dog, sports) == [sl.NHL_VS_BACKUP_TAG]
+        assert not sl.goalie_1119_tags({**dog, "odds": -130}, sports)                  # dogs only
+        assert not sl.goalie_1119_tags({**dog, "odds": 360}, sports)                   # never past the dog cap
+        assert not sl.goalie_1119_tags({**dog, "market": "spread"}, sports)
+        assert not sl.goalie_1119_tags({**dog, "start": "2026-11-19T23:00Z"}, sports)  # before the 11/20 games: no
+        assert not sl.goalie_1119_tags({**dog, "side": "home"}, sports)                # the Dogs' own net: no clear #1
+        was = sl.GOALIE_1119_FROM
+        sl.GOALIE_1119_FROM = None                           # None = off
+        try:
+            assert not sl.goalie_1119_tags(dog, sports)
+        finally:
+            sl.GOALIE_1119_FROM = was
+        sp.CACHE["nhl"] = []
+        assert sl.nhl_other_net(dog) is None and not sl.goalie_1119_tags(dog, sports)  # no box scores: unknown
+        # nothing on the board reads it - and what the study left alone stays as it was
+        for name in ("NHL_VS_BACKUP_W", "GOALIE_CONFIRMED_ONLY_FROM", "NHL_POST_AFTER_GOALIE_FROM", "GOALIE_FLIP_ALERT_FROM"):
+            assert not hasattr(sports, name) and not hasattr(sg, name), "a lead, never a weight / a wait / an alert"
+        src = open(sports.__file__).read()
+        assert "NHL_VS_BACKUP_TAG" not in src and "goalie_1119" not in src
+        assert sg.ROLE_W == 2.0 and sg.ROLE_W_REV == 0.0     # the built roles weight: a KNOWN starter only, as it was
+        assert sg.role_points({"g_role_me": None, "g_role_opp": False}) == 0.0         # unknown = no weight
+        assert "unconfirmed" not in sg.KNOWN and "projected" not in sg.KNOWN           # the page's guess is never known
+        assert sports.MAX_PLAY_UNITS == 3.0 and sports.DOG_SHORT_UNITS == 2.0          # no size follows the goalie
+    finally:
+        sl._GAMES.clear()
+        sl._GAMES.update(keep)
+        if keep_rows is None:
+            sp.CACHE.pop("nhl", None)
+        else:
+            sp.CACHE["nhl"] = keep_rows
+
+
 
 def test_owner_1118_one_play_a_side_never_the_same_dog_twice():
     """11/18, the owner on Charleston So +114 posted as the 🔍 gap play 2u AND the dog slot 2u: "There's a duplicate

@@ -1,0 +1,311 @@
+hockey unit plays on the R3 board: 540; every hockey dog row: 3580
+the replay's key edge vs ours: |x - projected| median 0.000, |x - actual| median 0.162  (n 3580)
+  exact matches: projected 3580, actual 1502
+
+=== EVERY HOCKEY UNIT PLAY (540)
+ -- at the close
+  all                                                        n   540  279-261  51.7% (needs 47.9)   +8.3% z +1.79 | train   +3.4% ( 312) | held  +12.0% ( 192) | up 3/4 | 1pt worse   +6.0%
+  both goalies as projected                                  n   238  113-125  47.5% (needs 48.4)   -3.0% z -0.28 | train   -7.6% ( 146) | held   +7.1% (  78) | up 2/4 | 1pt worse   -4.9%
+  OUR projection wrong                                       n   205  105-100  51.2% (needs 47.1)  +11.1% z +1.19 | train   +5.2% ( 111) | held  +14.8% (  79) | up 3/4 | 1pt worse   +8.6%
+  THEIR projection wrong                                     n   160   88-72   55.0% (needs 48.0)  +16.1% z +1.80 | train  +12.2% (  90) | held   +8.5% (  59) | up 3/4 | 1pt worse  +13.6%
+  either wrong                                               n   302  166-136  55.0% (needs 47.5)  +17.2% z +2.64 | train  +13.1% ( 166) | held  +15.4% ( 114) | up 3/4 | 1pt worse  +14.7%
+  ours n1 / theirs n1                                        n   131   54-77   41.2% (needs 48.6)  -15.7% z -1.71 | train  -20.4% (  91) | held   -7.0% (  36) | up 0/3 | 1pt worse  -17.5%
+  ours n1 / theirs bk                                        n   114   77-37   67.5% (needs 49.5)  +37.6% z +3.91 | train  +31.5% (  72) | held  +44.5% (  35) | up 3/3 | 1pt worse  +34.8%
+  ours bk / theirs n1                                        n    75   41-34   54.7% (needs 46.6)  +20.7% z +1.41 | train  +23.5% (  42) | held  +16.5% (  27) | up 3/3 | 1pt worse  +18.0%
+  ours bk / theirs bk                                        n    69   32-37   46.4% (needs 47.4)   +1.7% z -0.17 | train  -21.1% (  38) | held  +15.1% (  25) | up 1/3 | 1pt worse   -0.5%
+  ours n1 (any)                                              n   287  153-134  53.3% (needs 48.8)   +8.7% z +1.53 | train   +3.3% ( 181) | held  +13.9% (  92) | up 3/3 | 1pt worse   +6.5%
+  ours bk (any)                                              n   157   82-75   52.2% (needs 47.0)  +14.9% z +1.33 | train   +7.0% (  85) | held  +16.4% (  59) | up 3/3 | 1pt worse  +12.4%
+  theirs n1 (any)                                            n   234  106-128  45.3% (needs 47.5)   -4.0% z -0.68 | train   -6.9% ( 150) | held   +1.6% (  70) | up 2/3 | 1pt worse   -6.1%
+  theirs bk (any)                                            n   215  127-88   59.1% (needs 48.7)  +22.6% z +3.08 | train  +16.1% ( 122) | held  +27.8% (  76) | up 3/3 | 1pt worse  +20.0%
+ -- at ESPN's open
+  all                                                        n   540  279-261  51.7% (needs 45.1)  +15.5% z +3.12 | train   +9.7% ( 312) | held  +20.4% ( 192) | up 3/4 | 1pt worse  +12.9%
+  both goalies as projected                                  n   238  113-125  47.5% (needs 45.3)   +4.5% z +0.67 | train   -1.5% ( 146) | held  +16.7% (  78) | up 2/4 | 1pt worse   +2.2%
+  OUR projection wrong                                       n   205  105-100  51.2% (needs 44.6)  +17.4% z +1.92 | train   +9.9% ( 111) | held  +23.0% (  79) | up 3/4 | 1pt worse  +14.7%
+  THEIR projection wrong                                     n   160   88-72   55.0% (needs 45.1)  +23.4% z +2.55 | train  +20.0% (  90) | held  +14.0% (  59) | up 3/4 | 1pt worse  +20.6%
+  either wrong                                               n   302  166-136  55.0% (needs 44.8)  +24.2% z +3.59 | train  +19.6% ( 166) | held  +23.0% ( 114) | up 3/4 | 1pt worse  +21.4%
+  ours n1 / theirs n1                                        n   131   54-77   41.2% (needs 45.9)   -9.9% z -1.08 | train  -15.1% (  91) | held   +0.7% (  36) | up 1/3 | 1pt worse  -11.8%
+  ours n1 / theirs bk                                        n   114   77-37   67.5% (needs 45.9)  +48.6% z +4.69 | train  +41.8% (  72) | held  +56.8% (  35) | up 3/3 | 1pt worse  +45.3%
+  ours bk / theirs n1                                        n    75   41-34   54.7% (needs 44.5)  +25.4% z +1.79 | train  +25.6% (  42) | held  +24.9% (  27) | up 3/3 | 1pt worse  +22.5%
+  ours bk / theirs bk                                        n    69   32-37   46.4% (needs 44.5)   +7.9% z +0.31 | train  -16.8% (  38) | held  +21.9% (  25) | up 1/3 | 1pt worse   +5.4%
+  ours n1 (any)                                              n   287  153-134  53.3% (needs 45.9)  +16.6% z +2.56 | train  +10.7% ( 181) | held  +23.2% (  92) | up 3/3 | 1pt worse  +14.1%
+  ours bk (any)                                              n   157   82-75   52.2% (needs 44.5)  +20.4% z +1.96 | train  +10.5% (  85) | held  +24.0% (  59) | up 3/3 | 1pt worse  +17.7%
+  theirs n1 (any)                                            n   234  106-128  45.3% (needs 45.0)   +1.5% z +0.08 | train   -2.4% ( 150) | held   +9.9% (  70) | up 2/3 | 1pt worse   -0.8%
+  theirs bk (any)                                            n   215  127-88   59.1% (needs 45.4)  +31.8% z +4.09 | train  +24.9% ( 122) | held  +36.9% (  76) | up 3/3 | 1pt worse  +28.8%
+
+=== EVERY HOCKEY DOG UNIT PLAY (Dog / runner-up / floor) (383)
+ -- at the close
+  all                                                        n   383  184-199  48.0% (needs 43.6)  +10.2% z +1.74 | train   +4.0% ( 226) | held  +16.6% ( 133) | up 3/4 | 1pt worse   +7.7%
+  both goalies as projected                                  n   162   69-93   42.6% (needs 43.8)   -4.1% z -0.31 | train  -11.7% ( 102) | held  +14.8% (  49) | up 2/4 | 1pt worse   -6.2%
+  OUR projection wrong                                       n   153   74-79   48.4% (needs 43.4)  +14.0% z +1.25 | train   +8.6% (  87) | held  +17.9% (  58) | up 3/4 | 1pt worse  +11.4%
+  THEIR projection wrong                                     n   116   61-55   52.6% (needs 44.0)  +20.4% z +1.88 | train  +21.7% (  62) | held   +5.6% (  46) | up 3/4 | 1pt worse  +17.7%
+  either wrong                                               n   221  115-106  52.0% (needs 43.5)  +20.7% z +2.57 | train  +17.0% ( 124) | held  +17.7% (  84) | up 3/4 | 1pt worse  +17.9%
+  ours n1 / theirs n1                                        n    87   36-51   41.4% (needs 43.8)   -8.7% z -0.45 | train  -19.2% (  60) | held  +15.2% (  23) | up 1/3 | 1pt worse  -10.7%
+  ours n1 / theirs bk                                        n    70   45-25   64.3% (needs 44.0)  +46.0% z +3.44 | train  +40.2% (  48) | held  +57.7% (  18) | up 3/3 | 1pt worse  +42.7%
+  ours bk / theirs n1                                        n    59   31-28   52.5% (needs 43.4)  +24.5% z +1.42 | train  +22.5% (  34) | held  +29.2% (  23) | up 2/3 | 1pt worse  +21.6%
+  ours bk / theirs bk                                        n    51   22-29   43.1% (needs 43.5)   +3.7% z -0.06 | train  -14.7% (  29) | held  +12.3% (  18) | up 1/3 | 1pt worse   +1.3%
+  ours n1 (any)                                              n   188   94-94   50.0% (needs 43.9)  +12.1% z +1.68 | train   +4.3% ( 120) | held  +23.8% (  57) | up 2/3 | 1pt worse   +9.7%
+  ours bk (any)                                              n   120   60-60   50.0% (needs 43.5)  +18.8% z +1.44 | train  +10.2% (  67) | held  +22.9% (  46) | up 3/3 | 1pt worse  +16.0%
+  theirs n1 (any)                                            n   169   75-94   44.4% (needs 43.3)   +1.4% z +0.27 | train   -4.8% ( 109) | held  +15.8% (  51) | up 2/3 | 1pt worse   -0.8%
+  theirs bk (any)                                            n   142   77-65   54.2% (needs 43.8)  +25.2% z +2.51 | train  +21.2% (  87) | held  +28.5% (  45) | up 3/3 | 1pt worse  +22.3%
+ -- at ESPN's open
+  all                                                        n   383  184-199  48.0% (needs 41.2)  +17.0% z +2.72 | train   +9.8% ( 226) | held  +25.4% ( 133) | up 3/4 | 1pt worse  +14.2%
+  both goalies as projected                                  n   162   69-93   42.6% (needs 41.2)   +2.7% z +0.35 | train   -6.4% ( 102) | held  +24.8% (  49) | up 2/4 | 1pt worse   +0.3%
+  OUR projection wrong                                       n   153   74-79   48.4% (needs 41.2)  +20.0% z +1.80 | train  +12.4% (  87) | held  +27.0% (  58) | up 3/4 | 1pt worse  +17.0%
+  THEIR projection wrong                                     n   116   61-55   52.6% (needs 41.4)  +28.1% z +2.47 | train  +30.8% (  62) | held  +10.8% (  46) | up 3/4 | 1pt worse  +25.0%
+  either wrong                                               n   221  115-106  52.0% (needs 41.2)  +27.5% z +3.28 | train  +23.1% ( 124) | held  +25.8% (  84) | up 3/4 | 1pt worse  +24.4%
+  ours n1 / theirs n1                                        n    87   36-51   41.4% (needs 41.6)   -2.9% z -0.04 | train  -14.7% (  60) | held  +25.0% (  23) | up 1/3 | 1pt worse   -5.2%
+  ours n1 / theirs bk                                        n    70   45-25   64.3% (needs 41.0)  +56.9% z +3.98 | train  +51.5% (  48) | held  +69.1% (  18) | up 3/3 | 1pt worse  +53.1%
+  ours bk / theirs n1                                        n    59   31-28   52.5% (needs 41.5)  +28.7% z +1.72 | train  +23.6% (  34) | held  +38.5% (  23) | up 3/3 | 1pt worse  +25.6%
+  ours bk / theirs bk                                        n    51   22-29   43.1% (needs 41.1)   +9.4% z +0.30 | train  -10.9% (  29) | held  +18.9% (  18) | up 1/3 | 1pt worse   +6.6%
+  ours n1 (any)                                              n   188   94-94   50.0% (needs 41.4)  +19.9% z +2.39 | train  +11.7% ( 120) | held  +33.4% (  57) | up 3/3 | 1pt worse  +17.1%
+  ours bk (any)                                              n   120   60-60   50.0% (needs 41.4)  +23.8% z +1.93 | train  +12.9% (  67) | held  +31.0% (  46) | up 3/3 | 1pt worse  +20.8%
+  theirs n1 (any)                                            n   169   75-94   44.4% (needs 41.3)   +6.8% z +0.82 | train   -1.2% ( 109) | held  +25.5% (  51) | up 2/3 | 1pt worse   +4.2%
+  theirs bk (any)                                            n   142   77-65   54.2% (needs 41.0)  +33.8% z +3.22 | train  +30.0% (  87) | held  +37.1% (  45) | up 3/3 | 1pt worse  +30.6%
+
+=== THE HOCKEY DOG OF THE DAY (229)
+ -- at the close
+  all                                                        n   229  107-122  46.7% (needs 43.8)   +7.0% z +0.89 | train   +4.7% ( 134) | held   +6.3% (  82) | up 2/3 | 1pt worse   +4.6%
+  both goalies as projected                                  n    99   47-52   47.5% (needs 44.0)   +7.1% z +0.70 | train   -3.4% (  61) | held  +25.2% (  34) | up 2/3 | 1pt worse   +4.7%
+  OUR projection wrong                                       n    94   39-55   41.5% (needs 43.6)   -3.1% z -0.41 | train   +1.3% (  55) | held  -12.8% (  33) | up 1/3 | 1pt worse   -5.3%
+  THEIR projection wrong                                     n    64   33-31   51.6% (needs 43.9)  +18.6% z +1.23 | train  +23.3% (  31) | held   -1.1% (  27) | up 1/3 | 1pt worse  +15.9%
+  either wrong                                               n   130   60-70   46.2% (needs 43.7)   +6.9% z +0.58 | train  +11.4% (  73) | held   -7.1% (  48) | up 1/3 | 1pt worse   +4.5%
+  ours n1 / theirs n1                                        n    50   22-28   44.0% (needs 44.0)   -2.3% z -0.00 | train  -13.6% (  36) | held  +18.3% (  13) | up 2/3 | 1pt worse   -4.4%
+  ours n1 / theirs bk                                        n    42   26-16   61.9% (needs 44.2)  +40.6% z +2.32 | train  +35.8% (  24) | held  +42.3% (  14) | up 3/3 | 1pt worse  +37.5%
+  ours bk / theirs n1                                        n    41   19-22   46.3% (needs 43.7)   +9.7% z +0.34 | train  +13.1% (  26) | held   +3.5% (  13) | up 2/3 | 1pt worse   +7.1%
+  ours bk / theirs bk                                        n    33   12-21   36.4% (needs 43.8)  -15.0% z -0.87 | train  -26.5% (  20) | held   -1.4% (  11) | up 1/3 | 1pt worse  -17.0%
+  ours n1 (any)                                              n   110   56-54   50.9% (needs 44.0)  +14.8% z +1.46 | train   +5.1% (  65) | held  +20.4% (  39) | up 2/3 | 1pt worse  +12.2%
+  ours bk (any)                                              n    82   37-45   45.1% (needs 43.7)   +6.1% z +0.25 | train   +5.1% (  49) | held   +6.6% (  29) | up 2/3 | 1pt worse   +3.7%
+  theirs n1 (any)                                            n   104   46-58   44.2% (needs 43.7)   +0.7% z +0.11 | train   -3.7% (  72) | held   +3.0% (  28) | up 2/3 | 1pt worse   -1.6%
+  theirs bk (any)                                            n    89   44-45   49.4% (needs 44.0)  +13.4% z +1.04 | train   +8.4% (  50) | held  +21.6% (  31) | up 2/3 | 1pt worse  +10.8%
+ -- at ESPN's open
+  all                                                        n   229  107-122  46.7% (needs 41.6)  +13.4% z +1.57 | train  +10.1% ( 134) | held  +14.1% (  82) | up 2/3 | 1pt worse  +10.6%
+  both goalies as projected                                  n    99   47-52   47.5% (needs 41.5)  +15.3% z +1.21 | train   +3.4% (  61) | held  +35.8% (  34) | up 2/3 | 1pt worse  +12.5%
+  OUR projection wrong                                       n    94   39-55   41.5% (needs 41.8)   +1.1% z -0.06 | train   +3.9% (  55) | held   -7.1% (  33) | up 1/3 | 1pt worse   -1.4%
+  THEIR projection wrong                                     n    64   33-31   51.6% (needs 41.6)  +25.4% z +1.63 | train  +31.3% (  31) | held   +3.3% (  27) | up 3/3 | 1pt worse  +22.4%
+  either wrong                                               n   130   60-70   46.2% (needs 41.7)  +11.9% z +1.03 | train  +15.6% (  73) | held   -1.3% (  48) | up 1/3 | 1pt worse   +9.2%
+  ours n1 / theirs n1                                        n    50   22-28   44.0% (needs 41.9)   +4.0% z +0.30 | train   -8.2% (  36) | held  +26.8% (  13) | up 2/3 | 1pt worse   +1.6%
+  ours n1 / theirs bk                                        n    42   26-16   61.9% (needs 41.4)  +50.6% z +2.72 | train  +45.4% (  24) | held  +54.6% (  14) | up 3/3 | 1pt worse  +47.0%
+  ours bk / theirs n1                                        n    41   19-22   46.3% (needs 42.1)  +12.1% z +0.55 | train  +13.7% (  26) | held  +10.5% (  13) | up 2/3 | 1pt worse   +9.5%
+  ours bk / theirs bk                                        n    33   12-21   36.4% (needs 41.7)   -9.4% z -0.62 | train  -23.3% (  20) | held   +5.0% (  11) | up 2/3 | 1pt worse  -11.7%
+  ours n1 (any)                                              n   110   56-54   50.9% (needs 41.6)  +22.7% z +1.98 | train  +12.2% (  65) | held  +30.0% (  39) | up 3/3 | 1pt worse  +19.8%
+  ours bk (any)                                              n    82   37-45   45.1% (needs 41.8)  +10.5% z +0.60 | train   +7.4% (  49) | held  +13.5% (  29) | up 2/3 | 1pt worse   +7.8%
+  theirs n1 (any)                                            n   104   46-58   44.2% (needs 41.9)   +5.2% z +0.49 | train   -0.2% (  72) | held  +10.2% (  28) | up 2/3 | 1pt worse   +2.7%
+  theirs bk (any)                                            n    89   44-45   49.4% (needs 41.4)  +21.2% z +1.55 | train  +15.7% (  50) | held  +30.1% (  31) | up 2/3 | 1pt worse  +18.3%
+
+=== THE DOG OF THE DAY +100..+150 (2u) + the 💎 3u spot (186)
+ -- at the close
+  all                                                        n   186   91-95   48.9% (needs 45.3)   +8.6% z +0.99 | train   +5.1% ( 100) | held   +7.3% (  74) | up 2/3 | 1pt worse   +6.3%
+  both goalies as projected                                  n    82   41-41   50.0% (needs 45.4)   +9.5% z +0.83 | train   -0.1% (  48) | held  +24.5% (  30) | up 2/3 | 1pt worse   +7.1%
+  OUR projection wrong                                       n    77   33-44   42.9% (needs 44.9)   -3.1% z -0.37 | train   -4.3% (  41) | held   -7.2% (  31) | up 1/3 | 1pt worse   -5.2%
+  THEIR projection wrong                                     n    50   27-23   54.0% (needs 45.7)  +20.5% z +1.18 | train  +25.4% (  20) | held   +0.7% (  24) | up 2/3 | 1pt worse  +17.8%
+  either wrong                                               n   104   50-54   48.1% (needs 45.2)   +8.0% z +0.59 | train   +9.9% (  52) | held   -4.5% (  44) | up 1/3 | 1pt worse   +5.6%
+  ours n1 / theirs n1                                        n    38   19-19   50.0% (needs 46.1)   +8.2% z +0.48 | train   -4.0% (  27) | held  +28.4% (  10) | up 2/3 | 1pt worse   +5.9%
+  ours n1 / theirs bk                                        n    33   21-12   63.6% (needs 46.0)  +38.6% z +2.04 | train  +37.4% (  16) | held  +32.5% (  13) | up 3/3 | 1pt worse  +35.7%
+  ours bk / theirs n1                                        n    36   15-21   41.7% (needs 44.7)   -5.7% z -0.37 | train  -12.5% (  21) | held   +3.5% (  13) | up 2/3 | 1pt worse   -7.8%
+  ours bk / theirs bk                                        n    28   11-17   39.3% (needs 45.0)   -9.8% z -0.61 | train  -25.6% (  16) | held   +8.5% (  10) | up 2/3 | 1pt worse  -11.9%
+  ours n1 (any)                                              n    86   47-39   54.7% (needs 45.9)  +19.3% z +1.63 | train  +11.7% (  47) | held  +18.7% (  33) | up 3/3 | 1pt worse  +16.8%
+  ours bk (any)                                              n    70   31-39   44.3% (needs 44.9)   +0.5% z -0.10 | train  -10.7% (  39) | held  +14.5% (  27) | up 2/3 | 1pt worse   -1.8%
+  theirs n1 (any)                                            n    83   39-44   47.0% (needs 45.4)   +3.5% z +0.30 | train   -1.7% (  54) | held   +5.2% (  25) | up 2/3 | 1pt worse   +1.3%
+  theirs bk (any)                                            n    72   37-35   51.4% (needs 45.5)  +14.1% z +1.01 | train   +5.9% (  36) | held  +20.7% (  29) | up 2/3 | 1pt worse  +11.6%
+ -- at ESPN's open
+  all                                                        n   186   91-95   48.9% (needs 42.9)  +15.4% z +1.66 | train  +11.2% ( 100) | held  +14.8% (  74) | up 2/3 | 1pt worse  +12.7%
+  both goalies as projected                                  n    82   41-41   50.0% (needs 42.6)  +18.2% z +1.37 | train   +7.6% (  48) | held  +34.7% (  30) | up 3/3 | 1pt worse  +15.4%
+  OUR projection wrong                                       n    77   33-44   42.9% (needs 43.1)   +1.6% z -0.05 | train   -1.6% (  41) | held   -1.1% (  31) | up 1/3 | 1pt worse   -0.8%
+  THEIR projection wrong                                     n    50   27-23   54.0% (needs 43.5)  +27.0% z +1.50 | train  +33.9% (  20) | held   +4.4% (  24) | up 3/3 | 1pt worse  +24.0%
+  either wrong                                               n   104   50-54   48.1% (needs 43.2)  +13.2% z +1.01 | train  +14.5% (  52) | held   +1.2% (  44) | up 2/3 | 1pt worse  +10.6%
+  ours n1 / theirs n1                                        n    38   19-19   50.0% (needs 43.5)  +15.3% z +0.81 | train   +1.5% (  27) | held  +39.4% (  10) | up 2/3 | 1pt worse  +12.7%
+  ours n1 / theirs bk                                        n    33   21-12   63.6% (needs 43.0)  +49.0% z +2.40 | train  +50.2% (  16) | held  +41.9% (  13) | up 3/3 | 1pt worse  +45.6%
+  ours bk / theirs n1                                        n    36   15-21   41.7% (needs 42.8)   -2.7% z -0.14 | train  -11.3% (  21) | held  +10.5% (  13) | up 2/3 | 1pt worse   -4.9%
+  ours bk / theirs bk                                        n    28   11-17   39.3% (needs 43.2)   -4.1% z -0.42 | train  -23.2% (  16) | held  +15.5% (  10) | up 2/3 | 1pt worse   -6.5%
+  ours n1 (any)                                              n    86   47-39   54.7% (needs 43.2)  +27.7% z +2.15 | train  +20.0% (  47) | held  +27.6% (  33) | up 3/3 | 1pt worse  +24.8%
+  ours bk (any)                                              n    70   31-39   44.3% (needs 43.0)   +5.2% z +0.22 | train   -8.6% (  39) | held  +21.9% (  27) | up 2/3 | 1pt worse   +2.7%
+  theirs n1 (any)                                            n    83   39-44   47.0% (needs 43.1)   +8.7% z +0.71 | train   +2.4% (  54) | held  +13.2% (  25) | up 2/3 | 1pt worse   +6.3%
+  theirs bk (any)                                            n    72   37-35   51.4% (needs 42.9)  +22.2% z +1.47 | train  +14.3% (  36) | held  +28.0% (  29) | up 2/3 | 1pt worse  +19.3%
+
+=== THE 💎 b2b SPOT (3u) (35)
+ -- at the close
+  all                                                        n    35   20-15   57.1% (needs 45.8)  +24.6% z +1.35 | train   -6.8% (  16) | held  +48.0% (  15) | up 1/2 | 1pt worse  +21.9%
+  both goalies as projected                                  n    20   12-8    60.0% (needs 45.3)  +31.4% z +1.32 | train   +7.4% (  12) | held  +87.5% (   6) | up 2/2 | 1pt worse  +28.6%
+  OUR projection wrong                                       n    12    6-6    50.0% (needs 46.6)   +6.8% z +0.23 | train  -49.5% (   4) | held  +25.0% (   7) | up 1/2 | 1pt worse   +4.6%
+  THEIR projection wrong                                     n     6    4-2    66.7% (needs 47.2)  +44.2% z +0.96 | train   +0.0% (   0) | held   +7.5% (   4) | up 1/1 | 1pt worse  +41.1%
+  either wrong                                               n    15    8-7    53.3% (needs 46.5)  +15.5% z +0.53 | train  -49.5% (   4) | held  +21.7% (   9) | up 1/2 | 1pt worse  +13.0%
+  ours n1 / theirs n1                                        n     5    3-2    60.0% (needs 47.3)  +23.8% z +0.57 | train  -30.0% (   3) | held +104.5% (   2) | up 1/2 | 1pt worse  +21.3%
+  ours n1 / theirs bk                                        n    13    7-6    53.8% (needs 46.4)  +14.5% z +0.54 | train   +3.2% (   6) | held   +6.5% (   4) | up 2/2 | 1pt worse  +12.1%
+  ours bk / theirs n1                                        n     1    0-1     0.0% (needs 42.4) -100.0% z -0.86 | train -100.0% (   1) | held   +0.0% (   0) | up 0/1 | 1pt worse -100.0%
+  ours bk / theirs bk                                        n     6    3-3    50.0% (needs 47.6)   +6.2% z +0.12 | train  -32.7% (   3) | held  +45.0% (   3) | up 1/2 | 1pt worse   +4.0%
+  ours n1 (any)                                              n    19   11-8    57.9% (needs 46.3)  +24.2% z +1.01 | train   -7.9% (   9) | held  +55.3% (   7) | up 1/2 | 1pt worse  +21.6%
+  ours bk (any)                                              n     8    4-4    50.0% (needs 47.1)   +5.2% z +0.16 | train  -49.5% (   4) | held  +60.0% (   4) | up 1/2 | 1pt worse   +3.1%
+  theirs n1 (any)                                            n     9    6-3    66.7% (needs 46.1)  +42.7% z +1.24 | train  +11.7% (   6) | held +104.5% (   2) | up 2/2 | 1pt worse  +39.7%
+  theirs bk (any)                                            n    22   11-11   50.0% (needs 46.2)   +8.4% z +0.36 | train  -17.9% (  10) | held  +24.3% (   9) | up 1/2 | 1pt worse   +6.1%
+ -- at ESPN's open
+  all                                                        n    35   20-15   57.1% (needs 42.7)  +34.9% z +1.73 | train   -0.1% (  16) | held  +62.9% (  15) | up 1/2 | 1pt worse  +31.8%
+  both goalies as projected                                  n    20   12-8    60.0% (needs 41.7)  +44.1% z +1.66 | train  +16.2% (  12) | held +108.2% (   6) | up 2/2 | 1pt worse  +40.7%
+  OUR projection wrong                                       n    12    6-6    50.0% (needs 43.9)  +16.2% z +0.43 | train  -48.8% (   4) | held  +39.3% (   7) | up 1/2 | 1pt worse  +13.6%
+  THEIR projection wrong                                     n     6    4-2    66.7% (needs 46.0)  +44.2% z +1.01 | train   +0.0% (   0) | held   +6.2% (   4) | up 1/1 | 1pt worse  +41.1%
+  either wrong                                               n    15    8-7    53.3% (needs 44.1)  +22.7% z +0.73 | train  -48.8% (   4) | held  +32.8% (   9) | up 1/2 | 1pt worse  +19.9%
+  ours n1 / theirs n1                                        n     5    3-2    60.0% (needs 44.6)  +34.2% z +0.69 | train  -26.0% (   3) | held +124.5% (   2) | up 1/2 | 1pt worse  +31.3%
+  ours n1 / theirs bk                                        n    13    7-6    53.8% (needs 42.8)  +24.8% z +0.80 | train  +18.7% (   6) | held  +11.3% (   4) | up 2/2 | 1pt worse  +21.9%
+  ours bk / theirs n1                                        n     1    0-1     0.0% (needs 37.6) -100.0% z -0.78 | train -100.0% (   1) | held   +0.0% (   0) | up 0/1 | 1pt worse -100.0%
+  ours bk / theirs bk                                        n     6    3-3    50.0% (needs 46.8)  +11.7% z +0.16 | train  -31.7% (   3) | held  +55.0% (   3) | up 1/2 | 1pt worse   +9.2%
+  ours n1 (any)                                              n    19   11-8    57.9% (needs 42.9)  +35.9% z +1.33 | train   +3.8% (   9) | held  +69.1% (   7) | up 2/2 | 1pt worse  +32.8%
+  ours bk (any)                                              n     8    4-4    50.0% (needs 45.2)  +12.5% z +0.27 | train  -48.8% (   4) | held  +73.8% (   4) | up 1/2 | 1pt worse  +10.0%
+  theirs n1 (any)                                            n     9    6-3    66.7% (needs 43.8)  +49.6% z +1.38 | train  +13.7% (   6) | held +124.5% (   2) | up 2/2 | 1pt worse  +46.3%
+  theirs bk (any)                                            n    22   11-11   50.0% (needs 43.1)  +17.1% z +0.66 | train   -8.3% (  10) | held  +32.8% (   9) | up 1/2 | 1pt worse  +14.4%
+
+=== THE RUNNER-UP DOG (74)
+ -- at the close
+  all                                                        n    74   46-28   62.2% (needs 43.6)  +40.5% z +3.24 | train  +33.1% (  42) | held  +45.6% (  27) | up 4/4 | 1pt worse  +37.3%
+  both goalies as projected                                  n    25   12-13   48.0% (needs 42.7)   +6.2% z +0.54 | train  -16.1% (  16) | held  +42.8% (   6) | up 1/3 | 1pt worse   +3.9%
+  OUR projection wrong                                       n    30   19-11   63.3% (needs 43.9)  +47.6% z +2.15 | train  +56.7% (  14) | held  +34.7% (  15) | up 3/4 | 1pt worse  +44.2%
+  THEIR projection wrong                                     n    28   19-9    67.9% (needs 44.3)  +53.9% z +2.53 | train  +60.6% (  16) | held  +39.8% (  11) | up 3/4 | 1pt worse  +50.5%
+  either wrong                                               n    49   34-15   69.4% (needs 44.0)  +58.0% z +3.59 | train  +63.4% (  26) | held  +46.4% (  21) | up 4/4 | 1pt worse  +54.4%
+  ours n1 / theirs n1                                        n    16    8-8    50.0% (needs 43.2)   +6.6% z +0.55 | train  -36.1% (  10) | held  +71.4% (   5) | up 1/3 | 1pt worse   +4.4%
+  ours n1 / theirs bk                                        n    16   13-3    81.2% (needs 42.9)  +85.1% z +3.11 | train  +79.1% (  13) | held +111.3% (   3) | up 3/3 | 1pt worse  +81.0%
+  ours bk / theirs n1                                        n    13    9-4    69.2% (needs 44.3)  +56.5% z +1.82 | train  +88.8% (   5) | held  +36.2% (   8) | up 3/3 | 1pt worse  +52.9%
+  ours bk / theirs bk                                        n     9    5-4    55.6% (needs 44.0)  +35.1% z +0.70 | train  +28.7% (   4) | held  +40.2% (   5) | up 2/3 | 1pt worse  +31.9%
+  ours n1 (any)                                              n    39   25-14   64.1% (needs 43.3)  +42.4% z +2.64 | train  +27.8% (  27) | held  +69.1% (  10) | up 3/3 | 1pt worse  +39.3%
+  ours bk (any)                                              n    23   15-8    65.2% (needs 44.3)  +50.6% z +2.03 | train  +62.1% (   9) | held  +37.8% (  13) | up 3/3 | 1pt worse  +47.2%
+  theirs n1 (any)                                            n    34   18-16   52.9% (needs 43.2)  +16.8% z +1.16 | train   -4.5% (  19) | held  +49.8% (  13) | up 2/3 | 1pt worse  +14.3%
+  theirs bk (any)                                            n    29   21-8    72.4% (needs 43.6)  +67.5% z +3.14 | train  +73.3% (  19) | held  +56.5% (  10) | up 3/3 | 1pt worse  +63.7%
+ -- at ESPN's open
+  all                                                        n    74   46-28   62.2% (needs 41.4)  +48.3% z +3.65 | train  +40.2% (  42) | held  +54.8% (  27) | up 4/4 | 1pt worse  +44.8%
+  both goalies as projected                                  n    25   12-13   48.0% (needs 40.7)  +13.2% z +0.75 | train  -13.6% (  16) | held  +58.7% (   6) | up 1/3 | 1pt worse  +10.5%
+  OUR projection wrong                                       n    30   19-11   63.3% (needs 41.2)  +55.5% z +2.48 | train  +64.7% (  14) | held  +42.9% (  15) | up 3/4 | 1pt worse  +51.7%
+  THEIR projection wrong                                     n    28   19-9    67.9% (needs 42.1)  +62.4% z +2.78 | train  +70.8% (  16) | held  +46.7% (  11) | up 4/4 | 1pt worse  +58.6%
+  either wrong                                               n    49   34-15   69.4% (needs 41.7)  +66.3% z +3.95 | train  +73.3% (  26) | held  +53.7% (  21) | up 4/4 | 1pt worse  +62.3%
+  ours n1 / theirs n1                                        n    16    8-8    50.0% (needs 41.2)  +14.2% z +0.72 | train  -33.0% (  10) | held  +90.4% (   5) | up 1/3 | 1pt worse  +11.6%
+  ours n1 / theirs bk                                        n    16   13-3    81.2% (needs 40.9)  +95.3% z +3.30 | train  +90.1% (  13) | held +118.0% (   3) | up 3/3 | 1pt worse  +90.7%
+  ours bk / theirs n1                                        n    13    9-4    69.2% (needs 42.1)  +61.9% z +1.99 | train  +94.4% (   5) | held  +41.6% (   8) | up 3/3 | 1pt worse  +58.1%
+  ours bk / theirs bk                                        n     9    5-4    55.6% (needs 40.9)  +41.0% z +0.90 | train  +33.5% (   4) | held  +47.0% (   5) | up 2/3 | 1pt worse  +37.5%
+  ours n1 (any)                                              n    39   25-14   64.1% (needs 41.3)  +50.8% z +2.90 | train  +35.6% (  27) | held  +81.6% (  10) | up 3/3 | 1pt worse  +47.3%
+  ours bk (any)                                              n    23   15-8    65.2% (needs 41.8)  +56.0% z +2.29 | train  +67.3% (   9) | held  +43.7% (  13) | up 3/3 | 1pt worse  +52.3%
+  theirs n1 (any)                                            n    34   18-16   52.9% (needs 41.1)  +22.9% z +1.41 | train   -0.6% (  19) | held  +60.4% (  13) | up 2/3 | 1pt worse  +20.1%
+  theirs bk (any)                                            n    29   21-8    72.4% (needs 41.0)  +77.3% z +3.45 | train  +83.1% (  19) | held  +66.4% (  10) | up 3/3 | 1pt worse  +73.1%
+
+=== THE FLOOR'S HOCKEY DOGS (80)
+ -- at the close
+  all                                                        n    80   31-49   38.8% (needs 43.2)   -8.7% z -0.80 | train  -22.0% (  50) | held  +19.2% (  24) | up 1/4 | 1pt worse  -10.8%
+  both goalies as projected                                  n    38   10-28   26.3% (needs 44.0)  -40.0% z -2.20 | train  -29.2% (  25) | held  -43.6% (   9) | up 1/4 | 1pt worse  -41.4%
+  OUR projection wrong                                       n    29   16-13   55.2% (needs 42.2)  +34.6% z +1.42 | train   -6.7% (  18) | held  +93.9% (  10) | up 2/3 | 1pt worse  +31.4%
+  THEIR projection wrong                                     n    24    9-15   37.5% (needs 43.8)  -14.1% z -0.62 | train  -23.2% (  15) | held  -18.8% (   8) | up 1/4 | 1pt worse  -16.0%
+  either wrong                                               n    42   21-21   50.0% (needs 42.5)  +19.7% z +0.99 | train  -14.9% (  25) | held  +56.9% (  15) | up 1/4 | 1pt worse  +16.9%
+  ours n1 / theirs n1                                        n    21    6-15   28.6% (needs 43.6)  -35.6% z -1.40 | train  -21.6% (  14) | held  -49.2% (   5) | up 1/3 | 1pt worse  -37.0%
+  ours n1 / theirs bk                                        n    12    6-6    50.0% (needs 44.6)  +12.8% z +0.38 | train   +3.6% (  11) | held +113.0% (   1) | up 3/3 | 1pt worse  +10.3%
+  ours bk / theirs n1                                        n     5    3-2    60.0% (needs 38.2)  +63.2% z +1.01 | train   -6.7% (   3) | held +168.0% (   2) | up 1/2 | 1pt worse  +58.9%
+  ours bk / theirs bk                                        n     9    5-4    55.6% (needs 42.0)  +41.1% z +0.83 | train   -2.0% (   5) | held  +17.5% (   2) | up 2/3 | 1pt worse  +37.6%
+  ours n1 (any)                                              n    39   13-26   33.3% (needs 44.2)  -25.5% z -1.38 | train  -20.1% (  28) | held  -16.4% (   8) | up 1/3 | 1pt worse  -27.1%
+  ours bk (any)                                              n    15    8-7    53.3% (needs 41.1)  +39.1% z +0.97 | train  -14.4% (   9) | held  +92.8% (   4) | up 2/3 | 1pt worse  +35.5%
+  theirs n1 (any)                                            n    31   11-20   35.5% (needs 42.3)  -12.7% z -0.77 | train   -9.4% (  18) | held   +7.5% (  10) | up 2/3 | 1pt worse  -14.9%
+  theirs bk (any)                                            n    24   12-12   50.0% (needs 43.5)  +17.8% z +0.64 | train   +1.9% (  18) | held  +12.0% (   4) | up 2/3 | 1pt worse  +15.1%
+ -- at ESPN's open
+  all                                                        n    80   31-49   38.8% (needs 40.0)   -1.5% z -0.22 | train  -16.5% (  50) | held  +31.2% (  24) | up 1/4 | 1pt worse   -4.0%
+  both goalies as projected                                  n    38   10-28   26.3% (needs 40.9)  -36.8% z -1.83 | train  -25.8% (  25) | held  -39.4% (   9) | up 2/4 | 1pt worse  -38.3%
+  OUR projection wrong                                       n    29   16-13   55.2% (needs 39.4)  +44.6% z +1.75 | train   -2.2% (  18) | held +115.9% (  10) | up 2/3 | 1pt worse  +40.8%
+  THEIR projection wrong                                     n    24    9-15   37.5% (needs 39.9)   -4.8% z -0.24 | train  -12.7% (  15) | held  -13.1% (   8) | up 2/4 | 1pt worse   -7.2%
+  either wrong                                               n    42   21-21   50.0% (needs 39.2)  +30.5% z +1.45 | train   -7.2% (  25) | held  +73.6% (  15) | up 1/4 | 1pt worse  +27.1%
+  ours n1 / theirs n1                                        n    21    6-15   28.6% (needs 41.0)  -32.5% z -1.16 | train  -18.4% (  14) | held  -45.0% (   5) | up 1/3 | 1pt worse  -34.0%
+  ours n1 / theirs bk                                        n    12    6-6    50.0% (needs 40.0)  +27.8% z +0.71 | train  +19.0% (  11) | held +125.0% (   1) | up 3/3 | 1pt worse  +24.6%
+  ours bk / theirs n1                                        n     5    3-2    60.0% (needs 35.4)  +78.0% z +1.15 | train   -8.3% (   3) | held +207.5% (   2) | up 1/2 | 1pt worse  +72.8%
+  ours bk / theirs bk                                        n     9    5-4    55.6% (needs 39.2)  +46.7% z +1.01 | train   +3.0% (   5) | held  +25.0% (   2) | up 2/3 | 1pt worse  +42.8%
+  ours n1 (any)                                              n    39   13-26   33.3% (needs 41.0)  -18.7% z -0.98 | train  -12.4% (  28) | held  -10.0% (   8) | up 1/3 | 1pt worse  -20.6%
+  ours bk (any)                                              n    15    8-7    53.3% (needs 38.2)  +47.3% z +1.21 | train  -12.2% (   9) | held +116.3% (   4) | up 2/3 | 1pt worse  +43.3%
+  theirs n1 (any)                                            n    31   11-20   35.5% (needs 39.4)   -5.7% z -0.45 | train   -5.9% (  18) | held  +23.0% (  10) | up 2/3 | 1pt worse   -8.2%
+  theirs bk (any)                                            n    24   12-12   50.0% (needs 39.6)  +28.1% z +1.05 | train  +13.6% (  18) | held  +18.8% (   4) | up 3/3 | 1pt worse  +24.8%
+
+=== HOCKEY FAVORITES (Lock / value play) (157)
+ -- at the close
+  all                                                        n   157   95-62   60.5% (needs 58.2)   +3.8% z +0.59 | train   +1.8% (  86) | held   +1.7% (  59) | up 2/3 | 1pt worse   +2.0%
+  both goalies as projected                                  n    76   44-32   57.9% (needs 58.1)   -0.5% z -0.03 | train   +1.9% (  44) | held   -5.7% (  29) | up 1/3 | 1pt worse   -2.2%
+  OUR projection wrong                                       n    52   31-21   59.6% (needs 58.2)   +2.3% z +0.20 | train   -6.9% (  24) | held   +6.2% (  21) | up 2/3 | 1pt worse   +0.6%
+  THEIR projection wrong                                     n    44   27-17   61.4% (needs 58.5)   +4.6% z +0.38 | train   -8.9% (  28) | held  +18.6% (  13) | up 2/3 | 1pt worse   +2.9%
+  either wrong                                               n    81   51-30   63.0% (needs 58.3)   +7.8% z +0.86 | train   +1.7% (  42) | held   +8.9% (  30) | up 2/3 | 1pt worse   +6.0%
+  ours n1 / theirs n1                                        n    44   18-26   40.9% (needs 58.1)  -29.7% z -2.32 | train  -22.7% (  31) | held  -46.4% (  13) | up 0/3 | 1pt worse  -30.9%
+  ours n1 / theirs bk                                        n    44   32-12   72.7% (needs 58.3)  +24.2% z +1.95 | train  +14.3% (  24) | held  +30.5% (  17) | up 3/3 | 1pt worse  +22.2%
+  ours bk / theirs n1                                        n    16   10-6    62.5% (needs 58.5)   +6.5% z +0.33 | train  +27.6% (   8) | held  -56.5% (   4) | up 2/3 | 1pt worse   +4.7%
+  ours bk / theirs bk                                        n    18   10-8    55.6% (needs 58.3)   -4.0% z -0.24 | train  -42.1% (   9) | held  +22.5% (   7) | up 1/3 | 1pt worse   -5.7%
+  ours n1 (any)                                              n    99   59-40   59.6% (needs 58.2)   +2.1% z +0.29 | train   +1.2% (  61) | held   -2.1% (  35) | up 1/3 | 1pt worse   +0.4%
+  ours bk (any)                                              n    37   22-15   59.5% (needs 58.2)   +2.5% z +0.16 | train   -4.6% (  18) | held   -6.4% (  13) | up 1/3 | 1pt worse   +0.7%
+  theirs n1 (any)                                            n    65   31-34   47.7% (needs 58.2)  -18.3% z -1.73 | train  -12.4% (  41) | held  -36.4% (  19) | up 0/3 | 1pt worse  -19.7%
+  theirs bk (any)                                            n    73   50-23   68.5% (needs 58.2)  +17.5% z +1.79 | train   +3.2% (  35) | held  +26.8% (  31) | up 2/3 | 1pt worse  +15.5%
+ -- at ESPN's open
+  all                                                        n   157   95-62   60.5% (needs 54.4)  +11.9% z +1.54 | train   +9.5% (  86) | held   +9.2% (  59) | up 2/3 | 1pt worse   +9.9%
+  both goalies as projected                                  n    76   44-32   57.9% (needs 54.1)   +8.3% z +0.66 | train   +9.9% (  44) | held   +3.0% (  29) | up 3/3 | 1pt worse   +6.3%
+  OUR projection wrong                                       n    52   31-21   59.6% (needs 54.7)   +9.6% z +0.72 | train   +0.8% (  24) | held  +11.9% (  21) | up 2/3 | 1pt worse   +7.7%
+  THEIR projection wrong                                     n    44   27-17   61.4% (needs 54.9)  +11.0% z +0.86 | train   -4.0% (  28) | held  +25.2% (  13) | up 2/3 | 1pt worse   +9.0%
+  either wrong                                               n    81   51-30   63.0% (needs 54.6)  +15.4% z +1.51 | train   +9.0% (  42) | held  +15.1% (  30) | up 2/3 | 1pt worse  +13.3%
+  ours n1 / theirs n1                                        n    44   18-26   40.9% (needs 54.4)  -23.6% z -1.80 | train  -15.8% (  31) | held  -42.4% (  13) | up 1/3 | 1pt worse  -25.0%
+  ours n1 / theirs bk                                        n    44   32-12   72.7% (needs 53.7)  +35.3% z +2.53 | train  +22.4% (  24) | held  +43.8% (  17) | up 3/3 | 1pt worse  +32.8%
+  ours bk / theirs n1                                        n    16   10-6    62.5% (needs 55.3)  +13.1% z +0.58 | train  +34.2% (   8) | held  -53.4% (   4) | up 2/3 | 1pt worse  +11.1%
+  ours bk / theirs bk                                        n    18   10-8    55.6% (needs 54.3)   +3.8% z +0.11 | train  -35.6% (   9) | held  +29.7% (   7) | up 1/3 | 1pt worse   +1.9%
+  ours n1 (any)                                              n    99   59-40   59.6% (needs 54.3)  +10.3% z +1.06 | train   +8.6% (  61) | held   +6.5% (  35) | up 2/3 | 1pt worse   +8.3%
+  ours bk (any)                                              n    37   22-15   59.5% (needs 54.7)   +9.4% z +0.58 | train   +1.6% (  18) | held   -0.8% (  13) | up 1/3 | 1pt worse   +7.5%
+  theirs n1 (any)                                            n    65   31-34   47.7% (needs 54.8)  -12.2% z -1.16 | train   -5.7% (  41) | held  -32.0% (  19) | up 1/3 | 1pt worse  -13.7%
+  theirs bk (any)                                            n    73   50-23   68.5% (needs 53.8)  +27.7% z +2.52 | train  +12.1% (  35) | held  +36.5% (  31) | up 2/3 | 1pt worse  +25.4%
+
+=== EVERY GATED HOCKEY DOG (score 6+), posted or not (319)
+ -- at the close
+  all                                                        n   319  162-157  50.8% (needs 43.8)  +15.7% z +2.53 | train  +12.4% ( 185) | held  +17.7% ( 115) | up 4/4 | 1pt worse  +13.1%
+  both goalies as projected                                  n   131   60-71   45.8% (needs 43.8)   +2.5% z +0.46 | train   -9.8% (  80) | held  +23.2% (  45) | up 1/3 | 1pt worse   +0.2%
+  OUR projection wrong                                       n   127   62-65   48.8% (needs 43.6)  +14.2% z +1.19 | train  +16.7% (  71) | held   +6.9% (  48) | up 3/4 | 1pt worse  +11.5%
+  THEIR projection wrong                                     n   100   58-42   58.0% (needs 44.0)  +32.7% z +2.83 | train  +42.3% (  53) | held  +13.5% (  39) | up 4/4 | 1pt worse  +29.7%
+  either wrong                                               n   188  102-86   54.3% (needs 43.8)  +25.0% z +2.91 | train  +29.3% ( 105) | held  +14.1% (  70) | up 4/4 | 1pt worse  +22.1%
+  ours n1 / theirs n1                                        n    73   30-43   41.1% (needs 43.9)  -10.1% z -0.49 | train  -23.4% (  49) | held  +13.1% (  23) | up 1/3 | 1pt worse  -12.0%
+  ours n1 / theirs bk                                        n    61   42-19   68.9% (needs 43.9)  +56.4% z +3.95 | train  +54.8% (  39) | held  +67.4% (  17) | up 3/3 | 1pt worse  +52.9%
+  ours bk / theirs n1                                        n    58   32-26   55.2% (needs 43.8)  +29.3% z +1.75 | train  +33.5% (  33) | held  +25.3% (  23) | up 3/3 | 1pt worse  +26.3%
+  ours bk / theirs bk                                        n    43   18-25   41.9% (needs 43.9)   -1.2% z -0.27 | train  -11.4% (  25) | held  +11.6% (  16) | up 1/3 | 1pt worse   -3.5%
+  ours n1 (any)                                              n   159   84-75   52.8% (needs 43.9)  +18.4% z +2.28 | train  +10.6% (  97) | held  +26.2% (  54) | up 3/3 | 1pt worse  +15.7%
+  ours bk (any)                                              n   110   57-53   51.8% (needs 43.9)  +21.4% z +1.69 | train  +20.7% (  61) | held  +19.0% (  43) | up 3/3 | 1pt worse  +18.6%
+  theirs n1 (any)                                            n   151   69-82   45.7% (needs 43.6)   +3.3% z +0.52 | train   -4.4% (  97) | held  +16.5% (  49) | up 2/3 | 1pt worse   +1.0%
+  theirs bk (any)                                            n   123   70-53   56.9% (needs 44.0)  +30.5% z +2.91 | train  +31.4% (  73) | held  +35.5% (  41) | up 3/3 | 1pt worse  +27.5%
+ -- at ESPN's open
+  all                                                        n   319  162-157  50.8% (needs 41.6)  +22.5% z +3.35 | train  +17.8% ( 185) | held  +26.5% ( 115) | up 4/4 | 1pt worse  +19.6%
+  both goalies as projected                                  n   131   60-71   45.8% (needs 41.3)  +10.8% z +1.04 | train   -3.7% (  80) | held  +35.1% (  45) | up 2/3 | 1pt worse   +8.2%
+  OUR projection wrong                                       n   127   62-65   48.8% (needs 41.6)  +19.4% z +1.66 | train  +20.0% (  71) | held  +14.3% (  48) | up 3/4 | 1pt worse  +16.5%
+  THEIR projection wrong                                     n   100   58-42   58.0% (needs 41.8)  +39.1% z +3.30 | train  +49.8% (  53) | held  +18.2% (  39) | up 4/4 | 1pt worse  +35.8%
+  either wrong                                               n   188  102-86   54.3% (needs 41.7)  +30.7% z +3.50 | train  +34.3% ( 105) | held  +21.0% (  70) | up 4/4 | 1pt worse  +27.6%
+  ours n1 / theirs n1                                        n    73   30-43   41.1% (needs 41.9)   -3.9% z -0.14 | train  -18.9% (  49) | held  +23.3% (  23) | up 2/3 | 1pt worse   -6.1%
+  ours n1 / theirs bk                                        n    61   42-19   68.9% (needs 41.2)  +66.3% z +4.40 | train  +64.8% (  39) | held  +79.4% (  17) | up 3/3 | 1pt worse  +62.3%
+  ours bk / theirs n1                                        n    58   32-26   55.2% (needs 41.9)  +32.6% z +2.05 | train  +33.6% (  33) | held  +33.7% (  23) | up 3/3 | 1pt worse  +29.4%
+  ours bk / theirs bk                                        n    43   18-25   41.9% (needs 41.6)   +4.0% z +0.03 | train   -7.7% (  25) | held  +16.6% (  16) | up 1/3 | 1pt worse   +1.5%
+  ours n1 (any)                                              n   159   84-75   52.8% (needs 41.6)  +26.2% z +2.87 | train  +17.7% (  97) | held  +36.1% (  54) | up 3/3 | 1pt worse  +23.2%
+  ours bk (any)                                              n   110   57-53   51.8% (needs 41.8)  +26.1% z +2.14 | train  +22.8% (  61) | held  +26.4% (  43) | up 3/3 | 1pt worse  +23.1%
+  theirs n1 (any)                                            n   151   69-82   45.7% (needs 41.6)   +8.4% z +1.01 | train   -1.5% (  97) | held  +26.2% (  49) | up 2/3 | 1pt worse   +5.9%
+  theirs bk (any)                                            n   123   70-53   56.9% (needs 41.4)  +38.5% z +3.51 | train  +39.3% (  73) | held  +44.0% (  41) | up 3/3 | 1pt worse  +35.2%
+
+=== EVERY HOCKEY DOG, posted or not (3580)
+ -- at the close
+  all                                                        n  3580 1422-2158 39.7% (needs 41.2)   -4.3% z -1.85 | train   -6.1% (2200) | held   +1.2% (1177) | up 1/4 | 1pt worse   -6.6%
+  both goalies as projected                                  n  1457  543-914  37.3% (needs 41.6)  -11.6% z -3.39 | train  -16.3% ( 922) | held   +1.0% ( 461) | up 1/4 | 1pt worse  -13.7%
+  OUR projection wrong                                       n  1392  569-823  40.9% (needs 40.8)   -0.4% z +0.04 | train   +0.6% ( 858) | held   +0.3% ( 450) | up 2/4 | 1pt worse   -2.8%
+  THEIR projection wrong                                     n  1215  503-712  41.4% (needs 41.0)   +1.2% z +0.31 | train   +3.3% ( 714) | held   -0.6% ( 423) | up 1/4 | 1pt worse   -1.3%
+  either wrong                                               n  2123  879-1244 41.4% (needs 41.0)   +0.6% z +0.42 | train   +1.3% (1278) | held   +1.3% ( 716) | up 3/4 | 1pt worse   -1.8%
+  ours n1 / theirs n1                                        n   899  349-550  38.8% (needs 41.9)   -8.7% z -1.91 | train  -13.5% ( 605) | held   +7.8% ( 246) | up 1/3 | 1pt worse  -10.9%
+  ours n1 / theirs bk                                        n   491  220-271  44.8% (needs 41.6)   +8.1% z +1.47 | train   +9.5% ( 307) | held  +11.0% ( 154) | up 3/4 | 1pt worse   +5.5%
+  ours bk / theirs n1                                        n   687  254-433  37.0% (needs 40.8)   -9.0% z -2.04 | train  -10.7% ( 430) | held   -5.6% ( 220) | up 0/3 | 1pt worse  -11.2%
+  ours bk / theirs bk                                        n   417  165-252  39.6% (needs 40.8)   -3.0% z -0.51 | train   -2.3% ( 252) | held   +0.1% ( 134) | up 2/3 | 1pt worse   -5.4%
+  ours n1 (any)                                              n  1567  647-920  41.3% (needs 41.9)   -2.1% z -0.49 | train   -5.0% (1024) | held   +8.3% ( 459) | up 1/4 | 1pt worse   -4.4%
+  ours bk (any)                                              n  1268  496-772  39.1% (needs 40.8)   -4.2% z -1.22 | train   -5.1% ( 772) | held   -1.8% ( 414) | up 0/3 | 1pt worse   -6.5%
+  theirs n1 (any)                                            n  1858  704-1154 37.9% (needs 41.2)   -9.2% z -2.96 | train  -13.2% (1191) | held   +1.1% ( 563) | up 1/3 | 1pt worse  -11.3%
+  theirs bk (any)                                            n  1032  431-601  41.8% (needs 41.1)   +1.7% z +0.42 | train   +4.0% ( 629) | held   +3.8% ( 329) | up 3/4 | 1pt worse   -0.7%
+ -- at ESPN's open
+  all                                                        n  3580 1422-2158 39.7% (needs 42.7)   -6.6% z -3.65 | train   -8.6% (2200) | held   -0.4% (1177) | up 1/4 | 1pt worse   -8.8%
+  both goalies as projected                                  n  1457  543-914  37.3% (needs 43.0)  -13.8% z -4.49 | train  -18.9% ( 922) | held   -0.3% ( 461) | up 1/4 | 1pt worse  -15.8%
+  OUR projection wrong                                       n  1392  569-823  40.9% (needs 42.5)   -3.1% z -1.27 | train   -2.5% ( 858) | held   -1.5% ( 450) | up 1/4 | 1pt worse   -5.4%
+  THEIR projection wrong                                     n  1215  503-712  41.4% (needs 42.3)   -0.9% z -0.62 | train   +1.4% ( 714) | held   -2.6% ( 423) | up 1/4 | 1pt worse   -3.3%
+  either wrong                                               n  2123  879-1244 41.4% (needs 42.5)   -1.7% z -1.01 | train   -1.2% (1278) | held   -0.5% ( 716) | up 2/4 | 1pt worse   -4.1%
+  ours n1 / theirs n1                                        n   899  349-550  38.8% (needs 43.2)  -10.6% z -2.66 | train  -16.2% ( 605) | held   +7.9% ( 246) | up 1/3 | 1pt worse  -12.6%
+  ours n1 / theirs bk                                        n   491  220-271  44.8% (needs 41.9)   +8.7% z +1.33 | train  +10.0% ( 307) | held  +12.6% ( 154) | up 3/4 | 1pt worse   +6.1%
+  ours bk / theirs n1                                        n   687  254-433  37.0% (needs 43.3)  -13.4% z -3.36 | train  -15.5% ( 430) | held   -9.0% ( 220) | up 0/3 | 1pt worse  -15.5%
+  ours bk / theirs bk                                        n   417  165-252  39.6% (needs 42.0)   -5.5% z -1.03 | train   -4.5% ( 252) | held   -3.3% ( 134) | up 1/3 | 1pt worse   -7.7%
+  ours n1 (any)                                              n  1567  647-920  41.3% (needs 42.8)   -3.1% z -1.18 | train   -6.7% (1024) | held   +9.0% ( 459) | up 1/4 | 1pt worse   -5.4%
+  ours bk (any)                                              n  1268  496-772  39.1% (needs 42.9)   -8.2% z -2.74 | train   -9.2% ( 772) | held   -5.4% ( 414) | up 0/3 | 1pt worse  -10.3%
+  theirs n1 (any)                                            n  1858  704-1154 37.9% (needs 43.0)  -12.1% z -4.52 | train  -16.6% (1191) | held   -0.6% ( 563) | up 0/3 | 1pt worse  -14.1%
+  theirs bk (any)                                            n  1032  431-601  41.8% (needs 41.9)   +1.2% z -0.08 | train   +3.6% ( 629) | held   +3.2% ( 329) | up 3/4 | 1pt worse   -1.3%
+
+=== placebo: the posted hockey dogs with OUR projection wrong vs a random same-size set of posted hockey dogs
+  our projection wrong         n  145 roi  +12.3%  as good 634 / as bad 1366 of 2,000
+  their projection wrong       n  108 roi  +14.8%  as good 511 / as bad 1489 of 2,000
+  ours n1 / theirs bk          n   66 roi  +45.0%  as good 6 / as bad 1994 of 2,000
+  ours bk / theirs n1          n   57 roi  +25.2%  as good 246 / as bad 1754 of 2,000
+  theirs bk                    n  132 roi  +23.7%  as good 57 / as bad 1943 of 2,000
+  theirs n1                    n  160 roi   +1.8%  as good 1686 / as bad 314 of 2,000
