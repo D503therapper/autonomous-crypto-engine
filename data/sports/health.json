@@ -1,17 +1,17 @@
 {
- "at": "2026-11-19T19:56Z",
+ "at": "2026-11-19T20:00Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s"
+  "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s",
+  "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (52s)",
+  "live watcher fresh (272s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 1 of 2 live matches",
-  "card audit: 8 live cards, 29 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.5, unit cards under the floor: 0)",
+  "card quality: 100/100 on 9 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 2.2, unit cards under the floor: 1)",
   "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -21,12 +21,20 @@
   "every upcoming game has its real teams",
   "studies ran 4h ago",
   "simulator ran 2h ago",
-  "engine ran 8 min ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T20:00Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s",
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-19T19:56Z",
    "fixes": [],
@@ -636,13 +644,6 @@
   },
   {
    "at": "2026-11-18T04:31Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T04:30Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
