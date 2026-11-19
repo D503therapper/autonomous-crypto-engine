@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T22:28Z",
+ "updated": "2026-11-19T22:31Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -587,7 +587,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Spurs",
-    "p": 0.744,
+    "p": 0.743,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -603,9 +603,9 @@
     "opp": "Clippers",
     "market": "spread",
     "line": -15.5,
-    "odds": -110,
+    "odds": -108,
     "p": 0.503,
-    "win_p": 0.854,
+    "win_p": 0.852,
     "reasons": [
      "the stronger team"
     ]
@@ -900,11 +900,15 @@
     "team": "Colts",
     "opp": "Texans",
     "market": "spread",
-    "line": 12.5,
-    "odds": -114,
-    "p": 0.504,
-    "win_p": 0.156,
-    "reasons": []
+    "line": -12.5,
+    "odds": -106,
+    "p": 0.501,
+    "win_p": 0.841,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "better QB play lately"
+    ]
    }
   },
   {
@@ -1358,34 +1362,6 @@
    }
   },
   {
-   "id": "ncaab:401909698",
-   "league": "ncaab",
-   "emoji": "\ud83c\udfc0",
-   "h1": {
-    "team": "Florida St",
-    "p": 0.91,
-    "tie": 0.016,
-    "name": "1st half"
-   },
-   "sport": "College Basketball",
-   "season": "regular season",
-   "start": "2026-11-20T17:00Z",
-   "away": "Green Bay",
-   "home": "Florida St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Green Bay",
-    "opp": "Florida St",
-    "market": "spread",
-    "line": 23.5,
-    "odds": -110,
-    "p": 0.517,
-    "win_p": 0.036,
-    "reasons": []
-   }
-  },
-  {
    "id": "ncaab:401916122",
    "league": "ncaab",
    "emoji": "\ud83c\udfc0",
@@ -1765,9 +1741,9 @@
     "opp": "Clemson",
     "market": "spread",
     "line": -13.5,
-    "odds": -110,
-    "p": 0.503,
-    "win_p": 0.789,
+    "odds": -105,
+    "p": 0.504,
+    "win_p": 0.782,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2058,10 +2034,10 @@
     "team": "Air Force",
     "opp": "UTEP",
     "market": "spread",
-    "line": -21.5,
+    "line": -22.5,
     "odds": -110,
-    "p": 0.549,
-    "win_p": 0.903,
+    "p": 0.548,
+    "win_p": 0.904,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
@@ -2135,7 +2111,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "New Mexico",
-    "p": 0.641,
+    "p": 0.648,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2144,18 +2120,19 @@
    "start": "2026-11-21T02:00Z",
    "away": "New Mexico",
    "home": "Wyoming",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "New Mexico",
-    "opp": "Wyoming",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.689,
-    "win_p": 0.689,
+    "team": "Wyoming",
+    "opp": "New Mexico",
+    "market": "spread",
+    "line": 7.5,
+    "odds": -115,
+    "p": 0.508,
+    "win_p": 0.303,
     "reasons": [
-     "the stronger team"
+     "sharp money moving this way",
+     "altitude edge"
     ]
    }
   },
