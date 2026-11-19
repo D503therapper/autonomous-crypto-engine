@@ -8076,8 +8076,26 @@ def card_extras(leg, g, injuries):
         line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
     except Exception:                                       # noqa: BLE001 - the extras never block a card
         line = ""
+    try:                                                    # 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (the owner
+        import sports_card_check as _cc                     #  on the Warriors card: "🚑 Warriors out: Draymond Green,
+        whole = _cc.coherent_on(leg, str(g.get("start") or "")[:10])   # Stephen Curry" in the write-up of a Warriors
+    except Exception:                                       # noqa: BLE001      pick - "I don't want bad shit in the
+        whole = False                                       #  breakdowns"): our own men out are said ONCE, plain, in
+    if whole:                                               #  the card's 🚑 header (sports_card_check.out_chips - both
+        leg.pop("our_q", None)                              #  teams), never as a write-up line; the header keeps our
+        if line and "questionable:" in line:                #  game-time men too
+            leg["our_q"] = line.split("questionable:", 1)[1].strip().rstrip(".")
+        line = ""
     if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
         leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
+    gone_now = set()                                        # (every man the report has OUT for either side, right now)
+    if whole:
+        try:
+            inj_ = (injuries or {}).get(leg["league"])
+            gone_now = {r[0] for s_ in ("home", "away") for r in sd._team_rows(inj_, g[s_], g[s_ + "_name"])
+                        if r[0] and _rep_class(r[2]) == "out"}
+        except Exception:                                   # noqa: BLE001
+            gone_now = set()
     if leg["league"] == "nba":                              # 🏀 the roster read's facts (bench, depth, form,
         try:                                                # a minutes limit) - the owner, 10/20
             rl = sports_nba_roster.card_line(g, leg["side"], sports_nba_roster.cached())
@@ -8091,6 +8109,18 @@ def card_extras(leg, g, injuries):
         if rl:                                              # (10/28, the owner on the Bucks card: "sounds like favoring
             parts = [p for p in rl[len(mark):].strip(" .").split(" · ")   # the Rockets way too much" - OUR man in a
                      if "in a slump" not in p and "thin squad" not in p]   # slump / our thin bench is never a body line)
+            if whole:                                       # 🧩 11/19 (the Warriors card: "Stephen Curry is cooking - with
+                #   him on the floor lately the team's up 14.9" the night he was OUT; "Moses Moody on a minutes limit"
+                #   - out too; "deep squad · 9 guys play real minutes" with three of our best men sitting): a man who is
+                #   out is never praised or cited, our man on a minutes limit / a game-time call is the header's
+                #   business, and the bench isn't "deep" while our own men who matter are out
+                try:
+                    st_ = _cc.card_state(leg, {leg["game_id"]: g})
+                    men_ = set(st_["men"]) | gone_now
+                    parts = [p for p in parts if not _cc._has(men_, p) and "minutes limit" not in p and "game-time call" not in p
+                             and not (st_["ours_w"] >= _cc.HURT_CLEAR and _cc.DEEP_SAID.search(p))]
+                except Exception:                           # noqa: BLE001
+                    pass
             rl = f"{mark} {' · '.join(parts)}." if parts else ""
         if rl and not any(str(x).startswith(mark) for x in leg.get("breakdown") or []):
             bd = list(leg.get("breakdown") or [])
@@ -8102,6 +8132,14 @@ def card_extras(leg, g, injuries):
             sl = sports_nba_stars.card_line(g, leg["side"], sports_nba_roster.cached())   # a fact, never a weight)
         except Exception:                                   # noqa: BLE001
             sl = ""
+        if sl and whole:                                    # 🧩 11/19 ("🌟 Warriors: Stephen Curry is out." closed the
+            try:                                            #  Warriors card): the 🌟 line says who's ON the floor -
+                head_, rest_ = sl.split(": ", 1)            #  never our own man out, never a man the report has out
+                keep_ = [p for p in rest_.rstrip(".").split(" · ")
+                         if not __import__("re").search(r"\b(?:is|are) out\b", p) and not _cc._has(gone_now | set(_cc.card_state(leg, {leg["game_id"]: g})["men"]), p)]
+                sl = f"{head_}: {' · '.join(keep_)}." if keep_ else ""
+            except Exception:                               # noqa: BLE001
+                pass
         if sl and not any(str(x).startswith("🌟") for x in leg.get("breakdown") or []):
             leg["breakdown"] = list(leg.get("breakdown") or []) + [sl]
     try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
