@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T10:47Z",
+ "updated": "2026-11-19T11:29Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -35,8 +35,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Auburn",
-    "p": 0.587,
-    "tie": 0.042,
+    "p": 0.552,
+    "tie": 0.043,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -44,16 +44,16 @@
    "start": "2026-11-19T22:00Z",
    "away": "Notre Dame",
    "home": "Auburn",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Auburn",
     "opp": "Notre Dame",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.643,
-    "win_p": 0.643,
+    "odds": -155,
+    "p": 0.597,
+    "win_p": 0.597,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -113,8 +113,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -278,
-    "p": 0.712,
-    "win_p": 0.501,
+    "p": 0.715,
+    "win_p": 0.499,
     "reasons": []
    }
   },
@@ -1241,6 +1241,38 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "ncaab:401920518",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Houston",
+    "p": 0.501,
+    "tie": 0.044,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T04:00Z",
+   "away": "Houston",
+   "home": "Kansas",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Houston",
+    "opp": "Kansas",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.532,
+    "win_p": 0.532,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back",
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
     ]
    }
   },
