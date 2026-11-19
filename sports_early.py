@@ -911,14 +911,8 @@ def alt_facts(games, g, now_av, read, tot, feet, st, now, prev_av=None):
     out = [f"⛰️ {g.get('home_name')}'s floor sits about {feet:,} feet up"]
     hn, an = g.get("home_name"), g.get("away_name")
     h, a = _alt_side(now_av, prev_av, g.get("home")), _alt_side(now_av, prev_av, g.get("away"))
-    if h and a:
-        eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2
-        out.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against {_poss(hn)} - "
-                   f"{eh + ea:.0f} before the thin air, the number's {tot:g}")
-        short = [(n, x[2]) for n, x in ((hn, h), (an, a)) if x[3]]
-        if short:
-            out.append(" and ".join(f"{n} {'has played ' + str(k) + ' game' + ('s' if k != 1 else '') if k else 'has not played yet'}"
-                                    for n, k in short) + " this season, so last season's scoring fills in the rest")
+    #   (11/19, the owner: "we can't say that we're better at pricing the lines than the fucking line makers" - no scoring
+    #    projection against the number; the thin air, how much it adds, a last game over it and the record say it)
     out.append("Games this high run about 4 points over both teams' norms")   # (11/19: never what the books do or do not have in the number)
     for side in ("home", "away"):
         ln = _alt_last(games, g.get(side), s, now)

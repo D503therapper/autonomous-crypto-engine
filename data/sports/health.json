@@ -1,32 +1,47 @@
 {
- "at": "2026-11-19T18:22Z",
+ "at": "2026-11-19T20:00Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Erjavec vs Strakhova: no points for 2355s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s",
+  "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (132s)",
+  "live watcher fresh (272s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "card audit: 8 live cards, 29 lines - nothing false, outdated or senseless",
-  "card quality: 100/100 on 8 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 1.5, unit cards under the floor: 0)",
+  "live tennis points + server: 1 of 2 live matches",
+  "card quality: 100/100 on 9 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 2.2, unit cards under the floor: 1)",
   "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 29 min ago",
+  "studies ran 4h ago",
+  "simulator ran 2h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T20:00Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s",
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
+  {
+   "at": "2026-11-19T19:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Zolotareva: no points for 1992s"
+   ]
+  },
   {
    "at": "2026-11-19T18:22Z",
    "fixes": [],
@@ -629,20 +644,6 @@
   },
   {
    "at": "2026-11-18T04:31Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T04:30Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T04:25Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],

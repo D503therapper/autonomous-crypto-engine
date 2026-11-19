@@ -1707,6 +1707,9 @@ def early_for_us(line, leg, games=None):
     m = _PROJ.search(t)
     if m and leg.get("side") == "over" and float(m.group(1)) < float(m.group(2)):
         return "", "; ".join(why + [Q_KNOCK + " - a projection under the number on an over"])
+    if re.search(r"should score about \d+ against", t):   # (11/19, the owner: "we can't say that we're better at pricing
+        return "", "; ".join(why + ["our number against the line makers' - a scoring projection"])   # the lines than
+    #                                                        the fucking line makers" - no projection vs the number at all)
     lead, parts = _sentences(t)
     keep, cut = [], False
     for sent in parts:

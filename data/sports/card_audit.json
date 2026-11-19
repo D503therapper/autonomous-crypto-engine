@@ -1,18 +1,39 @@
 {
- "at": "2026-11-19T19:01Z",
- "bad_cards": 0,
- "by_class": {},
- "cards": 8,
- "lines": 29,
- "problems": [],
+ "at": "2026-11-19T20:07Z",
+ "bad_cards": 1,
+ "by_class": {
+  "short": 1
+ },
+ "cards": 9,
+ "lines": 39,
+ "problems": [
+  {
+   "class": "short",
+   "date": "2026-11-19",
+   "kind": "play",
+   "league": "nhl",
+   "line": "",
+   "team": "Flyers",
+   "why": "a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+  }
+ ],
  "quality": {
-  "avg_facts": 1.5,
-  "cards": 8,
+  "avg_facts": 2.2,
+  "cards": 9,
   "score": 100,
-  "short": [],
+  "short": [
+   {
+    "date": "2026-11-19",
+    "facts": 5,
+    "floor": 6,
+    "league": "nhl",
+    "team": "Flyers",
+    "why": "the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   }
+  ],
   "shown": {},
   "thin": 0,
-  "under_floor": 0,
+  "under_floor": 1,
   "worst": [],
   "written": {}
  },
