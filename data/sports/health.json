@@ -1,14 +1,14 @@
 {
- "at": "2026-11-19T07:35Z",
+ "at": "2026-11-19T07:36Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
   "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
  ],
  "ok": [
-  "live watcher fresh (179s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +22,22 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 7h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T07:36Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: pick check held ncaabplay Charleston So 114: a second pick on a game we're already on",
+    "slate check: pick check held ncaabplay Charleston So 105: a second pick on a game we're already on"
+   ]
+  },
   {
    "at": "2026-11-19T07:35Z",
    "fixes": [
@@ -668,19 +678,6 @@
   {
    "at": "2026-11-17T17:21Z",
    "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Linana vs Bronzetti: no points for 2612s",
-    "live tennis scores: tennis Bulgaru vs Hercog: no points for 2612s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-11-17T17:19Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
    "problems": [
