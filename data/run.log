@@ -23957,3 +23957,41 @@ error: failed to push some refs to 'https://githu
 [2026-11-19 09:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-19 09:06 UTC] crypto/hold_btc  equity $391.01 (-21.8%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), LUNC 35 (35/0/0), PENGU 32 (32/0/0), HYPE 29 (29/0/0), SOL 27 (27/0/0)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: REJECT ZAMA@ethereum liq $497,341 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GTA6@ethereum liq $267,301 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ANT@solana liq $136,479 - lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 52
+   dex screen: REJECT VELVET@base liq $1,150,409 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: PASS BLOB@solana liq $168,473
+crypto scanner failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+crypto scanner failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   price check failed: HTTP Error 404: Not Found
+   dex screen: PASS CBUCKS@solana liq $211,942
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT RNDR@ethereum liq $192,115 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,190 / base 451 / ethereum 359), refresh cycle 130s (hot 126s), 2886 calls (110 feed, 429s 1, failed 1), 83,279 refreshed (10499 no pair), +63 added / -64 dropped (dead 13, stale 0, cap 51), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-19 10:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/mover     equity $173.61 (-65.3%) 1 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/social_heat equity $322.78 (-35.4%) 1 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 10:06 UTC] crypto/hold_btc  equity $391.38 (-21.7%) 1 open  market DOWN
+   social heat top: BTC 37 (37/0/0), PENGU 35 (35/0/0), LUNC 29 (29/0/0), SOL 27 (27/0/0), HYPE 21 (21/0/0)
