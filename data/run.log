@@ -24499,3 +24499,21 @@ $BITF: possibly delisted; no price data found  (period=407d)
    [alert] Today -8.51 | Total -52.16: Stocks: $447.84  today -8.51  total -52.16
 DEX: $1,000.00  today +0.00  total +0.00
 DEX: $1,000.00 (+0.00) · Scammed: 0
+   dex screen: REJECT CVX@ethereum liq $4,097,572 - is_mintable; top-10 holders 71%
+   dex screen: REJECT WETH@solana liq $4,317,172 - mint authority; top-10 holders 76%
+   dex screen: REJECT DEGEN@base liq $400,329 - is_mintable; top-10 holders 63%; lp locked 0% < 95%
+   >> crypto/mover: SELL $63.89 of BARA @ 0, P/L $-14.43 (stop hit (live check))
+   dex screen: REJECT CHUNKEE@ethereum liq $253,744 - goplus partial data: cannot_sell_all unknown; top-10 holders 106%
+   dex screen: REJECT XDP@base liq $722,844 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $8,461,878
+   dex scanner: 2,585 pools (solana 1,790 / base 441 / ethereum 354), refresh cycle 104s (hot 101s), 3076 calls (110 feed, 429s 0, failed 0), 88,978 refreshed (12977 no pair), +93 added / -113 dropped (dead 108, stale 5, cap 0), movers 1 + warming 0 -> queued 1, screened 1 (passed 0), bought 0
+[2026-11-19 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/mover     equity $154.33 (-69.1%) 1 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/social_heat equity $321.60 (-35.7%) 2 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 23:05 UTC] crypto/hold_btc  equity $382.63 (-23.5%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), VVV 35 (32/0/3), PENGU 35 (35/0/0), TRUMP 29 (29/0/0), HYPE 29 (29/0/0)
