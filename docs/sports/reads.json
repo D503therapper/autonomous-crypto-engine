@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T21:47Z",
+ "updated": "2026-11-19T21:50Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -369,7 +369,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SE Louisiana",
-    "p": 0.706,
+    "p": 0.705,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -386,8 +386,8 @@
     "market": "spread",
     "line": 11.5,
     "odds": -110,
-    "p": 0.525,
-    "win_p": 0.238,
+    "p": 0.524,
+    "win_p": 0.239,
     "reasons": []
    }
   },
@@ -898,7 +898,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.733,
+    "p": 0.734,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -910,18 +910,14 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Texans",
-    "opp": "Colts",
+    "team": "Colts",
+    "opp": "Texans",
     "market": "spread",
-    "line": -12.5,
-    "odds": -106,
-    "p": 0.501,
-    "win_p": 0.84,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
-    ]
+    "line": 12.5,
+    "odds": -114,
+    "p": 0.504,
+    "win_p": 0.156,
+    "reasons": []
    }
   },
   {
@@ -1373,6 +1369,92 @@
    }
   },
   {
+   "id": "ncaab:401909698",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Florida St",
+    "p": 0.91,
+    "tie": 0.016,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T17:00Z",
+   "away": "Green Bay",
+   "home": "Florida St",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Green Bay",
+    "opp": "Florida St",
+    "market": "spread",
+    "line": 23.5,
+    "odds": -110,
+    "p": 0.517,
+    "win_p": 0.036,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920380",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Virginia Tech",
+    "p": 0.81,
+    "tie": 0.028,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T20:00Z",
+   "away": "Northwestern",
+   "home": "Virginia Tech",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Northwestern",
+    "opp": "Virginia Tech",
+    "market": "spread",
+    "line": 11.5,
+    "odds": -102,
+    "p": 0.505,
+    "win_p": 0.112,
+    "reasons": []
+   }
+  },
+  {
+   "id": "ncaab:401920066",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Rhode Island",
+    "p": 0.518,
+    "tie": 0.043,
+    "name": "1st half"
+   },
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-20T21:30Z",
+   "away": "Rhode Island",
+   "home": "Liberty",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Rhode Island",
+    "opp": "Liberty",
+    "market": "ml",
+    "line": null,
+    "odds": -138,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "a small favorite away from home in Nov-Dec - those lose to their price (8 of 8 seasons)"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401856869",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1408,7 +1490,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Toledo",
-    "p": 0.767,
+    "p": 0.766,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -1425,8 +1507,8 @@
     "market": "spread",
     "line": -16.5,
     "odds": -110,
-    "p": 0.526,
-    "win_p": 0.827,
+    "p": 0.525,
+    "win_p": 0.826,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win"
@@ -1439,7 +1521,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Duke",
-    "p": 0.724,
+    "p": 0.723,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1456,8 +1538,8 @@
     "market": "spread",
     "line": -13.5,
     "odds": -110,
-    "p": 0.504,
-    "win_p": 0.782,
+    "p": 0.503,
+    "win_p": 0.781,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1500,7 +1582,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.767,
+    "p": 0.771,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -1517,8 +1599,8 @@
     "market": "spread",
     "line": -17.5,
     "odds": -105,
-    "p": 0.522,
-    "win_p": 0.827,
+    "p": 0.521,
+    "win_p": 0.831,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1541,7 +1623,7 @@
    "start": "2026-11-21T01:00Z",
    "away": "UTEP",
    "home": "Air Force",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Air Force",
@@ -1549,8 +1631,8 @@
     "market": "spread",
     "line": -21.5,
     "odds": -110,
-    "p": 0.55,
-    "win_p": 0.904,
+    "p": 0.549,
+    "win_p": 0.903,
     "reasons": [
      "the stronger team",
      "rolling off a blowout win",
