@@ -348,6 +348,14 @@ REST_REASON_FROM = "2026-11-16"   # 🛌 11/15 FABLE FULL ENGINE AUDIT: the owne
 #   "better rested" is no named reason in those leagues; football keeps it. No unit pick since 10/20 stood on it alone.
 
 
+ALT_REASON_MIN = 0.3   # 🏔️ 11/19 sweep: "altitude edge" is a NAMED reason (and a line on the card) only when the other
+#   team really climbs - 300+ meters (about 1,000 feet) above its own home - and never at a neutral site, where both
+#   teams climb. It fired at 50 meters: "UTEP gotta breathe 3,900 feet up" at New Mexico St (El Paso sits 3,700 feet
+#   up), and in Mexico City it read "Mile-high problems for the 49ers" on a Vikings card because Minneapolis is 750
+#   feet higher than San Francisco. The small weight in the own read is untouched (the fit's business); the WORDS and
+#   the named-reason count are what this gates.
+
+
 def rest_no_reason(league, g):
     """🛌 Is a plain rest gap NOT a named reason for this game (an every-other-night league, from REST_REASON_FROM)?"""
     try:
@@ -460,6 +468,8 @@ def _reasons(side, f, g, league, params, p_side=None):
     for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us"),
                         ("travel", "opponent's body clock is off")):
         if f.get(name, 0) * s > (COLD_NAME_MIN if name == "cold" else 0.05) and w.get(name, 0) >= 0.1:
+            if name == "alt" and (str((g or {}).get("neutral")) == "1" or f.get(name, 0) * s < ALT_REASON_MIN):
+                continue                                     # 🏔️ 11/19 sweep: see ALT_REASON_MIN
             out.append((0.4 + w[name] * abs(f[name]), label))
     if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
         out.append((0.4 - w["letdown"], "rolling off a blowout win"))

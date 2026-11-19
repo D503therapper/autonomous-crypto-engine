@@ -43,6 +43,27 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
 **NOT BUILT (looked at, did not clear):** a weight for one lineman, both tackles by themselves, the secondary, the pass rush, the pass-rush / passing-offense match-ups, a favorite with the thin line, a spread play against the thin line (too thin a point worse). **OPEN:** the chart-only fallback is unproven live (ESPN's chart shape is read the way the QB read does; this container cannot reach ESPN) - check source_status.json "nflverse_snaps" and data/sports/nfl_snaps.json after the first live run.
 
 **COLTS AT TEXANS (11/19, 5:15 PM PT):** before - the count 1 to 1, the Colts +525 own read 18.0% against a no-vig 15.3%, no tackle on the Colts' 🚑 line. After - Raimann and Travis are starting tackles and Ward a starting corner: the count 3 to 1, linemen out 2 to 0, under the 11/20 rule the Colts read 14.0% (4 points off - the cap) and the Texans carry "opponent's offensive line is short"; the 🚑 line names all three as starters and a Texans card says "Both starting tackles out - backups protecting the QB." No pick changes (+525 is past the +350 dog cap, -750 past -150); tonight is a Pacific 11/19 game, so live it gets the names, not the weight.
+## 11/19 - FABLE: BUG + BREAKDOWN SWEEP (the owner: "sweep on bugs and breakdowns"): TWELVE BUGS FIXED (the NBA over two days early, home teams jet-lagged by the clock change, altitude as a reason on nothing, the page's check cutting true lines - on every rivalry card with a shared name) AND ELEVEN POOL FIXES; NO PICK, PRICE OR SIZE CHANGED (results/studies/sweep_1119/README.md; tests test_sweep_1119_* (six))
+
+Read: the last 48 hours of the run log and the checker files, the code of 11/17-11/19, and a dry run of 11/19-11/22
+(2 + 2 picks and 89 candidate cards, each as written and as the page shows it). No study, no new weight.
+
+- **Two fixes touch the read.** (a) The travel factor compared a game's clock offset raw with the offset of the team's
+  last home game - an hour apart after 11/1 for every team that hadn't played at home since. 41 of 141 college football
+  games this week had the HOME team "off its home time zone"; about 1 point of win chance there, 2 in the NFL. Read on
+  standard time now (`sports_model.std_tz`), and a home team never crossed anything. (b) "Altitude edge" as a NAMED
+  reason needs the other team 300+ meters above its own home and never fires at a neutral site (`sports.ALT_REASON_MIN`)
+  - the weight in the own read is untouched.
+- **The 🏀 NBA over is a game-day play in the code now**, as its study says (the close): 3+ of the six out on a report
+  two days before a game says who sat THAT night.
+- **A check that cuts a true line makes a short card.** Four ways the fact check did (whose record it is, a record read
+  as a score, a played blowout read as a call on tonight) - all under a test with the wrong-number case still caught.
+  And one way the knock check did: our team's name inside the other team's longer name (Oregon / Oregon St, Texas /
+  Texas Tech, Florida / Florida St, Iowa / Iowa State, Miami / Miami OH, New Mexico / New Mexico St) made every line
+  about THEIR losses a knock on US - the shorter-named team's rivalry card lost its best lines and its one-liner.
+- **Dead ends / not touched:** the NFL East-to-West early spot's raw time-zone read (a studied definition - needs a
+  study), `sports_totals` / `sports_nba_open`'s travel inputs (the same raw read inside fitted models), the Mexico City
+  altitude weight (a model question), the question box's "lean" wording, the head-to-head line the guard always drops.
 
 ## 11/18 (night) - FABLE: CARD QUALITY, THE SECOND PASS (the owner: "it's just short and fucking vague and a real shitty fucking breakdown. This is a fucking permanent bug" / "permanent fix for everything going forward"): EVERY UNIT CARD FILLS TO ITS FLOOR WITH REAL FACTS FOR OUR SIDE - 22 OF 49 UNDER 6 -> 6; A CUT ON THE PAGE PULLS A SPARE FACT IN; A SHORT UNIT CARD IS A NAMED PROBLEM EVERY HOUR (results/studies/cards_1118/README.md section 8; tests test_cards_1118_the_deep_refill_*, test_cards_1118_a_cut_on_the_page_*, test_cards_1119_*; no pick, size or weight changed)
 

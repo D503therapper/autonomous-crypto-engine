@@ -87,6 +87,17 @@ SURE = re.compile(r"beat the brakes off|cheeks clapped|smack that ass|about to s
 #   (11/17 sweep: a blowout / sure-thing call. Never on a LONG DOG - a moneyline side at +150 or longer the engine's own
 #    read has under 40% (sports_breakdown_v24.long_dog): the dry run's Ball State +350 at a 23% read said "Ball State
 #    about to beat the brakes off 'em". The pool no longer writes it; this is the last stop for a posted card.)
+_CALL = re.compile(r"about to|fin to|finna|gonna|going to|\bwill\b|ain'?t a question|no hesitation|\ball day\b|easy call|"
+                   r"done talking|fin to handle", re.I)
+
+
+def _past_game(sentence):
+    """Is the blowout wording about a game that was PLAYED ("The Steelers got their cheeks clapped 38-18 by the Bengals
+    inside their last 5")? 11/19 sweep: the long-dog rule cut that true line off an Eagles +180 card - the rule is for
+    a CALL on tonight ("about to beat the brakes off 'em"), never for a score that happened."""
+    return bool(re.search(r"(?<![\d+-])\d{1,3}-\d{1,3}(?![\d-])", sentence)) and not _CALL.search(sentence)
+
+
 LOCK_TALK = re.compile(r"\block it in\b|\bour lock\b|\bthis (?:is )?a lock\b|\bit'?s a lock\b|\ba lock\b(?! of)", re.I)
 NOT_LOCK = re.compile(r"\b(?:not|no|never) (?:a |the )?lock\b", re.I)
 COIN = re.compile(r"coin[- ]flip|\b50-50\b|close to even|\btoss-up\b|could go either way|either way|"
@@ -336,7 +347,7 @@ def wording(line, cx, leg):
                 continue
         elif cx.get("thin") and HYPE.search(s0):
             why = "hype on a thin ½u play"
-        elif not cx.get("lean") and SURE.search(s0) and long_dog_cx(cx):
+        elif not cx.get("lean") and SURE.search(s0) and long_dog_cx(cx) and not _past_game(s0):
             why = "a blowout / sure-thing call on a long dog"
         elif not cx.get("lock") and LOCK_TALK.search(s0) and not NOT_LOCK.search(s0):
             why = "Lock words on a pick that isn't the Lock"
@@ -593,6 +604,9 @@ LASTGAME = re.compile(r"last time out|last outing|previous game|latest|fresh off
                       r"both (?:won|took an L|coming off|sides are coming off)|both coming off", re.I)
 
 
+_SITE_FOR = r"(?:at home|on the road|away from home|in their (?:own )?building|overall|on the (?:year|season)|this (?:year|season)|so far)"
+
+
 def _spans(text, names):
     """[(start, end, index)] of every team name in the text - a name inside a longer one ('Michigan' in 'C Michigan')
     doesn't count."""
@@ -679,6 +693,9 @@ def facts(line, leg, games):
             kind = "rec"                                     # ("Wild (8-5) won 2 in a row" - a record in parens)
         elif re.match(r"\s*(?:team|overall|on the (?:year|season)|this (?:year|season)|record|apiece|squad)", after, re.I):
             kind = "rec"                                     # ("A 3-8 team")
+        elif re.match(r"\s*(?:fool you|looks? even|on paper)", after, re.I) or re.search(r"(?:don'?t let|records? (?:look|say)[\w ]*?)\s*$", before, re.I):
+            kind = "rec"                                     # (11/19 sweep: "Don't let 5-5 fool you — Iowa State took those
+            #   L's from Iowa, Utah ..." - "took" made the RECORD a score "that isn't in their last 6 games"; a true line cut)
         elif SCORE_AFTER.search(after[:20]) or SCORE_BEFORE.search(before[-45:]) or (max(a, b) > 30 and leg.get("league") != "mlb") \
                 or (SCORE_VERB.search(t) and not re.search(r"\b(?:is|are|sit|sits|come in|comes in|at|record)\s*$", before)
                     and not re.match(r"\s*(?:at home|on the road|away|in their|for\b|,|;|\.|\s*$| vs \d| against \d| to \d| to \w+'? \d)", after)):
@@ -693,7 +710,9 @@ def facts(line, leg, games):
     for k_, r in enumerate(recs):
         m, a, b, c, kind, before, after = r
         i = _anchor(t, m.start(), names)
-        mm = re.match(r"\s*(?:\(|for (?:the )?)(" + "|".join(re.escape(n) for n in names if n) + r")\b", after)
+        mm = re.match(r"\s*(?:\((?:the )?|(?:" + _SITE_FOR + r"\s+)?for (?:the )?)(" + "|".join(re.escape(n) for n in names if n) + r")\b", after)
+        #   (11/19 sweep: "Knicks about to get their ass beat — 7-2 at home for the Timberwolves" - the record is the team's
+        #    AFTER it; the nearest name before it was the Knicks, "the games say 4-3", and a true one-liner was dropped)
         ms = re.match(r"\s*(?:win over|loss to|victory over|beating from|tie with) (?:the )?[\w.'& -]{2,30}? for (?:the )?("
                       + "|".join(re.escape(n) for n in names if n) + r")\b", after) if kind == "score" else None
         if mm and kind == "rec":                             # ("10-6 for Mammoth", "2-1 (Elon)")
@@ -951,7 +970,7 @@ NOT_STATS = re.compile(r"%|\bTDs?\b|per 48|minutes|\bmin a night|last (?:season|
                        r"\b3s\b|threes|three-point|possessions|\bpace\b|penalt|power play|face-?off", re.I)
 EVEN_PAIR = re.compile(r"(\d+(?:\.\d+)?) for(?: /|,)? (\d+(?:\.\d+)?) against")   # ("4 for / 4 against; ... 3 for / 3 against")
 REST_TALK = re.compile(r"extra day|\bdays? off\b|\bdays?(?: of)? rest\b|fresher legs|fresh legs|better rested|more rest\b|"
-                       r"well[- ]rested|\brested\b|more days off", re.I)
+                       r"well[- ]rested|\brested\b|more days off|days to rest|(?:more|less|fewer|extra) (?:time|days|nights) (?:to rest|off)", re.I)
 ZERO_NET = re.compile(r"(?<![\d.])[+-]0(?:\.0)?(?![\d.])")
 H2H_W = re.compile(r"last time these two met|the last meeting|these two already (?:met|played)|^🆚", re.I)
 H2H_GARBLE = re.compile(r"\bgot [\w.' ]+ last time these two met, an? \d+-\d+ loss to\b")
@@ -1402,25 +1421,32 @@ def check_one(pk, leg, line, games=None, where="render"):
     if mv:
         note(cx["date"], leg, mv, line0, where)
     new, w = wording(line, cx, leg)
-    if new and not w:
+    #   (11/19 sweep: every check below ran only when the wording check had caught NOTHING - a line whose tail got cut
+    #    ("... Close to 50-50 for us, Penguins by a nose.") skipped the fact check, the who-plays check and the rest
+    #    rule, and "The Blues had 3 fewer days off than the Penguins" stayed up in hockey. Every check, every time.)
+    def add(w2):
+        return "; ".join(y for y in (w, w2) if y)
+    if new:
         fw = facts(new, leg, games)
         if fw:
-            new, w = "", "a fact the game files don't back: " + fw
-    if new and not w:
+            new, w = "", add("a fact the game files don't back: " + fw)
+    if new:
         pw = who_plays(new, leg, games, where) or played_anyway(new, leg, games)
         if pw:
-            new, w = "", pw
-    if new and not w:                                        # (11/17: the derived facts + the sense check)
+            new, w = "", add(pw)
+    if new:                                                  # (11/17: the derived facts + the sense check)
         dw = sense(new, leg) or derived(new, leg, games)
         if dw:
-            new, w = "", dw
-    if new and not w:                                        # 🧹 11/18 (cards_1118): the one-liner names only men who
+            new, w = "", add(dw)
+    if new:                                                  # 🧹 11/18 (cards_1118): the one-liner names only men who
         try:                                                 #  matter, and never talks jargon
-            new, w = absent_matters(new, leg, games)
+            new2, mw = absent_matters(new, leg, games)
+            if mw:
+                new, w = new2, add(mw)
         except Exception:                                    # noqa: BLE001
             pass
-        if new and not w and CARD_JARGON.search(new) and '"' not in new:
-            new, w = "", Q_JARGON
+        if new and CARD_JARGON.search(new) and '"' not in new:
+            new, w = "", add(Q_JARGON)
     if w:
         note(cx["date"], leg, w, line, where)
     return new
@@ -1614,7 +1640,8 @@ def early_lines(p, lines, where="render", games=None):
     return out
 
 
-_LIVE_REC = re.compile(r"(?:\s*[-,]\s*)?\b(\d+)-(\d+) since we started betting it")
+_PROJ = re.compile(r"- (\d+(?:\.\d+)?) with everybody, the number'?s (\d+(?:\.\d+)?)")
+_LIVE_REC = re.compile(r"(?:\s*[-,]\s*)?(?:\bWe'?re )?\b(\d+)-(\d+) (?:on this play )?since we started betting it")
 _SS = re.compile(r"\b([A-Z][\w.]*s)'s\b")
 
 
@@ -1633,6 +1660,9 @@ def early_for_us(line, leg, games=None):
         t = (t[:m.start()] + t[m.end():]).strip()
         t = re.sub(r"^[.\s]+$", "", t)
         why.append(Q_KNOCK + " - a losing live record of the play")
+    m = _PROJ.search(t)
+    if m and leg.get("side") == "over" and float(m.group(1)) < float(m.group(2)):
+        return "", "; ".join(why + [Q_KNOCK + " - a projection under the number on an over"])
     lead, parts = _sentences(t)
     keep, cut = [], False
     for sent in parts:
@@ -1674,6 +1704,19 @@ _GENERIC = {"state", "tech", "city", "college", "university", "united", "souther
 _NOT_NEG = re.compile(r"\b(?:hasn'?t|haven'?t|ain'?t|not|never|didn'?t|don'?t|won'?t|without an?)\s+(?:lost|lose|losing|loss|dropped|drop|fell|fall)\b", re.I)
 
 
+def _named(mine, other, s):
+    """Is one of `mine`'s names in s (lower case) - not counting a hit that sits inside the other team's longer name?
+    (11/19 sweep: Oregon vs Oregon St, Texas vs Texas Tech, Florida vs Florida St, Iowa vs Iowa State, Miami vs
+    Miami OH, New Mexico vs New Mexico St - "Oregon St have lost 5 straight" read as a knock on OREGON, and every
+    line about the other side's losses came off our card. A NAME, never a piece of a word or of another name.)"""
+    spans = [m.span() for o in other for m in re.finditer(rf"(?<![a-z]){re.escape(o)}(?![a-z])", s)]
+    for n in mine:
+        for m in re.finditer(rf"(?<![a-z]){re.escape(n)}(?![a-z])", s):
+            if not any(a <= m.start() and m.end() <= b and (b - a) > (m.end() - m.start()) for a, b in spans):
+                return True
+    return False
+
+
 def knocks_us(text, leg):
     """Does this line say something bad about OUR side (the pick's team)? A knock clause that names the OTHER team
     (and not us) is fine; any other knock clause in a line about us is a knock on us - the subject carries over
@@ -1694,14 +1737,15 @@ def knocks_us(text, leg):
     low_all = t.lower()
     has = lambda n, s: re.search(rf"(?<![a-z]){re.escape(n)}(?![a-z])", s) is not None   # noqa: E731 (11/18: a NAME, never
     #   a piece of a word - "New Mexico St" -> "st" sat inside "lost" and every loss on the card read as ours)
-    about_us = any(has(n, low_all) for n in us_n)
+    here = _named
+    about_us = here(us_n, them_n, low_all)
     if re.search(r"\b(both|each)\b[^.]{0,40}\b(took an l|lost|losses|dropped|fell)\b", t, re.I):
         return about_us                                   # ("Both took an L last time" - that's us too)
-    for clause in re.split(r"[.;:!?,\u2014]| - ", t):
-        if not NEG_US.search(clause):
+    for clause in re.split(r"[.;:!?,\u2014\u00b7]| - ", t):   # (11/19: "·" parts a two-game line - "Panthers got a 20-17
+        if not NEG_US.search(clause):                         #  win over the Saints · Ravens took a 23-20 loss ...")
             continue
         low = clause.lower()
-        us_here, them_here = any(has(n, low) for n in us_n), any(has(n, low) for n in them_n)
+        us_here, them_here = here(us_n, them_n, low), here(them_n, us_n, low)
         if us_here or (about_us and not them_here):
             return True
     return False
@@ -1820,8 +1864,10 @@ def their_good_news(line, leg):
     if not t.startswith(("📅", "🔥")) or not them or them not in t:
         return False
     low = t.lower()
-    if any(n in low for n in _names_of(us)):
-        return False
+    mine = {n for n in _names_of(us) if n == us.lower() or (len(n) >= 4 and n not in _GENERIC and n not in them.lower())}
+    if _named(mine, {them.lower()}, low) or not _named({them.lower()}, {us.lower()}, low):
+        return False                                         # (11/19 sweep: was `n in low` - "st" inside "straight" read
+        #                                                      as Kansas St, "oregon" inside "oregon st" as Oregon)
     return bool(_WIN_SAID.search(t)) and not re.search(r"\bloss\b|\blost\b|\bL\b|\bbeating from\b|straight L|losses|hot seat|"
                                                        r"feeling the heat|fishbowl|jobs on the line", t)
 

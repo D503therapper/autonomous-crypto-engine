@@ -88,7 +88,7 @@ MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier 
 MIN_MATCHES = 10               # both players need this many rated matches
 MIN_RATED = 8000               # no tennis picks until the study has real history (several seasons) and learned weights
 POST_FROM_HOUR_PT = 8          # 8am Pacific, game day - same as the main board (the owner, 9/29)
-MIN_LEAD_MIN = 20
+MIN_LEAD_MIN = 35              # (11/19 sweep: was 20 - the board's 11/18 rule: a run takes ~12 minutes to reach the page and people need time to bet)
 CLAY = ("roland garros", "french open", "monte carlo", "monte-carlo", "madrid", "rome", "internazionali", "italian open",
         "barcelona", "hamburg", "umag", "croatia open", "kitzbuhel", "kitzbühel", "gstaad", "swiss open", "bastad",
         "båstad", "nordea", "estoril", "munich", "bmw open", "geneva", "lyon", "houston", "clay court", "marrakech",

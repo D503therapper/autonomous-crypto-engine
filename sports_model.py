@@ -85,6 +85,32 @@ def ncaab_d1(fin):
     return out if len(out) >= NCAAB_D1_REAL else None
 
 
+_DST = {}
+
+
+def us_dst(t):
+    """Is this moment (a UTC timestamp) inside U.S. daylight time (2nd Sunday of March - 1st Sunday of November)?"""
+    y = datetime.fromtimestamp(t, timezone.utc).year
+    if y not in _DST:
+        def nth_sunday(month, n):
+            d = datetime(y, month, 1, tzinfo=timezone.utc)
+            first = 1 + (6 - d.weekday()) % 7
+            return datetime(y, month, first + 7 * (n - 1), 9, 0, tzinfo=timezone.utc).timestamp()
+        _DST[y] = (nth_sunday(3, 2), nth_sunday(11, 1))
+    a, b = _DST[y]
+    return a <= t < b
+
+
+def std_tz(tzo, t):
+    """A game's UTC offset said on STANDARD time (🕐 11/19 sweep). 'tzo' is the venue's clock offset on game day, so
+    it moves an hour every March and November: Duke's last home game before the clocks changed was -4, its next one
+    -5 - and the read called DUKE, at home, a team "off its home time zone" (41 of 141 college football games the
+    week of 11/19; the card: "Body-clock problems for Florida St" in Tallahassee). The summer hour is no time zone
+    crossed. (A no-daylight-time home - Arizona - reads an hour off across the change; a home team is never jet-lagged
+    at home, see Elo.features.)"""
+    return None if tzo is None else (tzo - 1 if us_dst(t) else tzo)
+
+
 def _ts(iso):
     try:
         return datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).timestamp()
@@ -197,9 +223,11 @@ class Elo:
         def shock(tm):                                         # warm-weather / dome team in the cold
             return max(0.0, self.home_temp.get(tm, 70.0) - temp) / 30 if temp is not None and temp < 45 else 0.0
         nasty = (max(0.0, wind - 15) / 10 + min(rain, 20) / 10) if temp is not None else 0.0
-        tzo = _num(g.get("tzo"))
+        tzo = std_tz(_num(g.get("tzo")), t)                    # (11/19: on standard time - see std_tz)
 
         def jet_lag(tm):                                       # time zones crossed to get here
+            if tm == h and not neutral:
+                return 0.0                                     # (a team in its own building crossed nothing)
             return abs(tzo - self.home_tz[tm]) / 3 if tzo is not None and tm in self.home_tz else 0.0
         return {
             "p_elo": pe, "elo": logit(pe), "elo_pts": (rh - ra + (0 if neutral else self.hfa)),
@@ -243,7 +271,7 @@ class Elo:
         self.r[g["home"]], self.r[g["away"]] = rh + d, ra - d
         e_, t_ = _num(g.get("elev")), _num(g.get("wx_temp"))
         if _num(g.get("tzo")) is not None and str(g.get("intl")) != "1" and str(g.get("neutral")) != "1":
-            self.home_tz[g["home"]] = _num(g.get("tzo"))
+            self.home_tz[g["home"]] = std_tz(_num(g.get("tzo")), t)
         if e_ is not None and str(g.get("intl")) != "1" and str(g.get("neutral")) != "1":
             self.home_elev[g["home"]] = 0.8 * self.home_elev.get(g["home"], e_) + 0.2 * e_
         if str(g.get("indoor")) == "1" and str(g.get("neutral")) != "1":

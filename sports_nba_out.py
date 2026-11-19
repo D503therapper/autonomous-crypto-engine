@@ -35,6 +35,10 @@ WAIT_MIN = 50                   # the same 3+ on our report this long before we 
 QUIT = (40, -0.05)              # judged at 40 graded: ROI under -5% on the units risked = off
 REC = "267-182"                 # the rule's record at the close, 2018-26 (s10b: the read not fighting) - the card's line
 UNITS = 0.5
+GAME_DAY_ONLY = True            # 📅 11/19 sweep: the Raptors @ Pistons over 227.5 went up Wednesday 6:21 PM PT for FRIDAY's
+#   game - both teams were playing that night, and "out" on the report was out for THAT night's game. The injury list
+#   says who sits a team's NEXT game, never one two days off, and the study's price is the close (the number after the
+#   news). This play is made on the game's own Pacific day or not at all; the clock starts that morning.
 
 
 
@@ -86,6 +90,35 @@ def team_minutes(rows, season, before):
     return out
 
 
+def _men(parts):
+    """'A, B and C' (11/19 sweep: the card read "Cavaliers without Donovan Mitchell (33 minutes a night) and James Harden
+    (33 minutes a night) and Evan Mobley (32 minutes a night)")."""
+    parts = list(parts)
+    return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
+
+
+def _split_men(text):
+    """The men of an 'X without A, B and C' line (either join)."""
+    return [m for m in re.split(r", | and ", text) if m.strip()]
+
+
+def went_over(games, team, season, before, total, n=10):
+    """(how many of the team's last n finals this season had more points than `total`, how many games that is)."""
+    rows = []
+    for x in games.values():
+        if x.get("league") != "nba" or x.get("status") != "final" or team not in (x.get("home"), x.get("away")):
+            continue
+        st = x.get("start") or ""
+        if not st or _season(st) != season or st >= before.strftime("%Y-%m-%dT%H:%MZ"):
+            continue
+        try:
+            rows.append((st, float(x["home_score"]) + float(x["away_score"])))
+        except (KeyError, TypeError, ValueError):
+            continue
+    last = sorted(rows)[-n:]
+    return (sum(1 for _, pts in last if pts > total), len(last)) if last else None
+
+
 def outs(team_id, team_name, tm, inj):
     """[(name, minutes a game)] - this team's top-minutes men who are OUT tonight: listed out on the report (never a
     doubtful / questionable / probable man), or off the report and absent from the team's last GONE_GAMES games."""
@@ -122,7 +155,7 @@ def back_how(p, g, inj):
             nm = str(g.get(f"{side}_name") or "")            #  really came off - an EMPTY team report may be a feed
             for x in p.get("facts") or []:                   #  that didn't load, never read as 'everybody plays')
                 if nm and x.startswith(nm + " without "):
-                    loaded |= {nr._nm(m.split(" (")[0]) for m in x.split(" without ", 1)[1].split(" and ")}
+                    loaded |= {nr._nm(m.split(" (")[0]) for m in _split_men(x.split(" without ", 1)[1])}
     listed = {nr._nm(n) for n in p.get("out_listed") or []}
     got = {}
     for name in p.get("out") or []:
@@ -153,12 +186,12 @@ def card_facts(p):
     for x in facts:
         if " without " in x:
             head, rest = x.split(" without ", 1)
-            men = [m for m in rest.split(" and ") if _nm(m.split(" (")[0]) not in gone]
+            men = [m for m in _split_men(rest) if _nm(m.split(" (")[0]) not in gone]
             if not men:
                 continue
-            x = head + " without " + " and ".join(men)
+            x = head + " without " + _men(men)
         out.append(x)
-    who = " and ".join(bk)
+    who = _men(bk)
     out.append(f"🔄 Update: {who} {'is' if len(bk) == 1 else 'are'} no longer listed out - "
                f"{'he was' if len(bk) == 1 else 'they were'} when this went up. The play stays.")
     return out
@@ -191,6 +224,8 @@ def candidates(games, st, now, inj, rows=None, se=None):
         st_ = se._t(g["start"])
         if not now < st_ - timedelta(minutes=se.POST_LEAD_MIN) or st_.astimezone(se.PT).date().isoformat() < FROM:
             continue                                         # never a started game - nor one 35 min out (11/18); from FROM
+        if GAME_DAY_ONLY and now.astimezone(se.PT).date() != st_.astimezone(se.PT).date():
+            continue                                         # 📅 11/19 sweep: game day only (see GAME_DAY_ONLY)
         tot, odds = se.sm._num(g.get("total")), se._int(g.get("over_odds")) or -110
         if tot is None or odds < MAX_PRICE:
             continue
@@ -231,11 +266,17 @@ def candidates(games, st, now, inj, rows=None, se=None):
         facts = []
         for nm, o in ((g.get("home_name"), oh), (g.get("away_name"), oa)):
             if o:
-                facts.append(f"{nm} without " + " and ".join(f"{n} ({m:.0f} minutes a night)" for n, m in o))
+                facts.append(f"{nm} without " + _men(f"{n} ({m:.0f} minutes a night)" for n, m in o))
         hn, an = g.get("home_name"), g.get("away_name")
         eh, ea = (h[0] + a[1]) / 2, (a[0] + h[1]) / 2       # (11/14, the owner: "neither team averages what that over
-        facts.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against "   # is" -
-                     f"{_poss(hn)} - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
+        if round(eh + ea) >= tot:                            # (11/19 sweep: "225 with everybody, the number's 227.5" on
+            #   an OVER card argues the under - the projection is a line only when it is at or over the number)
+            facts.append(f"{hn} should score about {eh:.0f} against {_poss(an)} defense and {an} about {ea:.0f} against "   # is" -
+                         f"{_poss(hn)} - {eh + ea:.0f} with everybody, the number's {tot:g}")   # one projection that adds up)
+        for side in ("home", "away"):                        # (and what the files do hold for the over: how often
+            ov = went_over(games, g.get(side), s, now, tot)  #  each team's games have gone over THIS number lately)
+            if ov and ov[0] * 10 >= ov[1] * 6 and ov[1] >= 5:
+                facts.append(f"{ov[0]} of {_poss(g.get(side + '_name'))} last {ov[1]} games went over {tot:g}")
         for side in ("home", "away"):
             ln = se._alt_last(games, g.get(side), s, now, league="nba")
             m = re.search(r"\((\d+) points\)$", ln or "")
