@@ -842,6 +842,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     tid, oid = g[side], g[other]
     us, them = leg["team"], leg["opp"]
     start = _t(g["start"])
+    leg["inj_ok"] = inj_ok(leg, games, g)                # 🧩 11/19: may this card argue "they're short-handed"? (below)
     fin = [x for x in sm.finals(games, lg) if _t(x["start"]) < start]
     if lg == "ncaab":
         _d1_set(fin)                                   # (11/4: who's D1 on this slate - the non-D1 note on the card)
@@ -1410,7 +1411,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     inj = (injuries or {}).get(lg)
     if inj:
         ours_out, theirs_out = sd.team_injuries(inj, tid, us), sd.team_injuries(inj, oid, them)
-        key_them = sd.team_key_out(inj, oid, them, lg)
+        key_them = sd.team_key_out(inj, oid, them, lg) if leg["inj_ok"] else []   # (🧩 11/19: no injury argument when
+        #                                                    our side is as short-handed - the Warriors card)
         both = key_them and sd.team_key_out(inj, tid, us, lg)
         if key_them and not both and lg == "mlb":         # baseball: one of their best bats is out (9/29, Judge)
             nm = key_them[0][0]
@@ -1436,7 +1438,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                          f"🚑 {them} are down their starting {pos}, {nm}."]))
         # (the owner, 10/1: one depth guy out is no edge - "is he even a star?" - but "if a team's hella banged up and
         #  got a bunch of injured players, that line is totally good": 3+ out, and 2+ more than us)
-        starters_out = sd.team_key_out(inj, oid, them, lg)    # (the owner, 10/1: "hella banged up" means STARTERS -
+        starters_out = sd.team_key_out(inj, oid, them, lg) if leg["inj_ok"] else []   # (the owner, 10/1: "hella banged up" means STARTERS -
         if len(starters_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:   # only players we KNOW are key count;
             #                                                       a depth guy on the report never does)
             out.append(v.say("banged", [f"🚑 {them} are hella banged up ({_names(starters_out)}).",
@@ -1459,7 +1461,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     # every "because" on the card is a FACT (10/21, the owner: "very vague and not our lingo" - "they're the better
     # team" / "they're banged up" said nothing): the reasons mapped to what we can show, and the one top fact the
     # card's one-liner and a lean's bottom line hang on
-    _kt = [r for r in (sd.team_key_out(inj, oid, them, lg) if inj else [])   # (10/23: a key man who sat their last 2
+    _kt = [r for r in (sd.team_key_out(inj, oid, them, lg) if inj and leg["inj_ok"] else [])   # (10/23: a key man who sat their last 2
            if not _stale(games, lg, oid, r[0], leg["start"])]                   #  games is never the one-liner's edge)
     _ku = sd.team_key_out(inj, tid, us, lg) if inj else []
     _b2b = bool(ours and theirs) and (start - _t(theirs[-1]["start"])).total_seconds() / 3600 <= B2B_HOURS \
@@ -1513,6 +1515,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     key_us = sd.team_key_out(inj, tid, us, lg)
     key_any = key_us or sd.team_key_out(inj, oid, them, lg)
     key_them2 = sd.team_key_out(inj, oid, them, lg) if inj else None
+    if coherent_on(g):                                   # 🧩 11/19: our own man out is said once, in the card's 🚑
+        key_them2 = None                                 #  header - never "both teams are down their starting QB" in
+        #                                                   the write-up (the owner: "I don't want bad shit in the breakdowns")
     if key_us and key_them2 and lg == "mlb":
         nm, nm2 = key_us[0][0], key_them2[0][0]
         out.append(v.tag(v.say("keyout_both_bat", [
@@ -1630,19 +1635,21 @@ def breakdown(leg, games, elo, injuries, used=None):
         #   zero (the Dolphins +260 at -1.9 on the 11/01 preview) is just the best dog LEFT on a thin slate - "the dog
         #   angles back it" / "every angle likes them" was false there. The closer says what it is.
         out.append(v.say("bottom_floor_low", [
-            f"✅ Bottom line: {price}. No big edge here - {us} {vb(us, 'are', 'is')} just the best dog left on today's slate. Half a unit, keep it light.",
-            f"✅ Bottom line: {price}. Best dog we could find today, not a great one. Half a unit, don't get crazy.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. The price is about fair and the dog angles are mixed. Half a unit and that's it.",
-            f"✅ Bottom line: {price}. Small swing on the best dog the slate's got. Half a unit."]) or
-                   _short(v, price, False, "Best dog left on the slate."))
+            # 🧩 11/19 (the owner on the Warriors card, whose closer ran the pick down - sports_card_check.SELF_KNOCK has
+            #  the words): the bottom line never knocks our own pick - a ½u says it's a smaller bet in plain words
+            f"✅ Bottom line: {price}. Half a unit on {us}.",
+            f"✅ Bottom line: {price}. Plus money on {us} - half a unit.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. Half a unit.",
+            f"✅ Bottom line: {price}. Half-unit play on {us}."]) or
+                   _short(v, price, False, "Half a unit."))
     elif leg.get("floor_score") is not None and not leg.get("is_lean") and leg.get("tier") != "lock":   # 💰 10/27: a floor
         out.append(v.say("bottom_floor", [                                # play - the dog angles put it up, not the price
-            f"✅ Bottom line: {price}. The price is about right - {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Half a unit.",
-            f"✅ Bottom line: {price}. Not a big edge on the price - every angle we grade a dog on likes {us} here. Half a unit, keep it light.",
-            f"✅ Bottom line: {price}. Price is about fair; {us} {vb(us, 'are', 'is')} the best dog on the board today. Small bet.",
-            f"✅ Bottom line: {us} at {_am(leg['odds'])}. The dog angles like it, the price is about fair. Half a unit and we'll see.",
-            f"✅ Bottom line: {price}. Half a unit - the number's about fair, the dog angles say {us}. You can't win if you don't play.",
-            f"✅ Bottom line: {price}. Best dog on the slate by our angles. Half a unit, don't go crazy.",
+            f"✅ Bottom line: {price}. {us} {vb(us, 'grade', 'grades')} out best of every dog on the slate, that's why it's up. Half a unit.",
+            f"✅ Bottom line: {price}. Every angle we grade a dog on likes {us} here. Half a unit.",
+            f"✅ Bottom line: {price}. {us} {vb(us, 'are', 'is')} the best dog on the board today. Small bet.",
+            f"✅ Bottom line: {us} at {_am(leg['odds'])}. The dog angles like it. Half a unit.",
+            f"✅ Bottom line: {price}. Half a unit - the dog angles say {us}. You can't win if you don't play.",
+            f"✅ Bottom line: {price}. Best dog on the slate by our angles. Half a unit.",
             f"✅ Bottom line: {price}. Half a unit on {us} - small money, real shot."]) or
                    _short(v, price, False, "The dog angles like it."))
     elif leg.get("near_price"):                                          # the always-a-Lock backup (the owner, 10/1):
@@ -1657,8 +1664,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         #    on a read that starts at the books' number, the forced ⭐ too. The Celtics -124 1u card of 11/10 closed
         #    "Could go either way. Celtics by a nose - a lean." - "a lean" / "No units" on a play with a unit on it.)
         out.append(v.say("bottom_unit_fair", [
-            f"✅ Bottom line: {price}. The price is about fair - this one's up on the spot {us} {vb(us, 'are', 'is')} in, not on a gift from the book.",
-            f"✅ Bottom line: {price}. No gift in the number. {us} {vb(us, 'are', 'is')} the play because of the spot, and the units say how much.",
+            f"✅ Bottom line: {price}. This one's up on the spot {us} {vb(us, 'are', 'is')} in.",
+            f"✅ Bottom line: {price}. {us} {vb(us, 'are', 'is')} the play because of the spot, and the units say how much.",
             f"✅ Bottom line: {us} at {_am(leg['odds'])}. Fair price, right spot - that's the bet."]) or
                    _short(v, price, False, "A fair price on our side."))
     elif _need and _own <= _need and COIN_FLIP[0] <= _own < 0.56 and leg.get("market") == "ml" \
@@ -1694,9 +1701,9 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. The side we trust most today, at a price that pays. That's money."]) or _short(v, price, True, _fact))
     elif fair_same(leg, _own):                                           # (11/11 sweep: the Bruins -142 / -142 card said
         out.append(v.say("bottom_even", [                                # "-142 is extra money" - the same number is no gift)
-            f"✅ Bottom line: {price}. A fair price on the side we like, nothing extra in it. Small bet.",   # (11/19: never
+            f"✅ Bottom line: {price}. A fair price on the side we like. Small bet.",                        # (11/19: never
             f"✅ Bottom line: {price}. The side we like at a fair price - keep it light.",                   #  our number)
-            f"✅ Bottom line: {price}. Fair price, not a gift. Small bet on the side we trust."]) or
+            f"✅ Bottom line: {price}. Fair price. Small bet on the side we trust."]) or
                    _short(v, price, False, "A fair price on our side."))
     else:
         out.append(v.say("bottom_so", OWNER_PLAY(price, us, card_fair(leg, _own, beat=True), leg.get("odds"))) or v.say("bottom_s", [
@@ -1801,6 +1808,10 @@ def breakdown(leg, games, elo, injuries, used=None):
     try:                                                  # 🚫 11/19: no line claims our price; the bottom line says the
         lines = story_close(lines, leg, us, them, g, side)   #  pick, the price and the matchup reason
     except Exception:                                     # noqa: BLE001
+        pass
+    try:                                                  # 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (cards_1119b)
+        lines = whole_card(lines, leg, v, us, lg, g, side, games)
+    except Exception:                                     # noqa: BLE001 - the write-up never breaks on its own tidy-up
         pass
     if len(lines) - 1 < short_floor:                      # (never padded with filler: the log says the facts ran out)
         print(f"BREAKDOWN SHORT: {us} vs {them} ({lg}) has {len(lines) - 1} fact lines, floor {short_floor} - "
@@ -2433,6 +2444,8 @@ def deep_facts(leg, v, g, us, them, tid, oid, lg, s_ours, s_theirs, r_ours, r_th
     # 1. their missing man: what he was giving them, and how they've done without him
     try:
         named = who_plays_only([str(x) for x in (leg.get("opp_outs") or []) if x], lg, oid, before)
+        if leg.get("inj_ok") is False:                    # 🧩 11/19: never "their man is out" when ours are as bad
+            named = []
         best = None
         for x in named[:4]:
             nm = x.split(" (")[0]
@@ -2876,6 +2889,8 @@ def story_close(lines, leg, us, them, g, side):
     if m:
         head, rest = m.group(1) + ".", b[m.end():].strip()
         why = next((f(us, them) for ems, f in BOTTOM_WHY if wl.startswith(ems)), "")
+        if why and "short-handed" in why and leg.get("inj_ok") is False:
+            why = ""                                      # (🧩 11/19: never "they're short-handed" when we are as short)
         if why and why.lower().rstrip(".") in (wl + " " + rest).lower():
             why = ""
         if not rest:
@@ -3190,6 +3205,8 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     _who_plays = lambda names, team_id: who_plays_only(names, lg, team_id, g.get("start") or "9")   # noqa: E731
     theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
     theirs_out = _who_plays([x for x in theirs_out if x.split(" (")[0].lower() not in body], oid)[:4]
+    if leg.get("inj_ok") is False:                        # 🧩 11/19 (the Warriors card): no "they're missing X, Y" line
+        theirs_out = []                                   #  while our side is as short-handed - the 🚑 header has both
     #   🚑 11/19: the men the line under the pick names (named_out_ways) are said there, once - this line takes the rest
     _lead = (named_out_ways(leg, g, them, them) or (None, []))[1]
     _ln = lambda x: re.sub(r"[^a-z]", "", str(x).split(" (")[0].lower())   # noqa: E731
@@ -4415,6 +4432,8 @@ def named_out_ways(leg, g, them, the_them, b2b=False):
     read doesn't count, never a guess about rank (no box scores = names only)."""
     if not g or (str(g.get("start") or "")[:10] or "9") < NAMED_OUT_FROM:
         return None
+    if leg.get("inj_ok") is False:                        # 🧩 11/19: only when they are clearly more short-handed than us
+        return None
     rs = next((str(r) for r in (leg.get("reasons") or []) if str(r).startswith("opponent missing key players:")), None)
     if not rs:
         return None
@@ -4461,3 +4480,57 @@ def hot_overpay(leg):
     """Does the pick stand on 'the books overpay for the other goalie's hot run' (sports._dog_reasons, alone or inside
     the hockey dog score's reason)?"""
     return any("overpay for the other goalie's hot run" in str(r) for r in (leg.get("reasons") or []))
+
+
+# ---- 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (results/studies/cards_1119b) --------------------------------------------
+# The owner on the Warriors +180 card (the Grizzlies' men out sold as the reason while Curry, Green and Butler sat for
+# us; "Stephen Curry is cooking" on the same card that listed him out): "Makes no fucking sense. Fucking fix this shit."
+# The rules live in sports_card_check (hurt / inj_ok / coherent - the page runs them on every render); the write-up asks
+# the same questions BEFORE it writes, so the bad line is never written:
+#   - an injury argument (the 🚑 lines about them, 📉 their missing man, the named-absence lead, "short-handed" in the
+#     bottom line) only when the other side is clearly more short-handed than ours by the box scores (leg["inj_ok"])
+#   - our own men out are never a write-up line - the card's 🚑 header says both teams' lists once, plain
+#   - the line under the pick says OUR side first (sports_card_check.side_first)
+def coherent_on(g):
+    try:
+        import sports_card_check as _cc
+        return _cc.coherent_on({"start": (g or {}).get("start")})
+    except Exception:                                     # noqa: BLE001
+        return False
+
+
+def inj_ok(leg, games, g=None):
+    """May this card argue the other side is short-handed? (True before COHERENT_FROM - the old card.)"""
+    try:
+        import sports_card_check as _cc
+        if not _cc.coherent_on({"start": (g or {}).get("start") or leg.get("start")}):
+            return True
+        return bool(_cc.inj_ok(leg, games))
+    except Exception:                                     # noqa: BLE001
+        return True
+
+
+def whole_card(lines, leg, v, us, lg, g, side, games):
+    """The write-up's last step: the card through the coherence rules (sports_card_check.coherent). A line under the
+    pick that can't stand (an injury argument we can't make, a man who is out) gives way to the card's next best fact
+    for our side; the line that leads says our side first."""
+    import sports_card_check as _cc
+    day = str((g or {}).get("start") or "")[:10]
+    if not lines or not _cc.coherent_on(leg, day):
+        return lines
+    lean_ = bool(leg.get("is_lean") or leg.get("tier") in ("lean", "strong"))
+    cx = {"lean": lean_, "thin": leg.get("floor_score") is not None and not lean_, "market": leg.get("market")}
+    why, lines, _ = _cc.coherent(leg, str(leg.get("why_line") or ""), lines, games, day, cx)
+    st = _cc.card_state(leg, games)
+    tries = 0
+    while not str(why or "").strip() and tries < 6:
+        tries += 1
+        top = lead_line(lines, v, us, lg)
+        if not top:
+            break
+        _tails_ = [f"We lean {us}.", f"Lean {us}."] if lean_ else [f"{us} the side.", f"We on {us}.", f"Give me {us}.", f"Riding {us}."]
+        cand = f"{str(top).rstrip()} " + _tails_[sum(map(ord, f"{g.get('id')}|{side}")) % len(_tails_)]
+        lines = [x for x in lines if x is not top]
+        why = _cc.one_coherent(cand, leg, cx, st, lean_)[0]
+    leg["why_line"] = why or ""
+    return lines

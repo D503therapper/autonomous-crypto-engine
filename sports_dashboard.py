@@ -222,11 +222,11 @@ HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensi
 HALF_WHY["even"] = ("Near even money - half a unit to start.", "About an even-money price. Half a unit.",   # (10/30, the
                     "Not an expensive line - just a half-unit bet.", "Close to even money. Half a unit.",    #  owner on the
                     "Price is about a pick'em - half a unit.")                                              #  Wizards at -107:
-HALF_WHY["early"] = ("Half a unit - this early spot starts small till it proves itself live.",               #  "too expensive"
-                     "This early spot is still proving itself live - half a unit.",                          #  was false)
-                     "Early spot, still earning its stripes live. Half a unit.",
-                     "Half a unit while this early spot builds its live record.",
-                     "We start this early spot small - half a unit till the live record backs it.")
+HALF_WHY["early"] = ("Half a unit - the size this early spot plays at.",                                      #  "too expensive"
+                     "This early spot plays at half a unit.",                                                #  was false)
+                     "Early spot. Half a unit, same as every one of these.",   # (11/19: neutral - never "still proving
+                     "Half a unit on the early number.",                       #  itself", that runs our own play down)
+                     "Early play - half a unit.")
 EVEN_FROM = -120             # a favorite at -119..-101 is near even money - never "too expensive"
 FULL_WHY = {   # 1-1½u: why it's more than ½
     "fav": ("Fair price — worth a full unit.", "The price is fair — a solid bet.", "Price is right where we want it. Full unit.",
@@ -267,10 +267,10 @@ NUM_WHY = {   # (11/4) the size line with our number next to the book's - a few 
                "The book hangs {o}, we make 'em {f}. Bigger bet."),
     "big": ("We make 'em {f}, the book's at {o}. Big bet.", "{f} for us, {o} at the book. Load up.",
             "Our number's {f} and they're hanging {o}. We going big.")}
-FLOOR_WHY = ("Best dog on the slate by our angles. Half a unit, don't go crazy.",
-             "Half a unit on the best dog we found today. Small swing.",
-             "Small one - the best dog on the board, not a monster edge.",
-             "Best dog left on the slate. Half a unit and we'll see.")
+FLOOR_WHY = ("Best dog on the slate by our angles. Half a unit.",    # 🧩 11/19 (the owner on the Warriors card: the size
+             "Half a unit on the best dog on today's board.",         #  line never runs our own pick down - it was "the
+             "Half a unit - the best dog on the board.",              #  best dog we found today. Small swing." / "not a
+             "Our best dog on the slate today. Half a unit.")         #  monster edge" / "and we'll see")
 
 
 def _pick_why(pool, key=""):
@@ -420,6 +420,12 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
             sz = "half" if u == 0.5 else "full" if u < 2 else "bigger" if u < 4 else "big"   # card; our number next to
             why = _pick_why([w.format(f=f, o=o) for w in NUM_WHY[sz]], key)                   # theirs, said his way)
     except Exception:                                        # noqa: BLE001 - the old line stays
+        pass
+    try:                                                     # 🧩 11/19: ...and never runs our own pick down
+        import sports_card_check as _cc
+        if why and _cc.SELF_KNOCK.search(why):
+            why = "Half a unit." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
+    except Exception:                                        # noqa: BLE001
         pass
     try:                                                     # 🚫 11/19: the size line never says the book has it wrong either
         import sports_card_guard as _gd                      #  ("This line's cheaper than it should be. Bigger bet.")
@@ -1019,6 +1025,15 @@ def _leg(leg, tagged=False, review="", units=None, pk=None):
         opp_outs = [x for x in opp_outs
                     if not sports_card_check.played(leg, (sports_card_check._card_names([x]) or [""])[0], _GAMES_[0])]
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(opp_outs))}</div>' if opp_outs else ""   # isn't 'missing')
+    if sports_card_check.coherent_on(leg, (pk or {}).get("date")):
+        # 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (the owner on the Warriors card: "Makes no fucking sense"): the
+        # card's injury header says who's out on BOTH teams, plain, no comment - our own men out are said here ONCE
+        # (his FULL injury data rule) and never inside the write-up ("I don't want bad shit in the breakdowns")
+        outs = ""
+        for tm_, men_, q_ in sports_card_check.out_chips(leg, _GAMES_[0], graded=bool(res)):
+            bits_ = ([f"out: {', '.join(men_)}"] if men_ else []) + ([f"questionable: {q_}"] if q_ and not res else [])
+            if bits_ and tm_:
+                outs += f'<div class="outs">🚑 {E(tm_)} {E(" · ".join(bits_))}</div>'
     alerts_ = latest_alerts(leg.get("injury_alerts"))
     if alerts_ and not res:                                  # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in alerts_[-3:])

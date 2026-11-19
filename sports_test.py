@@ -15484,7 +15484,8 @@ def test_weekend_sweep_1030_team_verbs_agree_on_every_line_and_the_floor_closer_
     low = src[i:j]
     for bad in ("angles back it", "every angle", "every dog angle", "best of every dog", "the dog angles say"):
         assert bad not in low, bad
-    assert "best dog left" in low
+    assert "best dog left" not in low and "not a great one" not in low and "Half a unit" in low   # (11/19, cards_1119b: the
+    #   closer under zero says the pick and the size - no claim the angles back it, and never a knock on our own pick)
 
 
 def test_sizing_1030_lock_2u_or_1u_football_1u_dog_by_price_no_hoops_dog_posted_picks_keep_units():
@@ -15586,7 +15587,7 @@ def test_daily_1030_a_floor_dog_card_never_calls_a_37_percent_read_a_coin_flip()
     floor = src[i:j]
     for bad in ("coin flip", "close to even", "about even", "near even", "calls it close"):
         assert bad not in floor, bad
-    assert "about fair" in floor
+    assert "about fair" not in floor and "Half a unit" in floor   # (11/19, cards_1119b: no price talk that runs the pick down)
     i = src.index('v.say("bottom_floor_low"')
     assert "calls it close" not in src[i:i + 900]
     assert v24.COIN_FLIP[0] >= 0.45 and v24.COIN_FLIP[1] <= 0.55
@@ -29191,6 +29192,280 @@ def test_daily_1119_wire_dog_and_two_scorer_dog_are_tracker_leads_only():
         sl._GAMES.clear(); sl._GAMES.update(keep)
         sl._BOX_PTS.clear(); sl._BOX_PTS.update(keep_box)
         sd.DATA = keep_data
+
+
+# ---- 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (results/studies/cards_1119b) -----------------------------------------------
+_WARRIORS_WHY_1119 = "🚑 Grizzlies gotta play without Ty Jerome (G), Zach Edey (C). Give me Warriors."
+_WARRIORS_POSTED_1119 = [   # the live card, 11/19 5 PM PT, word for word
+    "🚑 Warriors out: F Draymond Green (28 min a night last year), G Stephen Curry (31 min a night last year).",
+    "📉 Ty Jerome was giving Grizzlies 25 points a night (11 games) and he's out.",
+    "🔁 Same opponent, two results - Warriors got a 134-114 win over the Nuggets (10/26); Grizzlies took a 123-118 loss to 'em (11/11).",
+    "🚪 120+ points allowed in 3 of the last 5 for Grizzlies. That defense is giving it away.",
+    "🧳 The Grizzlies just got home - 3 road games in the last 6 days.",
+    "🏟️ Grizzlies are 3-4 at home this year. That ain't a fortress.",
+    "🗓️ Warriors won 6 of their last 10.",
+    "⏱️ Closing time: Warriors took the 4th quarter in 7 of their last 10.",
+    "🏀 Warriors: their bench outscored teams by 8 a game last season - deep squad · 9 guys play real minutes · Gui Santos is cooking - with him on the floor lately the team's up 10.2 points a full game (last season: up 1.4) · Stephen Curry is cooking - with him on the floor lately the team's up 14.9 points a full game (last season: up 2.9) · Moses Moody on a minutes limit (about 22 tonight).",
+    "✅ Bottom line: Warriors (+180). Grizzlies are short-handed. Best dog we could find today, not a great one. Half a unit, don't get crazy.",
+    "🌟 Warriors: Stephen Curry is out.",
+]
+
+
+def _warriors_1119():
+    pk = {"date": "2026-11-19", "kind": "play", "lean": False, "tier": "value", "status": "open", "american": 180, "dec": 2.8,
+          "stake": 100.0, "p_hit": 0.3477, "floor": {"dog_score": 0.26, "nba": True}, "units": 0.5}
+    leg = {"team": "Warriors", "opp": "Grizzlies", "odds": 180, "dec": 2.8, "market": "ml", "league": "nba", "side": "away",
+           "home": False, "tier": "value", "game_id": "nba:w1119", "p": 0.3477, "floor_score": 0.26, "is_lean": False,
+           "start": "2026-11-20T01:00Z", "reasons": ["sharp money moving this way"], "line": None,
+           "outs": ["Draymond Green (F)", "Brandon Williams (G)", "Stephen Curry (G)", "Kristaps Porzingis (C)"],
+           "opp_outs": ["Ty Jerome (G)", "Zach Edey (C)", "GG Jackson (F)", "Scotty Pippen Jr. (G)"],
+           "absent": ["Stephen Curry"], "added_outs": ["Richie Saunders", "Jimmy Butler III"],
+           "fresh": ["🔄 Update: Richie Saunders is out for the Grizzlies too.", "🔄 Update: Jimmy Butler III is out for the Warriors too."],
+           "rep_status": {n: "out" for n in ("Brandon Williams", "Draymond Green", "GG Jackson", "Kristaps Porzingis", "Moses Moody",
+                                             "Scotty Pippen Jr.", "Stephen Curry", "Ty Jerome", "Zach Edey")},
+           "breakdown": list(_WARRIORS_POSTED_1119), "why_line": _WARRIORS_WHY_1119, "stale": [],
+           "spare": ["🏁 7 of the last 10 times out, Grizzlies were behind after the 1st quarter."]}
+    pk["legs"] = [leg]
+    games = {"nba:w1119": {"id": "nba:w1119", "league": "nba", "start": "2026-11-20T01:00Z", "status": "pre", "home": "29", "away": "9",
+                           "home_name": "Grizzlies", "away_name": "Warriors", "neutral": "0", "stype": "2"}}
+    return pk, leg, games
+
+
+def _whole_card_stub(matter, keys, rosters=None):
+    """Stub the box-score reads the coherence yardstick stands on: who matters, who the key men are, whose man he is."""
+    import sports_card_check as cc
+    keep = (cc._matters, cc._key_men, cc._roster, cc.note, cc.COHERENT_FROM, cc.FACT_CHECK, cc.DERIVED_CHECK, cc.WHO_CHECK, cc.ABSENT_CHECK)
+    cc.FACT_CHECK = cc.DERIVED_CHECK = cc.WHO_CHECK = cc.ABSENT_CHECK = False   # (the fixture holds this one game, no season of finals)
+    cc._matters = lambda lg, tid, name, before: (True if name in matter else False)
+    cc._key_men = lambda lg, tid, before: keys.get(str(tid), {})
+    cc._roster = lambda lg, tid, before: set((rosters or {}).get(str(tid), ()))
+    caught = []
+    cc.note = lambda day, leg_, why, line, where: caught.append((why, line))
+
+    def undo():
+        cc._matters, cc._key_men, cc._roster, cc.note, cc.COHERENT_FROM, cc.FACT_CHECK, cc.DERIVED_CHECK, cc.WHO_CHECK, cc.ABSENT_CHECK = keep
+    return caught, undo
+
+
+def test_cards_1119b_every_card_makes_sense_as_a_whole_the_warriors_card():
+    """11/19, the owner on the Warriors +180 ½u card: "The Grizzlies breakdown on the one-liner, it says like 3 fucking
+    key guys are out for the Grizzlies, but give me the fucking [Warriors]. Makes no fucking sense. Fucking fix this
+    shit." Every line had passed its own check; the card as a whole was nonsense - it sold "the Grizzlies are
+    short-handed" while Curry, Green and Butler sat for US, said "Stephen Curry is cooking" under a line listing him OUT,
+    "deep squad" beside our own men out, and ran its own pick down in the header and the bottom line. The card is judged
+    as a whole now (sports_card_check - every render, before every post)."""
+    import inspect, sports_card_check as cc, sports_dashboard as dash, sports_breakdown_v24 as v24, sports_breakdown
+    assert cc.COHERENT and cc.COHERENT_FROM == "2026-11-19" and cc.HURT_CLEAR == 2.0
+    assert sports_breakdown.VERSION >= 75                              # the open cards are rewritten (wording only)
+    pk, leg, games = _warriors_1119()
+    caught, undo = _whole_card_stub({"Stephen Curry", "Draymond Green", "Jimmy Butler III", "Ty Jerome", "Zach Edey"},
+                                    {"9": {"top": ["Stephen Curry", "Jimmy Butler III", "Gui Santos"]}, "29": {"top": ["Ty Jerome", "Jaren Jackson Jr.", "Ja Morant"]}},
+                                    {"9": {"moses moody"}})
+    keep_g = dash._GAMES_[0]
+    try:
+        ours, theirs, lost = cc.out_men(leg, games)
+        assert "Jimmy Butler III" in ours and "Richie Saunders" in theirs and "Moses Moody" in ours and not lost, (ours, theirs, lost)
+        ow, tw = cc.hurt(leg, games)
+        assert ow == 7.0 and tw == 4.0 and not cc.inj_ok(leg, games), (ow, tw)   # Curry 3 + Butler 3 + Green 1 v Jerome 3 + Edey 1
+        # 1. NO INJURY ARGUMENT WHEN OURS ARE AS BAD: the line under the pick, the 📉 line, "short-handed" in the bottom line
+        assert cc.check_one(pk, leg, _WARRIORS_WHY_1119, games) == ""
+        assert any(cc.Q_INJ in w for w, _ in caught), caught
+        out = cc.check(pk, leg, list(_WARRIORS_POSTED_1119), games, why="")
+        body = " ".join(out)
+        assert "Ty Jerome" not in body and "short-handed" not in body, out
+        # 2. A MAN WHO IS OUT IS NEVER COOKING / COUNTED / ON A MINUTES LIMIT; "deep squad" never beside our men out
+        assert "Curry" not in body and "Moses Moody" not in body and "deep squad" not in body and "real minutes" not in body, out
+        assert any("Gui Santos is cooking" in x for x in out), out                # the man who plays keeps his line
+        assert any(cc.Q_PLAYS in w for w, _ in caught) and any(cc.Q_FIGHTS in w for w, _ in caught), caught
+        # 3. OUR OWN MEN OUT ARE NEVER A WRITE-UP LINE (the 🚑 line, the 🌟 line) - the header says both teams once, plain
+        assert not any(x.startswith(("🚑 Warriors", "🌟")) for x in out), out
+        assert any(cc.Q_OURS in w for w, _ in caught), caught
+        chips = cc.out_chips(leg, games)
+        assert chips[0][0] == "Grizzlies" and "Ty Jerome (G)" in chips[0][1] and "Richie Saunders" in chips[0][1], chips
+        assert chips[1][0] == "Warriors" and "Stephen Curry (G)" in chips[1][1] and "Jimmy Butler III" in chips[1][1], chips
+        #    ...and the bottom line never runs our own pick down: the pick, the price, the size said plain
+        assert out[-1] == "✅ Bottom line: Warriors (+180). Half a unit on Warriors.", out[-1]
+        assert any(cc.Q_SELF in w for w, _ in caught), caught
+        assert cc.fact_lines(out) >= 6, out                                        # the spare fact came in - the card isn't short
+        # the page: both teams in the 🚑 header, a Warriors-first line under the pick, a neutral size line
+        dash._GAMES_[0] = games
+        dash.WHY_USED.clear()
+        html_ = dash._leg(leg, units=0.5, pk=pk)
+        assert "🚑 Grizzlies out: Ty Jerome (G)" in html_ and "🚑 Warriors out: Draymond Green (F)" in html_, html_[:900]
+        assert "missing:" not in html_ and "Stephen Curry is cooking" not in html_ and "not a great one" not in html_
+        why_ = re.search(r'<div class="why rvy">(.*?)</div>', html_).group(1)
+        assert why_.startswith("🔁 Same opponent, two results - Warriors got a 134-114 win"), why_   # the best true fact for us leads
+        for k in range(6):                                                         # the ½u floor line, every way it's said
+            dash.WHY_USED.clear()
+            ul = dash._units_line(0.5, "Warriors" + "x" * k, 180, leg=leg)
+            assert not cc.SELF_KNOCK.search(ul) and "½ UNIT" in ul, ul
+        assert not any(cc.SELF_KNOCK.search(x) for x in dash.FLOOR_WHY + dash.HALF_WHY["early"] + dash.HALF_WHY["dog"])
+        # 4. THE LINE UNDER THE PICK SAYS OUR SIDE FIRST - nobody guesses which side we're on
+        assert cc.side_first(_WARRIORS_WHY_1119, leg) == "🚑 Give me Warriors: Grizzlies gotta play without Ty Jerome (G), Zach Edey (C)."
+        assert cc.side_first("🚪 120+ points allowed in 3 of the last 5 for Grizzlies. That defense is giving it away.", leg).startswith(
+            ("🚪 Warriors the side: ", "🚪 We on Warriors: ", "🚪 Give me Warriors: ", "🚪 Riding Warriors: "))
+        assert cc.side_first("🚑 Say less — the Grizzlies are without Ty Jerome.", leg) == "🚑 Warriors the side: the Grizzlies are without Ty Jerome."
+        ok_ = "🗓️ Warriors won 6 of their last 10. Give me Warriors."
+        assert cc.side_first(ok_, leg) == ok_                                      # already ours first: untouched
+        assert cc.side_first("⛰️ 5,300 feet up tonight.", dict(leg, market="total")) == "⛰️ 5,300 feet up tonight."
+        # THE OTHER WAY: with our men back, the Grizzlies ARE clearly more short-handed - the argument is made, ours first
+        leg2 = dict(leg, outs=["Brandon Williams (G)"], absent=[], added_outs=["Richie Saunders"], fresh=leg["fresh"][:1],
+                    rep_status={"Ty Jerome": "out", "Zach Edey": "out"})
+        assert cc.hurt(leg2, games) == (0.0, 4.0) and cc.inj_ok(leg2, games)
+        got = cc.check_one(pk, leg2, _WARRIORS_WHY_1119, games)
+        assert got == "🚑 Give me Warriors: Grizzlies gotta play without Ty Jerome (G), Zach Edey (C).", got
+        assert any(cc.Q_SIDE in w for w, _ in caught)
+        out2 = cc.check(pk, leg2, [x for x in _WARRIORS_POSTED_1119 if not x.startswith(("🚑 Warriors", "🌟"))], games, why=got)
+        assert any(x.startswith("📉 Ty Jerome") for x in out2) and any("Stephen Curry is cooking" in x for x in out2), out2
+        assert "Grizzlies are short-handed." in out2[-1] and "not a great one" not in out2[-1], out2[-1]
+        # a card from before the rule keeps its lines (the page's date gate); the audit counts the class
+        old = dict(leg, start="2026-11-18T01:00Z")
+        assert cc.check_one(dict(pk, date="2026-11-17"), old, _WARRIORS_WHY_1119, games) == _WARRIORS_WHY_1119
+        q = cc.quality(leg, _WARRIORS_WHY_1119, _WARRIORS_POSTED_1119, games)
+        assert sum(1 for k, _ in q if k == "incoherent") >= 6 and "incoherent" in cc.QUALITY, q
+    finally:
+        dash._GAMES_[0] = keep_g
+        undo()
+    # THE POOLS, AT THE ROOT: nothing that runs our own pick down is written; the injury pools ask the yardstick first
+    src = inspect.getsource(v24.breakdown)
+    for bad in ("not a great one", "don't get crazy", "don't go crazy", "we'll see", "No big edge here", "angles are mixed", "Small swing"):
+        assert bad not in src, bad
+    assert 'leg["inj_ok"] = inj_ok(leg, games, g)' in src and "whole_card(lines, leg, v, us, lg, g, side, games)" in src
+    assert v24.named_out_ways({"inj_ok": False, "reasons": ["opponent missing key players: Ty Jerome (their read -9)"], "league": "nba",
+                               "side": "away"}, {"start": "2026-11-20T01:00Z", "home": "29", "away": "9"}, "Grizzlies", "the Grizzlies") is None
+    assert 'if leg.get("inj_ok") is False:' in inspect.getsource(v24.more_facts) and 'leg.get("inj_ok") is False' in inspect.getsource(v24.deep_facts)
+    done = v24.story_close(["🧳 x 1-4.", "✅ Bottom line: Warriors (+180)."], {"why_line": "🚑 Grizzlies are without Ty Jerome. Give me Warriors.", "inj_ok": False},
+                           "Warriors", "Grizzlies", {"id": "g"}, "away")
+    assert "short-handed" not in done[-1], done
+
+
+def test_cards_1119b_the_write_up_never_puts_our_men_out_or_an_out_man_cooking_on_the_card():
+    """The root (sports.card_extras - the 🚑 / 🏀 / 🌟 lines added on top of the write-up): our own injury line is the
+    header's, never a write-up line; the 🏀 line never praises a man the report has out, never says "deep squad" /
+    "N guys play real minutes" while our men who matter sit, never our man's minutes limit; the 🌟 line never says our
+    man is out."""
+    import sports_card_check as cc, sports_nba_roster as nr, sports_nba_stars as ns
+    pk, leg, games = _warriors_1119()
+    g = games["nba:w1119"]
+    leg["breakdown"] = ["🧳 The Grizzlies just got home - 3 road games in the last 6 days.", "✅ Bottom line: Warriors (+180). Half a unit on Warriors."]
+    inj = {"nba": {"9": [("Draymond Green", "F", "Out"), ("Stephen Curry", "G", "Out"), ("Moses Moody", "G", "Out"), ("Al Horford", "C", "Questionable")],
+                   "29": [("Ty Jerome", "G", "Out"), ("Zach Edey", "C", "Out")]}}
+    cur = {"teams": {"9": [{"pid": 1, "name": "Stephen Curry"}, {"pid": 2, "name": "Gui Santos"}, {"pid": 3, "name": "Moses Moody"}], "29": []},
+           "bench": {"9": 8.0}, "styles": {"9": {"depth": 9}},
+           "form": {2: {"name": "Gui Santos", "tag": "hot", "recent": 10.2, "usual": 1.4}, 1: {"name": "Stephen Curry", "tag": "hot", "recent": 14.9, "usual": 2.9}},
+           "flags": {"9": {"restricted": ["Moses Moody"], "out": ["Stephen Curry"]}}}
+    caught, undo = _whole_card_stub({"Stephen Curry", "Draymond Green", "Ty Jerome", "Zach Edey"},
+                                    {"9": {"top": ["Stephen Curry"]}, "29": {"top": ["Ty Jerome"]}}, {"9": {"moses moody"}})
+    keep = (nr.cached, ns.card_line, sports.injury_line)
+    nr.cached = lambda: cur
+    ns.card_line = lambda g_, side_, cur_, data=None: "🌟 Warriors: Stephen Curry is out."
+    sports.injury_line = lambda g_, side_, injuries: "🚑 Warriors out: F Draymond Green, G Stephen Curry · questionable: C Al Horford."
+    try:
+        raw = nr.card_line(g, "away", cur)
+        assert "Stephen Curry is cooking" in raw and "deep squad" in raw and "minutes limit" in raw      # what the roster read says by itself
+        sports.card_extras(leg, g, inj)
+        bd = leg["breakdown"]
+        assert not any(x.startswith("🚑") for x in bd), bd                       # our men out: the header's, not the write-up's
+        assert leg.get("our_q") == "C Al Horford", leg.get("our_q")              # ...with our game-time man
+        chips = cc.out_chips(leg, games)
+        assert chips[1][0] == "Warriors" and "Stephen Curry (G)" in chips[1][1] and chips[1][2] == "C Al Horford", chips
+        rl = next(x for x in bd if x.startswith("🏀"))
+        assert rl == "🏀 Warriors: Gui Santos is cooking - with him on the floor lately the team's up 10.2 points a full game (last season: up 1.4).", rl
+        assert not any(x.startswith("🌟") for x in bd), bd
+        assert bd[-1].startswith("✅ Bottom line") or bd[-2].startswith("✅ Bottom line"), bd
+        # an older game keeps the old card (the date gate)
+        old = dict(leg, start="2026-11-18T01:00Z", breakdown=["✅ Bottom line: Warriors (+180)."])
+        sports.card_extras(old, dict(g, start="2026-11-18T01:00Z"), inj)
+        assert any(x.startswith("🚑 Warriors out") for x in old["breakdown"]), old["breakdown"]
+    finally:
+        nr.cached, ns.card_line, sports.injury_line = keep
+        undo()
+
+
+def test_cards_1119b_both_sides_hurt_a_hockey_card_and_a_football_card():
+    """Every sport: the same yardstick both ways (sports_card_check.man_weight - a top-3 scorer / the #1 goalie 3, the
+    quarterback 4, the lead back / a top-2 catcher 2, any other regular 1, a man who doesn't matter 0). An injury
+    argument stands only when the other side is clearly more short-handed (2+ more)."""
+    import sports_card_check as cc
+    # ---- hockey: we sit our top scorer AND our #1 goalie; they sit one top scorer ----
+    games = {"nhl:h1": {"id": "nhl:h1", "league": "nhl", "start": "2026-11-21T00:00Z", "status": "pre", "home": "14", "away": "15",
+                        "home_name": "Senators", "away_name": "Flyers", "neutral": "0", "stype": "2"}}
+    pk = {"date": "2026-11-20", "kind": "dog", "lean": False, "tier": "value", "status": "open", "units": 2.0, "american": 150, "dec": 2.5,
+          "stake": 100.0, "p_hit": 0.42}
+    leg = {"team": "Flyers", "opp": "Senators", "odds": 150, "dec": 2.5, "market": "ml", "league": "nhl", "side": "away", "home": False,
+           "tier": "value", "game_id": "nhl:h1", "p": 0.42, "start": "2026-11-21T00:00Z", "is_lean": False,
+           "outs": ["Travis Konecny (RW)", "Samuel Ersson (G)"], "opp_outs": ["Tim Stützle (C)"], "reasons": []}
+    pk["legs"] = [leg]
+    lines = ["🚑 Senators are without Tim Stützle (C).",
+             "📉 Senators lose Tim Stützle - 24 points in his 19 games this year.",
+             "🥅 Samuel Ersson has been a wall for Flyers - a 0.931 save % over his last 3 starts.",
+             "💯 Travis Konecny been producing for Flyers: 12 points over the last 10.",
+             "🆚 Flyers already beat the Senators this year - a 3-1 win at home on 10/17.",
+             "🥊 The Senators got run in their own building twice already this year - 7-2 by the Blues and 6-2 by the Sharks.",
+             "🚑 Flyers out: RW Travis Konecny, G Samuel Ersson.",
+             "✅ Bottom line: Flyers (+150). Senators are short-handed. Ride it."]
+    caught, undo = _whole_card_stub({"Travis Konecny", "Samuel Ersson", "Tim Stützle"},
+                                    {"15": {"top": ["Travis Konecny", "Matvei Michkov", "Owen Tippett"]}, "14": {"top": ["Tim Stützle", "Brady Tkachuk", "Drake Batherson"]}})
+    try:
+        assert cc.hurt(leg, games) == (6.0, 3.0) and not cc.inj_ok(leg, games)
+        assert cc.man_weight("nhl", "15", "Samuel Ersson", "G", "2026-11-21T00:00Z") == 3.0     # the #1 goalie
+        assert cc.check_one(pk, leg, "🚑 The Senators are without Tim Stützle, their best player. Flyers the side.", games) == ""
+        out = cc.check(pk, leg, lines, games, why="")
+        assert out == [lines[4], lines[5], "✅ Bottom line: Flyers (+150). Ride it."], out
+        why = cc.check_one(pk, leg, lines[5] + " Flyers the side.", games)
+        assert why == "🥊 Flyers the side: the Senators got run in their own building twice already this year - 7-2 by the Blues and 6-2 by the Sharks.", why
+        # nobody who matters out for us: the Senators' man out is the lead, ours first, and "short-handed" stands
+        leg2 = dict(leg, outs=[])
+        assert cc.hurt(leg2, games) == (0.0, 3.0) and cc.inj_ok(leg2, games)
+        w2 = cc.check_one(pk, leg2, "🚑 The Senators are without Tim Stützle, their best player. Flyers the side.", games)
+        assert w2 == "🚑 Flyers the side: the Senators are without Tim Stützle, their best player.", w2
+        out2 = cc.check(pk, leg2, lines[:6] + lines[7:], games, why=w2)
+        assert lines[1] in out2 and lines[2] in out2 and out2[-1] == lines[7], out2
+        # one regular out for us, their top scorer AND their #1 goalie out: clearly more (6 v 1)
+        leg3 = dict(leg, outs=["Nick Seeler (D)"], opp_outs=["Tim Stützle (C)", "Linus Ullmark (G)"])
+        cc._matters = lambda lg, tid, name, before: name in {"Nick Seeler", "Tim Stützle", "Linus Ullmark"}
+        assert cc.hurt(leg3, games) == (1.0, 6.0) and cc.inj_ok(leg3, games)
+        # ...but one regular each is a wash - no argument
+        leg4 = dict(leg, outs=["Nick Seeler (D)"], opp_outs=["Nick Jensen (D)"])
+        cc._matters = lambda lg, tid, name, before: True
+        cc._key_men = lambda lg, tid, before: {}
+        assert cc.hurt(leg4, games) == (1.0, 1.0) and not cc.inj_ok(leg4, games)
+    finally:
+        undo()
+    # ---- football: our quarterback is out; they sit a top catcher and a corner ----
+    games = {"nfl:f1": {"id": "nfl:f1", "league": "nfl", "start": "2026-11-22T18:00Z", "status": "pre", "home": "29", "away": "7",
+                        "home_name": "Panthers", "away_name": "Broncos", "neutral": "0", "stype": "2"}}
+    pk = {"date": "2026-11-22", "kind": "play", "lean": False, "tier": "value", "status": "open", "units": 0.5, "american": 130, "dec": 2.3,
+          "stake": 100.0, "p_hit": 0.45}
+    leg = {"team": "Broncos", "opp": "Panthers", "odds": 130, "dec": 2.3, "market": "ml", "league": "nfl", "side": "away", "home": False,
+           "tier": "value", "game_id": "nfl:f1", "p": 0.45, "start": "2026-11-22T18:00Z", "is_lean": False,
+           "outs": ["Bo Nix (QB)"], "opp_outs": ["Tetairoa McMillan (WR)", "Jaycee Horn (CB)", "Sam Martin (P)"], "reasons": []}
+    pk["legs"] = [leg]
+    lines = ["🚑 Both teams are down a starter — Bo Nix is out for the Broncos, Tetairoa McMillan for the Panthers. We still riding with the algorithm.",
+             "🚑 Panthers are down Tetairoa McMillan (WR), Jaycee Horn (CB) today.",
+             "🎯 The quarterbacks - Bo Nix (Broncos): 3 TDs, 0 picks and 551 yards in his last 3 games. Bryce Young (Panthers): 4 TDs, 3 picks and 653 yards in his last 3 games.",
+             "⚠️ Heads up: Broncos go without Bo Nix (QB).",
+             "🥊 The Panthers got run in their own building twice already this year - 59-37 by the Bears and 43-13 by the Buccaneers.",
+             "🧊 Panthers are 3-4 and ice cold — 2 straight L's.",
+             "✅ Bottom line: Broncos (+130). Panthers are short-handed. Best dog we could find today, not a great one. Half a unit, don't get crazy."]
+    caught, undo = _whole_card_stub({"Bo Nix", "Tetairoa McMillan", "Jaycee Horn"},
+                                    {"7": {"qb": "Bo Nix", "rb": "J.K. Dobbins", "wr": ["Courtland Sutton", "Troy Franklin"]},
+                                     "29": {"qb": "Bryce Young", "rb": "Chuba Hubbard", "wr": ["Tetairoa McMillan", "Xavier Legette"]}})
+    try:
+        assert cc.hurt(leg, games) == (4.0, 3.0) and not cc.inj_ok(leg, games)       # the QB 4 v a top catcher 2 + a corner 1 (the punter 0)
+        out = cc.check(pk, leg, lines, games, why="")
+        assert out == [lines[4], lines[5], "✅ Bottom line: Broncos (+130). Half a unit on Broncos."], out
+        assert all(any(q in w for w, _ in caught) for q in (cc.Q_OURS, cc.Q_INJ, cc.Q_PLAYS, cc.Q_SELF)), caught
+        chips = cc.out_chips(leg, games)
+        assert chips == [("Panthers", ["Tetairoa McMillan (WR)", "Jaycee Horn (CB)", "Sam Martin (P)"], ""), ("Broncos", ["Bo Nix (QB)"], "")], chips
+        # THEIR quarterback out, one regular of ours: the argument stands, and the line under the pick says Broncos first
+        leg2 = dict(leg, outs=["Brandon Jones (S)"], opp_outs=["Bryce Young (QB)"])
+        cc._matters = lambda lg, tid, name, before: True
+        assert cc.hurt(leg2, games) == (1.0, 4.0) and cc.inj_ok(leg2, games)
+        w2 = cc.check_one(pk, leg2, "🚑 Panthers are rolling without their starting quarterback (Bryce Young). We on Broncos.", games)
+        assert w2 == "🚑 We on Broncos: Panthers are rolling without their starting quarterback (Bryce Young).", w2
+    finally:
+        undo()
 
 
 if __name__ == "__main__":

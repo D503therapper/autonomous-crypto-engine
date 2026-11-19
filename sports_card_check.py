@@ -47,6 +47,14 @@ What it checks, card by card (each one a class the 11/13 audit found - SPORTS_FI
        another sport's word, rest talk with no back-to-back (sense / rest_talk); a card that fights itself - "full
        squad" beside its own men out, a man out for the wrong team (card_sense)
      - an early play's record / last-game sentence that moved since it posted (early_fact)
+  6. THE CARD AS A WHOLE (11/19, the Warriors card - results/studies/cards_1119b; card_state / coherent_line /
+     one_coherent, from COHERENT_FROM)
+     - an injury argument (🚑 / 📉 / "short-handed") only when the other side is clearly more short-handed than ours by
+       the same box-score yardstick (hurt / inj_ok / man_weight)
+     - a man who is out never praised, counted or cited (any line, any 🏀 / 🌟 part)
+     - our own men out said once, plain, in the card's 🚑 header (out_chips - both teams) - never in the write-up
+     - no size words that run our own pick down (SELF_KNOCK); nothing that fights its card ("deep squad" with our men
+       out); the line under the pick says OUR side first (side_first)
 A line that fails is rewritten or dropped (the bottom line is rebuilt from the pick, its price and our number - never
 lost). Nothing here ever holds a pick: wording is never a reason to pull a bet.
 
@@ -1304,6 +1312,8 @@ def check(pk, leg, lines, games=None, why="", where="render"):
     except Exception:                                        # noqa: BLE001
         contra = {}
     stars = [0]
+    coh = coherent_on(leg, cx.get("date"))                   # 🧩 11/19: the card judged as a whole (cards_1119b)
+    st = card_state(leg, games) if coh else None
 
     def one(x):
         """One line through every check -> (the line as it may post or '', what was caught)."""
@@ -1317,6 +1327,13 @@ def check(pk, leg, lines, games=None, why="", where="render"):
         new, w = wording(x1, cx, leg)
         if sw:
             w = "; ".join(y for y in (Q_PRICE if "price" in sw else sw, w) if y)
+        if new and coh:                                      # 🧩 11/19: no injury argument when we're as short, no
+            try:                                             #  man who's out said as playing, our own outs only in the
+                new, kw = coherent_line(new, leg, cx, st)    #  header, no self-knock, nothing that fights the card
+            except Exception:                                # noqa: BLE001 - the check never breaks a card
+                kw = ""
+            if kw:
+                w = "; ".join(y for y in (w, kw) if y)
         if new and STORY_CHECK and str(new).startswith("💯"):   # 📖 11/19: one scorer line a card
             stars[0] += 1
             if stars[0] > 1:
@@ -1482,6 +1499,13 @@ def check_one(pk, leg, line, games=None, where="render"):
             pass
         if new and CARD_JARGON.search(new) and '"' not in new:
             new, w = "", add(Q_JARGON)
+    if new and coherent_on(leg, cx.get("date")):             # 🧩 11/19: the line under the pick against the whole card -
+        try:                                                 #  and it says OUR side first
+            new, kw = one_coherent(new, leg, cx, card_state(leg, games), bool(cx.get("lean")))
+        except Exception:                                    # noqa: BLE001
+            kw = ""
+        if kw and (kw != Q_SIDE or where != "fallback"):
+            w = add(kw)
     if w:
         note(cx["date"], leg, w, line, where)
     return new
@@ -1677,6 +1701,11 @@ def early_lines(p, lines, where="render", games=None):
             y2, qw = early_for_us(y, leg, games)
             if qw:
                 y, w = y2, "; ".join(z for z in (w, qw) if z)
+        if y and coherent_on(leg, cx["date"]):               # 🧩 11/19: an early row never runs its own play down either
+            lead, parts = _sentences(y)
+            keep = [sent for sent in parts if not SELF_KNOCK.search(sent)]
+            if len(keep) != len(parts):
+                y, w = _join(lead, keep), "; ".join(z for z in (w, Q_SELF) if z)
         if mv or w:
             note(cx["date"], leg, "; ".join(z for z in (mv, w) if z), x, where)
         if y:
@@ -2082,6 +2111,452 @@ def said_twice(leg, lines, why, games):
     return v.no_repeats(list(lines), why, known, recs, leg.get("team") or "")
 
 
+# ---- 🧩 11/19 EVERY CARD MAKES SENSE AS A WHOLE (results/studies/cards_1119b) ---------------------------------------------
+# The owner, 11/19, on the Warriors +180 card: "The Grizzlies breakdown on the one-liner, it says like 3 fucking key guys
+# are out for the Grizzlies, but give me the fucking [Warriors]. Makes no fucking sense. Fucking fix this shit." Every line
+# on that card passed its own check - and the card as a whole was nonsense: it sold "the Grizzlies are short-handed" while
+# OUR side sat Curry, Green and Butler; it said "Stephen Curry is cooking" under a line that listed him OUT; "deep squad"
+# beside our own men out; a header and a bottom line that ran our own pick down ("not a great one"); and a line under
+# the pick that opened on the OTHER team's name. The card is judged as a whole here, on every render and before a post:
+#   Q_INJ     an injury argument (🚑 / 📉 / "short-handed") is made only when the other side is CLEARLY more
+#             short-handed than ours by the same yardstick - who matters by the box scores (hurt / inj_ok)
+#   Q_PLAYS   a man who is out is never praised, counted or cited in an on / off stat (any line, any 🏀 / 🌟 part)
+#   Q_OURS    our own men out are said ONCE, as plain information, in the card's 🚑 header (both teams, no comment) -
+#             never in the write-up, the line under the pick, the bottom line or the 🌟 line (out_chips)
+#   Q_SELF    the bottom line / the size line never runs our own pick down ("not a great one", "don't get crazy")
+#   Q_FIGHTS  no line fights the rest of its card ("deep squad" / "9 guys play real minutes" with our top men out)
+#   Q_SIDE    the line under the pick says OUR side first ("Give me Warriors: ...") - nobody guesses which side we're on
+# A failing line is rewritten or dropped and the best true fact for our side leads instead - never a pick held.
+COHERENT = True
+COHERENT_FROM = "2026-11-19"
+HURT_CLEAR = 2.0                # "clearly more short-handed": their men out outweigh ours by this much (one key man more,
+#                                 or two regulars more) - with nobody who matters out on our side, any of theirs counts
+MAN_KEY = {"nba": 3.0, "nhl": 3.0, "qb": 4.0, "skill": 2.0}   # a top-3 scorer / a #1 goalie; the QB; the lead back / a top-2 catcher
+Q_INJ = "an injury argument while our side is as short-handed (or worse)"
+Q_PLAYS = "names a man who is out as playing / producing"
+Q_OURS = "our own men out inside the write-up (the 🚑 header says it once)"
+Q_SELF = "runs our own pick down"
+Q_FIGHTS = "fights the rest of its card"
+Q_SIDE = "the line under the pick didn't say our side first"
+QUALITY["incoherent"] = (Q_INJ, Q_PLAYS, Q_OURS, Q_SELF, Q_FIGHTS, Q_SIDE)
+SELF_KNOCK = re.compile(
+    r"not a great one|not a great|not a monster|no monster edge|no big edge|not a big edge|just the best dog left|best dog left|"
+    r"best dog we (?:could find|found)|angles are mixed|don'?t (?:get|go) crazy|small swing|and we'?ll see|no gift in|"
+    r"not (?:on )?a gift|price is about (?:fair|right)|priced about right|about fair|nothing extra in it|not a big one|"
+    r"still (?:proving|earning)|till it proves|till the live record|builds its live record", re.I)
+INJ_TALK = re.compile(r"short[- ]handed|banged[- ]up|missing bodies|trainer'?s room|injury list|dealing with injuries|"
+                      r"missing key|their backup|down their starting", re.I)
+GONE_SAID = re.compile(r"\bout\b|\bwithout\b|\bmissing\b|won'?t suit up|not dressing|\bno\b|gotta play|gotta find|\blose\b|"
+                       r"\bloses\b|\bgone\b|\bshelf\b|\bIR\b|injured|suspend|\bsat\b|sits\b|sidelined", re.I)
+DEEP_SAID = re.compile(r"deep squad|guys play real minutes|full strength|full squad|healthy|everybody available", re.I)
+_OUT_UPDATE = re.compile(r"^🔄 Update: (.+?) is (?:out|OUT now) for (?:the )?(.+?)(?: too)?\.$")
+_ROSTER = {}
+_KEYS = {}
+
+
+def coherent_on(leg, day=None):
+    """Is this card judged as a whole (COHERENT_FROM - the pick's day or the game's)?"""
+    d = max(str(day or ""), str((leg or {}).get("start") or "")[:10])
+    return bool(COHERENT) and d >= COHERENT_FROM
+
+
+def _roster(lg, tid, before):
+    """The normalized names in a team's last 10 box scores (whose man is he?)."""
+    k = (lg, str(tid), before)
+    if k not in _ROSTER:
+        if len(_ROSTER) > 2000:
+            _ROSTER.clear()
+        try:
+            import sports_absences as sa
+            _ROSTER[k] = {sa._nm(r["player"]) for _, _, rs in sa._real(None, lg, tid, before)[-10:] for r in rs}
+        except Exception:                                    # noqa: BLE001
+            _ROSTER[k] = set()
+    return _ROSTER[k]
+
+
+def _key_men(lg, tid, before):
+    k = (lg, str(tid), before)
+    if k not in _KEYS:
+        if len(_KEYS) > 2000:
+            _KEYS.clear()
+        try:
+            import sports_absences as sa
+            _KEYS[k] = sa.key_players({}, lg, tid, before) or {}
+        except Exception:                                    # noqa: BLE001
+            _KEYS[k] = {}
+    return _KEYS[k]
+
+
+def man_weight(lg, tid, name, pos, before):
+    """How much one man out counts, by the box scores: 0 = doesn't matter / gone so long the results hold it; 1 = a
+    regular (sports_absences.matters) or a man the files can't place; 3 = a top-3 scorer (NBA / hockey) or the #1
+    goalie; 4 = the quarterback; 2 = the lead back / a top-2 catcher."""
+    m = _matters(lg, tid, name, before)
+    if m is False:
+        return 0.0
+    w = 1.0
+    try:
+        import sports_absences as sa
+        kp = _key_men(lg, tid, before)
+        hit = lambda ps: bool(sa.match(name, {sa._nm(p) for p in ps if p}))   # noqa: E731
+        if lg in ("nba", "nhl") and hit(kp.get("top") or []):
+            w = MAN_KEY[lg]
+        elif lg == "nhl" and str(pos or "").upper() == "G" and m:
+            w = MAN_KEY["nhl"]
+        elif lg in ("nfl", "ncaaf"):
+            if hit([kp.get("qb")]) or (str(pos or "").upper() == "QB" and m):
+                w = MAN_KEY["qb"]
+            elif hit([kp.get("rb")] + list(kp.get("wr") or [])):
+                w = MAN_KEY["skill"]
+    except Exception:                                        # noqa: BLE001
+        pass
+    return w
+
+
+def _name_pos(entries):
+    out = {}
+    for x in entries or []:
+        s = str(x or "")
+        nm = (_card_names([s]) or [""])[0]
+        m = re.search(r"\(([A-Za-z/]{1,4})\)", s)
+        if nm:
+            out.setdefault(nm, m.group(1) if m else "")
+    return out
+
+
+def out_men(leg, games=None):
+    """({name: pos} ours, {name: pos} theirs, {names nobody could place}) - every man OUT tonight the card knows of:
+    its who's-out lists, the absence penalty's men, the men ruled out after it posted (added_outs / the 🔄 update lines)
+    and every name the report has out (rep_status) - never a man whose status moved back (stale and not 'out' now)."""
+    rep = leg.get("rep_status") or {}
+    stale = set(leg.get("stale") or [])
+    gone = lambda n: rep.get(n) == "out" if n in rep else n not in stale     # noqa: E731
+    ours = {n: p for n, p in _name_pos(list(leg.get("outs") or []) + list(leg.get("absent") or [])).items() if gone(n)}
+    theirs = {n: p for n, p in _name_pos(leg.get("opp_outs")).items() if gone(n)}
+    us, opp = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    said = {}
+    for x in leg.get("fresh") or []:
+        m = _OUT_UPDATE.match(str(x))
+        if m:
+            said[m.group(1)] = m.group(2)
+    extra = [n for n in list(leg.get("added_outs") or []) + [n for n, c in rep.items() if c == "out"]
+             if n not in ours and n not in theirs and gone(n)]
+    lost = set()
+    g = (games or {}).get(leg.get("game_id")) if games else None
+    side = leg.get("side")
+    other = "away" if side == "home" else "home"
+    for n in dict.fromkeys(extra):
+        tn = said.get(n)
+        if tn and tn == us:
+            ours[n] = ""
+        elif tn and tn == opp:
+            theirs[n] = ""
+        else:
+            placed = False
+            if g and side in ("home", "away") and g.get("start"):
+                try:
+                    import sports_absences as sa
+                    a = sa.match(n, _roster(leg.get("league"), g.get(side), g["start"]))
+                    b = sa.match(n, _roster(leg.get("league"), g.get(other), g["start"]))
+                    if a != b:
+                        (ours if a else theirs)[n] = ""
+                        placed = True
+                except Exception:                            # noqa: BLE001
+                    pass
+            if not placed:
+                lost.add(n)
+    return ours, theirs, lost
+
+
+def hurt(leg, games=None):
+    """(ours, theirs) - how short-handed each side is tonight, the same yardstick both ways (man_weight)."""
+    ours, theirs, _ = out_men(leg, games)
+    g = (games or {}).get(leg.get("game_id")) if games else None
+    side = leg.get("side")
+    if not g or side not in ("home", "away") or not g.get("start"):
+        return float(len(ours)), float(len(theirs))          # (no game file: every listed man counts the same)
+    other = "away" if side == "home" else "home"
+    lg = leg.get("league")
+    w = lambda men, tid: sum(man_weight(lg, tid, n, p, g["start"]) for n, p in men.items())   # noqa: E731
+    return w(ours, g.get(side)), w(theirs, g.get(other))
+
+
+def inj_ok(leg, games=None):
+    """May this card argue "they're short-handed"? Only when the other side is CLEARLY more short-handed than ours."""
+    try:
+        o, t = hurt(leg, games)
+    except Exception:                                        # noqa: BLE001
+        return True
+    return o <= 0 or t - o >= HURT_CLEAR
+
+
+_SUFFIX = re.compile(r"\s+(?:Jr\.?|Sr\.?|II|III|IV)$")
+
+
+def _has(names, t):
+    """The names (as listed, or without a Jr. / III) that stand in t."""
+    out = []
+    for n in names:
+        if not n:
+            continue
+        for k in dict.fromkeys((n, _SUFFIX.sub("", n))):
+            if k and re.search(rf"(?<![\w]){re.escape(k)}(?![\w])", t):
+                out.append(n)
+                break
+    return out
+
+
+def inj_arg(line, leg, theirs=()):
+    """Does this line argue the OTHER side is short-handed (a 🚑 line about them, a man of theirs said gone, the words)?"""
+    t = str(line or "")
+    us, opp = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    if not t or t.startswith("🔄") or t.startswith(f"🚑 {us} "):
+        return False
+    if t.startswith("🚑") and opp and opp in t:
+        return True
+    if _has(theirs, t) and GONE_SAID.search(t):
+        return True
+    return bool(INJ_TALK.search(t)) and (not us or opp in t or us not in t)
+
+
+def our_outs_line(line, leg, ours=()):
+    """A write-up line that is our own men out: the 🚑 line for our side, the ⚠️ knock naming them, a "both teams are down"
+    line, a 🔄 "X is out for <us> too" update (the header carries all of it)."""
+    t = str(line or "")
+    us = str(leg.get("team") or "")
+    if not t or not us:
+        return False
+    if re.match(rf"^🚑 (?:The )?{re.escape(us)} (?:out\b|questionable\b|(?:is|are) (?:out|missing|without|down)\b|go(?:es)? without\b)", t):
+        return True                                          # ("🚑 Warriors out: ..." - never "🚑 Warriors the side: ...")
+    m = _OUT_UPDATE.match(t)
+    if m:
+        return True                                          # (either side: the header's two lists carry the name)
+    if t.startswith(("⚠️", "🚑")) and _has(ours, t):
+        return True
+    return False
+
+
+def out_plays(line, leg, men):
+    """(the line as it may stand, why) - a man who is OUT is never said as playing: a 🏀 / 🌟 part naming him goes (his
+    "is out" part too - the header says it), any other line naming him goes unless it says he's gone."""
+    t = str(line or "")
+    if not t or not men or t.startswith(("🔄", "🚑", "⚠️")) or BOTTOM.match(t):
+        return t, ""
+    hit = _has(men, t)
+    if not hit:
+        return t, ""
+    if t.startswith(("🏀", "🌟")) and ": " in t:
+        head, rest = t.split(": ", 1)
+        parts = rest.rstrip(".").split(" · ")
+        keep = [p for p in parts if not _has(men, p)]
+        if len(keep) == len(parts):
+            return t, ""
+        said_out = all(re.search(r"\b(?:is|are) out\b", p) for p in parts if _has(men, p))
+        return (f"{head}: {' · '.join(keep)}." if keep else ""), (Q_OURS if said_out else f"{Q_PLAYS}: {hit[0]}")
+    if GONE_SAID.search(t):
+        return t, ""
+    return "", f"{Q_PLAYS}: {hit[0]}"
+
+
+def fights(line, leg, ours_w):
+    """(the line as it may stand, why) - "deep squad" / "N guys play real minutes" / "full strength" said of OUR side
+    while our own men who matter are out."""
+    t = str(line or "")
+    us = str(leg.get("team") or "")
+    if not t or ours_w < HURT_CLEAR or not DEEP_SAID.search(t) or (us and us not in t):
+        return t, ""
+    if t.startswith("🏀") and ": " in t:
+        head, rest = t.split(": ", 1)
+        keep = [p for p in rest.rstrip(".").split(" · ") if not DEEP_SAID.search(p)]
+        return (f"{head}: {' · '.join(keep)}." if keep else ""), Q_FIGHTS
+    return "", Q_FIGHTS
+
+
+def bottom_coherent(line, leg, cx, ok_inj):
+    """(the bottom line as it may stand, why) - never a sentence that runs our own pick down, never "they're
+    short-handed" when we are as short; what's left is the pick, its price and a plain size word."""
+    t = str(line or "")
+    if not BOTTOM.match(t):
+        return t, ""
+    lead, parts = _sentences(t)
+    keep, whys = parts[:1], []
+    for s in parts[1:]:
+        if SELF_KNOCK.search(s) and not cx.get("lean"):      # (a lean's "no units - the price is about fair" is what a lean is)
+            whys.append(Q_SELF)
+        elif not ok_inj and INJ_TALK.search(s):
+            whys.append(Q_INJ)
+        else:
+            keep.append(s)
+    why = "; ".join(dict.fromkeys(whys))
+    if not why:
+        return t, ""
+    if len(keep) == 1 and not cx.get("lean"):
+        us = str(leg.get("team") or "")
+        keep.append(f"Half a unit on {us}." if cx.get("thin") and us and cx.get("market") != "total"
+                    else "Half a unit." if cx.get("thin") else "That's the bet.")
+    return _join(lead, keep), why
+
+
+SIDE_HEADS = ("{us} the side", "We on {us}", "Give me {us}", "Riding {us}")
+SIDE_HEADS_LEAN = ("We lean {us}", "Lean {us}")
+_PICK_TAIL = re.compile(r"^(?:(?:give me|we on|we riding|riding|ride|we got|we lean|we like|we tilt|lean|slight lean|fuck it,?) \x00"
+                        r"|\x00 (?:the side|the side here|all day|is the side|are the side))[.!]?$", re.I)   # (a pick, said plain)
+_TAIL_SPLIT = re.compile(r"(?<=[.!?])\s+|\s+—\s+|,\s+(?=[^,]*$)")
+
+
+def _first(name, other, t):
+    """Where `name` first stands in t on its own (never inside the other team's longer name): an index or -1."""
+    spans = [m.span() for m in re.finditer(rf"(?<![\w]){re.escape(other)}(?![\w])", t)] if other else []
+    for m in re.finditer(rf"(?<![\w]){re.escape(name)}(?![\w])", t):
+        if not any(a <= m.start() and m.end() <= b and (b - a) > (m.end() - m.start()) for a, b in spans):
+            return m.start()
+    return -1
+
+
+def side_first(line, leg, lean=False):
+    """🧩 The line under the pick says OUR side first. "🚑 Grizzlies gotta play without Ty Jerome, Zach Edey. Give me
+    Warriors." read to the owner as a Grizzlies pick; a line that opens on the other team (or never names us) opens on
+    us instead - its own tail moved up front ("🚪 Give me Warriors: 120+ points allowed in 3 of the last 5 for
+    Grizzlies."), or a plain head when it has none. -> the line (unchanged when it already says us first)."""
+    t = str(line or "").strip()
+    us, opp = str(leg.get("team") or "").strip(), str(leg.get("opp") or "").strip()
+    if not t or not us or leg.get("market") == "total":
+        return t
+    m = re.match(r"^(\W*\s*)", t)
+    lead, body = (m.group(1) if m else ""), t[len(m.group(1)) if m else 0:]
+    iu, io = _first(us, opp, body), (_first(opp, us, body) if opp else -1)
+    if iu >= 0 and (io < 0 or iu < io):
+        return t
+    head = ""
+    ld = re.match(r"^([^—]{1,45}?)\s+—\s+(.+)$", body)       # ("Say less — the Avalanche is without ..." - a kicker up
+    if ld and len(ld.group(1).split()) <= 6 and not re.search(r"\d", ld.group(1)) \
+            and _first(us, opp, ld.group(1)) < 0 and (not opp or _first(opp, us, ld.group(1)) < 0):
+        body = ld.group(2)[:1].upper() + ld.group(2)[1:]     #  front that names nobody gives way to our side's name)
+    cut = [x for x in _TAIL_SPLIT.split(body) if x and x.strip()]
+    if len(cut) > 1:
+        tail = cut[-1].strip()
+        if _first(us, opp, tail) >= 0 and (not opp or _first(opp, us, tail) < 0) and len(tail.split()) <= 6 \
+                and not re.search(r"\d", tail) and _PICK_TAIL.search(tail.replace(us, "\x00")):
+            head = tail.rstrip(".!? ")
+            body = body[:body.rfind(cut[-1])].rstrip(" ,—-").rstrip()
+            if body and body[-1] not in ".!?":
+                body += "."
+    if not head:
+        pool = SIDE_HEADS_LEAN if lean else SIDE_HEADS
+        head = pool[sum(map(ord, us + opp)) % len(pool)].format(us=us)
+    head = head[:1].upper() + head[1:]
+    if body[:4] == "The ":
+        body = "the " + body[4:]
+    return f"{lead}{head}: {body}"
+
+
+def coherent_line(line, leg, cx, st):
+    """One breakdown line against the whole card (st = card_state): (the line as it may stand or '', why)."""
+    t = str(line or "")
+    if not t:
+        return t, ""
+    if BOTTOM.match(t):
+        return bottom_coherent(t, leg, cx, st["inj_ok"])
+    if our_outs_line(t, leg, st["ours"]):
+        return "", Q_OURS
+    new, w = out_plays(t, leg, st["men"])
+    if w:
+        t = new
+        if not t:
+            return "", w
+    if not st["inj_ok"] and inj_arg(t, leg, st["theirs"]):
+        return "", Q_INJ
+    new, w2 = fights(t, leg, st["ours_w"])
+    if w2:
+        return new, "; ".join(y for y in (w, w2) if y)
+    return t, w
+
+
+def card_state(leg, games=None):
+    """The whole situation a card is judged against: who's out on both sides, how much each side's absences weigh."""
+    try:
+        ours, theirs, lost = out_men(leg, games)
+    except Exception:                                        # noqa: BLE001
+        ours, theirs, lost = {}, {}, set()
+    try:
+        ow, tw = hurt(leg, games)
+    except Exception:                                        # noqa: BLE001
+        ow, tw = 0.0, 0.0
+    return {"ours": list(ours), "theirs": list(theirs), "men": list(ours) + list(theirs) + list(lost),
+            "ours_w": ow, "theirs_w": tw, "inj_ok": ow <= 0 or tw - ow >= HURT_CLEAR}
+
+
+def one_coherent(line, leg, cx, st, lean=False):
+    """The line under the pick against the whole card: ('' = it can't lead, why) or (the line saying our side first, why)."""
+    t = str(line or "")
+    if not t:
+        return t, ""
+    if our_outs_line(t, leg, st["ours"]):
+        return "", Q_OURS
+    new, w = out_plays(t, leg, st["men"])
+    if w:
+        return "", w
+    if not st["inj_ok"] and inj_arg(t, leg, st["theirs"]):
+        return "", Q_INJ
+    if SELF_KNOCK.search(t) and not lean:
+        return "", Q_SELF
+    new = side_first(t, leg, lean)
+    return new, (Q_SIDE if new != t else "")
+
+
+def coherent(leg, why, lines, games=None, day=None, cx=None):
+    """🧩 The card as a whole -> (the line under the pick, the lines, [(why, line)] caught). Used by the write-up before it
+    is saved (sports_breakdown_v24.breakdown) - the same rules the page runs on every render (check / check_one)."""
+    if not coherent_on(leg, day):
+        return why, lines, []
+    cx = cx or {"lean": bool(leg.get("is_lean")), "thin": False, "market": leg.get("market")}
+    st = card_state(leg, games)
+    caught, out = [], []
+    for x in lines or []:
+        if not isinstance(x, str):
+            out.append(x)
+            continue
+        new, w = coherent_line(x, leg, cx, st)
+        if w:
+            caught.append((w, x))
+        if new:
+            out.append(new)
+    w1, ww = one_coherent(why, leg, cx, st, bool(cx.get("lean")))
+    if ww:
+        caught.append((ww, why))
+    return w1, out, caught
+
+
+def out_chips(leg, games=None, graded=False):
+    """🚑 The card's injury header - BOTH teams, plain, no comment: [(team, [names])], theirs then ours. Our own men out
+    are said here once and nowhere in the write-up (the owner's FULL injury data rule + "no bad shit in the
+    breakdowns")."""
+    stale = set(leg.get("stale") or [])
+    rep = leg.get("rep_status") or {}
+    ok = lambda x: not any(n and n in str(x) for n in stale if rep.get(n) != "out")   # noqa: E731
+    theirs = [str(x) for x in leg.get("opp_outs") or [] if ok(x)]
+    ours = [str(x) for x in leg.get("outs") or [] if ok(x)]
+    us, opp = str(leg.get("team") or ""), str(leg.get("opp") or "")
+    for x in leg.get("fresh") or []:
+        m = _OUT_UPDATE.match(str(x))
+        if not m:
+            continue
+        lst = ours if m.group(2) == us else theirs if m.group(2) == opp else None
+        if lst is not None and not any(m.group(1) in y for y in lst):
+            lst.append(m.group(1))
+    if graded:
+        theirs = [x for x in theirs if not played(leg, (_card_names([x]) or [""])[0], games)]
+        ours = [x for x in ours if not played(leg, (_card_names([x]) or [""])[0], games)]
+    q = ""
+    for x in leg.get("breakdown") or []:                     # (our game-time men: the 🚑 line's "questionable:" half)
+        s = str(x)
+        if s.startswith(f"🚑 {us} ") and "questionable:" in s:
+            q = s.split("questionable:", 1)[1].strip().rstrip(".")
+            break
+    q = q or str(leg.get("our_q") or "")
+    return [(opp, theirs, ""), (us, ours, q)]
+
+
 THIN_BODY = 2          # a unit play's card with fewer fact lines than this (after every cut) is a thin card
 
 
@@ -2109,6 +2584,17 @@ def quality(leg, why, lines, games=None):
                     out.append(("non-key absence", wl))
             except Exception:                                # noqa: BLE001
                 pass
+    coh = None
+    try:                                                     # 🧩 11/19: the card as a whole (cards_1119b)
+        if coherent_on(leg):
+            coh = card_state(leg, games)
+            cx_ = {"lean": bool(leg.get("is_lean")), "thin": False, "market": leg.get("market")}
+            if wl and not out:
+                kw = one_coherent(wl, leg, cx_, coh, cx_["lean"])[1]
+                if kw:
+                    out.append(("incoherent", wl))
+    except Exception:                                        # noqa: BLE001
+        coh = None
     body, seen = [], set()
     if wl:
         _dupe(wl, seen)
@@ -2123,6 +2609,13 @@ def quality(leg, why, lines, games=None):
         if isinstance(x, str) and _gd and _gd.scrub(x)[1]:   # (a price claim / "that's just facts" - the bottom line too)
             out.append(("filler", x))
             continue
+        if isinstance(x, str) and coh is not None:
+            try:
+                if coherent_line(x, leg, cx_, coh)[1]:
+                    out.append(("incoherent", x))
+                    continue
+            except Exception:                                # noqa: BLE001
+                pass
         if not isinstance(x, str) or BOTTOM.match(x):
             continue
         if x.startswith("💯"):
