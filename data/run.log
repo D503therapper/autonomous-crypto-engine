@@ -23680,3 +23680,33 @@ DEX: $1,000.00 (+0.00) · Scammed: 0
 [2026-11-19 00:06 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-19 00:06 UTC] crypto/hold_btc  equity $386.44 (-22.7%) 1 open  market DOWN
    social heat top: PENGU 35 (35/0/0), MON 32 (32/0/0), BTC 29 (29/0/0), SOL 24 (24/0/0), ETH 19 (19/0/0)
+   dex screen: REJECT RAY@solana liq $1,407,570 - top-10 holders 83%; lp locked 0% < 95%
+   dex screen: REJECT GULD@ethereum liq $1,934,174 - top-10 holders 57%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]              a1575838e806d28b74750e71ecd4c33d2026db90 -> main (fetch first)
+error: failed to push some refs to 'https://githu
+   dex screen: PASS JOB@solana liq $169,287
+   dex screen: REJECT QUID@base liq $740,646 - goplus partial data: cannot_sell_all unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex screen: REJECT USDC@solana liq $2,301,870 - freeze authority; mint authority; lp holders unknown
+   dex screen: REJECT JEANPHIL@solana liq $197,170 - lp holders unknown; rugcheck lp locked 78% < 95%
+   dex screen: REJECT MSTRC@base liq $88,867 - liquidity $88,867 < $100,000; 24h volume $11,558 < $100,000
+   dex screen: REJECT AERO@base liq $2,396 - liquidity $2,396 < $100,000; 24h volume $7,894 < $100,000
+   listing: okx_symbols #XMSTU 'New OKX listing (XMSTU)' -> ['XMSTU']
+   listing: XMSTU: okx_symbols notice "New OKX listing (XMSTU)" -> not on Crypto.com USD
+   dex screen: REJECT FOLD@ethereum liq $850,696 - goplus partial data: cannot_sell_all unknown; is_mintable; honeypot_with_same_creator; owner_percent 38%; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT CATE@solana liq $73,764,170 - top-10 holders 100%
+   dex screen: REJECT CATE@solana liq $1,477,156 - top-10 holders 100%
+   dex screen: REJECT BUTTHOLE@solana liq $110,212 - top-10 holders 54%; lp holders unknown
+   dex screen: UNREACHABLE DACITYCOIN@ethereum liq $129,424 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT FLOAT@solana liq $213,911 - lp locked 0% < 95%
+   dex scanner: 2,964 pools (solana 2,181 / base 440 / ethereum 343), refresh cycle 134s (hot 129s), 2778 calls (108 feed, 429s 0, failed 1), 80,070 refreshed (12324 no pair), +82 added / -103 dropped (dead 94, stale 9, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-19 01:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/mover     equity $173.58 (-65.3%) 1 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/social_heat equity $322.11 (-35.6%) 1 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 01:05 UTC] crypto/hold_btc  equity $387.66 (-22.5%) 1 open  market DOWN
+   social heat top: HYPE 37 (37/0/0), NEAR 35 (35/0/0), PENGU 27 (27/0/0), BTC 24 (24/0/0), MON 21 (21/0/0)
