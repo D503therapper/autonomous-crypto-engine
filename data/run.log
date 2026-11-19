@@ -23747,3 +23747,37 @@ error: failed to push some refs to 'https://githu
 [2026-11-19 02:21 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-19 02:21 UTC] crypto/hold_btc  equity $385.85 (-22.8%) 1 open  market DOWN
    social heat top: BTC 37 (37/0/0), ETH 35 (35/0/0), HYPE 32 (32/0/0), PENGU 29 (29/0/0), MON 27 (27/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT SOL@base liq $255,429 - top-10 holders 79%; lp locked 0% < 95%
+   dex screen: PASS PEPE@ethereum liq $24,413,800
+   dex screen: REJECT SUSDE@ethereum liq $1,486,990 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%
+   dex screen: UNREACHABLE GTA6@ethereum liq $214,607 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SPCXC@base liq $954,136 - pool age unknown
+   dex screen: REJECT NVDAC@base liq $1,769,872 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT USDS@ethereum liq $55,006,379 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%
+   dex screen: REJECT ANSEM@solana liq $317,701,614 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,329 - top-10 holders 100%
+   dex screen: UNREACHABLE ANSEM@solana liq $1,077,468 - goplus unreachable
+   dex screen: REJECT SKY@ethereum liq $1,230,299 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 89%
+   dex screen: REJECT GDLR@ethereum liq $214,372 - transfer_pausable; is_blacklisted; top-10 holders 55%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GULD@base liq $2,150,919 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 57%
+   dex screen: UNREACHABLE GTA6@ethereum liq $227,514 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PAXG@ethereum liq $2,004,927 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex scanner: 2,853 pools (solana 2,133 / base 410 / ethereum 310), refresh cycle 165s (hot 160s), 1427 calls (80 feed, 429s 0, failed 0), 40,403 refreshed (6104 no pair), +156 added / -284 dropped (dead 254, stale 12, cap 18), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-19 03:12 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/mover     equity $172.73 (-65.5%) 1 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/social_heat equity $321.48 (-35.7%) 1 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 03:12 UTC] crypto/hold_btc  equity $385.11 (-23.0%) 1 open  market DOWN
+   social heat top: LINK 37 (37/0/0), CC 32 (32/0/0), PENGU 29 (29/0/0), BTC 24 (24/0/0), ETH 21 (21/0/0)
