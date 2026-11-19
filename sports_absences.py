@@ -110,11 +110,53 @@ NBA_ROTATION = 3                                         # hoops: played in 3+ o
 def missed_lately(games, league, team, name, before, n=2):
     """10/23 (Air Force's QB L. Szarka, out since 10/10 - the backup started and won the last 2): a key player who sat
     the team's last `n` games is old news, never sold on a card as a fresh edge. False when we hold fewer box scores."""
+    if snap_starter(league, team, name, before):             # 🧱 11/19: a lineman / corner the snap counts say STARTS
+        return False                                         # is never 'sat lately' because no box score names him
     real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
             if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
     if len(real) < n:
         return False
     return not any(match(name, {_nm(r["player"]) for r in rs}) for _, _, rs in real[-n:])
+
+
+# 🧱 11/19 FABLE (the owner on the Colts +525 at the Texans - both starting tackles, a starting corner and a defensive
+# tackle out, and the count read the Colts as the HEALTHIER side: "The starting fucking edges are key because then
+# there's no pass protection ... This is not okay that we're not looking at this."). The box score names the QB, the
+# backs, the catchers and the tacklers; an offensive lineman is in none of it. sports_starters reads who starts at
+# every other spot (the snap counts: 70%+ of the snaps over the last 3 games, 50%+ up front on defense; else the depth
+# chart's first string). unseen() = those men; plays() = the box score's regulars AND those men - what every card and
+# the banged-up count read. No snap counts / no chart (college, a quiet source): the box score alone, as before.
+def unseen(league, team, before):
+    """{normalized name: (name, position, group)} - the starters the box score can't show ({} = none we can see)."""
+    if league not in ("nfl", "ncaaf"):
+        return {}
+    try:
+        import sports_starters
+        return sports_starters.starters(league, str(team), before) or {}
+    except Exception:                                        # noqa: BLE001 - the box-score rule stands
+        return {}
+
+
+def snap_starter(league, team, name, before):
+    """(name, position, group) when this man is one of the starters the box score can't show, else None."""
+    st = unseen(league, team, before)
+    if not st:
+        return None
+    try:
+        import sports_starters
+        return sports_starters.find(st, name)
+    except Exception:                                        # noqa: BLE001
+        return None
+
+
+def plays(games, league, team, before):
+    """Everyone who actually plays: regulars() plus, in football, the starters a box score can't show (unseen). None
+    when neither source can say."""
+    reg = regulars(games, league, team, before)
+    more = set(unseen(league, team, before))
+    if reg is None and not more:
+        return None
+    return set(reg or ()) | more
 
 
 def match(name, pool):
@@ -438,7 +480,9 @@ def penalty(games, g, side, injuries, skip_qb=False):
 #   college hoops  one of the 5 men with the most minutes over the last 5 box scores
 #   hockey         a top-6 forward / top-4 defenseman by ice time over the last 10 box scores, or the goalie who started
 #                  the most of them
-#   football       the box scores' regulars (the QB, top 2 backs, top 4 catchers, top 11 tacklers - regulars)
+#   football       the box scores' regulars (the QB, top 2 backs, top 4 catchers, top 11 tacklers - regulars) and, from
+#                  11/19, the starters a box score can't show - the offensive line, the corners / safeties, the men
+#                  up front on defense (sports_starters: the snap counts, else the depth chart's first string - plays)
 #   long-term      he played in none of the team's last LONG_GONE box scores: old news, never a card line
 MATTERS_WINDOW = {"nba": 10, "ncaab": 5, "nhl": 10}
 MATTERS_TOP = {"nba": 3, "ncaab": 5}
@@ -463,7 +507,7 @@ def who_matters(games, league, team, before):
     """Normalized names of the men whose absence is worth a card line (the table above). None = no box scores on file
     for the team / a league this doesn't cover - nothing is claimed either way."""
     if league in ("nfl", "ncaaf"):
-        return regulars(games, league, team, before)
+        return plays(games, league, team, before)            # (11/19: the linemen / corners the snap counts name too)
     n = MATTERS_WINDOW.get(league)
     if not n:
         return None
@@ -507,6 +551,8 @@ def gone_long(games, league, team, name, before):
     hold fewer box scores than that."""
     n = LONG_GONE.get(league)
     if not n:
+        return False
+    if snap_starter(league, team, name, before):             # (11/19: a starter by the snap counts just played)
         return False
     real = _real(games, league, team, before)
     if len(real) < n:

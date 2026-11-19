@@ -1886,9 +1886,9 @@ def who_plays_only(names, lg, team_id, before):
         return fresh([x for x in names if sports_absences.match(str(x).split(" (")[0], pool)])
     if lg not in ("nfl", "ncaaf"):
         return names
-    try:
-        reg = sports_absences.regulars(None, lg, team_id, before)
-    except Exception:                                        # noqa: BLE001
+    try:                                                     # 🧱 11/19: plays() - the box score's regulars AND the
+        reg = sports_absences.plays(None, lg, team_id, before)   # starters it can't show (the offensive line, corners,
+    except Exception:                                        # noqa: BLE001  the men up front - the snap counts)
         return names
     if not reg:
         return names
@@ -2872,19 +2872,27 @@ def more_facts(leg, v, g, us, them, the_us, the_them, pro, tid, oid, start, s_ou
     _who_plays = lambda names, team_id: who_plays_only(names, lg, team_id, g.get("start") or "9")   # noqa: E731
     theirs_out = [str(x) for x in (leg.get("opp_outs") or []) if x]
     theirs_out = _who_plays([x for x in theirs_out if x.split(" (")[0].lower() not in body], oid)[:4]
+    # 🧱 11/19 (the owner on the Colts' two tackles: "there's no pass protection ... backups ... teams could get eat
+    # up"): a lineup more than one starter short at one spot is SAID in plain words with the names - "Both starting
+    # tackles out - backups protecting the QB." Theirs rides the 🚑 line; ours is only ever the ⚠️ knock.
+    _hole = lambda k: (lambda h: f" {h[0].upper()}{h[1:]}." if h else "")(str(leg.get(k) or "").strip())   # noqa: E731
     if theirs_out:
         nm = ", ".join(theirs_out)
-        add.append(v.say("f_outs", [f"🚑 {them} are without {nm}.",
-                                    f"🚑 Out for {them}: {nm}.",
-                                    f"🚑 No {nm} for {them}.",
-                                    f"🚑 {nm} won't suit up for {them}.",
-                                    f"🚑 {them} gotta play without {nm}.",
-                                    f"🚑 {them} are down {nm} tonight."]))
+        hw = _hole("opp_holes")
+        add.append(v.say("f_outs", [f"🚑 {them} are without {nm}.{hw}",
+                                    f"🚑 Out for {them}: {nm}.{hw}",
+                                    f"🚑 No {nm} for {them}.{hw}",
+                                    f"🚑 {nm} won't suit up for {them}.{hw}",
+                                    f"🚑 {them} gotta play without {nm}.{hw}",
+                                    f"🚑 {them} are down {nm} tonight.{hw}"]))
     ours_out = [str(x) for x in (leg.get("outs") or []) if x]
     ours_out = _who_plays([x for x in ours_out if x.split(" (")[0].lower() not in body], tid)[:4]
     if ours_out and not any(str(x).startswith("🚑") and us in str(x) for x in out) \
             and not any(ours_out[0].split(" (")[0] in k for _, k in v.knocks):
-        v.knock(8 if len(ours_out) >= 3 else 5, f"{us} go without {', '.join(ours_out)}")
+        if leg.get("holes"):                              # (11/19: our own thin line is the knock, said straight)
+            v.knock(9, f"{us} go without {', '.join(ours_out)} - {leg['holes']}")
+        else:
+            v.knock(8 if len(ours_out) >= 3 else 5, f"{us} go without {', '.join(ours_out)}")
 
     # the goalies / QBs with their numbers - said FOR us when ours has the better numbers, the knock when theirs does
     role = sp.ROLE.get(lg)
