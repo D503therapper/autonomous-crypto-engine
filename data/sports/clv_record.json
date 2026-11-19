@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 119,
-  "beat": 38,
+  "n": 120,
+  "beat": 39,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.18
+  "avg_pts": 0.22
  },
  "unit_plays": {
-  "n": 119,
-  "beat": 38,
+  "n": 120,
+  "beat": 39,
   "same": 54,
   "worse": 27,
-  "avg_pts": 0.18
+  "avg_pts": 0.22
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 1.21
   },
   "play": {
-   "n": 73,
-   "beat": 23,
+   "n": 74,
+   "beat": 24,
    "same": 34,
    "worse": 16,
-   "avg_pts": 0.14
+   "avg_pts": 0.21
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.24
   },
   "ncaab": {
-   "n": 2,
-   "beat": 1,
+   "n": 3,
+   "beat": 2,
    "same": 1,
    "worse": 0,
-   "avg_pts": 0.5
+   "avg_pts": 2.07
   },
   "ncaaf": {
    "n": 42,
@@ -1775,6 +1775,20 @@
    "close": 150,
    "pts": -7.6,
    "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-11-18",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaab",
+   "team": "Charleston So",
+   "market": "ml",
+   "line": null,
+   "odds": 114,
+   "close": -108,
+   "pts": 5.2,
+   "units": 2.0,
    "result": "lost"
   }
  ]

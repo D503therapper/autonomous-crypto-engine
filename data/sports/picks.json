@@ -23656,6 +23656,7 @@
      "game:conf"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_bad": [],
     "dog_ctx": {
      "cw5": 0,
@@ -23707,6 +23708,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "38,41",
+     "h": "29,48"
+    },
     "form_state": [
      24.0,
      1,
@@ -23780,7 +23785,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -23789,7 +23794,9 @@
     ],
     "roster_new": 0.451,
     "roster_tin": 0.334,
+    "score": "Wofford 79 @ Charleston So 77",
     "season_games": null,
+    "settled": "2026-11-19T02:21Z",
     "side": "home",
     "start": "2026-11-19T00:00Z",
     "stype": "2",
@@ -23819,11 +23826,13 @@
    "two_at": 5
   },
   "p_hit": 0.4588,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-18T16:00Z",
   "round": 1,
+  "settled": "2026-11-19T02:21Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 2.0
  }
 ]
