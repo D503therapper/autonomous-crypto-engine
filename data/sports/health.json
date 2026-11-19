@@ -1,12 +1,12 @@
 {
- "at": "2026-11-19T18:21Z",
+ "at": "2026-11-19T18:22Z",
  "fixes": [],
  "problems": [
   "live tennis scores: tennis Erjavec vs Strakhova: no points for 2355s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (60s)",
+  "live watcher fresh (132s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +21,20 @@
   "every upcoming game has its real teams",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 28 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T18:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Erjavec vs Strakhova: no points for 2355s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-19T18:21Z",
    "fixes": [],
@@ -635,13 +643,6 @@
   },
   {
    "at": "2026-11-18T04:25Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T02:52Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
