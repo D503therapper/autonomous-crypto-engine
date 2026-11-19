@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T22:49Z",
+ "updated": "2026-11-19T23:18Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -25,6 +25,21 @@
    "start": "2026-11-19T22:00Z",
    "away": "Notre Dame",
    "home": "Auburn",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaab:401918959",
+   "league": "ncaab",
+   "emoji": "\ud83c\udfc0",
+   "sport": "College Basketball",
+   "season": "regular season",
+   "start": "2026-11-19T23:00Z",
+   "away": "Murray St",
+   "home": "NC State",
    "h1": null,
    "why": "started",
    "done": false,
@@ -109,9 +124,9 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": -1.5,
-    "odds": -135,
-    "p": 0.633,
-    "win_p": 0.808,
+    "odds": -130,
+    "p": 0.628,
+    "win_p": 0.805,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -400,7 +415,7 @@
     "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.658,
     "win_p": 0.441,
     "reasons": []
@@ -677,7 +692,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "St Thomas",
-    "p": 0.67,
+    "p": 0.666,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -686,18 +701,18 @@
    "start": "2026-11-20T01:00Z",
    "away": "SE Missouri",
    "home": "St Thomas",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "SE Missouri",
-    "opp": "St Thomas",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -108,
-    "p": 0.5,
-    "win_p": 0.26,
+    "team": "St Thomas",
+    "opp": "SE Missouri",
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.741,
+    "win_p": 0.741,
     "reasons": [
-     "out-rebounding people by +5.6 a game to their -3.8 - the books don't price the glass (5 of 5 seasons)"
+     "the stronger team"
     ]
    }
   },
@@ -793,7 +808,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.7,
+    "p": 0.705,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -809,9 +824,9 @@
     "opp": "Bucks",
     "market": "spread",
     "line": -11.5,
-    "odds": -104,
+    "odds": -108,
     "p": 0.502,
-    "win_p": 0.799,
+    "win_p": 0.805,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1096,7 +1111,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "New Mexico St",
-    "p": 0.496,
+    "p": 0.503,
     "tie": 0.044,
     "name": "1st half"
    },
@@ -1105,16 +1120,16 @@
    "start": "2026-11-20T02:00Z",
    "away": "UTEP",
    "home": "New Mexico St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "New Mexico St",
     "opp": "UTEP",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.523,
-    "win_p": 0.523,
+    "odds": -122,
+    "p": 0.533,
+    "win_p": 0.533,
     "reasons": [
      "our efficiency ratings have this one a lot closer than the price - favorites like that lost to their price 8 of 8 seasons"
     ]
