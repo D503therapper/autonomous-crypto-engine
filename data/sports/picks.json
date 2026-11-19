@@ -23355,33 +23355,33 @@
     "ats_run": -2,
     "b2b_me": false,
     "bd_tags": [
-     "rec:1",
      "h2h:2",
      "alt:0",
      "cx_trip:2",
      "w_altitude:33",
      "f_last:2",
-     "f_last5:0",
+     "f_last5:2",
      "risk:0",
-     "fill_star:0",
-     "fill_l10:0",
-     "fill_star2:1",
-     "fill_price:2"
+     "fill_star:1",
+     "fill_star2:0",
+     "fill_price:2",
+     "deep_start:0"
     ],
     "big_cover": false,
     "breakdown": [
-     "\ud83d\udccb Nuggets sit 7-5 so far.",
-     "\ud83d\uddd3\ufe0f Nuggets won 6 of their last 10.",
-     "\ud83d\udcaf Jamal Murray is giving Nuggets 26 a night over the last 10 games he's played.",
-     "\ud83d\udcc5 The Celtics are fresh off a 115-105 loss to the Magic.",
      "\ud83e\uddf3 The Celtics put in the miles to get here (1,760-mile trip west).",
-     "\ud83d\uddd3\ufe0f Nuggets are 3-2 over their last 5.",
-     "\ud83c\udfc0 Nuggets: their bench outscored teams by 6.1 points for every full game it played last season - deep squad \u00b7 the coach plays 7 guys real minutes.",
+     "\ud83d\udcb5 +120 at the book on a side we make +103.",
+     "\ud83c\udfc1 Nuggets won the 1st quarter in 7 of their last 10 games. They come out ready.",
+     "\ud83d\uddd3\ufe0f Nuggets won 3 of their last 5.",
+     "\ud83d\udcc5 The Celtics are fresh off a 115-105 loss to the Magic.",
+     "\ud83d\udcaf Nikola Jokic: 24 a night for Nuggets over his last 10 games.",
+     "\ud83d\udcaf Nuggets' top scorer Jamal Murray is putting up 26 a night lately (10 games).",
+     "\ud83c\udfc0 Nuggets: their bench outscored teams by 6 a game last season - deep squad \u00b7 7 guys play real minutes.",
      "\u26a0\ufe0f Biggest knock on Nuggets: Celtics come in 11-3 to Nuggets' 7-5.",
      "\u2705 Bottom line: Nuggets (+120). Our read beats this price. Ride it.",
      "\ud83c\udf1f Nuggets: Jamal Murray (All-NBA 2026) is in the lineup tonight."
     ],
-    "bv": 67,
+    "bv": 68,
     "coach": [
      null,
      false
@@ -23403,6 +23403,7 @@
      "them:west1000"
     ],
     "dec": 2.2,
+    "decider": {},
     "depth_gap": 0,
     "dog_ctx": {
      "cw5": 0,
@@ -23466,6 +23467,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "30,31,19,21",
+     "h": "24,25,31,25"
+    },
     "form_state": [
      -12.0,
      -1,
@@ -23525,11 +23530,14 @@
      "Julian Strawther": "out"
     },
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Celtics 101 @ Nuggets 105",
     "season_games": 12,
+    "settled": "2026-11-19T05:15Z",
     "side": "home",
+    "spare": [],
     "start": "2026-11-19T02:30Z",
     "stype": "2",
     "talk_ours": [],
@@ -23545,12 +23553,14 @@
    }
   ],
   "p_hit": 0.4323,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-11-18T16:00Z",
   "round": 1,
+  "settled": "2026-11-19T05:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 2.0
  },
  {
   "american": 114,
@@ -23597,6 +23607,7 @@
      "game:conf"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_bad": [],
     "dog_ctx": {
      "cw5": 0,
@@ -23648,6 +23659,10 @@
     "fbs_game": null,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "38,41",
+     "h": "29,48"
+    },
     "form_state": [
      24.0,
      1,
@@ -23721,7 +23736,7 @@
     "rep_off_wait": {},
     "rep_status": {},
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
     "roster_cut": [
@@ -23730,7 +23745,9 @@
     ],
     "roster_new": 0.451,
     "roster_tin": 0.334,
+    "score": "Wofford 79 @ Charleston So 77",
     "season_games": null,
+    "settled": "2026-11-19T02:21Z",
     "side": "home",
     "start": "2026-11-19T00:00Z",
     "stype": "2",
@@ -23760,11 +23777,13 @@
    "two_at": 5
   },
   "p_hit": 0.4588,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-11-18T16:00Z",
   "round": 1,
+  "settled": "2026-11-19T02:21Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 2.0
  }
 ]
