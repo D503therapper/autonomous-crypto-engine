@@ -1,31 +1,40 @@
 {
- "at": "2026-11-19T15:20Z",
+ "at": "2026-11-19T15:21Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Monnet vs Bronzetti: no points for 2373s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (143s)",
+  "live watcher fresh (33s)",
   "scores route up (200)",
   "question box answers",
   "card audit: 6 live cards, 9 lines - nothing false, outdated or senseless",
   "card quality: 100/100 on 6 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 0.0, unit cards under the floor: 0)",
+  "slate check: all 56 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (bovada 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 8h ago",
   "simulator ran 7h ago",
-  "engine ran 0 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-11-19T15:21Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-18 Ben Shelton) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-11-19T15:20Z",
    "fixes": [
@@ -633,16 +642,6 @@
    ],
    "problems": [
     "live tennis scores: tennis Rivera vs Labrana: no points for 2614s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-11-18T01:06Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Rivera vs Labrana: no points for 2353s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
