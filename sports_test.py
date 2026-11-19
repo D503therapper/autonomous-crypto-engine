@@ -28702,6 +28702,41 @@ def test_named_out_1119_their_best_men_out_lead_the_line_under_the_pick():
         sa.key_players = keep
 
 
+def test_hot_run_1119_the_flyers_line_says_why_the_engine_likes_them():
+    """11/19, the owner on the Flyers +150 2u card - "🗓️ Flyers are 3-2 over their last 5. Flyers the side.": "Flyers one
+    liner is terrible wtf." The hockey dog score's angle - the books overpay for the other goalie's hot run - is said
+    as the line under the pick with his real numbers, never ALSO a 'what scares us' knock; a record up by one never leads."""
+    import sports_breakdown_v24 as v24
+    g = {"id": "nhl:401892743", "league": "nhl", "start": "2026-11-20T00:00Z", "home": "14", "away": "15"}
+    leg = {"team": "Flyers", "league": "nhl", "side": "away", "p": 0.449, "dec": 2.5, "tier": "value", "ctx": [],
+           "reasons": ["the hockey dog score backs it: +6.6 (our read +0.6 points on the no-vig number, the puck luck's "
+                       "been against them (PDO 970), the books overpay for the other goalie's hot run - every hockey dog "
+                       "angle weighed)"]}
+    form = {(False, "hot"): ("Samuel Ersson", "a 0.918 save % (6 goals on 73 shots) over his last 3 starts", "likely")}
+    line = v24.why_line(leg, v24.Voice("hr", set()), g, "Flyers", "Senators", "the Flyers", "the Senators", form=form,
+                        whyf={})
+    assert line.startswith("🧱") and "Samuel Ersson" in line and "0.918" in line and len(line) <= v24.LINE_MAX, line
+    assert v24.hot_overpay(leg) and not v24.hot_overpay({"reasons": ["opponent on a back-to-back"]})
+    old = v24.why_line(leg, v24.Voice("hr2", set()), {**g, "start": "2026-11-18T00:00Z"}, "Flyers", "Senators",
+                       "the Flyers", "the Senators", form=form, whyf={})
+    assert not old.startswith("🧱")                       # (a game before the fix keeps its line)
+    pick = lambda lines: v24.lead_line(lines, None, "Flyers")   # noqa: E731
+    assert pick(["🗓️ Flyers are 3-2 over their last 5.", "💯 Matvei Michkov: 9 points over the last 10.", "✅ x"]).startswith("💯")
+    assert pick(["🗓️ Flyers are 4-1 over their last 5.", "💯 M: 9 points.", "✅ x"]).startswith("🗓️")
+    assert pick(["🗓️ Flyers are 3-2 over their last 5.", "✅ x"]).startswith("🗓️")   # (nothing else: still a fact)
+    src = open(v24.__file__, encoding="utf-8").read()
+    assert "hot_overpay(leg) and (g.get(\"start\") or \"\")[:10] >= HOT_RUN_LINE_FROM):" in src   # no knock on the angle
+
+
+def test_no_knock_1119_no_bad_shit_on_a_card():
+    """11/19, the owner: "I don't want bad shit in the breakdowns." From NO_KNOCK_FROM no card carries the ⚠️ risk line
+    (the Ducks card's "Avalanche is 7-3 at home", the Tulane / Louisiana Tech scoring knock); the facts still weigh."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__, encoding="utf-8").read()
+    assert 'risk = risk_line(v, us, them, the_us) if (g.get("start") or "")[:10] < NO_KNOCK_FROM else ""' in src
+    assert v24.NO_KNOCK_FROM == "2026-11-19"
+
+
 def inspect_source(obj):
     import inspect
     return inspect.getsource(obj)
