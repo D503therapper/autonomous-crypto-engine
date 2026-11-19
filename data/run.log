@@ -24106,3 +24106,57 @@ crypto scanner failed: HTTP Error 404: Not Found
 [2026-11-19 14:04 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
 [2026-11-19 14:04 UTC] crypto/hold_btc  equity $392.27 (-21.5%) 1 open  market DOWN
    social heat top: TRUMP 37 (37/0/0), PEPE 31 (19/0/12), XRP 29 (16/0/13), SKY 27 (27/0/0), PENGU 24 (24/0/0)
+   dex screen: PASS STONK@solana liq $1,960,541
+   dex screen: REJECT LBTC@ethereum liq $2,520,805 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 86%
+   dex screen: REJECT HYPE@solana liq $1,687,635,146 - top-10 holders 100%
+   dex screen: UNREACHABLE LUCIA@ethereum liq $351,820 - honeypot.is unreachable
+   dex screen: REJECT SI@solana liq $16,944,038 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SI@solana liq $226,202 - transfer_fee_upgradable; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: UNREACHABLE LUCIA@ethereum liq $366,406 - honeypot.is unreachable
+   >> stocks/trend: SELL $133.55 of COST @ 1089.02, P/L $-2.23 (stop hit (live check))
+   dex screen: REJECT MUC@base liq $25,204 - liquidity $25,204 < $100,000; 24h volume $34,086 < $100,000
+   dex screen: REJECT KTA@base liq $2,814,843 - top-10 holders 66%
+   >> stocks/trend: SELL $133.44 of AAPL @ 348.885, P/L $-2.33 (stop hit (live check))
+   dex screen: UNREACHABLE LUCIA@ethereum liq $375,201 - honeypot.is unreachable
+   dex screen: REJECT CIRBTC@ethereum liq $5,039,432 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 81%
+   dex screen: PASS PEPE@ethereum liq $25,321,528
+   dex scanner: 3,001 pools (solana 2,110 / base 505 / ethereum 386), refresh cycle 124s (hot 120s), 3019 calls (118 feed, 429s 1, failed 1), 87,030 refreshed (10514 no pair), +125 added / -124 dropped (dead 9, stale 0, cap 115), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-11-19 15:04 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/mover     equity $162.20 (-67.6%) 2 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/announce  equity $480.79 (-3.8%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/social_heat equity $323.33 (-35.3%) 1 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/breakout10 equity $385.19 (-23.0%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/momentum  equity $418.69 (-16.3%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/breakout  equity $477.30 (-4.5%) 0 open  market DOWN
+[2026-11-19 15:04 UTC] crypto/hold_btc  equity $390.75 (-21.8%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: SAVA"}}}
+$SAVA: No data found, symbol may be delisted
+$BITF: possibly delisted; no price data found  (period=407d)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['SAVA', 'NKLA']: No data found, symbol may be delisted
+['BITF']: possibly delisted; no price data found  (period=407d)
+   >> stocks/rsi2: SELL $153.50 of XLY @ 118.896, P/L $+0.16 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $151.64 of XLV @ 178.949 (entry)
+[2026-11-19 15:05 UTC] stocks/rsi2      equity $454.84 (-9.0%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): MSTR 0, GLD 1, XLB 1, COIN 2
+[2026-11-19 15:05 UTC] stocks/breakout52 equity $458.48 (-8.3%) 4 open  market DOWN
+   breakout52: SPY above its 200-day average: NO (no buys); 81 names with data; at a 52-week high: none
+[2026-11-19 15:05 UTC] stocks/tqqq200   equity $500.00 (+0.0%) 0 open  market UP
+   tqqq200: TQQQ last close 52.47 vs its 200-day average 65.47: BELOW (cash)
+[2026-11-19 15:05 UTC] stocks/dual_momentum equity $455.05 (-9.0%) 2 open  market DOWN
+[2026-11-19 15:05 UTC] stocks/trend_ensemble equity $494.29 (-1.1%) 5 open  market UP
+   >> stocks/rotation10: SELL $228.50 of COST @ 1087.9, P/L $+5.38 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $225.60 of AMD @ 544.722 (entry)
+[2026-11-19 15:05 UTC] stocks/rotation10 equity $501.22 (+0.2%) 2 open  market UP
+[2026-11-19 15:05 UTC] stocks/momentum  equity $478.81 (-4.2%) 0 open  market DOWN
+[2026-11-19 15:05 UTC] stocks/trend     equity $453.37 (-9.3%) 2 open  market DOWN
+[2026-11-19 15:05 UTC] stocks/hold_spy  equity $481.35 (-3.7%) 1 open  market DOWN
+   social heat top: TRUMP 40 (40/0/0), SKY 29 (29/0/0), PENGU 24 (24/0/0), BTC 21 (21/0/0), SOL 19 (19/0/0)
