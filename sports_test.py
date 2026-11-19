@@ -28545,6 +28545,14 @@ def test_sweep_1119_the_nba_over_posts_on_its_own_game_day_only_and_its_card_arg
     said when the files back it; and the saved card of a posted play loses the under-the-number line on the page."""
     import sports_early as se, sports_nba_out as no, sports_card_check as cc
     assert no.GAME_DAY_ONLY
+    keep_w, no.WINDOW_H = no.WINDOW_H, None                              # (the game-day rule alone - the 4-hour window has its own test)
+    try:
+        _sweep_1119_nba_over_impl(se, no, cc)
+    finally:
+        no.WINDOW_H = keep_w
+
+
+def _sweep_1119_nba_over_impl(se, no, cc):
     games, rows, inj = _sweep_1119_nba_fixture()
     wed = datetime(2026, 11, 19, 2, 21, tzinfo=timezone.utc)             # Wednesday 6:21 PM PT, two days out
     st = {"picks": [], "nba_out_seen": {"nba:9": ["2026-11-19T01:00Z", ["Al Able", "Bo Baker", "Fox Ford"]]}}
@@ -28946,6 +28954,35 @@ def test_no_knock_1119_no_bad_shit_on_a_card():
     src = open(v24.__file__, encoding="utf-8").read()
     assert 'risk = risk_line(v, us, them, the_us) if (g.get("start") or "")[:10] < NO_KNOCK_FROM else ""' in src
     assert v24.NO_KNOCK_FROM == "2026-11-19"
+
+
+def test_early_1119_no_early_football_side_while_its_qb_room_is_in_flux_and_the_nba_over_waits_for_the_tip():
+    """11/19, the owner on two early plays (kept): the Wyoming +245 hammered-spot play went up 11/16 and its QB Tyler Hughes
+    was ruled out 11/19 - he'd thrown 9 passes 11/8 and sat 11/15 (Landon Sims started), so the QB was unsettled at the
+    post; the Raptors @ Pistons over 227.5 went up two days early and two of its three outs came off the report. "If these
+    two cost us money we can't let this happen again." """
+    import sports_early as se, sports_absences as sa, sports_nba_out as no
+    from datetime import datetime, timezone, timedelta
+    games = {"ncaaf:1": {"id": "ncaaf:1", "league": "ncaaf", "home": "2751", "away": "167", "start": "2026-11-21T02:00Z"}}
+    c = {"league": "ncaaf", "game_id": "ncaaf:1", "side": "home", "team": "Wyoming", "odds": 245}
+    keep = sa.qb_changed
+    try:
+        sa.qb_changed = lambda g, lg, team, before, last=2, rows=None: {"changed": True, "names": ["Tyler Hughes", "Tyler Hughes", "Landon Sims"]}
+        why = se.qb_unsettled(c, games, now=datetime(2026, 11, 20, tzinfo=timezone.utc))
+        assert "qb unsettled" in why and "Landon Sims" in why, why
+        assert se.qb_unsettled(c, games, now=datetime(2026, 11, 16, tzinfo=timezone.utc)) == ""     # before the rule
+        assert se.qb_unsettled({**c, "league": "nba"}, games, now=datetime(2026, 11, 20, tzinfo=timezone.utc)) == ""
+        assert se.qb_unsettled({**c, "market": "total"}, games, now=datetime(2026, 11, 20, tzinfo=timezone.utc)) == ""
+        sa.qb_changed = lambda g, lg, team, before, last=2, rows=None: {"changed": False, "names": ["A", "A", "A"]}
+        assert se.qb_unsettled(c, games, now=datetime(2026, 11, 20, tzinfo=timezone.utc)) == ""
+        sa.qb_changed = lambda *a, **k: None                                                             # unknown: no hold
+        assert se.qb_unsettled(c, games, now=datetime(2026, 11, 20, tzinfo=timezone.utc)) == ""
+    finally:
+        sa.qb_changed = keep
+    assert no.WINDOW_H == 4 and no.WINDOW_FROM == "2026-11-19"
+    src = open(no.__file__, encoding="utf-8").read()
+    assert "st_ - now > timedelta(hours=WINDOW_H)" in src
+    assert "q = qb_unsettled(c, games)" in open(se.__file__, encoding="utf-8").read()
 
 
 def inspect_source(obj):

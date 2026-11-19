@@ -207,6 +207,11 @@ def quit_now(st, units_of):
     return risk > 0 and net / risk < QUIT[1]
 
 
+WINDOW_H = 4              # ⏰ 11/19 (the owner on the Raptors @ Pistons over 227.5 - posted 2 days early, then Cade Cunningham and RJ
+WINDOW_FROM = "2026-11-19"   # Barrett came OFF the report: "we can't let this happen again"): the over posts only inside 4 hours
+#   of the tip - the study's price is the close and its outs are the final game-day statuses; a man listed out the day
+#   before can play. 0 / None = the game-day rule alone.
+
 def candidates(games, st, now, inj, rows=None, se=None):
     """The 🏀 overs to post now (see the module doc). inj = the NBA injury report ({team: [(player, pos, status)]});
     None = we DON'T KNOW who's out = no play. st carries 'nba_out_seen' {game id: [first seen iso, the men]}."""
@@ -226,6 +231,8 @@ def candidates(games, st, now, inj, rows=None, se=None):
             continue                                         # never a started game - nor one 35 min out (11/18); from FROM
         if GAME_DAY_ONLY and now.astimezone(se.PT).date() != st_.astimezone(se.PT).date():
             continue                                         # 📅 11/19 sweep: game day only (see GAME_DAY_ONLY)
+        if WINDOW_H and now.strftime("%Y-%m-%d") >= WINDOW_FROM and st_ - now > timedelta(hours=WINDOW_H):
+            continue                                         # ⏰ 11/19: only inside WINDOW_H hours of the tip (see WINDOW_H)
         tot, odds = se.sm._num(g.get("total")), se._int(g.get("over_odds")) or -110
         if tot is None or odds < MAX_PRICE:
             continue
