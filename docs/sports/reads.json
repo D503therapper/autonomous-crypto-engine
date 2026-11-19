@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T05:17Z",
+ "updated": "2026-11-19T05:45Z",
  "games": [
   {
    "id": "ncaab:401909753",
@@ -1252,8 +1252,8 @@
    "away": "Jazz",
    "home": "Lakers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1282,8 +1282,8 @@
    "away": "Suns",
    "home": "Kings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1558,7 +1558,7 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Jacksonville",
-    "p": 0.534,
+    "p": 0.535,
     "tie": 0.043,
     "name": "1st half"
    },
@@ -1892,7 +1892,7 @@
     "market": "spread",
     "line": -16.5,
     "odds": -106,
-    "p": 0.504,
+    "p": 0.503,
     "win_p": 0.862,
     "reasons": [
      "the stronger team"
@@ -2019,6 +2019,67 @@
    }
   },
   {
+   "id": "nba:401910020",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Trail Blazers",
+    "p": 0.665,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-20T01:00Z",
+   "away": "Trail Blazers",
+   "home": "Bucks",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Trail Blazers",
+    "opp": "Bucks",
+    "market": "spread",
+    "line": -9.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.756,
+    "reasons": [
+     "the stronger team",
+     "opponent on a back-to-back"
+    ]
+   }
+  },
+  {
+   "id": "nba:401910019",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "h1": {
+    "team": "Grizzlies",
+    "p": 0.631,
+    "tie": 0.034,
+    "name": "1st half"
+   },
+   "sport": "NBA",
+   "season": "regular season",
+   "start": "2026-11-20T01:00Z",
+   "away": "Warriors",
+   "home": "Grizzlies",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Grizzlies",
+    "opp": "Warriors",
+    "market": "spread",
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.501,
+    "win_p": 0.716,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401892750",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -2086,8 +2147,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Wisconsin",
-    "p": 0.612,
-    "tie": 0.041,
+    "p": 0.591,
+    "tie": 0.042,
     "name": "1st half"
    },
    "sport": "College Basketball",
@@ -2102,9 +2163,9 @@
     "opp": "Seton Hall",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -192,
+    "p": 0.648,
+    "win_p": 0.648,
     "reasons": [
      "the stronger team"
     ]
