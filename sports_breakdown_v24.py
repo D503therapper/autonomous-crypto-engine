@@ -372,6 +372,25 @@ def someone_elses_story(hl, mine, games, lg, need_mine=False):
     return any(n != mine for n in hits) and not mine_in
 
 
+def _best_win_line(us, them, ru, rt, r_ours, r_theirs, tid, oid, e, pro):
+    """11/19 sweep (the owner, 10/1: never vague): "4-0 vs 3-1 looks even. Who they've played says Charleston." named
+    nobody. The line names the win: the best team we beat (by the ratings), with the score - only when that team is
+    rated above everybody THEY beat. [] = no such win = no line."""
+    try:
+        rt_ = lambda o: e.r.get(o, 1500.0)                   # noqa: E731
+        ours = [x for x in r_ours or [] if _line(x, tid).startswith("W")]
+        theirs = [x for x in r_theirs or [] if _line(x, oid).startswith("W")]
+        if not ours:
+            return []
+        bw = max(ours, key=lambda x: rt_(_opp_id(x, tid)))
+        if rt_(_opp_id(bw, tid)) < 1500.0 or any(rt_(_opp_id(x, oid)) >= rt_(_opp_id(bw, tid)) for x in theirs):
+            return []
+        o2, _, sc = _last_parts(bw, tid, pro)
+        return [f"💪 {ru} vs {rt} looks even - but {us} beat {o2} {sc}, a better team than anybody {them} beat."]
+    except Exception:                                        # noqa: BLE001
+        return []
+
+
 def close_records(ru, rt):
     """Two records are 'close' (same kind of record) when the win % gap is small AND the win gap is small: 85-77 vs
     98-64 (10/16 truth audit: "Records are close") is 13 wins apart - never close. The win gap allowed grows with the
@@ -932,7 +951,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                              f"💪 {_ru} to {_rt}. {them} about to get their ass beat."] if big else [
                                              f"💪 {us} {_ru}, {them} {_rt} — close on paper, but our ratings have {us} ahead.",
                                              f"💪 Records are tight ({_ru} / {_rt}); the ratings like {us}.",
-                                             f"💪 {_ru} vs {_rt} looks even. Who they've played says {us}.",
+                                             *_best_win_line(us, them, _ru, _rt, r_ours, r_theirs, tid, oid, e, pro),
                                              f"💪 {us} {_ru}, {them} {_rt}. Tight records, but our ratings got {us} as the better team."])))
                 #   (10/23, the owner on Army 4-2 vs Tulsa 4-3: "they both have 4 wins" - a 'better team' claim needs
                 #    a 3+ game record gap; close records say close, and the ratings carry it)
@@ -953,7 +972,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                     ls = "L's" if len(names) > 1 else "L"
                     one = "that L" if len(names) == 1 else "those L's"
                     out.append(v.say("sched", [f"⚖️ {us} {_ru}, {them} {_rt} — but {_pos(us)} {ls} came against {nm}.",
-                                               f"⚖️ Same kind of record, tougher schedule: {us} lost to {nm}.",
+                                               f"⚖️ Same kind of record, tougher schedule: {_pos(us)} {ls} came against {nm}.",
+                                               #   (11/19 sweep: "... tougher schedule: Panthers lost to Bears, Browns ..."
+                                               #    read as a knock on our own side and the page's check cut it every time)
                                                f"⚖️ Don't let {_ru} fool you — {us} took {one} from {nm}."]))
             elif close_records(_ru, _rt) and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
                 plus = (leg.get("odds") or 0) > 0 and leg.get("market") == "ml"   # (10/27: said FOR us - a wash on
@@ -1081,8 +1102,16 @@ def breakdown(leg, games, elo, injuries, used=None):
     # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
     if s_ours and _line(s_ours[-1], tid).startswith("W") and (not s_theirs or _line(s_theirs[-1], oid).startswith("L")):
         _nd = lambda g_, t_: " (a non-D1 school)" if non_d1(lg, _opp_id(g_, t_)) else ""   # (11/13: "Idaho W 108-69
-        last_us = _line(s_ours[-1], tid) + _nd(s_ours[-1], tid)   # vs Lincoln (CA)" never said it was a tune-up)
-        both = f"{us} {last_us}" + (f" · {them} {_line(s_theirs[-1], oid)}{_nd(s_theirs[-1], oid)}" if s_theirs else "")
+        #   (11/19 sweep, the owner: plain words, never robotic - "Charleston So W 92-68 vs West Georgia · Wofford L
+        #    92-97 @ Queens" was a box-score line, the loser's score first; said the way people say it)
+        _pl = lambda g_, t_, verb: (lambda sd_: f"{verb} {_an(sd_.split('-')[0])} {sd_}")(_said(g_, t_, pro))   # noqa: E731
+        last_us = _pl(s_ours[-1], tid, "got") + _nd(s_ours[-1], tid)   # vs Lincoln (CA)" never said it was a tune-up)
+        _same = bool(s_theirs) and (s_ours[-1] is s_theirs[-1] or (s_ours[-1].get("id") is not None
+                                                                   and s_ours[-1].get("id") == s_theirs[-1].get("id")))
+        #   (11/19: these two just played each other - "Stars got a 4-3 win over the Golden Knights · Golden Knights
+        #    took a 4-3 loss to the Stars" said one game twice)
+        both = f"{us} {last_us}" + (f" · {them} {_pl(s_theirs[-1], oid, 'took')}{_nd(s_theirs[-1], oid)}"
+                                    if s_theirs and not _same else "")
         out.append(v.say("latest", [f"📅 Latest: {both}.", f"📅 Last time out: {both}.", f"📅 Last game for each: {both}.",
                                      f"📅 Where they're coming from: {both}.", f"📅 Last week's tape: {both}." if lg in ("nfl", "ncaaf")
                                      else f"📅 Last outing: {both}.", f"📅 How they came in: {both}.", f"📅 Fresh off: {both}."]))
@@ -1928,11 +1957,22 @@ def _words(t):
     return " ".join(re.findall(r"[a-z0-9]+", str(t or "").lower()))
 
 
+_STREAK_RX = re.compile(r"(\d+)(?:-game)? (?:straight|in a row|skid|heater|winning streak|losing streak)|"
+                        r"(\d+) (?:wins|losses|L'?s|W'?s) in a row|(?:streak|skid) at (\d+)|"
+                        r"haven'?t (?:won|lost) in (\d+)|hasn'?t (?:won|lost) in (\d+)", re.I)
+
+
+def _streaks(t):
+    """The streak lengths a line states ('5 straight', '5 losses in a row', 'haven't won in 5') -> {5}."""
+    return {int(n) for m in _STREAK_RX.finditer(str(t or "")) for n in m.groups() if n}
+
+
 def no_repeats(lines, why, known, recs=(), us=""):
     wl = str(why or "")
     said, wbig, wplain = line_scores(wl, known, recs), _big_nums(wl), _words(wl)
     pri = lambda x: 0 if str(x).startswith(_SAY_FIRST) else 2 if str(x).startswith("📋") else 1   # noqa: E731
     keep = {}
+    streaks_said = _streaks(wl)
     for i in sorted(range(len(lines)), key=lambda j: (pri(lines[j]), j)):
         x = lines[i]
         if not isinstance(x, str) or x.startswith(NEVER_CUT) or "non-D1" in x:   # (the tune-up note is never lost)
@@ -1964,6 +2004,11 @@ def no_repeats(lines, why, known, recs=(), us=""):
             rr = [f"{a}-{b}" for a, b in _SCORE_RX.findall(x)]
             if rr and all(re.search(rf"(?<![\d-]){re.escape(r)}(?![\d-])", wl) for r in rr):
                 continue                                     # (e) the home / road record the one-liner already said
+        if x.startswith(("🔥", "🧊")) and not sc:            # (f) 11/19 sweep: the same streak twice - "🧊 5 straight
+            stx = _streaks(x)                                #  losses for the Ravens" under the pick and "🔥 The Ravens
+            if stx and stx <= streaks_said:                  #  have lost 5 straight" in the body
+                continue
+            streaks_said |= stx
         said |= sc
         keep[i] = x
     return [keep[i] for i in sorted(keep)]
@@ -3635,7 +3680,8 @@ def why_map(lg, us, them, the_us, the_them, pro, rec_u=None, rec_t=None, n_hot=0
         o2, _, sc = _last_parts(s_ours[-1], tid, pro)
         m["last game"] = [f"{U} are fresh off a {sc} win over {o2}", f"{U} just beat {o2} {sc}",
                           f"last time out {U} took {o2} {sc}", f"{U} handled {o2} {sc} last time out"]
-    if gap_d >= 2:
+    if gap_d >= 2 and not b2b_only(lg):                   # (11/19 sweep: REST TALK ONLY ON A BACK-TO-BACK - the map still
+        #   handed the one-liner "Tulane got 3 more days to rest than Louisiana Tech did" in college hoops / hockey)
         m["better rested"] = [f"{U} had {gap_d} more days off than {T}", f"{gap_d} extra days of rest for {U}",
                               f"{U} got {gap_d} more days to rest than {T} did", f"{T} had {gap_d} fewer days off than {U}"]
     if last_vs and _line(last_vs[-1], tid).startswith("L"):
@@ -3812,6 +3858,9 @@ def _nth(n):
     return {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
 
 
+TALK_KNOCKS_US = ("unhappy", "hot seat")   # talk kinds that are bad news about the team they're about
+
+
 TALK_LINES = {   # pregame talk (sports_news TALK_KINDS): display only - forward-only tags, never a number
     "contract year": lambda who: [f"📣 Contract-year energy around {who} — somebody's playing for a bag.",
                                   f"📣 {_cap(who)} got money on the line this year. Contract talk all week.",
@@ -3913,10 +3962,14 @@ def context_lines(leg, v, us, them, the_us, the_them, g, games=None):
                                          f"🏈 Win 6 means a bowl trip for {us}."]))
         elif k == "hotseat":
             n = c.get("n") or 0
-            out.append(v.say("cx_hotseat", [f"🔥 {_cap(the_them)} have lost {n} straight — that coach is on the hot seat.",
-                                            f"🔥 {n} losses in a row for {the_them}. Coaching staff feeling the heat.",
-                                            f"🔥 {_cap(the_them)} ({n} straight L's) are in a fishbowl right now.",
-                                            f"🔥 Losing streak at {n} for {the_them}. Jobs on the line over there."]))
+            #   (11/19 sweep, "never false information": the engine holds a losing streak and a bad record - it wrote
+            #    "that coach is on the hot seat" / "Jobs on the line over there" / "are in a fishbowl right now", a
+            #    claim about a job nobody told it and a saying nobody uses. The streak is the fact; it says the streak.)
+            if n >= 3:
+                out.append(v.say("cx_hotseat", [f"🧊 {_cap(the_them)} have lost {n} straight.",
+                                                f"🧊 {n} losses in a row for {the_them}.",
+                                                f"🧊 {_cap(the_them)} haven't won in {n} games.",
+                                                f"🧊 Losing streak at {n} for {the_them}."]))
         elif k in ("ref_side", "ref_total"):
             nm = (c.get("names") or ["the crew"])[0]
             lean = c.get("lean")
@@ -3933,8 +3986,11 @@ def context_lines(leg, v, us, them, the_us, the_them, g, games=None):
                 #   alive'" - ESPN tags a game story with both teams; a headline about the OTHER side isn't this camp's talk)
             if someone_elses_story(hl, mine, games, leg.get("league"), need_mine=True):
                 continue      # (10/16: a league round-up that never names the team is nobody's camp talk)
+            if key == "talk_ours" and t.get("kind") in TALK_KNOCKS_US:
+                continue      # (11/19 sweep: "📣 The Ravens in the papers: 'Flowers super frustrated by latest late-game
+                #   fumble'" on a RAVENS card - our own side's bad press is a knock on our pick, never a body line)
             if TALK_LINES.get(t.get("kind")) and not total and hl:
-                out.append(v.say("talk_q", [f"📣 Out of {who}'s camp this week: \"{hl}\"",
+                out.append(v.say("talk_q", [f"📣 Out of {_pos(who)} camp this week: \"{hl}\"",   # (11/19: "the Ravens's")
                                             f"📣 {_cap(who)} in the papers: \"{hl}\""]))
     return [x for x in out if x]
 

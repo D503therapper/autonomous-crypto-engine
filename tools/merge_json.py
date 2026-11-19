@@ -252,6 +252,31 @@ def _ekey(p):
     return (str(p.get("game_id")), p.get("market") or "ml", str(p.get("side")))
 
 
+WATCH_KEYS = ("key_news", "key_out", "key_q", "key_back", "key_wait")   # sports_early.watch's fields on a row
+
+
+def _newest_watch(merged, a, b):
+    """🚑 11/19 sweep: two jobs write early.json. The copy that was "ours" won every field - so a job that loaded the
+    file BEFORE the other one stamped "Deni Avdija ruled out" wrote its empty key_news back over the alert, and the
+    card lost the ⚠️ line until the next hourly run found it again. The watch's fields come from the copy whose injury
+    log (key_log) has the newest entry; the log itself is the union, in time order."""
+    la, lb = list(a.get("key_log") or []), list(b.get("key_log") or [])
+    if not la and not lb:
+        return
+    last = lambda l: max((str(e.get("t") or "") for e in l), default="")   # noqa: E731
+    src = b if last(lb) > last(la) else a
+    for k in WATCH_KEYS:
+        if k in src:
+            merged[k] = src[k]
+    seen, log = set(), []
+    for e in sorted(la + lb, key=lambda e: str(e.get("t") or "")):
+        key = (e.get("t"), e.get("who"), e.get("st"))
+        if key not in seen:
+            seen.add(key)
+            log.append(e)
+    merged["key_log"] = log
+
+
 def merge_early(ours, theirs, base=None):
     """data/sports/early.json (10/9 sweep): the hourly engine posts early plays and the live watcher's quick pass grades
     them - two jobs writing one file. Without a driver a conflicting hunk went to whichever job rebased (-X theirs):
@@ -285,6 +310,7 @@ def merge_early(ours, theirs, base=None):
         win, other = (b, a) if b.get("result") and not a.get("result") else (a, b)
         merged = dict(other)
         merged.update(win)                                   # (the graded copy wins; anything only the other had stays)
+        _newest_watch(merged, a, b)                          # 🚑 11/19: the newest injury word wins, whichever copy has it
         out[k] = merged
     for k, p in {_ekey(p): p for p in base.get("picks") or []}.items():   # (a posted base row neither copy carries: back)
         if k not in out and k not in gone and p.get("posted"):

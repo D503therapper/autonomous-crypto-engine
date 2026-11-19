@@ -2021,7 +2021,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
         eu = lambda u, k="", o=None: _units_line(u, k, o, early=True)
-        early = sports_early.html(sports_early.load(), E, show_units=eu, games=games)
+        early = sports_early.html(sports_early.load(), E, show_units=eu, games=games, day=today)
         early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=eu, day=today)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")

@@ -690,6 +690,11 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     for c in new:
         stamp_units(c)                                       # (10/25 sweep: the posted size, frozen)
     watch(st, games, injuries, now)
+    try:
+        sync_starts(st, games)                               # 🕐 11/19: a moved game moves its row
+        heal(st)                                             # 🩹 11/19: a saved row's wording slip is fixed once
+    except Exception as e:                                   # noqa: BLE001 - never breaks the engine
+        print(f"   early heal failed: {str(e)[:80]}")
     if grade(st, games, now):                                # 📈 11/11: a play graded this run - the early plays' own
         say = line_record_say(line_record(st, games))        # record against the close goes in the log
         if say:
@@ -1186,7 +1191,7 @@ def grade(st, games, now=None):
         else:
             us, them = (hs, as_) if p["side"] == "home" else (as_, hs)
             p["result"] = "won" if us > them else "lost" if us < them else "push"
-        p["graded_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        p["graded_at"] = now.strftime("%Y-%m-%dT%H:%MZ")     # (11/19 sweep: the run's clock, like the rest of grade)
         p["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
         stamp_units(p)                                       # (10/25 sweep: graded at these units, forever)
         stamp_close(p, g)                                    # 📈 11/11: the close it went off at, next to what we got
@@ -2335,6 +2340,9 @@ def now_line(p, games):
 _REC_RE = re.compile(r"\b\d+-\d+\b")
 
 
+_LIVE_ONLY = re.compile(r"^(\d+-\d+) since we started betting it\.?$")
+
+
 def fresh_facts(facts, why=""):
     """An early row's fact lines minus what its why line already said (11/12 audit: the ⛰️ altitude over's row read
     "college overs 4,600+ feet up are 499-342 since 2018" in the why and again as a fact - never the same line twice on
@@ -2345,6 +2353,12 @@ def fresh_facts(facts, why=""):
         keep = [c for c in x.split(", ") if not (_REC_RE.search(c) and all(r in (why or "") for r in _REC_RE.findall(c)))]
         if keep:
             s = ", ".join(keep)
+            m = _LIVE_ONLY.match(s)
+            if m:                                            # (11/19 sweep: the leftover read "2-0 since we started
+                w_, l_ = (int(x) for x in m.group(1).split("-"))   # betting it" - a line with no subject; a losing
+                if w_ <= l_:                                 #  live record is never a line at all - the records live
+                    continue                                 #  in the records)
+                s = f"We're {m.group(1)} on this play since we started betting it"
             out.append(s if len(keep) == len(x.split(", ")) else s[:1].upper() + s[1:])
     return out
 
@@ -2360,6 +2374,62 @@ def card_facts(p):
     return p.get("facts") or []
 
 
+def sync_starts(st, games):
+    """🕐 11/19 sweep - A GAME THAT MOVED: an early play posts days ahead and kept the start time it posted with. When
+    the league moves the game (a flexed kickoff, a time set on a 'TBD' game, a new date) the row kept saying the old
+    day and hour - and the early box / the 🎯 game-day box put it on the wrong day. Every run an OPEN row takes the
+    schedule's start as it reads now (never a time that isn't set - tbd); the old one is kept as 'start_was'. The pick
+    never changes. Returns the rows moved."""
+    moved = []
+    for p in st.get("picks") or []:
+        g = (games or {}).get(p.get("game_id"))
+        if p.get("result") or not g or g.get("status") != "pre" or g.get("tbd") == "1":
+            continue
+        new = g.get("start")
+        if new and p.get("start") and new != p["start"]:
+            p.setdefault("start_was", p["start"])
+            print(f"   🕐 early play's game moved: {p.get('team')} {p.get('odds')} {p['start']} -> {new}", flush=True)
+            p["start"] = new
+            moved.append(p)
+    return moved
+
+
+def heal(st):
+    """🩹 11/19 sweep - A CATCH THAT FIRES EVERY RUN IS A BUG: the page's check cut "The books moved Wyoming shorter
+    early - the money's on 'em." off the Wyoming +245 row on every build for three days (56 log lines) because the
+    row was SAVED with it before the pool was fixed; a "0-1 since we started betting it" fact the same. An open early
+    row's saved lines go through the wording checks that never depend on the day (line-move talk, a losing live
+    record, a knock on our own side, 's's) ONCE, and what is left is saved - the pick, its price and its units never
+    change. Returns how many rows were healed."""
+    try:
+        import sports_card_check as cc
+    except Exception:                                        # noqa: BLE001
+        return 0
+    n = 0
+    for p in st.get("picks") or []:
+        if p.get("result"):
+            continue
+        leg = cc._early_leg(p)
+
+        def fix(x):
+            y, _ = cc._no_move(x)
+            return cc.early_for_us(y, leg)[0] if y else y
+        try:
+            why = p.get("why")
+            new_why = fix(why) if why else why
+            new_facts = [y for y in (fix(x) for x in p.get("facts") or []) if y]
+        except Exception:                                    # noqa: BLE001 - never breaks the run
+            continue
+        if new_why != why or (p.get("facts") is not None and new_facts != list(p.get("facts") or [])):
+            if why and new_why != why:
+                p["why"] = new_why
+            if p.get("facts") is not None:
+                p["facts"] = new_facts
+            n += 1
+            print(f"   🩹 early row healed (wording only, the play unchanged): {p.get('team')} {p.get('odds')}", flush=True)
+    return n
+
+
 def _cc_lines(p, lines):
     """🧾 11/13: an early row's lines through the card check (sports_card_check.early_lines) - never breaks the box."""
     try:
@@ -2369,13 +2439,21 @@ def _cc_lines(p, lines):
         return [x for x in lines or [] if x]
 
 
-def html(st, E, now=None, show_units=None, games=None):
+def html(st, E, now=None, show_units=None, games=None, day=None):
     """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
-    they're no longer early plays - they leave the box; no grading shown here)."""
+    they're no longer early plays - they leave the box; no grading shown here). `day` = the dashboard's board day
+    (11/19 sweep: after midnight PT the board is still YESTERDAY's - till 1 AM, or till 8 AM with a game still open -
+    and a play whose game is 'today' sat in neither box: gone from the page for an hour or a night. It stays in this
+    box until the board's day reaches its game day and the 🎯 box takes it)."""
     now = now or datetime.now(timezone.utc)
     if not ON or not st.get("picks"):
         return ""
     today = now.astimezone(PT).date()
+    if day:
+        try:
+            today = min(today, date.fromisoformat(day))
+        except (TypeError, ValueError):
+            pass
     up = sorted((p for p in st["picks"] if not p.get("result") and _t(p["start"]).astimezone(PT).date() > today),
                 key=lambda p: p["start"])
 

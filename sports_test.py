@@ -7168,9 +7168,11 @@ def test_running_on_fumes_only_on_a_back_to_back():
     rested = src[i:src.index("elif r ==", i + 10)]       # (10/21: its own branch - the days off from why_map, or no line)
     assert "fumes" not in rested and "last night" not in rested and 'whyf[r]' in rested
     import sports_breakdown_v24 as v24
-    ways = v24.why_map("nhl", "Jets", "Bruins", "the Jets", "the Bruins", True, gap_d=2)["better rested"]
+    ways = v24.why_map("nfl", "Jets", "Bills", "the Jets", "the Bills", True, gap_d=2)["better rested"]
     assert ways and all("2" in w and "fumes" not in w and "last night" not in w for w in ways), ways
-    assert "better rested" not in v24.why_map("nhl", "Jets", "Bruins", "the Jets", "the Bruins", True, gap_d=1)
+    assert "better rested" not in v24.why_map("nfl", "Jets", "Bills", "the Jets", "the Bills", True, gap_d=1)
+    #   (11/19 sweep: in the every-other-night leagues a rest gap is never a line at all - REST_B2B_ONLY)
+    assert "better rested" not in v24.why_map("nhl", "Jets", "Bruins", "the Jets", "the Bruins", True, gap_d=2)
 
 
 def test_board_always_has_lock_dog_three_leans_with_injuries_named():
@@ -7908,7 +7910,7 @@ def test_card_wording_kentucky_fixes():
     again; the record isn't said twice; no "Kentucky have been"."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
     i = src.index("for key, who, mine, other_nm in ((\"talk_theirs\"")      # (10/15: the loop also knows whose camp)
-    assert "and hl:" in src[i:i + 1100] and "talk_q" in src[i:i + 1100]
+    assert "and hl:" in src[i:i + 1700] and "talk_q" in src[i:i + 1700]
     assert "have been the better team" not in src and "We're on the better squad" not in src
     assert 'if kind == "suspension" and any(' in src
     import sports_breakdown_v24 as v24                   # (10/21: the record-said-twice drop lives in SAME_STORY now -
@@ -13204,7 +13206,9 @@ def test_every_because_on_a_card_is_a_fact_we_hold():
     assert m["the stronger team"][0] == "the Kraken are 5-4, the Red Wings 3-5" and len(m["the stronger team"]) >= 3
     assert all("Dylan Larkin" in w and "center" in w for w in m["opponent missing key players"])
     assert m["opponent on a back-to-back"][0].startswith("the Red Wings played last night")
-    assert all("3" in w for w in m["better rested"]) and all("3" in w for w in m["hotter recent form"]) \
+    assert "better rested" not in m, "11/19 sweep: hockey talks rest only on a back-to-back - the map holds no rest words"
+    m_fb = v24.why_map("nfl", "Seahawks", "Lions", "the Seahawks", "the Lions", True, gap_d=3)
+    assert all("3" in w for w in m_fb["better rested"]) and all("3" in w for w in m["hotter recent form"]) \
         and all("2" in w for w in m["cold opponent"])
     facts = v24.top_facts(m, ["opponent on a back-to-back"])
     assert facts[0][0] == "The Red Wings played last night and the Kraken didn't."   # the engine's reason first, every
@@ -21030,8 +21034,8 @@ def test_pre_1113_the_latest_line_labels_a_non_d1_opponent():
     import inspect
     import sports_breakdown_v24 as v24
     src = inspect.getsource(v24.breakdown)
-    i = src.index("last_us = _line(s_ours[-1], tid)")
-    assert "non-D1" in src[i - 200:i + 300]
+    i = src.index("last_us = _pl(s_ours[-1], tid, \"got\") + _nd(s_ours[-1], tid)")   # (11/19 sweep: said in words now)
+    assert "non-D1" in src[i - 700:i + 300]
 
 
 def test_owner_1113_goalie_news_hits_the_card_within_minutes_and_confirmed_reads_confirmed():
@@ -22367,8 +22371,12 @@ def test_fifteen_1112_nba_over_when_three_of_the_six_top_minutes_men_sit():
     assert "Three of the six" in c["why"] and no.REC in c["why"] and "Al Able" in c["why"]
     assert "Hawks without Al Able (36 minutes a night) and Bo Baker (34 minutes a night)" in txt
     assert "Jazz without Fox Ford (36 minutes a night)" in txt and "Gus Gray" not in txt            # doubtful never counts
-    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks' - 225 with everybody" in txt
-    assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 5
+    assert "with everybody" not in txt, "11/19 sweep: 225 projected under a 226.5 number argues the under - not on an over card"
+    c224 = no.candidates({**games, "nba:9": {**g, "total": "224.5"}}, {"picks": [], "nba_out_seen": {"nba:9": [stamp0, c["out"]]}},
+                         t1, inj, rows=rows)[0]
+    assert "Hawks should score about 112 against Jazz's defense and Jazz about 112 against Hawks' - 225 with everybody, the number's 224.5" \
+        in " | ".join(c224["facts"])
+    assert "Good to 227.5 - don't take it past that, or worse than -115" in txt and "%" not in txt and len(c["facts"]) >= 4
     assert not any(w in txt.lower() for w in ("line moved", "line move", "steam", "sharp", "books drop"))
 
     def fresh(names=("Al Able", "Bo Baker", "Fox Ford")):
@@ -22568,13 +22576,13 @@ def test_audit_1112_early_box_graded_row_is_final_facts_never_repeat_and_later_d
         facts = ["Wyoming beat Cal Poly 90-80 last time out (170 points)",
                  "Overs on college floors 4,600+ feet up are 499-342 since 2018, 3-1 since we started betting it",
                  "Good to 150 - don't take it past that, or worse than -130"]
-        assert se.fresh_facts(facts, why) == [facts[0], "3-1 since we started betting it", facts[2]]
+        assert se.fresh_facts(facts, why) == [facts[0], "We're 3-1 on this play since we started betting it", facts[2]]   # (11/19: a subject)
         assert se.fresh_facts(facts[:1] + facts[2:], why) == facts[:1] + facts[2:]
         alt = {"game_id": "ncaab:9", "league": "ncaab", "market": "total", "side": "over", "line": 148.5,
                "team": "Over 148.5", "opp": "Idaho St @ Wyoming", "odds": -112, "start": "2026-11-15T03:00Z",
                "spot": "alt_over", "facts": facts, "why": why, "posted": "2026-11-12T06:00Z", "result": None}
         box = _h.unescape(se.html({"picks": [alt]}, _h.escape, now=now, games={}))
-        assert box.count("499-342") == 1 and "Good to 150" in box and "3-1 since we started betting it" in box, box
+        assert box.count("499-342") == 1 and "Good to 150" in box and "We're 3-1 on this play since we started betting it" in box, box
     finally:
         se.ON = keep
     assert sdb._time("2026-09-30T02:00Z") == "7 PM PT"                          # a past day: as it was
@@ -28296,6 +28304,359 @@ def test_oline_1119_the_depth_chart_first_string_is_the_fallback():
         ss.PATH = keep_s[0]
         ss._CACHE.clear()
         ss._CACHE.update(keep_s[1])
+
+
+def _sweep_1119_nba_fixture(total="226.5"):
+    """Ten finals a team (115-110 every night, the top three in minutes clear) + one upcoming Hawks / Jazz game."""
+    games, rows = {}, []
+    men = {"H": ["Al Able", "Bo Baker", "Cy Cole", "Dee Dunn", "Ed Earl"], "A": ["Fox Ford", "Gus Gray", "Hal Hill", "Ike Ito", "Jay Jones"]}
+    for i in range(10):
+        for t, o in (("H", f"x{i}"), ("A", f"y{i}")):
+            gid, start = f"nba:{t}{i}", f"2026-10-{20 + i:02d}T23:00Z"
+            games[gid] = {"id": gid, "league": "nba", "status": "final", "stype": "2", "home": t, "away": o, "start": start,
+                          "home_score": "115", "away_score": "110", "home_name": "Hawks" if t == "H" else "Jazz", "away_name": "Opp"}
+            for k, name in enumerate(men[t]):
+                rows.append({"gid": gid, "start": start, "team": t, "pid": f"{t}{k}", "player": name, "pos": "G", "group": "",
+                             "starter": "1", "stats": json.dumps({"minutes": str((36, 34, 32, 12, 10)[k])})})
+    games["nba:9"] = {"id": "nba:9", "league": "nba", "status": "pre", "stype": "2", "home": "H", "away": "A", "neutral": "0",
+                      "start": "2026-11-21T00:30Z", "total": total, "over_odds": "-110", "under_odds": "-110",
+                      "home_name": "Hawks", "away_name": "Jazz"}          # tips 4:30 PM PT on FRIDAY 11/20
+    inj = {"H": [("Al Able", "G", "Out"), ("Bo Baker", "G", "Out")], "A": [("Fox Ford", "F", "Out")]}
+    return games, rows, inj
+
+
+def test_sweep_1119_the_nba_over_posts_on_its_own_game_day_only_and_its_card_argues_the_over():
+    """11/19 SWEEP (results/studies/sweep_1119): the 🏀 Raptors @ Pistons over 227.5 went up WEDNESDAY 6:21 PM PT for
+    FRIDAY's game - both teams were playing that night, and "out" on the report was out for that night's game. The
+    report says who sits a team's NEXT game, and the study's price is the close: the play is made on the game's own
+    Pacific day or not at all. Its card: "225 with everybody, the number's 227.5" on an OVER argues the under - the
+    projection is a line only when it is at or over the number; how often each team's games went over this number is
+    said when the files back it; and the saved card of a posted play loses the under-the-number line on the page."""
+    import sports_early as se, sports_nba_out as no, sports_card_check as cc
+    assert no.GAME_DAY_ONLY
+    games, rows, inj = _sweep_1119_nba_fixture()
+    wed = datetime(2026, 11, 19, 2, 21, tzinfo=timezone.utc)             # Wednesday 6:21 PM PT, two days out
+    st = {"picks": [], "nba_out_seen": {"nba:9": ["2026-11-19T01:00Z", ["Al Able", "Bo Baker", "Fox Ford"]]}}
+    assert no.candidates(games, st, wed, inj, rows=rows) == [], "two days before the game: never"
+    thu = datetime(2026, 11, 20, 2, 21, tzinfo=timezone.utc)             # the night before: still not game day
+    assert no.candidates(games, st, thu, inj, rows=rows) == []
+    fri = datetime(2026, 11, 20, 19, 0, tzinfo=timezone.utc)             # Friday 11 AM PT - game day
+    st = {"picks": [], "nba_out_seen": {"nba:9": ["2026-11-20T17:00Z", ["Al Able", "Bo Baker", "Fox Ford"]]}}
+    got = no.candidates(games, st, fri, inj, rows=rows)
+    assert len(got) == 1 and got[0]["line"] == 226.5
+    txt = " | ".join(got[0]["facts"])
+    assert "with everybody" not in txt, "225 projected, the number's 226.5: that line argues the under - not said"
+    assert "went over" not in txt, "0 of the last 10 went over 226.5 (every game was 225): no such line"
+    # a number the projection clears, and games that went over it: both said
+    games2, rows2, _ = _sweep_1119_nba_fixture(total="223.5")
+    st2 = {"picks": [], "nba_out_seen": {"nba:9": ["2026-11-20T17:00Z", ["Al Able", "Bo Baker", "Fox Ford"]]}}
+    got2 = no.candidates(games2, st2, fri, inj, rows=rows2)
+    txt2 = " | ".join(got2[0]["facts"])
+    assert "225 with everybody, the number's 223.5" in txt2
+    assert "10 of Hawks' last 10 games went over 223.5" in txt2 and "10 of Jazz's last 10 games went over 223.5" in txt2, txt2
+    assert no.went_over(games, "H", 2026, fri, 226.5) == (0, 10) and no.went_over(games, "H", 2026, fri, 200) == (10, 10)
+    assert no.went_over(games, "nobody", 2026, fri, 200) is None
+    # the saved card of a play that already posted: the page's check takes the line off, the heal saves it that way
+    leg = {"team": "Over 227.5", "opp": "Raptors @ Pistons", "league": "nba", "market": "total", "side": "over", "odds": -110}
+    bad = "Pistons should score about 114 against Raptors' defense and Raptors about 111 against Pistons' - 225 with everybody, the number's 227.5"
+    new, why = cc.early_for_us(bad, leg)
+    assert new == "" and "projection under the number" in why
+    ok = bad.replace("227.5", "223.5")
+    assert cc.early_for_us(ok, leg) == (ok, "")
+    assert cc.early_for_us(bad, {**leg, "side": "under"})[0] == bad, "on an under that line is FOR us"
+
+
+def test_sweep_1119_a_home_team_is_never_off_its_own_clock_when_the_clocks_change():
+    """11/19 SWEEP: a game's 'tzo' is the venue's clock offset on game day, so it moves an hour every March and November.
+    The read's travel factor compared it raw with the offset of the team's LAST home game: Duke at home on 11/20 (-5)
+    after an October home game (-4) read as a team "off its home time zone" - 41 of 141 college football games that
+    week, and the card said "Body-clock problems for Florida St" in Tallahassee. Offsets are read on standard time and
+    a team in its own building never crossed anything; a real cross-country trip still counts in full."""
+    assert sm.us_dst(datetime(2026, 10, 24, 20, 0, tzinfo=timezone.utc).timestamp())
+    assert not sm.us_dst(datetime(2026, 11, 21, 20, 0, tzinfo=timezone.utc).timestamp())
+    assert sm.us_dst(datetime(2026, 11, 1, 5, 0, tzinfo=timezone.utc).timestamp())          # 1 AM EDT, the last hour
+    assert not sm.us_dst(datetime(2026, 11, 1, 12, 0, tzinfo=timezone.utc).timestamp())     # the morning after
+    assert not sm.us_dst(datetime(2026, 3, 7, 20, 0, tzinfo=timezone.utc).timestamp())
+    assert sm.us_dst(datetime(2026, 3, 8, 20, 0, tzinfo=timezone.utc).timestamp())
+    assert sm.std_tz(-4.0, datetime(2026, 10, 24, 20, 0, tzinfo=timezone.utc).timestamp()) == -5.0
+    assert sm.std_tz(-5.0, datetime(2026, 11, 21, 20, 0, tzinfo=timezone.utc).timestamp()) == -5.0
+    assert sm.std_tz(None, 0) is None
+    e = sm.Elo(20, 60, "ncaaf")
+
+    def game(gid, home, away, start, tzo, neutral="0"):
+        return {"id": gid, "league": "ncaaf", "home": home, "away": away, "start": start, "tzo": tzo, "neutral": neutral,
+                "home_score": "24", "away_score": "17", "status": "final", "home_name": home, "away_name": away}
+    e.update(game("1", "Duke", "x", "2026-10-24T19:30Z", "-4.0"))      # Durham on daylight time
+    e.update(game("2", "Clemson", "y", "2026-11-07T19:30Z", "-5.0"))   # Clemson after the change
+    e.update(game("3", "Stanford", "z", "2026-10-24T22:30Z", "-7.0"))  # Palo Alto on daylight time
+    f = e.features(game("4", "Duke", "Clemson", "2026-11-21T00:30Z", "-5.0"))
+    assert f["travel"] == 0.0, f"two Eastern teams in Durham: nobody crossed a time zone ({f['travel']})"
+    f = e.features(game("5", "Duke", "Stanford", "2026-11-21T00:30Z", "-5.0"))
+    assert abs(f["travel"] - 1.0) < 1e-9, f"the Pacific team crossed three zones, the home team none ({f['travel']})"
+    f = e.features(game("6", "Stanford", "Duke", "2026-11-21T22:30Z", "-8.0"))
+    assert abs(f["travel"] - 1.0) < 1e-9, f"Duke out West: the visitors crossed three ({f['travel']})"
+    f = e.features(game("7", "Clemson", "Duke", "2026-11-28T17:00Z", "-5.0", neutral="1"))   # a neutral site in the East
+    assert f["travel"] == 0.0
+
+
+def test_sweep_1119_altitude_is_a_named_reason_only_on_a_real_climb_and_never_at_a_neutral_site():
+    """11/19 SWEEP: "altitude edge" was a named reason (and a card line) at a 50-meter difference - "UTEP gotta breathe
+    3,900 feet up" at New Mexico St, when El Paso sits 3,700 feet up - and at a neutral site: in Mexico City the Vikings
+    card read "Mile-high problems for the 49ers" because Minneapolis is 750 feet higher than San Francisco. It is a
+    reason only when the other team climbs 300+ meters above its own home, never at a neutral site."""
+    assert sports.ALT_REASON_MIN >= 0.3
+    base = {"elo_pts": 0.0, "elo_raw": 0.0, "form": 0.0, "rest": 0.0, "b2b": 0.0, "inj": 0.0, "key": 0.0}
+    params = {"weights": {"alt": 0.25}}
+    g = {"id": "g", "neutral": "0", "start": "2026-11-20T02:00Z"}
+    assert "altitude edge" in sports._reasons("home", {**base, "alt": 1.6}, g, "ncaab", params), "Denver against a sea-level team"
+    assert "altitude edge" not in sports._reasons("home", {**base, "alt": 0.051}, g, "ncaab", params), "50 meters is nothing"
+    assert "altitude edge" not in sports._reasons("away", {**base, "alt": -0.23}, {**g, "neutral": "1"}, "nfl", params), "Mexico City"
+    assert "altitude edge" not in sports._reasons("home", {**base, "alt": 1.6}, {**g, "neutral": "1"}, "nfl", params)
+    assert "altitude edge" not in sports._reasons("away", {**base, "alt": 1.6}, g, "ncaab", params), "the edge is the home team's"
+
+
+def test_sweep_1119_the_fact_check_reads_whose_number_it_is_and_never_skips_a_check():
+    """11/19 SWEEP - the page's check cut TRUE lines and let a banned one through:
+    (1) "Knicks about to get their ass beat — 7-2 at home for the Timberwolves" - the record belongs to the team named
+    AFTER it; the check pinned it on the Knicks ("the games say 4-3") and dropped the one-liner;
+    (2) "It's 12-10 (the Avalanche) against 11-11 (the Ducks)" - the same, with "(the ...)";
+    (3) "Don't let 5-5 fool you — Iowa State took those L's from ..." - "took" made the RECORD a score that "isn't in
+    their last 6 games";
+    (4) a past game said in his lingo ("The Steelers got their cheeks clapped 38-18 by the Bengals") was cut off a long
+    dog's card as a "sure-thing call" - the rule is for a call on tonight;
+    (5) when the wording check rewrote a one-liner's tail, every later check was skipped - "The Blues had 3 fewer days
+    off than the Penguins" stayed up in hockey, where rest is talked about only on a back-to-back."""
+    import sports_card_check as cc
+    recs = {"Timberwolves": {"rec": [(11, 4, 0)], "home": (7, 2, 0), "road": (4, 2, 0)},
+            "Knicks": {"rec": [(8, 6, 0)], "home": (4, 3, 0), "road": (4, 3, 0)},
+            "Avalanche": {"rec": [(12, 10, 0)], "home": (6, 5, 0), "road": (6, 5, 0)},
+            "Ducks": {"rec": [(11, 11, 0)], "home": (4, 7, 0), "road": (7, 4, 0)},
+            "Iowa State": {"rec": [(5, 5, 0)], "home": (3, 2, 0), "road": (2, 3, 0)},
+            "Kansas": {"rec": [(6, 4, 0)], "home": (3, 2, 0), "road": (3, 2, 0)}}
+
+    def fake(games, leg, which):
+        nm = leg["team"] if which == "us" else leg["opp"]
+        r = recs.get(nm)
+        return None if r is None else {**r, "lines": ["W 27-20 vs X", "L 10-13 @ Y"], "streak": ("L", 1), "n": 10,
+                                       "last5": (3, 2, 0), "rest": 3, "hours": 72, "weeks": 1, "season": []}
+    keep = cc.team_facts
+    cc.team_facts = fake
+    try:
+        tw = {"team": "Timberwolves", "opp": "Knicks", "league": "nba", "side": "home", "odds": 105, "market": "ml", "game_id": "g"}
+        assert cc.facts("🏟️ Knicks about to get their ass beat — 7-2 at home for the Timberwolves this season.", tw, {"g": {}}) == ""
+        assert "7-3 at home" in cc.facts("🏟️ Knicks about to get their ass beat — 7-3 at home for the Timberwolves this season.", tw, {"g": {}}), \
+            "a WRONG home record for the Timberwolves is still caught"
+        assert "Knicks 7-2 at home" in cc.facts("🏟️ Knicks are 7-2 at home this season.", tw, {"g": {}}), "and one pinned on the Knicks"
+        av = {"team": "Avalanche", "opp": "Ducks", "league": "nhl", "side": "home", "odds": -142, "market": "ml", "game_id": "g"}
+        assert cc.facts("🧠 It's 12-10 (the Avalanche) against 11-11 (the Ducks).", av, {"g": {}}) == ""
+        assert cc.facts("🧠 It's 12-10 (the Avalanche) against 9-13 (the Ducks).", av, {"g": {}}) != ""
+        isu = {"team": "Iowa State", "opp": "Kansas", "league": "ncaaf", "side": "home", "odds": 105, "market": "ml", "game_id": "g"}
+        assert cc.facts("⚖️ Don't let 5-5 fool you — Iowa State took those L's from Iowa, Utah, BYU, Arizona and Baylor.", isu, {"g": {}}) == ""
+        assert cc.facts("⚖️ Don't let 7-3 fool you — Iowa State took those L's from Iowa, Utah and BYU.", isu, {"g": {}}) != ""
+        # (5) the one-liner: a rewritten tail never skips the rest rule
+        import sports_breakdown_v24 as v24
+        assert "nhl" in v24.REST_B2B_ONLY
+        pen = {"team": "Avalanche", "opp": "Ducks", "league": "nhl", "side": "home", "odds": -112, "market": "ml", "game_id": "g",
+               "p": 0.52, "dec": 1.89}
+        pk = {"kind": "play", "date": "2026-11-19", "legs": [pen], "status": "open", "units": 0.5}
+        n0 = len(cc.CAUGHT)
+        got = cc.check_one(pk, pen, "🧠 The Ducks had 3 fewer days off than the Avalanche. Close to 50-50 for us, Avalanche by a nose.", {"g": {}})
+        assert got == "", got
+        assert any("rest talk with no back-to-back" in c[1] for c in cc.CAUGHT[n0:]), cc.CAUGHT[n0:]
+        assert cc.REST_TALK.search("Tulane got 3 more days to rest than Louisiana Tech did")
+    finally:
+        cc.team_facts = keep
+    # (4) a score that happened is no "sure-thing call"
+    cx = {"units": 0.5, "kind": "play", "lean": False, "unit": True, "thin": True, "lock": False, "floor": False, "market": "ml",
+          "odds": 180, "read": 0.33, "p": 0.33, "implied": 0.357, "date": "2026-11-22"}
+    eag = {"team": "Eagles", "opp": "Steelers", "league": "nfl", "side": "home", "odds": 180, "market": "ml"}
+    assert cc.long_dog_cx(cx)
+    past = "🥊 The Steelers got their cheeks clapped 38-18 by the Bengals inside their last 5."
+    assert cc.wording(past, cx, eag) == (past, "")
+    new, why = cc.wording("🥊 Steelers about to get their cheeks clapped.", cx, eag)
+    assert "sure-thing call on a long dog" in why and "cheeks" not in new
+    new, why = cc.wording("🥊 We beat them 38-18 last time and the Steelers about to get their ass beat again.", cx, eag)
+    assert "sure-thing call on a long dog" in why, "a score in the sentence never excuses a call on tonight"
+    # "·" parts a two-game line: their loss is not ours
+    pan = {"team": "Panthers", "opp": "Ravens", "league": "nfl", "side": "home", "odds": -135, "market": "ml"}
+    assert not cc.knocks_us("📅 Last time out: Panthers got a 20-17 win over the Saints · Ravens took a 23-20 loss to the Chargers.", pan)
+    assert cc.knocks_us("📅 Last time out: Panthers took a 20-17 loss to the Saints · Ravens got a 23-20 win over the Chargers.", pan)
+    assert cc.their_good_news("🔥 Oregon St have won 5 straight.", {"team": "Oregon", "opp": "Oregon St"}), "their heater in our body"
+    assert cc.their_good_news("🔥 Kansas have won 5 straight.", {"team": "Kansas St", "opp": "Kansas"}), "'st' inside 'straight' is not us"
+    assert not cc.their_good_news("🔥 Kansas St have won 5 straight.", {"team": "Kansas St", "opp": "Kansas"}), "that heater is OURS"
+    assert not cc.their_good_news("📅 Kansas won, but Kansas St won bigger.", {"team": "Kansas St", "opp": "Kansas"})
+    assert cc.their_good_news("🔥 Celtics have won 5 straight.", {"team": "Nuggets", "opp": "Celtics"})
+    assert not cc.their_good_news("🔥 Nuggets have won 5 straight; Celtics lost 2.", {"team": "Nuggets", "opp": "Celtics"})
+    # our name inside THEIR longer name is not us: a line about their losses stays on our card
+    for us_, them_ in (("Oregon", "Oregon St"), ("Texas", "Texas Tech"), ("Florida", "Florida St"), ("Iowa", "Iowa State"),
+                       ("Miami", "Miami OH"), ("New Mexico", "New Mexico St"), ("Texas", "Texas A&M"), ("Washington", "Washington St")):
+        lg_ = {"team": us_, "opp": them_, "league": "ncaab", "side": "home", "odds": -120, "market": "ml"}
+        assert not cc.knocks_us(f"🧊 {them_} have lost 5 straight.", lg_), (us_, them_)
+        assert not cc.knocks_us(f"📅 {them_} comes in off a 72-67 loss to Idaho.", lg_), (us_, them_)
+        assert cc.knocks_us(f"🧊 {us_} have lost 5 straight.", lg_), (us_, them_)
+        assert cc.knocks_us(f"📅 {them_} won, and {us_} comes in off a 72-67 loss to Idaho.", lg_), (us_, them_)
+        back = {**lg_, "team": them_, "opp": us_}
+        assert cc.knocks_us(f"🧊 {them_} have lost 5 straight.", back) and not cc.knocks_us(f"🧊 {us_} have lost 5 straight.", back)
+
+
+def test_sweep_1119_the_pools_say_it_plain_true_and_once():
+    """11/19 SWEEP - the write-up pools, read like the owner:
+    - rest is never the one-liner's fact in the every-other-night leagues (the map still wrote "Tulane got 3 more days
+      to rest than Louisiana Tech did");
+    - "4-0 vs 3-1 looks even. Who they've played says Charleston." named nobody - it names the best team we beat, or
+      there is no line;
+    - a losing streak never became "that coach is on the hot seat" / "Jobs on the line" / "in a fishbowl" (claims
+      nobody told the engine); the same streak is never said twice on a card;
+    - our own team's bad press is never a line on our card, and "the Ravens's camp" reads "the Ravens' camp";
+    - the last-game line is said in words ("got a 92-68 win over West Georgia"), never "W 92-68 vs West Georgia";
+    - the schedule line no longer reads as a knock the page's check cuts every time."""
+    import inspect, types
+    import sports_breakdown_v24 as v
+    import sports_card_check as cc
+    for lg in ("nba", "ncaab", "nhl", "mlb"):
+        assert "better rested" not in v.why_map(lg, "A", "B", "the A", "the B", True, gap_d=3), lg
+    for lg in ("nfl", "ncaaf"):
+        assert "better rested" in v.why_map(lg, "A", "B", "the A", "the B", True, gap_d=3), lg
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "looks even. Who they've played says {us}" not in src
+    for bad in ("that coach is on the hot seat.\"", "Coaching staff feeling the heat.\"", "are in a fishbowl right now.\"",
+                "Jobs on the line over there.\""):
+        assert bad not in src, bad
+    assert "'s camp this week" not in src and "_pos(who)} camp this week" in src
+    assert 'key == "talk_ours" and t.get("kind") in TALK_KNOCKS_US' in src and "unhappy" in v.TALK_KNOCKS_US
+    assert 'f"{us} {last_us}"' in src and "last_us = _line(" not in src and "if s_theirs and not _same else" in src
+    assert "tougher schedule: {us} lost to {nm}" not in src
+    # the best-win line
+    e = types.SimpleNamespace(r={"us": 1560.0, "them": 1550.0, "good": 1600.0, "meh": 1480.0, "bad": 1400.0})
+
+    def gm(home, away, hs, as_, hn=None, an=None):
+        return {"home": home, "away": away, "home_score": str(hs), "away_score": str(as_), "home_name": hn or home.title(),
+                "away_name": an or away.title(), "start": "2026-11-10T00:00Z"}
+    ours = [gm("us", "good", 80, 70, "Charleston", "Liberty"), gm("us", "bad", 90, 60, "Charleston", "SC State")]
+    theirs = [gm("them", "meh", 75, 70, "Drake", "Tarleton St"), gm("bad", "them", 60, 70, "SC State", "Drake")]
+    got = v._best_win_line("Charleston", "Drake", "4-0", "3-1", ours, theirs, "us", "them", e, False)
+    assert got == ["💪 4-0 vs 3-1 looks even - but Charleston beat Liberty 80-70, a better team than anybody Drake beat."], got
+    assert v._best_win_line("Charleston", "Drake", "4-0", "3-1", ours[1:], theirs, "us", "them", e, False) == [], "our best win is a bad team"
+    theirs2 = theirs + [gm("them", "good", 71, 70, "Drake", "Liberty")]
+    assert v._best_win_line("Charleston", "Drake", "4-0", "3-1", ours, theirs2, "us", "them", e, False) == [], "they beat the same team"
+    assert v._best_win_line("Charleston", "Drake", "4-0", "3-1", [], theirs, "us", "them", e, False) == []
+    # a streak once
+    assert v._streaks("🧊 5 straight losses for the Ravens") == {5} and v._streaks("🧊 The Ravens haven't won in 5 games.") == {5}
+    assert v._streaks("🧊 Losing streak at 7 for the Maple Leafs.") == {7} and v._streaks("📊 27 a game") == set()
+    kept = v.no_repeats(["🧊 The Ravens have lost 5 straight.", "🔥 Panthers have won 3 straight (4-5).", "🧊 5 losses in a row for the Ravens.",
+                         "🧹 Panthers ain't squeaking by: 3 straight wins by 10+."],
+                        "🧊 5 straight losses for the Ravens, that's a shit spot.", set(), (), "Panthers")
+    assert kept == ["🔥 Panthers have won 3 straight (4-5).", "🧹 Panthers ain't squeaking by: 3 straight wins by 10+."], kept
+    # the schedule line's wordings pass the page's knock check
+    pan = {"team": "Panthers", "opp": "Ravens", "league": "nfl", "side": "home", "odds": -135, "market": "ml"}
+    for x in ("⚖️ Same kind of record, tougher schedule: Panthers' L's came against Bears, Browns and Packers.",
+              "⚖️ Panthers 4-5, Ravens 4-6 — but Panthers' L's came against Bears, Browns and Packers.",
+              "⚖️ Don't let 4-5 fool you — Panthers took those L's from Bears, Browns and Packers."):
+        assert cc.for_us(x, pan, "") == "", x
+
+
+def test_sweep_1119_an_early_row_is_healed_once_stays_on_the_page_after_midnight_and_follows_a_moved_game():
+    """11/19 SWEEP - the early box:
+    (1) A CATCH THAT FIRES EVERY RUN IS A BUG: the page cut "The books moved Wyoming shorter early - the money's on
+    'em." off the Wyoming +245 row on every build for three days (56 log lines) - the row was saved with it before the
+    pool was fixed. An open row's saved wording slips are fixed ONCE in the file (sports_early.heal); the pick, the
+    price and the units never change.
+    (2) after midnight PT the board is still yesterday's (till 1 AM, or 8 AM with a game still open) and a play whose
+    game is 'today' sat in neither box - off the page. It stays in the early box until the board's day gets there.
+    (3) a leftover fact read "2-0 since we started betting it" - no subject.
+    (4) a game the league moved keeps its row on the right day; (5) a grade is stamped with the run's clock;
+    (6) two jobs write the file - the newest injury word on a row wins the merge, whichever copy holds it."""
+    import html as _html, sports_early as se, sports_card_check as cc
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    wy = {"game_id": "ncaaf:1", "league": "ncaaf", "side": "home", "team": "Wyoming", "opp": "New Mexico", "odds": 245, "units": 0.5,
+          "start": "2026-11-21T02:00Z", "spot": "hammered", "spots": ["hammered"], "posted": "2026-11-16T17:47Z", "result": None,
+          "why": "🧠 The books got Wyoming as the dog; our read says they're better than that. The books moved Wyoming shorter early - the money's on 'em."}
+    ov = {"game_id": "ncaab:2", "league": "ncaab", "market": "total", "side": "over", "line": 153.5, "team": "Over 153.5", "units": 1.0,
+          "opp": "Portland @ Colorado", "odds": -115, "start": "2026-11-21T02:00Z", "spot": "alt_over", "posted": "2026-11-20T01:00Z",
+          "result": None, "why": "⛰️ Colorado's floor sits about 5,300 feet up, and college overs 4,600+ feet up are 499-342 since 2018.",
+          "facts": ["Overs on college floors 4,600+ feet up are 499-342 since 2018, 0-1 since we started betting it",
+                    "Good to 154.5 - don't take it past that, or worse than -130"]}
+    done = {**wy, "game_id": "ncaaf:9", "result": "lost"}
+    st = {"picks": [wy, ov, done]}
+    keep_log = len(cc.CAUGHT)
+    assert se.heal(st) == 2
+    assert wy["why"] == "🧠 The books got Wyoming as the dog; our read says they're better than that."
+    assert ov["facts"][0] == "Overs on college floors 4,600+ feet up are 499-342 since 2018" and len(ov["facts"]) == 2
+    assert "moved Wyoming shorter" in done["why"], "a graded row is history - left as it posted"
+    assert (wy["odds"], wy["units"], wy["side"], ov["line"], ov["odds"], ov["units"]) == (245, 0.5, "home", 153.5, -115, 1.0)
+    assert se.heal(st) == 0, "healed once - the next run finds nothing"
+    assert "heal(st)" in inspect_source(se.post)
+    del cc.CAUGHT[keep_log:]
+    # (2) the page after midnight
+    E = _html.escape
+    now = datetime(2026, 11, 20, 8, 30, tzinfo=timezone.utc)             # 12:30 AM PT Friday; the games are Friday night
+    keep_on = se.ON
+    se.ON = True
+    try:
+        assert "Wyoming" not in se.html(st, E, now=now), "(the old page: a today game leaves the early box at midnight)"
+        box = se.html(st, E, now=now, day="2026-11-19")
+        assert "Wyoming" in box and "Over 153.5" in box, "the board is still Thursday's: the play stays in the early box"
+        assert "Wyoming" not in se.html(st, E, now=now, day="2026-11-20"), "the board's day got there: the 🎯 box has it"
+        assert "Wyoming" in se.gameday_html(st, {}, E, now=now, day="2026-11-20")
+        assert "Wyoming" in se.html(st, E, now=datetime(2026, 11, 19, 20, 0, tzinfo=timezone.utc), day="2026-11-19")
+    finally:
+        se.ON = keep_on
+    import sports_dashboard
+    assert "sports_early.html(sports_early.load(), E, show_units=eu, games=games, day=today)" in inspect_source(sports_dashboard)
+    # (3) the leftover fact has a subject
+    why = "🏀 Three of the six are out, and NBA overs are 267-182 since 2018 when that many of the main guys sit."
+    assert se.fresh_facts(["NBA overs with three or more of the six top-minutes guys out are 267-182 since 2018, 2-0 since we started betting it"], why) \
+        == ["We're 2-0 on this play since we started betting it"]
+    assert se.fresh_facts(["Good to 228.5 - don't take it past that, or worse than -115"], why) == ["Good to 228.5 - don't take it past that, or worse than -115"]
+    assert se.fresh_facts(["NBA overs with three or more of the six top-minutes guys out are 267-182 since 2018, 0-1 since we started betting it"], why) == [], \
+        "a losing live record is never a line"
+    assert cc.early_for_us("We're 0-2 on this play since we started betting it", {"team": "Over 150", "opp": "A @ B", "side": "over"})[0] == ""
+    import sports_nba_out as no
+    assert no._men(["A (30 minutes a night)"]) == "A (30 minutes a night)" and no._men(["A", "B"]) == "A and B" and no._men(["A", "B", "C"]) == "A, B and C"
+    p3 = {"spot": "nba_out_over", "back": ["Bo Wing"], "facts": ["Cavaliers without Al Star (33 minutes a night), Bo Wing (33 minutes a night) and Cy Big (32 minutes a night)"]}
+    assert no.card_facts(p3)[0] == "Cavaliers without Al Star (33 minutes a night) and Cy Big (32 minutes a night)"
+    p4 = {"spot": "nba_out_over", "back": ["Bo Wing"], "facts": ["Cavaliers without Al Star (33 minutes a night) and Bo Wing (33 minutes a night) and Cy Big (32 minutes a night)"]}
+    assert no.card_facts(p4)[0] == "Cavaliers without Al Star (33 minutes a night) and Cy Big (32 minutes a night)", "an older card's join reads too"
+    # (4) a moved game
+    st2 = {"picks": [dict(wy), dict(done)]}
+    games = {"ncaaf:1": {"id": "ncaaf:1", "status": "pre", "start": "2026-11-22T00:00Z", "tbd": ""},
+             "ncaaf:9": {"id": "ncaaf:9", "status": "final", "start": "2026-11-15T00:00Z"}}
+    moved = se.sync_starts(st2, games)
+    assert len(moved) == 1 and st2["picks"][0]["start"] == "2026-11-22T00:00Z" and st2["picks"][0]["start_was"] == "2026-11-21T02:00Z"
+    assert st2["picks"][1]["start"] == done["start"], "a graded row never moves"
+    assert se.sync_starts(st2, games) == []
+    st3 = {"picks": [dict(wy)]}
+    assert se.sync_starts(st3, {"ncaaf:1": {**games["ncaaf:1"], "tbd": "1"}}) == [], "a time that isn't set is no new time"
+    # (5) the grade's stamp is the run's clock
+    p5 = {**wy, "game_id": "ncaaf:5", "start": "2026-11-15T02:00Z"}
+    run = datetime(2026, 11, 15, 6, 7, tzinfo=timezone.utc)
+    se.grade({"picks": [p5]}, {"ncaaf:5": {"id": "ncaaf:5", "status": "final", "home_score": "31", "away_score": "17",
+                                           "home_name": "Wyoming", "away_name": "New Mexico", "start": p5["start"]}}, run)
+    assert p5["result"] == "won" and p5["graded_at"] == "2026-11-15T06:07Z"
+    # (6) the merge keeps the newest injury word
+    row = {"game_id": "nba:7", "league": "nba", "side": "away", "team": "Trail Blazers", "odds": 110, "posted": "2026-11-17T10:00Z", "result": None}
+    fresh = {**row, "key_news": {"Deni Avdija": {"st": "out", "pos": "F", "at": "2026-11-18T02:40Z"}}, "key_out": "Deni Avdija (F)",
+             "key_log": [{"t": "2026-11-18T02:40Z", "who": "Deni Avdija", "pos": "F", "st": "out"}]}
+    stale = {**row, "key_news": None, "key_out": None}
+    for ours, theirs in ((stale, fresh), (fresh, stale)):
+        m = merge_json.merge_early({"picks": [dict(ours)]}, {"picks": [dict(theirs)]})["picks"][0]
+        assert m["key_out"] == "Deni Avdija (F)" and m["key_news"]["Deni Avdija"]["st"] == "out", (ours is stale, m)
+        assert len(m["key_log"]) == 1
+    back = {**row, "key_news": None, "key_out": None, "key_back": ["Deni Avdija"],
+            "key_log": fresh["key_log"] + [{"t": "2026-11-18T03:40Z", "who": "Deni Avdija", "st": "back"}]}
+    m = merge_json.merge_early({"picks": [dict(fresh)]}, {"picks": [dict(back)]})["picks"][0]
+    assert m["key_out"] is None and m["key_back"] == ["Deni Avdija"] and len(m["key_log"]) == 2, "he came back later: that word wins"
+    graded = {**stale, "result": "lost"}
+    m = merge_json.merge_early({"picks": [dict(fresh)]}, {"picks": [dict(graded)]})["picks"][0]
+    assert m["result"] == "lost", "a graded copy still wins the row"
+    import sports_tennis
+    assert sports_tennis.MIN_LEAD_MIN >= 35, "tennis too: no pick inside 35 minutes of the start"
+
+
+def inspect_source(obj):
+    import inspect
+    return inspect.getsource(obj)
 
 
 if __name__ == "__main__":

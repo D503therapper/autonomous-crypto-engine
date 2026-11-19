@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 68          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 69          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 #   (62 - 11/4 lingo pass, the owner: "I have not liked the damn lingo" - the risk / outs / last-game / site / bottom-line /
 #    lean / units-line pools rewritten in his voice; the stiff frames are in sports_owner_lingo.STIFF and can't come back)
 #   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
