@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T08:50Z",
+ "updated": "2026-11-19T09:15Z",
  "games": [
   {
    "id": "ncaab:401920517",
@@ -607,8 +607,8 @@
     "team": "Spurs",
     "opp": "Clippers",
     "market": "spread",
-    "line": -15.5,
-    "odds": -115,
+    "line": -16.5,
+    "odds": -104,
     "p": 0.503,
     "win_p": 0.866,
     "reasons": [
@@ -770,8 +770,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Trail Blazers",
-    "p": 0.662,
-    "tie": 0.033,
+    "p": 0.677,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -785,13 +785,14 @@
     "team": "Trail Blazers",
     "opp": "Bucks",
     "market": "spread",
-    "line": -9.5,
-    "odds": -110,
+    "line": -10.5,
+    "odds": -108,
     "p": 0.501,
-    "win_p": 0.752,
+    "win_p": 0.771,
     "reasons": [
      "the stronger team",
-     "opponent on a back-to-back"
+     "opponent on a back-to-back",
+     "sharp money moving this way"
     ]
    }
   },
@@ -801,8 +802,8 @@
    "emoji": "\ud83c\udfc0",
    "h1": {
     "team": "Grizzlies",
-    "p": 0.621,
-    "tie": 0.034,
+    "p": 0.617,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NBA",
@@ -810,16 +811,16 @@
    "start": "2026-11-20T01:00Z",
    "away": "Warriors",
    "home": "Grizzlies",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Grizzlies",
     "opp": "Warriors",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -114,
-    "p": 0.5,
-    "win_p": 0.703,
+    "market": "ml",
+    "line": null,
+    "odds": -299,
+    "p": 0.696,
+    "win_p": 0.696,
     "reasons": [
      "the stronger team"
     ]
