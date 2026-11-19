@@ -1605,7 +1605,7 @@ T_SPREAD_FAV = [
  "{me} {hc} games — [{them} doesn't keep this close.|{gn} ain't enough cushion for {them}.]",
 ]
 T_FAV = [
- "{me} is [the better player|a tier above {them}|levels above {them}] and it ain't close. [That's just facts.|Big price, but {he} {wins}.]",
+ "{me} is [the better player|a tier above {them}|levels above {them}] and it ain't close. [Big price, but {he} {wins}.]",
  "{me} runs this. [[Our math|The engine|Our model] gives {him} {pct}%.|The price is steep for a reason.]",
  "{me}, [no hesitation|zero doubt|no debate]. [{He}'s about to smack that ass.|Nothing fancy — the better player wins.]",
  "{me} is on a different level than {them}. [Pay the price, collect.|We ain't overthinking this one.]",
@@ -1614,7 +1614,7 @@ T_FAV = [
  "Give me {me}. [{He} {wins}.|Big number, bigger gap.]",
  "{me} takes care of business here. [[Our math|The engine|Our model] ain't scared of the price.|{pct}% in our numbers.]",
  "{them} doesn't have the tools for {me}.",
- "Levels to this — {me} is a tier above {them}. [That's just facts.]",
+ "Levels to this — {me} is a tier above {them}.",
  "{me} is about to beat the brakes off {them}. [Levels to this.|]",
  "[Favorite for a reason|Heavy favorite, earned it]: {me}. {He} should {beat} {them}.",
  "{me} over {them}. [We're paying up because {he}'s the better player.|Steep price, steeper gap.]",

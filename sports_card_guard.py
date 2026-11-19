@@ -55,6 +55,8 @@ WRONG_POS = {   # words that can't belong to the sport
     "nhl": re.compile(r"\bwalking bucket\b|\bquarterback\b|\bpitcher\b|\bpoint guard\b", re.I),
     "mlb": re.compile(r"\bwalking bucket\b|\bgoalie|\bgoaltend|\bquarterback\b|\bdefenseman\b", re.I),
 }
+THIS_YEAR_GAME = re.compile(r"^\W*(?!.*\b(?:own|owning|number|history|figure)\b).*\bthis year\b.*\b\d{1,3}-\d{1,3} win\b.*\b\d{1,2}/\d{1,2}\b"
+                            r"|^\W*(?!.*\b(?:own|owning|number|history|figure)\b).*\b\d{1,3}-\d{1,3} win\b.*\b\d{1,2}/\d{1,2}\b.*\bthis year\b", re.S)
 DROPPED = []    # this run's dropped lines (the run log prints them - so a new kind of slip gets caught and wired in)
 
 
@@ -64,8 +66,10 @@ def problem(line, league=None):
     if not t.strip():
         return ""
     low = t.lower()
-    if t.lstrip().startswith("🆚"):                           # (the owner, 10/5: the head-to-head study was dead in every
-        return "head-to-head history"                        #  sport - "they own this matchup" made picks sound stronger)
+    if t.lstrip().startswith("🆚") and not THIS_YEAR_GAME.search(t):   # (the owner, 10/5: the head-to-head study was dead
+        return "head-to-head history"                        #  in every sport - "they own this matchup" made picks sound
+        #   stronger. 11/19: a game these two played THIS season, said with its score and its day, is a fact of the
+        #   matchup, not a history claim - sports_breakdown_v24.matchup_facts; "own this matchup" still never posts)
     if t.lstrip().startswith("🥅 In net"):                  # (the owner, 10/6: no goalie confirmations on the cards)
         return "goalie confirmation"
     if any(w in low for w in sports_owner_lingo.NEVER):
@@ -172,11 +176,59 @@ def strip_tails(line):
     return (lead + body) if body else ""
 
 
+FACTS_TAIL = re.compile(r"\s*(?:[-—–,]\s*)?(?:and )?\bthat'?s just facts\b[.!]?|\s*(?:[-—–,]\s*)?\bjust facts\b[.!]?", re.I)
+PRICE_CLAIM = re.compile("|".join(sports_owner_lingo.PRICE_CLAIM), re.I)
+_PICK_HEAD = re.compile(r"^((?:✅|🟡) Bottom line:[^()]*\([+-]?\d+\))[.,:;—-]*\s*")
+
+
+def no_facts_tail(line):
+    """The line without "that's just facts" (the owner, 11/19: "That's just facts sounds retarded") - the fact before it
+    stays, the tail goes."""
+    t = str(line or "")
+    if "just facts" not in t.lower():
+        return t
+    t = FACTS_TAIL.sub(".", t)
+    t = re.sub(r"\.\s*\.", ".", re.sub(r"([.!?])\.", r"\1", t))
+    return re.sub(r"\s+([.,])", r"\1", t).strip()
+
+
+def scrub(line):
+    """🚫 11/19 (the owner: "we can't say that we're better at pricing the lines than the fucking line makers"): the line
+    with every sentence that says our own price or that the book has it wrong taken out, and no "that's just facts".
+    A bottom line keeps its pick and price; a line that was only the claim comes back ''. -> (line, what was cut)."""
+    t0 = str(line or "")
+    t = no_facts_tail(t0)
+    why = "" if t == t0 else "'that's just facts'"
+    if not PRICE_CLAIM.search(t):
+        return t, why
+    head = ""
+    m = _PICK_HEAD.match(t)
+    if m:
+        head, rest = m.group(1) + ".", t[m.end():]
+    else:
+        m = re.match(r"^([^\w+-]*)", t)
+        head, rest = (m.group(1) if m else ""), t[len(m.group(1)) if m else 0:]
+    parts = [x for x in _SENTS.split(rest) if x.strip()]
+    keep = []
+    for x in parts:                                          # (", and the books only price in about 1.5 of it" - the
+        if PRICE_CLAIM.search(x):                            #  clause goes, the fact before it stays)
+            cl = re.split(r",? and (?=the books?\b)|\s+[-—]\s+(?=the books?\b)", x)
+            if len(cl) > 1 and not PRICE_CLAIM.search(cl[0]):
+                keep.append(cl[0].rstrip(" ,") + ("" if cl[0].rstrip()[-1:] in ".!?" else "."))
+            continue
+        keep.append(x)
+    why = "; ".join(y for y in (why, "says our price against the book's") if y)
+    body = " ".join(keep).strip()
+    if _PICK_HEAD.match(t):
+        return (head + (" " + body if body else "")).strip(), why
+    return ((head + body) if body else ""), why
+
+
 def clean(lines, league=None, who="", opp=""):
     """The card's lines with every one that repeats a known mistake taken out (the bottom line cut back, never lost),
     the team verbs agreeing with the names (agree - ours and the opponent's), the filler tails cut (strip_tails)."""
     out = []
-    for x in [strip_tails(y) if isinstance(y, str) else y for y in lines or []]:
+    for x in [strip_tails(no_facts_tail(y)) if isinstance(y, str) else y for y in lines or []]:
         if isinstance(x, str) and not x.strip():
             continue
         why = problem(x, league)

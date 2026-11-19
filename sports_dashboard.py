@@ -413,11 +413,20 @@ def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
         if leg and leg.get("ncaab_max") and not lean:         # 💎 (11/16: the college hoops max play says the spot, not a number gap)
             f = None
             why = _pick_why(NCAAB_MAX_WHY, key)
-        if f and odds is not None:                           # (11/4, the owner: "I have not liked the damn lingo" - the
+        if f and odds is not None and not _v.NO_OUR_NUMBER:  # (11/19, the owner: "we can't say that we're better at
+            #   pricing the lines than the fucking line makers" - the size line says the size, never our number)
+            #   (11/4, the owner: "I have not liked the damn lingo" - the
             o = f"+{odds}" if odds > 0 else str(odds)        #  same "We make 'em X, the book's at Y. Small bet." on every
             sz = "half" if u == 0.5 else "full" if u < 2 else "bigger" if u < 4 else "big"   # card; our number next to
             why = _pick_why([w.format(f=f, o=o) for w in NUM_WHY[sz]], key)                   # theirs, said his way)
     except Exception:                                        # noqa: BLE001 - the old line stays
+        pass
+    try:                                                     # 🚫 11/19: the size line never says the book has it wrong either
+        import sports_card_guard as _gd                      #  ("This line's cheaper than it should be. Bigger bet.")
+        if why and not _gd.scrub(why)[0]:                    # (the whole line was the claim: the size, said plain)
+            why = "Small bet." if u == 0.5 else "Full unit." if u < 2 else "Bigger bet." if u < 4 else "Big bet."
+        why = _gd.scrub(why)[0] if why else why
+    except Exception:                                        # noqa: BLE001
         pass
     return (f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}'
             + (f'<span class="unw">{E(why)}</span>' if why else "") + '</div>')   # units only - everybody's unit is
@@ -905,7 +914,12 @@ def _why_fallback(leg, pk=None):
     bd = [x for x in leg.get("breakdown") or [] if not str(x or "").startswith(f"🚑 {leg.get('team')} ")]   # (never our
     #   own who's-out list up top). 11/18: a refill line (💯 our scorer, 💵 the price) leads only when no first-hand
     #   line can - the Buffalo dry-run card led with "Antoine Lorick III: 16 a night" over its own home record
-    for x in [y for y in bd if not str(y or "").startswith(("💯", "💵"))] + [y for y in bd if str(y or "").startswith(("💯", "💵"))]:
+    try:                                                     # 📖 11/19: the strongest matchup fact leads (lead_rank); a
+        import sports_breakdown_v24 as _v24                   #  scorer's points only when nothing else can; never the price
+        _rk = _v24.lead_rank
+    except Exception:                                        # noqa: BLE001
+        _rk = lambda y: 0                                    # noqa: E731
+    for x in sorted((y for y in bd if not str(y or "").startswith(("💯", "💵"))), key=_rk) + [y for y in bd if str(y or "").startswith("💯")]:
         t = _confirmed_now(str(x or "").strip(), leg)        # (11/13: a confirmed goalie reads "is in" up top too)
         if t and not t.startswith(("⚠️", "✅", "🟡", "🔄")) and not stale_in(t, leg) \
                 and not sports_card_guard.problem(t, leg.get("league")) and not sports_card_check.chip_repeat(t, leg) \
@@ -1253,7 +1267,7 @@ MAX_NOTE = [      # 💎 THE MAX PLAY (11/16 FABLE - sports.MAX_PLAY_*; the owne
     #               is rested, the favorite played last night and the dog score is 8+. Every line says the spot (never
     #               vague), no win %, nothing about the line moving.
     "💎 MAX PLAY — 3 units, the biggest bet we make. The favorite played last night, our dog didn't, and the rest of the read backs the dog too. We wait for this spot.",
-    "💎 MAX PLAY — 3 units. Tired favorite on the second night of a back-to-back, rested dog, and everything else the engine tracks points the same way. That's just facts.",
+    "💎 MAX PLAY — 3 units. Tired favorite on the second night of a back-to-back, rested dog, and everything else the engine tracks points the same way..",
     "💎 MAX PLAY — the engine's strongest spot: a rested dog at plus money against a favorite that played last night, with the other angles stacked behind it. 3 units, scared money don't make no money.",
     "💎 MAX PLAY — 3 units on the dog. They played last night, we didn't, and nothing in the read is fighting it. This is the one we pick our spot for.",
     "💎 MAX PLAY — our best pick today and our biggest size, 3 units. A back-to-back for the favorite, fresh legs for the dog, and the whole read agrees. Tap in.",
@@ -1269,7 +1283,7 @@ NCAAB_MAX_NOTE = [      # 💎 the owner, 11/16: "one pick with like 3-4 units o
     "💎 MAX PLAY — we pick our spots, and this is one.",
     "💎 MAX PLAY — the college hoops spot the engine waits for.",
     "💎 MAX PLAY — this don't come around every night. When it does, we bet it bigger.",
-    "💎 MAX PLAY — the spot the engine waits for in college hoops, that's just facts.",
+    "💎 MAX PLAY — the spot the engine waits for in college hoops.",
 ]
 BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day standard, there's no Lock of the Day -
     #               the best call goes up as a plain LOCK, with this box above it

@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 73          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 74          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 #   (62 - 11/4 lingo pass, the owner: "I have not liked the damn lingo" - the risk / outs / last-game / site / bottom-line /
 #    lean / units-line pools rewritten in his voice; the stiff frames are in sports_owner_lingo.STIFF and can't come back)
 #   (61 - 10/30 weekend sweep: team verbs agree on every body line (the guard), the coin-flip lean closer's verb, the
@@ -323,7 +323,7 @@ def _lean_pool(leg, team, price, o, own):
                 f"🟡 Bottom line: {price}. We'd take {team} {ln}, but we ain't betting it at that price."]
     try:
         import sports_breakdown_v24 as _v
-        _f = _v.fair_am(own)                                   # (10/22, the owner: "vague" - our number on them, said)
+        _f = None if _v.NO_OUR_NUMBER else _v.fair_am(own)     # (10/22, the owner: "vague" - our number on them, said)
         _is = _v.vb(team, "are", "is")                         # (10/30: "Senators's the side" - the verb, not a possessive)
     except Exception:                                         # noqa: BLE001
         _f, _is = None, "is"
