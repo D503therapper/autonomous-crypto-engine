@@ -3473,16 +3473,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         pools.append(S("w_hurt_named", named[0], "🚑", beat=True))
     if "opponent missing key players" in whyf and (not key_us):
         pools.append(S("w_hurt", whyf["opponent missing key players"], "🚑", beat=True))
-    #   🧱 11/19 (the owner on the Flyers +150 card - "Flyers are 3-2 over their last 5. Flyers the side.": "Flyers one
-    #   liner is terrible wtf"): the hockey dog score's own angle, said as the fact it stands on - the other goalie's hot
-    #   run the books overpay for (+4.3% on 1,260 dogs, both halves - goalie_timing_1119), with his real numbers.
-    _gh = next((x for (o_, m_), x in sorted(form.items(), key=lambda kv: kv[0][1] != "hot") if not o_), None)
-    if _gh and lg == "nhl" and hot_overpay(leg) and (g.get("start") or "")[:10] >= HOT_RUN_LINE_FROM:
-        _gn, _gt, _gk = _gh
-        names = names + (_gn,)
-        pools.append(S("w_hot_run", [f"the books are paying for {_gn}'s hot run - {_gt}",
-                                     f"{the_them} are priced off {_gn}'s last 3 starts - {_gt}",
-                                     f"{_gn} has {_gt}, and the books pay too much for a goalie's hot run"], "🧱"))
+    #   🧱 11/19 (the owner on the Flyers card): the other goalie's hot run the books overpay for is a WEIGHT, never a
+    #   line - "the goalie is great but we like Flyers" doesn't make sense to anybody reading it, and it praises them.
     if "opponent on a back-to-back" in whyf:
         pools.append(S("w_rest", whyf["opponent on a back-to-back"], "😮‍💨"))
     if PUBLIC_CARD and "public fade" in whyf:             # (the owner, 10/23: "Air Force - they're about to get their
