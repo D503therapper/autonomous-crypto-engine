@@ -15078,7 +15078,7 @@ def test_slate_audit_1029_the_line_under_the_pick_never_leads_with_a_fact_for_th
     assert b.knocks_us("📋 Hawks (2-3) walk in off a loss.", "Hawks") and not b.knocks_us("", "Hawks")
     # the call site uses it (the 10/27 fallback never again takes the first line blind)
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
-    i = src.index("top = lead_line(lines, v, us)")
+    i = src.index("top = lead_line(lines, v, us")
     assert "We lean {us}." in src[i:i + 400]
 
 
@@ -28720,6 +28720,13 @@ def test_hot_run_1119_the_flyers_line_never_praises_their_goalie():
     assert pick(["🗓️ Flyers are 3-2 over their last 5.", "💯 Matvei Michkov: 9 points over the last 10.", "✅ x"]).startswith("💯")
     assert pick(["🗓️ Flyers are 4-1 over their last 5.", "💯 M: 9 points.", "✅ x"]).startswith("🗓️")
     assert pick(["🗓️ Flyers are 3-2 over their last 5.", "✅ x"]).startswith("🗓️")   # (nothing else: still a fact)
+    flyers = ["📅 Flyers come off a 4-3 win over the Sabres.", "💵 Plus money: at +150, Flyers winning about 4 times in 10 is all we need.",
+              "💯 Matvei Michkov been producing for Flyers: 9 points over the last 10.", "✅ Flyers are at full strength.", "✅ Bottom"]
+    assert v24.lead_line(flyers, None, "Flyers", "nhl").startswith("💯 Matvei Michkov")   # (the live card, 11/19 noon)
+    assert v24.lead_line(["📅 Flyers come off a 5-1 win over the Sabres.", flyers[2], "✅ b"], None, "Flyers", "nhl").startswith("📅")
+    w = v24.why_line(leg, v24.Voice("cw", set()), g, "Flyers", "Senators", "the Flyers", "the Senators", form=form,
+                     whyf={"last game": ["the Flyers beat the Sabres 4-3 last time out"]})
+    assert "4-3" not in w, w                              # a one-goal win never leads
 
 def test_no_knock_1119_no_bad_shit_on_a_card():
     """11/19, the owner: "I don't want bad shit in the breakdowns." From NO_KNOCK_FROM no card carries the ⚠️ risk line

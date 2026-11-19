@@ -1779,7 +1779,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     short_floor = FLOOR_LEAN if (leg.get("tier") == "lean" or leg.get("is_lean")) else FLOOR_UNIT
     if not str(leg.get("why_line") or "").strip():        # (10/27: the Blues lean posted with NO line under the pick -
         lean_ = leg.get("is_lean") or leg.get("tier") in ("lean", "strong")   # no reason matched a fact; the card's
-        top = lead_line(lines, v, us)                     #  best line FOR US leads instead (10/29: never a line that
+        top = lead_line(lines, v, us, lg)                 #  best line FOR US leads instead (10/29: never a line that
         if top:                                           #  argues for the other side - the Hawks lean led with "2-3 for
             _tails_ = [f"We lean {us}.", f"Lean {us}.", f"{us} if you're playing it."] if lean_ else \
                 [f"{us} the side.", f"We on {us}.", f"Give me {us}.", f"Riding {us}."]   # (11/4: one tail on every card)
@@ -3398,7 +3398,7 @@ def knocks_us(line, us):
     return False
 
 
-def lead_line(lines, v, us):
+def lead_line(lines, v, us, lg=None):
     """(10/29, the Hawks lean: "📋 2-3 for Hawks, last time out a 129-117 loss to the Heat. We lean Hawks." - the line under
     the pick argued for the other side) The fallback line under the pick when no fact matched: the card's best body line
     FOR US - never a line the Voice tagged "neutral" (the record-after-a-loss line, 10/27's direction tagging), never one
@@ -3406,7 +3406,13 @@ def lead_line(lines, v, us):
     body = [x for x in (lines or [])[:-1] if x and not str(x).startswith(("⚠️", "✅", "🟡", "🔒"))]
     def _meh(x):                                          # 🗓️ 11/19 (the Flyers card: "3-2 over their last 5" led):
         m_ = re.search(r"\b(\d)-(\d)\b", str(x))       # a record up by one is no reason - it never leads the card
+        if str(x).startswith("📅") and lg in REAL_LOSS and m_ is None:
+            return False
+        if str(x).startswith("📅") and lg in REAL_LOSS:   # (a close last game - 4-3 - leads only after everything else)
+            return 0 < _score_gap(str(x)) < REAL_LOSS[lg]
         return str(x).startswith("🗓️") and (not m_ or int(m_.group(1)) - int(m_.group(2)) < 2)
+    body = [x for x in body if not str(x).startswith("💵")] + [x for x in body if str(x).startswith("💵")]   # (11/19: a
+    #                                                    player's real numbers lead before the price talk)
     for fill in (False, True, None):                      # (11/18: a refill line - 💯 / 💵 - leads only when nothing else can;
         for x in body:                                    #  11/19: a lukewarm record only after both)
             if (fill is None) != _meh(x):
@@ -3572,10 +3578,16 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                     ("public ride", "📊")):
         if key.startswith("public") and not PUBLIC_CARD:
             continue                                         # (11/12: no splits on the card)
+        if key == "last game" and lg in REAL_LOSS and (g.get("start") or "")[:10] >= CLOSE_WIN_FROM and whyf.get(key) \
+                and _score_gap(whyf[key][0]) < REAL_LOSS[lg]:
+            continue                                         # (11/19, the Flyers card: a 4-3 win is a coin flip - never
+            #                                                  the line under the pick; it stays in the body)
         if key in whyf and not any(k == "w_" + key.split()[0] for k, _ in pools):
             pools.append(S("w_" + key.split()[0], whyf[key], em, beat=(key == "rolling off a blowout win")))
     # ---- the top fact + the read, the way it used to close (a fact first, always) ----
     Fs = [f.strip() for f in (facts or ([fact] if fact else [])) if f and f.strip()]
+    if lg in REAL_LOSS and (g.get("start") or "")[:10] >= CLOSE_WIN_FROM:   # (11/19: a 4-3 game never leads the line)
+        Fs = [f for f in Fs if not 0 < _score_gap(f) < REAL_LOSS[lg]]
     if not Fs:
         nums = ("w_num", [])
     elif round(100 * own) > 55:
@@ -4159,7 +4171,8 @@ def named_out_ways(leg, g, them, the_them, b2b=False):
 
 
 HOT_RUN_LINE_FROM = "2026-11-19"
-NO_KNOCK_FROM = "2026-11-19"   # 🚫 no ⚠️ risk line on a card from this game day (the owner, 11/19)   # 🧱 the other goalie's hot run (the dog score's angle) said as the reason (why_line)
+NO_KNOCK_FROM = "2026-11-19"
+CLOSE_WIN_FROM = "2026-11-19"   # 📅 a close last win (under REAL_LOSS) never leads the one-liner   # 🚫 no ⚠️ risk line on a card from this game day (the owner, 11/19)   # 🧱 the other goalie's hot run (the dog score's angle) said as the reason (why_line)
 
 
 def hot_overpay(leg):
