@@ -1,13 +1,13 @@
 {
- "at": "2026-11-19T21:33Z",
+ "at": "2026-11-19T21:42Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - started sports.yml"
+  "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - sports.yml already running"
  ],
  "problems": [
   "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
  ],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (60s)",
   "scores route up (200)",
   "question box answers",
   "card quality: 100/100 on 9 live cards (bad lines the write-up put on them: 0, thin cards: 0, fact lines a card: 2.2, unit cards under the floor: 1)",
@@ -20,12 +20,21 @@
   "every upcoming game has its real teams",
   "studies ran 1h ago",
   "simulator ran 1h ago",
-  "engine ran -0 min ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-11-19T21:42Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-11-19 Alexander Zverev) - sports.yml already running"
+   ],
+   "problems": [
+    "card audit: SHORT CARD - Flyers (2026-11-19): a short card: 5 fact lines on a unit play, the floor is 6 - the engine holds no more facts for this side (a new season, a team we don't fully see, or a side with little going for it but the price)"
+   ]
+  },
   {
    "at": "2026-11-19T21:33Z",
    "fixes": [
@@ -638,13 +647,6 @@
   },
   {
    "at": "2026-11-18T06:27Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-11-18T06:17Z",
    "fixes": [
     "tennis slate due (8am PT) and not up - sports.yml already running"
    ],
